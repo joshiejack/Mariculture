@@ -2,8 +2,10 @@ package mariculture.core.util;
 
 import mariculture.core.Core;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UtilMeta;
+import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,12 @@ public class Stack {
 	//Crafting Items
 	public static final Stack wheel = new Stack(Core.craftingItem, CraftingMeta.WHEEL);
 	public static final Stack titaniumSheet = new Stack(Core.craftingItem, CraftingMeta.TITANIUM_SHEET);
+	
+	//Food
+	public static final Stack calamari = new Stack(Core.food, FoodMeta.CALAMARI);
+	
+	//Raw Fish
+	public static final Stack squid = new Stack(Fishery.fishyFood, Fishery.squid.fishID);
 	
 	public ItemStack stack;
 	public Stack(Item item, int meta) {
