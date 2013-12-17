@@ -352,7 +352,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public int damageDropped(int i) {
-		return i;
+		return (i == SingleMeta.NET)? 0: i;
 	}
 
 	@Override
