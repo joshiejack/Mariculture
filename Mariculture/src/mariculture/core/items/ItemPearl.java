@@ -1,17 +1,7 @@
 package mariculture.core.items;
 
-import java.util.List;
-
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.PearlColor;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemPearl extends ItemMariculture {
 
@@ -28,60 +18,32 @@ public class ItemPearl extends ItemMariculture {
 	public String getName(ItemStack stack) {
 		String name = "";
 		switch (stack.getItemDamage()) {
-		case PearlColor.WHITE: {
-			name = "pearlWhite";
-			break;
-		}
-		case PearlColor.GREEN: {
-			name = "pearlGreen";
-			break;
-		}
-		case PearlColor.YELLOW: {
-			name = "pearlYellow";
-			break;
-		}
-		case PearlColor.ORANGE: {
-			name = "pearlOrange";
-			break;
-		}
-		case PearlColor.RED: {
-			name = "pearlRed";
-			break;
-		}
-		case PearlColor.GOLD: {
-			name = "pearlGold";
-			break;
-		}
-		case PearlColor.BROWN: {
-			name = "pearlBrown";
-			break;
-		}
-		case PearlColor.PURPLE: {
-			name = "pearlPurple";
-			break;
-		}
-		case PearlColor.BLUE: {
-			name = "pearlBlue";
-			break;
-		}
-		case PearlColor.BLACK: {
-			name = "pearlBlack";
-			break;
-		}
-		case PearlColor.PINK: {
-			name = "pearlPink";
-			break;
-		}
-		case PearlColor.SILVER: {
-			name = "pearlSilver";
-			break;
-		}
-
+		case PearlColor.WHITE:
+			return "pearlWhite";
+		case PearlColor.GREEN:
+			return "pearlGreen";
+		case PearlColor.YELLOW:
+			return "pearlYellow";
+		case PearlColor.ORANGE:
+			return "pearlOrange";
+		case PearlColor.RED:
+			return "pearlRed";
+		case PearlColor.GOLD:
+			return "pearlGold";
+		case PearlColor.BROWN:
+			return "pearlBrown";
+		case PearlColor.PURPLE:
+			return "pearlPurple";
+		case PearlColor.BLUE:
+			return "pearlBlue";
+		case PearlColor.BLACK:
+			return "pearlBlack";
+		case PearlColor.PINK:
+			return "pearlPink";
+		case PearlColor.SILVER:
+			return "pearlSilver";
 		default:
-			name = "pearl";
+			return "pearl";
 		}
-
-		return name;
-
 	}
 }

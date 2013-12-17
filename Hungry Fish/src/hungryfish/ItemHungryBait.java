@@ -19,7 +19,6 @@ public class ItemHungryBait extends ItemBait {
 		float sat = (fill/5)/10;
 		
 		player.getFoodStats().addStats(0, sat);
-
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		return stack;
