@@ -145,11 +145,6 @@ public class RecipesSmelting {
 					null, OreDictionary.getOres("ingotAluminum").get(0)));
 		}
 		
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.pearls, 1, PearlColor.GOLD), gold, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.NUGGET), null, 0)));	
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.pearls, 1, PearlColor.SILVER), silver, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.silver, MetalRates.NUGGET), null, 0)));	
-		
 		addRecipe(FluidDictionary.titanium, MetalRates.MATERIALS, new Object[] { 
 				"oreTitanium", "nuggetTitanium", "ingotTitanium", "blockTitanium", "dustTitanium" }, 
 						titanium, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);

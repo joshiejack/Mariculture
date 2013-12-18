@@ -3,24 +3,16 @@ package mariculture.factory.blocks;
 import java.util.Random;
 
 import mariculture.api.core.IBlacklisted;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
-import mariculture.core.blocks.core.TileMachineTank;
+import mariculture.core.blocks.core.TileTank;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.network.Packets;
-import mariculture.factory.gui.ContainerSluice;
+import mariculture.core.helpers.TransferHelper;
+import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -33,41 +25,39 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileSluice extends TileMachineTank implements IBlacklisted, ISidedInventory {
+public class TileSluice extends TileTank implements IBlacklisted {
+	private TransferHelper transfer;
+	private int rate[] = new int[] { 1000, 500, 250, 100, 25, 1 }; 
+
+	protected int machineTick;
 	private short facing;
-	private short cycles;
-	private int tick = 0;
 	private int height;
-	private int transfer;
-	private int speedModifier;
-
+	
 	Random rand = new Random();
-
+	
 	public TileSluice() {
-		this.inventory = new ItemStack[6];
+		transfer = new TransferHelper(this);
+	}
+	
+	@Override
+	public int getTankSize() {
+		return FluidContainerRegistry.BUCKET_VOLUME * 8;
+	}
+	
+	public boolean onTick(int i) {
+		return machineTick % i == 0;
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		this.facing = tagCompound.getShort("Facing");
-		this.cycles = tagCompound.getShort("Cycles");
-		this.transfer = tagCompound.getInteger("Transfer");
-		this.speedModifier = tagCompound.getInteger("Speed");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setShort("Facing", this.facing);
-		tagCompound.setShort("Cycles", this.cycles);
-		tagCompound.setInteger("Transfer", this.transfer);
-		tagCompound.setInteger("Speed", this.speedModifier);
-	}
-
-	@Override
-	public int getTankCapacity(int count) {
-		return ((FluidContainerRegistry.BUCKET_VOLUME / 4) + (count * 64));
 	}
 
 	private void moveFluids() {
@@ -280,87 +270,49 @@ public class TileSluice extends TileMachineTank implements IBlacklisted, ISidedI
 	}
 
 	@Override
-	public void updateUpgrades() {
-		super.updateUpgrades();
-		int purityCount = MaricultureHandlers.upgrades.getData("purity", this);
-		int heatCount = MaricultureHandlers.upgrades.getData("temp", this);
-		this.transfer = (purityCount + 1) * 75;
-		this.speedModifier = ((heatCount * 2) * 500);
-	}
-
-	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		
+		machineTick++;
 		if (!this.worldObj.isRemote) {
-			if (tick % 32 == 0) {
+			if (onTick(32))
 				updatePlacedBlock();
-				processContainers();
-			}
-
-			if (!this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {
-				tick++;
-				if(tick %16 == 0) {
+			if (!this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
+				if(onTick(16))
 					transfer();
-				}
 				
-				if (tick % 32 == 0) {
-					this.height = getHeight();
+				if (onTick(32)) {
+					height = getHeight();
 					moveFluids();
 				}
 
-				if (canWork() && tick % 64 == 0) {
+				if (onTick(64)) {
 					if (waterIsThere()) {
 						fillSluice();
-						if (cycles >= 500) {
-							cycles = 0;
-							decrStackSize(0, 1);
-						}
 					}
 				}
 			}
 		}
 	}
 
-	private void processContainers() {
-		ItemStack result = FluidHelper.getFluidResult(this, inventory[1], inventory[2]);
-		if (result != null) {
-			decrStackSize(1, 1);
-			if (this.inventory[2] == null) {
-				this.inventory[2] = result.copy();
-			} else if (this.inventory[2].itemID == result.itemID) {
-				++this.inventory[2].stackSize;
-			}
+	private boolean transfer() {
+		if(facing >= 2) {
+			if(Rand.nextInt(2)) {
+				return transfer.transfer(ForgeDirection.NORTH, rate);
+			} 
+			
+			return transfer.transfer(ForgeDirection.SOUTH, rate);
 		}
-	}
-
-	private boolean canWork() {
-		if (getStackInSlot(0) != null) {
-			return getStackInSlot(0).itemID == Core.craftingItem.itemID
-					&& getStackInSlot(0).getItemDamage() == CraftingMeta.WHEEL;
-		}
-
-		return false;
-	}
-
-	private void transfer() {
-		//TODO: Readd sluice transfer
 		
-		/*
-		if (facing == 2 || facing == 3) {
-			if (rand.nextInt(2) == 0) {
-				FluidInventoryHelper.transferTo(this.xCoord, this.yCoord, this.zCoord - 1, this);
-			} else {
-				FluidInventoryHelper.transferTo(this.xCoord, this.yCoord, this.zCoord + 1, this);
-			}
+		if(facing <= 1) {
+			if(Rand.nextInt(2)) {
+				return transfer.transfer(ForgeDirection.EAST, rate);
+			} 
+			
+			return transfer.transfer(ForgeDirection.WEST, rate);
 		}
-
-		if (facing == 0 || facing == 1) {
-			if (rand.nextInt(2) == 0) {
-				FluidInventoryHelper.transferTo(this.xCoord - 1, this.yCoord, this.zCoord, this);
-			} else {
-				FluidInventoryHelper.transferTo(this.xCoord + 1, this.yCoord, this.zCoord, this);
-			}
-		} */
+		
+		return false;
 	}
 
 	private void fillSluice() {
@@ -369,15 +321,13 @@ public class TileSluice extends TileMachineTank implements IBlacklisted, ISidedI
 			fill += (0.0845F * i);
 		}
 
-		fill *= 1 + (speedModifier / 1000);
-
 		if (fill(ForgeDirection.UNKNOWN, new FluidStack(Core.highPressureWater.getID(), (int) fill), false) >= (int) fill) {
 			fill(ForgeDirection.UNKNOWN, new FluidStack(Core.highPressureWater.getID(), (int) fill), true);
-			this.cycles++;
 		} else if (fill(ForgeDirection.UNKNOWN, new FluidStack(Core.highPressureWater.getID(), 1), false) >= 1) {
 			fill(ForgeDirection.UNKNOWN, new FluidStack(Core.highPressureWater.getID(), 1), true);
-			this.cycles++;
 		}
+		
+		System.out.println(tank.getFluidAmount());
 	}
 
 	private void updatePlacedBlock() {
@@ -399,13 +349,6 @@ public class TileSluice extends TileMachineTank implements IBlacklisted, ISidedI
 		}
 	}
 
-	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
-	}
-
 	private int getTopWaterBlock(int x, int y, int z) {
 		int i = 0;
 		while (isWater(this.worldObj.getBlockId(x, y + i, z))) {
@@ -415,26 +358,6 @@ public class TileSluice extends TileMachineTank implements IBlacklisted, ISidedI
 		}
 
 		return ((y + i) - 1);
-	}
-
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	}
-
-	public void getGUINetworkData(int i, int j) {
-		super.getGUINetworkData(i, j);
-
-		switch (i) {
-		case 3:
-			height = j;
-			break;
-		}
-	}
-
-	public void sendGUINetworkData(ContainerSluice container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 3, this.height);
 	}
 
 	public int getPressure() {
@@ -473,44 +396,7 @@ public class TileSluice extends TileMachineTank implements IBlacklisted, ISidedI
 	}
 
 	@Override
-	public ItemStack[] getUpgrades() {
-		return new ItemStack[] { inventory[3], inventory[4], inventory[5] };
-	}
-
-	@Override
 	public boolean isBlacklisted(World world, int x, int y, int z) {
 		return true;
-	}
-	
-	private static final int[] slots_top = new int[] { 0, 1 };
-	private static final int[] slots_bottom = new int[] { 0, 2 };
-	private static final int[] slots_sides = new int[] { 0 };
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(final int side) {
-		return side == 0 ? slots_bottom : (side == 1 ? slots_top : slots_sides);
-	}
-
-	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return this.isItemValidForSlot(slot, stack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return slot == 2;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		if(slot == 0) {
-			return stack.itemID == Core.craftingItem.itemID && stack.getItemDamage() == CraftingMeta.WHEEL;
-		}
-		
-		if(slot == 1) {
-			return FluidHelper.isFluidOrEmpty(stack);
-		}
-
-		return false;
 	}
 }

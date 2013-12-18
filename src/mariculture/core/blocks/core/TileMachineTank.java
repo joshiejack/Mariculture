@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class TileMachineTank extends TileTank implements IUpgradable, IMachine {
+public class TileMachineTank extends TileStorageTank implements IUpgradable, IMachine {
 	protected int machineTick = 0;
 	protected int purity = 0;
 	protected int heat = 0;

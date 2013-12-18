@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.core.TileTank;
+import mariculture.core.blocks.core.TileStorageTank;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
@@ -24,7 +24,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileGeyser extends TileTank {
+public class TileGeyser extends TileStorageTank {
 	public ForgeDirection orientation = ForgeDirection.UP;
 	protected int tick;
 

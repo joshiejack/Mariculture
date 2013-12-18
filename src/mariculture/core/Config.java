@@ -275,7 +275,6 @@ public class Config {
             EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 66).getInt();
             EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 67).getInt();
             EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 68).getInt();
-
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Mariculture had a serious issue loading it's block/item/enchant ids");
         } finally {

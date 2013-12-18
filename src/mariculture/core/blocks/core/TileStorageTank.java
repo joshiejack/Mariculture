@@ -1,26 +1,20 @@
 package mariculture.core.blocks.core;
 
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileTank extends TileEntity implements IFluidHandler, ITank {	
-	public Tank tank;
+public class TileStorageTank extends TileStorage implements IFluidHandler, ITank {
 	
-	public TileTank() {
-		tank = new Tank(getTankSize());
-	}
-
-	public int getTankSize() {
-		return FluidContainerRegistry.BUCKET_VOLUME;
-	}
+	public Tank tank;
 
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
@@ -29,7 +23,7 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 
 	@Override
 	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-		 return drain(ForgeDirection.UNKNOWN, resource.amount, doDrain);
+		return drain(ForgeDirection.UNKNOWN, resource.amount, doDrain);
 	}
 
 	@Override
@@ -63,6 +57,29 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 		}
 		
 		return new FluidStack(tank.getFluidID(), transfer);
+	}
+	
+	public String getLiquidName() {
+		FluidStack fluid = tank.getFluid();
+		return ((fluid != null && FluidHelper.getName(fluid.getFluid()) != null))? FluidHelper.getName(fluid.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
+	}
+	
+	public String getLiquidQty() {
+		int qty = tank.getFluidAmount();
+		int max = tank.getCapacity();
+		
+		return "" + qty + "/" + max;
+	}
+	
+	public FluidStack getFluid() {
+		return tank.getFluid();
+	}
+	
+	public int getTankScaled(int i) {
+		int qty = tank.getFluidAmount();
+		int max = tank.getCapacity();
+		
+		return (max != 0) ? (qty * i) / max : 0;
 	}
 	
 	@Override
