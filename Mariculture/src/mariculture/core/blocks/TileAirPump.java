@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.core.TileTank;
+import mariculture.core.blocks.core.TileStorageTank;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.TransferHelper;
 import mariculture.core.lib.AirMeta;
@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
-public class TileAirPump extends TileTank implements IEnergyHandler {
+public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	protected EnergyStorage storage = new EnergyStorage(100);
 	public boolean isPumping = false;
 	public boolean animate;

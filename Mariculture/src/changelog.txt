@@ -20,8 +20,10 @@
 * Turbines (except manual) now need to be kept supplied with a Rotor, in order to operate
 * Sluice no longer has a gui, no longer needs wheels, can no longer take upgrades. However, it's default generation is increased.
 * Pressure Vesels, can now store a LOT more per block, however they are much more expensive, but they can also be quite large sizes!
+* Removed melting of Gold/Silver Pearls
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
+* Fixed Fishing Nets dropping nets with a damage value of 2
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
 * Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)

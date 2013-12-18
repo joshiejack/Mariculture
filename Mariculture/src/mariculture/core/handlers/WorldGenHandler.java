@@ -12,7 +12,9 @@ import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.world.WorldGenGas;
 import mariculture.core.world.WorldGenLimestone;
+import mariculture.plugins.PluginBiomesOPlenty;
 import mariculture.plugins.Plugins;
+import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -131,46 +133,21 @@ public class WorldGenHandler implements IWorldGenerator {
 	// Generates Oysters in the Ocean
 	private void generateOysters(World world, Random random, int blockX, int blockZ) {
 		if (MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(blockX, blockZ)) == EnumBiomeType.OCEAN) {
-			if (random.nextInt(16) == 1) {
-				int randMeta = random.nextInt(4);
-				int randX = blockX - 8 + random.nextInt(4);
-				int randZ = blockZ - 8 + random.nextInt(4);
-				int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
+			for(int j = 0; j < 3; j++) {
+				int chance = (PluginBiomesOPlenty.isBiome(world, blockX, blockZ, Biome.CORAL))? 12: 24;
+				if(random.nextInt(chance) == 0) {
+					int randMeta = random.nextInt(4);
+					int randX = blockX - 8 + random.nextInt(4);
+					int randZ = blockZ - 8 + random.nextInt(4);
+					int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
 
-				if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
-					world.setBlock(randX, blockY, randZ, Core.oysterBlock.blockID, randMeta, 2);
-					TileOyster oyster = (TileOyster) world.getBlockTileEntity(randX, blockY, randZ);
-					if (oyster != null) {
-						if (random.nextInt(2) == 1) {
-							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
-						}
-					}
-				}
-			}
-			
-			int chance = 40;
-			if(Plugins.bop.isLoaded()) {
-				if(Biomes.oceanCoral.isPresent()) {
-					if(world.getBiomeGenForCoords(blockZ, blockZ) == Biomes.oceanCoral.get()) {
-						chance = 20;
-					} else {
-						chance = 80;
-					}
-				}
-			}
-
-			if (random.nextInt(chance) == 1) {
-				int randMeta = random.nextInt(4);
-				int randX = blockX + 8 - random.nextInt(4);
-				int randZ = blockZ + 8 - random.nextInt(4);
-				int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
-
-				if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
-					world.setBlock(randX, blockY, randZ, Core.oysterBlock.blockID, randMeta, 2);
-					final TileOyster oyster = (TileOyster) world.getBlockTileEntity(randX, blockY, randZ);
-					if (oyster != null) {
-						if (random.nextInt(5) == 1) {
-							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
+					if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
+						world.setBlock(randX, blockY, randZ, Core.oysterBlock.blockID, randMeta, 2);
+						TileOyster oyster = (TileOyster) world.getBlockTileEntity(randX, blockY, randZ);
+						if (oyster != null) {
+							if (random.nextInt(3) == 0) {
+								oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
+							}
 						}
 					}
 				}
