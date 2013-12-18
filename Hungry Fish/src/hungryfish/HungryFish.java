@@ -35,26 +35,17 @@ import java.util.ArrayList;
 
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.RecipeRemover;
-import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
-import mariculture.world.BlockCoral;
-import mariculture.world.ItemCoral;
 import mariculture.world.WorldPlus;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -108,8 +99,8 @@ public class HungryFish {
 			Fishery.clown = new HungryFishClown(29);
 
 			RecipeRemover.remove(new ItemStack(Core.food, 3, FoodMeta.CALAMARI));
-			RecipeHelper.addShapelessRecipe(Stack.calamari.get(), new Object[] {
-				Stack.squid.get(), Item.bowlEmpty
+			GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
+				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Item.bowlEmpty
 			});
 		}
 

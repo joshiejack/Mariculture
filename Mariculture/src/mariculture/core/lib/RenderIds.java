@@ -7,5 +7,4 @@ public class RenderIds {
 	public static int SCUBA;
 	public static int FLUDD;
 	public static int JEWELRY;
-	public static int BLOCK_TANKS;
 }

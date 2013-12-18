@@ -6,20 +6,16 @@ import java.util.Random;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
-import mariculture.core.network.Packets;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
-import mariculture.factory.blocks.TileGeyser;
 import mariculture.factory.blocks.TileTurbineBase;
 import mariculture.factory.blocks.TileTurbineGas;
-import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.fishery.Fishery;
@@ -39,7 +35,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -97,10 +92,6 @@ public class BlockSingle extends BlockMachine {
 			if (tile instanceof TileTurbineBase) {
 				return ((TileTurbineBase) tile).switchOrientation();
 			}
-			
-			if(tile instanceof TileAirPump) {
-				return ((TileAirPump) tile).updateAirArea(Type.DISPLAY);
-			}
 		}
 		return false;
 	}
@@ -119,11 +110,10 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
-		if (tile != null) {
-			if (tile instanceof TileFLUDDStand) {
-				TileFLUDDStand fludd = (TileFLUDDStand) tile;
+		if (world.getBlockTileEntity(x, y, z) != null) {
+			if (world.getBlockTileEntity(x, y, z) instanceof TileFLUDDStand) {
+				TileFLUDDStand fludd = (TileFLUDDStand) world.getBlockTileEntity(x, y, z);
 				fludd.orientation = ForgeDirection.getOrientation(facing);
 				int water = 0;
 				if (stack.hasTagCompound()) {
@@ -133,30 +123,17 @@ public class BlockSingle extends BlockMachine {
 				fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
 				fludd.tank.setFluidID(Core.highPressureWater.getID());
 				fludd.tank.setFluidAmount(water);
-				Packets.updateTile(fludd, 32, fludd.getDescriptionPacket());
-			}
-			
-			if(tile instanceof TileGeyser) {
-				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(facing);
-				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				fludd.updateFLUDDStats();
 			}
 		}
+
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile == null || player.isSneaking()) {
+		if (tile == null) {
 			return false;
-		}
-		
-		if(tile instanceof TileTurbineHand) {
-			if(player instanceof FakePlayer) {
-				return false;
-			}
-			
-			((TileTurbineHand)tile).generatePower();
-			return true;
 		}
 
 		if (tile instanceof TileFLUDDStand) {
@@ -165,13 +142,13 @@ public class BlockSingle extends BlockMachine {
 		}
 
 		if (tile instanceof TileTurbineWater) {
-			player.openGui(Mariculture.instance, GuiIds.TURBINE, world, x, y, z);
-			return true;
+				player.openGui(Mariculture.instance, GuiIds.TURBINE, world, x, y, z);
+				return true;
 		}
 		
 		if (tile instanceof TileTurbineGas) {
-			player.openGui(Mariculture.instance, GuiIds.TURBINE_GAS, world, x, y, z);
-			return true;
+				player.openGui(Mariculture.instance, GuiIds.TURBINE_GAS, world, x, y, z);
+				return true;
 		}
 
 		if (tile instanceof TileFeeder) {
@@ -186,21 +163,18 @@ public class BlockSingle extends BlockMachine {
 		}
 
 		if(Modules.diving.isActive()) {
-			if (tile instanceof TileAirPump) {				
+			if (tile instanceof TileAirPump) {
 				if (!world.isRemote && ((TileAirPump) tile).animate == false && Extra.ACTIVATE_PUMP) {
-					if(((TileAirPump)tile).updateAirArea(Type.CHECK)) {
+					if(((TileAirPump)tile).isValidLocationToActivate(world, x, y, z)) {
 						((TileAirPump) tile).supplyWithAir(300, 15.0D, 20.0D, 15.0D);
-						((TileAirPump) tile).animate = true;
 					}
 					
 					((TileAirPump) tile).suckUpGas(1024);
+					((TileAirPump) tile).animate = true;
+					return true;
 				} else {
-					if(((TileAirPump)tile).updateAirArea(Type.CHECK)) {
-						((TileAirPump) tile).animate = true;
-					}
+					((TileAirPump) tile).animate = true;
 				}
-				
-				return true;
 			}
 		}
 
@@ -210,29 +184,16 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
 		int meta = block.getBlockMetadata(x, y, z);
-		ForgeDirection facing;
 
 		switch (meta) {
 		case SingleMeta.AIR_PUMP:
 			setBlockBounds(0.2F, 0F, 0.2F, 0.8F, 0.9F, 0.8F);
 			break;
 		case SingleMeta.NET:
-			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.015625F, 1.0F);
+			setBlockBounds(0.5F - 0.5F, 0.0F, 0.5F - 0.5F, 0.5F + 0.5F, 0.015625F, 0.5F + 0.5F);
 			break;
 		case SingleMeta.GEYSER:
-			TileGeyser geyser = (TileGeyser)block.getBlockTileEntity(x, y, z);
-			if(geyser.orientation == ForgeDirection.UP)
-				setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
-			if(geyser.orientation == ForgeDirection.DOWN)
-				setBlockBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
-			if(geyser.orientation == ForgeDirection.EAST)
-				setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
-			if(geyser.orientation == ForgeDirection.WEST)
-				setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-			if(geyser.orientation == ForgeDirection.SOUTH)
-				setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
-			if(geyser.orientation == ForgeDirection.NORTH)
-				setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+			setBlockBounds(0.5F - 0.5F, 0.0F, 0.5F - 0.5F, 0.5F + 0.5F, 0.25F, 0.5F + 0.5F);
 			break;
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
@@ -241,7 +202,7 @@ public class BlockSingle extends BlockMachine {
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == SingleMeta.NET || meta == SingleMeta.GEYSER) {
+		if (meta == SingleMeta.NET) {
 			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,
 					(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 		}
@@ -264,10 +225,6 @@ public class BlockSingle extends BlockMachine {
 			return new TileFLUDDStand();
 		case SingleMeta.TURBINE_GAS:
 			return new TileTurbineGas();
-		case SingleMeta.TURBINE_HAND:
-			return new TileTurbineHand();
-		case SingleMeta.GEYSER:
-			return new TileGeyser();
 		}
 
 		return null;
@@ -290,12 +247,6 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int j) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile != null) {
-			if(tile instanceof TileAirPump) {
-				((TileAirPump) tile).updateAirArea(Type.CLEAR);
-			}
-		}
 		InventoryHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
@@ -352,7 +303,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public int damageDropped(int i) {
-		return (i == SingleMeta.NET)? 0: i;
+		return i;
 	}
 
 	@Override
@@ -371,9 +322,7 @@ public class BlockSingle extends BlockMachine {
 		case SingleMeta.TURBINE_GAS:
 			return (Modules.factory.isActive());
 		case SingleMeta.GEYSER:
-			return (Modules.factory.isActive());
-		case SingleMeta.TURBINE_HAND:
-			return (Modules.factory.isActive());
+			return false;
 
 		default:
 			return true;

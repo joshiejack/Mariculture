@@ -1,8 +1,9 @@
 package mariculture.diving.render;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.TileDoubleBlock;
 import mariculture.core.render.RenderDouble;
 import mariculture.diving.TileAirCompressor;
+import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -126,35 +127,34 @@ public class ModelAirCompressor extends ModelBase {
 		}
 	}
 
-	public void render(TileMulti tile, double x, double y, double z, RenderDouble render) {
+	public void render(final TileDoubleBlock compressor, final double x, final double y, final double z, final RenderDouble render) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
 		GL11.glTranslated(x + 0.5F, y + 0.7F, z + 0.5F);
 
-		final World world = tile.worldObj;
+		final World world = compressor.worldObj;
 		boolean foundSecondHalf = false;
 
-		/*
-		if (world.getBlockTileEntity(tile.xCoord + 1, tile.yCoord, tile.zCoord) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(compressor.xCoord + 1, compressor.yCoord, compressor.zCoord) instanceof TileDoubleBlock) {
 			faceDirection(ForgeDirection.SOUTH, x, y, z);
 			foundSecondHalf = true;
 		}
 
-		if (world.getBlockTileEntity(tile.xCoord - 1, tile.yCoord, tile.zCoord) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(compressor.xCoord - 1, compressor.yCoord, compressor.zCoord) instanceof TileDoubleBlock) {
 			faceDirection(ForgeDirection.NORTH, x, y, z);
 			foundSecondHalf = true;
 		}
 
-		if (world.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord + 1) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(compressor.xCoord, compressor.yCoord, compressor.zCoord + 1) instanceof TileDoubleBlock) {
 			faceDirection(ForgeDirection.WEST, x, y, z);
 			foundSecondHalf = true;
 		}
 
-		if (world.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord - 1) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(compressor.xCoord, compressor.yCoord, compressor.zCoord - 1) instanceof TileDoubleBlock) {
 			faceDirection(ForgeDirection.EAST, x, y, z);
 			foundSecondHalf = true;
-		} */
+		}
 
 		if (!foundSecondHalf) {
 			GL11.glRotatef(180, 0F, 0F, 1F);
@@ -172,8 +172,8 @@ public class ModelAirCompressor extends ModelBase {
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(COMPRESSOR_BAR);
 
-		if (tile instanceof TileAirCompressor) {
-			TileAirCompressor real = (TileAirCompressor) tile.worldObj.getBlockTileEntity(tile.mstr.x, tile.mstr.y, tile.mstr.z);
+		if (compressor instanceof TileAirCompressor) {
+			final TileAirCompressor real = (TileAirCompressor) compressor.getMasterBlock();
 
 			if (real != null) {
 				switch (real.getBarLength()) {

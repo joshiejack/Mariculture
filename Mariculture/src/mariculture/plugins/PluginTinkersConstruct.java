@@ -1,7 +1,9 @@
 package mariculture.plugins;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeFreezer;
@@ -10,16 +12,19 @@ import mariculture.core.Mariculture;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.PrefixColor;
 import mariculture.core.util.FluidDictionary;
-import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -36,18 +41,11 @@ import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PluginTinkersConstruct extends Plugin {
-	public static boolean isLoaded;
-	
-	public PluginTinkersConstruct(String name) {
-		super(name);
-	}
-
+public class PluginTinkersConstruct {
 	public static final int titanium_id = 200;
 	
 	public static TitaniumPart arrowhead;
@@ -76,7 +74,7 @@ public class PluginTinkersConstruct extends Plugin {
 	public static TitaniumPart tough_rod;
 	public static boolean addRod = false;
 	
-	public void init() {
+	public static void init() {
 		addParts();
 		
 		TConstructRegistry.addToolMaterial(titanium_id, "Titanium", 4, 775, 775, 2, 2F, 2, 0.0F, "", "");
@@ -264,6 +262,22 @@ public class PluginTinkersConstruct extends Plugin {
 		Smeltery.addAlloyMixing(titanium, new FluidStack[] { rutile, magnesium });
 	}
 	
+	
+	//Called from Core
+	public static void registerMoltenMetals() {
+		FluidDictionary.instance.addFluid("moltenAluminum", FluidType.Aluminum.fluid);
+		FluidDictionary.instance.addFluid("moltenBronze", FluidType.Bronze.fluid);
+		FluidDictionary.instance.addFluid("moltenCopper", FluidType.Copper.fluid);
+		FluidDictionary.instance.addFluid("moltenGlass", FluidType.Glass.fluid);
+		FluidDictionary.instance.addFluid("moltenGold", FluidType.Gold.fluid);
+		FluidDictionary.instance.addFluid("moltenIron", FluidType.Iron.fluid);
+		FluidDictionary.instance.addFluid("moltenLead", FluidType.Lead.fluid);
+		FluidDictionary.instance.addFluid("moltenNickel", FluidType.Nickel.fluid);
+		FluidDictionary.instance.addFluid("moltenSilver", FluidType.Silver.fluid);
+		FluidDictionary.instance.addFluid("moltenSteel", FluidType.Steel.fluid);
+		FluidDictionary.instance.addFluid("moltenTin", FluidType.Tin.fluid);
+	}
+	
 	//Helpers
 	public static class TitaniumPart extends Item implements IToolPart {
 		public TitaniumPart(int id) {
@@ -317,7 +331,7 @@ public class PluginTinkersConstruct extends Plugin {
 	    public ModPearl(ItemStack[] items, int effect, int inc)
 	    {
 	        super(items, effect, "Pearls");
-	        tooltipName = Text.AQUA + "Aquatic";
+	        tooltipName = PrefixColor.AQUA + "Aquatic";
 	        increase = inc;
 	        max = 50;
 	    }
@@ -374,7 +388,7 @@ public class PluginTinkersConstruct extends Plugin {
 	            int modifiers = tags.getInteger("Modifiers");
 	            modifiers -= 1;
 	            tags.setInteger("Modifiers", modifiers);
-	            String modName = Text.AQUA + "Pearls (" + increase + "/" + max + ")";
+	            String modName = PrefixColor.AQUA + "Pearls (" + increase + "/" + max + ")";
 	            int tooltipIndex = addToolTip(tool, tooltipName, modName);
 	            keyPair = new int[] { increase, max, tooltipIndex };
 	            tags.setIntArray(key, keyPair);
@@ -385,7 +399,7 @@ public class PluginTinkersConstruct extends Plugin {
 	    {
 	        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 	        String tip = "ModifierTip" + keys[2];
-	        String modName = Text.AQUA + "Pearls (" + keys[0] + "/" + keys[1] + ")";
+	        String modName = PrefixColor.AQUA + "Pearls (" + keys[0] + "/" + keys[1] + ")";
 	        tags.setString(tip, modName);
 	    }
 
@@ -417,26 +431,5 @@ public class PluginTinkersConstruct extends Plugin {
 				}
 			}
 		}
-	}
-	
-	@Override
-	public void preInit() {
-		FluidDictionary.instance.addFluid("moltenAluminum", FluidType.Aluminum.fluid);
-		FluidDictionary.instance.addFluid("moltenBronze", FluidType.Bronze.fluid);
-		FluidDictionary.instance.addFluid("moltenCopper", FluidType.Copper.fluid);
-		FluidDictionary.instance.addFluid("moltenGlass", FluidType.Glass.fluid);
-		FluidDictionary.instance.addFluid("moltenGold", FluidType.Gold.fluid);
-		FluidDictionary.instance.addFluid("moltenIron", FluidType.Iron.fluid);
-		FluidDictionary.instance.addFluid("moltenLead", FluidType.Lead.fluid);
-		FluidDictionary.instance.addFluid("moltenNickel", FluidType.Nickel.fluid);
-		FluidDictionary.instance.addFluid("moltenSilver", FluidType.Silver.fluid);
-		FluidDictionary.instance.addFluid("moltenSteel", FluidType.Steel.fluid);
-		FluidDictionary.instance.addFluid("moltenTin", FluidType.Tin.fluid);
-	}
-
-	@Override
-	public void postInit() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -1,14 +1,19 @@
 package mariculture.factory.blocks;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.blocks.core.TileMachineTank;
+import mariculture.core.blocks.TileTankMachine;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.network.Packets;
+import mariculture.core.lib.PacketIds;
 import mariculture.factory.gui.ContainerFLUDDStand;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -21,13 +26,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
+public class TileFLUDDStand extends TileTankMachine implements ISidedInventory {
 	public ForgeDirection orientation = ForgeDirection.UP;
+	private int tick = 0;
 	private int distanceDo = 6;
 	private int damageAmount = 0;
 	private int blockBreakChance = 0;
@@ -36,7 +45,7 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 	private Random rand = new Random();
 
 	public TileFLUDDStand() {
-		this.inventory = new ItemStack[5];
+		super.setInventorySize(5);
 	}
 
 	private void doSquirt(World world, int distance, ForgeDirection direction, int baseX, int baseY, int baseZ, int tick) {
@@ -167,34 +176,37 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 	}
 
 	@Override
-	public void updateMachine() {
-		super.updateMachine();
+	public void updateEntity() {
+		super.updateEntity();
 
-		if (onTick(20)) {
+		tick++;
+
+		if (tick > 20) {
+			tick = 0;
 			processContainers();
 		}
 
 		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && tank.getFluidAmount() > 0) {
 
-			doSquirt(this.worldObj, distanceDo, orientation, this.xCoord, this.yCoord, this.zCoord, machineTick %4);
+			doSquirt(this.worldObj, distanceDo, orientation, this.xCoord, this.yCoord, this.zCoord, tick % 4);
 
-			if (onTick(10)) {
-				this.drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), distanceDo/6), true);
+			if (tick == 10) {
+				this.drain(new FluidStack(tank.getFluidID(), distanceDo/6), true);
 
 				if (tank.getFluidAmount() == 0) {
-					Packets.updateTile(this, 32, getDescriptionPacket());
+					updateFLUDDStats();
 				}
 			}
 		}
 	}
 
 	@Override
-	public int getTankCapacity(int count) {
+	protected int getMaxCalculation(int count) {
 		return ((FluidContainerRegistry.BUCKET_VOLUME * 20) + (count * (FluidContainerRegistry.BUCKET_VOLUME * 4)));
 	}
 
 	@Override
-	public void updateUpgrades() {
+	protected void updateUpgrades() {
 		super.updateUpgrades();
 		// Max Liquid Volume
 		int purityCount = MaricultureHandlers.upgrades.getData("purity", this);
@@ -221,7 +233,7 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 			distanceDo = 1;
 		}
 
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		updateFLUDDStats();
 	}
 
 	@Override
@@ -243,9 +255,85 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 		tagCompound.setInteger("blockBreakChance", this.blockBreakChance);
 		tagCompound.setBoolean("ethereal", this.ethereal);
 	}
+	
+	public void updateFLUDDStats() {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream os = new DataOutputStream(bos);
+		try {
+			os.writeInt(PacketIds.FLUDD_STAND);
+			os.writeInt(xCoord);
+			os.writeInt(yCoord);
+			os.writeInt(zCoord);
+			os.writeInt(tank.getFluidAmount());
+			os.writeInt(orientation.ordinal());
+			os.writeInt(distanceDo);
+			os.writeInt(tank.getCapacity());
+			os.writeInt(damageAmount);
+			os.writeInt(blockBreakChance);
+			os.writeBoolean(ethereal);
+			os.writeInt(tank.getFluidID());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		final Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "Mariculture";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+
+		PacketDispatcher.sendPacketToAllAround(xCoord, yCoord, zCoord, 25, worldObj.provider.dimensionId, packet);
+	}
+
+	public static void handleLiquidQtyUpdate(Packet250CustomPayload packet, World world) {
+		final DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int x;
+		int y;
+		int z;
+		int liquidQty;
+		int orientation;
+		int distance;
+		int max;
+		int damage;
+		int blockBreak;
+		boolean ethereal;
+		int liquidId;
+
+		try {
+			id = inputStream.readInt();
+			x = inputStream.readInt();
+			y = inputStream.readInt();
+			z = inputStream.readInt();
+			liquidQty = inputStream.readInt();
+			orientation = inputStream.readInt();
+			distance = inputStream.readInt();
+			max = inputStream.readInt();
+			damage = inputStream.readInt();
+			blockBreak = inputStream.readInt();
+			ethereal = inputStream.readBoolean();
+			liquidId = inputStream.readInt();
+
+		} catch (final IOException e) {
+			e.printStackTrace(System.err);
+			return;
+		}
+
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if (tile instanceof TileFLUDDStand) {
+			((TileFLUDDStand) tile).damageAmount = damage;
+			((TileFLUDDStand) tile).blockBreakChance = blockBreak;
+			((TileFLUDDStand) tile).distanceDo = distance;
+			((TileFLUDDStand) tile).tank.setCapacity(max);
+			((TileFLUDDStand) tile).tank.setFluidAmount(liquidQty);
+			((TileFLUDDStand) tile).orientation = ForgeDirection.getOrientation(orientation);
+			((TileFLUDDStand) tile).ethereal = ethereal;
+			((TileFLUDDStand) tile).tank.setFluidID(liquidId);
+		}
+	}
 
 	@Override
-	public Packet getDescriptionPacket() {		
+	public Packet getDescriptionPacket() {
 		NBTTagCompound tagCompound = new NBTTagCompound();
 		this.writeToNBT(tagCompound);
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
@@ -253,10 +341,10 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		this.readFromNBT(packet.data);
+		readFromNBT(packet.data);
 	}
 
-	public void getGUINetworkData(int i, int j) {
+	public void getGUINetworkData(final int i, final int j) {
 		super.getGUINetworkData(i, j);
 	}
 

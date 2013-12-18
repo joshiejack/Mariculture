@@ -2,7 +2,7 @@ package mariculture.magic.jewelry.parts;
 
 import net.minecraft.item.ItemStack;
 import mariculture.core.Core;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.PrefixColor;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Jewelry;
 
@@ -34,7 +34,7 @@ public class PartGoldString extends JewelryPart {
 	
 	@Override
 	public String getColor() {
-		return Text.YELLOW;
+		return PrefixColor.YELLOW;
 	}
 
 	@Override

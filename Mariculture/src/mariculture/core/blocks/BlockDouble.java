@@ -3,121 +3,29 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.core.TileMulti;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.network.Packet113RequestMaster;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.diving.TileAirCompressorPower;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cofh.api.energy.IEnergyContainerItem;
 
 public class BlockDouble extends BlockMachine {
 	private Icon[] icons;
 
 	public BlockDouble(int i) {
 		super(i, Material.iron);
-	}
-	
-	public void updateMaster(World world, int x, int y, int z) {
-		if(world.getBlockTileEntity(x, y, z) instanceof TileMulti) {
-			((TileMulti) world.getBlockTileEntity(x, y, z)).setMaster();
-		}
-	}
-	
-	@Override
-	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
-		notify(world, x, y, z);
-		updateMaster(world, x, y, z);
-		super.onBlockExploded(world, x, y, z, explosion);
-    }
-	
-	private void notify(World world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TilePressureVessel) {
-			TilePressureVessel vessel = (TilePressureVessel) tile;
-			if(vessel.isMaster()) {
-				assignNewMaster(world, vessel.tiles);
-			} else {
-				notifyMasterOfDeletion(world, vessel.mstr.x, vessel.mstr.y, vessel.mstr.z);
-			}
-		}
-	}
-
-	private void notifyMasterOfDeletion(World world, int x, int y, int z) {
-		TilePressureVessel vessel = (TilePressureVessel) world.getBlockTileEntity(x, y, z);
-		if(vessel != null) {
-			vessel.blocksInStructure--;
-			for (int i = 0; i < vessel.tiles.length; i++) {
-				int xCoord = vessel.tiles[i][0];
-				int yCoord = vessel.tiles[i][1];
-				int zCoord = vessel.tiles[i][2];
-				if(x == xCoord && y == yCoord && z == zCoord) {
-					vessel.tiles[i][0] = 0;
-					vessel.tiles[i][1] = 0;
-					vessel.tiles[i][2] = 0;
-					return;
-				}
-			}
-		}
-	}
-
-	private void assignNewMaster(World world, int[][] tiles) {
-		int xCoord = 0;
-		int yCoord = 0;
-		int zCoord = 0;
-		
-		for (int i = 0; i < tiles.length; i++) {
-			xCoord = tiles[i][0];
-			yCoord = tiles[i][1];
-			zCoord = tiles[i][2];
-			if(xCoord == 0 && yCoord == 0 && zCoord == 0)
-				continue;
-			if(world.getBlockTileEntity(xCoord, yCoord, zCoord) != null &&
-					world.getBlockTileEntity(xCoord, yCoord, zCoord) instanceof TilePressureVessel) {
-				break;
-			}
-		}
-		
-		for (int i = 0; i < tiles.length; i++) {
-			int x = tiles[i][0];
-			int y = tiles[i][1];
-			int z = tiles[i][2];
-			if(x == 0 && y == 0 && z == 0)
-				continue;
-			TileEntity tile = world.getBlockTileEntity(x, y, z);
-			if(tile != null && tile instanceof TilePressureVessel) {
-				TilePressureVessel vessel = (TilePressureVessel) tile;
-				vessel.mstr.x = (yCoord != 0)? xCoord: x;
-				vessel.mstr.y = (yCoord != 0)? yCoord: y;
-				vessel.mstr.z = (yCoord != 0)? zCoord: z;
-			}
-		}
-	}
-
-	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		notify(world, x, y, z);
-		updateMaster(world, x, y, z);
-		return super.removeBlockByPlayer(world, player, x, y, z);
-    }
-	
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, int otherID) {
-		updateMaster(world, x, y, z);
-		super.onNeighborBlockChange(world, x, y, z, otherID);
 	}
 	
 	@Override
@@ -136,9 +44,6 @@ public class BlockDouble extends BlockMachine {
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) != DoubleMeta.PRESSURE_VESSEL)
-			return true;
-		
 		int count = 0;
 
 		if (world.getBlockId(x - 1, y, z) == this.blockID) {
@@ -170,7 +75,6 @@ public class BlockDouble extends BlockMachine {
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
-		updateMaster(world, x, y, z);
 		super.onBlockAdded(world, x, y, z);
 	}
 
@@ -182,8 +86,7 @@ public class BlockDouble extends BlockMachine {
 		}
 		
 		if (tile instanceof TileAirCompressor && player.getCurrentEquippedItem() != null && !world.isRemote) {
-			TileMulti base = (TileMulti) tile;
-			TileAirCompressor compressor = (base.mstr.built)? (TileAirCompressor)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
+			TileAirCompressor compressor = (TileAirCompressor) (((TileAirCompressor) tile).getMasterBlock());
 			if (compressor != null && player.getCurrentEquippedItem().getItem() == Diving.scubaTank && compressor.currentAir > 0) {
 				if (player.getCurrentEquippedItem().getItemDamage() > 0 && compressor.currentAir > 68) {
 					giveOxygen(player.getCurrentEquippedItem(), compressor);
@@ -193,31 +96,22 @@ public class BlockDouble extends BlockMachine {
 
 		if (tile instanceof TileAirCompressorPower && player.getCurrentEquippedItem() != null && !world.isRemote) {
 			Item currentItem = player.getCurrentEquippedItem().getItem();
-			//TileAirCompressorPower power = (TileAirCompressorPower) (((TileAirCompressorPower) tile).getMasterBlock());			
-			 /*if (power != null && currentItem instanceof IEnergyContainerItem) {
+			TileAirCompressorPower power = (TileAirCompressorPower) (((TileAirCompressorPower) tile).getMasterBlock());			
+			if (power != null && currentItem instanceof IEnergyContainerItem) {
 				int powerAdd = ((IEnergyContainerItem)currentItem).extractEnergy(player.getCurrentEquippedItem(), 1000, true);
 				if (powerAdd >= 100) {
 					power.addPower(powerAdd/100);
 					((IEnergyContainerItem)currentItem).extractEnergy(player.getCurrentEquippedItem(), powerAdd, false);
 				}
-			} */
+			}
 		}
-		
+
 		if (tile instanceof TilePressureVessel) {
-			if(player instanceof EntityClientPlayerMP)
-				((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet113RequestMaster(x, y, z).build());
-			
-			TileMulti base = (TileMulti) tile;
-			
-			System.out.println(base.mstr.x);
-			
-			TileMulti master = (base.mstr.built)? (TilePressureVessel)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
-			if (master != null) {
-				player.openGui(Mariculture.instance, GuiIds.PRESSURE_VESSEL, world, master.xCoord, master.yCoord, master.zCoord);
+			TilePressureVessel vessel = (TilePressureVessel) (((TilePressureVessel) tile).getMasterBlock());
+			if (vessel != null && vessel.isFormed()) {
+				player.openGui(Mariculture.instance, GuiIds.PRESSURE_VESSEL, world, vessel.xCoord, vessel.yCoord, vessel.zCoord);
 				return true;
 			}
-
-			return false;
 		}
 
 		return false;
@@ -294,7 +188,6 @@ public class BlockDouble extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int j) {
-		updateMaster(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
 

@@ -1,12 +1,19 @@
 package mariculture.core.blocks;
 
+import java.util.List;
 import java.util.Random;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Mariculture;
 import mariculture.core.lib.OresMeta;
+import mariculture.core.util.IItemRegistry;
+import mariculture.factory.blocks.TileCustom;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -89,6 +96,8 @@ public class BlockOre extends BlockDecorative {
 			return 30F;
 		case OresMeta.BASE_IRON:
 			return 3F;
+		case OresMeta.BASE_WOOD:
+			return 1.5F;
 		}
 
 		return 3F;

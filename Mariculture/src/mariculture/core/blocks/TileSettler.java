@@ -5,13 +5,11 @@ import java.util.Random;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeFreezer;
-import mariculture.core.blocks.core.TileMachineTank;
 import mariculture.core.gui.ContainerSettler;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.HeatHelper;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.network.Packets;
-import mariculture.core.util.IHasGUI;
+import mariculture.core.util.PacketIntegerUpdate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -20,20 +18,28 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 
-public class TileSettler extends TileMachineTank implements ISidedInventory, IHasGUI {
+public class TileSettler extends TileTankMachine implements ISidedInventory {
 	private int FREEZE_LENGTH = MachineSpeeds.getSettlerSpeed();
 
 	private int freezeTime = 0;
+	private int tick = 0;
+
 	public TileSettler() {
-		this.inventory = new ItemStack[8];
+		super.setInventorySize(8);
 	}
 
 	@Override
-	public void updateMachine() {
+	public void updateEntity() {
+		super.updateEntity();
 		if (!this.worldObj.isRemote) {
-			if(onTick(20)) {
+			tick++;
+
+			if (tick > 20) {
+				tick = 0;
 				processContainers();
+				updateUpgrades();
 			}
+
 		}
 
 		if (stopInHeat()) {
@@ -197,7 +203,7 @@ public class TileSettler extends TileMachineTank implements ISidedInventory, IHa
 					inventory[slot].stackSize += result.output.stackSize;
 				}
 
-				this.drain(ForgeDirection.UNKNOWN, result.fluid.amount, true);
+				this.drain(ForgeDirection.UP, result.fluid.amount, true);
 			}
 		}
 	}
@@ -213,7 +219,7 @@ public class TileSettler extends TileMachineTank implements ISidedInventory, IHa
 
 	public void sendGUINetworkData(ContainerSettler container, EntityPlayer player) {
 		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 3, this.freezeTime);
+		PacketIntegerUpdate.send(container, 3, this.freezeTime, player);
 	}
 
 	@Override

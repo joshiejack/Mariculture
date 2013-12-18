@@ -18,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMariculture extends Item implements IItemRegistry {
 	@SideOnly(Side.CLIENT)
-	public Icon[] icons;
+	protected Icon[] icons;
 
 	public ItemMariculture(int id) {
 		super(id);

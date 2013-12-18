@@ -1,29 +1,6 @@
-== Mariculture 1.2.0 for Minecraft v1.6.X==
-====New====
-* Manual Turbines, right click them to provide RF
-* Redstone Flux Fishing Rod
-====Changes====
-* Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
-* Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block for, was it really neccessary?
-* Full Dropped BC Power Support, now you can only use RF to Power my machines, and turbines will only provide RF
-* Removed ConfigCopier/LegacyLoader > If upgrading from previous version, make sure to load Mariculture on 1.1.4 FIRST
-* Oysters are more special ;)
-* Ore Converter, changed from a blacklist to a whitelist, add prefixes to the list to allow to be converted.
-* Scalable melting of damaged items.
-* Air Pumps, are now 'tanks'. Instead of passing directly any gas they get to tanks, they now have an internal tank buffer of 8 buckets, which they will then attempt to transfer to the side.
-* Right clicking an air pump with an item that rotates blocks such as a wrench will cause it to display, where you need air blocks
-* Air Pumps now need larger areas in order to pump, however, Up to 6 Blocks in that area do not have to be air (So you can have ur engines on any side now)
-* Air Pumps radius changed: Engine - 40 XZ, 50Y; Manual - 64 XZ: 64Y; Redstone - 25 XZ, 36Y
-* No longer auto-outputting to any pipes, use itemducts
-* Autofisher now uses more power to work
-* Turbine Recipes changed
-* Turbines (except manual) now need to be kept supplied with a Rotor, in order to operate
-* Sluice no longer has a gui, no longer needs wheels, can no longer take upgrades. However, it's default generation is increased.
-* Pressure Vesels, can now store a LOT more per block, however they are much more expensive, but they can also be quite large sizes!
-* Removed melting of Gold/Silver Pearls
-====Bugfixes====
-* Fixed fishing rods using bait when pulling in
-* Fixed Fishing Nets dropping nets with a damage value of 2
+== Mariculture 1.1.4d for Minecraft v1.6.X==
+* Added Raw fish to the Ore Dictionary, for use with pams :P
+* Slightly buffed, a few of the fish's fish oil production
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
 * Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)

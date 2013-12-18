@@ -1,21 +1,23 @@
 package mariculture.factory.gui;
 
 import mariculture.api.core.IItemUpgrade;
-import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotUpgrade;
+import mariculture.core.util.ContainerInteger;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerPressureVessel extends ContainerMachine {
+public class ContainerPressureVessel extends ContainerInteger {
+	private TilePressureVessel tile;
+
 	public ContainerPressureVessel(TilePressureVessel tile, InventoryPlayer playerInventory) {
-		super(tile);
-		
-		addSlotToContainer(new Slot(tile, 0, 34, 34));
+		this.tile = tile;
+
+		this.addSlotToContainer(new Slot(tile, 0, 34, 34));
+
 		for (int i = 0; i < 3; i++) {
 			addSlotToContainer(new SlotUpgrade(tile, i + 1, 148, 16 + (i * 18)));
 		}
@@ -23,9 +25,41 @@ public class ContainerPressureVessel extends ContainerMachine {
 		bindPlayerInventory(playerInventory);
 	}
 
+	private void bindPlayerInventory(final InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (int i = 0; i < crafters.size(); i++) {
+			tile.sendGUINetworkData(this, (EntityPlayer) crafters.get(i));
+		}
+
+	}
+
+	@Override
+	public void updateProgressBar(final int par1, final int par2) {
+		tile.getGUINetworkData(par1, par2);
+	}
+
+	@Override
+	public boolean canInteractWith(final EntityPlayer player) {
+		return tile.isUseableByPlayer(player);
+	}
+
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = ((IInventory)tile).getSizeInventory();
+		int size = tile.getSizeInventory();
 		int low = size + 27;
 		int high = low + 9;
 		ItemStack itemstack = null;

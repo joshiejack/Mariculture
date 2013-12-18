@@ -5,15 +5,16 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.TileSettler;
 import mariculture.core.handlers.SettlerRecipeHandler;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.util.ContainerInteger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerSettler extends ContainerMariculture {
+public class ContainerSettler extends ContainerInteger {
 	private TileSettler tile;
 
-	public ContainerSettler(TileSettler tile, InventoryPlayer playerInventory) {
+	public ContainerSettler(final TileSettler tile, final InventoryPlayer playerInventory) {
 		this.tile = tile;
 
 		for (int i = 0; i < 2; i++) {
@@ -29,6 +30,18 @@ public class ContainerSettler extends ContainerMariculture {
 		}
 
 		bindPlayerInventory(playerInventory);
+	}
+
+	private void bindPlayerInventory(InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
 	}
 
 	@Override

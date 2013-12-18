@@ -11,7 +11,7 @@ import cofh.api.energy.IEnergyHandler;
 public class PowerHelper {
 
 	public static Object[] getNextEnergyHandler(ForgeDirection from, World worldObj, int xCoord, int yCoord, int zCoord) {
-		ForgeDirection facing = ForgeDirection.UNKNOWN;
+		ForgeDirection facing = ForgeDirection.UP;
 		IEnergyHandler handler = null;
 		Collections.shuffle(TileCustomPowered.handlers);
 		for(int i = 0; i < TileCustomPowered.handlers.size(); i++) {

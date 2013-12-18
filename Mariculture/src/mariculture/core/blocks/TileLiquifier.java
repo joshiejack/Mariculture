@@ -6,25 +6,33 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.core.blocks.core.TileMultiInvTankMachine;
-import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.Core;
+import mariculture.core.gui.ContainerLiquifier;
+import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.FluidInventoryHelper;
 import mariculture.core.helpers.HeatHelper;
-import mariculture.core.helpers.TransferHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.network.Packets;
+import mariculture.core.lib.UtilMeta;
+import mariculture.core.util.PacketIntegerUpdate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInventory {
+public class TileLiquifier extends TileDoubleHeightTank implements ISidedInventory {
 
 	private static class FuelHandler {
 		private ItemStack fuel;
@@ -110,73 +118,93 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 	private int bonus = 0;
 	private FuelHandler fuelHandler;
 
+	private int tick = 0;
+
 	Random rand = new Random();
 
 	public TileLiquifier() {
 		fuelHandler = new FuelHandler();
-		this.inventory = new ItemStack[9];
+		super.setInventorySize(9);
+	}
+	
+	@Override
+	public boolean isThis(int x, int y, int z) {
+		return worldObj.getBlockId(x, y, z) == Core.utilBlocks.blockID
+				&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.LIQUIFIER;
 	}
 	
 	private static int convertFromReal(int real) {
 		return (real * MAX_TEMP)/ 2000;
 	}
-	
-	@Override
-	public void updateAll() {
-		if(tick %10 == 0) {
-			moveLiquidNextDoor();
-		}
-	}
-	
-	@Override
-	public void updateMaster() {
-		if (tick % 20 == 0) {
-			processContainers();
-		}
-		
-		if(tick %2 == 0) {
-			boolean updated = false;
 
-			if(!this.worldObj.isRemote) {
-				if(fuelHandler == null) {
-					fuelHandler = new FuelHandler();
+	@Override
+	public void updateEntity() {
+		tick++;
+
+		if (isBuilt() && tick % 10 == 0) {
+			if (!this.worldObj.isRemote) {
+				moveLiquidNextDoor();
+			}
+		}
+
+		if (isBuilt() && master() == this) {
+			super.updateEntity();
+			if (!this.worldObj.isRemote) {
+				if (tick % 20 == 0) {
+
+					if (Extra.DEBUG_ON) {
+						this.temperature = MAX_TEMP;
+					}
+
+					processContainers();
 				}
-				
-				if(inventory[2] != null) {
-					if(fuelHandler.fuel == null) {
-						if(fuelHandler.setFuel(inventory[2])) {
-							inventory[2].stackSize--;
-							if (this.inventory[2].stackSize == 0) {
-								this.inventory[2] = this.inventory[2].getItem().getContainerItemStack(inventory[2]);
+
+			}
+			
+			if(tick %2 == 0) {
+				boolean updated = false;
+
+				if(!this.worldObj.isRemote) {
+					if(fuelHandler == null) {
+						fuelHandler = new FuelHandler();
+					}
+					
+					if(inventory[2] != null) {
+						if(fuelHandler.fuel == null) {
+							if(fuelHandler.setFuel(inventory[2])) {
+								inventory[2].stackSize--;
+								if (this.inventory[2].stackSize == 0) {
+									this.inventory[2] = this.inventory[2].getItem().getContainerItemStack(inventory[2]);
+								}
+								
+								updated = true;
 							}
-							
-							updated = true;
 						}
+					}
+					
+					if(tick %4 == 0) {
+						boolean powered = (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) ||
+								this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord + 1, this.zCoord));
+						int lava = (int) (1 + HeatHelper.getWorldHeat(worldObj, this.xCoord, this.yCoord, this.zCoord)/1.8);
+						this.temperature = fuelHandler.update(this.temperature, MAX_TEMP, lava, powered);
+					}
+					
+					if(melt()) {
+						updated = true;
+					}
+					
+					if (!this.isBurning()) {
+						this.temperature = this.temperature - getBiomeDropRate();
+					}
+
+					if (this.temperature < 0) {
+						this.temperature = 0;
 					}
 				}
 				
-				if(tick %4 == 0) {
-					boolean powered = (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) ||
-							this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord + 1, this.zCoord));
-					int lava = (int) (1 + HeatHelper.getWorldHeat(worldObj, this.xCoord, this.yCoord, this.zCoord)/1.8);
-					this.temperature = fuelHandler.update(this.temperature, MAX_TEMP, lava, powered);
+				if(updated) {
+					this.onInventoryChanged();
 				}
-				
-				if(melt()) {
-					updated = true;
-				}
-				
-				if (!this.isBurning()) {
-					this.temperature = this.temperature - getBiomeDropRate();
-				}
-
-				if (this.temperature < 0) {
-					this.temperature = 0;
-				}
-			}
-			
-			if(updated) {
-				this.onInventoryChanged();
 			}
 		}
 	}
@@ -299,7 +327,7 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 
 			if (fluid.fluidID == tank.getFluidID() || tank.getFluidID() == 0) {
 				fluid.amount = getFluidAmount(inventory[slot], fluid.amount);
-				this.fill(ForgeDirection.UNKNOWN, fluid, true);
+				this.fill(ForgeDirection.UP, fluid, true);
 			}
 
 			if (this.inventory[slot].stackSize == 0) {
@@ -337,15 +365,39 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 	}
 
 	private void moveLiquidNextDoor() {
+		TileEntity tile = getNextTank();
+
+		if (tile == null || master() == null) {
+			return;
+		}
+		
 		/** If redstone signal stop sending liquid **/
 		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {
 			return;
 		}
 
-		int drainAmount = (this.purity < 1) ? 100 : this.purity * 100;
+		if (tile instanceof IFluidHandler && !(tile instanceof TileLiquifier)) {
+			IFluidHandler tank = (IFluidHandler) tile;
+				int purity = 1 + MaricultureHandlers.upgrades.getData("purity", master());
+				purity = (purity < 1) ? 1 : purity;
 
-		TransferHelper transfer = new TransferHelper(this);
-		transfer.transfer(rand, new int[] { drainAmount, 100, 20, 1 });
+				int drainAmount = purity * 100;
+
+				if (Extra.DEBUG_ON) {
+					drainAmount = 900;
+				}
+				
+				if(master().getFluid() != null) {
+					FluidStack fluid = master().getFluid().copy();
+					if(!FluidInventoryHelper.attemptTransfer(tank, drainAmount, master())) {
+						if(!FluidInventoryHelper.attemptTransfer(tank, 100, master())) {
+							if(!FluidInventoryHelper.attemptTransfer(tank, 20, master())) {
+								FluidInventoryHelper.attemptTransfer(tank, 1, master());
+							}
+						}
+					}
+				}
+		}
 	}
 	
 	public int getBurnTimeRemainingScaled(int par1) {
@@ -401,7 +453,6 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 		fuelHandler.write(tagCompound);
 	}
 
-	@Override
 	public void getGUINetworkData(int i, int j) {
 		super.getGUINetworkData(i, j);
 		switch (i) {
@@ -426,15 +477,14 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 		}
 	}
 
-	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 3, this.furnaceCookTime);
-		Packets.updateGUI(player, container, 4, this.fuelHandler.maxPer);
-		Packets.updateGUI(player, container, 5, this.fuelHandler.burnTime);
-		Packets.updateGUI(player, container, 6, this.temperature);
-		Packets.updateGUI(player, container, 7, this.TIME_TAKEN);
-		Packets.updateGUI(player, container, 8, this.bonus);
+	public void sendGUINetworkData(ContainerLiquifier liquifier, EntityPlayer player) {
+		super.sendGUINetworkData(liquifier, player);
+		PacketIntegerUpdate.send(liquifier, 3, this.furnaceCookTime, player);
+		PacketIntegerUpdate.send(liquifier, 4, this.fuelHandler.maxPer, player);
+		PacketIntegerUpdate.send(liquifier, 5, this.fuelHandler.burnTime, player);
+		PacketIntegerUpdate.send(liquifier, 6, this.temperature, player);
+		PacketIntegerUpdate.send(liquifier, 7, this.TIME_TAKEN, player);
+		PacketIntegerUpdate.send(liquifier, 8, this.bonus, player);
 	}
 
 	public String getRealTemperature() {
@@ -442,8 +492,10 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 	}
 	
 	@Override
-	public void updateUpgrades() {
+	protected void updateUpgrades() {
 		super.updateUpgrades();
+		
+		int purity = MaricultureHandlers.upgrades.getData("purity", this);
 		bonus = purity * (MetalRates.NUGGET);
 	}
 
@@ -463,12 +515,16 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return mstr.built? ((ISidedInventory)worldObj.getBlockTileEntity(mstr.x, mstr.y, mstr.z)).isItemValidForSlot(slot, stack): false;
+		if (master() != null) {
+			return master().isItemValidForSlot(slot, stack);
+		}
+
+		return false;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		if (mstr.built) {
+		if (master() != null) {
 			if (slot == 3 || slot == 5) {
 				return true;
 			}

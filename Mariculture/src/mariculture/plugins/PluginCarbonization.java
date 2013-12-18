@@ -2,23 +2,13 @@ package mariculture.plugins;
 
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.plugins.Plugins.Plugin;
+import mariculture.core.handlers.LiquifierHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class PluginCarbonization extends Plugin {
-	public PluginCarbonization(String name) {
-		super(name);
-	}
-	
-	@Override
-	public void preInit() {
-		
-	}
-
-	@Override
-	public void init() {
+public class PluginCarbonization {
+	public static void init() {
 		MaricultureHandlers.smelter.removeFuel(new ItemStack(Item.coal, 1, 0));
 		MaricultureHandlers.smelter.removeFuel(new ItemStack(Item.coal, 1, 1));
 		MaricultureHandlers.smelter.removeFuel(new ItemStack(Block.coalBlock, 1, 0));
@@ -35,10 +25,5 @@ public class PluginCarbonization extends Plugin {
 		MaricultureHandlers.smelter.addFuel("brickPeat", 12, 600);
 		MaricultureHandlers.smelter.addFuel("logWood", 8, 300);
 		MaricultureHandlers.smelter.addFuel("plankWood", 4, 150);
-	}
-
-	@Override
-	public void postInit() {
-		
 	}
 }

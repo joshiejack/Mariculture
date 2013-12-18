@@ -1,19 +1,21 @@
 package mariculture.world.decorate;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.api.core.CoralRegistry;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.WorldGeneration;
-import mariculture.plugins.Plugins;
 import mariculture.world.BlockCoral;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import cpw.mods.fml.common.Loader;
 
 public class WorldGenReef extends WorldGenerator {
 	private int numberOfBlocks;
@@ -39,7 +41,7 @@ public class WorldGenReef extends WorldGenerator {
 		double d5 = world.getTopSolidOrLiquidBlock(xCoord, zCoord);
 		int max = WorldGeneration.CORAL_DEPTH;
 
-		if (Plugins.bop.isLoaded()) {
+		if (Loader.isModLoaded("BiomesOPlenty")) {
 			max = max + 10;
 		}
 		

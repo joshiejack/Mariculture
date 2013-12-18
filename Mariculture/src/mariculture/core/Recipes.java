@@ -4,24 +4,12 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeFreezer;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.blocks.BlockLimestoneSlab;
 import mariculture.core.items.ItemBattery;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.FluidContainerMeta;
-import mariculture.core.lib.GlassMeta;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.OresMeta;
-import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.lib.UtilMeta;
-import mariculture.core.lib.WoodMeta;
+import mariculture.core.lib.*;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.PluginTinkersConstruct;
-import mariculture.plugins.Plugins;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -52,7 +40,7 @@ public class Recipes {
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(ItemBattery.make(new ItemStack(Core.battery), 50000), true, new Object[] { " I ", "TRT", "TRT",
-						Character.valueOf('I'), "ingotIron", Character.valueOf('R'), Item.redstone,
+						Character.valueOf('I'), Item.ingotIron, Character.valueOf('R'), Item.redstone,
 						Character.valueOf('T'), "ingotTitanium" }));
 		
 			GameRegistry.addShapelessRecipe(ItemBattery.make(new ItemStack(Core.battery), 50000),
@@ -84,13 +72,13 @@ public class Recipes {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), new Object[] { 
 					"IGI", "G G", "IGI", 
-					Character.valueOf('I'), "ingotIron", 
+					Character.valueOf('I'), Item.ingotIron, 
 					Character.valueOf('G'), Block.thinGlass }));
 		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), new Object[] { 
+				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_WOOD), new Object[] { 
 					"IGI", "G G", "IGI", 
 					Character.valueOf('I'), "logWood", 
 					Character.valueOf('G'), Block.fence }));
@@ -115,7 +103,44 @@ public class Recipes {
 					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 
 					Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
 					Character.valueOf('B'), Item.bucketWater,
-					Character.valueOf('I'), "ingotIron" }));
+					Character.valueOf('I'), Item.ingotIron }));
+		
+		if(!Loader.isModLoaded("ThermalExpansion")) {
+			CraftingManager
+					.getInstance()
+					.getRecipeList()
+					.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.PURIFIER), new Object[] { 
+						"TMR", 
+						Character.valueOf('T'), Block.torchRedstoneActive, 
+						Character.valueOf('R'), Item.redstone, 
+						Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON) }));
+		}
+
+        if(BlockIds.limestoneStairs != 0) {
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneStairs, 4), new Object[] { "B  ", "BB ", "BBB", Character.valueOf('B'),
+                            new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneBrickStairs, 4), new Object[] { "B  ", "BB ", "BBB",
+                    Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneSmoothStairs, 4), new Object[] { "B  ", "BB ", "BBB",
+                    Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneChiseledStairs, 4), new Object[] { "B  ", "BB ", "BBB",
+                    Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneSlabs, 6, BlockLimestoneSlab.BlockType.ROUGH.metadata()),
+                    new Object[] { "BBB", Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneSlabs, 6, BlockLimestoneSlab.BlockType.BRICK.metadata()),
+                    new Object[] { "BBB", Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneSlabs, 6, BlockLimestoneSlab.BlockType.SMOOTH.metadata()),
+                    new Object[] { "BBB", Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH) });
+
+            GameRegistry.addRecipe(new ItemStack(Core.limestoneSlabs, 6, BlockLimestoneSlab.BlockType.CHISELED.metadata()),
+                    new Object[] { "BBB", Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED) });
+        }
 
 		FurnaceRecipes.smelting().addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE,
 				new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
@@ -150,7 +175,7 @@ public class Recipes {
 				new ItemStack(Item.stick), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK)));
 		
 		//Titanium Rod	
-		if(Plugins.tic.isLoaded()) {
+		if(Loader.isModLoaded("TConstruct")) {
 			PluginTinkersConstruct.addRod = true;
 		} else {
 			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.titanium, MetalRates.NUGGET * 12), 
@@ -169,12 +194,9 @@ public class Recipes {
 				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
 				Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC) });
 		//Aluminum Sheet
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET), new Object[] {
-			"I I", " F ", "I I",
-			Character.valueOf('I'), "ingotAluminum",
-			Character.valueOf('F'), Item.flintAndSteel
-		});
-
+		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET), new Object[] { "A A", " F ", "A A", 
+				Character.valueOf('A'), new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM),
+				Character.valueOf('F'), Item.flintAndSteel });
 		//Heating
 		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), new Object[] { "CCC", "CCC",
 				Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE) });
@@ -184,28 +206,28 @@ public class Recipes {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { "  P", "PI ", "  P", 
 					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+					Character.valueOf('I'), Item.ingotIron }));
 		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { " P ", " I ", "P P", 
 					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+					Character.valueOf('I'), Item.ingotIron }));
 		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { "P  ", " IP", "P  ", 
 					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+					Character.valueOf('I'), Item.ingotIron }));
 		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { "P P", " I ", " P ", 
 					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+					Character.valueOf('I'), Item.ingotIron }));
 		//Carbide
 		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.CARBIDE), new Object[] { "CSF", "FBS", "SFC", 
 				Character.valueOf('C'), Item.clay, 
@@ -218,7 +240,7 @@ public class Recipes {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), new Object[] { " I ", "ISI", " I ", 
 					Character.valueOf('S'), "slabWood", 
-					Character.valueOf('I'), "ingotIron" }));
+					Character.valueOf('I'), Item.ingotIron }));
 		//Wicker
 		CraftingManager
 			.getInstance()
@@ -233,13 +255,6 @@ public class Recipes {
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), RecipesSmelting.gold, 
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.BLOCK), 
 							new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 1)));
-		
-		//Titanium Sheet
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET), new Object[] {
-			"I I", " F ", "I I",
-			Character.valueOf('I'), "ingotTitanium",
-			Character.valueOf('F'), Item.flintAndSteel
-		});
 	}
 	
 	private static void addMetalRecipes() {		
@@ -359,7 +374,7 @@ public class Recipes {
 				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING), new Object[] {
 						"CTC", "IUI", "TRT", 
 						Character.valueOf('I'), Block.ice, 
-						Character.valueOf('R'), "ingotIron",
+						Character.valueOf('R'), Item.ingotIron,
 						Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
 						Character.valueOf('T'), "ingotTitanium", 
 						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING) }));
@@ -381,7 +396,7 @@ public class Recipes {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING), new Object[] {
 						"HIH", 
-						Character.valueOf('I'), "ingotIron", 
+						Character.valueOf('I'), Item.ingotIron, 
 						Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
 		
 		CraftingManager
@@ -399,7 +414,7 @@ public class Recipes {
 				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING), new Object[] {
 						"IHI", "TUT", "IHI", 
 						Character.valueOf('T'), "ingotTitanium", 
-						Character.valueOf('I'), "ingotIron", 
+						Character.valueOf('I'), Item.ingotIron, 
 						Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), 
 						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING) }));
 		

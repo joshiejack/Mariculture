@@ -1,16 +1,14 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.blocks.core.TileStorage;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.network.Packets;
-import mariculture.core.util.IHasGUI;
 import mariculture.core.util.IItemDropBlacklist;
-import mariculture.core.util.IMachine;
-import mariculture.factory.items.ItemFilter;
+import mariculture.core.util.PacketIntegerUpdate;
+import mariculture.factory.gui.ContainerDictionary;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,41 +16,68 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.tileentity.TileEntity;
 
-public class TileDictionary extends TileStorage implements ISidedInventory, IItemDropBlacklist, IMachine, IHasGUI {
-	private int processed = 0;
+public class TileDictionary extends TileEntity implements IInventory, ISidedInventory, IItemDropBlacklist {
+	private ItemStack[] inventory = new ItemStack[21];
+	private int furnaceCookTime = 0;
 	private int totalCookTime = MachineSpeeds.getDictionarySpeed();
 
-	public TileDictionary() {
-		inventory = new ItemStack[21];
-	}
-	
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		this.processed = tagCompound.getShort("CookTime");
+
+		NBTTagList tagList = tagCompound.getTagList("Inventory");
+
+		for (int i = 0; i < tagList.tagCount(); i++) {
+			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+
+			byte slot = tag.getByte("Slot");
+
+			if (slot >= 0 && slot < inventory.length) {
+				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
+			}
+		}
+
+		this.furnaceCookTime = tagCompound.getShort("CookTime");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tagCompound.setShort("CookTime", (short) this.processed);
+
+		tagCompound.setShort("CookTime", (short) this.furnaceCookTime);
+
+		NBTTagList itemList = new NBTTagList();
+
+		for (int i = 0; i < inventory.length; i++) {
+			final ItemStack stack = inventory[i];
+
+			if (stack != null) {
+				final NBTTagCompound tag = new NBTTagCompound();
+
+				tag.setByte("Slot", (byte) i);
+				stack.writeToNBT(tag);
+				itemList.appendTag(tag);
+			}
+		}
+
+		tagCompound.setTag("Inventory", itemList);
 	}
 
-	@Override
 	public void updateEntity() {
 		boolean updated = false;
 
 		if (!this.worldObj.isRemote) {
 			if (swap(false)) {
-				this.processed++;
-				if (this.processed >= totalCookTime) {
-					this.processed = 0;
+				this.furnaceCookTime++;
+				if (this.furnaceCookTime >= totalCookTime) {
+					this.furnaceCookTime = 0;
 					this.swap(true);
 					updated = true;
 				}
 			} else {
-				this.processed = 0;
+				this.furnaceCookTime = 0;
 			}
 		}
 
@@ -63,13 +88,13 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 	
 	@Override
 	public Packet getDescriptionPacket() {
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		final NBTTagCompound tagCompound = new NBTTagCompound();
 		this.writeToNBT(tagCompound);
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
 	}
 
 	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
+	public void onDataPacket(final INetworkManager netManager, final Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
 	}
 
@@ -87,40 +112,50 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 		return false;
 	}
 
-	public ItemStack getNewStack(ItemStack stack) {
-		for(int i = 0; i < 9; i++) {
-			if(getStackInSlot(i) != null) {
-				ItemStack item = getStackInSlot(i);
-				
-				if(item.getItem() instanceof ItemFilter && item.hasTagCompound()) {
-					NBTTagList tagList = item.stackTagCompound.getTagList("Inventory");
-					if (tagList != null) {
-						for(int j = 0; j < tagList.tagCount(); j++) {
-							NBTTagCompound nbt = (NBTTagCompound) tagList.tagAt(j);
-							byte byte0 = nbt.getByte("Slot");
-							if (byte0 >= 0 && byte0 < ItemFilter.SIZE) {
-								ItemStack aStack = ItemStack.loadItemStackFromNBT(nbt);
-								if(DictionaryHelper.areEqual(aStack, stack)) {
-									return aStack;
-								}
-							}
-						}
+	private int isInFilter(String name) {
+		for (int j = 0; j < Compatibility.BLACKLIST.length; j++) {
+			if (Compatibility.BLACKLIST[j].equals(name)) {
+				return -1;
+			}
+		}
+		for (int i = 0; i < 9; i++) {
+			if (getStackInSlot(i) != null) {
+				ItemStack stack = getStackInSlot(i);
+				if (DictionaryHelper.isInDictionary(stack)) {
+					String check = DictionaryHelper.getDictionaryName(stack);
+					if (check.equals(name)) {
+						return i;
 					}
 					
-					continue;
-				}
-				
-				if(DictionaryHelper.areEqual(stack, item)) {
-					return item;
+					if(checkException(check, name)) {
+						return i;
+					}
 				}
 			}
 		}
+		return -1;
+	}
+	
+	private boolean checkException(String check, String name) {
+		for(int i = 0; i < Compatibility.EXCEPTIONS.length; i++) {
+			String[] names = Compatibility.EXCEPTIONS[i].split("\\s*:\\s*");
+			if((check.equals(names[0]) && name.equals(names[1])) ||
+					(check.equals(names[1]) && name.equals(names[0]))) {
+				return true;
+			}
+		}
 		
-		return stack;
+		return false;
 	}
 
 	private boolean swap(int slot, boolean doSwap) {
-		return moveStack(getNewStack(getStackInSlot(slot)), slot, doSwap);
+		ItemStack stack = getStackInSlot(slot);
+		if (DictionaryHelper.isInDictionary(stack) && isInFilter(DictionaryHelper.getDictionaryName(stack)) != -1) {
+			ItemStack newStack = getStackInSlot(isInFilter(DictionaryHelper.getDictionaryName(stack))).copy();
+			return moveStack(newStack, slot, doSwap);
+		} 
+		
+		return moveStack(getStackInSlot(slot), slot, doSwap);
 	}
 
 	private boolean moveStack(ItemStack stack, int origSlot, boolean doSwap) {
@@ -173,22 +208,98 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 		return -1;
 	}
 
-	@Override
 	public void getGUINetworkData(int i, int j) {
 		switch (i) {
-		case 0:
-			processed = j;
+		case 1:
+			furnaceCookTime = j;
 			break;
 		}
 	}
 
-	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, this.processed);
+	public void sendGUINetworkData(ContainerDictionary container, EntityPlayer player) {
+		PacketIntegerUpdate.send(container, 1, this.furnaceCookTime, player);
 	}
 
 	public int getFreezeProgressScaled(int par1) {
-		return (processed * par1) / totalCookTime;
+		return (furnaceCookTime * par1) / totalCookTime;
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return inventory.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slotIndex) {
+		return inventory[slotIndex];
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slotIndex, int amount) {
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		if (stack != null) {
+			if (stack.stackSize <= amount) {
+				setInventorySlotContents(slotIndex, null);
+			}
+
+			else {
+				stack = stack.splitStack(amount);
+				if (stack.stackSize == 0) {
+					setInventorySlotContents(slotIndex, null);
+				}
+			}
+		}
+
+		return stack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slotIndex) {
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		if (stack != null) {
+			setInventorySlotContents(slotIndex, null);
+		}
+
+		return stack;
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory[slot] = stack;
+		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+			stack.stackSize = getInventoryStackLimit();
+		}
+	}
+
+	@Override
+	public String getInvName() {
+		return "TileEntityDictionary";
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this
+				&& player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
+	}
+
+	@Override
+	public void openChest() {
+	}
+
+	@Override
+	public void closeChest() {
 	}
 
 	@Override

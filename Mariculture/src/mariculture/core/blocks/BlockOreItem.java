@@ -57,6 +57,9 @@ public class BlockOreItem extends ItemBlockMariculture {
 		case OresMeta.BASE_IRON:
 			name = "baseIron";
 			break;
+		case OresMeta.BASE_WOOD:
+			name = "baseWood";
+			break;
 
 		default:
 			name = "baseWood";

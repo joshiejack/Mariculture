@@ -30,7 +30,7 @@ public class ItemFood extends ItemMariculture {
 		case FoodMeta.FISH_FINGER:
 			return 0.5F;
 		case FoodMeta.CALAMARI:
-			return 0.85F;
+			return 0.8F;
 		case FoodMeta.SMOKED_SALMON:
 			return 1F;
 		default:

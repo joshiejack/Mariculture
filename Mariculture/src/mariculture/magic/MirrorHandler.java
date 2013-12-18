@@ -1,16 +1,26 @@
 package mariculture.magic;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import mariculture.api.core.IMirrorHandler;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.MirrorHelper;
-import mariculture.core.network.Packet109DamageJewelry;
+import mariculture.core.lib.EnchantIds;
+import mariculture.core.lib.Extra;
+import mariculture.core.lib.PacketIds;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
 
 public class MirrorHandler implements IMirrorHandler {
@@ -169,14 +179,14 @@ public class MirrorHandler implements IMirrorHandler {
 	@Override
 	public void damageItemsWithEnchantment(EntityPlayer player, int enchant, int amount) {
 		if (player.worldObj.isRemote && player instanceof EntityClientPlayerMP) {
-			((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet109DamageJewelry(enchant, amount).build());
+			sendDamagePacket((EntityClientPlayerMP) player, enchant, amount);
 			return;
 		}
 
 		handleDamage(player, enchant, amount);
 	}
 
-	public static void handleDamage(EntityPlayer player, int enchant, int amount) {
+	private static void handleDamage(EntityPlayer player, int enchant, int amount) {
 		// Mirror
 		ItemStack[] mirror = MirrorHelper.instance().get(player);
 		for (int i = 0; i < 3; i++) {
@@ -211,7 +221,89 @@ public class MirrorHandler implements IMirrorHandler {
 		MirrorHelper.instance().save(player, mirror);
 	}
 
+	private void sendDamagePacket(EntityClientPlayerMP player, int enchant, int amount) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeInt(PacketIds.DAMAGE_ITEM);
+			outputStream.writeInt(enchant);
+			outputStream.writeInt(amount);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "Mariculture";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+
+		player.sendQueue.addToSendQueue(packet);
+	}
+
+	public static void handleDamagePacket(Packet250CustomPayload packet, EntityPlayerMP player) {
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int enchant;
+		int amount;
+
+		try {
+			id = inputStream.readInt();
+			enchant = inputStream.readInt();
+			amount = inputStream.readInt();
+
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		handleDamage(player, enchant, amount);
+	}
+
+	public static void switchJewelry(Packet250CustomPayload packet, EntityPlayerMP player) {
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int slot;
+
+		try {
+			id = inputStream.readInt();
+			slot = inputStream.readInt();
+
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		handleSwitch(player, slot);
+	}
+
 	static boolean once = false;
+
+	public static void handleSwitch(EntityPlayerMP player, int slot) {
+
+		ItemStack[] mirror = MirrorHelper.instance().get(player);
+		ItemStack equipped = player.getCurrentEquippedItem();
+		ItemStack inTheMirror = null;
+
+		if (equipped == null || (equipped != null && equipped.getItem() instanceof ItemJewelry)) {
+			if (equipped != null) {
+				slot = equipped.itemID == Magic.ring.itemID ? 0 : slot;
+				slot = equipped.itemID == Magic.bracelet.itemID ? 1 : slot;
+				slot = equipped.itemID == Magic.necklace.itemID ? 2 : slot;
+			}
+
+			if (slot > -1) {
+				ItemStack inMirror = mirror[slot];
+
+				mirror[slot] = equipped;
+				player.setCurrentItemOrArmor(0, inMirror);
+
+				MirrorHelper.instance().save(player, mirror);
+			}
+		}
+
+	}
 
 	@Override
 	public boolean isJewelry(ItemStack stack) {

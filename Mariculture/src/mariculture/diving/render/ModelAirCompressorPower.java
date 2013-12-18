@@ -197,7 +197,7 @@ public class ModelAirCompressorPower extends ModelBase {
 
 			baseEdge2.render(scale);
 
-			final TileAirCompressorPower master = (TileAirCompressorPower) tile;
+			final TileAirCompressorPower master = (TileAirCompressorPower) tile.getMasterBlock();
 			if (master != null) {
 				switch (master.getStage()) {
 				case PowerStages.RED:

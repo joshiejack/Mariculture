@@ -7,14 +7,15 @@ import java.util.List;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.CoralMeta;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.Fishery;
-import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,21 +38,11 @@ import forestry.api.storage.BackpackManager;
 import forestry.api.storage.EnumBackpackType;
 import forestry.api.storage.IBackpackDefinition;
 
-public class PluginForestry extends Plugin {
+public class PluginForestry {
 	private static Item aquaBackpackT1;
 	private static Item aquaBackpackT2;
 
-	public PluginForestry(String name) {
-		super(name);
-	}
-	
-	@Override
-	public void preInit() {
-		
-	}
-
-	@Override
-	public void init() {
+	public static void init() {
 		if (Modules.fishery.isActive()) {
 
 			FMLInterModComms.sendMessage(
@@ -188,10 +179,5 @@ public class PluginForestry extends Plugin {
 
 			return false;
 		}
-	}
-	
-	@Override
-	public void postInit() {
-
 	}
 }

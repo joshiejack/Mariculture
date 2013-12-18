@@ -20,7 +20,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockAir extends BlockDecorative {
-	private Icon[] air;
+	private Icon air;
 	
 	public BlockAir(int i) {
 		super(i, Material.air);
@@ -79,10 +79,6 @@ public class BlockAir extends BlockDecorative {
 	
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if(world.getBlockMetadata(x, y, z) != AirMeta.NATURAL_GAS) {
-			return;
-		}
-		
 		if(entity instanceof EntityLivingBase) {
 			EntityLivingBase living = (EntityLivingBase) entity;
 			living.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 5, 2, true));
@@ -97,19 +93,13 @@ public class BlockAir extends BlockDecorative {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
-		if(meta == AirMeta.DEMO) {
-			return air[1];
-		}
-		
-		return air[0];
+		return air;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		air = new Icon[2];
-		air[0] = iconRegister.registerIcon(Mariculture.modid + ":air");
-		air[1] = iconRegister.registerIcon(Mariculture.modid + ":demo");
+		air = iconRegister.registerIcon(Mariculture.modid + ":air");
 	}
 	
 	@Override

@@ -4,13 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.Random;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.TileDoubleBlock;
+import mariculture.core.lib.PacketIds;
 import mariculture.core.lib.PowerStages;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class TileAirCompressorPower extends TileMulti {
+public class TileAirCompressorPower extends TileDoubleBlock {
 	private static boolean isPumping;
 	public int currentCharge;
 	private int storageCharge;
@@ -31,8 +32,6 @@ public class TileAirCompressorPower extends TileMulti {
 	}
 
 	public int getStage() {
-		//TODO: Full Rewrite of Air Compressor 
-		/*
 		TileAirCompressorPower compressor = (TileAirCompressorPower) this.getMasterBlock();
 
 		if (compressor != null) {
@@ -51,13 +50,12 @@ public class TileAirCompressorPower extends TileMulti {
 			if (compressor.currentCharge > 850) {
 				return PowerStages.GREEN;
 			}
-		} */
+		}
 
 		return PowerStages.EMPTY;
 	}
 
 	private boolean canBePumping() {
-		/*
 		if (this.getMasterBlock() != null && this.getOtherBlock() != null) {
 			final TileAirCompressorPower here = (TileAirCompressorPower) this.getMasterBlock();
 			final TileAirCompressorPower there = (TileAirCompressorPower) this.getOtherBlock();
@@ -79,7 +77,7 @@ public class TileAirCompressorPower extends TileMulti {
 				}
 			}
 
-		} */
+		}
 
 		return false;
 	}
@@ -88,7 +86,7 @@ public class TileAirCompressorPower extends TileMulti {
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		final DataOutputStream os = new DataOutputStream(bos);
 		try {
-			//os.writeInt(PacketIds.AIR_PRESS_POWER_UPDATE_ANIMATE);
+			os.writeInt(PacketIds.AIR_PRESS_POWER_UPDATE_ANIMATE);
 			os.writeInt(this.xCoord);
 			os.writeInt(this.yCoord);
 			os.writeInt(this.zCoord);
@@ -107,7 +105,7 @@ public class TileAirCompressorPower extends TileMulti {
 
 	@Override
 	public void updateEntity() {
-		/*if (this.getMasterBlock() != null && this.getOtherBlock() != null && this.getMasterBlock() == this) {
+		if (this.getMasterBlock() != null && this.getOtherBlock() != null && this.getMasterBlock() == this) {
 			if (animate) {
 				this.wheelAngle = this.wheelAngle + 0.1;
 
@@ -151,7 +149,7 @@ public class TileAirCompressorPower extends TileMulti {
 					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
-		} */
+		}
 	}
 
 	public boolean isPumping() {

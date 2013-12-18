@@ -1,13 +1,19 @@
 package mariculture.core.helpers;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.magic.ItemMirror;
+import mariculture.magic.gui.ContainerMirror;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.packet.Packet250CustomPayload;
 
 public class MirrorHelper {
 
@@ -16,7 +22,7 @@ public class MirrorHelper {
 	public static MirrorHelper instance() {
 		return INSTANCE;
 	}
-	
+
 	public ItemStack[] get(EntityPlayer player) {
 		if (!player.worldObj.isRemote) {
 			NBTTagCompound loader = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
@@ -61,6 +67,31 @@ public class MirrorHelper {
 			} catch (Exception e) {
 				LogHandler.log(Level.WARNING, "Mariculture had trouble saving Mirror Contents for " + player.username);
 			}
+		}
+	}
+	
+	public static void enchant(Packet250CustomPayload packet, EntityPlayerMP playerEntity) {
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int windowId;
+		int level;
+
+		try {
+			id = inputStream.readInt();
+			windowId = inputStream.readInt();
+			level = inputStream.readInt();
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		if (playerEntity.openContainer.windowId == windowId
+				&& playerEntity.openContainer.isPlayerNotUsingContainer(playerEntity)) {
+			ContainerMirror mirror = (ContainerMirror) playerEntity.openContainer;
+			mirror.windowId = windowId;
+			mirror.enchantItem(playerEntity, level);
+			mirror.detectAndSendChanges();
 		}
 	}
 }

@@ -1,9 +1,11 @@
 package mariculture.api.core;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public interface IUpgradeHandler {	
 	/** Returns the Storage, Purity or Heat value total of the upgradable tile, 
-	 * Use "storage" or "purity" or "temp"for thes tring type
+	 * Use "storage" or "purity" or "heat"for thes tring type
 	 */
 	public int getData(String type, IUpgradable tile);
 	

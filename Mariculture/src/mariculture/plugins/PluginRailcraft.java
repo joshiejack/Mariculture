@@ -10,24 +10,19 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.RecipeRemover;
-import mariculture.plugins.Plugins.Plugin;
 import mods.railcraft.api.crafting.RailcraftCraftingManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class PluginRailcraft extends Plugin {
-	public PluginRailcraft(String name) {
-		super(name);
-	}
-
-	public void init() {
+public class PluginRailcraft {
+	public static void init() {
 		final String id = "Railcraft";
 
 		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET));
-		RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET));
 
+		ItemStack railcraftGauge = GameRegistry.findItemStack(id, "machine.beta.tank.iron.gauge", 1);
 		ItemStack steelBoots = GameRegistry.findItemStack(id, "armor.steel.boots", 1);
 		ItemStack steelHelm = GameRegistry.findItemStack(id, "armor.steel.helmet", 1);
 		ItemStack steelPants = GameRegistry.findItemStack(id, "armor.steel.legs", 1);
@@ -48,34 +43,14 @@ public class PluginRailcraft extends Plugin {
 
 		MaricultureHandlers.smelter.addFuel(coalCoke, 64, 2000);
 		MaricultureHandlers.smelter.addFuel(coalCokeBlock, 576, 2000);
-		
-		for(ItemStack ingot: OreDictionary.getOres("ingotAluminum")) {
-			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
-					CraftingMeta.ALUMINUM_SHEET),
-					new Object[] { "## ", "## ", Character.valueOf('#'),
-							(ingot) });
-		}
-		
-		for(ItemStack ingot: OreDictionary.getOres("ingotTitanium")) {
-			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 1,
-					CraftingMeta.TITANIUM_SHEET),
-					new Object[] { "## ", "## ", Character.valueOf('#'),
-							(ingot) });
-		}
+		RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
+				CraftingMeta.ALUMINUM_SHEET),
+				new Object[] { "## ", "## ", Character.valueOf('#'),
+						(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM)) });
 
 		ItemStack input = new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE);
 		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);
 
 		RailcraftCraftingManager.rockCrusher.createNewRecipe(input, true, false).addOutput(output, 0.1F);
-	}
-
-	@Override
-	public void preInit() {
-		
-	}
-
-	@Override
-	public void postInit() {
-		
 	}
 }

@@ -91,7 +91,7 @@ public class Diving extends Module {
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.AIR_COMPRESSOR), true,new Object[] {"ITT", "III", "W  ", 
-					Character.valueOf('I'), "ingotIron", 
+					Character.valueOf('I'), Item.ingotIron, 
 					Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
 					Character.valueOf('T'), "ingotTitanium" }));
 		

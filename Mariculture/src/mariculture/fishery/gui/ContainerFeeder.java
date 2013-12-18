@@ -1,9 +1,9 @@
 package mariculture.fishery.gui;
 
 import mariculture.api.core.IItemUpgrade;
-import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.gui.SlotUpgrade;
+import mariculture.core.util.ContainerInteger;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
@@ -13,10 +13,11 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerFeeder extends ContainerMachine {
+public class ContainerFeeder extends ContainerInteger {
+	private TileFeeder tile;
 
 	public ContainerFeeder(TileFeeder tile, InventoryPlayer playerInventory) {
-		super(tile);
+		this.tile = tile;
 
 		this.addSlotToContainer(new SlotFather(tile, 0, 62, 21));
 		this.addSlotToContainer(new SlotMother(tile, 1, 91, 21));
@@ -29,10 +30,42 @@ public class ContainerFeeder extends ContainerMachine {
 
 		bindPlayerInventory(playerInventory);
 	}
+
+	private void bindPlayerInventory(final InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (int i = 0; i < crafters.size(); i++) {
+			tile.sendGUINetworkData(this, (EntityPlayer) crafters.get(i));
+		}
+
+	}
+
+	@Override
+	public void updateProgressBar(final int par1, final int par2) {
+		tile.getGUINetworkData(par1, par2);
+	}
+
+	@Override
+	public boolean canInteractWith(final EntityPlayer player) {
+		return tile.isUseableByPlayer(player);
+	}
 	
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = getSizeInventory();
+		int size = tile.getSizeInventory();
 		int low = size + 27;
 		int high = low + 9;
 		ItemStack itemstack = null;

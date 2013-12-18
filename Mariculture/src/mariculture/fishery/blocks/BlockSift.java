@@ -9,18 +9,28 @@ import mariculture.core.blocks.BlockMachine;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UpgradeMeta;
+import mariculture.core.util.IItemRegistry;
+import mariculture.factory.Factory;
+import mariculture.factory.blocks.TileFLUDDStand;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSift extends BlockMachine {
 	public BlockSift(int i) {
@@ -80,9 +90,11 @@ public class BlockSift extends BlockMachine {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile == null || player.isSneaking()) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g,
+			float t) {
+		final TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
+
+		if (tile_entity == null || player.isSneaking()) {
 			return false;
 		}
 
@@ -99,7 +111,7 @@ public class BlockSift extends BlockMachine {
 			}
 		}
 
-		if (tile instanceof TileSift && tile.getBlockMetadata() > 1) {
+		if (tile_entity instanceof TileSift && tile_entity.getBlockMetadata() > 1) {
 			player.openGui(Mariculture.instance, GuiIds.SIFT, world, x, y, z);
 			return true;
 		}
@@ -154,8 +166,8 @@ public class BlockSift extends BlockMachine {
 			final TileSift sift = (TileSift) world.getBlockTileEntity(x, y, z);
 			{
 				if (sift.getSuitableSlot(item) != 10) {
-					int slot = sift.getSuitableSlot(item);
-					ItemStack newStack = item;
+					final int slot = sift.getSuitableSlot(item);
+					final ItemStack newStack = item;
 					if (sift.getStackInSlot(slot) != null) {
 						newStack.stackSize = newStack.stackSize + sift.getStackInSlot(slot).stackSize;
 					}

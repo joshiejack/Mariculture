@@ -47,9 +47,6 @@ public class BlockUtilItem extends ItemBlockMariculture {
 		case UtilMeta.PURIFIER:
 			name = "converter";
 			break;
-		case UtilMeta.FISH_SORTER:
-			name = "fishSorter";
-			break;
 		default:
 			name = "dictionary";
 		}

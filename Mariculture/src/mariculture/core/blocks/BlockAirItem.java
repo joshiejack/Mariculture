@@ -23,9 +23,7 @@ public class BlockAirItem extends ItemBlockMariculture {
 		case AirMeta.FAKE_AIR:
 			name = "air";
 			break;
-		case AirMeta.DEMO:
-			name = "demo";
-			break;
+
 		default:
 			name = "air";
 		}

@@ -20,7 +20,8 @@ tile.oreBlocks.magnesiumBlock.name=Block of Magnesium
 tile.oreBlocks.copperBlock.name=Block of Copper
 tile.oreBlocks.baseBrick.name=Brick Construction Block
 tile.oreBlocks.baseIron.name=Iron Construction Block
-tile.utilBlocks.liquifier.name=Crucible Furnace
+tile.oreBlocks.baseWood.name=Wooden Construction Block
+tile.utilBlocks.liquifier.name=Industrial Smelter
 tile.utilBlocks.settler.name=Industrial Freezer
 tile.utilBlocks.bookshelf.name=Storage Bookshelf
 tile.utilBlocks.converter.name=RF to MJ Converter
@@ -48,10 +49,6 @@ tile.pearlBrick.silver.name=Silver Pearl Brick
 tile.glassBlocks.plastic.name=Transparent Plastic
 tile.airBlocks.air.name=Fake Air
 tile.airBlocks.naturalGas.name=Natural Gas
-tile.woodBlocks.baseWood.name=Wooden Construction Block
-tile.woodBlocks.polishedPlank.name=Polished Planks
-tile.woodBlocks.polishedLog.name=Polished Logs
-tile.tankBlocks.normal.name=Fluid Tank
 #fluids
 fluid.highPressureWater=Pressurised Water
 tile.highPressureWater.name=Pressurised Water
@@ -121,7 +118,6 @@ item.craftingItems.wheel.name=Iron Wheel
 item.craftingItems.wicker.name=Wicker
 item.craftingItems.plasticYellow.name=Golden Plastic
 item.craftingItems.titaniumRod.name=Polished Titanium Rod
-item.craftingItems.titaniumSheet.name=Sheet of Titanium
 item.upgrade.storage.name=Basic Storage Upgrade
 item.upgrade.storageStd.name=Standard Storage Upgrade
 item.upgrade.storageAdv.name=Advanced Storage Upgrade
@@ -156,7 +152,7 @@ item.liquidContainers.bottleSilver.name=Bottle of Molten Silver
 item.liquidContainers.bottleLead.name=Bottle of Molten Tin
 item.liquidContainers.bottleBronze.name=Bottle of Molten Bronze
 item.liquidContainers.bottleSteel.name=Bottle of Molten Steel
-item.liquidContainers.bottleAluminum.name=Bottle of Molten Aluminium
+item.liquidContainers.bottleAlumina.name=Bottle of Molten Aluminium
 item.liquidContainers.bottleTitanium.name=Bottle of Molten Titanium
 item.liquidContainers.bottleMagnesium.name=Bottle of Molten Magnesium
 item.liquidContainers.bottleNickel.name=Bottle of Molten Nickel
@@ -189,8 +185,6 @@ tile.utilBlocks.dictionary.name=Automatic Dictionary Converter
 tile.customBlocks.turbine.name=Water Turbine
 tile.customBlocks.turbineGas.name=Gas Turbine
 tile.customBlocks.fludd.name=F.L.U.D.D.
-tile.customBlocks.geyser.name=Water Geyser
-tile.customBlocks.turbineHand.name=Manpowered Turbine
 #customblocks
 tile.customFence.customFence=Custom Fence
 tile.customGate.customGate=Custom Gate
@@ -217,7 +211,6 @@ item.plans.plan_wall.name=Plan - Wall
 item.plans.plan_light.name=Plan - Light
 item.plans.plan_redstone.name=Plan - Redstone Flux Block
 item.fludd.name=F.L.U.D.D.
-item.filter.name=Item Filter
 
 ### Fishery ###
 #blocks
@@ -251,7 +244,6 @@ tile.lampsOff.blue.name=Blue Neon Lamp
 tile.lampsOff.black.name=Black Neon Lamp
 tile.lampsOff.pink.name=Pink Neon Lamp
 tile.lampsOff.silver.name=Silver Neon Lamp
-tile.tankBlocks.fish=Fish Tank
 item.net.name=Fishing Net
 #fluid
 fluid.fishFood=Fish Food
@@ -281,7 +273,6 @@ item.food.calamari.name=Calamari
 item.food.smokedSalmon.name=Smoked Salmon
 item.craftingItems.dragonEgg.name=Spawn Ender Dragon
 item.liquidContainers.bottleFishOil.name=Bottle of Fish Oil
-item.rodFlux.name=RF Fishing Rod
 #fish breeding
 item.fishy=Mariculture Fish
 fish.data.dead=Raw
@@ -440,10 +431,6 @@ mariculture.string.flight=Superman: Flight Speed Set to Level
 mariculture.string.with=Made with:
 mariculture.string.keepNight=Keeping Night
 mariculture.string.keepDay=Keeping Day
-mariculture.string.shift.hold=Hold
-mariculture.string.shift.shift=Shift
-mariculture.string.shift.rod=to display usable bait
-mariculture.string.bait=Usable Bait
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Titanium Arrowhead

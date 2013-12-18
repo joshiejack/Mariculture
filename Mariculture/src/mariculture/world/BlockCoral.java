@@ -256,7 +256,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
-		return canSustainPlant(world, x, y, z, ForgeDirection.UNKNOWN, this);
+		return canSustainPlant(world, x, y, z, ForgeDirection.UP, this);
 	}
 
 	@Override

@@ -1,20 +1,15 @@
 package mariculture.core.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,6 +18,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemFluidContainer extends ItemMariculture {
+
 	public ItemFluidContainer(int i) {
 		super(i);
 	}
@@ -111,7 +107,7 @@ public class ItemFluidContainer extends ItemMariculture {
 			break;
 		}
 		case FluidContainerMeta.BOTTLE_ALUMINUM: {
-			name = "bottleAluminum";
+			name = "bottleAlumina";
 			break;
 		}
 		case FluidContainerMeta.BOTTLE_TITANIUM: {
@@ -132,14 +128,6 @@ public class ItemFluidContainer extends ItemMariculture {
 		}
 		case FluidContainerMeta.BOTTLE_GAS: {
 			name = "bottleNaturalGas";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_FISH_FOOD: {
-			name = "bottleFishFood";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_RUTILE: {
-			name = "bottleRutile";
 			break;
 		}
 		default:
@@ -169,17 +157,6 @@ public class ItemFluidContainer extends ItemMariculture {
 
 		default:
 			return true;
-		}
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
-		for (int i = 0; i < icons.length; i++) {
-			if(isActive(i)) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, i)));
-			}
 		}
 	}
 }

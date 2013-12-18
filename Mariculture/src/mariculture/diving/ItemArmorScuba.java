@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Mariculture;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.PrefixColor;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -44,14 +44,14 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry {
 				final boolean landLightOn = stack.getTagCompound().getBoolean("ScubaMaskOnOutOfWater");
 
 				if (landLightOn) {
-					list.add(StatCollector.translateToLocal("mariculture.string.landlights") + ": " + Text.DARK_GREEN
+					list.add(StatCollector.translateToLocal("mariculture.string.landlights") + ": " + PrefixColor.DARK_GREEN
 							+ StatCollector.translateToLocal("mariculture.string.on"));
 				} else {
-					list.add(StatCollector.translateToLocal("mariculture.string.landlights") + ": " + Text.RED
+					list.add(StatCollector.translateToLocal("mariculture.string.landlights") + ": " + PrefixColor.RED
 							+ StatCollector.translateToLocal("mariculture.string.off"));
 				}
 			} else {
-				list.add(StatCollector.translateToLocal("mariculture.string.landlights") + ": " + Text.RED
+				list.add(StatCollector.translateToLocal("mariculture.string.landlights") + ": " + PrefixColor.RED
 						+ StatCollector.translateToLocal("mariculture.string.off"));
 			}
 		}

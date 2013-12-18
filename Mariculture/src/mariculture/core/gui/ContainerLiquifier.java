@@ -3,16 +3,20 @@ package mariculture.core.gui;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.util.ContainerInteger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class ContainerLiquifier extends ContainerMachine {	
-	public ContainerLiquifier(TileLiquifier tile, InventoryPlayer inventory) {
-		super(tile);
+public class ContainerLiquifier extends ContainerInteger {
+	private TileLiquifier tile;
+
+	public ContainerLiquifier(TileLiquifier tile, InventoryPlayer playerInventory) {
+		this.tile = tile;
 
 		for (int i = 0; i < 2; i++) {
 			addSlotToContainer(new Slot(tile, i, 21 + (i * 18), 17));
@@ -27,12 +31,44 @@ public class ContainerLiquifier extends ContainerMachine {
 			addSlotToContainer(new SlotUpgrade(tile, i + 6, 148, 16 + (i * 18)));
 		}
 
-		bindPlayerInventory(inventory);
+		bindPlayerInventory(playerInventory);
+	}
+
+	private void bindPlayerInventory(InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
+	}
+
+	@Override
+	public boolean canInteractWith(EntityPlayer player) {
+		return tile.isUseableByPlayer(player);
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (int i = 0; i < crafters.size(); i++) {
+			tile.sendGUINetworkData(this, (EntityPlayer) crafters.get(i));
+		}
+
+	}
+
+	@Override
+	public void updateProgressBar(int par1, int par2) {
+		tile.getGUINetworkData(par1, par2);
 	}
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = ((IInventory)tile).getSizeInventory();
+		int size = tile.getSizeInventory();
 		int low = size + 27;
 		int high = low + 9;
 		ItemStack itemstack = null;

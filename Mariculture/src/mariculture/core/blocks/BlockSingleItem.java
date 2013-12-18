@@ -34,10 +34,6 @@ public class BlockSingleItem extends ItemBlockMariculture {
 			break;
 		case SingleMeta.GEYSER:
 			name = "geyser";
-			break;
-		case SingleMeta.TURBINE_HAND:
-			name = "turbineHand";
-			break;
 		default:
 			name = "customBlocks";
 		}

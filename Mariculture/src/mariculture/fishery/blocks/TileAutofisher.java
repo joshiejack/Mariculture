@@ -5,52 +5,130 @@ import java.util.Random;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
-import mariculture.core.blocks.core.TileStorage;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.network.Packets;
-import mariculture.core.util.IHasGUI;
-import mariculture.core.util.IMachine;
+import mariculture.fishery.gui.ContainerAutofisher;
 import mariculture.fishery.items.ItemBait;
 import mariculture.fishery.items.ItemRod;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerHandler;
+import buildcraft.api.power.PowerHandler.PowerReceiver;
+import buildcraft.api.power.PowerHandler.Type;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.TileEnergyHandler;
 
-public class TileAutofisher extends TileStorage implements IEnergyHandler, ISidedInventory, IMachine, IHasGUI {
+public class TileAutofisher extends TileEnergyHandler implements IInventory, IEnergyHandler, ISidedInventory, IPowerReceptor {
 
-	protected EnergyStorage storage;
+	private final ItemStack[] inventory = new ItemStack[16];
 	private int catchingLength = MachineSpeeds.getAutofisherSpeed();
 	private int baitGradeUsed = 0;
+
+	private PowerHandler powerHandler;
+
 	private int catchingTime = 0;
 	private int currentCatchingTime = 0;
 
 	public TileAutofisher() {
-		inventory = new ItemStack[16];
 		storage = new EnergyStorage(5000);
+		powerHandler = new PowerHandler(this, Type.MACHINE);
+		powerHandler.configure(2, 100, 50, 500);
+		powerHandler.configurePowerPerdition(0, 0);
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return inventory.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slotIndex) {
+		return inventory[slotIndex];
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory[slot] = stack;
+		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+			stack.stackSize = getInventoryStackLimit();
+		}
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slotIndex, int amount) {
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		if (stack != null) {
+			if (stack.stackSize <= amount) {
+				setInventorySlotContents(slotIndex, null);
+			}
+
+			else {
+				stack = stack.splitStack(amount);
+				if (stack.stackSize == 0) {
+					setInventorySlotContents(slotIndex, null);
+				}
+			}
+		}
+
+		return stack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slotIndex) {
+		final ItemStack stack = getStackInSlot(slotIndex);
+
+		if (stack != null) {
+			setInventorySlotContents(slotIndex, null);
+		}
+
+		return stack;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
 	}
 
 	public boolean isCatching() {
 		return this.catchingTime > 0;
 	}
+	
+	public void addEnergy() {
+		if(!worldObj.isRemote) {
+			if(powerHandler.getEnergyStored() > 0) {
+				storage.receiveEnergy((int) (powerHandler.getEnergyStored() * 10), false);
+				powerHandler.setEnergy(0F);
+			}
+		}
+	}
 
 	@Override
 	public void updateEntity() {
+		this.addEnergy();
+		
 		if(this.canAutoFish()) {
-			if (storage.extractEnergy(20, false) < 20) {
+			if (storage.extractEnergy(20, true) < 20) {
 				return;
+			} else {
+				storage.extractEnergy(20, false);
 			}
 			
-			boolean checkTime = this.catchingTime > 0;
+			final boolean checkTime = this.catchingTime > 0;
 			boolean shouldUpdate = false;
 	
 			if (this.catchingTime > 0) {
@@ -88,7 +166,8 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 						Random rand = new Random();
 						if (rand.nextInt(getChance(baitGradeUsed) + 1) == 1 && inventory[0].getItem() instanceof ItemBaseRod) {
 							EnumRodQuality quality = ((ItemBaseRod) inventory[0].getItem()).getQuality();
-							ItemStack lootResult = Fishing.loot.getLoot(rand, quality, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+							ItemStack lootResult = Fishing.loot.getLoot(rand, quality, this.worldObj, this.xCoord,
+									this.yCoord, this.zCoord);
 	
 							if (lootResult != null) {
 								if (!InventoryHelper.addToInventory(0, worldObj, xCoord, yCoord, zCoord, lootResult, null)) {
@@ -104,7 +183,8 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 										setInventorySlotContents(slot, lootResult);
 									} else {
 										// Otherwise Spawn the item in the world :o
-										EntityItem dropped = new EntityItem(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, lootResult);
+										EntityItem dropped = new EntityItem(this.worldObj, this.xCoord, this.yCoord + 1,
+												this.zCoord, lootResult);
 										this.worldObj.spawnEntityInWorld(dropped);
 									}
 								}
@@ -141,14 +221,14 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 		return 0;
 	}
 
-	private int getSuitableSlot(ItemStack item) {
+	private int getSuitableSlot(final ItemStack item) {
 		for (int i = 7; i < inventory.length; i++) {
 			if (inventory[i] == null) {
 				return i;
 			}
 
-			if ((inventory[i].getItemDamage() == item.getItemDamage() && inventory[i].itemID == item.itemID 
-					&& (inventory[i].stackSize + item.stackSize) <= inventory[i].getMaxStackSize())) {
+			if ((inventory[i].getItemDamage() == item.getItemDamage() && inventory[i].itemID == item.itemID && (inventory[i].stackSize + item.stackSize) <= inventory[i]
+					.getMaxStackSize())) {
 				return i;
 			}
 		}
@@ -156,7 +236,7 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 		return 16;
 	}
 
-	public int getCatchTimeRemainingScaled(int scale) {
+	public int getCatchTimeRemainingScaled(final int scale) {
 		return (currentCatchingTime * scale) / catchingLength;
 	}
 
@@ -203,22 +283,51 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
+
+		final NBTTagList tagList = tagCompound.getTagList("Inventory");
+
+		for (int i = 0; i < tagList.tagCount(); i++) {
+			final NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+
+			final byte slot = tag.getByte("Slot");
+
+			if (slot >= 0 && slot < inventory.length) {
+				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
+			}
+		}
+
 		catchingTime = tagCompound.getInteger("CatchTime");
 		currentCatchingTime = tagCompound.getInteger("CurrentCatchTime");
 		baitGradeUsed = tagCompound.getInteger("BaitGradeUsed");
-		storage.readFromNBT(tagCompound);
+		powerHandler.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
+
+		powerHandler.writeToNBT(tagCompound);
 		tagCompound.setInteger("CatchTime", this.catchingTime);
 		tagCompound.setInteger("CurrentCatchTime", this.currentCatchingTime);
 		tagCompound.setInteger("BaitGradeUsed", this.baitGradeUsed);
-		storage.writeToNBT(tagCompound);
+
+		final NBTTagList itemList = new NBTTagList();
+
+		for (int i = 0; i < inventory.length; i++) {
+			final ItemStack stack = inventory[i];
+
+			if (stack != null) {
+				final NBTTagCompound tag = new NBTTagCompound();
+
+				tag.setByte("Slot", (byte) i);
+				stack.writeToNBT(tag);
+				itemList.appendTag(tag);
+			}
+		}
+
+		tagCompound.setTag("Inventory", itemList);
 	}
 
-	@Override
 	public void getGUINetworkData(int i, int j) {
 		switch (i) {
 		case 0:
@@ -238,14 +347,24 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 			break;
 		}
 	}
-	
+
+	public void sendGUINetworkData(final ContainerAutofisher fisher, final ICrafting iCrafting) {
+		iCrafting.sendProgressBarUpdate(fisher, 0, this.catchingTime);
+		iCrafting.sendProgressBarUpdate(fisher, 1, this.currentCatchingTime);
+		iCrafting.sendProgressBarUpdate(fisher, 2, this.baitGradeUsed);
+		iCrafting.sendProgressBarUpdate(fisher, 3, this.storage.getEnergyStored());
+		iCrafting.sendProgressBarUpdate(fisher, 4, this.storage.getMaxEnergyStored());
+	}
+
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, this.catchingTime);
-		Packets.updateGUI(player, container, 1, this.currentCatchingTime);
-		Packets.updateGUI(player, container, 2, this.baitGradeUsed);
-		Packets.updateGUI(player, container, 3, this.storage.getEnergyStored());
-		Packets.updateGUI(player, container, 4, this.storage.getMaxEnergyStored());
+	public String getInvName() {
+		return "TileEntityAutofisher";
+	}
+
+	@Override
+	public boolean isUseableByPlayer(final EntityPlayer player) {
+		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this
+				&& player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
 	}
 
 	private static final int[] slots_top = new int[] { 0, 1, 2, 3, 4, 5, 6 };
@@ -280,32 +399,35 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 		return false;
 	}
 
+	@Override
+	public void openChest() {
+	}
+
+	@Override
+	public void closeChest() {
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		return false;
+	}
+
 	public int getPowerScaled(int i) {
 		return (storage.getEnergyStored() * i) / storage.getMaxEnergyStored();
 	}
 
 	@Override
-	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return storage.receiveEnergy(maxReceive, simulate);
+	public PowerReceiver getPowerReceiver(ForgeDirection side) {
+		return powerHandler.getPowerReceiver();
 	}
 
 	@Override
-	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return storage.extractEnergy(maxExtract, simulate);
+	public void doWork(PowerHandler workProvider) {
+		return;
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
-		return from != ForgeDirection.DOWN;
-	}
-
-	@Override
-	public int getEnergyStored(ForgeDirection from) {
-		return storage.getEnergyStored();
-	}
-
-	@Override
-	public int getMaxEnergyStored(ForgeDirection from) {
-		return storage.getMaxEnergyStored();
+	public World getWorld() {
+		return this.worldObj;
 	}
 }

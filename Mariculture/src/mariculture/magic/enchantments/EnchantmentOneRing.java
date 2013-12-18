@@ -43,6 +43,31 @@ public class EnchantmentOneRing extends EnchantmentJewelry {
 		return false;
 	}
 
+	public static void handlePacket(Packet250CustomPayload packet, EntityPlayer player) {
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int entityID;
+		boolean active;
+
+		try {
+			id = inputStream.readInt();
+			entityID = inputStream.readInt();
+			active = inputStream.readBoolean();
+		} catch (IOException e) {
+			LogHandler.log(Level.WARNING, "Mariculture ERROR while handling One Ring Enchantment Packet");
+			return;
+		}
+
+		for (int i = 0; i < player.worldObj.playerEntities.size(); i++) {
+			EntityPlayer aPlayer = (EntityPlayer) player.worldObj.playerEntities.get(i);
+
+			if (aPlayer.entityId == entityID) {
+				aPlayer.setInvisible(active);
+			}
+		}
+	}
+
 	public static void activate(EntityPlayer player) {
 		if (!player.isPotionActive(Potion.invisibility)) {
 			player.setInvisible(EnchantHelper.hasEnchantment(Magic.oneRing, player));

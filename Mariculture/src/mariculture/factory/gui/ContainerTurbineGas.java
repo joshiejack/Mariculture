@@ -1,18 +1,18 @@
 package mariculture.factory.gui;
 
 import mariculture.api.core.IItemUpgrade;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.gui.SlotUpgrade;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.util.ContainerInteger;
 import mariculture.factory.blocks.TileTurbineGas;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerTurbineGas extends ContainerMariculture {
+public class ContainerTurbineGas extends ContainerInteger {
 	private TileTurbineGas tile;
 
 	public ContainerTurbineGas(TileTurbineGas tile, InventoryPlayer playerInventory) {
@@ -26,6 +26,18 @@ public class ContainerTurbineGas extends ContainerMariculture {
 		addSlotToContainer(new SlotOutput(tile, 4, 32, 50));
 
 		bindPlayerInventory(playerInventory);
+	}
+
+	private void bindPlayerInventory(final InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
 	}
 
 	@Override

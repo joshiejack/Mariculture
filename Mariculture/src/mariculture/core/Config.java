@@ -3,6 +3,7 @@ package mariculture.core;
 import java.io.File;
 import java.util.logging.Level;
 
+import mariculture.core.handlers.LegacyConfigCopier;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.EnchantIds;
@@ -14,10 +15,21 @@ import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
+import mariculture.world.WorldGen;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
 
 public class Config {
+	public static boolean legacy;
+	public static void load(String dir) {
+		if(legacy) {
+			LegacyConfigCopier.copy(dir);
+		} else {
+            init(dir);
+		}
+	}
+
     public static void init(String dir) {
         initOther(new Configuration(new File(dir, "other.cfg")));
         initIDs(new Configuration(new File(dir, "ids.cfg")));
@@ -29,7 +41,6 @@ public class Config {
     private static void initOther(Configuration config) {
         try {
             config.load();
-                        
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
             Extra.REFRESH_CLIENT_RATE = config.get(Category.CLIENT, "Client Refresh Rate", 30, Comment.REFRESH).getInt();
             Extra.DEBUG_ON = config.get(Category.EXTRA, "Debug Mode Enabled", false).getBoolean(false);
@@ -37,7 +48,7 @@ public class Config {
             Extra.FLUDD_WATER_ON = config.get(Category.CLIENT, "Enable FLUDD Animations", true, Comment.FLUDD).getBoolean(true);
             Extra.ENABLE_ENDER_SPAWN = config.get(Category.EXTRA, "Enable Ender Dragon Spawning", true, Comment.ENDERDRAGON).getBoolean(true);
             
-            Compatibility.WHITELIST = config.get(Category.DICTIONARY, "Whitelist", Extra.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
+            Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "Blacklist", Extra.EXCEPTIONS_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "Exceptions", Extra.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Mariculture had a problem loading the other settings");
@@ -75,15 +86,12 @@ public class Config {
             OreGeneration.NATURAL_GAS_MIN = config.get(Category.ORE, "Natural Gas > Minimum Y Height", 16).getInt();
             OreGeneration.NATURAL_GAS_MAX = config.get(Category.ORE, "Natural Gas > Maximum Y Height", 26).getInt();
 
-            WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);
             WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 32).getInt();
             WorldGeneration.CORAL_DEPTH = config.get(Category.WORLD, "Coral > Maximum Depth", 25).getInt();
             WorldGeneration.KELP_CHANCE = config.get(Category.WORLD, "Kelp > 1 Forest Per This Many Chunks", 400).getInt();
             WorldGeneration.KELP_DEPTH = config.get(Category.WORLD, "Kelp > Maximum Depth", 35).getInt();
             WorldGeneration.KELP_HEIGHT = config.get(Category.WORLD, "Kelp > Maximum World Gen Height", 25).getInt();
-            WorldGeneration.KELP_PATCH_ENABLED = config.get(Category.WORLD, "Kelp > Single Generation", true).getBoolean(true);
             WorldGeneration.KELP_PATCH_DENSITY = config.get(Category.WORLD, "Kelp > Single Density", 10).getInt();
-            WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp > Forest Generation", true).getBoolean(true);
             WorldGeneration.KELP_FOREST_DENSITY = config.get(Category.WORLD, "Kelp > Forest Density", 25).getInt();
             WorldGeneration.KELP_CHEST_CHANCE = config.get(Category.WORLD, "Kelp > 1 Treasure Chest Per This Many Kelp", 1024).getInt();
             WorldGeneration.DEEP_OCEAN = config.get(Category.WORLD, "Deep Oceans", true).getBoolean(true);
@@ -142,7 +150,8 @@ public class Config {
             Extra.CORAL_SPREAD_CHANCE = config.get(Category.PROD, "Coral Spread Chance", 75, Comment.CORAL_SPREAD).getInt();
             Extra.KELP_SPREAD_CHANCE = config.get(Category.PROD, "Kelp Spread Moss Chance", 65, Comment.KELP_SPREAD).getInt();
             Extra.KELP_GROWTH_CHANCE = config.get(Category.PROD, "Kelp Growth Chance", 80, Comment.KELP_GROWTH).getInt();
-            Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster > Pearl Generation Chance", 32, Comment.PEARL_CHANCE).getInt();
+            Extra.PEARL_GEN_SPEED = config.get(Category.PROD, "Pearl Oyster Speed", 6000, Comment.PEARL_RATE).getInt();
+            Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster Pearl Chance", 3, Comment.PEARL_CHANCE).getInt();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "There was an issue with Mariculture when adjusting machine settings");
         } finally {
@@ -162,15 +171,21 @@ public class Config {
             BlockIds.doubleBlocks = config.getBlock("Double Blocks", 753).getInt();
             BlockIds.oyster = config.getBlock("Oyster", 754).getInt();
             BlockIds.sift = config.getBlock("Sifter", 755).getInt();
-            BlockIds.woodBlocks = config.getBlock("Wooden Blocks", 756).getInt();
-            BlockIds.tankBlocks = config.getBlock("Tank", 757).getInt();
-            //FREEID: 758 > 761
+            //FREEID: 756 > 761
             BlockIds.lampsOn = config.getBlock("Neon Lamps On", 762).getInt();
             BlockIds.lampsOff = config.getBlock("Neon Lamps Off", 763).getInt();
             BlockIds.pearlBrick = config.getBlock("Pearl Bricks", 764).getInt();
             BlockIds.glassBlocks = config.getBlock("Glass Blocks", 765).getInt();
             BlockIds.coral = config.getBlock("Coral & Kelp", 766).getInt();
             BlockIds.airBlocks = config.getBlock("Air Blocks", 767).getInt();
+
+            //TODO Remove
+            BlockIds.limestoneStairs = config.getBlock("Legacy > Limestone Stairs", 0, Comment.LEGACY).getInt();
+            BlockIds.limestoneBrickStairs = config.getBlock("Legacy > Limestone Brick Stairs", 0, Comment.LEGACY).getInt();
+            BlockIds.limestoneSmoothStairs = config.getBlock("Legacy > Limestone Smooth Stairs", 0, Comment.LEGACY).getInt();
+            BlockIds.limestoneChiseledStairs = config.getBlock("Legacy > Limestone Chiseled Stairs", 0, Comment.LEGACY).getInt();
+            BlockIds.limestoneDoubleSlabs = config.getBlock("Legacy > Limestone Slabs Double", 0, Comment.LEGACY).getInt();
+            BlockIds.limestoneSlabs = config.getBlock("Legacy > Limestone Slabs Single", 0, Comment.LEGACY).getInt();
 
             //FREEID: 768 > 780
 
@@ -187,7 +202,25 @@ public class Config {
             BlockIds.customRFBlock = config.getBlock("Custom RF Block", 789).getInt();
 
             //FREEID: 790 > 797
-            BlockIds.highPressureWater = config.getBlock("High Pressure Water", 800).getInt();
+
+            //Molten/Liquid Blocks
+            BlockIds.moltenRutile = config.getBlock("Molten Impure Titanium", 798).getInt();
+            BlockIds.moltenGlass = config.getBlock("Molten Glass", 799).getInt();
+            BlockIds.moltenAluminum = config.getBlock("Molten Aluminum", 800).getInt();
+            BlockIds.moltenTitanium = config.getBlock("Molten Titanium", 801).getInt();
+            BlockIds.moltenIron = config.getBlock("Molten Iron", 802).getInt();
+            BlockIds.moltenMagnesium = config.getBlock("Molten Magnesium", 803).getInt();
+            BlockIds.moltenTin = config.getBlock("Molten Tin", 804).getInt();
+            BlockIds.moltenGold = config.getBlock("Molten Gold", 805).getInt();
+            BlockIds.moltenCopper = config.getBlock("Molten Copper", 806).getInt();
+            BlockIds.moltenBronze = config.getBlock("Molten Bronze", 807).getInt();
+            BlockIds.moltenLead = config.getBlock("Molten Lead", 808).getInt();
+            BlockIds.moltenSilver = config.getBlock("Molten Silver", 809).getInt();
+            BlockIds.moltenSteel = config.getBlock("Molten Steel", 810).getInt();
+            BlockIds.moltenNickel = config.getBlock("Molten Nickel", 812).getInt();
+            BlockIds.fishOil = config.getBlock("Fish Oil", 813).getInt();
+            BlockIds.fishFood = config.getBlock("Fish Food", 814).getInt();
+            BlockIds.highPressureWater = config.getBlock("High Pressure Water", 815).getInt();
 
             /** END BLOCK IDS, BEGIN ITEM IDS **/
             ItemIds.metals = config.getItem("Materials", 29000).getInt();
@@ -224,7 +257,6 @@ public class Config {
             ItemIds.plans = config.getItem("Plans", 29031).getInt();
             ItemIds.fludd = config.getItem("FLUDD", 29032).getInt();
             ItemIds.paintbrush = config.getItem("Paintbrush", 29033).getInt();
-           
             //Titanium Parts
             ItemIds.titanium_part_1 = config.getItem("TiC Titanium - Arrowhead", 29034).getInt();
             ItemIds.titanium_part_2 = config.getItem("TiC Titanium - Axe Head", 29035).getInt();
@@ -250,13 +282,7 @@ public class Config {
             ItemIds.titanium_part_22 = config.getItem("TiC Titanium - Tool Rod", 29055).getInt();
             ItemIds.titanium_part_23 = config.getItem("TiC Titanium - Tough Binding", 29056).getInt();
             ItemIds.titanium_part_24 = config.getItem("TiC Titanium - Tough Rod", 29057).getInt();
-            
-            //FREEIDS: 29062 > 29100
-            ItemIds.rodFlux = config.getItem("Fishing Rod - Flux", 29058).getInt();
-            ItemIds.filter = config.getItem("Item Filter", 29059).getInt();
-            ItemIds.turbineCopper = config.getItem("Rotor - Copper", 29060).getInt();
-            ItemIds.turbineAluminum = config.getItem("Rotor - Aluminum", 29061).getInt();
-            ItemIds.turbineTitanium = config.getItem("Rotot - Titanium", 29062).getInt();
+            //FREEIDS: 29058 > 29100
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

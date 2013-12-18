@@ -3,7 +3,9 @@ package mariculture.magic.gui;
 import java.util.Random;
 
 import mariculture.core.Mariculture;
-import mariculture.core.network.Packet112Enchant;
+import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.lib.Extra;
+import mariculture.magic.EnchantPacket;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -12,6 +14,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnchantmentNameParts;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -201,7 +204,7 @@ public class GuiMirror extends GuiContainer {
 				if (var7 >= 0 && var8 >= 0 && var7 < 108 && var8 < 19
 						&& containerMirror.enchantItem(this.mc.thePlayer, (var6) + 1)) {
 					final int level = enchantLevels[var6];
-					mc.thePlayer.sendQueue.addToSendQueue(new Packet112Enchant(mc.thePlayer.openContainer.windowId, level).build());
+					EnchantPacket.dispatchPacket(mc.thePlayer, mc.thePlayer.openContainer.windowId, level);
 				}
 			}
 		}

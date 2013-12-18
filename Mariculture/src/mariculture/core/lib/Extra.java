@@ -9,6 +9,7 @@ public class Extra {
 	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID };
 	public static int HARDCORE_DIVING;
 	public static boolean FLUDD_WATER_ON;
+	public static int PEARL_GEN_SPEED;
 	public static int PEARL_GEN_CHANCE;
 	public static boolean DEBUG_ON;
 	public static int REFRESH_CLIENT_RATE;
@@ -26,11 +27,12 @@ public class Extra {
 	public static int CORAL_SPREAD_CHANCE;
 	public static int KELP_GROWTH_CHANCE;
 	public static boolean ENABLE_ENDER_SPAWN;
+
+    public static final String[] BLACKLIST_DEFAULT = new String[] { "dyeBlue", "plankWood", "dustWood", "10kEUStore",
+			"logWood", "stairWood", "treeLeaves", "treeSapling", "stickWood", "stone", "cobblestone", "dyeBlack",
+			"dyeGreen", "dyeBrown", "dyeWhite", "glass" };
 	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 
 		"oreBauxite: oreAluminum", "oreBauxite: oreNaturalAluminum", "oreTitanium: oreRutile"};
-	
-	public static final String[] WHITELIST_DEFAULT = new String[] { "ore", "ingot", "block", "nugget", "dust", "gem", 
-		"dyeRed", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange" };
 }

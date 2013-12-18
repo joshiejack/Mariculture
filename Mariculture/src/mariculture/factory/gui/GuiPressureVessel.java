@@ -1,35 +1,97 @@
 package mariculture.factory.gui;
 
-import mariculture.core.gui.GuiMariculture;
+import java.util.List;
+
+import mariculture.core.Mariculture;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.factory.blocks.TilePressureVessel;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
-public class GuiPressureVessel extends GuiMariculture {
+import org.lwjgl.opengl.GL11;
+
+public class GuiPressureVessel extends GuiContainer {
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/pressurevessel.png");
+	private static final ResourceLocation BLOCK_TEXTURE = TextureMap.locationBlocksTexture;
 	private final TilePressureVessel tile;
 
-	public GuiPressureVessel(InventoryPlayer player, TilePressureVessel tile) {
-		super(new ContainerPressureVessel(tile, player), "pressurevessel");
-		this.tile = tile;
-	}
-	
-	@Override
-	public void addToolTip() {		
-		if (mouseX >= 83 && mouseX <= 118 && mouseY >= 14 && mouseY <= 73) {
-			tooltip.add(tile.getLiquidName());
-			tooltip.add(tile.getLiquidQty() + "mB");
-		}
-	}
-	
-	@Override
-	public void drawForeground() {
-		this.fontRenderer.drawString(InventoryHelper.getName(tile), 46, 5, 4210752);
+	public GuiPressureVessel(InventoryPlayer player, TilePressureVessel tile_entity) {
+		super(new ContainerPressureVessel(tile_entity, player));
+		tile = tile_entity;
 	}
 
-	@Override
-	public void drawBackground(int x, int y) {
-		if (tile.getTankScaled(58) > 0) {
-			addTank(x, y, 15, 84, tile.getTankScaled(58), tile.getFluid(), TankType.DOUBLE);
+	public List<String> handleTooltip(int mousex, int mousey, List<String> currenttip) {
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+
+		if (mousex >= x + 83 && mousex <= x + 118 && mousey >= y + 14 && mousey <= y + 73) {
+			currenttip.add(tile.getLiquidName());
+			currenttip.add(tile.getLiquidQty() + "mB");
 		}
+
+		return currenttip;
+	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y) {
+        this.fontRenderer.drawString(InventoryHelper.getName(tile), 46, 5, 4210752);
+    }
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		this.mc.renderEngine.bindTexture(TEXTURE);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+
+		if (tile.getTankScaled(58) > 0) {
+			displayGauge(x, y, 15, 84, tile.getTankScaled(58), tile.getFluid());
+		}
+	}
+
+	private void displayGauge(int j, int k, int line, int col, int squaled, FluidStack liquid) {
+		if (liquid == null) {
+			return;
+		}
+		int start = 0;
+
+		Icon liquidIcon = null;
+		Fluid fluid = liquid.getFluid();
+		if (fluid != null && fluid.getStillIcon() != null) {
+			liquidIcon = fluid.getStillIcon();
+		}
+		mc.renderEngine.bindTexture(BLOCK_TEXTURE);
+
+		if (liquidIcon != null) {
+			while (true) {
+				int x;
+
+				if (squaled > 16) {
+					x = 16;
+					squaled -= 16;
+				} else {
+					x = squaled;
+					squaled = 0;
+				}
+
+				drawTexturedModelRectFromIcon(j + col, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
+				drawTexturedModelRectFromIcon(j + col + 10, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
+				drawTexturedModelRectFromIcon(j + col + 18, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
+				start = start + 16;
+
+				if (x == 0 || squaled == 0) {
+					break;
+				}
+			}
+		}
+
+		mc.renderEngine.bindTexture(TEXTURE);
+		drawTexturedModalRect(j + col, k + line, 176, 0, 16, 60);
 	}
 }

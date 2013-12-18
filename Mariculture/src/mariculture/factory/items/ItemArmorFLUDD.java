@@ -40,7 +40,8 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
+	public boolean onItemUse(final ItemStack stack, final EntityPlayer player, final World world, int x, int y, int z, int par7,
+			final float par8, final float par9, final float par10) {
 		final int i1 = world.getBlockId(x, y, z);
 
 		if (i1 == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
@@ -77,11 +78,11 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 			return false;
 		} else {
 			if (stack.hasTagCompound() && !world.isRemote) {
-				int blockID = Core.singleBlocks.blockID;
+				final int blockID = Core.singleBlocks.blockID;
 
 				if (world.canPlaceEntityOnSide(blockID, x, y, z, false, par7, (Entity) null, stack)) {
-					Block block = Block.blocksList[blockID];
-					int j1 = block.onBlockPlaced(world, x, y, z, par7, par8, par9, par10, SingleMeta.FLUDD_STAND);
+					final Block block = Block.blocksList[blockID];
+					final int j1 = block.onBlockPlaced(world, x, y, z, par7, par8, par9, par10, SingleMeta.FLUDD_STAND);
 
 					world.setBlock(x, y, z, blockID, j1, 3);
 
@@ -158,13 +159,5 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 	@Override
 	public String getName(ItemStack stack) {
 		return "fludd";
-	}
-
-	public ItemStack build() {
-		ItemStack fludd = new ItemStack(this);
-		fludd.setTagCompound(new NBTTagCompound());
-		fludd.stackTagCompound.setInteger("mode", 0);
-		fludd.stackTagCompound.setInteger("water", 0);
-		return fludd;
 	}
 }

@@ -1,26 +1,12 @@
 package mariculture.core.helpers;
 
 import mariculture.fishery.items.ItemFishyFood;
-import mariculture.core.lib.Compatibility;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DictionaryHelper {
-	public static boolean isWhitelisted(ItemStack stack) {
-		if(isInDictionary(stack)) {
-			String ore = getDictionaryName(stack);
-			for (int j = 0; j < Compatibility.WHITELIST.length; j++) {
-				if(ore.startsWith(Compatibility.WHITELIST[j])) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-	
 	public static boolean isInDictionary(ItemStack stack) {
 		if(stack.getItem() instanceof ItemFishyFood) {
 			return false;
@@ -89,31 +75,5 @@ public class DictionaryHelper {
 		if(OreDictionary.getOres(name).size() < 1) {
 			OreDictionary.registerOre(name, stack);
 		}
-	}
-
-	public static boolean areEqual(ItemStack stack1, ItemStack stack2) {
-		if(isInDictionary(stack1) && isInDictionary(stack2)) {
-			if(getDictionaryName(stack1).equals(getDictionaryName(stack2))) {
-				return true;
-			}
-			
-			if(checkException(getDictionaryName(stack1), getDictionaryName(stack2))) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private static boolean checkException(String check, String name) {
-		for(int i = 0; i < Compatibility.EXCEPTIONS.length; i++) {
-			String[] names = Compatibility.EXCEPTIONS[i].split("\\s*:\\s*");
-			if((check.equals(names[0]) && name.equals(names[1])) ||
-					(check.equals(names[1]) && name.equals(names[0]))) {
-				return true;
-			}
-		}
-		
-		return false;
 	}
 }

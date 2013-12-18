@@ -4,29 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
-import mariculture.core.blocks.core.TileMachine;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.lib.Text;
-import mariculture.core.network.Packets;
+import mariculture.core.lib.PrefixColor;
+import mariculture.core.util.PacketIntegerUpdate;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.TankHelper;
+import mariculture.fishery.gui.ContainerFeeder;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
+import cofh.api.energy.IEnergyHandler;
 
-public class TileFeeder extends TileMachine implements ISidedInventory {
+public class TileFeeder extends TileEntity implements IInventory, IUpgradable, ISidedInventory {
+	private final ItemStack[] inventory = new ItemStack[7];
+
 	private Random rand = new Random();
+	private int tick = 0;
 	private int foodTick = 0;
 	private int tankCheck = 0;
 	private int tankSize;
@@ -37,14 +44,13 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 	private int foodAmount = 0;
 	private int maleAlive = 0;
 	private int femaleAlive = 0;
-	
-	public TileFeeder() {
-		inventory = new ItemStack[7];
-	}
 
 	@Override
-	public void updateMachine() {
-		if(onTick(20) || this.worldObj.provider.isHellWorld) {
+	public void updateEntity() {
+		tick++;
+
+		if (tick > 20 || this.worldObj.provider.isHellWorld) {
+			tick = 0;
 			pickUpFishFood();
 			updateStorage();
 		}
@@ -65,15 +71,16 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 			}
 
 			if (both == 2) {
-				if (onTick(20)) {
+				if (tick == 0) {
 					doEffect(0);
 				}
 
-				if (onTick(15)) {
+				if (tick == 10) {
 					doEffect(1);
 				}
 
 				this.currentBreedingTime++;
+				
 
 				if (this.currentBreedingTime >= breedingLength) {
 					foodTick++;
@@ -449,36 +456,67 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		foodTick = nbt.getInteger("FoodTick");
-		tankSize = nbt.getInteger("TankSize");
-		tankType = nbt.getInteger("TankType");
-		foodAmount = nbt.getInteger("FoodAmount");
-		maxFood = nbt.getInteger("MaxFood");
-		currentBreedingTime = nbt.getInteger("CurrentBreedingTime");
-		tankCheck = nbt.getInteger("TankCheck");
+	public void readFromNBT(final NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+
+		final NBTTagList tagList = tagCompound.getTagList("Inventory");
+
+		for (int i = 0; i < tagList.tagCount(); i++) {
+			final NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+
+			final byte slot = tag.getByte("Slot");
+
+			if (slot >= 0 && slot < inventory.length) {
+				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
+			}
+		}
+
+		tick = tagCompound.getInteger("Tick");
+		foodTick = tagCompound.getInteger("FoodTick");
+		tankSize = tagCompound.getInteger("TankSize");
+		tankType = tagCompound.getInteger("TankType");
+		foodAmount = tagCompound.getInteger("FoodAmount");
+		maxFood = tagCompound.getInteger("MaxFood");
+		currentBreedingTime = tagCompound.getInteger("CurrentBreedingTime");
+		tankCheck = tagCompound.getInteger("TankCheck");
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		nbt.setInteger("FoodTick", this.foodTick);
-		nbt.setInteger("TankSize", this.tankSize);
-		nbt.setInteger("TankType", this.tankType);
-		nbt.setInteger("FoodAmount", this.foodAmount);
-		nbt.setInteger("MaxFood", this.maxFood);
-		nbt.setInteger("CurrentBreedingTime", this.currentBreedingTime);
-		nbt.setInteger("TankCheck", this.tankCheck);
+	public void writeToNBT(final NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+
+		tagCompound.setInteger("Tick", this.tick);
+		tagCompound.setInteger("FoodTick", this.foodTick);
+		tagCompound.setInteger("TankSize", this.tankSize);
+		tagCompound.setInteger("TankType", this.tankType);
+		tagCompound.setInteger("FoodAmount", this.foodAmount);
+		tagCompound.setInteger("MaxFood", this.maxFood);
+		tagCompound.setInteger("CurrentBreedingTime", this.currentBreedingTime);
+		tagCompound.setInteger("TankCheck", this.tankCheck);
+
+		final NBTTagList itemList = new NBTTagList();
+
+		for (int i = 0; i < inventory.length; i++) {
+			final ItemStack stack = inventory[i];
+
+			if (stack != null) {
+				final NBTTagCompound tag = new NBTTagCompound();
+
+				tag.setByte("Slot", (byte) i);
+				stack.writeToNBT(tag);
+				itemList.appendTag(tag);
+			}
+		}
+
+		tagCompound.setTag("Inventory", itemList);
 	}
 
-	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, this.foodAmount);
-		Packets.updateGUI(player, container, 1, this.currentBreedingTime);
-		Packets.updateGUI(player, container, 2, this.maxFood);
-		Packets.updateGUI(player, container, 3, this.maleAlive);
-		Packets.updateGUI(player, container, 4, this.femaleAlive);
+	public void sendGUINetworkData(ContainerFeeder feeder, final EntityPlayer player) {
+		PacketIntegerUpdate.send(feeder, 0, this.foodAmount, player);
+		PacketIntegerUpdate.send(feeder, 1, this.currentBreedingTime, player);
+		PacketIntegerUpdate.send(feeder, 2, this.maxFood, player);
+		PacketIntegerUpdate.send(feeder, 3, this.maleAlive, player);
+		PacketIntegerUpdate.send(feeder, 4, this.femaleAlive, player);
 	}
 
 	public void getGUINetworkData(int i, int j) {
@@ -501,6 +539,84 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 		}
 	}
 
+	@Override
+	public int getSizeInventory() {
+		return inventory.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(final int slotIndex) {
+		return inventory[slotIndex];
+	}
+
+	@Override
+	public ItemStack decrStackSize(final int slotIndex, final int amount) {
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		if (stack != null) {
+			if (stack.stackSize <= amount) {
+				setInventorySlotContents(slotIndex, null);
+			}
+
+			else {
+				stack = stack.splitStack(amount);
+				if (stack.stackSize == 0) {
+					setInventorySlotContents(slotIndex, null);
+				}
+			}
+		}
+
+		return stack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(final int slotIndex) {
+		final ItemStack stack = getStackInSlot(slotIndex);
+
+		if (stack != null) {
+			setInventorySlotContents(slotIndex, null);
+		}
+
+		return stack;
+	}
+
+	@Override
+	public void setInventorySlotContents(final int slot, final ItemStack stack) {
+		inventory[slot] = stack;
+		int limit = getInventoryStackLimit();
+		if (slot > 8) {
+			limit = 1;
+		}
+
+		if (stack != null && stack.stackSize > limit) {
+			stack.stackSize = limit;
+		}
+	}
+
+	@Override
+	public String getInvName() {
+		return "TileEntityFeeder";
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(final EntityPlayer player) {
+		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this
+				&& player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
+	}
+
+	@Override
+	public void openChest() {
+	}
+
+	@Override
+	public void closeChest() {
+	}
+
 	public List<String> getLifespan(final int slot, final List<String> currenttip) {
 		boolean noBad = true;
 		final ItemStack fish = inventory[slot];
@@ -510,34 +626,34 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 
 				if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
 					if (((slot == 0 && maleAlive == 1) || (slot == 1 && femaleAlive == 1))) {
-						currenttip.add(Text.DARK_GREEN + currentLife + " HP");
+						currenttip.add(PrefixColor.DARK_GREEN + currentLife + " HP");
 						return currenttip;
 					}
 				}
 
 				if (!Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).canLive(this.worldObj,
 						this.xCoord, this.yCoord, this.zCoord)) {
-					currenttip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.badBiome"));
+					currenttip.add(PrefixColor.RED + StatCollector.translateToLocal("mariculture.string.badBiome"));
 					noBad = false;
 				}
 
 				if (Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getTankLevel() > tankType) {
-					currenttip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.notAdvanced"));
+					currenttip.add(PrefixColor.RED + StatCollector.translateToLocal("mariculture.string.notAdvanced"));
 					noBad = false;
 				}
 
 				if (!hasOtherFish(slot)) {
-					currenttip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.missingMate"));
+					currenttip.add(PrefixColor.RED + StatCollector.translateToLocal("mariculture.string.missingMate"));
 					noBad = false;
 				}
 
 				if (foodAmount == 0) {
-					currenttip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.noFood"));
+					currenttip.add(PrefixColor.RED + StatCollector.translateToLocal("mariculture.string.noFood"));
 					noBad = false;
 				}
 
 				if (((slot == 0 && maleAlive == 1) || (slot == 1 && femaleAlive == 1)) && noBad) {
-					currenttip.add(Text.DARK_GREEN + currentLife + " HP");
+					currenttip.add(PrefixColor.DARK_GREEN + currentLife + " HP");
 				}
 			}
 		}
@@ -592,10 +708,5 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 	@Override
 	public boolean isInvNameLocalized() {
 		return false;
-	}
-
-	@Override
-	public void updateUpgrades() {
-		
 	}
 }

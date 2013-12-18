@@ -21,6 +21,6 @@ public class Comment {
 	public static final String PUMP_REDSTONE = "Whether or not giving the Air Pump a Redstone Signal will cause it to provide air";
 	public static final String PUMP_RF = "Whether an Air Pump can be powered by Redstone Flux";
     public static final String LEGACY = "Legacy Blocks, Kept for compatibility between v1.2+ and 1.13a-(Keep as zero if a new world, these WILL be removed in the future)";
+	public static final String BLACKLIST = "Place Ore Dictionary Names of stuff you do not wish to be able to convert with the dictionary block";
 	public static final String EXCEPTIONS = "Place names that are practically equivalent and should be converted between each other by dictionary, format - item1: item2";
-	public static final String WHITELIST = "Place Ore Dictionary Prefixes here, that are acceptable to be converted";
 }

@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class OresMeta {
-	public static final int COUNT = 15;
+	public static final int COUNT = 16;
 	public static final int BAUXITE = 0;
 	public static final int COPPER = 1;
 	public static final int RUTILE = 2;
@@ -17,4 +17,5 @@ public class OresMeta {
 	public static final int COPPER_BLOCK = 12;
 	public static final int BASE_BRICK = 13;
 	public static final int BASE_IRON = 14;
+	public static final int BASE_WOOD = 15;
 }

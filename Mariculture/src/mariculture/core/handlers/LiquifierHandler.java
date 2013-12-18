@@ -11,8 +11,6 @@ import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.helpers.DictionaryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class LiquifierHandler implements ISmelterHandler {
 	private final Map fuelList = new HashMap();
@@ -29,13 +27,6 @@ public class LiquifierHandler implements ISmelterHandler {
 		
 		if (recipe != null) {
 			if (temp >= recipe.temp || temp < 0) {
-				if(input.isItemStackDamageable()) {
-					SmelterOutput output = recipe.output;
-					double mod = (double)(input.getMaxDamage() - input.getItemDamage()) / input.getMaxDamage();
-					int fluid = (int) (output.fluid.amount * mod);
-					return new SmelterOutput(new FluidStack(FluidRegistry.getFluid(output.fluid.fluidID), (fluid > 0)? fluid: 1), output.output, output.chance);
-				}
-				
 				return recipe.output;
 			}
 		}

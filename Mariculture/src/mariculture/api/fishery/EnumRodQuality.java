@@ -3,8 +3,7 @@ package mariculture.api.fishery;
 public enum EnumRodQuality {
 	OLD(63, 15, 1),
 	GOOD(191, 45, 3),
-	SUPER(575, 100, 9),
-	FLUX(0, 100, 0);
+	SUPER(575, 100, 9);
 
 	private final int maxUses;
 	private final int rank;

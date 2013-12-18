@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.util.EnumSet;
 
 import mariculture.core.helpers.KeyHelper;
-import mariculture.core.network.Packet106SwapJewelry;
+import mariculture.core.lib.PacketIds;
 import mariculture.factory.Factory;
 import mariculture.factory.FactoryEvents;
 import mariculture.magic.enchantments.EnchantmentGlide;
@@ -144,13 +144,31 @@ public class KeyBindingHandler extends KeyHandler {
 
 	public void switchJewelry(EntityClientPlayerMP player) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(0).build());
+			sendPacket(player, 0);
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(1).build());
+			sendPacket(player, 1);
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(2).build());
+			sendPacket(player, 2);
 		} else {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(-1).build());
+			sendPacket(player, -1);
 		}
+	}
+
+	private void sendPacket(EntityClientPlayerMP player, int slot) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeInt(PacketIds.SWAP_JEWELRY);
+			outputStream.writeInt(slot);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "Mariculture";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+
+		player.sendQueue.addToSendQueue(packet);
 	}
 }

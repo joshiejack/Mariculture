@@ -10,7 +10,7 @@ import mariculture.core.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.PrefixColor;
 import mariculture.core.util.IItemRegistry;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
@@ -130,11 +130,11 @@ public class ItemJewelry extends Item implements IItemRegistry {
 
 		if (EnchantHelper.getLevel(Magic.clock, stack) > 0) {
 			if (stack.stackTagCompound.getInteger("Extra") == Jewelry.DAY) {
-				list.add(Text.DARK_GREEN + "(" + StatCollector.translateToLocal("mariculture.string.keepDay") + ")");
+				list.add(PrefixColor.DARK_GREEN + "(" + StatCollector.translateToLocal("mariculture.string.keepDay") + ")");
 			}
 
 			if (stack.stackTagCompound.getInteger("Extra") == Jewelry.NIGHT) {
-				list.add(Text.RED + "(" + StatCollector.translateToLocal("mariculture.string.keepNight") + ")");
+				list.add(PrefixColor.RED + "(" + StatCollector.translateToLocal("mariculture.string.keepNight") + ")");
 			}
 		}
 	}

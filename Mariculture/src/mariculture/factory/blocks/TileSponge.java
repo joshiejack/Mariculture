@@ -2,12 +2,14 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.TileEnergyHandler;
+import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.ForgeDirection;
 
 public class TileSponge extends TileEnergyHandler {
+    private int required;
     boolean posXFound, negXFound, posZFound, negZFound, posYFound = false;
     int posX, negX, posZ, negZ, posY = 0;
     Random rand = new Random();
@@ -105,12 +107,10 @@ public class TileSponge extends TileEnergyHandler {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        storage.readFromNBT(tagCompound);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        storage.writeToNBT(tagCompound);
     }
 }

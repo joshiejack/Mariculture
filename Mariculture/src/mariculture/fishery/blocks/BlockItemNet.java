@@ -22,16 +22,16 @@ public class BlockItemNet extends ItemMariculture {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer player) {
 		final MovingObjectPosition object = this.getMovingObjectPositionFromPlayer(world, player, true);
 
 		if (object == null) {
 			return stack;
 		} else {
 			if (object.typeOfHit == EnumMovingObjectType.TILE) {
-				int x = object.blockX;
-				int y = object.blockY;
-				int z = object.blockZ;
+				final int x = object.blockX;
+				final int y = object.blockY;
+				final int z = object.blockZ;
 
 				if (!world.canMineBlock(player, x, y, z)) {
 					return stack;

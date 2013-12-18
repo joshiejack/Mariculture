@@ -11,25 +11,14 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import mariculture.fishery.Fishery;
-import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
-public class PluginThaumcraft extends Plugin {
+public class PluginThaumcraft {
 
-	public PluginThaumcraft(String name) {
-		super(name);
-	}
-
-	@Override
-	public void preInit() {
-		
-	}
-	
-	@Override
-	public void init() {
+	public static void init() {
 		//Bait
 		if(Modules.fishery.isActive()) {
 			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID, BaitMeta.ANT, new AspectList().add(Aspect.BEAST, 1));
@@ -91,10 +80,5 @@ public class PluginThaumcraft extends Plugin {
 		ThaumcraftApi.registerObjectTag("ingotAluminum", new AspectList().add(Aspect.AIR, 2).add(Aspect.METAL, 1));
 		ThaumcraftApi.registerObjectTag("ingotTitanium", new AspectList().add(Aspect.METAL, 4).add(Aspect.DARKNESS, 1));
 		ThaumcraftApi.registerObjectTag("ingotMagnesium", new AspectList().add(Aspect.ENERGY, 1).add(Aspect.METAL, 1).add(Aspect.ENTROPY, 1));
-	}
-	
-	@Override
-	public void postInit() {
-		
 	}
 }

@@ -2,21 +2,10 @@ package mariculture.plugins;
 
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.plugins.Plugins.Plugin;
 import extrabiomes.api.Biomes;
 
-public class PluginExtraBiomes extends Plugin {
-	public PluginExtraBiomes(String name) {
-		super(name);
-	}
-	
-	@Override
-	public void preInit() {
-		
-	}
-
-	@Override
-	public void init() {
+public class PluginExtraBiomes {
+	public static void init() {
 		if (Biomes.getBiome("alpine").isPresent()) {
 			MaricultureHandlers.biomeType.addBiome(Biomes.getBiome("alpine").get(), EnumBiomeType.FROZEN);
 		}
@@ -128,10 +117,5 @@ public class PluginExtraBiomes extends Plugin {
 		if (Biomes.getBiome("woodlands").isPresent()) {
 			MaricultureHandlers.biomeType.addBiome(Biomes.getBiome("woodlands").get(), EnumBiomeType.NORMAL);
 		}
-	}
-
-	@Override
-	public void postInit() {
-		
 	}
 }

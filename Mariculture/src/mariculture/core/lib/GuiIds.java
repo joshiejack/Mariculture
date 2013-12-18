@@ -17,6 +17,4 @@ public class GuiIds {
 	public static final int DICTIONARY = 13;
 	public static final int SLUICE = 14;
 	public static final int TURBINE_GAS = 15;
-	public static final int FILTER = 16;
-	public static final int TILE_GUI = 17;
 }

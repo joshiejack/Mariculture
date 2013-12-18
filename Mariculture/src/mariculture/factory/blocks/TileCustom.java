@@ -1,11 +1,12 @@
 package mariculture.factory.blocks;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 
-import mariculture.core.network.Packet110CustomTileUpdate;
-import mariculture.core.network.Packets;
+import mariculture.core.lib.PacketIds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -14,6 +15,7 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileCustom extends TileEntity {
 	private int[] theBlockIDs = new int[6];
@@ -106,7 +108,23 @@ public class TileCustom extends TileEntity {
 
 	public void updateRender() {
 		if (!worldObj.isRemote) {
-			Packets.updateTile(this, 128, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+			DataOutputStream os = new DataOutputStream(bos);
+			try {
+				os.writeInt(PacketIds.RENDER_CUSTOM_UPDATE);
+				os.writeInt(xCoord);
+				os.writeInt(yCoord);
+				os.writeInt(zCoord);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			Packet250CustomPayload packet = new Packet250CustomPayload();
+			packet.channel = "Mariculture";
+			packet.data = bos.toByteArray();
+			packet.length = bos.size();
+
+			PacketDispatcher.sendPacketToAllAround(xCoord, yCoord, zCoord, 100, worldObj.provider.dimensionId, packet);
 		}
 	}
 

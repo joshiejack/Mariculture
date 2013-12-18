@@ -4,17 +4,13 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.handlers.SpongePacket;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.UtilMeta;
-import mariculture.core.lib.WoodMeta;
-import mariculture.core.network.Packet101Sponge;
-import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
-import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileSponge;
@@ -31,12 +27,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -44,7 +40,6 @@ public class BlockUtil extends BlockMachine {
 	private Icon[] incubatorIcons;
 	private Icon sluiceBack;
 	private Icon[] liquifierIcons;
-	private Icon[] fishSorter;
 
 	public BlockUtil(int i) {
 		super(i, Material.piston);
@@ -75,35 +70,9 @@ public class BlockUtil extends BlockMachine {
 			return 3F;
 		case UtilMeta.PURIFIER:
 			return 5F;
-		case UtilMeta.FISH_SORTER:
-			return 1F;
 		}
 
 		return 3F;
-	}
-	
-	public void updateMaster(World world, int x, int y, int z) {
-		if(world.getBlockTileEntity(x, y, z) instanceof TileMulti) {
-			((TileMulti) world.getBlockTileEntity(x, y, z)).setMaster();
-		}
-	}
-	
-	@Override
-	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
-		updateMaster(world, x, y, z);
-		super.onBlockExploded(world, x, y, z, explosion);
-    }
-
-	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		updateMaster(world, x, y, z);
-		return super.removeBlockByPlayer(world, player, x, y, z);
-    }
-	
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, int otherID) {
-		updateMaster(world, x, y, z);
-		super.onNeighborBlockChange(world, x, y, z, otherID);
 	}
 
 	@Override
@@ -127,17 +96,15 @@ public class BlockUtil extends BlockMachine {
 			case UtilMeta.SETTLER:
 				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
 			case UtilMeta.SAWMILL:
-				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
+				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_WOOD);
 			case UtilMeta.AUTOFISHER:
-				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
+				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_WOOD);
 			case UtilMeta.DICTIONARY:
-				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
+				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_WOOD);
 			case UtilMeta.SLUICE:
 				return side == 4 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
 			case UtilMeta.SPONGE:
 				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
-			case UtilMeta.FISH_SORTER:
-				return fishSorter[side];
 			default:
 				return icons[meta];
 			}
@@ -165,20 +132,15 @@ public class BlockUtil extends BlockMachine {
 
 			if (block.getBlockTileEntity(x, y, z) instanceof TileLiquifier) {
 				TileLiquifier liquifier = (TileLiquifier) block.getBlockTileEntity(x, y, z);
-				
-				if(block.getBlockTileEntity(x, y - 1, z) instanceof TileLiquifier 
-						&& !(block.getBlockTileEntity(x, y + 1, z) instanceof TileLiquifier) 
-						&& !(block.getBlockTileEntity(x, y - 2, z) instanceof TileLiquifier)) {
+				if (liquifier.master() == null) {
+					return this.getIcon(side, block.getBlockMetadata(x, y, z));
+				}
+
+				if (liquifier == liquifier.master()) {
+					return liquifierIcons[1];
+				} else {
 					return liquifierIcons[0];
 				}
-				
-				if(block.getBlockTileEntity(x, y + 1, z) instanceof TileLiquifier 
-						&& !(block.getBlockTileEntity(x, y - 1, z) instanceof TileLiquifier)
-						&& !(block.getBlockTileEntity(x, y + 2, z) instanceof TileLiquifier)) {
-					return liquifierIcons[1];
-				}
-				
-				return this.getIcon(side, block.getBlockMetadata(x, y, z));
 			}
 
 			if (block.getBlockTileEntity(x, y, z) instanceof TileIncubator && side > 1) {
@@ -205,21 +167,22 @@ public class BlockUtil extends BlockMachine {
 	}
 
 	@Override
-	public int idDropped(int i, Random random, int j) {
+	public int idDropped(final int i, final Random random, final int j) {
 		return this.blockID;
 	}
 
 	@Override
-	public int damageDropped(int i) {
+	public int damageDropped(final int i) {
 		return i;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(final World world, final int x, final int y, final int z,
+			final EntityLivingBase entity, final ItemStack stack) {
 		if (stack.getItemDamage() == UtilMeta.SLUICE) {
-			int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+			final int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 			world.setBlockMetadataWithNotify(x, y, z, UtilMeta.SLUICE, 2);
-			TileSluice tile = (TileSluice) world.getBlockTileEntity(x, y, z);
+			final TileSluice tile = (TileSluice) world.getBlockTileEntity(x, y, z);
 			switch (facing) {
 			case 0:
 				tile.setFacing(0);
@@ -239,33 +202,50 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		updateMaster(world, x, y, z);
+		TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
 
-		if (tile == null && world.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_TOP || player.isSneaking()) {
+		if (tile_entity == null && world.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_TOP || player.isSneaking()) {
 			return false;
 		}
-		
-		if(tile instanceof IHasGUI) {
-			player.openGui(Mariculture.instance, -1, world, x, y, z);
+
+		if (tile_entity instanceof TileAutofisher) {
+			player.openGui(Mariculture.instance, GuiIds.AUTOFISHER, world, x, y, z);
 			return true;
 		}
 
-		if (tile instanceof TileLiquifier) {
-			TileMulti base = (TileMulti) tile;
-			TileMulti master = (base.mstr.built)? (TileLiquifier)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
-			if (master != null) {
-				base.setMaster();
-				master.setMaster();
-				player.openGui(Mariculture.instance, GuiIds.LIQUIFIER, world, master.xCoord, master.yCoord, master.zCoord);
+		if (tile_entity instanceof TileSettler) {
+			player.openGui(Mariculture.instance, GuiIds.SETTLER, world, x, y, z);
+			return true;
+		}
+
+		if (tile_entity instanceof TileLiquifier) {
+			TileLiquifier liquifier = (TileLiquifier) ((TileLiquifier) tile_entity).master();
+			if (liquifier != null) {
+				player.openGui(Mariculture.instance, GuiIds.LIQUIFIER, world, liquifier.xCoord, liquifier.yCoord,
+						liquifier.zCoord);
 				return true;
 			}
 
 			return false;
 		}
 
-		if (tile instanceof TileSluice) {
-			TileSluice sluice = (TileSluice) tile;
+		if (tile_entity instanceof TileBookshelf) {
+			player.openGui(Mariculture.instance, GuiIds.BOOKSHELF, world, x, y, z);
+			return true;
+		}
+
+		if (tile_entity instanceof TileSawmill) {
+			player.openGui(Mariculture.instance, GuiIds.SAWMILL, world, x, y, z);
+			return true;
+		}
+
+		if (tile_entity instanceof TileDictionary) {
+			player.openGui(Mariculture.instance, GuiIds.DICTIONARY, world, x, y, z);
+			return true;
+		}
+
+		if (tile_entity instanceof TileSluice) {
+			TileSluice sluice = (TileSluice) tile_entity;
 			if(sluice.getHeight() > 1) {
 				player.openGui(Mariculture.instance, GuiIds.SLUICE, world, x, y, z);
 				return true;
@@ -274,8 +254,8 @@ public class BlockUtil extends BlockMachine {
 			}
 		}
 
-		if (tile instanceof TileIncubator || world.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP) {
-			TileIncubator incubator = ((TileIncubator) tile).master();
+		if (tile_entity instanceof TileIncubator || world.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP) {
+			TileIncubator incubator = ((TileIncubator) tile_entity).master();
 			if (incubator != null) {
 				player.openGui(Mariculture.instance, GuiIds.INCUBATOR, world, incubator.xCoord, incubator.yCoord,
 						incubator.zCoord);
@@ -285,15 +265,14 @@ public class BlockUtil extends BlockMachine {
 			return false;
 		}
 		
-		if (tile instanceof TileSponge) {
+		if (tile_entity instanceof TileSponge) {
 			if(world.isRemote && player instanceof EntityClientPlayerMP) {
-				//Packets.request(PacketIds.SPONGEY, player, tile);
-				((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet101Sponge(x, y, z).build());
+				SpongePacket.requestPowerUpdate((EntityClientPlayerMP)player, tile_entity.xCoord, tile_entity.yCoord, tile_entity.zCoord);
 			} else if(player.getCurrentEquippedItem() != null && !world.isRemote) {
 				Item currentItem = player.getCurrentEquippedItem().getItem();
 				if (currentItem instanceof IEnergyContainerItem && !world.isRemote) {
 					int powerAdd = ((IEnergyContainerItem)currentItem).extractEnergy(player.getCurrentEquippedItem(), 5000, true);
-					int reduce = ((IEnergyHandler)tile).receiveEnergy(ForgeDirection.UNKNOWN, powerAdd, false);
+					int reduce = ((IEnergyHandler)tile_entity).receiveEnergy(ForgeDirection.UP, powerAdd, false);
 					((IEnergyContainerItem)currentItem).extractEnergy(player.getCurrentEquippedItem(), reduce, false);
 				} 
 			}
@@ -305,7 +284,6 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
-		updateMaster(world, x, y, z);
 		super.onBlockAdded(world, x, y, z);
 	}
 
@@ -330,10 +308,10 @@ public class BlockUtil extends BlockMachine {
 			return new TileSluice();
 		case UtilMeta.DICTIONARY:
 			return new TileDictionary();
+		case UtilMeta.PURIFIER:
+			return new TileConverter();
         case UtilMeta.SPONGE:
             return new TileSponge();
-        case UtilMeta.FISH_SORTER:
-        	return new TileFishSorter();
 		}
 
 		return null;
@@ -342,8 +320,6 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
-		updateMaster(world, x, y, z);
-		
 		InventoryHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, meta);
 
@@ -379,9 +355,7 @@ public class BlockUtil extends BlockMachine {
 		case UtilMeta.DICTIONARY:
 			return (Modules.factory.isActive());
 		case UtilMeta.PURIFIER:
-			return false;
-		case UtilMeta.FISH_SORTER:
-			return (Modules.factory.isActive());
+			return !Loader.isModLoaded("ThermalExpansion");
 
 		default:
 			return true;
@@ -398,11 +372,6 @@ public class BlockUtil extends BlockMachine {
 		liquifierIcons = new Icon[2];
 		liquifierIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":liquifierTop");
 		liquifierIcons[1] = iconRegister.registerIcon(Mariculture.modid + ":liquifierBottom");
-		
-		fishSorter = new Icon[6];
-		for(int i = 0; i < 6; i++) {
-			fishSorter[i] = iconRegister.registerIcon(Mariculture.modid + ":fishsorter" + (i + 1));
-		}
 		
 		sluiceBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceBack");
 

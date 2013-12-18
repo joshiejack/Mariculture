@@ -1,11 +1,16 @@
 package mariculture.factory.blocks;
 
+import cofh.api.energy.EnergyStorage;
+import mariculture.api.core.IGasTurbine;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
-import mariculture.core.util.FluidDictionary;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import buildcraft.api.power.IPowerEmitter;
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.transport.IPipeConnection;
 
 public class TileTurbineGas extends TileTurbineBase {
 	public float getModifier() {
@@ -25,7 +30,7 @@ public class TileTurbineGas extends TileTurbineBase {
 			}
 		}
 		
-		return (tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.natural_gas))? 1F: 0;
+		return (tank.getFluidID() == Core.naturalGas.getID())? 1F: 0;
 	}
 	
 	@Override
@@ -34,12 +39,12 @@ public class TileTurbineGas extends TileTurbineBase {
 	}
 	
 	@Override
-	public int getTankCapacity(int count) {
+	protected int getMaxCalculation(int count) {
 		return ((FluidContainerRegistry.BUCKET_VOLUME * 10) + (count * FluidContainerRegistry.BUCKET_VOLUME * 5));
 	}
 	
 	@Override
-	public void updateUpgrades() {
+	protected void updateUpgrades() {
 		super.updateUpgrades();
 		int purityCount = MaricultureHandlers.upgrades.getData("purity", this);
 		int heatCount = MaricultureHandlers.upgrades.getData("temp", this);

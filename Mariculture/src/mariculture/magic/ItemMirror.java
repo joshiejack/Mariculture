@@ -42,70 +42,70 @@ public class ItemMirror extends Item implements IItemRegistry {
 	private static EntityPlayer player;
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		world.playSoundAtEntity(player, Mariculture.modid + ":mirror", 1.0F, 1.0F);
-		if (stack != null) {
-			if (player.isSneaking()) {
-				if (stack.hasTagCompound()) {
-					if (stack.stackTagCompound.getBoolean("magic") == true
-							&& !stack.stackTagCompound.getBoolean("ultimate")) {
-						if (stack.stackTagCompound.getInteger("charge") < 30) {
-							stack.stackTagCompound.setInteger("charge",
-									stack.stackTagCompound.getInteger("charge") + 3);
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		world.playSoundAtEntity(entityplayer, Mariculture.modid + ":mirror", 1.0F, 1.0F);
+		if (itemstack != null) {
+			if (entityplayer.isSneaking()) {
+				if (itemstack.hasTagCompound()) {
+					if (itemstack.stackTagCompound.getBoolean("magic") == true
+							&& !itemstack.stackTagCompound.getBoolean("ultimate")) {
+						if (itemstack.stackTagCompound.getInteger("charge") < 30) {
+							itemstack.stackTagCompound.setInteger("charge",
+									itemstack.stackTagCompound.getInteger("charge") + 3);
 						} else {
-							stack.stackTagCompound.setInteger("charge", 3);
+							itemstack.stackTagCompound.setInteger("charge", 3);
 						}
 
-						stack.setItemDamage(10 - (stack.stackTagCompound.getInteger("charge") / 3));
+						itemstack.setItemDamage(10 - (itemstack.stackTagCompound.getInteger("charge") / 3));
 					}
 
-					if (stack.stackTagCompound.getBoolean("ultimate")) {
-						if (stack.stackTagCompound.getInteger("charge") < 60) {
-							stack.stackTagCompound.setInteger("charge",
-									stack.stackTagCompound.getInteger("charge") + 3);
+					if (itemstack.stackTagCompound.getBoolean("ultimate")) {
+						if (itemstack.stackTagCompound.getInteger("charge") < 60) {
+							itemstack.stackTagCompound.setInteger("charge",
+									itemstack.stackTagCompound.getInteger("charge") + 3);
 						} else {
-							stack.stackTagCompound.setInteger("charge", 30);
+							itemstack.stackTagCompound.setInteger("charge", 30);
 						}
 
-						stack.setItemDamage(10 - (stack.stackTagCompound.getInteger("charge") / 3));
+						itemstack.setItemDamage(10 - (itemstack.stackTagCompound.getInteger("charge") / 3));
 					}
 				}
 			} else {
-				ItemMirror.itemStack = stack;
-				ItemMirror.player = player;
+				ItemMirror.itemStack = itemstack;
+				ItemMirror.player = entityplayer;
 
-				loadMirror(player, stack, world);
+				loadMirror(entityplayer, itemstack, world);
 
 				boolean magic = false;
 
-				if (stack.hasTagCompound()) {
-					if (stack.stackTagCompound.getBoolean("magic") == true) {
+				if (itemstack.hasTagCompound()) {
+					if (itemstack.stackTagCompound.getBoolean("magic") == true) {
 						magic = true;
 					}
 				}
 
-				if (!player.capabilities.isCreativeMode && !magic) {
-					stack.damageItem(1, player);
-					if (stack.getItemDamage() <= 1) {
-						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+				if (!entityplayer.capabilities.isCreativeMode && !magic) {
+					itemstack.damageItem(1, entityplayer);
+					if (itemstack.getItemDamage() <= 1) {
+						entityplayer.inventory.decrStackSize(entityplayer.inventory.currentItem, 1);
 					}
 				}
 
 			}
 
-			if (world.isRemote && player.isSneaking()) {
-				if(!stack.hasTagCompound()) {
-					stack.setTagCompound(new NBTTagCompound());
+			if (world.isRemote && entityplayer.isSneaking()) {
+				if(!itemstack.hasTagCompound()) {
+					itemstack.setTagCompound(new NBTTagCompound());
 				}
 				
-				if (stack.stackTagCompound.getBoolean("update") == false) {
-					stack.stackTagCompound.setBoolean("update", true);
+				if (itemstack.stackTagCompound.getBoolean("update") == false) {
+					itemstack.stackTagCompound.setBoolean("update", true);
 				} else {
-					stack.stackTagCompound.setBoolean("update", false);
+					itemstack.stackTagCompound.setBoolean("update", false);
 				}
 			}
 
-			return stack;
+			return itemstack;
 		}
 
 		return null;

@@ -11,7 +11,6 @@ import mariculture.core.render.RenderDouble;
 import mariculture.core.render.RenderDoubleItem;
 import mariculture.core.render.RenderSingle;
 import mariculture.core.render.RenderSingleItem;
-import mariculture.core.render.RenderTanks;
 import mariculture.diving.TileAirCompressor;
 import mariculture.diving.TileAirCompressorPower;
 import mariculture.diving.render.ModelAirCompressor;
@@ -74,13 +73,11 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderIds.BLOCK_SINGLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
-		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
 
 		MinecraftForgeClient.registerItemRenderer(Core.doubleBlock.blockID, new RenderDoubleItem());
 		MinecraftForgeClient.registerItemRenderer(Core.singleBlocks.blockID, new RenderSingleItem());
 		MinecraftForgeClient.registerItemRenderer(Core.oysterBlock.blockID, new RenderSingleItem());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
-		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		
 		if(Modules.diving.isActive()) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");

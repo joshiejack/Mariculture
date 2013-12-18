@@ -5,9 +5,8 @@ import mariculture.core.lib.GlassMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
-import net.minecraftforge.fluids.Fluid;
 
-public class FluidCustom extends Fluid {
+public class FluidCustom extends FluidMariculture {
 	private String fluidsName;
 	private ItemStack block;
 	
@@ -19,17 +18,6 @@ public class FluidCustom extends Fluid {
 
 	@Override
 	public Icon getStillIcon() {
-		if(block != null) {
-			if(Block.blocksList[block.itemID] != null) {
-				return Block.blocksList[block.itemID].getIcon(block.itemID, block.getItemDamage());
-			}
-		}
-		
-		return Core.glassBlocks.getIcon(0, GlassMeta.PLASTIC);
-	}
-	
-	@Override
-	public Icon getFlowingIcon() {
 		if(block != null) {
 			if(Block.blocksList[block.itemID] != null) {
 				return Block.blocksList[block.itemID].getIcon(block.itemID, block.getItemDamage());

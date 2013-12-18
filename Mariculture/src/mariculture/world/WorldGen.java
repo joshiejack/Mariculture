@@ -2,20 +2,22 @@ package mariculture.world;
 
 import java.util.Random;
 
+import biomesoplenty.api.Biomes;
+
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.PluginBiomesOPlenty;
-import mariculture.plugins.PluginBiomesOPlenty.Biome;
-import mariculture.plugins.Plugins;
 import mariculture.world.decorate.WorldGenKelp;
 import mariculture.world.decorate.WorldGenKelpForest;
 import mariculture.world.decorate.WorldGenReef;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import cpw.mods.fml.common.IWorldGenerator;
+import cpw.mods.fml.common.Loader;
 
-public class WorldGen implements IWorldGenerator {	
+public class WorldGen implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		switch (world.provider.dimensionId) {
@@ -38,30 +40,41 @@ public class WorldGen implements IWorldGenerator {
 
 	private void generateOceanFeatures(World world, Random random, int x, int z) {
 		try {
-			if(WorldGeneration.CORAL_ENABLED)
-				generateCoral(world, random, x, z);
+			generateCoral(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			if(WorldGeneration.KELP_PATCH_ENABLED)
-				generateKelp(world, random, x, z);
+			generateKelp(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			if(WorldGeneration.KELP_FOREST_ENABLED)
-				generateKelpForest(world, random, x, z);
+			generateKelpForest(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void generateCoral(World world, Random random, int x, int z) {		
-		boolean isCoralReef = PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL);
-		int chance = (Plugins.bop.isLoaded()) ? WorldGeneration.CORAL_CHANCE: WorldGeneration.CORAL_CHANCE * 10;
+	private void generateCoral(World world, Random random, int x, int z) {
+		boolean isCoralReef = true;
+		int chance = (Loader.isModLoaded("BiomesOPlenty") || WorldGeneration.DEEP_OCEAN)? 
+				WorldGeneration.CORAL_CHANCE: WorldGeneration.CORAL_CHANCE * 10;
+		if(Loader.isModLoaded("BiomesOPlenty")) {
+			if(Biomes.oceanCoral.isPresent()) {
+				chance/=5;
+				if(world.getBiomeGenForCoords(x, z) != Biomes.oceanCoral.get()) {
+					isCoralReef = false;
+				}
+			}
+			
+			if(world.getWorldInfo().getTerrainType() == WorldType.DEFAULT ||
+					world.getWorldInfo().getTerrainType() == WorldType.LARGE_BIOMES) {
+				isCoralReef = true;
+			}
+		}
 		
 		chance = (chance <= 1)? 1: chance;
 		if(isCoralReef) {
@@ -87,9 +100,23 @@ public class WorldGen implements IWorldGenerator {
 	}
 	
 	private void generateKelpForest(World world, Random random, int x, int z) {
-		boolean isKelpForest = PluginBiomesOPlenty.isBiome(world, x, z, Biome.KELP);
-		int maxHeight = WorldGeneration.KELP_HEIGHT;
-		int chance = (Plugins.bop.isLoaded()) ? WorldGeneration.KELP_CHANCE: WorldGeneration.KELP_CHANCE * 3;
+		boolean isKelpForest = true;
+		int chance = WorldGeneration.KELP_CHANCE;
+		int maxHeight = (int) ((Loader.isModLoaded("BiomesOPlenty"))? WorldGeneration.KELP_HEIGHT * 2.5: WorldGeneration.KELP_HEIGHT);
+		
+		if(Loader.isModLoaded("BiomesOPlenty")) {
+			if(Biomes.oceanKelp.isPresent()) {
+				chance/=3;
+				if(world.getBiomeGenForCoords(x, z) != Biomes.oceanKelp.get()) {
+					isKelpForest = false;
+				}
+			}
+			
+			if(world.getWorldInfo().getTerrainType() == WorldType.DEFAULT ||
+					world.getWorldInfo().getTerrainType() == WorldType.LARGE_BIOMES) {
+				isKelpForest = true;
+			}
+		}
 		
 		chance = (chance <= 1)? 1: chance;
 		maxHeight = (maxHeight <= 1)? 1: maxHeight;

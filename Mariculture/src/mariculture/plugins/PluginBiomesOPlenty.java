@@ -2,11 +2,8 @@ package mariculture.plugins;
 
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.lib.WorldGeneration;
-import mariculture.plugins.Plugins.Plugin;
+import mariculture.core.helpers.RegistryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.oredict.OreDictionary;
 import biomesoplenty.api.Biomes;
@@ -14,24 +11,14 @@ import biomesoplenty.api.Blocks;
 
 import com.google.common.base.Optional;
 
-public class PluginBiomesOPlenty extends Plugin {
-	public PluginBiomesOPlenty(String name) {
-		super(name);
-	}
-
+public class PluginBiomesOPlenty {
 	private static void addBiome(Optional<? extends BiomeGenBase> biome, EnumBiomeType type) {
 		if (biome.isPresent()) {
 			MaricultureHandlers.biomeType.addBiome(biome.get(), type);
 		}
 	}
-	
-	@Override
-	public void preInit() {
-		
-	}
 
-	@Override
-	public void init() {		
+	public static void init() {
 		addBiome(Biomes.alps, EnumBiomeType.COLD);
 		addBiome(Biomes.alpsForest, EnumBiomeType.COLD);
 		addBiome(Biomes.alpsBase, EnumBiomeType.COLD);
@@ -156,32 +143,5 @@ public class PluginBiomesOPlenty extends Plugin {
 			OreDictionary.registerOre("coralLightBlue", new ItemStack(id, 1, 6));
 			OreDictionary.registerOre("coralPurple", new ItemStack(id, 1, 7));
 		}
-	}
-
-	@Override
-	public void postInit() {		
-		WorldGeneration.CORAL_CHANCE /= 5;
-		WorldGeneration.KELP_HEIGHT *= 2.5;
-		WorldGeneration.KELP_CHANCE /= 3;
-	}
-	
-	public static enum Biome {
-		KELP, CORAL
-	}
-
-	public static boolean isBiome(World world, int x, int z, Biome biome) {
-		if(world.getWorldInfo().getTerrainType() != WorldType.parseWorldType("BIOMESOP")) {
-			return true;
-		}
-		
-		Optional<? extends BiomeGenBase> biomeType = (biome.equals(Biome.KELP))? Biomes.oceanKelp: Biomes.oceanCoral;
-		
-		if(biomeType.isPresent()) {
-			if(world.getBiomeGenForCoords(x, z) != biomeType.get()) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 }

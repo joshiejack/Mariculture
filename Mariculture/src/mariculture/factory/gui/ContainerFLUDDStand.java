@@ -1,12 +1,12 @@
 package mariculture.factory.gui;
 
 import mariculture.api.core.IItemUpgrade;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.gui.SlotUpgrade;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.util.ContainerInteger;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class ContainerFLUDDStand extends ContainerMariculture {
+public class ContainerFLUDDStand extends ContainerInteger {
 	private TileFLUDDStand tile;
 
 	public ContainerFLUDDStand(TileFLUDDStand tile, InventoryPlayer playerInventory) {
@@ -30,6 +30,18 @@ public class ContainerFLUDDStand extends ContainerMariculture {
 		addSlotToContainer(new SlotOutput(tile, 4, 32, 50));
 
 		bindPlayerInventory(playerInventory);
+	}
+
+	private void bindPlayerInventory(InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
 	}
 
 	@Override

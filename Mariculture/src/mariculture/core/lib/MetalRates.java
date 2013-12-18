@@ -9,7 +9,7 @@ public class MetalRates {
 	// Ore Nugget Ingot Block Dust
 	public static final int[] MATERIALS = new int[] { ORE, NUGGET, INGOT, BLOCK, INGOT };
 	//Pick, Shovel, Axe, Sword, Hoe
-	public static final int[] TOOLS = new int[] { INGOT * 3, INGOT * 1, INGOT * 3, INGOT * 2, INGOT * 2 };
+	public static final int[] TOOLS = new int[] { NUGGET * 6, NUGGET * 2, NUGGET * 6, NUGGET * 4, NUGGET * 4 };
 	//Head, Chest, Legs, Boots
-	public static final int[] ARMOR = new int[] { INGOT * 5, INGOT * 8, INGOT * 7, INGOT * 4 };
+	public static final int[] ARMOR = new int[] { NUGGET * 10, NUGGET * 16, NUGGET * 14, NUGGET * 8 };
 }

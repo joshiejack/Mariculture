@@ -3,7 +3,7 @@ package mariculture.magic.jewelry.parts;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import mariculture.core.Core;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.PrefixColor;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.PearlColor;
 
@@ -35,7 +35,7 @@ public class PartDiamond extends JewelryPart {
 	
 	@Override
 	public String getColor() {
-		return Text.AQUA;
+		return PrefixColor.AQUA;
 	}
 	
 	@Override

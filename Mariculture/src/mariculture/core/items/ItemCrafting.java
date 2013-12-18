@@ -77,8 +77,6 @@ public class ItemCrafting extends ItemMariculture {
 				return "plan_blank"; 
 			case CraftingMeta.CHALK: 
 				return "chalk";
-			case CraftingMeta.TITANIUM_SHEET:
-				return "titaniumSheet";
 			default:
 				return "unnamed";
 		}

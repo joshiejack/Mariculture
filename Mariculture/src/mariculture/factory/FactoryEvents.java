@@ -14,8 +14,7 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
-import mariculture.core.network.Packet107FLUDD;
-import mariculture.core.network.Packet107FLUDD.PacketType;
+import mariculture.core.lib.PacketIds;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.client.Minecraft;
@@ -148,7 +147,7 @@ public class FactoryEvents {
 		}
 	}
 
-	public static boolean playSmoke(int mode, EntityPlayer player, boolean original) {
+	private static boolean playSmoke(int mode, EntityPlayer player, boolean original) {
 		switch (mode) {
 		case ItemArmorFLUDD.HOVER:
 			return playHover(player, original);
@@ -214,7 +213,7 @@ public class FactoryEvents {
 		return true;
 	}
 
-	private static boolean playTurbo(EntityPlayer player, boolean original) {
+	private static boolean playTurbo(final EntityPlayer player, final boolean original) {
 		if (Extra.FLUDD_WATER_ON) {
 			if (original) {
 				sendWaterAnimateServer(ItemArmorFLUDD.TURBO, player);
@@ -234,8 +233,82 @@ public class FactoryEvents {
 
 	private static void sendWaterAnimateServer(int mode, EntityPlayer player) {
 		if (player instanceof EntityClientPlayerMP) {
-			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.ANIMATE).build());
+			final ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+			final DataOutputStream outputStream = new DataOutputStream(bos);
+			try {
+				outputStream.writeInt(PacketIds.FLUDD_WATER_ANIMATE_SERVER);
+				outputStream.writeInt(mode);
+				outputStream.writeInt(player.entityId);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			Packet250CustomPayload packet = new Packet250CustomPayload();
+			packet.channel = "Mariculture";
+			packet.data = bos.toByteArray();
+			packet.length = bos.size();
+			EntityClientPlayerMP client = (EntityClientPlayerMP) player;
+			client.sendQueue.addToSendQueue(packet);
 		}
+	}
+
+	public static void sendWaterAnimateClient(Packet250CustomPayload oldPacket, World world) {
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(oldPacket.data));
+
+		int id;
+		int mode;
+		int playerID;
+
+		try {
+			id = inputStream.readInt();
+			mode = inputStream.readInt();
+			playerID = inputStream.readInt();
+		} catch (final IOException e) {
+			LogHandler.log(Level.WARNING, "Mariculture ERROR while handling FLUDD Checker Packet");
+			return;
+		}
+
+		EntityPlayer player = (EntityPlayer) world.getEntityByID(playerID);
+		world.playSoundAtEntity(player, Mariculture.modid + ":fludd", 0.6F, 1.0F);
+
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream os = new DataOutputStream(bos);
+		try {
+			os.writeInt(PacketIds.FLUDD_WATER_ANIMATE);
+			os.writeInt(mode);
+			os.writeInt(player.entityId);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "Mariculture";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+
+		PacketDispatcher.sendPacketToAllAround(player.posX, player.posY, player.posZ, 25, player.worldObj.provider.dimensionId, packet);
+	}
+
+	public static void handleFLUDDAnimate(Packet250CustomPayload packet, World world) {
+		final DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int mode;
+		int entityID;
+
+		try {
+			id = inputStream.readInt();
+			mode = inputStream.readInt();
+			entityID = inputStream.readInt();
+
+		} catch (final IOException e) {
+			e.printStackTrace(System.err);
+			return;
+		}
+
+		EntityPlayer player = (EntityPlayer) world.getEntityByID(entityID);
+		player.fallDistance *= 0.5;
+		playSmoke(mode, player, false);
 	}
 
 	private void disableHover(EntityPlayer player) {
@@ -249,7 +322,21 @@ public class FactoryEvents {
 	public static void activateSquirt(EntityPlayer player) {
 		if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
 				&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.SQUIRT) {
-			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, 0, player.entityId, PacketType.SQUIRT).build());
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+			DataOutputStream outputStream = new DataOutputStream(bos);
+			try {
+				outputStream.writeInt(PacketIds.FLUDD_SQUIRT);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			Packet250CustomPayload packet = new Packet250CustomPayload();
+			packet.channel = "Mariculture";
+			packet.data = bos.toByteArray();
+			packet.length = bos.size();
+
+			final EntityClientPlayerMP client = (EntityClientPlayerMP) player;
+			client.sendQueue.addToSendQueue(packet);
 		}
 	}
 
@@ -263,15 +350,29 @@ public class FactoryEvents {
 		damageFLUDD(player, ItemArmorFLUDD.SQUIRT);
 	}
 
-	private static void sendDamagePacket(EntityPlayer player, int mode) {
+	private static void sendDamagePacket(EntityPlayer player, final int mode) {
 		if (player instanceof EntityClientPlayerMP) {
-			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.DAMAGE).build());
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+			DataOutputStream outputStream = new DataOutputStream(bos);
+			try {
+				outputStream.writeInt(PacketIds.DAMAGE_FLUDD);
+				outputStream.writeInt(mode);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			Packet250CustomPayload packet = new Packet250CustomPayload();
+			packet.channel = "Mariculture";
+			packet.data = bos.toByteArray();
+			packet.length = bos.size();
+			EntityClientPlayerMP client = (EntityClientPlayerMP) player;
+			client.sendQueue.addToSendQueue(packet);
 		}
 	}
 
-	public static void damageFLUDD(EntityPlayer player, int mode) {
+	private static void damageFLUDD(EntityPlayer player, final int mode) {
 		if (player.inventory.armorInventory[ArmorSlot.TOP] != null) {
-			ItemStack armor = player.inventory.armorInventory[ArmorSlot.TOP];
+			final ItemStack armor = player.inventory.armorInventory[ArmorSlot.TOP];
 			if (armor.getItem() instanceof ItemArmorFLUDD) {
 				int water = 0;
 				if (armor.hasTagCompound()) {
@@ -284,6 +385,23 @@ public class FactoryEvents {
 				}
 			}
 		}
+	}
+
+	public static void handleDamagePacket(Packet250CustomPayload packet, EntityPlayerMP player) {
+		final DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		int id;
+		int mode;
+
+		try {
+			id = inputStream.readInt();
+			mode = inputStream.readInt();
+		} catch (final IOException e) {
+			LogHandler.log(Level.WARNING, "Mariculture ERROR while handling FLUDD Checker Packet");
+			return;
+		}
+
+		damageFLUDD(player, mode);
 	}
 
 	public static ItemStack handleFill(ItemStack item, boolean doFill, int amount) {

@@ -76,9 +76,9 @@ public class FluidHelper {
 		ItemStack result = getEmptyContainerForFilledItem(top);
 		FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(top);
 				
-		if(result != null && tile.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount) {
+		if(result != null && tile.fill(ForgeDirection.UP, fluid, false) == fluid.amount) {
 			if(matches(top, bottom, result)) {
-				tile.fill(ForgeDirection.UNKNOWN, fluid, true);
+				tile.fill(ForgeDirection.UP, fluid, true);
 				return result;
 			}
 		}
@@ -87,11 +87,11 @@ public class FluidHelper {
 	}
 
 	private static ItemStack doFill(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-		ItemStack result = FluidContainerRegistry.fillFluidContainer(tile.drain(ForgeDirection.UNKNOWN, 100000, false), top);
+		ItemStack result = FluidContainerRegistry.fillFluidContainer(tile.drain(ForgeDirection.UP, 100000, false), top);
 		if(result != null) {
 			if(matches(top, bottom, result)) {
 				FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
-				tile.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+				tile.drain(ForgeDirection.UP, fluid.amount, true);
 				return result;
 			}
 		}
@@ -101,13 +101,13 @@ public class FluidHelper {
 
 	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
 		if (matches(top, bottom, new ItemStack(Item.glassBottle))) {
-			if(tile.getTankInfo(ForgeDirection.UNKNOWN) != null) {
-				if(tile.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid == null) {
+			if(tile.getTankInfo(ForgeDirection.UP) != null) {
+				if(tile.getTankInfo(ForgeDirection.UP)[0].fluid == null) {
 					return null;
 				}
 			}
 			
-			tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
+			tile.drain(ForgeDirection.UP, OreDictionary.WILDCARD_VALUE, true);
 			return new ItemStack(Item.glassBottle);
 		}
 		

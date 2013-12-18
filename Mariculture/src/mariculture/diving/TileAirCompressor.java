@@ -1,10 +1,10 @@
 package mariculture.diving;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.TileDoubleBlock;
 import mariculture.core.lib.PowerStages;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileAirCompressor extends TileMulti {
+public class TileAirCompressor extends TileDoubleBlock {
 
 	final int MAX_AIR = 480;
 	public int currentAir;
@@ -19,10 +19,7 @@ public class TileAirCompressor extends TileMulti {
 		currentAir = 0;
 	}
 
-
 	private boolean canCompress() {
-		//TODO: REDO COMPRESSED CAN
-		/*
 		if (this.getMasterBlock() != null && this.getOtherBlock() != null) {
 			TileAirCompressor here = (TileAirCompressor) this.getMasterBlock();
 			TileAirCompressor there = (TileAirCompressor) this.getOtherBlock();
@@ -45,7 +42,7 @@ public class TileAirCompressor extends TileMulti {
 				}
 			}
 
-		} */
+		}
 
 		return false;
 	}
@@ -53,10 +50,10 @@ public class TileAirCompressor extends TileMulti {
 	public int getBarLength() {
 		return (this.currentAir * 7) / this.MAX_AIR;
 	}
-	
+
 	@Override
-	public void updateMaster() {
-		if (this.currentAir < this.MAX_AIR) {
+	public void updateEntity() {
+		if (this.getMasterBlock() != null && this.currentAir < this.MAX_AIR && this.getMasterBlock() == this) {
 			boolean var1 = this.currentCompressingTime > 0;
 			boolean var2 = false;
 
@@ -83,9 +80,9 @@ public class TileAirCompressor extends TileMulti {
 
 							TileAirCompressorPower power = (TileAirCompressorPower) this.worldObj.getBlockTileEntity(
 									this.xCoord, this.yCoord + 1, this.zCoord);
-							//TileAirCompressorPower masterPower = (TileAirCompressorPower) power.getMasterBlock();
+							TileAirCompressorPower masterPower = (TileAirCompressorPower) power.getMasterBlock();
 
-							/*if (masterPower != null) {
+							if (masterPower != null) {
 								switch (masterPower.getStage()) {
 								case PowerStages.ORANGE:
 									this.currentAir++;
@@ -97,7 +94,7 @@ public class TileAirCompressor extends TileMulti {
 									this.currentAir = this.currentAir + 3;
 									break;
 								}
-							} */
+							}
 
 							if (this.currentAir > this.MAX_AIR) {
 								this.currentAir = this.MAX_AIR;

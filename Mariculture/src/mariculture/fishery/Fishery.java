@@ -1,6 +1,8 @@
 package mariculture.fishery;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
@@ -12,9 +14,8 @@ import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
-import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CraftingMeta;
@@ -24,11 +25,12 @@ import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
-import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.blocks.BlockItemNeonLamp;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
@@ -78,10 +80,10 @@ import mariculture.fishery.fish.dna.FishDNAWorkEthic;
 import mariculture.fishery.items.ItemBait;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemFishyFood;
-import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -115,7 +117,6 @@ public class Fishery extends Module {
 	public static Item rodWood;
 	public static Item rodTitanium;
 	public static Item rodReed;
-	public static Item rodFlux;
 	public static Item fishy;
 	public static Item fishyFood;
 	public static Item net;
@@ -279,12 +280,11 @@ public class Fishery extends Module {
 		rodReed = new ItemRod(ItemIds.rodReed, EnumRodQuality.OLD).setUnlocalizedName("rodReed");
 		rodWood = new ItemRod(ItemIds.rodWood, EnumRodQuality.GOOD).setUnlocalizedName("rodWood");
 		rodTitanium = new ItemRod(ItemIds.rodTitanium, EnumRodQuality.SUPER).setUnlocalizedName("rodTitanium");
-		rodFlux = new ItemFluxRod(ItemIds.rodFlux, EnumRodQuality.FLUX).setUnlocalizedName("rodFlux");
 		fishy = new ItemFishy(ItemIds.fishy).setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		fishyFood = new ItemFishyFood(ItemIds.fishyFood).setUnlocalizedName("fishyFood");
 		net = new BlockItemNet(ItemIds.net).setUnlocalizedName("net");
 
-		RegistryHelper.register(new Object[] { bait, rodReed, rodWood, rodTitanium, fishy, fishyFood, net, rodFlux });
+		RegistryHelper.register(new Object[] { bait, rodReed, rodWood, rodTitanium, fishy, fishyFood, net });
 		
 	}
 
@@ -323,13 +323,6 @@ public class Fishery extends Module {
 				Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 
 				Character.valueOf('W'), Item.silk });
 		
-		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(rodFlux), 0), new Object[] {
-			"  R", " RS", "B S",
-			Character.valueOf('R'), rodTitanium,
-			Character.valueOf('S'), Item.silk,
-			Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE)
-		});
-		
 		/* Fishing Net, Autofisher and Sift */
 		CraftingManager
 				.getInstance()
@@ -353,7 +346,7 @@ public class Fishery extends Module {
 					Character.valueOf('W'), "logWood", 
 					Character.valueOf('R'), new ItemStack(rodWood), 
 					Character.valueOf('F'), new ItemStack(fishyFood, 1, OreDictionary.WILDCARD_VALUE), 
-					Character.valueOf('B'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
+					Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_WOOD),
 					Character.valueOf('P'), "plankWood"}));
 		
 		/* Fish Feeder and Incubator Blocks */
@@ -408,12 +401,12 @@ public class Fishery extends Module {
 		Fishing.bait.addBait(new ItemStack(Item.bread), 1, new Object[] {});
 		Fishing.bait.addBait(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), 5, new Object[] {});
 	
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(Item.bread), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD));
+		Fishing.quality.addBaitForQuality(new ItemStack(Item.bread), Arrays.asList(EnumRodQuality.SUPER));
+		Fishing.quality.addBaitForQuality(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER));
 	}
 	
 	private void addDropletRecipes() {
@@ -461,12 +454,12 @@ public class Fishery extends Module {
 		Fishing.food.addFishFood(new ItemStack(Core.materials.itemID, 1, MaterialsMeta.FISH_MEAL), 8);
 		
 		// Squid > Calamari
-		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 2, FoodMeta.CALAMARI), new Object[] {
+		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 3, FoodMeta.CALAMARI), new Object[] {
 				new ItemStack(fishyFood, 1, Fishery.squid.fishID),
 				new ItemStack(Item.bowlEmpty) });
 
 		// Cod > Fish Finger
-		GameRegistry.addRecipe(new ItemStack(Core.food, 64, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
+		GameRegistry.addRecipe(new ItemStack(Core.food, 32, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
 				Character.valueOf('F'), new ItemStack(fishyFood, 1, Fishery.cod.fishID),
 				Character.valueOf('B'), Item.bread });
 		
@@ -504,11 +497,17 @@ public class Fishery extends Module {
 		//Netherfish as Liquifier fuel
 		MaricultureHandlers.smelter.addFuel(new ItemStack(fishyFood, 1, Fishery.nether.fishID), 32, 2000);
 		
+		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Item.fishRaw), 180, 
+				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 250), 
+						new ItemStack(Item.bone), 10)));
+		
 		//Fish as fish oil and fish meal
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			if (FishSpecies.speciesList.get(i) != null) {
 				FishSpecies fish = FishSpecies.speciesList.get(i);
 				ItemStack stack = new ItemStack(fishyFood, 1, fish.fishID);
+				
+				OreDictionary.registerOre("listAllfishraw", stack);
 				
 				if(fish.getFishOilVolume() > 0) {
 					MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, 180, 

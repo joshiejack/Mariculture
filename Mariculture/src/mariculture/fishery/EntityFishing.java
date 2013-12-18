@@ -1,5 +1,6 @@
 package mariculture.fishery;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -108,11 +109,6 @@ public class EntityFishing extends EntityFishHook {
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 		} else {
 			if (!this.worldObj.isRemote) {
-				if(this.angler == null || this.angler.getCurrentEquippedItem() == null) {
-					this.setDead();
-					return;
-				}
-				
 				ItemStack var1 = this.angler.getCurrentEquippedItem();
 
 				if (this.angler.isDead || !this.angler.isEntityAlive() || var1 == null

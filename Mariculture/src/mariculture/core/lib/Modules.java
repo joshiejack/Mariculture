@@ -36,7 +36,7 @@ public class Modules {
 		public void registerOther() {}
 		public void addRecipes() {}
 
-		public void preInit() {			
+		public void load() {			
 			if (isActive()) {
 				registerHandlers();
 				registerBlocks();
@@ -46,7 +46,7 @@ public class Modules {
 			}
 		}
 		
-		public void init() {
+		public void postLoad() {
 			if(isActive()) {
 				addRecipes();
 				

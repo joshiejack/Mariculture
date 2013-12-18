@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
@@ -33,9 +32,9 @@ public class ModelOyster extends ModelBase {
 	private ModelRenderer pearl;
 	private final float scale;
 
-	public ModelOyster(float scale) {
+	public ModelOyster(final float scale) {
 		this.scale = scale;
-		textureWidth = 128;
+		textureWidth = 64;
 		textureHeight = 64;
 
 		base1 = new ModelRenderer(this, 0, 32);
@@ -114,7 +113,7 @@ public class ModelOyster extends ModelBase {
 	}
 
 	public void render(final TileOyster oyster, final double x, final double y, final double z) {
-		int direction = oyster.getBlockMetadata();
+		final int direction = oyster.getBlockMetadata();
 
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x + 0.5F, (float) y - 0.05F, (float) z + 0.5F);
@@ -224,28 +223,19 @@ public class ModelOyster extends ModelBase {
 					pearl.render(scale);
 
 				}
-			} else {
-				if(oyster.getCurrentPearl().itemID == Item.enderPearl.itemID) {
-					pearl = new ModelRenderer(this, 68, 0);
-					pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
-					pearl.setRotationPoint(5F, -6F, 6F);
-					pearl.setTextureSize(64, 64);
-					pearl.mirror = true;
-					setRotation(pearl, 0F, 0F, 0F);
-					pearl.render(scale);
-				} else {
-					GL11.glPushMatrix();
-					GL11.glScalef(0.6F, 0.6F, 0.6F);
-					GL11.glTranslatef(0F, -0.11F, 0F);
-					pearl = new ModelRenderer(this, 44, 38);
-					pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
-					pearl.setRotationPoint(5F, -6F, 6F);
-					pearl.setTextureSize(64, 64);
-					pearl.mirror = true;
-					setRotation(pearl, 0F, 0F, 0F);
-					pearl.render(scale);
-					GL11.glPopMatrix();
-				}
+			} else {				
+				GL11.glPushMatrix();
+				GL11.glScalef(0.6F, 0.6F, 0.6F);
+				GL11.glTranslatef(0F, -0.11F, 0F);
+				pearl = new ModelRenderer(this, 44, 38);
+				pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
+				pearl.setRotationPoint(5F, -6F, 6F);
+				pearl.setTextureSize(64, 64);
+				pearl.mirror = true;
+				setRotation(pearl, 0F, 0F, 0F);
+				pearl.render(scale);
+				GL11.glPopMatrix();
+
 			}
 		}
 

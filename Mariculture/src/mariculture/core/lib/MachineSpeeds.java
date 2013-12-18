@@ -68,7 +68,7 @@ public class MachineSpeeds {
 
 	public static int getDictionarySpeed() {
 		if (Extra.DEBUG_ON) {
-			return 1;
+			return 10;
 		}
 		
 		return dictionary;

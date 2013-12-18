@@ -1,27 +1,20 @@
 package mariculture.core.blocks;
 
-import mariculture.core.Core;
-import mariculture.core.Mariculture;
-import mariculture.core.items.ItemFluidContainer;
-import mariculture.core.lib.FluidContainerMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
+import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPressuredWater extends BlockFluidClassic {
-	public Icon[] still;
-	public Icon[] flowing;
-	
 	public BlockPressuredWater(int id, Fluid fluid, Material material) {
 		super(id, fluid, material);
 		this.quantaPerBlock = 5;
@@ -36,20 +29,7 @@ public class BlockPressuredWater extends BlockFluidClassic {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		flowing = new Icon[FluidContainerMeta.COUNT];
-		still = new Icon[FluidContainerMeta.COUNT];
-
-		for (int i = 1; i < flowing.length; i++) {
-			String name = ((((ItemFluidContainer) (Core.liquidContainers))
-					.getName(new ItemStack(this.blockID, 1, i))).substring(6)).toLowerCase();
-			if(!name.startsWith("fish") && !name.startsWith("natural")) {
-				name = "molten" + name;
-			}
-				
-			flowing[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_flow");
-			still[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_still");
-		}
+	public void registerIcons(final IconRegister iconRegister) {
 	}
 	
 	@Override

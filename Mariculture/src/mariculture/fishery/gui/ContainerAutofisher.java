@@ -2,17 +2,20 @@ package mariculture.fishery.gui;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
-import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
 import mariculture.fishery.blocks.TileAutofisher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerAutofisher extends ContainerMachine {
+public class ContainerAutofisher extends Container {
+	private TileAutofisher tile;
+
 	public ContainerAutofisher(TileAutofisher tile, InventoryPlayer playerInventory) {
-		super(tile);
+		this.tile = tile;
 		addSlotToContainer(new SlotFishingRod(tile, 0, 34, 12));
 
 		for (int i = 1; i < 4; i++) {
@@ -29,10 +32,42 @@ public class ContainerAutofisher extends ContainerMachine {
 
 		bindPlayerInventory(playerInventory);
 	}
+
+	private void bindPlayerInventory(InventoryPlayer playerInventory) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+		}
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (int i = 0; i < crafters.size(); i++) {
+			tile.sendGUINetworkData(this, (ICrafting) crafters.get(i));
+		}
+
+	}
+
+	@Override
+	public void updateProgressBar(int par1, int par2) {
+		tile.getGUINetworkData(par1, par2);
+	}
+
+	@Override
+	public boolean canInteractWith(EntityPlayer player) {
+		return tile.isUseableByPlayer(player);
+	}
 	
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = getSizeInventory();
+		int size = tile.getSizeInventory();
 		int low = size + 27;
 		int high = low + 9;
 		ItemStack itemstack = null;

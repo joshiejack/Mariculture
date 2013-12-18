@@ -9,36 +9,32 @@ import mariculture.core.gui.ContainerLiquifier;
 import mariculture.core.gui.ContainerOyster;
 import mariculture.core.gui.ContainerSettler;
 import mariculture.core.gui.ContainerSift;
-import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
 import mariculture.core.gui.GuiOyster;
 import mariculture.core.gui.GuiSettler;
-import mariculture.core.gui.GuiStorage;
-import mariculture.core.gui.InventoryStorage;
-import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFLUDDStand;
-import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
+import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileTurbineGas;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.gui.ContainerDictionary;
 import mariculture.factory.gui.ContainerFLUDDStand;
-import mariculture.factory.gui.ContainerFishSorter;
 import mariculture.factory.gui.ContainerPressureVessel;
 import mariculture.factory.gui.ContainerSawmill;
-import mariculture.factory.gui.ContainerTurbineGas;
+import mariculture.factory.gui.ContainerSluice;
 import mariculture.factory.gui.ContainerTurbineWater;
+import mariculture.factory.gui.ContainerTurbineGas;
 import mariculture.factory.gui.GuiDictionary;
 import mariculture.factory.gui.GuiFLUDDStand;
-import mariculture.factory.gui.GuiFishSorter;
 import mariculture.factory.gui.GuiPressureVessel;
 import mariculture.factory.gui.GuiSawmill;
-import mariculture.factory.gui.GuiTurbineGas;
+import mariculture.factory.gui.GuiSluice;
 import mariculture.factory.gui.GuiTurbineWater;
+import mariculture.factory.gui.GuiTurbineGas;
 import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileIncubator;
@@ -65,11 +61,6 @@ public class CommonProxy implements IGuiHandler {
 		
 		if(id == GuiIds.MIRROR) {
 			return new ContainerMirror(player.inventory, new InventoryMirror(ItemMirror.itemStack, player, world), world);
-		} 
-		
-		if(id == GuiIds.FILTER && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-			return new ContainerStorage(player.inventory, new InventoryStorage(player, storage.size), world);
 		}
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
@@ -130,8 +121,8 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerDictionary((TileDictionary) tile, player.inventory);
 			}
 			
-			if(tile instanceof TileFishSorter) {
-				return new ContainerFishSorter((TileFishSorter)tile, player.inventory);
+			if(tile instanceof TileSluice) {
+				return new ContainerSluice((TileSluice) tile, player.inventory);
 			}
 		}
 
@@ -142,11 +133,6 @@ public class CommonProxy implements IGuiHandler {
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		if(id == GuiIds.MIRROR) {
 			return new GuiMirror(player.inventory, new InventoryMirror(ItemMirror.itemStack, player, world), world);
-		} 
-		
-		if(id == GuiIds.FILTER && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-			return new GuiStorage(player.inventory, new InventoryStorage(player, storage.size), world, storage.gui);
 		}
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
@@ -207,8 +193,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiDictionary(player.inventory, (TileDictionary) tile);
 			}
 			
-			if(tile instanceof TileFishSorter) {
-				return new GuiFishSorter(player.inventory, (TileFishSorter) tile);
+			if(tile instanceof TileSluice) {
+				return new GuiSluice(player.inventory, (TileSluice) tile);
 			}
 		}
 

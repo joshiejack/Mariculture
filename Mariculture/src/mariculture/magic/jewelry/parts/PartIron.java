@@ -3,7 +3,7 @@ package mariculture.magic.jewelry.parts;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import mariculture.core.Core;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.PrefixColor;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.PearlColor;
 
@@ -30,7 +30,7 @@ public class PartIron extends JewelryPart {
 	
 	@Override
 	public String getColor() {
-		return Text.GREY;
+		return PrefixColor.GREY;
 	}
 	
 	@Override

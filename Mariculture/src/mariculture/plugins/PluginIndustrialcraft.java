@@ -5,36 +5,29 @@ import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
+import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.Fishery;
-import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-public class PluginIndustrialcraft extends Plugin {
-	public PluginIndustrialcraft(String name) {
-		super(name);
-	}
-
-	@Override
-	public void preInit() {
-		
-	}
-	
-	@Override
-	public void init() {
+public class PluginIndustrialcraft {
+	public static void init() {
 		ItemStack bronzeChest = Items.getItem("bronzeChestplate");
 		ItemStack bronzeLegs = Items.getItem("bronzeLeggings");
 		ItemStack bronzeBoots = Items.getItem("bronzeBoots");
@@ -91,10 +84,5 @@ public class PluginIndustrialcraft extends Plugin {
 					CoralMeta.CORAL_RED)), null,
 					new ItemStack(Item.dyePowder, 2, Dye.RED));
 		}
-	}
-	
-	@Override
-	public void postInit() {
-		
 	}
 }
