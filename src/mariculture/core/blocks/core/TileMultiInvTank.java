@@ -1,11 +1,10 @@
 package mariculture.core.blocks.core;
 
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.TransferHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -15,6 +14,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITank {
 	
+	protected TransferHelper transfer;
 	protected Tank tank;
 
 	@Override
@@ -99,5 +99,12 @@ public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITa
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		if(transfer == null)
+			transfer = new TransferHelper(this);
 	}
 }

@@ -26,7 +26,6 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileSluice extends TileTank implements IBlacklisted {
-	private TransferHelper transfer;
 	private int rate[] = new int[] { 1000, 500, 250, 100, 25, 1 }; 
 
 	protected int machineTick;
