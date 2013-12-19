@@ -6,7 +6,7 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.core.blocks.core.TileMultiInvTankMachine;
+import mariculture.core.blocks.base.TileMultiInvTankMachine;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.FluidHelper;

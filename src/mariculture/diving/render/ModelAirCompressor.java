@@ -1,6 +1,6 @@
 package mariculture.diving.render;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.render.RenderDouble;
 import mariculture.diving.TileAirCompressor;
 import net.minecraft.client.Minecraft;

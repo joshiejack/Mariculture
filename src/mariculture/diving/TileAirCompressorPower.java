@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.Random;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.lib.PowerStages;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;

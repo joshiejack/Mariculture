@@ -1,4 +1,4 @@
-package mariculture.core.blocks.core;
+package mariculture.core.blocks.base;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
@@ -11,12 +11,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public abstract class TileMultiInvTankMachine extends TileMultiInvTank implements IUpgradable, IMachine {
-	private int machineTick = 0;
+public class TileMachineTank extends TileStorageTank implements IUpgradable, IMachine {
+	protected int machineTick = 0;
 	protected int purity = 0;
 	protected int heat = 0;
 	
-	public TileMultiInvTankMachine() {
+	public TileMachineTank() {
 		this.tank = new Tank(getTankCapacity(0));
 	}
 	
@@ -33,7 +33,7 @@ public abstract class TileMultiInvTankMachine extends TileMultiInvTank implement
 	public void updateUpgrades() {
 		tank.setCapacity(getTankCapacity(MaricultureHandlers.upgrades.getData("storage", this)));
 		purity = MaricultureHandlers.upgrades.getData("purity", this);
-		heat = MaricultureHandlers.upgrades.getData("temp", this);
+		heat= MaricultureHandlers.upgrades.getData("temp", this);
 	}
 	
 	public int getTankCapacity(int storage) {
@@ -48,8 +48,15 @@ public abstract class TileMultiInvTankMachine extends TileMultiInvTank implement
 		if(machineTick %20 == 0) {
 			updateUpgrades();
 		}
+		
+		updateMachine();
 	}
 	
+	public void updateMachine() {
+		
+	}
+	
+	@Override
 	public void getGUINetworkData(int i, int j) {
 		switch (i) {
 		case 0:
@@ -64,6 +71,7 @@ public abstract class TileMultiInvTankMachine extends TileMultiInvTank implement
 		}
 	}
 	
+	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
 		Packets.updateGUI(player, container, 0, tank.getFluidID());
 		Packets.updateGUI(player, container, 1, tank.getFluidAmount());

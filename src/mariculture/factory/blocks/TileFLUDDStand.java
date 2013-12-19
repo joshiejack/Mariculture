@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.blocks.core.TileMachineTank;
+import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;

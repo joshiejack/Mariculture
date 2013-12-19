@@ -1,4 +1,4 @@
-package mariculture.core.blocks.core;
+package mariculture.core.blocks.base;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;

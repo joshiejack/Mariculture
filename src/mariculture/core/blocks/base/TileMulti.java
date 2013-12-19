@@ -1,4 +1,4 @@
-package mariculture.core.blocks.core;
+package mariculture.core.blocks.base;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet;

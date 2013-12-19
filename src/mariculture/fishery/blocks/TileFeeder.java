@@ -6,7 +6,7 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
-import mariculture.core.blocks.core.TileMachine;
+import mariculture.core.blocks.base.TileMachine;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.MachineSpeeds;

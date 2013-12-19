@@ -175,6 +175,7 @@ public class Factory extends Module {
 	@Override
 	public void addRecipes() {
 	//Blocks
+		
 		//Sawmill
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL), new Object[] {
 			" A ", "DWD", "IMI",

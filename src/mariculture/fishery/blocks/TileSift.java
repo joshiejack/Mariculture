@@ -1,6 +1,6 @@
 package mariculture.fishery.blocks;
 
-import mariculture.core.blocks.core.TileStorage;
+import mariculture.core.blocks.base.TileStorage;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 

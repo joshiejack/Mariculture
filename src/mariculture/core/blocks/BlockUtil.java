@@ -4,7 +4,7 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;

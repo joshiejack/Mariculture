@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.factory.blocks.TileSponge;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

@@ -3,7 +3,7 @@ package mariculture.factory.blocks;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.core.TileMachine;
+import mariculture.core.blocks.base.TileMachine;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.AirMeta;

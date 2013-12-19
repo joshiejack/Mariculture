@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.core.Mariculture;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.TankMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemStack;
@@ -51,6 +52,11 @@ public class BlockTank extends BlockDecorative {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		return new TileTankBlock();
+	}
+	
+	@Override
+	public int getMetaCount() {
+		return TankMeta.COUNT;
 	}
 	
 	@Override

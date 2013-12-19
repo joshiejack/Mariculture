@@ -1,6 +1,6 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.blocks.core.TileStorage;
+import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.InventoryHelper;

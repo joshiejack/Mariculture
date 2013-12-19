@@ -5,7 +5,7 @@ import java.util.Random;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
-import mariculture.core.blocks.core.TileStorage;
+import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.InventoryHelper;

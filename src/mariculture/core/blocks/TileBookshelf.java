@@ -1,6 +1,6 @@
 package mariculture.core.blocks;
 
-import mariculture.core.blocks.core.TileStorage;
+import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.util.IHasGUI;
 import net.minecraft.item.ItemStack;
 

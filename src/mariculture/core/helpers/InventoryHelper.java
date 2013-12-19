@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.util.IItemDropBlacklist;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;

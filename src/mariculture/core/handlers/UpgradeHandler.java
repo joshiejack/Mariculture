@@ -3,7 +3,7 @@ package mariculture.core.handlers;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.IUpgradeHandler;
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

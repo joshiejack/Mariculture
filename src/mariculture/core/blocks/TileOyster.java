@@ -1,7 +1,7 @@
 package mariculture.core.blocks;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.core.TileStorage;
+import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.network.Packet103Oyster;
 import mariculture.core.network.Packets;
 import net.minecraft.block.Block;

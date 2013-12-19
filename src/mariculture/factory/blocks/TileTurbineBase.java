@@ -2,7 +2,7 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.core.blocks.core.TileMachineTank;
+import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;

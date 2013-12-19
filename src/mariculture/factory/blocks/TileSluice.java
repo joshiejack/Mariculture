@@ -4,7 +4,7 @@ import java.util.Random;
 
 import mariculture.api.core.IBlacklisted;
 import mariculture.core.Core;
-import mariculture.core.blocks.core.TileTank;
+import mariculture.core.blocks.base.TileTank;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.TransferHelper;
@@ -33,10 +33,6 @@ public class TileSluice extends TileTank implements IBlacklisted {
 	private int height;
 	
 	Random rand = new Random();
-	
-	public TileSluice() {
-		transfer = new TransferHelper(this);
-	}
 	
 	@Override
 	public int getTankSize() {
@@ -294,24 +290,15 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		}
 	}
 
-	private boolean transfer() {
-		if(facing >= 2) {
-			if(Rand.nextInt(2)) {
-				return transfer.transfer(ForgeDirection.NORTH, rate);
-			} 
-			
-			return transfer.transfer(ForgeDirection.SOUTH, rate);
-		}
-		
-		if(facing <= 1) {
-			if(Rand.nextInt(2)) {
-				return transfer.transfer(ForgeDirection.EAST, rate);
-			} 
-			
-			return transfer.transfer(ForgeDirection.WEST, rate);
-		}
-		
-		return false;
+	private void transfer() {
+		if(facing != 3)
+			transfer.transfer(ForgeDirection.WEST, rate);
+		if(facing != 2)
+			transfer.transfer(ForgeDirection.WEST, rate);
+		if(facing != 1)
+			transfer.transfer(ForgeDirection.NORTH, rate);
+		if(facing != 0)
+			transfer.transfer(ForgeDirection.SOUTH, rate);
 	}
 
 	private void fillSluice() {

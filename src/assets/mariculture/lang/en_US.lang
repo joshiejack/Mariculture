@@ -251,7 +251,7 @@ tile.lampsOff.blue.name=Blue Neon Lamp
 tile.lampsOff.black.name=Black Neon Lamp
 tile.lampsOff.pink.name=Pink Neon Lamp
 tile.lampsOff.silver.name=Silver Neon Lamp
-tile.tankBlocks.fish=Fish Tank
+tile.tankBlocks.fish.name=Fish Tank
 item.net.name=Fishing Net
 #fluid
 fluid.fishFood=Fish Food

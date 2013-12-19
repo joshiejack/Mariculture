@@ -5,7 +5,7 @@ import java.util.Random;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeFreezer;
-import mariculture.core.blocks.core.TileMachineTank;
+import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.ContainerSettler;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.HeatHelper;

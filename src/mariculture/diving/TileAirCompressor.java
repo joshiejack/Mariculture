@@ -1,6 +1,6 @@
 package mariculture.diving;
 
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.lib.PowerStages;
 import net.minecraft.nbt.NBTTagCompound;
 

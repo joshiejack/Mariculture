@@ -1,6 +1,6 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.blocks.core.TileStorage;
+import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;

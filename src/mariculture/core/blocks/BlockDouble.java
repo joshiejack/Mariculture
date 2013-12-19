@@ -3,7 +3,7 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.core.TileMulti;
+import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;

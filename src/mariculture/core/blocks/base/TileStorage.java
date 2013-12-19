@@ -1,12 +1,13 @@
-package mariculture.core.blocks.core;
+package mariculture.core.blocks.base;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 
-public class TileMultiInv extends TileMulti implements IInventory {
+public class TileStorage extends TileEntity implements IInventory {
 
 	protected ItemStack[] inventory;
 	
@@ -16,7 +17,7 @@ public class TileMultiInv extends TileMulti implements IInventory {
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int slot) {		
+	public ItemStack getStackInSlot(int slot) {
 		return inventory[slot];
 	}
 
@@ -25,31 +26,31 @@ public class TileMultiInv extends TileMulti implements IInventory {
 		if (inventory[slot] != null) {
             ItemStack stack;
 
-            if (inventory[slot].stackSize <= amount) {
-                stack = inventory[slot];
-                inventory[slot] = null;
-                onInventoryChanged();
+            if (this.inventory[slot].stackSize <= amount) {
+                stack = this.inventory[slot];
+                this.inventory[slot] = null;
+                this.onInventoryChanged();
                 return stack;
             } else {
-                stack = inventory[slot].splitStack(amount);
+                stack = this.inventory[slot].splitStack(amount);
 
-                if (inventory[slot].stackSize == 0) {
-                	inventory[slot] = null;
+                if (this.inventory[slot].stackSize == 0) {
+                    this.inventory[slot] = null;
                 }
 
-                onInventoryChanged();
+                this.onInventoryChanged();
                 return stack;
             }
         }
-		
+
 		return null;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot) {
-		if (inventory[slot] != null) {
-            ItemStack stack = inventory[slot];
-            inventory[slot] = null;
+		if (this.inventory[slot] != null) {
+            ItemStack stack = this.inventory[slot];
+            this.inventory[slot] = null;
             return stack;
         }
 
@@ -58,18 +59,13 @@ public class TileMultiInv extends TileMulti implements IInventory {
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		TileMultiInv master = (mstr.built)? (TileMultiInv) worldObj.getBlockTileEntity(mstr.x, mstr.y, mstr.z): null;
-		if(master == null) {
-			return;
-		}
-		
-		master.inventory[slot] = stack;
+		this.inventory[slot] = stack;
 
-        if (stack != null && stack.stackSize > master.getInventoryStackLimit()) {
-        	stack.stackSize = master.getInventoryStackLimit();
+        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+        	stack.stackSize = this.getInventoryStackLimit();
         }
 
-        master.onInventoryChanged();
+        this.onInventoryChanged();
 	}
 
 	@Override
@@ -100,14 +96,14 @@ public class TileMultiInv extends TileMulti implements IInventory {
 	public void closeChest() {}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return true;
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		
+
 		NBTTagList tagList = tagCompound.getTagList("Inventory");
 
 		for (int i = 0; i < tagList.tagCount(); i++) {

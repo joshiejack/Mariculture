@@ -1,4 +1,4 @@
-package mariculture.core.blocks.core;
+package mariculture.core.blocks.base;
 
 import mariculture.core.helpers.TransferHelper;
 import mariculture.core.util.ITank;

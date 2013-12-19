@@ -1,10 +1,11 @@
-package mariculture.core.blocks.core;
+package mariculture.core.blocks.base;
 
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.TransferHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -12,14 +13,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITank {
+public class TileStorageTank extends TileStorage implements IFluidHandler, ITank {
 	
 	protected TransferHelper transfer;
-	protected Tank tank;
+	public Tank tank;
 
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		return mstr.built? ((TileMultiInvTank)worldObj.getBlockTileEntity(mstr.x, mstr.y, mstr.z)).tank.fill(resource, doFill): 0;
+		return tank.fill(resource, doFill);
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITa
 
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		return mstr.built? ((TileMultiInvTank)worldObj.getBlockTileEntity(mstr.x, mstr.y, mstr.z)).tank.drain(maxDrain, doDrain): null;
+		return tank.drain(maxDrain, doDrain);
 	}
 
 	@Override
@@ -44,26 +45,20 @@ public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITa
 
 	@Override
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		return mstr.built? new FluidTankInfo[] { ((TileMultiInvTank)worldObj.getBlockTileEntity(mstr.x, mstr.y, mstr.z)).tank.getInfo() }: null;
+		return new FluidTankInfo[] { tank.getInfo() };
 	}
 
 	@Override
 	public FluidStack getFluid(int transfer) {
-		if(!mstr.built) {
+		if(tank.getFluid() == null) {
 			return null;
 		}
 		
-		TileMultiInvTank master = ((TileMultiInvTank)worldObj.getBlockTileEntity(mstr.x, mstr.y, mstr.z));
-		
-		if(master.tank.getFluid() == null) {
+		if(tank.getFluidAmount() - transfer < 0) {
 			return null;
 		}
 		
-		if(master.tank.getFluidAmount() - transfer < 0) {
-			return null;
-		}
-		
-		return new FluidStack(master.tank.getFluidID(), transfer);
+		return new FluidStack(tank.getFluidID(), transfer);
 	}
 	
 	public String getLiquidName() {
@@ -101,7 +96,6 @@ public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITa
 		tank.writeToNBT(tagCompound);
 	}
 	
-	@Override
 	public void updateEntity() {
 		super.updateEntity();
 		if(transfer == null)

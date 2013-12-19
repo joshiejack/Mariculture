@@ -19,6 +19,7 @@ import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.PluginTinkersConstruct;
 import mariculture.plugins.Plugins;
@@ -61,6 +62,14 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID),
 				new Object[] { Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK) });
 
+		//Copper Tank
+		RecipeHelper.addShapedRecipe(Stack.tank.get(4), new Object[] {
+			"CWC", "WGW", "CWC",
+			Character.valueOf('C'), "ingotCopper",
+			Character.valueOf('W'), "plankWood",
+			Character.valueOf('G'), "glass"
+		});
+		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()

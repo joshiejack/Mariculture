@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.core.TileStorageTank;
+import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.TransferHelper;
 import mariculture.core.lib.AirMeta;
