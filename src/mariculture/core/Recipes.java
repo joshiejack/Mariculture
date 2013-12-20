@@ -114,10 +114,9 @@ public class Recipes {
 		
 		//Crucible Furnace
 		RecipeHelper.addShapedRecipe(Stack.crucible.get(), new Object[] {
-			"BLB", "IGI", "HCH",
+			" L ", "BGB", "HCH",
 			Character.valueOf('B'), Stack.burntBrick.get(),
 			Character.valueOf('L'), Item.bucketLava,
-			Character.valueOf('I'), Block.fenceIron,
 			Character.valueOf('G'), "glass",
 			Character.valueOf('H'), Stack.heating.get(),
 			Character.valueOf('C'), Stack.baseBrick.get()
@@ -140,7 +139,7 @@ public class Recipes {
 		//Pearl Hammer
 		RecipeHelper.addShapedRecipe(Stack.hammer.get(), new Object[] {
 			"PP ", " SP", "S  ",
-			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE),
+			Character.valueOf('P'), Stack.burntBrick.get(),
 			Character.valueOf('S'), "stickWood"
 		});
 
@@ -269,7 +268,7 @@ public class Recipes {
 							new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 1)));
 		
 		//Titanium Sheet
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.TITANIUM_SHEET), new Object[] {
 			"I I", " F ", "I I",
 			Character.valueOf('I'), "ingotTitanium",
 			Character.valueOf('F'), Item.flintAndSteel

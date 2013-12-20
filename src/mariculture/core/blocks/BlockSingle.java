@@ -74,6 +74,10 @@ public class BlockSingle extends BlockMachine {
 			return 5F;
 		case SingleMeta.GEYSER:
 			return 1F;
+		case SingleMeta.ANVIL:
+			return 6F;
+		case SingleMeta.BUCKET:
+			return 3F;
 		}
 
 		return 1F;

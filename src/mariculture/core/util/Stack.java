@@ -23,7 +23,7 @@ public class Stack {
 	public static final Stack burntAnvil = new Stack(Core.singleBlocks, SingleMeta.ANVIL);
 	public static final Stack sluice = new Stack(Core.utilBlocks, UtilMeta.SLUICE);
 	public static final Stack tank = new Stack(Core.tankBlocks, TankMeta.TANK);
-	public static final Stack bucketTank = new Stack(Core.tankBlocks, TankMeta.BUCKET);
+	public static final Stack bucketTank = new Stack(Core.singleBlocks, SingleMeta.BUCKET);
 	public static final Stack forge = new Stack(Core.doubleBlock, DoubleMeta.FORGE);
 	
 	//Crafting Items

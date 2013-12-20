@@ -209,7 +209,7 @@ public class ModelAirCompressor extends ModelBase {
 		GL11.glPopMatrix();
 	}
 
-	public void renderInventory(final ItemRenderType type) {
+	public void renderInventory(ItemRenderType type) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 

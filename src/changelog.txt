@@ -3,6 +3,11 @@
 * Manual Turbines, right click them to provide RF
 * Redstone Flux Fishing Rod
 * Added Snorkel, cheap early game diving assistance, allows you to breathe slightly longer underwater
+* Fish Sorter added
+* Melting, completely redone ;)
+* Void Bottles are now placeable
+* Fish Tank(read chest) Added
+* Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
 ====Changes====
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
 * Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block for, was it really neccessary?

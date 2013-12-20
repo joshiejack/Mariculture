@@ -44,6 +44,7 @@ public class ItemPaintbrush extends ItemDamageable {
 		if (stack.hasTagCompound()) {
 			int id = stack.stackTagCompound.getInteger("BlockID");
 			int meta = stack.stackTagCompound.getInteger("BlockMeta");
+			int sideTexture = stack.stackTagCompound.getInteger("BlockSide");
 
 			if (id > 0) {
 				if (world.getBlockTileEntity(x, y, z) != null) {
@@ -51,7 +52,7 @@ public class ItemPaintbrush extends ItemDamageable {
 						int blockID = world.getBlockId(x, y, z);
 						if (!player.isSneaking() && blockID != Factory.customGate.blockID || (player.isSneaking() && blockID == Factory.customGate.blockID)) {
 							TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
-							if(tile.setSide(side, id, meta)) {
+							if(tile.setSide(side, id, meta, sideTexture)) {
 								stack.attemptDamageItem(1, new Random());
 							}
 
@@ -80,9 +81,11 @@ public class ItemPaintbrush extends ItemDamageable {
 				int newMeta;
 				int prevID = stack.stackTagCompound.getInteger("BlockID");
 				int prevMeta = stack.stackTagCompound.getInteger("BlockMeta");
+				int prevSide = stack.stackTagCompound.getInteger("BlockSide");
 				if (custom) {
 					stack.stackTagCompound.setInteger("BlockID", Core.airBlocks.blockID);
 					stack.stackTagCompound.setInteger("BlockMeta", AirMeta.FAKE_AIR);
+					stack.stackTagCompound.setInteger("BlockSide", 0);
 					newID = Core.airBlocks.blockID;
 					newMeta = AirMeta.FAKE_AIR;
 				} else {
@@ -90,6 +93,7 @@ public class ItemPaintbrush extends ItemDamageable {
 					newMeta = world.getBlockMetadata(x, y, z);
 					stack.stackTagCompound.setInteger("BlockID", newID);
 					stack.stackTagCompound.setInteger("BlockMeta", newMeta);
+					stack.stackTagCompound.setInteger("BlockSide", side);
 				}
 			
 				if(newID != prevID || newMeta != prevMeta) {

@@ -18,8 +18,8 @@ public class BlockTankItem extends ItemBlockMariculture {
 			return "fish";
 		case TankMeta.TANK:
 			return "normal";
-		case TankMeta.BUCKET:
-			return "bucket";
+		case TankMeta.BOTTLE:
+			return "bottle";
 		default:
 			return "tank";
 		}

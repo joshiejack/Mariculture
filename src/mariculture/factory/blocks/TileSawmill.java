@@ -108,6 +108,7 @@ public class TileSawmill extends TileMachine implements ISidedInventory, IHasGUI
 
 		result.stackTagCompound.setIntArray("BlockIDs", ids);
 		result.stackTagCompound.setIntArray("BlockMetas", metas);
+		result.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 1, 2, 3, 4, 5 });
 		result.stackTagCompound.setString("Name", name);
 
 		result.stackSize = ((ItemPlan) inventory[0].getItem()).getStackSize(inventory[0]);
@@ -162,6 +163,7 @@ public class TileSawmill extends TileMachine implements ISidedInventory, IHasGUI
 
 			result.stackTagCompound.setIntArray("BlockIDs", ids);
 			result.stackTagCompound.setIntArray("BlockMetas", metas);
+			result.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 1, 2, 3, 4, 5 });
 			result.stackTagCompound.setString("Name", name);
 
 			result.stackSize = ((ItemPlan) inventory[0].getItem()).getStackSize(inventory[0]);

@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 public class TileCustom extends TileEntity {
 	private int[] theBlockIDs = new int[6];
 	private int[] theBlockMetas = new int[6];
+	private int[] theSides = new int[6];
 	private String name = "CustomTile";
 	
 	public int size() {
@@ -31,17 +32,24 @@ public class TileCustom extends TileEntity {
 	public int[] theBlockIDs() {
 		return theBlockIDs;
 	}
+	
+	public int[] theBlockMetas() {
+		return theBlockMetas;
+	}
+	public int[] theBlockSides() {
+		return theSides;
+	}
 
 	public int theBlockIDs(int i) {
 		return theBlockIDs[i];
 	}
 	
-	public int[] theBlockMetas() {
-		return theBlockMetas;
-	}
-	
 	public int theBlockMetas(int i) {
 		return theBlockMetas[i];
+	}
+	
+	public int theBlockSides(int i) {
+		return theSides[i];
 	}
 	
 	@Override
@@ -54,6 +62,7 @@ public class TileCustom extends TileEntity {
 		super.readFromNBT(tagCompound);
 		this.theBlockIDs = tagCompound.getIntArray("BlockIDs");
 		this.theBlockMetas = tagCompound.getIntArray("BlockMetas");
+		this.theSides = tagCompound.getIntArray("BlockSides");
 		this.name = tagCompound.getString("Name");
 	}
 
@@ -63,6 +72,7 @@ public class TileCustom extends TileEntity {
 
 		tagCompound.setIntArray("BlockIDs", this.theBlockIDs);
 		tagCompound.setIntArray("BlockMetas", this.theBlockMetas);
+		tagCompound.setIntArray("BlockSides", this.theSides);
 		tagCompound.setString("Name", this.name);
 	}
 
@@ -78,25 +88,27 @@ public class TileCustom extends TileEntity {
 		readFromNBT(packet.data);
 	}
 	
-	public void set(int[] ids, int metas[], String name2) {
+	public void set(int[] ids, int metas[], int sides[], String name2) {
 		if(theBlockIDs.length == 6) {
 			theBlockIDs = ids;
 			theBlockMetas = metas;
+			theSides = sides;
 			name = name2;
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			updateRender();
 		}
 	}
 
-	public boolean setSide(int side, int id, int meta) {
+	public boolean setSide(int side, int id, int meta, int sideTexture) {
 		boolean ret = false;
 		if(theBlockIDs.length == 6) {
-			if(theBlockIDs[side] != id || theBlockMetas[side] != meta) {
+			if(theBlockIDs[side] != id || theBlockMetas[side] != meta || theSides[side] != sideTexture) {
 				ret = true;
 			}
 			
 			theBlockIDs[side] = id;
 			theBlockMetas[side] = meta;
+			theSides[side] = sideTexture;
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			updateRender();
 		}
@@ -107,30 +119,6 @@ public class TileCustom extends TileEntity {
 	public void updateRender() {
 		if (!worldObj.isRemote) {
 			Packets.updateTile(this, 128, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
-		}
-	}
-
-	public static void handleUpdateRender(Packet250CustomPayload packet, World world) {
-		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
-
-		int id;
-		int x;
-		int y;
-		int z;
-
-		try {
-			id = inputStream.readInt();
-			x = inputStream.readInt();
-			y = inputStream.readInt();
-			z = inputStream.readInt();
-
-		} catch (IOException e) {
-			e.printStackTrace(System.err);
-			return;
-		}
-
-		if (world.isRemote) {
-			Minecraft.getMinecraft().theWorld.markBlockForRenderUpdate(x, y, z);
 		}
 	}
 }

@@ -19,6 +19,7 @@ import mariculture.core.blocks.BlockPearlBrickItem;
 import mariculture.core.blocks.BlockPressuredWater;
 import mariculture.core.blocks.BlockSingle;
 import mariculture.core.blocks.BlockSingleItem;
+import mariculture.core.blocks.BlockStationaryWater;
 import mariculture.core.blocks.BlockTank;
 import mariculture.core.blocks.BlockTankItem;
 import mariculture.core.blocks.BlockTransparent;
@@ -258,7 +259,7 @@ public class Core extends Module {
 		OreDictionary.registerOre("blockLimestone", new ItemStack(oreBlocks, 1, OresMeta.LIMESTONE));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER));
 		OreDictionary.registerOre("oreAluminum", new ItemStack(oreBlocks, 1, OresMeta.BAUXITE));
-		OreDictionary.registerOre("oreTitanium", new ItemStack(oreBlocks, 1, OresMeta.RUTILE));
+		OreDictionary.registerOre("oreRutile", new ItemStack(oreBlocks, 1, OresMeta.RUTILE));
 		
 		OreDictionary.registerOre("blockAluminum", new ItemStack(oreBlocks, 1, OresMeta.ALUMINUM_BLOCK));
 		OreDictionary.registerOre("blockCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER_BLOCK));
@@ -294,6 +295,10 @@ public class Core extends Module {
 		FluidDictionary.nickel = addFluid("moltenNickel", moltenNickel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_NICKEL);
 		FluidDictionary.bronze = addFluid("moltenBronze", moltenBronze, MetalRates.INGOT, FluidContainerMeta.BOTTLE_BRONZE);
 		FluidDictionary.steel =	addFluid("moltenSteel", moltenSteel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_STEEL);
+		
+		Block.blocksList[9] = null;
+		Block.blocksList[9] = (new BlockStationaryWater(9, Material.water)).setHardness(100.0F).setLightOpacity(3).setUnlocalizedName("water").setTextureName("water_still");
+		
 	}
 	
 	private String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {

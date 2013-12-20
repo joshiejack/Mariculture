@@ -26,7 +26,7 @@ public class PluginRailcraft extends Plugin {
 		final String id = "Railcraft";
 
 		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET));
-		RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET));
+		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.TITANIUM_SHEET));
 
 		ItemStack steelBoots = GameRegistry.findItemStack(id, "armor.steel.boots", 1);
 		ItemStack steelHelm = GameRegistry.findItemStack(id, "armor.steel.helmet", 1);
@@ -48,20 +48,6 @@ public class PluginRailcraft extends Plugin {
 
 		MaricultureHandlers.smelter.addFuel(coalCoke, 64, 2000);
 		MaricultureHandlers.smelter.addFuel(coalCokeBlock, 576, 2000);
-		
-		for(ItemStack ingot: OreDictionary.getOres("ingotAluminum")) {
-			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
-					CraftingMeta.ALUMINUM_SHEET),
-					new Object[] { "## ", "## ", Character.valueOf('#'),
-							(ingot) });
-		}
-		
-		for(ItemStack ingot: OreDictionary.getOres("ingotTitanium")) {
-			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 1,
-					CraftingMeta.TITANIUM_SHEET),
-					new Object[] { "## ", "## ", Character.valueOf('#'),
-							(ingot) });
-		}
 
 		ItemStack input = new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE);
 		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);
@@ -76,6 +62,18 @@ public class PluginRailcraft extends Plugin {
 
 	@Override
 	public void postInit() {
+		for(ItemStack ingot: OreDictionary.getOres("ingotAluminum")) {
+			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
+					CraftingMeta.ALUMINUM_SHEET),
+					new Object[] { "## ", "## ", Character.valueOf('#'),
+							(ingot) });
+		}
 		
+		for(ItemStack ingot: OreDictionary.getOres("ingotTitanium")) {
+			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
+					CraftingMeta.TITANIUM_SHEET),
+					new Object[] { "## ", "## ", Character.valueOf('#'),
+							(ingot) });
+		}
 	}
 }

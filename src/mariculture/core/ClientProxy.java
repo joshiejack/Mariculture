@@ -107,7 +107,6 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Factory.customRFBlock.blockID, new RenderCustomItem());
 			MinecraftForgeClient.registerItemRenderer(Factory.fludd.itemID, new RenderSingleItem());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSingle(new ModelFLUDD(scale), FLUDD));
-			ClientRegistry.bindTileEntitySpecialRenderer(TilePressureVessel.class, new RenderDouble(new ModelAirCompressor(scaleDouble), PRESSURE_VESSEL));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSingle(new ModelTurbineWater(scale), TURBINE));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSingle(new ModelTurbineGas(scale), TURBINE_GAS));
 		}

@@ -21,7 +21,7 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int id, RenderBlocks render) {
-		if (id == RenderIds.BLOCK_TANKS && world.getBlockMetadata(x, y, z) != TankMeta.BUCKET) {
+		if (id == RenderIds.BLOCK_TANKS) {
 			//Tank
 			TileTankBlock tank = (TileTankBlock) world.getBlockTileEntity(x, y, z);
 			if(tank != null) {

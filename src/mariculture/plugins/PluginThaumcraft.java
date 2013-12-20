@@ -67,7 +67,7 @@ public class PluginThaumcraft extends Plugin {
 		
 		//Ore Blocks
 		ThaumcraftApi.registerObjectTag("oreAluminum", new AspectList().add(Aspect.STONE, 1).add(Aspect.METAL, 1).add(Aspect.AIR, 2));
-		ThaumcraftApi.registerObjectTag("oreTitanium", new AspectList().add(Aspect.STONE, 1).add(Aspect.METAL, 4).add(Aspect.DARKNESS, 1));
+		ThaumcraftApi.registerObjectTag("oreRutile", new AspectList().add(Aspect.STONE, 1).add(Aspect.METAL, 4).add(Aspect.DARKNESS, 1));
 		ThaumcraftApi.registerObjectTag(Core.oreBlocks.blockID, OresMeta.LIMESTONE, new AspectList().add(Aspect.STONE, 1).add(Aspect.WATER, 1).add(Aspect.EARTH, 1));
 		ThaumcraftApi.registerObjectTag(Core.oreBlocks.blockID, OresMeta.LIMESTONE_SMOOTH, new AspectList().add(Aspect.STONE, 1).add(Aspect.WATER, 1));
 		ThaumcraftApi.registerObjectTag(Core.oreBlocks.blockID, OresMeta.CORAL_ROCK, new AspectList().add(Aspect.STONE, 1).add(Aspect.WATER, 2));

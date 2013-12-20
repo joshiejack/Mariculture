@@ -169,7 +169,7 @@ public class PluginTinkersConstruct extends Plugin {
 	public static void addMelting() {
 		//Melt Down Titanium
 		PluginTinkersConstruct.addMelting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
-		PluginTinkersConstruct.addMelting("oreTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.ORE), 800);
+		PluginTinkersConstruct.addMelting("oreRutile", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.ORE), 800);
 		PluginTinkersConstruct.addMelting("dustTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
 		PluginTinkersConstruct.addMelting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 800);
 		PluginTinkersConstruct.addMelting("nuggetTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.NUGGET), 800);

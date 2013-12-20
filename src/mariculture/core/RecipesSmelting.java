@@ -42,7 +42,7 @@ public class RecipesSmelting {
 				Object item = items[i];
 				ItemStack stack = null;
 				if(item instanceof String) {
-					isRutile = item.equals("oreTitanium");
+					isRutile = item.equals("oreRutile");
 					if(OreDictionary.getOres((String)item).size() > 0) {
 						stack = OreDictionary.getOres((String) item).get(0);
 					}
@@ -146,7 +146,7 @@ public class RecipesSmelting {
 		}
 		
 		addRecipe(FluidDictionary.titanium, MetalRates.MATERIALS, new Object[] { 
-				"oreTitanium", "nuggetTitanium", "ingotTitanium", "blockTitanium", "dustTitanium" }, 
+				"oreRutile", "nuggetTitanium", "ingotTitanium", "blockTitanium", "dustTitanium" }, 
 						titanium, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
 		
 		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.INGOT), 
