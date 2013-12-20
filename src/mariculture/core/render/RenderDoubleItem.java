@@ -12,25 +12,23 @@ import net.minecraftforge.client.IItemRenderer;
 public class RenderDoubleItem implements IItemRenderer {
 	private static final float scale = (float) (1.0 / 16.0);
 	private static final ResourceLocation COMPRESSOR = new ResourceLocation("mariculture", "textures/blocks/air_compressor_texture.png");
-	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation("mariculture",
-			"textures/blocks/pressure_vessel_texture.png");
-	private static final ResourceLocation COMPRESSOR_POWER = new ResourceLocation("mariculture",
-			"textures/blocks/air_compressor_power_texture.png");
+	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation("mariculture", "textures/blocks/pressure_vessel_texture.png");
+	private static final ResourceLocation COMPRESSOR_POWER = new ResourceLocation("mariculture", "textures/blocks/air_compressor_power_texture.png");
 	private final ModelAirCompressorPower power = new ModelAirCompressorPower(scale);
 	private final ModelAirCompressor compressor = new ModelAirCompressor(scale);
 
 	@Override
-	public boolean handleRenderType(final ItemStack item, final ItemRenderType type) {
+	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
 		return true;
 	}
 
 	@Override
-	public boolean shouldUseRenderHelper(final ItemRenderType type, final ItemStack item, final ItemRendererHelper helper) {
+	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
 		return false;
 	}
 
 	@Override
-	public void renderItem(final ItemRenderType type, final ItemStack item, final Object... data) {
+	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		if (item.itemID == Core.doubleBlock.blockID && item.getItemDamage() == DoubleMeta.AIR_COMPRESSOR) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(COMPRESSOR);
 			compressor.renderInventory(type);

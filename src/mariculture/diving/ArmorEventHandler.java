@@ -3,8 +3,10 @@ package mariculture.diving;
 import mariculture.core.Core;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.ForgeHooks;
@@ -13,6 +15,8 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 public class ArmorEventHandler {
+	private UnderwaterVision vision;
+	
 	@ForgeSubscribe
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		if (event.entity instanceof EntityPlayer) {
@@ -20,11 +24,13 @@ public class ArmorEventHandler {
 			if (!player.worldObj.isRemote) {
 				ScubaTank.init(player);
 				ScubaMask.damage(player);
+				if(Extra.HARDCORE_DIVING > 0)
+					HardcoreDiving.init(player);
+				Snorkel.init(player);
 			} else {
+				vision = (vision == null)? new UnderwaterVision(): vision.onUpdate(player);
 				DivingBoots.init(player);
-				DivingHelmet.init(player);
 				ScubaFin.init(player);
-				ScubaMask.init(player);
 			}
 		}
 	}

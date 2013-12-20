@@ -20,6 +20,18 @@ public class PlayerHelper {
 		return null;
 	}
 	
+	public static Item getArmor(EntityPlayer player, int slot) {
+		ItemStack[] armor = player.inventory.armorInventory;
+
+		if (slot > -1 && slot < 4) {
+			if (armor[slot] != null) {
+				return armor[slot].getItem();
+			}
+		}
+		
+		return null;
+	}
+	
 	public static boolean hasArmor(EntityPlayer player, int slot, Item item) {
 		return getArmor(player, slot, item) != null;
 	}

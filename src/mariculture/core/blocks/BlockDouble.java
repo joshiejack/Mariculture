@@ -129,6 +129,8 @@ public class BlockDouble extends BlockMachine {
 			return 3F;
 		case DoubleMeta.PRESSURE_VESSEL:
 			return 6F;
+		case DoubleMeta.FORGE:
+			return 4.5F;
 		}
 
 		return 3F;
@@ -271,7 +273,8 @@ public class BlockDouble extends BlockMachine {
 			return new TileAirCompressorPower();
 		case DoubleMeta.PRESSURE_VESSEL:
 			return new TilePressureVessel();
-
+		case DoubleMeta.FORGE:
+			return new TileForge();
 		}
 
 		return null;

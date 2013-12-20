@@ -2,6 +2,7 @@ package mariculture.diving;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.TileAirPump;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
@@ -10,6 +11,7 @@ import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.util.Stack;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
@@ -33,6 +35,7 @@ public class Diving extends Module {
 	public void setActive(boolean active) {
 		isActive = active;
 	}
+	
 	public static Item divingHelmet;
 	public static Item divingTop;
 	public static Item divingPants;
@@ -41,9 +44,11 @@ public class Diving extends Module {
 	public static Item scubaTank;
 	public static Item scubaSuit;
 	public static Item swimfin;
+	public static Item snorkel;
 
 	private static EnumArmorMaterial armorSCUBA = EnumHelper.addArmorMaterial("SCUBA", 15, new int[] { 0, 0, 1, 0 }, 0);
 	private static EnumArmorMaterial armorDIVING = EnumHelper.addArmorMaterial("DIVING", 20, new int[] { 1, 0, 2, 1 }, 0);
+	private static EnumArmorMaterial armorSnorkel = EnumHelper.addArmorMaterial("SNORKEL", 10, new int[] { 0, 0, 0, 0 }, 0);
 
 	@Override
 	public void registerHandlers() {
@@ -72,7 +77,10 @@ public class Diving extends Module {
 		scubaSuit = (new ItemArmorScuba(ItemIds.scubaSuit, armorSCUBA, RenderIds.SCUBA, 2)).setUnlocalizedName("scubaSuit");
 		swimfin = (new ItemArmorScuba(ItemIds.swimfin, armorSCUBA, RenderIds.SCUBA, 3)).setUnlocalizedName("swimfin");
 		
-		RegistryHelper.register(new Object[]{ divingHelmet, divingTop, divingPants, divingBoots, scubaMask, scubaTank, scubaSuit, swimfin });
+		snorkel = (new ItemArmorSnorkel(ItemIds.snorkel, armorSnorkel, RenderIds.SNORKEL, 0)).setUnlocalizedName("snorkel");
+		
+		RegistryHelper.register(new Object[]{ divingHelmet, divingTop, divingPants, divingBoots, 
+												scubaMask, scubaTank, scubaSuit, swimfin, snorkel });
 	}
 	
 	@Override
@@ -100,6 +108,13 @@ public class Diving extends Module {
 				Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 
 				Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE),
 				Character.valueOf('P'), Block.pistonBase });
+		
+		//Snorkel
+		RecipeHelper.addShapedRecipe(Stack.snorkel.get(), new Object[] {
+			"  R", "LLR",
+			Character.valueOf('R'), Item.reed,
+			Character.valueOf('L'), Stack.glassLens.get()
+		});
 		
 		CraftingManager
 				.getInstance()

@@ -40,6 +40,8 @@ public class ItemIds {
 	public static int turbineAluminum;
 	public static int turbineTitanium;
 	public static int turbineCopper;
+	public static int snorkel;
+	public static int hammer;
 	
 	//parts
 	public static int titanium_part_1;

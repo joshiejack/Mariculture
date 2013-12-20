@@ -3,6 +3,7 @@ package mariculture.core.render;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.helpers.RenderHelper;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.TankMeta;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
@@ -19,8 +20,8 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 	}
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks render) {
-		if (modelID == RenderIds.BLOCK_TANKS) {
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int id, RenderBlocks render) {
+		if (id == RenderIds.BLOCK_TANKS && world.getBlockMetadata(x, y, z) != TankMeta.BUCKET) {
 			//Tank
 			TileTankBlock tank = (TileTankBlock) world.getBlockTileEntity(x, y, z);
 			if(tank != null) {
@@ -34,8 +35,16 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 			// Block
 			render.setRenderBounds(0, 0, 0, 1, 1, 1);
 			render.renderStandardBlock(block, x, y, z);
+		} else {
+			renderBucket(world, x, y, z, render);
 		}
+		
 		return true;
+	}
+
+	private void renderBucket(IBlockAccess world, int x, int y, int z, RenderBlocks render) {
+		
+		
 	}
 
 	@Override

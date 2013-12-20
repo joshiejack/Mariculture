@@ -29,6 +29,7 @@ import mariculture.core.blocks.BlockWood;
 import mariculture.core.blocks.BlockWoodItem;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileBookshelf;
+import mariculture.core.blocks.TileForge;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileSettler;
@@ -51,6 +52,7 @@ import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
 import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.items.ItemFood;
+import mariculture.core.items.ItemHammer;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
@@ -122,6 +124,7 @@ public class Core extends Module {
 	public static Item food;
 	public static Item upgrade;
 	public static Item pearls;
+	public static Item hammer;
 	@Override
 	public void registerHandlers() {
 		TickRegistry.registerScheduledTickHandler(new ServerUpdateHandler(), Side.SERVER);
@@ -171,6 +174,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileSettler.class, "tileEntitySettler");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
+		GameRegistry.registerTileEntity(TileForge.class, "tileForge");
 
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
@@ -202,8 +206,9 @@ public class Core extends Module {
 		upgrade = new ItemUpgrade(ItemIds.upgrade).setUnlocalizedName("upgrade");
 		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
 		liquidContainers = new ItemFluidContainer(ItemIds.liquidContainers).setUnlocalizedName("liquidContainers");
+		hammer = new ItemHammer(ItemIds.hammer, 128).setUnlocalizedName("hammer");
 
-		RegistryHelper.register(new Object[] { materials, craftingItem, battery, food, upgrade, pearls, liquidContainers});
+		RegistryHelper.register(new Object[] { materials, craftingItem, battery, food, upgrade, pearls, liquidContainers, hammer});
 	}
 	
 	@Override

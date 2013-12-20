@@ -15,14 +15,13 @@ public class BlockDoubleItem extends ItemBlockMariculture {
 		String name = "";
 		switch (stack.getItemDamage()) {
 		case DoubleMeta.AIR_COMPRESSOR:
-			name = "airCompressor";
-			break;
+			return "airCompressor";
 		case DoubleMeta.AIR_COMPRESSOR_POWER:
-			name = "airCompressorPower";
-			break;
+			return "airCompressorPower";
 		case DoubleMeta.PRESSURE_VESSEL:
-			name = "pressureVessel";
-			break;
+			return "pressureVessel";
+		case DoubleMeta.FORGE:
+			return "forge";
 		default:
 			name = "airMachine";
 		}

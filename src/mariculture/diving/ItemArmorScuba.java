@@ -21,7 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemArmorScuba extends ItemArmor implements IItemRegistry {
+public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
 
 	public ItemArmorScuba(final int i, final EnumArmorMaterial material, final int j, final int k) {
 		super(i, material, j, k);

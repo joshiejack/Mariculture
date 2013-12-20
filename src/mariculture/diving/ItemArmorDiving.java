@@ -26,7 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class ItemArmorDiving extends ItemArmor implements IItemRegistry {
+public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
 	public ItemArmorDiving(int i, EnumArmorMaterial material, int j, int k) {
 		super(i, material, j, k);
 		this.setCreativeTab(MaricultureTab.tabMariculture);

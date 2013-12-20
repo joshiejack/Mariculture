@@ -122,6 +122,8 @@ item.craftingItems.wicker.name=Wicker
 item.craftingItems.plasticYellow.name=Golden Plastic
 item.craftingItems.titaniumRod.name=Polished Titanium Rod
 item.craftingItems.titaniumSheet.name=Sheet of Titanium
+item.craftingItems.snorkelLens.name=Glass Lens
+item.craftingItems.burntBrick.name=Burnt Brick
 item.upgrade.storage.name=Basic Storage Upgrade
 item.upgrade.storageStd.name=Standard Storage Upgrade
 item.upgrade.storageAdv.name=Advanced Storage Upgrade
@@ -171,6 +173,7 @@ tile.doubleBlocks.airCompressor.name=Air Compressor Base
 tile.doubleBlocks.airCompressorPower.name=Air Compressor Top
 tile.doubleBlocks.pressureVessel.name=Pressure Vessel
 #items
+item.snorkel.name=Snorkel
 item.divingHelmet.name=Diving Helmet
 item.divingTop.name=Diving Air Supply
 item.divingPants.name=Diving Suit
@@ -403,9 +406,9 @@ item.materials.dyeBrown.name=Brown Dye
 
 ### Other Strings ###
 item.aquaBackpack.name=Aquatic Backpack
-key.fludd=Activate F.L.U.D.D.
-key.toggle=Toggle Enchants
-key.boost=Activate Enchants
+key.fludd=[Mariculture]Activate F.L.U.D.D.
+key.toggle=[Mariculture]Toggle Button
+key.boost=[Mariculture]Activate Enchants
 mariculture.string.empty=Empty
 mariculture.string.melting=Melting Point
 mariculture.string.percent=% chance for 

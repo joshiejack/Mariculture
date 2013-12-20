@@ -16,12 +16,6 @@ public class ScubaTank {
 				activate(player);
 				damage(player.inventory.armorItemInSlot(ArmorSlot.TOP), player);
 			}
-		} else if(player.getAir() > 0) {
-			if(Extra.HARDCORE_DIVING > 0) {
-				if(player.isInsideOfMaterial(Material.water)) {
-					player.setAir(player.getAir() - Extra.HARDCORE_DIVING);
-				}
-			}
 		}
 	}
 

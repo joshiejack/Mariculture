@@ -78,14 +78,6 @@ public class PluginTinkersConstruct extends Plugin {
 	
 	public void init() {
 		addParts();
-		
-		TConstructRegistry.addToolMaterial(titanium_id, "Titanium", 4, 775, 775, 2, 2F, 2, 0.0F, "", "");
-		TConstructClientRegistry.addMaterialRenderMapping(titanium_id, "Mariculture", "titanium", true);
-		TConstructRegistry.addBowMaterial(titanium_id, 768, 40, 1.2F);
-		TConstructRegistry.addArrowMaterial(titanium_id, 5.0F, 0.25F, 100.0F);
-		
-		addRecipes();
-		addModifiers();
 	}
 	
 	private static void addModifiers() {
@@ -436,7 +428,12 @@ public class PluginTinkersConstruct extends Plugin {
 
 	@Override
 	public void postInit() {
-		// TODO Auto-generated method stub
+		TConstructRegistry.addToolMaterial(titanium_id, "Titanium", 4, 600, 1500, 2, 1.5F, 2, 0.0F, "", "");
+		TConstructClientRegistry.addMaterialRenderMapping(titanium_id, "Mariculture", "titanium", true);
+		TConstructRegistry.addBowMaterial(titanium_id, 768, 40, 1.2F);
+		TConstructRegistry.addArrowMaterial(titanium_id, 5.0F, 0.25F, 100.0F);
 		
+		addRecipes();
+		addModifiers();
 	}
 }

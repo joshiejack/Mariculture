@@ -38,7 +38,6 @@ public class TilePressureVessel extends TileMultiInvTankMachine implements IBlac
 	public int getTankCapacity(int storage) {
 		int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
 		return ((100 * tankRate) + (storage * 5 * tankRate)) * blocksInStructure;
-		//return (int) (((128 * tankRate) + ((storage * 2.8444444444444439) * tankRate)) * blocksInStructure);
 	}
 	
 	@Override

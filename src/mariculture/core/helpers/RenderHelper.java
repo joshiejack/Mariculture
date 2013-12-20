@@ -32,7 +32,7 @@ public class RenderHelper {
 
 			double u1, u2, u3, u4, v1, v2, v3, v4;
 
-			u2 = still.getInterpolatedU(7.5F + (-0.5F) * 16.0F);
+			u2 = still.getInterpolatedU(8.0F + (-0.5F) * 16.0F);
 			v2 = still.getInterpolatedV(8.0F + (-0.5F) * 16.0F);
 			u1 = still.getInterpolatedU(8.0F + (-0.5F) * 16.0F);
 			v1 = still.getInterpolatedV(8.0F + (0.5F) * 16.0F);

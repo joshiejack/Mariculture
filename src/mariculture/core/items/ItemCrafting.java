@@ -79,6 +79,10 @@ public class ItemCrafting extends ItemMariculture {
 				return "chalk";
 			case CraftingMeta.TITANIUM_SHEET:
 				return "titaniumSheet";
+			case CraftingMeta.LENS_GLASS:
+				return "snorkelLens";
+			case CraftingMeta.BURNT_BRICK:
+				return "burntBrick";
 			default:
 				return "unnamed";
 		}

@@ -63,7 +63,7 @@ public class Recipes {
 				new Object[] { Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK) });
 
 		//Copper Tank
-		RecipeHelper.addShapedRecipe(Stack.tank.get(4), new Object[] {
+		RecipeHelper.addShapedRecipe(Stack.tank.get(), new Object[] {
 			"CWC", "WGW", "CWC",
 			Character.valueOf('C'), "ingotCopper",
 			Character.valueOf('W'), "plankWood",
@@ -80,13 +80,12 @@ public class Recipes {
 					Character.valueOf('C'), Block.chest }));
 
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), new Object[] { 
-					"IGI", "G G", "IGI", 
-					Character.valueOf('I'), Item.netherrackBrick, 
-					Character.valueOf('G'), Block.fenceIron }));
+		//Base Brick
+		RecipeHelper.addShapedRecipe(Stack.baseBrick.get(), new Object[] {
+			"IGI", "G G", "IGI",
+			Character.valueOf('I'), Stack.burntBrick.get(),
+			Character.valueOf('G'), Block.fenceIron
+		});
 		
 		CraftingManager
 				.getInstance()
@@ -104,27 +103,46 @@ public class Recipes {
 					Character.valueOf('I'), "logWood", 
 					Character.valueOf('G'), Block.fence }));
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.LIQUIFIER), new Object[] { 
-					" B ", "ITI", "HMH", 
-					Character.valueOf('T'), "glass", 
-					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), 
-					Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), 
-					Character.valueOf('B'), Item.bucketLava,
-					Character.valueOf('I'), Item.netherrackBrick }));
+		//Forging Table
+		RecipeHelper.addShapedRecipe(Stack.forge.get(), new Object[] {
+			"BBB", "NCN", " S ",
+			Character.valueOf('B'), Stack.burntBrick.get(),
+			Character.valueOf('N'), Block.netherBrick,
+			Character.valueOf('C'), Stack.baseBrick.get(),
+			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 6)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SETTLER), new Object[] {
-					" B ", "ITI", "HMH", 
-					Character.valueOf('T'), "glass", 
-					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 
-					Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-					Character.valueOf('B'), Item.bucketWater,
-					Character.valueOf('I'), "ingotIron" }));
+		//Crucible Furnace
+		RecipeHelper.addShapedRecipe(Stack.crucible.get(), new Object[] {
+			"BLB", "IGI", "HCH",
+			Character.valueOf('B'), Stack.burntBrick.get(),
+			Character.valueOf('L'), Item.bucketLava,
+			Character.valueOf('I'), Block.fenceIron,
+			Character.valueOf('G'), "glass",
+			Character.valueOf('H'), Stack.heating.get(),
+			Character.valueOf('C'), Stack.baseBrick.get()
+		});
+		
+		//Anvil Recipe
+		RecipeHelper.addShapedRecipe(Stack.burntAnvil.get(), new Object[] {
+			"CCC", " B ", "BBB",
+			Character.valueOf('C'), Stack.baseBrick.get(),
+			Character.valueOf('B'), Stack.burntBrick.get()
+		});
+		
+		//Bucket Tank
+		RecipeHelper.addShapedRecipe(Stack.bucketTank.get(), new Object[] {
+			"BEB", "B B", "B B",
+			Character.valueOf('B'), Stack.burntBrick.get(),
+			Character.valueOf('E'), Item.bucketEmpty
+		});
+		
+		//Pearl Hammer
+		RecipeHelper.addShapedRecipe(Stack.hammer.get(), new Object[] {
+			"PP ", " SP", "S  ",
+			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE),
+			Character.valueOf('S'), "stickWood"
+		});
 
 		FurnaceRecipes.smelting().addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE,
 				new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
@@ -177,6 +195,13 @@ public class Recipes {
 		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), new Object[] { " N ", "NGN", " N ", 
 				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
 				Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC) });
+		//Glass Lens
+		RecipeHelper.addShapedRecipe(Stack.glassLens.get(), new Object[] {
+			" P ", "PGP", " P ",
+			Character.valueOf('P'), "plankWood",
+			Character.valueOf('G'), "glass"
+		});
+		
 		//Aluminum Sheet
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET), new Object[] {
 			"I I", " F ", "I I",
@@ -248,6 +273,20 @@ public class Recipes {
 			"I I", " F ", "I I",
 			Character.valueOf('I'), "ingotTitanium",
 			Character.valueOf('F'), Item.flintAndSteel
+		});
+		
+		//Burnt Brick > (Netherbrick > Burnt Brick)
+		RecipeHelper.addShapelessRecipe(Stack.burntBrick.get(), new Object[] {
+			new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE), Item.netherrackBrick
+		});
+	
+		//Burnt Brick > (Brick > Burnt Brick)
+		RecipeHelper.addShapedRecipe(Stack.burntBrick.get(2), new Object[] {
+			" C ", "FBF", " S ",
+			Character.valueOf('C'), new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE),
+			Character.valueOf('F'), Item.flint,
+			Character.valueOf('B'), Item.brick,
+			Character.valueOf('S'), Item.flintAndSteel
 		});
 	}
 	

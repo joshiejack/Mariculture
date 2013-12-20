@@ -2,6 +2,7 @@
 ====New====
 * Manual Turbines, right click them to provide RF
 * Redstone Flux Fishing Rod
+* Added Snorkel, cheap early game diving assistance, allows you to breathe slightly longer underwater
 ====Changes====
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
 * Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block for, was it really neccessary?

@@ -81,10 +81,12 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Core.oysterBlock.blockID, new RenderSingleItem());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
+		RenderingRegistry.registerBlockHandler(new RenderDouble());
 		
 		if(Modules.diving.isActive()) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
+			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
 			ClientRegistry.bindTileEntitySpecialRenderer(TileAirCompressor.class, new RenderDouble(new ModelAirCompressor(scaleDouble), COMPRESSOR));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileAirCompressorPower.class, new RenderDouble(new ModelAirCompressorPower(scaleDouble), COMPRESSOR_POWER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
