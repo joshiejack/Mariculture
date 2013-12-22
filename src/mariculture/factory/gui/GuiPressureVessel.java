@@ -8,7 +8,7 @@ import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiPressureVessel extends GuiMariculture {
-	private final TilePressureVessel tile;
+	private TilePressureVessel tile;
 
 	public GuiPressureVessel(InventoryPlayer player, TilePressureVessel tile) {
 		super(new ContainerPressureVessel(tile, player), "pressurevessel");
@@ -23,12 +23,14 @@ public class GuiPressureVessel extends GuiMariculture {
 			tooltip.add(tile.getLiquidQty() + "mB");
 		}
 	}
-	
+
 	@Override
-	public void drawForeground() {
-		this.fontRenderer.drawString(InventoryHelper.getName(tile), 46, 5, 4210752);
+	public String getName() {
+		return InventoryHelper.getName(tile);
 	}
 
 	@Override
-	public void drawBackground(int x, int y) {}
+	public int getX() {
+		return 46;
+	}
 }

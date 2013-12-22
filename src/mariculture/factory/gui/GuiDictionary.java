@@ -14,13 +14,18 @@ public class GuiDictionary extends GuiMariculture {
 	}
 
 	@Override
-	public void drawForeground() {
-		this.fontRenderer.drawString(InventoryHelper.getName(tile), 10, 6, 4210752);
-	}
-
-	@Override
 	public void drawBackground(int x, int y) {
 		int progress = tile.getFreezeProgressScaled(24);
 		this.drawTexturedModalRect(x + 77, y + 50, 176, 74, progress + 1, 16);
+	}
+
+	@Override
+	public String getName() {
+		return InventoryHelper.getName(tile);
+	}
+
+	@Override
+	public int getX() {
+		return 10;
 	}
 }

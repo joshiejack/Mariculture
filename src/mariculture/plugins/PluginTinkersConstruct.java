@@ -41,9 +41,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PluginTinkersConstruct extends Plugin {
-	public static boolean isLoaded;
-	
+public class PluginTinkersConstruct extends Plugin {	
 	public PluginTinkersConstruct(String name) {
 		super(name);
 	}

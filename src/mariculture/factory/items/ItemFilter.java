@@ -22,8 +22,8 @@ public class ItemFilter extends ItemStorage {
 	}
 	
 	@Override
-	public void draw(FontRenderer font, ItemStack stack) {
-		font.drawString(StatCollector.translateToLocal(this.getUnlocalizedName() + ".name"), 65, 9, 4210752);
+	public int getX(ItemStack stack) {
+		return 65;
 	}
 	
 	@Override

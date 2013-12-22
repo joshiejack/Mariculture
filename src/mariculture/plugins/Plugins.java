@@ -5,6 +5,7 @@ import java.util.logging.Level;
 
 import mariculture.core.Mariculture.Stage;
 import mariculture.core.handlers.LogHandler;
+import mariculture.plugins.hungryfish.PluginHungryFish;
 import cpw.mods.fml.common.Loader;
 
 public class Plugins {
@@ -19,6 +20,7 @@ public class Plugins {
 	public static Plugin carbonization = new PluginCarbonization("carbonization");
 	public static Plugin tc4 = new PluginThaumcraft("Thaumcraft");
 	public static Plugin bop = new PluginBiomesOPlenty("BiomesOPlenty");
+	public static Plugin ho = new PluginHungryFish("HungerOverhaul");
 
 	public abstract static class Plugin {
 		public String name;

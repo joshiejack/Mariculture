@@ -252,12 +252,12 @@ public class Config {
             ItemIds.titanium_part_23 = config.getItem("TiC Titanium - Tough Binding", 29056).getInt();
             ItemIds.titanium_part_24 = config.getItem("TiC Titanium - Tough Rod", 29057).getInt();
             
-            //FREEIDS: 29065 > 29100
+            //FREEIDS: 29066 > 29100
             ItemIds.rodFlux = config.getItem("Fishing Rod - Flux", 29058).getInt();
             ItemIds.filter = config.getItem("Item Filter", 29059).getInt();
             ItemIds.turbineCopper = config.getItem("Rotor - Copper", 29060).getInt();
             ItemIds.turbineAluminum = config.getItem("Rotor - Aluminum", 29061).getInt();
-            ItemIds.turbineTitanium = config.getItem("Rotot - Titanium", 29062).getInt();
+            ItemIds.turbineTitanium = config.getItem("Rotor - Titanium", 29062).getInt();
             ItemIds.snorkel = config.getItem("Snorkel", 29063).getInt();
             ItemIds.hammer = config.getItem("Pearl Hammer", 29064).getInt();
             ItemIds.worked = config.getItem("Worked Item", 29065).getInt();

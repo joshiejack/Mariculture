@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class SingleMeta {
-	public static final int COUNT = 10;
+	public static final int COUNT = 11;
 
 	public static final int AIR_PUMP = 0;
 	public static final int FISH_FEEDER = 1;
@@ -13,4 +13,5 @@ public class SingleMeta {
 	public static final int TURBINE_HAND = 7;
 	public static final int ANVIL = 8;
 	public static final int BUCKET = 9;
+	public static final int VOID_BOTTLE = 10;
 }

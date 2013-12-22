@@ -11,17 +11,17 @@ import cpw.mods.fml.common.IPlayerTracker;
 
 public class PlayerTrackerHandler implements IPlayerTracker {
 	@Override
-	public void onPlayerLogin(final EntityPlayer player) {
+	public void onPlayerLogin(EntityPlayer player) {
 
 	}
 
 	@Override
-	public void onPlayerLogout(final EntityPlayer player) {
+	public void onPlayerLogout(EntityPlayer player) {
 
 	}
 
 	@Override
-	public void onPlayerChangedDimension(final EntityPlayer player) {
+	public void onPlayerChangedDimension(EntityPlayer player) {
 
 	}
 

@@ -1,5 +1,6 @@
 package mariculture.core.items;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -7,6 +8,7 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Mariculture;
 import mariculture.core.gui.InventoryStorage;
+import mariculture.core.gui.feature.Feature;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.util.IItemRegistry;
@@ -83,9 +85,9 @@ public class ItemStorage extends Item implements IItemRegistry {
 		
 		return new Slot(storage, i, 100, 100);
 	}
-
-	public void draw(FontRenderer font, ItemStack stack) {
-		font.drawString(getName(stack), 66, 4, 4210752);
+	
+	public int getX(ItemStack stack) {
+		return 66;
 	}
 
 	public boolean isItemValid(ItemStack stack) {
@@ -132,5 +134,9 @@ public class ItemStorage extends Item implements IItemRegistry {
 		} catch (Exception e) {
 			LogHandler.log(Level.WARNING, "Mariculture had trouble saving an inventory");
 		}
+	}
+
+	public void addFeatures(ArrayList<Feature> list) {
+		
 	}
 }

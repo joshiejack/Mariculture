@@ -8,19 +8,21 @@ import mariculture.factory.blocks.TileTurbineWater;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiTurbineWater extends GuiMariculture {
-	private final TileTurbineWater tile;
+	private TileTurbineWater tile;
 
 	public GuiTurbineWater(InventoryPlayer player, TileTurbineWater tile) {
 		super(new ContainerTurbineWater(tile, player), "turbine");
 		this.tile = tile;
 		features.add(new FeatureTank(tile, 84, 15, TankSize.DOUBLE));
 	}
-	
+
 	@Override
-	public void drawForeground() {
-		this.fontRenderer.drawString(InventoryHelper.getName(tile), 52, 4, 4210752);
+	public String getName() {
+		return InventoryHelper.getName(tile);
 	}
 
 	@Override
-	public void drawBackground(int x, int y) {}
+	public int getX() {
+		return 52;
+	}
 }

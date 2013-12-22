@@ -78,6 +78,8 @@ public class BlockSingle extends BlockMachine {
 			return 6F;
 		case SingleMeta.BUCKET:
 			return 3F;
+		case SingleMeta.VOID_BOTTLE:
+			return 1F;
 		}
 
 		return 1F;

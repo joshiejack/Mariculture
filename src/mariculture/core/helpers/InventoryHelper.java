@@ -312,7 +312,7 @@ public class InventoryHelper {
 		int id = tile.getBlockType().blockID;
 		if(Item.itemsList[id] != null) {
 			Item block = Item.itemsList[id];
-			return block.getItemDisplayName(new ItemStack(id, 1, tile.getBlockMetadata()));
+			return block.getUnlocalizedName(new ItemStack(id, 1, tile.getBlockMetadata()));
 		}
 		
 		return "";

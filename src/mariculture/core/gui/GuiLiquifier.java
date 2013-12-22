@@ -64,11 +64,6 @@ public class GuiLiquifier extends GuiMariculture {
 	}
 	
 	@Override
-	public void drawForeground() {
-		 this.fontRenderer.drawString(InventoryHelper.getName(tile), 16, nameHeight, 4210752);
-	}
-
-	@Override
 	public void drawBackground(int x, int y) {
 		if (tile.isBurning()) {
 			int burn = tile.getBurnTimeRemainingScaled(12);
@@ -77,5 +72,15 @@ public class GuiLiquifier extends GuiMariculture {
 
 		int temp = tile.getTemperatureScaled(60);
 		this.drawTexturedModalRect(x + 12, y + 18 + 60 - temp, 251, 60 - temp, 5, temp);
+	}
+
+	@Override
+	public String getName() {
+		return InventoryHelper.getName(tile);
+	}
+
+	@Override
+	public int getX() {
+		return 16;
 	}
 }

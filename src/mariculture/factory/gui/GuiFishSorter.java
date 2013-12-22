@@ -6,17 +6,11 @@ import mariculture.factory.blocks.TileFishSorter;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiFishSorter extends GuiMariculture {
-
-	public TileFishSorter tile;
+	private TileFishSorter tile;
 	
 	public GuiFishSorter(InventoryPlayer player, TileFishSorter tile) {
 		super(new ContainerFishSorter(tile, player), "fishsorter");
 		this.tile = tile;
-	}
-
-	@Override
-	public void drawForeground() {
-		this.fontRenderer.drawString(InventoryHelper.getName(tile), 40, 6, 4210752);
 	}
 
 	@Override
@@ -28,5 +22,15 @@ public class GuiFishSorter extends GuiMariculture {
 		}
 		
 		this.drawTexturedModalRect(x + 8, y + 53, 194, tile.getDefault(), 18, 18);
+	}
+
+	@Override
+	public String getName() {
+		return InventoryHelper.getName(tile);
+	}
+
+	@Override
+	public int getX() {
+		return 40;
 	}
 }

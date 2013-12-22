@@ -23,7 +23,7 @@ public class PluginRailcraft extends Plugin {
 	}
 
 	public void init() {
-		final String id = "Railcraft";
+		String id = "Railcraft";
 
 		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET));
 		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.TITANIUM_SHEET));

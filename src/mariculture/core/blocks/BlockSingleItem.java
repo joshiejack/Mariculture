@@ -33,6 +33,8 @@ public class BlockSingleItem extends ItemBlockMariculture {
 			return "anvil";
 		case SingleMeta.BUCKET:
 			return "bucket";
+		case SingleMeta.VOID_BOTTLE:
+			return "voidBottle";
 		default:
 			return "customBlocks";
 		}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import mariculture.core.Mariculture;
 import mariculture.core.gui.feature.Feature;
+import mariculture.core.helpers.InventoryHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -13,6 +14,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -25,16 +27,8 @@ public abstract class GuiMariculture extends GuiContainer {
 	public int mouseY = 0;
 	public ArrayList<String> tooltip = new ArrayList<String>();
 	protected ArrayList<Feature> features = new ArrayList<Feature>();
-	
-	public enum TankType {
-		SINGLE, DOUBLE
-	}
-	
-	public enum Upgradable {
-		YES, NO
-	}
- 
-	public GuiMariculture(Container container, String texture) {
+
+	public GuiMariculture(ContainerMariculture container, String texture) {
 		this(container, texture, 0);
 	}
 	
@@ -48,6 +42,7 @@ public abstract class GuiMariculture extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		drawForeground();
+		fontRenderer.drawString(StatCollector.translateToLocal(getName()), getX(), nameHeight, 4210752);
 		fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
 		tooltip.clear();
 		addToolTip();
@@ -66,9 +61,17 @@ public abstract class GuiMariculture extends GuiContainer {
 		if(features.size() > 0)
 			drawFeatures(x, y);
 	}
+	
+	public abstract String getName();
+	public abstract int getX();
 
-	public abstract void drawForeground();
-	public abstract void drawBackground(int x, int y);
+	public void drawForeground() {
+		return;
+	}
+	
+	public void drawBackground(int x, int y) {
+		return;
+	}
 
 	public void drawFeatures(int x, int y) {
 		for(Feature feat: features) {
