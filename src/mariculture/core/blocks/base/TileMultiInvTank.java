@@ -15,7 +15,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITank {
 	
 	protected TransferHelper transfer;
-	protected Tank tank;
+	public Tank tank;
 
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

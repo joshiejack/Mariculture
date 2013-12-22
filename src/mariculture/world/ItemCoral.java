@@ -32,41 +32,28 @@ public class ItemCoral extends ItemMariculture {
 		String name = "";
 		switch (stack.getItemDamage()) {
 		case CoralMeta.KELP:
-			name = "kelp";
-			break;
+			return "kelp";
 		case CoralMeta.KELP_MIDDLE:
-			name = "kelp_middle";
-			break;
+			return "kelp_middle";
 		case CoralMeta.CORAL_BLUE:
-			name = "blue";
-			break;
+			return"blue";
 		case CoralMeta.CORAL_BRAIN:
-			name = "yellow";
-			break;
+			return "yellow";
 		case CoralMeta.CORAL_CANDYCANE:
-			name = "magenta";
-			break;
+			return "magenta";
 		case CoralMeta.CORAL_CUCUMBER:
-			name = "brown";
-			break;
+			return "brown";
 		case CoralMeta.CORAL_ORANGE:
-			name = "orange";
-			break;
+			return "orange";
 		case CoralMeta.CORAL_PINK:
-			name = "pink";
-			break;
+			return "pink";
 		case CoralMeta.CORAL_PURPLE:
-			name = "purple";
-			break;
+			return "purple";
 		case CoralMeta.CORAL_RED:
-			name = "red";
-			break;
-
+			return "red";
 		default:
-			name = "coral";
+			return "coral";
 		}
-
-		return name;
 	}
 
 	@Override

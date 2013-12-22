@@ -73,8 +73,8 @@ public class BlockUtil extends BlockMachine {
 			return 4F;
 		case UtilMeta.SPONGE:
 			return 3F;
-		case UtilMeta.PURIFIER:
-			return 5F;
+		case UtilMeta.GAS_OVEN:
+			return 3F;
 		case UtilMeta.FISH_SORTER:
 			return 1F;
 		}
@@ -365,23 +365,23 @@ public class BlockUtil extends BlockMachine {
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case UtilMeta.AUTOFISHER:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
 		case UtilMeta.SAWMILL:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case UtilMeta.INCUBATOR_BASE:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
 		case UtilMeta.INCUBATOR_TOP:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
 		case UtilMeta.SLUICE:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case UtilMeta.SPONGE:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case UtilMeta.DICTIONARY:
-			return (Modules.factory.isActive());
-		case UtilMeta.PURIFIER:
-			return false;
+			return Modules.factory.isActive();
+		case UtilMeta.GAS_OVEN:
+			return Modules.factory.isActive();
 		case UtilMeta.FISH_SORTER:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 
 		default:
 			return true;

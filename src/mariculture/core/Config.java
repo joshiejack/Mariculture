@@ -164,6 +164,7 @@ public class Config {
             BlockIds.sift = config.getBlock("Sifter", 755).getInt();
             BlockIds.woodBlocks = config.getBlock("Wooden Blocks", 756).getInt();
             BlockIds.tankBlocks = config.getBlock("Tank", 757).getInt();
+            BlockIds.groundBlocks = config.getBlock("Earthy Blocks", 758).getInt();
             //FREEID: 758 > 761
             BlockIds.lampsOn = config.getBlock("Neon Lamps On", 762).getInt();
             BlockIds.lampsOff = config.getBlock("Neon Lamps Off", 763).getInt();
@@ -259,6 +260,7 @@ public class Config {
             ItemIds.turbineTitanium = config.getItem("Rotot - Titanium", 29062).getInt();
             ItemIds.snorkel = config.getItem("Snorkel", 29063).getInt();
             ItemIds.hammer = config.getItem("Pearl Hammer", 29064).getInt();
+            ItemIds.worked = config.getItem("Worked Item", 29065).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

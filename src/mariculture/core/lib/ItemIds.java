@@ -42,6 +42,7 @@ public class ItemIds {
 	public static int turbineCopper;
 	public static int snorkel;
 	public static int hammer;
+	public static int worked;
 	
 	//parts
 	public static int titanium_part_1;

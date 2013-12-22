@@ -189,6 +189,7 @@ tile.utilBlocks.sawmill.name=Sawmill
 tile.utilBlocks.sluice.name=Sluice
 tile.utilBlocks.sponge.name=Mechanized Sponge
 tile.utilBlocks.dictionary.name=Automatic Dictionary Converter
+tile.utilBlocks.gasOven.name=Gas Oven
 tile.customBlocks.turbine.name=Water Turbine
 tile.customBlocks.turbineGas.name=Gas Turbine
 tile.customBlocks.fludd.name=F.L.U.D.D.
@@ -447,6 +448,7 @@ mariculture.string.shift.hold=Hold
 mariculture.string.shift.shift=Shift
 mariculture.string.shift.rod=to display usable bait
 mariculture.string.bait=Usable Bait
+mariculture.string.melted=Melted
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Titanium Arrowhead

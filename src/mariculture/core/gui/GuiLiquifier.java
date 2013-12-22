@@ -5,6 +5,10 @@ import java.util.List;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.gui.feature.FeatureArrow;
+import mariculture.core.gui.feature.FeatureTank;
+import mariculture.core.gui.feature.FeatureTank.TankSize;
+import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.Text;
@@ -16,19 +20,18 @@ public class GuiLiquifier extends GuiMariculture {
 	private final TileLiquifier tile;
 
 	public GuiLiquifier(InventoryPlayer player, TileLiquifier tile) {
-		super(new ContainerLiquifier(tile, player), "liquifier");
+		super(new ContainerLiquifier(tile, player), "liquifier", 10);
 		this.tile = tile;
+		features.add(new FeatureUpgrades());
+		features.add(new FeatureTank(tile, 98, 19, TankSize.DOUBLE));
+		features.add(new FeatureArrow(tile, 65, 41));
 	}
 
 	@Override
 	public void addToolTip() {		
-		if (mouseX >= 9 && mouseX <= 13 && mouseY >= 14 && mouseY <= 73) {
+		super.addToolTip();
+		if (mouseX >= 12 && mouseX <= 16 && mouseY >= 18 && mouseY <= 77) {
 			tooltip.add(tile.getRealTemperature() + "\u00B0" + "C");
-		}
-		
-		if (mouseX >= 84 && mouseX <= 101 && mouseY >= 13 && mouseY <= 72) {
-			tooltip.add(tile.getLiquidName());
-			tooltip.add(tile.getLiquidQty() + "mB");
 		}
 	}
 
@@ -62,24 +65,17 @@ public class GuiLiquifier extends GuiMariculture {
 	
 	@Override
 	public void drawForeground() {
-		 this.fontRenderer.drawString(InventoryHelper.getName(tile), 16, 4, 4210752);
+		 this.fontRenderer.drawString(InventoryHelper.getName(tile), 16, nameHeight, 4210752);
 	}
 
 	@Override
 	public void drawBackground(int x, int y) {
-		if (tile.getTankScaled(58) > 0) {
-			addTank(x, y, 15, 85, tile.getTankScaled(58), tile.getFluid(), TankType.SINGLE);
-		}
-
 		if (tile.isBurning()) {
-			final int burn = tile.getBurnTimeRemainingScaled(12);
-			this.drawTexturedModalRect(x + 31, y + 38 + 12 - burn, 176, 72 - burn, 14, burn + 2);
+			int burn = tile.getBurnTimeRemainingScaled(12);
+			this.drawTexturedModalRect(x + 38, y + 42 + 12 - burn, 242, 72 - burn, 14, burn + 2);
 		}
-
-		int progress = tile.getCookProgressScaled(24);
-		this.drawTexturedModalRect(x + 57, y + 37, 176, 74, progress + 1, 16);
 
 		int temp = tile.getTemperatureScaled(60);
-		this.drawTexturedModalRect(x + 9, y + 14 + 60 - temp, 198, 60 - temp, 5, temp);
+		this.drawTexturedModalRect(x + 12, y + 18 + 60 - temp, 251, 60 - temp, 5, temp);
 	}
 }

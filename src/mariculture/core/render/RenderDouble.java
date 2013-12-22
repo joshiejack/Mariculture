@@ -61,7 +61,7 @@ public class RenderDouble extends TileEntitySpecialRenderer implements ISimpleBl
 		return tile instanceof TileForge || tile instanceof TileLiquifier;
 	}
 	
-	public void renderForge(TileEntity tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
+	public void renderForge(TileForge tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
 		render.renderAllFaces = true;
 		
 		//Top
@@ -121,13 +121,18 @@ public class RenderDouble extends TileEntitySpecialRenderer implements ISimpleBl
 		}
 		
 		//Liquid
-		TileForge forge = (TileForge) tile;
+		TileForge forge = (TileForge) world.getBlockTileEntity(tile.mstr.x, tile.mstr.y, tile.mstr.z);
 		if(forge != null) {
 			if(forge.getFluid() != null) {
 				if(forge.getFluid().amount > 0) {
 					FluidStack fluidStack = forge.getFluid();
 					Fluid fluid = fluidStack.getFluid();
-					render.setRenderBounds(0.05, 0.95, 0.05, 0.95, 0.98, 0.95);
+					double xFluidStart = (doExtendForge(world.getBlockTileEntity(x - 1, y, z)))? 0: 0.05;
+					double xFluidEnd = (doExtendForge(world.getBlockTileEntity(x + 1, y, z)))? 1: 0.95;
+					double zFluidStart = (doExtendForge(world.getBlockTileEntity(x, y, z - 1)))? 0: 0.05;
+					double zFluidEnd = (doExtendForge(world.getBlockTileEntity(x, y, z + 1)))? 1: 0.95;
+					
+					render.setRenderBounds(xFluidStart, 0.95, zFluidStart, xFluidEnd, 0.98, zFluidEnd);
 					render.setOverrideBlockTexture(fluid.getStillIcon());
 					render.renderStandardBlock(block, x, y, z);
 				}
@@ -270,7 +275,7 @@ public class RenderDouble extends TileEntitySpecialRenderer implements ISimpleBl
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
 		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);
 		if(tile instanceof TileForge) {
-			renderForge(tile, world, x, y, z, render, block.stone);
+			renderForge((TileForge)tile, world, x, y, z, render, block.stone);
 		} else if (tile instanceof TilePressureVessel) {
 			renderVessel(world, x, y, z, render, block.stone);
 		}

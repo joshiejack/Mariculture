@@ -1,5 +1,7 @@
 package mariculture.core.lib;
 
+import net.minecraftforge.common.Property;
+
 public class BlockIds {
 	public static int ores;
 	public static int util;
@@ -21,6 +23,7 @@ public class BlockIds {
 	public static int airBlocks;
 	public static int woodBlocks;
 	public static int tankBlocks;
+	public static int groundBlocks;
 	
 	public static int customFlooring;
 	public static int customBlock;

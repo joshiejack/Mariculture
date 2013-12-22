@@ -8,7 +8,7 @@ public class UtilMeta {
 	public static final int AUTOFISHER = 2;
 	public static final int LIQUIFIER = 3;
 	public static final int SETTLER = 4;
-	public static final int PURIFIER = 5;
+	public static final int GAS_OVEN = 5;
 	public static final int BOOKSHELF = 6;
 	public static final int SAWMILL = 7;
 	public static final int SLUICE = 8;

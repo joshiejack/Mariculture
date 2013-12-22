@@ -54,4 +54,8 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		tagCompound.setInteger("Heat", heat);
 		tagCompound.setInteger("Storage", storage);
 	}
+	
+	public int getProgressScaled(int i) {
+		return 0;
+	}
 }

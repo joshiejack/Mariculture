@@ -2,6 +2,9 @@ package mariculture.core.world;
 
 import java.util.Random;
 
+import mariculture.core.Core;
+import mariculture.core.lib.Extra;
+import mariculture.core.lib.GroundMeta;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -44,6 +47,8 @@ public class WorldGenGas extends WorldGenerator
     	int selectX = par3;
     	int selectY = par4;
     	int selectZ = par5;
+    	int xLast = 0;
+    	int zLast = 0;
     	
         float f = par2Random.nextFloat() * (float)Math.PI;
         double d0 = (double)((float)(par3 + 8) + MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
@@ -90,6 +95,8 @@ public class WorldGenGas extends WorldGenerator
                                 	if(Block.blocksList[blockID] != null) {
                                 		if(Block.blocksList[blockID].isBlockSolidOnSide(world, x2, y2, z3, ForgeDirection.UNKNOWN)) {
                                 			world.setBlock(x2, y2, z3, this.minableBlockId, minableBlockMeta, 2);
+                                			xLast = x2;
+                                			zLast = z3;
                                 		}
                                 	}
                                 }
@@ -99,6 +106,10 @@ public class WorldGenGas extends WorldGenerator
                 }
             }
         }
+        
+        world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.groundBlocks.blockID, GroundMeta.BUBBLES, 2);
+        if(Extra.DEBUG_ON)
+        	world.setBlock(xLast, 65, zLast, Block.obsidian.blockID, 1, 2);
 
         return true;
     }

@@ -1,6 +1,7 @@
 package mariculture.core;
 
 import mariculture.core.blocks.TileAirPump;
+import mariculture.core.blocks.TileBucket;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.handlers.ClientEventHandler;
 import mariculture.core.handlers.KeyBindingHandler;
@@ -20,7 +21,6 @@ import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.EntityFLUDDSquirt;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
-import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileTurbineGas;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.render.ModelFLUDD;
@@ -82,6 +82,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		RenderingRegistry.registerBlockHandler(new RenderDouble());
+		RenderingRegistry.registerBlockHandler(new RenderSingle());
 		
 		if(Modules.diving.isActive()) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");

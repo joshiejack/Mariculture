@@ -11,6 +11,7 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
@@ -56,11 +57,12 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerBlocks() {
-		coral = new BlockCoral(BlockIds.coral).setStepSound(Block.soundGrassFootstep).setResistance(0.1F)
-				.setUnlocalizedName("coral");
+		coral = new BlockCoral(BlockIds.coral).setStepSound(Block.soundGrassFootstep).setResistance(0.1F).setUnlocalizedName("coral");
 		Item.itemsList[BlockIds.coral] = new ItemCoral(BlockIds.coral - 256, coral).setUnlocalizedName("coral");
 		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		RegistryHelper.register(new Object[] { coral });
+		
+		MinecraftForge.setBlockHarvestLevel(Core.groundBlocks, GroundMeta.GEYSER, "shovel", 0);
 	}
 
 	@Override

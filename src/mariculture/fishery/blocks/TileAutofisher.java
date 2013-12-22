@@ -14,6 +14,8 @@ import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
 import mariculture.core.util.IMachine;
+import mariculture.core.util.IPowered;
+import mariculture.core.util.IProgressable;
 import mariculture.fishery.items.ItemBait;
 import mariculture.fishery.items.ItemRod;
 import net.minecraft.entity.item.EntityItem;
@@ -26,7 +28,7 @@ import net.minecraftforge.common.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
-public class TileAutofisher extends TileStorage implements IEnergyHandler, ISidedInventory, IMachine, IHasGUI {
+public class TileAutofisher extends TileStorage implements IEnergyHandler, ISidedInventory, IMachine, IHasGUI, IPowered, IProgressable {
 
 	protected EnergyStorage storage;
 	private int catchingLength = MachineSpeeds.getAutofisherSpeed();
@@ -156,10 +158,6 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 		return 16;
 	}
 
-	public int getCatchTimeRemainingScaled(int scale) {
-		return (currentCatchingTime * scale) / catchingLength;
-	}
-
 	public int getBaitGradeAndDelete() {
 		int rank = -1;
 		int slot = 0;
@@ -280,8 +278,14 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 		return false;
 	}
 
+	@Override
 	public int getPowerScaled(int i) {
 		return (storage.getEnergyStored() * i) / storage.getMaxEnergyStored();
+	}
+	
+	@Override
+	public String getPowerText() {
+		return getEnergyStored(ForgeDirection.UNKNOWN) + " / " + getMaxEnergyStored(ForgeDirection.UNKNOWN) + " RF";
 	}
 
 	@Override
@@ -307,5 +311,15 @@ public class TileAutofisher extends TileStorage implements IEnergyHandler, ISide
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		return storage.getMaxEnergyStored();
+	}
+
+	@Override
+	public int getProgressScaled(int scale) {
+		return (currentCatchingTime * scale) / catchingLength;
+	}
+
+	@Override
+	public String getProgessText() {
+		return getProgressScaled(100) + "% Fished";
 	}
 }

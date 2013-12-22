@@ -11,6 +11,8 @@ import mariculture.core.blocks.BlockAir;
 import mariculture.core.blocks.BlockAirItem;
 import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.BlockDoubleItem;
+import mariculture.core.blocks.BlockGround;
+import mariculture.core.blocks.BlockGroundItem;
 import mariculture.core.blocks.BlockOre;
 import mariculture.core.blocks.BlockOreItem;
 import mariculture.core.blocks.BlockOyster;
@@ -19,7 +21,6 @@ import mariculture.core.blocks.BlockPearlBrickItem;
 import mariculture.core.blocks.BlockPressuredWater;
 import mariculture.core.blocks.BlockSingle;
 import mariculture.core.blocks.BlockSingleItem;
-import mariculture.core.blocks.BlockStationaryWater;
 import mariculture.core.blocks.BlockTank;
 import mariculture.core.blocks.BlockTankItem;
 import mariculture.core.blocks.BlockTransparent;
@@ -30,6 +31,7 @@ import mariculture.core.blocks.BlockWood;
 import mariculture.core.blocks.BlockWoodItem;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileBookshelf;
+import mariculture.core.blocks.TileBucket;
 import mariculture.core.blocks.TileForge;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
@@ -57,8 +59,10 @@ import mariculture.core.items.ItemHammer;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
+import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
@@ -97,6 +101,7 @@ public class Core extends Module {
 	public static Block airBlocks;
 	public static Block woodBlocks;
 	public static Block tankBlocks;
+	public static Block groundBlocks;
 
 	public static Fluid moltenAluminum;
 	public static Fluid moltenTitanium;
@@ -126,6 +131,8 @@ public class Core extends Module {
 	public static Item upgrade;
 	public static Item pearls;
 	public static Item hammer;
+	public static Item worked;
+	
 	@Override
 	public void registerHandlers() {
 		TickRegistry.registerScheduledTickHandler(new ServerUpdateHandler(), Side.SERVER);
@@ -145,17 +152,15 @@ public class Core extends Module {
 	public void registerBlocks() {
 		oreBlocks = new BlockOre(BlockIds.ores).setStepSound(Block.soundStoneFootstep).setResistance(5F).setUnlocalizedName("oreBlocks");
 		utilBlocks = new BlockUtil(BlockIds.util).setStepSound(Block.soundStoneFootstep).setHardness(2F).setResistance(5F).setUnlocalizedName("utilBlocks");
-		doubleBlock = new BlockDouble(BlockIds.doubleBlocks).setStepSound(Block.soundMetalFootstep)
-				.setResistance(3F).setUnlocalizedName("doubleBlocks").setHardness(3F);
-		singleBlocks = new BlockSingle(BlockIds.singleBlocks).setStepSound(Block.soundStoneFootstep).setHardness(1F)
-				.setResistance(1F).setUnlocalizedName("customBlocks");
-		oysterBlock = new BlockOyster(BlockIds.oyster).setStepSound(Block.soundStoneFootstep).setHardness(10F)
-				.setResistance(50F).setUnlocalizedName("oysterBlock").setLightValue(0.4F);
+		doubleBlock = new BlockDouble(BlockIds.doubleBlocks).setStepSound(Block.soundMetalFootstep).setResistance(3F).setUnlocalizedName("doubleBlocks").setHardness(3F);
+		singleBlocks = new BlockSingle(BlockIds.singleBlocks).setStepSound(Block.soundStoneFootstep).setHardness(1F).setResistance(1F).setUnlocalizedName("customBlocks");
+		oysterBlock = new BlockOyster(BlockIds.oyster).setStepSound(Block.soundStoneFootstep).setHardness(10F).setResistance(50F).setUnlocalizedName("oysterBlock").setLightValue(0.4F);
 		pearlBrick = new BlockPearlBrick(BlockIds.pearlBrick).setUnlocalizedName("pearlBrick");
 		glassBlocks = new BlockTransparent(BlockIds.glassBlocks).setStepSound(Block.soundPowderFootstep).setResistance(1F).setUnlocalizedName("glassBlocks");
 		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setUnlocalizedName("airBlocks");
 		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks");
 		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks");
+		groundBlocks = new BlockGround(BlockIds.groundBlocks).setUnlocalizedName("groundBlocks");
 
 		Item.itemsList[BlockIds.ores] = new BlockOreItem(BlockIds.ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
 		Item.itemsList[BlockIds.util] = new BlockUtilItem(BlockIds.util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
@@ -166,6 +171,7 @@ public class Core extends Module {
 		Item.itemsList[BlockIds.airBlocks] = new BlockAirItem(BlockIds.airBlocks - 256, airBlocks).setUnlocalizedName("airBlocks");
 		Item.itemsList[BlockIds.woodBlocks] = new BlockWoodItem(BlockIds.woodBlocks - 256, woodBlocks).setUnlocalizedName("woodBlocks");
 		Item.itemsList[BlockIds.tankBlocks] = new BlockTankItem(BlockIds.tankBlocks - 256, tankBlocks).setUnlocalizedName("tankBlocks");
+		Item.itemsList[BlockIds.groundBlocks] = new BlockGroundItem(BlockIds.groundBlocks - 256, groundBlocks).setUnlocalizedName("groundBlocks");
 
 		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
 		
@@ -176,6 +182,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
 		GameRegistry.registerTileEntity(TileForge.class, "tileForge");
+		GameRegistry.registerTileEntity(TileBucket.class, "tileBucket");
 
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
@@ -192,10 +199,10 @@ public class Core extends Module {
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_IRON, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.LIQUIFIER, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.SETTLER, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.PURIFIER, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(groundBlocks, GroundMeta.BUBBLES, "shovel", 0);
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
-				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks });
+				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks });
 	}
 
 	@Override
@@ -208,8 +215,9 @@ public class Core extends Module {
 		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
 		liquidContainers = new ItemFluidContainer(ItemIds.liquidContainers).setUnlocalizedName("liquidContainers");
 		hammer = new ItemHammer(ItemIds.hammer, 128).setUnlocalizedName("hammer");
+		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
 
-		RegistryHelper.register(new Object[] { materials, craftingItem, battery, food, upgrade, pearls, liquidContainers, hammer});
+		RegistryHelper.register(new Object[] { materials, craftingItem, battery, food, upgrade, pearls, liquidContainers, hammer, worked});
 	}
 	
 	@Override
@@ -295,10 +303,6 @@ public class Core extends Module {
 		FluidDictionary.nickel = addFluid("moltenNickel", moltenNickel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_NICKEL);
 		FluidDictionary.bronze = addFluid("moltenBronze", moltenBronze, MetalRates.INGOT, FluidContainerMeta.BOTTLE_BRONZE);
 		FluidDictionary.steel =	addFluid("moltenSteel", moltenSteel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_STEEL);
-		
-		Block.blocksList[9] = null;
-		Block.blocksList[9] = (new BlockStationaryWater(9, Material.water)).setHardness(100.0F).setLightOpacity(3).setUnlocalizedName("water").setTextureName("water_still");
-		
 	}
 	
 	private String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {

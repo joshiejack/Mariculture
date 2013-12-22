@@ -105,11 +105,9 @@ public class Recipes {
 		
 		//Forging Table
 		RecipeHelper.addShapedRecipe(Stack.forge.get(), new Object[] {
-			"BBB", "NCN", " S ",
+			"B B", " B ", " C ",
 			Character.valueOf('B'), Stack.burntBrick.get(),
-			Character.valueOf('N'), Block.netherBrick,
 			Character.valueOf('C'), Stack.baseBrick.get(),
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 6)
 		});
 		
 		//Crucible Furnace

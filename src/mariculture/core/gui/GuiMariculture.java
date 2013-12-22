@@ -5,17 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import mariculture.core.Mariculture;
-import mariculture.core.gui.feature.Tab;
+import mariculture.core.gui.feature.Feature;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -23,34 +20,35 @@ import org.lwjgl.opengl.GL12;
 
 public abstract class GuiMariculture extends GuiContainer {
 	private static ResourceLocation TEXTURE;
+	protected int nameHeight = 5;
 	public int mouseX = 0;
 	public int mouseY = 0;
 	public ArrayList<String> tooltip = new ArrayList<String>();
-	public ArrayList<Tab> tabs = new ArrayList<Tab>();
+	protected ArrayList<Feature> features = new ArrayList<Feature>();
 	
 	public enum TankType {
 		SINGLE, DOUBLE
 	}
-
-	public GuiMariculture(Container container, String texture) {
-		super(container);
-		this.TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/" + texture + ".png");
+	
+	public enum Upgradable {
+		YES, NO
 	}
-
-	public GuiMariculture(Container container) {
-		super(container);
+ 
+	public GuiMariculture(Container container, String texture) {
+		this(container, texture, 0);
 	}
 	
-	public GuiMariculture(Container container, int xSize, int ySize, String texture) {
+	public GuiMariculture(Container container, String texture, int yOffset) {
 		super(container);
-		//this.xSize = xSize;
-		//this.ySize = ySize;
 		this.TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/" + texture + ".png");
+		this.ySize += yOffset;
+		this.xSize = 201;
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		drawForeground();
+		fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
 		tooltip.clear();
 		addToolTip();
 		drawToolTip(tooltip, mouseX, mouseY, fontRenderer);
@@ -64,69 +62,24 @@ public abstract class GuiMariculture extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 		drawBackground(x, y);
-		drawTabs(x, y);
+
+		if(features.size() > 0)
+			drawFeatures(x, y);
 	}
 
 	public abstract void drawForeground();
-
 	public abstract void drawBackground(int x, int y);
+
+	public void drawFeatures(int x, int y) {
+		for(Feature feat: features) {
+			feat.draw(this, x, y);
+		}
+	}
 	
-	public void drawTabs(int x, int y) {
-		if(tabs.size() > 0) {
-			for(Tab t: tabs) {
-				t.draw(this, x, y, xSize, ySize);
-			}
-		}
-	}
-
-	protected void addTank(int j, int k, int line, int col, int squaled, FluidStack liquid, TankType type) {
-		if (liquid == null) {
-			return;
-		}
-		
-		int start = 0;
-
-		Icon liquidIcon = null;
-		Fluid fluid = liquid.getFluid();
-		if (fluid != null && fluid.getStillIcon() != null) {
-			liquidIcon = fluid.getStillIcon();
-		}
-
-		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-
-		if (liquidIcon != null) {
-			while (true) {
-				int x;
-
-				if (squaled > 16) {
-					x = 16;
-					squaled -= 16;
-				} else {
-					x = squaled;
-					squaled = 0;
-				}
-
-				drawTexturedModelRectFromIcon(j + col, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
-
-				if (type.equals(TankType.DOUBLE)) {
-					drawTexturedModelRectFromIcon(j + col + 10, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
-					drawTexturedModelRectFromIcon(j + col + 18, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
-				}
-				
-				start = start + 16;
-
-				if (x == 0 || squaled == 0) {
-					break;
-				}
-			}
-		}
-
-		mc.renderEngine.bindTexture(TEXTURE);
-		drawTexturedModalRect(j + col, k + line, 176, 0, 16, 60);
-	}
-
 	public void addToolTip() {
-		return;
+		for(Feature feat: features) {
+			feat.addTooltip(tooltip, mouseX, mouseY);
+		}
 	}
 
 	public void addItemToolTip(ItemStack stack, List<String> list) {

@@ -83,4 +83,8 @@ public abstract class TileMultiInvTankMachine extends TileMultiInvTank implement
 		tagCompound.setInteger("Purity", purity);
 		tagCompound.setInteger("Heat", heat);
 	}
+	
+	public int getProgressScaled(int i) {
+		return 0;
+	}
 }

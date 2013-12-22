@@ -1,6 +1,8 @@
 package mariculture.factory.gui;
 
 import mariculture.core.gui.GuiMariculture;
+import mariculture.core.gui.feature.FeatureTank;
+import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,6 +13,7 @@ public class GuiPressureVessel extends GuiMariculture {
 	public GuiPressureVessel(InventoryPlayer player, TilePressureVessel tile) {
 		super(new ContainerPressureVessel(tile, player), "pressurevessel");
 		this.tile = tile;
+		features.add(new FeatureTank(tile, 84, 15, TankSize.DOUBLE));
 	}
 	
 	@Override
@@ -27,9 +30,5 @@ public class GuiPressureVessel extends GuiMariculture {
 	}
 
 	@Override
-	public void drawBackground(int x, int y) {
-		if (tile.getTankScaled(58) > 0) {
-			addTank(x, y, 15, 84, tile.getTankScaled(58), tile.getFluid(), TankType.DOUBLE);
-		}
-	}
+	public void drawBackground(int x, int y) {}
 }

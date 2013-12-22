@@ -3,7 +3,6 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.blocks.base.TileMultiInvTankMachine;
@@ -15,16 +14,18 @@ import mariculture.core.helpers.TransferHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packets;
+import mariculture.core.util.IProgressable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInventory {
+public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInventory, IProgressable {
 
 	private static class FuelHandler {
 		private ItemStack fuel;
@@ -109,12 +110,14 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 	private int temperature = 0;
 	private int bonus = 0;
 	private FuelHandler fuelHandler;
+	private ItemStack upgrades[];
 
 	Random rand = new Random();
 
 	public TileLiquifier() {
 		fuelHandler = new FuelHandler();
-		this.inventory = new ItemStack[9];
+		inventory = new ItemStack[9];
+		upgrades = new ItemStack[3];
 	}
 	
 	private static int convertFromReal(int real) {
@@ -352,8 +355,14 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 		return 11 - (fuelHandler.burnTime * par1) / fuelHandler.maxPer;
 	}
 
-	public int getCookProgressScaled(int par1) {
-		return (furnaceCookTime * par1) / TIME_TAKEN;
+	@Override
+	public int getProgressScaled(int i) {
+		return (furnaceCookTime * i) / TIME_TAKEN;
+	}
+	
+	@Override
+	public String getProgessText() {
+		return ((furnaceCookTime * 100) / TIME_TAKEN) + "% " + StatCollector.translateToLocal("mariculture.string.melted");
 	}
 
 	public int getTemperatureScaled(int i) {

@@ -15,19 +15,19 @@ public class ContainerLiquifier extends ContainerMachine {
 		super(tile);
 
 		for (int i = 0; i < 2; i++) {
-			addSlotToContainer(new Slot(tile, i, 21 + (i * 18), 17));
+			addSlotToContainer(new Slot(tile, i, 29 + (i * 18), 21));
 		}
 
-		addSlotToContainer(new SlotFuel(tile, 2, 30, 55));
-		addSlotToContainer(new SlotOutput(tile, 3, 110, 8));
-		addSlotToContainer(new SlotFluidContainer(tile, 4, 110, 31));
-		addSlotToContainer(new SlotOutput(tile, 5, 110, 62));
+		addSlotToContainer(new SlotFuel(tile, 2, 38, 59));
+		addSlotToContainer(new SlotOutput(tile, 3, 145, 13));
+		addSlotToContainer(new SlotFluidContainer(tile, 4, 145, 36));
+		addSlotToContainer(new SlotOutput(tile, 5, 145, 67));
 
 		for (int i = 0; i < 3; i++) {
-			addSlotToContainer(new SlotUpgrade(tile, i + 6, 148, 16 + (i * 18)));
+			addSlotToContainer(new SlotUpgrade(tile, i + 6, 179, 14 + (i * 18)));
 		}
 
-		bindPlayerInventory(inventory);
+		bindPlayerInventory(inventory, 10);
 	}
 
 	@Override

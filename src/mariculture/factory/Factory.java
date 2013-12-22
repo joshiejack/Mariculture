@@ -39,6 +39,7 @@ import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileGeyser;
+import mariculture.factory.blocks.TileOven;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
@@ -144,7 +145,9 @@ public class Factory extends Module {
         GameRegistry.registerTileEntity(TileTurbineHand.class, "tileEntityTurbineHand");
         GameRegistry.registerTileEntity(TileFishSorter.class, "tileFishSorter");
         GameRegistry.registerTileEntity(TileGeyser.class, "tileGeyser");
+        GameRegistry.registerTileEntity(TileOven.class, "tileOven");
 
+        MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.GAS_OVEN, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SLUICE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SPONGE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_WATER, "pickaxe", 0);

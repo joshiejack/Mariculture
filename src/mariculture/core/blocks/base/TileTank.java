@@ -1,10 +1,12 @@
 package mariculture.core.blocks.base;
 
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.TransferHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -84,5 +86,32 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 		super.updateEntity();
 		if(transfer == null)
 			transfer = new TransferHelper(this);
+	}
+
+	@Override
+	public int getTankScaled(int i) {
+		int qty = tank.getFluidAmount();
+		int max = tank.getCapacity();
+		
+		return (max != 0) ? (qty * i) / max : 0;
+	}
+
+	@Override
+	public FluidStack getFluid() {
+		return tank.getFluid();
+	}
+
+	@Override
+	public String getLiquidName() {
+		FluidStack fluid = tank.getFluid();
+		return ((fluid != null && FluidHelper.getName(fluid.getFluid()) != null))? FluidHelper.getName(fluid.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
+	}
+
+	@Override
+	public String getLiquidQty() {
+		int qty = tank.getFluidAmount();
+		int max = tank.getCapacity();
+		
+		return "" + qty + "/" + max;
 	}
 }

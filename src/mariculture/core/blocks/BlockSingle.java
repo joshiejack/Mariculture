@@ -238,6 +238,8 @@ public class BlockSingle extends BlockMachine {
 			if(geyser.orientation == ForgeDirection.NORTH)
 				setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
 			break;
+		case SingleMeta.BUCKET:
+			setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
 		}
@@ -272,6 +274,8 @@ public class BlockSingle extends BlockMachine {
 			return new TileTurbineHand();
 		case SingleMeta.GEYSER:
 			return new TileGeyser();
+		case SingleMeta.BUCKET:
+			return new TileBucket();
 		}
 
 		return null;
@@ -378,7 +382,6 @@ public class BlockSingle extends BlockMachine {
 			return (Modules.factory.isActive());
 		case SingleMeta.TURBINE_HAND:
 			return (Modules.factory.isActive());
-
 		default:
 			return true;
 		}
