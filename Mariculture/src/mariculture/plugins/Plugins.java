@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
+import mariculture.plugins.hungryfish.PluginHungryFish;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Loader;
 
@@ -71,6 +72,14 @@ public class Plugins {
 				PluginTinkersConstruct.init();
 			} catch (Exception e) {
 				LogHandler.log(Level.INFO, "Mariculture - Something went wrong with Tinkers Construct Plugin");
+			}
+		}
+		
+		if(Loader.isModLoaded("HungerOverhaul")) {
+			try {
+				PluginHungryFish.init();
+			} catch (Exception e) {
+				LogHandler.log(Level.INFO, "Mariculture - Something went wrong with Hungry Overhaul(Hungry Fish) Plugin");
 			}
 		}
 	}

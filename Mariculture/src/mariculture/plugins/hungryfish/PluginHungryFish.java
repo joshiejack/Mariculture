@@ -1,35 +1,4 @@
-package hungryfish;
-
-import hungryfish.fish.HungryFishAngel;
-import hungryfish.fish.HungryFishBass;
-import hungryfish.fish.HungryFishBlaze;
-import hungryfish.fish.HungryFishButterfly;
-import hungryfish.fish.HungryFishCatfish;
-import hungryfish.fish.HungryFishClown;
-import hungryfish.fish.HungryFishCod;
-import hungryfish.fish.HungryFishDamsel;
-import hungryfish.fish.HungryFishDragon;
-import hungryfish.fish.HungryFishElectricRay;
-import hungryfish.fish.HungryFishEnder;
-import hungryfish.fish.HungryFishGlow;
-import hungryfish.fish.HungryFishGold;
-import hungryfish.fish.HungryFishJelly;
-import hungryfish.fish.HungryFishKoi;
-import hungryfish.fish.HungryFishManOWar;
-import hungryfish.fish.HungryFishMantaRay;
-import hungryfish.fish.HungryFishMinnow;
-import hungryfish.fish.HungryFishNether;
-import hungryfish.fish.HungryFishNight;
-import hungryfish.fish.HungryFishPerch;
-import hungryfish.fish.HungryFishPiranha;
-import hungryfish.fish.HungryFishPuffer;
-import hungryfish.fish.HungryFishSalmon;
-import hungryfish.fish.HungryFishSiamese;
-import hungryfish.fish.HungryFishSquid;
-import hungryfish.fish.HungryFishStingRay;
-import hungryfish.fish.HungryFishTang;
-import hungryfish.fish.HungryFishTetra;
-import hungryfish.fish.HungryFishTuna;
+package mariculture.plugins.hungryfish;
 
 import java.util.ArrayList;
 
@@ -41,24 +10,43 @@ import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.Fishery;
+import mariculture.plugins.hungryfish.fish.HungryFishAngel;
+import mariculture.plugins.hungryfish.fish.HungryFishBass;
+import mariculture.plugins.hungryfish.fish.HungryFishBlaze;
+import mariculture.plugins.hungryfish.fish.HungryFishButterfly;
+import mariculture.plugins.hungryfish.fish.HungryFishCatfish;
+import mariculture.plugins.hungryfish.fish.HungryFishClown;
+import mariculture.plugins.hungryfish.fish.HungryFishCod;
+import mariculture.plugins.hungryfish.fish.HungryFishDamsel;
+import mariculture.plugins.hungryfish.fish.HungryFishDragon;
+import mariculture.plugins.hungryfish.fish.HungryFishElectricRay;
+import mariculture.plugins.hungryfish.fish.HungryFishEnder;
+import mariculture.plugins.hungryfish.fish.HungryFishGlow;
+import mariculture.plugins.hungryfish.fish.HungryFishGold;
+import mariculture.plugins.hungryfish.fish.HungryFishJelly;
+import mariculture.plugins.hungryfish.fish.HungryFishKoi;
+import mariculture.plugins.hungryfish.fish.HungryFishManOWar;
+import mariculture.plugins.hungryfish.fish.HungryFishMantaRay;
+import mariculture.plugins.hungryfish.fish.HungryFishMinnow;
+import mariculture.plugins.hungryfish.fish.HungryFishNether;
+import mariculture.plugins.hungryfish.fish.HungryFishNight;
+import mariculture.plugins.hungryfish.fish.HungryFishPerch;
+import mariculture.plugins.hungryfish.fish.HungryFishPiranha;
+import mariculture.plugins.hungryfish.fish.HungryFishPuffer;
+import mariculture.plugins.hungryfish.fish.HungryFishSalmon;
+import mariculture.plugins.hungryfish.fish.HungryFishSiamese;
+import mariculture.plugins.hungryfish.fish.HungryFishSquid;
+import mariculture.plugins.hungryfish.fish.HungryFishStingRay;
+import mariculture.plugins.hungryfish.fish.HungryFishTang;
+import mariculture.plugins.hungryfish.fish.HungryFishTetra;
+import mariculture.plugins.hungryfish.fish.HungryFishTuna;
 import mariculture.world.WorldPlus;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "HungryFish", name = "Hungry Fish", version = "0.2", dependencies = "required-after:Mariculture")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
-public class HungryFish {
-	public static final String modid = "hungryfish";
-
-	@Mod.Instance("HungryFish")
-	public static HungryFish instance = new HungryFish();
-
-	@Mod.EventHandler
-	public void load(FMLInitializationEvent event) {
+public class PluginHungryFish {
+	public static void init() {
 		Item.itemsList[Core.food.itemID] = null;
 		Core.food = new ItemHungryFood(ItemIds.food).setUnlocalizedName("food");
 
