@@ -95,19 +95,22 @@ public class Diving extends Module {
 					Character.valueOf('P'), "plankWood", 
 					Character.valueOf('M'), Block.pistonBase }));
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.AIR_COMPRESSOR), true,new Object[] {"ITT", "III", "W  ", 
-					Character.valueOf('I'), "ingotIron", 
-					Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
-					Character.valueOf('T'), "ingotTitanium" }));
+		//Air Compressor Top
+		RecipeHelper.addShapedRecipe(Stack.compressorTop.get(2), new Object[] {
+			"  F", " PB", "III",
+			Character.valueOf('I'), Stack.aluminumSheet.get(),
+			Character.valueOf('F'), Stack.cooling.get(),
+			Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE),
+			Character.valueOf('P'), Block.pistonBase
+		});
 		
-		GameRegistry.addRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.AIR_COMPRESSOR_POWER), new Object[] { "  F", " PB", "III", 
-				Character.valueOf('I'), Item.ingotIron, 
-				Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 
-				Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE),
-				Character.valueOf('P'), Block.pistonBase });
+		//Air Compressor Base
+		RecipeHelper.addShapedRecipe(Stack.compressorBottom.get(), new Object[] {
+			"ITT", "III", "W  ",
+			Character.valueOf('I'), Stack.aluminumSheet.get(),
+			Character.valueOf('W'), Stack.wheel.get(),
+			Character.valueOf('T'), "ingotTitanium"
+		});
 		
 		//Snorkel
 		RecipeHelper.addShapedRecipe(Stack.snorkel.get(), new Object[] {
