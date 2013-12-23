@@ -1,4 +1,4 @@
-== Mariculture 1.1.5 for Minecraft v1.6.X==
+== Mariculture 1.1.4d for Minecraft v1.6.X==
 * Slightly buffed, a few of the fish's fish oil production
 * Fixed the insane tick usage with the air compressor...
 * Disabled Smoked Salmon for now
