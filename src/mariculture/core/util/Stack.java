@@ -25,13 +25,17 @@ public class Stack {
 	public static final Stack tank = new Stack(Core.tankBlocks, TankMeta.TANK);
 	public static final Stack bucketTank = new Stack(Core.singleBlocks, SingleMeta.BUCKET);
 	public static final Stack forge = new Stack(Core.doubleBlock, DoubleMeta.FORGE);
+	public static final Stack compressorBottom = new Stack(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+	public static final Stack compressorTop = new Stack(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR_POWER);
 	
 	//Crafting Items
 	public static final Stack wheel = new Stack(Core.craftingItem, CraftingMeta.WHEEL);
+	public static final Stack aluminumSheet = new Stack(Core.craftingItem, CraftingMeta.ALUMINUM_SHEET);
 	public static final Stack titaniumSheet = new Stack(Core.craftingItem, CraftingMeta.TITANIUM_SHEET);
 	public static final Stack glassLens = new Stack(Core.craftingItem, CraftingMeta.LENS_GLASS);
 	public static final Stack burntBrick = new Stack(Core.craftingItem, CraftingMeta.BURNT_BRICK);
 	public static final Stack pearl = new Stack(Core.pearls);
+	public static final Stack cooling = new Stack(Core.craftingItem, CraftingMeta.COOLER);
 	public static final Stack heating = new Stack(Core.craftingItem, CraftingMeta.HEATER);
 	
 	//Armor and tools

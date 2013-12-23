@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 public class TileForge extends TileMultiInvTank {
 	public int blocksInStructure = 1;
 	private int machineTick = 0;
+	private int coolTimer;
 	
 	public TileForge() {
 		inventory = new ItemStack[1];
@@ -78,6 +79,14 @@ public class TileForge extends TileMultiInvTank {
 	private int[] getCoords(int x, int y, int z) {
 		TileMulti tile = (TileMulti) worldObj.getBlockTileEntity(x, y, z);
 		return new int[] { tile.mstr.x, tile.mstr.y, tile.mstr.z };
+	}
+	
+	@Override
+	public void updateMaster() {
+		ItemStack stack = inventory[0];
+		if(stack != null && tank.getFluid() != null) {
+			
+		}
 	}
 	
 	@Override
