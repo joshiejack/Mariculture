@@ -1,6 +1,7 @@
 == Mariculture 1.1.5 for Minecraft v1.6.X==
 * Slightly buffed, a few of the fish's fish oil production
 * Fixed the insane tick usage with the air compressor...
+* Disabled Smoked Salmon for now
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
 * Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)

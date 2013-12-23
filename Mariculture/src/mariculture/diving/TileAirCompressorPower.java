@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.util.Random;
 
 import mariculture.core.blocks.TileDoubleBlock;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.PacketIds;
 import mariculture.core.lib.PowerStages;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,6 +21,7 @@ public class TileAirCompressorPower extends TileDoubleBlock {
 	public boolean animate;
 	private double wheelAngle = 0;
 	private Random rand = new Random();
+	private int tick = 0;
 
 	public TileAirCompressorPower() {
 		currentCharge = 0;
@@ -105,6 +107,13 @@ public class TileAirCompressorPower extends TileDoubleBlock {
 
 	@Override
 	public void updateEntity() {
+		tick++;
+		
+		if(tick %Extra.REFRESH_CLIENT_RATE == 0 && this.getMasterBlock() != null) {
+			TileAirCompressorPower mstr = (TileAirCompressorPower) this.getMasterBlock();
+			DivingPackets.sendPacketCompressor(mstr.xCoord, mstr.yCoord, mstr.zCoord, mstr.currentCharge, mstr.worldObj.provider.dimensionId);
+		}
+		
 		if (this.getMasterBlock() != null && this.getOtherBlock() != null && this.getMasterBlock() == this) {
 			if (animate) {
 				this.wheelAngle = this.wheelAngle + 0.1;

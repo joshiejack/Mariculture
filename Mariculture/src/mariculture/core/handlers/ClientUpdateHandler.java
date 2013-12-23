@@ -13,10 +13,6 @@ public class ClientUpdateHandler implements IScheduledTickHandler {
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		if (Modules.diving.isActive()) {
-			DivingPackets.updateClientRenders();
-		}
-
 		if (Modules.magic.isActive()) {
 			EnchantPacket.updateActiveEnchantments();
 		}
@@ -34,12 +30,12 @@ public class ClientUpdateHandler implements IScheduledTickHandler {
 
 	@Override
 	public String getLabel() {
-		return "MaricultureRenderUpdates";
+		return "Mariculture - Enchantment Updates";
 	}
 
 	@Override
 	public int nextTickSpacing() {
-		return Extra.REFRESH_CLIENT_RATE;
+		return Extra.REFRESH_CLIENT_RATE + 2;
 	}
 
 }

@@ -18,51 +18,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 public class DivingPackets {
-	public static void updateClientRenders() {
-		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
-		for (int i = 0; i < server.worldServers.length; i++) {
-			final World world = server.worldServers[i];
-			if (!world.isRemote) {
-				for (int j = 0; j < world.loadedEntityList.size(); j++) {
-					if (world.loadedEntityList.get(j) instanceof EntityPlayer) {
-						EntityPlayer player = (EntityPlayer) world.loadedEntityList.get(j);
-						int x = (int) player.posX;
-						int y = (int) player.posY;
-						int z = (int) player.posZ;
-
-						for (int k = x - 32; k < x + 32; k++) {
-							for (int l = z - 32; l < z + 32; l++) {
-								for (int m = y - 16; m < y + 16; m++) {
-									if (world.getBlockTileEntity(k, m, l) instanceof TileAirCompressor) {
-										TileAirCompressor compressor = (TileAirCompressor) world
-												.getBlockTileEntity(k, m, l);
-										TileAirCompressor real = (TileAirCompressor) compressor.getMasterBlock();
-
-										if (real == compressor) {
-											sendPacketCompressor(real.xCoord, real.yCoord, real.zCoord, real.currentAir, player);
-										}
-									}
-
-									if (world.getBlockTileEntity(k, m, l) instanceof TileAirCompressorPower) {
-										TileAirCompressorPower power = (TileAirCompressorPower) world.getBlockTileEntity(k,
-												m, l);
-										TileAirCompressorPower real = (TileAirCompressorPower) power.getMasterBlock();
-
-										if (real == power) {
-											sendPacketCompressorPower(real.xCoord, real.yCoord, real.zCoord, real.currentCharge,
-													player);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private static void sendPacketCompressor(int x, int y, int z, int currentAir, EntityPlayer player) {
+	public static void sendPacketCompressor(int x, int y, int z, int currentAir, int dimID) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		DataOutputStream os = new DataOutputStream(bos);
 
@@ -81,11 +37,11 @@ public class DivingPackets {
 		packet.data = bos.toByteArray();
 		packet.length = bos.size();
 
-		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+		PacketDispatcher.sendPacketToAllAround(x, y, z, 32, dimID, packet);
 	}
 
 	public static void handlePacketCompressor(Packet250CustomPayload packet, World world) {
-		final DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 
 		int id;
 		int x;
@@ -100,7 +56,7 @@ public class DivingPackets {
 			z = inputStream.readInt();
 			air = inputStream.readInt();
 
-		} catch (final IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace(System.err);
 			return;
 		}
@@ -111,7 +67,7 @@ public class DivingPackets {
 		}
 	}
 
-	private static void sendPacketCompressorPower(int x, int y, int z, int charge, EntityPlayer player) {
+	public static void sendPacketCompressorPower(int x, int y, int z, int charge, int dimID) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		DataOutputStream os = new DataOutputStream(bos);
 
@@ -125,12 +81,12 @@ public class DivingPackets {
 			ex.printStackTrace();
 		}
 
-		final Packet250CustomPayload packet = new Packet250CustomPayload();
+		Packet250CustomPayload packet = new Packet250CustomPayload();
 		packet.channel = "Mariculture";
 		packet.data = bos.toByteArray();
 		packet.length = bos.size();
 
-		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+		PacketDispatcher.sendPacketToAllAround(x, y, z, 32, dimID, packet);
 	}
 
 	public static void handlePacketCompressorPower(Packet250CustomPayload packet, World world) {

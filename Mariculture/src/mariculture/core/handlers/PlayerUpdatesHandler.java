@@ -29,7 +29,7 @@ public class PlayerUpdatesHandler implements IScheduledTickHandler {
 
 	@Override
 	public String getLabel() {
-		return "MariculturePlayerUpdates";
+		return "Mariculture - Flight Handler";
 	}
 
 	@Override

@@ -146,7 +146,6 @@ public class Core extends Module {
 	public static Item pearls;
 	@Override
 	public void registerHandlers() {
-		TickRegistry.registerScheduledTickHandler(new ServerUpdateHandler(), Side.SERVER);
 		TickRegistry.registerScheduledTickHandler(new ClientUpdateHandler(), Side.SERVER);
 		TickRegistry.registerScheduledTickHandler(new PlayerUpdatesHandler(), Side.CLIENT);
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();

@@ -1,6 +1,8 @@
 package mariculture.diving;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import mariculture.core.blocks.TileDoubleBlock;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.PowerStages;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -12,6 +14,7 @@ public class TileAirCompressor extends TileDoubleBlock {
 	private int compressingTime;
 	private int currentCompressingTime;
 	private int compressingLength = 360;
+	private int tick = 0;
 
 	public TileAirCompressor() {
 		compressingTime = 0;
@@ -53,6 +56,13 @@ public class TileAirCompressor extends TileDoubleBlock {
 
 	@Override
 	public void updateEntity() {
+		tick++;
+		
+		if(tick %Extra.REFRESH_CLIENT_RATE == 0 && this.getMasterBlock() != null) {
+			TileAirCompressor mstr = (TileAirCompressor) this.getMasterBlock();
+			DivingPackets.sendPacketCompressor(mstr.xCoord, mstr.yCoord, mstr.zCoord, mstr.currentAir, mstr.worldObj.provider.dimensionId);
+		}
+		
 		if (this.getMasterBlock() != null && this.currentAir < this.MAX_AIR && this.getMasterBlock() == this) {
 			boolean var1 = this.currentCompressingTime > 0;
 			boolean var2 = false;

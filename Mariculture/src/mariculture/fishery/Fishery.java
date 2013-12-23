@@ -507,8 +507,6 @@ public class Fishery extends Module {
 				FishSpecies fish = FishSpecies.speciesList.get(i);
 				ItemStack stack = new ItemStack(fishyFood, 1, fish.fishID);
 				
-				OreDictionary.registerOre("listAllfishraw", stack);
-				
 				if(fish.getFishOilVolume() > 0) {
 					MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, 180, 
 							new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, (int) (fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME)), 
