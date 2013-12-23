@@ -8,30 +8,7 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Loader;
 
 public class Plugins {
-	
-	public static ArrayList<Plugin> plugins = new ArrayList();
-	
-	public static class Plugin {
-		public boolean isLoaded;
-		public String name;
-		public Plugin(String name) {
-			this.name = name;
-			this.isLoaded = Loader.isModLoaded(name);
-			plugins.add(this);
-		}
-		
-		public void load() {
-
-		}
-	}
-	
-	static {
-		new Plugin("Railcraft");
-		new Plugin("ExtrabiomesXL");
-	}
-	
 	public static void init() {
-		new Plugin("Railcraft").load();
 		if (Loader.isModLoaded("Railcraft")) {
 			try {
 				PluginRailcraft.init();
