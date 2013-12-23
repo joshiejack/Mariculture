@@ -111,7 +111,7 @@ public class TileAirCompressorPower extends TileDoubleBlock {
 		
 		if(tick %Extra.REFRESH_CLIENT_RATE == 0 && this.getMasterBlock() != null) {
 			TileAirCompressorPower mstr = (TileAirCompressorPower) this.getMasterBlock();
-			DivingPackets.sendPacketCompressor(mstr.xCoord, mstr.yCoord, mstr.zCoord, mstr.currentCharge, mstr.worldObj.provider.dimensionId);
+			DivingPackets.sendPacketCompressorPower(mstr.xCoord, mstr.yCoord, mstr.zCoord, mstr.currentCharge, mstr.worldObj.provider.dimensionId);
 		}
 		
 		if (this.getMasterBlock() != null && this.getOtherBlock() != null && this.getMasterBlock() == this) {
