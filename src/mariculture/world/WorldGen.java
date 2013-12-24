@@ -7,13 +7,13 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.PluginBiomesOPlenty;
 import mariculture.plugins.PluginBiomesOPlenty.Biome;
-import mariculture.plugins.Plugins;
 import mariculture.world.decorate.WorldGenKelp;
 import mariculture.world.decorate.WorldGenKelpForest;
 import mariculture.world.decorate.WorldGenReef;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import cpw.mods.fml.common.IWorldGenerator;
+import cpw.mods.fml.common.Loader;
 
 public class WorldGen implements IWorldGenerator {	
 	@Override
@@ -61,7 +61,7 @@ public class WorldGen implements IWorldGenerator {
 	
 	private void generateCoral(World world, Random random, int x, int z) {		
 		boolean isCoralReef = PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL);
-		int chance = (Plugins.bop.isLoaded()) ? WorldGeneration.CORAL_CHANCE: WorldGeneration.CORAL_CHANCE * 10;
+		int chance = (Loader.isModLoaded("BiomesOPlenty")) ? WorldGeneration.CORAL_CHANCE: WorldGeneration.CORAL_CHANCE * 10;
 		
 		chance = (chance <= 1)? 1: chance;
 		if(isCoralReef) {
@@ -89,7 +89,7 @@ public class WorldGen implements IWorldGenerator {
 	private void generateKelpForest(World world, Random random, int x, int z) {
 		boolean isKelpForest = PluginBiomesOPlenty.isBiome(world, x, z, Biome.KELP);
 		int maxHeight = WorldGeneration.KELP_HEIGHT;
-		int chance = (Plugins.bop.isLoaded()) ? WorldGeneration.KELP_CHANCE: WorldGeneration.KELP_CHANCE * 3;
+		int chance = (Loader.isModLoaded("BiomesOPlenty")) ? WorldGeneration.KELP_CHANCE: WorldGeneration.KELP_CHANCE * 3;
 		
 		chance = (chance <= 1)? 1: chance;
 		maxHeight = (maxHeight <= 1)? 1: maxHeight;

@@ -7,8 +7,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class PluginCarbonization extends Plugin {
-	public PluginCarbonization(String name) {
+public class Plugincarbonization extends Plugin {
+	public Plugincarbonization(String name) {
 		super(name);
 	}
 	

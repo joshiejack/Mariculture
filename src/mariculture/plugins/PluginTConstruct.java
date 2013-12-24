@@ -41,8 +41,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PluginTinkersConstruct extends Plugin {	
-	public PluginTinkersConstruct(String name) {
+public class PluginTConstruct extends Plugin {	
+	public PluginTConstruct(String name) {
 		super(name);
 	}
 
@@ -153,10 +153,10 @@ public class PluginTinkersConstruct extends Plugin {
 	private static void addRecipes() {
 		if(addRod) {
 			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 6500), 
-					new ItemStack(PluginTinkersConstruct.tough_rod, 1, 0), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
+					new ItemStack(PluginTConstruct.tough_rod, 1, 0), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
 
             MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 6500),
-                    new ItemStack(PluginTinkersConstruct.tough_rod, 1, titanium_id), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
+                    new ItemStack(PluginTConstruct.tough_rod, 1, titanium_id), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
 		}
 		
 		addMelting();
@@ -166,23 +166,23 @@ public class PluginTinkersConstruct extends Plugin {
 
 	public static void addMelting() {
 		//Melt Down Titanium
-		PluginTinkersConstruct.addMelting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
-		PluginTinkersConstruct.addMelting("oreRutile", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.ORE), 800);
-		PluginTinkersConstruct.addMelting("dustTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
-		PluginTinkersConstruct.addMelting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 800);
-		PluginTinkersConstruct.addMelting("nuggetTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.NUGGET), 800);
+		PluginTConstruct.addMelting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
+		PluginTConstruct.addMelting("oreRutile", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.ORE), 800);
+		PluginTConstruct.addMelting("dustTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
+		PluginTConstruct.addMelting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 800);
+		PluginTConstruct.addMelting("nuggetTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.NUGGET), 800);
 		// >> Form Ingot and Block
-		PluginTinkersConstruct.addCasting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 100);
-		PluginTinkersConstruct.addBlockCasting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 100);
+		PluginTConstruct.addCasting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 100);
+		PluginTConstruct.addBlockCasting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 100);
 		//Melt Down Magnesium
-		PluginTinkersConstruct.addMelting("ingotMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 300);
-		PluginTinkersConstruct.addMelting("oreMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.ORE), 300);
-		PluginTinkersConstruct.addMelting("dustMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 300);
-		PluginTinkersConstruct.addMelting("blockMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.BLOCK), 300);
-		PluginTinkersConstruct.addMelting("nuggetMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.NUGGET), 300);
+		PluginTConstruct.addMelting("ingotMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 300);
+		PluginTConstruct.addMelting("oreMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.ORE), 300);
+		PluginTConstruct.addMelting("dustMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 300);
+		PluginTConstruct.addMelting("blockMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.BLOCK), 300);
+		PluginTConstruct.addMelting("nuggetMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.NUGGET), 300);
 		// >> Form Ingot and Block
-		PluginTinkersConstruct.addCasting("ingotMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 100);
-		PluginTinkersConstruct.addBlockCasting("blockMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.BLOCK), 100);
+		PluginTConstruct.addCasting("ingotMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 100);
+		PluginTConstruct.addBlockCasting("blockMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.BLOCK), 100);
 		
 		addCastings(titanium_id, new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 80);
 		
@@ -196,29 +196,29 @@ public class PluginTinkersConstruct extends Plugin {
 	}
 	
 	public static void addCastings(int id, FluidStack fluid, int delay) {
-		PluginTinkersConstruct.addPartCasting(new ItemStack(tool_rod, 1, id), TConstructRegistry.getItemStack("toolRodCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(pickaxe_head, 1, id), TConstructRegistry.getItemStack("pickaxeHeadcast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(shovel_head, 1, id), TConstructRegistry.getItemStack("shovelHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(axe_head, 1, id), TConstructRegistry.getItemStack("hatchetHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(sword_blade, 1, id), TConstructRegistry.getItemStack("swordBladeCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(large_guard, 1, id), TConstructRegistry.getItemStack("wideGuardCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(hand_guard, 1, id), TConstructRegistry.getItemStack("handGuardCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(crossbar, 1, id), TConstructRegistry.getItemStack("crossBarCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(binding, 1, id), TConstructRegistry.getItemStack("bindingCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(frypan_head, 1, id), TConstructRegistry.getItemStack("frypanHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(battle_sign_head, 1, id), TConstructRegistry.getItemStack("signHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(knife_blade, 1, id), TConstructRegistry.getItemStack("knifeBladeCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(chisel_head, 1, id), TConstructRegistry.getItemStack("chiselHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(tough_rod, 1, id), TConstructRegistry.getItemStack("toughRodCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(tough_binding, 1, id), TConstructRegistry.getItemStack("toughBindingCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(large_plate, 1, id), TConstructRegistry.getItemStack("largePlateCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(broad_axe_head, 1, id), TConstructRegistry.getItemStack("broadAxeHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(scythe_head, 1, id), TConstructRegistry.getItemStack("scytheHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(excavator_head, 1, id), TConstructRegistry.getItemStack("excavatorHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(large_sword_blade, 1, id), TConstructRegistry.getItemStack("largeBladeCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(hammer_head, 1, id), TConstructRegistry.getItemStack("hammerHeadCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(full_guard, 1, id), TConstructRegistry.getItemStack("fullGuardCast"), fluid, delay);
-		PluginTinkersConstruct.addPartCasting(new ItemStack(arrowhead, 1, id), new ItemStack(TContent.metalPattern, 1, 25), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(tool_rod, 1, id), TConstructRegistry.getItemStack("toolRodCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(pickaxe_head, 1, id), TConstructRegistry.getItemStack("pickaxeHeadcast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(shovel_head, 1, id), TConstructRegistry.getItemStack("shovelHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(axe_head, 1, id), TConstructRegistry.getItemStack("hatchetHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(sword_blade, 1, id), TConstructRegistry.getItemStack("swordBladeCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(large_guard, 1, id), TConstructRegistry.getItemStack("wideGuardCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(hand_guard, 1, id), TConstructRegistry.getItemStack("handGuardCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(crossbar, 1, id), TConstructRegistry.getItemStack("crossBarCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(binding, 1, id), TConstructRegistry.getItemStack("bindingCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(frypan_head, 1, id), TConstructRegistry.getItemStack("frypanHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(battle_sign_head, 1, id), TConstructRegistry.getItemStack("signHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(knife_blade, 1, id), TConstructRegistry.getItemStack("knifeBladeCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(chisel_head, 1, id), TConstructRegistry.getItemStack("chiselHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(tough_rod, 1, id), TConstructRegistry.getItemStack("toughRodCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(tough_binding, 1, id), TConstructRegistry.getItemStack("toughBindingCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(large_plate, 1, id), TConstructRegistry.getItemStack("largePlateCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(broad_axe_head, 1, id), TConstructRegistry.getItemStack("broadAxeHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(scythe_head, 1, id), TConstructRegistry.getItemStack("scytheHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(excavator_head, 1, id), TConstructRegistry.getItemStack("excavatorHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(large_sword_blade, 1, id), TConstructRegistry.getItemStack("largeBladeCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(hammer_head, 1, id), TConstructRegistry.getItemStack("hammerHeadCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(full_guard, 1, id), TConstructRegistry.getItemStack("fullGuardCast"), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(arrowhead, 1, id), new ItemStack(TContent.metalPattern, 1, 25), fluid, delay);
 	}
 	
 	public static void addTools() {
@@ -270,7 +270,7 @@ public class PluginTinkersConstruct extends Plugin {
 		}
 
 		public int getMaterialID(ItemStack itemStack) {
-			return PluginTinkersConstruct.titanium_id;
+			return PluginTConstruct.titanium_id;
 		}
 	}
 

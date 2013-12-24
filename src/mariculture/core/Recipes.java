@@ -21,7 +21,7 @@ import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
-import mariculture.plugins.PluginTinkersConstruct;
+import mariculture.plugins.PluginTConstruct;
 import mariculture.plugins.Plugins;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -174,8 +174,8 @@ public class Recipes {
 				new ItemStack(Item.stick), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK)));
 		
 		//Titanium Rod	
-		if(Plugins.tic.isLoaded()) {
-			PluginTinkersConstruct.addRod = true;
+		if(Loader.isModLoaded("TConstruct")) {
+			PluginTConstruct.addRod = true;
 		} else {
 			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.titanium, MetalRates.NUGGET * 12), 
 					new ItemStack(Core.craftingItem, 2, CraftingMeta.POLISHED_STICK), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));

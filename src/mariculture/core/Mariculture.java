@@ -49,6 +49,7 @@ public class Mariculture {
 		MaricultureTab.tabFish = (Modules.fishery.isActive())? new MaricultureTab("fishTab"): null;
 		MaricultureTab.tabJewelry = (Modules.magic.isActive())? new MaricultureTab("jewelryTab"): null;
 		
+		plugins.init();
 		plugins.load(Stage.PRE);
 		Modules.core.preInit();
 		Modules.diving.preInit();

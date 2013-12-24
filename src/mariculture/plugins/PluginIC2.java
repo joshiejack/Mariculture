@@ -23,8 +23,8 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-public class PluginIndustrialcraft extends Plugin {
-	public PluginIndustrialcraft(String name) {
+public class PluginIC2 extends Plugin {
+	public PluginIC2(String name) {
 		super(name);
 	}
 

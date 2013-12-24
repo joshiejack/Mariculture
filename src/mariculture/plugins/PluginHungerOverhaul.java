@@ -1,4 +1,4 @@
-package mariculture.plugins.hungryfish;
+package mariculture.plugins;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,9 @@ import mariculture.core.util.RecipeRemover;
 import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
+import mariculture.plugins.hungryfish.ItemHungryBait;
+import mariculture.plugins.hungryfish.ItemHungryCoral;
+import mariculture.plugins.hungryfish.ItemHungryFood;
 import mariculture.plugins.hungryfish.fish.HungryFishAngel;
 import mariculture.plugins.hungryfish.fish.HungryFishBass;
 import mariculture.plugins.hungryfish.fish.HungryFishBlaze;
@@ -47,8 +50,8 @@ import mariculture.world.WorldPlus;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class PluginHungryFish extends Plugin {
-	public PluginHungryFish(String name) {
+public class PluginHungerOverhaul extends Plugin {
+	public PluginHungerOverhaul(String name) {
 		super(name);
 	}
 

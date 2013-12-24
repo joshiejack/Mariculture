@@ -1,26 +1,16 @@
 package mariculture.plugins;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 import mariculture.core.Mariculture.Stage;
 import mariculture.core.handlers.LogHandler;
-import mariculture.plugins.hungryfish.PluginHungryFish;
 import cpw.mods.fml.common.Loader;
 
 public class Plugins {
 	// Only used for loading
 	public static ArrayList<Plugin> plugins = new ArrayList<Plugin>();
-
-	public static Plugin rc = new PluginRailcraft("Railcraft");
-	public static Plugin tic = new PluginTinkersConstruct("TConstruct");
-	public static Plugin exbl = new PluginExtraBiomes("ExtrabiomesXL");
-	public static Plugin forestry = new PluginForestry("Forestry");
-	public static Plugin ic2 = new PluginIndustrialcraft("IC2");
-	public static Plugin carbonization = new PluginCarbonization("carbonization");
-	public static Plugin tc4 = new PluginThaumcraft("Thaumcraft");
-	public static Plugin bop = new PluginBiomesOPlenty("BiomesOPlenty");
-	public static Plugin ho = new PluginHungryFish("HungerOverhaul");
 
 	public abstract static class Plugin {
 		public String name;
@@ -39,34 +29,50 @@ public class Plugins {
 		public abstract void postInit();
 	}
 
+	public void init() {
+		ArrayList<String> plugs = new ArrayList();
+		plugs.add("Railcraft");
+		plugs.add("TConstruct");
+		plugs.add("ExtrabiomesXL");
+		plugs.add("Forestry");
+		plugs.add("IC2");
+		plugs.add("carbonization");
+		plugs.add("Thaumcraft");
+		plugs.add("BiomesOPlenty");
+		plugs.add("HungerOverhaul");
+		
+		for(String plug: plugs) {
+			init(plug);
+		}
+	}
+	
+	public void init(String str) {
+		try {
+			Class clazz = Class.forName("mariculture.plugins.Plugin" + str);
+			Constructor constructor = clazz.getConstructor(new Class[] {String.class});
+			constructor.newInstance(new Object[] {str});
+		} catch (Exception e) {
+			LogHandler.log(Level.INFO, "Mariculture - Something went wrong when initializing " + str + " Plugin");
+		}
+	}
+
 	public void load(Stage stage) {
 		for (Plugin plug : plugins) {
 			if (plug.isLoaded()) {
-				switch (stage) {
-				case PRE: {
-					try {
+				try {
+					switch (stage) {
+					case PRE:
 						plug.preInit();
-					} catch (Exception e) {
-						LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + plug.name + " Plugin at Pre-Init Phase");
-					}
-				}
-					break;
-				case INIT: {
-					try {
+						break;
+					case INIT:
 						plug.init();
-					} catch (Exception e) {
-						LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + plug.name + " Plugin at Init Phase");
-					}
-				}
-					break;
-				case POST: {
-					try {
+						break;
+					case POST: 
 						plug.postInit();
-					} catch (Exception e) {
-						LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + plug.name + " Plugin at Post-Init Phase");
+						break;
 					}
-				}
-					break;
+				} catch (Exception e) {
+					LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + plug.name + " Plugin at " + stage.toString() + " Phase");
 				}
 
 			}

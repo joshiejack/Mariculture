@@ -5,8 +5,8 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.plugins.Plugins.Plugin;
 import extrabiomes.api.Biomes;
 
-public class PluginExtraBiomes extends Plugin {
-	public PluginExtraBiomes(String name) {
+public class PluginExtrabiomesXL extends Plugin {
+	public PluginExtrabiomesXL(String name) {
 		super(name);
 	}
 	
