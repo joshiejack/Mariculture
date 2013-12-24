@@ -355,7 +355,7 @@ public class BlockUtil extends BlockMachine {
 		case UtilMeta.DICTIONARY:
 			return (Modules.factory.isActive());
 		case UtilMeta.PURIFIER:
-			return !Loader.isModLoaded("ThermalExpansion");
+			return false;
 
 		default:
 			return true;
