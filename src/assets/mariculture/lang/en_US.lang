@@ -449,6 +449,18 @@ mariculture.string.shift.shift=Shift
 mariculture.string.shift.rod=to display usable bait
 mariculture.string.bait=Usable Bait
 mariculture.string.melted=Melted
+mariculture.string.fished=Fished
+
+### Notifications - You can have up to 5 lines of additional text, they're only added if the lang exists ###
+mariculture.notification.no.bait=Missing Bait
+mariculture.notification.no.bait.text1=You are missing bait or
+mariculture.notification.no.bait.text2=The current bait cannot be
+mariculture.notification.no.bait.text3=used with the existing fishing rod
+mariculture.notification.no.rod=Missing Fishing Rod
+mariculture.notification.not.fishable=Not fishable
+mariculture.notification.not.fishable.text1=The fisher needs to be above
+mariculture.notification.not.fishable.text2=water or lava in order to fish
+mariculture.notification.no.rf=Missing RF
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Titanium Arrowhead

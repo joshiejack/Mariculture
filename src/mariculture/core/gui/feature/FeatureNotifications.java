@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
+import mariculture.core.lib.Text;
 import mariculture.core.util.IHasNotification;
 
 public class FeatureNotifications extends Feature {
@@ -20,13 +21,23 @@ public class FeatureNotifications extends Feature {
 		this.notifications = noteTypes;
 	}
 	
+	public void addLine(int i, NotificationType note, List tooltip) {
+		String line = "mariculture.notification." + note.toString().toLowerCase().replaceAll("_", "\\.") + ".text" + i;
+		if(!line.equals(StatCollector.translateToLocal(line))) {
+			tooltip.add(StatCollector.translateToLocal(line));
+		}
+	}
+	
 	@Override
 	public void addTooltip(List tooltip, int mouseX, int mouseY) {
 		int pos = 0;
 		for(NotificationType note: notifications) {
 			if(tile.isNotificationVisible(note)) {
 				if (mouseX >= -21 && mouseX <= 0 && mouseY >= 8 + (23 * pos) && mouseY <= 8 + (23 * pos) + 21) {
-					tooltip.add(StatCollector.translateToLocal("mariculture.string.notification." + note.toString().toLowerCase().replaceAll("_", "\\.")));
+					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.notification." + note.toString().toLowerCase().replaceAll("_", "\\.")));
+					for(int i = 0; i < 5; i++) {
+						addLine(i, note, tooltip);
+					}
 				}
 				
 				pos++;

@@ -1,5 +1,6 @@
 package mariculture.fishery.blocks;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
@@ -39,7 +40,7 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 	
 	public TileAutofisher() {
 		inventory = new ItemStack[20];
-		storage = new EnergyStorage(16000);
+		energyStorage = new EnergyStorage(16000);
 		mode = RedstoneMode.DISABLED;
 	}
 	
@@ -61,24 +62,33 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 
 	//Machine Ticks
 	@Override
+	public void updateUpgrades() {
+		super.updateUpgrades();
+		energyStorage.setCapacity((int) (20000 + (storage * 4000)));
+	}
+	
+	@Override
 	public void updateMachine() {
 		if(onTick(30)) {
 			canFish = hasRod() && isFishable() && hasPower() && RedstoneMode.canWork(this, mode) && hasBait() && canUseRod();
 		}
 		
 		if(canFish) {
-			storage.extractEnergy(20, false);
+			energyStorage.extractEnergy(30 - purity, false);
 			
 			if(baitQuality == -1) {
 				baitQuality = getBaitQualityAndDelete();
 			} else {
-				processed++;
+				processed+=heat;
 				if(processed >= MAX) {
 					baitQuality = -1;
 					processed = 0;
 					if (Rand.nextInt(getChance(baitQuality) + 1))
 						catchFish();
 				}
+				
+				if(processed <= 0)
+					processed = 0;
 			}
 		} else {
 			baitQuality = -1;
@@ -137,7 +147,7 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 			if(inventory[i] != null) {
 				if(Fishing.quality.canUseBait(inventory[i], quality)) {
 					if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
-						((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, false);
+						((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100 - (purity * 4), false);
 					} else {
 						inventory[rod].attemptDamageItem(1, Rand.rand);
 					}
@@ -174,7 +184,7 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 	}
 	
 	private boolean hasPower() {
-		return storage.extractEnergy(20, true) >= 20;
+		return energyStorage.extractEnergy(30, true) >= 30;
 	}
 
 	public boolean isFishable() {
@@ -184,7 +194,7 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 	private boolean hasRod() {
 		if(inventory[rod] != null && inventory[rod].getItem() instanceof ItemBaseRod) {
 			if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
-				return ((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, true) >= 100;
+				return ((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100 - (purity * 4), true) >= 100 - (purity * 4);
 			}
 			
 			return true;

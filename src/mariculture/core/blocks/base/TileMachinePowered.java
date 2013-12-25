@@ -11,7 +11,7 @@ import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileMachinePowered extends TileMachine implements IEnergyHandler, IPowered {
-	protected EnergyStorage storage;
+	protected EnergyStorage energyStorage;
 	
 	public TileMachinePowered() {
 		inventory = new ItemStack[4];
@@ -19,12 +19,12 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return storage.receiveEnergy(maxReceive, simulate);
+		return energyStorage.receiveEnergy(maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return storage.extractEnergy(maxExtract, simulate);
+		return energyStorage.extractEnergy(maxExtract, simulate);
 	}
 
 	@Override
@@ -34,24 +34,24 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
-		return storage.getEnergyStored();
+		return energyStorage.getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
-		return storage.getMaxEnergyStored();
+		return energyStorage.getMaxEnergyStored();
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		storage.readFromNBT(nbt);
+		energyStorage.readFromNBT(nbt);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		storage.writeToNBT(nbt);
+		energyStorage.writeToNBT(nbt);
 	}
 	
 	@Override
@@ -61,24 +61,24 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 
 	@Override
 	public int getPowerScaled(int i) {
-		return (storage.getEnergyStored() * i) / storage.getMaxEnergyStored();
+		return (energyStorage.getEnergyStored() * i) / energyStorage.getMaxEnergyStored();
 	}
 	
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		switch (id) {
 		case 0:
-			storage.setEnergyStored(value);
+			energyStorage.setEnergyStored(value);
 			break;
 		case 1: 
-			storage.setCapacity(value);
+			energyStorage.setCapacity(value);
 			break;
 		}
 	}
 	
 	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, storage.getEnergyStored());
-		Packets.updateGUI(player, container, 1, storage.getMaxEnergyStored());
+		Packets.updateGUI(player, container, 0, energyStorage.getEnergyStored());
+		Packets.updateGUI(player, container, 1, energyStorage.getMaxEnergyStored());
 	}
 }
