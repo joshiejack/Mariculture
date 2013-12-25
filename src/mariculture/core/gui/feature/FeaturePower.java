@@ -24,7 +24,7 @@ public class FeaturePower extends Feature {
 	}
 	
 	@Override
-	public void draw(GuiMariculture gui, int x, int y) {
+	public void draw(GuiMariculture gui, int x, int y, int mouseX, int mouseY) {
 		gui.drawTexturedModalRect(x + xPoz, y + yPoz, 142, 0, 14, 42);
 		
 		int power = machine.getPowerScaled(42);

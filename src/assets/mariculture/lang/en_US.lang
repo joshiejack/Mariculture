@@ -451,16 +451,27 @@ mariculture.string.bait=Usable Bait
 mariculture.string.melted=Melted
 mariculture.string.fished=Fished
 
+### Redstone Mode ###
+rsmode.disabled=Disabled
+rsmode.disabled.text1=Block will ignore all
+rsmode.disabled.text2=redstone signals.
+rsmode.low=Low
+rsmode.low.text1=The block will work
+rsmode.low.text2=unless given a signal.
+rsmode.high=High
+rsmode.high.text1=Block will only work
+rsmode.high.text2=with a redstone signal.
+
 ### Notifications - You can have up to 5 lines of additional text, they're only added if the lang exists ###
-mariculture.notification.no.bait=Missing Bait
-mariculture.notification.no.bait.text1=You are missing bait or
-mariculture.notification.no.bait.text2=The current bait cannot be
-mariculture.notification.no.bait.text3=used with the existing fishing rod
-mariculture.notification.no.rod=Missing Fishing Rod
-mariculture.notification.not.fishable=Not fishable
-mariculture.notification.not.fishable.text1=The fisher needs to be above
-mariculture.notification.not.fishable.text2=water or lava in order to fish
-mariculture.notification.no.rf=Missing RF
+notification.no.bait=Missing Bait
+notification.no.bait.text1=You are missing bait or
+notification.no.bait.text2=The current bait cannot be
+notification.no.bait.text3=used with the existing fishing rod
+notification.no.rod=Missing Fishing Rod
+notification.not.fishable=Not fishable
+notification.not.fishable.text1=The fisher needs to be above
+notification.not.fishable.text2=water or lava in order to fish
+notification.no.rf=Missing RF
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Titanium Arrowhead

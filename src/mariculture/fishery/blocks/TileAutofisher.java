@@ -12,11 +12,14 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
+import mariculture.core.network.Packet106SwapJewelry;
+import mariculture.core.network.Packet114RedstoneControlled;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.IRedstoneControlled;
 import mariculture.core.util.Rand;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,9 +27,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileAutofisher extends TileMachinePowered implements IProgressable, IHasNotification, IRedstoneControlled {
-	private static final int MAX = MachineSpeeds.getAutofisherSpeed();
+	private static final int MAX = 4000;
 	
 	private RedstoneMode mode;
 	private boolean canFish;
@@ -79,7 +83,7 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 			if(baitQuality == -1) {
 				baitQuality = getBaitQualityAndDelete();
 			} else {
-				processed+=heat;
+				processed+=((heat/2) + 1);
 				if(processed >= MAX) {
 					baitQuality = -1;
 					processed = 0;
@@ -152,8 +156,9 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 						inventory[rod].attemptDamageItem(1, Rand.rand);
 					}
 					
+					int qual = Fishing.bait.getEffectiveness(inventory[i]);
 					decrStackSize(i, 1);
-					return Fishing.bait.getEffectiveness(inventory[i]);
+					return qual;
 				}
 			}
 		}
@@ -209,6 +214,7 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
 		super.sendGUINetworkData(container, player);
 		Packets.updateGUI(player, container, 2, processed);
+		Packets.updateGUI(player, container, 3, mode.ordinal());
 	}
 
 	@Override
@@ -218,13 +224,26 @@ public class TileAutofisher extends TileMachinePowered implements IProgressable,
 		case 2:
 			processed = value;
 			break;
+		case 3:
+			mode = RedstoneMode.values()[value];
 		}
 	}
 	
 //Gui Feature Helpers
 	@Override
+	public void toggleMode(EntityClientPlayerMP player) {
+		mode = RedstoneMode.toggle(mode);
+		player.sendQueue.addToSendQueue(new Packet114RedstoneControlled(xCoord, yCoord, zCoord, mode).build());
+	}
+	
+	@Override
 	public RedstoneMode getMode() {
 		return mode != null? mode: RedstoneMode.DISABLED;
+	}
+	
+	@Override
+	public void setMode(RedstoneMode mode) {
+		this.mode = mode;
 	}
 
 	@Override

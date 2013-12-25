@@ -75,7 +75,7 @@ public abstract class GuiMariculture extends GuiContainer {
 
 	public void drawFeatures(int x, int y) {
 		for(Feature feat: features) {
-			feat.draw(this, x, y);
+			feat.draw(this, x, y, mouseX, mouseY);
 		}
 	}
 	
@@ -165,6 +165,14 @@ public abstract class GuiMariculture extends GuiContainer {
 
 		super.handleMouseInput();
 	}
+	
+	@Override
+	protected void mouseClicked(int par1, int par2, int par3)  {
+		super.mouseClicked(par1, par2, par3);
+		for(Feature feat: features) {
+			feat.mouseClicked(mouseX, mouseY);
+		}
+    }
 
 	@Override
 	protected void mouseClickMove(int x, int y, int mouseButton, long time) {

@@ -21,22 +21,15 @@ public class FeatureNotifications extends Feature {
 		this.notifications = noteTypes;
 	}
 	
-	public void addLine(int i, NotificationType note, List tooltip) {
-		String line = "mariculture.notification." + note.toString().toLowerCase().replaceAll("_", "\\.") + ".text" + i;
-		if(!line.equals(StatCollector.translateToLocal(line))) {
-			tooltip.add(StatCollector.translateToLocal(line));
-		}
-	}
-	
 	@Override
 	public void addTooltip(List tooltip, int mouseX, int mouseY) {
 		int pos = 0;
 		for(NotificationType note: notifications) {
 			if(tile.isNotificationVisible(note)) {
 				if (mouseX >= -21 && mouseX <= 0 && mouseY >= 8 + (23 * pos) && mouseY <= 8 + (23 * pos) + 21) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.notification." + note.toString().toLowerCase().replaceAll("_", "\\.")));
+					tooltip.add(Text.RED + StatCollector.translateToLocal("notification." + note.toString().toLowerCase().replaceAll("_", "\\.")));
 					for(int i = 0; i < 5; i++) {
-						addLine(i, note, tooltip);
+						addLine("notification", i, note.toString(), tooltip);
 					}
 				}
 				
@@ -46,7 +39,7 @@ public class FeatureNotifications extends Feature {
 	}
 
 	@Override
-	public void draw(GuiMariculture gui, int x, int y) {
+	public void draw(GuiMariculture gui, int x, int y, int mouseX, int mouseY) {
 		int pos = 0;
 		for(NotificationType note: notifications) {
 			if(tile.isNotificationVisible(note)) {

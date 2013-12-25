@@ -23,6 +23,21 @@ public class Plugins {
 		public boolean isLoaded() {
 			return Loader.isModLoaded(this.name);
 		}
+		
+		public void load(Stage stage) {
+			try {
+				switch(stage) {
+					case PRE:
+						preInit();
+					case INIT:
+						init();
+					case POST:
+						postInit();
+				}
+			} catch (Exception e) {
+				LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
+			}
+		}
 
 		public abstract void preInit();
 		public abstract void init();
@@ -59,22 +74,7 @@ public class Plugins {
 	public void load(Stage stage) {
 		for (Plugin plug : plugins) {
 			if (plug.isLoaded()) {
-				try {
-					switch (stage) {
-					case PRE:
-						plug.preInit();
-						break;
-					case INIT:
-						plug.init();
-						break;
-					case POST: 
-						plug.postInit();
-						break;
-					}
-				} catch (Exception e) {
-					LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + plug.name + " Plugin at " + stage.toString() + " Phase");
-				}
-
+				plug.load(stage);
 			}
 		}
 	}

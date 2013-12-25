@@ -120,7 +120,7 @@ public class Config {
         try {
             config.load();
 
-            MachineSpeeds.autofisher = config.get(Category.SPEED, "Autofisher", 500).getInt();
+            MachineSpeeds.autofisher = config.get(Category.SPEED, "Automatic Fisher", 1000).getInt();
             MachineSpeeds.dictionary = config.get(Category.SPEED, "Autodictionary", 1).getInt();
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();

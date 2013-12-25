@@ -38,5 +38,6 @@ public class Packets {
 		PacketRegistry.register(new Packet111UpdateEnchants());
 		PacketRegistry.register(new Packet112Enchant());
 		PacketRegistry.register(new Packet113RequestMaster());
+		PacketRegistry.register(new Packet114RedstoneControlled());
 	}
 }

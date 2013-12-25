@@ -38,7 +38,7 @@ public class ContainerMariculture extends Container {
 	}
 	
 	protected void addPowerSlot(IEnergyHandler tile) {
-		addSlotToContainer(new Slot((IInventory) tile, 3, 7, 61));
+		addSlotToContainer(new Slot((IInventory) tile, 3, 8, 62));
 	}
 	
 	@Override
