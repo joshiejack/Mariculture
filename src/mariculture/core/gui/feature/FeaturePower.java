@@ -18,15 +18,16 @@ public class FeaturePower extends Feature {
 	
 	@Override
 	public void addTooltip(List tooltip, int mouseX, int mouseY) {
-		if (mouseX >= (xPoz) && mouseX <= (xPoz + 4) && mouseY >= (yPoz) && mouseY <= (yPoz + 60)) {
-			System.out.println("text");
+		if (mouseX >= (xPoz) && mouseX <= (xPoz + 13) && mouseY >= (yPoz) && mouseY <= (yPoz + 41)) {
 			tooltip.add(machine.getPowerText());
 		}
 	}
 	
 	@Override
 	public void draw(GuiMariculture gui, int x, int y) {
-		int power = machine.getPowerScaled(60);
-		gui.drawTexturedModalRect(x + xPoz, y + yPoz + 60 - power, 128, 60 - power, 5, power);
+		gui.drawTexturedModalRect(x + xPoz, y + yPoz, 142, 0, 14, 42);
+		
+		int power = machine.getPowerScaled(42);
+		gui.drawTexturedModalRect(x + xPoz, y + yPoz + 42 - power, 128, 42 - power, 14, power);
 	}
 }

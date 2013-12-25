@@ -13,17 +13,21 @@ import net.minecraft.item.ItemStack;
 public class ContainerAutofisher extends ContainerMachine {
 	public ContainerAutofisher(TileAutofisher tile, InventoryPlayer playerInventory) {
 		super(tile);
-		addSlotToContainer(new SlotFishingRod(tile, 0, 44, 18));
+		
+		addUpgradeSlots(tile);
+		addPowerSlot(tile);
+		
+		addSlotToContainer(new SlotFishingRod(tile, 4, 44, 18));
 
 		for (int i = 1; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				addSlotToContainer(new SlotBait(tile, i + (j * 3), 26 + ((i - 1) * 18), 41 + (j * 18)));
+				addSlotToContainer(new SlotBait(tile, 4 + (i + (j * 3)), 26 + ((i - 1) * 18), 41 + (j * 18)));
 			}
 		}
 
 		for (int i = 7; i < 10; i++) {
 			for (int j = 0; j < 3; j++) {
-				addSlotToContainer(new SlotOutput(tile, i + (j * 3), 112 + ((i - 7) * 18), 23 + (j * 18)));
+				addSlotToContainer(new SlotOutput(tile, 4 + (i + (j * 3)), 112 + ((i - 7) * 18), 23 + (j * 18)));
 			}
 		}
 

@@ -131,24 +131,24 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		}
 
 		if (animate) {
-			this.wheelAngle1 = this.wheelAngle1 + 0.1;
-			this.wheelAngle2 = this.wheelAngle2 + 0.1;
+			wheelAngle1 = wheelAngle1 + 0.1;
+			wheelAngle2 = wheelAngle2 + 0.1;
 
-			if (this.wheelAngle1 > 6.2198) {
-				this.wheelAngle1 = 0;
+			if (wheelAngle1 > 6.2198) {
+				wheelAngle1 = 0;
 				animate = false;
 			}
 
-			if (this.wheelAngle2 > 6.2198) {
-				this.wheelAngle2 = 0;
+			if (wheelAngle2 > 6.2198) {
+				wheelAngle2 = 0;
 				animate = false;
 			}
 
-			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 		}
 
 		if(Modules.diving.isActive()){
-			if (worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && Extra.REDSTONE_PUMP) {
+			if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) && Extra.REDSTONE_PUMP) {
 				supplyWithAir(30, 25.0D, 36.0D, 25.0D);
 			}
 		}

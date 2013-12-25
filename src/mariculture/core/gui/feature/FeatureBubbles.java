@@ -25,7 +25,9 @@ public class FeatureBubbles extends Feature {
 	
 	@Override
 	public void draw(GuiMariculture gui, int x, int y) {
-		int progress = machine.getProgressScaled(60);
-		gui.drawTexturedModalRect(x + xPoz, y + yPoz + 60 - progress, 96, 60 - progress, 28, progress + 2);
+		gui.drawTexturedModalRect(x + xPoz, y + yPoz, 72, 0, 24, 61);
+		
+		int progress = machine.getProgressScaled(61);
+		gui.drawTexturedModalRect(x + xPoz, y + yPoz + 61 - progress, 96, 61 - progress, 24, progress);
 	}
 }

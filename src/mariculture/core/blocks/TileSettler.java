@@ -20,7 +20,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 
-public class TileSettler extends TileMachineTank implements ISidedInventory, IHasGUI {
+public class TileSettler extends TileMachineTank implements ISidedInventory {
 	private int FREEZE_LENGTH = MachineSpeeds.getSettlerSpeed();
 
 	private int freezeTime = 0;

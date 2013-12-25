@@ -3,21 +3,35 @@ package mariculture.core.blocks.base;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.util.IMachine;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class TileMachine extends TileStorage implements IUpgradable, IMachine {
+public abstract class TileMachine extends TileStorage implements IUpgradable, IMachine, ISidedInventory {
 	private int machineTick = 0;
 	protected int purity = 0;
 	protected int heat = 0;
 	protected int storage = 0;
+	
+	public TileMachine() {
+		inventory = new ItemStack[3];
+	}
+	
+	@Override
+	public boolean canUpdate() {
+		return true;
+	}
 	
 	public boolean onTick(int i) {
 		return machineTick % i == 0;
 	}
 	
 	@Override
-	public abstract ItemStack[] getUpgrades();
+	public ItemStack[] getUpgrades() {
+		return new ItemStack[] {
+				inventory[0], inventory[1], inventory[2]
+		};
+	}
 	
 	@Override
 	public void updateUpgrades() {
@@ -30,7 +44,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		super.updateEntity();
 		
 		machineTick++;
-		if(machineTick %20 == 0) {
+		if(onTick(20)) {
 			updateUpgrades();
 		}
 		
@@ -53,9 +67,5 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		tagCompound.setInteger("Purity", purity);
 		tagCompound.setInteger("Heat", heat);
 		tagCompound.setInteger("Storage", storage);
-	}
-	
-	public int getProgressScaled(int i) {
-		return 0;
 	}
 }

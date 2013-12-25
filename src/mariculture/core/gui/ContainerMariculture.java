@@ -1,8 +1,11 @@
 package mariculture.core.gui;
 
+import cofh.api.energy.IEnergyHandler;
+import mariculture.api.core.IUpgradable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -26,6 +29,16 @@ public class ContainerMariculture extends Container {
 		for (int i = 0; i < 9; i++) {
 			addSlotToContainer(new Slot(inventory, i, 8 + i * 18, 142 + yOffset));
 		}
+	}
+	
+	protected void addUpgradeSlots(IUpgradable tile) {
+		for (int i = 0; i < 3; i++) {
+			addSlotToContainer(new SlotUpgrade((IInventory) tile, i, 179, 14 + (i * 18)));
+		}
+	}
+	
+	protected void addPowerSlot(IEnergyHandler tile) {
+		addSlotToContainer(new Slot((IInventory) tile, 3, 7, 61));
 	}
 	
 	@Override

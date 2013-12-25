@@ -12,6 +12,11 @@ public class TileStorage extends TileEntity implements IInventory {
 	protected ItemStack[] inventory;
 	
 	@Override
+	public boolean canUpdate() {
+		return false;
+	}
+	
+	@Override
 	public int getSizeInventory() {
 		return inventory.length;
 	}

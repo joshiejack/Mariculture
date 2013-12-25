@@ -27,6 +27,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import forestry.api.core.ItemInterface;
 import forestry.api.fuels.EngineBronzeFuel;
@@ -53,7 +54,6 @@ public class PluginForestry extends Plugin {
 	@Override
 	public void init() {
 		if (Modules.fishery.isActive()) {
-
 			FMLInterModComms.sendMessage(
 					"Forestry",
 					"add-backpack-items",
@@ -61,12 +61,14 @@ public class PluginForestry extends Plugin {
 							Integer.valueOf(OresMeta.LIMESTONE) }));
 
 			if (BackpackManager.backpackInterface != null) {
+				AquaBackpack backpack = new AquaBackpack();
 				aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(ItemIds.aquaBPT1,
-						AquaBackpack.instance(), EnumBackpackType.T1);
+						backpack, EnumBackpackType.T1);
 				aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(ItemIds.aquaBPT2,
-						AquaBackpack.instance(), EnumBackpackType.T2);
+						backpack, EnumBackpackType.T2);
+				
 
-				AquaBackpack.instance.setup();
+				backpack.setup();
 
 				CraftingManager
 						.getInstance()
@@ -111,14 +113,14 @@ public class PluginForestry extends Plugin {
 		}
 	}
 
-	public static class AquaBackpack implements IBackpackDefinition {
-		private static final AquaBackpack instance = new AquaBackpack();
+	@Override
+	public void postInit() {
+
+	}
+	
+	@Optional.Interface(iface = "forestry.api.storage.IBackpackDefinition", modid = "Forestry")
+	public class AquaBackpack implements IBackpackDefinition {
 		private final List items = new ArrayList(50);
-
-		public static AquaBackpack instance() {
-			return instance;
-		}
-
 		public void setup() {
 			if (Modules.fishery.isActive()) {
 				addValidItem(new ItemStack(Fishery.fishy, 1, OreDictionary.WILDCARD_VALUE));
@@ -141,27 +143,22 @@ public class PluginForestry extends Plugin {
 			}
 		}
 
-		@Override
 		public String getKey() {
 			return "AQUA";
 		}
 
-		@Override
 		public String getName() {
 			return StatCollector.translateToLocal("item.aquaBackpack.name");
 		}
 
-		@Override
 		public int getPrimaryColour() {
 			return 4301985;
 		}
 
-		@Override
 		public int getSecondaryColour() {
 			return 1736058;
 		}
 
-		@Override
 		public void addValidItem(ItemStack validItem) {
 			if (validItem == null) {
 				return;
@@ -169,12 +166,10 @@ public class PluginForestry extends Plugin {
 			this.items.add(validItem);
 		}
 
-		@Override
 		public Collection<ItemStack> getValidItems(EntityPlayer player) {
 			return this.items;
 		}
 
-		@Override
 		public boolean isValidItem(EntityPlayer player, ItemStack itemstack) {
 			for (ItemStack stack : getValidItems(player)) {
 				if (stack.getItemDamage() < 0) {
@@ -188,10 +183,5 @@ public class PluginForestry extends Plugin {
 
 			return false;
 		}
-	}
-	
-	@Override
-	public void postInit() {
-
 	}
 }

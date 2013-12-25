@@ -27,7 +27,8 @@
 * Sluice no longer has a gui, no longer needs wheels, can no longer take upgrades. However, it's default generation is increased.
 * Pressure Vesels, can now store a LOT more per block, however they are much more expensive, but they can also be quite large sizes!
 ====Bugfixes====
-* Fixed fishing rods using bait when pulling in
+* Fixed fishing rods using bait when pulling in and crash when the player is null
+* Fixed Speed Boat dropping twice when broken with a TiC pick
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
 * Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)

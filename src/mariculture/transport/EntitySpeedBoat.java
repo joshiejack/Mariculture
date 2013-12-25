@@ -88,7 +88,7 @@ public class EntitySpeedBoat extends Entity {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if (!this.worldObj.isRemote) {
+		if (!this.worldObj.isRemote && !this.isDead) {
 			if (par1DamageSource.getEntity() instanceof EntityPlayer
 					&& !((EntityPlayer) par1DamageSource.getEntity()).capabilities.isCreativeMode) {
 				this.dropItemWithOffset(Transport.speedBoat.itemID, 1, 0.0F);

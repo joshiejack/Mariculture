@@ -104,7 +104,7 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 
 	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy") || maxExtract > 0) {
+		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) {
 			return 0;
 		}
 		

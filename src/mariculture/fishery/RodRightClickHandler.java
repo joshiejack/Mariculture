@@ -36,7 +36,7 @@ public class RodRightClickHandler implements IFishingRod {
 		if (player.fishEntity != null) {
             int i = player.fishEntity.catchFish();
             if(stack.getItem() instanceof IEnergyContainerItem) {
-            	((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 0, false);
+            	((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 100, false);
             } else {
             	stack.damageItem(i, player);
             }
