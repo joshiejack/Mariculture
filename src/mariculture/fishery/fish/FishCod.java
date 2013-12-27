@@ -47,7 +47,7 @@ public class FishCod extends FishSpecies {
 	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
 		if (world.provider.isSurfaceWorld()) {
 			if (rand.nextInt(8) == 0) {
-				if (Fishing.fishHelper.biomeMatches(world.getBiomeGenForCoords(x, z), new EnumBiomeType[] {
+				if (Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), new EnumBiomeType[] {
 						EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN })) {
 					return true;
 				}

@@ -18,6 +18,8 @@ public class UpgradeHandler implements IUpgradeHandler {
 		int storage = 0;
 		int purity = 0;
 		int temp = 0;
+		int speed = 1;
+		int rf = 0;
 		if(tile instanceof TileMulti) {
 			TileMulti multi = (TileMulti) tile;
 			tile = (IUpgradable) ((TileMulti) tile).worldObj.getBlockTileEntity(multi.mstr.x, multi.mstr.y, multi.mstr.z);
@@ -30,14 +32,17 @@ public class UpgradeHandler implements IUpgradeHandler {
 			ItemStack upgradeStack = upgrades[i];
 			if (upgradeStack != null && upgradeStack.getItem() instanceof IItemUpgrade) {
 				IItemUpgrade upgrade = (IItemUpgrade) upgradeStack.getItem();
-				storage = storage + (upgrade.getStorageCount(upgradeStack.getItemDamage()));
-				purity = purity + (upgrade.getPurity(upgradeStack.getItemDamage()));
-				temp = temp + (upgrade.getTemperature(upgradeStack.getItemDamage()));
+				storage+= (upgrade.getStorageCount(upgradeStack.getItemDamage()));
+				purity+= (upgrade.getPurity(upgradeStack.getItemDamage()));
+				temp+=(upgrade.getTemperature(upgradeStack.getItemDamage()));
+				speed+= (upgrade.getSpeed(upgradeStack.getItemDamage()));
+				rf+= (upgrade.getRFBoost(upgradeStack.getItemDamage()));
 			}
 		}
 
 		return type.equalsIgnoreCase("storage") ? storage : type.equalsIgnoreCase("temp") ? temp : 
-			   type.equalsIgnoreCase("purity") ? purity : 0;
+			   type.equalsIgnoreCase("purity") ? purity : type.equalsIgnoreCase("speed")? speed:
+				   type.equalsIgnoreCase("rf")? rf: 0;
 	}
 
 	@Override

@@ -120,7 +120,7 @@ public class Config {
         try {
             config.load();
 
-            MachineSpeeds.autofisher = config.get(Category.SPEED, "Automatic Fisher", 1000).getInt();
+            MachineSpeeds.autofisher = config.get(Category.SPEED, "Automatic Fisher", 2500).getInt();
             MachineSpeeds.dictionary = config.get(Category.SPEED, "Autodictionary", 1).getInt();
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();
@@ -173,7 +173,7 @@ public class Config {
             BlockIds.coral = config.getBlock("Coral & Kelp", 766).getInt();
             BlockIds.airBlocks = config.getBlock("Air Blocks", 767).getInt();
 
-            //FREEID: 768 > 780
+            //FREEID: 768 > 779
 
             //Custom Blocks
             BlockIds.customFlooring = config.getBlock("Custom Flooring", 780).getInt();
@@ -187,7 +187,8 @@ public class Config {
             BlockIds.customLight = config.getBlock("Custom Light", 788).getInt();
             BlockIds.customRFBlock = config.getBlock("Custom RF Block", 789).getInt();
 
-            //FREEID: 790 > 797
+            //FREEID: 790 > 798
+            BlockIds.fishOil = config.getBlock("Fish Oil", 799).getInt();
             BlockIds.highPressureWater = config.getBlock("High Pressure Water", 800).getInt();
 
             /** END BLOCK IDS, BEGIN ITEM IDS **/

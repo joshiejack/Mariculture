@@ -4,17 +4,17 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
-import mariculture.core.util.IRedstoneControlled;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.util.IEjectable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-public class Packet114RedstoneControlled extends PacketMariculture {
+public class Packet115EjectSetting extends PacketMariculture {
 	
 	public int x, y, z, mode;
 
-	public Packet114RedstoneControlled() {}
-	public Packet114RedstoneControlled(int x, int y, int z) {
+	public Packet115EjectSetting() {}
+	public Packet115EjectSetting(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -22,9 +22,9 @@ public class Packet114RedstoneControlled extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		IRedstoneControlled tile = (IRedstoneControlled) world.getBlockTileEntity(x, y, z);
+		IEjectable tile = (IEjectable) world.getBlockTileEntity(x, y, z);
 		if(tile != null) {
-			tile.setRSMode(RedstoneMode.toggle(tile.getRSMode()));
+			tile.setEjectSetting(EjectSetting.toggle(tile.getEjectType(), tile.getEjectSetting()));
 		}
 	}
 

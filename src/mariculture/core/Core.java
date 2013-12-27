@@ -81,6 +81,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -116,12 +117,14 @@ public class Core extends Module {
 	public static Fluid moltenSteel;
 	public static Fluid moltenNickel;
 	public static Fluid moltenRutile;
-	public static Fluid fishOil;
 	public static Fluid fishFood;
-	public static Fluid highPressureWater;
-	public static Block highPressureWaterBlock;
 	public static Fluid moltenGlass;
 	public static Fluid naturalGas;
+	
+	public static Fluid fishOil;
+	public static Block fishOilBlock;
+	public static Fluid highPressureWater;
+	public static Block highPressureWaterBlock;
 
 	public static Item liquidContainers;
 	public static Item materials;
@@ -254,6 +257,13 @@ public class Core extends Module {
         highPressureWaterBlock = new BlockPressuredWater(BlockIds.highPressureWater, highPressureWater, Material.water).setUnlocalizedName("highPressureWater");
         GameRegistry.registerBlock(highPressureWaterBlock, "Mariculture_highPressureWaterBlock");
         highPressureWater.setBlockID(highPressureWaterBlock);
+        
+        fishOil = new FluidMari(FluidDictionary.fish_oil, FluidContainerMeta.BOTTLE_FISH_OIL);
+        if (!FluidRegistry.registerFluid(fishOil))
+        	fishOil = FluidRegistry.getFluid(FluidDictionary.fish_oil);
+        fishOilBlock = new BlockFluidClassic(BlockIds.fishOil, fishOil, Material.water).setUnlocalizedName("fishOil");
+        GameRegistry.registerBlock(fishOilBlock, "Mariculture_fishOil");
+        fishOil.setBlockID(fishOilBlock);
 	}
 
 	private void addToOreDictionary() {	
@@ -282,7 +292,6 @@ public class Core extends Module {
 
 	private void addFluids() {	
 		//Mariculture Fluids
-		FluidDictionary.fish_oil = addFluid("fishoil", fishOil, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_FISH_OIL);
 		FluidDictionary.fish_food = addFluid("fishfood", fishFood, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_FISH_FOOD);
 		FluidDictionary.natural_gas = addFluid("natural_gas", naturalGas, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GAS);
 		FluidDictionary.glass = addFluid("moltenGlass", moltenGlass, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GLASS);

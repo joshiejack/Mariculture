@@ -177,7 +177,7 @@ public class PluginBiomesOPlenty extends Plugin {
 		Optional<? extends BiomeGenBase> biomeType = (biome.equals(Biome.KELP))? Biomes.oceanKelp: Biomes.oceanCoral;
 		
 		if(biomeType.isPresent()) {
-			if(world.getBiomeGenForCoords(x, z) != biomeType.get()) {
+			if(world.getWorldChunkManager().getBiomeGenAt(x, z) != biomeType.get()) {
 				return false;
 			}
 		}

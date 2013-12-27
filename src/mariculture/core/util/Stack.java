@@ -4,6 +4,7 @@ import mariculture.core.Core;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.FoodMeta;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
@@ -44,6 +45,7 @@ public class Stack {
 	
 	//Food
 	public static final Stack calamari = new Stack(Core.food, FoodMeta.CALAMARI);
+	public static final Stack fishMeal = new Stack(Core.materials, MaterialsMeta.FISH_MEAL);
 	
 	//Raw Fish
 	public static final Stack squid = new Stack(Fishery.fishyFood, Fishery.squid.fishID);

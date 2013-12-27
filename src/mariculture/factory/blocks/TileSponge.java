@@ -10,7 +10,6 @@ import cofh.api.energy.TileEnergyHandler;
 public class TileSponge extends TileEnergyHandler {
     boolean posXFound, negXFound, posZFound, negZFound, posYFound = false;
     int posX, negX, posZ, negZ, posY = 0;
-    Random rand = new Random();
 
     public TileSponge() {
         storage = new EnergyStorage(0, 5000, Integer.MAX_VALUE);

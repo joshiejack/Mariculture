@@ -8,9 +8,11 @@
 * Void Bottles are now placeable
 * Fish Tank(read chest) Added
 * Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
+* New GUIs, with Notifications for missing items, and redstone controls
+* New Speed, Capacitor, Salinator and Filter Upgrades
 ====Changes====
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
-* Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block for, was it really neccessary?
+* Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block form, was it really neccessary?
 * Full Dropped BC Power Support, now you can only use RF to Power my machines, and turbines will only provide RF
 * Removed ConfigCopier/LegacyLoader > If upgrading from previous version, make sure to load Mariculture on 1.1.4 FIRST
 * Oysters are more special ;)
@@ -29,10 +31,11 @@
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in and crash when the player is null
 * Fixed Speed Boat dropping twice when broken with a TiC pick
-
 ====Config Changes====
 * Removed Unused Block Ids for Molten Metals and Limestone Stairs
 * Rennamed Autofisher Speed Entry (To force use of new SLOWER speed (since they now accept upgrades))
+====API Changes====
+* IItemUpgrade additional items
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
 * Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)

@@ -10,7 +10,7 @@ import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.HeatHelper;
-import mariculture.core.helpers.TransferHelper;
+import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packets;
@@ -347,7 +347,7 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 
 		int drainAmount = (this.purity < 1) ? 100 : this.purity * 100;
 
-		TransferHelper transfer = new TransferHelper(this);
+		FluidTransferHelper transfer = new FluidTransferHelper(this);
 		transfer.transfer(rand, new int[] { drainAmount, 100, 20, 1 });
 	}
 	

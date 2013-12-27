@@ -91,11 +91,6 @@ public class InventoryHelper {
 		if (sides == null) {
 			sides = new int[] { 0, 1, 2, 3, 4, 5 };
 		}
-		
-		stack = addToRandomConduit(world, x, y, z, ForgeDirection.UNKNOWN, stack, sides);
-		if(stack == null) {
-			placed = true;
-		}
 	
 		if (!placed) {
 			IInventory chest = InventoryHelper.getNextInventory(size, world, x, y, z, stack);
@@ -117,45 +112,6 @@ public class InventoryHelper {
 		}
 	
 		return placed;
-	}
-
-	private static ItemStack addToRandomConduit(World world, int x, int y, int z, ForgeDirection from, ItemStack stack, int[] sides) {
-		List<IItemConduit> possiblePipes = new ArrayList<IItemConduit>();
-		List<ForgeDirection> pipeDirections = new ArrayList<ForgeDirection>();
-		
-			for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-				if (from.getOpposite() == side)
-					continue;
-		
-				boolean carryOn = false;
-				for (int i = 0; i < sides.length; i++) {
-					if (side.ordinal() == sides[i]) {
-						carryOn = true;
-					}
-				}
-		
-				if (carryOn) {
-					Position pos = new Position(x, y, z, side);
-					pos.moveForwards(1.0);
-					TileEntity tile = world.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
-		
-					if (tile instanceof IItemConduit) {
-						IItemConduit pipe = (IItemConduit) tile;		
-						possiblePipes.add(pipe);
-						pipeDirections.add(side.getOpposite());
-					}
-				}
-			}
-		
-			if (possiblePipes.size() > 0) {
-				int choice = new Random().nextInt(possiblePipes.size());
-		
-				IItemConduit pipeEntry = possiblePipes.get(choice);
-		
-				return pipeEntry.sendItems(stack, pipeDirections.get(choice));
-			}
-			
-			return stack;
 	}
 
 	public static int getSide(int distance, World world, int x, int y, int z, ItemStack stack) {

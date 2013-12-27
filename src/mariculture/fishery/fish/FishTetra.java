@@ -46,7 +46,7 @@ public class FishTetra extends FishSpecies {
 	@Override
 	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
 		if (world.provider.isSurfaceWorld() && rand.nextInt(4) == 0) {
-			if (Fishing.fishHelper.biomeMatches(world.getBiomeGenForCoords(x, z),
+			if (Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z),
 					new EnumBiomeType[] { EnumBiomeType.HOT, EnumBiomeType.ARID })) {
 				return true;
 			}

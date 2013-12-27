@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileMachinePowered extends TileMachine implements IEnergyHandler, IPowered {
@@ -15,6 +16,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	
 	public TileMachinePowered() {
 		inventory = new ItemStack[4];
+		offset = 5;
 	}
 	
 	@Override
@@ -65,12 +67,29 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	}
 	
 	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		
+		if(inventory[3] != null) {
+			int rf = (inventory[3] != null)? ((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 1000, true): 0;
+			if(rf > 0) {
+				int drain = receiveEnergy(ForgeDirection.UP, rf, true);
+				if(drain > 0) {
+					((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], drain, false);
+					receiveEnergy(ForgeDirection.UP, drain, false);
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void getGUINetworkData(int id, int value) {
+		super.getGUINetworkData(id, value);
 		switch (id) {
-		case 0:
+		case 3:
 			energyStorage.setEnergyStored(value);
 			break;
-		case 1: 
+		case 4: 
 			energyStorage.setCapacity(value);
 			break;
 		}
@@ -78,7 +97,8 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	
 	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, energyStorage.getEnergyStored());
-		Packets.updateGUI(player, container, 1, energyStorage.getMaxEnergyStored());
+		super.sendGUINetworkData(container, player);
+		Packets.updateGUI(player, container, 3, energyStorage.getEnergyStored());
+		Packets.updateGUI(player, container, 4, energyStorage.getMaxEnergyStored());
 	}
 }

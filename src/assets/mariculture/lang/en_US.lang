@@ -149,6 +149,16 @@ item.upgrade.eternal.upgrade=Upgrade
 item.upgrade.debugKiller.name=!FishKiller Upgrade (Debug)
 item.upgrade.alwaysLive.name=!FishLiveAnyCondition Upgrade (Debug)
 item.upgrade.ethereal.name=Ethereal Upgrade
+item.upgrade.speed.name=Basic Hyperkinetic Upgrade
+item.upgrade.speedStd.name=Standard Hyperkinetic Upgrade
+item.upgrade.speedAdv.name=Advanced Hyperkinetic Upgrade
+item.upgrade.speedUlt.name=Ultimate Hyperkinetic Upgrade
+item.upgrade.rf.name=Basic Capacitor Upgrade
+item.upgrade.rfStd.name=Standard Capacitor Upgrade
+item.upgrade.rfAdv.name=Advanced Capacitor Upgrade
+item.upgrade.rfUlt.name=Ultimate Capacitor Upgrade
+item.upgrade.salinator.name=Salinator Upgrade
+item.upgrade.filter.name=Filtrator Upgrade
 item.liquidContainers.bottleVoid.name=Void Bottle
 item.liquidContainers.bottleIron.name=Bottle of Molten Iron
 item.liquidContainers.bottleGold.name=Bottle of Molten Gold
@@ -448,19 +458,28 @@ mariculture.string.shift.hold=Hold
 mariculture.string.shift.shift=Shift
 mariculture.string.shift.rod=to display usable bait
 mariculture.string.bait=Usable Bait
-mariculture.string.melted=Melted
-mariculture.string.fished=Fished
+
+### Processing strings ###
+mariculture.process.melted=Melted
+mariculture.process.fished=Fished
+mariculture.process.sawed=Sawed
+
+### Eject Modes ###
+ejectmode.none=Auto-Eject Disabled
+ejectmode.item=Auto-Eject Items
+ejectmode.fluid=Auto-Eject Fluids
+ejectmode.itemnfluid=Auto-Eject Items & Fluids
 
 ### Redstone Mode ###
 rsmode.disabled=Disabled
 rsmode.disabled.text1=Block will ignore all
-rsmode.disabled.text2=redstone signals.
+rsmode.disabled.text2=redstone signals
 rsmode.low=Low
 rsmode.low.text1=The block will work
-rsmode.low.text2=unless given a signal.
+rsmode.low.text2=unless given a signal
 rsmode.high=High
 rsmode.high.text1=Block will only work
-rsmode.high.text2=with a redstone signal.
+rsmode.high.text2=with a redstone signal
 
 ### Notifications - You can have up to 5 lines of additional text, they're only added if the lang exists ###
 notification.no.bait=Missing Bait
@@ -472,6 +491,12 @@ notification.not.fishable=Not fishable
 notification.not.fishable.text1=The fisher needs to be above
 notification.not.fishable.text2=water or lava in order to fish
 notification.no.rf=Missing RF
+notification.missing.side=Missing a Block Side
+notification.missing.side.text1=Each 'side' slot needs
+notification.missing.side.text2=to have a block in it
+notification.no.plan=Missing Block Plan
+notification.no.plan.text1=The sawmill requires a plan
+notification.no.plan.text2=in order to know what to build
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Titanium Arrowhead

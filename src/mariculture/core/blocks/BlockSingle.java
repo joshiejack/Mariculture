@@ -393,14 +393,4 @@ public class BlockSingle extends BlockMachine {
 	public int getMetaCount() {
 		return SingleMeta.COUNT;
 	}
-	
-	@SideOnly(Side.CLIENT)
-	public static Icon squirtIcon;
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		super.registerIcons(iconRegister);
-		squirtIcon = iconRegister.registerIcon(Mariculture.modid + ":" + "effects/squirt");
-	}
 }

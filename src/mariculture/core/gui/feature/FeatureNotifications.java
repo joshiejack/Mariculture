@@ -40,6 +40,8 @@ public class FeatureNotifications extends Feature {
 
 	@Override
 	public void draw(GuiMariculture gui, int x, int y, int mouseX, int mouseY) {
+		super.draw(gui, x, y, mouseX, mouseY);
+		
 		int pos = 0;
 		for(NotificationType note: notifications) {
 			if(tile.isNotificationVisible(note)) {
@@ -60,11 +62,13 @@ public class FeatureNotifications extends Feature {
 	}
 	
 	public static enum NotificationType {
-		NO_ROD(0, 238, 0xA62A2A), 
+		NO_ROD(0, 238, 0xF0E68C), 
 		NO_BAIT(18, 238, 0x8B6969),
 		NO_WATER(36, 238, 0x00CED1), 
 		NOT_FISHABLE(54, 238, 0x00B2EE),
-		NO_RF(72, 238, 0xC1CDCD);
+		NO_RF(72, 238, 0xC1CDCD),
+		NO_PLAN(90, 238, 0x00A3D9),
+		MISSING_SIDE(108, 238, 0x888888);
 		
 		private int x;
 		private int y;

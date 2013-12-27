@@ -101,7 +101,7 @@ public class WorldGenHandler implements IWorldGenerator {
 	}
 	
 	private boolean isValidForLimestone(World world, int posX, int posZ) {
-		int id = world.getBiomeGenForCoords(posX, posZ).biomeID;
+		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;
 		for(int i = 0; i < Extra.RIVER_BIOMES.length; i++) {
 			if(Extra.RIVER_BIOMES[i] > -1) {
 				if(id == Extra.RIVER_BIOMES[i]) {
@@ -114,11 +114,11 @@ public class WorldGenHandler implements IWorldGenerator {
 	}
 	
 	private boolean isValidForNaturalGas(World world, int posX, int posZ) {
-		if(MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(posX, posZ)) == EnumBiomeType.OCEAN) {
+		if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ)) == EnumBiomeType.OCEAN) {
 			return true;
 		}
 		
-		int id = world.getBiomeGenForCoords(posX, posZ).biomeID;
+		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;
 		for(int i = 0; i < Extra.OCEAN_BIOMES.length; i++) {
 			if(Extra.OCEAN_BIOMES[i] > -1) {
 				if(id == Extra.OCEAN_BIOMES[i]) {
@@ -132,7 +132,7 @@ public class WorldGenHandler implements IWorldGenerator {
 
 	// Generates Oysters in the Ocean
 	private void generateOysters(World world, Random random, int blockX, int blockZ) {
-		if (MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(blockX, blockZ)) == EnumBiomeType.OCEAN) {
+		if (MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(blockX, blockZ)) == EnumBiomeType.OCEAN) {
 			for(int j = 0; j < 3; j++) {
 				int chance = (PluginBiomesOPlenty.isBiome(world, blockX, blockZ, Biome.CORAL))? 12: 24;
 				if(random.nextInt(chance) == 0) {

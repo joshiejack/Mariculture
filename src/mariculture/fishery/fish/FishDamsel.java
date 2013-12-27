@@ -49,7 +49,7 @@ public class FishDamsel extends FishSpecies {
 	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
 		if (world.provider.isSurfaceWorld()) {
 			if (rand.nextInt(16) == 0) {
-				if (!Fishing.fishHelper.biomeMatches(world.getBiomeGenForCoords(x, z),
+				if (!Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z),
 						new EnumBiomeType[] { EnumBiomeType.ARID, EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.FROZEN })) {
 					return true;
 				}

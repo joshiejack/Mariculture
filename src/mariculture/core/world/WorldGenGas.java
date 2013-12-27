@@ -23,11 +23,6 @@ public class WorldGenGas extends WorldGenerator
     /** The block ID of the block to be replaced with the ore (usually stone) */
     private int blockToReplace;
 
-    public WorldGenGas(int par1, int par2)
-    {
-        this(par1, par2, Block.stone.blockID);
-    }
-
     public WorldGenGas(int par1, int par2, int par3)
     {
         this.minableBlockId = par1;

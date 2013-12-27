@@ -17,24 +17,27 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSawmill extends ContainerMachine {
+	public TileSawmill tile;
+	
 	public ContainerSawmill(TileSawmill tile, InventoryPlayer playerInventory) {
 		super(tile);
+		this.tile = tile;
 
-		addSlotToContainer(new SlotPlan(tile, 0, 63, 61));
-		addSlotToContainer(new SlotOutput(tile, 1, 111, 34));
-
+		addUpgradeSlots(tile);
+		
 		for (int i = 0; i < 3; i++) {
-			addSlotToContainer(new SlotUpgrade(tile, i + 2, 148, 16 + (i * 18)));
+			addSlotToContainer(new SlotPlan(tile, i + 3, 11, 20 + (i * 20)));
 		}
+		
+		addSlotToContainer(new SlotBlock(tile, TileSawmill.TOP, 61, 22));
+		addSlotToContainer(new SlotBlock(tile, TileSawmill.NORTH, 43, 40));
+		addSlotToContainer(new SlotBlock(tile, TileSawmill.EAST, 61, 40));
+		addSlotToContainer(new SlotBlock(tile, TileSawmill.SOUTH, 79, 40));
+		addSlotToContainer(new SlotBlock(tile, TileSawmill.WEST, 97, 40));
+		addSlotToContainer(new SlotBlock(tile, TileSawmill.BOTTOM, 61, 58));
+		addSlotToContainer(new SlotOutput(tile, TileSawmill.OUT, 149, 40));
 
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.TOP, 27, 16));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.NORTH, 9, 34));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.EAST, 27, 34));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.SOUTH, 45, 34));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.WEST, 63, 34));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.BOTTOM, 27, 52));
-
-		bindPlayerInventory(playerInventory);
+		bindPlayerInventory(playerInventory, 10);
 	}
 
 	@Override
@@ -57,18 +60,18 @@ public class ContainerSawmill extends ContainerMachine {
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
 				if (stack.getItem() instanceof ItemPlan) {
-					if (!this.mergeItemStack(stack, 0, 1, false)) { // Slot 0-0
+					if (!this.mergeItemStack(stack, 3, 6, false)) { // Slot 3-5
 						return null;
 					}
 				} else if (stack.getItem() instanceof IItemUpgrade) {
-					if (!this.mergeItemStack(stack, 2, 5, false)) { // Slot 2-4
+					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 0-2
 						return null;
 					}
 				} else if ((stack.getItem() instanceof ItemBlock
 						&& !(stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase))
 						|| stack.itemID == Item.feather.itemID) {
-					if (!this.mergeItemStack(stack, 5, 11, false)) { // Slot
-																		// 5-10
+					if (!this.mergeItemStack(stack, 6, 12, false)) { // Slot
+																		// 6-11
 						return null;
 					}
 				} else if (slotID >= size && slotID < low) {
@@ -96,6 +99,18 @@ public class ContainerSawmill extends ContainerMachine {
 		}
 
 		return itemstack;
+	}
+	
+	@Override
+    public ItemStack slotClick(int slotID, int mouseButton, int modifier, EntityPlayer player) {
+		Slot slot = (slotID < 0 || slotID > this.inventorySlots.size())? null: (Slot)this.inventorySlots.get(slotID);
+		if(mouseButton == 1 && modifier == 0 && slot instanceof SlotPlan) {
+			tile.selected = slot.slotNumber;
+			if(slot.getStack() != null)
+				return null;
+		}
+		
+		return super.slotClick(slotID, mouseButton, modifier, player);
 	}
 
 	public class SlotBlock extends Slot {

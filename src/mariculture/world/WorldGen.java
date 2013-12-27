@@ -31,7 +31,7 @@ public class WorldGen implements IWorldGenerator {
 	}
 	
 	private void generateOverworld(World world, Random random, int x, int z) {
-		if(MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(x, z)) == EnumBiomeType.OCEAN) {
+		if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z)) == EnumBiomeType.OCEAN) {
 			generateOceanFeatures(world, random, x, z);
 		}
 	}

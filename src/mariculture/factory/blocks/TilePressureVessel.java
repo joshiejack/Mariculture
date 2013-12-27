@@ -7,7 +7,7 @@ import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.blocks.base.TileMultiInvTankMachine;
-import mariculture.core.helpers.TransferHelper;
+import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.network.Packets;
 import mariculture.factory.FactoryEvents;
 import mariculture.factory.gui.ContainerPressureVessel;
@@ -200,7 +200,7 @@ public class TilePressureVessel extends TileMultiInvTankMachine implements IBlac
 	private void transfer() {
 		int drainAmount = (purity < 1)? 100: purity * 250;
 
-		TransferHelper transfer = new TransferHelper(this);
+		FluidTransferHelper transfer = new FluidTransferHelper(this);
 		transfer.transfer(new Random(), new int[] { drainAmount, (int) (drainAmount/1.5), (int)(drainAmount/2), (int)(drainAmount/3), 100, 20, 1 });
 	}
 	

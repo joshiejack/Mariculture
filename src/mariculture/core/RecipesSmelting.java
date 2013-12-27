@@ -78,7 +78,7 @@ public class RecipesSmelting {
 		 addMetalRecipes();
 	}
 
-	public static void addFuels() {
+	private static void addFuels() {
 		MaricultureHandlers.smelter.addFuel(new ItemStack(Block.coalBlock, 1, 0), 432, 2000);
 		MaricultureHandlers.smelter.addFuel(new ItemStack(Item.coal, 1, 0), 48, 2000);
 		MaricultureHandlers.smelter.addFuel(new ItemStack(Item.coal, 1, 1), 32, 1500);

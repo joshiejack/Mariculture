@@ -25,7 +25,7 @@ public class RenderFLUDDSquirt extends Render {
 	 * f1). But JAD is pre 1.5 so doesn't do that.
 	 */
 	@Override
-	public void doRender(final Entity entity, final double x, final double y, final double z, final float par8, final float par9) {
+	public void doRender(Entity entity, double x, double y, double z, float par8, float par9) {
 
 	}
 

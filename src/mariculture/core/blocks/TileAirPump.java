@@ -6,7 +6,7 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.helpers.PlayerHelper;
-import mariculture.core.helpers.TransferHelper;
+import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
@@ -127,7 +127,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		
 		//Transfer internals to a nearby tank
 		if(tick %20 == 0) {
-			new TransferHelper(this).transfer(rand, new int[] { 1000, 100, 20, 1 });
+			new FluidTransferHelper(this).transfer(rand, new int[] { 1000, 100, 20, 1 });
 		}
 
 		if (animate) {

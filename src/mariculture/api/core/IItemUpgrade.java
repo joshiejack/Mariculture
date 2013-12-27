@@ -11,6 +11,12 @@ public interface IItemUpgrade {
 
 	/** Return how many 'purity points' this upgrade gives **/
 	public int getPurity(int meta);
+	
+	/** return how much speed this upgrade gives **/
+	public int getSpeed(int meta);
+	
+	/** return 'rf count' boost **/
+	public int getRFBoost(int meta);
 
 	/** The type of upgrade this is, used when checking if a machine has this type in it,
 	 * Currently used values are:

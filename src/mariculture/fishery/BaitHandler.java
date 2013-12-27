@@ -45,9 +45,7 @@ public class BaitHandler implements IBaitHandler {
 	@Override
 	public int getEffectiveness(ItemStack stack) {
 		if ((Integer) effectivenessList.get(Arrays.asList(stack.itemID, stack.getItemDamage())) != null) {
-			int resultEffectiveness = (Integer) effectivenessList.get(Arrays.asList(stack.itemID, stack.getItemDamage()));
-
-			return resultEffectiveness;
+			return (Integer) effectivenessList.get(Arrays.asList(stack.itemID, stack.getItemDamage()));
 		}
 
 		return -1;

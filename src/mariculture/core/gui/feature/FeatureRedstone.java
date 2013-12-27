@@ -2,21 +2,26 @@ package mariculture.core.gui.feature;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
+import mariculture.core.gui.GuiMariculture;
+import mariculture.core.lib.Text;
+import mariculture.core.network.Packet114RedstoneControlled;
+import mariculture.core.util.IRedstoneControlled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
-import mariculture.core.gui.GuiMariculture;
-import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
-import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
-import mariculture.core.lib.Text;
-import mariculture.core.util.IRedstoneControlled;
 
 public class FeatureRedstone extends Feature {
 	public IRedstoneControlled tile;
+	public int x, y, z;
 	
 	public FeatureRedstone(IRedstoneControlled tile) {
 		this.tile = tile;
+		x = ((TileEntity)tile).xCoord;
+		y = ((TileEntity)tile).yCoord;
+		z = ((TileEntity)tile).zCoord;
 	}
 	
 	public enum RedstoneMode {
@@ -60,9 +65,9 @@ public class FeatureRedstone extends Feature {
 	@Override
 	public void addTooltip(List tooltip, int mouseX, int mouseY) {
 		if(mouseX >= 177 && mouseX <= 192 && mouseY >= 76 && mouseY <= 92) {
-			tooltip.add(Text.RED + StatCollector.translateToLocal("rsmode." + tile.getMode().toString().toLowerCase()));
+			tooltip.add(Text.RED + StatCollector.translateToLocal("rsmode." + tile.getRSMode().toString().toLowerCase()));
 			for(int i = 0; i < 3; i++) {
-				addLine("rsmode", i, tile.getMode().toString(), tooltip);
+				addLine("rsmode", i, tile.getRSMode().toString(), tooltip);
 			}
 		}
 	}
@@ -70,7 +75,7 @@ public class FeatureRedstone extends Feature {
 	@Override
 	public void mouseClicked(int mouseX, int mouseY) {
 		if(mouseX >= 177 && mouseX <= 192 && mouseY >= 76 && mouseY <= 92) {
-			tile.toggleMode(Minecraft.getMinecraft().thePlayer);
+			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet114RedstoneControlled(x, y, z).build());
 		}
 	}
 	
@@ -80,8 +85,16 @@ public class FeatureRedstone extends Feature {
 		
 		int offsetY = (mouseX >= 177 && mouseX <= 192 && mouseY >= 76 && mouseY <= 92)? -18: 0;
 		
+		int color = 0xA62A2A;
+		float red = (color >> 16 & 255) / 255.0F;
+		float green = (color >> 8 & 255) / 255.0F;
+		float blue = (color & 255) / 255.0F;
+		
+		GL11.glColor4f(red, green, blue, 1.0F);
 		gui.drawTexturedModalRect(x + 175, y + 73, 176, 122, 21, 22);
-		switch (tile.getMode()) {
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
+		
+		switch (tile.getRSMode()) {
 			case DISABLED:
 				gui.drawTexturedModalRect(x + 177, y + 76, 199, 125 + offsetY, 16, 16);
 				break;

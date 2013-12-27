@@ -3,22 +3,20 @@ package mariculture.core.helpers;
 import java.util.Random;
 
 import mariculture.api.core.IBlacklisted;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.util.IEjectable;
 import mariculture.core.util.ITank;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TransferHelper {
+public class FluidTransferHelper {
 	IFluidHandler tank;
 	World world;
 	int x, y, z;
 	
-	public static enum Type {
-		ITEM, FLUID
-	}
-	
-	public TransferHelper(IFluidHandler tank) {
+	public FluidTransferHelper(IFluidHandler tank) {
 		this.tank = tank;
 		
 		if(tank instanceof TileEntity) {
@@ -58,6 +56,14 @@ public class TransferHelper {
 	}
 			
 	public boolean transfer(IFluidHandler handler, ForgeDirection from, int transfer) {
+		//If tank has ejectable controls and the eject setting isn't permissible...
+		//Cancel the transfer
+		if(tank instanceof IEjectable) {
+			IEjectable e = (IEjectable) tank;
+			if(!EjectSetting.canEject(e.getEjectSetting(), EjectSetting.FLUID))
+				return false;
+		}
+		
 		if (tank instanceof ITank) {
 			ITank machine = (ITank) tank;
 			if(machine.getFluid(transfer) != null) {

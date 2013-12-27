@@ -25,7 +25,10 @@ public class FeatureArrow extends Feature {
 	
 	@Override
 	public void draw(GuiMariculture gui, int x, int y, int mouseX, int mouseY) {
-		int progress = machine.getProgressScaled(24);
-		gui.drawTexturedModalRect(x + xPoz, y + yPoz, 176, 74, progress + 1, 16);
+		super.draw(gui, x, y, mouseX, mouseY);
+		gui.drawTexturedModalRect(x + xPoz, y + yPoz, 198, 74, 22, 16);
+		
+		int progress = machine.getProgressScaled(22);
+		gui.drawTexturedModalRect(x + xPoz, y + yPoz, 176, 74, progress, 16);
 	}
 }

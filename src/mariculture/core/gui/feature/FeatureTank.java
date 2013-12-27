@@ -38,6 +38,8 @@ public class FeatureTank extends Feature {
 	
 	@Override
 	public void draw(GuiMariculture gui, int x, int y, int mouseX, int mouseY) {
+		super.draw(gui, x, y, mouseX, mouseY);
+		
 		int height = tank.getTankScaled(58);
 		FluidStack liquid = tank.getFluid();
 		if (liquid == null) {

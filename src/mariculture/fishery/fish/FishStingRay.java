@@ -56,12 +56,12 @@ public class FishStingRay extends FishSpecies {
 	@Override
 	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
 		if (world.provider.isSurfaceWorld()) {
-			if (Fishing.fishHelper.biomeMatches(world.getBiomeGenForCoords(x, z), new EnumBiomeType[] {
+			if (Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), new EnumBiomeType[] {
 					EnumBiomeType.HOT, EnumBiomeType.ARID })) {
 				return false;
 			}
 
-			EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(x, z));
+			EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z));
 			if (biome.isSaltWater()) {
 				if (rand.nextInt(8) == 0) {
 					return true;

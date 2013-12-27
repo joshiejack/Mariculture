@@ -8,10 +8,6 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 public class Packets {
-	public enum To {
-		AROUND, PLAYER, REQUEST
-	}
-
 	public static void updateTile(TileEntity tile, int size, Packet packet) {
 		PacketDispatcher.sendPacketToAllAround(tile.xCoord, tile.yCoord, tile.zCoord, size, tile.worldObj.provider.dimensionId, packet);
 	}
@@ -39,5 +35,6 @@ public class Packets {
 		PacketRegistry.register(new Packet112Enchant());
 		PacketRegistry.register(new Packet113RequestMaster());
 		PacketRegistry.register(new Packet114RedstoneControlled());
+		PacketRegistry.register(new Packet115EjectSetting());
 	}
 }

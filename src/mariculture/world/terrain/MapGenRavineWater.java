@@ -15,7 +15,7 @@ import net.minecraft.world.gen.MapGenRavine;
 public class MapGenRavineWater extends MapGenRavine
 {
     protected void recursiveGenerate(World world, int par2, int par3, int chunkX, int chunkZ, byte[] data) {
-    	if(MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(chunkX * 16, chunkZ * 16)) == EnumBiomeType.OCEAN) {
+    	if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(chunkX * 16, chunkZ * 16)) == EnumBiomeType.OCEAN) {
     		if (this.rand.nextInt(WorldGeneration.RAVINE_CHANCE) == 0) {
                 double d0 = (double)(par2 * 16 + this.rand.nextInt(16));
                 double d1 = (double)(this.rand.nextInt(this.rand.nextInt(40) + 8) + 20);

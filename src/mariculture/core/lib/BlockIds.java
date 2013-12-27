@@ -9,12 +9,6 @@ public class BlockIds {
 	public static int sift;
 	public static int doubleBlocks;
 	public static int singleBlocks;
-	public static int limestoneStairs;
-	public static int limestoneBrickStairs;
-	public static int limestoneSmoothStairs;
-	public static int limestoneChiseledStairs;
-	public static int limestoneSlabs;
-	public static int limestoneDoubleSlabs;
 	public static int lampsOn;
 	public static int lampsOff;
 	public static int pearlBrick;
@@ -38,4 +32,5 @@ public class BlockIds {
 
 	/* liquids */
 	public static int highPressureWater;
+	public static int fishOil;
 }

@@ -2,6 +2,7 @@ package mariculture.fishery.gui;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureBubbles;
+import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.gui.feature.FeatureNotifications;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeaturePower;
@@ -20,6 +21,7 @@ public class GuiAutofisher extends GuiMariculture {
 				NotificationType.NO_ROD, NotificationType.NO_BAIT, NotificationType.NOT_FISHABLE, NotificationType.NO_RF 
 		}));
 		features.add(new FeatureRedstone(tile));
+		features.add(new FeatureEject(tile));
 	}
 
 	@Override

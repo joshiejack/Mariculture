@@ -8,6 +8,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.blocks.base.TileMachine;
 import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.InventoryHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Text;
@@ -597,5 +598,20 @@ public class TileFeeder extends TileMachine implements ISidedInventory {
 	@Override
 	public void updateUpgrades() {
 		
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		return EjectSetting.ITEM;
+	}
+
+	@Override
+	public boolean canWork() {
+		return false;
+	}
+
+	@Override
+	public String getProcess() {
+		return "breed";
 	}
 }

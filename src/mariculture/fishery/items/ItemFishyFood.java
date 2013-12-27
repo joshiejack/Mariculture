@@ -5,6 +5,10 @@ import java.util.List;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.Core;
+import mariculture.core.lib.Dye;
+import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -87,7 +91,16 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		if(container.getItemDamage() == Fishery.electricRay.fishID) {
-			container.stackSize--;
+			if(!simulate) {
+				if(container.stackSize <= 1) {
+					container.stackSize = Fishery.electricRay.getFishMealSize();
+					container.itemID = Core.materials.itemID;
+					container.setItemDamage(MaterialsMeta.FISH_MEAL);
+					container.stackTagCompound = null;
+				} else {
+					container.stackSize--;
+				}
+			}
 			return 1000;
 		}
 		

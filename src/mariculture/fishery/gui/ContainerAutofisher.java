@@ -1,5 +1,6 @@
 package mariculture.fishery.gui;
 
+import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.gui.ContainerMachine;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import cofh.api.energy.IEnergyContainerItem;
 
 public class ContainerAutofisher extends ContainerMachine {
 	public ContainerAutofisher(TileAutofisher tile, InventoryPlayer playerInventory) {
@@ -54,11 +56,19 @@ public class ContainerAutofisher extends ContainerMachine {
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
 				if (stack.getItem() instanceof ItemBaseRod) {
-					if (!this.mergeItemStack(stack, 0, 1, false)) { // Slot 0-0
+					if (!this.mergeItemStack(stack, 4, 5, false)) { // Slot 4-4
+						return null;
+					}
+				} else if (stack.getItem() instanceof IItemUpgrade) {
+					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 0-2
+						return null;
+					}
+				} else if (stack.getItem() instanceof IEnergyContainerItem && (((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 20, true) >= 20)) {
+					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
 						return null;
 					}
 				} else if (Fishing.bait.getEffectiveness(stack) != -1) {
-					if (!this.mergeItemStack(stack, 1, 7, false)) { // Slot 1-6
+					if (!this.mergeItemStack(stack, 5, 11, false)) { // Slot 5-10
 						return null;
 					}
 				} else if (slotID >= size && slotID < low) {

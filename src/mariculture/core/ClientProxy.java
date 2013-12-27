@@ -121,10 +121,6 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
 		}
 		
-		if(Modules.magic.isActive()) {
-			RenderIds.JEWELRY = RenderingRegistry.getNextAvailableRenderId();
-		}
-		
 		if(Modules.sealife.isActive()) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityHammerhead.class, new RenderHammerhead());
 		}

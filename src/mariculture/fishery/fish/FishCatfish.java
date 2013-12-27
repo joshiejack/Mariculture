@@ -48,7 +48,7 @@ public class FishCatfish extends FishSpecies {
 	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
 		if (world.provider.isSurfaceWorld()) {
 			if (quality.getRank() >= EnumRodQuality.GOOD.getRank()) {
-				EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(x, z));
+				EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z));
 				if (biome.isSaltWater()) {
 					if (rand.nextInt(256) == 0) {
 						return true;

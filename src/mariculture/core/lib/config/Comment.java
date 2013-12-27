@@ -6,7 +6,6 @@ public class Comment {
 	public static final String REFRESH = "This is how many ticks before updates are sent to the client";
 	public static final String PEARL_CHANCE = "This is the chance, that after the tick count is finished, oysters will generate a pearl." + 
 														" It's a X in this many chance, so lower = better chance";
-	public static final String PEARL_RATE = "This is how many ticks before an oyster will attempt to generate a Pearl";
 	public static final String BAIT = "Chance of catching something in an autofisher with this bait - Lower = Better chance";
 	public static final String METAL = "This is how many mB a Nugget is worth, the default value is the same as Tinker's Construct";
 	public static final String FLUDD = "Whether a server will tell the client to display the fludd animations";
@@ -20,7 +19,6 @@ public class Comment {
 	public static final String PUMP_MANUAL = "Whether or not the Air Pump can be activated by right clicking on it";
 	public static final String PUMP_REDSTONE = "Whether or not giving the Air Pump a Redstone Signal will cause it to provide air";
 	public static final String PUMP_RF = "Whether an Air Pump can be powered by Redstone Flux";
-    public static final String LEGACY = "Legacy Blocks, Kept for compatibility between v1.2+ and 1.13a-(Keep as zero if a new world, these WILL be removed in the future)";
 	public static final String EXCEPTIONS = "Place names that are practically equivalent and should be converted between each other by dictionary, format - item1: item2";
 	public static final String WHITELIST = "Place Ore Dictionary Prefixes here, that are acceptable to be converted";
 }

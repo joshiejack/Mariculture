@@ -32,7 +32,7 @@ public class HeatHelper {
 		heat+= getHeatFor(world, x, y, z + 1);
 		heat+= getHeatFor(world, x, y, z - 1);
 		
-		EnumBiomeType type = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(x, z));
+		EnumBiomeType type = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z));
 		heat+= (3 - type.getCoolingSpeed());
 		return heat;
 	}

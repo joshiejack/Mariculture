@@ -11,8 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class UnderwaterVision {
 	protected EntityPlayer player;
-	protected Item item;
-	protected float gammaSetting;
 	
 	public UnderwaterVision onUpdate(EntityPlayer thePlayer) {
 		this.player = thePlayer;

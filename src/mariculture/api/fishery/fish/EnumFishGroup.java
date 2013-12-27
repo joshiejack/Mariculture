@@ -38,7 +38,6 @@ public enum EnumFishGroup {
 	}
 
 	public boolean canLive(World world, int x, int y, int z) {
-		return Fishing.fishHelper.canLive(world.getBiomeGenForCoords(x, z), getBiomes(),
-				world.getBlockTileEntity(x, y, z));
+		return Fishing.fishHelper.canLive(world.getWorldChunkManager().getBiomeGenAt(x, z), getBiomes(), world.getBlockTileEntity(x, y, z));
 	}
 }

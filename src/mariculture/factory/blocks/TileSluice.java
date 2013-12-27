@@ -7,7 +7,7 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.TileTank;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.TransferHelper;
+import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFluid;
@@ -31,8 +31,6 @@ public class TileSluice extends TileTank implements IBlacklisted {
 	protected int machineTick;
 	private short facing;
 	private int height;
-	
-	Random rand = new Random();
 	
 	@Override
 	public int getTankSize() {

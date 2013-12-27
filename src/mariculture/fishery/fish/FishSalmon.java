@@ -57,7 +57,7 @@ public class FishSalmon extends FishSpecies {
 		if (world.provider.isSurfaceWorld()) {
 			if (quality.getRank() >= EnumRodQuality.GOOD.getRank()) {
 			if (rand.nextInt(8) == 128) {
-				if (!Fishing.fishHelper.biomeMatches(world.getBiomeGenForCoords(x, z),
+				if (!Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z),
 						new EnumBiomeType[] { EnumBiomeType.ARID })) {
 					return true;
 				}

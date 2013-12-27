@@ -69,8 +69,9 @@ public class FluidDictionary {
 	public static String glass;
 	public static String rutile;
 	//Other
-	public static String fish_oil;
 	public static String fish_food;
-	public static String hp_water = "fastwater";// = "mariculture_fastwater";
-	public static String natural_gas;// = "naturalgas";
+	public static String natural_gas;
+	//Block forms
+	public static String hp_water = "fastwater";
+	public static String fish_oil = "fishoil";
 }

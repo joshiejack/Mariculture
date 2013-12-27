@@ -1,19 +1,49 @@
 package mariculture.factory.gui;
 
-import java.util.List;
-
-import mariculture.core.Mariculture;
-import mariculture.core.helpers.InventoryHelper;
-import mariculture.core.lib.Extra;
+import mariculture.core.gui.GuiMariculture;
+import mariculture.core.gui.feature.FeatureArrow;
+import mariculture.core.gui.feature.FeatureEject;
+import mariculture.core.gui.feature.FeatureNotifications;
+import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
+import mariculture.core.gui.feature.FeatureRedstone;
+import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.factory.blocks.TileSawmill;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
+public class GuiSawmill extends GuiMariculture {	
+	public TileSawmill tile;
+	
+	public GuiSawmill(InventoryPlayer player, TileSawmill tile) {
+		super(new ContainerSawmill(tile, player), "sawmill", 10);
+		this.tile = tile;
+		features.add(new FeatureUpgrades());
+		features.add(new FeatureArrow(tile, 119, 39));
+		features.add(new FeatureNotifications(tile, new NotificationType[] { 
+				NotificationType.NO_PLAN, NotificationType.MISSING_SIDE 
+		}));
+		features.add(new FeatureRedstone(tile));
+		features.add(new FeatureEject(tile));
+	}
 
-public class GuiSawmill extends GuiContainer {
+	@Override
+	public String getName() {
+		return "tile.utilBlocks.sawmill.name";
+	}
+	
+	@Override
+	public int getX() {
+		return 46;
+	}
+	
+	@Override
+	public void drawBackground(int x, int y) {
+		int y2 = 18 + ((tile.selected - 3) * 20);
+		this.drawTexturedModalRect(x + 9, y + y2, 0, 207, 20, 20);
+	}
+}
+
+/*
+public class GuiSawmill extends GuiMariculture {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/sawmill.png");
 	private final TileSawmill tile;
 
@@ -38,4 +68,4 @@ public class GuiSawmill extends GuiContainer {
 		int progress = tile.getProcessedScaled(24);
 		this.drawTexturedModalRect(x + 85, y + 34, 176, 74, progress + 1, 16);
 	}
-}
+}*/
