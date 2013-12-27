@@ -1,6 +1,7 @@
 == Mariculture 1.1.4e ==
 * Fixed NPE when crashing when fishing
-* Potentially fixed ATG Lag
+* May or may not help with ATG Terrain Gen lag...
+* Can melt Raw Fish for Fish Oil ;)
 
 == Mariculture 1.1.4d for Minecraft v1.6.X==
 * Fixed the insane tick usage with the air compressor...
