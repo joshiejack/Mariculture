@@ -4,8 +4,6 @@
 	<classpathentry kind="src" path="textures"/>
 	<classpathentry kind="src" path="apis"/>
 	<classpathentry kind="src" path="mod_assets"/>
-	<classpathentry kind="src" path="Mariculture/src"/>
-	<classpathentry kind="src" path="Mariculture/textures"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Minecraft"/>
 	<classpathentry kind="lib" path="/Minecraft/jars/libraries/com/google/guava/guava/14.0/guava-14.0.jar" sourcepath="/Minecraft/jars/libraries/com/google/guava/guava/14.0/guava-14.0-sources.jar"/>
