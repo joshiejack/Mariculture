@@ -31,7 +31,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	//GUI INT offset
 	protected int offset = 3;
 	//Machine vars
-	protected int MAX;
+	protected int max;
 	protected boolean canWork;
 	protected int processed = 0;
 	
@@ -39,6 +39,10 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		inventory = new ItemStack[3];
 		mode = RedstoneMode.LOW;
 		setting = EjectSetting.NONE;
+	}
+	
+	public ItemStack[] getInventory() {
+		return inventory;
 	}
 	
 	@Override
@@ -83,13 +87,6 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	
 	public abstract boolean canWork();
 	public abstract void updateMachine();
-	
-	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, mode.ordinal());
-		Packets.updateGUI(player, container, 1, setting.ordinal());
-		Packets.updateGUI(player, container, 2, processed);
-	}
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
@@ -102,7 +99,15 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 			break;
 		case 2:
 			processed = value;
+			break;
 		}
+	}
+	
+	@Override
+	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
+		Packets.updateGUI(player, container, 0, mode.ordinal());
+		Packets.updateGUI(player, container, 1, setting.ordinal());
+		Packets.updateGUI(player, container, 2, processed);
 	}
 	
 	@Override
@@ -127,7 +132,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	
 	@Override
 	public int getProgressScaled(int scale) {
-		return (processed * scale) / MAX;
+		return (processed * scale) / max;
 	}
 
 	@Override

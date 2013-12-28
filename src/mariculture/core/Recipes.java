@@ -48,16 +48,22 @@ public class Recipes {
 
 		GameRegistry.addRecipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), new Object[] { "## ",
 				"## ", Character.valueOf('#'), (new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH)) });
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(ItemBattery.make(new ItemStack(Core.battery), 50000), true, new Object[] { " I ", "TRT", "TRT",
-						Character.valueOf('I'), "ingotIron", Character.valueOf('R'), Item.redstone,
-						Character.valueOf('T'), "ingotTitanium" }));
 		
-			GameRegistry.addShapelessRecipe(ItemBattery.make(new ItemStack(Core.battery), 50000),
-					new Object[] { new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE), Item.redstone, Item.redstone, Item.redstone });
+		//Copper Battery
+		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(Core.batteryCopper), 10000), new Object[] {
+			" I ", "TRT", "TRT",
+			Character.valueOf('I'), "ingotIron", 
+			Character.valueOf('R'), Item.redstone,
+			Character.valueOf('T'), "ingotCopper"
+		});
+
+		//Titanium Battery
+		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(Core.batteryTitanium), 50000), new Object[] {
+			" I ", "TRT", "TRT",
+			Character.valueOf('I'), "ingotIron", 
+			Character.valueOf('R'), Item.redstone,
+			Character.valueOf('T'), "ingotTitanium"
+		});
 
 		GameRegistry.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID),
 				new Object[] { Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK) });

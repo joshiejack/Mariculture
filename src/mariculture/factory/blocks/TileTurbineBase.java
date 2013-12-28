@@ -3,6 +3,7 @@ package mariculture.factory.blocks;
 import java.util.Random;
 
 import mariculture.core.blocks.base.TileMachineTank;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
@@ -130,7 +131,7 @@ public class TileTurbineBase extends TileMachineTank implements ISidedInventory,
 		int liquidUse = (int) (heat * purity);
 				
 		if (purity > 0 && rand.nextInt(purity) == 0 || purity < 0) {
-			if(machineTick %10 == 0) {
+			if(onTick(10)) {
 				drain(ForgeDirection.UNKNOWN, liquidUse, true);
 			}
 		}
@@ -278,5 +279,23 @@ public class TileTurbineBase extends TileMachineTank implements ISidedInventory,
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		return storage.getMaxEnergyStored();
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean canWork() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getProcess() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

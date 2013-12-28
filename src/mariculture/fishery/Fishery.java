@@ -327,7 +327,7 @@ public class Fishery extends Module {
 			"  R", " RS", "B S",
 			Character.valueOf('R'), rodTitanium,
 			Character.valueOf('S'), Item.silk,
-			Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE)
+			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE)
 		});
 		
 		/* Fishing Net, Autofisher and Sift */
@@ -376,7 +376,7 @@ public class Fishery extends Module {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_BASE), new Object[] {"DBD", "CHC", 
 					Character.valueOf('C'), new ItemStack(Block.stainedClay, 1, 3),
-					Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE), 
+					Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE), 
 					Character.valueOf('D'), "dyeLightBlue", 
 					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
 	}

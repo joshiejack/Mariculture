@@ -6,7 +6,8 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockMachine;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
+import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
@@ -25,7 +26,6 @@ import net.minecraft.world.World;
 public class BlockSift extends BlockMachine {
 	public BlockSift(int i) {
 		super(i, Material.wood);
-		this.setCreativeTab(mariculture.api.core.MaricultureTab.tabMariculture);
 	}
 
 	@Override
@@ -44,34 +44,13 @@ public class BlockSift extends BlockMachine {
 	}
 
 	@Override
-	public int idDropped(int i, Random random, int j) {
-		return this.blockID;
-	}
-
-	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, final ItemStack stack) {
-		final int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+		int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 
-		if (facing == 0) {
+		if (facing == 0 || facing == 2)
 			world.setBlockMetadataWithNotify(x, y, z, 0, 2);
-		}
-
-		if (facing == 1) {
+		else if (facing == 1 || facing == 3)
 			world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-		}
-
-		if (facing == 2) {
-			world.setBlockMetadataWithNotify(x, y, z, 0, 2);
-		}
-
-		if (facing == 3) {
-			world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-		}
-	}
-
-	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		super.onBlockAdded(world, x, y, z);
 	}
 
 	@Override
@@ -87,14 +66,14 @@ public class BlockSift extends BlockMachine {
 		}
 
 		if (player.getCurrentEquippedItem() != null) {
-			if (player.getCurrentEquippedItem().getItem() == Core.upgrade
-					&& player.getCurrentEquippedItem().getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
-				if (world.getBlockMetadata(x, y, z) < 2) {
-					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 2, 2);
-
-					player.inventory.decrStackSize(player.inventory.currentItem, 1);
-
-					return false;
+			ItemStack stack = player.getCurrentEquippedItem();
+			if(stack.getItem() == Core.upgrade) {
+				if(stack.getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
+					if (world.getBlockMetadata(x, y, z) < 2) {
+						world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 2, 2);
+						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+						return false;
+					}
 				}
 			}
 		}
@@ -151,19 +130,17 @@ public class BlockSift extends BlockMachine {
 	private void spawnItem(ItemStack item, World world, int x, int y, int z) {
 		boolean done = false;
 		if (world.getBlockMetadata(x, y, z) > 1) {
-			final TileSift sift = (TileSift) world.getBlockTileEntity(x, y, z);
-			{
-				if (sift.getSuitableSlot(item) != 10) {
-					int slot = sift.getSuitableSlot(item);
-					ItemStack newStack = item;
-					if (sift.getStackInSlot(slot) != null) {
-						newStack.stackSize = newStack.stackSize + sift.getStackInSlot(slot).stackSize;
-					}
-
-					sift.setInventorySlotContents(slot, newStack);
-
-					done = true;
+		TileSift sift = (TileSift) world.getBlockTileEntity(x, y, z);
+			if (sift.getSuitableSlot(item) != 10) {
+				int slot = sift.getSuitableSlot(item);
+				ItemStack newStack = item;
+				if (sift.getStackInSlot(slot) != null) {
+					newStack.stackSize = newStack.stackSize + sift.getStackInSlot(slot).stackSize;
 				}
+
+				sift.setInventorySlotContents(slot, newStack);
+
+				done = true;
 			}
 		}
 
@@ -179,24 +156,21 @@ public class BlockSift extends BlockMachine {
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(final IBlockAccess block, final int x, final int y, final int z) {
-
+	public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
 		if (block.getBlockMetadata(x, y, z) == 1 || block.getBlockMetadata(x, y, z) == 3) {
 			setBlockBounds(-0.3F, 0F, -0.085F, 1.3F, 0.8F, 1.085F);
-		}
-
-		if (block.getBlockMetadata(x, y, z) == 0 || block.getBlockMetadata(x, y, z) == 2) {
+		} else if (block.getBlockMetadata(x, y, z) == 0 || block.getBlockMetadata(x, y, z) == 2) {
 			setBlockBounds(-0.05F, 0F, -0.15F, 1.15F, 0.8F, 1.45F);
 		}
 	}
 
 	@Override
-	public boolean getBlocksMovement(final IBlockAccess par1IBlockAccess, final int par2, final int par3, final int par4) {
+	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return false;
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(final World world, final int x, final int y, final int z) {
+	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
 		for (int X = x - 1; X <= x + 1; X++) {
 			for (int Z = z - 1; Z <= z + 1; Z++) {
 				if (!world.isAirBlock(X, y, Z)) {
@@ -225,7 +199,7 @@ public class BlockSift extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i,  int j) {
-		InventoryHelper.dropItems(world, x, y, z);
+		InventoHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
 

@@ -21,4 +21,10 @@ public class Comment {
 	public static final String PUMP_RF = "Whether an Air Pump can be powered by Redstone Flux";
 	public static final String EXCEPTIONS = "Place names that are practically equivalent and should be converted between each other by dictionary, format - item1: item2";
 	public static final String WHITELIST = "Place Ore Dictionary Prefixes here, that are acceptable to be converted";
+	public static final String TANK_UPDATE = "This is how many seconds must pass before the feeder will 'tick' to check for the tank size, If set to 0, the size will only be set when you open the interface";
+	public static final String FISH_FOOD_TICK = "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable";
+	public static final String EFFECT_TICK = "This is how many ticks for an effect to occur in a fish tank, such as poison or regen";
+	public static final String DEATH_TICK = "This is the number of ticks, before 'damaging' a fish that can't stay alive in the current feeder, set to 0 to disable";
+	public static final String DRAGON_EGG_BASE = "This is a 1 in this many chance for the chance to get a Spawn Ender Dragon from a Dragon Egg";
+	public static final String DRAGON_EGG_ETHEREAL = "Same as the normal chance but this is the chance when you have an ethereal upgrade in the incubator";
 }

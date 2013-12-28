@@ -23,9 +23,13 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	private int baitQuality = -1;
 	
 	public TileAutofisher() {
-		MAX = MachineSpeeds.getAutofisherSpeed();
+		max = MachineSpeeds.getAutofisherSpeed();
 		inventory = new ItemStack[20];
-		energyStorage = new EnergyStorage(16000);
+	}
+	
+	@Override
+	public int getRFCapacity() {
+		return 20000;
 	}
 	
 	//Slot Var Helpers
@@ -55,35 +59,30 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		return slot >= 11;
 	}
 
-	//Machine Ticks
-	@Override
-	public void updateUpgrades() {
-		super.updateUpgrades();
-		energyStorage.setCapacity(20000 + rf);
-	}
-	
 	@Override
 	public void updateMachine() {
-		if(canWork) {
-			energyStorage.extractEnergy(getRFUsage(), false);
-			
-			if(baitQuality == -1 && canWork()) {
-				baitQuality = getBaitQualityAndDelete();
-			} else {
-				processed+=speed;
-				if(processed >= MAX) {
-					baitQuality = -1;
-					processed = 0;
-					if (Rand.nextInt(getChance(baitQuality) + 1) && canWork())
-						catchFish();
-				}
+		if(!worldObj.isRemote) {
+			if(canWork) {
+				energyStorage.extractEnergy(getRFUsage(), false);
 				
-				if(processed <= 0)
-					processed = 0;
+				if(baitQuality == -1 && canWork()) {
+					baitQuality = getBaitQualityAndDelete();
+				} else {
+					processed+=speed;
+					if(processed >= max) {
+						baitQuality = -1;
+						processed = 0;
+						if (Rand.nextInt(getChance(baitQuality) + 1) && canWork())
+							catchFish();
+					}
+					
+					if(processed <= 0)
+						processed = 0;
+				}
+			} else {
+				baitQuality = -1;
+				processed = 0;
 			}
-		} else {
-			baitQuality = -1;
-			processed = 0;
 		}
 	}
 	

@@ -71,9 +71,17 @@ public class ItemFishy extends Item {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if (stack.hasTagCompound() && !Fishing.fishHelper.isEgg(stack)) {
-			for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-				FishDNA.DNAParts.get(i).getInformationDisplay(stack, list);
+		if (stack.hasTagCompound()) {
+			if(!Fishing.fishHelper.isEgg(stack)) {
+				for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
+					FishDNA.DNAParts.get(i).getInformationDisplay(stack, list);
+				}
+			} else {
+				if(stack.stackTagCompound.getInteger("currentFertility") > 0) {
+					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " + StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
+				} else {
+					list.add(StatCollector.translateToLocal("mariculture.string.undetermined") + " " + StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
+				}
 			}
 		}
 	}

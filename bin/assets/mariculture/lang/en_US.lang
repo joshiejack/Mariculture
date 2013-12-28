@@ -105,7 +105,8 @@ item.pearls.pearlBlue.name=Blue Pearl
 item.pearls.pearlBlack.name=Black Pearl
 item.pearls.pearlPink.name=Pink Pearl
 item.pearls.pearlSilver.name=Silver Pearl
-item.battery.name=Titanium Battery
+item.batteryTitanium.name=Titanium Battery
+item.batteryCopper.name=Copper Battery
 item.craftingItems.goldenSilk.name=Golden Silk
 item.craftingItems.goldenThread.name=Golden Thread
 item.craftingItems.canvas.name=Canvas
@@ -323,7 +324,7 @@ fish.data.work.lazy=Lazy
 fish.data.work.normal=Normal
 fish.data.work.hardworker=Hardworker
 fish.data.work.overclocker=Overclocker
-fish.data.species.egg=Fish Egg
+fish.data.species.egg=Fish Eggs
 fish.data.species.nether=Nethfish
 fish.data.species.glow=Glowfish
 fish.data.species.blaze=Blazefish
@@ -458,11 +459,15 @@ mariculture.string.shift.hold=Hold
 mariculture.string.shift.shift=Shift
 mariculture.string.shift.rod=to display usable bait
 mariculture.string.bait=Usable Bait
+mariculture.string.eggsRemaining=Eggs Remaining
+mariculture.string.undetermined=Undetermined
 
 ### Processing strings ###
 mariculture.process.melted=Melted
 mariculture.process.fished=Fished
 mariculture.process.sawed=Sawed
+mariculture.process.breed=Bred
+mariculture.process.incubated=Incubated
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled
@@ -497,6 +502,16 @@ notification.missing.side.text2=to have a block in it
 notification.no.plan=Missing Block Plan
 notification.no.plan.text1=The sawmill requires a plan
 notification.no.plan.text2=in order to know what to build
+notification.no.food=Missing Food
+notification.no.food.text1=Fish need food in order
+notification.no.food.text2=to go about their business
+notification.no.male=Missing Male Fish
+notification.no.female=Missing Female Fish
+notification.bad.env=Unsuitable Environment
+notification.bad.env.text1=One of your fish is not
+notification.bad.env.text2=happy. Hover over it's
+notification.bad.env.text3=indicator to see the issue
+notification.no.egg=Missing Fish Egg
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Titanium Arrowhead

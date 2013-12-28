@@ -10,11 +10,6 @@ public class TileSift extends TileStorage implements ISidedInventory {
 		inventory = new ItemStack[10];
 	}
 	
-	@Override
-	public boolean canUpdate() {
-		return false;
-    }
-
 	public int getSuitableSlot(ItemStack item) {
 		for (int i = 0; i < inventory.length; i++) {
 			if (inventory[i] == null) {
@@ -29,12 +24,15 @@ public class TileSift extends TileStorage implements ISidedInventory {
 
 		return 10;
 	}
-
-	private static final int[] slots_all = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	
+	@Override
+	public boolean canUpdate() {
+		return false;
+    }
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return slots_all;
+		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	}
 
 	@Override

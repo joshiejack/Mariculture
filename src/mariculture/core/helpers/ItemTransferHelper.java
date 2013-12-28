@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import mariculture.core.blocks.base.TileMulti;
+import mariculture.core.blocks.base.TileMulti.Cached;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IEjectable;
+import mariculture.core.util.IMachine;
 import mariculture.factory.blocks.BlockItemCustom;
 import mariculture.factory.blocks.BlockItemCustomSlabBase;
 import net.minecraft.entity.item.EntityItem;
@@ -34,23 +38,67 @@ public class ItemTransferHelper {
 		}
 	}
 	
-	public boolean insertStack(ItemStack stack, int[] slots) {
-		boolean ejected = false;
+	public ItemStack insertOnly(ItemStack stack, int[] slots) {
 		if(inventory instanceof IEjectable) {
 			IEjectable eject = (IEjectable) inventory;
 			if(EjectSetting.canEject(eject.getEjectSetting(), EjectSetting.ITEM))
-				ejected = ejectToSides(stack);
+				stack = ejectToSides(stack);
 		}
-		
-		if(!ejected) {
-			ejected = addToInventory(stack, slots);
+				
+		return stack;
+	}
+	
+	public boolean insertStack(ItemStack stack, int[] slots) {
+		if(inventory instanceof TileMulti) {
+			boolean inserted;
+			TileMulti tile = (TileMulti) inventory;
+			ArrayList<Cached> cords = tile.getCache();
+			Collections.shuffle(cords);
+			for(Cached cord: cords) {
+				ItemTransferHelper helper = new ItemTransferHelper((IInventory) world.getBlockTileEntity(cord.x, cord.y, cord.z));
+				stack = helper.insertOnly(stack, slots);
+			}
+		} else {
+			if(inventory instanceof IEjectable) {
+				IEjectable eject = (IEjectable) inventory;
+				if(EjectSetting.canEject(eject.getEjectSetting(), EjectSetting.ITEM))
+					stack = ejectToSides(stack);
+			}
 		}
-		
+
+		boolean ejected = false;
+		ejected = addToInventory(stack, slots);
 		if(!ejected) {
 			spawnItem(world, x, y, z, stack, true);
 		}
 		
 		return ejected;
+	}
+	
+	private ItemStack ejectToSides(ItemStack stack) {
+		List<Integer> sides = addSides(new ArrayList<Integer>());
+		Collections.shuffle(sides);
+		
+		for(Integer side: sides) {
+			ForgeDirection dir = ForgeDirection.getOrientation(side);
+			stack = eject(dir, stack);
+		}
+		
+		return stack;
+	}
+	
+	private ItemStack eject(ForgeDirection dir, ItemStack stack) {
+		TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+		if(tile != null && inventory != null) {
+			if(tile.getClass().equals(inventory.getClass()))
+				return stack;
+		}
+
+		if(tile instanceof IInventory && !(tile instanceof TileEntityHopper)) {
+			return InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, dir.ordinal());
+		}
+		
+		return stack;
 	}
 	
 	private List<Integer> addSides(List list) {
@@ -59,19 +107,6 @@ public class ItemTransferHelper {
 		}
 		
 		return list;
-	}
-
-	private boolean ejectToSides(ItemStack stack) {
-		List<Integer> sides = addSides(new ArrayList<Integer>());
-		Collections.shuffle(sides);
-		
-		for(Integer side: sides) {
-			ForgeDirection dir = ForgeDirection.getOrientation(side);
-			if(eject(dir, stack))
-				return true;
-		}
-		
-		return false;
 	}
 	
 	public void spawnItem(World world, int x, int y, int z, ItemStack stack, boolean random) {
@@ -97,8 +132,10 @@ public class ItemTransferHelper {
 		return stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase;
 	}
 	
-	private boolean addToInventory(ItemStack stack1, int[] slots) {
-		for(int i: slots) {
+	private boolean addToInventory(ItemStack stack, int[] slots) {
+		return InventoryHelper.addItemStackToInventory(((IMachine)inventory).getInventory(), stack, slots);
+		
+		/*for(int i: slots) {
 			ItemStack stack2 = inventory.getStackInSlot(i);
 			if (stack2 == null) {
 				inventory.setInventorySlotContents(i, stack1);
@@ -114,37 +151,6 @@ public class ItemTransferHelper {
 				inventory.setInventorySlotContents(i, stack1);
 				return true;
 			}
-		}
-		
-		return false;
-	}
-
-	private boolean eject(ForgeDirection dir, ItemStack stack) {
-		TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-		if(tile instanceof IInventory && !(tile instanceof TileEntityHopper)) {
-			IInventory invent = (IInventory) tile;
-			ISidedInventory sided = null;
-			if(invent instanceof ISidedInventory) {
-				sided = (ISidedInventory) invent;
-			}
-			
-			for(int i = 0; i < invent.getSizeInventory(); i++) {
-				if(sided == null || (sided != null && sided.canInsertItem(i, stack, dir.ordinal()))) {
-					ItemStack stackInSlot = invent.getStackInSlot(i);
-					if(stackInSlot == null || (ItemStack.areItemStacksEqual(stackInSlot, stack) 
-							&& stackInSlot.stackSize + stack.stackSize < stackInSlot.getMaxStackSize())) {
-						ItemStack newStack = stack;
-						if(stackInSlot != null) {
-							newStack.stackSize+= stackInSlot.stackSize;
-						}
-						
-						invent.setInventorySlotContents(i, newStack);
-						return true;
-					}
-				}
-			}
-		}
-		
-		return false;
+		} */
 	}
 }

@@ -7,6 +7,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeFreezer;
 import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.ContainerSettler;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.HeatHelper;
 import mariculture.core.lib.MachineSpeeds;
@@ -263,5 +264,23 @@ public class TileSettler extends TileMachineTank implements ISidedInventory {
 		}
 
 		return false;
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean canWork() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getProcess() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

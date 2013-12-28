@@ -3,7 +3,7 @@ package mariculture.factory.gui;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.factory.blocks.TileTurbineWater;
 import net.minecraft.entity.player.InventoryPlayer;
 
@@ -18,7 +18,7 @@ public class GuiTurbineWater extends GuiMariculture {
 
 	@Override
 	public String getName() {
-		return InventoryHelper.getName(tile);
+		return InventoHelper.getName(tile);
 	}
 
 	@Override

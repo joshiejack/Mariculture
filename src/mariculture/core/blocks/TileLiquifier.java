@@ -5,6 +5,7 @@ import java.util.Random;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
+import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiInvTankMachine;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.DictionaryHelper;
@@ -236,10 +237,12 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 		ItemStack result = FluidHelper.getFluidResult(this, inventory[4], inventory[5]);
 		if (result != null) {
 			decrStackSize(4, 1);
-			if (this.inventory[5] == null) {
-				this.inventory[5] = result.copy();
-			} else if (this.inventory[5].itemID == result.itemID) {
-				++this.inventory[5].stackSize;
+			if(result.itemID != Core.airBlocks.blockID) {
+				if (this.inventory[5] == null) {
+					this.inventory[5] = result.copy();
+				} else if (this.inventory[5].itemID == result.itemID) {
+					++this.inventory[5].stackSize;
+				}
 			}
 		}
 	}

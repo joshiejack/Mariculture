@@ -3,7 +3,7 @@ package mariculture.factory.gui;
 import java.util.List;
 
 import mariculture.core.Mariculture;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.factory.blocks.TileTurbineGas;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -39,7 +39,7 @@ public class GuiTurbineGas extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-        this.fontRenderer.drawString(InventoryHelper.getName(tile), 52, 4, 4210752);
+        this.fontRenderer.drawString(InventoHelper.getName(tile), 52, 4, 4210752);
     }
 
 	@Override

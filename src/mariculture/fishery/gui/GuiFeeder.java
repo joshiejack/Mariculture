@@ -3,10 +3,21 @@ package mariculture.fishery.gui;
 import java.util.List;
 
 import mariculture.core.Mariculture;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.gui.GuiMariculture;
+import mariculture.core.gui.feature.FeatureBubbles;
+import mariculture.core.gui.feature.FeatureEject;
+import mariculture.core.gui.feature.FeatureNotifications;
+import mariculture.core.gui.feature.FeaturePower;
+import mariculture.core.gui.feature.FeatureRedstone;
+import mariculture.core.gui.feature.FeatureTank;
+import mariculture.core.gui.feature.FeatureTank.TankSize;
+import mariculture.core.gui.feature.FeatureUpgrades;
+import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.FishFoodHandler;
+import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -21,121 +32,69 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiFeeder extends GuiContainer {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/feeder.png");
-	private static final ResourceLocation BLOCK_TEXTURE = TextureMap.locationBlocksTexture;
-	private final TileFeeder tile;
-
-	public GuiFeeder(InventoryPlayer player, TileFeeder tile_entity) {
-		super(new ContainerFeeder(tile_entity, player));
-		tile = tile_entity;
+public class GuiFeeder extends GuiMariculture {	
+	public TileFeeder tile;
+	
+	public GuiFeeder(InventoryPlayer player, TileFeeder tile) {
+		super(new ContainerFeeder(tile, player), "feeder", 10);
+		this.tile = tile;
+		features.add(new FeatureUpgrades());
+		features.add(new FeatureBubbles(tile, 104, 17));
+		features.add(new FeatureNotifications(tile, new NotificationType[] { 
+				NotificationType.NO_FOOD, NotificationType.NO_MALE, NotificationType.NO_FEMALE, NotificationType.BAD_ENV 
+		}));
+		features.add(new FeatureRedstone(tile));
+		features.add(new FeatureEject(tile));
+		features.add(new FeatureTank(tile, 33, 19, TankSize.DOUBLE));
 	}
 
-	public List<String> handleTooltip(int mousex, int mousey, List<String> currenttip) {
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-
-		if (mousex >= x + 16 && mousex <= x + 51 && mousey >= y + 14 && mousey <= y + 73) {
-			currenttip.add(tile.getFishFood());
-		}
-
-		if (mousex >= x + 81 && mousex <= x + 84 && mousey >= y + 20 && mousey <= y + 37) {
-			currenttip = tile.getLifespan(0, currenttip);
-		}
-
-		if (mousex >= x + 110 && mousex <= x + 113 && mousey >= y + 20 && mousey <= y + 37) {
-			currenttip = tile.getLifespan(1, currenttip);
-		}
-
-		return currenttip;
-	}
-
-	public List<String> handleItemTooltip(ItemStack stack, int mousex, int mousey, List<String> currenttip) {
-		if (stack != null) {
-			int value = FishFoodHandler.getValue(stack);
-
-			if (value > 0) {
-				currenttip.add(StatCollector.translateToLocal("mariculture.string.provides") + " " + value + " "
-						+ StatCollector.translateToLocal("mariculture.string.fishFood"));
-			}
-		}
-
-		return currenttip;
+	@Override
+	public String getName() {
+		return "tile.customBlocks.feeder.name";
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int x, int y) {
-        this.fontRenderer.drawString(InventoryHelper.getName(tile), 58, 6, 4210752);
-    }
-
+	public int getX() {
+		return 46;
+	}
+	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		this.mc.renderEngine.bindTexture(TEXTURE);
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-
-		int progress = tile.getCatchTimeRemainingScaled(60);
-		this.drawTexturedModalRect(x + 114, y + 9 + 60 - progress, 176, 160 - progress, 28, progress + 2);
-
-		int fish1 = tile.getFishLifeScaled(0, 17);
-		if (fish1 > -1) {
-			this.drawTexturedModalRect(x + 81, y + 20 + 17 - fish1, 176, 62 + 17 - fish1, 4, fish1 + 2);
-		} else {
-			this.drawTexturedModalRect(x + 81, y + 20, 180, 62, 4, 18);
-		}
-
-		int fish2 = tile.getFishLifeScaled(1, 17);
-		if (fish2 > -1) {
-			this.drawTexturedModalRect(x + 110, y + 20 + 17 - fish2, 176, 62 + 17 - fish2, 4, fish2 + 2);
-		} else {
-			this.drawTexturedModalRect(x + 110, y + 20, 180, 62, 4, 18);
-		}
-
-		if (tile.getScaledBurnTime(58) > 0) {
-			displayGauge(x, y, 15, 17, tile.getScaledBurnTime(58),
-					FluidRegistry.getFluidStack(FluidDictionary.fish_food, 1000));
+	public void addToolTip() {
+		super.addToolTip();
+		
+		if(mouseX >= 95 && mouseX <= 98) {
+			if(mouseY >= 24 && mouseY <= 41)
+				tooltip = tile.getTooltip(tile.male, tooltip);
+			if(mouseY >= 52 && mouseY <= 69)
+				tooltip = tile.getTooltip(tile.female, tooltip);
 		}
 	}
-
-	private void displayGauge(int j, int k, int line, int col, int squaled, FluidStack liquid) {
-		if (liquid == null) {
-			return;
-		}
-		int start = 0;
-
-		Icon liquidIcon = null;
-		final Fluid fluid = liquid.getFluid();
-		if (fluid != null && fluid.getStillIcon() != null) {
-			liquidIcon = fluid.getStillIcon();
-		}
-		mc.renderEngine.bindTexture(BLOCK_TEXTURE);
-
-		if (liquidIcon != null) {
-			while (true) {
-				int x;
-
-				if (squaled > 16) {
-					x = 16;
-					squaled -= 16;
-				} else {
-					x = squaled;
-					squaled = 0;
-				}
-
-				drawTexturedModelRectFromIcon(j + col, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
-				drawTexturedModelRectFromIcon(j + col + 10, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
-				drawTexturedModelRectFromIcon(j + col + 18, k + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
-				start = start + 16;
-
-				if (x == 0 || squaled == 0) {
-					break;
-				}
+	
+	@Override
+	public void addItemToolTip(ItemStack stack, List<String> list) {
+		if (stack != null) {
+			int value = FishFoodHandler.getValue(stack);
+			if (value > 0) {
+				list.add(StatCollector.translateToLocal("mariculture.string.provides") + " " + value + " "
+						+ StatCollector.translateToLocal("mariculture.string.fishFood"));
 			}
 		}
+	}
+	
+	@Override
+	public void drawBackground(int x, int y) {
+		int fish1 = tile.getFishLifeScaled(tile.male, 17);
+		if (fish1 > -1) {
+			this.drawTexturedModalRect(x + 95, y + 24 + 17 - fish1, 0, 208 + 17 - fish1, 4, fish1 + 2);
+		} else {
+			this.drawTexturedModalRect(x + 95, y + 24, 4, 208, 4, 18);
+		}
 
-		mc.renderEngine.bindTexture(TEXTURE);
-		drawTexturedModalRect(j + col, k + line, 176, 0, 16, 60);
+		int fish2 = tile.getFishLifeScaled(tile.female, 17);
+		if (fish2 > -1) {
+			this.drawTexturedModalRect(x + 95, y + 52 + 17 - fish2, 0, 208 + 17 - fish2, 4, fish2 + 2);
+		} else {
+			this.drawTexturedModalRect(x + 95, y + 52, 4, 208, 4, 18);
+		}
 	}
 }

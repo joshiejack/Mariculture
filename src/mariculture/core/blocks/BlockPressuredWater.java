@@ -24,8 +24,8 @@ public class BlockPressuredWater extends BlockFluidClassic {
 	
 	public BlockPressuredWater(int id, Fluid fluid, Material material) {
 		super(id, fluid, material);
-		this.quantaPerBlock = 5;
-		this.quantaPerBlockFloat = 5;
+		quantaPerBlock = 16;
+		quantaPerBlockFloat = 16;
 	}
 
 	@Override

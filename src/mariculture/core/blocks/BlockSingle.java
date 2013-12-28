@@ -7,7 +7,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileAirPump.Type;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
@@ -181,14 +181,9 @@ public class BlockSingle extends BlockMachine {
 		}
 
 		if (tile instanceof TileFeeder) {
-			ArrayList<String> array = TankHelper.getSurroundingArray(tile);
-
-			if (TankHelper.getTankSize(array) > 0) {
-				player.openGui(Mariculture.instance, GuiIds.FEEDER, world, x, y, z);
-				TileFeeder feeder = (TileFeeder) tile;
-				feeder.setTankSize();
-				return true;
-			}
+			((TileFeeder) tile).updateTankSize();
+			player.openGui(Mariculture.instance, GuiIds.FEEDER, world, x, y, z);
+			return true;
 		}
 
 		if(Modules.diving.isActive()) {
@@ -306,7 +301,7 @@ public class BlockSingle extends BlockMachine {
 				((TileAirPump) tile).updateAirArea(Type.CLEAR);
 			}
 		}
-		InventoryHelper.dropItems(world, x, y, z);
+		InventoHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
 

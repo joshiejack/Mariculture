@@ -2,7 +2,7 @@ package mariculture.fishery.gui;
 
 import mariculture.core.Mariculture;
 import mariculture.core.gui.ContainerSift;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.Extra;
 import mariculture.fishery.blocks.TileSift;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -22,7 +22,7 @@ public class GuiSift extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-        this.fontRenderer.drawString(InventoryHelper.getName(tile), 72, 6, 4210752);
+        this.fontRenderer.drawString(InventoHelper.getName(tile), 72, 6, 4210752);
     }
 
 	@Override

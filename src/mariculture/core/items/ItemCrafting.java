@@ -7,7 +7,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.CraftingMeta;
@@ -109,7 +109,7 @@ public class ItemCrafting extends ItemMariculture {
 				Block block = Block.blocksList[id];
 				int plan = PlansMeta.getPlanType(block, id, world, x, y, z);
 				if(plan != -1) {
-					InventoryHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
+					InventoHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
 					if(!player.capabilities.isCreativeMode) {
 						player.inventory.decrStackSize(slot, 1);
 					}

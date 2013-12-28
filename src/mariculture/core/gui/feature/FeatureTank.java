@@ -84,7 +84,7 @@ public class FeatureTank extends Feature {
 		}
 
 		tm.bindTexture(texture);
-		int width = (size.equals(TankSize.DOUBLE))? 32: 16;
+		int width = (size.equals(TankSize.DOUBLE))? 34: 16;
 		int xStart = (size.equals(TankSize.DOUBLE))? 16: 0; 
 		gui.drawTexturedModalRect(x + xPoz, y + yPoz, xStart, 0, width, 60);
 	}

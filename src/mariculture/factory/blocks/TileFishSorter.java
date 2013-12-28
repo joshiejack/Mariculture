@@ -142,4 +142,10 @@ public class TileFishSorter extends TileStorage implements ISidedInventory, IHas
 		tagCompound.setInteger("MainSide", this.side);
 		tagCompound.setIntArray("AllSides", this.sides);
 	}
+	
+	@Override
+	public ItemStack[] getInventory() {
+		return inventory;
+	}
 }
+

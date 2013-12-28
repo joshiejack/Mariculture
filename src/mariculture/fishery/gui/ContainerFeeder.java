@@ -2,8 +2,11 @@ package mariculture.fishery.gui;
 
 import mariculture.api.core.IItemUpgrade;
 import mariculture.core.gui.ContainerMachine;
+import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.gui.SlotUpgrade;
+import mariculture.core.helpers.FluidHelper;
+import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
@@ -18,16 +21,25 @@ public class ContainerFeeder extends ContainerMachine {
 	public ContainerFeeder(TileFeeder tile, InventoryPlayer playerInventory) {
 		super(tile);
 
-		this.addSlotToContainer(new SlotFather(tile, 0, 62, 21));
-		this.addSlotToContainer(new SlotMother(tile, 1, 91, 21));
-		this.addSlotToContainer(new SlotOutput(tile, 2, 71, 49));
-		this.addSlotToContainer(new SlotOutput(tile, 3, 89, 49));
+		addUpgradeSlots(tile);
+		
+		//Fluids
+		this.addSlotToContainer(new SlotFluidContainer(tile, 3, 10, 25));
+		this.addSlotToContainer(new SlotOutput(tile, 4, 10, 56));
+		
+		//Fish
+		this.addSlotToContainer(new SlotFather(tile, 5, 76, 25));
+		this.addSlotToContainer(new SlotMother(tile, 6, 76, 53));
+		
+		//Output
+		this.addSlotToContainer(new SlotOutput(tile, 7, 132, 22));
+		this.addSlotToContainer(new SlotOutput(tile, 8, 132, 40));
+		this.addSlotToContainer(new SlotOutput(tile, 9, 132, 58));
+		this.addSlotToContainer(new SlotOutput(tile, 10, 150, 22));
+		this.addSlotToContainer(new SlotOutput(tile, 11, 150, 40));
+		this.addSlotToContainer(new SlotOutput(tile, 12, 150, 58));
 
-		for (int i = 0; i < 3; i++) {
-			addSlotToContainer(new SlotUpgrade(tile, i + 4, 148, 16 + (i * 18)));
-		}
-
-		bindPlayerInventory(playerInventory);
+		bindPlayerInventory(playerInventory, 10);
 	}
 	
 	@Override
@@ -50,15 +62,19 @@ public class ContainerFeeder extends ContainerMachine {
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
 				if (stack.getItem() instanceof ItemFishy && Fishery.gender.getDNA(stack) == FishHelper.MALE) {
-					if (!this.mergeItemStack(stack, 0, 1, false)) { // Slot 0-0
+					if (!this.mergeItemStack(stack, 5, 6, false)) { // Slot 5-5
 						return null;
 					}
 				} else if (stack.getItem() instanceof ItemFishy && Fishery.gender.getDNA(stack) == FishHelper.FEMALE) {
-					if (!this.mergeItemStack(stack, 1, 2, false)) { // Slot 1-1
+					if (!this.mergeItemStack(stack, 6, 7, false)) { // Slot 6-6
 						return null;
 					}
 				} else if (stack.getItem() instanceof IItemUpgrade) {
-					if (!this.mergeItemStack(stack, 4, 7, false)) { // Slot 4-6
+					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 0-2
+						return null;
+					}
+				} else if (FluidHelper.isFluidOrEmpty(stack) || FishFoodHandler.isFishFood(stack)) {
+					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
 						return null;
 					}
 				} else if (slotID >= size && slotID < low) {

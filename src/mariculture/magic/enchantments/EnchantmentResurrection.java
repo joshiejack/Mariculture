@@ -2,6 +2,7 @@ package mariculture.magic.enchantments;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.lib.Extra;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
@@ -111,8 +112,7 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 				event.setCanceled(true);
 			}
 
-			else {
-				// Drop Items
+			else if(Extra.DROP_JEWELRY) {
 				MaricultureHandlers.mirror.dropItems(player, player.worldObj, player.posX, player.posY, player.posZ);
 			}
 		}

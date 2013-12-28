@@ -10,7 +10,7 @@ import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.Text;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -76,7 +76,7 @@ public class GuiLiquifier extends GuiMariculture {
 
 	@Override
 	public String getName() {
-		return InventoryHelper.getName(tile);
+		return InventoHelper.getName(tile);
 	}
 
 	@Override

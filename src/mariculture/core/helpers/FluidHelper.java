@@ -2,12 +2,16 @@ package mariculture.core.helpers;
 
 import mariculture.core.Core;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.util.FluidDictionary;
+import mariculture.fishery.FishFoodHandler;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
@@ -42,9 +46,25 @@ public class FluidHelper {
 			if(isFilled(top)) {				
 				return doEmpty(tile, top, bottom);
 			}		
+			
+			if(FishFoodHandler.isFishFood(top)) {
+				return addFishFood(tile, top);
+			}
 		}
 
 		return null;
+	}
+	
+	private static ItemStack addFishFood(IFluidHandler tile, ItemStack stack) {
+		if (FishFoodHandler.isFishFood(stack)) {
+			int increase = FishFoodHandler.getValue(stack);
+			int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
+			if(fill > 0) {
+				tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
+			}
+		}
+
+		return new ItemStack(Core.airBlocks);
 	}
 	
 	private static ItemStack getEmptyContainerForFilledItem(ItemStack filledContainer) {

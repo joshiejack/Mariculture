@@ -1,8 +1,9 @@
 package mariculture.core.blocks.base;
 
+import java.util.ArrayList;
+
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -24,6 +25,14 @@ public class TileMulti extends TileEntity {
 			this.x = nbt.getInteger("MasterX");
 			this.y = nbt.getInteger("MasterY");
 			this.z = nbt.getInteger("MasterZ");
+			
+			cache = new ArrayList<Cached>();
+			NBTTagList tagList = nbt.getTagList("Cache");
+
+			for (int i = 0; i < tagList.tagCount(); i++) {
+				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+				cache.add(new Cached(tag.getInteger("X"), tag.getInteger("Y"), tag.getInteger("Z")));
+			}
 		}
 		
 		public void writeToNBT(NBTTagCompound nbt) {
@@ -31,6 +40,18 @@ public class TileMulti extends TileEntity {
 			nbt.setInteger("MasterX", x);
 			nbt.setInteger("MasterY", y);
 			nbt.setInteger("MasterZ", z);
+			
+			NBTTagList itemList = new NBTTagList();
+
+			for (Cached cach: cache) {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setInteger("X", cach.x);
+				tag.setInteger("Y", cach.y);
+				tag.setInteger("Z", cach.z);
+				itemList.appendTag(tag);
+			}
+			
+			nbt.setTag("Cache", itemList);
 		}
 
 		public boolean set(boolean built, int x, int y, int z) {
@@ -39,6 +60,20 @@ public class TileMulti extends TileEntity {
 			this.y = y;
 			this.z = z;
 			return built;
+		}
+	}
+	
+	protected ArrayList<Cached> cache = new ArrayList<Cached>();
+	
+	public class Cached {
+		public int x;
+		public int y;
+		public int z;
+		
+		public Cached(int x, int y, int z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
 		}
 	}
 	
@@ -56,6 +91,8 @@ public class TileMulti extends TileEntity {
 	}
 	
 	public boolean setMaster() {
+		cache = new ArrayList<Cached>();
+		
 		World world = worldObj;
 		int x = xCoord;
 		int y = yCoord;
@@ -68,10 +105,14 @@ public class TileMulti extends TileEntity {
 		}
 		
 		if(isComponent(x, y + 1, z) && !isComponent(x, y - 1, z) && !isComponent(x, y + 2, z)) {
+			cache.add(new Cached(x, y + 1, z));
+			cache.add(new Cached(x, y, z));
 			return mstr.set(true, x, y, z);
 		}
 		
 		if(isComponent(x, y - 1, z) && !isComponent(x, y + 1, z) && !isComponent(x, y - 2, z)) {
+			cache.add(new Cached(x, y, z));
+			cache.add(new Cached(x, y - 1, z));
 			return mstr.set(true, x, y - 1, z);
 		}
 		
@@ -116,4 +157,8 @@ public class TileMulti extends TileEntity {
 	public boolean canUpdate() {
 		return shouldTick;
     }
+
+	public ArrayList<Cached> getCache() {
+		return this.cache;
+	}
 }

@@ -12,7 +12,7 @@ import net.minecraft.network.packet.Packet;
 
 public class TileOyster extends TileStorage implements ISidedInventory {
 	public TileOyster() {
-		this.inventory = new ItemStack[1];
+		inventory = new ItemStack[1];
 	}
 	
 	public void update() {

@@ -2,8 +2,6 @@ package mariculture.core.gui;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.lib.GuiIds;
@@ -11,6 +9,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
@@ -22,14 +21,11 @@ public class GuiItemToolTip {
 		List list = event.toolTip;
 		Container container = player.openContainer;
 		
-		if(container instanceof ContainerLiquifier) {
-			ContainerLiquifier liquifier = (ContainerLiquifier) container;
-			TileLiquifier tile = (TileLiquifier) liquifier.tile;
-			Gui gui = (Gui) Mariculture.proxy.getClientGuiElement(GuiIds.LIQUIFIER, player, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
-			if(gui instanceof GuiMariculture) {
-				GuiMariculture mari = (GuiMariculture) gui;
-				mari.addItemToolTip(stack, list);
-			}
-		}
+		if(container instanceof ContainerMachine) {
+			TileEntity tile = (TileEntity) ((ContainerMachine) container).tile;
+			Gui gui = (Gui) Mariculture.proxy.getClientGuiElement(-1, player, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			if(gui instanceof GuiMariculture)
+				((GuiMariculture) gui).addItemToolTip(stack, list);
+		} 
 	}
 }

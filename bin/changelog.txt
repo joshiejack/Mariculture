@@ -8,7 +8,7 @@
 * Void Bottles are now placeable
 * Fish Tank(read chest) Added
 * Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
-* New GUIs, with Notifications for missing items, and redstone controls
+* New GUIs, with Notifications for missing items, and redstone/auto-eject controls
 * New Speed, Capacitor, Salinator and Filter Upgrades
 ====Changes====
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
@@ -28,6 +28,9 @@
 * Turbines (except manual) now need to be kept supplied with a Rotor, in order to operate
 * Sluice no longer has a gui, no longer needs wheels, can no longer take upgrades. However, it's default generation is increased.
 * Pressure Vesels, can now store a LOT more per block, however they are much more expensive, but they can also be quite large sizes!
+* Feeder Fish Tanks no longer need you to have a certain shape... You just need to have the correct amount of water blocks for the tank size
+* Jewelry no longer drops on death(configurable)
+* Pressurised Water's range increased from 5 to 16
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in and crash when the player is null
 * Fixed Speed Boat dropping twice when broken with a TiC pick

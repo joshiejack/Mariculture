@@ -129,7 +129,8 @@ public class Core extends Module {
 	public static Item liquidContainers;
 	public static Item materials;
 	public static Item craftingItem;
-	public static Item battery;
+	public static Item batteryTitanium;
+	public static Item batteryCopper;
 	public static Item food;
 	public static Item upgrade;
 	public static Item pearls;
@@ -212,7 +213,8 @@ public class Core extends Module {
 	public void registerItems() {
 		materials = new ItemMaterial(ItemIds.metals).setUnlocalizedName("materials");
 		craftingItem = new ItemCrafting(ItemIds.items).setUnlocalizedName("craftingItems");
-		battery = new ItemBattery(ItemIds.batteryFull, 50000, 1000, 2500).setUnlocalizedName("battery");
+		batteryCopper = new ItemBattery(ItemIds.batteryCopper, 10000, 100, 250).setUnlocalizedName("batteryCopper");
+		batteryTitanium = new ItemBattery(ItemIds.batteryTitanium, 50000, 1000, 2500).setUnlocalizedName("batteryTitanium");
 		food = new ItemFood(ItemIds.food).setUnlocalizedName("food");
 		upgrade = new ItemUpgrade(ItemIds.upgrade).setUnlocalizedName("upgrade");
 		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
@@ -220,7 +222,8 @@ public class Core extends Module {
 		hammer = new ItemHammer(ItemIds.hammer, 128).setUnlocalizedName("hammer");
 		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
 
-		RegistryHelper.register(new Object[] { materials, craftingItem, battery, food, upgrade, pearls, liquidContainers, hammer, worked});
+		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
+				liquidContainers, hammer, worked, batteryCopper});
 	}
 	
 	@Override

@@ -5,7 +5,7 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileMulti;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
@@ -246,22 +246,22 @@ public class BlockUtil extends BlockMachine {
 			return false;
 		}
 		
-		if(tile instanceof IHasGUI) {
-			player.openGui(Mariculture.instance, -1, world, x, y, z);
-			return true;
-		}
-
-		if (tile instanceof TileLiquifier) {
+		if (tile instanceof TileMulti) {
 			TileMulti base = (TileMulti) tile;
-			TileMulti master = (base.mstr.built)? (TileLiquifier)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
+			TileMulti master = (base.mstr.built)? (TileMulti)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
 			if (master != null) {
 				base.setMaster();
 				master.setMaster();
-				player.openGui(Mariculture.instance, GuiIds.LIQUIFIER, world, master.xCoord, master.yCoord, master.zCoord);
+				player.openGui(Mariculture.instance, -1, world, master.xCoord, master.yCoord, master.zCoord);
 				return true;
 			}
 
 			return false;
+		}
+		
+		if(tile instanceof IHasGUI) {
+			player.openGui(Mariculture.instance, -1, world, x, y, z);
+			return true;
 		}
 
 		if (tile instanceof TileSluice) {
@@ -272,17 +272,6 @@ public class BlockUtil extends BlockMachine {
 			} else {
 				return false;
 			}
-		}
-
-		if (tile instanceof TileIncubator || world.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP) {
-			TileIncubator incubator = ((TileIncubator) tile).master();
-			if (incubator != null) {
-				player.openGui(Mariculture.instance, GuiIds.INCUBATOR, world, incubator.xCoord, incubator.yCoord,
-						incubator.zCoord);
-				return true;
-			}
-
-			return false;
 		}
 		
 		if (tile instanceof TileSponge) {
@@ -344,7 +333,7 @@ public class BlockUtil extends BlockMachine {
 	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
 		updateMaster(world, x, y, z);
 		
-		InventoryHelper.dropItems(world, x, y, z);
+		InventoHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, meta);
 
 		if (meta == UtilMeta.SLUICE) {

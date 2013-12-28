@@ -18,7 +18,7 @@ import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.core.Position;
 import cofh.api.transport.IItemConduit;
 
-public class InventoryHelper {
+public class InventoHelper {
 	public static void dropItems(World world, int x, int y, int z) {
 		Random rand = new Random();
 		TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
@@ -93,12 +93,12 @@ public class InventoryHelper {
 		}
 	
 		if (!placed) {
-			IInventory chest = InventoryHelper.getNextInventory(size, world, x, y, z, stack);
-			int side = InventoryHelper.getSide(size, world, x, y, z, stack);
+			IInventory chest = InventoHelper.getNextInventory(size, world, x, y, z, stack);
+			int side = InventoHelper.getSide(size, world, x, y, z, stack);
 			if (chest != null && side != -1) {
 				boolean carryOn = true;
 	
-				int chestSlot = InventoryHelper.getSlot(chest, stack, side);
+				int chestSlot = InventoHelper.getSlot(chest, stack, side);
 				if (chestSlot != -1) {
 					if (chest.getStackInSlot(chestSlot) != null) {
 						chest.getStackInSlot(chestSlot).stackSize += stack.stackSize;
@@ -119,28 +119,28 @@ public class InventoryHelper {
 	
 		if (world.getBlockTileEntity(x + distance, y, z) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x + distance, y, z);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 5) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 5) > -1) {
 				return 5;
 			}
 		}
 	
 		if (world.getBlockTileEntity(x - distance, y, z) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x - distance, y, z);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 3) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 3) > -1) {
 				return 3;
 			}
 		}
 	
 		if (world.getBlockTileEntity(x, y, z + distance) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x, y, z + distance);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 2) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 2) > -1) {
 				return 2;
 			}
 		}
 	
 		if (world.getBlockTileEntity(x, y, z - distance) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x, y, z - distance);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 4) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 4) > -1) {
 				return 4;
 			}
 		}
@@ -148,14 +148,14 @@ public class InventoryHelper {
 		if (distance == 1) {
 			if (world.getBlockTileEntity(x, y - distance, z) instanceof IInventory) {
 				IInventory chest = (IInventory) world.getBlockTileEntity(x, y - distance, z);
-				if (stack == null || InventoryHelper.getSlot(chest, stack, 0) > -1) {
+				if (stack == null || InventoHelper.getSlot(chest, stack, 0) > -1) {
 					return 0;
 				}
 			}
 	
 			if (world.getBlockTileEntity(x, y + distance, z) instanceof IInventory) {
 				IInventory chest = (IInventory) world.getBlockTileEntity(x, y + distance, z);
-				if (stack == null || InventoryHelper.getSlot(chest, stack, 1) > -1) {
+				if (stack == null || InventoHelper.getSlot(chest, stack, 1) > -1) {
 					return 1;
 				}
 			}
@@ -169,28 +169,28 @@ public class InventoryHelper {
 	
 		if (world.getBlockTileEntity(x + distance, y, z) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x + distance, y, z);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 5) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 5) > -1) {
 				return (IInventory) world.getBlockTileEntity(x + distance, y, z);
 			}
 		}
 	
 		if (world.getBlockTileEntity(x - distance, y, z) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x - distance, y, z);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 3) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 3) > -1) {
 				return (IInventory) world.getBlockTileEntity(x - distance, y, z);
 			}
 		}
 	
 		if (world.getBlockTileEntity(x, y, z + distance) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x, y, z + distance);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 2) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 2) > -1) {
 				return (IInventory) world.getBlockTileEntity(x, y, z + distance);
 			}
 		}
 	
 		if (world.getBlockTileEntity(x, y, z - distance) instanceof IInventory) {
 			IInventory chest = (IInventory) world.getBlockTileEntity(x, y, z - distance);
-			if (stack == null || InventoryHelper.getSlot(chest, stack, 4) > -1) {
+			if (stack == null || InventoHelper.getSlot(chest, stack, 4) > -1) {
 				return (IInventory) world.getBlockTileEntity(x, y, z - distance);
 			}
 		}
@@ -198,14 +198,14 @@ public class InventoryHelper {
 		if (distance == 1) {
 			if (world.getBlockTileEntity(x, y - distance, z) instanceof IInventory) {
 				IInventory chest = (IInventory) world.getBlockTileEntity(x, y - distance, z);
-				if (stack == null || InventoryHelper.getSlot(chest, stack, 0) > -1) {
+				if (stack == null || InventoHelper.getSlot(chest, stack, 0) > -1) {
 					return (IInventory) world.getBlockTileEntity(x, y - distance, z);
 				}
 			}
 	
 			if (world.getBlockTileEntity(x, y + distance, z) instanceof IInventory) {
 				IInventory chest = (IInventory) world.getBlockTileEntity(x, y + distance, z);
-				if (stack == null || InventoryHelper.getSlot(chest, stack, 1) > -1) {
+				if (stack == null || InventoHelper.getSlot(chest, stack, 1) > -1) {
 					return (IInventory) world.getBlockTileEntity(x, y + distance, z);
 				}
 			}

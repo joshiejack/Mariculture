@@ -27,6 +27,15 @@ public class Extra {
 	public static int KELP_GROWTH_CHANCE;
 	public static boolean ENABLE_ENDER_SPAWN;
 	
+	public static int FISH_FOOD_TICK;
+	public static int TANK_UPDATE;
+	public static int EFFECT_TICK;
+	public static int DEATH_TICKER;
+	public static int DRAGON_EGG_BASE;
+	public static int DRAGON_EGG_ETHEREAL;
+	
+	public static boolean DROP_JEWELRY;
+	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 
 		"oreBauxite: oreAluminum", "oreBauxite: oreNaturalAluminum", "oreTitanium: oreRutile"};

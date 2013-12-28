@@ -15,10 +15,19 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	protected EnergyStorage energyStorage;
 	
 	public TileMachinePowered() {
+		energyStorage = new EnergyStorage(getRFCapacity());
 		inventory = new ItemStack[4];
-		offset = 5;
+		offset = 4;
 	}
 	
+	public abstract int getRFCapacity();
+	
+	@Override
+	public void updateUpgrades() {
+		super.updateUpgrades();
+		energyStorage.setCapacity(getRFCapacity() + rf);
+	}
+
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
 		return energyStorage.receiveEnergy(maxReceive, simulate);

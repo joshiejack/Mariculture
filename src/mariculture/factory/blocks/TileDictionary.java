@@ -3,7 +3,7 @@ package mariculture.factory.blocks;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.helpers.DictionaryHelper;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
@@ -130,7 +130,7 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 		
 		if (getNextSlot(stack) != -1) {
 			if(doSwap) {				
-				if(!InventoryHelper.addToInventory(0, worldObj, xCoord, yCoord, zCoord, newStack, new int[]{ 2, 3, 4, 5 })) {
+				if(!InventoHelper.addToInventory(0, worldObj, xCoord, yCoord, zCoord, newStack, new int[]{ 2, 3, 4, 5 })) {
 					int newSlot = getNextSlot(stack);
 					if (getStackInSlot(newSlot) != null) {
 						getStackInSlot(newSlot).stackSize++;
@@ -216,5 +216,10 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 	@Override
 	public boolean doesDrop(int slot) {
 		return slot > 8;
+	}
+
+	@Override
+	public ItemStack[] getInventory() {
+		return inventory;
 	}
 }

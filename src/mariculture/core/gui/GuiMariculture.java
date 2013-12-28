@@ -6,7 +6,7 @@ import java.util.List;
 
 import mariculture.core.Mariculture;
 import mariculture.core.gui.feature.Feature;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;

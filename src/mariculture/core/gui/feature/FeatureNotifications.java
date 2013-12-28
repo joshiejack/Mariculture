@@ -68,7 +68,12 @@ public class FeatureNotifications extends Feature {
 		NOT_FISHABLE(54, 238, 0x00B2EE),
 		NO_RF(72, 238, 0xC1CDCD),
 		NO_PLAN(90, 238, 0x00A3D9),
-		MISSING_SIDE(108, 238, 0x888888);
+		MISSING_SIDE(108, 238, 0x888888),
+		NO_FOOD(126, 238, 0x2DB200),
+		NO_MALE(144, 238, 0x7396FF),
+		NO_FEMALE(162, 238, 0xFF99FF),
+		BAD_ENV(180, 238, 0x111111),
+		NO_EGG(198, 238, 0xBDBDAE);
 		
 		private int x;
 		private int y;

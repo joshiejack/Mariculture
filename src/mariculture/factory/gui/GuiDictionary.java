@@ -1,7 +1,7 @@
 package mariculture.factory.gui;
 
 import mariculture.core.gui.GuiMariculture;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.factory.blocks.TileDictionary;
 import net.minecraft.entity.player.InventoryPlayer;
 
@@ -21,7 +21,7 @@ public class GuiDictionary extends GuiMariculture {
 
 	@Override
 	public String getName() {
-		return InventoryHelper.getName(tile);
+		return InventoHelper.getName(tile);
 	}
 
 	@Override

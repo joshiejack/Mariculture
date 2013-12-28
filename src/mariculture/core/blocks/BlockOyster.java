@@ -6,7 +6,7 @@ import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
@@ -149,7 +149,7 @@ public class BlockOyster extends BlockMachine {
 						}
 					}
 
-					InventoryHelper.dropItems(world, x, y, z);
+					InventoHelper.dropItems(world, x, y, z);
 					oyster.setInventorySlotContents(0, null);
 					oyster.update();
 					return true;

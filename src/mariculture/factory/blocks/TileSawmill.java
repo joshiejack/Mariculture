@@ -29,7 +29,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	public int selected = 3;
 	
 	public TileSawmill() {
-		MAX = MachineSpeeds.getSawmillSpeed();
+		max = MachineSpeeds.getSawmillSpeed();
 		inventory = new ItemStack[13];
 	}
 
@@ -88,7 +88,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	public void updateMachine() {
 		if(canWork) {
 			processed+=speed;
-			if(processed >= MAX && canWork()) {
+			if(processed >= max && canWork()) {
 				processed = 0;
 				saw();
 			}
@@ -99,7 +99,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	
 	@Override
 	public boolean canWork() {
-		return hasPlanSelected() && allSidesFilled() && RedstoneMode.canWork(this, mode) && outputIsEmptyOrMatches();
+		return hasPlanSelected() && allSidesFilled() && RedstoneMode.canWork(this, mode) && outputHasRoom();
 	}
 	
 	//Boolean checkers
@@ -120,7 +120,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 		return stack1.stackTagCompound == null && stack2.stackTagCompound == null;
 	}
 	
-	private boolean outputIsEmptyOrMatches()  {
+	private boolean outputHasRoom()  {
 		if(setting.canEject(EjectSetting.ITEM))
 			return true;
 		ItemStack result = getResult();

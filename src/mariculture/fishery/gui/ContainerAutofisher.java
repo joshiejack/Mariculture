@@ -63,7 +63,7 @@ public class ContainerAutofisher extends ContainerMachine {
 					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 0-2
 						return null;
 					}
-				} else if (stack.getItem() instanceof IEnergyContainerItem && (((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 20, true) >= 20)) {
+				} else if (stack.getItem() instanceof IEnergyContainerItem) {
 					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
 						return null;
 					}

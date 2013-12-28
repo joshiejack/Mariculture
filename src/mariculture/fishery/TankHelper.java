@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 import mariculture.core.Core;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.inventory.IInventory;

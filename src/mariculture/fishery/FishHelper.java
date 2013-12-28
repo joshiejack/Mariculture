@@ -123,12 +123,13 @@ public class FishHelper implements IFishHelper {
 		if(feeder != null && feeder instanceof IUpgradable) {
 			boolean hasEthereal = MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile);
 			boolean isSaltWater = MaricultureHandlers.biomeType.getBiomeType(biome).isSaltWater();
-			if(MaricultureHandlers.upgrades.getData("purity", (IUpgradable) tile) > 0) {
-				isSaltWater = false;
-			} else if(MaricultureHandlers.upgrades.getData("purity", (IUpgradable) tile) < 0) {
+			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
 				isSaltWater = true;
-			}
-			int temp = HeatHelper.getTileTemperature(feeder.worldObj, feeder.xCoord, feeder.yCoord, feeder.zCoord, feeder.getUpgrades());
+			if(MaricultureHandlers.upgrades.hasUpgrade("filter", (IUpgradable) tile))
+				isSaltWater = false;
+			
+			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getWorldChunkManager().getBiomeGenAt(tile.xCoord, tile.zCoord));
+			int temp = theBiome.baseTemp() + MaricultureHandlers.upgrades.getData("temp", (IUpgradable) tile);
 			
 			for (int i = 0; i < biomeTypes.length; i++) {
 				if(biomeTypes[i] != null) {
@@ -136,8 +137,7 @@ public class FishHelper implements IFishHelper {
 					
 					if(temp >= type.minTemp()&& temp <= type.maxTemp()) {
 						if(type.isSaltWater() == isSaltWater) {
-							if((type.isSpecial() && hasEthereal) || !type.isSpecial())
-							{
+							if((type.isSpecial() && hasEthereal) || !type.isSpecial()) {
 								return true;
 							}
 						}

@@ -3,6 +3,7 @@ package mariculture.core.gui;
 import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -18,8 +19,8 @@ public class SlotFluidContainer extends Slot {
 	}
 
 	@Override
-	public boolean isItemValid(final ItemStack itemstack) {
-		return FluidHelper.isFluidOrEmpty(itemstack);
+	public boolean isItemValid(ItemStack stack) {
+		return FluidHelper.isFluidOrEmpty(stack) || FishFoodHandler.isFishFood(stack);
 	}
 
 	@Override

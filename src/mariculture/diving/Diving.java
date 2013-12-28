@@ -100,7 +100,7 @@ public class Diving extends Module {
 			"  F", " PB", "III",
 			Character.valueOf('I'), Stack.aluminumSheet.get(),
 			Character.valueOf('F'), Stack.cooling.get(),
-			Character.valueOf('B'), new ItemStack(Core.battery, 1, OreDictionary.WILDCARD_VALUE),
+			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('P'), Block.pistonBase
 		});
 		

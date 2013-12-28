@@ -5,7 +5,7 @@ import java.util.Random;
 
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileStorageTank;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
@@ -166,10 +166,10 @@ public class TileGeyser extends TileStorageTank {
 	}
 	
 	public void pullFromInventory() {
-		IInventory invent = InventoryHelper.getNextInventory(0, worldObj, xCoord, yCoord, zCoord, null);
-		int side = InventoryHelper.getSide(0, worldObj, xCoord, yCoord, zCoord, null);
+		IInventory invent = InventoHelper.getNextInventory(0, worldObj, xCoord, yCoord, zCoord, null);
+		int side = InventoHelper.getSide(0, worldObj, xCoord, yCoord, zCoord, null);
 		if(invent != null)
-			pullFromInventory(invent, InventoryHelper.getSlot(invent, null, side), side);
+			pullFromInventory(invent, InventoHelper.getSlot(invent, null, side), side);
 	}
 	
 	private boolean canExtractItemFromInventory(IInventory inventory, ItemStack stack, int slot, int side) {
@@ -185,7 +185,7 @@ public class TileGeyser extends TileStorageTank {
 
         if (stack != null && canExtractItemFromInventory(inventory, stack, slot, side)) {
             ItemStack itemstack1 = stack.copy();
-            InventoryHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, itemstack1, false);
+            InventoHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, itemstack1, false);
             
             worldObj.spawnParticle("cloud", xCoord, yCoord, zCoord, 0, 0, 0);
             inventory.setInventorySlotContents(slot, null);

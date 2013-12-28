@@ -12,7 +12,7 @@ public class ItemIds {
 	public static int mirror;
 	public static int celestialMirror;
 	public static int pearl;
-	public static int batteryFull;
+	public static int batteryTitanium;
 	public static int items;
 	public static int ring;
 	public static int bracelet;
@@ -43,6 +43,7 @@ public class ItemIds {
 	public static int snorkel;
 	public static int hammer;
 	public static int worked;
+	public static int batteryCopper;
 	
 	//parts
 	public static int titanium_part_1;

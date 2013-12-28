@@ -36,6 +36,7 @@ public class Config {
             Extra.METAL_RATE = config.get(Category.EXTRA, "Molten Metal Nugget mB Value", 16, Comment.METAL).getInt();
             Extra.FLUDD_WATER_ON = config.get(Category.CLIENT, "Enable FLUDD Animations", true, Comment.FLUDD).getBoolean(true);
             Extra.ENABLE_ENDER_SPAWN = config.get(Category.EXTRA, "Enable Ender Dragon Spawning", true, Comment.ENDERDRAGON).getBoolean(true);
+            Extra.DROP_JEWELRY = config.get(Category.EXTRA, "Jewelry Drops on Death", false).getBoolean(false);
             
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "Whitelist", Extra.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
             Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "Exceptions", Extra.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
@@ -129,6 +130,12 @@ public class Config {
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
             MachineSpeeds.settler = config.get(Category.SPEED, "Industrial Freezer", 60000).getInt();
 
+            Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator - Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
+            Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator - Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
+            Extra.DEATH_TICKER = config.get(Category.EXTRA, "Fish Feeder - Death Tick", 20, Comment.DEATH_TICK).getInt();
+            Extra.EFFECT_TICK = config.get(Category.EXTRA, "Fish Feeder - Effect Tick", 20, Comment.EFFECT_TICK).getInt();
+            Extra.FISH_FOOD_TICK = config.get(Category.EXTRA, "Fish Feeder - Fish Food Tick Rate", 25, Comment.FISH_FOOD_TICK).getInt();
+            Extra.TANK_UPDATE = config.get(Category.EXTRA, "Fish Feeder - Tank Update", 5, Comment.TANK_UPDATE).getInt();
             Extra.ACTIVATE_PUMP = config.get(Category.EXTRA, "Air Pump - Manual Power Enabled", true, Comment.PUMP_MANUAL).getBoolean(true);
             Extra.REDSTONE_PUMP = config.get(Category.EXTRA, "Air Pump - Redstone Power Enabled", false, Comment.PUMP_REDSTONE).getBoolean(false);
             Extra.BUILDCRAFT_PUMP = config.get(Category.EXTRA, "Air Pump - MJ/RF Power Enabled", true, Comment.PUMP_RF).getBoolean(true);
@@ -198,7 +205,7 @@ public class Config {
             ItemIds.mirror = config.getItem("Magic Mirror", 29003).getInt();
             ItemIds.celestialMirror = config.getItem("Celestial Mirror", 29004).getInt();
             ItemIds.pearl = config.getItem("Pearls", 29005).getInt();
-            ItemIds.batteryFull = config.getItem("Battery", 29006).getInt();
+            ItemIds.batteryTitanium = config.getItem("Battery", 29006).getInt();
             ItemIds.food = config.getItem("Food", 29007).getInt();
             ItemIds.bait = config.getItem("Bait", 29008).getInt();
             ItemIds.rodReed = config.getItem("Fishing Rod - Reed", 29009).getInt();
@@ -253,7 +260,7 @@ public class Config {
             ItemIds.titanium_part_23 = config.getItem("TiC Titanium - Tough Binding", 29056).getInt();
             ItemIds.titanium_part_24 = config.getItem("TiC Titanium - Tough Rod", 29057).getInt();
             
-            //FREEIDS: 29066 > 29100
+            //FREEIDS: 29067 > 29100
             ItemIds.rodFlux = config.getItem("Fishing Rod - Flux", 29058).getInt();
             ItemIds.filter = config.getItem("Item Filter", 29059).getInt();
             ItemIds.turbineCopper = config.getItem("Rotor - Copper", 29060).getInt();
@@ -262,6 +269,7 @@ public class Config {
             ItemIds.snorkel = config.getItem("Snorkel", 29063).getInt();
             ItemIds.hammer = config.getItem("Pearl Hammer", 29064).getInt();
             ItemIds.worked = config.getItem("Worked Item", 29065).getInt();
+            ItemIds.batteryCopper = config.getItem("Battery(Copper)", 29066).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

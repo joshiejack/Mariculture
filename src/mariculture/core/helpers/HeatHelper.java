@@ -18,6 +18,7 @@ public class HeatHelper {
 		if(world.getBlockTileEntity(xCoord, yCoord, zCoord) instanceof TileLiquifier) {
 			upgradeBonus*=20;
 		}
+		
 		heat+= upgradeBonus;
 				
 		return heat;

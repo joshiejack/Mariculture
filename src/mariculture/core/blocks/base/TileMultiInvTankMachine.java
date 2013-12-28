@@ -20,6 +20,11 @@ public abstract class TileMultiInvTankMachine extends TileMultiInvTank implement
 		this.tank = new Tank(getTankCapacity(0));
 	}
 	
+	@Override
+	public ItemStack[] getInventory() {
+		return inventory;
+	}
+	
 	public boolean onTick(int i) {
 		return machineTick % i == 0;
 	}

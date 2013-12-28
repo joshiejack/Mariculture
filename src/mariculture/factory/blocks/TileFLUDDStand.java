@@ -5,8 +5,9 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.base.TileMachineTank;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.InventoryHelper;
+import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.network.Packets;
 import mariculture.factory.gui.ContainerFLUDDStand;
@@ -93,7 +94,7 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 							if ((this.zCoord + this.orientation.offsetZ) + 1 == (int) Math.ceil(item.posZ)) {
 								if ((this.yCoord + this.orientation.offsetY) + 1 == (int) Math.ceil(item.posY)) {
 									ItemStack stack = item.getEntityItem();
-									if (InventoryHelper.addToInventory(0, this.worldObj, this.xCoord, this.yCoord,
+									if (InventoHelper.addToInventory(0, this.worldObj, this.xCoord, this.yCoord,
 											this.zCoord, stack, null)) {
 										item.setDead();
 									}
@@ -168,7 +169,7 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 
 	@Override
 	public void updateMachine() {
-		super.updateMachine();
+		//super.updateMachine();
 
 		if (onTick(20)) {
 			processContainers();
@@ -176,7 +177,7 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 
 		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && tank.getFluidAmount() > 0) {
 
-			doSquirt(this.worldObj, distanceDo, orientation, this.xCoord, this.yCoord, this.zCoord, machineTick %4);
+			//doSquirt(this.worldObj, distanceDo, orientation, this.xCoord, this.yCoord, this.zCoord, machineTick %4);
 
 			if (onTick(10)) {
 				this.drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), distanceDo/6), true);
@@ -292,5 +293,23 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return slot == 3 && FluidHelper.isFluidOrEmpty(stack);
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean canWork() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getProcess() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
