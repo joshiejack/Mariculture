@@ -186,7 +186,6 @@ public class TileGeyser extends TileStorageTank {
         if (stack != null && canExtractItemFromInventory(inventory, stack, slot, side)) {
             ItemStack itemstack1 = stack.copy();
             InventoHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, itemstack1, false);
-            
             worldObj.spawnParticle("cloud", xCoord, yCoord, zCoord, 0, 0, 0);
             inventory.setInventorySlotContents(slot, null);
             System.out.println("debug");

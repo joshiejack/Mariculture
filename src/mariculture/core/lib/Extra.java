@@ -26,7 +26,6 @@ public class Extra {
 	public static int CORAL_SPREAD_CHANCE;
 	public static int KELP_GROWTH_CHANCE;
 	public static boolean ENABLE_ENDER_SPAWN;
-	
 	public static int FISH_FOOD_TICK;
 	public static int TANK_UPDATE;
 	public static int EFFECT_TICK;
