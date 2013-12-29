@@ -1,5 +1,4 @@
-bin/*
-mod_assets/*
+/bin/*
+/mod_assets/*
 .classpath
 .project
-/bin
