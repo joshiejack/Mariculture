@@ -148,4 +148,3 @@ public class TileFishSorter extends TileStorage implements ISidedInventory, IHas
 		return inventory;
 	}
 }
-

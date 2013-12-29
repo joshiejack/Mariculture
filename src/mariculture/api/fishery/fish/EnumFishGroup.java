@@ -32,7 +32,7 @@ public enum EnumFishGroup {
 	public int getID() {
 		return this.id;
 	}
-
+	
 	public EnumBiomeType[] getBiomes() {
 		return this.biomes;
 	}

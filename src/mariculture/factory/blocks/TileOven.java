@@ -47,5 +47,4 @@ public class TileOven extends TileMachineTank {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

@@ -67,7 +67,7 @@ public class ItemTransferHelper {
 		}
 
 		boolean ejected = false;
-		ejected = addToInventory(stack, slots);
+		ejected = InventoryHelper.addItemStackToInventory(((IMachine)inventory).getInventory(), stack, slots);
 		if(!ejected) {
 			spawnItem(world, x, y, z, stack, true);
 		}
@@ -130,27 +130,5 @@ public class ItemTransferHelper {
 	
 	private boolean isCustomBlock(ItemStack stack) {
 		return stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase;
-	}
-	
-	private boolean addToInventory(ItemStack stack, int[] slots) {
-		return InventoryHelper.addItemStackToInventory(((IMachine)inventory).getInventory(), stack, slots);
-		
-		/*for(int i: slots) {
-			ItemStack stack2 = inventory.getStackInSlot(i);
-			if (stack2 == null) {
-				inventory.setInventorySlotContents(i, stack1);
-				return true;
-			} else if(isCustomBlock(stack1) && isCustomBlock(stack2)) {
-				if(PlansMeta.isSame(stack1, stack2)) {
-					stack1.stackSize+= stack2.stackSize;
-					inventory.setInventorySlotContents(i, stack1);
-					return true;
-				}
-			} else if (areItemStacksEqualItem(stack1, stack2) && stack1.stackSize + stack2.stackSize <= stack1.getMaxStackSize()) {
-				stack1.stackSize+= stack2.stackSize;
-				inventory.setInventorySlotContents(i, stack1);
-				return true;
-			}
-		} */
 	}
 }

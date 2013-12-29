@@ -297,19 +297,16 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 
 	@Override
 	public EjectSetting getEjectType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean canWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getProcess() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
