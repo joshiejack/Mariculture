@@ -37,8 +37,17 @@
 ====Config Changes====
 * Removed Unused Block Ids for Molten Metals and Limestone Stairs
 * Rennamed Autofisher Speed Entry (To force use of new SLOWER speed (since they now accept upgrades))
+* Options to Disable the forcing of KelpForests/CoralReefs to only gen in those biomes with BOP
 ====API Changes====
 * IItemUpgrade additional items
+
+== Mariculture 1.1.4e ==
+* Fixed NPE when player becomes null when fishing
+* Can melt Raw Fish for Fish Oil ;)
+
+== Mariculture 1.1.4d for Minecraft v1.6.X==
+* Fixed insane tick handler usage for 'render updates' that weren't even doing anything
+* Disabled Smoked Salmon for now
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
 * Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)

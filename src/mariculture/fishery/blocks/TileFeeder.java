@@ -42,6 +42,11 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		inventory = new ItemStack[13];
 	}
 	
+	@Override
+	public int getTankCapacity(int storage) {
+		return ((32 * tankSize) * (storage + 1));
+	}
+	
 	//Slot Vars
 	public static final int male = 5;
 	public static final int female = 6;
@@ -393,16 +398,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 
 	@Override
-	public int getTankCapacity(int storage) {
-		return ((32 * tankSize) * (storage + 1));
-	}
-
-	@Override
-	public EjectSetting getEjectType() {
-		return EjectSetting.ITEM;
-	}
-
-	@Override
 	public boolean isNotificationVisible(NotificationType type) {
 		switch(type) {
 		case NO_FOOD:
@@ -416,6 +411,16 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		default:
 			return false;
 		}
+	}
+	
+	@Override
+	public String getProcess() {
+		return "breed";
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		return EjectSetting.ITEM;
 	}
 	
 	public ArrayList<String> getTooltip(int slot, ArrayList<String> tooltip) {
@@ -534,11 +539,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		}
 
 		return 0;
-	}
-
-	@Override
-	public String getProcess() {
-		return "breed";
 	}
 	
 	@Override

@@ -30,8 +30,8 @@ public class GuiFLUDDStand extends GuiContainer {
 		final int y = (height - ySize) / 2;
 
 		if (mousex >= x + 83 && mousex <= x + 118 && mousey >= y + 14 && mousey <= y + 73) {
-			currenttip.add(tile.getLiquidName());
-			currenttip.add(tile.getLiquidQty() + "mB");
+			currenttip.add(tile.getFluidName());
+			//currenttip.add(tile.getLiquidQty() + "mB");
 		}
 
 		return currenttip;

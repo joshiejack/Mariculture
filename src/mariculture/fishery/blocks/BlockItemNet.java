@@ -1,19 +1,15 @@
 package mariculture.fishery.blocks;
 
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
+import mariculture.core.blocks.BlockOyster;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.SingleMeta;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockItemNet extends ItemMariculture {
 	public BlockItemNet(int i) {
@@ -23,7 +19,7 @@ public class BlockItemNet extends ItemMariculture {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		final MovingObjectPosition object = this.getMovingObjectPositionFromPlayer(world, player, true);
+		MovingObjectPosition object = getMovingObjectPositionFromPlayer(world, player, true);
 
 		if (object == null) {
 			return stack;
@@ -41,9 +37,9 @@ public class BlockItemNet extends ItemMariculture {
 					return stack;
 				}
 
-				if (world.getBlockMaterial(x, y, z) == Material.water && world.getBlockMetadata(x, y, z) == 0
-						&& world.isAirBlock(x, y + 1, z)) {
-					world.setBlock(x, y + 1, z, Core.singleBlocks.blockID, SingleMeta.NET, 2);
+				if (world.getBlockMaterial(x, y, z) == Material.water 
+						&& world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
+					world.setBlock(x, y + 1, z, Core.oysterBlock.blockID, BlockOyster.NET, 2);
 
 					if (!player.capabilities.isCreativeMode) {
 						--stack.stackSize;

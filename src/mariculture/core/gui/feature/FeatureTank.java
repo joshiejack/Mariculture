@@ -31,8 +31,8 @@ public class FeatureTank extends Feature {
 	public void addTooltip(List tooltip, int mouseX, int mouseY) {
 		int xPlus = (size == TankSize.SINGLE)? 17: 35;
 		if (mouseX >= (xPoz - 1) && mouseX <= (xPoz + xPlus - 1) && mouseY >= (yPoz - 1) && mouseY <= (yPoz + 59 - 1)) {
-			tooltip.add(tank.getLiquidName());
-			tooltip.add(tank.getLiquidQty() + "mB");
+			tooltip.add(tank.getFluidName());
+			tooltip = tank.getFluidQty(tooltip);
 		}
 	}
 	

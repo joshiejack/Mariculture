@@ -61,12 +61,6 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
 		return slot > 12;
 	}
-
-	@Override
-	public EjectSetting getEjectType() {
-		return EjectSetting.ITEM;
-	}
-
 	@Override
 	public boolean canWork() {
 		return hasPower() && hasEgg() && hasCorrectRSSignal() && outputHasRoom();
@@ -240,12 +234,17 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 			return !hasPower();
 		default:
 			return false;
-	}
+		}
 	}
 
 	@Override
 	public String getProcess() {
 		return "incubated";
+	}
+	
+	@Override
+	public EjectSetting getEjectType() {
+		return EjectSetting.ITEM;
 	}
 	
 	//Master STUFF

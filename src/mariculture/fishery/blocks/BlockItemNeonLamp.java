@@ -3,7 +3,6 @@ package mariculture.fishery.blocks;
 import mariculture.core.blocks.ItemBlockMariculture;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class BlockItemNeonLamp extends ItemBlockMariculture {
@@ -13,61 +12,33 @@ public class BlockItemNeonLamp extends ItemBlockMariculture {
 
 	@Override
 	public String getName(ItemStack stack) {
-		String name = "";
 		switch (stack.getItemDamage()) {
-		case PearlColor.WHITE: {
-			name = "white";
-			break;
-		}
-		case PearlColor.GREEN: {
-			name = "green";
-			break;
-		}
-		case PearlColor.YELLOW: {
-			name = "yellow";
-			break;
-		}
-		case PearlColor.ORANGE: {
-			name = "orange";
-			break;
-		}
-		case PearlColor.RED: {
-			name = "red";
-			break;
-		}
-		case PearlColor.GOLD: {
-			name = "gold";
-			break;
-		}
-		case PearlColor.BROWN: {
-			name = "brown";
-			break;
-		}
-		case PearlColor.PURPLE: {
-			name = "purple";
-			break;
-		}
-		case PearlColor.BLUE: {
-			name = "blue";
-			break;
-		}
-		case PearlColor.BLACK: {
-			name = "black";
-			break;
-		}
-		case PearlColor.PINK: {
-			name = "pink";
-			break;
-		}
-		case PearlColor.SILVER: {
-			name = "silver";
-			break;
-		}
-
+		case PearlColor.WHITE:
+			return "white";
+		case PearlColor.GREEN:
+			return "green";
+		case PearlColor.YELLOW:
+			return "yellow";
+		case PearlColor.ORANGE:
+			return "orange";
+		case PearlColor.RED:
+			return "red";
+		case PearlColor.GOLD:
+			return "gold";
+		case PearlColor.BROWN:
+			return "brown";
+		case PearlColor.PURPLE:
+			return "purple";
+		case PearlColor.BLUE:
+			return "blue";
+		case PearlColor.BLACK:
+			return "black";
+		case PearlColor.PINK:
+			return "pink";
+		case PearlColor.SILVER:
+			return "silver";
 		default:
-			name = "lamp";
+			return "lamp";
 		}
-
-		return name;
 	}
 }

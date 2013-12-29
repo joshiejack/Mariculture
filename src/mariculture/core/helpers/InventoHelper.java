@@ -74,6 +74,10 @@ public class InventoHelper {
     }
 	
 	public static void spawnItem(World world, int x, int y, int z, ItemStack stack, boolean random) {
+		spawnItem(world, x, y, z, stack, random, -1);
+	}
+	
+	public static void spawnItem(World world, int x, int y, int z, ItemStack stack, boolean random, int lifespan) {
 		if (!world.isRemote) {
             float f = 0.7F;
             double d0 = (random)? (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D: 0.5D;
@@ -81,6 +85,8 @@ public class InventoHelper {
             double d2 = (random)? (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D: 0.5D;
             EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
             entityitem.delayBeforeCanPickup = 10;
+            if(lifespan > 0)
+            	entityitem.lifespan = lifespan;
             world.spawnEntityInWorld(entityitem);
         }
 	}

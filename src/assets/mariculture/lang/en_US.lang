@@ -463,6 +463,10 @@ mariculture.string.shift.rod=to display usable bait
 mariculture.string.bait=Usable Bait
 mariculture.string.eggsRemaining=Eggs Remaining
 mariculture.string.undetermined=Undetermined
+mariculture.string.pieces=Pieces
+mariculture.string.ingots=Ingots
+mariculture.string.nuggets=Nuggets
+mariculture.string.outof=Out of Roughly:
 
 ### Processing strings ###
 mariculture.process.melted=Melted

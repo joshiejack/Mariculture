@@ -1,5 +1,7 @@
 package mariculture.core.blocks.base;
 
+import java.util.List;
+
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.helpers.cofh.StringHelper;
@@ -103,15 +105,12 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 	}
 
 	@Override
-	public String getLiquidName() {
-		return (tank.getFluid() != null)? StringHelper.getFluidName(tank.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
+	public String getFluidName() {
+		return StringHelper.getFluidName(tank.getFluid());
 	}
-
+	
 	@Override
-	public String getLiquidQty() {
-		int qty = tank.getFluidAmount();
-		int max = tank.getCapacity();
-		
-		return "" + qty + "/" + max;
+	public List getFluidQty(List tooltip) {
+		return StringHelper.getFluidQty(tooltip, tank.getFluid(), tank.getCapacity());
 	}
 }

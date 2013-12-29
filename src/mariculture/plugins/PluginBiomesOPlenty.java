@@ -174,6 +174,11 @@ public class PluginBiomesOPlenty extends Plugin {
 			return true;
 		}
 		
+		if(biome.equals(Biome.KELP) && !WorldGeneration.KELP_BIOMESOP)
+			return true;
+		if(biome.equals(Biome.CORAL) && !WorldGeneration.CORAL_BIOMESOP)
+			return true;
+		
 		Optional<? extends BiomeGenBase> biomeType = (biome.equals(Biome.KELP))? Biomes.oceanKelp: Biomes.oceanCoral;
 		
 		if(biomeType.isPresent()) {

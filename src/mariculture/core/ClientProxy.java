@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import mariculture.core.blocks.TileAirPump;
-import mariculture.core.blocks.TileBucket;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.handlers.ClientEventHandler;
 import mariculture.core.handlers.KeyBindingHandler;
@@ -32,10 +31,8 @@ import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityFishing;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
-import mariculture.fishery.blocks.TileNet;
 import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.render.ModelFeeder;
-import mariculture.fishery.render.ModelNet;
 import mariculture.fishery.render.ModelSift;
 import mariculture.fishery.render.RenderFishingHook;
 import mariculture.fishery.render.RenderProjectileFish;
@@ -58,7 +55,6 @@ public class ClientProxy extends CommonProxy {
 	private static final ResourceLocation AIR_PUMP = new ResourceLocation(Mariculture.modid, "textures/blocks/air_pump_texture.png");
 	private static final ResourceLocation OYSTER = new ResourceLocation(Mariculture.modid, "textures/blocks/oyster_texture.png");
 	private static final ResourceLocation SIFT = new ResourceLocation(Mariculture.modid, "textures/blocks/sift_texture.png");
-	private static final ResourceLocation NET = new ResourceLocation(Mariculture.modid, "textures/blocks/net_texture.png");
 	private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");
 	private static final ResourceLocation TURBINE = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_texture.png");
 	private static final ResourceLocation TURBINE_GAS = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_gas_texture.png");
@@ -117,7 +113,6 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
 			MinecraftForgeClient.registerItemRenderer(Fishery.siftBlock.blockID, new RenderSingleItem());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSingle(new ModelFeeder(scale), FEEDER));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileNet.class, new RenderSingle(new ModelNet(scale), NET));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
 		}
 		

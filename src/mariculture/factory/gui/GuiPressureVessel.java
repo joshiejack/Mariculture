@@ -19,8 +19,7 @@ public class GuiPressureVessel extends GuiMariculture {
 	@Override
 	public void addToolTip() {		
 		if (mouseX >= 83 && mouseX <= 118 && mouseY >= 14 && mouseY <= 73) {
-			tooltip.add(tile.getLiquidName());
-			tooltip.add(tile.getLiquidQty() + "mB");
+			tooltip.add(tile.getFluidName());
 		}
 	}
 

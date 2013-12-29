@@ -1,6 +1,7 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
+import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileBucket;
 import mariculture.core.blocks.TileForge;
@@ -15,10 +16,8 @@ import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.ModelTurbineGas;
 import mariculture.factory.render.ModelTurbineWater;
 import mariculture.fishery.blocks.TileFeeder;
-import mariculture.fishery.blocks.TileNet;
 import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.render.ModelFeeder;
-import mariculture.fishery.render.ModelNet;
 import mariculture.fishery.render.ModelSift;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
@@ -55,11 +54,6 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		if (tileEntity instanceof TileSift) {
 			this.bindTexture(resource);
 			((ModelSift) model).render((TileSift) tileEntity, x, y, z);
-		}
-
-		if (tileEntity instanceof TileNet) {
-			this.bindTexture(resource);
-			((ModelNet) model).render((TileNet) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileFeeder) {
@@ -133,6 +127,15 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		System.out.println("rerendered");
 	}
 	
+	private void renderNet(IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
+		render.renderAllFaces = true;
+		render.setOverrideBlockTexture(Core.oysterBlock.getIcon(0, BlockOyster.NET));
+		render.setRenderBounds(0.0, -0.115, 0.0, 1, -0.05, 1);
+		render.renderStandardBlock(block, x, y, z);
+		render.clearOverrideBlockTexture();
+		render.renderAllFaces = false;
+	}
+	
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks render) {
@@ -145,6 +148,10 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);
 		if(tile instanceof TileBucket) {
 			renderBucket((TileBucket) tile, world, x, y, z, render, Block.stone);
+		}
+				
+		if(world.getBlockId(x, y, z) == Core.oysterBlock.blockID && world.getBlockMetadata(x, y, z) == BlockOyster.NET) {
+			renderNet(world, x, y, z, render, Block.stone);
 		}
 		
 		return false;

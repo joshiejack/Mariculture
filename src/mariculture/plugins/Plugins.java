@@ -43,25 +43,8 @@ public class Plugins {
 		public abstract void init();
 		public abstract void postInit();
 	}
-
-	public void init() {
-		ArrayList<String> plugs = new ArrayList();
-		plugs.add("Railcraft");
-		plugs.add("TConstruct");
-		plugs.add("ExtrabiomesXL");
-		plugs.add("Forestry");
-		plugs.add("IC2");
-		plugs.add("carbonization");
-		plugs.add("Thaumcraft");
-		plugs.add("BiomesOPlenty");
-		plugs.add("HungerOverhaul");
-		
-		for(String plug: plugs) {
-			init(plug);
-		}
-	}
 	
-	public void init(String str) {
+	public void add(String str) {
 		try {
 			Class clazz = Class.forName("mariculture.plugins.Plugin" + str);
 			Constructor constructor = clazz.getConstructor(new Class[] {String.class});
@@ -69,6 +52,18 @@ public class Plugins {
 		} catch (Exception e) {
 			LogHandler.log(Level.INFO, "Mariculture - Something went wrong when initializing " + str + " Plugin");
 		}
+	}
+
+	public void init() {
+		add("Railcraft");
+		add("TConstruct");
+		add("ExtrabiomesXL");
+		add("Forestry");
+		add("IC2");
+		add("carbonization");
+		add("Thaumcraft");
+		add("BiomesOPlenty");
+		add("HungerOverhaul");
 	}
 
 	public void load(Stage stage) {

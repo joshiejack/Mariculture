@@ -148,11 +148,18 @@ public class TileGeyser extends TileStorageTank {
 				(tank.getFluidID() == FluidRegistry.getFluidID("water") || 
 				tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.hp_water));
 	}
+	
+	@Override
+	public boolean canUpdate() {
+		return true;
+	}
 
 	@Override
 	public void updateEntity() {
 		tick++;
+		System.out.println("tick2");
 		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && canActivate()) {
+			System.out.println("tick3");
 			doSquirt(this.worldObj, 8, orientation, this.xCoord, this.yCoord, this.zCoord, tick %4);
 			if (onTick(20)) {
 				this.drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 5), true);
@@ -188,7 +195,6 @@ public class TileGeyser extends TileStorageTank {
             InventoHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, itemstack1, false);
             worldObj.spawnParticle("cloud", xCoord, yCoord, zCoord, 0, 0, 0);
             inventory.setInventorySlotContents(slot, null);
-            System.out.println("debug");
             return true;
         }
 

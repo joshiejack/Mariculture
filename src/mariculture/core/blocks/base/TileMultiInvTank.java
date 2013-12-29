@@ -1,5 +1,7 @@
 package mariculture.core.blocks.base;
 
+import java.util.List;
+
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.helpers.cofh.StringHelper;
@@ -67,15 +69,14 @@ public class TileMultiInvTank extends TileMultiInv implements IFluidHandler, ITa
 		return new FluidStack(master.tank.getFluidID(), transfer);
 	}
 	
-	public String getLiquidName() {
-		return (tank.getFluid() != null)? StringHelper.getFluidName(tank.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
+	@Override
+	public String getFluidName() {
+		return StringHelper.getFluidName(tank.getFluid());
 	}
 	
-	public String getLiquidQty() {
-		int qty = tank.getFluidAmount();
-		int max = tank.getCapacity();
-		
-		return "" + qty + "/" + max;
+	@Override
+	public List getFluidQty(List tooltip) {
+		return StringHelper.getFluidQty(tooltip, tank.getFluid(), tank.getCapacity());
 	}
 	
 	public FluidStack getFluid() {

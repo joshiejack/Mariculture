@@ -17,4 +17,6 @@ public class WorldGeneration {
 	public static boolean NO_MINESHAFTS;
 	public static boolean WATER_CAVES;
 	public static int RAVINE_CHANCE;
+	public static boolean CORAL_BIOMESOP;
+	public static boolean KELP_BIOMESOP;
 }

@@ -1,6 +1,7 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
+import mariculture.core.blocks.BlockOyster;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.SingleMeta;
 import mariculture.diving.render.ModelAirPump;
@@ -10,7 +11,6 @@ import mariculture.factory.render.ModelTurbineGas;
 import mariculture.factory.render.ModelTurbineWater;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.render.ModelFeeder;
-import mariculture.fishery.render.ModelNet;
 import mariculture.fishery.render.ModelSift;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,6 @@ public class RenderSingleItem implements IItemRenderer {
 	private static final ResourceLocation AIR_PUMP = new ResourceLocation("mariculture", "textures/blocks/air_pump_texture.png");
 	private static final ResourceLocation OYSTER = new ResourceLocation("mariculture", "textures/blocks/oyster_texture.png");
 	private static final ResourceLocation SIFT = new ResourceLocation("mariculture", "textures/blocks/sift_texture.png");
-	private static final ResourceLocation NET = new ResourceLocation("mariculture", "textures/blocks/net_texture.png");
 	private static final ResourceLocation FEEDER = new ResourceLocation("mariculture", "textures/blocks/feeder_texture.png");
 	private static final ResourceLocation FLUDD = new ResourceLocation("mariculture", "textures/blocks/fludd_texture.png");
 	private static final ResourceLocation TURBINE = new ResourceLocation("mariculture", "textures/blocks/turbine_texture.png");
@@ -31,7 +30,6 @@ public class RenderSingleItem implements IItemRenderer {
 	private final ModelAirPump pump = new ModelAirPump(scale);
 	private final ModelOyster oyster = new ModelOyster(scale);
 	private final ModelSift sift = new ModelSift(scale);
-	private final ModelNet net = new ModelNet(scale);
 	private final ModelFeeder feeder = new ModelFeeder(scale);
 	private final ModelFLUDD fludd = new ModelFLUDD(scale);
 	private final ModelTurbineGas turbineGas = new ModelTurbineGas(scale);
@@ -49,7 +47,7 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.itemID == Core.oysterBlock.blockID) {
+		if (item.itemID == Core.oysterBlock.blockID && item.getItemDamage() != BlockOyster.NET) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(OYSTER);
 			oyster.renderInventory(type);
 		}
@@ -79,10 +77,6 @@ public class RenderSingleItem implements IItemRenderer {
 		}
 
 		if (Modules.fishery.isActive()) {
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.NET) {
-				Minecraft.getMinecraft().getTextureManager().bindTexture(NET);
-				net.renderInventory(type);
-			}
 			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FEEDER);
 				feeder.renderInventory(type);

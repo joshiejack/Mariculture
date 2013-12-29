@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.core.Core;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -78,7 +79,8 @@ public class PearlGenHandler {
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.SILVER), 6);
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 7);
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
-		addPearl(new ItemStack(Item.enderPearl), 1);
 		addPearl(new ItemStack(Block.sand), 15);
+		if(Extra.GEN_ENDER_PEARLS)
+			addPearl(new ItemStack(Item.enderPearl), 1);
 	}
 }

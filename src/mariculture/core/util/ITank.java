@@ -1,5 +1,7 @@
 package mariculture.core.util;
 
+import java.util.List;
+
 import net.minecraftforge.fluids.FluidStack;
 
 public interface ITank {
@@ -7,6 +9,6 @@ public interface ITank {
 
 	public int getTankScaled(int i);
 	public FluidStack getFluid();
-	public String getLiquidName();
-	public String getLiquidQty();
+	public String getFluidName();
+	public List getFluidQty(List tooltip);
 }

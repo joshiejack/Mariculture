@@ -17,8 +17,6 @@ public class BlockSingleItem extends ItemBlockMariculture {
 			return "airpump";
 		case SingleMeta.FISH_FEEDER:
 			return "feeder";
-		case SingleMeta.NET:
-			return "net";
 		case SingleMeta.TURBINE_WATER:
 			return "turbine";
 		case SingleMeta.FLUDD_STAND:

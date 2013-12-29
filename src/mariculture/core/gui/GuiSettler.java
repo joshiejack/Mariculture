@@ -34,8 +34,8 @@ public class GuiSettler extends GuiContainer {
 		int y = (height - ySize) / 2;
 
 		if (mousex >= x + 42 && mousex <= x + 77 && mousey >= y + 13 && mousey <= y + 73) {
-			currenttip.add(tile.getLiquidName());
-			currenttip.add(tile.getLiquidQty() + "mB");
+			currenttip.add(tile.getFluidName());
+			//currenttip.add(tile.getLiquidQty() + "mB");
 		}
 
 		return currenttip;

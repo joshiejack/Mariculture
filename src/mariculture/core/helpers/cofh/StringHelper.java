@@ -1,11 +1,16 @@
 package mariculture.core.helpers.cofh;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import mariculture.core.lib.MetalRates;
+import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.FluidMari;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Keyboard;
@@ -58,11 +63,6 @@ public final class StringHelper {
 		return StatCollector.translateToLocal(key);
 	}
 
-	public static String getFluidName(FluidStack fluid) {
-
-		return getFluidName(fluid.getFluid());
-	}
-
 	public static String getFluidName(Fluid fluid) {
 
 		String fluidName = "";
@@ -77,6 +77,45 @@ public final class StringHelper {
 
 		return fluidName;
 	}
+	
+	public static String getFluidName(FluidStack fluid) {
+		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0)
+			return StatCollector.translateToLocal("mariculture.string.empty");
+		return getFluidName(fluid.getFluid());
+	}
+	
+	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
+		if(fluid == null || fluid.getFluid() == null)
+			tooltip.add("" + 0 + "/" + max + "mB");
+		else if(fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
+			tooltip.add("" + fluid.amount + "/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"));
+		else if(fluid.getFluid().getName().contains("glass"))
+			tooltip.add("" + fluid.amount + "/" + max + "mB");
+		else if(fluid.getFluid().getName().contains("molten")) {
+			int ingots = fluid.amount / MetalRates.INGOT;
+            if (ingots > 0)
+                tooltip.add(StatCollector.translateToLocal("mariculture.string.ingots") + ": " + ingots);
+            int mB = fluid.amount % MetalRates.INGOT;
+            if (mB > 0)  {
+                int nuggets = mB / MetalRates.NUGGET;
+                int junk = (mB % MetalRates.NUGGET);
+                if (nuggets > 0)
+                    tooltip.add(StatCollector.translateToLocal("mariculture.string.nuggets") + ": " + nuggets);
+                if (junk > 0)
+                    tooltip.add("mB: " + junk);
+            }
+            
+            tooltip.add("");
+            tooltip.add(StatCollector.translateToLocal("mariculture.string.outof"));
+            tooltip.add((int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
+            			+ max%MetalRates.INGOT + "mB");
+		} else {
+			tooltip.add("" + fluid.amount + "/" + max + "mB");
+		}
+		
+		return tooltip;
+	}
+
 
 	public static String getScaledNumber(int number) {
 
@@ -154,5 +193,4 @@ public final class StringHelper {
 
 	public static String shiftForInfo = LIGHT_GRAY + localize("message.cofh.holdShift1") + " " + YELLOW + ITALIC + localize("message.cofh.holdShift2") + " "
 			+ END + LIGHT_GRAY + localize("message.cofh.holdShift3") + END;
-
 }

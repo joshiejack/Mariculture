@@ -76,6 +76,7 @@ public class Config {
             OreGeneration.NATURAL_GAS_MIN = config.get(Category.ORE, "Natural Gas > Minimum Y Height", 16).getInt();
             OreGeneration.NATURAL_GAS_MAX = config.get(Category.ORE, "Natural Gas > Maximum Y Height", 26).getInt();
 
+            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > BiomesOPlenty Forced", true, Comment.BIOMESOP_CORAL).getBoolean(true);
             WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);
             WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 32).getInt();
             WorldGeneration.CORAL_DEPTH = config.get(Category.WORLD, "Coral > Maximum Depth", 25).getInt();
@@ -87,6 +88,7 @@ public class Config {
             WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp > Forest Generation", true).getBoolean(true);
             WorldGeneration.KELP_FOREST_DENSITY = config.get(Category.WORLD, "Kelp > Forest Density", 25).getInt();
             WorldGeneration.KELP_CHEST_CHANCE = config.get(Category.WORLD, "Kelp > 1 Treasure Chest Per This Many Kelp", 1024).getInt();
+            WorldGeneration.KELP_BIOMESOP = config.get(Category.WORLD, "Kelp > (Forest) BiomesOPlenty Forced", true, Comment.BIOMESOP_CORAL).getBoolean(true);
             WorldGeneration.DEEP_OCEAN = config.get(Category.WORLD, "Deep Oceans", true).getBoolean(true);
             WorldGeneration.WATER_CAVES = config.get(Category.WORLD, "Water Filled Caves in Oceans", false).getBoolean(false);
             WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
@@ -126,19 +128,19 @@ public class Config {
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();
             MachineSpeeds.liquifier = config.get(Category.SPEED, "Industrial Smelter", 40000).getInt();
-            MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 800).getInt();
+            MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 350).getInt();
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
             MachineSpeeds.settler = config.get(Category.SPEED, "Industrial Freezer", 60000).getInt();
 
-            Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator - Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
-            Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator - Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
-            Extra.DEATH_TICKER = config.get(Category.EXTRA, "Fish Feeder - Death Tick", 20, Comment.DEATH_TICK).getInt();
-            Extra.EFFECT_TICK = config.get(Category.EXTRA, "Fish Feeder - Effect Tick", 20, Comment.EFFECT_TICK).getInt();
-            Extra.FISH_FOOD_TICK = config.get(Category.EXTRA, "Fish Feeder - Fish Food Tick Rate", 25, Comment.FISH_FOOD_TICK).getInt();
-            Extra.TANK_UPDATE = config.get(Category.EXTRA, "Fish Feeder - Tank Update", 5, Comment.TANK_UPDATE).getInt();
-            Extra.ACTIVATE_PUMP = config.get(Category.EXTRA, "Air Pump - Manual Power Enabled", true, Comment.PUMP_MANUAL).getBoolean(true);
-            Extra.REDSTONE_PUMP = config.get(Category.EXTRA, "Air Pump - Redstone Power Enabled", false, Comment.PUMP_REDSTONE).getBoolean(false);
-            Extra.BUILDCRAFT_PUMP = config.get(Category.EXTRA, "Air Pump - MJ/RF Power Enabled", true, Comment.PUMP_RF).getBoolean(true);
+            Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
+            Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
+            Extra.DEATH_TICKER = config.get(Category.EXTRA, "Fish Feeder > Death Tick", 20, Comment.DEATH_TICK).getInt();
+            Extra.EFFECT_TICK = config.get(Category.EXTRA, "Fish Feeder > Effect Tick", 20, Comment.EFFECT_TICK).getInt();
+            Extra.FISH_FOOD_TICK = config.get(Category.EXTRA, "Fish Feeder > Fish Food Tick Rate", 25, Comment.FISH_FOOD_TICK).getInt();
+            Extra.TANK_UPDATE = config.get(Category.EXTRA, "Fish Feeder > Tank Update", 5, Comment.TANK_UPDATE).getInt();
+            Extra.ACTIVATE_PUMP = config.get(Category.EXTRA, "Air Pump > Manual Power Enabled", true, Comment.PUMP_MANUAL).getBoolean(true);
+            Extra.REDSTONE_PUMP = config.get(Category.EXTRA, "Air Pump > Redstone Power Enabled", false, Comment.PUMP_REDSTONE).getBoolean(false);
+            Extra.BUILDCRAFT_PUMP = config.get(Category.EXTRA, "Air Pump > MJ/RF Power Enabled", true, Comment.PUMP_RF).getBoolean(true);
 
             Extra.bait0 = config.get(Category.PROD, "Bait Quality 0 Chance", 20, "Ant - " + Comment.BAIT).getInt();
             Extra.bait1 = config.get(Category.PROD, "Bait Quality 1 Chance", 16, "Bread - " + Comment.BAIT).getInt();
@@ -149,6 +151,7 @@ public class Config {
             Extra.CORAL_SPREAD_CHANCE = config.get(Category.PROD, "Coral Spread Chance", 75, Comment.CORAL_SPREAD).getInt();
             Extra.KELP_SPREAD_CHANCE = config.get(Category.PROD, "Kelp Spread Moss Chance", 65, Comment.KELP_SPREAD).getInt();
             Extra.KELP_GROWTH_CHANCE = config.get(Category.PROD, "Kelp Growth Chance", 80, Comment.KELP_GROWTH).getInt();
+            Extra.GEN_ENDER_PEARLS = config.get(Category.EXTRA, "Pearl Oyster > Generate Ender Pearls", true).getBoolean(true);
             Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster > Pearl Generation Chance", 32, Comment.PEARL_CHANCE).getInt();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "There was an issue with Mariculture when adjusting machine settings");

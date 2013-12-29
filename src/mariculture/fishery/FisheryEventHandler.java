@@ -5,23 +5,18 @@ import java.util.Random;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.fishery.blocks.TileNet;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
-import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 public class FisheryEventHandler {
@@ -32,22 +27,6 @@ public class FisheryEventHandler {
 		if (event.entity instanceof EntityCreeper) {
 			EntityCreeper creeper = (EntityCreeper) event.entity;
 			creeper.tasks.addTask(3, new EntityAIAvoidCatfish(creeper, EntityPlayer.class, 8.0F, 0.25F, 0.3F));
-		}
-	}
-
-	@ForgeSubscribe
-	public void onFishSpawned(EntityJoinWorldEvent event) {
-		if (!event.world.isRemote && event.entity instanceof EntityItem) {
-			EntityItem entityitem = (EntityItem) event.entity;
-			if (entityitem.getEntityItem().getItem() instanceof ItemFishy) {
-				TileEntity tile = entityitem.worldObj.getBlockTileEntity((int) entityitem.posX,
-						(int) entityitem.posY - 1, (int) entityitem.posZ);
-				if (tile != null && tile instanceof TileNet) {
-					TileNet net = (TileNet) tile;
-
-					entityitem.lifespan = 10000;
-				}
-			}
 		}
 	}
 

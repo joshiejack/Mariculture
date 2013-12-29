@@ -5,6 +5,7 @@ import mariculture.core.blocks.BlockPressuredWater;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.util.Icon;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public class FluidMari extends Fluid {
 	private int bottle;

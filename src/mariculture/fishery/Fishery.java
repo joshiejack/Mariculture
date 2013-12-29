@@ -36,7 +36,6 @@ import mariculture.fishery.blocks.BlockSift;
 import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileIncubator;
-import mariculture.fishery.blocks.TileNet;
 import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.fish.FishAngel;
 import mariculture.fishery.fish.FishBass;
@@ -184,7 +183,6 @@ public class Fishery extends Module {
 		GameRegistry.registerTileEntity(TileAutofisher.class, "tileEntityAutofisher");
 		GameRegistry.registerTileEntity(TileSift.class, "tileEntitySift");
 		GameRegistry.registerTileEntity(TileIncubator.class, "tileIncubator");
-		GameRegistry.registerTileEntity(TileNet.class, "tileNet");
 		GameRegistry.registerTileEntity(TileFeeder.class, "tileFeeder");
 
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.INCUBATOR_BASE, "pickaxe", 1);

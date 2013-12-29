@@ -62,7 +62,7 @@ public class LiquifierHandler implements ISmelterHandler {
 
 			return ((Integer) result.get(0) * TileLiquifier.MAX_TEMP) / 2000;
 		}
-
+		
 		return -1;
 	}
 

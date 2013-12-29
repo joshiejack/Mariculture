@@ -1,8 +1,12 @@
 package mariculture.core.blocks.base;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
@@ -62,15 +67,14 @@ public class TileStorageTank extends TileStorage implements IFluidHandler, ITank
 		return new FluidStack(tank.getFluidID(), transfer);
 	}
 	
-	public String getLiquidName() {
-		return (tank.getFluid() != null && tank.getFluid().getFluid() != null)? StringHelper.getFluidName(tank.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
+	@Override
+	public String getFluidName() {
+		return StringHelper.getFluidName(tank.getFluid());
 	}
 	
-	public String getLiquidQty() {
-		int qty = tank.getFluidAmount();
-		int max = tank.getCapacity();
-		
-		return "" + qty + "/" + max;
+	@Override
+	public List getFluidQty(List tooltip) {
+		return StringHelper.getFluidQty(tooltip, tank.getFluid(), tank.getCapacity());
 	}
 	
 	public FluidStack getFluid() {

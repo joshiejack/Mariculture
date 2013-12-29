@@ -1,6 +1,5 @@
 package mariculture.core.blocks;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureTab;
@@ -15,6 +14,7 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.network.Packets;
 import mariculture.factory.Factory;
+import mariculture.factory.blocks.BlockCustomHelper;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileGeyser;
 import mariculture.factory.blocks.TileTurbineBase;
@@ -22,13 +22,9 @@ import mariculture.factory.blocks.TileTurbineGas;
 import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
-import mariculture.fishery.Fishery;
-import mariculture.fishery.TankHelper;
 import mariculture.fishery.blocks.TileFeeder;
-import mariculture.fishery.blocks.TileNet;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,8 +37,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSingle extends BlockMachine {
 	private Icon[] icons;
@@ -64,8 +58,6 @@ public class BlockSingle extends BlockMachine {
 			return 4F;
 		case SingleMeta.FISH_FEEDER:
 			return 0.5F;
-		case SingleMeta.NET:
-			return 0.05F;
 		case SingleMeta.TURBINE_WATER:
 			return 2.5F;
 		case SingleMeta.FLUDD_STAND:
@@ -106,6 +98,12 @@ public class BlockSingle extends BlockMachine {
 			
 			if(tile instanceof TileAirPump) {
 				return ((TileAirPump) tile).updateAirArea(Type.DISPLAY);
+			}
+			
+			if(tile instanceof TileGeyser) {
+				int orient = ((TileGeyser)tile).orientation.ordinal();
+				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(++orient % 6);
+				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
 			}
 		}
 		return false;
@@ -217,9 +215,6 @@ public class BlockSingle extends BlockMachine {
 		case SingleMeta.AIR_PUMP:
 			setBlockBounds(0.2F, 0F, 0.2F, 0.8F, 0.9F, 0.8F);
 			break;
-		case SingleMeta.NET:
-			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.015625F, 1.0F);
-			break;
 		case SingleMeta.GEYSER:
 			TileGeyser geyser = (TileGeyser)block.getBlockTileEntity(x, y, z);
 			if(geyser.orientation == ForgeDirection.UP)
@@ -244,7 +239,7 @@ public class BlockSingle extends BlockMachine {
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == SingleMeta.NET || meta == SingleMeta.GEYSER) {
+		if (meta == SingleMeta.GEYSER) {
 			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,
 					(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 		}
@@ -259,8 +254,6 @@ public class BlockSingle extends BlockMachine {
 			return new TileAirPump();
 		case SingleMeta.FISH_FEEDER:
 			return new TileFeeder();
-		case SingleMeta.NET:
-			return new TileNet();
 		case SingleMeta.TURBINE_WATER:
 			return new TileTurbineWater();
 		case SingleMeta.FLUDD_STAND:
@@ -344,10 +337,6 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public int idDropped(int i, Random random, int j) {
-		if (i == SingleMeta.NET) {
-			return Fishery.net.itemID;
-		}
-
 		if (i == SingleMeta.FLUDD_STAND) {
 			return 0;
 		}
@@ -357,7 +346,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public int damageDropped(int i) {
-		return (i == SingleMeta.NET)? 0: i;
+		return i;
 	}
 
 	@Override
@@ -367,8 +356,6 @@ public class BlockSingle extends BlockMachine {
 			return true;
 		case SingleMeta.FISH_FEEDER:
 			return (Modules.fishery.isActive());
-		case SingleMeta.NET:
-			return false;
 		case SingleMeta.TURBINE_WATER:
 			return (Modules.factory.isActive());
 		case SingleMeta.FLUDD_STAND:

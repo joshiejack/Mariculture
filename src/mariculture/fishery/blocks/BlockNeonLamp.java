@@ -7,7 +7,6 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockDecorative;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.RenderIds;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -37,7 +36,7 @@ public class BlockNeonLamp extends BlockDecorative {
 	public void onBlockAdded(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 			if (this.powered && !world.isBlockIndirectlyGettingPowered(x, y, z)) {
-				world.scheduleBlockUpdate(x, y, z, this.blockID, 4);
+				world.scheduleBlockUpdate(x, y, z, blockID, 4);
 			} else if (!this.powered && world.isBlockIndirectlyGettingPowered(x, y, z)) {
 				world.setBlock(x, y, z, Fishery.lampsOff.blockID, world.getBlockMetadata(x, y, z), 2);
 			}
@@ -48,7 +47,7 @@ public class BlockNeonLamp extends BlockDecorative {
 	public void onNeighborBlockChange(World world, int x, int y, int z, int side) {
 		if (!world.isRemote) {
 			if (this.powered && !world.isBlockIndirectlyGettingPowered(x, y, z)) {
-				world.scheduleBlockUpdate(x, y, z, this.blockID, 4);
+				world.scheduleBlockUpdate(x, y, z, blockID, 4);
 			} else if (!this.powered && world.isBlockIndirectlyGettingPowered(x, y, z)) {
 				world.setBlock(x, y, z, Fishery.lampsOff.blockID, world.getBlockMetadata(x, y, z), 2);
 			}
