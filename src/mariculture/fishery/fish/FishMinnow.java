@@ -30,7 +30,7 @@ public class FishMinnow extends FishSpecies {
 
 	@Override
 	public int getFertility() {
-		return 6;
+		return 16;
 	}
 
 	@Override

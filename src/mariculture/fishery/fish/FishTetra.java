@@ -30,7 +30,7 @@ public class FishTetra extends FishSpecies {
 
 	@Override
 	public int getFertility() {
-		return 12;
+		return 22;
 	}
 
 	@Override

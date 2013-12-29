@@ -2,6 +2,7 @@ package mariculture.core.blocks.base;
 
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.FluidTransferHelper;
+import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
@@ -103,8 +104,7 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 
 	@Override
 	public String getLiquidName() {
-		FluidStack fluid = tank.getFluid();
-		return ((fluid != null && FluidHelper.getName(fluid.getFluid()) != null))? FluidHelper.getName(fluid.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
+		return (tank.getFluid() != null)? StringHelper.getFluidName(tank.getFluid()): StatCollector.translateToLocal("mariculture.string.empty");
 	}
 
 	@Override

@@ -271,9 +271,9 @@ tile.lampsOff.silver.name=Silver Neon Lamp
 tile.tankBlocks.fish.name=Fish Tank
 item.net.name=Fishing Net
 #fluid
-fluid.fishFood=Fish Food
+fluid.fishfood=Fish Food
 tile.fishFood.name=Fish Food
-fluid.fishOil=Fish Oil
+fluid.fishoil=Fish Oil
 tile.fishOil.name=Fish Oil
 #items
 item.materials.fishMeal.name=Fish Meal

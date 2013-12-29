@@ -29,7 +29,7 @@ public class FishGold extends FishSpecies {
 
 	@Override
 	public int getFertility() {
-		return 4;
+		return 14;
 	}
 
 	@Override

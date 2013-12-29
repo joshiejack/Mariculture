@@ -32,7 +32,7 @@ public class FishDamsel extends FishSpecies {
 
 	@Override
 	public int getFertility() {
-		return 34;
+		return 44;
 	}
 
 	@Override

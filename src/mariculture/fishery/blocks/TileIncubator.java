@@ -131,7 +131,7 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 	}
 	
 	private boolean hasPower() {
-		return energyStorage.extractEnergy(getRFUsage(), true) >= getRFUsage();
+		return energyStorage.extractEnergy((getRFUsage() * 2), true) >= (getRFUsage() * 2);
 	}
 	
 	public int getRFUsage() {
@@ -168,6 +168,7 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 				int eggLife = (AverageHelper.getMode(lifes)/20/60) * 10;
 
 				if (inventory[slot].getTagCompound().getInteger("currentFertility") == -1) {
+					energyStorage.extractEnergy(getRFUsage(), false);
 					inventory[slot].getTagCompound().setInteger("currentFertility", eggLife);
 					inventory[slot].getTagCompound().setInteger("malesGenerated", 0);
 					inventory[slot].getTagCompound().setInteger("femalesGenerated", 0);
