@@ -1,7 +1,4 @@
-/bin
-/.project
-/.classpath
-/.settings
-
-/mod_assets
-/apis
+bin/*
+mod_assets/*
+.classpath
+.project
