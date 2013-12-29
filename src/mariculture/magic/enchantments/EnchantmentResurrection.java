@@ -25,19 +25,6 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 		super(i, weight, type);
 		this.setName("resurrection");
 	}
-	
-	@Override
-	public boolean canApply(ItemStack stack) {
-		if(stack.getItem() instanceof ItemJewelry) {
-			return true;
-		}
-		
-		if(EnumEnchantmentType.weapon.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-		
-		return false;
-	}
 
 	@Override
 	public int getMinEnchantability(int level) {

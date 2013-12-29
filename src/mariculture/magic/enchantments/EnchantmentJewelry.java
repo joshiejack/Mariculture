@@ -14,4 +14,9 @@ public class EnchantmentJewelry extends Enchantment {
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
 		return stack.getItem() instanceof ItemJewelry;
 	}
+	
+	@Override
+	public boolean canApply(ItemStack stack) {
+		return stack.getItem() instanceof ItemJewelry;
+	}
 }

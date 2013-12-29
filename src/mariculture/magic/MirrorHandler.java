@@ -28,35 +28,6 @@ public class MirrorHandler implements IMirrorHandler {
 			}
 		}
 
-		// Armor
-		for (int i = 0; i < 4; i++) {
-			final ItemStack armor = player.inventory.armorInventory[i];
-			if (armor != null) {
-				if (armor.isItemEnchanted()) {
-					return true;
-				}
-			}
-		}
-
-		// Sword
-		if (player.getCurrentEquippedItem() != null) {
-			if (player.getCurrentEquippedItem().isItemEnchanted()
-					&& EnumEnchantmentType.weapon.canEnchantItem(player.getCurrentEquippedItem().getItem())) {
-				return true;
-			}
-		}
-
-		if(EnchantHelper.exists(Magic.flight)) {
-			// Feather
-			for (int i = 0; i < 9; i++) {
-				if (player.inventory.mainInventory[i] != null) {
-					if (player.inventory.mainInventory[i].itemID == Item.feather.itemID) {
-						return true;
-					}
-				}
-			}
-		}
-
 		return false;
 	}
 
@@ -83,33 +54,7 @@ public class MirrorHandler implements IMirrorHandler {
 				total = total + EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]);
 			}
 		}
-
-		// Armor
-		for (int i = 0; i < 4; i++) {
-			final ItemStack armor = player.inventory.armorInventory[i];
-			if (armor != null) {
-				total = total + EnchantmentHelper.getEnchantmentLevel(enchant, armor);
-			}
-		}
-
-		// Sword
-		if (player.getCurrentEquippedItem() != null
-				&& EnumEnchantmentType.weapon.canEnchantItem(player.getCurrentEquippedItem().getItem())) {
-			total = total + EnchantmentHelper.getEnchantmentLevel(enchant, player.getCurrentEquippedItem());
-		}
-
-		if(EnchantHelper.exists(Magic.flight)) {
-			// Feather
-			for (int i = 0; i < 9; i++) {
-				if (player.inventory.mainInventory[i] != null) {
-					if (enchant == Magic.flight.effectId
-							&& player.inventory.mainInventory[i].itemID == Item.feather.itemID) {
-						total = total + EnchantmentHelper.getEnchantmentLevel(enchant, player.inventory.mainInventory[i]);
-					}
-				}
-			}
-		}
-
+		
 		return total;
 	}
 
@@ -121,39 +66,6 @@ public class MirrorHandler implements IMirrorHandler {
 			if (mirror[i] != null) {
 				if (EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]) > 0) {
 					return true;
-				}
-			}
-		}
-
-		// Armor
-		for (int i = 0; i < 4; i++) {
-			final ItemStack armor = player.inventory.armorInventory[i];
-			if (armor != null) {
-				if (EnchantmentHelper.getEnchantmentLevel(enchant, armor) > 0) {
-					return true;
-				}
-			}
-		}
-
-		// Sword
-		if (player.getCurrentEquippedItem() != null) {
-			if (EnumEnchantmentType.weapon.canEnchantItem(player.getCurrentEquippedItem().getItem())) {
-				if (EnchantmentHelper.getEnchantmentLevel(enchant, player.getCurrentEquippedItem()) > 0) {
-					return true;
-				}
-			}
-		}
-
-		if(EnchantHelper.exists(Magic.flight)) {
-			// Feather
-			for (int i = 0; i < 9; i++) {
-				if (player.inventory.mainInventory[i] != null) {
-					if (enchant == Magic.flight.effectId
-							&& player.inventory.mainInventory[i].itemID == Item.feather.itemID) {
-						if (EnchantmentHelper.getEnchantmentLevel(enchant, player.inventory.mainInventory[i]) > 0) {
-							return true;
-						}
-					}
 				}
 			}
 		}
@@ -186,27 +98,6 @@ public class MirrorHandler implements IMirrorHandler {
 				}
 			}
 		}
-
-		// Armor
-		for (int i = 0; i < 4; i++) {
-			final ItemStack armor = player.inventory.armorInventory[i];
-
-			if (armor != null) {
-				if (EnchantmentHelper.getEnchantmentLevel(enchant, armor) > 0) {
-					armor.damageItem(amount, player);
-				}
-			}
-		}
-
-		// Sword
-		if (player.getCurrentEquippedItem() != null
-				&& EnumEnchantmentType.weapon.canEnchantItem(player.getCurrentEquippedItem().getItem())) {
-			if (EnchantmentHelper.getEnchantmentLevel(enchant, player.getCurrentEquippedItem()) > 0) {
-				player.getCurrentEquippedItem().damageItem(amount, player);
-			}
-		}
-
-		// Feather no damage
 
 		MirrorHelper.instance().save(player, mirror);
 	}

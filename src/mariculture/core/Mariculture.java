@@ -32,11 +32,10 @@ public class Mariculture {
 	public static File root;
 	
 	//Plugins
+	public static Plugins plugins = new Plugins();
 	public static enum Stage {
 		PRE, INIT, POST;
 	}
-	
-	public static Plugins plugins = new Plugins();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -74,7 +73,6 @@ public class Mariculture {
 		Modules.transport.init();
 		Modules.world.init();
 		Compat.init();
-		
 		Packets.init();
 	}
 

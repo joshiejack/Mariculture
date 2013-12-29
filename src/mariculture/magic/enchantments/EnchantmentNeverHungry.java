@@ -18,19 +18,6 @@ public class EnchantmentNeverHungry extends EnchantmentJewelry {
 		super(i, weight, type);
 		this.setName("hungry");
 	}
-	
-	@Override
-	public boolean canApply(ItemStack stack) {
-		if(stack.getItem() instanceof ItemJewelry) {
-			return true;
-		}
-		
-		if(EnumEnchantmentType.armor_head.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-		
-		return false;
-	}
 
 	@Override
 	public int getMinEnchantability(final int level) {

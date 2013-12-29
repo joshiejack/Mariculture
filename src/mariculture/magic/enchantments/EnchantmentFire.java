@@ -27,19 +27,6 @@ public class EnchantmentFire extends EnchantmentJewelry {
 	}
 
 	@Override
-	public boolean canApply(ItemStack stack) {
-		if (stack.getItem() instanceof ItemJewelry) {
-			return true;
-		}
-
-		if (EnumEnchantmentType.armor_torso.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
 	public int getMinEnchantability(int level) {
 		return 1 + (level - 1) * 10;
 	}

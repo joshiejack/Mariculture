@@ -106,10 +106,10 @@ public class TileStorage extends TileEntity implements IInventory {
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
 
-		NBTTagList tagList = tagCompound.getTagList("Inventory");
+		NBTTagList tagList = nbt.getTagList("Inventory");
 
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
@@ -123,8 +123,8 @@ public class TileStorage extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
 
 		NBTTagList itemList = new NBTTagList();
 
@@ -140,6 +140,6 @@ public class TileStorage extends TileEntity implements IInventory {
 			}
 		}
 
-		tagCompound.setTag("Inventory", itemList);
+		nbt.setTag("Inventory", itemList);
 	}
 }

@@ -24,11 +24,6 @@ public class TileSift extends TileStorage implements ISidedInventory {
 
 		return 10;
 	}
-	
-	@Override
-	public boolean canUpdate() {
-		return false;
-    }
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {

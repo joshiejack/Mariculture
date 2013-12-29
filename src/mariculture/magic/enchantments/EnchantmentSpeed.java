@@ -15,23 +15,6 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 		super(i, weight, type);
 		this.setName("speed");
 	}
-	
-	@Override
-	public boolean canApply(ItemStack stack) {
-		if(stack.getItem() instanceof ItemJewelry) {
-			return true;
-		}
-		
-		if(EnumEnchantmentType.armor_feet.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-		
-		if(EnumEnchantmentType.armor_legs.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-		
-		return false;
-	}
 
 	@Override
 	public int getMinEnchantability(int level) {

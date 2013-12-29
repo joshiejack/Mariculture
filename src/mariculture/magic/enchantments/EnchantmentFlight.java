@@ -19,19 +19,6 @@ public class EnchantmentFlight extends EnchantmentJewelry {
 	}
 	
 	@Override
-	public boolean canApply(ItemStack stack) {
-		if(stack.getItem() instanceof ItemJewelry) {
-			return true;
-		}
-		
-		if(EnumEnchantmentType.weapon.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-		
-		return false;
-	}
-
-	@Override
 	public int getMinEnchantability(int level) {
 		return 63;
 	}

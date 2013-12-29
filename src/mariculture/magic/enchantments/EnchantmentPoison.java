@@ -21,19 +21,6 @@ public class EnchantmentPoison extends EnchantmentJewelry {
 	}
 
 	@Override
-	public boolean canApply(ItemStack stack) {
-		if (stack.getItem() instanceof ItemJewelry) {
-			return true;
-		}
-
-		if (EnumEnchantmentType.weapon.canEnchantItem(stack.getItem())) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
 	public int getMinEnchantability(final int level) {
 		return 1 + (level - 1) * 10;
 	}
