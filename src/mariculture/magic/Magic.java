@@ -101,7 +101,7 @@ public class Magic extends Module {
 	public static Enchantment speed;
 	
 	public static Item basicMirror;
-	public static Item mirror;
+	public static Item magicMirror;
 	public static Item celestialMirror;
 	public static Item ring;
 	public static Item bracelet;
@@ -135,14 +135,14 @@ public class Magic extends Module {
 
 	@Override
 	public void registerItems() {
-		basicMirror = new ItemMirror(ItemIds.basicMirror).setUnlocalizedName("mirror.basic");
-		mirror = new ItemMirror(ItemIds.mirror).setUnlocalizedName("mirror.magic");
-		celestialMirror = new ItemMirror(ItemIds.celestialMirror).setUnlocalizedName("mirror.celestial");
+		basicMirror = new ItemMirror(ItemIds.basicMirror, "mirror").setUnlocalizedName("mirror.basic");
+		magicMirror = new ItemMagicMirror(ItemIds.magicMirror, 1, 30, "mirror").setUnlocalizedName("mirror.magic");
+		celestialMirror = new ItemMagicMirror(ItemIds.celestialMirror, 31, 60, "celestialMirror").setUnlocalizedName("mirror.celestial");
 		ring = new ItemRing(ItemIds.ring).setUnlocalizedName("ring");
 		bracelet = new ItemBracelet(ItemIds.bracelet).setUnlocalizedName("bracelet");
 		necklace = new ItemNecklace(ItemIds.necklace).setUnlocalizedName("necklace");
 
-		RegistryHelper.register(new Object[] { basicMirror, mirror, celestialMirror, ring, bracelet, necklace });
+		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace });
 	}
 
 	//Keep this order
@@ -174,7 +174,7 @@ public class Magic extends Module {
 		registerJewelry();
 		registerEnchants();
 		// Setup Icon
-		MaricultureTab.tabJewelry.icon = new ItemStack(mirror);
+		MaricultureTab.tabJewelry.icon = new ItemStack(magicMirror);
 	}
 
 	@Override
@@ -187,7 +187,7 @@ public class Magic extends Module {
 						Character.valueOf('P'), Block.thinGlass,
 						Character.valueOf('S'), Item.ingotIron }));
 
-		ItemStack magicMirror = new ItemStack(Magic.mirror);
+		ItemStack magicMirror = new ItemStack(Magic.magicMirror);
 		magicMirror.setTagCompound(new NBTTagCompound());
 		magicMirror.stackTagCompound.setBoolean("magic", true);
 		magicMirror.stackTagCompound.setInteger("charge", 30);

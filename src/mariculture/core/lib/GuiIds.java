@@ -12,5 +12,5 @@ public class GuiIds {
 	public static final int PRESSURE_VESSEL = 12;
 	public static final int SLUICE = 14;
 	public static final int TURBINE_GAS = 15;
-	public static final int FILTER = 16;
+	public static final int STORAGE = 16;
 }

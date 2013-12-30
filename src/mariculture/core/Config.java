@@ -224,7 +224,7 @@ public class Config {
             ItemIds.metals = config.getItem("Materials", 29000).getInt();
             ItemIds.items = config.getItem("General Items", 29001).getInt();
             ItemIds.basicMirror = config.getItem("Basic Mirror", 29002).getInt();
-            ItemIds.mirror = config.getItem("Magic Mirror", 29003).getInt();
+            ItemIds.magicMirror = config.getItem("Magic Mirror", 29003).getInt();
             ItemIds.celestialMirror = config.getItem("Celestial Mirror", 29004).getInt();
             ItemIds.pearl = config.getItem("Pearls", 29005).getInt();
             ItemIds.batteryTitanium = config.getItem("Battery", 29006).getInt();

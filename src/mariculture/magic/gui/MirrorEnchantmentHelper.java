@@ -1,7 +1,6 @@
 package mariculture.magic.gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -10,16 +9,12 @@ import java.util.Random;
 import mariculture.magic.jewelry.parts.JewelryPart;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
 public class MirrorEnchantmentHelper {
-	/**
-	 * Create a list of random EnchantmentData (enchantments) that can be added
-	 * together to the ItemStack, the 3rd parameter is the total enchantability
-	 * level.
-	 */
 	public static List buildEnchantmentList(Random par0Random, ItemStack stack, int par2) {
 		Item item = stack.getItem();
 		int j = item.getItemEnchantability();
@@ -45,7 +40,7 @@ public class MirrorEnchantmentHelper {
 			}
 	
 			ArrayList arraylist = null;
-			Map map = mapEnchantmentData(l, stack);
+			Map map = EnchantmentHelper.mapEnchantmentData(l, stack);
 
 			if (map != null && !map.isEmpty()) {
 				EnchantmentData enchantmentdata = (EnchantmentData) WeightedRandom.getRandomItem(par0Random, map.values());
@@ -92,39 +87,5 @@ public class MirrorEnchantmentHelper {
 
 			return arraylist;
 		}
-	}
-
-	/**
-	 * Creates a 'Map' of EnchantmentData (enchantments) possible to add on the
-	 * ItemStack and the enchantability level passed.
-	 */
-	public static Map mapEnchantmentData(int par0, ItemStack par1ItemStack) {
-		Item item = par1ItemStack.getItem();
-		HashMap hashmap = null;
-		boolean flag = par1ItemStack.itemID == Item.book.itemID;
-		Enchantment[] aenchantment = Enchantment.enchantmentsList;
-		int j = aenchantment.length;
-
-		for (int k = 0; k < j; ++k) {
-			Enchantment enchantment = aenchantment[k];
-
-			if (enchantment == null)
-				continue;
-
-			flag = (par1ItemStack.itemID == Item.book.itemID) && enchantment.isAllowedOnBooks();
-			if (enchantment.canApplyAtEnchantingTable(par1ItemStack) || flag) {
-				for (int l = enchantment.getMinLevel(); l <= enchantment.getMaxLevel(); ++l) {
-					if (par0 >= enchantment.getMinEnchantability(l) && par0 <= enchantment.getMaxEnchantability(l)) {
-						if (hashmap == null) {
-							hashmap = new HashMap();
-						}
-
-						hashmap.put(Integer.valueOf(enchantment.effectId), new EnchantmentData(enchantment, l));
-					}
-				}
-			}
-		}
-
-		return hashmap;
 	}
 }

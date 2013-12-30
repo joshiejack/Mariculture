@@ -384,9 +384,9 @@ enchantment.oneRing.line3=One Ring to bring them all
 enchantment.oneRing.line4=and in the darkness bind them.
 
 #items
-item.mirror.basic=Mirror
-item.mirror.magic=Magic Mirror
-item.mirror.celestial=Celestial Mirror
+item.mirror.basic.name=Mirror
+item.mirror.magic.name=Magic Mirror
+item.mirror.celestial.name=Celestial Mirror
 #jewelry-parts
 part.jewelry.ring=Ring
 part.jewelry.bracelet=Bracelet

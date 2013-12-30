@@ -17,7 +17,7 @@ import net.minecraft.util.StatCollector;
 public class ItemFilter extends ItemStorage {
 	public static final int SIZE = 9;
 	
-	public ItemFilter(int i, int storage, String gui) {
+	public ItemFilter(int i) {
 		super(i, SIZE, "filter");
 	}
 	

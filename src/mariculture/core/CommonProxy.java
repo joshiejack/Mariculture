@@ -8,13 +8,10 @@ import mariculture.core.gui.ContainerBookshelf;
 import mariculture.core.gui.ContainerLiquifier;
 import mariculture.core.gui.ContainerOyster;
 import mariculture.core.gui.ContainerSettler;
-import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
 import mariculture.core.gui.GuiOyster;
 import mariculture.core.gui.GuiSettler;
-import mariculture.core.gui.GuiStorage;
-import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
 import mariculture.factory.blocks.TileDictionary;
@@ -50,10 +47,6 @@ import mariculture.fishery.gui.GuiAutofisher;
 import mariculture.fishery.gui.GuiFeeder;
 import mariculture.fishery.gui.GuiIncubator;
 import mariculture.fishery.gui.GuiSift;
-import mariculture.magic.ItemMirror;
-import mariculture.magic.gui.ContainerMirror;
-import mariculture.magic.gui.GuiMirror;
-import mariculture.magic.gui.InventoryMirror;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -62,14 +55,9 @@ import cpw.mods.fml.common.network.IGuiHandler;
 public class CommonProxy implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		
-		if(id == GuiIds.MIRROR) {
-			return new ContainerMirror(player.inventory, new InventoryMirror(ItemMirror.itemStack, player, world), world);
-		} 
-		
-		if(id == GuiIds.FILTER && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+		if(id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
 			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-			return new ContainerStorage(player.inventory, new InventoryStorage(player, storage.size), world);
+			return storage.getGUIContainer(player);
 		}
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
@@ -140,13 +128,9 @@ public class CommonProxy implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if(id == GuiIds.MIRROR) {
-			return new GuiMirror(player.inventory, new InventoryMirror(ItemMirror.itemStack, player, world), world);
-		} 
-		
-		if(id == GuiIds.FILTER && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+		if(id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
 			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-			return new GuiStorage(player.inventory, new InventoryStorage(player, storage.size), world, storage.gui);
+			return storage.getGUIElement(player);
 		}
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);

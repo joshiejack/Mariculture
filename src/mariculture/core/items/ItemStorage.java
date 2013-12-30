@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Mariculture;
+import mariculture.core.gui.ContainerStorage;
+import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.handlers.LogHandler;
@@ -21,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -39,10 +42,10 @@ public class ItemStorage extends Item implements IItemRegistry {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityplayer) {
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if (stack != null) {
-			if (!entityplayer.isSneaking()) {
-				entityplayer.openGui(Mariculture.instance, GuiIds.FILTER, world, 0, 0, 0);
+			if (!player.isSneaking()) {
+				player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
 			}
 
 			return stack;
@@ -75,7 +78,7 @@ public class ItemStorage extends Item implements IItemRegistry {
 
 	@Override
 	public String getName(ItemStack stack) {
-		return this.getUnlocalizedName().substring(5);
+		return getUnlocalizedName().substring(5);
 	}
 
 	public Slot getSlot(InventoryStorage storage, int i) {
@@ -138,5 +141,13 @@ public class ItemStorage extends Item implements IItemRegistry {
 
 	public void addFeatures(ArrayList<Feature> list) {
 		
+	}
+
+	public Object getGUIContainer(EntityPlayer player) {
+		return new ContainerStorage(player.inventory, new InventoryStorage(player, size), player.worldObj);
+	}
+
+	public Object getGUIElement(EntityPlayer player) {
+		return new GuiStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, gui);
 	}
 }

@@ -1,6 +1,7 @@
 package mariculture.core.gui;
 
 import mariculture.core.items.ItemStorage;
+import mariculture.core.util.Rand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
@@ -10,11 +11,16 @@ import net.minecraft.util.StatCollector;
 public class InventoryStorage implements IInventory {
 	private ItemStack[] inventory;
 	public EntityPlayer player;
+	public long seed;
 
 	public InventoryStorage(EntityPlayer player, int size) {
 		this.player = player;
 		if(this.inventory == null)
 			this.inventory = load(player, size);
+	}
+	
+	public ItemStack getHeldItem() {
+		return player != null? player.getCurrentEquippedItem(): null;
 	}
 	
 	public String getName() {
@@ -74,6 +80,7 @@ public class InventoryStorage implements IInventory {
 
 	@Override
 	public void onInventoryChanged() {		
+		seed = Rand.rand.nextLong();
 		save(player, inventory);
 	}
 

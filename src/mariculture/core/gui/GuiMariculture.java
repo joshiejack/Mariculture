@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL12;
 
 public abstract class GuiMariculture extends GuiContainer {
 	protected String name;
-	private static ResourceLocation TEXTURE;
+	protected static ResourceLocation TEXTURE;
 	protected int nameHeight = 5;
 	public int mouseX = 0;
 	public int mouseY = 0;
@@ -58,6 +58,7 @@ public abstract class GuiMariculture extends GuiContainer {
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+		drawBackground(f, i, j);
 		drawBackground(x, y);
 
 		if(features.size() > 0)
@@ -73,6 +74,10 @@ public abstract class GuiMariculture extends GuiContainer {
 	}
 
 	public void drawForeground() {
+		return;
+	}
+	
+	public void drawBackground(float f, int x, int y){
 		return;
 	}
 	

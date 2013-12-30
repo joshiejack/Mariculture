@@ -23,7 +23,7 @@ public class MirrorHelper {
 			NBTTagList nbttaglist = loader.getTagList("mirrorContents");
 
 			if (nbttaglist != null) {
-				ItemStack[] mirrorContents = new ItemStack[ItemMirror.mirrorSize];
+				ItemStack[] mirrorContents = new ItemStack[4];
 				for (int i = 0; i < nbttaglist.tagCount(); i++) {
 					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 					byte byte0 = nbttagcompound1.getByte("Slot");
@@ -36,7 +36,7 @@ public class MirrorHelper {
 			}
 		}
 
-		return new ItemStack[ItemMirror.mirrorSize];
+		return new ItemStack[4];
 	}
 
 	public void save(EntityPlayer player, ItemStack[] mirrorContents) {

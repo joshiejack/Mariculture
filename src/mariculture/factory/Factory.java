@@ -168,7 +168,7 @@ public class Factory extends Module {
 		plans = new ItemPlan(ItemIds.plans).setUnlocalizedName("plans");
 		fludd = new ItemArmorFLUDD(ItemIds.fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
 		paintbrush = new ItemPaintbrush(ItemIds.paintbrush, 128).setUnlocalizedName("paintbrush");
-		filter = new ItemFilter(ItemIds.filter, 9, "filter").setUnlocalizedName("filter");
+		filter = new ItemFilter(ItemIds.filter).setUnlocalizedName("filter");
 		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 32).setUnlocalizedName("turbineCopper");
 		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 64).setUnlocalizedName("turbineAluminum");
 		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 128).setUnlocalizedName("turbineTitanium");

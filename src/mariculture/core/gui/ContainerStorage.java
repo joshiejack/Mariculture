@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ContainerStorage extends ContainerMariculture {
-	private final InventoryStorage storage;
+	protected final InventoryStorage storage;
 	private final Random rand = new Random();
 
 	public ContainerStorage(IInventory inventory, InventoryStorage storage, World world) {

@@ -34,7 +34,7 @@
 * Pressurised Water's range increased from 5 to 16
 * Mariculture Enchants will now ONLY work on Jewelry (Removed Magic feather)
 ====Bugfixes====
-* Fixed fishing rods using bait when pulling in and crash when the player is null
+* Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick
 ====Config Changes====
 * Added Retro-Generation Options

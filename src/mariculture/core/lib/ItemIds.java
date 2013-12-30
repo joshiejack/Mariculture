@@ -9,7 +9,7 @@ public class ItemIds {
 	public static int rodFlux;
 	public static int fishy;
 	public static int basicMirror;
-	public static int mirror;
+	public static int magicMirror;
 	public static int celestialMirror;
 	public static int pearl;
 	public static int batteryTitanium;
