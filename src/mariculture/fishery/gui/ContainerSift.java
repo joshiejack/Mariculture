@@ -1,16 +1,18 @@
-package mariculture.core.gui;
+package mariculture.fishery.gui;
 
+import mariculture.api.fishery.Fishing;
+import mariculture.core.gui.ContainerMariculture;
 import mariculture.fishery.blocks.TileSift;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerSift extends Container {
+public class ContainerSift extends ContainerMariculture {
 	private TileSift tile;
-
 	public ContainerSift(TileSift tile, InventoryPlayer playerInventory) {
+		super(tile);
 		this.tile = tile;
 
 		for (int i = 0; i <= 4; i++) {
@@ -22,18 +24,6 @@ public class ContainerSift extends Container {
 		}
 
 		bindPlayerInventory(playerInventory);
-	}
-
-	private void bindPlayerInventory(final InventoryPlayer playerInventory) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 9; j++) {
-				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-			}
-		}
-
-		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
-		}
 	}
 
 	@Override

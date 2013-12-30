@@ -28,6 +28,7 @@ public class Stack {
 	public static final Stack forge = new Stack(Core.doubleBlock, DoubleMeta.FORGE);
 	public static final Stack compressorBottom = new Stack(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
 	public static final Stack compressorTop = new Stack(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR_POWER);
+	public static final Stack incubatorBase = new Stack(Core.utilBlocks, UtilMeta.INCUBATOR_BASE);
 	
 	//Crafting Items
 	public static final Stack wheel = new Stack(Core.craftingItem, CraftingMeta.WHEEL);

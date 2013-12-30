@@ -63,7 +63,6 @@ public class ItemFishy extends Item {
 
 			return "\u00a7b" + Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID")).getName()
 					+ convertToSymbol(stack.stackTagCompound.getInteger("Gender"));
-
 		}
 
 		return "\u00a7b" + StatCollector.translateToLocal("mariculture.string.anyFish");
@@ -78,9 +77,11 @@ public class ItemFishy extends Item {
 				}
 			} else {
 				if(stack.stackTagCompound.getInteger("currentFertility") > 0) {
-					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " + StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
+					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " 
+							+ StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
 				} else {
-					list.add(StatCollector.translateToLocal("mariculture.string.undetermined") + " " + StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
+					list.add(StatCollector.translateToLocal("mariculture.string.undetermined") + " " 
+							+ StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
 				}
 			}
 		}

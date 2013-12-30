@@ -8,8 +8,10 @@ import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeaturePower;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureUpgrades;
+import mariculture.core.lib.Text;
 import mariculture.fishery.blocks.TileIncubator;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
 
 public class GuiIncubator extends GuiMariculture {	
 	public GuiIncubator(InventoryPlayer player, TileIncubator tile) {
@@ -26,11 +28,6 @@ public class GuiIncubator extends GuiMariculture {
 
 	@Override
 	public String getName() {
-		return "tile.utilBlocks.incubator.name";
-	}
-	
-	@Override
-	public int getX() {
-		return 46;
+		return StatCollector.translateToLocal("tile.utilBlocks.incubator.name");
 	}
 }

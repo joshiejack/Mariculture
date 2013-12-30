@@ -23,14 +23,4 @@ public class GuiAutofisher extends GuiMariculture {
 		features.add(new FeatureRedstone(tile));
 		features.add(new FeatureEject(tile));
 	}
-
-	@Override
-	public String getName() {
-		return "tile.utilBlocks.autoFishing.name";
-	}
-	
-	@Override
-	public int getX() {
-		return 46;
-	}
 }

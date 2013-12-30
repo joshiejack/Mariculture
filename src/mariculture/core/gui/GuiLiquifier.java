@@ -75,11 +75,6 @@ public class GuiLiquifier extends GuiMariculture {
 	}
 
 	@Override
-	public String getName() {
-		return InventoHelper.getName(tile);
-	}
-
-	@Override
 	public int getX() {
 		return 16;
 	}

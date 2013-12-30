@@ -49,16 +49,6 @@ public class GuiFeeder extends GuiMariculture {
 	}
 
 	@Override
-	public String getName() {
-		return "tile.customBlocks.feeder.name";
-	}
-	
-	@Override
-	public int getX() {
-		return 46;
-	}
-	
-	@Override
 	public void addToolTip() {
 		super.addToolTip();
 		

@@ -1,6 +1,7 @@
 package mariculture.fishery.gui;
 
 import mariculture.api.core.IItemUpgrade;
+import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
@@ -13,6 +14,7 @@ import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -102,5 +104,27 @@ public class ContainerFeeder extends ContainerMachine {
 		}
 
 		return itemstack;
+	}
+	
+	private class SlotFather extends Slot {
+		public SlotFather(IInventory inventory, int id, int x, int y) {
+			super(inventory, id, x, y);
+		}
+
+		@Override
+		public boolean isItemValid(ItemStack stack) {
+			return Fishing.fishHelper.isMale(stack);
+		}
+	}
+	
+	private class SlotMother extends Slot {
+		public SlotMother(IInventory inventory, int id, int x, int y) {
+			super(inventory, id, x, y);
+		}
+
+		@Override
+		public boolean isItemValid(ItemStack stack) {
+			return Fishing.fishHelper.isFemale(stack);
+		}
 	}
 }

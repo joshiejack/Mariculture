@@ -3,11 +3,13 @@ package mariculture.core.gui;
 import mariculture.core.util.IMachine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.tileentity.TileEntity;
 
 public class ContainerMachine extends ContainerMariculture {
 	protected IMachine tile;
 
 	public ContainerMachine(IMachine machine) {
+		super((TileEntity) machine);
 		this.tile = machine;
 	}
 	

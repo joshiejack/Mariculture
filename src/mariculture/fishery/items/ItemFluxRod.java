@@ -70,7 +70,7 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 
 	@Override
 	public void registerIcons(IconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 	
 	@Override

@@ -11,6 +11,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 public class ContainerMariculture extends Container {	
+	public TileEntity tile;
+	
+	public ContainerMariculture() {}
+	public ContainerMariculture(TileEntity tile) {
+		this.tile = tile;
+	}
+	
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
 		return false;

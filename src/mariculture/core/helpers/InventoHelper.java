@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import buildcraft.api.core.Position;
@@ -271,10 +272,13 @@ public class InventoHelper {
 			return "";
 		}
 		
+		System.out.println("ss");
+		
 		int id = tile.getBlockType().blockID;
 		if(Item.itemsList[id] != null) {
 			Item block = Item.itemsList[id];
-			return block.getUnlocalizedName(new ItemStack(id, 1, tile.getBlockMetadata()));
+			System.out.println(block.getUnlocalizedName());
+			return StatCollector.translateToLocal(block.getUnlocalizedName(new ItemStack(id, 1, tile.getBlockMetadata())) + ".name");
 		}
 		
 		return "";

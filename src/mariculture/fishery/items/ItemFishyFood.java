@@ -6,9 +6,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
-import mariculture.core.lib.Dye;
 import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,12 +14,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.api.energy.ItemEnergyContainer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -65,21 +61,16 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (player.canEat(false)) {
+		if (player.canEat(false))
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-		}
-
 		stack = Fishing.fishHelper.getSpecies(stack.getItemDamage()).onRightClick(world, player, stack, itemRand);
-
 		return stack;
 	}
 
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		--stack.stackSize;
-
 		Fishing.fishHelper.getSpecies(stack.getItemDamage()).onConsumed(world, player);
-
 		return stack;
 	}
 	
