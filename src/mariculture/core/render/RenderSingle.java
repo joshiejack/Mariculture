@@ -124,7 +124,6 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		
 		render.clearOverrideBlockTexture();
 		render.renderAllFaces = false;
-		System.out.println("rerendered");
 	}
 	
 	private void renderNet(IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {

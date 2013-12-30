@@ -59,7 +59,7 @@ public class WorldGen implements IWorldGenerator {
 		}
 	}
 	
-	private void generateCoral(World world, Random random, int x, int z) {		
+	public static void generateCoral(World world, Random random, int x, int z) {		
 		boolean isCoralReef = PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL);
 		int chance = (Loader.isModLoaded("BiomesOPlenty")) ? WorldGeneration.CORAL_CHANCE: WorldGeneration.CORAL_CHANCE * 10;
 		
@@ -73,7 +73,7 @@ public class WorldGen implements IWorldGenerator {
 		}
 	}
 	
-	private void generateKelp(World world, Random random, int x, int z) {
+	public static void generateKelp(World world, Random random, int x, int z) {
 		int chance = WorldGeneration.KELP_CHANCE / 128;
 		chance = (chance <= 1)? 1: chance;
 		
@@ -86,7 +86,7 @@ public class WorldGen implements IWorldGenerator {
 		}
 	}
 	
-	private void generateKelpForest(World world, Random random, int x, int z) {
+	public static void generateKelpForest(World world, Random random, int x, int z) {
 		boolean isKelpForest = PluginBiomesOPlenty.isBiome(world, x, z, Biome.KELP);
 		int maxHeight = WorldGeneration.KELP_HEIGHT;
 		int chance = (Loader.isModLoaded("BiomesOPlenty")) ? WorldGeneration.KELP_CHANCE: WorldGeneration.KELP_CHANCE * 3;

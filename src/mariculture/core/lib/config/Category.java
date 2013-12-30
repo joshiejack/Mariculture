@@ -12,4 +12,5 @@ public class Category {
     public static final String MODULES = "Modules";
     public static final String ENCHANT = "Enchantments";
 	public static final String DICTIONARY = "Autodictionary";
+	public static final String RETRO = "Retro-Gen";
 }

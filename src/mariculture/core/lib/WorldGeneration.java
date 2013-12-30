@@ -19,4 +19,8 @@ public class WorldGeneration {
 	public static int RAVINE_CHANCE;
 	public static boolean CORAL_BIOMESOP;
 	public static boolean KELP_BIOMESOP;
+	public static boolean OYSTER_ENABLED;
+	public static int OYSTER_PER_CHUNK;
+	public static int OYSTER_CHANCE;
+	public static int OYSTER_PEARL_CHANCE;
 }

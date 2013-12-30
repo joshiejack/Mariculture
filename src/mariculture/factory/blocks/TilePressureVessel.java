@@ -190,7 +190,6 @@ public class TilePressureVessel extends TileMultiInvTankMachine implements IBlac
 	public void updateAll() {
 		if(onTick(30)) {
 			Packets.updateTile(this, 32, getDescriptionPacket());
-			System.out.println(heat);
 			for(int i = 0; i < heat; i++) {
 				transfer();
 			}

@@ -310,8 +310,6 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		} else if (fill(ForgeDirection.UNKNOWN, new FluidStack(Core.highPressureWater.getID(), 1), false) >= 1) {
 			fill(ForgeDirection.UNKNOWN, new FluidStack(Core.highPressureWater.getID(), 1), true);
 		}
-		
-		System.out.println(tank.getFluidAmount());
 	}
 
 	private void updatePlacedBlock() {

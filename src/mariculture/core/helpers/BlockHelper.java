@@ -69,4 +69,8 @@ public class BlockHelper {
 		
 		return "";
 	}
+
+	public static boolean chunkExists(World world, int x, int z) {
+		return world.getChunkProvider().chunkExists(x >> 4, z >> 4);
+	}
 }

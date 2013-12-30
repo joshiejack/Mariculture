@@ -66,6 +66,7 @@ import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
@@ -150,6 +151,8 @@ public class Core extends Module {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler());
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
+		if(RetroGeneration.ENABLED)
+			MinecraftForge.EVENT_BUS.register(new RetroGen());
 	}
 
 	@Override

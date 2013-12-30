@@ -165,7 +165,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					return false;
 				}
 				
-				return Fishing.fishHelper.getSpecies(Fishery.species.getDNA(fish)).canLive(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+				return Fishing.fishHelper.getSpecies(Fishery.species.getDNA(fish)).canLive(worldObj, xCoord, yCoord, zCoord);
 			}
 		}
 
@@ -425,7 +425,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	
 	public ArrayList<String> getTooltip(int slot, ArrayList<String> tooltip) {
 		boolean noBad = true;
-		final ItemStack fish = inventory[slot];
+		ItemStack fish = inventory[slot];
 		if (fish != null && fish.hasTagCompound()) {
 			if (!Fishing.fishHelper.isEgg(fish) && fish.stackTagCompound.hasKey("SpeciesID")) {
 				int currentLife = fish.stackTagCompound.getInteger("CurrentLife") / 20;

@@ -157,9 +157,7 @@ public class TileGeyser extends TileStorageTank {
 	@Override
 	public void updateEntity() {
 		tick++;
-		System.out.println("tick2");
 		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && canActivate()) {
-			System.out.println("tick3");
 			doSquirt(this.worldObj, 8, orientation, this.xCoord, this.yCoord, this.zCoord, tick %4);
 			if (onTick(20)) {
 				this.drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 5), true);
@@ -188,7 +186,6 @@ public class TileGeyser extends TileStorageTank {
 			return false;
 		
         ItemStack stack = inventory.getStackInSlot(slot);
-        System.out.println("stack");
 
         if (stack != null && canExtractItemFromInventory(inventory, stack, slot, side)) {
             ItemStack itemstack1 = stack.copy();

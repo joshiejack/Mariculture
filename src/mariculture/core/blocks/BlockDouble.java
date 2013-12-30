@@ -210,9 +210,7 @@ public class BlockDouble extends BlockMachine {
 				((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet113RequestMaster(x, y, z).build());
 			
 			TileMulti base = (TileMulti) tile;
-			
-			System.out.println(base.mstr.x);
-			
+						
 			TileMulti master = (base.mstr.built)? (TilePressureVessel)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
 			if (master != null) {
 				player.openGui(Mariculture.instance, GuiIds.PRESSURE_VESSEL, world, master.xCoord, master.yCoord, master.zCoord);

@@ -11,6 +11,7 @@ import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OreGeneration;
+import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
@@ -51,6 +52,7 @@ public class Config {
         try {
             config.load();
             config.addCustomCategoryComment(Category.ORE, Comment.ORE);
+            config.addCustomCategoryComment(Category.RETRO, Comment.RETRO);
 
             Extra.RIVER_BIOMES = config.get(Category.BIOME, "River Biomes", Extra.RIVERS_DEFAULT, Comment.RIVER).getIntList();
             Extra.OCEAN_BIOMES = config.get(Category.BIOME, "Ocean Biomes", Extra.OCEANS_DEFAULT, Comment.OCEAN).getIntList();
@@ -94,6 +96,23 @@ public class Config {
             WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
             WorldGeneration.RAVINE_CHANCE = config.get(Category.WORLD, "Water Ravine Chance (Lower = More Common)", 25).getInt();
             WorldGeneration.NO_MINESHAFTS = config.get(Category.WORLD, "Remove Mineshafts in Oceans", true).getBoolean(true);
+            WorldGeneration.OYSTER_ENABLED = config.get(Category.WORLD, "Pearl Oyster > Generation", true).getBoolean(true);
+            WorldGeneration.OYSTER_PER_CHUNK = config.get(Category.WORLD, "Pearl Oyster > Number Chances to Gen Per Chunk", 3).getInt(3);
+            WorldGeneration.OYSTER_CHANCE = config.get(Category.WORLD, "Pearl Oyster > 1 Oyster per This Many Blocks Per Chunk", 12).getInt();
+            WorldGeneration.OYSTER_PEARL_CHANCE = config.get(Category.WORLD, "Pearl Oyster > 1 Natural Pearl Per this Many Oysters", 3).getInt();
+            
+            RetroGeneration.ENABLED = config.get(Category.RETRO, "Enable Retro-Gen", false).getBoolean(false);
+            RetroGeneration.KEY = config.get(Category.RETRO, "Key", 555, Comment.RETRO_KEY).getInt();
+            RetroGeneration.ALL = config.get(Category.RETRO, "All", true).getBoolean(true);
+            RetroGeneration.BAUXITE = config.get(Category.RETRO, "Bauxite", false).getBoolean(false);
+            RetroGeneration.COPPER = config.get(Category.RETRO, "Copper", false).getBoolean(false);
+            RetroGeneration.CORALREEF = config.get(Category.RETRO, "Coral Reef", false).getBoolean(false);
+            RetroGeneration.GAS = config.get(Category.RETRO, "Natural Gas", false).getBoolean(false);
+            RetroGeneration.KELPFOREST = config.get(Category.RETRO, "Kelp Forest", false).getBoolean(false);
+            RetroGeneration.KELPPATCH = config.get(Category.RETRO, "Kelp Patch", false).getBoolean(false);
+            RetroGeneration.LIMESTONE = config.get(Category.RETRO, "Limestone", false).getBoolean(false);
+            RetroGeneration.OYSTER = config.get(Category.RETRO, "Oysters", false).getBoolean(false);
+            RetroGeneration.RUTILE = config.get(Category.RETRO, "Rutile", false).getBoolean(false);
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Oh dear, there was a problem with Mariculture loading it's world configuration");
         } finally {

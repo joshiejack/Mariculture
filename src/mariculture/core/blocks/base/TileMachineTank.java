@@ -73,6 +73,8 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		rf = MaricultureHandlers.upgrades.getData("rf", this);
 		
 		tank.setCapacity(getTankCapacity(storage));
+		if(tank.getFluidAmount() > tank.getCapacity())
+			tank.setFluidAmount(tank.getCapacity());
 	}
 	
 	public int getTankCapacity(int storage) {
