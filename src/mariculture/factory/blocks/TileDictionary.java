@@ -6,9 +6,9 @@ import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.Packets;
-import mariculture.core.util.IHasGUI;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
+import mariculture.core.util.IProgressable;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -18,59 +18,57 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.util.StatCollector;
 
-public class TileDictionary extends TileStorage implements ISidedInventory, IItemDropBlacklist, IMachine, IHasGUI {
+public class TileDictionary extends TileStorage implements ISidedInventory, IItemDropBlacklist, IMachine, IProgressable {
 	private int processed = 0;
-	private int totalCookTime = MachineSpeeds.getDictionarySpeed();
+	private int max;
 
 	public TileDictionary() {
 		inventory = new ItemStack[21];
+		max = MachineSpeeds.getDictionarySpeed();
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.processed = tagCompound.getShort("CookTime");
+	public boolean isItemValidForSlot(int i, ItemStack stack) {
+		return(i < 9)? false: true;
+	}
+	
+	private static final int[] slots_sides = new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return slots_sides;
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setShort("CookTime", (short) this.processed);
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return i > 8 && i < 15 && j < 2;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return i > 14 && j > 1;
+	}
+	
+	@Override
+	public boolean canUpdate() {
+		return true;
 	}
 
 	@Override
 	public void updateEntity() {
-		boolean updated = false;
-
 		if (!this.worldObj.isRemote) {
 			if (swap(false)) {
 				this.processed++;
-				if (this.processed >= totalCookTime) {
-					this.processed = 0;
-					this.swap(true);
-					updated = true;
+				if (this.processed >= max) {
+					processed = 0;
+					swap(true);
 				}
 			} else {
 				this.processed = 0;
 			}
 		}
-
-		if (updated) {
-			this.onInventoryChanged();
-		}
-	}
-	
-	@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
-	}
-
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
 	}
 
 	private boolean swap(boolean doSwap) {
@@ -184,33 +182,7 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 
 	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, this.processed);
-	}
-
-	public int getFreezeProgressScaled(int par1) {
-		return (processed * par1) / totalCookTime;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack stack) {
-		return(i < 9)? false: true;
-	}
-	
-	private static final int[] slots_sides = new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		return slots_sides;
-	}
-
-	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-		return i > 8 && i < 15 && j < 2;
-	}
-
-	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		return i > 14 && j > 1;
+		Packets.updateGUI(player, container, 0, processed);
 	}
 
 	@Override
@@ -221,5 +193,27 @@ public class TileDictionary extends TileStorage implements ISidedInventory, IIte
 	@Override
 	public ItemStack[] getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public int getProgressScaled(int i) {
+		return (processed * i) / max;
+	}
+
+	@Override
+	public String getProgessText() {
+		return getProgressScaled(100) + "% " + StatCollector.translateToLocal("mariculture.process.converted");
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		this.processed = tagCompound.getShort("CookTime");
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		tagCompound.setShort("CookTime", (short) this.processed);
 	}
 }

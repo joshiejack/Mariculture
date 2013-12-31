@@ -474,6 +474,7 @@ mariculture.process.fished=Fished
 mariculture.process.sawed=Sawed
 mariculture.process.breed=Bred
 mariculture.process.incubated=Incubated
+mariculture.process.converted=Converted
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class Packet115EjectSetting extends PacketMariculture {
 	
-	public int x, y, z, mode;
+	public int x, y, z;
 
 	public Packet115EjectSetting() {}
 	public Packet115EjectSetting(int x, int y, int z) {

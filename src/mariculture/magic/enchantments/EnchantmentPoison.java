@@ -36,13 +36,9 @@ public class EnchantmentPoison extends EnchantmentJewelry {
 	}
 
 	public static void activate(EntityPlayer player) {
-		if (EnchantHelper.hasEnchantment(Magic.poison, player)) {
-			if (EnchantHelper.getEnchantStrength(Magic.poison, player) > 2) {
-				if (player.isPotionActive(Potion.poison)) {
-					EnchantHelper.damageItems(Magic.poison, player, 1);
-					player.removePotionEffect(Potion.poison.id);
-				}
-			}
+		if (player.isPotionActive(Potion.poison)) {
+			EnchantHelper.damageItems(Magic.poison, player, 1);
+				player.removePotionEffect(Potion.poison.id);
 		}
 	}
 

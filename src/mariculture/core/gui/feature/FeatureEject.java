@@ -75,9 +75,9 @@ public class FeatureEject extends Feature {
 					
 					return NONE;
 				}
+				default:
+					return NONE;
 			}
-			
-			return NONE;
 		}
 	}
 	

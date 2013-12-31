@@ -69,6 +69,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class Magic extends Module {
 	public static boolean isActive;
@@ -131,6 +133,8 @@ public class Magic extends Module {
 		MaricultureHandlers.mirror = new MirrorHandler();
 		MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
 		GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
+		TickRegistry.registerScheduledTickHandler(new EnchantUpdateTicker(), Side.SERVER);
+		TickRegistry.registerScheduledTickHandler(new EnchantUpdateTicker(), Side.CLIENT);
 	}
 
 	@Override

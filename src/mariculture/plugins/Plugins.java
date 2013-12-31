@@ -19,6 +19,11 @@ public class Plugins {
 			this.name = name;
 			plugins.add(this);
 		}
+		
+		public Plugin() {
+			this.name = this.getClass().getSimpleName().toString().substring(6);
+			plugins.add(this);
+		}
 
 		public boolean isLoaded() {
 			return Loader.isModLoaded(this.name);
@@ -29,10 +34,13 @@ public class Plugins {
 				switch(stage) {
 					case PRE:
 						preInit();
+						break;
 					case INIT:
 						init();
+						break;
 					case POST:
 						postInit();
+						break;
 				}
 			} catch (Exception e) {
 				LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
@@ -64,6 +72,7 @@ public class Plugins {
 		add("Thaumcraft");
 		add("BiomesOPlenty");
 		add("HungerOverhaul");
+		add("ThermalExpansion");
 	}
 
 	public void load(Stage stage) {

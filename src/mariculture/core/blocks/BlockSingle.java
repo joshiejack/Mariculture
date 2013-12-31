@@ -72,6 +72,8 @@ public class BlockSingle extends BlockMachine {
 			return 3F;
 		case SingleMeta.VOID_BOTTLE:
 			return 1F;
+		case SingleMeta.VAT:
+			return 2F;
 		}
 
 		return 1F;

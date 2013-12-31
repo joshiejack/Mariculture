@@ -35,13 +35,7 @@ public class PlayerHelper {
 	public static boolean hasArmor(EntityPlayer player, int slot, Item item) {
 		return getArmor(player, slot, item) != null;
 	}
-	
-	public static void saveData(EntityPlayer player, String name, Object data) {
-		if(data instanceof Float) {
-			player.getEntityData().setFloat(name, (Float) data);
-		}
-	}
-	
+
 	public static int hasItem(EntityPlayer player, ItemStack match, boolean damageable) {
 		for(int i = 0; i < player.inventory.mainInventory.length; i++) {
 			ItemStack stack = player.inventory.mainInventory[i];

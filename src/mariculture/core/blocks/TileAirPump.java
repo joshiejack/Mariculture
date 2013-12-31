@@ -27,7 +27,6 @@ import cofh.api.energy.IEnergyHandler;
 
 public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	protected EnergyStorage storage = new EnergyStorage(100);
-	public boolean isPumping = false;
 	public boolean animate;
 	private double wheelAngle1 = 0;
 	private double wheelAngle2 = 0;
@@ -75,7 +74,6 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	public void doPoweredPump() {
 		if (Extra.BUILDCRAFT_PUMP) {
 			if (storage.extractEnergy(100, true) < 100) {
-				isPumping = false;
 				return;
 			}
 			

@@ -10,7 +10,6 @@ import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.RecipeRemover;
-import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.hungryfish.ItemHungryBait;
@@ -107,8 +106,8 @@ public class PluginHungerOverhaul extends Plugin {
 			Fishery.clown = new HungryFishClown(29);
 
 			RecipeRemover.remove(new ItemStack(Core.food, 3, FoodMeta.CALAMARI));
-			RecipeHelper.addShapelessRecipe(Stack.calamari.get(), new Object[] {
-				Stack.squid.get(), Item.bowlEmpty
+			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
+				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Item.bowlEmpty
 			});
 		}
 

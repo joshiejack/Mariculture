@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class Packet114RedstoneControlled extends PacketMariculture {
 	
-	public int x, y, z, mode;
+	public int x, y, z;
 
 	public Packet114RedstoneControlled() {}
 	public Packet114RedstoneControlled(int x, int y, int z) {

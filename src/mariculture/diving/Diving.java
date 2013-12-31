@@ -1,7 +1,6 @@
 package mariculture.diving;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.TileAirPump;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
@@ -11,7 +10,6 @@ import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
-import mariculture.core.util.Stack;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
@@ -96,27 +94,27 @@ public class Diving extends Module {
 					Character.valueOf('M'), Block.pistonBase }));
 		
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(Stack.compressorTop.get(2), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.AIR_COMPRESSOR_POWER), new Object[] {
 			"  F", " PB", "III",
-			Character.valueOf('I'), Stack.aluminumSheet.get(),
-			Character.valueOf('F'), Stack.cooling.get(),
+			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
+			Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
 			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('P'), Block.pistonBase
 		});
 		
 		//Air Compressor Base
-		RecipeHelper.addShapedRecipe(Stack.compressorBottom.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.AIR_COMPRESSOR), new Object[] {
 			"ITT", "III", "W  ",
-			Character.valueOf('I'), Stack.aluminumSheet.get(),
-			Character.valueOf('W'), Stack.wheel.get(),
+			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
+			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
 			Character.valueOf('T'), "ingotTitanium"
 		});
 		
 		//Snorkel
-		RecipeHelper.addShapedRecipe(Stack.snorkel.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
 			"  R", "LLR",
 			Character.valueOf('R'), Item.reed,
-			Character.valueOf('L'), Stack.glassLens.get()
+			Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
 		});
 		
 		CraftingManager

@@ -17,10 +17,10 @@ import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
-import mariculture.core.util.Stack;
 import mariculture.diving.Diving;
 import mariculture.factory.blocks.BlockCustomBlock;
 import mariculture.factory.blocks.BlockCustomFence;
@@ -199,6 +199,16 @@ public class Factory extends Module {
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
+		//Alternative for Converter
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
+			" B ", "FPF", "IMI",
+			Character.valueOf('F'), Item.feather, 
+			Character.valueOf('P'), Item.enderPearl, 
+			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
+			Character.valueOf('B'), Item.writableBook,
+			Character.valueOf('I'), "ingotCopper"
+		});
+		
 		//Mechanized Sponge
 		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Block.sponge): new ItemStack(Item.bucketWater);
 		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Item.potion, 1, 0);
@@ -254,11 +264,11 @@ public class Factory extends Module {
 		//Pressure Vessel
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
 			"WLW", "PTP", "PSP",
-			Character.valueOf('W'), Stack.wheel.get(),
+			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
-			Character.valueOf('P'), Stack.titaniumSheet.get(),
-			Character.valueOf('T'), Stack.tank.get(),
-			Character.valueOf('S'), Stack.sluice.get()
+			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET),
+			Character.valueOf('T'), new ItemStack(Core.tankBlocks, 1, TankMeta.TANK),
+			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE)
 		});
 		
 		//Sorter

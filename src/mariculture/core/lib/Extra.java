@@ -34,6 +34,10 @@ public class Extra {
 	public static int DRAGON_EGG_ETHEREAL;
 	public static boolean DROP_JEWELRY;
 	public static boolean GEN_ENDER_PEARLS;
+	public static int JEWELRY_TICK_RATE;
+	
+	public static int SONIC_MOD;
+	public static int LEAP_MOD;
 	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 

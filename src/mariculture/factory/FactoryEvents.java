@@ -252,17 +252,7 @@ public class FactoryEvents {
 			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, 0, player.entityId, PacketType.SQUIRT).build());
 		}
 	}
-
-	public static void handlePacket(EntityPlayerMP player) {
-		Random rand = new Random();
-		World world = player.worldObj;
-		world.playSoundAtEntity(player, Mariculture.modid + ":fludd", 1.0F, 1.0F);
-		EntityFLUDDSquirt rocket = new EntityFLUDDSquirt(world, player, true);
-		rocket.posY += 0.35F;
-		world.spawnEntityInWorld(rocket);
-		damageFLUDD(player, ItemArmorFLUDD.SQUIRT);
-	}
-
+	
 	private static void sendDamagePacket(EntityPlayer player, int mode) {
 		if (player instanceof EntityClientPlayerMP) {
 			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.DAMAGE).build());

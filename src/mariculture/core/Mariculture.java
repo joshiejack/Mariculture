@@ -48,7 +48,6 @@ public class Mariculture {
 		MaricultureTab.tabJewelry = (Modules.magic.isActive())? new MaricultureTab("jewelryTab"): null;
 		
 		plugins.init();
-		plugins.load(Stage.PRE);
 		Modules.core.preInit();
 		Modules.diving.preInit();
 		Modules.factory.preInit();
@@ -57,6 +56,7 @@ public class Mariculture {
 		Modules.sealife.preInit();
 		Modules.transport.preInit();
 		Modules.world.preInit();
+		plugins.load(Stage.PRE);
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 	}

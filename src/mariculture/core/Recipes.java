@@ -15,14 +15,14 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
+import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.Stack;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.PluginTConstruct;
-import mariculture.plugins.Plugins;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -69,7 +69,7 @@ public class Recipes {
 				new Object[] { Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK) });
 
 		//Copper Tank
-		RecipeHelper.addShapedRecipe(Stack.tank.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.TANK), new Object[] {
 			"CWC", "WGW", "CWC",
 			Character.valueOf('C'), "ingotCopper",
 			Character.valueOf('W'), "plankWood",
@@ -87,9 +87,9 @@ public class Recipes {
 
 		
 		//Base Brick
-		RecipeHelper.addShapedRecipe(Stack.baseBrick.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), new Object[] {
 			"IGI", "G G", "IGI",
-			Character.valueOf('I'), Stack.burntBrick.get(),
+			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
 			Character.valueOf('G'), Block.fenceIron
 		});
 		
@@ -109,41 +109,27 @@ public class Recipes {
 					Character.valueOf('I'), "logWood", 
 					Character.valueOf('G'), Block.fence }));
 		
-		//Forging Table
-		RecipeHelper.addShapedRecipe(Stack.forge.get(), new Object[] {
-			"B B", " B ", " C ",
-			Character.valueOf('B'), Stack.burntBrick.get(),
-			Character.valueOf('C'), Stack.baseBrick.get(),
-		});
-		
 		//Crucible Furnace
-		RecipeHelper.addShapedRecipe(Stack.crucible.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.LIQUIFIER), new Object[] {
 			" L ", "BGB", "HCH",
-			Character.valueOf('B'), Stack.burntBrick.get(),
+			Character.valueOf('B'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
 			Character.valueOf('L'), Item.bucketLava,
 			Character.valueOf('G'), "glass",
-			Character.valueOf('H'), Stack.heating.get(),
-			Character.valueOf('C'), Stack.baseBrick.get()
+			Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK)
 		});
 		
 		//Anvil Recipe
-		RecipeHelper.addShapedRecipe(Stack.burntAnvil.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.ANVIL), new Object[] {
 			"CCC", " B ", "BBB",
-			Character.valueOf('C'), Stack.baseBrick.get(),
-			Character.valueOf('B'), Stack.burntBrick.get()
-		});
-		
-		//Bucket Tank
-		RecipeHelper.addShapedRecipe(Stack.bucketTank.get(), new Object[] {
-			"BEB", "B B", "B B",
-			Character.valueOf('B'), Stack.burntBrick.get(),
-			Character.valueOf('E'), Item.bucketEmpty
+			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK),
+			Character.valueOf('B'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 		
 		//Pearl Hammer
-		RecipeHelper.addShapedRecipe(Stack.hammer.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {
 			"PP ", " SP", "S  ",
-			Character.valueOf('P'), Stack.burntBrick.get(),
+			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
 			Character.valueOf('S'), "stickWood"
 		});
 
@@ -199,7 +185,7 @@ public class Recipes {
 				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
 				Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC) });
 		//Glass Lens
-		RecipeHelper.addShapedRecipe(Stack.glassLens.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS), new Object[] {
 			" P ", "PGP", " P ",
 			Character.valueOf('P'), "plankWood",
 			Character.valueOf('G'), "glass"
@@ -279,12 +265,12 @@ public class Recipes {
 		});
 		
 		//Burnt Brick > (Netherbrick > Burnt Brick)
-		RecipeHelper.addShapelessRecipe(Stack.burntBrick.get(), new Object[] {
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), new Object[] {
 			new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE), Item.netherrackBrick
 		});
 	
 		//Burnt Brick > (Brick > Burnt Brick)
-		RecipeHelper.addShapedRecipe(Stack.burntBrick.get(2), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 2, CraftingMeta.BURNT_BRICK), new Object[] {
 			" C ", "FBF", " S ",
 			Character.valueOf('C'), new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('F'), Item.flint,

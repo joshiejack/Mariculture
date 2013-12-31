@@ -59,7 +59,7 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 
 	public static void set(int speed) {		
 		if(speed > 0) {
-			runSpeed = 0.05F * speed;
+			runSpeed = 0.035F * speed;
 			return;
 		}
 

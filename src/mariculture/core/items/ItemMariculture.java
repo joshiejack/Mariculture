@@ -22,7 +22,7 @@ public class ItemMariculture extends Item implements IItemRegistry {
 
 	public ItemMariculture(int id) {
 		super(id);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabMariculture);
 		setHasSubtypes(true);
 	}
 

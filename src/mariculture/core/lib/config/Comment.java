@@ -31,4 +31,5 @@ public class Comment {
 	public static final String BIOMESOP_KELP = "If enabled this will force Kelp Forests to only generate in Kelp Forest Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
 	public static final String RETRO_KEY = "This key is what stops, retro gen from generating in chunks over and over, if you want to retro gen again, change the key to any other integer";
 	public static final String RETRO = "Retro-Generation allows you to generate ores/other features in your existing worlds, without you having to go off and explore new areas. If you set all to true, it will override the individual settings for retro-gen";
+	public static final String JEWELRY_TICK_RATE = "This is how many ticks before the server will send an update to a player about what level enchant they have in their mirror inventory";
 }

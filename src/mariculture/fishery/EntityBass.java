@@ -23,19 +23,19 @@ public class EntityBass extends EntityThrowable {
 	@Override
 	protected void onImpact(MovingObjectPosition movingObject) {
 		if (movingObject.entityHit != null) {
-			movingObject.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0);
+			movingObject.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0);
 		}
 
 		if (!this.worldObj.isRemote) {
-			this.worldObj.createExplosion((Entity) null, this.posX, this.posY, this.posZ, 0.8F, true);
+			worldObj.createExplosion((Entity) null, posX, posY, posZ, 0.8F, true);
 		}
 
 		for (int var5 = 0; var5 < 8; ++var5) {
-			this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+			worldObj.spawnParticle("snowballpoof", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
 		}
 
-		if (!this.worldObj.isRemote) {
-			this.setDead();
+		if (!worldObj.isRemote) {
+			setDead();
 		}
 	}
 }

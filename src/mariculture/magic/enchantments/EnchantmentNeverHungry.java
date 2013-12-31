@@ -52,7 +52,7 @@ public class EnchantmentNeverHungry extends EnchantmentJewelry {
 					int level = EnchantHelper.getEnchantStrength(Magic.hungry, player);
 
 					if (player.getFoodStats().getFoodLevel() < 20) {
-						float saturation = 1F * level;
+						float saturation = 0.05F * level;
 
 						player.getFoodStats().addStats(1, saturation);
 
@@ -66,13 +66,12 @@ public class EnchantmentNeverHungry extends EnchantmentJewelry {
 				}
 
 				if (player.openContainer instanceof ContainerMirror && player.getFoodStats().getFoodLevel() < 20) {
-					final List mirror = player.openContainer.getInventory();
+					List mirror = player.openContainer.getInventory();
 					for (int i = 0; i < mirror.size() - 1; i++) {
-						if (mirror.get(i) != null
-								&& EnchantHelper.getLevel(Magic.hungry, (ItemStack) mirror.get(i)) > 0) {
+						if (mirror.get(i) != null && EnchantHelper.getLevel(Magic.hungry, (ItemStack) mirror.get(i)) > 0) {
 							ItemStack item = (ItemStack) mirror.get(i);
 
-							item.setItemDamage(item.getItemDamage() + 1);
+							item.setItemDamage(item.getItemDamage() + 3);
 
 							if (item.getItemDamage() >= item.getMaxDamage()) {
 								item = null;

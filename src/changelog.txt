@@ -33,6 +33,7 @@
 * Jewelry no longer drops on death(configurable)
 * Pressurised Water's range increased from 5 to 16
 * Mariculture Enchants will now ONLY work on Jewelry (Removed Magic feather)
+* Nerf to Never Hungry ;)
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

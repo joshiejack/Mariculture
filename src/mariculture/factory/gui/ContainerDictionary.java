@@ -26,7 +26,7 @@ public class ContainerDictionary extends ContainerMachine {
 			}
 		}
 
-		bindPlayerInventory(playerInventory);
+		bindPlayerInventory(playerInventory, 10);
 	}
 
 	@Override

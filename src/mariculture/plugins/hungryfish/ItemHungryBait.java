@@ -14,13 +14,10 @@ public class ItemHungryBait extends ItemBait {
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		--stack.stackSize;
-
 		int fill = (((Fishing.bait.getEffectiveness(stack)) + 1)/2 > 0)? ((Fishing.bait.getEffectiveness(stack)) + 1)/2: 1;
-		float sat = (fill/5)/10;
-		
+		float sat = (fill/5)/100;
 		player.getFoodStats().addStats(0, sat);
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-
 		return stack;
 	}
 }

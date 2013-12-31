@@ -39,13 +39,10 @@ import mariculture.core.blocks.TileSettler;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BiomeTypeHandler;
-import mariculture.core.handlers.ClientUpdateHandler;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
-import mariculture.core.handlers.PlayerUpdatesHandler;
-import mariculture.core.handlers.ServerUpdateHandler;
 import mariculture.core.handlers.SettlerRecipeHandler;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -66,10 +63,10 @@ import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
+import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.FluidDictionary;
@@ -89,8 +86,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 public class Core extends Module {
 	public static Block oreBlocks;
@@ -140,9 +135,6 @@ public class Core extends Module {
 	
 	@Override
 	public void registerHandlers() {
-		TickRegistry.registerScheduledTickHandler(new ServerUpdateHandler(), Side.SERVER);
-		TickRegistry.registerScheduledTickHandler(new ClientUpdateHandler(), Side.SERVER);
-		TickRegistry.registerScheduledTickHandler(new PlayerUpdatesHandler(), Side.CLIENT);
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
 		MaricultureHandlers.freezer = new SettlerRecipeHandler();

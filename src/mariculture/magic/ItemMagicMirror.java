@@ -14,7 +14,6 @@ public class ItemMagicMirror extends ItemMirror {
 	
 	public ItemMagicMirror(int id, int min, int max, String str) {
 		super(id, str);
-		
 		minLevel = min;
 		maxLevel = max;
 		setMaxDamage(30);

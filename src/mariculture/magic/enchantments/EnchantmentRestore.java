@@ -2,6 +2,7 @@ package mariculture.magic.enchantments;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -9,7 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class EnchantmentRestore extends EnchantmentJewelry {
-	public EnchantmentRestore(final int i, final int weight, final EnumEnchantmentType type) {
+	public EnchantmentRestore(final int i, final int weight,
+			final EnumEnchantmentType type) {
 		super(i, weight, type);
 		this.setName("restore");
 	}
@@ -30,42 +32,45 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 	}
 
 	public static void activate(EntityPlayer player) {
-		if (EnchantHelper.hasEnchantment(Magic.repair, player)) {
-			if (player.getCurrentEquippedItem() != null) {				
-				if (player.getCurrentEquippedItem().isItemStackDamageable() && player.getCurrentEquippedItem().isItemDamaged()
-						&& player.getCurrentEquippedItem().getItem().isRepairable()) {
-					if (player.getCurrentEquippedItem().getItemDamage() > 0) {
-						player.getCurrentEquippedItem().setItemDamage(player.getCurrentEquippedItem().getItemDamage() - 1);
-						EnchantHelper.damageItems(Magic.repair, player, 1);
-					}
+		//Repair Handheld
+		ItemStack hand = player.getCurrentEquippedItem();
+		if (hand != null) {
+			if (hand.isItemStackDamageable() && hand.isItemDamaged() && hand.getItem().isRepairable()) {
+				if (hand.getItemDamage() > 0) {
+					hand.setItemDamage(player.getCurrentEquippedItem().getItemDamage() - 1);
+					EnchantHelper.damageItems(Magic.repair, player, 1);
 				}
 			}
+		}
+		
+		int strength = EnchantHelper.getEnchantStrength(Magic.repair, player);
 
-			if (EnchantHelper.getEnchantStrength(Magic.repair, player) > 2) {
-				for (int i = 0; i < EnchantHelper.getEnchantStrength(Magic.repair, player) - 1; i++) {
-					for (int j = 0; j < 4; j++) {
-						if (player.getCurrentArmor(j) != null) {
-							if (player.getCurrentArmor(j).isItemStackDamageable() && player.getCurrentArmor(j).isItemDamaged()
-									&& player.getCurrentArmor(j).getItem().isRepairable()) {
-								if (player.getCurrentArmor(j).getItemDamage() > 0) {
-									player.getCurrentArmor(j).setItemDamage(player.getCurrentArmor(j).getItemDamage() - 1);
-									EnchantHelper.damageItems(Magic.repair, player, 1);
-								}
+		//Repair Armor
+		if (strength > 2) {
+			for (int i = 0; i < EnchantHelper.getEnchantStrength(Magic.repair, player) - 1; i++) {
+				for (int j = 0; j < 4; j++) {
+					ItemStack armor = player.getCurrentArmor(j);
+					if (armor != null) {
+						if (armor.isItemStackDamageable() && armor.isItemDamaged() && armor.getItem().isRepairable()) {
+							if (armor.getItemDamage() > 0) {
+								armor.setItemDamage(armor.getItemDamage() - 1);
+								EnchantHelper.damageItems(Magic.repair, player, 1);
 							}
 						}
 					}
 				}
 			}
+		}
 
-			if (EnchantHelper.getEnchantStrength(Magic.repair, player) >= 1) {
-				for (int i = 0; i < 9; i++) {
-					ItemStack stack = player.inventory.getStackInSlot(i);
-					if (stack != null) {
-						if (stack.isItemStackDamageable() && stack.isItemDamaged() && stack.getItem().isRepairable()) {
-							if (stack.getItemDamage() > 0) {
-								stack.setItemDamage(stack.getItemDamage() - 1);
-								EnchantHelper.damageItems(Magic.repair, player, 1);
-							}
+		//Repair the Hotbar
+		if (strength >= 1) {
+			for (int i = 0; i < 9; i++) {
+				ItemStack stack = player.inventory.getStackInSlot(i);
+				if (stack != null) {
+					if (stack.isItemStackDamageable() && stack.isItemDamaged() && stack.getItem().isRepairable()) {
+						if (stack.getItemDamage() > 0) {
+							stack.setItemDamage(stack.getItemDamage() - 1);
+							EnchantHelper.damageItems(Magic.repair, player, 1);
 						}
 					}
 				}

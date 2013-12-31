@@ -30,7 +30,8 @@ public class Config {
     private static void initOther(Configuration config) {
         try {
             config.load();
-                        
+               
+            Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
             Extra.REFRESH_CLIENT_RATE = config.get(Category.CLIENT, "Client Refresh Rate", 30, Comment.REFRESH).getInt();
             Extra.DEBUG_ON = config.get(Category.EXTRA, "Debug Mode Enabled", false).getBoolean(false);

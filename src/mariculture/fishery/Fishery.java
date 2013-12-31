@@ -29,7 +29,6 @@ import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.Stack;
 import mariculture.fishery.blocks.BlockItemNeonLamp;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
@@ -370,12 +369,12 @@ public class Fishery extends Module {
 					Character.valueOf('C'), new ItemStack(Block.stainedClay, 1, 0), 
 					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
 		
-		RecipeHelper.addShapedRecipe(Stack.incubatorBase.get(), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_BASE), new Object[] {
 			"DBD", "CHC",
 			Character.valueOf('C'), new ItemStack(Block.stainedClay, 1, 3),
 			Character.valueOf('B'), new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('D'), "dyeLightBlue",
-			Character.valueOf('H'), Stack.heating.get()
+			Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER)
 		});
 	}
 

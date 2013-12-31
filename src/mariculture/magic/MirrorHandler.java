@@ -102,8 +102,6 @@ public class MirrorHandler implements IMirrorHandler {
 		MirrorHelper.instance().save(player, mirror);
 	}
 
-	static boolean once = false;
-
 	@Override
 	public boolean isJewelry(ItemStack stack) {
 		return (stack != null && stack.getItem() instanceof ItemJewelry);
