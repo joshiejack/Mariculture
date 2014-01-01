@@ -12,6 +12,8 @@ import mariculture.fishery.blocks.TileAutofisher;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiAutofisher extends GuiMariculture {	
+	private TileAutofisher tile;
+	
 	public GuiAutofisher(InventoryPlayer player, TileAutofisher tile) {
 		super(new ContainerAutofisher(tile, player), "autofisher", 10);
 		features.add(new FeatureUpgrades());
@@ -22,5 +24,14 @@ public class GuiAutofisher extends GuiMariculture {
 		}));
 		features.add(new FeatureRedstone(tile));
 		features.add(new FeatureEject(tile));
+		
+		this.tile = tile;
+	}
+	
+	@Override
+	public void drawBackground(int x, int y) {
+		if(tile.getInventory()[tile.rod] == null) {
+			drawTexturedModalRect(x + 49, y + 18, 238, 18, 16, 16);
+		}
 	}
 }

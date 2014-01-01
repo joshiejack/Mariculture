@@ -271,13 +271,10 @@ public class InventoHelper {
 		if(tile == null) {
 			return "";
 		}
-		
-		System.out.println("ss");
-		
+				
 		int id = tile.getBlockType().blockID;
 		if(Item.itemsList[id] != null) {
 			Item block = Item.itemsList[id];
-			System.out.println(block.getUnlocalizedName());
 			return StatCollector.translateToLocal(block.getUnlocalizedName(new ItemStack(id, 1, tile.getBlockMetadata())) + ".name");
 		}
 		

@@ -9,20 +9,17 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerFishSorter extends ContainerMachine {
-	public ContainerFishSorter(TileFishSorter tile,
-			InventoryPlayer playerInventory) {
+	public ContainerFishSorter(TileFishSorter tile, InventoryPlayer playerInventory) {
 		super(tile);
 
 		for (int j = 0; j < 3; ++j) {
 			for (int k = 0; k < 7; ++k) {
-				this.addSlotToContainer(new SlotSorter(tile, k + j * 7, 38 + k * 18, 21 + j * 18));
+				addSlotToContainer(new SlotSorter(tile, k + j * 7, 38 + k * 18, 21 + j * 18));
 			}
 		}
 
-		this.addSlotToContainer(new Slot(tile, 21, 9, 23));
-		this.addSlotToContainer(new SlotSorter(tile, 22, 9, 44));
-
-		bindPlayerInventory(playerInventory);
+		addSlotToContainer(new Slot(tile, 21, 9, 25));
+		bindPlayerInventory(playerInventory, 10);
 	}
 
 	@Override

@@ -200,6 +200,7 @@ item.swimfin.name=Flippers
 #blocks
 tile.utilBlocks.sawmill.name=Sawmill
 tile.utilBlocks.sluice.name=Sluice
+tile.utilBlocks.fishSorter.name=Fish Sorter
 tile.utilBlocks.sponge.name=Mechanized Sponge
 tile.utilBlocks.dictionary.name=Automatic Dictionary Converter
 tile.utilBlocks.gasOven.name=Gas Oven

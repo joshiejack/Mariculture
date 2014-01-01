@@ -15,8 +15,14 @@ public interface ISmelterHandler {
 	 * 	then your item will be affected by the purity upgrade */
 	public void addRecipe(RecipeSmelter recipe);
 	
+	/** Add a duel melting recipe **/
+	public void addDualRecipe(RecipeSmelterDual recipe);
+	
 	/** Get the result of a recipe **/
 	public SmelterOutput getResult(ItemStack input, int temp);
+	
+	/** Dual melt Recipe **/
+	public SmelterOutput getResult(ItemStack input1, ItemStack input2, int temp);
 	/** Get the maximum burn temperature for a stack, max to true will give you the maximum
 	 * temperature this fuel can go up to, while max to false will give how much each piece of fuel gives */
 	public int getBurnTemp(ItemStack stack, boolean max);

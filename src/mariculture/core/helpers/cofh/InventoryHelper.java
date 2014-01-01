@@ -97,6 +97,29 @@ public class InventoryHelper {
 		}
 		return true;
 	}
+	
+	//Copy of the above but simulates
+	public static boolean canAddItemStackToInventory(ItemStack[] inventory, ItemStack stack, int[] slots) {
+		if (stack == null) {
+			return true;
+		}
+		int openSlot = -1;
+		for (int i : slots) {
+			if (ItemHelper.areItemStacksEqualNoNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
+				return true;
+			} else if (inventory[i] == null && openSlot == -1) {
+				openSlot = i;
+			}
+		}
+		if (stack != null) {
+			if (openSlot > -1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * Shortcut method for above, assumes starting slot is 0.

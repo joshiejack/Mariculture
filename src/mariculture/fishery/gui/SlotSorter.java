@@ -59,10 +59,7 @@ public class SlotSorter extends SlotFake {
 
 			if (stackHeld == null) {
 				if (tile instanceof TileFishSorter) {
-					if(slot.slotNumber == 22)
-						((TileFishSorter) tile).increaseDFT();
-					else
-						((TileFishSorter) tile).increaseSide(slot.slotNumber);
+					((TileFishSorter) tile).swapSide(slot.slotNumber);
 				}
 			}
 		}

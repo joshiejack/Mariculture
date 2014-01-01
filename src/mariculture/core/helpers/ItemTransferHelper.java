@@ -69,6 +69,7 @@ public class ItemTransferHelper {
 		boolean ejected = false;
 		ejected = InventoryHelper.addItemStackToInventory(((IMachine)inventory).getInventory(), stack, slots);
 		if(!ejected) {
+			ejected = true;
 			spawnItem(world, x, y, z, stack, true);
 		}
 		

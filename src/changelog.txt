@@ -44,6 +44,7 @@
 * Options to Disable the forcing of KelpForests/CoralReefs to only gen in those biomes with BOP
 ====API Changes====
 * IItemUpgrade additional items
+* Added Dual Smelting
 
 == Mariculture 1.1.4e ==
 * Fixed NPE when player becomes null when fishing

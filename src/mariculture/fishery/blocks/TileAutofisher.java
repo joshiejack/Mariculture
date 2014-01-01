@@ -25,6 +25,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	public TileAutofisher() {
 		max = MachineSpeeds.getAutofisherSpeed();
 		inventory = new ItemStack[20];
+		setting = EjectSetting.ITEM;
 	}
 	
 	@Override

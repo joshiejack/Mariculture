@@ -8,6 +8,7 @@ import java.util.Map;
 import mariculture.api.core.ISmelterHandler;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
+import mariculture.api.core.RecipeSmelterDual;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.helpers.DictionaryHelper;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,12 @@ public class LiquifierHandler implements ISmelterHandler {
 	@Override
 	public void addRecipe(RecipeSmelter recipe) {
 		recipes.put(DictionaryHelper.convert(recipe.input), recipe);
+	}
+	
+	@Override
+	public void addDualRecipe(RecipeSmelterDual recipe) {
+		recipes.put(DictionaryHelper.convert(recipe.input) + DictionaryHelper.convert(recipe.secondary), recipe);
+		recipes.put(DictionaryHelper.convert(recipe.secondary) + DictionaryHelper.convert(recipe.input), recipe);
 	}
 
 	@Override
@@ -36,6 +43,18 @@ public class LiquifierHandler implements ISmelterHandler {
 					return new SmelterOutput(new FluidStack(FluidRegistry.getFluid(output.fluid.fluidID), (fluid > 0)? fluid: 1), output.output, output.chance);
 				}
 				
+				return recipe.output;
+			}
+		}
+
+		return null;
+	}
+	
+	@Override
+	public SmelterOutput getResult(ItemStack input1, ItemStack input2, int temp) {
+		RecipeSmelterDual recipe = (RecipeSmelterDual) recipes.get(DictionaryHelper.convert(input1) + DictionaryHelper.convert(input2));
+		if (recipe != null) {
+			if (temp >= recipe.temp || temp < 0) {
 				return recipe.output;
 			}
 		}
