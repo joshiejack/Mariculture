@@ -2,6 +2,7 @@ package mariculture.core.blocks.base;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -21,7 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public abstract class TileMachineTank extends TileStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
+public abstract class TileMultiMachineTank extends TileMultiStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
 	protected BlockTransferHelper helper;
 	//General Tick
 	private int machineTick = 0;
@@ -35,13 +36,13 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	protected EjectSetting setting;
 	protected RedstoneMode mode;
 	//GUI INT offset
-	protected int offset = 6;
+	protected int offset = 9;
 	//Machine vars
 	protected int max;
 	protected boolean canWork;
 	protected int processed = 0;
 	
-	public TileMachineTank() {
+	public TileMultiMachineTank() {
 		inventory = new ItemStack[5];
 		tank = new Tank(getTankCapacity(0));
 		mode = RedstoneMode.LOW;
@@ -49,12 +50,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	}
 	
 	public ItemStack[] getInventory() {
-		return inventory;
-	}
-	
-	@Override
-	public boolean canUpdate() {
-		return true;
+		return getMasterInventory();
 	}
 	
 	public boolean onTick(int i) {
@@ -85,14 +81,20 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
 		return (tankRate * 20) + (storage * tankRate);
 	}
-
-	public void updateEntity() {
-		super.updateEntity();
-		
+	
+	@Override
+	public boolean canUpdate() {
+		return true;
+	}
+	
+	@Override
+	public void updateMaster() {
+		super.updateMaster();
 		if(helper == null)
 			helper = new BlockTransferHelper(this);
 		
 		machineTick++;
+		
 		if(onTick(20)) {
 			FluidHelper.process(this, 3, 4);
 			updateUpgrades();
@@ -102,14 +104,26 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 			canWork = canWork();
 		}
 		
-		updateMachine();
+		updateMasterMachine();
+	}
+	
+	@Override
+	public void updateSlaves() {
+		if(helper == null)
+			helper = new BlockTransferHelper(this);
+		
+		machineTick++;
+		updateSlaveMachine();
 	}
 	
 	public abstract boolean canWork();
-	public abstract void updateMachine();
+	public abstract void updateMasterMachine();
+	public abstract void updateSlaveMachine();
 	
 	@Override
 	public void getGUINetworkData(int id, int value) {
+		if(master == null)
+			master = new MultiPart(xCoord, yCoord, zCoord);
 		switch (id) {
 		case 0:
 			mode = RedstoneMode.values()[value];
@@ -129,6 +143,15 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		case 5:
 			tank.setCapacity(value);;
 			break;
+		case 6:
+			if(master != null) master.xCoord = value;
+			break;
+		case 7:
+			if(master != null) master.yCoord = value;
+			break;
+		case 8:
+			if(master != null) master.zCoord = value;
+			break;
 		}
 	}
 	
@@ -140,6 +163,9 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		Packets.updateGUI(player, container, 3, tank.getFluidID());
 		Packets.updateGUI(player, container, 4, tank.getFluidAmount());
 		Packets.updateGUI(player, container, 5, tank.getCapacity());
+		Packets.updateGUI(player, container, 6, master != null? master.xCoord: 0);
+		Packets.updateGUI(player, container, 7, master != null? master.yCoord: 0);
+		Packets.updateGUI(player, container, 8, master != null? master.zCoord: 0);
 	}
 	
 	@Override

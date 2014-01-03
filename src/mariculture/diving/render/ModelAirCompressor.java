@@ -126,35 +126,36 @@ public class ModelAirCompressor extends ModelBase {
 		}
 	}
 
-	public void render(TileMulti tile, double x, double y, double z, RenderDouble render) {
+
+	public void render(TileAirCompressor tile, double x, double y, double z, RenderDouble render) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
 		GL11.glTranslated(x + 0.5F, y + 0.7F, z + 0.5F);
 
-		final World world = tile.worldObj;
+		World world = tile.worldObj;
 		boolean foundSecondHalf = false;
 
-		/*
-		if (world.getBlockTileEntity(tile.xCoord + 1, tile.yCoord, tile.zCoord) instanceof TileDoubleBlock) {
+		
+		if (world.getBlockTileEntity(tile.xCoord + 1, tile.yCoord, tile.zCoord) instanceof TileAirCompressor) {
 			faceDirection(ForgeDirection.SOUTH, x, y, z);
 			foundSecondHalf = true;
 		}
 
-		if (world.getBlockTileEntity(tile.xCoord - 1, tile.yCoord, tile.zCoord) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(tile.xCoord - 1, tile.yCoord, tile.zCoord) instanceof TileAirCompressor) {
 			faceDirection(ForgeDirection.NORTH, x, y, z);
 			foundSecondHalf = true;
 		}
 
-		if (world.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord + 1) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord + 1) instanceof TileAirCompressor) {
 			faceDirection(ForgeDirection.WEST, x, y, z);
 			foundSecondHalf = true;
 		}
 
-		if (world.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord - 1) instanceof TileDoubleBlock) {
+		if (world.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord - 1) instanceof TileAirCompressor) {
 			faceDirection(ForgeDirection.EAST, x, y, z);
 			foundSecondHalf = true;
-		} */
+		}
 
 		if (!foundSecondHalf) {
 			GL11.glRotatef(180, 0F, 0F, 1F);
@@ -172,11 +173,12 @@ public class ModelAirCompressor extends ModelBase {
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(COMPRESSOR_BAR);
 
-		if (tile instanceof TileAirCompressor) {
-			TileAirCompressor real = (TileAirCompressor) tile.worldObj.getBlockTileEntity(tile.mstr.x, tile.mstr.y, tile.mstr.z);
+		if (tile instanceof TileAirCompressor && tile.master != null) {
+			TileAirCompressor real = (TileAirCompressor) tile.worldObj
+														 	.getBlockTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
 
 			if (real != null) {
-				switch (real.getBarLength()) {
+				switch (real.getAirStoredScaled(7)) {
 				case 7:
 					bar7.render(scale);
 					break;
@@ -234,7 +236,7 @@ public class ModelAirCompressor extends ModelBase {
 		GL11.glPopMatrix();
 	}
 
-	private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;

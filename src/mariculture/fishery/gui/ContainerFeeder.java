@@ -26,20 +26,20 @@ public class ContainerFeeder extends ContainerMachine {
 		addUpgradeSlots(tile);
 		
 		//Fluids
-		this.addSlotToContainer(new SlotFluidContainer(tile, 3, 10, 25));
-		this.addSlotToContainer(new SlotOutput(tile, 4, 10, 56));
+		addSlotToContainer(new SlotFluidContainer(tile, 3, 10, 25));
+		addSlotToContainer(new SlotOutput(tile, 4, 10, 56));
 		
 		//Fish
-		this.addSlotToContainer(new SlotFather(tile, 5, 76, 25));
-		this.addSlotToContainer(new SlotMother(tile, 6, 76, 53));
+		addSlotToContainer(new SlotFather(tile, 5, 76, 25));
+		addSlotToContainer(new SlotMother(tile, 6, 76, 53));
 		
 		//Output
-		this.addSlotToContainer(new SlotOutput(tile, 7, 132, 22));
-		this.addSlotToContainer(new SlotOutput(tile, 8, 132, 40));
-		this.addSlotToContainer(new SlotOutput(tile, 9, 132, 58));
-		this.addSlotToContainer(new SlotOutput(tile, 10, 150, 22));
-		this.addSlotToContainer(new SlotOutput(tile, 11, 150, 40));
-		this.addSlotToContainer(new SlotOutput(tile, 12, 150, 58));
+		addSlotToContainer(new SlotOutput(tile, 7, 132, 22));
+		addSlotToContainer(new SlotOutput(tile, 8, 132, 40));
+		addSlotToContainer(new SlotOutput(tile, 9, 132, 58));
+		addSlotToContainer(new SlotOutput(tile, 10, 150, 22));
+		addSlotToContainer(new SlotOutput(tile, 11, 150, 40));
+		addSlotToContainer(new SlotOutput(tile, 12, 150, 58));
 
 		bindPlayerInventory(playerInventory, 10);
 	}

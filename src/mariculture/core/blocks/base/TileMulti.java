@@ -65,7 +65,7 @@ public class TileMulti extends TileEntity {
 	
 	protected ArrayList<Cached> cache = new ArrayList<Cached>();
 	
-	public class Cached {
+	public static class Cached {
 		public int x;
 		public int y;
 		public int z;

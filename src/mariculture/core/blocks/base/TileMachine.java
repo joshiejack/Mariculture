@@ -5,6 +5,8 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
+import mariculture.core.helpers.BlockTransferHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
@@ -17,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 public abstract class TileMachine extends TileStorage implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
+	protected BlockTransferHelper helper;
 	//General Tick
 	private int machineTick = 0;
 	//Upgrade Stats
@@ -73,12 +76,15 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	public void updateEntity() {
 		super.updateEntity();
 		
+		if(helper == null)
+			helper = new BlockTransferHelper(this);
+		
 		machineTick++;
 		if(onTick(20)) {
 			updateUpgrades();
 		}
 		
-		if(onTick(30)) {
+		if(onTick(Extra.CAN_WORK_TICK)) {
 			canWork = canWork();
 		}
 		

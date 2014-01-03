@@ -8,14 +8,12 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.ItemTransferHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class TileAutofisher extends TileMachinePowered implements IHasNotification {
@@ -185,7 +183,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		ItemStack lootResult = Fishing.loot.getLoot(Rand.rand, quality, worldObj, xCoord, yCoord, zCoord);
 
 		if (lootResult != null) {
-			new ItemTransferHelper(this).insertStack(lootResult, out);
+			helper.insertStack(lootResult, out);
 		}
 		
 		if(inventory[rod].getItem() instanceof IEnergyContainerItem) {

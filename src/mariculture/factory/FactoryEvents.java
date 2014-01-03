@@ -275,24 +275,4 @@ public class FactoryEvents {
 			}
 		}
 	}
-
-	public static ItemStack handleFill(ItemStack item, boolean doFill, int amount) {
-		if (item.getItem() instanceof ItemArmorFLUDD) {
-			ItemStack fludd = item.copy();
-			int water = 0;
-			if (fludd.hasTagCompound()) {
-				water = fludd.stackTagCompound.getInteger("water");
-			}
-
-			if (water + amount < ItemArmorFLUDD.STORAGE) {
-				if (doFill) {
-					fludd.stackTagCompound.setInteger("water", water + amount);
-				}
-
-				return fludd;
-			}
-		}
-
-		return null;
-	}
 }

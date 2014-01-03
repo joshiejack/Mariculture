@@ -8,7 +8,6 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.ItemTransferHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.PlansMeta;
@@ -131,15 +130,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	//Process the stuffs!
 	public void saw() {
 		ItemStack result = getResult();
-		if(setting.canEject(EjectSetting.ITEM)) {
-			new ItemTransferHelper(this).insertStack(result, new int[] { OUT });
-		} else {
-			if (this.inventory[OUT] == null) {
-				this.inventory[OUT] = result.copy();
-			} else if (this.inventory[OUT].isItemEqual(result)) {
-				inventory[OUT].stackSize += result.stackSize;
-			}
-		}
+		helper.insertStack(result, new int[] { OUT });
 
 		for (int i = TOP; i < TOP + 6; i++) {
 			--this.inventory[i].stackSize;

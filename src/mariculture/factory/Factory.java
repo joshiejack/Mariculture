@@ -1,7 +1,12 @@
 package mariculture.factory;
 
 
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.Map;
+
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.core.RecipeOven;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.helpers.RecipeHelper;
@@ -21,6 +26,7 @@ import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
+import mariculture.core.util.FluidDictionary;
 import mariculture.diving.Diving;
 import mariculture.factory.blocks.BlockCustomBlock;
 import mariculture.factory.blocks.BlockCustomFence;
@@ -57,7 +63,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockHalfSlab;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -99,6 +107,7 @@ public class Factory extends Module {
 
 	@Override
 	public void registerHandlers() {
+		MaricultureHandlers.oven = new OvenRecipeHandler();
 		MaricultureHandlers.turbine = new GasTurbineHandler();
 		MinecraftForge.EVENT_BUS.register(new FactoryEvents());
 	}
@@ -263,12 +272,13 @@ public class Factory extends Module {
 		
 		//Pressure Vessel
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
-			"WLW", "PTP", "PSP",
+			"WLW", "PTP", "MSM",
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET),
 			Character.valueOf('T'), new ItemStack(Core.tankBlocks, 1, TankMeta.TANK),
-			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE)
+			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE),
+			Character.valueOf('M'), "ingotMagnesium"
 		});
 		
 		//Sorter
@@ -356,5 +366,21 @@ public class Factory extends Module {
 			Character.valueOf('I'), "ingotTitanium",
 			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 7)
 		});	
+		
+		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas, 1.0F);
+		
+	//Oven Recipes
+		Map map = FurnaceRecipes.smelting().getSmeltingList();
+		Iterator it = map.entrySet().iterator();
+		while (it.hasNext()) {
+		 	Map.Entry pairs = (Map.Entry)it.next();
+		 	Integer id = (Integer) pairs.getKey();
+		 	ItemStack result = (ItemStack) pairs.getValue();
+		 	ItemStack stack = new ItemStack(id, 1, 0);
+		 	if(stack.getItem() instanceof ItemFood) {
+		 		System.out.println(stack + " . " + result);
+			 	MaricultureHandlers.oven.addRecipe(new RecipeOven(stack, result));
+		 	}
+		 }
 	}
 }

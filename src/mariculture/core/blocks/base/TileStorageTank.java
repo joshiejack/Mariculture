@@ -1,27 +1,19 @@
 package mariculture.core.blocks.base;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.helpers.cofh.StringHelper;
-import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileStorageTank extends TileStorage implements IFluidHandler, ITank {
 	
-	protected FluidTransferHelper transfer;
 	public Tank tank;
 
 	@Override
@@ -98,11 +90,5 @@ public class TileStorageTank extends TileStorage implements IFluidHandler, ITank
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
-	}
-	
-	public void updateEntity() {
-		super.updateEntity();
-		if(transfer == null)
-			transfer = new FluidTransferHelper(this);
 	}
 }

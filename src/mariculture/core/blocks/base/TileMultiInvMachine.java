@@ -5,6 +5,8 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
+import mariculture.core.helpers.BlockTransferHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
@@ -17,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 public abstract class TileMultiInvMachine extends TileMultiInv implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
+	protected BlockTransferHelper helper;
 	// General Tick
 	private int machineTick = 0;
 	// Upgrade Stats
@@ -76,7 +79,7 @@ public abstract class TileMultiInvMachine extends TileMultiInv implements IUpgra
 			updateUpgrades();
 		}
 
-		if (onTick(30)) {
+		if (onTick(Extra.CAN_WORK_TICK)) {
 			canWork = canWork();
 		}
 
@@ -84,6 +87,9 @@ public abstract class TileMultiInvMachine extends TileMultiInv implements IUpgra
 	}
 	
 	public void updateAll() {
+		if(helper == null)
+			helper = new BlockTransferHelper(this);
+		
 		updateSlaveMachine();
 	}
 

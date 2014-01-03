@@ -1,31 +1,68 @@
 package mariculture.core.blocks;
 
-import java.util.Random;
-
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.core.Core;
-import mariculture.core.blocks.base.TileMultiInvTankMachine;
-import mariculture.core.gui.ContainerMariculture;
-import mariculture.core.helpers.DictionaryHelper;
-import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.HeatHelper;
-import mariculture.core.helpers.FluidTransferHelper;
-import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.lib.MetalRates;
-import mariculture.core.network.Packets;
-import mariculture.core.util.IProgressable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import mariculture.core.blocks.base.TileMultiMachineTank;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
+import mariculture.core.lib.MachineSpeeds;
+import mariculture.core.util.IHasNotification;
 
+public class TileLiquifier extends TileMultiMachineTank implements IHasNotification {
+
+	public TileLiquifier() {
+		max = MachineSpeeds.getLiquifierSpeed();
+		inventory = new ItemStack[9];
+	}
+	
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return null;
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+		return false;
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		return null;
+	}
+
+	@Override
+	public boolean isNotificationVisible(NotificationType type) {
+		return false;
+	}
+
+	@Override
+	public boolean canWork() {
+		return false;
+	}
+
+	@Override
+	public void updateMasterMachine() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSlaveMachine() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProcess() {
+		return "melted";
+	}
+}
+
+/*
 public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInventory, IProgressable {
 
 	private static class FuelHandler {
@@ -343,15 +380,11 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 	}
 
 	private void moveLiquidNextDoor() {
-		/** If redstone signal stop sending liquid **/
 		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {
 			return;
 		}
 
 		int drainAmount = (this.purity < 1) ? 100 : this.purity * 100;
-
-		FluidTransferHelper transfer = new FluidTransferHelper(this);
-		transfer.transfer(rand, new int[] { drainAmount, 100, 20, 1 });
 	}
 	
 	public int getBurnTimeRemainingScaled(int par1) {
@@ -507,3 +540,4 @@ public class TileLiquifier extends TileMultiInvTankMachine implements ISidedInve
 		return false;
 	}
 }
+*/

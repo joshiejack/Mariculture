@@ -140,10 +140,7 @@ public class ContainerSawmill extends ContainerMachine {
 		}
 	}
 
-	public class SlotPlan extends Slot {
-		private EntityPlayer thePlayer;
-		private int field_75228_b;
-
+	private class SlotPlan extends Slot {
 		public SlotPlan(IInventory inv, int id, int x, int y) {
 			super(inv, id, x, y);
 		}
@@ -151,15 +148,6 @@ public class ContainerSawmill extends ContainerMachine {
 		@Override
 		public boolean isItemValid(ItemStack stack) {
 			return stack.getItem() instanceof ItemPlan;
-		}
-
-		@Override
-		public ItemStack decrStackSize(final int par1) {
-			if (this.getHasStack()) {
-				this.field_75228_b += Math.min(par1, this.getStack().stackSize);
-			}
-
-			return super.decrStackSize(par1);
 		}
 	}
 }

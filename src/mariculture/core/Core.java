@@ -2,6 +2,8 @@ package mariculture.core;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import mariculture.api.core.EnumBiomeType;
@@ -47,6 +49,7 @@ import mariculture.core.handlers.SettlerRecipeHandler;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
@@ -145,6 +148,14 @@ public class Core extends Module {
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
 		if(RetroGeneration.ENABLED)
 			MinecraftForge.EVENT_BUS.register(new RetroGen());
+		
+		//Initalise our Side Helper
+		List<Integer> sides = new ArrayList<Integer>();
+		for(int i = 0; i < 6; i++) {
+			sides.add(i);
+		}
+		
+		BlockTransferHelper.sides = sides;
 	}
 
 	@Override

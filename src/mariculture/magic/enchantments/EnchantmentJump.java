@@ -34,7 +34,7 @@ public class EnchantmentJump extends EnchantmentJewelry {
 	private static int damageTicker = 0;
 
 	public static void activate(EntityPlayer player) {
-		if (jumpHeight > 0 && !player.isSneaking() && KeyHelper.ACTIVATE_PRESSED) {
+		if (jumpHeight > 0 && !player.isSneaking() && KeyHelper.ACTIVATE_PRESSED && player.onGround) {
 			player.motionY *= jumpHeight;
 		}
 

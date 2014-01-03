@@ -6,7 +6,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileAirPump.Type;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
@@ -14,7 +14,6 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.network.Packets;
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.BlockCustomHelper;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileGeyser;
 import mariculture.factory.blocks.TileTurbineBase;
@@ -23,6 +22,7 @@ import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.fishery.blocks.TileFeeder;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -103,14 +103,14 @@ public class BlockSingle extends BlockMachine {
 			}
 			
 			if(tile instanceof TileGeyser) {
-				int orient = ((TileGeyser)tile).orientation.ordinal();
-				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(++orient % 6);
+				((TileGeyser)tile).orientation = BlockHelper.rotate(((TileGeyser)tile).orientation);
 				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				world.markBlockForRenderUpdate(x, y, z);
 			}
 		}
 		return false;
 	}
-
+	
 	@Override
 	public void onPostBlockPlaced(World world, int x, int y, int z, int side) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
@@ -220,17 +220,17 @@ public class BlockSingle extends BlockMachine {
 		case SingleMeta.GEYSER:
 			TileGeyser geyser = (TileGeyser)block.getBlockTileEntity(x, y, z);
 			if(geyser.orientation == ForgeDirection.UP)
-				setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
+				setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.25F, 0.9F);
 			if(geyser.orientation == ForgeDirection.DOWN)
-				setBlockBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+				setBlockBounds(0.1F, 0.75F, 0.1F, 0.9F, 1.0F, 0.9F);
 			if(geyser.orientation == ForgeDirection.EAST)
-				setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+				setBlockBounds(0.0F, 0.1F, 0.1F, 0.25F, 0.9F, 0.9F);
 			if(geyser.orientation == ForgeDirection.WEST)
-				setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+				setBlockBounds(0.75F, 0.1F, 0.1F, 1F, 0.9F, 0.9F);
 			if(geyser.orientation == ForgeDirection.SOUTH)
-				setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+				setBlockBounds(0.1F, 0.1F, 0.0F, 0.9F, 0.9F, 0.25F);
 			if(geyser.orientation == ForgeDirection.NORTH)
-				setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+				setBlockBounds(0.1F, 0.1F, 0.75F, 0.9F, 0.9F, 1.0F);
 			break;
 		case SingleMeta.BUCKET:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
@@ -296,7 +296,7 @@ public class BlockSingle extends BlockMachine {
 				((TileAirPump) tile).updateAirArea(Type.CLEAR);
 			}
 		}
-		InventoHelper.dropItems(world, x, y, z);
+		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
 
@@ -344,6 +344,14 @@ public class BlockSingle extends BlockMachine {
 		}
 
 		return this.blockID;
+	}
+	
+	@Override
+	public Icon getIcon(int side, int meta) {
+		if(meta == SingleMeta.GEYSER)
+			return Block.hopperBlock.getIcon(0, 0);
+		
+		return blockIcon;
 	}
 
 	@Override

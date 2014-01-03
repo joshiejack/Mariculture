@@ -10,7 +10,6 @@ import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.InventoHelper;
 import mariculture.core.lib.Text;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,7 +26,7 @@ public class GuiLiquifier extends GuiMariculture {
 		features.add(new FeatureArrow(tile, 65, 41));
 	}
 
-	@Override
+/*	@Override
 	public void addToolTip() {		
 		super.addToolTip();
 		if (mouseX >= 12 && mouseX <= 16 && mouseY >= 18 && mouseY <= 77) {
@@ -72,7 +71,7 @@ public class GuiLiquifier extends GuiMariculture {
 
 		int temp = tile.getTemperatureScaled(60);
 		this.drawTexturedModalRect(x + 12, y + 18 + 60 - temp, 251, 60 - temp, 5, temp);
-	}
+	}*/
 
 	@Override
 	public int getX() {

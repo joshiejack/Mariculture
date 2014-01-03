@@ -33,7 +33,7 @@ public class Config {
                
             Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
-            Extra.REFRESH_CLIENT_RATE = config.get(Category.CLIENT, "Client Refresh Rate", 30, Comment.REFRESH).getInt();
+            Extra.REFRESH_CLIENT_RATE = config.get(Category.EXTRA, "Server-Client Refresh Rate", 30, Comment.REFRESH).getInt();
             Extra.DEBUG_ON = config.get(Category.EXTRA, "Debug Mode Enabled", false).getBoolean(false);
             Extra.METAL_RATE = config.get(Category.EXTRA, "Molten Metal Nugget mB Value", 16, Comment.METAL).getInt();
             Extra.FLUDD_WATER_ON = config.get(Category.CLIENT, "Enable FLUDD Animations", true, Comment.FLUDD).getBoolean(true);
@@ -79,7 +79,7 @@ public class Config {
             OreGeneration.NATURAL_GAS_MIN = config.get(Category.ORE, "Natural Gas > Minimum Y Height", 16).getInt();
             OreGeneration.NATURAL_GAS_MAX = config.get(Category.ORE, "Natural Gas > Maximum Y Height", 26).getInt();
 
-            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > BiomesOPlenty Forced", true, Comment.BIOMESOP_CORAL).getBoolean(true);
+            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > BiomesOPlenty Forced", false, Comment.BIOMESOP_CORAL).getBoolean(false);
             WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);
             WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 32).getInt();
             WorldGeneration.CORAL_DEPTH = config.get(Category.WORLD, "Coral > Maximum Depth", 25).getInt();
@@ -91,7 +91,7 @@ public class Config {
             WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp > Forest Generation", true).getBoolean(true);
             WorldGeneration.KELP_FOREST_DENSITY = config.get(Category.WORLD, "Kelp > Forest Density", 25).getInt();
             WorldGeneration.KELP_CHEST_CHANCE = config.get(Category.WORLD, "Kelp > 1 Treasure Chest Per This Many Kelp", 1024).getInt();
-            WorldGeneration.KELP_BIOMESOP = config.get(Category.WORLD, "Kelp > (Forest) BiomesOPlenty Forced", true, Comment.BIOMESOP_CORAL).getBoolean(true);
+            WorldGeneration.KELP_BIOMESOP = config.get(Category.WORLD, "Kelp > (Forest) BiomesOPlenty Forced", false, Comment.BIOMESOP_CORAL).getBoolean(false);
             WorldGeneration.DEEP_OCEAN = config.get(Category.WORLD, "Deep Oceans", true).getBoolean(true);
             WorldGeneration.WATER_CAVES = config.get(Category.WORLD, "Water Filled Caves in Oceans", false).getBoolean(false);
             WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
@@ -151,7 +151,12 @@ public class Config {
             MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 350).getInt();
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
             MachineSpeeds.settler = config.get(Category.SPEED, "Industrial Freezer", 60000).getInt();
+            MachineSpeeds.oven = config.get(Category.SPEED, "Gas Oven", 450).getInt();
 
+            Extra.GEYSER_ANIM = config.get(Category.CLIENT, "Geyser - Enable Particles", true).getBoolean(true);
+            Extra.FLUDD_BLOCK_ANIM = config.get(Category.CLIENT, "FLUDD - Enable Particles", true).getBoolean(true);
+            
+            Extra.CAN_WORK_TICK = config.get(Category.EXTRA, "Can Work Tick", 20, Comment.CAN_WORK_TICK).getInt();
             Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
             Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
             Extra.DEATH_TICKER = config.get(Category.EXTRA, "Fish Feeder > Death Tick", 20, Comment.DEATH_TICK).getInt();

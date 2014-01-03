@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileSettler;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.Extra;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -44,7 +44,7 @@ public class GuiSettler extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y)
     {
-        this.fontRenderer.drawString(InventoHelper.getName(tile), 52, 4, 4210752);
+        this.fontRenderer.drawString(BlockHelper.getName(tile), 52, 4, 4210752);
     }
 
 	@Override

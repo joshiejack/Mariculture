@@ -26,8 +26,6 @@ public class BlockGround extends BlockDecorative {
 		switch (world.getBlockMetadata(x, y, z)) {
 		case GroundMeta.BUBBLES:
 			return 0.5F;
-		case GroundMeta.GEYSER:
-			return 0.75F;
 		}
 
 		return 3F;
@@ -36,14 +34,15 @@ public class BlockGround extends BlockDecorative {
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		int meta = world.getBlockMetadata(x, y, z);
-		String type = (meta == GroundMeta.BUBBLES)? "bubble": "cloud";
-		for(int i = y; BlockHelper.isWater(world, x, i + 1, z); i++) {
-			for (int j = 0; j < 2; ++j)  {
-                float f = rand.nextFloat() - rand.nextFloat();
-                float f1 = rand.nextFloat() - rand.nextFloat();
-                float f2 = rand.nextFloat() - rand.nextFloat();
-                world.spawnParticle(type, x + 0.5D + (double)f, i + (double)f1, z + 0.5D + (double)f2, 0, 0, 0);
-            }
+		if(meta == GroundMeta.BUBBLES) {
+			for(int i = y; BlockHelper.isWater(world, x, i + 1, z); i++) {
+				for (int j = 0; j < 2; ++j)  {
+	                float f = rand.nextFloat() - rand.nextFloat();
+	                float f1 = rand.nextFloat() - rand.nextFloat();
+	                float f2 = rand.nextFloat() - rand.nextFloat();
+	                world.spawnParticle("bubble", x + 0.5D + (double)f, i + (double)f1, z + 0.5D + (double)f2, 0, 0, 0);
+	            }
+			}
 		}
 	}
 	

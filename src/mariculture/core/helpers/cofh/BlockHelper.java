@@ -148,32 +148,6 @@ public final class BlockHelper {
 		return 3;
 	}
 
-	/* UNSAFE Tile Entity Retrieval */
-	// public static TileEntity getAdjacentTileEntityUnsafe(World world, int x, int y, int z, ForgeDirection dir) {
-	//
-	// if (world == null) {
-	// return null;
-	// }
-	// Chunk chunk = world.getChunkFromBlockCoords(x + dir.offsetX, z + dir.offsetZ);
-	// return chunk == null ? null : chunk.getChunkBlockTileEntityUnsafe((x + dir.offsetX) & 0xF, y + dir.offsetY, (z + dir.offsetZ) & 0xF);
-	// }
-	//
-	// public static TileEntity getAdjacentTileEntityUnsafe(World world, int x, int y, int z, int side) {
-	//
-	// return world == null ? null : getAdjacentTileEntityUnsafe(world, x, y, z, ForgeDirection.values()[side]);
-	// }
-	//
-	// public static TileEntity getAdjacentTileEntityUnsafe(TileEntity refTile, ForgeDirection dir) {
-	//
-	// return refTile == null ? null : getAdjacentTileEntityUnsafe(refTile.worldObj, refTile.xCoord, refTile.yCoord, refTile.zCoord, dir);
-	// }
-	//
-	// public static TileEntity getAdjacentTileEntityUnsafe(TileEntity refTile, int side) {
-	//
-	// return refTile == null ? null : getAdjacentTileEntityUnsafe(refTile.worldObj, refTile.xCoord, refTile.yCoord, refTile.zCoord,
-	// ForgeDirection.values()[side]);
-	// }
-
 	/* Safe Tile Entity Retrieval */
 	public static TileEntity getAdjacentTileEntity(World world, int x, int y, int z, ForgeDirection dir) {
 

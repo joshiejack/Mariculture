@@ -13,7 +13,6 @@ import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.ItemTransferHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Text;
@@ -314,7 +313,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					
 					ItemStack product = Fishing.fishHelper.getSpecies(speciesID).getProduct(Rand.rand);
 					if(product != null)
-						new ItemTransferHelper(this).insertStack(product, out);
+						helper.insertStack(product, out);
 
 					//If we have the eternal female upgrade, we need to force generate eggs if the fish is a girl
 					if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishHelper.FEMALE) {
@@ -325,7 +324,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 							if (fishMale != null && fishMale.hasTagCompound()) {
 								if (!Fishing.fishHelper.isEgg(fishMale)) {
 									ItemStack egg = Fishing.fishHelper.generateEgg(inventory[male], inventory[female]);
-									new ItemTransferHelper(this).insertStack(egg, out);
+									helper.insertStack(egg, out);
 								}
 							}
 						}
@@ -335,7 +334,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					if (MaricultureHandlers.upgrades.hasUpgrade("male", this) && gender == FishHelper.MALE) {
 						product = Fishing.fishHelper.getSpecies(speciesID).getProduct(Rand.rand);
 						if(product != null)
-							new ItemTransferHelper(this).insertStack(product, out);
+							helper.insertStack(product, out);
 					}
 				}
 			}
@@ -379,14 +378,14 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					rawFish.setItemDamage(species);
 
 					if (rawFish != null)
-						new ItemTransferHelper(this).insertStack(rawFish, out);
+						helper.insertStack(rawFish, out);
 
 					if (gender == FishHelper.FEMALE) {
 						ItemStack fishMale = inventory[male];
 						if (fishMale != null && fishMale.hasTagCompound()) {
 							if (!Fishing.fishHelper.isEgg(fishMale)) {
 								ItemStack egg = Fishing.fishHelper.generateEgg(inventory[male], inventory[female]);
-								new ItemTransferHelper(this).insertStack(egg, out);
+								helper.insertStack(egg, out);
 							}
 						}
 					}

@@ -17,10 +17,12 @@ public class GasTurbineHandler implements IGasTurbine {
 	@Override
 	public float getModifier(FluidStack fluid) {
 		if(fluid != null) {
-			String name = FluidRegistry.getFluidName(fluid);
-			if(name != null) {
-				if(gas.get(name) != null) {
-					return (Float) gas.get(name);
+			if(fluid.amount > 0) {
+				String name = FluidRegistry.getFluidName(fluid);
+				if(name != null) {
+					if(gas.get(name) != null) {
+						return (Float) gas.get(name);
+					}
 				}
 			}
 		}

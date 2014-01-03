@@ -1,14 +1,10 @@
 package mariculture.factory.blocks;
 
-import java.util.Random;
-
 import mariculture.api.core.IBlacklisted;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileTank;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.FluidTransferHelper;
-import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.block.material.Material;
@@ -289,14 +285,14 @@ public class TileSluice extends TileTank implements IBlacklisted {
 	}
 
 	private void transfer() {
-		if(facing != 3)
-			transfer.transfer(ForgeDirection.WEST, rate);
+		/*if(facing != 3)
+			//transfer.transfer(ForgeDirection.WEST, rate);
 		if(facing != 2)
-			transfer.transfer(ForgeDirection.WEST, rate);
+			//transfer.transfer(ForgeDirection.WEST, rate);
 		if(facing != 1)
-			transfer.transfer(ForgeDirection.NORTH, rate);
+			//transfer.transfer(ForgeDirection.NORTH, rate);
 		if(facing != 0)
-			transfer.transfer(ForgeDirection.SOUTH, rate);
+			//transfer.transfer(ForgeDirection.SOUTH, rate); */
 	}
 
 	private void fillSluice() {

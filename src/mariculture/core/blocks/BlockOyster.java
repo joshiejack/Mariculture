@@ -11,7 +11,7 @@ import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.MachineSpeeds;
@@ -45,7 +45,7 @@ public class BlockOyster extends BlockMachine {
 
 	public BlockOyster(int i) {
 		super(i, Material.ice);
-		this.setTickRandomly(true);
+		setTickRandomly(true);
 	}
 	
 	@Override
@@ -200,7 +200,7 @@ public class BlockOyster extends BlockMachine {
 						}
 					}
 
-					InventoHelper.dropItems(world, x, y, z);
+					BlockHelper.dropItems(world, x, y, z);
 					oyster.setInventorySlotContents(0, null);
 					oyster.update();
 					return true;
@@ -253,7 +253,7 @@ public class BlockOyster extends BlockMachine {
 			if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
 				ItemStack loot = Fishing.loot.getLoot(rand, EnumRodQuality.OLD, world, x, y, z);
 				if (loot != null && loot.getItem() instanceof ItemFishy) {
-					InventoHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
+					ItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
 				}
 			}
 		}

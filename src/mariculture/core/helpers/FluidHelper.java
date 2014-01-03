@@ -17,6 +17,22 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class FluidHelper {
+	public static void process(IInventory invent, int in, int out) {
+		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
+		if (result != null) {
+			invent.decrStackSize(in, 1);
+			if(result.itemID != Core.airBlocks.blockID) {
+				if (invent.getStackInSlot(out) == null) {
+					invent.setInventorySlotContents(out, result.copy());
+				} else if (invent.getStackInSlot(out).itemID == result.itemID) {
+					ItemStack stack = invent.getStackInSlot(out);
+					++stack.stackSize;
+					invent.setInventorySlotContents(out, stack);
+				}
+			}
+		}
+	}
+	
 	public static boolean isFluidOrEmpty(ItemStack stack) {
 		return isEmpty(stack) || isFilled(stack) || isVoid(stack);
 	}

@@ -52,8 +52,9 @@ tile.woodBlocks.baseWood.name=Wooden Construction Block
 tile.woodBlocks.polishedPlank.name=Polished Planks
 tile.woodBlocks.polishedLog.name=Polished Logs
 tile.tankBlocks.normal.name=Fluid Tank
+tile.groundBlocks.gas.name=Sand
 #fluids
-fluid.highPressureWater=Pressurised Water
+fluid.fastwater=Pressurised Water
 tile.highPressureWater.name=Pressurised Water
 fluid.moltenrutile=Impure Molten Titanium
 fluid.moltenRutile=Impure Molten Titanium
@@ -85,7 +86,7 @@ fluid.moltenNickel=Molten Nickel
 tile.moltenNickel.name=Molten Nickel
 fluid.moltenGlass=Molten Glass
 tile.moltenGlass.name=Molten Glass
-fluid.naturalGas=Natural Gas
+fluid.natural_gas=Natural Gas
 tile.naturalGas.name=Natural Gas
 
 #items

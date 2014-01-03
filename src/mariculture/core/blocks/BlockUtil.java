@@ -5,7 +5,8 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileMulti;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
@@ -15,6 +16,7 @@ import mariculture.core.network.Packet101Sponge;
 import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFishSorter;
+import mariculture.factory.blocks.TileOven;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileSponge;
@@ -82,6 +84,10 @@ public class BlockUtil extends BlockMachine {
 		return 3F;
 	}
 	
+	public float getEnchantPowerBonus(World world, int x, int y, int z) {
+        return world.getBlockMetadata(x, y, z) == UtilMeta.BOOKSHELF ? 5 : 0;
+    }
+	
 	public void updateMaster(World world, int x, int y, int z) {
 		if(world.getBlockTileEntity(x, y, z) instanceof TileMulti) {
 			((TileMulti) world.getBlockTileEntity(x, y, z)).setMaster();
@@ -96,6 +102,11 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockBreak();
+		}
+		
 		updateMaster(world, x, y, z);
 		return super.removeBlockByPlayer(world, player, x, y, z);
     }
@@ -259,6 +270,16 @@ public class BlockUtil extends BlockMachine {
 			return false;
 		}
 		
+		if(tile instanceof TileMultiBlock) {
+			TileMultiBlock multi = (TileMultiBlock) tile;
+			if(multi.master != null) {
+				player.openGui(Mariculture.instance, -1, world, multi.master.xCoord, multi.master.yCoord, multi.master.zCoord);
+				return true;
+			}
+			
+			return false;
+		}
+		
 		if(tile instanceof IHasGUI) {
 			player.openGui(Mariculture.instance, -1, world, x, y, z);
 			return true;
@@ -294,6 +315,11 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockPlaced();
+		}
+		
 		updateMaster(world, x, y, z);
 		super.onBlockAdded(world, x, y, z);
 	}
@@ -323,6 +349,8 @@ public class BlockUtil extends BlockMachine {
             return new TileSponge();
         case UtilMeta.FISH_SORTER:
         	return new TileFishSorter();
+        case UtilMeta.GAS_OVEN:
+        	return new TileOven();
 		}
 
 		return null;
@@ -333,7 +361,7 @@ public class BlockUtil extends BlockMachine {
 	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
 		updateMaster(world, x, y, z);
 		
-		InventoHelper.dropItems(world, x, y, z);
+		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, meta);
 
 		if (meta == UtilMeta.SLUICE) {

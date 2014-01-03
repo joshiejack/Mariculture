@@ -1,288 +1,66 @@
 package mariculture.factory.blocks;
 
 import java.util.List;
-import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.Core;
+import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
+import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.network.Packets;
-import mariculture.factory.gui.ContainerFLUDDStand;
+import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.IHasNotification;
+import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLogic;
+import net.minecraft.block.material.MaterialTransparent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.world.World;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
+public class TileFLUDDStand extends TileMachineTank implements IHasNotification {
+	
 	public ForgeDirection orientation = ForgeDirection.UP;
-	private int distanceDo = 6;
-	private int damageAmount = 0;
-	private int blockBreakChance = 0;
-	private boolean ethereal = false;
-
-	private Random rand = new Random();
-
+	public static final int input = 3;
+	public static final int output = 4;
+	
 	public TileFLUDDStand() {
-		this.inventory = new ItemStack[5];
+		mode = RedstoneMode.HIGH;
 	}
-
-	private void doSquirt(World world, int distance, ForgeDirection direction, int baseX, int baseY, int baseZ, int tick) {
-		double x = baseX + direction.offsetX;
-		double y = baseY + direction.offsetY;
-		double z = baseZ + direction.offsetZ;
-		float zPlus = 0F;
-		float angleOfDecent = 1F / distance;
-
-		if (direction == ForgeDirection.UP || direction == ForgeDirection.DOWN) {
-			zPlus = 0.3F;
-		}
-		for (int count = 0; count < distance; count++) {
-			List list = this.worldObj.getEntitiesWithinAABB(
-					Entity.class,
-					this.getBlockType().getCollisionBoundingBoxFromPool(this.worldObj,
-							(int) (x + (direction.offsetX * count)), (int) (y + (direction.offsetY * count)),
-							(int) (z + (direction.offsetZ * count))));
-
-			if (count < distance - 1) {
-				for (Object i : list) {
-					if (!ethereal) {
-						((Entity) i).addVelocity(this.orientation.offsetX * 0.15, this.orientation.offsetY * 0.042,
-								this.orientation.offsetZ * 0.15);
-
-						if (((Entity) i) instanceof EntityItem) {
-							EntityItem item = (EntityItem) ((Entity) i);
-							item.motionX = this.orientation.offsetX * 0.15;
-							item.motionZ = this.orientation.offsetZ * 0.15;
-							item.motionY = this.orientation.offsetY * 0.042;
-						}
-					} else {
-						((Entity) i).addVelocity((-this.orientation.offsetX) * 0.15,
-								(-this.orientation.offsetY) * 0.15, (-this.orientation.offsetZ) * 0.15);
-					}
-					if (direction == ForgeDirection.UP) {
-						((Entity) i).fallDistance = 0F;
-					}
-					if (((Entity) i) instanceof EntityLivingBase) {
-						if (this.damageAmount > 0) {
-							((Entity) i).attackEntityFrom(MaricultureDamage.scald, this.damageAmount / 2);
-						}
-
-					}
-				}
-			}
-
-			if (!this.worldObj.isRemote && count == 0) {
-				for (Object i : list) {
-					if (((Entity) i) instanceof EntityItem) {
-						EntityItem item = (EntityItem) ((Entity) i);
-						int itemX = (int) Math.ceil(item.posX);
-						if ((this.xCoord + this.orientation.offsetX) + 1 == (int) Math.ceil(item.posX)) {
-							if ((this.zCoord + this.orientation.offsetZ) + 1 == (int) Math.ceil(item.posZ)) {
-								if ((this.yCoord + this.orientation.offsetY) + 1 == (int) Math.ceil(item.posY)) {
-									ItemStack stack = item.getEntityItem();
-									if (InventoHelper.addToInventory(0, this.worldObj, this.xCoord, this.yCoord,
-											this.zCoord, stack, null)) {
-										item.setDead();
-									}
-								}
-
-							}
-						}
-					}
-				}
-			}
-
-			for (float half = -0.5F; half < 0.5F; half = half + 0.25F) {
-				if (this.worldObj.isAirBlock((int) (x + (direction.offsetX * count)),
-						(int) (y + (direction.offsetY * count)), (int) (z + (direction.offsetZ * count)))) {
-					if (tick == 0) {
-						this.worldObj.spawnParticle("cloud", x + (direction.offsetX * count) + 0.5F
-								+ (half * direction.offsetX), y + (direction.offsetY * count) + 0.8F
-								- (count * angleOfDecent) + (half * direction.offsetY), z + (direction.offsetZ * count)
-								+ 0.5F + (half * direction.offsetZ) + zPlus, 0, 0, 0);
-					}
-
-					if (!this.worldObj.isAirBlock((int) (x + (direction.offsetX * (count + 1))),
-							(int) (y + (direction.offsetY * (count + 1))),
-							(int) (z + (direction.offsetZ * (count + 1))))) {
-						this.worldObj.spawnParticle("splash", x + (direction.offsetX * count) + 0.5F, y
-								+ (direction.offsetY * count) + 0.8F - (count * 0.1F), z + (direction.offsetZ * count)
-								+ 0.5F + zPlus, 0, 0, 0);
-
-						if (this.blockBreakChance > 0) {
-
-							double strength = blockBreakChance * 0.5;
-							int chance = ((45 - blockBreakChance) + 25) * 15;
-
-							if (chance <= 1) {
-								chance = 1;
-							}
-
-							if (rand.nextInt(chance) == 0) {
-								int x2 = (int) (x + (direction.offsetX * (count + 1)));
-								int y2 = (int) (y + (direction.offsetY * (count + 1)));
-								int z2 = (int) (z + (direction.offsetZ * (count + 1)));
-
-								if (Block.blocksList[world.getBlockId(x2, y2, z2)] != null) {
-
-									Block block = Block.blocksList[world.getBlockId(x2, y2, z2)];
-									float hardness = block.getBlockHardness(this.worldObj, x2, y2, z2);
-									if (strength >= hardness && hardness >= 0) {
-										this.worldObj.destroyBlock(x2, y2, z2, true);
-									}
-								}
-							}
-						}
-					}
-				} else {
-					count = distance;
-				}
-			}
-		}
-	}
-
-	private void processContainers() {
-		ItemStack result = FluidHelper.getFluidResult(this, inventory[3], inventory[4]);
-		if (result != null) {
-			decrStackSize(3, 1);
-			if (this.inventory[4] == null) {
-				this.inventory[4] = result.copy();
-			} else if (this.inventory[4].itemID == result.itemID) {
-				++this.inventory[4].stackSize;
-			}
-		}
-	}
-
-	@Override
-	public void updateMachine() {
-		//super.updateMachine();
-
-		if (onTick(20)) {
-			processContainers();
-		}
-
-		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && tank.getFluidAmount() > 0) {
-
-			//doSquirt(this.worldObj, distanceDo, orientation, this.xCoord, this.yCoord, this.zCoord, machineTick %4);
-
-			if (onTick(10)) {
-				this.drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), distanceDo/6), true);
-
-				if (tank.getFluidAmount() == 0) {
-					Packets.updateTile(this, 32, getDescriptionPacket());
-				}
-			}
-		}
-	}
-
+	
 	@Override
 	public int getTankCapacity(int count) {
 		return ((FluidContainerRegistry.BUCKET_VOLUME * 20) + (count * (FluidContainerRegistry.BUCKET_VOLUME * 4)));
 	}
-
-	@Override
-	public void updateUpgrades() {
-		super.updateUpgrades();
-		// Max Liquid Volume
-		int purityCount = MaricultureHandlers.upgrades.getData("purity", this);
-		int heatAmount = MaricultureHandlers.upgrades.getData("temp", this);
-
-		this.ethereal = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this);
-		
-		if(heatAmount > 0) {
-			blockBreakChance = 0;
-			damageAmount = (heatAmount * 2);
-		} else if(heatAmount < 0) {
-			damageAmount = 0;
-			blockBreakChance = -heatAmount;
-			if(blockBreakChance <= 0) {
-				blockBreakChance = 1;
-			}
-		} else {
-			damageAmount = 0;
-			blockBreakChance = 0;
-		}
-
-		distanceDo = 6 + (purityCount * 5);
-		if (distanceDo <= 0) {
-			distanceDo = 1;
-		}
-
-		Packets.updateTile(this, 32, getDescriptionPacket());
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.orientation = ForgeDirection.getOrientation(tagCompound.getInteger("Orientation"));
-		this.distanceDo = tagCompound.getInteger("distanceDo");
-		this.damageAmount = tagCompound.getInteger("damageAmount");
-		this.blockBreakChance = tagCompound.getInteger("blockBreakChance");
-		this.ethereal = tagCompound.getBoolean("ethereal");
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("Orientation", orientation.ordinal());
-		tagCompound.setInteger("distanceDo", this.distanceDo);
-		tagCompound.setInteger("damageAmount", this.damageAmount);
-		tagCompound.setInteger("blockBreakChance", this.blockBreakChance);
-		tagCompound.setBoolean("ethereal", this.ethereal);
-	}
-
-	@Override
-	public Packet getDescriptionPacket() {		
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
-	}
-
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		this.readFromNBT(packet.data);
-	}
-
-	public void getGUINetworkData(int i, int j) {
-		super.getGUINetworkData(i, j);
-	}
-
-	public void sendGUINetworkData(ContainerFLUDDStand container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-	}
-
-	/** Upgrade Stuff **/
-	@Override
-	public ItemStack[] getUpgrades() {
-		return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
-	}
-
-	private static final int[] slots_top = new int[] { 3 };
-	private static final int[] slots_bottom = new int[] { 4 };
-	private static final int[] slots_sides = new int[] { 3, 4 };
-
+	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return side == 0 ? slots_bottom : (side == 1 ? slots_top : slots_sides);
+		return new int[] { input, output };
 	}
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return this.isItemValidForSlot(slot, stack);
+		return slot == input && FluidHelper.isFluidOrEmpty(stack);
 	}
 
 	@Override
@@ -291,22 +69,182 @@ public class TileFLUDDStand extends TileMachineTank implements ISidedInventory {
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return slot == 3 && FluidHelper.isFluidOrEmpty(stack);
+	public void updateMachine() {
+		if (canWork) {
+			doSquirt();
+				
+			if(onTick(100)) {
+				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), getWaterUsage()), true);
+				Packets.updateTile(this, 32, getDescriptionPacket());
+			}
+		}
+	}
+	
+	private void doSquirt() {
+		float hardnessMax = (-heat) * 2;
+		boolean reverse = hasEthereal();
+		double boostXZ = getBoostXZ();
+		double boostY = getBoostY();
+		double x, y, z;
+		for(int dist = 0; dist < getDistance(); dist ++) {
+			x = xCoord + (orientation.offsetX * dist);
+			y = yCoord + (orientation.offsetY * dist);
+			z = zCoord + (orientation.offsetZ * dist);
+			
+			if(dist > 0) {
+				Material mat = worldObj.getBlockMaterial((int)x, (int)y, (int)z);
+				if(!(mat instanceof MaterialLogic || mat instanceof MaterialTransparent || isNet((int)x, (int)y , (int)z)))
+					return;
+			}
+				
+			List list = this.worldObj.getEntitiesWithinAABB(Entity.class, 
+					Block.stone.getCollisionBoundingBoxFromPool(this.worldObj, (int)x, (int)y, (int)z));
+			
+			//Entity Stuff
+			for(Object i: list) {
+				Entity entity = (Entity) i;
+				if(dist == 1 && !worldObj.isRemote && onTick(20) && reverse && entity instanceof EntityItem) {
+					EntityItem item = (EntityItem) entity;
+					ItemStack stack = item.getEntityItem();
+					TileEntity tile = worldObj.getBlockTileEntity(xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
+					if(tile != null && tile instanceof IInventory) {
+						ItemStack newStack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, orientation.getOpposite().ordinal());
+						if(newStack == null)
+							item.setDead();
+						else
+							item.setEntityItemStack(newStack);
+					}
+				}
+				
+				if(orientation != ForgeDirection.UP) {
+					if(reverse)
+						entity.addVelocity(-orientation.offsetX * boostXZ, -orientation.offsetY * boostXZ, -orientation.offsetZ * boostXZ);
+					else
+						entity.addVelocity(orientation.offsetX * boostXZ, orientation.offsetY * boostXZ, orientation.offsetZ * boostXZ);
+				} else {
+					if(entity.motionY <= boostY - 0.1) {
+						entity.motionY+=boostY;
+						if(entity instanceof EntityItem) {
+							entity.motionY+=0.015;
+							entity.motionX = 0;
+							entity.motionZ = 0;
+						}
+					}
+				}
+				
+				if(heat > 0 && entity instanceof EntityLivingBase) {
+					entity.attackEntityFrom(MaricultureDamage.scald, heat/2);
+				}
+			}
+			
+			//Block Stuff
+			if (heat < 0) {
+				int x2 = (int) (x + orientation.offsetX);
+				int y2 = (int) (y + orientation.offsetY);
+				int z2 = (int) (z + orientation.offsetZ);
+				Block block = Block.blocksList[worldObj.getBlockId(x2, y2, z2)];
+				if(block != null) {
+					float blockHardness = block.getBlockHardness(worldObj, x2, y2, z2);
+					if(worldObj.isRemote) {
+						block.addBlockHitEffects(worldObj, 
+								new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), 
+										worldObj.getWorldVec3Pool().getVecFromPool(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
+					}
+					int chance = (int) (((blockHardness * 10) > 0)? (blockHardness * 10): 10);
+					if(Rand.nextInt(chance)) {
+						if(blockHardness <= hardnessMax) {
+							int meta = worldObj.getBlockMetadata(x2, y2, z2);
+							if(worldObj.isRemote)
+								block.addBlockDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
+							FakePlayer player = new FakePlayer(worldObj, "fludd");
+							if (block.removeBlockByPlayer(worldObj, player, x2, y2, z2)) {
+	                             block.onBlockDestroyedByPlayer(worldObj, x2, y2, z2, meta);
+	                        }
+							
+	                        block.harvestBlock(worldObj, player, x2, y2, z2, meta);
+	                        block.onBlockHarvested(worldObj, x2, y2, z2, meta, player);
+						}
+					}
+				}
+			}
+			
+			if(worldObj.isRemote) {
+				if(onTick(4)) {
+					for(float i = dist > 0? -0.45F: 0.3F; i <= 0.35F; i+=0.05F) {
+						worldObj.spawnParticle("cloud", x + 0.5F + (i * orientation.offsetX), 
+								y + 0.7F + (i * orientation.offsetY), z + 0.5F + (i * orientation.offsetZ), 0, 0, 0);
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
+	public boolean canWork() {
+		return tank.getFluidAmount() > 0 && tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.hp_water) && RedstoneMode.canWork(this, mode);
+	}
+	
+	private boolean isNet(int x, int y, int z) {
+		return worldObj.getBlockId(x, y, z) == Core.oysterBlock.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+	}
+	
+	private boolean hasEthereal() {
+		return MaricultureHandlers.upgrades.hasUpgrade("ethereal", this);
+	}
+	
+	private int getWaterUsage() {
+		return (getDistance() / 8) + ((heat >= 0)? heat: -heat) + (hasEthereal() ? 10: 0) + speed;
+	}
+	
+	private int getDistance() {
+		return (purity + 1) * 8;
+	}
+	
+	private double getBoostXZ() {
+		return speed * 0.025;
+	}
+	
+	private double getBoostY() {
+		double boost = (speed <= 4)? 0.15: (speed <= 8)? 0.1: (speed <= 12)? 0.05: 0.025;
+		return speed * boost;
 	}
 
 	@Override
 	public EjectSetting getEjectType() {
-		return null;
+		return EjectSetting.FLUID;
 	}
 
 	@Override
-	public boolean canWork() {
+	public boolean isNotificationVisible(NotificationType type) {
 		return false;
 	}
 
 	@Override
 	public String getProcess() {
-		return null;
+		return "";
+	}
+	
+	@Override
+	public Packet getDescriptionPacket() {		
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
+	}
+
+	@Override
+	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
+		readFromNBT(packet.data);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setInteger("Orientation", orientation.ordinal());
 	}
 }

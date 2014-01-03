@@ -1,7 +1,7 @@
 package mariculture.core.gui;
 
 import mariculture.core.blocks.TileBookshelf;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.BlockHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -19,7 +19,7 @@ public class GuiBookshelf extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-        this.fontRenderer.drawString(InventoHelper.getName(tile), 42, 6, 4210752);
+        this.fontRenderer.drawString(BlockHelper.getName(tile), 42, 6, 4210752);
     }
 
 	@Override

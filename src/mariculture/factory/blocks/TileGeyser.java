@@ -1,229 +1,168 @@
 package mariculture.factory.blocks;
 
 import java.util.List;
-import java.util.Random;
 
-import mariculture.core.Mariculture;
-import mariculture.core.blocks.base.TileStorageTank;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.Core;
+import mariculture.core.blocks.BlockOyster;
+import mariculture.core.blocks.base.TileTank;
+import mariculture.core.helpers.ItemHelper;
+import mariculture.core.helpers.cofh.InventoryHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLogic;
+import net.minecraft.block.material.MaterialTransparent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.world.World;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileGeyser extends TileStorageTank {
+public class TileGeyser extends TileTank {
 	public ForgeDirection orientation = ForgeDirection.UP;
-	protected int tick;
+	private int machineTick;
+	private boolean canWork;
+	private int size;
 
 	public TileGeyser() {
-		this.inventory = new ItemStack[1];
-		this.tank = new Tank(8000);
-	}
-
-	private void doSquirt(World world, int distance, ForgeDirection direction, int baseX, int baseY, int baseZ, int tick) {
-		double x = baseX + direction.offsetX;
-		double y = baseY + direction.offsetY;
-		double z = baseZ + direction.offsetZ;
-		
-		for(int dist = 0; dist < distance; dist ++) {
-			List list = this.worldObj.getEntitiesWithinAABB(Entity.class, Block.stone.getCollisionBoundingBoxFromPool(this.worldObj, 
-					(int)xCoord + (direction.offsetX * dist), 
-					(int)yCoord + (direction.offsetY * dist), 
-					(int)zCoord + (direction.offsetZ * dist)));
-			
-			for(Object i: list) {
-				Entity entity = (Entity) i;
-				if(orientation != ForgeDirection.UP) {
-					entity.addVelocity(this.orientation.offsetX * 0.15, this.orientation.offsetY * 0.15, this.orientation.offsetZ * 0.15);
-				} else {
-					entity.motionY+=0.045;
-					if(entity instanceof EntityItem) {
-						entity.motionX = 0;
-						entity.motionZ = 0;
-					}
-				}
-			}
-		}
-		
-		/**
-		float zPlus = 0F;
-		float angleOfDecent = 1F / distance;
-
-		if (direction == ForgeDirection.UP || direction == ForgeDirection.DOWN) {
-			zPlus = 0.3F;
-		}
-		for (int count = 0; count < distance; count++) {
-			List list = this.worldObj.getEntitiesWithinAABB(
-					Entity.class,
-					this.getBlockType().getCollisionBoundingBoxFromPool(this.worldObj,
-							(int) (x + (direction.offsetX * count)), (int) (y + (direction.offsetY * count)),
-							(int) (z + (direction.offsetZ * count))));
-
-			if (count < distance - 1) {
-				for (Object i : list) {
-					((Entity) i).addVelocity(this.orientation.offsetX * 0.15, this.orientation.offsetY * 0.042,
-							this.orientation.offsetZ * 0.15);
-
-					if (((Entity) i) instanceof EntityItem) {
-						EntityItem item = (EntityItem) ((Entity) i);
-						item.motionX = this.orientation.offsetX * 0.15;
-						item.motionZ = this.orientation.offsetZ * 0.15;
-						item.motionY = this.orientation.offsetY * 0.042;
-						item.moveEntity(item.motionX, item.motionY, item.motionZ);
-					}
-					
-					if (direction == ForgeDirection.UP) {
-						((Entity) i).fallDistance = 0F;
-					}
-				}
-			}
-
-			if (!this.worldObj.isRemote && count == 0) {
-				for (Object i : list) {
-					if (((Entity) i) instanceof EntityItem) {
-						EntityItem item = (EntityItem) ((Entity) i);
-						int itemX = (int) Math.ceil(item.posX);
-						if ((this.xCoord + this.orientation.offsetX) + 1 == (int) Math.ceil(item.posX)) {
-							if ((this.zCoord + this.orientation.offsetZ) + 1 == (int) Math.ceil(item.posZ)) {
-								if ((this.yCoord + this.orientation.offsetY) + 1 == (int) Math.ceil(item.posY)) {
-									ItemStack stack = item.getEntityItem();
-									if (InventoryHelper.addToInventory(0, this.worldObj, this.xCoord, this.yCoord,
-											this.zCoord, stack, null)) {
-										item.setDead();
-									}
-								}
-
-							}
-						}
-					}
-				}
-			}
-
-			for (float half = -0.5F; half < 0.5F; half = half + 0.25F) {
-				if(tick == 0 && half % 0.5 == 0)
-					this.worldObj.spawnParticle("cloud", xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, 0, 0, 0);
-				
-				if (this.worldObj.isAirBlock((int) (x + (direction.offsetX * count)),
-						(int) (y + (direction.offsetY * count)), (int) (z + (direction.offsetZ * count)))) {
-					if (tick == 0) {
-						this.worldObj.spawnParticle("cloud", x + (direction.offsetX * count) + 0.5F
-								+ (half * direction.offsetX), y + (direction.offsetY * count) + 0.5F
-								- (count * angleOfDecent) + (half * direction.offsetY), z + (direction.offsetZ * count)
-								+ 0.5F + (half * direction.offsetZ), 0, 0, 0);
-					}
-
-					if (!this.worldObj.isAirBlock((int) (x + (direction.offsetX * (count + 1))),
-							(int) (y + (direction.offsetY * (count + 1))),
-							(int) (z + (direction.offsetZ * (count + 1))))) {
-						this.worldObj.spawnParticle("splash", x + (direction.offsetX * count) + 0.5F, y
-								+ (direction.offsetY * count) + 0.5F - (count * 0.1F), z + (direction.offsetZ * count)
-								+ 0.5F + zPlus, 0, 0, 0);
-					}
-				} else {
-					count = distance;
-				}
-			}
-		} **/
+		tank = new Tank(8000);
 	}
 
 	public boolean onTick(int i) {
-		return tick % i == 0;
-	}
-	
-	public boolean canActivate() {
-		return tank.getFluidAmount() > 4 && 
-				(tank.getFluidID() == FluidRegistry.getFluidID("water") || 
-				tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.hp_water));
+		return machineTick % i == 0;
 	}
 	
 	@Override
 	public boolean canUpdate() {
 		return true;
 	}
+	
+	public boolean canWork() {
+		return tank.getFluidAmount() > 0 && canUseFluid(tank.getFluidID()) && !worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+	}
+
+	private boolean canUseFluid(int id) {
+		if (id == FluidRegistry.getFluidID("water")) {
+			size = 8;
+			return true;
+		} else if (id == FluidRegistry.getFluidID(FluidDictionary.hp_water)) {
+			size = 16;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean isNet(int x, int y, int z) {
+		return worldObj.getBlockId(x, y, z) == Core.oysterBlock.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+	}
 
 	@Override
 	public void updateEntity() {
-		tick++;
-		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord) && canActivate()) {
-			doSquirt(this.worldObj, 8, orientation, this.xCoord, this.yCoord, this.zCoord, tick %4);
-			if (onTick(20)) {
-				this.drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 5), true);
+		machineTick++;
+		
+		if(onTick(Extra.CAN_WORK_TICK)) {
+			canWork = canWork();
+		}
+		
+		if (canWork) {
+			doSquirt();
+				
+			if(onTick(100)) {
+				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 1), true);
 				Packets.updateTile(this, 32, getDescriptionPacket());
+				pullFromInventory();
+			}
+		}
+	}
+
+	private void doSquirt() {
+		double x, y, z;
+		for(int dist = 0; dist < size; dist ++) {
+			x = xCoord + (orientation.offsetX * dist);
+			y = yCoord + (orientation.offsetY * dist);
+			z = zCoord + (orientation.offsetZ * dist);
+			
+			if(dist > 0) {
+				Material mat = worldObj.getBlockMaterial((int)x, (int)y, (int)z);
+				if(!(mat instanceof MaterialLogic || mat instanceof MaterialTransparent || isNet((int)x, (int)y , (int)z)))
+					return;
+			}
+				
+			List list = this.worldObj.getEntitiesWithinAABB(Entity.class, 
+					Block.stone.getCollisionBoundingBoxFromPool(this.worldObj, (int)x, (int)y, (int)z));
+			
+			for(Object i: list) {
+				Entity entity = (Entity) i;
+				if(orientation != ForgeDirection.UP) {
+					entity.addVelocity(orientation.offsetX * 0.1, orientation.offsetY * 0.1, orientation.offsetZ * 0.1);
+				} else {
+					if(entity.motionY <= 0.24) {
+						entity.motionY+=0.25;
+						if(entity instanceof EntityItem) {
+							entity.motionY+=0.015;
+							entity.motionX = 0;
+							entity.motionZ = 0;
+						}
+					}
+				}
 			}
 			
-			if(onTick(100)) {
-				pullFromInventory();
+			if(Extra.GEYSER_ANIM && worldObj.isRemote) {
+				if(onTick(4)) {
+					for(float i = dist > 0? -0.45F: -0.1F; i <= 0.35F; i+=0.05F) {
+						worldObj.spawnParticle("cloud", x + 0.5F + (i * orientation.offsetX), 
+								y + 0.5F + (i * orientation.offsetY), z + 0.5F + (i * orientation.offsetZ), 0, 0, 0);
+					}
+				}
 			}
 		}
 	}
 	
 	public void pullFromInventory() {
-		IInventory invent = InventoHelper.getNextInventory(0, worldObj, xCoord, yCoord, zCoord, null);
-		int side = InventoHelper.getSide(0, worldObj, xCoord, yCoord, zCoord, null);
-		if(invent != null)
-			pullFromInventory(invent, InventoHelper.getSlot(invent, null, side), side);
+		TileEntity tile = worldObj.getBlockTileEntity(xCoord -orientation.offsetX, yCoord -orientation.offsetY, zCoord - orientation.offsetZ);
+		if(tile != null && tile instanceof IInventory) {
+			ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
+			if(stack != null) {
+				ItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+			}
+		}
 	}
 	
-	private boolean canExtractItemFromInventory(IInventory inventory, ItemStack stack, int slot, int side) {
-        return !(inventory instanceof ISidedInventory) || ((ISidedInventory)inventory).canExtractItem(slot, stack, side);
-    }
-	
-	private boolean pullFromInventory(IInventory inventory, int slot, int side) {
-		if(slot < 0 || slot > inventory.getSizeInventory())
-			return false;
-		
-        ItemStack stack = inventory.getStackInSlot(slot);
-
-        if (stack != null && canExtractItemFromInventory(inventory, stack, slot, side)) {
-            ItemStack itemstack1 = stack.copy();
-            InventoHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, itemstack1, false);
-            worldObj.spawnParticle("cloud", xCoord, yCoord, zCoord, 0, 0, 0);
-            inventory.setInventorySlotContents(slot, null);
-            return true;
-        }
-
-        return false;
-    }
-	
-	@Override
-	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		return from == ForgeDirection.DOWN;
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.orientation = ForgeDirection.getOrientation(tagCompound.getInteger("Orientation"));
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("Orientation", orientation.ordinal());
-	}
-
 	@Override
 	public Packet getDescriptionPacket() {		
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
 	}
 
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		this.readFromNBT(packet.data);
+		readFromNBT(packet.data);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+		canWork = nbt.getBoolean("CanWork");
+		size = nbt.getInteger("Size");
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setInteger("Orientation", orientation.ordinal());
+		nbt.setBoolean("CanWork", canWork);
+		nbt.setInteger("Size", size);
 	}
 }

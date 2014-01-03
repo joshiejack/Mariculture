@@ -1,374 +1,194 @@
 package mariculture.factory.blocks;
 
-import java.util.Random;
-
-import mariculture.api.core.IBlacklisted;
-import mariculture.api.core.IUpgradable;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.blocks.base.TileMulti;
-import mariculture.core.blocks.base.TileMultiInvTankMachine;
-import mariculture.core.helpers.FluidTransferHelper;
+import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.blocks.base.TileMultiMachineTank;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.Packets;
+import mariculture.core.util.FluidDictionary;
 import mariculture.factory.FactoryEvents;
-import mariculture.factory.gui.ContainerPressureVessel;
-import net.minecraft.entity.player.EntityPlayer;
+import mariculture.factory.items.ItemArmorFLUDD;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.world.World;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 
-
-public class TilePressureVessel extends TileMultiInvTankMachine implements IBlacklisted {
-	public int blocksInStructure = 1;
-	
+public class TilePressureVessel extends TileMultiMachineTank {
 	public TilePressureVessel() {
-		this.inventory = new ItemStack[4];
-	}
-	
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return true;
+		inventory = new ItemStack[6];
+		setting = EjectSetting.FLUID;
+		mode = RedstoneMode.DISABLED;
 	}
 	
 	@Override
 	public int getTankCapacity(int storage) {
 		int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
-		return ((100 * tankRate) + (storage * 5 * tankRate)) * blocksInStructure;
+		return ((100 * tankRate) + (storage * 5 * tankRate)) * (slaves.size() + 1);
 	}
 	
-	@Override
-	public boolean setMaster() {
-		World world = worldObj;
-		int x = xCoord;
-		int y = yCoord;
-		int z = zCoord;
-		
-		int[] coords = getNeighbourMaster(x, y, z);
-		if(coords.length == 3) {
-			TilePressureVessel master  = (TilePressureVessel) world.getBlockTileEntity(coords[0], coords[1], coords[2]);
-			if(master != null) {
-				if(!mstr.built) {
-					master.blocksInStructure++;
-					addBlock(xCoord, yCoord, zCoord, coords);
-				}
-			}
-			
-			return mstr.set(true, coords[0], coords[1], coords[2]);
-		} else {
-			return mstr.set(true, x, y, z);
-		}
-	}
-
-	private void addBlock(int x, int y, int z, int[] mstr) {
-		TilePressureVessel master = (TilePressureVessel) worldObj.getBlockTileEntity(mstr[0], mstr[1], mstr[2]);
-		this.blocksInStructure = master.blocksInStructure;
-		this.tiles = master.tiles;
-	}
-
-	private int[] getNeighbourMaster(int x, int y, int z) {
-		if(isComponent(x + 1, y, z))
-			return getCoords(x + 1, y, z);
-		if(isComponent(x - 1, y, z))
-			return getCoords(x - 1, y, z);
-		if(isComponent(x, y + 1, z))
-			return getCoords(x, y + 1, z);
-		if(isComponent(x, y - 1, z))
-			return getCoords(x, y - 1, z);
-		if(isComponent(x, y, z + 1))
-			return getCoords(x, y, z + 1);
-		if(isComponent(x, y, z - 1))
-			return getCoords(x, y, z - 1);
-			
-		return new int[] { 0 };
-	}
+	public static final int in = 3;
+	public static final int out = 4;
+	public static final int fludd = 5;
 	
-	private int[] getCoords(int x, int y, int z) {
-		TileMulti tile = (TileMulti) worldObj.getBlockTileEntity(x, y, z);
-		return new int[] { tile.mstr.x, tile.mstr.y, tile.mstr.z };
-	}
-	
-	@Override
-	public ItemStack[] getUpgrades() {
-		return new ItemStack[] { inventory[1], inventory[2], inventory[3] };
-	}
-
-	@Override
-	public boolean isBlacklisted(World world, int x, int y, int z) {
-		return true;
-	}
-	
-	public int[][] tiles = new int[729][3];
-	
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.blocksInStructure = tagCompound.getInteger("BlocksInVessel");
-		
-		NBTTagList tagList = tagCompound.getTagList("Coordinates");
-
-		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-
-			int id = tag.getInteger("ID");
-			int x = tag.getInteger("X");
-			int y = tag.getInteger("Y");
-			int z = tag.getInteger("z");
-			
-			tiles[id][0] = x;
-			tiles[id][1] = y;
-			tiles[id][2] = z;
-		}
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("BlocksInVessel", this.blocksInStructure);
-		
-		NBTTagList itemList = new NBTTagList();
-
-		for (int i = 0; i < tiles.length; i++) {
-			int x = tiles[i][0];
-			int y = tiles[i][1];
-			int z = tiles[i][2];
-			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("ID", i);
-			tag.setInteger("X", x);
-			tag.setInteger("Y", y);
-			tag.setInteger("Z", z);
-			itemList.appendTag(tag);
-		}
-	}
-	
-	
-	public void getGUINetworkData(int i, int j) {
-		super.getGUINetworkData(i, j);
-		switch (i) {
-		case 3:
-			mstr.x = j;
-			break;
-		case 4:
-			mstr.y = j;
-			break;
-		case 5:
-			mstr.z = j;
-			break;
-		}
-	}
-
-	public void sendGUINetworkData(ContainerPressureVessel container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 3, mstr.x);
-		Packets.updateGUI(player, container, 4, mstr.y);
-		Packets.updateGUI(player, container, 5, mstr.z);
-	}
-	
-	@Override
-	public Packet getDescriptionPacket() {		
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
-	}
-
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		this.readFromNBT(packet.data);
-	}
-	
-	@Override
-	public void updateMaster() {
-		if(onTick(20)) {
-			fillFLUDD();
-		}
-	}
-
-	@Override
-	public void updateAll() {
-		if(onTick(30)) {
-			Packets.updateTile(this, 32, getDescriptionPacket());
-			for(int i = 0; i < heat; i++) {
-				transfer();
-			}
-		}
-	}
-	
-	private void transfer() {
-		int drainAmount = (purity < 1)? 100: purity * 250;
-
-		FluidTransferHelper transfer = new FluidTransferHelper(this);
-		transfer.transfer(new Random(), new int[] { drainAmount, (int) (drainAmount/1.5), (int)(drainAmount/2), (int)(drainAmount/3), 100, 20, 1 });
-	}
-	
-	private void fillFLUDD() {
-		purity = (this.purity < 1) ? 1 : this.purity;
-		int transfer = (purity + 1 * 250);
-		if (inventory[0] != null && tank.getFluidAmount() >= 1) {
-			if (FactoryEvents.handleFill(inventory[0], false, transfer) != null && tank.getFluidAmount() - transfer >= 0) {
-				tank.drain(transfer, true);
-				inventory[0] = FactoryEvents.handleFill(inventory[0], true, transfer);
-			} else if (FactoryEvents.handleFill(inventory[0], false, 1) != null && tank.getFluidAmount() - 1 >= 0) {
-				tank.drain(1, true);
-				inventory[0] = FactoryEvents.handleFill(inventory[0], true, 1);
-			}
-
-		}
-	}
-}
-
-/*
-public class TilePressureVessel extends TileMultiInvTankMachine implements IBlacklisted, ISidedInventory {
-	private int tick = 0;
-	private int tickAll = 0;
-
-	private int times = 20;
-	private int transfer = 100;
-	private int slot = 0;
-
-	private Random rand = new Random();
-
-	public TilePressureVessel() {
-		this.inventory = new ItemStack[4];
-	}
-
-	private void fillFLUDD() {
-		//TODO: Readd fludd fill
-		if (inventory[0] != null && liquidQty >= 1) {
-			if (FactoryEvents.handleFill(inventory[0], false, this.transfer) != null
-					&& this.liquidQty - this.transfer >= 0) {
-				this.liquidQty -= this.transfer;
-				inventory[0] = FactoryEvents.handleFill(inventory[0], true, this.transfer);
-			} else if (FactoryEvents.handleFill(inventory[0], false, 1) != null && this.liquidQty - 1 >= 0) {
-				this.liquidQty--;
-				inventory[0] = FactoryEvents.handleFill(inventory[0], true, 1);
-			}
-
-		}
-	}
-	
-	@Override
-	public void updateMaster() {
-		if(onTick(20)) {
-			fillFLUDD();
-		}
-	}
-	
-	@Override
-	public void updateAll() {
-		if(onTick(16)) {
-			transfer();
-		}
-	}
-
-	@Override
-	public int getTankCapacity(int count) {
-		return ((FluidContainerRegistry.BUCKET_VOLUME * 32) + (count * (FluidContainerRegistry.BUCKET_VOLUME * 2)));
-	}
-
-	@Override
-	public void updateUpgrades() {
-		super.updateUpgrades();
-
-		int purityCount = MaricultureHandlers.upgrades.getData("purity", this);
-		int heatAmount = MaricultureHandlers.upgrades.getData("temp", this);
-
-		this.times = heatAmount + 1;
-		this.transfer = (purityCount + 1) * 125;
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-	}
-
-	@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
-	}
-
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	}
-
-	public void getGUINetworkData(int i, int j) {
-		super.getGUINetworkData(i, j);
-
-		switch (i) {
-		case 3:
-			times = j;
-			break;
-		case 4:
-			transfer = j;
-			break;
-		}
-	}
-
-	public void sendGUINetworkData(ContainerPressureVessel container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-
-		Packets.updateGUI(player, container, 3, this.times);
-		Packets.updateGUI(player, container, 4, this.transfer);
-	}
-
-	private void transfer() {
-		//TODO: Update Vessel Transferring
-		new TransferHelper(this).transfer(rand, new int[] { this.transfer, 100, 50, 20, 1 });
-	}
-
-	@Override
-	public ItemStack[] getUpgrades() {
-		return new ItemStack[] { inventory[1], inventory[2], inventory[3] };
-	}
-
-	@Override
-	public boolean isBlacklisted(World world, int x, int y, int z) {
-		return true;
-	}
-
-	private static final int[] slots = new int[] { 0 };
-
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return slots;
+		return new int[] { 3, 4, 5 };
 	}
-
+	
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return this.isItemValidForSlot(slot, stack);
+		if(slot == in)
+			return FluidHelper.isFluidOrEmpty(stack);
+		return slot == fludd;
 	}
-
+	
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return isFull(stack);
+		return slot >= out;
 	}
-
-	public boolean isFull(ItemStack stack) {
-		if (stack == null) {
-			return false;
+	
+	@Override
+	public EjectSetting getEjectType() {
+		return EjectSetting.FLUID;
+	}
+	
+	@Override
+	public void updateMasterMachine() {
+		if(onTick(30) && RedstoneMode.canWork(this, mode) && EjectSetting.canEject(setting, EjectSetting.FLUID))
+			helper.ejectFluid(new int[] { speed * 100, 100, 50, 25, 10, 5, 1 });
+		if(onTick(20))
+			fillFLUDD();
+	}
+	
+	@Override
+	public void updateSlaveMachine() {
+		if(onTick(30)) {
+			TilePressureVessel mstr = (TilePressureVessel) getMaster();
+			if(mstr != null && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID))
+				helper.ejectFluid(new int[] { ((TilePressureVessel)getMaster()).speed * 100, 100, 50, 25, 10, 5, 1 });
 		}
-
-		if (stack.getItem() instanceof ItemArmorFLUDD) {
-			int water = (stack.hasTagCompound()) ? stack.stackTagCompound.getInteger("water") : ItemArmorFLUDD.STORAGE;
-			return water >= ItemArmorFLUDD.STORAGE;
+	}
+	
+	private void fillFLUDD() {
+		if(inventory[fludd] != null && inventory[fludd].getItem() instanceof ItemArmorFLUDD) {
+			if(tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.hp_water) && tank.getFluidAmount() > 0) {
+				ItemStack stack = inventory[fludd].copy();
+				int water = 0;
+				if (stack.hasTagCompound()) {
+					water = stack.stackTagCompound.getInteger("water");
+				}
+				
+				if(water + (speed * 100) < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= (speed * 100)) {
+					stack.stackTagCompound.setInteger("water", water + (speed * 100));
+					drain(ForgeDirection.UNKNOWN, (speed * 100), true);
+				} else if(water + 100 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 100) {
+					stack.stackTagCompound.setInteger("water", water + 100);
+					drain(ForgeDirection.UNKNOWN, 100, true);
+				} else if(water + 50 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 50) {
+					stack.stackTagCompound.setInteger("water", water + 50);
+					drain(ForgeDirection.UNKNOWN, 50, true);
+				} else if(water + 10 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 100) {
+					stack.stackTagCompound.setInteger("water", water + 10);
+					drain(ForgeDirection.UNKNOWN, 10, true);
+				} else if(water + 1 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 1) {
+					stack.stackTagCompound.setInteger("water", water + 1);
+					drain(ForgeDirection.UNKNOWN, 1, true);
+				}
+				
+				inventory[fludd] = stack;
+			}
 		}
-
+	}
+	
+	@Override
+	public boolean canWork() {
+		return false;
+	}
+	
+	@Override
+	public String getProcess() {
+		return null;
+	}
+	
+//MultiBlock Stuffs	
+	public TilePressureVessel isSameBlock(int x, int y, int z) {
+		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+		return tile != null && tile instanceof TilePressureVessel? (TilePressureVessel)tile: null;
+	}
+	
+	public boolean tryToAdd(int x, int y, int z) {
+		TilePressureVessel neighbour = isSameBlock(x, y, z);
+		if(neighbour != null) {
+			master = neighbour.master;
+			TilePressureVessel mstr = (TilePressureVessel) getMaster();
+			mstr.addSlave(new MultiPart(xCoord, yCoord, zCoord));
+			
+			return true;
+		}
+		
 		return false;
 	}
 
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return slot == 3 && !isFull(stack);
+	//MasterStuff
+	public void onBlockPlaced() {
+		if(tryToAdd(xCoord + 1, yCoord, zCoord))
+			return;
+		if(tryToAdd(xCoord - 1, yCoord, zCoord))
+			return;
+		if(tryToAdd(xCoord, yCoord, zCoord + 1))
+			return;
+		if(tryToAdd(xCoord, yCoord, zCoord - 1))
+			return;
+		if(tryToAdd(xCoord, yCoord + 1, zCoord))
+			return;
+		if(tryToAdd(xCoord, yCoord - 1, zCoord))
+			return;
+		master = new MultiPart(xCoord, yCoord, zCoord);
+	}
+	
+	public void onBlockBreak() {
+		if(getMaster() != null) {
+			TileMultiBlock master = getMaster();
+			if(master.equals(this)) {
+				if(slaves.size() > 0) {
+					//Set the new master to the first slot
+					MultiPart coords = slaves.get(0);
+					//Remove the first index
+					slaves.remove(0);
+					//Update all Existing slaves so they know who their new master is
+					for(MultiPart slave: slaves) {
+						TilePressureVessel vessel = (TilePressureVessel) worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
+						if(vessel != null) {	
+							System.out.println(coords.xCoord + " " + coords.yCoord + " " + coords.zCoord);
+							vessel.setMaster(coords.xCoord, coords.yCoord, coords.zCoord);
+						}
+					}
+					
+					this.master = coords;
+					
+					//now that the tile knows all about it's stuff, lets pass on the new NBT
+					NBTTagCompound contents = new NBTTagCompound();
+					writeToNBT(contents);
+					contents.setInteger("x", coords.xCoord);
+					contents.setInteger("y", coords.yCoord);
+					contents.setInteger("z", coords.zCoord);
+					
+					TilePressureVessel theMaster = (TilePressureVessel) worldObj.getBlockTileEntity(coords.xCoord, coords.yCoord, coords.zCoord);
+					if(theMaster != null) {
+						theMaster.readFromNBT(contents);
+					}
+				}
+			} else {
+				for(MultiPart part: master.getSlaves()){
+					if(part.xCoord == xCoord && part.yCoord == yCoord && part.zCoord == zCoord) {
+						master.removeSlave(part);
+						break;
+					}
+				}
+			}
+		}
 	}
 }
-*/

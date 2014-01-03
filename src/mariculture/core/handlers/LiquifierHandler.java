@@ -73,13 +73,13 @@ public class LiquifierHandler implements ISmelterHandler {
 	}
 
 	public int getBurnTemp(ItemStack stack, boolean max, boolean real) {
-		final List<Object> result = (List<Object>) fuelList.get(DictionaryHelper.convert(stack));
+		List<Object> result = (List<Object>) fuelList.get(DictionaryHelper.convert(stack));
 		if (result != null) {
 			if (real) {
 				return (Integer) ((max) ? result.get(1) : result.get(0));
 			}
 
-			return ((Integer) result.get(0) * TileLiquifier.MAX_TEMP) / 2000;
+			return ((Integer) result.get(0) * 25000) / 2000;
 		}
 		
 		return -1;

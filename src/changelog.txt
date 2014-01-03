@@ -34,6 +34,7 @@
 * Pressurised Water's range increased from 5 to 16
 * Mariculture Enchants will now ONLY work on Jewelry (Removed Magic feather)
 * Nerf to Never Hungry ;)
+* Story Bookshelves now count as 5 Bookshelves for an Enchantment Table
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick
@@ -45,6 +46,7 @@
 ====API Changes====
 * IItemUpgrade additional items
 * Added Dual Smelting
+* Oven Handler/Recipes
 
 == Mariculture 1.1.4e ==
 * Fixed NPE when player becomes null when fishing

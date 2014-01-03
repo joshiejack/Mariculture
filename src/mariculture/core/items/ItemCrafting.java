@@ -1,30 +1,18 @@
 package mariculture.core.items;
 
-import java.util.List;
-import java.util.Random;
-
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishDNA;
 import mariculture.core.Core;
-import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.PlayerHelper;
-import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PlansMeta;
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.TileCustom;
 import mariculture.sealife.EntityHammerhead;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemCrafting extends ItemMariculture {
@@ -109,7 +97,7 @@ public class ItemCrafting extends ItemMariculture {
 				Block block = Block.blocksList[id];
 				int plan = PlansMeta.getPlanType(block, id, world, x, y, z);
 				if(plan != -1) {
-					InventoHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
+					ItemHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
 					if(!player.capabilities.isCreativeMode) {
 						player.inventory.decrStackSize(slot, 1);
 					}

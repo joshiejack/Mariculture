@@ -61,8 +61,6 @@ public class WorldPlus extends Module {
 		Item.itemsList[BlockIds.coral] = new ItemCoral(BlockIds.coral - 256, coral).setUnlocalizedName("coral");
 		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		RegistryHelper.register(new Object[] { coral });
-		
-		MinecraftForge.setBlockHarvestLevel(Core.groundBlocks, GroundMeta.GEYSER, "shovel", 0);
 	}
 
 	@Override

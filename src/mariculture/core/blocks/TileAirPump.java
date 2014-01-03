@@ -5,8 +5,8 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorageTank;
+import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.PlayerHelper;
-import mariculture.core.helpers.FluidTransferHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
@@ -26,6 +26,7 @@ import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
 public class TileAirPump extends TileStorageTank implements IEnergyHandler {
+	protected BlockTransferHelper helper;
 	protected EnergyStorage storage = new EnergyStorage(100);
 	public boolean animate;
 	private double wheelAngle1 = 0;
@@ -118,6 +119,9 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 
 	@Override
 	public void updateEntity() {
+		if(helper == null)
+			helper = new BlockTransferHelper(this);
+		
 		tick++;
 		if(tick %100 == 0) {
 			doPoweredPump();
@@ -125,7 +129,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		
 		//Transfer internals to a nearby tank
 		if(tick %20 == 0) {
-			new FluidTransferHelper(this).transfer(rand, new int[] { 1000, 100, 20, 1 });
+			helper.ejectFluid(new int[] { 1000, 100, 20, 1 });
 		}
 
 		if (animate) {

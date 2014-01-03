@@ -2,35 +2,20 @@ package mariculture.fishery.gui;
 
 import java.util.List;
 
-import mariculture.core.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureBubbles;
 import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.gui.feature.FeatureNotifications;
-import mariculture.core.gui.feature.FeaturePower;
+import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
-import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
-import mariculture.core.helpers.InventoHelper;
-import mariculture.core.lib.Extra;
-import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.FishFoodHandler;
-import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileFeeder;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
-import org.lwjgl.opengl.GL11;
 
 public class GuiFeeder extends GuiMariculture {	
 	public TileFeeder tile;

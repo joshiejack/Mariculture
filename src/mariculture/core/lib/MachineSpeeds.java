@@ -1,76 +1,49 @@
 package mariculture.core.lib;
 
 public class MachineSpeeds {
-	public static int sawmill = 0;
-	public static int liquifier = 0;
-	public static int settler = 0;
-	public static int incubator = 0;
-	public static int autofisher = 0;
-	public static int feeder = 0;
-	public static int net = 0;
-	public static int dictionary = 0;
+	public static int sawmill;
+	public static int liquifier;
+	public static int settler;
+	public static int incubator;
+	public static int autofisher;
+	public static int feeder;
+	public static int net;
+	public static int dictionary;
+	public static int oven;
 	
 	public static int getSawmillSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return sawmill;
+		return Extra.DEBUG_ON? 10: sawmill;
 	}
 
 	public static int getLiquifierSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return liquifier;
+		return Extra.DEBUG_ON? 10: liquifier;
 	}
 
 	public static int getSettlerSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return settler;
+		return Extra.DEBUG_ON? 10: settler;
 	}
 
 	public static int getIncubatorSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return incubator;
+		return Extra.DEBUG_ON? 10: incubator;
 	}
 
 	public static int getAutofisherSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return autofisher;
+		return Extra.DEBUG_ON? 10: autofisher;
 	}
 
 	public static int getFeederSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return feeder;
+		return Extra.DEBUG_ON? 10: feeder;
 	}
 
 	public static int getNetSpeed() {
-		if (Extra.DEBUG_ON) {
-			return 10;
-		}
-
-		return net;
+		return Extra.DEBUG_ON? 10: net;
 	}
 
 	public static int getDictionarySpeed() {
-		if (Extra.DEBUG_ON) {
-			return 1;
-		}
-		
-		return dictionary;
+		return Extra.DEBUG_ON? 1: dictionary;
+	}
+
+	public static int getOvenSpeed() {
+		return Extra.DEBUG_ON? 1: oven;
 	}
 }

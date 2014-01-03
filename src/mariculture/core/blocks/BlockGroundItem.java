@@ -13,8 +13,6 @@ public class BlockGroundItem extends ItemBlockMariculture {
 	@Override
 	public String getName(ItemStack itemstack) {
 		switch (itemstack.getItemDamage()) {
-		case GroundMeta.GEYSER:
-			return "geyser";
 		case GroundMeta.BUBBLES:
 			return "gas";
 		default:

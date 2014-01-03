@@ -6,7 +6,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockMachine;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
@@ -199,7 +199,7 @@ public class BlockSift extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i,  int j) {
-		InventoHelper.dropItems(world, x, y, z);
+		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
 

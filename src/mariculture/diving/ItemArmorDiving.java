@@ -48,7 +48,7 @@ public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisabl
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (!Extra.DEBUG_ON) {
+		if (Extra.DEBUG_ON) {
 			int size = 32;
 			if (!world.isRemote) {
 				for (int x = (int) (player.posX - size); x < player.posX + size; x++) {

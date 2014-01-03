@@ -6,7 +6,7 @@ import java.util.List;
 
 import mariculture.core.Mariculture;
 import mariculture.core.gui.feature.Feature;
-import mariculture.core.helpers.InventoHelper;
+import mariculture.core.helpers.BlockHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -38,7 +38,7 @@ public abstract class GuiMariculture extends GuiContainer {
 		this.TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/" + texture + ".png");
 		this.ySize += yOffset;
 		this.xSize = 201;
-		this.name = InventoHelper.getName(container.tile);
+		this.name = BlockHelper.getName(container.tile);
 	}
 
 	@Override

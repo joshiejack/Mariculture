@@ -10,16 +10,17 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMulti;
-import mariculture.core.blocks.base.TileMultiInvMachinePowered;
 import mariculture.core.blocks.base.TileMulti.Cached;
+import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
+import mariculture.core.blocks.base.TileMultiMachinePowered;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.AverageHelper;
-import mariculture.core.helpers.ItemTransferHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.UtilMeta;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import mariculture.fishery.FishHelper;
@@ -31,7 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 
-public class TileIncubator extends TileMultiInvMachinePowered implements IHasNotification {
+public class TileIncubator extends TileMultiMachinePowered implements IHasNotification {
 
 	public TileIncubator() {
 		max = MachineSpeeds.getIncubatorSpeed();
@@ -61,14 +62,10 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
 		return slot > 12;
 	}
+	
 	@Override
 	public boolean canWork() {
-		return hasPower() && hasEgg() && hasCorrectRSSignal() && outputHasRoom();
-	}
-	
-	public boolean hasCorrectRSSignal() {
-		return RedstoneMode.canWork(this, mode) && RedstoneMode.canWork(worldObj.getBlockTileEntity(xCoord, yCoord + 1, zCoord), mode) &&
-			RedstoneMode.canWork(worldObj.getBlockTileEntity(xCoord, yCoord + 2, zCoord), mode);
+		return hasPower() && hasEgg() && rsAllowsWork() && outputHasRoom();
 	}
 
 	private boolean outputHasRoom() {
@@ -176,7 +173,7 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 				if (chance == 0) {
 					ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand);
 					int dna = Fishery.gender.getDNA(fish);
-					new ItemTransferHelper(this).insertStack(fish, out);
+					helper.insertStack(fish, out);
 
 					if (dna == FishHelper.MALE) {
 						inventory[slot].getTagCompound().setInteger("malesGenerated",
@@ -191,12 +188,12 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 					ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand);
 					// If no males were generated create one
 					if (inventory[slot].getTagCompound().getInteger("malesGenerated") <= 0) {
-						new ItemTransferHelper(this).insertStack(Fishery.gender.addDNA(fish.copy(), FishHelper.MALE), out);
+						helper.insertStack(Fishery.gender.addDNA(fish.copy(), FishHelper.MALE), out);
 					}
 
 					// If no females were generated create one
 					if (inventory[slot].getTagCompound().getInteger("femalesGenerated") <= 0) {
-						new ItemTransferHelper(this).insertStack(Fishery.gender.addDNA(fish.copy(), FishHelper.FEMALE), out);
+						helper.insertStack(Fishery.gender.addDNA(fish.copy(), FishHelper.FEMALE), out);
 					}
 
 					decrStackSize(slot, 1);
@@ -205,7 +202,7 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 			}
 		} else if (inventory[slot].itemID == Item.egg.itemID) {
 			if (Rand.nextInt(8)) {
-				new ItemTransferHelper(this).insertStack(new ItemStack(383, 1, 93), out);
+				helper.insertStack(new ItemStack(383, 1, 93), out);
 			}
 
 			decrStackSize(slot, 1);
@@ -213,7 +210,7 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 		} else if(inventory[slot].itemID == Block.dragonEgg.blockID) {
 			int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)? 48000: 64000;
 			if(Rand.nextInt(chance)) {
-				new ItemTransferHelper(this).insertStack(new ItemStack(Core.craftingItem, 1, CraftingMeta.DRAGON_EGG), out);
+				helper.insertStack(new ItemStack(Core.craftingItem, 1, CraftingMeta.DRAGON_EGG), out);
 			}
 			
 			if(Rand.nextInt(10)) {
@@ -247,44 +244,36 @@ public class TileIncubator extends TileMultiInvMachinePowered implements IHasNot
 		return EjectSetting.ITEM;
 	}
 	
-	//Master STUFF
 	@Override
-	public boolean setMaster() {
-		cache = new ArrayList<Cached>();
-		
-		World world = worldObj;
-		int x = xCoord;
-		int y = yCoord;
-		int z = zCoord;
-		
-		if(mstr.built && !(x == mstr.x && y == mstr.y && z == mstr.z)) {
-			if(world.getBlockTileEntity(mstr.x, mstr.y, mstr.z) != null) {
-				((TileMulti) world.getBlockTileEntity(mstr.x, mstr.y, mstr.z)).setMaster();
-			}
-		}
-		
+	public void onBlockPlaced() {
+		onBlockPlaced(xCoord, yCoord, zCoord);
+		Packets.updateTile(this, 32, getDescriptionPacket());
+	}
+	
+	public void onBlockPlaced(int x, int y, int z) {
 		if(isBase(x, y, z) && isTop(x, y + 1, z) && isTop(x, y + 2, z) && !isTop(x, y + 3, z)) {
-			cache.add(new Cached(x, y, z));
-			cache.add(new Cached(x, y + 1, z));
-			cache.add(new Cached(x, y + 2, z));
-			return mstr.set(true, x, y, z);
+			MultiPart mstr = new MultiPart(x, y, z);
+			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
+			parts.add(setAsSlave(mstr, x, y + 1, z));
+			parts.add(setAsSlave(mstr, x, y + 2, z));
+			setAsMaster(mstr, parts);
 		}
 		
 		if(isBase(x, y - 1, z) && isTop(x, y, z) && isTop(x, y + 1, z) && !isTop(x, y + 2, z)) {
-			cache.add(new Cached(x, y - 1, z));
-			cache.add(new Cached(x, y, z));
-			cache.add(new Cached(x, y + 1, z));
-			return mstr.set(true, x, y - 1, z);
+			MultiPart mstr = new MultiPart(x, y - 1, z);
+			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
+			parts.add(setAsSlave(mstr, x, y, z));
+			parts.add(setAsSlave(mstr, x, y + 1, z));
+			setAsMaster(mstr, parts);
 		}
 		
 		if(isBase(x, y - 2, z) && isTop(x, y - 1, z) && isTop(x, y, z) && !isTop(x, y + 1, z)) {
-			cache.add(new Cached(x, y - 2, z));
-			cache.add(new Cached(x, y - 1, z));
-			cache.add(new Cached(x, y, z));
-			return mstr.set(true, x, y - 2, z);
+			MultiPart mstr = new MultiPart(x, y - 2, z);
+			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
+			parts.add(setAsSlave(mstr, x, y - 1, z));
+			parts.add(setAsSlave(mstr, x, y, z));
+			setAsMaster(mstr, parts);
 		}
-		
-		return mstr.set(false, x, y, z);
 	}
 	
 	public boolean isBase(int x, int y, int z) {

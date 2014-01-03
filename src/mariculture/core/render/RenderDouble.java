@@ -41,11 +41,6 @@ public class RenderDouble extends TileEntitySpecialRenderer implements ISimpleBl
 			((ModelAirCompressor) model).render((TileAirCompressor) tileEntity, x, y, z, this);
 		}
 
-		if (tileEntity instanceof TilePressureVessel) {
-			this.bindTexture(resource);
-			((ModelAirCompressor) model).render((TilePressureVessel) tileEntity, x, y, z, this);
-		}
-
 		if (tileEntity instanceof TileAirCompressorPower) {
 			this.bindTexture(resource);
 			((ModelAirCompressorPower) model).render((TileAirCompressorPower) tileEntity, x, y, z);

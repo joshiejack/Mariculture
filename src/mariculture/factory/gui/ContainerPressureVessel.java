@@ -2,6 +2,8 @@ package mariculture.factory.gui;
 
 import mariculture.api.core.IItemUpgrade;
 import mariculture.core.gui.ContainerMachine;
+import mariculture.core.gui.SlotFluidContainer;
+import mariculture.core.gui.SlotOutput;
 import mariculture.core.gui.SlotUpgrade;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TilePressureVessel;
@@ -15,12 +17,12 @@ public class ContainerPressureVessel extends ContainerMachine {
 	public ContainerPressureVessel(TilePressureVessel tile, InventoryPlayer playerInventory) {
 		super(tile);
 		
-		addSlotToContainer(new Slot(tile, 0, 34, 34));
-		for (int i = 0; i < 3; i++) {
-			addSlotToContainer(new SlotUpgrade(tile, i + 1, 148, 16 + (i * 18)));
-		}
+		addUpgradeSlots(tile);
+		addSlotToContainer(new SlotFluidContainer(tile, 3, 128, 25));
+		addSlotToContainer(new SlotOutput(tile, 4, 128, 56));
+		addSlotToContainer(new Slot(tile, 5, 37, 40));
 
-		bindPlayerInventory(playerInventory);
+		bindPlayerInventory(playerInventory, 10);
 	}
 
 	@Override
