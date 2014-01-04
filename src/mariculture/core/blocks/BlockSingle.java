@@ -68,12 +68,6 @@ public class BlockSingle extends BlockMachine {
 			return 1F;
 		case SingleMeta.ANVIL:
 			return 6F;
-		case SingleMeta.BUCKET:
-			return 3F;
-		case SingleMeta.VOID_BOTTLE:
-			return 1F;
-		case SingleMeta.VAT:
-			return 2F;
 		}
 
 		return 1F;
@@ -232,8 +226,6 @@ public class BlockSingle extends BlockMachine {
 			if(geyser.orientation == ForgeDirection.NORTH)
 				setBlockBounds(0.1F, 0.1F, 0.75F, 0.9F, 0.9F, 1.0F);
 			break;
-		case SingleMeta.BUCKET:
-			setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
 		}
@@ -266,8 +258,6 @@ public class BlockSingle extends BlockMachine {
 			return new TileTurbineHand();
 		case SingleMeta.GEYSER:
 			return new TileGeyser();
-		case SingleMeta.BUCKET:
-			return new TileBucket();
 		}
 
 		return null;
@@ -362,20 +352,18 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case SingleMeta.AIR_PUMP:
-			return true;
 		case SingleMeta.FISH_FEEDER:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
 		case SingleMeta.TURBINE_WATER:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case SingleMeta.FLUDD_STAND:
 			return false;
 		case SingleMeta.TURBINE_GAS:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case SingleMeta.GEYSER:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case SingleMeta.TURBINE_HAND:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		default:
 			return true;
 		}

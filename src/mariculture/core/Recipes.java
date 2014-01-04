@@ -7,6 +7,7 @@ import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.GlassMeta;
@@ -131,6 +132,11 @@ public class Recipes {
 			"PP ", " SP", "S  ",
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
 			Character.valueOf('S'), "stickWood"
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.VAT), new Object[] {
+			"C C", "C C", "CCC",
+			Character.valueOf('C'), "ingotCopper"
 		});
 
 		FurnaceRecipes.smelting().addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE,

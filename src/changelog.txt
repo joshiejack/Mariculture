@@ -35,6 +35,9 @@
 * Mariculture Enchants will now ONLY work on Jewelry (Removed Magic feather)
 * Nerf to Never Hungry ;)
 * Story Bookshelves now count as 5 Bookshelves for an Enchantment Table
+* Can now right click on the sifter to throw bait in :) (as well as being able to throw it)
+* Clicky Click click squiddies with fishing nets :)
+* Buffed Neon Lamp Recipe
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

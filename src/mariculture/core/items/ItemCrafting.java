@@ -55,8 +55,6 @@ public class ItemCrafting extends ItemMariculture {
 				return "wicker";
 			case CraftingMeta.PLASTIC_YELLOW:
 				return "plasticYellow";
-			case CraftingMeta.LEGACY_PAINTBRUSH:
-				return "paintbrush";
 			case CraftingMeta.DRAGON_EGG:
 				return "dragonEgg";
 			case CraftingMeta.ROD_TITANIUM: 
@@ -136,8 +134,6 @@ public class ItemCrafting extends ItemMariculture {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case CraftingMeta.LEGACY_PAINTBRUSH:
-			return true;
 		case CraftingMeta.DRAGON_EGG:
 			return (Modules.fishery.isActive());
 		case CraftingMeta.CHALK:

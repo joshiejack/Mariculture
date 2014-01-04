@@ -16,7 +16,8 @@ public class HungryFishBlaze extends FishBlaze {
 
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
-		player.getFoodStats().addStats(1, 0.05F);
+		player.getFoodStats().addStats(2, 0.06F);
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.setFire(20);
 	}
 }

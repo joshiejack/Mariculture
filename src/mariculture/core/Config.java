@@ -156,6 +156,7 @@ public class Config {
             Extra.GEYSER_ANIM = config.get(Category.CLIENT, "Geyser - Enable Particles", true).getBoolean(true);
             Extra.FLUDD_BLOCK_ANIM = config.get(Category.CLIENT, "FLUDD - Enable Particles", true).getBoolean(true);
             
+            Extra.ENDER_CONVERTER = config.get(Category.EXTRA, "Autodictionary > Enable Ender Pearl for Recipe", false).getBoolean(false);
             Extra.CAN_WORK_TICK = config.get(Category.EXTRA, "Can Work Tick", 20, Comment.CAN_WORK_TICK).getInt();
             Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
             Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
@@ -198,7 +199,7 @@ public class Config {
             BlockIds.oyster = config.getBlock("Oyster", 754).getInt();
             BlockIds.sift = config.getBlock("Sifter", 755).getInt();
             BlockIds.woodBlocks = config.getBlock("Wooden Blocks", 756).getInt();
-            BlockIds.tankBlocks = config.getBlock("Tank", 757).getInt();
+            BlockIds.tankBlocks = config.getBlock("Tank Blocks", 757).getInt();
             BlockIds.groundBlocks = config.getBlock("Earthy Blocks", 758).getInt();
             //FREEID: 758 > 761
             BlockIds.lampsOn = config.getBlock("Neon Lamps On", 762).getInt();

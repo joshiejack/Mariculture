@@ -23,8 +23,10 @@ import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
@@ -83,6 +85,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -321,6 +324,7 @@ public class Fishery extends Module {
 				Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 
 				Character.valueOf('W'), Item.silk });
 		
+		//Flux Rod
 		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(rodFlux), 0), new Object[] {
 			"  R", " RS", "B S",
 			Character.valueOf('R'), rodTitanium,
@@ -368,13 +372,22 @@ public class Fishery extends Module {
 					Character.valueOf('D'), "dyeBrown", 
 					Character.valueOf('C'), new ItemStack(Block.stainedClay, 1, 0), 
 					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
-		
+
+		//Incubator Base
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_BASE), new Object[] {
 			"DBD", "CHC",
 			Character.valueOf('C'), new ItemStack(Block.stainedClay, 1, 3),
 			Character.valueOf('B'), new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('D'), "dyeLightBlue",
 			Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER)
+		});
+		
+		//FishTank
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.FISH), new Object[] {
+			"AGA", "GFG", "AGA",
+			Character.valueOf('A'), "ingotAluminum",
+			Character.valueOf('G'), "glass",
+			Character.valueOf('F'), new ItemStack(fishyFood, 1, OreDictionary.WILDCARD_VALUE)
 		});
 	}
 
@@ -461,6 +474,9 @@ public class Fishery extends Module {
 		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 2, FoodMeta.CALAMARI), new Object[] {
 				new ItemStack(fishyFood, 1, Fishery.squid.fishID),
 				new ItemStack(Item.bowlEmpty) });
+		
+		//Smoked Salmong
+		RecipeHelper.addSmelting(fishyFood.itemID, salmon.fishID, new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), 0.1F);
 
 		// Cod > Fish Finger
 		GameRegistry.addRecipe(new ItemStack(Core.food, 64, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
@@ -469,7 +485,7 @@ public class Fishery extends Module {
 		
 		// Tetra > Neon Lamp
 		for (int i = 0; i < 12; i++) {
-			GameRegistry.addRecipe(new ItemStack(lampsOn, 1, i), new Object[] { "GDG", "PFP", "GRG", 
+			GameRegistry.addRecipe(new ItemStack(lampsOn, 4, i), new Object[] { "GDG", "PFP", "GRG", 
 					Character.valueOf('P'), new ItemStack(Core.pearls, 1, i),
 					Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC),
 					Character.valueOf('R'), Item.redstone, 

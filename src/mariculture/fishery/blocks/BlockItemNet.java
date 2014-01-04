@@ -1,10 +1,15 @@
 package mariculture.fishery.blocks;
 
+import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.SingleMeta;
+import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
@@ -50,6 +55,21 @@ public class BlockItemNet extends ItemMariculture {
 			return stack;
 		}
 	}
+	
+	@Override
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity)  {
+		if(!entity.worldObj.isRemote) {
+			if(entity instanceof EntitySquid) {
+				player.inventory.decrStackSize(player.inventory.currentItem, 1);
+				ItemHelper.spawnItem(entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
+						Fishing.fishHelper.makePureFish(Fishery.squid));
+				entity.worldObj.spawnParticle("bubble", entity.posX, entity.posY, entity.posZ, 0, 0, 0);
+				entity.setDead();
+			}
+		}
+		
+        return false;
+    }
 	
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {

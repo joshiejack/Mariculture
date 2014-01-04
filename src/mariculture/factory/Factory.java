@@ -14,6 +14,7 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
@@ -208,22 +209,25 @@ public class Factory extends Module {
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
-		//Alternative for Converter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
-			" B ", "FPF", "IMI",
-			Character.valueOf('F'), Item.feather, 
-			Character.valueOf('P'), Item.enderPearl, 
-			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-			Character.valueOf('B'), Item.writableBook,
-			Character.valueOf('I'), "ingotCopper"
-		});
+		if(Extra.ENDER_CONVERTER) {
+			//Alternative for Converter
+			RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
+				" B ", "FPF", "IMI",
+				Character.valueOf('F'), Item.feather, 
+				Character.valueOf('P'), Item.enderPearl, 
+				Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
+				Character.valueOf('B'), Item.writableBook,
+				Character.valueOf('I'), "ingotCopper"
+			});
+		}
 		
 		//Mechanized Sponge
 		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Block.sponge): new ItemStack(Item.bucketWater);
 		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Item.potion, 1, 0);
+		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.fishRaw);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
-			Character.valueOf('D'), new ItemStack(Item.potion, 1, 0), 
+			Character.valueOf('D'), fish, 
 			Character.valueOf('S'), sponge, 
 			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
 			Character.valueOf('A'), water,
@@ -282,7 +286,6 @@ public class Factory extends Module {
 		});
 		
 		//Sorter
-		ItemStack fish = (Modules.fishery.isActive())? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.fishRaw);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.FISH_SORTER), new Object[] {
 			"BPY", "GFA", "RCW",
 			Character.valueOf('B'), "dyeBlack",

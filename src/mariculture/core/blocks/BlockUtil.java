@@ -69,8 +69,6 @@ public class BlockUtil extends BlockMachine {
 			return 5F;
 		case UtilMeta.SAWMILL:
 			return 2F;
-		case UtilMeta.SETTLER:
-			return 6F;
 		case UtilMeta.SLUICE:
 			return 4F;
 		case UtilMeta.SPONGE:
@@ -135,8 +133,6 @@ public class BlockUtil extends BlockMachine {
 				return Block.bookShelf.getIcon(side, meta);
 			case UtilMeta.LIQUIFIER:
 				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_BRICK);
-			case UtilMeta.SETTLER:
-				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
 			case UtilMeta.SAWMILL:
 				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
 			case UtilMeta.AUTOFISHER:
@@ -335,8 +331,6 @@ public class BlockUtil extends BlockMachine {
 			return new TileAutofisher();
 		case UtilMeta.LIQUIFIER:
 			return new TileLiquifier();
-		case UtilMeta.SETTLER:
-			return new TileSettler();
 		case UtilMeta.BOOKSHELF:
 			return new TileBookshelf();
 		case UtilMeta.SAWMILL:

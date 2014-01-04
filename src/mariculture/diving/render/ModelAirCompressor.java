@@ -243,9 +243,9 @@ public class ModelAirCompressor extends ModelBase {
 
 
 	public void render(TileAirCompressor tile, double x, double y, double z) {
-		if(tile.getBlockMetadata() == DoubleMeta.AIR_COMPRESSOR)
+		if(tile.getBlockMetadata() == DoubleMeta.COMPRESSOR_BASE)
 			renderBase(tile, x, y, z);
-		if(tile.getBlockMetadata() == DoubleMeta.AIR_COMPRESSOR_POWER)
+		if(tile.getBlockMetadata() == DoubleMeta.COMPRESSOR_TOP)
 			renderTop(tile, x, y, z);
 	}
 

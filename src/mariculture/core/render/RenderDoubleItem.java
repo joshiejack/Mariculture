@@ -29,7 +29,7 @@ public class RenderDoubleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.itemID == Core.doubleBlock.blockID && item.getItemDamage() == DoubleMeta.AIR_COMPRESSOR) {
+		if (item.itemID == Core.doubleBlock.blockID && item.getItemDamage() == DoubleMeta.COMPRESSOR_BASE) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(COMPRESSOR);
 			compressor.renderInventory(type);
 		}
@@ -39,7 +39,7 @@ public class RenderDoubleItem implements IItemRenderer {
 			compressor.renderInventory(type);
 		}
 
-		if (item.itemID == Core.doubleBlock.blockID && item.getItemDamage() == DoubleMeta.AIR_COMPRESSOR_POWER) {
+		if (item.itemID == Core.doubleBlock.blockID && item.getItemDamage() == DoubleMeta.COMPRESSOR_TOP) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(COMPRESSOR_POWER);
 			power.renderInventory(type);
 		}

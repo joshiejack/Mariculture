@@ -61,8 +61,8 @@ public class Diving extends Module {
 		GameRegistry.registerTileEntity(TileAirCompressor.class, "tileEntityAirCompressor");
 		GameRegistry.registerTileEntity(TileAirCompressorPower.class, "tileEntityAirCompressorPower");
 		
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR_POWER, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.COMPRESSOR_TOP, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL, "pickaxe", 1);
 	}
 
@@ -97,7 +97,7 @@ public class Diving extends Module {
 					Character.valueOf('M'), Block.pistonBase }));
 		
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.AIR_COMPRESSOR_POWER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III",
 			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
@@ -106,7 +106,7 @@ public class Diving extends Module {
 		});
 		
 		//Air Compressor Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.AIR_COMPRESSOR), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
 			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),

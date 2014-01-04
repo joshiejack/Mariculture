@@ -41,6 +41,7 @@ public class Extra {
 	public static int CAN_WORK_TICK;
 	public static boolean GEYSER_ANIM;
 	public static boolean FLUDD_BLOCK_ANIM;
+	public static boolean ENDER_CONVERTER;
 	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 

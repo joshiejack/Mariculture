@@ -11,7 +11,10 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishDragon extends FishSpecies {
@@ -77,5 +80,12 @@ public class FishDragon extends FishSpecies {
 	@Override
 	public int getFishMealSize() {
 		return 6;
+	}
+	
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.getFoodStats().addStats(12, 0.5F);
+		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 2000, 0));
 	}
 }

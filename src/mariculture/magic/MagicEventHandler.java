@@ -42,7 +42,6 @@ public class MagicEventHandler {
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		if (event.entity instanceof EntityPlayer && event.entity.worldObj.isRemote) {
 			EntityPlayer player = (EntityPlayer) event.entity;
-
 			EnchantmentGlide.activate(player);
 			EnchantmentSpeed.activate(player);
 			EnchantmentSpider.activate(player);
@@ -50,6 +49,8 @@ public class MagicEventHandler {
 
 		if (event.entity instanceof EntityPlayer && !event.entity.worldObj.isRemote) {
 			EnchantmentOneRing.activate((EntityPlayer) event.entity);
+			
+			//((EntityPlayer) event.entity).getFoodStats().addStats(-1, 0F);
 		}
 	}
 

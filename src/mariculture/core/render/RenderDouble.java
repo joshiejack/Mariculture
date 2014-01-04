@@ -3,8 +3,6 @@ package mariculture.core.render;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockDouble;
-import mariculture.core.blocks.TileForge;
-import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
@@ -72,10 +70,10 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 	private void renderCompressorBase(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block, ForgeDirection facing) {
 		render.renderAllFaces = true;
 		if(facing == ForgeDirection.UNKNOWN) {
-			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			helper.setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE);
 			helper.renderBlock(0, 0, 0, 1, 1, 1);
 		} else if (facing == ForgeDirection.SOUTH) {
-			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			helper.setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE);
 			//Main
 			helper.renderBlock(0.05, 0.2, 0, 0.95, 1, 0.95);
 			//Bottom
@@ -92,7 +90,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.setTexture(Block.blockIron);
 			helper.renderBlock(0.15, 0, 0.7, 0.85, 0.2, 0.85);
 		} else if (facing == ForgeDirection.NORTH) {
-			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			helper.setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE);
 			//0.95, 0.2, 0, 0.05, 1, 
 			//Main
 			helper.renderBlock(0.05, 0.2, 0.05, 0.95, 1, 1);
@@ -144,7 +142,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			}
 		} else if(facing == ForgeDirection.EAST) {
 			// l <> r 			| u <> d |			 b <> bf
-			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			helper.setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE);
 			//Main
 			helper.renderBlock(0.05, 0.2, 0.05, 1, 1, 0.95);
 			//Bottom
@@ -229,15 +227,11 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		}
 		
 		int meta = world.getBlockMetadata(x, y, z);
-		if(meta == DoubleMeta.AIR_COMPRESSOR) {
+		if(meta == DoubleMeta.COMPRESSOR_BASE) {
 			renderCompressorBase(tile, world, x, y, z, render, stone, facing);
 		} else {
 			renderCompressorTop(tile, world, x, y, z, render, stone, facing);
 		}
-	}
-	
-	public boolean doExtendForge(TileEntity tile) {
-		return tile instanceof TileForge || tile instanceof TileLiquifier;
 	}
 	
 	public boolean doExtendVessel(TileEntity tile) {

@@ -33,8 +33,6 @@ import mariculture.core.blocks.BlockWood;
 import mariculture.core.blocks.BlockWoodItem;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileBookshelf;
-import mariculture.core.blocks.TileBucket;
-import mariculture.core.blocks.TileForge;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileSettler;
@@ -48,8 +46,8 @@ import mariculture.core.handlers.ModulesHandler;
 import mariculture.core.handlers.SettlerRecipeHandler;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.WorldGenHandler;
-import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.BlockTransferHelper;
+import mariculture.core.helpers.DictionaryHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
@@ -191,8 +189,6 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileSettler.class, "tileEntitySettler");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
-		GameRegistry.registerTileEntity(TileForge.class, "tileForge");
-		GameRegistry.registerTileEntity(TileBucket.class, "tileBucket");
 
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
@@ -208,7 +204,6 @@ public class Core extends Module {
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_BRICK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_IRON, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.LIQUIFIER, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.SETTLER, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(groundBlocks, GroundMeta.BUBBLES, "shovel", 0);
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,

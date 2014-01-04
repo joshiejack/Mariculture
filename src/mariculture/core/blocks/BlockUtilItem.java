@@ -26,9 +26,6 @@ public class BlockUtilItem extends ItemBlockMariculture {
 		case UtilMeta.LIQUIFIER:
 			name = "liquifier";
 			break;
-		case UtilMeta.SETTLER:
-			name = "settler";
-			break;
 		case UtilMeta.BOOKSHELF:
 			name = "bookshelf";
 			break;

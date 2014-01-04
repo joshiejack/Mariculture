@@ -2,28 +2,24 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
-import mariculture.diving.TileAirCompressorPower;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDouble extends BlockMachine {
 	public Icon bar1;
@@ -56,14 +52,14 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
-		case DoubleMeta.AIR_COMPRESSOR:
+		case DoubleMeta.COMPRESSOR_BASE:
 			return 5F;
-		case DoubleMeta.AIR_COMPRESSOR_POWER:
+		case DoubleMeta.COMPRESSOR_TOP:
 			return 3F;
 		case DoubleMeta.PRESSURE_VESSEL:
 			return 6F;
-		case DoubleMeta.FORGE:
-			return 4.5F;
+		case DoubleMeta.VAT:
+			return 2F;
 		}
 
 		return 3F;
@@ -131,7 +127,7 @@ public class BlockDouble extends BlockMachine {
 		final int meta = block.getBlockMetadata(x, y, z);
 
 		switch (meta) {
-		case DoubleMeta.AIR_COMPRESSOR_POWER:
+		case DoubleMeta.COMPRESSOR_TOP:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.15F, 1F);
 			break;
 		default:
@@ -142,14 +138,12 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		switch (meta) {
-		case DoubleMeta.AIR_COMPRESSOR:
+		case DoubleMeta.COMPRESSOR_BASE:
 			return new TileAirCompressor();
-		case DoubleMeta.AIR_COMPRESSOR_POWER:
+		case DoubleMeta.COMPRESSOR_TOP:
 			return new TileAirCompressor();
 		case DoubleMeta.PRESSURE_VESSEL:
 			return new TilePressureVessel();
-		case DoubleMeta.FORGE:
-			return new TileForge();
 		}
 
 		return null;
@@ -183,13 +177,12 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case DoubleMeta.AIR_COMPRESSOR:
+		case DoubleMeta.COMPRESSOR_BASE:
 			return (Modules.diving.isActive());
-		case DoubleMeta.AIR_COMPRESSOR_POWER:
+		case DoubleMeta.COMPRESSOR_TOP:
 			return (Modules.diving.isActive());
 		case DoubleMeta.PRESSURE_VESSEL:
 			return (Modules.factory.isActive());
-
 		default:
 			return true;
 		}

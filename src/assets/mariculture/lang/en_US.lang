@@ -21,7 +21,6 @@ tile.oreBlocks.copperBlock.name=Block of Copper
 tile.oreBlocks.baseBrick.name=Brick Construction Block
 tile.oreBlocks.baseIron.name=Iron Construction Block
 tile.utilBlocks.liquifier.name=Crucible Furnace
-tile.utilBlocks.settler.name=Industrial Freezer
 tile.utilBlocks.bookshelf.name=Storage Bookshelf
 tile.utilBlocks.converter.name=RF to MJ Converter
 tile.oysterBlock.name=Pearl Oyster
@@ -48,11 +47,14 @@ tile.pearlBrick.silver.name=Silver Pearl Brick
 tile.glassBlocks.plastic.name=Transparent Plastic
 tile.airBlocks.air.name=Fake Air
 tile.airBlocks.naturalGas.name=Natural Gas
+tile.airBlock.demo.name=Air Pump Area Indicator
 tile.woodBlocks.baseWood.name=Wooden Construction Block
 tile.woodBlocks.polishedPlank.name=Polished Planks
 tile.woodBlocks.polishedLog.name=Polished Logs
 tile.tankBlocks.normal.name=Fluid Tank
-tile.groundBlocks.gas.name=Sand
+tile.tankBlocks.bottle.name=Void Bottle
+tile.groundBlocks.gas.name=Gas Leak
+tile.customBlocks.anvil.name=Blacksmith's Anvil
 #fluids
 fluid.fastwater=Pressurised Water
 tile.highPressureWater.name=Pressurised Water
@@ -178,6 +180,7 @@ item.liquidContainers.bottleMagnesium.name=Bottle of Molten Magnesium
 item.liquidContainers.bottleNickel.name=Bottle of Molten Nickel
 item.liquidContainers.bottleGlass.name=Bottle of Molten Glass
 item.liquidContainers.bottleNaturalGas.name=Bottle of Natural Gas
+item.liquidContainers.bottleRutile.name=Bottle of Impure Titanium
 
 ### Diving ###
 #blocks
@@ -298,8 +301,13 @@ item.rodReed.name=Reed Fishing Rod
 item.food.fishFinger.name=Fish Finger
 item.food.calamari.name=Calamari
 item.food.smokedSalmon.name=Smoked Salmon
+item.food.custard.name=Custard
+item.food.fishNCustard.name=Fish Fingers 'n Custard
+item.food.sushi.name=Sushi
+item.food.caviar.name=Caviar
 item.craftingItems.dragonEgg.name=Spawn Ender Dragon
 item.liquidContainers.bottleFishOil.name=Bottle of Fish Oil
+item.liquidContainers.fishFood.name=Bottle of Fish Food
 item.rodFlux.name=RF Fishing Rod
 #fish breeding
 item.fishy=Mariculture Fish
@@ -419,6 +427,8 @@ item.coral.purple.name=Purple Coral
 item.materials.dyeYellow.name=Yellow Dye
 item.materials.dyeRed.name=Red Dye
 item.materials.dyeBrown.name=Brown Dye
+item.food.misoSoup.name=Miso Soup
+item.food.kelpWrap.name=Kelp Wrap
 
 ### Other Strings ###
 item.aquaBackpack.name=Aquatic Backpack
