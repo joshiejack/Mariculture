@@ -2,6 +2,8 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.blocks.base.TileMultiBlock;
@@ -13,6 +15,7 @@ import mariculture.diving.TileAirCompressor;
 import mariculture.diving.TileAirCompressorPower;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,12 +26,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDouble extends BlockMachine {
-	private Icon[] icons;
+	public Icon bar1;
+	public Icon bar2;
 
 	public BlockDouble(int i) {
 		super(i, Material.iron);
 	}
-	
+
 	@Override
 	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
@@ -141,7 +145,7 @@ public class BlockDouble extends BlockMachine {
 		case DoubleMeta.AIR_COMPRESSOR:
 			return new TileAirCompressor();
 		case DoubleMeta.AIR_COMPRESSOR_POWER:
-			return new TileAirCompressorPower();
+			return new TileAirCompressor();
 		case DoubleMeta.PRESSURE_VESSEL:
 			return new TilePressureVessel();
 		case DoubleMeta.FORGE:
@@ -194,5 +198,18 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public int getMetaCount() {
 		return DoubleMeta.COUNT;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconRegister) {
+		bar1 = iconRegister.registerIcon(Mariculture.modid + ":bar1");
+		bar2 = iconRegister.registerIcon(Mariculture.modid + ":bar2");
+		
+		icons = new Icon[getMetaCount()];
+
+		for (int i = 0; i < icons.length; i++) {
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
+		}
 	}
 }

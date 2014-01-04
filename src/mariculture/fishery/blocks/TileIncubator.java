@@ -277,10 +277,12 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	}
 	
 	public boolean isBase(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID && worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_BASE;
+		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
+					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_BASE;
 	}
 	
 	public boolean isTop(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID && worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP;
+		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
+					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP;
 	}
 }

@@ -26,7 +26,7 @@ public class ScubaTank {
 		}
 	}
 
-	private static void damage(final ItemStack stack, final EntityPlayer player) {
+	private static void damage(ItemStack stack, EntityPlayer player) {
 		if (stack.getItemDamage() < stack.getMaxDamage() && player.worldObj.getWorldTime() % 144 == 0) {
 			stack.damageItem(1, player);
 		}

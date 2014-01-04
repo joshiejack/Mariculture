@@ -14,8 +14,8 @@ public class RenderDoubleItem implements IItemRenderer {
 	private static final ResourceLocation COMPRESSOR = new ResourceLocation("mariculture", "textures/blocks/air_compressor_texture.png");
 	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation("mariculture", "textures/blocks/pressure_vessel_texture.png");
 	private static final ResourceLocation COMPRESSOR_POWER = new ResourceLocation("mariculture", "textures/blocks/air_compressor_power_texture.png");
-	private final ModelAirCompressorPower power = new ModelAirCompressorPower(scale);
-	private final ModelAirCompressor compressor = new ModelAirCompressor(scale);
+	private final ModelAirCompressorPower power = new ModelAirCompressorPower();
+	private final ModelAirCompressor compressor = new ModelAirCompressor();
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {

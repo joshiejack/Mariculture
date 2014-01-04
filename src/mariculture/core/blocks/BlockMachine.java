@@ -9,6 +9,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Mariculture;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.util.IItemRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -65,6 +66,8 @@ public class BlockMachine extends BlockContainer implements IItemRegistry {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
+		if(icons == null)
+			return Block.stone.getIcon(side, meta);
 		if(meta < getMetaCount()) {
 			return icons[meta];
 		} else { 

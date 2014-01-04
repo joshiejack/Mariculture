@@ -1,5 +1,7 @@
 package mariculture.diving;
 
+import java.util.HashMap;
+
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
@@ -22,6 +24,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Diving extends Module {
+	public static final HashMap facingList = new HashMap();
 	public static boolean isActive;
 	
 	@Override

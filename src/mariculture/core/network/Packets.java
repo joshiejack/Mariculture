@@ -37,5 +37,6 @@ public class Packets {
 		PacketRegistry.register(new Packet114RedstoneControlled());
 		PacketRegistry.register(new Packet115EjectSetting());
 		PacketRegistry.register(new Packet116GUIClick());
+		PacketRegistry.register(new Packet117AirCompressorUpdate());
 	}
 }

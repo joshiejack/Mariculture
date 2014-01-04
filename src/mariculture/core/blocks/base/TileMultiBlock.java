@@ -9,12 +9,14 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 
 public class TileMultiBlock extends TileEntity {
 	protected ArrayList<MultiPart> slaves = new ArrayList<MultiPart>();
 	public MultiPart master;
 	
 	public class MultiPart {	
+		public ForgeDirection facing = ForgeDirection.UNKNOWN;
 		public int xCoord;
 		public int yCoord;
 		public int zCoord;
@@ -23,6 +25,13 @@ public class TileMultiBlock extends TileEntity {
 			xCoord = x;
 			yCoord = y;
 			zCoord = z;
+		}
+		
+		public MultiPart(int x, int y, int z, ForgeDirection dir) {
+			xCoord = x;
+			yCoord = y;
+			zCoord = z;
+			facing = dir;
 		}
 
 		public boolean isSame(int x, int y, int z) {
@@ -36,9 +45,15 @@ public class TileMultiBlock extends TileEntity {
 		return new MultiPart(x, y, z);
 	}
 	
+	protected MultiPart setAsSlave(MultiPart master, int x, int y, int z, ForgeDirection dir) {
+		TileMultiBlock slave = (TileMultiBlock) worldObj.getBlockTileEntity(x, y, z);
+		slave.setMaster(master.xCoord, master.yCoord, master.zCoord);
+		return new MultiPart(x, y, z, dir);
+	}
+	
 	protected void setAsMaster(MultiPart mstr, ArrayList<MultiPart> parts) {
 		TileMultiBlock master = (TileMultiBlock) worldObj.getBlockTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord);
-		master.setMaster();
+		master.setMaster(mstr);
 		master.setSlaves(parts);
 	}
 	
@@ -46,8 +61,8 @@ public class TileMultiBlock extends TileEntity {
 		master = null;
 	}
 	
-	public void setMaster() {
-		master = new MultiPart(xCoord, yCoord, zCoord);
+	public void setMaster(MultiPart mstr) {
+		master = mstr;
 	}
 	
 	public void setSlaves(ArrayList<MultiPart> parts) {
@@ -107,11 +122,16 @@ public class TileMultiBlock extends TileEntity {
 	public void onBlockBreak() {
 		if(master != null) {
 			TileMultiBlock mstr = (TileMultiBlock) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
-			for(MultiPart part: mstr.slaves) {
-				((TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord)).clearMaster();
+			if(mstr != null) {
+				if(mstr.slaves.size() > 0) {
+					for(MultiPart part: mstr.slaves) {
+						if(worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord) != null)
+							((TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord)).clearMaster();
+					}
+				}
+				
+				mstr.clearMaster();
 			}
-			
-			mstr.clearMaster();
 			
 			Packets.updateTile(this, 32, getDescriptionPacket());
 		}
@@ -161,17 +181,28 @@ public class TileMultiBlock extends TileEntity {
 		int mstrX = nbt.getInteger("MasterX");
 		int mstrY = nbt.getInteger("MasterY");
 		int mstrZ = nbt.getInteger("MasterZ");
+		int facing = nbt.getInteger("Facing");
 		
 		if(built) {
-			master = new MultiPart(mstrX, mstrY, mstrZ);
+			if(facing == -1)
+				master = new MultiPart(mstrX, mstrY, mstrZ);
+			else
+				master = new MultiPart(mstrX, mstrY, mstrZ, ForgeDirection.values()[facing]);
 		
+			slaves = new ArrayList<MultiPart>();
+			
 			NBTTagList tagList = nbt.getTagList("Slaves");
 			for (int i = 0; i < tagList.tagCount(); i++) {
 				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
 				int x = tag.getInteger("xCoord");
 				int y = tag.getInteger("yCoord");
 				int z = tag.getInteger("zCoord");
-				slaves.add(new MultiPart(x, y, z));
+				int dir = tag.getInteger("Direction");
+				if(dir == -1)
+					slaves.add(new MultiPart(x, y, z));
+				else
+					slaves.add(new MultiPart(x, y, z, ForgeDirection.values()[dir]));
+				
 			}
 		}
 	}
@@ -183,6 +214,10 @@ public class TileMultiBlock extends TileEntity {
 			nbt.setInteger("MasterX", master.xCoord);
 			nbt.setInteger("MasterY", master.yCoord);
 			nbt.setInteger("MasterZ", master.zCoord);
+			if(master.facing == ForgeDirection.UNKNOWN)
+				nbt.setInteger("Facing", -1);
+			else
+				nbt.setInteger("Facing", master.facing.ordinal());
 			
 			nbt.setBoolean("Built", true);
 			NBTTagList itemList = new NBTTagList();
@@ -191,6 +226,10 @@ public class TileMultiBlock extends TileEntity {
 				tag.setInteger("xCoord", part.xCoord);
 				tag.setInteger("yCoord", part.yCoord);
 				tag.setInteger("zCoord", part.zCoord);
+				if(part.facing != ForgeDirection.UNKNOWN)
+					tag.setInteger("Direction", part.facing.ordinal());
+				else
+					tag.setInteger("Direction", -1);
 				itemList.appendTag(tag);
 			}
 

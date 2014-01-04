@@ -51,7 +51,6 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
 	public static final float scale = (float) (1.0 / 20.0);
-	public static final float scaleDouble = (float) (1.0 / 16.0);
 	private static final ResourceLocation AIR_PUMP = new ResourceLocation(Mariculture.modid, "textures/blocks/air_pump_texture.png");
 	private static final ResourceLocation OYSTER = new ResourceLocation(Mariculture.modid, "textures/blocks/oyster_texture.png");
 	private static final ResourceLocation SIFT = new ResourceLocation(Mariculture.modid, "textures/blocks/sift_texture.png");
@@ -59,9 +58,7 @@ public class ClientProxy extends CommonProxy {
 	private static final ResourceLocation TURBINE = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_texture.png");
 	private static final ResourceLocation TURBINE_GAS = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_gas_texture.png");
 	private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
-	private static final ResourceLocation COMPRESSOR = new ResourceLocation(Mariculture.modid, "textures/blocks/air_compressor_texture.png");
 	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
-	private static final ResourceLocation COMPRESSOR_POWER = new ResourceLocation(Mariculture.modid, "textures/blocks/air_compressor_power_texture.png");
 
 	@Override
 	public void initClient() {	
@@ -84,8 +81,6 @@ public class ClientProxy extends CommonProxy {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
 			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
-			ClientRegistry.bindTileEntitySpecialRenderer(TileAirCompressor.class, new RenderDouble(new ModelAirCompressor(scaleDouble), COMPRESSOR));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileAirCompressorPower.class, new RenderDouble(new ModelAirCompressorPower(scaleDouble), COMPRESSOR_POWER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
 		}
 		

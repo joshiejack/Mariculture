@@ -1,145 +1,243 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
+import mariculture.core.Mariculture;
+import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.TileForge;
 import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
+import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
-import mariculture.diving.TileAirCompressorPower;
 import mariculture.diving.render.ModelAirCompressor;
-import mariculture.diving.render.ModelAirCompressorPower;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
-public class RenderDouble extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
+public class RenderDouble implements ISimpleBlockRenderingHandler {
 
-	private ModelBase model;
-	private ResourceLocation resource;
-
-	public RenderDouble() {}
+	private ModelAirCompressor model = new ModelAirCompressor();
+	private static final ResourceLocation COMPRESSOR = new ResourceLocation(Mariculture.modid, "textures/blocks/air_compressor_texture.png");
+	private static final ResourceLocation COMPRESSOR_POWER = new ResourceLocation(Mariculture.modid, "textures/blocks/air_compressor_power_texture.png");
 	
-	public RenderDouble(ModelBase model, ResourceLocation resource) {
-		this.model = model;
-		this.resource = resource;
-	}
-
-	@Override
-	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float tick) {
-		if (tileEntity instanceof TileAirCompressor) {
-			this.bindTexture(resource);
-			((ModelAirCompressor) model).render((TileAirCompressor) tileEntity, x, y, z, this);
-		}
-
-		if (tileEntity instanceof TileAirCompressorPower) {
-			this.bindTexture(resource);
-			((ModelAirCompressorPower) model).render((TileAirCompressorPower) tileEntity, x, y, z);
-		}
-	}
-
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks render) {
 		
 	}
 	
-	public boolean doExtendForge(TileEntity tile) {
-		return tile instanceof TileForge || tile instanceof TileLiquifier;
+	private void renderCompressorTop(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block, ForgeDirection facing) {
+		
 	}
 	
-	public void renderForge(TileForge tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
+	public class RenderHelper {
+		RenderBlocks render;
+		int x;
+		int y;
+		int z;
+		
+		public RenderHelper(RenderBlocks render, int x, int y, int z) {
+			this.render = render;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+		
+		public void setTexture(Icon icon) {
+			render.setOverrideBlockTexture(icon);
+		}
+		
+		public void setTexture(Block block) {
+			render.setOverrideBlockTexture(block.getIcon(0, 0));
+		}
+		
+		public void setTexture(Block block, int meta) {
+			render.setOverrideBlockTexture(block.getIcon(0, meta));
+		}
+		
+		public void renderBlock(double x, double y, double z, double x2, double y2, double z2) {
+			render.setRenderBounds(x, y, z, x2, y2, z2);
+			render.renderStandardBlock(Block.stone, this.x, this.y, this.z);
+		}
+	}
+	
+	public RenderHelper helper;
+	private void renderCompressorBase(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block, ForgeDirection facing) {
 		render.renderAllFaces = true;
-		
-		//Top
-		render.setOverrideBlockTexture(Block.anvil.getIcon(0, 0));
-		render.setRenderBounds(0, 0.8, 0, 1, 0.85, 1);
-		render.renderStandardBlock(block, x, y, z);
-		render.setOverrideBlockTexture(Core.oreBlocks.getIcon(0, OresMeta.BASE_BRICK));
-		render.setRenderBounds(0, 0.7, 0, 1, 0.8, 1);
-		render.renderStandardBlock(block, x, y, z);
-		
-		double xStart = (doExtendForge(world.getBlockTileEntity(x - 1, y, z)))? 0: 0.25;
-		double xEnd = (doExtendForge(world.getBlockTileEntity(x + 1, y, z)))? 1: 0.75;
-		double zStart = (doExtendForge(world.getBlockTileEntity(x, y, z - 1)))? 0: 0.25;
-		double zEnd = (doExtendForge(world.getBlockTileEntity(x, y, z + 1)))? 1: 0.75;
-		
-		render.setOverrideBlockTexture(Block.netherBrick.getIcon(0, 0));
-		render.setRenderBounds(xStart, 0.5, zStart, xEnd, 0.7, zEnd);
-		render.renderStandardBlock(Block.stone, x, y, z);
-		render.setOverrideBlockTexture(Core.oreBlocks.getIcon(0, OresMeta.BASE_BRICK));
-		render.setRenderBounds(xStart, 0.1, zStart, xEnd, 0.5, zEnd);
-		render.renderStandardBlock(Block.stone, x, y, z);
-		render.setOverrideBlockTexture(Block.netherBrick.getIcon(0, 0));
-		render.setRenderBounds(xStart, 0.0, zStart, xEnd, 0.1, zEnd);
-		render.renderStandardBlock(Block.stone, x, y, z);
-		
-		//Top Sides
-		//Right hand side
-		if(!(world.getBlockTileEntity(x, y, z - 1) instanceof TileForge)) {
-			//Side
-			render.setOverrideBlockTexture(Block.netherBrick.getIcon(0, 0));
-			render.setRenderBounds(0, 0.85, 0, 1, 1, 0.05);
-			render.renderStandardBlock(block, x, y, z);
-		}
-		
-		//Left hand side
-		if(!(world.getBlockTileEntity(x, y, z + 1) instanceof TileForge)) {
-			//Side
-			render.setOverrideBlockTexture(Block.netherBrick.getIcon(0, 0));
-			render.setRenderBounds(0, 0.85, 0.95, 1, 1, 1);
-			render.renderStandardBlock(block, x, y, z);
-		}
-		
-		//Top hand side
-		if(!(world.getBlockTileEntity(x - 1, y, z) instanceof TileForge)) {
-			//Side
-			render.setOverrideBlockTexture(Block.netherBrick.getIcon(0, 0));
-			render.setRenderBounds(0, 0.85, 0, 0.05, 1, 1);
-			render.renderStandardBlock(block, x, y, z);
-		}
-		
-		//Bottom hand side
-		if(!(world.getBlockTileEntity(x + 1, y, z) instanceof TileForge)) {
-			//Side
-			render.setOverrideBlockTexture(Block.netherBrick.getIcon(0, 0));
-			render.setRenderBounds(0.95, 0.85, 0, 1, 1, 1);
-			render.renderStandardBlock(block, x, y, z);
-		}
-		
-		//Liquid
-		TileForge forge = (TileForge) world.getBlockTileEntity(tile.mstr.x, tile.mstr.y, tile.mstr.z);
-		if(forge != null) {
-			if(forge.getFluid() != null) {
-				if(forge.getFluid().amount > 0) {
-					FluidStack fluidStack = forge.getFluid();
-					Fluid fluid = fluidStack.getFluid();
-					double xFluidStart = (doExtendForge(world.getBlockTileEntity(x - 1, y, z)))? 0: 0.05;
-					double xFluidEnd = (doExtendForge(world.getBlockTileEntity(x + 1, y, z)))? 1: 0.95;
-					double zFluidStart = (doExtendForge(world.getBlockTileEntity(x, y, z - 1)))? 0: 0.05;
-					double zFluidEnd = (doExtendForge(world.getBlockTileEntity(x, y, z + 1)))? 1: 0.95;
-					
-					render.setRenderBounds(xFluidStart, 0.95, zFluidStart, xFluidEnd, 0.98, zFluidEnd);
-					render.setOverrideBlockTexture(fluid.getStillIcon());
-					render.renderStandardBlock(block, x, y, z);
-				}
+		if(facing == ForgeDirection.UNKNOWN) {
+			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			helper.renderBlock(0, 0, 0, 1, 1, 1);
+		} else if (facing == ForgeDirection.SOUTH) {
+			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			//Main
+			helper.renderBlock(0.05, 0.2, 0, 0.95, 1, 0.95);
+			//Bottom
+			helper.renderBlock(0.2, 0.15, 0, 0.8, 0.2, 0.7);
+			//Top
+			helper.renderBlock(0.1, 1, 0, 0.9, 1.05, 0.85);
+			//Side 1
+			helper.renderBlock(0.95, 0.25, 0, 0.99, 0.95, 0.9);
+			//Side 2
+			helper.renderBlock(0.01, 0.25, 0, 0.05, 0.95, 0.9);
+			//End
+			helper.renderBlock(0.05, 0.25, 0.95, 0.95, 0.95, 1);
+			//Leg
+			helper.setTexture(Block.blockIron);
+			helper.renderBlock(0.15, 0, 0.7, 0.85, 0.2, 0.85);
+		} else if (facing == ForgeDirection.NORTH) {
+			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			//0.95, 0.2, 0, 0.05, 1, 
+			//Main
+			helper.renderBlock(0.05, 0.2, 0.05, 0.95, 1, 1);
+			//Bottom
+			helper.renderBlock(0.2, 0.15, 0.3, 0.8, 0.2, 1);
+			//Top
+			helper.renderBlock(0.1, 1, 0.15, 0.9, 1.05, 1);
+			//Side 1
+			helper.renderBlock(0.95, 0.25, 0.1, 0.99, 0.95, 1);
+			//Side 2
+			helper.renderBlock(0.01, 0.25, 0.1, 0.05, 0.95, 1);
+			//End
+			helper.renderBlock(0.05, 0.25, 0, 0.95, 0.95, 0.05);
+			//Leg
+			helper.setTexture(Block.blockIron);
+			helper.renderBlock(0.15, 0, 0.15, 0.85, 0.2, 0.3);
+			
+			//I am the master of the house! Let's render the bar
+			if(tile.isMaster()) {
+				double start = (0.25D + (1.5D - (tile.getAirStored() * 1.5D)/ 480));
+				if(start >= 1.75D)
+					start = 1.7499D;
+				
+				helper.setTexture(((BlockDouble)Core.doubleBlock).bar1);
+				helper.renderBlock(0.99, 0.4, start, 1, 0.8, 1.75);
+				
+				//Side renders
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.99, 0.8, 0.2, 1, 0.85, 1.8);
+				helper.renderBlock(0.99, 0.35, 0.2, 1, 0.4, 1.8);
+				helper.renderBlock(0.99, 0.4, 1.75, 1, 0.8, 1.8);
+				helper.renderBlock(0.99, 0.4, 0.2, 1, 0.8, 0.25);
+				
+				
+				start = (1.75D - (1.5D - (tile.getAirStored() * 1.5D)/ 480));
+				if(start <= 0.25D)
+					start = 0.2501D;
+				
+				//Side 2
+				helper.setTexture(((BlockDouble)Core.doubleBlock).bar1);
+				helper.renderBlock(0, 0.4, 0.25, 0.0001, 0.8, start);
+				
+				//Side Renders number 2 :)
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0, 0.8, 0.2, 0.01, 0.85, 1.8);
+				helper.renderBlock(0, 0.35, 0.2, 0.01, 0.4, 1.8);
+				helper.renderBlock(0, 0.4, 1.75, 0.01, 0.8, 1.8);
+				helper.renderBlock(0, 0.4, 0.2, 0.01, 0.8, 0.25);
+			}
+		} else if(facing == ForgeDirection.EAST) {
+			// l <> r 			| u <> d |			 b <> bf
+			helper.setTexture(Core.doubleBlock, DoubleMeta.AIR_COMPRESSOR);
+			//Main
+			helper.renderBlock(0.05, 0.2, 0.05, 1, 1, 0.95);
+			//Bottom
+			helper.renderBlock(0.3, 0.15, 0.2, 1, 0.2, 0.8);
+			//Top
+			helper.renderBlock(0.1, 1, 0.15, 1, 1.05, 0.85);
+			//Side 1
+			helper.renderBlock(0.1, 0.25, 0.01, 1, 0.95, 0.05);
+			//Side 2
+			helper.renderBlock(0.1, 0.25, 0.95, 1, 0.95, 0.99);
+			//End
+			helper.renderBlock(0, 0.25, 0.05, 0.05, 0.95, 0.95);
+			//Leg
+			helper.setTexture(Block.blockIron);
+			helper.renderBlock(0.15, 0, 0.15, 0.3, 0.2, 0.85);
+			
+			//I am the master of the house! Let's render the bar
+			
+			if(tile.isMaster()) {
+				double start = (0.25D + (1.5D - (tile.getAirStored() * 1.5D)/ 480));
+				if(start >= 1.75D)
+					start = 1.7499D;
+				
+				helper.setTexture(((BlockDouble)Core.doubleBlock).bar1);
+				helper.renderBlock(start, 0.4, 0, 1.75, 0.8, 0.0001);
+				
+				//Side renders
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.2, 0.8, 0.99, 1.8, 0.85, 1);
+				helper.renderBlock(0.2, 0.35, 0.99, 1.8, 0.4, 1);
+				helper.renderBlock(1.75, 0.4, 0.99, 1.8, 0.8, 1);
+				helper.renderBlock(0.2, 0.4, 0.99, 0.25, 0.8, 1);
+				
+				start = (1.75D - (1.5D - (tile.getAirStored() * 1.5D)/ 480));
+				if(start <= 0.25D)
+					start = 0.2501D;
+				
+				//Side 2
+				helper.setTexture(((BlockDouble)Core.doubleBlock).bar1);
+				helper.renderBlock(0.25, 0.4, 0.9999, start, 0.8, 1);
+				
+				//Side Renders number 2 :)
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.2, 0.8, 0, 1.8, 0.85, 0.0001);
+				helper.renderBlock(0.2, 0.35, 0, 1.8, 0.4, 0.0001);
+				helper.renderBlock(1.75, 0.4, 0, 1.8, 0.8, 0.0001);
+				helper.renderBlock(0.2, 0.4, 0, 0.25, 0.8, 0.0001);
 			}
 			
-			if(forge.getStackInSlot(0) != null) {
-				//renderItem(forge, forge.getStackInSlot(0));
-			}
+		} else if(facing == ForgeDirection.WEST) {
+			
 		}
 		
 		render.clearOverrideBlockTexture();
 		render.renderAllFaces = false;
+	}
+	
+	
+	private void renderAirCompressor(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block stone) {
+		ForgeDirection facing = ForgeDirection.UNKNOWN;
+		
+		if(tile.master != null) {			
+			String key = tile.xCoord + " ~ " + tile.yCoord + " ~ " + tile.zCoord;
+			
+			if(!Diving.facingList.containsKey(key)) {				
+				TileAirCompressor master = (TileAirCompressor) world.getBlockTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
+				if(tile.isMaster()) {
+					facing = tile.master.facing;
+					Diving.facingList.put(key, tile.master.facing);
+				} else if(master != null) {
+					for(MultiPart part: master.getSlaves()) {
+						if(tile.xCoord == part.xCoord && tile.yCoord == tile.yCoord && tile.zCoord == tile.zCoord) {
+							facing = part.facing;
+							Diving.facingList.put(key, part.facing);
+							break;
+						}
+					}
+				}
+			} else {
+				facing = (ForgeDirection)Diving.facingList.get(key);
+			}
+		}
+		
+		int meta = world.getBlockMetadata(x, y, z);
+		if(meta == DoubleMeta.AIR_COMPRESSOR) {
+			renderCompressorBase(tile, world, x, y, z, render, stone, facing);
+		} else {
+			renderCompressorTop(tile, world, x, y, z, render, stone, facing);
+		}
+	}
+	
+	public boolean doExtendForge(TileEntity tile) {
+		return tile instanceof TileForge || tile instanceof TileLiquifier;
 	}
 	
 	public boolean doExtendVessel(TileEntity tile) {
@@ -268,9 +366,10 @@ public class RenderDouble extends TileEntitySpecialRenderer implements ISimpleBl
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
+		helper = new RenderHelper(render, x, y, z);
 		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TileForge) {
-			renderForge((TileForge)tile, world, x, y, z, render, block.stone);
+		if(tile instanceof TileAirCompressor) {
+			renderAirCompressor((TileAirCompressor)tile, world, x, y, z, render, block.stone);
 		} else if (tile instanceof TilePressureVessel) {
 			renderVessel(world, x, y, z, render, block.stone);
 		}

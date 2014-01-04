@@ -23,13 +23,13 @@ import net.minecraft.world.World;
 
 public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
 
-	public ItemArmorScuba(final int i, final EnumArmorMaterial material, final int j, final int k) {
+	public ItemArmorScuba(int i, EnumArmorMaterial material, int j, int k) {
 		super(i, material, j, k);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
 	}
 
 	@Override
-	public String getArmorTexture(final ItemStack stack, final Entity entity, final int slot, final int layer) {
+	public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer) {
 		if (stack.itemID == Diving.scubaSuit.itemID) {
 			return "mariculture:" + "textures/armor/scuba" + "_2.png";
 		}
@@ -38,7 +38,7 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 	}
 
 	@Override
-	public void addInformation(final ItemStack stack, final EntityPlayer player, final List list, final boolean bool) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if (stack.itemID == Diving.scubaMask.itemID) {
 			if (stack.hasTagCompound()) {
 				final boolean landLightOn = stack.getTagCompound().getBoolean("ScubaMaskOnOutOfWater");
@@ -58,7 +58,7 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 	}
 
 	@Override
-	public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer player) {
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if (!world.isRemote) {
 			if (stack.itemID == Diving.scubaMask.itemID) {
 				if (!stack.hasTagCompound()) {
