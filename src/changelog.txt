@@ -17,7 +17,6 @@
 * Full Dropped BC Power Support, now you can only use RF to Power my machines, and turbines will only provide RF
 * Removed ConfigCopier/LegacyLoader > If upgrading from previous version, make sure to load Mariculture on 1.1.4 FIRST
 * Oysters are more special ;)
-* Ore Converter, changed from a blacklist to a whitelist, add prefixes to the list to allow to be converted.
 * Scalable melting of damaged items.
 * Air Pumps, are now 'tanks'. Instead of passing directly any gas they get to tanks, they now have an internal tank buffer of 8 buckets, which they will then attempt to transfer to the side.
 * Right clicking an air pump with an item that rotates blocks such as a wrench will cause it to display, where you need air blocks
@@ -50,7 +49,6 @@
 ====API Changes====
 * IItemUpgrade additional items
 * Added Dual Smelting
-* Oven Handler/Recipes
 
 == Mariculture 1.1.4e ==
 * Fixed NPE when player becomes null when fishing
