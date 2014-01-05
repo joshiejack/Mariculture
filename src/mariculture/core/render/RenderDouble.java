@@ -2,6 +2,8 @@ package mariculture.core.render;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockDouble;
+import mariculture.core.blocks.TileVat;
+import mariculture.core.helpers.RenderHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
@@ -10,20 +12,18 @@ import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderDouble implements ISimpleBlockRenderingHandler {
+	public RenderHelper helper;
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks render) {
 		
 	}
 	
-	private void renderCompressorTop(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block, ForgeDirection facing) {
-		render.renderAllFaces = true;
-		
+	private void renderCompressorTop(IBlockAccess world, TileAirCompressor tile, ForgeDirection facing) {		
 		if(facing == ForgeDirection.UNKNOWN) {
 			helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
 			helper.renderBlock(0, 0, 0, 1, 0.15, 1);
@@ -102,45 +102,9 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_TOP);
 			helper.renderBlock(0.8, 0.15, 0.7, 1.5, 0.85, 0.75);
 		}
-		
-		render.clearOverrideBlockTexture();
-		render.renderAllFaces = false;
 	}
-	
-	public class RenderHelper {
-		RenderBlocks render;
-		int x;
-		int y;
-		int z;
-		
-		public RenderHelper(RenderBlocks render, int x, int y, int z) {
-			this.render = render;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-		
-		public void setTexture(Icon icon) {
-			render.setOverrideBlockTexture(icon);
-		}
-		
-		public void setTexture(Block block) {
-			render.setOverrideBlockTexture(block.getIcon(0, 0));
-		}
-		
-		public void setTexture(Block block, int meta) {
-			render.setOverrideBlockTexture(block.getIcon(0, meta));
-		}
-		
-		public void renderBlock(double x, double y, double z, double x2, double y2, double z2) {
-			render.setRenderBounds(x, y, z, x2, y2, z2);
-			render.renderStandardBlock(Block.stone, this.x, this.y, this.z);
-		}
-	}
-	
-	public RenderHelper helper;
-	private void renderCompressorBase(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block, ForgeDirection facing) {
-		render.renderAllFaces = true;
+
+	private void renderCompressorBase(IBlockAccess world, TileAirCompressor tile, ForgeDirection facing) {
 		if(facing == ForgeDirection.UNKNOWN) {
 			helper.setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE);
 			helper.renderBlock(0, 0.2, 0, 1, 1, 1);
@@ -246,14 +210,6 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
 			helper.renderBlock(0.15, 0, 0.15, 0.3, 0.2, 0.85);
 			
-			//I am the master of the house! Let's render the bar
-						
-			if(tile.master != null) {
-				//System.out.println(tile.master.xCoord);
-			} else {
-				//System.out.println(tile.master);
-			}
-			
 			if(tile.isMaster()) {
 				double start = (0.25D + (1.5D - (tile.getAirStored() * 1.5D)/ 480));
 				if(start >= 1.75D)
@@ -317,43 +273,16 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
 				helper.renderBlock(0.7, 0, 0.15, 0.85, 0.2, 0.85);
 		}
-		
-		render.clearOverrideBlockTexture();
-		render.renderAllFaces = false;
 	}
 	
 	
-	private void renderAirCompressor(TileAirCompressor tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block stone) {
-		/*ForgeDirection facing = ForgeDirection.UNKNOWN;
-		
-		if(tile.master != null) {			
-			String key = tile.xCoord + " ~ " + tile.yCoord + " ~ " + tile.zCoord;
-			
-			if(!Diving.facingList.containsKey(key)) {				
-				TileAirCompressor master = (TileAirCompressor) world.getBlockTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
-				if(tile.isMaster()) {
-					facing = tile.master.facing;
-					Diving.facingList.put(key, tile.master.facing);
-				} else if(master != null) {
-					for(MultiPart part: master.getSlaves()) {
-						if(x == part.xCoord && y == tile.yCoord && z == tile.zCoord) {
-							facing = part.facing;
-							Diving.facingList.put(key, part.facing);
-							break;
-						}
-					}
-				}
-			} else {
-				facing = (ForgeDirection)Diving.facingList.get(key);
-			}
-		} */
-		
+	private void renderAirCompressor(TileAirCompressor tile, IBlockAccess world, int x, int y, int z) {
 		ForgeDirection facing = tile.facing;
 		int meta = world.getBlockMetadata(x, y, z);
 		if(meta == DoubleMeta.COMPRESSOR_BASE) {
-			renderCompressorBase(tile, world, x, y, z, render, stone, facing);
+			renderCompressorBase(world, tile, facing);
 		} else {
-			renderCompressorTop(tile, world, x, y, z, render, stone, facing);
+			renderCompressorTop(world, tile, facing);
 		}
 	}
 	
@@ -361,42 +290,23 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		return tile instanceof TilePressureVessel;
 	}
 	
-	private void renderSide(IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block, double yStart, double yEnd) {
-		if(!(world.getBlockTileEntity(x, y, z - 1) instanceof TilePressureVessel)) {
-			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0, yStart, 0.045, 1, yEnd, 0.01);
-			render.renderStandardBlock(block, x, y, z);
-		}
-				
+	private void renderSide(IBlockAccess world, int x, int y, int z, double yStart, double yEnd) {
+		//Set Texture
+		helper.setTexture(Block.blockLapis);
+		if(!(world.getBlockTileEntity(x, y, z - 1) instanceof TilePressureVessel))
+			helper.renderBlock(0, yStart, 0.045, 1, yEnd, 0.01);
 		//Left hand side
-		if(!(world.getBlockTileEntity(x, y, z + 1) instanceof TilePressureVessel)) {
-			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0, yStart, 0.955, 1, yEnd, 0.99);
-			render.renderStandardBlock(block, x, y, z);
-		}
-				
+		if(!(world.getBlockTileEntity(x, y, z + 1) instanceof TilePressureVessel))
+			helper.renderBlock(0, yStart, 0.955, 1, yEnd, 0.99);	
 		//Top hand side
-		if(!(world.getBlockTileEntity(x - 1, y, z) instanceof TilePressureVessel)) {
-			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0.01, yStart, 0, 0.045, yEnd, 1);
-			render.renderStandardBlock(block, x, y, z);
-		}
-				
+		if(!(world.getBlockTileEntity(x - 1, y, z) instanceof TilePressureVessel))
+			helper.renderBlock(0.01, yStart, 0, 0.045, yEnd, 1);
 		//Bottom hand side
-		if(!(world.getBlockTileEntity(x + 1, y, z) instanceof TilePressureVessel)) {
-			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0.955, yStart, 0, 0.99, yEnd, 1);
-			render.renderStandardBlock(block, x, y, z);
-		}
+		if(!(world.getBlockTileEntity(x + 1, y, z) instanceof TilePressureVessel))
+			helper.renderBlock(0.955, yStart, 0, 0.99, yEnd, 1);
 	}
 	
-	private void renderVessel(IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
-		render.renderAllFaces = true;
-		
+	private void renderVessel(IBlockAccess world, int x, int y, int z) {
 		double xStart = (doExtendVessel(world.getBlockTileEntity(x - 1, y, z)))? 0: 0.05;
 		double xEnd = (doExtendVessel(world.getBlockTileEntity(x + 1, y, z)))? 1: 0.95;
 		double zStart = (doExtendVessel(world.getBlockTileEntity(x, y, z - 1)))? 0: 0.05;
@@ -404,31 +314,23 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		double yStart = (doExtendVessel(world.getBlockTileEntity(x, y - 1, z)))? 0: 0.2;
 		double yEnd = (doExtendVessel(world.getBlockTileEntity(x, y + 1, z)))? 1: 0.95;
 		
-		render.setOverrideBlockTexture(Core.doubleBlock.getBlockTexture(world, x, y, z, 0));
-		render.setRenderBounds(xStart, yStart, zStart, xEnd, yEnd, zEnd);
-		render.renderStandardBlock(Block.stone, x, y, z);
+		helper.setTexture(Core.doubleBlock.getBlockTexture(world, x, y, z, 0));
+		helper.renderBlock(xStart, yStart, zStart, xEnd, yEnd, zEnd);
 		
 		//Top Sides
 		//Right hand side
-		if(!(world.getBlockTileEntity(x, y + 1, z) instanceof TilePressureVessel)) {
-			renderSide(world, x, y, z, render, block, 0.93, 0.96);
-		}
-		
-		if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel)) {
-			renderSide(world, x, y, z, render, block, 0.2, 0.24);
-		}
-		
+		if(!(world.getBlockTileEntity(x, y + 1, z) instanceof TilePressureVessel))
+			renderSide(world, x, y, z, 0.93, 0.96);
+		if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel))
+			renderSide(world, x, y, z, 0.2, 0.24);
 		if(!(world.getBlockTileEntity(x, y, z - 1) instanceof TilePressureVessel) &&
 				!(world.getBlockTileEntity(x + 1, y, z) instanceof TilePressureVessel)) {
 			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0.95, yStart, 0, 1, yEnd, 0.05);
-			render.renderStandardBlock(block, x, y, z);
-			if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
-					!world.isAirBlock(x, y - 1, z)) {
-				render.setOverrideBlockTexture(Core.oreBlocks.getIcon(0, OresMeta.TITANIUM_BLOCK));
-				render.setRenderBounds(0.6, 0, 0.1, 0.9, 0.2, 0.4);
-				render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.blockLapis);
+			helper.renderBlock(0.95, yStart, 0, 1, yEnd, 0.05);
+			if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel) && !world.isAirBlock(x, y - 1, z)) {
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.6, 0, 0.1, 0.9, 0.2, 0.4);
 			}
 		}
 				
@@ -436,14 +338,12 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		if(!(world.getBlockTileEntity(x, y, z + 1) instanceof TilePressureVessel) &&
 				!(world.getBlockTileEntity(x - 1, y, z) instanceof TilePressureVessel)) {
 			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0, yStart, 0.95, 0.05, yEnd, 1);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.blockLapis);
+			helper.renderBlock(0, yStart, 0.95, 0.05, yEnd, 1);
 			if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
 					!world.isAirBlock(x, y - 1, z)) {
-				render.setOverrideBlockTexture(Core.oreBlocks.getIcon(0, OresMeta.TITANIUM_BLOCK));
-				render.setRenderBounds(0.1, 0, 0.6, 0.4, 0.2, 0.9);
-				render.renderStandardBlock(block, x, y, z);
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.1, 0, 0.6, 0.4, 0.2, 0.9);
 			}
 		}
 				
@@ -451,14 +351,12 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		if(!(world.getBlockTileEntity(x - 1, y, z) instanceof TilePressureVessel) &&
 				!(world.getBlockTileEntity(x, y, z - 1) instanceof TilePressureVessel)) {
 			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0, yStart, 0, 0.05, yEnd, 0.05);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.blockLapis);
+			helper.renderBlock(0, yStart, 0, 0.05, yEnd, 0.05);
 			if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
 					!world.isAirBlock(x, y - 1, z)) {
-				render.setOverrideBlockTexture(Core.oreBlocks.getIcon(0, OresMeta.TITANIUM_BLOCK));
-				render.setRenderBounds(0.1, 0, 0.1, 0.4, 0.2, 0.4);
-				render.renderStandardBlock(block, x, y, z);
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.1, 0, 0.1, 0.4, 0.2, 0.4);
 			}
 		}
 				
@@ -466,30 +364,36 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		if(!(world.getBlockTileEntity(x + 1, y, z) instanceof TilePressureVessel) &&
 				!(world.getBlockTileEntity(x , y, z + 1) instanceof TilePressureVessel)) {
 			//Side
-			render.setOverrideBlockTexture(Block.blockLapis.getIcon(0, 0));
-			render.setRenderBounds(0.95, yStart, 0.95, 1, yEnd, 1);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.blockLapis);
+			helper.renderBlock(0.95, yStart, 0.95, 1, yEnd, 1);
 			if(!(world.getBlockTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
 					!world.isAirBlock(x, y - 1, z)) {
-				render.setOverrideBlockTexture(Core.oreBlocks.getIcon(0, OresMeta.TITANIUM_BLOCK));
-				render.setRenderBounds(0.6, 0, 0.6, 0.9, 0.2, 0.9);
-				render.renderStandardBlock(block, x, y, z);
+				helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+				helper.renderBlock(0.6, 0, 0.6, 0.9, 0.2, 0.9);
 			}
 		}
+	}
+	
+	public void renderVat(IBlockAccess world, TileVat tile, int x, int y, int z) {
 		
-		render.clearOverrideBlockTexture();
-		render.renderAllFaces = false;
 	}
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
 		helper = new RenderHelper(render, x, y, z);
+		
+		render.renderAllFaces = true;
 		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);
 		if(tile instanceof TileAirCompressor) {
-			renderAirCompressor((TileAirCompressor)tile, world, x, y, z, render, block.stone);
+			renderAirCompressor((TileAirCompressor)tile, world, x, y, z);
 		} else if (tile instanceof TilePressureVessel) {
-			renderVessel(world, x, y, z, render, block.stone);
+			renderVessel(world, x, y, z);
+		} else if (tile instanceof TileVat) {
+			renderVat(world, (TileVat)tile, x, y, z);
 		}
+		
+		render.clearOverrideBlockTexture();
+		render.renderAllFaces = false;
 		
 		return false;
 	}

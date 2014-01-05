@@ -35,7 +35,7 @@ public class ItemFluidContainer extends ItemMariculture {
 
 		if (!world.isRemote) {
 			if (player.shouldHeal()) {
-				player.heal(2);
+				player.heal(5);
 			}
 		}
 
@@ -53,7 +53,7 @@ public class ItemFluidContainer extends ItemMariculture {
 
 	@Override
 	public int getMaxItemUseDuration(final ItemStack stack) {
-		return 32;
+		return 24;
 	}
 
 	@Override

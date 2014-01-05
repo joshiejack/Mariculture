@@ -64,9 +64,13 @@ public class ItemFood extends ItemMariculture {
 
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
-		--stack.stackSize;
+		if(!player.capabilities.isCreativeMode)
+			--stack.stackSize;
 		player.getFoodStats().addStats(getFoodLevel(stack.getItemDamage()), getFoodSaturation(stack.getItemDamage()));
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		if (!world.isRemote && player.shouldHeal() && stack.getItemDamage() == FoodMeta.KELP_WRAP)
+			player.heal(2);
+		
 		return stack;
 	}
 

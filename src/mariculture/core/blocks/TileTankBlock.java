@@ -44,9 +44,8 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 
-	/* Updating */
 	public boolean canUpdate() {
-		return true;
+		return false;
 	}
 
 	@Override
