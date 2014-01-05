@@ -38,6 +38,7 @@
 * Can now right click on the sifter to throw bait in :) (as well as being able to throw it)
 * Clicky Click click squiddies with fishing nets :)
 * Buffed Neon Lamp Recipe
+* Can Repair Scuba Gear(Not Tank in an anvil) with Neoprene.
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

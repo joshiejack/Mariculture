@@ -69,7 +69,7 @@ public class FishElectricRay extends FishSpecies {
 		if(PowerHelper.isEnergyHandler(world, x, y - 1, z) != null) {
 			IEnergyHandler handler = PowerHelper.isEnergyHandler(world, x, y - 1, z);
 			if(handler.canInterface(ForgeDirection.DOWN)) {
-				(handler).receiveEnergy(ForgeDirection.UP, 10, false);
+				(handler).receiveEnergy(ForgeDirection.UP, 200, false);
 			}
 		}
 	}

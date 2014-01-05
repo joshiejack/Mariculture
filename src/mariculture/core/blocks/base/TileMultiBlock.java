@@ -2,6 +2,7 @@ package mariculture.core.blocks.base;
 
 import java.util.ArrayList;
 
+import mariculture.core.network.Packet110CustomTileUpdate;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -12,11 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TileMultiBlock extends TileEntity {
-	protected ArrayList<MultiPart> slaves = new ArrayList<MultiPart>();
+	public ArrayList<MultiPart> slaves = new ArrayList<MultiPart>();
 	public MultiPart master;
 	
-	public class MultiPart {	
-		public ForgeDirection facing = ForgeDirection.UNKNOWN;
+	public static class MultiPart {	
 		public int xCoord;
 		public int yCoord;
 		public int zCoord;
@@ -25,13 +25,6 @@ public class TileMultiBlock extends TileEntity {
 			xCoord = x;
 			yCoord = y;
 			zCoord = z;
-		}
-		
-		public MultiPart(int x, int y, int z, ForgeDirection dir) {
-			xCoord = x;
-			yCoord = y;
-			zCoord = z;
-			facing = dir;
 		}
 
 		public boolean isSame(int x, int y, int z) {
@@ -43,12 +36,6 @@ public class TileMultiBlock extends TileEntity {
 		TileMultiBlock slave = (TileMultiBlock) worldObj.getBlockTileEntity(x, y, z);
 		slave.setMaster(master.xCoord, master.yCoord, master.zCoord);
 		return new MultiPart(x, y, z);
-	}
-	
-	protected MultiPart setAsSlave(MultiPart master, int x, int y, int z, ForgeDirection dir) {
-		TileMultiBlock slave = (TileMultiBlock) worldObj.getBlockTileEntity(x, y, z);
-		slave.setMaster(master.xCoord, master.yCoord, master.zCoord);
-		return new MultiPart(x, y, z, dir);
 	}
 	
 	protected void setAsMaster(MultiPart mstr, ArrayList<MultiPart> parts) {
@@ -125,8 +112,11 @@ public class TileMultiBlock extends TileEntity {
 			if(mstr != null) {
 				if(mstr.slaves.size() > 0) {
 					for(MultiPart part: mstr.slaves) {
-						if(worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord) != null)
-							((TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord)).clearMaster();
+						if(worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord) != null) {
+							TileMultiBlock te = (TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord);
+							te.clearMaster();
+							Packets.updateTile(te, 32, te.getDescriptionPacket());
+						}
 					}
 				}
 				
@@ -181,14 +171,8 @@ public class TileMultiBlock extends TileEntity {
 		int mstrX = nbt.getInteger("MasterX");
 		int mstrY = nbt.getInteger("MasterY");
 		int mstrZ = nbt.getInteger("MasterZ");
-		int facing = nbt.getInteger("Facing");
 		
-		if(built) {
-			if(facing == -1)
-				master = new MultiPart(mstrX, mstrY, mstrZ);
-			else
-				master = new MultiPart(mstrX, mstrY, mstrZ, ForgeDirection.values()[facing]);
-		
+		if(built) {		
 			slaves = new ArrayList<MultiPart>();
 			
 			NBTTagList tagList = nbt.getTagList("Slaves");
@@ -197,12 +181,7 @@ public class TileMultiBlock extends TileEntity {
 				int x = tag.getInteger("xCoord");
 				int y = tag.getInteger("yCoord");
 				int z = tag.getInteger("zCoord");
-				int dir = tag.getInteger("Direction");
-				if(dir == -1)
-					slaves.add(new MultiPart(x, y, z));
-				else
-					slaves.add(new MultiPart(x, y, z, ForgeDirection.values()[dir]));
-				
+				slaves.add(new MultiPart(x, y, z));
 			}
 		}
 	}
@@ -214,11 +193,6 @@ public class TileMultiBlock extends TileEntity {
 			nbt.setInteger("MasterX", master.xCoord);
 			nbt.setInteger("MasterY", master.yCoord);
 			nbt.setInteger("MasterZ", master.zCoord);
-			if(master.facing == ForgeDirection.UNKNOWN)
-				nbt.setInteger("Facing", -1);
-			else
-				nbt.setInteger("Facing", master.facing.ordinal());
-			
 			nbt.setBoolean("Built", true);
 			NBTTagList itemList = new NBTTagList();
 			for (MultiPart part: slaves) {
@@ -226,10 +200,6 @@ public class TileMultiBlock extends TileEntity {
 				tag.setInteger("xCoord", part.xCoord);
 				tag.setInteger("yCoord", part.yCoord);
 				tag.setInteger("zCoord", part.zCoord);
-				if(part.facing != ForgeDirection.UNKNOWN)
-					tag.setInteger("Direction", part.facing.ordinal());
-				else
-					tag.setInteger("Direction", -1);
 				itemList.appendTag(tag);
 			}
 

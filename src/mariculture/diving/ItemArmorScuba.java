@@ -4,10 +4,12 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.Core;
 import mariculture.core.Mariculture;
+import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -55,6 +57,13 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 						+ StatCollector.translateToLocal("mariculture.string.off"));
 			}
 		}
+	}
+	
+	@Override
+	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
+		if(stack1.itemID != Diving.scubaTank.itemID)
+			return stack2.itemID == Core.craftingItem.itemID && stack2.getItemDamage() == CraftingMeta.NEOPRENE;
+		return false;
 	}
 
 	@Override

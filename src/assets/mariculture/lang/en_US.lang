@@ -55,6 +55,7 @@ tile.tankBlocks.normal.name=Fluid Tank
 tile.tankBlocks.bottle.name=Void Bottle
 tile.groundBlocks.gas.name=Gas Leak
 tile.customBlocks.anvil.name=Blacksmith's Anvil
+tile.doubleBlocks.vat.name=Vat
 #fluids
 fluid.fastwater=Pressurised Water
 tile.highPressureWater.name=Pressurised Water

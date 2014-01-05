@@ -66,77 +66,64 @@ public class Recipes {
 			Character.valueOf('T'), "ingotTitanium"
 		});
 
-		GameRegistry.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID),
-				new Object[] { Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK) });
-
-		//Copper Tank
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.TANK), new Object[] {
-			"CWC", "WGW", "CWC",
-			Character.valueOf('C'), "ingotCopper",
-			Character.valueOf('W'), "plankWood",
-			Character.valueOf('G'), "glass"
+		//Void Bottle
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
+			Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK)
 		});
-		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), new Object[] { 
-					"SPS", "PCP", "SSS", 
-					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('S'), Block.bookShelf,
-					Character.valueOf('C'), Block.chest }));
 
-		
+	//Basic Blocks
 		//Base Brick
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), new Object[] {
-			"IGI", "G G", "IGI",
-			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
-			Character.valueOf('G'), Block.fenceIron
+			"IGI", "G G", "IGI", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'G', Block.fenceIron
 		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), new Object[] { 
-					"IGI", "G G", "IGI", 
-					Character.valueOf('I'), "ingotIron", 
-					Character.valueOf('G'), Block.thinGlass }));
+		//Base Iron
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), new Object[] {
+			"IGI", "G G", "IGI", 'I', "ingotIron", 'G', Block.thinGlass
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), new Object[] { 
-					"IGI", "G G", "IGI", 
-					Character.valueOf('I'), "logWood", 
-					Character.valueOf('G'), Block.fence }));
+		//Base Wood
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), new Object[] {
+			"IGI", "G G", "IGI", 'I', "logWood", 'G', Block.fence
+		});
+	//Machines
+		//Copper Tank
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.TANK), new Object[] {
+			"CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "glass"
+		});
+				
+		//Storage Bookshelf
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), new Object[] {
+			"SPS", "PCP", "SSS", 'P', "plankWood", 'S', Block.bookShelf, 'C', Block.chest
+		});
 		
 		//Crucible Furnace
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.LIQUIFIER), new Object[] {
-			" L ", "BGB", "HCH",
-			Character.valueOf('B'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
-			Character.valueOf('L'), Item.bucketLava,
-			Character.valueOf('G'), "glass",
-			Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
-			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK)
+			" L ", "BGB", "HCH", 
+			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
+			'L', Item.bucketLava, 
+			'G', "glass", 
+			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'C', new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK)
 		});
 		
 		//Anvil Recipe
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.ANVIL), new Object[] {
 			"CCC", " B ", "BBB",
-			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK),
-			Character.valueOf('B'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
+			'C', new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK),
+			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 		
 		//Pearl Hammer
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {
 			"PP ", " SP", "S  ",
-			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
-			Character.valueOf('S'), "stickWood"
+			'P', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
+			'S', "stickWood"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.VAT), new Object[] {
-			"C C", "C C", "CCC",
-			Character.valueOf('C'), "ingotCopper"
+		//VAT Recipe
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT), new Object[] {
+			"C C", "C C", "CCC", 'C', "ingotCopper"
 		});
 
 		FurnaceRecipes.smelting().addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE,

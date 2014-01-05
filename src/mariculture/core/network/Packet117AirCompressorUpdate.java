@@ -11,12 +11,14 @@ import net.minecraft.world.World;
 
 public class Packet117AirCompressorUpdate extends Packet110CustomTileUpdate {
 	protected int air;
+	protected int power;
 	
 	public Packet117AirCompressorUpdate() {}
 	
-	public Packet117AirCompressorUpdate(int x, int y, int z, int air) {
+	public Packet117AirCompressorUpdate(int x, int y, int z, int air, int power) {
 		super(x, y, z);
 		this.air = air;
+		this.power = power;
 	}
 	
 	@Override
@@ -26,6 +28,7 @@ public class Packet117AirCompressorUpdate extends Packet110CustomTileUpdate {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		if(tile != null && tile instanceof TileAirCompressor) {
 			((TileAirCompressor)tile).storedAir = air;
+			((TileAirCompressor)tile).energyStorage.setEnergyStored(power);;
 		}
 	}
 
@@ -33,11 +36,13 @@ public class Packet117AirCompressorUpdate extends Packet110CustomTileUpdate {
 	public void read(DataInputStream is) throws IOException {
 		super.read(is);
 		air = is.readInt();
+		power = is.readInt();
 	}
 
 	@Override
 	public void write(DataOutputStream os) throws IOException {
 		super.write(os);
 		os.writeInt(air);
+		os.writeInt(power);
 	}
 }

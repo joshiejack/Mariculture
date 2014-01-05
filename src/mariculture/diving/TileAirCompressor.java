@@ -3,8 +3,11 @@ package mariculture.diving;
 import java.util.ArrayList;
 
 import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.lib.DoubleMeta;
+import mariculture.core.network.Packet110CustomTileUpdate;
 import mariculture.core.network.Packet117AirCompressorUpdate;
+import mariculture.core.network.Packet118InitAirCompressor;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
@@ -15,10 +18,10 @@ import cofh.api.energy.IEnergyHandler;
 
 public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler {
 	private int machineTick;
-	
-	private static final int max = 480;
+	public ForgeDirection facing = ForgeDirection.UNKNOWN;
+	public static final int max = 480;
 	public int storedAir = 0;
-	protected EnergyStorage energyStorage;
+	public EnergyStorage energyStorage;
 	
 	public TileAirCompressor() {
 		energyStorage = new EnergyStorage(10000);
@@ -58,6 +61,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		super.readFromNBT(nbt);
 		energyStorage.readFromNBT(nbt);
 		storedAir = nbt.getInteger("StoredAir");
+		facing = ForgeDirection.values()[nbt.getInteger("Facing")];
 	}
 	
 	@Override
@@ -65,6 +69,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		super.writeToNBT(nbt);
 		energyStorage.writeToNBT(nbt);
 		nbt.setInteger("StoredAir", storedAir);
+		nbt.setInteger("Facing", facing.ordinal());
 	}
 	
 	public boolean onTick(int i) {
@@ -82,11 +87,23 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 	public void updateMaster() {
 		machineTick++;
 				
-		if(!init) {
-			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-			Packets.updateTile(this, 32, getDescriptionPacket());
+		if(!init && !worldObj.isRemote) {
+			//Init Master
+			Packets.updateTile(this, 32, new Packet118InitAirCompressor(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			//Now Init your slaves :D
+			for(MultiPart slave: slaves) {
+				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
+				if(te != null && te instanceof TileAirCompressor) {
+					Packets.updateTile(te, 32, 
+							new Packet118InitAirCompressor(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, 
+									((TileAirCompressor)te).facing).build());
+				}
+			}
+			
 			init = true;
 		}
+		
+		//System.out.println("i am master and i am built");
 		
 		if(onTick(20)) {
 			if(energyStorage.extractEnergy(1000, true) >= 1000) {				
@@ -94,23 +111,29 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 				if(storedAir < max) {
 					storedAir++;
 					
-					Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir).build());
+					Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
 				}
 			}
 		}
 	}
 	
-	@Override
-	public void updateSlaves() {
-		if(!init) {
-			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-			Packets.updateTile(this, 32, getDescriptionPacket());
-			init = true;
-		}
-	}
-	
 	public float getWheelAngle() {
 		return 0;
+	}
+	
+	//Sets the facing direction of this block
+	public void setFacing(ForgeDirection dir) {
+		this.facing = dir;
+	}
+	
+	private MultiPart setAsSlave(MultiPart master, int x, int y, int z, ForgeDirection dir) {
+		((TileAirCompressor) worldObj.getBlockTileEntity(x, y, z)).setFacing(dir);
+		return super.setAsSlave(master, x, y, z);
+	}
+	
+	protected void setAsMaster(MultiPart mstr, ArrayList<MultiPart> parts, ForgeDirection dir) {
+		((TileAirCompressor) worldObj.getBlockTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord)).setFacing(dir);
+		super.setAsMaster(mstr, parts);
 	}
 	
 //Master Stuff
@@ -144,7 +167,29 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		else if(this.getBlockMetadata() == DoubleMeta.COMPRESSOR_TOP)
 			onBlockPlacedTop(xCoord, yCoord, zCoord);
 		Packets.updateTile(this, 32, getDescriptionPacket());
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	}
+	
+	@Override
+	public void onBlockBreak() {
+		if(master != null) {
+			TileMultiBlock mstr = (TileMultiBlock) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
+			if(mstr != null) {
+				for(MultiPart part: mstr.slaves) {
+					if(worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord) != null) {
+						TileMultiBlock te = (TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord);
+						te.clearMaster();
+						((TileAirCompressor) te).setFacing(ForgeDirection.UNKNOWN);
+						Packets.updateTile(te, 32, te.getDescriptionPacket());
+					}
+				}
+				
+				mstr.clearMaster();
+				((TileAirCompressor) mstr).setFacing(ForgeDirection.UNKNOWN);
+			}
+			
+			Packets.updateTile(this, 32, getDescriptionPacket());
+		}
 	}
 	
 	//Base Setting of Master Block
@@ -152,76 +197,76 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		if(isBase(x, y, z) && isBase(x + 1, y, z) && isTop(x, y + 1, z) && isTop(x + 1, y + 1, z)) {
 			MultiPart mstr = new MultiPart(x, y, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x + 1, y, z));
-			parts.add(setAsSlave(mstr, x + 1, y + 1, z));
-			parts.add(setAsSlave(mstr, x, y + 1, z));
-			setAsMaster(mstr, parts);
+			parts.add(setAsSlave(mstr, x + 1, y, z, ForgeDirection.WEST));
+			parts.add(setAsSlave(mstr, x + 1, y + 1, z, ForgeDirection.WEST));
+			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.EAST));
+			setAsMaster(mstr, parts, ForgeDirection.EAST);
 		}
 		
 		if(isBase(x, y, z) && isBase(x - 1, y, z) && isTop(x, y + 1, z) && isTop(x - 1, y + 1, z)) {
 			MultiPart mstr = new MultiPart(x - 1, y, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y, z));
-			parts.add(setAsSlave(mstr, x - 1, y + 1, z));
-			parts.add(setAsSlave(mstr, x, y + 1, z));
-			setAsMaster(mstr, parts);
+			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.WEST));
+			parts.add(setAsSlave(mstr, x - 1, y + 1, z, ForgeDirection.EAST));
+			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.WEST));
+			setAsMaster(mstr, parts, ForgeDirection.EAST);
 		}
 		
 		if(isBase(x, y, z) && isBase(x, y, z + 1) && isTop(x, y + 1, z) && isTop(x, y + 1, z + 1)) {
-			MultiPart mstr = new MultiPart(x, y, z, ForgeDirection.SOUTH);
+			MultiPart mstr = new MultiPart(x, y, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y, z + 1, ForgeDirection.NORTH));
-			parts.add(setAsSlave(mstr, x, y + 1, z + 1, ForgeDirection.NORTH));
-			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.SOUTH));
-			setAsMaster(mstr, parts);
+			parts.add(setAsSlave(mstr, x, y, z + 1, ForgeDirection.SOUTH));
+			parts.add(setAsSlave(mstr, x, y + 1, z + 1, ForgeDirection.SOUTH));
+			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.NORTH));
+			setAsMaster(mstr, parts, ForgeDirection.NORTH);
 		}
 		
 		if(isBase(x, y, z) && isBase(x, y, z - 1) && isTop(x, y + 1, z) && isTop(x, y + 1, z - 1)) {
-			MultiPart mstr = new MultiPart(x, y, z - 1, ForgeDirection.NORTH);
+			MultiPart mstr = new MultiPart(x, y, z - 1);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
 			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.SOUTH));
 			parts.add(setAsSlave(mstr, x, y + 1, z - 1, ForgeDirection.NORTH));
 			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.SOUTH));
-			setAsMaster(mstr, parts);
+			setAsMaster(mstr, parts, ForgeDirection.NORTH);
 		}
 	}
 	
 	//Top Setting of Master Block
 	public void onBlockPlacedTop(int x, int y, int z) {
 		if(isBase(x, y - 1, z) && isBase(x + 1, y - 1, z) && isTop(x, y, z) && isTop(x + 1, y, z)) {
-			MultiPart mstr = new MultiPart(x, y - 1, z, ForgeDirection.EAST);
+			MultiPart mstr = new MultiPart(x, y - 1, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
 			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.EAST));
 			parts.add(setAsSlave(mstr, x + 1, y, z, ForgeDirection.WEST));
 			parts.add(setAsSlave(mstr, x + 1, y - 1, z, ForgeDirection.WEST));
-			setAsMaster(mstr, parts);
+			setAsMaster(mstr, parts, ForgeDirection.EAST);
 		}
 		
 		if(isBase(x, y - 1, z) && isBase(x - 1, y - 1, z) && isTop(x, y, z) && isTop(x - 1, y, z)) {
-			MultiPart mstr = new MultiPart(x - 1, y - 1, z, ForgeDirection.EAST);
+			MultiPart mstr = new MultiPart(x - 1, y - 1, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
 			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.WEST));
 			parts.add(setAsSlave(mstr, x - 1, y, z, ForgeDirection.EAST));
 			parts.add(setAsSlave(mstr, x, y - 1, z, ForgeDirection.WEST));
-			setAsMaster(mstr, parts);
+			setAsMaster(mstr, parts, ForgeDirection.EAST);
 		}
 		
 		if(isBase(x, y - 1, z) && isBase(x, y - 1, z + 1) && isTop(x, y, z) && isTop(x, y, z + 1)) {
-			MultiPart mstr = new MultiPart(x, y - 1, z, ForgeDirection.NORTH);
+			MultiPart mstr = new MultiPart(x, y - 1, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
 			parts.add(setAsSlave(mstr, x, y, z + 1, ForgeDirection.SOUTH));
 			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.NORTH));
 			parts.add(setAsSlave(mstr, x, y - 1, z + 1, ForgeDirection.SOUTH));
-			setAsMaster(mstr, parts);
+			setAsMaster(mstr, parts, ForgeDirection.NORTH);
 		}
 		
 		if(isBase(x, y - 1, z) && isBase(x, y - 1, z - 1) && isTop(x, y, z) && isTop(x, y, z - 1)) {
-			MultiPart mstr = new MultiPart(x, y - 1, z - 1, ForgeDirection.NORTH);
+			MultiPart mstr = new MultiPart(x, y - 1, z - 1);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
 			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.SOUTH));
 			parts.add(setAsSlave(mstr, x, y, z - 1, ForgeDirection.NORTH));
 			parts.add(setAsSlave(mstr, x, y - 1, z, ForgeDirection.SOUTH));
-			setAsMaster(mstr, parts);
+			setAsMaster(mstr, parts, ForgeDirection.NORTH);
 		}
 	}
 }
