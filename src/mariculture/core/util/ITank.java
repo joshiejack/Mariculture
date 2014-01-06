@@ -11,4 +11,5 @@ public interface ITank {
 	public FluidStack getFluid();
 	public String getFluidName();
 	public List getFluidQty(List tooltip);
+	public void setFluid(FluidStack fluid);
 }

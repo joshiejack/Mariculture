@@ -4,7 +4,6 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
-import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;
@@ -16,7 +15,6 @@ import mariculture.core.network.Packet101Sponge;
 import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFishSorter;
-import mariculture.factory.blocks.TileOven;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileSponge;
@@ -73,8 +71,6 @@ public class BlockUtil extends BlockMachine {
 			return 4F;
 		case UtilMeta.SPONGE:
 			return 3F;
-		case UtilMeta.GAS_OVEN:
-			return 3F;
 		case UtilMeta.FISH_SORTER:
 			return 1F;
 		}
@@ -86,15 +82,13 @@ public class BlockUtil extends BlockMachine {
         return world.getBlockMetadata(x, y, z) == UtilMeta.BOOKSHELF ? 5 : 0;
     }
 	
-	public void updateMaster(World world, int x, int y, int z) {
-		if(world.getBlockTileEntity(x, y, z) instanceof TileMulti) {
-			((TileMulti) world.getBlockTileEntity(x, y, z)).setMaster();
-		}
-	}
-	
 	@Override
 	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
-		updateMaster(world, x, y, z);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockBreak();
+		}
+		
 		super.onBlockExploded(world, x, y, z, explosion);
     }
 
@@ -105,15 +99,8 @@ public class BlockUtil extends BlockMachine {
 			((TileMultiBlock)tile).onBlockBreak();
 		}
 		
-		updateMaster(world, x, y, z);
 		return super.removeBlockByPlayer(world, player, x, y, z);
     }
-	
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, int otherID) {
-		updateMaster(world, x, y, z);
-		super.onNeighborBlockChange(world, x, y, z, otherID);
-	}
 
 	@Override
 	public boolean isBlockNormalCube(World world, int x, int y, int z) {
@@ -247,22 +234,7 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		updateMaster(world, x, y, z);
-
 		if (tile == null && world.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_TOP || player.isSneaking()) {
-			return false;
-		}
-		
-		if (tile instanceof TileMulti) {
-			TileMulti base = (TileMulti) tile;
-			TileMulti master = (base.mstr.built)? (TileMulti)world.getBlockTileEntity(base.mstr.x, base.mstr.y, base.mstr.z): null;
-			if (master != null) {
-				base.setMaster();
-				master.setMaster();
-				player.openGui(Mariculture.instance, -1, world, master.xCoord, master.yCoord, master.zCoord);
-				return true;
-			}
-
 			return false;
 		}
 		
@@ -316,7 +288,6 @@ public class BlockUtil extends BlockMachine {
 			((TileMultiBlock)tile).onBlockPlaced();
 		}
 		
-		updateMaster(world, x, y, z);
 		super.onBlockAdded(world, x, y, z);
 	}
 
@@ -343,8 +314,6 @@ public class BlockUtil extends BlockMachine {
             return new TileSponge();
         case UtilMeta.FISH_SORTER:
         	return new TileFishSorter();
-        case UtilMeta.GAS_OVEN:
-        	return new TileOven();
 		}
 
 		return null;
@@ -353,8 +322,6 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
-		updateMaster(world, x, y, z);
-		
 		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, meta);
 
@@ -388,8 +355,6 @@ public class BlockUtil extends BlockMachine {
 		case UtilMeta.SPONGE:
 			return Modules.factory.isActive();
 		case UtilMeta.DICTIONARY:
-			return Modules.factory.isActive();
-		case UtilMeta.GAS_OVEN:
 			return Modules.factory.isActive();
 		case UtilMeta.FISH_SORTER:
 			return Modules.factory.isActive();

@@ -2,7 +2,6 @@ package mariculture.core.helpers;
 
 import java.util.Random;
 
-import mariculture.core.blocks.base.TileMulti;
 import mariculture.core.util.IItemDropBlacklist;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -149,13 +148,6 @@ public class BlockHelper {
 					entity_item.motionZ = rand.nextGaussian() * factor;
 					world.spawnEntityInWorld(entity_item);
 					item.stackSize = 0;
-				}
-			}
-			
-			if(tile_entity instanceof TileMulti) {
-				TileMulti tile = (TileMulti) tile_entity;
-				if(!tile.isMaster()) {
-					world.destroyBlock(tile.mstr.x, tile.mstr.y, tile.mstr.z, true);
 				}
 			}
 		}

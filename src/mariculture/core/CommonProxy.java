@@ -17,7 +17,6 @@ import mariculture.core.lib.GuiIds;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
-import mariculture.factory.blocks.TileOven;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileTurbineGas;
@@ -25,7 +24,6 @@ import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.gui.ContainerDictionary;
 import mariculture.factory.gui.ContainerFLUDDStand;
 import mariculture.factory.gui.ContainerFishSorter;
-import mariculture.factory.gui.ContainerOven;
 import mariculture.factory.gui.ContainerPressureVessel;
 import mariculture.factory.gui.ContainerSawmill;
 import mariculture.factory.gui.ContainerTurbineGas;
@@ -33,7 +31,6 @@ import mariculture.factory.gui.ContainerTurbineWater;
 import mariculture.factory.gui.GuiDictionary;
 import mariculture.factory.gui.GuiFLUDDStand;
 import mariculture.factory.gui.GuiFishSorter;
-import mariculture.factory.gui.GuiOven;
 import mariculture.factory.gui.GuiPressureVessel;
 import mariculture.factory.gui.GuiSawmill;
 import mariculture.factory.gui.GuiTurbineGas;
@@ -124,10 +121,6 @@ public class CommonProxy implements IGuiHandler {
 			if(tile instanceof TileFishSorter) {
 				return new ContainerFishSorter((TileFishSorter)tile, player.inventory);
 			}
-			
-			if(tile instanceof TileOven) {
-				return new ContainerOven((TileOven) tile, player.inventory);
-			}
 		}
 
 		return null;
@@ -200,10 +193,6 @@ public class CommonProxy implements IGuiHandler {
 			
 			if(tile instanceof TileFishSorter) {
 				return new GuiFishSorter(player.inventory, (TileFishSorter) tile);
-			}
-			
-			if(tile instanceof TileOven) {
-				return new GuiOven(player.inventory, (TileOven) tile);
 			}
 		}
 

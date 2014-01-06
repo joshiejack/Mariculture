@@ -2,7 +2,6 @@ package mariculture.core.blocks;
 
 import mariculture.core.lib.UtilMeta;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class BlockUtilItem extends ItemBlockMariculture {
@@ -41,14 +40,11 @@ public class BlockUtilItem extends ItemBlockMariculture {
 		case UtilMeta.DICTIONARY: 
 			name = "dictionary";
 			break;
-		case UtilMeta.GAS_OVEN:
-			name = "gasOven";
-			break;
 		case UtilMeta.FISH_SORTER:
 			name = "fishSorter";
 			break;
 		default:
-			name = "dictionary";
+			name = "utilBlocks";
 		}
 
 		return name;

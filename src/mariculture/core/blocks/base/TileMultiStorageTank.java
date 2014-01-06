@@ -41,6 +41,12 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 		return master != null? ((TileMultiStorageTank)worldObj
 									.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.getFluid(): null;
 	}
+	
+	@Override
+	public void setFluid(FluidStack fluid) {
+		if(master != null)
+			((TileMultiStorageTank)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.setFluid(fluid);
+	}
 
 	@Override
 	public String getFluidName() {

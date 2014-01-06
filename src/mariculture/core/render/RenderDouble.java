@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderDouble implements ISimpleBlockRenderingHandler {
@@ -375,12 +377,88 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 	}
 	
 	public void renderVat(IBlockAccess world, TileVat tile, int x, int y, int z) {
-		
+		//Let's draw a single VAT!!!
+		if(tile.facing == ForgeDirection.UNKNOWN) {
+			//Edge Inner - Edge Outer
+			helper.setTexture(Block.anvil);
+			helper.renderBlock(0, 0.3, 0, 0.1, 0.9, 1);
+			helper.renderBlock(-0.1, 0.35, 0.1, 0, 0.85, 0.9);
+			helper.renderBlock(0.9, 0.3, 0, 1, 0.9, 1);
+			helper.renderBlock(1, 0.35, 0.1, 1.1, 0.85, 0.9);
+			helper.renderBlock(0.1, 0.3, 0, 0.9, 0.9, 0.1);
+			helper.renderBlock(0.1, 0.35, -0.1, 0.9, 0.85, 0);
+			helper.renderBlock(0.1, 0.3, 0.9, 0.9, 0.9, 1);
+			helper.renderBlock(0.1, 0.35, 1, 0.9, 0.85, 1.1);
+			//Legs
+			helper.renderBlock(0.1, 0, 0.1, 0.2, 0.3, 0.2);
+			helper.renderBlock(0.8, 0, 0.1, 0.9, 0.3, 0.2);
+			helper.renderBlock(0.1, 0, 0.8, 0.2, 0.3, 0.9);
+			helper.renderBlock(0.8, 0, 0.8, 0.9, 0.3, 0.9);
+			//Bottom
+			helper.renderBlock(0.2, 0.2, 0.2, 0.8, 0.3, 0.8);
+			helper.renderBlock(0.1, 0.3, 0.1, 0.9, 0.4, 0.9);
+			//Liquid
+			if(tile.getFluid() != null) {
+				helper.renderWorldBlock(tile.getFluid(), TileVat.max_sml, 0.46D, 0, 0, 0);
+			}
+		} else if (tile.facing == ForgeDirection.NORTH) {
+			//Edge Inner - Edge Outer
+			helper.setTexture(Block.anvil);
+			helper.renderBlock(0.9, 0.3, 0, 1, 1, 1);
+			helper.renderBlock(1, 0.35, 0, 1.1, 0.95, 0.9);
+			helper.renderBlock(0, 0.3, 0.9, 0.9, 1, 1);
+			helper.renderBlock(0, 0.35, 1, 0.9, 0.95, 1.1);
+			//Legs
+			helper.renderBlock(0.8, 0, 0.8, 0.9, 0.3, 0.9);
+			//Bottom
+			helper.renderBlock(0, 0.2, 0, 0.8, 0.3, 0.8);
+			helper.renderBlock(0, 0.3, 0, 0.9, 0.4, 0.9);
+		} else if(tile.facing == ForgeDirection.EAST) {
+			helper.setTexture(Block.anvil);
+			helper.renderBlock(0, 0.3, 0, 0.1, 1, 1);
+			helper.renderBlock(-0.1, 0.35, 0, 0, 0.95, 0.9);
+			helper.renderBlock(0.1, 0.3, 0.9, 1, 1, 1);
+			helper.renderBlock(0.1, 0.35, 1, 1, 0.95, 1.1);
+			//Legs
+			helper.renderBlock(0.1, 0, 0.8, 0.2, 0.3, 0.9);
+			//Bottom
+			helper.renderBlock(0.2, 0.2, 0, 1, 0.3, 0.8);
+			helper.renderBlock(0.1, 0.3, 0, 1, 0.4, 0.9);
+		} else if(tile.facing == ForgeDirection.SOUTH) {
+			helper.setTexture(Block.anvil);
+			helper.renderBlock(0, 0.3, 0, 0.1, 1, 1);
+			helper.renderBlock(-0.1, 0.35, 0.1, 0, 0.95, 1);
+			helper.renderBlock(0.1, 0.3, 0, 1, 1, 0.1);
+			helper.renderBlock(0.1, 0.35, -0.1, 1, 0.95, 0);
+			//Legs
+			helper.renderBlock(0.1, 0, 0.1, 0.2, 0.3, 0.2);
+			//Bottom
+			helper.renderBlock(0.2, 0.2, 0.2, 1, 0.3, 1);
+			helper.renderBlock(0.1, 0.3, 0.1, 1, 0.4, 1);
+			//Liquid
+			if(tile.getFluid() != null) {
+				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, 0, 0, 0);
+				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, +1, 0, 0);
+				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, +1, 0, +1);
+				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, 0, 0, +1);
+			}
+		} else if(tile.facing == ForgeDirection.WEST) {
+			helper.setTexture(Block.anvil);
+			helper.renderBlock(0.9, 0.3, 0, 1, 1, 1);
+			helper.renderBlock(1, 0.35, 0.1, 1.1, 0.95, 1);
+			helper.renderBlock(0, 0.3, 0, 0.9, 1, 0.1);
+			helper.renderBlock(0, 0.35, -0.1, 0.9, 0.95, 0);
+			//Legs
+			helper.renderBlock(0.8, 0, 0.1, 0.9, 0.3, 0.2);
+			//Bottom
+			helper.renderBlock(0, 0.2, 0.2, 0.8, 0.3, 1);
+			helper.renderBlock(0, 0.3, 0.1, 0.9, 0.4, 1);
+		}
 	}
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
-		helper = new RenderHelper(render, x, y, z);
+		helper = new RenderHelper(render, world, x, y, z);
 		
 		render.renderAllFaces = true;
 		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);

@@ -144,6 +144,8 @@ public class BlockDouble extends BlockMachine {
 			return new TileAirCompressor();
 		case DoubleMeta.PRESSURE_VESSEL:
 			return new TilePressureVessel();
+		case DoubleMeta.VAT:
+			return new TileVat();
 		}
 
 		return null;

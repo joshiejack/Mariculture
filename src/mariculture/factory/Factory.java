@@ -1,12 +1,7 @@
 package mariculture.factory;
 
 
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Map;
-
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeOven;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.helpers.RecipeHelper;
@@ -46,7 +41,6 @@ import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileGeyser;
-import mariculture.factory.blocks.TileOven;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
@@ -64,9 +58,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockHalfSlab;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -108,7 +100,6 @@ public class Factory extends Module {
 
 	@Override
 	public void registerHandlers() {
-		MaricultureHandlers.oven = new OvenRecipeHandler();
 		MaricultureHandlers.turbine = new GasTurbineHandler();
 		MinecraftForge.EVENT_BUS.register(new FactoryEvents());
 	}
@@ -155,9 +146,7 @@ public class Factory extends Module {
         GameRegistry.registerTileEntity(TileTurbineHand.class, "tileEntityTurbineHand");
         GameRegistry.registerTileEntity(TileFishSorter.class, "tileFishSorter");
         GameRegistry.registerTileEntity(TileGeyser.class, "tileGeyser");
-        GameRegistry.registerTileEntity(TileOven.class, "tileOven");
 
-        MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.GAS_OVEN, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SLUICE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SPONGE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_WATER, "pickaxe", 0);
@@ -371,19 +360,5 @@ public class Factory extends Module {
 		});	
 		
 		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas, 1.0F);
-		
-	//Oven Recipes
-		Map map = FurnaceRecipes.smelting().getSmeltingList();
-		Iterator it = map.entrySet().iterator();
-		while (it.hasNext()) {
-		 	Map.Entry pairs = (Map.Entry)it.next();
-		 	Integer id = (Integer) pairs.getKey();
-		 	ItemStack result = (ItemStack) pairs.getValue();
-		 	ItemStack stack = new ItemStack(id, 1, 0);
-		 	if(stack.getItem() instanceof ItemFood) {
-		 		System.out.println(stack + " . " + result);
-			 	MaricultureHandlers.oven.addRecipe(new RecipeOven(stack, result));
-		 	}
-		 }
 	}
 }

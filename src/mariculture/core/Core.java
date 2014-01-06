@@ -37,6 +37,7 @@ import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileSettler;
 import mariculture.core.blocks.TileTankBlock;
+import mariculture.core.blocks.TileVat;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.FuelHandler;
@@ -189,6 +190,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileSettler.class, "tileEntitySettler");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
+		GameRegistry.registerTileEntity(TileVat.class, "tileVat");
 
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);

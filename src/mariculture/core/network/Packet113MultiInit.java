@@ -4,20 +4,20 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
-import mariculture.diving.TileAirCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class Packet118InitAirCompressor extends PacketMariculture {
+public class Packet113MultiInit extends PacketMariculture {
 	
 	public int x, y, z, mX, mY, mZ, facing;
 	
-	public Packet118InitAirCompressor() {}
+	public Packet113MultiInit() {}
 	
-	public Packet118InitAirCompressor(int x, int y, int z, int mX, int mY, int mZ, ForgeDirection facing) {
+	public Packet113MultiInit(int x, int y, int z, int mX, int mY, int mZ, ForgeDirection facing) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -30,9 +30,14 @@ public class Packet118InitAirCompressor extends PacketMariculture {
 	@Override
 	public void handle(World world, EntityPlayer player) {
 		TileEntity te = world.getBlockTileEntity(x, y, z);
-		if(te instanceof TileAirCompressor) {
-			((TileAirCompressor) te).setMaster(new MultiPart(mX, mY, mZ));
-			((TileAirCompressor) te).setFacing(ForgeDirection.values()[facing]);
+		if(te instanceof TileMultiBlock) {
+			if(mY < 0) {
+				((TileMultiBlock) te).setMaster(null);
+			} else { 
+				((TileMultiBlock) te).setMaster(new MultiPart(mX, mY, mZ));
+			}
+			
+			((TileMultiBlock) te).setFacing(ForgeDirection.values()[facing]);
 			world.markBlockForRenderUpdate(x, y, z);
 		}
 	}

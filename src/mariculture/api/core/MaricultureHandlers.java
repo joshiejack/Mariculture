@@ -8,7 +8,6 @@ public class MaricultureHandlers {
 	public static IFreezerHandler freezer;
 	public static IMirrorHandler mirror;
 	public static IUpgradeHandler upgrades;
-	public static IOvenHandler oven;
 	public static IGasTurbine turbine;
 	public static IModules modules;
 }

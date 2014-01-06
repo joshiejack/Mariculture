@@ -3,10 +3,8 @@ package mariculture.core.handlers;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.IUpgradeHandler;
-import mariculture.core.blocks.base.TileMulti;
+import mariculture.core.blocks.base.TileMultiBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class UpgradeHandler implements IUpgradeHandler {
 	@Override
@@ -20,13 +18,14 @@ public class UpgradeHandler implements IUpgradeHandler {
 		int temp = 0;
 		int speed = 1;
 		int rf = 0;
-		if(tile instanceof TileMulti) {
-			TileMulti multi = (TileMulti) tile;
-			tile = (IUpgradable) ((TileMulti) tile).worldObj.getBlockTileEntity(multi.mstr.x, multi.mstr.y, multi.mstr.z);
-			if(tile == null) {
+	
+		if(tile instanceof TileMultiBlock) {
+			TileMultiBlock multi = (TileMultiBlock) tile;
+			tile = (IUpgradable) ((TileMultiBlock) tile).worldObj.getBlockTileEntity(multi.master.xCoord, multi.master.yCoord, multi.master.zCoord);
+			if(tile == null)
 				return 0;
-			}
 		}
+		
 		ItemStack[] upgrades = tile.getUpgrades();
 		for (int i = 0; i < upgrades.length; i++) {
 			ItemStack upgradeStack = upgrades[i];

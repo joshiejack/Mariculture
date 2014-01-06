@@ -3,14 +3,11 @@ package mariculture.diving;
 import java.util.ArrayList;
 
 import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.network.Packet110CustomTileUpdate;
+import mariculture.core.network.Packet113MultiInit;
 import mariculture.core.network.Packet117AirCompressorUpdate;
-import mariculture.core.network.Packet118InitAirCompressor;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
@@ -18,13 +15,13 @@ import cofh.api.energy.IEnergyHandler;
 
 public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler {
 	private int machineTick;
-	public ForgeDirection facing = ForgeDirection.UNKNOWN;
 	public static final int max = 480;
 	public int storedAir = 0;
 	public EnergyStorage energyStorage;
 	
 	public TileAirCompressor() {
 		energyStorage = new EnergyStorage(10000);
+		needsInit = true;
 	}
 	
 	@Override
@@ -61,7 +58,6 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		super.readFromNBT(nbt);
 		energyStorage.readFromNBT(nbt);
 		storedAir = nbt.getInteger("StoredAir");
-		facing = ForgeDirection.values()[nbt.getInteger("Facing")];
 	}
 	
 	@Override
@@ -69,7 +65,6 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		super.writeToNBT(nbt);
 		energyStorage.writeToNBT(nbt);
 		nbt.setInteger("StoredAir", storedAir);
-		nbt.setInteger("Facing", facing.ordinal());
 	}
 	
 	public boolean onTick(int i) {
@@ -80,31 +75,10 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 	public boolean canUpdate() {
 		return true;
 	}
-	
-	private boolean init = false;
-	
+		
 	@Override
 	public void updateMaster() {
 		machineTick++;
-				
-		if(!init && !worldObj.isRemote) {
-			//Init Master
-			Packets.updateTile(this, 32, new Packet118InitAirCompressor(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
-			//Now Init your slaves :D
-			for(MultiPart slave: slaves) {
-				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
-				if(te != null && te instanceof TileAirCompressor) {
-					Packets.updateTile(te, 32, 
-							new Packet118InitAirCompressor(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, 
-									((TileAirCompressor)te).facing).build());
-				}
-			}
-			
-			init = true;
-		}
-		
-		//System.out.println("i am master and i am built");
-		
 		if(onTick(20)) {
 			if(energyStorage.extractEnergy(1000, true) >= 1000) {				
 				energyStorage.extractEnergy(1000, false);
@@ -121,22 +95,13 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 		return 0;
 	}
 	
-	//Sets the facing direction of this block
-	public void setFacing(ForgeDirection dir) {
-		this.facing = dir;
+	@Override
+	public Class getTEClass() {
+		return this.getClass();
 	}
-	
-	private MultiPart setAsSlave(MultiPart master, int x, int y, int z, ForgeDirection dir) {
-		((TileAirCompressor) worldObj.getBlockTileEntity(x, y, z)).setFacing(dir);
-		return super.setAsSlave(master, x, y, z);
-	}
-	
-	protected void setAsMaster(MultiPart mstr, ArrayList<MultiPart> parts, ForgeDirection dir) {
-		((TileAirCompressor) worldObj.getBlockTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord)).setFacing(dir);
-		super.setAsMaster(mstr, parts);
-	}
-	
+
 //Master Stuff
+	@Override
 	public boolean isPartnered(int x, int y, int z) {
 		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
 		return tile instanceof TileAirCompressor?  ((TileAirCompressor)tile).master != null : false;
@@ -168,28 +133,6 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 			onBlockPlacedTop(xCoord, yCoord, zCoord);
 		Packets.updateTile(this, 32, getDescriptionPacket());
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
-	
-	@Override
-	public void onBlockBreak() {
-		if(master != null) {
-			TileMultiBlock mstr = (TileMultiBlock) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
-			if(mstr != null) {
-				for(MultiPart part: mstr.slaves) {
-					if(worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord) != null) {
-						TileMultiBlock te = (TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord);
-						te.clearMaster();
-						((TileAirCompressor) te).setFacing(ForgeDirection.UNKNOWN);
-						Packets.updateTile(te, 32, te.getDescriptionPacket());
-					}
-				}
-				
-				mstr.clearMaster();
-				((TileAirCompressor) mstr).setFacing(ForgeDirection.UNKNOWN);
-			}
-			
-			Packets.updateTile(this, 32, getDescriptionPacket());
-		}
 	}
 	
 	//Base Setting of Master Block

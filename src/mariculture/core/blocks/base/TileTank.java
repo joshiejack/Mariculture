@@ -92,6 +92,11 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 	public FluidStack getFluid() {
 		return tank.getFluid();
 	}
+	
+	@Override
+	public void setFluid(FluidStack fluid) {
+		tank.setFluid(fluid);
+	}
 
 	@Override
 	public String getFluidName() {

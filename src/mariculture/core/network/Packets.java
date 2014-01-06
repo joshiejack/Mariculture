@@ -33,11 +33,11 @@ public class Packets {
 		PacketRegistry.register(new Packet110CustomTileUpdate());
 		PacketRegistry.register(new Packet111UpdateEnchants());
 		PacketRegistry.register(new Packet112Enchant());
-		PacketRegistry.register(new Packet113RequestMaster());
+		PacketRegistry.register(new Packet113MultiInit());
 		PacketRegistry.register(new Packet114RedstoneControlled());
 		PacketRegistry.register(new Packet115EjectSetting());
 		PacketRegistry.register(new Packet116GUIClick());
 		PacketRegistry.register(new Packet117AirCompressorUpdate());
-		PacketRegistry.register(new Packet118InitAirCompressor());
+		PacketRegistry.register(new Packet118FluidUpdate());
 	}
 }

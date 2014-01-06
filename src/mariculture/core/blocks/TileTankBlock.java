@@ -143,4 +143,9 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 	}
+
+	@Override
+	public void setFluid(FluidStack fluid) {
+		tank.setFluid(fluid);
+	}
 }

@@ -9,13 +9,9 @@ import java.util.Random;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
-import mariculture.core.blocks.base.TileMulti;
-import mariculture.core.blocks.base.TileMulti.Cached;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.blocks.base.TileMultiMachinePowered;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
-import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.AverageHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MachineSpeeds;
@@ -29,7 +25,6 @@ import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 
 public class TileIncubator extends TileMultiMachinePowered implements IHasNotification {
