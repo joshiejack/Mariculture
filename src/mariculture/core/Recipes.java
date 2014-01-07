@@ -44,34 +44,28 @@ public class Recipes {
 		addMetalRecipes();
 		addUpgradeRecipes();
 
-		GameRegistry.addRecipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_BRICK), new Object[] { 
-			"## ", "## ", Character.valueOf('#'), (new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE)) });
-
-		GameRegistry.addRecipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), new Object[] { "## ",
-				"## ", Character.valueOf('#'), (new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH)) });
-		
+	//Items
 		//Copper Battery
 		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(Core.batteryCopper), 10000), new Object[] {
-			" I ", "TRT", "TRT",
-			Character.valueOf('I'), "ingotIron", 
-			Character.valueOf('R'), Item.redstone,
-			Character.valueOf('T'), "ingotCopper"
+			" I ", "TRT", "TRT", 'I', "ingotIron", 'R', "dustRedstone", 'T', "ingotCopper"
 		});
 
 		//Titanium Battery
 		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(Core.batteryTitanium), 50000), new Object[] {
-			" I ", "TRT", "TRT",
-			Character.valueOf('I'), "ingotIron", 
-			Character.valueOf('R'), Item.redstone,
-			Character.valueOf('T'), "ingotTitanium"
+			" I ", "TRT", "TRT", 'I', "ingotIron", 'R', "dustRedstone", 'T', "ingotTitanium"
 		});
 
 		//Void Bottle
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
-			Item.glassBottle, Item.redstone, new ItemStack(Item.dyePowder, 1, Dye.INK)
+			Item.glassBottle, "dustRedstone", new ItemStack(Item.dyePowder, 1, Dye.INK)
 		});
 
 	//Basic Blocks
+		//Limestone Brick
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_BRICK), Core.oreBlocks, OresMeta.LIMESTONE);
+		//Limestone Smooth
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_CHISELED);
+		
 		//Base Brick
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), new Object[] {
 			"IGI", "G G", "IGI", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'G', Block.fenceIron
@@ -86,6 +80,7 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), new Object[] {
 			"IGI", "G G", "IGI", 'I', "logWood", 'G', Block.fence
 		});
+		
 	//Machines
 		//Copper Tank
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.TANK), new Object[] {

@@ -5,6 +5,9 @@ import java.util.List;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -89,5 +92,27 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 		return master != null? new FluidTankInfo[] { ((TileMultiStorageTank)worldObj
 												.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.getInfo() }: null;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		tank.readFromNBT(nbt);
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		tank.writeToNBT(nbt);
+	}
+
+	@Override
+	public FluidStack getFluid(byte tank) {
+		return getFluid();
+	}
+
+	@Override
+	public void setFluid(FluidStack fluid, byte tank) {
+		setFluid(fluid);
 	}
 }

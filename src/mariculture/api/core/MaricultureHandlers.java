@@ -6,6 +6,7 @@ public class MaricultureHandlers {
 	public static IBiomeType biomeType;
 	public static ISmelterHandler smelter;
 	public static IFreezerHandler freezer;
+	public static IVatHandler vat;
 	public static IMirrorHandler mirror;
 	public static IUpgradeHandler upgrades;
 	public static IGasTurbine turbine;

@@ -46,6 +46,7 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
 import mariculture.core.handlers.SettlerRecipeHandler;
 import mariculture.core.handlers.UpgradeHandler;
+import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.DictionaryHelper;
@@ -71,6 +72,7 @@ import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WorldGeneration;
+import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
 import mariculture.world.WorldPlus;
@@ -87,6 +89,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Core extends Module {
@@ -118,6 +121,7 @@ public class Core extends Module {
 	public static Fluid fishFood;
 	public static Fluid moltenGlass;
 	public static Fluid naturalGas;
+	public static Fluid quicklime;
 	
 	public static Fluid fishOil;
 	public static Block fishOilBlock;
@@ -140,6 +144,7 @@ public class Core extends Module {
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
 		MaricultureHandlers.freezer = new SettlerRecipeHandler();
+		MaricultureHandlers.vat = new VatHandler();
 		MaricultureHandlers.upgrades = new UpgradeHandler();
 		MaricultureHandlers.modules = new ModulesHandler();
 		GameRegistry.registerFuelHandler(new FuelHandler());
@@ -211,6 +216,11 @@ public class Core extends Module {
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks });
 	}
+	
+	@Override
+	public void registerEntities() {
+		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", 44, Mariculture.instance, 80, 3, false);
+	}
 
 	@Override
 	public void registerItems() {
@@ -270,6 +280,9 @@ public class Core extends Module {
         fishOilBlock = new BlockFluidClassic(BlockIds.fishOil, fishOil, Material.water).setUnlocalizedName("fishOil");
         GameRegistry.registerBlock(fishOilBlock, "Mariculture_fishOil");
         fishOil.setBlockID(fishOilBlock);
+        
+        FluidContainerRegistry.registerFluidContainer(new FluidStack(fishOil.getID(), 1000), 
+				new ItemStack(liquidContainers, 1, FluidContainerMeta.BOTTLE_FISH_OIL), new ItemStack(Item.glassBottle));
 	}
 
 	private void addToOreDictionary() {	
@@ -279,6 +292,7 @@ public class Core extends Module {
 		DictionaryHelper.add("blockIron", new ItemStack(Block.blockIron));
 		DictionaryHelper.add("blockGold", new ItemStack(Block.blockGold));
 		DictionaryHelper.add("blockLapis", new ItemStack(Block.blockLapis));
+		DictionaryHelper.add("dustRedstone", new ItemStack(Item.redstone));
 		
 		OreDictionary.registerOre("blockLimestone", new ItemStack(oreBlocks, 1, OresMeta.LIMESTONE));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER));
@@ -298,6 +312,7 @@ public class Core extends Module {
 
 	private void addFluids() {	
 		//Mariculture Fluids
+		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_QUICKLIME);
 		FluidDictionary.fish_food = addFluid("fishfood", fishFood, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_FISH_FOOD);
 		FluidDictionary.natural_gas = addFluid("natural_gas", naturalGas, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GAS);
 		FluidDictionary.glass = addFluid("moltenGlass", moltenGlass, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GLASS);

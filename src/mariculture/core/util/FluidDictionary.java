@@ -71,6 +71,7 @@ public class FluidDictionary {
 	//Other
 	public static String fish_food;
 	public static String natural_gas;
+	public static String quicklime;
 	//Block forms
 	public static String hp_water = "fastwater";
 	public static String fish_oil = "fishoil";

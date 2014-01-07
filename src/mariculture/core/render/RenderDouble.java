@@ -7,15 +7,25 @@ import mariculture.core.helpers.RenderHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+
+import org.lwjgl.opengl.GL11;
+
+import tconstruct.library.ItemBlocklike;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderDouble implements ISimpleBlockRenderingHandler {
@@ -28,7 +38,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 	private void renderCompressorTop(IBlockAccess world, TileAirCompressor tile, ForgeDirection facing) {		
 		if(facing == ForgeDirection.UNKNOWN) {
 			helper.setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
-			helper.renderBlock(0, 0, 0, 1, 0.15, 1);
+			helper.renderBlock(0.05, 0, 0.05, 0.95, 0.15, 0.95);
 		} else if (facing == ForgeDirection.EAST) {
 			if(tile.master != null) {
 				TileEntity te = world.getBlockTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
@@ -398,9 +408,13 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.renderBlock(0.2, 0.2, 0.2, 0.8, 0.3, 0.8);
 			helper.renderBlock(0.1, 0.3, 0.1, 0.9, 0.4, 0.9);
 			//Liquid
-			if(tile.getFluid() != null) {
-				helper.renderWorldBlock(tile.getFluid(), TileVat.max_sml, 0.46D, 0, 0, 0);
-			}
+			if(tile.getFluid((byte)1) != null)
+				helper.renderWorldBlock(tile.getFluid((byte)1), TileVat.max_sml, 0.46D, 0, 0, 0);
+			if(tile.getFluid((byte)2) != null)
+				helper.renderWorldBlock(tile.getFluid((byte)2), TileVat.max_sml, 0.461D, 0, 0, 0);
+			if(tile.getFluid((byte)3) != null)
+				helper.renderWorldBlock(tile.getFluid((byte)3), TileVat.max_sml, 0.462D, 0, 0, 0);
+			
 		} else if (tile.facing == ForgeDirection.NORTH) {
 			//Edge Inner - Edge Outer
 			helper.setTexture(Block.anvil);
@@ -436,11 +450,25 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.renderBlock(0.2, 0.2, 0.2, 1, 0.3, 1);
 			helper.renderBlock(0.1, 0.3, 0.1, 1, 0.4, 1);
 			//Liquid
-			if(tile.getFluid() != null) {
-				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, 0, 0, 0);
-				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, +1, 0, 0);
-				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, +1, 0, +1);
-				helper.renderWorldBlock(tile.getFluid(), TileVat.max_lrg, 0.56D, 0, 0, +1);
+			if(tile.getFluid((byte)1) != null) {
+				helper.renderWorldBlock(tile.getFluid((byte)1), TileVat.max_lrg, 0.56D, 0, 0, 0);
+				helper.renderWorldBlock(tile.getFluid((byte)1), TileVat.max_lrg, 0.56D, +1, 0, 0);
+				helper.renderWorldBlock(tile.getFluid((byte)1), TileVat.max_lrg, 0.56D, +1, 0, +1);
+				helper.renderWorldBlock(tile.getFluid((byte)1), TileVat.max_lrg, 0.56D, 0, 0, +1);
+			}
+			
+			if(tile.getFluid((byte)2) != null) {
+				helper.renderWorldBlock(tile.getFluid((byte)2), TileVat.max_lrg, 0.56D, 0, 0, 0);
+				helper.renderWorldBlock(tile.getFluid((byte)2), TileVat.max_lrg, 0.56D, +1, 0, 0);
+				helper.renderWorldBlock(tile.getFluid((byte)2), TileVat.max_lrg, 0.56D, +1, 0, +1);
+				helper.renderWorldBlock(tile.getFluid((byte)2), TileVat.max_lrg, 0.56D, 0, 0, +1);
+			}
+			
+			if(tile.getFluid((byte)3) != null) {
+				helper.renderWorldBlock(tile.getFluid((byte)3), TileVat.max_lrg, 0.56D, 0, 0, 0);
+				helper.renderWorldBlock(tile.getFluid((byte)3), TileVat.max_lrg, 0.56D, +1, 0, 0);
+				helper.renderWorldBlock(tile.getFluid((byte)3), TileVat.max_lrg, 0.56D, +1, 0, +1);
+				helper.renderWorldBlock(tile.getFluid((byte)3), TileVat.max_lrg, 0.56D, 0, 0, +1);
 			}
 		} else if(tile.facing == ForgeDirection.WEST) {
 			helper.setTexture(Block.anvil);

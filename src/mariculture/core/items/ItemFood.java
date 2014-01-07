@@ -2,8 +2,11 @@ package mariculture.core.items;
 
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.EntityFakeItem;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -97,6 +100,11 @@ public class ItemFood extends ItemMariculture {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if (player.canEat(false)) {
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+		}
+		
+		if (!world.isRemote) {
+			EntityFakeItem entity = new EntityFakeItem(world, player.posX, player.posY, player.posZ, new ItemStack(Item.appleGold));
+			world.spawnEntityInWorld(entity);
 		}
 
 		return stack;

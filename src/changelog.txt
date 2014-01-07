@@ -4,7 +4,7 @@
 * Redstone Flux Fishing Rod
 * Added Snorkel, cheap early game diving assistance, allows you to breathe slightly longer underwater
 * Fish Sorter added
-* Melting, completely redone ;)
+* Melting System, completely redone ;)
 * Void Bottles are now placeable
 * Fish Tank(read chest) Added
 * Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
@@ -12,6 +12,7 @@
 * New Speed, Capacitor, Salinator and Filter Upgrades
 * Retro-Gen
 ====Changes====
+* Rewote 95% of things, should a lot less laggy
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
 * Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block form, was it really neccessary?
 * Full Dropped BC Power Support, now you can only use RF to Power my machines, and turbines will only provide RF
@@ -39,6 +40,7 @@
 * Buffed Neon Lamp Recipe
 * Can Repair Scuba Gear(Not Tank in an anvil) with Neoprene.
 * Buffed Fish Oil Drinking
+* Air Compressor will now take RF directly, instead of needing to use batteries 
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

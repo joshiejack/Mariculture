@@ -4,12 +4,13 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeFreezer;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
+import mariculture.api.core.RecipeVat.RecipeVatAlloy;
+import mariculture.api.core.RecipeVat.RecipeVatItem;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
-import mariculture.core.lib.PearlColor;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -197,5 +198,12 @@ public class RecipesSmelting {
 			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT * 5),
 					OreDictionary.getOres("sheetPlastic").get(0), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC)));
 		}
+		
+		//Water + Lava = Obsidian
+		MaricultureHandlers.vat.addRecipe(new RecipeVatAlloy(FluidRegistry.getFluidStack("water", 1000), 
+											FluidRegistry.getFluidStack("lava", 1000), new ItemStack(Block.obsidian), 100));
+		
+		MaricultureHandlers.vat.addRecipe(new RecipeVatItem(new ItemStack(Item.silk),  FluidRegistry.getFluidStack(FluidDictionary.gold, 6500), 
+																new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 100));
 	}
 }

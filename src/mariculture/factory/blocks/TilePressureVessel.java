@@ -162,7 +162,6 @@ public class TilePressureVessel extends TileMultiMachineTank {
 					for(MultiPart slave: slaves) {
 						TilePressureVessel vessel = (TilePressureVessel) worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 						if(vessel != null) {	
-							System.out.println(coords.xCoord + " " + coords.yCoord + " " + coords.zCoord);
 							vessel.setMaster(new MultiPart(coords.xCoord, coords.yCoord, coords.zCoord));
 						}
 					}

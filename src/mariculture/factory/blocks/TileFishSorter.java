@@ -152,7 +152,6 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 		RedstoneMode.writeToNBT(nbt, mode);
 		for(int i = 0; i < input; i ++) {
 			int val =  (sorting.containsKey(i))? sorting.get(i): 0;
-			System.out.println("SideSettingForSlot" + i + " - " + val);
 			nbt.setInteger("SideSettingForSlot" + i, val);
 		}
 	}

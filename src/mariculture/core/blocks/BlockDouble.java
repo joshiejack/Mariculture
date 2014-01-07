@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -128,11 +129,25 @@ public class BlockDouble extends BlockMachine {
 
 		switch (meta) {
 		case DoubleMeta.COMPRESSOR_TOP:
-			setBlockBounds(0F, 0F, 0F, 1F, 0.15F, 1F);
+			setBlockBounds(0.05F, 0F, 0.05F, 0.95F, 0.15F, 0.95F);
+			break;
+		case DoubleMeta.COMPRESSOR_BASE:
+			setBlockBounds(0.05F, 0F, 0.05F, 0.95F, 1F, 0.95F);
 			break;
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
 		}
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+		if(world.getBlockMetadata(x, y, z) == DoubleMeta.VAT) {
+			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,		
+					(double) z + this.minZ, (double) x + this.maxX, (double) y + 0.50001F, (double) z + this.maxZ);
+		}
+		
+		return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,		
+			(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 	}
 
 	@Override

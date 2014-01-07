@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class Packet118FluidUpdate extends Packet119Coordinates {
 
 	private int id, vol;
+	private byte num;
 	
 	public Packet118FluidUpdate() {}
 	public Packet118FluidUpdate(int x, int y, int z, FluidStack fluid) {
@@ -25,6 +26,22 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 			id = fluid.fluidID;
 			vol = fluid.amount;
 		}
+		
+		num = 0;
+	}
+	
+	public Packet118FluidUpdate(int x, int y, int z, FluidStack fluid, byte tank) {
+		super(x, y, z);
+		
+		if(fluid == null) {
+			id = 0;
+			vol = 0;
+		} else {
+			id = fluid.fluidID;
+			vol = fluid.amount;
+		}
+		
+		num = tank;
 	}
 
 	@Override
@@ -32,7 +49,7 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 		TileEntity te = world.getBlockTileEntity(x, y, z);
 		if(te instanceof ITank) {
 			FluidStack fluid = (vol == 0 || id == 0)? null: new FluidStack(id, vol);
-			((ITank)te).setFluid(fluid);
+			((ITank)te).setFluid(fluid, num);
 		}
 		
 		world.markBlockForRenderUpdate(x, y, z);
@@ -43,6 +60,7 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 		super.read(is);
 		id = is.readInt();
 		vol = is.readInt();
+		num = is.readByte();
 	}
 
 	@Override
@@ -50,6 +68,7 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 		super.write(os);
 		os.writeInt(id);
 		os.writeInt(vol);
+		os.writeByte(num);
 	}
 
 }

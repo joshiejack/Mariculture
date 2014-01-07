@@ -78,6 +78,16 @@ public class TileStorageTank extends TileStorage implements IFluidHandler, ITank
 		tank.setFluid(fluid);
 	}
 	
+	@Override
+	public FluidStack getFluid(byte tank) {
+		return getFluid();
+	}
+
+	@Override
+	public void setFluid(FluidStack fluid, byte tank) {
+		setFluid(fluid);
+	}
+	
 	public int getTankScaled(int i) {
 		int qty = tank.getFluidAmount();
 		int max = tank.getCapacity();

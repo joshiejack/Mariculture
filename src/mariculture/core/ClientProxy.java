@@ -8,9 +8,11 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.render.ModelOyster;
 import mariculture.core.render.RenderDouble;
+import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderSingle;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderTanks;
+import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.EntityFLUDDSquirt;
 import mariculture.factory.Factory;
@@ -70,6 +72,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		RenderingRegistry.registerBlockHandler(new RenderDouble());
 		RenderingRegistry.registerBlockHandler(new RenderSingle());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
 		
 		if(Modules.diving.isActive()) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");

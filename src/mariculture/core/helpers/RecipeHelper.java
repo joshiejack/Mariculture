@@ -2,6 +2,7 @@ package mariculture.core.helpers;
 
 import mariculture.core.Core;
 import mariculture.core.lib.FoodMeta;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -11,6 +12,10 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class RecipeHelper {
 	public static void addShapedRecipe(ItemStack result, Object[] input) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(result, input));
+	}
+	
+	public static void add4x4Recipe(ItemStack result, Block block, int meta) {
+		addShapedRecipe(result, new Object[] { "##", "##", '#', new ItemStack(block, 1, meta) });
 	}
 	
 	public static void addShapelessRecipe(ItemStack result, Object[] input) {

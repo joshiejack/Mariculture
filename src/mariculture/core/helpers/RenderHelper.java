@@ -69,9 +69,6 @@ public class RenderHelper {
 		float blue = (color & 255) / 255.0F;
 		
 		double extra = (((double)fluid.amount)/max) * scale;
-		
-		System.out.println(extra);
-
 		double height = 0.4D + extra;
 		Icon iconStill = fluid.getFluid().getIcon();
 
