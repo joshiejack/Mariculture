@@ -6,34 +6,23 @@ import java.util.logging.Level;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.lwjgl.Sys;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeFreezer;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.XMLHelper;
-import mariculture.core.lib.Compatibility;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.util.FluidCustom;
-import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.Fishery;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class CompatFluids {
 

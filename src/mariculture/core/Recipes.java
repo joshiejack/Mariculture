@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeFreezer;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.helpers.RecipeHelper;
@@ -103,7 +102,7 @@ public class Recipes {
 		});
 		
 		//Anvil Recipe
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.ANVIL), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.ANVIL_1), new Object[] {
 			"CCC", " B ", "BBB",
 			'C', new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK),
 			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
@@ -119,6 +118,11 @@ public class Recipes {
 		//VAT Recipe
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT), new Object[] {
 			"C C", "C C", "CCC", 'C', "ingotCopper"
+		});
+		
+		//Ingot Caster
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT), new Object[] {
+			" B ", "BBB", " B ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 
 		FurnaceRecipes.smelting().addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE,
@@ -141,49 +145,50 @@ public class Recipes {
 	}
 
 	private static void addCraftingItems() {
-		//Golden Silk
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.INGOT * 5), 
-				new ItemStack(Item.silk), new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK)));
+		//Golden Silk > 5 Seconds, 1 x Ingot Gold(mB) + String
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.silk), FluidDictionary.gold, MetalRates.INGOT, 
+				new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 5);
 		
 		//Golden Thread
-		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD), new Object[] { "ABA", "ABA", 
-				Character.valueOf('A'), new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 
-				Character.valueOf('B'), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK) });
-		//Polished Stick		
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, FluidContainerRegistry.BUCKET_VOLUME * 5), 
-				new ItemStack(Item.stick), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK)));
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD), new Object[] {
+			"ABA", "ABA",
+			'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
+			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK)
+		});
+	
+		// Polished Stick > 15 Seconds > 5000mB Fish Oil + Stick
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.stick), FluidDictionary.fish_oil, 5000, 
+				new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 15);
 		
-		//Titanium Rod	
+		//Titanium Rod >> 30 Seconds >> With Tinkers(6500mB Fish Oil + Tough Rod, without 2 Ingots Titanium + 2 Polished Sticks)
 		if(Loader.isModLoaded("TConstruct")) {
 			PluginTConstruct.addRod = true;
 		} else {
-			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.titanium, MetalRates.NUGGET * 12), 
-					new ItemStack(Core.craftingItem, 2, CraftingMeta.POLISHED_STICK), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
+			RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 2, CraftingMeta.POLISHED_STICK), 
+					FluidDictionary.titanium, MetalRates.INGOT * 2,  
+					new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
 		}
+		
 		//Neoprene
 		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), new Object[] { "IPI", "PEP", "IPI", 
 				Character.valueOf('I'), new ItemStack(Item.dyePowder, 1, Dye.INK), 
 				Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
 				Character.valueOf('E'), new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_GAS) });
-		//Plastic
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.natural_gas, FluidContainerRegistry.BUCKET_VOLUME * 32), 
-				new ItemStack(Core.oreBlocks, 16, OresMeta.LIMESTONE), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC)));
+		//Plastic > 60 Seconds > 32 Buckets of Molten Glass + 16 Limestone
+		RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), FluidDictionary.glass, 32000, 
+				new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 60);
 		//Plastic Lens
 		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), new Object[] { " N ", "NGN", " N ", 
 				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
 				Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC) });
 		//Glass Lens
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS), new Object[] {
-			" P ", "PGP", " P ",
-			Character.valueOf('P'), "plankWood",
-			Character.valueOf('G'), "glass"
+			" P ", "PGP", " P ", 'P', "plankWood", 'G', "glass"
 		});
 		
 		//Aluminum Sheet
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET), new Object[] {
-			"I I", " F ", "I I",
-			Character.valueOf('I'), "ingotAluminum",
-			Character.valueOf('F'), Item.flintAndSteel
+			"I I", " F ", "I I", 'I', "ingotAluminum", 'F', Item.flintAndSteel
 		});
 
 		//Heating
@@ -237,9 +242,9 @@ public class Recipes {
 			.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), new Object[] { "CAC", "ACA", "CAC", 
 				Character.valueOf('A'), "stickWood", 
 				Character.valueOf('C'), Item.reed }));
-		//Yellow Plastic
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.BLOCK), 
-				new ItemStack(Core.craftingItem, 4, CraftingMeta.PLASTIC), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW)));
+		//Yellow Plastic > 5 Minutes > 1 Block of Gold(mB) + 4 Plastic
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.PLASTIC), 
+				FluidDictionary.gold, MetalRates.BLOCK,  new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 60 * 5);
 		//Melt Yellow/Gold plastic back to a block of gold and 1 piece of plastic
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), RecipesSmelting.gold, 
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.BLOCK), 
@@ -257,7 +262,7 @@ public class Recipes {
 			new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE), Item.netherrackBrick
 		});
 	
-		//Burnt Brick > (Brick > Burnt Brick)
+		//Burnt Brick > Brick + Molten Coal + Molten Copper
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 2, CraftingMeta.BURNT_BRICK), new Object[] {
 			" C ", "FBF", " S ",
 			Character.valueOf('C'), new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE),
@@ -268,54 +273,16 @@ public class Recipes {
 	}
 	
 	private static void addMetalRecipes() {		
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidRegistry.WATER.getName(), FluidContainerRegistry.BUCKET_VOLUME * 25), 
-				new ItemStack(Core.oreBlocks, 32, OresMeta.LIMESTONE), new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM)));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.ALUMINUM_BLOCK), true, new Object[] { "###", "###", "###", 
-						Character.valueOf('#'), "ingotAluminum" }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_ALUMINUM), new Object[] { "blockAluminum" }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.COPPER_BLOCK), new Object[] { "###", "###", "###", 
-					Character.valueOf('#'), "ingotCopper" }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_COPPER), new Object[] { "blockCopper" }));
-
-		FurnaceRecipes.smelting().addSmelting(Core.oreBlocks.blockID, OresMeta.COPPER, new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), 0.5F);
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_TITANIUM), new Object[] { "blockTitanium" }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), true, new Object[] { "###", "###", "###", 
-					Character.valueOf('#'), "ingotTitanium" }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_MAGNESIUM), new Object[] { "blockMagnesium" }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.MAGNESIUM_BLOCK), true, new Object[] { "###", "###", "###", 
-					Character.valueOf('#'), "ingotMagnesium" }));
+		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.MAGNESIUM_BLOCK), "ingotMagnesium");
+		RecipeHelper.add9x9RecipeUndo(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM), "blockMagnesium");
+		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), "ingotTitanium");
+		RecipeHelper.add9x9RecipeUndo(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), "blockTitanium");
+		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.ALUMINUM_BLOCK), "ingotAluminum");
+		RecipeHelper.add9x9RecipeUndo(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM), "blockAluminum");
+		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.COPPER_BLOCK), "ingotCopper");
+		RecipeHelper.add9x9RecipeUndo(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), "blockCopper");
+		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.COPPER, 
+									new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), 0.5F);
 	}
 	
 	private static void addUpgradeRecipes() {

@@ -74,7 +74,7 @@ public class RenderFakeItem extends RenderItem
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
-                float f7 = 0.55F;
+                float f7 = 0.35F;
                 int j = block.getRenderType();
 
                 if (j == 1 || j == 19 || j == 12 || j == 2)
@@ -86,15 +86,6 @@ public class RenderFakeItem extends RenderItem
 
                 for (i = 0; i < b0; ++i)  {
                     GL11.glPushMatrix();
-
-                    if (i > 0)
-                    {
-                        f5 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.2F / f7;
-                        f4 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.2F / f7;
-                        f6 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.2F / f7;
-                        GL11.glTranslatef(f5, f4, f6);
-                    }
-
                     f5 = 1.0F;
                     this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
                     GL11.glPopMatrix();
@@ -106,7 +97,7 @@ public class RenderFakeItem extends RenderItem
 
                 if (itemstack.getItem().requiresMultipleRenderPasses())
                 {
-                    GL11.glScalef(0.5F, 0.5F, 0.5F);
+                    GL11.glScalef(0.25F, 0.25F, 0.25F);
                     for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
                     {
                         this.random.setSeed(187L);
@@ -130,7 +121,7 @@ public class RenderFakeItem extends RenderItem
                 }
                 else
                 {
-                    GL11.glScalef(0.5F, 0.5F, 0.5F);
+                    GL11.glScalef(0.2F, 0.2F, 0.25F);
                     Icon icon1 = itemstack.getIconIndex();
 
                     if (this.renderWithColor) {

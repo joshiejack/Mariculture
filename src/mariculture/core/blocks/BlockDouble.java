@@ -11,11 +11,13 @@ import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -28,6 +30,7 @@ public class BlockDouble extends BlockMachine {
 
 	public BlockDouble(int i) {
 		super(i, Material.iron);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -102,7 +105,7 @@ public class BlockDouble extends BlockMachine {
 		
 		super.onBlockAdded(world, x, y, z);
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int j, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
@@ -125,8 +128,7 @@ public class BlockDouble extends BlockMachine {
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
-		final int meta = block.getBlockMetadata(x, y, z);
-
+		int meta = block.getBlockMetadata(x, y, z);
 		switch (meta) {
 		case DoubleMeta.COMPRESSOR_TOP:
 			setBlockBounds(0.05F, 0F, 0.05F, 0.95F, 0.15F, 0.95F);

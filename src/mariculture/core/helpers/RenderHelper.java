@@ -56,6 +56,10 @@ public class RenderHelper {
 	public RenderBlocks getRenderer() {
 		return this.render;
 	}
+	
+	public IBlockAccess getWorld() {
+		return this.world;
+	}
 
 	public void renderWorldBlock(FluidStack fluid, int max, double scale, int xPlus, int yPlus, int zPlus) {
 		int x2 = x + xPlus;

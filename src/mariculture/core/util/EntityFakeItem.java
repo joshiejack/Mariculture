@@ -8,7 +8,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
-public class EntityFakeItem extends Entity {
+public class EntityFakeItem extends Entity {	
     public EntityFakeItem(World world) {
         super(world);
         this.yOffset = 0.0F;
@@ -29,6 +29,11 @@ public class EntityFakeItem extends Entity {
 
     public boolean canBeCollidedWith() {
         return false;
+    }
+    
+    @Override
+    public void onUpdate() {
+    	return;
     }
     
     public ItemStack getEntityItem() {

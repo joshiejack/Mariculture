@@ -60,6 +60,11 @@ public class BlockTank extends BlockDecorative {
 	}
 	
 	@Override
+	public boolean isActive(int meta) {
+		return meta != TankMeta.BOTTLE;
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 		icons = new Icon[getMetaCount()];

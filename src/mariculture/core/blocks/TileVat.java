@@ -4,17 +4,14 @@ import java.util.ArrayList;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeVat;
-import mariculture.api.core.RecipeVat.RecipeVatAlloy;
-import mariculture.api.core.RecipeVat.RecipeVatItem;
-import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiStorageTank;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.AirMeta;
 import mariculture.core.network.Packet113MultiInit;
 import mariculture.core.network.Packet118FluidUpdate;
+import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
-import mariculture.core.util.EntityFakeItem;
+import mariculture.core.util.Rand;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -22,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	public static int max_lrg = 24000;
@@ -29,8 +27,6 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	public Tank tank2;
 	public Tank tank3;
 	
-	public int entityID;
-	public int entityOutputID;
 	public int timeRemaining;
 	public boolean canWork;
 	private int machineTick;
@@ -86,66 +82,30 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		
 		
 		if(!worldObj.isRemote) {
-			if(canWork && onTick(1))
+			if(canWork && onTick(20))
 				timeRemaining--;
-			updateAll();
-			
-			if(onTick(20)) {
-				addInputEntity();
-				addOutputEntity();
-			}
 		}
+		
+		updateAll();
 	}
-	
-	public void addInputEntity() {
-		if(entityID == 0) {
-			ItemStack initial = inventory[0];
-			if(initial == null)
-				initial = new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR);
-			EntityFakeItem entity = new EntityFakeItem(worldObj, xCoord + 1D, yCoord + 0.6, zCoord + 1D, initial);
-			entityID = entity.entityId;
-			worldObj.spawnEntityInWorld(entity);
-		} else {
-			if(worldObj.getEntityByID(entityID) instanceof EntityFakeItem) {
-				EntityFakeItem item = (EntityFakeItem) worldObj.getEntityByID(entityID);
-				if(item != null) {
-					if(inventory[0] != null)
-						item.setEntityItemStack(inventory[0]);
-					else
-						item.setEntityItemStack(new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR));
-				}
-			}
-		}
-	}
-	
-	public void addOutputEntity() {
-		if(entityOutputID == 0) {
-			ItemStack initial = inventory[1];
-			if(initial == null)
-				initial = new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR);
-			EntityFakeItem entity = new EntityFakeItem(worldObj, xCoord + 1D, yCoord + 0.6, zCoord + 1D, initial);
-			entityOutputID = entity.entityId;
-			worldObj.spawnEntityInWorld(entity);
-		} else {
-			if(worldObj.getEntityByID(entityOutputID) instanceof EntityFakeItem) {
-				EntityFakeItem item = (EntityFakeItem) worldObj.getEntityByID(entityOutputID);
-				if(item != null) {
-					if(inventory[1] != null)
-						item.setEntityItemStack(inventory[1]);
-					else
-						item.setEntityItemStack(new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR));
-				}
-			}
-		}
-	}
-	
+
 	//The Code for when we are updating a single block!
 	public void updateSingle() {
 		machineTick++;
 		if(!worldObj.isRemote) {
-			if(canWork && onTick(30))
-				timeRemaining--;
-			updateAll();
+			if(canWork) {
+				if(onTick(30)) {
+					timeRemaining--;
+				}
+			}
+		}
+		
+		updateAll();
+		
+		if(worldObj.isRemote && canWork) {
+			worldObj.spawnParticle("smoke", xCoord + 0.5D + + Rand.rand.nextFloat() - (Rand.rand.nextFloat()/2), 
+					yCoord + 0.8D + Rand.rand.nextFloat() - (Rand.rand.nextFloat()/2), 
+					zCoord + 0.5D + + Rand.rand.nextFloat() - (Rand.rand.nextFloat()/2), 0, 0, 0);	
 		}
 	}
 	
@@ -153,93 +113,45 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		if(onTick(20))
 			canWork = canWork();
 		
-		if(canWork) {
+		if(canWork && !worldObj.isRemote) {
 			if(timeRemaining <= 0 && timeRemaining > -9999) {
 				Object[] result = getResult();
 				RecipeVat recipe = (RecipeVat) result[0];
 				byte tankNum = (Byte) result[1];
-				if(recipe instanceof RecipeVatAlloy) {
-					createAlloy((RecipeVatAlloy) recipe, tankNum);
-				} else if (recipe instanceof RecipeVatItem) {
-					createItem((RecipeVatItem) recipe, tankNum);
-				}
-				
+				if(recipe != null)
+					createResult(recipe, tankNum);
 				timeRemaining = -9999;
 			}
 		}
 	}
 	
-	public boolean canWork() {
-		if(tank.getFluidAmount() <= 0 && tank2.getFluidAmount() <= 0)
-			return false;
-		RecipeVat res = (RecipeVat) getResult()[0];
-		if(res == null)
-			return false;
-		if(timeRemaining < 0)
-			timeRemaining = res.cookTime;
-		return true;
-	}
-	
-	public Object[] getResult() {
-		byte tankNum = 1;
-		RecipeVat result = MaricultureHandlers.vat.getAlloyResult(tank.getFluid(), tank2.getFluid());
-		result = (result== null || !hasRoom(((RecipeVatAlloy)result).output))? null: result;
-		if(result == null) {
-			tankNum = 2;
-			result = MaricultureHandlers.vat.getAlloyResult(tank2.getFluid(), tank.getFluid());
-			result = (result== null || !hasRoom(((RecipeVatAlloy)result).output))? null: result;
-			if(result == null) {
-				tankNum = 1;
-				result = MaricultureHandlers.vat.getItemResult(inventory[0], tank.getFluid());
-				result = (result== null || !hasRoom(((RecipeVatItem)result).output))? null: result;
-				if(result == null) {
-					tankNum = 2;
-					result = MaricultureHandlers.vat.getItemResult(inventory[0], tank2.getFluid());
-					result = (result== null || !hasRoom(((RecipeVatItem)result).output))? null: result;
-				}
-			}
+	private void createResult(RecipeVat recipe, byte tankNum) {
+		//Drain out the fluid1
+		if(tankNum == 1) {
+			if(recipe.inputFluid1 != null)
+				tank.drain(recipe.inputFluid1.amount, true);
+			if(recipe.inputFluid2 != null)
+				tank2.drain(recipe.inputFluid2.amount, true);
+		} else {
+			if(recipe.inputFluid1 != null)
+				tank2.drain(recipe.inputFluid1.amount, true);
+			if(recipe.inputFluid2 != null)
+				tank.drain(recipe.inputFluid2.amount, true);
 		}
 		
-		return new Object[] { result, tankNum };
-	}
-	
-	private boolean hasRoom(ItemStack stack) {
-		return stack == null || inventory[1] == null || (ItemHelper.areItemStackEqualNoNull(stack, inventory[1]) 
-										&& inventory[1].stackSize + stack.stackSize <= inventory[1].getMaxStackSize());
-	}
-	
-	private void createAlloy(RecipeVatAlloy recipe, byte tankNum) {
-		if(recipe.newFluid == null || tank3.fill(recipe.newFluid, false) >= recipe.newFluid.amount) {
-			ItemStack output = recipe.output;
-			
-			if(output != null) {
-				if(inventory[1] != null) {
-					output.stackSize+=inventory[1].stackSize;
-				}
-				
-				setInventorySlotContents(1, output);
-			}
-			
-			if(tankNum == 1) {
-				tank.drain(recipe.fluid.amount, true);
-				tank2.drain(recipe.fluid2.amount, true);
-			} else {
-				tank.drain(recipe.fluid2.amount, true);
-				tank2.drain(recipe.fluid.amount, true);
-			}
-			
-			if(recipe.newFluid != null)
-				tank3.fill(recipe.newFluid, true);
-			
-			Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)1), (byte) 1).build());
-			Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)2), (byte) 2).build());
-			Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build());
+		//Decrease the StackSize of the input, by this much if it's valid
+		if(recipe.inputItem != null) {
+			decrStackSize(0, recipe.inputItem.stackSize);
 		}
-	}
-	
-	private void createItem(RecipeVatItem recipe, byte tankNum) {
-		ItemStack output = recipe.output;
-		if(output != null) {
+		
+		//Add the new Fluid
+		if(recipe.outputFluid != null) {
+			tank3.fill(recipe.outputFluid.copy(), true);
+		}
+		
+		//Add the new Item
+		if(recipe.outputItem != null) {
+			ItemStack output = recipe.outputItem.copy();
 			if(inventory[1] != null) {
 				output.stackSize+=inventory[1].stackSize;
 			}
@@ -247,16 +159,45 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 			setInventorySlotContents(1, output);
 		}
 		
-		decrStackSize(0, 1);
-		
-		if(tankNum == 1)
-			tank.drain(recipe.fluid.amount, true);
-		else
-			tank2.drain(recipe.fluid.amount, true);
-		
+		//Let the world know that the tanks have changed, the items get their packets sent with the respective items...
 		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)1), (byte) 1).build());
 		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)2), (byte) 2).build());
-		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build());
+		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build()); 
+	}
+
+	public boolean canWork() {
+		if(tank.getFluidAmount() <= 0 && tank2.getFluidAmount() <= 0)
+			return false;
+		RecipeVat res = (RecipeVat) getResult()[0];
+		if(res == null)
+			return false;
+		if(timeRemaining < 0)
+			timeRemaining = res.processTime;
+		return true;
+	}
+	
+	public Object[] getResult() {
+		byte tankNum = 1;
+		RecipeVat result = MaricultureHandlers.vat.getResult(tank.getFluid(), tank2.getFluid(), inventory[0]);
+		result = (result == null || !hasRoom(result.outputItem, result.outputFluid))? null: result;
+		if(result == null) {
+			tankNum = 2;
+			result = MaricultureHandlers.vat.getResult(tank2.getFluid(), tank.getFluid(), inventory[0]);
+			result = (result == null || !hasRoom(result.outputItem, result.outputFluid))? null: result;
+		}
+		
+		return new Object[] { result, tankNum };
+	}
+	
+	private boolean hasRoom(ItemStack stack, FluidStack newFluid) {
+		if(tank3.getFluid() != null && newFluid != null) {
+			if(newFluid.fluidID != tank3.getFluidID() || newFluid.amount + tank3.getFluidAmount() > tank3.getCapacity()) {
+				return false;
+			}
+		}
+		
+		return stack == null || inventory[1] == null || (ItemHelper.areItemStackEqualNoNull(stack, inventory[1]) 
+										&& inventory[1].stackSize + stack.stackSize <= inventory[1].getMaxStackSize());
 	}
 
 	@Override
@@ -264,16 +205,50 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		return this.getClass();
 	}
 	
+	//ISided
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return new int[] { 0, 1 };
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+		return slot == 0;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+		return slot == 1;
+	}
+	
 //Inventory Logic
 	@Override
 	public ItemStack getStackInSlot(int slot) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
 		return vat.inventory[slot];
+	}
+	
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
+		if (vat.inventory[slot] != null) {
+            ItemStack stack = vat.inventory[slot];
+            vat.inventory[slot] = null;
+            return stack;
+        }
+
+		return null;
 	}
 	
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return;
 		
 		vat.inventory[slot] = stack;
         if (stack != null && stack.stackSize > vat.getInventoryStackLimit()) {
@@ -286,6 +261,8 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	@Override
 	public ItemStack decrStackSize(int slot, int amount) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
 		if (vat.inventory[slot] != null) {
             ItemStack stack;
 
@@ -309,10 +286,39 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		return null;
 	}
 	
-//Tank Logic		
+	@Override
+	public void onInventoryChanged() {
+		super.onInventoryChanged();
+				
+		if(!worldObj.isRemote) {
+			Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
+		}
+	}
+	
+//Tank Logic
+	@Override
+	public FluidStack getFluid(int transfer) {
+		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
+		if(vat.tank.getFluid() == null)
+			return null;
+		if(vat.tank.getFluidAmount() - transfer < 0)
+			return null;
+		
+		return new FluidStack(vat.tank.getFluidID(), transfer);
+	}
+	
+	@Override
+	public FluidStack getFluid() {
+		return getFluid((byte)1);
+	}
+	
 	@Override
 	public FluidStack getFluid(byte tank) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
 		if(tank == 1)
 			return vat.tank.getFluid();
 		else if(tank == 2)
@@ -321,10 +327,18 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 			return vat.tank3.getFluid();
 		return null;
 	}
+	
+	@Override
+	public void setFluid(FluidStack fluid) {
+		setFluid(fluid, (byte)1);
+	}
 
 	@Override
 	public void setFluid(FluidStack fluid, byte tank) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return;
+		
 		if(tank == (byte)1)
 			vat.tank.setFluid(fluid);
 		else if(tank == (byte)2)
@@ -336,21 +350,27 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
+		
 		//If the draining from tank3 didn't fail, send packet update, otherwise try for tank2, then tank1
 		FluidStack ret = vat.tank3.drain(maxDrain, doDrain);
 		if(ret != null) {
-			if(doDrain)
+			if(doDrain) {
 				Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)3), (byte) 3).build());
+			}
 		} else {
 			ret = vat.tank2.drain(maxDrain, doDrain);
 			if(ret != null) {
-				if(doDrain)
+				if(doDrain) {
 					Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
+				}
 			} else {
 				ret = vat.tank.drain(maxDrain, doDrain);
 				if(ret != null) {
-					if(doDrain)
+					if(doDrain) {
 						Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
+					}
 				}
 			}
 		}
@@ -361,6 +381,9 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return 0;
+		
 		int ret = vat.tank.fill(resource, doFill);
 		if(ret > 0) {
 			if(doFill) {
@@ -369,8 +392,9 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		} else {
 			ret = vat.tank2.fill(resource, doFill);
 			if(ret > 0) {
-				if(doFill)
+				if(doFill) {
 					Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
+				}
 			}
 		}
 		
@@ -378,14 +402,23 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	}
 	
 	@Override
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		if(vat == null)
+			return null;
+		
+		return new FluidTankInfo[] { vat.tank.getInfo(), vat.tank2.getInfo(), vat.tank3.getInfo() };
+	}
+	
+	/** End Tank Stuffs**/
+	
+	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		tank2.readFromNBT(nbt);
 		tank3.readFromNBT(nbt);
-		timeRemaining = nbt.getInteger("TimeRemaning");
+		timeRemaining = nbt.getInteger("TimeRemaining");
 		canWork = nbt.getBoolean("CanWork");
-		entityID = nbt.getInteger("EntityID");
-		entityOutputID = nbt.getInteger("EntityOutputID");
 	}
 
 	@Override
@@ -395,8 +428,6 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		tank3.writeToNBT(nbt);
 		nbt.setInteger("TimeRemaining", timeRemaining);
 		nbt.setBoolean("CanWork", canWork);
-		nbt.setInteger("EntityID", entityID);
-		nbt.setInteger("EntityOutputID", entityOutputID);
 	}
 	
 //Master Logic	
@@ -405,6 +436,7 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		if(master != null) {
 			TileVat mstr = (TileVat) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
 			if(mstr != null) {
+				//Set all three tanks back to small size
 				mstr.tank.setCapacity(max_sml);
 				if(mstr.tank.getFluidAmount() > max_sml)
 					mstr.tank.setFluidAmount(max_sml);
@@ -413,33 +445,19 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 				if(mstr.tank2.getFluidAmount() > max_sml)
 					mstr.tank2.setFluidAmount(max_sml);
 				
-				mstr.tank2.setCapacity(max_sml);
-				if(mstr.tank2.getFluidAmount() > max_sml)
-					mstr.tank2.setFluidAmount(max_sml);
-				
-				if(worldObj.getEntityByID(mstr.entityID) != null)
-					worldObj.getEntityByID(mstr.entityID).setDead();
-				if(worldObj.getEntityByID(mstr.entityOutputID) != null)
-					worldObj.getEntityByID(mstr.entityOutputID).setDead();
-				mstr.entityID = 0;
-				mstr.entityOutputID = 0;
+				mstr.tank3.setCapacity(max_sml);
+				if(mstr.tank3.getFluidAmount() > max_sml)
+					mstr.tank3.setFluidAmount(max_sml);
 			}
 		}
 		
-		if(worldObj.getEntityByID(entityID) != null)
-			worldObj.getEntityByID(entityID).setDead();
-		entityID = 0;
-		if(worldObj.getEntityByID(entityOutputID) != null)
-			worldObj.getEntityByID(entityOutputID).setDead();
-		entityOutputID = 0;
-
 		super.onBlockBreak();
 	}
 	
 	@Override
 	public boolean isPartnered(int x, int y, int z) {
 		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
-		return tile instanceof TileVat?  ((TileVat)tile).master != null : false;
+		return tile instanceof TileVat? ((TileVat)tile).master != null : false;
 	}
 	
 	@Override
@@ -492,20 +510,5 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		}
 		
 		Packets.updateTile(this, 32, getDescriptionPacket());
-	}
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		return new int[] { 0, 1 };
-	}
-
-	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return slot == 0;
-	}
-
-	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return slot == 1;
 	}
 }

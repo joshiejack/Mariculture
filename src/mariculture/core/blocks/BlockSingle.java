@@ -2,6 +2,8 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
@@ -25,6 +27,7 @@ import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,14 +36,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 
 public class BlockSingle extends BlockMachine {
-	private Icon[] icons;
-
 	public BlockSingle(int i) {
 		super(i, Material.piston);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
@@ -66,8 +68,16 @@ public class BlockSingle extends BlockMachine {
 			return 5F;
 		case SingleMeta.GEYSER:
 			return 1F;
-		case SingleMeta.ANVIL:
+		case SingleMeta.ANVIL_1:
 			return 6F;
+		case SingleMeta.ANVIL_2:
+			return 6F;
+		case SingleMeta.ANVIL_3:
+			return 6F;
+		case SingleMeta.ANVIL_4:
+			return 6F;
+		case SingleMeta.INGOT_CASTER:
+			return 4F;
 		}
 
 		return 1F;
@@ -140,6 +150,34 @@ public class BlockSingle extends BlockMachine {
 				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(facing);
 				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
 			}
+		}
+		
+		int meta = stack.getItemDamage();
+		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4) {
+	        int l = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+	        int i1 = world.getBlockMetadata(x, y, z) >> 2;
+	        ++l;
+	        l %= 4;
+	
+	        if (l == 0)
+	        {
+	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_3, 2);
+	        }
+	
+	        if (l == 1)
+	        {
+	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_4, 2);
+	        }
+	
+	        if (l == 2)
+	        {
+	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_1, 2);
+	        }
+	
+	        if (l == 3)
+	        {
+	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_2, 2);
+	        }
 		}
 	}
 
@@ -226,6 +264,17 @@ public class BlockSingle extends BlockMachine {
 			if(geyser.orientation == ForgeDirection.NORTH)
 				setBlockBounds(0.1F, 0.1F, 0.75F, 0.9F, 0.9F, 1.0F);
 			break;
+		case SingleMeta.ANVIL_1:
+			setBlockBounds(0.125F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
+			break;
+		case SingleMeta.ANVIL_2:
+			setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
+			break;
+		case SingleMeta.ANVIL_3:
+			setBlockBounds(0.125F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
+			break;
+		case SingleMeta.ANVIL_4:
+			setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
 		}
@@ -258,7 +307,12 @@ public class BlockSingle extends BlockMachine {
 			return new TileTurbineHand();
 		case SingleMeta.GEYSER:
 			return new TileGeyser();
+		case SingleMeta.INGOT_CASTER:
+			return new TileIngotCaster();
 		}
+		
+		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)
+			return new TileAnvil();
 
 		return null;
 	}
@@ -286,6 +340,7 @@ public class BlockSingle extends BlockMachine {
 				((TileAirPump) tile).updateAirArea(Type.CLEAR);
 			}
 		}
+		
 		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}
@@ -340,12 +395,16 @@ public class BlockSingle extends BlockMachine {
 	public Icon getIcon(int side, int meta) {
 		if(meta == SingleMeta.GEYSER)
 			return Block.hopperBlock.getIcon(0, 0);
+		if(meta == SingleMeta.INGOT_CASTER)
+			return super.getIcon(side, meta);
 		
 		return blockIcon;
 	}
 
 	@Override
 	public int damageDropped(int i) {
+		if(i >= SingleMeta.ANVIL_1 && i <= SingleMeta.ANVIL_4)
+			return SingleMeta.ANVIL_1;
 		return i;
 	}
 
@@ -364,6 +423,12 @@ public class BlockSingle extends BlockMachine {
 			return Modules.factory.isActive();
 		case SingleMeta.TURBINE_HAND:
 			return Modules.factory.isActive();
+		case SingleMeta.ANVIL_2:
+			return false;
+		case SingleMeta.ANVIL_3:
+			return false;
+		case SingleMeta.ANVIL_4:
+			return false;
 		default:
 			return true;
 		}
@@ -372,5 +437,17 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public int getMetaCount() {
 		return SingleMeta.COUNT;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconRegister) {
+		icons = new Icon[getMetaCount()];
+
+		for (int i = 0; i < icons.length; i++) {
+			if(i <= SingleMeta.ANVIL_1 || i > SingleMeta.ANVIL_4) {
+				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
+			}
+		}
 	}
 }

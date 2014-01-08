@@ -3,7 +3,12 @@ package mariculture.core.render;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.TileAirPump;
+import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileOyster;
+import mariculture.core.handlers.IngotCastingHandler;
+import mariculture.core.helpers.RenderHelper;
+import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.diving.render.ModelAirPump;
@@ -44,111 +49,99 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		this.resource = resource;
 	}
 
+	public RenderHelper helper;
+	public RenderAnvil anvil;
+	
+	//Models
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float tick) {
 		if (tileEntity instanceof TileAirPump) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelAirPump) model).render((TileAirPump) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileOyster) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelOyster) model).render((TileOyster) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileSift) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelSift) model).render((TileSift) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileFeeder) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelFeeder) model).render((TileFeeder) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileTurbineWater) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelTurbineWater) model).render((TileTurbineWater) tileEntity, x, y, z);
 		}
 		
 		if (tileEntity instanceof TileTurbineGas) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelTurbineGas) model).render((TileTurbineGas) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileFLUDDStand) {
-			this.bindTexture(resource);
+			bindTexture(resource);
 			((ModelFLUDD) model).render((TileFLUDDStand) tileEntity, x, y, z);
 		}
 	}
 	
+	//Net
 	private void renderNet(IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
 		render.setOverrideBlockTexture(Core.oysterBlock.getIcon(0, BlockOyster.NET));
 		render.setRenderBounds(0, -0.115, 0, 1, -0.05, 1);
 		render.renderStandardBlock(block, x, y, z);
 	}
 	
+	//Geyser
 	private void renderGeyser(TileGeyser tile, IBlockAccess world, int x, int y, int z, RenderBlocks render, Block block) {
 		if(tile.orientation == ForgeDirection.NORTH) {
-			render.setOverrideBlockTexture(Block.hopperBlock.getIcon(0, 0));
-			render.setRenderBounds(0.1, 0.1, 0.85, 0.9, 0.9, 1);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.stoneSingleSlab.getIcon(0, 0));
-			render.setRenderBounds(0.25, 0.25, 0.76, 0.75, 0.75, 0.85);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.waterStill.getIcon(0, 0));
-			render.setRenderBounds(0.35, 0.35, 0.75, 0.65, 0.65, 0.76);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.hopperBlock);
+			helper.renderBlock(0.1, 0.1, 0.85, 0.9, 0.9, 1);
+			helper.setTexture(Block.stoneSingleSlab);
+			helper.renderBlock(0.25, 0.25, 0.76, 0.75, 0.75, 0.85);
+			helper.setTexture(Block.waterStill);
+			helper.renderBlock(0.35, 0.35, 0.75, 0.65, 0.65, 0.76);
 		} else if(tile.orientation == ForgeDirection.SOUTH) {
-			render.setOverrideBlockTexture(Block.hopperBlock.getIcon(0, 0));
-			render.setRenderBounds(0.1, 0.1, 0, 0.9, 0.9, 0.15);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.stoneSingleSlab.getIcon(0, 0));
-			render.setRenderBounds(0.25, 0.25, 0.15, 0.75, 0.75, 0.24);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.waterStill.getIcon(0, 0));
-			render.setRenderBounds(0.35, 0.35, 0.24, 0.65, 0.65, 0.25);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.hopperBlock);
+			helper.renderBlock(0.1, 0.1, 0, 0.9, 0.9, 0.15);
+			helper.setTexture(Block.stoneSingleSlab);
+			helper.renderBlock(0.25, 0.25, 0.15, 0.75, 0.75, 0.24);
+			helper.setTexture(Block.waterStill);
+			helper.renderBlock(0.35, 0.35, 0.24, 0.65, 0.65, 0.25);
 		} else if (tile.orientation == ForgeDirection.WEST) {
-			render.setOverrideBlockTexture(Block.hopperBlock.getIcon(0, 0));
-			render.setRenderBounds(0.85, 0.1, 0.1, 1, 0.9, 0.9);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.stoneSingleSlab.getIcon(0, 0));
-			render.setRenderBounds(0.76, 0.25, 0.25, 0.85, 0.75, 0.75);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.waterStill.getIcon(0, 0));
-			render.setRenderBounds(0.75, 0.35, 0.35, 0.76, 0.65, 0.65);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.hopperBlock);
+			helper.renderBlock(0.85, 0.1, 0.1, 1, 0.9, 0.9);
+			helper.setTexture(Block.stoneSingleSlab);
+			helper.renderBlock(0.76, 0.25, 0.25, 0.85, 0.75, 0.75);
+			helper.setTexture(Block.waterStill);
+			helper.renderBlock(0.75, 0.35, 0.35, 0.76, 0.65, 0.65);
 		} else if(tile.orientation == ForgeDirection.EAST) {
-			render.setOverrideBlockTexture(Block.hopperBlock.getIcon(0, 0));
-			render.setRenderBounds(0, 0.1, 0.1, 0.15, 0.9, 0.9);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.stoneSingleSlab.getIcon(0, 0));
-			render.setRenderBounds(0.15, 0.25, 0.25, 0.24, 0.75, 0.75);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.waterStill.getIcon(0, 0));
-			render.setRenderBounds(0.24, 0.35, 0.35, 0.25, 0.65, 0.65);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.hopperBlock);
+			helper.renderBlock(0, 0.1, 0.1, 0.15, 0.9, 0.9);
+			helper.setTexture(Block.stoneSingleSlab);
+			helper.renderBlock(0.15, 0.25, 0.25, 0.24, 0.75, 0.75);
+			helper.setTexture(Block.waterStill);
+			helper.renderBlock(0.24, 0.35, 0.35, 0.25, 0.65, 0.65);
 		} else if(tile.orientation == ForgeDirection.UP) {
-			render.setOverrideBlockTexture(Block.hopperBlock.getIcon(0, 0));
-			render.setRenderBounds(0.1, 0, 0.1, 0.9, 0.15, 0.9);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.stoneSingleSlab.getIcon(0, 0));
-			render.setRenderBounds(0.25, 0.15, 0.25, 0.75, 0.24, 0.75);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.waterStill.getIcon(0, 0));
-			render.setRenderBounds(0.35, 0.24, 0.35, 0.65, 0.25, 0.65);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.hopperBlock);
+			helper.renderBlock(0.1, 0, 0.1, 0.9, 0.15, 0.9);
+			helper.setTexture(Block.stoneSingleSlab);
+			helper.renderBlock(0.25, 0.15, 0.25, 0.75, 0.24, 0.75);
+			helper.setTexture(Block.waterStill);
+			helper.renderBlock(0.35, 0.24, 0.35, 0.65, 0.25, 0.65);
 		} else if(tile.orientation == ForgeDirection.DOWN) {
-			render.setOverrideBlockTexture(Block.hopperBlock.getIcon(0, 0));
-			render.setRenderBounds(0.1, 0.85, 0.1, 0.9, 1, 0.9);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.stoneSingleSlab.getIcon(0, 0));
-			render.setRenderBounds(0.25, 0.76, 0.25, 0.75, 0.85, 0.75);
-			render.renderStandardBlock(block, x, y, z);
-			render.setOverrideBlockTexture(Block.waterStill.getIcon(0, 0));
-			render.setRenderBounds(0.35, 0.75, 0.35, 0.65, 0.76, 0.65);
-			render.renderStandardBlock(block, x, y, z);
+			helper.setTexture(Block.hopperBlock);
+			helper.renderBlock(0.1, 0.85, 0.1, 0.9, 1, 0.9);
+			helper.setTexture(Block.stoneSingleSlab);
+			helper.renderBlock(0.25, 0.76, 0.25, 0.75, 0.85, 0.75);
+			helper.setTexture(Block.waterStill);
+			helper.renderBlock(0.35, 0.75, 0.35, 0.65, 0.76, 0.65);
 		}
 	}
 	
@@ -209,14 +202,77 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
 
+	public void renderCaster(IBlockAccess world, int x, int y, int z) {
+		TileIngotCaster tile = (TileIngotCaster) world.getBlockTileEntity(x, y, z);
+		//Render Ingot in slot 1
+		if(tile.getStackInSlot(0) != null) {
+			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(0)));
+			helper.renderBlock(0.1, 0.05, 0.1, 0.4, 0.75, 0.4);
+			helper.renderBlock(0.15, 0.75, 0.15, 0.35, 0.78, 0.35);
+		}
+		
+		//Render Ingot in slot 2
+		if(tile.getStackInSlot(1) != null) {
+			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(1)));
+			helper.renderBlock(0.1, 0.05, 0.6, 0.4, 0.75, 0.9);
+			helper.renderBlock(0.15, 0.75, 0.65, 0.35, 0.78, 0.85);
+		}
+		
+		//Render Ingot in slot 3
+		if(tile.getStackInSlot(2) != null) {
+			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(2)));
+			helper.renderBlock(0.6, 0.05, 0.6, 0.9, 0.75, 0.9);
+			helper.renderBlock(0.65, 0.75, 0.65, 0.85, 0.78, 0.85);
+		}
+		
+		//Render Ingot in slot4
+		if(tile.getStackInSlot(3) != null) {
+			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(3)));
+			helper.renderBlock(0.6, 0.05, 0.1, 0.9, 0.75, 0.6);
+			helper.renderBlock(0.65, 0.75, 0.15, 0.85, 0.78, 0.65);
+		}
+		
+		if(tile.getFluid() != null) {
+			helper.renderWorldBlock(tile.getFluid(), MetalRates.INGOT * 4, 0.4D, 0, 0, 0);
+		}
+		
+		helper.setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		helper.renderBlock(0, 0, 0, 1, 0.05, 1);
+		//Sides
+		helper.setTexture(Core.singleBlocks, SingleMeta.INGOT_CASTER);
+		helper.renderBlock(0, 0.05, 0, 1, 0.85, 0.1);
+		helper.renderBlock(0, 0.05, 0.9, 1, 0.85, 1);
+		helper.renderBlock(0, 0.05, 0.1, 0.1, 0.85, 0.9);
+		helper.renderBlock(0.9, 0.05, 0.1, 1, 0.85, 0.9);
+		
+		helper.setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		//Crossbars
+		helper.renderBlock(0.4, 0.05, 0.1, 0.6, 0.85, 0.9);
+		helper.renderBlock(0.1, 0.05, 0.4, 0.4, 0.85, 0.6);
+		helper.renderBlock(0.6, 0.05, 0.4, 0.9, 0.85, 0.6);
+	}
+	
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
+		helper = new RenderHelper(render, world, x, y, z);
+		
 		render.renderAllFaces = true;
 		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);
 		if(tile instanceof TileGeyser)
 			renderGeyser((TileGeyser) tile, world, x, y, z, render, Block.stone);
 		if(world.getBlockId(x, y, z) == Core.oysterBlock.blockID && world.getBlockMetadata(x, y, z) == BlockOyster.NET)
 			renderNet(world, x, y, z, render, Block.stone);
+		if(tile instanceof TileIngotCaster) {
+			renderCaster(world, x, y, z);
+		}
+		
+		int meta = world.getBlockMetadata(x, y, z);
+		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4) {
+			if(anvil == null)
+				anvil = new RenderAnvil(helper);
+			anvil.renderBlockAnvilMetadata(x, y, z, meta - 7);
+		}
+		
 		render.clearOverrideBlockTexture();
 		render.renderAllFaces = false;
 		

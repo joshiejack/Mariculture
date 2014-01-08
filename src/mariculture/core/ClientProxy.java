@@ -1,17 +1,21 @@
 package mariculture.core;
 
 import mariculture.core.blocks.TileAirPump;
+import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileVat;
 import mariculture.core.handlers.ClientEventHandler;
 import mariculture.core.handlers.KeyBindingHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.render.AnvilSpecialRenderer;
 import mariculture.core.render.ModelOyster;
 import mariculture.core.render.RenderDouble;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderSingle;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderTanks;
+import mariculture.core.render.VatSpecialRenderer;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.EntityFLUDDSquirt;
@@ -69,6 +73,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Core.singleBlocks.blockID, new RenderSingleItem());
 		MinecraftForgeClient.registerItemRenderer(Core.oysterBlock.blockID, new RenderSingleItem());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		RenderingRegistry.registerBlockHandler(new RenderDouble());
 		RenderingRegistry.registerBlockHandler(new RenderSingle());

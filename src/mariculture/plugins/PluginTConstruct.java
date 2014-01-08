@@ -3,10 +3,9 @@ package mariculture.plugins;
 import java.util.Arrays;
 import java.util.List;
 
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeFreezer;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MetalRates;
@@ -36,7 +35,6 @@ import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -152,11 +150,14 @@ public class PluginTConstruct extends Plugin {
 	
 	private static void addRecipes() {
 		if(addRod) {
-			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 6500), 
-					new ItemStack(PluginTConstruct.tough_rod, 1, 0), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
-
-            MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 6500),
-                    new ItemStack(PluginTConstruct.tough_rod, 1, titanium_id), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM)));
+			//Tough rod + 6500mB of fish oil in a vat, taking 30 seconds
+			//Creative Recipe
+			RecipeHelper.addVatItemRecipe(new ItemStack(PluginTConstruct.tough_rod, 1, 0), 
+					FluidDictionary.fish_oil, 6500, new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
+			
+			//Survival Recipe
+			RecipeHelper.addVatItemRecipe(new ItemStack(PluginTConstruct.tough_rod, 1, titanium_id), 
+					FluidDictionary.fish_oil, 6500, new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
 		}
 		
 		addMelting();

@@ -1,0 +1,73 @@
+package mariculture.core.render;
+
+import mariculture.core.blocks.TileAnvil;
+import mariculture.core.util.EntityFakeItem;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+import org.lwjgl.opengl.GL11;
+
+import tconstruct.library.ItemBlocklike;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
+public class AnvilSpecialRenderer extends TileEntitySpecialRenderer {
+	@Override
+	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTick) {
+		TileAnvil anvil = (TileAnvil) tile;
+		GL11.glPushMatrix();
+		int meta = tile.getBlockMetadata() - 7;
+		float offsetX = (float)x;
+		float offsetZ = (float)z;
+		
+		if(meta %2 == 0) {
+			offsetX-=0.8F;
+			offsetZ-=0.5F;
+		} else {
+			offsetX-=0.8F;
+			offsetZ-=0.5F;
+		}
+		
+		float offsetY = (float) (y + 0.082F);
+		GL11.glTranslatef(offsetX, offsetY, offsetZ);
+		ItemStack stack = anvil.getStackInSlot(0);
+		if (stack != null)
+			renderItem(tile.worldObj, stack, meta);
+		GL11.glPopMatrix();
+	}
+
+	void renderItem(World world, ItemStack stack, int meta) {
+		EntityFakeItem entityitem = new EntityFakeItem(world, 0.0D, 0.0D, 0.0D, stack);
+        entityitem.getEntityItem().stackSize = 1;
+        GL11.glPushMatrix();
+        GL11.glTranslatef(1.3F, 1.05F, 1F);
+        if (!(stack.getItem() instanceof ItemBlock)) {
+        	GL11.glRotatef(270, 0F, 0F, 1F);
+        	if(meta == 0) {
+        		GL11.glTranslatef(0.1F, 0.15F, 0F);
+        		GL11.glRotatef(180, 1F, 0F, 0F);
+        	} else if(meta == 1) {
+        		GL11.glTranslatef(0.1F, 0F, 0.15F);
+        		GL11.glRotatef(-90, 1F, 0F, 0F);
+        	} else if(meta == 2) {
+        		GL11.glTranslatef(0.1F, -0.15F, 0F);
+        	} else if(meta == 3) {
+        		GL11.glTranslatef(0.1F, -0F, -0.15F);
+        		GL11.glRotatef(90, 1F, 0F, 0F);
+        	}
+        	
+        	GL11.glRotatef(29, 0F, 1F, 0F);
+        	GL11.glScalef(2.75F, 2.75F, 2.75F);
+        }
+      
+        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+
+        GL11.glPopMatrix();
+	}
+}

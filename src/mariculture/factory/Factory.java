@@ -9,6 +9,7 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.ItemIds;
@@ -159,7 +160,7 @@ public class Factory extends Module {
 
 	@Override
 	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", 43, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
 	}
 
 	@Override

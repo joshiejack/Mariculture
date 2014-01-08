@@ -66,8 +66,6 @@ public class BlockMachine extends BlockContainer implements IItemRegistry {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
-		if(icons == null)
-			return Block.stone.getIcon(side, meta);
 		if(meta < getMetaCount()) {
 			return icons[meta];
 		} else { 

@@ -3,54 +3,89 @@ package mariculture.api.core;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public abstract class RecipeVat {
-	public int cookTime;
-	
-	/** Never add this type of recipe, it would be redundant
-	 *  CookTime is in 'seconds' in the large vat, and in '1 and a half seconds' for the small vat**/
-	public RecipeVat(int cookTime) {
-		this.cookTime = cookTime;
+public class RecipeVat {
+	/** The first input for a fluid can NOT be null, this first fluid must always exist **/
+	public FluidStack inputFluid1;
+	/** The second fluid in the recipe, can be null **/
+	public FluidStack inputFluid2;
+	/** The input item, can be null **/
+	public ItemStack inputItem;
+	/** Output Fluid: Either this or the item can be null but not both **/
+	public FluidStack outputFluid;
+	/** Output Item: Either this or the fluid can be null but not both **/
+	public ItemStack outputItem;
+	/** The total time this takes to process in seconds **/
+	public int processTime;
+
+	public RecipeVat(FluidStack fluid, int time) {
+		this.inputFluid1 = fluid;
+		this.processTime = time;
 	}
-	
-	/** More Advanced Alloying **/
-	public static class RecipeVatAlloy extends RecipeVat {
-		public FluidStack fluid;
-		public FluidStack fluid2;
-		public FluidStack newFluid;
-		public ItemStack output;
-		public int cookTime;
-		//This method, takes two liquids, and produces one
-		public RecipeVatAlloy(FluidStack fluid, FluidStack fluid2, FluidStack newFluid, int cookTime) {
-			super(cookTime);
-			this.fluid = fluid;
-			this.fluid2 = fluid2;
-			this.newFluid = newFluid;
-			this.output = null;
-		}
-		
-		//This takes two liquids, produces one and produces an item
-		public RecipeVatAlloy(FluidStack fluid, FluidStack fluid2, FluidStack newFluid, ItemStack output, int cookTime) {
-			this(fluid2, fluid, newFluid, cookTime);
-			this.output = output;
-		}
-		
-		//This takes two liquids and produces an item
-		public RecipeVatAlloy(FluidStack fluid, FluidStack fluid2, ItemStack output, int cookTime) {
-			this(fluid, fluid2, null, output, cookTime);
-		}
+
+	// Takes a fluid and makes an item
+	public RecipeVat(FluidStack fluid, ItemStack output, int time) {
+		this(fluid, time);
+		this.outputItem = output;
 	}
- 	
-	/** Your basic Vat Recipe, takes a liquid, and an item, and outputs an item **/
-	public static class RecipeVatItem extends RecipeVat {
-		public ItemStack input;
-		public FluidStack fluid;
-		public ItemStack output;
-		
-		public RecipeVatItem(ItemStack input, FluidStack fluid, ItemStack output, int cookTime) {
-			super(cookTime);
-			this.input = input;
-			this.fluid = fluid;
-			this.output = output;
-		}
+
+	// Takes a fluid and an item and makes an item
+	public RecipeVat(ItemStack input, FluidStack fluid, ItemStack output, int time) {
+		this(fluid, time);
+		this.inputItem = input;
+		this.outputItem = output;
+	}
+
+	// Takes a fluid and an item and makes a fluid
+	public RecipeVat(ItemStack input, FluidStack fluid, FluidStack newFluid, int time) {
+		this(fluid, time);
+		this.inputItem = input;
+		this.outputFluid = newFluid;
+	}
+
+	// Takes two Fluids and makes an item
+	public RecipeVat(FluidStack fluid, FluidStack fluid2, ItemStack output, int time) {
+		this(fluid, time);
+		this.inputFluid2 = fluid2;
+		this.outputItem = output;
+	}
+
+	// Takes two fluids and makes a fluid
+	public RecipeVat(FluidStack fluid, FluidStack fluid2, FluidStack newFluid, int time) {
+		this(fluid, time);
+		this.inputFluid2 = fluid2;
+		this.outputFluid = newFluid;
+	}
+
+	// Takes two fluids and makes a fluid and an item
+	public RecipeVat(FluidStack fluid, FluidStack fluid2, FluidStack newFluid, ItemStack output, int time) {
+		this(fluid, time);
+		this.inputFluid2 = fluid2;
+		this.outputFluid = newFluid;
+		this.outputItem = output;
+	}
+
+	// Takes two fluids and an item and makes a fluid
+	public RecipeVat(ItemStack input, FluidStack fluid, FluidStack fluid2, FluidStack newFluid, int time) {
+		this(fluid, time);
+		this.inputItem = input;
+		this.inputFluid2 = fluid2;
+		this.outputFluid = newFluid;
+	}
+
+	// Takes two fluids and an item and make an item
+	public RecipeVat(ItemStack input, FluidStack fluid, FluidStack fluid2, ItemStack output, int time) {
+		this(fluid, time);
+		this.inputItem = input;
+		this.inputFluid2 = fluid2;
+		this.outputItem = output;
+	}
+
+	// Takes two fluids and an item and makes a fluid and an item
+	public RecipeVat(ItemStack input, FluidStack fluid, FluidStack fluid2, FluidStack newFluid, ItemStack output, int time) {
+		this(fluid, time);
+		this.inputItem = input;
+		this.inputFluid2 = fluid2;
+		this.outputFluid = newFluid;
+		this.outputItem = output;
 	}
 }

@@ -39,5 +39,6 @@ public class Packets {
 		PacketRegistry.register(new Packet116GUIClick());
 		PacketRegistry.register(new Packet117AirCompressorUpdate());
 		PacketRegistry.register(new Packet118FluidUpdate());
+		PacketRegistry.register(new Packet120ItemSync());
 	}
 }

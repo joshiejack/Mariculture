@@ -3,15 +3,12 @@ package mariculture.core;
 import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
-import mariculture.core.blocks.TileSettler;
 import mariculture.core.gui.ContainerBookshelf;
 import mariculture.core.gui.ContainerLiquifier;
 import mariculture.core.gui.ContainerOyster;
-import mariculture.core.gui.ContainerSettler;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
 import mariculture.core.gui.GuiOyster;
-import mariculture.core.gui.GuiSettler;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
 import mariculture.factory.blocks.TileDictionary;
@@ -72,10 +69,6 @@ public class CommonProxy implements IGuiHandler {
 			
 			if(tile instanceof TileLiquifier) {
 				return new ContainerLiquifier((TileLiquifier) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileSettler) {
-				return new ContainerSettler((TileSettler) tile, player.inventory);
 			}
 			
 			if(tile instanceof TileIncubator) {
@@ -145,10 +138,6 @@ public class CommonProxy implements IGuiHandler {
 			
 			if(tile instanceof TileLiquifier) {
 				return new GuiLiquifier(player.inventory, (TileLiquifier) tile);
-			}
-			
-			if(tile instanceof TileSettler) {
-				return new GuiSettler(player.inventory, (TileSettler) tile);
 			}
 			
 			if(tile instanceof TileIncubator) {

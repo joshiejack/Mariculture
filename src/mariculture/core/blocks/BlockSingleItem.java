@@ -27,8 +27,16 @@ public class BlockSingleItem extends ItemBlockMariculture {
 			return "geyser";
 		case SingleMeta.TURBINE_HAND:
 			return "turbineHand";
-		case SingleMeta.ANVIL:
+		case SingleMeta.ANVIL_1:
 			return "anvil";
+		case SingleMeta.ANVIL_2:
+			return "anvil2";
+		case SingleMeta.ANVIL_3:
+			return "anvil3";
+		case SingleMeta.ANVIL_4:
+			return "anvil4";
+		case SingleMeta.INGOT_CASTER:
+			return "ingotCaster";
 		default:
 			return "customBlocks";
 		}

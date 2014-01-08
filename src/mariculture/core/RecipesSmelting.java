@@ -1,14 +1,11 @@
 package mariculture.core;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeFreezer;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.api.core.RecipeVat.RecipeVatAlloy;
-import mariculture.api.core.RecipeVat.RecipeVatItem;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.GlassMeta;
-import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.FluidDictionary;
@@ -19,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipesSmelting {
@@ -95,8 +93,7 @@ public class RecipesSmelting {
 				"ore" + metal, "nugget" + metal, "ingot" + metal, "block" + metal, "dust" + metal }, temp, new ItemStack(Block.stone), 2);
 		
 		if(OreDictionary.getOres("ingot" + metal).size() > 0) {
-			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(fluid, MetalRates.INGOT), 
-					null, OreDictionary.getOres("ingot" + metal).get(0)));
+			RecipeHelper.addIngotCasting(fluid, metal);
 		}
 	}
 
@@ -106,17 +103,13 @@ public class RecipesSmelting {
 				"oreIron", "nuggetIron", "ingotIron", "blockIron", "dustIron",
 				Item.pickaxeIron, Item.shovelIron, Item.axeIron, Item.swordIron, Item.hoeIron,
 				Item.helmetIron, Item.plateIron, Item.legsIron, Item.bootsIron}, iron);
-		
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT), 
-				null, new ItemStack(Item.ingotIron)));
+		RecipeHelper.addIngotCasting(FluidDictionary.iron, "Iron");
 		
 		addFullSet(FluidDictionary.gold, new Object[] {
 				"oreGold", "nugetGold", "ingotGold", "blockGold", "dustGold",
 				Item.pickaxeGold, Item.shovelGold, Item.axeGold, Item.swordGold, Item.hoeGold,
 				Item.helmetGold, Item.plateGold, Item.legsGold, Item.bootsGold}, gold);
-		
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.INGOT), 
-				null, new ItemStack(Item.ingotGold)));
+		RecipeHelper.addIngotCasting(FluidDictionary.gold, "Gold");
 		
 		addMetal(FluidDictionary.tin, "Tin", tin);
 		addMetal(FluidDictionary.copper, "Copper", copper);
@@ -132,22 +125,22 @@ public class RecipesSmelting {
 		addRecipe(FluidDictionary.aluminum, MetalRates.MATERIALS, new Object[] { 
 				"oreAluminum", "nuggetAluminum", "ingotAluminum", 
 					"blockAluminum", "dustAluminum" }, aluminum, new ItemStack(Item.clay), 5);
-		
-		if(OreDictionary.getOres("ingotAluminum").size() > 0) {
-			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.aluminum, MetalRates.INGOT), 
-					null, OreDictionary.getOres("ingotAluminum").get(0)));
-		}
+		RecipeHelper.addIngotCasting(FluidDictionary.aluminum, "Aluminum");
 		
 		addRecipe(FluidDictionary.titanium, MetalRates.MATERIALS, new Object[] { 
 				"oreRutile", "nuggetTitanium", "ingotTitanium", "blockTitanium", "dustTitanium" }, 
 						titanium, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
+		RecipeHelper.addIngotCasting(FluidDictionary.titanium, "Titanium");
 		
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.oreBlocks, 1, OresMeta.RUTILE), titanium,
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), 
 						new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2)));
 		
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.INGOT), 
-				new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM), new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM)));
+		FluidStack moltenRutile = FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.INGOT);
+		FluidStack moltenMagnesium = FluidRegistry.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT);
+		FluidStack moltenTitanium = FluidRegistry.getFluidStack(FluidDictionary.titanium, MetalRates.INGOT);
+		//Making Titanium from Molten Rutile and Magnesium in a VAT takes 3 seconds
+		RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 3);
 		
 		//Gold Back
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.pressurePlateGold), gold, 
@@ -183,27 +176,12 @@ public class RecipesSmelting {
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.ice), 1, 
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidRegistry.WATER.getName(), FluidContainerRegistry.BUCKET_VOLUME), null, 0)));
 		
-		//Water > Ice
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidRegistry.WATER.getName(), FluidContainerRegistry.BUCKET_VOLUME), 
-				new ItemStack(Item.snowball), new ItemStack(Block.ice)));
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidRegistry.WATER.getName(), FluidContainerRegistry.BUCKET_VOLUME/4), 
-				new ItemStack(Block.blockSnow), new ItemStack(Block.ice)));
-		
 		//Glass > Plastic
-		MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.glass, FluidContainerRegistry.BUCKET_VOLUME * 32), 
-				new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), new ItemStack(Core.glassBlocks, 8, GlassMeta.PLASTIC)));
-		
-		//Plastic > Hard Plastic with mod plastic
-		if(OreDictionary.getOres("sheetPlastic").size() > 0) {
-			MaricultureHandlers.freezer.addRecipe(new RecipeFreezer(FluidRegistry.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT * 5),
-					OreDictionary.getOres("sheetPlastic").get(0), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC)));
-		}
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
+				FluidDictionary.glass, 32000, new ItemStack(Core.glassBlocks, 8, GlassMeta.PLASTIC), 5);
 		
 		//Water + Lava = Obsidian
-		MaricultureHandlers.vat.addRecipe(new RecipeVatAlloy(FluidRegistry.getFluidStack("water", 1000), 
-											FluidRegistry.getFluidStack("lava", 1000), new ItemStack(Block.obsidian), 100));
-		
-		MaricultureHandlers.vat.addRecipe(new RecipeVatItem(new ItemStack(Item.silk),  FluidRegistry.getFluidStack(FluidDictionary.gold, 6500), 
-																new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 100));
+		RecipeHelper.addFluidAlloyResultItem(FluidRegistry.getFluidStack("water", 1000), 
+				FluidRegistry.getFluidStack("lava", 1000), new ItemStack(Block.obsidian), 2);
 	}
 }

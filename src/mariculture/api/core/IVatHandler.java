@@ -4,7 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface IVatHandler {
+	/** add a Vat Recipe **/
 	public void addRecipe(RecipeVat recipe);
-	public RecipeVat getAlloyResult(FluidStack fluid1, FluidStack fluid2);
-	public RecipeVat getItemResult(ItemStack stack, FluidStack fluid);
+	/** get the result of the following items, take note all of them can be null **/
+	public RecipeVat getResult(FluidStack fluid1, FluidStack fluid2, ItemStack item);
 }

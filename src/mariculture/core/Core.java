@@ -32,19 +32,20 @@ import mariculture.core.blocks.BlockUtilItem;
 import mariculture.core.blocks.BlockWood;
 import mariculture.core.blocks.BlockWoodItem;
 import mariculture.core.blocks.TileAirPump;
+import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileBookshelf;
+import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
-import mariculture.core.blocks.TileSettler;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.FuelHandler;
+import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
-import mariculture.core.handlers.SettlerRecipeHandler;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -61,6 +62,7 @@ import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.BlockIds;
+import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.ItemIds;
@@ -143,7 +145,7 @@ public class Core extends Module {
 	public void registerHandlers() {
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
-		MaricultureHandlers.freezer = new SettlerRecipeHandler();
+		MaricultureHandlers.casting = new IngotCastingHandler();
 		MaricultureHandlers.vat = new VatHandler();
 		MaricultureHandlers.upgrades = new UpgradeHandler();
 		MaricultureHandlers.modules = new ModulesHandler();
@@ -192,10 +194,11 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileAirPump.class, "tileEntityAirPump");
 		GameRegistry.registerTileEntity(TileOyster.class, "tileEntityOyster");
 		GameRegistry.registerTileEntity(TileLiquifier.class, "tileEntityLiquifier");
-		GameRegistry.registerTileEntity(TileSettler.class, "tileEntitySettler");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
 		GameRegistry.registerTileEntity(TileVat.class, "tileVat");
+		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
+		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
 
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
@@ -219,7 +222,7 @@ public class Core extends Module {
 	
 	@Override
 	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", 44, Mariculture.instance, 80, 3, false);
+		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
 	}
 
 	@Override

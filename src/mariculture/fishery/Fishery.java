@@ -18,6 +18,7 @@ import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
@@ -197,8 +198,8 @@ public class Fishery extends Module {
 
 	@Override
 	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityBass.class, "BassBomb", 41, Mariculture.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityFishing.class, "NewFishing", 42, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityBass.class, "BassBomb", EntityIds.BASS, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityFishing.class, "NewFishing", EntityIds.FISHING, Mariculture.instance, 80, 3, true);
 	}
 
 	private void registerFish() {

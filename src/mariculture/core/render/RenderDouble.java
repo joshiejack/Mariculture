@@ -11,8 +11,11 @@ import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockAnvil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemBlock;
@@ -388,9 +391,10 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 	
 	public void renderVat(IBlockAccess world, TileVat tile, int x, int y, int z) {
 		//Let's draw a single VAT!!!
+		helper.setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		
 		if(tile.facing == ForgeDirection.UNKNOWN) {
 			//Edge Inner - Edge Outer
-			helper.setTexture(Block.anvil);
 			helper.renderBlock(0, 0.3, 0, 0.1, 0.9, 1);
 			helper.renderBlock(-0.1, 0.35, 0.1, 0, 0.85, 0.9);
 			helper.renderBlock(0.9, 0.3, 0, 1, 0.9, 1);
@@ -417,7 +421,6 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			
 		} else if (tile.facing == ForgeDirection.NORTH) {
 			//Edge Inner - Edge Outer
-			helper.setTexture(Block.anvil);
 			helper.renderBlock(0.9, 0.3, 0, 1, 1, 1);
 			helper.renderBlock(1, 0.35, 0, 1.1, 0.95, 0.9);
 			helper.renderBlock(0, 0.3, 0.9, 0.9, 1, 1);
@@ -428,7 +431,6 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.renderBlock(0, 0.2, 0, 0.8, 0.3, 0.8);
 			helper.renderBlock(0, 0.3, 0, 0.9, 0.4, 0.9);
 		} else if(tile.facing == ForgeDirection.EAST) {
-			helper.setTexture(Block.anvil);
 			helper.renderBlock(0, 0.3, 0, 0.1, 1, 1);
 			helper.renderBlock(-0.1, 0.35, 0, 0, 0.95, 0.9);
 			helper.renderBlock(0.1, 0.3, 0.9, 1, 1, 1);
@@ -439,7 +441,6 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			helper.renderBlock(0.2, 0.2, 0, 1, 0.3, 0.8);
 			helper.renderBlock(0.1, 0.3, 0, 1, 0.4, 0.9);
 		} else if(tile.facing == ForgeDirection.SOUTH) {
-			helper.setTexture(Block.anvil);
 			helper.renderBlock(0, 0.3, 0, 0.1, 1, 1);
 			helper.renderBlock(-0.1, 0.35, 0.1, 0, 0.95, 1);
 			helper.renderBlock(0.1, 0.3, 0, 1, 1, 0.1);
@@ -471,7 +472,6 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 				helper.renderWorldBlock(tile.getFluid((byte)3), TileVat.max_lrg, 0.56D, 0, 0, +1);
 			}
 		} else if(tile.facing == ForgeDirection.WEST) {
-			helper.setTexture(Block.anvil);
 			helper.renderBlock(0.9, 0.3, 0, 1, 1, 1);
 			helper.renderBlock(1, 0.35, 0.1, 1.1, 0.95, 1);
 			helper.renderBlock(0, 0.3, 0, 0.9, 1, 0.1);
