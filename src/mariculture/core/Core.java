@@ -196,7 +196,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileLiquifier.class, "tileEntityLiquifier");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
-		GameRegistry.registerTileEntity(TileVat.class, "tileVat");
+		GameRegistry.registerTileEntity(TileVat.class, "tileVatBlock");
 		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
 

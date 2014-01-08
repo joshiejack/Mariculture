@@ -207,49 +207,49 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		//Render Ingot in slot 1
 		if(tile.getStackInSlot(0) != null) {
 			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(0)));
-			helper.renderBlock(0.1, 0.05, 0.1, 0.4, 0.75, 0.4);
-			helper.renderBlock(0.15, 0.75, 0.15, 0.35, 0.78, 0.35);
+			helper.renderBlock(0.1, 0.05, 0.1, 0.4, 0.90, 0.4);
+			helper.renderBlock(0.15, 0.75, 0.15, 0.35, 0.93, 0.35);
 		}
 		
 		//Render Ingot in slot 2
 		if(tile.getStackInSlot(1) != null) {
 			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(1)));
-			helper.renderBlock(0.1, 0.05, 0.6, 0.4, 0.75, 0.9);
-			helper.renderBlock(0.15, 0.75, 0.65, 0.35, 0.78, 0.85);
+			helper.renderBlock(0.1, 0.05, 0.6, 0.4, 0.90, 0.9);
+			helper.renderBlock(0.15, 0.75, 0.65, 0.35, 0.93, 0.85);
 		}
 		
 		//Render Ingot in slot 3
 		if(tile.getStackInSlot(2) != null) {
 			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(2)));
-			helper.renderBlock(0.6, 0.05, 0.6, 0.9, 0.75, 0.9);
-			helper.renderBlock(0.65, 0.75, 0.65, 0.85, 0.78, 0.85);
+			helper.renderBlock(0.6, 0.05, 0.6, 0.9, 0.90, 0.9);
+			helper.renderBlock(0.65, 0.75, 0.65, 0.85, 0.93, 0.85);
 		}
 		
 		//Render Ingot in slot4
 		if(tile.getStackInSlot(3) != null) {
 			helper.setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(3)));
-			helper.renderBlock(0.6, 0.05, 0.1, 0.9, 0.75, 0.6);
-			helper.renderBlock(0.65, 0.75, 0.15, 0.85, 0.78, 0.65);
+			helper.renderBlock(0.6, 0.05, 0.1, 0.9, 0.90, 0.6);
+			helper.renderBlock(0.65, 0.75, 0.15, 0.85, 0.93, 0.65);
 		}
 		
 		if(tile.getFluid() != null) {
-			helper.renderWorldBlock(tile.getFluid(), MetalRates.INGOT * 4, 0.4D, 0, 0, 0);
+			helper.renderWorldBlock(tile.getFluid(), MetalRates.INGOT * 4, 0.5D, 0, 0, 0);
 		}
 		
 		helper.setTexture(Core.doubleBlock, DoubleMeta.VAT);
 		helper.renderBlock(0, 0, 0, 1, 0.05, 1);
 		//Sides
 		helper.setTexture(Core.singleBlocks, SingleMeta.INGOT_CASTER);
-		helper.renderBlock(0, 0.05, 0, 1, 0.85, 0.1);
-		helper.renderBlock(0, 0.05, 0.9, 1, 0.85, 1);
-		helper.renderBlock(0, 0.05, 0.1, 0.1, 0.85, 0.9);
-		helper.renderBlock(0.9, 0.05, 0.1, 1, 0.85, 0.9);
+		helper.renderBlock(0, 0.05, 0, 1, 1, 0.1);
+		helper.renderBlock(0, 0.05, 0.9, 1, 1, 1);
+		helper.renderBlock(0, 0.05, 0.1, 0.1, 1, 0.9);
+		helper.renderBlock(0.9, 0.05, 0.1, 1, 1, 0.9);
 		
 		helper.setTexture(Core.doubleBlock, DoubleMeta.VAT);
 		//Crossbars
-		helper.renderBlock(0.4, 0.05, 0.1, 0.6, 0.85, 0.9);
-		helper.renderBlock(0.1, 0.05, 0.4, 0.4, 0.85, 0.6);
-		helper.renderBlock(0.6, 0.05, 0.4, 0.9, 0.85, 0.6);
+		helper.renderBlock(0.4, 0.05, 0.1, 0.6, 1, 0.9);
+		helper.renderBlock(0.1, 0.05, 0.4, 0.4, 1, 0.6);
+		helper.renderBlock(0.6, 0.05, 0.4, 0.9, 1, 0.6);
 	}
 	
 	@Override

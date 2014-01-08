@@ -1,32 +1,39 @@
 package mariculture.core.blocks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.blocks.base.TileMultiStorageTank;
+import mariculture.core.blocks.base.TileMultiStorage;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.network.Packet113MultiInit;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
+import mariculture.core.util.ITank;
 import mariculture.core.util.Rand;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileVat extends TileMultiStorageTank implements ISidedInventory {
-	public static int max_lrg = 24000;
+public class TileVat extends TileMultiStorage implements ISidedInventory, IFluidHandler, ITank {
+	public static int max_lrg = 30000;
 	public static int max_sml = 6000;
+	public Tank tank;
 	public Tank tank2;
 	public Tank tank3;
 	
+	public int timeNeeded;
 	public int timeRemaining;
 	public boolean canWork;
 	private int machineTick;
@@ -57,9 +64,9 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		
 	//Updating the Multi-Block form
 	@Override
-	public void updateMaster() {
+	public void updateMaster() {		
 		if(tank.getCapacity() != max_lrg)
-				tank.setCapacity(max_lrg);
+			tank.setCapacity(max_lrg);
 		if(tank2.getCapacity() != max_lrg)
 			tank2.setCapacity(max_lrg);
 		if(tank3.getCapacity() != max_lrg)
@@ -83,7 +90,13 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		
 		if(!worldObj.isRemote) {
 			if(canWork && onTick(20))
-				timeRemaining--;
+				timeRemaining++;
+		}
+		
+		if(worldObj.isRemote && canWork) {
+			worldObj.spawnParticle("smoke", xCoord + 0.5D + + Rand.rand.nextFloat() - (Rand.rand.nextFloat()/2), 
+					yCoord + 0.8D + Rand.rand.nextFloat() - (Rand.rand.nextFloat()/2), 
+					zCoord + 0.5D + + Rand.rand.nextFloat() - (Rand.rand.nextFloat()/2), 0, 0, 0);	
 		}
 		
 		updateAll();
@@ -95,7 +108,7 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		if(!worldObj.isRemote) {
 			if(canWork) {
 				if(onTick(30)) {
-					timeRemaining--;
+					timeRemaining++;
 				}
 			}
 		}
@@ -114,29 +127,71 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 			canWork = canWork();
 		
 		if(canWork && !worldObj.isRemote) {
-			if(timeRemaining <= 0 && timeRemaining > -9999) {
+			if(timeNeeded == 0) {
+				RecipeVat recipe = (RecipeVat) getResult()[0];
+				if(recipe != null)
+					timeNeeded = recipe.processTime;
+				timeRemaining = 0;
+			}
+			
+			if(timeRemaining >= timeNeeded) {
 				Object[] result = getResult();
 				RecipeVat recipe = (RecipeVat) result[0];
 				byte tankNum = (Byte) result[1];
 				if(recipe != null)
 					createResult(recipe, tankNum);
-				timeRemaining = -9999;
+				timeRemaining = 0;
+				timeNeeded = 0;
+				canWork = canWork();
 			}
 		}
 	}
 	
 	private void createResult(RecipeVat recipe, byte tankNum) {
 		//Drain out the fluid1
+		FluidStack outputFluid = null;
+		if(recipe.outputFluid != null)
+			outputFluid = recipe.outputFluid.copy();
+		
 		if(tankNum == 1) {
-			if(recipe.inputFluid1 != null)
-				tank.drain(recipe.inputFluid1.amount, true);
-			if(recipe.inputFluid2 != null)
-				tank2.drain(recipe.inputFluid2.amount, true);
+			if(recipe.inputFluid1 != null) {
+				int drain = recipe.inputFluid1.amount;
+				if(recipe.inputFluid1.isFluidEqual(outputFluid)) {
+					drain-=outputFluid.amount;
+					outputFluid = null;
+				}
+				
+				tank.drain(drain, true);
+			}
+			if(recipe.inputFluid2 != null) {
+				int drain = recipe.inputFluid2.amount;
+				if(recipe.inputFluid2.isFluidEqual(outputFluid)) {
+					drain-=outputFluid.amount;
+					outputFluid = null;
+				}
+				
+				tank2.drain(drain, true);
+			}
 		} else {
-			if(recipe.inputFluid1 != null)
-				tank2.drain(recipe.inputFluid1.amount, true);
-			if(recipe.inputFluid2 != null)
-				tank.drain(recipe.inputFluid2.amount, true);
+			if(recipe.inputFluid1 != null) {
+				int drain = recipe.inputFluid1.amount;
+				if(recipe.inputFluid1.isFluidEqual(outputFluid)) {
+					drain-=outputFluid.amount;
+					outputFluid = null;
+				}
+				
+				tank2.drain(drain, true);
+			}
+			
+			if(recipe.inputFluid2 != null) {
+				int drain = recipe.inputFluid2.amount;
+				if(recipe.inputFluid2.isFluidEqual(outputFluid)) {
+					drain-=outputFluid.amount;
+					outputFluid = null;
+				}
+				
+				tank.drain(drain, true);
+			}
 		}
 		
 		//Decrease the StackSize of the input, by this much if it's valid
@@ -145,7 +200,7 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		}
 		
 		//Add the new Fluid
-		if(recipe.outputFluid != null) {
+		if(outputFluid != null && outputFluid.amount > 0) {
 			tank3.fill(recipe.outputFluid.copy(), true);
 		}
 		
@@ -169,11 +224,7 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		if(tank.getFluidAmount() <= 0 && tank2.getFluidAmount() <= 0)
 			return false;
 		RecipeVat res = (RecipeVat) getResult()[0];
-		if(res == null)
-			return false;
-		if(timeRemaining < 0)
-			timeRemaining = res.processTime;
-		return true;
+		return res != null;
 	}
 	
 	public Object[] getResult() {
@@ -218,7 +269,11 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return slot == 1;
+		if(slot == 0) {
+			return side != ForgeDirection.DOWN.ordinal();
+		}
+		
+		return true;
 	}
 	
 //Inventory Logic
@@ -291,7 +346,8 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		super.onInventoryChanged();
 				
 		if(!worldObj.isRemote) {
-			Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
+			TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+			Packets.updateTile(vat, 64, new Packet120ItemSync(vat.xCoord, vat.yCoord, vat.zCoord, vat.inventory).build());
 		}
 	}
 	
@@ -415,17 +471,39 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		tank2.readFromNBT(nbt);
-		tank3.readFromNBT(nbt);
+		NBTTagList tagList = nbt.getTagList("Tanks");
+		for (int i = 0; i < 3; i++) {
+			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			byte tank = tag.getByte("Tank");
+			getTank(i).readFromNBT(tag);
+		}
+		
+		timeNeeded = nbt.getInteger("TimeNeeded");
 		timeRemaining = nbt.getInteger("TimeRemaining");
 		canWork = nbt.getBoolean("CanWork");
+	}
+	
+	public Tank getTank(int i) {
+		if(i == 0)
+			return tank;
+		if(i == 1)
+			return tank2;
+		return tank3;
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		tank2.writeToNBT(nbt);
-		tank3.writeToNBT(nbt);
+		super.writeToNBT(nbt);		
+		NBTTagList tankList = new NBTTagList();
+		for (int i = 0; i < 3; i++) {
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setByte("Tank", (byte)i);
+			getTank(i).writeToNBT(tag);
+			tankList.appendTag(tag);
+		}
+		
+		nbt.setTag("Tanks", tankList);
+		nbt.setInteger("TimeNeeded", timeNeeded);
 		nbt.setInteger("TimeRemaining", timeRemaining);
 		nbt.setBoolean("CanWork", canWork);
 	}
@@ -510,5 +588,35 @@ public class TileVat extends TileMultiStorageTank implements ISidedInventory {
 		}
 		
 		Packets.updateTile(this, 32, getDescriptionPacket());
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+		return drain(from, resource.amount, doDrain);
+	}
+
+	@Override
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
+		return true;
+	}
+
+	@Override
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
+		return true;
+	}
+
+	@Override
+	public int getTankScaled(int i) {
+		return 0;
+	}
+
+	@Override
+	public String getFluidName() {
+		return null;
+	}
+
+	@Override
+	public List getFluidQty(List tooltip) {
+		return null;
 	}
 }

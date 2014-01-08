@@ -6,6 +6,7 @@ import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.FluidDictionary;
@@ -178,10 +179,15 @@ public class RecipesSmelting {
 		
 		//Glass > Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
-				FluidDictionary.glass, 32000, new ItemStack(Core.glassBlocks, 8, GlassMeta.PLASTIC), 5);
+				FluidDictionary.glass, 30000, new ItemStack(Core.glassBlocks, 8, GlassMeta.PLASTIC), 5);
 		
 		//Water + Lava = Obsidian
 		RecipeHelper.addFluidAlloyResultItem(FluidRegistry.getFluidStack("water", 1000), 
 				FluidRegistry.getFluidStack("lava", 1000), new ItemStack(Block.obsidian), 2);
+		
+		//24 Parts Quicklime + 16 Parts Water = Unknown Metal Dust + 10 Parts Water (Takes 10 seconds)
+		RecipeHelper.addFluidAlloyResultItemNFluid(FluidRegistry.getFluidStack("water", 16000), 
+				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 24000),
+				FluidRegistry.getFluidStack("water", 10000), new ItemStack(Core.materials, 1, MaterialsMeta.DUST_UNKNOWN), 10);
 	}
 }

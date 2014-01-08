@@ -12,6 +12,7 @@ import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.XMLHelper;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MetalRates;
@@ -92,6 +93,7 @@ public class CompatFluids {
 						RecipesSmelting.addRecipe(fluid, MetalRates.MATERIALS, new Object[] { 
 								"ore" + name, "nugget" + name, "ingot" + name, "block" + name, "dust" + name }, temperature, 
 								new ItemStack(bonusID, 1, bonusMeta), bonusChance);
+						RecipeHelper.addIngotCasting(fluid, name);
 					} else if (type.equals("other")) {
 						int volume = xml.toInt("volume");
 						int id = xml.toInt("id");

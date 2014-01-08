@@ -68,85 +68,48 @@ public class ItemFluidContainer extends ItemMariculture {
 
 	@Override
 	public String getName(ItemStack stack) {
-		String name = "";
 		switch (stack.getItemDamage()) {
-		case FluidContainerMeta.BOTTLE_VOID: {
-			name = "bottleVoid";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_FISH_OIL: {
-			name = "bottleFishOil";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_IRON: {
-			name = "bottleIron";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_GOLD: {
-			name = "bottleGold";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_COPPER: {
-			name = "bottleCopper";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_TIN: {
-			name = "bottleTin";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_SILVER: {
-			name = "bottleSilver";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_LEAD: {
-			name = "bottleLead";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_BRONZE: {
-			name = "bottleBronze";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_STEEL: {
-			name = "bottleSteel";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_ALUMINUM: {
-			name = "bottleAluminum";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_TITANIUM: {
-			name = "bottleTitanium";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_MAGNESIUM: {
-			name = "bottleMagnesium";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_NICKEL: {
-			name = "bottleNickel";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_GLASS: {
-			name = "bottleGlass";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_GAS: {
-			name = "bottleNaturalGas";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_FISH_FOOD: {
-			name = "bottleFishFood";
-			break;
-		}
-		case FluidContainerMeta.BOTTLE_RUTILE: {
-			name = "bottleRutile";
-			break;
-		}
+		case FluidContainerMeta.BOTTLE_VOID:
+			return "bottleVoid";
+		case FluidContainerMeta.BOTTLE_FISH_OIL:
+			return "bottleFishOil";
+		case FluidContainerMeta.BOTTLE_IRON:
+			return "bottleIron";
+		case FluidContainerMeta.BOTTLE_GOLD:
+			return "bottleGold";
+		case FluidContainerMeta.BOTTLE_COPPER:
+			return "bottleCopper";
+		case FluidContainerMeta.BOTTLE_TIN:
+			return "bottleTin";
+		case FluidContainerMeta.BOTTLE_SILVER:
+			return "bottleSilver";
+		case FluidContainerMeta.BOTTLE_LEAD:
+			return "bottleLead";
+		case FluidContainerMeta.BOTTLE_BRONZE:
+			return "bottleBronze";
+		case FluidContainerMeta.BOTTLE_STEEL:
+			return "bottleSteel";
+		case FluidContainerMeta.BOTTLE_ALUMINUM:
+			return "bottleAluminum";
+		case FluidContainerMeta.BOTTLE_TITANIUM:
+			return "bottleTitanium";
+		case FluidContainerMeta.BOTTLE_MAGNESIUM:
+			return "bottleMagnesium";
+		case FluidContainerMeta.BOTTLE_NICKEL:
+			return "bottleNickel";
+		case FluidContainerMeta.BOTTLE_GLASS:
+			return "bottleGlass";
+		case FluidContainerMeta.BOTTLE_GAS:
+			return "bottleNaturalGas";
+		case FluidContainerMeta.BOTTLE_FISH_FOOD:
+			return "bottleFishFood";
+		case FluidContainerMeta.BOTTLE_RUTILE:
+			return "bottleRutile";
+		case FluidContainerMeta.BOTTLE_QUICKLIME:
+			return "bottleQuicklime";
 		default:
-			name = "container";
+			return "container";
 		}
-
-		return name;
 	}
 
 	@Override

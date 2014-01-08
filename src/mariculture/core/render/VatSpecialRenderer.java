@@ -41,7 +41,7 @@ public class VatSpecialRenderer extends TileEntitySpecialRenderer {
 				GL11.glPushMatrix();
 				float offsetY = (float) (y - 0.1F);
 				GL11.glTranslatef((float)x, offsetY, (float)z);
-		
+				
 				ItemStack stack = vat.getStackInSlot(0);
 				if (stack != null) {
 					renderItem(world, stack);

@@ -41,6 +41,7 @@
 * Can Repair Scuba Gear(Not Tank in an anvil) with Neoprene.
 * Buffed Fish Oil Drinking
 * Air Compressor will now take RF directly, instead of needing to use batteries 
+* Due to the new processing system for various things, the recipes for transparent plastic and hard plastic have been reduced to 30 buckets per
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

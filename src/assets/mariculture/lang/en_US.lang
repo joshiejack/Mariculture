@@ -98,6 +98,7 @@ item.materials.ingotAluminum.name=Aluminium Ingot
 item.materials.ingotMagnesium.name=Magnesium Ingot
 item.materials.ingotTitanium.name=Titanium Ingot
 item.materials.ingotCopper.name=Copper Ingot
+item.materials.dustUnknown.name=Unknown Metal Dust
 item.pearls.pearlWhite.name=White Pearl
 item.pearls.pearlGreen.name=Green Pearl
 item.pearls.pearlYellow.name=Yellow Pearl

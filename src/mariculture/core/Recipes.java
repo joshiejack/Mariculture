@@ -121,7 +121,7 @@ public class Recipes {
 		});
 		
 		//Ingot Caster
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.INGOT_CASTER), new Object[] {
 			" B ", "BBB", " B ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 
@@ -174,8 +174,8 @@ public class Recipes {
 				Character.valueOf('I'), new ItemStack(Item.dyePowder, 1, Dye.INK), 
 				Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
 				Character.valueOf('E'), new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_GAS) });
-		//Plastic > 60 Seconds > 32 Buckets of Molten Glass + 16 Limestone
-		RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), FluidDictionary.glass, 32000, 
+		//Plastic > 60 Seconds > 30 Buckets of Natural Gas + 16 Limestone
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.oreBlocks, 16, OresMeta.LIMESTONE), FluidDictionary.natural_gas, 30000, 
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 60);
 		//Plastic Lens
 		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), new Object[] { " N ", "NGN", " N ", 

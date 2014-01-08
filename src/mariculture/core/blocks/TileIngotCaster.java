@@ -53,14 +53,13 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 			
 			if(canWork) {
 				freezeTick++;
-				if(freezeTick >= 50) {
+				if(freezeTick >= 100) {
 					RecipeIngotCasting result = MaricultureHandlers.casting.getResult(tank.getFluid());
 					if(result != null) {
 						for(int i = 0; i < inventory.length; i++) {
 							if(inventory[i] == null) {
 								drain(ForgeDirection.UP, result.fluid.copy(), true);
 								setInventorySlotContents(i, result.output.copy());
-								break;
 							}
 						}
 					}
@@ -123,10 +122,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		if(side == ForgeDirection.UP.ordinal())
-			return new int[] { };
-		else
-			return new int[] { 0 };
+		return new int[] { 0, 1, 2, 3 };
 	}
 
 	@Override
@@ -136,7 +132,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return side != ForgeDirection.UP.ordinal();
+		return true;
 	}
 	
 	@Override

@@ -22,84 +22,46 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 
 	@Override
 	public String getName(ItemStack stack) {
-		String name = "";
 		switch (stack.getItemDamage()) {
-		case MaterialsMeta.INGOT_ALUMINUM: {
-			name = "ingotAluminum";
-			break;
-		}
-		case MaterialsMeta.INGOT_MAGNESIUM: {
-			name = "ingotMagnesium";
-			break;
-		}
-		case MaterialsMeta.INGOT_TITANIUM: {
-			name = "ingotTitanium";
-			break;
-		}
-		case MaterialsMeta.INGOT_COPPER: {
-			name = "ingotCopper";
-			break;
-		}
-		case MaterialsMeta.FISH_MEAL: {
-			name = "fishMeal";
-			break;
-		}
-		case MaterialsMeta.DYE_YELLOW: {
-			name = "dyeYellow";
-			break;
-		}
-		case MaterialsMeta.DYE_RED: {
-			name = "dyeRed";
-			break;
-		}
-		case MaterialsMeta.DYE_BROWN: {
-			name = "dyeBrown";
-			break;
-		}
-		case MaterialsMeta.DROP_AQUA: {
-			name = "dropletAqua";
-			break;
-		}
-		case MaterialsMeta.DROP_ATTACK: {
-			name = "dropletAttack";
-			break;
-		}
-		case MaterialsMeta.DROP_ELECTRIC: {
-			name = "dropletElectric";
-			break;
-		}
-		case MaterialsMeta.DROP_ENDER: {
-			name = "dropletEnder";
-			break;
-		}
-		case MaterialsMeta.DROP_NETHER: {
-			name = "dropletNether";
-			break;
-		}
-		case MaterialsMeta.DROP_HEALTH: {
-			name = "dropletHealth";
-			break;
-		}
-		case MaterialsMeta.DROP_MAGIC: {
-			name = "dropletMagic";
-			break;
-		}
-		case MaterialsMeta.DROP_POISON: {
-			name = "dropletPoison";
-			break;
-		}
-
-		case MaterialsMeta.DROP_WATER: {
-			name = "dropletWater";
-			break;
-		}
-
+		case MaterialsMeta.INGOT_ALUMINUM:
+			return "ingotAluminum";
+		case MaterialsMeta.INGOT_MAGNESIUM:
+			return "ingotMagnesium";
+		case MaterialsMeta.INGOT_TITANIUM:
+			return "ingotTitanium";
+		case MaterialsMeta.INGOT_COPPER:
+			return "ingotCopper";
+		case MaterialsMeta.FISH_MEAL:
+			return "fishMeal";
+		case MaterialsMeta.DYE_YELLOW:
+			return "dyeYellow";
+		case MaterialsMeta.DYE_RED:
+			return "dyeRed";
+		case MaterialsMeta.DYE_BROWN:
+			return "dyeBrown";
+		case MaterialsMeta.DROP_AQUA:
+			return "dropletAqua";
+		case MaterialsMeta.DROP_ATTACK:
+			return "dropletAttack";
+		case MaterialsMeta.DROP_ELECTRIC:
+			return "dropletElectric";
+		case MaterialsMeta.DROP_ENDER:
+			return "dropletEnder";
+		case MaterialsMeta.DROP_NETHER:
+			return "dropletNether";
+		case MaterialsMeta.DROP_HEALTH:
+			return "dropletHealth";
+		case MaterialsMeta.DROP_MAGIC:
+			return "dropletMagic";
+		case MaterialsMeta.DROP_POISON:
+			return "dropletPoison";
+		case MaterialsMeta.DROP_WATER:
+			return "dropletWater";
+		case MaterialsMeta.DUST_UNKNOWN:
+			return "dustUnknown";
 		default:
-			name = "dropletWater";
+			return "dropletWater";
 		}
-
-		return name;
-
 	}
 
 	@Override
@@ -120,8 +82,6 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 		case MaterialsMeta.UNUSED2:
 			return false;
 		case MaterialsMeta.UNUSED3:
-			return false;
-		case MaterialsMeta.UNUSED4:
 			return false;
 		case MaterialsMeta.UNUSED5:
 			return false;

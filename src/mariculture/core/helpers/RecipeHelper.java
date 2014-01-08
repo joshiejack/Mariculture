@@ -51,6 +51,10 @@ public class RecipeHelper {
 		MaricultureHandlers.vat.addRecipe(new RecipeVat(fluid1, fluid2, result, time));
 	}
 	
+	public static void addFluidAlloyResultItemNFluid(FluidStack fluid1, FluidStack fluid2, FluidStack newFluid, ItemStack result, int time) {
+		MaricultureHandlers.vat.addRecipe(new RecipeVat(fluid1, fluid2, newFluid, result, time));
+	}
+	
 	public static void add4x4Recipe(ItemStack result, Block block, int meta) {
 		addShapedRecipe(result, new Object[] { "##", "##", '#', new ItemStack(block, 1, meta) });
 	}
