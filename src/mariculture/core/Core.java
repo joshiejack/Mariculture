@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.IAnvilHandler;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.BlockAir;
@@ -56,6 +57,7 @@ import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
 import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.items.ItemFood;
+import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemHammer;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
@@ -140,6 +142,7 @@ public class Core extends Module {
 	public static Item pearls;
 	public static Item hammer;
 	public static Item worked;
+	public static Item guides;
 	
 	@Override
 	public void registerHandlers() {
@@ -147,6 +150,7 @@ public class Core extends Module {
 		MaricultureHandlers.smelter = new LiquifierHandler();
 		MaricultureHandlers.casting = new IngotCastingHandler();
 		MaricultureHandlers.vat = new VatHandler();
+		MaricultureHandlers.anvil = new TileAnvil();
 		MaricultureHandlers.upgrades = new UpgradeHandler();
 		MaricultureHandlers.modules = new ModulesHandler();
 		GameRegistry.registerFuelHandler(new FuelHandler());
@@ -235,11 +239,12 @@ public class Core extends Module {
 		upgrade = new ItemUpgrade(ItemIds.upgrade).setUnlocalizedName("upgrade");
 		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
 		liquidContainers = new ItemFluidContainer(ItemIds.liquidContainers).setUnlocalizedName("liquidContainers");
-		hammer = new ItemHammer(ItemIds.hammer, 128).setUnlocalizedName("hammer");
+		hammer = new ItemHammer(ItemIds.hammer, 1000).setUnlocalizedName("hammer");
 		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
+		guides = new ItemGuide(ItemIds.guides).setUnlocalizedName("guide");
 
 		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
-				liquidContainers, hammer, worked, batteryCopper});
+				liquidContainers, hammer, worked, batteryCopper, guides });
 	}
 	
 	@Override

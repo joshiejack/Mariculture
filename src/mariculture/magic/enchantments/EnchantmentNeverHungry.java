@@ -20,12 +20,12 @@ public class EnchantmentNeverHungry extends EnchantmentJewelry {
 	}
 
 	@Override
-	public int getMinEnchantability(final int level) {
-		return 20 + (level - 1) * 9;
+	public int getMinEnchantability(int level) {
+		return 30 + (level - 1) * 9;
 	}
 
 	@Override
-	public int getMaxEnchantability(final int level) {
+	public int getMaxEnchantability(int level) {
 		return super.getMinEnchantability(level) + 50;
 	}
 

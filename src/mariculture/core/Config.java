@@ -289,7 +289,7 @@ public class Config {
             ItemIds.titanium_part_23 = config.getItem("TiC Titanium - Tough Binding", 29056).getInt();
             ItemIds.titanium_part_24 = config.getItem("TiC Titanium - Tough Rod", 29057).getInt();
             
-            //FREEIDS: 29067 > 29100
+            //FREEIDS: 29068 > 29100
             ItemIds.rodFlux = config.getItem("Fishing Rod - Flux", 29058).getInt();
             ItemIds.filter = config.getItem("Item Filter", 29059).getInt();
             ItemIds.turbineCopper = config.getItem("Rotor - Copper", 29060).getInt();
@@ -299,6 +299,7 @@ public class Config {
             ItemIds.hammer = config.getItem("Pearl Hammer", 29064).getInt();
             ItemIds.worked = config.getItem("Worked Item", 29065).getInt();
             ItemIds.batteryCopper = config.getItem("Battery(Copper)", 29066).getInt();
+            ItemIds.guides = config.getItem("Guidebooks", 29067).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

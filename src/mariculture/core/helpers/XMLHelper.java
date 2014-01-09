@@ -23,7 +23,7 @@ public class XMLHelper {
 		File file = new File(Mariculture.root + "/mariculture/", str + ".xml");
 		if(!file.exists()) {
 			try {
-				InputStream stream = CompatBait.class.getResourceAsStream("/mariculture/xml/" + str + ".xml");
+				InputStream stream = CompatBait.class.getResourceAsStream("/assets/mariculture/xml/" + str + ".xml");
 			    OutputStream resStreamOut = null;
 			    int readBytes;
 			    byte[] buffer = new byte[4096];

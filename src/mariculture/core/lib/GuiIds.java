@@ -3,6 +3,7 @@ package mariculture.core.lib;
 public class GuiIds {
 	public static final int OYSTER = 0;
 	public static final int MIRROR = 1;
+	public static final int GUIDE = 2;
 	public static final int LIQUIFIER = 4;
 	public static final int SIFT = 5;
 	public static final int FEEDER = 6;

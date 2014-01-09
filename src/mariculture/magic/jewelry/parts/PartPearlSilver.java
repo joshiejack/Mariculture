@@ -34,7 +34,7 @@ public class PartPearlSilver extends JewelryPart {
 	
 	@Override
 	public int getEnchantability() {
-		return 5;
+		return 8;
 	}
 	
 	@Override

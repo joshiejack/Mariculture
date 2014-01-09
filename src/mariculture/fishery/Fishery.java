@@ -22,6 +22,7 @@ import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.OresMeta;
@@ -310,27 +311,17 @@ public class Fishery extends Module {
 		FishingLoot.add();
 		
 		/* Fishing Rods */
-		GameRegistry.addRecipe(new ItemStack(rodReed),new Object[] { "  S", " SW", "S W", 
-				Character.valueOf('S'), Item.reed, 
-				Character.valueOf('W'), Item.silk });
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.FISHING), new Object[] {
+			Item.book, rodReed
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(rodWood), new Object[] { "  S", " SW", "S W",
-					Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 
-					Character.valueOf('W'), Item.silk }));
-		
-		GameRegistry.addRecipe(new ItemStack(rodTitanium), new Object[] { "  S", " SW", "S W", 
-				Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 
-				Character.valueOf('W'), Item.silk });
+		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Item.reed);
+		RecipeHelper.addFishingRodRecipe(new ItemStack(rodWood), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK));
+		RecipeHelper.addFishingRodRecipe(new ItemStack(rodTitanium), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM));
 		
 		//Flux Rod
 		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(rodFlux), 0), new Object[] {
-			"  R", " RS", "B S",
-			Character.valueOf('R'), rodTitanium,
-			Character.valueOf('S'), Item.silk,
-			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE)
+			"  R", " RS", "B S", 'R', rodTitanium, 'S', Item.silk, 'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE)
 		});
 		
 		/* Fishing Net, Autofisher and Sift */

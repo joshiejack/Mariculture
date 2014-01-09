@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemBracelet extends ItemJewelry {
 	public ItemBracelet(int id) {
 		super(id);
-		this.setMaxDamage(512);
+		this.setMaxDamage(256);
 	}
 	
 	@Override

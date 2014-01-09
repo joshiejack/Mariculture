@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class EnchantmentJump extends EnchantmentJewelry {
-	public EnchantmentJump(final int i, final int weight, final EnumEnchantmentType type) {
+	public EnchantmentJump(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
 		this.setName("jump");
 	}
@@ -21,7 +21,7 @@ public class EnchantmentJump extends EnchantmentJewelry {
 	}
 
 	@Override
-	public int getMaxEnchantability(final int level) {
+	public int getMaxEnchantability(int level) {
 		return super.getMinEnchantability(level) + 50;
 	}
 
@@ -35,7 +35,7 @@ public class EnchantmentJump extends EnchantmentJewelry {
 
 	public static void activate(EntityPlayer player) {
 		if (jumpHeight > 0 && !player.isSneaking() && KeyHelper.ACTIVATE_PRESSED && player.onGround) {
-			player.motionY *= jumpHeight;
+			player.motionY += jumpHeight;
 		}
 
 		if (player.motionY > 0 && !player.handleWaterMovement() && !player.isSneaking() && KeyHelper.ACTIVATE_PRESSED && jumpHeight > 0) {
@@ -51,7 +51,7 @@ public class EnchantmentJump extends EnchantmentJewelry {
 
 	public static void set(int jump) {
 		if (jump > 0) {
-			jumpHeight = (float) (1F + (jump * 0.5));
+			jumpHeight = (float) (jump * 0.15);
 
 			return;
 		}

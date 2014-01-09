@@ -1,13 +1,18 @@
 package mariculture.core.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Mariculture;
+import mariculture.core.gui.GuiGuideFishing;
+import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.Modules;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGuide extends ItemMariculture {
 	public ItemGuide(int id) {
@@ -20,6 +25,32 @@ public class ItemGuide extends ItemMariculture {
 				return "fishing";
 			default:
 				return "guide";
+		}
+	}
+	
+	public static Object getGui(int meta) {
+		if(meta == GuideMeta.FISHING) {
+			return new GuiGuideFishing();
+		}
+		
+		return null;
+	}
+	
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if(world.isRemote) {
+			player.openGui(Mariculture.instance, GuiIds.GUIDE, world, stack.getItemDamage(), 0, 0);
+		}
+		
+        return stack;
+    }
+	
+	@Override
+	public boolean isActive(int meta) {
+		switch(meta) {
+		 case GuideMeta.FISHING:
+			 return Modules.fishery.isActive();
+		default:
+			return true;
 		}
 	}
 	
@@ -37,7 +68,7 @@ public class ItemGuide extends ItemMariculture {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {
-		return getUnlocalizedName() + ".guide." + getName(itemstack);
+		return getUnlocalizedName() + "." + getName(itemstack);
 	}
 	
 	@Override

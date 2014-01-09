@@ -29,8 +29,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemDamageable extends Item implements IItemRegistry {
 	public ItemDamageable(int i, int dmg) {
 		super(i);
-		this.setMaxStackSize(1);
-		this.setMaxDamage(dmg);
+		setMaxStackSize(1);
+		setMaxDamage(dmg);
 	}
 	
 	@Override

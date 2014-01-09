@@ -9,12 +9,14 @@ import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.network.Packets;
+import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileGeyser;
@@ -236,8 +238,32 @@ public class BlockSingle extends BlockMachine {
 				return true;
 			}
 		}
+		
+		if(tile instanceof TileAnvil && ItemHelper.isPlayerHoldingItem(Core.hammer, player)) {
+			if(player instanceof FakePlayer)
+				return false;
+			ItemStack hammer = player.getCurrentEquippedItem();
+			if (((TileAnvil)tile).workItem(hammer)) {
+				if(hammer.attemptDamageItem(1, Rand.rand))
+					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+			}
+		}
 
 		return false;
+	}
+	
+	@Override
+	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileAnvil && ItemHelper.isPlayerHoldingItem(Core.hammer, player)) {
+			if(player instanceof FakePlayer)
+				return;
+			ItemStack hammer = player.getCurrentEquippedItem();
+			if (((TileAnvil)tile).workItem(hammer)) {
+				if(hammer.attemptDamageItem(1, Rand.rand))
+					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+			}
+		}
 	}
 
 	@Override

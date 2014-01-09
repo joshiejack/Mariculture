@@ -29,7 +29,7 @@ public class PartString extends JewelryPart {
 	
 	@Override
 	public int getEnchantability() {
-		return 2;
+		return 1;
 	}
 
 	@Override

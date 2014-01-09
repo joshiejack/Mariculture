@@ -284,6 +284,8 @@ tile.fishFood.name=Fish Food
 fluid.fishoil=Fish Oil
 tile.fishOil.name=Fish Oil
 #items
+item.guide.fishing.name=Beginner's Guide to Fishing
+item.guide.breeding.name=Fish Breeding 101
 item.materials.fishMeal.name=Fish Meal
 item.materials.dropletWater.name=Water Droplet
 item.materials.dropletNether.name=Nether Droplet
@@ -482,6 +484,7 @@ mariculture.string.pieces=Pieces
 mariculture.string.ingots=Ingots
 mariculture.string.nuggets=Nuggets
 mariculture.string.outof=Out of Roughly:
+mariculture.string.unworked=Unworked
 
 ### Processing strings ###
 mariculture.process.melted=Melted

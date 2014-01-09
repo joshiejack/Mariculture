@@ -44,6 +44,7 @@ public class ItemIds {
 	public static int hammer;
 	public static int worked;
 	public static int batteryCopper;
+	public static int guides;
 	
 	//parts
 	public static int titanium_part_1;

@@ -1,10 +1,13 @@
 package mariculture.core.helpers;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.lib.MetalRates;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -67,7 +70,15 @@ public class RecipeHelper {
 		addShapedRecipe(result, new Object[] { "###", "###", "###", '#', input });
 	}
 
-	public static void add9x9RecipeUndo(ItemStack result, Object input) {
+	public static void addUncraftingRecipe(ItemStack result, Object input) {
 		addShapelessRecipe(result, new Object[] { input });
+	}
+
+	public static void addAnvilRecipe(ItemStack input, ItemStack output, int hits) {
+		MaricultureHandlers.anvil.addRecipe(new RecipeAnvil(input, output, hits));
+	}
+
+	public static void addFishingRodRecipe(ItemStack output, Object mat) {
+		addShapedRecipe(output ,new Object[] { "  S", " SW", "S W", 'S', mat, 'W', Item.silk });
 	}
 }

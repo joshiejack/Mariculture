@@ -36,7 +36,7 @@ public class EnchantmentClock extends EnchantmentJewelry {
 		return false;
 	}
 
-	public static void activate(final World world, final int what, final int time) {
+	public static void activate(World world, int what, int time) {
 		int numberOfPlayersOnline = 0;
 		int numberThatWillAllowChange = 0;
 
@@ -44,9 +44,9 @@ public class EnchantmentClock extends EnchantmentJewelry {
 			if (world.playerEntities.get(i) instanceof EntityPlayer) {
 				numberOfPlayersOnline++;
 
-				final EntityPlayer player = (EntityPlayer) world.playerEntities.get(i);
+				EntityPlayer player = (EntityPlayer) world.playerEntities.get(i);
 				if (EnchantHelper.hasEnchantment(Magic.clock, player)) {
-					final ItemStack[] check = MaricultureHandlers.mirror.getMirrorContents(player);
+					ItemStack[] check = MaricultureHandlers.mirror.getMirrorContents(player);
 
 					boolean found = false;
 

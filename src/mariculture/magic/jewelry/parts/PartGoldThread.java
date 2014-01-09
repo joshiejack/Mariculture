@@ -29,7 +29,7 @@ public class PartGoldThread extends JewelryPart {
 
 	@Override
 	public int getEnchantability() {
-		return 30;
+		return 48;
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class PartWool extends JewelryPart {
 	
 	@Override
 	public int getEnchantability() {
-		return 6;
+		return 4;
 	}
 
 	@Override

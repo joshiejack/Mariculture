@@ -1,8 +1,9 @@
 package mariculture.magic;
 
+import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.Jewelry;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class JewelryHandler {
 	public static void addJewelry(ItemStack item, ItemStack extra, ItemStack material, int type) {
@@ -20,17 +21,20 @@ public class JewelryHandler {
 	}
 
 	public static void addRing(ItemStack item, ItemStack jewel, ItemStack material) {
-		GameRegistry.addRecipe(item, new Object[] { "ABA", "A A", "AAA", Character.valueOf('A'), material,
-				Character.valueOf('B'), jewel });
+		RecipeHelper.addShapedRecipe(MaricultureHandlers.anvil.createWorkedItem(item, 250), new Object[] { 
+			"ABA", "A A", "AAA", 'A', material, 'B', jewel 
+		});
 	}
 
 	public static void addBracelet(ItemStack item, ItemStack string, ItemStack material) {
-		GameRegistry.addRecipe(item, new Object[] { "A A", "B B", " B ", Character.valueOf('A'), material,
-				Character.valueOf('B'), string });
+		RecipeHelper.addShapedRecipe(MaricultureHandlers.anvil.createWorkedItem(item, 450), 
+				new Object[] { "A A", "B B", " B ", 'A', material, 'B', string 
+		});
 	}
 
 	public static void addNecklace(ItemStack item, ItemStack string, ItemStack material) {
-		GameRegistry.addRecipe(item, new Object[] { "BAB", "B B", "BBB", Character.valueOf('A'), material,
-				Character.valueOf('B'), string });
+		RecipeHelper.addShapedRecipe(MaricultureHandlers.anvil.createWorkedItem(item, 750), new Object[] { 
+			"BAB", "B B", "BBB", 'A', material, 'B', string 
+		});
 	}
 }

@@ -17,7 +17,7 @@ public class EnchantmentHealth extends EnchantmentJewelry {
 
 	@Override
 	public int getMinEnchantability(int level) {
-		return 25 + (level - 1) * 9;
+		return 35 + (level - 1) * 9;
 	}
 
 	@Override

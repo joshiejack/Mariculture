@@ -3,6 +3,7 @@ package mariculture.transport;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
@@ -43,12 +44,8 @@ public class Transport extends Module {
 
 	@Override
 	public void addRecipes() {
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Transport.speedBoat), new Object[] { "G F", "AAA",
-						Character.valueOf('G'), Block.thinGlass, 
-						Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 
-						Character.valueOf('A'), "ingotAluminum" }));
+		RecipeHelper.addShapedRecipe(new ItemStack(speedBoat), new Object[] {
+			"G F", "AAA", 'G', Block.thinGlass, 'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
+		});
 	}
 }
