@@ -310,11 +310,17 @@ public class Fishery extends Module {
 		addFishRecipes();
 		FishingLoot.add();
 		
-		/* Fishing Rods */
+		/* Fishing Book */
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.FISHING), new Object[] {
 			Item.book, rodReed
 		});
 		
+		//Breeding Book
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.BREEDING), new Object[] {
+			Item.book, new ItemStack(fishyFood, 1, OreDictionary.WILDCARD_VALUE)
+		});
+		
+		//Fishing Rods
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Item.reed);
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodWood), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK));
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodTitanium), new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM));

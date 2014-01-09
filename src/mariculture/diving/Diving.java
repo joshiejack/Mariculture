@@ -8,6 +8,7 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.RenderIds;
@@ -84,6 +85,11 @@ public class Diving extends Module {
 	
 	@Override
 	public void addRecipes() {
+		//Diving Book
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.DIVING), new Object[] {
+			Item.book, new ItemStack(snorkel)
+		});
+		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()

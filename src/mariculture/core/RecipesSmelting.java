@@ -156,8 +156,6 @@ public class RecipesSmelting {
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, (int) (MetalRates.INGOT * 0.25)), null, 0)));
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Item.shears), iron, 
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 2), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 4), null, 0)));
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.anvil), iron, 
 				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 32), null, 0)));
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.pressurePlateIron), iron, 

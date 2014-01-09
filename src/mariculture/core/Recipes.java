@@ -10,6 +10,7 @@ import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
@@ -125,16 +126,24 @@ public class Recipes {
 			'S', "stickWood"
 		});
 		
+		//Smooth Limestone
 		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE, 
 									new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
 
+		//Pearl Bricks
 		for (int i = 0; i < 12; i++) {
 			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBrick, 1, i), new ItemStack(Core.pearls, 1, i));
 			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBrick, 1, i));
 		}
 		
+		//Piston
 		RecipeHelper.addShapedRecipe(new ItemStack(Block.pistonBase, 1), new Object[] {
 			"TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood"
+		});
+		
+		//Processing Book
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.PROCESSING), new Object[] {
+			Item.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 	}
 
@@ -232,7 +241,7 @@ public class Recipes {
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), new Object[] { " I ", "ISI", " I ", 
+				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), new Object[] { " I ", "ISI", " I ", 
 					Character.valueOf('S'), "slabWood", 
 					Character.valueOf('I'), "ingotIron" }));
 		//Wicker

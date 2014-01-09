@@ -12,6 +12,7 @@ import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -178,7 +179,6 @@ public class Factory extends Module {
 	@Override
 	public void addRecipes() {
 	//Blocks
-		
 		//Sawmill
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL), new Object[] {
 			" A ", "DWD", "IMI",
@@ -299,6 +299,11 @@ public class Factory extends Module {
 		});
 		
 	//Items
+		//Machine Book
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.MACHINES), new Object[] {
+			Item.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
+		});
+		
 		//FLUDD
 		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
 		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Block.lever);

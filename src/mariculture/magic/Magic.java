@@ -6,9 +6,11 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.MaterialsMeta;
@@ -183,40 +185,35 @@ public class Magic extends Module {
 
 	@Override
 	public void addRecipes() {
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Magic.basicMirror), true, new Object[] { " AA", "APA", "SA ",
-						Character.valueOf('A'), "ingotAluminum", 
-						Character.valueOf('P'), Block.thinGlass,
-						Character.valueOf('S'), Item.ingotIron }));
-
-		ItemStack magicMirror = new ItemStack(Magic.magicMirror);
-		magicMirror.setTagCompound(new NBTTagCompound());
-		magicMirror.stackTagCompound.setBoolean("magic", true);
-		magicMirror.stackTagCompound.setInteger("charge", 30);
-
-		GameRegistry.addRecipe(
-				magicMirror,
-				new Object[] { "PMP", "BEB", "PBP", 
-						Character.valueOf('B'), new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
-						Character.valueOf('M'), new ItemStack(Magic.basicMirror), 
-						Character.valueOf('E'), Block.enchantmentTable,
-						Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE) });
-
+		//Enchant Book
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.ENCHANTMENTS), new Object[] {
+			Item.book, new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
+		});
+		
+		//Basic Mirror
+		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
+			" AA", "APA", "AS ", 'A', "ingotAluminum", 'P', Block.thinGlass, 'S', "ingotIron"
+		});
+		
+		//Magic Mirror
+		RecipeHelper.addShapedRecipe(new ItemStack(magicMirror), new Object[] {
+			"PMP", "BEB", "PBP", 
+			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
+			'M', basicMirror, 
+			'E', Block.enchantmentTable, 
+			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
+		});
+			
+		//Celestial Mirror
 		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Item.ghastTear);
-		ItemStack ultimateMirror = new ItemStack(Magic.celestialMirror, 1, 0);
-		ultimateMirror.setTagCompound(new NBTTagCompound());
-		ultimateMirror.stackTagCompound.setBoolean("magic", true);
-		ultimateMirror.stackTagCompound.setBoolean("ultimate", true);
-		ultimateMirror.stackTagCompound.setInteger("charge", 60);
-
-		GameRegistry.addRecipe(ultimateMirror, new Object[] { "TST", "BMB", "GBG", 
-				Character.valueOf('B'), new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
-				Character.valueOf('M'), magicMirror,
-				Character.valueOf('S'), Item.netherStar, 
-				Character.valueOf('T'), drop, 
-				Character.valueOf('G'), new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD) });
+		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
+			"TST", "BMB", "BMB", 
+			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
+			'M', magicMirror, 
+			'S', Item.netherStar,
+			'T', drop,
+			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
+		});
 			
 		addJewelry(Magic.ring.itemID, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
 		addJewelry(Magic.bracelet.itemID, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
