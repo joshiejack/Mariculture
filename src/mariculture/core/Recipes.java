@@ -1,8 +1,5 @@
 package mariculture.core;
 
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.CraftingMeta;
@@ -28,12 +25,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -254,28 +248,15 @@ public class Recipes {
 		//Yellow Plastic > 5 Minutes > 1 Block of Gold(mB) + 4 Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.PLASTIC), 
 				FluidDictionary.gold, MetalRates.BLOCK,  new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 60 * 5);
-		//Melt Yellow/Gold plastic back to a block of gold and 1 piece of plastic
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), RecipesSmelting.gold, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.BLOCK), 
-							new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 1)));
 		
 		//Titanium Sheet, 500 hits in an Anvil
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), 
 				new ItemStack(Core.craftingItem, 8, CraftingMeta.TITANIUM_SHEET), 250);
 		
-		//Burnt Brick > (Netherbrick > Burnt Brick)
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), new Object[] {
-			new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE), Item.netherrackBrick
-		});
-	
-		//Burnt Brick > Brick + Molten Coal + Molten Copper
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 2, CraftingMeta.BURNT_BRICK), new Object[] {
-			" C ", "FBF", " S ",
-			Character.valueOf('C'), new ItemStack(Item.coal, 1, OreDictionary.WILDCARD_VALUE),
-			Character.valueOf('F'), Item.flint,
-			Character.valueOf('B'), Item.brick,
-			Character.valueOf('S'), Item.flintAndSteel
-		});
+		//Burnt Brick > Brick + 250mB coal (2.5 coal), + 3 Nuggets of Copper
+		RecipeHelper.addFluidAlloyNItemResultItem(FluidRegistry.getFluidStack(FluidDictionary.copper, MetalRates.NUGGET * 3), 
+				FluidRegistry.getFluidStack(FluidDictionary.coal, 250), 
+				new ItemStack(Item.brick), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 8);
 	}
 	
 	private static void addMetalRecipes() {		

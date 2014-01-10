@@ -46,14 +46,14 @@ public class CompatBait {
 				Node nNode = node.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					XMLHelper xml = new XMLHelper((Element) nNode);
-					String bait = xml.toString("bait");
+					String bait = xml.getElementString("bait");
 					int meta = getMeta(bait);
 					int val = getValue(bait);
-					int blockID = xml.toInt("id");
-					int blockMeta = xml.toInt("meta");
-					int rarity = xml.toInt("rarity");
-					int min = xml.toInt("min");
-					int max = xml.toInt("max");
+					int blockID = xml.getElementInt("id");
+					int blockMeta = xml.getElementInt("meta");
+					int rarity = xml.getElementInt("rarity");
+					int min = xml.getElementInt("min");
+					int max = xml.getElementInt("max");
 					
 					Fishing.bait.addBait(new ItemStack(Fishery.bait, 1, meta), val, new Object[] {
 						new ItemStack(blockID, 1, blockMeta), rarity, min, max });

@@ -1,5 +1,6 @@
 package mariculture.plugins;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
@@ -12,6 +13,7 @@ import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.RecipeRemover;
 import mariculture.plugins.Plugins.Plugin;
 import mods.railcraft.api.crafting.RailcraftCraftingManager;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -46,8 +48,8 @@ public class PluginRailcraft extends Plugin {
 		RecipesSmelting.addRecipe(FluidDictionary.steel, MetalRates.ARMOR, new Object[] { 
 				steelHelm, steelChest, steelPants, steelBoots }, RecipesSmelting.steel, null, 0);
 
-		MaricultureHandlers.smelter.addFuel(coalCoke, 64, 2000);
-		MaricultureHandlers.smelter.addFuel(coalCokeBlock, 576, 2000);
+		MaricultureHandlers.smelter.addSolidFuel(coalCokeBlock, new FuelInfo(2000, 576, 32400));
+		MaricultureHandlers.smelter.addSolidFuel(coalCoke, new FuelInfo(2000, 64, 3600));
 
 		ItemStack input = new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE);
 		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);

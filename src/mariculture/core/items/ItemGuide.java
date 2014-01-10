@@ -23,6 +23,16 @@ public class ItemGuide extends ItemMariculture {
 		switch (stack.getItemDamage()) {
 		case GuideMeta.FISHING:
 			return "fishing";
+		case GuideMeta.BREEDING:
+			return "breeding";
+		case GuideMeta.DIVING:
+			return "diving";
+		case GuideMeta.ENCHANTMENTS:
+			return "enchants";
+		case GuideMeta.MACHINES:
+			return "machines";
+		case GuideMeta.PROCESSING:
+			return "processing";
 		default:
 			return "guide";
 		}
@@ -35,7 +45,7 @@ public class ItemGuide extends ItemMariculture {
 		case GuideMeta.BREEDING:
 			return new GuiGuide(0xFF8000, "breeding");
 		case GuideMeta.PROCESSING:
-			return new GuiGuide(0x663300, "processing");
+			return new GuiGuide(0x1C1B1B, "processing");
 		case GuideMeta.MACHINES:
 			return new GuiGuide(0x333333, "machines");
 		case GuideMeta.ENCHANTMENTS:

@@ -92,8 +92,11 @@ fluid.moltenGlass=Molten Glass
 tile.moltenGlass.name=Molten Glass
 fluid.natural_gas=Natural Gas
 tile.naturalGas.name=Natural Gas
+fluid.moltenCarbon=Molten Carbon
+fluid.quicklime=Quicklime
 
 #items
+item.guide.processing.name=A Layman's guide to Processing
 item.materials.ingotAluminum.name=Aluminium Ingot
 item.materials.ingotMagnesium.name=Magnesium Ingot
 item.materials.ingotTitanium.name=Titanium Ingot
@@ -111,8 +114,6 @@ item.pearls.pearlBlue.name=Blue Pearl
 item.pearls.pearlBlack.name=Black Pearl
 item.pearls.pearlPink.name=Pink Pearl
 item.pearls.pearlSilver.name=Silver Pearl
-<<<<<<< HEAD
-<<<<<<< HEAD
 item.batteryTitanium.name=Titanium Battery
 item.batteryCopper.name=Copper Battery
 item.craftingItems.goldenSilk.name=Golden Silk
@@ -193,6 +194,7 @@ tile.doubleBlocks.airCompressor.name=Air Compressor Base
 tile.doubleBlocks.airCompressorPower.name=Air Compressor Top
 tile.doubleBlocks.pressureVessel.name=Pressure Vessel
 #items
+item.guide.diving.name=How to Breathe Underwater
 item.snorkel.name=Snorkel
 item.divingHelmet.name=Diving Helmet
 item.divingTop.name=Diving Air Supply
@@ -228,6 +230,7 @@ tile.customSlabs.stone=Custom Slabs
 tile.customRFBlock.customRFBlock=Custom Redstone Flux Block
 
 #items
+item.guide.machines.name=The Factory
 item.paintbrush.name=Paintbrush
 item.craftingItems.chalk.name=Planning Chalk
 item.craftingItems.plan_blank.name=Plan - Blank
@@ -399,6 +402,7 @@ enchantment.oneRing.line3=One Ring to bring them all
 enchantment.oneRing.line4=and in the darkness bind them.
 
 #items
+item.guide.enchants.name=Ursula's Guide to Sea Magic
 item.mirror.basic.name=Mirror
 item.mirror.magic.name=Magic Mirror
 item.mirror.celestial.name=Celestial Mirror
@@ -485,6 +489,7 @@ mariculture.string.ingots=Ingots
 mariculture.string.nuggets=Nuggets
 mariculture.string.outof=Out of Roughly:
 mariculture.string.unworked=Unworked
+mariculture.string.randomMetal=Random Molten Metal
 
 ### Processing strings ###
 mariculture.process.melted=Melted

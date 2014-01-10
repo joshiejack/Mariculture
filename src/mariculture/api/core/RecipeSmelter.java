@@ -4,31 +4,36 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RecipeSmelter {
-	public ItemStack input;
-	public SmelterOutput output;
 	public int temp;
+	public ItemStack input;
+	public ItemStack input2;
+	public FluidStack fluid;
+	public ItemStack output;
+	public int chance;
+	public FluidStack[] random;
+	public int[] rands;
 	
-	public RecipeSmelter(ItemStack input, int temp, SmelterOutput output) {
+	public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance) {
 		this.input = input;
+		this.input2 = input2;
 		this.temp = temp;
+		this.fluid = fluid;
 		this.output = output;
+		this.chance = chance;
 	}
 	
-	public static class SmelterOutput {
-		public FluidStack fluid;
-		public ItemStack output;
-		public int chance;
-		
-		public SmelterOutput(FluidStack fluid, ItemStack output, int chance) {
-			this.fluid = fluid;
-			this.output = output;
-			this.chance = chance;
-		}
-		
-		public SmelterOutput(FluidStack fluid) {
-			this.fluid = fluid;
-			this.output = null;
-			this.chance = 0;
-		}
+	public RecipeSmelter(ItemStack input, int temp, FluidStack[] fluids, int rands[], ItemStack output, int chance) {
+		this.fluid = fluids[0];
+		this.input = input;
+		this.temp = temp;
+		this.random = fluids;
+		this.rands = rands;
+		this.output = output;
+		this.chance = chance;
+	}
+	
+	public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance, int[] rands) {
+		this(input, input2, temp, fluid, output, chance);
+		this.rands = rands;
 	}
 }

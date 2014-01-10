@@ -5,84 +5,86 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ISmelterHandler;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
-import mariculture.api.core.RecipeSmelterDual;
-import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.util.Rand;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class LiquifierHandler implements ISmelterHandler {
-	private final Map fuelList = new HashMap();
+	private final Map fuels = new HashMap();
 	private final Map recipes = new HashMap();
 
 	@Override
 	public void addRecipe(RecipeSmelter recipe) {
+		if(recipe.input2 != null)
+			recipes.put(Arrays.asList(DictionaryHelper.convert(recipe.input), DictionaryHelper.convert(recipe.input2)), recipe);
 		recipes.put(DictionaryHelper.convert(recipe.input), recipe);
 	}
-	
-	@Override
-	public void addDualRecipe(RecipeSmelterDual recipe) {
-		recipes.put(DictionaryHelper.convert(recipe.input) + DictionaryHelper.convert(recipe.secondary), recipe);
-		recipes.put(DictionaryHelper.convert(recipe.secondary) + DictionaryHelper.convert(recipe.input), recipe);
-	}
 
 	@Override
-	public SmelterOutput getResult(ItemStack input, int temp) {
-		RecipeSmelter recipe = (RecipeSmelter) recipes.get(DictionaryHelper.convert(input));
-		
-		if (recipe != null) {
-			if (temp >= recipe.temp || temp < 0) {
-				if(input.isItemStackDamageable()) {
-					SmelterOutput output = recipe.output;
-					double mod = (double)(input.getMaxDamage() - input.getItemDamage()) / input.getMaxDamage();
-					int fluid = (int) (output.fluid.amount * mod);
-					return new SmelterOutput(new FluidStack(FluidRegistry.getFluid(output.fluid.fluidID), (fluid > 0)? fluid: 1), output.output, output.chance);
+	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
+		RecipeSmelter recipe = (RecipeSmelter) recipes.get(Arrays.asList(DictionaryHelper.convert(input), DictionaryHelper.convert(input2)));
+		if(recipe == null)
+			recipe = (RecipeSmelter) recipes.get(DictionaryHelper.convert(input));
+		if(recipe != null) {
+			FluidStack fluid = recipe.fluid.copy();
+			if(temp < recipe.temp && temp != -1)
+				return null;
+			if(recipe.input2 != null) {
+				if(input2.stackSize < recipe.input.stackSize)
+					return null;
+			} else {
+				if(input.stackSize < recipe.input.stackSize)
+					return null;
+				
+				if(recipe.random != null) {
+					for(int i = 0; i < recipe.random.length; i++) {
+						if(Rand.nextInt(recipe.rands[i])) {
+							fluid = recipe.random[i];
+							if(fluid != null)
+								return new RecipeSmelter(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new int[] { 0 });
+						}
+					}
+					
+					return new RecipeSmelter(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new int[] { 0 });
 				}
 				
-				return recipe.output;
+				if(input.isItemStackDamageable()) {
+					double mod = (double)(input.getMaxDamage() - input.getItemDamage()) / input.getMaxDamage();
+					fluid.amount = (int) (fluid.amount * mod);
+				}
 			}
+			
+			return new RecipeSmelter(recipe.input, recipe.input2, recipe.temp, fluid, recipe.output, recipe.chance);
 		}
 
 		return null;
 	}
 	
+	public String getName(FluidStack fluid) {
+		return fluid.getFluid().getName();
+	}
+	
 	@Override
-	public SmelterOutput getResult(ItemStack input1, ItemStack input2, int temp) {
-		RecipeSmelterDual recipe = (RecipeSmelterDual) recipes.get(DictionaryHelper.convert(input1) + DictionaryHelper.convert(input2));
-		if (recipe != null) {
-			if (temp >= recipe.temp || temp < 0) {
-				return recipe.output;
-			}
-		}
+	public void addSolidFuel(ItemStack stack, FuelInfo info) {
+		fuels.put(DictionaryHelper.convert(stack), info);
+	}
+	
+	@Override
+	public void addLiquidFuel(FluidStack fluid, FuelInfo info) {
+		fuels.put(getName(fluid), info);
+	}
 
+	@Override
+	public FuelInfo getFuelInfo(Object obj) {
+		if(obj instanceof ItemStack)
+			return (FuelInfo)fuels.get(DictionaryHelper.convert((ItemStack)obj));
+		if(obj instanceof FluidStack)
+			return (FuelInfo)fuels.get(getName((FluidStack)obj));
 		return null;
-	}
-
-	@Override
-	public void addFuel(Object fuel, int perTemp, int maxTemp) {
-		fuelList.put(DictionaryHelper.convert(fuel), Arrays.asList(perTemp, maxTemp));
-	}
-
-	@Override
-	public void removeFuel(Object fuel) {
-		fuelList.remove(DictionaryHelper.convert(fuel));
-	}
-
-	public int getBurnTemp(ItemStack stack, boolean max, boolean real) {
-		List<Object> result = (List<Object>) fuelList.get(DictionaryHelper.convert(stack));
-		if (result != null) {
-			if (real) {
-				return (Integer) ((max) ? result.get(1) : result.get(0));
-			}
-
-			return ((Integer) result.get(0) * 25000) / 2000;
-		}
-		
-		return -1;
 	}
 
 	public int getMeltingPoint(ItemStack stack) {
@@ -90,16 +92,6 @@ public class LiquifierHandler implements ISmelterHandler {
 		
 		if (recipe != null) {
 			return recipe.temp;
-		}
-
-		return -1;
-	}
-
-	@Override
-	public int getBurnTemp(ItemStack stack, boolean max) {
-		List<Object> result = (List<Object>) fuelList.get(DictionaryHelper.convert(stack));
-		if (result != null) {
-				return (Integer) ((max) ? result.get(1) : result.get(0));
 		}
 
 		return -1;

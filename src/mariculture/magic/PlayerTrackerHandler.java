@@ -28,9 +28,9 @@ public class PlayerTrackerHandler implements IPlayerTracker {
 	@Override
 	public void onPlayerRespawn(EntityPlayer player) {
 		if (!player.worldObj.isRemote) {
-			NBTTagCompound tagCompound = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-			if (tagCompound.hasKey(EnchantmentResurrection.inventory)) {
-				NBTTagList invList = tagCompound.getTagList(EnchantmentResurrection.inventory);
+			NBTTagCompound nbt = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+			if (nbt.hasKey(EnchantmentResurrection.inventory)) {
+				NBTTagList invList = nbt.getTagList(EnchantmentResurrection.inventory);
 				if (invList != null) {
 					ItemStack[] inventory = new ItemStack[player.inventory.mainInventory.length];
 					for (int i = 0; i < invList.tagCount(); i++) {
@@ -44,7 +44,7 @@ public class PlayerTrackerHandler implements IPlayerTracker {
 					player.inventory.mainInventory = inventory;
 				}
 
-				NBTTagList armorList = tagCompound.getTagList(EnchantmentResurrection.armor);
+				NBTTagList armorList = nbt.getTagList(EnchantmentResurrection.armor);
 				if (armorList != null) {
 					ItemStack[] inventory = new ItemStack[player.inventory.armorInventory.length];
 					for (int i = 0; i < armorList.tagCount(); i++) {
@@ -58,27 +58,27 @@ public class PlayerTrackerHandler implements IPlayerTracker {
 					player.inventory.armorInventory = inventory;
 				}
 
-				tagCompound.removeTag(EnchantmentResurrection.armor);
-				tagCompound.removeTag(EnchantmentResurrection.inventory);
+				nbt.removeTag(EnchantmentResurrection.armor);
+				nbt.removeTag(EnchantmentResurrection.inventory);
 
 				EnchantHelper.damageItems(Magic.resurrection, player, 1);
 
-				if (tagCompound.hasKey(EnchantmentResurrection.spawnX)) {
-					int x = tagCompound.getInteger(EnchantmentResurrection.spawnX);
-					int y = tagCompound.getInteger(EnchantmentResurrection.spawnY);
-					int z = tagCompound.getInteger(EnchantmentResurrection.spawnZ);
+				if (nbt.hasKey(EnchantmentResurrection.spawnX)) {
+					int x = nbt.getInteger(EnchantmentResurrection.spawnX);
+					int y = nbt.getInteger(EnchantmentResurrection.spawnY);
+					int z = nbt.getInteger(EnchantmentResurrection.spawnZ);
 
 					player.setPositionAndUpdate(x, y + 1, z);
 
-					tagCompound.removeTag(EnchantmentResurrection.spawnX);
-					tagCompound.removeTag(EnchantmentResurrection.spawnY);
-					tagCompound.removeTag(EnchantmentResurrection.spawnZ);
+					nbt.removeTag(EnchantmentResurrection.spawnX);
+					nbt.removeTag(EnchantmentResurrection.spawnY);
+					nbt.removeTag(EnchantmentResurrection.spawnZ);
 
 					EnchantHelper.damageItems(Magic.resurrection, player, 2);
 				}
 
-				if (tagCompound.hasKey(EnchantmentResurrection.resistTime)) {
-					int resist = tagCompound.getInteger(EnchantmentResurrection.resistTime);
+				if (nbt.hasKey(EnchantmentResurrection.resistTime)) {
+					int resist = nbt.getInteger(EnchantmentResurrection.resistTime);
 					player.hurtResistantTime = resist;
 					
 					EnchantHelper.damageItems(Magic.resurrection, player, resist / 50);

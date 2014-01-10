@@ -70,7 +70,11 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			if(workedVal >= stack.stackTagCompound.getInteger("Required")) {
 				ItemStack result = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
 				setInventorySlotContents(0, result);
+				
+				worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
 			}
+			
+			worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
 			
 			return true;
 		}

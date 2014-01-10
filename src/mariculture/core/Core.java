@@ -43,6 +43,7 @@ import mariculture.core.blocks.TileVat;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.FuelHandler;
+import mariculture.core.handlers.GuideHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
@@ -126,6 +127,7 @@ public class Core extends Module {
 	public static Fluid moltenGlass;
 	public static Fluid naturalGas;
 	public static Fluid quicklime;
+	public static Fluid moltenCarbon;
 	
 	public static Fluid fishOil;
 	public static Block fishOilBlock;
@@ -320,8 +322,9 @@ public class Core extends Module {
 
 	private void addFluids() {	
 		//Mariculture Fluids
+		FluidDictionary.coal = addFluid("moltenCarbon", moltenCarbon, 1000, FluidContainerMeta.BOTTLE_COAL);
 		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_QUICKLIME);
-		FluidDictionary.fish_food = addFluid("fishfood", fishFood, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_FISH_FOOD);
+		FluidDictionary.fish_food = addFluid("fishfood", fishFood, 256, FluidContainerMeta.BOTTLE_FISH_FOOD);
 		FluidDictionary.natural_gas = addFluid("natural_gas", naturalGas, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GAS);
 		FluidDictionary.glass = addFluid("moltenGlass", moltenGlass, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GLASS);
 		FluidDictionary.aluminum = addFluid("moltenAluminum", moltenAluminum, MetalRates.INGOT, FluidContainerMeta.BOTTLE_ALUMINUM);

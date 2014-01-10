@@ -30,11 +30,11 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 	protected int purity = 0;
 	protected int heat = 0;
 	protected int storage = 0;
-	protected int speed = 0;
+	public int speed = 0;
 	protected int rf = 0;
 	//Tile Configuration
-	protected EjectSetting setting;
-	protected RedstoneMode mode;
+	public EjectSetting setting;
+	public RedstoneMode mode;
 	//GUI INT offset
 	protected int offset = 9;
 	//Machine vars
@@ -119,6 +119,28 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 	public abstract boolean canWork();
 	public abstract void updateMasterMachine();
 	public abstract void updateSlaveMachine();
+	
+	public boolean rsAllowsWork() {
+		if(getMaster() != null) {
+			TileMultiMachineTank mstr = (TileMultiMachineTank) getMaster();
+			RedstoneMode mode = mstr.mode;
+			if(mode == RedstoneMode.DISABLED)
+				return true;
+			for(MultiPart block: mstr.slaves) {
+				if(mode.equals(RedstoneMode.LOW)) {
+					if(!RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
+						return false;
+				} else if(mode.equals(RedstoneMode.HIGH)) {
+					if(RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
+						return true;
+				}
+			}
+			
+			return RedstoneMode.canWork(getMaster(), mode);
+		}
+		
+		return false;
+	}
 	
 	@Override
 	public void getGUINetworkData(int id, int value) {

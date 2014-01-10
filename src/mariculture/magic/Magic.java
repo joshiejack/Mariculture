@@ -63,13 +63,10 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -207,7 +204,7 @@ public class Magic extends Module {
 		//Celestial Mirror
 		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Item.ghastTear);
 		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
-			"TST", "BMB", "BMB", 
+			"TST", "BMB", "GBG", 
 			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
 			'M', magicMirror, 
 			'S', Item.netherStar,
@@ -246,10 +243,6 @@ public class Magic extends Module {
 	}
 
 	private void addDungeonChestLoot() {
-		for (int i = 0; i < 12; i++) {
-			PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, i), 75);
-		}
-
 		if(EnchantHelper.exists(oneRing)) {
 			ItemStack oneRing = MaricultureRegistry.get("ring.oneRing");
 			if (oneRing != null) {

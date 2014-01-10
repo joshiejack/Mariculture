@@ -2,10 +2,9 @@ package mariculture.fishery;
 
 import java.util.Arrays;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishDNA;
@@ -25,7 +24,6 @@ import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
@@ -87,7 +85,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -426,9 +423,9 @@ public class Fishery extends Module {
 	
 	private void addDropletRecipes() {
 		
-		// Water Droplet to Water In Liquifier
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 1, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidRegistry.WATER.getName(), FluidContainerRegistry.BUCKET_VOLUME), null, 0)));
+		// Water Droplet to Water In Liquifier		
+		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 1, 
+				FluidRegistry.getFluidStack("water", FluidContainerRegistry.BUCKET_VOLUME));
 		
 		// Bucket + Droplets to Water Bucket
 		GameRegistry.addShapelessRecipe(new ItemStack(Item.bucketWater), new Object[] {
@@ -442,12 +439,12 @@ public class Fishery extends Module {
 
 		
 		// Aqua Droplet to Pressurised Water
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 1, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.hp_water, FluidContainerRegistry.BUCKET_VOLUME / 10), null, 0)));
+		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 1, 
+				FluidRegistry.getFluidStack(FluidDictionary.hp_water, FluidContainerRegistry.BUCKET_VOLUME / 10));
 
 		// Nether Droplet to Lava in Liquifier Only
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 1000, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidRegistry.LAVA.getName(), FluidContainerRegistry.BUCKET_VOLUME / 20), null, 0)));
+		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 1000, 
+				FluidRegistry.getFluidStack("lava", FluidContainerRegistry.BUCKET_VOLUME / 20));
 
 		// Ender Droplet to Ender Pearl
 		GameRegistry.addRecipe(new ItemStack(Item.enderPearl), new Object[] { "DDD", "DDD", "DDD", 
@@ -512,8 +509,8 @@ public class Fishery extends Module {
 					Character.valueOf('R'), Block.dragonEgg, 
 					Character.valueOf('D'), Item.diamond }));
 		
-		//Netherfish as Liquifier fuel
-		MaricultureHandlers.smelter.addFuel(new ItemStack(fishyFood, 1, Fishery.nether.fishID), 32, 2000);
+		//Netherfish as Liquifier fuel		
+		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(fishyFood, 1, Fishery.nether.fishID), new FuelInfo(2000, 16, 2400));
 		
 		//Fish as fish oil and fish meal
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
@@ -522,9 +519,9 @@ public class Fishery extends Module {
 				ItemStack stack = new ItemStack(fishyFood, 1, fish.fishID);
 				
 				if(fish.getFishOilVolume() > 0) {
-					MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, 180, 
-							new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.fish_oil, (int) (fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME)), 
-									fish.getLiquifiedProduct(), fish.getLiquifiedProductChance())));
+					RecipeHelper.addMelting(stack, 180, 
+							FluidRegistry.getFluidStack(FluidDictionary.fish_oil, (int) (fish.getFishOilVolume() * 1000)),
+									fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
 				}
 				
 				if (fish.getFishMealSize() > 0) {

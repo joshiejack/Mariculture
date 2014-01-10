@@ -87,7 +87,18 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	
 	//Can do stuff / has it
 	public boolean canWork() {
-		return  (hasRod() && isFishable() && hasPower() && RedstoneMode.canWork(this, mode) && (baitQuality != -1 || (hasBait() && canUseRod())));
+		return  (hasRod() && isFishable() && hasPower() && RedstoneMode.canWork(this, mode) && hasRoom() && (baitQuality != -1 || (hasBait() && canUseRod())));
+	}
+	
+	public boolean hasRoom() {
+		if(setting.canEject(EjectSetting.ITEM))
+			return true;
+		for(Integer i: out) {
+			if(inventory[i] == null);
+				return true;
+		}
+		
+		return false;
 	}
 	
 	private boolean canUseRod() {

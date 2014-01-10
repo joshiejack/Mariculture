@@ -3,7 +3,7 @@ package mariculture.fishery.blocks;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
-import mariculture.core.helpers.ItemHelper;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.SingleMeta;
 import mariculture.fishery.Fishery;
@@ -61,7 +61,7 @@ public class BlockItemNet extends ItemMariculture {
 		if(!entity.worldObj.isRemote) {
 			if(entity instanceof EntitySquid) {
 				player.inventory.decrStackSize(player.inventory.currentItem, 1);
-				ItemHelper.spawnItem(entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
+				SpawnItemHelper.spawnItem(entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
 						Fishing.fishHelper.makePureFish(Fishery.squid));
 				entity.worldObj.spawnParticle("bubble", entity.posX, entity.posY, entity.posZ, 0, 0, 0);
 				entity.setDead();

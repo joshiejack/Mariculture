@@ -59,6 +59,10 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 			return "dropletWater";
 		case MaterialsMeta.DUST_UNKNOWN:
 			return "dustUnknown";
+		case MaterialsMeta.DUST_SALT:
+			return "dustSalt";
+		case MaterialsMeta.INGOT_RUTILE:
+			return "ingotRutile";
 		default:
 			return "dropletWater";
 		}
@@ -81,8 +85,6 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 			return false;
 		case MaterialsMeta.UNUSED2:
 			return false;
-		case MaterialsMeta.UNUSED3:
-			return false;
 		case MaterialsMeta.UNUSED5:
 			return false;
 		case MaterialsMeta.UNUSED6:
@@ -90,8 +92,6 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 		case MaterialsMeta.UNUSED7:
 			return false;
 		case MaterialsMeta.UNUSED8:
-			return false;
-		case MaterialsMeta.UNUSED9:
 			return false;
 		}
 

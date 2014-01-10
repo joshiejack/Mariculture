@@ -28,16 +28,24 @@ public class XMLHelper {
 	public XMLHelper(Element element) {
 		this.e = element;
 	}
-
-	public String toIdent(String str) {
-		return e.getAttribute(str);
+	
+	public Element getElement() {
+		return e;
 	}
 
-	public String toString(String str) {
+	public String getAttribString(String str) {
+		return e.getAttribute(str);
+	}
+	
+	public Integer getAttribInt(String str) {
+		return Integer.parseInt(e.getAttribute(str));
+	}
+
+	public String getElementString(String str) {
 		return e.getElementsByTagName(str).item(0).getTextContent();
 	}
 
-	public Integer toInt(String str) {
+	public Integer getElementInt(String str) {
 		return Integer.parseInt(e.getElementsByTagName(str).item(0).getTextContent());
 	}
 }

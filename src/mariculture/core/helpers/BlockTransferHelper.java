@@ -46,19 +46,27 @@ public class BlockTransferHelper {
 	
 	public boolean ejectFluid(int[] rate) {
 		if(handler instanceof IEjectable) {
-			if(EjectSetting.canEject(((IEjectable) handler).getEjectSetting(), EjectSetting.FLUID)) {
+			IEjectable ejectable = (IEjectable) handler;
+			if(ejectable instanceof TileMultiStorageTank) {
+				TileMultiStorageTank tile = (TileMultiStorageTank) handler;
+				if(tile.getMaster() != null) {
+					ejectable = (IEjectable) tile.getMaster();
+				}
+			}
+			
+			if(EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.FLUID)) {
 				Collections.shuffle(sides);
 				for(Integer side: sides) {
 					ForgeDirection dir = ForgeDirection.getOrientation(side);
 					TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-					if(isSameBlock(tile))
-						return false;
 					
+					if(isSameBlock(tile))
+						continue;
 					if(tile instanceof IFluidHandler) {
 						IFluidHandler tank = (IFluidHandler) tile;
 						if(tank instanceof IBlacklisted) {
 							if(((IBlacklisted)tank).isBlacklisted(world, x, y, z))
-								return false;
+								continue;
 						}
 						
 						for(int drain: rate) {
@@ -114,6 +122,8 @@ public class BlockTransferHelper {
 							}
 						}
 					}
+					
+					stack = ejectToSides(stack);
 				} else {
 					stack = ejectToSides(stack);
 				}
@@ -121,7 +131,7 @@ public class BlockTransferHelper {
 		}
 		
 		if(!InventoryHelper.addItemStackToInventory(((IMachine)inventory).getInventory(), stack, slots))
-			return ItemHelper.spawnItem(this, stack);
+			return SpawnItemHelper.spawnItem(this, stack);
 		
 		return null;
 	}
@@ -131,6 +141,7 @@ public class BlockTransferHelper {
 		for(Integer side: sides) {
 			ForgeDirection dir = ForgeDirection.getOrientation(side);
 			TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+			System.out.println(tile);
 			if(tile instanceof IInventory && !(tile instanceof TileEntityHopper) && !isSameBlock(tile)) {
 				stack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, dir.ordinal());
 			}

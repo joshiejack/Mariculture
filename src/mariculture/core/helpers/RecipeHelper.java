@@ -4,8 +4,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -58,6 +60,10 @@ public class RecipeHelper {
 		MaricultureHandlers.vat.addRecipe(new RecipeVat(fluid1, fluid2, newFluid, result, time));
 	}
 	
+	public static void addFluidAlloyNItemResultItem(FluidStack fluid1, FluidStack fluid2, ItemStack input, ItemStack result, int time) {
+		MaricultureHandlers.vat.addRecipe(new RecipeVat(input, fluid1, fluid2, result, time));
+	}
+	
 	public static void add4x4Recipe(ItemStack result, Block block, int meta) {
 		addShapedRecipe(result, new Object[] { "##", "##", '#', new ItemStack(block, 1, meta) });
 	}
@@ -80,5 +86,17 @@ public class RecipeHelper {
 
 	public static void addFishingRodRecipe(ItemStack output, Object mat) {
 		addShapedRecipe(output ,new Object[] { "  S", " SW", "S W", 'S', mat, 'W', Item.silk });
+	}
+
+	public static void addMelting(ItemStack stack, int temp, FluidStack fluid) {
+		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, null, temp, fluid, null, 0));
+	}
+	
+	public static void addMelting(ItemStack stack, int temp, FluidStack fluid, ItemStack output, int chance) {
+		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, null, temp, fluid, output, chance));
+	}
+
+	public static void addMelting(ItemStack stack, int temp, String fluid, int vol) {
+		addMelting(stack, temp, FluidRegistry.getFluidStack(fluid, vol));
 	}
 }

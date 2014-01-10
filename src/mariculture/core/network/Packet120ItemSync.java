@@ -58,8 +58,6 @@ public class Packet120ItemSync extends PacketMariculture {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		
 		if(tile instanceof TileVat || tile instanceof TileAnvil || tile instanceof TileIngotCaster) {
-			
-			
 			ItemStack[] inventory = new ItemStack[length];
 			IInventory block = (IInventory) world.getBlockTileEntity(x, y, z);
 			NBTTagList tagList = nbt.getTagList("Inventory");
@@ -73,6 +71,8 @@ public class Packet120ItemSync extends PacketMariculture {
 				}
 			}
 		}
+		
+		world.markBlockForRenderUpdate(x, y, z);
 	}
 
 	@Override

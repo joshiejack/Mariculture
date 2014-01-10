@@ -49,12 +49,12 @@ public class ContainerLiquifier extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (MaricultureHandlers.smelter.getResult(stack, -1) != null) {
-					if (!this.mergeItemStack(stack, 5, 7, false)) { // Slot 5-6
+				if (MaricultureHandlers.smelter.getFuelInfo(stack) != null) {
+					if (!this.mergeItemStack(stack, 7, 8, false)) { // Slot 7-7
 						return null;
 					}
-				} else if (MaricultureHandlers.smelter.getBurnTemp(stack, false) > 0) {
-					if (!this.mergeItemStack(stack, 7, 8, false)) { // Slot 7-7
+				} else if (MaricultureHandlers.smelter.getResult(stack, null, -1) != null) {
+					if (!this.mergeItemStack(stack, 5, 7, false)) { // Slot 5-6
 						return null;
 					}
 				} else if (FluidHelper.isFluidOrEmpty(stack)) {

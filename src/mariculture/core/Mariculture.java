@@ -3,6 +3,7 @@ package mariculture.core;
 import java.io.File;
 
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.handlers.GuideHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketHandler;
@@ -80,5 +81,6 @@ public class Mariculture {
 	public void postInit(FMLPostInitializationEvent event) {
 		plugins.load(Stage.POST);
 		proxy.initClient();
+		GuideHandler.registerIcons();
 	}
 }

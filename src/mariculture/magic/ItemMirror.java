@@ -27,7 +27,7 @@ public class ItemMirror extends ItemStorage {
 	
 	public ItemMirror(int id, String img) {
 		super(id, 4, "mirror");
-		setMaxDamage(20);
+		setMaxDamage(30);
 		name = img;
 		setCreativeTab(MaricultureTab.tabJewelry);
 	}

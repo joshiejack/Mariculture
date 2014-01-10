@@ -2,7 +2,6 @@ package mariculture.core.blocks;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packet118FluidUpdate;
@@ -57,7 +56,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 					RecipeIngotCasting result = MaricultureHandlers.casting.getResult(tank.getFluid());
 					if(result != null) {
 						for(int i = 0; i < inventory.length; i++) {
-							if(inventory[i] == null) {
+							if(inventory[i] == null && tank.getFluidAmount() >= MetalRates.INGOT) {
 								drain(ForgeDirection.UP, result.fluid.copy(), true);
 								setInventorySlotContents(i, result.output.copy());
 							}

@@ -5,7 +5,7 @@ import java.util.List;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.base.TileTank;
-import mariculture.core.helpers.ItemHelper;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
@@ -133,7 +133,7 @@ public class TileGeyser extends TileTank {
 		if(tile != null && tile instanceof IInventory) {
 			ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
 			if(stack != null) {
-				ItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+				SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
 			}
 		}
 	}

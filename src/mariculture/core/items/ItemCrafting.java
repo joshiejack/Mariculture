@@ -1,7 +1,7 @@
 package mariculture.core.items;
 
 import mariculture.core.Core;
-import mariculture.core.helpers.ItemHelper;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
@@ -95,7 +95,7 @@ public class ItemCrafting extends ItemMariculture {
 				Block block = Block.blocksList[id];
 				int plan = PlansMeta.getPlanType(block, id, world, x, y, z);
 				if(plan != -1) {
-					ItemHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
+					SpawnItemHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
 					if(!player.capabilities.isCreativeMode) {
 						player.inventory.decrStackSize(slot, 1);
 					}

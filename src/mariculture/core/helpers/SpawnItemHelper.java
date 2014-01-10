@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemHelper {
+public class SpawnItemHelper {
 	public static void spawnItem(World world, int x, int y, int z, ItemStack stack) {
 		spawnItem(world, x, y, z, stack, true);
 	}

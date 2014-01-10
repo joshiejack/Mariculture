@@ -1,12 +1,12 @@
 package mariculture.core.lib;
 
 public class MaterialsMeta {
-	public static final int COUNT = 18;
+	public static final int COUNT = 27;
 
 	public static final int INGOT_ALUMINUM = 0;
 	public static final int INGOT_MAGNESIUM = 1;
 	public static final int INGOT_TITANIUM = 2;
-	public static final int UNUSED9 = 3;
+	public static final int INGOT_RUTILE = 3;
 	public static final int INGOT_COPPER = 4;
 	public static final int UNUSED0 = 5;
 	public static final int UNUSED5 = 6;
@@ -15,7 +15,7 @@ public class MaterialsMeta {
 	public static final int UNUSED8 = 9;
 	public static final int UNUSED1 = 10;
 	public static final int UNUSED2 = 11;
-	public static final int UNUSED3 = 12;
+	public static final int DUST_SALT = 12;
 	public static final int DUST_UNKNOWN = 13;
 	public static final int FISH_MEAL = 14;
 	public static final int DYE_YELLOW = 15;

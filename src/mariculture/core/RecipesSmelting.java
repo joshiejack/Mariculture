@@ -1,8 +1,8 @@
 package mariculture.core;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.GlassMeta;
@@ -15,7 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -54,11 +53,9 @@ public class RecipesSmelting {
 				
 				if(stack != null && FluidRegistry.getFluid(fluid) != null) {
 					if(i == 0 || stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemHoe) {
-	 					MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, temperature, 
-								new SmelterOutput(FluidRegistry.getFluidStack(fluid, volume[i]), output, chance)));
+	 					RecipeHelper.addMelting(stack, temperature, FluidRegistry.getFluidStack(fluid, volume[i]), output, chance);
 					} else {
-						MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, temperature, 
-								new SmelterOutput(FluidRegistry.getFluidStack(fluid, volume[i]))));
+						RecipeHelper.addMelting(stack, temperature, FluidRegistry.getFluidStack(fluid, volume[i]));
 					}
 				}
 			}
@@ -71,11 +68,12 @@ public class RecipesSmelting {
 	}
 
 	private static void addFuels() {
-		MaricultureHandlers.smelter.addFuel(new ItemStack(Block.coalBlock, 1, 0), 432, 2000);
-		MaricultureHandlers.smelter.addFuel(new ItemStack(Item.coal, 1, 0), 48, 2000);
-		MaricultureHandlers.smelter.addFuel(new ItemStack(Item.coal, 1, 1), 32, 1500);
-		MaricultureHandlers.smelter.addFuel("logWood", 8, 750);
-		MaricultureHandlers.smelter.addFuel("plankWood", 4, 300);
+		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Block.coalBlock, 1, 0), new FuelInfo(2000, 432, 10800));
+		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Item.coal, 1, 0), new FuelInfo(2000, 48, 1200));
+		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Item.coal, 1, 1), new FuelInfo(1500, 32, 800));
+		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Block.wood), new FuelInfo(750, 8, 80));
+		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Block.planks), new FuelInfo(300, 4, 20));
+		MaricultureHandlers.smelter.addLiquidFuel(FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1), new FuelInfo(2000, 16, 1200));
 	}
 	
 	public static void addFullSet(String fluid, Object[] items, int temp) {
@@ -121,8 +119,6 @@ public class RecipesSmelting {
 		addMetal(FluidDictionary.bronze, "Bronze", bronze);
 		addMetal(FluidDictionary.steel, "Steel", steel);
 		
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET), aluminum, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.aluminum, MetalRates.INGOT * 3), null, 0)));	
 		addRecipe(FluidDictionary.aluminum, MetalRates.MATERIALS, new Object[] { 
 				"oreAluminum", "nuggetAluminum", "ingotAluminum", 
 					"blockAluminum", "dustAluminum" }, aluminum, new ItemStack(Item.clay), 5);
@@ -132,10 +128,9 @@ public class RecipesSmelting {
 				"oreRutile", "nuggetTitanium", "ingotTitanium", "blockTitanium", "dustTitanium" }, 
 						titanium, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
 		RecipeHelper.addIngotCasting(FluidDictionary.titanium, "Titanium");
-		
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.oreBlocks, 1, OresMeta.RUTILE), titanium,
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), 
-						new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2)));
+
+		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.RUTILE), titanium, 
+				FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
 		
 		FluidStack moltenRutile = FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.INGOT);
 		FluidStack moltenMagnesium = FluidRegistry.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT);
@@ -144,36 +139,22 @@ public class RecipesSmelting {
 		RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 3);
 		
 		//Gold Back
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.pressurePlateGold), gold, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.INGOT * 2), null, 0)));
-		
+		RecipeHelper.addMelting(new ItemStack(Block.pressurePlateGold), gold, FluidDictionary.gold, MetalRates.INGOT * 2);
 		//Iron Back
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Item.bucketEmpty), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 3), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Item.doorIron), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 6), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.fenceIron), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, (int) (MetalRates.INGOT * 0.25)), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Item.shears), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 2), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.anvil), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 32), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.pressurePlateIron), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 2), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.hopperBlock), iron, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.iron, MetalRates.INGOT * 5), new ItemStack(Block.planks), 1)));
+		RecipeHelper.addMelting(new ItemStack(Item.bucketEmpty), iron, FluidDictionary.iron, MetalRates.INGOT * 3);
+		RecipeHelper.addMelting(new ItemStack(Item.doorIron), iron, FluidDictionary.iron, MetalRates.INGOT * 6);
+		RecipeHelper.addMelting(new ItemStack(Block.fenceIron), iron, FluidDictionary.iron, (int) (MetalRates.INGOT * 0.25));
+		RecipeHelper.addMelting(new ItemStack(Item.shears), iron, FluidDictionary.iron, MetalRates.INGOT * 2);
+		RecipeHelper.addMelting(new ItemStack(Block.anvil), iron, FluidDictionary.iron, MetalRates.INGOT * 32);
+		RecipeHelper.addMelting(new ItemStack(Block.pressurePlateIron), iron, FluidDictionary.iron, MetalRates.INGOT * 2);
 		
 		//Glass
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.sand), 1000, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.glass, FluidContainerRegistry.BUCKET_VOLUME), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.glass), 900, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.glass, FluidContainerRegistry.BUCKET_VOLUME), null, 0)));
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.thinGlass), 500, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidDictionary.glass, 375), null, 0)));
+		RecipeHelper.addMelting(new ItemStack(Block.sand), 1000, FluidDictionary.glass, 1000);
+		RecipeHelper.addMelting(new ItemStack(Block.glass), 900, FluidDictionary.glass, 1000);
+		RecipeHelper.addMelting(new ItemStack(Block.thinGlass), 500, FluidDictionary.glass, 375);
 		
 		//Ice > Water
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Block.ice), 1, 
-				new SmelterOutput(FluidRegistry.getFluidStack(FluidRegistry.WATER.getName(), FluidContainerRegistry.BUCKET_VOLUME), null, 0)));
+		RecipeHelper.addMelting(new ItemStack(Block.ice), 1, "water", 1000);
 		
 		//Glass > Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
@@ -187,5 +168,30 @@ public class RecipesSmelting {
 		RecipeHelper.addFluidAlloyResultItemNFluid(FluidRegistry.getFluidStack("water", 16000), 
 				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 24000),
 				FluidRegistry.getFluidStack("water", 10000), new ItemStack(Core.materials, 1, MaterialsMeta.DUST_UNKNOWN), 10);
+		
+		//Random Metal Dust!!!
+		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, MaterialsMeta.DUST_UNKNOWN),
+				650, new FluidStack[] { get(FluidDictionary.magnesium), get(FluidDictionary.lead), get(FluidDictionary.copper),
+			get(FluidDictionary.nickel), get(FluidDictionary.aluminum), get(FluidDictionary.iron), get(FluidDictionary.silver)},
+			new int[] { 2, 7, 6, 10, 15, 20, 25 }, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT), 1));
+		
+		//Limestone > Quicklime
+		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 825, get(FluidDictionary.quicklime, 1000));
+		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK), 825, get(FluidDictionary.quicklime, 1000));
+		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 825, get(FluidDictionary.quicklime, 1100));
+		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED), 825, get(FluidDictionary.quicklime, 1100));
+		
+		//Carbon > Molten Carbon
+		RecipeHelper.addMelting(new ItemStack(Item.coal, 1, 0), 2000, get(FluidDictionary.coal, 100));
+		RecipeHelper.addMelting(new ItemStack(Item.coal, 1, 1), 2000, get(FluidDictionary.coal, 50));
+		RecipeHelper.addMelting(new ItemStack(Block.wood), 2000, get(FluidDictionary.coal, 50));
+	}
+	
+	public static FluidStack get(String name, int vol) {
+		return FluidRegistry.getFluidStack(name, vol);
+	}
+	
+	public static FluidStack get(String name) {
+		return FluidRegistry.getFluidStack(name, MetalRates.INGOT);
 	}
 }

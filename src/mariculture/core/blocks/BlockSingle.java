@@ -2,13 +2,12 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
@@ -43,6 +42,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSingle extends BlockMachine {
 	public BlockSingle(int i) {
@@ -79,7 +82,7 @@ public class BlockSingle extends BlockMachine {
 		case SingleMeta.ANVIL_4:
 			return 6F;
 		case SingleMeta.INGOT_CASTER:
-			return 4F;
+			return 1F;
 		}
 
 		return 1F;
@@ -239,14 +242,47 @@ public class BlockSingle extends BlockMachine {
 			}
 		}
 		
-		if(tile instanceof TileAnvil && ItemHelper.isPlayerHoldingItem(Core.hammer, player)) {
+		if(tile instanceof TileAnvil) {
 			if(player instanceof FakePlayer)
 				return false;
-			ItemStack hammer = player.getCurrentEquippedItem();
-			if (((TileAnvil)tile).workItem(hammer)) {
-				if(hammer.attemptDamageItem(1, Rand.rand))
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+			if (!world.isRemote) {
+				TileAnvil anvil = (TileAnvil) tile;
+				if(anvil.getStackInSlot(0) != null) {
+					SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
+					anvil.setInventorySlotContents(0, null);
+				} else if(player.getCurrentEquippedItem() != null) {
+					ItemStack stack = player.getCurrentEquippedItem().copy();
+					stack.stackSize = 1;
+					anvil.setInventorySlotContents(0, stack);
+					player.inventory.decrStackSize(player.inventory.currentItem, 1);
+				}
 			}
+			
+			return true;
+		}
+		
+		if(tile instanceof TileIngotCaster) {
+			if (!world.isRemote) {
+				TileIngotCaster caster = (TileIngotCaster) tile;
+				ItemStack stack = player.getCurrentEquippedItem();
+				if(FluidContainerRegistry.isFilledContainer(stack)) {
+					FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
+					if(caster.fill(ForgeDirection.UP, fluid, false) >= fluid.amount) {
+						caster.fill(ForgeDirection.UP, fluid, true);
+						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+					}
+				}
+				
+				for(int i = 0; i < caster.getSizeInventory(); i++) {
+					if(caster.getStackInSlot(i) != null) {
+						SpawnItemHelper.spawnItem(world, x, y + 1, z, caster.getStackInSlot(i));
+						caster.setInventorySlotContents(i, null);
+						caster.onInventoryChanged();
+					}
+				}
+			}
+			
+			return true;
 		}
 
 		return false;

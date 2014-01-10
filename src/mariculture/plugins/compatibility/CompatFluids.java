@@ -15,7 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeSmelter.SmelterOutput;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.RecipesSmelting;
@@ -67,10 +66,10 @@ public class CompatFluids {
 				Node nNode = node.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					XMLHelper xml = new XMLHelper((Element) nNode);
-					String ident = xml.toString("identifier");
-					String name = xml.toString("name");
-					int id = (xml.toInt("blockTextureID") == -1)? Core.glassBlocks.blockID: xml.toInt("blockTextureID");
-					int meta = (xml.toInt("blockTextureMeta") == -1)? GlassMeta.PLASTIC: xml.toInt("blockTextureMeta");
+					String ident = xml.getElementString("identifier");
+					String name = xml.getElementString("name");
+					int id = (xml.getElementInt("blockTextureID") == -1)? Core.glassBlocks.blockID: xml.getElementInt("blockTextureID");
+					int meta = (xml.getElementInt("blockTextureMeta") == -1)? GlassMeta.PLASTIC: xml.getElementInt("blockTextureMeta");
 					
 					FluidRegistry.registerFluid(new FluidCustom(ident, name, id, meta).setUnlocalizedName(name));
 				}
@@ -96,26 +95,25 @@ public class CompatFluids {
 				Node nNode = node.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					XMLHelper xml = new XMLHelper((Element) nNode);
-					String type = xml.toIdent("type");
-					String fluid = xml.toString("fluid");
-					int temperature = xml.toInt("temp");
+					String type = xml.getAttribString("type");
+					String fluid = xml.getElementString("fluid");
+					int temperature = xml.getElementInt("temp");
 					
 					if(type.equals("metal")) {
-						String name = xml.toString("metal");
-						int bonusID = xml.toInt("bonusID");
-						int bonusMeta = xml.toInt("bonusMeta");
-						int bonusChance = xml.toInt("bonusChance");
+						String name = xml.getElementString("metal");
+						int bonusID = xml.getElementInt("bonusID");
+						int bonusMeta = xml.getElementInt("bonusMeta");
+						int bonusChance = xml.getElementInt("bonusChance");
 						RecipesSmelting.addRecipe(fluid, MetalRates.MATERIALS, new Object[] { 
 								"ore" + name, "nugget" + name, "ingot" + name, "block" + name, "dust" + name }, temperature, 
 								new ItemStack(bonusID, 1, bonusMeta), bonusChance);
 						RecipeHelper.addIngotCasting(fluid, name);
 					} else if (type.equals("other")) {
-						int volume = xml.toInt("volume");
-						int id = xml.toInt("id");
-						int meta = xml.toInt("meta");
+						int volume = xml.getElementInt("volume");
+						int id = xml.getElementInt("id");
+						int meta = xml.getElementInt("meta");
 						
-						MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(id, 1, meta), temperature, 
-								new SmelterOutput(FluidRegistry.getFluidStack(fluid, volume), null, 0)));
+						RecipeHelper.addMelting(new ItemStack(id, 1, meta), temperature, FluidRegistry.getFluidStack(fluid, volume));
 					}
 				}
 			}
