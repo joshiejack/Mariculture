@@ -3,7 +3,7 @@ package mariculture.factory.gui;
 import java.util.ArrayList;
 
 import mariculture.core.gui.SlotFake;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Compatibility;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,7 @@ public class SlotDictionary extends SlotFake {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return DictionaryHelper.isWhitelisted(stack) || stack.getItem() instanceof ItemFilter;
+		return OreDicHelper.isWhitelisted(stack) || stack.getItem() instanceof ItemFilter;
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class SlotDictionary extends SlotFake {
 			ItemStack stackHeld = playerInv.getItemStack();
 
 			if (stackSlot == null && stackHeld != null) {
-				if (isFilter || DictionaryHelper.isInDictionary(stackHeld)) {
-					if (isFilter || DictionaryHelper.isWhitelisted(stackHeld)) {
+				if (isFilter || OreDicHelper.isInDictionary(stackHeld)) {
+					if (isFilter || OreDicHelper.isWhitelisted(stackHeld)) {
 						ItemStack copy = stackHeld.copy();
 						copy.stackSize = 1;
 						slot.putStack(copy);
@@ -71,9 +71,9 @@ public class SlotDictionary extends SlotFake {
 			}
 
 			if (stackSlot != null && stackHeld == null) {
-				if (DictionaryHelper.isInDictionary(stackSlot)) {
-					if (DictionaryHelper.isWhitelisted(stackSlot)) {
-						String name = DictionaryHelper.getDictionaryName(stackSlot);
+				if (OreDicHelper.isInDictionary(stackSlot)) {
+					if (OreDicHelper.isWhitelisted(stackSlot)) {
+						String name = OreDicHelper.getDictionaryName(stackSlot);
 						int id = getOrePos(stackSlot);
 						if (OreDictionary.getOres(name).size() > 0) {
 							id++;
@@ -86,7 +86,7 @@ public class SlotDictionary extends SlotFake {
 							}
 						}
 
-						stack = OreDictionary.getOres(DictionaryHelper.getDictionaryName(stackSlot)).get(id);
+						stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stackSlot)).get(id);
 						slot.putStack(stack);
 					}
 				}
@@ -99,7 +99,7 @@ public class SlotDictionary extends SlotFake {
 	// Gets the Ore position
 	private int getOrePos(ItemStack input) {
 		int id = 0;
-		String name = DictionaryHelper.getDictionaryName(input);
+		String name = OreDicHelper.getDictionaryName(input);
 		ArrayList<ItemStack> ores = OreDictionary.getOres(name);
 		for (ItemStack item : ores) {
 			if (OreDictionary.itemMatches(item, input, true)) {
@@ -114,7 +114,7 @@ public class SlotDictionary extends SlotFake {
 
 	// Returns the Exception to the rule if something exists!
 	private ItemStack checkException(ItemStack stack, String name) {
-		if (!DictionaryHelper.isWhitelisted(stack)) {
+		if (!OreDicHelper.isWhitelisted(stack)) {
 			return null;
 		}
 

@@ -7,7 +7,7 @@ import java.util.logging.Level;
 
 import mariculture.api.core.IVatHandler;
 import mariculture.api.core.RecipeVat;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -18,7 +18,7 @@ public class VatHandler implements IVatHandler {
 	}
 	
 	public String getName(ItemStack stack) {
-		return DictionaryHelper.convert(stack);
+		return OreDicHelper.convert(stack);
 	}
 	
 	@Override
@@ -31,11 +31,12 @@ public class VatHandler implements IVatHandler {
 		
 		if(recipe.inputFluid2 != null && recipe.inputItem != null)
 			recipes.put(Arrays.asList(getName(recipe.inputFluid1), getName(recipe.inputFluid2), getName(recipe.inputItem)), recipe);
-		if(recipe.inputItem != null)
+		else if(recipe.inputItem != null)
 			recipes.put(Arrays.asList(getName(recipe.inputFluid1), getName(recipe.inputItem)), recipe);
-		if(recipe.inputFluid2 != null)
+		else if(recipe.inputFluid2 != null)
 			recipes.put(Arrays.asList(getName(recipe.inputFluid1), getName(recipe.inputFluid2)), recipe);
-		recipes.put(Arrays.asList(recipe.inputFluid1), recipe);
+		else 
+			recipes.put(Arrays.asList(recipe.inputFluid1), recipe);
 	}
 	
 	@Override

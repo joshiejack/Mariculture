@@ -114,7 +114,7 @@ public class RecipeHelper {
 	 * @param wheel - Outer Rim
 	 * @param spoke - Inner Piece */
 	public static void addWheelRecipe(ItemStack output, Object wheel, Object spoke) {
-		addShapedRecipe(output, new Object[] { " W ", "WSP", " W ", 'W', wheel, 'S', spoke });
+		addShapedRecipe(output, new Object[] { " W ", "WSW", " W ", 'W', wheel, 'S', spoke });
 	}
 
 	/** Adds a fuel to be used by the smelter

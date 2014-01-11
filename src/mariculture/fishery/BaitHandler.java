@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import mariculture.api.fishery.IBaitHandler;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.WeightedRandom;
@@ -29,12 +29,12 @@ public class BaitHandler implements IBaitHandler {
 				int min = Integer.parseInt(params[i + 2].toString());
 				int max = Integer.parseInt(params[i + 3].toString());
 
-				if (!DictionaryHelper.isInDictionary(input)) {
+				if (!OreDicHelper.isInDictionary(input)) {
 					addOtherBlock(bait, rarity, min, max, input);
 					blockList.put(Arrays.asList(input.itemID, input.getItemDamage()), true);
 				} else {
-					addBlock(bait, rarity, min, max, DictionaryHelper.getDictionaryName(input));
-					blockList.put(DictionaryHelper.getDictionaryName(input), true);
+					addBlock(bait, rarity, min, max, OreDicHelper.getDictionaryName(input));
+					blockList.put(OreDicHelper.getDictionaryName(input), true);
 				}
 			}
 		}
@@ -65,8 +65,8 @@ public class BaitHandler implements IBaitHandler {
 
 		boolean hasBlock = false;
 
-		if (DictionaryHelper.isInDictionary(stack)) {
-			if (blockList.get(DictionaryHelper.getDictionaryName(stack)) != null) {
+		if (OreDicHelper.isInDictionary(stack)) {
+			if (blockList.get(OreDicHelper.getDictionaryName(stack)) != null) {
 				hasBlock = true;
 			}
 		}
@@ -83,8 +83,8 @@ public class BaitHandler implements IBaitHandler {
 			while (!foundSameBlock) {
 				ret = (BaitLoot) WeightedRandom.getRandomItem(rand, baitLoot);
 
-				if (DictionaryHelper.isInDictionary(stack)) {
-					if (ret.stackDictionary == DictionaryHelper.getDictionaryName(stack)) {
+				if (OreDicHelper.isInDictionary(stack)) {
+					if (ret.stackDictionary == OreDicHelper.getDictionaryName(stack)) {
 						foundSameBlock = true;
 					}
 				} else if (ret.stackInput != null && ret.stackInput.itemID == stack.itemID) {

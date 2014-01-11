@@ -12,7 +12,7 @@ import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.UtilMeta;
@@ -341,8 +341,8 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	}
 	
 	public int getFluidAmount(ItemStack stack, int amount) {
-		if(DictionaryHelper.isInDictionary(stack)) {
-			String name = DictionaryHelper.getDictionaryName(stack);
+		if(OreDicHelper.isInDictionary(stack)) {
+			String name = OreDicHelper.getDictionaryName(stack);
 			if(name.startsWith("ore")){
 				amount+= (purity * (MetalRates.NUGGET));
 			}

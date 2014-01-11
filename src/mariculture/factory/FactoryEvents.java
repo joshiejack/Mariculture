@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import mariculture.core.Mariculture;
 import mariculture.core.handlers.KeyBindingHandler;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.KeyHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
@@ -72,7 +73,7 @@ public class FactoryEvents {
 
 				if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
 						&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.TURBO) {
-					if (GameSettings.isKeyDown(KeyBindingHandler.fludd) && !player.isSneaking()) {
+					if (KeyHelper.FLUDD_KEY_DOWN && !player.isSneaking()) {
 						if (player.isInWater()) {
 							player.moveFlying(0.0F, 1.0F, 0.05F);
 						} else if (player.onGround) {
@@ -90,7 +91,7 @@ public class FactoryEvents {
 
 				if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
 						&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.ROCKET) {
-					if (GameSettings.isKeyDown(KeyBindingHandler.fludd) && !player.isSneaking()) {
+					if (KeyHelper.FLUDD_KEY_DOWN && !player.isSneaking()) {
 						if (jumpTick < 10) {
 							player.addVelocity(0, 0.35, 0);
 
@@ -112,7 +113,7 @@ public class FactoryEvents {
 
 				if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
 						&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.HOVER) {
-					if (GameSettings.isKeyDown(KeyBindingHandler.fludd) && !player.isSneaking()) {
+					if (KeyHelper.FLUDD_KEY_DOWN && !player.isSneaking()) {
 						if (hoverTick >= 128) {
 							disableHover(player);
 						} else {

@@ -52,12 +52,11 @@ public class RenderSingleItem implements IItemRenderer {
 			oyster.renderInventory(type);
 		}
 
-		if (Modules.diving.isActive()) {
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.AIR_PUMP) {
-				Minecraft.getMinecraft().getTextureManager().bindTexture(AIR_PUMP);
-				pump.renderInventory(type);
-			}
+		if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.AIR_PUMP) {
+			Minecraft.getMinecraft().getTextureManager().bindTexture(AIR_PUMP);
+			pump.renderInventory(type);
 		}
+
 		if (Modules.factory.isActive()) {
 			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE);

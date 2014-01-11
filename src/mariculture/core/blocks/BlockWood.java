@@ -9,6 +9,11 @@ public class BlockWood extends BlockDecorative {
 	}
 	
 	@Override
+	public boolean isActive(int meta) {
+		return false;
+	}
+	
+	@Override
 	public int getMetaCount() {
 		return WoodMeta.COUNT;
 	}

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import mariculture.api.core.IIngotCasterHandler;
 import mariculture.api.core.RecipeIngotCasting;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
@@ -35,7 +35,7 @@ public class IngotCastingHandler implements IIngotCasterHandler {
 
 	//Attempt to fetch the texture, using the ore dictionary
 	public static Icon getTexture(ItemStack stack) {
-		String name = DictionaryHelper.getDictionaryName(stack);
+		String name = OreDicHelper.getDictionaryName(stack);
 		name = name.substring(5);
 		name = "block" + name;
 		

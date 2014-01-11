@@ -55,15 +55,13 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 	
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
-		if(world.isDaytime()) {
-			if(world.getBlockMetadata(x, y, z) == CoralMeta.KELP) {
-				updateKelp(world, x, y, z, rand);
-			} else if(world.getBlockId(x, y - 1, z) != this.blockID) { 
-				if(world.getBlockMetadata(x, y, z) == CoralMeta.KELP_MIDDLE) {
-					updateMoss(world, x, y, z, rand);
-				} else {
-					updateCoral(world, x, y, z, rand);
-				}
+		if(world.getBlockMetadata(x, y, z) == CoralMeta.KELP) {
+			updateKelp(world, x, y, z, rand);
+		} else if(world.getBlockId(x, y - 1, z) != this.blockID) { 
+			if(world.getBlockMetadata(x, y, z) == CoralMeta.KELP_MIDDLE) {
+				updateMoss(world, x, y, z, rand);
+			} else {
+				updateCoral(world, x, y, z, rand);
 			}
 		}
 	}

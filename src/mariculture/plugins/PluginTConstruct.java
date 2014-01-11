@@ -167,12 +167,14 @@ public class PluginTConstruct extends Plugin {
 
 	public static void addMelting() {
 		//Melt Down Titanium
+		PluginTConstruct.addMelting("ingotRutile", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.INGOT), 800);
 		PluginTConstruct.addMelting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
 		PluginTConstruct.addMelting("oreRutile", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.ORE), 800);
 		PluginTConstruct.addMelting("dustTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 800);
 		PluginTConstruct.addMelting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 800);
 		PluginTConstruct.addMelting("nuggetTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.NUGGET), 800);
 		// >> Form Ingot and Block
+		PluginTConstruct.addCasting("ingotRutile", new FluidStack(FluidRegistry.getFluid(FluidDictionary.rutile), MetalRates.INGOT), 100);
 		PluginTConstruct.addCasting("ingotTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 100);
 		PluginTConstruct.addBlockCasting("blockTitanium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.BLOCK), 100);
 		//Melt Down Magnesium

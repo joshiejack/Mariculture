@@ -26,118 +26,51 @@ import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.TickType;
 
 public class KeyBindingHandler extends KeyHandler {
-	private static KeyBinding boost = (Modules.magic.isActive())? new KeyBinding(StatCollector.translateToLocal("key.boost"), Keyboard.KEY_LCONTROL): null;
-	private static KeyBinding toggle = (Modules.magic.isActive())? new KeyBinding(StatCollector.translateToLocal("key.toggle"), Keyboard.KEY_Y): null;
-	public static KeyBinding fludd = (Modules.factory.isActive())? new KeyBinding(StatCollector.translateToLocal("key.fludd"), Keyboard.KEY_V): null;
+	public static KeyBinding boost = new KeyBinding(StatCollector.translateToLocal("key.boost"), Keyboard.KEY_LCONTROL);
+	public static KeyBinding toggle = new KeyBinding(StatCollector.translateToLocal("key.toggle"), Keyboard.KEY_Y);
 
 	public KeyBindingHandler() {
-		super(new KeyBinding[] { boost, toggle, fludd }, new boolean[] { false, false, true });
+		super(new KeyBinding[] { boost, toggle }, new boolean[] { false, false });
 	}
 
 	@Override
 	public String getLabel() {
-		return "MaricultureKeyBindings";
+		return "Mariculture Default Key Bindings";
 	}
 
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-		if (FMLClientHandler.instance().getClient().inGameHasFocus) {
-			EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
-			GuiNewChat chat = FMLClientHandler.instance().getClient().ingameGUI.getChatGUI();
-			boolean isSneaking = player.isSneaking();
-			
-			if(isPressed(boost)) {
-				KeyHelper.ACTIVATE_PRESSED = true;
-			}
-			
-			if(isPressed(fludd )&& !GameSettings.isKeyDown(toggle) && !isSneaking) {
-				FactoryEvents.activateSquirt(player);
-			}
+		EntityPlayer player = KeyHelper.getPlayer();
+		if(KeyHelper.inFocus()) {
+			KeyHelper.ACTIVATE_PRESSED = kb == boost;
+			KeyHelper.TOGGLE_DOWN = kb == toggle;
 		}
-	}
-	
-	public boolean isPressed(KeyBinding kb) {
-		if(kb == null)
-			return false;
-		
-		return (kb == boost && Modules.magic.isActive() || kb == fludd && Modules.factory.isActive() 
-				|| kb == toggle && (Modules.factory.isActive() || Modules.magic.isActive()));
 	}
 
 	@Override
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
-		if (FMLClientHandler.instance().getClient().inGameHasFocus && tickEnd) {
-			EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
-			GuiNewChat chat = FMLClientHandler.instance().getClient().ingameGUI.getChatGUI();
+		KeyHelper.ACTIVATE_PRESSED = false;
+		KeyHelper.TOGGLE_DOWN = false;
+		
+		if(KeyHelper.inFocus() && tickEnd) {
+			EntityPlayer player = KeyHelper.getPlayer();
 			boolean isSneaking = player.isSneaking();
 			
-			if(isPressed(boost)) {
-				KeyHelper.ACTIVATE_PRESSED = false;
-				if (player instanceof EntityClientPlayerMP) {
+			if(Modules.magic.isActive()) {
+				if(kb == boost)
 					switchJewelry((EntityClientPlayerMP) player);
-				}
-			}
-
-
-			if (isPressed(toggle) && GameSettings.isKeyDown(fludd)) {
-				boolean cont = false;
-				for (int i = 0; i < 4; i++) {
-					if (player.inventory.armorInventory[i] != null) {
-						if (player.inventory.armorInventory[i].itemID == Factory.fludd.itemID) {
-							if (player.inventory.armorInventory[i].hasTagCompound()) {
-								int mode = player.inventory.armorInventory[i].stackTagCompound.getInteger("mode");
-								mode++;
-								if (mode > 3) {
-									mode = 0;
-								}
-
-								chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
-								player.inventory.armorInventory[i].stackTagCompound.setInteger("mode", mode);
-							}
+				if(kb == toggle) {
+					if(isSneaking) {
+						if (EnchantmentSpider.activated) {
+							EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
+							KeyHelper.addToChat(EnchantmentSpider.getChat());
 						}
-					}
-				}
-				
-				return;
-			}
-
-			if (isPressed(toggle)) {
-				if (EnchantmentSpider.activated && isSneaking) {
-					if (EnchantmentSpider.toggledOn == false) {
-						chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.enabledSpider"));
-						EnchantmentSpider.toggledOn = true;
-						return;
-					}
-
-					if (isSneaking && EnchantmentSpider.toggledOn == true) {
-						chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.disabledSpider"));
-						EnchantmentSpider.toggledOn = false;
-					}
-				}
-
-				if (EnchantmentGlide.hasGlide > 0 && !isSneaking) {
-					if (EnchantmentGlide.toggleOn == 0) {
-						chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.enabledGlide"));
-						EnchantmentGlide.toggleOn = 1;
-						EnchantmentGlide.keyCoolDown = 20;
-
-						return;
-					} else if (EnchantmentGlide.toggleOn == 1) {
-						if (EnchantmentGlide.hasGlide > 0) {
-							chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.enabledFastFall"));
-							EnchantmentGlide.toggleOn = 2;
-						} else {
-							chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
-							EnchantmentGlide.toggleOn = 0;
+					} else {
+						if(EnchantmentGlide.keyCoolDown > 0)
+							EnchantmentGlide.keyCoolDown--;
+						if (EnchantmentGlide.hasGlide > 0 && EnchantmentGlide.keyCoolDown <= 0) {
+							EnchantmentGlide.toggle();
 						}
-
-						EnchantmentGlide.keyCoolDown = 20;
-						return;
-					} else if (EnchantmentGlide.toggleOn == 2) {
-						chat.printChatMessage(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
-						EnchantmentGlide.toggleOn = 0;
-						EnchantmentGlide.keyCoolDown = 20;
-						return;
 					}
 				}
 			}

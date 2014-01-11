@@ -8,9 +8,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.core.Core;
+import mariculture.core.Mariculture;
 import mariculture.core.gui.GuiGuide;
 import mariculture.core.helpers.XMLHelper;
+import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.AirMeta;
+import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -38,6 +41,7 @@ import org.w3c.dom.NodeList;
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class GuideHandler {
+	private static final ResourceLocation elements = new ResourceLocation(Mariculture.modid, "textures/gui/guide_elements.png");
 	public static final HashMap icons = new HashMap();
 	protected static RenderItem itemRenderer = new RenderItem();
 	
@@ -46,6 +50,8 @@ public class GuideHandler {
 		icons.put("ingotAluminum", new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM));
 		icons.put("ingotIron", new ItemStack(Item.ingotIron));
 		icons.put("glassPane", new ItemStack(Block.thinGlass));
+		icons.put("ingotCopper", new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER));
+		icons.put("vat", new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT));
 		
 		if(Modules.magic.isActive()) {
 			icons.put("basicMirror", Magic.basicMirror.getIconFromDamage(0));
@@ -53,9 +59,7 @@ public class GuideHandler {
 	}
 	
 	public static NodeList fetch(String xml) {
-		String lang = FMLClientHandler.instance().getCurrentLanguage();
-		System.out.println(lang);
-		
+		String lang = FMLClientHandler.instance().getCurrentLanguage();		
 		InputStream in = GuideHandler.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_" + lang + ".xml");
 		if(in == null)
 			in = GuideHandler.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_en_US.xml");
@@ -111,12 +115,21 @@ public class GuideHandler {
 		String [] craft1 = line1.split("\\s*,\\s*");
 		String [] craft2 = line2.split("\\s*,\\s*");
 		String [] craft3 = line3.split("\\s*,\\s*");
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
+		gui.getMC().getTextureManager().bindTexture(elements);
+		gui.drawTexturedModalRect(x - 1, y - 1, 0, 0, 58, 58);
 		
 		for(int i = 0; i < 3; i++) {
-			drawItemStack(gui, (ItemStack) icons.get(craft1[i]), x + (i * 18), y + 0);
-			drawItemStack(gui, (ItemStack) icons.get(craft2[i]), x + (i * 18), y + 18);
-			drawItemStack(gui, (ItemStack) icons.get(craft3[i]), x + (i * 18), y + 36);
+			drawItemStack(gui, (ItemStack) icons.get(craft1[i]), x + (i * 20), y + 0);
+			drawItemStack(gui, (ItemStack) icons.get(craft2[i]), x + (i * 20), y + 20);
+			drawItemStack(gui, (ItemStack) icons.get(craft3[i]), x + (i * 20), y + 40);
 		}
+		
+		drawItemStack(gui, (ItemStack) icons.get(output), x + 64, y + 18);
+		if(number < 10)
+			gui.getMC().fontRenderer.drawString("x" + number, x + 67, y + 36, 4210752);
+		else
+			gui.getMC().fontRenderer.drawString("x" + number, x + 63, y + 36, 4210752);
 	}
 	
 	private static void parseTextPage(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
@@ -124,7 +137,7 @@ public class GuideHandler {
 		String heading = xml.getElementString("heading");
 		//Heading >>
 		int boost = (left)? 80: 20;
-		font.drawString("§o" + heading, x + boost, y, 4210752);
+		font.drawString(StringHelper.BOLD + heading, x + boost, y, 4210752);
 
 		String text = xml.getElementString("text");	
 		font.drawSplitString(text, x, y + 14, 180, 4210752);

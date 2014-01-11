@@ -5,7 +5,7 @@ import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
@@ -153,14 +153,14 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 							byte byte0 = nbt.getByte("Slot");
 							if (byte0 >= 0 && byte0 < ItemFilter.SIZE) {
 								ItemStack aStack = ItemStack.loadItemStackFromNBT(nbt);
-								if(DictionaryHelper.areEqual(aStack, stack)) {
+								if(OreDicHelper.areEqual(aStack, stack)) {
 									return aStack;
 								}
 							}
 						}
 					}
 				} else {
-					if(DictionaryHelper.areEqual(filtered, stack)) {
+					if(OreDicHelper.areEqual(filtered, stack)) {
 						return filtered;
 					}
 				}

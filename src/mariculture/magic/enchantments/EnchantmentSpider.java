@@ -7,6 +7,7 @@ import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class EnchantmentSpider extends EnchantmentJewelry {
 	public static boolean activated = false;
@@ -73,5 +74,12 @@ public class EnchantmentSpider extends EnchantmentJewelry {
 
 	public static void set(boolean spider) {
 		activated = spider;
+	}
+
+	public static String getChat() {
+		if(toggledOn)
+			return StatCollector.translateToLocal("mariculture.string.enabledSpider");
+		else
+			return StatCollector.translateToLocal("mariculture.string.disabledSpider");
 	}
 }

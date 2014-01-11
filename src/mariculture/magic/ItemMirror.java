@@ -3,7 +3,7 @@ package mariculture.magic;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Mariculture;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.Jewelry;
@@ -52,7 +52,7 @@ public class ItemMirror extends ItemStorage {
 	
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-		return DictionaryHelper.getDictionaryName(stack2).equals("ingotAluminum");
+		return OreDicHelper.getDictionaryName(stack2).equals("ingotAluminum");
 	}
 	
 	@Override

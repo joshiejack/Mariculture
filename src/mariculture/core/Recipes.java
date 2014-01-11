@@ -233,7 +233,7 @@ public class Recipes {
 		});
 
 		//Carbide
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.CARBIDE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE), new Object[] {
 			"CSF", "FBS", "SFC", 'C', Item.clay, 'F', new ItemStack(Item.coal, 1, 0), 'S', Block.sand, 'B', Block.blockClay
 		});
 
@@ -274,231 +274,215 @@ public class Recipes {
 	}
 	
 	private static void addUpgradeRecipes() {
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE), new Object[] {
-						"WPW", "DCD", "WPW", Character.valueOf('D'), 
-						Block.dirt, Character.valueOf('P'), "plankWood",
-						Character.valueOf('C'), Block.chest, 
-						Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER) }));
+		//Basic Storage
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE), new Object[] {
+			"WPW", "DCD", "WPW", 'D', "ingotCopper", 'P', "plankWood", 'C', Block.chest,
+			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_STORAGE), new Object[] {
-						"PWP", "SUS", "PWP", 
-						Character.valueOf('S'), "ingotCopper", 
-						Character.valueOf('P'), "slabWood",
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE),
-						Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER) }));
+		//Standard Storage
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_STORAGE), new Object[] {
+			"WCW", "CUC", "STS", 'C', "ingotCopper", 'S', "slabWood", 'T', Block.chestTrapped,
+			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE), new Object[] {
-						"AWA", "MUM", "WAW", 
-						Character.valueOf('A'), "ingotCopper", 
-						Character.valueOf('M'), "ingotAluminum", 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_STORAGE), 
-						Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER) }));
+		//Advanced Storage
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE), new Object[] {
+			"CSC", "AUA", "WTW", 'C', "ingotCopper", 'S', "slabWood", 'T', Block.chestTrapped,
+			'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
+			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_STORAGE)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_STORAGE), new Object[] {
-						"ATA", "WUW", "TCT", 
-						Character.valueOf('A'), "ingotCopper", 
-						Character.valueOf('T'), "ingotAluminum", 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE), 
-						Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
-						Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL) }));
+		//Ultimate Storage
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_STORAGE), new Object[] {
+			"GWG", "WUW", "ATA", 'G', "ingotGold", 'T', Block.chestTrapped,
+			'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
+			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_COOLING), new Object[] {
-						" S ", "CBC", " S ", 
-						Character.valueOf('S'), Item.snowball, 
-						Character.valueOf('B'), Block.blockSnow, 
-						Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER) }));
+		//Basic Cooling
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_COOLING), new Object[] {
+			" S ", "CBC", " S ", 'S', Item.snowball, 'B', Block.blockSnow, 
+			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING), new Object[] {
-						"ACA", "SUS", "CAC", 
-						Character.valueOf('S'), Item.snowball, 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_COOLING), 
-						Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 
-						Character.valueOf('A'), "ingotAluminum" }));
+		//Standard Cooling
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING), new Object[] {
+			"ACA", "SUS", "CAC", 'S', Item.snowball, 'A', "ingotAluminum", 
+			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_COOLING)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING), new Object[] {
-						"CTC", "IUI", "TRT", 
-						Character.valueOf('I'), Block.ice, 
-						Character.valueOf('R'), "ingotIron",
-						Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
-						Character.valueOf('T'), "ingotTitanium", 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING) }));
+		//Advanced Cooling
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING), new Object[] {
+			"CTC", "IUI", "TRT", 'I', Block.ice, 'R', "ingotIron", 'T', "ingotAluminum",
+			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_COOLING), new Object[] {
-						"TCT", "IUI", "GDG", 
-						Character.valueOf('I'), Block.ice, 
-						Character.valueOf('G'), Item.ingotGold,
-						Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
-						Character.valueOf('T'), "ingotTitanium", 
-						Character.valueOf('D'), Item.diamond,
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING) }));
+		//Ultimate Cooling
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_COOLING), new Object[] {
+			"TCT", "IUI", "CDC", 'I', Block.ice, 'D', "ingotAluminum", 'T', "ingotTitanium",
+			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING), new Object[] {
-						"HIH", 
-						Character.valueOf('I'), "ingotIron", 
-						Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
+		//Basic Heating
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING), new Object[] {
+			"HIH", 'I', "ingotIron", 'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING), new Object[] {
-						"A A", "HUH", " A ", 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING), 
-						Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), 
-						Character.valueOf('A'), "ingotAluminum" }));
+		//Standard Heating
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING), new Object[] {
+			"A A", "HUH", " A ", 'A', "ingotAluminum",
+			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING), new Object[] {
-						"IHI", "TUT", "IHI", 
-						Character.valueOf('T'), "ingotTitanium", 
-						Character.valueOf('I'), "ingotIron", 
-						Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING) }));
-		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_HEATING), new Object[] {
-						"TDT", "HUH", "GTG", 
-						Character.valueOf('G'), Item.ingotGold, 
-						Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), 
-						Character.valueOf('T'),
-						"ingotTitanium", 
-						Character.valueOf('D'), Item.diamond, 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING) }));
+		//Advanced Heating
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING), new Object[] {
+			"IHI", "TUT", "IHI", 'T', "ingotTitanium", 'I', "ingotIron",
+			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING)
+		});
+	
+		//Ultimate Heating
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_HEATING), new Object[] {
+			"TDT", "HUH", "GTG", 'G', "ingotGold", 'T', "ingotTitanium", 'D', Item.blazeRod,
+			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING)
+		});
 		
 		ItemStack heart = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): new ItemStack(Item.potion, 1, 8197);
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY), new Object[] {
-						"MPM", "PIP", "MPM", 
-						Character.valueOf('P'), new ItemStack(Core.pearls, 1, PearlColor.WHITE),
-						Character.valueOf('I'), heart, 
-						Character.valueOf('M'), "ingotAluminum" }));
+		//Basic Purity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY), new Object[] {
+			"MPM", "PIP", "MPM", 'I', "dyeRed", 'M', "ingotAluminum",
+			'P', new ItemStack(Core.pearls, 1, PearlColor.WHITE)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_PURITY), new Object[] {
-						"PHP", "NUN", "MHM", 
-						Character.valueOf('P'), new ItemStack(Core.pearls, 1, PearlColor.WHITE),
-						Character.valueOf('H'), heart, 
-						Character.valueOf('M'), "ingotAluminum",
-						Character.valueOf('N'), "ingotTitanium",
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY) }));
+		//Standard Purity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_PURITY), new Object[] {
+			"PHP", "NUN", "MHM", 'H', heart, 'N', "ingotTitanium", 'M', "ingotAluminum",
+			'P', new ItemStack(Core.pearls, 1, PearlColor.WHITE),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_PURITY), new Object[] {
-						"PSP", "AUA", "TPT", 
-						Character.valueOf('P'), new ItemStack(Core.pearls, 1, PearlColor.WHITE),
-						Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
-						Character.valueOf('T'), "ingotTitanium", 
-						Character.valueOf('A'), heart,
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_PURITY) }));
+		//Advanced Purity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_PURITY), new Object[] {
+			"PSP", "AUA", "TPT", 'A', heart, 'T', "ingotTitanium",
+			'P', new ItemStack(Core.pearls, 1, PearlColor.WHITE),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY),
+			'S', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK)
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_PURITY), new Object[] {
-						"PSP", "TUT", "PAP", 
-						Character.valueOf('P'), new ItemStack(Core.pearls, 1, PearlColor.WHITE),
-						Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD),
-						Character.valueOf('T'), "ingotTitanium", 
-						Character.valueOf('A'), heart,
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_PURITY) }));
+		//Ultimate Purity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_PURITY), new Object[] {
+			"PSP", "TUT", "PAP", 'A', heart, 'T', "ingotTitanium",
+			'P', new ItemStack(Core.pearls, 1, PearlColor.WHITE),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_PURITY),
+			'S', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
+		});
 		
 		ItemStack attack = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Item.potion, 1, 8204);
 		ItemStack poison = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): new ItemStack(Item.potion, 1, 8228);
 		ItemStack night = (Modules.fishery.isActive())? new ItemStack(Fishery.fishyFood, 1, Fishery.night.fishID): new ItemStack(Item.enderPearl);
 		ItemStack ender = (Modules.fishery.isActive())? new ItemStack(Fishery.fishyFood, 1, Fishery.ender.fishID): new ItemStack(Item.eyeOfEnder);
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY), new Object[] {
-						"NWN", "ESE", "NGN", 
-						Character.valueOf('N'), Block.netherrack, 
-						Character.valueOf('W'), Item.netherStalkSeeds, 
-						Character.valueOf('E'), Item.fermentedSpiderEye, 
-						Character.valueOf('S'), attack,
-						Character.valueOf('G'), Item.ingotGold }));
+		//Basic Impurity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY), new Object[] {
+			"NWN", "ESE", "NGN", 'N', Block.netherrack, 'W', Item.netherStalkSeeds, 
+			'E', Item.fermentedSpiderEye, 'S', Item.bone, 'G', "ingotGold"
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_IMPURITY), new Object[] {
-						"TGT", "SUS", "PFP", 
-						Character.valueOf('T'), Item.ghastTear, 
-						Character.valueOf('F'), Item.fermentedSpiderEye,
-						Character.valueOf('P'), poison, 
-						Character.valueOf('S'), attack, 
-						Character.valueOf('G'),
-						new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY) }));
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_IMPURITY), new Object[] {
-						"HGH", "FUF", "SPS", 
-						Character.valueOf('F'), night, 
-						Character.valueOf('P'), poison, 
-						Character.valueOf('H'), attack, 
-						Character.valueOf('S'), Item.fermentedSpiderEye,
-						Character.valueOf('G'), Block.blockGold, 
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_IMPURITY) }));
+		//Standard Impurity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_IMPURITY), new Object[] {
+			"TGT", "SUS", "PFP", 'T', Item.ghastTear, 'F', Item.fermentedSpiderEye, 'P', poison, 'S', attack,
+			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY),
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_IMPURITY), new Object[] {
-						"SGS", "PUP", "FSF", 
-						Character.valueOf('F'), ender, 
-						Character.valueOf('P'), poison, 
-						Character.valueOf('S'), attack,
-						Character.valueOf('G'), new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD),
-						Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_IMPURITY) }));
+		//Advanced Impurity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_IMPURITY), new Object[] {
+			"HGH", "FUF", "SPS", 'F', night, 'P', poison, 'H', attack, 'S', Item.fermentedSpiderEye, 'G', "blockGold",
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_IMPURITY),
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ETHEREAL), new Object[] { "PUP",
-						"GEG", "PDP", 
-						Character.valueOf('P'), Item.enderPearl, 
-						Character.valueOf('G'), Item.ingotGold,
-						Character.valueOf('E'), Item.eyeOfEnder, 
-						Character.valueOf('D'), Item.diamond,
-						Character.valueOf('U'), Block.torchRedstoneActive }));
+		//Ultimate Impurity
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_IMPURITY), new Object[] {
+			"SGS", "PUP", "FSF", 'F', ender, 'P', poison, 'S', attack,
+			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_IMPURITY),
+		});
+		
+		//Ethereal
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ETHEREAL), new Object[] {
+			"PUP", "GEG", "PDP", 'P', Item.enderPearl, 'G', "ingotGold", 
+			'E', Item.eyeOfEnder, 'D', Item.diamond, 'U', Block.torchRedstoneActive
+		});
+		
+		//Salinator
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.SALINATOR), new Object[] {
+			"ASA", "SUS", "MAM", 'A', "ingotAluminum", 'S', "dustSalt", 'M', "ingotMagnesium",
+			 'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY)
+		});
+		
+		//Filtrator
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.FILTER), new Object[] {
+			"MPM", "CUC", "AMA", 'A', "ingotAluminum", 'M', "ingotMagnesium",
+			'P', new ItemStack(Core.pearls, 1, PearlColor.BLUE),
+			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY)
+		});
+		
+		//Basic Speed Upgrade
+		RecipeHelper.addWheelRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_SPEED), "ingotIron", Item.sugar);
+		
+		//Standard Speed Upgrade
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_SPEED), new Object[] {
+			" S ", "AUA", " S ", 'A', "ingotAluminum", 'S', Item.sugar,
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_SPEED)
+		});
+		
+		//Advanced Speed Upgrade
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_SPEED), new Object[] {
+			"ASA", "TUT", "SNS", 'A', "ingotAluminum", 'S', Item.sugar, 'T', "ingotTitanium", 'N', Block.slowSand,
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_SPEED)
+		});
+		
+		//Ultimate Speed Upgrade
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_SPEED), new Object[] {
+			"TRT", "SUS", "ARA", 'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET), 'S', Item.sugar, 
+			'T', "ingotTitanium", 'R', Block.railPowered,
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_SPEED)
+		});
+		
+		//Basic Capacitor
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_RF), new Object[] {
+			" T ", "CRC", 'T', Block.torchRedstoneActive, 'C', "ingotCopper", 'R', "dustRedstone"
+		});
+		
+		//Standard Capacitor
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_RF), new Object[] {
+			"CTC", "QUQ", "RCR", 'C', "ingotCopper", 'T', Block.torchRedstoneActive, 'Q', Item.netherQuartz, 'R', Item.redstoneRepeater,
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_RF)
+		});
+		
+		//Advanced Capacitor
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_RF), new Object[] {
+			" D ", "RUR", "QCQ", 'D', "dustRedstone", 'Q', Item.netherQuartz, 'R', Item.redstoneRepeater,
+			'C', new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_RF)
+		});
+		
+		//Ultimate Capacitor
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_RF), new Object[] {
+			" C ", "RUR", "QBQ", 'Q', Item.comparator, 'R', "dustRedstone", 'B', "blockRedstone",
+			'C', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
+			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_RF)
+		});
 	}
 }

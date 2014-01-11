@@ -25,10 +25,6 @@ public class Plugins {
 			plugins.add(this);
 		}
 
-		public boolean isLoaded() {
-			return Loader.isModLoaded(this.name);
-		}
-		
 		public void load(Stage stage) {
 			try {
 				switch(stage) {
@@ -53,12 +49,14 @@ public class Plugins {
 	}
 	
 	public void add(String str) {
-		try {
-			Class clazz = Class.forName("mariculture.plugins.Plugin" + str);
-			Constructor constructor = clazz.getConstructor(new Class[] {String.class});
-			constructor.newInstance(new Object[] {str});
-		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture - Something went wrong when initializing " + str + " Plugin");
+		if(Loader.isModLoaded(str)) {
+			try {
+				Class clazz = Class.forName("mariculture.plugins.Plugin" + str);
+				Constructor constructor = clazz.getConstructor(new Class[] {String.class});
+				constructor.newInstance(new Object[] {str});
+			} catch (Exception e) {
+				LogHandler.log(Level.INFO, "Mariculture - Something went wrong when initializing " + str + " Plugin");
+			}
 		}
 	}
 
@@ -76,9 +74,7 @@ public class Plugins {
 
 	public void load(Stage stage) {
 		for (Plugin plug : plugins) {
-			if (plug.isLoaded()) {
-				plug.load(stage);
-			}
+			plug.load(stage);
 		}
 	}
 }

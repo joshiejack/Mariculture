@@ -19,6 +19,7 @@ import mariculture.core.render.VatSpecialRenderer;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.EntityFLUDDSquirt;
+import mariculture.factory.FLUDDKeyHandler;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileTurbineGas;
@@ -75,6 +76,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		RenderingRegistry.registerBlockHandler(new RenderDouble());
 		RenderingRegistry.registerBlockHandler(new RenderSingle());
@@ -84,10 +86,10 @@ public class ClientProxy extends CommonProxy {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
 			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
-			ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
 		}
 		
 		if(Modules.factory.isActive()) {
+			KeyBindingRegistry.registerKeyBinding(new FLUDDKeyHandler());
 			RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
 			RenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
 			MinecraftForgeClient.registerItemRenderer(Factory.customBlock.blockID, new RenderCustomItem());

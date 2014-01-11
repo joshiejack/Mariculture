@@ -6,7 +6,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IItemDropBlacklist;
@@ -83,7 +83,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 						return i;
 				}
 				
-				if(DictionaryHelper.areEqual(stack, item)) {
+				if(OreDicHelper.areEqual(stack, item)) {
 					return i;
 				}
 			}

@@ -8,7 +8,7 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import mariculture.core.Mariculture;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import net.minecraft.block.material.Material;
@@ -81,6 +82,8 @@ public class BlockTank extends BlockDecorative {
 
 	@Override
 	public boolean isActive(int meta) {
+		if(meta == TankMeta.FISH)
+			return Modules.fishery.isActive();
 		return meta != TankMeta.BOTTLE;
 	}
 

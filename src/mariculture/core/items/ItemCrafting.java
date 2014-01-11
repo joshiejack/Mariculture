@@ -140,7 +140,10 @@ public class ItemCrafting extends ItemMariculture {
 			return (Modules.factory.isActive());
 		case CraftingMeta.BLANK_PLAN:
 			return (Modules.factory.isActive());
-
+		case CraftingMeta.POLISHED_STICK:
+			return (Modules.fishery.isActive());
+		case CraftingMeta.ROD_TITANIUM:
+			return (Modules.fishery.isActive());
 		default:
 			return true;
 		}

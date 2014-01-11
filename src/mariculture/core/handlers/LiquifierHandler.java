@@ -8,7 +8,7 @@ import java.util.Map;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ISmelterHandler;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.util.Rand;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -20,16 +20,16 @@ public class LiquifierHandler implements ISmelterHandler {
 	@Override
 	public void addRecipe(RecipeSmelter recipe) {
 		if(recipe.input2 != null)
-			recipes.put(Arrays.asList(DictionaryHelper.convert(recipe.input), DictionaryHelper.convert(recipe.input2)), recipe);
+			recipes.put(Arrays.asList(OreDicHelper.convert(recipe.input), OreDicHelper.convert(recipe.input2)), recipe);
 		else
-			recipes.put(DictionaryHelper.convert(recipe.input), recipe);
+			recipes.put(OreDicHelper.convert(recipe.input), recipe);
 	}
 
 	@Override
 	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
-		RecipeSmelter recipe = (RecipeSmelter) recipes.get(Arrays.asList(DictionaryHelper.convert(input), DictionaryHelper.convert(input2)));
+		RecipeSmelter recipe = (RecipeSmelter) recipes.get(Arrays.asList(OreDicHelper.convert(input), OreDicHelper.convert(input2)));
 		if(recipe == null)
-			recipe = (RecipeSmelter) recipes.get(DictionaryHelper.convert(input));
+			recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
 		if(recipe != null) {
 			FluidStack fluid = recipe.fluid.copy();
 			if(temp < recipe.temp && temp != -1)
@@ -72,7 +72,7 @@ public class LiquifierHandler implements ISmelterHandler {
 	@Override
 	public void addFuel(Object fuel, FuelInfo info) {
 		if(fuel instanceof ItemStack)
-			fuels.put(DictionaryHelper.convert((ItemStack)fuel), info);
+			fuels.put(OreDicHelper.convert((ItemStack)fuel), info);
 		if(fuel instanceof FluidStack)
 			fuels.put(getName((FluidStack) fuel), info);
 		else if (fuel instanceof String)
@@ -82,14 +82,14 @@ public class LiquifierHandler implements ISmelterHandler {
 	@Override
 	public FuelInfo getFuelInfo(Object obj) {
 		if(obj instanceof ItemStack)
-			return (FuelInfo)fuels.get(DictionaryHelper.convert((ItemStack)obj));
+			return (FuelInfo)fuels.get(OreDicHelper.convert((ItemStack)obj));
 		if(obj instanceof FluidStack)
 			return (FuelInfo)fuels.get(getName((FluidStack)obj));
 		return null;
 	}
 
 	public int getMeltingPoint(ItemStack stack) {
-		RecipeSmelter recipe = (RecipeSmelter) recipes.get(DictionaryHelper.convert(stack));
+		RecipeSmelter recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(stack));
 		
 		if (recipe != null) {
 			return recipe.temp;

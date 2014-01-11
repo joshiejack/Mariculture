@@ -4,11 +4,13 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.helpers.KeyHelper;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class EnchantmentGlide extends EnchantmentJewelry {
 	public EnchantmentGlide(final int i, final int weight, final EnumEnchantmentType type) {
@@ -41,11 +43,7 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 		}
 	}
 
-	public static void activate(final EntityPlayer player) {
-		if (keyCoolDown > 0) {
-			keyCoolDown--;
-		}
-
+	public static void activate(EntityPlayer player) {
 		if (hasGlide > 0 && player.motionY < 0.0F && !player.isOnLadder() && !player.handleWaterMovement()
 				&& !player.isSneaking() && toggleOn == 1) {
 			player.motionY /= 1.6F;
@@ -57,5 +55,27 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 
 	public static void set(final int glide) {
 		hasGlide = glide;
+	}
+
+	public static void toggle() {
+		if (toggleOn == 0) {
+			KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledGlide"));
+			toggleOn = 1;
+		} else if (EnchantmentGlide.toggleOn == 1) {
+			if (EnchantmentGlide.hasGlide > 0) {
+				KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledFastFall"));
+				toggleOn = 2;
+			} else {
+				KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
+				toggleOn = 0;
+			}
+
+			EnchantmentGlide.keyCoolDown = 20;
+		} else if (EnchantmentGlide.toggleOn == 2) {
+			KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
+			toggleOn = 0;
+		}
+		
+		keyCoolDown = 20;
 	}
 }

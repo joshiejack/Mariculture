@@ -52,7 +52,7 @@ import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.BlockTransferHelper;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
@@ -286,14 +286,15 @@ public class Core extends Module {
 	}
 
 	private void addToOreDictionary() {	
-		DictionaryHelper.add("glass", new ItemStack(Block.glass));
-		DictionaryHelper.add("ingotIron", new ItemStack(Item.ingotIron));
-		DictionaryHelper.add("ingotGold", new ItemStack(Item.ingotGold));
-		DictionaryHelper.add("blockIron", new ItemStack(Block.blockIron));
-		DictionaryHelper.add("blockGold", new ItemStack(Block.blockGold));
-		DictionaryHelper.add("blockLapis", new ItemStack(Block.blockLapis));
-		DictionaryHelper.add("blockCoal", new ItemStack(Block.coalBlock));
-		DictionaryHelper.add("dustRedstone", new ItemStack(Item.redstone));
+		OreDicHelper.add("glass", new ItemStack(Block.glass));
+		OreDicHelper.add("ingotIron", new ItemStack(Item.ingotIron));
+		OreDicHelper.add("ingotGold", new ItemStack(Item.ingotGold));
+		OreDicHelper.add("blockIron", new ItemStack(Block.blockIron));
+		OreDicHelper.add("blockGold", new ItemStack(Block.blockGold));
+		OreDicHelper.add("blockLapis", new ItemStack(Block.blockLapis));
+		OreDicHelper.add("blockCoal", new ItemStack(Block.coalBlock));
+		OreDicHelper.add("blockRedstone", new ItemStack(Block.blockRedstone));
+		OreDicHelper.add("dustRedstone", new ItemStack(Item.redstone));
 		
 		OreDictionary.registerOre("blockLimestone", new ItemStack(oreBlocks, 1, OresMeta.LIMESTONE));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER));
@@ -305,9 +306,11 @@ public class Core extends Module {
 		OreDictionary.registerOre("blockMagnesium", new ItemStack(oreBlocks, 1, OresMeta.MAGNESIUM_BLOCK));
 		OreDictionary.registerOre("blockTitanium", new ItemStack(oreBlocks, 1, OresMeta.TITANIUM_BLOCK));
 		
+		OreDictionary.registerOre("dustSalt", new ItemStack(materials, 1, MaterialsMeta.DUST_SALT));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, MaterialsMeta.INGOT_ALUMINUM));
 		OreDictionary.registerOre("ingotCopper", new ItemStack(materials, 1, MaterialsMeta.INGOT_COPPER));
 		OreDictionary.registerOre("ingotMagnesium", new ItemStack(materials, 1, MaterialsMeta.INGOT_MAGNESIUM));
+		OreDictionary.registerOre("ingotRutile", new ItemStack(materials, 1, MaterialsMeta.INGOT_RUTILE));
 		OreDictionary.registerOre("ingotTitanium", new ItemStack(materials, 1, MaterialsMeta.INGOT_TITANIUM));
 	}
 

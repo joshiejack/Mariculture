@@ -7,7 +7,7 @@ import java.util.Map;
 import mariculture.api.core.IAnvilHandler;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
-import mariculture.core.helpers.DictionaryHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.OresMeta;
@@ -28,7 +28,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 	
 	@Override
 	public void addRecipe(RecipeAnvil recipe) {
-		recipes.put(DictionaryHelper.convert(recipe.input), recipe);
+		recipes.put(OreDicHelper.convert(recipe.input), recipe);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 	public boolean canBeWorked(ItemStack stack) {
 		if(stack.getItem() instanceof ItemWorked)
 			return true;
-		RecipeAnvil result = (RecipeAnvil) recipes.get(DictionaryHelper.convert(stack));
+		RecipeAnvil result = (RecipeAnvil) recipes.get(OreDicHelper.convert(stack));
 		return result != null;
 	}
 	
@@ -61,7 +61,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		if(!canBeWorked(stack))
 			return false;
 		if(!(stack.getItem() instanceof ItemWorked)) {
-			RecipeAnvil recipe = ((RecipeAnvil) recipes.get(DictionaryHelper.convert(stack)));
+			RecipeAnvil recipe = ((RecipeAnvil) recipes.get(OreDicHelper.convert(stack)));
 			setInventorySlotContents(0, createWorkedItem(recipe.output, recipe.hits));
 			return true;
 		} else {
