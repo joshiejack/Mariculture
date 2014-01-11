@@ -68,12 +68,18 @@ public class RecipesSmelting {
 	}
 
 	private static void addFuels() {
-		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Block.coalBlock, 1, 0), new FuelInfo(2000, 432, 10800));
-		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Item.coal, 1, 0), new FuelInfo(2000, 48, 1200));
-		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Item.coal, 1, 1), new FuelInfo(1500, 32, 800));
-		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Block.wood), new FuelInfo(750, 8, 80));
-		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(Block.planks), new FuelInfo(300, 4, 20));
-		MaricultureHandlers.smelter.addLiquidFuel(FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1), new FuelInfo(2000, 16, 1200));
+		//Wood, Planks, Charcoal more useful for heating up, Coal for When ur heat is up
+		RecipeHelper.addFuel("blockCoal", new FuelInfo(2000, 432, 10800));
+		RecipeHelper.addFuel(new ItemStack(Item.coal, 1, 0), new FuelInfo(2000, 48, 1200));
+		RecipeHelper.addFuel(new ItemStack(Item.coal, 1, 1), new FuelInfo(1600, 32, 320));
+		RecipeHelper.addFuel("logWood", new FuelInfo(750, 8, 80));
+		RecipeHelper.addFuel("plankWood", new FuelInfo(300, 4, 40));
+		RecipeHelper.addFuel("stickWood", new FuelInfo(100, 2, 100));
+		RecipeHelper.addFuel("lava", new FuelInfo(2000, 32, 100));
+		RecipeHelper.addFuel(FluidDictionary.natural_gas, new FuelInfo(2000, 64, 1200));
+		RecipeHelper.addFuel("oil", new FuelInfo(2000, 48, 800));
+		RecipeHelper.addFuel("fuel", new FuelInfo(2000, 80, 3000));
+		RecipeHelper.addFuel("pyrotheum", new FuelInfo(2000, 128, 256));
 	}
 	
 	public static void addFullSet(String fluid, Object[] items, int temp) {
@@ -135,26 +141,40 @@ public class RecipesSmelting {
 		FluidStack moltenRutile = FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.INGOT);
 		FluidStack moltenMagnesium = FluidRegistry.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT);
 		FluidStack moltenTitanium = FluidRegistry.getFluidStack(FluidDictionary.titanium, MetalRates.INGOT);
-		//Making Titanium from Molten Rutile and Magnesium in a VAT takes 3 seconds
-		RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 3);
+		//Making Titanium from Molten Rutile and Magnesium in a VAT takes 6 seconds
+		RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 6);
+		
+		//Melting Rutile and Magnesium Ingots = Molten Titanium
+		RecipeHelper.addMeltingAlloy(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM), 
+				new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE), titanium, get(FluidDictionary.titanium));
 		
 		//Gold Back
-		RecipeHelper.addMelting(new ItemStack(Block.pressurePlateGold), gold, FluidDictionary.gold, MetalRates.INGOT * 2);
+		RecipeHelper.addMelting(new ItemStack(Block.pressurePlateGold), gold, gold(MetalRates.INGOT * 2));
+		RecipeHelper.addMelting(new ItemStack(Item.pocketSundial), gold, gold(MetalRates.INGOT * 4), new ItemStack(Item.redstone), 2);
+		RecipeHelper.addMelting(new ItemStack(Item.horseArmorGold), gold, gold(MetalRates.INGOT * 6), new ItemStack(Item.saddle), 4);
+		
 		//Iron Back
 		RecipeHelper.addMelting(new ItemStack(Item.bucketEmpty), iron, FluidDictionary.iron, MetalRates.INGOT * 3);
 		RecipeHelper.addMelting(new ItemStack(Item.doorIron), iron, FluidDictionary.iron, MetalRates.INGOT * 6);
 		RecipeHelper.addMelting(new ItemStack(Block.fenceIron), iron, FluidDictionary.iron, (int) (MetalRates.INGOT * 0.25));
 		RecipeHelper.addMelting(new ItemStack(Item.shears), iron, FluidDictionary.iron, MetalRates.INGOT * 2);
-		RecipeHelper.addMelting(new ItemStack(Block.anvil), iron, FluidDictionary.iron, MetalRates.INGOT * 32);
+		RecipeHelper.addMelting(new ItemStack(Block.anvil, 1, 0), iron, FluidDictionary.iron, MetalRates.INGOT * 31);
+		RecipeHelper.addMelting(new ItemStack(Block.anvil, 1, 1), iron, FluidDictionary.iron, MetalRates.INGOT * 22);
+		RecipeHelper.addMelting(new ItemStack(Block.anvil, 1, 2), iron, FluidDictionary.iron, MetalRates.INGOT * 13);
 		RecipeHelper.addMelting(new ItemStack(Block.pressurePlateIron), iron, FluidDictionary.iron, MetalRates.INGOT * 2);
+		RecipeHelper.addMelting(new ItemStack(Item.compass), iron, iron(MetalRates.INGOT * 4), new ItemStack(Item.redstone), 2);	
+		RecipeHelper.addMelting(new ItemStack(Block.hopperBlock), iron, iron(MetalRates.INGOT * 5), new ItemStack(Block.chest), 2);
+		RecipeHelper.addMelting(new ItemStack(Item.flintAndSteel), iron, iron(MetalRates.INGOT));
+		RecipeHelper.addMelting(new ItemStack(Item.horseArmorIron), iron, iron(MetalRates.INGOT * 6), new ItemStack(Item.saddle), 4);
 		
 		//Glass
 		RecipeHelper.addMelting(new ItemStack(Block.sand), 1000, FluidDictionary.glass, 1000);
 		RecipeHelper.addMelting(new ItemStack(Block.glass), 900, FluidDictionary.glass, 1000);
 		RecipeHelper.addMelting(new ItemStack(Block.thinGlass), 500, FluidDictionary.glass, 375);
 		
-		//Ice > Water
+		//Ice/Snow > Water
 		RecipeHelper.addMelting(new ItemStack(Block.ice), 1, "water", 1000);
+		RecipeHelper.addMelting(new ItemStack(Block.snow), 1, "water", 1000);
 		
 		//Glass > Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
@@ -181,10 +201,20 @@ public class RecipesSmelting {
 		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 825, get(FluidDictionary.quicklime, 1100));
 		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED), 825, get(FluidDictionary.quicklime, 1100));
 		
-		//Carbon > Molten Carbon
-		RecipeHelper.addMelting(new ItemStack(Item.coal, 1, 0), 2000, get(FluidDictionary.coal, 100));
-		RecipeHelper.addMelting(new ItemStack(Item.coal, 1, 1), 2000, get(FluidDictionary.coal, 50));
-		RecipeHelper.addMelting(new ItemStack(Block.wood), 2000, get(FluidDictionary.coal, 50));
+		//Salt > Molten Salt
+		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT), 801, get(FluidDictionary.salt, 20));
+		
+		addRecipe(FluidDictionary.steel, MetalRates.CHAIN, new Object[] { 
+				new ItemStack(Item.helmetChain), new ItemStack(Item.plateChain), 
+							new ItemStack(Item.legsChain), new ItemStack(Item.bootsChain) }, steel, null, 0);
+	}
+	
+	public static FluidStack gold(int vol) {
+		return FluidRegistry.getFluidStack(FluidDictionary.gold, vol);
+	}
+	
+	public static FluidStack iron(int vol) {
+		return FluidRegistry.getFluidStack(FluidDictionary.iron, vol);
 	}
 	
 	public static FluidStack get(String name, int vol) {

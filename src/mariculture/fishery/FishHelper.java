@@ -9,7 +9,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.helpers.HeatHelper;
 import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

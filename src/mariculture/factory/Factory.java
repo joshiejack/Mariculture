@@ -63,6 +63,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -318,10 +319,36 @@ public class Factory extends Module {
 		
 		//Planning Chalk
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
-			"LLB",
-			Character.valueOf('L'), "blockLimestone",
-			Character.valueOf('N'), "dyeWhite"
+			"LLN", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
+		
+		//Chalk Vertically x 3
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+			"L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite"
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+			" L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite"
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+			" N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite"
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+			"N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite"
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+			"N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite"
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+			"L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite"
+		});
+		
+		RecipeHelper.addMelting(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), 825, 
+				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 2500));
 		
 		//Blank Plan
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), new Object[] {

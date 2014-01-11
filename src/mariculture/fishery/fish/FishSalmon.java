@@ -73,54 +73,6 @@ public class FishSalmon extends FishSpecies {
 	}
 
 	@Override
-	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(Item.leather);
-	}
-
-	@Override
-	public int getLiquifiedProductChance() {
-		return 5;
-	}
-
-	public static void cook() {
-		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
-		for (int i = 0; i < server.worldServers.length; i++) {
-			World world = server.worldServers[i];
-
-			for (int j = 0; j < world.loadedEntityList.size(); j++) {
-				if (world.loadedEntityList.get(j) instanceof EntityItem) {
-					EntityItem item = (EntityItem) world.loadedEntityList.get(j);
-					ItemStack stack = item.getEntityItem();
-
-					if (stack.getItem() instanceof ItemFishyFood) {
-						if (stack.getItemDamage() == Fishery.salmon.fishID) {
-							if (item.worldObj.getBlockMaterial((int) item.posX, (int) item.posY - 2, (int) item.posZ) == Material.fire) {
-								if (item.worldObj.getBlockLightValue((int) item.posX, (int) item.posY, (int) item.posZ) == 0F) {
-									NBTTagCompound tagCompound = item.getEntityData();
-									if (tagCompound.hasKey("CookTime")) {
-										tagCompound.setInteger("CookTime", tagCompound.getInteger("CookTime") - 1);
-										if (tagCompound.getInteger("CookTime") <= 0) {
-											tagCompound.removeTag("CookTime");
-
-											ItemStack food = new ItemStack(Core.food, stack.stackSize, FoodMeta.SMOKED_SALMON);
-											FisheryEventHandler.updateStack(item.worldObj, item, 5000, food, new Random());
-										}
-									}
-
-									else {
-										tagCompound.setInteger("CookTime", 3);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-	}
-
-	@Override
 	public int[] getChestGenChance() {
 		return new int[] { 1, 1, 8 };
 	}

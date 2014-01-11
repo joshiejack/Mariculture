@@ -32,5 +32,4 @@ public class BlockIds {
 
 	/* liquids */
 	public static int highPressureWater;
-	public static int fishOil;
 }

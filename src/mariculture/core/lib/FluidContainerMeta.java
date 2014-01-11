@@ -22,5 +22,5 @@ public class FluidContainerMeta {
 	public static final int BOTTLE_FISH_FOOD = 16;
 	public static final int BOTTLE_RUTILE = 17;
 	public static final int BOTTLE_QUICKLIME = 18;
-	public static final int BOTTLE_COAL = 19;
+	public static final int BOTTLE_SALT = 19;
 }

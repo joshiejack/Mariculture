@@ -18,7 +18,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.0", dependencies="after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:carbonization;after:Thaumcraft;after:BiomesOPlenty")
+@Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.0", dependencies="after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "Mariculture" }, packetHandler = PacketHandler.class)
 public class Mariculture {
 	public static final String modid = "mariculture";

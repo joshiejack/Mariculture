@@ -12,4 +12,5 @@ public class MetalRates {
 	public static final int[] TOOLS = new int[] { INGOT * 3, INGOT * 1, INGOT * 3, INGOT * 2, INGOT * 2 };
 	//Head, Chest, Legs, Boots
 	public static final int[] ARMOR = new int[] { INGOT * 5, INGOT * 8, INGOT * 7, INGOT * 4 };
+	public static final int[] CHAIN = new int[] { INGOT * 1, INGOT * 2, INGOT * 2, INGOT * 1 };
 }

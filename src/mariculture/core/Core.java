@@ -21,7 +21,7 @@ import mariculture.core.blocks.BlockOreItem;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.BlockPearlBrick;
 import mariculture.core.blocks.BlockPearlBrickItem;
-import mariculture.core.blocks.BlockPressuredWater;
+import mariculture.core.blocks.BlockFluidMari;
 import mariculture.core.blocks.BlockSingle;
 import mariculture.core.blocks.BlockSingleItem;
 import mariculture.core.blocks.BlockTank;
@@ -123,14 +123,14 @@ public class Core extends Module {
 	public static Fluid moltenSteel;
 	public static Fluid moltenNickel;
 	public static Fluid moltenRutile;
-	public static Fluid fishFood;
 	public static Fluid moltenGlass;
+	public static Fluid moltenSalt;
+	
+	public static Fluid fishFood;
 	public static Fluid naturalGas;
 	public static Fluid quicklime;
-	public static Fluid moltenCarbon;
-	
 	public static Fluid fishOil;
-	public static Block fishOilBlock;
+	
 	public static Fluid highPressureWater;
 	public static Block highPressureWaterBlock;
 
@@ -181,7 +181,7 @@ public class Core extends Module {
 		glassBlocks = new BlockTransparent(BlockIds.glassBlocks).setStepSound(Block.soundPowderFootstep).setResistance(1F).setUnlocalizedName("glassBlocks");
 		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setUnlocalizedName("airBlocks");
 		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks");
-		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks");
+		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks").setHardness(1F);
 		groundBlocks = new BlockGround(BlockIds.groundBlocks).setUnlocalizedName("groundBlocks");
 
 		Item.itemsList[BlockIds.ores] = new BlockOreItem(BlockIds.ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
@@ -280,19 +280,9 @@ public class Core extends Module {
 		highPressureWater = new FluidMari(FluidDictionary.hp_water, -1);
         if (!FluidRegistry.registerFluid(highPressureWater))
         	highPressureWater = FluidRegistry.getFluid(FluidDictionary.hp_water);
-        highPressureWaterBlock = new BlockPressuredWater(BlockIds.highPressureWater, highPressureWater, Material.water).setUnlocalizedName("highPressureWater");
+        highPressureWaterBlock = new BlockFluidMari(BlockIds.highPressureWater, highPressureWater, Material.water).setUnlocalizedName("highPressureWater");
         GameRegistry.registerBlock(highPressureWaterBlock, "Mariculture_highPressureWaterBlock");
         highPressureWater.setBlockID(highPressureWaterBlock);
-        
-        fishOil = new FluidMari(FluidDictionary.fish_oil, FluidContainerMeta.BOTTLE_FISH_OIL);
-        if (!FluidRegistry.registerFluid(fishOil))
-        	fishOil = FluidRegistry.getFluid(FluidDictionary.fish_oil);
-        fishOilBlock = new BlockFluidClassic(BlockIds.fishOil, fishOil, Material.water).setUnlocalizedName("fishOil");
-        GameRegistry.registerBlock(fishOilBlock, "Mariculture_fishOil");
-        fishOil.setBlockID(fishOilBlock);
-        
-        FluidContainerRegistry.registerFluidContainer(new FluidStack(fishOil.getID(), 1000), 
-				new ItemStack(liquidContainers, 1, FluidContainerMeta.BOTTLE_FISH_OIL), new ItemStack(Item.glassBottle));
 	}
 
 	private void addToOreDictionary() {	
@@ -302,6 +292,7 @@ public class Core extends Module {
 		DictionaryHelper.add("blockIron", new ItemStack(Block.blockIron));
 		DictionaryHelper.add("blockGold", new ItemStack(Block.blockGold));
 		DictionaryHelper.add("blockLapis", new ItemStack(Block.blockLapis));
+		DictionaryHelper.add("blockCoal", new ItemStack(Block.coalBlock));
 		DictionaryHelper.add("dustRedstone", new ItemStack(Item.redstone));
 		
 		OreDictionary.registerOre("blockLimestone", new ItemStack(oreBlocks, 1, OresMeta.LIMESTONE));
@@ -322,28 +313,29 @@ public class Core extends Module {
 
 	private void addFluids() {	
 		//Mariculture Fluids
-		FluidDictionary.coal = addFluid("moltenCarbon", moltenCarbon, 1000, FluidContainerMeta.BOTTLE_COAL);
-		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_QUICKLIME);
-		FluidDictionary.fish_food = addFluid("fishfood", fishFood, 256, FluidContainerMeta.BOTTLE_FISH_FOOD);
-		FluidDictionary.natural_gas = addFluid("natural_gas", naturalGas, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GAS);
-		FluidDictionary.glass = addFluid("moltenGlass", moltenGlass, FluidContainerRegistry.BUCKET_VOLUME, FluidContainerMeta.BOTTLE_GLASS);
-		FluidDictionary.aluminum = addFluid("moltenAluminum", moltenAluminum, MetalRates.INGOT, FluidContainerMeta.BOTTLE_ALUMINUM);
-		FluidDictionary.magnesium = addFluid("moltenMagnesium", moltenMagnesium, MetalRates.INGOT, FluidContainerMeta.BOTTLE_MAGNESIUM);
-		FluidDictionary.titanium = addFluid("moltenTitanium", moltenTitanium, MetalRates.INGOT, FluidContainerMeta.BOTTLE_TITANIUM);
-		FluidDictionary.copper = addFluid("moltenCopper", moltenCopper, MetalRates.INGOT, FluidContainerMeta.BOTTLE_COPPER);
-		FluidDictionary.rutile = addFluid("moltenRutile", moltenRutile, MetalRates.INGOT, FluidContainerMeta.BOTTLE_RUTILE);
+		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, 1000, FluidContainerMeta.BOTTLE_QUICKLIME);
+		FluidDictionary.fish_food = addFluid("food.fish", fishFood, 256, FluidContainerMeta.BOTTLE_FISH_FOOD);
+		FluidDictionary.fish_oil = addFluid("oil.fish", fishOil, 1000, FluidContainerMeta.BOTTLE_FISH_OIL);
+		FluidDictionary.natural_gas = addFluid("gas.natural", naturalGas, 1000, FluidContainerMeta.BOTTLE_GAS);
+		FluidDictionary.salt = addFluid("salt.molten", moltenSalt, 1000, FluidContainerMeta.BOTTLE_SALT);
+		FluidDictionary.glass = addFluid("glass.molten", moltenGlass, 1000, FluidContainerMeta.BOTTLE_GLASS);
+		FluidDictionary.aluminum = addFluid("aluminum.molten", moltenAluminum, MetalRates.INGOT, FluidContainerMeta.BOTTLE_ALUMINUM);
+		FluidDictionary.magnesium = addFluid("magnesium.molten", moltenMagnesium, MetalRates.INGOT, FluidContainerMeta.BOTTLE_MAGNESIUM);
+		FluidDictionary.titanium = addFluid("titanium.molten", moltenTitanium, MetalRates.INGOT, FluidContainerMeta.BOTTLE_TITANIUM);
+		FluidDictionary.copper = addFluid("copper.molten", moltenCopper, MetalRates.INGOT, FluidContainerMeta.BOTTLE_COPPER);
+		FluidDictionary.rutile = addFluid("rutile.molten", moltenRutile, MetalRates.INGOT, FluidContainerMeta.BOTTLE_RUTILE);
 		
 		//Vanilla Fluids
-		FluidDictionary.iron = addFluid("moltenIron", moltenIron, MetalRates.INGOT, FluidContainerMeta.BOTTLE_IRON);
-		FluidDictionary.gold = addFluid("moltenGold", moltenGold, MetalRates.INGOT, FluidContainerMeta.BOTTLE_GOLD);
+		FluidDictionary.iron = addFluid("iron.molten", moltenIron, MetalRates.INGOT, FluidContainerMeta.BOTTLE_IRON);
+		FluidDictionary.gold = addFluid("gold.molten", moltenGold, MetalRates.INGOT, FluidContainerMeta.BOTTLE_GOLD);
 
 		//Modded Fluids
-		FluidDictionary.tin = addFluid("moltenTin", moltenTin, MetalRates.INGOT, FluidContainerMeta.BOTTLE_TIN);
-		FluidDictionary.lead = addFluid("moltenLead", moltenLead, MetalRates.INGOT, FluidContainerMeta.BOTTLE_LEAD);
-		FluidDictionary.silver = addFluid("moltenSilver", moltenSilver, MetalRates.INGOT, FluidContainerMeta.BOTTLE_SILVER);
-		FluidDictionary.nickel = addFluid("moltenNickel", moltenNickel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_NICKEL);
-		FluidDictionary.bronze = addFluid("moltenBronze", moltenBronze, MetalRates.INGOT, FluidContainerMeta.BOTTLE_BRONZE);
-		FluidDictionary.steel =	addFluid("moltenSteel", moltenSteel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_STEEL);
+		FluidDictionary.tin = addFluid("tin.molten", moltenTin, MetalRates.INGOT, FluidContainerMeta.BOTTLE_TIN);
+		FluidDictionary.lead = addFluid("lead.molten", moltenLead, MetalRates.INGOT, FluidContainerMeta.BOTTLE_LEAD);
+		FluidDictionary.silver = addFluid("silver.molten", moltenSilver, MetalRates.INGOT, FluidContainerMeta.BOTTLE_SILVER);
+		FluidDictionary.nickel = addFluid("nickel.molten", moltenNickel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_NICKEL);
+		FluidDictionary.bronze = addFluid("bronze.molten", moltenBronze, MetalRates.INGOT, FluidContainerMeta.BOTTLE_BRONZE);
+		FluidDictionary.steel =	addFluid("steel.molten", moltenSteel, MetalRates.INGOT, FluidContainerMeta.BOTTLE_STEEL);
 	}
 	
 	private String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {

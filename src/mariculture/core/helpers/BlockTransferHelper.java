@@ -7,6 +7,7 @@ import java.util.List;
 import mariculture.api.core.IBlacklisted;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
+import mariculture.core.blocks.base.TileMultiStorage;
 import mariculture.core.blocks.base.TileMultiStorageTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.cofh.InventoryHelper;
@@ -109,11 +110,28 @@ public class BlockTransferHelper {
 	public ItemStack insertStack(ItemStack stack, int[] slots) {
 		//If the Block is instance of ejectable, try to insert in to nearby inventories OR throw the stack out
 		if(inventory instanceof IEjectable) {
-			if(EjectSetting.canEject(((IEjectable) inventory).getEjectSetting(), EjectSetting.ITEM)) {
+			IEjectable ejectable = (IEjectable) handler;
+			if(ejectable instanceof TileMultiStorage) {
+				TileMultiStorage tile = (TileMultiStorage) handler;
+				if(tile.getMaster() != null) {
+					ejectable = (IEjectable) tile.getMaster();
+				}
+			}
+			
+			System.out.println("has eject");
+			
+			if(EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.ITEM)) {
+				System.out.println("can eject");
 				if(inventory instanceof TileMultiBlock) {
+					System.out.println("is multi");
+					
 					TileMultiBlock tile = (TileMultiBlock) inventory;
 					if(tile.getMaster() != null) {
-						ArrayList<MultiPart> cords = tile.getMaster().getSlaves();
+						TileMultiBlock master = tile.getMaster();
+						ArrayList<MultiPart> cords = master.slaves;
+						
+						System.out.println(cords.size());
+						
 						Collections.shuffle(cords);
 						for(MultiPart cord: cords) {
 							if(world.getBlockTileEntity(cord.xCoord, cord.yCoord, cord.zCoord) != null) {
@@ -121,9 +139,9 @@ public class BlockTransferHelper {
 								stack = helper.ejectToSides(stack);
 							}
 						}
+						
+						stack = new BlockTransferHelper(master).ejectToSides(stack);
 					}
-					
-					stack = ejectToSides(stack);
 				} else {
 					stack = ejectToSides(stack);
 				}

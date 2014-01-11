@@ -9,6 +9,7 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -59,6 +60,16 @@ public class FishTuna extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 4.000;
+	}
+	
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return new ItemStack(Item.leather);
+	}
+
+	@Override
+	public int getLiquifiedProductChance() {
+		return 3;
 	}
 
 	@Override

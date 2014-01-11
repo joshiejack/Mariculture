@@ -1,6 +1,8 @@
 package mariculture.factory.gui;
 
 import mariculture.core.gui.GuiMariculture;
+import mariculture.core.gui.feature.FeatureEject;
+import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
@@ -16,6 +18,8 @@ public class GuiPressureVessel extends GuiMariculture {
 		this.tile = tile;
 		features.add(new FeatureTank(tile, 87, 19, TankSize.DOUBLE));
 		features.add(new FeatureUpgrades());
+		features.add(new FeatureEject(tile));
+		features.add(new FeatureRedstone(tile));
 	}
 	
 	@Override

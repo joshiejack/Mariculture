@@ -36,16 +36,9 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 			// Block
 			render.setRenderBounds(0, 0, 0, 1, 1, 1);
 			render.renderStandardBlock(block, x, y, z);
-		} else {
-			renderBucket(world, x, y, z, render);
 		}
 		
 		return true;
-	}
-
-	private void renderBucket(IBlockAccess world, int x, int y, int z, RenderBlocks render) {
-		
-		
 	}
 
 	@Override

@@ -226,8 +226,7 @@ public class RenderHelper {
 		render.renderMaxY = 1;
 	}
 
-	public static boolean renderFluid(IBlockAccess world, int x, int y, int z,
-			double height, Icon still, Icon flowing, RenderBlocks renderer) {
+	public static boolean renderFluid(IBlockAccess world, int x, int y, int z, double height, Icon still, Icon flowing, RenderBlocks renderer) {
 		flowing = still;
 		Tessellator tessellator = Tessellator.instance;
 		Block block = Block.stone;
@@ -252,8 +251,7 @@ public class RenderHelper {
 		v3 = still.getInterpolatedV(8.0F + (-0.5F) * 16.0F);
 		tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y,
 				z));
-		tessellator.setColorOpaque_F(LIGHT_Y_POS * red, LIGHT_Y_POS * green,
-				LIGHT_Y_POS * blue);
+		tessellator.setColorOpaque_F(LIGHT_Y_POS * red, LIGHT_Y_POS * green, LIGHT_Y_POS * blue);
 		tessellator.addVertexWithUV(x + 0, y + height, z + 0, u2, v2);
 		tessellator.addVertexWithUV(x + 0, y + height, z + 1, u1, v1);
 		tessellator.addVertexWithUV(x + 1, y + height, z + 1, u4, v4);

@@ -2,6 +2,7 @@ package mariculture.core.helpers;
 
 import java.util.Random;
 
+import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.util.IItemDropBlacklist;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -112,18 +113,30 @@ public class BlockHelper {
 
 	public static void dropItems(World world, int x, int y, int z) {
 		Random rand = new Random();
-		TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
 	
-		if (!(tile_entity instanceof IInventory)) {
+		if (!(tile instanceof IInventory)) {
 			return;
 		}
+		
+		if(tile instanceof TileMultiBlock) {
+			TileMultiBlock multi = (TileMultiBlock) tile;			
+			if(multi.master != null) {
+				System.out.println("master is not null");
+				
+				if(!multi.isMaster())
+					return;
+			}
+		}
 	
-		IInventory inventory = (IInventory) tile_entity;
+		System.out.println("dropping");
+		
+		IInventory inventory = (IInventory) tile;
 	
 		for (int i = 0; i < inventory.getSizeInventory(); i++) {
 			boolean drop = true;
-			if(tile_entity instanceof IItemDropBlacklist) {
-				drop = ((IItemDropBlacklist)tile_entity).doesDrop(i);
+			if(tile instanceof IItemDropBlacklist) {
+				drop = ((IItemDropBlacklist)tile).doesDrop(i);
 			}
 			
 			if(drop) {

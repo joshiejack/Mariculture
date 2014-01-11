@@ -52,7 +52,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 			
 			if(canWork) {
 				freezeTick++;
-				if(freezeTick >= 100) {
+				if(freezeTick >= 160) {
 					RecipeIngotCasting result = MaricultureHandlers.casting.getResult(tank.getFluid());
 					if(result != null) {
 						for(int i = 0; i < inventory.length; i++) {
@@ -106,16 +106,20 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
-        if (amount > 0 && doFill)
+        if (amount > 0 && doFill) {
+        	canWork = canWork();
         	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        }
         return amount;
 	}
 	
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		FluidStack amount = tank.drain(maxDrain, doDrain);
-        if (amount != null && doDrain)
+        if (amount != null && doDrain) {
+        	canWork = canWork();
         	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        }
         return amount;
 	}
 

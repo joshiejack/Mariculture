@@ -412,17 +412,17 @@ public class PluginTConstruct extends Plugin {
 	
 	@Override
 	public void preInit() {
-		FluidDictionary.instance.addFluid("moltenAluminum", FluidType.Aluminum.fluid);
-		FluidDictionary.instance.addFluid("moltenBronze", FluidType.Bronze.fluid);
-		FluidDictionary.instance.addFluid("moltenCopper", FluidType.Copper.fluid);
-		FluidDictionary.instance.addFluid("moltenGlass", FluidType.Glass.fluid);
-		FluidDictionary.instance.addFluid("moltenGold", FluidType.Gold.fluid);
-		FluidDictionary.instance.addFluid("moltenIron", FluidType.Iron.fluid);
-		FluidDictionary.instance.addFluid("moltenLead", FluidType.Lead.fluid);
-		FluidDictionary.instance.addFluid("moltenNickel", FluidType.Nickel.fluid);
-		FluidDictionary.instance.addFluid("moltenSilver", FluidType.Silver.fluid);
-		FluidDictionary.instance.addFluid("moltenSteel", FluidType.Steel.fluid);
-		FluidDictionary.instance.addFluid("moltenTin", FluidType.Tin.fluid);
+		FluidDictionary.instance.addFluid("aluminum.molten", FluidType.Aluminum.fluid);
+		FluidDictionary.instance.addFluid("bronze.molten", FluidType.Bronze.fluid);
+		FluidDictionary.instance.addFluid("copper.molten", FluidType.Copper.fluid);
+		FluidDictionary.instance.addFluid("glass.molten", FluidType.Glass.fluid);
+		FluidDictionary.instance.addFluid("gold.molten", FluidType.Gold.fluid);
+		FluidDictionary.instance.addFluid("iron.molten", FluidType.Iron.fluid);
+		FluidDictionary.instance.addFluid("lead.molten", FluidType.Lead.fluid);
+		FluidDictionary.instance.addFluid("nickel.molten", FluidType.Nickel.fluid);
+		FluidDictionary.instance.addFluid("silver.molten", FluidType.Silver.fluid);
+		FluidDictionary.instance.addFluid("steel.molten", FluidType.Steel.fluid);
+		FluidDictionary.instance.addFluid("tin.molten", FluidType.Tin.fluid);
 	}
 
 	@Override

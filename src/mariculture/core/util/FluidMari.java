@@ -1,7 +1,7 @@
 package mariculture.core.util;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockPressuredWater;
+import mariculture.core.blocks.BlockFluidMari;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.util.Icon;
 import net.minecraftforge.fluids.Fluid;
@@ -18,12 +18,12 @@ public class FluidMari extends Fluid {
 	public Icon getStillIcon() {
 		if(bottle < 0)
 			return BlockFluid.getFluidIcon("water_still");
-		return ((BlockPressuredWater)Core.highPressureWaterBlock).still[bottle];
+		return ((BlockFluidMari)Core.highPressureWaterBlock).still[bottle];
 	}
 
 	public Icon getFlowingIcon() {
 		if(bottle < 0)
 			return BlockFluid.getFluidIcon("water_flow");
-		return ((BlockPressuredWater)Core.highPressureWaterBlock).flowing[bottle];
+		return ((BlockFluidMari)Core.highPressureWaterBlock).flowing[bottle];
 	}
 }

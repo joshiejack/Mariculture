@@ -70,10 +70,11 @@ public class FluidDictionary {
 	public static String rutile;
 	//Other
 	public static String fish_food;
+	public static String fish_oil;
 	public static String natural_gas;
 	public static String quicklime;
-	public static String coal;
+	public static String salt;
+	
 	//Block forms
 	public static String hp_water = "fastwater";
-	public static String fish_oil = "fishoil";
 }

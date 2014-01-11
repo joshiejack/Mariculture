@@ -85,7 +85,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public ArrayList<MultiPart> getSlaves() {
-		return this.slaves;
+		return slaves;
 	}
 	
 	protected void addSlave(MultiPart slave) {
@@ -151,7 +151,7 @@ public class TileMultiBlock extends TileEntity {
 				mstr.setMaster(null);
 				mstr.setInit(false);
 				((TileMultiBlock) mstr).setFacing(ForgeDirection.UNKNOWN);
-				Packets.updateTile(mstr, 32, new Packet113MultiInit(xCoord, yCoord, zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
+				Packets.updateTile(mstr, 32, new Packet113MultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
 			}
 		}
 	}
@@ -228,7 +228,7 @@ public class TileMultiBlock extends TileEntity {
 			int mstrY = nbt.getInteger("MasterY");
 			int mstrZ = nbt.getInteger("MasterZ");
 			master = new MultiPart(mstrX, mstrY, mstrZ);
-			if(master.isSame(xCoord, yCoord, yCoord)) {
+			if(master.isSame(xCoord, yCoord, zCoord)) {
 				slaves = new ArrayList<MultiPart>();
 				NBTTagList tagList = nbt.getTagList("Slaves");
 				for (int i = 0; i < tagList.tagCount(); i++) {
@@ -251,6 +251,7 @@ public class TileMultiBlock extends TileEntity {
 			nbt.setInteger("MasterZ", master.zCoord);
 			nbt.setBoolean("Built", true);
 			nbt.setInteger("Facing", facing.ordinal());
+			
 			NBTTagList itemList = new NBTTagList();
 			if(slaves != null) {
 				for (MultiPart part: slaves) {

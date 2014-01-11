@@ -92,11 +92,11 @@ public class Config {
             WorldGeneration.KELP_FOREST_DENSITY = config.get(Category.WORLD, "Kelp > Forest Density", 25).getInt();
             WorldGeneration.KELP_CHEST_CHANCE = config.get(Category.WORLD, "Kelp > 1 Treasure Chest Per This Many Kelp", 1024).getInt();
             WorldGeneration.KELP_BIOMESOP = config.get(Category.WORLD, "Kelp > (Forest) BiomesOPlenty Forced", false, Comment.BIOMESOP_CORAL).getBoolean(false);
-            WorldGeneration.DEEP_OCEAN = config.get(Category.WORLD, "Deep Oceans", true).getBoolean(true);
+            WorldGeneration.DEEP_OCEAN = config.get(Category.WORLD, "Deep Oceans", false).getBoolean(false);
             WorldGeneration.WATER_CAVES = config.get(Category.WORLD, "Water Filled Caves in Oceans", false).getBoolean(false);
-            WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
+            WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", false).getBoolean(false);
             WorldGeneration.RAVINE_CHANCE = config.get(Category.WORLD, "Water Ravine Chance (Lower = More Common)", 25).getInt();
-            WorldGeneration.NO_MINESHAFTS = config.get(Category.WORLD, "Remove Mineshafts in Oceans", true).getBoolean(true);
+            WorldGeneration.NO_MINESHAFTS = config.get(Category.WORLD, "Remove Mineshafts in Oceans", false).getBoolean(false);
             WorldGeneration.OYSTER_ENABLED = config.get(Category.WORLD, "Pearl Oyster > Generation", true).getBoolean(true);
             WorldGeneration.OYSTER_PER_CHUNK = config.get(Category.WORLD, "Pearl Oyster > Number Chances to Gen Per Chunk", 3).getInt(3);
             WorldGeneration.OYSTER_CHANCE = config.get(Category.WORLD, "Pearl Oyster > 1 Oyster per This Many Blocks Per Chunk", 12).getInt();
@@ -223,8 +223,7 @@ public class Config {
             BlockIds.customLight = config.getBlock("Custom Light", 788).getInt();
             BlockIds.customRFBlock = config.getBlock("Custom RF Block", 789).getInt();
 
-            //FREEID: 790 > 798
-            BlockIds.fishOil = config.getBlock("Fish Oil", 799).getInt();
+            //FREEID: 790 > 799
             BlockIds.highPressureWater = config.getBlock("High Pressure Water", 800).getInt();
 
             /** END BLOCK IDS, BEGIN ITEM IDS **/

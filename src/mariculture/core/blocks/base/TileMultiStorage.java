@@ -25,7 +25,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		return getMasterInventory() != null? getMasterInventory()[slot]: null;
+		return getMasterInventory() != null? getMasterInventory()[slot]: inventory[slot];
 	}
 
 	@Override

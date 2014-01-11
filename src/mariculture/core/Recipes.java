@@ -153,15 +153,31 @@ public class Recipes {
 			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK)
 		});
 	
-		// Polished Stick > 15 Seconds > 5000mB Fish Oil + Stick
+		// Log > 30000mB of Fish Oil > 45 Seconds = 1 Polished Log (or 30000mB for 8 Sticks)
+		RecipeHelper.addVatItemRecipe(new ItemStack(Block.wood), FluidDictionary.fish_oil, 30000, 
+				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG), 45);
+		//1 Plank = 9000mB > 30 Seconds = 1 Polished Plank (or 36000mB for 8 Sticks)
+		RecipeHelper.addVatItemRecipe(new ItemStack(Block.planks), FluidDictionary.fish_oil, 10000, 
+				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK), 30);
+		//1 Stick = 5000mB > 15 Seconds or (40000mB for 8 Sticks)
 		RecipeHelper.addVatItemRecipe(new ItemStack(Item.stick), FluidDictionary.fish_oil, 5000, 
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 15);
+		
+		//1 Polished Log = 4 Polished Planks
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.woodBlocks, 4, WoodMeta.POLISHED_PLANK), new Object[] {
+			new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG)
+		});
+		
+		//2 Polished Planks = 4 Polished Sticks
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
+			"S  ", "S  ", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
+		});
 		
 		//Titanium Rod >> 30 Seconds >> With Tinkers(6500mB Fish Oil + Tough Rod, without 2 Ingots Titanium + 2 Polished Sticks)
 		if(Loader.isModLoaded("TConstruct")) {
 			PluginTConstruct.addRod = true;
 		} else {
-			RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 2, CraftingMeta.POLISHED_STICK), 
+			RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 
 					FluidDictionary.titanium, MetalRates.INGOT * 2,  
 					new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
 		}
@@ -195,56 +211,38 @@ public class Recipes {
 				new ItemStack(Core.craftingItem, 8, CraftingMeta.ALUMINUM_SHEET), 100);
 
 		//Heating
-		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), new Object[] { "CCC", "CCC",
-				Character.valueOf('C'), new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE) });
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), new Object[] {
+			"CCC", "CCC", 'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE)
+		});
+
 		//Cooling
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { "  P", "PI ", "  P", 
-					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+			"  P", "PI ", "  P", 'P', "plankWood", 'I', "ingotIron"
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { " P ", " I ", "P P", 
-					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+			" P ", " I ", "P P", 'P', "plankWood", 'I', "ingotIron"
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { "P  ", " IP", "P  ", 
-					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+			"P  ", " IP", "P  ", 'P', "plankWood", 'I', "ingotIron"
+		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] { "P P", " I ", " P ", 
-					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('I'), "ingotIron" }));
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+			"P P", " I ", " P ", 'P', "plankWood", 'I', "ingotIron"
+		});
+
 		//Carbide
-		GameRegistry.addRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.CARBIDE), new Object[] { "CSF", "FBS", "SFC", 
-				Character.valueOf('C'), Item.clay, 
-				Character.valueOf('F'), new ItemStack(Item.coal, 1, 0),
-				Character.valueOf('S'), Block.sand,
-				Character.valueOf('B'), Block.blockClay});
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.CARBIDE), new Object[] {
+			"CSF", "FBS", "SFC", 'C', Item.clay, 'F', new ItemStack(Item.coal, 1, 0), 'S', Block.sand, 'B', Block.blockClay
+		});
+
 		//Wheel
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), new Object[] { " I ", "ISI", " I ", 
-					Character.valueOf('S'), "slabWood", 
-					Character.valueOf('I'), "ingotIron" }));
+		RecipeHelper.addWheelRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), "slabWood", "ingotIron");
+		
 		//Wicker
-		CraftingManager
-			.getInstance()
-			.getRecipeList()
-			.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), new Object[] { "CAC", "ACA", "CAC", 
-				Character.valueOf('A'), "stickWood", 
-				Character.valueOf('C'), Item.reed }));
+		RecipeHelper.addCrossHatchRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), "stickWood", Item.reed);
+		
 		//Yellow Plastic > 5 Minutes > 1 Block of Gold(mB) + 4 Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.PLASTIC), 
 				FluidDictionary.gold, MetalRates.BLOCK,  new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 60 * 5);
@@ -253,10 +251,13 @@ public class Recipes {
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), 
 				new ItemStack(Core.craftingItem, 8, CraftingMeta.TITANIUM_SHEET), 250);
 		
-		//Burnt Brick > Brick + 250mB coal (2.5 coal), + 3 Nuggets of Copper
-		RecipeHelper.addFluidAlloyNItemResultItem(FluidRegistry.getFluidStack(FluidDictionary.copper, MetalRates.NUGGET * 3), 
-				FluidRegistry.getFluidStack(FluidDictionary.coal, 250), 
-				new ItemStack(Item.brick), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 8);
+		//Burnt Brick > Brick + 1000mB of Lava = Burnt Brick
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.brick), "lava", 1000, 
+												new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 16);
+		
+		//Burnt Brick > Nether Brick + 500mB of Lava
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.netherrackBrick), "lava", 500, 
+												new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 8);
 	}
 	
 	private static void addMetalRecipes() {		

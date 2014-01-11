@@ -48,8 +48,8 @@ public class PluginRailcraft extends Plugin {
 		RecipesSmelting.addRecipe(FluidDictionary.steel, MetalRates.ARMOR, new Object[] { 
 				steelHelm, steelChest, steelPants, steelBoots }, RecipesSmelting.steel, null, 0);
 
-		MaricultureHandlers.smelter.addSolidFuel(coalCokeBlock, new FuelInfo(2000, 576, 32400));
-		MaricultureHandlers.smelter.addSolidFuel(coalCoke, new FuelInfo(2000, 64, 3600));
+		MaricultureHandlers.smelter.addFuel(coalCokeBlock, new FuelInfo(2000, 576, 32400));
+		MaricultureHandlers.smelter.addFuel(coalCoke, new FuelInfo(2000, 64, 3600));
 
 		ItemStack input = new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE);
 		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);

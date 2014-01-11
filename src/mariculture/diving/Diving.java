@@ -101,7 +101,7 @@ public class Diving extends Module {
 					Character.valueOf('M'), Block.pistonBase }));
 		
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_TOP), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III",
 			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),

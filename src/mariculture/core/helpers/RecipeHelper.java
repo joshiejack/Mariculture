@@ -1,11 +1,14 @@
 package mariculture.core.helpers;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
+import mariculture.core.Core;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
@@ -98,5 +101,32 @@ public class RecipeHelper {
 
 	public static void addMelting(ItemStack stack, int temp, String fluid, int vol) {
 		addMelting(stack, temp, FluidRegistry.getFluidStack(fluid, vol));
+	}
+
+	/** @param output - ItemStack
+	 * @param item1 - 5 x this
+	 * @param item2 - 4 x this */
+	public static void addCrossHatchRecipe(ItemStack output, Object item1, Object item2) {
+		addShapedRecipe(output, new Object[] { "CAC", "ACA", "CAC", 'C', item1, 'A', item2 });
+	}
+	
+	/** @param output - ItemStack
+	 * @param wheel - Outer Rim
+	 * @param spoke - Inner Piece */
+	public static void addWheelRecipe(ItemStack output, Object wheel, Object spoke) {
+		addShapedRecipe(output, new Object[] { " W ", "WSP", " W ", 'W', wheel, 'S', spoke });
+	}
+
+	/** Adds a fuel to be used by the smelter
+	 * 
+	 * @param obj - Can be FluidStack, ItemStack or String
+	 * @param fuelInfo
+	 */
+	public static void addFuel(Object obj, FuelInfo fuelInfo) {
+		MaricultureHandlers.smelter.addFuel(obj, fuelInfo);
+	}
+
+	public static void addMeltingAlloy(ItemStack stack1, ItemStack stack2, int temp, FluidStack fluid) {
+		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack1, stack2, temp, fluid, null, 0));
 	}
 }

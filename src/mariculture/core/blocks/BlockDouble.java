@@ -4,23 +4,27 @@ import java.util.Random;
 
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.SpawnItemHelper;
+import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.util.IHasGUI;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.FakePlayer;
+import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -109,11 +113,13 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int j, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile == null || player.isSneaking()) {
+		if (tile == null) {
 			return false;
 		}
 		
-		if(tile instanceof TileMultiBlock) {
+		if(tile instanceof TileMultiBlock && tile instanceof IHasGUI) {
+			if(player.isSneaking())
+				return false;
 			TileMultiBlock multi = (TileMultiBlock) tile;
 			if(multi.master != null) {
 				player.openGui(Mariculture.instance, -1, world, multi.master.xCoord, multi.master.yCoord, multi.master.zCoord);
@@ -121,6 +127,57 @@ public class BlockDouble extends BlockMachine {
 			}
 			
 			return false;
+		}
+		
+		if(tile instanceof TileVat) {
+			TileVat vat = (TileVat) tile;
+			ItemStack held = player.getCurrentEquippedItem();
+			ItemStack input = vat.getStackInSlot(0);
+			ItemStack output = vat.getStackInSlot(1);
+			if(FluidHelper.isFluidOrEmpty(player.getCurrentEquippedItem())) {
+				return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player);
+			}
+			
+			if(output != null) {
+				if(!world.isRemote) {
+					SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(1));
+					vat.setInventorySlotContents(1, null);
+				}
+				
+				return true;
+			} else if(player.isSneaking() && input != null) {
+				if(!world.isRemote) {
+					SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(0));
+					vat.setInventorySlotContents(0, null);
+				}
+								
+				return true;
+			} else if(held != null) {
+				if(input == null) {
+					if(!world.isRemote) {
+						ItemStack copy = held.copy();
+						copy.stackSize = 1;
+						vat.setInventorySlotContents(0, copy);
+						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+					}
+					
+					return true;
+				} else if(ItemHelper.areItemStacksEqualNoNBT(input, held)) {
+					if(input.stackSize + 1 < input.getMaxStackSize()) {
+						if(!world.isRemote) {
+							ItemStack stack = input.copy();
+							stack.stackSize++;
+							vat.setInventorySlotContents(0, stack);
+							player.inventory.decrStackSize(player.inventory.currentItem, 1);
+						}
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
 		}
 		
 		return false;

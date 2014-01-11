@@ -10,8 +10,9 @@ public interface ISmelterHandler {
 	public void addRecipe(RecipeSmelter recipe);
 	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp);
 	
-	public void addLiquidFuel(FluidStack fluid, FuelInfo info);
-	public void addSolidFuel(ItemStack stack, FuelInfo info);
+	//Can be either a FluidStack, ItemStack, FluidName or Ore Dictionary Name
+	public void addFuel(Object stack, FuelInfo info);
+	
 	public FuelInfo getFuelInfo(Object obj);
 	/** Get the melting point of an item */
 	public int getMeltingPoint(ItemStack stack);

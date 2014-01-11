@@ -94,11 +94,6 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockBreak();
-		}
-		
 		return super.removeBlockByPlayer(world, player, x, y, z);
     }
 
@@ -158,21 +153,16 @@ public class BlockUtil extends BlockMachine {
 			}
 
 			if (block.getBlockTileEntity(x, y, z) instanceof TileLiquifier) {
-				TileLiquifier liquifier = (TileLiquifier) block.getBlockTileEntity(x, y, z);
-				
-				if(block.getBlockTileEntity(x, y - 1, z) instanceof TileLiquifier 
-						&& !(block.getBlockTileEntity(x, y + 1, z) instanceof TileLiquifier) 
-						&& !(block.getBlockTileEntity(x, y - 2, z) instanceof TileLiquifier)) {
-					return liquifierIcons[0];
+				TileLiquifier smelter = (TileLiquifier) block.getBlockTileEntity(x, y, z);
+				if(smelter.master == null) {
+					return this.getIcon(side, block.getBlockMetadata(x, y, z));
+				} else {
+					if(smelter.isMaster()) {
+						return liquifierIcons[1];
+					} else {
+						return liquifierIcons[0];
+					}
 				}
-				
-				if(block.getBlockTileEntity(x, y + 1, z) instanceof TileLiquifier 
-						&& !(block.getBlockTileEntity(x, y - 1, z) instanceof TileLiquifier)
-						&& !(block.getBlockTileEntity(x, y + 2, z) instanceof TileLiquifier)) {
-					return liquifierIcons[1];
-				}
-				
-				return this.getIcon(side, block.getBlockMetadata(x, y, z));
 			}
 
 			if (block.getBlockTileEntity(x, y, z) instanceof TileIncubator && side > 1) {
@@ -323,6 +313,11 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
 		BlockHelper.dropItems(world, x, y, z);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockBreak();
+		}
+		
 		super.breakBlock(world, x, y, z, i, meta);
 
 		if (meta == UtilMeta.SLUICE) {
@@ -358,7 +353,8 @@ public class BlockUtil extends BlockMachine {
 			return Modules.factory.isActive();
 		case UtilMeta.FISH_SORTER:
 			return Modules.factory.isActive();
-
+		case UtilMeta.UNUSED:
+			return false;
 		default:
 			return true;
 		}

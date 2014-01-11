@@ -510,8 +510,8 @@ public class Fishery extends Module {
 					Character.valueOf('D'), Item.diamond }));
 		
 		//Netherfish as Liquifier fuel		
-		MaricultureHandlers.smelter.addSolidFuel(new ItemStack(fishyFood, 1, Fishery.nether.fishID), new FuelInfo(2000, 16, 2400));
-		
+		MaricultureHandlers.smelter.addFuel(new ItemStack(fishyFood, 1, Fishery.nether.fishID), new FuelInfo(2000, 16, 2400));
+		RecipeHelper.addMelting(new ItemStack(Item.fishRaw), 180, FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 100));
 		//Fish as fish oil and fish meal
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			if (FishSpecies.speciesList.get(i) != null) {

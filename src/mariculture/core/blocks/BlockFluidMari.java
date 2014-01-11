@@ -18,11 +18,11 @@ import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockPressuredWater extends BlockFluidClassic {
+public class BlockFluidMari extends BlockFluidClassic {
 	public Icon[] still;
 	public Icon[] flowing;
 	
-	public BlockPressuredWater(int id, Fluid fluid, Material material) {
+	public BlockFluidMari(int id, Fluid fluid, Material material) {
 		super(id, fluid, material);
 		quantaPerBlock = 16;
 		quantaPerBlockFloat = 16;
@@ -41,8 +41,7 @@ public class BlockPressuredWater extends BlockFluidClassic {
 		still = new Icon[FluidContainerMeta.COUNT];
 
 		for (int i = 1; i < flowing.length; i++) {
-			String name = ((((ItemFluidContainer) (Core.liquidContainers))
-					.getName(new ItemStack(this.blockID, 1, i))).substring(6)).toLowerCase();
+			String name = ((((ItemFluidContainer) (Core.liquidContainers)).getName(new ItemStack(this.blockID, 1, i))).substring(6)).toLowerCase();
 			if(!name.startsWith("fish") && !name.startsWith("natural")) {
 				name = "molten" + name;
 			}

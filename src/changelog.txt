@@ -44,7 +44,7 @@
 * Due to the new processing system for various things, the recipes for transparent plastic and hard plastic have been reduced to 30 buckets per
 * Aluminum and Titanium sheets, are no longer made in rolling machine or with flint and steel, but are now made in the blacksmith's anvil by crushing down their relevant blocks
 * Leapfrog changed to an addition instead of a multiplier
-* Different fuels, now have a tick time for how long they last in a smelter. Heating upgades no longer speed smelters up, but they will, help machines heat up faster, hyperkinetic upgrades are for speed, ethereal is no longer needed for certain biomes but instead it will 'cancel', a fuel once it has reached it's maximum temperature per piece, so you can heat up even quicker.
+* Different fuels, now have a tick time for how long they last in a smelter. Heating upgades no longer speed smelters up, but they will, help machines heat up faster, hyperkinetic upgrades are for speed, ethereal is no longer needed for certain biomes but instead it will make fuels, burn past using up their temperature per piece(but not generate heat, aka it will do what no redstone signal used to do).
 * Smelters now will take either solid, or liquid, liquid fuel is pulled from tanks below them
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in

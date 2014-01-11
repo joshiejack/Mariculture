@@ -4,6 +4,7 @@ import mariculture.core.Core;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.FishFoodHandler;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -46,7 +47,7 @@ public class FluidHelper {
 	}
 
 	public static boolean isVoid(ItemStack stack) {
-		return (stack.getItem().itemID == Core.liquidContainers.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
+		return (stack != null && stack.getItem().itemID == Core.liquidContainers.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
 	}
 
 	public static ItemStack getFluidResult(IFluidHandler tile, ItemStack top, ItemStack bottom) {
@@ -83,7 +84,9 @@ public class FluidHelper {
 		return new ItemStack(Core.airBlocks);
 	}
 	
-	private static ItemStack getEmptyContainerForFilledItem(ItemStack filledContainer) {
+	public static ItemStack getEmptyContainerForFilledItem(ItemStack filledContainer) {
+		if(filledContainer == null)
+			return null;
 		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
 
 		for (int i = 0; i < data.length; i++) {
@@ -176,5 +179,56 @@ public class FluidHelper {
 		}
 
 		return null;
+	}
+
+	public static boolean handleFillOrDrain(IFluidHandler tank, EntityPlayer player) {
+		ItemStack heldItem = player.inventory.getCurrentItem();
+		FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(heldItem);
+		ItemStack newHeld = FluidHelper.getEmptyContainerForFilledItem(heldItem);
+		
+		if(newHeld != null) {
+			if(newHeld.stackSize == 0)
+				newHeld.stackSize = 1;
+		}
+		
+		if (liquid != null) {
+			int amount = tank.fill(ForgeDirection.UNKNOWN, liquid, false);
+			if (amount >= liquid.amount) {
+				tank.fill(ForgeDirection.UNKNOWN, liquid, true);
+				if (!player.capabilities.isCreativeMode) {
+					if(heldItem.stackSize == 1) {
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, newHeld);
+					} else {
+						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+						if (!player.inventory.addItemStackToInventory(newHeld))
+							player.dropPlayerItem(newHeld);
+					}
+				}
+				return true;
+			} else {
+				return true;
+			}
+		} else if (FluidContainerRegistry.isEmptyContainer(heldItem)) {
+			ItemStack result = FluidContainerRegistry.fillFluidContainer(tank.drain(ForgeDirection.UNKNOWN, 100000, false), heldItem);
+			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
+			if (result != null) {
+				tank.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+				if (!player.capabilities.isCreativeMode) {
+					if (heldItem.stackSize == 1) {
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, result);
+					} else {
+						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+
+						if (!player.inventory.addItemStackToInventory(result)) {
+							player.dropPlayerItem(result);
+						}
+					}
+				}
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

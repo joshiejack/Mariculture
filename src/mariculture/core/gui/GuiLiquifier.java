@@ -17,6 +17,8 @@ import mariculture.core.lib.Text;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class GuiLiquifier extends GuiMariculture {
 	private final TileLiquifier tile;
@@ -44,6 +46,10 @@ public class GuiLiquifier extends GuiMariculture {
 		if (stack != null) {
 			int meltingPoint = MaricultureHandlers.smelter.getMeltingPoint(stack);
 			FuelInfo info = MaricultureHandlers.smelter.getFuelInfo(stack);
+			if(FluidContainerRegistry.isFilledContainer(stack)) {
+				FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
+				info = MaricultureHandlers.smelter.getFuelInfo(fluid);
+			}
 
 			if (meltingPoint > 0) {
 				currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + meltingPoint + "\u00B0" + "C");
@@ -51,20 +57,30 @@ public class GuiLiquifier extends GuiMariculture {
 			
 			if (MaricultureHandlers.smelter.getResult(stack, null, -1) != null) {
 				RecipeSmelter result = MaricultureHandlers.smelter.getResult(stack, null, -1);
-				if (result.fluid.amount > 0) {
-					if(result.rands != null)
-						currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
-					else
-						currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + tile.getFluidAmount(stack, result.fluid.amount) + "mB");
-				}
-				
-				if(result.output != null && result.chance > 0) {
-					int chance = (int) (((float)1 / result.chance) * 100);
-					currenttip.add(Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + result.output.getDisplayName());
+				if(result.input2 == null) {
+					if (result.fluid.amount > 0) {
+						if(result.rands != null)
+							currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
+						else
+							currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + tile.getFluidAmount(stack, result.fluid.amount) + "mB");
+					}
+					
+					if(result.output != null && result.chance > 0) {
+						int chance = (int) (((float)1 / result.chance) * 100);
+						currenttip.add(Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + result.output.getDisplayName());
+					}
 				}
 			}
 
 			if (info != null) {
+				if(FluidContainerRegistry.isFilledContainer(stack)) {
+					currenttip.add(Text.DARK_AQUA + StatCollector.translateToLocal("mariculture.string.asFluid"));
+					currenttip.add(Text.WHITE + StatCollector.translateToLocal("mariculture.string.perTempFluid") + ": " + info.maxTempPer + "\u00B0" + "C");
+				} else {
+					currenttip.add(Text.DARK_GREEN + StatCollector.translateToLocal("mariculture.string.asSolid"));
+					currenttip.add(Text.WHITE + StatCollector.translateToLocal("mariculture.string.perTempSolid") + ": " + info.maxTempPer + "\u00B0" + "C");
+				}	
+				
 				currenttip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.maxTemp") + ": " + info.maxTemp + "\u00B0" + "C");
 			}
 		}

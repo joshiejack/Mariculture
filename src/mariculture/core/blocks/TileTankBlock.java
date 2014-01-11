@@ -4,6 +4,8 @@ import java.util.List;
 
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.network.Packet118FluidUpdate;
+import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,8 +21,6 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
-	public int renderOffset;
-	
 	public Tank tank;
 	
 	public TileTankBlock() {
@@ -28,7 +28,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	}
 
 	public float getFluidAmountScaled() {
-		return (float) (tank.getFluid().amount - renderOffset) / (float) (tank.getCapacity() * 1.01F);
+		return (float) (tank.getFluid().amount) / (float) (tank.getCapacity() * 1.01F);
 	}
 
 	@Override
@@ -41,7 +41,6 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 
 	public boolean canUpdate() {
@@ -49,38 +48,24 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	}
 
 	@Override
-	public void updateEntity() {
-		if (renderOffset > 0) {
-			renderOffset -= 6;
-			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-		}
-	}
-
-	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
-        if (amount > 0 && doFill) {
-            renderOffset = resource.amount;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-
+        if (amount > 0 && doFill)
+        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        return amount;
+	}
+	
+	@Override
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		FluidStack amount = tank.drain(maxDrain, doDrain);
+        if (amount != null && doDrain)
+        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         return amount;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
 		 return drain(ForgeDirection.UNKNOWN, resource.amount, doDrain);
-	}
-
-	@Override
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		FluidStack amount = tank.drain(maxDrain, doDrain);
-        if (amount != null && doDrain) {
-            renderOffset = -maxDrain;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-        
-        return amount;
 	}
 
 	@Override

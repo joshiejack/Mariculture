@@ -21,7 +21,8 @@ public class LiquifierHandler implements ISmelterHandler {
 	public void addRecipe(RecipeSmelter recipe) {
 		if(recipe.input2 != null)
 			recipes.put(Arrays.asList(DictionaryHelper.convert(recipe.input), DictionaryHelper.convert(recipe.input2)), recipe);
-		recipes.put(DictionaryHelper.convert(recipe.input), recipe);
+		else
+			recipes.put(DictionaryHelper.convert(recipe.input), recipe);
 	}
 
 	@Override
@@ -69,13 +70,13 @@ public class LiquifierHandler implements ISmelterHandler {
 	}
 	
 	@Override
-	public void addSolidFuel(ItemStack stack, FuelInfo info) {
-		fuels.put(DictionaryHelper.convert(stack), info);
-	}
-	
-	@Override
-	public void addLiquidFuel(FluidStack fluid, FuelInfo info) {
-		fuels.put(getName(fluid), info);
+	public void addFuel(Object fuel, FuelInfo info) {
+		if(fuel instanceof ItemStack)
+			fuels.put(DictionaryHelper.convert((ItemStack)fuel), info);
+		if(fuel instanceof FluidStack)
+			fuels.put(getName((FluidStack) fuel), info);
+		else if (fuel instanceof String)
+			fuels.put((String)fuel, info);
 	}
 
 	@Override

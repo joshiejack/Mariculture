@@ -7,6 +7,7 @@ import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.Extra;
@@ -44,6 +45,7 @@ import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -245,18 +247,22 @@ public class BlockSingle extends BlockMachine {
 		if(tile instanceof TileAnvil) {
 			if(player instanceof FakePlayer)
 				return false;
-			if (!world.isRemote) {
-				TileAnvil anvil = (TileAnvil) tile;
-				if(anvil.getStackInSlot(0) != null) {
-					SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
-					anvil.setInventorySlotContents(0, null);
-				} else if(player.getCurrentEquippedItem() != null) {
-					ItemStack stack = player.getCurrentEquippedItem().copy();
-					stack.stackSize = 1;
-					anvil.setInventorySlotContents(0, stack);
-					player.inventory.decrStackSize(player.inventory.currentItem, 1);
+			TileAnvil anvil = (TileAnvil) tile;
+			if(anvil.getStackInSlot(0) != null) {
+				if (!player.inventory.addItemStackToInventory(anvil.getStackInSlot(0))) {
+					if(!world.isRemote) {
+						SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
+					}
 				}
+					
+				anvil.setInventorySlotContents(0, null);
+			} else if(player.getCurrentEquippedItem() != null) {
+				ItemStack stack = player.getCurrentEquippedItem().copy();
+				stack.stackSize = 1;
+				anvil.setInventorySlotContents(0, stack);
+				player.inventory.decrStackSize(player.inventory.currentItem, 1);
 			}
+			
 			
 			return true;
 		}
@@ -264,15 +270,6 @@ public class BlockSingle extends BlockMachine {
 		if(tile instanceof TileIngotCaster) {
 			if (!world.isRemote) {
 				TileIngotCaster caster = (TileIngotCaster) tile;
-				ItemStack stack = player.getCurrentEquippedItem();
-				if(FluidContainerRegistry.isFilledContainer(stack)) {
-					FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
-					if(caster.fill(ForgeDirection.UP, fluid, false) >= fluid.amount) {
-						caster.fill(ForgeDirection.UP, fluid, true);
-						player.inventory.decrStackSize(player.inventory.currentItem, 1);
-					}
-				}
-				
 				for(int i = 0; i < caster.getSizeInventory(); i++) {
 					if(caster.getStackInSlot(i) != null) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, caster.getStackInSlot(i));
@@ -282,7 +279,7 @@ public class BlockSingle extends BlockMachine {
 				}
 			}
 			
-			return true;
+			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player);
 		}
 
 		return false;
