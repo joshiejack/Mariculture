@@ -147,6 +147,23 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		}
 	}
 	
+	private FluidStack drain(byte id, FluidStack input, FluidStack output, boolean doDrain) {
+		int drain = input.copy().amount;
+		if(input.isFluidEqual(output)) {
+			drain-=output.amount;
+			output = null;
+		}
+		
+		if(doDrain) {
+			if(id == (byte)1)
+				tank.drain(drain, true);
+			else
+				tank2.drain(drain, true);
+		}
+		
+		return output;
+	}
+	
 	private void createResult(RecipeVat recipe, byte tankNum) {
 		//Drain out the fluid1
 		FluidStack outputFluid = null;
@@ -154,44 +171,15 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			outputFluid = recipe.outputFluid.copy();
 		
 		if(tankNum == 1) {
-			if(recipe.inputFluid1 != null) {
-				int drain = recipe.inputFluid1.amount;
-				if(recipe.inputFluid1.isFluidEqual(outputFluid)) {
-					drain-=outputFluid.amount;
-					outputFluid = null;
-				}
-				
-				tank.drain(drain, true);
-			}
-			if(recipe.inputFluid2 != null) {
-				int drain = recipe.inputFluid2.amount;
-				if(recipe.inputFluid2.isFluidEqual(outputFluid)) {
-					drain-=outputFluid.amount;
-					outputFluid = null;
-				}
-				
-				tank2.drain(drain, true);
-			}
+			if(recipe.inputFluid1 != null)
+				outputFluid = drain((byte) 1, recipe.inputFluid1, outputFluid, true);
+			if(recipe.inputFluid2 != null)
+				outputFluid = drain((byte) 2, recipe.inputFluid2, outputFluid, true);
 		} else {
-			if(recipe.inputFluid1 != null) {
-				int drain = recipe.inputFluid1.amount;
-				if(recipe.inputFluid1.isFluidEqual(outputFluid)) {
-					drain-=outputFluid.amount;
-					outputFluid = null;
-				}
-				
-				tank2.drain(drain, true);
-			}
-			
-			if(recipe.inputFluid2 != null) {
-				int drain = recipe.inputFluid2.amount;
-				if(recipe.inputFluid2.isFluidEqual(outputFluid)) {
-					drain-=outputFluid.amount;
-					outputFluid = null;
-				}
-				
-				tank.drain(drain, true);
-			}
+			if(recipe.inputFluid1 != null)
+				outputFluid = drain((byte) 2, recipe.inputFluid1, outputFluid, true);
+			if(recipe.inputFluid2 != null)
+				outputFluid = drain((byte) 1, recipe.inputFluid2, outputFluid, true);
 		}
 		
 		//Decrease the StackSize of the input, by this much if it's valid

@@ -89,7 +89,10 @@ public class GuiLiquifier extends GuiMariculture {
 	@Override
 	public void drawBackground(int x, int y) {
 		int temp = tile.getTemperatureScaled(60);
-		this.drawTexturedModalRect(x + 12, y + 18 + 60 - temp, 251, 60 - temp, 5, temp);
+		drawTexturedModalRect(x + 12, y + 18 + 60 - temp, 251, 60 - temp, 5, temp);
+		
+		int burn = tile.getBurnTimeRemainingScaled();
+		drawTexturedModalRect(x + 38, y + 43 + 12 - burn, 242, 60 + 12 - burn, 14, burn);
 	}
 
 	@Override

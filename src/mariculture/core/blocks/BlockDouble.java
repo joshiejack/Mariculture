@@ -4,12 +4,14 @@ import java.util.Random;
 
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.IHasGUI;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
@@ -45,16 +47,6 @@ public class BlockDouble extends BlockMachine {
 		}
 		
 		super.onBlockExploded(world, x, y, z, explosion);
-    }
-
-	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockBreak();
-		}
-		
-		return super.removeBlockByPlayer(world, player, x, y, z);
     }
 	
 	@Override
@@ -139,17 +131,23 @@ public class BlockDouble extends BlockMachine {
 			}
 			
 			if(output != null) {
-				if(!world.isRemote) {
-					SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(1));
-					vat.setInventorySlotContents(1, null);
+				if (!player.inventory.addItemStackToInventory(vat.getStackInSlot(1))) {
+					if(!world.isRemote) {
+						SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(1));
+					}
 				}
+				
+				vat.setInventorySlotContents(1, null);
 				
 				return true;
 			} else if(player.isSneaking() && input != null) {
-				if(!world.isRemote) {
-					SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(0));
-					vat.setInventorySlotContents(0, null);
+				if (!player.inventory.addItemStackToInventory(vat.getStackInSlot(0))) {
+					if(!world.isRemote) {
+						SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(0));
+					}
 				}
+				
+				vat.setInventorySlotContents(0, null);
 								
 				return true;
 			} else if(held != null) {
@@ -223,6 +221,17 @@ public class BlockDouble extends BlockMachine {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
+		BlockHelper.dropItems(world, x, y, z);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockBreak();
+		}
+		
+		super.breakBlock(world, x, y, z, i, meta);
 	}
 
 	@Override

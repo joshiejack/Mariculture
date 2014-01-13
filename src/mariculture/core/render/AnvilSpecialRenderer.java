@@ -46,24 +46,31 @@ public class AnvilSpecialRenderer extends TileEntitySpecialRenderer {
 		EntityFakeItem entityitem = new EntityFakeItem(world, 0.0D, 0.0D, 0.0D, stack);
         entityitem.getEntityItem().stackSize = 1;
         GL11.glPushMatrix();
-        GL11.glTranslatef(1.3F, 1.05F, 1F);
+        GL11.glTranslatef(1.3F, 1.1F, 1F);
+        GL11.glScalef(1.2F, 1.2F, 1.2F);
         if (!(stack.getItem() instanceof ItemBlock)) {
-        	GL11.glRotatef(270, 0F, 0F, 1F);
+        	GL11.glRotatef(-90, 1F, 0F, 0F);
         	if(meta == 0) {
-        		GL11.glTranslatef(0.1F, 0.15F, 0F);
-        		GL11.glRotatef(180, 1F, 0F, 0F);
+        		GL11.glTranslatef(0.1F, 0F, -0.15F);
+        		GL11.glRotatef(90, 0F, 0F, 1F);
         	} else if(meta == 1) {
-        		GL11.glTranslatef(0.1F, 0F, 0.15F);
-        		GL11.glRotatef(-90, 1F, 0F, 0F);
+        		GL11.glTranslatef(0F, -0.1F, -0.15F);
         	} else if(meta == 2) {
-        		GL11.glTranslatef(0.1F, -0.15F, 0F);
+        		GL11.glTranslatef(-0.1F, 0F, -0.15F);
+        		GL11.glRotatef(-90, 0F, 0F, 1F);
         	} else if(meta == 3) {
-        		GL11.glTranslatef(0.1F, -0F, -0.15F);
-        		GL11.glRotatef(90, 1F, 0F, 0F);
+        		GL11.glTranslatef(0F, 0.1F, -0.15F);
+        		GL11.glRotatef(180, 0F, 0F, 1F);
         	}
-        	
-        	GL11.glRotatef(29, 0F, 1F, 0F);
-        	GL11.glScalef(2.75F, 2.75F, 2.75F);
+        } else {
+        	GL11.glTranslatef(0F, -0.06F, 0F);
+        	if(meta == 0) {
+        		GL11.glRotatef(90, 0F, 1F, 0F);
+        	} else if(meta == 2) {
+        		GL11.glRotatef(-90, 0F, 1F, 0F);
+        	} else if(meta == 3) {
+        		GL11.glRotatef(180, 0F, 1F, 0F);
+        	}
         }
       
         RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);

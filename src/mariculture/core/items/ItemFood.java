@@ -35,6 +35,8 @@ public class ItemFood extends ItemMariculture {
 			return 6;
 		case FoodMeta.MISO_SOUP:
 			return 7;
+		case FoodMeta.OYSTER:
+			return 20;
 		default:
 			return 1;
 		}
@@ -60,6 +62,8 @@ public class ItemFood extends ItemMariculture {
 			return 0.7F;
 		case FoodMeta.MISO_SOUP:
 			return 1.2F;
+		case FoodMeta.OYSTER:
+			return 5.0F;
 		default:
 			return 0.3F;
 		}
@@ -86,6 +90,8 @@ public class ItemFood extends ItemMariculture {
 			return 48;
 		case FoodMeta.MISO_SOUP:
 			return 64;
+		case FoodMeta.OYSTER:
+			return 36;
 		default:
 			return 32;
 		}
@@ -136,6 +142,8 @@ public class ItemFood extends ItemMariculture {
 			return "sushi";
 		case FoodMeta.MISO_SOUP:
 			return "misoSoup";
+		case FoodMeta.OYSTER:
+			return "oyster";
 		default:
 			return "food";
 		}
@@ -143,6 +151,8 @@ public class ItemFood extends ItemMariculture {
 
 	@Override
 	public boolean isActive(int meta) {
+		if(meta == FoodMeta.OYSTER)
+			return true;
 		if (meta < 7) {
 			return Modules.fishery.isActive();
 		}

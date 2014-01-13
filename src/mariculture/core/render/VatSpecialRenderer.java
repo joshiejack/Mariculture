@@ -4,6 +4,7 @@ import mariculture.core.blocks.TileVat;
 import mariculture.core.util.EntityFakeItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -21,10 +22,11 @@ public class VatSpecialRenderer extends TileEntitySpecialRenderer {
 		World world = vat.worldObj;
 		if(vat.master == null) {
 			GL11.glPushMatrix();
-			float offsetX = (float) (x - 0.5F);
-			float offsetY = (float) (y - 0.1F);
-			float offsetZ = (float) (z - 0.5F);
+			float offsetX = (float) (x - 0.2F);
+			float offsetY = (float) (y - 0F);
+			float offsetZ = (float) (z - 0.2F);
 			GL11.glTranslatef(offsetX, offsetY, offsetZ);
+			GL11.glScalef(0.7F, 0.7F, 0.7F);
 	
 			ItemStack stack = vat.getStackInSlot(0);
 			if (stack != null)
@@ -39,9 +41,11 @@ public class VatSpecialRenderer extends TileEntitySpecialRenderer {
 		} else {
 			if(vat.isMaster()) {
 				GL11.glPushMatrix();
-				float offsetY = (float) (y - 0.1F);
-				GL11.glTranslatef((float)x, offsetY, (float)z);
-				
+				float offsetX = (float) (x + 0.2F);
+				float offsetY = (float) (y - 0F);
+				float offsetZ = (float) (z + 0.2F);
+				GL11.glTranslatef((float)offsetX, offsetY, (float)offsetZ);
+				GL11.glScalef(0.8F, 0.8F, 0.8F);
 				ItemStack stack = vat.getStackInSlot(0);
 				if (stack != null) {
 					renderItem(world, stack);

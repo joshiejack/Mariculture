@@ -90,16 +90,6 @@ public class Diving extends Module {
 			Item.book, new ItemStack(snorkel)
 		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.AIR_PUMP), new Object[] {"WGW", "PRP", "PMP", 
-					Character.valueOf('G'), "glass", 
-					Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
-					Character.valueOf('R'), Item.redstone, 
-					Character.valueOf('P'), "plankWood", 
-					Character.valueOf('M'), Block.pistonBase }));
-		
 		//Air Compressor Top
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III",

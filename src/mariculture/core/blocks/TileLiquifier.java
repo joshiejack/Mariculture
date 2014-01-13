@@ -13,6 +13,7 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.UtilMeta;
@@ -148,8 +149,8 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	}
 	
 	public class FuelHandler {
-		private int usedHeat;
-		private int tick;
+		public int usedHeat;
+		public int tick;
 		public FuelInfo info;
 		
 		public void read(NBTTagCompound nbt) {
@@ -241,9 +242,8 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	}
 	
 	public void coolDown() {
-		if(biome == null) {
+		if(biome == null)
 			biome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord));
-		}
 			
 		if(onTick(20)) {
 			temp-=biome.getCoolingSpeed();
@@ -317,14 +317,32 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		super.getGUINetworkData(id, value);
-		if(id - offset == 0)
-			temp = value;
+		
+		int realID = id - offset;
+		switch(realID) {
+			case 0:
+				temp = value;
+			case 1:
+				burnHeight = value;
+		}
+	}
+	
+	
+	private int burnHeight = 0;
+	public int getBurnTimeRemainingScaled() {
+		return burnHeight;
 	}
 	
 	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
 		super.sendGUINetworkData(container, player);
 		Packets.updateGUI(player, container, 0 + offset, temp);
+		if(fuelHandler.info != null) {
+			burnHeight = 11 - (fuelHandler.tick * 12)/fuelHandler.info.ticksPer;
+			Packets.updateGUI(player, container, 1 + offset, burnHeight);
+		} else {
+			Packets.updateGUI(player, container, 1 + offset, 0);
+		}
 	}
 	
 	@Override
@@ -344,7 +362,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 		if(OreDicHelper.isInDictionary(stack)) {
 			String name = OreDicHelper.getDictionaryName(stack);
 			if(name.startsWith("ore")){
-				amount+= (purity * (MetalRates.NUGGET));
+				amount+= (purity * ((MetalRates.NUGGET) * Extra.PURITY));
 			}
 		}
 		

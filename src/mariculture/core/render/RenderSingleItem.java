@@ -37,7 +37,13 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		return !(item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.GEYSER);
+		if(item.itemID == Core.singleBlocks.blockID) {
+			int meta = item.getItemDamage();
+			if(meta == SingleMeta.GEYSER || meta == SingleMeta.ANVIL_1 || meta == SingleMeta.INGOT_CASTER)
+				return false;
+		}
+
+		return true;
 	}
 
 	@Override

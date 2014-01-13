@@ -11,21 +11,15 @@ public class BlockWoodItem extends ItemBlockMariculture {
 
 	@Override
 	public String getName(ItemStack stack) {
-		String name = "";
 		switch (stack.getItemDamage()) {
 		case WoodMeta.POLISHED_LOG:
-			name = "polishedLog";
-			break;
+			return "polishedLog";
 		case WoodMeta.POLISHED_PLANK:
-			name = "polishedPlank";
-			break;
+			return "polishedPlank";
 		case WoodMeta.BASE_WOOD:
-			name = "baseWood";
-			break;
+			return "baseWood";
 		default:
-			name = "woodBlocks";
+			return "woodBlocks";
 		}
-
-		return name;
 	}
 }

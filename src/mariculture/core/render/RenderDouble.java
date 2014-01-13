@@ -7,35 +7,22 @@ import mariculture.core.helpers.RenderHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAnvil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
-
-import tconstruct.library.ItemBlocklike;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderDouble implements ISimpleBlockRenderingHandler {
 	public RenderHelper helper;
 	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks render) {
-		
+	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks render) {
+		if(meta == DoubleMeta.VAT) {
+			new RenderVat(render).render();
+		}
 	}
 	
 	private void renderCompressorTop(IBlockAccess world, TileAirCompressor tile, ForgeDirection facing) {		
@@ -495,7 +482,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		} else if (tile instanceof TilePressureVessel) {
 			renderVessel(world, x, y, z);
 		} else if (tile instanceof TileVat) {
-			renderVat(world, (TileVat)tile, x, y, z);
+			new RenderVat(render).setCoords(world, x, y, z).setDir(((TileVat) tile).facing).render();
 		}
 		
 		render.clearOverrideBlockTexture();
@@ -506,7 +493,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean shouldRender3DInInventory() {
-		return false;
+		return true;
 	}
 
 	@Override

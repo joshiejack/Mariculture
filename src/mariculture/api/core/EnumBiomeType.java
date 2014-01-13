@@ -1,16 +1,16 @@
 package mariculture.api.core;
 
 public enum EnumBiomeType {
-	OCEAN(0, -7, 10, 3, true, false), // Ocean Biomes - Saltwater
-	NORMAL(0, -1, 1, 3, false, false), // Plains, Swamps, Forests, River - Fresh Water
-	ARID(14, 14, 28, 1, false, false), // Desert - Fresh Water
-	HOT(3, 3, 13, 2, false, false), // Jungle - Fresh Water
-	FROZEN(-14, -100, -10, 5, false, false), // Frozen River, Tundra - Fresh Water
+	OCEAN(0, -7, 10, 6, true, false), // Ocean Biomes - Saltwater
+	NORMAL(0, -1, 1, 5, false, false), // Plains, Swamps, Forests, River - Fresh Water
+	ARID(14, 14, 28, 2, false, false), // Desert - Fresh Water
+	HOT(3, 3, 13, 3, false, false), // Jungle - Fresh Water
+	FROZEN(-14, -100, -10, 9, false, false), // Frozen River, Tundra - Fresh Water
 	HELL(28, 28, 100, 1, false, true), // The Nether - Fresh Water
-	COLD(-3, -10, -1, 4, false, false), // Mountains, Taiga - Fresh Water
-	FROZEN_OCEAN(-10, -65, -1, 5, true, false), // Frozen Ocean - Saltwater
-	MUSHROOM(0, -1, 2, 3, false, true), // Mushroom Biome - Fresh Water
-	ENDER(-28, -50, -28, 4, false, true); // The End - Fresh Water
+	COLD(-3, -10, -1, 8, false, false), // Mountains, Taiga - Fresh Water
+	FROZEN_OCEAN(-10, -65, -1, 10, true, false), // Frozen Ocean - Saltwater
+	MUSHROOM(0, -1, 2, 4, false, true), // Mushroom Biome - Fresh Water
+	ENDER(-28, -50, -28, 7, false, true); // The End - Fresh Water
 
 	private int baseTemp;
 	private int minTemp;

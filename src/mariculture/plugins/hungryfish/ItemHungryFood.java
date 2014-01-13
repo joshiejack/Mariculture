@@ -31,6 +31,8 @@ public class ItemHungryFood extends ItemFood {
 			return 3;
 		case FoodMeta.MISO_SOUP:
 			return 5;
+		case FoodMeta.OYSTER:
+			return 8;
 		default:
 			return 1;
 		}
@@ -56,6 +58,8 @@ public class ItemHungryFood extends ItemFood {
 			return 0.08F;
 		case FoodMeta.MISO_SOUP:
 			return 0.2F;
+		case FoodMeta.OYSTER:
+			return 0.8F;
 		default:
 			return 0.3F;
 		}

@@ -53,7 +53,7 @@ public class BlockDecorative extends Block implements IItemRegistry {
 	}
 	
 	@Override
-	public int damageDropped(final int i) {
+	public int damageDropped(int i) {
 		return i;
 	}
 	
@@ -69,6 +69,8 @@ public class BlockDecorative extends Block implements IItemRegistry {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
+		if(blockIcon != null)
+			return blockIcon;
 		if(meta < getMetaCount()) {
 			return icons[meta];
 		} else { 

@@ -1,5 +1,6 @@
 package mariculture.core.blocks;
 
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.blocks.base.TileStorageTank;
@@ -21,6 +22,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	public int machineTick;
 	public boolean canWork;
 	public int freezeTick;
+	private EnumBiomeType biome;
 	
 	public TileIngotCaster() {
 		inventory = new ItemStack[4];
@@ -44,6 +46,9 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	@Override
 	public void updateEntity() {
 		if(!worldObj.isRemote) {
+			if(biome == null)
+				biome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord));
+			
 			machineTick++;
 			
 			if(onTick(30)) {
@@ -51,8 +56,8 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 			}
 			
 			if(canWork) {
-				freezeTick++;
-				if(freezeTick >= 160) {
+				freezeTick+=biome.getCoolingSpeed();
+				if(freezeTick >= 800) {
 					RecipeIngotCasting result = MaricultureHandlers.casting.getResult(tank.getFluid());
 					if(result != null) {
 						for(int i = 0; i < inventory.length; i++) {

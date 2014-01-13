@@ -5,6 +5,7 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorageTank;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.AirMeta;
@@ -14,6 +15,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.network.Packet102AirPump;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.IEjectable;
 import mariculture.diving.Diving;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.block.material.Material;
@@ -25,7 +27,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
-public class TileAirPump extends TileStorageTank implements IEnergyHandler {
+public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEjectable {
 	protected BlockTransferHelper helper;
 	protected EnergyStorage storage = new EnergyStorage(100);
 	public boolean animate;
@@ -34,7 +36,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	private Random rand = new Random();
 	
 	public enum Type {
-		DISPLAY, CHECK, CLEAR
+		DISPLAY, CHECK, CLEAR, DISPLAY_GREEN, DISPLAY_RED
 	}
 	
 	public TileAirPump() {
@@ -94,21 +96,28 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		}
 	}
 
-	public void suckUpGas(int chance) {
+	public boolean suckUpGas(int chance) {
+		boolean collected = false;
 		for(int x = xCoord - 6; x < xCoord + 7; x++) {
 			for (int z = zCoord - 6; z < zCoord + 7; z++) {
 				for (int y = yCoord; y < yCoord + 10; y++) {
 					if(rand.nextInt(1) == 0) {
 						if(isNaturalGas(x, y, z)) {
 							if(fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), false) >= 1000) {
-								fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), true);
-								worldObj.setBlockToAir(x, y, z);
+								if(!worldObj.isRemote) {
+									fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), true);
+									worldObj.setBlockToAir(x, y, z);
+								}
+								
+								collected = true;
 							}
 						}
 					}
 				}
 			}
 		}
+		
+		return collected;
 	}
 	
 	private boolean isNaturalGas(int x, int y, int z) {
@@ -116,6 +125,11 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	}
 	
 	private int tick;
+	
+	@Override
+	public boolean canUpdate() {
+		return true;
+	}
 
 	@Override
 	public void updateEntity() {
@@ -128,7 +142,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		}
 		
 		//Transfer internals to a nearby tank
-		if(tick %20 == 0) {
+		if(tick %20 == 0) {			
 			helper.ejectFluid(new int[] { 1000, 100, 20, 1 });
 		}
 
@@ -186,15 +200,15 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 					int y2 = yCoord + l;
 					int z2 = zCoord + j;
 
-					if (worldObj.isAirBlock(x2, y2, z2) && type.equals(Type.CHECK)) {
+					if (worldObj.isAirBlock(x2, y2, z2)) {
 						total++;
 					}
 					
 					if(!type.equals(Type.CHECK)) {
-						if(worldObj.getBlockId(x2, y2, z2) == Core.airBlocks.blockID && worldObj.getBlockMetadata(x2, y2, z2) == AirMeta.DEMO && (on || type.equals(Type.CLEAR))) {
-							worldObj.setBlockToAir(x2, y2, z2);
-						} else if(type.equals(Type.DISPLAY) && worldObj.isAirBlock(x2, y2, z2) && !(worldObj.getBlockId(x2, y2, z2) == Core.airBlocks.blockID && worldObj.getBlockMetadata(x2, y2, z2) == AirMeta.NATURAL_GAS) && !on) {
-							worldObj.setBlock(x2, y2, z2, Core.airBlocks.blockID, AirMeta.DEMO, 2);
+						if(type.equals(Type.DISPLAY_GREEN)) {
+							worldObj.spawnParticle("happyVillager", x2 + 0.5D, y2 + 0.5D, z2 + 0.5D, 0, 0, 0);
+						} else if(type.equals(Type.DISPLAY_RED)) {
+							worldObj.spawnParticle("reddust", x2 + 0.5D, y2 + 0.5D, z2 + 0.5D, 0, 0, 0);
 						}
 					}
 				}
@@ -203,6 +217,11 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 			
 		if(type.equals(Type.CHECK)) {
 			return (total >= 52) ? true : false;
+		} else if(type.equals(Type.DISPLAY)) {
+			if(total >= 52)
+				updateAirArea(Type.DISPLAY_GREEN);
+			else
+				updateAirArea(Type.DISPLAY_RED);
 		}
 		
 		return true;
@@ -231,5 +250,25 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		return storage.getMaxEnergyStored();
+	}
+
+	public boolean rotate() {
+		return false;
+	}
+
+//Unused but hey!	
+	@Override
+	public EjectSetting getEjectSetting() {
+		return EjectSetting.FLUID;
+	}
+
+	@Override
+	public void setEjectSetting(EjectSetting setting) {
+		return;
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		return EjectSetting.FLUID;
 	}
 }

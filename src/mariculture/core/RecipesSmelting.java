@@ -80,6 +80,7 @@ public class RecipesSmelting {
 		RecipeHelper.addFuel("oil", new FuelInfo(2000, 48, 800));
 		RecipeHelper.addFuel("fuel", new FuelInfo(2000, 80, 3000));
 		RecipeHelper.addFuel("pyrotheum", new FuelInfo(2000, 128, 256));
+		RecipeHelper.addFuel("coal", new FuelInfo(2000, 8, 200));
 	}
 	
 	public static void addFullSet(String fluid, Object[] items, int temp) {

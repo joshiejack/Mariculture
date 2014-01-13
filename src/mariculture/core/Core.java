@@ -65,12 +65,14 @@ import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.BlockIds;
+import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
@@ -216,10 +218,18 @@ public class Core extends Module {
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.LIMESTONE_SMOOTH, "pickaxe", 0);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.MAGNESIUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.RUTILE, "pickaxe", 2);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.TITANIUM_BLOCK, "pickaxe", 20);
+		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.TITANIUM_BLOCK, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_BRICK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_IRON, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.LIQUIFIER, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_1, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_2, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_3, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_4, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.AIR_PUMP, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.INGOT_CASTER, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(doubleBlock, DoubleMeta.VAT, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.BOOKSHELF, "axe", 0);
 		MinecraftForge.setBlockHarvestLevel(groundBlocks, GroundMeta.BUBBLES, "shovel", 0);
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,

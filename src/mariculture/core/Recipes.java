@@ -6,6 +6,7 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -53,12 +54,19 @@ public class Recipes {
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
 			Item.glassBottle, "dustRedstone", new ItemStack(Item.dyePowder, 1, Dye.INK)
 		});
+		
+		//Oyster and Beef Pie
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.OYSTER), new Object[] {
+			"dustSalt", "dustSalt", Item.beefRaw, new ItemStack(Core.oysterBlock, 1, 0), Item.wheat, Item.egg, "dustSalt", Item.porkRaw, Item.wheat
+		});
 
 	//Basic Blocks
 		//Limestone Brick
 		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_BRICK), Core.oreBlocks, OresMeta.LIMESTONE);
-		//Limestone Smooth
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_CHISELED);
+		//Chiseled Limestone
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_SMOOTH);
+		//Smooth Limestone
+		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
 		
 		//Base Brick
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), new Object[] {
@@ -76,8 +84,14 @@ public class Recipes {
 		});
 		
 	//Machines
+		//Air Pump
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.AIR_PUMP), new Object[] {
+			"WGW", "PRP", "PMP", 'G', "glass", 'R', "dustRedstone", 'P', "plankWood", 'M', Block.pistonBase,
+			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
+		});
+		
 		//Copper Tank
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.TANK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 2, TankMeta.TANK), new Object[] {
 			"CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "glass"
 		});
 				
@@ -91,7 +105,7 @@ public class Recipes {
 			" L ", "BGB", "HCH", 
 			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
 			'L', Item.bucketLava, 
-			'G', "glass", 
+			'G', new ItemStack(Core.tankBlocks, 1, TankMeta.TANK), 
 			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
 			'C', new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK)
 		});
@@ -117,12 +131,8 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {
 			"PP ", " SP", "S  ",
 			'P', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
-			'S', "stickWood"
+			'S', Block.netherBrick
 		});
-		
-		//Smooth Limestone
-		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE, 
-									new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
 
 		//Pearl Bricks
 		for (int i = 0; i < 12; i++) {
@@ -147,10 +157,9 @@ public class Recipes {
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 5);
 		
 		//Golden Thread
+		Object stick = (Modules.fishery.isActive())? new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK): "plankWood";
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD), new Object[] {
-			"ABA", "ABA",
-			'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
-			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK)
+			"ABA", "ABA", 'B', stick, 'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
 		});
 	
 		// Log > 30000mB of Fish Oil > 45 Seconds = 1 Polished Log (or 30000mB for 8 Sticks)
@@ -238,7 +247,7 @@ public class Recipes {
 		});
 
 		//Wheel
-		RecipeHelper.addWheelRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), "slabWood", "ingotIron");
+		RecipeHelper.addWheelRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), "ingotIron", "slabWood");
 		
 		//Wicker
 		RecipeHelper.addCrossHatchRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), "stickWood", Item.reed);
@@ -449,7 +458,7 @@ public class Recipes {
 		
 		//Advanced Speed Upgrade
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_SPEED), new Object[] {
-			"ASA", "TUT", "SNS", 'A', "ingotAluminum", 'S', Item.sugar, 'T', "ingotTitanium", 'N', Block.slowSand,
+			"ASA", "TUT", "SNS", 'A', "ingotAluminum", 'S', Item.sugar, 'T', "ingotTitanium", 'N', Block.ice,
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_SPEED)
 		});
 		

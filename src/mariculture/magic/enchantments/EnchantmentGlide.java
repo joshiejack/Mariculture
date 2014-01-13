@@ -69,8 +69,6 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 				KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
 				toggleOn = 0;
 			}
-
-			EnchantmentGlide.keyCoolDown = 20;
 		} else if (EnchantmentGlide.toggleOn == 2) {
 			KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
 			toggleOn = 0;

@@ -1,92 +1,81 @@
 package mariculture.core.render;
 
+import org.lwjgl.opengl.GL11;
+
 import mariculture.core.Core;
-import mariculture.core.helpers.RenderHelper;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAnvil;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraftforge.common.ForgeDirection;
 
-public class RenderAnvil {
-	public RenderBlocks renderer;
-	public RenderHelper helper;
-
-	public RenderAnvil(RenderHelper helper) {
-		this.helper = helper;
-		this.renderer = helper.getRenderer();
+public class RenderAnvil extends RenderBase {
+	
+	public RenderAnvil(RenderBlocks render) {
+		super(render);
 	}
-
-	public boolean renderBlockAnvilMetadata(int par2, int par3, int par4, int par5) {
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.setBrightness(Block.anvil.getMixedBrightnessForBlock(helper.getWorld(), par2, par3, par4));
-		float f = 1.0F;
-		int i1 = Block.anvil.colorMultiplier(helper.getWorld(), par2, par3, par4);
-		float f1 = (float) (i1 >> 16 & 255) / 255.0F;
-		float f2 = (float) (i1 >> 8 & 255) / 255.0F;
-		float f3 = (float) (i1 & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable) {
-			float f4 = (f1 * 30.0F + f2 * 59.0F + f3 * 11.0F) / 100.0F;
-			float f5 = (f1 * 30.0F + f2 * 70.0F) / 100.0F;
-			float f6 = (f1 * 30.0F + f3 * 70.0F) / 100.0F;
-			f1 = f4;
-			f2 = f5;
-			f3 = f6;
+	
+	@Override
+	public void renderBlock() {
+		if(dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) {
+			//Bottom
+			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			renderBlock(0.05, 0, 0.1, 0.95D, 0.2D, 0.9D);
+			
+			//Bottomish
+			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			renderBlock(0.15, 0.2, 0.2, 0.85D, 0.3D, 0.8D);
+			
+			//Middle
+			setTexture(Block.netherBrick);
+			renderBlock(0.25, 0.3, 0.3, 0.75D, 0.6D, 0.7D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.05, 0.6, 0.2, 0.95D, 0.65D, 0.8D);
+			
+			//Secondary Head
+			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			renderBlock(0, 0.65, 0.15, 1D, 0.95D, 0.85D);
+			
+			//Head
+			setTexture(Block.netherBrick);
+			renderBlock(0.95, 0.95, 0.15, 1D, 1D, 0.85D);
+			setTexture(Block.netherBrick);
+			renderBlock(0D, 0.95, 0.15D, 0.05D, 1D, 0.85D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.05D, 0.95D, 0.8D, 0.95D, 1D, 0.85D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.05D, 0.95D, 0.15D, 0.95D, 1D, 0.2D);
+			setTexture(Block.hopperBlock);
+			renderBlock(0.05D, 0.95D, 0.2D, 0.95D, 1D, 0.8D);
+		} else {
+			//Bottom
+			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			renderBlock(0.1, 0, 0.05, 0.9D, 0.2D, 0.95D);
+			
+			//Bottomish
+			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			renderBlock(0.2, 0.2, 0.15, 0.8D, 0.3D, 0.85D);
+			
+			//Middle
+			setTexture(Block.netherBrick);
+			renderBlock(0.3, 0.3, 0.25, 0.7D, 0.6D, 0.75D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.2, 0.6, 0.05, 0.8D, 0.65D, 0.95D);
+			
+			//Secondary Head
+			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			renderBlock(0.15, 0.65, 0, 0.85D, 0.95D, 1D);
+			
+			//Head
+			setTexture(Block.netherBrick);
+			renderBlock(0.15, 0.95, 0.95, 0.85D, 1D, 1D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.15, 0.95, 0, 0.85D, 1D, 0.05D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.8, 0.95, 0.05, 0.85D, 1D, 0.95D);
+			setTexture(Block.netherBrick);
+			renderBlock(0.15, 0.95, 0.05, 0.2D, 1D, 0.95D);
+			setTexture(Block.hopperBlock);
+			renderBlock(0.2, 0.95, 0.05, 0.8D, 1D, 0.95D);
 		}
-
-		tessellator.setColorOpaque_F(f * f1, f * f2, f * f3);
-		return renderBlockAnvilOrient(par2, par3, par4, par5, false);
-	}
-
-	public boolean renderBlockAnvilOrient(int par2, int par3, int par4, int par5, boolean par6) {
-		int i1 = par6 ? 0 : par5 & 3;
-		boolean flag1 = false;
-		float f = 0.0F;
-
-		switch (i1) {
-		case 0:
-			renderer.uvRotateSouth = 2;
-			renderer.uvRotateNorth = 1;
-			renderer.uvRotateTop = 3;
-			renderer.uvRotateBottom = 3;
-			break;
-		case 1:
-			renderer.uvRotateEast = 1;
-			renderer.uvRotateWest = 2;
-			renderer.uvRotateTop = 2;
-			renderer.uvRotateBottom = 1;
-			flag1 = true;
-			break;
-		case 2:
-			renderer.uvRotateSouth = 1;
-			renderer.uvRotateNorth = 2;
-			break;
-		case 3:
-			renderer.uvRotateEast = 2;
-			renderer.uvRotateWest = 1;
-			renderer.uvRotateTop = 1;
-			renderer.uvRotateBottom = 2;
-			flag1 = true;
-		}
-
-		helper.setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
-		f = renderer.renderBlockAnvilRotate((BlockAnvil) Block.anvil, par2, par3, par4, 0, f, 0.75F, 0.25F, 0.75F, flag1, par6, par5);
-		helper.setTexture(Block.netherBrick);
-		f = renderer.renderBlockAnvilRotate((BlockAnvil) Block.anvil, par2, par3, par4, 1, f, 0.5F, 0.0625F, 0.625F, flag1, par6, par5);
-		helper.setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
-		f = renderer.renderBlockAnvilRotate((BlockAnvil) Block.anvil, par2, par3, par4, 2, f, 0.25F, 0.3125F, 0.5F, flag1, par6, par5);
-		helper.setTexture(Core.doubleBlock, DoubleMeta.VAT);
-		renderer.renderBlockAnvilRotate((BlockAnvil) Block.anvil, par2, par3, par4, 3, f, 0.625F, 0.375F, 1.0F, flag1, par6, par5);
-		renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-		renderer.uvRotateEast = 0;
-		renderer.uvRotateWest = 0;
-		renderer.uvRotateSouth = 0;
-		renderer.uvRotateNorth = 0;
-		renderer.uvRotateTop = 0;
-		renderer.uvRotateBottom = 0;
-		return true;
 	}
 }

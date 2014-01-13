@@ -126,7 +126,7 @@ public class BlockOyster extends BlockMachine {
 	
 	@Override
 	public int damageDropped(int i) {
-		return i != NET? i: 0;
+		return 0;
 	}
 	
 	@Override

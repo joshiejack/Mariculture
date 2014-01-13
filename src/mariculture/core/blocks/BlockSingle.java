@@ -15,6 +15,7 @@ import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
@@ -43,8 +44,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -110,7 +109,7 @@ public class BlockSingle extends BlockMachine {
 			}
 			
 			if(tile instanceof TileAirPump) {
-				return ((TileAirPump) tile).updateAirArea(Type.DISPLAY);
+				return ((TileAirPump) tile).rotate();
 			}
 			
 			if(tile instanceof TileGeyser) {
@@ -191,9 +190,32 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile == null || player.isSneaking()) {
+		if (tile == null || (player.isSneaking() && !world.isRemote)) {
 			return false;
 		}
+		
+		if (tile instanceof TileAirPump && Extra.ACTIVATE_PUMP) {	
+			TileAirPump pump = (TileAirPump) tile;
+			if (pump.animate == false) {
+				if(Modules.diving.isActive()) {
+					if(pump.updateAirArea(Type.CHECK)) {
+						if(!world.isRemote)
+							pump.supplyWithAir(300, 64.0D, 64.0D, 64.0D);
+						pump.animate = true;
+					}
+				}
+				if(pump.suckUpGas(1024)) {
+					pump.animate = true;
+				}
+			}
+			
+			if(world.isRemote && player.isSneaking())
+				((TileAirPump) tile).updateAirArea(Type.DISPLAY);
+			return true;
+		}
+		
+		if(player.isSneaking())
+			return false;
 		
 		if(tile instanceof TileTurbineHand) {
 			if(player instanceof FakePlayer) {
@@ -224,31 +246,13 @@ public class BlockSingle extends BlockMachine {
 			player.openGui(Mariculture.instance, GuiIds.FEEDER, world, x, y, z);
 			return true;
 		}
-
-		if(Modules.diving.isActive()) {
-			if (tile instanceof TileAirPump) {				
-				if (!world.isRemote && ((TileAirPump) tile).animate == false && Extra.ACTIVATE_PUMP) {
-					if(((TileAirPump)tile).updateAirArea(Type.CHECK)) {
-						((TileAirPump) tile).supplyWithAir(300, 15.0D, 20.0D, 15.0D);
-						((TileAirPump) tile).animate = true;
-					}
-					
-					((TileAirPump) tile).suckUpGas(1024);
-				} else {
-					if(((TileAirPump)tile).updateAirArea(Type.CHECK)) {
-						((TileAirPump) tile).animate = true;
-					}
-				}
-				
-				return true;
-			}
-		}
 		
 		if(tile instanceof TileAnvil) {
 			if(player instanceof FakePlayer)
 				return false;
 			TileAnvil anvil = (TileAnvil) tile;
 			if(anvil.getStackInSlot(0) != null) {
+				new Packet120ItemSync(x, y, z, anvil.getInventory()).build();
 				if (!player.inventory.addItemStackToInventory(anvil.getStackInSlot(0))) {
 					if(!world.isRemote) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
@@ -341,7 +345,7 @@ public class BlockSingle extends BlockMachine {
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == SingleMeta.GEYSER) {
+		if (meta == SingleMeta.GEYSER || (meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)) {
 			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,
 					(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 		}
@@ -393,13 +397,6 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int j) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile != null) {
-			if(tile instanceof TileAirPump) {
-				((TileAirPump) tile).updateAirArea(Type.CLEAR);
-			}
-		}
-		
 		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, i, j);
 	}

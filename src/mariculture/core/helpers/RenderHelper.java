@@ -47,8 +47,7 @@ public class RenderHelper {
 		render.setOverrideBlockTexture(block.getIcon(0, meta));
 	}
 
-	public void renderBlock(double x, double y, double z, double x2, double y2,
-			double z2) {
+	public void renderBlock(double x, double y, double z, double x2, double y2, double z2) {
 		render.setRenderBounds(x, y, z, x2, y2, z2);
 		render.renderStandardBlock(Block.stone, this.x, this.y, this.z);
 	}

@@ -10,6 +10,7 @@ import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
@@ -100,5 +101,11 @@ public class ItemWorked extends ItemDamageable {
 	public void registerIcons(IconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, 0)));
 		crack = iconRegister.registerIcon(Mariculture.modid + ":crack");
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(int id, CreativeTabs creative, List list) {
+		return;
 	}
 }

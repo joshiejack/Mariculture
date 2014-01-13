@@ -54,14 +54,6 @@ public class BlockTank extends BlockDecorative {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
-		Map map = FluidRegistry.getRegisteredFluids();
-		
-		Iterator it = map.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pairs = (Map.Entry)it.next();
-	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
-	    }
-		
 		return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player);
 	}
 

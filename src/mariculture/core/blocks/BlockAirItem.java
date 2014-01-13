@@ -14,22 +14,14 @@ public class BlockAirItem extends ItemBlockMariculture {
 	}
 
 	@Override
-	public String getName(ItemStack itemstack) {
-		String name = "";
-		switch (itemstack.getItemDamage()) {
+	public String getName(ItemStack stack) {
+		switch (stack.getItemDamage()) {
 		case AirMeta.NATURAL_GAS:
-			name = "naturalGas";
-			break;
+			return "naturalGas";
 		case AirMeta.FAKE_AIR:
-			name = "air";
-			break;
-		case AirMeta.DEMO:
-			name = "demo";
-			break;
+			return "air";
 		default:
-			name = "air";
+			return "air";
 		}
-
-		return name;
 	}
 }

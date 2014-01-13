@@ -62,7 +62,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			return false;
 		if(!(stack.getItem() instanceof ItemWorked)) {
 			RecipeAnvil recipe = ((RecipeAnvil) recipes.get(OreDicHelper.convert(stack)));
-			setInventorySlotContents(0, createWorkedItem(recipe.output, recipe.hits));
+			setInventorySlotContents(0, createWorkedItem(recipe.output.copy(), recipe.hits));
 			return true;
 		} else {
 			int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
@@ -110,5 +110,9 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		if(stack.getItem() instanceof ItemWorked)
 			return side == ForgeDirection.UP.ordinal();
 		return true;
+	}
+
+	public ItemStack[] getInventory() {
+		return inventory;
 	}
 }

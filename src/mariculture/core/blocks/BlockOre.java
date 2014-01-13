@@ -63,9 +63,9 @@ public class BlockOre extends BlockDecorative {
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
 		case OresMeta.BAUXITE:
-			return 2.5F;
+			return 3F;
 		case OresMeta.RUTILE:
-			return 5F;
+			return 10F;
 		case OresMeta.LIMESTONE:
 			return 1F;
 		case OresMeta.LIMESTONE_BRICK:
@@ -73,11 +73,11 @@ public class BlockOre extends BlockDecorative {
 		case OresMeta.CORAL_ROCK:
 			return 5F;
 		case OresMeta.ALUMINUM_BLOCK:
-			return 5F;
+			return 3.5F;
 		case OresMeta.TITANIUM_BLOCK:
-			return 6F;
+			return 15F;
 		case OresMeta.MAGNESIUM_BLOCK:
-			return 4F;
+			return 3F;
 		case OresMeta.COPPER:
 			return 1.5F;
 		case OresMeta.COPPER_BLOCK:
@@ -87,9 +87,9 @@ public class BlockOre extends BlockDecorative {
 		case OresMeta.LIMESTONE_CHISELED:
 			return 1.5F;
 		case OresMeta.BASE_BRICK:
-			return 30F;
+			return 8F;
 		case OresMeta.BASE_IRON:
-			return 3F;
+			return 5F;
 		}
 
 		return 3F;

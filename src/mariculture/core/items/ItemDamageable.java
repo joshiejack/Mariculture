@@ -3,6 +3,7 @@ package mariculture.core.items;
 import java.util.List;
 
 import mariculture.api.core.MaricultureRegistry;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.lib.AirMeta;
@@ -29,6 +30,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemDamageable extends Item implements IItemRegistry {
 	public ItemDamageable(int i, int dmg) {
 		super(i);
+		setCreativeTab(MaricultureTab.tabMariculture);
 		setMaxStackSize(1);
 		setMaxDamage(dmg);
 	}
@@ -52,5 +54,11 @@ public class ItemDamageable extends Item implements IItemRegistry {
 	@Override
 	public String getName(ItemStack stack) {
 		return this.getUnlocalizedName().substring(5);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(int id, CreativeTabs creative, List list) {
+		list.add(new ItemStack(id, 1, 0));
 	}
 }
