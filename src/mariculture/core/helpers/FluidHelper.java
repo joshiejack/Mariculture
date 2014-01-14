@@ -2,6 +2,7 @@ package mariculture.core.helpers;
 
 import mariculture.core.Core;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.MetalRates;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +15,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -35,7 +37,7 @@ public class FluidHelper {
 	}
 	
 	public static boolean isFluidOrEmpty(ItemStack stack) {
-		return isEmpty(stack) || isFilled(stack) || isVoid(stack);
+		return isEmpty(stack) || isFilled(stack) || isVoid(stack) || isIContainer(stack);
 	}
 	
 	public static boolean isEmpty(ItemStack stack) {
@@ -48,6 +50,10 @@ public class FluidHelper {
 
 	public static boolean isVoid(ItemStack stack) {
 		return (stack != null && stack.getItem().itemID == Core.liquidContainers.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
+	}
+	
+	private static boolean isIContainer(ItemStack stack) {
+		return stack != null && stack.getItem() instanceof IFluidContainerItem;
 	}
 
 	public static ItemStack getFluidResult(IFluidHandler tile, ItemStack top, ItemStack bottom) {
@@ -62,7 +68,11 @@ public class FluidHelper {
 			
 			if(isFilled(top)) {				
 				return doEmpty(tile, top, bottom);
-			}		
+			}
+			
+			if(isIContainer(top)) {
+				return doIContainer(tile, top, bottom);
+			}
 			
 			if(FishFoodHandler.isFishFood(top)) {
 				return addFishFood(tile, top);
@@ -71,7 +81,7 @@ public class FluidHelper {
 
 		return null;
 	}
-	
+
 	private static ItemStack addFishFood(IFluidHandler tile, ItemStack stack) {
 		if (FishFoodHandler.isFishFood(stack)) {
 			int increase = FishFoodHandler.getValue(stack);
@@ -137,14 +147,39 @@ public class FluidHelper {
 		
 		return null;
 	}
-
-	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-		if (matches(top, bottom, new ItemStack(Item.glassBottle))) {
-			if(tile.getTankInfo(ForgeDirection.UNKNOWN) != null) {
-				if(tile.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid == null) {
+	
+	private static ItemStack doIContainer(IFluidHandler tile, ItemStack top, ItemStack bottom) {
+		if(bottom != null)
+			return null;
+		IFluidContainerItem container = (IFluidContainerItem) top.getItem();
+		FluidStack fluid = container.getFluid(top);
+		if(fluid != null) {
+			FluidStack stack = container.drain(top, 1000000, false);
+			if(stack != null) {
+				stack.amount = tile.fill(ForgeDirection.UNKNOWN, stack, false);
+				if(stack.amount > 0) {
+					container.drain(top, stack.amount, true);
+					tile.fill(ForgeDirection.UNKNOWN, stack, true);
+				} else {
 					return null;
 				}
 			}
+		} else {
+			FluidStack stack = tile.drain(ForgeDirection.UNKNOWN, MetalRates.INGOT, true);
+			if(stack != null && stack.amount > 0)
+				container.fill(top, stack, true);
+			else
+				return null;
+		}
+			
+		return top;
+	}
+
+	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
+		if (matches(top, bottom, new ItemStack(Item.glassBottle))) {
+			FluidStack fluid = tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, false);
+			if(fluid == null || fluid != null && fluid.amount <= 0)
+				return null;
 			
 			tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
 			return new ItemStack(Item.glassBottle);
@@ -181,7 +216,7 @@ public class FluidHelper {
 		return null;
 	}
 
-	public static boolean handleFillOrDrain(IFluidHandler tank, EntityPlayer player) {
+	public static boolean handleFillOrDrain(IFluidHandler tank, EntityPlayer player, ForgeDirection side) {
 		ItemStack heldItem = player.inventory.getCurrentItem();
 		FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(heldItem);
 		ItemStack newHeld = FluidHelper.getEmptyContainerForFilledItem(heldItem);
@@ -212,7 +247,7 @@ public class FluidHelper {
 			ItemStack result = FluidContainerRegistry.fillFluidContainer(tank.drain(ForgeDirection.UNKNOWN, 100000, false), heldItem);
 			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
 			if (result != null) {
-				tank.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+				tank.drain(side, fluid.amount, true);
 				if (!player.capabilities.isCreativeMode) {
 					if (heldItem.stackSize == 1) {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, result);
@@ -226,6 +261,26 @@ public class FluidHelper {
 				}
 
 				return true;
+			}
+		} else if (heldItem != null && heldItem.getItem() instanceof IFluidContainerItem) {
+			IFluidContainerItem container = (IFluidContainerItem) heldItem.getItem();
+			FluidStack fluid = container.getFluid(heldItem);
+			if(fluid != null && fluid.amount > 0) {
+				FluidStack stack = container.drain(heldItem, 1000000, false);
+				if(stack != null) {
+					stack.amount = tank.fill(side, stack, false);
+					if(stack.amount > 0) {
+						container.drain(heldItem, stack.amount, true);
+						tank.fill(ForgeDirection.UNKNOWN, stack, true);
+					}
+				}
+			} else {
+				FluidStack stack = tank.drain(side, MetalRates.INGOT, false);
+				if(stack != null && stack.amount > 0) {
+					tank.drain(side, MetalRates.INGOT, true);
+					container.fill(heldItem, stack, true);
+					System.out.println("huh");
+				}
 			}
 		}
 		

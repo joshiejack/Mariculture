@@ -60,6 +60,7 @@ import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.items.ItemFood;
 import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemHammer;
+import mariculture.core.items.ItemLadle;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
@@ -147,6 +148,7 @@ public class Core extends Module {
 	public static Item hammer;
 	public static Item worked;
 	public static Item guides;
+	public static Item ladle;
 	
 	@Override
 	public void registerHandlers() {
@@ -254,9 +256,10 @@ public class Core extends Module {
 		hammer = new ItemHammer(ItemIds.hammer, 1000).setUnlocalizedName("hammer");
 		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
 		guides = new ItemGuide(ItemIds.guides).setUnlocalizedName("guide");
+		ladle = new ItemLadle(ItemIds.ladle, 100).setUnlocalizedName("ladle");
 
 		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
-				liquidContainers, hammer, worked, batteryCopper, guides });
+				liquidContainers, hammer, worked, batteryCopper, guides, ladle });
 	}
 	
 	@Override

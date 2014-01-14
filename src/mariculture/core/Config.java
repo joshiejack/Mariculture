@@ -72,7 +72,7 @@ public class Config {
             OreGeneration.RUTILE_CHANCE = config.get(Category.ORE, "Rutile > 1 Vein Per This Many Limestone", 128).getInt();
             OreGeneration.LIMESTONE = config.get(Category.ORE, "Limestone > Generation", true).getBoolean(true);
             OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > 1 Vein Per This Many Chunks", 1).getInt();
-            OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 52).getInt();
+            OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 64).getInt();
             OreGeneration.NATURAL_GAS_ON = config.get(Category.ORE, "Natural Gas > Generation", true).getBoolean(true);
             OreGeneration.NATURAL_GAS_CHANCE = config.get(Category.ORE, "Natural Gas > 1 Pocket Per This Many Chunks", 20).getInt();
             OreGeneration.NATURAL_GAS_VEIN = config.get(Category.ORE, "Natural Gas > Maximum Vein Size", 64).getInt();
@@ -289,7 +289,7 @@ public class Config {
             ItemIds.titanium_part_23 = config.getItem("TiC Titanium - Tough Binding", 29056).getInt();
             ItemIds.titanium_part_24 = config.getItem("TiC Titanium - Tough Rod", 29057).getInt();
             
-            //FREEIDS: 29068 > 29100
+            //FREEIDS: 29069 > 29100
             ItemIds.rodFlux = config.getItem("Fishing Rod - Flux", 29058).getInt();
             ItemIds.filter = config.getItem("Item Filter", 29059).getInt();
             ItemIds.turbineCopper = config.getItem("Rotor - Copper", 29060).getInt();
@@ -300,6 +300,7 @@ public class Config {
             ItemIds.worked = config.getItem("Worked Item", 29065).getInt();
             ItemIds.batteryCopper = config.getItem("Battery(Copper)", 29066).getInt();
             ItemIds.guides = config.getItem("Guidebooks", 29067).getInt();
+            ItemIds.ladle = config.getItem("Ladle", 29068).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

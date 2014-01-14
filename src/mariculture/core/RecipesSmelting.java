@@ -211,9 +211,15 @@ public class RecipesSmelting {
 		//Rutile > Liquid
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE), titanium, get(FluidDictionary.rutile));
 		
+		//Chainmail to steel
 		addRecipe(FluidDictionary.steel, MetalRates.CHAIN, new Object[] { 
 				new ItemStack(Item.helmetChain), new ItemStack(Item.plateChain), 
 							new ItemStack(Item.legsChain), new ItemStack(Item.bootsChain) }, steel, null, 0);
+		
+		//1 Part Quicklime + 1 Nugget Aluminum + 1 Block Glass = 1 Heat Resistant Glass (15 Seconds)
+		RecipeHelper.addFluidAlloyNItemResultItem(get(FluidDictionary.aluminum, MetalRates.NUGGET), 
+				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 1000),
+				new ItemStack(Block.glass), new ItemStack(Core.glassBlocks, 1, GlassMeta.HEAT), 15);
 	}
 	
 	public static FluidStack gold(int vol) {

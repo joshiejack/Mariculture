@@ -25,7 +25,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTransparent extends BlockDecorative {
-	private static Icon[] textures = new Icon[47];
+	private static Icon[] plastic = new Icon[47];
+	private static Icon[] heatglass = new Icon[47];
 
 	private static int[] textureRefByID = { 0, 0, 6, 6, 0, 0, 6, 6, 3, 3, 19, 15, 3, 3, 19, 15, 1, 1, 18, 18, 1, 1, 13,
 			13, 2, 2, 23, 31, 2, 2, 27, 14, 0, 0, 6, 6, 0, 0, 6, 6, 3, 3, 19, 15, 3, 3, 19, 15, 1, 1, 18, 18, 1, 1, 13,
@@ -56,11 +57,18 @@ public class BlockTransparent extends BlockDecorative {
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
+        int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
+        return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+    }
 
 	//Thanks to f1rSt1k25 for the Code.
 	@Override
 	public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side) {
-		if(world.getBlockMetadata(x, y, z) == GlassMeta.PLASTIC) {
+		int meta = world.getBlockMetadata(x, y, z);
+		if(meta == GlassMeta.PLASTIC || meta == GlassMeta.HEAT) {
 			boolean[] bitMatrix = new boolean[8];
 	
 			if (side == 0 || side == 1) {
@@ -101,15 +109,20 @@ public class BlockTransparent extends BlockDecorative {
 						+ (bitMatrix[i] ? (i == 0 ? 1 : (i == 1 ? 2 : (i == 2 ? 4 : (i == 3 ? 8 : (i == 4 ? 16
 								: (i == 5 ? 32 : (i == 6 ? 64 : 128))))))) : 0);
 	
-			return idBuilder > 255 || idBuilder < 0 ? textures[0] : textures[textureRefByID[idBuilder]];
-		} else {
-			return getIcon(side, world.getBlockMetadata(x, y, z));
+			if(meta == GlassMeta.PLASTIC)
+				return idBuilder > 255 || idBuilder < 0 ? plastic[0] : plastic[textureRefByID[idBuilder]];
+			if(meta == GlassMeta.HEAT)
+				return idBuilder > 255 || idBuilder < 0 ? heatglass[0] : heatglass[textureRefByID[idBuilder]];
 		}
+		
+		return getIcon(side, world.getBlockMetadata(x, y, z));
 	}
 
 	public Icon getIcon(int side, int meta) {
 		if(meta == GlassMeta.PLASTIC) {
-			return textures[0]; 
+			return plastic[0]; 
+		} else if(meta == GlassMeta.HEAT) {
+			return heatglass[0]; 
 		} else {
 			if(meta < getMetaCount()) {
 				return icons[meta];
@@ -146,7 +159,8 @@ public class BlockTransparent extends BlockDecorative {
 		icons = new Icon[getMetaCount()];
 		
 		for (int i = 0; i < 47; i++) {
-			textures[i] = iconRegister.registerIcon(Mariculture.modid + ":plastic/glass_plastic_" + (i + 1));
+			plastic[i] = iconRegister.registerIcon(Mariculture.modid + ":plastic/glass_plastic_" + (i + 1));
+			heatglass[i] = iconRegister.registerIcon(Mariculture.modid + ":heatglass/glass_plastic_" + (i + 1));
 		}
 
 		for (int i = 0; i < icons.length; i++) {

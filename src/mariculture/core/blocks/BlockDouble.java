@@ -26,6 +26,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -127,7 +128,7 @@ public class BlockDouble extends BlockMachine {
 			ItemStack input = vat.getStackInSlot(0);
 			ItemStack output = vat.getStackInSlot(1);
 			if(FluidHelper.isFluidOrEmpty(player.getCurrentEquippedItem())) {
-				return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player);
+				return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
 			}
 			
 			if(output != null) {
@@ -140,7 +141,7 @@ public class BlockDouble extends BlockMachine {
 				vat.setInventorySlotContents(1, null);
 				
 				return true;
-			} else if(player.isSneaking() && input != null) {
+			} else if(player.isSneaking() && input != null) {				
 				if (!player.inventory.addItemStackToInventory(vat.getStackInSlot(0))) {
 					if(!world.isRemote) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, vat.getStackInSlot(0));

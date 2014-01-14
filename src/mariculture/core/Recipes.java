@@ -59,6 +59,16 @@ public class Recipes {
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.OYSTER), new Object[] {
 			"dustSalt", "dustSalt", Item.beefRaw, new ItemStack(Core.oysterBlock, 1, 0), Item.wheat, Item.egg, "dustSalt", Item.porkRaw, Item.wheat
 		});
+		
+		//Processing Book
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.PROCESSING), new Object[] {
+			Item.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
+		});
+		
+		//Heat Resistant Bottles
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.liquidContainers, 3, FluidContainerMeta.BOTTLE_EMPTY), new Object[] {
+			"G G", " G ", 'G', new ItemStack(Core.glassBlocks, 1, GlassMeta.HEAT)
+		});
 
 	//Basic Blocks
 		//Limestone Brick
@@ -127,11 +137,16 @@ public class Recipes {
 			" B ", "BBB", " B ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 		
+		//Ladle
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.ladle), new Object[] {
+			" C ", " C ", "B  ",
+			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'C', "ingotCopper"
+		});
+		
 		//Hammer
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {
 			"PP ", " SP", "S  ",
-			'P', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
-			'S', Block.netherBrick
+			'P', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'S', Block.netherBrick
 		});
 
 		//Pearl Bricks
@@ -143,11 +158,6 @@ public class Recipes {
 		//Piston
 		RecipeHelper.addShapedRecipe(new ItemStack(Block.pistonBase, 1), new Object[] {
 			"TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood"
-		});
-		
-		//Processing Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.PROCESSING), new Object[] {
-			Item.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 	}
 

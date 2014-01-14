@@ -14,16 +14,13 @@ public class BlockTransparentItem extends ItemBlockMariculture {
 
 	@Override
 	public String getName(ItemStack itemstack) {
-		String name = "";
 		switch (itemstack.getItemDamage()) {
 		case GlassMeta.PLASTIC:
-			name = "plastic";
-			break;
-
+			return "plastic";
+		case GlassMeta.HEAT:
+			return "heatglass";
 		default:
-			name = "plastic";
+			return "plastic";
 		}
-
-		return name;
 	}
 }

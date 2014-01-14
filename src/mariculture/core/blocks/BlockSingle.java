@@ -283,7 +283,7 @@ public class BlockSingle extends BlockMachine {
 				}
 			}
 			
-			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player);
+			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
 		}
 
 		return false;

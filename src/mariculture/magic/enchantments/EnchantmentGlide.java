@@ -74,6 +74,6 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 			toggleOn = 0;
 		}
 		
-		keyCoolDown = 20;
+		keyCoolDown = 2;
 	}
 }

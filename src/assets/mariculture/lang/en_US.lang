@@ -45,6 +45,7 @@ tile.pearlBrick.black.name=Black Pearl Brick
 tile.pearlBrick.pink.name=Pink Pearl Brick
 tile.pearlBrick.silver.name=Silver Pearl Brick
 tile.glassBlocks.plastic.name=Transparent Plastic
+tile.glassBlocks.heatglass.name=Heat Resistant Glass
 tile.airBlocks.air.name=Fake Air
 tile.airBlocks.naturalGas.name=Natural Gas
 tile.woodBlocks.baseWood.name=Wooden Construction Block
@@ -78,7 +79,8 @@ fluid.gas.natural=Natural Gas
 fluid.quicklime=Quicklime
 
 #items
-item.hammer.name=Burnt Hammer
+item.hammer.name=Hammer
+item.ladle.name=Ladle
 item.food.oyster.name=Beef and Oyster Pie
 item.guide.processing.name=A Layman's guide to Processing
 item.materials.ingotAluminum.name=Aluminium Ingot
