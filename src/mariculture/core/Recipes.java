@@ -174,36 +174,7 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD), new Object[] {
 			"ABA", "ABA", 'B', stick, 'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
 		});
-	
-		// Log > 30000mB of Fish Oil > 45 Seconds = 1 Polished Log (or 30000mB for 8 Sticks)
-		RecipeHelper.addVatItemRecipe(new ItemStack(Block.wood), FluidDictionary.fish_oil, 30000, 
-				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG), 45);
-		//1 Plank = 9000mB > 30 Seconds = 1 Polished Plank (or 36000mB for 8 Sticks)
-		RecipeHelper.addVatItemRecipe(new ItemStack(Block.planks), FluidDictionary.fish_oil, 10000, 
-				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK), 30);
-		//1 Stick = 5000mB > 15 Seconds or (40000mB for 8 Sticks)
-		RecipeHelper.addVatItemRecipe(new ItemStack(Item.stick), FluidDictionary.fish_oil, 5000, 
-				new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 15);
-		
-		//1 Polished Log = 4 Polished Planks
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.woodBlocks, 4, WoodMeta.POLISHED_PLANK), new Object[] {
-			new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG)
-		});
-		
-		//2 Polished Planks = 4 Polished Sticks
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
-			"S  ", "S  ", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
-		});
-		
-		//Titanium Rod >> 30 Seconds >> With Tinkers(6500mB Fish Oil + Tough Rod, without 2 Ingots Titanium + 2 Polished Sticks)
-		if(Loader.isModLoaded("TConstruct")) {
-			PluginTConstruct.addRod = true;
-		} else {
-			RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 
-					FluidDictionary.titanium, MetalRates.INGOT * 2,  
-					new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
-		}
-		
+
 		//Neoprene
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE),  new Object[] { 
 			"IPI", "PEP", "IPI", 

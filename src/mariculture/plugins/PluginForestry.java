@@ -89,9 +89,6 @@ public class PluginForestry extends Plugin {
 						new Object[] { "WDW", "WTW", "WWW", Character.valueOf('D'), Item.diamond,
 									Character.valueOf('W'), silk, Character.valueOf('B'), aquaBackpackT1 });
 				}
-				
-			FuelManager.bronzeEngineFuel.put(FluidRegistry.getFluid(FluidDictionary.fish_oil), new EngineBronzeFuel(
-					FluidRegistry.getFluid(FluidDictionary.fish_oil), 1, 7500, 1));
 
 			if (Modules.world.isActive()) {
 				FuelManager.fermenterFuel.put(new ItemStack(WorldPlus.coral, 1, CoralMeta.KELP), new FermenterFuel(
@@ -100,13 +97,16 @@ public class PluginForestry extends Plugin {
 			
 			
 			if(Modules.fishery.isActive()) {
+				FuelManager.bronzeEngineFuel.put(FluidRegistry.getFluid(FluidDictionary.fish_oil), new EngineBronzeFuel(
+						FluidRegistry.getFluid(FluidDictionary.fish_oil), 1, 7500, 1));
+				
 				for(int i = 0; i < FishSpecies.speciesList.size(); i++) {
 					if(FishSpecies.speciesList.get(i) != null) {
 						FishSpecies fish = FishSpecies.speciesList.get(i);
 						int id = fish.fishID;
 						
 						RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(Fishery.fishyFood, 1, id) }, 
-								new FluidStack(Core.fishOil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
+								new FluidStack(Fishery.fishOil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
 					}
 				}
 			}

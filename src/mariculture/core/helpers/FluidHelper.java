@@ -176,13 +176,13 @@ public class FluidHelper {
 	}
 
 	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-		if (matches(top, bottom, new ItemStack(Item.glassBottle))) {
+		if (matches(top, bottom, new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY))) {
 			FluidStack fluid = tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, false);
 			if(fluid == null || fluid != null && fluid.amount <= 0)
 				return null;
 			
 			tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
-			return new ItemStack(Item.glassBottle);
+			return new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY);
 		}
 		
 		return null;

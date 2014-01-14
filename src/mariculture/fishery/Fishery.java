@@ -19,11 +19,13 @@ import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
@@ -81,16 +83,19 @@ import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemFishyFood;
 import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
+import mariculture.plugins.PluginTConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
@@ -121,6 +126,9 @@ public class Fishery extends Module {
 	public static Item fishyFood;
 	public static Item net;
 
+	public static Fluid fishFood;
+	public static Fluid fishOil;
+	
 	public static FishDNA species;
 	public static FishDNA gender;
 	public static FishDNA lifespan;
@@ -186,12 +194,16 @@ public class Fishery extends Module {
 		GameRegistry.registerTileEntity(TileSift.class, "tileEntitySift");
 		GameRegistry.registerTileEntity(TileIncubator.class, "tileIncubator");
 		GameRegistry.registerTileEntity(TileFeeder.class, "tileFeeder");
+		GameRegistry.registerTileEntity(TileFishTank.class, "tileFishTank");
 
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.INCUBATOR_BASE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.INCUBATOR_TOP, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.AIR_PUMP, "pickaxe", 1);
 
 		RegistryHelper.register(new Object[] { siftBlock, lampsOff, lampsOn });
+		
+		FluidDictionary.fish_food = Core.addFluid("food.fish", fishFood, 256, FluidContainerMeta.BOTTLE_FISH_FOOD);
+		FluidDictionary.fish_oil = Core.addFluid("oil.fish", fishOil, 1000, FluidContainerMeta.BOTTLE_FISH_OIL);
 	}
 
 	@Override
@@ -326,6 +338,35 @@ public class Fishery extends Module {
 		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(rodFlux), 0), new Object[] {
 			"  R", " RS", "B S", 'R', rodTitanium, 'S', Item.silk, 'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE)
 		});
+		
+		// Log > 30000mB of Fish Oil > 45 Seconds = 1 Polished Log (or 30000mB for 8 Sticks)
+		RecipeHelper.addVatItemRecipe(new ItemStack(Block.wood), FluidDictionary.fish_oil, 30000, 
+				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG), 45);
+		//1 Plank = 9000mB > 30 Seconds = 1 Polished Plank (or 36000mB for 8 Sticks)
+		RecipeHelper.addVatItemRecipe(new ItemStack(Block.planks), FluidDictionary.fish_oil, 10000, 
+				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK), 30);
+		//1 Stick = 5000mB > 15 Seconds or (40000mB for 8 Sticks)
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.stick), FluidDictionary.fish_oil, 5000, 
+				new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 15);
+				
+		//1 Polished Log = 4 Polished Planks
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.woodBlocks, 4, WoodMeta.POLISHED_PLANK), new Object[] {
+			new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG)
+		});
+				
+		//2 Polished Planks = 4 Polished Sticks
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
+			"S  ", "S  ", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
+		});
+				
+		//Titanium Rod >> 30 Seconds >> With Tinkers(6500mB Fish Oil + Tough Rod, without 2 Ingots Titanium + 2 Polished Sticks)
+		if(Loader.isModLoaded("TConstruct")) {
+			PluginTConstruct.addRod = true;
+		} else {
+			RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 
+					FluidDictionary.titanium, MetalRates.INGOT * 2,  
+					new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
+		}
 		
 		/* Fishing Net, Autofisher and Sift */
 		CraftingManager

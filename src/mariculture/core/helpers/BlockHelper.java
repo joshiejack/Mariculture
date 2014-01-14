@@ -1,9 +1,12 @@
 package mariculture.core.helpers;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.util.IItemDropBlacklist;
+import mariculture.core.util.Rand;
+import mariculture.fishery.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -112,7 +115,7 @@ public class BlockHelper {
 	}
 
 	public static void dropItems(World world, int x, int y, int z) {
-		Random rand = new Random();
+		Random rand = Rand.rand;
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 	
 		if (!(tile instanceof IInventory)) {
@@ -128,9 +131,7 @@ public class BlockHelper {
 					return;
 			}
 		}
-	
-		System.out.println("dropping");
-		
+			
 		IInventory inventory = (IInventory) tile;
 	
 		for (int i = 0; i < inventory.getSizeInventory(); i++) {
@@ -164,5 +165,37 @@ public class BlockHelper {
 				}
 			}
 		}
+	}
+
+	public static void dropFish(World world, int x, int y, int z) {
+		Random rand = Rand.rand;
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileFishTank) {
+			ArrayList<ItemStack> stacks = ((TileFishTank)tile).fish;
+			for(ItemStack stack: stacks) {
+				if (stack != null && stack.stackSize > 0) {
+					float rx = rand.nextFloat() * 0.6F + 0.1F;
+					float ry = rand.nextFloat() * 0.6F + 0.1F;
+					float rz = rand.nextFloat() * 0.6F + 0.1F;
+	
+					EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(stack.itemID,
+							stack.stackSize, stack.getItemDamage()));
+	
+					if (stack.hasTagCompound()) {
+						entity_item.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+					}
+	
+					float factor = 0.05F;
+	
+					entity_item.motionX = rand.nextGaussian() * factor;
+					entity_item.motionY = rand.nextGaussian() * factor + 0.2F;
+					entity_item.motionZ = rand.nextGaussian() * factor;
+					world.spawnEntityInWorld(entity_item);
+					stack.stackSize = 0;
+				}
+			}
+		}
+		
+		dropItems(world, x, y, z);
 	}
 }

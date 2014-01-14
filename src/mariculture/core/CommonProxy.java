@@ -33,16 +33,19 @@ import mariculture.factory.gui.GuiPressureVessel;
 import mariculture.factory.gui.GuiSawmill;
 import mariculture.factory.gui.GuiTurbineGas;
 import mariculture.factory.gui.GuiTurbineWater;
+import mariculture.fishery.TileFishTank;
 import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileIncubator;
 import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.gui.ContainerAutofisher;
 import mariculture.fishery.gui.ContainerFeeder;
+import mariculture.fishery.gui.ContainerFishTank;
 import mariculture.fishery.gui.ContainerIncubator;
 import mariculture.fishery.gui.ContainerSift;
 import mariculture.fishery.gui.GuiAutofisher;
 import mariculture.fishery.gui.GuiFeeder;
+import mariculture.fishery.gui.GuiFishTank;
 import mariculture.fishery.gui.GuiIncubator;
 import mariculture.fishery.gui.GuiSift;
 import net.minecraft.entity.player.EntityPlayer;
@@ -114,6 +117,10 @@ public class CommonProxy implements IGuiHandler {
 			
 			if(tile instanceof TileFishSorter) {
 				return new ContainerFishSorter((TileFishSorter)tile, player.inventory);
+			}
+			
+			if(tile instanceof TileFishTank) {
+				return new ContainerFishTank((TileFishTank)tile, player.inventory);
 			}
 		}
 
@@ -187,6 +194,10 @@ public class CommonProxy implements IGuiHandler {
 			
 			if(tile instanceof TileFishSorter) {
 				return new GuiFishSorter(player.inventory, (TileFishSorter) tile);
+			}
+			
+			if(tile instanceof TileFishTank) {
+				return new GuiFishTank(player.inventory, (TileFishTank) tile);
 			}
 		}
 

@@ -4,9 +4,9 @@ import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.helpers.RenderHelper;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
+import mariculture.fishery.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,7 +22,11 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int id, RenderBlocks render) {
-		if (id == RenderIds.BLOCK_TANKS) {
+		int meta = world.getBlockMetadata(x, y, z);
+		if(meta == TankMeta.BOTTLE) {
+			new RenderVoidBottle(render).setCoords(world, x, y, z).render();
+			return true;
+		} else if(world.getBlockTileEntity(x, y, z) instanceof TileTankBlock) {
 			//Tank
 			TileTankBlock tank = (TileTankBlock) world.getBlockTileEntity(x, y, z);
 			if(tank != null) {
@@ -34,6 +38,18 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 			}
 
 			// Block
+			render.setRenderBounds(0, 0, 0, 1, 1, 1);
+			render.renderStandardBlock(block, x, y, z);
+		} else if(meta == TankMeta.FISH) {
+			TileFishTank tank = (TileFishTank) world.getBlockTileEntity(x, y, z);
+			if(tank != null) {
+				if(tank.tank.getFluidAmount() > 0) {
+					FluidStack fluidStack = tank.tank.getFluid();
+					Fluid fluid = fluidStack.getFluid();
+					RenderHelper.renderFluid(world, x, y, z, tank.getFluidAmountScaled(), fluid.getStillIcon(), fluid.getFlowingIcon(), render);
+				}
+			}
+			
 			render.setRenderBounds(0, 0, 0, 1, 1, 1);
 			render.renderStandardBlock(block, x, y, z);
 		}

@@ -21,6 +21,8 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGenHandler implements IWorldGenerator {
@@ -67,7 +69,7 @@ public class WorldGenHandler implements IWorldGenerator {
 		int posX, posY, posZ;
 		//Layers 16-25 for Gas
 		if(OreGeneration.NATURAL_GAS_ON && random.nextInt(OreGeneration.NATURAL_GAS_CHANCE) == 0) {
-			if(isValidForNaturalGas(world, x, z)) {
+			if(isOceanBiome(world, x, z)) {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.NATURAL_GAS_MIN + random.nextInt(OreGeneration.NATURAL_GAS_MAX - OreGeneration.NATURAL_GAS_MIN);
 				posZ = z + random.nextInt(16);
@@ -97,7 +99,7 @@ public class WorldGenHandler implements IWorldGenerator {
 		if (OreGeneration.LIMESTONE && random.nextInt(OreGeneration.LIMESTONE_CHANCE) == 0) {
 			posX = x + random.nextInt(16);
 			posZ = z + random.nextInt(16);
-			if(isValidForLimestone(world, posX, posZ)) {
+			if(isRiverBiome(world, posX, posZ) && world.getTopSolidOrLiquidBlock(posX, posZ) >= OreGeneration.LIMESTONE_MAX_DEPTH) {
 				new WorldGenLimestone(OreGeneration.LIMESTONE_VEIN).generate(world, random, posX, posZ);
 			}
 		}
@@ -108,7 +110,7 @@ public class WorldGenHandler implements IWorldGenerator {
 		if(!OreGeneration.LIMESTONE && OreGeneration.RUTILE) {
 			posX = x + random.nextInt(16);
 			posZ = z + random.nextInt(16);
-			if(isValidForLimestone(world, posX, posZ)) {
+			if(isRiverBiome(world, posX, posZ)) {
 				for (int i = 0; i < (OreGeneration.RUTILE_CHANCE/10); i++) {
 					posX = x + random.nextInt(16);
 					posY = 54 + random.nextInt(10);
@@ -120,7 +122,12 @@ public class WorldGenHandler implements IWorldGenerator {
 		}
 	}
 	
-	private static boolean isValidForLimestone(World world, int posX, int posZ) {
+	public static boolean isRiverBiome(World world, int posX, int posZ) {
+		if(!Extra.RIVER_FORCE) {
+			if(BiomeDictionary.isBiomeOfType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ), Type.WATER))
+				return true;
+		}
+		
 		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;
 		for(int i = 0; i < Extra.RIVER_BIOMES.length; i++) {
 			if(Extra.RIVER_BIOMES[i] > -1) {
@@ -133,9 +140,11 @@ public class WorldGenHandler implements IWorldGenerator {
 		return false;
 	}
 	
-	private static boolean isValidForNaturalGas(World world, int posX, int posZ) {
-		if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ)) == EnumBiomeType.OCEAN) {
-			return true;
+	public static boolean isOceanBiome(World world, int posX, int posZ) {
+		if(!Extra.OCEAN_FORCE) {
+			if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ)) == EnumBiomeType.OCEAN) {
+				return true;
+			}
 		}
 		
 		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;

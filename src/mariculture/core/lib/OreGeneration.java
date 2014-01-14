@@ -12,6 +12,7 @@ public class OreGeneration {
 	public static boolean LIMESTONE;
 	public static int LIMESTONE_CHANCE;
 	public static int LIMESTONE_VEIN;
+	public static int LIMESTONE_MAX_DEPTH;
 	public static boolean BAUXITE_ON;
 	public static int BAUXITE_TOTAL;
 	public static int BAUXITE_VEIN;

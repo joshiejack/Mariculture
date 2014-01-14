@@ -3,10 +3,12 @@ package mariculture.core.lib;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class Extra {
+	public static boolean RIVER_FORCE;
 	public static int[] RIVER_BIOMES;
 	public static final int[] RIVERS_DEFAULT = new int[] { BiomeGenBase.river.biomeID, BiomeGenBase.frozenRiver.biomeID };
+	public static boolean OCEAN_FORCE;
 	public static int[] OCEAN_BIOMES;
-	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID };
+	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID, BiomeGenBase.frozenOcean.biomeID };
 	public static int HARDCORE_DIVING;
 	public static boolean FLUDD_WATER_ON;
 	public static int PEARL_GEN_CHANCE;
@@ -43,6 +45,7 @@ public class Extra {
 	public static boolean FLUDD_BLOCK_ANIM;
 	public static boolean ENDER_CONVERTER;
 	public static int PURITY;
+	
 	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 

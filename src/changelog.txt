@@ -5,7 +5,7 @@
 * Added Snorkel, cheap early game diving assistance, allows you to breathe slightly longer underwater
 * Fish Sorter added
 * Melting System, completely redone ;)
-* Void Bottles are now placeable
+* Void Bottles are now placeable(work like a Void Tank)
 * Fish Tank(read chest) Added
 * Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
 * New GUIs, with Notifications for missing items, and redstone/auto-eject controls
@@ -47,6 +47,7 @@
 * Different fuels, now have a tick time for how long they last in a smelter. Heating upgades no longer speed smelters up, but they will, help machines heat up faster, hyperkinetic upgrades are for speed, ethereal is no longer needed for certain biomes but instead it will make fuels, burn past using up their temperature per piece(but not generate heat, aka it will do what no redstone signal used to do).
 * Smelters now will take either solid, or liquid, liquid fuel is pulled from tanks below them
 * Bottles now required Heat Resistant Glass(1000mB Quicklime, 16mB Molten Aluminum, 1 Glass Block in a VAT), And they now hold two ingots worth(for ingots)
+* Limestone will now generate in any WATER tagged biome, so instead of just rivers, will now also generates in oceans. (But up to a max depth of 45Y)
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

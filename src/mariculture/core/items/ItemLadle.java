@@ -5,6 +5,7 @@ import java.util.List;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
+import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Text;
 import mariculture.core.util.Rand;
@@ -71,15 +72,18 @@ public class ItemLadle extends ItemDamageable implements IFluidContainerItem {
 	public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
 		return true;
 	}
+	
+	@Override
+	public String getItemDisplayName(ItemStack stack) {
+        return Text.ORANGE + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+    }
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if (getFluid(stack) == null || getFluid(stack).amount == 0) {
-			list.add(Text.AQUA + StatCollector.translateToLocal("mariculture.string.empty") + " 0/144mB");
-		} else {
-			FluidStack fluid = getFluid(stack);
-			list.add(Text.AQUA + fluid.getFluid().getLocalizedName() + " " + fluid.amount + "/144mB");
-		}
+		FluidStack fluid = getFluid(stack);
+		int amount = fluid == null? 0: fluid.amount;
+		list.add(StringHelper.getFluidName(fluid));
+		list.add("" + amount + "/144mB");
 	}
 
 	@Override

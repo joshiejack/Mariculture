@@ -1,8 +1,11 @@
 package mariculture.core.items;
 
+import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.TankMeta;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -51,6 +54,78 @@ public class ItemFluidContainer extends ItemMariculture {
 	@Override
 	public EnumAction getItemUseAction(final ItemStack stack) {
 		return EnumAction.drink;
+	}
+
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if(stack.getItemDamage() != FluidContainerMeta.BOTTLE_VOID)
+			return false;
+		int blockID = Core.tankBlocks.blockID;
+		int id = world.getBlockId(x, y, z);
+
+		if (id == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
+			side = 1;
+		} else if (id != Block.vine.blockID && id != Block.tallGrass.blockID && id != Block.deadBush.blockID
+				&& (Block.blocksList[id] == null || !Block.blocksList[id].isBlockReplaceable(world, x, y, z))) {
+			if (side == 0) {
+				--y;
+			}
+
+			if (side == 1) {
+				++y;
+			}
+
+			if (side == 2) {
+				--z;
+			}
+
+			if (side == 3) {
+				++z;
+			}
+
+			if (side == 4) {
+				--x;
+			}
+
+			if (side == 5) {
+				++x;
+			}
+		}
+
+		if (stack.stackSize == 0) {
+			return false;
+		} else if (!player.canPlayerEdit(x, y, z, side, stack)) {
+			return false;
+		} else if (y == 255 && Block.blocksList[blockID].blockMaterial.isSolid()) {
+			return false;
+		} else if (world.canPlaceEntityOnSide(blockID, x, y, z, false, side, player, stack)) {
+			Block block = Block.blocksList[blockID];
+			int meta = TankMeta.BOTTLE;
+			int metadata = Block.blocksList[blockID].onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
+
+			if (placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata)) {
+				world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), 
+				block.stepSound.getPlaceSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+				--stack.stackSize;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
+		int blockID = Core.tankBlocks.blockID;
+		if (!world.setBlock(x, y, z, blockID, meta, 3)) {
+			return false;
+		}
+
+		if (world.getBlockId(x, y, z) == blockID) {
+			Block.blocksList[blockID].onBlockPlacedBy(world, x, y, z, player, stack);
+			Block.blocksList[blockID].onPostBlockPlaced(world, x, y, z, meta);
+		}
+
+		return true;
 	}
 
 	@Override
@@ -132,13 +207,13 @@ public class ItemFluidContainer extends ItemMariculture {
 			return true;
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 		icons = new Icon[getMetaCount()];
 		for (int i = 0; i < icons.length; i++) {
-			if(isActive(i)) {
+			if (isActive(i)) {
 				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, i)));
 			}
 		}

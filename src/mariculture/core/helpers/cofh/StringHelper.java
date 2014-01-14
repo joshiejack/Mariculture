@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.Modules;
+import mariculture.core.lib.Text;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
 import net.minecraft.client.gui.FontRenderer;
@@ -72,7 +74,7 @@ public final class StringHelper {
 			fluidName += BRIGHT_BLUE;
 		} else if (fluid.getRarity() == EnumRarity.epic) {
 			fluidName += PINK;
-		}
+		} 
 		fluidName += fluid.getLocalizedName() + END;
 
 		return fluidName;
@@ -80,37 +82,37 @@ public final class StringHelper {
 	
 	public static String getFluidName(FluidStack fluid) {
 		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0)
-			return StatCollector.translateToLocal("mariculture.string.empty");
+			return Text.WHITE + StatCollector.translateToLocal("mariculture.string.empty");
 		return getFluidName(fluid.getFluid());
 	}
 	
 	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
 		if(fluid == null || fluid.getFluid() == null)
-			tooltip.add("" + 0 + "/" + max + "mB");
-		else if(fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
-			tooltip.add("" + fluid.amount + "/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"));
-		else if(fluid.getFluid().getName().contains("glass"))
-			tooltip.add("" + fluid.amount + "/" + max + "mB");
+			tooltip.add(Text.GREY + "" + 0 + "/" + max + "mB");
+		else if(Modules.fishery.isActive() && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
+			tooltip.add(Text.GREY + "" + fluid.amount + "/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"));
+		else if(fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt"))
+			tooltip.add(Text.GREY + "" + fluid.amount + "/" + max + "mB");
 		else if(fluid.getFluid().getName().contains("molten")) {
 			int ingots = fluid.amount / MetalRates.INGOT;
             if (ingots > 0)
-                tooltip.add(StatCollector.translateToLocal("mariculture.string.ingots") + ": " + ingots);
+                tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.ingots") + ": " + ingots);
             int mB = fluid.amount % MetalRates.INGOT;
             if (mB > 0)  {
                 int nuggets = mB / MetalRates.NUGGET;
                 int junk = (mB % MetalRates.NUGGET);
                 if (nuggets > 0)
-                    tooltip.add(StatCollector.translateToLocal("mariculture.string.nuggets") + ": " + nuggets);
+                    tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.nuggets") + ": " + nuggets);
                 if (junk > 0)
-                    tooltip.add("mB: " + junk);
+                    tooltip.add(Text.GREY + "mB: " + junk);
             }
             
             tooltip.add("");
-            tooltip.add(StatCollector.translateToLocal("mariculture.string.outof"));
-            tooltip.add((int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
+            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
+            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
             			+ max%MetalRates.INGOT + "mB");
 		} else {
-			tooltip.add("" + fluid.amount + "/" + max + "mB");
+			tooltip.add(Text.GREY + "" + fluid.amount + "/" + max + "mB");
 		}
 		
 		return tooltip;

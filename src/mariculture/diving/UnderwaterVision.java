@@ -1,5 +1,7 @@
 package mariculture.diving;
 
+import org.lwjgl.opengl.GL11;
+
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import net.minecraft.block.material.Material;

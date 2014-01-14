@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.logging.Level;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.IAnvilHandler;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.BlockAir;
 import mariculture.core.blocks.BlockAirItem;
 import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.BlockDoubleItem;
+import mariculture.core.blocks.BlockFluidMari;
 import mariculture.core.blocks.BlockGround;
 import mariculture.core.blocks.BlockGroundItem;
 import mariculture.core.blocks.BlockOre;
@@ -21,7 +21,6 @@ import mariculture.core.blocks.BlockOreItem;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.BlockPearlBrick;
 import mariculture.core.blocks.BlockPearlBrickItem;
-import mariculture.core.blocks.BlockFluidMari;
 import mariculture.core.blocks.BlockSingle;
 import mariculture.core.blocks.BlockSingleItem;
 import mariculture.core.blocks.BlockTank;
@@ -40,10 +39,10 @@ import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
+import mariculture.core.blocks.TileVoidBottle;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.FuelHandler;
-import mariculture.core.handlers.GuideHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
@@ -73,11 +72,11 @@ import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
+import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.EntityFakeItem;
@@ -91,7 +90,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -128,11 +126,8 @@ public class Core extends Module {
 	public static Fluid moltenRutile;
 	public static Fluid moltenGlass;
 	public static Fluid moltenSalt;
-	
-	public static Fluid fishFood;
 	public static Fluid naturalGas;
 	public static Fluid quicklime;
-	public static Fluid fishOil;
 	
 	public static Fluid highPressureWater;
 	public static Block highPressureWaterBlock;
@@ -209,6 +204,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileVat.class, "tileVatBlock");
 		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
+		GameRegistry.registerTileEntity(TileVoidBottle.class, "tileVoidBottle");
 
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
@@ -330,8 +326,6 @@ public class Core extends Module {
 	private void addFluids() {	
 		//Mariculture Fluids
 		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, 1000, FluidContainerMeta.BOTTLE_QUICKLIME);
-		FluidDictionary.fish_food = addFluid("food.fish", fishFood, 256, FluidContainerMeta.BOTTLE_FISH_FOOD);
-		FluidDictionary.fish_oil = addFluid("oil.fish", fishOil, 1000, FluidContainerMeta.BOTTLE_FISH_OIL);
 		FluidDictionary.natural_gas = addFluid("gas.natural", naturalGas, 1000, FluidContainerMeta.BOTTLE_GAS);
 		FluidDictionary.salt = addFluid("salt.molten", moltenSalt, 1000, FluidContainerMeta.BOTTLE_SALT);
 		FluidDictionary.glass = addFluid("glass.molten", moltenGlass, 1000, FluidContainerMeta.BOTTLE_GLASS);
@@ -354,7 +348,7 @@ public class Core extends Module {
 		FluidDictionary.steel =	addFluid("steel.molten", moltenSteel, MetalRates.ORE, FluidContainerMeta.BOTTLE_STEEL);
 	}
 	
-	private String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {
+	public static String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {
 		if (!FluidDictionary.instance.metalExists(name)) {
 			globalFluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name);
 			FluidRegistry.registerFluid(globalFluid);

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.PluginBiomesOPlenty;
 import mariculture.plugins.PluginBiomesOPlenty.Biome;
@@ -31,7 +32,7 @@ public class WorldGen implements IWorldGenerator {
 	}
 	
 	private void generateOverworld(World world, Random random, int x, int z) {
-		if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z)) == EnumBiomeType.OCEAN) {
+		if(WorldGenHandler.isOceanBiome(world, x, z)) {
 			generateOceanFeatures(world, random, x, z);
 		}
 	}

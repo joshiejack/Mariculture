@@ -32,8 +32,10 @@ import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityFishing;
 import mariculture.fishery.Fishery;
+import mariculture.fishery.TileFishTank;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileSift;
+import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
 import mariculture.fishery.render.RenderFishingHook;
@@ -114,6 +116,7 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Fishery.siftBlock.blockID, new RenderSingleItem());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSingle(new ModelFeeder(scale), FEEDER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
 		}
 		
 		if(Modules.sealife.isActive()) {

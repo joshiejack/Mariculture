@@ -55,7 +55,9 @@ public class Config {
             config.addCustomCategoryComment(Category.ORE, Comment.ORE);
             config.addCustomCategoryComment(Category.RETRO, Comment.RETRO);
 
+            Extra.RIVER_FORCE = config.get(Category.BIOME, "River Biomes - Only Config", false).getBoolean(false);
             Extra.RIVER_BIOMES = config.get(Category.BIOME, "River Biomes", Extra.RIVERS_DEFAULT, Comment.RIVER).getIntList();
+            Extra.OCEAN_FORCE = config.get(Category.BIOME, "Ocean Biomes - Only Config", false).getBoolean(false);
             Extra.OCEAN_BIOMES = config.get(Category.BIOME, "Ocean Biomes", Extra.OCEANS_DEFAULT, Comment.OCEAN).getIntList();
 
             OreGeneration.BAUXITE_ON = config.get(Category.ORE, "Bauxite > Generation", true).getBoolean(true);
@@ -71,8 +73,9 @@ public class Config {
             OreGeneration.RUTILE = config.get(Category.ORE, "Rutile > Generation", true).getBoolean(true);
             OreGeneration.RUTILE_CHANCE = config.get(Category.ORE, "Rutile > 1 Vein Per This Many Limestone", 128).getInt();
             OreGeneration.LIMESTONE = config.get(Category.ORE, "Limestone > Generation", true).getBoolean(true);
-            OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > 1 Vein Per This Many Chunks", 1).getInt();
-            OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 64).getInt();
+            OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > 1 Vein Per This Many Chunks", 2).getInt();
+            OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 48).getInt();
+            OreGeneration.LIMESTONE_MAX_DEPTH = config.get(Category.ORE, "Limestone > Maximum Depth (Y Height)", 45).getInt();
             OreGeneration.NATURAL_GAS_ON = config.get(Category.ORE, "Natural Gas > Generation", true).getBoolean(true);
             OreGeneration.NATURAL_GAS_CHANCE = config.get(Category.ORE, "Natural Gas > 1 Pocket Per This Many Chunks", 20).getInt();
             OreGeneration.NATURAL_GAS_VEIN = config.get(Category.ORE, "Natural Gas > Maximum Vein Size", 64).getInt();

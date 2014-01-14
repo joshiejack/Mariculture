@@ -68,7 +68,6 @@ public class ItemMariculture extends Item implements IItemRegistry {
 	public void getSubItems(int id, CreativeTabs creative, List list) {
 		for (int meta = 0; meta < getMetaCount(); ++meta) {
 			if (isActive(meta)) {
-				System.out.println(id);
 				list.add(new ItemStack(id, 1, meta));
 			} 
 		}
