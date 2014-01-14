@@ -46,6 +46,7 @@
 * Leapfrog changed to an addition instead of a multiplier
 * Different fuels, now have a tick time for how long they last in a smelter. Heating upgades no longer speed smelters up, but they will, help machines heat up faster, hyperkinetic upgrades are for speed, ethereal is no longer needed for certain biomes but instead it will make fuels, burn past using up their temperature per piece(but not generate heat, aka it will do what no redstone signal used to do).
 * Smelters now will take either solid, or liquid, liquid fuel is pulled from tanks below them
+* Bottles now required Heat Resistant Glass(1000mB Quicklime, 16mB Molten Aluminum, 1 Glass Block in a VAT), And they now hold two ingots worth(for ingots)
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

@@ -2,6 +2,7 @@ package mariculture.core;
 
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.items.ItemBattery;
+import mariculture.core.items.ItemLadle;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
@@ -52,7 +53,7 @@ public class Recipes {
 
 		//Void Bottle
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
-			Item.glassBottle, "dustRedstone", new ItemStack(Item.dyePowder, 1, Dye.INK)
+			new ItemStack(Core.glassBlocks, 1, GlassMeta.HEAT), "dustRedstone", new ItemStack(Item.dyePowder, 1, Dye.INK)
 		});
 		
 		//Oyster and Beef Pie
@@ -139,9 +140,11 @@ public class Recipes {
 		
 		//Ladle
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.ladle), new Object[] {
-			" C ", " C ", "B  ",
-			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'C', "ingotCopper"
+			" B ", " B ", "B  ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
+		
+		//Ladle Repair Recipe
+		RecipeHelper.addAnvilRecipe(new ItemStack(Core.ladle, 1, ItemLadle.MAX_DAMAGE), new ItemStack(Core.ladle, 1, 0), ItemLadle.MAX_DAMAGE/2);
 		
 		//Hammer
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {

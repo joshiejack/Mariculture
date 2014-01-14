@@ -1,29 +1,23 @@
 package mariculture.diving;
 
-import java.util.Iterator;
-import java.util.List;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
+import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
@@ -44,6 +38,17 @@ public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisabl
 	@Override
 	public void registerIcons(IconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
+	}
+	
+	@Override
+	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
+		if(stack1.itemID == Diving.divingHelmet.itemID && OreDicHelper.convert(stack2).equals("ingotCopper"))
+			return true;
+		if(stack1.itemID == Diving.divingBoots.itemID && OreDicHelper.convert(stack2).equals("ingotIron"))
+			return true;
+		if((stack1.itemID == Diving.divingTop.itemID || stack1.itemID == Diving.divingPants.itemID) && stack2.itemID == Item.leather.itemID)
+			return true;
+		return false;
 	}
 
 	@Override

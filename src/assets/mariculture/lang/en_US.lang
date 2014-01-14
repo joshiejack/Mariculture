@@ -176,6 +176,7 @@ item.liquidContainers.bottleRutile.name=Bottle of Impure Titanium
 item.liquidContainers.bottleFishFood.name=Bottle of Fish Food
 item.liquidContainers.bottleQuicklime.name=Bottle of Quicklime
 item.liquidContainers.bottleSalt.name=Bottle of Molten Salt
+item.liquidContainers.bottleEmpty.name=Empty Bottle
 
 ### Diving ###
 #blocks

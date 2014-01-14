@@ -22,11 +22,70 @@ import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class ItemLadle extends ItemDamageable implements IFluidContainerItem {
-	public ItemLadle(int i, int dmg) {
-		super(i, dmg);
+	public ItemLadle(int i) {
+		super(i, MAX_DAMAGE);
 	}
 
+	public static final int MAX_DAMAGE = 100;
 	protected int capacity = MetalRates.INGOT;
+
+	@Override
+	public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if(item.getItemDamage() < item.getMaxDamage()) {
+			if (world.getBlockTileEntity(x, y, z) instanceof IFluidHandler && FluidHelper.isIContainer(item)) {
+				ForgeDirection dir = ForgeDirection.getOrientation(side);
+				IFluidHandler tank = (IFluidHandler) world.getBlockTileEntity(x, y, z);
+				IFluidContainerItem container = (IFluidContainerItem) item.getItem();
+				FluidStack fluid = container.getFluid(item);
+				if(fluid != null && fluid.amount > 0) {
+					FluidStack stack = container.drain(item, 1000000, false);
+					if(stack != null) {
+						stack.amount = tank.fill(dir, stack, false);					
+						if(stack.amount > 0) {
+							container.drain(item, stack.amount, true);
+							tank.fill(dir, stack, true);
+							item.attemptDamageItem(1, Rand.rand);
+							if(item.getItemDamage() == item.getMaxDamage())
+								player.renderBrokenItemStack(item);
+							return true;
+						}
+					}
+				} else {
+					FluidStack stack = tank.drain(dir, MetalRates.INGOT, false);
+					if(stack != null && stack.amount > 0) {
+						tank.drain(dir, stack.amount, true);
+						container.fill(item, stack, true);
+						item.attemptDamageItem(1, Rand.rand);
+						if(item.getItemDamage() == item.getMaxDamage())
+							player.renderBrokenItemStack(item);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
+		return true;
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		if (getFluid(stack) == null || getFluid(stack).amount == 0) {
+			list.add(Text.AQUA + StatCollector.translateToLocal("mariculture.string.empty") + " 0/144mB");
+		} else {
+			FluidStack fluid = getFluid(stack);
+			list.add(Text.AQUA + fluid.getFluid().getLocalizedName() + " " + fluid.amount + "/144mB");
+		}
+	}
+
+	@Override
+	public int getCapacity(ItemStack stack) {
+		return capacity;
+	}
 
 	@Override
 	public FluidStack getFluid(ItemStack container) {
@@ -36,80 +95,97 @@ public class ItemLadle extends ItemDamageable implements IFluidContainerItem {
 
 		return FluidStack.loadFluidStackFromNBT(container.stackTagCompound.getCompoundTag("Fluid"));
 	}
-	
-	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if(world.getBlockTileEntity(x, y, z) instanceof IFluidHandler && FluidHelper.isFluidOrEmpty(player.getCurrentEquippedItem())) {
-			FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.getOrientation(side));
-		}
-		
-		return true;
-	}
-	
-	@Override
-	public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
-		return true;
-	}
-
-	@Override
-	public int getCapacity(ItemStack stack) {
-		return capacity;
-	}
-
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list,
-			boolean bool) {
-		if (getFluid(stack) == null || getFluid(stack).amount == 0) {
-			list.add(Text.AQUA + StatCollector.translateToLocal("mariculture.string.empty")+ " 0/144mB");
-		} else {
-			FluidStack fluid = getFluid(stack);
-			list.add(Text.AQUA + fluid.getFluid().getLocalizedName() + " " + fluid.amount + "/144mB");
-		}
-	}
 
 	@Override
 	public int fill(ItemStack container, FluidStack resource, boolean doFill) {
-		if(container.stackTagCompound == null) {
-			container.setTagCompound(new NBTTagCompound());
-		}
-		
-		FluidStack fluid = FluidStack.loadFluidStackFromNBT(container.stackTagCompound);
-		if(fluid == null) {
-			fluid = resource;
-		}
-		
-		if(!fluid.isFluidEqual(resource)) {
+		if (resource == null) {
 			return 0;
 		}
-		
-		int fill = 144 - (144 - fluid.amount);
-		if(doFill) {
-			fluid.amount=fill;
-			doFill.writeToNBT(container.stackTagCompound);
+
+		if (!doFill) {
+			if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Fluid")) {
+				return Math.min(capacity, resource.amount);
+			}
+
+			FluidStack stack = FluidStack.loadFluidStackFromNBT(container.stackTagCompound.getCompoundTag("Fluid"));
+
+			if (stack == null) {
+				return Math.min(capacity, resource.amount);
+			}
+
+			if (!stack.isFluidEqual(resource)) {
+				return 0;
+			}
+
+			return Math.min(capacity - stack.amount, resource.amount);
 		}
-				
-		return fill;
+
+		if (container.stackTagCompound == null) {
+			container.stackTagCompound = new NBTTagCompound();
+		}
+
+		if (!container.stackTagCompound.hasKey("Fluid")) {
+			NBTTagCompound fluidTag = resource.writeToNBT(new NBTTagCompound());
+
+			if (capacity < resource.amount) {
+				fluidTag.setInteger("Amount", capacity);
+				container.stackTagCompound.setTag("Fluid", fluidTag);
+				return capacity;
+			}
+
+			container.stackTagCompound.setTag("Fluid", fluidTag);
+			return resource.amount;
+		}
+
+		NBTTagCompound fluidTag = container.stackTagCompound.getCompoundTag("Fluid");
+		FluidStack stack = FluidStack.loadFluidStackFromNBT(fluidTag);
+
+		if (!stack.isFluidEqual(resource)) {
+			return 0;
+		}
+
+		int filled = capacity - stack.amount;
+		if (resource.amount < filled) {
+			stack.amount += resource.amount;
+			filled = resource.amount;
+		} else {
+			stack.amount = capacity;
+		}
+
+		container.stackTagCompound.setTag("Fluid", stack.writeToNBT(fluidTag));
+		return filled;
 	}
 
 	@Override
 	public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
-		if(container.stackTagCompound == null) {
+		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Fluid")) {
 			return null;
 		}
 		
-		FluidStack fluid = FluidStack.loadFluidStackFromNBT(container.stackTagCompound);
-		if(fluid == null) {
+		FluidStack stack = FluidStack.loadFluidStackFromNBT(container.stackTagCompound.getCompoundTag("Fluid"));
+		if (stack == null) {
 			return null;
 		}
-		
-		FluidStack copied = fluid.copy();
-		int drain = Math.min(fluid.amount, maxDrain);
-		fluid.amount = drain;
-		copied.amount-=drain;
-		if(doDrain) {
-			copied.writeToNBT(container.stackTagCompound);
+
+		stack.amount = Math.min(stack.amount, maxDrain);
+		if (doDrain) {
+			if (maxDrain >= capacity) {
+				container.stackTagCompound.removeTag("Fluid");
+
+				if (container.stackTagCompound.hasNoTags()) {
+					container.stackTagCompound = null;
+				}
+				
+				System.out.println("i should have drained");
+				
+				return stack;
+			}
+
+			NBTTagCompound fluidTag = container.stackTagCompound.getCompoundTag("Fluid");
+			fluidTag.setInteger("Amount", fluidTag.getInteger("Amount") - maxDrain);
+			container.stackTagCompound.setTag("Fluid", fluidTag);
 		}
 		
-		return fluid;
+		return stack;
 	}
 }

@@ -151,7 +151,7 @@ public class BlockDouble extends BlockMachine {
 				vat.setInventorySlotContents(0, null);
 								
 				return true;
-			} else if(held != null) {
+			} else if(held != null && !player.isSneaking()) {
 				if(input == null) {
 					if(!world.isRemote) {
 						ItemStack copy = held.copy();

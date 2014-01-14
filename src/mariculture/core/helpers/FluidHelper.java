@@ -37,7 +37,7 @@ public class FluidHelper {
 	}
 	
 	public static boolean isFluidOrEmpty(ItemStack stack) {
-		return isEmpty(stack) || isFilled(stack) || isVoid(stack) || isIContainer(stack);
+		return isEmpty(stack) || isFilled(stack) || isVoid(stack);
 	}
 	
 	public static boolean isEmpty(ItemStack stack) {
@@ -52,7 +52,7 @@ public class FluidHelper {
 		return (stack != null && stack.getItem().itemID == Core.liquidContainers.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
 	}
 	
-	private static boolean isIContainer(ItemStack stack) {
+	public static boolean isIContainer(ItemStack stack) {
 		return stack != null && stack.getItem() instanceof IFluidContainerItem;
 	}
 
@@ -261,26 +261,6 @@ public class FluidHelper {
 				}
 
 				return true;
-			}
-		} else if (heldItem != null && heldItem.getItem() instanceof IFluidContainerItem) {
-			IFluidContainerItem container = (IFluidContainerItem) heldItem.getItem();
-			FluidStack fluid = container.getFluid(heldItem);
-			if(fluid != null && fluid.amount > 0) {
-				FluidStack stack = container.drain(heldItem, 1000000, false);
-				if(stack != null) {
-					stack.amount = tank.fill(side, stack, false);
-					if(stack.amount > 0) {
-						container.drain(heldItem, stack.amount, true);
-						tank.fill(ForgeDirection.UNKNOWN, stack, true);
-					}
-				}
-			} else {
-				FluidStack stack = tank.drain(side, MetalRates.INGOT, false);
-				if(stack != null && stack.amount > 0) {
-					tank.drain(side, MetalRates.INGOT, true);
-					container.fill(heldItem, stack, true);
-					System.out.println("huh");
-				}
 			}
 		}
 		
