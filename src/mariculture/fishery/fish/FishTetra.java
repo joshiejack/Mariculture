@@ -40,7 +40,7 @@ public class FishTetra extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(127) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
+		return (rand.nextInt(14) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
 	}
 
 	@Override

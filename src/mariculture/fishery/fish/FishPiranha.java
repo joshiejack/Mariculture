@@ -47,7 +47,7 @@ public class FishPiranha extends FishSpecies {
 			return new ItemStack(Item.rottenFlesh);
 		}
 
-		return (rand.nextInt(100) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : null;
+		return (rand.nextInt(86) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : null;
 	}
 
 	@Override

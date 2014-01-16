@@ -55,7 +55,7 @@ public class FishClown extends FishSpecies {
 			}
 		}
 
-		return (rand.nextInt(673) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC) : null;
+		return (rand.nextInt(296) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC) : null;
 	}
 
 	@Override

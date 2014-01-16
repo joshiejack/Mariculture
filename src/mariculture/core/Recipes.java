@@ -53,7 +53,7 @@ public class Recipes {
 
 		//Void Bottle
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
-			new ItemStack(Core.glassBlocks, 1, GlassMeta.HEAT), "dustRedstone", new ItemStack(Item.dyePowder, 1, Dye.INK)
+			new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY), "dustRedstone", new ItemStack(Item.dyePowder, 1, Dye.INK)
 		});
 		
 		//Oyster and Beef Pie

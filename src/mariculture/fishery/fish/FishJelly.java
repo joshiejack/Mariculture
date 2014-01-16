@@ -43,7 +43,7 @@ public class FishJelly extends FishSpecies {
 		if (rand.nextInt(50) == 1) {
 			return new ItemStack(Item.slimeBall);
 		}
-		return (rand.nextInt(75) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON) : null;
+		return (rand.nextInt(50) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON) : null;
 
 	}
 

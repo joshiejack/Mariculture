@@ -425,6 +425,8 @@ public class PluginTConstruct extends Plugin {
 		FluidDictionary.instance.addFluid("silver.molten", FluidType.Silver.fluid);
 		FluidDictionary.instance.addFluid("steel.molten", FluidType.Steel.fluid);
 		FluidDictionary.instance.addFluid("tin.molten", FluidType.Tin.fluid);
+		FluidDictionary.instance.addFluid("electrum.molten", FluidType.Electrum.fluid);
+		FluidDictionary.instance.addFluid("cobalt.molten", FluidType.Cobalt.fluid);
 	}
 
 	@Override

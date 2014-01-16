@@ -46,7 +46,7 @@ public class FishElectricRay extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(74) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC): null;
+		return (rand.nextInt(25) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC): null;
 	}
 
 	@Override

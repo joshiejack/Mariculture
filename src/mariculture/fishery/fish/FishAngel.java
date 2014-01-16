@@ -42,7 +42,7 @@ public class FishAngel extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(111) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): null;
+		return (rand.nextInt(74) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): null;
 	}
 
 	@Override

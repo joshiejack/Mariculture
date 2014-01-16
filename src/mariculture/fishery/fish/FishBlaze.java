@@ -53,7 +53,7 @@ public class FishBlaze extends FishSpecies {
 			return new ItemStack(Item.blazePowder);
 		}
 		
-		return (rand.nextInt(44) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER) : null;
+		return (rand.nextInt(15) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER) : null;
 	}
 
 	@Override

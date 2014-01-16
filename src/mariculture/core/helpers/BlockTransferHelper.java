@@ -117,10 +117,8 @@ public class BlockTransferHelper {
 					ejectable = (IEjectable) tile.getMaster();
 				}
 			}
-			
-			System.out.println("has eject");
-			
-			if(EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.ITEM)) {
+		
+			if(ejectable != null && EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.ITEM)) {
 				System.out.println("can eject");
 				if(inventory instanceof TileMultiBlock) {
 					System.out.println("is multi");

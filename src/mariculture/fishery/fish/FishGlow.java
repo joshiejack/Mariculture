@@ -47,7 +47,7 @@ public class FishGlow extends FishSpecies {
 			return new ItemStack(Item.glowstone);
 		}
 
-		return (rand.nextInt(50) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER): null;
+		return (rand.nextInt(15) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER): null;
 	}
 
 	@Override

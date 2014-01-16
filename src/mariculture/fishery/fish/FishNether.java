@@ -40,7 +40,7 @@ public class FishNether extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(75) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER): null;
+		return (rand.nextInt(30) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER): null;
 	}
 
 	@Override

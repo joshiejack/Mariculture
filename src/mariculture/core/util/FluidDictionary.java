@@ -68,6 +68,12 @@ public class FluidDictionary {
 	public static String nickel;
 	public static String glass;
 	public static String rutile;
+	//Other Metals
+	public static String electrum;
+	
+//Can end up being left as null if not registered by TiC
+	public static String cobalt;
+	
 	//Other
 	public static String fish_food;
 	public static String fish_oil;

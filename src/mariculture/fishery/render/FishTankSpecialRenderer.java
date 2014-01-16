@@ -1,7 +1,7 @@
 package mariculture.fishery.render;
 
 import mariculture.core.util.EntityFakeItem;
-import mariculture.fishery.TileFishTank;
+import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;

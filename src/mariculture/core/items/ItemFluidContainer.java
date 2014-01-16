@@ -178,6 +178,8 @@ public class ItemFluidContainer extends ItemMariculture {
 			return "bottleSalt";
 		case FluidContainerMeta.BOTTLE_EMPTY:
 			return "bottleEmpty";
+		case FluidContainerMeta.BOTTLE_ELECTRUM:
+			return "bottleElectrum";
 		default:
 			return "container";
 		}

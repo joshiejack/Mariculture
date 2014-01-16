@@ -46,7 +46,7 @@ public class FishBass extends FishSpecies {
 			return new ItemStack(Item.gunpowder);
 		}
 
-		return (rand.nextInt(75) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
+		return (rand.nextInt(50) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
 	}
 
 	@Override

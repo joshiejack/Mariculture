@@ -50,7 +50,7 @@ public class FishTang extends FishSpecies {
 			return new ItemStack(Item.dyePowder, 1, Dye.LAPIS);
 		}
 
-		return (rand.nextInt(56) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA) : null;
+		return (rand.nextInt(37) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA) : null;
 	}
 
 	@Override

@@ -44,11 +44,11 @@ public class FishDragon extends FishSpecies {
 
 	@Override
 	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(18000) == 1) {
+		if (rand.nextInt(7200) == 1) {
 			return new ItemStack(Block.dragonEgg);
 		}
 
-		return (rand.nextInt(36) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER) : null;
+		return (rand.nextInt(20) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER) : null;
 
 	}
 

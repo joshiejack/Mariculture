@@ -1,12 +1,15 @@
 package mariculture.core.helpers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.Rand;
-import mariculture.fishery.TileFishTank;
+import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -171,29 +174,34 @@ public class BlockHelper {
 		Random rand = Rand.rand;
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		if(tile instanceof TileFishTank) {
-			ArrayList<ItemStack> stacks = ((TileFishTank)tile).fish;
-			for(ItemStack stack: stacks) {
-				if (stack != null && stack.stackSize > 0) {
+			HashMap fish = ((TileFishTank) tile).fish;
+			Iterator it = fish.entrySet().iterator();
+			
+			 while (it.hasNext()) {
+			 	 Map.Entry pairs = (Map.Entry)it.next();
+			     ItemStack stack = (ItemStack) pairs.getValue();
+			     
+			     if (stack != null && stack.stackSize > 0) {
 					float rx = rand.nextFloat() * 0.6F + 0.1F;
 					float ry = rand.nextFloat() * 0.6F + 0.1F;
 					float rz = rand.nextFloat() * 0.6F + 0.1F;
-	
+		
 					EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(stack.itemID,
 							stack.stackSize, stack.getItemDamage()));
-	
+		
 					if (stack.hasTagCompound()) {
 						entity_item.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 					}
-	
+		
 					float factor = 0.05F;
-	
+		
 					entity_item.motionX = rand.nextGaussian() * factor;
 					entity_item.motionY = rand.nextGaussian() * factor + 0.2F;
 					entity_item.motionZ = rand.nextGaussian() * factor;
 					world.spawnEntityInWorld(entity_item);
 					stack.stackSize = 0;
 				}
-			}
+			 }
 		}
 		
 		dropItems(world, x, y, z);

@@ -39,7 +39,7 @@ public class FishPuffer extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(56) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): null;
+		return (rand.nextInt(44) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): null;
 	}
 
 	@Override

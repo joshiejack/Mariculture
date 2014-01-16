@@ -57,12 +57,24 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 			return "dropletPoison";
 		case MaterialsMeta.DROP_WATER:
 			return "dropletWater";
-		case MaterialsMeta.DUST_UNKNOWN:
-			return "dustUnknown";
+		case MaterialsMeta.DUST_MAGNESITE:
+			return "dustMagnesite";
 		case MaterialsMeta.DUST_SALT:
 			return "dustSalt";
 		case MaterialsMeta.INGOT_RUTILE:
 			return "ingotRutile";
+		case MaterialsMeta.DUST_COPPEROUS:
+			return "dustCopperous";
+		case MaterialsMeta.DUST_GOLDEN:
+			return "dustGolden";
+		case MaterialsMeta.DUST_IRONIC:
+			return "dustIronic";
+		case MaterialsMeta.DUST_LEADER:
+			return "dustLeader";
+		case MaterialsMeta.DUST_SILVERY:
+			return "dustSilvery";
+		case MaterialsMeta.DUST_TINNIC:
+			return "dustTinnic";
 		default:
 			return "dropletWater";
 		}
@@ -80,18 +92,6 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 		case MaterialsMeta.DYE_BROWN:
 			return (Modules.world.isActive());
 		case MaterialsMeta.UNUSED0:
-			return false;
-		case MaterialsMeta.UNUSED1:
-			return false;
-		case MaterialsMeta.UNUSED2:
-			return false;
-		case MaterialsMeta.UNUSED5:
-			return false;
-		case MaterialsMeta.UNUSED6:
-			return false;
-		case MaterialsMeta.UNUSED7:
-			return false;
-		case MaterialsMeta.UNUSED8:
 			return false;
 		}
 

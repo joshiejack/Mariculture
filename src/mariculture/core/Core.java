@@ -126,6 +126,7 @@ public class Core extends Module {
 	public static Fluid moltenRutile;
 	public static Fluid moltenGlass;
 	public static Fluid moltenSalt;
+	public static Fluid moltenElectrum;
 	public static Fluid naturalGas;
 	public static Fluid quicklime;
 	
@@ -346,6 +347,7 @@ public class Core extends Module {
 		FluidDictionary.nickel = addFluid("nickel.molten", moltenNickel, MetalRates.ORE, FluidContainerMeta.BOTTLE_NICKEL);
 		FluidDictionary.bronze = addFluid("bronze.molten", moltenBronze, MetalRates.ORE, FluidContainerMeta.BOTTLE_BRONZE);
 		FluidDictionary.steel =	addFluid("steel.molten", moltenSteel, MetalRates.ORE, FluidContainerMeta.BOTTLE_STEEL);
+		FluidDictionary.electrum = addFluid("electrum.molten", moltenElectrum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ELECTRUM);
 	}
 	
 	public static String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {

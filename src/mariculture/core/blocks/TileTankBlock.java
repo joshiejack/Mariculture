@@ -143,4 +143,8 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	public void setFluid(FluidStack fluid, byte tank) {
 		setFluid(fluid);
 	}
+
+	public double getCapacity() {
+		return tank.getCapacity();
+	}
 }

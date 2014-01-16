@@ -45,7 +45,7 @@ public class FishSiamese extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(86) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
+		return (rand.nextInt(60) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
 	}
 
 	@Override

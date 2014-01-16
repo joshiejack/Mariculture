@@ -48,6 +48,8 @@
 * Smelters now will take either solid, or liquid, liquid fuel is pulled from tanks below them
 * Bottles now required Heat Resistant Glass(1000mB Quicklime, 16mB Molten Aluminum, 1 Glass Block in a VAT), And they now hold two ingots worth(for ingots)
 * Limestone will now generate in any WATER tagged biome, so instead of just rivers, will now also generates in oceans. (But up to a max depth of 45Y)
+* Changed Electricray Chance to 4%, and Dragonfish and Clownfish to 2%
+* Buffed all Droplet Chances
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

@@ -4,16 +4,16 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
+import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.FluidContainerMeta;
-import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
-import mariculture.fishery.TileFishTank;
+import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,10 +32,12 @@ import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockTank extends BlockDecorative {
-
+public class BlockTank extends BlockConnected {
+	private static Icon[] fishTank = new Icon[47];
+	
 	public BlockTank(int i) {
 		super(i, Material.piston);
+		setLightValue(1.0F);
 	}
 
 	@Override
@@ -70,7 +72,9 @@ public class BlockTank extends BlockDecorative {
 			return false;
 		}
 		
-		if(player.isSneaking() && tile instanceof TileFishTank) {
+		if(tile instanceof TileFishTank) {
+			if(player.isSneaking())
+				return false;
 			player.openGui(Mariculture.instance, -1, world, x, y, z);
 			return true;
 		}
@@ -214,8 +218,21 @@ public class BlockTank extends BlockDecorative {
 		icons = new Icon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":"
-					+ getName(new ItemStack(this.blockID, 1, i)) + "Tank");
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)) + "Tank");
+		}
+		
+		registerConnectedTextures(iconRegister);
+	}
+
+	@Override
+	public Icon[] getTexture(int meta) {
+		return meta == TankMeta.FISH? fishTank: null;
+	}
+
+	@Override
+	public void registerConnectedTextures(IconRegister iconRegister) {
+		for (int i = 0; i < 47; i++) {
+			fishTank[i] = iconRegister.registerIcon(Mariculture.modid + ":fishTank/" + (i + 1));
 		}
 	}
 }

@@ -11,7 +11,7 @@ import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 
 public class Feature {
-	protected static ResourceLocation texture = new ResourceLocation(Mariculture.modid, "textures/gui/gui_elements.png");
+	public static final ResourceLocation texture = new ResourceLocation(Mariculture.modid, "textures/gui/gui_elements.png");
 	protected TextureManager tm;
 	
 	public Feature() {

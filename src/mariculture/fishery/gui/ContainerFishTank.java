@@ -1,7 +1,8 @@
 package mariculture.fishery.gui;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMariculture;
-import mariculture.fishery.TileFishTank;
+import mariculture.fishery.blocks.TileFishTank;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,29 +10,22 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerFishTank extends ContainerMariculture {
-	public int page = 1;
-	
-	public TileFishTank tile;
-
+public class ContainerFishTank extends ContainerMariculture {	
+	public int thePage = 0;	
 	public ContainerFishTank(TileFishTank tile, InventoryPlayer playerInventory) {
 		super(tile);
 
-		this.tile = tile;
-		
-		int i = (3 - 4) * 18;
+		int i = (6 - 4) * 18;
 		int j;
 		int k;
-				
-		tile.loadFish(page);
 
-		for (j = 0; j < 3; ++j) {
+		for (j = 0; j < 6; ++j) {
 			for (k = 0; k < 9; ++k) {
-				addSlotToContainer(new SlotFishTank(tile, (k + j * 9), 8 + k * 18, 22 + j * 18));
+				addSlotToContainer(new SlotFishTank(tile, (thePage * 54) + (k + j * 9), 8 + k * 18, 16 + j * 18));
 			}
 		}
 
-		bindPlayerInventory(playerInventory, 10);
+		bindPlayerInventory(playerInventory, 52);
 	}
 	
 	public int getSizeInventory() {
@@ -42,31 +36,17 @@ public class ContainerFishTank extends ContainerMariculture {
 	public boolean canInteractWith(EntityPlayer player) {
 		return ((IInventory)tile).isUseableByPlayer(player);
 	}
+	
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+		return null;
+		
+	}
 
 	public class SlotFishTank extends Slot {
-		TileFishTank tank;
-		int slot;
-
 		public SlotFishTank(TileFishTank invent, int slot, int x, int y) {
 			super(invent, slot, x, y);
-
-			tank = invent;
-			this.slot = slot;
 		}
-		
-		@Override
-		public void putStack(ItemStack stack) {
-			tile.fish.add(stack);
-			tank.setSlot(slot, stack);
-	        this.onSlotChanged();
-	    }
-		
-		@Override
-		public ItemStack decrStackSize(int amount)  {
-			if(tile.getStackInSlot(slot) != null)
-				tile.fish.remove(tile.getStackInSlot(slot));
-	        return this.inventory.decrStackSize(slot, amount);
-	    }
 		
 		@Override
 		public boolean isItemValid(ItemStack stack) {

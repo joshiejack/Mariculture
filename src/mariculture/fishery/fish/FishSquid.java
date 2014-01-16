@@ -45,7 +45,7 @@ public class FishSquid extends FishSpecies {
 			return new ItemStack(Item.dyePowder, 1, Dye.INK);
 		}
 
-		return (rand.nextInt(141) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER) : null;
+		return (rand.nextInt(30) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER) : null;
 	}
 
 	@Override

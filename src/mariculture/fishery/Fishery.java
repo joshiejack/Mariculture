@@ -39,6 +39,7 @@ import mariculture.fishery.blocks.BlockNeonLamp;
 import mariculture.fishery.blocks.BlockSift;
 import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileFeeder;
+import mariculture.fishery.blocks.TileFishTank;
 import mariculture.fishery.blocks.TileIncubator;
 import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.fish.FishAngel;
@@ -264,7 +265,7 @@ public class Fishery extends Module {
 		Fishing.mutation.addMutation(nether, electricRay, glow, 5);
 		Fishing.mutation.addMutation(glow, nether, blaze, 10);
 		Fishing.mutation.addMutation(night, jelly, ender, 5);
-		Fishing.mutation.addMutation(ender, night, dragon, 1);
+		Fishing.mutation.addMutation(ender, night, dragon, 2);
 		Fishing.mutation.addMutation(minnow, gold, salmon, 15);
 		Fishing.mutation.addMutation(salmon, minnow, bass, 20);
 		Fishing.mutation.addMutation(tetra, siamese, catfish, 10);
@@ -272,7 +273,7 @@ public class Fishery extends Module {
 		Fishing.mutation.addMutation(cod, gold, perch, 15);
 		Fishing.mutation.addMutation(perch, cod, tuna, 20);
 		Fishing.mutation.addMutation(stingRay, angel, mantaRay, 5);
-		Fishing.mutation.addMutation(mantaRay, stingRay, electricRay, 3);
+		Fishing.mutation.addMutation(mantaRay, stingRay, electricRay, 4);
 		Fishing.mutation.addMutation(damsel, squid, angel, 5);
 		Fishing.mutation.addMutation(angel, damsel, blaze, 5);
 		Fishing.mutation.addMutation(squid, tuna, jelly, 10);
@@ -282,7 +283,7 @@ public class Fishery extends Module {
 		Fishing.mutation.addMutation(siamese, gold, koi, 5);
 		Fishing.mutation.addMutation(angel, tetra, butterfly, 5);
 		Fishing.mutation.addMutation(butterfly, tuna, tang, 3);
-		Fishing.mutation.addMutation(tang, butterfly, clown, 1);
+		Fishing.mutation.addMutation(tang, butterfly, clown, 2);
 	}
 
 	@Override
@@ -420,10 +421,8 @@ public class Fishery extends Module {
 		
 		//FishTank
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.FISH), new Object[] {
-			"AGA", "GFG", "AGA",
-			Character.valueOf('A'), "ingotAluminum",
-			Character.valueOf('G'), "glass",
-			Character.valueOf('F'), new ItemStack(fishyFood, 1, OreDictionary.WILDCARD_VALUE)
+			"AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "glass",
+			'F', new ItemStack(fishyFood, 1, OreDictionary.WILDCARD_VALUE)
 		});
 	}
 
@@ -446,10 +445,10 @@ public class Fishery extends Module {
 			new ItemStack(Block.sapling), 10, 2, 5 });
 	
 		Fishing.bait.addBait(new ItemStack(bait, 1, BaitMeta.MAGGOT), 2, new Object[] {
-			new ItemStack(Item.rottenFlesh), 10, 2, 3, 
-			new ItemStack(Item.beefRaw), 1, 7, 11,
-			new ItemStack(Item.chickenRaw), 3, 3, 7, 
-			new ItemStack(Item.porkRaw), 2, 5, 9 });
+			new ItemStack(Item.rottenFlesh), 15, 2, 3, 
+			new ItemStack(Item.beefRaw), 2, 7, 11,
+			new ItemStack(Item.chickenRaw), 4, 3, 7, 
+			new ItemStack(Item.porkRaw), 3, 5, 9 });
 	
 		Fishing.bait.addBait(new ItemStack(Item.bread), 1, new Object[] {});
 		Fishing.bait.addBait(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), 5, new Object[] {});

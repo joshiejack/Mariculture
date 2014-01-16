@@ -11,7 +11,7 @@ public class RecipeSmelter {
 	public ItemStack output;
 	public int chance;
 	public FluidStack[] random;
-	public int[] rands;
+	public Integer[] rands;
 	
 	public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance) {
 		this.input = input;
@@ -22,7 +22,7 @@ public class RecipeSmelter {
 		this.chance = chance;
 	}
 	
-	public RecipeSmelter(ItemStack input, int temp, FluidStack[] fluids, int rands[], ItemStack output, int chance) {
+	public RecipeSmelter(ItemStack input, int temp, FluidStack[] fluids, Integer rands[], ItemStack output, int chance) {
 		this.fluid = fluids[0];
 		this.input = input;
 		this.temp = temp;
@@ -32,7 +32,7 @@ public class RecipeSmelter {
 		this.chance = chance;
 	}
 	
-	public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance, int[] rands) {
+	public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance, Integer[] rands) {
 		this(input, input2, temp, fluid, output, chance);
 		this.rands = rands;
 	}

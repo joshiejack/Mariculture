@@ -39,7 +39,7 @@ public class FishGold extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(180) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
+		return (rand.nextInt(18) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class FishGold extends FishSpecies {
 
 	@Override
 	public int getLiquifiedProductChance() {
-		return 25;
+		return 20;
 	}
 
 	@Override

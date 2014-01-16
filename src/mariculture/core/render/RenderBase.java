@@ -1,14 +1,15 @@
 package mariculture.core.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
+
+import org.lwjgl.opengl.GL11;
 
 public abstract class RenderBase {
 	static final double RENDER_OFFSET = 0.0010000000474974513D;
@@ -22,6 +23,7 @@ public abstract class RenderBase {
 	public IBlockAccess world;
 	public int x, y, z;
 	public Icon icon;
+	public Block block;
 	
 	public RenderBase(RenderBlocks render) {
 		this.render = render;
@@ -32,11 +34,17 @@ public abstract class RenderBase {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.block = Block.blocksList[world.getBlockId(x, y, z)];
 		return this;
 	}
 	
 	public RenderBase setDir(ForgeDirection dir) {
 		this.dir = dir;
+		return this;
+	}
+	
+	public RenderBase setBlock(Block block) {
+		this.block = block;
 		return this;
 	}
 	
@@ -87,7 +95,7 @@ public abstract class RenderBase {
 		int z2 = z + zPlus;
 		
 		Tessellator tessellator = Tessellator.instance;
-		int color = Block.stone.colorMultiplier(world, x2, y2, z2);
+		int color = block.colorMultiplier(world, x2, y2, z2);
 		float red = (color >> 16 & 255) / 255.0F;
 		float green = (color >> 8 & 255) / 255.0F;
 		float blue = (color & 255) / 255.0F;
@@ -121,7 +129,7 @@ public abstract class RenderBase {
 
 	private void renderWorldBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		render.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
-		render.renderStandardBlock(Block.stone, this.x, this.y, this.z);
+		render.renderStandardBlock(block, this.x, this.y, this.z);
 	}
 
 	private void renderItemBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
@@ -134,27 +142,27 @@ public abstract class RenderBase {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, -1.0F, 0.0F);
-	    render.renderFaceYNeg(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, 1.0F, 0.0F);
-	    render.renderFaceYPos(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, 0.0F, -1.0F);
-	    render.renderFaceZNeg(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, 0.0F, 1.0F);
-	    render.renderFaceZPos(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-	    render.renderFaceXNeg(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(1.0F, 0.0F, 0.0F);
-	    render.renderFaceXPos(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	}
 }

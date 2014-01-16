@@ -15,19 +15,19 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class LiquifierHandler implements ISmelterHandler {
 	private final Map fuels = new HashMap();
-	private final Map recipes = new HashMap();
+	private final HashMap<String, RecipeSmelter> recipes = new HashMap();
 
 	@Override
 	public void addRecipe(RecipeSmelter recipe) {
 		if(recipe.input2 != null)
-			recipes.put(Arrays.asList(OreDicHelper.convert(recipe.input), OreDicHelper.convert(recipe.input2)), recipe);
+			recipes.put(OreDicHelper.convert(recipe.input) + "|" + OreDicHelper.convert(recipe.input2), recipe);
 		else
 			recipes.put(OreDicHelper.convert(recipe.input), recipe);
 	}
 
 	@Override
 	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
-		RecipeSmelter recipe = (RecipeSmelter) recipes.get(Arrays.asList(OreDicHelper.convert(input), OreDicHelper.convert(input2)));
+		RecipeSmelter recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input) + "|" + OreDicHelper.convert(input2));
 		if(recipe == null)
 			recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
 		if(recipe != null) {
@@ -46,11 +46,11 @@ public class LiquifierHandler implements ISmelterHandler {
 						if(Rand.nextInt(recipe.rands[i])) {
 							fluid = recipe.random[i];
 							if(fluid != null)
-								return new RecipeSmelter(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new int[] { 0 });
+								return new RecipeSmelter(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new Integer[] { 0 });
 						}
 					}
 					
-					return new RecipeSmelter(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new int[] { 0 });
+					return new RecipeSmelter(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new Integer[] { 0 });
 				}
 				
 				if(input.isItemStackDamageable()) {
@@ -96,5 +96,10 @@ public class LiquifierHandler implements ISmelterHandler {
 		}
 
 		return -1;
+	}
+
+	@Override
+	public HashMap<String, RecipeSmelter> getRecipes() {
+		return (HashMap<String, RecipeSmelter>) recipes;
 	}
 }

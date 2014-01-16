@@ -40,7 +40,7 @@ public class FishPerch extends FishSpecies {
 	
 	@Override
 	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(75) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
+		return (rand.nextInt(13) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
 	}
 	
 	@Override

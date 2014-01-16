@@ -54,7 +54,7 @@ public class FishManOWar extends FishSpecies {
 			return new ItemStack(Item.potion, 1, 16388);
 		}
 
-		return (rand.nextInt(100) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : null;
+		return (rand.nextInt(60) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : null;
 
 	}
 

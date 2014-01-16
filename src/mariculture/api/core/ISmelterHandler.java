@@ -1,5 +1,7 @@
 package mariculture.api.core;
 
+import java.util.HashMap;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -16,4 +18,7 @@ public interface ISmelterHandler {
 	public FuelInfo getFuelInfo(Object obj);
 	/** Get the melting point of an item */
 	public int getMeltingPoint(ItemStack stack);
+	
+	/** returns all the recipes **/
+	public HashMap<String, RecipeSmelter> getRecipes();
 }

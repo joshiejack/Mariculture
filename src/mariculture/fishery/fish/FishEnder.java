@@ -48,7 +48,7 @@ public class FishEnder extends FishSpecies {
 			return new ItemStack(Item.enderPearl);
 		}
 
-		return (rand.nextInt(50) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER): null;
+		return (rand.nextInt(43) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER): null;
 	}
 
 	@Override
