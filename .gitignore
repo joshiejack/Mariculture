@@ -3,4 +3,4 @@
 .classpath
 .project
 /bin
-/.settings
+/.settings/*
