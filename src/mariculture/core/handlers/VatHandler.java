@@ -2,6 +2,7 @@ package mariculture.core.handlers;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -12,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class VatHandler implements IVatHandler {
-	private final Map recipes = new HashMap();
+	private final HashMap<List<? extends Object>, RecipeVat> recipes = new HashMap();
 	public String getName(FluidStack fluid) {
 		return fluid.getFluid().getName();
 	}
@@ -71,5 +72,10 @@ public class VatHandler implements IVatHandler {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public HashMap<List<? extends Object>, RecipeVat> getRecipes() {
+		return recipes;
 	}
 }

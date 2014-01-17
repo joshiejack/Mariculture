@@ -57,7 +57,7 @@ public class ItemCrafting extends ItemMariculture {
 				return "plasticYellow";
 			case CraftingMeta.DRAGON_EGG:
 				return "dragonEgg";
-			case CraftingMeta.ROD_TITANIUM: 
+			case CraftingMeta.POLISHED_TITANIUM: 
 				return "titaniumRod";
 			case CraftingMeta.BLANK_PLAN: 
 				return "plan_blank"; 
@@ -69,6 +69,8 @@ public class ItemCrafting extends ItemMariculture {
 				return "snorkelLens";
 			case CraftingMeta.BURNT_BRICK:
 				return "burntBrick";
+			case CraftingMeta.TITANIUM_ROD:
+				return "titaniumRodBasic";
 			default:
 				return "unnamed";
 		}
@@ -142,7 +144,7 @@ public class ItemCrafting extends ItemMariculture {
 			return (Modules.factory.isActive());
 		case CraftingMeta.POLISHED_STICK:
 			return (Modules.fishery.isActive());
-		case CraftingMeta.ROD_TITANIUM:
+		case CraftingMeta.POLISHED_TITANIUM:
 			return (Modules.fishery.isActive());
 		default:
 			return true;

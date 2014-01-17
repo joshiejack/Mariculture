@@ -49,10 +49,20 @@ public class FishNight extends FishSpecies {
 	public ItemStack getProduct(Random rand) {
 		return (rand.nextInt(38) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER): null;
 	}
+	
+	@Override
+	public boolean caughtAsRaw() {
+		return false;
+	}
+	
+	@Override
+	public boolean isWorldCorrect(World world) {
+		return world.provider.dimensionId == 1;
+	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return world.provider.dimensionId == 1 && rand.nextInt(8) == 0;
+	public int getCatchChance() {
+		return 65;
 	}
 	
 	@Override

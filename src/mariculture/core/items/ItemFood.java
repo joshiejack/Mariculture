@@ -91,7 +91,7 @@ public class ItemFood extends ItemMariculture {
 		case FoodMeta.MISO_SOUP:
 			return 64;
 		case FoodMeta.OYSTER:
-			return 36;
+			return 128;
 		default:
 			return 32;
 		}
@@ -106,11 +106,6 @@ public class ItemFood extends ItemMariculture {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if (player.canEat(false)) {
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-		}
-		
-		if (!world.isRemote) {
-			EntityFakeItem entity = new EntityFakeItem(world, player.posX, player.posY, player.posZ, new ItemStack(Item.appleGold));
-			world.spawnEntityInWorld(entity);
 		}
 
 		return stack;

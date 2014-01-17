@@ -37,7 +37,6 @@ public class BlockTank extends BlockConnected {
 	
 	public BlockTank(int i) {
 		super(i, Material.piston);
-		setLightValue(1.0F);
 	}
 
 	@Override

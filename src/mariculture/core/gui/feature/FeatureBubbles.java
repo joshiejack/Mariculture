@@ -17,13 +17,6 @@ public class FeatureBubbles extends Feature {
 	}
 	
 	@Override
-	public void addTooltip(List tooltip, int mouseX, int mouseY) {
-		if (mouseX >= (xPoz + 2) && mouseX <= (xPoz + 23) && mouseY >= (yPoz + 2) && mouseY <= (yPoz + 61)) {
-			tooltip.add(machine.getProgessText());
-		}
-	}
-	
-	@Override
 	public void draw(GuiMariculture gui, int x, int y, int mouseX, int mouseY) {
 		super.draw(gui, x, y, mouseX, mouseY);
 		

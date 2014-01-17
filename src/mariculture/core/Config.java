@@ -71,14 +71,14 @@ public class Config {
             OreGeneration.COPPER_MIN = config.get(Category.ORE, "Copper > Minimum Y Height", 1).getInt();
             OreGeneration.COPPER_MAX = config.get(Category.ORE, "Copper > Maximum Y Height", 64).getInt();
             OreGeneration.RUTILE = config.get(Category.ORE, "Rutile > Generation", true).getBoolean(true);
-            OreGeneration.RUTILE_CHANCE = config.get(Category.ORE, "Rutile > 1 Vein Per This Many Limestone", 128).getInt();
+            OreGeneration.RUTILE_CHANCE = config.get(Category.ORE, "Rutile > 1 Vein Per This Many Limestone", 250).getInt();
             OreGeneration.LIMESTONE = config.get(Category.ORE, "Limestone > Generation", true).getBoolean(true);
-            OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > 1 Vein Per This Many Chunks", 2).getInt();
-            OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 48).getInt();
-            OreGeneration.LIMESTONE_MAX_DEPTH = config.get(Category.ORE, "Limestone > Maximum Depth (Y Height)", 45).getInt();
+            OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > Number of Chances Per Chunk to Generate", 3).getInt();
+            OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 32).getInt();
+            OreGeneration.LIMESTONE_MAX_DEPTH = config.get(Category.ORE, "Limestone > Maximum Depth (Y Height)", 40).getInt();
             OreGeneration.NATURAL_GAS_ON = config.get(Category.ORE, "Natural Gas > Generation", true).getBoolean(true);
             OreGeneration.NATURAL_GAS_CHANCE = config.get(Category.ORE, "Natural Gas > 1 Pocket Per This Many Chunks", 20).getInt();
-            OreGeneration.NATURAL_GAS_VEIN = config.get(Category.ORE, "Natural Gas > Maximum Vein Size", 64).getInt();
+            OreGeneration.NATURAL_GAS_VEIN = config.get(Category.ORE, "Natural Gas > Maximum Vein Size", 48).getInt();
             OreGeneration.NATURAL_GAS_MIN = config.get(Category.ORE, "Natural Gas > Minimum Y Height", 16).getInt();
             OreGeneration.NATURAL_GAS_MAX = config.get(Category.ORE, "Natural Gas > Maximum Y Height", 26).getInt();
 

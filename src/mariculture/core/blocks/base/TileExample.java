@@ -57,12 +57,6 @@ public abstract class TileExample extends TileMachine {
 		}
 	}
 	
-	//Process Name
-	@Override
-	public String getProcess() {
-		return null;
-	}
-	
 	//Eject Type
 	@Override
 	public EjectSetting getEjectType() {

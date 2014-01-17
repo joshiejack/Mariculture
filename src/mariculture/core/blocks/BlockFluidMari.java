@@ -42,7 +42,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 
 		for (int i = 1; i < flowing.length; i++) {
 			String name = ((((ItemFluidContainer) (Core.liquidContainers)).getName(new ItemStack(this.blockID, 1, i))).substring(6)).toLowerCase();
-			if(!name.startsWith("fish") && !name.startsWith("natural")) {
+			if(name.contains("molten")) {
 				name = "molten" + name;
 			}
 				

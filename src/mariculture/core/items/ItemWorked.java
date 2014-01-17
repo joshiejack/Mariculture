@@ -27,7 +27,7 @@ public class ItemWorked extends ItemDamageable {
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
 		if(stack.stackTagCompound == null) {
-			return "Invalid Unworked Item";
+			return StatCollector.translateToLocal("itemGroup.jewelryTab");
 		}
 		
 		ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
@@ -93,13 +93,13 @@ public class ItemWorked extends ItemDamageable {
 		if(pass == 5)
 			return crack;
 
-		return Core.hammer.getIcon(stack, pass);
+		return itemIcon;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, 0)));
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":unworked");
 		crack = iconRegister.registerIcon(Mariculture.modid + ":crack");
 	}
 	

@@ -87,12 +87,12 @@ public final class StringHelper {
 	}
 	
 	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
-		if(fluid == null || fluid.getFluid() == null)
-			tooltip.add(Text.GREY + "" + 0 + "/" + max + "mB");
-		else if(Modules.fishery.isActive() && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
-			tooltip.add(Text.GREY + "" + fluid.amount + "/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"));
+		if(fluid == null || fluid.getFluid() == null) {
+			tooltip.add(Text.GREY + "" + 0 + ((max > 0)? "/" + max + "mB": "mB"));
+		} else if(Modules.fishery.isActive() && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0) ?"/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"): " " + StatCollector.translateToLocal("mariculture.string.pieces")));
 		else if(fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt"))
-			tooltip.add(Text.GREY + "" + fluid.amount + "/" + max + "mB");
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
 		else if(fluid.getFluid().getName().contains("molten")) {
 			int ingots = fluid.amount / MetalRates.INGOT;
             if (ingots > 0)
@@ -107,12 +107,14 @@ public final class StringHelper {
                     tooltip.add(Text.GREY + "mB: " + junk);
             }
             
-            tooltip.add("");
-            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
-            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
-            			+ max%MetalRates.INGOT + "mB");
+            if(max > 0) {
+	            tooltip.add("");
+	            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
+	            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
+	            			+ max%MetalRates.INGOT + "mB");
+            }
 		} else {
-			tooltip.add(Text.GREY + "" + fluid.amount + "/" + max + "mB");
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
 		}
 		
 		return tooltip;

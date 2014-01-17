@@ -3,7 +3,6 @@ package mariculture.fishery.fish;
 import java.util.Random;
 
 import cofh.api.energy.IEnergyHandler;
-
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
@@ -50,8 +49,13 @@ public class FishElectricRay extends FishSpecies {
 	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return false;
+	public int getCatchChance() {
+		return 5;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.SUPER;
 	}
 	
 	@Override

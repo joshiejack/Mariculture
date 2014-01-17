@@ -78,6 +78,7 @@ import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UtilMeta;
+import mariculture.core.lib.WoodMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
@@ -180,7 +181,7 @@ public class Core extends Module {
 		pearlBrick = new BlockPearlBrick(BlockIds.pearlBrick).setUnlocalizedName("pearlBrick");
 		glassBlocks = new BlockTransparent(BlockIds.glassBlocks).setStepSound(Block.soundPowderFootstep).setResistance(1F).setUnlocalizedName("glassBlocks");
 		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setUnlocalizedName("airBlocks");
-		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks");
+		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks").setHardness(2.0F);
 		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks").setHardness(1F);
 		groundBlocks = new BlockGround(BlockIds.groundBlocks).setUnlocalizedName("groundBlocks");
 
@@ -230,6 +231,7 @@ public class Core extends Module {
 		MinecraftForge.setBlockHarvestLevel(doubleBlock, DoubleMeta.VAT, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.BOOKSHELF, "axe", 0);
 		MinecraftForge.setBlockHarvestLevel(groundBlocks, GroundMeta.BUBBLES, "shovel", 0);
+		MinecraftForge.setBlockHarvestLevel(woodBlocks, WoodMeta.BASE_WOOD, "axe", 1);
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks });
@@ -245,7 +247,7 @@ public class Core extends Module {
 		materials = new ItemMaterial(ItemIds.metals).setUnlocalizedName("materials");
 		craftingItem = new ItemCrafting(ItemIds.items).setUnlocalizedName("craftingItems");
 		batteryCopper = new ItemBattery(ItemIds.batteryCopper, 10000, 100, 250).setUnlocalizedName("batteryCopper");
-		batteryTitanium = new ItemBattery(ItemIds.batteryTitanium, 50000, 1000, 2500).setUnlocalizedName("batteryTitanium");
+		batteryTitanium = new ItemBattery(ItemIds.batteryTitanium, 100000, 1000, 2500).setUnlocalizedName("batteryTitanium");
 		food = new ItemFood(ItemIds.food).setUnlocalizedName("food");
 		upgrade = new ItemUpgrade(ItemIds.upgrade).setUnlocalizedName("upgrade");
 		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
@@ -351,7 +353,7 @@ public class Core extends Module {
 	}
 	
 	public static String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {
-		if (!FluidDictionary.instance.metalExists(name)) {
+		if (!FluidDictionary.instance.fluidExists(name)) {
 			globalFluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name);
 			FluidRegistry.registerFluid(globalFluid);
 			FluidDictionary.instance.addFluid(name, globalFluid);

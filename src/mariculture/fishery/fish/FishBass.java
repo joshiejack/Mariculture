@@ -48,16 +48,15 @@ public class FishBass extends FishSpecies {
 
 		return (rand.nextInt(50) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
 	}
-
+	
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld()) {
-			if (quality.getRank() >= EnumRodQuality.SUPER.getRank() && rand.nextInt(512) == 0) {
-				return true;
-			}
-		}
-
-		return false;
+	public int getCatchChance() {
+		return 5;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.SUPER;
 	}
 	
 	@Override

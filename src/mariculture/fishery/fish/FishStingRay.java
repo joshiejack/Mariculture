@@ -52,29 +52,15 @@ public class FishStingRay extends FishSpecies {
 
 		return (rand.nextInt(56) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): null;
 	}
+	
+	@Override
+	public boolean caughtAsRaw() {
+		return false;
+	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld()) {
-			if (Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), new EnumBiomeType[] {
-					EnumBiomeType.HOT, EnumBiomeType.ARID })) {
-				return false;
-			}
-
-			EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z));
-			if (biome.isSaltWater()) {
-				if (rand.nextInt(8) == 0) {
-					return true;
-				}
-			} else {
-				if (rand.nextInt(32) == 0) {
-					return true;
-				}
-			}
-
-		}
-
-		return false;
+	public int getCatchChance() {
+		return 30;
 	}
 	
 	@Override

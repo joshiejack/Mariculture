@@ -51,8 +51,13 @@ public class FishPiranha extends FishSpecies {
 	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return false;
+	public int getCatchChance() {
+		return 8;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.SUPER;
 	}
 
 	@Override

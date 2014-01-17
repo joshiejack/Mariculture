@@ -218,11 +218,6 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	public boolean isNotificationVisible(NotificationType type) {
 		return false;
 	}
-
-	@Override
-	public String getProcess() {
-		return "";
-	}
 	
 	@Override
 	public Packet getDescriptionPacket() {		

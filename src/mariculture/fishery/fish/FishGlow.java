@@ -49,10 +49,20 @@ public class FishGlow extends FishSpecies {
 
 		return (rand.nextInt(15) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER): null;
 	}
+	
+	@Override
+	public boolean isWorldCorrect(World world) {
+		return world.provider.isHellWorld;
+	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return false;
+	public int getCatchChance() {
+		return 15;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.GOOD;
 	}
 	
 	@Override

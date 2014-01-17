@@ -48,7 +48,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
 		if(slot == rod && stack.getItem() instanceof ItemBaseRod)
 			return true;
-		if(slot >= 5 && slot <= 10 && Fishing.bait.getEffectiveness(stack) > -1)
+		if(slot >= 5 && slot <= 10 && Fishing.bait.getBaitQuality(stack) > 0)
 			return true;
 		return false;
 	}
@@ -69,10 +69,10 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 				} else {
 					processed+=speed;
 					if(processed >= max) {
-						baitQuality = -1;
 						processed = 0;
-						if (Rand.nextInt(getChance(baitQuality) + 1) && canWork())
+						if (Rand.rand.nextInt(100) < baitQuality && canWork())
 							catchFish();
+						baitQuality = -1;
 					}
 					
 					if(processed <= 0)
@@ -116,7 +116,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	private boolean hasBait() {
 		for(int i: bait) {
 			if(inventory[i] != null) {
-				return Fishing.bait.getEffectiveness(inventory[i]) > -1;
+				return Fishing.bait.getBaitQuality(inventory[i]) > 0;
 			}
 		}
 		
@@ -174,7 +174,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		for(int i: bait) {
 			if(inventory[i] != null) {
 				if(Fishing.quality.canUseBait(inventory[i], quality)) {
-					int qual = Fishing.bait.getEffectiveness(inventory[i]);
+					int qual = Fishing.bait.getBaitQuality(inventory[i]);
 					decrStackSize(i, 1);
 					return qual;
 				}
@@ -222,11 +222,6 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 			default:
 				return false;
 		}
-	}
-	
-	@Override
-	public String getProcess() {
-		return "fished";
 	}
 
 	@Override

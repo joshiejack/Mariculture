@@ -413,11 +413,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 	
 	@Override
-	public String getProcess() {
-		return "breed";
-	}
-
-	@Override
 	public EjectSetting getEjectType() {
 		return EjectSetting.ITEM;
 	}

@@ -57,8 +57,18 @@ public class FishBlaze extends FishSpecies {
 	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return false;
+	public boolean isWorldCorrect(World world) {
+		return world.provider.isHellWorld;
+	}
+	
+	@Override
+	public int getCatchChance() {
+		return 5;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.SUPER;
 	}
 	
 	@Override

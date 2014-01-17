@@ -140,14 +140,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	public int getProgressScaled(int scale) {
 		return (processed * scale) / max;
 	}
-
-	@Override
-	public String getProgessText() {
-		return getProgressScaled(100) + "% " + StatCollector.translateToLocal("mariculture.process." + getProcess());
-	}
-	
-	public abstract String getProcess();
-	
+		
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);

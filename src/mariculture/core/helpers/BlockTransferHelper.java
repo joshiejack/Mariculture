@@ -110,26 +110,21 @@ public class BlockTransferHelper {
 	public ItemStack insertStack(ItemStack stack, int[] slots) {
 		//If the Block is instance of ejectable, try to insert in to nearby inventories OR throw the stack out
 		if(inventory instanceof IEjectable) {
-			IEjectable ejectable = (IEjectable) handler;
+			IEjectable ejectable = (IEjectable) inventory;
 			if(ejectable instanceof TileMultiStorage) {
-				TileMultiStorage tile = (TileMultiStorage) handler;
+				TileMultiStorage tile = (TileMultiStorage) inventory;
 				if(tile.getMaster() != null) {
 					ejectable = (IEjectable) tile.getMaster();
 				}
 			}
 		
 			if(ejectable != null && EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.ITEM)) {
-				System.out.println("can eject");
-				if(inventory instanceof TileMultiBlock) {
-					System.out.println("is multi");
-					
+				if(inventory instanceof TileMultiBlock) {					
 					TileMultiBlock tile = (TileMultiBlock) inventory;
 					if(tile.getMaster() != null) {
 						TileMultiBlock master = tile.getMaster();
 						ArrayList<MultiPart> cords = master.slaves;
-						
-						System.out.println(cords.size());
-						
+												
 						Collections.shuffle(cords);
 						for(MultiPart cord: cords) {
 							if(world.getBlockTileEntity(cord.xCoord, cord.yCoord, cord.zCoord) != null) {
@@ -157,7 +152,6 @@ public class BlockTransferHelper {
 		for(Integer side: sides) {
 			ForgeDirection dir = ForgeDirection.getOrientation(side);
 			TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-			System.out.println(tile);
 			if(tile instanceof IInventory && !(tile instanceof TileEntityHopper) && !isSameBlock(tile)) {
 				stack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, dir.ordinal());
 			}

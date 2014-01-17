@@ -80,7 +80,8 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 		super.updateEntity();
 		
 		if(inventory[3] != null) {
-			int rf = (inventory[3] != null)? ((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 1000, true): 0;
+			int rf = (inventory[3] != null && inventory[3].getItem() instanceof IEnergyContainerItem)? 
+					((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 1000, true): 0;
 			if(rf > 0) {
 				int drain = receiveEnergy(ForgeDirection.UP, rf, true);
 				if(drain > 0) {

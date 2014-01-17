@@ -292,10 +292,4 @@ public class TileTurbineBase extends TileMachineTank implements ISidedInventory,
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public String getProcess() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

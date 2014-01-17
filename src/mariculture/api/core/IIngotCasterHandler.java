@@ -1,6 +1,7 @@
 package mariculture.api.core;
 
-import net.minecraft.item.ItemStack;
+import java.util.HashMap;
+
 import net.minecraftforge.fluids.FluidStack;
 
 public interface IIngotCasterHandler {
@@ -10,4 +11,6 @@ public interface IIngotCasterHandler {
 	
 	/** Caster Recipes **/
 	public RecipeIngotCasting getResult(FluidStack fluid);
+	
+	public HashMap<String, RecipeIngotCasting> getRecipes();
 }

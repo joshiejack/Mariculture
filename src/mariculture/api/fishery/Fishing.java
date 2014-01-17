@@ -8,4 +8,5 @@ public class Fishing {
 	public static IMutation mutation;
 	public static ILootHandler loot;
 	public static IFishingRod rodHandler;
+	public static ISifterHandler sifter;
 }

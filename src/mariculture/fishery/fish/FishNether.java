@@ -47,10 +47,20 @@ public class FishNether extends FishSpecies {
 	public int getTankLevel() {
 		return 3;
 	}
+	
+	@Override
+	public boolean caughtAsRaw() {
+		return false;
+	}
+	
+	@Override
+	public boolean isWorldCorrect(World world) {
+		return world.provider.isHellWorld;
+	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return world.provider.isHellWorld && rand.nextInt(8) == 0;
+	public int getCatchChance() {
+		return 70;
 	}
 	
 	@Override

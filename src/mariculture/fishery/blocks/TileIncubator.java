@@ -230,11 +230,6 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	}
 
 	@Override
-	public String getProcess() {
-		return "incubated";
-	}
-	
-	@Override
 	public EjectSetting getEjectType() {
 		return EjectSetting.ITEM;
 	}

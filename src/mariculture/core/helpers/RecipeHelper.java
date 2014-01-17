@@ -38,6 +38,10 @@ public class RecipeHelper {
 	public static void addVatItemRecipe(ItemStack input, String fluid, int vol, ItemStack output, int time) {
 		MaricultureHandlers.vat.addRecipe(new RecipeVat(input, FluidRegistry.getFluidStack(fluid, vol), output, time));
 	}
+	
+	public static void addVatItemRecipeResultFluid(ItemStack input, FluidStack inputFluid, FluidStack output, int time) {
+		MaricultureHandlers.vat.addRecipe(new RecipeVat(input, inputFluid, output, time));
+	}
 
 	public static void addIngotCasting(String fluid, ItemStack stack) {
 		MaricultureHandlers.casting.addRecipe(new RecipeIngotCasting(

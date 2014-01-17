@@ -17,6 +17,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Mariculture;
 import mariculture.core.helpers.XMLHelper;
 import mariculture.core.lib.BaitMeta;
@@ -31,7 +32,7 @@ import org.w3c.dom.NodeList;
 public class CompatBait {
 
 	public static void init() {
-		File file = new File(Mariculture.root + "/mariculture/bait.xml");
+		File file = new File(Mariculture.root + "/mariculture/sifter.xml");
 		if(!file.exists()) {
 			file = createBaitXML();
 		}
@@ -55,8 +56,8 @@ public class CompatBait {
 					int min = xml.getElementInt("min");
 					int max = xml.getElementInt("max");
 					
-					Fishing.bait.addBait(new ItemStack(Fishery.bait, 1, meta), val, new Object[] {
-						new ItemStack(blockID, 1, blockMeta), rarity, min, max });
+					Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(Fishery.bait, 1, meta), 
+												new ItemStack(blockID, 1, blockMeta), min, max, rarity));
 				}
 			}
 		} catch (Exception e) {
@@ -73,16 +74,16 @@ public class CompatBait {
 			Element rootElement = document.createElement("blocks");
 			document.appendChild(rootElement);
 
-			addBlock(document, rootElement, "grasshopper", 106, 0, 1, 1, 8);
-			addBlock(document, rootElement, "grasshopper", 31, 2, 1, 2, 11);
-			addBlock(document, rootElement, "maggot", 397, 2, 1, 7, 24);
+			addBlock(document, rootElement, "grasshopper", 106, 0, 1, 1, 10);
+			addBlock(document, rootElement, "grasshopper", 31, 2, 1, 2, 15);
+			addBlock(document, rootElement, "maggot", 397, 2, 5, 15, 80);
 			
 			TransformerFactory t = TransformerFactory.newInstance();
 			Transformer transformer = t.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource domSource = new DOMSource(document);
-			StreamResult streamResult = new StreamResult(new File(Mariculture.root + "/mariculture/bait.xml"));
+			StreamResult streamResult = new StreamResult(new File(Mariculture.root + "/mariculture/sifter.xml"));
 			transformer.transform(domSource, streamResult);
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -90,7 +91,7 @@ public class CompatBait {
 			tfe.printStackTrace();
 		}
 		
-		return new File(Mariculture.root + "/mariculture/bait.xml");
+		return new File(Mariculture.root + "/mariculture/sifter.xml");
 	}
 	
 	public static void addBlock(Document document, Element element, String bait, int id, int meta, int min, int max, int rarity) {

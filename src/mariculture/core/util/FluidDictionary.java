@@ -25,7 +25,7 @@ public class FluidDictionary {
 		return FluidRegistry.WATER;
 	}
 
-	public boolean metalExists(String name) {
+	public boolean fluidExists(String name) {
 		for (Map.Entry<String, Fluid> entry : metals.entrySet()) {
 			if (entry.getKey().equalsIgnoreCase(name)) {
 				return true;
@@ -80,6 +80,8 @@ public class FluidDictionary {
 	public static String natural_gas;
 	public static String quicklime;
 	public static String salt;
+	public static String milk;
+	public static String custard;
 	
 	//Block forms
 	public static String hp_water = "fastwater";

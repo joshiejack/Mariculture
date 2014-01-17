@@ -35,9 +35,10 @@ public class ItemBait extends ItemMariculture {
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		--stack.stackSize;
-		int fill = (((Fishing.bait.getEffectiveness(stack)) + 1)/2 > 0)? ((Fishing.bait.getEffectiveness(stack)) + 1)/2: 1;
-		float sat = fill/5;
-		player.getFoodStats().addStats(fill, sat);
+		int quality = Fishing.bait.getBaitQuality(stack);
+		double fill = ((double)quality/100) * 4.0D;
+		float sat = -(float) (fill/5);
+		player.getFoodStats().addStats(((fill >= 1) ? (int) fill: 1), sat);
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		return stack;
@@ -59,6 +60,8 @@ public class ItemBait extends ItemMariculture {
 			return "maggot";
 		case BaitMeta.HOPPER:
 			return "hopper";
+		case BaitMeta.BEE:
+			return "bee";
 		default:
 			return "bait";
 		}

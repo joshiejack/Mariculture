@@ -44,17 +44,13 @@ public class FishPerch extends FishSpecies {
 	}
 	
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld()) {
-			if (rand.nextInt(128) == 0 && quality.getRank() >= quality.GOOD.getRank()) {
-				if (!Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), new EnumBiomeType[] {
-						EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.OCEAN, EnumBiomeType.ARID })) {
-					return true;
-				}
-			}
-		}
-
-		return false;
+	public int getCatchChance() {
+		return 10;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.GOOD;
 	}
 	
 	@Override

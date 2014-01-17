@@ -49,8 +49,6 @@ tile.glassBlocks.heatglass.name=Heat Resistant Glass
 tile.airBlocks.air.name=Fake Air
 tile.airBlocks.naturalGas.name=Natural Gas
 tile.woodBlocks.baseWood.name=Wooden Construction Block
-tile.woodBlocks.polishedPlank.name=Polished Planks
-tile.woodBlocks.polishedLog.name=Polished Logs
 tile.tankBlocks.normal.name=Fluid Tank
 tile.tankBlocks.bottle.name=Void Bottle
 tile.groundBlocks.gas.name=Gas Leak
@@ -77,6 +75,8 @@ fluid.glass.molten=Molten Glass
 fluid.salt.molten=Molten Salt
 fluid.gas.natural=Natural Gas
 fluid.quicklime=Quicklime
+fluid.electrum.molten=Molten Electrum
+fluid.invar.molten=Molten Invar
 
 #items
 item.hammer.name=Hammer
@@ -113,7 +113,6 @@ item.batteryCopper.name=Copper Battery
 item.craftingItems.goldenSilk.name=Golden Silk
 item.craftingItems.goldenThread.name=Golden Thread
 item.craftingItems.canvas.name=Canvas
-item.craftingItems.polishedStick.name=Polished Stick
 item.craftingItems.neoprene.name=Neoprene
 item.craftingItems.plastic.name=Hard Plastic
 item.craftingItems.scubaLens.name=Plastic Lens
@@ -124,10 +123,10 @@ item.craftingItems.carbide.name=Silicon Carbide
 item.craftingItems.wheel.name=Iron Wheel
 item.craftingItems.wicker.name=Wicker
 item.craftingItems.plasticYellow.name=Golden Plastic
-item.craftingItems.titaniumRod.name=Polished Titanium Rod
 item.craftingItems.titaniumSheet.name=Sheet of Titanium
 item.craftingItems.snorkelLens.name=Glass Lens
 item.craftingItems.burntBrick.name=Burnt Brick
+item.craftingItems.titaniumRodBasic.name=Titanium Rod
 item.upgrade.storage.name=Basic Storage Upgrade
 item.upgrade.storageStd.name=Standard Storage Upgrade
 item.upgrade.storageAdv.name=Advanced Storage Upgrade
@@ -179,10 +178,13 @@ item.liquidContainers.bottleNickel.name=Bottle of Molten Nickel
 item.liquidContainers.bottleGlass.name=Bottle of Molten Glass
 item.liquidContainers.bottleNaturalGas.name=Bottle of Natural Gas
 item.liquidContainers.bottleRutile.name=Bottle of Impure Titanium
-item.liquidContainers.bottleFishFood.name=Bottle of Fish Food
+item.liquidContainers.bottleElectrum.name=Bottle of Molten Electrum
 item.liquidContainers.bottleQuicklime.name=Bottle of Quicklime
 item.liquidContainers.bottleSalt.name=Bottle of Molten Salt
+item.liquidContainers.bottleWater.name=Bottle of Water
+item.liquidContainers.bottleLava.name=Bottle of Lava
 item.liquidContainers.bottleEmpty.name=Empty Bottle
+item.liquidContainers.bottleNormalNaturalGas.name=Glass Bottle of Natural Gas
 
 ### Diving ###
 #blocks
@@ -279,9 +281,13 @@ tile.lampsOff.pink.name=Pink Neon Lamp
 tile.lampsOff.silver.name=Silver Neon Lamp
 tile.tankBlocks.fish.name=Fish Tank
 item.net.name=Fishing Net
+tile.woodBlocks.polishedPlank.name=Polished Planks
+tile.woodBlocks.polishedLog.name=Polished Logs
 #fluid
 fluid.food.fish=Fish Food
 fluid.oil.fish=Fish Oil
+fluid.milk=Milk
+fluid.custard=Custard
 #items
 item.guide.fishing.name=Beginner's Guide to Fishing
 item.guide.breeding.name=Fish Breeding 101
@@ -299,6 +305,7 @@ item.bait.worm.name=Bait Worm
 item.bait.ant.name=Ant Bait
 item.bait.maggot.name=Maggot Bait
 item.bait.hopper.name=Grasshopper Bait
+item.bait.bee.name=Bee Bait
 item.rodWood.name=Wooden Fishing Rod
 item.rodTitanium.name=Titanium Fishing Rod
 item.rodReed.name=Reed Fishing Rod
@@ -310,8 +317,16 @@ item.food.fishNCustard.name=Fish Fingers 'n Custard
 item.food.sushi.name=Sushi
 item.food.caviar.name=Caviar
 item.craftingItems.dragonEgg.name=Spawn Ender Dragon
+item.craftingItems.titaniumRod.name=Polished Titanium Rod
+item.craftingItems.polishedStick.name=Polished Stick
 item.liquidContainers.bottleFishOil.name=Bottle of Fish Oil
-item.liquidContainers.fishFood.name=Bottle of Fish Food
+item.liquidContainers.bottleFishFood.name=Bottle of Fish Food
+item.liquidContainers.bottleCustard.name=Bottle of Custard
+item.liquidContainers.bottleMilk.name=Bottle of Milk
+item.liquidContainers.bottleNormalCustard.name=Glass Bottle of Custard
+item.liquidContainers.bottleNormalFishFood.name=Glass Bottle of Fish Food
+item.liquidContainers.bottleNormalFishOil.name=Glass Bottle of Fish Oil
+item.liquidContainers.bottleNormalMilk.name=Glass Bottle of Milk
 item.rodFlux.name=RF Fishing Rod
 #fish breeding
 item.fishy=Mariculture Fish
@@ -490,14 +505,6 @@ mariculture.string.nuggets=Nuggets
 mariculture.string.outof=Out of Roughly:
 mariculture.string.unworked=Unworked
 mariculture.string.randomMetal=Random Molten Metal
-
-### Processing strings ###
-mariculture.process.melted=Melted
-mariculture.process.fished=Fished
-mariculture.process.sawed=Sawed
-mariculture.process.breed=Bred
-mariculture.process.incubated=Incubated
-mariculture.process.converted=Converted
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

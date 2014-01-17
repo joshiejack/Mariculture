@@ -137,6 +137,16 @@ public class RecipesSmelting {
 		addMetal(FluidDictionary.bronze, "Bronze", bronze, null, 0);
 		addMetal(FluidDictionary.steel, "Steel", steel, null, 0);
 		addMetal(FluidDictionary.electrum, "Electrum", electrum, null, 0);
+		
+		//Gold + Silver = Electrum
+		if(OreDictionary.getOres("ingotElectrum").size() > 0 && OreDictionary.getOres("ingotSilver").size() > 0) {
+			FluidStack moltenSilver = FluidRegistry.getFluidStack(FluidDictionary.silver, MetalRates.NUGGET);
+			FluidStack moltenGold = FluidRegistry.getFluidStack(FluidDictionary.gold, MetalRates.NUGGET);
+			FluidStack moltenElectrum = FluidRegistry.getFluidStack(FluidDictionary.electrum, MetalRates.NUGGET * 2);
+			RecipeHelper.addFluidAlloy(moltenSilver, moltenGold, moltenElectrum, 1);
+			RecipeHelper.addMeltingAlloy(OreDictionary.getOres("ingotSilver").get(0), 
+								new ItemStack(Item.ingotGold), electrum, get(FluidDictionary.electrum, MetalRates.INGOT * 2));
+		}
 	}
 	
 	private static class LinkedMetal {
@@ -239,6 +249,8 @@ public class RecipesSmelting {
 
 		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.RUTILE), titanium, 
 				FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
+		
+		RecipeHelper.addIngotCasting(FluidDictionary.rutile, new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE));
 		
 		FluidStack moltenRutile = FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.INGOT);
 		FluidStack moltenMagnesium = FluidRegistry.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT);

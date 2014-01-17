@@ -44,15 +44,20 @@ public class FishAngel extends FishSpecies {
 	public ItemStack getProduct(Random rand) {
 		return (rand.nextInt(74) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): null;
 	}
-
-	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		return false;
-	}
 	
 	@Override
 	public double getFishOilVolume() {
 		return 0.800;
+	}
+	
+	@Override
+	public int getCatchChance() {
+		return 8;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.GOOD;
 	}
 
 	@Override

@@ -30,5 +30,6 @@ public class RenderCopperTank extends RenderBase {
 		
 		setTexture(block);
 		renderBlock(-0.01D, -0.01D, -0.01D, 1.01D, 1.01D, 1.01D);
+		render.clearOverrideBlockTexture();
 	}
 }

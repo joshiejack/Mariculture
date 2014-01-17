@@ -4,6 +4,7 @@ import static codechicken.core.gui.GuiDraw.changeTexture;
 import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map.Entry;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeVat;
 import mariculture.core.Mariculture;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.OreDicHelper;
@@ -19,6 +21,7 @@ import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import mariculture.core.util.Rand;
+import mariculture.plugins.nei.NEIVatRecipeHandler.CachedVatRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
@@ -35,6 +38,7 @@ import codechicken.nei.NEIClientUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
 
 public class NEILiquifierRecipeHandler extends NEIBase {
 	public class CachedLiquifierRecipe extends CachedRecipe {
@@ -152,6 +156,18 @@ public class NEILiquifierRecipeHandler extends NEIBase {
     }
 	
 	@Override
+	public void loadCraftingRecipes(String outputId, Object... results) {
+		if (outputId.equals("liquifier") && getClass() == NEILiquifierRecipeHandler.class) {
+			HashMap<String, RecipeSmelter> recipes = MaricultureHandlers.smelter.getRecipes();
+			for (Entry<String, RecipeSmelter> recipe : recipes.entrySet()) {
+				arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
+			}
+		} else {
+			super.loadCraftingRecipes(outputId, results);
+		}
+	}
+	
+	@Override
     public void loadCraftingRecipes(ItemStack result) {
 		HashMap<String, RecipeSmelter> recipes = MaricultureHandlers.smelter.getRecipes();
         for(Entry<String, RecipeSmelter> recipe : recipes.entrySet()) {
@@ -164,7 +180,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
             if(fluid == null || recipe.getValue().fluid == null) {
             	continue;
             }
-            
+                        
             if(fluid.getFluid().getName().equals(recipe.getValue().fluid.getFluid().getName())) {
             	arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
             }
@@ -188,6 +204,36 @@ public class NEILiquifierRecipeHandler extends NEIBase {
         	}
         }
     }
+	
+public int aFluid = -1;
+	
+	@Override
+	public void drawExtras(int id) {
+		CachedLiquifierRecipe recipe = (CachedLiquifierRecipe) arecipes.get(id);
+		int temp = (recipe.recipe.temp * 60 / 2000);
+		drawTexturedModalRect(7, 0 + 3 + 60 - temp, 251, 60 - temp, 5, temp);
+		
+		if(recipe.recipe.fluid != null) {
+			if(recipe.recipe.random != null) {
+				if(cycleticks % 64 == 0 || aFluid == -1) {
+					aFluid = Rand.rand.nextInt(recipe.recipe.random.length);
+				}
+				
+				if(aFluid >= recipe.recipe.random.length)
+					aFluid = 0;
+				FluidStack fluid = recipe.recipe.random[aFluid];
+				drawFluidRect(93, 46, fluid, TankSize.DOUBLE);
+			} else {
+				drawFluidRect(93, 46, recipe.recipe.fluid, TankSize.DOUBLE);
+			}
+		}
+		
+		if(recipe.recipe.output != null) {
+			int chance = (int) (((float)1 / recipe.recipe.chance) * 100);
+			int x = chance < 10? 143: 139;
+			Minecraft.getMinecraft().fontRenderer.drawString(Text.GREY + "" + chance + "%", x, 44, 0);
+		}
+	}
 	
 	@Override
     public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int id) {
@@ -243,12 +289,15 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	@Override
     public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int id) {
 		currenttip = super.handleTooltip(gui, currenttip, id);
-		Point mousepos = GuiDraw.getMousePosition();
-		int guiLeft = (gui.width - 176) / 2;
-        int guiTop = (gui.height - 166) / 2;
-        Point relMouse = new Point(mousepos.x - guiLeft, mousepos.y - guiTop);
-        CachedLiquifierRecipe cache = (CachedLiquifierRecipe) arecipes.get(id);
-		RecipeSmelter recipe = cache.recipe;
+		
+		Point mouse = getMouse(gui.width, gui.height);
+		if (isOverItem(gui, id))
+			return currenttip;
+		
+		RecipeSmelter recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
+		int yLow = id % 2 == 0 ? 19 : 84;
+		int yHigh = id % 2 == 0 ? 79 : 144;
+		
 		String fluid = null;
 		String volume = null;
 		if(recipe.fluid != null) {
@@ -262,62 +311,64 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 				volume = Text.GREY + "" + recipe.fluid.amount + "mB";
 			}
 		}
-        
-        if(id %2 == 0) {
-	        if(relMouse.x >= 97 && relMouse.x <= 132 && relMouse.y >= 19 && relMouse.y <= 79) {
-	        	if(fluid != null) {
-	        		currenttip.add(fluid);
-	        		currenttip.add(volume);
-	        	}
-	        }
-	        
-	        if(relMouse.x >= 12 && relMouse.x <= 16 && relMouse.y >= 19 && relMouse.y <= 79) {
-        		currenttip.add(recipe.temp + "\u00B0" + "C");
-        	}
-        } else {
-        	if(relMouse.x >= 97 && relMouse.x <= 132 && relMouse.y >= 84 && relMouse.y <= 144) {
-        		if(fluid != null) {
-	        		currenttip.add(fluid);
-	        		currenttip.add(volume);
-        		}
-	        }
-        	
-        	if(relMouse.x >= 12 && relMouse.x <= 16 && relMouse.y >= 84 && relMouse.y <= 144) {
-        		currenttip.add(recipe.temp + "\u00B0" + "C");
+		
+		if(mouse.x >= 97 && mouse.x <= 132 && mouse.y >= yLow && mouse.y <= yHigh) {
+        	if(fluid != null) {
+        		currenttip.add(fluid);
+        		StringHelper.getFluidQty(currenttip, recipe.fluid, -1);
         	}
         }
+        
+        if(mouse.x >= 12 && mouse.x <= 16 && mouse.y >= yLow && mouse.y <= yHigh) {
+    		currenttip.add(recipe.temp + "\u00B0" + "C");
+    	}
         
         return currenttip;
     }
 	
-	public int aFluid = -1;
+	@Override
+	public boolean mouseClicked(GuiRecipe gui, int button, int id) {
+		super.mouseClicked(gui, button, id);
+		Point mouse = getMouse(gui.width, gui.height);
+		if (isOverItem(gui, id))
+			return false;
+
+		RecipeSmelter recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
+		int yLow = id % 2 == 0 ? 19 : 84;
+		int yHigh = id % 2 == 0 ? 79 : 144;
+		
+		if(recipe.fluid != null) {
+			if(mouse.x >= 97 && mouse.x <= 132 && mouse.y >= yLow && mouse.y <= yHigh) {
+	        	loadFluidsButton(button, recipe.fluid);
+	        }
+		}
+
+		return false;
+	}
 	
 	@Override
-	public void drawExtras(int id) {
-		CachedLiquifierRecipe recipe = (CachedLiquifierRecipe) arecipes.get(id);
-		int temp = (recipe.recipe.temp * 60 / 2000);
-		drawTexturedModalRect(7, 0 + 3 + 60 - temp, 251, 60 - temp, 5, temp);
+	public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int id) {
+		super.keyTyped(gui, keyChar, keyCode, id);
+		Point mouse = getMouse(gui.width, gui.height);
+		if (isOverItem(gui, id))
+			return false;
+
+		RecipeSmelter recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
+		int yLow = id % 2 == 0 ? 19 : 84;
+		int yHigh = id % 2 == 0 ? 79 : 144;
 		
-		if(recipe.recipe.fluid != null) {
-			if(recipe.recipe.random != null) {
-				if(cycleticks % 64 == 0 || aFluid == -1) {
-					aFluid = Rand.rand.nextInt(recipe.recipe.random.length);
-				}
-				
-				if(aFluid >= recipe.recipe.random.length)
-					aFluid = 0;
-				FluidStack fluid = recipe.recipe.random[aFluid];
-				drawFluidRect(93, 46, fluid, TankSize.DOUBLE);
-			} else {
-				drawFluidRect(93, 46, recipe.recipe.fluid, TankSize.DOUBLE);
-			}
+		if(recipe.fluid != null) {
+			if(mouse.x >= 97 && mouse.x <= 132 && mouse.y >= yLow && mouse.y <= yHigh) {
+	        	loadFluidsKey(keyCode, recipe.fluid);
+	        }
 		}
 		
-		if(recipe.recipe.output != null) {
-			int chance = (int) (((float)1 / recipe.recipe.chance) * 100);
-			int x = chance < 10? 143: 139;
-			Minecraft.getMinecraft().fontRenderer.drawString(Text.GREY + "" + chance + "%", x, 44, 0);
-		}
+		return false;
+	}
+	
+	@Override
+	public void loadTransferRects() {
+		transferRects.add(new RecipeTransferRect(new Rectangle(60, 27, 22, 16), "liquifier"));
 	}
 	
 	@Override
@@ -341,4 +392,9 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	 public String getOverlayIdentifier() {
 	 	return "liquifier";
 	 }
+
+	@Override
+	public boolean isOverItem(GuiRecipe gui, int id) {
+		return false;
+	}
 }

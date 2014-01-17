@@ -90,7 +90,7 @@ public class EntityFishing extends EntityFishHook {
 				* MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f);
 		this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * (float) Math.PI) * f);
 		this.calculateVelocity(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
-		this.CATCH_CHANCE = (short) (650 - (baitQuality * 100));
+		this.CATCH_CHANCE = (short) baitQuality;
 	}
 
 	@Override
@@ -267,17 +267,11 @@ public class EntityFishing extends EntityFishHook {
 						--this.ticksCatchable;
 					} else {
 						short catchChance = CATCH_CHANCE;
-
-						if (this.worldObj.canLightningStrikeAt(MathHelper.floor_double(this.posX),
-								MathHelper.floor_double(this.posY) + 1, MathHelper.floor_double(this.posZ))) {
-							catchChance = 300;
-						}
-
-						if (this.rand.nextInt(catchChance) == 0) {
+						if (rand.nextInt(2000) < catchChance) {
 							this.ticksCatchable = this.rand.nextInt(60) + 20;
 							this.motionY -= 0.20000000298023224D;
-							this.worldObj.playSoundAtEntity(this, "random.splash", 0.25F,
-									1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
+							this.worldObj.playSoundAtEntity(this.angler, "random.splash", 0.25F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
+							
 							float var30 = MathHelper.floor_double(this.boundingBox.minY);
 							int l;
 							float f4;

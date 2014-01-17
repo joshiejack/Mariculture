@@ -345,11 +345,6 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 		}
 	}
 	
-	@Override
-	public String getProcess() {
-		return "melted";
-	}
-	
 	public int getTemperatureScaled(int i) {
 		return (temp * i) / MAX_TEMP;
 	}

@@ -1,13 +1,14 @@
 package mariculture.fishery.blocks;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockMachine;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
@@ -79,37 +80,34 @@ public class BlockSift extends BlockMachine {
 			}
 			
 			boolean played = false;
-			if(!world.isRemote) {
-				//For some reason?? calling the stack size, only ever does half the size, and multiplying doesn't help :S?
-				for (int j = 0; j < 64; j++) {
-					ItemStack bait = Fishing.bait.getBaitForStack(Rand.rand, stack);
-					player.inventory.decrStackSize(player.inventory.currentItem, 1);
-					
-					if(bait != null) {
-						if(!played) {
-							world.playSoundAtEntity(player, Mariculture.modid + ":sift", 1.5F, 1.0F);
-							played = true;
-						}
-		
-						if(bait.hasTagCompound()) {
-							int chance = 26 - bait.stackTagCompound.getInteger("Chance");
-							if (Rand.nextInt(chance)) {
-								int max = bait.stackTagCompound.getInteger("Max");
-								int min = bait.stackTagCompound.getInteger("Min");
-								chance = (max - min) + 1;
-								bait.stackTagCompound = null;
-								ItemStack newBait = bait.copy();
-								newBait.stackSize = min;
-								newBait.stackSize += (chance > 0) ? Rand.rand.nextInt(chance) : 0;
-								spawnItem(newBait, world, x, y, z);
+			if(Fishing.sifter.getResult(stack) != null) {
+				if(!world.isRemote) {
+					ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(stack);
+					int stackSize = stack.stackSize;
+					for (int j = 0; j <= stackSize; j++) {
+						if(stack.stackSize > 0) {
+							for(RecipeSifter bait: recipe) {
+								int chance = Rand.rand.nextInt(100);
+								if(chance < bait.chance) {
+									ItemStack result = bait.bait.copy();
+									result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
+									spawnItem(result, world, x, y, z);
+								}
+							}
+							
+							if(!played) {
+								world.playSoundAtEntity(player, Mariculture.modid + ":sift", 1.5F, 1.0F);
+								played = true;
 							}
 						}
+						
+						if(!player.capabilities.isCreativeMode)
+							player.inventory.decrStackSize(player.inventory.currentItem, 1);
 					}
 				}
-			}
-			
-			if(Fishing.bait.getBaitForStack(Rand.rand, stack) != null)
+				
 				return true;
+			}
 		}	
 
 		if (tile instanceof TileSift && tile.getBlockMetadata() > 1) {
@@ -132,32 +130,26 @@ public class BlockSift extends BlockMachine {
 			EntityItem Entityitem = (EntityItem) entity;
 			ItemStack item = Entityitem.getEntityItem();
 			boolean played = false;
-
-			for (int i = 0; i < item.stackSize; i++) {
-                ItemStack bait = Fishing.bait.getBaitForStack(random, item);
-                if (bait != null) {
-                	if(!played) {
-                		world.playSoundAtEntity(entity, Mariculture.modid + ":sift", 1.5F, 1.0F);
-                    	played = true;
-                	}
-                        
-                	Entityitem.setDead();
-
-                	int chance = 26 - bait.stackTagCompound.getInteger("Chance");
-                	
-                	if(bait.hasTagCompound()) {
-	                	if (random.nextInt(chance) == 0) {
-	                		int max = bait.stackTagCompound.getInteger("Max");
-	                		int min = bait.stackTagCompound.getInteger("Min");
-	                		chance = (max - min) + 1;
-	                		bait.stackTagCompound = null;
-	                		ItemStack newBait = bait.copy();
-	                		newBait.stackSize = min;
-	                		newBait.stackSize += (chance > 0) ? random.nextInt(chance) : 0;
-	                		spawnItem(newBait, world, x, y, z);
-	                	}
-                	}
-                }
+			
+			if(!world.isRemote && Fishing.sifter.getResult(item) != null) {
+				ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(item);
+				for (int j = 0; j < item.stackSize; j++) {
+					for(RecipeSifter bait: recipe) {
+						int chance = Rand.rand.nextInt(100);
+						if(chance < bait.chance) {
+							ItemStack result = bait.bait.copy();
+							result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
+							spawnItem(result, world, x, y, z);
+						}
+					}
+					
+					if(!played) {
+						world.playSoundAtEntity(entity, Mariculture.modid + ":sift", 1.5F, 1.0F);
+						played = true;
+					}
+					
+					Entityitem.setDead();
+				}
 			}
 		}
 	}

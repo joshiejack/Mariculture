@@ -58,6 +58,11 @@ public class FishTuna extends FishSpecies {
 	}
 	
 	@Override
+	public boolean caughtAsRaw() {
+		return true;
+	}
+	
+	@Override
 	public double getFishOilVolume() {
 		return 4.000;
 	}

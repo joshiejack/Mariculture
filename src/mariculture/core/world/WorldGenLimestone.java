@@ -82,26 +82,6 @@ public class WorldGenLimestone extends WorldGenerator {
 
 		return true;
 	}
-	
-	private boolean canReplace(World world, int x, int y, int z) {
-		if(world.getBlockId(x, y, z) == Block.stone.blockID) {
-			return true;
-		}
-		
-		if(world.getBlockId(x, y, z) == Block.gravel.blockID) {
-			return true;
-		}
-		
-		if(world.getBlockId(x, y, z) == Block.dirt.blockID) {
-			return true;
-		}
-		
-		if(world.getBlockId(x, y, z) == Block.sand.blockID) {
-			return true;
-		}
-		
-		return false;
-	}
 
 	private boolean isValidPlacement(World world, int x, int y, int z) {
 		if(!world.getChunkProvider().chunkExists(x >> 4, z >> 4)) {
@@ -109,15 +89,9 @@ public class WorldGenLimestone extends WorldGenerator {
 		}
 		
 		try {
-			if(canReplace(world, x, y, z)) {
-				for (int i = 0; i < 10; i++) {
-					if (BlockHelper.isWater(world, x, y + i, z)) {
-						return true;
-					}
-				}
-			}
-		} catch (Exception e) {}
-		
-		return false;
+			return world.getBlockMaterial(x, y, z) != Material.water;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

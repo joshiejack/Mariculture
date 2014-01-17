@@ -251,6 +251,10 @@ public class Recipes {
 		//Burnt Brick > Nether Brick + 500mB of Lava
 		RecipeHelper.addVatItemRecipe(new ItemStack(Item.netherrackBrick), "lava", 500, 
 												new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 8);
+		
+		//Titanium Rod > 3 Ingots worth of Molten Metal + a Stick
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.stick),  FluidDictionary.titanium, MetalRates.INGOT * 3, 
+													new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_ROD), 60);
 	}
 	
 	private static void addMetalRecipes() {		

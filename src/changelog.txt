@@ -50,6 +50,8 @@
 * Limestone will now generate in any WATER tagged biome, so instead of just rivers, will now also generates in oceans. (But up to a max depth of 45Y)
 * Changed Electricray Chance to 4%, and Dragonfish and Clownfish to 2%
 * Buffed all Droplet Chances
+* Bait, can now vary a lot more, with 'quality' ranging from 0-100% instead of the few tiers that there were before
+* You are now able to catch every single fish in the wild, however, all fish except for the starter fish will be forced dead!
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick
@@ -58,6 +60,8 @@
 * Removed Unused Block Ids for Molten Metals and Limestone Stairs
 * Rennamed Autofisher Speed Entry (To force use of new SLOWER speed (since they now accept upgrades))
 * Options to Disable the forcing of KelpForests/CoralReefs to only gen in those biomes with BOP
+* Limestone chance mechanisms changed, instead of only ever having a possiblity to generate once per chunk, you now define how many times it will try to find a place it can generate
+* Rennamed bait.xml to sifter.xml (to force the changes, otherwise some of the existing items would have terrible values)
 ====API Changes====
 * IItemUpgrade additional items
 * Added Dual Smelting

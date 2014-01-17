@@ -46,19 +46,15 @@ public class FishJelly extends FishSpecies {
 		return (rand.nextInt(50) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON) : null;
 
 	}
-
+	
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld()) {
-			if (rand.nextInt(128) == 0 && quality.getRank() >= quality.GOOD.getRank()) {
-				if (Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), new EnumBiomeType[] {
-						EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN })) {
-					return true;
-				}
-			}
-		}
-
-		return false;
+	public int getCatchChance() {
+		return 15;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.GOOD;
 	}
 	
 	@Override

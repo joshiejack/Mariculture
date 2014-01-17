@@ -43,24 +43,15 @@ public class FishCatfish extends FishSpecies {
 	public ItemStack getProduct(Random rand) {
 		return (rand.nextInt(28) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
 	}
-
+	
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld()) {
-			if (quality.getRank() >= EnumRodQuality.GOOD.getRank()) {
-				EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z));
-				if (biome.isSaltWater()) {
-					if (rand.nextInt(256) == 0) {
-						return true;
-					}
-				} else {
-					if (rand.nextInt(128) == 0) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+	public int getCatchChance() {
+		return 4;
+	}
+	
+	@Override
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.GOOD;
 	}
 	
 	@Override

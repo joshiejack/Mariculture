@@ -51,20 +51,10 @@ public class FishSalmon extends FishSpecies {
 	public ItemStack getProduct(Random rand) {
 		return (rand.nextInt(19) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
 	}
-
+	
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld()) {
-			if (quality.getRank() >= EnumRodQuality.GOOD.getRank()) {
-			if (rand.nextInt(8) == 128) {
-				if (!Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z),
-						new EnumBiomeType[] { EnumBiomeType.ARID })) {
-					return true;
-				}
-			}
-		}}
-
-		return false;
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.GOOD;
 	}
 	
 	@Override

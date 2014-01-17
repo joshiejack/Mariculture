@@ -71,8 +71,11 @@ public class LootHandler implements ILootHandler {
 
 	private ItemStack getFishForLocation(Random rand, EnumRodQuality quality, World world, int x, int y, int z) {
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			if (FishSpecies.speciesList.get(i) != null) {
-				if (FishSpecies.speciesList.get(i).canCatch(rand, world, x, y, z, quality)) {
+			FishSpecies fish = FishSpecies.speciesList.get(i);
+			if (fish != null) {
+				if (fish.canCatch(rand, world, x, y, z, quality)) {
+					if(fish.caughtAsRaw())
+						return new ItemStack(Fishery.fishyFood, 1, fish.fishID);
 					return Fishing.fishHelper.makePureFish(FishSpecies.speciesList.get(i));
 				}
 			}

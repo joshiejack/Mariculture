@@ -96,11 +96,13 @@ public class WorldGenHandler implements IWorldGenerator {
 	public static void generateLimestone(World world, Random random, int x, int z) {
 		int posX, posY, posZ;
 		// Under rivers for Limestone
-		if (OreGeneration.LIMESTONE && random.nextInt(OreGeneration.LIMESTONE_CHANCE) == 0) {
-			posX = x + random.nextInt(16);
-			posZ = z + random.nextInt(16);
-			if(isRiverBiome(world, posX, posZ) && world.getTopSolidOrLiquidBlock(posX, posZ) >= OreGeneration.LIMESTONE_MAX_DEPTH) {
-				new WorldGenLimestone(OreGeneration.LIMESTONE_VEIN).generate(world, random, posX, posZ);
+		if (OreGeneration.LIMESTONE) {
+			for(int i = 0; i < OreGeneration.LIMESTONE_CHANCE; i++) {
+				posX = x + random.nextInt(16);
+				posZ = z + random.nextInt(16);
+				if(isRiverBiome(world, posX, posZ) && world.getTopSolidOrLiquidBlock(posX, posZ) >= OreGeneration.LIMESTONE_MAX_DEPTH) {
+					new WorldGenLimestone(OreGeneration.LIMESTONE_VEIN).generate(world, random, posX, posZ);
+				}
 			}
 		}
 	}

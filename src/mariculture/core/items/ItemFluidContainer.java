@@ -180,6 +180,24 @@ public class ItemFluidContainer extends ItemMariculture {
 			return "bottleEmpty";
 		case FluidContainerMeta.BOTTLE_ELECTRUM:
 			return "bottleElectrum";
+		case FluidContainerMeta.BOTTLE_WATER:
+			return "bottleWater";
+		case FluidContainerMeta.BOTTLE_LAVA:
+			return "bottleLava";
+		case FluidContainerMeta.BOTTLE_MILK:
+			return "bottleMilk";
+		case FluidContainerMeta.BOTTLE_CUSTARD:
+			return "bottleCustard";
+		case FluidContainerMeta.BOTTLE_NORMAL_CUSARD:
+			return "bottleNormalCustard";
+		case FluidContainerMeta.BOTTLE_NORMAL_FISH_FOOD:
+			return "bottleNormalFishFood";
+		case FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL:
+			return "bottleNormalFishOil";
+		case FluidContainerMeta.BOTTLE_NORMAL_GAS:
+			return "bottleNormalNaturalGas";
+		case FluidContainerMeta.BOTTLE_NORMAL_MILK:
+			return "bottleNormalMilk";
 		default:
 			return "container";
 		}

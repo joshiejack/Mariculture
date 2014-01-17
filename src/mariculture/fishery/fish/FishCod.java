@@ -58,6 +58,16 @@ public class FishCod extends FishSpecies {
 	}
 	
 	@Override
+	public boolean caughtAsRaw() {
+		return false;
+	}
+	
+	@Override
+	public int getCatchChance() {
+		return 50;
+	}
+	
+	@Override
 	public double getFishOilVolume() {
 		return 2.500;
 	}

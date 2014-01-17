@@ -197,11 +197,6 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 		super.sendGUINetworkData(container, player);
 		Packets.updateGUI(player, container, 0 + offset, selected);
 	}
-	
-	@Override
-	public String getProcess() {
-		return "sawed";
-	}
 
 	@Override
 	public boolean isNotificationVisible(NotificationType type) {

@@ -188,14 +188,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
 	public int getProgressScaled(int scale) {
 		return (processed * scale) / max;
 	}
-
-	@Override
-	public String getProgessText() {
-		return getProgressScaled(100) + "% " + StatCollector.translateToLocal("mariculture.process." + getProcess());
-	}
-	
-	public abstract String getProcess();
-	
+		
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);

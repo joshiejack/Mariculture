@@ -70,7 +70,6 @@ public class PluginTConstruct extends Plugin {
 	public static TitaniumPart tool_rod;
 	public static TitaniumPart tough_binding;
 	public static TitaniumPart tough_rod;
-	public static boolean addRod = false;
 	
 	public void init() {
 		addParts();
@@ -149,17 +148,6 @@ public class PluginTConstruct extends Plugin {
 	}
 	
 	private static void addRecipes() {
-		if(addRod) {
-			//Tough rod + 6500mB of fish oil in a vat, taking 30 seconds
-			//Creative Recipe
-			RecipeHelper.addVatItemRecipe(new ItemStack(PluginTConstruct.tough_rod, 1, 0), 
-					FluidDictionary.fish_oil, 6500, new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
-			
-			//Survival Recipe
-			RecipeHelper.addVatItemRecipe(new ItemStack(PluginTConstruct.tough_rod, 1, titanium_id), 
-					FluidDictionary.fish_oil, 6500, new ItemStack(Core.craftingItem, 1, CraftingMeta.ROD_TITANIUM), 30);
-		}
-		
 		addMelting();
 		addTools();
 		addAlloy();

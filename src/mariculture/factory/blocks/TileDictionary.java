@@ -231,11 +231,6 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 	public int getProgressScaled(int i) {
 		return (processed * i) / max;
 	}
-
-	@Override
-	public String getProgessText() {
-		return getProgressScaled(100) + "% " + StatCollector.translateToLocal("mariculture.process.converted");
-	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {

@@ -88,7 +88,7 @@ public class RodRightClickHandler implements IFishingRod {
 
 			if (player.inventory.getStackInSlot(leftSlot) != null) {
 				if (Fishing.quality.canUseBait(player.inventory.getStackInSlot(leftSlot), quality)) {
-					baitQuality = Fishing.bait.getEffectiveness(player.inventory.getStackInSlot(leftSlot));
+					baitQuality = Fishing.bait.getBaitQuality(player.inventory.getStackInSlot(leftSlot));
 					foundSlot = leftSlot;
 				}
 			}
@@ -99,7 +99,7 @@ public class RodRightClickHandler implements IFishingRod {
 
 			if (player.inventory.getStackInSlot(rightSlot) != null) {
 				if (Fishing.quality.canUseBait(player.inventory.getStackInSlot(rightSlot), quality)) {
-					baitQuality = Fishing.bait.getEffectiveness(player.inventory.getStackInSlot(rightSlot));
+					baitQuality = Fishing.bait.getBaitQuality(player.inventory.getStackInSlot(rightSlot));
 					foundSlot = rightSlot;
 				}
 			}

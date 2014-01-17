@@ -14,18 +14,18 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class IngotCastingHandler implements IIngotCasterHandler {
-	private final Map recipes = new HashMap();
+	private final HashMap <String, RecipeIngotCasting>recipes = new HashMap();
 	
 	@Override
 	public void addRecipe(RecipeIngotCasting recipe) {
-		recipes.put(Arrays.asList(recipe.fluid.fluidID), recipe);
+		recipes.put(recipe.fluid.getFluid().getName(), recipe);
 	}
 
 	@Override
 	public RecipeIngotCasting getResult(FluidStack fluid) {
 		if(fluid == null)
 			return null;
-		RecipeIngotCasting result = (RecipeIngotCasting) recipes.get(Arrays.asList(fluid.fluidID));
+		RecipeIngotCasting result = recipes.get(fluid.getFluid().getName());
 		if(result == null)
 			return null;
 		if(fluid.amount < result.fluid.amount)
@@ -47,5 +47,10 @@ public class IngotCastingHandler implements IIngotCasterHandler {
 		}
 		
 		return Block.blockIron.getIcon(0, 0);
+	}
+
+	@Override
+	public HashMap<String, RecipeIngotCasting> getRecipes() {
+		return recipes;
 	}
 }

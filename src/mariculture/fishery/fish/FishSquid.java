@@ -49,15 +49,13 @@ public class FishSquid extends FishSpecies {
 	}
 
 	@Override
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if (world.provider.isSurfaceWorld() && rand.nextInt(8) == 0) {
-			if (Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), new EnumBiomeType[] {
-					EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN })) {
-				return true;
-			}
-		}
-
+	public boolean caughtAsRaw() {
 		return false;
+	}
+	
+	@Override
+	public int getCatchChance() {
+		return 35;
 	}
 	
 	@Override

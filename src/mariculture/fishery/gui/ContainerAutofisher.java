@@ -68,7 +68,7 @@ public class ContainerAutofisher extends ContainerMachine {
 					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
 						return null;
 					}
-				} else if (Fishing.bait.getEffectiveness(stack) != -1) {
+				} else if (Fishing.bait.getBaitQuality(stack) > 0) {
 					if (!this.mergeItemStack(stack, 5, 11, false)) { // Slot
 																		// 5-10
 						return null;
@@ -119,7 +119,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return Fishing.bait.getEffectiveness(stack) != -1;
+			return Fishing.bait.getBaitQuality(stack) > 0;
 		}
 	}
 }

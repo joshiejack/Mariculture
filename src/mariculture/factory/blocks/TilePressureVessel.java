@@ -108,11 +108,6 @@ public class TilePressureVessel extends TileMultiMachineTank {
 		return false;
 	}
 	
-	@Override
-	public String getProcess() {
-		return null;
-	}
-	
 //MultiBlock Stuffs	
 	public TilePressureVessel isSameBlock(int x, int y, int z) {
 		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);

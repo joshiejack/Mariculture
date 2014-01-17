@@ -81,7 +81,8 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
 		super.updateMaster();
 		
 		if(inventory[3] != null) {
-			int rf = (inventory[3] != null)? ((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 3000, true): 0;
+			int rf = (inventory[3] != null && inventory[3].getItem() instanceof IEnergyContainerItem)? 
+					((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 3000, true): 0;
 			if(rf > 0) {
 				int drain = receiveEnergy(ForgeDirection.UP, rf, true);
 				if(drain > 0) {

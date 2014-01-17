@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.Fishing;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -115,7 +116,29 @@ public class FishSpecies {
 	 * @param The quality of the rod the player is using
 	 **/
 	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
+		if(isWorldCorrect(world) && quality.getRank() >= getRodNeeded().getRank() && rand.nextInt(100) < getCatchChance())
+			return Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), getGroup().getBiomes());
 		return false;
+	}
+	
+	/** Return whether this type of world is suitable to catch these fish**/
+	public boolean isWorldCorrect(World world) {
+		return world.provider.isSurfaceWorld();
+	}
+	
+	/** Whether when this fish is caught it is ALWAYS dead, Defaults to true **/
+	public boolean caughtAsRaw() {
+		return true;
+	}
+	
+	/** Return a number between 1 and 100 (percentage) **/
+	public int getCatchChance() {
+		return 20;
+	}
+	
+	/** Return the rod Quality needed to catch this fish **/
+	public EnumRodQuality getRodNeeded() {
+		return EnumRodQuality.OLD;
 	}
 
 	/** Whether this fish can live in the area that they are, defaults to calling their group biome preference
