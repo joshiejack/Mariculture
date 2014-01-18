@@ -86,10 +86,12 @@ import mariculture.core.util.FluidMari;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenOcean;
+import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -241,6 +243,8 @@ public class Core extends Module {
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
 	}
+	
+	EnumToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
 
 	@Override
 	public void registerItems() {
@@ -252,11 +256,13 @@ public class Core extends Module {
 		upgrade = new ItemUpgrade(ItemIds.upgrade).setUnlocalizedName("upgrade");
 		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
 		liquidContainers = new ItemFluidContainer(ItemIds.liquidContainers).setUnlocalizedName("liquidContainers");
-		hammer = new ItemHammer(ItemIds.hammer, 1000).setUnlocalizedName("hammer");
+		hammer = new ItemHammer(ItemIds.hammer, brick).setUnlocalizedName("hammer");
 		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
 		guides = new ItemGuide(ItemIds.guides).setUnlocalizedName("guide");
 		ladle = new ItemLadle(ItemIds.ladle).setUnlocalizedName("ladle");
-
+		
+		MinecraftForge.setToolClass(hammer, "pickaxe", 0);
+		
 		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
 				liquidContainers, hammer, worked, batteryCopper, guides, ladle });
 	}
@@ -276,6 +282,8 @@ public class Core extends Module {
 	private void addDeepOcean() {
 		try {
 			Field field = BiomeGenBase.class.getField("ocean");
+			if(field == null)
+				field = BiomeGenBase.class.getField("field_76771_b");
 			Object newValue = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setMinMaxHeight(-1.8F, 0.4F);
 		    field.setAccessible(true);
 		    Field modifiersField = Field.class.getDeclaredField("modifiers");

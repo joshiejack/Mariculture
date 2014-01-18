@@ -44,7 +44,6 @@ public class AnvilSpecialRenderer extends TileEntitySpecialRenderer {
 
 	void renderItem(World world, ItemStack stack, int meta) {
 		EntityFakeItem entityitem = new EntityFakeItem(world, 0.0D, 0.0D, 0.0D, stack);
-        entityitem.getEntityItem().stackSize = 1;
         GL11.glPushMatrix();
         GL11.glTranslatef(1.3F, 1.1F, 1F);
         GL11.glScalef(1.2F, 1.2F, 1.2F);

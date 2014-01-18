@@ -86,7 +86,7 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 	}
 
 	@Override
-	public void registerIcons(final IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 	

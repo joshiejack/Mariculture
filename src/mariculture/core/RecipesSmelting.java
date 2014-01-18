@@ -172,8 +172,10 @@ public class RecipesSmelting {
 			}
 		}
 		
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, meta),
-				temp, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), bonus, chance));
+		if(fluids.size() > 0) {
+			MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, meta),
+					temp, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), bonus, chance));
+		}
 	}
 
 	private static ItemStack fetchItem(String[] array) {

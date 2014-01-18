@@ -89,6 +89,8 @@ public class WorldPlus extends Module {
 	private void addDeepOcean() {
 		try {
 			Field field = BiomeGenBase.class.getField("ocean");
+			if(field == null)
+				field = BiomeGenBase.class.getField("field_76771_b");
 			Object newValue = (new BiomeGenSandyOcean(0)).setColor(112).setBiomeName("Ocean").setMinMaxHeight(-1.85F, 0.4F);
 		    field.setAccessible(true);
 

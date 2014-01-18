@@ -307,7 +307,7 @@ public class Factory extends Module {
 		
 		//FLUDD
 		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
-		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Block.lever);
+		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Block.lever);
 		RecipeHelper.addShapedRecipe(fludd, new Object[] {
 			" E ", "PGP", "LUL",
 			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 

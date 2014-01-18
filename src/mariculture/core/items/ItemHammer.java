@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -15,8 +16,11 @@ import net.minecraftforge.common.ForgeDirection;
 import com.google.common.collect.Multimap;
 
 public class ItemHammer extends ItemDamageable {
-	public ItemHammer(int i, int dmg) {
-		super(i, dmg);
+	private EnumToolMaterial material;
+	
+	public ItemHammer(int i, EnumToolMaterial brick) {
+		super(i, brick.getMaxUses());
+		this.material = brick;
 	}
 
 	@Override
@@ -37,6 +41,14 @@ public class ItemHammer extends ItemDamageable {
 		}
 		
 		return false;
+	}
+	
+	public String getToolMaterialName() {
+		return material.toString();
+	}
+	
+	public int getItemEnchantability() {
+		return 10;
 	}
 
 	@Override

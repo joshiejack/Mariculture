@@ -55,6 +55,7 @@
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick
+* Fixed Incorrect Recipep for Titanium Pickaxe Head
 ====Config Changes====
 * Added Retro-Generation Options
 * Removed Unused Block Ids for Molten Metals and Limestone Stairs

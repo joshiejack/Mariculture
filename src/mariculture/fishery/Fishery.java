@@ -362,11 +362,7 @@ public class Fishery extends Module {
 				
 		//2 Polished Planks = 4 Polished Sticks
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
-			"S  ", "S  ", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
-			" S ", " S ", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
+			"S", "S", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
 		});
 				
 		//Polished Titanium Rod > 6500mB Fish Oil + Titanium Rod

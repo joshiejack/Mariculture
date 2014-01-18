@@ -2,6 +2,7 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import cofh.api.energy.IEnergyContainerItem;
 import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
@@ -11,8 +12,10 @@ import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.UtilMeta;
+import mariculture.core.network.Packet117AirCompressorUpdate;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
+import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.block.material.Material;
@@ -25,7 +28,6 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -120,6 +122,37 @@ public class BlockDouble extends BlockMachine {
 			}
 			
 			return false;
+		}
+		
+		ItemStack heldItem = player.getCurrentEquippedItem();
+		if(heldItem != null && tile instanceof TileAirCompressor) {
+			TileAirCompressor compressor = (TileAirCompressor) ((TileAirCompressor) tile).getMaster();
+			if(compressor != null) {
+				int rf = (heldItem.getItem() instanceof IEnergyContainerItem)? 
+						((IEnergyContainerItem)heldItem.getItem()).extractEnergy(heldItem, 5000, true): 0;
+				if(rf > 0) {
+					int drain = compressor.receiveEnergy(ForgeDirection.UP, rf, true);
+					if(drain > 0) {
+						((IEnergyContainerItem)heldItem.getItem()).extractEnergy(heldItem, drain, false);
+						compressor.receiveEnergy(ForgeDirection.UP, drain, false);
+					}
+					
+					return true;
+				}
+				
+				if(heldItem.getItem().itemID == Diving.scubaTank.itemID) {
+					if(heldItem.getItemDamage() > 1 && compressor.storedAir > 0) {
+						heldItem.setItemDamage(heldItem.getItemDamage() - 1);
+						if(!world.isRemote) {
+							compressor.storedAir--;
+							Packets.updateTile(compressor, 64, 
+									new Packet117AirCompressorUpdate(compressor.xCoord, compressor.yCoord, compressor.zCoord, 
+													compressor.storedAir, compressor.getEnergyStored(ForgeDirection.UP)).build());
+						}
+						return true;
+					}
+				}
+			}
 		}
 		
 		if(tile instanceof TileVat) {
