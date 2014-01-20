@@ -4,6 +4,7 @@ import mariculture.api.core.IMirrorHandler;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.network.Packet109DamageJewelry;
+import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -94,7 +95,8 @@ public class MirrorHandler implements IMirrorHandler {
 		for (int i = 0; i < 3; i++) {
 			if (mirror[i] != null) {
 				if (EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]) > 0) {
-					mirror[i].damageItem(amount, player);
+					if(mirror[i].attemptDamageItem(1, Rand.rand))
+						mirror[i] = null;
 				}
 			}
 		}

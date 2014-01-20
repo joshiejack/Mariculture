@@ -14,6 +14,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,14 +41,29 @@ public class BlockFluidMari extends BlockFluidClassic {
 		flowing = new Icon[FluidContainerMeta.COUNT];
 		still = new Icon[FluidContainerMeta.COUNT];
 
-		for (int i = 1; i < flowing.length; i++) {
-			String name = ((((ItemFluidContainer) (Core.liquidContainers)).getName(new ItemStack(this.blockID, 1, i))).substring(6)).toLowerCase();
-			if(name.contains("molten")) {
-				name = "molten" + name;
-			}
+		for (int i = 0; i < flowing.length; i++) {			
+			ItemStack bottle = new ItemStack(Core.liquidContainers, 1, i);
+			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(bottle);
+			if(fluid != null) {
+				String name = (fluid.getFluid()).getName().replaceAll("\\.","");
 				
-			flowing[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_flow");
-			still[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_still");
+				if(name.contains("molten")) {
+					name = "molten" + name.replaceAll("molten", "");
+				}
+
+				if(name.contains("fish")) {
+					name = "fish" + name.replaceAll("fish", "");
+				}
+				
+				if(name.contains("natural")) {
+					name = "natural" + name.replaceAll("natural", "");
+				}
+				
+				if(!name.contains("normal")) {
+					flowing[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_flow");
+					still[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_still");
+				}
+			}
 		}
 	}
 	

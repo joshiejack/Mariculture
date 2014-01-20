@@ -453,8 +453,10 @@ public class BlockSingle extends BlockMachine {
 			return Block.hopperBlock.getIcon(0, 0);
 		if(meta == SingleMeta.INGOT_CASTER)
 			return super.getIcon(side, meta);
+		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)
+			return super.getIcon(side, SingleMeta.INGOT_CASTER);
 		
-		return blockIcon;
+		return icons[meta];
 	}
 
 	@Override

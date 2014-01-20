@@ -189,7 +189,7 @@ public class Magic extends Module {
 		
 		//Basic Mirror
 		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
-			" AA", "APA", "AS ", 'A', "ingotAluminum", 'P', Block.thinGlass, 'S', "ingotIron"
+			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Block.thinGlass, 'S', "ingotIron"
 		});
 		
 		//Magic Mirror

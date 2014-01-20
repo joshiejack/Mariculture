@@ -26,7 +26,7 @@ public class ItemHungryFood extends ItemFood {
 		case FoodMeta.FISH_N_CUSTARD:
 			return 3;
 		case FoodMeta.KELP_WRAP:
-			return 2;
+			return 1;
 		case FoodMeta.SUSHI:
 			return 3;
 		case FoodMeta.MISO_SOUP:

@@ -65,43 +65,6 @@ public class ItemCoral extends ItemMariculture {
 		return icons[0];
 	}
 
-	@Override
-	public int getMaxItemUseDuration(ItemStack stack) {
-		return 32;
-	}
-
-	@Override
-	public EnumAction getItemUseAction(ItemStack stack) {
-		if (stack.getItemDamage() <= CoralMeta.KELP_MIDDLE) {
-			return EnumAction.eat;
-		}
-
-		return EnumAction.none;
-	}
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (stack.getItemDamage() <= CoralMeta.KELP_MIDDLE) {
-			if (player.canEat(false)) {
-				player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-			}
-		}
-
-		return stack;
-	}
-
-	@Override
-	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
-		if (stack.getItemDamage() <= CoralMeta.KELP_MIDDLE) {
-			--stack.stackSize;
-
-			player.getFoodStats().addStats(1, 2F);
-			world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-		}
-
-		return stack;
-	}
-
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
 		int i1 = world.getBlockId(x, y, z);
 

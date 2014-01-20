@@ -16,11 +16,13 @@ public class ItemHungryBait extends ItemBait {
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		--stack.stackSize;
-		double fill = Fishing.bait.getBaitQuality(stack)/100;
-		float sat = (float) ((fill/5)/100);
-		player.getFoodStats().addStats(0, sat);
+		int quality = Fishing.bait.getBaitQuality(stack);
+		double fill = ((double)quality/100) * 2.0D;
+		float sat = -(float) (fill/5);
+		player.getFoodStats().addStats(1, sat);
 		player.addPotionEffect(new PotionEffect(Potion.hunger.id, 20, 0));
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+
 		return stack;
 	}
 }

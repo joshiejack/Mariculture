@@ -25,9 +25,7 @@ public class ItemBait extends ItemMariculture {
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (player.canEat(false)) {
-			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-		}
+		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 
 		return stack;
 	}

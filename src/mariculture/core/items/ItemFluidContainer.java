@@ -188,7 +188,7 @@ public class ItemFluidContainer extends ItemMariculture {
 			return "bottleMilk";
 		case FluidContainerMeta.BOTTLE_CUSTARD:
 			return "bottleCustard";
-		case FluidContainerMeta.BOTTLE_NORMAL_CUSARD:
+		case FluidContainerMeta.BOTTLE_NORMAL_CUSTARD:
 			return "bottleNormalCustard";
 		case FluidContainerMeta.BOTTLE_NORMAL_FISH_FOOD:
 			return "bottleNormalFishFood";

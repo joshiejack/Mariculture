@@ -11,4 +11,5 @@ public class Dye {
 	public static final int YELLOW = 11;
 	public static final int LAPIS = 4;
 	public static final int INK = 0;
+	public static final int GREEN = 2;
 }

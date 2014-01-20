@@ -33,5 +33,5 @@ public class FluidContainerMeta {
 	public static final int BOTTLE_NORMAL_FISH_FOOD = 27;
 	public static final int BOTTLE_NORMAL_FISH_OIL = 28;
 	public static final int BOTTLE_NORMAL_MILK = 29;
-	public static final int BOTTLE_NORMAL_CUSARD = 30;
+	public static final int BOTTLE_NORMAL_CUSTARD = 30;
 }

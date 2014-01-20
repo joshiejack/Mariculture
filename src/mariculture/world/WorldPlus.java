@@ -7,10 +7,12 @@ import java.util.logging.Level;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -123,6 +125,8 @@ public class WorldPlus extends Module {
 				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.PINK), new Object[] { "coralPink" }));
 		CraftingManager.getInstance().getRecipeList()
 				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.PURPLE), new Object[] { "coralPurple" }));
+		
+		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), new ItemStack(coral, 1, CoralMeta.KELP));
 
 		addOceanChestLoot();
 	}

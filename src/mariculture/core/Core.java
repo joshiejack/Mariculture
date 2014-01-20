@@ -335,9 +335,11 @@ public class Core extends Module {
 	}
 
 	private void addFluids() {	
-		//Mariculture Fluids
+	//Normal Fluids
+		FluidDictionary.natural_gas = addFluid("gas.natural", naturalGas, 2000, FluidContainerMeta.BOTTLE_GAS);
+		
+	//Molten Mari + Vanilla Fluids
 		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, 1000, FluidContainerMeta.BOTTLE_QUICKLIME);
-		FluidDictionary.natural_gas = addFluid("gas.natural", naturalGas, 1000, FluidContainerMeta.BOTTLE_GAS);
 		FluidDictionary.salt = addFluid("salt.molten", moltenSalt, 1000, FluidContainerMeta.BOTTLE_SALT);
 		FluidDictionary.glass = addFluid("glass.molten", moltenGlass, 1000, FluidContainerMeta.BOTTLE_GLASS);
 		FluidDictionary.aluminum = addFluid("aluminum.molten", moltenAluminum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ALUMINUM);
@@ -346,7 +348,7 @@ public class Core extends Module {
 		FluidDictionary.copper = addFluid("copper.molten", moltenCopper, MetalRates.ORE, FluidContainerMeta.BOTTLE_COPPER);
 		FluidDictionary.rutile = addFluid("rutile.molten", moltenRutile, MetalRates.ORE, FluidContainerMeta.BOTTLE_RUTILE);
 		
-		//Vanilla Fluids
+	//Vanilla Fluids
 		FluidDictionary.iron = addFluid("iron.molten", moltenIron, MetalRates.ORE, FluidContainerMeta.BOTTLE_IRON);
 		FluidDictionary.gold = addFluid("gold.molten", moltenGold, MetalRates.ORE, FluidContainerMeta.BOTTLE_GOLD);
 
@@ -358,6 +360,20 @@ public class Core extends Module {
 		FluidDictionary.bronze = addFluid("bronze.molten", moltenBronze, MetalRates.ORE, FluidContainerMeta.BOTTLE_BRONZE);
 		FluidDictionary.steel =	addFluid("steel.molten", moltenSteel, MetalRates.ORE, FluidContainerMeta.BOTTLE_STEEL);
 		FluidDictionary.electrum = addFluid("electrum.molten", moltenElectrum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ELECTRUM);
+		
+		registerVanillaBottle(FluidDictionary.natural_gas, 1000, FluidContainerMeta.BOTTLE_NORMAL_GAS);
+		registerHeatBottle("water", 2000, FluidContainerMeta.BOTTLE_WATER);
+		registerHeatBottle("lava", 2000, FluidContainerMeta.BOTTLE_LAVA);
+	}
+	
+	public static void registerHeatBottle(String fluid, int vol, int meta) {
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(fluid, vol), 
+				new ItemStack(Core.liquidContainers, 1, meta), new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY));
+	}
+	 
+	public static void registerVanillaBottle(String fluid, int vol, int meta) {
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(fluid, vol), 
+				new ItemStack(Core.liquidContainers, 1, meta), new ItemStack(Item.glassBottle));
 	}
 	
 	public static String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {
@@ -370,8 +386,7 @@ public class Core extends Module {
 		Fluid fluid = FluidDictionary.getFluid(name);
 		
 		if(volume != -1) {
-			FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid.getID(), volume), 
-					new ItemStack(liquidContainers, 1, bottleMeta), new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY));
+			registerHeatBottle(fluid.getName(), volume, bottleMeta);
 		}
 		
 		return FluidDictionary.getFluid(name).getName();

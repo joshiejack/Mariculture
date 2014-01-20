@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
@@ -13,7 +12,6 @@ import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.hungryfish.ItemHungryBait;
-import mariculture.plugins.hungryfish.ItemHungryCoral;
 import mariculture.plugins.hungryfish.ItemHungryFood;
 import mariculture.plugins.hungryfish.fish.HungryFishAngel;
 import mariculture.plugins.hungryfish.fish.HungryFishBass;
@@ -45,7 +43,6 @@ import mariculture.plugins.hungryfish.fish.HungryFishStingRay;
 import mariculture.plugins.hungryfish.fish.HungryFishTang;
 import mariculture.plugins.hungryfish.fish.HungryFishTetra;
 import mariculture.plugins.hungryfish.fish.HungryFishTuna;
-import mariculture.world.WorldPlus;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -109,11 +106,6 @@ public class PluginHungerOverhaul extends Plugin {
 			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
 				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Item.bowlEmpty
 			});
-		}
-
-		if (Modules.world.isActive()) {
-			Item.itemsList[WorldPlus.coral.blockID] = null;
-			Item.itemsList[WorldPlus.coral.blockID] = new ItemHungryCoral(BlockIds.coral - 256, WorldPlus.coral).setUnlocalizedName("coral");
 		}
 	}
 }

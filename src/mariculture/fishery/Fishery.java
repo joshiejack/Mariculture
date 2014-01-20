@@ -17,7 +17,9 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BlockIds;
+import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.Dye;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
@@ -26,6 +28,7 @@ import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
@@ -84,6 +87,7 @@ import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemFishyFood;
 import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
+import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -206,11 +210,24 @@ public class Fishery extends Module {
 
 		RegistryHelper.register(new Object[] { siftBlock, lampsOff, lampsOn });
 		
-		FluidDictionary.fish_food = Core.addFluid("food.fish", fishFood, 256, FluidContainerMeta.BOTTLE_FISH_FOOD);
-		FluidDictionary.fish_oil = Core.addFluid("oil.fish", fishOil, 1000, FluidContainerMeta.BOTTLE_FISH_OIL);
-		FluidDictionary.milk = Core.addFluid("milk", milk, 1000, FluidContainerMeta.BOTTLE_MILK);
-		FluidDictionary.custard = Core.addFluid("custard", custard, 1000, FluidContainerMeta.BOTTLE_CUSTARD);
+		FluidDictionary.fish_food = Core.addFluid("food.fish", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
+		FluidDictionary.fish_oil = Core.addFluid("oil.fish", fishOil, 2000, FluidContainerMeta.BOTTLE_FISH_OIL);
+		FluidDictionary.milk = Core.addFluid("milk", milk, 2000, FluidContainerMeta.BOTTLE_MILK);
+		FluidDictionary.custard = Core.addFluid("custard", custard, 2000, FluidContainerMeta.BOTTLE_CUSTARD);
+		
+		Core.registerVanillaBottle(FluidDictionary.fish_food, 256, FluidContainerMeta.BOTTLE_NORMAL_FISH_FOOD);
+		Core.registerVanillaBottle(FluidDictionary.fish_oil, 1000, FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL);
+		Core.registerVanillaBottle(FluidDictionary.milk, 1000, FluidContainerMeta.BOTTLE_NORMAL_MILK);
+		Core.registerVanillaBottle(FluidDictionary.custard, 1000, FluidContainerMeta.BOTTLE_NORMAL_CUSTARD);
+		
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(FluidDictionary.custard, 250), 
+				new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Item.bowlEmpty));
+		
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(FluidDictionary.milk, 1000), 
+				new ItemStack(Item.bucketMilk), new ItemStack(Item.bucketEmpty));
 	}
+	
+	
 
 	@Override
 	public void registerEntities() {
@@ -522,13 +539,26 @@ public class Fishery extends Module {
 				new ItemStack(fishyFood, 1, Fishery.squid.fishID),
 				new ItemStack(Item.bowlEmpty) });
 		
-		//Smoked Salmong
+		//Smoked Salmon
 		RecipeHelper.addSmelting(fishyFood.itemID, salmon.fishID, new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), 0.1F);
 
 		// Cod > Fish Finger
 		GameRegistry.addRecipe(new ItemStack(Core.food, 64, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
 				Character.valueOf('F'), new ItemStack(fishyFood, 1, Fishery.cod.fishID),
 				Character.valueOf('B'), Item.bread });
+		
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 8, FoodMeta.CUSTARD), new Object[] { 
+			 new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_CUSTARD), Item.bowlEmpty
+		});
+		
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 4, FoodMeta.CUSTARD), new Object[] { 
+			 new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_NORMAL_CUSTARD), Item.bowlEmpty
+		});
+		
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { 
+			 new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER),
+			 new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER)
+		});
 		
 		// Tetra > Neon Lamp
 		for (int i = 0; i < 12; i++) {
@@ -563,8 +593,12 @@ public class Fishery extends Module {
 		
 		//Netherfish as Liquifier fuel		
 		MaricultureHandlers.smelter.addFuel(new ItemStack(fishyFood, 1, Fishery.nether.fishID), new FuelInfo(2000, 16, 2400));
+		//Fish Eggs to Caviar
+		CraftingManager.getInstance().getRecipeList().add(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishy)));
+		
 		RecipeHelper.addMelting(new ItemStack(Item.fishRaw), 180, FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 100));
 		GameRegistry.addShapelessRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL), new Object[] { Item.fishRaw });
+		ItemStack kelp = (Modules.world.isActive())? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): new ItemStack(Item.dyePowder, 1, Dye.GREEN);
 		//Fish as fish oil and fish meal
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			if (FishSpecies.speciesList.get(i) != null) {
@@ -578,10 +612,17 @@ public class Fishery extends Module {
 				}
 				
 				if (fish.getFishMealSize() > 0) {
-					GameRegistry.addShapelessRecipe(new ItemStack(Core.materials, fish.getFishMealSize(), MaterialsMeta.FISH_MEAL), new Object[] { stack });
+					RecipeHelper.addShapedRecipe(new ItemStack(Core.food, (int)Math.ceil(fish.getFishMealSize()/1.5), FoodMeta.SUSHI), new Object[] {
+						" K ", "KFK", " K ", 'K', kelp, 'F', stack
+					});
+					
+					RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, (int)Math.ceil(fish.getFishMealSize()/2), FoodMeta.MISO_SOUP), new Object[] {
+						Item.bowlEmpty, kelp, stack, Block.mushroomBrown, Block.mushroomRed
+					});
+
+					RecipeHelper.addShapelessRecipe(new ItemStack(Core.materials, fish.getFishMealSize(), MaterialsMeta.FISH_MEAL), new Object[] { stack });
 				}
 			}
 		}
-		
 	}
 }
