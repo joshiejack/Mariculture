@@ -1,10 +1,14 @@
 package mariculture.core.items;
 
+import java.util.List;
+
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
+import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.lib.Text;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +16,10 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -49,6 +56,25 @@ public class ItemFluidContainer extends ItemMariculture {
 	@Override
 	public int getMaxItemUseDuration(final ItemStack stack) {
 		return 24;
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		int meta = stack.getItemDamage();
+		if(meta == FluidContainerMeta.BOTTLE_VOID) {
+			list.add(Text.PURPLE + StatCollector.translateToLocal("mariculture.string.blackhole"));
+			return;
+		}
+			
+		if(meta == FluidContainerMeta.BOTTLE_EMPTY) {
+			list.add(Text.YELLOW + StatCollector.translateToLocal("mariculture.string.doubleBottle"));
+			return;
+		}
+		
+		FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
+		int amount = fluid == null? 0: fluid.amount;
+		list.add(StringHelper.getFluidName(fluid));
+		StringHelper.getFluidQty(list, fluid, -1);
 	}
 
 	@Override

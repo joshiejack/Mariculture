@@ -1,7 +1,6 @@
 package mariculture.fishery.gui;
 
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.ContainerMachine;
 import mariculture.fishery.blocks.TileFishTank;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,8 +9,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerFishTank extends ContainerMariculture {	
-	public int thePage = 0;	
+public class ContainerFishTank extends ContainerMachine {	
 	public ContainerFishTank(TileFishTank tile, InventoryPlayer playerInventory) {
 		super(tile);
 
@@ -21,7 +19,7 @@ public class ContainerFishTank extends ContainerMariculture {
 
 		for (j = 0; j < 6; ++j) {
 			for (k = 0; k < 9; ++k) {
-				addSlotToContainer(new SlotFishTank(tile, (thePage * 54) + (k + j * 9), 8 + k * 18, 16 + j * 18));
+				addSlotToContainer(new SlotFishTank(tile, (tile.thePage * 54) + (k + j * 9), 8 + k * 18, 16 + j * 18));
 			}
 		}
 

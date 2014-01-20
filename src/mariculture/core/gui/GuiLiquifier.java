@@ -35,7 +35,6 @@ public class GuiLiquifier extends GuiMariculture {
 
 	@Override
 	public void addToolTip() {		
-		super.addToolTip();
 		if (mouseX >= 12 && mouseX <= 16 && mouseY >= 18 && mouseY <= 77) {
 			tooltip.add(tile.getRealTemperature() + "\u00B0" + "C");
 		}

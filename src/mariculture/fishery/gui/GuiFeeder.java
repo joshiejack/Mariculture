@@ -35,8 +35,6 @@ public class GuiFeeder extends GuiMariculture {
 
 	@Override
 	public void addToolTip() {
-		super.addToolTip();
-		
 		if(mouseX >= 95 && mouseX <= 98) {
 			if(mouseY >= 24 && mouseY <= 41)
 				tooltip = tile.getTooltip(tile.male, tooltip);

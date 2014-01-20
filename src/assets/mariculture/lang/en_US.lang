@@ -505,6 +505,8 @@ mariculture.string.nuggets=Nuggets
 mariculture.string.outof=Out of Roughly:
 mariculture.string.unworked=Unworked
 mariculture.string.randomMetal=Random Molten Metal
+mariculture.string.blackhole=Black Hole
+mariculture.string.doubleBottle=Holds Twice the contents of a Glass Bottle
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

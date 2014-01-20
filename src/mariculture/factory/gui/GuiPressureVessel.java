@@ -23,11 +23,6 @@ public class GuiPressureVessel extends GuiMariculture {
 	}
 	
 	@Override
-	public void addToolTip() {		
-		super.addToolTip();
-	}
-
-	@Override
 	public String getName() {
 		return BlockHelper.getName(tile);
 	}

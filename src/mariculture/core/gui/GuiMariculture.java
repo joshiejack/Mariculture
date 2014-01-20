@@ -47,7 +47,7 @@ public abstract class GuiMariculture extends GuiContainer {
 		fontRenderer.drawString(getName(), getX(), nameHeight, 4210752);
 		fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
 		tooltip.clear();
-		addToolTip();
+		addToolTips();
 		drawToolTip(tooltip, mouseX, mouseY, fontRenderer);
 	}
 
@@ -91,10 +91,16 @@ public abstract class GuiMariculture extends GuiContainer {
 		}
 	}
 	
-	public void addToolTip() {
+	private void addToolTips() {
 		for(Feature feat: features) {
 			feat.addTooltip(tooltip, mouseX, mouseY);
 		}
+		
+		addToolTip();
+	}
+	
+	public void addToolTip() {
+		return;
 	}
 
 	public void addItemToolTip(ItemStack stack, List<String> list) {
@@ -184,7 +190,13 @@ public abstract class GuiMariculture extends GuiContainer {
 		for(Feature feat: features) {
 			feat.mouseClicked(mouseX, mouseY);
 		}
+		
+		onMouseClick(mouseX, mouseY);
     }
+	
+	protected void onMouseClick(int mouseX, int mouseY) {
+		return;
+	}
 
 	@Override
 	protected void mouseClickMove(int x, int y, int mouseButton, long time) {

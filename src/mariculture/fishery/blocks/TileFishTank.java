@@ -1,12 +1,15 @@
 package mariculture.fishery.blocks;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import mariculture.core.network.Packet121FishTankSync;
+import mariculture.core.Mariculture;
+import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.network.Packets;
+import mariculture.core.util.IHasClickableButton;
+import mariculture.core.util.IMachine;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -17,9 +20,14 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileFishTank extends TileEntity implements IInventory {
+public class TileFishTank extends TileEntity implements IInventory, IHasClickableButton, IMachine {
 
 	public HashMap<Integer, ItemStack> fish;
+	public static final int MAX_PAGES = 250;
+	
+	public int previous = -2;
+	public int next = -1;
+	public int thePage = 0;
 
 	public TileFishTank() {
 		fish = new HashMap();
@@ -61,9 +69,7 @@ public class TileFishTank extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack) {
-		System.out.println(slot);
-		
+	public void setInventorySlotContents(int slot, ItemStack stack) {		
 		fish.put(slot, stack);
 		this.onInventoryChanged();
 	}
@@ -98,6 +104,28 @@ public class TileFishTank extends TileEntity implements IInventory {
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return true;
+	}
+	
+	@Override
+	public void handleButtonClick(int id) {
+		int page = thePage;
+		if(id == next) {
+			page+=1;
+			if(page >= MAX_PAGES)
+				page = 0;
+		} else if (id == previous) {
+			page-=1;
+			if(page < 0)
+				page = MAX_PAGES - 1;
+		}
+		
+		thePage = page;
+		this.onInventoryChanged();
+		
+		if(id >= 0) {
+			EntityPlayer player = (EntityPlayer) worldObj.getEntityByID(id);
+			player.openGui(Mariculture.instance, -1, worldObj, xCoord, yCoord, zCoord);
+		}
 	}
 	
 	@Override
@@ -143,5 +171,21 @@ public class TileFishTank extends TileEntity implements IInventory {
 		}
 
 		nbt.setTag("FishList", itemList);
+	}
+
+	@Override
+	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
+		Packets.updateGUI(player, container, 0, thePage);
+	}
+
+	@Override
+	public void getGUINetworkData(int id, int value) {
+		if(id == 0)
+			thePage = value;
+	}
+
+	@Override
+	public ItemStack[] getInventory() {
+		return null;
 	}
 }
