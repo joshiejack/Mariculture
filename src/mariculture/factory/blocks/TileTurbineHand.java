@@ -6,12 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TileTurbineHand extends TileTurbineBase {	
-	public int charge;
 	public int beingCharged;
-	
-	public TileTurbineHand() {
-		this.inventory = new ItemStack[1];
-	}
 	
 	@Override
 	public int getTankCapacity(int count) {
@@ -19,7 +14,7 @@ public class TileTurbineHand extends TileTurbineBase {
 	}
 	
 	@Override
-	public int maxEnergyStored() {
+	public int getRFCapacity() {
 		return 1600;
 	}
 
@@ -29,55 +24,27 @@ public class TileTurbineHand extends TileTurbineBase {
 	}
 	
 	@Override
-	public void updateUpgrades() {		
-		if(beingCharged > 0)
-			beingCharged--;
+	public boolean canWork() {
+		return false;
 	}
 	
 	@Override
-	public boolean isPowered() {
-		return beingCharged <= 0;
-	}
-	
-	@Override
-	public boolean hasFuel() {
-		return true;
-	}
-	
-	@Override
-	public void updateMachine() {		
-		this.isActive = this.isActive();
-		
-		if(!worldObj.isRemote) {
-			if(isActive()) {
-				transferPower();
-			}
-			
-			if (onTick(Extra.REFRESH_CLIENT_RATE)) {
-				Packets.updateTile(this, 32, getDescriptionPacket());
-			}
-			
-			energyStage = computeEnergyStage();
-		}
-		
-		animate();
-	}
-	
-	@Override
-	public void generatePower() {
-		storage.modifyEnergyStored(20);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.charge = tagCompound.getInteger("WindupCharge");
-		storage.readFromNBT(tagCompound);
+	public boolean canDrain() {
+		return false;
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("WindupCharge", this.charge);
+	public int getEnergyGenerated() {
+		return 20;
+	}
+
+	@Override
+	public boolean canUseFluid() {
+		return true;
+	}
+
+	@Override
+	public boolean canUseRotor() {
+		return true;
 	}
 }

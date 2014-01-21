@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class FluidContainerMeta {
-	public static final int COUNT = 31;
+	public static final int COUNT = 32;
 
 	public static final int BOTTLE_VOID = 0;
 	public static final int BOTTLE_FISH_OIL = 1;
@@ -29,9 +29,10 @@ public class FluidContainerMeta {
 	public static final int BOTTLE_LAVA = 23;
 	public static final int BOTTLE_MILK = 24;
 	public static final int BOTTLE_CUSTARD = 25;
-	public static final int BOTTLE_NORMAL_GAS = 26;
-	public static final int BOTTLE_NORMAL_FISH_FOOD = 27;
-	public static final int BOTTLE_NORMAL_FISH_OIL = 28;
-	public static final int BOTTLE_NORMAL_MILK = 29;
-	public static final int BOTTLE_NORMAL_CUSTARD = 30;
+	public static final int BOTTLE_HP_WATER = 26;
+	public static final int BOTTLE_NORMAL_GAS = 27;
+	public static final int BOTTLE_NORMAL_FISH_FOOD = 28;
+	public static final int BOTTLE_NORMAL_FISH_OIL = 29;
+	public static final int BOTTLE_NORMAL_MILK = 30;
+	public static final int BOTTLE_NORMAL_CUSTARD = 31;
 }

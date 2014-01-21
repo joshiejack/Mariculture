@@ -91,7 +91,7 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 			return (Modules.world.isActive());
 		case MaterialsMeta.DYE_BROWN:
 			return (Modules.world.isActive());
-		case MaterialsMeta.UNUSED0:
+		case MaterialsMeta.UNUSED:
 			return false;
 		}
 

@@ -303,6 +303,7 @@ public class Core extends Module {
         highPressureWaterBlock = new BlockFluidMari(BlockIds.highPressureWater, highPressureWater, Material.water).setUnlocalizedName("highPressureWater");
         GameRegistry.registerBlock(highPressureWaterBlock, "Mariculture_highPressureWaterBlock");
         highPressureWater.setBlockID(highPressureWaterBlock);
+        registerHeatBottle(FluidDictionary.hp_water, 1000, FluidContainerMeta.BOTTLE_HP_WATER);
 	}
 
 	private void addToOreDictionary() {	

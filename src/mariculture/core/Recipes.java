@@ -1,5 +1,6 @@
 package mariculture.core;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemLadle;

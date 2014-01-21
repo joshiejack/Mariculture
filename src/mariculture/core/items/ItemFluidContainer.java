@@ -224,6 +224,8 @@ public class ItemFluidContainer extends ItemMariculture {
 			return "bottleNormalNaturalGas";
 		case FluidContainerMeta.BOTTLE_NORMAL_MILK:
 			return "bottleNormalMilk";
+		case FluidContainerMeta.BOTTLE_HP_WATER:
+			return "bottleHPWater";
 		default:
 			return "container";
 		}

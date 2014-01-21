@@ -45,6 +45,7 @@ public class Extra {
 	public static boolean FLUDD_BLOCK_ANIM;
 	public static boolean ENDER_CONVERTER;
 	public static int PURITY;
+	public static boolean TURBINE_ANIM;
 	
 	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 

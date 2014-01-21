@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.Jewelry;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentClock;
@@ -18,7 +19,10 @@ import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -31,8 +35,6 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
-import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class MagicEventHandler {
@@ -156,6 +158,24 @@ public class MagicEventHandler {
 				}
 			}
 		}
+	}
+	
+	@ForgeSubscribe
+	public void onEntityDeath(LivingDeathEvent event) {
+		if(event.source.getSourceOfDamage() != null && event.source.getSourceOfDamage() instanceof EntityPlayer) {
+			EntityLivingBase entity = event.entityLiving;
+			EntityPlayer player = (EntityPlayer) event.source.getSourceOfDamage();
+			if(!(entity instanceof EntityPlayer)) {
+				if(ItemHelper.isPlayerHoldingItem(Magic.magnet, player)) {
+					ItemStack magnet = player.getCurrentEquippedItem();
+					if(!magnet.hasTagCompound()) {
+						magnet.setTagCompound(new NBTTagCompound());
+						magnet.stackTagCompound.setString("MobClass", entity.getClass().toString().substring(6));
+						magnet.stackTagCompound.setString("MobName", entity.getEntityName());
+					}
+				}
+			}
+ 		}
 	}
 
 	@ForgeSubscribe

@@ -158,6 +158,7 @@ public class Config {
 
             Extra.GEYSER_ANIM = config.get(Category.CLIENT, "Geyser - Enable Particles", true).getBoolean(true);
             Extra.FLUDD_BLOCK_ANIM = config.get(Category.CLIENT, "FLUDD - Enable Particles", true).getBoolean(true);
+            Extra.TURBINE_ANIM = config.get(Category.CLIENT, "Turbines - Enable Rotation", true).getBoolean(true);
             
             Extra.PURITY = config.get(Category.EXTRA, "Crucible Furnace > Nuggets Per Purity Upgrade Level", 2).getInt();
             Extra.ENDER_CONVERTER = config.get(Category.EXTRA, "Autodictionary > Enable Ender Pearl for Recipe", false).getBoolean(false);
@@ -304,6 +305,7 @@ public class Config {
             ItemIds.batteryCopper = config.getItem("Battery(Copper)", 29066).getInt();
             ItemIds.guides = config.getItem("Guidebooks", 29067).getInt();
             ItemIds.ladle = config.getItem("Ladle", 29068).getInt();
+            ItemIds.magnet = config.getItem("Magnet", 29069).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

@@ -88,6 +88,7 @@ item.materials.ingotMagnesium.name=Magnesium Ingot
 item.materials.ingotTitanium.name=Titanium Ingot
 item.materials.ingotCopper.name=Copper Ingot
 item.materials.ingotRutile.name=Impure Titanium Ingot
+item.materials.ingotMob.name=Concentrated Mob Ingot
 item.materials.dustMagnesite.name=Unknown Magnesiish Dust
 item.materials.dustCopperous.name=Unknown Copperous Dust
 item.materials.dustGolden.name=Unknown Golden Dust
@@ -185,6 +186,7 @@ item.liquidContainers.bottleWater.name=Bottle of Water
 item.liquidContainers.bottleLava.name=Bottle of Lava
 item.liquidContainers.bottleEmpty.name=Empty Bottle
 item.liquidContainers.bottleNormalNaturalGas.name=Glass Bottle of Natural Gas
+item.liquidContainers.bottleHPWater.name=Bottle of Pressurised Water
 
 ### Diving ###
 #blocks
@@ -246,6 +248,9 @@ item.plans.plan_light.name=Plan - Light
 item.plans.plan_redstone.name=Plan - Redstone Flux Block
 item.fludd.name=F.L.U.D.D.
 item.filter.name=Item Filter
+item.turbineCopper.name=Copper Rotor
+item.turbineAluminum.name=Aluminum Rotor
+item.turbineTitanium.name=Titanium Rotor
 
 ### Fishery ###
 #blocks
@@ -417,6 +422,7 @@ item.guide.enchants.name=Ursula's Guide to Sea Magic
 item.mirror.basic.name=Mirror
 item.mirror.magic.name=Magic Mirror
 item.mirror.celestial.name=Celestial Mirror
+item.mobMagnet.name=Mob Magnet
 #jewelry-parts
 part.jewelry.ring=Ring
 part.jewelry.bracelet=Bracelet
@@ -507,6 +513,9 @@ mariculture.string.unworked=Unworked
 mariculture.string.randomMetal=Random Molten Metal
 mariculture.string.blackhole=Black Hole
 mariculture.string.doubleBottle=Holds Twice the contents of a Glass Bottle
+mariculture.string.noBound1=Not Bound to an Entity!
+mariculture.string.noBound2=Kill a Mob with this
+mariculture.string.bound=Entity bound to:
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

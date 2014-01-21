@@ -9,7 +9,6 @@ import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IMachine;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -19,9 +18,11 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 
 public class TileFishTank extends TileEntity implements IInventory, IHasClickableButton, IMachine {
 
+	public ForgeDirection orientation = ForgeDirection.UNKNOWN;
 	public HashMap<Integer, ItemStack> fish;
 	public static final int MAX_PAGES = 250;
 	
@@ -141,6 +142,22 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 	}
 	
 	@Override
+	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
+		Packets.updateGUI(player, container, 0, thePage);
+	}
+
+	@Override
+	public void getGUINetworkData(int id, int value) {
+		if(id == 0)
+			thePage = value;
+	}
+
+	@Override
+	public ItemStack[] getInventory() {
+		return null;
+	}
+	
+	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		
@@ -150,6 +167,8 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 			ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
 			fish.put(tag.getInteger("Key"), stack);
 		}
+		
+		orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
 	}
 
 	@Override
@@ -171,21 +190,6 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 		}
 
 		nbt.setTag("FishList", itemList);
-	}
-
-	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, thePage);
-	}
-
-	@Override
-	public void getGUINetworkData(int id, int value) {
-		if(id == 0)
-			thePage = value;
-	}
-
-	@Override
-	public ItemStack[] getInventory() {
-		return null;
+		nbt.setInteger("Orientation", orientation.ordinal());
 	}
 }

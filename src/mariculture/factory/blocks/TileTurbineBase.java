@@ -1,13 +1,12 @@
 package mariculture.factory.blocks;
 
-import java.util.Random;
-
-import mariculture.core.blocks.base.TileMachineTank;
+import mariculture.core.blocks.base.TileMachineTankPowered;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
-import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
-import net.minecraft.inventory.ISidedInventory;
+import mariculture.core.util.Rand;
+import mariculture.factory.items.ItemRotor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -15,99 +14,171 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import buildcraft.api.core.Position;
-import cofh.api.energy.EnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
+import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
-public class TileTurbineBase extends TileMachineTank implements ISidedInventory, IEnergyHandler {
-	protected EnergyStorage storage;
-	public boolean isActive;
+public abstract class TileTurbineBase extends TileMachineTankPowered {
+	public static enum EnergyStage {
+		BLUE, GREEN, YELLOW, ORANGE, RED, OVERHEAT;
+	}
+	
+	public EnergyStage energyStage = EnergyStage.BLUE;
 	public ForgeDirection direction = ForgeDirection.UP;
+	public static final int rotor = 6;
+	
 	public double angle = 0;
 	public double angle_external = 0;
 	
-	public EnergyStage energyStage = EnergyStage.BLUE;
-	Random rand = new Random();
-
 	public TileTurbineBase() {
-		this.inventory = new ItemStack[5];
-		storage = new EnergyStorage(maxEnergyStored());
-	}
-
-	protected void processContainers() {
-		ItemStack result = FluidHelper.getFluidResult(this, inventory[3], inventory[4]);
-		if (result != null) {
-			decrStackSize(3, 1);
-			if (this.inventory[4] == null) {
-				this.inventory[4] = result.copy();
-			} else if (this.inventory[4].itemID == result.itemID) {
-				++this.inventory[4].stackSize;
-			}
-		}
-	}
-	
-	public boolean isPowered() {
-		return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-	}
-	
-	public boolean hasFuel() {
-		int heat = this.heat + 1;
-		int purity = this.purity + 1;
-		int liquidUse = (int) (heat * purity);
-		return this.tank.getFluidAmount() - liquidUse >= 0;
-	}
-	
-	public boolean isActive() {
-		return this.isPowered() && this.hasFuel();
-	}
-	
-	public boolean canUseLiquid() {
-		return true;
-	}
-	
-	public void animate() {
-		if (isActive) {
-			this.angle = this.angle + 0.1;
-			this.angle_external = this.angle_external + 0.01;
-			if (energyStage == EnergyStage.GREEN) {
-				this.angle = this.angle + 0.1;
-			}
-
-			if (energyStage == EnergyStage.YELLOW) {
-				this.angle = this.angle + 0.15;
-			}
-
-			if (energyStage == EnergyStage.RED) {
-				this.angle = this.angle + 0.15;
-			}
-
-			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-		}
+		inventory = new ItemStack[7];
 	}
 	
 	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return new int[] { rotor };
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+		return slot == rotor;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+		return false;
+	}
+
+	@Override
+	public EjectSetting getEjectType() {
+		return EjectSetting.NONE;
+	}
+
+	@Override
+	public int getRFCapacity() {
+		return 1000;
+	}
+
+	@Override
+	public boolean canWork() {
+		return canDrain() && mode.canWork(this, mode) && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored() && hasTurbineWheel();
+	}
+	
+	public boolean hasTurbineWheel() {
+		if(inventory[rotor] != null && inventory[rotor].getItem() instanceof ItemRotor) {
+			return canUseRotor();
+		}
+		
+		return false;
+	}
+
+	@Override
 	public void updateMachine() {
-		if(onTick(20)) {
-			processContainers();
+		if(canWork) {
+			generatePower();
+			if(Extra.TURBINE_ANIM)
+				animate();
 		}
 		
-		this.isActive = this.isActive();
-		
-		if(!worldObj.isRemote) {
-			if(isActive()) {
-				generatePower();
-				transferPower();
+		transferPower();
+		energyStage = computeEnergyStage();
+	}
+	
+	public void animate() {
+		this.angle = this.angle + 0.1;
+		this.angle_external = this.angle_external + 0.01;
+		if (energyStage == EnergyStage.GREEN) {
+			this.angle = this.angle + 0.1;
+		}
+
+		if (energyStage == EnergyStage.YELLOW) {
+			this.angle = this.angle + 0.15;
+		}
+
+		if (energyStage == EnergyStage.RED) {
+			this.angle = this.angle + 0.15;
+		}
+
+		worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+	}
+	
+	@Override
+	public void doBattery() {
+		if(inventory[5] != null && inventory[5].getItem() instanceof IEnergyContainerItem) {
+			int rf = extractEnergy(ForgeDirection.UP, 10000, true);
+			if(rf > 0) {
+				int drain = ((IEnergyContainerItem)inventory[5].getItem()).receiveEnergy(inventory[5], rf, true);
+				if(drain > 0) {
+					extractEnergy(ForgeDirection.UP, drain, false);
+					((IEnergyContainerItem)inventory[5].getItem()).receiveEnergy(inventory[5], drain, false);
+				}
 			}
-			
-			if (onTick(Extra.REFRESH_CLIENT_RATE)) {
-				Packets.updateTile(this, 32, getDescriptionPacket());
+		}
+	}
+	
+	public float getAngle() {
+		return (float) angle;
+	}
+	
+	public void transferPower() {
+		TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, direction);
+
+		if (tile instanceof IEnergyHandler) {
+			if(((IEnergyHandler) tile).canInterface(direction.getOpposite())) {
+				int extract = -((IEnergyHandler)tile).receiveEnergy(direction.getOpposite(), Math.min(maxEnergyExtracted(), energyStorage.getEnergyStored()), false);
+				if(extract < 0)
+					animate();
+				energyStorage.modifyEnergyStored(extract);
 			}
-			
-			energyStage = computeEnergyStage();
+		}
+	}
+	
+	public void generatePower() {
+		if(canDrain() && Rand.rand.nextInt((purity >= 1)? purity: 1) < 1) {
+			tank.drain(getDrainAmount(), true);
+			if(inventory[rotor] == null || (onTick(20) && inventory[rotor].attemptDamageItem(1, Rand.rand))) {
+				inventory[rotor] = null;
+				return;
+			}
 		}
 		
-		animate();
+		energyStorage.modifyEnergyStored(getEnergyGenerated());
+	}
+	
+	public boolean canDrain() {
+		int drain = getDrainAmount();
+		FluidStack fluid = tank.drain(drain, false);
+		return fluid != null && fluid.amount >= drain && canUseFluid();
+	}
+	
+	public int getDrainAmount() {
+		return speed;
+	}
+	
+	//RF Generated per tick
+	public abstract int getEnergyGenerated();
+	//RF Maximum Output per tick
+	public abstract int maxEnergyExtracted();
+	//Whether the Engine can use the current internal fluid
+	public abstract boolean canUseFluid();
+	//Whether the Engine can use the Rotor
+	public abstract boolean canUseRotor();
+	
+	public boolean switchOrientation() {
+		for (int i = direction.ordinal() + 1; i <= direction.ordinal() + 6; ++i) {
+			ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[i % 6];
+			TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, facing);
+			if (tile instanceof IEnergyHandler) {
+				if(((IEnergyHandler) tile).canInterface(facing)) {
+					direction = facing;
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+					worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+	
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	protected EnergyStage computeEnergyStage() {
@@ -124,83 +195,23 @@ public class TileTurbineBase extends TileMachineTank implements ISidedInventory,
 		
 		return EnergyStage.RED;
 	}
-	
-	public void generatePower() {
-		int heat = this.heat + 1;
-		int purity = this.purity + 1;
-		int liquidUse = (int) (heat * purity);
-				
-		if (purity > 0 && rand.nextInt(purity) == 0 || purity < 0) {
-			if(onTick(10)) {
-				drain(ForgeDirection.UNKNOWN, liquidUse, true);
-			}
-		}
-			
-		this.storage.modifyEnergyStored(heat * 20);
-	}
-	
-	protected void transferPower() {
-		TileEntity tile = this.worldObj.getBlockTileEntity(this.xCoord + direction.offsetX, 
-									this.yCoord + direction.offsetY, this.zCoord + direction.offsetZ);
-		
-		if (tile instanceof IEnergyHandler) {
-            if(((IEnergyHandler) tile).canInterface(this.direction.getOpposite())) {
-            	this.storage.modifyEnergyStored(-((IEnergyHandler)tile).receiveEnergy(direction.getOpposite(), Math.min(maxEnergyExtracted(), this.storage.getEnergyStored()), false));
-            	return;
-            }
-		}
-	}
-
-	@Override
-	public int getTankCapacity(int count) {
-		return ((FluidContainerRegistry.BUCKET_VOLUME / 2) + (count * 128));
-	}
-
-	public boolean switchOrientation() {
-		for (int i = direction.ordinal() + 1; i <= direction.ordinal() + 6; ++i) {
-			ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[i % 6];
-
-			Position pos = new Position(xCoord, yCoord, zCoord, facing);
-			pos.moveForwards(1);
-			TileEntity tile = worldObj.getBlockTileEntity((int) pos.x, (int) pos.y, (int) pos.z);
-
-			if (tile instanceof IEnergyHandler) {
-				if(((IEnergyHandler) tile).canInterface(facing)) {
-					direction = facing;
-					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-					worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
-	
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 
 	public ForgeDirection getOrientation() {
 		return this.direction;
 	}
-
-	public int maxEnergyStored() {
-		return 750;
-	}
-
-	public int maxEnergyExtracted() {
-		return 50;
-	}
-
+	
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		this.direction = ForgeDirection.getOrientation(tagCompound.getInteger("Orientation"));
-		storage.readFromNBT(tagCompound);
+		direction = ForgeDirection.getOrientation(tagCompound.getInteger("Orientation"));
+		energyStorage.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setInteger("Orientation", direction.ordinal());
-		storage.writeToNBT(tagCompound);
+		energyStorage.writeToNBT(tagCompound);
 	}
 
 	@Override
@@ -213,83 +224,5 @@ public class TileTurbineBase extends TileMachineTank implements ISidedInventory,
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
-
-	@Override
-	public ItemStack[] getUpgrades() {
-		return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
-	}
-
-	public double getAngle() {
-		return angle;
-	}
-	
-	public double getExternalAngle() {
-		return angle_external;
-	}
-
-	public static enum EnergyStage {
-		BLUE, GREEN, YELLOW, ORANGE, RED, OVERHEAT;
-	}
-
-	private static final int[] slots_top = new int[] { 3 };
-	private static final int[] slots_bottom = new int[] { 4 };
-	private static final int[] slots_sides = new int[] { 3, 4 };
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		return side == 0 ? slots_bottom : (side == 1 ? slots_top : slots_sides);
-	}
-
-	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return this.isItemValidForSlot(slot, stack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return slot == 4;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return slot == 3 && FluidHelper.isFluidOrEmpty(stack);
-	}
-
-	@Override
-	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return storage.receiveEnergy(maxReceive, simulate);
-	}
-
-	@Override
-	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return storage.extractEnergy(maxExtract, simulate);
-	}
-
-	@Override
-	public boolean canInterface(ForgeDirection from) {
-		return true;
-	}
-
-	@Override
-	public int getEnergyStored(ForgeDirection from) {
-		return storage.getEnergyStored();
-	}
-
-	@Override
-	public int getMaxEnergyStored(ForgeDirection from) {
-		return storage.getMaxEnergyStored();
-	}
-
-	@Override
-	public EjectSetting getEjectType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean canWork() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

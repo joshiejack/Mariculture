@@ -107,6 +107,7 @@ public class Magic extends Module {
 	public static Item ring;
 	public static Item bracelet;
 	public static Item necklace;
+	public static Item magnet;
 	
 	public void registerEnchants() {
 		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 4, EnumEnchantmentType.all); }
@@ -144,8 +145,9 @@ public class Magic extends Module {
 		ring = new ItemRing(ItemIds.ring).setUnlocalizedName("ring");
 		bracelet = new ItemBracelet(ItemIds.bracelet).setUnlocalizedName("bracelet");
 		necklace = new ItemNecklace(ItemIds.necklace).setUnlocalizedName("necklace");
+		magnet = new ItemMobMagnet(ItemIds.magnet, 250).setUnlocalizedName("mobMagnet");
 
-		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace });
+		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
 	}
 
 	//Keep this order
@@ -216,6 +218,10 @@ public class Magic extends Module {
 		addJewelry(Magic.bracelet.itemID, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
 		addJewelry(Magic.necklace.itemID, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
 		addDungeonChestLoot();
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
+			"III", "I I", "M M", 'I', "ingotAluminum", 'M', "ingotIron"
+		});
 	}
 
 	private void addJewelry(int id, int type, String partOne, String partTwo) {

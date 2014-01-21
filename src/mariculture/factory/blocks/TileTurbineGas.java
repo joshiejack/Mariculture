@@ -1,36 +1,23 @@
 package mariculture.factory.blocks;
 
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Core;
-import mariculture.core.util.FluidDictionary;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import java.util.ArrayList;
 
-public class TileTurbineGas extends TileTurbineBase {
-	public float getModifier() {
-		FluidStack fluid = tank.fluid;
-		if(fluid != null) {
-			String name = FluidRegistry.getFluidName(fluid);
-			if(name != null) {
-				if(name.equals("gasCraft_naturalGas")) {
-					return 0.8F;
-				} else if (name.equals("gasCraft_hydrogen")) {
-					return 1.2F;
-				}
-				
-				if(MaricultureHandlers.turbine.getModifier(fluid) > 0F) {
-					return MaricultureHandlers.turbine.getModifier(fluid);
-				}
-			}
-		}
-		
-		return (tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.natural_gas))? 1F: 0;
+import mariculture.api.core.IGasTurbine;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+
+public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
+	public static ArrayList<String> fluids = new ArrayList<String>();
+	
+	@Override
+	public void add(String str) {
+		TileTurbineGas.fluids.add(str);
 	}
 	
 	@Override
-	public boolean canUseLiquid() {
-		return getModifier() > 0;
+	public boolean canUseFluid() {
+		if(tank.getFluid() == null)
+			return false;
+		return fluids.contains(tank.getFluid().getFluid().getName());
 	}
 	
 	@Override
@@ -39,21 +26,26 @@ public class TileTurbineGas extends TileTurbineBase {
 	}
 	
 	@Override
-	public void updateUpgrades() {
-		super.updateUpgrades();
-		int purityCount = MaricultureHandlers.upgrades.getData("purity", this);
-		int heatCount = MaricultureHandlers.upgrades.getData("temp", this);
-		this.purity = purityCount + 1;
-		this.heat = (heatCount >= 0)? (heatCount + 1) * 2: 2;
+	public int getEnergyGenerated() {
+		return speed * 160;
 	}
 
 	@Override
-	public int maxEnergyStored() {
+	public int getRFCapacity() {
 		return 50000;
 	}
 
 	@Override
 	public int maxEnergyExtracted() {
-		return (int) (getModifier() * 350);
+		return (int) (speed * 80);
+	}
+
+	public float getExternalAngle() {
+		return (float) angle_external;
+	}
+
+	@Override
+	public boolean canUseRotor() {
+		return true;
 	}
 }

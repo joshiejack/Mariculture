@@ -103,7 +103,7 @@ public class Factory extends Module {
 
 	@Override
 	public void registerHandlers() {
-		MaricultureHandlers.turbine = new GasTurbineHandler();
+		MaricultureHandlers.turbine = new TileTurbineGas();
 		MinecraftForge.EVENT_BUS.register(new FactoryEvents());
 	}
 
@@ -171,9 +171,9 @@ public class Factory extends Module {
 		fludd = new ItemArmorFLUDD(ItemIds.fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
 		paintbrush = new ItemPaintbrush(ItemIds.paintbrush, 128).setUnlocalizedName("paintbrush");
 		filter = new ItemFilter(ItemIds.filter).setUnlocalizedName("filter");
-		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 32).setUnlocalizedName("turbineCopper");
-		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 64).setUnlocalizedName("turbineAluminum");
-		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 128).setUnlocalizedName("turbineTitanium");
+		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 900).setUnlocalizedName("turbineCopper");
+		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 3600).setUnlocalizedName("turbineAluminum");
+		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 28800).setUnlocalizedName("turbineTitanium");
 		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 
@@ -392,6 +392,7 @@ public class Factory extends Module {
 			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 7)
 		});	
 		
-		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas, 1.0F);
+		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas);
+		MaricultureHandlers.turbine.add("gasCraft_naturalGas");
 	}
 }

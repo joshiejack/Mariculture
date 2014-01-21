@@ -9,8 +9,12 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.util.Rand;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -63,8 +67,7 @@ public class FishAngel extends FishSpecies {
 	@Override
 	public ItemStack onRightClick(World world, EntityPlayer player, ItemStack stack, Random rand) {
 		if (!world.isRemote) {
-
-			List list = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(10D, 10D, 10D));
+			List list = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(64D, 64D, 64D));
 
 			for (Object i : list) {
 				EntityItem item = (EntityItem) i;

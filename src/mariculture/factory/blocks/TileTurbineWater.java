@@ -1,20 +1,31 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.Core;
+import mariculture.core.util.FluidDictionary;
+import mariculture.factory.Factory;
 
 public class TileTurbineWater extends TileTurbineBase {	
 	@Override
-	public boolean canUseLiquid() {
-		return tank.getFluidID() == Core.highPressureWater.getID();
-	}
-
-	@Override
-	public int maxEnergyStored() {
+	public int getRFCapacity() {
 		return 2500;
 	}
 
 	@Override
 	public int maxEnergyExtracted() {
-		return 20;
+		return 40;
+	}
+
+	@Override
+	public int getEnergyGenerated() {
+		return speed * 10;
+	}
+
+	@Override
+	public boolean canUseFluid() {
+		return tank.getFluid() != null && tank.getFluid().getFluid().getName().equals(FluidDictionary.hp_water);
+	}
+
+	@Override
+	public boolean canUseRotor() {
+		return inventory[rotor].itemID != Factory.turbineTitanium.itemID;
 	}
 }

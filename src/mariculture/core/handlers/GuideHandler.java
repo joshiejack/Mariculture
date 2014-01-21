@@ -54,7 +54,7 @@ public class GuideHandler {
 		icons.put("vat", new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT));
 		
 		if(Modules.magic.isActive()) {
-			icons.put("basicMirror", Magic.basicMirror.getIconFromDamage(0));
+			icons.put("basicMirror", new ItemStack(Magic.basicMirror));
 		}
 	}
 	

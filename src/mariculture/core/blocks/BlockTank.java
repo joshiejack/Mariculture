@@ -14,6 +14,7 @@ import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
 import mariculture.fishery.blocks.TileFishTank;
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -142,9 +143,16 @@ public class BlockTank extends BlockConnected {
 	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile == null)
+			return;
+		if(tile instanceof TileFishTank) {
+			((TileFishTank) tile).orientation = ForgeDirection.getOrientation(facing);
+		}
+		
 		if(stack.hasTagCompound()) {
-			TileEntity tile = world.getBlockTileEntity(x, y, z);
-			if (tile != null && world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
+			if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
 				if (tile instanceof TileTankBlock) {
 					TileTankBlock tank = (TileTankBlock) tile;
 					tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
