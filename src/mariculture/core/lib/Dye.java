@@ -12,4 +12,6 @@ public class Dye {
 	public static final int LAPIS = 4;
 	public static final int INK = 0;
 	public static final int GREEN = 2;
+	public static final int GREY = 8;
+	public static final int LIGHT_GREY = 7;
 }

@@ -1,6 +1,5 @@
 package mariculture.core.handlers;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 
@@ -14,23 +13,15 @@ import mariculture.core.helpers.XMLHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.Text;
-import mariculture.core.util.FluidCustom;
 import mariculture.magic.Magic;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;

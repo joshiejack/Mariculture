@@ -75,6 +75,12 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 			return "dustSilvery";
 		case MaterialsMeta.DUST_TINNIC:
 			return "dustTinnic";
+		case MaterialsMeta.DYE_GREEN:
+			return "dyeGreen";
+		case MaterialsMeta.DYE_WHITE:
+			return "dyeWhite";
+		case MaterialsMeta.DYE_BLACK:
+			return "dyeBlack";
 		default:
 			return "dropletWater";
 		}
@@ -91,7 +97,19 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 			return (Modules.world.isActive());
 		case MaterialsMeta.DYE_BROWN:
 			return (Modules.world.isActive());
+		case MaterialsMeta.DYE_GREEN:
+			return Modules.world.isActive();
+		case MaterialsMeta.DYE_WHITE:
+			return Modules.world.isActive();
+		case MaterialsMeta.DYE_BLACK:
+			return false;
 		case MaterialsMeta.UNUSED:
+			return false;
+		case MaterialsMeta.UNUSED2:
+			return false;
+		case MaterialsMeta.UNUSED3:
+			return false;
+		case MaterialsMeta.UNUSED4:
 			return false;
 		}
 

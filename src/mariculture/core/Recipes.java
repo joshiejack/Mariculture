@@ -7,6 +7,7 @@ import mariculture.core.items.ItemFluidStorage;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
@@ -247,9 +248,12 @@ public class Recipes {
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), 
 				new ItemStack(Core.craftingItem, 8, CraftingMeta.TITANIUM_SHEET), 250);
 		
-		//Burnt Brick > Brick + 1000mB of Lava = Burnt Brick
-		RecipeHelper.addVatItemRecipe(new ItemStack(Item.brick), "lava", 1000, 
-												new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 16);
+		
+		if(Extra.OVERWORLD) {
+			//Burnt Brick > Brick + 1000mB of Lava = Burnt Brick
+			RecipeHelper.addVatItemRecipe(new ItemStack(Item.brick), "lava", 1000, 
+													new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 16);
+		}
 		
 		//Burnt Brick > Nether Brick + 500mB of Lava
 		RecipeHelper.addVatItemRecipe(new ItemStack(Item.netherrackBrick), "lava", 500, 

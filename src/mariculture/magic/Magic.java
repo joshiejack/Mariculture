@@ -10,6 +10,7 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Jewelry;
@@ -148,7 +149,7 @@ public class Magic extends Module {
 		ring = new ItemRing(ItemIds.ring).setUnlocalizedName("ring");
 		bracelet = new ItemBracelet(ItemIds.bracelet).setUnlocalizedName("bracelet");
 		necklace = new ItemNecklace(ItemIds.necklace).setUnlocalizedName("necklace");
-		magnet = new ItemMobMagnet(ItemIds.magnet, 250).setUnlocalizedName("mobMagnet");
+		magnet = new ItemMobMagnet(ItemIds.magnet, 100).setUnlocalizedName("mobMagnet");
 
 		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
 	}
@@ -222,9 +223,12 @@ public class Magic extends Module {
 		addJewelry(Magic.necklace.itemID, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
 		addDungeonChestLoot();
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
-			"III", "I I", "M M", 'I', "ingotAluminum", 'M', "ingotIron"
-		});
+		//Mob Magnet Crafting
+		if(Extra.MOB_MAGNET) {
+			RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
+				"III", "I I", "M M", 'I', "ingotAluminum", 'M', "ingotIron"
+			});
+		}
 	}
 
 	private void addJewelry(int id, int type, String partOne, String partTwo) {

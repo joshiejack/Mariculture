@@ -51,6 +51,12 @@ public class ItemCoral extends ItemMariculture {
 			return "purple";
 		case CoralMeta.CORAL_RED:
 			return "red";
+		case CoralMeta.CORAL_GREY:
+			return "grey";
+		case CoralMeta.CORAL_LIGHT_GREY:
+			return "lightgrey";
+		case CoralMeta.CORAL_WHITE:
+			return "white";
 		default:
 			return "coral";
 		}

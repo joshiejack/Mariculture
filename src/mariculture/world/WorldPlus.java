@@ -13,11 +13,12 @@ import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.WorldGeneration;
+import mariculture.core.util.FluidDictionary;
 import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
 import mariculture.world.terrain.BiomeGenSandyOcean;
@@ -27,7 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -70,18 +70,24 @@ public class WorldPlus extends Module {
 		OreDictionary.registerOre("dyeYellow", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW));
 		OreDictionary.registerOre("dyeRed", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED));
 		OreDictionary.registerOre("dyeBrown", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN));
+		OreDictionary.registerOre("dyeGreen", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN));
+		OreDictionary.registerOre("dyeWhite", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE));
+		//OreDictionary.registerOre("dyeBlack", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BLACK));
 	}
 	
 	@Override
 	public void registerOther() {
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_BLUE), "LightBlue");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_BRAIN), "Yellow");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_CANDYCANE), "Magenta");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_CUCUMBER), "Brown");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_ORANGE), "Orange");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_PINK), "Pink");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_PURPLE), "Purple");
-		RegistryHelper.registerCoral(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_RED), "Red");  
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_BLUE), "LightBlue");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_BRAIN), "Yellow");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_CANDYCANE), "Magenta");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_CUCUMBER), "Brown");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_ORANGE), "Orange");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_PINK), "Pink");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_PURPLE), "Purple");
+		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_RED), "Red");  
+		OreDictionary.registerOre("coralWhite", new ItemStack(coral, 1, CoralMeta.CORAL_WHITE));
+		OreDictionary.registerOre("coralGray", new ItemStack(coral, 1, CoralMeta.CORAL_GREY));
+		OreDictionary.registerOre("coralLightGray", new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY));
 		
 		if(WorldGeneration.DEEP_OCEAN) {
 			addDeepOcean();
@@ -109,25 +115,33 @@ public class WorldPlus extends Module {
 	@Override
 	public void addRecipes() {
 		// Coral > Dye Recipes
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN), new Object[] { "coralBrown" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED), new Object[] { "coralRed" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW), new Object[] { "coralYellow" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.LIGHT_BLUE), new Object[] { "coralLightBlue" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.MAGENTA), new Object[] { "coralMagenta" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.ORANGE), new Object[] { "coralOrange" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.PINK), new Object[] { "coralPink" }));
-		CraftingManager.getInstance().getRecipeList()
-				.add(new ShapelessOreRecipe(new ItemStack(Item.dyePowder, 1, Dye.PURPLE), new Object[] { "coralPurple" }));
+		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN), "coralBrown", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED), "coralRed", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW), "coralYellow", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.LIGHT_BLUE), "coralLightBlue", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.MAGENTA), "coralMagenta", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.ORANGE), "coralOrange", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.PINK), "coralPink", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.PURPLE), "coralPurple", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.GREY), "coralGray", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.LIGHT_GREY), "coralLightGray", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE), "coralWhite", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN), "plantKelp", true);
 		
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_BLUE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_BRAIN), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_CANDYCANE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_CUCUMBER), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_ORANGE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_PINK), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_PURPLE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_RED), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_GREY), new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY), new ItemStack(coral, 1, CoralMeta.CORAL_WHITE), 5);
+		
+		//Kelp Wrap Recipe
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), new ItemStack(coral, 1, CoralMeta.KELP));
-
+		
 		addOceanChestLoot();
 	}
 

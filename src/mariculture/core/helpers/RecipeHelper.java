@@ -8,9 +8,12 @@ import mariculture.api.core.RecipeIngotCasting;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.Core;
+import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.util.FluidDictionary;
+import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -132,5 +135,30 @@ public class RecipeHelper {
 
 	public static void addMeltingAlloy(ItemStack stack1, ItemStack stack2, int temp, FluidStack fluid) {
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack1, stack2, temp, fluid, null, 0));
+	}
+
+	public static void addCrushRecipe(ItemStack stack, Object string, boolean needAnvil) {
+		if(!needAnvil)
+			addShapelessRecipe(stack, new Object[] { string });
+		ItemStack result = null;
+		if(string instanceof String) {
+			if(OreDictionary.getOres((String)string).size() > 0) {
+				result = OreDictionary.getOres((String)string).get(0);
+			}
+		}
+		
+		if(string instanceof ItemStack) {
+			result = (ItemStack) string;
+		}
+		
+		if(result != null) {
+			if(!needAnvil)
+				stack.stackSize*=2;
+			addAnvilRecipe(result, stack, 25);
+		}
+	}
+
+	public static void addBleachRecipe(ItemStack input, ItemStack output, int time) {
+		addVatItemRecipe(input, FluidDictionary.quicklime, 50, output, time);
 	}
 }

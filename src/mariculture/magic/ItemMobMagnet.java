@@ -50,23 +50,15 @@ public class ItemMobMagnet extends ItemDamageable {
 			Class clazz = Class.forName(stack.stackTagCompound.getString("MobClass").trim());
 			
 			List<EntityMob> enemies = world.getEntitiesWithinAABB(clazz, player.boundingBox.expand(64D, 64D, 64D));
-						
-			int x = (int) ((player.posX) + Rand.rand.nextInt(32) - 16);
-			int z = (int) ((player.posZ) + Rand.rand.nextInt(32) - 16);
-			if(BlockHelper.chunkExists(world, x, z)) {
-				int y = world.getTopSolidOrLiquidBlock(x, z);
-				
-				if(world.getBlockMaterial(x, y, z) != Material.lava) {
-					world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
-					for(Object i: enemies) {
-						if (i instanceof EntityLivingBase) {
-							((EntityLivingBase)i).setPositionAndUpdate(x, y, z);
-							if(stack.attemptDamageItem(1, Rand.rand))
-								return null;
-						}
-					}
-					
-					world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
+			int x = (int) player.posX;
+			int y = (int) (player.posY + 1);
+			int z = (int) player.posZ;
+			world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
+			for(Object i: enemies) {
+				if (i instanceof EntityLivingBase) {
+					((EntityLivingBase)i).setPositionAndUpdate(x, y, z);
+					if(stack.attemptDamageItem(1, Rand.rand))
+						return null;
 				}
 			}
 		} catch (Exception e) {
