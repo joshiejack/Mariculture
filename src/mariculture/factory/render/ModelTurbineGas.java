@@ -109,6 +109,7 @@ public class ModelTurbineGas extends ModelBase {
 	    Blade4.mirror = true;
 	    setRotation(Blade4, 0F, 0.7853982F, 0F);
 	}
+	
 	public void render(TileTurbineGas tile, double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
@@ -147,7 +148,10 @@ public class ModelTurbineGas extends ModelBase {
 		} else if (tile.energyStage == EnergyStage.YELLOW) {
 			xCoord = 47;
 			yCoord = 39;
-		} else if (tile.energyStage == EnergyStage.RED || tile.energyStage == EnergyStage.OVERHEAT) {
+		} else if(tile.energyStage == EnergyStage.ORANGE) {
+			xCoord = 48;
+			yCoord = 72;
+		} else if (tile.energyStage == EnergyStage.RED) {
 			xCoord = 32;
 			yCoord = 72;
 		}

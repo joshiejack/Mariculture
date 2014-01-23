@@ -46,6 +46,7 @@ public class ItemIds {
 	public static int batteryCopper;
 	public static int guides;
 	public static int ladle;
+	public static int bucket;
 	public static int magnet;
 	
 	//parts

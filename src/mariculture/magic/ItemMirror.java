@@ -6,7 +6,9 @@ import mariculture.core.gui.InventoryStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.items.ItemStorage;
+import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Jewelry;
+import mariculture.core.util.Rand;
 import mariculture.magic.gui.ContainerMirror;
 import mariculture.magic.gui.GuiMirror;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -46,8 +48,19 @@ public class ItemMirror extends ItemStorage {
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		world.playSoundAtEntity(player, Mariculture.modid + ":mirror", 1.0F, 1.0F);
-		return super.onItemRightClick(stack, world, player);
+		if (stack != null) {
+			if (!player.isSneaking()) {
+				world.playSoundAtEntity(player, Mariculture.modid + ":mirror", 1.0F, 1.0F);
+				if(stack.attemptDamageItem(1, Rand.rand))
+					stack.stackSize--;
+				else
+					player.openGui(Mariculture.instance, GuiIds.STORAGE, world, stack.itemID, 0, 0);
+			}
+
+			return stack;
+		}
+		
+		return null;
 	}
 	
 	@Override
@@ -57,11 +70,11 @@ public class ItemMirror extends ItemStorage {
 	
 	@Override
 	public Object getGUIContainer(EntityPlayer player) {
-		return new ContainerMirror(player.inventory, new InventoryStorage(player, size), player.worldObj);
+		return new ContainerMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, player.getCurrentEquippedItem());
 	}
 
 	public Object getGUIElement(EntityPlayer player) {
-		return new GuiMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, gui);
+		return new GuiMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, gui, player.getCurrentEquippedItem());
 	}
 	
 	public ItemStack[] load(EntityPlayer player, ItemStack stack, int size) {

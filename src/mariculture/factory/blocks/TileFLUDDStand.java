@@ -103,6 +103,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 			//Entity Stuff
 			for(Object i: list) {
 				Entity entity = (Entity) i;
+				entity.fallDistance = 0F;
 				if(dist == 1 && !worldObj.isRemote && onTick(20) && reverse && entity instanceof EntityItem) {
 					EntityItem item = (EntityItem) entity;
 					ItemStack stack = item.getEntityItem();
@@ -234,7 +235,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+		orientation = ForgeDirection.values()[nbt.getInteger("Orientation")];
 	}
 
 	@Override

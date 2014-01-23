@@ -153,7 +153,6 @@ public class ModelTurbineWater extends ModelBase {
 		GL11.glScalef(1.2F, 1.2F, 1.2F);
 
 		Base.render(scale);
-		// Rod.render(scale);
 		int xCoord = 48;
 		int yCoord = 0;
 		if (tile.energyStage == EnergyStage.GREEN) {
@@ -162,7 +161,10 @@ public class ModelTurbineWater extends ModelBase {
 		} else if (tile.energyStage == EnergyStage.YELLOW) {
 			xCoord = 16;
 			yCoord = 0;
-		} else if (tile.energyStage == EnergyStage.RED || tile.energyStage == EnergyStage.OVERHEAT) {
+		} else if(tile.energyStage == EnergyStage.ORANGE) {
+			xCoord = 0;
+			yCoord = 45;
+		} else if (tile.energyStage == EnergyStage.RED) {
 			xCoord = 0;
 			yCoord = 13;
 		}
@@ -200,9 +202,6 @@ public class ModelTurbineWater extends ModelBase {
 		Blade7.render(scale);
 		Blade8.render(scale);
 		Blade9.render(scale);
-		//Blade10.render(scale);
-		//Blade11.render(scale);
-		//Blade12.render(scale);
 		Top.render(scale);
 
 		GL11.glEnable(GL11.GL_LIGHTING);

@@ -101,7 +101,9 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posZ = z + random.nextInt(16);
 				if(isRiverBiome(world, posX, posZ) && world.getTopSolidOrLiquidBlock(posX, posZ) >= OreGeneration.LIMESTONE_MAX_DEPTH) {
-					new WorldGenLimestone(OreGeneration.LIMESTONE_VEIN).generate(world, random, posX, posZ);
+					if(BlockHelper.isWater(world, posX, world.getTopSolidOrLiquidBlock(posX, posZ) + 1, posZ)) {
+						new WorldGenLimestone(OreGeneration.LIMESTONE_VEIN).generate(world, random, posX, posZ);
+					}
 				}
 			}
 		}

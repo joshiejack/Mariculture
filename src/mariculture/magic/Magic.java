@@ -33,6 +33,7 @@ import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
+import mariculture.magic.enchantments.EnchantmentStepUp;
 import mariculture.magic.jewelry.ItemBracelet;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemNecklace;
@@ -100,6 +101,7 @@ public class Magic extends Module {
 	public static Enchantment repair;
 	public static Enchantment resurrection;
 	public static Enchantment speed;
+	public static Enchantment stepUp;
 	
 	public static Item basicMirror;
 	public static Item magicMirror;
@@ -114,18 +116,19 @@ public class Magic extends Module {
 		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 1, EnumEnchantmentType.all); }
 		if(EnchantIds.clock > 0) { clock = new EnchantmentClock(EnchantIds.clock, 2, EnumEnchantmentType.all); }
 		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 10, EnumEnchantmentType.all); }
-		if(EnchantIds.fire > 0) { fire = new EnchantmentFire(EnchantIds.fire, 16, EnumEnchantmentType.all); }
+		if(EnchantIds.fire > 0) { fire = new EnchantmentFire(EnchantIds.fire, 10, EnumEnchantmentType.all); }
 		if(EnchantIds.flight > 0) { flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all); }
 		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 8, EnumEnchantmentType.all); }
 		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 8, EnumEnchantmentType.all); }
 		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 12, EnumEnchantmentType.all); }
 		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 8, EnumEnchantmentType.all); }
 		if(EnchantIds.oneRing > 0) { oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all); }
-		if(EnchantIds.poison > 0) { poison = new EnchantmentPoison(EnchantIds.poison, 16, EnumEnchantmentType.all); }
-		if(EnchantIds.punch > 0) { punch = new EnchantmentPunch(EnchantIds.punch, 16, EnumEnchantmentType.all); }
+		if(EnchantIds.poison > 0) { poison = new EnchantmentPoison(EnchantIds.poison, 11, EnumEnchantmentType.all); }
+		if(EnchantIds.punch > 0) { punch = new EnchantmentPunch(EnchantIds.punch, 12, EnumEnchantmentType.all); }
 		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 6, EnumEnchantmentType.all); }
 		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
 		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 10, EnumEnchantmentType.all); }
+		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 9, EnumEnchantmentType.all); }
 	}
 
 	@Override

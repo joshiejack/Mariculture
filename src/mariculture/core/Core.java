@@ -59,7 +59,7 @@ import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.items.ItemFood;
 import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemHammer;
-import mariculture.core.items.ItemLadle;
+import mariculture.core.items.ItemFluidStorage;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
@@ -148,6 +148,8 @@ public class Core extends Module {
 	public static Item worked;
 	public static Item guides;
 	public static Item ladle;
+	public static Item can;
+	public static Item bucket;
 	
 	@Override
 	public void registerHandlers() {
@@ -259,7 +261,8 @@ public class Core extends Module {
 		hammer = new ItemHammer(ItemIds.hammer, brick).setUnlocalizedName("hammer");
 		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
 		guides = new ItemGuide(ItemIds.guides).setUnlocalizedName("guide");
-		ladle = new ItemLadle(ItemIds.ladle).setUnlocalizedName("ladle");
+		ladle = new ItemFluidStorage(ItemIds.ladle, MetalRates.INGOT).setUnlocalizedName("ladle");
+		bucket = new ItemFluidStorage(ItemIds.bucket, 8000).setUnlocalizedName("titaniumBucket");
 		
 		MinecraftForge.setToolClass(hammer, "pickaxe", 0);
 		

@@ -22,6 +22,7 @@ import mariculture.factory.blocks.TileSponge;
 import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileIncubator;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -45,6 +46,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockUtil extends BlockMachine {
 	private Icon[] incubatorIcons;
 	private Icon sluiceBack;
+	private Icon sluiceUp;
+	private Icon sluiceDown;
 	private Icon[] liquifierIcons;
 	private Icon[] fishSorter;
 
@@ -139,21 +142,17 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public Icon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+		if (block.getBlockTileEntity(x, y, z) instanceof TileSluice) {
+			TileSluice tile = (TileSluice) block.getBlockTileEntity(x, y, z);
+			if(tile.direction.ordinal() == side)
+				return side > 1? icons[UtilMeta.SLUICE]: sluiceUp;
+			else if(tile.direction.getOpposite().ordinal() == side)
+				return side > 1? sluiceBack: sluiceDown;
+			else
+				return Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
+		}
+		
 		if (side > 1) {
-			if (block.getBlockTileEntity(x, y, z) instanceof TileSluice) {
-				TileSluice tile = (TileSluice) block.getBlockTileEntity(x, y, z);
-				int tileSide = tile.getFacing();
-				int blockSide = side - 2;
-				
-				switch(tileSide) {
-					case 0: return (blockSide == 0)? icons[UtilMeta.SLUICE]: (blockSide == 1)? sluiceBack: Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
-					case 1: return (blockSide == 1)? icons[UtilMeta.SLUICE]: (blockSide == 0)? sluiceBack: Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON); 
-					case 2: return (blockSide == 2)? icons[UtilMeta.SLUICE]: (blockSide == 3)? sluiceBack: Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON); 
-					case 3: return (blockSide == 3)? icons[UtilMeta.SLUICE]: (blockSide == 2)? sluiceBack: Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON); 
-					default: return Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
-				}
-			}
-
 			if (block.getBlockTileEntity(x, y, z) instanceof TileLiquifier) {
 				TileLiquifier smelter = (TileLiquifier) block.getBlockTileEntity(x, y, z);
 				if(smelter.master == null) {
@@ -203,23 +202,10 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		if (stack.getItemDamage() == UtilMeta.SLUICE) {
-			int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+			int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
 			world.setBlockMetadataWithNotify(x, y, z, UtilMeta.SLUICE, 2);
 			TileSluice tile = (TileSluice) world.getBlockTileEntity(x, y, z);
-			switch (facing) {
-			case 0:
-				tile.setFacing(0);
-				break;
-			case 1:
-				tile.setFacing(3);
-				break;
-			case 2:
-				tile.setFacing(1);
-				break;
-			case 3:
-				tile.setFacing(2);
-				break;
-			}
+			tile.direction = ForgeDirection.getOrientation(facing);
 		}
 	}
 
@@ -229,6 +215,9 @@ public class BlockUtil extends BlockMachine {
 		if (tile == null && world.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_TOP || player.isSneaking()) {
 			return false;
 		}
+		
+		if(tile instanceof TileSluice)
+			return false;
 		
 		if(tile instanceof TileMultiBlock) {
 			TileMultiBlock multi = (TileMultiBlock) tile;
@@ -243,16 +232,6 @@ public class BlockUtil extends BlockMachine {
 		if(tile instanceof IHasGUI) {
 			player.openGui(Mariculture.instance, -1, world, x, y, z);
 			return true;
-		}
-
-		if (tile instanceof TileSluice) {
-			TileSluice sluice = (TileSluice) tile;
-			if(sluice.getHeight() > 1) {
-				player.openGui(Mariculture.instance, GuiIds.SLUICE, world, x, y, z);
-				return true;
-			} else {
-				return false;
-			}
 		}
 		
 		if (tile instanceof TileSponge) {
@@ -379,6 +358,8 @@ public class BlockUtil extends BlockMachine {
 		}
 		
 		sluiceBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceBack");
+		sluiceUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceUp");
+		sluiceDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceDown");
 
 		icons = new Icon[getMetaCount()];
 

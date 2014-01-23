@@ -28,12 +28,12 @@ public class EnchantmentFire extends EnchantmentJewelry {
 
 	@Override
 	public int getMinEnchantability(int level) {
-		return 1 + (level - 1) * 10;
+		return 15 + (level - 1) * 10;
 	}
 
 	@Override
 	public int getMaxEnchantability(int level) {
-		return this.getMinEnchantability(level) + 15;
+		return this.getMinEnchantability(level) + 25;
 	}
 
 	@Override

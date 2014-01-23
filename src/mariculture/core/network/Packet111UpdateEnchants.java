@@ -9,21 +9,23 @@ import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
+import mariculture.magic.enchantments.EnchantmentStepUp;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 public class Packet111UpdateEnchants extends PacketMariculture {
-	public int speed, jump, glide, flight;
+	public int speed, jump, glide, flight, step;
 	public boolean spider;
 	
 	public Packet111UpdateEnchants() {}
 	
-	public Packet111UpdateEnchants(int speed, int jump, int glide, int flight, boolean spider) {
+	public Packet111UpdateEnchants(int speed, int jump, int glide, int flight, boolean spider, int step) {
 		this.speed = speed;
 		this.jump = jump;
 		this.glide = glide;
 		this.flight = flight;
 		this.spider = spider;
+		this.step = step;
 	}
 
 	@Override
@@ -33,6 +35,7 @@ public class Packet111UpdateEnchants extends PacketMariculture {
 		EnchantmentGlide.set(glide);
 		EnchantmentFlight.set(flight);
 		EnchantmentSpider.set(spider);
+		EnchantmentStepUp.set(step, player);
 	}
 	
 	@Override
@@ -42,6 +45,7 @@ public class Packet111UpdateEnchants extends PacketMariculture {
 		glide = os.readInt();
 		flight = os.readInt();
 		spider = os.readBoolean();
+		step = os.readInt();
 	}
 
 	@Override
@@ -51,5 +55,6 @@ public class Packet111UpdateEnchants extends PacketMariculture {
 		os.writeInt(glide);
 		os.writeInt(flight);
 		os.writeBoolean(spider);
+		os.writeInt(step);
 	}
 }

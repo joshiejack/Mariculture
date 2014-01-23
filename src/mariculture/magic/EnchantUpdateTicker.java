@@ -16,6 +16,7 @@ import mariculture.magic.enchantments.EnchantmentPoison;
 import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
+import mariculture.magic.enchantments.EnchantmentStepUp;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.IScheduledTickHandler;
@@ -32,6 +33,7 @@ public class EnchantUpdateTicker implements IScheduledTickHandler {
 			int jump = EnchantHelper.getEnchantStrength(Magic.jump, player);
 			int glide = EnchantHelper.getEnchantStrength(Magic.glide, player);
 			int flight = EnchantHelper.getEnchantStrength(Magic.flight, player);
+			int step = EnchantHelper.getEnchantStrength(Magic.stepUp, player);
 			boolean spider = EnchantHelper.hasEnchantment(Magic.spider, player);
 
 			EnchantmentSpeed.set(speed);
@@ -39,8 +41,9 @@ public class EnchantUpdateTicker implements IScheduledTickHandler {
 			EnchantmentGlide.set(glide);
 			EnchantmentFlight.set(flight);
 			EnchantmentSpider.set(spider);
+			EnchantmentStepUp.set(step, player);
 
-			PacketDispatcher.sendPacketToPlayer(new Packet111UpdateEnchants(speed, jump, glide, flight, spider).build(), (Player) player);
+			PacketDispatcher.sendPacketToPlayer(new Packet111UpdateEnchants(speed, jump, glide, flight, spider, step).build(), (Player) player);
 			Packets.updatePlayer(player, 128, new Packet105OneRing(player.entityId, player.isInvisible()).build());
 
 			if(EnchantHelper.hasEnchantment(Magic.hungry, player))

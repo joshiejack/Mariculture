@@ -160,6 +160,7 @@ public class Config {
             Extra.FLUDD_BLOCK_ANIM = config.get(Category.CLIENT, "FLUDD - Enable Particles", true).getBoolean(true);
             Extra.TURBINE_ANIM = config.get(Category.CLIENT, "Turbines - Enable Rotation", true).getBoolean(true);
             
+            Extra.TURBINE_RATE = config.get(Category.EXTRA, "Turbines - Ticks between Packet Updates", 20).getInt();
             Extra.PURITY = config.get(Category.EXTRA, "Crucible Furnace > Nuggets Per Purity Upgrade Level", 2).getInt();
             Extra.ENDER_CONVERTER = config.get(Category.EXTRA, "Autodictionary > Enable Ender Pearl for Recipe", false).getBoolean(false);
             Extra.CAN_WORK_TICK = config.get(Category.EXTRA, "Can Work Tick", 20, Comment.CAN_WORK_TICK).getInt();
@@ -306,6 +307,7 @@ public class Config {
             ItemIds.guides = config.getItem("Guidebooks", 29067).getInt();
             ItemIds.ladle = config.getItem("Ladle", 29068).getInt();
             ItemIds.magnet = config.getItem("Magnet", 29069).getInt();
+            ItemIds.bucket = config.getItem("Titanium Bucket", 29070).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();
@@ -324,6 +326,7 @@ public class Config {
             EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 66).getInt();
             EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 67).getInt();
             EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 68).getInt();
+            EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 69).getInt();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Mariculture had a serious issue loading it's block/item/enchant ids");
         } finally {

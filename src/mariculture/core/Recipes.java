@@ -3,7 +3,7 @@ package mariculture.core;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.items.ItemBattery;
-import mariculture.core.items.ItemLadle;
+import mariculture.core.items.ItemFluidStorage;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
@@ -141,11 +141,13 @@ public class Recipes {
 		
 		//Ladle
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.ladle), new Object[] {
-			" B ", " B ", "B  ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
+			" C ", " C ", "C  ", 'C', "ingotCopper"
 		});
 		
-		//Ladle Repair Recipe
-		RecipeHelper.addAnvilRecipe(new ItemStack(Core.ladle, 1, ItemLadle.MAX_DAMAGE), new ItemStack(Core.ladle, 1, 0), ItemLadle.MAX_DAMAGE/2);
+		//Bucket
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.bucket), new Object[] {
+			"T T", " T ", 'T', "ingotTitanium"
+		});
 		
 		//Hammer
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {

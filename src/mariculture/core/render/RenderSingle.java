@@ -13,9 +13,11 @@ import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileGeyser;
 import mariculture.factory.blocks.TileTurbineGas;
+import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.ModelTurbineGas;
+import mariculture.factory.render.ModelTurbineHand;
 import mariculture.factory.render.ModelTurbineWater;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileSift;
@@ -78,6 +80,11 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		if (tileEntity instanceof TileTurbineGas) {
 			bindTexture(resource);
 			((ModelTurbineGas) model).render((TileTurbineGas) tileEntity, x, y, z);
+		}
+		
+		if (tileEntity instanceof TileTurbineHand) {
+			bindTexture(resource);
+			((ModelTurbineHand) model).render((TileTurbineHand) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileFLUDDStand) {

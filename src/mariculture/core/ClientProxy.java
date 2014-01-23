@@ -23,9 +23,11 @@ import mariculture.factory.FLUDDKeyHandler;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileTurbineGas;
+import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.ModelTurbineGas;
+import mariculture.factory.render.ModelTurbineHand;
 import mariculture.factory.render.ModelTurbineWater;
 import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
@@ -61,6 +63,7 @@ public class ClientProxy extends CommonProxy {
 	private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");
 	private static final ResourceLocation TURBINE = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_texture.png");
 	private static final ResourceLocation TURBINE_GAS = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_gas_texture.png");
+	private static final ResourceLocation TURBINE_HAND = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_hand_texture.png");
 	private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
 	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
 
@@ -108,6 +111,7 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSingle(new ModelFLUDD(scale), FLUDD));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSingle(new ModelTurbineWater(scale), TURBINE));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSingle(new ModelTurbineGas(scale), TURBINE_GAS));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSingle(new ModelTurbineHand(scale), TURBINE_HAND));
 		}
 		
 		if(Modules.fishery.isActive()) {

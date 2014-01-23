@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 public class TilePressureVessel extends TileMultiMachineTank {
 	public TilePressureVessel() {
 		inventory = new ItemStack[6];
-		setting = EjectSetting.FLUID;
+		setting = EjectSetting.NONE;
 		mode = RedstoneMode.DISABLED;
 	}
 	

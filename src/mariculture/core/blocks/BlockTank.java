@@ -56,11 +56,6 @@ public class BlockTank extends BlockConnected {
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
-		return world.getBlockId(x, y, z) == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
-	}
-
-	@Override
 	public int getRenderType() {
 		return RenderIds.BLOCK_TANKS;
 	}

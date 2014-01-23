@@ -1,7 +1,6 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.helpers.RenderHelper;
 import mariculture.core.lib.DoubleMeta;
@@ -11,6 +10,7 @@ import mariculture.diving.TileAirCompressor;
 import mariculture.diving.render.RenderCompressorBase;
 import mariculture.diving.render.RenderCompressorTop;
 import mariculture.factory.blocks.TilePressureVessel;
+import mariculture.factory.render.RenderPressureVessel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
@@ -28,11 +28,9 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 			new RenderCompressorBase(render).render();
 		} else if(meta == DoubleMeta.COMPRESSOR_TOP) {
 			new RenderCompressorTop(render).render();
+		} else if(meta == DoubleMeta.PRESSURE_VESSEL) {
+			new RenderPressureVessel(render).render();
 		}
-	}
-	
-	private void renderCompressorTop(IBlockAccess world, TileAirCompressor tile, ForgeDirection facing) {		
-		
 	}
 	
 	public boolean doExtendVessel(TileEntity tile) {
@@ -139,7 +137,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 				new RenderCompressorTop(render).setCoords(world, x, y, z).setDir(((TileAirCompressor) tile).facing).render();
 			}
 		} else if (tile instanceof TilePressureVessel) {
-			renderVessel(world, x, y, z);
+			new RenderPressureVessel(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileVat) {
 			new RenderVat(render).setCoords(world, x, y, z).setDir(((TileVat) tile).facing).render();
 		}

@@ -28,7 +28,7 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 
 	@Override
 	public int getMinEnchantability(int level) {
-		return 68;
+		return 60;
 	}
 
 	@Override

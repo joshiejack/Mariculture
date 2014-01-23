@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class EnchantmentClock extends EnchantmentJewelry {
-	public EnchantmentClock(final int i, final int weight, final EnumEnchantmentType type) {
+	public EnchantmentClock(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
 		this.setName("clock");
 	}

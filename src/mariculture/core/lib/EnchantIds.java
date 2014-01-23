@@ -17,4 +17,5 @@ public class EnchantIds {
 	public static int resurrection;
 	public static int blink;
 	public static int flight;
+	public static int stepUp;
 }

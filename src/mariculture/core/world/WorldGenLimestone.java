@@ -89,7 +89,7 @@ public class WorldGenLimestone extends WorldGenerator {
 		}
 		
 		try {
-			return world.getBlockMaterial(x, y, z) != Material.water;
+			return world.getBlockMaterial(x, y, z) != Material.water && !world.isAirBlock(x, y, z) && world.getBlockId(x, y, z) != Block.grass.blockID;
 		} catch (Exception e) {
 			return false;
 		}

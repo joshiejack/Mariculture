@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.Rand;
@@ -20,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 public class BlockHelper {
 
@@ -27,6 +29,10 @@ public class BlockHelper {
 		int id = world.getBlockId(x, y, z);
 		
 		return id == Block.waterStill.blockID || id == Block.waterMoving.blockID;
+	}
+	
+	public static boolean isHPWater(World world, int x, int y, int z) {
+		return world.getBlockId(x, y, z) == Core.highPressureWaterBlock.blockID;
 	}
 	
 	public static boolean isLava(World world, int x, int y, int z) {

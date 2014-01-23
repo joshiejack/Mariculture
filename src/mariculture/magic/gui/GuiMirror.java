@@ -2,7 +2,9 @@ package mariculture.magic.gui;
 
 import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
+import mariculture.core.items.ItemStorage;
 import mariculture.core.network.Packet112Enchant;
+import mariculture.magic.ItemMirror;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
@@ -10,6 +12,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnchantmentNameParts;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -18,10 +21,30 @@ import org.lwjgl.util.glu.GLU;
 
 public class GuiMirror extends GuiStorage {
 	private int[] enchantLevels = new int[3];
+	ItemStack mirror;
 	
-	public GuiMirror(IInventory playerInv, InventoryStorage storage, World world, String gui) {
-		super(new ContainerMirror(playerInv, storage, world), gui);
+	public GuiMirror(IInventory playerInv, InventoryStorage storage, World world, String gui, ItemStack stack) {
+		super(new ContainerMirror(playerInv, storage, world, stack), gui);
 		allowUserInput = false;
+		this.mirror = stack.copy();
+	}
+	
+	@Override
+	public String getName() {
+		if(mirror != null) {
+			return StatCollector.translateToLocal("item." + ((ItemMirror)mirror.getItem()).getName(mirror) + ".name");
+		}
+		
+		return "";
+	}
+
+	@Override
+	public int getX() {
+		if(mirror != null) {
+			return ((ItemMirror)mirror.getItem()).getX(mirror);
+		}
+		
+		return 0;
 	}
 	
 	@Override

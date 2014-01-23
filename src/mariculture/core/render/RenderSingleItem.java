@@ -8,6 +8,7 @@ import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.Factory;
 import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.ModelTurbineGas;
+import mariculture.factory.render.ModelTurbineHand;
 import mariculture.factory.render.ModelTurbineWater;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.render.ModelFeeder;
@@ -26,6 +27,7 @@ public class RenderSingleItem implements IItemRenderer {
 	private static final ResourceLocation FLUDD = new ResourceLocation("mariculture", "textures/blocks/fludd_texture.png");
 	private static final ResourceLocation TURBINE = new ResourceLocation("mariculture", "textures/blocks/turbine_texture.png");
 	private static final ResourceLocation TURBINE_GAS = new ResourceLocation("mariculture", "textures/blocks/turbine_gas_texture.png");
+	private static final ResourceLocation TURBINE_HAND = new ResourceLocation("mariculture", "textures/blocks/turbine_hand_texture.png");
 
 	private final ModelAirPump pump = new ModelAirPump(scale);
 	private final ModelOyster oyster = new ModelOyster(scale);
@@ -34,6 +36,7 @@ public class RenderSingleItem implements IItemRenderer {
 	private final ModelFLUDD fludd = new ModelFLUDD(scale);
 	private final ModelTurbineGas turbineGas = new ModelTurbineGas(scale);
 	private final ModelTurbineWater turbine = new ModelTurbineWater(scale);
+	private final ModelTurbineHand turbineHand = new ModelTurbineHand(scale);
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -72,6 +75,11 @@ public class RenderSingleItem implements IItemRenderer {
 			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_GAS) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_GAS);
 				turbineGas.renderInventory(type);
+			}
+			
+			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_HAND) {
+				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_HAND);
+				turbineHand.renderInventory(type);
 			}
 
 			if ((item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.FLUDD_STAND)

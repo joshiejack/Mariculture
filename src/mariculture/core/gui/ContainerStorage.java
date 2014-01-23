@@ -39,6 +39,15 @@ public class ContainerStorage extends ContainerMariculture {
 	
 	@Override
 	public ItemStack slotClick(int slotID, int par2, int par3, EntityPlayer player) {
+		if(shouldClose(slotID, player)) {
+			player.closeScreen();
+			return null;
+		}
+		
+		return super.slotClick(slotID, par2, par3, player);
+    }
+	
+	public boolean shouldClose(int slotID, EntityPlayer player) {
 		boolean stop = false;
 		Slot slot = (slotID < 0 || slotID > this.inventorySlots.size())? null: (Slot)this.inventorySlots.get(slotID);
 
@@ -47,14 +56,9 @@ public class ContainerStorage extends ContainerMariculture {
 				stop = true;
 			}
 		}
-
-		if(stop) {
-			player.closeScreen();
-			return null;
-		}
 		
-		return super.slotClick(slotID, par2, par3, player);
-    }
+		return stop;
+	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {

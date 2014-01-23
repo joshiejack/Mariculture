@@ -222,7 +222,9 @@ public class BlockSingle extends BlockMachine {
 				return false;
 			}
 			
-			((TileTurbineHand)tile).generatePower();
+			((TileTurbineHand)tile).energyStorage.modifyEnergyStored(((TileTurbineHand)tile).getEnergyGenerated());
+			((TileTurbineHand)tile).isAnimating = true;
+			((TileTurbineHand)tile).cooldown = 5;
 			return true;
 		}
 
@@ -283,6 +285,10 @@ public class BlockSingle extends BlockMachine {
 				}
 			}
 			
+			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
+		}
+		
+		if(tile instanceof TileGeyser) {
 			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
 		}
 

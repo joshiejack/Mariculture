@@ -5,11 +5,11 @@ import mariculture.core.network.Packets;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileTurbineHand extends TileTurbineBase {	
-	public int beingCharged;
-	
+public class TileTurbineHand extends TileTurbineBase {		
+	public int cooldown = 0;
+
 	@Override
-	public int getTankCapacity(int count) {
+	public int getTankCapacity() {
 		return 0;
 	}
 	
@@ -19,32 +19,28 @@ public class TileTurbineHand extends TileTurbineBase {
 	}
 
 	@Override
-	public int maxEnergyExtracted() {
-		return 5;
-	}
-	
-	@Override
-	public boolean canWork() {
-		return false;
-	}
-	
-	@Override
-	public boolean canDrain() {
-		return false;
-	}
-
-	@Override
 	public int getEnergyGenerated() {
 		return 20;
 	}
 
 	@Override
-	public boolean canUseFluid() {
+	public int getEnergyTransferMax() {
+		return 10;
+	}
+
+	@Override
+	public boolean canOperate() {
 		return true;
 	}
 
 	@Override
-	public boolean canUseRotor() {
-		return true;
+	public void addPower() {
+		if(cooldown > 0) {
+			cooldown--;
+		}
+		
+		if(isAnimating && cooldown == 0) {
+			isAnimating = false;
+		}
 	}
 }

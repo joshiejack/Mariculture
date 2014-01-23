@@ -92,10 +92,10 @@ public class TileSponge extends TileEnergyHandler {
 	                if (storage.extractEnergy(power, true) >= power) {
 	                    clearWater();
 	                    storage.extractEnergy(power, false);
-	                    this.storage.setCapacity(0);
+	                    storage.setCapacity(0);
 	                }
 	            } else {
-	            	this.storage.setCapacity(0);
+	            	storage.setCapacity(0);
 	            }
 	        }
     	}

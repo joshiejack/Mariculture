@@ -1,17 +1,23 @@
 package mariculture.core.blocks;
 
+import java.util.Random;
+
 import mariculture.core.Core;
 import mariculture.core.Mariculture;
 import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -70,6 +76,34 @@ public class BlockFluidMari extends BlockFluidClassic {
 	@Override
     public FluidStack drain(World world, int x, int y, int z, boolean doDrain) {
         return null;
+    }
+	
+	private int tick;
+	@Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+		super.updateTick(world, x, y, z, rand);
+		tick++;
+		
+		if(tick % 25 == 0 && !world.isRemote) {
+			int x2 = x + rand.nextInt(3) - 1;
+			int y2 = y - rand.nextInt(2);
+			int z2 = z + rand.nextInt(3) - 1;
+			Block block = Block.blocksList[world.getBlockId(x2, y, z2)];
+			if(block != null) {
+				float hardnessMax = Block.stone.blockHardness;
+				float blockHardness = block.getBlockHardness(world, x2, y2, z2);
+				if(blockHardness <= hardnessMax) {
+					int meta = world.getBlockMetadata(x2, y2, z2);
+					FakePlayer player = new FakePlayer(world, "hpwater");
+					if (block.removeBlockByPlayer(world, player, x2, y2, z2)) {
+                            block.onBlockDestroyedByPlayer(world, x2, y2, z2, meta);
+                    }
+						
+                    block.harvestBlock(world, player, x2, y2, z2, meta);
+                    block.onBlockHarvested(world, x2, y2, z2, meta, player);
+				}
+			}
+		}
     }
 
 	@Override

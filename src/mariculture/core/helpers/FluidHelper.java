@@ -111,14 +111,18 @@ public class FluidHelper {
 	
 	public static int getRequiredVolumeForBlock(Fluid fluid) {
 		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
+		int highest = -1;
 
 		for (int j = 0; j < data.length; j++) {
 			if (data[j].fluid.fluidID == fluid.getID()) {
-				return data[j].fluid.amount;
+				if(data[j].fluid.amount > highest)
+					highest = data[j].fluid.amount;
+				if(data[j].emptyContainer.itemID == Item.bucketEmpty.itemID)
+					return data[j].fluid.amount;
 			}
 		}
 		
-		return -1;
+		return highest;
 	}
 
 	private static ItemStack doEmpty(IFluidHandler tile, ItemStack top, ItemStack bottom) {

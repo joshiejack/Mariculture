@@ -18,6 +18,7 @@ import mariculture.magic.enchantments.EnchantmentPunch;
 import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
+import mariculture.magic.enchantments.EnchantmentStepUp;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,17 +43,17 @@ public class MagicEventHandler {
 	
 	@ForgeSubscribe
 	public void onLivingUpdate(LivingUpdateEvent event) {
-		if(EnchantHelper.exists(Magic.glide) || EnchantHelper.exists(Magic.speed) || EnchantHelper.exists(Magic.spider)) {
-			if (event.entity instanceof EntityPlayer && event.entity.worldObj.isRemote) {
-				EntityPlayer player = (EntityPlayer) event.entity;
-				EnchantmentGlide.activate(player);
-				EnchantmentSpeed.activate(player);
-				EnchantmentSpider.activate(player);
-			}
-		}
-
-		if(EnchantHelper.exists(Magic.oneRing)) {
-			if (event.entity instanceof EntityPlayer && !event.entity.worldObj.isRemote) {
+		if(event.entity instanceof EntityPlayer) {
+			World world = event.entity.worldObj;
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if(world.isRemote) {
+				if(EnchantHelper.exists(Magic.glide))
+					EnchantmentGlide.activate(player);
+				if(EnchantHelper.exists(Magic.speed))
+					EnchantmentSpeed.activate(player);
+				if(EnchantHelper.exists(Magic.spider))
+					EnchantmentSpider.activate(player);
+			} else if(EnchantHelper.exists(Magic.oneRing)){
 				EnchantmentOneRing.activate((EntityPlayer) event.entity);
 			}
 		}

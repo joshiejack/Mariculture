@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.InventoryStorage;
+import mariculture.core.gui.SlotFake;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -16,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ContainerMirror extends ContainerStorage {
-	public ContainerMirror(IInventory inventory, InventoryStorage storage, World world) {
+	public ContainerMirror(IInventory inventory, InventoryStorage storage, World world, ItemStack stack) {
 		super(inventory, storage, world);
 	}
 	
@@ -136,4 +137,9 @@ public class ContainerMirror extends ContainerStorage {
 
 		return newStack;
 	}
+	
+	@Override
+	public boolean shouldClose(int slotID, EntityPlayer player) {
+		return false;
+    }
 }

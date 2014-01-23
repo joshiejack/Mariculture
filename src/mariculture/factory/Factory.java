@@ -152,9 +152,11 @@ public class Factory extends Module {
 
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SLUICE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SPONGE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_WATER, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_GAS, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_WATER, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_GAS, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.FISH_SORTER, "axe", 0);
+		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.FLUDD_STAND, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_HAND, "axe", 0);
 
 		RegistryHelper.register(new Object[] { customFlooring, customBlock, customStairs, customSlabs, 
 				customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
@@ -171,9 +173,9 @@ public class Factory extends Module {
 		fludd = new ItemArmorFLUDD(ItemIds.fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
 		paintbrush = new ItemPaintbrush(ItemIds.paintbrush, 128).setUnlocalizedName("paintbrush");
 		filter = new ItemFilter(ItemIds.filter).setUnlocalizedName("filter");
-		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 900).setUnlocalizedName("turbineCopper");
-		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 3600).setUnlocalizedName("turbineAluminum");
-		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 28800).setUnlocalizedName("turbineTitanium");
+		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 900, 1).setUnlocalizedName("turbineCopper");
+		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 3600, 2).setUnlocalizedName("turbineAluminum");
+		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 28800, 3).setUnlocalizedName("turbineTitanium");
 		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 
@@ -222,7 +224,7 @@ public class Factory extends Module {
 			Character.valueOf('S'), sponge, 
 			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
 			Character.valueOf('A'), water,
-			Character.valueOf('T'), "ingotTitanium"
+			Character.valueOf('T'), "ingotAluminum"
 		});
 		
 		//Sluice

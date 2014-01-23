@@ -5,6 +5,7 @@ import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.gui.SlotUpgrade;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,11 +46,15 @@ public class ContainerPressureVessel extends ContainerMachine {
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
 				if (itemstack.itemID == Factory.fludd.itemID) {
-					if (!this.mergeItemStack(stack, 0, 1, false)) { // Slot 0-0
+					if (!this.mergeItemStack(stack, 5, 6, false)) { // Slot 0-0
 						return null;
 					}
 				} else if (stack.getItem() instanceof IItemUpgrade) {
-					if (!this.mergeItemStack(stack, 1, 4, false)) { // Slot 1-3
+					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 1-3
+						return null;
+					}
+				} else if (FluidHelper.isFluidOrEmpty(stack)) {
+					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
 						return null;
 					}
 				} else if (slotID >= size && slotID < low) {

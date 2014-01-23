@@ -10,14 +10,16 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
-public class Packet118FluidUpdate extends Packet119Coordinates {
+public class Packet118FluidUpdate extends PacketMariculture {
 
-	private int id, vol;
+	private int id, vol, x, y, z;
 	private byte num;
 	
 	public Packet118FluidUpdate() {}
 	public Packet118FluidUpdate(int x, int y, int z, FluidStack fluid) {
-		super(x, y, z);
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		
 		if(fluid == null) {
 			id = 0;
@@ -31,8 +33,9 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 	}
 	
 	public Packet118FluidUpdate(int x, int y, int z, FluidStack fluid, byte tank) {
-		super(x, y, z);
-		
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		if(fluid == null) {
 			id = 0;
 			vol = 0;
@@ -57,7 +60,9 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 
 	@Override
 	public void read(DataInputStream is) throws IOException {
-		super.read(is);
+		x = is.readInt();
+		y = is.readInt();
+		z = is.readInt();
 		id = is.readInt();
 		vol = is.readInt();
 		num = is.readByte();
@@ -65,7 +70,9 @@ public class Packet118FluidUpdate extends Packet119Coordinates {
 
 	@Override
 	public void write(DataOutputStream os) throws IOException {
-		super.write(os);
+		os.writeInt(x);
+		os.writeInt(y);
+		os.writeInt(z);
 		os.writeInt(id);
 		os.writeInt(vol);
 		os.writeByte(num);
