@@ -99,6 +99,7 @@ public class PluginForestry extends Plugin {
 								Character.valueOf('C'), Block.chest }));
 
 				ItemStack silk = ItemInterface.getItem("craftingMaterial");
+				silk.setItemDamage(4);
 
 				RecipeManagers.carpenterManager.addRecipe(200,
 						FluidRegistry.getFluidStack("water", 1000),
