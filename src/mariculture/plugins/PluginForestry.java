@@ -105,8 +105,8 @@ public class PluginForestry extends Plugin {
 						FluidRegistry.getFluidStack("water", 1000),
 						null,
 						new ItemStack(aquaBackpackT2),
-						new Object[] { "WDW", "WTW", "WWW", Character.valueOf('D'), Item.diamond,
-									Character.valueOf('W'), silk, Character.valueOf('B'), aquaBackpackT1 });
+						new Object[] { "WDW", "WBW", "WWW", Character.valueOf('D'), Item.diamond,
+									Character.valueOf('W'), Item.silk, Character.valueOf('B'), aquaBackpackT1 });
 			}
 
 			FuelManager.bronzeEngineFuel.put(FluidRegistry.getFluid(FluidDictionary.fish_oil), new EngineBronzeFuel(
