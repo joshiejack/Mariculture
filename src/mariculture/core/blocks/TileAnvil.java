@@ -1,18 +1,24 @@
 package mariculture.core.blocks;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import mariculture.api.core.IAnvilHandler;
+import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
+import mariculture.magic.jewelry.ItemJewelry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,14 +58,60 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		return result != null;
 	}
 	
-	public boolean workItem(ItemStack hammer) {
+	public boolean canBeRepaired(ItemStack stack) {
+		if (stack.isItemStackDamageable() && stack.isItemDamaged() && stack.getItem().isRepairable()) {
+			if (stack.getItemDamage() > 0) {
+				return true;
+			}
+		} else if (stack.getItem() instanceof ItemJewelry && stack.getItemDamage() > 0) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean workItem(EntityPlayer player, ItemStack hammer) {
 		if (hammer == null)
 			return false;
 		ItemStack stack = getStackInSlot(0);
 		if(stack == null)
 			return false;
-		if(!canBeWorked(stack))
+		if(!canBeWorked(stack)) {
+			int modifier = 1;
+			if(stack.isItemEnchanted()) {
+				LinkedHashMap<Integer, Integer> maps = (LinkedHashMap<Integer, Integer>) EnchantmentHelper.getEnchantments(stack);
+				for(Entry<Integer, Integer> i: maps.entrySet()) {
+					int total = maps.entrySet().iterator().next().getValue();
+					Enchantment enchant = Enchantment.enchantmentsList[maps.keySet().iterator().next().intValue()];
+					int bonus = (enchant.getMaxEnchantability(1) - enchant.getMinEnchantability(1));
+					modifier += (total + bonus);
+				}
+				
+				modifier /= 3;
+				modifier = (modifier >= 1)? modifier: 1;
+			}
+			
+			float drop = ((1.0F / (player.xpBarCap() * 1)) /4) * modifier;
+			if((player.experience >= drop || player.experienceLevel > 0) && canBeRepaired(stack)) {
+				stack.setItemDamage(stack.getItemDamage() - 1);
+				float experience = player.experience - drop;
+				if(experience <= 0.0F) {
+					player.experience = 1.0F;
+					player.experienceLevel -= 1;
+				} else {
+					player.experience = experience;
+				}
+		        
+				if(stack.getItemDamage() == 0)
+					worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+				else
+					worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+				return true;
+			}
+			
 			return false;
+		}
+		
 		if(!(stack.getItem() instanceof ItemWorked)) {
 			RecipeAnvil recipe = ((RecipeAnvil) recipes.get(OreDicHelper.convert(stack)));
 			setInventorySlotContents(0, createWorkedItem(recipe.output.copy(), recipe.hits));

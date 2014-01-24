@@ -125,9 +125,10 @@ public class Recipes {
 		
 		//Anvil Recipe
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.ANVIL_1), new Object[] {
-			"CCC", " B ", "BBB",
+			"CCC", " N ", "BBB",
 			'C', new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK),
-			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
+			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
+			'N', Block.netherBrick
 		});
 
 		//VAT Recipe

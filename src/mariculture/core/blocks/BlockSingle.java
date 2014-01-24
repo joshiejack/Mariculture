@@ -302,7 +302,7 @@ public class BlockSingle extends BlockMachine {
 			if(player instanceof FakePlayer)
 				return;
 			ItemStack hammer = player.getCurrentEquippedItem();
-			if (((TileAnvil)tile).workItem(hammer)) {
+			if (((TileAnvil)tile).workItem(player, hammer)) {
 				if(hammer.attemptDamageItem(1, Rand.rand))
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 			}

@@ -11,7 +11,7 @@
 * New GUIs, with Notifications for missing items, and redstone/auto-eject controls
 * New Speed, Capacitor, Salinator and Filter Upgrades
 * Retro-Gen
-* Advanced Sluice, Faster water generation, and sucks up/places in larger area
+* Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way)
 ====Changes====
 * Rewote 95% of things, should a lot less laggy
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).

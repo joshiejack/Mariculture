@@ -154,7 +154,7 @@ public class RecipeHelper {
 		if(result != null) {
 			if(!needAnvil)
 				stack.stackSize*=2;
-			addAnvilRecipe(result, stack, 25);
+			addAnvilRecipe(result, stack, 10);
 		}
 	}
 
