@@ -56,7 +56,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 		return side == dft_side;
 	}
 	
-	public boolean hasSameFishDNA(ItemStack fish1, ItemStack fish2) {
+	public static boolean hasSameFishDNA(ItemStack fish1, ItemStack fish2) {
 		if(Fishery.species.getDNA(fish1).equals(Fishery.species.getDNA(fish2)) &&
 				Fishery.species.getLowerDNA(fish1).equals(Fishery.species.getLowerDNA(fish2))) {
 			return true;
@@ -83,7 +83,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 						return i;
 				}
 				
-				if(OreDicHelper.areEqual(stack, item)) {
+				if(OreDicHelper.convert(stack).equals(OreDicHelper.convert(item))) {
 					return i;
 				}
 			}
@@ -144,6 +144,8 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 		for(int i = 0; i < input; i++) {
 			sorting.put(i, nbt.getInteger("SideSettingForSlot" + i));
 		}
+		
+		dft_side = nbt.getInteger("DefaultSide");
 	}
 
 	@Override
@@ -154,6 +156,8 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 			int val =  (sorting.containsKey(i))? sorting.get(i): 0;
 			nbt.setInteger("SideSettingForSlot" + i, val);
 		}
+		
+		nbt.setInteger("DefaultSide", dft_side);
 	}
 	
 	public int getSide(int slot) {

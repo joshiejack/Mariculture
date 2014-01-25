@@ -15,8 +15,9 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class FishSpecies {
+public abstract class FishSpecies {
 	public static ArrayList<FishSpecies> speciesList = new ArrayList();
+	private static final HashMap<String, ArrayList<FishProduct>> products = new HashMap();
 	public final int fishID;
 	private Icon theIcon;
 
@@ -28,6 +29,11 @@ public class FishSpecies {
 	// This just converts the class name to something to be used for the images. no need to touch it, unless you name your classes differently
 	public String getSpecies() {
 		return (this.getClass().getSimpleName().toLowerCase()).substring(4);
+	}
+	
+	/** Fish Products list **/
+	public ArrayList<FishProduct> getProductList() {
+		return products.get(getSpecies());
 	}
 	
 	/** The EnumFishGroup this species belongs to **/
@@ -97,10 +103,31 @@ public class FishSpecies {
 	public int getLiquifiedProductChance() {
 		return 10;
 	}
+	
+	/** Called when fish are registered **/
+	public abstract void addFishProducts();
+	
+	/** Add Products **/
+	public void addProduct(ItemStack stack, double chance) {
+		String fish = this.getSpecies();
+		ArrayList<FishProduct> list = null;
+		if(products.containsKey(fish))
+			list = products.get(fish);
+		else
+			list = new ArrayList();
+		list.add(new FishProduct(stack, chance));
+		products.put(fish, list);
+	}
 
 	/** The product the fish produces, called everytime the bubbles complete a
 	 * cycle */
 	public ItemStack getProduct(Random rand) {
+		for(FishProduct product: products.get(getSpecies())) {
+			int chance = (int) (product.chance * 10);
+			if(rand.nextInt(1000) < chance)
+				return product.product;
+		}
+		
 		return null;
 	}
 	

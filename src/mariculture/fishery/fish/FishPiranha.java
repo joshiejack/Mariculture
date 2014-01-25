@@ -40,14 +40,13 @@ public class FishPiranha extends FishSpecies {
 	public boolean isDominant() {
 		return false;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(5) == 1) {
-			return new ItemStack(Item.rottenFlesh);
-		}
-
-		return (rand.nextInt(86) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 2.5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 5D);
+		addProduct(new ItemStack(Item.rottenFlesh), 15.0D);
 	}
 
 	@Override

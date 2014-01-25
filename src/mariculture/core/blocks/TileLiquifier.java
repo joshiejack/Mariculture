@@ -12,6 +12,7 @@ import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
@@ -54,7 +55,11 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return true;
+		if(slot == liquid_in)
+			return FluidHelper.isFluidOrEmpty(stack);
+		if(slot == fuel)
+			return MaricultureHandlers.smelter.getFuelInfo(stack) != null;
+		return slot == 5 || slot == 6;
 	}
 
 	@Override

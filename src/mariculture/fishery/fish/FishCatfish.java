@@ -11,6 +11,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -40,8 +41,9 @@ public class FishCatfish extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(28) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 8.0D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 2.0D);
 	}
 	
 	@Override

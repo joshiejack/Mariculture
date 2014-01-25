@@ -284,28 +284,28 @@ public class Fishery extends Module {
 		tang = new FishTang(28);
 		clown = new FishClown(29);
 
-		Fishing.mutation.addMutation(nether, electricRay, glow, 5);
-		Fishing.mutation.addMutation(glow, nether, blaze, 10);
-		Fishing.mutation.addMutation(night, jelly, ender, 5);
-		Fishing.mutation.addMutation(ender, night, dragon, 2);
-		Fishing.mutation.addMutation(minnow, gold, salmon, 15);
-		Fishing.mutation.addMutation(salmon, minnow, bass, 20);
-		Fishing.mutation.addMutation(tetra, siamese, catfish, 10);
-		Fishing.mutation.addMutation(catfish, tetra, piranha, 5);
-		Fishing.mutation.addMutation(cod, gold, perch, 15);
-		Fishing.mutation.addMutation(perch, cod, tuna, 20);
-		Fishing.mutation.addMutation(stingRay, angel, mantaRay, 5);
-		Fishing.mutation.addMutation(mantaRay, stingRay, electricRay, 4);
-		Fishing.mutation.addMutation(damsel, squid, angel, 5);
-		Fishing.mutation.addMutation(angel, damsel, blaze, 5);
-		Fishing.mutation.addMutation(squid, tuna, jelly, 10);
-		Fishing.mutation.addMutation(jelly, squid, manOWar, 5);
-		Fishing.mutation.addMutation(minnow, cod, gold, 20);
-		Fishing.mutation.addMutation(gold, stingRay, siamese, 10);
-		Fishing.mutation.addMutation(siamese, gold, koi, 5);
-		Fishing.mutation.addMutation(angel, tetra, butterfly, 5);
-		Fishing.mutation.addMutation(butterfly, tuna, tang, 3);
-		Fishing.mutation.addMutation(tang, butterfly, clown, 2);
+		Fishing.mutation.addMutation(nether, electricRay, glow, 6D);
+		Fishing.mutation.addMutation(glow, nether, blaze, 10D);
+		Fishing.mutation.addMutation(night, jelly, ender, 8D);
+		Fishing.mutation.addMutation(ender, night, dragon, 5D);
+		Fishing.mutation.addMutation(minnow, gold, salmon, 15D);
+		Fishing.mutation.addMutation(salmon, minnow, bass, 20D);
+		Fishing.mutation.addMutation(tetra, siamese, catfish, 12D);
+		Fishing.mutation.addMutation(catfish, tetra, piranha, 8D);
+		Fishing.mutation.addMutation(cod, gold, perch, 15D);
+		Fishing.mutation.addMutation(perch, cod, tuna, 20D);
+		Fishing.mutation.addMutation(stingRay, angel, mantaRay, 8D);
+		Fishing.mutation.addMutation(mantaRay, stingRay, electricRay, 10D);
+		Fishing.mutation.addMutation(damsel, squid, angel, 7.5D);
+		Fishing.mutation.addMutation(angel, damsel, puffer, 15D);
+		Fishing.mutation.addMutation(squid, tuna, jelly, 20D);
+		Fishing.mutation.addMutation(jelly, squid, manOWar, 10D);
+		Fishing.mutation.addMutation(minnow, cod, gold, 25D);
+		Fishing.mutation.addMutation(gold, stingRay, siamese, 15D);
+		Fishing.mutation.addMutation(siamese, gold, koi, 7.5D);
+		Fishing.mutation.addMutation(angel, tetra, butterfly, 10D);
+		Fishing.mutation.addMutation(butterfly, tuna, tang, 7.5D);
+		Fishing.mutation.addMutation(tang, butterfly, clown, 5D);
 	}
 
 	@Override
@@ -478,7 +478,8 @@ public class Fishery extends Module {
 		Fishing.bait.addBait(new ItemStack(Item.bread), 25);
 		Fishing.bait.addBait(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), 90);
 		Fishing.bait.addBait(new ItemStack(Item.fishRaw), 50);
-	
+		
+		//Extra Sifter Recipes
 		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
 		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.FLUX));
 		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.FLUX));
@@ -603,6 +604,9 @@ public class Fishery extends Module {
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			if (FishSpecies.speciesList.get(i) != null) {
 				FishSpecies fish = FishSpecies.speciesList.get(i);
+				
+				fish.addFishProducts();
+				
 				ItemStack stack = new ItemStack(fishyFood, 1, fish.fishID);
 				
 				if(fish.getFishOilVolume() > 0) {

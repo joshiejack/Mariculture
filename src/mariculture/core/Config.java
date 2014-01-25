@@ -40,6 +40,7 @@ public class Config {
             Extra.ENABLE_ENDER_SPAWN = config.get(Category.EXTRA, "Enable Ender Dragon Spawning", true, Comment.ENDERDRAGON).getBoolean(true);
             Extra.DROP_JEWELRY = config.get(Category.EXTRA, "Jewelry Drops on Death", false).getBoolean(false);
             Extra.MOB_MAGNET = config.get(Category.EXTRA, "Mob Magnet Crafting Enabled", true).getBoolean(true);
+            Extra.PERCENT_NEEDED = config.get(Category.EXTRA, "Percentage Needed for Timelord Enchant", 5).getInt();
             
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "Whitelist", Extra.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
             Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "Exceptions", Extra.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();

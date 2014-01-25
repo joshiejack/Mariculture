@@ -49,7 +49,7 @@ public class Extra {
 	public static int TURBINE_RATE;
 	public static boolean OVERWORLD;
 	public static boolean MOB_MAGNET;
-	
+	public static int PERCENT_NEEDED;
 	
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 

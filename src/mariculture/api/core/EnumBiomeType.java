@@ -1,23 +1,24 @@
 package mariculture.api.core;
 
+import mariculture.api.fishery.fish.EnumSalinityType;
+
 public enum EnumBiomeType {
-	OCEAN(0, -7, 10, 6, true, false), // Ocean Biomes - Saltwater
-	NORMAL(0, -1, 1, 5, false, false), // Plains, Swamps, Forests, River - Fresh Water
-	ARID(14, 14, 28, 2, false, false), // Desert - Fresh Water
-	HOT(3, 3, 13, 3, false, false), // Jungle - Fresh Water
-	FROZEN(-14, -100, -10, 9, false, false), // Frozen River, Tundra - Fresh Water
-	HELL(28, 28, 100, 1, false, true), // The Nether - Fresh Water
-	COLD(-3, -10, -1, 8, false, false), // Mountains, Taiga - Fresh Water
-	FROZEN_OCEAN(-10, -65, -1, 10, true, false), // Frozen Ocean - Saltwater
-	MUSHROOM(0, -1, 2, 4, false, true), // Mushroom Biome - Fresh Water
-	ENDER(-28, -50, -28, 7, false, true); // The End - Fresh Water
+	OCEAN(0, -7, 10, 6, EnumSalinityType.SALT), // Ocean Biomes - Saltwater
+	NORMAL(0, -1, 1, 5, EnumSalinityType.FRESH), // Plains, Swamps, Forests, River - Fresh Water
+	ARID(14, 14, 28, 2, EnumSalinityType.FRESH), // Desert - Fresh Water
+	HOT(3, 3, 13, 3, EnumSalinityType.FRESH), // Jungle - Fresh Water
+	FROZEN(-14, -100, -10, 9, EnumSalinityType.FRESH), // Frozen River, Tundra - Fresh Water
+	HELL(28, 28, 100, 1, EnumSalinityType.MAGIC), // The Nether - Fresh Water
+	COLD(-3, -10, -1, 8, EnumSalinityType.FRESH), // Mountains, Taiga - Fresh Water
+	FROZEN_OCEAN(-10, -65, -1, 10, EnumSalinityType.SALT), // Frozen Ocean - Saltwater
+	MUSHROOM(0, -1, 2, 4, EnumSalinityType.MAGIC), // Mushroom Biome - Fresh Water
+	ENDER(-28, -50, -28, 7, EnumSalinityType.FRESH); // The End - Fresh Water
 
 	private int baseTemp;
 	private int minTemp;
 	private int maxTemp;
 	private int cooling;
-	private boolean saltWater;
-	private boolean special;
+	private EnumSalinityType salinity;
 	
 	/**
 	 * EnumBiomeType is used to determine whether fish can live in biomes and how fast machines work
@@ -28,13 +29,12 @@ public enum EnumBiomeType {
 	 * @param salt: 	Whether this biome is salt water
 	 * @param special:	Whether this biome requires the Ethereal upgrade for any fish to live in it
 	 */
-	private EnumBiomeType(int base, int min, int max, int cool, boolean salt, boolean special) {
+	private EnumBiomeType(int base, int min, int max, int cool, EnumSalinityType salinity) {
 		this.baseTemp = base;
 		this.minTemp = min;
 		this.maxTemp = max;
 		this.cooling = cool;
-		this.saltWater = salt;
-		this.special = special;
+		this.salinity = salinity;
 	}
 	
 	public int baseTemp() {
@@ -49,12 +49,8 @@ public enum EnumBiomeType {
 		return this.maxTemp;
 	}
 	
-	public boolean isSaltWater() {
-		return saltWater;
-	}
-	
-	public boolean isSpecial() {
-		return this.special;
+	public EnumSalinityType getSalinity() {
+		return this.salinity;
 	}
 	
 	public int getCoolingSpeed() {

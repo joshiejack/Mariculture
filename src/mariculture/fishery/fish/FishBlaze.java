@@ -46,14 +46,11 @@ public class FishBlaze extends FishSpecies {
 	public int getTankLevel() {
 		return 3;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(44) == 1) {
-			return new ItemStack(Item.blazePowder);
-		}
-		
-		return (rand.nextInt(15) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER) : null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 10D);
+		addProduct(new ItemStack(Item.blazePowder), 5.0D);
 	}
 
 	@Override

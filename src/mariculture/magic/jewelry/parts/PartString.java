@@ -41,4 +41,9 @@ public class PartString extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Item.silk);
 	}
+	
+	@Override
+	public int getHits(int type) {
+		return 10;
+	}
 }

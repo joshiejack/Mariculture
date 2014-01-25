@@ -37,14 +37,12 @@ public class FishJelly extends FishSpecies {
 	public boolean isDominant() {
 		return false;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(50) == 1) {
-			return new ItemStack(Item.slimeBall);
-		}
-		return (rand.nextInt(50) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON) : null;
-
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 6D);
+		addProduct(new ItemStack(Item.slimeBall), 4D);
 	}
 	
 	@Override

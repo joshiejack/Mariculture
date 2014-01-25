@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.fish.EnumSalinityType;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -47,6 +49,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 	
 	//Slot Vars
+	public static final int fluid = 3;
 	public static final int male = 5;
 	public static final int female = 6;
 	public static final int[] out = new int[] { 7, 8, 9, 10, 11, 12 };
@@ -58,7 +61,13 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return slot == male || slot == female;
+		if(slot == male)
+			return Fishing.fishHelper.isMale(stack);
+		if(slot == female)
+			return Fishing.fishHelper.isFemale(stack);
+		if(slot == fluid)
+			return FluidHelper.isFluidOrEmpty(stack);
+		return false;
 	}
 
 	@Override
@@ -87,7 +96,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		
 		
 			if(canWork) {
-				processed+=speed;
+				processed++;
 				
 				if(onTick(Extra.EFFECT_TICK) && swap) {
 					doEffect(male);
@@ -446,16 +455,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 						max = biome.maxTemp();
 					}
 					
-					if(!biome.isSpecial()) {
-						if(biome.isSaltWater())
-							needsSalt++;
-						if(!biome.isSaltWater())
-							needsFresh++;
-						if(biome.minTemp() < min)
-							min = biome.minTemp();
-						if(biome.maxTemp() > max)
-							max = biome.maxTemp();
-					} 
+					if(biome.minTemp() < min)
+						min = biome.minTemp();
+					if(biome.maxTemp() > max)
+						max = biome.maxTemp();
 				}
 				
 				int maxTemp = thisBiome.maxTemp() + heat;
@@ -471,23 +474,25 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					noBad = false;
 				}
 				
-				if(!MaricultureHandlers.upgrades.hasUpgrade("salinator", this)) {
-					if(!thisBiome.isSaltWater() && needsSalt > 0 && needsFresh < 1) {
-						tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.needsSalt"));
-						noBad = false;
-					}
+				boolean salinityMatches = false;
+				EnumSalinityType type = thisBiome.getSalinity();
+				if(MaricultureHandlers.upgrades.hasUpgrade("salinator", this))
+					type = EnumSalinityType.SALT;
+				if(MaricultureHandlers.upgrades.hasUpgrade("filter", this))
+					type = EnumSalinityType.FRESH;
+				if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", this))
+					type = EnumSalinityType.MAGIC;
+				EnumSalinityType[] types = Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getGroup().getSalinityRequired();
+				for(EnumSalinityType salt: types) {
+					if(type.equals(salt))
+						salinityMatches = true;
 				}
 				
-				if(!MaricultureHandlers.upgrades.hasUpgrade("filter", this)) {
-					if(thisBiome.isSaltWater() && needsSalt < 1 && needsFresh > 0) {
-						tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.needsFresh"));
-						noBad = false;
+				if(!salinityMatches) {
+					for(EnumSalinityType salt: types) {
+						tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.salinity." + salt.toString().toLowerCase()));
 					}
-				}
-				
-				if (!Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).canLive(this.worldObj,
-						this.xCoord, this.yCoord, this.zCoord)) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.badBiome"));
+					
 					noBad = false;
 				}
 

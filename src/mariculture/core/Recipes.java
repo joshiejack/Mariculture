@@ -41,6 +41,7 @@ public class Recipes {
 		addCraftingItems();
 		addMetalRecipes();
 		addUpgradeRecipes();
+		addAnvilRecipes();
 
 	//Items
 		//Copper Battery
@@ -206,7 +207,7 @@ public class Recipes {
 		
 		//Aluminum Sheet
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.ALUMINUM_BLOCK), 
-				new ItemStack(Core.craftingItem, 8, CraftingMeta.ALUMINUM_SHEET), 100);
+				new ItemStack(Core.craftingItem, 8, CraftingMeta.ALUMINUM_SHEET), 50);
 
 		//Heating
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), new Object[] {
@@ -247,7 +248,7 @@ public class Recipes {
 		
 		//Titanium Sheet, 500 hits in an Anvil
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), 
-				new ItemStack(Core.craftingItem, 8, CraftingMeta.TITANIUM_SHEET), 250);
+				new ItemStack(Core.craftingItem, 8, CraftingMeta.TITANIUM_SHEET), 150);
 		
 		
 		if(Extra.OVERWORLD) {
@@ -489,5 +490,11 @@ public class Recipes {
 			'C', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_RF)
 		});
+	}
+	
+	public static void addAnvilRecipes() {
+		RecipeHelper.addAnvilRecipe(new ItemStack(Item.bone), new ItemStack(Item.dyePowder, 4, Dye.BONE), 10);
+		RecipeHelper.addAnvilRecipe(new ItemStack(Block.plantRed), new ItemStack(Item.dyePowder, 3, Dye.RED), 10);
+		RecipeHelper.addAnvilRecipe(new ItemStack(Block.plantYellow), new ItemStack(Item.dyePowder, 3, Dye.YELLOW), 10);
 	}
 }

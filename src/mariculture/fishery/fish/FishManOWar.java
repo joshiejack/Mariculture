@@ -52,15 +52,12 @@ public class FishManOWar extends FishSpecies {
 	public double getFishOilVolume() {
 		return 0;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(900) == 1) {
-			return new ItemStack(Item.potion, 1, 16388);
-		}
-
-		return (rand.nextInt(60) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : null;
-
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 3D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 4.5D);
 	}
 
 	@Override

@@ -45,8 +45,9 @@ public class FishAngel extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(74) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 1.5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 2.0D);
 	}
 	
 	@Override

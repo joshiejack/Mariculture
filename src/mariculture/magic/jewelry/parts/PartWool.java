@@ -43,4 +43,9 @@ public class PartWool extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE);
 	}
+	
+	@Override
+	public int getHits(int type) {
+		return 50;
+	}
 }

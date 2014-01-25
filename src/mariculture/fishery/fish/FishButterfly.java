@@ -37,14 +37,11 @@ public class FishButterfly extends FishSpecies {
 	public boolean isDominant() {
 		return true;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(25) == 1) {
-			return new ItemStack(Item.feather);
-		}
-		
-		return (rand.nextInt(25) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER) : null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 10D);
+		addProduct(new ItemStack(Item.feather), 4D);
 	}
 
 	@Override

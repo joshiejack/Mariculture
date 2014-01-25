@@ -42,4 +42,15 @@ public class PartIron extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Item.ingotIron);
 	}
+	
+	@Override
+	public int getHits(int type) {
+		if(type == Jewelry.RING)
+			return 5;
+		if(type == Jewelry.BRACELET)
+			return 35;
+		if(type == Jewelry.NECKLACE)
+			return 40;
+		return 0;
+	}
 }

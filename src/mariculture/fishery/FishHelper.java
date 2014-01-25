@@ -7,6 +7,7 @@ import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
+import mariculture.api.fishery.fish.EnumSalinityType;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.blocks.TileFeeder;
@@ -88,14 +89,14 @@ public class FishHelper implements IFishHelper {
 			FishSpecies newSpecies = Fishing.mutation.getMutation(getSpecies(species1), getSpecies(species2));
 			if (newSpecies != null) {
 				/* Attempt to mutate the fish * */
-				if (rand.nextInt(chance) == 0) {
+				if (rand.nextInt(1000) < chance) {
 					for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
 						FishDNA.DNAParts.get(i).addDNA(fish, FishDNA.DNAParts.get(i).getDNAFromSpecies(newSpecies));
 					}
 				}
 
 				/* Attempt to mutate the fish again * */
-				if (rand.nextInt(chance) == 0) {
+				if (rand.nextInt(1000) < chance) {
 					for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
 						FishDNA.DNAParts.get(i).addLowerDNA(fish, FishDNA.DNAParts.get(i).getDNAFromSpecies(newSpecies));
 					}
@@ -117,29 +118,32 @@ public class FishHelper implements IFishHelper {
 		return fish;
 	}
 	
-	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, TileEntity tile) {
+	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile) {
 		TileFeeder feeder = (TileFeeder) tile;
 		if(feeder != null && feeder instanceof IUpgradable) {
-			boolean hasEthereal = MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile);
-			boolean isSaltWater = MaricultureHandlers.biomeType.getBiomeType(biome).isSaltWater();
-			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
-				isSaltWater = true;
-			if(MaricultureHandlers.upgrades.hasUpgrade("filter", (IUpgradable) tile))
-				isSaltWater = false;
-			
 			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getWorldChunkManager().getBiomeGenAt(tile.xCoord, tile.zCoord));
-			int temp = theBiome.baseTemp() + MaricultureHandlers.upgrades.getData("temp", (IUpgradable) tile);
+			EnumSalinityType saltType = theBiome.getSalinity();
+			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
+				saltType = EnumSalinityType.SALT;
+			if(MaricultureHandlers.upgrades.hasUpgrade("filter", (IUpgradable) tile))
+				saltType = EnumSalinityType.FRESH;
+			if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile))
+				saltType = EnumSalinityType.MAGIC;
+			boolean saltMatches = false;
+			for(EnumSalinityType salt: salinity) {
+				if(salt.equals(saltType))
+					saltMatches = true;
+			}
 			
+			if(!saltMatches)
+				return false;
+			
+			int temp = theBiome.baseTemp() + MaricultureHandlers.upgrades.getData("temp", (IUpgradable) tile);
 			for (int i = 0; i < biomeTypes.length; i++) {
 				if(biomeTypes[i] != null) {
 					EnumBiomeType type = biomeTypes[i];
-					
 					if(temp >= type.minTemp()&& temp <= type.maxTemp()) {
-						if(type.isSaltWater() == isSaltWater) {
-							if((type.isSpecial() && hasEthereal) || !type.isSpecial()) {
-								return true;
-							}
-						}
+						return true;
 					}
 				}
 			}

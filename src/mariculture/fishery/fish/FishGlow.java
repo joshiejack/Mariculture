@@ -42,12 +42,9 @@ public class FishGlow extends FishSpecies {
 	}
 
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(38) == 1) {
-			return new ItemStack(Item.glowstone);
-		}
-
-		return (rand.nextInt(15) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 7.5D);
+		addProduct(new ItemStack(Item.glowstone), 7.5D);
 	}
 	
 	@Override

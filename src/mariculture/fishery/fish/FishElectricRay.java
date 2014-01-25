@@ -12,6 +12,7 @@ import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.util.PowerHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -44,8 +45,10 @@ public class FishElectricRay extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(25) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 1D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC), 4D);
 	}
 
 	@Override

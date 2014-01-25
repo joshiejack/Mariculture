@@ -9,6 +9,7 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -38,8 +39,9 @@ public class FishMantaRay extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(111) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 2D);
 	}
 
 	@Override

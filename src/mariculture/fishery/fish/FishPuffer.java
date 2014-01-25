@@ -9,6 +9,7 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -38,8 +39,10 @@ public class FishPuffer extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(44) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 7.5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 1.5D);
 	}
 
 	@Override

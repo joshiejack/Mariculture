@@ -41,4 +41,12 @@ public class PartPearlSilver extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Core.pearls, 1, PearlColor.SILVER);
 	}
+	
+	public int getHits(int type) {
+		if(type == Jewelry.RING)
+			return 35;
+		if(type == Jewelry.BRACELET)
+			return 65;
+		return 55;
+	}
 }

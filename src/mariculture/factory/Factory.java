@@ -269,13 +269,12 @@ public class Factory extends Module {
 		
 		//Pressure Vessel
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
-			"WLW", "PTP", "MSM",
+			"WLW", "PTP", "PSP",
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET),
 			Character.valueOf('T'), new ItemStack(Core.tankBlocks, 1, TankMeta.TANK),
-			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE),
-			Character.valueOf('M'), "ingotMagnesium"
+			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE)
 		});
 		
 		//Sorter

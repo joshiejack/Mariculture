@@ -2,6 +2,7 @@ package mariculture.magic.jewelry.parts;
 
 import java.util.ArrayList;
 
+import mariculture.core.lib.Jewelry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -65,5 +66,14 @@ public class JewelryPart {
 	//Return true if this a 'special' part like for example the one ring
 	public boolean isSingle() {
 		return false;
+	}
+
+	//Number of hits this part requires in an anvil
+	public int getHits(int type) {
+		if(type == Jewelry.RING)
+			return 30;
+		if(type == Jewelry.BRACELET)
+			return 60;
+		return 50;
 	}
 }

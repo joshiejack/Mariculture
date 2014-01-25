@@ -45,12 +45,10 @@ public class FishTang extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(25) == 1) {
-			return new ItemStack(Item.dyePowder, 1, Dye.LAPIS);
-		}
-
-		return (rand.nextInt(37) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA) : null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 6.5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 4.5D);
+		addProduct(new ItemStack(Item.dyePowder, 1, Dye.LAPIS), 2.0D);
 	}
 
 	@Override

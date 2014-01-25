@@ -11,6 +11,7 @@ import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -42,8 +43,10 @@ public class FishKoi extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(225) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 3D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 4D);
 	}
 
 	@Override

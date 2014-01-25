@@ -1,9 +1,12 @@
 package mariculture.api.core;
 
+import java.util.HashMap;
+
 import net.minecraft.item.ItemStack;
 
 
 public interface IAnvilHandler {
+	public HashMap<String, RecipeAnvil> getRecipes();
 	public void addRecipe(RecipeAnvil recipe);
 	public ItemStack createWorkedItem(ItemStack stack, int hits);
 	public class RecipeAnvil {

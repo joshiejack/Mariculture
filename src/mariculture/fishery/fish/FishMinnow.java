@@ -10,6 +10,7 @@ import mariculture.api.fishery.fish.EnumFishWorkEthic;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -39,8 +40,8 @@ public class FishMinnow extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(15) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
 	}
 
 	@Override

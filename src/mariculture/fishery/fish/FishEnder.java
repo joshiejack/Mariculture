@@ -41,14 +41,11 @@ public class FishEnder extends FishSpecies {
 	public boolean isDominant() {
 		return false;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(19) == 1) {
-			return new ItemStack(Item.enderPearl);
-		}
-
-		return (rand.nextInt(43) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER), 7.5D);
+		addProduct(new ItemStack(Item.enderPearl), 5D);
 	}
 
 	@Override

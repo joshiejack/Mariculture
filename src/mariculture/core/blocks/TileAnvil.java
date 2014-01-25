@@ -2,12 +2,9 @@ package mariculture.core.blocks;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import mariculture.api.core.IAnvilHandler;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.helpers.OreDicHelper;
@@ -15,7 +12,6 @@ import mariculture.core.items.ItemWorked;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
 import mariculture.magic.jewelry.ItemJewelry;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +22,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHandler {
-	private static final Map recipes = new HashMap();
+	private static final HashMap<String, RecipeAnvil> recipes = new HashMap();
 	
 	public TileAnvil() {
 		inventory = new ItemStack[1];
@@ -166,5 +162,10 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
 	public ItemStack[] getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public HashMap<String, RecipeAnvil> getRecipes() {
+		return recipes;
 	}
 }

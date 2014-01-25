@@ -22,6 +22,7 @@ public class ItemWorked extends ItemDamageable {
 	public ItemWorked(int i) {
 		super(i, 100);
 		setNoRepair();
+		setHasSubtypes(true);
 	}
 	
 	@Override

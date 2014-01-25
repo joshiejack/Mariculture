@@ -312,7 +312,7 @@ public class RecipesSmelting {
 		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED), 825, get(FluidDictionary.quicklime, 1100));
 		
 		//1500mB QuickLime + 1 Cobble = 2 Gravel
-		RecipeHelper.addVatItemRecipe(new ItemStack(Block.cobblestone), FluidDictionary.quicklime, 1500, new ItemStack(Block.gravel, 2, 0), 10);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Block.cobblestone), FluidDictionary.quicklime, 1500, new ItemStack(Block.gravel, 3, 0), 10);
 		
 		//Salt > Molten Salt
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT), 801, get(FluidDictionary.salt, 20));

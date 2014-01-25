@@ -45,12 +45,10 @@ public class FishStingRay extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(74) == 1) {
-			return new ItemStack(Item.spiderEye);
-		}
-
-		return (rand.nextInt(56) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 2D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 4D);
+		addProduct(new ItemStack(Item.spiderEye), 3D);
 	}
 	
 	@Override
@@ -69,7 +67,7 @@ public class FishStingRay extends FishSpecies {
 	}
 
 	@Override
-	public void onConsumed(final World world, final EntityPlayer player) {
+	public void onConsumed(World world, EntityPlayer player) {
 		player.addPotionEffect(new PotionEffect(Potion.poison.id, 600, 0));
 		player.getFoodStats().addStats(2, 2F);
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);

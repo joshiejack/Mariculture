@@ -42,6 +42,7 @@ public class ItemJewelry extends Item implements IItemRegistry {
 		this.setCreativeTab(MaricultureTab.tabJewelry);
 		setNoRepair();
         canRepair = false;
+        setHasSubtypes(true);
 	}
 
 	@Override

@@ -48,8 +48,8 @@ public class FishSalmon extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(19) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
 	}
 	
 	@Override

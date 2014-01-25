@@ -29,4 +29,9 @@ public class SifterHandler implements ISifterHandler {
 	public ArrayList<RecipeSifter> getResult(ItemStack stack) {
 		return recipes.get(OreDicHelper.convert(stack));
 	}
+
+	@Override
+	public HashMap<String, ArrayList<RecipeSifter>> getRecipes() {
+		return recipes;
+	}
 }

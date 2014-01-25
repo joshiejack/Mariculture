@@ -12,6 +12,8 @@
 * New Speed, Capacitor, Salinator and Filter Upgrades
 * Retro-Gen
 * Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way)
+* NEI no longer displays the fish, (it still displays them in raw form).
+* NEI Integration for a lot of things
 ====Changes====
 * Rewote 95% of things, should a lot less laggy
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
@@ -55,6 +57,9 @@
 * You are now able to catch every single fish in the wild, however, all fish except for the starter fish will be forced dead!
 * Raw Kelp is no longer edible
 * Be careful with Pressurised Water, as well as being fast, it will damage blocks that are stone hardness or less
+* The chances with Fish Breeding are changed to make fish breeding easier
+* Timelord now has a configurable percentage required, defaults to 5% of a server
+* Salinity is now split in to three types, Salt, Water and Magic. You convert to these different types by using Salinator, Purifier or Ethereal Upgrades
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

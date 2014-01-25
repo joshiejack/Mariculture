@@ -47,4 +47,9 @@ public class PartGold extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Item.ingotGold);
 	}
+	
+	@Override
+	public int getHits(int type) {
+		return 10;
+	}
 }

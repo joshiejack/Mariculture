@@ -10,6 +10,7 @@ import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -44,8 +45,9 @@ public class FishSiamese extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(60) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 4D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 3D);
 	}
 
 	@Override

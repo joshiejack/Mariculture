@@ -39,8 +39,9 @@ public class FishTuna extends FishSpecies {
 	}
 	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		return (rand.nextInt(44) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3.5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 4D);
 	}
 
 	@Override

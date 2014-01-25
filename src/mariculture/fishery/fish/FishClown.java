@@ -42,20 +42,16 @@ public class FishClown extends FishSpecies {
 	public boolean isDominant() {
 		return false;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (Modules.world.isActive()) {
-			if (rand.nextInt(25) == 1) {
-				return new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_ORANGE);
-			}
-		} else {
-			if (rand.nextInt(25) == 1) {
-				return new ItemStack(Item.dyePowder, 1, Dye.ORANGE);
-			}
-		}
-
-		return (rand.nextInt(296) == 0) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC) : null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 2D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 2.5D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC), 1.0D);
+		addProduct(new ItemStack(Item.dyePowder, 1, Dye.ORANGE), 10.0D);
+		if(Modules.world.isActive())
+			addProduct(new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_ORANGE), 5.0D);
 	}
 
 	@Override

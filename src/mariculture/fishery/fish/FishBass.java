@@ -39,14 +39,12 @@ public class FishBass extends FishSpecies {
 	public boolean isDominant() {
 		return true;
 	}
-
+	
 	@Override
-	public ItemStack getProduct(Random rand) {
-		if (rand.nextInt(21) == 1) {
-			return new ItemStack(Item.gunpowder);
-		}
-
-		return (rand.nextInt(50) == 0)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): null;
+	public void addFishProducts() {
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 4.0D);
+		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 5.0D);
+		addProduct(new ItemStack(Item.gunpowder), 7.5D);
 	}
 	
 	@Override

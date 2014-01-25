@@ -42,4 +42,12 @@ public class EnchantHelper {
 		
 		return EnchantmentHelper.getEnchantmentLevel(enchant.effectId, stack);
 	}
+
+	public static boolean hasEnchantment(Enchantment enchant, ItemStack stack) {
+		if(!exists(enchant)) {
+			return false;
+		}
+
+		return EnchantmentHelper.getEnchantmentLevel(enchant.effectId, stack) > 0;
+	}
 }

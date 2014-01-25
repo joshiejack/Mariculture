@@ -24,7 +24,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	public Tank tank;
 	
 	public TileTankBlock() {
-		tank = new Tank(32000);
+		tank = new Tank(16000);
 	}
 
 	public float getFluidAmountScaled() {

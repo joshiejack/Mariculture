@@ -53,7 +53,7 @@ public class BlockTankItem extends ItemBlockMariculture {
 			FluidStack fluid = getFluid(stack);
 			int amount = fluid == null? 0: fluid.amount;
 			list.add(StringHelper.getFluidName(fluid));
-			list.add(""+ amount + "/32000mB");
+			list.add(""+ amount + "/16000mB");
 		}
 	}
 }

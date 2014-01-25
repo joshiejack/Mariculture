@@ -524,6 +524,10 @@ mariculture.string.doubleBottle=Holds Twice the contents of a Glass Bottle
 mariculture.string.noBound1=Not Bound to an Entity!
 mariculture.string.noBound2=Kill a Mob with this
 mariculture.string.bound=Entity bound to:
+mariculture.string.tooHot=Too Hot
+mariculture.string.salinity.magic=Prefers Ethereal Waters
+mariculture.string.salinity.salt=Prefers Salt Water
+mariculture.string.salinity.fresh=Prefers Fresh Water
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

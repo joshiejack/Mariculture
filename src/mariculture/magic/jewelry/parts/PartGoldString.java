@@ -46,4 +46,9 @@ public class PartGoldString extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK);
 	}
+	
+	@Override
+	public int getHits(int type) {
+		return 35;
+	}
 }

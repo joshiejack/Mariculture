@@ -244,15 +244,19 @@ public class Magic extends Module {
 							}
 							ItemStack input1 = JewelryPart.materialList.get(i).getItemStack();
 							ItemStack input2 = JewelryPart.materialList.get(j).getItemStack();
+							int Multiply1 = (type == Jewelry.RING)? 1: (type == Jewelry.BRACELET)? 3: 7;
+							int Multiply2 = (type == Jewelry.RING)? 7: (type == Jewelry.BRACELET)? 2: 1;
+							int frame = JewelryPart.materialList.get(i).getHits(type) * Multiply1;
+							int other = JewelryPart.materialList.get(j).getHits(type) * Multiply2;
+							int hits = frame + other;
 							if (input1 != null && input2 != null && output != null) {
-								JewelryHandler.addJewelry(output, input1, input2, type);
+								JewelryHandler.addJewelry(output, input1, input2, type, hits);
 							}
 						}
 					}
 				}
 			}
 		}
-
 	}
 
 	private void addDungeonChestLoot() {

@@ -16,7 +16,7 @@ public class ItemMagicMirror extends ItemMirror {
 		super(id, str);
 		minLevel = min;
 		maxLevel = max;
-		setMaxDamage(30);
+		setMaxDamage(0);
 		setHasSubtypes(true);
 		setNoRepair();
 	}

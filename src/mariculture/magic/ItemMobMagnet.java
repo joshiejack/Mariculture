@@ -58,7 +58,7 @@ public class ItemMobMagnet extends ItemDamageable {
 				if (i instanceof EntityLivingBase) {
 					((EntityLivingBase)i).setPositionAndUpdate(x, y, z);
 					if(stack.attemptDamageItem(1, Rand.rand))
-						return null;
+						stack.stackSize--;
 				}
 			}
 		} catch (Exception e) {
