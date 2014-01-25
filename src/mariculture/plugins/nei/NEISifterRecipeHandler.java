@@ -10,14 +10,10 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeIngotCasting;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Text;
-import mariculture.plugins.nei.NEIIngotCasterRecipeHandler.CachedCasterRecipe;
-import mariculture.plugins.nei.NEISifterRecipeHandler.CachedSifterRecipe.SifterResult;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -26,31 +22,30 @@ import org.lwjgl.opengl.GL11;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
 
 public class NEISifterRecipeHandler extends NEIBase {
+	public class SifterResult {
+		int id;
+		RecipeSifter recipe;
+		public ArrayList<PositionedStack> stacks;
+        public SifterResult(RecipeSifter recipe, int x) {
+        	this.id = x;
+        	stacks = new ArrayList<PositionedStack>();
+        	for(int i = recipe.minCount; i <= recipe.maxCount; i++) {
+        		ItemStack bait = recipe.bait.copy();
+        		bait.stackSize = i;
+        		stacks.add(new PositionedStack(bait.copy(), 70 + (x * 18), 15, false));
+        	}
+        	
+            this.recipe = recipe;
+        }
+        
+        public PositionedStack getStack() {
+        	return stacks.get((cycleticks/48) % stacks.size());
+        }
+    }
+	
 	public class CachedSifterRecipe extends CachedRecipe {
-		public class SifterResult {
-			int id;
-			RecipeSifter recipe;
-			public ArrayList<PositionedStack> stacks;
-	        public SifterResult(RecipeSifter recipe, int x) {
-	        	this.id = x;
-	        	stacks = new ArrayList<PositionedStack>();
-	        	for(int i = recipe.minCount; i <= recipe.maxCount; i++) {
-	        		ItemStack bait = recipe.bait.copy();
-	        		bait.stackSize = i;
-	        		stacks.add(new PositionedStack(bait.copy(), 70 + (x * 18), 15, false));
-	        	}
-	        	
-	            this.recipe = recipe;
-	        }
-	        
-	        public PositionedStack getStack() {
-	        	return stacks.get((cycleticks/48) % stacks.size());
-	        }
-	    }
-		
 		PositionedStack input;
 		List<SifterResult> outputs;
 
@@ -69,6 +64,7 @@ public class NEISifterRecipeHandler extends NEIBase {
 			return null;
 		}
 		
+		@Override
 		public List<PositionedStack> getOtherStacks() {
             ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
             for(SifterResult result: outputs) {

@@ -12,7 +12,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishProduct;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Text;
-import mariculture.plugins.nei.NEIFishProductHandler.CachedProductRecipe.ProductResult;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -24,21 +23,21 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 
 public class NEIFishProductHandler extends NEIBase {
+	public class ProductResult {
+		public int x, y, bump, bump2;
+		double chance;
+		public PositionedStack stack;
+        public ProductResult(ItemStack stack, int x, int y, double chance) {
+        	this.bump = x;
+        	this.bump2 = y;
+        	this.chance = chance;
+        	this.x = 93 + x * 18;
+        	this.y = 1 + y * 32;
+        	this.stack = new PositionedStack(stack, this.x, this.y);
+        }
+    }
+	
 	public class CachedProductRecipe extends CachedRecipe {
-		public class ProductResult {
-			public int x, y, bump, bump2;
-			double chance;
-			public PositionedStack stack;
-	        public ProductResult(ItemStack stack, int x, int y, double chance) {
-	        	this.bump = x;
-	        	this.bump2 = y;
-	        	this.chance = chance;
-	        	this.x = 93 + x * 18;
-	        	this.y = 1 + y * 32;
-	        	this.stack = new PositionedStack(stack, this.x, this.y);
-	        }
-	    }
-		
 		PositionedStack input;
 		List<ProductResult> outputs;
 
@@ -63,6 +62,7 @@ public class NEIFishProductHandler extends NEIBase {
 			return null;
 		}
 		
+		@Override
 		public List<PositionedStack> getOtherStacks() {
             ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
             for(ProductResult result: this.outputs) {
