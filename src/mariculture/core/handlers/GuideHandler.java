@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.Mariculture;
+import mariculture.core.ClientProxy;
 import mariculture.core.Core;
 import mariculture.core.gui.GuiGuide;
 import mariculture.core.helpers.XMLHelper;
@@ -50,20 +51,7 @@ public class GuideHandler {
 	}
 	
 	public static NodeList fetch(String xml) {
-		String lang = FMLClientHandler.instance().getCurrentLanguage();		
-		InputStream in = GuideHandler.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_" + lang + ".xml");
-		if(in == null)
-			in = Mariculture.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_en_US.xml");
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder build = factory.newDocumentBuilder();
-			Document doc = build.parse(in);
-			return doc.getElementsByTagName("page");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		return ClientProxy.getDocument(xml).getElementsByTagName("page");
 	}
 
 	public static void draw(GuiGuide gui, Node node, int x, int y, boolean left) {

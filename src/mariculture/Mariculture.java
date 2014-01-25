@@ -84,6 +84,7 @@ public class Mariculture {
 	public void postInit(FMLPostInitializationEvent event) {
 		plugins.load(Stage.POST);
 		proxy.initClient();
+		proxy.loadBooks();
 		RecipesSmelting.postAdd();
 		GuideHandler.registerIcons();
 	}

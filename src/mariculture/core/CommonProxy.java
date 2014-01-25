@@ -195,4 +195,6 @@ public class CommonProxy implements IGuiHandler {
 
 	public void initClient() {
 	}
+
+	public void loadBooks() {}
 }

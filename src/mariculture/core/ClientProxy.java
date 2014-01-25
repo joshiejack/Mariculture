@@ -1,5 +1,14 @@
 package mariculture.core;
 
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+import tconstruct.TConstruct;
 import mariculture.Mariculture;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
@@ -52,6 +61,7 @@ import mariculture.transport.render.RenderSpeedBoatItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -132,5 +142,56 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpeedBoat.class, new RenderSpeedBoat());
 			MinecraftForgeClient.registerItemRenderer(Transport.speedBoat.itemID, new RenderSpeedBoatItem());
 		}
+	}
+	
+	public static Document breeding;
+	public static Document diving;
+	public static Document enchants;
+	public static Document fishing;
+	public static Document machines;
+	public static Document processing;
+	
+	@Override
+	public void loadBooks() {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		breeding = loadGuide("breeding", factory);
+        diving = loadGuide("diving", factory);
+        enchants = loadGuide("enchants", factory);
+        fishing = loadGuide("fishing", factory);
+        machines = loadGuide("machines", factory);
+        processing = loadGuide("processing", factory);
+	}
+	
+	private Document loadGuide (String location, DocumentBuilderFactory factory) {
+        try {
+        	String lang = FMLClientHandler.instance().getCurrentLanguage();
+            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + location + "_" + lang + ".xml");
+            if(stream == null)
+            	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + location + "_en_US.xml");
+            DocumentBuilder dBuilder = factory.newDocumentBuilder();
+            Document doc = dBuilder.parse(stream);
+            doc.getDocumentElement().normalize();
+            return doc;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+	public static Document getDocument(String xml) {
+		if(xml.equals("breeding"))
+			return breeding;
+		if(xml.equals("diving"))
+			return diving;
+		if(xml.equals("enchants"))
+			return enchants;
+		if(xml.equals("fishing"))
+			return fishing;
+		if(xml.equals("machines"))
+			return machines;
+		if(xml.equals("processing"))
+			return processing;
+		return null;
 	}
 }
