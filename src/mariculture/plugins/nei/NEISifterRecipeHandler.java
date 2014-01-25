@@ -40,7 +40,7 @@ public class NEISifterRecipeHandler extends NEIBase {
 	        	for(int i = recipe.minCount; i <= recipe.maxCount; i++) {
 	        		ItemStack bait = recipe.bait.copy();
 	        		bait.stackSize = i;
-	        		stacks.add(new PositionedStack(bait, 70 + (x * 18), 15, false));
+	        		stacks.add(new PositionedStack(bait.copy(), 70 + (x * 18), 15, false));
 	        	}
 	        	
 	            this.recipe = recipe;

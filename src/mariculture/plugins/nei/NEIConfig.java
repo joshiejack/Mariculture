@@ -37,7 +37,6 @@ public class NEIConfig implements IConfigureNEI {
 		API.registerUsageHandler(new NEIFishBreedingMutationHandler());
 		API.registerRecipeHandler(new NEIFishProductHandler());
 		API.registerUsageHandler(new NEIFishProductHandler());
-		API.hideItem(Fishery.fishy.itemID);
 		
 		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData().clone();
 		for(FluidContainerData container: data) {

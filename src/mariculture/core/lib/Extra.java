@@ -50,11 +50,4 @@ public class Extra {
 	public static boolean OVERWORLD;
 	public static boolean MOB_MAGNET;
 	public static int PERCENT_NEEDED;
-	
-	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
-		"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 
-		"oreBauxite: oreAluminum", "oreBauxite: oreNaturalAluminum", "oreTitanium: oreRutile"};
-	
-	public static final String[] WHITELIST_DEFAULT = new String[] { "ore", "ingot", "block", "nugget", "dust", "gem", 
-		"dyeRed", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange" };
 }

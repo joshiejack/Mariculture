@@ -12,7 +12,6 @@
 * New Speed, Capacitor, Salinator and Filter Upgrades
 * Retro-Gen
 * Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way)
-* NEI no longer displays the fish, (it still displays them in raw form).
 * NEI Integration for a lot of things
 ====Changes====
 * Rewote 95% of things, should a lot less laggy
@@ -71,6 +70,7 @@
 * Options to Disable the forcing of KelpForests/CoralReefs to only gen in those biomes with BOP
 * Limestone chance mechanisms changed, instead of only ever having a possiblity to generate once per chunk, you now define how many times it will try to find a place it can generate
 * Rennamed bait.xml to sifter.xml (to force the changes, otherwise some of the existing items would have terrible values)
+* Autodictionary config options to use whitelist instead of blacklist(blacklist is default)
 ====API Changes====
 * IItemUpgrade additional items
 * Added Dual Smelting

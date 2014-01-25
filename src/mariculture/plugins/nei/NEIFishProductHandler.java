@@ -48,7 +48,7 @@ public class NEIFishProductHandler extends NEIBase {
 			int x = 0;
 			int y = 0;
 			for(FishProduct fish: outputs) {
-				this.outputs.add(new ProductResult(fish.product, x, y, fish.chance));
+				this.outputs.add(new ProductResult(fish.product.copy(), x, y, fish.chance));
 				if(x == 2) {
 					x = 0;
 					y = 1;

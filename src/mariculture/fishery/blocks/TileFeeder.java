@@ -100,8 +100,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 				
 				if(onTick(Extra.EFFECT_TICK) && swap) {
 					doEffect(male);
+					swap = !swap;
 				} else if(onTick(Extra.EFFECT_TICK) && !swap) {
 					doEffect(female);
+					swap = !swap;
 				}
 				
 				if(processed >= max) {
@@ -313,6 +315,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	
 	private void makeProduct(int slot) {
 		//Be more productive!
+		if(inventory[slot] == null)
+			return;
 		for (int i = 0; i < Fishery.production.getDNA(inventory[slot]); i++) {
 			ItemStack fish = inventory[slot];
 			if (fish != null && fish.hasTagCompound()) {

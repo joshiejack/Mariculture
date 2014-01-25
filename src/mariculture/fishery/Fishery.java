@@ -496,24 +496,13 @@ public class Fishery extends Module {
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 1, 
 				FluidRegistry.getFluidStack("water", FluidContainerRegistry.BUCKET_VOLUME));
 		
-		// Bucket + Droplets to Water Bucket
-		GameRegistry.addShapelessRecipe(new ItemStack(Item.bucketWater), new Object[] {
-			new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER),
-			new ItemStack(Item.bucketEmpty) });
-		
-		// Droplet + Water to Water Bottle
-		GameRegistry.addShapelessRecipe(new ItemStack(Item.potion), new Object[] {
-				new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER),
-				new ItemStack(Item.glassBottle) });
-
-		
 		// Aqua Droplet to Pressurised Water
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 1, 
-				FluidRegistry.getFluidStack(FluidDictionary.hp_water, FluidContainerRegistry.BUCKET_VOLUME / 10));
+				FluidRegistry.getFluidStack(FluidDictionary.hp_water, FluidContainerRegistry.BUCKET_VOLUME / 4));
 
 		// Nether Droplet to Lava in Liquifier Only
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 1000, 
-				FluidRegistry.getFluidStack("lava", FluidContainerRegistry.BUCKET_VOLUME / 20));
+				FluidRegistry.getFluidStack("lava", FluidContainerRegistry.BUCKET_VOLUME / 10));
 
 		// Ender Droplet to Ender Pearl
 		GameRegistry.addRecipe(new ItemStack(Item.enderPearl), new Object[] { "DDD", "DDD", "DDD", 

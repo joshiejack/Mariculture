@@ -32,8 +32,8 @@ public class NEIIngotCasterRecipeHandler extends NEIBase {
 		PositionedStack output;
 
 		public CachedCasterRecipe(FluidStack fluid, ItemStack output) {
-			this.fluid = fluid;
-			this.output = new PositionedStack(output, 119, 25);
+			this.fluid = fluid.copy();
+			this.output = new PositionedStack(output.copy(), 119, 25);
 		}
 
 		@Override

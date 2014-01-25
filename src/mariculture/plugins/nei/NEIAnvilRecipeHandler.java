@@ -45,8 +45,8 @@ public class NEIAnvilRecipeHandler extends NEIBase {
 
 		public CachedAnvilRecipe(ItemStack input, ItemStack output, int hits) {
 			this.hits = hits;
-			this.input = new PositionedStack(input, 62, 12);
-			this.output = new PositionedStack(output, 128, 11);
+			this.input = new PositionedStack(input.copy(), 62, 12);
+			this.output = new PositionedStack(output.copy(), 128, 11);
 		}
 
 		@Override

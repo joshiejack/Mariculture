@@ -48,11 +48,11 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		PositionedStack output;
 		
 		public CachedLiquifierRecipe(RecipeSmelter recipe) {
-			this.input1 = new PositionedStack(recipe.input, 24, 6);
+			this.input1 = new PositionedStack(recipe.input.copy(), 24, 6);
 			if(recipe.input2 != null)
-				this.input2 = new PositionedStack(recipe.input2, 42, 6);
+				this.input2 = new PositionedStack(recipe.input2.copy(), 42, 6);
 			if(recipe.output != null)
-				this.output = new PositionedStack(recipe.output, 140, 25);
+				this.output = new PositionedStack(recipe.output.copy(), 140, 25);
 			this.recipe = recipe;
         }
 		

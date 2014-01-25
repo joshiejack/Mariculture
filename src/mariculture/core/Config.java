@@ -42,8 +42,10 @@ public class Config {
             Extra.MOB_MAGNET = config.get(Category.EXTRA, "Mob Magnet Crafting Enabled", true).getBoolean(true);
             Extra.PERCENT_NEEDED = config.get(Category.EXTRA, "Percentage Needed for Timelord Enchant", 5).getInt();
             
-            Compatibility.WHITELIST = config.get(Category.DICTIONARY, "Whitelist", Extra.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
-            Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "Exceptions", Extra.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
+            Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
+            Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
+            Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
+            Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "AutoDictionary > Exceptions", Compatibility.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Mariculture had a problem loading the other settings");
         } finally {

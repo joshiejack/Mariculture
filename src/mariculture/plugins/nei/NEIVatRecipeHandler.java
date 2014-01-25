@@ -46,9 +46,9 @@ public class NEIVatRecipeHandler extends NEIBase {
 
 		public CachedVatRecipe(RecipeVat recipe) {
 			if (recipe.inputItem != null)
-				this.input = new PositionedStack(recipe.inputItem, 28, 17);
+				this.input = new PositionedStack(recipe.inputItem.copy(), 28, 17);
 			if (recipe.outputItem != null)
-				this.output = new PositionedStack(recipe.outputItem, 121, 17);
+				this.output = new PositionedStack(recipe.outputItem.copy(), 121, 17);
 			this.recipe = recipe;
 		}
 

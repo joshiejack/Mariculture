@@ -125,7 +125,7 @@ public abstract class FishSpecies {
 		for(FishProduct product: products.get(getSpecies())) {
 			int chance = (int) (product.chance * 10);
 			if(rand.nextInt(1000) < chance)
-				return product.product;
+				return product.product.copy();
 		}
 		
 		return null;
@@ -174,7 +174,7 @@ public abstract class FishSpecies {
 	 * @param yCoordinate of FishFeeder
 	 * @param zCoordinate of FishFeeder **/
 	public boolean canLive(World world, int x, int y, int z) {
-		return getGroup().canLive(world, x, y, z);
+		return isWorldCorrect(world) && getGroup().canLive(world, x, y, z);
 	}
 
 	/** This is called when a player attempts to eat the raw fish

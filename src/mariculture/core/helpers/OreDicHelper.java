@@ -14,10 +14,22 @@ public class OreDicHelper {
 	public static boolean isWhitelisted(ItemStack stack) {
 		if(isInDictionary(stack)) {
 			String ore = getDictionaryName(stack);
-			for (int j = 0; j < Compatibility.WHITELIST.length; j++) {
-				if(ore.startsWith(Compatibility.WHITELIST[j])) {
-					return true;
+			if(Compatibility.ENABLE_WHITELIST) {
+				for (int j = 0; j < Compatibility.WHITELIST.length; j++) {
+					if(ore.startsWith(Compatibility.WHITELIST[j])) {
+						return true;
+					}
 				}
+				
+				return false;
+			} else {
+				for(int j = 0; j < Compatibility.BLACKLIST.length; j++) {
+					if(ore.equals(Compatibility.BLACKLIST[j])) {
+						return false;
+					}
+				}
+				
+				return true;
 			}
 		}
 

@@ -88,10 +88,11 @@ public class FluidHelper {
 			int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
 			if(fill > 0) {
 				tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
+				return new ItemStack(Core.airBlocks);
 			}
 		}
 
-		return new ItemStack(Core.airBlocks);
+		return null;
 	}
 	
 	public static ItemStack getEmptyContainerForFilledItem(ItemStack filledContainer) {
