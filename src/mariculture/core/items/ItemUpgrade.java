@@ -1,8 +1,8 @@
 package mariculture.core.items;
 
+import mariculture.Mariculture;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
 import net.minecraft.client.renderer.texture.IconRegister;

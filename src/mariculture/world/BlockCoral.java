@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CoralMeta;

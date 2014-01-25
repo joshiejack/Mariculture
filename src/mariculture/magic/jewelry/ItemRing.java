@@ -1,6 +1,6 @@
 package mariculture.magic.jewelry;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.lib.Jewelry;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;

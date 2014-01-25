@@ -1,8 +1,8 @@
 package mariculture.diving;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;

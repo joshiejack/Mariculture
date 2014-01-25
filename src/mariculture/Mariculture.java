@@ -1,8 +1,11 @@
-package mariculture.core;
+package mariculture;
 
 import java.io.File;
 
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.CommonProxy;
+import mariculture.core.Config;
+import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.GuideHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;

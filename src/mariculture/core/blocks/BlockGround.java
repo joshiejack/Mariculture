@@ -4,7 +4,7 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.SingleMeta;

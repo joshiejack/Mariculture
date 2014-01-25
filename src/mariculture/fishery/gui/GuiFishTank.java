@@ -1,6 +1,6 @@
 package mariculture.fishery.gui;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.helpers.KeyHelper;

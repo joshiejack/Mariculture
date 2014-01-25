@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasClickableButton;

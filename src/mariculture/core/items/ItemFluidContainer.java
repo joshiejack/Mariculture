@@ -2,8 +2,8 @@ package mariculture.core.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;

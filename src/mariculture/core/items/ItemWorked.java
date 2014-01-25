@@ -4,10 +4,10 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;

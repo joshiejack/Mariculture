@@ -1,9 +1,9 @@
 package mariculture.factory;
 
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.BlockIds;

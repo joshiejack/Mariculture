@@ -2,10 +2,10 @@ package mariculture.fishery.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Mariculture;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;

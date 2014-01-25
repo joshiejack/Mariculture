@@ -2,7 +2,7 @@ package mariculture.core.gui;
 
 import java.util.HashMap;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.handlers.GuideHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -57,6 +57,7 @@ public class GuiGuide extends GuiScreen {
 	}
 
 	public GuiGuide(int hex, String xml) {
+		System.out.println(xml);
 		this.hex = hex;
 		this.xml = xml;
 		if(lastPage.containsKey(xml))

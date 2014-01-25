@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Text;
 import mariculture.plugins.nei.NEIIngotCasterRecipeHandler.CachedCasterRecipe;

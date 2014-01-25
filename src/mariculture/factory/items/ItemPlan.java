@@ -2,8 +2,8 @@ package mariculture.factory.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.core.Mariculture;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.client.renderer.texture.IconRegister;

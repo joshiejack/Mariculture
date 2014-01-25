@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import mariculture.Mariculture;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;

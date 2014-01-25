@@ -2,10 +2,10 @@ package mariculture.core.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;

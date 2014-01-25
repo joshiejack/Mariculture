@@ -16,9 +16,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.XMLHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.fishery.Fishery;

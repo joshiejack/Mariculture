@@ -3,7 +3,7 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import cofh.api.energy.IEnergyContainerItem;
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;

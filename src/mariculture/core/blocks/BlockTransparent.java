@@ -1,7 +1,7 @@
 package mariculture.core.blocks;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.core.Mariculture;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.lib.GlassMeta;
 import net.minecraft.block.material.Material;

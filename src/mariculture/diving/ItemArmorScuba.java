@@ -4,10 +4,10 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Text;

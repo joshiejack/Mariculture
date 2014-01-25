@@ -3,10 +3,10 @@ package mariculture.core.items;
 import java.util.HashMap;
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.StringHelper;

@@ -1,6 +1,6 @@
 package mariculture.core.gui;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.lib.Extra;
 import net.minecraft.client.gui.inventory.GuiContainer;

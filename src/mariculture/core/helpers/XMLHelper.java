@@ -16,7 +16,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.plugins.compatibility.CompatBait;
 
 import org.w3c.dom.Attr;

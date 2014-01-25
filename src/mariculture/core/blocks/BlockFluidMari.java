@@ -2,8 +2,8 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.util.Rand;

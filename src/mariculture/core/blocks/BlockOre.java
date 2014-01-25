@@ -2,7 +2,7 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import net.minecraft.block.material.Material;

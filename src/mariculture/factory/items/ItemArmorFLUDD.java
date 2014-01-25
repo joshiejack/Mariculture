@@ -2,10 +2,10 @@ package mariculture.factory.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.factory.render.ModelFLUDD;

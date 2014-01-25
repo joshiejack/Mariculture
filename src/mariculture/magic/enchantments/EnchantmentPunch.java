@@ -1,7 +1,7 @@
 package mariculture.magic.enchantments;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.ItemJewelry;

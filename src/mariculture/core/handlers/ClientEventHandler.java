@@ -2,7 +2,7 @@ package mariculture.core.handlers;
 
 import org.lwjgl.opengl.GL11;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;

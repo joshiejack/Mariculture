@@ -2,9 +2,9 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;

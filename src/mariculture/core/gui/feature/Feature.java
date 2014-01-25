@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 

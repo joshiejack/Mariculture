@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;

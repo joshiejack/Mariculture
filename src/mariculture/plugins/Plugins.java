@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import mariculture.core.Mariculture.Stage;
+import mariculture.Mariculture.Stage;
 import mariculture.core.handlers.LogHandler;
 import cpw.mods.fml.common.Loader;
 

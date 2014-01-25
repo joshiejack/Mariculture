@@ -2,6 +2,7 @@ package mariculture.fishery;
 
 import java.util.Arrays;
 
+import mariculture.Mariculture;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
@@ -11,7 +12,6 @@ import mariculture.api.fishery.RecipeSifter;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;

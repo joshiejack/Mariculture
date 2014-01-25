@@ -13,10 +13,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;

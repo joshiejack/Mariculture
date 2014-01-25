@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<chapter title="Introduction">
+<book>
     <page>
         <heading>Introduction</heading>
         <text>There are a few different blocks that you are going to need in order to craft various different things throughout Mariculture. In order to get started however, the first thing you will need to make is a Vat. This will allow you to make burnt bricks, which is what is needed to craft the other components for ore processing, crafting or otherwise.</text>
@@ -11,4 +11,4 @@
             <craftNum>1</craftNum>
         </crafting>
     </page>
-</chapter>
+</book>

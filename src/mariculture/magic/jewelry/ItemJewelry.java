@@ -3,10 +3,10 @@ package mariculture.magic.jewelry;
 import java.awt.RenderingHints.Key;
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.lib.Jewelry;

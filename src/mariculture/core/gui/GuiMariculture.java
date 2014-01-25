@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.helpers.BlockHelper;
 import net.minecraft.client.gui.FontRenderer;

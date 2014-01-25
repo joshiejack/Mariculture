@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
-import mariculture.core.Mariculture;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.StringHelper;

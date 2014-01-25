@@ -1,7 +1,7 @@
 package mariculture.magic;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.MirrorHelper;

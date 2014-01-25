@@ -3,8 +3,8 @@ package mariculture.plugins;
 import java.util.Arrays;
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.ItemIds;

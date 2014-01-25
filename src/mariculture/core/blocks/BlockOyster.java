@@ -5,10 +5,10 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mariculture.Mariculture;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;

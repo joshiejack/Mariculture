@@ -2,9 +2,9 @@ package mariculture.core.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IconRegister;

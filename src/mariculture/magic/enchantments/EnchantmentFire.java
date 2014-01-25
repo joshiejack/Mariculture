@@ -2,8 +2,8 @@ package mariculture.magic.enchantments;
 
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.magic.Magic;

@@ -2,10 +2,10 @@ package mariculture.fishery.items;
 
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.ItemBaseRod;
-import mariculture.core.Mariculture;
 import mariculture.core.items.ItemBattery;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;

@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<page>
-    <heading>Introduction</heading>
-    <text>Fish Breeding, while it may seem complicated at first, is a very simple thing!</text>
-</page>
+<book>
+    <page>
+        <heading>Introduction</heading>
+        <text>Fish Breeding, while it may seem complicated at first, is a very simple thing!</text>
+    </page>
+</book>

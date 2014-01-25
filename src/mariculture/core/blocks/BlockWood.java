@@ -2,7 +2,7 @@ package mariculture.core.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import mariculture.core.lib.Modules;

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.gui.GuiGuide;
 import mariculture.core.helpers.XMLHelper;
 import mariculture.core.helpers.cofh.StringHelper;
@@ -53,7 +53,7 @@ public class GuideHandler {
 		String lang = FMLClientHandler.instance().getCurrentLanguage();		
 		InputStream in = GuideHandler.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_" + lang + ".xml");
 		if(in == null)
-			in = GuideHandler.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_en_US.xml");
+			in = Mariculture.class.getClass().getResourceAsStream("/assets/mariculture/xml/" + xml + "_en_US.xml");
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder build = factory.newDocumentBuilder();

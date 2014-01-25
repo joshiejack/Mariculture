@@ -3,9 +3,9 @@ package mariculture.core.blocks;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.block.material.Material;

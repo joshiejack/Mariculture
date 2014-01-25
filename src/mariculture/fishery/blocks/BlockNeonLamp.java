@@ -3,8 +3,8 @@ package mariculture.fishery.blocks;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockDecorative;
 import mariculture.core.lib.PearlColor;
 import mariculture.fishery.Fishery;

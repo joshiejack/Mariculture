@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<page>
-    <heading>Introduction</heading>
-    <text>There are various different machines that can help out with certain problems.</text>
-</page>
+<book>
+    <page>
+        <heading>Introduction</heading>
+        <text>There are various different machines that can help out with certain problems.</text>
+    </page>
+</book>

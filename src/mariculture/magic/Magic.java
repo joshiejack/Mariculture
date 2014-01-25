@@ -189,7 +189,7 @@ public class Magic extends Module {
 	@Override
 	public void addRecipes() {
 		//Enchant Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.ENCHANTMENTS), new Object[] {
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.ENCHANTS), new Object[] {
 			Item.book, new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
 		});
 		

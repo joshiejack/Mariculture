@@ -2,7 +2,7 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.blocks.BlockMachine;
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.block.Block;

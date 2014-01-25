@@ -1,8 +1,8 @@
 package mariculture.transport;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;

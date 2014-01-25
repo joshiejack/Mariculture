@@ -7,10 +7,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishProduct;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.Text;
 import mariculture.plugins.nei.NEIFishProductHandler.CachedProductRecipe.ProductResult;
 import net.minecraft.client.Minecraft;

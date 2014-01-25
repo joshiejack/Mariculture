@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Mariculture;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.Text;
 import mariculture.factory.blocks.TileFishSorter;

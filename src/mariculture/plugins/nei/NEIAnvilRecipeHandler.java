@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import mariculture.Mariculture;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Mariculture;
 import mariculture.core.lib.Modules;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.OreDicHelper;

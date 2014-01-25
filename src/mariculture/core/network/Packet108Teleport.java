@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
 import net.minecraft.entity.player.EntityPlayer;

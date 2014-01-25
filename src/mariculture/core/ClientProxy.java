@@ -1,5 +1,6 @@
 package mariculture.core;
 
+import mariculture.Mariculture;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileOyster;

@@ -4,9 +4,9 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Mariculture;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;

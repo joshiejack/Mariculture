@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.handlers.KeyBindingHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.KeyHelper;

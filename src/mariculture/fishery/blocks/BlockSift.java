@@ -3,10 +3,10 @@ package mariculture.fishery.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
-import mariculture.core.Mariculture;
 import mariculture.core.blocks.BlockMachine;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;

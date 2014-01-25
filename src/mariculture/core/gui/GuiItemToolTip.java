@@ -2,7 +2,7 @@ package mariculture.core.gui;
 
 import java.util.List;
 
-import mariculture.core.Mariculture;
+import mariculture.Mariculture;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.lib.GuiIds;
 import net.minecraft.client.gui.Gui;

@@ -1,7 +1,7 @@
 package mariculture.core.items;
 
+import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.core.Mariculture;
 import mariculture.core.gui.GuiGuide;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.GuideMeta;
@@ -27,7 +27,7 @@ public class ItemGuide extends ItemMariculture {
 			return "breeding";
 		case GuideMeta.DIVING:
 			return "diving";
-		case GuideMeta.ENCHANTMENTS:
+		case GuideMeta.ENCHANTS:
 			return "enchants";
 		case GuideMeta.MACHINES:
 			return "machines";
@@ -48,7 +48,7 @@ public class ItemGuide extends ItemMariculture {
 			return new GuiGuide(0x1C1B1B, "processing");
 		case GuideMeta.MACHINES:
 			return new GuiGuide(0x333333, "machines");
-		case GuideMeta.ENCHANTMENTS:
+		case GuideMeta.ENCHANTS:
 			return new GuiGuide(0xA64DFF, "enchants");
 		case GuideMeta.DIVING:
 			return new GuiGuide(0x000066, "diving");
@@ -75,7 +75,7 @@ public class ItemGuide extends ItemMariculture {
 			return Modules.factory.isActive();
 		case GuideMeta.BREEDING:
 			return Modules.fishery.isActive();
-		case GuideMeta.ENCHANTMENTS:
+		case GuideMeta.ENCHANTS:
 			return Modules.magic.isActive();
 		case GuideMeta.DIVING:
 			return Modules.diving.isActive();
