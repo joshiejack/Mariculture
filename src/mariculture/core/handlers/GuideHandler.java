@@ -83,8 +83,10 @@ public class GuideHandler {
 	}
 
 	private static void parseCrafting(XMLHelper xml, GuiGuide gui, int x, int y) {
-		x+=xml.getAttribInt("x");
-		y+=xml.getAttribInt("y");
+		GL11.glPushMatrix();
+		GL11.glScalef(1.5F, 1.5F, 1.5F);
+		x+=xml.getAttribInt("x") - 55;
+		y+=xml.getAttribInt("y") - 40;
 		String line1 = xml.getElementString("craft1");
 		String line2 = xml.getElementString("craft2");
 		String line3 = xml.getElementString("craft3");
@@ -109,6 +111,7 @@ public class GuideHandler {
 			gui.getMC().fontRenderer.drawString("x" + number, x + 67, y + 36, 4210752);
 		else
 			gui.getMC().fontRenderer.drawString("x" + number, x + 63, y + 36, 4210752);
+		GL11.glPopMatrix();
 	}
 	
 	private static void parseTextPage(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
@@ -118,8 +121,12 @@ public class GuideHandler {
 		int boost = (left)? 80: 20;
 		font.drawString(StringHelper.BOLD + heading, x + boost, y, 4210752);
 
+		GL11.glPushMatrix();
 		String text = xml.getElementString("text");	
-		font.drawSplitString(text, x, y + 14, 180, 4210752);
+		GL11.glScalef(0.85F, 0.85F, 0.85F);
+		int xBoost = (left)? 10: 40;
+		font.drawSplitString(text, x + xBoost, y + 16, 210, 4210752);
+		GL11.glPopMatrix();
 	}
 	
 	private static void drawItemStack(GuiGuide gui, ItemStack stack, int x, int y) {

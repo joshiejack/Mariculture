@@ -512,6 +512,14 @@ public class Fishery extends Module {
 		GameRegistry.addRecipe(new ItemStack(Block.tnt), new Object[] { "DS ", "SD ", 
 				Character.valueOf('D'), new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 
 				Character.valueOf('S'), Block.sand });
+		
+		for(String str: FluidRegistry.getRegisteredFluids().keySet()) {
+			System.out.println(str);
+		}
+		
+		if(FluidRegistry.getFluid("life essence") != null) {
+			RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 100, FluidRegistry.getFluidStack("life essence", 250));
+		}
 	}
 	
 	private void addFishRecipes() {

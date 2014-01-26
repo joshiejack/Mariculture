@@ -43,7 +43,7 @@ public class EnchantmentHealth extends EnchantmentJewelry {
 
 	public static void activate(EntityPlayer player) {
 		int max = EnchantHelper.getEnchantStrength(Magic.health, player);
-		int maxRestored = max * 6;
+		int maxRestored = max * 3;
 		
 		if (maxRestored > player.getMaxHealth()) {
 			maxRestored = (int) player.getMaxHealth();

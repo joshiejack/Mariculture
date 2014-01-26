@@ -42,6 +42,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 		super(i);
 		this.capacity = capacity;
 		setCreativeTab(MaricultureTab.tabMariculture);
+		setMaxStackSize(1);
 	}
 	
 	@Override
