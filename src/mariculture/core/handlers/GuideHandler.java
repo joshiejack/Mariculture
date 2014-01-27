@@ -1,15 +1,10 @@
 package mariculture.core.handlers;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -18,6 +13,10 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.ClientProxy;
 import mariculture.core.Core;
 import mariculture.core.gui.GuiGuide;
+import mariculture.core.guide.PageCrafting;
+import mariculture.core.guide.PageImage;
+import mariculture.core.guide.PageParagraph;
+import mariculture.core.guide.PageParser;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.XMLHelper;
 import mariculture.core.helpers.cofh.StringHelper;
@@ -81,7 +80,15 @@ public class GuideHandler {
 		metaCycling.add(new LinkedMeta(key, max));
 	}
 	
-	public static void registerIcons() {		
+	public static void init() {		
+		registerIcons();
+		
+		PageParser.parsers.put("crafting", new PageCrafting());
+		PageParser.parsers.put("paragraph", new PageParagraph());
+		PageParser.parsers.put("img", new PageImage());
+	}
+	
+	public static void registerIcons() {
 		/** Rotatables **/
 		registerCyclingMetaIcon("wool", new ItemStack(Core.pearls, 1, PearlColor.COUNT), 16);
 		registerCyclingMetaIcon("pearl", new ItemStack(Core.pearls, 1, PearlColor.COUNT), PearlColor.COUNT);
@@ -205,6 +212,31 @@ public class GuideHandler {
 	public static void draw(GuiGuide gui, Node node, int x, int y, boolean left) {
 		if(node == null)
 			return;
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			Element e = (Element) node;
+			for (Entry<String, PageParser> page : PageParser.parsers.entrySet()) {
+				if(e.getElementsByTagName(page.getKey()) != null) {
+					NodeList list = e.getElementsByTagName(page.getKey());
+					for(int i = 0; i < list.getLength(); i++) {
+						Node n = list.item(i);
+						if(n.getNodeType() == Node.ELEMENT_NODE) {
+							PageParser parser = page.getValue();
+							parser.init(gui, left, x, y);
+							parser.read(new XMLHelper((Element) n));
+							GL11.glPushMatrix();
+							GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+							parser.parse();
+							GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+							GL11.glPopMatrix();
+						}
+					}
+					
+				}
+			}
+		}
+		
+		/*if(node == null)
+			return;
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 			XMLHelper xml = new XMLHelper((Element) node);
 			if(xml.e.getElementsByTagName("paragraph") != null)
@@ -215,7 +247,9 @@ public class GuideHandler {
 				parseImgPage(xml, gui, x, y, left);
 			if(xml.e.getElementsByTagName("stack") != null)
 				parseStackPage(xml, gui, x, y, left);
-		}
+			if(xml.e.getElementsByTagName("vat") != null)
+				parseVatPage(xml, gui, x, y, left);
+		} */
 	}
 
 	private static void parseImgPage(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
@@ -229,13 +263,13 @@ public class GuideHandler {
 		}
 	}
 	
-	private static void parseCraftingPage(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
+	private static void parseVatPage(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
 		Element e = xml.e;
 		NodeList list = e.getElementsByTagName("crafting");
 		for(int i = 0; i < list.getLength(); i++) {
 			Node node = list.item(i);
 			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				parseCrafting(new XMLHelper((Element) node), gui, x, y, left);
+				parseVat(new XMLHelper((Element) node), gui, x, y, left);
 			}
 		}
 	}
@@ -262,6 +296,10 @@ public class GuideHandler {
 		}
 	}
 	
+	private static void parseVat(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
+		
+	}
+	
 	private static void parseImg(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
 		ResourceLocation src = new ResourceLocation("books" + ":" + xml.getAttribString("src") + ".png");
 		float size =  xml.getHSize("size");
@@ -276,45 +314,6 @@ public class GuideHandler {
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
 		GL11.glScalef(size, size, size);
 		gui.drawTexturedModalRect(xPos, y, 0, 0, width, height);
-		GL11.glPopMatrix();
-	}
-
-	private static void parseCrafting(XMLHelper xml, GuiGuide gui, int x, int y, boolean left) {
-		x += xml.getOffset("x");
-		y += xml.getOffset("y");
-		float size =  xml.getCSize("size");
-		x = x + ((left)? -8: 34);
-		int cXPos = (int) ((x / size) * 1F);
-		
-		
-		String line1 = xml.getElementString("craft1");
-		String line2 = xml.getElementString("craft2");
-		String line3 = xml.getElementString("craft3");
-		String output = xml.getElementString("craftResult");
-		int number = xml.getElementInt("craftNum");
-		
-		String [] craft1 = line1.split("\\s*,\\s*");
-		String [] craft2 = line2.split("\\s*,\\s*");
-		String [] craft3 = line3.split("\\s*,\\s*");
-		
-		GL11.glPushMatrix();
-		GL11.glScalef(size, size, size);
-	
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
-		gui.getMC().getTextureManager().bindTexture(elements);
-		gui.drawTexturedModalRect(cXPos - 1, y - 1, 0, 0, 58, 58);
-		
-		for(int i = 0; i < 3; i++) {
-			drawItemStack(gui, (ItemStack) getIcon(craft1[i]), cXPos + (i * 20), y + 0);
-			drawItemStack(gui, (ItemStack) getIcon(craft2[i]), cXPos + (i * 20), y + 20);
-			drawItemStack(gui, (ItemStack) getIcon(craft3[i]), cXPos + (i * 20), y + 40);
-		}
-		
-		drawItemStack(gui, (ItemStack) icons.get(output), cXPos + 64, y + 18);
-		if(number < 10)
-			gui.getMC().fontRenderer.drawString("x" + number, cXPos + 67, y + 36, 4210752);
-		else
-			gui.getMC().fontRenderer.drawString("x" + number, cXPos + 63, y + 36, 4210752);
 		GL11.glPopMatrix();
 	}
 	

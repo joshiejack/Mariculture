@@ -111,7 +111,7 @@ public class GuiGuide extends GuiScreen {
 			drawTexturedModalRect(x + 21, y + 200, 23, 246, 18, 10);
 				
 		//Draw Page
-		drawPage(page1, x + 17, y + 15, true);
+		drawPage(page1, x + 24, y + 15, true);
 		
 		//Numbers
 		mc.fontRenderer.drawString(Text.DARK_GREY + StringHelper.BOLD + (currentPage + 1) + "/" + guide.getLength(), x + 42, y + 202, 0);
@@ -134,7 +134,7 @@ public class GuiGuide extends GuiScreen {
 			drawTexturedModalRect(x + 175, y + 200, 23, 246, 18, 10);
 				
 		//Draw Page
-		drawPage(page2, x - 24, y + 15, false);
+		drawPage(page2, x + 6, y + 15, false);
 				
 		//Numbers
 		if(guide.getLength() %2 == 0 || currentPage < guide.getLength() - 1) {

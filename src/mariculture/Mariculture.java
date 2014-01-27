@@ -92,7 +92,7 @@ public class Mariculture {
 		proxy.initClient();
 		proxy.loadBooks();
 		RecipesSmelting.postAdd();
-		GuideHandler.registerIcons();
+		GuideHandler.init();
 		for (Entry<String, ItemStack> recipe : MaricultureRegistry.getRegistry().entrySet()) {
 			System.out.println(recipe.getKey());
 		}
