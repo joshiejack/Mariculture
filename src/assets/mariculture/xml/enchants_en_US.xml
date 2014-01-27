@@ -263,36 +263,36 @@
         </paragraph>
     </page>
     <page>
-        <paragraph y="10" hY="-16" hX="-72">
+        <paragraph y="12">
             <heading>1 Up</heading>
             <text>Description:</text>
         </paragraph>
         <paragraph y="22">
             <text>1 Up will you up to a certain amount of hearts, each level will heal you up to 1 and half hearts. So at level 3 You will be healed up to 2 hearts. Since Enchantments stacks, If you have a total of 7 or more, it will heal you up to maximum.</text>
         </paragraph>
-        <paragraph x="-72" y="82">
+        <paragraph y="78">
             <heading>Max Level: 3</heading>
         </paragraph>
-        <paragraph y="120" hY="-31" hX="-72">
-            <heading>Never Hungry</heading>
+        <paragraph y="124">
+            <heading y="-17">Never Hungry</heading>
             <text>Description:</text>
         </paragraph>
         <paragraph y="134">
             <text>Never Hungry is an Enchantment that will keep you fed. Each level changes how much saturation you get, and therefore how quickly this enchantment damages your jewelry.</text>
         </paragraph>
-        <paragraph x="-72" y="164">
+        <paragraph y="166">
             <heading>Max Level: 5</heading>
         </paragraph>
     </page>
     <page>
-        <paragraph y="10" hY="-16" hX="-14">
+        <paragraph y="12">
             <heading>Reaper</heading>
             <text>Description:</text>
         </paragraph>
         <paragraph y="22">
             <text>Reaper protects you upon Death. At level 1 your items will not be lost upon death. At level 2, sometimes you will spawn exactly where you died. And at level 3 you will resist damage for a short while after respawning.</text>
         </paragraph>
-        <paragraph x="-14" y="75">
+        <paragraph y="77">
             <heading>Max Level: 3</heading>
         </paragraph>
     </page>
