@@ -1,18 +1,24 @@
 package mariculture;
 
 import java.io.File;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.core.CommonProxy;
 import mariculture.core.Config;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.GuideHandler;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.Packets;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.compatibility.Compat;
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -87,5 +93,8 @@ public class Mariculture {
 		proxy.loadBooks();
 		RecipesSmelting.postAdd();
 		GuideHandler.registerIcons();
+		for (Entry<String, ItemStack> recipe : MaricultureRegistry.getRegistry().entrySet()) {
+			System.out.println(recipe.getKey());
+		}
 	}
 }

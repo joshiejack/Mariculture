@@ -61,7 +61,7 @@ public class Recipes {
 		
 		//Oyster and Beef Pie
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.OYSTER), new Object[] {
-			"dustSalt", "dustSalt", Item.beefRaw, new ItemStack(Core.oysterBlock, 1, 0), Item.wheat, Item.egg, "dustSalt", Item.porkRaw, Item.wheat
+			"foodSalt", "foodSalt", Item.beefRaw, new ItemStack(Core.oysterBlock, 1, 0), Item.wheat, Item.egg, "dustSalt", Item.porkRaw, Item.wheat
 		});
 		
 		//Processing Book
@@ -432,7 +432,7 @@ public class Recipes {
 		
 		//Salinator
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.SALINATOR), new Object[] {
-			"ASA", "SUS", "MAM", 'A', "ingotAluminum", 'S', "dustSalt", 'M', "ingotMagnesium",
+			"ASA", "SUS", "MAM", 'A', "ingotAluminum", 'S', "foodSalt", 'M', "ingotMagnesium",
 			 'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY)
 		});
 		

@@ -11,7 +11,7 @@
 * New GUIs, with Notifications for missing items, and redstone/auto-eject controls
 * New Speed, Capacitor, Salinator and Filter Upgrades
 * Retro-Gen
-* Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way)
+* Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way), The materials used now also have more of an effect, they change enchantability, durability and the time needed to make
 * NEI Integration for a lot of things
 ====Changes====
 * Rewote 95% of things, should a lot less laggy

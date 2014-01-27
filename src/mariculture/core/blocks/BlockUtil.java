@@ -116,8 +116,6 @@ public class BlockUtil extends BlockMachine {
 	public Icon getIcon(int side, int meta) {
 		if (meta < getMetaCount()) {
 			switch (meta) {
-			case UtilMeta.BOOKSHELF:
-				return Block.bookShelf.getIcon(side, meta);
 			case UtilMeta.LIQUIFIER:
 				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_BRICK);
 			case UtilMeta.SAWMILL:
@@ -142,6 +140,10 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public Icon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+		if(block.getBlockTileEntity(x, y, z) instanceof TileBookshelf) {
+			return Block.bookShelf.getIcon(side, 0);
+		}
+		
 		if (block.getBlockTileEntity(x, y, z) instanceof TileSluice) {
 			TileSluice tile = (TileSluice) block.getBlockTileEntity(x, y, z);
 			if(tile.direction.ordinal() == side)
@@ -364,10 +366,7 @@ public class BlockUtil extends BlockMachine {
 		icons = new Icon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			if (i != UtilMeta.BOOKSHELF) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":"
-						+ getName(new ItemStack(this.blockID, 1, i)));
-			}
+				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
 		}
 	}
 

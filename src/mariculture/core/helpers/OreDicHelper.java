@@ -1,5 +1,7 @@
 package mariculture.core.helpers;
 
+import java.util.ArrayList;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import mariculture.core.lib.Compatibility;
 import mariculture.fishery.items.ItemFishyFood;
@@ -109,5 +111,72 @@ public class OreDicHelper {
 		}
 		
 		return false;
+	}
+	
+	public static ItemStack getNextValidEntry(ItemStack stack) {
+		return getNextOreDicEntry(stack, true);
+	}
+	
+	public static ItemStack getNextEntry(ItemStack stack) {
+		return getNextOreDicEntry(stack, false);
+	}
+	
+	public static ItemStack getNextOreDicEntry(ItemStack stack, boolean checkWhitelist) {
+		if (OreDicHelper.isInDictionary(stack)) {
+			if ((OreDicHelper.isWhitelisted(stack) && checkWhitelist) || !checkWhitelist) {
+				String name = OreDicHelper.getDictionaryName(stack);
+				int id = getOrePos(stack);
+				if (OreDictionary.getOres(name).size() > 0) {
+					id++;
+					
+					if (id >= OreDictionary.getOres(name).size()) {
+						if(checkWhitelist) {
+							ItemStack check = checkException(stack, name);
+							stack = (check != null) ? check : stack;
+						}
+
+						id = 0;
+					}
+				}
+
+				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id);
+				
+				return stack;
+			}
+		}
+		
+		return stack;
+	}
+	
+	private static int getOrePos(ItemStack input) {
+		int id = 0;
+		String name = OreDicHelper.getDictionaryName(input);
+		ArrayList<ItemStack> ores = OreDictionary.getOres(name);
+		for (ItemStack item : ores) {
+			if (OreDictionary.itemMatches(item, input, true)) {
+				return id;
+			}
+
+			id++;
+		}
+
+		return id;
+	}
+	
+	private static ItemStack checkException(ItemStack stack, String name) {
+		if (!OreDicHelper.isWhitelisted(stack)) {
+			return null;
+		}
+
+		for (int i = 0; i < Compatibility.EXCEPTIONS.length; i++) {
+			String[] names = Compatibility.EXCEPTIONS[i].split("\\s*:\\s*");
+			if (names[0].equals(name)) {
+				return (OreDictionary.getOres(names[1]).size() > 0) ? OreDictionary.getOres(names[1]).get(0) : null;
+			} else if (names[1].equals(name)) {
+				return (OreDictionary.getOres(names[0]).size() > 0) ? OreDictionary.getOres(names[0]).get(0) : null;
+			}
+		}
+
+		return null;
 	}
 }

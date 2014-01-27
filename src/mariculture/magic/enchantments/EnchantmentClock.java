@@ -78,7 +78,6 @@ public class EnchantmentClock extends EnchantmentJewelry {
 		double percent = (hasEnchant / numberOfPlayers) * 100;
 		if(percent >= percentage) {
 			if(list != null) {
-				System.out.println(list.size());
 				for(EntityPlayer player: list) {
 					EnchantHelper.damageItems(Magic.clock, player, 1);
 				}

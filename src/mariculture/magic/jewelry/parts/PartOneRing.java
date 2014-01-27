@@ -62,4 +62,9 @@ public class PartOneRing extends JewelryPart {
 		
 		return stack;
 	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 1.5D;
+	}
 }

@@ -63,7 +63,7 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 		}
 
 		//Repair the Hotbar
-		if (strength >= 1) {
+		if (strength > 1) {
 			for (int i = 0; i < 9; i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);
 				if (stack != null) {

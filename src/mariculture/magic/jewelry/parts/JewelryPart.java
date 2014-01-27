@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class JewelryPart {
-	public static ArrayList<JewelryPart> materialList = new ArrayList();
+	public static final ArrayList<JewelryPart> materialList = new ArrayList();
 	
 	public JewelryPart() {
 		materialList.add(this);
@@ -75,5 +75,15 @@ public class JewelryPart {
 		if(type == Jewelry.BRACELET)
 			return 60;
 		return 50;
+	}
+
+	//Number of Base durability this part provides
+	public int getDurabilityBase(int type) {
+		return 100;
+	}
+	
+	//How much this part modifies the durability by
+	public double getDurabilityModifier(int type) {
+		return 1.0D;
 	}
 }

@@ -52,6 +52,7 @@ import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
 import mariculture.fishery.render.RenderFishingHook;
 import mariculture.fishery.render.RenderProjectileFish;
+import mariculture.plugins.compatibility.CompatBooks;
 import mariculture.sealife.EntityHammerhead;
 import mariculture.sealife.render.RenderHammerhead;
 import mariculture.transport.EntitySpeedBoat;
@@ -192,6 +193,6 @@ public class ClientProxy extends CommonProxy {
 			return machines;
 		if(xml.equals("processing"))
 			return processing;
-		return null;
+		return CompatBooks.getDocument(xml);
 	}
 }

@@ -10,7 +10,7 @@ public class Compatibility {
 	public static boolean ENABLE_WHITELIST;
 	public static final String[] EXCEPTIONS_DEFAULT = new String[] { "nuggetAluminum: nuggetNaturalAluminum", 
 	"ingotAluminum: ingotNaturalAluminum", "oreAluminum: oreNaturalAluminum", "blockAluminum: blockNaturalAluminum", 
-	"oreBauxite: oreAluminum", "oreBauxite: oreNaturalAluminum", "oreTitanium: oreRutile"};
+	"oreBauxite: oreAluminum", "oreBauxite: oreNaturalAluminum"};
 	
 	public static final String[] WHITELIST_DEFAULT = new String[] { "ore", "ingot", "block", "nugget", "dust", "gem", 
 	"dyeRed", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange" };

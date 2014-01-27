@@ -257,6 +257,28 @@ public class Magic extends Module {
 				}
 			}
 		}
+		
+		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
+			for (int j = 0; j < JewelryPart.materialList.size(); j++) {				
+				if (JewelryPart.materialList.get(i).isValid(type) && JewelryPart.materialList.get(j).isValid(type)) {
+					if (JewelryPart.materialList.get(i).getPartType(type).equals(partOne)) {
+						if (JewelryPart.materialList.get(j).getPartType(type).equals(partTwo)) {
+							ItemStack output = ItemJewelry.buildJewelry(id, i, j);
+							output = JewelryPart.materialList.get(i).addEnchantments(output);
+							if (i != j) {
+								output = JewelryPart.materialList.get(j).addEnchantments(output);
+							}
+							
+							String name = output.getUnlocalizedName().substring(5);
+							name += "." + JewelryPart.materialList.get(i).getPartName();
+							if(!JewelryPart.materialList.get(i).isSingle())
+								name += "." + JewelryPart.materialList.get(j).getPartName();
+							MaricultureRegistry.register(name, output);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private void addDungeonChestLoot() {

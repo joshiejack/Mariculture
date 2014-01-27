@@ -53,4 +53,9 @@ public class PartIron extends JewelryPart {
 			return 40;
 		return 0;
 	}
+	
+	@Override
+	public int getDurabilityBase(int type) {
+		return 75;
+	}
 }

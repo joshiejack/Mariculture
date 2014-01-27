@@ -51,4 +51,9 @@ public class PartGoldThread extends JewelryPart {
 	public int getHits(int type) {
 		return 150;
 	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 15.0D;
+	}
 }

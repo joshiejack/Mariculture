@@ -41,4 +41,18 @@ public class PartPearlRed extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Core.pearls, 1, PearlColor.RED);
 	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 5.0D;
+	}
+	
+	@Override
+	public int getHits(int type) {
+		if(type == Jewelry.RING)
+			return 250;
+		if(type == Jewelry.BRACELET)
+			return 60;
+		return 50;
+	}
 }

@@ -12,6 +12,7 @@ import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
+import mariculture.magic.JewelryHandler;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -106,6 +107,30 @@ public class ItemJewelry extends Item implements IItemRegistry {
 
 		return blank;
 	}
+	
+	@Override
+	public int getMaxDamage(ItemStack stack) {
+       if(stack.hasTagCompound()) {
+    	   //Jewel + Pearls/Iron
+    	   int part1 = stack.stackTagCompound.getInteger("Part1");
+    	   
+    	   //String + Metals
+    	   int part2 = stack.stackTagCompound.getInteger("Part2");
+    	   double modifier = 1.0D;
+    	   double base = 100;
+    	   
+    	   if(getType() == Jewelry.RING) {
+    		   modifier = JewelryPart.materialList.get(part1).getDurabilityModifier(getType());
+    		   base = JewelryPart.materialList.get(part2).getDurabilityBase(getType());
+    	   } else {
+    		   base = JewelryPart.materialList.get(part1).getDurabilityBase(getType());
+    		   modifier = JewelryPart.materialList.get(part2).getDurabilityModifier(getType());
+    	   }
+    	   
+    	   return (int) (base * modifier);
+       }
+        return 0;
+    }
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
@@ -244,36 +269,8 @@ public class ItemJewelry extends Item implements IItemRegistry {
 	}
 
 	@Override
-	public void register() {
-		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
-			boolean added = false;
-			for (int j = 0; j < JewelryPart.materialList.size() && !added; j++) {
-				if (JewelryPart.materialList.get(i).isValid(getType()) && JewelryPart.materialList.get(j).isValid(getType())) {
-					if (JewelryPart.materialList.get(i).getPartType(getType()).equals(getPart1())) {
-						if (JewelryPart.materialList.get(j).getPartType(getType()).equals(getPart2())) {
-							String name = ".";
-							name = name + JewelryPart.materialList.get(i).getPartName();
-							int part1 = i;
-							int part2 = j;
-							if (JewelryPart.materialList.get(i).isSingle()) {
-								part2 = part1;
-							} else {
-								name = name + "." + JewelryPart.materialList.get(j).getPartName();
-							}
-							ItemStack stack = buildJewelry(this.itemID, part1, part2);
-							stack = JewelryPart.materialList.get(i).addEnchantments(stack);
-							if (i != j) {
-								stack = JewelryPart.materialList.get(j).addEnchantments(stack);
-							}
-							
-							MaricultureRegistry.register(getTypeString() + name, stack);
-
-							added = JewelryPart.materialList.get(i).addOnce();
-						}
-					}
-				}
-			}
-		}
+	public void register() {		
+		
 	}
 
 	@Override

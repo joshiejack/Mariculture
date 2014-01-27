@@ -50,6 +50,11 @@ public class PartDiamond extends JewelryPart {
 	
 	@Override
 	public int getHits(int type) {
-		return 130;
+		return 230;
+	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 2D;
 	}
 }

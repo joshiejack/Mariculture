@@ -133,9 +133,7 @@ public class BlockHelper {
 		
 		if(tile instanceof TileMultiBlock) {
 			TileMultiBlock multi = (TileMultiBlock) tile;			
-			if(multi.master != null) {
-				System.out.println("master is not null");
-				
+			if(multi.master != null) {				
 				if(!multi.isMaster())
 					return;
 			}

@@ -153,9 +153,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			drain-=output.amount;
 			output = null;
 		}
-		
-		System.out.println("drianing");
-		
+				
 		if(doDrain) {
 			if(id == (byte)1)
 				tank.drain(drain, true);

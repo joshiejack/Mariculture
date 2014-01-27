@@ -49,7 +49,7 @@ public class ItemMobMagnet extends ItemDamageable {
 			String entity = stack.stackTagCompound.getString("MobClass").trim();
 			Class clazz = Class.forName(stack.stackTagCompound.getString("MobClass").trim());
 			
-			List<EntityMob> enemies = world.getEntitiesWithinAABB(clazz, player.boundingBox.expand(64D, 64D, 64D));
+			List<EntityMob> enemies = world.getEntitiesWithinAABB(clazz, player.boundingBox.expand(32D, 32D, 32D));
 			int x = (int) player.posX;
 			int y = (int) (player.posY + 1);
 			int z = (int) player.posZ;

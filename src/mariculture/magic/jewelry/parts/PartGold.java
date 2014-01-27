@@ -52,4 +52,9 @@ public class PartGold extends JewelryPart {
 	public int getHits(int type) {
 		return 10;
 	}
+	
+	@Override
+	public int getDurabilityBase(int type) {
+		return 150;
+	}
 }

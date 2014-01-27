@@ -41,4 +41,17 @@ public class PartPearlGreen extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Core.pearls, 1, PearlColor.GREEN);
 	}
+	
+	@Override
+	public int getHits(int type) {
+		if(type == Jewelry.RING)
+			return 15;
+		if(type == Jewelry.BRACELET)
+			return 30;
+		return 25;
+	}
+	
+	public double getDurabilityModifier(int type) {
+		return 0.25D;
+	}
 }

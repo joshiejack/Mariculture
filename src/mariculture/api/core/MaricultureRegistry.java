@@ -25,4 +25,8 @@ public class MaricultureRegistry {
 	public static int size() {
 		return itemRegistry.size();
 	}
+
+	public static Map<String, ItemStack> getRegistry() {
+		return itemRegistry;
+	}
 }

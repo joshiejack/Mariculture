@@ -16,5 +16,6 @@ public class Compat {
 		}
 		
 		CompatFluids.init();
+		CompatBooks.init();
 	}
 }

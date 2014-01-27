@@ -1,7 +1,75 @@
 <?xml version="1.0"?>
 <book>
     <page>
-        <heading>Introduction</heading>
-        <text size="0.8">Fishing in Mariculture, is very simple. All you need to get started is a fishing rod, and some bait. There are various different baits of varying qualities, of which only some can be used with a certain tier of fishing rod. Bait is obtained in a few ways, such as making bread, or catching minnow, however most of your bait, you will gather by the use of a sifter. &#10;&#10;You are able to catch various different species of fish as well as some other random loot while fishing, you will catch different fish based upon which biome you are fishing in!</text>
+        <paragraph>
+            <heading>Introduction</heading>
+            <text>Fishing in Mariculture, is very simple. All you need to get started is a fishing rod, and some bait. There are various different baits of varying qualities, of which only some can be used with a certain tier of fishing rod. Bait is obtained in a few ways, such as making bread, or catching minnow, however most of your bait, you will gather by the use of a sifter. &#10;&#10;You are able to catch various different species of fish as well as some other random loot while fishing, you will catch different fish based upon which biome you are fishing in! &#10;&#10;A lot of the fish that you catch will be Raw, only a few can be caught alive, and even then they have to caught without leaving the water, so fishing underwater or using an autofisher is best.</text>
+        </paragraph>
+    </page>
+    <page>
+        <paragraph>
+            <heading>Sifter</heading>
+            <text>Sifters are how you will obtain most of your bait, that is needed for fishing. Simply throw items on them such as dirt, or rotten flesh to sift out various types of bait. (Installing a Basic Storage Upgrade on a Sifter will give it an inventory)</text>
+        </paragraph>
+        <crafting x="5" y="55" size="1">
+            <craft1>plankWood,fishingNet,plankWood</craft1>
+            <craft2>stickWood,blank,stickWood</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>sifter</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="95" y="55" size="1">
+            <craft1>stickWood,string,stickWood</craft1>
+            <craft2>string,string,string</craft2>
+            <craft3>stickWood,string,stickWood</craft3>
+            <craftResult>fishingNet</craftResult>
+            <craftNum>4</craftNum>
+        </crafting>
+         <paragraph y="166" hX="-14" hY="-42">
+            <heading>Fishing Net</heading>
+            <text>Fishing Nets when placed on water, overtime will randomly generate fish, as if they were being caught with a Reed Rod. You will need some way to collect the item entities that are produced.</text>
+        </paragraph>
+    </page>
+    <page>
+        <paragraph>
+            <heading>Fishing Rods</heading>
+            <text>There are four fishing rods introduced by Mariculture, you will need to use them instead of the vanilla if you want to catch any of the Mariculture Fish or Loot. Each fishing rod can use different types of bait, as well as having different durabilities.</text>
+        </paragraph>
+        <crafting x="20" y="53" size="1">
+            <craft1>blank,blank,reed</craft1>
+            <craft2>blank,reed,string</craft2>
+            <craft3>reed,blank,string</craft3>
+            <craftResult>rodReed</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="110" y="53" size="1">
+            <craft1>blank,blank,polishedStick</craft1>
+            <craft2>blank,polishedStick,string</craft2>
+            <craft3>polishedStick,blank,string</craft3>
+            <craftResult>rodWood</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="20" y="118" size="1">
+            <craft1>blank,blank,polishedTitanium</craft1>
+            <craft2>blank,polishedTitanium,string</craft2>
+            <craft3>polishedTitanium,blank,string</craft3>
+            <craftResult>rodTitanium</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="110" y="118" size="1">
+            <craft1>blank,blank,rodTitanium</craft1>
+            <craft2>blank,rodTitanium,string</craft2>
+            <craft3>titaniumBattery,blank,string</craft3>
+            <craftResult>rodRF</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+    <page>
+        <stack item="" x="" y=""></stack>
+        <paragraph>
+            <heading>Fishing</heading>
+            <text>Fishing is a piece of cake! Just make sure you have a rod and bait that can be used together. Then place the bait next to the fishing rod on your hotbar, and fish away like vanilla!</text>
+        </paragraph>
+       <img src="mariculture_fishing" x="20" y="100" height="256" width="256" size="0.53"></img>
     </page>
 </book>

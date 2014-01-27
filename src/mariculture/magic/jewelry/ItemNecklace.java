@@ -12,7 +12,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemNecklace extends ItemJewelry {
 	public ItemNecklace(int id) {
 		super(id);
-		this.setMaxDamage(512);
 	}
 	
 	@Override

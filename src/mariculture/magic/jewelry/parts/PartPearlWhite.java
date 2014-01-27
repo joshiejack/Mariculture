@@ -35,4 +35,14 @@ public class PartPearlWhite extends JewelryPart {
 	public ItemStack getItemStack() {
 		return new ItemStack(Core.pearls, 1, PearlColor.WHITE);
 	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 1.5D;
+	}
+	
+	@Override
+	public int getDurabilityBase(int type) {
+		return 80;
+	}
 }

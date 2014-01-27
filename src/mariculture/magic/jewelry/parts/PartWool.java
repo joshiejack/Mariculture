@@ -48,4 +48,9 @@ public class PartWool extends JewelryPart {
 	public int getHits(int type) {
 		return 50;
 	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 7D;
+	}
 }

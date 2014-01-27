@@ -8,4 +8,5 @@ public class GuideMeta {
 	public static final int ENCHANTS = 3;
 	public static final int MACHINES = 4;
 	public static final int DIVING = 5;
+	public static final int CUSTOM = 6;
 }

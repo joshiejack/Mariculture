@@ -128,7 +128,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 		
 		if(id == GuiIds.GUIDE) {
-			return ItemGuide.getGui(x);
+			return ItemGuide.getGui(player.getCurrentEquippedItem());
 		}
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);

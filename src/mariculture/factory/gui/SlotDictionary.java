@@ -71,59 +71,7 @@ public class SlotDictionary extends SlotFake {
 			}
 
 			if (stackSlot != null && stackHeld == null) {
-				if (OreDicHelper.isInDictionary(stackSlot)) {
-					if (OreDicHelper.isWhitelisted(stackSlot)) {
-						String name = OreDicHelper.getDictionaryName(stackSlot);
-						int id = getOrePos(stackSlot);
-						if (OreDictionary.getOres(name).size() > 0) {
-							id++;
-
-							if (id >= OreDictionary.getOres(name).size()) {
-								ItemStack check = checkException(stackSlot, name);
-								stackSlot = (check != null) ? check : stackSlot;
-
-								id = 0;
-							}
-						}
-
-						stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stackSlot)).get(id);
-						slot.putStack(stack);
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-	// Gets the Ore position
-	private int getOrePos(ItemStack input) {
-		int id = 0;
-		String name = OreDicHelper.getDictionaryName(input);
-		ArrayList<ItemStack> ores = OreDictionary.getOres(name);
-		for (ItemStack item : ores) {
-			if (OreDictionary.itemMatches(item, input, true)) {
-				return id;
-			}
-
-			id++;
-		}
-
-		return id;
-	}
-
-	// Returns the Exception to the rule if something exists!
-	private ItemStack checkException(ItemStack stack, String name) {
-		if (!OreDicHelper.isWhitelisted(stack)) {
-			return null;
-		}
-
-		for (int i = 0; i < Compatibility.EXCEPTIONS.length; i++) {
-			String[] names = Compatibility.EXCEPTIONS[i].split("\\s*:\\s*");
-			if (names[0].equals(name)) {
-				return (OreDictionary.getOres(names[1]).size() > 0) ? OreDictionary.getOres(names[1]).get(0) : null;
-			} else if (names[1].equals(name)) {
-				return (OreDictionary.getOres(names[0]).size() > 0) ? OreDictionary.getOres(names[0]).get(0) : null;
+				slot.putStack(OreDicHelper.getNextValidEntry(stackSlot));
 			}
 		}
 

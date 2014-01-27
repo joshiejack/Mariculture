@@ -34,11 +34,19 @@ public class PartPearlYellow extends JewelryPart {
 	
 	@Override
 	public int getEnchantability() {
-		return 4;
+		return 6;
 	}
 	
 	@Override
 	public ItemStack getItemStack() {
 		return new ItemStack(Core.pearls, 1, PearlColor.YELLOW);
+	}
+	
+	public int getHits(int type) {
+		if(type == Jewelry.RING)
+			return 33;
+		if(type == Jewelry.BRACELET)
+			return 66;
+		return 55;
 	}
 }

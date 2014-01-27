@@ -60,7 +60,7 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 		case MaterialsMeta.DUST_MAGNESITE:
 			return "dustMagnesite";
 		case MaterialsMeta.DUST_SALT:
-			return "dustSalt";
+			return "foodSalt";
 		case MaterialsMeta.INGOT_RUTILE:
 			return "ingotRutile";
 		case MaterialsMeta.DUST_COPPEROUS:

@@ -34,7 +34,12 @@ public class PartPearlBlack extends JewelryPart {
 	
 	@Override
 	public int getEnchantability() {
-		return 4;
+		return 1;
+	}
+	
+	@Override
+	public double getDurabilityModifier(int type) {
+		return 3.0D;
 	}
 	
 	@Override
