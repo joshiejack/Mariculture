@@ -11,12 +11,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.Mariculture;
+import mariculture.api.guide.Guides;
+import mariculture.api.guide.XMLHelper;
 import mariculture.core.Core;
 import mariculture.core.gui.GuiGuide;
-import mariculture.core.handlers.GuideHandler;
+import mariculture.core.guide.GuideHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.helpers.XMLHelper;
 import mariculture.core.lib.GuideMeta;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -65,28 +66,28 @@ public class CompatBooks {
 					doc.getDocumentElement().normalize();
 					NodeList list = doc.getElementsByTagName("info");
 					XMLHelper info = new XMLHelper((Element) list.item(0));
-					String display = info.getElementString("name");
-					Integer color = info.getHexCode("color");
+					String display = info.getElement("name");
+					Integer color = info.getElementAsHex("color", 0xFFFFFF);
 					String id = filename.substring(0, filename.lastIndexOf('.'));
 					books.put(id, new BookInfo(display, color, doc));
 					
 					NodeList nodes = doc.getElementsByTagName("register");
 					for(int i = 0; i < nodes.getLength(); i++) {
 						XMLHelper helper = new XMLHelper((Element) nodes.item(i));
-						String[] data = helper.getAttribString("data").split(":");
-						String name = helper.getAttribString("name");
+						String[] data = helper.getAttribute("data").split(":");
+						String name = helper.getAttribute("name");
 						if(data.length == 2) {
 							ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, Integer.parseInt(data[1]));
-							GuideHandler.registerIcon(name, stack);
+							Guides.instance.registerIcon(name, stack);
 						} else if (data.length == 1) {
 							if(!data[0].equals("")) {
 								ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, 0);
-								GuideHandler.registerIcon(name, stack);
+								Guides.instance.registerIcon(name, stack);
 							}
 						}
 					}
 					
-					ItemStack item = GuideHandler.getIcon(info.getElementString("item"));
+					ItemStack item = GuideHandler.getIcon(info.getElement("item"));
 					ItemStack stack = new ItemStack(Core.guides.itemID, 1, GuideMeta.CUSTOM);
 					stack.setTagCompound(new NBTTagCompound());
 					stack.stackTagCompound.setString("booksid", id);

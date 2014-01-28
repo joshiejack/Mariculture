@@ -1,7 +1,7 @@
 package mariculture.core.guide;
 
-import mariculture.core.handlers.GuideHandler;
-import mariculture.core.helpers.XMLHelper;
+import mariculture.api.guide.PageParser;
+import mariculture.api.guide.XMLHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -15,8 +15,6 @@ public class PageParagraph extends PageParser {
 
 	@Override
 	public void read(XMLHelper xml) {
-		x += xml.getAttribAsInteger("x", 0);
-		y += xml.getAttribAsInteger("y", 0);
 		wrap = xml.getAttribAsInteger("wrap", 216);
 		
 		int xH = 0;
@@ -39,6 +37,11 @@ public class PageParagraph extends PageParser {
 
 		hX = (int) (((x + xH) / hSize) * 1F);
 		tX = (int) (((x + xT) / tSize) * 1F);
+	}
+	
+	@Override
+	public void resize(XMLHelper xml) {
+		y += xml.getAttribAsInteger("y", 0);
 	}
 
 	@Override

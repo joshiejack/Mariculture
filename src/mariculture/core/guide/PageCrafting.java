@@ -1,7 +1,7 @@
 package mariculture.core.guide;
 
-import mariculture.core.handlers.GuideHandler;
-import mariculture.core.helpers.XMLHelper;
+import mariculture.api.guide.PageParser;
+import mariculture.api.guide.XMLHelper;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
@@ -12,16 +12,9 @@ public class PageCrafting extends PageParser {
 	String[] craft3;
 	String output;
 	int number;
-	float size;
 
 	@Override
-	public void read(XMLHelper xml) {
-		x += xml.getAttribAsInteger("x", 0);
-		y += xml.getAttribAsInteger("y", 0);
-		size = xml.getAttribAsFloat("size", 1F);
-		
-		x = (int) ((x / size) * 1F);
-		
+	public void read(XMLHelper xml) {		
 		craft1 = xml.getElement("craft1").split("\\s*,\\s*");
 		craft2 = xml.getElement("craft2").split("\\s*,\\s*");
 		craft3 = xml.getElement("craft3").split("\\s*,\\s*");
@@ -30,8 +23,7 @@ public class PageCrafting extends PageParser {
 	}
 
 	@Override
-	public void parse() {		
-		GL11.glScalef(size, size, size);
+	public void parse() {
 		gui.getMC().getTextureManager().bindTexture(elements);
 		gui.drawTexturedModalRect(x - 1, y - 1, 0, 0, 58, 58);
 		

@@ -10,6 +10,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.guide.Guides;
 import mariculture.core.blocks.BlockAir;
 import mariculture.core.blocks.BlockAirItem;
 import mariculture.core.blocks.BlockDouble;
@@ -42,6 +43,7 @@ import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.blocks.TileVoidBottle;
 import mariculture.core.gui.GuiItemToolTip;
+import mariculture.core.guide.GuideHandler;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
@@ -57,10 +59,10 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
 import mariculture.core.items.ItemFluidContainer;
+import mariculture.core.items.ItemFluidStorage;
 import mariculture.core.items.ItemFood;
 import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemHammer;
-import mariculture.core.items.ItemFluidStorage;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
@@ -97,7 +99,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -154,6 +155,7 @@ public class Core extends Module {
 	
 	@Override
 	public void registerHandlers() {
+		Guides.instance = new GuideHandler();
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
 		MaricultureHandlers.casting = new IngotCastingHandler();

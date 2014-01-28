@@ -14,6 +14,7 @@ import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileVat;
+import mariculture.core.guide.GuideRegistry;
 import mariculture.core.handlers.ClientEventHandler;
 import mariculture.core.handlers.KeyBindingHandler;
 import mariculture.core.lib.Modules;
@@ -161,6 +162,7 @@ public class ClientProxy extends CommonProxy {
         fishing = loadGuide("fishing", factory);
         machines = loadGuide("machines", factory);
         processing = loadGuide("processing", factory);
+        GuideRegistry.init();
 	}
 	
 	private Document loadGuide (String location, DocumentBuilderFactory factory) {
@@ -169,8 +171,8 @@ public class ClientProxy extends CommonProxy {
             InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + location + "_" + lang + ".xml");
             if(stream == null)
             	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + location + "_en_US.xml");
-            DocumentBuilder dBuilder = factory.newDocumentBuilder();
-            Document doc = dBuilder.parse(stream);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(stream);
             doc.getDocumentElement().normalize();
             return doc;
         }

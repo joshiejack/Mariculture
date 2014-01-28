@@ -30,7 +30,45 @@
     </page>
     <page>
         <paragraph>
-            <heading x="82">Fishing Rods</heading>
+            <heading x="110">Fish Oil</heading>
+            <text>Fish Oil is needed in order to make Polished Sticks and Polished Titanium Rods, which is what you need to create higher tier fishing rods. In order to obtain Fish Oil, you need to melt Fish in a Crucible Furnace. To craft the sticks, and rods you need to soak logs/planks/sticks or titanium rods in Fish Oil in a Vat.</text>
+        </paragraph>
+        <vat x="30" y="76" size="0.85">
+            <input>stickWood</input>
+            <fluid1 vol="5000">fishOil</fluid1>
+            <output>polishedStick</output>
+            <time>15</time>
+        </vat>
+        <vat x="30" y="142" size="0.85">
+            <input>titaniumRod</input>
+            <fluid1 vol="6500">fishOil</fluid1>
+            <output>polishedTitanium</output>
+            <time>30</time>
+        </vat>
+    </page>
+    <page>
+        <vat x="30" size="0.85">
+            <input>logWood</input>
+            <fluid1 vol="30000">fishOil</fluid1>
+            <output>polishedLog</output>
+            <time>45</time>
+        </vat>
+        <vat x="30" y="76" size="0.85">
+            <input>plankWood</input>
+            <fluid1 vol="10000">fishOil</fluid1>
+            <output>polishedPlank</output>
+            <time>30</time>
+        </vat>
+        <vat x="30" y="142" size="0.85">
+            <input color="black">stickWood</input>
+            <fluid1 vol="3">metalTitanium</fluid1>
+            <output>titaniumRod</output>
+            <time>60</time>
+        </vat>
+    </page>
+    <page>
+        <paragraph>
+            <heading x="92">Fishing Rods</heading>
             <text>There are four fishing rods introduced by Mariculture, you will need to use them instead of the vanilla if you want to catch any of the Mariculture Fish or Loot. Each fishing rod can use different types of bait, as well as having different durabilities.</text>
         </paragraph>
         <crafting x="5" y="53">
@@ -60,81 +98,129 @@
     </page>
     <page>
         <paragraph>
-            <heading x="42">Fish Oil</heading>
-            <text>Fish Oil is needed in order to make Polished Sticks and Polished Titanium Rods, which is what you need to create higher tier fishing rods. In order to obtain Fish Oil, you need to melt Fish in a Smelter. To craft the sticks, and rods you need to soak logs/planks/sticks or titanium rods in Fish Oil in a Vat.</text>
+            <heading x="32">The Rods</heading>
+            <text>Below is a list of durabilities of the fishing rods and which bait can be used with each rod type.</text>
         </paragraph>
-        <vat x="20" y="52" size="1">
-            <input></input>
-            <fluid1></fluid1>
-            <fluid1Vol></fluid1Vol>
-            <fluid2></fluid2>
-            <fluid2Vol></fluid2Vol>
-            <outputFluid></outputFluid>
-            <outputFluidVol></outputFluidVol>
-            <output></output>
-            <outputNum></outputNum>
-        </vat>
-        <crafting x="5" y="53">
-            <craft1>blank,blank,reed</craft1>
-            <craft2>blank,reed,string</craft2>
-            <craft3>reed,blank,string</craft3>
-            <craftResult>rodReed</craftResult>
-        </crafting>
-        <crafting x="100" y="53">
-            <craft1>blank,blank,polishedStick</craft1>
-            <craft2>blank,polishedStick,string</craft2>
-            <craft3>polishedStick,blank,string</craft3>
-            <craftResult>rodWood</craftResult>
-        </crafting>
-        <crafting x="5" y="118">
-            <craft1>blank,blank,polishedTitanium</craft1>
-            <craft2>blank,polishedTitanium,string</craft2>
-            <craft3>polishedTitanium,blank,string</craft3>
-            <craftResult>rodTitanium</craftResult>
-        </crafting>
-        <crafting x="100" y="118">
-            <craft1>blank,blank,rodTitanium</craft1>
-            <craft2>blank,rodTitanium,string</craft2>
-            <craft3>titaniumBattery,blank,string</craft3>
-            <craftResult>rodRF</craftResult>
-        </crafting>
+        <stack item="rodReed" size="1.8"></stack>
+        <paragraph y="60">
+            <heading x="32" size="0.8">Reed Fishing Rod (63 Uses)</heading>
+        </paragraph>
+        <stack item="ant" x="30" y="36"></stack>
+        <stack item="maggot" x="50" y="36"></stack>
+        <stack item="grasshopper" x="70" y="36"></stack>
+        <stack item="rawFish" x="90" y="36"></stack>
+        <hr x="10" y="59" width="160"></hr>
+        
+        <stack item="rodWood" y="21" size="1.8"></stack>
+        <paragraph y="108">
+            <heading x="32" size="0.8">Wooden Fishing Rod (191 Uses)</heading>
+        </paragraph>
+        <stack item="ant" x="30" y="75"></stack>
+        <stack item="maggot" x="50" y="75"></stack>
+        <stack item="rawFish" x="70" y="75"></stack>
+        <stack item="worm" x="90" y="75"></stack>
+        <hr x="10" y="98" width="160"></hr>
+        
+        <stack item="rodTitanium" y="43" size="1.8"></stack>
+         <paragraph y="157">
+            <heading x="32" size="0.8">Titanium Fishing Rod (575 Uses)</heading>
+        </paragraph>
+        <stack item="bread" x="30" y="114"></stack>
+        <stack item="rawFish" x="50" y="114"></stack>
+        <stack item="worm" x="70" y="114"></stack>
+        <stack item="minnow" x="90" y="114"></stack>
+        <hr x="10" y="137" width="160"></hr>
+        
+         <stack item="rodRF" y="64" size="1.8"></stack>
+        <paragraph y="206">
+            <heading x="32" size="0.8">RF Fishing Rod (Unlimited Uses)</heading>
+        </paragraph>
+        <stack item="ant" x="30" y="154"></stack>
+        <stack item="bread" x="50" y="154"></stack>
+        <stack item="maggot" x="70" y="154"></stack>
+        <stack item="grasshopper" x="90" y="154"></stack>
+        <stack item="rawFish" x="110" y="154"></stack>
+        <stack item="worm" x="130" y="154"></stack>
+        <stack item="bee" x="150" y="154"></stack>
+        <stack item="minnow" x="170" y="154"></stack>
     </page>
     <page>
-        <stack item="" x="" y=""></stack>
         <paragraph>
             <heading x="102">Fishing</heading>
             <text>Fishing is a piece of cake! Just make sure you have a rod and bait that can be used together. Then place the bait next to the fishing rod on your hotbar, and fish away like vanilla!</text>
         </paragraph>
        <img src="mariculture_fishing" x="20" y="100" size="0.53"></img>
     </page>
-    <page>
+     <page>
         <paragraph>
-            <heading x="10">Automatic Fisher</heading>
-            <text>The Automatic Fisher will save you the trouble of fishing, and perform it for you. It requires RF, a Fishing rod and Bait in order to operate. The Bait must work with the fishing rod as with normal fishing. The Block must be placed 1 above water, or lava(in the nether).</text>
+            <heading x="38">Fish</heading>
+            <text>Different species are found by fishing in different biomes. Only 8 species however can be caught alive in the wild. Here's a list of the biome types they can be found in.</text>
         </paragraph>
-        <crafting x="20" y="53" size="1">
-            <craft1>blank,blank,reed</craft1>
-            <craft2>blank,reed,string</craft2>
-            <craft3>reed,blank,string</craft3>
-            <craftResult>rodReed</craftResult>
-        </crafting>
-        <crafting x="110" y="53" size="1">
-            <craft1>blank,blank,polishedStick</craft1>
-            <craft2>blank,polishedStick,string</craft2>
-            <craft3>polishedStick,blank,string</craft3>
-            <craftResult>rodWood</craftResult>
-        </crafting>
-        <crafting x="20" y="118" size="1">
-            <craft1>blank,blank,polishedTitanium</craft1>
-            <craft2>blank,polishedTitanium,string</craft2>
-            <craft3>polishedTitanium,blank,string</craft3>
-            <craftResult>rodTitanium</craftResult>
-        </crafting>
-        <crafting x="110" y="118" size="1">
-            <craft1>blank,blank,rodTitanium</craft1>
-            <craft2>blank,rodTitanium,string</craft2>
-            <craft3>titaniumBattery,blank,string</craft3>
-            <craftResult>rodRF</craftResult>
+
+        <stack item="minnow" size="1.5" y="15"></stack>
+        <paragraph y="78" wrap="100">
+            <heading x="28" y="-25">Minnow</heading>
+            <text x="28" size="0.7">Normal, Cold, Frozen</text>
+        </paragraph>
+        
+        <stack item="cod" x="88" size="1.5" y="15"></stack>
+        <paragraph y="78" wrap="100">
+            <heading x="116" y="-25">Cod</heading>
+            <text x="116" size="0.7">(Frozen) Ocean, Cold, Frozen</text>
+        </paragraph>
+        
+        <stack item="stingray" size="1.5" y="35"></stack>
+        <paragraph y="125" wrap="100">
+            <heading x="28" y="-40">Sting Ray</heading>
+            <text x="28" size="0.7">(Frozen) Ocean, Hot, Arid</text>
+        </paragraph>
+        
+        <stack item="squid" x="88" size="1.5" y="35"></stack>
+        <paragraph y="125" wrap="100">
+            <heading x="116" y="-40">Squid</heading>
+            <text x="116" size="0.7">(Frozen) Ocean</text>
+        </paragraph>
+        
+        <stack item="damselfish" size="1.5" y="55"></stack>
+        <paragraph y="168" wrap="100">
+            <heading x="28" y="-52">Damselfish</heading>
+            <text x="28" size="0.7">Ocean, Hot</text>
+        </paragraph>
+        
+        <stack item="tetra" x="88" size="1.5" y="55"></stack>
+        <paragraph y="168" wrap="100">
+            <heading x="116" y="-52">Neon Tetra</heading>
+            <text x="116" size="0.7">Hot</text>
+        </paragraph>
+        
+        <stack item="netherfish" size="1.5" y="75"></stack>
+        <paragraph y="211" wrap="100">
+            <heading x="28" y="-66">Netherfish</heading>
+            <text x="28" size="0.7">The Nether</text>
+        </paragraph>
+        
+         <stack item="nightfish" x="88" size="1.5" y="75"></stack>
+        <paragraph y="211" wrap="100">
+            <heading x="116" y="-66">Nightfish</heading>
+            <text x="116" size="0.7">The End</text>
+        </paragraph>
+    </page>
+    <page>
+        <paragraph wrap="220">
+            <heading x="86" y="2">Automatic Fisher</heading>
+            <text>The automatic fisher is able to do your fishing for you. You need to supply it with RF, a Fishing Rod, and bait that can be used with that fishing rod. The block also needs to be one above a block of water. They will also work above lava in the nether.</text>
+        </paragraph>
+        <img src="autofisher" x="18" y="150" size="0.45" stretch="1.25"></img>
+    </page>
+    <page>
+        <paragraph wrap="220">
+            <text>Only Capacitor and Hyperkinetic upgrades will work with the autofisher. With capacitor upgrades increasing how much of an internal buffer of RF the Autofisher has, and the Hyperkinetic increasing the speed.</text>
+        </paragraph>
+        <crafting x="18" y="8" size="2">
+            <craft1>blank,fish,blank</craft1>
+            <craft2>rodWood,plankWood,rodWood</craft2>
+            <craft3>logWood,baseWood,logWood</craft3>
+            <craftResult>autofisher</craftResult>
         </crafting>
     </page>
 </book>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import mariculture.core.lib.Compatibility;
+import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishyFood;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -138,8 +139,14 @@ public class OreDicHelper {
 						id = 0;
 					}
 				}
-
+				
 				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id);
+				
+				if(!checkWhitelist) {
+					if(stack.itemID == Block.planks.blockID || stack.itemID == Block.wood.blockID) {
+						stack.setItemDamage(Rand.rand.nextInt(4));
+					}
+				}
 				
 				return stack;
 			}

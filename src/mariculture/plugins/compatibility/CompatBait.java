@@ -19,7 +19,7 @@ import javax.xml.transform.stream.StreamResult;
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
-import mariculture.core.helpers.XMLHelper;
+import mariculture.api.guide.XMLHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.item.ItemStack;
@@ -47,14 +47,14 @@ public class CompatBait {
 				Node nNode = node.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					XMLHelper xml = new XMLHelper((Element) nNode);
-					String bait = xml.getElementString("bait");
+					String bait = xml.getElement("bait");
 					int meta = getMeta(bait);
 					int val = getValue(bait);
-					int blockID = xml.getElementInt("id");
-					int blockMeta = xml.getElementInt("meta");
-					int rarity = xml.getElementInt("rarity");
-					int min = xml.getElementInt("min");
-					int max = xml.getElementInt("max");
+					int blockID = xml.getElementAsInteger("id", 1);
+					int blockMeta = xml.getElementAsInteger("meta", 0);
+					int rarity = xml.getElementAsInteger("rarity", 15);
+					int min = xml.getElementAsInteger("min", 1);
+					int max = xml.getElementAsInteger("max", 2);
 					
 					Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(Fishery.bait, 1, meta), 
 												new ItemStack(blockID, 1, blockMeta), min, max, rarity));

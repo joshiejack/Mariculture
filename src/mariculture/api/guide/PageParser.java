@@ -1,4 +1,4 @@
-package mariculture.core.guide;
+package mariculture.api.guide;
 
 import java.util.HashMap;
 
@@ -12,10 +12,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import mariculture.Mariculture;
 import mariculture.core.gui.GuiGuide;
-import mariculture.core.helpers.XMLHelper;
 
 public abstract class PageParser {
-	protected static final ResourceLocation elements = new ResourceLocation(Mariculture.modid, "textures/gui/guide_elements.png");
+	protected static final ResourceLocation elements = new ResourceLocation("mariculture", "textures/gui/guide_elements.png");
 	public static HashMap<String, PageParser> parsers = new HashMap();
 	protected static RenderItem itemRenderer = new RenderItem();
 	public String node;
@@ -24,13 +23,22 @@ public abstract class PageParser {
 	protected GuiGuide gui;
 	protected boolean left;
 	protected int x, y;
+	protected float size;
 	
-	public void init(GuiGuide gui, boolean left, int x, int y) {
+	public void init(GuiGuide gui, int x, int y, boolean left) {
 		this.gui = gui;
 		this.left = left;
 		this.x = x;
 		this.y = y;
-		font = gui.getFont();
+		this.font = gui.getFont();
+	}
+	
+	public void resize(XMLHelper xml) {
+		x += xml.getAttribAsInteger("x", 0);
+		y += xml.getAttribAsInteger("y", 0);
+		size = xml.getAttribAsFloat("size", 1F);
+		x = (int) ((x / size) * 1F);
+		GL11.glScalef(size, size, size);
 	}
 	
 	public abstract void read(XMLHelper xml);

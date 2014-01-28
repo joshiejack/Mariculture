@@ -8,7 +8,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import mariculture.Mariculture;
-import mariculture.core.handlers.GuideHandler;
+import mariculture.core.guide.GuideHandler;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import net.minecraft.client.Minecraft;

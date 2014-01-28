@@ -10,7 +10,8 @@ import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.core.CommonProxy;
 import mariculture.core.Config;
 import mariculture.core.RecipesSmelting;
-import mariculture.core.handlers.GuideHandler;
+import mariculture.core.guide.GuideHandler;
+import mariculture.core.guide.GuideRegistry;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.Modules;
@@ -92,9 +93,5 @@ public class Mariculture {
 		proxy.initClient();
 		proxy.loadBooks();
 		RecipesSmelting.postAdd();
-		GuideHandler.init();
-		for (Entry<String, ItemStack> recipe : MaricultureRegistry.getRegistry().entrySet()) {
-			System.out.println(recipe.getKey());
-		}
 	}
 }
