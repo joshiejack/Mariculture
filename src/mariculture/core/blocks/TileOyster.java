@@ -15,12 +15,6 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 		inventory = new ItemStack[1];
 	}
 	
-	public void update() {
-		int id = getCurrentPearl() != null ? getCurrentPearl().itemID : -1;
-		int meta = getCurrentPearl() != null ? getCurrentPearl().getItemDamage() : 0;
-		Packets.updateTile(this, 128, new Packet103Oyster(xCoord, yCoord, zCoord, id, meta).build());
-	}
-	
 	@Override
 	public boolean canUpdate() {
 		return false;
@@ -37,11 +31,22 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	@Override
 	public Packet getDescriptionPacket() {		
 		if(!worldObj.isRemote) {
-			update();
+			onInventoryChanged();
 		}
 		
 		return null;
     }
+	
+	@Override
+	public void onInventoryChanged() {
+		super.onInventoryChanged();
+		
+		if(!worldObj.isRemote) {
+			int id = getCurrentPearl() != null ? getCurrentPearl().itemID : -1;
+			int meta = getCurrentPearl() != null ? getCurrentPearl().getItemDamage() : 0;
+			Packets.updateTile(this, 128, new Packet103Oyster(xCoord, yCoord, zCoord, id, meta).build());
+		}
+	}
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack) {

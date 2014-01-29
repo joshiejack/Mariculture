@@ -4,9 +4,6 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
-
 public class PageStack extends PageParser {
 	String stack;
 	

@@ -1,4 +1,4 @@
-package mariculture.api.guide;
+package mariculture.core.guide;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +37,8 @@ public class XMLHelper {
 	
 	public XMLHelper getHelper(String name) {
 		Node n = e.getElementsByTagName(name).item(0);
+		if(n == null)
+			return this;
 		if(n.getNodeType() == Node.ELEMENT_NODE) {
 			return new XMLHelper((Element) n);
 		}
@@ -52,6 +54,12 @@ public class XMLHelper {
 		if(e.getAttribute(name) == null)
 			return "";
 		return e.getAttribute(name);
+	}
+	
+	public boolean getAttribAsBoolean(String name) {
+		if(e.getAttribute(name) == null)
+			return false;
+		return Boolean.parseBoolean(e.getAttribute(name));
 	}
 	
 	public Integer getAttribAsInteger(String name, int dft) {
@@ -94,5 +102,9 @@ public class XMLHelper {
 	public Float getElementAsFloat(String name, float dft) {
 		String string = getElement(name);
 		return string.equals("")? dft: Float.parseFloat(string);
+	}
+
+	public String getSelf() {
+		return e.getTextContent();
 	}
 }

@@ -31,6 +31,7 @@ public class Config {
         try {
             config.load();
                
+            Extra.SPAWN_BOOKS = config.get(Category.EXTRA, "Spawn Books on First Action", true).getBoolean(true);
             Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
             Extra.REFRESH_CLIENT_RATE = config.get(Category.EXTRA, "Server-Client Refresh Rate", 30, Comment.REFRESH).getInt();
@@ -219,8 +220,9 @@ public class Config {
             BlockIds.glassBlocks = config.getBlock("Glass Blocks", 765).getInt();
             BlockIds.coral = config.getBlock("Coral & Kelp", 766).getInt();
             BlockIds.airBlocks = config.getBlock("Air Blocks", 767).getInt();
+            BlockIds.transparentBlocks = config.getBlock("Transparent Blocks", 768).getInt();
 
-            //FREEID: 768 > 779
+            //FREEID: 769 > 779
 
             //Custom Blocks
             BlockIds.customFlooring = config.getBlock("Custom Flooring", 780).getInt();

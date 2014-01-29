@@ -19,6 +19,7 @@ import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
@@ -182,9 +183,10 @@ public class Recipes {
 		});
 
 		//Neoprene
+		Object rubber = (OreDictionary.getOres("itemRubber").size() > 0)? "itemRubber": new ItemStack(Item.dyePowder, 1, Dye.INK);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE),  new Object[] { 
 			"IPI", "PEP", "IPI", 
-			'I', new ItemStack(Item.dyePowder, 1, Dye.INK), 
+			'I', rubber, 
 			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
 			'E', new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_GAS) 
 		});
@@ -197,7 +199,7 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), new Object[] { 
 			" N ", "NGN", " N ", 
 			'N', new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
-			'G', new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC) 
+			'G', new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC) 
 		});
 		
 		//Glass Lens

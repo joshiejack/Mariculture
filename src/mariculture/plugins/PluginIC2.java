@@ -54,16 +54,6 @@ public class PluginIC2 extends Plugin {
 
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(Fishery.fishy, 1, OreDictionary.WILDCARD_VALUE)),
 				null, new ItemStack(Core.materials, 2, MaterialsMeta.FISH_MEAL));
-			
-		RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE));
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), true, new Object[] {
-					"IPI", "PEP", "IPI", 
-					Character.valueOf('I'), "itemRubber", 
-					Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
-					Character.valueOf('E'), new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_GAS)}));
 
 		if (Modules.world.isActive()) {
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,

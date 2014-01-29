@@ -1,7 +1,7 @@
 package mariculture.core.util;
 
 import mariculture.core.Core;
-import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
@@ -25,7 +25,7 @@ public class FluidCustom extends Fluid {
 			}
 		}
 		
-		return Core.glassBlocks.getIcon(0, GlassMeta.PLASTIC);
+		return Core.transparentBlocks.getIcon(0, TransparentMeta.PLASTIC);
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class FluidCustom extends Fluid {
 			}
 		}
 		
-		return Core.glassBlocks.getIcon(0, GlassMeta.PLASTIC);
+		return Core.transparentBlocks.getIcon(0, TransparentMeta.PLASTIC);
 	}
 	
 	public boolean isMolten() {

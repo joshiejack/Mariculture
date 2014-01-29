@@ -4,9 +4,6 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
-
 public class PageImage extends PageParser {
 	ResourceLocation texture;
 	float stretch;

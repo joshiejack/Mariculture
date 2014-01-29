@@ -140,7 +140,7 @@ public class WorldPlus extends Module {
 		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY), new ItemStack(coral, 1, CoralMeta.CORAL_WHITE), 5);
 		
 		//Kelp Wrap Recipe
-		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), new ItemStack(coral, 1, CoralMeta.KELP));
+		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
 		
 		addOceanChestLoot();
 	}

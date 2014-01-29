@@ -1,22 +1,14 @@
 <?xml version="1.0"?>
 <book>
     <page>
-        <paragraph>
-            <heading x="82">Introduction</heading>
-            <text>Sea Magic involves, the crafting, working, and enchanting of jewelry. There are various enchants that are unique to jewelry. In here you can find instructions on how to craft the jewelry and how to enchant it as well as information on the various different enchantments that your pieces can have.</text>
-        </paragraph>
-        <paragraph y="84">
-            <text>There are two ways in which to put this jewelry on, you can either craft yourself a Mirror or press the Enchant key. (CTRL by Default).</text>
-        </paragraph>
-        <paragraph y="132">
-            <text>You can also take your jewelry off using the mirror, or by pressing the corresponding numberpad key (1 for ring, 2 for bracelet, 3 for necklace), and the enchant key at the same time.</text>
-        </paragraph>
+        <text x="92" y="-13" bold="true">Introduction</text>
+        <text>Sea Magic involves, the crafting, working, and enchanting of jewelry. There are various enchants that are unique to jewelry. In here you can find instructions on how to craft the jewelry and how to enchant it as well as information on the various different enchantments that your pieces can have.</text>
+        <text y="84">There are two ways in which to put this jewelry on, you can either craft yourself a Mirror or press the Enchant key. (CTRL by Default).</text>
+        <text y="132">You can also take your jewelry off using the mirror, or by pressing the corresponding numberpad key (1 for ring, 2 for bracelet, 3 for necklace), and the enchant key at the same time.</text>
     </page>
     <page>
-        <paragraph>
-            <heading x="22">Basic Mirror</heading>
-            <text>The basic mirror can be used to put on/take off your jewelry. It also acts like portable enchanting, but only allowing you to enchant at level 1, 3 or 5. It has 30 uses. Right click to open the interface. Mirrors also give a bonus to jewelry when they are used to enchant those items.</text>
-        </paragraph>
+        <text x="22" y="-13" bold="true">Basic Mirror</text>
+        <text>The basic mirror can be used to put on/take off your jewelry. It also acts like portable enchanting, but only allowing you to enchant at level 1, 3 or 5. It has 30 uses. Right click to open the interface. Mirrors also give a bonus to jewelry when they are used to enchant those items.</text>
         <crafting x="15" y="15" size="2">
             <craft1>blank,ingotAluminum,ingotAluminum</craft1>
             <craft2>ingotAluminum,glassPane,ingotAluminum</craft2>
@@ -26,14 +18,10 @@
         </crafting>
     </page>
     <page>
-        <paragraph>
-            <heading x="82">Magic Mirror</heading>
-            <text>The Magic Mirror is one step up from the Basic Mirror. As it uses an enchanting table and 3 storage bookshelves to craft it, it allows you access to the full 30 levels of Portable Enchanting. On crafting, The Magic Mirror is set to Enchant from level 1-3. Shift-Right Clicking the Magic Mirror will cause the levels to increase by 3 each time. So after the first click it will enchant from level 4-6. This continues up to level 30. At this point shift right clicking will set the mirror back to levels 1-3.</text>
-        </paragraph>
-        <paragraph y="144">
-            <heading y="-20">Celestial Mirror</heading>
-            <text>The ever so magnificent Celestial Mirror, allows you to enchant from level 30-60. It works in the same way as the Magic Mirror. Some Enchantments need you to enchant at higher levels in order for them to be obtainable.</text>
-        </paragraph>
+        <text x="82" y="-13" bold="true">Magic Mirror</text>
+        <text>The Magic Mirror is one step up from the Basic Mirror. As it uses an enchanting table and 3 storage bookshelves to craft it, it allows you access to the full 30 levels of Portable Enchanting. On crafting, The Magic Mirror is set to Enchant from level 1-3. Shift-Right Clicking the Magic Mirror will cause the levels to increase by 3 each time. So after the first click it will enchant from level 4-6. This continues up to level 30. At this point shift right clicking will set the mirror back to levels 1-3.</text>
+        <text y="108" bold="true">Celestial Mirror</text>
+        <text y="144">The ever so magnificent Celestial Mirror, allows you to enchant from level 30-60. It works in the same way as the Magic Mirror. Some Enchantments need you to enchant at higher levels in order for them to be obtainable.</text>
     </page>
     <page>
         <crafting x="5">
@@ -59,18 +47,12 @@
         </crafting>
     </page>
     <page>
-        <paragraph>
-            <heading x="88">Jewelry</heading>
-            <text>There are three types of jewelry: Rings, Bracelets and Necklaces. These can all be enchanted with various enchantments that are unique to the jewelry. (You cannot enchant other items with these). Rings have the least durability and enchantability, while Necklaces have more.</text>
-        </paragraph>
-        <paragraph y="75">
-            <text> Also the material that the ring is made of will determine it's enchantability, durability as well as how long it takes to make in the anvil. When it comes to Durability, the material it's made of most is what matters. For rings this is the stuff like iron or gold, while for bracelets and necklaces it is the pearls vs iron. The other item, string, wool, jewels has a modifier on the base durability of the items, the more precious, the better the modifier.</text>
-        </paragraph>
+        <text x="102" y="-13" bold="true">Jewelry</text>
+        <text>There are three types of jewelry: Rings, Bracelets and Necklaces. These can all be enchanted with various enchantments that are unique to the jewelry. (You cannot enchant other items with these). Rings have the least durability and enchantability, while Necklaces have more.</text>
+        <text y="75">Also the material that the ring is made of will determine it's enchantability, durability as well as how long it takes to make in the anvil. When it comes to Durability, the material it's made of most is what matters. For rings this is the stuff like iron or gold, while for bracelets and necklaces it is the pearls vs iron. The other item, string, wool, jewels has a modifier on the base durability of the items, the more precious, the better the modifier.</text>
     </page>
     <page>
-        <paragraph>
-            <text>Jewelry is first crafted in to an unworked version, then you need to beat it with a hammer in an anvil, varying amounts of time in order to finish creating the jewelry.</text>
-        </paragraph>
+        <text>Jewelry is first crafted in to an unworked version, then you need to beat it with a hammer in an anvil, varying amounts of time in order to finish creating the jewelry.</text>
         <crafting x="15" y="50" size="0.8">
             <craft1>ingotIron,diamond,ingotIron</craft1>
             <craft2>ingotIron,blank,ingotIron</craft2>
@@ -115,185 +97,76 @@
         </crafting>
     </page>
     <page>
-        <paragraph>
-            <heading x="82">Enchantments</heading>
-        </paragraph>
-        <paragraph y="12">
-            <heading>Focus Punch</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>Focus Punch, increases how much damage, you do when you hit something with your bare fists. Each level increases the damage by 1/2 a heart.</text>
-        </paragraph>
-        <paragraph y="62">
-            <heading>Max Level: 3</heading>
-        </paragraph>
-        <paragraph y="112">
-            <heading y="-13">Poison Ivy</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="122">
-            <text>At level 1, Poison Ivy will poison anything you hit with your fists, at level two, you can ctrl + right click and poison enemies. And finally at level three, you will become immune to poison damage itself. </text>
-        </paragraph>
-        <paragraph y="156">
-            <heading>Max Level: 3</heading>
-        </paragraph>
+        <text x="82" y="-13" bold="true">Enchantments</text>
+        <text y="-5" bold="true">Focus Punch</text>
+        <text y="12">Focus Punch, increases how much damage, you do when you hit something with your bare fists. Each level increases the damage by 1/2 a heart.</text>
+        <text y="36" bold="true">Max Level: 3</text>
+        <hr y="47"></hr>
+        <text y="52" bold="true">Poison Ivy</text>
+        <text y="78">At level 1, Poison Ivy will poison anything you hit with your fists, at level two, you can ctrl + right click and poison enemies. And finally at level three, you will become immune to poison damage itself.</text>
+        <text y="100" bold="true">Max Level: 3</text>
+        <hr y="110"></hr>
+        <text y="115" bold="true">Inferno</text>
+        <text y="152">Inferno will make your punches produce fire at level, at level 2 you will be able to ctrl + right click to set things on fire, and at level 3 you will be immune to fire damage.</text>
+        <text y="163" bold="true">Max Level: 3</text>
     </page>
     <page>
-        <paragraph y="12">
-            <heading>Inferno</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>Inferno will make your punches produce fire at level, at level 2 you will be able to ctrl + right click to set things on fire, and at level 3 you will be immune to fire damage.</text>
-        </paragraph>
-        <paragraph y="70">
-            <heading>Max Level: 3</heading>
-        </paragraph>
-        <paragraph y="112">
-            <heading y="-13">Restoration</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="122">
-            <text>The Restoration Enchantment will repair your tools and armor. At level one it will only repair whatever you are holding, At level 2 it will repair your hotbar and at level 3 it will repair the armor you are wearing.</text>
-        </paragraph>
-        <paragraph y="162">
-            <heading>Max Level: 3</heading>
-        </paragraph>
+        <text y="-5" bold="true">Restoration</text>
+        <text y="12">The Restoration Enchantment will repair your tools and armor. At level one it will only repair whatever you are holding, At level 2 it will repair your hotbar and at level 3 it will repair the armor you are wearing.</text>
+        <text y="51" bold="true">Max Level: 3</text>
+        <hr y="62"></hr>
+        <text y="67" bold="true">1 Up</text>
+        <text y="94">1 Up will you up to a certain amount of hearts, each level will heal you up to 1 and half hearts. So at level 3 You will be healed up to 2 hearts. Since Enchantments stacks, If you have a total of 7 or more, it will heal you up to maximum.</text>
+        <text y="121" bold="true">Max Level: 3</text>
+        <hr y="130"></hr>
+        <text y="134" bold="true">Never Hungry</text>
+        <text y="172">Never Hungry is an Enchantment that will keep you fed. Each level changes how much saturation you get, and therefore how quickly this enchantment damages your jewelry.</text>
+        <text y="180" bold="true">Max Level: 5</text>
     </page>
     <page>
-        <paragraph>
-            <heading x="82">Enchantments</heading>
-        </paragraph>
-        <paragraph y="12">
-            <heading>Sonic the Hedgehog</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>Sonic the Hedgehog, when holding down the Enchant Key will cause your player to run at faster and faster speeds per level.</text>
-        </paragraph>
-        <paragraph y="62">
-            <heading y="-6">Max Level: 5</heading>
-        </paragraph>
-        <paragraph y="100">
-            <heading y="-14">Leapfrog</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="108">
-            <text>Leapfrog, when holding down the Enchant Key lets you jump up more and more blocks each level that it's enchanted.</text>
-        </paragraph>
-        <paragraph y="128">
-            <heading>Max Level: 4</heading>
-        </paragraph>
-        <paragraph y="172">
-            <heading y="-24">Step Up</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="182">
-            <text>Step Up let's your character step up an extra half block per level.</text>
-        </paragraph>
-        <paragraph y="180">
-            <heading>Max Level: 3</heading>
-        </paragraph>
+        <text x="82" y="-13" bold="true">Enchantments</text>
+        <text y="-5" bold="true">Sonic the Hedgehog</text>
+        <text y="12">Sonic the Hedgehog, when holding down the Enchant Key will cause your player to run at faster and faster speeds per level.</text>
+        <text y="36" bold="true">Max Level: 5</text>
+        <hr y="47"></hr>
+        <text y="52" bold="true">Leapfrog</text>
+        <text y="78">Leapfrog, when holding down the Enchant Key lets you jump up more and more blocks each level that it's enchanted.</text>
+        <text y="100" bold="true">Max Level: 4</text>
+        <hr y="110"></hr>
+        <text y="115" bold="true">Step Up</text>
+        <text y="152">Step Up let's your character step up an extra half block per level.</text>
+        <text y="163" bold="true">Max Level: 3</text>
     </page>
     <page>
-        <paragraph y="12">
-            <heading>Fall Resistance</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>Fall Resistance prevents fall damage from greater heights depending on the level it's enchanted to.</text>
-        </paragraph>
-        <paragraph y="53">
-            <heading>Max Level: 4</heading>
-        </paragraph>
-        <paragraph y="100">
-            <heading y="-14">Spiderman</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="108">
-            <text>The Spiderman enchantment lets you climb walls like a spider. It must be toggled on and off by press shift + the toggle enchant key(default Y)</text>
-        </paragraph>
-        <paragraph y="134">
-            <heading>Max Level: 1</heading>
-        </paragraph>
+        <text y="-5" bold="true">Paraglide</text>
+        <text y="12">At level one, with the Paraglide Enchantment you are able to toggle between gliding mode and default. (Gliding slows down your fall). When you have level two you can also switch to fast fall mode. You change mode by pressing the toggle enchant key(default Y)</text>
+        <text y="59" bold="true">Max Level: 2</text>
+        <hr y="67"></hr>
+        <text y="70" bold="true">Spiderman</text>
+        <text y="100">The Spiderman enchantment lets you climb walls like a spider. It must be toggled on and off by press shift + the toggle enchant key(default Y)</text>
+        <text y="121" bold="true">Max Level: 1</text>
+        <hr y="130"></hr>
+        <text y="134" bold="true">Fall Resistance</text>
+        <text y="172">Fall Resistance prevents fall damage from greater heights depending on the level it's enchanted to.</text>
+        <text y="180" bold="true">Max Level: 4</text>
     </page>
     <page>
-        <paragraph y="12">
-            <heading>Paraglide</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>At level one, with the Paraglide Enchantment you are able to toggle between gliding mode and default. (Gliding slows down your fall). When you have level two you can also switch to fast fall mode. You change mode by pressing the toggle enchant key(default Y)</text>
-        </paragraph>
-        <paragraph y="84">
-            <heading>Max Level: 2</heading>
-        </paragraph>
-        <paragraph y="123">
-            <heading y="-16">Blink</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="134">
-            <text>Blink lets you teleport around. In order to do so, simply ctrl + right click a block in the distance, and if it's within distance, then you will be teleported to that location. The higher your blink level, the further you can travel.</text>
-        </paragraph>
-        <paragraph y="174">
-            <heading>Max Level: 3</heading>
-        </paragraph>
+        <text x="82" y="-13" bold="true">Enchantments</text>
+        <text y="-5" bold="true">Blink</text>
+        <text y="12">Blink lets you teleport around. In order to do so, simply ctrl + right click a block in the distance, and if it's within distance, then you will be teleported to that location. The higher your blink level, the further you can travel.</text>
+        <text y="50" bold="true">Max Level: 3</text>
+        <hr y="59"></hr>
+        <text y="63" bold="true">Timelord</text>
+        <text y="89">Timelord lets you control whether it's day or night. You can change the mode the jewelry is in by right clicking it. On servers 5% need this enchantment active.</text>
+        <text y="101" bold="true">Max Level: 1</text>
+        <hr y="111"></hr>
+        <text y="116" bold="true">Superman</text>
+        <text y="153">The Superman Enchantment grants you the power of flight. Each level increases the speed you flight at. If you hold the control key while in flight you can change your speed.</text>
+        <text y="164" bold="true">Max Level: 3</text>
     </page>
     <page>
-        <paragraph y="12">
-            <heading>Timelord</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>Timelord lets you control whether it's day or night. You can change the mode the jewelry is in by right clicking it. On a server a certain percentage of people need to have this enchantment active (default is 5%)</text>
-        </paragraph>
-        <paragraph y="77">
-            <heading>Max Level: 1</heading>
-        </paragraph>
-        <paragraph y="120">
-            <heading y="-16">Superman</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="134">
-            <text>The Superman Enchantment grants you the power of flight. Each level increases the speed you flight at. If you hold the control key while in flight you can change your speed.</text>
-        </paragraph>
-        <paragraph y="166">
-            <heading>Max Level: 3</heading>
-        </paragraph>
-    </page>
-    <page>
-        <paragraph y="12">
-            <heading>1 Up</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>1 Up will you up to a certain amount of hearts, each level will heal you up to 1 and half hearts. So at level 3 You will be healed up to 2 hearts. Since Enchantments stacks, If you have a total of 7 or more, it will heal you up to maximum.</text>
-        </paragraph>
-        <paragraph y="78">
-            <heading>Max Level: 3</heading>
-        </paragraph>
-        <paragraph y="124">
-            <heading y="-17">Never Hungry</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="134">
-            <text>Never Hungry is an Enchantment that will keep you fed. Each level changes how much saturation you get, and therefore how quickly this enchantment damages your jewelry.</text>
-        </paragraph>
-        <paragraph y="166">
-            <heading>Max Level: 5</heading>
-        </paragraph>
-    </page>
-    <page>
-        <paragraph y="12">
-            <heading>Reaper</heading>
-            <text>Description:</text>
-        </paragraph>
-        <paragraph y="22">
-            <text>Reaper protects you upon Death. At level 1 your items will not be lost upon death. At level 2, sometimes you will spawn exactly where you died. And at level 3 you will resist damage for a short while after respawning.</text>
-        </paragraph>
-        <paragraph y="77">
-            <heading>Max Level: 3</heading>
-        </paragraph>
+        <text y="-5" bold="true">Reaper</text>
+        <text y="12">Reaper protects you upon Death. At level 1 your items will not be lost upon death. At level 2, sometimes you will spawn exactly where you died. And at level 3 you will resist damage for a short while after respawning.</text>
+        <text y="59" bold="true">Max Level: 3</text>
     </page>
 </book>

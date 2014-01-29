@@ -1,4 +1,4 @@
-package mariculture.api.guide;
+package mariculture.core.guide;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;

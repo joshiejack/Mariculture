@@ -10,12 +10,13 @@ import mariculture.Mariculture;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.guide.Guides;
 import mariculture.core.blocks.BlockAir;
 import mariculture.core.blocks.BlockAirItem;
 import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.BlockDoubleItem;
 import mariculture.core.blocks.BlockFluidMari;
+import mariculture.core.blocks.BlockGlass;
+import mariculture.core.blocks.BlockGlassItem;
 import mariculture.core.blocks.BlockGround;
 import mariculture.core.blocks.BlockGroundItem;
 import mariculture.core.blocks.BlockOre;
@@ -44,12 +45,15 @@ import mariculture.core.blocks.TileVat;
 import mariculture.core.blocks.TileVoidBottle;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.guide.GuideHandler;
+import mariculture.core.guide.Guides;
 import mariculture.core.handlers.BiomeTypeHandler;
+import mariculture.core.handlers.CraftingHandler;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
+import mariculture.core.handlers.PlayerTrackerHandler;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -115,6 +119,7 @@ public class Core extends Module {
 	public static Block woodBlocks;
 	public static Block tankBlocks;
 	public static Block groundBlocks;
+	public static Block transparentBlocks;
 
 	public static Fluid moltenAluminum;
 	public static Fluid moltenTitanium;
@@ -166,6 +171,8 @@ public class Core extends Module {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler());
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
+		GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
+		GameRegistry.registerCraftingHandler(new CraftingHandler());
 		if(RetroGeneration.ENABLED)
 			MinecraftForge.EVENT_BUS.register(new RetroGen());
 		
@@ -186,22 +193,24 @@ public class Core extends Module {
 		singleBlocks = new BlockSingle(BlockIds.singleBlocks).setStepSound(Block.soundStoneFootstep).setHardness(1F).setResistance(1F).setUnlocalizedName("customBlocks");
 		oysterBlock = new BlockOyster(BlockIds.oyster).setStepSound(Block.soundStoneFootstep).setHardness(10F).setResistance(50F).setUnlocalizedName("oysterBlock").setLightValue(0.4F);
 		pearlBrick = new BlockPearlBrick(BlockIds.pearlBrick).setUnlocalizedName("pearlBrick");
-		glassBlocks = new BlockTransparent(BlockIds.glassBlocks).setStepSound(Block.soundPowderFootstep).setResistance(1F).setUnlocalizedName("glassBlocks");
+		glassBlocks = new BlockGlass(BlockIds.glassBlocks).setStepSound(Block.soundPowderFootstep).setResistance(1F).setUnlocalizedName("glassBlocks");
 		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setUnlocalizedName("airBlocks");
 		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks").setHardness(2.0F);
 		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks").setHardness(1F);
-		groundBlocks = new BlockGround(BlockIds.groundBlocks).setUnlocalizedName("groundBlocks");
+		groundBlocks = new BlockGround(BlockIds.groundBlocks).setUnlocalizedName("groundBlocks").setHardness(1F);
+		transparentBlocks = new BlockTransparent(BlockIds.transparentBlocks).setStepSound(Block.soundGlassFootstep).setUnlocalizedName("transparentBlocks").setHardness(1F);
 
 		Item.itemsList[BlockIds.ores] = new BlockOreItem(BlockIds.ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
 		Item.itemsList[BlockIds.util] = new BlockUtilItem(BlockIds.util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
 		Item.itemsList[BlockIds.singleBlocks] = new BlockSingleItem(BlockIds.singleBlocks - 256, singleBlocks).setUnlocalizedName("customBlocks");
 		Item.itemsList[BlockIds.doubleBlocks] = new BlockDoubleItem(BlockIds.doubleBlocks - 256, doubleBlock).setUnlocalizedName("doubleBlocks");
 		Item.itemsList[BlockIds.pearlBrick] = new BlockPearlBrickItem(BlockIds.pearlBrick - 256, Core.pearlBrick).setUnlocalizedName("pearlBrick");
-		Item.itemsList[BlockIds.glassBlocks] = new BlockTransparentItem(BlockIds.glassBlocks - 256, glassBlocks).setUnlocalizedName("glassBlocks");
+		Item.itemsList[BlockIds.glassBlocks] = new BlockGlassItem(BlockIds.glassBlocks - 256, glassBlocks).setUnlocalizedName("glassBlocks");
 		Item.itemsList[BlockIds.airBlocks] = new BlockAirItem(BlockIds.airBlocks - 256, airBlocks).setUnlocalizedName("airBlocks");
 		Item.itemsList[BlockIds.woodBlocks] = new BlockWoodItem(BlockIds.woodBlocks - 256, woodBlocks).setUnlocalizedName("woodBlocks");
 		Item.itemsList[BlockIds.tankBlocks] = new BlockTankItem(BlockIds.tankBlocks - 256, tankBlocks).setUnlocalizedName("tankBlocks");
 		Item.itemsList[BlockIds.groundBlocks] = new BlockGroundItem(BlockIds.groundBlocks - 256, groundBlocks).setUnlocalizedName("groundBlocks");
+		Item.itemsList[BlockIds.transparentBlocks] = new BlockTransparentItem(BlockIds.transparentBlocks - 256, transparentBlocks).setUnlocalizedName("transparentBlocks");
 
 		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
 		
@@ -241,7 +250,7 @@ public class Core extends Module {
 		MinecraftForge.setBlockHarvestLevel(woodBlocks, WoodMeta.BASE_WOOD, "axe", 1);
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
-				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks });
+				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks });
 	}
 	
 	@Override

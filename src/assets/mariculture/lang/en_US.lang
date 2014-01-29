@@ -44,7 +44,7 @@ tile.pearlBrick.blue.name=Blue Pearl Brick
 tile.pearlBrick.black.name=Black Pearl Brick
 tile.pearlBrick.pink.name=Pink Pearl Brick
 tile.pearlBrick.silver.name=Silver Pearl Brick
-tile.glassBlocks.plastic.name=Transparent Plastic
+tile.transparentBlocks.plastic.name=Transparent Plastic
 tile.glassBlocks.heatglass.name=Heat Resistant Glass
 tile.airBlocks.air.name=Fake Air
 tile.airBlocks.naturalGas.name=Natural Gas
@@ -79,11 +79,12 @@ fluid.electrum.molten=Molten Electrum
 fluid.invar.molten=Molten Invar
 
 #items
-item.hammer.name=Hammer
+item.hammer.name=Blacksmith's Hammer
 item.ladle.name=Ladle
 item.titaniumBucket.name=Titanium Bucket
 item.food.oyster.name=Beef and Oyster Pie
 item.guide.processing.name=A Layman's guide to Processing
+item.guide.processing.author=Anonymous
 item.materials.ingotAluminum.name=Aluminium Ingot
 item.materials.ingotMagnesium.name=Magnesium Ingot
 item.materials.ingotTitanium.name=Titanium Ingot
@@ -298,7 +299,8 @@ fluid.oil.fish=Fish Oil
 fluid.milk=Milk
 fluid.custard=Custard
 #items
-item.guide.fishing.name=Beginner's Guide to Fishing
+item.guide.fishing.name=Fishing and Breeding #42
+item.guide.fishing.author=P. Sherman
 item.guide.breeding.name=Fish Breeding 101
 item.materials.fishMeal.name=Fish Meal
 item.materials.dropletWater.name=Water Droplet
@@ -423,7 +425,8 @@ enchantment.oneRing.line4=and in the darkness bind them.
 enchantment.stepUp=Step Up
 
 #items
-item.guide.enchants.name=Ursula's Guide to Sea Magic
+item.guide.enchants.name=A Seawitch's Guide
+item.guide.enchants.author=Ursula
 item.mirror.basic.name=Mirror
 item.mirror.magic.name=Magic Mirror
 item.mirror.celestial.name=Celestial Mirror
@@ -529,6 +532,7 @@ mariculture.string.tooHot=Too Hot
 mariculture.string.salinity.magic=Prefers Ethereal Waters
 mariculture.string.salinity.salt=Prefers Salt Water
 mariculture.string.salinity.fresh=Prefers Fresh Water
+mariculture.string.by=By
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

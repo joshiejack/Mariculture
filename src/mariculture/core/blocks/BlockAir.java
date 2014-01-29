@@ -15,6 +15,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -80,6 +81,21 @@ public class BlockAir extends BlockDecorative {
 			living.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 5, 2, true));
 			living.addPotionEffect(new PotionEffect(Potion.weakness.id, 5, 0, true));
 		}
+	}
+	
+	@Override
+	public boolean isFlammable(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
+        return true;
+    }
+	
+	@Override
+	public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
+        return 300;
+    }
+	
+	@Override
+	public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face){
+		return 1000;
 	}
 
 	@Override

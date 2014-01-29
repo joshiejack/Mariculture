@@ -10,10 +10,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.api.guide.Guides;
-import mariculture.api.guide.IGuideHandler;
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
 import mariculture.core.ClientProxy;
 import mariculture.core.Core;
 import mariculture.core.gui.GuiGuide;
@@ -127,7 +123,7 @@ public class GuideHandler implements IGuideHandler {
 		if(Extra.DEBUG_ON) {
 			try {
 				if(xml.equals("breeding") || xml.equals("diving") || xml.equals("enchants") || 
-						xml.equals("fishing") || xml.equals("machine") || xml.equals("processing")) {
+						xml.equals("fishing") || xml.equals("machines") || xml.equals("processing")) {
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		        	String lang = FMLClientHandler.instance().getCurrentLanguage();
 		            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + xml + "_" + lang + ".xml");

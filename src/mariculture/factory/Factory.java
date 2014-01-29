@@ -11,7 +11,6 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
@@ -21,6 +20,7 @@ import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
@@ -313,7 +313,7 @@ public class Factory extends Module {
 			" E ", "PGP", "LUL",
 			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 
-			Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC), 
+			Character.valueOf('G'), new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC), 
 			Character.valueOf('L'), tank, 
 			Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_PURITY)
 		});

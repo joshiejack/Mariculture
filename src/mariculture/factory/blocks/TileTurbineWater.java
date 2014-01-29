@@ -46,7 +46,7 @@ public class TileTurbineWater extends TileTurbineBase {
 	@Override
 	public void addPower() {
 		FluidStack fluid = tank.getFluid();
-		if(fluid != null) {
+		if(fluid != null && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
 			String name = fluid.getFluid().getName();
 			if(name.equals(FluidDictionary.hp_water)) {
 				if(onTick(20)) {

@@ -215,35 +215,16 @@ public class ModelOyster extends ModelBase {
 						posY = 0;
 					}
 
-					pearl = new ModelRenderer(this, posX, posY);
-					pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
-					pearl.setRotationPoint(5F, -6F, 6F);
-					pearl.setTextureSize(64, 64);
-					pearl.mirror = true;
-					setRotation(pearl, 0F, 0F, 0F);
-					pearl.render(scale);
-
+					renderPearl(posX, posY);
 				}
 			} else {
 				if(oyster.getCurrentPearl().itemID == Item.enderPearl.itemID) {
-					pearl = new ModelRenderer(this, 68, 0);
-					pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
-					pearl.setRotationPoint(5F, -6F, 6F);
-					pearl.setTextureSize(64, 64);
-					pearl.mirror = true;
-					setRotation(pearl, 0F, 0F, 0F);
-					pearl.render(scale);
+					renderPearl(68, 0);
 				} else {
 					GL11.glPushMatrix();
 					GL11.glScalef(0.6F, 0.6F, 0.6F);
 					GL11.glTranslatef(0F, -0.11F, 0F);
-					pearl = new ModelRenderer(this, 44, 38);
-					pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
-					pearl.setRotationPoint(5F, -6F, 6F);
-					pearl.setTextureSize(64, 64);
-					pearl.mirror = true;
-					setRotation(pearl, 0F, 0F, 0F);
-					pearl.render(scale);
+					renderPearl(44, 38);
 					GL11.glPopMatrix();
 				}
 			}
@@ -252,6 +233,16 @@ public class ModelOyster extends ModelBase {
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();
 		GL11.glPopMatrix();
+	}
+	
+	public void renderPearl(int x, int y) {
+		pearl = new ModelRenderer(this, x, y);
+		pearl.addBox(-7F, 0F, -8F, 4, 4, 4);
+		pearl.setRotationPoint(5F, -6F, 6F);
+		pearl.setTextureSize(64, 64);
+		pearl.mirror = true;
+		setRotation(pearl, 0F, 0F, 0F);
+		pearl.render(scale);
 	}
 
 	public void renderInventory(final ItemRenderType type) {

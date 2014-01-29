@@ -1,7 +1,5 @@
 package mariculture.core.guide;
 
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;

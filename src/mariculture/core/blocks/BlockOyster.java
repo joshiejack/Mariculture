@@ -14,6 +14,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
@@ -183,6 +184,22 @@ public class BlockOyster extends BlockMachine {
 
 		if (tile_entity instanceof TileOyster) {
 			TileOyster oyster = (TileOyster) tile_entity;
+			
+			//Spawn in the Jewelry Book on first collection of a pearl
+			if(Extra.SPAWN_BOOKS) {
+				ItemStack stack = oyster.getStackInSlot(0);
+				if(stack != null && stack.itemID != Block.sand.blockID) {
+					if(!player.getEntityData().hasKey("EnchantsBook")) {
+						player.getEntityData().setBoolean("EnchantsBook", true);
+						ItemStack book = new ItemStack(Core.guides, 1, GuideMeta.ENCHANTS);
+						if (!player.inventory.addItemStackToInventory(book)) {
+							if(!world.isRemote) {
+								SpawnItemHelper.spawnItem(world, x, y + 1, z, book);
+							}
+						}
+					}
+				}
+			}
 
 			if (!player.isSneaking()) {
 				if (!world.isRemote) {
@@ -194,15 +211,12 @@ public class BlockOyster extends BlockMachine {
 								player.inventory.decrStackSize(player.inventory.currentItem, 1);
 							}
 							
-							oyster.update();
-							
 							return true;
 						}
 					}
-
+					
 					BlockHelper.dropItems(world, x, y, z);
 					oyster.setInventorySlotContents(0, null);
-					oyster.update();
 					return true;
 
 				}
@@ -246,8 +260,6 @@ public class BlockOyster extends BlockMachine {
 						}
 					}
 				}
-				
-				oyster.update();
 			}
 		} else {
 			if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {

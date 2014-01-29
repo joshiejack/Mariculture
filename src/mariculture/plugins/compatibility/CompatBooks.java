@@ -1,7 +1,6 @@
 package mariculture.plugins.compatibility;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -11,38 +10,40 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.Mariculture;
-import mariculture.api.guide.Guides;
-import mariculture.api.guide.XMLHelper;
 import mariculture.core.Core;
 import mariculture.core.gui.GuiGuide;
 import mariculture.core.guide.GuideHandler;
+import mariculture.core.guide.Guides;
+import mariculture.core.guide.PageFake;
+import mariculture.core.guide.PageParser;
+import mariculture.core.guide.XMLHelper;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.GuideMeta;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class CompatBooks {
 	public static final HashMap<String, BookInfo> books = new HashMap();
 	public static class BookInfo {
-		public String name;
+		public String aColor;
+		public String author, name;
 		public Icon icon;
 		public Integer color;
 		public Document data;
 		
-		public BookInfo(String name, int color, Document data) {
+		public BookInfo(String name, String author, String aColor, int color, Document data) {
 			this.name = name;
+			this.author = author;
+			this.aColor = aColor;
 			this.color = color;
 			this.data = data;
 		}
@@ -53,6 +54,7 @@ public class CompatBooks {
 	}
 	
 	public static void init() {
+		PageParser fake = new PageFake();
 		String root = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets\\books";
 		File folder = new File(root);
 		for (File file : folder.listFiles()) {
@@ -66,24 +68,33 @@ public class CompatBooks {
 					doc.getDocumentElement().normalize();
 					NodeList list = doc.getElementsByTagName("info");
 					XMLHelper info = new XMLHelper((Element) list.item(0));
-					String display = info.getElement("name");
+					String aColor = fake.getColor(info.getHelper("author").getOptionalAttribute("color"));
+					String author =  info.getElement("author");
+					String display = fake.getColor(info.getHelper("name").getOptionalAttribute("color")) + info.getElement("name");
 					Integer color = info.getElementAsHex("color", 0xFFFFFF);
 					String id = filename.substring(0, filename.lastIndexOf('.'));
-					books.put(id, new BookInfo(display, color, doc));
+					books.put(id, new BookInfo(display, author, aColor, color, doc));
 					
 					NodeList nodes = doc.getElementsByTagName("register");
 					for(int i = 0; i < nodes.getLength(); i++) {
 						XMLHelper helper = new XMLHelper((Element) nodes.item(i));
-						String[] data = helper.getAttribute("data").split(":");
-						String name = helper.getAttribute("name");
-						if(data.length == 2) {
-							ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, Integer.parseInt(data[1]));
-							Guides.instance.registerIcon(name, stack);
-						} else if (data.length == 1) {
-							if(!data[0].equals("")) {
-								ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, 0);
+						String type = helper.getAttribute("type");
+						if(type.equals("item")) {
+							String[] data = helper.getAttribute("data").split(":");
+							String name = helper.getAttribute("name");
+							if(data.length == 2) {
+								ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, Integer.parseInt(data[1]));
 								Guides.instance.registerIcon(name, stack);
+							} else if (data.length == 1) {
+								if(!data[0].equals("")) {
+									ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, 0);
+									Guides.instance.registerIcon(name, stack);
+								}
 							}
+						} else if (type.equals("fluid")) {
+							String data = helper.getAttribute("data");
+							String name = helper.getAttribute("name");
+							Guides.instance.registerFluidIcon(name, data);
 						}
 					}
 					
@@ -107,11 +118,23 @@ public class CompatBooks {
 	public static String getName(ItemStack stack) {
 		if(stack.hasTagCompound()) {
 			String id = stack.stackTagCompound.getString("booksid");
-			if(books.get(id) != null)
+			if(books.get(id) != null) {
 				return books.get(id).name;
+			}
 		}
 		
 		return "Invalid Custom Book";
+	}
+	
+	public static void addAuthor(ItemStack stack, List list) {
+		if(stack.hasTagCompound()) {
+			String id = stack.stackTagCompound.getString("booksid");
+			if(books.get(id) != null) {
+				list.add(books.get(id).aColor + StatCollector.translateToLocal("mariculture.string.by") + " " + books.get(id).author);
+			}
+		} else {
+			list.add(StatCollector.translateToLocal("mariculture.string.by") + " " + "Unknown");
+		}
 	}
 	
 	public static int getColor(ItemStack stack) {

@@ -4,7 +4,6 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
@@ -69,7 +68,6 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -136,7 +134,6 @@ public class Magic extends Module {
 	public void registerHandlers() {
 		MaricultureHandlers.mirror = new MirrorHandler();
 		MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
-		GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
 		TickRegistry.registerScheduledTickHandler(new EnchantUpdateTicker(), Side.SERVER);
 		TickRegistry.registerScheduledTickHandler(new EnchantUpdateTicker(), Side.CLIENT);
 	}
@@ -226,7 +223,7 @@ public class Magic extends Module {
 		//Mob Magnet Crafting
 		if(Extra.MOB_MAGNET) {
 			RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
-				"III", "I I", "M M", 'I', "ingotAluminum", 'M', "ingotIron"
+				"III", "I I", "M M", 'I', "ingotIron", 'M', Item.enderPearl
 			});
 		}
 	}

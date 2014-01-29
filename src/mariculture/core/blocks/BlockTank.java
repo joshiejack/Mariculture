@@ -14,6 +14,7 @@ import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
 import mariculture.fishery.blocks.TileFishTank;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -95,6 +96,20 @@ public class BlockTank extends BlockConnected {
 		
 		return new TileTankBlock();
 	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileTankBlock) {
+			TileTankBlock tank = (TileTankBlock) tile;
+			FluidStack fluid = tank.getFluid();
+			if(fluid != null) {
+				return fluid.getFluid().getLuminosity();
+			}
+		}
+
+		return 0;
+    }
 
 	@Override
 	public int getMetaCount() {

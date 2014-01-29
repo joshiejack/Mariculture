@@ -54,7 +54,7 @@ public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 	@Override
 	public void addPower() {
 		FluidStack fluid = tank.getFluid();
-		if(fluid != null) {
+		if(fluid != null && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
 			String name = fluid.getFluid().getName();
 			if(fluids.contains(name)) {
 				if(onTick(20)) {

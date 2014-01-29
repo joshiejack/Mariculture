@@ -1,7 +1,5 @@
 package mariculture.core.guide;
 
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;

@@ -18,6 +18,7 @@ public class BlockIds {
 	public static int woodBlocks;
 	public static int tankBlocks;
 	public static int groundBlocks;
+	public static int transparentBlocks;
 	
 	public static int customFlooring;
 	public static int customBlock;

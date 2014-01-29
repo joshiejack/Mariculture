@@ -9,24 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import cpw.mods.fml.common.IPlayerTracker;
 
-public class PlayerTrackerHandler implements IPlayerTracker {
-	@Override
-	public void onPlayerLogin(EntityPlayer player) {
-
-	}
-
-	@Override
-	public void onPlayerLogout(EntityPlayer player) {
-
-	}
-
-	@Override
-	public void onPlayerChangedDimension(EntityPlayer player) {
-
-	}
-
-	@Override
-	public void onPlayerRespawn(EntityPlayer player) {
+public class ResurrectionTracker {
+	public static void onPlayerRespawn(EntityPlayer player) {
 		if (!player.worldObj.isRemote) {
 			NBTTagCompound nbt = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 			if (nbt.hasKey(EnchantmentResurrection.inventory)) {

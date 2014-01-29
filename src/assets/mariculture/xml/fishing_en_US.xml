@@ -1,16 +1,12 @@
 <?xml version="1.0"?>
 <book>
     <page>
-        <paragraph>
-            <heading x="92">Introduction</heading>
-            <text>Fishing in Mariculture, is very simple. All you need to get started is a fishing rod, and some bait. There are various different baits of varying qualities, of which only some can be used with a certain tier of fishing rod. Bait is obtained in a few ways, such as making bread, or catching minnow, however most of your bait, you will gather by the use of a sifter. &#10;&#10;You are able to catch various different species of fish as well as some other random loot while fishing, you will catch different fish based upon which biome you are fishing in! &#10;&#10;A lot of the fish that you catch will be Raw, only a few can be caught alive, and even then they have to caught without leaving the water, so fishing underwater or using an autofisher is best.</text>
-        </paragraph>
+        <text x="92" y="-13" bold="true">Introduction</text>
+        <text>Fishing in Mariculture, is very simple. All you need to get started is a fishing rod, and some bait. There are various different baits of varying qualities, of which only some can be used with a certain tier of fishing rod. Bait is obtained in a few ways, such as making bread, or catching minnow, however most of your bait, you will gather by the use of a sifter. &#10;&#10;You are able to catch various different species of fish as well as some other random loot while fishing, you will catch different fish based upon which biome you are fishing in! &#10;&#10;A lot of the fish that you catch will be Raw, only a few can be caught alive, and even then they have to caught without leaving the water, so fishing underwater or using an autofisher is best.</text>
     </page>
     <page>
-        <paragraph>
-            <heading x="42">Sifter</heading>
-            <text>Sifters are how you will obtain most of your bait, that is needed for fishing. Simply throw items on them such as dirt, or rotten flesh to sift out various types of bait. (Installing a Basic Storage Upgrade on a Sifter will give it an inventory)</text>
-        </paragraph>
+        <text x="42" y="-13" bold="true">Sifter</text>
+        <text>Sifters are how you will obtain most of your bait, that is needed for fishing. Simply throw items on them such as dirt, or rotten flesh to sift out various types of bait. (Installing a Basic Storage Upgrade on a Sifter will give it an inventory)</text>
         <crafting x="10" y="55">
             <craft1>plankWood,fishingNet,plankWood</craft1>
             <craft2>stickWood,blank,stickWood</craft2>
@@ -23,16 +19,12 @@
             <craft3>stickWood,string,stickWood</craft3>
             <craftResult num="4">fishingNet</craftResult>
         </crafting>
-         <paragraph y="166">
-            <heading y="-25">Fishing Net</heading>
-            <text>Fishing Nets when placed on water, overtime will randomly generate fish, as if they were being caught with a Reed Rod. You will need some way to collect the item entities that are produced.</text>
-        </paragraph>
+        <text y="126" bold="true">Fishing Net</text>
+        <text y="166">Fishing Nets when placed on water, overtime will randomly generate fish, as if they were being caught with a Reed Rod. You will need some way to collect the item entities that are produced.</text>
     </page>
     <page>
-        <paragraph>
-            <heading x="110">Fish Oil</heading>
-            <text>Fish Oil is needed in order to make Polished Sticks and Polished Titanium Rods, which is what you need to create higher tier fishing rods. In order to obtain Fish Oil, you need to melt Fish in a Crucible Furnace. To craft the sticks, and rods you need to soak logs/planks/sticks or titanium rods in Fish Oil in a Vat.</text>
-        </paragraph>
+        <text x="110" y="-13" bold="true">Fish Oil</text>
+        <text>Fish Oil is needed in order to make Polished Sticks and Polished Titanium Rods, which is what you need to create higher tier fishing rods. In order to obtain Fish Oil, you need to melt Fish in a Crucible Furnace. To craft the sticks, and rods you need to soak logs/planks/sticks or titanium rods in Fish Oil in a Vat.</text>
         <vat x="30" y="76" size="0.85">
             <input>stickWood</input>
             <fluid1 vol="5000">fishOil</fluid1>
@@ -61,16 +53,14 @@
         </vat>
         <vat x="30" y="142" size="0.85">
             <input color="black">stickWood</input>
-            <fluid1 vol="3">metalTitanium</fluid1>
+            <fluid1 type="ingots" vol="3">metalTitanium</fluid1>
             <output>titaniumRod</output>
             <time>60</time>
         </vat>
     </page>
     <page>
-        <paragraph>
-            <heading x="92">Fishing Rods</heading>
-            <text>There are four fishing rods introduced by Mariculture, you will need to use them instead of the vanilla if you want to catch any of the Mariculture Fish or Loot. Each fishing rod can use different types of bait, as well as having different durabilities.</text>
-        </paragraph>
+        <text x="92" y="-13" bold="true">Fishing Rods</text>
+        <text>There are four fishing rods introduced by Mariculture, you will need to use them instead of the vanilla if you want to catch any of the Mariculture Fish or Loot. Each fishing rod can use different types of bait, as well as having different durabilities.</text>
         <crafting x="5" y="53">
             <craft1>blank,blank,reed</craft1>
             <craft2>blank,reed,string</craft2>
@@ -97,14 +87,10 @@
         </crafting>
     </page>
     <page>
-        <paragraph>
-            <heading x="32">The Rods</heading>
-            <text>Below is a list of durabilities of the fishing rods and which bait can be used with each rod type.</text>
-        </paragraph>
+        <text x="32" y="-13" bold="true">The Rods</text>
+        <text>Below is a list of durabilities of the fishing rods and which bait can be used with each rod type.</text>
         <stack item="rodReed" size="1.8"></stack>
-        <paragraph y="60">
-            <heading x="32" size="0.8">Reed Fishing Rod (63 Uses)</heading>
-        </paragraph>
+        <text x="32" y="45" bold="true" size="0.8">Reed Fishing Rod (63 Uses)</text>
         <stack item="ant" x="30" y="36"></stack>
         <stack item="maggot" x="50" y="36"></stack>
         <stack item="grasshopper" x="70" y="36"></stack>
@@ -112,9 +98,7 @@
         <hr x="10" y="59" width="160"></hr>
         
         <stack item="rodWood" y="21" size="1.8"></stack>
-        <paragraph y="108">
-            <heading x="32" size="0.8">Wooden Fishing Rod (191 Uses)</heading>
-        </paragraph>
+        <text x="32" y="93" bold="true" size="0.8">Wooden Fishing Rod (191 Uses)</text>
         <stack item="ant" x="30" y="75"></stack>
         <stack item="maggot" x="50" y="75"></stack>
         <stack item="rawFish" x="70" y="75"></stack>
@@ -122,19 +106,15 @@
         <hr x="10" y="98" width="160"></hr>
         
         <stack item="rodTitanium" y="43" size="1.8"></stack>
-         <paragraph y="157">
-            <heading x="32" size="0.8">Titanium Fishing Rod (575 Uses)</heading>
-        </paragraph>
+        <text x="32" y="142" bold="true" size="0.8">Titanium Fishing Rod (575 Uses)</text>
         <stack item="bread" x="30" y="114"></stack>
         <stack item="rawFish" x="50" y="114"></stack>
         <stack item="worm" x="70" y="114"></stack>
         <stack item="minnow" x="90" y="114"></stack>
         <hr x="10" y="137" width="160"></hr>
         
-         <stack item="rodRF" y="64" size="1.8"></stack>
-        <paragraph y="206">
-            <heading x="32" size="0.8">RF Fishing Rod (Unlimited Uses)</heading>
-        </paragraph>
+        <stack item="rodRF" y="64" size="1.8"></stack>
+        <text x="32" y="191" bold="true" size="0.8">RF Fishing Rod (Unlimited Uses)</text>
         <stack item="ant" x="30" y="154"></stack>
         <stack item="bread" x="50" y="154"></stack>
         <stack item="maggot" x="70" y="154"></stack>
@@ -145,82 +125,107 @@
         <stack item="minnow" x="170" y="154"></stack>
     </page>
     <page>
-        <paragraph>
-            <heading x="102">Fishing</heading>
-            <text>Fishing is a piece of cake! Just make sure you have a rod and bait that can be used together. Then place the bait next to the fishing rod on your hotbar, and fish away like vanilla!</text>
-        </paragraph>
-       <img src="mariculture_fishing" x="20" y="100" size="0.53"></img>
+       <text x="102" y="-13" bold="true">Fishing</text>
+       <text>Fishing is a piece of cake! Just make sure you have a rod and bait that can be used together. Then place the bait next to the fishing rod on your hotbar, and fish away like vanilla!</text>
+       <img src="fishing/mariculture_fishing" x="20" y="100" size="0.53"></img>
     </page>
      <page>
-        <paragraph>
-            <heading x="38">Fish</heading>
-            <text>Different species are found by fishing in different biomes. Only 8 species however can be caught alive in the wild. Here's a list of the biome types they can be found in.</text>
-        </paragraph>
+        <text x="38" y="-13" bold="true">Fish</text>
+        <text>Different species are found by fishing in different biomes. Only 8 species however can be caught alive in the wild. Here's a list of the biome types they can be found in.</text>
 
         <stack item="minnow" size="1.5" y="15"></stack>
-        <paragraph y="78" wrap="100">
-            <heading x="28" y="-25">Minnow</heading>
-            <text x="28" size="0.7">Normal, Cold, Frozen</text>
-        </paragraph>
+        <text x="28" y="37" bold="true">Minnow</text>
+        <text x="28" y="78" size="0.7" wrap="100">Normal, Cold, Frozen</text>
         
         <stack item="cod" x="88" size="1.5" y="15"></stack>
-        <paragraph y="78" wrap="100">
-            <heading x="116" y="-25">Cod</heading>
-            <text x="116" size="0.7">(Frozen) Ocean, Cold, Frozen</text>
-        </paragraph>
+        <text x="116" y="37" bold="true">Cod</text>
+        <text x="116" y="78" size="0.7" wrap="100">(Frozen) Ocean, Cold, Frozen</text>
         
         <stack item="stingray" size="1.5" y="35"></stack>
-        <paragraph y="125" wrap="100">
-            <heading x="28" y="-40">Sting Ray</heading>
-            <text x="28" size="0.7">(Frozen) Ocean, Hot, Arid</text>
-        </paragraph>
+        <text x="28" y="70" bold="true">Sting Ray</text>
+        <text x="28" y="125" size="0.7" wrap="100">(Frozen) Ocean, Hot, Arid</text>
         
         <stack item="squid" x="88" size="1.5" y="35"></stack>
-        <paragraph y="125" wrap="100">
-            <heading x="116" y="-40">Squid</heading>
-            <text x="116" size="0.7">(Frozen) Ocean</text>
-        </paragraph>
+        <text x="116" y="70" bold="true">Squid</text>
+        <text x="116" y="125" size="0.7" wrap="100">(Frozen) Ocean</text>
         
         <stack item="damselfish" size="1.5" y="55"></stack>
-        <paragraph y="168" wrap="100">
-            <heading x="28" y="-52">Damselfish</heading>
-            <text x="28" size="0.7">Ocean, Hot</text>
-        </paragraph>
+        <text x="28" y="100" bold="true">Damselfish</text>
+        <text x="28" y="168" size="0.7" wrap="100">Ocean, Hot</text>
         
         <stack item="tetra" x="88" size="1.5" y="55"></stack>
-        <paragraph y="168" wrap="100">
-            <heading x="116" y="-52">Neon Tetra</heading>
-            <text x="116" size="0.7">Hot</text>
-        </paragraph>
+        <text x="116" y="100" bold="true">Neon Tetra</text>
+        <text x="116" y="168" size="0.7" wrap="100">Hot</text>
         
         <stack item="netherfish" size="1.5" y="75"></stack>
-        <paragraph y="211" wrap="100">
-            <heading x="28" y="-66">Netherfish</heading>
-            <text x="28" size="0.7">The Nether</text>
-        </paragraph>
+        <text x="28" y="130" bold="true">Netherfish</text>
+        <text x="28" y="211" size="0.7" wrap="100">The Nether</text>
         
-         <stack item="nightfish" x="88" size="1.5" y="75"></stack>
-        <paragraph y="211" wrap="100">
-            <heading x="116" y="-66">Nightfish</heading>
-            <text x="116" size="0.7">The End</text>
-        </paragraph>
+        <stack item="nightfish" x="88" size="1.5" y="75"></stack>
+        <text x="116" y="130" bold="true">Nightfish</text>
+        <text x="116" y="211" size="0.7">The End</text>
     </page>
     <page>
-        <paragraph wrap="220">
-            <heading x="86" y="2">Automatic Fisher</heading>
-            <text>The automatic fisher is able to do your fishing for you. You need to supply it with RF, a Fishing Rod, and bait that can be used with that fishing rod. The block also needs to be one above a block of water. They will also work above lava in the nether.</text>
-        </paragraph>
-        <img src="autofisher" x="18" y="150" size="0.45" stretch="1.25"></img>
+        <text x="86" y="-13" bold="true">Automatic Fisher</text>
+        <text>The automatic fisher is able to do your fishing for you. You need to supply it with RF, a Fishing Rod, and bait that can be used with that fishing rod. The block also needs to be one above a block of water. They will also work above lava in the nether.</text>
+        <img src="fishing/autofisher" x="18" y="150" size="0.45" stretch="1.25"></img>
     </page>
     <page>
-        <paragraph wrap="220">
-            <text>Only Capacitor and Hyperkinetic upgrades will work with the autofisher. With capacitor upgrades increasing how much of an internal buffer of RF the Autofisher has, and the Hyperkinetic increasing the speed.</text>
-        </paragraph>
+        <text wrap="220">Only Capacitor and Hyperkinetic upgrades will work with the autofisher. With capacitor upgrades increasing how much of an internal buffer of RF the Autofisher has, and the Hyperkinetic increasing the speed.</text>
         <crafting x="18" y="8" size="2">
             <craft1>blank,fish,blank</craft1>
             <craft2>rodWood,plankWood,rodWood</craft2>
             <craft3>logWood,baseWood,logWood</craft3>
             <craftResult>autofisher</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="96" y="-13" bold="true">Fish Breeding</text>
+        <text>Fish Breeding is the process in which you breed fish that will produce different products for you, from simple things like water droplets, that get melted down to water up to more complex things such as lapis lazuli or dragon eggs.</text>
+        <text y="64">Fish live out their lives in a Fish Feeder, with random chances to produce a product every so often. You can obtain different fish, to produce these different products by cross-breeding fish that can be caught in the wild. You have a chance for these hybrids to mutate to a whole new species on hatching from Fish Eggs.</text>
+        <text y="144">When a fish has lived out it's life in a feeder, it will die, leaving a raw form of it's primary species behind. Female fish will also produce 'Fish Eggs' on death. These must be placed inside of an Incubator where they will be warmed, and start hatching.</text>
+    </page>
+    <page>
+        <text>In order to get started with Fish Breeding you are going to need to catch a Male and a Female Fish, obtain some Fish Food and make an Incubator and a Fish Feeder.</text>
+        <text y="40" wrap="225">Different fish can live in different biomes, some like salt, some like fresh, some like the hot and some like the cold. You need to make sure that the environment you try to breed your fish in, is suitable to their needs.</text>
+        <text y="90" wrap="225">As well as breeding different species, each fish has certain traits, such as how hard they work, how many eggs they produce etc. These can also be bred in to your fish, enabling you to create your superfish to do your deeds.</text>
+        <hr y="129"></hr>
+        <text y="134" bold="true">Fish Food</text>
+        <text y="176" wrap="225">Fish food is made by melting down bait or fish meal(made from crafting raw fish with itself), or just chucking it in to water around a Fish Feeder.</text>
+    </page>
+     <page>
+        <text x="92" y="-13" bold="true">Fish Feeder</text>
+        <text wrap="220">The Fish Feeder is the main block used for Fish Breeding, it's where you will place your fish, and where they should spend most of their lives working away to produce something useful for you. With Fish Feeders the more water they have surrounding them, the larger the tank is considered, and the more fish food they can store.</text>
+        <img src="fishing/fish_feeder" x="-2" y="340" size="0.3" stretch="1.25"></img>
+        <crafting x="98" y="77" size="1.1">
+            <craft1>wicker,fish,wicker</craft1>
+            <craft2>wicker,chest,wicker</craft2>
+            <craft3>wicker,fish,wicker</craft3>
+            <craftResult>feeder</craftResult>
+        </crafting>
+    </page>
+     <page>
+        <text wrap="230" size="0.8">The Fish Feeder will accept most of the upgrades except for the Capacitor and the Hyperkinetic Upgrades. Storage upgrades will increase how much fish food you can store in a fish feeder, this does not increase the tank size. Heating and Cooling upgrades, will adjust the temperatures of the water, allowing for fish that wouldn't normally survive in the biome the feeder is in to stay alive.</text>
+        <text wrap="230" y="95" size="0.8">Salinator upgrades, will change the waters of the feeder to salt, while the Filtrator will change the waters to Fresh. Ethereal upgrades change the water to Magical waters. The Purity upgrades, will extend the life of your fish, causing them to live their lives in the feeder out for longer, while impurity will hurt the poor fish, causing them to die quicker (handy for speeding up breeding!). The last two upgrades are the Eternal Life upgrades, male and female versions. While these may not seem useful, they are. Fish will continue to produce their products and females will also produce eggs forever, without them having to die.</text>
+    </page>
+    <page>
+        <text x="96" y="-13" bold="true">Incubator</text>
+        <text>An Incubator is a three block structure consisting of 1 Incubator Base, with 2 Incubator Tops stacked on top. The Incubator is what hatches Fish Eggs in to living Fish. If after trying to hatch all of the eggs within a Fish Eggs item, no male or female fish is produced it will create the relevant gender, so you are guaranteed to get at least one male and one female from each Fish Eggs. The Incubator needs to be supplied with RF in order to operate.</text>
+        <text y="114">Incubators will accept, capacitor, heating and hyperkinetic upgrades. The Capacitor upgrades give it a larger internal buffer, while heating will process more and more fish eggs at a time. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
+    </page>
+    <page>
+        <img src="fishing/incubator" x="0" y="0" size="0.75" stretch="0.5"></img>
+        <crafting x="100" y="10" size="1.05">
+            <craft1>dyeBrown,fish,dyeBrown</craft1>
+            <craft2>stainedClayWhite,heating,stainedClayWhite</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>incubatorTop</craftResult>
+        </crafting>
+        <crafting x="100" y="90" size="1.05">
+            <craft1>dyeLightBlue,copperBattery,dyeLightBlue</craft1>
+            <craft2>stainedClayLightBlue,heating,stainedClayLightBlue</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>incubatorBase</craftResult>
         </crafting>
     </page>
 </book>

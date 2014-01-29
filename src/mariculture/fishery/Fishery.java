@@ -24,7 +24,6 @@ import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
@@ -32,6 +31,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
@@ -347,11 +347,6 @@ public class Fishery extends Module {
 			Item.book, rodReed
 		});
 		
-		//Breeding Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.BREEDING), new Object[] {
-			Item.book, new ItemStack(fishyFood, 1, OreDictionary.WILDCARD_VALUE)
-		});
-		
 		//Fishing Rods
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Item.reed);
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodWood), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK));
@@ -558,7 +553,7 @@ public class Fishery extends Module {
 		for (int i = 0; i < 12; i++) {
 			GameRegistry.addRecipe(new ItemStack(lampsOn, 4, i), new Object[] { "GDG", "PFP", "GRG", 
 					Character.valueOf('P'), new ItemStack(Core.pearls, 1, i),
-					Character.valueOf('G'), new ItemStack(Core.glassBlocks, 1, GlassMeta.PLASTIC),
+					Character.valueOf('G'), new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC),
 					Character.valueOf('R'), Item.redstone, 
 					Character.valueOf('D'), Item.glowstone,
 					Character.valueOf('F'), new ItemStack(fishyFood, 1, Fishery.tetra.fishID) });

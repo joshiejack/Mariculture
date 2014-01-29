@@ -11,6 +11,7 @@ import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.TransparentMeta;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -294,7 +295,7 @@ public class RecipesSmelting {
 		
 		//Glass > Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
-				FluidDictionary.glass, 30000, new ItemStack(Core.glassBlocks, 8, GlassMeta.PLASTIC), 5);
+				FluidDictionary.glass, 30000, new ItemStack(Core.transparentBlocks, 8, TransparentMeta.PLASTIC), 5);
 		
 		//Water + Lava = Obsidian
 		RecipeHelper.addFluidAlloyResultItem(FluidRegistry.getFluidStack("water", 1000), 

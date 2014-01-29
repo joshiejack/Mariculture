@@ -4,24 +4,23 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.lib.GlassMeta;
-import mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockTransparent extends BlockConnected {
-	private static Icon[] plastic = new Icon[47];
+public class BlockGlass extends BlockConnected {
+	private static Icon[] heatglass = new Icon[47];
 
-	public BlockTransparent(int i) {
+	public BlockGlass(int i) {
 		super(i, Material.glass);
 		this.setHardness(0.5F);
 	}
 
 	@Override
 	public int getRenderBlockPass() {
-		return 1;
+		return 0;
 	}
 
 	@Override
@@ -43,28 +42,28 @@ public class BlockTransparent extends BlockConnected {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("transparent." + getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
+			MaricultureRegistry.register("glass." + getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
 		}
 	}
 
 	@Override
 	public int getMetaCount() {
-		return TransparentMeta.COUNT;
+		return GlassMeta.COUNT;
 	}
 
 	@Override
 	public Icon[] getTexture(int meta) {
 		switch(meta) {
-			case TransparentMeta.PLASTIC:
-				return plastic;
-			default: return null;
+		case GlassMeta.HEAT:
+			return heatglass;
+		default: return null;
 		}
 	}
 
 	@Override
 	public void registerConnectedTextures(IconRegister iconRegister) {
 		for (int i = 0; i < 47; i++) {
-			plastic[i] = iconRegister.registerIcon(Mariculture.modid + ":plastic/" + (i + 1));
+			heatglass[i] = iconRegister.registerIcon(Mariculture.modid + ":heatglass/" + (i + 1));
 		}
 	}
 }

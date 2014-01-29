@@ -126,10 +126,19 @@ public abstract class RenderBase {
 		render.renderMinY = 0;
 		render.renderMaxY = 1;
 	}
+	
+	protected void renderFluidBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		render.renderAllFaces = true;
+		render.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
+		render.renderStandardBlock(Block.lavaStill, this.x, this.y, this.z);
+		render.renderAllFaces = false;
+	}
 
 	private void renderWorldBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		render.renderAllFaces = true;
 		render.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
 		render.renderStandardBlock(block, this.x, this.y, this.z);
+		render.renderAllFaces = false;
 	}
 
 	private void renderItemBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {

@@ -19,7 +19,7 @@ import javax.xml.transform.stream.StreamResult;
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
-import mariculture.api.guide.XMLHelper;
+import mariculture.core.guide.XMLHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.item.ItemStack;

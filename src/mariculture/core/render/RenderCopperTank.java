@@ -22,7 +22,7 @@ public class RenderCopperTank extends RenderBase {
 					if(fluid != null) {
 						double height = (double)fluid.amount * 1D / tank.getCapacity();
 						setTexture(fluid.getFluid().getIcon());
-						renderBlock(0, 0, 0, 1, height, 1);
+						renderFluidBlock(0, 0, 0, 1, height, 1);
 					}
 				}
 			}

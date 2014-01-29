@@ -1,14 +1,12 @@
 package mariculture.core.guide;
 
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
 
 public class PageUnderline extends PageParser {
 	int width;
 
 	@Override
 	public void read(XMLHelper xml) {	
-		width = xml.getAttribAsInteger("width", 220);
+		width = xml.getAttribAsInteger("width", 180);
 	}
 
 	@Override

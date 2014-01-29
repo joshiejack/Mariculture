@@ -7,6 +7,7 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.gui.GuiGuide;
+import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -97,6 +99,15 @@ public class ItemGuide extends ItemMariculture {
     }
 	
 	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		if(stack.getItemDamage() < GuideMeta.CUSTOM) {
+			list.add(StatCollector.translateToLocal("mariculture.string.by") + " " + StatCollector.translateToLocal("item.guide." + getName(stack) + ".author"));
+		} else {
+			CompatBooks.addAuthor(stack, list);
+		}
+	}
+	
+	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
@@ -122,7 +133,7 @@ public class ItemGuide extends ItemMariculture {
 		case GuideMeta.MACHINES:
 			return Modules.factory.isActive();
 		case GuideMeta.BREEDING:
-			return Modules.fishery.isActive();
+			return false;
 		case GuideMeta.ENCHANTS:
 			return Modules.magic.isActive();
 		case GuideMeta.DIVING:

@@ -1,7 +1,5 @@
 package mariculture.core.guide;
 
-import mariculture.api.guide.PageParser;
-import mariculture.api.guide.XMLHelper;
 import mariculture.core.lib.Text;
 import mariculture.core.util.FluidDictionary;
 import mariculture.plugins.nei.NEIBase;
@@ -13,17 +11,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
 public class PageVat extends PageParser {
-	String input, fluid1, fluid2, fluid3, output, colorIn, colorOut;
+	String input, fluid1, fluid2, fluid3, output, colorIn, colorOut, fluid1Type, fluid2Type, fluid3Type;
 	int numInput, vol1, vol2, vol3, numOutput, time;
 	
-	public String getColor(String color) {
-		if(color.equals("grey"))
-			return Text.GREY;
-		if(color.equals("black"))
-			return Text.BLACK;
-		return Text.DARK_GREY;
-	}
-
 	@Override
 	public void read(XMLHelper xml) {
 		input = xml.getOptionalElement("input");
@@ -42,12 +32,20 @@ public class PageVat extends PageParser {
 			numOutput = xml.getHelper("output").getAttribAsInteger("num", 1);
 		}
 		
-		if(!fluid1.equals(""))
+		if(!fluid1.equals("")) {
 			vol1 = xml.getHelper("fluid1").getAttribAsInteger("vol", 1000);
-		if(!fluid2.equals(""))
+			fluid1Type = xml.getHelper("fluid1").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid1").getOptionalAttribute("type");
+		}
+		
+		if(!fluid2.equals("")) {
 			vol2 = xml.getHelper("fluid2").getAttribAsInteger("vol", 1000);
-		if(!fluid3.equals(""))
+			fluid2Type = xml.getHelper("fluid2").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid2").getOptionalAttribute("type");
+		}
+		
+		if(!fluid3.equals("")) {
 			vol3 = xml.getHelper("fluidOutput").getAttribAsInteger("vol", 1000);
+			fluid3Type = xml.getHelper("fluid3").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid3").getOptionalAttribute("type");
+		}
 		
 		time = xml.getElementAsInteger("time", 10);
 	}
@@ -96,24 +94,26 @@ public class PageVat extends PageParser {
 			int xPlus = (fluid2.equals(""))? 12: 10;
 			if(vol1 > 9999)
 				xPlus-=3;
-			String after = fluid1.startsWith("metal")? " ingots": "mB";
-			if(after.equals(" ingots"))
+			if(!fluid1Type.equals("mB"))
 				xPlus-=2;
-			gui.getMC().fontRenderer.drawString("" + vol1 + after, x + xPlus, y + 2, 4210752);
 			if(!fluid2.equals("")) {
-				after = fluid2.startsWith("metal")? " ingots": "mB";
-				if(after.equals(" ingots"))
+				if(fluid2Type == null)
+					fluid2Type = fluid1Type;
+				if(!fluid2Type.equals("mB"))
 					xPlus-=2;
-				gui.getMC().fontRenderer.drawString("" + vol2 + after, x + 36 + xPlus, y, 4210752);
+				gui.getMC().fontRenderer.drawString("" + vol1 + fluid1Type, x + xPlus - 25, y - 10, 4210752);
+				gui.getMC().fontRenderer.drawString("" + vol2 + fluid2Type, x + xPlus + 30, y - 10, 4210752);
+				gui.getMC().fontRenderer.drawString("+", x + xPlus + 20, y - 10, 4210752);
+			} else {
+				gui.getMC().fontRenderer.drawString("" + vol1 + fluid1Type, x + xPlus, y + 2, 4210752);
 			}
 		}
 		
 		if(!fluid3.equals("")) {
 			int xPlus = 0;
-			String after = fluid3.startsWith("metal")? " ingots": "mB";
-			if(after.equals(" ingots"))
+			if(!fluid3Type.equals("mB"))
 				xPlus-=2;
-			gui.getMC().fontRenderer.drawString("" + vol3 + after, x + 42 + xPlus, y + 2, 4210752);
+			gui.getMC().fontRenderer.drawString("" + vol3 + fluid3Type, x + 42 + xPlus, y + 2, 4210752);
 		}
 		
 		gui.getMC().fontRenderer.drawString("" + time + "s", x + 62, y + 11, 4210752);

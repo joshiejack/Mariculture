@@ -35,6 +35,7 @@ import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -419,7 +420,8 @@ public class PluginTConstruct extends Plugin {
 
 	@Override
 	public void postInit() {
-		TConstructRegistry.addToolMaterial(titanium_id, "Titanium", 4, 600, 1500, 2, 1.5F, 2, 0.0F, "", "");
+		int level = Loader.isModLoaded("IguanaTweaks")? 5: 4;
+		TConstructRegistry.addToolMaterial(titanium_id, "Titanium", level, 600, 1500, 2, 1.5F, 2, 0.0F, "", "");
 		TConstructClientRegistry.addMaterialRenderMapping(titanium_id, "Mariculture", "titanium", true);
 		TConstructRegistry.addBowMaterial(titanium_id, 768, 40, 1.2F);
 		TConstructRegistry.addArrowMaterial(titanium_id, 5.0F, 0.25F, 100.0F);

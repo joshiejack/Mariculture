@@ -13,6 +13,7 @@
 * Retro-Gen
 * Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way), The materials used now also have more of an effect, they change enchantability, durability and the time needed to make
 * NEI Integration for a lot of things
+* Bunch of New Foods
 ====Changes====
 * Rewote 95% of things, should a lot less laggy
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
@@ -71,9 +72,6 @@
 * Limestone chance mechanisms changed, instead of only ever having a possiblity to generate once per chunk, you now define how many times it will try to find a place it can generate
 * Rennamed bait.xml to sifter.xml (to force the changes, otherwise some of the existing items would have terrible values)
 * Autodictionary config options to use whitelist instead of blacklist(blacklist is default)
-====API Changes====
-* IItemUpgrade additional items
-* Added Dual Smelting
 
 == Mariculture 1.1.4e ==
 * Fixed NPE when player becomes null when fishing

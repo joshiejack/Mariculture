@@ -16,13 +16,13 @@ import javax.xml.transform.stream.StreamResult;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.api.guide.XMLHelper;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
+import mariculture.core.guide.XMLHelper;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.TransparentMeta;
 import mariculture.core.util.FluidCustom;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -68,8 +68,8 @@ public class CompatFluids {
 					XMLHelper xml = new XMLHelper((Element) nNode);
 					String ident = xml.getElement("identifier");
 					String name = xml.getElement("name");
-					int id = (xml.getElementAsInteger("blockTextureID", -1) == -1)? Core.glassBlocks.blockID: xml.getElementAsInteger("blockTextureID", -1);
-					int meta = (xml.getElementAsInteger("blockTextureMeta", -1) == -1)? GlassMeta.PLASTIC: xml.getElementAsInteger("blockTextureMeta", -1);
+					int id = (xml.getElementAsInteger("blockTextureID", -1) == -1)? Core.transparentBlocks.blockID: xml.getElementAsInteger("blockTextureID", -1);
+					int meta = (xml.getElementAsInteger("blockTextureMeta", -1) == -1)? TransparentMeta.PLASTIC: xml.getElementAsInteger("blockTextureMeta", -1);
 					
 					FluidRegistry.registerFluid(new FluidCustom(ident, name, id, meta).setUnlocalizedName(name));
 				}

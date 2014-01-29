@@ -1,17 +1,16 @@
-package mariculture.api.guide;
+package mariculture.core.guide;
 
 import java.util.HashMap;
 
-import org.lwjgl.opengl.GL11;
-
+import mariculture.core.gui.GuiGuide;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
-import mariculture.Mariculture;
-import mariculture.core.gui.GuiGuide;
+
+import org.lwjgl.opengl.GL11;
 
 public abstract class PageParser {
 	protected static final ResourceLocation elements = new ResourceLocation("mariculture", "textures/gui/guide_elements.png");
@@ -57,4 +56,15 @@ public abstract class PageParser {
         
         GL11.glDisable(GL11.GL_LIGHTING);
     }
+	
+	public String getColor(String color) {
+		String prfx = "\u00a7";
+		if(color.equals("grey"))
+			return prfx + 7;
+		if(color.equals("black"))
+			return prfx + 0;
+		if(color.equals("green"))
+			return prfx + 2;
+		return prfx + 8;
+	}
 }
