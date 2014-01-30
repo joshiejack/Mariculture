@@ -22,7 +22,7 @@ public class BiomeTypeHandler implements IBiomeType {
 		if (biomeList.get(biome) != null) {
 			return (EnumBiomeType) biomeList.get(biome);
 		}
-
+		
 		// Let's guess
 		if (BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
 			return EnumBiomeType.OCEAN;

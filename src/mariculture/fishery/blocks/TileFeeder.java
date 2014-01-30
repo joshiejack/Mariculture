@@ -35,7 +35,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class TileFeeder extends TileMachineTank implements IHasNotification {
 
-	private boolean swap;
+	private EnumBiomeType theBiome;
+	private boolean swap = false;
 	public int tankSize = 0;
 	
 	public TileFeeder() {
@@ -56,7 +57,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int var1) {
-		return new int[] { male, female, 7, 8, 9, 10, 11, 12 };
+		return new int[] { male, female, 3, 7, 8, 9, 10, 11, 12 };
 	}
 
 	@Override
@@ -76,7 +77,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 
 	@Override
-	public void updateMachine() {		
+	public void updateMachine() {	
+		if(theBiome == null)
+			theBiome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getBiomeGenForCoords(xCoord, zCoord));
+		
 		//Every 5 Seconds update the tank size
 		if(!worldObj.isRemote) {
 			if(Extra.TANK_UPDATE > 0) {
@@ -93,17 +97,17 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 			if(onTick(30)) {
 				processContainers();
 			}
-		
-		
+
 			if(canWork) {
 				processed++;
-				
-				if(onTick(Extra.EFFECT_TICK) && swap) {
-					doEffect(male);
-					swap = !swap;
-				} else if(onTick(Extra.EFFECT_TICK) && !swap) {
-					doEffect(female);
-					swap = !swap;
+				if(onTick(Extra.EFFECT_TICK)) {
+					if(swap) {
+						doEffect(male);
+						swap = false;
+					} else {
+						doEffect(female);
+						swap = true;
+					}
 				}
 				
 				if(processed >= max) {
@@ -259,10 +263,9 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		int water = 0;
 		for(int x = -5; x <= 5; x++) {
 			for(int z = -5; z <= 5; z++) {
-				for(int y = -3; y <= 3; y++) {
+				for(int y = -5; y <= 5; y++) {
 					if(BlockHelper.isWater(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
 						cords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
-						
 						water++;
 					}
 				}
@@ -445,41 +448,29 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 				}
 
 				//Instead of 'Bad Biome', we want too hot, too cold, needs fresh or salt
-				EnumBiomeType thisBiome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord));
-				EnumBiomeType[] biomes = Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getGroup().getBiomes();
-				int needsSalt = 0;
-				int needsFresh = 0;
-				int min = 0;
-				int max = 0;
-				boolean init = false;
-				for(EnumBiomeType biome: biomes) {
-					if(!init) {
-						init = true;
-						min = biome.minTemp();
-						max = biome.maxTemp();
-					}
-					
-					if(biome.minTemp() < min)
-						min = biome.minTemp();
-					if(biome.maxTemp() > max)
-						max = biome.maxTemp();
+				EnumBiomeType[] biomeTypes = Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getGroup().getBiomes();
+				int min = biomeTypes[0].minTemp();
+				int max = biomeTypes[0].maxTemp();
+				int temp = theBiome.baseTemp() + heat;
+				for(EnumBiomeType type: biomeTypes) {
+					if(type.minTemp() < min)
+						min = type.minTemp();
+					if(type.maxTemp() > max)
+						max = type.maxTemp();
 				}
 				
-				int maxTemp = thisBiome.maxTemp() + heat;
-				int minTemp = thisBiome.minTemp() + heat;
-				
-				if(maxTemp <= min) {
+				if(temp < min) {
 					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.tooCold"));
 					noBad = false;
 				}
 				
-				if(minTemp >= max) {
+				if(temp > max) {
 					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.tooHot"));
 					noBad = false;
 				}
 				
 				boolean salinityMatches = false;
-				EnumSalinityType type = thisBiome.getSalinity();
+				EnumSalinityType type = theBiome.getSalinity();
 				if(MaricultureHandlers.upgrades.hasUpgrade("salinator", this))
 					type = EnumSalinityType.SALT;
 				if(MaricultureHandlers.upgrades.hasUpgrade("filter", this))
@@ -548,11 +539,14 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		tankSize = nbt.getInteger("TankSize");
+		theBiome = EnumBiomeType.values()[nbt.getInteger("BiomeType")];
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("TankSize", tankSize);
+		if(theBiome != null)
+			nbt.setInteger("BiomeType", theBiome.ordinal());
 	}
 }

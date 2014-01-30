@@ -10,6 +10,7 @@ import mariculture.core.lib.Modules;
 import mariculture.magic.Magic;
 import mariculture.magic.ResurrectionTracker;
 import mariculture.magic.enchantments.EnchantmentResurrection;
+import mariculture.plugins.compatibility.CompatBooks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,6 +27,19 @@ public class PlayerTrackerHandler implements IPlayerTracker {
 			if(!player.getEntityData().hasKey("ProcessingBook")) {
 				player.getEntityData().setBoolean("ProcessingBook", true);
 				ItemStack book = new ItemStack(Core.guides, 1, GuideMeta.PROCESSING);
+				if (!player.inventory.addItemStackToInventory(book)) {
+					World world = player.worldObj;
+					if(!world.isRemote) {
+						SpawnItemHelper.spawnItem(world, (int)player.posX, (int)player.posY + 1, (int)player.posZ, book);
+					}
+				}
+			}
+		}
+		
+		for(String str: CompatBooks.onWorldStart) {
+			if(!player.getEntityData().hasKey(str + "Book")) {
+				player.getEntityData().setBoolean(str + "Book", true);
+				ItemStack book = CompatBooks.generateBook(str);
 				if (!player.inventory.addItemStackToInventory(book)) {
 					World world = player.worldObj;
 					if(!world.isRemote) {

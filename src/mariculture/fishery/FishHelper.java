@@ -121,7 +121,7 @@ public class FishHelper implements IFishHelper {
 	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile) {
 		TileFeeder feeder = (TileFeeder) tile;
 		if(feeder != null && feeder instanceof IUpgradable) {
-			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getWorldChunkManager().getBiomeGenAt(tile.xCoord, tile.zCoord));
+			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getBiomeGenForCoords(tile.xCoord, tile.zCoord));
 			EnumSalinityType saltType = theBiome.getSalinity();
 			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
 				saltType = EnumSalinityType.SALT;
@@ -137,17 +137,20 @@ public class FishHelper implements IFishHelper {
 			
 			if(!saltMatches)
 				return false;
-			
+						
+			int min = biomeTypes[0].minTemp();
+			int max = biomeTypes[0].maxTemp();
 			int temp = theBiome.baseTemp() + MaricultureHandlers.upgrades.getData("temp", (IUpgradable) tile);
-			for (int i = 0; i < biomeTypes.length; i++) {
-				if(biomeTypes[i] != null) {
-					EnumBiomeType type = biomeTypes[i];
-					if(temp >= type.minTemp()&& temp <= type.maxTemp()) {
-						return true;
-					}
-				}
+			for(EnumBiomeType type: biomeTypes) {
+				if(type.minTemp() < min)
+					min = type.minTemp();
+				if(type.maxTemp() > max)
+					max = type.maxTemp();
 			}
 			
+			if(temp >= min && temp <= max) {
+				return true;
+			}
 		}
 		
 		return false;

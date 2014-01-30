@@ -76,7 +76,7 @@ public class FishKoi extends FishSpecies {
 	
 	@Override
 	public int getBaseProductivity() {
-		return EnumFishWorkEthic.LAZY.getMultiplier();
+		return EnumFishWorkEthic.NORMAL.getMultiplier();
 	}
 	
 	@Override

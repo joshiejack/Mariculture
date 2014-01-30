@@ -37,7 +37,7 @@ public class FluidHelper {
 	}
 	
 	public static boolean isFluidOrEmpty(ItemStack stack) {
-		return isEmpty(stack) || isFilled(stack) || isVoid(stack);
+		return isEmpty(stack) || isFilled(stack) || isVoid(stack) || FishFoodHandler.isFishFood(stack);
 	}
 	
 	public static boolean isEmpty(ItemStack stack) {

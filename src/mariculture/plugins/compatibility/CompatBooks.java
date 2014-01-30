@@ -1,6 +1,7 @@
 package mariculture.plugins.compatibility;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -26,12 +27,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class CompatBooks {
+	public static final ArrayList<String> onWorldStart = new ArrayList();
 	public static final HashMap<String, BookInfo> books = new HashMap();
 	public static class BookInfo {
 		public String aColor;
@@ -62,6 +65,7 @@ public class CompatBooks {
 			String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
 			if(extension.equals("xml")) {
 				try {		            
+					String id = filename.substring(0, filename.lastIndexOf('.'));
 		            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder build = factory.newDocumentBuilder();
 					Document doc = build.parse(file);
@@ -71,8 +75,11 @@ public class CompatBooks {
 					String aColor = fake.getColor(info.getHelper("author").getOptionalAttribute("color"));
 					String author =  info.getElement("author");
 					String display = fake.getColor(info.getHelper("name").getOptionalAttribute("color")) + info.getElement("name");
+					if (info.getAttribAsBoolean("gen"))
+						onWorldStart.add(id);
+					
 					Integer color = info.getElementAsHex("color", 0xFFFFFF);
-					String id = filename.substring(0, filename.lastIndexOf('.'));
+					
 					books.put(id, new BookInfo(display, author, aColor, color, doc));
 					
 					NodeList nodes = doc.getElementsByTagName("register");
@@ -164,6 +171,13 @@ public class CompatBooks {
 			stack.stackTagCompound.setString("booksid", book.getKey());
 			list.add(stack);
 		}
+	}
+	
+	public static ItemStack generateBook(String id) {
+		ItemStack stack = new ItemStack(Core.guides, 1, GuideMeta.CUSTOM);
+		stack.setTagCompound(new NBTTagCompound());
+		stack.stackTagCompound.setString("booksid", id);
+		return stack;
 	}
 
 	public static Document getDocumentDebugMode(String xml) {

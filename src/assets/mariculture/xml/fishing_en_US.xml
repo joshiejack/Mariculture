@@ -228,4 +228,22 @@
             <craftResult>incubatorBase</craftResult>
         </crafting>
     </page>
+    <page>
+        <text x="96" y="-13" bold="true">Fish Traits</text>
+        <text>There are a few different traits that fish can inherit they are Species, Fertility, Food Usage, Lifespan, Tank Size and Work Ethic. Fish have two copies of each, one being dominant the other recessive, only the dominant one counts for how the fish operates. Here is just a little information about each trait.</text>
+        <text y="63" bold="true">Species</text>
+        <text y="90">This determines a lot of things, such as which environments the fish can live in, how much fish oil or meal it produces and what products it produces.</text>
+        <text y="106" bold="true">Fertility</text>
+        <text y="140">This determines how many fish eggs will be in each in Fish Eggs item, with more fertile meaning more eggs.</text>
+        <text y="144" bold="true">Food Usage</text>
+        <text y="185">This determines how much fish food a fish will consume when it's the fish's turn to eat in the Fish Feeder</text>
+    </page>
+    <page>
+        <text y="-10" bold="true">Lifespan</text>
+        <text y="3">This is how long the fish will live, longer lives are good for keeping the perfect fish, and having it produce many products, while shorter lives are good for breeding</text>
+        <text y="34" bold="true">Tank Size</text>
+        <text y="55">This is the minimum tank size the fish will be happy in, aka how much water they need around the feeder to be happy</text>
+        <text y="74" bold="true">Work Ethic</text>
+        <text y="102">This is how much of a hardworker the fish is, Lazy fish will produce no products whatsoever, while hardworkers create twice as much as other fish.</text>
+    </page>
 </book>
