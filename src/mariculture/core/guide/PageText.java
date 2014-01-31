@@ -1,8 +1,9 @@
 package mariculture.core.guide;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.lib.Text;
+
+import org.lwjgl.opengl.GL11;
 
 public class PageText extends PageParser {
 	int wrap;
@@ -11,7 +12,7 @@ public class PageText extends PageParser {
 	@Override
 	public void read(XMLHelper xml) {
 		if(!xml.getAttribute("color").equals(""))
-			color = getColor(xml.getAttribute("color"));
+			color = Text.getColor(xml.getAttribute("color"));
 		else
 			color = "";
 		bold = (xml.getAttribAsBoolean("bold"))? StringHelper.BOLD: "";

@@ -24,12 +24,11 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int id, RenderBlocks render) {
 		int meta = world.getBlockMetadata(x, y, z);
 		if(meta == TankMeta.BOTTLE) {
-			new RenderVoidBottle(render).setCoords(world, x, y, z).render();
-			return true;
-		} else if(world.getBlockTileEntity(x, y, z) instanceof TileTankBlock) {
-			new RenderCopperTank(render).setCoords(world, x, y, z).render();
+			return new RenderVoidBottle(render).setCoords(world, x, y, z).render();
+		} else if(meta == TankMeta.TANK) {
+			return new RenderCopperTank(render).setCoords(world, x, y, z).render();
 		} else if(meta == TankMeta.FISH) {
-			new RenderFishTank(render).setCoords(world, x, y, z).render();
+			return new RenderFishTank(render).setCoords(world, x, y, z).render();
 		}
 		
 		return true;

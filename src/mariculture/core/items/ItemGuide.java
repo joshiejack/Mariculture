@@ -67,7 +67,7 @@ public class ItemGuide extends ItemMariculture {
 		case GuideMeta.ENCHANTS:
 			return new GuiGuide(0xA64DFF, "enchants");
 		case GuideMeta.DIVING:
-			return new GuiGuide(0x000066, "diving");
+			return new GuiGuide(0x75BAFF, "diving");
 		case GuideMeta.CUSTOM:
 			return CompatBooks.getGUI(stack);
 		default:

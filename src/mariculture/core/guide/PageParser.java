@@ -56,15 +56,4 @@ public abstract class PageParser {
         
         GL11.glDisable(GL11.GL_LIGHTING);
     }
-	
-	public String getColor(String color) {
-		String prfx = "\u00a7";
-		if(color.equals("grey"))
-			return prfx + 7;
-		if(color.equals("black"))
-			return prfx + 0;
-		if(color.equals("green"))
-			return prfx + 2;
-		return prfx + 8;
-	}
 }

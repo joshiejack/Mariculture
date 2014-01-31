@@ -304,7 +304,7 @@ public class Fishery extends Module {
 		Fishing.mutation.addMutation(gold, stingRay, siamese, 15D);
 		Fishing.mutation.addMutation(siamese, gold, koi, 7.5D);
 		Fishing.mutation.addMutation(angel, tetra, butterfly, 10D);
-		Fishing.mutation.addMutation(butterfly, tuna, tang, 7.5D);
+		Fishing.mutation.addMutation(butterfly, piranha, tang, 7.5D);
 		Fishing.mutation.addMutation(tang, butterfly, clown, 5D);
 	}
 

@@ -1,7 +1,6 @@
 package mariculture.core.guide;
 
 import mariculture.core.lib.Text;
-import mariculture.core.util.FluidDictionary;
 import mariculture.plugins.nei.NEIBase;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
@@ -19,16 +18,16 @@ public class PageVat extends PageParser {
 		input = xml.getOptionalElement("input");
 		fluid1 = xml.getOptionalElement("fluid1");
 		fluid2 = xml.getOptionalElement("fluid2");
-		fluid3 = xml.getOptionalElement("fluidOutput");
+		fluid3 = xml.getOptionalElement("fluid3");
 		output = xml.getOptionalElement("output");
 
 		if(!input.equals("")) {
-			colorIn = getColor(xml.getHelper("input").getOptionalAttribute("color"));
+			colorIn = Text.getColor(xml.getHelper("input").getOptionalAttribute("color"));
 			numInput = xml.getHelper("input").getAttribAsInteger("num", 1);
 		} 
 		
 		if(!output.equals("")) {
-			colorOut = getColor(xml.getHelper("output").getOptionalAttribute("color"));
+			colorOut = Text.getColor(xml.getHelper("output").getOptionalAttribute("color"));
 			numOutput = xml.getHelper("output").getAttribAsInteger("num", 1);
 		}
 		
@@ -43,7 +42,7 @@ public class PageVat extends PageParser {
 		}
 		
 		if(!fluid3.equals("")) {
-			vol3 = xml.getHelper("fluidOutput").getAttribAsInteger("vol", 1000);
+			vol3 = xml.getHelper("fluid3").getAttribAsInteger("vol", 1000);
 			fluid3Type = xml.getHelper("fluid3").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid3").getOptionalAttribute("type");
 		}
 		
@@ -75,6 +74,18 @@ public class PageVat extends PageParser {
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 12, icon, 7, 16);
 		}
 		
+		if(!fluid3.equals("")) {
+			Icon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid3)).getIcon();
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 28, icon, 16, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 28, icon, 7, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 28, icon, 16, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 28, icon, 7, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 12, icon, 16, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 12, icon, 7, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 12, icon, 16, 16);
+			NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 12, icon, 7, 16);
+		}
+		
 		/** End Left Tank Begin Right Tank **/
 		
 		gui.getMC().getTextureManager().bindTexture(elements);
@@ -85,7 +96,9 @@ public class PageVat extends PageParser {
 		if(!input.equals("")) {
 			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(input), x + 20, y + 20);
 			gui.getMC().fontRenderer.drawString(colorIn + "x" + numInput, x + 36, y + 27, 4210752);
-		} if(!input.equals("")) {
+		} 
+		
+		if(!output.equals("")) {
 			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(output), x + 104, y + 20);
 			gui.getMC().fontRenderer.drawString(colorOut + "x" + numOutput, x + 120, y + 27, 4210752);
 		}
@@ -112,8 +125,8 @@ public class PageVat extends PageParser {
 		if(!fluid3.equals("")) {
 			int xPlus = 0;
 			if(!fluid3Type.equals("mB"))
-				xPlus-=2;
-			gui.getMC().fontRenderer.drawString("" + vol3 + fluid3Type, x + 42 + xPlus, y + 2, 4210752);
+				xPlus+=2;
+			gui.getMC().fontRenderer.drawString("" + vol3 + fluid3Type, x + 92 + xPlus, y + 2, 4210752);
 		}
 		
 		gui.getMC().fontRenderer.drawString("" + time + "s", x + 62, y + 11, 4210752);

@@ -137,7 +137,7 @@ public class Diving extends Module {
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(Diving.scubaMask, true, new Object[] { "PD", "LL", 
-						Character.valueOf('P'), new ItemStack(Item.potion, 1, 8198), 
+						Character.valueOf('P'), "dyeBlack", 
 						Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
 						Character.valueOf('D'), "dyeYellow" }));
 		

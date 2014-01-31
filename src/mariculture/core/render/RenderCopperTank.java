@@ -1,10 +1,7 @@
 package mariculture.core.render;
 
 import mariculture.core.blocks.TileTankBlock;
-import mariculture.core.helpers.RenderHelper;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RenderCopperTank extends RenderBase {
@@ -30,6 +27,5 @@ public class RenderCopperTank extends RenderBase {
 		
 		setTexture(block);
 		renderBlock(-0.01D, -0.01D, -0.01D, 1.01D, 1.01D, 1.01D);
-		render.clearOverrideBlockTexture();
 	}
 }

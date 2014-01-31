@@ -83,7 +83,7 @@ item.hammer.name=Blacksmith's Hammer
 item.ladle.name=Ladle
 item.titaniumBucket.name=Titanium Bucket
 item.food.oyster.name=Beef and Oyster Pie
-item.guide.processing.name=A Layman's guide to Processing
+item.guide.processing.name=Basic Materials & Processing
 item.guide.processing.author=Anonymous
 item.materials.ingotAluminum.name=Aluminium Ingot
 item.materials.ingotMagnesium.name=Magnesium Ingot
@@ -201,7 +201,8 @@ tile.doubleBlocks.airCompressor.name=Air Compressor Base
 tile.doubleBlocks.airCompressorPower.name=Air Compressor Top
 tile.doubleBlocks.pressureVessel.name=Pressure Vessel
 #items
-item.guide.diving.name=How to Breathe Underwater
+item.guide.diving.name=How to Dive (Breathing Underwater)
+item.guide.diving.author=Tom Daley
 item.snorkel.name=Snorkel
 item.divingHelmet.name=Diving Helmet
 item.divingTop.name=Diving Air Supply
@@ -238,6 +239,7 @@ tile.customRFBlock.customRFBlock=Custom Redstone Flux Block
 
 #items
 item.guide.machines.name=The Factory
+item.guide.author=Ford
 item.paintbrush.name=Paintbrush
 item.craftingItems.chalk.name=Planning Chalk
 item.craftingItems.plan_blank.name=Plan - Blank

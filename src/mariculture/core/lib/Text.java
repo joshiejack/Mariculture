@@ -18,4 +18,14 @@ public class Text {
 	public static final String PINK = prfx + "d";
 	public static final String YELLOW = prfx + "e";
 	public static final String WHITE = prfx + "f";
+	
+	public static String getColor(String color) {
+		if(color.equals("grey"))
+			return GREY;
+		if(color.equals("black"))
+			return BLACK;
+		if(color.equals("green"))
+			return DARK_GREEN;
+		return DARK_GREY;
+	}
 }

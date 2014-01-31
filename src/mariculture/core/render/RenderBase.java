@@ -1,9 +1,10 @@
 package mariculture.core.render;
 
+import java.util.HashMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
@@ -12,6 +13,8 @@ import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
 public abstract class RenderBase {
+	public static HashMap<String, RenderBase> renderers = new HashMap();
+	
 	static final double RENDER_OFFSET = 0.0010000000474974513D;
 	static final float LIGHT_Y_NEG = 0.5F;
 	static final float LIGHT_Y_POS = 1.0F;
@@ -48,7 +51,7 @@ public abstract class RenderBase {
 		return this;
 	}
 	
-	public void render() {
+	public boolean render() {
 		if(isItem()) {
 			GL11.glPushMatrix();
 			GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
@@ -58,7 +61,11 @@ public abstract class RenderBase {
 			GL11.glPopMatrix();
 		} else {
 			renderBlock();
+			if(render.hasOverrideBlockTexture())
+				render.clearOverrideBlockTexture();
 		}
+		
+		return true;
 	}
 	
 	public abstract void renderBlock();

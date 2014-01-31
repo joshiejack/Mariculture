@@ -15,19 +15,17 @@ import mariculture.core.Core;
 import mariculture.core.gui.GuiGuide;
 import mariculture.core.guide.GuideHandler;
 import mariculture.core.guide.Guides;
-import mariculture.core.guide.PageFake;
-import mariculture.core.guide.PageParser;
 import mariculture.core.guide.XMLHelper;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.Text;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.OreDictionary;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -57,7 +55,6 @@ public class CompatBooks {
 	}
 	
 	public static void init() {
-		PageParser fake = new PageFake();
 		String root = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets\\books";
 		File folder = new File(root);
 		for (File file : folder.listFiles()) {
@@ -72,9 +69,9 @@ public class CompatBooks {
 					doc.getDocumentElement().normalize();
 					NodeList list = doc.getElementsByTagName("info");
 					XMLHelper info = new XMLHelper((Element) list.item(0));
-					String aColor = fake.getColor(info.getHelper("author").getOptionalAttribute("color"));
+					String aColor = Text.getColor(info.getHelper("author").getOptionalAttribute("color"));
 					String author =  info.getElement("author");
-					String display = fake.getColor(info.getHelper("name").getOptionalAttribute("color")) + info.getElement("name");
+					String display = Text.getColor(info.getHelper("name").getOptionalAttribute("color")) + info.getElement("name");
 					if (info.getAttribAsBoolean("gen"))
 						onWorldStart.add(id);
 					
