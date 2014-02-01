@@ -17,6 +17,7 @@ public abstract class PageParser {
 	protected static RenderItem itemRenderer = new RenderItem();
 	public String node;
 	
+	protected String bookID;
 	protected FontRenderer font;
 	protected GuiGuide gui;
 	protected boolean left;
@@ -24,6 +25,7 @@ public abstract class PageParser {
 	protected float size;
 	
 	public void init(GuiGuide gui, int x, int y, boolean left) {
+		this.bookID = gui.xml;
 		this.gui = gui;
 		this.left = left;
 		this.x = x;

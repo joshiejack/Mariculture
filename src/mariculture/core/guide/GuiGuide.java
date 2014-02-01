@@ -42,7 +42,7 @@ public class GuiGuide extends GuiScreen {
 	protected int ySize = 217;
 	protected int maxPage;
 	private int hex;
-	private String xml;
+	public String xml;
 	
 	private TurnPageButton buttonNextPage;
 	private TurnPageButton buttonPreviousPage;

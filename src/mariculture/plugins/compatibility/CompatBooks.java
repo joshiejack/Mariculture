@@ -6,11 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
@@ -18,7 +20,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.Mariculture;
-import mariculture.core.ClientProxy;
 import mariculture.core.Core;
 import mariculture.core.guide.GuiGuide;
 import mariculture.core.guide.GuideHandler;
@@ -53,14 +54,12 @@ public class CompatBooks {
 		public String author, name;
 		public Icon icon;
 		public Integer color;
-		public Document data;
 		
-		public BookInfo(String name, String author, String aColor, int color, Document data) {
+		public BookInfo(String name, String author, String aColor, int color) {
 			this.name = name;
 			this.author = author;
 			this.aColor = aColor;
 			this.color = color;
-			this.data = data;
 		}
 		
 		public void setIcon(Icon icon) {
@@ -68,158 +67,123 @@ public class CompatBooks {
 		}
 	}
 	
-	public static void loadCustomBooks() throws IOException {
-		String root = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets";
-		for (File file : new File(root).listFiles()) {
-			String filename = file.getName();
-			String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
-			if(extension.equals("zip")) {
-				byte[] buffer = new byte[1024];
-				 
-			     try{
-			    	File folder = new File(root + "\\books");
-			    	if(!folder.exists()){
-			    		folder.mkdir();
-			    	}
-			 
-			    	ZipInputStream zis =  new ZipInputStream(new FileInputStream(file));
-			    	ZipEntry zipentry = zis.getNextEntry();
-			    	
-			    	LogHandler.log(Level.FINE, "Beginning Extraction of the Guide Book Data: " + filename);
-			    	
-			    	while (zipentry != null) {
-			            //for each entry to be extracted
-			            String entryName = folder + "\\" +  zipentry.getName();
-			            entryName = entryName.replace('/', File.separatorChar);
-			            entryName = entryName.replace('\\', File.separatorChar);
-			            int n;
-			            FileOutputStream fileoutputstream;
-			            File newFile = new File(entryName);
-			            if (zipentry.isDirectory()) {
-			                if (!newFile.mkdirs()) {
-			                    break;
-			                }
-			                zipentry = zis.getNextEntry();
-			                continue;
-			            }
-
-			            fileoutputstream = new FileOutputStream(entryName);
-
-			            while ((n = zis.read(buffer, 0, 1024)) > -1) {
-			                fileoutputstream.write(buffer, 0, n);
-			            }
-
-			            fileoutputstream.close();
-			            zis.closeEntry();
-			            zipentry = zis.getNextEntry();
-			        }
-			 
-			        zis.closeEntry();
-			    	zis.close();
-			    	
-			    	file.delete();
-			    	LogHandler.log(Level.FINE, "Finished Extracting Guide Book: " + filename);
-			 
-			    }catch(IOException ex){
-			       ex.printStackTrace(); 
-			       LogHandler.log(Level.WARNING, "Failed to Extract Guide Book: " + filename);
-			    }
-			}
-		}
-	}
+	public static final HashMap<String, Document> cache = new HashMap();
+	public static final HashMap<String, LinkedTexture> imageCache = new HashMap();
 	
 	public static void preInit() {
+		//We need to create the books config folder if it does not exist
+		File folder = new File((Mariculture.root + "/books/").replace('/', File.separatorChar));
+		if(!folder.exists()){
+			folder.mkdir();
+		}
 		
+		//Loop through all the files in the books folder
+		for(File file: folder.listFiles()) {
+			String zipName = file.getName();
+			//Continue if the file i a zip
+			if(zipName.substring(zipName.lastIndexOf(".") + 1, zipName.length()).equals("zip")) {
+				LogHandler.log(Level.FINE, "Attempting to read data for the installed Guide Book: " + zipName);
+				try {
+					ZipFile zipfile = new ZipFile(file);
+					Enumeration enumeration = zipfile.entries();
+					while (enumeration.hasMoreElements()) {
+						ZipEntry zipentry = (ZipEntry)enumeration.nextElement();
+						String fileName = zipentry.getName();
+			    		String extension = fileName.substring(fileName.length() - 3, fileName.length());
+			    		if(!zipentry.isDirectory()) {
+			    			if(FMLClientHandler.instance()!= null && extension.equals("png")) {
+			    				try {
+				    				String id = fileName.substring(0, fileName.lastIndexOf('.'));
+					    			BufferedImage img = ImageIO.read(zipfile.getInputStream(zipentry));
+					    			DynamicTexture dmTexture = new DynamicTexture(img);
+					    			ResourceLocation texture = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation(id, dmTexture);
+					    			LinkedTexture linked = new LinkedTexture(img.getHeight(), img.getWidth(), dmTexture, texture);
+					    			String identifier = (zipName.substring(0, zipName.length() - 4) + "|" + fileName.substring(0, fileName.length() - 4));
+					    			imageCache.put(identifier, linked); 
+			    				} catch (Exception e) {
+			    					LogHandler.log(Level.WARNING, "Failed to Read Image Data of " + fileName);
+			    				}
+			    			} else if(extension.equals("xml")) {
+				    			try {
+				    				//Saving the Document Data to the cache, ready for them to be read on init
+				    				String id = fileName.substring(0, fileName.lastIndexOf('.'));
+				    		        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+				    				DocumentBuilder build = factory.newDocumentBuilder();
+				    				Document doc = build.parse(zipfile.getInputStream(zipentry));
+				    				doc.getDocumentElement().normalize();
+				    				cache.put(id, doc);
+				    			} catch (Exception e) {
+				    				e.printStackTrace();
+				    				LogHandler.log(Level.WARNING, "Failed to Read XML Data of " + fileName);
+				    			}
+				    		}
+			    		}
+			        }
+					
+					zipfile.close();
+					LogHandler.log(Level.FINE, "Sucessfully finished reading the installed Guide Book: " + zipName);
+				} catch (Exception e) {
+					LogHandler.log(Level.WARNING, "Failed to read the installed Guide Book: " + zipName);
+				}
+			}
+		}
 	}
 	
 	public static void init() {
-		try {
-			loadCustomBooks();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		//Now that we have the images loaded in to the cache AND we have the Documents in the Cache, It is Startup Time, AKA it's time to read the book data
+		for (Entry<String, Document> docs : cache.entrySet()) {
+			Document doc = docs.getValue();
+			
+			NodeList registrations = doc.getElementsByTagName("register");
+			for(int i = 0; i < registrations.getLength(); i++) {
+				parseRegistrations(new XMLHelper((Element) registrations.item(i)));
+			}
+			
+			parseBookInfo(docs.getKey(), new XMLHelper((Element) doc.getElementsByTagName("info").item(0)));
 		}
+	}
+
+	//Books Information, Whether you get it on spawn, author, name, color etc.
+	public static void parseBookInfo(String id, XMLHelper info) {
+		String aColor = Text.getColor(info.getHelper("author").getOptionalAttribute("color"));
+		String author =  info.getElement("author");
+		String display = Text.getColor(info.getHelper("name").getOptionalAttribute("color")) + info.getElement("name");
+		if (info.getAttribAsBoolean("gen"))
+			onWorldStart.add(id);
 		
-		String root = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets\\books";
-		root = root.replace('/', File.separatorChar);
-		root = root.replace('\\', File.separatorChar);
-		File folder = new File(root);
-		if(folder == null)
-			return;
-		for (File file : folder.listFiles()) {
-			String filename = file.getName();
-			String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
-			if(extension.equals("xml")) {
-				try {		            
-					String id = filename.substring(0, filename.lastIndexOf('.'));
-		            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-					DocumentBuilder build = factory.newDocumentBuilder();
-					Document doc = build.parse(file);
-					doc.getDocumentElement().normalize();
-					NodeList list = doc.getElementsByTagName("info");
-					XMLHelper info = new XMLHelper((Element) list.item(0));
-					String aColor = Text.getColor(info.getHelper("author").getOptionalAttribute("color"));
-					String author =  info.getElement("author");
-					String display = Text.getColor(info.getHelper("name").getOptionalAttribute("color")) + info.getElement("name");
-					if (info.getAttribAsBoolean("gen"))
-						onWorldStart.add(id);
-					
-					Integer color = info.getElementAsHex("color", 0xFFFFFF);
-					
-					books.put(id, new BookInfo(display, author, aColor, color, doc));
-					
-					NodeList nodes = doc.getElementsByTagName("register");
-					for(int i = 0; i < nodes.getLength(); i++) {
-						XMLHelper helper = new XMLHelper((Element) nodes.item(i));
-						String type = helper.getAttribute("type");
-						if(type.equals("item")) {
-							String[] data = helper.getAttribute("data").split(":");
-							String name = helper.getAttribute("name");
-							if(data.length == 2) {
-								ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, Integer.parseInt(data[1]));
-								Guides.instance.registerIcon(name, stack);
-							} else if (data.length == 1) {
-								if(!data[0].equals("")) {
-									ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, 0);
-									Guides.instance.registerIcon(name, stack);
-								}
-							}
-						} else if (type.equals("fluid")) {
-							String data = helper.getAttribute("data");
-							String name = helper.getAttribute("name");
-							Guides.instance.registerFluidIcon(name, data);
-						}
-					}
-					
-					if(FMLClientHandler.instance() != null) {
-						NodeList images = doc.getElementsByTagName("img");
-						for(int i = 0; i < images.getLength(); i++) {
-							XMLHelper helper = new XMLHelper((Element) nodes.item(i));
-							String mod = helper.getOptionalAttribute("mod").equals("")? "books": helper.getOptionalAttribute("mod");
-							String name = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets\\" + mod + "\\" + helper.getAttribute("src") + ".png";
-							System.out.println(name);
-							File image = new File(name);
-							BufferedImage img = ImageIO.read(image);
-							DynamicTexture dmTexture = new DynamicTexture(img);
-							ResourceLocation texture = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("image", dmTexture);
-							ClientProxy.addImage(helper.getAttribute("src"), new LinkedTexture(img.getHeight(), img.getWidth(), dmTexture, texture));
-						}
-					}
-					
-					ItemStack item = GuideHandler.getIcon(info.getElement("item"));
-					ItemStack stack = new ItemStack(Core.guides.itemID, 1, GuideMeta.CUSTOM);
-					stack.setTagCompound(new NBTTagCompound());
-					stack.stackTagCompound.setString("booksid", id);
-					RecipeHelper.addShapelessRecipe(stack, new Object[] { Item.book, item });
-				} catch (Exception e) {
-					e.printStackTrace();
-					LogHandler.log(Level.WARNING, "Mariculture failed to read a books content in the books config folder");
+		Integer color = info.getElementAsHex("color", 0xFFFFFF);
+		books.put(id, new BookInfo(display, author, aColor, color));
+		
+		ItemStack item = GuideHandler.getIcon(info.getElement("item"));
+		ItemStack stack = new ItemStack(Core.guides.itemID, 1, GuideMeta.CUSTOM);
+		stack.setTagCompound(new NBTTagCompound());
+		stack.stackTagCompound.setString("booksid", id);
+		RecipeHelper.addShapelessRecipe(stack, new Object[] { Item.book, item });
+	}
+	
+	private static void parseRegistrations(XMLHelper helper) {
+		String type = helper.getAttribute("type");
+		if(type.equals("item")) {
+			String[] data = helper.getAttribute("data").split(":");
+			String name = helper.getAttribute("name");
+			if(data.length == 2) {
+				ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, Integer.parseInt(data[1]));
+				Guides.instance.registerIcon(name, stack);
+			} else if (data.length == 1) {
+				if(!data[0].equals("")) {
+					ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, 0);
+					Guides.instance.registerIcon(name, stack);
 				}
 			}
-	    } 
+		} else if (type.equals("fluid")) {
+			String data = helper.getAttribute("data");
+			String name = helper.getAttribute("name");
+			Guides.instance.registerFluidIcon(name, data);
+		}
 	}
 
 	public static Document getDocument(String xml) {
-		return books.get(xml).data;
+		return cache.get(xml);
 	}
 
 	public static String getName(ItemStack stack) {
@@ -281,20 +245,16 @@ public class CompatBooks {
 	}
 
 	public static Document getDocumentDebugMode(String xml) {
-		String root = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets\\books";
-		File file = new File(root + File.separator + xml + ".xml");
-		String filename = file.getName();
-		try {		            
-		    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		String file = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + 
+				File.separator  + "config" + File.separator + "books" + File.separator + "debug" + File.separator + xml + ".xml";
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder build = factory.newDocumentBuilder();
 			Document doc = build.parse(file);
 			doc.getDocumentElement().normalize();
 			return doc;
 		} catch (Exception e) {
-			e.printStackTrace();
-			LogHandler.log(Level.WARNING, "Mariculture failed to read a books content in the books config folder");
+			return null;
 		}
-		
-		return null;
 	}
 }

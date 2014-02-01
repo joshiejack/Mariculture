@@ -68,6 +68,7 @@ public class Mariculture {
 		Modules.transport.preInit();
 		Modules.world.preInit();
 		plugins.load(Stage.PRE);
+		Compat.preInit();
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 	}
