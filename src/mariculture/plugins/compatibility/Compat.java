@@ -6,6 +6,10 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
 
 public class Compat {
+	public static void preInit() {
+		CompatBooks.preInit();
+	}
+	
 	public static void init() {
 		if(Modules.fishery.isActive()) {
 			try {

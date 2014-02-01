@@ -264,7 +264,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		for(int x = -5; x <= 5; x++) {
 			for(int z = -5; z <= 5; z++) {
 				for(int y = -5; y <= 5; y++) {
-					if(BlockHelper.isWater(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
+					if(BlockHelper.isFishLiveable(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
 						cords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
 						water++;
 					}

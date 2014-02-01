@@ -59,13 +59,9 @@ public class TileSluice extends TileTank implements IBlacklisted {
 			pullFromTank();
 		}
 		
-		if(onTick(30) && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
-			ejectFluid();
+		if(onTick(30) && tank.getFluidAmount() > 0 && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
+			helper.ejectFluid(new int[] { 1000, 500, 100, 20, 10, 1 });
 			
-	}
-	
-	public void ejectFluid() {
-		helper.ejectFluid(new int[] { 1000, 500, 100, 20, 10, 1 });
 	}
 	
 	public void placeInTank() {

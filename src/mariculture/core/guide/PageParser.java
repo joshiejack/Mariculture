@@ -2,7 +2,6 @@ package mariculture.core.guide;
 
 import java.util.HashMap;
 
-import mariculture.core.gui.GuiGuide;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;

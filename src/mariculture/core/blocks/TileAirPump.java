@@ -142,8 +142,8 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 		}
 		
 		//Transfer internals to a nearby tank
-		if(tick %20 == 0) {			
-			helper.ejectFluid(new int[] { 1000, 100, 20, 1 });
+		if(tick %100 == 0 && tank.getFluidAmount() > 0) {			
+			helper.ejectFluid(new int[] { 8000, 4000, 2000, 1000, 100, 20, 1 });
 		}
 
 		if (animate) {
@@ -164,7 +164,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 		}
 
 		if(Modules.diving.isActive()){
-			if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) && Extra.REDSTONE_PUMP) {
+			if (Extra.REDSTONE_PUMP && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
 				supplyWithAir(30, 25.0D, 36.0D, 25.0D);
 			}
 		}

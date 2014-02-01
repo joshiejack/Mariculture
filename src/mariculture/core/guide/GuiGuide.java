@@ -1,4 +1,4 @@
-package mariculture.core.gui;
+package mariculture.core.guide;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,7 +8,6 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import mariculture.Mariculture;
-import mariculture.core.guide.GuideHandler;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import net.minecraft.client.Minecraft;
@@ -88,6 +87,8 @@ public class GuiGuide extends GuiScreen {
 		page1 = guide.item(currentPage);
 		if(guide.item(currentPage) != null)
 			page2 = guide.item(currentPage + 1);
+		String root = Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + "\\assets\\books\\magical\\test_img.png";
+		pic = new PagePicture(mc.getTextureManager(), new File(root));
 	}
 	
 	private void drawPage(Node page, int x, int y, boolean left) {
@@ -166,9 +167,11 @@ public class GuiGuide extends GuiScreen {
 		if(guiTick %64 == 0) {
 			GuideHandler.updateIcons();
 		}
-
+		
 		super.drawScreen(i, j, f);
 	}
+	
+	PagePicture pic;
 	
 	@Override
 	protected void mouseClicked(int par1, int par2, int par3)  {

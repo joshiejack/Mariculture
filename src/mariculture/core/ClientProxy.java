@@ -1,20 +1,18 @@
 package mariculture.core;
 
 import java.io.InputStream;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-
-import tconstruct.TConstruct;
 import mariculture.Mariculture;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.guide.GuideRegistry;
+import mariculture.core.guide.PageImage.LinkedTexture;
 import mariculture.core.handlers.ClientEventHandler;
 import mariculture.core.handlers.KeyBindingHandler;
 import mariculture.core.lib.Modules;
@@ -63,6 +61,9 @@ import mariculture.transport.render.RenderSpeedBoatItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.w3c.dom.Document;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
@@ -152,6 +153,16 @@ public class ClientProxy extends CommonProxy {
 	public static Document fishing;
 	public static Document machines;
 	public static Document processing;
+	
+	public static HashMap<String, LinkedTexture> images = new HashMap();
+	
+	public static void addImage(String str, LinkedTexture link) {
+		images.put(str, link);
+	}
+	
+	public static LinkedTexture getImage(String string) {
+		return images.get(string);
+	}
 	
 	@Override
 	public void loadBooks() {

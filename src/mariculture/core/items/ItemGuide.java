@@ -6,7 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.gui.GuiGuide;
+import mariculture.core.guide.GuiGuide;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.GuideMeta;

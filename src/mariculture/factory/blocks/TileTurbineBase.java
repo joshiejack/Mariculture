@@ -132,17 +132,19 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		super.updateEntity();
 		
 		machineTick++;
-		if(onTick(20)) {
-			if(hasGUI) {
-				FluidHelper.process(this, 3, 4);
-				updateUpgrades();
-				doBattery();
+		if(!worldObj.isRemote) {
+			if(onTick(20)) {
+				if(hasGUI) {
+					FluidHelper.process(this, 3, 4);
+					updateUpgrades();
+					doBattery();
+				}
+				
+				if(isAnimating)
+					energyStage = computeEnergyStage();
+				else
+					energyStage = EnergyStage.BLUE;
 			}
-			
-			if(isAnimating)
-				energyStage = computeEnergyStage();
-			else
-				energyStage = EnergyStage.BLUE;
 		}
 		
 		updateTurbine();

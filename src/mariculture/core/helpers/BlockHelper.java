@@ -41,6 +41,12 @@ public class BlockHelper {
 		return id == Block.lavaStill.blockID || id == Block.lavaMoving.blockID;
 	}
 	
+	public static boolean isFishLiveable(World world, int x, int y, int z) {
+		if(world.provider.isHellWorld)
+			return isLava(world, x, y, z);
+		return isWater(world, x, y, z);
+	}
+	
 	public static boolean isFishable(World world, int x, int y, int z) {
 		return isWater(world, x, y, z) || (isLava(world, x, y, z) && world.provider.isHellWorld);
 	}

@@ -31,13 +31,13 @@ public class TileTurbineWater extends TileTurbineBase {
 	
 	@Override
 	public boolean canOperate() {
+		if(inventory[6] == null)
+			return false;
 		if(!mode.canWork(this, mode))
 			return false;
 		ItemStack rotor = inventory[6];
-		if(rotor != null) {
-			if(rotor.getItem() instanceof ItemRotor) {
-				return ((ItemRotor)inventory[6].getItem()).isTier(2);
-			}
+		if(rotor.getItem() instanceof ItemRotor) {
+			return ((ItemRotor)inventory[6].getItem()).isTier(2);
 		}
 		
 		return false;

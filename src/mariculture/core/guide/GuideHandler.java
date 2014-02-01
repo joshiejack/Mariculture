@@ -12,7 +12,6 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.ClientProxy;
 import mariculture.core.Core;
-import mariculture.core.gui.GuiGuide;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.CraftingMeta;

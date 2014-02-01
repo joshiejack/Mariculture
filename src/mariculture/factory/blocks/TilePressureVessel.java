@@ -57,7 +57,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	
 	@Override
 	public void updateMasterMachine() {
-		if(onTick(30) && RedstoneMode.canWork(this, mode) && EjectSetting.canEject(setting, EjectSetting.FLUID))
+		if(onTick(30) && tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mode) && EjectSetting.canEject(setting, EjectSetting.FLUID))
 			helper.ejectFluid(new int[] { speed * 100, 100, 50, 25, 10, 5, 1 });
 		if(onTick(20))
 			fillFLUDD();
@@ -67,7 +67,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	public void updateSlaveMachine() {
 		if(onTick(30)) {
 			TilePressureVessel mstr = (TilePressureVessel) getMaster();
-			if(mstr != null && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID))
+			if(mstr != null && tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID))
 				helper.ejectFluid(new int[] { ((TilePressureVessel)getMaster()).speed * 100, 100, 50, 25, 10, 5, 1 });
 		}
 	}
