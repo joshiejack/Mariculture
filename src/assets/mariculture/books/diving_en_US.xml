@@ -20,7 +20,7 @@
         </crafting>
     </page>
     <page>
-        <img src="diving/airPump" x="130" y="5" size="0.7" stretch="0.3"></img>
+        <img mod="mariculture" src="diving/airPump" x="130" y="5" size="0.7" stretch="0.3"></img>
         <text x="38" y="-13" bold="true">Air Pump</text>
         <text size="0.8" wrap="160">Air Pumps are what you are going to need in order to be able to use the Diving Gear to Breathe Underwater. Once crafted you are going to place it down somewhere near where you want to Dive, they have a range of 64 blocks each way when powered by hand, or 40 when powered by a machine. As said, you can either activate Air Pumps by right clicking them or by powering with RF. On activation, the air pump will supply air to anyone wearing a Diving Helmet and Air Supply that is within range.</text>
         <text y="158" size="0.8" wrap="160">Air Pumps require a fair amount of the space around them to be air blocks. You can check if your Air Pump is located in a decent spot by shift right clicking with an empty hand. This will cause particles to display, if they are green you are good to go!</text>
@@ -143,6 +143,6 @@
         <text y="156">Overtime they will produce air from the RF, and you can see an indicator of how much air is inside by the bar that shows up. Once there is enough air, you right the block with your Scuba Tank and it will fill it up with the air. They hold 2 Tanks worth.</text>
     </page>
     <page>
-        <img src="diving/airCompressor" x="10" y="5" size="0.7" stretch="0.9"></img>
+        <img mod="mariculture" src="diving/airCompressor" x="10" y="5" size="0.7" stretch="0.9"></img>
     </page>
 </book>

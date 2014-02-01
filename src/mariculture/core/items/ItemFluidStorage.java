@@ -32,6 +32,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -208,7 +209,9 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 		if(stack.itemID == Core.bucket.itemID) {
 			if(pass == 0) {
 				if(stack.hasTagCompound() && getFluid(stack) != null) {
-					ItemStack bucket = FluidContainerRegistry.fillFluidContainer(getFluid(stack), new ItemStack(Item.bucketEmpty));
+					FluidStack fake = getFluid(stack).copy();
+					fake.amount = OreDictionary.WILDCARD_VALUE;
+					ItemStack bucket = FluidContainerRegistry.fillFluidContainer(fake, new ItemStack(Item.bucketEmpty));
 					if(bucket != null) {
 						return bucket.getIconIndex();
 					}

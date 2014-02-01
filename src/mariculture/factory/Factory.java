@@ -315,7 +315,14 @@ public class Factory extends Module {
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 
 			Character.valueOf('G'), new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC), 
 			Character.valueOf('L'), tank, 
-			Character.valueOf('U'), new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_PURITY)
+			Character.valueOf('U'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE)
+		});
+		
+		//Crafting of Life Core
+		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.spiderEye);
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
+			"DSR", "FHB", "PAC", 'D', Block.plantYellow, 'S', "treeSapling", 'R', Block.plantRed,
+			'F', fish, 'H', new ItemStack(Item.potion, 1, 8229), 'B', bait, 'P', Item.potato, 'A', Item.bootsDiamond, 'C', Item.carrot
 		});
 		
 		//Planning Chalk

@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<book>
+    <page>
+        <text x="92" y="-13" bold="true">Introduction</text>
+        <text>The Factory Module of Mariculture introduces a few different machines and blocks to help out in various different situations, this book will help describe their functionalities to you.</text>
+        <text bold="true" y="40">Settings</text>
+        <text y="62">A lot of the blocks throughout Mariculture can let you either adjust their auto-eject settings or redstone mode in their interface. Here's a little about each mode.</text>
+        <text y="90" bold="true">Redstone Mode</text>
+        <text y="170" size="0.65" wrap="300">Disabled - This block will not react to redstone signals</text>
+        <text y="180" size="0.65" wrap="300">Low - This block will work unless it has a redstone signal</text>
+        <text y="190" size="0.65" wrap="300">High - This block will only work with a redstone signal</text>
+        <text y="125" bold="true">Eject Setting</text>
+        <text y="225" size="0.65" wrap="300">Disabled - This Block will not auto-eject anything</text>
+        <text y="235" size="0.65" wrap="300">Items - This block will auto-eject items</text>
+        <text y="245" size="0.65" wrap="300">Fluids - This block will auto-eject fluids</text>
+        <text y="255" size="0.65" wrap="300">Items &amp; Fluids - Block auto-ejects both items and fluids</text>
+    </page>
+     <page>
+        <text x="0" y="-13" bold="true">Automatic Dictionary Converter</text>
+        <text y="2" wrap="235" size="0.8">This block can convert Ore Dictionary equivalent items from one to another. Other than the block all you need is one item that you would like to convert. You do not need the target item. Simply in the converter interface, place the ingot you want to convert in the top slots of the machine and it'll place a ghost item. You can then left click this and it will cycle through all of the ore dictionary equivalent items! Then simply place the item in the slots on the left and it will quickly convert the item for you. (Right click to remove item from the top slots).</text>
+        <text y="185">If you run out of room in the top 9 slots, you can place item filters (right click them to edit their contents), in the slots instead.</text>
+        <crafting x="5" y="92" size="1">
+            <craft1>blank,bookNQuill,blank</craft1>
+            <craft2>feather,pearl,feather</craft2>
+            <craft3>ingotCopper,baseWood,ingotCopper</craft3>
+            <craftResult>autodictionary</craftResult>
+        </crafting>
+        <crafting x="100" y="92" size="1">
+            <craft1>wicker,blank,wicker</craft1>
+            <craft2>wicker,fishingNet,wicker</craft2>
+            <craft3>blank,wicker,blank</craft3>
+            <craftResult>itemFilter</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="72" y="-13" bold="true">Sawmill &amp; Plans</text>
+        <text y="2">The sawmill can be used to create various different custom blocks, with different textures on each face. You can make one way mirrors this way. You will need plans in order to operate the sawmill.</text>
+        <text y="100" bold="true">Plans</text>
+        <text y="135">Plans are made by taking a blank plan and some planning chalk, and making sure they are both in your inventory then right click with the chalk on a block with similiar properties to what you want to make a plan of. For example right click a torch if you want a custom lighting plan, or right click stairs for stairs plan.</text>
+        <crafting x="5" y="42" size="1">
+            <craft1>dyeBlue,dyeBlack,blank</craft1>
+            <craft2>paper,dyeBlue,blank</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>blankPlan</craftResult>
+        </crafting>
+        <crafting x="100" y="42" size="1">
+            <craft1>limestone,blank,blank</craft1>
+            <craft2>limestone,blank,blank</craft2>
+            <craft3>dyeWhite,blank,blank</craft3>
+            <craftResult>planningChalk</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="22" y="-13" bold="true">Using the Sawmill</text>
+        <text y="2">First of all place your plan in one of the left three slots. (Right click the slot to change which is selected). Then place the blocks you want to use as the sides in the other 6 slots on the left. The 4 middle rows are NESW, while the other are top/bottom. You can use feathers in place of any of the block faces, and that side will be completely invisible. If you want to speed up the sawmill, you can use hyperkinetic upgrades. Take note that if you are confused you can place hoppers on the side of the sawmill and the blocks will go in the corresponding slots. You can also rotate the blocks in the world, if you right click them with a Blacksmith's Hammer.</text>
+        <crafting x="45" y="110" size="1.1">
+            <craft1>blank,ironAxe,blank</craft1>
+            <craft2>slabWood,logWood,slabWood</craft2>
+            <craft3>ingotCopper,baseWood,ingotCopper</craft3>
+            <craftResult>sawmill</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="92" y="-13" bold="true">Plan Types</text>
+        <text>This is a list of all the plan types and what you need to right click on to get them</text>
+        <stack y="15" item="floorPlan"></stack>
+        <text x="20" y="21" size="0.9" bold="true">Floor Plan</text>
+        <text x="20" y="33">Carpets</text>
+        
+        <stack y="32" item="blockPlan"></stack>
+        <text x="20" y="40" size="0.9" bold="true">Block Plan</text>
+        <text x="20" y="53">Any normal blocks, that don't emit light</text>
+        
+        <stack y="49" item="stairPlan"></stack>
+        <text x="20" y="59" size="0.9" bold="true">Stair Plan</text>
+        <text x="20" y="73">Stairs</text>
+        
+        <stack y="66" item="slabPlan"></stack>
+        <text x="20" y="78" size="0.9" bold="true">Slab Plan</text>
+        <text x="20" y="93">Slabs</text>
+        
+        <stack y="83" item="fencePlan"></stack>
+        <text x="20" y="97" size="0.9" bold="true">Fence Plan</text>
+        <text x="20" y="113">Fences</text>
+        
+        <stack y="100" item="gatePlan"></stack>
+        <text x="20" y="116" size="0.9" bold="true">Gate Plan</text>
+        <text x="20" y="133">Gates</text>
+        
+        <stack y="117" item="wallPlan"></stack>
+        <text x="20" y="135" size="0.9" bold="true">Wall Plan</text>
+        <text x="20" y="153">Walls</text>
+        
+        <stack y="134" item="lightPlan"></stack>
+        <text x="20" y="154" size="0.9" bold="true">Light Plan</text>
+        <text x="20" y="173">Any block that's emitting light</text>
+        
+        <stack y="150" item="floorPlan"></stack>
+        <text x="20" y="173" size="0.9" bold="true">RF Plan</text>
+        <text x="20" y="193">Any block that handles Redstone Flux</text>
+    </page>
+    <page>
+        <text x="22" y="-13" bold="true">Paintbrush</text>
+        <text y="2">The Paintbrush allows you to paint any existing custom blocks in the world. In order to do this you will need to shift + right click on the block you want to steal the texture from, this will get assigned to the brush. You can then simply right click (or in the case of gates shift + right click), and then you will paint that side the texture. This is the cheapest way to get decorative. If you want to paint a side invisible, simply shift + right click on any custom block, and it will set the texture to air. (Doesn't work on Gates)</text>
+        <crafting x="35" y="56" size="1.5">
+            <craft1>blank,wool,wool</craft1>
+            <craft2>blank,aluminumBlock,wool</craft2>
+            <craft3>sawmill,blank,blank</craft3>
+            <craftResult>paintbrush</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="82" y="-13" bold="true">Power Generation</text>
+        <text y="2">There are a few machines in Mariculture that run off of Redstone Flux. This is a power system created by Team COFH, makers of Thermal Expansion. Mariculture also introduces a few new ways to create Redstone Flux. You can create power with the use of Mariculture Turbines, these turbines run off of a different source of power each
+
+With the exception of the Manpowered Turbine all of the turbines can be upgraded to produce more power by using Hyperkinetic Upgrades. Turbines will also accept the storage and capacitor upgrades, allowing for more fluid storage, and a larger rf buffer. Turbines will automatically stop running when they have filled up their internal redstone flux buffer. Turbines can also charge up RF powered item by sticking them in the charge slot on the left of their gui.
+(Electric Rays also produce RF!)</text>
+    </page>
+    <page>
+        <text x="22" y="-13" bold="true">Manpowered Turbine</text>
+        <text y="2">The Manpowered Turbine is the most basic of the Turbines, it cannot be upgraded. In order for it to generate power, you simply hold down right click, and it will generate RF. Manpowered Turbines produce more RF than an Air Pump uses in the time you are clicking, so they are handy for charging up Air Pumps before you dive to keep you supplied with Air!</text>
+        <crafting x="10" y="28" size="1.8">
+            <craft1>blank,rotorCopper,blank</craft1>
+            <craft2>ingotCopper,baseWood,ingotCopper</craft2>
+            <craft3>slabWood,piston,slabWood</craft3>
+            <craftResult>turbineManual</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="82" y="-13" bold="true">Water Turbine</text>
+        <text y="2">Water Turbines are turbines that are powered by pressurised water. At a base rate they only produce 3RF per tick, but with full Hyperkinetic Upgrades can reach a maximum of 75RF per tick. They need to have a Copper or an Aluminum rotor in order to operate. They are not advanced enough to use the the Titanium Rotor.</text>
+        <crafting x="20" y="23" size="1.8">
+            <craft1>blank,rotorAluminum,blank</craft1>
+            <craft2>ingotAluminum,baseIron,ingotAluminum</craft2>
+            <craft3>slabStone,piston,slabStone</craft3>
+            <craftResult>turbineWater</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="52" y="-13" bold="true">Sluice</text>
+        <text y="2" size="0.8" wrap="230">The sluice has a couple of functions. It can pull fluids out of a tank, or place them in. The larger side is the output face, while the narrower side is the input. The Sluice's main function however is to generate pressurised water, to be used in your water turbines. You need to build a water tower behind them, the higher the tower, the more water they will produce. Sluice's produce water every 10 seconds so you may need a bunch of them to power your turbines.
+(Pressurised water damages terrain)</text>
+        <img mod="mariculture" y="260" src="factory/sluice" size="0.4" stretch="0.8"></img>
+        <crafting x="90" y="74" size="1.2">
+            <craft1>blank,hopper,blank</craft1>
+            <craft2>ironWheel,ironBars,ironWheel</craft2>
+            <craft3>ingotAluminum,baseIron,ingotAluminum</craft3>
+            <craftResult num="4">sluice</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="82" y="-13" bold="true">Gas Turbine</text>
+        <text y="2">The Gas Turbine, runs off of Natural Gas. By default it produces 60RF per tick. But it can be seriously upgrade to produce a crazy 300RF per tick. As the Gas Turbine is more advanced than the Water, you will need to keep it supplied with Aluminum or Titanium Rotors, or it will fail to operate.</text>
+        <crafting x="20" y="20" size="1.8">
+            <craft1>blank,rotorTitanium,blank</craft1>
+            <craft2>ingotTitanium,baseIron,ingotTitanium</craft2>
+            <craft3>slabQuartz,piston,slabQuartz</craft3>
+            <craftResult>turbineGas</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="32" y="-13" bold="true">Fish Sorter</text>
+        <text y="2">The Fish Sorter, allows you to sort your fish based upon their species. It can also sort other items. In order to set it up you, need to place the item you want to sort on the right hand side, in one of the many slots. You can then click on the slot and it will cycle between all the different colours. A colour representing a side of the block. Items will then only be allowed to be pulled from that side of the block, by pipes from other mods or hoppers. You can also click the square on the left to change the default side.</text>
+        <crafting x="40" y="75" size="1.3">
+            <craft1>dyeBlack,pearl,dyeYellow</craft1>
+            <craft2>dyeGreen,fish,dyeCyan</craft2>
+            <craft3>dyeRed,baseWood,dyeWhite</craft3>
+            <craftResult>fishSorter</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="62" y="-13" bold="true">Mechanized Sponge</text>
+        <text y="5" size="0.75" wrap="250">Ever had a large area of fluid you need cleared up? Well the Mechanized Sponge can do this for you, it just needs a little bit of RF power to get the job done. It can clear up to a 97x97 area. As well as the Mechanized Sponge you are going to need 5 additional Sponge blocks. (Use yellow wool if you have world module disabled). Simply place the sponge in the 5 directions away from the central mechanized sponge, this will determine how far it will clear the area out. You then need to supply the sponge with enough RF to clear the area. You can check how much RF is required by right clicking on the mechanized sponge.</text>
+        <crafting x="40" y="50" size="1.5">
+            <craft1>blank,fish,blank</craft1>
+            <craft2>waterDroplet,ingotAluminum,waterDroplet</craft2>
+            <craft3>sponge,baseIron,sponge</craft3>
+            <craftResult>mechanizedSponge</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <img y="50" mod="mariculture" src="factory/sponge1" size="0.28" stretch="1.22"></img>
+        <text x="2" y="160" size="0.5" bold="true">Lay sponges out like so</text>
+        <img x="95" y="50" mod="mariculture" src="factory/sponge2" size="0.28" stretch="1.22"></img>
+        <text x="97" y="160" size="0.5" bold="true">But in water</text>
+        <hr y="80"></hr>
+        <img y="450" mod="mariculture" src="factory/sponge3" size="0.28" stretch="1.22"></img>
+        <text x="2" y="225" size="0.5" bold="true">Give it RF Power...</text>
+        <img x="95" y="450" mod="mariculture" src="factory/sponge4" size="0.28" stretch="1.22"></img>
+        <text x="97" y="225" size="0.5" bold="true">And tada!</text>
+    </page>
+    <page>
+        <text x="62" y="-13" bold="true">Pressure Vessel</text>
+        <text y="5">Pressure Vessels are simple fluid storage, that can hold an enormous amount of fluid, especially when they are stocked full of storage upgrades. They are handy for keeping blocks in one place, they can also auto-eject so are useful for spreading water from your sluice to your water turbines. They can be any shape or size, and all connected blocks(if placed next to each other correctly, will form one huge tank).</text>
+        <crafting x="25" y="47" size="1.5">
+            <craft1>ironWheel,blockLapis,ironWheel</craft1>
+            <craft2>titaniumSheet,copperTank,titaniumSheet</craft2>
+            <craft3>titaniumSheet,sluice,titaniumSheet</craft3>
+            <craftResult>pressureVessel</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="62" y="-13" bold="true">Geyser</text>
+        <text y="5">Geysers are simple blocks that will push entities along. They need to be supplied with water or pressurised water. With water they will push entities up to 8 blocks, while with pressurised water they will push up to 16 blocks. They can be turned off with a redstone signal. They are useful for using with fishing nets to push the caught fish in to hoppers.</text>
+        <crafting x="18" y="28" size="1.75">
+            <craft1>blank,bucketWater,blank</craft1>
+            <craft2>blank,glass,blank</craft2>
+            <craft3>redstone,baseIron,redstone</craft3>
+            <craftResult num="16">geyser</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="102" y="-13" bold="true">F.L.U.D.D.</text>
+        <text y="5">The Flash Liquidizer Ultra Dousing Device (here on fludd) can be used in block or in item form. In Item form it comes in four modes, hover, squirt, turbo and rocket. You can switch between these modes by pressing the fludd key(default V) + the toggle key(default Y). It needs to be filled with Pressurised Water in order to operate, you can do this by placing it down and filling it, or by placing in the filling slot in a pressure vessel.</text>
+        <crafting x="25" y="47" size="1.5">
+            <craft1>blank,plasticLens,blank</craft1>
+            <craft2>goldPlastic,transparentPlastic,goldPlastic</craft2>
+            <craft3>scubaTank,lifeCore,scubaTank</craft3>
+            <craftResult>fludd</craftResult>
+        </crafting>
+    </page>
+     <page>
+        <text x="22" y="-13" bold="true">F.L.U.D.D. Modes</text>
+        <text y="-4" bold="true">Hover Mode</text>
+        <text y="10">Holding down space and the fludd key will cause your player to slowly ascend upwards, you can use this to 'hover' across the landscape.</text>
+        <text y="38" bold="true">Rocket Mode</text>
+        <text y="60">Pressing the fludd key, will cause your player to ascend really fast, helping get up to high places.</text>
+        <text y="72" bold="true">Turbo Mode</text>
+        <text y="100">Pressing the fludd key will cause your player to start moving at a very high speed.</text>
+        <text y="106" bold="true">Squirt Mode</text>
+        <text y="140">Pressing the fludd key while in squirt mode, will cause you to squirt water, this water is hot and will damage entities and blocks.</text>
+    </page>
+    <page>
+        <text x="62" y="-13" bold="true">F.L.U.D.D. Block Form</text>
+        <text>In block form, the fludd pretty much acts like an advanced geyser, you can control how far it goes and so much more. The main difference is that it will only accept high pressured water. Here's a list of what each upgrade does in a fludd.</text>
+        <text y="44" bold="true">Storage Upgrade</text>
+        <text y="66">Increases the tanks storage capacity.</text>
+        <text y="60" bold="true">Hyperkinetic Upgrades</text>
+        <text y="85">Increases how fast the water is, as in how much speed it adds to entities.</text>
+        <text y="83" bold="true">Heating Upgrades</text>
+        <text y="112">These will turn the water scalding hot, and the hotter the water is, the more damage it will do.</text>
+        <text y="114" bold="true">Cooling Upgrades</text>
+        <text y="149">These make the water freezing cold, and will make the fludds water break blocks, the colder, the more blocks it can break.</text>
+        <text y="145" bold="true">Ethereal Upgrade</text>
+        <text y="185">This causes the waters push effect to become a pull. Pulling items towards it and sucking them in to chests.</text>
+    </page>
+</book>

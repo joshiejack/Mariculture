@@ -154,16 +154,6 @@ public class ClientProxy extends CommonProxy {
 	public static Document machines;
 	public static Document processing;
 	
-	public static HashMap<String, LinkedTexture> images = new HashMap();
-	
-	public static void addImage(String str, LinkedTexture link) {
-		images.put(str, link);
-	}
-	
-	public static LinkedTexture getImage(String string) {
-		return images.get(string);
-	}
-	
 	@Override
 	public void loadBooks() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -179,9 +169,9 @@ public class ClientProxy extends CommonProxy {
 	private Document loadGuide (String location, DocumentBuilderFactory factory) {
         try {
         	String lang = FMLClientHandler.instance().getCurrentLanguage();
-            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + location + "_" + lang + ".xml");
+            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/books/" + location + "_" + lang + ".xml");
             if(stream == null)
-            	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + location + "_en_US.xml");
+            	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/books/" + location + "_en_US.xml");
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(stream);
             doc.getDocumentElement().normalize();

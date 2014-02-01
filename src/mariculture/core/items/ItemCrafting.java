@@ -71,6 +71,8 @@ public class ItemCrafting extends ItemMariculture {
 				return "burntBrick";
 			case CraftingMeta.TITANIUM_ROD:
 				return "titaniumRodBasic";
+			case CraftingMeta.LIFE_CORE:
+				return "lifeCore";
 			default:
 				return "unnamed";
 		}
@@ -137,15 +139,17 @@ public class ItemCrafting extends ItemMariculture {
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case CraftingMeta.DRAGON_EGG:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
 		case CraftingMeta.CHALK:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case CraftingMeta.BLANK_PLAN:
-			return (Modules.factory.isActive());
+			return Modules.factory.isActive();
 		case CraftingMeta.POLISHED_STICK:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
 		case CraftingMeta.POLISHED_TITANIUM:
-			return (Modules.fishery.isActive());
+			return Modules.fishery.isActive();
+		case CraftingMeta.LIFE_CORE:
+			return Modules.factory.isActive();
 		default:
 			return true;
 		}

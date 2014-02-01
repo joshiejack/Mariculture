@@ -193,7 +193,7 @@ public class Core extends Module {
 		singleBlocks = new BlockSingle(BlockIds.singleBlocks).setStepSound(Block.soundStoneFootstep).setHardness(1F).setResistance(1F).setUnlocalizedName("customBlocks");
 		oysterBlock = new BlockOyster(BlockIds.oyster).setStepSound(Block.soundStoneFootstep).setHardness(10F).setResistance(50F).setUnlocalizedName("oysterBlock").setLightValue(0.4F);
 		pearlBrick = new BlockPearlBrick(BlockIds.pearlBrick).setUnlocalizedName("pearlBrick");
-		glassBlocks = new BlockGlass(BlockIds.glassBlocks).setStepSound(Block.soundPowderFootstep).setResistance(1F).setUnlocalizedName("glassBlocks");
+		glassBlocks = new BlockGlass(BlockIds.glassBlocks).setStepSound(Block.soundGlassFootstep).setResistance(10F).setUnlocalizedName("glassBlocks");
 		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setUnlocalizedName("airBlocks");
 		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks").setHardness(2.0F);
 		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks").setHardness(1F);

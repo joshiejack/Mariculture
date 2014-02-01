@@ -129,9 +129,15 @@ public class CompatBooks {
 			}
 		}
 		
+		//Loading the xml on startup from the debug folder
 		if(Extra.DEBUG_ON) {
 			File debugFolder = new File(Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + 
 					File.separator  + "config" + File.separator + "books" + File.separator + "debug");
+			
+			if(!debugFolder.exists()){
+				debugFolder.mkdir();
+			}
+			
 			for(File file: debugFolder.listFiles()) {
 				String xmlName = file.getName();
 				if(xmlName.substring(xmlName.lastIndexOf(".") + 1, xmlName.length()).equals("xml")) {

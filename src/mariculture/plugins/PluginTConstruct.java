@@ -1,16 +1,22 @@
 package mariculture.plugins;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.Text;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.RecipeRemover;
+import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -91,6 +97,31 @@ public class PluginTConstruct extends Plugin {
         	if(tool instanceof HarvestTool) {
         		TConstructClientRegistry.addEffectRenderMapping(tool, effect, "mariculture", "pearl", true);
         	}
+        }
+        
+        RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE));
+        ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.fishRaw);
+        ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.spiderEye);
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
+			"DSR", "FHB", "PAC", 'D', Block.plantYellow, 'S', "treeSapling", 'R', Block.plantRed,
+			'F', fish, 'H', TConstructRegistry.getItemStack("canisterRedHeart"), 'B', bait, 
+			'P', Item.potato, 'A', Item.appleRed, 'C', Item.carrot
+		});
+        
+        if(FluidRegistry.getFluid("xpjuice") != null) {
+        	ItemStack xpberry = TConstructRegistry.getItemStack("oreberryEssence");
+        	ArrayList<FluidStack> fluids = new ArrayList<FluidStack>();
+    		ArrayList<Integer> chances = new ArrayList<Integer>();
+    		
+    		int j = 3;
+    		for(int i = 80; i <= 120; i+=10) {
+    			chances.add(j);
+    			fluids.add(FluidRegistry.getFluidStack("xpjuice", i));
+    			j++;
+    		}
+        	
+    		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(xpberry,
+					1000, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), null, 0));
         }
 	}
 

@@ -15,4 +15,5 @@ public class Dye {
 	public static final int GREY = 8;
 	public static final int LIGHT_GREY = 7;
 	public static final int BROWN = 3;
+	public static final int CYAN = 6;
 }

@@ -15,6 +15,7 @@
 * NEI Integration for a lot of things
 * Bunch of New Foods
 * Guide Books (With Custom book support, so you can write your own guides(xml based out of game).
+* Right clicking a squid with a fishing net will use up the net and drop a live raw squid
 ====Changes====
 * Rewote 95% of things, should a lot less laggy
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
@@ -40,7 +41,6 @@
 * Nerf to Never Hungry ;)
 * Story Bookshelves now count as 5 Bookshelves for an Enchantment Table
 * Can now right click on the sifter to throw bait in :) (as well as being able to throw it)
-* Clicky Click click squiddies with fishing nets :)
 * Buffed Neon Lamp Recipe
 * Can Repair Scuba Gear(Not Tank in an anvil) with Neoprene.
 * Buffed Fish Oil Drinking
@@ -61,10 +61,12 @@
 * The chances with Fish Breeding are changed to make fish breeding easier
 * Timelord now has a configurable percentage required, defaults to 5% of a server
 * Salinity is now split in to three types, Salt, Water and Magic. You convert to these different types by using Salinator, Purifier or Ethereal Upgrades
+* Water Turbines now produce a base of 3 RF/T, but they can be upgraded to a max of 75RF/T with Hyperkinetic Upgrades
+* Gas Turbines now produce a base of 60 RF/T, but can be upgraded to a maximum of 300RF/T
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick
-* Fixed Incorrect Recipep for Titanium Pickaxe Head
+* Fixed Incorrect Recipe for Titanium Pickaxe Head
 ====Config Changes====
 * Added Retro-Generation Options
 * Removed Unused Block Ids for Molten Metals and Limestone Stairs

@@ -1,9 +1,9 @@
 package mariculture.factory.blocks;
 
-import java.util.Random;
-
+import mariculture.core.lib.Modules;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.TileEnergyHandler;
 
@@ -13,6 +13,12 @@ public class TileSponge extends TileEnergyHandler {
 
     public TileSponge() {
         storage = new EnergyStorage(0, 5000, Integer.MAX_VALUE);
+    }
+    
+    public boolean isBlockSponge(int x, int y, int z) {
+    	if(Modules.world.isActive())
+    		return worldObj.getBlockId(x, y, z) == Block.sponge.blockID;
+    	return worldObj.getBlockId(x, y, z) == Block.cloth.blockID && worldObj.getBlockMetadata(x, y, z) == 4;
     }
 
     private int tick;
@@ -24,35 +30,35 @@ public class TileSponge extends TileEnergyHandler {
         posYFound = false;
         for (int i = 0; i < 48; i++) {
             if(!posXFound) {
-                if (worldObj.getBlockId(xCoord + i, yCoord, zCoord) == Block.sponge.blockID) {
+                if (isBlockSponge(xCoord + i, yCoord, zCoord)) {
                     posXFound = true;
                     posX = xCoord + i;
                 }
             }
 
             if(!negXFound) {
-                if (worldObj.getBlockId(xCoord - i, yCoord, zCoord) == Block.sponge.blockID) {
+                if (isBlockSponge(xCoord - i, yCoord, zCoord)) {
                     negXFound = true;
                     negX = xCoord - i;
                 }
             }
 
             if(!posZFound) {
-                if (worldObj.getBlockId(xCoord, yCoord, zCoord + i) == Block.sponge.blockID) {
+                if (isBlockSponge(xCoord, yCoord, zCoord + i)) {
                     posZFound = true;
                     posZ = zCoord + i;
                 }
             }
 
             if(!negZFound) {
-                if (worldObj.getBlockId(xCoord, yCoord, zCoord - i) == Block.sponge.blockID) {
+                if (isBlockSponge(xCoord, yCoord, zCoord - i)) {
                     negZFound = true;
                     negZ = zCoord - i;
                 }
             }
 
             if(!posYFound) {
-                if (worldObj.getBlockId(xCoord, yCoord + i, zCoord) == Block.sponge.blockID) {
+                if (isBlockSponge(xCoord, yCoord + i, zCoord)) {
                     posYFound = true;
                     posY = yCoord + i;
                 }

@@ -205,7 +205,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
         }
     }
 	
-public int aFluid = -1;
+	public int aFluid = -1;
 	
 	@Override
 	public void drawExtras(int id) {
@@ -299,23 +299,25 @@ public int aFluid = -1;
 		int yHigh = id % 2 == 0 ? 79 : 144;
 		
 		String fluid = null;
-		String volume = null;
 		if(recipe.fluid != null) {
 			if (recipe.fluid.amount > 0) {
 				if(recipe.rands != null) {
-					fluid = Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal");
+					FluidStack someFluid = recipe.random[aFluid];
+					fluid = StringHelper.getFluidName(someFluid);
 				} else {
 					fluid = StringHelper.getFluidName(recipe.fluid.getFluid());
 				}
-				
-				volume = Text.GREY + "" + recipe.fluid.amount + "mB";
 			}
 		}
 		
 		if(mouse.x >= 97 && mouse.x <= 132 && mouse.y >= yLow && mouse.y <= yHigh) {
+			currenttip.add(fluid);
         	if(fluid != null) {
-        		currenttip.add(fluid);
-        		StringHelper.getFluidQty(currenttip, recipe.fluid, -1);
+        		if(recipe.rands != null) {
+        			StringHelper.getFluidQty(currenttip, recipe.random[aFluid], -1);
+        		} else {
+        			StringHelper.getFluidQty(currenttip, recipe.fluid, -1);
+        		}
         	}
         }
         

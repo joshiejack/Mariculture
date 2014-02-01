@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class CraftingMeta {
-	public static final int COUNT = 21;
+	public static final int COUNT = 22;
 
 	public static final int GOLDEN_SILK = 0;
 	public static final int GOLDEN_THREAD = 1;
@@ -24,4 +24,5 @@ public class CraftingMeta {
 	public static final int TITANIUM_SHEET = 18;
 	public static final int LENS_GLASS = 19;
 	public static final int TITANIUM_ROD = 20;
+	public static final int LIFE_CORE = 21;
 }

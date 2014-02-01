@@ -125,9 +125,9 @@ public class GuideHandler implements IGuideHandler {
 						xml.equals("fishing") || xml.equals("machines") || xml.equals("processing")) {
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		        	String lang = FMLClientHandler.instance().getCurrentLanguage();
-		            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + xml + "_" + lang + ".xml");
+		            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/books/" + xml + "_" + lang + ".xml");
 		            if(stream == null)
-		            	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/xml/" + xml + "_en_US.xml");
+		            	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/books/" + xml + "_en_US.xml");
 		            DocumentBuilder dBuilder = factory.newDocumentBuilder();
 		            Document doc = dBuilder.parse(stream);
 		            doc.getDocumentElement().normalize();

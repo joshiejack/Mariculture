@@ -144,8 +144,13 @@ public class TileSluice extends TileTank implements IBlacklisted {
 	public void generateHPWater() {
 		int x = xCoord + direction.offsetX;
 		int z = zCoord + direction.offsetZ;
-		if(BlockHelper.isAir(worldObj, x, yCoord, z) && height > 1)
-			worldObj.setBlock(x, yCoord, z, Core.highPressureWaterBlock.blockID);
+		if(BlockHelper.isWater(worldObj, xCoord - direction.offsetX, yCoord, zCoord - direction.offsetZ)) {
+			if(BlockHelper.isAir(worldObj, x, yCoord, z))
+				worldObj.setBlock(x, yCoord, z, Core.highPressureWaterBlock.blockID);
+		} else {
+			if(BlockHelper.isHPWater(worldObj, x, yCoord, z))
+				worldObj.setBlockToAir(x, yCoord, z);
+		}
 		if(BlockHelper.isHPWater(worldObj, x, yCoord, z)) {
 			for(height = 0; BlockHelper.isWater(worldObj, xCoord - direction.offsetX, yCoord + height, zCoord - direction.offsetZ); height++) {
 			}

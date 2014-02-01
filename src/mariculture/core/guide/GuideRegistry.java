@@ -14,6 +14,7 @@ import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
+import mariculture.core.lib.PlansMeta;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
@@ -21,6 +22,7 @@ import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.diving.Diving;
+import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
 import mariculture.magic.Magic;
 import net.minecraft.block.Block;
@@ -76,7 +78,16 @@ public class GuideRegistry {
 		guide.registerOreDicIcon("glass", new ItemStack(Block.glass));
 		guide.registerOreDicIcon("dyeBlack", new ItemStack(Item.dyePowder, 1, Dye.INK));
 		guide.registerOreDicIcon("dyeYellow", new ItemStack(Item.dyePowder, 1, Dye.YELLOW));
+		guide.registerOreDicIcon("dyeBlue", new ItemStack(Item.dyePowder, 1, Dye.LAPIS));
+		guide.registerOreDicIcon("dyeWhite", new ItemStack(Item.dyePowder, 1, Dye.BONE));
+		guide.registerOreDicIcon("dyeGreen", new ItemStack(Item.dyePowder, 1, Dye.GREEN));
+		guide.registerOreDicIcon("dyeRed", new ItemStack(Item.dyePowder, 1, Dye.RED));
+		guide.registerOreDicIcon("dyeCyan", new ItemStack(Item.dyePowder, 1, Dye.CYAN));
+		guide.registerOreDicIcon("slabWood", new ItemStack(Block.woodSingleSlab));
 		
+		guide.registerIcon("lifeCore", new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE));
+		guide.registerIcon("goldPlastic", new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW));
+		guide.registerIcon("paper", new ItemStack(Item.paper));
 		guide.registerIcon("itemRubber", new ItemStack(Core.pearls));
 		guide.registerIcon("hardPlastic", new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC));
 		guide.registerIcon("neoprene", new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE));
@@ -136,9 +147,25 @@ public class GuideRegistry {
 		guide.registerIcon("aluminumSheet", new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET));
 		guide.registerIcon("aluminumBlock", new ItemStack(Core.oreBlocks, 1, OresMeta.ALUMINUM_BLOCK));
 		guide.registerIcon("dustMagnesite", new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE));
+		guide.registerIcon("bookNQuill", new ItemStack(Item.writableBook));
+		guide.registerIcon("feather", new ItemStack(Item.feather));
+		guide.registerIcon("hopper", new ItemStack(Block.hopperBlock));
+		guide.registerIcon("limestone", new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE));
+		guide.registerIcon("ironAxe", new ItemStack(Item.axeIron));
+		guide.registerIcon("baseIron", new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON));
+		guide.registerIcon("slabQuartz", new ItemStack(Block.stoneSingleSlab, 1, 7));
+		guide.registerIcon("slabStone", new ItemStack(Block.stoneSingleSlab, 1, 0));
+		guide.registerIcon("bucketWater", new ItemStack(Item.bucketWater));
+		guide.registerIcon("blockLapis", new ItemStack(Block.blockLapis));
+		guide.registerIcon("titaniumSheet", new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET));
 		
 		/** These are replaced when modules are added **/
 		guide.registerIcon("magicDroplet", new ItemStack(Item.ghastTear));
+		guide.registerIcon("sponge", new ItemStack(Item.bucketWater));
+		guide.registerIcon("fishingNet", new ItemStack(Block.chest));
+		guide.registerIcon("waterDroplet", new ItemStack(Item.potion, 1, 0));
+		guide.registerIcon("fish", new ItemStack(Item.fishRaw));
+		guide.registerIcon("scubaTank", new ItemStack(Block.lever));
 		/** Ignore replaceables **/
 		
 		if(Modules.diving.isActive()) {
@@ -153,6 +180,36 @@ public class GuideRegistry {
 			guide.registerIcon("flippers", new ItemStack(Diving.swimfin));
 			guide.registerIcon("compressorTop", new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_TOP));
 			guide.registerIcon("compressorBase", new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_BASE));
+		}
+		
+		if(Modules.factory.isActive()) {
+			guide.registerIcon("autodictionary", new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY));
+			guide.registerIcon("itemFilter", new ItemStack(Factory.filter));
+			guide.registerIcon("blankPlan", new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN));
+			guide.registerIcon("planningChalk", new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK));
+			guide.registerIcon("floorPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.FLOOR));
+			guide.registerIcon("blockPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.BLOCK));
+			guide.registerIcon("stairPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.STAIRS));
+			guide.registerIcon("slabPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.SLABS));
+			guide.registerIcon("fencePlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.FENCE));
+			guide.registerIcon("gatePlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.GATE));
+			guide.registerIcon("lightPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.LIGHT));
+			guide.registerIcon("rfPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.RF));
+			guide.registerIcon("wallPlan", PlansMeta.setType(new ItemStack(Factory.plans), PlansMeta.WALL));
+			guide.registerIcon("sawmill", new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL));
+			guide.registerIcon("paintbrush", new ItemStack(Factory.paintbrush));
+			guide.registerIcon("turbineManual", new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_HAND));
+			guide.registerIcon("turbineWater", new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_WATER));
+			guide.registerIcon("turbineGas", new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_GAS));
+			guide.registerIcon("sluice", new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE));
+			guide.registerIcon("rotorCopper", new ItemStack(Factory.turbineCopper));
+			guide.registerIcon("rotorAluminum", new ItemStack(Factory.turbineAluminum));
+			guide.registerIcon("rotorTitanium", new ItemStack(Factory.turbineTitanium));
+			guide.registerIcon("geyser", new ItemStack(Core.singleBlocks, 1, SingleMeta.GEYSER));
+			guide.registerIcon("fishSorter", new ItemStack(Core.utilBlocks, 1, UtilMeta.FISH_SORTER));
+			guide.registerIcon("mechanizedSponge", new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE));
+			guide.registerIcon("fludd", new ItemStack(Factory.fludd));
+			guide.registerIcon("pressureVessel", new ItemStack(Core.doubleBlock, 1, DoubleMeta.PRESSURE_VESSEL));
 		}
 		
 		if(Modules.fishery.isActive()) {
@@ -185,6 +242,7 @@ public class GuideRegistry {
 			guide.registerIcon("feeder", new ItemStack(Core.singleBlocks, 1, SingleMeta.FISH_FEEDER));
 			guide.registerIcon("incubatorBase", new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_BASE));
 			guide.registerIcon("incubatorTop", new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_TOP));
+			guide.registerIcon("waterDroplet", new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER));
 		}
 		
 		if(Modules.magic.isActive()) {
@@ -197,6 +255,10 @@ public class GuideRegistry {
 			guide.registerIcon("ringIron", MaricultureRegistry.get("ring.diamond.iron"));
 			guide.registerIcon("braceletIron", MaricultureRegistry.get("bracelet.iron.string"));
 			guide.registerIcon("necklaceIron", MaricultureRegistry.get("necklace.iron.wool"));
+		}
+		
+		if(Modules.world.isActive()) {
+			guide.registerIcon("sponge", new ItemStack(Block.sponge));
 		}
 		
 		if(OreDictionary.getOres("itemRubber").size() > 0) {

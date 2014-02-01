@@ -120,7 +120,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			coolDown();
 			
 			if(canWork) {
-				processed+=(speed * 25);
+				processed+=(speed * 50);
 				if(processed >= max) {
 					processed = 0;
 					if(canWork()) {

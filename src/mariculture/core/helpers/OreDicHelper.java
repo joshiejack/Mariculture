@@ -143,7 +143,7 @@ public class OreDicHelper {
 				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id);
 				
 				if(!checkWhitelist) {
-					if(stack.itemID == Block.planks.blockID || stack.itemID == Block.wood.blockID) {
+					if(stack.itemID == Block.planks.blockID || stack.itemID == Block.wood.blockID || stack.itemID == Block.woodSingleSlab.blockID) {
 						stack.setItemDamage(Rand.rand.nextInt(4));
 					}
 				}

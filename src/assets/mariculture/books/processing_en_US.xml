@@ -13,7 +13,7 @@
     <page>
         <text y="-12" bold="true">Natural Gas</text>
         <text y="0" wrap="222">Natural Gas is found in the depths of Ocean Biomes, the easiest way to locate it, is to swim around the ocean floor. You will come across some bubbles leaks. Digging down from these you will arrive in an air pocket, that gives you weakness and mining fatigue, whatever you do, do not set off a fire at this point! In order to collect the gas, you will need to power, or right click an Air Pump. This Air Pump will suck the gas in to a fluid, and will automatically eject it to any adjacent tanks.</text>
-        <img local="true" src="processing/oyster" x="85" y="866" size="0.15" stretch="1"></img>
+        <img mod="mariculture" src="processing/oyster" x="5" y="800" size="0.15" stretch="4.5"></img>
         <text y="135" bold="true">Oysters</text>
         <text y="174" wrap="222">Oysters are found at the bottom of the oceans. When supplied with a block of sand, they will generate Pearls overtime. The easiest way to collect them is to break the block underneath of them.</text>
     </page>
@@ -71,7 +71,7 @@
         <text y="184" italic="true">(Furnaces also will accept Coal Coke, Fuel, Oil, Pyrotheum or Liquifacted Coal if the relevant mods/fluids exist)</text>
     </page>
     <page>
-        <img local="true" src="processing/crucible" x="38" y="375" size="0.26" stretch="0.8"></img>
+        <img mod="mariculture" src="processing/crucible" x="0" y="0" size="0.755" stretch="0.5"></img>
         <crafting x="100" y="-8" size="1">
             <craft1>blank,bucketLava,blank</craft1>
             <craft2>burntBrick,copperTank,burntBrick</craft2>

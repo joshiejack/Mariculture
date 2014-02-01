@@ -16,7 +16,7 @@ public class MachineSpeeds {
 	}
 
 	public static int getLiquifierSpeed() {
-		return liquifier;
+		return Extra.DEBUG_ON? 10: liquifier;
 	}
 
 	public static int getSettlerSpeed() {
