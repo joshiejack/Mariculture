@@ -28,6 +28,7 @@ import mariculture.core.guide.PageImage.LinkedTexture;
 import mariculture.core.guide.XMLHelper;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Text;
 import net.minecraft.client.Minecraft;
@@ -124,6 +125,26 @@ public class CompatBooks {
 					LogHandler.log(Level.FINE, "Sucessfully finished reading the installed Guide Book: " + zipName);
 				} catch (Exception e) {
 					LogHandler.log(Level.WARNING, "Failed to read the installed Guide Book: " + zipName);
+				}
+			}
+		}
+		
+		if(Extra.DEBUG_ON) {
+			File debugFolder = new File(Mariculture.root.getAbsolutePath().substring(0, Mariculture.root.getAbsolutePath().length() - 7) + 
+					File.separator  + "config" + File.separator + "books" + File.separator + "debug");
+			for(File file: debugFolder.listFiles()) {
+				String xmlName = file.getName();
+				if(xmlName.substring(xmlName.lastIndexOf(".") + 1, xmlName.length()).equals("xml")) {
+					try {
+							DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		    				DocumentBuilder build = factory.newDocumentBuilder();
+		    				Document doc = build.parse(file);
+		    				doc.getDocumentElement().normalize();
+		    				cache.put(xmlName.substring(0, xmlName.lastIndexOf('.')), doc);
+		    				LogHandler.log(Level.WARNING, "Sucessfully loaded debug mode custom book xml " + xmlName);
+					} catch(Exception e) {
+						LogHandler.log(Level.WARNING, "Failed to load debug mode custom book xml " + xmlName);
+					}
 				}
 			}
 		}
