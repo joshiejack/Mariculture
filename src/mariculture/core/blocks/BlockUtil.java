@@ -6,13 +6,12 @@ import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.network.Packet101Sponge;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFishSorter;
@@ -32,12 +31,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.IFluidHandler;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -203,11 +200,13 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		if (stack.getItemDamage() == UtilMeta.SLUICE) {
-			int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
-			world.setBlockMetadataWithNotify(x, y, z, UtilMeta.SLUICE, 2);
-			TileSluice tile = (TileSluice) world.getBlockTileEntity(x, y, z);
-			tile.direction = ForgeDirection.getOrientation(facing);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
+		if (tile != null) {			
+			if(tile instanceof TileSluice) {
+				((TileSluice)tile).direction = ForgeDirection.getOrientation(facing);
+				Packets.updateTile(((TileSluice)tile), 32, ((TileSluice)tile).getDescriptionPacket());
+			}
 		}
 	}
 
@@ -366,7 +365,9 @@ public class BlockUtil extends BlockMachine {
 		icons = new Icon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
+			if(isActive(i)) {
 				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
+			}
 		}
 	}
 

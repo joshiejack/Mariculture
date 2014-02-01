@@ -11,16 +11,18 @@ import mariculture.magic.ResurrectionTracker;
 import mariculture.plugins.compatibility.CompatBooks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.IPlayerTracker;
 
 public class PlayerTrackerHandler implements IPlayerTracker {
 	@Override
-	public void onPlayerLogin(EntityPlayer player) {		
+	public void onPlayerLogin(EntityPlayer player) {	
+		NBTTagCompound nbt = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 		//Spawn Processing Book on Player Join
 		if(Extra.SPAWN_BOOKS) {
-			if(!player.getEntityData().hasKey("ProcessingBook")) {
-				player.getEntityData().setBoolean("ProcessingBook", true);
+			if(!nbt.hasKey("ProcessingBook")) {
+				nbt.setBoolean("ProcessingBook", true);
 				ItemStack book = new ItemStack(Core.guides, 1, GuideMeta.PROCESSING);
 				if (!player.inventory.addItemStackToInventory(book)) {
 					World world = player.worldObj;
@@ -32,8 +34,8 @@ public class PlayerTrackerHandler implements IPlayerTracker {
 		}
 		
 		for(String str: CompatBooks.onWorldStart) {
-			if(!player.getEntityData().hasKey(str + "Book")) {
-				player.getEntityData().setBoolean(str + "Book", true);
+			if(!nbt.hasKey(str + "Book")) {
+				nbt.setBoolean(str + "Book", true);
 				ItemStack book = CompatBooks.generateBook(str);
 				if (!player.inventory.addItemStackToInventory(book)) {
 					World world = player.worldObj;

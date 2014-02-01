@@ -85,16 +85,15 @@ public class ItemWorked extends ItemDamageable {
 	
 	@Override
 	public Icon getIcon(ItemStack stack, int pass) {
-		if (stack.hasTagCompound()) {
-			ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-			if(worked.itemID != this.itemID)
-				return worked.getItem().getIcon(worked, pass);
+		if(pass < 4) {
+			if (stack.hasTagCompound()) {
+				ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
+				if(worked.itemID != this.itemID)
+					return worked.getItem().getIcon(worked, pass);
+			}
 		}
 		
-		if(pass == 5)
-			return crack;
-
-		return itemIcon;
+		return crack;
 	}
 	
 	@Override

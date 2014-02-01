@@ -131,16 +131,16 @@ public class NEIVatRecipeHandler extends NEIBase {
 		CachedVatRecipe cache = (CachedVatRecipe) arecipes.get(id);
 		RecipeVat recipe = cache.recipe;
 		if (recipe.inputFluid1 != null) {
-			drawFluidRect(12, 31, recipe.inputFluid1, TankSize.VAT);
+			drawFluidRect(13, 30, recipe.inputFluid1, TankSize.VAT);
 			if (recipe.inputFluid2 == null)
-				drawFluidRect(36, 31, recipe.inputFluid1, TankSize.VAT);
+				drawFluidRect(36, 30, recipe.inputFluid1, TankSize.VAT);
 			else
-				drawFluidRect(36, 31, recipe.inputFluid2, TankSize.VAT);
+				drawFluidRect(36, 30, recipe.inputFluid2, TankSize.VAT);
 		}
 
 		if (recipe.outputFluid != null) {
-			drawFluidRect(105, 31, recipe.outputFluid, TankSize.VAT);
-			drawFluidRect(129, 31, recipe.outputFluid, TankSize.VAT);
+			drawFluidRect(106, 30, recipe.outputFluid, TankSize.VAT);
+			drawFluidRect(129, 30, recipe.outputFluid, TankSize.VAT);
 		}
 
 		int time = recipe.processTime;

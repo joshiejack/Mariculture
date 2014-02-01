@@ -139,7 +139,7 @@ public class ItemGuide extends ItemMariculture {
 		case GuideMeta.DIVING:
 			return Modules.diving.isActive();
 		default:
-			return true;
+			return false;
 		}
 	}
 
@@ -173,7 +173,7 @@ public class ItemGuide extends ItemMariculture {
 		icons = new Icon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			if (isActive(i)) {
+			if(i != GuideMeta.BREEDING) {
 				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, i)) + "Guide");
 			}
 		}

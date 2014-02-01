@@ -10,6 +10,9 @@ import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -23,13 +26,12 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileSluice extends TileTank implements IBlacklisted {
 	protected BlockTransferHelper helper;
-	public ForgeDirection direction;
+	public ForgeDirection direction = ForgeDirection.UP;
 	protected int machineTick;
 	private int height = 0;
 	
 	public TileSluice() {
 		tank = new Tank(10000);
-		direction = ForgeDirection.UP;
 	}
 	
 	@Override
@@ -157,6 +159,18 @@ public class TileSluice extends TileTank implements IBlacklisted {
 			
 			tank.fill(FluidRegistry.getFluidStack(FluidDictionary.hp_water, height * 10), true);
 		}
+	}
+	
+	@Override
+	public Packet getDescriptionPacket() {		
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
+	}
+	
+	@Override
+	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
+		readFromNBT(packet.data);
 	}
 	
 	@Override

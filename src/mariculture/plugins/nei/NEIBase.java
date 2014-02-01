@@ -30,9 +30,9 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		if(size.equals(TankSize.VAT)) {
 			drawScaledTexturedModelRectFromIcon(j, k, fluid.getFluid().getIcon(), 16, 16);
-			drawScaledTexturedModelRectFromIcon(j + 16, k, fluid.getFluid().getIcon(), 8, 16);
+			drawScaledTexturedModelRectFromIcon(j + 16, k, fluid.getFluid().getIcon(), 7, 16);
 			drawScaledTexturedModelRectFromIcon(j, k - 16, fluid.getFluid().getIcon(), 16, 16);
-			drawScaledTexturedModelRectFromIcon(j + 16, k - 16, fluid.getFluid().getIcon(), 8, 16);
+			drawScaledTexturedModelRectFromIcon(j + 16, k - 16, fluid.getFluid().getIcon(), 7, 16);
 		}
 		
 		if(size.equals(TankSize.CASTER)) {

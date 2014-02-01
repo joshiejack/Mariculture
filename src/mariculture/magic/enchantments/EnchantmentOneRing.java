@@ -49,10 +49,10 @@ public class EnchantmentOneRing extends EnchantmentJewelry {
 		}
 
 		if (EnchantHelper.hasEnchantment(Magic.oneRing, player)) {
-			player.getEntityData().setBoolean("oneRingActive", true);
+			player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setBoolean("oneRingActive", true);
 		} else {
-			if (player.getEntityData().hasKey("oneRingActive")) {
-				player.getEntityData().removeTag("oneRingActive");
+			if (player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).hasKey("oneRingActive")) {
+				player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).removeTag("oneRingActive");
 
 				if (player.worldObj.difficultySetting > 0) {
 					int difficulty = player.worldObj.difficultySetting;

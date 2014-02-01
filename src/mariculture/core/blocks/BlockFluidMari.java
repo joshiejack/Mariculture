@@ -65,7 +65,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 					name = "natural" + name.replaceAll("natural", "");
 				}
 				
-				if(!name.contains("normal")) {
+				if(!name.contains("normal") && !name.contains("fastwater")) {
 					flowing[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_flow");
 					still[i] = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + name + "_still");
 				}

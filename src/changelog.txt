@@ -63,6 +63,7 @@
 * Salinity is now split in to three types, Salt, Water and Magic. You convert to these different types by using Salinator, Purifier or Ethereal Upgrades
 * Water Turbines now produce a base of 3 RF/T, but they can be upgraded to a max of 75RF/T with Hyperkinetic Upgrades
 * Gas Turbines now produce a base of 60 RF/T, but can be upgraded to a maximum of 300RF/T
+* Changed FLUDD Recipe, now needs a Life Core
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick
