@@ -8,10 +8,12 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
+import mariculture.magic.Magic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.IEnergyContainerItem;
@@ -70,7 +72,8 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 					processed+=speed;
 					if(processed >= max) {
 						processed = 0;
-						if (Rand.rand.nextInt(100) < baitQuality && canWork())
+						int bonusQuality = baitQuality + (EnchantHelper.getLevel(Magic.luck, inventory[rod]) * 3);
+						if (Rand.rand.nextInt(100) < bonusQuality && canWork())
 							catchFish();
 						baitQuality = -1;
 					}

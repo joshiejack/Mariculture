@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import mariculture.Mariculture;
 import mariculture.api.core.IAnvilHandler;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
@@ -102,6 +103,9 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 					worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
 				else
 					worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+				if(worldObj.isRemote)
+					worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
+				
 				return true;
 			}
 			
@@ -111,6 +115,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		if(!(stack.getItem() instanceof ItemWorked)) {
 			RecipeAnvil recipe = ((RecipeAnvil) recipes.get(OreDicHelper.convert(stack)));
 			setInventorySlotContents(0, createWorkedItem(recipe.output.copy(), recipe.hits));
+			worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
 			return true;
 		} else {
 			int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
@@ -120,9 +125,12 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 				setInventorySlotContents(0, result);
 				
 				worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+				worldObj.playSoundAtEntity(player, Mariculture.modid + ":bang", 1.0F, 1.0F);
+				return true;
 			}
 			
 			worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+			worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
 			
 			return true;
 		}

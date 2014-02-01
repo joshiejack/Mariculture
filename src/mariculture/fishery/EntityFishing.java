@@ -6,6 +6,8 @@ import java.util.Random;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
+import mariculture.core.helpers.EnchantHelper;
+import mariculture.magic.Magic;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -266,7 +268,7 @@ public class EntityFishing extends EntityFishHook {
 					if (this.ticksCatchable > 0) {
 						--this.ticksCatchable;
 					} else {
-						short catchChance = CATCH_CHANCE;
+						short catchChance = (short) (CATCH_CHANCE + (EnchantHelper.getLevel(Magic.luck, angler.getCurrentEquippedItem()) * 10));
 						if (rand.nextInt(2000) < catchChance) {
 							this.ticksCatchable = this.rand.nextInt(60) + 20;
 							this.motionY -= 0.20000000298023224D;

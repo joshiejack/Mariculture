@@ -1,5 +1,7 @@
 package mariculture.magic;
 
+import mariculture.core.Core;
+import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,22 +11,16 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMagicMirror extends ItemMirror {
+	int enchantability;
 	int minLevel;
 	int maxLevel;
 	
-	public ItemMagicMirror(int id, int min, int max, String str) {
+	public ItemMagicMirror(int id, int min, int max, String str, int enchantability, int maxdamage) {
 		super(id, str);
 		minLevel = min;
 		maxLevel = max;
-		setMaxDamage(0);
-		setHasSubtypes(true);
-		setNoRepair();
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
+		this.enchantability = enchantability;
+		setMaxDamage(maxdamage);
 	}
 	
 	@Override
@@ -80,6 +76,13 @@ public class ItemMagicMirror extends ItemMirror {
 	
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-		return false;
+		if(stack1.itemID == Magic.magicMirror.itemID)
+			return stack2.itemID == Core.pearls.itemID;
+		return stack2.itemID == Core.materials.itemID && stack2.getItemDamage() == MaterialsMeta.DROP_MAGIC;
+	}
+	
+	@Override
+	public int getItemEnchantability() {
+		return enchantability;
 	}
 }

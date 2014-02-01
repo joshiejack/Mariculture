@@ -68,13 +68,13 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 	}
 
 	@Override
-	public void writeEntityToNBT(final NBTTagCompound tagCompound) {
+	public void writeEntityToNBT(NBTTagCompound tagCompound) {
 		tagCompound.setBoolean("damage", this.damage);
 		tagCompound.setFloat("size", this.size);
 	}
 
 	@Override
-	public void readEntityFromNBT(final NBTTagCompound tagCompound) {
+	public void readEntityFromNBT(NBTTagCompound tagCompound) {
 		this.damage = tagCompound.getBoolean("damage");
 		this.size = tagCompound.getFloat("size");
 	}

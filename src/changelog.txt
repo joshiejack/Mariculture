@@ -16,6 +16,8 @@
 * Bunch of New Foods
 * Guide Books (With Custom book support, so you can write your own guides(xml based out of game).
 * Right clicking a squid with a fishing net will use up the net and drop a live raw squid
+* New Jewelry Enchantment, Step Up, lets you walk up blocks
+* New Enchantment 'Luck of the Irish', Goes on Mirrors and Fishing Rods, gives bonus to enchantibility, or better catch rates
 ====Changes====
 * Rewote 95% of things, should a lot less laggy
 * Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
@@ -64,6 +66,7 @@
 * Water Turbines now produce a base of 3 RF/T, but they can be upgraded to a max of 75RF/T with Hyperkinetic Upgrades
 * Gas Turbines now produce a base of 60 RF/T, but can be upgraded to a maximum of 300RF/T
 * Changed FLUDD Recipe, now needs a Life Core
+* A lot of other stuff, too much to list!
 ====Bugfixes====
 * Fixed fishing rods using bait when pulling in
 * Fixed Speed Boat dropping twice when broken with a TiC pick

@@ -39,11 +39,11 @@ public class ItemJewelry extends Item implements IItemRegistry {
 
 	public ItemJewelry(int id) {
 		super(id);
+		this.setMaxDamage(100);
 		this.setMaxStackSize(1);
 		this.setCreativeTab(MaricultureTab.tabJewelry);
 		setNoRepair();
         canRepair = false;
-        setHasSubtypes(true);
 	}
 
 	@Override

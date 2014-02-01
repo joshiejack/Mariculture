@@ -123,6 +123,11 @@ public class ItemMirror extends ItemStorage {
 	}
 	
 	@Override
+	public int getItemEnchantability() {
+		return 10;
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + name);

@@ -334,6 +334,7 @@ public class Config {
             EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 67).getInt();
             EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 68).getInt();
             EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 69).getInt();
+            EnchantIds.luck = config.get(Category.ENCHANT, "Luck of the Irish", 70).getInt();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Mariculture had a serious issue loading it's block/item/enchant ids");
         } finally {

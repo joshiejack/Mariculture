@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import mariculture.core.helpers.EnchantHelper;
+import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -15,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
 public class MirrorEnchantmentHelper {
-	public static List buildEnchantmentList(Random par0Random, ItemStack stack, int par2) {
+	public static List buildEnchantmentList(Random par0Random, ItemStack stack, int par2, ItemStack mirror) {
 		Item item = stack.getItem();
 		int j = item.getItemEnchantability();
 
@@ -25,6 +27,8 @@ public class MirrorEnchantmentHelper {
 			j = j + JewelryPart.materialList.get(id1).getEnchantability()
 					+ (JewelryPart.materialList.get(id2).getEnchantability() / 2);
 		}
+		
+		j += EnchantHelper.getLevel(Magic.luck, mirror) * 4;
 		
 		if (j <= 0) {
 			return null;

@@ -17,5 +17,7 @@ public class ClientEventHandler {
 		event.manager.addSound(Mariculture.modid + ":mirror.ogg");
 		event.manager.addSound(Mariculture.modid + ":sift.ogg");
 		event.manager.addSound(Mariculture.modid + ":powerpunch.ogg");
+		event.manager.addSound(Mariculture.modid + ":hammer.ogg");
+		event.manager.addSound(Mariculture.modid + ":bang.ogg");
 	}
 }

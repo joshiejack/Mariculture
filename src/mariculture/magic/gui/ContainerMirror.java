@@ -17,8 +17,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ContainerMirror extends ContainerStorage {
+	ItemStack mirror;
 	public ContainerMirror(IInventory inventory, InventoryStorage storage, World world, ItemStack stack) {
 		super(inventory, storage, world);
+		this.mirror = stack;
 	}
 	
 	@Override
@@ -28,7 +30,7 @@ public class ContainerMirror extends ContainerStorage {
 				&& (player.experienceLevel >= levelToEnchant || player.capabilities.isCreativeMode)) {
 
 			if (!player.worldObj.isRemote) {
-				List var4 = MirrorEnchantmentHelper.buildEnchantmentList(Rand.rand, itemToEnchant, levelToEnchant);
+				List var4 = MirrorEnchantmentHelper.buildEnchantmentList(Rand.rand, itemToEnchant, levelToEnchant, mirror);
 				boolean var5 = itemToEnchant.itemID == Item.book.itemID;
 
 				if (var4 != null) {

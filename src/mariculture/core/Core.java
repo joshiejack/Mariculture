@@ -279,7 +279,7 @@ public class Core extends Module {
 		MinecraftForge.setToolClass(hammer, "pickaxe", 0);
 		
 		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
-				liquidContainers, hammer, worked, batteryCopper, guides, ladle });
+				liquidContainers, hammer, worked, batteryCopper, guides, ladle, bucket });
 	}
 	
 	@Override

@@ -2,14 +2,10 @@ package mariculture.api.fishery;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBaseRod extends ItemFishingRod {
 	private final EnumRodQuality quality;
@@ -23,6 +19,11 @@ public class ItemBaseRod extends ItemFishingRod {
 		this.setMaxStackSize(1);
 		this.setMaxDamage(quality.getMaxUses());
 		this.quality = quality;
+	}
+	
+	@Override
+	public int getItemEnchantability() {
+		return quality.getEnchantability();
 	}
 
 	public EnumRodQuality getQuality() {
