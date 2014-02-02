@@ -121,6 +121,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			
 			if(canWork) {
 				processed+=(speed * 50);
+				System.out.println(max);
 				if(processed >= max) {
 					processed = 0;
 					if(canWork()) {
@@ -210,8 +211,6 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	
 	public FuelHandler fuelHandler;
 	public boolean canFuel() {
-		if(temp >= MAX_TEMP)
-			return false;
 		if(fuelHandler.info != null)
 			return false;
 		if(!rsAllowsWork())
@@ -243,6 +242,8 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 		
 		if(fuelHandler.info != null) {
 			temp = fuelHandler.tick(temp, MaricultureHandlers.upgrades.hasUpgrade("ethereal", this));
+			if(temp >= max)
+				temp = max;
 		}
 	}
 	

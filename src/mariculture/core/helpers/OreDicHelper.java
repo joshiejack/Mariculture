@@ -140,7 +140,7 @@ public class OreDicHelper {
 					}
 				}
 				
-				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id);
+				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id).copy();
 				
 				if(!checkWhitelist) {
 					if(stack.itemID == Block.planks.blockID || stack.itemID == Block.wood.blockID || stack.itemID == Block.woodSingleSlab.blockID) {

@@ -16,5 +16,5 @@ public class Compatibility {
 	"dyeRed", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange" };
 	
 	public static final String[] BLACKLIST_DEFAULT = new String[] { "dyeBlue", "dyeBlack", "dyeWhite", "dyeGreen", "dyeBrown", "stickWood", "plankWood",
-		"logWood", "stairWood", "treeLeaves", "treeSapling", "glass"};
+		"logWood", "stairWood", "treeLeaves", "treeSapling", "glass", "slabWood"};
 }

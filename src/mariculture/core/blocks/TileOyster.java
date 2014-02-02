@@ -8,7 +8,10 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 
 public class TileOyster extends TileStorage implements ISidedInventory {
 	public TileOyster() {
@@ -30,12 +33,15 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	
 	@Override
 	public Packet getDescriptionPacket() {		
-		if(!worldObj.isRemote) {
-			onInventoryChanged();
-		}
-		
-		return null;
-    }
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
+	}
+	
+	@Override
+	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
+		readFromNBT(packet.data);
+	}
 	
 	@Override
 	public void onInventoryChanged() {
