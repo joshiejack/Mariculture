@@ -82,6 +82,10 @@ public class Recipes {
 		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_SMOOTH);
 		//Smooth Limestone
 		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
+		//Thin Limestone Brick
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_THIN), new Object[] {
+			"CX", "XC", 'C', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK), 'X', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED)
+		});
 		
 		//Base Brick
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_BRICK), new Object[] {

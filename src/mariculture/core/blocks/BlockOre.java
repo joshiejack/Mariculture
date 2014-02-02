@@ -90,6 +90,8 @@ public class BlockOre extends BlockDecorative {
 			return 8F;
 		case OresMeta.BASE_IRON:
 			return 5F;
+		case OresMeta.LIMESTONE_THIN:
+			return 1.4F;
 		}
 
 		return 3F;

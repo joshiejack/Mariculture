@@ -50,6 +50,7 @@ public class EntityFishing extends EntityFishHook {
 	@SideOnly(Side.CLIENT)
 	private double velocityZ;
 	private short CATCH_CHANCE = 500;
+	private short enchantLevel = 0;
 
 	public EntityFishing(World world) {
 		super(world);
@@ -93,6 +94,7 @@ public class EntityFishing extends EntityFishHook {
 		this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * (float) Math.PI) * f);
 		this.calculateVelocity(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
 		this.CATCH_CHANCE = (short) baitQuality;
+		this.enchantLevel = (short) (player != null? EnchantHelper.getLevel(Magic.luck, player.getCurrentEquippedItem()) * 10 : 0);
 	}
 
 	@Override
@@ -268,7 +270,7 @@ public class EntityFishing extends EntityFishHook {
 					if (this.ticksCatchable > 0) {
 						--this.ticksCatchable;
 					} else {
-						short catchChance = (short) (CATCH_CHANCE + (EnchantHelper.getLevel(Magic.luck, angler.getCurrentEquippedItem()) * 10));
+						short catchChance = (short) (CATCH_CHANCE + enchantLevel);
 						if (rand.nextInt(2000) < catchChance) {
 							this.ticksCatchable = this.rand.nextInt(60) + 20;
 							this.motionY -= 0.20000000298023224D;

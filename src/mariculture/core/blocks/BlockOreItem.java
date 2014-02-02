@@ -16,52 +16,37 @@ public class BlockOreItem extends ItemBlockMariculture {
 		String name = "";
 		switch (itemstack.getItemDamage()) {
 		case OresMeta.BAUXITE:
-			name = "bauxiteOre";
-			break;
+			return "bauxiteOre";
 		case OresMeta.COPPER:
-			name = "copperOre";
-			break;
+			return "copperOre";
 		case OresMeta.RUTILE:
-			name = "rutileOre";
-			break;
+			return "rutileOre";
 		case OresMeta.LIMESTONE:
-			name = "limestone";
-			break;
+			return "limestone";
 		case OresMeta.LIMESTONE_BRICK:
-			name = "limestoneBrick";
-			break;
+			return "limestoneBrick";
 		case OresMeta.CORAL_ROCK:
-			name = "coralRock";
-			break;
+			return "coralRock";
 		case OresMeta.ALUMINUM_BLOCK:
-			name = "aluminumBlock";
-			break;
+			return "aluminumBlock";
 		case OresMeta.TITANIUM_BLOCK:
-			name = "titaniumBlock";
-			break;
+			return "titaniumBlock";
 		case OresMeta.MAGNESIUM_BLOCK:
-			name = "magnesiumBlock";
-			break;
+			return "magnesiumBlock";
 		case OresMeta.COPPER_BLOCK:
-			name = "copperBlock";
-			break;
+			return "copperBlock";
 		case OresMeta.LIMESTONE_SMOOTH:
-			name = "limestoneSmooth";
-			break;
+			return "limestoneSmooth";
 		case OresMeta.LIMESTONE_CHISELED:
-			name = "limestoneBordered";
-			break;
+			return "limestoneBordered";
 		case OresMeta.BASE_BRICK:
-			name = "baseBrick";
-			break;
+			return "baseBrick";
 		case OresMeta.BASE_IRON:
-			name = "baseIron";
-			break;
-
+			return "baseIron";
+		case OresMeta.LIMESTONE_THIN:
+			return "limestoneThing";
 		default:
-			name = "baseWood";
+			return "baseWood";
 		}
-
-		return name;
 	}
 }
