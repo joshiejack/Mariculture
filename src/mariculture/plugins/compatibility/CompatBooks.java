@@ -190,7 +190,7 @@ public class CompatBooks {
 	
 	private static void parseRegistrations(XMLHelper helper) {
 		String type = helper.getAttribute("type");
-		if(type.equals("item")) {
+		if(type.equals("item") && helper.getOptionalAttribute("unlocalized").equals("")) {
 			String[] data = helper.getAttribute("data").split(":");
 			String name = helper.getAttribute("name");
 			if(data.length == 2) {
@@ -206,6 +206,17 @@ public class CompatBooks {
 			String data = helper.getAttribute("data");
 			String name = helper.getAttribute("name");
 			Guides.instance.registerFluidIcon(name, data);
+		} else if(type.equals("item") && !helper.getAttribute("unlocalized").equals("")) {
+			String data = helper.getAttribute("unlocalized");
+			int meta = helper.getAttribAsInteger("meta", 0);
+			String name = helper.getAttribute("name");
+			for(Item item: Item.itemsList) {
+				if(item.getUnlocalizedName().equals(data)) {
+					ItemStack stack = new ItemStack(item, 1, meta);
+					Guides.instance.registerIcon(name, stack);
+					break;
+				}
+			}
 		}
 	}
 

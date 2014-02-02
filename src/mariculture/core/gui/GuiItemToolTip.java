@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,5 +28,9 @@ public class GuiItemToolTip {
 			if(gui instanceof GuiMariculture)
 				((GuiMariculture) gui).addItemToolTip(stack, list);
 		} 
+		
+		if(Extra.DEBUG_ON) {
+			list.add(stack.getItem().getUnlocalizedName());
+		}
 	}
 }

@@ -70,6 +70,7 @@ fluid.gas.natural=Natural Gas
 fluid.quicklime=Quicklime
 fluid.electrum.molten=Molten Electrum
 fluid.invar.molten=Molten Invar
+fluid.platinum.molten=Molten Platinum
 
 #items
 item.hammer.name=Blacksmith's Hammer
