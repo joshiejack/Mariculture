@@ -89,7 +89,18 @@ public class WorldGenLimestone extends WorldGenerator {
 		}
 		
 		try {
-			return world.getBlockMaterial(x, y, z) != Material.water && !world.isAirBlock(x, y, z) && world.getBlockId(x, y, z) != Block.grass.blockID;
+			int id = world.getBlockId(x, y, z);
+			if(id == Block.dirt.blockID)
+				return true;
+			if(id == Block.sand.blockID)
+				return true;
+			if(id == Block.blockClay.blockID)
+				return true;
+			if(id == Core.oreBlocks.blockID && world.getBlockMetadata(x, y, z) == OresMeta.CORAL_ROCK)
+				return false;
+			if(world.getBlockMaterial(x, y, z) == Material.rock)
+				return true;
+			return false;
 		} catch (Exception e) {
 			return false;
 		}

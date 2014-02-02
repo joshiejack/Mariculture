@@ -27,6 +27,11 @@ public class TileTurbineHand extends TileTurbineBase {
 	public int getEnergyTransferMax() {
 		return 10;
 	}
+	
+	@Override
+	public void updateEntity() {
+		updateTurbine();
+	}
 
 	@Override
 	public boolean canOperate() {

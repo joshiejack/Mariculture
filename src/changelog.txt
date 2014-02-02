@@ -79,6 +79,7 @@
 * Limestone chance mechanisms changed, instead of only ever having a possiblity to generate once per chunk, you now define how many times it will try to find a place it can generate
 * Rennamed bait.xml to sifter.xml (to force the changes, otherwise some of the existing items would have terrible values)
 * Autodictionary config options to use whitelist instead of blacklist(blacklist is default)
+* Water Ravines, Water Caves and Disabling mineshafts will no longer work if you have ATG Installed
 
 == Mariculture 1.1.4e ==
 * Fixed NPE when player becomes null when fishing

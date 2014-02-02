@@ -32,6 +32,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class WorldPlus extends Module {
@@ -54,7 +55,9 @@ public class WorldPlus extends Module {
 	@Override
 	public void registerHandlers() {
 		GameRegistry.registerWorldGenerator(new WorldGen());
-		MinecraftForge.TERRAIN_GEN_BUS.register(new WorldEvents());
+		if(!Loader.isModLoaded("ATG")) {
+			MinecraftForge.TERRAIN_GEN_BUS.register(new WorldEvents());
+		}
 	}
 
 	@Override

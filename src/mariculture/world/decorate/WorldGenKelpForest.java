@@ -18,11 +18,11 @@ public class WorldGenKelpForest extends WorldGenerator {
 		int z2 = z + random.nextInt(8) - random.nextInt(8);
 		int height = random.nextInt(max);
 
-		for (int x3 = -(random.nextInt(32) + 32); x3 < random.nextInt(32) + 64; x3++) {
-			for (int z3 = -(random.nextInt(32) + 32); z3 < random.nextInt(32) + 64; z3++) {
+		for (int x3 = -(random.nextInt(16) + 16); x3 < random.nextInt(16) + 64; x3++) {
+			for (int z3 = -(random.nextInt(16) + 16); z3 < random.nextInt(16) + 64; z3++) {
 				if (random.nextInt(5) == 0) {
-					int randX = random.nextInt(64) - 32;
-					int randZ = random.nextInt(64) - 32;
+					int randX = random.nextInt(32) - 16;
+					int randZ = random.nextInt(32) - 16;
 					if (world.getChunkProvider().chunkExists(x2 + x3 + randZ >> 4, z2 + z3 + randX >> 4)) {
 				        try {
 				        	new WorldGenKelp().generate(world, random, x2 + x3 + randZ, z2 + z3 + randX, true, max, WorldGeneration.KELP_FOREST_DENSITY);

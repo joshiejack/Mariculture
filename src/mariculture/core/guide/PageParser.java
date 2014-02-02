@@ -2,6 +2,9 @@ package mariculture.core.guide;
 
 import java.util.HashMap;
 
+import mariculture.core.Core;
+import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.lib.AirMeta;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -45,16 +48,43 @@ public abstract class PageParser {
 	public abstract void parse();
 	
 	protected void drawItemStack(GuiGuide gui, ItemStack stack, int x, int y) {
-        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-        FontRenderer font = null;
-        if (stack != null) font = stack.getItem().getFontRenderer(stack);
-        if (font == null) font = gui.getFont();
-        Minecraft mc = Minecraft.getMinecraft();
-        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack, 
-        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
-        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack, x, y, false);
-        }
-        
-        GL11.glDisable(GL11.GL_LIGHTING);
+		try {
+	        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+	        FontRenderer font = null;
+	        if (stack != null) font = stack.getItem().getFontRenderer(stack);
+	        if (font == null) font = gui.getFont();
+	        Minecraft mc = Minecraft.getMinecraft();
+	        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack, 
+	        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
+	        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack, x, y, false);
+	        }
+	        
+	        GL11.glDisable(GL11.GL_LIGHTING);
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				ItemStack stack2 = OreDicHelper.getNextEntry(stack);
+				GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+		        FontRenderer font = null;
+		        if (stack2 != null) font = stack2.getItem().getFontRenderer(stack2);
+		        if (font == null) font = gui.getFont();
+		        Minecraft mc = Minecraft.getMinecraft();
+		        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack2, 
+		        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
+		        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack2, x, y, false);
+		        }
+			} catch (Exception e2) {
+				ItemStack stack2 = new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR);
+				GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+		        FontRenderer font = null;
+		        if (stack2 != null) font = stack2.getItem().getFontRenderer(stack2);
+		        if (font == null) font = gui.getFont();
+		        Minecraft mc = Minecraft.getMinecraft();
+		        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack2, 
+		        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
+		        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack2, x, y, false);
+		        }
+			}
+		}
     }
 }
