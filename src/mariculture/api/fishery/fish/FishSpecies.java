@@ -150,7 +150,7 @@ public abstract class FishSpecies {
 	
 	/** Return whether this type of world is suitable to catch these fish**/
 	public boolean isWorldCorrect(World world) {
-		return world.provider.isSurfaceWorld();
+		return !world.provider.isHellWorld && world.provider.dimensionId != 1;
 	}
 	
 	/** Whether when this fish is caught it is ALWAYS dead, Defaults to true **/

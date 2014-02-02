@@ -15,7 +15,6 @@ import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.StringHelper;
-import mariculture.core.lib.Text;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -91,7 +90,7 @@ public class NEIIngotCasterRecipeHandler extends NEIBase {
 	@Override
 	public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int id) {
 		currenttip = super.handleTooltip(gui, currenttip, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return currenttip;
 
@@ -112,7 +111,7 @@ public class NEIIngotCasterRecipeHandler extends NEIBase {
 	@Override
 	public boolean mouseClicked(GuiRecipe gui, int button, int id) {
 		super.mouseClicked(gui, button, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return false;
 
@@ -130,7 +129,7 @@ public class NEIIngotCasterRecipeHandler extends NEIBase {
 	@Override
 	public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int id) {
 		super.keyTyped(gui, keyChar, keyCode, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return false;
 

@@ -183,7 +183,7 @@ public class Magic extends Module {
 		registerJewelry();
 		registerEnchants();
 		// Setup Icon
-		MaricultureTab.tabJewelry.icon = new ItemStack(magicMirror);
+		MaricultureTab.tabJewelry.icon = new ItemStack(basicMirror);
 	}
 
 	@Override

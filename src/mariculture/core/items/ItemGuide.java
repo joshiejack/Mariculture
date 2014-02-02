@@ -128,6 +128,8 @@ public class ItemGuide extends ItemMariculture {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
+		case GuideMeta.PROCESSING:
+			return true;
 		case GuideMeta.FISHING:
 			return Modules.fishery.isActive();
 		case GuideMeta.MACHINES:

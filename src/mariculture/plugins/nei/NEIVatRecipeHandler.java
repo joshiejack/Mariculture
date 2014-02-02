@@ -5,7 +5,6 @@ import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -18,25 +17,15 @@ import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.core.gui.GuiDraw;
-import codechicken.nei.NEIClientConfig;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.FurnaceRecipeHandler;
-import codechicken.nei.recipe.GuiCraftingRecipe;
 import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.FurnaceRecipeHandler.SmeltingPair;
-import codechicken.nei.recipe.GuiUsageRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
 
 public class NEIVatRecipeHandler extends NEIBase {
 	public class CachedVatRecipe extends CachedRecipe {
@@ -151,7 +140,7 @@ public class NEIVatRecipeHandler extends NEIBase {
 	@Override
 	public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int id) {
 		currenttip = super.handleTooltip(gui, currenttip, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return currenttip;
 
@@ -197,7 +186,7 @@ public class NEIVatRecipeHandler extends NEIBase {
 	@Override
 	public boolean mouseClicked(GuiRecipe gui, int button, int id) {
 		super.mouseClicked(gui, button, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return false;
 
@@ -230,7 +219,7 @@ public class NEIVatRecipeHandler extends NEIBase {
 	@Override
 	public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int id) {
 		super.keyTyped(gui, keyChar, keyCode, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return false;
 

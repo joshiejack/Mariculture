@@ -2,6 +2,7 @@ package mariculture.plugins.nei;
 
 import static codechicken.core.gui.GuiDraw.changeTexture;
 import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
+import static codechicken.core.gui.GuiDraw.getMousePosition;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -290,7 +291,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
     public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int id) {
 		currenttip = super.handleTooltip(gui, currenttip, id);
 		
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return currenttip;
 		
@@ -331,7 +332,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	@Override
 	public boolean mouseClicked(GuiRecipe gui, int button, int id) {
 		super.mouseClicked(gui, button, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return false;
 
@@ -351,7 +352,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	@Override
 	public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int id) {
 		super.keyTyped(gui, keyChar, keyCode, id);
-		Point mouse = getMouse(gui.width, gui.height);
+		Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
 		if (isOverItem(gui, id))
 			return false;
 

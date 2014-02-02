@@ -3,6 +3,7 @@ package mariculture.plugins.nei;
 import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
 
 import java.awt.Point;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import mariculture.core.gui.feature.Feature;
@@ -51,6 +52,40 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 		}
 		
 		GuiDraw.changeTexture(getGuiTexture());
+	}
+	
+	public int getGuiWidth(GuiRecipe gui) {
+		try {
+			Field f = gui.getClass().getField("width");
+			return (Integer) f.get(gui);
+		} catch (NoSuchFieldException e) {
+			try {
+				Field f = gui.getClass().getField("field_73880_f");
+				return (Integer) f.get(gui);
+			} catch (Exception e2) {
+				return 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0; 
+		}
+	}
+	
+	public int getGuiHeight(GuiRecipe gui) {
+		try {
+			Field f = gui.getClass().getField("height");
+			return (Integer) f.get(gui);
+		} catch (NoSuchFieldException e) {
+			try {
+				Field f = gui.getClass().getField("field_73881_g");
+				return (Integer) f.get(gui);
+			} catch (Exception e2) {
+				return 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0; 
+		}
 	}
 	
 	public static void drawScaledTexturedModelRectFromIcon(int i, int j, Icon icon, int x, int y) {

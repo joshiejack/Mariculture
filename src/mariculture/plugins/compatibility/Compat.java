@@ -2,12 +2,19 @@ package mariculture.plugins.compatibility;
 
 import java.util.logging.Level;
 
+import tconstruct.library.crafting.FluidType;
+import net.minecraftforge.fluids.FluidRegistry;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.FluidDictionary;
 
 public class Compat {
 	public static void preInit() {
 		CompatBooks.preInit();
+		
+		if(FluidRegistry.getFluid("milk") != null) {
+			FluidDictionary.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
+		}
 	}
 	
 	public static void init() {

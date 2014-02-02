@@ -193,6 +193,10 @@ public class GuiMirror extends GuiStorage {
 				enchantLevels[1] = 3;
 				enchantLevels[2] = 5;
 			}
+		} else {
+			enchantLevels[0] = 1;
+			enchantLevels[1] = 3;
+			enchantLevels[2] = 5;
 		}
 	}
 	

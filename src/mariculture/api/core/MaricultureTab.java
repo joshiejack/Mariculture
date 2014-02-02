@@ -11,14 +11,12 @@ public class MaricultureTab extends CreativeTabs
 	
     public ItemStack icon;
 
-    public MaricultureTab(String label)
-    {
+    public MaricultureTab(String label) {
         super(label);
     }
 
     @Override
-    public ItemStack getIconItemStack ()
-    {
+    public ItemStack getIconItemStack () {
         return icon;
     }
 }
