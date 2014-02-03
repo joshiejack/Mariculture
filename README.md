@@ -1,7 +1,7 @@
 Mariculture
 ===========
 
-Minecraft Mod
+Mariculture is released under the MIT License
 
 
 ======
