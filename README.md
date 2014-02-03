@@ -1,8 +1,7 @@
 Mariculture
 ===========
 
-Mariculture is released under the MIT License
-
+Mariculture is licensed MIT
 
 ======
 
