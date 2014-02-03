@@ -82,6 +82,10 @@ public class WorldGenLimestone extends WorldGenerator {
 
 		return true;
 	}
+	
+	private boolean isNotWater(World world, int x, int y, int z) {
+		return world.getBlockMaterial(x, y, z) == Material.water && !BlockHelper.isWater(world, x, y, z);
+	}
 
 	private boolean isValidPlacement(World world, int x, int y, int z) {
 		if(!world.getChunkProvider().chunkExists(x >> 4, z >> 4)) {
@@ -89,15 +93,17 @@ public class WorldGenLimestone extends WorldGenerator {
 		}
 		
 		try {
+			if(isNotWater(world, x, y + 1, z) || isNotWater(world, x, y + 2, z))
+				return false;
 			int id = world.getBlockId(x, y, z);
+			if(id == Core.oreBlocks.blockID)
+				return false;
 			if(id == Block.dirt.blockID)
 				return true;
 			if(id == Block.sand.blockID)
 				return true;
 			if(id == Block.blockClay.blockID)
 				return true;
-			if(id == Core.oreBlocks.blockID && world.getBlockMetadata(x, y, z) == OresMeta.CORAL_ROCK)
-				return false;
 			if(world.getBlockMaterial(x, y, z) == Material.rock)
 				return true;
 			return false;

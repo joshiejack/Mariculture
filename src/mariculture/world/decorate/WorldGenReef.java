@@ -53,12 +53,8 @@ public class WorldGenReef extends WorldGenerator {
 				double d7 = d4 + ((d5 - d4) * i) / numberOfBlocks;
 				double d8 = d2 + ((d3 - d2) * i) / numberOfBlocks;
 				double d9 = (random.nextDouble() * numberOfBlocks) / 16D;
-				double d10 = (MathHelper.sin((i * (float) Math.PI)
-						/ numberOfBlocks) + 1.0F)
-						* d9 + 1.0D;
-				double d11 = (MathHelper.sin((i * (float) Math.PI)
-						/ numberOfBlocks) + 1.0F)
-						* d9 + 1.0D;
+				double d10 = (MathHelper.sin((i * (float) Math.PI) / numberOfBlocks) + 1.0F) * d9 + 1.0D;
+				double d11 = (MathHelper.sin((i * (float) Math.PI) / numberOfBlocks) + 1.0F) * d9 + 1.0D;
 				int j = MathHelper.floor_double(d6 - d10 / 2D);
 				int k = MathHelper.floor_double(d7 - d11 / 2D);
 				int l = MathHelper.floor_double(d8 - d10 / 2D);
@@ -83,75 +79,27 @@ public class WorldGenReef extends WorldGenerator {
 						for (int z = l; z <= k1; z++) {
 							double d14 = ((z + 0.5D) - d8) / (d10 / 2D);
 
-							if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D
-									&& (BlockHelper.isWater(world, x, y, z))) {
+							if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (BlockHelper.isWater(world, x, y, z))) {
 								if (y < 64) {
 									if (!isSet) {
 										isSet = true;
-										top = world.getTopSolidOrLiquidBlock(x,
-												z) + 1;
+										top = world.getTopSolidOrLiquidBlock(x, z) + 1;
 									}
 
 									if (world.getTopSolidOrLiquidBlock(x, z) <= top) {
-										if (BlockHelper.isWater(world, x,
-												world.getTopSolidOrLiquidBlock(
-														x, z) + 3, z)) {
-											BlockHelper
-													.setBlock(
-															world,
-															x,
-															world.getTopSolidOrLiquidBlock(
-																	x, z),
-															z,
-															Core.oreBlocks.blockID,
-															OresMeta.CORAL_ROCK);
+										if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 3, z)) {
+											BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Core.oreBlocks.blockID, OresMeta.CORAL_ROCK);
 										}
-									} else if (world.getTopSolidOrLiquidBlock(
-											x, z) == top + 1) {
-										if (world.getBlockId(x,
-												world.getTopSolidOrLiquidBlock(
-														x, z) - 1, z) == Core.oreBlocks.blockID) {
-											if (BlockHelper
-													.isWater(
-															world,
-															x,
-															world.getTopSolidOrLiquidBlock(
-																	x, z) + 1,
-															z)) {
+									} else if (world.getTopSolidOrLiquidBlock(x, z) == top + 1) {
+										if (world.getBlockId(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == Core.oreBlocks.blockID
+												&& world.getBlockMetadata(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == OresMeta.CORAL_ROCK) {
+											if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 1, z)) {
 												if (random.nextInt(400) == 0) {
-													BlockHelper
-															.setBlock(
-																	world,
-																	x,
-																	world.getTopSolidOrLiquidBlock(
-																			x,
-																			z),
-																	z,
-																	Block.sponge.blockID,
-																	0);
+													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Block.sponge.blockID, 0);
 												} else {
-													ItemStack coral = CoralRegistry.corals
-															.get(random
-																	.nextInt(CoralRegistry.corals
-																			.size()));
-													BlockHelper
-															.setBlock(
-																	world,
-																	x,
-																	world.getTopSolidOrLiquidBlock(
-																			x,
-																			z),
-																	z,
-																	coral.itemID,
-																	coral.getItemDamage());
-													BlockCoral
-															.fullSpread(
-																	world,
-																	x,
-																	world.getTopSolidOrLiquidBlock(
-																			x,
-																			z),
-																	z, random);
+													ItemStack coral = CoralRegistry.corals.get(random.nextInt(CoralRegistry.corals.size()));
+													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, coral.itemID, coral.getItemDamage());
+													BlockCoral.fullSpread(world, x, world.getTopSolidOrLiquidBlock(x, z), z, random);
 												}
 											}
 										}

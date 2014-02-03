@@ -23,4 +23,6 @@ public class WorldGeneration {
 	public static int OYSTER_PER_CHUNK;
 	public static int OYSTER_CHANCE;
 	public static int OYSTER_PEARL_CHANCE;
+	public static String[] CORAL_BIOMESOP_TYPES;
+	public static String[] KELP_BIOMESOP_TYPES;
 }

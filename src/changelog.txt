@@ -1,3 +1,7 @@
+== Mariculture 1.2.0a for Minecraft v1.6.X==
+* Added Config option that allows you to force kelp/coral in other world types
+* Limestone will no longer replace a block if a water material such as kelp/coral is above it (unless it is actually water).
+
 == Mariculture 1.2.0 for Minecraft v1.6.X==
 ====New====
 * Manual Turbines, right click them to provide RF

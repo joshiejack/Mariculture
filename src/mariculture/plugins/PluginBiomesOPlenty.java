@@ -170,9 +170,28 @@ public class PluginBiomesOPlenty extends Plugin {
 	}
 
 	public static boolean isBiome(World world, int x, int z, Biome biome) {
-		if(world.getWorldInfo().getTerrainType() != WorldType.parseWorldType("BIOMESOP")) {
-			return true;
+		WorldType worldType = world.getWorldInfo().getTerrainType();
+		boolean isVanilla = true;
+		if(biome.equals(Biome.CORAL)) {
+			for(String type: WorldGeneration.CORAL_BIOMESOP_TYPES) {
+				if(worldType == WorldType.parseWorldType(type)) {
+					isVanilla = false;
+					break;
+				}
+			}
 		}
+		
+		if(biome.equals(Biome.KELP)) {
+			for(String type: WorldGeneration.KELP_BIOMESOP_TYPES) {
+				if(worldType == WorldType.parseWorldType(type)) {
+					isVanilla = false;
+					break;
+				}
+			}
+		}
+
+		if(isVanilla)
+			return true;
 		
 		if(biome.equals(Biome.KELP) && !WorldGeneration.KELP_BIOMESOP)
 			return true;
