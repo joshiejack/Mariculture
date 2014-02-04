@@ -66,6 +66,8 @@ public class LiquifierHandler implements ISmelterHandler {
 	}
 	
 	public String getName(FluidStack fluid) {
+		if(fluid.getFluid() == null)
+			return "null";
 		return fluid.getFluid().getName();
 	}
 	
