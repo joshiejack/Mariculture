@@ -4,9 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.EnumSet;
 
+import mariculture.core.helpers.KeyBindingHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.core.lib.Modules;
-import mariculture.core.network.Packet106SwapJewelry;
+import mariculture.core.network.Packet106JewelrySwap;
+import mariculture.core.network.Packet122KeyPress;
+import mariculture.core.network.Packet122KeyPress.KeyType;
 import mariculture.factory.Factory;
 import mariculture.factory.FactoryEvents;
 import mariculture.magic.enchantments.EnchantmentGlide;
@@ -40,10 +43,14 @@ public class KeyBindingHandler extends KeyHandler {
 
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-		EntityPlayer player = KeyHelper.getPlayer();
-		if(KeyHelper.inFocus()) {
+		EntityPlayer player = KeyBindingHelper.getPlayer();
+		if(KeyBindingHelper.inFocus()) {
 			KeyHelper.ACTIVATE_PRESSED = kb == boost;
 			KeyHelper.TOGGLE_DOWN = kb == toggle;
+			
+			if(tickEnd && KeyHelper.ACTIVATE_PRESSED) {
+				((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet122KeyPress(KeyType.ACTIVATE, 1).build());
+			}
 		}
 	}
 
@@ -51,9 +58,9 @@ public class KeyBindingHandler extends KeyHandler {
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
 		KeyHelper.ACTIVATE_PRESSED = false;
 		KeyHelper.TOGGLE_DOWN = false;
-		
-		if(KeyHelper.inFocus() && tickEnd) {
-			EntityPlayer player = KeyHelper.getPlayer();
+				
+		if(KeyBindingHelper.inFocus() && tickEnd) {
+			EntityPlayer player = KeyBindingHelper.getPlayer();
 			boolean isSneaking = player.isSneaking();
 			
 			if(Modules.magic.isActive()) {
@@ -63,7 +70,7 @@ public class KeyBindingHandler extends KeyHandler {
 					if(isSneaking) {
 						if (EnchantmentSpider.activated) {
 							EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
-							KeyHelper.addToChat(EnchantmentSpider.getChat());
+							KeyBindingHelper.addToChat(EnchantmentSpider.getChat());
 						}
 					} else {
 						if(EnchantmentGlide.keyCoolDown > 0)
@@ -74,6 +81,9 @@ public class KeyBindingHandler extends KeyHandler {
 					}
 				}
 			}
+			
+			//Update the server that the key is no longer being pressed
+			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet122KeyPress(KeyType.ACTIVATE, 0).build());
 		}
 	}
 
@@ -84,13 +94,13 @@ public class KeyBindingHandler extends KeyHandler {
 
 	public void switchJewelry(EntityClientPlayerMP player) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(0).build());
+			player.sendQueue.addToSendQueue(new Packet106JewelrySwap(0).build());
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(1).build());
+			player.sendQueue.addToSendQueue(new Packet106JewelrySwap(1).build());
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(2).build());
+			player.sendQueue.addToSendQueue(new Packet106JewelrySwap(2).build());
 		} else {
-			player.sendQueue.addToSendQueue(new Packet106SwapJewelry(-1).build());
+			player.sendQueue.addToSendQueue(new Packet106JewelrySwap(-1).build());
 		}
 	}
 }

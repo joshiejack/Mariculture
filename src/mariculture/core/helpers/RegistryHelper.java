@@ -3,12 +3,7 @@ package mariculture.core.helpers;
 import java.lang.reflect.Field;
 
 import mariculture.api.core.CoralRegistry;
-import mariculture.core.blocks.ItemBlockMariculture;
-import mariculture.core.lib.BlockIds;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IItemRegistry;
-import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,8 +26,12 @@ public class RegistryHelper {
 	}
 
 	private static void registerItem(Item item) {
-		String name = item.getUnlocalizedName().substring(5);
-		GameRegistry.registerItem((Item) item, name);
+		try {
+			String name = item.getUnlocalizedName().substring(5);
+			GameRegistry.registerItem((Item) item, name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void registerCoral(ItemStack stack, String color) {

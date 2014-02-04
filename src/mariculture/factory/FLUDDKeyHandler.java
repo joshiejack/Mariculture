@@ -2,6 +2,7 @@ package mariculture.factory;
 
 import java.util.EnumSet;
 
+import mariculture.core.helpers.KeyBindingHelper;
 import mariculture.core.helpers.KeyHelper;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,8 +27,8 @@ public class FLUDDKeyHandler extends KeyHandler {
 
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-		EntityPlayer player = KeyHelper.getPlayer();
-		if(KeyHelper.inFocus()){
+		EntityPlayer player = KeyBindingHelper.getPlayer();
+		if(KeyBindingHelper.inFocus()){
 			if(kb == fludd) {
 				KeyHelper.FLUDD_KEY_DOWN = true;
 				
@@ -41,8 +42,8 @@ public class FLUDDKeyHandler extends KeyHandler {
 
 	@Override
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
-		if(KeyHelper.inFocus() && tickEnd) {
-			EntityPlayer player = KeyHelper.getPlayer();
+		if(KeyBindingHelper.inFocus() && tickEnd) {
+			EntityPlayer player = KeyBindingHelper.getPlayer();
 			KeyHelper.FLUDD_KEY_DOWN = false;
 			if (KeyHelper.TOGGLE_DOWN && kb == fludd) {
 				boolean cont = false;
@@ -56,7 +57,7 @@ public class FLUDDKeyHandler extends KeyHandler {
 									mode = 0;
 								}
 
-								KeyHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
+								KeyBindingHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
 								player.inventory.armorInventory[i].stackTagCompound.setInteger("mode", mode);
 							}
 						}

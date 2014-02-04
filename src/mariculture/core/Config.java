@@ -78,7 +78,7 @@ public class Config {
             OreGeneration.RUTILE = config.get(Category.ORE, "Rutile > Generation", true).getBoolean(true);
             OreGeneration.RUTILE_CHANCE = config.get(Category.ORE, "Rutile > 1 Vein Per This Many Limestone", 250).getInt();
             OreGeneration.LIMESTONE = config.get(Category.ORE, "Limestone > Generation", true).getBoolean(true);
-            OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > Number of Chances Per Chunk to Generate", 3).getInt();
+            OreGeneration.LIMESTONE_CHANCE = config.get(Category.ORE, "Limestone > Number of Chances Per Chunk to Generate", 1).getInt();
             OreGeneration.LIMESTONE_VEIN = config.get(Category.ORE, "Limestone > Maximum Vein Size", 32).getInt();
             OreGeneration.LIMESTONE_MAX_DEPTH = config.get(Category.ORE, "Limestone > Maximum Depth (Y Height)", 40).getInt();
             OreGeneration.NATURAL_GAS_ON = config.get(Category.ORE, "Natural Gas > Generation", true).getBoolean(true);

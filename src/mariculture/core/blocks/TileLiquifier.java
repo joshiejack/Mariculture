@@ -121,7 +121,6 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			
 			if(canWork) {
 				processed+=(speed * 50);
-				System.out.println(max);
 				if(processed >= max) {
 					processed = 0;
 					if(canWork()) {

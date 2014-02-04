@@ -109,6 +109,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		}
 		
 		public PositionedStack getOtherStack() {
+			checkAndFixFuels();
             return afuels.get((cycleticks/64) % afuels.size()).stack;
         }
 	}
@@ -131,10 +132,15 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	
 	@Override
     public TemplateRecipeHandler newInstance() {
-        if(afuels == null)
-            findFuels();
+		checkAndFixFuels();
         return super.newInstance();
     }
+	
+	private void checkAndFixFuels() {
+		if(afuels == null || afuels.size() < 1) {
+			findFuels();
+		}
+	}
 	
 	private static void findFuels()  {        
         afuels = new ArrayList<LiquifierFuel>();

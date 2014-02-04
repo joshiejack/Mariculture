@@ -26,7 +26,7 @@ public class Packets {
 		PacketRegistry.register(new Packet103Oyster());
 		PacketRegistry.register(new Packet104GUI());
 		PacketRegistry.register(new Packet105OneRing());
-		PacketRegistry.register(new Packet106SwapJewelry());
+		PacketRegistry.register(new Packet106JewelrySwap());
 		PacketRegistry.register(new Packet107FLUDD());
 		PacketRegistry.register(new Packet108Teleport());
 		PacketRegistry.register(new Packet109DamageJewelry());
@@ -42,5 +42,6 @@ public class Packets {
 		PacketRegistry.register(new Packet119TurbineAnimate());
 		PacketRegistry.register(new Packet120ItemSync());
 		PacketRegistry.register(new Packet121FishTankSync());
+		PacketRegistry.register(new Packet122KeyPress());
 	}
 }

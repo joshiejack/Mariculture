@@ -11,12 +11,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class Packet106SwapJewelry extends PacketMariculture {
+public class Packet106JewelrySwap extends PacketMariculture {
 	public int slot;
 	
-	public Packet106SwapJewelry() {}
+	public Packet106JewelrySwap() {}
 	
-	public Packet106SwapJewelry(int slot) {
+	public Packet106JewelrySwap(int slot) {
 		this.slot = slot;
 	}
 

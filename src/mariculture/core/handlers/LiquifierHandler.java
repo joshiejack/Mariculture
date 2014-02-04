@@ -81,6 +81,8 @@ public class LiquifierHandler implements ISmelterHandler {
 
 	@Override
 	public FuelInfo getFuelInfo(Object obj) {
+		if(obj == null)
+			return null;
 		if(obj instanceof ItemStack)
 			return (FuelInfo)fuels.get(OreDicHelper.convert((ItemStack)obj));
 		if(obj instanceof FluidStack)

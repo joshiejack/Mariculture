@@ -1,3 +1,10 @@
+== Mariculture 1.2.0b ==
+* Should have fixed the NEI Fuels for the the Crucible Furnace messing up every now and then
+* Fixed right clicking entities crash
+* Fixed right click + ctrl on enchants
+* Obsidian takes 15 seconds to make in a Vat now
+* Mariculture will now crash like other mods do with an ID Conflict, rather than the obscure crash it had before
+
 == Mariculture 1.2.0a for Minecraft v1.6.X==
 * Added Config option that allows you to force kelp/coral in other world types
 * Limestone will no longer replace a block if a water material such as kelp/coral is above it (unless it is actually water).

@@ -28,7 +28,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileTurbineBase extends TileStorageTank implements IUpgradable, IMachine, IRedstoneControlled, IEnergyHandler, IPowered {
-	private int machineTick = 0;
+	protected int machineTick = 0;
 	//Upgrade Stats
 	protected int purity = 0;
 	protected int heat = 0;

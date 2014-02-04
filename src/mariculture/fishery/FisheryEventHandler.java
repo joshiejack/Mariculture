@@ -7,7 +7,6 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
