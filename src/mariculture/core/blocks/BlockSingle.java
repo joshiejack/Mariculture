@@ -218,6 +218,8 @@ public class BlockSingle extends BlockMachine {
 			return false;
 		
 		if(tile instanceof TileTurbineHand) {
+			if(player.username.equals("[CoFH]"))
+				return false;
 			if(player instanceof FakePlayer) {
 				return false;
 			}
@@ -250,6 +252,8 @@ public class BlockSingle extends BlockMachine {
 		}
 		
 		if(tile instanceof TileAnvil) {
+			if(player.username.equals("[CoFH]"))
+				return false;
 			if(player instanceof FakePlayer)
 				return false;
 			TileAnvil anvil = (TileAnvil) tile;
@@ -299,6 +303,8 @@ public class BlockSingle extends BlockMachine {
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		if(tile instanceof TileAnvil && ItemHelper.isPlayerHoldingItem(Core.hammer, player)) {
+			if(player.username.equals("[CoFH]"))
+				return;
 			if(player instanceof FakePlayer)
 				return;
 			ItemStack hammer = player.getCurrentEquippedItem();

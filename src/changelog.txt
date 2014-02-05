@@ -1,3 +1,6 @@
+== Mariculture 1.2.0c ==
+* Fixed Autonomous Activator Being able to activate anvil/manpowered turbine
+
 == Mariculture 1.2.0b ==
 * Should have fixed the NEI Fuels for the the Crucible Furnace messing up every now and then
 * Fixed right clicking entities crash
