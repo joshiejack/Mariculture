@@ -1,5 +1,9 @@
 == Mariculture 1.2.0c ==
 * Fixed Autonomous Activator Being able to activate anvil/manpowered turbine
+* Now only registering NEI Handlers if the relevant module is enabled
+* Added config option(in other.cfg), that hides my living mariculture fish
+* Added stupidity check for fluids in NEI Handler
+* Turbines will now transfer their energy without a rotor, they only need it to generate power
 
 == Mariculture 1.2.0b ==
 * Should have fixed the NEI Fuels for the the Crucible Furnace messing up every now and then

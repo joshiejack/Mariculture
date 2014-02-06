@@ -64,15 +64,15 @@ public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 					}
 				}
 				
-				isAnimating = true;
+				isCreatingPower = true;
 				if(Rand.rand.nextInt(((purity * 10) >= 1)? (purity * 10): 1) < 1)
 					tank.drain(speed, true);
 				energyStorage.modifyEnergyStored(getEnergyGenerated());
 			} else {
-				isAnimating = false;
+				isCreatingPower = false;
 			}
 		} else {
-			isAnimating = false;
+			isCreatingPower = false;
 		}
 	}
 }

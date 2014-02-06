@@ -51,4 +51,5 @@ public class Extra {
 	public static boolean MOB_MAGNET;
 	public static int PERCENT_NEEDED;
 	public static boolean SPAWN_BOOKS;
+	public static boolean DISABLE_FISH;
 }

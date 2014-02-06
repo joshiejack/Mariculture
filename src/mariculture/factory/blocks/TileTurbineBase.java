@@ -46,6 +46,8 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	protected boolean hasGUI;
 	//Anims
 	public boolean isAnimating;
+	public boolean isTransferringPower;
+	public boolean isCreatingPower;
 	public double angle = 0;
 	public double angle_external = 0;
 	
@@ -152,8 +154,11 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	
 //Turbine Updates
 	public void updateTurbine() {
-		if(!worldObj.isRemote && canOperate()) {
-			addPower();
+		if(!worldObj.isRemote) {
+			if(canOperate())
+				addPower();
+			else
+				isCreatingPower = false;
 			transferPower();
 		}
 		
@@ -167,17 +172,22 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 //Transfer The Power
 	public void transferPower() {
 		TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, direction);
-		if (tile instanceof IEnergyHandler) {
+		if (tile instanceof IEnergyHandler && energyStorage.getEnergyStored() > 0) {
 			if(((IEnergyHandler) tile).canInterface(direction.getOpposite())) {
 				int extract = -((IEnergyHandler)tile).receiveEnergy(direction.getOpposite(), Math.min(getEnergyTransferMax(), energyStorage.getEnergyStored()), false);
-				if(extract < 0)
-					isAnimating = true;
-				else
-					isAnimating = false;
 				energyStorage.modifyEnergyStored(extract);
+				
+				//Special Conditioning for conduits
+				if(tile.toString().contains("conduit") && extract == -75) {
+					isTransferringPower = false;
+				} else {
+					isTransferringPower = true;
+				}
+			} else {
+				isTransferringPower = false;
 			}
 		} else {
-			isAnimating = false;
+			isTransferringPower = false;
 		}
 	}
 	
@@ -193,6 +203,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	public void animate() {
 		if(Extra.TURBINE_ANIM) {
 			if(!worldObj.isRemote && onTick(Extra.TURBINE_RATE)) {
+				isAnimating = isCreatingPower || isTransferringPower;
 				Packets.updateTile(this, 32, new Packet119TurbineAnimate(xCoord, yCoord, zCoord, isAnimating).build());
 			} else if(worldObj.isRemote) {
 				if(isAnimating) {

@@ -46,8 +46,8 @@ public class TileTurbineHand extends TileTurbineBase {
 			cooldown--;
 		}
 		
-		if(isAnimating && cooldown == 0) {
-			isAnimating = false;
+		if(isCreatingPower && cooldown == 0) {
+			isCreatingPower = false;
 		}
 	}
 }

@@ -151,7 +151,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
         	}
         	
         	FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(item);
-            if(fluid == null) {
+            if(fluid == null || fluid.getFluid() == null) {
             	continue;
             }
             
@@ -184,7 +184,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
             }
             
             FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
-            if(fluid == null || recipe.getValue().fluid == null) {
+            if(fluid == null || fluid.getFluid() == null || recipe.getValue().fluid == null) {
             	continue;
             }
                         

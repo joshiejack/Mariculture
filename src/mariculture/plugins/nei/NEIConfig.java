@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.Jewelry;
+import mariculture.core.lib.Modules;
 import mariculture.fishery.Fishery;
 import mariculture.magic.JewelryHandler;
 import mariculture.magic.Magic;
@@ -29,14 +31,20 @@ public class NEIConfig implements IConfigureNEI {
 		API.registerUsageHandler(new NEIVatRecipeHandler());
 		API.registerRecipeHandler(new NEIIngotCasterRecipeHandler());
 		API.registerUsageHandler(new NEIIngotCasterRecipeHandler());
-		API.registerRecipeHandler(new NEISifterRecipeHandler());
-		API.registerUsageHandler(new NEISifterRecipeHandler());
 		API.registerRecipeHandler(new NEIAnvilRecipeHandler());
 		API.registerUsageHandler(new NEIAnvilRecipeHandler());
-		API.registerRecipeHandler(new NEIFishBreedingMutationHandler());
-		API.registerUsageHandler(new NEIFishBreedingMutationHandler());
-		API.registerRecipeHandler(new NEIFishProductHandler());
-		API.registerUsageHandler(new NEIFishProductHandler());
+		
+		if(Modules.fishery.isActive()) {
+			API.registerRecipeHandler(new NEISifterRecipeHandler());
+			API.registerUsageHandler(new NEISifterRecipeHandler());
+			API.registerRecipeHandler(new NEIFishBreedingMutationHandler());
+			API.registerUsageHandler(new NEIFishBreedingMutationHandler());
+			API.registerRecipeHandler(new NEIFishProductHandler());
+			API.registerUsageHandler(new NEIFishProductHandler());
+			if(Extra.DISABLE_FISH) {
+				API.hideItem(Fishery.fishy.itemID);
+			}
+		}
 		
 		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData().clone();
 		for(FluidContainerData container: data) {
@@ -51,9 +59,11 @@ public class NEIConfig implements IConfigureNEI {
 			}
 		}
 		
-		addJewelry(Magic.ring.itemID, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
-		addJewelry(Magic.bracelet.itemID, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
-		addJewelry(Magic.necklace.itemID, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
+		if(Modules.magic.isActive()) {
+			addJewelry(Magic.ring.itemID, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
+			addJewelry(Magic.bracelet.itemID, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
+			addJewelry(Magic.necklace.itemID, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
+		}
 	}
 	
 	private void addJewelry(int id, int type, String partOne, String partTwo) {

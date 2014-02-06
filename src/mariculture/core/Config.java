@@ -31,6 +31,7 @@ public class Config {
         try {
             config.load();
                
+            Extra.DISABLE_FISH = config.get(Category.EXTRA, "Disable Mariculture Live Fish in NEI", false).getBoolean(false);
             Extra.SPAWN_BOOKS = config.get(Category.EXTRA, "Spawn Books on First Action", true).getBoolean(true);
             Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
