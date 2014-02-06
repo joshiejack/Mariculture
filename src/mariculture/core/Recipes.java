@@ -274,13 +274,13 @@ public class Recipes {
 	
 	private static void addMetalRecipes() {		
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.MAGNESIUM_BLOCK), "ingotMagnesium");
-		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM), "blockMagnesium");
+		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_MAGNESIUM), "blockMagnesium");
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.TITANIUM_BLOCK), "ingotTitanium");
-		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), "blockTitanium");
+		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_TITANIUM), "blockTitanium");
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.ALUMINUM_BLOCK), "ingotAluminum");
-		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM), "blockAluminum");
+		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_ALUMINUM), "blockAluminum");
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.COPPER_BLOCK), "ingotCopper");
-		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), "blockCopper");
+		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_COPPER), "blockCopper");
 		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.COPPER, 
 									new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), 0.5F);
 	}

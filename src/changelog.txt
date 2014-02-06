@@ -1,3 +1,7 @@
+== Mariculture 1.2.1 ==
+* Gas is a little more dangerous
+* Fixed Blocks > Ingots Recipes
+
 == Mariculture 1.2.0c ==
 * Fixed Autonomous Activator Being able to activate anvil/manpowered turbine
 * Now only registering NEI Handlers if the relevant module is enabled

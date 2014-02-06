@@ -1,10 +1,14 @@
 package mariculture.core.blocks;
 
+import static net.minecraftforge.common.ForgeDirection.NORTH;
+
 import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.lib.AirMeta;
+import mariculture.core.util.Rand;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -39,8 +43,30 @@ public class BlockAir extends BlockDecorative {
         return true;
     }
 	
+	public void setFire(World world, int x, int y, int z) {
+		if(world.isAirBlock(x, y + 1, z)) {
+			world.setBlock(x, y + 1, z, Block.fire.blockID);
+		} else if (world.isAirBlock(x, y - 1, z)) {
+			world.setBlock(x, y - 1, z, Block.fire.blockID);
+		} else if (world.isAirBlock(x - 1, y, z)) {
+			world.setBlock(x - 1, y, z, Block.fire.blockID);
+		} else if (world.isAirBlock(x, y, z - 1)) {
+			world.setBlock(x, y, z - 1, Block.fire.blockID);
+		} else if (world.isAirBlock(x + 1, y, z)) {
+			world.setBlock(x + 1, y, z, Block.fire.blockID);
+		} else if (world.isAirBlock(x, y, z + 1)) {
+			world.setBlock(x, y, z + 1, Block.fire.blockID);
+		}
+	}
+	
 	@Override
 	public boolean isBlockReplaceable(World world, int x, int y, int z) {
+		if(Rand.nextInt(4)) {
+			if(world.getBlockLightValue(x, y, z) > 8) {
+				setFire(world, x, y, z);
+			}
+		}
+		
 		return true;
 	}
 	
@@ -55,8 +81,7 @@ public class BlockAir extends BlockDecorative {
 	}
 	
 	@Override
-	public boolean canCollideCheck(int meta, boolean par2)
-    {
+	public boolean canCollideCheck(int meta, boolean par2) {
         return false;
     }
 	
@@ -73,6 +98,17 @@ public class BlockAir extends BlockDecorative {
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side) {
 		return false;
     }
+	
+	@Override
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+		if(Rand.nextInt(4)) {
+			if(world.getBlockLightValue(x, y, z) > 8) {
+				setFire(world, x, y, z);
+			}
+		}
+		
+		return super.isBlockSolidOnSide(world, x, y, z, side);
+	}
 	
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
