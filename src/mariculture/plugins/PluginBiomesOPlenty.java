@@ -1,5 +1,8 @@
 package mariculture.plugins;
 
+import biomesoplenty.api.Biomes;
+import biomesoplenty.api.Blocks;
+import com.google.common.base.Optional;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.lib.WorldGeneration;
@@ -9,10 +12,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.oredict.OreDictionary;
-import biomesoplenty.api.Biomes;
-import biomesoplenty.api.Blocks;
-
-import com.google.common.base.Optional;
 
 public class PluginBiomesOPlenty extends Plugin {
 	public PluginBiomesOPlenty(String name) {

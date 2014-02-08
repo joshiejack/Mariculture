@@ -6,22 +6,17 @@ import ic2.api.recipe.Recipes;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
-import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class PluginIC2 extends Plugin {
 	public PluginIC2(String name) {

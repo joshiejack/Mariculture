@@ -10,11 +10,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.Extra;
-import mariculture.core.lib.GuiIds;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.*;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
@@ -223,10 +219,19 @@ public class BlockSingle extends BlockMachine {
 			if(player instanceof FakePlayer) {
 				return false;
 			}
+
+            TileTurbineHand turbine = (TileTurbineHand)tile;
 			
-			((TileTurbineHand)tile).energyStorage.modifyEnergyStored(((TileTurbineHand)tile).getEnergyGenerated());
-			((TileTurbineHand)tile).isAnimating = true;
-			((TileTurbineHand)tile).cooldown = 5;
+			turbine.energyStorage.modifyEnergyStored(((TileTurbineHand)tile).getEnergyGenerated());
+			turbine.isCreatingPower = true;
+			turbine.cooldown = 5;
+
+            player.getFoodStats().addStats(0, (float)-world.difficultySetting * 1.5F);
+
+            if(turbine.produced >= 1200) {
+                player.attackEntityFrom(MaricultureDamage.turbine, world.difficultySetting);
+            }
+
 			return true;
 		}
 

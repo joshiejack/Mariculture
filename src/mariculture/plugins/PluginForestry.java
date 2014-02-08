@@ -129,7 +129,7 @@ public class PluginForestry extends Plugin {
 
 	}
 	
-	@Optional.Interface(iface = "forestry.api.storage.IBackpackDefinition", modid = "Forestry")
+	@Optional.Interface(iface = "api.storage.IBackpackDefinition", modid = "Forestry")
 	public class AquaBackpack implements IBackpackDefinition {
 		private final List items = new ArrayList(50);
 		public void setup() {

@@ -1,7 +1,6 @@
 package mariculture.plugins;
 
 import net.minecraft.block.Block;
-import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CoralMeta;

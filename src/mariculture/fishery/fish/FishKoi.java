@@ -53,6 +53,16 @@ public class FishKoi extends FishSpecies {
 	public int getCatchChance() {
 		return 10;
 	}
+
+    @Override
+    public boolean isWorldCorrect(World world) {
+        return true;
+    }
+
+    @Override
+    public boolean canLive(World world, int x, int y, int z) {
+        return getGroup().canLive(world, x, y, z);
+    }
 	
 	@Override
 	public EnumRodQuality getRodNeeded() {

@@ -211,7 +211,7 @@ public abstract class GuiMariculture extends GuiContainer {
 	public Slot getSlotAtPosition(int x, int y) {
 		for (int slotIndex = 0; slotIndex < this.inventorySlots.inventorySlots .size(); ++slotIndex) {
 			Slot slot = (Slot) this.inventorySlots.inventorySlots.get(slotIndex);
-			if (isMouseOverSlot(slot, x, y)) {
+			if (isTheMouseOverSlot(slot, x, y)) {
 				return slot;
 			}
 		}
@@ -219,7 +219,7 @@ public abstract class GuiMariculture extends GuiContainer {
 		return null;
 	}
 
-	private boolean isMouseOverSlot(Slot slot, int mouseX, int mouseY) {
+	private boolean isTheMouseOverSlot(Slot slot, int mouseX, int mouseY) {
 		int left = this.guiLeft;
 		int top = this.guiTop;
 		mouseX -= left;

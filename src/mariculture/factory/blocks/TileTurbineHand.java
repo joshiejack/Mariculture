@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class TileTurbineHand extends TileTurbineBase {		
 	public int cooldown = 0;
+    public int produced = 0;
 
 	@Override
 	public int getTankCapacity() {
@@ -44,10 +45,15 @@ public class TileTurbineHand extends TileTurbineBase {
 	public void addPower() {
 		if(cooldown > 0) {
 			cooldown--;
+            produced++;
 		}
 		
 		if(isCreatingPower && cooldown == 0) {
 			isCreatingPower = false;
 		}
+
+        if(!isCreatingPower) {
+            produced-=40;
+        }
 	}
 }

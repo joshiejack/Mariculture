@@ -12,6 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
@@ -77,7 +78,9 @@ public class AbilityHelper
             {
                 NBTTagCompound tags = stack.getTagCompound();
                 NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
-                int damage = toolTags.getInteger("Attack") + baseDamage;
+                float attribute = (float) player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+                int damage = toolTags.getInteger("Attack") + baseDamage + 1;
+                damage *= attribute;
                 boolean broken = toolTags.getBoolean("Broken");
 
                 int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
@@ -430,7 +433,7 @@ public class AbilityHelper
             float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
             trueSpeed += bonusLog;
             trueSpeed *= 6;
-            if (charge > 0)
+            if (charge != -1)
             {
                 if (charge < trueSpeed)
                 {
@@ -446,16 +449,16 @@ public class AbilityHelper
                 if (entity instanceof EntityPlayer)
                     chargeFromArmor(stack, (EntityPlayer) entity);
             }
-            if (energy > 0)
+            if (energy != -1)
             {
-                if (energy < trueSpeed)
+                if (energy < trueSpeed * 2)
                 {
                     if (energy > 0)
                         tags.setInteger("Energy", 0);
                     return false;
                 }
 
-                energy -= trueSpeed;
+                energy -= trueSpeed * 2 ;
                 ToolCore tool = (ToolCore) stack.getItem();
                 stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
                 tags.setInteger("Energy", energy);
@@ -730,7 +733,9 @@ public class AbilityHelper
         float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
         float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
         double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) f;
-        double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) f + 1.62D - (double) player.yOffset;
+        double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) f;
+        if (!world.isRemote && player instanceof EntityPlayer)
+            d1 += 1.62D;
         double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) f;
         Vec3 vec3 = world.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);

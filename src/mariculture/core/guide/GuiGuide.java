@@ -1,11 +1,7 @@
 package mariculture.core.guide;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 import mariculture.Mariculture;
 import mariculture.core.helpers.cofh.StringHelper;
@@ -19,8 +15,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import tconstruct.client.gui.TurnPageButton;
 
 public class GuiGuide extends GuiScreen {
 	protected int guiTick = 0;
@@ -44,8 +38,6 @@ public class GuiGuide extends GuiScreen {
 	private int hex;
 	public String xml;
 	
-	private TurnPageButton buttonNextPage;
-	private TurnPageButton buttonPreviousPage;
 	public static int currentPage;
 	public NodeList guide;
 	public Node page1;

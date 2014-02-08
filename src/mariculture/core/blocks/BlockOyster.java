@@ -205,7 +205,7 @@ public class BlockOyster extends BlockMachine {
 				if (!world.isRemote) {
 					if (player.getCurrentEquippedItem() != null
 							&& player.getCurrentEquippedItem().itemID == Block.sand.blockID) {
-						if (!oyster.hasSand()) {
+						if (!oyster.hasContents()) {
 							oyster.setInventorySlotContents(0, new ItemStack(Block.sand));
 							if (!player.capabilities.isCreativeMode) {
 								player.inventory.decrStackSize(player.inventory.currentItem, 1);

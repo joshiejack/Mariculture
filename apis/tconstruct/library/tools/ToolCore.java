@@ -569,7 +569,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             boolean supress = false;
             try
             {
-                clazz = Class.forName(tconstruct.common.TContent.class.getName());
+                clazz = Class.forName("tconstruct.common.TContent"); //TODO: Make sure this is still working in 1.7.
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }
@@ -579,8 +579,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                 e.printStackTrace();
             }
             if (!supress)
+            {
                 TConstructRegistry.logger.severe("Creative builder failed tool for " + name + this.getToolName());
-            TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
+                TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
+            }
         }
         else
         {
@@ -1020,30 +1022,44 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
     }
 
     /* Battlegear support, IBattlegearWeapon */
-
-    @Override
-    public boolean willAllowOffhandWeapon ()
+    // 1.6.4 start
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
     {
         return true;
     }
 
-    @Override
-    public boolean willAllowShield ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return true;
     }
 
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return true;
-    }
-
-    @Override
-    public boolean sheatheOnBack ()
+    public boolean sheatheOnBack(ItemStack item)
     {
         return false;
     }
+    //1.6.4 end
+    
+    //1.6.2 start
+    public boolean willAllowOffhandWeapon()
+    {
+    	return true;
+    }
+
+    public boolean willAllowShield()
+    {
+    	return true;
+    }
+    
+    public boolean isOffhandHandDualWeapon()
+    {
+    	return true;
+    }
+    
+    public boolean sheatheOnBack()
+    {
+    	return false;
+    }
+    //1.6.2 end
 
     @Override
     public boolean offhandAttackEntity (OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem)
@@ -1057,7 +1073,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         return true;
     }
 
-    @Override
+	@Override
     public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
         return true;

@@ -24,8 +24,12 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	}
 
 	public boolean hasSand() {
-		return inventory[0] != null && inventory[0].itemID == Block.sand.blockID;
+		return hasContents() && inventory[0].itemID == Block.sand.blockID;
 	}
+
+    public boolean hasContents() {
+        return inventory[0] != null;
+    }
 	
 	public ItemStack getCurrentPearl() {
 		return inventory[0];

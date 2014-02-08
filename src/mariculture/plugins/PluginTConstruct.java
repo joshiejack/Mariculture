@@ -30,7 +30,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.FluidType;
@@ -241,32 +240,32 @@ public class PluginTConstruct extends Plugin {
 		PluginTConstruct.addPartCasting(new ItemStack(large_sword_blade, 1, id), TConstructRegistry.getItemStack("largeBladeCast"), fluid, delay);
 		PluginTConstruct.addPartCasting(new ItemStack(hammer_head, 1, id), TConstructRegistry.getItemStack("hammerHeadCast"), fluid, delay);
 		PluginTConstruct.addPartCasting(new ItemStack(full_guard, 1, id), TConstructRegistry.getItemStack("fullGuardCast"), fluid, delay);
-		PluginTConstruct.addPartCasting(new ItemStack(arrowhead, 1, id), new ItemStack(TContent.metalPattern, 1, 25), fluid, delay);
+		PluginTConstruct.addPartCasting(new ItemStack(arrowhead, 1, id), new ItemStack(TConstructRegistry.getItem("metalPattern"), 1, 25), fluid, delay);
 	}
 	
 	public static void addTools() {
-		TConstructRegistry.addToolRecipe(TContent.arrow, new Item[] { arrowhead, tool_rod, TContent.fletching });
-		TConstructRegistry.addToolRecipe(TContent.battleaxe, new Item[] { broad_axe_head, tough_rod, broad_axe_head, tough_binding });
-		TConstructRegistry.addToolRecipe(TContent.battlesign, new Item[] { battle_sign_head, tool_rod });
-		TConstructRegistry.addToolRecipe(TContent.broadsword, new Item[] { sword_blade, tool_rod, large_guard });
-		TConstructRegistry.addToolRecipe(TContent.chisel, new Item[] { chisel_head, tool_rod });
-		TConstructRegistry.addToolRecipe(TContent.cleaver, new Item[] { large_sword_blade, tough_rod, large_plate, tough_rod });
-		TConstructRegistry.addToolRecipe(TContent.cutlass, new Item[] {sword_blade, tool_rod, full_guard });
-		TConstructRegistry.addToolRecipe(TContent.dagger, new Item[] {knife_blade, tool_rod, crossbar });
-		TConstructRegistry.addToolRecipe(TContent.excavator, new Item[] {excavator_head, tough_rod, large_plate, tough_binding });
-		TConstructRegistry.addToolRecipe(TContent.frypan, new Item[] {frypan_head, tool_rod });
-		TConstructRegistry.addToolRecipe(TContent.hammer, new Item[] { hammer_head, tough_rod, large_plate, large_plate });
-		TConstructRegistry.addToolRecipe(TContent.hatchet, new Item[] { axe_head, tool_rod });
-		TConstructRegistry.addToolRecipe(TContent.longsword, new Item[] { sword_blade, tool_rod, hand_guard });
-		TConstructRegistry.addToolRecipe(TContent.lumberaxe, new Item[] { broad_axe_head, tough_rod, large_plate, tough_binding });
-		TConstructRegistry.addToolRecipe(TContent.mattock, new Item[] { axe_head, tool_rod, shovel_head });
-		TConstructRegistry.addToolRecipe(TContent.pickaxe, new Item[] { pickaxe_head, tool_rod, binding });
-		TConstructRegistry.addToolRecipe(TContent.rapier, new Item[] { sword_blade, tool_rod, crossbar });
-		TConstructRegistry.addToolRecipe(TContent.scythe, new Item[] { scythe_head, tough_rod, tough_binding, tough_rod });
-		TConstructRegistry.addToolRecipe(TContent.shortbow, new Item[] { tool_rod, TContent.bowstring, tool_rod });
-		TConstructRegistry.addToolRecipe(TContent.shortbow, new Item[] { TContent.toolRod, TContent.bowstring, tool_rod });
-		TConstructRegistry.addToolRecipe(TContent.shortbow, new Item[] { tool_rod, TContent.bowstring, TContent.toolRod });
-		TConstructRegistry.addToolRecipe(TContent.shovel, new Item[] { shovel_head, tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("arrow"), new Item[] { arrowhead, tool_rod, TConstructRegistry.getItem("fletching") });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("battleaxe"), new Item[] { broad_axe_head, tough_rod, broad_axe_head, tough_binding });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("battlesign"), new Item[] { battle_sign_head, tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("broadsword"), new Item[] { sword_blade, tool_rod, large_guard });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("chisel"), new Item[] { chisel_head, tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("cleaver"), new Item[] { large_sword_blade, tough_rod, large_plate, tough_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("cutlass"), new Item[] {sword_blade, tool_rod, full_guard });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("dagger"), new Item[] {knife_blade, tool_rod, crossbar });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("excavator"), new Item[] {excavator_head, tough_rod, large_plate, tough_binding });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("frypan"), new Item[] {frypan_head, tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("hammer"), new Item[] { hammer_head, tough_rod, large_plate, large_plate });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("hatchet"), new Item[] { axe_head, tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("longsword"), new Item[] { sword_blade, tool_rod, hand_guard });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("lumberaxe"), new Item[] { broad_axe_head, tough_rod, large_plate, tough_binding });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("mattock"), new Item[] { axe_head, tool_rod, shovel_head });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("pickaxe"), new Item[] { pickaxe_head, tool_rod, binding });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("rapier"), new Item[] { sword_blade, tool_rod, crossbar });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("scythe"), new Item[] { scythe_head, tough_rod, tough_binding, tough_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shortbow"), new Item[] { tool_rod, TConstructRegistry.getItem("bowstring"), tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shortbow"), new Item[] { TConstructRegistry.getItem("toolRod"), TConstructRegistry.getItem("bowstring"), tool_rod });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shortbow"), new Item[] { tool_rod, TConstructRegistry.getItem("bowstring"), TConstructRegistry.getItem("toolRod") });
+		TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shovel"), new Item[] { shovel_head, tool_rod });
 	}
 	
 	private static void addAlloy() {

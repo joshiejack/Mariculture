@@ -1,11 +1,11 @@
 package mariculture.plugins.nei;
 
-import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
-
-import java.awt.Point;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
+import codechicken.core.gui.GuiDraw;
+import codechicken.nei.NEIClientConfig;
+import codechicken.nei.recipe.GuiCraftingRecipe;
+import codechicken.nei.recipe.GuiRecipe;
+import codechicken.nei.recipe.GuiUsageRecipe;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import net.minecraft.client.Minecraft;
@@ -13,16 +13,15 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-
 import org.lwjgl.opengl.GL11;
 
-import codechicken.core.gui.GuiDraw;
-import codechicken.nei.NEIClientConfig;
-import codechicken.nei.recipe.GuiCraftingRecipe;
-import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.GuiUsageRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler;
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
+import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
 
 public abstract class NEIBase extends TemplateRecipeHandler {
 	protected void drawFluidRect(int j, int k, FluidStack fluid, TankSize size) {
@@ -122,8 +121,13 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 
 	public void loadUsageRecipes(String inputId, Object... ingredients) {
 		if(inputId.equals("fluid") && ingredients.length == 1) {
-			String fluid = ((FluidStack) ingredients[0]).getFluid().getName();
+            Fluid fluidz = ((FluidStack) ingredients[0]).getFluid();
+            if(fluidz == null)
+                return;
+			String fluid = fluidz.getName();
 			ArrayList<ItemStack> stacks = NEIConfig.containers.get(fluid);
+            if(stacks == null)
+                return;
 			for(ItemStack stack: stacks) {
 				GuiUsageRecipe.openRecipeGui("item", stack);
 			}

@@ -5,7 +5,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import cofh.api.transport.IItemConduit;
 
 public class InventoryHelper {
 
@@ -310,10 +309,4 @@ public class InventoryHelper {
 
 		return theTile instanceof IInventory;
 	}
-
-	public static boolean isInsertion(Object theTile) {
-
-		return theTile instanceof IInventory || theTile instanceof IItemConduit;
-	}
-
 }

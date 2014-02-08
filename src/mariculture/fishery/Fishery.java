@@ -284,7 +284,7 @@ public class Fishery extends Module {
 		tang = new FishTang(28);
 		clown = new FishClown(29);
 
-		Fishing.mutation.addMutation(nether, electricRay, glow, 6D);
+		Fishing.mutation.addMutation(nether, koi, glow, 6D);
 		Fishing.mutation.addMutation(glow, nether, blaze, 10D);
 		Fishing.mutation.addMutation(night, jelly, ender, 8D);
 		Fishing.mutation.addMutation(ender, night, dragon, 5D);
@@ -294,7 +294,7 @@ public class Fishery extends Module {
 		Fishing.mutation.addMutation(catfish, tetra, piranha, 8D);
 		Fishing.mutation.addMutation(cod, gold, perch, 15D);
 		Fishing.mutation.addMutation(perch, cod, tuna, 20D);
-		Fishing.mutation.addMutation(stingRay, angel, mantaRay, 8D);
+		Fishing.mutation.addMutation(stingRay, puffer, mantaRay, 8D);
 		Fishing.mutation.addMutation(mantaRay, stingRay, electricRay, 10D);
 		Fishing.mutation.addMutation(damsel, squid, angel, 7.5D);
 		Fishing.mutation.addMutation(angel, damsel, puffer, 15D);

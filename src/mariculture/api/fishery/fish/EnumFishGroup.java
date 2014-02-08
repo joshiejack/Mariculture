@@ -23,7 +23,7 @@ public enum EnumFishGroup {
 				
 	//Domesticated Fish
 	DOMESTICATED(4, new EnumBiomeType[] { EnumBiomeType.NORMAL, EnumBiomeType.HOT, EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN,
-										  EnumBiomeType.COLD, EnumBiomeType.MUSHROOM, EnumBiomeType.FROZEN}, 
+										  EnumBiomeType.COLD, EnumBiomeType.MUSHROOM, EnumBiomeType.FROZEN, EnumBiomeType.HELL},
 					new EnumSalinityType[] { EnumSalinityType.FRESH, EnumSalinityType.SALT, EnumSalinityType.MAGIC }),
 			
 	//Ender Fish
