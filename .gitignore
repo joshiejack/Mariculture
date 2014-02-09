@@ -1,6 +1,13 @@
+/LICENSE-fml.txt
+/MinecraftForge-Credits.txt
+/MinecraftForge-License.txt
+/README.txt
+/CREDITS-fml.txt
+/forge-1.7.2*
+/build
+/common
+/eclipse/*
+/.gradle
 /bin/*
-/mod_assets/*
 .classpath
 .project
-/bin
-/.settings/*
