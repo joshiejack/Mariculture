@@ -4,11 +4,6 @@ import mariculture.core.lib.PearlColor;
 import net.minecraft.item.ItemStack;
 
 public class ItemPearl extends ItemMariculture {
-
-	public ItemPearl(final int i) {
-		super(i);
-	}
-
 	@Override
 	public int getMetaCount() {
 		return PearlColor.COUNT;

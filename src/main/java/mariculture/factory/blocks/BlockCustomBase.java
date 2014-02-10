@@ -2,41 +2,34 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.Mariculture;
 import mariculture.core.blocks.BlockMachine;
-import mariculture.core.lib.PlansMeta;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.RotationHelper;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomBase extends BlockMachine {
-	BlockCustomBase(int i, Material material) {
-		super(i, material);
+	BlockCustomBase(Material material) {
+		super(material);
 		setCreativeTab(null);
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int meta) {
-		return Block.stone.getIcon(side, meta);
+	public IIcon getIcon(int side, int meta) {
+		return Blocks.stone.getIcon(side, meta);
 	}
 
 	@Override
@@ -55,7 +48,7 @@ public class BlockCustomBase extends BlockMachine {
 	}
 
 	@Override
-	public Icon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
 		return BlockCustomHelper.getBlockTexture(block, x, y, z, side);
 	}
 
@@ -86,7 +79,7 @@ public class BlockCustomBase extends BlockMachine {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z) {
+	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -120,7 +113,7 @@ public class BlockCustomBase extends BlockMachine {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		//
 	}
 }

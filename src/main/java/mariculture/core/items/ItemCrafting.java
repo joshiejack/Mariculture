@@ -16,10 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemCrafting extends ItemMariculture {
-	public ItemCrafting(int i) {
-		super(i);
-	}
-
 	@Override
 	public int getMetaCount() {
 		return CraftingMeta.COUNT;
@@ -94,10 +90,9 @@ public class ItemCrafting extends ItemMariculture {
 	public boolean useChalk(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
 		int slot = PlayerHelper.hasItem(player, new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), false);
 		if(slot != -1) {
-			int id = world.getBlockId(x, y, z);
-			if(Block.blocksList[id] != null) {
-				Block block = Block.blocksList[id];
-				int plan = PlansMeta.getPlanType(block, id, world, x, y, z);
+			Block block = world.getBlock(x, y, z);
+			if(block != null) {
+				int plan = PlansMeta.getPlanType(block, world, x, y, z);
 				if(plan != -1) {
 					SpawnItemHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
 					if(!player.capabilities.isCreativeMode) {

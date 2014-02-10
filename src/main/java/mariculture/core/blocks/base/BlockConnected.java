@@ -1,15 +1,14 @@
 package mariculture.core.blocks.base;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.world.IBlockAccess;
 import mariculture.Mariculture;
 import mariculture.core.blocks.BlockDecorative;
-import mariculture.core.lib.GlassMeta;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockConnected extends BlockDecorative {
 	private static int[] textureRefByID = { 0, 0, 6, 6, 0, 0, 6, 6, 3, 3, 19, 15, 3, 3, 19, 15, 1, 1, 18, 18, 1, 1, 13,
@@ -22,14 +21,14 @@ public abstract class BlockConnected extends BlockDecorative {
 		26, 7, 7, 24, 24, 7, 7, 10, 10, 29, 29, 44, 41, 29, 29, 39, 33, 4, 4, 5, 5, 4, 4, 5, 5, 9, 9, 30, 12, 9, 9,
 		30, 12, 7, 7, 24, 24, 7, 7, 10, 10, 8, 8, 36, 35, 8, 8, 34, 11 };
 	
-	public BlockConnected(int i, Material material) {
-		super(i, material);
+	public BlockConnected(Material material) {
+		super(material);
 	}
 	
 	@Override
-	public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
 		int meta = world.getBlockMetadata(x, y, z);
-		Icon[] connected = getTexture(meta);
+		IIcon[] connected = getTexture(meta);
 		if(connected != null) {
 			boolean[] bitMatrix = new boolean[8];
 	
@@ -78,7 +77,7 @@ public abstract class BlockConnected extends BlockDecorative {
 	}
 	
 	private boolean isSameBlock(IBlockAccess block, int[] coords1, int[] coords2) {
-		if (block.getBlockId(coords1[0], coords1[1], coords1[2]) == this.blockID) {
+		if (block.getBlock(coords1[0], coords1[1], coords1[2]) == this) {
 			if (block.getBlockMetadata(coords1[0], coords1[1], coords1[2]) == block.getBlockMetadata(coords2[0], coords2[1], coords2[2])) {
 				return true;
 			}
@@ -86,8 +85,8 @@ public abstract class BlockConnected extends BlockDecorative {
 		return false;
 	}
 	
-	public Icon getIcon(int side, int meta) {
-		Icon[] connected = getTexture(meta);
+	public IIcon getIcon(int side, int meta) {
+		IIcon[] connected = getTexture(meta);
 		if(connected != null) {
 			return connected[0]; 
 		} else {
@@ -99,18 +98,18 @@ public abstract class BlockConnected extends BlockDecorative {
 		}
 	}
 	
-	public abstract Icon[] getTexture(int meta);
-	public abstract void registerConnectedTextures(IconRegister iconRegister);
+	public abstract IIcon[] getTexture(int meta);
+	public abstract void registerConnectedTextures(IIconRegister iconRegister);
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		icons = new IIcon[getMetaCount()];
 		
 		registerConnectedTextures(iconRegister);
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "glass_" + getName(new ItemStack(this.blockID, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "glass_" + getName(new ItemStack(this, 1, i)));
 		}
 	}
 }

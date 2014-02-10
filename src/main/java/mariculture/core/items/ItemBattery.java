@@ -4,9 +4,10 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.ItemEnergyContainer;
@@ -15,12 +16,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBattery extends ItemEnergyContainer {
 	public ItemBattery(int i, int capacity, int maxReceive, int maxExtract) {
-		super(i);
+		super(capacity, maxReceive, maxExtract);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
 		this.setHasSubtypes(true);
-		this.capacity = capacity;
-		this.maxReceive = maxReceive;
-		this.maxExtract = maxExtract;
 		this.setMaxStackSize(1);
 	}
 	
@@ -35,7 +33,7 @@ public class ItemBattery extends ItemEnergyContainer {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 	
@@ -70,8 +68,8 @@ public class ItemBattery extends ItemEnergyContainer {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int j, CreativeTabs creative, List list) {
-		ItemStack battery = new ItemStack(j, 1, 0);
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
+		ItemStack battery = new ItemStack(item, 1, 0);
 		list.add(this.make(battery, 0));
 		list.add(this.make(battery, this.capacity));
 	}

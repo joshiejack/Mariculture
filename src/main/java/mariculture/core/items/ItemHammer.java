@@ -8,35 +8,34 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import com.google.common.collect.Multimap;
 
 public class ItemHammer extends ItemDamageable {
-	private EnumToolMaterial material;
+	private ToolMaterial material;
 	
-	public ItemHammer(int i, EnumToolMaterial brick) {
-		super(i, brick.getMaxUses());
+	public ItemHammer(ToolMaterial brick) {
+		super(brick.getMaxUses());
 		this.material = brick;
 	}
 
 	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		int id = world.getBlockId(x, y, z);
-		if(BlockHelper.canRotate(id)) {
+		Block block = world.getBlock(x, y, z);
+		if(BlockHelper.canRotate(block)) {
 			int meta = world.getBlockMetadata(x, y, z);
 			if(player.isSneaking()) {
-				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, id, meta, x, y, z), 3);
+				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
 			} else {
-				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, id, meta, x, y, z), 3);
+				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
 			}
 		}
 		
-		if(Block.blocksList[id] != null) {
-			if(Block.blocksList[side].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
+		if(block != null) {
+			if(block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
 				return !world.isRemote;
 		}
 		
@@ -52,13 +51,13 @@ public class ItemHammer extends ItemDamageable {
 	}
 
 	@Override
-	public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
-		return !(world.getBlockTileEntity(x, y, z) instanceof TileAnvil);
+	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
+		return !(world.getTileEntity(x, y, z) instanceof TileAnvil);
 	}
 	
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-		return stack2.itemID == Core.craftingItem.itemID && stack2.getItemDamage() == CraftingMeta.BURNT_BRICK;
+		return stack2.getItem() == Core.craftingItem && stack2.getItemDamage() == CraftingMeta.BURNT_BRICK;
 	}
 	
 	@Override

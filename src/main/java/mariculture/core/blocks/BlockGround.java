@@ -2,23 +2,20 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import mariculture.Mariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GroundMeta;
-import mariculture.core.lib.SingleMeta;
-import mariculture.fishery.Fishery;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockGround extends BlockDecorative {
 	public BlockGround(int i) {
-		super(i, Material.sand);
+		super(Material.sand);
 	}
 	
 	@Override
@@ -47,13 +44,13 @@ public class BlockGround extends BlockDecorative {
 	}
 	
 	@Override
-	public int idDropped(int i, Random random, int j) {
-		return Block.sand.blockID;
-	}
+	public Item getItemDropped(int i, Random random, int j) {
+        return Item.getItemFromBlock(Blocks.sand);
+    }
 	
 	@Override
-	public Icon getIcon(int side, int meta) {
-		return Block.sand.getIcon(side, meta);
+	public IIcon getIcon(int side, int meta) {
+		return Blocks.sand.getIcon(side, meta);
 	}
 
 	@Override
@@ -63,7 +60,7 @@ public class BlockGround extends BlockDecorative {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		return;
 	}
 }

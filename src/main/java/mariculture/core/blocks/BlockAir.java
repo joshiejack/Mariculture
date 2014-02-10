@@ -1,31 +1,30 @@
 package mariculture.core.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.NORTH;
-
 import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.util.Rand;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockAir extends BlockDecorative {	
-	public BlockAir(int i) {
-		super(i, Material.air);
+	public BlockAir() {
+		super(Material.air);
 	}
 
 	@Override
@@ -39,35 +38,34 @@ public class BlockAir extends BlockDecorative {
 	}
 	
 	@Override
-	public boolean isAirBlock(World world, int x, int y, int z){
+	public boolean isAir(IBlockAccess world, int x, int y, int z){
         return true;
     }
 	
-	public void setFire(World world, int x, int y, int z) {
-		if(world.isAirBlock(x, y + 1, z)) {
-			world.setBlock(x, y + 1, z, Block.fire.blockID);
-		} else if (world.isAirBlock(x, y - 1, z)) {
-			world.setBlock(x, y - 1, z, Block.fire.blockID);
-		} else if (world.isAirBlock(x - 1, y, z)) {
-			world.setBlock(x - 1, y, z, Block.fire.blockID);
-		} else if (world.isAirBlock(x, y, z - 1)) {
-			world.setBlock(x, y, z - 1, Block.fire.blockID);
-		} else if (world.isAirBlock(x + 1, y, z)) {
-			world.setBlock(x + 1, y, z, Block.fire.blockID);
-		} else if (world.isAirBlock(x, y, z + 1)) {
-			world.setBlock(x, y, z + 1, Block.fire.blockID);
-		}
-	}
-	
-	@Override
-	public boolean isBlockReplaceable(World world, int x, int y, int z) {
-		if(Rand.nextInt(4)) {
-			if(world.getBlockLightValue(x, y, z) > 8) {
-				setFire(world, x, y, z);
+	public boolean trySetFire(IBlockAccess block, int x, int y, int z) {
+		if(block instanceof World && Rand.nextInt(4) && ((World) block).getBlockLightValue(x, y, z) > 8) {
+			World world = (World) block;
+			if(world.isAirBlock(x, y + 1, z)) {
+				world.setBlock(x, y + 1, z, Blocks.fire);
+			} else if (world.isAirBlock(x, y - 1, z)) {
+				world.setBlock(x, y - 1, z, Blocks.fire);
+			} else if (world.isAirBlock(x - 1, y, z)) {
+				world.setBlock(x - 1, y, z, Blocks.fire);
+			} else if (world.isAirBlock(x, y, z - 1)) {
+				world.setBlock(x, y, z - 1, Blocks.fire);
+			} else if (world.isAirBlock(x + 1, y, z)) {
+				world.setBlock(x + 1, y, z, Blocks.fire);
+			} else if (world.isAirBlock(x, y, z + 1)) {
+				world.setBlock(x, y, z + 1, Blocks.fire);
 			}
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
+		return trySetFire(world, x, y, z);
 	}
 	
 	@Override
@@ -91,7 +89,7 @@ public class BlockAir extends BlockDecorative {
     }
 	
 	private boolean isNaturalGas(IBlockAccess world, int x, int y, int z) {
-		return world.getBlockId(x, y, z) == Core.airBlocks.blockID && world.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
+		return world.getBlock(x, y, z) == Core.airBlocks && world.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
 	}
 	
 	@Override
@@ -100,14 +98,9 @@ public class BlockAir extends BlockDecorative {
     }
 	
 	@Override
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
-		if(Rand.nextInt(4)) {
-			if(world.getBlockLightValue(x, y, z) > 8) {
-				setFire(world, x, y, z);
-			}
-		}
-		
-		return super.isBlockSolidOnSide(world, x, y, z, side);
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+		trySetFire(world, x, y, z);
+		return super.isSideSolid(world, x, y, z, side);
 	}
 	
 	@Override
@@ -120,17 +113,17 @@ public class BlockAir extends BlockDecorative {
 	}
 	
 	@Override
-	public boolean isFlammable(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
+	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
         return true;
     }
 	
 	@Override
-	public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
+	public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
         return 300;
     }
 	
 	@Override
-	public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face){
+	public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face){
 		return 1000;
 	}
 
@@ -141,14 +134,14 @@ public class BlockAir extends BlockDecorative {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		blockIcon = iconRegister.registerIcon(Mariculture.modid + ":air");
 	}
 	
 	@Override
-	public int idDropped(int i, Random random, int j) {
-		return 0;
-	}
+	public Item getItemDropped(int i, Random random, int j) {
+        return null;
+    }
 	
 	@Override
 	public boolean isActive(int meta) {

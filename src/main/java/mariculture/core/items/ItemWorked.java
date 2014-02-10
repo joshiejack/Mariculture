@@ -2,37 +2,34 @@ package mariculture.core.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.Mariculture;
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.fishery.Fishery;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemWorked extends ItemDamageable {
-	public Icon crack;
+	public IIcon crack;
 	
-	public ItemWorked(int i) {
-		super(i, 100);
+	public ItemWorked() {
+		super(100);
 		setNoRepair();
 		setHasSubtypes(true);
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if(stack.stackTagCompound == null) {
 			return StatCollector.translateToLocal("itemGroup.jewelryTab");
 		}
 		
 		ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-		return StatCollector.translateToLocal("mariculture.string.unworked") + " " + worked.getItem().getItemDisplayName(worked);
+		return StatCollector.translateToLocal("mariculture.string.unworked") + " " + worked.getItem().getItemStackDisplayName(worked);
 	}
 	
 	@Override
@@ -84,11 +81,11 @@ public class ItemWorked extends ItemDamageable {
 	}
 	
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
+	public IIcon getIcon(ItemStack stack, int pass) {
 		if(pass < 4) {
 			if (stack.hasTagCompound()) {
 				ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-				if(worked.itemID != this.itemID)
+				if(worked.getItem() != this)
 					return worked.getItem().getIcon(worked, pass);
 			}
 		}
@@ -98,14 +95,14 @@ public class ItemWorked extends ItemDamageable {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":unworked");
 		crack = iconRegister.registerIcon(Mariculture.modid + ":crack");
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int id, CreativeTabs creative, List list) {
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
 		return;
 	}
 }

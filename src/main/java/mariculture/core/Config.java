@@ -4,11 +4,9 @@ import java.io.File;
 import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OreGeneration;
@@ -17,7 +15,6 @@ import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
 import net.minecraftforge.common.config.Configuration;
-import cpw.mods.fml.common.FMLLog;
 
 public class Config {
     public static void init(String dir) {

@@ -1,39 +1,37 @@
 package mariculture.core.util;
 
+import javax.swing.Icon;
+
 import mariculture.core.Core;
 import mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;
 
 public class FluidCustom extends Fluid {
 	private String fluidsName;
 	private ItemStack block;
 	
-	public FluidCustom(String fluidName, String localized, int id, int meta) {
+	public FluidCustom(String fluidName, String localized, ItemStack stack) {
 		super(fluidName);
 		this.fluidsName = localized;
-		this.block = new ItemStack(id, 1, meta);
+		this.block = stack;
 	}
 
 	@Override
-	public Icon getStillIcon() {
+	public IIcon getStillIcon() {
 		if(block != null) {
-			if(Block.blocksList[block.itemID] != null) {
-				return Block.blocksList[block.itemID].getIcon(block.itemID, block.getItemDamage());
-			}
+			return block.getIconIndex();
 		}
 		
 		return Core.transparentBlocks.getIcon(0, TransparentMeta.PLASTIC);
 	}
 	
 	@Override
-	public Icon getFlowingIcon() {
+	public IIcon getFlowingIcon() {
 		if(block != null) {
-			if(Block.blocksList[block.itemID] != null) {
-				return Block.blocksList[block.itemID].getIcon(block.itemID, block.getItemDamage());
-			}
+			return block.getIconIndex();
 		}
 		
 		return Core.transparentBlocks.getIcon(0, TransparentMeta.PLASTIC);

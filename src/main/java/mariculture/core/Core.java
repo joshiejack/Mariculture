@@ -188,17 +188,17 @@ public class Core extends Module {
 	@Override
 	public void registerBlocks() {
 		oreBlocks = new BlockOre().setStepSound(Block.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
-		utilBlocks = new BlockUtil(BlockIds.util).setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
-		doubleBlock = new BlockDouble(BlockIds.doubleBlocks).setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
-		singleBlocks = new BlockSingle(BlockIds.singleBlocks).setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		oysterBlock = new BlockOyster(BlockIds.oyster).setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
-		pearlBrick = new BlockPearlBrick(BlockIds.pearlBrick).setBlockName("pearlBrick");
-		glassBlocks = new BlockGlass(BlockIds.glassBlocks).setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
-		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setBlockName("airBlocks");
-		woodBlocks = new BlockWood(BlockIds.woodBlocks).setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
-		tankBlocks = new BlockTank(BlockIds.tankBlocks).setStepSound(Block.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
-		groundBlocks = new BlockGround(BlockIds.groundBlocks).setBlockName("groundBlocks").setHardness(1F);
-		transparentBlocks = new BlockTransparent(BlockIds.transparentBlocks).setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
+		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
+		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
+		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
+		oysterBlock = new BlockOyster().setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
+		pearlBrick = new BlockPearlBrick().setBlockName("pearlBrick");
+		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
+		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
+		woodBlocks = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
+		tankBlocks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
+		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
+		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
 		
 		Item.itemsList[BlockIds.ores] = new BlockOreItem(BlockIds.ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
 		Item.itemsList[BlockIds.util] = new BlockUtilItem(BlockIds.util - 256, utilBlocks).setUnlocalizedName("utilBlocks");

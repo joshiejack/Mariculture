@@ -49,7 +49,7 @@ public class BlockUtil extends BlockMachine {
 	private IIcon[] liquifierIcons;
 	private IIcon[] fishSorter;
 
-	public BlockUtil(int i) {
+	public BlockUtil() {
 		super(Material.piston);
 	}
 

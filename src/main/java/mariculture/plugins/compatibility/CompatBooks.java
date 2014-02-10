@@ -266,9 +266,9 @@ public class CompatBooks {
 		return null;
 	}
 
-	public static void addBooks(int id, CreativeTabs creative, List list) {
+	public static void addBooks(Item item, CreativeTabs creative, List list) {
 		for (Entry<String, BookInfo> book : books.entrySet()) {
-			ItemStack stack = new ItemStack(id, 1, GuideMeta.CUSTOM);
+			ItemStack stack = new ItemStack(item, 1, GuideMeta.CUSTOM);
 			stack.setTagCompound(new NBTTagCompound());
 			stack.stackTagCompound.setString("booksid", book.getKey());
 			list.add(stack);

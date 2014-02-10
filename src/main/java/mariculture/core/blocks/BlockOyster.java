@@ -1,10 +1,9 @@
 package mariculture.core.blocks;
 
-import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import javax.swing.Icon;
+
 import mariculture.Mariculture;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
@@ -18,34 +17,31 @@ import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
 import mariculture.core.util.Rand;
-import mariculture.factory.blocks.BlockCustomHelper;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockOyster extends BlockMachine {
 	private final Random rand = new Random();
 	public static int NET = 4;
 
-	public BlockOyster(int i) {
-		super(i, Material.ice);
+	public BlockOyster() {
+		super(Material.ice);
 		setTickRandomly(true);
 	}
 	
@@ -76,7 +72,7 @@ public class BlockOyster extends BlockMachine {
 		if(world.getBlockMetadata(x, y, z) == NET) {
 			return true;
 		} else {
-			if (world.getBlockMaterial(x, y + 1, z) != Material.water) {
+			if (world.getBlock(x, y + 1, z).getMaterial() != Material.water) {
 				world.destroyBlock(x, y, z, true);
 				return false;
 			}

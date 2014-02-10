@@ -6,13 +6,11 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
@@ -21,7 +19,6 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
-import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
@@ -57,12 +54,11 @@ import mariculture.factory.items.ItemPlan;
 import mariculture.factory.items.ItemRotor;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockHalfSlab;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -99,7 +95,7 @@ public class Factory extends Module {
 	public static Item turbineTitanium;
 	public static Item turbineCopper;
 
-	private static EnumArmorMaterial armorFLUDD = EnumHelper.addArmorMaterial("FLUDD", 0, new int[] { 0, 0, 0, 0 }, 0);
+	private static ArmorMaterial armorFLUDD = EnumHelper.addArmorMaterial("FLUDD", 0, new int[] { 0, 0, 0, 0 }, 0);
 
 	@Override
 	public void registerHandlers() {
@@ -109,7 +105,7 @@ public class Factory extends Module {
 
 	@Override
 	public void registerBlocks() {
-		customFlooring = new BlockCustomFlooring(BlockIds.customFlooring).setStepSound(Block.soundStoneFootstep)
+		customFlooring = new BlockCustomFlooring().setStepSound(Block.soundStoneFootstep)
 				.setHardness(0.1F).setResistance(0.1F).setUnlocalizedName("customFlooring").setLightOpacity(0);
 		customBlock = new BlockCustomBlock(BlockIds.customBlock).setStepSound(Block.soundStoneFootstep).setHardness(1F)
 				.setResistance(0.1F).setUnlocalizedName("customBlock");

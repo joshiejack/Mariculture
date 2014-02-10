@@ -5,17 +5,15 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
-
 	public ItemUpgrade(int i) {
-		super(i);
 		this.maxStackSize = 1;
 	}
 
@@ -215,7 +213,7 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		switch (stack.getItemDamage()) {
 		case UpgradeMeta.ETERNAL_MALE:
 			return StatCollector.translateToLocal("item.upgrade.eternal.life") + "\u2642" + " "
@@ -231,19 +229,17 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("upgrade." + getName(new ItemStack(this.itemID, 1, j)), new ItemStack(
-					this.itemID, 1, j));
+			MaricultureRegistry.register("upgrade." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+	public void registerIcons(IIconRegister iconRegister) {
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":upgrades/"
-					+ getName(new ItemStack(this.itemID, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":upgrades/" + getName(new ItemStack(this, 1, i)));
 		}
 	}
 

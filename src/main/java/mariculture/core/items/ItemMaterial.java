@@ -11,10 +11,6 @@ import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class ItemMaterial extends ItemMariculture implements IEnergyContainerItem {
-	public ItemMaterial(int i) {
-		super(i);
-	}
-
 	@Override
 	public int getMetaCount() {
 		return MaterialsMeta.COUNT;
@@ -131,13 +127,12 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 	}
 	
 	@Override
-	public String getPotionEffect(ItemStack stack)
-    {
+	public String getPotionEffect(ItemStack stack) {
 		switch (stack.getItemDamage()) {
 		case MaterialsMeta.DROP_POISON:
 			return PotionHelper.spiderEyeEffect;
 		default:
-	        return getPotionEffect();
+	        return super.getPotionEffect(stack);
 		}
     }
 

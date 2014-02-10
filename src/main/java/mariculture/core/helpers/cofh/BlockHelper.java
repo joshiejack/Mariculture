@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +16,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Contains various helper functions to assist with {@link Block} and Block-related manipulation and interaction.
@@ -80,9 +81,10 @@ public final class BlockHelper {
 	}
 
 	static {
-		rotateType[Block.wood.blockID] = RotationType.LOG;
-		rotateType[Block.dispenser.blockID] = RotationType.SIX_WAY;
-		rotateType[Block.bed.blockID] = RotationType.PREVENT;
+		rotateType[Block.getIdFromBlock(Blocks.log)] = RotationType.LOG;
+		rotateType[Block.getIdFromBlock(Blocks.log2)] = RotationType.LOG;
+		rotateType[Block.getIdFromBlock(Blocks.dispenser)] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.bed)] = RotationType.PREVENT;
 		rotateType[Block.railPowered.blockID] = RotationType.RAIL;
 		rotateType[Block.railDetector.blockID] = RotationType.RAIL;
 		rotateType[Block.pistonStickyBase.blockID] = RotationType.SIX_WAY;
@@ -212,9 +214,8 @@ public final class BlockHelper {
 	}
 
 	/* BLOCK ROTATION */
-	public static boolean canRotate(int blockId) {
-
-		return rotateType[blockId] != 0;
+	public static boolean canRotate(Block block) {
+		return rotateType[block.getIdFromBlock(block)] != 0;
 	}
 
 	public static int rotateVanillaBlock(World world, int bId, int bMeta, int x, int y, int z) {

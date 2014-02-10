@@ -1,17 +1,19 @@
 package mariculture.plugins;
 
-import biomesoplenty.api.Biomes;
-import biomesoplenty.api.Blocks;
-import com.google.common.base.Optional;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.Plugins.Plugin;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.oredict.OreDictionary;
+import biomesoplenty.api.Biomes;
+import biomesoplenty.api.Blocks;
+
+import com.google.common.base.Optional;
 
 public class PluginBiomesOPlenty extends Plugin {
 	public PluginBiomesOPlenty(String name) {
@@ -148,12 +150,12 @@ public class PluginBiomesOPlenty extends Plugin {
 		addBiome(Biomes.tropicsMountain, EnumBiomeType.HOT);
 		
 		if(Blocks.coral.isPresent()) {
-			int id = Blocks.coral.get().blockID;
-			OreDictionary.registerOre("plantKelp", new ItemStack(id, 1, 3));
-			OreDictionary.registerOre("coralPink", new ItemStack(id, 1, 4));
-			OreDictionary.registerOre("coralOrange", new ItemStack(id, 1, 5));
-			OreDictionary.registerOre("coralLightBlue", new ItemStack(id, 1, 6));
-			OreDictionary.registerOre("coralPurple", new ItemStack(id, 1, 7));
+			Block coral = Blocks.coral.get();
+			OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, 3));
+			OreDictionary.registerOre("coralPink", new ItemStack(coral, 1, 4));
+			OreDictionary.registerOre("coralOrange", new ItemStack(coral, 1, 5));
+			OreDictionary.registerOre("coralLightBlue", new ItemStack(coral, 1, 6));
+			OreDictionary.registerOre("coralPurple", new ItemStack(coral, 1, 7));
 		}
 	}
 

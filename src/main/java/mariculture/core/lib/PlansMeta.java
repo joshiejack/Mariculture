@@ -3,9 +3,10 @@ package mariculture.core.lib;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileCustom;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockHalfSlab;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockWall;
 import net.minecraft.item.ItemStack;
@@ -70,24 +71,24 @@ public class PlansMeta {
 		return null;
 	}
 	
-	public static int getPlanType(Block block, int id, World world, int x, int y, int z) {
+	public static int getPlanType(Block block, World world, int x, int y, int z) {
 		if(block instanceof BlockFence) {
 			return PlansMeta.FENCE;
 		} else if(block instanceof BlockFenceGate) {
 			return PlansMeta.GATE;
-		} else if(block instanceof BlockHalfSlab) {
+		} else if(block instanceof BlockSlab) {
 			return PlansMeta.SLABS;
 		} else if(block instanceof BlockStairs) {
 			return PlansMeta.STAIRS;
 		} else if(block instanceof BlockWall) {
 			return PlansMeta.WALL;
-		} else if(id == Block.carpet.blockID) {
+		} else if(block instanceof BlockCarpet) {
 			return PlansMeta.FLOOR;
 		} else if(block.getLightValue(world, x, y, z) > 0F) {
 			return PlansMeta.LIGHT;
-		} else if(world.getBlockTileEntity(x, y, z) != null && world.getBlockTileEntity(x, y, z) instanceof IEnergyHandler) {
+		} else if(world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof IEnergyHandler) {
 			return PlansMeta.RF;
-		} else if(world.getBlockTileEntity(x, y, z) == null && !world.isAirBlock(x, y, z)) {
+		} else if(world.getTileEntity(x, y, z) == null && !world.isAirBlock(x, y, z)) {
 			return PlansMeta.BLOCK;
 		}
 		
@@ -123,9 +124,9 @@ public class PlansMeta {
 	}
 
 	public static boolean isTheSame(World world, int x, int y, int z, ItemStack stack) {
-		if(world.getBlockTileEntity(x, y, z) != null) {
-			if(world.getBlockTileEntity(x, y, z) instanceof TileCustom) {
-				TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+		if(world.getTileEntity(x, y, z) != null) {
+			if(world.getTileEntity(x, y, z) instanceof TileCustom) {
+				TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 				ItemStack ret = new ItemStack(tile.getBlockType());
 				ret.setTagCompound(new NBTTagCompound());
 				ret.stackTagCompound.setIntArray("BlockIDs", tile.theBlockIDs());

@@ -14,8 +14,7 @@ import mariculture.core.gui.feature.Feature;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.util.IItemRegistry;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -23,7 +22,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,8 +31,7 @@ public class ItemStorage extends Item implements IItemRegistry {
 	public int size;
 	public String gui;
 
-	public ItemStorage(int i, int storage, String gui) {
-		super(i);
+	public ItemStorage(int storage, String gui) {
 		maxStackSize = 1;
 		this.size = storage;
 		this.gui = gui;
@@ -56,19 +53,19 @@ public class ItemStorage extends Item implements IItemRegistry {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, 0)));
+	public void registerIcons(IIconRegister iconRegister) {
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, 0)));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int j, CreativeTabs creative, List list) {
-		list.add(new ItemStack(j, 1, 0));
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
+		list.add(new ItemStack(item, 1, 0));
 	}
 
 	@Override
 	public void register() {
-		MaricultureRegistry.register(getName(new ItemStack(this.itemID, 1, 0)), new ItemStack(this.itemID, 1, 0));
+		MaricultureRegistry.register(getName(new ItemStack(this, 1, 0)), new ItemStack(this, 1, 0));
 	}
 
 	@Override
@@ -98,13 +95,14 @@ public class ItemStorage extends Item implements IItemRegistry {
 	}
 
 	public ItemStack[] load(EntityPlayer player, ItemStack stack, int size) {
+		//TODO: Check if loading correctly
 		NBTTagCompound loader = stack.hasTagCompound() ? stack.stackTagCompound: new NBTTagCompound();
-		NBTTagList nbttaglist = loader.getTagList("Inventory");
+		NBTTagList nbttaglist = loader.getTagList("Inventory", 10);
 
 		if (nbttaglist != null) {
 			ItemStack[] inventory = new ItemStack[size];
 			for (int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
+				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
 				byte byte0 = nbttagcompound1.getByte("Slot");
 				if (byte0 >= 0 && byte0 < inventory.length) {
 					inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);

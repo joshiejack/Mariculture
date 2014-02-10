@@ -11,10 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemFood extends ItemMariculture {
-	public ItemFood(int i) {
-		super(i);
-	}
-
 	private int getFoodLevel(int dmg) {
 		switch (dmg) {
 		case FoodMeta.FISH_FINGER:

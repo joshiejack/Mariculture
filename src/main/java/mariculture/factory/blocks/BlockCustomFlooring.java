@@ -10,8 +10,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomFlooring extends BlockCustomBase {
-	public BlockCustomFlooring(final int par1) {
-		super(par1, Material.materialCarpet);
+	public BlockCustomFlooring() {
+		super(Material.carpet);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
 		this.setTickRandomly(true);
 		this.func_111047_d(0);

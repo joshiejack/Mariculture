@@ -6,10 +6,11 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
@@ -24,10 +25,10 @@ public class FluidHelper {
 		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
 		if (result != null) {
 			invent.decrStackSize(in, 1);
-			if(result.itemID != Core.airBlocks.blockID) {
+			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
 				if (invent.getStackInSlot(out) == null) {
 					invent.setInventorySlotContents(out, result.copy());
-				} else if (invent.getStackInSlot(out).itemID == result.itemID) {
+				} else if (invent.getStackInSlot(out).getItem() == result.getItem()) {
 					ItemStack stack = invent.getStackInSlot(out);
 					++stack.stackSize;
 					invent.setInventorySlotContents(out, stack);
@@ -49,7 +50,7 @@ public class FluidHelper {
 	}
 
 	public static boolean isVoid(ItemStack stack) {
-		return (stack != null && stack.getItem().itemID == Core.liquidContainers.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
+		return (stack != null && stack.getItem() == Core.liquidContainers && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
 	}
 	
 	public static boolean isIContainer(ItemStack stack) {
@@ -101,7 +102,7 @@ public class FluidHelper {
 		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
 
 		for (int i = 0; i < data.length; i++) {
-			if (data[i].filledContainer.itemID == filledContainer.itemID
+			if (data[i].filledContainer.getItem() == filledContainer.getItem()
 					&& data[i].filledContainer.getItemDamage() == filledContainer.getItemDamage()) {
 				return data[i].emptyContainer;
 			}
@@ -118,7 +119,7 @@ public class FluidHelper {
 			if (data[j].fluid.fluidID == fluid.getID()) {
 				if(data[j].fluid.amount > highest)
 					highest = data[j].fluid.amount;
-				if(data[j].emptyContainer.itemID == Item.bucketEmpty.itemID)
+				if(data[j].emptyContainer.getItem() == Items.bucket)
 					return data[j].fluid.amount;
 			}
 		}
@@ -240,8 +241,9 @@ public class FluidHelper {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, newHeld);
 					} else {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);
+						//TODO: Check the player drop when doing this stuffs
 						if (!player.inventory.addItemStackToInventory(newHeld))
-							player.dropPlayerItem(newHeld);
+							player.dropPlayerItemWithRandomChoice(newHeld, true);
 					}
 				}
 				return true;
@@ -259,9 +261,9 @@ public class FluidHelper {
 					} else {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);
 
-						if (!player.inventory.addItemStackToInventory(result)) {
-							player.dropPlayerItem(result);
-						}
+						//TODO: Check the player drop when doing this stuffs
+						if (!player.inventory.addItemStackToInventory(result))
+							player.dropPlayerItemWithRandomChoice(result, true);
 					}
 				}
 

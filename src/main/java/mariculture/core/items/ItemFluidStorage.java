@@ -1,6 +1,5 @@
 package mariculture.core.items;
 
-import java.util.HashMap;
 import java.util.List;
 
 import mariculture.Mariculture;
@@ -13,18 +12,20 @@ import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFluid;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -38,9 +39,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluidStorage extends Item implements IFluidContainerItem, IItemRegistry {	
 	public int capacity;
-	private Icon filledIcon;
-	public ItemFluidStorage(int i, int capacity) {
-		super(i);
+	private IIcon filledIcon;
+	public ItemFluidStorage(int capacity) {
 		this.capacity = capacity;
 		setCreativeTab(MaricultureTab.tabMariculture);
 		setMaxStackSize(1);
@@ -53,15 +53,15 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
         if (movingobjectposition == null) {
             return item;
         } else {
-            if (movingobjectposition.typeOfHit == EnumMovingObjectType.TILE) {
+            if (movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
             	IFluidContainerItem container = ((IFluidContainerItem) item.getItem());
             	int x = movingobjectposition.blockX;
                 int y = movingobjectposition.blockY;
                 int z = movingobjectposition.blockZ;
                 int side = movingobjectposition.sideHit;
             	
-            	Block block = Block.blocksList[world.getBlockId(x, y, z)];
-				if((block instanceof BlockFluidBase || block instanceof BlockFluid)) {
+            	Block block = world.getBlock(x, y, z);
+				if((block instanceof BlockFluidBase || block instanceof BlockLiquid)) {
 					FluidStack fluid = null;
 					if(block instanceof BlockFluidBase)
 						fluid = ((BlockFluidBase) block).drain(world, x, y, z, false);
@@ -97,16 +97,12 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 					if(!result.getFluid().getName().equals("lava") && world.provider.isHellWorld) {
 						return item;
 					}
-					
-					int i1 = world.getBlockId(x, y, z);
 
-					Block aBlock = Block.blocksList[i1];
-					
-					if(side == 1 && (aBlock instanceof BlockFluidBase || aBlock instanceof BlockFluid)) {
+					if(side == 1 && (block instanceof BlockFluidBase || block instanceof BlockLiquid)) {
 						--y;
-					} else if (i1 == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
+					} else if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1) {
 						side = 1;
-					} else if (i1 != Block.vine.blockID && i1 != Block.tallGrass.blockID && i1 != Block.deadBush.blockID) {
+					} else if (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush) {
 						if (side == 0)
 							--y;
 						if (side == 1)
@@ -126,15 +122,16 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 					} else if (item.stackSize == 0) {
 						return item;
 					} else {
-						Block theBlock = Block.blocksList[fluid.getBlockID()];
-						if (world.setBlock(x, y, z, fluid.getBlockID(), 0, 2)) {
-							if (world.getBlockId(x, y, z) == fluid.getBlockID()) {
-								Block.blocksList[fluid.getBlockID()].onBlockPlacedBy(world, x, y, z, player, item);
-								Block.blocksList[fluid.getBlockID()].onPostBlockPlaced(world, x, y, z, 0);
+						Block theBlock = fluid.getBlock();
+						if (world.setBlock(x, y, z, theBlock, 0, 2)) {
+							if (world.getBlock(x, y, z) == theBlock) {
+								theBlock.onBlockPlacedBy(world, x, y, z, player, item);
+								theBlock.onPostBlockPlaced(world, x, y, z, 0);
 							}
 
+							//TODO: func_150496_b = getPlaceSound()
 							world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F),
-									(double) ((float) z + 0.5F), theBlock.stepSound.getPlaceSound(),
+									(double) ((float) z + 0.5F), theBlock.stepSound.func_150496_b(),
 									(theBlock.stepSound.getVolume() + 1.0F) / 2.0F, theBlock.stepSound.getPitch() * 0.8F);
 							
 							((IFluidContainerItem) item.getItem()).drain(item, drain, true);
@@ -151,9 +148,9 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	@Override
 	public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		if(FluidHelper.isIContainer(item)) {
-			if (world.getBlockTileEntity(x, y, z) instanceof IFluidHandler) {
+			if (world.getTileEntity(x, y, z) instanceof IFluidHandler) {
 				ForgeDirection dir = ForgeDirection.getOrientation(side);
-				IFluidHandler tank = (IFluidHandler) world.getBlockTileEntity(x, y, z);
+				IFluidHandler tank = (IFluidHandler) world.getTileEntity(x, y, z);
 				IFluidContainerItem container = (IFluidContainerItem) item.getItem();
 				FluidStack fluid = container.getFluid(item);
 				if(fluid != null && fluid.amount > 0) {
@@ -182,12 +179,12 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	}
 
 	@Override
-	public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
+	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
 		return true;
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
         return Text.ORANGE + ("" + StatCollector.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name")).trim();
     }
 
@@ -205,13 +202,13 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	}
 	
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
-		if(stack.itemID == Core.bucket.itemID) {
+	public IIcon getIcon(ItemStack stack, int pass) {
+		if(stack.getItem() == Core.bucket) {
 			if(pass == 0) {
 				if(stack.hasTagCompound() && getFluid(stack) != null) {
 					FluidStack fake = getFluid(stack).copy();
 					fake.amount = OreDictionary.WILDCARD_VALUE;
-					ItemStack bucket = FluidContainerRegistry.fillFluidContainer(fake, new ItemStack(Item.bucketEmpty));
+					ItemStack bucket = FluidContainerRegistry.fillFluidContainer(fake, new ItemStack(Items.bucket));
 					if(bucket != null) {
 						return bucket.getIconIndex();
 					}
@@ -228,9 +225,9 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this)));
-		if(this.itemID == Core.bucket.itemID)
+		if(this == Core.bucket)
 			filledIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this)) + "Filled");
 	}
 
@@ -341,7 +338,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 
 	@Override
 	public void register() {
-		MaricultureRegistry.register(getName(new ItemStack(this.itemID, 1, 0)), new ItemStack(this.itemID, 1, 0));
+		MaricultureRegistry.register(getName(new ItemStack(this, 1, 0)), new ItemStack(this, 1, 0));
 	}
 
 	@Override

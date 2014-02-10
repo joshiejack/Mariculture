@@ -6,18 +6,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockCustomHelper {
-	public static Icon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
-		TileCustom tile = (TileCustom) block.getBlockTileEntity(x, y, z);
+	public static IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+		TileCustom tile = (TileCustom) block.getTileEntity(x, y, z);
 
 		if (tile != null) {
 			try {
@@ -34,7 +33,7 @@ public class BlockCustomHelper {
 			int[] meta = stack.stackTagCompound.getIntArray("BlockMetas");
 			int[] sides = stack.stackTagCompound.getIntArray("BlockSides");
 			String name = stack.stackTagCompound.getString("Name");
-			TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+			TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 			if (tile != null) {
 				tile.set(id, meta, sides, name);
 			}
@@ -42,7 +41,7 @@ public class BlockCustomHelper {
 	}
 
 	public static boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
-		TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+		TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (axis == ForgeDirection.EAST || axis == ForgeDirection.WEST || axis == ForgeDirection.NORTH || axis == ForgeDirection.SOUTH) {
 				int[] ids = new int[] { 
@@ -78,8 +77,8 @@ public class BlockCustomHelper {
 	public static float getBlockHardness(World world, int x, int y, int z) {
 		float hardness = 0F;
 
-		if (world.getBlockTileEntity(x, y, z) != null && world.getBlockTileEntity(x, y, z) instanceof TileCustom) {
-			TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileCustom) {
+			TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 			if (tile.size() == 6) {
 				for (int i = 0; i < 6; i++) {
 					if (Block.blocksList[tile.theBlockIDs(i)] != null) {
@@ -97,8 +96,8 @@ public class BlockCustomHelper {
 	public static float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
 		float resistance = 0F;
 
-		if (world.getBlockTileEntity(x, y, z) != null && world.getBlockTileEntity(x, y, z) instanceof TileCustom) {
-			TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileCustom) {
+			TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 			if (tile.size() == 6) {
 				for (int i = 0; i < 6; i++) {
 					if (Block.blocksList[tile.theBlockIDs(i)] != null) {
@@ -115,7 +114,7 @@ public class BlockCustomHelper {
 
 	public static boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z, int plan) {
 		if (!player.capabilities.isCreativeMode) {
-			TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+			TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 			ItemStack drop = PlansMeta.getBlockStack(plan);
 			if (!drop.hasTagCompound()) {
 				drop.setTagCompound(new NBTTagCompound());
@@ -147,7 +146,7 @@ public class BlockCustomHelper {
 	}
 
 	public static ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, int plan) {
-		TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+		TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 		ItemStack drop = PlansMeta.getBlockStack(plan);
 		if (!drop.hasTagCompound()) {
 			drop.setTagCompound(new NBTTagCompound());

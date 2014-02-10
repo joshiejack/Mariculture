@@ -1,8 +1,5 @@
 package mariculture.core.blocks;
 
-import java.util.Random;
-
-import cofh.api.energy.IEnergyContainerItem;
 import mariculture.Mariculture;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
@@ -12,39 +9,38 @@ import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.network.Packet117AirCompressorUpdate;
-import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDouble extends BlockMachine {
-	public Icon bar1;
-	public Icon bar2;
+	public IIcon bar1;
 
-	public BlockDouble(int i) {
-		super(i, Material.iron);
+	public BlockDouble() {
+		super(Material.iron);
 		setLightOpacity(0);
 	}
 
 	@Override
 	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileMultiBlock) {
 			((TileMultiBlock)tile).onBlockBreak();
 		}
@@ -75,13 +71,13 @@ public class BlockDouble extends BlockMachine {
 		
 		int count = 0;
 
-		if (world.getBlockId(x - 1, y, z) == this.blockID)
+		if (world.getBlock(x - 1, y, z) == this)
 			++count;
-		if (world.getBlockId(x + 1, y, z) == this.blockID)
+		if (world.getBlock(x + 1, y, z) == this)
 			++count;
-		if (world.getBlockId(x, y, z - 1) == this.blockID)
+		if (world.getBlock(x, y, z - 1) == this)
 			++count;
-		if (world.getBlockId(x, y, z + 1) == this.blockID)
+		if (world.getBlock(x, y, z + 1) == this)
 			++count;
 		
 		return count > 1 ? false : (this.isThereSameBlock(world, x - 1, y, z) ? false : (this
@@ -90,14 +86,14 @@ public class BlockDouble extends BlockMachine {
 	}
 
 	private boolean isThereSameBlock(World world, int x, int y, int z) {
-		return world.getBlockId(x, y, z) != this.blockID ? false : (world.getBlockId(x - 1, y, z) == this.blockID ? true : (world
-				.getBlockId(x + 1, y, z) == this.blockID ? true : (world.getBlockId(x, y, z - 1) == this.blockID ? true : world
-				.getBlockId(x, y, z + 1) == this.blockID)));
+		return world.getBlock(x, y, z) != this ? false : (world.getBlock(x - 1, y, z) == this ? true : (world
+				.getBlock(x + 1, y, z) == this ? true : (world.getBlock(x, y, z - 1) == this ? true : world
+				.getBlock(x, y, z + 1) == this)));
 	}
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileMultiBlock) {
 			((TileMultiBlock)tile).onBlockPlaced();
 		}
@@ -107,7 +103,7 @@ public class BlockDouble extends BlockMachine {
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int j, float f, float g, float t) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile == null) {
 			return false;
 		}
@@ -140,14 +136,15 @@ public class BlockDouble extends BlockMachine {
 					return true;
 				}
 				
-				if(heldItem.getItem().itemID == Diving.scubaTank.itemID) {
+				if(heldItem.getItem() == Diving.scubaTank) {
 					if(heldItem.getItemDamage() > 1 && compressor.storedAir > 0) {
 						heldItem.setItemDamage(heldItem.getItemDamage() - 1);
 						if(!world.isRemote) {
 							compressor.storedAir--;
-							Packets.updateTile(compressor, 64, 
+							//TODO: PACKET Handle Packet for updating the energy stored in air compressor
+							/* Packets.updateTile(compressor, 64, 
 									new Packet117AirCompressorUpdate(compressor.xCoord, compressor.yCoord, compressor.zCoord, 
-													compressor.storedAir, compressor.getEnergyStored(ForgeDirection.UP)).build());
+													compressor.storedAir, compressor.getEnergyStored(ForgeDirection.UP)).build()); */
 						}
 						return true;
 					}
@@ -161,7 +158,7 @@ public class BlockDouble extends BlockMachine {
 			ItemStack input = vat.getStackInSlot(0);
 			ItemStack output = vat.getStackInSlot(1);
 			if(FluidHelper.isFluidOrEmpty(player.getCurrentEquippedItem())) {
-				return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
+				return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
 			}
 			
 			if(output != null) {
@@ -258,14 +255,14 @@ public class BlockDouble extends BlockMachine {
 	}
 	
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		BlockHelper.dropItems(world, x, y, z);
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileMultiBlock) {
 			((TileMultiBlock)tile).onBlockBreak();
 		}
 		
-		super.breakBlock(world, x, y, z, i, meta);
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	@Override
@@ -281,11 +278,6 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public int getRenderType() {
 		return RenderIds.BLOCK_DOUBLE;
-	}
-
-	@Override
-	public int idDropped(int i, Random random, int j) {
-		return this.blockID;
 	}
 
 	@Override
@@ -314,14 +306,13 @@ public class BlockDouble extends BlockMachine {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		bar1 = iconRegister.registerIcon(Mariculture.modid + ":bar1");
-		bar2 = iconRegister.registerIcon(Mariculture.modid + ":bar2");
 		
-		icons = new Icon[getMetaCount()];
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
 		}
 	}
 }

@@ -4,33 +4,25 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.guide.GuiGuide;
-import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.compatibility.CompatBooks;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGuide extends ItemMariculture {
-	public Icon pageIcon;
+	public IIcon pageIcon;
 	
-	public ItemGuide(int id) {
-		super(id);
-	}
-
 	public String getName(ItemStack stack) {
 		switch (stack.getItemDamage()) {
 		case GuideMeta.FISHING:
@@ -83,7 +75,7 @@ public class ItemGuide extends ItemMariculture {
     }
 	
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
+	public IIcon getIcon(ItemStack stack, int pass) {
 		if(stack.getItemDamage() < GuideMeta.CUSTOM || pass == 0) {
 			return getIconFromDamage(stack.getItemDamage());
 		} else {
@@ -92,7 +84,7 @@ public class ItemGuide extends ItemMariculture {
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if(stack.getItemDamage() < GuideMeta.CUSTOM)
 			return ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
 		return CompatBooks.getName(stack);
@@ -153,7 +145,7 @@ public class ItemGuide extends ItemMariculture {
 	@Override
 	public void register() {
 		for (int j = 0; j < getMetaCount() + 1; j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this.itemID, 1, j)) + "Guide", new ItemStack(this.itemID, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)) + "Guide", new ItemStack(this, 1, j));
 		}
 	}
 
@@ -164,19 +156,19 @@ public class ItemGuide extends ItemMariculture {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int id, CreativeTabs creative, List list) {
-		super.getSubItems(id, creative, list);
-		CompatBooks.addBooks(id, creative, list);
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
+		super.getSubItems(item, creative, list);
+		CompatBooks.addBooks(item, creative, list);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+	public void registerIcons(IIconRegister iconRegister) {
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
 			if(i != GuideMeta.BREEDING) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.itemID, 1, i)) + "Guide");
+				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)) + "Guide");
 			}
 		}
 		
