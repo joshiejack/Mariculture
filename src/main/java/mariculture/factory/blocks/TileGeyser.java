@@ -2,7 +2,6 @@ package mariculture.factory.blocks;
 
 import java.util.List;
 
-import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.base.TileTank;
@@ -20,11 +19,9 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 

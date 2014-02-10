@@ -2,6 +2,8 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import javax.swing.Icon;
+
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
@@ -10,7 +12,12 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.*;
+import mariculture.core.lib.Extra;
+import mariculture.core.lib.GuiIds;
+import mariculture.core.lib.MaricultureDamage;
+import mariculture.core.lib.Modules;
+import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.SingleMeta;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
@@ -26,7 +33,6 @@ import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,19 +40,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.FakePlayer;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSingle extends BlockMachine {
-	public BlockSingle(int i) {
-		super(i, Material.piston);
+	public BlockSingle() {
+		super(Material.piston);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
 	}
 
@@ -87,7 +92,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (tile instanceof TileTurbineBase) {
 				return ((TileTurbineBase) tile).direction.getOpposite() == side;
@@ -98,7 +103,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (tile instanceof TileTurbineBase) {
 				return ((TileTurbineBase) tile).switchOrientation();
@@ -119,7 +124,7 @@ public class BlockSingle extends BlockMachine {
 	
 	@Override
 	public void onPostBlockPlaced(World world, int x, int y, int z, int side) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (tile instanceof TileTurbineBase) {
 				TileTurbineBase turbine = (TileTurbineBase) tile;
@@ -131,7 +136,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
 		if (tile != null) {
 			if (tile instanceof TileFLUDDStand) {
@@ -185,7 +190,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f, float g, float t) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile == null || (player.isSneaking() && !world.isRemote)) {
 			return false;
 		}
@@ -294,11 +299,11 @@ public class BlockSingle extends BlockMachine {
 				}
 			}
 			
-			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
+			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
 		}
 		
 		if(tile instanceof TileGeyser) {
-			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
+			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
 		}
 
 		return false;
@@ -306,7 +311,7 @@ public class BlockSingle extends BlockMachine {
 	
 	@Override
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileAnvil && ItemHelper.isPlayerHoldingItem(Core.hammer, player)) {
 			if(player.username.equals("[CoFH]"))
 				return;
@@ -330,7 +335,7 @@ public class BlockSingle extends BlockMachine {
 			setBlockBounds(0.2F, 0F, 0.2F, 0.8F, 0.9F, 0.8F);
 			break;
 		case SingleMeta.GEYSER:
-			TileGeyser geyser = (TileGeyser)block.getBlockTileEntity(x, y, z);
+			TileGeyser geyser = (TileGeyser)block.getTileEntity(x, y, z);
 			if(geyser.orientation == ForgeDirection.UP)
 				setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.25F, 0.9F);
 			if(geyser.orientation == ForgeDirection.DOWN)
@@ -423,7 +428,7 @@ public class BlockSingle extends BlockMachine {
 		if (!world.isRemote) {
 			if (world.getBlockMetadata(x, y, z) == SingleMeta.FLUDD_STAND) {
 				if (!player.capabilities.isCreativeMode) {
-					if (world.getBlockTileEntity(x, y, z) instanceof TileFLUDDStand) {
+					if (world.getTileEntity(x, y, z) instanceof TileFLUDDStand) {
 						dropFLUDD(world, x, y, z);
 					}
 				}
@@ -434,7 +439,7 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	private void dropFLUDD(World world, int x, int y, int z) {
-		TileFLUDDStand tile = (TileFLUDDStand) world.getBlockTileEntity(x, y, z);
+		TileFLUDDStand tile = (TileFLUDDStand) world.getTileEntity(x, y, z);
 		ItemStack drop = new ItemStack(Factory.fludd);
 
 		if (!drop.hasTagCompound()) {

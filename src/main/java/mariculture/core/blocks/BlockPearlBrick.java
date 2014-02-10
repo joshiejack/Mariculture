@@ -1,24 +1,18 @@
 package mariculture.core.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.api.core.MaricultureTab;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPearlBrick extends BlockDecorative {
-	public BlockPearlBrick(final int i) {
-		super(i, Material.rock);
+	public BlockPearlBrick() {
+		super(Material.rock);
 		this.setResistance(20F);
 		this.setHardness(2F);
 	}
@@ -26,7 +20,7 @@ public class BlockPearlBrick extends BlockDecorative {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("pearlBrick." + getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
+			MaricultureRegistry.register("pearlBrick." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 	
@@ -37,11 +31,11 @@ public class BlockPearlBrick extends BlockDecorative {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "pearlBrick_" + getName(new ItemStack(this.blockID, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "pearlBrick_" + getName(new ItemStack(this, 1, i)));
 		}
 	}
 }
