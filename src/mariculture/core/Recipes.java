@@ -176,8 +176,8 @@ public class Recipes {
 	}
 
 	private static void addCraftingItems() {
-		//Golden Silk > 5 Seconds, 1 x Ingot Gold(mB) + String
-		RecipeHelper.addVatItemRecipe(new ItemStack(Item.silk), FluidDictionary.gold, MetalRates.INGOT, 
+		//Golden Silk > 5 Seconds, 4 x Ingot Gold(mB) + String
+		RecipeHelper.addVatItemRecipe(new ItemStack(Item.silk), FluidDictionary.gold, MetalRates.INGOT * 4,
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 5);
 		
 		//Golden Thread

@@ -26,12 +26,13 @@ public class ItemMagicMirror extends ItemMirror {
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
 		stack = get(stack);
+
 		return StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name") 
 				+ " (" + stack.getTagCompound().getIntArray("Levels")[2] + ")";
 	}
 	
 	public ItemStack get(ItemStack stack) {
-		if(!stack.hasTagCompound()) {
+		if(!stack.hasTagCompound() || !stack.stackTagCompound.hasKey("Levels")) {
 			stack.setTagCompound(new NBTTagCompound());
 			stack.stackTagCompound.setIntArray("Levels", new int[] { minLevel, minLevel + 1, minLevel + 2 });
 		}

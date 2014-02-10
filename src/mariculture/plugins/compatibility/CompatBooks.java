@@ -211,11 +211,13 @@ public class CompatBooks {
 			int meta = helper.getAttribAsInteger("meta", 0);
 			String name = helper.getAttribute("name");
 			for(Item item: Item.itemsList) {
-				if(item.getUnlocalizedName().equals(data)) {
-					ItemStack stack = new ItemStack(item, 1, meta);
-					Guides.instance.registerIcon(name, stack);
-					break;
-				}
+                if(item != null) {
+                    if(item.getUnlocalizedName().equals(data)) {
+                        ItemStack stack = new ItemStack(item, 1, meta);
+                        Guides.instance.registerIcon(name, stack);
+                        break;
+                    }
+                }
 			}
 		}
 	}

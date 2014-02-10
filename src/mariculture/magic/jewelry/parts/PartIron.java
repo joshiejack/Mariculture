@@ -1,11 +1,10 @@
 package mariculture.magic.jewelry.parts;
 
+import mariculture.core.lib.Extra;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import mariculture.core.Core;
 import mariculture.core.lib.Text;
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.PearlColor;
 
 public class PartIron extends JewelryPart {
 	@Override
@@ -58,4 +57,12 @@ public class PartIron extends JewelryPart {
 	public int getDurabilityBase(int type) {
 		return 75;
 	}
-}
+
+    @Override
+    public boolean isEnabled(int type) {
+        if(type == Jewelry.RING)
+            return true;
+        else
+            return Extra.ENABLE_EASY_JEWELRY;
+    }
+ }

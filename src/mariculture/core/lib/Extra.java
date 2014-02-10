@@ -3,7 +3,8 @@ package mariculture.core.lib;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class Extra {
-	public static boolean RIVER_FORCE;
+    public static boolean ENABLE_EASY_JEWELRY;
+    public static boolean RIVER_FORCE;
 	public static int[] RIVER_BIOMES;
 	public static final int[] RIVERS_DEFAULT = new int[] { BiomeGenBase.river.biomeID, BiomeGenBase.frozenRiver.biomeID };
 	public static boolean OCEAN_FORCE;

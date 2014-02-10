@@ -30,7 +30,8 @@ public class Config {
     private static void initOther(Configuration config) {
         try {
             config.load();
-               
+
+            Extra.ENABLE_EASY_JEWELRY = config.get(Category.EXTRA, "Enable Iron and Diamond Jewelry", false).getBoolean(false);
             Extra.DISABLE_FISH = config.get(Category.EXTRA, "Disable Mariculture Live Fish in NEI", false).getBoolean(false);
             Extra.SPAWN_BOOKS = config.get(Category.EXTRA, "Spawn Books on First Action", true).getBoolean(true);
             Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
@@ -91,9 +92,9 @@ public class Config {
             WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > Force in BOP Coral Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
             WorldGeneration.CORAL_BIOMESOP_TYPES = config.get(Category.WORLD, "Coral > Force in Coral Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
             WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);
-            WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 64).getInt();
+            WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 4).getInt();
             WorldGeneration.CORAL_DEPTH = config.get(Category.WORLD, "Coral > Maximum Depth", 25).getInt();
-            WorldGeneration.KELP_CHANCE = config.get(Category.WORLD, "Kelp > 1 Forest Per This Many Chunks", 400).getInt();
+            WorldGeneration.KELP_CHANCE = config.get(Category.WORLD, "Kelp > 1 Forest Per This Many Chunks", 200).getInt();
             WorldGeneration.KELP_DEPTH = config.get(Category.WORLD, "Kelp > Maximum Depth", 35).getInt();
             WorldGeneration.KELP_HEIGHT = config.get(Category.WORLD, "Kelp > Maximum World Gen Height", 25).getInt();
             WorldGeneration.KELP_PATCH_ENABLED = config.get(Category.WORLD, "Kelp > Single Generation", true).getBoolean(true);

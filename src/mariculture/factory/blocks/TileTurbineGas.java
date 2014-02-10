@@ -57,7 +57,7 @@ public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 		if(fluid != null && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
 			String name = fluid.getFluid().getName();
 			if(fluids.contains(name)) {
-				if(onTick(20)) {
+				if(onTick(30)) {
 					if(inventory[6].attemptDamageItem(1, Rand.rand)) {
 						inventory[6] = null;
 						return;

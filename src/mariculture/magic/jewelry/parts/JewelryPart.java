@@ -86,4 +86,9 @@ public class JewelryPart {
 	public double getDurabilityModifier(int type) {
 		return 1.0D;
 	}
+
+    //Whether this is enabled per config settings
+    public boolean isEnabled(int type) {
+        return true;
+    }
 }

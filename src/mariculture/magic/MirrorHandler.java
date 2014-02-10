@@ -22,7 +22,7 @@ public class MirrorHandler implements IMirrorHandler {
 		if (mirror != null) {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
-					if (mirror[i].isItemEnchanted()) {
+					if (mirror[i].isItemEnchanted() && mirror[i].getItemDamage() < mirror[i].getMaxDamage()) {
 						return true;
 					}
 				}
@@ -51,7 +51,7 @@ public class MirrorHandler implements IMirrorHandler {
 
 		// Mirror
 		for (int i = 0; i < 3; i++) {
-			if (mirror[i] != null) {
+			if (mirror[i] != null && mirror[i].getItemDamage() < mirror[i].getMaxDamage()) {
 				total = total + EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]);
 			}
 		}
@@ -64,7 +64,7 @@ public class MirrorHandler implements IMirrorHandler {
 		// Mirror
 		ItemStack[] mirror = MirrorHelper.instance().get(player);
 		for (int i = 0; i < 3; i++) {
-			if (mirror[i] != null) {
+			if (mirror[i] != null && mirror[i].getItemDamage() < mirror[i].getMaxDamage()) {
 				if (EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]) > 0) {
 					return true;
 				}
@@ -95,8 +95,7 @@ public class MirrorHandler implements IMirrorHandler {
 		for (int i = 0; i < 3; i++) {
 			if (mirror[i] != null) {
 				if (EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]) > 0) {
-					if(mirror[i].attemptDamageItem(1, Rand.rand))
-						mirror[i] = null;
+					mirror[i].attemptDamageItem(1, Rand.rand);
 				}
 			}
 		}

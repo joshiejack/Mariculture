@@ -249,7 +249,8 @@ public class Magic extends Module {
 							int frame = JewelryPart.materialList.get(i).getHits(type) * Multiply1;
 							int other = JewelryPart.materialList.get(j).getHits(type) * Multiply2;
 							int hits = frame + other;
-							if (input1 != null && input2 != null && output != null) {
+							if (input1 != null && input2 != null && output != null
+                                    && JewelryPart.materialList.get(i).isEnabled(type) && JewelryPart.materialList.get(j).isEnabled(type)) {
 								JewelryHandler.addJewelry(output, input1, input2, type, hits);
 							}
 						}

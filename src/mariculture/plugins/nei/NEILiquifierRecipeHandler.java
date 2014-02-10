@@ -308,7 +308,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		String fluid = null;
 		if(recipe.fluid != null) {
 			if (recipe.fluid.amount > 0) {
-				if(recipe.rands != null) {
+				if(recipe.rands != null && aFluid < recipe.random.length) {
 					FluidStack someFluid = recipe.random[aFluid];
 					fluid = StringHelper.getFluidName(someFluid);
 				} else {
@@ -320,7 +320,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		if(mouse.x >= 97 && mouse.x <= 132 && mouse.y >= yLow && mouse.y <= yHigh) {
 			currenttip.add(fluid);
         	if(fluid != null) {
-        		if(recipe.rands != null) {
+        		if(recipe.rands != null && aFluid < recipe.random.length) {
         			StringHelper.getFluidQty(currenttip, recipe.random[aFluid], -1);
         		} else {
         			StringHelper.getFluidQty(currenttip, recipe.fluid, -1);

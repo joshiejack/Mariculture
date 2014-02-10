@@ -142,6 +142,10 @@ public class ItemJewelry extends Item implements IItemRegistry {
 					String name = JewelryPart.materialList.get(id).getPartLang();
 
 					list.add(color + StatCollector.translateToLocal("mariculture.string.with") + " " + StatCollector.translateToLocal(name));
+                    int id2 = stack.stackTagCompound.getInteger("Part1");
+                    boolean enabled = JewelryPart.materialList.get(id).isEnabled(getType()) && JewelryPart.materialList.get(id2).isEnabled(getType());
+                    if(!enabled)
+                        list.add(Text.DARK_RED + StatCollector.translateToLocal("mariculture.string.jewelry.disabled"));
 				}
 			}
 		}
@@ -235,8 +239,10 @@ public class ItemJewelry extends Item implements IItemRegistry {
 							if (i != j) {
 								stack = JewelryPart.materialList.get(j).addEnchantments(stack);
 							}
-							
-							list.add(stack);
+
+                            if(JewelryPart.materialList.get(i).isEnabled(getType()) && JewelryPart.materialList.get(j).isEnabled(getType())) {
+							    list.add(stack);
+                            }
 
 							added = JewelryPart.materialList.get(i).addOnce();
 						}

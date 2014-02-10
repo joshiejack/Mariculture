@@ -1,5 +1,6 @@
 package mariculture.magic.jewelry.parts;
 
+import mariculture.core.lib.Extra;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import mariculture.core.Core;
@@ -57,4 +58,9 @@ public class PartDiamond extends JewelryPart {
 	public double getDurabilityModifier(int type) {
 		return 2D;
 	}
+
+    @Override
+    public boolean isEnabled(int type) {
+        return Extra.ENABLE_EASY_JEWELRY;
+    }
 }
