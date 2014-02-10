@@ -2,9 +2,6 @@ package mariculture.plugins.compatibility;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -13,9 +10,9 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -31,13 +28,14 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Text;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -182,41 +180,28 @@ public class CompatBooks {
 		books.put(id, new BookInfo(display, author, aColor, color));
 		
 		ItemStack item = GuideHandler.getIcon(info.getElement("item"));
-		ItemStack stack = new ItemStack(Core.guides.itemID, 1, GuideMeta.CUSTOM);
+		ItemStack stack = new ItemStack(Core.guides, 1, GuideMeta.CUSTOM);
 		stack.setTagCompound(new NBTTagCompound());
 		stack.stackTagCompound.setString("booksid", id);
-		RecipeHelper.addShapelessRecipe(stack, new Object[] { Item.book, item });
+		RecipeHelper.addShapelessRecipe(stack, new Object[] { Items.book, item });
 	}
 	
 	private static void parseRegistrations(XMLHelper helper) {
 		String type = helper.getAttribute("type");
-		if(type.equals("item") && helper.getOptionalAttribute("unlocalized").equals("")) {
-			String[] data = helper.getAttribute("data").split(":");
+		if(type.equals("item")) {
+			ItemStack stack = null;
+			String data = helper.getAttribute("data");
 			String name = helper.getAttribute("name");
-			if(data.length == 2) {
-				ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, Integer.parseInt(data[1]));
+			if(Item.itemRegistry.getObject(name) != null) 
+				stack = new ItemStack((Item)Item.itemRegistry.getObject(name), 1, 0);
+			else if(Block.blockRegistry.getObject(name) != null)
+				stack = new ItemStack((Block)Block.blockRegistry.getObject(name));
+			if(stack != null)
 				Guides.instance.registerIcon(name, stack);
-			} else if (data.length == 1) {
-				if(!data[0].equals("")) {
-					ItemStack stack = new ItemStack(Integer.parseInt(data[0]), 1, 0);
-					Guides.instance.registerIcon(name, stack);
-				}
-			}
 		} else if (type.equals("fluid")) {
 			String data = helper.getAttribute("data");
 			String name = helper.getAttribute("name");
 			Guides.instance.registerFluidIcon(name, data);
-		} else if(type.equals("item") && !helper.getAttribute("unlocalized").equals("")) {
-			String data = helper.getAttribute("unlocalized");
-			int meta = helper.getAttribAsInteger("meta", 0);
-			String name = helper.getAttribute("name");
-			for(Item item: Item.itemsList) {
-				if(item.getUnlocalizedName().equals(data)) {
-					ItemStack stack = new ItemStack(item, 1, meta);
-					Guides.instance.registerIcon(name, stack);
-					break;
-				}
-			}
 		}
 	}
 

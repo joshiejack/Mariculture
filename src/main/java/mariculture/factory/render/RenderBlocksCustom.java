@@ -45,6 +45,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.FMLRenderAccessLibrary;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -8350,7 +8351,7 @@ public class RenderBlocksCustom extends RenderBlocks
         return this.getIconSafe(par1Block.getBlockTextureFromSide(1));
     }
 
-    public Icon getIconSafe(Icon par1Icon)
+    public IIcon getIconSafe(Icon par1Icon)
     {
         if (par1Icon == null)
         {

@@ -40,6 +40,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -470,7 +471,7 @@ public class BlockSingle extends BlockMachine {
 	}
 	
 	@Override
-	public Icon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int meta) {
 		if(meta == SingleMeta.GEYSER)
 			return Block.hopperBlock.getIcon(0, 0);
 		if(meta == SingleMeta.INGOT_CASTER)

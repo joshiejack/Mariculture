@@ -6,12 +6,12 @@ import java.util.Random;
 
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -19,7 +19,7 @@ public abstract class FishSpecies {
 	public static ArrayList<FishSpecies> speciesList = new ArrayList();
 	private static final HashMap<String, ArrayList<FishProduct>> products = new HashMap();
 	public final int fishID;
-	private Icon theIcon;
+	private IIcon theIcon;
 
 	public FishSpecies(int id) {
 		fishID = id;
@@ -94,7 +94,7 @@ public abstract class FishSpecies {
 	/** Here you can define a custom product for your fish to return when it is
 	 * liquified. **/
 	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(Item.bone);
+		return new ItemStack(Items.bone);
 	}
 	
 	/** Set the chance of getting the product, the lower the number the higher
@@ -236,12 +236,12 @@ public abstract class FishSpecies {
 	}
 	
 	/** Returns your fish icon **/
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return theIcon;
 	}
 	
 	/** Called to register your fish icon **/
-	public void registerIcon(IconRegister iconRegister) {
+	public void registerIcon(IIconRegister iconRegister) {
 		theIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies());
 	}
 }

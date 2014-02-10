@@ -1,8 +1,9 @@
 package mariculture.world;
 
-import java.awt.Color;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.Icon;
 
 import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
@@ -14,27 +15,23 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.OresMeta;
-import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCoral extends Block implements IPlantable, IItemRegistry {
-	private Icon[] icons;
+	private IIcon[] icons;
 
 	protected BlockCoral(int i) {
 		super(i, Material.water);
@@ -332,7 +329,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 	}
 
 	@Override
-	public Icon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int meta) {
 		return icons[meta];
 	}
 

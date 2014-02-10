@@ -34,7 +34,7 @@ public class TileStorage extends TileEntity implements IInventory {
             if (this.inventory[slot].stackSize <= amount) {
                 stack = this.inventory[slot];
                 this.inventory[slot] = null;
-                this.onInventoryChanged();
+                this.markDirty();
                 return stack;
             } else {
                 stack = this.inventory[slot].splitStack(amount);
@@ -43,7 +43,7 @@ public class TileStorage extends TileEntity implements IInventory {
                     this.inventory[slot] = null;
                 }
 
-                this.onInventoryChanged();
+                this.markDirty();
                 return stack;
             }
         }
@@ -70,16 +70,16 @@ public class TileStorage extends TileEntity implements IInventory {
         	stack.stackSize = this.getInventoryStackLimit();
         }
 
-        this.onInventoryChanged();
+        this.markDirty();
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return "";
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
@@ -90,15 +90,15 @@ public class TileStorage extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
 				&& player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
 	}
 
 	@Override
-	public void openChest() {}
+	public void openInventory() {}
 
 	@Override
-	public void closeChest() {}
+	public void closeInventory() {}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -109,10 +109,10 @@ public class TileStorage extends TileEntity implements IInventory {
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 
-		NBTTagList tagList = nbt.getTagList("Inventory");
+		NBTTagList tagList = nbt.getTagList("Inventory", 10);
 
 		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 
 			byte slot = tag.getByte("Slot");
 

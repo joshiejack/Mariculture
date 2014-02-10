@@ -9,6 +9,7 @@ import mariculture.core.lib.PlansMeta;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -115,12 +116,12 @@ public class ItemPlan extends ItemMariculture {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int dmg) {
+	public IIcon getIconFromDamage(int dmg) {
 		return icons[0];
 	}
 
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
+	public IIcon getIcon(ItemStack stack, int pass) {
 		if (stack.hasTagCompound()) {
 			return icons[PlansMeta.getType(stack)];
 		}

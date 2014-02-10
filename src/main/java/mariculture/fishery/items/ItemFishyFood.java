@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -40,7 +41,7 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int dmg) {
+	public IIcon getIconFromDamage(int dmg) {
 		FishSpecies fish = Fishing.fishHelper.getSpecies(dmg);
 		if(fish != null) {
 			return fish.getIcon();

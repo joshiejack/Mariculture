@@ -1,29 +1,26 @@
 package mariculture.world;
 
+import javax.swing.Icon;
+
 import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.blocks.ItemBlockMariculture;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.OresMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCoral extends ItemMariculture {
-	private Icon[] icons;
+	private IIcon[] icons;
 	private int spawnID;
 
-	public ItemCoral(int i, Block block) {
-		super(i);
+	public ItemCoral(Block block) {
 		this.spawnID = block.blockID;
 	}
 
@@ -63,7 +60,7 @@ public class ItemCoral extends ItemMariculture {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int dmg) {
+	public IIcon getIconFromDamage(int dmg) {
 		if (dmg < getMetaCount()) {
 			return icons[dmg];
 		}

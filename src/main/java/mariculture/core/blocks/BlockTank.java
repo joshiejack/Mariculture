@@ -2,6 +2,8 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
+import javax.swing.Icon;
+
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
@@ -14,31 +16,30 @@ import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
 import mariculture.fishery.blocks.TileFishTank;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTank extends BlockConnected {
-	private static Icon[] fishTank = new Icon[47];
+	private static IIcon[] fishTank = new IIcon[47];
 	
 	public BlockTank(int i) {
-		super(i, Material.piston);
+		super(Material.piston);
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class BlockTank extends BlockConnected {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile == null) {
 			return false;
 		}
@@ -75,7 +76,7 @@ public class BlockTank extends BlockConnected {
 			return true;
 		}
 			
-		return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
+		return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class BlockTank extends BlockConnected {
 	
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileTankBlock) {
 			TileTankBlock tank = (TileTankBlock) tile;
 			FluidStack fluid = tank.getFluid();
@@ -129,17 +130,16 @@ public class BlockTank extends BlockConnected {
 		return world.getBlockMetadata(x, y, z) == TankMeta.BOTTLE? null: super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 	
-	@Override
-	public int idDropped(int meta, Random random, int j) {
+	public Item getItemDropped(int meta, Random random, int j) {
 		switch(meta) {
 			case TankMeta.TANK:
-				return 0;
+				return null;
 			case TankMeta.BOTTLE:
-				return Core.liquidContainers.itemID;
+				return Core.liquidContainers;
 			default:
-				return this.blockID;
+				return super.getItemDropped(meta, random, j);
 		}
-	}
+    }
 	
 	@Override
 	public int damageDropped(int meta) {
@@ -154,7 +154,7 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile == null)
 			return;
 		if(tile instanceof TileFishTank) {
@@ -166,8 +166,9 @@ public class BlockTank extends BlockConnected {
 				if (tile instanceof TileTankBlock) {
 					TileTankBlock tank = (TileTankBlock) tile;
 					tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
-					if(!world.isRemote)
-						Packets.updateTile(tank, 64, new Packet118FluidUpdate(x, y, z, tank.getFluid()).build());
+					//TODO: PACKET Add Packet Sending to update Fluids in the Tank for display purposes
+					/*if(!world.isRemote)
+						Packets.updateTile(tank, 64, new Packet118FluidUpdate(x, y, z, tank.getFluid()).build());*/
 				}
 			}
 		}
@@ -180,7 +181,7 @@ public class BlockTank extends BlockConnected {
 				if (!player.capabilities.isCreativeMode) {
 					ItemStack drop = new ItemStack(Core.tankBlocks, 1, TankMeta.TANK);
 					
-					TileTankBlock tank = (TileTankBlock) world.getBlockTileEntity(x, y, z);
+					TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
 					if(tank != null && tank.getFluid() != null) {
 						if (!drop.hasTagCompound()) {
 							drop.setTagCompound(new NBTTagCompound());
