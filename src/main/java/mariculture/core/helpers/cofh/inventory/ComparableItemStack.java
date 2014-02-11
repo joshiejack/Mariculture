@@ -1,6 +1,7 @@
 package mariculture.core.helpers.cofh.inventory;
 
 import mariculture.core.helpers.cofh.ItemHelper;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

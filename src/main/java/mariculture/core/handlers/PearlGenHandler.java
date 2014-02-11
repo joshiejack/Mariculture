@@ -6,6 +6,8 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.PearlColor;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 

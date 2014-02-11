@@ -7,6 +7,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.items.ItemBattery;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 	

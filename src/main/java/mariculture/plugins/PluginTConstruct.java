@@ -264,7 +264,7 @@ public class PluginTConstruct extends Plugin {
 		}
 
 		@SideOnly(Side.CLIENT)
-		public void registerIcons(IconRegister icon) {
+		public void registerIcons(IIconRegister icon) {
 			this.itemIcon = icon.registerIcon(Mariculture.modid + ":parts/" + ((this.getUnlocalizedName()).replace(".", "_")).substring(5));
 		}
 

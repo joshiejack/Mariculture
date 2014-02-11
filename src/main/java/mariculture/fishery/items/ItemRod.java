@@ -4,6 +4,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.ItemBaseRod;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -28,7 +29,7 @@ public class ItemRod extends ItemBaseRod {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 }

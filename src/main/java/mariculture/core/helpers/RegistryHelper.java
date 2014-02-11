@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import mariculture.api.core.CoralRegistry;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

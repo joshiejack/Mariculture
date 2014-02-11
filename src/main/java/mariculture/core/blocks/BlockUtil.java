@@ -19,6 +19,7 @@ import mariculture.fishery.blocks.TileIncubator;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -330,7 +331,7 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		incubatorIcons = new IIcon[2];
 		incubatorIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":incubatorBottom");
 		incubatorIcons[1] = iconRegister.registerIcon(Mariculture.modid + ":incubatorTopTop");

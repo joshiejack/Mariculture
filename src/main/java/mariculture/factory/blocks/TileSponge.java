@@ -1,6 +1,7 @@
 package mariculture.factory.blocks;
 
 import mariculture.core.lib.Modules;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.TileEnergyHandler;

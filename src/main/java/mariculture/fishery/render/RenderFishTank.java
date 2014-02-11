@@ -3,6 +3,7 @@ package mariculture.fishery.render;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.render.RenderBase;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 
 public class RenderFishTank extends RenderBase {
 	public RenderFishTank(RenderBlocks render) {

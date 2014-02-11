@@ -10,6 +10,7 @@ import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -27,8 +28,7 @@ public class ItemJewelry extends Item implements IItemRegistry {
 	private IIcon[] special;
 	private IIcon blank;
 
-	public ItemJewelry(int id) {
-		super(id);
+	public ItemJewelry() {
 		this.setMaxDamage(100);
 		this.setMaxStackSize(1);
 		this.setCreativeTab(MaricultureTab.tabJewelry);
@@ -171,7 +171,7 @@ public class ItemJewelry extends Item implements IItemRegistry {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.hasTagCompound()) {
 			int id = stack.stackTagCompound.getInteger("Part1");
 			if (JewelryPart.materialList.get(id) != null) {
@@ -188,7 +188,7 @@ public class ItemJewelry extends Item implements IItemRegistry {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(final IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		blank = iconRegister.registerIcon(Mariculture.modid + ":jewelry/blank");
 		special = new IIcon[2];
 		special[0] = iconRegister.registerIcon(Mariculture.modid + ":jewelry/day");
@@ -208,7 +208,7 @@ public class ItemJewelry extends Item implements IItemRegistry {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int id, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
 			boolean added = false;
 			for (int j = 0; j < JewelryPart.materialList.size() && !added; j++) {
@@ -220,7 +220,7 @@ public class ItemJewelry extends Item implements IItemRegistry {
 							if (JewelryPart.materialList.get(i).isSingle()) {
 								part2 = part1;
 							}
-							ItemStack stack = buildJewelry(id, part1, part2);
+							ItemStack stack = buildJewelry(item, part1, part2);
 							stack = JewelryPart.materialList.get(i).addEnchantments(stack);
 							if (i != j) {
 								stack = JewelryPart.materialList.get(j).addEnchantments(stack);
@@ -236,8 +236,8 @@ public class ItemJewelry extends Item implements IItemRegistry {
 		}
 	}
 
-	public static ItemStack buildJewelry(int id, int part1, int part2) {
-		ItemStack stack = new ItemStack(id, 1, 0);
+	public static ItemStack buildJewelry(Item item, int part1, int part2) {
+		ItemStack stack = new ItemStack(item, 1, 0);
 		stack.setTagCompound(new NBTTagCompound());
 		stack.stackTagCompound.setInteger("Part1", part1);
 		if (part1 != part2) {

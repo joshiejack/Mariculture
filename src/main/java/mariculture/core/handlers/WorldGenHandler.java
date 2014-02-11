@@ -16,7 +16,7 @@ import mariculture.core.world.WorldGenGas;
 import mariculture.core.world.WorldGenLimestone;
 import mariculture.core.world.WorldGenOre;
 import mariculture.plugins.PluginBiomesOPlenty;
-import mariculture.plugins.PluginBiomesOPlenty.Biome;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.BiomeDictionary;

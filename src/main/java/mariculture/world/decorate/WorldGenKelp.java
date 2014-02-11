@@ -6,6 +6,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.WorldPlus;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;

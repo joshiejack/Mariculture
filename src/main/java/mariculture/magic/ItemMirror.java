@@ -12,6 +12,7 @@ import mariculture.core.util.Rand;
 import mariculture.magic.gui.ContainerMirror;
 import mariculture.magic.gui.GuiMirror;
 import mariculture.magic.jewelry.ItemJewelry;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -128,7 +129,7 @@ public class ItemMirror extends ItemStorage {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + name);
 	}
 }

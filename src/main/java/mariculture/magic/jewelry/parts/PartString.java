@@ -1,6 +1,7 @@
 package mariculture.magic.jewelry.parts;
 
 import mariculture.core.lib.Jewelry;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class PartString extends JewelryPart {
@@ -36,7 +37,7 @@ public class PartString extends JewelryPart {
 	
 	@Override
 	public ItemStack getItemStack() {
-		return new ItemStack(Items.silk);
+		return new ItemStack(Items.string);
 	}
 	
 	@Override

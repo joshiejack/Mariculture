@@ -6,6 +6,7 @@ import mariculture.core.lib.OresMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.diving.TileAirCompressor;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 

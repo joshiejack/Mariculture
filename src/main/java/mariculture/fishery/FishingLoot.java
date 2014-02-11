@@ -10,6 +10,8 @@ import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.factory.Factory;
 import mariculture.magic.Magic;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class FishingLoot {

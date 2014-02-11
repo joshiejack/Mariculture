@@ -5,6 +5,7 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -60,7 +61,7 @@ public class BlockTransparent extends BlockConnected {
 	}
 
 	@Override
-	public void registerConnectedTextures(IconRegister iconRegister) {
+	public void registerConnectedTextures(IIconRegister iconRegister) {
 		for (int i = 0; i < 47; i++) {
 			plastic[i] = iconRegister.registerIcon(Mariculture.modid + ":plastic/" + (i + 1));
 		}

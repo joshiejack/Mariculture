@@ -10,6 +10,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;

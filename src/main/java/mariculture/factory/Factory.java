@@ -54,6 +54,8 @@ import mariculture.factory.items.ItemPlan;
 import mariculture.factory.items.ItemRotor;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;

@@ -2,6 +2,7 @@ package mariculture.magic.jewelry.parts;
 
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.Text;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class PartDiamond extends JewelryPart {

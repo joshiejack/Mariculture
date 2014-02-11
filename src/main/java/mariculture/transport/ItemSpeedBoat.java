@@ -4,8 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import mariculture.api.core.MaricultureTab;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -99,6 +101,6 @@ public class ItemSpeedBoat extends Item {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 	}
 }

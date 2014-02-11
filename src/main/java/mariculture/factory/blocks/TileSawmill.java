@@ -17,6 +17,7 @@ import mariculture.core.util.IProgressable;
 import mariculture.core.util.Rand;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

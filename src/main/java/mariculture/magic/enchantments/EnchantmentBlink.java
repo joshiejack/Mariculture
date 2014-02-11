@@ -7,6 +7,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 
 public class EnchantmentBlink extends EnchantmentJewelry {
 	public EnchantmentBlink(int i, int weight, EnumEnchantmentType type) {
@@ -38,7 +39,7 @@ public class EnchantmentBlink extends EnchantmentJewelry {
 		MovingObjectPosition lookAt;
 		lookAt = player.rayTrace(2000, 1);
 
-		if (lookAt != null && lookAt.typeOfHit == EnumMovingObjectType.TILE) {
+		if (lookAt != null && lookAt.typeOfHit == MovingObjectType.BLOCK) {
 			if(player instanceof EntityClientPlayerMP)
 				((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet108Teleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ, KeyHelper.ACTIVATE_PRESSED).build());
 		}

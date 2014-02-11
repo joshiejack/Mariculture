@@ -61,6 +61,8 @@ import mariculture.magic.jewelry.parts.PartString;
 import mariculture.magic.jewelry.parts.PartWool;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;

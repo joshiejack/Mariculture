@@ -10,7 +10,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
 public class ItemArmorSnorkel extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
-	public ItemArmorSnorkel(int i, ArmorMaterial material, int j, int k) {
+	public ItemArmorSnorkel(ArmorMaterial material, int j, int k) {
 		super(material, j, k);
 		setCreativeTab(MaricultureTab.tabMariculture);
 	}

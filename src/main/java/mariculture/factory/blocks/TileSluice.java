@@ -8,6 +8,7 @@ import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;

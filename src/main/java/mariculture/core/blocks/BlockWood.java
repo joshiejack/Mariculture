@@ -6,6 +6,8 @@ import mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -101,7 +103,7 @@ public class BlockWood extends BlockDecorative {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		super.registerIcons(iconRegister);
 		top = iconRegister.registerIcon(Mariculture.modid + ":polishedLogTop");
 		side = iconRegister.registerIcon(Mariculture.modid + ":polishedLogSide");

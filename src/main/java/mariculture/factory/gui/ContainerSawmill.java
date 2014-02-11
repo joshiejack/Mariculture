@@ -9,6 +9,7 @@ import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemBlock;

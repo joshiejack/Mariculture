@@ -25,6 +25,8 @@ import mariculture.diving.Diving;
 import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
 import mariculture.magic.Magic;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 

@@ -8,6 +8,7 @@ import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -104,7 +105,7 @@ public class ItemFishy extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			FishSpecies fish = FishSpecies.speciesList.get(i);
 			if(fish != null) {

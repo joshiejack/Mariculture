@@ -1,6 +1,7 @@
 package mariculture.core.render;
 
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 
 public class RenderAirPumpArea extends RenderBase {
 	public RenderAirPumpArea(RenderBlocks render) {

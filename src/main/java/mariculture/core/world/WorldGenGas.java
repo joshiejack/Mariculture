@@ -5,6 +5,7 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GroundMeta;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;

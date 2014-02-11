@@ -5,6 +5,7 @@ import java.util.HashMap;
 import mariculture.api.core.IIngotCasterHandler;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.helpers.OreDicHelper;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidStack;

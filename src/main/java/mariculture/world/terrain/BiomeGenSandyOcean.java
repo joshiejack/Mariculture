@@ -1,5 +1,6 @@
 package mariculture.world.terrain;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeGenSandyOcean extends BiomeGenBase {

@@ -9,17 +9,16 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.GuideMeta;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
-import net.minecraft.block.Block;
-import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -48,9 +47,9 @@ public class Diving extends Module {
 	public static Item swimfin;
 	public static Item snorkel;
 
-	private static EnumArmorMaterial armorSCUBA = EnumHelper.addArmorMaterial("SCUBA", 15, new int[] { 0, 0, 1, 0 }, 0);
-	private static EnumArmorMaterial armorDIVING = EnumHelper.addArmorMaterial("DIVING", 20, new int[] { 1, 0, 2, 1 }, 0);
-	private static EnumArmorMaterial armorSnorkel = EnumHelper.addArmorMaterial("SNORKEL", 10, new int[] { 0, 0, 0, 0 }, 0);
+	private static ArmorMaterial armorSCUBA = EnumHelper.addArmorMaterial("SCUBA", 15, new int[] { 0, 0, 1, 0 }, 0);
+	private static ArmorMaterial armorDIVING = EnumHelper.addArmorMaterial("DIVING", 20, new int[] { 1, 0, 2, 1 }, 0);
+	private static ArmorMaterial armorSnorkel = EnumHelper.addArmorMaterial("SNORKEL", 10, new int[] { 0, 0, 0, 0 }, 0);
 
 	@Override
 	public void registerHandlers() {
@@ -67,17 +66,17 @@ public class Diving extends Module {
 
 	@Override
 	public void registerItems() {
-		divingHelmet = (new ItemArmorDiving(ItemIds.divingHelmet, armorDIVING, RenderIds.DIVING, 0)).setUnlocalizedName("divingHelmet");
-		divingTop = (new ItemArmorDiving(ItemIds.divingTop, armorDIVING, RenderIds.DIVING, 1)).setUnlocalizedName("divingTop");
-		divingPants = (new ItemArmorDiving(ItemIds.divingPants, armorDIVING, RenderIds.DIVING, 2)).setUnlocalizedName("divingPants");
-		divingBoots = (new ItemArmorDiving(ItemIds.divingBoots, armorDIVING, RenderIds.DIVING, 3)).setUnlocalizedName("divingBoots");
+		divingHelmet = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 0)).setUnlocalizedName("divingHelmet");
+		divingTop = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 1)).setUnlocalizedName("divingTop");
+		divingPants = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 2)).setUnlocalizedName("divingPants");
+		divingBoots = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 3)).setUnlocalizedName("divingBoots");
 
-		scubaMask = (new ItemArmorScuba(ItemIds.scubaMask, armorSCUBA, RenderIds.SCUBA, 0)).setUnlocalizedName("scubaMask");
-		scubaTank = (new ItemArmorScuba(ItemIds.scubaTank, armorSCUBA, RenderIds.SCUBA, 1)).setUnlocalizedName("scubaTank").setNoRepair();
-		scubaSuit = (new ItemArmorScuba(ItemIds.scubaSuit, armorSCUBA, RenderIds.SCUBA, 2)).setUnlocalizedName("scubaSuit");
-		swimfin = (new ItemArmorScuba(ItemIds.swimfin, armorSCUBA, RenderIds.SCUBA, 3)).setUnlocalizedName("swimfin");
+		scubaMask = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 0)).setUnlocalizedName("scubaMask");
+		scubaTank = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 1)).setUnlocalizedName("scubaTank").setNoRepair();
+		scubaSuit = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 2)).setUnlocalizedName("scubaSuit");
+		swimfin = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 3)).setUnlocalizedName("swimfin");
 		
-		snorkel = (new ItemArmorSnorkel(ItemIds.snorkel, armorSnorkel, RenderIds.SNORKEL, 0)).setUnlocalizedName("snorkel");
+		snorkel = (new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 0)).setUnlocalizedName("snorkel");
 		
 		RegistryHelper.register(new Object[]{ divingHelmet, divingTop, divingPants, divingBoots, 
 												scubaMask, scubaTank, scubaSuit, swimfin, snorkel });
@@ -87,7 +86,7 @@ public class Diving extends Module {
 	public void addRecipes() {
 		//Diving Book
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.DIVING), new Object[] {
-			Item.book, new ItemStack(snorkel)
+			Items.book, new ItemStack(snorkel)
 		});
 		
 		//Air Compressor Top
@@ -96,7 +95,7 @@ public class Diving extends Module {
 			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
 			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
-			Character.valueOf('P'), Block.pistonBase
+			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Air Compressor Base
@@ -110,7 +109,7 @@ public class Diving extends Module {
 		//Snorkel
 		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
 			"  R", "LLR",
-			Character.valueOf('R'), Item.reed,
+			Character.valueOf('R'), Items.sugar,
 			Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
 		});
 		
@@ -121,17 +120,17 @@ public class Diving extends Module {
 					Character.valueOf('C'), "ingotCopper", Character.valueOf('G'), "glass" }));
 
 		GameRegistry.addRecipe(new ItemStack(Diving.divingTop), new Object[] { " C ", "C C", " C ", 
-			Character.valueOf('C'), new ItemStack(Item.leather) });
+			Character.valueOf('C'), new ItemStack(Items.leather) });
 		
 		GameRegistry.addRecipe(new ItemStack(Diving.divingPants), new Object[] { "CCC", " C ", "CCC", 
-				Character.valueOf('C'), new ItemStack(Item.leather) });
+				Character.valueOf('C'), new ItemStack(Items.leather) });
 		
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Diving.divingBoots), true, new Object[] { "C C", "L L",
-					Character.valueOf('C'), new ItemStack(Item.leather),
-					Character.valueOf('L'), new ItemStack(Item.ingotIron) }));
+					Character.valueOf('C'), new ItemStack(Items.leather),
+					Character.valueOf('L'), new ItemStack(Items.iron_ingot) }));
 		
 		CraftingManager
 				.getInstance()
@@ -157,6 +156,6 @@ public class Diving extends Module {
 		GameRegistry.addRecipe(new ItemStack(Diving.swimfin), new Object[] { "N N", "PDP", "PDP", 
 				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
 				Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
-				Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, Dye.INK) });
+				Character.valueOf('D'), new ItemStack(Items.dye, 1, Dye.INK) });
 	}
 }

@@ -9,6 +9,7 @@ import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

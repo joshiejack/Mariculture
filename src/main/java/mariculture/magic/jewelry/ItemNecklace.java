@@ -2,11 +2,7 @@ package mariculture.magic.jewelry;
 
 import mariculture.core.lib.Jewelry;
 
-public class ItemNecklace extends ItemJewelry {
-	public ItemNecklace(int id) {
-		super(id);
-	}
-	
+public class ItemNecklace extends ItemJewelry {	
 	@Override
 	public int getItemEnchantability() {
 		return Jewelry.BONUS_NECKLACE;
