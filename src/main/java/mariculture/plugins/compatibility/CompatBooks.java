@@ -192,10 +192,10 @@ public class CompatBooks {
 			ItemStack stack = null;
 			String data = helper.getAttribute("data");
 			String name = helper.getAttribute("name");
-			if(Items.itemRegistry.getObject(name) != null) 
-				stack = new ItemStack((Item)Items.itemRegistry.getObject(name), 1, 0);
-			else if(Blocks.blockRegistry.getObject(name) != null)
-				stack = new ItemStack((Block)Blocks.blockRegistry.getObject(name));
+			if(Item.itemRegistry.getObject(name) != null) 
+				stack = new ItemStack((Item)Item.itemRegistry.getObject(name));
+			else if(Block.blockRegistry.getObject(name) != null)
+				stack = new ItemStack((Block)Block.blockRegistry.getObject(name));
 			if(stack != null)
 				Guides.instance.registerIcon(name, stack);
 		} else if (type.equals("fluid")) {

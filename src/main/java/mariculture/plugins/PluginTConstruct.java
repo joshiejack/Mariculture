@@ -1,48 +1,28 @@
 package mariculture.plugins;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import mariculture.Mariculture;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
-import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.Text;
-import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.RecipeRemover;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.crafting.FluidType;
-import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.HarvestTool;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
-import tconstruct.library.util.IToolPart;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class PluginTConstruct extends Plugin {	
+public class PluginTConstruct extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}	
+	
+	/*
 	public PluginTConstruct(String name) {
 		super(name);
 	}
@@ -455,5 +435,5 @@ public class PluginTConstruct extends Plugin {
 		
 		addRecipes();
 		addModifiers();
-	}
+	} */
 }

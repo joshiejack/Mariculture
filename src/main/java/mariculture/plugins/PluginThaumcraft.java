@@ -1,26 +1,31 @@
 package mariculture.plugins;
 
-import mariculture.core.Core;
-import mariculture.core.lib.BaitMeta;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.OresMeta;
-import mariculture.core.lib.PearlColor;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.world.WorldPlus;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
 
 public class PluginThaumcraft extends Plugin {
 
-	public PluginThaumcraft(String name) {
-		super(name);
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
 	}
 
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+ 	public PluginThaumcraft(String name) {
+		super(name);
+	}
 	@Override
 	public void preInit() {
 		
@@ -94,5 +99,5 @@ public class PluginThaumcraft extends Plugin {
 	@Override
 	public void postInit() {
 		
-	}
+	} */
 }

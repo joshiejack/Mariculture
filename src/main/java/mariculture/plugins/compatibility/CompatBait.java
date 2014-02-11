@@ -18,6 +18,8 @@ import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.guide.XMLHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.fishery.Fishery;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.w3c.dom.Document;
@@ -43,17 +45,23 @@ public class CompatBait {
 				Node nNode = node.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					XMLHelper xml = new XMLHelper((Element) nNode);
+					ItemStack stack = null;
 					String bait = xml.getElement("bait");
 					int meta = getMeta(bait);
 					int val = getValue(bait);
-					int blockID = xml.getElementAsInteger("id", 1);
+					String name = xml.getElement("name");
 					int blockMeta = xml.getElementAsInteger("meta", 0);
-					int rarity = xml.getElementAsInteger("rarity", 15);
-					int min = xml.getElementAsInteger("min", 1);
-					int max = xml.getElementAsInteger("max", 2);
-					
-					Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(Fishery.bait, 1, meta), 
-												new ItemStack(blockID, 1, blockMeta), min, max, rarity));
+					if(Item.itemRegistry.getObject(name) != null) 
+						stack = new ItemStack((Item)Item.itemRegistry.getObject(name), 1, meta);
+					else if(Block.blockRegistry.getObject(name) != null)
+						stack = new ItemStack((Block)Block.blockRegistry.getObject(name), 1, meta);
+					if(stack != null) {
+						int rarity = xml.getElementAsInteger("rarity", 15);
+						int min = xml.getElementAsInteger("min", 1);
+						int max = xml.getElementAsInteger("max", 2);
+							
+						Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(Fishery.bait, 1, meta), stack, min, max, rarity));
+					}
 				}
 			}
 		} catch (Exception e) {

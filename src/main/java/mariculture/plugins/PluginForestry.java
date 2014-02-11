@@ -1,44 +1,27 @@
 package mariculture.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.BaitMeta;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.OresMeta;
-import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.world.WorldPlus;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import forestry.api.core.ItemInterface;
-import forestry.api.fuels.EngineBronzeFuel;
-import forestry.api.fuels.FermenterFuel;
-import forestry.api.fuels.FuelManager;
-import forestry.api.recipes.RecipeManagers;
-import forestry.api.storage.BackpackManager;
-import forestry.api.storage.EnumBackpackType;
-import forestry.api.storage.IBackpackDefinition;
 
 public class PluginForestry extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	private static Item aquaBackpackT1;
 	private static Item aquaBackpackT2;
 
@@ -192,5 +175,5 @@ public class PluginForestry extends Plugin {
 
 			return false;
 		}
-	}
+	} */
 }

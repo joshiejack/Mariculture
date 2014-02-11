@@ -1,21 +1,27 @@
 package mariculture.plugins;
 
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.Plugins.Plugin;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.oredict.OreDictionary;
-import biomesoplenty.api.Biomes;
-import biomesoplenty.api.Blocks;
-
-import com.google.common.base.Optional;
 
 public class PluginBiomesOPlenty extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	public PluginBiomesOPlenty(String name) {
 		super(name);
 	}
@@ -208,5 +214,5 @@ public class PluginBiomesOPlenty extends Plugin {
 		}
 
 		return true;
-	}
+	} */
 }

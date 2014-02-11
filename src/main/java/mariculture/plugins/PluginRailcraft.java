@@ -1,22 +1,27 @@
 package mariculture.plugins;
 
-import mariculture.api.core.FuelInfo;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Core;
-import mariculture.core.RecipesSmelting;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.OresMeta;
-import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.RecipeRemover;
 import mariculture.plugins.Plugins.Plugin;
-import mods.railcraft.api.crafting.RailcraftCraftingManager;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginRailcraft extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	public PluginRailcraft(String name) {
 		super(name);
 	}
@@ -74,5 +79,5 @@ public class PluginRailcraft extends Plugin {
 					new Object[] { "## ", "## ", Character.valueOf('#'),
 							(ingot) });
 		}
-	}
+	} */
 }

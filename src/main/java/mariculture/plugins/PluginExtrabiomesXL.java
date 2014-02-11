@@ -1,11 +1,27 @@
 package mariculture.plugins;
 
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.plugins.Plugins.Plugin;
-import extrabiomes.api.Biomes;
 
 public class PluginExtrabiomesXL extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	public PluginExtrabiomesXL(String name) {
 		super(name);
 	}
@@ -133,5 +149,5 @@ public class PluginExtrabiomesXL extends Plugin {
 	@Override
 	public void postInit() {
 		
-	}
+	} */
 }

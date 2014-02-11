@@ -1,23 +1,27 @@
 package mariculture.plugins;
 
-import ic2.api.item.Items;
-import ic2.api.recipe.RecipeInputItemStack;
-import ic2.api.recipe.Recipes;
-import mariculture.core.Core;
-import mariculture.core.RecipesSmelting;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Modules;
-import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.world.WorldPlus;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class PluginIC2 extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	public PluginIC2(String name) {
 		super(name);
 	}
@@ -80,5 +84,5 @@ public class PluginIC2 extends Plugin {
 	@Override
 	public void postInit() {
 		
-	}
+	} */
 }

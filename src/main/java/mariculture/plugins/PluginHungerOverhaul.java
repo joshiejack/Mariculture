@@ -1,50 +1,27 @@
 package mariculture.plugins;
 
-import java.util.ArrayList;
-
-import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.Modules;
-import mariculture.core.util.RecipeRemover;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.plugins.hungryfish.ItemHungryBait;
-import mariculture.plugins.hungryfish.ItemHungryFood;
-import mariculture.plugins.hungryfish.fish.HungryFishAngel;
-import mariculture.plugins.hungryfish.fish.HungryFishBass;
-import mariculture.plugins.hungryfish.fish.HungryFishBlaze;
-import mariculture.plugins.hungryfish.fish.HungryFishButterfly;
-import mariculture.plugins.hungryfish.fish.HungryFishCatfish;
-import mariculture.plugins.hungryfish.fish.HungryFishClown;
-import mariculture.plugins.hungryfish.fish.HungryFishCod;
-import mariculture.plugins.hungryfish.fish.HungryFishDamsel;
-import mariculture.plugins.hungryfish.fish.HungryFishDragon;
-import mariculture.plugins.hungryfish.fish.HungryFishElectricRay;
-import mariculture.plugins.hungryfish.fish.HungryFishEnder;
-import mariculture.plugins.hungryfish.fish.HungryFishGlow;
-import mariculture.plugins.hungryfish.fish.HungryFishGold;
-import mariculture.plugins.hungryfish.fish.HungryFishJelly;
-import mariculture.plugins.hungryfish.fish.HungryFishKoi;
-import mariculture.plugins.hungryfish.fish.HungryFishManOWar;
-import mariculture.plugins.hungryfish.fish.HungryFishMantaRay;
-import mariculture.plugins.hungryfish.fish.HungryFishMinnow;
-import mariculture.plugins.hungryfish.fish.HungryFishNether;
-import mariculture.plugins.hungryfish.fish.HungryFishNight;
-import mariculture.plugins.hungryfish.fish.HungryFishPerch;
-import mariculture.plugins.hungryfish.fish.HungryFishPiranha;
-import mariculture.plugins.hungryfish.fish.HungryFishPuffer;
-import mariculture.plugins.hungryfish.fish.HungryFishSalmon;
-import mariculture.plugins.hungryfish.fish.HungryFishSiamese;
-import mariculture.plugins.hungryfish.fish.HungryFishSquid;
-import mariculture.plugins.hungryfish.fish.HungryFishStingRay;
-import mariculture.plugins.hungryfish.fish.HungryFishTang;
-import mariculture.plugins.hungryfish.fish.HungryFishTetra;
-import mariculture.plugins.hungryfish.fish.HungryFishTuna;
-import net.minecraft.item.ItemStack;
 
 public class PluginHungerOverhaul extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	public PluginHungerOverhaul(String name) {
 		super(name);
 	}
@@ -105,5 +82,5 @@ public class PluginHungerOverhaul extends Plugin {
 				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Items.bowlEmpty
 			});
 		}
-	}
+	} */
 }

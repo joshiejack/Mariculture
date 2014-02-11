@@ -1,20 +1,27 @@
 package mariculture.plugins;
 
-import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.helpers.cofh.ThermalExpansionHelper;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
-import mariculture.core.util.FluidDictionary;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.world.WorldPlus;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class PluginThermalExpansion extends Plugin {
+
+	@Override
+	public void preInit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postInit() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	public PluginThermalExpansion(String name) {
 		super(name);
 	}
@@ -77,5 +84,5 @@ public class PluginThermalExpansion extends Plugin {
 			RecipeHelper.addMelting(new ItemStack(Items.glowstone), 2000, glowstone(250));
 			RecipeHelper.addMelting(new ItemStack(Blocks.glowStone), 2000, glowstone(1000));
 		}
-	}
+	} */
 }

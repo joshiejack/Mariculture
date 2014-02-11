@@ -7,10 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemHungryFood extends ItemFood {
-	public ItemHungryFood(int i) {
-		super(i);
-	}
-
 	private int getFoodLevel(int dmg) {
 		switch (dmg) {
 		case FoodMeta.FISH_FINGER:
