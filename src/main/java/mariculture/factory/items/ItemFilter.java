@@ -6,13 +6,11 @@ import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.Text;
 import mariculture.factory.gui.SlotDictionary;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.StatCollector;
 
 public class ItemFilter extends ItemStorage {
 	public static final int SIZE = 9;

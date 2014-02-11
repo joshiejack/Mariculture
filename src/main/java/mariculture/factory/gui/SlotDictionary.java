@@ -1,17 +1,13 @@
 package mariculture.factory.gui;
 
-import java.util.ArrayList;
-
 import mariculture.core.gui.SlotFake;
 import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.lib.Compatibility;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class SlotDictionary extends SlotFake {
 	public SlotDictionary(IInventory inv, int id, int x, int y) {

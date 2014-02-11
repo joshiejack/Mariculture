@@ -1,11 +1,8 @@
 package mariculture.magic.jewelry.parts;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import mariculture.core.Core;
-import mariculture.core.lib.Text;
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.PearlColor;
+import mariculture.core.lib.Text;
+import net.minecraft.item.ItemStack;
 
 public class PartGold extends JewelryPart {
 	@Override
@@ -45,7 +42,7 @@ public class PartGold extends JewelryPart {
 	
 	@Override
 	public ItemStack getItemStack() {
-		return new ItemStack(Item.ingotGold);
+		return new ItemStack(Items.ingotGold);
 	}
 	
 	@Override

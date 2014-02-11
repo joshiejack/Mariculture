@@ -1,7 +1,5 @@
 package mariculture.core.gui.feature;
 
-import java.util.List;
-
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.util.IProgressable;
 

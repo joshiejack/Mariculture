@@ -10,7 +10,6 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Dye;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
@@ -18,7 +17,6 @@ import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -80,9 +78,9 @@ public class PluginForestry extends Plugin {
 
 			if (BackpackManager.backpackInterface != null) {
 				AquaBackpack backpack = new AquaBackpack();
-				aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(ItemIds.aquaBPT1,
+				aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(aquaBPT1,
 						backpack, EnumBackpackType.T1);
-				aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(ItemIds.aquaBPT2,
+				aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(aquaBPT2,
 						backpack, EnumBackpackType.T2);
 				
 
@@ -92,11 +90,11 @@ public class PluginForestry extends Plugin {
 						.getInstance()
 						.getRecipeList()
 						.add(new ShapedOreRecipe(new ItemStack(aquaBackpackT1), new Object[] { "SWS", "FCF", "SWS",
-								Character.valueOf('S'), Item.silk, Character.valueOf('W'),
-								new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE),
+								Character.valueOf('S'), Items.silk, Character.valueOf('W'),
+								new ItemStack(Blocks.cloth, 1, OreDictionary.WILDCARD_VALUE),
 								Character.valueOf('F'),
 								new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE),
-								Character.valueOf('C'), Block.chest }));
+								Character.valueOf('C'), Blocks.chest }));
 
 				ItemStack silk = ItemInterface.getItem("craftingMaterial");
 				silk.setItemDamage(3);
@@ -105,7 +103,7 @@ public class PluginForestry extends Plugin {
 						FluidRegistry.getFluidStack("water", 1000),
 						null,
 						new ItemStack(aquaBackpackT2),
-						new Object[] { "WDW", "WTW", "WWW", Character.valueOf('D'), Item.diamond,
+						new Object[] { "WDW", "WTW", "WWW", Character.valueOf('D'), Items.diamond,
 									Character.valueOf('W'), silk, Character.valueOf('T'), aquaBackpackT1 });
 			}
 
@@ -143,9 +141,9 @@ public class PluginForestry extends Plugin {
 				addValidItem(new ItemStack(WorldPlus.coral, 1, OreDictionary.WILDCARD_VALUE));
 			}
 			
-			addValidItem(new ItemStack(Block.waterlily));
-			addValidItem(new ItemStack(Item.fishRaw));
-			addValidItem(new ItemStack(Item.dyePowder, 1, Dye.INK));
+			addValidItem(new ItemStack(Blocks.waterlily));
+			addValidItem(new ItemStack(Items.fishRaw));
+			addValidItem(new ItemStack(Items.dyePowder, 1, Dye.INK));
 			addValidItem(new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
 			addValidItem(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL));
 			addValidItem(new ItemStack(Core.oysterBlock));

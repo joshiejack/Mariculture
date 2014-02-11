@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.core.helpers.AverageHelper;
-import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;

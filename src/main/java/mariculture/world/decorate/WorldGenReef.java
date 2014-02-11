@@ -8,7 +8,6 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.BlockCoral;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -95,7 +94,7 @@ public class WorldGenReef extends WorldGenerator {
 												&& world.getBlockMetadata(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == OresMeta.CORAL_ROCK) {
 											if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 1, z)) {
 												if (random.nextInt(400) == 0) {
-													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Block.sponge.blockID, 0);
+													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Blocks.sponge.blockID, 0);
 												} else {
 													ItemStack coral = CoralRegistry.corals.get(random.nextInt(CoralRegistry.corals.size()));
 													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, coral.itemID, coral.getItemDamage());

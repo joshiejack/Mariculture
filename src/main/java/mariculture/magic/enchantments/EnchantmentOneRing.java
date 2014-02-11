@@ -1,19 +1,11 @@
 package mariculture.magic.enchantments;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 

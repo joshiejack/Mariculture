@@ -1,6 +1,5 @@
 package mariculture.core.render;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 
 public class RenderAirPumpArea extends RenderBase {
@@ -10,7 +9,7 @@ public class RenderAirPumpArea extends RenderBase {
 
 	@Override
 	public void renderBlock() {
-		setTexture(Block.anvil);
+		setTexture(Blocks.anvil);
 		renderBlock(0, 0, 0, 1, 1, 1);
 	}
 }

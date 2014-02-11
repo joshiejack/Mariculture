@@ -1,6 +1,5 @@
 package mariculture.api.core;
 
-import net.minecraftforge.fluids.FluidStack;
 
 public interface IGasTurbine {
 	/** Add a liquid to be accepted by the gas turbine

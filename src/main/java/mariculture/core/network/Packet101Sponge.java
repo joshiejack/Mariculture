@@ -1,5 +1,7 @@
 package mariculture.core.network;
 
+import ibxm.Player;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,10 +9,8 @@ import java.io.IOException;
 import mariculture.factory.blocks.TileSponge;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class Packet101Sponge extends PacketMariculture {
 
@@ -37,8 +37,8 @@ public class Packet101Sponge extends PacketMariculture {
 		if(isClient) {
 			FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(stored + " / " + max + " RF");
 		} else {
-			if(world.getBlockTileEntity(x, y, z) instanceof TileSponge) {
-				TileSponge sponge = (TileSponge) world.getBlockTileEntity(x, y, z);
+			if(world.getTileEntity(x, y, z) instanceof TileSponge) {
+				TileSponge sponge = (TileSponge) world.getTileEntity(x, y, z);
 				stored = sponge.getEnergyStored(ForgeDirection.UNKNOWN);
 				max = sponge.getMaxEnergyStored(ForgeDirection.UNKNOWN);
 				PacketDispatcher.sendPacketToPlayer(new Packet101Sponge(stored, max).build(), (Player) player);

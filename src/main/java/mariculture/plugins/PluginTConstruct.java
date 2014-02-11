@@ -10,7 +10,6 @@ import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Text;
@@ -20,12 +19,10 @@ import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -99,12 +96,12 @@ public class PluginTConstruct extends Plugin {
         }
         
         RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE));
-        ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.fishRaw);
-        ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.spiderEye);
+        ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fishRaw);
+        ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spiderEye);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
-			"DSR", "FHB", "PAC", 'D', Block.plantYellow, 'S', "treeSapling", 'R', Block.plantRed,
+			"DSR", "FHB", "PAC", 'D', Blocks.plantYellow, 'S', "treeSapling", 'R', Blocks.plantRed,
 			'F', fish, 'H', TConstructRegistry.getItemStack("canisterRedHeart"), 'B', bait, 
-			'P', Item.potato, 'A', Item.appleRed, 'C', Item.carrot
+			'P', Items.potato, 'A', Items.appleRed, 'C', Items.carrot
 		});
         
         if(FluidRegistry.getFluid("xpjuice") != null) {
@@ -126,30 +123,30 @@ public class PluginTConstruct extends Plugin {
 
 	private static void addParts() {
 		//Initialise Parts
-		arrowhead = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_1).setUnlocalizedName("titanium.arrow.head");
-		axe_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_2).setUnlocalizedName("titanium.axe.head");
-		battle_sign_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_3).setUnlocalizedName("titanium.battlesign.head");
-		binding = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_4).setUnlocalizedName("titanium.binding");
-		chisel_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_5).setUnlocalizedName("titanium.chisel.head");
-		chunk = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_6).setUnlocalizedName("titanium.chunk");
-		crossbar = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_7).setUnlocalizedName("titanium.crossbar");
-		excavator_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_8).setUnlocalizedName("titanium.excavator.head");
-		frypan_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_9).setUnlocalizedName("titanium.frypan.head");
-		full_guard = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_10).setUnlocalizedName("titanium.full.guard");
-		hammer_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_11).setUnlocalizedName("titanium.hammer.head");
-		knife_blade = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_12).setUnlocalizedName("titanium.knife.blade");
-		large_guard = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_13).setUnlocalizedName("titanium.large.guard");
-		large_sword_blade = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_14).setUnlocalizedName("titanium.large.sword.blade");
-		large_plate = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_15).setUnlocalizedName("titanium.large.plate");
-		broad_axe_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_16).setUnlocalizedName("titanium.lumberaxe.head");
-		hand_guard = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_17).setUnlocalizedName("titanium.medium.guard");
-		pickaxe_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_18).setUnlocalizedName("titanium.pickaxe.head");
-		scythe_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_19).setUnlocalizedName("titanium.scythe.head");
-		shovel_head = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_20).setUnlocalizedName("titanium.shovel.head");
-		sword_blade = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_21).setUnlocalizedName("titanium.sword.blade");
-		tool_rod = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_22).setUnlocalizedName("titanium.tool.rod");
-		tough_binding = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_23).setUnlocalizedName("titanium.tough.binding");
-		tough_rod = (TitaniumPart) new TitaniumPart(ItemIds.titanium_part_24).setUnlocalizedName("titanium.tough.rod");
+		arrowhead = (TitaniumPart) new TitaniumPart(titanium_part_1).setUnlocalizedName("titanium.arrow.head");
+		axe_head = (TitaniumPart) new TitaniumPart(titanium_part_2).setUnlocalizedName("titanium.axe.head");
+		battle_sign_head = (TitaniumPart) new TitaniumPart(titanium_part_3).setUnlocalizedName("titanium.battlesign.head");
+		binding = (TitaniumPart) new TitaniumPart(titanium_part_4).setUnlocalizedName("titanium.binding");
+		chisel_head = (TitaniumPart) new TitaniumPart(titanium_part_5).setUnlocalizedName("titanium.chisel.head");
+		chunk = (TitaniumPart) new TitaniumPart(titanium_part_6).setUnlocalizedName("titanium.chunk");
+		crossbar = (TitaniumPart) new TitaniumPart(titanium_part_7).setUnlocalizedName("titanium.crossbar");
+		excavator_head = (TitaniumPart) new TitaniumPart(titanium_part_8).setUnlocalizedName("titanium.excavator.head");
+		frypan_head = (TitaniumPart) new TitaniumPart(titanium_part_9).setUnlocalizedName("titanium.frypan.head");
+		full_guard = (TitaniumPart) new TitaniumPart(titanium_part_10).setUnlocalizedName("titanium.full.guard");
+		hammer_head = (TitaniumPart) new TitaniumPart(titanium_part_11).setUnlocalizedName("titanium.hammer.head");
+		knife_blade = (TitaniumPart) new TitaniumPart(titanium_part_12).setUnlocalizedName("titanium.knife.blade");
+		large_guard = (TitaniumPart) new TitaniumPart(titanium_part_13).setUnlocalizedName("titanium.large.guard");
+		large_sword_blade = (TitaniumPart) new TitaniumPart(titanium_part_14).setUnlocalizedName("titanium.large.sword.blade");
+		large_plate = (TitaniumPart) new TitaniumPart(titanium_part_15).setUnlocalizedName("titanium.large.plate");
+		broad_axe_head = (TitaniumPart) new TitaniumPart(titanium_part_16).setUnlocalizedName("titanium.lumberaxe.head");
+		hand_guard = (TitaniumPart) new TitaniumPart(titanium_part_17).setUnlocalizedName("titanium.medium.guard");
+		pickaxe_head = (TitaniumPart) new TitaniumPart(titanium_part_18).setUnlocalizedName("titanium.pickaxe.head");
+		scythe_head = (TitaniumPart) new TitaniumPart(titanium_part_19).setUnlocalizedName("titanium.scythe.head");
+		shovel_head = (TitaniumPart) new TitaniumPart(titanium_part_20).setUnlocalizedName("titanium.shovel.head");
+		sword_blade = (TitaniumPart) new TitaniumPart(titanium_part_21).setUnlocalizedName("titanium.sword.blade");
+		tool_rod = (TitaniumPart) new TitaniumPart(titanium_part_22).setUnlocalizedName("titanium.tool.rod");
+		tough_binding = (TitaniumPart) new TitaniumPart(titanium_part_23).setUnlocalizedName("titanium.tough.binding");
+		tough_rod = (TitaniumPart) new TitaniumPart(titanium_part_24).setUnlocalizedName("titanium.tough.rod");
 		
 		//Register Parts
 		GameRegistry.registerItem(arrowhead, "titanium_arrow_head");

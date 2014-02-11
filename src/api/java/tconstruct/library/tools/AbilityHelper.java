@@ -265,7 +265,7 @@ public class AbilityHelper
                         }
                         else
                         {
-                            Item.itemsList[stack.itemID].hitEntity(stack, (EntityLivingBase) entity, player);
+                            Items.itemsList[stack.itemID].hitEntity(stack, (EntityLivingBase) entity, player);
                         }
 
                         if ((fireAspect > 0 || toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")) && causedDamage)
@@ -616,13 +616,13 @@ public class AbilityHelper
             int bID = world.getBlockId(x, y, z);
             int bIDabove = world.getBlockId(x, y + 1, z);
 
-            if ((side == 0 || bIDabove != 0 || bID != Block.grass.blockID) && bID != Block.dirt.blockID)
+            if ((side == 0 || bIDabove != 0 || bID != Blocks.grass.blockID) && bID != Blocks.dirt.blockID)
             {
                 return false;
             }
             else
             {
-                Block block = Block.tilledField;
+                Block block = Blocks.tilledField;
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.getStepSound(),
                         (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 

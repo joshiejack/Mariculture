@@ -65,7 +65,7 @@ public enum EnumFishGroup {
 	}
 
 	public boolean canLive(World world, int x, int y, int z) {
-		return Fishing.fishHelper.canLive(world.getWorldChunkManager().getBiomeGenAt(x, z), getBiomes(), getSalinityRequired(), world.getBlockTileEntity(x, y, z));
+		return Fishing.fishHelper.canLive(world.getWorldChunkManager().getBiomeGenAt(x, z), getBiomes(), getSalinityRequired(), world.getTileEntity(x, y, z));
 	}
 
 	public EnumSalinityType[] getSalinityRequired() {

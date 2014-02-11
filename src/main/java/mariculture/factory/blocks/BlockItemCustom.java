@@ -5,13 +5,12 @@ import java.util.List;
 import mariculture.core.blocks.ItemBlockMariculture;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 public class BlockItemCustom extends ItemBlockMariculture {
-	private Icon[] icons;
+	private IIcon[] icons;
 
 	public BlockItemCustom(int i, Block block) {
 		super(i);

@@ -9,28 +9,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.ClientProxy;
 import mariculture.core.Core;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.AirMeta;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.Rand;
-import mariculture.fishery.Fishery;
-import mariculture.magic.Magic;
 import mariculture.plugins.compatibility.CompatBooks;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;

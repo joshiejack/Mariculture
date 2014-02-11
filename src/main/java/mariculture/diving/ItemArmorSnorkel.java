@@ -4,26 +4,20 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.util.IItemRegistry;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
 public class ItemArmorSnorkel extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
-	public ItemArmorSnorkel(int i, EnumArmorMaterial material, int j, int k) {
-		super(i, material, j, k);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+	public ItemArmorSnorkel(int i, ArmorMaterial material, int j, int k) {
+		super(material, j, k);
+		setCreativeTab(MaricultureTab.tabMariculture);
 	}
 
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer) {
+	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return "mariculture:" + "textures/armor/snorkel.png";
-	}
-
-	@Override
-	public void registerIcons(IconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 
 	@Override
@@ -39,7 +33,12 @@ public class ItemArmorSnorkel extends ItemArmor implements IItemRegistry, IDisab
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this.itemID, 1, j)), new ItemStack(this.itemID, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
+	}
+	
+	@Override
+	public void registerIcons(IIconRegister iconRegister) {
+		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 }

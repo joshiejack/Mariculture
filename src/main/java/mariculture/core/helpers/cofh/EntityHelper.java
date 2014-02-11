@@ -1,7 +1,7 @@
 package mariculture.core.helpers.cofh;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityHelper {
 

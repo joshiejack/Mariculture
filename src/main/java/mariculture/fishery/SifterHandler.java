@@ -3,10 +3,10 @@ package mariculture.fishery;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.minecraft.item.ItemStack;
 import mariculture.api.fishery.ISifterHandler;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.helpers.OreDicHelper;
+import net.minecraft.item.ItemStack;
 
 public class SifterHandler implements ISifterHandler {
 	private final HashMap<String, ArrayList<RecipeSifter>> recipes = new HashMap();

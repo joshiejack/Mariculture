@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.Jewelry;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;

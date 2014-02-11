@@ -130,7 +130,7 @@ public class ThaumcraftApi
      *           <p/>
      *           Smelting exclusions can also be done via the FMLInterModComms in your @Mod.Init method using "smeltBonusExclude"
      *           Example for vanilla iron:
-     *           FMLInterModComms.sendMessage("Thaumcraft", "smeltBonusExclude", new ItemStack(Item.ingotIron));
+     *           FMLInterModComms.sendMessage("Thaumcraft", "smeltBonusExclude", new ItemStack(Items.ingotIron));
      */
     public static void addSmeltingBonusExclusion(ItemStack in)
     {
@@ -375,7 +375,7 @@ public class ThaumcraftApi
 
     /**
      * Used to assign apsects to the given item/block. Here is an example of the declaration for cobblestone:<p>
-     * <i>ThaumcraftApi.registerObjectTag(Block.cobblestone.blockID, -1, (new ObjectTags()).add(EnumTag.ROCK, 1).add(EnumTag.DESTRUCTION, 1));</i>
+     * <i>ThaumcraftApi.registerObjectTag(Blocks.cobblestone.blockID, -1, (new ObjectTags()).add(EnumTag.ROCK, 1).add(EnumTag.DESTRUCTION, 1));</i>
      *
      * @param id
      * @param meta    pass -1 if all damage values of this item/block should have the same aspects
@@ -393,7 +393,7 @@ public class ThaumcraftApi
 
     /**
      * Used to assign apsects to the given item/block. Here is an example of the declaration for cobblestone:<p>
-     * <i>ThaumcraftApi.registerObjectTag(Block.cobblestone.blockID, new int[]{0,1}, (new ObjectTags()).add(EnumTag.ROCK, 1).add(EnumTag.DESTRUCTION, 1));</i>
+     * <i>ThaumcraftApi.registerObjectTag(Blocks.cobblestone.blockID, new int[]{0,1}, (new ObjectTags()).add(EnumTag.ROCK, 1).add(EnumTag.DESTRUCTION, 1));</i>
      *
      * @param id
      * @param meta    A range of meta values if you wish to lump several item meta's together as being the "same" item (i.e. stair orientations)
@@ -444,7 +444,7 @@ public class ThaumcraftApi
      * Used to assign aspects to the given item/block.
      * Attempts to automatically generate aspect tags by checking registered recipes.
      * Here is an example of the declaration for pistons:<p>
-     * <i>ThaumcraftApi.registerComplexObjectTag(Block.pistonBase.blockID, 0, (new ObjectTags()).add(EnumTag.MECHANISM, 2).add(EnumTag.MOTION, 4));</i>
+     * <i>ThaumcraftApi.registerComplexObjectTag(Blocks.pistonBase.blockID, 0, (new ObjectTags()).add(EnumTag.MECHANISM, 2).add(EnumTag.MOTION, 4));</i>
      *
      * @param id
      * @param meta    pass -1 if all damage values of this item/block should have the same aspects
@@ -489,13 +489,13 @@ public class ThaumcraftApi
      * You need to create and ItemStack that tells the golem what block id and metadata represents
      * the crop when fully grown.
      * Example for vanilla wheat:
-     * FMLInterModComms.sendMessage("Thaumcraft", "harvestStandardCrop", new ItemStack(Block.crops,1,7));
+     * FMLInterModComms.sendMessage("Thaumcraft", "harvestStandardCrop", new ItemStack(Blocks.crops,1,7));
      *
      * Clickable crops are crops that you right click to gather their bounty instead of destroying them.
      * As for standard crops, you need to create and ItemStack that tells the golem what block id
      * and metadata represents the crop when fully grown. The golem will trigger the blocks onBlockActivated method.
      * Example (this will technically do nothing since clicking wheat does nothing, but you get the idea):
-     * FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(Block.crops,1,7));
+     * FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(Blocks.crops,1,7));
      */
 
     //NATIVE CLUSTERS //////////////////////////////////////////////////////////////////////////////////

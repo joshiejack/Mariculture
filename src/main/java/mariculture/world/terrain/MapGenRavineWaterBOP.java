@@ -3,7 +3,6 @@ package mariculture.world.terrain;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.lib.WorldGeneration;
-import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.MapGenRavine;
@@ -50,7 +49,7 @@ public class MapGenRavineWaterBOP extends MapGenRavine
     
     private boolean isTopBlock(byte[] data, int index, int x, int y, int z, int chunkX, int chunkZ)  {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
-        return (isExceptionBiome(biome) ? data[index] == Block.grass.blockID : data[index] == biome.topBlock);
+        return (isExceptionBiome(biome) ? data[index] == Blocks.grass.blockID : data[index] == biome.topBlock);
     }
 
     private boolean isExceptionBiome(BiomeGenBase biome)  {
@@ -64,12 +63,12 @@ public class MapGenRavineWaterBOP extends MapGenRavine
     protected void digBlock(byte[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
     	BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
     	if(MaricultureHandlers.biomeType.getBiomeType(biome) == EnumBiomeType.OCEAN && y < 63) {
-	        int top    = (isExceptionBiome(biome) ? Block.grass.blockID : biome.topBlock);
-	        int filler = (isExceptionBiome(biome) ? Block.dirt.blockID  : biome.fillerBlock);
+	        int top    = (isExceptionBiome(biome) ? Blocks.grass.blockID : biome.topBlock);
+	        int filler = (isExceptionBiome(biome) ? Blocks.dirt.blockID  : biome.fillerBlock);
 	        int block  = data[index];
 	
-	        if (block == Block.stone.blockID || block == filler || block == top) {
-	            data[index] = (byte)Block.waterMoving.blockID;
+	        if (block == Blocks.stone.blockID || block == filler || block == top) {
+	            data[index] = (byte)Blocks.waterMoving.blockID;
 	            if (foundTop && data[index - 1] == filler) {
 	            	data[index - 1] = (byte)top;
 	            }

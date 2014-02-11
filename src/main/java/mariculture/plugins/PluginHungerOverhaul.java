@@ -6,7 +6,6 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.RecipeRemover;
 import mariculture.fishery.Fishery;
@@ -43,7 +42,6 @@ import mariculture.plugins.hungryfish.fish.HungryFishStingRay;
 import mariculture.plugins.hungryfish.fish.HungryFishTang;
 import mariculture.plugins.hungryfish.fish.HungryFishTetra;
 import mariculture.plugins.hungryfish.fish.HungryFishTuna;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class PluginHungerOverhaul extends Plugin {
@@ -63,12 +61,12 @@ public class PluginHungerOverhaul extends Plugin {
 
 	@Override
 	public void postInit() {
-		Item.itemsList[Core.food.itemID] = null;
-		Core.food = new ItemHungryFood(ItemIds.food).setUnlocalizedName("food");
+		Items.itemsList[Core.food.itemID] = null;
+		Core.food = new ItemHungryFood(food).setUnlocalizedName("food");
 
 		if (Modules.fishery.isActive()) {
-			Item.itemsList[Fishery.bait.itemID] = null;
-			Fishery.bait = new ItemHungryBait(ItemIds.bait).setUnlocalizedName("bait");
+			Items.itemsList[Fishery.bait.itemID] = null;
+			Fishery.bait = new ItemHungryBait(bait).setUnlocalizedName("bait");
 			
 			FishSpecies.speciesList = new ArrayList();
 			Fishery.cod = new HungryFishCod(0);
@@ -104,7 +102,7 @@ public class PluginHungerOverhaul extends Plugin {
 
 			RecipeRemover.remove(new ItemStack(Core.food, 3, FoodMeta.CALAMARI));
 			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
-				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Item.bowlEmpty
+				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Items.bowlEmpty
 			});
 		}
 	}

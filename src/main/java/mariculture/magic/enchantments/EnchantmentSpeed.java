@@ -3,12 +3,10 @@ package mariculture.magic.enchantments;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.magic.Magic;
-import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public class EnchantmentSpeed extends EnchantmentJewelry {
 	public EnchantmentSpeed(int i, int weight, EnumEnchantmentType type) {

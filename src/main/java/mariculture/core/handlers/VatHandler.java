@@ -3,7 +3,6 @@ package mariculture.core.handlers;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 
 import mariculture.api.core.IVatHandler;
@@ -66,7 +65,7 @@ public class VatHandler implements IVatHandler {
 				return null;
 			if(result.inputFluid2 != null && fluid2.amount < result.inputFluid2.amount)
 				return null;
-			if(result.inputItem != null && input.stackSize < result.inputItem.stackSize)
+			if(result.inputItem != null && input.stackSize < result.inputItems.stackSize)
 				return null;
 			return result;
 		}

@@ -7,7 +7,6 @@ import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.blocks.base.TileMultiMachineTank;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -21,11 +20,10 @@ import mariculture.core.lib.UtilMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
-import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
@@ -216,8 +214,8 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			return false;
 		if(MaricultureHandlers.smelter.getFuelInfo(inventory[fuel]) != null)
 			return true;
-		if(worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler) {
-			IFluidHandler handler = (IFluidHandler) worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
+		if(worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler) {
+			IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] info = handler.getTankInfo(ForgeDirection.UP);
 			if(info != null && info[0].fluid != null && info[0].fluid.amount >= 16)
 				return MaricultureHandlers.smelter.getFuelInfo(info[0].fluid) != null;
@@ -260,7 +258,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	public FuelInfo getInfo() {
 		FuelInfo info = MaricultureHandlers.smelter.getFuelInfo(inventory[fuel]);
 		if(info == null) {
-			IFluidHandler handler = (IFluidHandler) worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
+			IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] tank = handler.getTankInfo(ForgeDirection.UP);
 			info = MaricultureHandlers.smelter.getFuelInfo(tank[0].fluid);
 			handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 16), true);

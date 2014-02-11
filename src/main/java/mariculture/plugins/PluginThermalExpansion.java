@@ -10,8 +10,6 @@ import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -38,23 +36,23 @@ public class PluginThermalExpansion extends Plugin {
 	public void init() {
 		if(Modules.world.isActive()) {
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_BLUE), new ItemStack(Item.dyePowder, 2, Dye.LIGHT_BLUE));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_BLUE), new ItemStack(Items.dyePowder, 2, Dye.LIGHT_BLUE));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
 					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_BRAIN), new ItemStack(Core.materials, 2, MaterialsMeta.DYE_YELLOW));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_CANDYCANE), new ItemStack(Item.dyePowder, 2, Dye.MAGENTA));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_CANDYCANE), new ItemStack(Items.dyePowder, 2, Dye.MAGENTA));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
 					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_CUCUMBER), new ItemStack(Core.materials, 2, MaterialsMeta.DYE_BROWN));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_GREY), new ItemStack(Item.dyePowder, 2, Dye.GREY));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_GREY), new ItemStack(Items.dyePowder, 2, Dye.GREY));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_LIGHT_GREY), new ItemStack(Item.dyePowder, 2, Dye.LIGHT_GREY));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_LIGHT_GREY), new ItemStack(Items.dyePowder, 2, Dye.LIGHT_GREY));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_ORANGE), new ItemStack(Item.dyePowder, 2, Dye.ORANGE));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_ORANGE), new ItemStack(Items.dyePowder, 2, Dye.ORANGE));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_PINK), new ItemStack(Item.dyePowder, 2, Dye.PINK));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_PINK), new ItemStack(Items.dyePowder, 2, Dye.PINK));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
-					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_PURPLE), new ItemStack(Item.dyePowder, 2, Dye.PURPLE));
+					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_PURPLE), new ItemStack(Items.dyePowder, 2, Dye.PURPLE));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
 					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_RED), new ItemStack(Core.materials, 2, MaterialsMeta.DYE_RED));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
@@ -69,15 +67,15 @@ public class PluginThermalExpansion extends Plugin {
 	public void postInit() {
 		//Redstone Melting Recipes
 		if(FluidRegistry.getFluid("redstone") != null) {
-			RecipeHelper.addMelting(new ItemStack(Block.torchRedstoneActive), 1600, redstone(100), new ItemStack(Item.stick), 1);
-			RecipeHelper.addMelting(new ItemStack(Block.blockRedstone), 1600, redstone(900));
-			RecipeHelper.addMelting(new ItemStack(Item.redstone), 1600, redstone(100));
+			RecipeHelper.addMelting(new ItemStack(Blocks.torchRedstoneActive), 1600, redstone(100), new ItemStack(Items.stick), 1);
+			RecipeHelper.addMelting(new ItemStack(Blocks.blockRedstone), 1600, redstone(900));
+			RecipeHelper.addMelting(new ItemStack(Items.redstone), 1600, redstone(100));
 		}
 				
 		//Glowstone Melting Recipes
 		if(FluidRegistry.getFluid("glowstone") != null) {
-			RecipeHelper.addMelting(new ItemStack(Item.glowstone), 2000, glowstone(250));
-			RecipeHelper.addMelting(new ItemStack(Block.glowStone), 2000, glowstone(1000));
+			RecipeHelper.addMelting(new ItemStack(Items.glowstone), 2000, glowstone(250));
+			RecipeHelper.addMelting(new ItemStack(Blocks.glowStone), 2000, glowstone(1000));
 		}
 	}
 }

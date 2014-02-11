@@ -1,6 +1,5 @@
 package mariculture.core.blocks;
 
-import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

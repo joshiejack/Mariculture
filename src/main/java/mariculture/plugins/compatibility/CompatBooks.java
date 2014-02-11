@@ -12,7 +12,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -36,6 +35,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -51,7 +51,7 @@ public class CompatBooks {
 	public static class BookInfo {
 		public String aColor;
 		public String author, name;
-		public Icon icon;
+		public IIcon icon;
 		public Integer color;
 		
 		public BookInfo(String name, String author, String aColor, int color) {
@@ -61,7 +61,7 @@ public class CompatBooks {
 			this.color = color;
 		}
 		
-		public void setIcon(Icon icon) {
+		public void setIcon(IIcon icon) {
 			this.icon = icon;
 		}
 	}
@@ -192,10 +192,10 @@ public class CompatBooks {
 			ItemStack stack = null;
 			String data = helper.getAttribute("data");
 			String name = helper.getAttribute("name");
-			if(Item.itemRegistry.getObject(name) != null) 
-				stack = new ItemStack((Item)Item.itemRegistry.getObject(name), 1, 0);
-			else if(Block.blockRegistry.getObject(name) != null)
-				stack = new ItemStack((Block)Block.blockRegistry.getObject(name));
+			if(Items.itemRegistry.getObject(name) != null) 
+				stack = new ItemStack((Item)Items.itemRegistry.getObject(name), 1, 0);
+			else if(Blocks.blockRegistry.getObject(name) != null)
+				stack = new ItemStack((Block)Blocks.blockRegistry.getObject(name));
 			if(stack != null)
 				Guides.instance.registerIcon(name, stack);
 		} else if (type.equals("fluid")) {

@@ -8,7 +8,6 @@ import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -25,7 +24,7 @@ public class FluidHelper {
 		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
 		if (result != null) {
 			invent.decrStackSize(in, 1);
-			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
+			if(result.getItem() != Items.getItemFromBlock(Core.airBlocks)) {
 				if (invent.getStackInSlot(out) == null) {
 					invent.setInventorySlotContents(out, result.copy());
 				} else if (invent.getStackInSlot(out).getItem() == result.getItem()) {
@@ -237,7 +236,7 @@ public class FluidHelper {
 			if (amount >= liquid.amount) {
 				tank.fill(ForgeDirection.UNKNOWN, liquid, true);
 				if (!player.capabilities.isCreativeMode) {
-					if(heldItem.stackSize == 1) {
+					if(heldItems.stackSize == 1) {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, newHeld);
 					} else {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);
@@ -256,7 +255,7 @@ public class FluidHelper {
 			if (result != null) {
 				tank.drain(side, fluid.amount, true);
 				if (!player.capabilities.isCreativeMode) {
-					if (heldItem.stackSize == 1) {
+					if (heldItems.stackSize == 1) {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, result);
 					} else {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);

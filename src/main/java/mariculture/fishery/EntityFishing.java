@@ -364,15 +364,15 @@ public class EntityFishing extends EntityFishHook {
 						(int) this.posY, (int) this.posZ);
 				if (loot != null) {
 					EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, loot);
-					entityItem.fireResistance = 200;
+					entityItems.fireResistance = 200;
 					double var3 = this.angler.posX - this.posX;
 					double var5 = this.angler.posY - this.posY;
 					double var7 = this.angler.posZ - this.posZ;
 					double var9 = MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
 					double var11 = 0.1D;
-					entityItem.motionX = var3 * var11;
-					entityItem.motionY = var5 * var11 + MathHelper.sqrt_double(var9) * 0.08D;
-					entityItem.motionZ = var7 * var11;
+					entityItems.motionX = var3 * var11;
+					entityItems.motionY = var5 * var11 + MathHelper.sqrt_double(var9) * 0.08D;
+					entityItems.motionZ = var7 * var11;
 					this.worldObj.spawnEntityInWorld(entityItem);
 					this.angler.addStat(StatList.fishCaughtStat, 1);
 					this.angler.worldObj.spawnEntityInWorld(new EntityXPOrb(this.angler.worldObj, this.angler.posX,

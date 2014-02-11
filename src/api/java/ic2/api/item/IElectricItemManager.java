@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
  * - update and manage the damage value for the visual charge indicator
  * 
  * @note If you're implementing your own variant (ISpecialElectricItem), you can delegate to the
- * default implementations through ElectricItem.rawManager. The default implementation is designed
+ * default implementations through ElectricItems.rawManager. The default implementation is designed
  * to minimize its dependency on its own constraints/structure and delegates most work back to the
  * more atomic features in the gateway manager.
  */

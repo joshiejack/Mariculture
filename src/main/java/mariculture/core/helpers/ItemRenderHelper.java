@@ -3,12 +3,12 @@ package mariculture.core.helpers;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 public class ItemRenderHelper {
-	public Block block = Block.stone;
+	public Block block = Blocks.stone;
 	public RenderBlocks render;
-	public Icon icon;
+	public IIcon icon;
 	public int[] uv;
 	
 	public ItemRenderHelper(RenderBlocks render) {
@@ -60,27 +60,27 @@ public class ItemRenderHelper {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, -1.0F, 0.0F);
-	    render.renderFaceYNeg(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceYNeg(Blocks.stone, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, 1.0F, 0.0F);
-	    render.renderFaceYPos(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceYPos(Blocks.stone, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, 0.0F, -1.0F);
-	    render.renderFaceZNeg(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceZNeg(Blocks.stone, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(0.0F, 0.0F, 1.0F);
-	    render.renderFaceZPos(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceZPos(Blocks.stone, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-	    render.renderFaceXNeg(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceXNeg(Blocks.stone, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	    tessellator.startDrawingQuads();
 	    tessellator.setNormal(1.0F, 0.0F, 0.0F);
-	    render.renderFaceXPos(Block.stone, 0.0D, 0.0D, 0.0D, icon);
+	    render.renderFaceXPos(Blocks.stone, 0.0D, 0.0D, 0.0D, icon);
 	    tessellator.draw();
 	}
 }

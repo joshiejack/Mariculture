@@ -5,9 +5,10 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -25,7 +26,7 @@ public abstract class RenderBase {
 	public ForgeDirection dir = ForgeDirection.UNKNOWN;
 	public IBlockAccess world;
 	public int x, y, z;
-	public Icon icon;
+	public IIcon icon;
 	public Block block;
 	
 	public RenderBase(RenderBlocks render) {
@@ -37,7 +38,7 @@ public abstract class RenderBase {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.block = Block.blocksList[world.getBlockId(x, y, z)];
+		this.block = world.getBlock(x, y, z);
 		return this;
 	}
 	
@@ -74,7 +75,7 @@ public abstract class RenderBase {
 		return world == null;
 	}
 	
-	protected void setTexture(Icon texture) {
+	protected void setTexture(IIcon texture) {
 		if(isItem())
 			icon = texture;
 		else
@@ -109,7 +110,7 @@ public abstract class RenderBase {
 		
 		double extra = (((double)fluid.amount)/max) * scale;
 		double height = 0.4D + extra;
-		Icon iconStill = fluid.getFluid().getIcon();
+		IIcon iconStill = fluid.getFluid().getIcon();
 
 		height += RENDER_OFFSET;
 
@@ -137,7 +138,7 @@ public abstract class RenderBase {
 	protected void renderFluidBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		render.renderAllFaces = true;
 		render.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
-		render.renderStandardBlock(Block.lavaStill, this.x, this.y, this.z);
+		render.renderStandardBlock(Blocks.lava, this.x, this.y, this.z);
 		render.renderAllFaces = false;
 	}
 

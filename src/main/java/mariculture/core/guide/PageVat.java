@@ -4,7 +4,7 @@ import mariculture.core.lib.Text;
 import mariculture.plugins.nei.NEIBase;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import org.lwjgl.opengl.GL11;
@@ -57,7 +57,7 @@ public class PageVat extends PageParser {
 		
 		//Fluid 1
 		if(!fluid1.equals("")) {
-			Icon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid1)).getIcon();
+			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid1)).getIcon();
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 28, icon, 7, 16);
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 28, icon, 16, 16);
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 12, icon, 7, 16);
@@ -75,7 +75,7 @@ public class PageVat extends PageParser {
 		}
 		
 		if(!fluid3.equals("")) {
-			Icon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid3)).getIcon();
+			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid3)).getIcon();
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 28, icon, 16, 16);
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 28, icon, 7, 16);
 			NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 28, icon, 16, 16);

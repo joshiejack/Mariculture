@@ -1,6 +1,5 @@
 package mariculture.fishery;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import mariculture.api.fishery.IBaitHandler;

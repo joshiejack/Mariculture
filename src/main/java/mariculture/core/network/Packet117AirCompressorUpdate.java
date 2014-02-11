@@ -25,7 +25,7 @@ public class Packet117AirCompressorUpdate extends Packet110CustomTileUpdate {
 	public void handle(World world, EntityPlayer player) {
 		super.handle(world, player);
 		
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof TileAirCompressor) {
 			((TileAirCompressor)tile).storedAir = air;
 			((TileAirCompressor)tile).energyStorage.setEnergyStored(power);;

@@ -1,12 +1,10 @@
 package mariculture.fishery;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.item.ItemStack;
 import mariculture.api.fishery.IMutation;
 import mariculture.api.fishery.fish.FishSpecies;
 

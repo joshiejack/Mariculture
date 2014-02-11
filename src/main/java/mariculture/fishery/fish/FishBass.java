@@ -2,9 +2,7 @@ package mariculture.fishery.fish;
 
 import java.util.Random;
 
-import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.EnumRodQuality;
-import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -12,7 +10,6 @@ import mariculture.core.lib.MaterialsMeta;
 import mariculture.fishery.EntityBass;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 

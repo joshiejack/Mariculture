@@ -9,10 +9,9 @@ import mariculture.core.blocks.BlockDecorative;
 import mariculture.core.lib.PearlColor;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -104,7 +103,7 @@ public class BlockNeonLamp extends BlockDecorative {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister register) {
-		icons = new Icon[PearlColor.COUNT];
+		icons = new IIcon[PearlColor.COUNT];
 
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = register.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)) + i);

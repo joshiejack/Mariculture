@@ -1,25 +1,23 @@
 package mariculture.core.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.Mariculture;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWood extends BlockDecorative {
-	public Icon top;
-	public Icon side;
+	public IIcon top;
+	public IIcon side;
 	
 	public BlockWood(int i) {
-		super(i, Material.wood);
+		super(Material.wood);
 	}
 	
 	@Override
@@ -71,8 +69,8 @@ public class BlockWood extends BlockDecorative {
 	@Override
 	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
 		if(world.getBlockMetadata(x, y, z) >= WoodMeta.POLISHED_LOG) {
-			BlockHelper.rotateType[this.blockID] = RotationType.LOG;
-			BlockHelper.rotateVanillaBlockAlt(world, this.blockID, world.getBlockMetadata(x, y, z), x, y, z);
+			BlockHelper.rotateType[Blocks.getIdFromBlock(this)] = RotationType.LOG;
+			BlockHelper.rotateVanillaBlockAlt(world, Blocks.getIdFromBlock(this), world.getBlockMetadata(x, y, z), x, y, z);
 			return true;
 		}
 		
@@ -83,7 +81,7 @@ public class BlockWood extends BlockDecorative {
 		return (meta >= WoodMeta.POLISHED_LOG)? meta & 3: meta;
     }
 	
-	public Icon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int meta) {
 		if(meta >= WoodMeta.POLISHED_LOG) {
 	        int k = meta & 12;
 	        int l = meta & 3;
@@ -93,11 +91,11 @@ public class BlockWood extends BlockDecorative {
 		return super .getIcon(side, meta);
     }
 	
-	protected Icon getEndIcon(int meta) {
+	protected IIcon getEndIcon(int meta) {
         return this.top;
     }
 	
-	protected Icon getSideIcon(int meta) {
+	protected IIcon getSideIcon(int meta) {
         return this.side;
     }
 	

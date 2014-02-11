@@ -2,8 +2,6 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import javax.swing.Icon;
-
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
@@ -13,8 +11,6 @@ import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
-import mariculture.core.network.Packet118FluidUpdate;
-import mariculture.core.network.Packets;
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -233,7 +229,7 @@ public class BlockTank extends BlockConnected {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)) + "Tank");
@@ -243,7 +239,7 @@ public class BlockTank extends BlockConnected {
 	}
 
 	@Override
-	public Icon[] getTexture(int meta) {
+	public IIcon[] getTexture(int meta) {
 		return meta == TankMeta.FISH? fishTank: null;
 	}
 

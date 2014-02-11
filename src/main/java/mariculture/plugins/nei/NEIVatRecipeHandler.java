@@ -1,8 +1,5 @@
 package mariculture.plugins.nei;
 
-import static codechicken.core.gui.GuiDraw.changeTexture;
-import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
-
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
@@ -24,9 +21,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.GuiRecipe;
-
 public class NEIVatRecipeHandler extends NEIBase {
 	public class CachedVatRecipe extends CachedRecipe {
 		RecipeVat recipe;
@@ -35,9 +29,9 @@ public class NEIVatRecipeHandler extends NEIBase {
 
 		public CachedVatRecipe(RecipeVat recipe) {
 			if (recipe.inputItem != null)
-				this.input = new PositionedStack(recipe.inputItem.copy(), 28, 17);
+				this.input = new PositionedStack(recipe.inputItems.copy(), 28, 17);
 			if (recipe.outputItem != null)
-				this.output = new PositionedStack(recipe.outputItem.copy(), 121, 17);
+				this.output = new PositionedStack(recipe.outputItems.copy(), 121, 17);
 			this.recipe = recipe;
 		}
 

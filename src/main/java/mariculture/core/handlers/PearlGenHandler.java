@@ -6,11 +6,8 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.PearlColor;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.WeightedRandomItem;
 
 public class PearlGenHandler {
 	private static ArrayList<GeneratedPearls> pearls = new ArrayList<GeneratedPearls>();
@@ -79,8 +76,8 @@ public class PearlGenHandler {
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.SILVER), 6);
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 7);
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
-		addPearl(new ItemStack(Block.sand), 15);
+		addPearl(new ItemStack(Blocks.sand), 15);
 		if(Extra.GEN_ENDER_PEARLS)
-			addPearl(new ItemStack(Item.enderPearl), 1);
+			addPearl(new ItemStack(Items.enderPearl), 1);
 	}
 }

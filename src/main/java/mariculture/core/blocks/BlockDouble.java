@@ -124,21 +124,21 @@ public class BlockDouble extends BlockMachine {
 		if(heldItem != null && tile instanceof TileAirCompressor) {
 			TileAirCompressor compressor = (TileAirCompressor) ((TileAirCompressor) tile).getMaster();
 			if(compressor != null) {
-				int rf = (heldItem.getItem() instanceof IEnergyContainerItem)? 
-						((IEnergyContainerItem)heldItem.getItem()).extractEnergy(heldItem, 5000, true): 0;
+				int rf = (heldItems.getItem() instanceof IEnergyContainerItem)? 
+						((IEnergyContainerItem)heldItems.getItem()).extractEnergy(heldItem, 5000, true): 0;
 				if(rf > 0) {
 					int drain = compressor.receiveEnergy(ForgeDirection.UP, rf, true);
 					if(drain > 0) {
-						((IEnergyContainerItem)heldItem.getItem()).extractEnergy(heldItem, drain, false);
+						((IEnergyContainerItem)heldItems.getItem()).extractEnergy(heldItem, drain, false);
 						compressor.receiveEnergy(ForgeDirection.UP, drain, false);
 					}
 					
 					return true;
 				}
 				
-				if(heldItem.getItem() == Diving.scubaTank) {
-					if(heldItem.getItemDamage() > 1 && compressor.storedAir > 0) {
-						heldItem.setItemDamage(heldItem.getItemDamage() - 1);
+				if(heldItems.getItem() == Diving.scubaTank) {
+					if(heldItems.getItemDamage() > 1 && compressor.storedAir > 0) {
+						heldItems.setItemDamage(heldItems.getItemDamage() - 1);
 						if(!world.isRemote) {
 							compressor.storedAir--;
 							//TODO: PACKET Handle Packet for updating the energy stored in air compressor

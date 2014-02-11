@@ -102,7 +102,7 @@ public abstract class Weapon extends ToolCore
         {
             EntityPlayerSP player = (EntityPlayerSP) entity;
             ItemStack usingItem = player.getItemInUse();
-            if (usingItem != null && usingItem.getItem() == this)
+            if (usingItem != null && usingItems.getItem() == this)
             {
                 player.movementInput.moveForward *= 2.5F;
                 player.movementInput.moveStrafe *= 2.5F;

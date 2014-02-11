@@ -1,13 +1,11 @@
 package mariculture.core.helpers.cofh;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Text;
 import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.FluidMari;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.util.StatCollector;

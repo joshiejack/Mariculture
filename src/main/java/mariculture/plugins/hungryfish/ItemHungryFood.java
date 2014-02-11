@@ -1,10 +1,10 @@
 package mariculture.plugins.hungryfish;
 
+import mariculture.core.items.ItemFood;
+import mariculture.core.lib.FoodMeta;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import mariculture.core.items.ItemFood;
-import mariculture.core.lib.FoodMeta;
 
 public class ItemHungryFood extends ItemFood {
 	public ItemHungryFood(int i) {

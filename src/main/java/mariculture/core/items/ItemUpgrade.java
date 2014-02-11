@@ -13,7 +13,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
-	public ItemUpgrade(int i) {
+	public ItemUpgrade() {
 		this.maxStackSize = 1;
 	}
 

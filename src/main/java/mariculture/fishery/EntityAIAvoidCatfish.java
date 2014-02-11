@@ -1,6 +1,5 @@
 package mariculture.fishery;
 
-import mariculture.api.fishery.Fishing;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;

@@ -1,27 +1,20 @@
 package mariculture.plugins.nei;
 
-import codechicken.core.gui.GuiDraw;
-import codechicken.nei.NEIClientConfig;
-import codechicken.nei.recipe.GuiCraftingRecipe;
-import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.GuiUsageRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler;
+import java.awt.Point;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
-import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
 
 public abstract class NEIBase extends TemplateRecipeHandler {
 	protected void drawFluidRect(int j, int k, FluidStack fluid, TankSize size) {
@@ -87,7 +80,7 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 		}
 	}
 	
-	public static void drawScaledTexturedModelRectFromIcon(int i, int j, Icon icon, int x, int y) {
+	public static void drawScaledTexturedModelRectFromIcon(int i, int j, IIcon icon, int x, int y) {
 		if (icon == null) {
 			return;
 		}

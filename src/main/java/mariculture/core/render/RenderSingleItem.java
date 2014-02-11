@@ -56,7 +56,7 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.itemID == Core.oysterBlock.blockID && item.getItemDamage() != BlockOyster.NET) {
+		if (item.itemID == Core.oysterBlocks.blockID && item.getItemDamage() != BlockOyster.NET) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(OYSTER);
 			oyster.renderInventory(type);
 		}
@@ -94,7 +94,7 @@ public class RenderSingleItem implements IItemRenderer {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FEEDER);
 				feeder.renderInventory(type);
 			}
-			if (item.itemID == Fishery.siftBlock.blockID) {
+			if (item.itemID == Fishery.siftBlocks.blockID) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(SIFT);
 				sift.renderInventory(type);
 			}

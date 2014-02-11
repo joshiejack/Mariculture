@@ -2,14 +2,10 @@ package mariculture.world.decorate;
 
 import java.util.Random;
 
-import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.WorldPlus;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -87,13 +83,13 @@ public class WorldGenKelp extends WorldGenerator {
 		int y = world.getTopSolidOrLiquidBlock(x, z);
 		if (BlockHelper.isWater(world, x, y + 10, z)) {
 			if (BlockHelper.isWater(world, x, y, z)) {
-				if (world.getBlockId(x + 1, y, z) != Block.chest.blockID
-						&& world.getBlockId(x - 1, y, z) != Block.chest.blockID
-						&& world.getBlockId(x, y, z + 1) != Block.chest.blockID
-						&& world.getBlockId(x, y, z - 1) != Block.chest.blockID) {
+				if (world.getBlockId(x + 1, y, z) != Blocks.chest.blockID
+						&& world.getBlockId(x - 1, y, z) != Blocks.chest.blockID
+						&& world.getBlockId(x, y, z + 1) != Blocks.chest.blockID
+						&& world.getBlockId(x, y, z - 1) != Blocks.chest.blockID) {
 
-					world.setBlock(x, y, z, Block.chest.blockID, 1, facing);
-					TileEntityChest chest = (TileEntityChest) world.getBlockTileEntity(x, y, z);
+					world.setBlock(x, y, z, Blocks.chest.blockID, 1, facing);
+					TileEntityChest chest = (TileEntityChest) world.getTileEntity(x, y, z);
 					if (chest != null) {
 						WeightedRandomChestContent.generateChestContents(random,
 								ChestGenHooks.getItems(WorldPlus.OCEAN_CHEST, random), chest, random.nextInt(5) + random.nextInt(5) + 2);
@@ -116,19 +112,19 @@ public class WorldGenKelp extends WorldGenerator {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Block.gravel.blockID) {
+		if (world.getBlockId(x, y - 1, z) == Blocks.gravel.blockID) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Block.cobblestone.blockID) {
+		if (world.getBlockId(x, y - 1, z) == Blocks.cobblestone.blockID) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
+		if (world.getBlockId(x, y - 1, z) == Blocks.cobblestoneMossy.blockID) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Block.sand.blockID) {
+		if (world.getBlockId(x, y - 1, z) == Blocks.sand.blockID) {
 			return true;
 		}
 		

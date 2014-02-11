@@ -8,7 +8,6 @@ import mariculture.world.terrain.MapGenCavesWater;
 import mariculture.world.terrain.MapGenMineshaftsDisabled;
 import mariculture.world.terrain.MapGenRavineWater;
 import mariculture.world.terrain.MapGenRavineWaterBOP;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;

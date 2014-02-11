@@ -22,7 +22,7 @@ public class Packet102AirPump extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile instanceof TileAirPump) {
 			((TileAirPump) tile).animate = true;
 		}

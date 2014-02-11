@@ -17,8 +17,6 @@ import mariculture.fishery.items.ItemFishyFood;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.GuiRecipe;
 
 public class NEIFishBreedingMutationHandler extends NEIBase {	
 	public class CachedBreedingRecipe extends CachedRecipe {

@@ -194,7 +194,7 @@ public class ThaumcraftApiHelper
 
     public static TileEntity getConnectableTile(World world, int x, int y, int z, ForgeDirection face)
     {
-        TileEntity te = world.getBlockTileEntity(x + face.offsetX, y + face.offsetY, z + face.offsetZ);
+        TileEntity te = world.getTileEntity(x + face.offsetX, y + face.offsetY, z + face.offsetZ);
 
         if (te instanceof IEssentiaTransport && ((IEssentiaTransport) te).isConnectable(face.getOpposite()))
         {
@@ -207,7 +207,7 @@ public class ThaumcraftApiHelper
 
     public static TileEntity getConnectableTile(IBlockAccess world, int x, int y, int z, ForgeDirection face)
     {
-        TileEntity te = world.getBlockTileEntity(x + face.offsetX, y + face.offsetY, z + face.offsetZ);
+        TileEntity te = world.getTileEntity(x + face.offsetX, y + face.offsetY, z + face.offsetZ);
 
         if (te instanceof IEssentiaTransport && ((IEssentiaTransport) te).isConnectable(face.getOpposite()))
         {

@@ -1,5 +1,7 @@
 package mariculture.fishery;
 
+import ibxm.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,15 +14,12 @@ import mariculture.fishery.RodQualityHandler.FishingRod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet103SetSlot;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class RodRightClickHandler implements IFishingRod {	
 	@Override

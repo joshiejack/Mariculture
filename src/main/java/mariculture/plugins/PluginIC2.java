@@ -14,7 +14,6 @@ import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -42,7 +41,7 @@ public class PluginIC2 extends Plugin {
 		ItemStack rubber = Items.getItem("rubber");
 			
 		RecipesSmelting.addRecipe(FluidDictionary.bronze, MetalRates.TOOLS, new Object[] { 
-				bronzePick, bronzeShovel, bronzeAxe, bronzeSword, bronzeHoe }, RecipesSmelting.bronze, new ItemStack(Item.stick), 1);
+				bronzePick, bronzeShovel, bronzeAxe, bronzeSword, bronzeHoe }, RecipesSmelting.bronze, new ItemStack(Items.stick), 1);
 			
 		RecipesSmelting.addRecipe(FluidDictionary.bronze, MetalRates.ARMOR, new Object[] { 
 				bronzeHelm, bronzeChest, bronzeLegs, bronzeBoots }, RecipesSmelting.bronze, null, 0);
@@ -53,28 +52,28 @@ public class PluginIC2 extends Plugin {
 		if (Modules.world.isActive()) {
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_BLUE)), null,
-					new ItemStack(Item.dyePowder, 2, Dye.LIGHT_BLUE));
+					new ItemStack(Items.dyePowder, 2, Dye.LIGHT_BLUE));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_BRAIN)), null,
 					new ItemStack(Core.materials, 2, MaterialsMeta.DYE_YELLOW));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_CANDYCANE)), null,
-					new ItemStack(Item.dyePowder, 2, Dye.MAGENTA));
+					new ItemStack(Items.dyePowder, 2, Dye.MAGENTA));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_CUCUMBER)), null,
 					new ItemStack(Core.materials, 2, MaterialsMeta.DYE_BROWN));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_ORANGE)), null,
-					new ItemStack(Item.dyePowder, 2, Dye.ORANGE));
+					new ItemStack(Items.dyePowder, 2, Dye.ORANGE));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_PINK)), null,
-					new ItemStack(Item.dyePowder, 2, Dye.PINK));
+					new ItemStack(Items.dyePowder, 2, Dye.PINK));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_PURPLE)), null,
-					new ItemStack(Item.dyePowder, 2, Dye.PURPLE));
+					new ItemStack(Items.dyePowder, 2, Dye.PURPLE));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_RED)), null,
-					new ItemStack(Item.dyePowder, 2, Dye.RED));
+					new ItemStack(Items.dyePowder, 2, Dye.RED));
 		}
 	}
 	

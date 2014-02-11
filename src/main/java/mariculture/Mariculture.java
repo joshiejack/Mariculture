@@ -1,31 +1,22 @@
 package mariculture;
 
 import java.io.File;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.core.CommonProxy;
 import mariculture.core.Config;
 import mariculture.core.RecipesSmelting;
-import mariculture.core.guide.GuideHandler;
-import mariculture.core.guide.GuideRegistry;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.Packets;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.compatibility.Compat;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.0c", dependencies="after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty;after:AWWayofTime")

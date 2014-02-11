@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -65,7 +65,7 @@ public abstract class InventoryBlock extends BlockContainer
     @Override
     public void breakBlock (World par1World, int x, int y, int z, int blockID, int meta)
     {
-        TileEntity te = par1World.getBlockTileEntity(x, y, z);
+        TileEntity te = par1World.getTileEntity(x, y, z);
 
         if (te != null && te instanceof InventoryLogic)
         {
@@ -127,7 +127,7 @@ public abstract class InventoryBlock extends BlockContainer
     @Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IFacingLogic)
         {
             IFacingLogic direction = (IFacingLogic) logic;
@@ -159,7 +159,7 @@ public abstract class InventoryBlock extends BlockContainer
 
     public static boolean isActive (IBlockAccess world, int x, int y, int z)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IActiveLogic)
         {
             return ((IActiveLogic) logic).getActive();
@@ -173,7 +173,7 @@ public abstract class InventoryBlock extends BlockContainer
     }
 
     /* Textures */
-    public Icon[] icons;
+    public IIcon[] icons;
 
     public abstract String[] getTextureNames ();
 
@@ -181,7 +181,7 @@ public abstract class InventoryBlock extends BlockContainer
     public void registerIcons (IconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

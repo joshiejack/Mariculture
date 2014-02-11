@@ -229,7 +229,7 @@ public abstract class FishSpecies {
 		return new int[] { 1, 3, 5 };
 	}
 	
-	/* Language/Icon */
+	/* Language/IIcon */
 	/** Fish's name **/
 	public String getName() {
 		return StatCollector.translateToLocal("fish.data.species." + this.getSpecies());

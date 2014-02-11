@@ -3,12 +3,8 @@ package mariculture.core.render;
 import mariculture.core.Core;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.lib.PearlColor;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
@@ -218,7 +214,7 @@ public class ModelOyster extends ModelBase {
 					renderPearl(posX, posY);
 				}
 			} else {
-				if(oyster.getCurrentPearl().itemID == Item.enderPearl.itemID) {
+				if(oyster.getCurrentPearl().itemID == Items.enderPearl.itemID) {
 					renderPearl(68, 0);
 				} else {
 					GL11.glPushMatrix();

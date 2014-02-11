@@ -1,19 +1,17 @@
 package mariculture.fishery.gui;
 
-import cofh.api.energy.IEnergyContainerItem;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
 import mariculture.fishery.blocks.TileIncubator;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import cofh.api.energy.IEnergyContainerItem;
 
 public class ContainerIncubator extends ContainerMachine {
 	public ContainerIncubator(TileIncubator tile, InventoryPlayer playerInventory) {
@@ -57,7 +55,7 @@ public class ContainerIncubator extends ContainerMachine {
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
 				if ((stack.getItem() instanceof ItemFishy && Fishing.fishHelper.isEgg(stack))
-						|| stack.itemID == Item.egg.itemID || stack.itemID == Block.dragonEgg.blockID) {
+						|| stack.itemID == Items.egg.itemID || stack.itemID == Blocks.dragonEgg.blockID) {
 					if (!this.mergeItemStack(stack, 4, 13, false)) { // Slot 4-12
 						return null;
 					}
@@ -109,9 +107,9 @@ public class ContainerIncubator extends ContainerMachine {
 				if (Fishing.fishHelper.isEgg(stack)) {
 					return true;
 				}
-			} else if (stack.itemID == Item.egg.itemID) {
+			} else if (stack.itemID == Items.egg.itemID) {
 				return true;
-			} else if (stack.itemID == Block.dragonEgg.blockID) {
+			} else if (stack.itemID == Blocks.dragonEgg.blockID) {
 				return true;
 			}
 

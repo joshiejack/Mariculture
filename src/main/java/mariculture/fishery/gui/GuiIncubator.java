@@ -8,7 +8,6 @@ import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeaturePower;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureUpgrades;
-import mariculture.core.lib.Text;
 import mariculture.fishery.blocks.TileIncubator;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;

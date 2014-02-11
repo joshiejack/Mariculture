@@ -1,5 +1,7 @@
 package mariculture.magic;
 
+import ibxm.Player;
+
 import java.util.EnumSet;
 
 import mariculture.core.helpers.EnchantHelper;
@@ -18,11 +20,6 @@ import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
 import mariculture.magic.enchantments.EnchantmentStepUp;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import cpw.mods.fml.common.IScheduledTickHandler;
-import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class EnchantUpdateTicker implements IScheduledTickHandler {
 	@Override

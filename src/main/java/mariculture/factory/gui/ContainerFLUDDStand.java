@@ -1,9 +1,6 @@
 package mariculture.factory.gui;
 
-import cofh.api.energy.IEnergyContainerItem;
 import mariculture.api.core.IItemUpgrade;
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;

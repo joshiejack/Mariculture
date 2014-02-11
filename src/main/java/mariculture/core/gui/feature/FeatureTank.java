@@ -5,7 +5,7 @@ import java.util.List;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.util.ITank;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -48,7 +48,7 @@ public class FeatureTank extends Feature {
 		
 		int start = 0;
 
-		Icon liquidIcon = null;
+		IIcon liquidIcon = null;
 		Fluid fluid = liquid.getFluid();
 		if (fluid != null && fluid.getStillIcon() != null) {
 			liquidIcon = fluid.getStillIcon();

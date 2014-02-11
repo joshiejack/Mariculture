@@ -22,7 +22,7 @@ public class Packet116GUIClick extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		IHasClickableButton tile = (IHasClickableButton)world.getBlockTileEntity(x, y, z);
+		IHasClickableButton tile = (IHasClickableButton)world.getTileEntity(x, y, z);
 		if(tile != null) {
 			tile.handleButtonClick(id);
 		}

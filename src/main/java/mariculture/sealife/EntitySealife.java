@@ -3,30 +3,20 @@ package mariculture.sealife;
 import java.util.Calendar;
 import java.util.UUID;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -276,7 +266,7 @@ public class EntitySealife extends EntitySealifeBase
      */
     protected int getDropItemId()
     {
-        return Item.rottenFlesh.itemID;
+        return Items.rottenFlesh.itemID;
     }
 
     /**
@@ -292,13 +282,13 @@ public class EntitySealife extends EntitySealifeBase
         switch (this.rand.nextInt(3))
         {
             case 0:
-                this.dropItem(Item.ingotIron.itemID, 1);
+                this.dropItem(Items.ingotIron.itemID, 1);
                 break;
             case 1:
-                this.dropItem(Item.carrot.itemID, 1);
+                this.dropItem(Items.carrot.itemID, 1);
                 break;
             case 2:
-                this.dropItem(Item.potato.itemID, 1);
+                this.dropItem(Items.potato.itemID, 1);
         }
     }
 
@@ -315,11 +305,11 @@ public class EntitySealife extends EntitySealifeBase
 
             if (i == 0)
             {
-                this.setCurrentItemOrArmor(0, new ItemStack(Item.swordIron));
+                this.setCurrentItemOrArmor(0, new ItemStack(Items.swordIron));
             }
             else
             {
-                this.setCurrentItemOrArmor(0, new ItemStack(Item.shovelIron));
+                this.setCurrentItemOrArmor(0, new ItemStack(Items.shovelIron));
             }
         }
     }
@@ -411,7 +401,7 @@ public class EntitySealife extends EntitySealifeBase
 
             if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.rand.nextFloat() < 0.25F)
             {
-                this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Block.pumpkinLantern : Block.pumpkin));
+                this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.pumpkinLantern : Blocks.pumpkin));
                 this.equipmentDropChances[4] = 0.0F;
             }
         }
@@ -435,7 +425,7 @@ public class EntitySealife extends EntitySealifeBase
     {
         ItemStack itemstack = par1EntityPlayer.getCurrentEquippedItem();
 
-        if (itemstack != null && itemstack.getItem() == Item.appleGold && itemstack.getItemDamage() == 0 && this.isVillager() && this.isPotionActive(Potion.weakness))
+        if (itemstack != null && itemstack.getItem() == Items.appleGold && itemstack.getItemDamage() == 0 && this.isVillager() && this.isPotionActive(Potion.weakness))
         {
             if (!par1EntityPlayer.capabilities.isCreativeMode)
             {
@@ -542,7 +532,7 @@ public class EntitySealife extends EntitySealifeBase
                     {
                         int j1 = this.worldObj.getBlockId(k, l, i1);
 
-                        if (j1 == Block.fenceIron.blockID || j1 == Block.bed.blockID)
+                        if (j1 == Blocks.fenceIron.blockID || j1 == Blocks.bed.blockID)
                         {
                             if (this.rand.nextFloat() < 0.3F)
                             {

@@ -9,7 +9,7 @@ import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class Packet113MultiInit extends PacketMariculture {
 	
@@ -29,7 +29,7 @@ public class Packet113MultiInit extends PacketMariculture {
 
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		TileEntity te = world.getBlockTileEntity(x, y, z);
+		TileEntity te = world.getTileEntity(x, y, z);
 		if(te instanceof TileMultiBlock) {
 			if(mY < 0) {
 				((TileMultiBlock) te).setMaster(null);

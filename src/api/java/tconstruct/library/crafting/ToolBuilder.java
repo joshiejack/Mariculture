@@ -87,7 +87,7 @@ public class ToolBuilder
         instance.combos.add(recipe);
     }
 
-    public static void addToolRecipe (ToolCore output, Item... items)
+    public static void addToolRecipe (ToolCore output, Items... items)
     {
         if (items.length == 2)
             addNormalToolRecipe(output, items[0], items[1]);
@@ -118,9 +118,9 @@ public class ToolBuilder
         if (stack == null)
             return -1;
         Item item = stack.getItem();
-        if (item == Item.stick)
+        if (item == Items.stick)
             return 0;
-        else if (item == Item.bone)
+        else if (item == Items.bone)
             return 5;
         else if (item instanceof IToolPart)
             return ((IToolPart) item).getMaterialID(stack);
@@ -152,9 +152,9 @@ public class ToolBuilder
         handle = getMaterialID(handleStack);
         if (handle == -1)
             validMaterials = false;
-        /*if (handleItem == Item.stick)
+        /*if (handleItem == Items.stick)
             handle = 0;
-        else if (handleItem == Item.bone)
+        else if (handleItem == Items.bone)
             handle = 5;
         else if (handleItem instanceof IToolPart)
             handle = ((IToolPart) handleItem).getMaterialID(handleStack);

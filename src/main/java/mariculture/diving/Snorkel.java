@@ -2,7 +2,6 @@ package mariculture.diving;
 
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
-import mariculture.core.lib.Extra;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 

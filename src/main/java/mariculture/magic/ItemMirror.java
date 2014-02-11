@@ -3,8 +3,8 @@ package mariculture.magic;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.MirrorHelper;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.Jewelry;
@@ -12,13 +12,12 @@ import mariculture.core.util.Rand;
 import mariculture.magic.gui.ContainerMirror;
 import mariculture.magic.gui.GuiMirror;
 import mariculture.magic.jewelry.ItemJewelry;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -90,7 +89,7 @@ public class ItemMirror extends ItemStorage {
 		private ResourceLocation bracelet = new ResourceLocation(Mariculture.modid + ":" + "textures/gui/icon_bracelet.png");
 		private ResourceLocation necklace = new ResourceLocation(Mariculture.modid + ":" + "textures/gui/icon_necklace.png");
 		private int type;
-		private Icon[] bgIcons;
+		private IIcon[] bgIcons;
 
 		public SlotJewelry(IInventory inv, int id, int x, int y, int type) {
 			super(inv, id, x, y);

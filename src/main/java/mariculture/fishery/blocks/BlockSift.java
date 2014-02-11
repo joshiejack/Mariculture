@@ -62,7 +62,7 @@ public class BlockSift extends BlockMachine {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile == null || player.isSneaking()) {
 			return false;
 		}
@@ -157,7 +157,7 @@ public class BlockSift extends BlockMachine {
 	private void spawnItem(ItemStack item, World world, int x, int y, int z) {
 		boolean done = false;
 		if (world.getBlockMetadata(x, y, z) > 1) {
-		TileSift sift = (TileSift) world.getBlockTileEntity(x, y, z);
+		TileSift sift = (TileSift) world.getTileEntity(x, y, z);
 			if (sift.getSuitableSlot(item) != 10) {
 				int slot = sift.getSuitableSlot(item);
 				ItemStack newStack = item;

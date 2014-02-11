@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.network.Packet113MultiInit;
-import mariculture.core.network.Packet117AirCompressorUpdate;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
@@ -84,8 +82,8 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 				energyStorage.extractEnergy(1000, false);
 				if(storedAir < max) {
 					storedAir++;
-					
-					Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
+					//TODO: PACKET Fix sending air compressor render update info
+					//Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
 				}
 			}
 		}
@@ -103,7 +101,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 //Master Stuff
 	@Override
 	public boolean isPartnered(int x, int y, int z) {
-		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
 		return tile instanceof TileAirCompressor?  ((TileAirCompressor)tile).master != null : false;
 	}
 	

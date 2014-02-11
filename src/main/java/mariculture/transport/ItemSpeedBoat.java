@@ -4,14 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import mariculture.api.core.MaricultureTab;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -79,9 +76,9 @@ public class ItemSpeedBoat extends Item {
 					int var33 = var24.blockY;
 					int var34 = var24.blockZ;
 
-					if (world.getBlockId(var35, var33, var34) == Block.waterStill.blockID) {
+					if (world.getBlockId(var35, var33, var34) == Blocks.waterStill.blockID) {
 						if (!world.isRemote) {
-							if (world.getBlockId(var35, var33, var34) == Block.snow.blockID) {
+							if (world.getBlockId(var35, var33, var34) == Blocks.snow.blockID) {
 								--var33;
 							}
 

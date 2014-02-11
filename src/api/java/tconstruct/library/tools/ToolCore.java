@@ -23,7 +23,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
@@ -69,8 +69,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
 
     protected Random random = new Random();
     protected int damageVsEntity;
-    public static Icon blankSprite;
-    public static Icon emptyIcon;
+    public static IIcon blankSprite;
+    public static IIcon emptyIcon;
 
     public ToolCore(int id, int baseDamage)
     {
@@ -119,12 +119,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
 
     /* Rendering */
 
-    public HashMap<Integer, Icon> headIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> brokenIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> handleIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> accessoryIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> effectIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> extraIcons = new HashMap<Integer, Icon>();
+    public HashMap<Integer, IIcon> headIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> brokenIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> handleIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> accessoryIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> effectIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> extraIcons = new HashMap<Integer, IIcon>();
 
     //Not liking this
     public HashMap<Integer, String> headStrings = new HashMap<Integer, String>();
@@ -249,14 +249,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
         return blankSprite;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (ItemStack stack, int renderPass)
+    public IIcon getIcon (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 
@@ -638,7 +638,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
     @Override
     public boolean onBlockDestroyed (ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityLivingBase player)
     {
-        Block block = Block.blocksList[blockID];
+        Block block = Blocks.blocksList[blockID];
         if (block != null && (double) block.getBlockHardness(world, x, y, z) != 0.0D)
         {
             return AbilityHelper.onBlockChanged(itemstack, world, blockID, x, y, z, player, random);

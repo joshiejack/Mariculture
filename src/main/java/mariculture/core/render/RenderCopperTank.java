@@ -12,7 +12,7 @@ public class RenderCopperTank extends RenderBase {
 	@Override
 	public void renderBlock() {
 		if(!isItem()) {
-			TileTankBlock tank = (TileTankBlock) world.getBlockTileEntity(x, y, z);
+			TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
 			if(tank != null) {
 				if(tank.tank.getFluidAmount() > 0) {
 					FluidStack fluid = tank.tank.getFluid();

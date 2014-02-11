@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -77,7 +77,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			//Init Master
 			Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
 			for(MultiPart slave: slaves) {
-				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
+				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te instanceof TileVat) {
 					Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
 							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
@@ -184,7 +184,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		
 		//Decrease the StackSize of the input, by this much if it's valid
 		if(recipe.inputItem != null) {
-			decrStackSize(0, recipe.inputItem.stackSize);
+			decrStackSize(0, recipe.inputItems.stackSize);
 		}
 		
 		//Add the new Fluid
@@ -194,7 +194,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		
 		//Add the new Item
 		if(recipe.outputItem != null) {
-			ItemStack output = recipe.outputItem.copy();
+			ItemStack output = recipe.outputItems.copy();
 			if(inventory[1] != null) {
 				output.stackSize+=inventory[1].stackSize;
 			}
@@ -267,7 +267,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 //Inventory Logic
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		return vat.inventory[slot];
@@ -275,7 +275,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		if (vat.inventory[slot] != null) {
@@ -289,7 +289,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return;
 		
@@ -303,7 +303,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public ItemStack decrStackSize(int slot, int amount) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		if (vat.inventory[slot] != null) {
@@ -334,7 +334,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		super.onInventoryChanged();
 				
 		if(!worldObj.isRemote) {
-			TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+			TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 			Packets.updateTile(vat, 64, new Packet120ItemSync(vat.xCoord, vat.yCoord, vat.zCoord, vat.inventory).build());
 		}
 	}
@@ -342,7 +342,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 //Tank Logic
 	@Override
 	public FluidStack getFluid(int transfer) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		if(vat.tank.getFluid() == null)
@@ -360,7 +360,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public FluidStack getFluid(byte tank) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		if(tank == 1)
@@ -379,7 +379,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 
 	@Override
 	public void setFluid(FluidStack fluid, byte tank) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return;
 		
@@ -393,7 +393,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		
@@ -424,7 +424,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return 0;
 		
@@ -447,7 +447,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
+		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
 		if(vat == null)
 			return null;
 		
@@ -500,7 +500,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	@Override
 	public void onBlockBreak() {
 		if(master != null) {
-			TileVat mstr = (TileVat) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
+			TileVat mstr = (TileVat) worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord);
 			if(mstr != null) {
 				//Set all three tanks back to small size
 				mstr.tank.setCapacity(max_sml);
@@ -522,13 +522,13 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	
 	@Override
 	public boolean isPartnered(int x, int y, int z) {
-		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
 		return tile instanceof TileVat? ((TileVat)tile).master != null : false;
 	}
 	
 	@Override
 	public boolean isPart(int x, int y, int z) {
-		return worldObj.getBlockTileEntity(x, y, z) instanceof TileVat && !isPartnered(x, y, z);
+		return worldObj.getTileEntity(x, y, z) instanceof TileVat && !isPartnered(x, y, z);
 	}
 	
 	@Override

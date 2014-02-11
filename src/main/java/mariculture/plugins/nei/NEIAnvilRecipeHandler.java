@@ -1,30 +1,18 @@
 package mariculture.plugins.nei;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.lib.Modules;
-import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.Text;
-import mariculture.magic.JewelryHandler;
-import mariculture.magic.Magic;
-import mariculture.magic.jewelry.ItemJewelry;
-import mariculture.magic.jewelry.ItemRing;
-import mariculture.magic.jewelry.ItemBracelet;
 import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import codechicken.nei.NEIServerUtils;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.GuiRecipe;
 
 public class NEIAnvilRecipeHandler extends NEIBase {
 	public static final HashMap<ItemStack, RecipeJewelry> jewelry = new HashMap();

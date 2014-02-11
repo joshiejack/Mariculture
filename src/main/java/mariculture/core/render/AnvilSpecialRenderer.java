@@ -2,7 +2,6 @@ package mariculture.core.render;
 
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.util.EntityFakeItem;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemBlock;
@@ -12,7 +11,6 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.library.ItemBlocklike;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class BlockTransferHelper {
@@ -59,7 +59,7 @@ public class BlockTransferHelper {
 				Collections.shuffle(sides);
 				for(Integer side: sides) {
 					ForgeDirection dir = ForgeDirection.getOrientation(side);
-					TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+					TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 					
 					if(isSameBlock(tile))
 						continue;
@@ -127,8 +127,8 @@ public class BlockTransferHelper {
 												
 						Collections.shuffle(cords);
 						for(MultiPart cord: cords) {
-							if(world.getBlockTileEntity(cord.xCoord, cord.yCoord, cord.zCoord) != null) {
-								BlockTransferHelper helper = new BlockTransferHelper(world.getBlockTileEntity(cord.xCoord, cord.yCoord, cord.zCoord));
+							if(world.getTileEntity(cord.xCoord, cord.yCoord, cord.zCoord) != null) {
+								BlockTransferHelper helper = new BlockTransferHelper(world.getTileEntity(cord.xCoord, cord.yCoord, cord.zCoord));
 								stack = helper.ejectToSides(stack);
 							}
 						}
@@ -151,7 +151,7 @@ public class BlockTransferHelper {
 		Collections.shuffle(sides);
 		for(Integer side: sides) {
 			ForgeDirection dir = ForgeDirection.getOrientation(side);
-			TileEntity tile = world.getBlockTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+			TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 			if(tile instanceof IInventory && !(tile instanceof TileEntityHopper) && !isSameBlock(tile)) {
 				stack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, dir.ordinal());
 			}

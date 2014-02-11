@@ -1,12 +1,10 @@
 package mariculture.core.render;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.core.Core;
 import mariculture.core.lib.OresMeta;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraft.init.Blocks;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderAnvil extends RenderBase {
 	
@@ -26,9 +24,9 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0.15, 0.2, 0.2, 0.85D, 0.3D, 0.8D);
 			
 			//Middle
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.25, 0.3, 0.3, 0.75D, 0.6D, 0.7D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.05, 0.6, 0.2, 0.95D, 0.65D, 0.8D);
 			
 			//Secondary Head
@@ -36,15 +34,15 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0, 0.65, 0.15, 1D, 0.95D, 0.85D);
 			
 			//Head
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.95, 0.95, 0.15, 1D, 1D, 0.85D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0D, 0.95, 0.15D, 0.05D, 1D, 0.85D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.05D, 0.95D, 0.8D, 0.95D, 1D, 0.85D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.05D, 0.95D, 0.15D, 0.95D, 1D, 0.2D);
-			setTexture(Block.hopperBlock);
+			setTexture(Blocks.hopper);
 			renderBlock(0.05D, 0.95D, 0.2D, 0.95D, 1D, 0.8D);
 		} else {
 			//Bottom
@@ -56,9 +54,9 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0.2, 0.2, 0.15, 0.8D, 0.3D, 0.85D);
 			
 			//Middle
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.3, 0.3, 0.25, 0.7D, 0.6D, 0.75D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.2, 0.6, 0.05, 0.8D, 0.65D, 0.95D);
 			
 			//Secondary Head
@@ -66,15 +64,15 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0.15, 0.65, 0, 0.85D, 0.95D, 1D);
 			
 			//Head
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.15, 0.95, 0.95, 0.85D, 1D, 1D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.15, 0.95, 0, 0.85D, 1D, 0.05D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.8, 0.95, 0.05, 0.85D, 1D, 0.95D);
-			setTexture(Block.netherBrick);
+			setTexture(Blocks.nether_brick);
 			renderBlock(0.15, 0.95, 0.05, 0.2D, 1D, 0.95D);
-			setTexture(Block.hopperBlock);
+			setTexture(Blocks.hopper);
 			renderBlock(0.2, 0.95, 0.05, 0.8D, 1D, 0.95D);
 		}
 	}

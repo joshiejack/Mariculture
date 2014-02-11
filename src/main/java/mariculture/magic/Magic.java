@@ -11,7 +11,6 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -60,7 +59,6 @@ import mariculture.magic.jewelry.parts.PartPearlWhite;
 import mariculture.magic.jewelry.parts.PartPearlYellow;
 import mariculture.magic.jewelry.parts.PartString;
 import mariculture.magic.jewelry.parts.PartWool;
-import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
@@ -69,7 +67,6 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class Magic extends Module {
@@ -143,13 +140,13 @@ public class Magic extends Module {
 
 	@Override
 	public void registerItems() {
-		basicMirror = new ItemMirror(ItemIds.basicMirror, "mirror").setUnlocalizedName("mirror.basic");
-		magicMirror = new ItemMagicMirror(ItemIds.magicMirror, 1, 30, "magicMirror", 15, 1000).setUnlocalizedName("mirror.magic");
-		celestialMirror = new ItemMagicMirror(ItemIds.celestialMirror, 31, 60, "celestialMirror",20, 10000).setUnlocalizedName("mirror.celestial");
-		ring = new ItemRing(ItemIds.ring).setUnlocalizedName("ring");
-		bracelet = new ItemBracelet(ItemIds.bracelet).setUnlocalizedName("bracelet");
-		necklace = new ItemNecklace(ItemIds.necklace).setUnlocalizedName("necklace");
-		magnet = new ItemMobMagnet(ItemIds.magnet, 100).setUnlocalizedName("mobMagnet");
+		basicMirror = new ItemMirror(basicMirror, "mirror").setUnlocalizedName("mirror.basic");
+		magicMirror = new ItemMagicMirror(magicMirror, 1, 30, "magicMirror", 15, 1000).setUnlocalizedName("mirror.magic");
+		celestialMirror = new ItemMagicMirror(celestialMirror, 31, 60, "celestialMirror",20, 10000).setUnlocalizedName("mirror.celestial");
+		ring = new ItemRing(ring).setUnlocalizedName("ring");
+		bracelet = new ItemBracelet(bracelet).setUnlocalizedName("bracelet");
+		necklace = new ItemNecklace(necklace).setUnlocalizedName("necklace");
+		magnet = new ItemMobMagnet(magnet, 100).setUnlocalizedName("mobMagnet");
 
 		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
 	}
@@ -182,7 +179,7 @@ public class Magic extends Module {
 	public void registerOther() {
 		registerJewelry();
 		registerEnchants();
-		// Setup Icon
+		// Setup IIcon
 		MaricultureTab.tabJewelry.icon = new ItemStack(basicMirror);
 	}
 
@@ -190,12 +187,12 @@ public class Magic extends Module {
 	public void addRecipes() {
 		//Enchant Book
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.ENCHANTS), new Object[] {
-			Item.book, new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
+			Items.book, new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
 		});
 		
 		//Basic Mirror
 		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
-			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Block.thinGlass, 'S', "ingotIron"
+			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.thinGlass, 'S', "ingotIron"
 		});
 		
 		//Magic Mirror
@@ -203,17 +200,17 @@ public class Magic extends Module {
 			"PMP", "BEB", "PBP", 
 			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
 			'M', basicMirror, 
-			'E', Block.enchantmentTable, 
+			'E', Blocks.enchantmentTable, 
 			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
 		});
 			
 		//Celestial Mirror
-		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Item.ghastTear);
+		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghastTear);
 		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
 			"TST", "BMB", "GBG", 
 			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
 			'M', magicMirror, 
-			'S', Item.netherStar,
+			'S', Items.netherStar,
 			'T', drop,
 			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
 		});
@@ -226,7 +223,7 @@ public class Magic extends Module {
 		//Mob Magnet Crafting
 		if(Extra.MOB_MAGNET) {
 			RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
-				"III", "I I", "M M", 'I', "ingotIron", 'M', Item.enderPearl
+				"III", "I I", "M M", 'I', "ingotIron", 'M', Items.enderPearl
 			});
 		}
 	}

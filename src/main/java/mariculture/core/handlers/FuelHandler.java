@@ -1,7 +1,5 @@
 package mariculture.core.handlers;
 
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Modules;
 import mariculture.fishery.Fishery;
 import net.minecraft.item.ItemStack;

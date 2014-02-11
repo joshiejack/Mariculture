@@ -2,7 +2,6 @@ package mariculture.core.blocks;
 
 import mariculture.core.lib.DoubleMeta;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class BlockDoubleItem extends ItemBlockMariculture {

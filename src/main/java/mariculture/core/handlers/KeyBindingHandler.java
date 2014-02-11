@@ -1,7 +1,5 @@
 package mariculture.core.handlers;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.util.EnumSet;
 
 import mariculture.core.helpers.KeyBindingHelper;
@@ -10,23 +8,14 @@ import mariculture.core.lib.Modules;
 import mariculture.core.network.Packet106JewelrySwap;
 import mariculture.core.network.Packet122KeyPress;
 import mariculture.core.network.Packet122KeyPress.KeyType;
-import mariculture.factory.Factory;
-import mariculture.factory.FactoryEvents;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentSpider;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.gui.GuiNewChat;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
-import cpw.mods.fml.common.TickType;
 
 public class KeyBindingHandler extends KeyHandler {
 	public static KeyBinding boost = new KeyBinding(StatCollector.translateToLocal("key.boost"), Keyboard.KEY_LCONTROL);

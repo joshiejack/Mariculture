@@ -4,14 +4,13 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -213,8 +212,8 @@ public class FluidHelper {
 			} else {
 				return null;
 			}
-		} else if (Block.blocksList[bId] != null && Block.blocksList[bId] instanceof IFluidBlock) {
-			IFluidBlock block = (IFluidBlock) Block.blocksList[bId];
+		} else if (Blocks.blocksList[bId] != null && Blocks.blocksList[bId] instanceof IFluidBlock) {
+			IFluidBlock block = (IFluidBlock) Blocks.blocksList[bId];
 			return block.drain(worldObj, x, y, z, true);
 		}
 		return null;

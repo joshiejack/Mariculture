@@ -26,7 +26,7 @@ public abstract class DualHarvestTool extends HarvestTool
         World world = player.worldObj;
         int bID = player.worldObj.getBlockId(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[bID];
+        Block block = Blocks.blocksList[bID];
         if (block == null || bID < 1)
             return false;
         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());

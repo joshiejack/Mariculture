@@ -2,8 +2,6 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import javax.swing.Icon;
-
 import mariculture.Mariculture;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
@@ -20,7 +18,6 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.util.Rand;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -173,7 +170,7 @@ public class BlockOyster extends BlockMachine {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-		TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
+		TileEntity tile_entity = world.getTileEntity(x, y, z);
 
 		if (tile_entity == null || (player.isSneaking() && !Extra.DEBUG_ON)) {
 			return false;
@@ -185,7 +182,7 @@ public class BlockOyster extends BlockMachine {
 			//Spawn in the Jewelry Book on first collection of a pearl
 			if(Extra.SPAWN_BOOKS) {
 				ItemStack stack = oyster.getStackInSlot(0);
-				if(stack != null && stack.itemID != Block.sand.blockID) {
+				if(stack != null && stack.itemID != Blocks.sand.blockID) {
 					if(!player.getEntityData().hasKey("EnchantsBook")) {
 						player.getEntityData().setBoolean("EnchantsBook", true);
 						ItemStack book = new ItemStack(Core.guides, 1, GuideMeta.ENCHANTS);
@@ -201,9 +198,9 @@ public class BlockOyster extends BlockMachine {
 			if (!player.isSneaking()) {
 				if (!world.isRemote) {
 					if (player.getCurrentEquippedItem() != null
-							&& player.getCurrentEquippedItem().itemID == Block.sand.blockID) {
+							&& player.getCurrentEquippedItem().itemID == Blocks.sand.blockID) {
 						if (!oyster.hasContents()) {
-							oyster.setInventorySlotContents(0, new ItemStack(Block.sand));
+							oyster.setInventorySlotContents(0, new ItemStack(Blocks.sand));
 							if (!player.capabilities.isCreativeMode) {
 								player.inventory.decrStackSize(player.inventory.currentItem, 1);
 							}
@@ -246,7 +243,7 @@ public class BlockOyster extends BlockMachine {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {		
 		if(world.getBlockMetadata(x, y, z) != NET) {
-			TileOyster oyster = (TileOyster) world.getBlockTileEntity(x, y, z);
+			TileOyster oyster = (TileOyster) world.getTileEntity(x, y, z);
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
@@ -294,7 +291,7 @@ public class BlockOyster extends BlockMachine {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[2];
+		icons = new IIcon[2];
 		icons[0] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, 0)));
 		icons[1] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, NET)));
 	}

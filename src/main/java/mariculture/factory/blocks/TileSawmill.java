@@ -70,7 +70,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 			return false;
 		}
 
-		return stack.getItem() instanceof ItemBlock || stack.getItem().itemID == Item.feather.itemID;
+		return stack.getItem() instanceof ItemBlock || stack.getItem().itemID == Items.feather.itemID;
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 	
 	private int getID(int slot) {
-		if (inventory[slot].itemID == Item.feather.itemID) {
+		if (inventory[slot].itemID == Items.feather.itemID) {
 			return Core.airBlocks.blockID;
 		}
 
@@ -177,7 +177,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 
 	private int getMeta(int slot) {
-		if (inventory[slot].itemID == Item.feather.itemID) {
+		if (inventory[slot].itemID == Items.feather.itemID) {
 			return AirMeta.FAKE_AIR;
 		}
 

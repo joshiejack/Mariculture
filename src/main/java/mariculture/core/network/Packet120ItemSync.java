@@ -7,7 +7,6 @@ import java.io.IOException;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileVat;
-import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -56,11 +55,11 @@ public class Packet120ItemSync extends PacketMariculture {
 		int z = nbt.getInteger("z");
 		int length = nbt.getInteger("length");
 		
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		
 		if(tile instanceof TileVat || tile instanceof TileAnvil || tile instanceof TileIngotCaster) {
 			ItemStack[] inventory = new ItemStack[length];
-			IInventory block = (IInventory) world.getBlockTileEntity(x, y, z);
+			IInventory block = (IInventory) world.getTileEntity(x, y, z);
 			NBTTagList tagList = nbt.getTagList("Inventory");
 			for (int i = 0; i < tagList.tagCount(); i++) {
 				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);

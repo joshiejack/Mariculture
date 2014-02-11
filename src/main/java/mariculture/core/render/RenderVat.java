@@ -1,12 +1,10 @@
 package mariculture.core.render;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.core.Core;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.lib.DoubleMeta;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderVat extends RenderBase {
 	public RenderVat(RenderBlocks render) {
@@ -36,7 +34,7 @@ public class RenderVat extends RenderBase {
 			renderBlock(0.1, 0.3, 0.1, 0.9, 0.4, 0.9);
 			//Liquid
 			if(!isItem()) {
-				TileVat tile = (TileVat) world.getBlockTileEntity(x, y, z);
+				TileVat tile = (TileVat) world.getTileEntity(x, y, z);
 				if(tile.getFluid((byte)1) != null)
 					renderFluid(tile.getFluid((byte)1), TileVat.max_sml, 0.46D, 0, 0, 0);
 				if(tile.getFluid((byte)2) != null)
@@ -77,7 +75,7 @@ public class RenderVat extends RenderBase {
 			renderBlock(0.2, 0.2, 0.2, 1, 0.3, 1);
 			renderBlock(0.1, 0.3, 0.1, 1, 0.4, 1);
 			//Liquid
-			TileVat tile = (TileVat) world.getBlockTileEntity(x, y, z);
+			TileVat tile = (TileVat) world.getTileEntity(x, y, z);
 			if(tile.getFluid((byte)1) != null) {
 				renderFluid(tile.getFluid((byte)1), TileVat.max_lrg, 0.56D, 0, 0, 0);
 				renderFluid(tile.getFluid((byte)1), TileVat.max_lrg, 0.56D, +1, 0, 0);

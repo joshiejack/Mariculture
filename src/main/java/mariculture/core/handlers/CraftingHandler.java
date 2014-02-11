@@ -13,7 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.ICraftingHandler;
 
 public class CraftingHandler implements ICraftingHandler {
     @Override
@@ -53,7 +52,7 @@ public class CraftingHandler implements ICraftingHandler {
     		
     		//Spawn Factory book on crafting of an iron wheel
     		if(Modules.factory.isActive()) {
-    			if(stack.itemID == Core.craftingItem.itemID && stack.getItemDamage() == CraftingMeta.WHEEL) {
+    			if(stack.itemID == Core.craftingItems.itemID && stack.getItemDamage() == CraftingMeta.WHEEL) {
 	    			if(!player.getEntityData().hasKey("FactoryBook")) {
 	    				player.getEntityData().setBoolean("FactoryBook", true);
 	    				ItemStack book = new ItemStack(Core.guides, 1, GuideMeta.MACHINES);

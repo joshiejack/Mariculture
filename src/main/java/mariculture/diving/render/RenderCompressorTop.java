@@ -1,15 +1,13 @@
 package mariculture.diving.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockDouble;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.diving.TileAirCompressor;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -24,19 +22,19 @@ public class RenderCompressorTop extends RenderBase {
 			GL11.glTranslatef(0.15F, 0.05F, -0.65F);
 		}
 		
-		setTexture(Block.stone);
-		TileAirCompressor tile = (TileAirCompressor) (isItem() ? null: world.getBlockTileEntity(x, y, z));
+		setTexture(Blocks.stone);
+		TileAirCompressor tile = (TileAirCompressor) (isItem() ? null: world.getTileEntity(x, y, z));
 		if(dir == ForgeDirection.UNKNOWN && !isItem()) {
 			setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
 			renderBlock(0.05, 0, 0.05, 0.95, 0.15, 0.95);
 		} else if (dir == ForgeDirection.EAST) {
 			if(!isItem()) {
 				if(tile.master != null) {
-					TileEntity te = world.getBlockTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
+					TileEntity te = world.getTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
 					if(te != null && te instanceof TileAirCompressor) {
 						TileAirCompressor master = (TileAirCompressor) te;
 						if(master.getEnergyStored(ForgeDirection.UP) > 0 && master.storedAir < TileAirCompressor.max)
-							setTexture(Block.cloth, 5);
+							setTexture(Blocks.cloth, 5);
 						renderBlock(0.1, 0.3, 0.35, 0.4, 0.55, 0.65);
 					}
 				}
@@ -59,11 +57,11 @@ public class RenderCompressorTop extends RenderBase {
 		} else if (dir == ForgeDirection.NORTH || isItem()) {
 			if(!isItem()) {
 				if(tile.master != null) {
-					TileEntity te = world.getBlockTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
+					TileEntity te = world.getTileEntity(tile.master.xCoord, tile.master.yCoord, tile.master.zCoord);
 					if(te != null && te instanceof TileAirCompressor) {
 						TileAirCompressor master = (TileAirCompressor) te;
 						if(master.getEnergyStored(ForgeDirection.UP) > 0 && master.storedAir < TileAirCompressor.max)
-							setTexture(Block.cloth, 5);
+							setTexture(Blocks.cloth, 5);
 						renderBlock(0.35, 0.3, 0.1, 0.65, 0.55, 0.4);
 					}
 				}

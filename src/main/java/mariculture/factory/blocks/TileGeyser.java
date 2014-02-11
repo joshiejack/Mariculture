@@ -10,7 +10,6 @@ import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
 import net.minecraft.block.material.MaterialTransparent;
@@ -61,7 +60,7 @@ public class TileGeyser extends TileTank {
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.oysterBlock.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlockId(x, y, z) == Core.oysterBlocks.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
 	}
 
 	@Override
@@ -97,7 +96,7 @@ public class TileGeyser extends TileTank {
 			}
 				
 			List list = this.worldObj.getEntitiesWithinAABB(Entity.class, 
-					Block.stone.getCollisionBoundingBoxFromPool(this.worldObj, (int)x, (int)y, (int)z));
+					Blocks.stone.getCollisionBoundingBoxFromPool(this.worldObj, (int)x, (int)y, (int)z));
 			
 			for(Object i: list) {
 				Entity entity = (Entity) i;
@@ -128,7 +127,7 @@ public class TileGeyser extends TileTank {
 	}
 	
 	public void pullFromInventory() {
-		TileEntity tile = worldObj.getBlockTileEntity(xCoord -orientation.offsetX, yCoord -orientation.offsetY, zCoord - orientation.offsetZ);
+		TileEntity tile = worldObj.getTileEntity(xCoord -orientation.offsetX, yCoord -orientation.offsetY, zCoord - orientation.offsetZ);
 		if(tile != null && tile instanceof IInventory) {
 			ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
 			if(stack != null) {

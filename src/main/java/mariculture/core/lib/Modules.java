@@ -2,7 +2,6 @@ package mariculture.core.lib;
 
 import java.util.logging.Level;
 
-import mariculture.api.core.IModules;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.diving.Diving;

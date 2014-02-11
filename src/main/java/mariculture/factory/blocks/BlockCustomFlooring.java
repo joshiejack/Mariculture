@@ -2,7 +2,6 @@ package mariculture.factory.blocks;
 
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;

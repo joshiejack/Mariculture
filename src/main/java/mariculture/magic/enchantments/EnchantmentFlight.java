@@ -1,16 +1,13 @@
 package mariculture.magic.enchantments;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.magic.Magic;
-import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class EnchantmentFlight extends EnchantmentJewelry {
 	public EnchantmentFlight(int i, int weight, EnumEnchantmentType type) {

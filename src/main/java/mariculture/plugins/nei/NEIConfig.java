@@ -16,8 +16,7 @@ import mariculture.plugins.nei.NEIAnvilRecipeHandler.RecipeJewelry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
+import cpw.mods.fml.common.API;
 
 public class NEIConfig implements IConfigureNEI {
 

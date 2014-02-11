@@ -6,7 +6,7 @@ import java.util.List;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.IRodQuality;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class RodQualityHandler implements IRodQuality {
 	private static ArrayList<FishingRod> canUseBait = new ArrayList<FishingRod>();

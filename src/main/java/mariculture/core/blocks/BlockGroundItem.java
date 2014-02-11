@@ -1,7 +1,6 @@
 package mariculture.core.blocks;
 
 import mariculture.core.lib.GroundMeta;
-import mariculture.core.lib.OresMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

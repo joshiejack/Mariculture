@@ -1,11 +1,9 @@
 package mariculture.core.network;
 
+import ibxm.Player;
 import mariculture.core.gui.ContainerMariculture;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class Packets {
 	public static void updateTile(TileEntity tile, int size, Packet packet) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.gui.SlotFake;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -12,7 +11,6 @@ import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -31,13 +29,13 @@ public class ContainerMirror extends ContainerStorage {
 
 			if (!player.worldObj.isRemote) {
 				List var4 = MirrorEnchantmentHelper.buildEnchantmentList(Rand.rand, itemToEnchant, levelToEnchant, mirror);
-				boolean var5 = itemToEnchant.itemID == Item.book.itemID;
+				boolean var5 = itemToEnchant.itemID == Items.book.itemID;
 
 				if (var4 != null) {
 					player.addExperienceLevel(-levelToEnchant);
 
 					if (var5) {
-						itemToEnchant.itemID = Item.enchantedBook.itemID;
+						itemToEnchant.itemID = Items.enchantedBook.itemID;
 					}
 
 					int var6 = var5 ? Rand.rand.nextInt(var4.size()) : -1;
@@ -47,7 +45,7 @@ public class ContainerMirror extends ContainerStorage {
 
 						if (!var5 || var7 == var6) {
 							if (var5) {
-								Item.enchantedBook.addEnchantment(itemToEnchant, enchantData);
+								Items.enchantedBook.addEnchantment(itemToEnchant, enchantData);
 							} else {
 								itemToEnchant.addEnchantment(enchantData.enchantmentobj, enchantData.enchantmentLevel);
 							}

@@ -9,10 +9,7 @@ import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.fishery.items.ItemFishy;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -48,7 +45,7 @@ public class LootHandler implements ILootHandler {
 						if (ret.isItemEnchantable() && !ret.isItemEnchanted()) {
 							if (quality.getRank() > quality.GOOD.getRank()) {
 								int enchant = quality.getEnchantability();
-								enchant *= ret.itemID == Item.book.itemID ? 2 : 1;
+								enchant *= ret.itemID == Items.book.itemID ? 2 : 1;
 								EnchantmentHelper.addRandomEnchantment(rand, ret, enchant);
 							}
 						}

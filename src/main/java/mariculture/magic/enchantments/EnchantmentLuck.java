@@ -2,7 +2,6 @@ package mariculture.magic.enchantments;
 
 import mariculture.api.fishery.ItemBaseRod;
 import mariculture.magic.ItemMirror;
-import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemStack;

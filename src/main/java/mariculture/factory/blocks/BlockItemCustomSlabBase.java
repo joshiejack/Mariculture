@@ -1,13 +1,10 @@
 package mariculture.factory.blocks;
 
 import mariculture.core.lib.PlansMeta;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockHalfSlab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -35,7 +32,7 @@ public class BlockItemCustomSlabBase extends ItemBlock {
 	 * Gets an icon index based on an item's damage value
 	 */
 	public IIcon getIconFromDamage(int par1) {
-		return Block.blocksList[this.itemID].getIcon(2, par1);
+		return Blocks.blocksList[this.itemID].getIcon(2, par1);
 	}
 
 	/**

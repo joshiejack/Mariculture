@@ -1,11 +1,9 @@
 package mariculture.fishery.gui;
 
-import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.fishery.blocks.TileSift;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 

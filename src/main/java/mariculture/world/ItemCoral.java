@@ -1,7 +1,5 @@
 package mariculture.world;
 
-import javax.swing.Icon;
-
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.items.ItemMariculture;
@@ -71,9 +69,9 @@ public class ItemCoral extends ItemMariculture {
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
 		int i1 = world.getBlockId(x, y, z);
 
-		if (i1 == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
+		if (i1 == Blocks.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
 			side = 1;
-		} else if (i1 != Block.vine.blockID && i1 != Block.tallGrass.blockID && i1 != Block.deadBush.blockID) {
+		} else if (i1 != Blocks.vine.blockID && i1 != Blocks.tallGrass.blockID && i1 != Blocks.deadBush.blockID) {
 			if (side == 0) {
 				--y;
 			}
@@ -105,12 +103,12 @@ public class ItemCoral extends ItemMariculture {
 			return false;
 		} else {
 			if (canPlaceBlockOnSide(world, x, y, z, side, stack)) {
-				Block block = Block.blocksList[this.spawnID];
+				Block block = Blocks.blocksList[this.spawnID];
 				int j1 = stack.getItemDamage();
 				if (world.setBlock(x, y, z, this.spawnID, j1, 2)) {
 					if (world.getBlockId(x, y, z) == this.spawnID) {
-						Block.blocksList[this.spawnID].onBlockPlacedBy(world, x, y, z, player, stack);
-						Block.blocksList[this.spawnID].onPostBlockPlaced(world, x, y, z, j1);
+						Blocks.blocksList[this.spawnID].onBlockPlacedBy(world, x, y, z, player, stack);
+						Blocks.blocksList[this.spawnID].onPostBlockPlaced(world, x, y, z, j1);
 					}
 
 					world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F),
@@ -134,20 +132,20 @@ public class ItemCoral extends ItemMariculture {
 		}
 
 		if (stack.getItemDamage() == CoralMeta.KELP) {
-			if (world.getBlockId(x, y - 1, z) == Block.gravel.blockID) {
+			if (world.getBlockId(x, y - 1, z) == Blocks.gravel.blockID) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Block.cobblestone.blockID) {
+			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestone.blockID) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
+			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestoneMossy.blockID) {
 				return true;
 			}
 			if (world.getBlockId(x, y - 1, z) == Core.oreBlocks.blockID
 					&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Block.sand.blockID) {
+			if (world.getBlockId(x, y - 1, z) == Blocks.sand.blockID) {
 				return true;
 			}
 
@@ -158,10 +156,10 @@ public class ItemCoral extends ItemMariculture {
 		}
 
 		if (stack.getItemDamage() > CoralMeta.KELP_MIDDLE) {
-			if (world.getBlockId(x, y - 1, z) == Block.cobblestone.blockID) {
+			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestone.blockID) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
+			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestoneMossy.blockID) {
 				return true;
 			}
 			if (world.getBlockId(x, y - 1, z) == Core.oreBlocks.blockID && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
@@ -180,7 +178,7 @@ public class ItemCoral extends ItemMariculture {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "coral_" + getName(new ItemStack(this.itemID, 1, i)));

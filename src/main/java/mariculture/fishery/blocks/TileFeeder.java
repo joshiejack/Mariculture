@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumSalinityType;
@@ -24,13 +23,12 @@ import mariculture.core.util.Rand;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class TileFeeder extends TileMachineTank implements IHasNotification {
@@ -189,8 +187,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	//Adding Fish Food to the Tank if Enabled
 	private void addFishFood() {
 		for(CachedCoords cord: cords) {
-			List list = worldObj.getEntitiesWithinAABB(EntityItem.class,
-					Block.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+			List list = worldObj.getEntitiesWithinAABB(EntityItems.class,
+					Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 			if(!list.isEmpty()) {
 				for (Object i : list) {
 					EntityItem entity = (EntityItem) i;
@@ -295,7 +293,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 			
 			for(CachedCoords cord: cords) {
 				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class,
-						Block.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+						Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 				if(!list.isEmpty()) {
 					for (Object i : list) {
 						EntityLivingBase entity = (EntityLivingBase) i;

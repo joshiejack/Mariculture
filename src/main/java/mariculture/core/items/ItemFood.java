@@ -2,11 +2,8 @@ package mariculture.core.items;
 
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.util.EntityFakeItem;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 

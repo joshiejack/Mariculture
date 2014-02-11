@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.api.fishery.fish.EnumFishFertility;
-import mariculture.api.fishery.fish.EnumFishLifespan;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.FishHelper;

@@ -31,7 +31,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
@@ -103,13 +103,13 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		if(tile instanceof TileGeyser) {
 			return new RenderGeyser(render).setCoords(world, x, y, z).setDir(((TileGeyser)tile).orientation).render();
 		} else if (tile instanceof TileIngotCaster) {
 			return new RenderCaster(render).setCoords(world, x, y, z).render();
-		} else if (world.getBlockId(x, y, z) == Core.oysterBlock.blockID && meta == BlockOyster.NET) {
+		} else if (world.getBlockId(x, y, z) == Core.oysterBlocks.blockID && meta == BlockOyster.NET) {
 			return new RenderNet(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileAnvil) {
 			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? 

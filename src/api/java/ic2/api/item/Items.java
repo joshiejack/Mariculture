@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
  * Some blocks/items can be disabled by a config setting, so it's recommended to check if they're null first.
  * 
  * Getting the associated Block/Item for an ItemStack x:
- *   Blocks: Block.blocksList[x.itemID]
+ *   Blocks: Blocks.blocksList[x.itemID]
  *   Items: x.getItem()
  */
 public final class Items

@@ -1,6 +1,5 @@
 package mariculture.factory;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
@@ -47,8 +46,8 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 			int id = this.worldObj.getBlockId(thingHit.blockX, thingHit.blockY, thingHit.blockZ);
 			float hardness = 5F;
 			if (!this.worldObj.isRemote && rand.nextInt(25) == 1 && damage) {
-				if (Block.blocksList[id] != null) {
-					hardness = Block.blocksList[id].getBlockHardness(this.worldObj, thingHit.blockX, thingHit.blockY,
+				if (Blocks.blocksList[id] != null) {
+					hardness = Blocks.blocksList[id].getBlockHardness(this.worldObj, thingHit.blockX, thingHit.blockY,
 							thingHit.blockZ);
 				}
 

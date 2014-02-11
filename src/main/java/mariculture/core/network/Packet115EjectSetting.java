@@ -22,7 +22,7 @@ public class Packet115EjectSetting extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		IEjectable tile = (IEjectable) world.getBlockTileEntity(x, y, z);
+		IEjectable tile = (IEjectable) world.getTileEntity(x, y, z);
 		if(tile != null) {
 			tile.setEjectSetting(EjectSetting.toggle(tile.getEjectType(), tile.getEjectSetting()));
 		}

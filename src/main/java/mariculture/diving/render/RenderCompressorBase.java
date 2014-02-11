@@ -1,19 +1,15 @@
 package mariculture.diving.render;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockDouble;
-import mariculture.core.blocks.TileIngotCaster;
-import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
-import mariculture.core.lib.SingleMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.diving.TileAirCompressor;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
 
 public class RenderCompressorBase extends RenderBase {
 	public RenderCompressorBase(RenderBlocks render) {
@@ -26,7 +22,7 @@ public class RenderCompressorBase extends RenderBase {
 			GL11.glTranslatef(0F, -0.1F, 0F);
 		}
 		
-		TileAirCompressor tile = (TileAirCompressor) (isItem() ? null: world.getBlockTileEntity(x, y, z));
+		TileAirCompressor tile = (TileAirCompressor) (isItem() ? null: world.getTileEntity(x, y, z));
 		if(dir == ForgeDirection.UNKNOWN) {
 			setTexture(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE);
 			renderBlock(0, 0.2, 0, 1, 1, 1);

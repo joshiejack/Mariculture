@@ -21,7 +21,7 @@ public interface IRodQuality {
 	/**
 	 * Same as above except you can add multiple at once
 	 * 
-	 * Example: addBaitForQuality(new ItemStack(Item.fishRaw),
+	 * Example: addBaitForQuality(new ItemStack(Items.fishRaw),
 	 * Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD,
 	 * EnumRodQuality.SUPER));  **/
 	public void addBaitForQuality(ItemStack bait, List<EnumRodQuality> rods);

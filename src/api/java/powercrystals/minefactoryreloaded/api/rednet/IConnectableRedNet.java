@@ -22,7 +22,7 @@ import net.minecraftforge.common.ForgeDirection;
 public interface IConnectableRedNet
 {
     /**
-     * Returns the connection type of this Block. "All" types will cause getOutputValues() and onInputsChanged() to be used,
+     * Returns the connection type of this Blocks. "All" types will cause getOutputValues() and onInputsChanged() to be used,
      * whereas "Single" types will onInputChanged() to be called for input changes and the normal redstone power output methods
      * to be called for output. If this value must be changed while the block is alive, it must perform a block update on any
      * adjacent RedNet wires.

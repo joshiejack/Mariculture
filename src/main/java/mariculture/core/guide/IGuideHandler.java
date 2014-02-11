@@ -1,7 +1,6 @@
 package mariculture.core.guide;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 
 public interface IGuideHandler {
 	public void registerFluidIcon(String key, String fluid);

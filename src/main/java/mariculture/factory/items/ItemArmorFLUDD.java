@@ -12,12 +12,10 @@ import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.RenderFLUDDSquirt;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,9 +41,9 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
 		final int i1 = world.getBlockId(x, y, z);
 
-		if (i1 == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
+		if (i1 == Blocks.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
 			par7 = 1;
-		} else if (i1 != Block.vine.blockID && i1 != Block.tallGrass.blockID && i1 != Block.deadBush.blockID) {
+		} else if (i1 != Blocks.vine.blockID && i1 != Blocks.tallGrass.blockID && i1 != Blocks.deadBush.blockID) {
 			if (par7 == 0) {
 				--y;
 			}
@@ -80,14 +78,14 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 				int blockID = Core.singleBlocks.blockID;
 
 				if (world.canPlaceEntityOnSide(blockID, x, y, z, false, par7, (Entity) null, stack)) {
-					Block block = Block.blocksList[blockID];
+					Block block = Blocks.blocksList[blockID];
 					int j1 = block.onBlockPlaced(world, x, y, z, par7, par8, par9, par10, SingleMeta.FLUDD_STAND);
 
 					world.setBlock(x, y, z, blockID, j1, 3);
 
 					if (world.getBlockId(x, y, z) == blockID) {
-						Block.blocksList[blockID].onBlockPlacedBy(world, x, y, z, player, stack);
-						Block.blocksList[blockID].onPostBlockPlaced(world, x, y, z, j1);
+						Blocks.blocksList[blockID].onBlockPlacedBy(world, x, y, z, player, stack);
+						Blocks.blocksList[blockID].onPostBlockPlaced(world, x, y, z, j1);
 					}
 
 					world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, block.stepSound.getPlaceSound(),

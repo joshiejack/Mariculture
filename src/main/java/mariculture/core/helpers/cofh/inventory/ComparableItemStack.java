@@ -106,7 +106,7 @@ public class ComparableItemStack {
 
 	public Item getItem() {
 
-		return itemID < 0 || itemID >= 32000 ? null : Item.itemsList[itemID];
+		return itemID < 0 || itemID >= 32000 ? null : Items.itemsList[itemID];
 	}
 
 	public ItemStack toItemStack() {

@@ -1,7 +1,5 @@
 package mariculture.api.fishery;
 
-import java.util.Random;
-
 import net.minecraft.item.ItemStack;
 
 public interface IBaitHandler {	

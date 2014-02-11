@@ -1,9 +1,5 @@
 package mariculture.core.blocks;
 
-import java.util.Random;
-
-import javax.swing.Icon;
-
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
@@ -12,8 +8,6 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
-import mariculture.core.network.Packet101Sponge;
-import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFishSorter;
@@ -196,7 +190,8 @@ public class BlockUtil extends BlockMachine {
 		if (tile != null) {			
 			if(tile instanceof TileSluice) {
 				((TileSluice)tile).direction = ForgeDirection.getOrientation(facing);
-				Packets.updateTile(((TileSluice)tile), 32, ((TileSluice)tile).getDescriptionPacket());
+				//TODO: PACKET Sluice Fixing Orientation 
+				//Packets.updateTile(((TileSluice)tile), 32, ((TileSluice)tile).getDescriptionPacket());
 			}
 		}
 	}
@@ -228,8 +223,8 @@ public class BlockUtil extends BlockMachine {
 		
 		if (tile instanceof TileSponge) {
 			if(world.isRemote && player instanceof EntityClientPlayerMP) {
-				//Packets.request(PacketIds.SPONGEY, player, tile);
-				((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet101Sponge(x, y, z).build());
+				//TODO: PACKET Sponge Request data be sent
+				//((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet101Sponge(x, y, z).build());
 			} else if(player.getCurrentEquippedItem() != null && !world.isRemote) {
 				Item currentItem = player.getCurrentEquippedItem().getItem();
 				if (currentItem instanceof IEnergyContainerItem && !world.isRemote) {
@@ -336,15 +331,15 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		incubatorIcons = new Icon[2];
+		incubatorIcons = new IIcon[2];
 		incubatorIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":incubatorBottom");
 		incubatorIcons[1] = iconRegister.registerIcon(Mariculture.modid + ":incubatorTopTop");
 
-		liquifierIcons = new Icon[2];
+		liquifierIcons = new IIcon[2];
 		liquifierIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":liquifierTop");
 		liquifierIcons[1] = iconRegister.registerIcon(Mariculture.modid + ":liquifierBottom");
 		
-		fishSorter = new Icon[6];
+		fishSorter = new IIcon[6];
 		for(int i = 0; i < 6; i++) {
 			fishSorter[i] = iconRegister.registerIcon(Mariculture.modid + ":fishsorter" + (i + 1));
 		}
@@ -353,7 +348,7 @@ public class BlockUtil extends BlockMachine {
 		sluiceUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceUp");
 		sluiceDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceDown");
 
-		icons = new Icon[getMetaCount()];
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
 			if(isActive(i)) {

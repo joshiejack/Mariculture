@@ -1,13 +1,11 @@
 package mariculture.magic;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.enchantments.EnchantmentResurrection;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import cpw.mods.fml.common.IPlayerTracker;
 
 public class ResurrectionTracker {
 	public static void onPlayerRespawn(EntityPlayer player) {

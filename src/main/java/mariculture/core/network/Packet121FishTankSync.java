@@ -9,7 +9,6 @@ import java.util.Map;
 
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -50,7 +49,7 @@ public class Packet121FishTankSync extends PacketMariculture {
 		int y = nbt.getInteger("y");
 		int z = nbt.getInteger("z");
 		
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		
 		if(tile instanceof TileFishTank) {
 			TileFishTank tank = (TileFishTank) tile;

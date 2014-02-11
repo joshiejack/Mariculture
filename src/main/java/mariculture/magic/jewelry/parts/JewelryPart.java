@@ -3,7 +3,6 @@ package mariculture.magic.jewelry.parts;
 import java.util.ArrayList;
 
 import mariculture.core.lib.Jewelry;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class JewelryPart {
@@ -50,7 +49,7 @@ public class JewelryPart {
 	
 	//return the ItemStack for this item for crafting
 	public ItemStack getItemStack() {
-		return new ItemStack(Item.ingotGold);
+		return new ItemStack(Items.ingotGold);
 	}
 	
 	//Add Any Enchantments by default

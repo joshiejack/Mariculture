@@ -25,7 +25,7 @@ public class Packet103Oyster extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile instanceof TileOyster) {
 			ItemStack stack = (id > -1) ? new ItemStack(id, 1, meta) : null;
 			((TileOyster) tile).setInventorySlotContents(0, stack);;

@@ -1,16 +1,13 @@
 package mariculture.core.gui.feature;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import mariculture.core.gui.GuiMariculture;
+import mariculture.core.lib.Text;
+import mariculture.core.util.IHasNotification;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
-
-import mariculture.core.gui.GuiMariculture;
-import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
-import mariculture.core.lib.Text;
-import mariculture.core.util.IHasNotification;
 
 public class FeatureNotifications extends Feature {
 	public IHasNotification tile;

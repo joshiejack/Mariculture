@@ -1,10 +1,7 @@
 package mariculture.core.util;
 
-import javax.swing.Icon;
-
 import mariculture.core.Core;
 import mariculture.core.lib.TransparentMeta;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;

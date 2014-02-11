@@ -6,11 +6,9 @@ import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.OresMeta;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenLimestone extends WorldGenerator {
@@ -98,11 +96,11 @@ public class WorldGenLimestone extends WorldGenerator {
 			int id = world.getBlockId(x, y, z);
 			if(id == Core.oreBlocks.blockID)
 				return false;
-			if(id == Block.dirt.blockID)
+			if(id == Blocks.dirt.blockID)
 				return true;
-			if(id == Block.sand.blockID)
+			if(id == Blocks.sand.blockID)
 				return true;
-			if(id == Block.blockClay.blockID)
+			if(id == Blocks.blockClay.blockID)
 				return true;
 			if(world.getBlockMaterial(x, y, z) == Material.rock)
 				return true;

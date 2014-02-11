@@ -4,14 +4,9 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.network.Packet103Oyster;
 import mariculture.core.network.Packets;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 
 public class TileOyster extends TileStorage implements ISidedInventory {
 	public TileOyster() {
@@ -24,7 +19,7 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	}
 
 	public boolean hasSand() {
-		return hasContents() && inventory[0].itemID == Block.sand.blockID;
+		return hasContents() && inventory[0].itemID == Blocks.sand.blockID;
 	}
 
     public boolean hasContents() {
@@ -60,7 +55,7 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack) {
-		return stack.itemID == Block.sand.blockID || stack.itemID == Core.pearls.itemID || stack.itemID == Item.enderPearl.itemID;
+		return stack.itemID == Blocks.sand.blockID || stack.itemID == Core.pearls.itemID || stack.itemID == Items.enderPearl.itemID;
 	}
 
 	@Override
@@ -70,11 +65,11 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 
 	@Override
 	public boolean canInsertItem(int i, ItemStack stack, int j) {
-		return stack.itemID == Block.sand.blockID && inventory[0] == null;
+		return stack.itemID == Blocks.sand.blockID && inventory[0] == null;
 	}
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack stack, int j) {
-		return stack.itemID == Core.pearls.itemID || stack.itemID == Item.enderPearl.itemID;
+		return stack.itemID == Core.pearls.itemID || stack.itemID == Items.enderPearl.itemID;
 	}
 }

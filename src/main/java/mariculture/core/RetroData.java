@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import mariculture.core.lib.RetroGeneration;
-import mariculture.core.lib.WorldGeneration;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.WorldSavedData;

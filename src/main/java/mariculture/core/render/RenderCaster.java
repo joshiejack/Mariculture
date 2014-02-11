@@ -1,7 +1,5 @@
 package mariculture.core.render;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.core.Core;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.handlers.IngotCastingHandler;
@@ -9,7 +7,6 @@ import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.SingleMeta;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.util.Icon;
 
 public class RenderCaster extends RenderBase {
 	public RenderCaster(RenderBlocks render) {
@@ -19,7 +16,7 @@ public class RenderCaster extends RenderBase {
 	@Override
 	public void renderBlock() {
 		if(!isItem()) {
-			TileIngotCaster tile = (TileIngotCaster) world.getBlockTileEntity(x, y, z);
+			TileIngotCaster tile = (TileIngotCaster) world.getTileEntity(x, y, z);
 			//Render Ingot in slot 1
 			if(tile.getStackInSlot(0) != null) {
 				setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(0)));

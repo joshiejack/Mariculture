@@ -1,16 +1,5 @@
 package mariculture.factory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.Random;
-import java.util.logging.Level;
-
-import mariculture.Mariculture;
-import mariculture.core.handlers.KeyBindingHandler;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
@@ -23,16 +12,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class FactoryEvents {
 	private int hoverTick = 0;
@@ -42,7 +27,7 @@ public class FactoryEvents {
 	public void HarvestSpeed(BreakSpeed event) {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
-			if (event.block.blockID == Factory.customBlock.blockID || event.block.blockID == Factory.customFlooring.blockID
+			if (event.block.blockID == Factory.customBlocks.blockID || event.block.blockID == Factory.customFlooring.blockID
 					|| event.block.blockID == Factory.customSlabs.blockID
 					|| event.block.blockID == Factory.customSlabsDouble.blockID
 					|| event.block.blockID == Factory.customStairs.blockID) {

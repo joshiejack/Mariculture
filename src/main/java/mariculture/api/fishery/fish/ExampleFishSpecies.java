@@ -1,15 +1,9 @@
 package mariculture.api.fishery.fish;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureRegistry;
-import mariculture.api.fishery.EnumRodQuality;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ExampleFishSpecies extends FishSpecies {	

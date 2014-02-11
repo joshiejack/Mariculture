@@ -101,7 +101,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     @Override
     public boolean isUseableByPlayer (EntityPlayer entityplayer)
     {
-        if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this)
+        if (worldObj.getTileEntity(xCoord, yCoord, zCoord) != this)
             return false;
 
         else

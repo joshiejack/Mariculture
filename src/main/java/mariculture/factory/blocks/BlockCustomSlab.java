@@ -7,8 +7,6 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.factory.Factory;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockStep;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,11 +15,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -53,7 +50,7 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-		return Block.stone.getIcon(side, meta);
+		return Blocks.stone.getIcon(side, meta);
 	}
 
 	@Override
@@ -62,7 +59,7 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 	}
 
 	@Override
-	public Icon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+	public IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
 		return BlockCustomHelper.getBlockTexture(block, x, y, z, side);
 	}
 

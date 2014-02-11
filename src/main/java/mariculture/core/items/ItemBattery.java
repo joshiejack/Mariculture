@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBattery extends ItemEnergyContainer {
-	public ItemBattery(int i, int capacity, int maxReceive, int maxExtract) {
+	public ItemBattery(int capacity, int maxReceive, int maxExtract) {
 		super(capacity, maxReceive, maxExtract);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
 		this.setHasSubtypes(true);

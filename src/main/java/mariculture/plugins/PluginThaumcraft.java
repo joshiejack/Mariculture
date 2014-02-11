@@ -1,6 +1,5 @@
 package mariculture.plugins;
 
-import net.minecraft.block.Block;
 import mariculture.core.Core;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CoralMeta;
@@ -70,12 +69,12 @@ public class PluginThaumcraft extends Plugin {
 		ThaumcraftApi.registerObjectTag(Core.oreBlocks.blockID, OresMeta.LIMESTONE, new AspectList().add(Aspect.STONE, 1).add(Aspect.WATER, 1).add(Aspect.EARTH, 1));
 		ThaumcraftApi.registerObjectTag(Core.oreBlocks.blockID, OresMeta.LIMESTONE_SMOOTH, new AspectList().add(Aspect.STONE, 1).add(Aspect.WATER, 1));
 		ThaumcraftApi.registerObjectTag(Core.oreBlocks.blockID, OresMeta.CORAL_ROCK, new AspectList().add(Aspect.STONE, 1).add(Aspect.WATER, 2));
-		ThaumcraftApi.registerObjectTag(Block.sponge.blockID, -1, new AspectList().add(Aspect.WATER, 1).add(Aspect.AIR, 2));
-		ThaumcraftApi.registerObjectTag(Core.oysterBlock.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.LIFE, 1));
+		ThaumcraftApi.registerObjectTag(Blocks.sponge.blockID, -1, new AspectList().add(Aspect.WATER, 1).add(Aspect.AIR, 2));
+		ThaumcraftApi.registerObjectTag(Core.oysterBlocks.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.LIFE, 1));
 		
 		//Crafting Items
-		ThaumcraftApi.registerObjectTag(Core.craftingItem.itemID, CraftingMeta.ALUMINUM_SHEET, new AspectList().add(Aspect.METAL, 2).add(Aspect.AIR, 4));
-		ThaumcraftApi.registerObjectTag(Core.craftingItem.itemID, CraftingMeta.POLISHED_STICK, new AspectList().add(Aspect.TREE, 1).add(Aspect.ORDER, 1));
+		ThaumcraftApi.registerObjectTag(Core.craftingItems.itemID, CraftingMeta.ALUMINUM_SHEET, new AspectList().add(Aspect.METAL, 2).add(Aspect.AIR, 4));
+		ThaumcraftApi.registerObjectTag(Core.craftingItems.itemID, CraftingMeta.POLISHED_STICK, new AspectList().add(Aspect.TREE, 1).add(Aspect.ORDER, 1));
 		
 		//Materials
 		ThaumcraftApi.registerObjectTag(Core.materials.itemID, MaterialsMeta.DROP_AQUA, new AspectList().add(Aspect.WATER, 2));

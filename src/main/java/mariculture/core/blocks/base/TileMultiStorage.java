@@ -5,7 +5,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 
 public class TileMultiStorage extends TileMultiBlock implements IInventory {
 	protected ItemStack[] inventory;
@@ -19,7 +18,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
 		if(master == null)
 			return null;
 		
-		TileMultiStorage tile = (TileMultiStorage) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
+		TileMultiStorage tile = (TileMultiStorage) worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord);
 		return tile != null? tile.inventory: inventory;
 	}
 
@@ -101,7 +100,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
 				&& player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 128;
 	}
 

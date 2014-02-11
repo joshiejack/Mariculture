@@ -1,8 +1,5 @@
 package mariculture.plugins.nei;
 
-import static codechicken.core.gui.GuiDraw.changeTexture;
-import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
-
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
@@ -21,9 +18,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.GuiRecipe;
 
 public class NEIIngotCasterRecipeHandler extends NEIBase {
 	public class CachedCasterRecipe extends CachedRecipe {

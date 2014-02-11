@@ -1,21 +1,15 @@
 package mariculture.fishery.fish;
 
-import java.util.Random;
-
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.EnumFishWorkEthic;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
-import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.world.World;
 
 public class FishKoi extends FishSpecies {
 	public FishKoi(int id) {

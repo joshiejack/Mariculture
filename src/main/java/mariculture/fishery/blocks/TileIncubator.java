@@ -22,8 +22,6 @@ import mariculture.core.util.Rand;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 
@@ -195,14 +193,14 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 					return true;
 				}
 			}
-		} else if (inventory[slot].itemID == Item.egg.itemID) {
+		} else if (inventory[slot].itemID == Items.egg.itemID) {
 			if (Rand.nextInt(8)) {
 				helper.insertStack(new ItemStack(383, 1, 93), out);
 			}
 
 			decrStackSize(slot, 1);
 			return true;
-		} else if(inventory[slot].itemID == Block.dragonEgg.blockID) {
+		} else if(inventory[slot].itemID == Blocks.dragonEgg.blockID) {
 			int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)? 48000: 64000;
 			if(Rand.nextInt(chance)) {
 				helper.insertStack(new ItemStack(Core.craftingItem, 1, CraftingMeta.DRAGON_EGG), out);

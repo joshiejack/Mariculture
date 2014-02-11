@@ -9,29 +9,25 @@ import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.WorldGeneration;
-import mariculture.core.util.FluidDictionary;
 import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
 import mariculture.world.terrain.BiomeGenSandyOcean;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -62,8 +58,8 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerBlocks() {
-		coral = new BlockCoral(BlockIds.coral).setStepSound(Block.soundGrassFootstep).setResistance(0.1F).setUnlocalizedName("coral");
-		Item.itemsList[BlockIds.coral] = new ItemCoral(BlockIds.coral - 256, coral).setUnlocalizedName("coral");
+		coral = new BlockCoral(coral).setStepSound(Blocks.soundGrassFootstep).setResistance(0.1F).setUnlocalizedName("coral");
+		Items.itemsList[coral] = new ItemCoral(coral - 256, coral).setUnlocalizedName("coral");
 		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		RegistryHelper.register(new Object[] { coral });
 	}
@@ -121,13 +117,13 @@ public class WorldPlus extends Module {
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN), "coralBrown", false);
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED), "coralRed", false);
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW), "coralYellow", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.LIGHT_BLUE), "coralLightBlue", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.MAGENTA), "coralMagenta", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.ORANGE), "coralOrange", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.PINK), "coralPink", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.PURPLE), "coralPurple", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.GREY), "coralGray", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Item.dyePowder, 1, Dye.LIGHT_GREY), "coralLightGray", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.LIGHT_BLUE), "coralLightBlue", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.MAGENTA), "coralMagenta", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.ORANGE), "coralOrange", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.PINK), "coralPink", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.PURPLE), "coralPurple", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.GREY), "coralGray", false);
+		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.LIGHT_GREY), "coralLightGray", false);
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE), "coralWhite", false);
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN), "plantKelp", true);
 		
@@ -149,17 +145,17 @@ public class WorldPlus extends Module {
 	}
 
 	private void addOceanChestLoot() {
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.bone, 7, 0), 5, 10, 25));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.skull, 1, 0), 5, 5, 5));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.skull, 1, 1), 2, 3, 3));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Block.tnt), 2, 4, 4));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.paper, 3, 0), 2, 3, 20));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.book, 1, 0), 2, 3, 15));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.expBottle, 1, 0), 5, 10, 20));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.writableBook, 1, 0), 1, 4, 4));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.map, 1, 0), 1, 1, 5));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.ingotGold, 1, 0), 10, 20, 10));
-		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.diamond, 1, 0), 1, 2, 3));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.bone, 7, 0), 5, 10, 25));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.skull, 1, 0), 5, 5, 5));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.skull, 1, 1), 2, 3, 3));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Blocks.tnt), 2, 4, 4));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.paper, 3, 0), 2, 3, 20));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.book, 1, 0), 2, 3, 15));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.experience_bottle, 1, 0), 5, 10, 20));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.writable_book, 1, 0), 1, 4, 4));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.map, 1, 0), 1, 1, 5));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.gold_ingot, 1, 0), 10, 20, 10));
+		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.diamond, 1, 0), 1, 2, 3));
 		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), 1, 3, 4));
 
 		if (Modules.factory.isActive()) {

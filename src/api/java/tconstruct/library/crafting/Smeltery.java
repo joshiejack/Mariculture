@@ -18,7 +18,7 @@ public class Smeltery
     private final ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
     /** Adds mappings between an itemstack and an output liquid
-     * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+     * Example: Smeltery.addMelting(Blocks.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
      * 
      * @param stack The itemstack to liquify
      * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
@@ -30,7 +30,7 @@ public class Smeltery
     }
 
     /** Adds mappings between a block and its liquid
-     * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+     * Example: Smeltery.addMelting(Blocks.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
      * 
      * @param blockID The ID of the block to liquify and render
      * @param metadata The metadata of the block to liquify and render
@@ -44,7 +44,7 @@ public class Smeltery
 
     /** Adds mappings between an input and its liquid.
      * Renders with the given input's block ID and metadata
-     * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+     * Example: Smeltery.addMelting(Blocks.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
      * 
      * @param input The item to liquify
      * @param blockID The ID of the block to render

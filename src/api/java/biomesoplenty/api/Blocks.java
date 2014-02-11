@@ -103,7 +103,7 @@ public class Blocks
 	public static Optional<? extends Block> grave                       = Optional.absent();
 
 	/**
-	 * Populated by Biomes O Plenty with default Biomes O Plenty leaves. Add additional leaves here (E.g. "Blocks.shearBlockIds.put(acaciaLeaves.blockID, 15.0F);")
+	 * Populated by Biomes O Plenty with default Biomes O Plenty leaves. Add additional leaves here (E.g. "Blocks.shearput(acaciaLeaves.blockID, 15.0F);")
 	 */
-	public static Map shearBlockIds = new HashMap();
+	public static Map shear= new HashMap();
 }

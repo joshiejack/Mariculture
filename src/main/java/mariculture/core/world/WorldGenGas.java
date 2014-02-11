@@ -5,11 +5,10 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GroundMeta;
-import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorldGenGas extends WorldGenerator
 {
@@ -87,8 +86,8 @@ public class WorldGenGas extends WorldGenerator
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
                                 	int blockID = world.getBlockId(x2, y2, z3);
-                                	if(Block.blocksList[blockID] != null) {
-                                		if(Block.blocksList[blockID].isBlockSolidOnSide(world, x2, y2, z3, ForgeDirection.UNKNOWN)) {
+                                	if(Blocks.blocksList[blockID] != null) {
+                                		if(Blocks.blocksList[blockID].isBlockSolidOnSide(world, x2, y2, z3, ForgeDirection.UNKNOWN)) {
                                 			world.setBlock(x2, y2, z3, this.minableBlockId, minableBlockMeta, 2);
                                 			xLast = x2;
                                 			zLast = z3;
@@ -104,7 +103,7 @@ public class WorldGenGas extends WorldGenerator
         
         world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.groundBlocks.blockID, GroundMeta.BUBBLES, 2);
         if(Extra.DEBUG_ON)
-        	world.setBlock(xLast, 65, zLast, Block.obsidian.blockID, 1, 2);
+        	world.setBlock(xLast, 65, zLast, Blocks.obsidian.blockID, 1, 2);
 
         return true;
     }

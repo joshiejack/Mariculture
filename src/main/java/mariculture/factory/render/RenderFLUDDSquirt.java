@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderFLUDDSquirt extends Render {
-	public static Icon icon;
+	public static IIcon icon;
 
 	/**
 	 * Actually renders the given argument. This is a synthetic bridge method,
@@ -29,7 +29,7 @@ public class RenderFLUDDSquirt extends Render {
 
 	}
 
-	private void func_77026_a(final Tessellator par1Tessellator, final Icon par2Icon) {
+	private void func_77026_a(final Tessellator par1Tessellator, final IIcon par2Icon) {
 		final float f = par2Icon.getMinU();
 		final float f1 = par2Icon.getMaxU();
 		final float f2 = par2Icon.getMinV();

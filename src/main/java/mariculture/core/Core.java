@@ -40,7 +40,6 @@ import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
-import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.blocks.TileVoidBottle;
 import mariculture.core.gui.GuiItemToolTip;
@@ -71,12 +70,10 @@ import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
-import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.GroundMeta;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules.Module;
@@ -87,19 +84,19 @@ import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.lib.WorldGeneration;
-import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenOcean;
-import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -187,30 +184,30 @@ public class Core extends Module {
 
 	@Override
 	public void registerBlocks() {
-		oreBlocks = new BlockOre().setStepSound(Block.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
-		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
-		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
-		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		oysterBlock = new BlockOyster().setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
+		oreBlocks = new BlockOre().setStepSound(Blocks.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
+		utilBlocks = new BlockUtil().setStepSound(Blocks.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
+		doubleBlock = new BlockDouble().setStepSound(Blocks.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
+		singleBlocks = new BlockSingle().setStepSound(Blocks.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
+		oysterBlock = new BlockOyster().setStepSound(Blocks.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
 		pearlBrick = new BlockPearlBrick().setBlockName("pearlBrick");
-		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
+		glassBlocks = new BlockGlass().setStepSound(Blocks.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
 		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
-		woodBlocks = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
-		tankBlocks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
+		woodBlocks = new BlockWood().setStepSound(Blocks.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
+		tankBlocks = new BlockTank().setStepSound(Blocks.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
 		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
-		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
+		transparentBlocks = new BlockTransparent().setStepSound(Blocks.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
 		
-		Item.itemsList[BlockIds.ores] = new BlockOreItem(BlockIds.ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
-		Item.itemsList[BlockIds.util] = new BlockUtilItem(BlockIds.util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
-		Item.itemsList[BlockIds.singleBlocks] = new BlockSingleItem(BlockIds.singleBlocks - 256, singleBlocks).setUnlocalizedName("customBlocks");
-		Item.itemsList[BlockIds.doubleBlocks] = new BlockDoubleItem(BlockIds.doubleBlocks - 256, doubleBlock).setUnlocalizedName("doubleBlocks");
-		Item.itemsList[BlockIds.pearlBrick] = new BlockPearlBrickItem(BlockIds.pearlBrick - 256, Core.pearlBrick).setUnlocalizedName("pearlBrick");
-		Item.itemsList[BlockIds.glassBlocks] = new BlockGlassItem(BlockIds.glassBlocks - 256, glassBlocks).setUnlocalizedName("glassBlocks");
-		Item.itemsList[BlockIds.airBlocks] = new BlockAirItem(BlockIds.airBlocks - 256, airBlocks).setUnlocalizedName("airBlocks");
-		Item.itemsList[BlockIds.woodBlocks] = new BlockWoodItem(BlockIds.woodBlocks - 256, woodBlocks).setUnlocalizedName("woodBlocks");
-		Item.itemsList[BlockIds.tankBlocks] = new BlockTankItem(BlockIds.tankBlocks - 256, tankBlocks).setUnlocalizedName("tankBlocks");
-		Item.itemsList[BlockIds.groundBlocks] = new BlockGroundItem(BlockIds.groundBlocks - 256, groundBlocks).setUnlocalizedName("groundBlocks");
-		Item.itemsList[BlockIds.transparentBlocks] = new BlockTransparentItem(BlockIds.transparentBlocks - 256, transparentBlocks).setUnlocalizedName("transparentBlocks");
+		Items.itemsList[ores] = new BlockOreItem(ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
+		Items.itemsList[util] = new BlockUtilItem(util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
+		Items.itemsList[singleBlocks] = new BlockSingleItem(singleBlocks - 256, singleBlocks).setUnlocalizedName("customBlocks");
+		Items.itemsList[doubleBlocks] = new BlockDoubleItem(doubleBlocks - 256, doubleBlock).setUnlocalizedName("doubleBlocks");
+		Items.itemsList[pearlBrick] = new BlockPearlBrickItem(pearlBrick - 256, Core.pearlBrick).setUnlocalizedName("pearlBrick");
+		Items.itemsList[glassBlocks] = new BlockGlassItem(glassBlocks - 256, glassBlocks).setUnlocalizedName("glassBlocks");
+		Items.itemsList[airBlocks] = new BlockAirItem(airBlocks - 256, airBlocks).setUnlocalizedName("airBlocks");
+		Items.itemsList[woodBlocks] = new BlockWoodItem(woodBlocks - 256, woodBlocks).setUnlocalizedName("woodBlocks");
+		Items.itemsList[tankBlocks] = new BlockTankItem(tankBlocks - 256, tankBlocks).setUnlocalizedName("tankBlocks");
+		Items.itemsList[groundBlocks] = new BlockGroundItem(groundBlocks - 256, groundBlocks).setUnlocalizedName("groundBlocks");
+		Items.itemsList[transparentBlocks] = new BlockTransparentItem(transparentBlocks - 256, transparentBlocks).setUnlocalizedName("transparentBlocks");
 
 		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
 		
@@ -218,7 +215,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileOyster.class, "tileEntityOyster");
 		GameRegistry.registerTileEntity(TileLiquifier.class, "tileEntityLiquifier");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
-		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
+		GameRegistry.registerTileEntity(TileTankBlocks.class, "tileTankBlock");
 		GameRegistry.registerTileEntity(TileVat.class, "tileVatBlock");
 		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
@@ -255,26 +252,26 @@ public class Core extends Module {
 	
 	@Override
 	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
+		EntityRegistry.registerModEntity(EntityFakeItems.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
 	}
 	
 	EnumToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
 
 	@Override
 	public void registerItems() {
-		materials = new ItemMaterial(ItemIds.metals).setUnlocalizedName("materials");
-		craftingItem = new ItemCrafting(ItemIds.items).setUnlocalizedName("craftingItems");
-		batteryCopper = new ItemBattery(ItemIds.batteryCopper, 10000, 100, 250).setUnlocalizedName("batteryCopper");
-		batteryTitanium = new ItemBattery(ItemIds.batteryTitanium, 100000, 1000, 2500).setUnlocalizedName("batteryTitanium");
-		food = new ItemFood(ItemIds.food).setUnlocalizedName("food");
-		upgrade = new ItemUpgrade(ItemIds.upgrade).setUnlocalizedName("upgrade");
-		pearls = new ItemPearl(ItemIds.pearl).setUnlocalizedName("pearls");
-		liquidContainers = new ItemFluidContainer(ItemIds.liquidContainers).setUnlocalizedName("liquidContainers");
-		hammer = new ItemHammer(ItemIds.hammer, brick).setUnlocalizedName("hammer");
-		worked = new ItemWorked(ItemIds.worked).setUnlocalizedName("worked");
-		guides = new ItemGuide(ItemIds.guides).setUnlocalizedName("guide");
-		ladle = new ItemFluidStorage(ItemIds.ladle, MetalRates.INGOT).setUnlocalizedName("ladle");
-		bucket = new ItemFluidStorage(ItemIds.bucket, 8000).setUnlocalizedName("titaniumBucket");
+		materials = new ItemMaterial().setUnlocalizedName("materials");
+		craftingItem = new ItemCrafting().setUnlocalizedName("craftingItems");
+		batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("batteryCopper");
+		batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("batteryTitanium");
+		food = new ItemFood().setUnlocalizedName("food");
+		upgrade = new ItemUpgrade().setUnlocalizedName("upgrade");
+		pearls = new ItemPearl().setUnlocalizedName("pearls");
+		liquidContainers = new ItemFluidContainer().setUnlocalizedName("liquidContainers");
+		hammer = new ItemHammer(brick).setUnlocalizedName("hammer");
+		worked = new ItemWorked().setUnlocalizedName("worked");
+		guides = new ItemGuide().setUnlocalizedName("guide");
+		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
+		bucket = new ItemFluidStorage(8000).setUnlocalizedName("titaniumBucket");
 		
 		MinecraftForge.setToolClass(hammer, "pickaxe", 0);
 		
@@ -315,22 +312,22 @@ public class Core extends Module {
 		highPressureWater = new FluidMari(FluidDictionary.hp_water, -1);
         if (!FluidRegistry.registerFluid(highPressureWater))
         	highPressureWater = FluidRegistry.getFluid(FluidDictionary.hp_water);
-        highPressureWaterBlock = new BlockFluidMari(BlockIds.highPressureWater, highPressureWater, Material.water).setUnlocalizedName("highPressureWater");
+        highPressureWaterBlock = new BlockFluidMari(highPressureWater, Material.water).setBlockName("highPressureWater");
         GameRegistry.registerBlock(highPressureWaterBlock, "Mariculture_highPressureWaterBlock");
-        highPressureWater.setBlockID(highPressureWaterBlock);
+        highPressureWater.setBlock(highPressureWaterBlock);
         registerHeatBottle(FluidDictionary.hp_water, 1000, FluidContainerMeta.BOTTLE_HP_WATER);
 	}
 
 	private void addToOreDictionary() {	
-		OreDicHelper.add("glass", new ItemStack(Block.glass));
-		OreDicHelper.add("ingotIron", new ItemStack(Item.ingotIron));
-		OreDicHelper.add("ingotGold", new ItemStack(Item.ingotGold));
-		OreDicHelper.add("blockIron", new ItemStack(Block.blockIron));
-		OreDicHelper.add("blockGold", new ItemStack(Block.blockGold));
-		OreDicHelper.add("blockLapis", new ItemStack(Block.blockLapis));
-		OreDicHelper.add("blockCoal", new ItemStack(Block.coalBlock));
-		OreDicHelper.add("blockRedstone", new ItemStack(Block.blockRedstone));
-		OreDicHelper.add("dustRedstone", new ItemStack(Item.redstone));
+		OreDicHelper.add("glass", new ItemStack(Blocks.glass));
+		OreDicHelper.add("ingotIron", new ItemStack(Items.iron_ingot));
+		OreDicHelper.add("ingotGold", new ItemStack(Items.gold_ingot));
+		OreDicHelper.add("blockIron", new ItemStack(Blocks.iron_block));
+		OreDicHelper.add("blockGold", new ItemStack(Blocks.gold_block));
+		OreDicHelper.add("blockLapis", new ItemStack(Blocks.lapis_block));
+		OreDicHelper.add("blockCoal", new ItemStack(Blocks.coal_block));
+		OreDicHelper.add("blockRedstone", new ItemStack(Blocks.redstone_block));
+		OreDicHelper.add("dustRedstone", new ItemStack(Items.redstone));
 		
 		OreDictionary.registerOre("blockLimestone", new ItemStack(oreBlocks, 1, OresMeta.LIMESTONE));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER));
@@ -389,7 +386,7 @@ public class Core extends Module {
 	 
 	public static void registerVanillaBottle(String fluid, int vol, int meta) {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(fluid, vol), 
-				new ItemStack(Core.liquidContainers, 1, meta), new ItemStack(Item.glassBottle));
+				new ItemStack(Core.liquidContainers, 1, meta), new ItemStack(Items.glass_bottle));
 	}
 	
 	public static String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {

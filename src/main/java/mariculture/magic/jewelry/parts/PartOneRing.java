@@ -1,12 +1,9 @@
 package mariculture.magic.jewelry.parts;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import mariculture.core.Core;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Jewelry;
 import mariculture.magic.Magic;
+import net.minecraft.item.ItemStack;
 
 public class PartOneRing extends JewelryPart {
 	@Override

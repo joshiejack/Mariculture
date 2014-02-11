@@ -3,16 +3,14 @@ package mariculture.core.blocks;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.blocks.base.BlockConnected;
-import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockTransparent extends BlockConnected {
-	private static Icon[] plastic = new Icon[47];
+	private static IIcon[] plastic = new IIcon[47];
 
 	public BlockTransparent(int i) {
 		super(i, Material.glass);
@@ -53,7 +51,7 @@ public class BlockTransparent extends BlockConnected {
 	}
 
 	@Override
-	public Icon[] getTexture(int meta) {
+	public IIcon[] getTexture(int meta) {
 		switch(meta) {
 			case TransparentMeta.PLASTIC:
 				return plastic;

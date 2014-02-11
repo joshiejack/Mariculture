@@ -3,15 +3,12 @@ package mariculture.core.gui;
 import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.GuiIds;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 public class GuiItemToolTip {

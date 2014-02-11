@@ -1,15 +1,12 @@
 package mariculture.magic.enchantments;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
-import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
 public class EnchantmentPunch extends EnchantmentJewelry {

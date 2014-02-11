@@ -10,9 +10,6 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
 
-import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
-import cpw.mods.fml.common.TickType;
-
 public class FLUDDKeyHandler extends KeyHandler {
 	public static KeyBinding fludd = new KeyBinding(StatCollector.translateToLocal("key.fludd"), Keyboard.KEY_V);
 

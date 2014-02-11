@@ -1,8 +1,6 @@
 package mariculture.core.guide;
 
 import mariculture.core.helpers.cofh.StringHelper;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 

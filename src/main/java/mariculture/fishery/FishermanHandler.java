@@ -3,8 +3,6 @@ package mariculture.fishery;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
-import net.minecraft.world.gen.structure.StructureVillagePieceWeight;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class FishermanHandler implements IVillageCreationHandler {

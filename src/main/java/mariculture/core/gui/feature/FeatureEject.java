@@ -2,8 +2,6 @@ package mariculture.core.gui.feature;
 
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.lib.Text;
 import mariculture.core.network.Packet115EjectSetting;
@@ -12,6 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
 
 public class FeatureEject extends Feature {
 	public IEjectable tile;

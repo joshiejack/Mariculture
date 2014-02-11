@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 public abstract class TileMultiMachine extends TileMultiStorage implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
 	protected BlockTransferHelper helper;
@@ -81,10 +80,10 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
 				return true;
 			for(MultiPart block: mstr.slaves) {
 				if(mode.equals(RedstoneMode.LOW)) {
-					if(!RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
+					if(!RedstoneMode.canWork(worldObj.getTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
 						return false;
 				} else if(mode.equals(RedstoneMode.HIGH)) {
-					if(RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
+					if(RedstoneMode.canWork(worldObj.getTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
 						return true;
 				}
 			}

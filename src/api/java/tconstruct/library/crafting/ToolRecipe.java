@@ -81,7 +81,7 @@ public class ToolRecipe
         {
             if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;
@@ -99,7 +99,7 @@ public class ToolRecipe
         {
             if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;
@@ -117,7 +117,7 @@ public class ToolRecipe
         {
             if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;

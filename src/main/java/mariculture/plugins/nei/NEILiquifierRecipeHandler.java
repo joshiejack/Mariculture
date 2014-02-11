@@ -1,9 +1,5 @@
 package mariculture.plugins.nei;
 
-import static codechicken.core.gui.GuiDraw.changeTexture;
-import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
-import static codechicken.core.gui.GuiDraw.getMousePosition;
-
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -15,14 +11,12 @@ import mariculture.Mariculture;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeVat;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import mariculture.core.util.Rand;
-import mariculture.plugins.nei.NEIVatRecipeHandler.CachedVatRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
@@ -32,14 +26,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
-
-import codechicken.core.gui.GuiDraw;
-import codechicken.nei.ItemList;
-import codechicken.nei.NEIClientUtils;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
 
 public class NEILiquifierRecipeHandler extends NEIBase {
 	public class CachedLiquifierRecipe extends CachedRecipe {

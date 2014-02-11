@@ -6,11 +6,8 @@ import mariculture.core.network.Packet113MultiInit;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileMultiBlock extends TileEntity {
 	protected boolean needsInit = false;
@@ -36,24 +33,24 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	protected MultiPart setAsSlave(MultiPart master, int x, int y, int z) {
-		TileMultiBlock slave = (TileMultiBlock) worldObj.getBlockTileEntity(x, y, z);
+		TileMultiBlock slave = (TileMultiBlock) worldObj.getTileEntity(x, y, z);
 		slave.setMaster(new MultiPart(master.xCoord, master.yCoord, master.zCoord));
 		return new MultiPart(x, y, z);
 	}
 	
 	protected void setAsMaster(MultiPart mstr, ArrayList<MultiPart> parts) {
-		TileMultiBlock master = (TileMultiBlock) worldObj.getBlockTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord);
+		TileMultiBlock master = (TileMultiBlock) worldObj.getTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord);
 		master.setMaster(mstr);
 		master.setSlaves(parts);
 	}
 	
 	protected MultiPart setAsSlave(MultiPart master, int x, int y, int z, ForgeDirection dir) {
-		((TileMultiBlock) worldObj.getBlockTileEntity(x, y, z)).setFacing(dir);
+		((TileMultiBlock) worldObj.getTileEntity(x, y, z)).setFacing(dir);
 		return setAsSlave(master, x, y, z);
 	}
 	
 	protected void setAsMaster(MultiPart mstr, ArrayList<MultiPart> parts, ForgeDirection dir) {
-		((TileMultiBlock) worldObj.getBlockTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord)).setFacing(dir);
+		((TileMultiBlock) worldObj.getTileEntity(mstr.xCoord, mstr.yCoord, mstr.zCoord)).setFacing(dir);
 		setAsMaster(mstr, parts);
 	}
 	
@@ -66,7 +63,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public boolean isPart(int x, int y, int z) {
-		return worldObj.getBlockTileEntity(x, y, z) instanceof TileMultiBlock;
+		return worldObj.getTileEntity(x, y, z) instanceof TileMultiBlock;
 	}
 	
 	public boolean isMaster() {
@@ -80,7 +77,7 @@ public class TileMultiBlock extends TileEntity {
 	public TileMultiBlock getMaster() {
 		if(master == null)
 			return null;
-		TileEntity tile = worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
+		TileEntity tile = worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord);
 		return tile != null && tile instanceof TileMultiBlock? (TileMultiBlock)tile: null;
 	}
 	
@@ -105,7 +102,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public boolean isPartnered(int x, int y, int z) {
-		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
 		return tile instanceof TileMultiBlock?  ((TileMultiBlock)tile).master != null : false;
 	}
 	
@@ -131,13 +128,13 @@ public class TileMultiBlock extends TileEntity {
 	public void onBlockBreak() {
 		if(master != null) {
 			//Get the Master Tile Entity
-			TileMultiBlock mstr = (TileMultiBlock) worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
+			TileMultiBlock mstr = (TileMultiBlock) worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord);
 			if(mstr != null) {
 				//Clear out the slaves
 				if(mstr.slaves != null) {
 					for(MultiPart part: mstr.slaves) {
-						if(worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord) != null) {
-							TileMultiBlock te = (TileMultiBlock) worldObj.getBlockTileEntity(part.xCoord, part.yCoord, part.zCoord);
+						if(worldObj.getTileEntity(part.xCoord, part.yCoord, part.zCoord) != null) {
+							TileMultiBlock te = (TileMultiBlock) worldObj.getTileEntity(part.xCoord, part.yCoord, part.zCoord);
 							te.setMaster(null);
 							te.setInit(false);
 							((TileMultiBlock) te).setFacing(ForgeDirection.UNKNOWN);
@@ -182,7 +179,7 @@ public class TileMultiBlock extends TileEntity {
 			//Init Master
 			Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
 			for(MultiPart slave: slaves) {
-				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
+				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te.getClass().equals(getTEClass())) {
 					Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
 							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
@@ -194,7 +191,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public Class getTEClass() {
-		return TileMultiBlock.class;
+		return TileMultiBlocks.class;
 	}
 
 	public void updateMaster() {

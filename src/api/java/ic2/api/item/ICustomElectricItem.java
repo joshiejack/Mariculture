@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
  * Provides the ability to store energy on the implementing item.
  *
  * This interface is a special version of IElectricItem which delegates the implementation of
- * charge(), discharge() and canUse() to the implementing Item.
+ * charge(), discharge() and canUse() to the implementing Items.
  *
  * The default implementation (when not using ICustomElectricItem) does the following:
  * - store and retrieve the charge

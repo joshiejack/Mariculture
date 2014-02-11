@@ -3,7 +3,6 @@ package mariculture.fishery.fish.dna;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.fishery.fish.EnumFishFertility;
 import mariculture.api.fishery.fish.EnumFishWorkEthic;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;

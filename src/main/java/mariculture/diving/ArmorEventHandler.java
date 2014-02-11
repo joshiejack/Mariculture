@@ -4,13 +4,9 @@ import mariculture.core.Core;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.Modules;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -46,7 +42,7 @@ public class ArmorEventHandler {
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.scubaSuit)) {
 					event.newSpeed = event.originalSpeed * 4;
 					
-					if (event.block.blockID == Core.oysterBlock.blockID) {
+					if (event.block.blockID == Core.oysterBlocks.blockID) {
 						event.newSpeed = event.originalSpeed * 128;
 					}
 				}
@@ -58,7 +54,7 @@ public class ArmorEventHandler {
 				// Diving Pants
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.divingPants)) {
 					event.newSpeed = event.originalSpeed * 2;
-					if (event.block.blockID == Core.oysterBlock.blockID) {
+					if (event.block.blockID == Core.oysterBlocks.blockID) {
 						event.newSpeed = event.originalSpeed * 64;
 					}
 				}

@@ -2,8 +2,6 @@ package mariculture.world;
 
 import java.util.Random;
 
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.PluginBiomesOPlenty;

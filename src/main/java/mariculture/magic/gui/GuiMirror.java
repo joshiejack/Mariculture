@@ -2,7 +2,6 @@ package mariculture.magic.gui;
 
 import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.items.ItemStorage;
 import mariculture.core.network.Packet112Enchant;
 import mariculture.magic.ItemMirror;
 import net.minecraft.client.gui.FontRenderer;

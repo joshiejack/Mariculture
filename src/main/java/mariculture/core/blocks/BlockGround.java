@@ -45,7 +45,7 @@ public class BlockGround extends BlockDecorative {
 	
 	@Override
 	public Item getItemDropped(int i, Random random, int j) {
-        return Item.getItemFromBlock(Blocks.sand);
+        return Items.getItemFromBlock(Blocks.sand);
     }
 	
 	@Override

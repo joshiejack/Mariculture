@@ -5,7 +5,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
-import mariculture.core.gui.SlotUpgrade;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishHelper;

@@ -1,16 +1,13 @@
 package mariculture.magic;
 
 import mariculture.api.core.IMirrorHandler;
-import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.network.Packet109DamageJewelry;
 import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 

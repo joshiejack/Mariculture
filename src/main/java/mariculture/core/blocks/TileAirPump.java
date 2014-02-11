@@ -22,7 +22,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
@@ -53,8 +53,8 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 	}
 	
 	public void supplyWithAir(int value, double x, double y, double z) {
-		if (!worldObj.isRemote && worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != null) {
-			List playerList = worldObj.getEntitiesWithinAABB(EntityPlayer.class, worldObj.getBlockTileEntity(xCoord, yCoord, zCoord).getBlockType()
+		if (!worldObj.isRemote && worldObj.getTileEntity(xCoord, yCoord, zCoord) != null) {
+			List playerList = worldObj.getEntitiesWithinAABB(EntityPlayer.class, worldObj.getTileEntity(xCoord, yCoord, zCoord).getBlockType()
 					.getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord, zCoord).expand(x, y, z));
 			if (!playerList.isEmpty()) {
 				for (int i = 0; i < playerList.size(); i++) {

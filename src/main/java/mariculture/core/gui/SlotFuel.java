@@ -1,7 +1,6 @@
 package mariculture.core.gui;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.handlers.LiquifierHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

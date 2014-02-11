@@ -1,13 +1,10 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.lib.GlassMeta;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.TankMeta;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 public class RenderVoidBottle extends RenderBase {
 	public RenderVoidBottle(RenderBlocks render) {
@@ -17,12 +14,12 @@ public class RenderVoidBottle extends RenderBase {
 	@Override
 	public void renderBlock() {		
 		Tessellator tessellator = Tessellator.instance;
-		int color = Block.stone.colorMultiplier(world, x, y, z);
+		int color = Blocks.stone.colorMultiplier(world, x, y, z);
 		float red = (color >> 16 & 255) / 255.0F;
 		float green = (color >> 8 & 255) / 255.0F;
 		float blue = (color & 255) / 255.0F;
 		
-		Icon iconStill = Core.tankBlocks.getIcon(0, TankMeta.BOTTLE);
+		IIcon iconStill = Core.tankBlocks.getIcon(0, TankMeta.BOTTLE);
 
 		double u1, u2, u3, u4, v1, v2, v3, v4;
 		u2 = iconStill.getInterpolatedU(0.0D);

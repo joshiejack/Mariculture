@@ -9,7 +9,6 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class FishFoodHandler implements IFishFoodHandler {
 	private static Map foodList = new HashMap();

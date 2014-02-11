@@ -1,8 +1,8 @@
 package mariculture.core.items;
 
 import mariculture.core.Core;
-import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.PlayerHelper;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;

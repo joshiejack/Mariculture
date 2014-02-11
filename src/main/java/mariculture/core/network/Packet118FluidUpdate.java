@@ -49,7 +49,7 @@ public class Packet118FluidUpdate extends PacketMariculture {
 
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		TileEntity te = world.getBlockTileEntity(x, y, z);
+		TileEntity te = world.getTileEntity(x, y, z);
 		if(te instanceof ITank) {
 			FluidStack fluid = (vol == 0 || id == 0)? null: new FluidStack(id, vol);
 			((ITank)te).setFluid(fluid, num);

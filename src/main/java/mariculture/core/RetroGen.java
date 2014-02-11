@@ -12,7 +12,6 @@ import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.Rand;
 import mariculture.world.WorldGen;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.ChunkEvent;
 
 public class RetroGen {

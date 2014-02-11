@@ -1,42 +1,31 @@
 package mariculture.magic.jewelry;
 
-import java.awt.RenderingHints.Key;
 import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
-import mariculture.magic.JewelryHandler;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemJewelry extends Item implements IItemRegistry {
 
-	private Icon[] parts;
-	private Icon[] special;
-	private Icon blank;
+	private IIcon[] parts;
+	private IIcon[] special;
+	private IIcon blank;
 
 	public ItemJewelry(int id) {
 		super(id);
@@ -201,11 +190,11 @@ public class ItemJewelry extends Item implements IItemRegistry {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(final IconRegister iconRegister) {
 		blank = iconRegister.registerIcon(Mariculture.modid + ":jewelry/blank");
-		special = new Icon[2];
+		special = new IIcon[2];
 		special[0] = iconRegister.registerIcon(Mariculture.modid + ":jewelry/day");
 		special[1] = iconRegister.registerIcon(Mariculture.modid + ":jewelry/night");
 
-		parts = new Icon[JewelryPart.materialList.size()];
+		parts = new IIcon[JewelryPart.materialList.size()];
 		for (int i = 0; i < parts.length; i++) {
 			if (JewelryPart.materialList.get(i).isValid(getType())) {
 				if (JewelryPart.materialList.get(i).isVisible(getType())) {

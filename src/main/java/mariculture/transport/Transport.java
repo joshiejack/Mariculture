@@ -1,19 +1,14 @@
 package mariculture.transport;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
-import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules.Module;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class Transport extends Module {
@@ -38,14 +33,14 @@ public class Transport extends Module {
 
 	@Override
 	public void registerItems() {
-		speedBoat = new ItemSpeedBoat(ItemIds.speedBoat).setUnlocalizedName("speedBoat");
+		speedBoat = new ItemSpeedBoat(speedBoat).setUnlocalizedName("speedBoat");
 		RegistryHelper.register(new Object[] { speedBoat });
 	}
 
 	@Override
 	public void addRecipes() {
 		RecipeHelper.addShapedRecipe(new ItemStack(speedBoat), new Object[] {
-			"G F", "AAA", 'G', Block.thinGlass, 'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
+			"G F", "AAA", 'G', Blocks.thinGlass, 'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
 		});
 	}
 }

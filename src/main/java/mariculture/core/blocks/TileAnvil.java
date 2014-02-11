@@ -19,8 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHandler {
 	private static final HashMap<String, RecipeAnvil> recipes = new HashMap();

@@ -3,7 +3,6 @@ package mariculture.core.helpers.cofh;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -118,15 +117,15 @@ public final class ItemHelper {
 			}
 		}
 
-		if (dmgItems[0] == null || Item.itemsList[dmgItems[0].itemID] == null) {
+		if (dmgItems[0] == null || Items.itemsList[dmgItems[0].itemID] == null) {
 			return null;
 		} else if (dmgItems[1] != null && dmgItems[0].itemID == dmgItems[1].itemID && dmgItems[0].stackSize == 1 && dmgItems[1].stackSize == 1
-				&& Item.itemsList[dmgItems[0].itemID].isRepairable()) {
-			Item theItem = Item.itemsList[dmgItems[0].itemID];
-			int var13 = theItem.getMaxDamage() - dmgItems[0].getItemDamageForDisplay();
-			int var8 = theItem.getMaxDamage() - dmgItems[1].getItemDamageForDisplay();
-			int var9 = var13 + var8 + theItem.getMaxDamage() * 5 / 100;
-			int var10 = Math.max(0, theItem.getMaxDamage() - var9);
+				&& Items.itemsList[dmgItems[0].itemID].isRepairable()) {
+			Item theItem = Items.itemsList[dmgItems[0].itemID];
+			int var13 = theItems.getMaxDamage() - dmgItems[0].getItemDamageForDisplay();
+			int var8 = theItems.getMaxDamage() - dmgItems[1].getItemDamageForDisplay();
+			int var9 = var13 + var8 + theItems.getMaxDamage() * 5 / 100;
+			int var10 = Math.max(0, theItems.getMaxDamage() - var9);
 			return new ItemStack(dmgItems[0].itemID, 1, var10);
 		} else {
 			IRecipe recipe;
@@ -315,14 +314,14 @@ public final class ItemHelper {
 
 	public static boolean isBlacklist(ItemStack output) {
 
-		return output.itemID == Block.stairsWoodBirch.blockID || output.itemID == Block.stairsWoodJungle.blockID
-				|| output.itemID == Block.stairsWoodOak.blockID || output.itemID == Block.stairsWoodSpruce.blockID || output.itemID == Block.planks.blockID
-				|| output.itemID == Block.woodSingleSlab.blockID;
+		return output.itemID == Blocks.stairsWoodBirch.blockID || output.itemID == Blocks.stairsWoodJungle.blockID
+				|| output.itemID == Blocks.stairsWoodOak.blockID || output.itemID == Blocks.stairsWoodSpruce.blockID || output.itemID == Blocks.planks.blockID
+				|| output.itemID == Blocks.woodSingleSlab.blockID;
 	}
 
 	public static String getItemNBTString(ItemStack theItem, String nbtKey, String invalidReturn) {
 
-		return theItem.stackTagCompound != null ? theItem.stackTagCompound.hasKey(nbtKey) ? theItem.stackTagCompound.getString(nbtKey) : invalidReturn
+		return theItems.stackTagCompound != null ? theItems.stackTagCompound.hasKey(nbtKey) ? theItems.stackTagCompound.getString(nbtKey) : invalidReturn
 				: invalidReturn;
 	}
 

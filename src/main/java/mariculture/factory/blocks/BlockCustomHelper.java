@@ -1,7 +1,6 @@
 package mariculture.factory.blocks;
 
 import mariculture.core.lib.PlansMeta;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -20,11 +19,11 @@ public class BlockCustomHelper {
 
 		if (tile != null) {
 			try {
-				return Block.blocksList[tile.theBlockIDs(side)].getIcon(tile.theBlockSides(side), tile.theBlockMetas(side));
+				return Blocks.blocksList[tile.theBlockIDs(side)].getIcon(tile.theBlockSides(side), tile.theBlockMetas(side));
 			} catch (Exception e) {}
 		}
 
-		return Block.stone.getIcon(side, 0);
+		return Blocks.stone.getIcon(side, 0);
 	}
 
 	public static void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
@@ -81,8 +80,8 @@ public class BlockCustomHelper {
 			TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 			if (tile.size() == 6) {
 				for (int i = 0; i < 6; i++) {
-					if (Block.blocksList[tile.theBlockIDs(i)] != null) {
-						hardness += Block.blocksList[tile.theBlockIDs(i)].blockHardness;
+					if (Blocks.blocksList[tile.theBlockIDs(i)] != null) {
+						hardness += Blocks.blocksList[tile.theBlockIDs(i)].blockHardness;
 					}
 				}
 			}
@@ -100,8 +99,8 @@ public class BlockCustomHelper {
 			TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 			if (tile.size() == 6) {
 				for (int i = 0; i < 6; i++) {
-					if (Block.blocksList[tile.theBlockIDs(i)] != null) {
-						resistance = resistance + (Block.blocksList[tile.theBlockIDs(i)].blockResistance / 3);
+					if (Blocks.blocksList[tile.theBlockIDs(i)] != null) {
+						resistance = resistance + (Blocks.blocksList[tile.theBlockIDs(i)].blockResistance / 3);
 					}
 				}
 			}

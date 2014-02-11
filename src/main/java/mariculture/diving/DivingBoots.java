@@ -4,9 +4,7 @@ import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public class DivingBoots {
 	public static void init(EntityPlayer player) {

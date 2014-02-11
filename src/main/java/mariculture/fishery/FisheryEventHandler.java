@@ -14,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -43,7 +42,7 @@ public class FisheryEventHandler {
 	@ForgeSubscribe
 	public void onFishDeath(ItemExpireEvent event) {
 		Random rand = new Random();
-		ItemStack item = event.entityItem.getEntityItem();
+		ItemStack item = event.entityItems.getEntityItem();
 
 		if (item.getItem() instanceof ItemFishy) {
 
@@ -51,7 +50,7 @@ public class FisheryEventHandler {
 				int fish = item.stackTagCompound.getInteger("SpeciesID");
 				FishSpecies species = Fishing.fishHelper.getSpecies(fish);
 				if(species.getGroup() != EnumFishGroup.NETHER) {
-					if(event.entityItem.isInsideOfMaterial(Material.water)) {
+					if(event.entityItems.isInsideOfMaterial(Material.water)) {
 						event.setCanceled(true);
 						return;
 					}
@@ -60,7 +59,7 @@ public class FisheryEventHandler {
 				ItemStack stack = new ItemStack(Fishery.fishyFood, 1, fish);
 				
 				if (stack != null) {
-					updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
+					updateStack(event.entityItems.worldObj, event.entityItem, 6000, stack, rand);
 					event.setCanceled(true);
 				}
 			}

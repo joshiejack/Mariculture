@@ -6,12 +6,10 @@ import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.AirMeta;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileCustom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
@@ -27,7 +25,7 @@ public class ItemPaintbrush extends ItemDamageable {
 		String name = StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name");
 		
 		if(stack.hasTagCompound()) {
-			if(Item.itemsList[stack.stackTagCompound.getInteger("BlockID")] != null) {
+			if(Items.itemsList[stack.stackTagCompound.getInteger("BlockID")] != null) {
 				ItemStack block = new ItemStack(stack.stackTagCompound.getInteger("BlockID"), 1, stack.stackTagCompound.getInteger("BlockMeta"));
 				name = name + " - " + BlockHelper.getName(block);
 				return name;
@@ -47,11 +45,11 @@ public class ItemPaintbrush extends ItemDamageable {
 			int sideTexture = stack.stackTagCompound.getInteger("BlockSide");
 
 			if (id > 0) {
-				if (world.getBlockTileEntity(x, y, z) != null) {
-					if (world.getBlockTileEntity(x, y, z) instanceof TileCustom) {
+				if (world.getTileEntity(x, y, z) != null) {
+					if (world.getTileEntity(x, y, z) instanceof TileCustom) {
 						int blockID = world.getBlockId(x, y, z);
 						if (!player.isSneaking() && blockID != Factory.customGate.blockID || (player.isSneaking() && blockID == Factory.customGate.blockID)) {
-							TileCustom tile = (TileCustom) world.getBlockTileEntity(x, y, z);
+							TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
 							if(tile.setSide(side, id, meta, sideTexture)) {
 								stack.attemptDamageItem(1, new Random());
 							}

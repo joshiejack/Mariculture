@@ -3,7 +3,6 @@ package mariculture.core.helpers;
 import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
-import mariculture.magic.ItemMirror;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

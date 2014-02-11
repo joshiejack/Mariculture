@@ -2,7 +2,6 @@ package mariculture.core.helpers;
 
 import java.util.ArrayList;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishyFood;
@@ -10,7 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class OreDicHelper {
@@ -143,7 +141,7 @@ public class OreDicHelper {
 				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id).copy();
 				
 				if(!checkWhitelist) {
-					if(stack.itemID == Block.planks.blockID || stack.itemID == Block.wood.blockID || stack.itemID == Block.woodSingleSlab.blockID) {
+					if(stack.itemID == Blocks.planks.blockID || stack.itemID == Blocks.wood.blockID || stack.itemID == Blocks.woodSingleSlab.blockID) {
 						stack.setItemDamage(Rand.rand.nextInt(4));
 					}
 				}

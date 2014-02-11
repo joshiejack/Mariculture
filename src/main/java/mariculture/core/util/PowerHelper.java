@@ -5,7 +5,7 @@ import java.util.Collections;
 import mariculture.factory.blocks.TileCustomPowered;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
 
 public class PowerHelper {
@@ -33,7 +33,7 @@ public class PowerHelper {
 	}
 
 	public static IEnergyHandler isEnergyHandler(World world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof IEnergyHandler) {
 			return (IEnergyHandler) tile;
 		}

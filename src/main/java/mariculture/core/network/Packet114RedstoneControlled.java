@@ -22,7 +22,7 @@ public class Packet114RedstoneControlled extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		IRedstoneControlled tile = (IRedstoneControlled) world.getBlockTileEntity(x, y, z);
+		IRedstoneControlled tile = (IRedstoneControlled) world.getTileEntity(x, y, z);
 		if(tile != null) {
 			tile.setRSMode(RedstoneMode.toggle(tile.getRSMode()));
 		}

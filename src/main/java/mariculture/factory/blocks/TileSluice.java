@@ -69,7 +69,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 			int x2 = xCoord - direction.offsetX;
 			int y2 = yCoord - direction.offsetY;
 			int z2 = zCoord - direction.offsetZ;
-			Block block = Block.blocksList[worldObj.getBlockId(x2, y2, z2)];
+			Block block = Blocks.blocksList[worldObj.getBlockId(x2, y2, z2)];
 			if(block instanceof BlockFluidBase || block instanceof BlockFluid) {
 				FluidStack fluid = null;
 				if(block instanceof BlockFluidBase)
@@ -108,8 +108,8 @@ public class TileSluice extends TileTank implements IBlacklisted {
 							int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
 							if (tank.drain(direction.getOpposite(), drain, false).amount == drain) {
 								int id = fluid.getBlockID();
-								if (Block.blocksList[id] != null) {
-									Block block = Block.blocksList[id];
+								if (Blocks.blocksList[id] != null) {
+									Block block = Blocks.blocksList[id];
 									if (block instanceof BlockFluidFinite) {
 										if (worldObj.isAirBlock(x2, y2, z2)) {
 											worldObj.setBlock(x2, y2, z2, id, 0, 2);
@@ -145,7 +145,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		int z = zCoord + direction.offsetZ;
 		if(BlockHelper.isWater(worldObj, xCoord - direction.offsetX, yCoord, zCoord - direction.offsetZ)) {
 			if(BlockHelper.isAir(worldObj, x, yCoord, z))
-				worldObj.setBlock(x, yCoord, z, Core.highPressureWaterBlock.blockID);
+				worldObj.setBlock(x, yCoord, z, Core.highPressureWaterBlocks.blockID);
 		} else {
 			if(BlockHelper.isHPWater(worldObj, x, yCoord, z))
 				worldObj.setBlockToAir(x, yCoord, z);

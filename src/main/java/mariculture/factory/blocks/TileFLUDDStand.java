@@ -27,13 +27,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.FakePlayer;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -98,7 +95,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 			}
 				
 			List list = this.worldObj.getEntitiesWithinAABB(Entity.class, 
-					Block.stone.getCollisionBoundingBoxFromPool(this.worldObj, (int)x, (int)y, (int)z));
+					Blocks.stone.getCollisionBoundingBoxFromPool(this.worldObj, (int)x, (int)y, (int)z));
 			
 			//Entity Stuff
 			for(Object i: list) {
@@ -107,7 +104,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				if(dist == 1 && !worldObj.isRemote && onTick(20) && reverse && entity instanceof EntityItem) {
 					EntityItem item = (EntityItem) entity;
 					ItemStack stack = item.getEntityItem();
-					TileEntity tile = worldObj.getBlockTileEntity(xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
+					TileEntity tile = worldObj.getTileEntity(xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
 					if(tile != null && tile instanceof IInventory) {
 						ItemStack newStack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, orientation.getOpposite().ordinal());
 						if(newStack == null)
@@ -143,7 +140,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				int x2 = (int) (x + orientation.offsetX);
 				int y2 = (int) (y + orientation.offsetY);
 				int z2 = (int) (z + orientation.offsetZ);
-				Block block = Block.blocksList[worldObj.getBlockId(x2, y2, z2)];
+				Block block = Blocks.blocksList[worldObj.getBlockId(x2, y2, z2)];
 				if(block != null) {
 					float blockHardness = block.getBlockHardness(worldObj, x2, y2, z2);
 					if(worldObj.isRemote) {
@@ -186,7 +183,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.oysterBlock.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlockId(x, y, z) == Core.oysterBlocks.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
 	}
 	
 	private boolean hasEthereal() {

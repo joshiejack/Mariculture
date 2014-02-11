@@ -30,7 +30,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {	
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TilePressureVessel) {
 			return new RenderPressureVessel(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileVat) {
@@ -44,7 +44,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		}
 		/*
 		render.renderAllFaces = true;
-		TileEntity tile = (TileEntity) world.getBlockTileEntity(x, y, z);
+		TileEntity tile = (TileEntity) world.getTileEntity(x, y, z);
 		if(tile instanceof TileAirCompressor) {
 			TileAirCompressor compressor = (TileAirCompressor) tile;
 			ForgeDirection facing = compressor.facing;

@@ -1,19 +1,9 @@
 package mariculture.factory.blocks;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-
 import mariculture.core.network.Packet110CustomTileUpdate;
 import mariculture.core.network.Packets;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class TileCustom extends TileEntity {
 	private int[] theBlockIDs = new int[6];

@@ -17,7 +17,7 @@ public class TConstructClientRegistry
     public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<ToolGuiElement>();
     public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
     public static Map<String, ItemStack[]> recipeIcons = new HashMap<String, ItemStack[]>();
-    public static ItemStack defaultStack = new ItemStack(Item.ingotIron);
+    public static ItemStack defaultStack = new ItemStack(Items.ingotIron);
 
     public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
     {

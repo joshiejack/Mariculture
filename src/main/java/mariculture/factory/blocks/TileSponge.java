@@ -1,9 +1,7 @@
 package mariculture.factory.blocks;
 
 import mariculture.core.lib.Modules;
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.TileEnergyHandler;
 
@@ -17,8 +15,8 @@ public class TileSponge extends TileEnergyHandler {
     
     public boolean isBlockSponge(int x, int y, int z) {
     	if(Modules.world.isActive())
-    		return worldObj.getBlockId(x, y, z) == Block.sponge.blockID;
-    	return worldObj.getBlockId(x, y, z) == Block.cloth.blockID && worldObj.getBlockMetadata(x, y, z) == 4;
+    		return worldObj.getBlockId(x, y, z) == Blocks.sponge.blockID;
+    	return worldObj.getBlockId(x, y, z) == Blocks.cloth.blockID && worldObj.getBlockMetadata(x, y, z) == 4;
     }
 
     private int tick;
@@ -71,7 +69,7 @@ public class TileSponge extends TileEnergyHandler {
         	for (int z = negZ; z <= posZ; z++) {
             	for (int y = yCoord; y <= posY; y++) {
                  	// Now that we are looping through each block
-                    if (worldObj.getBlockMaterial(x, y, z).isLiquid() || worldObj.getBlockId(x, y, z) == Block.sponge.blockID) {
+                    if (worldObj.getBlockMaterial(x, y, z).isLiquid() || worldObj.getBlockId(x, y, z) == Blocks.sponge.blockID) {
                     	worldObj.setBlockToAir(x, y, z);
                     }
                 }

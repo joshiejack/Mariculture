@@ -6,7 +6,6 @@ import mariculture.core.lib.ArmorSlot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.ForgeDirection;
 
 public class ScubaFin {
 	public static final float SPEED = 0.025F;

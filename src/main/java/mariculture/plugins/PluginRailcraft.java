@@ -6,15 +6,12 @@ import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
-import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.RecipeRemover;
 import mariculture.plugins.Plugins.Plugin;
 import mods.railcraft.api.crafting.RailcraftCraftingManager;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -43,7 +40,7 @@ public class PluginRailcraft extends Plugin {
 		ItemStack coalCokeBlock = GameRegistry.findItemStack(id, "cube.coke", 1);
 
 		RecipesSmelting.addRecipe(FluidDictionary.steel, MetalRates.TOOLS, new Object[] { 
-				steelPick, steelShovel, steelAxe, steelSword, steelHoe }, RecipesSmelting.steel, new ItemStack(Item.stick), 1);
+				steelPick, steelShovel, steelAxe, steelSword, steelHoe }, RecipesSmelting.steel, new ItemStack(Items.stick), 1);
 			
 		RecipesSmelting.addRecipe(FluidDictionary.steel, MetalRates.ARMOR, new Object[] { 
 				steelHelm, steelChest, steelPants, steelBoots }, RecipesSmelting.steel, null, 0);
@@ -52,7 +49,7 @@ public class PluginRailcraft extends Plugin {
 		MaricultureHandlers.smelter.addFuel(coalCoke, new FuelInfo(2000, 64, 3600));
 
 		ItemStack input = new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE);
-		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);
+		ItemStack output = new ItemStack(Items.dyePowder, 1, Dye.BONE);
 
 		RailcraftCraftingManager.rockCrusher.createNewRecipe(input, true, false).addOutput(output, 0.1F);
 	}

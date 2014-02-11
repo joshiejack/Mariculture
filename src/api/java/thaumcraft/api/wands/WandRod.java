@@ -161,6 +161,6 @@ public class WandRod
     }
 
     //  Some examples:
-    //	WandRod WAND_ROD_WOOD = new WandRod("wood",25,new ItemStack(Item.stick),1);
-    //	WandRod WAND_ROD_BLAZE = new WandRod("blaze",100,new ItemStack(Item.blazeRod),7,new WandRodBlazeOnUpdate());
+    //	WandRod WAND_ROD_WOOD = new WandRod("wood",25,new ItemStack(Items.stick),1);
+    //	WandRod WAND_ROD_BLAZE = new WandRod("blaze",100,new ItemStack(Items.blazeRod),7,new WandRodBlazeOnUpdate());
 }

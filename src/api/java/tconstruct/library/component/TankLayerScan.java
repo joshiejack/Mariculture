@@ -39,7 +39,7 @@ public class TankLayerScan extends LogicComponent
     private static boolean debug = System.getenv("DBG_MANTLE_TankLayerScan") != null;
     private static int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64") ? 4000 : 2000; // Recursion causes overflows on 32-bit, so reduce if not 64-bit
 
-    public TankLayerScan(TileEntity te, Block... ids)
+    public TankLayerScan(TileEntity te, Blocks... ids)
     {
         assert te instanceof IMasterLogic : "TileEntity must be an instance of IMasterLogic";
         master = te;
@@ -139,7 +139,7 @@ public class TankLayerScan extends LogicComponent
 
         for (CoordTuple coord : blockCoords)
         {
-            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
@@ -177,7 +177,7 @@ public class TankLayerScan extends LogicComponent
 
     protected boolean checkAir (int x, int y, int z)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
+        Block block = world.getBlock(x, y, z);
         if (block == null || block.isAirBlock(world, x, y, z))// || block == TContent.tankAir)
             return true;
 
@@ -186,14 +186,14 @@ public class TankLayerScan extends LogicComponent
 
     protected boolean checkServant (int x, int y, int z)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
+        Block block = world.getBlock(x, y, z);
         if (block == null || block.isAirBlock(world, x, y, z) || !isValidBlock(x, y, z))
             return false;
 
         if (!block.hasTileEntity(world.getBlockMetadata(x, y, z)))
             return false;
 
-        TileEntity be = world.getBlockTileEntity(x, y, z);
+        TileEntity be = world.getTileEntity(x, y, z);
         if (be instanceof IServantLogic)
             return ((IServantLogic) be).setPotentialMaster(this.imaster, this.world, x, y, z);
 
@@ -231,7 +231,7 @@ public class TankLayerScan extends LogicComponent
 
     protected boolean isValidBlock (int x, int y, int z)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
+        Block block = world.getBlock(x, y, z);
         if (block != null)
         {
             for (int i = 0; i < scanBlocks.length; i++)
@@ -401,7 +401,7 @@ public class TankLayerScan extends LogicComponent
         int height = -1;
         for (CoordTuple coord : blockCoords)
         {
-            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
             boolean canPass = false;
             if (servant instanceof IServantLogic)
             {
@@ -441,7 +441,7 @@ public class TankLayerScan extends LogicComponent
         completeStructure = false;
         for (CoordTuple coord : blockCoords)
         {
-            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
@@ -455,7 +455,7 @@ public class TankLayerScan extends LogicComponent
             if (coord.y < height)
                 continue;
 
-            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
@@ -468,7 +468,7 @@ public class TankLayerScan extends LogicComponent
         while (i.hasNext())
         {
             CoordTuple coord = (CoordTuple) i.next();
-            TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity te = world.getTileEntity(coord.x, coord.y, coord.z);
             if (te != null && te instanceof IServantLogic)
             {
                 ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);

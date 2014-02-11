@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -24,7 +24,7 @@ public class RenderProjectileFish extends Render {
 
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float par8, float par9) {
-		final Icon icon = Fishery.fishyFood.getIconFromDamage(fishID);
+		final IIcon icon = Fishery.fishyFood.getIconFromDamage(fishID);
 
 		if (icon != null) {
 			GL11.glPushMatrix();
@@ -39,7 +39,7 @@ public class RenderProjectileFish extends Render {
 		}
 	}
 
-	private void renderIcon(Tessellator tesselator, Icon icon) {
+	private void renderIcon(Tessellator tesselator, IIcon icon) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();

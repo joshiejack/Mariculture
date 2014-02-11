@@ -105,28 +105,28 @@ public class Factory extends Module {
 
 	@Override
 	public void registerBlocks() {
-		customFlooring = new BlockCustomFlooring().setStepSound(Block.soundStoneFootstep)
+		customFlooring = new BlockCustomFlooring().setStepSound(Blocks.soundStoneFootstep)
 				.setHardness(0.1F).setResistance(0.1F).setUnlocalizedName("customFlooring").setLightOpacity(0);
-		customBlock = new BlockCustomBlock(BlockIds.customBlock).setStepSound(Block.soundStoneFootstep).setHardness(1F)
+		customBlock = new BlockCustomBlock(customBlock).setStepSound(Blocks.soundStoneFootstep).setHardness(1F)
 				.setResistance(0.1F).setUnlocalizedName("customBlock");
-		customStairs = new BlockCustomStairs(BlockIds.customStairs, customBlock, 0)
-				.setStepSound(Block.soundStoneFootstep).setHardness(1F).setResistance(0.1F) .setUnlocalizedName("customStairs");
-		customSlabs = new BlockCustomSlab(BlockIds.customSlabs, false).setUnlocalizedName("customSlabs");
-		customSlabsDouble = new BlockCustomSlab(BlockIds.customSlabsDouble, true).setUnlocalizedName("customSlabsDouble");
-		customFence = new BlockCustomFence(BlockIds.customFence).setUnlocalizedName("customFence");
-		customGate = new BlockCustomGate(BlockIds.customGate).setUnlocalizedName("customGate");
-		customWall = new BlockCustomWall(BlockIds.customWall, customBlock).setUnlocalizedName("customWall");
-		customLight = new BlockCustomLight(BlockIds.customLight).setUnlocalizedName("customLight").setLightValue(1.0F);
-		customRFBlock = new BlockCustomPower(BlockIds.customRFBlock).setUnlocalizedName("customRFBlock");
+		customStairs = new BlockCustomStairs(customStairs, customBlock, 0)
+				.setStepSound(Blocks.soundStoneFootstep).setHardness(1F).setResistance(0.1F) .setUnlocalizedName("customStairs");
+		customSlabs = new BlockCustomSlab(customSlabs, false).setUnlocalizedName("customSlabs");
+		customSlabsDouble = new BlockCustomSlab(customSlabsDouble, true).setUnlocalizedName("customSlabsDouble");
+		customFence = new BlockCustomFence(customFence).setUnlocalizedName("customFence");
+		customGate = new BlockCustomGate(customGate).setUnlocalizedName("customGate");
+		customWall = new BlockCustomWall(customWall, customBlock).setUnlocalizedName("customWall");
+		customLight = new BlockCustomLight(customLight).setUnlocalizedName("customLight").setLightValue(1.0F);
+		customRFBlock = new BlockCustomPower(customRFBlock).setUnlocalizedName("customRFBlock");
 
-		Item.itemsList[BlockIds.customFlooring] = new BlockItemCustom(BlockIds.customFlooring - 256, customFlooring).setUnlocalizedName("customFlooring");
-		Item.itemsList[BlockIds.customBlock] = new BlockItemCustom(BlockIds.customBlock - 256, customBlock).setUnlocalizedName("customBlock");
-		Item.itemsList[BlockIds.customStairs] = new BlockItemCustom(BlockIds.customStairs - 256, customStairs).setUnlocalizedName("customStairs");
-		Item.itemsList[BlockIds.customFence] = new BlockItemCustom(BlockIds.customFence - 256, customFence).setUnlocalizedName("customFence");
-		Item.itemsList[BlockIds.customGate] = new BlockItemCustom(BlockIds.customGate - 256, customGate).setUnlocalizedName("customGate");
-		Item.itemsList[BlockIds.customWall] = new BlockItemCustom(BlockIds.customWall - 256, customWall).setUnlocalizedName("customWall");
-		Item.itemsList[BlockIds.customLight] = new BlockItemCustom(BlockIds.customLight - 256, customLight).setUnlocalizedName("customLight");
-		Item.itemsList[BlockIds.customRFBlock] = new BlockItemCustom(BlockIds.customRFBlock - 256, customRFBlock).setUnlocalizedName("customRFBlock");
+		Items.itemsList[customFlooring] = new BlockItemCustom(customFlooring - 256, customFlooring).setUnlocalizedName("customFlooring");
+		Items.itemsList[customBlock] = new BlockItemCustom(customBlock - 256, customBlock).setUnlocalizedName("customBlock");
+		Items.itemsList[customStairs] = new BlockItemCustom(customStairs - 256, customStairs).setUnlocalizedName("customStairs");
+		Items.itemsList[customFence] = new BlockItemCustom(customFence - 256, customFence).setUnlocalizedName("customFence");
+		Items.itemsList[customGate] = new BlockItemCustom(customGate - 256, customGate).setUnlocalizedName("customGate");
+		Items.itemsList[customWall] = new BlockItemCustom(customWall - 256, customWall).setUnlocalizedName("customWall");
+		Items.itemsList[customLight] = new BlockItemCustom(customLight - 256, customLight).setUnlocalizedName("customLight");
+		Items.itemsList[customRFBlock] = new BlockItemCustom(customRFBlock - 256, customRFBlock).setUnlocalizedName("customRFBlock");
 		BlockItemCustomSlab.setSlabs((BlockHalfSlab) customSlabs, (BlockHalfSlab) customSlabsDouble);
 
 		GameRegistry.registerBlock(customSlabs, mariculture.factory.blocks.BlockItemCustomSlab.class, "Mariculture_customSlab");
@@ -165,13 +165,13 @@ public class Factory extends Module {
 
 	@Override
 	public void registerItems() {
-		plans = new ItemPlan(ItemIds.plans).setUnlocalizedName("plans");
-		fludd = new ItemArmorFLUDD(ItemIds.fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
-		paintbrush = new ItemPaintbrush(ItemIds.paintbrush, 128).setUnlocalizedName("paintbrush");
-		filter = new ItemFilter(ItemIds.filter).setUnlocalizedName("filter");
-		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 900, 1).setUnlocalizedName("turbineCopper");
-		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 3600, 2).setUnlocalizedName("turbineAluminum");
-		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 28800, 3).setUnlocalizedName("turbineTitanium");
+		plans = new ItemPlan(plans).setUnlocalizedName("plans");
+		fludd = new ItemArmorFLUDD(fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
+		paintbrush = new ItemPaintbrush(paintbrush, 128).setUnlocalizedName("paintbrush");
+		filter = new ItemFilter(filter).setUnlocalizedName("filter");
+		turbineCopper = new ItemRotor(turbineCopper, 900, 1).setUnlocalizedName("turbineCopper");
+		turbineAluminum = new ItemRotor(turbineAluminum, 3600, 2).setUnlocalizedName("turbineAluminum");
+		turbineTitanium = new ItemRotor(turbineTitanium, 28800, 3).setUnlocalizedName("turbineTitanium");
 		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 
@@ -181,7 +181,7 @@ public class Factory extends Module {
 		//Sawmill
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL), new Object[] {
 			" A ", "DWD", "IMI",
-			Character.valueOf('A'), Item.axeIron, 
+			Character.valueOf('A'), Items.axeIron, 
 			Character.valueOf('D'), "slabWood",
 			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
 			Character.valueOf('W'), "logWood", 
@@ -191,10 +191,10 @@ public class Factory extends Module {
 		//Autodictionary Converter
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
 			" B ", "FPF", "IMI",
-			Character.valueOf('F'), Item.feather, 
+			Character.valueOf('F'), Items.feather, 
 			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
 			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-			Character.valueOf('B'), Item.writableBook,
+			Character.valueOf('B'), Items.writableBook,
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
@@ -202,18 +202,18 @@ public class Factory extends Module {
 			//Alternative for Converter
 			RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
 				" B ", "FPF", "IMI",
-				Character.valueOf('F'), Item.feather, 
-				Character.valueOf('P'), Item.enderPearl, 
+				Character.valueOf('F'), Items.feather, 
+				Character.valueOf('P'), Items.enderPearl, 
 				Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-				Character.valueOf('B'), Item.writableBook,
+				Character.valueOf('B'), Items.writableBook,
 				Character.valueOf('I'), "ingotCopper"
 			});
 		}
 		
 		//Mechanized Sponge
-		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Block.sponge): new ItemStack(Item.bucketWater);
-		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Item.potion, 1, 0);
-		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.fishRaw);
+		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Blocks.sponge): new ItemStack(Items.bucketWater);
+		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potion, 1, 0);
+		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fishRaw);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
 			Character.valueOf('D'), fish, 
@@ -226,10 +226,10 @@ public class Factory extends Module {
 		//Sluice
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 4, UtilMeta.SLUICE), new Object[] {
 			" H ", "WBW", "IMI",
-			Character.valueOf('H'), Block.hopperBlock, 
+			Character.valueOf('H'), Blocks.hopperBlock, 
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
 			Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('B'), Block.fenceIron,
+			Character.valueOf('B'), Blocks.fenceIron,
 			Character.valueOf('I'), "ingotAluminum"
 		});
 		
@@ -240,7 +240,7 @@ public class Factory extends Module {
 			Character.valueOf('I'), "ingotCopper", 
 			Character.valueOf('B'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
 			Character.valueOf('S'), "slabWood",
-			Character.valueOf('P'), Block.pistonBase
+			Character.valueOf('P'), Blocks.pistonBase
 		});
 		
 		//Water Turbine
@@ -249,8 +249,8 @@ public class Factory extends Module {
 			Character.valueOf('T'), turbineAluminum,
 			Character.valueOf('I'), "ingotAluminum", 
 			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 0),
-			Character.valueOf('P'), Block.pistonBase
+			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 0),
+			Character.valueOf('P'), Blocks.pistonBase
 		});
 		
 		//Gas Turbine
@@ -259,8 +259,8 @@ public class Factory extends Module {
 			Character.valueOf('T'), turbineTitanium,
 			Character.valueOf('I'), "ingotTitanium", 
 			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 7),
-			Character.valueOf('P'), Block.pistonBase
+			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 7),
+			Character.valueOf('P'), Blocks.pistonBase
 		});
 		
 		//Pressure Vessel
@@ -290,21 +290,21 @@ public class Factory extends Module {
 		//Geyser
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 16, SingleMeta.GEYSER), new Object[] {
 			" W ", " G ", "RCR",
-			Character.valueOf('W'), Item.bucketWater,
+			Character.valueOf('W'), Items.bucketWater,
 			Character.valueOf('G'), "glass",
-			Character.valueOf('R'), Item.redstone,
+			Character.valueOf('R'), Items.redstone,
 			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
 		});
 		
 	//Items
 		//Machine Book
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.MACHINES), new Object[] {
-			Item.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
+			Items.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
 		});
 		
 		//FLUDD
 		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
-		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Block.lever);
+		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Blocks.lever);
 		RecipeHelper.addShapedRecipe(fludd, new Object[] {
 			" E ", "PGP", "LUL",
 			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
@@ -315,10 +315,10 @@ public class Factory extends Module {
 		});
 		
 		//Crafting of Life Core
-		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.spiderEye);
+		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spiderEye);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
-			"DSR", "FHB", "PAC", 'D', Block.plantYellow, 'S', "treeSapling", 'R', Block.plantRed,
-			'F', fish, 'H', new ItemStack(Item.potion, 1, 8229), 'B', bait, 'P', Item.potato, 'A', Item.bootsDiamond, 'C', Item.carrot
+			"DSR", "FHB", "PAC", 'D', Blocks.plantYellow, 'S', "treeSapling", 'R', Blocks.plantRed,
+			'F', fish, 'H', new ItemStack(Items.potion, 1, 8229), 'B', bait, 'P', Items.potato, 'A', Items.bootsDiamond, 'C', Items.carrot
 		});
 		
 		//Planning Chalk
@@ -356,11 +356,11 @@ public class Factory extends Module {
 		
 		//Blank Plan
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), new Object[] {
-			"dyeBlue", "dyeBlack", Item.paper, "dyeBlue"
+			"dyeBlue", "dyeBlack", Items.paper, "dyeBlue"
 		});
 		
 		//Item Filter
-		ItemStack filterer = (Modules.fishery.isActive())? new ItemStack(Fishery.net): new ItemStack(Block.chest);
+		ItemStack filterer = (Modules.fishery.isActive())? new ItemStack(Fishery.net): new ItemStack(Blocks.chest);
 		RecipeHelper.addShapedRecipe(new ItemStack(filter), new Object[] {
 			"W W", "WNW", " W ",
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER),
@@ -370,7 +370,7 @@ public class Factory extends Module {
 		//Paintbrush
 		RecipeHelper.addShapedRecipe(new ItemStack(paintbrush), new Object[] {
 			" WW", " IW", "S  ",
-			Character.valueOf('W'), new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE), 
+			Character.valueOf('W'), new ItemStack(Blocks.cloth, 1, OreDictionary.WILDCARD_VALUE), 
 			Character.valueOf('I'), "blockAluminum", 
 			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL)
 		});
@@ -386,14 +386,14 @@ public class Factory extends Module {
 		RecipeHelper.addShapedRecipe(new ItemStack(turbineAluminum), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotAluminum",
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 0)
+			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 0)
 		});	
 		
 		//Titanium Turbine
 		RecipeHelper.addShapedRecipe(new ItemStack(turbineTitanium), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotTitanium",
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 7)
+			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 7)
 		});	
 		
 		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas);

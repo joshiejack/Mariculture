@@ -13,10 +13,8 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
@@ -69,16 +67,16 @@ public class RenderFakeItem extends Render
             int i;
 
             Block block = null;
-            if (itemstack.itemID < Block.blocksList.length)
+            if (itemstack.itemID < Blocks.blocksList.length)
             {
-                block = Block.blocksList[itemstack.itemID];
+                block = Blocks.blocksList[itemstack.itemID];
             }
 
             if (ForgeHooksClient.renderEntityItem(entity, itemstack, f2, f3, random, renderManager.renderEngine, renderBlocks))
             {
                 ;
             }
-            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[itemstack.itemID].getRenderType()))
+            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Blocks.blocksList[itemstack.itemID].getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -132,12 +130,12 @@ public class RenderFakeItem extends Render
                     for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
                     {
                         this.random.setSeed(187L);
-                        Icon icon = itemstack.getItem().getIcon(itemstack, k);
+                        IIcon icon = itemstack.getItem().getIcon(itemstack, k);
                         f8 = 1.0F;
 
                         if (this.renderWithColor)
                         {
-                            i = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, k);
+                            i = Items.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, k);
                             f5 = (float) (i >> 16 & 255) / 255.0F;
                             f4 = (float) (i >> 8 & 255) / 255.0F;
                             f6 = (float) (i & 255) / 255.0F;
@@ -162,11 +160,11 @@ public class RenderFakeItem extends Render
                         GL11.glScalef(0.5F, 0.5F, 0.5F);
                     }
 
-                    Icon icon1 = itemstack.getIconIndex();
+                    IIcon icon1 = itemstack.getIconIndex();
 
                     if (this.renderWithColor)
                     {
-                        int l = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
+                        int l = Items.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
                         f8 = (float) (l >> 16 & 255) / 255.0F;
                         float f9 = (float) (l >> 8 & 255) / 255.0F;
                         f5 = (float) (l & 255) / 255.0F;
@@ -187,32 +185,32 @@ public class RenderFakeItem extends Render
 
     protected ResourceLocation func_110796_a (EntityItem par1EntityItem)
     {
-        return this.renderManager.renderEngine.getResourceLocation(par1EntityItem.getEntityItem().getItemSpriteNumber());
+        return this.renderManager.renderEngine.getResourceLocation(par1EntityItems.getEntityItem().getItemSpriteNumber());
     }
 
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (EntityItem par1EntityItem, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         renderDroppedItem(par1EntityItem, par2Icon, par3, par4, par5, par6, par7, 0);
     }
 
-    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
+    private void renderDroppedItem (EntityItem par1EntityItem, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
     {     
         Tessellator tessellator = Tessellator.instance;
 
         if (par2Icon == null)
         {
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-            ResourceLocation resourcelocation = texturemanager.getResourceLocation(par1EntityItem.getEntityItem().getItemSpriteNumber());
+            ResourceLocation resourcelocation = texturemanager.getResourceLocation(par1EntityItems.getEntityItem().getItemSpriteNumber());
             par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
-        float f4 = ((Icon) par2Icon).getMinU();
-        float f5 = ((Icon) par2Icon).getMaxU();
-        float f6 = ((Icon) par2Icon).getMinV();
-        float f7 = ((Icon) par2Icon).getMaxV();
+        float f4 = ((IIcon) par2Icon).getMinU();
+        float f5 = ((IIcon) par2Icon).getMaxU();
+        float f6 = ((IIcon) par2Icon).getMinV();
+        float f7 = ((IIcon) par2Icon).getMaxV();
         float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
@@ -226,12 +224,12 @@ public class RenderFakeItem extends Render
         }
         else
         {
-            GL11.glRotatef((((float) par1EntityItem.age + par4) / 20.0F + par1EntityItem.hoverStart) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef((((float) par1EntityItems.age + par4) / 20.0F + par1EntityItems.hoverStart) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
         }
 
         float f12 = 0.0625F;
         f11 = 0.021875F;
-        ItemStack itemstack = par1EntityItem.getEntityItem();
+        ItemStack itemstack = par1EntityItems.getEntityItem();
         int j = itemstack.stackSize;
         byte b0 = getMiniItemCount(itemstack);
 
@@ -262,7 +260,7 @@ public class RenderFakeItem extends Render
             }
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((IIcon) par2Icon).getIconWidth(), ((IIcon) par2Icon).getIconHeight(), f12);
 
             if (itemstack.hasEffect(pass))
             {
@@ -318,8 +316,8 @@ public class RenderFakeItem extends Render
         float f1;
         float f2;
 
-        Block block = (k < Block.blocksList.length ? Block.blocksList[k] : null);
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[k].getRenderType()))
+        Block block = (k < Blocks.blocksList.length ? Blocks.blocksList[k] : null);
+        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Blocks.blocksList[k].getRenderType()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
             GL11.glPushMatrix();
@@ -329,7 +327,7 @@ public class RenderFakeItem extends Render
             GL11.glScalef(1.0F, 1.0F, -1.0F);
             GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            i1 = Items.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
             f = (float) (i1 >> 16 & 255) / 255.0F;
             f1 = (float) (i1 >> 8 & 255) / 255.0F;
             f2 = (float) (i1 & 255) / 255.0F;
@@ -345,15 +343,15 @@ public class RenderFakeItem extends Render
             this.itemRenderBlocks.useInventoryTint = true;
             GL11.glPopMatrix();
         }
-        else if (Item.itemsList[k].requiresMultipleRenderPasses())
+        else if (Items.itemsList[k].requiresMultipleRenderPasses())
         {
             GL11.glDisable(GL11.GL_LIGHTING);
 
-            for (int j1 = 0; j1 < Item.itemsList[k].getRenderPasses(l); ++j1)
+            for (int j1 = 0; j1 < Items.itemsList[k].getRenderPasses(l); ++j1)
             {
                 par2TextureManager.bindTexture(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
-                Icon icon = Item.itemsList[k].getIcon(par3ItemStack, j1);
-                int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
+                IIcon icon = Items.itemsList[k].getIcon(par3ItemStack, j1);
+                int k1 = Items.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
                 f1 = (float) (k1 >> 16 & 255) / 255.0F;
                 f2 = (float) (k1 >> 8 & 255) / 255.0F;
                 float f3 = (float) (k1 & 255) / 255.0F;
@@ -384,7 +382,7 @@ public class RenderFakeItem extends Render
                 object = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(resourcelocation)).getAtlasSprite("missingno");
             }
 
-            i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            i1 = Items.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
             f = (float) (i1 >> 16 & 255) / 255.0F;
             f1 = (float) (i1 >> 8 & 255) / 255.0F;
             f2 = (float) (i1 & 255) / 255.0F;
@@ -394,7 +392,7 @@ public class RenderFakeItem extends Render
                 GL11.glColor4f(f, f1, f2, 1.0F);
             }
 
-            this.renderIcon(par4, par5, (Icon) object, 16, 16);
+            this.renderIcon(par4, par5, (IIcon) object, 16, 16);
             GL11.glEnable(GL11.GL_LIGHTING);
 
             if (par3ItemStack.hasEffect(0))
@@ -523,7 +521,7 @@ public class RenderFakeItem extends Render
         par1Tessellator.draw();
     }
 
-    public void renderIcon (int par1, int par2, Icon par3Icon, int par4, int par5) {
+    public void renderIcon (int par1, int par2, IIcon par3Icon, int par4, int par5) {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + par5), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMaxV());

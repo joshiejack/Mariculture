@@ -1,12 +1,8 @@
 package mariculture.sealife.render;
 
-import mariculture.sealife.EntityHammerhead;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-
-import org.lwjgl.opengl.GL11;
 
 public class ModelHammerhead extends ModelBase {
 	private ModelRenderer Head;

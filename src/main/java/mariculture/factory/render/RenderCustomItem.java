@@ -1,10 +1,7 @@
 package mariculture.factory.render;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
 import org.lwjgl.opengl.GL11;
 
@@ -37,7 +34,7 @@ public class RenderCustomItem implements IItemRenderer {
 				return;
 			} else {
 				for(int i = 0; i <= 5; i++) {
-					if(Block.blocksList[item.stackTagCompound.getIntArray("BlockIDs")[i]] == null) {
+					if(Blocks.blocksList[item.stackTagCompound.getIntArray("BlockIDs")[i]] == null) {
 						return;
 					}
 				}
@@ -47,22 +44,22 @@ public class RenderCustomItem implements IItemRenderer {
 		RenderBlocksCustom renderBlocks = new RenderBlocksCustom();
 		switch (type) {
 		case ENTITY:
-			renderBlocks.renderBlockAsItem(Block.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		case EQUIPPED:
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.75F, 0.0F, 0.0F);
-			renderBlocks.renderBlockAsItem(Block.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
 			GL11.glPopMatrix();
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		case EQUIPPED_FIRST_PERSON:
-			renderBlocks.renderBlockAsItem(Block.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		case INVENTORY:
-			renderBlocks.renderBlockAsItem(Block.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		default:

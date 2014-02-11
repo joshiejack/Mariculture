@@ -1,12 +1,8 @@
 package mariculture.magic.jewelry.parts;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import mariculture.core.lib.Jewelry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import mariculture.core.Core;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Jewelry;
 
 public class PartWool extends JewelryPart {
 	@Override
@@ -41,7 +37,7 @@ public class PartWool extends JewelryPart {
 	
 	@Override
 	public ItemStack getItemStack() {
-		return new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE);
+		return new ItemStack(Blocks.cloth, 1, OreDictionary.WILDCARD_VALUE);
 	}
 	
 	@Override

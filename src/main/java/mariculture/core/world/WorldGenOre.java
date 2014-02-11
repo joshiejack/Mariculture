@@ -22,7 +22,7 @@ public class WorldGenOre extends WorldGenerator
 
     public WorldGenOre(int par1, int par2)
     {
-        this(par1, par2, Block.stone.blockID);
+        this(par1, par2, Blocks.stone.blockID);
     }
 
     public WorldGenOre(int par1, int par2, int par3)
@@ -80,7 +80,7 @@ public class WorldGenOre extends WorldGenerator
                                 double d14 = ((double)i3 + 0.5D - d8) / (d10 / 2.0D);
                                 
                                 if(BlockHelper.chunkExists(par1World, k2, i3)) {
-	                                Block block = Block.blocksList[par1World.getBlockId(k2, l2, i3)];
+	                                Block block = Blocks.blocksList[par1World.getBlockId(k2, l2, i3)];
 	                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (block != null && block.isGenMineableReplaceable(par1World, k2, l2, i3, this.blockToReplace)))
 	                                {
 	                                    par1World.setBlock(k2, l2, i3, this.minableBlockId, minableBlockMeta, 2);

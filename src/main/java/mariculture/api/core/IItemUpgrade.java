@@ -1,6 +1,5 @@
 package mariculture.api.core;
 
-import net.minecraft.util.Icon;
 
 public interface IItemUpgrade {
 	/** Return how much heat this upgrade gives can be negative if it cools instead of heats **/

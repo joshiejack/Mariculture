@@ -2,7 +2,6 @@ package mariculture.transport;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -343,7 +342,7 @@ public class EntitySpeedBoat extends Entity {
 				
 				for(int i = -2; i < 3; i++) {
 					for(int j = -2; j < 3; j++) {
-						if(this.worldObj.getBlockId((int)this.posX + i, (int)this.posY, (int)this.posZ + j) == Block.waterlily.blockID) {
+						if(this.worldObj.getBlockId((int)this.posX + i, (int)this.posY, (int)this.posZ + j) == Blocks.waterlily.blockID) {
 							this.worldObj.destroyBlock((int)this.posX + i, (int)this.posY, (int)this.posZ + j, true);
 						}
 					}
@@ -371,9 +370,9 @@ public class EntitySpeedBoat extends Entity {
 						int l1 = MathHelper.floor_double(this.posY) + k1;
 						int i2 = this.worldObj.getBlockId(i1, l1, j1);
 
-						if (i2 == Block.snow.blockID) {
+						if (i2 == Blocks.snow.blockID) {
 							this.worldObj.setBlockToAir(i1, l1, j1);
-						} else if (i2 == Block.waterlily.blockID) {
+						} else if (i2 == Blocks.waterlily.blockID) {
 							this.worldObj.destroyBlock(i1, l1, j1, true);
 						}
 					}

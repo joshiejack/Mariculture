@@ -1,13 +1,10 @@
 package mariculture.magic.enchantments;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
-import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public class EnchantmentHealth extends EnchantmentJewelry {
 	public EnchantmentHealth(int i, int weight, EnumEnchantmentType type) {

@@ -2,19 +2,14 @@ package mariculture.core.blocks;
 
 import java.util.List;
 
-import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;

@@ -2,7 +2,6 @@ package mariculture.core.blocks.base;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -19,7 +18,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public abstract class TileMultiMachineTank extends TileMultiStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
@@ -128,10 +126,10 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 				return true;
 			for(MultiPart block: mstr.slaves) {
 				if(mode.equals(RedstoneMode.LOW)) {
-					if(!RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
+					if(!RedstoneMode.canWork(worldObj.getTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
 						return false;
 				} else if(mode.equals(RedstoneMode.HIGH)) {
-					if(RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
+					if(RedstoneMode.canWork(worldObj.getTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
 						return true;
 				}
 			}

@@ -3,7 +3,6 @@ package mariculture.api.core;
 import java.util.HashMap;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 public interface ISmelterHandler {	
 	/** Add a Melting Recipe

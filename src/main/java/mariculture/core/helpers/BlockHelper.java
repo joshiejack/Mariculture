@@ -1,6 +1,5 @@
 package mariculture.core.helpers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,8 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockHelper {
 
@@ -92,7 +90,7 @@ public class BlockHelper {
 
 	public static String getName(ItemStack stack) {
 		if(stack != null) {
-			return Item.itemsList[stack.itemID].getItemDisplayName(stack);
+			return Items.itemsList[stack.itemID].getItemDisplayName(stack);
 		}
 		
 		return "";
@@ -104,8 +102,8 @@ public class BlockHelper {
 		}
 				
 		int id = tile.getBlockType().blockID;
-		if(Item.itemsList[id] != null) {
-			Item block = Item.itemsList[id];
+		if(Items.itemsList[id] != null) {
+			Item block = Items.itemsList[id];
 			return StatCollector.translateToLocal(block.getUnlocalizedName(new ItemStack(id, 1, tile.getBlockMetadata())) + ".name");
 		}
 		
@@ -128,7 +126,7 @@ public class BlockHelper {
 
 	public static void dropItems(World world, int x, int y, int z) {
 		Random rand = Rand.rand;
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 	
 		if (!(tile instanceof IInventory)) {
 			return;
@@ -179,7 +177,7 @@ public class BlockHelper {
 
 	public static void dropFish(World world, int x, int y, int z) {
 		Random rand = Rand.rand;
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileFishTank) {
 			HashMap fish = ((TileFishTank) tile).fish;
 			Iterator it = fish.entrySet().iterator();

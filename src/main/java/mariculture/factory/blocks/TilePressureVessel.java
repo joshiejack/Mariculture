@@ -5,14 +5,12 @@ import mariculture.core.blocks.base.TileMultiMachineTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
-import mariculture.factory.FactoryEvents;
 import mariculture.factory.items.ItemArmorFLUDD;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -110,7 +108,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	
 //MultiBlock Stuffs	
 	public TilePressureVessel isSameBlock(int x, int y, int z) {
-		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
 		return tile != null && tile instanceof TilePressureVessel? (TilePressureVessel)tile: null;
 	}
 	
@@ -155,7 +153,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 					slaves.remove(0);
 					//Update all Existing slaves so they know who their new master is
 					for(MultiPart slave: slaves) {
-						TilePressureVessel vessel = (TilePressureVessel) worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
+						TilePressureVessel vessel = (TilePressureVessel) worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 						if(vessel != null) {	
 							vessel.setMaster(new MultiPart(coords.xCoord, coords.yCoord, coords.zCoord));
 						}
@@ -170,7 +168,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 					contents.setInteger("y", coords.yCoord);
 					contents.setInteger("z", coords.zCoord);
 					
-					TilePressureVessel theMaster = (TilePressureVessel) worldObj.getBlockTileEntity(coords.xCoord, coords.yCoord, coords.zCoord);
+					TilePressureVessel theMaster = (TilePressureVessel) worldObj.getTileEntity(coords.xCoord, coords.yCoord, coords.zCoord);
 					if(theMaster != null) {
 						theMaster.readFromNBT(contents);
 					}

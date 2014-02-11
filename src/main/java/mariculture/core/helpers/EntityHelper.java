@@ -14,7 +14,7 @@ public class EntityHelper {
 	    int k = MathHelper.floor_double(entity.posZ);
 	    int l = entity.worldObj.getBlockId(i, j, k);
 	
-	    Block block = Block.blocksList[l];
+	    Block block = Blocks.blocksList[l];
 	    if (block != null && block.blockMaterial == Material.water)
 	    {
 	        double filled = 1;
@@ -40,7 +40,7 @@ public class EntityHelper {
 	    int k = MathHelper.floor_double(entity.posZ);
 	    int l = entity.worldObj.getBlockId(i, j, k);
 	
-	    Block block = Block.blocksList[l];
+	    Block block = Blocks.blocksList[l];
 	    if (block != null && block.blockMaterial == Material.air) {
 	        double filled = 1;
 	        if (filled < 0) {

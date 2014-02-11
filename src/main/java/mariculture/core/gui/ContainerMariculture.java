@@ -1,6 +1,5 @@
 package mariculture.core.gui;
 
-import cofh.api.energy.IEnergyHandler;
 import mariculture.api.core.IUpgradable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import cofh.api.energy.IEnergyHandler;
 
 public class ContainerMariculture extends Container {	
 	public TileEntity tile;

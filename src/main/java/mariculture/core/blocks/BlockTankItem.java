@@ -3,7 +3,6 @@ package mariculture.core.blocks;
 import java.util.List;
 
 import mariculture.core.helpers.cofh.StringHelper;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.Text;
 import net.minecraft.block.Block;

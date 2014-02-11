@@ -2,8 +2,6 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import com.mojang.authlib.GameProfile;
-
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.lib.FluidContainerMeta;
@@ -22,6 +20,9 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.mojang.authlib.GameProfile;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -29,7 +30,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 	public IIcon[] still;
 	public IIcon[] flowing;
 	
-	public BlockFluidMari(int id, Fluid fluid, Material material) {
+	public BlockFluidMari(Fluid fluid, Material material) {
 		super(fluid, material);
 		quantaPerBlock = 16;
 		quantaPerBlockFloat = 16;

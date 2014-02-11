@@ -2,8 +2,6 @@ package mariculture.core.guide;
 
 import net.minecraft.item.ItemStack;
 
-import org.lwjgl.opengl.GL11;
-
 public class PageStack extends PageParser {
 	String stack;
 	

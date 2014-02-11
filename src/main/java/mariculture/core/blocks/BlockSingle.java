@@ -2,8 +2,6 @@ package mariculture.core.blocks;
 
 import java.util.Random;
 
-import javax.swing.Icon;
-
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
@@ -30,7 +28,6 @@ import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.fishery.blocks.TileFeeder;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -473,7 +470,7 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if(meta == SingleMeta.GEYSER)
-			return Block.hopperBlock.getIcon(0, 0);
+			return Blocks.hopperBlocks.getIcon(0, 0);
 		if(meta == SingleMeta.INGOT_CASTER)
 			return super.getIcon(side, meta);
 		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)
@@ -523,7 +520,7 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		icons = new Icon[getMetaCount()];
+		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
 			if(i <= SingleMeta.ANVIL_1 || i > SingleMeta.ANVIL_4) {

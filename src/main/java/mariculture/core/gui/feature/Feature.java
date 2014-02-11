@@ -2,13 +2,12 @@ package mariculture.core.gui.feature;
 
 import java.util.List;
 
+import mariculture.Mariculture;
+import mariculture.core.gui.GuiMariculture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import mariculture.Mariculture;
-import mariculture.core.gui.GuiMariculture;
-import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 
 public class Feature {
 	public static final ResourceLocation texture = new ResourceLocation(Mariculture.modid, "textures/gui/gui_elements.png");
