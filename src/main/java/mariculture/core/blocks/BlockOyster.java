@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -94,7 +95,7 @@ public class BlockOyster extends BlockMachine {
 					this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 				}
 	
-				world.setBlock(x, y, z, 0);
+				world.setBlockToAir(x, y, z);
 			}
 		}
 	}
@@ -115,19 +116,19 @@ public class BlockOyster extends BlockMachine {
 	}
 	
 	@Override
-	public int idDropped(int i, Random random, int j) {
-		if(i != NET)
-			return this.blockID;
-		return Fishery.net.itemID;
-	}
-	
+	public Item getItemDropped(int meta, Random random, int j) {
+		if(meta == NET)
+			return Fishery.net;
+		return super.getItemDropped(meta, random, j);
+    }
+
 	@Override
 	public int damageDropped(int i) {
 		return 0;
 	}
 	
 	@Override
-	public boolean isBlockReplaceable(World world, int x, int y, int z) {
+	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -161,13 +162,7 @@ public class BlockOyster extends BlockMachine {
 				return false;
 		}
 
-		int id = world.getBlockId(x, y, z);
-		return id == 0 || blocksList[id].blockMaterial.isReplaceable();
-	}
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, int par5, int par6) {
-		super.breakBlock(world, x, y, z, par5, par6);
+		return world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isReplaceable();
 	}
 
 	@Override
@@ -184,7 +179,7 @@ public class BlockOyster extends BlockMachine {
 			//Spawn in the Jewelry Book on first collection of a pearl
 			if(Extra.SPAWN_BOOKS) {
 				ItemStack stack = oyster.getStackInSlot(0);
-				if(stack != null && stack.itemID != Blocks.sand.blockID) {
+				if(stack != null && stack.getItem() != Item.getItemFromBlock(Blocks.sand)) {
 					if(!player.getEntityData().hasKey("EnchantsBook")) {
 						player.getEntityData().setBoolean("EnchantsBook", true);
 						ItemStack book = new ItemStack(Core.guides, 1, GuideMeta.ENCHANTS);
@@ -200,7 +195,7 @@ public class BlockOyster extends BlockMachine {
 			if (!player.isSneaking()) {
 				if (!world.isRemote) {
 					if (player.getCurrentEquippedItem() != null
-							&& player.getCurrentEquippedItem().itemID == Blocks.sand.blockID) {
+							&& player.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.sand)) {
 						if (!oyster.hasContents()) {
 							oyster.setInventorySlotContents(0, new ItemStack(Blocks.sand));
 							if (!player.capabilities.isCreativeMode) {
@@ -249,7 +244,7 @@ public class BlockOyster extends BlockMachine {
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
-						if (world.getBlockId(x, y - 1, z) == Core.pearlBrick.blockID) {
+						if (world.getBlock(x, y - 1, z) == Core.pearlBrick) {
 							oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
 						} else {
 							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));
@@ -292,9 +287,9 @@ public class BlockOyster extends BlockMachine {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		icons = new IIcon[2];
-		icons[0] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, 0)));
-		icons[1] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, NET)));
+		icons[0] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, 0)));
+		icons[1] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, NET)));
 	}
 }

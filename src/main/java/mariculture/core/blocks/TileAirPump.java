@@ -89,7 +89,8 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 				
 				animate = true;
 				
-				Packets.updateTile(this, 32, new Packet102AirPump(xCoord, yCoord, zCoord).build());
+				//TODO: PACKET Update Air Pump Animations
+				//Packets.updateTile(this, 32, new Packet102AirPump(xCoord, yCoord, zCoord).build());
 			}
 			
 			suckUpGas(4096);
@@ -121,7 +122,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 	}
 	
 	private boolean isNaturalGas(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.airBlocks.blockID && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
+		return worldObj.getBlock(x, y, z) == Core.airBlocks && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
 	}
 	
 	private int tick;
@@ -160,7 +161,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 				animate = false;
 			}
 
-			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 
 		if(Modules.diving.isActive()){

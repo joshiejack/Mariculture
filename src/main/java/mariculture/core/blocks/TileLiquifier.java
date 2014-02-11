@@ -108,7 +108,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	}
 	
 	private boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {
-		return stack1.itemID == stack2.itemID && stack1.getItemDamage() == stack2.getItemDamage();
+		return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage();
 	}
 
 	@Override
@@ -392,7 +392,9 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		
+		//TODO: PACKET Update Liquifier Creation Packet
+		//Packets.updateTile(this, 32, getDescriptionPacket());
 	}
 	
 	public void onBlockPlaced(int x, int y, int z) {
@@ -410,12 +412,13 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			setAsMaster(mstr, parts);
 		}
 		
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		
+		//TODO: Packets.updateTile(this, 32, getDescriptionPacket());
 	}
 	
 	@Override
 	public boolean isPart(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
-					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.LIQUIFIER && !isPartnered(x, y, z);
+		return worldObj.getBlock(x, y, z) == this.getBlockType() 
+				&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.LIQUIFIER & !isPartnered(x, y, z);
 	}
 }

@@ -23,8 +23,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomGate extends BlockFenceGate implements IItemRegistry {
 
-	public BlockCustomGate(int i) {
-		super(i);
+	public BlockCustomGate() {
 		setCreativeTab(null);
 	}
 
@@ -35,7 +34,7 @@ public class BlockCustomGate extends BlockFenceGate implements IItemRegistry {
 	}
 
 	@Override
-	public IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
 		return BlockCustomHelper.getBlockTexture(block, x, y, z, side);
 	}
 
@@ -102,7 +101,7 @@ public class BlockCustomGate extends BlockFenceGate implements IItemRegistry {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 

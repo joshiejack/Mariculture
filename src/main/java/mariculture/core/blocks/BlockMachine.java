@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.RegistryHelper;
+import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -19,14 +20,23 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMachine extends BlockContainer implements IItemRegistry {
-
+public abstract class BlockMachine extends BlockContainer implements IItemRegistry {
 	protected IIcon[] icons;
 	
 	public BlockMachine(Material material) {
 		super(material);
 		setCreativeTab(MaricultureTab.tabMariculture);
+		setHarvestLevels();
 	}
+	
+	public void setHarvestLevels() {
+		for(int i = 0; i < getMetaCount(); i++) {
+			setHarvestLevel(getToolType(i), getToolLevel(i), UtilMeta.INCUBATOR_BASE);
+		}
+	}
+	
+	public abstract String getToolType(int meta);
+	public abstract int getToolLevel(int meta);
 
 	@Override
 	public void register() {

@@ -10,7 +10,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -25,8 +24,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomFence extends BlockFence implements IItemRegistry {
 
-	public BlockCustomFence(int i) {
-		super(i, "customFence", Material.rock);
+	public BlockCustomFence() {
+		super("customFence", Material.rock);
 		setCreativeTab(null);
 	}
 	
@@ -38,7 +37,7 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
     }
 
 	@Override
-	public IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
 		return BlockCustomHelper.getBlockTexture(block, x, y, z, side);
 	}
 
@@ -69,7 +68,7 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z) {
+	public boolean canCreatureSpawn(CreatureType type, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -105,7 +104,7 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 
@@ -120,5 +119,5 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 	}
 	
 	@Override
-	public void registerIcons(IIconRegister par1IconRegister) { }
+	public void registerBlockIcons(IIconRegister iconRegister) { }
 }

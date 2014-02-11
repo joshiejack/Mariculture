@@ -12,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
 
@@ -57,7 +58,7 @@ public class ContainerIncubator extends ContainerMachine {
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
 				if ((stack.getItem() instanceof ItemFishy && Fishing.fishHelper.isEgg(stack))
-						|| stack.itemID == Items.egg.itemID || stack.itemID == Blocks.dragonEgg.blockID) {
+						|| stack.getItem() == Items.egg || stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
 					if (!this.mergeItemStack(stack, 4, 13, false)) { // Slot 4-12
 						return null;
 					}
@@ -109,9 +110,9 @@ public class ContainerIncubator extends ContainerMachine {
 				if (Fishing.fishHelper.isEgg(stack)) {
 					return true;
 				}
-			} else if (stack.itemID == Items.egg.itemID) {
+			} else if (stack.getItem() == Items.egg) {
 				return true;
-			} else if (stack.itemID == Blocks.dragonEgg.blockID) {
+			} else if (stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
 				return true;
 			}
 

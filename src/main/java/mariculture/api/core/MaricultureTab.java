@@ -1,10 +1,10 @@
 package mariculture.api.core;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class MaricultureTab extends CreativeTabs
-{
+public class MaricultureTab extends CreativeTabs {
 	public static MaricultureTab tabMariculture;
 	public static MaricultureTab tabFish;
 	public static MaricultureTab tabJewelry;
@@ -17,8 +17,12 @@ public class MaricultureTab extends CreativeTabs
     }
 
     @Override
-    public ItemStack getIconItemStack ()
-    {
+    public ItemStack getIconItemStack () {
         return icon;
     }
+
+	@Override
+	public Item getTabIconItem() {
+		return icon.getItem();
+	}
 }

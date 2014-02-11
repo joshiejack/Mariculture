@@ -5,8 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class BlockPearlBrickItem extends ItemBlockMariculture {
-	public BlockPearlBrickItem(int i, Block block) {
-		super(i);
+	public BlockPearlBrickItem(Block block) {
+		super(block);
 	}
 
 	public String getName(ItemStack stack) {

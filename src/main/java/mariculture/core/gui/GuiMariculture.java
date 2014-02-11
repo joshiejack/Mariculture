@@ -42,11 +42,11 @@ public abstract class GuiMariculture extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		drawForeground();
-		fontRenderer.drawString(getName(), getX(), nameHeight, 4210752);
-		fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
+		fontRendererObj.drawString(getName(), getX(), nameHeight, 4210752);
+		fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
 		tooltip.clear();
 		addToolTips();
-		drawToolTip(tooltip, mouseX, mouseY, fontRenderer);
+		drawToolTip(tooltip, mouseX, mouseY, fontRendererObj);
 	}
 
 	@Override

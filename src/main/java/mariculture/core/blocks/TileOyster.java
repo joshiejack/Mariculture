@@ -7,8 +7,10 @@ import mariculture.core.network.Packets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
 
 public class TileOyster extends TileStorage implements ISidedInventory {
 	public TileOyster() {
@@ -21,7 +23,7 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	}
 
 	public boolean hasSand() {
-		return hasContents() && inventory[0].itemID == Blocks.sand.blockID;
+		return hasContents() && inventory[0].getItem() == Item.getItemFromBlock(Blocks.sand);
 	}
 
     public boolean hasContents() {
@@ -32,6 +34,8 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 		return inventory[0];
 	}
 	
+	//TODO: PACKET Oyster Packet Updates
+	/*
 	@Override
 	public Packet getDescriptionPacket() {		
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -45,19 +49,19 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	}
 	
 	@Override
-	public void onInventoryChanged() {
-		super.onInventoryChanged();
+	public void markDirty() {
+		super.markDirty();
 		
 		if(!worldObj.isRemote) {
 			int id = getCurrentPearl() != null ? getCurrentPearl().itemID : -1;
 			int meta = getCurrentPearl() != null ? getCurrentPearl().getItemDamage() : 0;
 			Packets.updateTile(this, 128, new Packet103Oyster(xCoord, yCoord, zCoord, id, meta).build());
 		}
-	}
+	} */
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack) {
-		return stack.itemID == Blocks.sand.blockID || stack.itemID == Core.pearls.itemID || stack.itemID == Items.enderPearl.itemID;
+		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) || stack.getItem() == Core.pearls || stack.getItem() == Items.ender_pearl;
 	}
 
 	@Override
@@ -67,11 +71,11 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 
 	@Override
 	public boolean canInsertItem(int i, ItemStack stack, int j) {
-		return stack.itemID == Blocks.sand.blockID && inventory[0] == null;
+		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) && inventory[0] == null;
 	}
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack stack, int j) {
-		return stack.itemID == Core.pearls.itemID || stack.itemID == Items.enderPearl.itemID;
+		return stack.getItem() == Core.pearls || stack.getItem() == Items.ender_pearl;
 	}
 }

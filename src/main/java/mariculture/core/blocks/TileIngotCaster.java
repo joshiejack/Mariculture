@@ -89,11 +89,13 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	public void markDirty() {
 		super.markDirty();
 		
-		if(!worldObj.isRemote) {
+		//TODO: PACKET ItemSync
+		/* if(!worldObj.isRemote) {
 			 Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
-		}
+		} */
 	}
 	
+	/*
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound tag = new NBTTagCompound();
@@ -104,14 +106,14 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 	
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
         if (amount > 0 && doFill) {
         	canWork = canWork();
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	//TODO: Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         }
         return amount;
 	}
@@ -121,7 +123,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 		FluidStack amount = tank.drain(maxDrain, doDrain);
         if (amount != null && doDrain) {
         	canWork = canWork();
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	//TODO: Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         }
         return amount;
 	}

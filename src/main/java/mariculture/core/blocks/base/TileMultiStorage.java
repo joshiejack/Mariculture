@@ -38,7 +38,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
             if (mstr.inventory[slot].stackSize <= amount) {
                 stack = mstr.inventory[slot];
                 mstr.inventory[slot] = null;
-                mstr.onInventoryChanged();
+                mstr.markDirty();
                 return stack;
             } else {
                 stack = mstr.inventory[slot].splitStack(amount);
@@ -47,7 +47,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
                 	mstr.inventory[slot] = null;
                 }
 
-                mstr.onInventoryChanged();
+                mstr.markDirty();
                 return stack;
             }
         }
@@ -80,16 +80,16 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
         	stack.stackSize = mstr.getInventoryStackLimit();
         }
 
-        mstr.onInventoryChanged();
+        mstr.markDirty();
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return "";
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
@@ -105,10 +105,10 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
 	}
 
 	@Override
-	public void openChest() {}
+	public void openInventory() {}
 
 	@Override
-	public void closeChest() {}
+	public void closeInventory() {}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -118,9 +118,9 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		NBTTagList tagList = nbt.getTagList("Inventory");
+		NBTTagList tagList = nbt.getTagList("Inventory", 10);
 		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 			byte slot = tag.getByte("Slot");
 			if (slot >= 0 && slot < inventory.length) {
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);

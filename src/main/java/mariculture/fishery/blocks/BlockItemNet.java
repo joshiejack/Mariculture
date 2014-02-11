@@ -12,11 +12,11 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 public class BlockItemNet extends ItemMariculture {
-	public BlockItemNet(int i) {
-		super(i);
+	public BlockItemNet() {
 		setHasSubtypes(false);
 	}
 
@@ -27,7 +27,7 @@ public class BlockItemNet extends ItemMariculture {
 		if (object == null) {
 			return stack;
 		} else {
-			if (object.typeOfHit == EnumMovingObjectType.TILE) {
+			if (object.typeOfHit == MovingObjectType.BLOCK) {
 				int x = object.blockX;
 				int y = object.blockY;
 				int z = object.blockZ;
@@ -40,9 +40,9 @@ public class BlockItemNet extends ItemMariculture {
 					return stack;
 				}
 
-				if (world.getBlockMaterial(x, y, z) == Material.water 
+				if (world.getBlock(x, y, z).getMaterial() == Material.water 
 						&& world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
-					world.setBlock(x, y + 1, z, Core.oysterBlocks.blockID, BlockOyster.NET, 2);
+					world.setBlock(x, y + 1, z, Core.oysterBlock, BlockOyster.NET, 2);
 
 					if (!player.capabilities.isCreativeMode) {
 						--stack.stackSize;

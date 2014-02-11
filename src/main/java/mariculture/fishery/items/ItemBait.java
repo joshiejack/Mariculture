@@ -8,11 +8,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemBait extends ItemMariculture {
-	public ItemBait(int i) {
-		super(i);
-	}
-	
+public class ItemBait extends ItemMariculture {	
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
 		return 8;

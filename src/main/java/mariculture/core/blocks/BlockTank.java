@@ -12,6 +12,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.fishery.blocks.TileFishTank;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -35,7 +36,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockTank extends BlockConnected {
 	private static IIcon[] fishTank = new IIcon[47];
 	
-	public BlockTank(int i) {
+	public BlockTank() {
 		super(Material.piston);
 	}
 
@@ -171,7 +172,8 @@ public class BlockTank extends BlockConnected {
 		}
 	}
 	
-	@Override
+	//TODO: Fix Tanks keeping their inventory on drop
+	/*@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		if (!world.isRemote) {
 			if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
@@ -187,7 +189,7 @@ public class BlockTank extends BlockConnected {
 						tank.getFluid().writeToNBT(drop.stackTagCompound);
 					}
 
-					EntityItem entity = new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(drop.itemID, 1, drop.getItemDamage()));
+					EntityItem entity = new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(drop.getItem(), 1, drop.getItemDamage()));
 					if (drop.hasTagCompound()) {
 						entity.getEntityItem().setTagCompound((NBTTagCompound) drop.getTagCompound().copy());
 					}
@@ -198,7 +200,7 @@ public class BlockTank extends BlockConnected {
 		}
 
 		return world.setBlockToAir(x, y, z);
-	}
+	} */
 	
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
@@ -222,18 +224,18 @@ public class BlockTank extends BlockConnected {
 	}
 	
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int i, int j) {
+	public void breakBlock(World world, int x, int y, int z, Block block, int j) {
 		BlockHelper.dropFish(world, x, y, z);
-		super.breakBlock(world, x, y, z, i, j);
+		super.breakBlock(world, x, y, z, block, j);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)) + "Tank");
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)) + "Tank");
 		}
 		
 		registerConnectedTextures(iconRegister);

@@ -8,6 +8,7 @@ import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
@@ -70,8 +71,8 @@ public class TileSluice extends TileTank implements IBlacklisted {
 			int x2 = xCoord - direction.offsetX;
 			int y2 = yCoord - direction.offsetY;
 			int z2 = zCoord - direction.offsetZ;
-			Block block = Blocks.blocksList[worldObj.getBlockId(x2, y2, z2)];
-			if(block instanceof BlockFluidBase || block instanceof BlockFluid) {
+			Block block = worldObj.getBlock(x2, y2, z2);
+			if(block instanceof BlockFluidBase || block instanceof BlockLiquid) {
 				FluidStack fluid = null;
 				if(block instanceof BlockFluidBase)
 					fluid = ((BlockFluidBase) block).drain(worldObj, x2, y2, z2, false);

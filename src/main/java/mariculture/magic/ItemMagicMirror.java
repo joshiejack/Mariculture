@@ -13,8 +13,8 @@ public class ItemMagicMirror extends ItemMirror {
 	int minLevel;
 	int maxLevel;
 	
-	public ItemMagicMirror(int id, int min, int max, String str, int enchantability, int maxdamage) {
-		super(id, str);
+	public ItemMagicMirror(int min, int max, String str, int enchantability, int maxdamage) {
+		super(str);
 		minLevel = min;
 		maxLevel = max;
 		this.enchantability = enchantability;
@@ -22,7 +22,7 @@ public class ItemMagicMirror extends ItemMirror {
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		stack = get(stack);
 		return StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name") 
 				+ " (" + stack.getTagCompound().getIntArray("Levels")[2] + ")";
@@ -74,9 +74,9 @@ public class ItemMagicMirror extends ItemMirror {
 	
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-		if(stack1.itemID == Magic.magicMirror.itemID)
-			return stack2.itemID == Core.pearls.itemID;
-		return stack2.itemID == Core.materials.itemID && stack2.getItemDamage() == MaterialsMeta.DROP_MAGIC;
+		if(stack1.getItem() == Magic.magicMirror)
+			return stack2.getItem() == Core.pearls;
+		return stack2.getItem() == Core.materials && stack2.getItemDamage() == MaterialsMeta.DROP_MAGIC;
 	}
 	
 	@Override

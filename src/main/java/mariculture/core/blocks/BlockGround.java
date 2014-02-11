@@ -7,7 +7,6 @@ import mariculture.core.lib.GroundMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -15,7 +14,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockGround extends BlockDecorative {
-	public BlockGround(int i) {
+	public BlockGround() {
 		super(Material.sand);
 	}
 	
@@ -46,7 +45,7 @@ public class BlockGround extends BlockDecorative {
 	
 	@Override
 	public Item getItemDropped(int i, Random random, int j) {
-        return Items.getItemFromBlock(Blocks.sand);
+        return Item.getItemFromBlock(Blocks.sand);
     }
 	
 	@Override

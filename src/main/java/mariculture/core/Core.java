@@ -40,6 +40,7 @@ import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.blocks.TileVoidBottle;
 import mariculture.core.gui.GuiItemToolTip;
@@ -84,6 +85,7 @@ import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.lib.WorldGeneration;
+import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
 import mariculture.world.WorldPlus;
@@ -92,8 +94,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.Height;
 import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -184,18 +188,18 @@ public class Core extends Module {
 
 	@Override
 	public void registerBlocks() {
-		oreBlocks = new BlockOre().setStepSound(Blocks.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
-		utilBlocks = new BlockUtil().setStepSound(Blocks.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
-		doubleBlock = new BlockDouble().setStepSound(Blocks.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
-		singleBlocks = new BlockSingle().setStepSound(Blocks.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		oysterBlock = new BlockOyster().setStepSound(Blocks.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
+		oreBlocks = new BlockOre().setStepSound(Block.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
+		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
+		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
+		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
+		oysterBlock = new BlockOyster().setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
 		pearlBrick = new BlockPearlBrick().setBlockName("pearlBrick");
-		glassBlocks = new BlockGlass().setStepSound(Blocks.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
+		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
 		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
-		woodBlocks = new BlockWood().setStepSound(Blocks.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
-		tankBlocks = new BlockTank().setStepSound(Blocks.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
+		woodBlocks = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
+		tankBlocks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
 		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
-		transparentBlocks = new BlockTransparent().setStepSound(Blocks.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
+		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
 		
 		Items.itemsList[ores] = new BlockOreItem(ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
 		Items.itemsList[util] = new BlockUtilItem(util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
@@ -215,7 +219,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileOyster.class, "tileEntityOyster");
 		GameRegistry.registerTileEntity(TileLiquifier.class, "tileEntityLiquifier");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
-		GameRegistry.registerTileEntity(TileTankBlocks.class, "tileTankBlock");
+		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
 		GameRegistry.registerTileEntity(TileVat.class, "tileVatBlock");
 		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
@@ -252,10 +256,10 @@ public class Core extends Module {
 	
 	@Override
 	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFakeItems.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
+		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
 	}
 	
-	EnumToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
+	ToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
 
 	@Override
 	public void registerItems() {
@@ -296,7 +300,7 @@ public class Core extends Module {
 			Field field = BiomeGenBase.class.getField("ocean");
 			if(field == null)
 				field = BiomeGenBase.class.getField("field_76771_b");
-			Object newValue = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setMinMaxHeight(-1.8F, 0.4F);
+			Object newValue = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.8F, 0.4F));
 		    field.setAccessible(true);
 		    Field modifiersField = Field.class.getDeclaredField("modifiers");
 		    modifiersField.setAccessible(true);

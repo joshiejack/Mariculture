@@ -13,6 +13,7 @@ import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.Rand;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,8 +27,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockSift extends BlockMachine {
-	public BlockSift(int i) {
-		super(i, Material.wood);
+	public BlockSift() {
+		super(Material.wood);
 	}
 
 	@Override
@@ -205,9 +206,8 @@ public class BlockSift extends BlockMachine {
 				}
 			}
 		}
-
-		int id = world.getBlockId(x, y, z);
-		return id == 0 || blocksList[id].blockMaterial.isReplaceable();
+		
+		return world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isReplaceable();
 	}
 
 	@Override
@@ -225,9 +225,9 @@ public class BlockSift extends BlockMachine {
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int i,  int j) {
+	public void breakBlock(World world, int x, int y, int z, Block block,  int j) {
 		BlockHelper.dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, i, j);
+		super.breakBlock(world, x, y, z, block, j);
 	}
 
 	@Override

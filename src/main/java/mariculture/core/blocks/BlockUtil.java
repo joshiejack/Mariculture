@@ -16,6 +16,7 @@ import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileSponge;
 import mariculture.fishery.blocks.TileAutofisher;
 import mariculture.fishery.blocks.TileIncubator;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -46,6 +47,38 @@ public class BlockUtil extends BlockMachine {
 
 	public BlockUtil() {
 		super(Material.piston);
+	}
+	
+	@Override
+	public String getToolType(int meta) {
+		switch(meta) {
+			case UtilMeta.AUTOFISHER:
+				return "axe";
+			case UtilMeta.BOOKSHELF:
+				return "axe";
+			case UtilMeta.FISH_SORTER:
+				return "axe";
+			case UtilMeta.SAWMILL:
+				return "axe";
+			default:
+				return "pickaxe";
+		}
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		switch(meta) {
+		case UtilMeta.AUTOFISHER:
+			return 0;
+		case UtilMeta.BOOKSHELF:
+			return 0;
+		case UtilMeta.FISH_SORTER:
+			return 0;
+		case UtilMeta.SAWMILL:
+			return 0;
+		default:
+			return 1;
+		}
 	}
 
 	@Override
@@ -280,14 +313,14 @@ public class BlockUtil extends BlockMachine {
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		BlockHelper.dropItems(world, x, y, z);
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileMultiBlock) {
 			((TileMultiBlock)tile).onBlockBreak();
 		}
 		
-		super.breakBlock(world, x, y, z, i, meta);
+		super.breakBlock(world, x, y, z, block, meta);
 
 		if (meta == UtilMeta.SLUICE) {
 			clearWater(world, x + 1, y, z);
@@ -298,7 +331,7 @@ public class BlockUtil extends BlockMachine {
 	}
 
 	private void clearWater(World world, int x, int y, int z) {
-		if (world.getBlockMaterial(x, y, z) == Material.water) {
+		if (world.getBlock(x, y, z).getMaterial() == Material.water) {
 			world.setBlockToAir(x, y, z);
 		}
 	}
@@ -331,7 +364,7 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		incubatorIcons = new IIcon[2];
 		incubatorIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":incubatorBottom");
 		incubatorIcons[1] = iconRegister.registerIcon(Mariculture.modid + ":incubatorTopTop");
@@ -353,7 +386,7 @@ public class BlockUtil extends BlockMachine {
 
 		for (int i = 0; i < icons.length; i++) {
 			if(isActive(i)) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
+				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
 			}
 		}
 	}

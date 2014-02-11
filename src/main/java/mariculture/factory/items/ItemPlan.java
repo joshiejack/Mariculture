@@ -8,14 +8,14 @@ import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemPlan extends ItemMariculture {
-	public ItemPlan(int i) {
-		super(i);
+	public ItemPlan() {
 		this.setMaxDamage(16);
 		this.setMaxStackSize(1);
 		setHasSubtypes(false);
@@ -49,7 +49,8 @@ public class ItemPlan extends ItemMariculture {
 	@Override
 	public void register() {
 		for(int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(PlansMeta.setType(new ItemStack(this.itemID, 1, 0), j)), PlansMeta.setType(new ItemStack(this.itemID, 1, 0), j));
+			MaricultureRegistry.register(getName(PlansMeta.setType(new ItemStack(this, 1, 0), j)), 
+					PlansMeta.setType(new ItemStack(this, 1, 0), j));
 		}
 	}
 
@@ -130,9 +131,9 @@ public class ItemPlan extends ItemMariculture {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int j, CreativeTabs creative, List list) {
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
 		for (int i = 0; i < getMetaCount(); ++i) {
-			list.add(PlansMeta.setType(new ItemStack(j, 1, 0), i));
+			list.add(PlansMeta.setType(new ItemStack(item, 1, 0), i));
 		}
 	}
 	
@@ -142,7 +143,8 @@ public class ItemPlan extends ItemMariculture {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(PlansMeta.setType((new ItemStack(this.itemID, 1, 0)), i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" 
+					+ getName(PlansMeta.setType((new ItemStack(this, 1, 0)), i)));
 		}
 	}
 }

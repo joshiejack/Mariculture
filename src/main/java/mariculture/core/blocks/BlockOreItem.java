@@ -5,8 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class BlockOreItem extends ItemBlockMariculture {
-	public BlockOreItem(int id, Block block) {
-		super(id);
+	public BlockOreItem(Block block) {
+		super(block);
 	}
 
 	@Override

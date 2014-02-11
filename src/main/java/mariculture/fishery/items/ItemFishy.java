@@ -21,9 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFishy extends Item {
 	private static IIcon egg;
-
-	public ItemFishy(int i) {
-		super(i);
+	public ItemFishy() {
 		maxStackSize = 1;
 		setHasSubtypes(true);
 	}
@@ -43,7 +41,7 @@ public class ItemFishy extends Item {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.hasTagCompound() && !Fishing.fishHelper.isEgg(stack)) {
 			int species1 = stack.stackTagCompound.getInteger("SpeciesID");
 			int species2 = stack.stackTagCompound.getInteger("lowerSpeciesID");
@@ -118,7 +116,7 @@ public class ItemFishy extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int j, CreativeTabs creative, List list) {
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
 		for (int i = 0; i < FishSpecies.speciesList.size(); ++i) {
 			ItemStack fish = Fishing.fishHelper.makePureFish(FishSpecies.speciesList.get(i));
 

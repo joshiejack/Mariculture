@@ -23,6 +23,7 @@ import mariculture.core.render.RenderSingle;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderTanks;
 import mariculture.core.render.VatSpecialRenderer;
+import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.EntityFLUDDSquirt;
 import mariculture.factory.FLUDDKeyHandler;
@@ -56,6 +57,7 @@ import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
 import mariculture.transport.render.RenderSpeedBoatItem;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -87,8 +89,8 @@ public class ClientProxy extends CommonProxy {
 		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
 
-		MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Core.singleBlocks), new RenderSingleItem());
-		MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Core.oysterBlock), new RenderSingleItem());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.singleBlocks), new RenderSingleItem());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.oysterBlock), new RenderSingleItem());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
@@ -96,7 +98,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		RenderingRegistry.registerBlockHandler(new RenderDouble());
 		RenderingRegistry.registerBlockHandler(new RenderSingle());
-		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItems.class, new RenderFakeItem());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
 		
 		if(Modules.diving.isActive()) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
@@ -108,16 +110,16 @@ public class ClientProxy extends CommonProxy {
 			KeyBindingRegistry.registerKeyBinding(new FLUDDKeyHandler());
 			RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
 			RenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customBlock), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customFlooring), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customSlabs), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customSlabsDouble), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customStairs), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customFence), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customGate), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customLight), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customWall), new RenderCustomItem());
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customBlock), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customFlooring), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customSlabs), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customSlabsDouble), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customStairs), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customFence), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customGate), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customLight), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
 			MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSingle(new ModelFLUDD(scale), FLUDD));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSingle(new ModelTurbineWater(scale), TURBINE));
@@ -128,7 +130,7 @@ public class ClientProxy extends CommonProxy {
 		if(Modules.fishery.isActive()) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityFishing.class, new RenderFishingHook());
 			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
-			MinecraftForgeClient.registerItemRenderer(Items.getItemFromBlock(Fishery.siftBlock), new RenderSingleItem());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Fishery.siftBlock), new RenderSingleItem());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSingle(new ModelFeeder(scale), FEEDER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());

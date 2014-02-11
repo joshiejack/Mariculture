@@ -14,8 +14,7 @@ public class ItemBaseRod extends ItemFishingRod {
 	 * Any new rods you wish to add must extend this in order for it be
 	 * recognised by Mariculture
 	 **/
-	public ItemBaseRod(int i, EnumRodQuality quality) {
-		super(i);
+	public ItemBaseRod(EnumRodQuality quality) {
 		this.setMaxStackSize(1);
 		this.setMaxDamage(quality.getMaxUses());
 		this.quality = quality;

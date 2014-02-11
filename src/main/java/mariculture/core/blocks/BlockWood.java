@@ -5,9 +5,9 @@ import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -18,7 +18,7 @@ public class BlockWood extends BlockDecorative {
 	public IIcon top;
 	public IIcon side;
 	
-	public BlockWood(int i) {
+	public BlockWood() {
 		super(Material.wood);
 	}
 	
@@ -71,8 +71,8 @@ public class BlockWood extends BlockDecorative {
 	@Override
 	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
 		if(world.getBlockMetadata(x, y, z) >= WoodMeta.POLISHED_LOG) {
-			BlockHelper.rotateType[Blocks.getIdFromBlock(this)] = RotationType.LOG;
-			BlockHelper.rotateVanillaBlockAlt(world, Blocks.getIdFromBlock(this), world.getBlockMetadata(x, y, z), x, y, z);
+			BlockHelper.rotateType[Block.getIdFromBlock(this)] = RotationType.LOG;
+			BlockHelper.rotateVanillaBlockAlt(world, Block.getIdFromBlock(this), world.getBlockMetadata(x, y, z), x, y, z);
 			return true;
 		}
 		
@@ -103,8 +103,8 @@ public class BlockWood extends BlockDecorative {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
-		super.registerIcons(iconRegister);
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		super.registerBlockIcons(iconRegister);
 		top = iconRegister.registerIcon(Mariculture.modid + ":polishedLogTop");
 		side = iconRegister.registerIcon(Mariculture.modid + ":polishedLogSide");
 	}

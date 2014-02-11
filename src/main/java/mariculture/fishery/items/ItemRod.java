@@ -9,8 +9,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRod extends ItemBaseRod {
-	public ItemRod(int i, EnumRodQuality quality) {
-		super(i, quality);
+	public ItemRod(EnumRodQuality quality) {
+		super(quality);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(quality.getMaxUses());
 		this.setCreativeTab(MaricultureTab.tabMariculture);

@@ -15,8 +15,8 @@ import net.minecraft.nbt.NBTTagList;
 public class ItemFilter extends ItemStorage {
 	public static final int SIZE = 9;
 	
-	public ItemFilter(int i) {
-		super(i, SIZE, "filter");
+	public ItemFilter() {
+		super(SIZE, "filter");
 	}
 	
 	@Override
@@ -49,11 +49,11 @@ public class ItemFilter extends ItemStorage {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if(stack.hasTagCompound()) {
-			NBTTagList nbttaglist = stack.stackTagCompound.getTagList("Inventory");
+			NBTTagList nbttaglist = stack.stackTagCompound.getTagList("Inventory", 10);
 			if (nbttaglist != null) {
 				ItemStack[] inventory = new ItemStack[ItemFilter.SIZE];
 				for (int i = 0; i < nbttaglist.tagCount(); i++) {
-					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
+					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
 					byte byte0 = nbttagcompound1.getByte("Slot");
 					if (byte0 >= 0 && byte0 < inventory.length) {
 						ItemStack item = ItemStack.loadItemStackFromNBT(nbttagcompound1);

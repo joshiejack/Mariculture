@@ -2,6 +2,7 @@ package mariculture.core.helpers;
 
 import java.lang.reflect.Field;
 
+import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
@@ -21,7 +22,7 @@ public class RegistryHelper {
 			if(items[i] instanceof Item) {
 				registerItem((Item) items[i]);
 			} else if(items[i] instanceof Block) {
-				registerItem(Items.itemsList[((Block)(items[i])).blockID]);
+				registerItem(Item.getItemFromBlock((Block)items[i]));
 			}
 		}
 	}
@@ -29,7 +30,7 @@ public class RegistryHelper {
 	private static void registerItem(Item item) {
 		try {
 			String name = item.getUnlocalizedName().substring(5);
-			GameRegistry.registerItem((Item) item, name);
+			GameRegistry.registerItem(item, name, Mariculture.modid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

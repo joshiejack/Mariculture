@@ -16,8 +16,8 @@ public class TileSponge extends TileEnergyHandler {
     
     public boolean isBlockSponge(int x, int y, int z) {
     	if(Modules.world.isActive())
-    		return worldObj.getBlockId(x, y, z) == Blocks.sponge.blockID;
-    	return worldObj.getBlockId(x, y, z) == Blocks.cloth.blockID && worldObj.getBlockMetadata(x, y, z) == 4;
+    		return worldObj.getBlock(x, y, z) == Blocks.sponge;
+    	return worldObj.getBlock(x, y, z) == Blocks.wool && worldObj.getBlockMetadata(x, y, z) == 4;
     }
 
     private int tick;
@@ -70,7 +70,7 @@ public class TileSponge extends TileEnergyHandler {
         	for (int z = negZ; z <= posZ; z++) {
             	for (int y = yCoord; y <= posY; y++) {
                  	// Now that we are looping through each block
-                    if (worldObj.getBlockMaterial(x, y, z).isLiquid() || worldObj.getBlockId(x, y, z) == Blocks.sponge.blockID) {
+                    if (worldObj.getBlock(x, y, z).getMaterial().isLiquid() || worldObj.getBlock(x, y, z) == Blocks.sponge) {
                     	worldObj.setBlockToAir(x, y, z);
                     }
                 }

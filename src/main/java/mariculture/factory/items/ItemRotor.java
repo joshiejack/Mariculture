@@ -5,8 +5,8 @@ import mariculture.core.items.ItemDamageable;
 public class ItemRotor extends ItemDamageable {
 	private int tier;
 	
-	public ItemRotor(int i, int dmg, int tier) {
-		super(i, dmg);
+	public ItemRotor(int dmg, int tier) {
+		super(dmg);
 		this.tier = tier;
 	}
 	

@@ -52,7 +52,7 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 			if (EnchantHelper.hasEnchantment(Magic.resurrection, player)
 					&& !player.worldObj.isRemote) {
 				if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-					player.getEntityData().setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+					player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 				}
 
 				if (!event.source.isFireDamage() && !event.source.canHarmInCreative()

@@ -16,8 +16,8 @@ public class TileSift extends TileStorage implements ISidedInventory {
 				return i;
 			}
 
-			if ((inventory[i].getItemDamage() == item.getItemDamage() && inventory[i].itemID == item.itemID && (inventory[i].stackSize + item.stackSize) <= inventory[i]
-					.getMaxStackSize())) {
+			if ((inventory[i].getItemDamage() == item.getItemDamage() && inventory[i].getItem() == item.getItem() 
+					&& (inventory[i].stackSize + item.stackSize) <= inventory[i].getMaxStackSize())) {
 				return i;
 			}
 		}

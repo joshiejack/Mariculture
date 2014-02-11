@@ -218,7 +218,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 						angle = angle + 0.15;
 					}
 		
-					worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
 			}
 		}
@@ -251,7 +251,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 				if(((IEnergyHandler) tile).canInterface(facing)) {
 					direction = facing;
 					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-					worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+					worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	
 					return true;
 				}

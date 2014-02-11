@@ -40,10 +40,10 @@ public class BlockTankItem extends ItemBlockMariculture {
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if(stack.getItemDamage() == TankMeta.TANK)
 			return Text.ORANGE + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
-		return super.getItemDisplayName(stack);
+		return super.getItemStackDisplayName(stack);
     }
 	
 	@Override

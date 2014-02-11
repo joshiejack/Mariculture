@@ -10,6 +10,7 @@ import mariculture.core.items.ItemBattery;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.IEnergyContainerItem;
@@ -17,8 +18,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
-	public ItemFluxRod(int i, EnumRodQuality quality) {
-		super(i, quality);
+	public ItemFluxRod(EnumRodQuality quality) {
+		super(quality);
 		setNoRepair();
 		setMaxStackSize(1);
 		setCreativeTab(MaricultureTab.tabMariculture);
@@ -75,8 +76,8 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int j, CreativeTabs creative, List list) {
-		ItemStack battery = new ItemStack(j, 1, 0);
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
+		ItemStack battery = new ItemStack(item, 1, 0);
 		list.add(ItemBattery.make(battery, 0));
 		list.add(ItemBattery.make(battery, this.capacity));
 	}

@@ -22,8 +22,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFishyFood extends Item implements IEnergyContainerItem {
-	public ItemFishyFood(int i) {
-		super(i);
+	public ItemFishyFood() {
 		this.setCreativeTab(MaricultureTab.tabFish);
 		setHasSubtypes(true);
 	}
@@ -34,7 +33,7 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		return StatCollector.translateToLocal("fish.data.dead") + " "
 				+ Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
 	}
@@ -84,9 +83,7 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 		if(container.getItemDamage() == Fishery.electricRay.fishID) {
 			if(!simulate) {
 				if(container.stackSize <= 1) {
-					container.stackSize = Fishery.electricRay.getFishMealSize();
-					container.itemID = Core.materials.itemID;
-					container.setItemDamage(MaterialsMeta.FISH_MEAL);
+					container = new ItemStack(Core.materials, Fishery.electricRay.getFishMealSize(), MaterialsMeta.FISH_MEAL);
 					container.stackTagCompound = null;
 				} else {
 					container.stackSize--;
@@ -118,9 +115,9 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int j, CreativeTabs creative, List list) {
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
 		for (int i = 0; i < FishSpecies.speciesList.size(); ++i) {
-			list.add(new ItemStack(j, 1, i));
+			list.add(new ItemStack(item, 1, i));
 		}
 	}
 

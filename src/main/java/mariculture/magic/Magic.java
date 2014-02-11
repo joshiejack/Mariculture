@@ -142,13 +142,13 @@ public class Magic extends Module {
 
 	@Override
 	public void registerItems() {
-		basicMirror = new ItemMirror(basicMirror, "mirror").setUnlocalizedName("mirror.basic");
-		magicMirror = new ItemMagicMirror(magicMirror, 1, 30, "magicMirror", 15, 1000).setUnlocalizedName("mirror.magic");
-		celestialMirror = new ItemMagicMirror(celestialMirror, 31, 60, "celestialMirror",20, 10000).setUnlocalizedName("mirror.celestial");
-		ring = new ItemRing(ring).setUnlocalizedName("ring");
-		bracelet = new ItemBracelet(bracelet).setUnlocalizedName("bracelet");
-		necklace = new ItemNecklace(necklace).setUnlocalizedName("necklace");
-		magnet = new ItemMobMagnet(magnet, 100).setUnlocalizedName("mobMagnet");
+		basicMirror = new ItemMirror("mirror").setUnlocalizedName("mirror.basic");
+		magicMirror = new ItemMagicMirror(1, 30, "magicMirror", 15, 1000).setUnlocalizedName("mirror.magic");
+		celestialMirror = new ItemMagicMirror(31, 60, "celestialMirror",20, 10000).setUnlocalizedName("mirror.celestial");
+		ring = new ItemRing().setUnlocalizedName("ring");
+		bracelet = new ItemBracelet().setUnlocalizedName("bracelet");
+		necklace = new ItemNecklace().setUnlocalizedName("necklace");
+		magnet = new ItemMobMagnet(100).setUnlocalizedName("mobMagnet");
 
 		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
 	}
@@ -194,7 +194,7 @@ public class Magic extends Module {
 		
 		//Basic Mirror
 		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
-			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.thinGlass, 'S', "ingotIron"
+			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"
 		});
 		
 		//Magic Mirror
@@ -202,41 +202,41 @@ public class Magic extends Module {
 			"PMP", "BEB", "PBP", 
 			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
 			'M', basicMirror, 
-			'E', Blocks.enchantmentTable, 
+			'E', Blocks.enchanting_table, 
 			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
 		});
 			
 		//Celestial Mirror
-		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghastTear);
+		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
 		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
 			"TST", "BMB", "GBG", 
 			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
 			'M', magicMirror, 
-			'S', Items.netherStar,
+			'S', Items.nether_star,
 			'T', drop,
 			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
 		});
 			
-		addJewelry(Magic.ring.itemID, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
-		addJewelry(Magic.bracelet.itemID, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
-		addJewelry(Magic.necklace.itemID, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
+		addJewelry(Magic.ring, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
+		addJewelry(Magic.bracelet, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
+		addJewelry(Magic.necklace, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
 		addDungeonChestLoot();
 		
 		//Mob Magnet Crafting
 		if(Extra.MOB_MAGNET) {
 			RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
-				"III", "I I", "M M", 'I', "ingotIron", 'M', Items.enderPearl
+				"III", "I I", "M M", 'I', "ingotIron", 'M', Items.ender_pearl
 			});
 		}
 	}
 
-	private void addJewelry(int id, int type, String partOne, String partTwo) {
+	private void addJewelry(Item jewelry, int type, String partOne, String partTwo) {
 		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
 			for (int j = 0; j < JewelryPart.materialList.size(); j++) {
 				if (JewelryPart.materialList.get(i).isValid(type) && JewelryPart.materialList.get(j).isValid(type)) {
 					if (JewelryPart.materialList.get(i).getPartType(type).equals(partOne)) {
 						if (JewelryPart.materialList.get(j).getPartType(type).equals(partTwo)) {
-							ItemStack output = ItemJewelry.buildJewelry(id, i, j);
+							ItemStack output = ItemJewelry.buildJewelry(jewelry, i, j);
 							output = JewelryPart.materialList.get(i).addEnchantments(output);
 							if (i != j) {
 								output = JewelryPart.materialList.get(j).addEnchantments(output);
@@ -262,7 +262,7 @@ public class Magic extends Module {
 				if (JewelryPart.materialList.get(i).isValid(type) && JewelryPart.materialList.get(j).isValid(type)) {
 					if (JewelryPart.materialList.get(i).getPartType(type).equals(partOne)) {
 						if (JewelryPart.materialList.get(j).getPartType(type).equals(partTwo)) {
-							ItemStack output = ItemJewelry.buildJewelry(id, i, j);
+							ItemStack output = ItemJewelry.buildJewelry(jewelry, i, j);
 							output = JewelryPart.materialList.get(i).addEnchantments(output);
 							if (i != j) {
 								output = JewelryPart.materialList.get(j).addEnchantments(output);

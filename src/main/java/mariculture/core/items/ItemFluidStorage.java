@@ -125,14 +125,14 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 						Block theBlock = fluid.getBlock();
 						if (world.setBlock(x, y, z, theBlock, 0, 2)) {
 							if (world.getBlock(x, y, z) == theBlock) {
-								theBlocks.onBlockPlacedBy(world, x, y, z, player, item);
-								theBlocks.onPostBlockPlaced(world, x, y, z, 0);
+								theBlock.onBlockPlacedBy(world, x, y, z, player, item);
+								theBlock.onPostBlockPlaced(world, x, y, z, 0);
 							}
 
 							//TODO: func_150496_b = getPlaceSound()
 							world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F),
-									(double) ((float) z + 0.5F), theBlocks.stepSound.func_150496_b(),
-									(theBlocks.stepSound.getVolume() + 1.0F) / 2.0F, theBlocks.stepSound.getPitch() * 0.8F);
+									(double) ((float) z + 0.5F), theBlock.stepSound.func_150496_b(),
+									(theBlock.stepSound.getVolume() + 1.0F) / 2.0F, theBlock.stepSound.getPitch() * 0.8F);
 							
 							((IFluidContainerItem) item.getItem()).drain(item, drain, true);
 							return item;

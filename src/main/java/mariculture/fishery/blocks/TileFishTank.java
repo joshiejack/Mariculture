@@ -54,7 +54,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 		if(fish.containsKey(slot)) {
 			ItemStack stack = (ItemStack) fish.get(slot);
 			fish.put(slot, null);
-			this.onInventoryChanged();
+			this.markDirty();
 			
 			return stack;
 		}
@@ -70,16 +70,16 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {		
 		fish.put(slot, stack);
-		this.onInventoryChanged();
+		this.markDirty();
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return "";
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
@@ -95,10 +95,10 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 	}
 
 	@Override
-	public void openChest() {}
+	public void openInventory() {}
 
 	@Override
-	public void closeChest() {}
+	public void closeInventory() {}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -119,7 +119,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 		}
 		
 		thePage = page;
-		this.onInventoryChanged();
+		this.markDirty();
 		
 		if(id >= 0) {
 			EntityPlayer player = (EntityPlayer) worldObj.getEntityByID(id);
@@ -159,9 +159,9 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		
-		NBTTagList tagList = nbt.getTagList("FishList");
+		NBTTagList tagList = nbt.getTagList("FishList", 10);
 		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 			ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
 			fish.put(tag.getInteger("Key"), stack);
 		}

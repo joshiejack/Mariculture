@@ -5,8 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class BlockTransparentItem extends ItemBlockMariculture {
-	public BlockTransparentItem(int id, Block block) {
-		super(id);
+	public BlockTransparentItem(Block block) {
+		super(block);
 	}
 
 	@Override

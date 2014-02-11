@@ -11,7 +11,6 @@ import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.network.Packet120ItemSync;
-import mariculture.core.network.Packets;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -19,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHandler {
@@ -39,12 +39,13 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 	}
 	
 	@Override
-	public void onInventoryChanged() {
-		super.onInventoryChanged();
+	public void markDirty() {
+		super.markDirty();
 		
-		if(!worldObj.isRemote) {
+		//TODO: PACKET ItemSync for Anvil 
+		/*if(!worldObj.isRemote) {
 			 Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
-		}
+		} */
 	}
 	
 	public boolean canBeWorked(ItemStack stack) {
@@ -141,13 +142,15 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		worked.setTagCompound(new NBTTagCompound());
 		worked.stackTagCompound.setInteger("Worked", 0);
 		worked.stackTagCompound.setInteger("Required", hits);
-		worked.stackTagCompound.setCompoundTag("WorkedItem", output.writeToNBT(new NBTTagCompound()));
+		worked.stackTagCompound.setTag("WorkedItem", output.writeToNBT(new NBTTagCompound()));
 		return worked;
 	}
 
 	@Override
 	public Packet getDescriptionPacket() {		
-		return new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build();
+		//TODO: Packet ItemSync
+		//return new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build();
+		return null;
 	}
 
 	@Override

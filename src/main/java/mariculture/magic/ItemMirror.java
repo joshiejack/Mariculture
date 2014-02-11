@@ -27,8 +27,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemMirror extends ItemStorage {
 	public final String name;
 	
-	public ItemMirror(int id, String img) {
-		super(id, 4, "mirror");
+	public ItemMirror(String img) {
+		super(4, "mirror");
 		setMaxDamage(30);
 		name = img;
 		setCreativeTab(MaricultureTab.tabJewelry);
@@ -54,7 +54,8 @@ public class ItemMirror extends ItemStorage {
 				if(stack.attemptDamageItem(1, Rand.rand))
 					stack.stackSize--;
 				else
-					player.openGui(Mariculture.instance, GuiIds.STORAGE, world, stack.itemID, 0, 0);
+					player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
+				//TODO: I changed it from sending the item id, so check mirror guis work
 			}
 
 			return stack;

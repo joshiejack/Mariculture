@@ -1,12 +1,13 @@
 package mariculture.core.blocks;
 
 import mariculture.core.util.IItemRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockMariculture extends ItemBlock implements IItemRegistry {
-	public ItemBlockMariculture(int id) {
-		super(id);
+	public ItemBlockMariculture(Block block) {
+		super(block);
 		setHasSubtypes(true);
 	}
 	

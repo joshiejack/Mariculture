@@ -115,12 +115,12 @@ public class GuiMirror extends GuiStorage {
 			RenderHelper.disableStandardItemLighting();
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			mc.renderEngine.bindTexture(TEXTURE);
-			EnchantmentNameParts.instance.setRandSeed(storage.seed);
+			EnchantmentNameParts.instance.reseedRandomGenerator(storage.seed);
 	
 			loadLevels();
 	
 			for (int k = 0; k < 3; ++k) {
-				final String randString = EnchantmentNameParts.instance.generateRandomEnchantName();
+				final String randString = EnchantmentNameParts.instance.generateNewRandomName();
 				zLevel = 0.0F;
 				mc.renderEngine.bindTexture(TEXTURE);
 				final int level = enchantLevels[k];

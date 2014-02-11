@@ -17,12 +17,12 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemPaintbrush extends ItemDamageable {
-	public ItemPaintbrush(int i, int dmg) {
-		super(i, dmg);
+	public ItemPaintbrush(int dmg) {
+		super(dmg);
 	}
 	
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		String name = StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name");
 		
 		if(stack.hasTagCompound()) {

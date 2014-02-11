@@ -62,7 +62,7 @@ public class FishAngel extends FishSpecies {
 	@Override
 	public ItemStack onRightClick(World world, EntityPlayer player, ItemStack stack, Random rand) {
 		if (!world.isRemote) {
-			List list = world.getEntitiesWithinAABB(EntityItems.class, player.boundingBox.expand(64D, 64D, 64D));
+			List list = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(64D, 64D, 64D));
 
 			for (Object i : list) {
 				EntityItem item = (EntityItem) i;

@@ -55,10 +55,10 @@ public class RetroData extends WorldSavedData {
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
-		NBTTagList tagList = nbt.getTagList("RetroData");
+		NBTTagList tagList = nbt.getTagList("RetroData", 10);
 
 		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 			retro.put(tag.getString("RetroGenKey"), tag.getBoolean("Generated"));
 		}
 
