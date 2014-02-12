@@ -146,16 +146,9 @@ public class ShapelessFishRecipe implements IRecipe {
 	}
 
 	private boolean checkItemEquals(ItemStack target, ItemStack input) {
-		return (target.itemID == input.itemID && (target.getItemDamage() == OreDictionary.WILDCARD_VALUE || target.getItemDamage() == input.getItemDamage()));
+		return (target.getItem() == input.getItem() && (target.getItemDamage() == OreDictionary.WILDCARD_VALUE || target.getItemDamage() == input.getItemDamage()));
 	}
 
-	/**
-	 * Returns the input for this recipe, any mod accessing this value should
-	 * never manipulate the values in this array as it will effect the recipe
-	 * itself.
-	 * 
-	 * @return The recipes input vales.
-	 */
 	public ArrayList getInput() {
 		return this.input;
 	}

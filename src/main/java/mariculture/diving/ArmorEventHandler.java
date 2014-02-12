@@ -9,11 +9,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorEventHandler {
 	private UnderwaterVision vision;
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
@@ -31,7 +32,7 @@ public class ArmorEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onBreaking(BreakSpeed event) {
 		EntityPlayer player = event.entityPlayer;
 		boolean isValid = false;

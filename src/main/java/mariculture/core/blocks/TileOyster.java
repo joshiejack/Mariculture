@@ -2,15 +2,11 @@ package mariculture.core.blocks;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
-import mariculture.core.network.Packet103Oyster;
-import mariculture.core.network.Packets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
 
 public class TileOyster extends TileStorage implements ISidedInventory {
 	public TileOyster() {

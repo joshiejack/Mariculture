@@ -29,7 +29,7 @@ public class HungryFishEnder extends FishEnder {
 			if(BlockHelper.chunkExists(world, x, z)) {
 				int y = world.getTopSolidOrLiquidBlock(x, z);
 				
-				if(world.getBlockMaterial(x, y, z) != Material.lava) {
+				if(world.getBlock(x, y, z).getMaterial() != Material.lava) {
 					world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
 					player.setPositionAndUpdate(x, y, z);
 					world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);

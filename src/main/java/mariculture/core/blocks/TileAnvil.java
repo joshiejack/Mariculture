@@ -10,7 +10,6 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
-import mariculture.core.network.Packet120ItemSync;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

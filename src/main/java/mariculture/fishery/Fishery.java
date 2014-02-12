@@ -186,7 +186,7 @@ public class Fishery extends Module {
 
 	@Override
 	public void registerBlocks() {
-		siftBlock = new BlockSift(.setStepSound(Block.soundTypeWood).setHardness(1F).setBlockName("siftBlock");
+		siftBlock = new BlockSift().setStepSound(Block.soundTypeWood).setHardness(1F).setBlockName("siftBlock");
 		lampsOff = new BlockNeonLamp(true).setBlockName("lampsOff").setLightOpacity(0);
 		lampsOn = new BlockNeonLamp(false).setBlockName("lampsOn").setLightOpacity(0);
 		
@@ -198,12 +198,6 @@ public class Fishery extends Module {
 		GameRegistry.registerTileEntity(TileIncubator.class, "tileIncubator");
 		GameRegistry.registerTileEntity(TileFeeder.class, "tileFeeder");
 		GameRegistry.registerTileEntity(TileFishTank.class, "tileFishTank");
-
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.INCUBATOR_BASE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.INCUBATOR_TOP, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.AIR_PUMP, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.woodBlocks, WoodMeta.POLISHED_LOG, "axe", 0);
-		MinecraftForge.setBlockHarvestLevel(Core.woodBlocks, WoodMeta.POLISHED_PLANK, "axe", 0);
 
 		RegistryHelper.register(new Object[] { siftBlock, lampsOff, lampsOn });
 		

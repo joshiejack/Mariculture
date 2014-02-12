@@ -1,55 +1,36 @@
 package mariculture.factory.blocks;
 
 import mariculture.core.lib.PlansMeta;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockItemCustomSlabBase extends ItemBlock {
 	private final boolean isFullBlock;
+	private final BlockSlab theHalfSlab;
+	private final BlockSlab doubleSlab;
 
-	/** Instance of BlockHalfSlab. */
-	private final BlockHalfSlab theHalfSlab;
-
-	/** The double-slab block corresponding to this item. */
-	private final BlockHalfSlab doubleSlab;
-
-	public BlockItemCustomSlabBase(int par1, BlockHalfSlab par2BlockHalfSlab, BlockHalfSlab par3BlockHalfSlab, boolean par4) {
-		super(par1);
-		this.theHalfSlab = par2BlockHalfSlab;
-		this.doubleSlab = par3BlockHalfSlab;
-		this.isFullBlock = par4;
+	public BlockItemCustomSlabBase(Block block, BlockSlab singleSlab, BlockSlab doubleSlab, boolean isFull) {
+		super(block);
+		this.theHalfSlab = singleSlab;
+		this.doubleSlab = doubleSlab;
+		this.isFullBlock = isFull;
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 	}
 
-	@SideOnly(Side.CLIENT)
-	/**
-	 * Gets an icon index based on an item's damage value
-	 */
-	public IIcon getIconFromDamage(int par1) {
-		return Blocks.blocksList[this.itemID].getIcon(2, par1);
+	public int getMetadata(int meta) {
+		return meta;
 	}
 
-	/**
-	 * Returns the metadata of the block which this Item (ItemBlock) can place
-	 */
-	public int getMetadata(int par1) {
-		return par1;
-	}
-
-	/**
-	 * Returns the unlocalized name of this item. This version accepts an
-	 * ItemStack so different stacks can have different names based on their
-	 * damage or NBT.
-	 */
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return this.theHalfSlab.getFullSlabName(par1ItemStack.getItemDamage());
+		//getFullSlabName = func_150002_b
+		return this.theHalfSlab.func_150002_b(par1ItemStack.getItemDamage());
 	}
 
 	/**

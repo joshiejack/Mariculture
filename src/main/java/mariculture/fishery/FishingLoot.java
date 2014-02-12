@@ -16,6 +16,10 @@ import net.minecraft.item.ItemStack;
 
 public class FishingLoot {
 
+	public static void add() {}
+	
+	//TODO: Add EVERYTHING on here that isn't already in the fishing loots to the fishing loots list :)
+	/*
 	public static void add() {
 		addOverworldLoot();
 		addNetherLoot();
@@ -82,5 +86,5 @@ public class FishingLoot {
 		if(Modules.factory.isActive()) {
 			Fishing.loot.addLoot(new ItemStack(Factory.fludd), new Object[] { EnumRodQuality.SUPER, 10000, 0 });
 		}
-	}
+	} */
 }

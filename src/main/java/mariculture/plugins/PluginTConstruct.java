@@ -385,7 +385,7 @@ public class PluginTConstruct extends Plugin {
 	    }
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onBreaking(BreakSpeed event) {
 		Block block = event.block;
 		EntityPlayer player = event.entityPlayer;

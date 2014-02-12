@@ -13,12 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemSpeedBoat extends Item {
-	public ItemSpeedBoat(int i) {
-		super(i);
+	public ItemSpeedBoat() {
 		this.maxStackSize = 1;
 		this.setCreativeTab(MaricultureTab.tabMariculture);
 	}
@@ -26,13 +26,10 @@ public class ItemSpeedBoat extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		float var4 = 1.0F;
-		float pitch = player.prevRotationPitch
-				+ (player.rotationPitch - player.prevRotationPitch) * var4;
-		float yaw = player.prevRotationYaw
-				+ (player.rotationYaw - player.prevRotationYaw) * var4;
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * var4;
+		float yaw = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * var4;
 		double x = player.prevPosX + (player.posX - player.prevPosX) * var4;
-		double y = player.prevPosY + (player.posY - player.prevPosY) * var4
-				+ 1.62D - player.yOffset;
+		double y = player.prevPosY + (player.posY - player.prevPosY) * var4 + 1.62D - player.yOffset;
 		double z = player.prevPosZ + (player.posZ - player.prevPosZ) * var4;
 		 Vec3 var13 = world.getWorldVec3Pool().getVecFromPool(x, y, z);
 		float var14 = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
@@ -43,13 +40,13 @@ public class ItemSpeedBoat extends Item {
 		float var20 = var14 * var16;
 		double var21 = 5.0D;
 		Vec3 var23 = var13.addVector(var18 * var21, var17 * var21, var20 * var21);
-		MovingObjectPosition var24 = world.clip(var13, var23, true);
+		MovingObjectPosition var24 = world.rayTraceBlocks(var13, var23, true);
 
 		if (var24 == null) {
 			return stack;
 		} else {
 			Vec3 var25 = player.getLook(var4);
-			boolean var26 = false;
+			boolean flag = false;
 			float var27 = 1.0F;
 			List var28 = world.getEntitiesWithinAABBExcludingEntity(
 					player,
@@ -65,28 +62,26 @@ public class ItemSpeedBoat extends Item {
 					AxisAlignedBB var32 = var30.boundingBox.expand(var31, var31, var31);
 
 					if (var32.isVecInside(var13)) {
-						var26 = true;
+						flag = true;
 					}
 				}
 			}
 
-			if (var26) {
+			if (flag) {
 				return stack;
 			} else {
-				if (var24.typeOfHit == EnumMovingObjectType.TILE) {
+				if (var24.typeOfHit == MovingObjectType.BLOCK) {
 					int var35 = var24.blockX;
 					int var33 = var24.blockY;
 					int var34 = var24.blockZ;
 
-					if (world.getBlockId(var35, var33, var34) == Blocks.waterStill.blockID) {
+					if (world.getBlock(var35, var33, var34) == Blocks.water) {
 						if (!world.isRemote) {
-							if (world.getBlockId(var35, var33, var34) == Blocks.snow.blockID) {
+							if (world.getBlock(var35, var33, var34) == Blocks.snow) {
 								--var33;
 							}
 
-							world.spawnEntityInWorld(new EntitySpeedBoat(world, var35 + 0.5F, var33 + 0.5F,
-									var34 + 0.5F));
-
+							world.spawnEntityInWorld(new EntitySpeedBoat(world, var35 + 0.5F, var33 + 0.5F, var34 + 0.5F));
 						}
 
 						if (!player.capabilities.isCreativeMode) {

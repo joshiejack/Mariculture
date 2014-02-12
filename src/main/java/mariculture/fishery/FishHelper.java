@@ -121,7 +121,7 @@ public class FishHelper implements IFishHelper {
 	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile) {
 		TileFeeder feeder = (TileFeeder) tile;
 		if(feeder != null && feeder instanceof IUpgradable) {
-			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getBiomeGenForCoords(tile.xCoord, tile.zCoord));
+			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.getWorldObj().getBiomeGenForCoords(tile.xCoord, tile.zCoord));
 			EnumSalinityType saltType = theBiome.getSalinity();
 			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
 				saltType = EnumSalinityType.SALT;

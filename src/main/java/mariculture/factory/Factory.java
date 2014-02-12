@@ -63,6 +63,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -107,32 +108,30 @@ public class Factory extends Module {
 
 	@Override
 	public void registerBlocks() {
-		customFlooring = new BlockCustomFlooring().setStepSound(Blocks.soundStoneFootstep)
-				.setHardness(0.1F).setResistance(0.1F).setUnlocalizedName("customFlooring").setLightOpacity(0);
-		customBlock = new BlockCustomBlock(customBlock).setStepSound(Blocks.soundStoneFootstep).setHardness(1F)
-				.setResistance(0.1F).setUnlocalizedName("customBlock");
-		customStairs = new BlockCustomStairs(customStairs, customBlock, 0)
-				.setStepSound(Blocks.soundStoneFootstep).setHardness(1F).setResistance(0.1F) .setUnlocalizedName("customStairs");
-		customSlabs = new BlockCustomSlab(customSlabs, false).setUnlocalizedName("customSlabs");
-		customSlabsDouble = new BlockCustomSlab(customSlabsDouble, true).setUnlocalizedName("customSlabsDouble");
-		customFence = new BlockCustomFence(customFence).setUnlocalizedName("customFence");
-		customGate = new BlockCustomGate(customGate).setUnlocalizedName("customGate");
-		customWall = new BlockCustomWall(customWall, customBlock).setUnlocalizedName("customWall");
-		customLight = new BlockCustomLight(customLight).setUnlocalizedName("customLight").setLightValue(1.0F);
-		customRFBlock = new BlockCustomPower(customRFBlock).setUnlocalizedName("customRFBlock");
+		customFlooring = new BlockCustomFlooring().setStepSound(Block.soundTypePiston).setBlockName("customFlooring");
+		customBlock = new BlockCustomBlock().setStepSound(Block.soundTypePiston).setBlockName("customBlock");
+		customStairs = new BlockCustomStairs(0).setStepSound(Block.soundTypePiston).setBlockName("customStairs");
+		customSlabs = new BlockCustomSlab(false).setStepSound(Block.soundTypePiston).setBlockName("customSlabs");
+		customSlabsDouble = new BlockCustomSlab(true).setStepSound(Block.soundTypePiston).setBlockName("customSlabsDouble");
+		customFence = new BlockCustomFence().setStepSound(Block.soundTypePiston).setBlockName("customFence");
+		customGate = new BlockCustomGate().setStepSound(Block.soundTypePiston).setBlockName("customGate");
+		customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
+		customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
+		customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
+		
+		GameRegistry.registerBlock(customFlooring, BlockItemCustom.class, "BlockCustomFlooring");
+		GameRegistry.registerBlock(customBlock, BlockItemCustom.class, "BlockCustomBlock");
+		GameRegistry.registerBlock(customStairs, BlockItemCustom.class, "BlockCustomStairs");
+		GameRegistry.registerBlock(customFence, BlockItemCustom.class, "BlockCustomFence");
+		GameRegistry.registerBlock(customGate, BlockItemCustom.class, "BlockCustomGate");
+		GameRegistry.registerBlock(customWall, BlockItemCustom.class, "BlockCustomWall");
+		GameRegistry.registerBlock(customLight, BlockItemCustom.class, "BlockCustomLight");
+		GameRegistry.registerBlock(customRFBlock, BlockItemCustom.class, "BlockCustomRFBlock");
 
-		Items.itemsList[customFlooring] = new BlockItemCustom(customFlooring - 256, customFlooring).setUnlocalizedName("customFlooring");
-		Items.itemsList[customBlock] = new BlockItemCustom(customBlock - 256, customBlock).setUnlocalizedName("customBlock");
-		Items.itemsList[customStairs] = new BlockItemCustom(customStairs - 256, customStairs).setUnlocalizedName("customStairs");
-		Items.itemsList[customFence] = new BlockItemCustom(customFence - 256, customFence).setUnlocalizedName("customFence");
-		Items.itemsList[customGate] = new BlockItemCustom(customGate - 256, customGate).setUnlocalizedName("customGate");
-		Items.itemsList[customWall] = new BlockItemCustom(customWall - 256, customWall).setUnlocalizedName("customWall");
-		Items.itemsList[customLight] = new BlockItemCustom(customLight - 256, customLight).setUnlocalizedName("customLight");
-		Items.itemsList[customRFBlock] = new BlockItemCustom(customRFBlock - 256, customRFBlock).setUnlocalizedName("customRFBlock");
-		BlockItemCustomSlab.setSlabs((BlockHalfSlab) customSlabs, (BlockHalfSlab) customSlabsDouble);
+		//TODO: FIX CUSTOM SLAB STUFF BlockItemCustomSlab.setSlabs((BlockHalfSlab) customSlabs, (BlockHalfSlab) customSlabsDouble);
 
-		GameRegistry.registerBlock(customSlabs, mariculture.factory.blocks.BlockItemCustomSlab.class, "Mariculture_customSlab");
-		GameRegistry.registerBlock(customSlabsDouble, mariculture.factory.blocks.BlockItemCustomSlab.class, "Mariculture_customSlabDouble");
+		GameRegistry.registerBlock(customSlabs, BlockItemCustomSlab.class, "BlockCustomSlab");
+		GameRegistry.registerBlock(customSlabsDouble, BlockItemCustomSlab.class, "BlockCustomSlabDouble");
 
 		GameRegistry.registerTileEntity(TileCustom.class, "tileEntityCustom");
 		GameRegistry.registerTileEntity(TileCustomPowered.class, "tileEntityCustomRF");
@@ -148,14 +147,6 @@ public class Factory extends Module {
         GameRegistry.registerTileEntity(TileFishSorter.class, "tileFishSorter");
         GameRegistry.registerTileEntity(TileGeyser.class, "tileGeyser");
 
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SLUICE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SPONGE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_WATER, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_GAS, "pickaxe", 2);
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.FISH_SORTER, "axe", 0);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.FLUDD_STAND, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_HAND, "axe", 0);
-
 		RegistryHelper.register(new Object[] { customFlooring, customBlock, customStairs, customSlabs, 
 				customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
 	}
@@ -167,13 +158,13 @@ public class Factory extends Module {
 
 	@Override
 	public void registerItems() {
-		plans = new ItemPlan(plans).setUnlocalizedName("plans");
-		fludd = new ItemArmorFLUDD(fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
-		paintbrush = new ItemPaintbrush(paintbrush, 128).setUnlocalizedName("paintbrush");
-		filter = new ItemFilter(filter).setUnlocalizedName("filter");
-		turbineCopper = new ItemRotor(turbineCopper, 900, 1).setUnlocalizedName("turbineCopper");
-		turbineAluminum = new ItemRotor(turbineAluminum, 3600, 2).setUnlocalizedName("turbineAluminum");
-		turbineTitanium = new ItemRotor(turbineTitanium, 28800, 3).setUnlocalizedName("turbineTitanium");
+		plans = new ItemPlan().setUnlocalizedName("plans");
+		fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
+		paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
+		filter = new ItemFilter().setUnlocalizedName("filter");
+		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbineCopper");
+		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbineAluminum");
+		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbineTitanium");
 		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 
@@ -183,7 +174,7 @@ public class Factory extends Module {
 		//Sawmill
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL), new Object[] {
 			" A ", "DWD", "IMI",
-			Character.valueOf('A'), Items.axeIron, 
+			Character.valueOf('A'), Items.iron_axe, 
 			Character.valueOf('D'), "slabWood",
 			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
 			Character.valueOf('W'), "logWood", 
@@ -196,7 +187,7 @@ public class Factory extends Module {
 			Character.valueOf('F'), Items.feather, 
 			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
 			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-			Character.valueOf('B'), Items.writableBook,
+			Character.valueOf('B'), Items.writable_book,
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
@@ -205,17 +196,17 @@ public class Factory extends Module {
 			RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
 				" B ", "FPF", "IMI",
 				Character.valueOf('F'), Items.feather, 
-				Character.valueOf('P'), Items.enderPearl, 
+				Character.valueOf('P'), Items.ender_pearl, 
 				Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-				Character.valueOf('B'), Items.writableBook,
+				Character.valueOf('B'), Items.writable_book,
 				Character.valueOf('I'), "ingotCopper"
 			});
 		}
 		
 		//Mechanized Sponge
-		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Blocks.sponge): new ItemStack(Items.bucketWater);
-		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potion, 1, 0);
-		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fishRaw);
+		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Blocks.sponge): new ItemStack(Items.water_bucket);
+		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
+		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fish);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
 			Character.valueOf('D'), fish, 
@@ -228,10 +219,10 @@ public class Factory extends Module {
 		//Sluice
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 4, UtilMeta.SLUICE), new Object[] {
 			" H ", "WBW", "IMI",
-			Character.valueOf('H'), Blocks.hopperBlock, 
+			Character.valueOf('H'), Blocks.hopper, 
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
 			Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('B'), Blocks.fenceIron,
+			Character.valueOf('B'), Blocks.iron_bars,
 			Character.valueOf('I'), "ingotAluminum"
 		});
 		
@@ -242,7 +233,7 @@ public class Factory extends Module {
 			Character.valueOf('I'), "ingotCopper", 
 			Character.valueOf('B'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
 			Character.valueOf('S'), "slabWood",
-			Character.valueOf('P'), Blocks.pistonBase
+			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Water Turbine
@@ -251,8 +242,8 @@ public class Factory extends Module {
 			Character.valueOf('T'), turbineAluminum,
 			Character.valueOf('I'), "ingotAluminum", 
 			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 0),
-			Character.valueOf('P'), Blocks.pistonBase
+			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 0),
+			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Gas Turbine
@@ -261,8 +252,8 @@ public class Factory extends Module {
 			Character.valueOf('T'), turbineTitanium,
 			Character.valueOf('I'), "ingotTitanium", 
 			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 7),
-			Character.valueOf('P'), Blocks.pistonBase
+			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 7),
+			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Pressure Vessel
@@ -292,7 +283,7 @@ public class Factory extends Module {
 		//Geyser
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 16, SingleMeta.GEYSER), new Object[] {
 			" W ", " G ", "RCR",
-			Character.valueOf('W'), Items.bucketWater,
+			Character.valueOf('W'), Items.water_bucket,
 			Character.valueOf('G'), "glass",
 			Character.valueOf('R'), Items.redstone,
 			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
@@ -317,10 +308,10 @@ public class Factory extends Module {
 		});
 		
 		//Crafting of Life Core
-		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spiderEye);
+		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spider_eye);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
-			"DSR", "FHB", "PAC", 'D', Blocks.plantYellow, 'S', "treeSapling", 'R', Blocks.plantRed,
-			'F', fish, 'H', new ItemStack(Items.potion, 1, 8229), 'B', bait, 'P', Items.potato, 'A', Items.bootsDiamond, 'C', Items.carrot
+			"DSR", "FHB", "PAC", 'D', Blocks.yellow_flower, 'S', "treeSapling", 'R', Blocks.red_flower,
+			'F', fish, 'H', new ItemStack(Items.potionitem, 1, 8229), 'B', bait, 'P', Items.potato, 'A', Items.diamond_boots, 'C', Items.carrot
 		});
 		
 		//Planning Chalk
@@ -372,7 +363,7 @@ public class Factory extends Module {
 		//Paintbrush
 		RecipeHelper.addShapedRecipe(new ItemStack(paintbrush), new Object[] {
 			" WW", " IW", "S  ",
-			Character.valueOf('W'), new ItemStack(Blocks.cloth, 1, OreDictionary.WILDCARD_VALUE), 
+			Character.valueOf('W'), new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE), 
 			Character.valueOf('I'), "blockAluminum", 
 			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL)
 		});
@@ -388,14 +379,14 @@ public class Factory extends Module {
 		RecipeHelper.addShapedRecipe(new ItemStack(turbineAluminum), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotAluminum",
-			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 0)
+			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 0)
 		});	
 		
 		//Titanium Turbine
 		RecipeHelper.addShapedRecipe(new ItemStack(turbineTitanium), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotTitanium",
-			Character.valueOf('S'), new ItemStack(Blocks.stoneSingleSlab, 1, 7)
+			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 7)
 		});	
 		
 		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas);

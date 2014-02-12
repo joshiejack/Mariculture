@@ -13,6 +13,7 @@ import mariculture.core.util.Rand;
 import mariculture.world.WorldGen;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RetroGen {
 	public boolean doGen(RetroData data, String ore, Chunk chunk) {
@@ -35,7 +36,7 @@ public class RetroGen {
 		return false;
 	}
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onChunk(ChunkEvent event) {
 		if(!event.world.isRemote) {
 			Chunk chunk = event.getChunk();

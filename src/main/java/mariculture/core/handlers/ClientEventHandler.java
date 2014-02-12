@@ -2,9 +2,10 @@ package mariculture.core.handlers;
 
 import mariculture.Mariculture;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientEventHandler {
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onSound(SoundLoadEvent event) {
 		event.manager.addSound(Mariculture.modid + ":blink.ogg");
 		event.manager.addSound(Mariculture.modid + ":firepunch.ogg");

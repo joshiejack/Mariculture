@@ -9,10 +9,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class ItemHungryBait extends ItemBait {
-	public ItemHungryBait(int i) {
-		super(i);
-	}
-	
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		--stack.stackSize;

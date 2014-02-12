@@ -5,7 +5,6 @@ import java.util.Random;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IItemRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,8 +22,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomStairs extends BlockStairs implements IItemRegistry {
-	public BlockCustomStairs(int blockID, Block modelBlock, int modelMetadata) {
-		super(blockID, modelBlock, modelMetadata);
+	public BlockCustomStairs(int modelMetadata) {
+		super(Blocks.stone, modelMetadata);
 		setLightOpacity(0);
 		setCreativeTab(null);
 	}

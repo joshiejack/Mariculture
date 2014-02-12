@@ -1,5 +1,7 @@
 package mariculture.factory.blocks;
 
+import java.util.ArrayList;
+
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -131,6 +133,24 @@ public class BlockCustomHelper {
 		}
 
 		return world.setBlockToAir(x, y, z);
+	}
+	
+	public static ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int plan) {
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
+		ItemStack drop = PlansMeta.getBlockStack(plan);
+		if (!drop.hasTagCompound()) {
+			drop.setTagCompound(new NBTTagCompound());
+		}
+
+		if (tile != null) {
+			drop.stackTagCompound.setIntArray("BlockIDs", tile.theBlockIDs());
+			drop.stackTagCompound.setIntArray("BlockMetas", tile.theBlockMetas());
+			drop.stackTagCompound.setIntArray("BlockSides", tile.theBlockSides());
+			drop.stackTagCompound.setString("Name", tile.name());
+		}
+		
+		return ret;
 	}
 
 	private static void dropBlock(World world, int x, int y, int z, ItemStack stack) {

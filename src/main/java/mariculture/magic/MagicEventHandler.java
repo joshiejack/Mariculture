@@ -35,11 +35,12 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.WorldEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MagicEventHandler {
 	private Random rand = new Random();
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		if(event.entity instanceof EntityPlayer) {
 			World world = event.entity.worldObj;
@@ -57,7 +58,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onEntityJump(LivingJumpEvent event) {
 		if(EnchantHelper.exists(Magic.jump)) {
 			if (event.entity instanceof EntityPlayer) {
@@ -69,7 +70,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onEntityFall(LivingFallEvent event) {
 		if(EnchantHelper.exists(Magic.glide) || EnchantHelper.exists(Magic.fall) || EnchantHelper.exists(Magic.flight)) {
 			if (event.entity instanceof EntityPlayer) {
@@ -86,7 +87,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
 		if(EnchantHelper.exists(Magic.fire)) {
 			if (event.entity instanceof EntityPlayer) {
@@ -97,7 +98,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onLivingAttack(LivingAttackEvent event) {
 		if(EnchantHelper.exists(Magic.fire)) {
 			if (event.entity instanceof EntityPlayer) {
@@ -107,7 +108,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onAttackEntity(AttackEntityEvent event) {
 		if(EnchantHelper.exists(Magic.fire) || EnchantHelper.exists(Magic.poison) || EnchantHelper.exists(Magic.punch)) {
 			EntityPlayer player = event.entityPlayer;
@@ -122,7 +123,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onEntityInteract(EntityInteractEvent event) {
 		if(EnchantHelper.exists(Magic.fire) || EnchantHelper.exists(Magic.poison)) {
 			EntityPlayer player = (EntityPlayer) event.entity;
@@ -136,7 +137,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if(EnchantHelper.exists(Magic.blink)) {
 			if (event.entityPlayer.worldObj.isRemote && event.action == Action.RIGHT_CLICK_AIR) {
@@ -145,7 +146,7 @@ public class MagicEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onWorldUpdate(WorldEvent event) {
 		if(EnchantHelper.exists(Magic.clock)) {
 			World world = event.world;
@@ -159,7 +160,7 @@ public class MagicEventHandler {
 		}
 	}
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onEntityDeath(LivingDeathEvent event) {
 		if(event.source.getSourceOfDamage() != null && event.source.getSourceOfDamage() instanceof EntityPlayer) {
 			EntityLivingBase entity = event.entityLiving;
@@ -177,7 +178,7 @@ public class MagicEventHandler {
  		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onPlayerDeath(LivingDeathEvent event) {
 		if(EnchantHelper.exists(Magic.resurrection)) {
 			EnchantmentResurrection.activate(event);

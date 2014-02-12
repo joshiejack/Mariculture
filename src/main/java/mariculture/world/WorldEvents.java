@@ -12,9 +12,10 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class WorldEvents {
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onWorldGen(InitMapGenEvent event) {
 		if(WorldGeneration.NO_MINESHAFTS) {
 			if(event.type == EventType.MINESHAFT) {
@@ -51,7 +52,7 @@ public class WorldEvents {
 		}
 	}
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onWorldDecorate(Decorate event) {
 		
 	}

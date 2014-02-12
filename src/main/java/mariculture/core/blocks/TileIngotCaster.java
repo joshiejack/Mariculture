@@ -5,14 +5,10 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.network.Packet118FluidUpdate;
-import mariculture.core.network.Packet120ItemSync;
-import mariculture.core.network.Packets;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 

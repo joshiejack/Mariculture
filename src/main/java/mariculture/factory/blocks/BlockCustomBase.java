@@ -24,6 +24,7 @@ public class BlockCustomBase extends BlockMachine {
 	BlockCustomBase(Material material) {
 		super(material);
 		setCreativeTab(null);
+		set
 	}
 	
 	@Override

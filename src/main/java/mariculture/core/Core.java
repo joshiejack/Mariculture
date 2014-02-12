@@ -105,6 +105,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -170,7 +171,7 @@ public class Core extends Module {
 		MaricultureHandlers.upgrades = new UpgradeHandler();
 		MaricultureHandlers.modules = new ModulesHandler();
 		GameRegistry.registerFuelHandler(new FuelHandler());
-		GameRegistry.registerWorldGenerator(new WorldGenHandler());
+		GameRegistry.registerWorldGenerator(new WorldGenHandler(), 1);
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
 		GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
 		GameRegistry.registerCraftingHandler(new CraftingHandler());
@@ -224,31 +225,6 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
 		GameRegistry.registerTileEntity(TileVoidBottle.class, "tileVoidBottle");
-
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.COPPER, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.COPPER_BLOCK, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.LIMESTONE, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.LIMESTONE_BRICK, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.LIMESTONE_CHISELED, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.LIMESTONE_SMOOTH, "pickaxe", 0);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.MAGNESIUM_BLOCK, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.RUTILE, "pickaxe", 2);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.TITANIUM_BLOCK, "pickaxe", 2);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_BRICK, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BASE_IRON, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.LIQUIFIER, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_1, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_2, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_3, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.ANVIL_4, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.AIR_PUMP, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(singleBlocks, SingleMeta.INGOT_CASTER, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(doubleBlock, DoubleMeta.VAT, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(utilBlocks, UtilMeta.BOOKSHELF, "axe", 0);
-		MinecraftForge.setBlockHarvestLevel(groundBlocks, GroundMeta.BUBBLES, "shovel", 0);
-		MinecraftForge.setBlockHarvestLevel(woodBlocks, WoodMeta.BASE_WOOD, "axe", 1);
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks });

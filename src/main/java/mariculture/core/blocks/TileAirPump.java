@@ -12,8 +12,6 @@ import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
-import mariculture.core.network.Packet102AirPump;
-import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IEjectable;
 import mariculture.diving.Diving;

@@ -17,11 +17,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {
 	Random rand = new Random();
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onLivingSpawned(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityCreeper) {
 			EntityCreeper creeper = (EntityCreeper) event.entity;
@@ -39,7 +40,7 @@ public class FisheryEventHandler {
 		entity.setEntityItemStack(stack);
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onFishDeath(ItemExpireEvent event) {
 		Random rand = new Random();
 		ItemStack item = event.entityItems.getEntityItem();
@@ -67,7 +68,7 @@ public class FisheryEventHandler {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onKillSquid(LivingDropsEvent event) {
 		if (event.entity instanceof EntitySquid) {
 			EntitySquid entity = (EntitySquid) event.entity;

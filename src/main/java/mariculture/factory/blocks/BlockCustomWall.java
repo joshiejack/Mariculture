@@ -5,7 +5,6 @@ import java.util.Random;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IItemRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockWall;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,8 +23,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomWall extends BlockWall implements IItemRegistry {
 
-	public BlockCustomWall(int i, Block block) {
-		super(i, block);
+	public BlockCustomWall() {
+		super(Blocks.stone);
 		setCreativeTab(null);
 	}
 

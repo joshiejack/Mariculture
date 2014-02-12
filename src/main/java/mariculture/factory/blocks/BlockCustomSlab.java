@@ -1,5 +1,6 @@
 package mariculture.factory.blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -7,12 +8,14 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.factory.Factory;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -23,17 +26,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomSlab extends BlockStep implements IItemRegistry {
-	private static int singleSlabID = 0;
-
-	public BlockCustomSlab(int id, boolean isDouble) {
-		super(id, isDouble);
-		if (!isDouble) {
-			singleSlabID = blockID;
-		}
-		setHardness(1.5F);
-		setResistance(10.0F);
-		setStepSound(soundStoneFootstep);
+public class BlockCustomSlab extends BlockSlab implements IItemRegistry {
+	public BlockCustomSlab(boolean isDouble) {
+		super(isDouble, Material.piston);		
 		setLightOpacity(0);
 		setCreativeTab(null);
 	}
@@ -44,8 +39,8 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 	}
 	
 	@Override
-	public boolean isBlockNormalCube(World world, int x, int y, int z) {
-		return (world.getBlockId(x, y, z) == Factory.customSlabsDouble.blockID)? true: false;
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
+		return (world.getBlock(x, y, z) == Factory.customSlabsDouble)? true: false;
 	}
 
 	@Override
@@ -56,11 +51,11 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 
 	@Override
 	protected ItemStack createStackedBlock(int meta) {
-		return new ItemStack(singleSlabID, 2, meta & 7);
+		return new ItemStack(Factory.customSlabs, 2, meta & 7);
 	}
 
 	@Override
-	public IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
 		return BlockCustomHelper.getBlockTexture(block, x, y, z, side);
 	}
 
@@ -91,7 +86,7 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z) {
+	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -99,11 +94,11 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 	public int quantityDropped(Random rand) {
 		return 0;
 	}
-
+	
 	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	}
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)  {
+		return BlockCustomHelper.getDrops(world, x, y, z, getID());
+    }
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
@@ -126,15 +121,14 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(int id, CreativeTabs tab, List list) {
-		list.add(new ItemStack(blockID, 1, 0));
-
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+		return;
 	}
 	
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 
@@ -146,5 +140,10 @@ public class BlockCustomSlab extends BlockStep implements IItemRegistry {
 	@Override
 	public String getName(ItemStack stack) {
 		return "customSlab";
+	}
+
+	@Override
+	public String func_150002_b(int var1) {
+		return null;
 	}
 }

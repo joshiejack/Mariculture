@@ -10,9 +10,10 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class GuiItemToolTip {
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void addToolTip(ItemTooltipEvent event) {
 		EntityPlayer player = event.entityPlayer;
 		ItemStack stack = event.itemStack;

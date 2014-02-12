@@ -2,11 +2,11 @@ package mariculture.factory.blocks;
 
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.block.material.Material;
-import net.minecraft.world.World;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockCustomLight extends BlockCustomBase {
-	public BlockCustomLight(int i) {
-		super(i, Material.rock);
+	public BlockCustomLight() {
+		super(Material.rock);
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class BlockCustomLight extends BlockCustomBase {
 	}
 	
 	@Override
-	public boolean isBlockNormalCube(World world, int x, int y, int z) {
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 }

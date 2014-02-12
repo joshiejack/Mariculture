@@ -11,9 +11,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockCustomFlooring extends BlockCustomBase {
 	public BlockCustomFlooring() {
 		super(Material.carpet);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
-		this.setTickRandomly(true);
-		this.func_111047_d(0);
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
+		setBlockBounds(0);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -31,15 +31,15 @@ public class BlockCustomFlooring extends BlockCustomBase {
 
 	@Override
 	public void setBlockBoundsForItemRender() {
-		this.func_111047_d(0);
+		this.setBlockBounds(0);
 	}
 
 	@Override
 	public void setBlockBoundsBasedOnState(final IBlockAccess par1IBlockAccess, final int par2, final int par3, final int par4) {
-		this.func_111047_d(par1IBlockAccess.getBlockMetadata(par2, par3, par4));
+		this.setBlockBounds(par1IBlockAccess.getBlockMetadata(par2, par3, par4));
 	}
 
-	private void func_111047_d(final int par1) {
+	private void setBlockBounds(final int par1) {
 		final byte b0 = 0;
 		final float f = 1 * (1 + b0) / 16.0F;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);

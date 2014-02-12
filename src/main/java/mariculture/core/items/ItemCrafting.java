@@ -8,7 +8,6 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PlansMeta;
 import mariculture.factory.Factory;
-import mariculture.sealife.EntityHammerhead;
 import net.minecraft.block.Block;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;

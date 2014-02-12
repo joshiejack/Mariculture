@@ -12,25 +12,25 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FactoryEvents {
 	private int hoverTick = 0;
 	private int jumpTick = 0;
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void HarvestSpeed(BreakSpeed event) {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
-			if (event.block.blockID == Factory.customBlocks.blockID || event.block.blockID == Factory.customFlooring.blockID
-					|| event.block.blockID == Factory.customSlabs.blockID
-					|| event.block.blockID == Factory.customSlabsDouble.blockID
-					|| event.block.blockID == Factory.customStairs.blockID) {
+			//TODO: Add in check for the block being slabs
+			if(Item.getItemFromBlock(event.block) == Item.getItemFromBlock(Factory.customBlock)) {
 				if (player.getCurrentEquippedItem() != null) {
 					if (player.getCurrentEquippedItem().getItem() instanceof ItemPickaxe) {
 						event.newSpeed = event.originalSpeed * 3F;
@@ -48,7 +48,7 @@ public class FactoryEvents {
 		}
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void LivingUpdateEvent(LivingUpdateEvent event) {
 		if (event.entity.worldObj.isRemote) {
 			if (event.entity instanceof EntityPlayer) {
@@ -220,7 +220,7 @@ public class FactoryEvents {
 
 	private static void sendWaterAnimateServer(int mode, EntityPlayer player) {
 		if (player instanceof EntityClientPlayerMP) {
-			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.ANIMATE).build());
+			//TODO: PACKET Send Water Animate to client ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.ANIMATE).build());
 		}
 	}
 
@@ -235,13 +235,13 @@ public class FactoryEvents {
 	public static void activateSquirt(EntityPlayer player) {
 		if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
 				&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.SQUIRT) {
-			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, 0, player.entityId, PacketType.SQUIRT).build());
+			//TODO: Packet Send Activate packet to client ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, 0, player.entityId, PacketType.SQUIRT).build());
 		}
 	}
 	
 	private static void sendDamagePacket(EntityPlayer player, int mode) {
 		if (player instanceof EntityClientPlayerMP) {
-			((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.DAMAGE).build());
+			//TODO: PACKET Send Damage Packet to Client((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, mode, player.entityId, PacketType.DAMAGE).build());
 		}
 	}
 
