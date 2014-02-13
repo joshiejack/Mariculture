@@ -86,8 +86,7 @@ public class WorldGenGas extends WorldGenerator
 
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
-                                	int blockID = world.getBlockId(x2, y2, z3);
-                                	if(Blocks.blocksList[blockID] != null) {
+                                	if(world.getBlock(x2, y2, z3) != null) {
                                 		if(Blocks.blocksList[blockID].isBlockSolidOnSide(world, x2, y2, z3, ForgeDirection.UNKNOWN)) {
                                 			world.setBlock(x2, y2, z3, this.minableBlockId, minableBlockMeta, 2);
                                 			xLast = x2;

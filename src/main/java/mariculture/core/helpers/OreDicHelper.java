@@ -70,9 +70,9 @@ public class OreDicHelper {
 			if(isInDictionary(stack))
 				name = getDictionaryName(stack);
 			else if(stack.isItemStackDamageable())
-				name = stack.itemID + "|ignore";
+				name = Item.itemRegistry.getNameForObject(stack.getItem()) + "|ignore";
 			else
-				name = stack.itemID + "|" + stack.getItemDamage();
+				name = Item.itemRegistry.getNameForObject(stack.getItem()) + "|" + stack.getItemDamage();
 		}
 		
 		if(object instanceof String)
@@ -142,7 +142,8 @@ public class OreDicHelper {
 				stack = OreDictionary.getOres(OreDicHelper.getDictionaryName(stack)).get(id).copy();
 				
 				if(!checkWhitelist) {
-					if(stack.itemID == Blocks.planks.blockID || stack.itemID == Blocks.wood.blockID || stack.itemID == Blocks.woodSingleSlab.blockID) {
+					if(stack.getItem() == Item.getItemFromBlock(Blocks.planks) || stack.getItem() == Item.getItemFromBlock(Blocks.wooden_slab) 
+							|| stack.getItem() == Item.getItemFromBlock(Blocks.log) || stack.getItem() == Item.getItemFromBlock(Blocks.log2)) {
 						stack.setItemDamage(Rand.rand.nextInt(4));
 					}
 				}

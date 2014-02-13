@@ -90,25 +90,11 @@ public class BlockHelper {
 	}
 
 	public static String getName(ItemStack stack) {
-		if(stack != null) {
-			return Items.itemsList[stack.itemID].getItemDisplayName(stack);
-		}
-		
-		return "";
+		return stack != null? stack.getItem().getItemStackDisplayName(stack): "";
 	}
 	
 	public static String getName(TileEntity tile) {
-		if(tile == null) {
-			return "";
-		}
-				
-		int id = tile.getBlockType().blockID;
-		if(Items.itemsList[id] != null) {
-			Item block = Items.itemsList[id];
-			return StatCollector.translateToLocal(block.getUnlocalizedName(new ItemStack(id, 1, tile.getBlockMetadata())) + ".name");
-		}
-		
-		return "";
+		return tile!= null ? getName(new ItemStack(tile.getBlockType(), 1, tile.getBlockMetadata())): "";
 	}
 	
 	public static ForgeDirection rotate(ForgeDirection dir) {
@@ -157,8 +143,7 @@ public class BlockHelper {
 					float ry = rand.nextFloat() * 0.6F + 0.1F;
 					float rz = rand.nextFloat() * 0.6F + 0.1F;
 	
-					EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.itemID,
-							item.stackSize, item.getItemDamage()));
+					EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
 	
 					if (item.hasTagCompound()) {
 						entity_item.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
@@ -192,8 +177,7 @@ public class BlockHelper {
 					float ry = rand.nextFloat() * 0.6F + 0.1F;
 					float rz = rand.nextFloat() * 0.6F + 0.1F;
 		
-					EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(stack.itemID,
-							stack.stackSize, stack.getItemDamage()));
+					EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(stack.getItem(), stack.stackSize, stack.getItemDamage()));
 		
 					if (stack.hasTagCompound()) {
 						entity_item.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());

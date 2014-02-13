@@ -33,7 +33,7 @@ public class BlockTransferHelper {
 	
 	public BlockTransferHelper(TileEntity tile) {
 		this.thisTile = tile;
-		this.world = tile.worldObj;
+		this.world = tile.getWorldObj();
 		this.x = tile.xCoord;
 		this.y = tile.yCoord;
 		this.z = tile.zCoord;

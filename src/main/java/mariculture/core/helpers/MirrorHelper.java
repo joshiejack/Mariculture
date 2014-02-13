@@ -19,12 +19,12 @@ public class MirrorHelper {
 	public ItemStack[] get(EntityPlayer player) {
 		if (!player.worldObj.isRemote) {
 			NBTTagCompound loader = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-			NBTTagList nbttaglist = loader.getTagList("mirrorContents");
+			NBTTagList nbttaglist = loader.getTagList("mirrorContents", 10);
 
 			if (nbttaglist != null) {
 				ItemStack[] mirrorContents = new ItemStack[4];
 				for (int i = 0; i < nbttaglist.tagCount(); i++) {
-					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
+					NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
 					byte byte0 = nbttagcompound1.getByte("Slot");
 					if (byte0 >= 0 && byte0 < mirrorContents.length) {
 						mirrorContents[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
@@ -52,13 +52,13 @@ public class MirrorHelper {
 				}
 
 				if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-					player.getEntityData().setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+					player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 				}
 
 				player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setTag("mirrorContents", nbttaglist);
 
 			} catch (Exception e) {
-				LogHandler.log(Level.WARNING, "Mariculture had trouble saving Mirror Contents for " + player.username);
+				LogHandler.log(Level.WARNING, "Mariculture had trouble saving Mirror Contents for " + player.getDisplayName());
 			}
 		}
 	}

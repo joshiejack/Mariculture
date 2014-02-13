@@ -12,24 +12,17 @@ public class EntityHelper {
 	    double d0 = entity.posY - 0.35F;
 	    int i = MathHelper.floor_double(entity.posX);
 	    int j = MathHelper.floor_float((float)MathHelper.floor_double(d0));
-	    int k = MathHelper.floor_double(entity.posZ);
-	    int l = entity.worldObj.getBlockId(i, j, k);
-	
-	    Block block = Blocks.blocksList[l];
-	    if (block != null && block.blockMaterial == Material.water)
-	    {
+	    int k = MathHelper.floor_double(entity.posZ);	
+	    Block block = entity.worldObj.getBlock(i, j, k);
+	    if (block != null && block.getMaterial() == Material.water) {
 	        double filled = 1;
 	        if (filled < 0) {
 	            filled *= -1;
 	            return d0 > (double)(j + (1 - filled));
-	        }
-	        else
-	        {
+	        } else {
 	            return d0 < (double)(j + filled);
 	        }
-	    }
-	    else
-	    {
+	    } else {
 	        return false;
 	    }
 	}
@@ -38,18 +31,14 @@ public class EntityHelper {
 	    double d0 = entity.posY - 0.35F;
 	    int i = MathHelper.floor_double(entity.posX);
 	    int j = MathHelper.floor_float((float)MathHelper.floor_double(d0));
-	    int k = MathHelper.floor_double(entity.posZ);
-	    int l = entity.worldObj.getBlockId(i, j, k);
-	
-	    Block block = Blocks.blocksList[l];
-	    if (block != null && block.blockMaterial == Material.air) {
+	    int k = MathHelper.floor_double(entity.posZ);	
+	    Block block = entity.worldObj.getBlock(i, j, k);
+	    if (block != null && block.getMaterial() == Material.air) {
 	        double filled = 1;
 	        if (filled < 0) {
 	            filled *= -1;
 	            return d0 > (double)(j + (1 - filled));
-	        }
-	        else
-	        {
+	        } else {
 	            return d0 < (double)(j + filled);
 	        }
 	    }

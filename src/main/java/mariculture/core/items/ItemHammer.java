@@ -29,9 +29,9 @@ public class ItemHammer extends ItemDamageable {
 		if(BlockHelper.canRotate(block)) {
 			int meta = world.getBlockMetadata(x, y, z);
 			if(player.isSneaking()) {
-				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, Blocks.getIdFromBlock(block), meta, x, y, z), 3);
+				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
 			} else {
-				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, Blocks.getIdFromBlock(block), meta, x, y, z), 3);
+				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
 			}
 		}
 		

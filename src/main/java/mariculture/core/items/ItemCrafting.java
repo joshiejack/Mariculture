@@ -115,16 +115,6 @@ public class ItemCrafting extends ItemMariculture {
 		} else if (dmg == CraftingMeta.CHALK) {
 			return useChalk(stack, player, world, x, y, z);
 		}
-		
-		if(Extra.DEBUG_ON && stack.getItemDamage() == CraftingMeta.ALUMINUM_SHEET) {
-			if(Modules.sealife.isActive()) {
-				if(!world.isRemote) {
-					EntityHammerhead shark = new EntityHammerhead(world);
-					shark.setPosition(x, y + 1, z);
-					world.spawnEntityInWorld(shark);
-				}
-			}
-		}
 
 		return true;
 	}
