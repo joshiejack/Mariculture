@@ -3,6 +3,7 @@ death.attack.piranha=%1$s was eaten alive by piranhas!
 death.attack.oneRing=%1$s was consumed by the one ring.
 death.attack.scald=%1$s was scalded to death by very hot water.
 death.attack.fludd=%1$s was scalded to death by %2$s
+death.attack.turbine=%1$s overworked themselves and died while spinning their turbine!
 
 ### Core ###
 # blocks
@@ -20,7 +21,7 @@ tile.oreBlocks.magnesiumBlock.name=Block of Magnesium
 tile.oreBlocks.copperBlock.name=Block of Copper
 tile.oreBlocks.baseBrick.name=Brick Construction Block
 tile.oreBlocks.baseIron.name=Iron Construction Block
-tile.oreBlocks.limestoneThin.name=Limestone Thin Brick
+tile.oreBlocks.limestoneThing.name=Limestone Thin Brick
 tile.utilBlocks.liquifier.name=Crucible Furnace
 tile.utilBlocks.bookshelf.name=Storage Bookshelf
 tile.utilBlocks.converter.name=RF to MJ Converter
@@ -530,6 +531,7 @@ mariculture.string.salinity.magic=Prefers Ethereal Waters
 mariculture.string.salinity.salt=Prefers Salt Water
 mariculture.string.salinity.fresh=Prefers Fresh Water
 mariculture.string.by=By
+mariculture.string.jewelry.disabled=This jewelry is disabled in the config
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

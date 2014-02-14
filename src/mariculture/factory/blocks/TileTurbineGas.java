@@ -1,13 +1,14 @@
 package mariculture.factory.blocks;
 
-import java.util.ArrayList;
-
 import mariculture.api.core.IGasTurbine;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.Rand;
 import mariculture.factory.items.ItemRotor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.ArrayList;
 
 public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 	public static ArrayList<String> fluids = new ArrayList<String>();
@@ -75,4 +76,19 @@ public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 			isCreatingPower = false;
 		}
 	}
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        return new int[] { 3, 4, 6} ;
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, int side) {
+        return (slot == 3 && FluidHelper.isFluidOrEmpty(stack)) || (slot == 6 && stack.getItem() instanceof ItemRotor);
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+        return slot == 4;
+    }
 }

@@ -34,6 +34,7 @@ public abstract class PageParser {
 		this.x = x;
 		this.y = y;
 		this.font = gui.getFont();
+        this.font.FONT_HEIGHT = 10;
 	}
 	
 	public void resize(XMLHelper xml) {

@@ -1,6 +1,40 @@
-== Mariculture 1.2.1 ==
+== Mariculture 1.2.0i==
+* More fish breeding derp... fixed wrong cross-breeding of enderfish
+* Retro-Gen should no longer attempt in the nether/end and should be ever so slightly less laggy, but will still be laggy...
+* Vats should be more in sync
+* The End is now Magic water(no need for ethereal upgrade)
+* Manpowered Turbines no longer can accept items in to their 'inventory' since they don't actually have one :p
+
+== Mariculture 1.2.0h ==
+* Fixed derp with not being able to cross-breed piranha and butterflyfish (River fish now happy in ethereal waters)
+* Fixed localisation mishap with Limestone Thin Brick
+* Disabled fish dying when they can't work in a biome(since it removed the point of impurity upgrades...)
+* Basic Mirror now has 100 Uses
+
+== Mariculture 1.2.0g ==
+* Fixed Mutation with Hunger Overhaul installed
+
+== Mariculture 1.2.0f ==
+* Fixed Retro-Gen
+
+== Mariculture 1.2.0e ==
+* Fixed Unlocalized Names with CompatBooks
+* Fixed Magic Mirror crashing when upgrading from older versions
+* Fixed Tooltip crash with the NEILiquifierRecipeHandler
+* Fixed Golden Silk being cheaper than it was meant to be...
+* Rotors now last 10 x as long in a Water Turbine and 2 x as long in a Gas Turbine
+* Reduced chance of nickel when melting magnesium dust
+* So as to not screw people over, Jewelry will now no longer break, but it will not function when it's fully damaged, to counter this XP cost for repair is now much higher.
+* Diamond and Iron Jewelry recipes are now disabled by default, in order to force the cultivating of pearls(those jewelry are too easy) Config to turn them on added.
+
+== Mariculture 1.2.0d ==
 * Gas is a little more dangerous
 * Fixed Blocks > Ingots Recipes
+* Fixed NEIBase crash
+* Oysters should no longer be royally screwed if you right click them with sand
+* Manta Ray is now Sting Ray + Pufferfish (This is to fix Dragonfish being tier 6 instead of 7)
+* Glowfish is now Netherfish + Koi, in order to keep it at the same tier with the manta ray change
+* Manpowered turbines can only be activated for 60 Second bursts, or you'll start taking damage, you need to wait 1.5 seconds for it to cool off
 
 == Mariculture 1.2.0c ==
 * Fixed Autonomous Activator Being able to activate anvil/manpowered turbine

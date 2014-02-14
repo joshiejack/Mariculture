@@ -43,6 +43,11 @@ public class FishElectricRay extends FishSpecies {
 	public boolean isDominant() {
 		return true;
 	}
+
+    @Override
+    public boolean canLive(World world, int x, int y, int z) {
+        return getGroup().canLive(world, x, y, z);
+    }
 	
 	@Override
 	public void addFishProducts() {

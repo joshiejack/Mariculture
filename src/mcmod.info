@@ -1,18 +1,16 @@
 [
 {
-  "modid" : "Mariculture",
-  "name" : "Mariculture",
-  "version" : "1.2.0c",
-  "url" : "http://mariculture.wikispaces.com/",
-  "credits" : "Cheers to volleycraft'ers for helping test out the mod, timebombtech for the logo, Poppycocks for the limestone brick/chiseled and pearl brick textures",
-  "authors": [
-    "joshiejack"
-  ],
+  "modid": "Mariculture",
+  "name": "Mariculture",
   "description": "~ Maritime Complex ~ Adds expanded fishing, new fish, oceans to explore, machines to assist, sea magic and more",
-  "logoFile" : "/mariculture_logo.png",
-  "updateUrl" : "",
-  "parent" : "",
-  "screenshots": [
-  ]
+  "version": "1.2.0i",
+  "mcversion": "1.6.4",
+  "url": "http://mariculture.wikispaces.com/",
+  "updateUrl": "",
+  "authors": ["joshiejack"],
+  "credits": "Timebombtech (Logo), Poppycocks(Limestone Brick + Pearl Block Textures)",
+  "logoFile": "/mariculture_logo.png",
+  "screenshots": [],
+  "dependencies": []
 }
 ]

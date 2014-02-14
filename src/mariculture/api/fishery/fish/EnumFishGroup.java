@@ -32,7 +32,7 @@ public enum EnumFishGroup {
 	
 	//Amazon River Fish
 	AMAZONIAN(6, new EnumBiomeType[] { EnumBiomeType.HOT }, 
-				 new EnumSalinityType[] { EnumSalinityType.FRESH }),
+				 new EnumSalinityType[] { EnumSalinityType.FRESH, EnumSalinityType.MAGIC }),
 	
 	//Flat fish
 	FLATFISH(7, new EnumBiomeType[] { EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.OCEAN, EnumBiomeType.HOT, EnumBiomeType.ARID, EnumBiomeType.HELL }, 

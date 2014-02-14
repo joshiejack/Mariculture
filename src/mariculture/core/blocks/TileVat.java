@@ -19,6 +19,9 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -75,11 +78,11 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		machineTick++;
 		if(!isInit() && !worldObj.isRemote) {
 			//Init Master
-			Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			Packets.updateTile(this, 64, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te instanceof TileVat) {
-					Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
+					Packets.updateTile(te, 64, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord,
 							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
 				}
 			}
@@ -146,6 +149,18 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			}
 		}
 	}
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeToNBT(tag);
+        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
+        readFromNBT(packet.data);
+    }
 	
 	private FluidStack drain(byte id, FluidStack input, FluidStack output, boolean doDrain) {
 		int drain = input.copy().amount;
@@ -205,7 +220,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		//Let the world know that the tanks have changed, the items get their packets sent with the respective items...
 		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)1), (byte) 1).build());
 		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)2), (byte) 2).build());
-		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build()); 
+		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build());
 	}
 
 	public boolean canWork() {

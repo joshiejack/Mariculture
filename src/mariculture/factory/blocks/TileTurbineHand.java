@@ -4,6 +4,7 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.factory.blocks.TileTurbineBase.EnergyStage;
+import mariculture.factory.items.ItemRotor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -56,4 +57,19 @@ public class TileTurbineHand extends TileTurbineBase {
             produced-=40;
         }
 	}
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        return new int[] {} ;
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, int side) {
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+        return false;
+    }
 }

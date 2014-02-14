@@ -15,6 +15,7 @@ import mariculture.core.util.IMachine;
 import mariculture.core.util.IPowered;
 import mariculture.core.util.IRedstoneControlled;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -27,7 +28,7 @@ import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
-public abstract class TileTurbineBase extends TileStorageTank implements IUpgradable, IMachine, IRedstoneControlled, IEnergyHandler, IPowered {
+public abstract class TileTurbineBase extends TileStorageTank implements IUpgradable, IMachine, IRedstoneControlled, IEnergyHandler, IPowered, ISidedInventory {
 	protected int machineTick = 0;
 	//Upgrade Stats
 	protected int purity = 0;

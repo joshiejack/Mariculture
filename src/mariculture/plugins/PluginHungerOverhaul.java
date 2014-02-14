@@ -2,6 +2,7 @@ package mariculture.plugins;
 
 import java.util.ArrayList;
 
+import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
@@ -9,6 +10,7 @@ import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.RecipeRemover;
+import mariculture.fishery.FishMutationHandler;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.hungryfish.ItemHungryBait;
@@ -101,6 +103,29 @@ public class PluginHungerOverhaul extends Plugin {
 			Fishery.butterfly = new HungryFishButterfly(27);
 			Fishery.tang = new HungryFishTang(28);
 			Fishery.clown = new HungryFishClown(29);
+
+            Fishing.mutation.addMutation(Fishery.nether, Fishery.koi, Fishery.glow, 6D);
+            Fishing.mutation.addMutation(Fishery.glow, Fishery.nether, Fishery.blaze, 10D);
+            Fishing.mutation.addMutation(Fishery.night, Fishery.electricRay, Fishery.ender, 8D);
+            Fishing.mutation.addMutation(Fishery.ender, Fishery.night, Fishery.dragon, 5D);
+            Fishing.mutation.addMutation(Fishery.minnow, Fishery.gold, Fishery.salmon, 15D);
+            Fishing.mutation.addMutation(Fishery.salmon, Fishery.minnow, Fishery.bass, 20D);
+            Fishing.mutation.addMutation(Fishery.tetra, Fishery.siamese, Fishery.catfish, 12D);
+            Fishing.mutation.addMutation(Fishery.catfish, Fishery.tetra, Fishery.piranha, 8D);
+            Fishing.mutation.addMutation(Fishery.cod, Fishery.gold, Fishery.perch, 15D);
+            Fishing.mutation.addMutation(Fishery.perch, Fishery.cod, Fishery.tuna, 20D);
+            Fishing.mutation.addMutation(Fishery.stingRay, Fishery.puffer, Fishery.mantaRay, 8D);
+            Fishing.mutation.addMutation(Fishery.mantaRay, Fishery.stingRay, Fishery.electricRay, 10D);
+            Fishing.mutation.addMutation(Fishery.damsel, Fishery.squid, Fishery.angel, 7.5D);
+            Fishing.mutation.addMutation(Fishery.angel, Fishery.damsel, Fishery.puffer, 15D);
+            Fishing.mutation.addMutation(Fishery.squid, Fishery.tuna, Fishery.jelly, 20D);
+            Fishing.mutation.addMutation(Fishery.jelly, Fishery.squid, Fishery.manOWar, 10D);
+            Fishing.mutation.addMutation(Fishery.minnow, Fishery.cod, Fishery.gold, 25D);
+            Fishing.mutation.addMutation(Fishery.gold, Fishery.stingRay, Fishery.siamese, 15D);
+            Fishing.mutation.addMutation(Fishery.siamese, Fishery.gold, Fishery.koi, 7.5D);
+            Fishing.mutation.addMutation(Fishery.angel, Fishery.tetra, Fishery.butterfly, 10D);
+            Fishing.mutation.addMutation(Fishery.butterfly, Fishery.piranha, Fishery.tang, 7.5D);
+            Fishing.mutation.addMutation(Fishery.tang, Fishery.butterfly, Fishery.clown, 5D);
 
 			RecipeRemover.remove(new ItemStack(Core.food, 3, FoodMeta.CALAMARI));
 			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {

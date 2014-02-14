@@ -1,8 +1,5 @@
 package mariculture.core;
 
-import java.lang.reflect.Field;
-import java.util.logging.Level;
-
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.Modules;
@@ -15,7 +12,13 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.ChunkEvent;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.logging.Level;
+
 public class RetroGen {
+    public static ArrayList<String> retro;
+
 	public boolean doGen(RetroData data, String ore, Chunk chunk) {
 		try {
 			Field field = mariculture.core.lib.RetroGeneration.class.getField(ore.toUpperCase());
@@ -37,7 +40,11 @@ public class RetroGen {
 	}
 	
 	@ForgeSubscribe
-	public void onChunk(ChunkEvent event) {
+	public void onChunk(ChunkEvent.Load event) {
+        if(event.world.provider.dimensionId == -1 || event.world.provider.dimensionId == 1) {
+            return;
+        }
+
 		if(!event.world.isRemote) {
 			Chunk chunk = event.getChunk();
 			//Load the Retro Data, if it's null OR the stored key does not match the configs key, load in a new data set
@@ -46,6 +53,10 @@ public class RetroGen {
 				data = new RetroData();
 				event.world.setItemData("retrogen-mariculture", data);
 			}
+
+            if(retro == null) {
+                retro = new ArrayList<String>();
+            }
 			
 			if(chunk.isChunkLoaded) {
 				try {
