@@ -40,7 +40,7 @@ public class ContainerStorage extends ContainerMariculture {
 	@Override
 	public ItemStack slotClick(int slotID, int par2, int par3, EntityPlayer player) {
 		if(shouldClose(slotID, player)) {
-			player.closeScreen();
+			player.openContainer = player.inventoryContainer;
 			return null;
 		}
 		
@@ -119,7 +119,7 @@ public class ContainerStorage extends ContainerMariculture {
 	@Override
 	public void onContainerClosed(final EntityPlayer player) {
 		super.onContainerClosed(player);
-		this.storage.closeChest();
+		this.storage.closeInventory();
 	}
 	
 	@Override

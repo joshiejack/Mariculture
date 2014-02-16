@@ -36,7 +36,7 @@ public class AnvilSpecialRenderer extends TileEntitySpecialRenderer {
 		GL11.glTranslatef(offsetX, offsetY, offsetZ);
 		ItemStack stack = anvil.getStackInSlot(0);
 		if (stack != null)
-			renderItem(tile.worldObj, stack, meta);
+			renderItem(tile.getWorldObj(), stack, meta);
 		GL11.glPopMatrix();
 	}
 

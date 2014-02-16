@@ -14,6 +14,7 @@ import mariculture.fishery.Fishery;
 import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -40,7 +41,7 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		if(item.itemID == Core.singleBlocks.blockID) {
+		if(item.getItem() == Item.getItemFromBlock(Core.singleBlocks)) {
 			int meta = item.getItemDamage();
 			if(meta == SingleMeta.GEYSER || meta == SingleMeta.ANVIL_1 || meta == SingleMeta.INGOT_CASTER)
 				return false;

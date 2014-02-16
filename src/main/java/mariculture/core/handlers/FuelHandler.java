@@ -9,7 +9,7 @@ public class FuelHandler implements IFuelHandler {
 	@Override
 	public int getBurnTime(ItemStack fuel) {
 		if (Modules.fishery.isActive()) {
-			if (fuel.itemID == Fishery.fishyFood.itemID) {
+			if (fuel.getItem() == Fishery.fishyFood) {
 				int speciesID = fuel.getItemDamage();
 				if (fuel.getItemDamage() == Fishery.nether.fishID) {
 					return 2500;

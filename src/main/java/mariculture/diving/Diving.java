@@ -58,10 +58,7 @@ public class Diving extends Module {
 
 	@Override
 	public void registerBlocks() {
-		GameRegistry.registerTileEntity(TileAirCompressor.class, "tileEntityAirCompressor");		
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.COMPRESSOR_TOP, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL, "pickaxe", 1);
+		GameRegistry.registerTileEntity(TileAirCompressor.class, "TileAirCompressor");		
 	}
 
 	@Override

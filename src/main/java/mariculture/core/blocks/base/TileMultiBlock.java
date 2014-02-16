@@ -122,7 +122,7 @@ public class TileMultiBlock extends TileEntity {
 			setAsMaster(mstr, parts);
 		}
 		
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		//TODO: PACKET SYNC Packets.updateTile(this, 32, getDescriptionPacket());
 	}
 	
 	public void onBlockBreak() {
@@ -138,7 +138,7 @@ public class TileMultiBlock extends TileEntity {
 							te.setMaster(null);
 							te.setInit(false);
 							((TileMultiBlock) te).setFacing(ForgeDirection.UNKNOWN);
-							Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN).build());
+							//TODO: PACKET MULTI SYNC Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN).build());
 						}
 					}
 				}
@@ -148,7 +148,7 @@ public class TileMultiBlock extends TileEntity {
 				mstr.setMaster(null);
 				mstr.setInit(false);
 				((TileMultiBlock) mstr).setFacing(ForgeDirection.UNKNOWN);
-				Packets.updateTile(mstr, 32, new Packet113MultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
+				//TODO PACKET MULTI SYNC Packets.updateTile(mstr, 32, new Packet113MultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
 			}
 		}
 	}
@@ -177,12 +177,12 @@ public class TileMultiBlock extends TileEntity {
 	public void init() {
 		if(!worldObj.isRemote) {
 			//Init Master
-			Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			//TODO: PACKET MULTI SYNC Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te.getClass().equals(getTEClass())) {
-					Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
-							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
+					/*Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
+							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build()); */
 				}
 			}
 			
@@ -191,7 +191,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public Class getTEClass() {
-		return TileMultiBlocks.class;
+		return TileMultiBlock.class;
 	}
 
 	public void updateMaster() {
@@ -202,6 +202,7 @@ public class TileMultiBlock extends TileEntity {
 		return;
 	}
 	
+	/*
 	@Override
 	public Packet getDescriptionPacket() {		
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -212,7 +213,7 @@ public class TileMultiBlock extends TileEntity {
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
@@ -227,9 +228,9 @@ public class TileMultiBlock extends TileEntity {
 			master = new MultiPart(mstrX, mstrY, mstrZ);
 			if(master.isSame(xCoord, yCoord, zCoord)) {
 				slaves = new ArrayList<MultiPart>();
-				NBTTagList tagList = nbt.getTagList("Slaves");
+				NBTTagList tagList = nbt.getTagList("Slaves", 10);
 				for (int i = 0; i < tagList.tagCount(); i++) {
-					NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+					NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 					int x = tag.getInteger("xCoord");
 					int y = tag.getInteger("yCoord");
 					int z = tag.getInteger("zCoord");

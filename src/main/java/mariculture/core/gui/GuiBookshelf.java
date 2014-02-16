@@ -19,7 +19,7 @@ public class GuiBookshelf extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
-        this.fontRenderer.drawString(BlockHelper.getName(tile), 42, 6, 4210752);
+        this.fontRendererObj.drawString(BlockHelper.getName(tile), 42, 6, 4210752);
     }
 
 	@Override

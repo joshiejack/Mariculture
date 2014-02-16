@@ -22,7 +22,7 @@ public class GuiItemToolTip {
 		
 		if(container instanceof ContainerMachine) {
 			TileEntity tile = (TileEntity) ((ContainerMachine) container).tile;
-			Gui gui = (Gui) Mariculture.proxy.getClientGuiElement(-1, player, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			Gui gui = (Gui) Mariculture.proxy.getClientGuiElement(-1, player, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 			if(gui instanceof GuiMariculture)
 				((GuiMariculture) gui).addItemToolTip(stack, list);
 		} 

@@ -83,15 +83,7 @@ public class GuideHandler implements IGuideHandler {
 			return new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR);
 		if(icons.containsKey(key))
 			return icons.get(key);
-		if(key.contains(":")) {
-			String[] vals = key.split("\\s*:\\s*");
-			if(vals.length == 2) {
-				ItemStack stack = new ItemStack(Integer.parseInt(vals[0]), 1, Integer.parseInt(vals[2]));
-				icons.put(key, stack);
-				return stack;
-			}
-		}
-		
+		//TODO: CHECK ALL ICONS LOAD?
 		if(OreDictionary.getOres(key).size() > 0) {
 			ItemStack stack = OreDictionary.getOres(key).get(0);
 			icons.put(key, stack);

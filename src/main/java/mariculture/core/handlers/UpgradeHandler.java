@@ -21,7 +21,7 @@ public class UpgradeHandler implements IUpgradeHandler {
 	
 		if(tile instanceof TileMultiBlock) {
 			TileMultiBlock multi = (TileMultiBlock) tile;
-			tile = (IUpgradable) ((TileMultiBlock) tile).worldObj.getTileEntity(multi.master.xCoord, multi.master.yCoord, multi.master.zCoord);
+			tile = (IUpgradable) ((TileMultiBlock) tile).getWorldObj().getTileEntity(multi.master.xCoord, multi.master.yCoord, multi.master.zCoord);
 			if(tile == null)
 				return 0;
 		}

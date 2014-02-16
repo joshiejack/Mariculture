@@ -44,7 +44,7 @@ public class ContainerPressureVessel extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (itemstack.itemID == Factory.fludd.itemID) {
+				if (itemstack.getItem() == Factory.fludd) {
 					if (!this.mergeItemStack(stack, 5, 6, false)) { // Slot 0-0
 						return null;
 					}

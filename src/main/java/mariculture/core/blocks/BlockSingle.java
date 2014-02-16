@@ -16,8 +16,6 @@ import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
-import mariculture.core.network.Packet120ItemSync;
-import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
@@ -28,6 +26,7 @@ import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.fishery.blocks.TileFeeder;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -35,6 +34,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -53,6 +53,25 @@ public class BlockSingle extends BlockMachine {
 	public BlockSingle() {
 		super(Material.piston);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
+	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return meta == SingleMeta.FISH_FEEDER || meta == SingleMeta.TURBINE_HAND ? "axe": "pickaxe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		switch(meta) {
+			case SingleMeta.TURBINE_GAS:
+				return 2;
+			case SingleMeta.FISH_FEEDER:
+				return 0;
+			case SingleMeta.TURBINE_HAND:
+				return 0;
+			default:
+				return 1;
+		}
 	}
 
 	@Override
@@ -91,7 +110,7 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	@Override
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (tile instanceof TileTurbineBase) {
@@ -115,8 +134,9 @@ public class BlockSingle extends BlockMachine {
 			
 			if(tile instanceof TileGeyser) {
 				((TileGeyser)tile).orientation = BlockHelper.rotate(((TileGeyser)tile).orientation);
-				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
-				world.markBlockForRenderUpdate(x, y, z);
+				//TODO: PACKET fix sending render update to geysers 
+				/* Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				world.markBlockForRenderUpdate(x, y, z); */
 			}
 		}
 		return false;
@@ -150,12 +170,12 @@ public class BlockSingle extends BlockMachine {
 				fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
 				fludd.tank.setFluidID(Core.highPressureWater.getID());
 				fludd.tank.setFluidAmount(water);
-				Packets.updateTile(fludd, 32, fludd.getDescriptionPacket());
+				//TODO: PACKET Packets.updateTile(fludd, 32, fludd.getDescriptionPacket());
 			}
 			
 			if(tile instanceof TileGeyser) {
 				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(facing);
-				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				//TODO: PACKET Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
 			}
 		}
 		
@@ -219,7 +239,7 @@ public class BlockSingle extends BlockMachine {
 			return false;
 		
 		if(tile instanceof TileTurbineHand) {
-			if(player.username.equals("[CoFH]"))
+			if(player.getDisplayName().equals("[CoFH]"))
 				return false;
 			if(player instanceof FakePlayer) {
 				return false;
@@ -231,10 +251,10 @@ public class BlockSingle extends BlockMachine {
 			turbine.isCreatingPower = true;
 			turbine.cooldown = 5;
 
-            player.getFoodStats().addStats(0, (float)-world.difficultySetting * 1.5F);
+            player.getFoodStats().addStats(0, (float)-world.difficultySetting.getDifficultyId() * 1.5F);
 
             if(turbine.produced >= 1200) {
-                player.attackEntityFrom(MaricultureDamage.turbine, world.difficultySetting);
+                player.attackEntityFrom(MaricultureDamage.turbine, world.difficultySetting.getDifficultyId());
             }
 
 			return true;
@@ -262,13 +282,13 @@ public class BlockSingle extends BlockMachine {
 		}
 		
 		if(tile instanceof TileAnvil) {
-			if(player.username.equals("[CoFH]"))
+			if(player.getDisplayName().equals("[CoFH]"))
 				return false;
 			if(player instanceof FakePlayer)
 				return false;
 			TileAnvil anvil = (TileAnvil) tile;
 			if(anvil.getStackInSlot(0) != null) {
-				new Packet120ItemSync(x, y, z, anvil.getInventory()).build();
+				//TODO: PACKET ANvil Item Sycn new Packet120ItemSync(x, y, z, anvil.getInventory()).build();
 				if (!player.inventory.addItemStackToInventory(anvil.getStackInSlot(0))) {
 					if(!world.isRemote) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
@@ -294,7 +314,7 @@ public class BlockSingle extends BlockMachine {
 					if(caster.getStackInSlot(i) != null) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, caster.getStackInSlot(i));
 						caster.setInventorySlotContents(i, null);
-						caster.onInventoryChanged();
+						caster.markDirty();
 					}
 				}
 			}
@@ -313,7 +333,7 @@ public class BlockSingle extends BlockMachine {
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileAnvil && ItemHelper.isPlayerHoldingItem(Core.hammer, player)) {
-			if(player.username.equals("[CoFH]"))
+			if(player.getDisplayName().equals("[CoFH]"))
 				return;
 			if(player instanceof FakePlayer)
 				return;
@@ -418,9 +438,9 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int i, int j) {
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		BlockHelper.dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, i, j);
+		super.breakBlock(world, x, y, z, block, j);
 	}
 
 	@Override
@@ -450,8 +470,7 @@ public class BlockSingle extends BlockMachine {
 			drop.stackTagCompound.setInteger("water", tile.tank.getFluidAmount());
 		}
 
-		EntityItem entityitem = new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(drop.itemID, 1,
-				drop.getItemDamage()));
+		EntityItem entityitem = new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(drop.getItem(), 1,drop.getItemDamage()));
 
 		if (drop.hasTagCompound()) {
 			entityitem.getEntityItem().setTagCompound((NBTTagCompound) drop.getTagCompound().copy());
@@ -459,20 +478,15 @@ public class BlockSingle extends BlockMachine {
 
 		world.spawnEntityInWorld(entityitem);
 	}
-
-	@Override
-	public int idDropped(int i, Random random, int j) {
-		if (i == SingleMeta.FLUDD_STAND) {
-			return 0;
-		}
-
-		return this.blockID;
-	}
+	
+	public Item getItemDropped(int i, Random random, int j) {
+		return i == SingleMeta.FLUDD_STAND? null: super.getItemDropped(i, random, j);
+    }
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if(meta == SingleMeta.GEYSER)
-			return Blocks.hopperBlocks.getIcon(0, 0);
+			return Blocks.hopper.getIcon(0, 0);
 		if(meta == SingleMeta.INGOT_CASTER)
 			return super.getIcon(side, meta);
 		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)
@@ -521,12 +535,12 @@ public class BlockSingle extends BlockMachine {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
 			if(i <= SingleMeta.ANVIL_1 || i > SingleMeta.ANVIL_4) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
+				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
 			}
 		}
 	}

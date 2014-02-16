@@ -8,6 +8,7 @@ import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -26,6 +27,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 		return (float) (tank.getFluid().amount) / (float) (tank.getCapacity() * 1.01F);
 	}
 
+	/*
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound tag = new NBTTagCompound();
@@ -36,7 +38,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 
 	public boolean canUpdate() {
 		return false;
@@ -45,16 +47,17 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
-        if (amount > 0 && doFill)
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+		//TODO: PACKET Tank Block Fill Sync
+       /* if (amount > 0 && doFill)
+        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build()); */
         return amount;
 	}
 	
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		FluidStack amount = tank.drain(maxDrain, doDrain);
-        if (amount != null && doDrain)
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        /*if (amount != null && doDrain)
+        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build()); */
         return amount;
 	}
 

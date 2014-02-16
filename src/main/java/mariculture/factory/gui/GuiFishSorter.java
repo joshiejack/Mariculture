@@ -38,8 +38,9 @@ public class GuiFishSorter extends GuiMariculture {
 		super.mouseClicked(par1, par2, par3);
 		
 		if(mouseX >= 8 && mouseX <= 25 && mouseY >= 53 && mouseY <= 70) {
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.DFT_SWITCH).build());
+			//TODO: PACKET Gui Clicking
+			/* Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
+					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.DFT_SWITCH).build()); */
 		}
 	}
 }

@@ -65,7 +65,7 @@ public class VatHandler implements IVatHandler {
 				return null;
 			if(result.inputFluid2 != null && fluid2.amount < result.inputFluid2.amount)
 				return null;
-			if(result.inputItem != null && input.stackSize < result.inputItems.stackSize)
+			if(result.inputItem != null && input.stackSize < result.inputItem.stackSize)
 				return null;
 			return result;
 		}

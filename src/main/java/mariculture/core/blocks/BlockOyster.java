@@ -18,6 +18,7 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.util.Rand;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,11 +40,21 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockOyster extends BlockMachine {
 	private final Random rand = new Random();
-	public static int NET = 4;
+	public static final int NET = 4;
 
 	public BlockOyster() {
 		super(Material.ice);
 		setTickRandomly(true);
+	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return meta == NET? "axe": "pickaxe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return meta == NET? 0: 2;
 	}
 	
 	@Override
@@ -88,7 +99,7 @@ public class BlockOyster extends BlockMachine {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, int par5) {
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		if(world.getBlockMetadata(x, y, z) != NET) {
 			if (!this.canBlockStay(world, x, y, z)) {
 				if (rand.nextInt(10) == 0) {
@@ -244,7 +255,7 @@ public class BlockOyster extends BlockMachine {
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
-						if (world.getBlock(x, y - 1, z) == Core.pearlBrick) {
+						if (world.getBlock(x, y - 1, z) == Core.pearlBlock) {
 							oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
 						} else {
 							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));

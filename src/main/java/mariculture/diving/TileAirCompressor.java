@@ -106,13 +106,11 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 	}
 	
 	public boolean isBaseBlock(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
-				&& worldObj.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_BASE;
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_BASE;
 	}
 	
 	public boolean isTopBlock(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
-				&& worldObj.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_TOP;
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_TOP;
 	}
 	
 	public boolean isBase(int x, int y, int z) {
@@ -129,8 +127,8 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 			onBlockPlacedBase(xCoord, yCoord, zCoord);
 		else if(this.getBlockMetadata() == DoubleMeta.COMPRESSOR_TOP)
 			onBlockPlacedTop(xCoord, yCoord, zCoord);
-		Packets.updateTile(this, 32, getDescriptionPacket());
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+		//TODO: PACKET COMPRESSOR INIT Packets.updateTile(this, 32, getDescriptionPacket());
+        //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	//Base Setting of Master Block

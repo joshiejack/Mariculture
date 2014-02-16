@@ -24,7 +24,16 @@ public class BlockCustomBase extends BlockMachine {
 	BlockCustomBase(Material material) {
 		super(material);
 		setCreativeTab(null);
-		set
+	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return "axe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
 	}
 	
 	@Override

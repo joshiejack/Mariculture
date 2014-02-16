@@ -91,7 +91,7 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 	
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks render) {
-		if(block.blockID == Core.singleBlocks.blockID) {
+		if(block == Core.singleBlocks) {
 			if(meta == SingleMeta.ANVIL_1)
 				new RenderAnvil(render).render();
 			if(meta == SingleMeta.INGOT_CASTER)
@@ -109,7 +109,7 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 			return new RenderGeyser(render).setCoords(world, x, y, z).setDir(((TileGeyser)tile).orientation).render();
 		} else if (tile instanceof TileIngotCaster) {
 			return new RenderCaster(render).setCoords(world, x, y, z).render();
-		} else if (world.getBlockId(x, y, z) == Core.oysterBlocks.blockID && meta == BlockOyster.NET) {
+		} else if (world.getBlock(x, y, z) == Core.oysterBlock && meta == BlockOyster.NET) {
 			return new RenderNet(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileAnvil) {
 			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? 
@@ -121,7 +121,7 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory() {
+	public boolean shouldRender3DInInventory(int modelID) {
 		return true;
 	}
 

@@ -68,7 +68,7 @@ public class ContainerSawmill extends ContainerMachine {
 					}
 				} else if ((stack.getItem() instanceof ItemBlock
 						&& !(stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase))
-						|| stack.itemID == Items.feather.itemID) {
+						|| stack.getItem() == Items.feather) {
 					if (!this.mergeItemStack(stack, 6, 12, false)) { // Slot
 																		// 6-11
 						return null;
@@ -126,7 +126,7 @@ public class ContainerSawmill extends ContainerMachine {
 				return false;
 			}
 
-			return stack.getItem() instanceof ItemBlock || stack.getItem().itemID == Items.feather.itemID;
+			return stack.getItem() instanceof ItemBlock || stack.getItem() == Items.feather;
 		}
 
 		@Override

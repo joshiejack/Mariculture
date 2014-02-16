@@ -37,6 +37,21 @@ public class BlockDouble extends BlockMachine {
 		super(Material.iron);
 		setLightOpacity(0);
 	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return "pickaxe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		switch(meta) {
+			case DoubleMeta.VAT:
+				return 1;
+			default:
+				return 2;
+		}
+	}
 
 	@Override
 	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {

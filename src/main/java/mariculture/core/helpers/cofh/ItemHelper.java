@@ -71,10 +71,10 @@ public final class ItemHelper {
 			return null;
 		}
 		if (tag == null) {
-			tag = new NBTTagCompound("tag");
+			tag = new NBTTagCompound();
 		}
 		if (!tag.hasKey("display")) {
-			tag.setCompoundTag("display", new NBTTagCompound());
+			tag.setTag("display", new NBTTagCompound());
 		}
 		tag.getCompoundTag("display").setString("Name", name);
 
@@ -93,95 +93,13 @@ public final class ItemHelper {
 
 		if (stack.stackSize == 1) {
 			if (stack.getItem().hasContainerItem()) {
-				return stack.getItem().getContainerItemStack(stack);
+				return stack.getItem().getContainerItem(stack);
 			} else {
 				return null;
 			}
 		}
 		stack.splitStack(1);
 		return stack;
-	}
-
-	/**
-	 * Gets a vanilla CraftingManager result.
-	 */
-	public static ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
-
-		ItemStack[] dmgItems = new ItemStack[2];
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			if (inv.getStackInSlot(i) != null) {
-				if (dmgItems[0] == null) {
-					dmgItems[0] = inv.getStackInSlot(i);
-				} else {
-					dmgItems[1] = inv.getStackInSlot(i);
-					break;
-				}
-			}
-		}
-
-		if (dmgItems[0] == null || Items.itemsList[dmgItems[0].itemID] == null) {
-			return null;
-		} else if (dmgItems[1] != null && dmgItems[0].itemID == dmgItems[1].itemID && dmgItems[0].stackSize == 1 && dmgItems[1].stackSize == 1
-				&& Items.itemsList[dmgItems[0].itemID].isRepairable()) {
-			Item theItem = Items.itemsList[dmgItems[0].itemID];
-			int var13 = theItems.getMaxDamage() - dmgItems[0].getItemDamageForDisplay();
-			int var8 = theItems.getMaxDamage() - dmgItems[1].getItemDamageForDisplay();
-			int var9 = var13 + var8 + theItems.getMaxDamage() * 5 / 100;
-			int var10 = Math.max(0, theItems.getMaxDamage() - var9);
-			return new ItemStack(dmgItems[0].itemID, 1, var10);
-		} else {
-			IRecipe recipe;
-			for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); ++i) {
-				recipe = (IRecipe) CraftingManager.getInstance().getRecipeList().get(i);
-
-				if (recipe.matches(inv, world)) {
-					return recipe.getCraftingResult(inv);
-				}
-			}
-			return null;
-		}
-	}
-
-	/**
-	 * Get a hashcode based on the ItemStack's ID and Metadata. As both of these are shorts, this should be collision-free for non-NBT sensitive ItemStacks.
-	 * 
-	 * @param stack
-	 *            The ItemStack to get a hashcode for.
-	 * @return The hashcode.
-	 */
-	public static int getHashCode(ItemStack stack) {
-
-		return stack.getItemDamage() | stack.itemID << 16;
-	}
-
-	/**
-	 * Get a hashcode based on an ID and Metadata pair. As both of these are shorts, this should be collision-free if NBT is not involved.
-	 * 
-	 * @param id
-	 *            ID value to use.
-	 * @param metadata
-	 *            Metadata value to use.
-	 * @return The hashcode.
-	 */
-	public static int getHashCode(int id, int metadata) {
-
-		return metadata | id << 16;
-	}
-
-	/**
-	 * Extract the ID from a hashcode created from one of the getHashCode() methods in this class.
-	 */
-	public static int getIDFromHashCode(int hashCode) {
-
-		return hashCode >> 16;
-	}
-
-	/**
-	 * Extract the Metadata from a hashcode created from one of the getHashCode() methods in this class.
-	 */
-	public static int getMetaFromHashCode(int hashCode) {
-
-		return hashCode & 0xFF;
 	}
 
 	/* ORE DICT FUNCTIONS */
@@ -301,29 +219,14 @@ public final class ItemHelper {
 		if (stackB == null) {
 			return false;
 		}
-		return stackA.itemID == stackB.itemID
+		return stackA.getItem() == stackB.getItem()
 				&& (stackA.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackB.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackA
 						.getHasSubtypes() == false ? true : stackB.getItemDamage() == stackA.getItemDamage());
 	}
 
-	public static boolean craftingEquivalent(ItemStack checked, ItemStack source, String oreDict, ItemStack output) {
-
-		return output == null ? areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : oreDict.equals("Unknown") ? false : getOreName(
-				checked).equalsIgnoreCase(oreDict) : isBlacklist(output) ? areItemStacksEqualNoNBT(checked, source)
-				: areItemStacksEqualNoNBT(checked, source) ? true : oreDict == null ? false : oreDict.equals("Unknown") ? false : getOreName(checked)
-						.equalsIgnoreCase(oreDict);
-	}
-
-	public static boolean isBlacklist(ItemStack output) {
-
-		return output.itemID == Blocks.stairsWoodBirch.blockID || output.itemID == Blocks.stairsWoodJungle.blockID
-				|| output.itemID == Blocks.stairsWoodOak.blockID || output.itemID == Blocks.stairsWoodSpruce.blockID || output.itemID == Blocks.planks.blockID
-				|| output.itemID == Blocks.woodSingleSlab.blockID;
-	}
-
 	public static String getItemNBTString(ItemStack theItem, String nbtKey, String invalidReturn) {
 
-		return theItems.stackTagCompound != null ? theItems.stackTagCompound.hasKey(nbtKey) ? theItems.stackTagCompound.getString(nbtKey) : invalidReturn
+		return theItem.stackTagCompound != null ? theItem.stackTagCompound.hasKey(nbtKey) ? theItem.stackTagCompound.getString(nbtKey) : invalidReturn
 				: invalidReturn;
 	}
 
@@ -334,24 +237,24 @@ public final class ItemHelper {
 
 	public static boolean itemsEqualWithMetadata(ItemStack stackA, ItemStack stackB) {
 
-		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.itemID == stackB.itemID
+		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.getItem() == stackB.getItem()
 				&& (stackA.getHasSubtypes() == false || stackA.getItemDamage() == stackB.getItemDamage());
 	}
 
 	public static boolean itemsEqualWithoutMetadata(ItemStack stackA, ItemStack stackB) {
 
-		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.itemID == stackB.itemID;
+		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.getItem() == stackB.getItem();
 	}
 
 	public static boolean itemsEqualWithMetadata(ItemStack stackA, ItemStack stackB, boolean checkNBT) {
 
-		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.itemID == stackB.itemID
+		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.getItem() == stackB.getItem()
 				&& stackA.getItemDamage() == stackB.getItemDamage() && (!checkNBT || doNBTsMatch(stackA.stackTagCompound, stackB.stackTagCompound));
 	}
 
 	public static boolean itemsEqualWithoutMetadata(ItemStack stackA, ItemStack stackB, boolean checkNBT) {
 
-		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.itemID == stackB.itemID
+		return stackA == null ? stackB == null ? true : false : stackB != null && stackA.getItem() == stackB.getItem()
 				&& (!checkNBT || doNBTsMatch(stackA.stackTagCompound, stackB.stackTagCompound));
 	}
 
@@ -375,7 +278,7 @@ public final class ItemHelper {
 
 	public static void addInventoryInformation(ItemStack stack, List list, int minSlot, int maxSlot) {
 
-		if (stack.stackTagCompound.hasKey("Inventory") && stack.stackTagCompound.getTagList("Inventory").tagCount() > 0) {
+		if (stack.stackTagCompound.hasKey("Inventory") && stack.stackTagCompound.getTagList("Inventory", 10).tagCount() > 0) {
 
 			if (StringHelper.displayShiftForDetail && !StringHelper.isShiftKeyDown()) {
 				list.add(StringHelper.shiftForInfo);
@@ -384,7 +287,7 @@ public final class ItemHelper {
 				return;
 			}
 			list.add(StringHelper.localize("info.cofh.contents") + ":");
-			NBTTagList nbtList = stack.stackTagCompound.getTagList("Inventory");
+			NBTTagList nbtList = stack.stackTagCompound.getTagList("Inventory", 10);
 			ItemStack curStack;
 			ItemStack curStack2;
 
@@ -393,7 +296,7 @@ public final class ItemHelper {
 			boolean[] visited = new boolean[nbtList.tagCount()];
 
 			for (int i = 0; i < nbtList.tagCount(); i++) {
-				NBTTagCompound tag = (NBTTagCompound) nbtList.tagAt(i);
+				NBTTagCompound tag = (NBTTagCompound) nbtList.getCompoundTagAt(i);
 				int slot = tag.getInteger("Slot");
 
 				if (visited[i] || slot < minSlot || slot > maxSlot) {
@@ -407,7 +310,7 @@ public final class ItemHelper {
 				}
 				containedItems.add(curStack);
 				for (int j = 0; j < nbtList.tagCount(); j++) {
-					NBTTagCompound tag2 = (NBTTagCompound) nbtList.tagAt(j);
+					NBTTagCompound tag2 = (NBTTagCompound) nbtList.getCompoundTagAt(j);
 					int slot2 = tag.getInteger("Slot");
 
 					if (visited[j] || slot < minSlot || slot > maxSlot) {

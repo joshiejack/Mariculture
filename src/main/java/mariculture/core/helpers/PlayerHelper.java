@@ -39,7 +39,7 @@ public class PlayerHelper {
 		for(int i = 0; i < player.inventory.mainInventory.length; i++) {
 			ItemStack stack = player.inventory.mainInventory[i];
 			if(stack != null) {
-				if(stack.itemID == match.itemID && (stack.getItemDamage() == match.getItemDamage() || damageable)) {
+				if(stack.getItem() == match.getItem() && (stack.getItemDamage() == match.getItemDamage() || damageable)) {
 					return i;
 				}
 			}

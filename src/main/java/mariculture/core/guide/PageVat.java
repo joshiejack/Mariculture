@@ -1,7 +1,6 @@
 package mariculture.core.guide;
 
 import mariculture.core.lib.Text;
-import mariculture.plugins.nei.NEIBase;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -58,32 +57,33 @@ public class PageVat extends PageParser {
 		//Fluid 1
 		if(!fluid1.equals("")) {
 			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid1)).getIcon();
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 28, icon, 7, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 28, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 12, icon, 7, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 12, icon, 16, 16);
+			//TODO: Move Drawing Tank Icons to another class
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 28, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 28, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 12, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 12, icon, 16, 16);
 			
 			if(!fluid2.equals("")) {
 				icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid2)).getIcon();
 			}
 			
 			//Fluid 2
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 29, y + 28, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 28, icon, 7, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 29, y + 12, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 12, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 29, y + 28, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 28, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 29, y + 12, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 12, icon, 7, 16);
 		}
 		
 		if(!fluid3.equals("")) {
 			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid3)).getIcon();
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 28, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 28, icon, 7, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 28, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 28, icon, 7, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 12, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 12, icon, 7, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 12, icon, 16, 16);
-			NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 12, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 28, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 28, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 28, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 28, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 12, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 12, icon, 7, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 12, icon, 16, 16);
+			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 12, icon, 7, 16);
 		}
 		
 		/** End Left Tank Begin Right Tank **/

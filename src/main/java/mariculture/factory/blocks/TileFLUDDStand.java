@@ -73,7 +73,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				
 			if(onTick(100)) {
 				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), getWaterUsage()), true);
-				Packets.updateTile(this, 32, getDescriptionPacket());
+				//TODO: PACKET FLUDD INIT Packets.updateTile(this, 32, getDescriptionPacket());
 			}
 		}
 	}
@@ -90,7 +90,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 			z = zCoord + (orientation.offsetZ * dist);
 			
 			if(dist > 0) {
-				Material mat = worldObj.getBlockMaterial((int)x, (int)y, (int)z);
+				Material mat = worldObj.getBlock((int)x, (int)y, (int)z).getMaterial();
 				if(!(mat instanceof MaterialLogic || mat instanceof MaterialTransparent || isNet((int)x, (int)y , (int)z)))
 					return;
 			}
@@ -141,11 +141,11 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				int x2 = (int) (x + orientation.offsetX);
 				int y2 = (int) (y + orientation.offsetY);
 				int z2 = (int) (z + orientation.offsetZ);
-				Block block = Blocks.blocksList[worldObj.getBlockId(x2, y2, z2)];
+				Block block = worldObj.getBlock(x2, y2, z2);
 				if(block != null) {
 					float blockHardness = block.getBlockHardness(worldObj, x2, y2, z2);
 					if(worldObj.isRemote) {
-						block.addBlockHitEffects(worldObj, 
+						block.addHitEffects(worldObj, 
 								new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), 
 										worldObj.getWorldVec3Pool().getVecFromPool(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
 					}
@@ -154,7 +154,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 						if(blockHardness <= hardnessMax) {
 							int meta = worldObj.getBlockMetadata(x2, y2, z2);
 							if(worldObj.isRemote)
-								block.addBlockDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
+								block.addDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
 							FakePlayer player = new FakePlayer(worldObj, "fludd");
 							if (block.removeBlockByPlayer(worldObj, player, x2, y2, z2)) {
 	                             block.onBlockDestroyedByPlayer(worldObj, x2, y2, z2, meta);
@@ -184,7 +184,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.oysterBlocks.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlock(x, y, z) == Core.oysterBlock && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
 	}
 	
 	private boolean hasEthereal() {
@@ -218,6 +218,8 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 		return false;
 	}
 	
+	//TODO PACKET
+	/*
 	@Override
 	public Packet getDescriptionPacket() {		
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -228,7 +230,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {

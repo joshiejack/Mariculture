@@ -21,6 +21,7 @@ public class ItemHammer extends ItemDamageable {
 	public ItemHammer(ToolMaterial brick) {
 		super(brick.getMaxUses());
 		this.material = brick;
+		setHarvestLevel("pickaxe", 0);
 	}
 
 	@Override

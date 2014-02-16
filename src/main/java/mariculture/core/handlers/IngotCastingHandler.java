@@ -5,6 +5,7 @@ import java.util.HashMap;
 import mariculture.api.core.IIngotCasterHandler;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.helpers.OreDicHelper;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -38,13 +39,13 @@ public class IngotCastingHandler implements IIngotCasterHandler {
 		name = "block" + name;
 		
 		if(OreDictionary.getOres(name).size() > 0) {
-			ItemStack block = OreDictionary.getOres(name).get(0);
-			if(Blocks.blocksList[block.itemID] != null) {
-				return Blocks.blocksList[block.itemID].getIcon(0, block.getItemDamage());
+			ItemStack item = OreDictionary.getOres(name).get(0);
+			if((Block.getBlockFromItem(stack.getItem())) != null) {
+				return Block.getBlockFromItem(item.getItem()).getIcon(0, item.getItemDamage());
 			}
 		}
 		
-		return Blocks.blockIron.getIcon(0, 0);
+		return Blocks.iron_block.getIcon(0, 0);
 	}
 
 	@Override

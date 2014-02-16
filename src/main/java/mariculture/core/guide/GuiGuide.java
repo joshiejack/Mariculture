@@ -44,7 +44,7 @@ public class GuiGuide extends GuiScreen {
 	public Node page2;
 	
 	public FontRenderer getFont() {
-		return this.fontRenderer;
+		return this.fontRendererObj;
 	}
 	
 	public Minecraft getMC() {

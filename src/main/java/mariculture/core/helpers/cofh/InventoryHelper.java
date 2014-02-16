@@ -152,7 +152,7 @@ public class InventoryHelper {
 			}
 		}
 		if (retStack != null) {
-			theInventory.onInventoryChanged();
+			theInventory.markDirty();
 		}
 		return retStack;
 	}
@@ -198,7 +198,7 @@ public class InventoryHelper {
 		}
 		
 		if (stack == null || stack.stackSize != stackSize) {
-			theInventory.onInventoryChanged();
+			theInventory.markDirty();
 		}
 		
 		return stack;

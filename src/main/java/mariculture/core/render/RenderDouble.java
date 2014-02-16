@@ -42,32 +42,12 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 				return new RenderCompressorTop(render).setCoords(world, x, y, z).setDir(((TileAirCompressor)tile).facing).render();
 			}
 		}
-		/*
-		render.renderAllFaces = true;
-		TileEntity tile = (TileEntity) world.getTileEntity(x, y, z);
-		if(tile instanceof TileAirCompressor) {
-			TileAirCompressor compressor = (TileAirCompressor) tile;
-			ForgeDirection facing = compressor.facing;
-			int meta = world.getBlockMetadata(x, y, z);
-			if(meta == DoubleMeta.COMPRESSOR_BASE) {
-				new RenderCompressorBase(render).setCoords(world, x, y, z).setDir(((TileAirCompressor) tile).facing).render();
-			} else {
-				new RenderCompressorTop(render).setCoords(world, x, y, z).setDir(((TileAirCompressor) tile).facing).render();
-			}
-		} else if (tile instanceof TilePressureVessel) {
-			new RenderPressureVessel(render).setCoords(world, x, y, z).render();
-		} else if (tile instanceof TileVat) {
-			new RenderVat(render).setCoords(world, x, y, z).setDir(((TileVat) tile).facing).render();
-		}
-		
-		render.clearOverrideBlockTexture();
-		render.renderAllFaces = false; */
 		
 		return false;
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory() {
+	public boolean shouldRender3DInInventory(int modelID) {
 		return true;
 	}
 

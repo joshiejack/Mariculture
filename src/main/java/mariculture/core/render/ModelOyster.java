@@ -145,7 +145,7 @@ public class ModelOyster extends ModelBase {
 		base6.render(scale);
 
 		if (oyster.getCurrentPearl() != null) {
-			if (oyster.getCurrentPearl().itemID == Core.pearls.itemID) {
+			if (oyster.getCurrentPearl().getItem() == Core.pearls) {
 				int damage = oyster.getCurrentPearl().getItemDamage();
 
 				if (damage > -1) {
@@ -215,7 +215,7 @@ public class ModelOyster extends ModelBase {
 					renderPearl(posX, posY);
 				}
 			} else {
-				if(oyster.getCurrentPearl().itemID == Items.enderPearl.itemID) {
+				if(oyster.getCurrentPearl().getItem() == Items.ender_pearl) {
 					renderPearl(68, 0);
 				} else {
 					GL11.glPushMatrix();

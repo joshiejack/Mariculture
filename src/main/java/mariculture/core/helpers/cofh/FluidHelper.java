@@ -4,6 +4,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -197,25 +198,24 @@ public class FluidHelper {
 	}
 
 	public static FluidStack getFluidFromWorld(World worldObj, int x, int y, int z) {
-
-		int bId = worldObj.getBlockId(x, y, z);
+		Block block = worldObj.getBlock(x, y, z);
 		int bMeta = worldObj.getBlockMetadata(x, y, z);
 
-		if (bId == 9 || bId == 8) {
+		if (block == Blocks.water) {
 			if (bMeta == 0) {
 				return WATER.copy();
 			} else {
 				return null;
 			}
-		} else if (bId == 10 || bId == 11) {
+		} else if (block == Blocks.lava) {
 			if (bMeta == 0) {
 				return LAVA.copy();
 			} else {
 				return null;
 			}
-		} else if (Blocks.blocksList[bId] != null && Blocks.blocksList[bId] instanceof IFluidBlock) {
-			IFluidBlock block = (IFluidBlock) Blocks.blocksList[bId];
-			return block.drain(worldObj, x, y, z, true);
+		} else if (block instanceof IFluidBlock) {
+			IFluidBlock fluid = (IFluidBlock) block;
+			return fluid.drain(worldObj, x, y, z, true);
 		}
 		return null;
 	}

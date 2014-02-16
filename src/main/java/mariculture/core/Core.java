@@ -22,8 +22,8 @@ import mariculture.core.blocks.BlockGroundItem;
 import mariculture.core.blocks.BlockOre;
 import mariculture.core.blocks.BlockOreItem;
 import mariculture.core.blocks.BlockOyster;
-import mariculture.core.blocks.BlockPearlBrick;
-import mariculture.core.blocks.BlockPearlBrickItem;
+import mariculture.core.blocks.BlockPearlBlock;
+import mariculture.core.blocks.BlockPearlBlockItem;
 import mariculture.core.blocks.BlockSingle;
 import mariculture.core.blocks.BlockSingleItem;
 import mariculture.core.blocks.BlockTank;
@@ -114,7 +114,7 @@ public class Core extends Module {
 	public static Block utilBlocks;
 	public static Block singleBlocks;
 	public static Block oysterBlock;
-	public static Block pearlBrick;
+	public static Block pearlBlock;
 	public static Block doubleBlock;
 	public static Block glassBlocks;
 	public static Block airBlocks;
@@ -193,8 +193,8 @@ public class Core extends Module {
 		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
 		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
 		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		oysterBlock = new BlockOyster().setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightValue(0.4F);
-		pearlBrick = new BlockPearlBrick().setBlockName("pearlBrick");
+		oysterBlock = new BlockOyster().setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightLevel(0.4F);
+		pearlBlock = new BlockPearlBlock().setBlockName("pearlBrick");
 		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
 		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
 		woodBlocks = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
@@ -202,31 +202,30 @@ public class Core extends Module {
 		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
 		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
 		
-		Items.itemsList[ores] = new BlockOreItem(ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
-		Items.itemsList[util] = new BlockUtilItem(util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
-		Items.itemsList[singleBlocks] = new BlockSingleItem(singleBlocks - 256, singleBlocks).setUnlocalizedName("customBlocks");
-		Items.itemsList[doubleBlocks] = new BlockDoubleItem(doubleBlocks - 256, doubleBlock).setUnlocalizedName("doubleBlocks");
-		Items.itemsList[pearlBrick] = new BlockPearlBrickItem(pearlBrick - 256, Core.pearlBrick).setUnlocalizedName("pearlBrick");
-		Items.itemsList[glassBlocks] = new BlockGlassItem(glassBlocks - 256, glassBlocks).setUnlocalizedName("glassBlocks");
-		Items.itemsList[airBlocks] = new BlockAirItem(airBlocks - 256, airBlocks).setUnlocalizedName("airBlocks");
-		Items.itemsList[woodBlocks] = new BlockWoodItem(woodBlocks - 256, woodBlocks).setUnlocalizedName("woodBlocks");
-		Items.itemsList[tankBlocks] = new BlockTankItem(tankBlocks - 256, tankBlocks).setUnlocalizedName("tankBlocks");
-		Items.itemsList[groundBlocks] = new BlockGroundItem(groundBlocks - 256, groundBlocks).setUnlocalizedName("groundBlocks");
-		Items.itemsList[transparentBlocks] = new BlockTransparentItem(transparentBlocks - 256, transparentBlocks).setUnlocalizedName("transparentBlocks");
-
+		GameRegistry.registerBlock(oreBlocks, BlockOreItem.class, "BlockOre");
+		GameRegistry.registerBlock(utilBlocks, BlockUtilItem.class, "BlockUtil");
+		GameRegistry.registerBlock(singleBlocks, BlockSingleItem.class, "BlockSingle");
+		GameRegistry.registerBlock(doubleBlock, BlockDoubleItem.class, "BlockDouble");
+		GameRegistry.registerBlock(pearlBlock, BlockPearlBlockItem.class, "BlockPearlBlock");
+		GameRegistry.registerBlock(glassBlocks, BlockGlassItem.class, "BlockGlass");
+		GameRegistry.registerBlock(airBlocks, BlockAirItem.class, "BlockTransparent");
+		GameRegistry.registerBlock(woodBlocks, BlockWoodItem.class, "BlockTransparent");
+		GameRegistry.registerBlock(tankBlocks, BlockTankItem.class, "BlockTank");
+		GameRegistry.registerBlock(groundBlocks, BlockGroundItem.class, "BlockGround");
+		GameRegistry.registerBlock(transparentBlocks, BlockTransparentItem.class, "BlockTransparent");
 		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
 		
-		GameRegistry.registerTileEntity(TileAirPump.class, "tileEntityAirPump");
-		GameRegistry.registerTileEntity(TileOyster.class, "tileEntityOyster");
-		GameRegistry.registerTileEntity(TileLiquifier.class, "tileEntityLiquifier");
-		GameRegistry.registerTileEntity(TileBookshelf.class, "tileBookshelf");
-		GameRegistry.registerTileEntity(TileTankBlock.class, "tileTankBlock");
-		GameRegistry.registerTileEntity(TileVat.class, "tileVatBlock");
-		GameRegistry.registerTileEntity(TileAnvil.class, "tileBlacksmithAnvil");
-		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
-		GameRegistry.registerTileEntity(TileVoidBottle.class, "tileVoidBottle");
+		GameRegistry.registerTileEntity(TileAirPump.class, "TileAirPump");
+		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
+		GameRegistry.registerTileEntity(TileLiquifier.class, "TileLiquifier");
+		GameRegistry.registerTileEntity(TileBookshelf.class, "TileBookshelf");
+		GameRegistry.registerTileEntity(TileTankBlock.class, "TileTankBlock");
+		GameRegistry.registerTileEntity(TileVat.class, "TileVat");
+		GameRegistry.registerTileEntity(TileAnvil.class, "TileAnvil");
+		GameRegistry.registerTileEntity(TileIngotCaster.class, "TileIngotCaster");
+		GameRegistry.registerTileEntity(TileVoidBottle.class, "TileVoidBottle");
 
-		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
+		RegistryHelper.register(new Object[] { oreBlocks, pearlBlock, oysterBlock, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks });
 	}
 	
@@ -252,8 +251,6 @@ public class Core extends Module {
 		guides = new ItemGuide().setUnlocalizedName("guide");
 		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
 		bucket = new ItemFluidStorage(8000).setUnlocalizedName("titaniumBucket");
-		
-		MinecraftForge.setToolClass(hammer, "pickaxe", 0);
 		
 		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
 				liquidContainers, hammer, worked, batteryCopper, guides, ladle, bucket });

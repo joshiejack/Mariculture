@@ -12,8 +12,8 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
 public class BlockTankItem extends ItemBlockMariculture {
-	public BlockTankItem(int id, Block block) {
-		super(id);
+	public BlockTankItem(Block block) {
+		super(block);
 	}
 
 	@Override

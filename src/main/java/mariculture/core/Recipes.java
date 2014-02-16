@@ -157,8 +157,8 @@ public class Recipes {
 
 		//Pearl Bricks
 		for (int i = 0; i < 12; i++) {
-			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBrick, 1, i), new ItemStack(Core.pearls, 1, i));
-			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBrick, 1, i));
+			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBlock, 1, i), new ItemStack(Core.pearls, 1, i));
+			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 		}
 		
 		//Piston

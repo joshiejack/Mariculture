@@ -40,11 +40,11 @@ public class FeatureRedstone extends Feature {
 			case DISABLED: 
 				return true;
 			case LOW:
-				return !tile.worldObj.isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord);
+				return !tile.getWorldObj().isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord);
 			case HIGH:
-				return tile.worldObj.isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord);
+				return tile.getWorldObj().isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord);
 			default:
-				return !tile.worldObj.isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord);
+				return !tile.getWorldObj().isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord);
 			}
 		}
 
@@ -75,7 +75,7 @@ public class FeatureRedstone extends Feature {
 	@Override
 	public void mouseClicked(int mouseX, int mouseY) {
 		if(mouseX >= 177 && mouseX <= 192 && mouseY >= 76 && mouseY <= 92) {
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet114RedstoneControlled(x, y, z).build());
+			//TODO: PACKET REDSTONE CONTROLLED Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet114RedstoneControlled(x, y, z).build());
 		}
 	}
 	

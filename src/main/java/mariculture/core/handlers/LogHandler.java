@@ -9,7 +9,7 @@ public class LogHandler {
 	private static Logger logger = Logger.getLogger("Mariculture");
 
 	public static void init() {
-		logger.setParent(FMLLog.getLogger());
+		logger.setParent((Logger) FMLLog.getLogger());
 	}
 
 	public static void log(Level level, String message) {

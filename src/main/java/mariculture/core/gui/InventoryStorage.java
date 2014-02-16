@@ -43,14 +43,14 @@ public class InventoryStorage implements IInventory {
 			if (inventory[i].stackSize <= j) {
 				ItemStack itemstack = inventory[i];
 				inventory[i] = null;
-				onInventoryChanged();
+				markDirty();
 				return itemstack;
 			}
 			ItemStack itemstack1 = inventory[i].splitStack(j);
 			if (inventory[i].stackSize == 0) {
 				inventory[i] = null;
 			}
-			onInventoryChanged();
+			markDirty();
 			return itemstack1;
 		} else {
 			return null;
@@ -65,11 +65,11 @@ public class InventoryStorage implements IInventory {
 			itemstack.stackSize = getInventoryStackLimit();
 		}
 
-		onInventoryChanged();
+		markDirty();
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return StatCollector.translateToLocal(this.player.getCurrentEquippedItem().getUnlocalizedName());
 	}
 
@@ -79,7 +79,7 @@ public class InventoryStorage implements IInventory {
 	}
 
 	@Override
-	public void onInventoryChanged() {		
+	public void markDirty() {		
 		seed = Rand.rand.nextLong();
 		save(player, inventory);
 	}
@@ -90,12 +90,12 @@ public class InventoryStorage implements IInventory {
 	}
 
 	@Override
-	public void openChest() {
+	public void openInventory() {
 		//onInventoryChanged();
 	}
 
 	@Override
-	public void closeChest() {
+	public void closeInventory() {
 		//onInventoryChanged();
 	}
 
@@ -105,7 +105,7 @@ public class InventoryStorage implements IInventory {
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 

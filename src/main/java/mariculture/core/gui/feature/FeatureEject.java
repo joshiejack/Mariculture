@@ -91,7 +91,7 @@ public class FeatureEject extends Feature {
 	@Override
 	public void mouseClicked(int mouseX, int mouseY) {
 		if(mouseX >= 177 && mouseX <= 192 && mouseY >= 99 && mouseY <= 114) {
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet115EjectSetting(x, y, z).build());
+			//TODO: PACKET EJECT CLICK Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet115EjectSetting(x, y, z).build());
 		}
 	}
 	

@@ -10,8 +10,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.WeightedRandomChestContent;
 
 public class PearlGenHandler {
+	//TODO: Redo the Pearl Generation Handler
+	
 	private static ArrayList<GeneratedPearls> pearls = new ArrayList<GeneratedPearls>();
 
 	public static void addPearl(ItemStack item, int rarity) {
@@ -37,13 +40,13 @@ public class PearlGenHandler {
 		return null;
 	}
 
-	private static class GeneratedPearls extends WeightedRandomItem {
+	private static class GeneratedPearls extends WeightedRandomChestContent {
 		private ItemStack itemStack;
 		private int minCount = 1;
 		private int maxCount = 1;
 
 		private GeneratedPearls(int weight, ItemStack item, int min, int max) {
-			super(weight);
+			super(item, weight, max, max);
 			this.itemStack = item;
 			minCount = min;
 			maxCount = max;
@@ -80,6 +83,6 @@ public class PearlGenHandler {
 		addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
 		addPearl(new ItemStack(Blocks.sand), 15);
 		if(Extra.GEN_ENDER_PEARLS)
-			addPearl(new ItemStack(Items.enderPearl), 1);
+			addPearl(new ItemStack(Items.ender_pearl), 1);
 	}
 }

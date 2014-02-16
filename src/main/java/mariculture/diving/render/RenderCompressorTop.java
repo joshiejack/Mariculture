@@ -35,7 +35,7 @@ public class RenderCompressorTop extends RenderBase {
 					if(te != null && te instanceof TileAirCompressor) {
 						TileAirCompressor master = (TileAirCompressor) te;
 						if(master.getEnergyStored(ForgeDirection.UP) > 0 && master.storedAir < TileAirCompressor.max)
-							setTexture(Blocks.cloth, 5);
+							setTexture(Blocks.wool, 5);
 						renderBlock(0.1, 0.3, 0.35, 0.4, 0.55, 0.65);
 					}
 				}
@@ -62,7 +62,7 @@ public class RenderCompressorTop extends RenderBase {
 					if(te != null && te instanceof TileAirCompressor) {
 						TileAirCompressor master = (TileAirCompressor) te;
 						if(master.getEnergyStored(ForgeDirection.UP) > 0 && master.storedAir < TileAirCompressor.max)
-							setTexture(Blocks.cloth, 5);
+							setTexture(Blocks.wool, 5);
 						renderBlock(0.35, 0.3, 0.1, 0.65, 0.55, 0.4);
 					}
 				}
