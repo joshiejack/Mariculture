@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(CreatureType type, IBlockAccess world, int x, int y, int z) {
+	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -77,10 +78,11 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 		return 0;
 	}
 
+	/*
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	}
+	} */
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {

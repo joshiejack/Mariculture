@@ -38,7 +38,7 @@ public class Packet113MultiInit extends PacketMariculture {
 			}
 			
 			((TileMultiBlock) te).setFacing(ForgeDirection.values()[facing]);
-			world.markBlockForRenderUpdate(x, y, z);
+			world.markBlockForUpdate(x, y, z);
 		}
 	}
 

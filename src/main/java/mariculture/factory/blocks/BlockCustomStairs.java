@@ -36,7 +36,7 @@ public class BlockCustomStairs extends BlockStairs implements IItemRegistry {
     }
 
 	@Override
-	public IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
 		return BlockCustomHelper.getBlockTexture(block, x, y, z, side);
 	}
 
@@ -67,7 +67,7 @@ public class BlockCustomStairs extends BlockStairs implements IItemRegistry {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z) {
+	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -76,10 +76,11 @@ public class BlockCustomStairs extends BlockStairs implements IItemRegistry {
 		return 0;
 	}
 
+	/*
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	}
+	} */
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
@@ -103,7 +104,7 @@ public class BlockCustomStairs extends BlockStairs implements IItemRegistry {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this.blockID, 1, j)), new ItemStack(this.blockID, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 

@@ -1,6 +1,6 @@
 package mariculture.world;
 
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.WorldGeneration;
@@ -22,7 +22,7 @@ public class WorldEvents {
 				try {
 					event.newGen = new MapGenMineshaftsDisabled();
 				} catch (Exception e) {
-					LogHandler.log(Level.INFO, "Mariculture couldn't remove mineshafts from oceans");
+					LogHandler.log(Level.TRACE, "Mariculture couldn't remove mineshafts from oceans");
 				}
 			}
 		}
@@ -32,7 +32,7 @@ public class WorldEvents {
 				try {
 					event.newGen = new MapGenCavesWater();
 				} catch (Exception e) {
-					LogHandler.log(Level.INFO, "Mariculture couldn't add water filled caves");
+					LogHandler.log(Level.TRACE, "Mariculture couldn't add water filled caves");
 				}
 			}
 		}
@@ -46,7 +46,7 @@ public class WorldEvents {
 						event.newGen = new MapGenRavineWater();
 					}
 				} catch (Exception e) {
-					LogHandler.log(Level.INFO, "Mariculture couldn't add water filled ravines");
+					LogHandler.log(Level.TRACE, "Mariculture couldn't add water filled ravines");
 				}
 			}
 		}

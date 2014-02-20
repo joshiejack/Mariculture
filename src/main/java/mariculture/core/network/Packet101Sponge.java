@@ -35,13 +35,13 @@ public class Packet101Sponge extends PacketMariculture {
 	@Override
 	public void handle(World world, EntityPlayer player) {
 		if(isClient) {
-			FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(stored + " / " + max + " RF");
+			//TODO: FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(stored + " / " + max + " RF");
 		} else {
 			if(world.getTileEntity(x, y, z) instanceof TileSponge) {
 				TileSponge sponge = (TileSponge) world.getTileEntity(x, y, z);
 				stored = sponge.getEnergyStored(ForgeDirection.UNKNOWN);
 				max = sponge.getMaxEnergyStored(ForgeDirection.UNKNOWN);
-				PacketDispatcher.sendPacketToPlayer(new Packet101Sponge(stored, max).build(), (Player) player);
+				//TODO: PACKET>.. PacketDispatcher.sendPacketToPlayer(new Packet101Sponge(stored, max).build(), (Player) player);
 			}
 		}
 	}

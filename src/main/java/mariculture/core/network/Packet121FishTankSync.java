@@ -53,15 +53,15 @@ public class Packet121FishTankSync extends PacketMariculture {
 		
 		if(tile instanceof TileFishTank) {
 			TileFishTank tank = (TileFishTank) tile;
-			NBTTagList tagList = nbt.getTagList("FishList");
+			NBTTagList tagList = nbt.getTagList("FishList", 10);
 			for (int i = 0; i < tagList.tagCount(); i++) {
-				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+				NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 				ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
 				tank.fish.put(tag.getInteger("Key"), stack);
 			}
 		}
 		
-		world.markBlockForRenderUpdate(x, y, z);
+		world.markBlockForUpdate(x, y, z);
 	}
 
 	@Override

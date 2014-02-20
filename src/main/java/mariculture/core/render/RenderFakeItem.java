@@ -15,6 +15,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -68,18 +70,14 @@ public class RenderFakeItem extends Render
             float f6;
             int i;
 
-            Block block = null;
-            if (itemstack.itemID < Blocks.blocksList.length)
-            {
-                block = Blocks.blocksList[itemstack.itemID];
-            }
-
-            if (ForgeHooksClient.renderEntityItem(entity, itemstack, f2, f3, random, renderManager.renderEngine, renderBlocks))
+            //field_147909_c = renderBlocks
+            if (ForgeHooksClient.renderEntityItem(entity, itemstack, f2, f3, random, renderManager.renderEngine, field_147909_c, b0))
             {
                 ;
             }
-            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Blocks.blocksList[itemstack.itemID].getRenderType()))
+            else if (itemstack.getItemSpriteNumber() == 0 && itemstack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
+            	Block block = Block.getBlockFromItem(itemstack.getItem());
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
                 if (renderInFrame)
@@ -137,7 +135,7 @@ public class RenderFakeItem extends Render
 
                         if (this.renderWithColor)
                         {
-                            i = Items.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, k);
+                            i = itemstack.getItem().getColorFromItemStack(itemstack, k);
                             f5 = (float) (i >> 16 & 255) / 255.0F;
                             f4 = (float) (i >> 8 & 255) / 255.0F;
                             f6 = (float) (i & 255) / 255.0F;
@@ -166,7 +164,7 @@ public class RenderFakeItem extends Render
 
                     if (this.renderWithColor)
                     {
-                        int l = Items.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
+                    	int l = itemstack.getItem().getColorFromItemStack(itemstack, 0);
                         f8 = (float) (l >> 16 & 255) / 255.0F;
                         float f9 = (float) (l >> 8 & 255) / 255.0F;
                         f5 = (float) (l & 255) / 255.0F;
@@ -185,16 +183,11 @@ public class RenderFakeItem extends Render
         }
     }
 
-    protected ResourceLocation func_110796_a (EntityItem par1EntityItem)
-    {
-        return this.renderManager.renderEngine.getResourceLocation(par1EntityItems.getEntityItem().getItemSpriteNumber());
+    protected ResourceLocation getEntityTexture (EntityItem entity) {
+        return this.renderManager.renderEngine.getResourceLocation(entity.getEntityItem().getItemSpriteNumber());
     }
 
-    /**
-     * Renders a dropped item
-     */
-    private void renderDroppedItem (EntityItem par1EntityItem, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7)
-    {
+    private void renderDroppedItem (EntityItem par1EntityItem, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7) {
         renderDroppedItem(par1EntityItem, par2Icon, par3, par4, par5, par6, par7, 0);
     }
 
@@ -205,7 +198,7 @@ public class RenderFakeItem extends Render
         if (par2Icon == null)
         {
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-            ResourceLocation resourcelocation = texturemanager.getResourceLocation(par1EntityItems.getEntityItem().getItemSpriteNumber());
+            ResourceLocation resourcelocation = texturemanager.getResourceLocation(par1EntityItem.getEntityItem().getItemSpriteNumber());
             par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
@@ -226,12 +219,12 @@ public class RenderFakeItem extends Render
         }
         else
         {
-            GL11.glRotatef((((float) par1EntityItems.age + par4) / 20.0F + par1EntityItems.hoverStart) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef((((float) par1EntityItem.age + par4) / 20.0F + par1EntityItem.hoverStart) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
         }
 
         float f12 = 0.0625F;
         f11 = 0.021875F;
-        ItemStack itemstack = par1EntityItems.getEntityItem();
+        ItemStack itemstack = par1EntityItem.getEntityItem();
         int j = itemstack.stackSize;
         byte b0 = getMiniItemCount(itemstack);
 
@@ -310,7 +303,6 @@ public class RenderFakeItem extends Render
 
     public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5, boolean renderEffect)
     {    	
-        int k = par3ItemStack.itemID;
         int l = par3ItemStack.getItemDamage();
         Object object = par3ItemStack.getIconIndex();
         float f;
@@ -318,10 +310,10 @@ public class RenderFakeItem extends Render
         float f1;
         float f2;
 
-        Block block = (k < Blocks.blocksList.length ? Blocks.blocksList[k] : null);
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Blocks.blocksList[k].getRenderType()))
+        if (par3ItemStack.getItemSpriteNumber() == 0 && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(par3ItemStack.getItem()).getRenderType()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
+            Block block = Block.getBlockFromItem(par3ItemStack.getItem());
             GL11.glPushMatrix();
             GL11.glTranslatef((float) (par4 - 2), (float) (par5 + 3), -3.0F + this.zLevel);
             GL11.glScalef(10.0F, 10.0F, 10.0F);
@@ -329,7 +321,7 @@ public class RenderFakeItem extends Render
             GL11.glScalef(1.0F, 1.0F, -1.0F);
             GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            i1 = Items.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            i1 = par3ItemStack.getItem().getColorFromItemStack(par3ItemStack, 0);
             f = (float) (i1 >> 16 & 255) / 255.0F;
             f1 = (float) (i1 >> 8 & 255) / 255.0F;
             f2 = (float) (i1 & 255) / 255.0F;
@@ -345,15 +337,16 @@ public class RenderFakeItem extends Render
             this.itemRenderBlocks.useInventoryTint = true;
             GL11.glPopMatrix();
         }
-        else if (Items.itemsList[k].requiresMultipleRenderPasses())
+        else if (par3ItemStack.getItem().requiresMultipleRenderPasses())
         {
             GL11.glDisable(GL11.GL_LIGHTING);
 
-            for (int j1 = 0; j1 < Items.itemsList[k].getRenderPasses(l); ++j1)
+            Item item = par3ItemStack.getItem();
+            for (int j1 = 0; j1 < item.getRenderPasses(l); ++j1)
             {
                 par2TextureManager.bindTexture(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
-                IIcon icon = Items.itemsList[k].getIcon(par3ItemStack, j1);
-                int k1 = Items.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
+                IIcon icon = item.getIcon(par3ItemStack, l);
+                int k1 = par3ItemStack.getItem().getColorFromItemStack(par3ItemStack, l);
                 f1 = (float) (k1 >> 16 & 255) / 255.0F;
                 f2 = (float) (k1 >> 8 & 255) / 255.0F;
                 float f3 = (float) (k1 & 255) / 255.0F;
@@ -384,7 +377,7 @@ public class RenderFakeItem extends Render
                 object = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(resourcelocation)).getAtlasSprite("missingno");
             }
 
-            i1 = Items.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            i1 = par3ItemStack.getItem().getColorFromItemStack(par3ItemStack, 0);
             f = (float) (i1 >> 16 & 255) / 255.0F;
             f1 = (float) (i1 >> 8 & 255) / 255.0F;
             f2 = (float) (i1 & 255) / 255.0F;
@@ -431,7 +424,7 @@ public class RenderFakeItem extends Render
     {
         if (par3ItemStack != null)
         {
-            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
+            if (!ForgeHooksClient.renderInventoryItem(field_147909_c, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
             {
                 this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
             }
@@ -534,7 +527,7 @@ public class RenderFakeItem extends Render
     }
 
     protected ResourceLocation getEntityTexture (Entity par1Entity) {
-        return this.func_110796_a((EntityItem) par1Entity);
+        return this.getEntityTexture((EntityItem) par1Entity);
     }
 
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)

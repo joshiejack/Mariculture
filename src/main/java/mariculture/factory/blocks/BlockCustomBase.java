@@ -98,10 +98,12 @@ public class BlockCustomBase extends BlockMachine {
 		return 0;
 	}
 	
+	//TODO: Dropping correct Custom Blocks
+	/*
 	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+	public void removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	}
+	} */
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
@@ -114,7 +116,7 @@ public class BlockCustomBase extends BlockMachine {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileCustom();
 	}
 

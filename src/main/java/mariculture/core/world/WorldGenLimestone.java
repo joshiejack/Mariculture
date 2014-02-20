@@ -6,6 +6,7 @@ import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.OresMeta;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -67,9 +68,9 @@ public class WorldGenLimestone extends WorldGenerator {
 							if(y < 64) {
 								if (isValidPlacement(world, x, y, z)) {
 									if (OreGeneration.RUTILE && random.nextInt(OreGeneration.RUTILE_CHANCE) == 0) {
-										world.setBlock(x, y, z, Core.oreBlocks.blockID, OresMeta.RUTILE, 2);
+										world.setBlock(x, y, z, Core.oreBlocks, OresMeta.RUTILE, 2);
 									} else {
-										world.setBlock(x, y, z, Core.oreBlocks.blockID, OresMeta.LIMESTONE, 2);
+										world.setBlock(x, y, z, Core.oreBlocks, OresMeta.LIMESTONE, 2);
 									}
 								}
 							}
@@ -83,7 +84,7 @@ public class WorldGenLimestone extends WorldGenerator {
 	}
 	
 	private boolean isNotWater(World world, int x, int y, int z) {
-		return world.getBlockMaterial(x, y, z) == Material.water && !BlockHelper.isWater(world, x, y, z);
+		return world.getBlock(x, y, z).getMaterial() == Material.water && !BlockHelper.isWater(world, x, y, z);
 	}
 
 	private boolean isValidPlacement(World world, int x, int y, int z) {
@@ -94,16 +95,16 @@ public class WorldGenLimestone extends WorldGenerator {
 		try {
 			if(isNotWater(world, x, y + 1, z) || isNotWater(world, x, y + 2, z))
 				return false;
-			int id = world.getBlockId(x, y, z);
-			if(id == Core.oreBlocks.blockID)
+			Block block = world.getBlock(x, y, z);
+			if(block == Core.oreBlocks)
 				return false;
-			if(id == Blocks.dirt.blockID)
+			if(block == Blocks.dirt)
 				return true;
-			if(id == Blocks.sand.blockID)
+			if(block == Blocks.sand)
 				return true;
-			if(id == Blocks.blockClay.blockID)
+			if(block == Blocks.clay)
 				return true;
-			if(world.getBlockMaterial(x, y, z) == Material.rock)
+			if(world.getBlock(x, y, z).getMaterial() == Material.rock)
 				return true;
 			return false;
 		} catch (Exception e) {

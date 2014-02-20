@@ -12,11 +12,11 @@ public class ResurrectionTracker {
 		if (!player.worldObj.isRemote) {
 			NBTTagCompound nbt = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 			if (nbt.hasKey(EnchantmentResurrection.inventory)) {
-				NBTTagList invList = nbt.getTagList(EnchantmentResurrection.inventory);
+				NBTTagList invList = nbt.getTagList(EnchantmentResurrection.inventory, 10);
 				if (invList != null) {
 					ItemStack[] inventory = new ItemStack[player.inventory.mainInventory.length];
 					for (int i = 0; i < invList.tagCount(); i++) {
-						NBTTagCompound nbttagcompound1 = (NBTTagCompound) invList.tagAt(i);
+						NBTTagCompound nbttagcompound1 = (NBTTagCompound) invList.getCompoundTagAt(i);
 						byte byte0 = nbttagcompound1.getByte("Slot");
 						if (byte0 >= 0 && byte0 < inventory.length) {
 							inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
@@ -26,11 +26,11 @@ public class ResurrectionTracker {
 					player.inventory.mainInventory = inventory;
 				}
 
-				NBTTagList armorList = nbt.getTagList(EnchantmentResurrection.armor);
+				NBTTagList armorList = nbt.getTagList(EnchantmentResurrection.armor, 10);
 				if (armorList != null) {
 					ItemStack[] inventory = new ItemStack[player.inventory.armorInventory.length];
 					for (int i = 0; i < armorList.tagCount(); i++) {
-						NBTTagCompound nbttagcompound1 = (NBTTagCompound) armorList.tagAt(i);
+						NBTTagCompound nbttagcompound1 = (NBTTagCompound) armorList.getCompoundTagAt(i);
 						byte byte0 = nbttagcompound1.getByte("Slot");
 						if (byte0 >= 0 && byte0 < inventory.length) {
 							inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);

@@ -1,7 +1,8 @@
 package mariculture.magic;
 
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.logging.log4j.Level;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.items.ItemDamageable;
@@ -54,7 +55,7 @@ public class ItemMobMagnet extends ItemDamageable {
 				}
 			}
 		} catch (Exception e) {
-			LogHandler.log(Level.WARNING, "Mob Magnet Failed to find class for the target entities!");
+			LogHandler.log(Level.WARN, "Mob Magnet Failed to find class for the target entities!");
 		}
 		
 		return stack;

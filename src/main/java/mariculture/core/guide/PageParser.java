@@ -48,13 +48,15 @@ public abstract class PageParser {
 	public abstract void parse();
 	
 	protected void drawItemStack(GuiGuide gui, ItemStack stack, int x, int y) {
+		//TODO: Fix Drawing ItemStacks for the guide handler
+		/*
 		try {
 	        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 	        FontRenderer font = null;
 	        if (stack != null) font = stack.getItem().getFontRenderer(stack);
 	        if (font == null) font = gui.getFont();
 	        Minecraft mc = Minecraft.getMinecraft();
-	        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack, 
+	        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.renderBlocksRg, mc.getTextureManager(), stack, 
 	        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
 	        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack, x, y, false);
 	        }
@@ -69,7 +71,7 @@ public abstract class PageParser {
 		        if (stack2 != null) font = stack2.getItem().getFontRenderer(stack2);
 		        if (font == null) font = gui.getFont();
 		        Minecraft mc = Minecraft.getMinecraft();
-		        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack2, 
+		        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.renderBlocksRg, mc.getTextureManager(), stack2, 
 		        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
 		        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack2, x, y, false);
 		        }
@@ -80,11 +82,11 @@ public abstract class PageParser {
 		        if (stack2 != null) font = stack2.getItem().getFontRenderer(stack2);
 		        if (font == null) font = gui.getFont();
 		        Minecraft mc = Minecraft.getMinecraft();
-		        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.globalRenderBlocks, mc.getTextureManager(), stack2, 
+		        if (!ForgeHooksClient.renderInventoryItem(mc.renderGlobal.renderBlocksRg, mc.getTextureManager(), stack2, 
 		        		itemRenderer.renderWithColor, itemRenderer.zLevel, (float)x, (float)y)) {
 		        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack2, x, y, false);
 		        }
 			}
-		}
+		} */
     }
 }

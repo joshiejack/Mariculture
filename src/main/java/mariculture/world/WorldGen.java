@@ -5,6 +5,7 @@ import java.util.Random;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.PluginBiomesOPlenty;
+import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import mariculture.world.decorate.WorldGenKelp;
 import mariculture.world.decorate.WorldGenKelpForest;
 import mariculture.world.decorate.WorldGenReef;

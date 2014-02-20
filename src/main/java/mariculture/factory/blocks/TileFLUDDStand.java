@@ -155,13 +155,14 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 							int meta = worldObj.getBlockMetadata(x2, y2, z2);
 							if(worldObj.isRemote)
 								block.addDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
-							FakePlayer player = new FakePlayer(worldObj, "fludd");
+							//TODO: FLUDD Break Block
+							/*FakePlayer player = new FakePlayer(worldObj, "fludd");
 							if (block.removeBlockByPlayer(worldObj, player, x2, y2, z2)) {
 	                             block.onBlockDestroyedByPlayer(worldObj, x2, y2, z2, meta);
 	                        }
 							
 	                        block.harvestBlock(worldObj, player, x2, y2, z2, meta);
-	                        block.onBlockHarvested(worldObj, x2, y2, z2, meta, player);
+	                        block.onBlockHarvested(worldObj, x2, y2, z2, meta, player); */
 						}
 					}
 				}

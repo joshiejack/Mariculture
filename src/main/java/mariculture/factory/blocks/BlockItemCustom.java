@@ -12,11 +12,13 @@ import net.minecraft.util.StatCollector;
 public class BlockItemCustom extends ItemBlockMariculture {
 	private IIcon[] icons;
 
-	public BlockItemCustom(int i, Block block) {
-		super(i);
+	public BlockItemCustom(Block block) {
+		super(block);
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 	}
+	
+	//TODO: Add on Use Method for Placing Slabs
 
 	@Override
 	public int getMetadata(int meta) {
@@ -24,7 +26,7 @@ public class BlockItemCustom extends ItemBlockMariculture {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.hasTagCompound()) {
 			if (stack.stackTagCompound.hasKey("Name")) {
 				return stack.stackTagCompound.getString("Name");
@@ -51,10 +53,12 @@ public class BlockItemCustom extends ItemBlockMariculture {
 	}
 
 	public static void addToList(List list, int num, ItemStack stack) {
+		/*
 		list.add(getName(num)
 				+ ": "
 				+ new ItemStack(stack.stackTagCompound.getIntArray("BlockIDs")[num], 1, stack.stackTagCompound
-						.getIntArray("BlockMetas")[num]).getDisplayName());
+						.getIntArray("BlockMetas")[num]).getDisplayName()); */
+		//TODO: Adding the directional information to blocks
 	}
 
 	public static String getName(final int i) {

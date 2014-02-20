@@ -7,7 +7,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -39,6 +38,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
+import org.apache.logging.log4j.Level;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -81,7 +81,7 @@ public class CompatBooks {
 			String zipName = file.getName();
 			//Continue if the file i a zip
 			if(zipName.substring(zipName.lastIndexOf(".") + 1, zipName.length()).equals("zip")) {
-				LogHandler.log(Level.FINE, "Attempting to read data for the installed Guide Book: " + zipName);
+				LogHandler.log(Level.TRACE, "Attempting to read data for the installed Guide Book: " + zipName);
 				try {
 					ZipFile zipfile = new ZipFile(file);
 					Enumeration enumeration = zipfile.entries();
@@ -100,7 +100,7 @@ public class CompatBooks {
 					    			String identifier = (zipName.substring(0, zipName.length() - 4) + "|" + fileName.substring(0, fileName.length() - 4));
 					    			imageCache.put(identifier, linked); 
 			    				} catch (Exception e) {
-			    					LogHandler.log(Level.WARNING, "Failed to Read Image Data of " + fileName);
+			    					LogHandler.log(Level.WARN, "Failed to Read Image Data of " + fileName);
 			    				}
 			    			} else if(extension.equals("xml")) {
 				    			try {
@@ -113,16 +113,16 @@ public class CompatBooks {
 				    				cache.put(id, doc);
 				    			} catch (Exception e) {
 				    				e.printStackTrace();
-				    				LogHandler.log(Level.WARNING, "Failed to Read XML Data of " + fileName);
+				    				LogHandler.log(Level.WARN, "Failed to Read XML Data of " + fileName);
 				    			}
 				    		}
 			    		}
 			        }
 					
 					zipfile.close();
-					LogHandler.log(Level.FINE, "Sucessfully finished reading the installed Guide Book: " + zipName);
+					LogHandler.log(Level.INFO, "Sucessfully finished reading the installed Guide Book: " + zipName);
 				} catch (Exception e) {
-					LogHandler.log(Level.WARNING, "Failed to read the installed Guide Book: " + zipName);
+					LogHandler.log(Level.ERROR, "Failed to read the installed Guide Book: " + zipName);
 				}
 			}
 		}
@@ -145,9 +145,9 @@ public class CompatBooks {
 		    				Document doc = build.parse(file);
 		    				doc.getDocumentElement().normalize();
 		    				cache.put(xmlName.substring(0, xmlName.lastIndexOf('.')), doc);
-		    				LogHandler.log(Level.WARNING, "Sucessfully loaded debug mode custom book xml " + xmlName);
+		    				LogHandler.log(Level.INFO, "Sucessfully loaded debug mode custom book xml " + xmlName);
 					} catch(Exception e) {
-						LogHandler.log(Level.WARNING, "Failed to load debug mode custom book xml " + xmlName);
+						LogHandler.log(Level.WARN, "Failed to load debug mode custom book xml " + xmlName);
 					}
 				}
 			}

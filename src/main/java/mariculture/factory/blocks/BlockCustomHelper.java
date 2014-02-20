@@ -20,11 +20,13 @@ public class BlockCustomHelper {
 	public static IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
 		TileCustom tile = (TileCustom) block.getTileEntity(x, y, z);
 
+		//TODO: Returning the correct texture for this block
+		/*
 		if (tile != null) {
 			try {
 				return Blocks.blocksList[tile.theBlockIDs(side)].getIcon(tile.theBlockSides(side), tile.theBlockMetas(side));
 			} catch (Exception e) {}
-		}
+		}*/
 
 		return Blocks.stone.getIcon(side, 0);
 	}
@@ -77,6 +79,8 @@ public class BlockCustomHelper {
 	}
 
 	public static float getBlockHardness(World world, int x, int y, int z) {
+		//TODO: Getting Hardness from the block
+		/*
 		float hardness = 0F;
 
 		if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileCustom) {
@@ -92,10 +96,13 @@ public class BlockCustomHelper {
 
 		hardness /= 6F;
 
-		return (hardness > 0F) ? hardness : 0.1F;
+		return (hardness > 0F) ? hardness : 0.1F; */
+		return 1F;
 	}
 
-	public static float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+	public static float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+		//TODO: Getting Explosion Resistance from the block
+		/*
 		float resistance = 0F;
 
 		if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileCustom) {
@@ -112,6 +119,9 @@ public class BlockCustomHelper {
 		resistance /= 6F;
 
 		return (resistance > 0F) ? resistance : 0.1F;
+		*/
+		
+		return 1F;
 	}
 
 	public static boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z, int plan) {

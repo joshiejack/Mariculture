@@ -1,21 +1,21 @@
 package mariculture.core.network;
 
-import ibxm.Player;
 import mariculture.core.gui.ContainerMariculture;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 
 public class Packets {
 	public static void updateTile(TileEntity tile, int size, Packet packet) {
-		PacketDispatcher.sendPacketToAllAround(tile.xCoord, tile.yCoord, tile.zCoord, size, tile.worldObj.provider.dimensionId, packet);
+		//TODO: PacketDispatcher.sendPacketToAllAround(tile.xCoord, tile.yCoord, tile.zCoord, size, tile.worldObj.provider.dimensionId, packet);
 	}
 	
 	public static void updatePlayer(EntityPlayer player, int size, Packet packet) {
-		PacketDispatcher.sendPacketToAllAround(player.posX, player.posY, player.posZ, size, player.worldObj.provider.dimensionId, packet);
+		//TODO: PacketDispatcher.sendPacketToAllAround(player.posX, player.posY, player.posZ, size, player.worldObj.provider.dimensionId, packet);
 	}
 	
 	public static void updateGUI(EntityPlayer player, ContainerMariculture container, int id, int val) {
-		PacketDispatcher.sendPacketToPlayer(new Packet104GUI(container.windowId, id, val).build(), (Player) player);
+		//TODO: PacketDispatcher.sendPacketToPlayer(new Packet104GUI(container.windowId, id, val).build(), (Player) player);
 	}
 
 	public static void init() {

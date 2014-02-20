@@ -23,7 +23,7 @@ public class Packet105OneRing extends PacketMariculture {
 		for (int i = 0; i < player.worldObj.playerEntities.size(); i++) {
 			EntityPlayer aPlayer = (EntityPlayer) player.worldObj.playerEntities.get(i);
 
-			if (aPlayer.entityId == id)
+			if (aPlayer.getEntityId() == id)
 				aPlayer.setInvisible(isInvisible);
 		}
 	}

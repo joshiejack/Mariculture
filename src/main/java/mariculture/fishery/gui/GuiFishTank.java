@@ -26,26 +26,22 @@ public class GuiFishTank extends GuiMariculture {
 	@Override
 	protected void onMouseClick(int x, int y)  {
 		if(mouseX >= -18 && mouseX <= 2 && mouseY >= 104 && mouseY <= 124) {
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous).build());
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().entityId).build());
-			KeyBindingHelper.getPlayer().openGui(Mariculture.instance, -1, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			//TODO PACKET GUI CLICK Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous).build());
+			//TODO: PACKET GUI CLICK Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().getEntityId()).build());
+			KeyBindingHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 		}
 		
 		if(mouseX >= 172 && mouseX <= 192 && mouseY >= 104 && mouseY <= 124) {
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next).build());
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().entityId).build());
-			KeyBindingHelper.getPlayer().openGui(Mariculture.instance, -1, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			//TODO: Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next).build());
+			//TODO: Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().entityId).build());
+			KeyBindingHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 		}
     }
 	
 	@Override
 	public void drawForeground() {
-		fontRenderer.drawString("Page: " + (tile.thePage + 1) + "/" + tile.MAX_PAGES, 100, this.ySize - 96 + 3, 4210752);
-		fontRenderer.drawString("Page: " + (tile.thePage + 1) +  "/" + tile.MAX_PAGES, 100, nameHeight, 4210752);
+		fontRendererObj.drawString("Page: " + (tile.thePage + 1) + "/" + tile.MAX_PAGES, 100, this.ySize - 96 + 3, 4210752);
+		fontRendererObj.drawString("Page: " + (tile.thePage + 1) +  "/" + tile.MAX_PAGES, 100, nameHeight, 4210752);
 	}
 	
 	@Override

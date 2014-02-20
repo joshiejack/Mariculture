@@ -1,12 +1,7 @@
 package mariculture.core.network;
 
-import ibxm.Player;
-
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-
-import net.minecraft.entity.player.EntityPlayer;
-
+//TODO: New Packet Handling
+/*
 public class PacketHandler implements IPacketHandler {
 	@Override
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
@@ -19,4 +14,4 @@ public class PacketHandler implements IPacketHandler {
 			}
 		}
 	}
-}
+} */

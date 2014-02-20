@@ -46,7 +46,7 @@ public class LootHandler implements ILootHandler {
 						if (ret.isItemEnchantable() && !ret.isItemEnchanted()) {
 							if (quality.getRank() > quality.GOOD.getRank()) {
 								int enchant = quality.getEnchantability();
-								enchant *= ret.itemID == Items.book.itemID ? 2 : 1;
+								enchant *= ret.getItem() == Items.book ? 2 : 1;
 								EnchantmentHelper.addRandomEnchantment(rand, ret, enchant);
 							}
 						}

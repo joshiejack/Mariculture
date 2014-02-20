@@ -65,7 +65,7 @@ public class BlockCustomGate extends BlockFenceGate implements IItemRegistry {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z) {
+	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
@@ -74,10 +74,11 @@ public class BlockCustomGate extends BlockFenceGate implements IItemRegistry {
 		return 0;
 	}
 
+	/*
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	}
+	} */
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {

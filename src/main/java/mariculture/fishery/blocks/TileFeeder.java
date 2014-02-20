@@ -26,6 +26,7 @@ import mariculture.fishery.Fishery;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
@@ -188,7 +189,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	//Adding Fish Food to the Tank if Enabled
 	private void addFishFood() {
 		for(CachedCoords cord: cords) {
-			List list = worldObj.getEntitiesWithinAABB(EntityItems.class,
+			List list = worldObj.getEntitiesWithinAABB(EntityItem.class,
 					Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 			if(!list.isEmpty()) {
 				for (Object i : list) {
@@ -231,10 +232,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		ItemStack result = FluidHelper.getFluidResult(this, inventory[3], inventory[4]);
 		if (result != null) {
 			decrStackSize(3, 1);
-			if(result.itemID != Core.airBlocks.blockID) {
+			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
 				if (this.inventory[4] == null) {
 					this.inventory[4] = result.copy();
-				} else if (this.inventory[4].itemID == result.itemID) {
+				} else if (this.inventory[4].getItem() == result.getItem()) {
 					++this.inventory[4].stackSize;
 				}
 			}

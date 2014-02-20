@@ -12,10 +12,12 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class FishFoodHandler implements IFishFoodHandler {
 	private static Map foodList = new HashMap();
+	
+	//TODO: Check Fish Food Registry
 
 	@Override
 	public void addFishFood(ItemStack food, int value) {
-		foodList.put(Arrays.asList(food.itemID, food.getItemDamage()), value);
+		foodList.put(Arrays.asList(food, food.getItemDamage()), value);
 		RecipeHelper.addMelting(food, 150, FluidRegistry.getFluidStack(FluidDictionary.fish_food, value));
 	}
 
@@ -24,7 +26,7 @@ public class FishFoodHandler implements IFishFoodHandler {
 			return false;
 		}
 
-		if (foodList.get(Arrays.asList(stack.itemID, stack.getItemDamage())) != null) {
+		if (foodList.get(Arrays.asList(stack.getItem(), stack.getItemDamage())) != null) {
 			return true;
 		}
 
@@ -32,8 +34,8 @@ public class FishFoodHandler implements IFishFoodHandler {
 	}
 
 	public static int getValue(ItemStack stack) {
-		if (stack != null && foodList.get(Arrays.asList(stack.itemID, stack.getItemDamage())) != null) {
-			return (Integer) foodList.get(Arrays.asList(stack.itemID, stack.getItemDamage()));
+		if (stack != null && foodList.get(Arrays.asList(stack.getItem(), stack.getItemDamage())) != null) {
+			return (Integer) foodList.get(Arrays.asList(stack.getItem(), stack.getItemDamage()));
 		}
 
 		return 0;

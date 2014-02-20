@@ -66,6 +66,8 @@ public class TileCustom extends TileEntity {
 		tagCompound.setString("Name", this.name);
 	}
 
+	//TODO: PACKET SYNC CUSTOM BLOCKS
+	/*
 	@Override
 	public Packet getDescriptionPacket() {
 		final NBTTagCompound tagCompound = new NBTTagCompound();
@@ -76,7 +78,7 @@ public class TileCustom extends TileEntity {
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 	
 	public void set(int[] ids, int metas[], int sides[], String name2) {
 		if(theBlockIDs.length == 6) {
@@ -108,7 +110,7 @@ public class TileCustom extends TileEntity {
 
 	public void updateRender() {
 		if (!worldObj.isRemote) {
-			Packets.updateTile(this, 128, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
+			//TODO: PACKET UPDATE RENDER Packets.updateTile(this, 128, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
 		}
 	}
 }

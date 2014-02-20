@@ -440,9 +440,11 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		BlockHelper.dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, block, j);
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
+	//TODO: Fludd Keep it's water contents
+	/*
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		if (!world.isRemote) {
@@ -456,7 +458,7 @@ public class BlockSingle extends BlockMachine {
 		}
 
 		return world.setBlockToAir(x, y, z);
-	}
+	} */
 
 	private void dropFLUDD(World world, int x, int y, int z) {
 		TileFLUDDStand tile = (TileFLUDDStand) world.getTileEntity(x, y, z);

@@ -1,6 +1,6 @@
 package mariculture.core.lib;
 
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;

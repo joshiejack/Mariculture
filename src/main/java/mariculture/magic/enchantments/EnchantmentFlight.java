@@ -49,8 +49,9 @@ public class EnchantmentFlight extends EnchantmentJewelry {
 						mode = 0;
 					}
 					
-					FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(
-							StatCollector.translateToLocal("mariculture.string.flight") + (mode + 1));
+					//TODO: Print Changing Game Mode for flight to client
+					/*FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(
+							StatCollector.translateToLocal("mariculture.string.flight") + (mode + 1)); */
 				}
 				
 				float flightSpeed = (mode + 1) * 0.025F;

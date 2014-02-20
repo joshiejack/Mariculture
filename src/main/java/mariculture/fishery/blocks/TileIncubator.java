@@ -238,7 +238,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		//TODO: PACKET INCUBATOR INIT Packets.updateTile(this, 32, getDescriptionPacket());
 	}
 	
 	public void onBlockPlaced(int x, int y, int z) {

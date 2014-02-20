@@ -22,7 +22,7 @@ public class Packet110CustomTileUpdate extends PacketMariculture {
 	
 	@Override
 	public void handle(World world, EntityPlayer player) {
-		Minecraft.getMinecraft().theWorld.markBlockForRenderUpdate(x, y, z);
+		Minecraft.getMinecraft().theWorld.markBlockForUpdate(x, y, z);
 	}
 
 	@Override

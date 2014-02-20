@@ -57,45 +57,45 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.itemID == Core.oysterBlocks.blockID && item.getItemDamage() != BlockOyster.NET) {
+		if (item.getItem() == Item.getItemFromBlock(Core.oysterBlock) && item.getItemDamage() != BlockOyster.NET) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(OYSTER);
 			oyster.renderInventory(type);
 		}
 
-		if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.AIR_PUMP) {
+		if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.AIR_PUMP) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(AIR_PUMP);
 			pump.renderInventory(type);
 		}
 
 		if (Modules.factory.isActive()) {
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
+			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE);
 				turbine.renderInventory(type);
 			}
 			
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_GAS) {
+			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.TURBINE_GAS) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_GAS);
 				turbineGas.renderInventory(type);
 			}
 			
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_HAND) {
+			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.TURBINE_HAND) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_HAND);
 				turbineHand.renderInventory(type);
 			}
 
-			if ((item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.FLUDD_STAND)
-					|| item.itemID == Factory.fludd.itemID) {
+			if ((item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.FLUDD_STAND) || item.getItem() == Factory.fludd) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FLUDD);
 				fludd.renderInventory(type);
 			}
 		}
 
 		if (Modules.fishery.isActive()) {
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
+			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FEEDER);
 				feeder.renderInventory(type);
 			}
-			if (item.itemID == Fishery.siftBlocks.blockID) {
+			
+			if (item.getItem() == Item.getItemFromBlock(Fishery.siftBlock)) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(SIFT);
 				sift.renderInventory(type);
 			}

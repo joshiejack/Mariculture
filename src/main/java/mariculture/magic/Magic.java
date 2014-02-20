@@ -137,8 +137,6 @@ public class Magic extends Module {
 	public void registerHandlers() {
 		MaricultureHandlers.mirror = new MirrorHandler();
 		MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
-		TickRegistry.registerScheduledTickHandler(new EnchantUpdateTicker(), Side.SERVER);
-		TickRegistry.registerScheduledTickHandler(new EnchantUpdateTicker(), Side.CLIENT);
 	}
 
 	@Override

@@ -4,7 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.logging.log4j.Level;
 
 import mariculture.Mariculture;
 import mariculture.api.core.EnumBiomeType;
@@ -47,13 +48,12 @@ import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.guide.GuideHandler;
 import mariculture.core.guide.Guides;
 import mariculture.core.handlers.BiomeTypeHandler;
-import mariculture.core.handlers.CraftingHandler;
+import mariculture.core.handlers.FMLEvents;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
-import mariculture.core.handlers.PlayerTrackerHandler;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -71,19 +71,14 @@ import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
-import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
-import mariculture.core.lib.SingleMeta;
-import mariculture.core.lib.UtilMeta;
-import mariculture.core.lib.WoodMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
@@ -91,6 +86,7 @@ import mariculture.core.util.FluidMari;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -110,6 +106,9 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Core extends Module {
+	public static KeyBinding key_activate;
+	public static KeyBinding key_toggle;
+	
 	public static Block oreBlocks;
 	public static Block utilBlocks;
 	public static Block singleBlocks;
@@ -173,8 +172,9 @@ public class Core extends Module {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler(), 1);
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
-		GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
-		GameRegistry.registerCraftingHandler(new CraftingHandler());
+		FMLCommonHandler.instance().bus().register(new FMLEvents());
+		//GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
+		//GameRegistry.registerCraftingHandler(new CraftingHandler());
 		if(RetroGeneration.ENABLED)
 			MinecraftForge.EVENT_BUS.register(new RetroGen());
 		
@@ -281,7 +281,7 @@ public class Core extends Module {
 
 		    field.set(null, newValue);
 		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture failed to adjust the ocean depth");
+			LogHandler.log(Level.WARN, "Mariculture failed to adjust the ocean depth");
 		}
 	}
 

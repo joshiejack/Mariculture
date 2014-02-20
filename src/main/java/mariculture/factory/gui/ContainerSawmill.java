@@ -4,7 +4,6 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
 import mariculture.factory.blocks.BlockItemCustom;
-import mariculture.factory.blocks.BlockItemCustomSlabBase;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.entity.player.EntityPlayer;
@@ -67,7 +66,7 @@ public class ContainerSawmill extends ContainerMachine {
 						return null;
 					}
 				} else if ((stack.getItem() instanceof ItemBlock
-						&& !(stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase))
+						&& !(stack.getItem() instanceof BlockItemCustom))
 						|| stack.getItem() == Items.feather) {
 					if (!this.mergeItemStack(stack, 6, 12, false)) { // Slot
 																		// 6-11
@@ -122,7 +121,7 @@ public class ContainerSawmill extends ContainerMachine {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			if (stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase) {
+			if (stack.getItem() instanceof BlockItemCustom) {
 				return false;
 			}
 

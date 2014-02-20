@@ -1,6 +1,8 @@
 package mariculture.factory;
 
 
+import org.lwjgl.input.Keyboard;
+
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
@@ -33,7 +35,6 @@ import mariculture.factory.blocks.BlockCustomSlab;
 import mariculture.factory.blocks.BlockCustomStairs;
 import mariculture.factory.blocks.BlockCustomWall;
 import mariculture.factory.blocks.BlockItemCustom;
-import mariculture.factory.blocks.BlockItemCustomSlab;
 import mariculture.factory.blocks.TileCustom;
 import mariculture.factory.blocks.TileCustomPowered;
 import mariculture.factory.blocks.TileDictionary;
@@ -54,6 +55,7 @@ import mariculture.factory.items.ItemPlan;
 import mariculture.factory.items.ItemRotor;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -63,7 +65,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -129,9 +131,8 @@ public class Factory extends Module {
 		GameRegistry.registerBlock(customRFBlock, BlockItemCustom.class, "BlockCustomRFBlock");
 
 		//TODO: FIX CUSTOM SLAB STUFF BlockItemCustomSlab.setSlabs((BlockHalfSlab) customSlabs, (BlockHalfSlab) customSlabsDouble);
-
-		GameRegistry.registerBlock(customSlabs, BlockItemCustomSlab.class, "BlockCustomSlab");
-		GameRegistry.registerBlock(customSlabsDouble, BlockItemCustomSlab.class, "BlockCustomSlabDouble");
+		GameRegistry.registerBlock(customSlabs, BlockItemCustom.class, "BlockCustomSlab");
+		GameRegistry.registerBlock(customSlabsDouble, BlockItemCustom.class, "BlockCustomSlabDouble");
 
 		GameRegistry.registerTileEntity(TileCustom.class, "tileEntityCustom");
 		GameRegistry.registerTileEntity(TileCustomPowered.class, "tileEntityCustomRF");

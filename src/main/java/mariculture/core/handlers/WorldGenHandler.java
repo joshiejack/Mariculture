@@ -16,6 +16,7 @@ import mariculture.core.world.WorldGenGas;
 import mariculture.core.world.WorldGenLimestone;
 import mariculture.core.world.WorldGenOre;
 import mariculture.plugins.PluginBiomesOPlenty;
+import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -57,8 +58,8 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.BAUXITE_MIN + random.nextInt(OreGeneration.BAUXITE_MAX - OreGeneration.BAUXITE_MIN);
 		        posZ = z + random.nextInt(16);
-			    new WorldGenOre(Core.oreBlocks.blockID, OresMeta.BAUXITE, 
-			        OreGeneration.BAUXITE_VEIN, Blocks.stone.blockID).generate(world, random, posX, posY, posZ);
+			    new WorldGenOre(Core.oreBlocks, OresMeta.BAUXITE, 
+			        OreGeneration.BAUXITE_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 		    }
 		}
 	}
@@ -71,7 +72,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.NATURAL_GAS_MIN + random.nextInt(OreGeneration.NATURAL_GAS_MAX - OreGeneration.NATURAL_GAS_MIN);
 				posZ = z + random.nextInt(16);
-				new WorldGenGas(Core.airBlocks.blockID, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone.blockID)
+				new WorldGenGas(Core.airBlocks, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone)
 					.generate(world, random, posX, posY, posZ);
 			}
 		}
@@ -85,7 +86,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.COPPER_MIN + random.nextInt(OreGeneration.COPPER_MAX - OreGeneration.COPPER_MIN);
 		     	posZ = z + random.nextInt(16);
-		     	new WorldGenOre(Core.oreBlocks.blockID, OresMeta.COPPER,  OreGeneration.COPPER_VEIN, Blocks.stone.blockID)
+		     	new WorldGenOre(Core.oreBlocks, OresMeta.COPPER,  OreGeneration.COPPER_VEIN, Blocks.stone)
 		     		.generate(world, random, posX, posY, posZ);
 			}
 		}		
@@ -117,8 +118,7 @@ public class WorldGenHandler implements IWorldGenerator {
 					posX = x + random.nextInt(16);
 					posY = 54 + random.nextInt(10);
 	                posZ = z + random.nextInt(16);
-	                new WorldGenOre(Core.oreBlocks.blockID, OresMeta.RUTILE, 
-	                		2, Blocks.stone.blockID).generate(world, random, posX, posY, posZ);
+	                new WorldGenOre(Core.oreBlocks, OresMeta.RUTILE,  2, Blocks.stone).generate(world, random, posX, posY, posZ);
 	            }
 			}
 		}
@@ -173,8 +173,8 @@ public class WorldGenHandler implements IWorldGenerator {
 						int randZ = blockZ - 8 + random.nextInt(4);
 						int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
 	
-						if (Core.oysterBlocks.canBlockStay(world, randX, blockY, randZ)) {
-							world.setBlock(randX, blockY, randZ, Core.oysterBlocks.blockID, randMeta, 2);
+						if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
+							world.setBlock(randX, blockY, randZ, Core.oysterBlock, randMeta, 2);
 							TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
 							if (oyster != null) {
 								if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {

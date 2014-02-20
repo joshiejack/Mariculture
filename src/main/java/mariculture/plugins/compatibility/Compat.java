@@ -1,11 +1,11 @@
 package mariculture.plugins.compatibility;
 
-import java.util.logging.Level;
-
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import org.apache.logging.log4j.Level;
 
 public class Compat {
 	public static void preInit() {
@@ -21,7 +21,7 @@ public class Compat {
 			try {
 				CompatBait.init();
 			} catch (Exception e) {
-				LogHandler.log(Level.INFO, "Mariculture - Something went wrong when loading the Bait Compatibility Config");
+				LogHandler.log(Level.WARN, "Mariculture - Something went wrong when loading the Bait Compatibility Config");
 			}
 		}
 		

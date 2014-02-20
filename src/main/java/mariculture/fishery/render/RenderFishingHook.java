@@ -1,22 +1,27 @@
 package mariculture.fishery.render;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityFishHook;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderFishingHook extends Render {
+	private static final ResourceLocation texture = new ResourceLocation("textures/particle/particles.png");
+
+	@Override
+	public void doRender(Entity entity, double var2, double var4, double var6, float var8, float var9) {
+		// TODO: Rendering of Fish Hook
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return texture;
+	}
+}
+	/*
 	private static final ResourceLocation field_110792_a = new ResourceLocation("textures/particle/particles.png");
 
 	public void doRenderFishHook(EntityFishHook par1EntityFishHook, double par2, double par4, double par6, float par8, float par9) {
@@ -119,4 +124,4 @@ public class RenderFishingHook extends Render {
 	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
 		this.doRenderFishHook((EntityFishHook) par1Entity, par2, par4, par6, par8, par9);
 	}
-}
+} */

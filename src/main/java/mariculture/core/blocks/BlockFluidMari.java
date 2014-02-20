@@ -95,13 +95,15 @@ public class BlockFluidMari extends BlockFluidClassic {
 				float blockHardness = block.getBlockHardness(world, x2, y2, z2);
 				if(blockHardness <= hardnessMax) {
 					int meta = world.getBlockMetadata(x2, y2, z2);
+					//TODO: BREAK BLOCKS WITH FLUIDS
+					/*
 					FakePlayer player = new FakePlayer((WorldServer) world, new GameProfile("mariculture.hpwater", "hpwater"));
 					if (block.removeBlockByPlayer(world, player, x2, y2, z2)) {
                             block.onBlockDestroyedByPlayer(world, x2, y2, z2, meta);
                     }
 						
                     block.harvestBlock(world, player, x2, y2, z2, meta);
-                    block.onBlockHarvested(world, x2, y2, z2, meta, player);
+                    block.onBlockHarvested(world, x2, y2, z2, meta, player); */
 				}
 			}
 		}

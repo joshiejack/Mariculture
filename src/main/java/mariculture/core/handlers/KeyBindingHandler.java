@@ -17,6 +17,8 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
 
+//TODO: Move Key Handling to New Events system
+/*
 public class KeyBindingHandler extends KeyHandler {
 	public static KeyBinding boost = new KeyBinding(StatCollector.translateToLocal("key.boost"), Keyboard.KEY_LCONTROL);
 	public static KeyBinding toggle = new KeyBinding(StatCollector.translateToLocal("key.toggle"), Keyboard.KEY_Y);
@@ -92,4 +94,4 @@ public class KeyBindingHandler extends KeyHandler {
 			player.sendQueue.addToSendQueue(new Packet106JewelrySwap(-1).build());
 		}
 	}
-}
+} */

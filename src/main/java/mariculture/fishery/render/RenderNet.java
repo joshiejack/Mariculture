@@ -12,7 +12,7 @@ public class RenderNet extends RenderBase {
 
 	@Override
 	public void renderBlock() {
-		setTexture(Core.oysterBlocks.getIcon(0, BlockOyster.NET));
+		setTexture(Core.oysterBlock.getIcon(0, BlockOyster.NET));
 		renderBlock(0, -0.115, 0, 1, -0.05, 1);
 	}
 }

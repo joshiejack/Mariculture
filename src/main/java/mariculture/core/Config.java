@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import java.io.File;
-import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Compatibility;
@@ -15,6 +14,8 @@ import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
 import net.minecraftforge.common.config.Configuration;
+
+import org.apache.logging.log4j.Level;
 
 public class Config {
     public static void init(String dir) {
@@ -47,7 +48,7 @@ public class Config {
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
             Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "AutoDictionary > Exceptions", Compatibility.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
         } catch (Exception e) {
-        	LogHandler.log(Level.SEVERE, "Mariculture had a problem loading the other settings");
+        	LogHandler.log(Level.ERROR, "Mariculture had a problem loading the other settings");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -125,7 +126,7 @@ public class Config {
             RetroGeneration.OYSTER = config.get(Category.RETRO, "Oysters", false).getBoolean(false);
             RetroGeneration.RUTILE = config.get(Category.RETRO, "Rutile", false).getBoolean(false);
         } catch (Exception e) {
-        	LogHandler.log(Level.SEVERE, "Oh dear, there was a problem with Mariculture loading it's world configuration");
+        	LogHandler.log(Level.ERROR, "Oh dear, there was a problem with Mariculture loading it's world configuration");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -144,7 +145,7 @@ public class Config {
             Modules.transport.setActive(config.get(Category.MODULES, "Transport", true).getBoolean(true));
             Modules.world.setActive(config.get(Category.MODULES, "World Plus", true).getBoolean(true));
         } catch (Exception e) {
-            LogHandler.log(Level.SEVERE, "Problem with Mariculture when copying over the module data");
+            LogHandler.log(Level.ERROR, "Problem with Mariculture when copying over the module data");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -195,7 +196,7 @@ public class Config {
             Extra.GEN_ENDER_PEARLS = config.get(Category.EXTRA, "Pearl Oyster > Generate Ender Pearls", true).getBoolean(true);
             Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster > Pearl Generation Chance", 32, Comment.PEARL_CHANCE).getInt();
         } catch (Exception e) {
-            LogHandler.log(Level.SEVERE, "There was an issue with Mariculture when adjusting machine settings");
+            LogHandler.log(Level.ERROR, "There was an issue with Mariculture when adjusting machine settings");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -205,26 +206,26 @@ public class Config {
     private static void initIDs(Configuration config) {
         try {
             config.load();
-            EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();
-            EnchantIds.clock = config.get(Category.ENCHANT, "Timelord", 54).getInt();
-            EnchantIds.fall = config.get(Category.ENCHANT, "Fall Resistance", 55).getInt();
-            EnchantIds.fire = config.get(Category.ENCHANT, "Inferno", 56).getInt();
-            EnchantIds.flight = config.get(Category.ENCHANT, "Superman", 57).getInt();
-            EnchantIds.glide = config.get(Category.ENCHANT, "Paraglide", 58).getInt();
-            EnchantIds.health = config.get(Category.ENCHANT, "1 Up", 59).getInt();
-            EnchantIds.jump = config.get(Category.ENCHANT, "Leapfrog", 60).getInt();
-            EnchantIds.hungry = config.get(Category.ENCHANT, "Never Hungry", 61).getInt();
-            EnchantIds.oneRing = config.get(Category.ENCHANT, "The One Ring", 62).getInt();
-            EnchantIds.poison = config.get(Category.ENCHANT, "Poison Ivy", 63).getInt();
-            EnchantIds.punch = config.get(Category.ENCHANT, "Power Punch", 64).getInt();
-            EnchantIds.repair = config.get(Category.ENCHANT, "Restoration", 65).getInt();
-            EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 66).getInt();
-            EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 67).getInt();
-            EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 68).getInt();
-            EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 69).getInt();
-            EnchantIds.luck = config.get(Category.ENCHANT, "Luck of the Irish", 70).getInt();
+            EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 70).getInt();
+            EnchantIds.clock = config.get(Category.ENCHANT, "Timelord", 71).getInt();
+            EnchantIds.fall = config.get(Category.ENCHANT, "Fall Resistance", 72).getInt();
+            EnchantIds.fire = config.get(Category.ENCHANT, "Inferno", 73).getInt();
+            EnchantIds.flight = config.get(Category.ENCHANT, "Superman", 74).getInt();
+            EnchantIds.glide = config.get(Category.ENCHANT, "Paraglide", 75).getInt();
+            EnchantIds.health = config.get(Category.ENCHANT, "1 Up", 76).getInt();
+            EnchantIds.jump = config.get(Category.ENCHANT, "Leapfrog", 77).getInt();
+            EnchantIds.hungry = config.get(Category.ENCHANT, "Never Hungry", 78).getInt();
+            EnchantIds.oneRing = config.get(Category.ENCHANT, "The One Ring", 79).getInt();
+            EnchantIds.poison = config.get(Category.ENCHANT, "Poison Ivy", 80).getInt();
+            EnchantIds.punch = config.get(Category.ENCHANT, "Power Punch", 81).getInt();
+            EnchantIds.repair = config.get(Category.ENCHANT, "Restoration", 82).getInt();
+            EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 83).getInt();
+            EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 84).getInt();
+            EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 85).getInt();
+            EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 86).getInt();
+            EnchantIds.luck = config.get(Category.ENCHANT, "Luck of the Irish", 87).getInt();
         } catch (Exception e) {
-            LogHandler.log(Level.SEVERE, "Mariculture had a serious issue loading it's block/item/enchant ids");
+            LogHandler.log(Level.ERROR, "Mariculture had a serious issue loading it's block/item/enchant ids");
         	e.printStackTrace();
         } finally {
             config.save();

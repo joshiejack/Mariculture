@@ -109,15 +109,14 @@ public class TileSluice extends TileTank implements IBlacklisted {
 						if(fluid.canBePlacedInWorld()) {
 							int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
 							if (tank.drain(direction.getOpposite(), drain, false).amount == drain) {
-								int id = fluid.getBlockID();
-								if (Blocks.blocksList[id] != null) {
-									Block block = Blocks.blocksList[id];
+								Block block = fluid.getBlock();
+								if (block != null) {
 									if (block instanceof BlockFluidFinite) {
 										if (worldObj.isAirBlock(x2, y2, z2)) {
-											worldObj.setBlock(x2, y2, z2, id, 0, 2);
+											worldObj.setBlock(x2, y2, z2, block, 0, 2);
 										} else {
 											int meta = worldObj.getBlockMetadata(x2, y2, z2) + 1;
-											if (meta < 7 && worldObj.getBlockId(x2, y2, z2) == id) {
+											if (meta < 7 && worldObj.getBlock(x2, y2, z2) == block) {
 												worldObj.setBlockMetadataWithNotify(x2, y2, z2, meta, 2);
 											} else {
 												return;
@@ -126,7 +125,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 
 										tank.drain(direction.getOpposite(), new FluidStack(fluid.getID(), drain), true);
 									} else if (worldObj.isAirBlock(x2, y2, z2)) {
-										worldObj.setBlock(x2, y2, z2, id);
+										worldObj.setBlock(x2, y2, z2, block);
 										tank.drain(direction.getOpposite(), new FluidStack(fluid.getID(), drain), true);
 									}
 								}
@@ -147,7 +146,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		int z = zCoord + direction.offsetZ;
 		if(BlockHelper.isWater(worldObj, xCoord - direction.offsetX, yCoord, zCoord - direction.offsetZ)) {
 			if(BlockHelper.isAir(worldObj, x, yCoord, z))
-				worldObj.setBlock(x, yCoord, z, Core.highPressureWaterBlocks.blockID);
+				worldObj.setBlock(x, yCoord, z, Core.highPressureWaterBlock);
 		} else {
 			if(BlockHelper.isHPWater(worldObj, x, yCoord, z))
 				worldObj.setBlockToAir(x, yCoord, z);
@@ -160,6 +159,8 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		}
 	}
 	
+	//TODO: PACKET SLUICE SYNC
+	/*
 	@Override
 	public Packet getDescriptionPacket() {		
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -170,7 +171,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {

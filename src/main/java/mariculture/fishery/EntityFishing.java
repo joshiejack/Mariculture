@@ -27,6 +27,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityFishing extends EntityFishHook {
+	public EntityFishing(World par1World) {
+		super(par1World);
+	}
+}
+	//TODO: Redo Entity Fishing
+	/*
 	private int xTile;
 	private int yTile;
 	private int zTile;
@@ -392,4 +398,4 @@ public class EntityFishing extends EntityFishHook {
 			return b0;
 		}
 	}
-}
+} */

@@ -1,6 +1,6 @@
 package mariculture.core.helpers;
 
-import java.util.logging.Level;
+import org.apache.logging.log4j.Level;
 
 import mariculture.core.handlers.LogHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -58,7 +58,7 @@ public class MirrorHelper {
 				player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setTag("mirrorContents", nbttaglist);
 
 			} catch (Exception e) {
-				LogHandler.log(Level.WARNING, "Mariculture had trouble saving Mirror Contents for " + player.getDisplayName());
+				LogHandler.log(Level.WARN, "Mariculture had trouble saving Mirror Contents for " + player.getDisplayName());
 			}
 		}
 	}

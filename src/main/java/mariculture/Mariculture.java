@@ -8,7 +8,6 @@ import mariculture.core.Config;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
-import mariculture.core.network.PacketHandler;
 import mariculture.core.network.Packets;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.compatibility.Compat;
@@ -41,9 +40,7 @@ public class Mariculture {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		root = event.getModConfigurationDirectory();
-		Config.init(root + "/mariculture/");
-		LogHandler.init();	
-		
+		Config.init(root + "/mariculture/");		
 		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
 		MaricultureTab.tabFish = (Modules.fishery.isActive())? new MaricultureTab("fishTab"): null;
 		MaricultureTab.tabJewelry = (Modules.magic.isActive())? new MaricultureTab("jewelryTab"): null;
@@ -59,6 +56,7 @@ public class Mariculture {
 		Modules.world.preInit();
 		plugins.load(Stage.PRE);
 		Compat.preInit();
+		proxy.registerKeyBindings();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 	}

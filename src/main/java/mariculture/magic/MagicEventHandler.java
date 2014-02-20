@@ -171,7 +171,7 @@ public class MagicEventHandler {
 					if(!magnet.hasTagCompound()) {
 						magnet.setTagCompound(new NBTTagCompound());
 						magnet.stackTagCompound.setString("MobClass", entity.getClass().toString().substring(6));
-						magnet.stackTagCompound.setString("MobName", entity.getEntityName());
+						//TODO: Set Mob Name for Mob Magnet magnet.stackTagCompound.setString("MobName", entity.getEntityString());
 					}
 				}
 			}

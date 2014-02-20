@@ -176,7 +176,7 @@ public class GuiMirror extends GuiStorage {
 				if (var7 >= 0 && var8 >= 0 && var7 < 108 && var8 < 19 
 						&& ((ContainerMirror)inventorySlots).enchantItem(this.mc.thePlayer, (var6) + 1)) {
 					int level = enchantLevels[var6];
-					mc.thePlayer.sendQueue.addToSendQueue(new Packet112Enchant(mc.thePlayer.openContainer.windowId, level).build());
+					//TODO: PACKET Enchantment Packet mc.thePlayer.sendQueue.addToSendQueue(new Packet112Enchant(mc.thePlayer.openContainer.windowId, level).build());
 				}
 			}
 		}

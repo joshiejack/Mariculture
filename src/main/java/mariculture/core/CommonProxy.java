@@ -197,4 +197,8 @@ public class CommonProxy implements IGuiHandler {
 	}
 
 	public void loadBooks() {}
+
+	public void registerKeyBindings() {
+		
+	}
 }

@@ -3,7 +3,8 @@ package mariculture.core.handlers;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.logging.log4j.Level;
 
 import mariculture.api.core.IVatHandler;
 import mariculture.api.core.RecipeVat;
@@ -24,8 +25,8 @@ public class VatHandler implements IVatHandler {
 	@Override
 	public void addRecipe(RecipeVat recipe) {
 		if(recipe.outputFluid == null && recipe.outputItem == null) {
-			LogHandler.log(Level.WARNING, "A mod attempted to add an invalid Vat recipe, with both a null output item and fluid");
-			LogHandler.log(Level.WARNING, recipe.toString());
+			LogHandler.log(Level.ERROR, "A mod attempted to add an invalid Vat recipe, with both a null output item and fluid");
+			LogHandler.log(Level.ERROR, recipe.toString());
 			return;
 		}
 		

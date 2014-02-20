@@ -145,10 +145,10 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 			if(getStackInSlot(i) != null) {
 				ItemStack filtered = getStackInSlot(i);
 				if(filtered.getItem() instanceof ItemFilter && filtered.hasTagCompound()) {
-					NBTTagList tagList = filtered.stackTagCompound.getTagList("Inventory");
+					NBTTagList tagList = filtered.stackTagCompound.getTagList("Inventory", 10);
 					if (tagList != null) {
 						for(int j = 0; j < tagList.tagCount(); j++) {
-							NBTTagCompound nbt = (NBTTagCompound) tagList.tagAt(j);
+							NBTTagCompound nbt = (NBTTagCompound) tagList.getCompoundTagAt(j);
 							byte byte0 = nbt.getByte("Slot");
 							if (byte0 >= 0 && byte0 < ItemFilter.SIZE) {
 								ItemStack aStack = ItemStack.loadItemStackFromNBT(nbt);

@@ -30,13 +30,13 @@ public class ContainerMirror extends ContainerStorage {
 
 			if (!player.worldObj.isRemote) {
 				List var4 = MirrorEnchantmentHelper.buildEnchantmentList(Rand.rand, itemToEnchant, levelToEnchant, mirror);
-				boolean var5 = itemToEnchant.itemID == Items.book.itemID;
+				boolean var5 = itemToEnchant.getItem() == Items.book;
 
 				if (var4 != null) {
 					player.addExperienceLevel(-levelToEnchant);
 
 					if (var5) {
-						itemToEnchant.itemID = Items.enchantedBook.itemID;
+						itemToEnchant = new ItemStack(Items.enchanted_book);
 					}
 
 					int var6 = var5 ? Rand.rand.nextInt(var4.size()) : -1;
@@ -46,7 +46,7 @@ public class ContainerMirror extends ContainerStorage {
 
 						if (!var5 || var7 == var6) {
 							if (var5) {
-								Items.enchantedBook.addEnchantment(itemToEnchant, enchantData);
+								Items.enchanted_book.addEnchantment(itemToEnchant, enchantData);
 							} else {
 								itemToEnchant.addEnchantment(enchantData.enchantmentobj, enchantData.enchantmentLevel);
 							}
@@ -71,11 +71,11 @@ public class ContainerMirror extends ContainerStorage {
 			ItemStack var2 = storage.getStackInSlotOnClosing(3);
 
 			if (var2 != null) {
-				player.dropPlayerItem(var2);
+				player.dropPlayerItemWithRandomChoice(var2, false);
 			}
 		}
 
-		storage.closeChest();
+		storage.closeInventory();
 	}
 	
 	@Override

@@ -43,7 +43,7 @@ public class FisheryEventHandler {
 	@SubscribeEvent
 	public void onFishDeath(ItemExpireEvent event) {
 		Random rand = new Random();
-		ItemStack item = event.entityItems.getEntityItem();
+		ItemStack item = event.entityItem.getEntityItem();
 
 		if (item.getItem() instanceof ItemFishy) {
 
@@ -51,7 +51,7 @@ public class FisheryEventHandler {
 				int fish = item.stackTagCompound.getInteger("SpeciesID");
 				FishSpecies species = Fishing.fishHelper.getSpecies(fish);
 				if(species.getGroup() != EnumFishGroup.NETHER) {
-					if(event.entityItems.isInsideOfMaterial(Material.water)) {
+					if(event.entityItem.isInsideOfMaterial(Material.water)) {
 						event.setCanceled(true);
 						return;
 					}
@@ -60,7 +60,7 @@ public class FisheryEventHandler {
 				ItemStack stack = new ItemStack(Fishery.fishyFood, 1, fish);
 				
 				if (stack != null) {
-					updateStack(event.entityItems.worldObj, event.entityItem, 6000, stack, rand);
+					updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
 					event.setCanceled(true);
 				}
 			}
@@ -72,7 +72,7 @@ public class FisheryEventHandler {
 	public void onKillSquid(LivingDropsEvent event) {
 		if (event.entity instanceof EntitySquid) {
 			EntitySquid entity = (EntitySquid) event.entity;
-			ItemStack squid = new ItemStack(Fishery.fishyFood.itemID, 1, Fishery.squid.fishID);
+			ItemStack squid = new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID);
 			event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
 			if (event.lootingLevel > 0) {
 				for (int i = 0; i < event.lootingLevel; i++) {

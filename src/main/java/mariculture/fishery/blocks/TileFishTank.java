@@ -127,6 +127,8 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 		}
 	}
 	
+	//TODO: Fish Tank Packets
+	/*
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound tag = new NBTTagCompound();
@@ -137,7 +139,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 	
 	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {

@@ -85,12 +85,13 @@ public class BlockOyster extends BlockMachine {
 			return true;
 		} else {
 			if (world.getBlock(x, y + 1, z).getMaterial() != Material.water) {
-				world.destroyBlock(x, y, z, true);
+				//func_147480_a = destroyBlock
+				world.func_147480_a(x, y, z, true);
 				return false;
 			}
 	
-			if (!world.isBlockSolidOnSide(x, y - 1, z, ForgeDirection.UP)) {
-				world.destroyBlock(x, y, z, true);
+			if (!world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) {
+				world.func_147480_a(x, y, z, true);
 				return false;
 			}
 		}

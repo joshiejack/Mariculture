@@ -25,13 +25,14 @@ public class ItemPaintbrush extends ItemDamageable {
 	public String getItemStackDisplayName(ItemStack stack) {
 		String name = StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name");
 		
-		if(stack.hasTagCompound()) {
+		//TODO: Redo Paintbrush fetching of name
+		/* if(stack.hasTagCompound()) {
 			if(Items.itemsList[stack.stackTagCompound.getInteger("BlockID")] != null) {
 				ItemStack block = new ItemStack(stack.stackTagCompound.getInteger("BlockID"), 1, stack.stackTagCompound.getInteger("BlockMeta"));
 				name = name + " - " + BlockHelper.getName(block);
 				return name;
 			}
-		}
+		} */
 		
 		
 		return name;
@@ -39,6 +40,9 @@ public class ItemPaintbrush extends ItemDamageable {
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
+		//TODO: Redo Paintbrush once decided on new custom block system
+		
+		/*
 		boolean custom = false;
 		if (stack.hasTagCompound()) {
 			int id = stack.stackTagCompound.getInteger("BlockID");
@@ -112,7 +116,7 @@ public class ItemPaintbrush extends ItemDamageable {
 				stack.stackTagCompound.setBoolean("update", false);
 			}
 		}
-
-		return true;
+	*/
+		return true; 
 	}
 }

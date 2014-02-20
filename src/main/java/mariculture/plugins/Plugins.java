@@ -2,7 +2,8 @@ package mariculture.plugins;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.logging.Level;
+
+import org.apache.logging.log4j.Level;
 
 import mariculture.Mariculture.Stage;
 import mariculture.core.handlers.LogHandler;
@@ -39,7 +40,7 @@ public class Plugins {
 						break;
 				}
 			} catch (Exception e) {
-				LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
+				LogHandler.log(Level.WARN, "Mariculture - Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
 			}
 		}
 
@@ -55,7 +56,7 @@ public class Plugins {
 				Constructor constructor = clazz.getConstructor(new Class[] {String.class});
 				constructor.newInstance(new Object[] {str});
 			} catch (Exception e) {
-				LogHandler.log(Level.INFO, "Mariculture - Something went wrong when initializing " + str + " Plugin");
+				LogHandler.log(Level.WARN, "Mariculture - Something went wrong when initializing " + str + " Plugin");
 			}
 		}
 	}

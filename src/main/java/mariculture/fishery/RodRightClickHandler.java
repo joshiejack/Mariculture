@@ -33,7 +33,8 @@ public class RodRightClickHandler implements IFishingRod {
 		int baitSlot = getBait(player, quality)[1];
 		
 		if (player.fishEntity != null) {
-            int i = player.fishEntity.catchFish();
+			//func_146034_e = catchFish()
+            int i = player.fishEntity.func_146034_e();
             if(stack.getItem() instanceof IEnergyContainerItem) {
             	((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 100, false);
             } else {
@@ -44,7 +45,7 @@ public class RodRightClickHandler implements IFishingRod {
         } else if(baitSlot != -1) {
         	world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
         	        	
-        	EntityFishing bobber = new EntityFishing(world, player, baitQuality + 1);
+        	//TODO: Fishing EntityFishing bobber = new EntityFishing(world, player, baitQuality + 1);
         	if(!stack.hasTagCompound()) {
         		stack.setTagCompound(new NBTTagCompound());
         	}
@@ -54,22 +55,22 @@ public class RodRightClickHandler implements IFishingRod {
         	if(id != 0) {
         		List list = world.getEntitiesWithinAABB(EntityFishing.class, player.boundingBox.expand(64D, 64D, 64D));
     			for (Object i : list) {
-    				if(((EntityFishing)i).entityId == id)
+    				if(((EntityFishing)i).getEntityId() == id)
     					notFound = false;
     			}
         	}
-	
+	/*
         	if(id == 0 || world.getEntityByID(id) == null || notFound) {        		
-        		stack.stackTagCompound.setInteger("EntityID", bobber.entityId);
+        		stack.stackTagCompound.setInteger("EntityID", bobber.getEntityId());
         		if (!world.isRemote) {
         			if (!player.capabilities.isCreativeMode) {
     					player.inventory.decrStackSize(baitSlot, 1);
     				}
         			
                 	world.spawnEntityInWorld(new EntityFishing(world, player, baitQuality + 1));
-                	PacketDispatcher.sendPacketToPlayer(new Packet103SetSlot(0, baitSlot + 36, player.inventory.getStackInSlot(baitSlot)), (Player) player);
+                	//TODO: PACKET Set SlotPacketDispatcher.sendPacketToPlayer(new Packet103SetSlot(0, baitSlot + 36, player.inventory.getStackInSlot(baitSlot)), (Player) player);
                 }
-        	}
+        	} */
 
             player.swingItem();
         }
@@ -115,7 +116,7 @@ public class RodRightClickHandler implements IFishingRod {
 			ArrayList<FishingRod> lootTmp = (ArrayList<FishingRod>) RodQualityHandler.getCanUseList().clone();
 			for (FishingRod loot : lootTmp) {
 				if (loot.enumQuality == quality) {
-					list.add(loot.itemStack.getItem().getItemDisplayName(loot.itemStack));
+					list.add(loot.itemStack.getItem().getItemStackDisplayName(loot.itemStack));
 				}
 			}
 		} else {

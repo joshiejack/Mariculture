@@ -9,7 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
-
+//TODO: Move FLUDD Key Handling to new Events System
+/**
 public class FLUDDKeyHandler extends KeyHandler {
 	public static KeyBinding fludd = new KeyBinding(StatCollector.translateToLocal("key.fludd"), Keyboard.KEY_V);
 
@@ -70,4 +71,4 @@ public class FLUDDKeyHandler extends KeyHandler {
 	public EnumSet<TickType> ticks() {
 		return EnumSet.of(TickType.CLIENT);
 	}
-}
+} **/

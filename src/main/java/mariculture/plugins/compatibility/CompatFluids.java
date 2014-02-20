@@ -1,7 +1,6 @@
 package mariculture.plugins.compatibility;
 
 import java.io.File;
-import java.util.logging.Level;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,16 +14,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.RecipesSmelting;
 import mariculture.core.guide.XMLHelper;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.TransparentMeta;
-import mariculture.core.util.FluidCustom;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.item.Item;
 
+import org.apache.logging.log4j.Level;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -66,10 +61,10 @@ public class CompatFluids {
 					XMLHelper xml = new XMLHelper((Element) nNode);
 					String ident = xml.getElement("identifier");
 					String name = xml.getElement("name");
-					int id = (xml.getElementAsInteger("blockTextureID", -1) == -1)? Core.transparentBlocks.blockID: xml.getElementAsInteger("blockTextureID", -1);
+					String block = xml.getOptionalElement("blockTextureName").equals("")? Item.itemRegistry.getNameForObject(Core.transparentBlocks): xml.getOptionalElement("blockTextureName"); 
 					int meta = (xml.getElementAsInteger("blockTextureMeta", -1) == -1)? TransparentMeta.PLASTIC: xml.getElementAsInteger("blockTextureMeta", -1);
 					
-					FluidRegistry.registerFluid(new FluidCustom(ident, name, id, meta).setUnlocalizedName(name));
+					//TODO: FLUID REGISTRATION FROM CONFIG FluidRegistry.registerFluid(new FluidCustom(ident, name, id, meta).setUnlocalizedName(name));
 				}
 			}
 		} catch (Exception e) {
@@ -96,7 +91,8 @@ public class CompatFluids {
 					String type = xml.getAttribute("type");
 					String fluid = xml.getElement("fluid");
 					int temperature = xml.getElementAsInteger("temp", 100);
-					
+					//TODO: Fluid Recipes
+					/*
 					if(type.equals("metal")) {
 						String name = xml.getElement("metal");
 						int bonusID = xml.getElementAsInteger("bonusID", 1);
@@ -112,7 +108,7 @@ public class CompatFluids {
 						int meta = xml.getElementAsInteger("meta", 0);
 						
 						RecipeHelper.addMelting(new ItemStack(id, 1, meta), temperature, FluidRegistry.getFluidStack(fluid, volume));
-					}
+					} */
 				}
 			}
 		} catch (Exception e) {

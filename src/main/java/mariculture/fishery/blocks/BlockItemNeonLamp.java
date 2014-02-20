@@ -6,8 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class BlockItemNeonLamp extends ItemBlockMariculture {
-	public BlockItemNeonLamp(int i, Block block) {
-		super(i);
+	public BlockItemNeonLamp(Block block) {
+		super(block);
 	}
 
 	@Override

@@ -1,24 +1,21 @@
 package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
-
+//TODO IC2
 public class PluginIC2 extends Plugin {
 
 	@Override
 	public void preInit() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void postInit() {
-		// TODO Auto-generated method stub
 		
 	}
 	/*

@@ -201,7 +201,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		if(Extra.TURBINE_ANIM) {
 			if(!worldObj.isRemote && onTick(Extra.TURBINE_RATE)) {
 				isAnimating = isCreatingPower || isTransferringPower;
-				Packets.updateTile(this, 32, new Packet119TurbineAnimate(xCoord, yCoord, zCoord, isAnimating).build());
+				//TODO: PACKET TURBINE ANIMATE Packets.updateTile(this, 32, new Packet119TurbineAnimate(xCoord, yCoord, zCoord, isAnimating).build());
 			} else if(worldObj.isRemote) {
 				if(isAnimating) {
 					angle = angle + 0.1;
@@ -297,6 +297,8 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	}
 	
 //Packets
+	//TODO PACKET
+	/*
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound tagCompound = new NBTTagCompound();
@@ -307,7 +309,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	@Override
 	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
 		readFromNBT(packet.data);
-	}
+	} */
 	
 //GUI Stuff	
 	@Override

@@ -2,11 +2,13 @@ package mariculture.transport;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -91,7 +93,7 @@ public class EntitySpeedBoat extends Entity {
 		if (!this.worldObj.isRemote && !this.isDead) {
 			if (par1DamageSource.getEntity() instanceof EntityPlayer
 					&& !((EntityPlayer) par1DamageSource.getEntity()).capabilities.isCreativeMode) {
-				this.dropItemWithOffset(Transport.speedBoat.itemID, 1, 0.0F);
+				this.entityDropItem(new ItemStack(Transport.speedBoat), 0.0F);
 			}
 
 			this.setDead();
@@ -343,8 +345,8 @@ public class EntitySpeedBoat extends Entity {
 				
 				for(int i = -2; i < 3; i++) {
 					for(int j = -2; j < 3; j++) {
-						if(this.worldObj.getBlockId((int)this.posX + i, (int)this.posY, (int)this.posZ + j) == Blocks.waterlily.blockID) {
-							this.worldObj.destroyBlock((int)this.posX + i, (int)this.posY, (int)this.posZ + j, true);
+						if(this.worldObj.getBlock((int)this.posX + i, (int)this.posY, (int)this.posZ + j) == Blocks.waterlily) {
+							//TODO: Destroy Lily Pads this.worldObj.destroyBlock((int)this.posX + i, (int)this.posY, (int)this.posZ + j, true);
 						}
 					}
 				}
@@ -369,12 +371,11 @@ public class EntitySpeedBoat extends Entity {
 
 					for (int k1 = 0; k1 < 2; ++k1) {
 						int l1 = MathHelper.floor_double(this.posY) + k1;
-						int i2 = this.worldObj.getBlockId(i1, l1, j1);
-
-						if (i2 == Blocks.snow.blockID) {
+						Block block = this.worldObj.getBlock(i1, l1, j1);
+						if (block == Blocks.snow_layer) {
 							this.worldObj.setBlockToAir(i1, l1, j1);
-						} else if (i2 == Blocks.waterlily.blockID) {
-							this.worldObj.destroyBlock(i1, l1, j1, true);
+						} else if (block == Blocks.waterlily) {
+							//TODO: Destroy Waterlily this.worldObj.destroyBlock(i1, l1, j1, true);
 						}
 					}
 				}

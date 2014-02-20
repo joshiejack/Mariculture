@@ -1,26 +1,7 @@
 package mariculture.magic;
 
-import ibxm.Player;
-
-import java.util.EnumSet;
-
-import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.Extra;
-import mariculture.core.network.Packet105OneRing;
-import mariculture.core.network.Packet111UpdateEnchants;
-import mariculture.core.network.Packets;
-import mariculture.magic.enchantments.EnchantmentFlight;
-import mariculture.magic.enchantments.EnchantmentGlide;
-import mariculture.magic.enchantments.EnchantmentHealth;
-import mariculture.magic.enchantments.EnchantmentJump;
-import mariculture.magic.enchantments.EnchantmentNeverHungry;
-import mariculture.magic.enchantments.EnchantmentPoison;
-import mariculture.magic.enchantments.EnchantmentRestore;
-import mariculture.magic.enchantments.EnchantmentSpeed;
-import mariculture.magic.enchantments.EnchantmentSpider;
-import mariculture.magic.enchantments.EnchantmentStepUp;
-import net.minecraft.entity.player.EntityPlayer;
-
+//TODO: Move Enchantment Ticker to new Events System
+/*
 public class EnchantUpdateTicker implements IScheduledTickHandler {
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -76,5 +57,4 @@ public class EnchantUpdateTicker implements IScheduledTickHandler {
 	public int nextTickSpacing() {
 		return Extra.JEWELRY_TICK_RATE;
 	}
-
-}
+} */

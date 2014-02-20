@@ -54,7 +54,7 @@ public class WorldGenKelp extends WorldGenerator {
 			for(int y = 0; y < theHeight; y++) {
 				if(BlockHelper.isWater(world, xCoord, yCoord + y + 2, zCoord)) {
 					theY++;
-					world.setBlock(xCoord, yCoord + y, zCoord, WorldPlus.coral.blockID, CoralMeta.KELP_MIDDLE, 2);
+					world.setBlock(xCoord, yCoord + y, zCoord, WorldPlus.coral, CoralMeta.KELP_MIDDLE, 2);
 				}
 			}
 			
@@ -84,12 +84,12 @@ public class WorldGenKelp extends WorldGenerator {
 		int y = world.getTopSolidOrLiquidBlock(x, z);
 		if (BlockHelper.isWater(world, x, y + 10, z)) {
 			if (BlockHelper.isWater(world, x, y, z)) {
-				if (world.getBlockId(x + 1, y, z) != Blocks.chest.blockID
-						&& world.getBlockId(x - 1, y, z) != Blocks.chest.blockID
-						&& world.getBlockId(x, y, z + 1) != Blocks.chest.blockID
-						&& world.getBlockId(x, y, z - 1) != Blocks.chest.blockID) {
+				if (world.getBlock(x + 1, y, z) != Blocks.chest
+						&& world.getBlock(x - 1, y, z) != Blocks.chest
+						&& world.getBlock(x, y, z + 1) != Blocks.chest
+						&& world.getBlock(x, y, z - 1) != Blocks.chest) {
 
-					world.setBlock(x, y, z, Blocks.chest.blockID, 1, facing);
+					world.setBlock(x, y, z, Blocks.chest, 1, facing);
 					TileEntityChest chest = (TileEntityChest) world.getTileEntity(x, y, z);
 					if (chest != null) {
 						WeightedRandomChestContent.generateChestContents(random,
@@ -108,24 +108,23 @@ public class WorldGenKelp extends WorldGenerator {
 			return false;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == WorldPlus.coral.blockID
-				&& world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
+		if (world.getBlock(x, y - 1, z) == WorldPlus.coral && world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Blocks.gravel.blockID) {
+		if (world.getBlock(x, y - 1, z) == Blocks.gravel) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Blocks.cobblestone.blockID) {
+		if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Blocks.cobblestoneMossy.blockID) {
+		if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
 			return true;
 		}
 		
-		if (world.getBlockId(x, y - 1, z) == Blocks.sand.blockID) {
+		if (world.getBlock(x, y - 1, z) == Blocks.sand) {
 			return true;
 		}
 		

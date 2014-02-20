@@ -40,8 +40,8 @@ public class EnchantmentBlink extends EnchantmentJewelry {
 		lookAt = player.rayTrace(2000, 1);
 
 		if (lookAt != null && lookAt.typeOfHit == MovingObjectType.BLOCK) {
-			if(player instanceof EntityClientPlayerMP)
-				((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet108Teleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ, KeyHelper.ACTIVATE_PRESSED).build());
+			//if(player instanceof EntityClientPlayerMP)
+				//TODO: PACKET Blink Teleport ((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet108Teleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ, KeyHelper.ACTIVATE_PRESSED).build());
 		}
 	}
 }

@@ -12,7 +12,7 @@ public class RenderFishTank extends RenderBase {
 
 	@Override
 	public void renderBlock() {
-		setTexture(Blocks.waterStill);
+		setTexture(Blocks.water);
 		if(!isItem()) {
 			renderBlock(0, 0, 0, 1, 1, 1);
 		}

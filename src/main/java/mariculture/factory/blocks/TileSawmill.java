@@ -67,7 +67,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
 		if(slot == OUT || slot < TOP)
 			return false;
-		if (stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase) {
+		if (stack.getItem() instanceof BlockItemCustom) {
 			return false;
 		}
 
@@ -170,19 +170,26 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 	
 	private int getID(int slot) {
-		if (inventory[slot].getItem() == Items.feather.itemID) {
-			return Core.airBlocks.blockID;
+		return 0;
+		
+		//TODO: Redo how Block data is stored for custom blocks 
+		/*
+		if (inventory[slot].getItem() == Items.feather) {
+			return Core.airBlocks;
 		}
 
-		return inventory[slot].itemID;
+		return inventory[slot].itemID; */
 	}
 
 	private int getMeta(int slot) {
+		return 0;
+		//TODO: Redo how Block data is stored for custom blocks 
+				/*
 		if (inventory[slot].itemID == Items.feather.itemID) {
 			return AirMeta.FAKE_AIR;
 		}
 
-		return inventory[slot].getItemDamage();
+		return inventory[slot].getItemDamage(); */
 	}
 
 //Gui Stuff

@@ -317,12 +317,6 @@ public class Fishery extends Module {
 	@Override
 	public void registerOther() {
 		registerFish();
-		
-		if(Extra.DEBUG_ON) {
-			MapGenStructureIO.func_143031_a(ComponentFisherman.class, "Mariculture:FishermansHut");
-			VillagerRegistry.instance().registerVillageCreationHandler(new FishermanHandler());
-		}
-
 		MaricultureTab.tabFish.icon = Fishing.fishHelper.makePureFish(Fishery.cod);
 	}
 

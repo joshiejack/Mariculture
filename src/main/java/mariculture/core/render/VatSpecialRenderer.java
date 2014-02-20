@@ -18,7 +18,7 @@ public class VatSpecialRenderer extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTick) {
 		TileVat vat = (TileVat) tile;
-		World world = vat.worldObj;
+		World world = vat.getWorldObj();
 		if(vat.master == null) {
 			GL11.glPushMatrix();
 			float offsetX = (float) (x - 0.2F);

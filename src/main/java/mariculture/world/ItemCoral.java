@@ -18,10 +18,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCoral extends ItemMariculture {
 	private IIcon[] icons;
-	private int spawnID;
+	private Block spawnBlock;
 
 	public ItemCoral(Block block) {
-		this.spawnID = block.blockID;
+		this.spawnBlock = block;
 	}
 
 	@Override
@@ -69,11 +69,10 @@ public class ItemCoral extends ItemMariculture {
 	}
 
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
-		int i1 = world.getBlockId(x, y, z);
-
-		if (i1 == Blocks.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
+		Block block = world.getBlock(x, y, z);
+		if (block == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1) {
 			side = 1;
-		} else if (i1 != Blocks.vine.blockID && i1 != Blocks.tallGrass.blockID && i1 != Blocks.deadBush.blockID) {
+		} else if (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush) {
 			if (side == 0) {
 				--y;
 			}
@@ -105,16 +104,15 @@ public class ItemCoral extends ItemMariculture {
 			return false;
 		} else {
 			if (canPlaceBlockOnSide(world, x, y, z, side, stack)) {
-				Block block = Blocks.blocksList[this.spawnID];
 				int j1 = stack.getItemDamage();
-				if (world.setBlock(x, y, z, this.spawnID, j1, 2)) {
-					if (world.getBlockId(x, y, z) == this.spawnID) {
-						Blocks.blocksList[this.spawnID].onBlockPlacedBy(world, x, y, z, player, stack);
-						Blocks.blocksList[this.spawnID].onPostBlockPlaced(world, x, y, z, j1);
+				if (world.setBlock(x, y, z, spawnBlock, j1, 2)) {
+					if (world.getBlock(x, y, z) == spawnBlock) {
+						spawnBlock.onBlockPlacedBy(world, x, y, z, player, stack);
+						spawnBlock.onPostBlockPlaced(world, x, y, z, j1);
 					}
 
 					world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F),
-							(double) ((float) z + 0.5F), block.stepSound.getPlaceSound(),
+							(double) ((float) z + 0.5F), block.stepSound.func_150496_b(),
 							(block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 					--stack.stackSize;
 				}
@@ -129,42 +127,40 @@ public class ItemCoral extends ItemMariculture {
 			return false;
 		}
 		
-		if (world.getBlockMaterial(x, y + 1, z) != Material.water) {
+		if (world.getBlock(x, y + 1, z).getMaterial() != Material.water) {
 			return false;
 		}
 
 		if (stack.getItemDamage() == CoralMeta.KELP) {
-			if (world.getBlockId(x, y - 1, z) == Blocks.gravel.blockID) {
+			if (world.getBlock(x, y - 1, z) == Blocks.gravel) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestone.blockID) {
+			if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestoneMossy.blockID) {
+			if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Core.oreBlocks.blockID
-					&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
+			if (world.getBlock(x, y - 1, z) == Core.oreBlocks && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Blocks.sand.blockID) {
+			if (world.getBlock(x, y - 1, z) == Blocks.sand) {
 				return true;
 			}
 
-			if (world.getBlockId(x, y - 1, z) == WorldPlus.coral.blockID
-					&& world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
+			if (world.getBlock(x, y - 1, z) == WorldPlus.coral && world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
 				return true;
 			}
 		}
 
 		if (stack.getItemDamage() > CoralMeta.KELP_MIDDLE) {
-			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestone.blockID) {
+			if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Blocks.cobblestoneMossy.blockID) {
+			if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
 				return true;
 			}
-			if (world.getBlockId(x, y - 1, z) == Core.oreBlocks.blockID && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
+			if (world.getBlock(x, y - 1, z) == Core.oreBlocks && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
 				return true;
 			}
 		}
@@ -183,7 +179,7 @@ public class ItemCoral extends ItemMariculture {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "coral_" + getName(new ItemStack(this.itemID, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "coral_" + getName(new ItemStack(this, 1, i)));
 		}
 	}
 }

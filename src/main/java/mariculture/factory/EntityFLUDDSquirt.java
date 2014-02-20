@@ -44,6 +44,8 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 		}
 
 		if (!this.worldObj.isRemote) {
+			//TODO: FLUDD SQUIRT BREAK BLOCKS
+			/*
 			int id = this.worldObj.getBlockId(thingHit.blockX, thingHit.blockY, thingHit.blockZ);
 			float hardness = 5F;
 			if (!this.worldObj.isRemote && rand.nextInt(25) == 1 && damage) {
@@ -55,7 +57,7 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 				if (hardness < 2.5F && hardness >= 0) {
 					this.worldObj.destroyBlock(thingHit.blockX, thingHit.blockY, thingHit.blockZ, true);
 				}
-			}
+			} */
 		}
 
 		for (int var5 = 0; var5 < 8; ++var5) {

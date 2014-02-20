@@ -55,7 +55,7 @@ public class Packet118FluidUpdate extends PacketMariculture {
 			((ITank)te).setFluid(fluid, num);
 		}
 		
-		world.markBlockForRenderUpdate(x, y, z);
+		world.markBlockForUpdate(x, y, z);
 	}
 
 	@Override

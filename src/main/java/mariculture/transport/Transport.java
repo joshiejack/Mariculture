@@ -34,14 +34,14 @@ public class Transport extends Module {
 
 	@Override
 	public void registerItems() {
-		speedBoat = new ItemSpeedBoat(speedBoat).setUnlocalizedName("speedBoat");
+		speedBoat = new ItemSpeedBoat().setUnlocalizedName("speedBoat");
 		RegistryHelper.register(new Object[] { speedBoat });
 	}
 
 	@Override
 	public void addRecipes() {
 		RecipeHelper.addShapedRecipe(new ItemStack(speedBoat), new Object[] {
-			"G F", "AAA", 'G', Blocks.thinGlass, 'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
+			"G F", "AAA", 'G', Blocks.glass_pane, 'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
 		});
 	}
 }

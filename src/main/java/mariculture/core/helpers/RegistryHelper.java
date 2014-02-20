@@ -21,7 +21,7 @@ public class RegistryHelper {
 			if(items[i] instanceof Item) {
 				registerItem((Item) items[i]);
 			} else if(items[i] instanceof Block) {
-				registerItem(Item.getItemFromBlock((Block)items[i]));
+				//registerItem(Item.getItemFromBlock((Block)items[i]));
 			}
 		}
 	}

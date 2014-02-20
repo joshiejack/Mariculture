@@ -5,6 +5,7 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GroundMeta;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -14,25 +15,30 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class WorldGenGas extends WorldGenerator
 {
     /** The block ID of the ore to be placed using this generator. */
-    private int minableBlockId;
+	private Block mineableBlock;
     private int minableBlockMeta = 0;
 
     /** The number of blocks to generate. */
     private int numberOfBlocks;
 
     /** The block ID of the block to be replaced with the ore (usually stone) */
-    private int blockToReplace;
+    Block blockToReplace;
 
-    public WorldGenGas(int par1, int par2, int par3)
+    public WorldGenGas(Block par1, int par2)
     {
-        this.minableBlockId = par1;
-        this.numberOfBlocks = par2;
-        this.blockToReplace = par3;
+        this(par1, par2, Blocks.stone);
     }
 
-    public WorldGenGas(int id, int meta, int number, int target)
+    public WorldGenGas(Block par1, int par2, Block block)
     {
-        this(id, number, target);
+        this.mineableBlock = par1;
+        this.numberOfBlocks = par2;
+        this.blockToReplace = block;
+    }
+
+    public WorldGenGas(Block block, int meta, int number, Block target)
+    {
+        this(block, number, target);
         this.minableBlockMeta = meta;
     }
 
@@ -87,8 +93,8 @@ public class WorldGenGas extends WorldGenerator
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
                                 	if(world.getBlock(x2, y2, z3) != null) {
-                                		if(Blocks.blocksList[blockID].isBlockSolidOnSide(world, x2, y2, z3, ForgeDirection.UNKNOWN)) {
-                                			world.setBlock(x2, y2, z3, this.minableBlockId, minableBlockMeta, 2);
+                                		if(world.getBlock(x2, y2, z3).isSideSolid(world, x2, y2, z3, ForgeDirection.UNKNOWN)) {
+                                			world.setBlock(x2, y2, z3, this.mineableBlock, minableBlockMeta, 2);
                                 			xLast = x2;
                                 			zLast = z3;
                                 		}
@@ -101,9 +107,9 @@ public class WorldGenGas extends WorldGenerator
             }
         }
         
-        world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.groundBlocks.blockID, GroundMeta.BUBBLES, 2);
+        world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.groundBlocks, GroundMeta.BUBBLES, 2);
         if(Extra.DEBUG_ON)
-        	world.setBlock(xLast, 65, zLast, Blocks.obsidian.blockID, 1, 2);
+        	world.setBlock(xLast, 65, zLast, Blocks.obsidian, 1, 2);
 
         return true;
     }

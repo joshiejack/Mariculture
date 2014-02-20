@@ -81,54 +81,53 @@ public final class BlockHelper {
 	}
 
 	static {
-		rotateType[Blocks.getIdFromBlock(Blocks.log)] = RotationType.LOG;
-		rotateType[Blocks.getIdFromBlock(Blocks.log2)] = RotationType.LOG;
-		rotateType[Blocks.getIdFromBlock(Blocks.dispenser)] = RotationType.SIX_WAY;
-		rotateType[Blocks.getIdFromBlock(Blocks.bed)] = RotationType.PREVENT;
-		rotateType[Blocks.railPowered.blockID] = RotationType.RAIL;
-		rotateType[Blocks.railDetector.blockID] = RotationType.RAIL;
-		rotateType[Blocks.pistonStickyBase.blockID] = RotationType.SIX_WAY;
-		rotateType[Blocks.pistonBase.blockID] = RotationType.SIX_WAY;
-		rotateType[Blocks.stoneSingleSlab.blockID] = RotationType.SLAB;
-		rotateType[Blocks.stairsWoodOak.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.chest.blockID] = RotationType.CHEST;
-		rotateType[Blocks.furnaceIdle.blockID] = RotationType.FOUR_WAY;
-		rotateType[Blocks.furnaceBurning.blockID] = RotationType.FOUR_WAY;
-		rotateType[Blocks.signPost.blockID] = RotationType.SIGN;
-		rotateType[Blocks.rail.blockID] = RotationType.RAIL;
-		rotateType[Blocks.stairsCobblestone.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.lever.blockID] = RotationType.LEVER;
-		rotateType[Blocks.pumpkin.blockID] = RotationType.PUMPKIN;
-		rotateType[Blocks.pumpkinLantern.blockID] = RotationType.PUMPKIN;
-		rotateType[Blocks.redstoneRepeaterIdle.blockID] = RotationType.REDSTONE;
-		rotateType[Blocks.redstoneRepeaterActive.blockID] = RotationType.REDSTONE;
-		rotateType[Blocks.stairsBrick.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.stairsStoneBrick.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.stairsNetherBrick.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.woodSingleSlab.blockID] = RotationType.SLAB;
-		rotateType[Blocks.stairsSandStone.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.enderChest.blockID] = RotationType.FOUR_WAY;
-		rotateType[Blocks.stairsWoodSpruce.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.stairsWoodBirch.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.stairsWoodJungle.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.stairsNetherQuartz.blockID] = RotationType.STAIRS;
-		rotateType[Blocks.hopperBlocks.blockID] = RotationType.SIX_WAY;
-		rotateType[Blocks.railActivator.blockID] = RotationType.RAIL;
-		rotateType[Blocks.dropper.blockID] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.log)] = RotationType.LOG;
+		rotateType[Block.getIdFromBlock(Blocks.log2)] = RotationType.LOG;
+		rotateType[Block.getIdFromBlock(Blocks.dispenser)] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.bed)] = RotationType.PREVENT;
+		rotateType[Block.getIdFromBlock(Blocks.golden_rail)] = RotationType.RAIL;
+		rotateType[Block.getIdFromBlock(Blocks.detector_rail)] = RotationType.RAIL;
+		rotateType[Block.getIdFromBlock(Blocks.sticky_piston)] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.piston)] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.stone_slab)] = RotationType.SLAB;
+		rotateType[Block.getIdFromBlock(Blocks.oak_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.chest)] = RotationType.CHEST;
+		rotateType[Block.getIdFromBlock(Blocks.furnace)] = RotationType.FOUR_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.standing_sign)] = RotationType.SIGN;
+		rotateType[Block.getIdFromBlock(Blocks.rail)] = RotationType.RAIL;
+		rotateType[Block.getIdFromBlock(Blocks.stone_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.lever)] = RotationType.LEVER;
+		rotateType[Block.getIdFromBlock(Blocks.pumpkin)] = RotationType.PUMPKIN;
+		rotateType[Block.getIdFromBlock(Blocks.lit_pumpkin)] = RotationType.PUMPKIN;
+		rotateType[Block.getIdFromBlock(Blocks.powered_repeater)] = RotationType.REDSTONE;
+		rotateType[Block.getIdFromBlock(Blocks.unpowered_repeater)] = RotationType.REDSTONE;
+		rotateType[Block.getIdFromBlock(Blocks.brick_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.stone_brick_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.nether_brick_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.wooden_slab)] = RotationType.SLAB;
+		rotateType[Block.getIdFromBlock(Blocks.sandstone_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.ender_chest)] = RotationType.FOUR_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.spruce_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.birch_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.jungle_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.quartz_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.hopper)] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.activator_rail)] = RotationType.RAIL;
+		rotateType[Block.getIdFromBlock(Blocks.dropper)] = RotationType.SIX_WAY;
+		rotateType[Block.getIdFromBlock(Blocks.acacia_stairs)] = RotationType.STAIRS;
+		rotateType[Block.getIdFromBlock(Blocks.dark_oak_stairs)] = RotationType.STAIRS;
 	}
 
 	public static MovingObjectPosition getCurrentMovingObjectPosition(EntityPlayer player) {
-
 		double distance = player.capabilities.isCreativeMode ? 5.0F : 4.5F;
 		Vec3 posVec = Vec3.createVectorHelper(player.posX, player.posY, player.posZ);
 		Vec3 lookVec = player.getLook(1);
 		posVec.yCoord += player.getEyeHeight();
 		lookVec = posVec.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance);
-		return player.worldObj.clip(posVec, lookVec);
+		return player.worldObj.rayTraceBlocks(posVec, lookVec);
 	}
 
 	public static int getCurrentMousedOverSide(EntityPlayer player) {
-
 		MovingObjectPosition mouseOver = getCurrentMovingObjectPosition(player);
 		return mouseOver == null ? 0 : mouseOver.sideHit;
 	}
@@ -163,12 +162,12 @@ public final class BlockHelper {
 
 	public static TileEntity getAdjacentTileEntity(TileEntity refTile, ForgeDirection dir) {
 
-		return refTile == null ? null : getAdjacentTileEntity(refTile.worldObj, refTile.xCoord, refTile.yCoord, refTile.zCoord, dir);
+		return refTile == null ? null : getAdjacentTileEntity(refTile.getWorldObj(), refTile.xCoord, refTile.yCoord, refTile.zCoord, dir);
 	}
 
 	public static TileEntity getAdjacentTileEntity(TileEntity refTile, int side) {
 
-		return refTile == null ? null : getAdjacentTileEntity(refTile.worldObj, refTile.xCoord, refTile.yCoord, refTile.zCoord, ForgeDirection.values()[side]);
+		return refTile == null ? null : getAdjacentTileEntity(refTile.getWorldObj(), refTile.xCoord, refTile.yCoord, refTile.zCoord, ForgeDirection.values()[side]);
 	}
 
 	public static int determineAdjacentSide(TileEntity refTile, int x, int y, int z) {
@@ -249,7 +248,7 @@ public final class BlockHelper {
 			int coords[] = new int[3];
 			for (int i = 2; i < 6; i++) {
 				coords = getAdjacentCoordinatesForSide(x, y, z, i);
-				if (world.getBlockId(coords[0], coords[1], coords[2]) == Blocks.chest.blockID) {
+				if (world.getBlock(coords[0], coords[1], coords[2]) == Blocks.chest) {
 					world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[bMeta], 1);
 					return SIDE_OPPOSITE[bMeta];
 				}
@@ -310,7 +309,7 @@ public final class BlockHelper {
 			int coords[] = new int[3];
 			for (int i = 2; i < 6; i++) {
 				coords = getAdjacentCoordinatesForSide(x, y, z, i);
-				if (world.getBlockId(coords[0], coords[1], coords[2]) == Blocks.chest.blockID) {
+				if (world.getBlock(coords[0], coords[1], coords[2]) == Blocks.chest) {
 					world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[bMeta], 1);
 					return SIDE_OPPOSITE[bMeta];
 				}
@@ -339,16 +338,17 @@ public final class BlockHelper {
 		}
 	}
 
+	/*
 	public static boolean isBlock(int bId) {
-
 		return bId < 0 || bId >= Blocks.blocksList.length ? null : Blocks.blocksList[bId] != null;
 	}
 
-	public static List<ItemStack> breakBlock(World worldObj, int x, int y, int z, int bId, int fortune, boolean doBreak, boolean silkTouch) {
-
-		if (Blocks.blocksList[bId].getBlockHardness(worldObj, x, y, z) == -1) {
+	public static List<ItemStack> breakBlock(World worldObj, int x, int y, int z, int fortune, boolean doBreak, boolean silkTouch) {
+		Block block = worldObj.getBlock(x, y, z);
+		if (block.getBlockHardness(worldObj, x, y, z) == -1) {
 			return new LinkedList<ItemStack>();
 		}
+		
 		int meta = worldObj.getBlockMetadata(x, y, z);
 		List<ItemStack> stacks = null;
 		if (silkTouch && Blocks.blocksList[bId].canSilkHarvest(worldObj, null, x, y, z, meta)) {
@@ -361,7 +361,7 @@ public final class BlockHelper {
 			return stacks;
 		}
 		worldObj.playAuxSFXAtEntity(null, 2001, x, y, z, bId + (meta << 12));
-		worldObj.setBlock(x, y, z, 0);
+		worldObj.setBlockToAir(x, y, z);
 
 		List result = worldObj.getEntitiesWithinAABB(EntityItems.class, AxisAlignedBB.getBoundingBox(x - 2, y - 2, z - 2, x + 3, y + 3, z + 3));
 		for (int i = 0; i < result.size(); i++) {
@@ -375,7 +375,7 @@ public final class BlockHelper {
 			}
 		}
 		return stacks;
-	}
+	} 
 
 	public static ItemStack createStackedBlock(Block block, int bMeta) {
 
@@ -383,6 +383,5 @@ public final class BlockHelper {
 			return new ItemStack(block.blockID, 1, bMeta);
 		}
 		return new ItemStack(block.blockID, 1, 0);
-	}
-
+	}*/
 }

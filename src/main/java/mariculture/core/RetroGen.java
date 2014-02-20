@@ -1,7 +1,8 @@
 package mariculture.core;
 
 import java.lang.reflect.Field;
-import java.util.logging.Level;
+
+import org.apache.logging.log4j.Level;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -30,7 +31,7 @@ public class RetroGen {
 		} catch (Exception e) {
 			e.printStackTrace();
 			ore = ore.substring(0, 1).toUpperCase() + ore.substring(1);
-			LogHandler.log(Level.WARNING, "Mariculture's Retro-Gen of " + ore + " Failed");
+			LogHandler.log(Level.WARN, "Mariculture's Retro-Gen of " + ore + " Failed");
 		}
 		
 		return false;

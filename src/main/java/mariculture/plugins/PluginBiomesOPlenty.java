@@ -1,26 +1,34 @@
 package mariculture.plugins;
 
+import net.minecraft.world.World;
+import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import mariculture.plugins.Plugins.Plugin;
 
 public class PluginBiomesOPlenty extends Plugin {
-
+	public static enum Biome {
+		KELP, CORAL
+	}
+		
 	@Override
 	public void preInit() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void postInit() {
-		// TODO Auto-generated method stub
 		
 	}
+	
+	//TODO: BiomesOP Coral + Kelp Support
+	public static boolean isBiome(World world, int x, int z, Biome biome) {
+		return true;
+	}
+	
 	/*
 	public PluginBiomesOPlenty(String name) {
 		super(name);
@@ -172,10 +180,6 @@ public class PluginBiomesOPlenty extends Plugin {
 		WorldGeneration.KELP_CHANCE /= 3;
 	}
 	
-	public static enum Biome {
-		KELP, CORAL
-	}
-
 	public static boolean isBiome(World world, int x, int z, Biome biome) {
 		WorldType worldType = world.getWorldInfo().getTerrainType();
 		boolean isVanilla = true;

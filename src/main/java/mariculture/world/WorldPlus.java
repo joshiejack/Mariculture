@@ -2,7 +2,8 @@ package mariculture.world;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.logging.Level;
+
+import org.apache.logging.log4j.Level;
 
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -25,6 +26,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.Height;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -50,7 +52,7 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerHandlers() {
-		GameRegistry.registerWorldGenerator(new WorldGen());
+		GameRegistry.registerWorldGenerator(new WorldGen(), 2);
 		if(!Loader.isModLoaded("ATG")) {
 			MinecraftForge.TERRAIN_GEN_BUS.register(new WorldEvents());
 		}
@@ -58,8 +60,8 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerBlocks() {
-		coral = new BlockCoral(coral).setStepSound(Blocks.soundGrassFootstep).setResistance(0.1F).setUnlocalizedName("coral");
-		Items.itemsList[coral] = new ItemCoral(coral - 256, coral).setUnlocalizedName("coral");
+		coral = new BlockCoral().setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("coral");
+		GameRegistry.registerBlock(coral, "BlockCoral");
 		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		RegistryHelper.register(new Object[] { coral });
 	}
@@ -98,7 +100,7 @@ public class WorldPlus extends Module {
 			Field field = BiomeGenBase.class.getField("ocean");
 			if(field == null)
 				field = BiomeGenBase.class.getField("field_76771_b");
-			Object newValue = (new BiomeGenSandyOcean(0)).setColor(112).setBiomeName("Ocean").setMinMaxHeight(-1.85F, 0.4F);
+			Object newValue = (new BiomeGenSandyOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.8F, 0.4F));
 		    field.setAccessible(true);
 
 		    Field modifiersField = Field.class.getDeclaredField("modifiers");
@@ -107,7 +109,7 @@ public class WorldPlus extends Module {
 
 		    field.set(null, newValue);
 		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture failed to adjust the ocean depth");
+			LogHandler.log(Level.WARN, "Mariculture failed to adjust the ocean depth");
 		}
 	}
 

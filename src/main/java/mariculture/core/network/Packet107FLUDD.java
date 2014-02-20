@@ -42,7 +42,7 @@ public class Packet107FLUDD extends PacketMariculture {
 				entity.fallDistance *= 0.5;
 				FactoryEvents.playSmoke(mode, player, false);
 			} else {
-				Packets.updatePlayer(player, 128, new Packet107FLUDD(true, id, mode, PacketType.ANIMATE).build());
+				//TODO: PACKET Packets.updatePlayer(player, 128, new Packet107FLUDD(true, id, mode, PacketType.ANIMATE).build());
 			}
 		} else if(type == PacketType.SQUIRT.id) {
 			world.playSoundAtEntity(player, Mariculture.modid + ":fludd", 1.0F, 1.0F);

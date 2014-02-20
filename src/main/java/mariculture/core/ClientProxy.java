@@ -11,8 +11,6 @@ import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.guide.GuideRegistry;
-import mariculture.core.handlers.ClientEventHandler;
-import mariculture.core.handlers.KeyBindingHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.render.AnvilSpecialRenderer;
@@ -26,7 +24,6 @@ import mariculture.core.render.VatSpecialRenderer;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.EntityFLUDDSquirt;
-import mariculture.factory.FLUDDKeyHandler;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileTurbineGas;
@@ -54,11 +51,12 @@ import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
 import mariculture.transport.render.RenderSpeedBoatItem;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 
+import org.lwjgl.input.Keyboard;
 import org.w3c.dom.Document;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -76,12 +74,27 @@ public class ClientProxy extends CommonProxy {
 	private static final ResourceLocation TURBINE_HAND = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_hand_texture.png");
 	private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
 	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
+	
+	public static KeyBinding key_fludd;
+	public static KeyBinding key_activate;
+	public static KeyBinding key_toggle;
+	
+	@Override
+	public void registerKeyBindings() {
+		key_activate = new KeyBinding("key.activate", Keyboard.KEY_LCONTROL, "key.categories.gameplay");
+		key_toggle = new KeyBinding("key.toggle", Keyboard.KEY_Y, "key.categories.gameplay");
+		
+		ClientRegistry.registerKeyBinding(key_activate);
+		ClientRegistry.registerKeyBinding(key_toggle);
+		
+		if(Modules.factory.isActive()) {
+			key_fludd = new KeyBinding("key.fludd", Keyboard.KEY_V, "key.categories.gameplay");
+			ClientRegistry.registerKeyBinding(key_fludd);
+		}
+	}
 
 	@Override
-	public void initClient() {	
-		KeyBindingRegistry.registerKeyBinding(new KeyBindingHandler());
-		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
-		
+	public void initClient() {			
 		RenderIds.BLOCK_SINGLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
@@ -104,7 +117,6 @@ public class ClientProxy extends CommonProxy {
 		}
 		
 		if(Modules.factory.isActive()) {
-			KeyBindingRegistry.registerKeyBinding(new FLUDDKeyHandler());
 			RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
 			RenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customBlock), new RenderCustomItem());
@@ -131,10 +143,6 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSingle(new ModelFeeder(scale), FEEDER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
-		}
-		
-		if(Modules.sealife.isActive()) {
-			RenderingRegistry.registerEntityRenderingHandler(EntityHammerhead.class, new RenderHammerhead());
 		}
 		
 		if(Modules.transport.isActive()) {

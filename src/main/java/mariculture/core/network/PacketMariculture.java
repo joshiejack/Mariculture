@@ -15,7 +15,7 @@ public abstract class PacketMariculture {
 	public abstract void read(DataInputStream is) throws IOException;
 	public abstract void write(DataOutputStream os) throws IOException;
 	
-	public Packet build() {
+	/* public Packet build() {
 		Byte id = Byte.parseByte(this.getClass().getSimpleName().toLowerCase().substring(6, 9));
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream os = new DataOutputStream(bos);
@@ -45,5 +45,5 @@ public abstract class PacketMariculture {
 		
 		handle(player.worldObj, player);
 		return true;
-	}
+	} */
 }

@@ -30,6 +30,16 @@ public class BlockSift extends BlockMachine {
 	public BlockSift() {
 		super(Material.wood);
 	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return "axe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
+	}
 
 	@Override
 	public boolean renderAsNormalBlock() {
@@ -57,7 +67,7 @@ public class BlockSift extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileSift();
 	}
 
@@ -210,6 +220,8 @@ public class BlockSift extends BlockMachine {
 		return world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isReplaceable();
 	}
 
+	//TODO: Sift Drop Storage Upgrade
+	/*
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		if (!world.isRemote) {
@@ -222,7 +234,7 @@ public class BlockSift extends BlockMachine {
 		}
 
 		return world.setBlockToAir(x, y, z);
-	}
+	} */
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block,  int j) {

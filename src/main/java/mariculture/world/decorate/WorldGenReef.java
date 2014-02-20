@@ -8,6 +8,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.BlockCoral;
+import mariculture.world.WorldPlus;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -88,17 +89,17 @@ public class WorldGenReef extends WorldGenerator {
 
 									if (world.getTopSolidOrLiquidBlock(x, z) <= top) {
 										if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 3, z)) {
-											BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Core.oreBlocks.blockID, OresMeta.CORAL_ROCK);
+											BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Core.oreBlocks, OresMeta.CORAL_ROCK);
 										}
 									} else if (world.getTopSolidOrLiquidBlock(x, z) == top + 1) {
-										if (world.getBlockId(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == Core.oreBlocks.blockID
+										if (world.getBlock(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == Core.oreBlocks
 												&& world.getBlockMetadata(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == OresMeta.CORAL_ROCK) {
 											if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 1, z)) {
 												if (random.nextInt(400) == 0) {
-													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Blocks.sponge.blockID, 0);
+													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Blocks.sponge, 0);
 												} else {
 													ItemStack coral = CoralRegistry.corals.get(random.nextInt(CoralRegistry.corals.size()));
-													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, coral.itemID, coral.getItemDamage());
+													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, WorldPlus.coral, coral.getItemDamage());
 													BlockCoral.fullSpread(world, x, world.getTopSolidOrLiquidBlock(x, z), z, random);
 												}
 											}

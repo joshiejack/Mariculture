@@ -19,7 +19,7 @@ public class FishTankSpecialRenderer extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTick) {
 		TileFishTank tank = (TileFishTank) tile;
-		World world = tank.worldObj;
+		World world = tank.getWorldObj();
 		GL11.glPushMatrix();
 		float offsetX = (float) (x - 0.2F);
 		float offsetY = (float) (y - 0F);

@@ -12,30 +12,30 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class WorldGenOre extends WorldGenerator
 {
     /** The block ID of the ore to be placed using this generator. */
-    private int minableBlockId;
+    private Block mineableBlock;
     private int minableBlockMeta = 0;
 
     /** The number of blocks to generate. */
     private int numberOfBlocks;
 
     /** The block ID of the block to be replaced with the ore (usually stone) */
-    private int blockToReplace;
+    Block blockToReplace;
 
-    public WorldGenOre(int par1, int par2)
+    public WorldGenOre(Block par1, int par2)
     {
-        this(par1, par2, Blocks.stone.blockID);
+        this(par1, par2, Blocks.stone);
     }
 
-    public WorldGenOre(int par1, int par2, int par3)
+    public WorldGenOre(Block par1, int par2, Block block)
     {
-        this.minableBlockId = par1;
+        this.mineableBlock = par1;
         this.numberOfBlocks = par2;
-        this.blockToReplace = par3;
+        this.blockToReplace = block;
     }
 
-    public WorldGenOre(int id, int meta, int number, int target)
+    public WorldGenOre(Block block, int meta, int number, Block target)
     {
-        this(id, number, target);
+        this(block, number, target);
         this.minableBlockMeta = meta;
     }
 
@@ -81,10 +81,10 @@ public class WorldGenOre extends WorldGenerator
                                 double d14 = ((double)i3 + 0.5D - d8) / (d10 / 2.0D);
                                 
                                 if(BlockHelper.chunkExists(par1World, k2, i3)) {
-	                                Block block = Blocks.blocksList[par1World.getBlockId(k2, l2, i3)];
-	                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (block != null && block.isGenMineableReplaceable(par1World, k2, l2, i3, this.blockToReplace)))
+                                	Block block = par1World.getBlock(k2, l2, i3);
+	                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && (block != null && block.isReplaceableOreGen(par1World, k2, l2, i3, this.blockToReplace)))
 	                                {
-	                                    par1World.setBlock(k2, l2, i3, this.minableBlockId, minableBlockMeta, 2);
+	                                    par1World.setBlock(k2, l2, i3, this.mineableBlock, minableBlockMeta, 2);
 	                                }
                                 }
                             }

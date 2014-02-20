@@ -60,9 +60,9 @@ public class Packet120ItemSync extends PacketMariculture {
 		if(tile instanceof TileVat || tile instanceof TileAnvil || tile instanceof TileIngotCaster) {
 			ItemStack[] inventory = new ItemStack[length];
 			IInventory block = (IInventory) world.getTileEntity(x, y, z);
-			NBTTagList tagList = nbt.getTagList("Inventory");
+			NBTTagList tagList = nbt.getTagList("Inventory", 10);
 			for (int i = 0; i < tagList.tagCount(); i++) {
-				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+				NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 				byte slot = tag.getByte("Slot");
 				if(tag.getBoolean("NULLItemStack") == true) {
 					block.setInventorySlotContents(slot, null);
@@ -72,7 +72,7 @@ public class Packet120ItemSync extends PacketMariculture {
 			}
 		}
 		
-		world.markBlockForRenderUpdate(x, y, z);
+		world.markBlockForUpdate(x, y, z);
 	}
 
 	@Override

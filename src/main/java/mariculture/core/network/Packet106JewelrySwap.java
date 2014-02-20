@@ -27,9 +27,9 @@ public class Packet106JewelrySwap extends PacketMariculture {
 
 		if (equipped == null || (equipped != null && equipped.getItem() instanceof ItemJewelry)) {
 			if (equipped != null) {
-				slot = equipped.itemID == Magic.ring.itemID ? 0 : slot;
-				slot = equipped.itemID == Magic.bracelet.itemID ? 1 : slot;
-				slot = equipped.itemID == Magic.necklace.itemID ? 2 : slot;
+				slot = equipped.getItem() == Magic.ring ? 0 : slot;
+				slot = equipped.getItem() == Magic.bracelet ? 1 : slot;
+				slot = equipped.getItem() == Magic.necklace ? 2 : slot;
 			}
 
 			if (slot > -1) {

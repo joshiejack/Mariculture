@@ -14,7 +14,7 @@ public class KeyBindingHelper {
 	}
 
 	public static void addToChat(String str) {
-		FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(str);
+		FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().addToSentMessages(str);
 	}
 
 }

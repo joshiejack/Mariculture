@@ -79,7 +79,7 @@ public class MirrorHandler implements IMirrorHandler {
 	@Override
 	public void damageItemsWithEnchantment(EntityPlayer player, int enchant, int amount) {
 		if (player.worldObj.isRemote && player instanceof EntityClientPlayerMP) {
-			((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet109DamageJewelry(enchant, amount).build());
+			//TODO: PACKET Damange Jewelry ((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet109DamageJewelry(enchant, amount).build());
 			return;
 		}
 

@@ -2,7 +2,6 @@ package mariculture.core.items;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
@@ -23,6 +22,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+
+import org.apache.logging.log4j.Level;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -133,7 +135,7 @@ public class ItemStorage extends Item implements IItemRegistry {
 			player.getCurrentEquippedItem().stackTagCompound.setTag("Inventory", nbttaglist);
 
 		} catch (Exception e) {
-			LogHandler.log(Level.WARNING, "Mariculture had trouble saving an inventory");
+			LogHandler.log(Level.WARN, "Mariculture had trouble saving an inventory");
 		}
 	}
 
