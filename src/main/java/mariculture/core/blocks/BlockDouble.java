@@ -254,7 +254,7 @@ public class BlockDouble extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int meta) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		switch (meta) {
 		case DoubleMeta.COMPRESSOR_BASE:
 			return new TileAirCompressor();

@@ -8,6 +8,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
+import mariculture.core.network.PacketSponge;
 import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFishSorter;
@@ -258,6 +259,7 @@ public class BlockUtil extends BlockMachine {
 		if (tile instanceof TileSponge) {
 			if(world.isRemote && player instanceof EntityClientPlayerMP) {
 				//TODO: PACKET Sponge Request data be sent
+				Mariculture.packets.sendToServer(new PacketSponge(x, y, z, world.provider.dimensionId, true));
 				//((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet101Sponge(x, y, z).build());
 			} else if(player.getCurrentEquippedItem() != null && !world.isRemote) {
 				Item currentItem = player.getCurrentEquippedItem().getItem();
@@ -284,7 +286,7 @@ public class BlockUtil extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int meta) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		switch (meta) {
 		case UtilMeta.INCUBATOR_BASE:
 			return new TileIncubator();

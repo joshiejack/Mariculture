@@ -1,7 +1,7 @@
 package mariculture.magic.enchantments;
 
 import mariculture.core.helpers.KeyHelper;
-import mariculture.core.network.Packet108Teleport;
+import mariculture.core.network.old.Packet108Teleport;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;

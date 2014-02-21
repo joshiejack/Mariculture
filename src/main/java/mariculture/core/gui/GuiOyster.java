@@ -1,7 +1,7 @@
 package mariculture.core.gui;
 
 import mariculture.Mariculture;
-import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileOldOyster;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class GuiOyster extends GuiContainer {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Mariculture.modid, "textures/gui/oyster.png");
 
-	public GuiOyster(final InventoryPlayer par1Player, final TileOyster tile_entity) {
+	public GuiOyster(final InventoryPlayer par1Player, final TileOldOyster tile_entity) {
 		super(new ContainerOyster(tile_entity, par1Player));
 	}
 

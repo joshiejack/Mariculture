@@ -3,8 +3,6 @@ package mariculture.world;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
@@ -30,6 +28,9 @@ import net.minecraft.world.biome.BiomeGenBase.Height;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -61,7 +62,7 @@ public class WorldPlus extends Module {
 	@Override
 	public void registerBlocks() {
 		coral = new BlockCoral().setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("coral");
-		GameRegistry.registerBlock(coral, "BlockCoral");
+		GameRegistry.registerBlock(coral, ItemCoral.class, "BlockCoral");
 		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		RegistryHelper.register(new Object[] { coral });
 	}

@@ -2,7 +2,7 @@ package mariculture.world;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.items.ItemMariculture;
+import mariculture.core.blocks.ItemBlockMariculture;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.OresMeta;
 import net.minecraft.block.Block;
@@ -16,11 +16,12 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCoral extends ItemMariculture {
+public class ItemCoral extends ItemBlockMariculture {
 	private IIcon[] icons;
 	private Block spawnBlock;
 
 	public ItemCoral(Block block) {
+		super(block);
 		this.spawnBlock = block;
 	}
 

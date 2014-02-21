@@ -110,12 +110,9 @@ public class TileStorage extends TileEntity implements IInventory {
 		super.readFromNBT(nbt);
 
 		NBTTagList tagList = nbt.getTagList("Inventory", 10);
-
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
-
 			byte slot = tag.getByte("Slot");
-
 			if (slot >= 0 && slot < inventory.length) {
 				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
@@ -127,13 +124,10 @@ public class TileStorage extends TileEntity implements IInventory {
 		super.writeToNBT(nbt);
 
 		NBTTagList itemList = new NBTTagList();
-
 		for (int i = 0; i < inventory.length; i++) {
 			ItemStack stack = inventory[i];
-
 			if (stack != null) {
 				NBTTagCompound tag = new NBTTagCompound();
-
 				tag.setByte("Slot", (byte) i);
 				stack.writeToNBT(tag);
 				itemList.appendTag(tag);

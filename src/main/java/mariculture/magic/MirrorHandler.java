@@ -2,7 +2,7 @@ package mariculture.magic;
 
 import mariculture.api.core.IMirrorHandler;
 import mariculture.core.helpers.MirrorHelper;
-import mariculture.core.network.Packet109DamageJewelry;
+import mariculture.core.network.old.Packet109DamageJewelry;
 import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;

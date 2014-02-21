@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.lib.Text;
-import mariculture.core.network.Packet114RedstoneControlled;
+import mariculture.core.network.old.Packet114RedstoneControlled;
 import mariculture.core.util.IRedstoneControlled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;

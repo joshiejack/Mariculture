@@ -17,7 +17,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.UtilMeta;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import net.minecraft.entity.player.EntityPlayer;

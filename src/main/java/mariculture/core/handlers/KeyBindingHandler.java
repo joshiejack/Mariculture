@@ -2,12 +2,12 @@ package mariculture.core.handlers;
 
 import java.util.EnumSet;
 
-import mariculture.core.helpers.KeyBindingHelper;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.core.lib.Modules;
-import mariculture.core.network.Packet106JewelrySwap;
-import mariculture.core.network.Packet122KeyPress;
-import mariculture.core.network.Packet122KeyPress.KeyType;
+import mariculture.core.network.old.Packet106JewelrySwap;
+import mariculture.core.network.old.Packet122KeyPress;
+import mariculture.core.network.old.Packet122KeyPress.KeyType;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentSpider;
 import net.minecraft.client.entity.EntityClientPlayerMP;

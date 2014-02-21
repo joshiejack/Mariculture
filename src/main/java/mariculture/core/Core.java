@@ -5,8 +5,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.Mariculture;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
@@ -33,6 +31,8 @@ import mariculture.core.blocks.BlockTransparent;
 import mariculture.core.blocks.BlockTransparentItem;
 import mariculture.core.blocks.BlockUtil;
 import mariculture.core.blocks.BlockUtilItem;
+import mariculture.core.blocks.BlockWater;
+import mariculture.core.blocks.BlockWaterItem;
 import mariculture.core.blocks.BlockWood;
 import mariculture.core.blocks.BlockWoodItem;
 import mariculture.core.blocks.TileAirPump;
@@ -40,6 +40,7 @@ import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
@@ -86,7 +87,6 @@ import mariculture.core.util.FluidMari;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -101,14 +101,14 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Core extends Module {
-	public static KeyBinding key_activate;
-	public static KeyBinding key_toggle;
-	
+public class Core extends Module {	
 	public static Block oreBlocks;
 	public static Block utilBlocks;
 	public static Block singleBlocks;
@@ -121,6 +121,7 @@ public class Core extends Module {
 	public static Block tankBlocks;
 	public static Block groundBlocks;
 	public static Block transparentBlocks;
+	public static Block waterBlocks;
 
 	public static Fluid moltenAluminum;
 	public static Fluid moltenTitanium;
@@ -201,6 +202,7 @@ public class Core extends Module {
 		tankBlocks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
 		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
 		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
+		waterBlocks = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("waterBlocks");
 		
 		GameRegistry.registerBlock(oreBlocks, BlockOreItem.class, "BlockOre");
 		GameRegistry.registerBlock(utilBlocks, BlockUtilItem.class, "BlockUtil");
@@ -209,14 +211,15 @@ public class Core extends Module {
 		GameRegistry.registerBlock(pearlBlock, BlockPearlBlockItem.class, "BlockPearlBlock");
 		GameRegistry.registerBlock(glassBlocks, BlockGlassItem.class, "BlockGlass");
 		GameRegistry.registerBlock(airBlocks, BlockAirItem.class, "BlockTransparent");
-		GameRegistry.registerBlock(woodBlocks, BlockWoodItem.class, "BlockTransparent");
+		GameRegistry.registerBlock(woodBlocks, BlockWoodItem.class, "BlockWood");
 		GameRegistry.registerBlock(tankBlocks, BlockTankItem.class, "BlockTank");
 		GameRegistry.registerBlock(groundBlocks, BlockGroundItem.class, "BlockGround");
 		GameRegistry.registerBlock(transparentBlocks, BlockTransparentItem.class, "BlockTransparent");
+		GameRegistry.registerBlock(waterBlocks, BlockWaterItem.class, "BlockWaterTwo");
 		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
 		
 		GameRegistry.registerTileEntity(TileAirPump.class, "TileAirPump");
-		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
+		GameRegistry.registerTileEntity(TileOldOyster.class, "TileOldOyster");
 		GameRegistry.registerTileEntity(TileLiquifier.class, "TileLiquifier");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "TileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "TileTankBlock");
@@ -224,9 +227,10 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileAnvil.class, "TileAnvil");
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "TileIngotCaster");
 		GameRegistry.registerTileEntity(TileVoidBottle.class, "TileVoidBottle");
+		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
 
 		RegistryHelper.register(new Object[] { oreBlocks, pearlBlock, oysterBlock, utilBlocks, doubleBlock,
-				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks });
+				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks, waterBlocks });
 	}
 	
 	@Override

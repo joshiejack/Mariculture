@@ -6,7 +6,7 @@ import java.util.Map;
 
 import mariculture.Mariculture;
 import mariculture.core.gui.ContainerMariculture;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IMachine;
 import net.minecraft.entity.player.EntityPlayer;

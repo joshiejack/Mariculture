@@ -128,4 +128,14 @@ public class BlockCustomBase extends BlockMachine {
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		//
 	}
+
+	@Override
+	public int getMetaCount() {
+		return 1;
+	}
+
+	@Override
+	public boolean isActive(int meta) {
+		return true;
+	}
 }

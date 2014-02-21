@@ -1,7 +1,7 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.network.Packet110CustomTileUpdate;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packet110CustomTileUpdate;
+import mariculture.core.network.old.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 

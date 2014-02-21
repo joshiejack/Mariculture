@@ -5,7 +5,7 @@ import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileIngotCaster;
-import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.diving.render.ModelAirPump;
@@ -53,9 +53,9 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 			((ModelAirPump) model).render((TileAirPump) tileEntity, x, y, z);
 		}
 
-		if (tileEntity instanceof TileOyster) {
+		if (tileEntity instanceof TileOldOyster) {
 			bindTexture(resource);
-			((ModelOyster) model).render((TileOyster) tileEntity, x, y, z);
+			((ModelOyster) model).render((TileOldOyster) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileSift) {

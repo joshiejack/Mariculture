@@ -2,7 +2,7 @@ package mariculture.factory;
 
 import java.util.EnumSet;
 
-import mariculture.core.helpers.KeyBindingHelper;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.KeyHelper;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;

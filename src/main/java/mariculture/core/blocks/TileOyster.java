@@ -1,63 +1,21 @@
 package mariculture.core.blocks;
 
-import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileOyster extends TileStorage implements ISidedInventory {
+	public ForgeDirection orientation = ForgeDirection.WEST;
+
 	public TileOyster() {
 		inventory = new ItemStack[1];
-	}
-	
-	@Override
-	public boolean canUpdate() {
-		return false;
-	}
-
-	public boolean hasSand() {
-		return hasContents() && inventory[0].getItem() == Item.getItemFromBlock(Blocks.sand);
-	}
-
-    public boolean hasContents() {
-        return inventory[0] != null;
-    }
-	
-	public ItemStack getCurrentPearl() {
-		return inventory[0];
-	}
-	
-	//TODO: PACKET Oyster Packet Updates
-	/*
-	@Override
-	public Packet getDescriptionPacket() {		
-		NBTTagCompound nbt = new NBTTagCompound();
-		this.writeToNBT(nbt);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
-	}
-	
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	}
-	
-	@Override
-	public void markDirty() {
-		super.markDirty();
-		
-		if(!worldObj.isRemote) {
-			int id = getCurrentPearl() != null ? getCurrentPearl().itemID : -1;
-			int meta = getCurrentPearl() != null ? getCurrentPearl().getItemDamage() : 0;
-			Packets.updateTile(this, 128, new Packet103Oyster(xCoord, yCoord, zCoord, id, meta).build());
-		}
-	} */
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack stack) {
-		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) || stack.getItem() == Core.pearls || stack.getItem() == Items.ender_pearl;
 	}
 
 	@Override
@@ -66,12 +24,34 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	}
 
 	@Override
-	public boolean canInsertItem(int i, ItemStack stack, int j) {
-		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) && inventory[0] == null;
+	public boolean canInsertItem(int side, ItemStack stack, int slot) {
+		return stack.getItem() == Item.getItemFromBlock(Blocks.sand);
 	}
 
 	@Override
-	public boolean canExtractItem(int i, ItemStack stack, int j) {
-		return stack.getItem() == Core.pearls || stack.getItem() == Items.ender_pearl;
+	public boolean canExtractItem(int side, ItemStack stack, int slot) {
+		return stack.getItem() != Item.getItemFromBlock(Blocks.sand);
+	}
+	
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setInteger("Orientation", orientation.ordinal());
 	}
 }

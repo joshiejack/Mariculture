@@ -8,7 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import mariculture.Mariculture;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
-import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.guide.GuideRegistry;
 import mariculture.core.lib.Modules;
@@ -17,6 +17,7 @@ import mariculture.core.render.AnvilSpecialRenderer;
 import mariculture.core.render.ModelOyster;
 import mariculture.core.render.RenderDouble;
 import mariculture.core.render.RenderFakeItem;
+import mariculture.core.render.RenderHandler;
 import mariculture.core.render.RenderSingle;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderTanks;
@@ -98,16 +99,18 @@ public class ClientProxy extends CommonProxy {
 		RenderIds.BLOCK_SINGLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
+		RenderIds.RENDER_ALL = RenderingRegistry.getNextAvailableRenderId();
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.singleBlocks), new RenderSingleItem());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.oysterBlock), new RenderSingleItem());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileOldOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
 		RenderingRegistry.registerBlockHandler(new RenderTanks());
 		RenderingRegistry.registerBlockHandler(new RenderDouble());
 		RenderingRegistry.registerBlockHandler(new RenderSingle());
+		RenderingRegistry.registerBlockHandler(new RenderHandler());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
 		
 		if(Modules.diving.isActive()) {

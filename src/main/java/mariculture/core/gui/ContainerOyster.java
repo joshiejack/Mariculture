@@ -1,6 +1,6 @@
 package mariculture.core.gui;
 
-import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileOldOyster;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -8,9 +8,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerOyster extends Container {
-	private final TileOyster tileEntityDispenser;
+	private final TileOldOyster tileEntityDispenser;
 
-	public ContainerOyster(TileOyster tileOyster, InventoryPlayer playerInventory) {
+	public ContainerOyster(TileOldOyster tileOyster, InventoryPlayer playerInventory) {
 		this.tileEntityDispenser = tileOyster;
 
 		addSlotToContainer(new Slot(tileOyster, 0, 77, 41));

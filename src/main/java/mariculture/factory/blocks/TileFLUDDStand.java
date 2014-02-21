@@ -12,7 +12,7 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;

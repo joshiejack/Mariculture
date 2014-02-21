@@ -2,8 +2,8 @@ package mariculture.core.blocks.base;
 
 import java.util.ArrayList;
 
-import mariculture.core.network.Packet113MultiInit;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packet113MultiInit;
+import mariculture.core.network.old.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;

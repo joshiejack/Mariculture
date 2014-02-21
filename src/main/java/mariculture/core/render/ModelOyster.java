@@ -1,7 +1,7 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -110,7 +110,7 @@ public class ModelOyster extends ModelBase {
 		setRotation(base6, 3.141593F, 0F, 0F);
 	}
 
-	public void render(final TileOyster oyster, final double x, final double y, final double z) {
+	public void render(final TileOldOyster oyster, final double x, final double y, final double z) {
 		int direction = oyster.getBlockMetadata();
 
 		GL11.glPushMatrix();

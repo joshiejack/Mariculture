@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.lib.Text;
-import mariculture.core.network.Packet115EjectSetting;
+import mariculture.core.network.old.Packet115EjectSetting;
 import mariculture.core.util.IEjectable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;

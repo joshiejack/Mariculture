@@ -1,7 +1,7 @@
 package mariculture.core.blocks.base;
 
 import mariculture.core.gui.ContainerMariculture;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import mariculture.core.util.IPowered;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

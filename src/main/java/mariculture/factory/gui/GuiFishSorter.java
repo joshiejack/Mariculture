@@ -2,7 +2,7 @@ package mariculture.factory.gui;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureRedstone;
-import mariculture.core.network.Packet116GUIClick;
+import mariculture.core.network.old.Packet116GUIClick;
 import mariculture.factory.blocks.TileFishSorter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;

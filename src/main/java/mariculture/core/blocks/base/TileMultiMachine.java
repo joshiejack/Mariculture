@@ -7,7 +7,7 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IProgressable;

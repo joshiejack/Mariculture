@@ -9,7 +9,7 @@ import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;

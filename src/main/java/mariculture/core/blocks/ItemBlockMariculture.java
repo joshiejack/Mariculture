@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockMariculture extends ItemBlock implements IItemRegistry {
+public abstract class ItemBlockMariculture extends ItemBlock implements IItemRegistry {
 	public ItemBlockMariculture(Block block) {
 		super(block);
 		setHasSubtypes(true);
@@ -28,11 +28,6 @@ public class ItemBlockMariculture extends ItemBlock implements IItemRegistry {
 	
 	@Override
 	public int getMetaCount() {
-		return 1;
-	}
-
-	@Override
-	public String getName(ItemStack stack) {
-		return "blank";
+		return ((IItemRegistry)Block.getBlockFromItem(this)).getMetaCount();
 	}
 }

@@ -8,4 +8,5 @@ public class RenderIds {
 	public static int SNORKEL;
 	public static int FLUDD;
 	public static int BLOCK_TANKS;
+	public static int RENDER_ALL;
 }

@@ -37,6 +37,7 @@ public abstract class BlockMachine extends BlockContainer implements IItemRegist
 	
 	public abstract String getToolType(int meta);
 	public abstract int getToolLevel(int meta);
+	public abstract boolean isActive(int meta);
 
 	@Override
 	public void register() {
@@ -46,22 +47,8 @@ public abstract class BlockMachine extends BlockContainer implements IItemRegist
 	}
 
 	@Override
-	public int getMetaCount() {
-		return 1;
-	}
-
-	@Override
 	public String getName(ItemStack stack) {
 		return RegistryHelper.getName(stack);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return null;
-	}
-	
-	public boolean isActive(int meta) {
-		return true;
 	}
 	
 	@Override

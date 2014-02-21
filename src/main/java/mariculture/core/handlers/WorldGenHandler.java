@@ -5,7 +5,7 @@ import java.util.Random;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
-import mariculture.core.blocks.TileOyster;
+import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.Extra;
@@ -175,7 +175,7 @@ public class WorldGenHandler implements IWorldGenerator {
 	
 						if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
 							world.setBlock(randX, blockY, randZ, Core.oysterBlock, randMeta, 2);
-							TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
+							TileOldOyster oyster = (TileOldOyster) world.getTileEntity(randX, blockY, randZ);
 							if (oyster != null) {
 								if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {
 									oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));

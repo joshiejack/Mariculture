@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.network.Packets;
+import mariculture.core.network.old.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;

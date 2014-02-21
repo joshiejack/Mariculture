@@ -246,4 +246,14 @@ public class BlockSift extends BlockMachine {
 	public String getName(ItemStack stack) {
 		return "sift";
 	}
+
+	@Override
+	public int getMetaCount() {
+		return 1;
+	}
+
+	@Override
+	public boolean isActive(int meta) {
+		return true;
+	}
 }

@@ -8,7 +8,8 @@ import mariculture.core.Config;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketPipeline;
+import mariculture.core.network.old.Packets;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.compatibility.Compat;
 import cpw.mods.fml.common.Mod;
@@ -20,6 +21,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.1", dependencies="after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty;after:AWWayofTime")
 public class Mariculture {
+	public static final PacketPipeline packets = new PacketPipeline();
 	public static final String modid = "mariculture";
 
 	@SidedProxy(clientSide = "mariculture.core.ClientProxy", serverSide = "mariculture.core.CommonProxy")
@@ -73,7 +75,7 @@ public class Mariculture {
 		Modules.transport.init();
 		Modules.world.init();
 		Compat.init();
-		Packets.init();
+		packets.initialise();
 	}
 
 	@Mod.EventHandler
@@ -82,5 +84,6 @@ public class Mariculture {
 		proxy.initClient();
 		proxy.loadBooks();
 		RecipesSmelting.postAdd();
+		packets.postInitialise();
 	}
 }

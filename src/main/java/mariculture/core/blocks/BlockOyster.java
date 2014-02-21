@@ -43,7 +43,7 @@ public class BlockOyster extends BlockMachine {
 	public static final int NET = 4;
 
 	public BlockOyster() {
-		super(Material.ice);
+		super(Material.water);
 		setTickRandomly(true);
 	}
 	
@@ -185,8 +185,8 @@ public class BlockOyster extends BlockMachine {
 			return false;
 		}
 
-		if (tile_entity instanceof TileOyster) {
-			TileOyster oyster = (TileOyster) tile_entity;
+		if (tile_entity instanceof TileOldOyster) {
+			TileOldOyster oyster = (TileOldOyster) tile_entity;
 			
 			//Spawn in the Jewelry Book on first collection of a pearl
 			if(Extra.SPAWN_BOOKS) {
@@ -236,9 +236,9 @@ public class BlockOyster extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int meta) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		if(meta != NET)
-			return new TileOyster();
+			return new TileOldOyster();
 		return null;
 	}
 
@@ -252,7 +252,7 @@ public class BlockOyster extends BlockMachine {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {		
 		if(world.getBlockMetadata(x, y, z) != NET) {
-			TileOyster oyster = (TileOyster) world.getTileEntity(x, y, z);
+			TileOldOyster oyster = (TileOldOyster) world.getTileEntity(x, y, z);
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
@@ -303,5 +303,15 @@ public class BlockOyster extends BlockMachine {
 		icons = new IIcon[2];
 		icons[0] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, 0)));
 		icons[1] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, NET)));
+	}
+
+	@Override
+	public int getMetaCount() {
+		return 1;
+	}
+
+	@Override
+	public boolean isActive(int meta) {
+		return true;
 	}
 }

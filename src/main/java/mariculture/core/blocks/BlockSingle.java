@@ -396,7 +396,7 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int meta) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		switch (meta) {
 		case SingleMeta.AIR_PUMP:
 			return new TileAirPump();
