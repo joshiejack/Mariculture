@@ -136,6 +136,7 @@ public abstract class RenderBase {
         IIcon iicon = this.icon;
         if(!isItem())
         	tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+        //tessellator.setBrightness(240);
         tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
         double d0 = (double)iicon.getMinU();
         double d1 = (double)iicon.getMinV();
@@ -220,24 +221,10 @@ public abstract class RenderBase {
 	protected void renderAngledBlock(double x2, double y2, double z2, double x3, double y3, double z3, double x1, double y1, double z1, double x4, double y4, double z4, double xDim, double height, double zDim) {
 		renderFace(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4);
 		renderFace(x1, y1 + height, z1, x2, y2 + height, z2, x3, y3 + height, z3, x4, y4 + height, z4);
-
-		//Side 1
-		renderFace(x1, y1 + height, z1, x2, y2 + height, z2, x2 + 1, y3, z3, x1 + 1, y4, z4);
-		
-		//Side 2
-		renderFace(x3 - 1, y1 + height, z1, x4 - 1, y2 + height, z2, x4, y3, z3, x3, y4, z4);
-		
-		//Top Face
-		renderFace(x1, y3 + height, z2 + 1, x2, y3, z3, x3, y3, z3, x4, y3 + height, z2 + 1);
-		
-		//Back Face
-		renderFace(x1, y1, z1, x2, y1 + height, z1 - 1, x3, y1 + height, z1 - 1, x4, y1, z1);
-		
-		//Corners are as follows : 1: 1: 1: 1: 1: 1: 1;
-		//renderFace(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-		//Cobble = 1, Bedrock = 2, Planks = 3, 4 = Sand
-					//3, 1,  2,  4,  3,  1,  2,  4,  3,  1,  2,  4
-		//renderFace(x1, x2, x3, x4, y1, y2, y3, y4, z1, z2, z3, z4);
+		renderFace(x1, y1, z1, x2, y2, z2, x2 + 1, y2 + height, z2, x1 + 1, y1 + height, z1);
+		renderFace(x4 - 1, y4, z4, x3 - 1, y3, z3, x3, y3 + height, z3, x4, y4 + height, z4);
+		renderFace(x1, y1, z1, x1, y1 + height, z1 - 1, x4, y4 + height, z4 - 1, x4, y4, z4);
+		renderFace(x2, y2, z2 + 1, x2, y2 + height, z2, x3, y3 + height, z3, x3, y3, z3 + 1);
 	}
 
 	private void renderItemBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
