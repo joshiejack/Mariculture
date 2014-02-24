@@ -170,7 +170,7 @@ public class BlockSingle extends BlockMachine {
 				fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
 				fludd.tank.setFluidID(Core.highPressureWater.getID());
 				fludd.tank.setFluidAmount(water);
-				//TODO: PACKET Packets.updateTile(fludd, 32, fludd.getDescriptionPacket());
+				world.markBlockForUpdate(x, y, z);
 			}
 			
 			if(tile instanceof TileGeyser) {

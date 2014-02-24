@@ -9,6 +9,7 @@ import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.network.PacketSponge;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
 import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFishSorter;
@@ -225,8 +226,7 @@ public class BlockUtil extends BlockMachine {
 		if (tile != null) {			
 			if(tile instanceof TileSluice) {
 				((TileSluice)tile).direction = ForgeDirection.getOrientation(facing);
-				//TODO: PACKET Sluice Fixing Orientation 
-				//Packets.updateTile(((TileSluice)tile), 32, ((TileSluice)tile).getDescriptionPacket());
+				world.markBlockForUpdate(x, y, z);
 			}
 		}
 	}
@@ -258,9 +258,7 @@ public class BlockUtil extends BlockMachine {
 		
 		if (tile instanceof TileSponge) {
 			if(world.isRemote && player instanceof EntityClientPlayerMP) {
-				//TODO: PACKET Sponge Request data be sent
-				Mariculture.packets.sendToServer(new PacketSponge(x, y, z, world.provider.dimensionId, true));
-				//((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet101Sponge(x, y, z).build());
+				Mariculture.packets.sendToServer(new PacketSponge(x, y, z, true));
 			} else if(player.getCurrentEquippedItem() != null && !world.isRemote) {
 				Item currentItem = player.getCurrentEquippedItem().getItem();
 				if (currentItem instanceof IEnergyContainerItem && !world.isRemote) {

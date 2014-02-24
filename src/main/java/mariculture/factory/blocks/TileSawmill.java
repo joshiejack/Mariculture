@@ -11,7 +11,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.PlansMeta;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.Rand;

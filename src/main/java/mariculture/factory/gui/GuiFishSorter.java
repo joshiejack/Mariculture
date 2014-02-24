@@ -1,7 +1,10 @@
 package mariculture.factory.gui;
 
+import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureRedstone;
+import mariculture.core.network.PacketClick;
+import mariculture.core.network.Packets;
 import mariculture.core.network.old.Packet116GUIClick;
 import mariculture.factory.blocks.TileFishSorter;
 import net.minecraft.client.Minecraft;
@@ -38,9 +41,7 @@ public class GuiFishSorter extends GuiMariculture {
 		super.mouseClicked(par1, par2, par3);
 		
 		if(mouseX >= 8 && mouseX <= 25 && mouseY >= 53 && mouseY <= 70) {
-			//TODO: PACKET Gui Clicking
-			/* Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.DFT_SWITCH).build()); */
+			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.DFT_SWITCH));
 		}
 	}
 }

@@ -9,10 +9,11 @@ import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
@@ -28,6 +29,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.FakePlayer;
@@ -73,7 +77,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				
 			if(onTick(100)) {
 				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), getWaterUsage()), true);
-				//TODO: PACKET FLUDD INIT Packets.updateTile(this, 32, getDescriptionPacket());
+				worldObj.func_147479_m(xCoord, yCoord, zCoord);
 			}
 		}
 	}
@@ -155,14 +159,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 							int meta = worldObj.getBlockMetadata(x2, y2, z2);
 							if(worldObj.isRemote)
 								block.addDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
-							//TODO: FLUDD Break Block
-							/*FakePlayer player = new FakePlayer(worldObj, "fludd");
-							if (block.removeBlockByPlayer(worldObj, player, x2, y2, z2)) {
-	                             block.onBlockDestroyedByPlayer(worldObj, x2, y2, z2, meta);
-	                        }
-							
-	                        block.harvestBlock(worldObj, player, x2, y2, z2, meta);
-	                        block.onBlockHarvested(worldObj, x2, y2, z2, meta, player); */
+							BlockHelper.destroyBlock(worldObj, x2, y2, z2);
 						}
 					}
 				}
@@ -219,19 +216,17 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 		return false;
 	}
 	
-	//TODO PACKET
-	/*
 	@Override
-	public Packet getDescriptionPacket() {		
-		NBTTagCompound nbt = new NBTTagCompound();
-		this.writeToNBT(nbt);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
-	}
-
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
 	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	} */
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {

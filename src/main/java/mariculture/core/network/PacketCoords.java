@@ -5,14 +5,13 @@ import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class PacketCoords extends AbstractPacket {
-	int dim, x, y, z;
+	int x, y, z;
 	
 	public PacketCoords(){}
-	public PacketCoords(int x, int y, int z, int dim) {
+	public PacketCoords(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.dim = dim;
 	}
 	
 	@Override
@@ -20,7 +19,6 @@ public abstract class PacketCoords extends AbstractPacket {
 		buffer.writeInt(x);
 		buffer.writeInt(y);
 		buffer.writeInt(z);
-		buffer.writeInt(dim);
 	}
 
 	@Override
@@ -28,6 +26,5 @@ public abstract class PacketCoords extends AbstractPacket {
 		x = buffer.readInt();
 		y = buffer.readInt();
 		z = buffer.readInt();
-		dim = buffer.readInt();
 	}
 }

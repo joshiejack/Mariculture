@@ -17,7 +17,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.UtilMeta;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -392,9 +392,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		
-		//TODO: PACKET Update Liquifier Creation Packet
-		//Packets.updateTile(this, 32, getDescriptionPacket());
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	public void onBlockPlaced(int x, int y, int z) {
@@ -412,8 +410,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			setAsMaster(mstr, parts);
 		}
 		
-		
-		//TODO: Packets.updateTile(this, 32, getDescriptionPacket());
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	@Override

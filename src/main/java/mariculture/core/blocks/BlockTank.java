@@ -1,5 +1,6 @@
 package mariculture.core.blocks;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
@@ -20,6 +21,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -170,35 +172,26 @@ public class BlockTank extends BlockConnected {
 		}
 	}
 	
-	//TODO: Fix Tanks keeping their inventory on drop
-	/*@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		if (!world.isRemote) {
-			if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
-				if (!player.capabilities.isCreativeMode) {
-					ItemStack drop = new ItemStack(Core.tankBlocks, 1, TankMeta.TANK);
-					
-					TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
-					if(tank != null && tank.getFluid() != null) {
-						if (!drop.hasTagCompound()) {
-							drop.setTagCompound(new NBTTagCompound());
-						}
-						
-						tank.getFluid().writeToNBT(drop.stackTagCompound);
-					}
-
-					EntityItem entity = new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(drop.getItem(), 1, drop.getItemDamage()));
-					if (drop.hasTagCompound()) {
-						entity.getEntityItem().setTagCompound((NBTTagCompound) drop.getTagCompound().copy());
-					}
-
-					world.spawnEntityInWorld(entity);
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		if(world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
+			ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+			ItemStack drop = new ItemStack(Core.tankBlocks, 1, TankMeta.TANK);
+			TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
+			if(tank != null && tank.getFluid() != null) {
+				if (!drop.hasTagCompound()) {
+					drop.setTagCompound(new NBTTagCompound());
 				}
+					
+				tank.getFluid().writeToNBT(drop.stackTagCompound);
 			}
+			
+			ret.add(drop);
+			return ret;
+		} else {
+			return super.getDrops(world, x, y, z, metadata, fortune);
 		}
-
-		return world.setBlockToAir(x, y, z);
-	} */
+    }
 	
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {

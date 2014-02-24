@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.PacketCompressor;
+import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -82,6 +83,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 				energyStorage.extractEnergy(1000, false);
 				if(storedAir < max) {
 					storedAir++;
+					Packets.updateAround(this, new PacketCompressor(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)));
 					//TODO: PACKET Fix sending air compressor render update info
 					//Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
 				}
@@ -127,8 +129,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 			onBlockPlacedBase(xCoord, yCoord, zCoord);
 		else if(this.getBlockMetadata() == DoubleMeta.COMPRESSOR_TOP)
 			onBlockPlacedTop(xCoord, yCoord, zCoord);
-		//TODO: PACKET COMPRESSOR INIT Packets.updateTile(this, 32, getDescriptionPacket());
-        //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	//Base Setting of Master Block

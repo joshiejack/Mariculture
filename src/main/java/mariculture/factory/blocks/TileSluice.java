@@ -11,7 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -136,11 +138,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 			}
 		}
 	}
-	
-	public void swapFluids() {
-		
-	}
-	
+
 	public void generateHPWater() {
 		int x = xCoord + direction.offsetX;
 		int z = zCoord + direction.offsetZ;
@@ -159,19 +157,17 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		}
 	}
 	
-	//TODO: PACKET SLUICE SYNC
-	/*
 	@Override
-	public Packet getDescriptionPacket() {		
-		NBTTagCompound nbt = new NBTTagCompound();
-		this.writeToNBT(nbt);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
-	}
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
 	
 	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	} */
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {

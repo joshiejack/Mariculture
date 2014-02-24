@@ -8,7 +8,7 @@ import mariculture.core.blocks.base.TileTank;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;

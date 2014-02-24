@@ -9,7 +9,7 @@ import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketPipeline;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.Packets;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.compatibility.Compat;
 import cpw.mods.fml.common.Mod;

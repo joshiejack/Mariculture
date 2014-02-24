@@ -117,6 +117,10 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
         this.channels = NetworkRegistry.INSTANCE.newChannel("Mariculture", this);
         
         registerPacket(PacketSponge.class);
+        registerPacket(PacketClick.class);
+        registerPacket(PacketGUI.class);
+        registerPacket(PacketMultiInit.class);
+        registerPacket(PacketCompressor.class);
     }
 
     // Method to call from FMLPostInitializationEvent

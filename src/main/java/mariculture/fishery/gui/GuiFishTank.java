@@ -4,6 +4,7 @@ import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.helpers.ClientHelper;
+import mariculture.core.network.PacketClick;
 import mariculture.core.network.old.Packet116GUIClick;
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.client.Minecraft;
@@ -26,14 +27,14 @@ public class GuiFishTank extends GuiMariculture {
 	@Override
 	protected void onMouseClick(int x, int y)  {
 		if(mouseX >= -18 && mouseX <= 2 && mouseY >= 104 && mouseY <= 124) {
-			//TODO PACKET GUI CLICK Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous).build());
-			//TODO: PACKET GUI CLICK Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().getEntityId()).build());
+			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous));
+			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
 			ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 		}
 		
 		if(mouseX >= 172 && mouseX <= 192 && mouseY >= 104 && mouseY <= 124) {
-			//TODO: Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next).build());
-			//TODO: Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().entityId).build());
+			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next));
+			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
 			ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 		}
     }

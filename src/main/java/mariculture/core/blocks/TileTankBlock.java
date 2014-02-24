@@ -3,8 +3,8 @@ package mariculture.core.blocks;
 import java.util.List;
 
 import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.network.Packets;
 import mariculture.core.network.old.Packet118FluidUpdate;
-import mariculture.core.network.old.Packets;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;

@@ -15,8 +15,8 @@ public class PacketSponge extends PacketCoords {
 	boolean isClient;
 	
 	public PacketSponge(){}
-	public PacketSponge(int x, int y, int z, int dim, boolean isClient) {
-		super(x, y, z, dim);
+	public PacketSponge(int x, int y, int z, boolean isClient) {
+		super(x, y, z);
 		this.isClient = isClient;
 	}
 	

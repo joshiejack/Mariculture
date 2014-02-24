@@ -15,13 +15,15 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.mojang.authlib.GameProfile;
 
 public class BlockHelper {
 
@@ -195,5 +197,20 @@ public class BlockHelper {
 		}
 		
 		dropItems(world, x, y, z);
+	}
+	
+	public static void destroyBlock(World world, int x, int y, int z) {
+		if(!(world instanceof WorldServer))
+			return;
+		FakePlayer player = new FakePlayer((WorldServer) world, new GameProfile(null, "Mariculture"));
+		Block block = world.getBlock(x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
+		if (block.removedByPlayer(world, player, x, y, z)) {
+            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+        }
+		
+        block.harvestBlock(world, player, x, y, z, meta);
+        block.onBlockHarvested(world, x, y, z, meta, player);
+        world.func_147479_m(x, y, z);
 	}
 }

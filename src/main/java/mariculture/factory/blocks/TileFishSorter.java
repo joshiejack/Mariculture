@@ -7,7 +7,7 @@ import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.network.old.Packets;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;

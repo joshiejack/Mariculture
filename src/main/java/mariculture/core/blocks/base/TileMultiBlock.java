@@ -2,10 +2,16 @@ package mariculture.core.blocks.base;
 
 import java.util.ArrayList;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import mariculture.Mariculture;
+import mariculture.core.network.PacketMultiInit;
+import mariculture.core.network.Packets;
 import mariculture.core.network.old.Packet113MultiInit;
-import mariculture.core.network.old.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -122,7 +128,7 @@ public class TileMultiBlock extends TileEntity {
 			setAsMaster(mstr, parts);
 		}
 		
-		//TODO: PACKET SYNC Packets.updateTile(this, 32, getDescriptionPacket());
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	public void onBlockBreak() {
@@ -138,7 +144,7 @@ public class TileMultiBlock extends TileEntity {
 							te.setMaster(null);
 							te.setInit(false);
 							((TileMultiBlock) te).setFacing(ForgeDirection.UNKNOWN);
-							//TODO: PACKET MULTI SYNC Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN).build());
+							Packets.updateAround(mstr, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN));
 						}
 					}
 				}
@@ -148,7 +154,7 @@ public class TileMultiBlock extends TileEntity {
 				mstr.setMaster(null);
 				mstr.setInit(false);
 				((TileMultiBlock) mstr).setFacing(ForgeDirection.UNKNOWN);
-				//TODO PACKET MULTI SYNC Packets.updateTile(mstr, 32, new Packet113MultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
+				Packets.updateAround(mstr, new PacketMultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN));
 			}
 		}
 	}
@@ -177,12 +183,11 @@ public class TileMultiBlock extends TileEntity {
 	public void init() {
 		if(!worldObj.isRemote) {
 			//Init Master
-			//TODO: PACKET MULTI SYNC Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			Packets.updateAround(this, new PacketMultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing));
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te.getClass().equals(getTEClass())) {
-					/*Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
-							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build()); */
+					Packets.updateAround(this, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
 				}
 			}
 			
@@ -202,18 +207,17 @@ public class TileMultiBlock extends TileEntity {
 		return;
 	}
 	
-	/*
 	@Override
-	public Packet getDescriptionPacket() {		
-		NBTTagCompound nbt = new NBTTagCompound();
-		this.writeToNBT(nbt);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, nbt);
-	}
-
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
 	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	} */
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
