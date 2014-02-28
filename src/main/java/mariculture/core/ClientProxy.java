@@ -76,22 +76,16 @@ public class ClientProxy extends CommonProxy {
 	private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
 	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
 	
-	public static KeyBinding key_fludd;
 	public static KeyBinding key_activate;
 	public static KeyBinding key_toggle;
 	
 	@Override
 	public void registerKeyBindings() {
-		key_activate = new KeyBinding("key.activate", Keyboard.KEY_LCONTROL, "key.categories.gameplay");
+		key_activate = new KeyBinding("key.activate", Keyboard.KEY_V, "key.categories.gameplay");
 		key_toggle = new KeyBinding("key.toggle", Keyboard.KEY_Y, "key.categories.gameplay");
 		
 		ClientRegistry.registerKeyBinding(key_activate);
 		ClientRegistry.registerKeyBinding(key_toggle);
-		
-		if(Modules.factory.isActive()) {
-			key_fludd = new KeyBinding("key.fludd", Keyboard.KEY_V, "key.categories.gameplay");
-			ClientRegistry.registerKeyBinding(key_fludd);
-		}
 	}
 
 	@Override

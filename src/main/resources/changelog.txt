@@ -1,3 +1,9 @@
+==Mariculture 1.2.1==
+* Damaging jewelry will now not apply the damage to every item, but split it out across the items(if it's doing more than one damage), otherwise rings will die first, then bracelets, then necklaces.
+* Mirrors are now required to take jewelry off, you don't need them to put them on, the controls to take off were fiddly anyways. (You can still swap existing pieces though).
+* Jewelry is no longer damaged when the player is in creative
+* Sonic the Hedgehog buffed to provide 1 minute per damage
+
 == Mariculture 1.2.0d ==
 * Gas is a little more dangerous
 * Fixed Blocks > Ingots Recipes

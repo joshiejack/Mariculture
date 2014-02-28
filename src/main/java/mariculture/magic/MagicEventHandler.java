@@ -19,6 +19,7 @@ import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -45,6 +46,10 @@ public class MagicEventHandler {
 		if(event.entity instanceof EntityPlayer) {
 			World world = event.entity.worldObj;
 			EntityPlayer player = (EntityPlayer) event.entity;
+			/* if(MaricultureHandlers.mirror.containsEnchantedItems(player)) {
+				System.out.println("yes");
+			} */
+			
 			if(world.isRemote) {
 				if(EnchantHelper.exists(Magic.glide))
 					EnchantmentGlide.activate(player);
@@ -171,7 +176,7 @@ public class MagicEventHandler {
 					if(!magnet.hasTagCompound()) {
 						magnet.setTagCompound(new NBTTagCompound());
 						magnet.stackTagCompound.setString("MobClass", entity.getClass().toString().substring(6));
-						//TODO: Set Mob Name for Mob Magnet magnet.stackTagCompound.setString("MobName", entity.getEntityString());
+						magnet.stackTagCompound.setString("MobName", EntityList.getEntityString(entity));
 					}
 				}
 			}

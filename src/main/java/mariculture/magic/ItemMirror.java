@@ -3,7 +3,6 @@ package mariculture.magic;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
@@ -24,7 +23,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMirror extends ItemStorage {
+public class ItemMirror extends ItemStorage {	
 	public final String name;
 	
 	public ItemMirror(String img) {
@@ -71,19 +70,11 @@ public class ItemMirror extends ItemStorage {
 	
 	@Override
 	public Object getGUIContainer(EntityPlayer player) {
-		return new ContainerMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, player.getCurrentEquippedItem());
+		return new ContainerMirror(player.inventory, new InventoryMirror(player), player.worldObj, player.getCurrentEquippedItem());
 	}
 
 	public Object getGUIElement(EntityPlayer player) {
-		return new GuiMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, gui, player.getCurrentEquippedItem());
-	}
-	
-	public ItemStack[] load(EntityPlayer player, ItemStack stack, int size) {
-		return MirrorHelper.instance().get(player);
-	}
-
-	public void save(EntityPlayer player, ItemStack[] inventory) {
-		MirrorHelper.instance().save(player, inventory);
+		return new GuiMirror(player.inventory, new InventoryMirror(player), player.worldObj, gui, player.getCurrentEquippedItem());
 	}
 	
 	private class SlotJewelry extends Slot {

@@ -8,9 +8,11 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockMachine;
+import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
@@ -20,6 +22,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -220,27 +223,16 @@ public class BlockSift extends BlockMachine {
 		return world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isReplaceable();
 	}
 
-	//TODO: Sift Drop Storage Upgrade
-	/*
 	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		if (!world.isRemote) {
-			if (world.getBlockMetadata(x, y, z) > 1) {
-				if (!player.capabilities.isCreativeMode) {
-					world.spawnEntityInWorld(new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(Core.upgrade,
-							1, UpgradeMeta.BASIC_STORAGE)));
-				}
-			}
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune) {
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		ret.add(new ItemStack(this));
+		if(meta > 1) {
+			ret.add(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE));
 		}
-
-		return world.setBlockToAir(x, y, z);
-	} */
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block,  int j) {
-		BlockHelper.dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, block, j);
-	}
+		
+		return ret;
+    }
 
 	@Override
 	public String getName(ItemStack stack) {

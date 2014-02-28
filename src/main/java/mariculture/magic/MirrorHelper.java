@@ -1,4 +1,4 @@
-package mariculture.core.helpers;
+package mariculture.magic;
 
 import org.apache.logging.log4j.Level;
 

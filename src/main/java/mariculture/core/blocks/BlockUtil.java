@@ -39,7 +39,7 @@ import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockUtil extends BlockMachine {
+public class BlockUtil extends BlockMachineMulti {
 	private IIcon[] incubatorIcons;
 	private IIcon sluiceBack;
 	private IIcon sluiceUp;
@@ -274,16 +274,6 @@ public class BlockUtil extends BlockMachine {
 	}
 
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockPlaced();
-		}
-		
-		super.onBlockAdded(world, x, y, z);
-	}
-
-	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		switch (meta) {
 		case UtilMeta.INCUBATOR_BASE:
@@ -314,14 +304,8 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		BlockHelper.dropItems(world, x, y, z);
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockBreak();
-		}
-		
 		super.breakBlock(world, x, y, z, block, meta);
-
+		
 		if (meta == UtilMeta.SLUICE) {
 			clearWater(world, x + 1, y, z);
 			clearWater(world, x - 1, y, z);

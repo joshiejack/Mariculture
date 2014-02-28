@@ -1,13 +1,17 @@
 package mariculture.magic;
 
+import mariculture.Mariculture;
 import mariculture.api.core.IMirrorHandler;
-import mariculture.core.helpers.MirrorHelper;
-import mariculture.core.network.old.Packet109DamageJewelry;
+import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.network.PacketDamageJewelry;
+import mariculture.core.network.PacketSyncMirror;
 import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -15,11 +19,11 @@ public class MirrorHandler implements IMirrorHandler {
 	@Override
 	public boolean containsEnchantedItems(EntityPlayer player) {
 		// Mirror
-		ItemStack[] mirror = MirrorHelper.instance().get(player);
+		ItemStack[] mirror = MirrorData.getInventory(player);
 		if (mirror != null) {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
-					if (mirror[i].isItemEnchanted()) {
+					if (mirror[i].isItemEnchanted() && !EnchantHelper.isBroken(mirror[i])) {
 						return true;
 					}
 				}
@@ -31,7 +35,7 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public void dropItems(EntityPlayer player, World world, double posX, double posY, double posZ) {
-		ItemStack[] mirror = MirrorHelper.instance().get(player);
+		ItemStack[] mirror = MirrorData.getInventory(player);
 		for (int i = 0; i < mirror.length; ++i) {
 			if (mirror[i] != null) {
 				player.dropPlayerItemWithRandomChoice(mirror[i], true);
@@ -42,14 +46,11 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public int getEnchantmentStrength(EntityPlayer player, int enchant) {
-		ItemStack[] mirror = MirrorHelper.instance().get(player);
-
+		ItemStack[] mirror = MirrorData.getInventory(player);
 		int total = 0;
-
-		// Mirror
 		for (int i = 0; i < 3; i++) {
-			if (mirror[i] != null) {
-				total = total + EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]);
+			if (mirror[i] != null && !EnchantHelper.isBroken(mirror[i])) {
+				total = total + EnchantHelper.getLevel(enchant, mirror[i]);
 			}
 		}
 		
@@ -58,13 +59,11 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public boolean hasEnchantment(EntityPlayer player, int enchant) {
-		// Mirror
-		ItemStack[] mirror = MirrorHelper.instance().get(player);
+		ItemStack[] mirror = MirrorData.getInventory(player);
 		for (int i = 0; i < 3; i++) {
 			if (mirror[i] != null) {
-				if (EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]) > 0) {
+				if(EnchantHelper.hasEnchantment(enchant, mirror[i]))
 					return true;
-				}
 			}
 		}
 
@@ -73,27 +72,30 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public ItemStack[] getMirrorContents(EntityPlayer player) {
-		return MirrorHelper.instance().get(player);
+		return MirrorData.getInventory(player);
 	}
 
 	@Override
 	public void damageItemsWithEnchantment(EntityPlayer player, int enchant, int amount) {
 		if (player.worldObj.isRemote && player instanceof EntityClientPlayerMP) {
-			//TODO: PACKET Damange Jewelry ((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet109DamageJewelry(enchant, amount).build());
-			return;
+			Mariculture.packets.sendToServer(new PacketDamageJewelry(enchant, amount));
+		} else {
+			handleDamage(player, enchant, amount);
 		}
-
-		handleDamage(player, enchant, amount);
 	}
 
 	public static void handleDamage(EntityPlayer player, int enchant, int amount) {
 		// Mirror
-		ItemStack[] mirror = MirrorHelper.instance().get(player);
-		for (int i = 0; i < 3; i++) {
-			if (mirror[i] != null) {
-				if (EnchantmentHelper.getEnchantmentLevel(enchant, mirror[i]) > 0) {
-					if(mirror[i].attemptDamageItem(1, Rand.rand))
-						mirror[i] = null;
+		ItemStack[] mirror = MirrorData.getInventory(player);
+		for(int damaged = 0; damaged <= amount; damaged++) {
+			for (int i = 0; i < 3; i++) {
+				if (mirror[i] != null) {
+					if (EnchantHelper.hasEnchantment(enchant, mirror[i])) {
+						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
+							//Now that the item is 'destroyed', update the client so that it knows it can no longer be used
+							Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+						}
+					}
 				}
 			}
 		}

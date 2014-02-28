@@ -5,10 +5,14 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.network.Packets;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -85,24 +89,22 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	public void markDirty() {
 		super.markDirty();
 		
-		//TODO: PACKET ItemSync
-		/* if(!worldObj.isRemote) {
-			 Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
-		} */
+		if(!worldObj.isRemote) {
+			Packets.syncInventory(this, inventory);
+		}
 	}
 	
-	/*
 	@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
-	}
-
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
 	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	} */
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
 	
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

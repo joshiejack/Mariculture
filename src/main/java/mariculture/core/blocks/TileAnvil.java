@@ -10,6 +10,7 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
+import mariculture.core.network.Packets;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -17,7 +18,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHandler {
@@ -41,11 +44,22 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 	public void markDirty() {
 		super.markDirty();
 		
-		//TODO: PACKET ItemSync for Anvil 
-		/*if(!worldObj.isRemote) {
-			 Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
-		} */
+		if(!worldObj.isRemote) {
+			Packets.syncInventory(this, inventory);
+		}
 	}
+	
+	@Override
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
 	
 	public boolean canBeWorked(ItemStack stack) {
 		if(stack.getItem() instanceof ItemWorked)
@@ -143,13 +157,6 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		worked.stackTagCompound.setInteger("Required", hits);
 		worked.stackTagCompound.setTag("WorkedItem", output.writeToNBT(new NBTTagCompound()));
 		return worked;
-	}
-
-	@Override
-	public Packet getDescriptionPacket() {		
-		//TODO: Packet ItemSync
-		//return new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build();
-		return null;
 	}
 
 	@Override

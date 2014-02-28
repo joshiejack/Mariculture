@@ -1,12 +1,13 @@
 package mariculture.core.network;
 
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import mariculture.Mariculture;
 import mariculture.core.gui.ContainerMariculture;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class Packets {
 	public static void updateTile(TileEntity tile, int size, Packet packet) {
@@ -23,5 +24,9 @@ public class Packets {
 	
 	public static void updateGUI(EntityPlayer player, ContainerMariculture container, int id, int val) {
 		Mariculture.packets.sendTo(new PacketGUI(container.windowId, id, val), (EntityPlayerMP) player);
+	}
+
+	public static void syncInventory(TileEntity tile, ItemStack[] inventory) {
+		updateAround(tile, new PacketInventorySync(tile.xCoord, tile.yCoord, tile.zCoord, inventory));
 	}
 }

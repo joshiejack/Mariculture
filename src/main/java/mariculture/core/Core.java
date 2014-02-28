@@ -49,7 +49,8 @@ import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.guide.GuideHandler;
 import mariculture.core.guide.Guides;
 import mariculture.core.handlers.BiomeTypeHandler;
-import mariculture.core.handlers.FMLEvents;
+import mariculture.core.handlers.ClientFMLEvents;
+import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
@@ -173,9 +174,8 @@ public class Core extends Module {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler(), 1);
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
-		FMLCommonHandler.instance().bus().register(new FMLEvents());
-		//GameRegistry.registerPlayerTracker(new PlayerTrackerHandler());
-		//GameRegistry.registerCraftingHandler(new CraftingHandler());
+		FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
+		FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
 		if(RetroGeneration.ENABLED)
 			MinecraftForge.EVENT_BUS.register(new RetroGen());
 		

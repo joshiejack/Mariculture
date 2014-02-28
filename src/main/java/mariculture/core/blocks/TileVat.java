@@ -8,10 +8,8 @@ import mariculture.api.core.RecipeVat;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiStorage;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.network.PacketMultiInit;
 import mariculture.core.network.Packets;
-import mariculture.core.network.old.Packet113MultiInit;
-import mariculture.core.network.old.Packet118FluidUpdate;
-import mariculture.core.network.old.Packet120ItemSync;
 import mariculture.core.util.ITank;
 import mariculture.core.util.Rand;
 import mariculture.factory.blocks.Tank;
@@ -75,12 +73,11 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		machineTick++;
 		if(!isInit() && !worldObj.isRemote) {
 			//Init Master
-			//TODO: PACKET MASTER INIT Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			Packets.updateAround(this, new PacketMultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing));
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te instanceof TileVat) {
-					//TODO: PACKET MASTER INIT Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
-							//master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
+					Packets.updateAround(this, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
 				}
 			}
 
@@ -332,10 +329,9 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	@Override
 	public void markDirty() {
 		super.markDirty();
-				
+		
 		if(!worldObj.isRemote) {
-			TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
-			//TODO: PACKET Item Sync Packets.updateTile(vat, 64, new Packet120ItemSync(vat.xCoord, vat.yCoord, vat.zCoord, vat.inventory).build());
+			Packets.syncInventory(this, inventory);
 		}
 	}
 	
@@ -534,8 +530,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		//TODO: PACKET SYNC Packets.updateTile(this, 32, getDescriptionPacket());
-        //TODO: SYNC worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	public void onBlockPlaced(int x, int y, int z) {
@@ -575,7 +570,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			setAsMaster(mstr, parts, ForgeDirection.SOUTH);
 		}
 		
-		//TODO: PACKET SYNC Packets.updateTile(this, 32, getDescriptionPacket());
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	@Override

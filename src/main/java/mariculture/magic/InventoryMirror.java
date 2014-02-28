@@ -1,23 +1,22 @@
-package mariculture.core.gui;
+package mariculture.magic;
 
-import mariculture.core.items.ItemStorage;
+import mariculture.core.gui.ContainerStorage;
+import mariculture.core.gui.InventoryStorage;
 import mariculture.core.util.Rand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
-public class InventoryStorage implements IInventory {
-	private ItemStack[] inventory;
-	public EntityPlayer player;
+public class InventoryMirror extends InventoryStorage {
+	public World world;
+	public ItemStack[] inventory;
 	public long seed;
-
-	public InventoryStorage() {}
-	public InventoryStorage(EntityPlayer player, int size) {
+	public InventoryMirror(EntityPlayer player) {
 		this.player = player;
-		if(this.inventory == null)
-			this.inventory = load(player, size);
+		this.world = player.worldObj;
+		this.inventory = MirrorData.getInventory(player);
 	}
 	
 	public ItemStack getHeldItem() {
@@ -82,7 +81,7 @@ public class InventoryStorage implements IInventory {
 	@Override
 	public void markDirty() {		
 		seed = Rand.rand.nextLong();
-		save(player, inventory);
+		MirrorData.save(player, inventory);
 	}
 
 	@Override
@@ -121,26 +120,5 @@ public class InventoryStorage implements IInventory {
 
 	public void sendGUINetworkData(ContainerStorage container, ICrafting iCrafting) {
 		return;
-	}
-	
-	public ItemStack[] load(EntityPlayer player, int size)  {
-		if(!player.worldObj.isRemote) {
-			ItemStack stack = player.getCurrentEquippedItem();
-			if(stack != null && stack.getItem() instanceof ItemStorage) {
-				ItemStorage storage = (ItemStorage) stack.getItem();
-				return storage.load(player, stack, size);
-			}
-		}
-		
-		return new ItemStack[size];
-	}
-	
-	public void save(EntityPlayer player, ItemStack[] mirrorContents) {
-		if (!player.worldObj.isRemote) {
-			if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-				ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-				storage.save(player, mirrorContents);
-			}
-		}
 	}
 }

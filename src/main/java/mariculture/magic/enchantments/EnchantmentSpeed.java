@@ -1,10 +1,8 @@
 package mariculture.magic.enchantments;
 
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.KeyHelper;
 import mariculture.magic.Magic;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -33,34 +31,20 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 	private static int damageTicker = 0;
 
 	public static void activate(EntityPlayer player) {
-		if (runSpeed > 0 && player.onGround && !player.isInWater()) {
-			if (runSpeed > 0 && KeyHelper.ACTIVATE_PRESSED
-					&& GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward)) {
-				player.moveFlying(0F, 1.0F, runSpeed);
-			}
-
-			if ((player.motionX != 0 || player.motionZ != 0) && !player.isSneaking() && KeyHelper.ACTIVATE_PRESSED) {
-
-				damageTicker++;
-
-				if (player.isSprinting()) {
-					damageTicker++;
-				}
-
-				if (damageTicker >= 600) {
-					damageTicker = 0;
-					EnchantHelper.damageItems(Magic.speed, player, 1);
-				}
+		if(runSpeed > 0 && player.onGround && !player.isInWater() && player.isSprinting() && ClientHelper.isForwardPressed()) {
+			player.moveFlying(0F, 1.0F, runSpeed);
+			
+			damageTicker++;
+			if(damageTicker % 1200 == 0) {
+				EnchantHelper.damageItems(Magic.speed, player, 1);
 			}
 		}
 	}
 
-	public static void set(int speed) {		
-		if(speed > 0) {
+	public static void set(int speed) {	
+		if(speed > 0)
 			runSpeed = 0.035F * speed;
-			return;
-		}
-
-		runSpeed = 0;
+		else
+			runSpeed = 0;
 	}
 }

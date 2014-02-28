@@ -172,6 +172,8 @@ public class BlockTank extends BlockConnected {
 		}
 	}
 	
+	
+	//Change back to remove block block by player instead of getDrops for everything
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		if(world.getBlockMetadata(x, y, z) == TankMeta.TANK) {

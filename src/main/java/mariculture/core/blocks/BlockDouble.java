@@ -30,7 +30,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDouble extends BlockMachine {
+public class BlockDouble extends BlockMachineMulti {
 	public IIcon bar1;
 
 	public BlockDouble() {
@@ -106,15 +106,7 @@ public class BlockDouble extends BlockMachine {
 				.getBlock(x, y, z + 1) == this)));
 	}
 
-	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockPlaced();
-		}
-		
-		super.onBlockAdded(world, x, y, z);
-	}
+
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int j, float f, float g, float t) {
@@ -267,17 +259,6 @@ public class BlockDouble extends BlockMachine {
 		}
 
 		return null;
-	}
-	
-	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		BlockHelper.dropItems(world, x, y, z);
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockBreak();
-		}
-		
-		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	@Override

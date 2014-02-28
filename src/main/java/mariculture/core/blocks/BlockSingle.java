@@ -3,7 +3,6 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
@@ -16,6 +15,7 @@ import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileFLUDDStand;
@@ -26,7 +26,6 @@ import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.fishery.blocks.TileFeeder;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -52,7 +51,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockSingle extends BlockMachine {
 	public BlockSingle() {
 		super(Material.piston);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
 	}
 	
 	@Override
@@ -75,11 +73,6 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	@Override
-	public void onBlockAdded(World par1World, int par2, int par3, int par4) {
-		super.onBlockAdded(par1World, par2, par3, par4);
-	}
-
-	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
 		case SingleMeta.AIR_PUMP:
@@ -89,7 +82,7 @@ public class BlockSingle extends BlockMachine {
 		case SingleMeta.TURBINE_WATER:
 			return 2.5F;
 		case SingleMeta.FLUDD_STAND:
-			return 3F;
+			return 0.25F;
 		case SingleMeta.TURBINE_GAS:
 			return 5F;
 		case SingleMeta.GEYSER:
@@ -104,9 +97,9 @@ public class BlockSingle extends BlockMachine {
 			return 6F;
 		case SingleMeta.INGOT_CASTER:
 			return 1F;
+		default:
+			return 1F;
 		}
-
-		return 1F;
 	}
 
 	@Override
@@ -288,7 +281,7 @@ public class BlockSingle extends BlockMachine {
 				return false;
 			TileAnvil anvil = (TileAnvil) tile;
 			if(anvil.getStackInSlot(0) != null) {
-				//TODO: PACKET ANvil Item Sycn new Packet120ItemSync(x, y, z, anvil.getInventory()).build();
+				Packets.syncInventory(anvil, anvil.getInventory());
 				if (!player.inventory.addItemStackToInventory(anvil.getStackInSlot(0))) {
 					if(!world.isRemote) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
@@ -436,54 +429,25 @@ public class BlockSingle extends BlockMachine {
 	public int getRenderType() {
 		return RenderIds.BLOCK_SINGLE;
 	}
-
+	
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		BlockHelper.dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, block, meta);
-	}
-
-	//TODO: Fludd Keep it's water contents
-	/*
-	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		if (!world.isRemote) {
-			if (world.getBlockMetadata(x, y, z) == SingleMeta.FLUDD_STAND) {
-				if (!player.capabilities.isCreativeMode) {
-					if (world.getTileEntity(x, y, z) instanceof TileFLUDDStand) {
-						dropFLUDD(world, x, y, z);
-					}
-				}
-			}
-		}
-
-		return world.setBlockToAir(x, y, z);
-	} */
-
-	private void dropFLUDD(World world, int x, int y, int z) {
-		TileFLUDDStand tile = (TileFLUDDStand) world.getTileEntity(x, y, z);
-		ItemStack drop = new ItemStack(Factory.fludd);
-
-		if (!drop.hasTagCompound()) {
-			drop.setTagCompound(new NBTTagCompound());
-		}
-
-		if (tile != null) {
-			drop.stackTagCompound.setInteger("water", tile.tank.getFluidAmount());
-		}
-
-		EntityItem entityitem = new EntityItem(world, (x), (float) y + 1, (z), new ItemStack(drop.getItem(), 1,drop.getItemDamage()));
-
-		if (drop.hasTagCompound()) {
-			entityitem.getEntityItem().setTagCompound((NBTTagCompound) drop.getTagCompound().copy());
-		}
-
-		world.spawnEntityInWorld(entityitem);
+	public boolean doesDrop(int meta) {
+		return meta != SingleMeta.FLUDD_STAND;
 	}
 	
-	public Item getItemDropped(int i, Random random, int j) {
-		return i == SingleMeta.FLUDD_STAND? null: super.getItemDropped(i, random, j);
-    }
+	@Override
+	public boolean onBlockDropped(World world, int x, int y, int z) { 
+		int meta = world.getBlockMetadata(x, y, z);
+		if(meta == SingleMeta.FLUDD_STAND) {
+			TileFLUDDStand tile = (TileFLUDDStand) world.getTileEntity(x, y, z);
+			ItemStack fludd = new ItemStack(Factory.fludd);
+			fludd.setTagCompound(new NBTTagCompound());
+			fludd.stackTagCompound.setInteger("water", tile.tank.getFluidAmount());
+			SpawnItemHelper.spawnItem(world, x, y, z, fludd);
+		}
+		
+		return super.onBlockDropped(world, x, y, z);
+	}
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
