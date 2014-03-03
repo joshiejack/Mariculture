@@ -1,4 +1,6 @@
-package mariculture.core.lib;
+package mariculture.core.util;
+
+import net.minecraft.util.StatCollector;
 
 public class Text {
 	private final static String prfx = "\u00a7";
@@ -18,6 +20,12 @@ public class Text {
 	public static final String PINK = prfx + "d";
 	public static final String YELLOW = prfx + "e";
 	public static final String WHITE = prfx + "f";
+	public static final String BOLD = prfx + "l";
+	public static final String UNDERLINE = prfx + "n";
+	public static final String ITALIC = prfx + "o";
+	public static final String END = prfx + "r";
+	public static final String OBFUSCATED = prfx + "k";
+	public static final String STRIKETHROUGH = prfx + "m";
 	
 	public static String getColor(String color) {
 		if(color.equals("grey"))
@@ -27,5 +35,9 @@ public class Text {
 		if(color.equals("green"))
 			return DARK_GREEN;
 		return DARK_GREY;
+	}
+
+	public static String localize(String key) {
+		return StatCollector.translateToLocal(key);
 	}
 }

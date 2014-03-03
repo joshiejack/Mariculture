@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -98,12 +99,10 @@ public class BlockCustomBase extends BlockMachine {
 		return 0;
 	}
 	
-	//TODO: Dropping correct Custom Blocks
-	/*
 	@Override
-	public void removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	} */
+    }
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
@@ -137,5 +136,10 @@ public class BlockCustomBase extends BlockMachine {
 	@Override
 	public boolean isActive(int meta) {
 		return true;
+	}
+	
+	@Override
+	public Class<? extends ItemBlock> getItemClass() {
+		return BlockItemCustom.class;
 	}
 }

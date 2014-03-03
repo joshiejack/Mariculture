@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemStorage;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import mariculture.factory.gui.SlotDictionary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;

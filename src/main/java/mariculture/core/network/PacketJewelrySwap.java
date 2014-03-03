@@ -3,7 +3,6 @@ package mariculture.core.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mariculture.magic.MirrorData;
-import mariculture.magic.MirrorHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

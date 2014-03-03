@@ -8,13 +8,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import mariculture.Mariculture;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
-import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.guide.GuideRegistry;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.render.AnvilSpecialRenderer;
-import mariculture.core.render.ModelOyster;
 import mariculture.core.render.RenderDouble;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderHandler;
@@ -67,7 +65,6 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 public class ClientProxy extends CommonProxy {
 	public static final float scale = (float) (1.0 / 20.0);
 	private static final ResourceLocation AIR_PUMP = new ResourceLocation(Mariculture.modid, "textures/blocks/air_pump_texture.png");
-	private static final ResourceLocation OYSTER = new ResourceLocation(Mariculture.modid, "textures/blocks/oyster_texture.png");
 	private static final ResourceLocation SIFT = new ResourceLocation(Mariculture.modid, "textures/blocks/sift_texture.png");
 	private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");
 	private static final ResourceLocation TURBINE = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_texture.png");
@@ -96,8 +93,6 @@ public class ClientProxy extends CommonProxy {
 		RenderIds.RENDER_ALL = RenderingRegistry.getNextAvailableRenderId();
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.singleBlocks), new RenderSingleItem());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.oysterBlock), new RenderSingleItem());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileOldOyster.class, new RenderSingle(new ModelOyster(scale), OYSTER));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));

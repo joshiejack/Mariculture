@@ -10,37 +10,23 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.BlockAir;
-import mariculture.core.blocks.BlockAirItem;
 import mariculture.core.blocks.BlockDouble;
-import mariculture.core.blocks.BlockDoubleItem;
 import mariculture.core.blocks.BlockFluidMari;
 import mariculture.core.blocks.BlockGlass;
-import mariculture.core.blocks.BlockGlassItem;
 import mariculture.core.blocks.BlockGround;
-import mariculture.core.blocks.BlockGroundItem;
 import mariculture.core.blocks.BlockOre;
-import mariculture.core.blocks.BlockOreItem;
-import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.BlockPearlBlock;
-import mariculture.core.blocks.BlockPearlBlockItem;
 import mariculture.core.blocks.BlockSingle;
-import mariculture.core.blocks.BlockSingleItem;
 import mariculture.core.blocks.BlockTank;
-import mariculture.core.blocks.BlockTankItem;
 import mariculture.core.blocks.BlockTransparent;
-import mariculture.core.blocks.BlockTransparentItem;
 import mariculture.core.blocks.BlockUtil;
-import mariculture.core.blocks.BlockUtilItem;
 import mariculture.core.blocks.BlockWater;
-import mariculture.core.blocks.BlockWaterItem;
 import mariculture.core.blocks.BlockWood;
-import mariculture.core.blocks.BlockWoodItem;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileLiquifier;
-import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
@@ -50,12 +36,12 @@ import mariculture.core.guide.GuideHandler;
 import mariculture.core.guide.Guides;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.ClientFMLEvents;
-import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
+import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -113,7 +99,6 @@ public class Core extends Module {
 	public static Block oreBlocks;
 	public static Block utilBlocks;
 	public static Block singleBlocks;
-	public static Block oysterBlock;
 	public static Block pearlBlock;
 	public static Block doubleBlock;
 	public static Block glassBlocks;
@@ -194,7 +179,6 @@ public class Core extends Module {
 		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
 		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
 		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		oysterBlock = new BlockOyster().setStepSound(Block.soundTypeSand).setHardness(10F).setResistance(50F).setBlockName("oysterBlock").setLightLevel(0.4F);
 		pearlBlock = new BlockPearlBlock().setBlockName("pearlBrick");
 		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
 		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
@@ -204,22 +188,21 @@ public class Core extends Module {
 		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
 		waterBlocks = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("waterBlocks");
 		
-		GameRegistry.registerBlock(oreBlocks, BlockOreItem.class, "BlockOre");
+		/* GameRegistry.registerBlock(oreBlocks, BlockOreItem.class, "BlockOre");
 		GameRegistry.registerBlock(utilBlocks, BlockUtilItem.class, "BlockUtil");
 		GameRegistry.registerBlock(singleBlocks, BlockSingleItem.class, "BlockSingle");
 		GameRegistry.registerBlock(doubleBlock, BlockDoubleItem.class, "BlockDouble");
 		GameRegistry.registerBlock(pearlBlock, BlockPearlBlockItem.class, "BlockPearlBlock");
 		GameRegistry.registerBlock(glassBlocks, BlockGlassItem.class, "BlockGlass");
-		GameRegistry.registerBlock(airBlocks, BlockAirItem.class, "BlockTransparent");
+		GameRegistry.registerBlock(airBlocks, BlockAirItem.class, "BlockAir");
 		GameRegistry.registerBlock(woodBlocks, BlockWoodItem.class, "BlockWood");
 		GameRegistry.registerBlock(tankBlocks, BlockTankItem.class, "BlockTank");
 		GameRegistry.registerBlock(groundBlocks, BlockGroundItem.class, "BlockGround");
 		GameRegistry.registerBlock(transparentBlocks, BlockTransparentItem.class, "BlockTransparent");
-		GameRegistry.registerBlock(waterBlocks, BlockWaterItem.class, "BlockWaterTwo");
-		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
+		GameRegistry.registerBlock(waterBlocks, BlockWaterItem.class, "BlockWater");
+		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock"); */
 		
 		GameRegistry.registerTileEntity(TileAirPump.class, "TileAirPump");
-		GameRegistry.registerTileEntity(TileOldOyster.class, "TileOldOyster");
 		GameRegistry.registerTileEntity(TileLiquifier.class, "TileLiquifier");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "TileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "TileTankBlock");
@@ -229,7 +212,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileVoidBottle.class, "TileVoidBottle");
 		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
 
-		RegistryHelper.register(new Object[] { oreBlocks, pearlBlock, oysterBlock, utilBlocks, doubleBlock,
+		RegistryHelper.register(new Object[] { oreBlocks, pearlBlock, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks, waterBlocks });
 	}
 	

@@ -54,7 +54,7 @@ public class Recipes {
 		
 		//Oyster and Beef Pie
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.OYSTER), new Object[] {
-			"foodSalt", "foodSalt", Items.beef, new ItemStack(Core.oysterBlock, 1, 0), Items.wheat, Items.egg, "dustSalt", Items.porkchop, Items.wheat
+			"foodSalt", "foodSalt", Items.beef, new ItemStack(Core.waterBlocks, 1, 0), Items.wheat, Items.egg, "dustSalt", Items.porkchop, Items.wheat
 		});
 		
 		//Processing Book

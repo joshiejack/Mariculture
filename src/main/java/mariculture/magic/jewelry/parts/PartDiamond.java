@@ -1,11 +1,15 @@
 package mariculture.magic.jewelry.parts;
 
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class PartDiamond extends JewelryPart {
+	public PartDiamond(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isValid(int type) {
 		return (type == Jewelry.RING)? true: false;

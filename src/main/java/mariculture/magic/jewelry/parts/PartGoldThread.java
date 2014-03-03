@@ -3,10 +3,14 @@ package mariculture.magic.jewelry.parts;
 import mariculture.core.Core;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.item.ItemStack;
 
 public class PartGoldThread extends JewelryPart {
+	public PartGoldThread(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isValid(int type) {
 		return type == Jewelry.NECKLACE;

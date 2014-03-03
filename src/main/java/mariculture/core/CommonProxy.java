@@ -2,13 +2,10 @@ package mariculture.core;
 
 import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.blocks.TileLiquifier;
-import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.gui.ContainerBookshelf;
 import mariculture.core.gui.ContainerLiquifier;
-import mariculture.core.gui.ContainerOyster;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
-import mariculture.core.gui.GuiOyster;
 import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
@@ -59,11 +56,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 		
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null) {
-			if(tile instanceof TileOldOyster) {
-				return new ContainerOyster((TileOldOyster) tile, player.inventory);
-			}
-			
+		if(tile != null) {			
 			if(tile instanceof TileAutofisher) {
 				return new ContainerAutofisher((TileAutofisher) tile, player.inventory);
 			}
@@ -132,11 +125,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 		
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null) {
-			if(tile instanceof TileOldOyster) {
-				return new GuiOyster(player.inventory, (TileOldOyster) tile);
-			}
-			
+		if(tile != null) {			
 			if(tile instanceof TileAutofisher) {
 				return new GuiAutofisher(player.inventory, (TileAutofisher) tile);
 			}

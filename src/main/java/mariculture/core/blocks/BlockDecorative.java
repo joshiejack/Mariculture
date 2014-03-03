@@ -6,18 +6,20 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.RegistryHelper;
+import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDecorative extends Block implements IItemRegistry {
+public abstract class BlockDecorative extends Block implements IItemRegistry, IHasMeta {
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
 	
@@ -81,5 +83,10 @@ public class BlockDecorative extends Block implements IItemRegistry {
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
 		}
+	}
+
+	@Override
+	public Class<? extends ItemBlock> getItemClass() {
+		return null;
 	}
 }

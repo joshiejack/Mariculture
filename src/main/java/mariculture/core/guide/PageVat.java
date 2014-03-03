@@ -1,6 +1,6 @@
 package mariculture.core.guide;
 
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;

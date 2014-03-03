@@ -5,13 +5,14 @@ import java.util.Random;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
-import mariculture.core.blocks.TileOldOyster;
+import mariculture.core.blocks.TileOyster;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.WorldGeneration;
+import mariculture.core.util.Rand;
 import mariculture.core.world.WorldGenGas;
 import mariculture.core.world.WorldGenLimestone;
 import mariculture.core.world.WorldGenOre;
@@ -22,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGenHandler implements IWorldGenerator {
@@ -173,10 +175,11 @@ public class WorldGenHandler implements IWorldGenerator {
 						int randZ = blockZ - 8 + random.nextInt(4);
 						int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
 	
-						if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
-							world.setBlock(randX, blockY, randZ, Core.oysterBlock, randMeta, 2);
-							TileOldOyster oyster = (TileOldOyster) world.getTileEntity(randX, blockY, randZ);
+						if (Core.waterBlocks.canBlockStay(world, randX, blockY, randZ)) {
+							world.setBlock(randX, blockY, randZ, Core.waterBlocks);
+							TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
 							if (oyster != null) {
+								oyster.orientation = ForgeDirection.values()[2 + random.nextInt(4)];
 								if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {
 									oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
 								}

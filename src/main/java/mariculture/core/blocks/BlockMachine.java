@@ -11,6 +11,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.UtilMeta;
+import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -19,6 +20,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -26,7 +28,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BlockMachine extends BlockContainer implements IItemRegistry {
+public abstract class BlockMachine extends BlockContainer implements IItemRegistry, IHasMeta {
 	protected IIcon[] icons;
 	
 	public BlockMachine(Material material) {
@@ -120,5 +122,10 @@ public abstract class BlockMachine extends BlockContainer implements IItemRegist
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
 		}
+	}
+	
+	@Override
+	public Class<? extends ItemBlock> getItemClass() {
+		return null;
 	}
 }

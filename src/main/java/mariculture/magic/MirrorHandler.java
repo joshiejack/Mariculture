@@ -6,6 +6,7 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketDamageJewelry;
 import mariculture.core.network.PacketSyncMirror;
 import mariculture.core.util.Rand;
+import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.Enchantment;
@@ -91,8 +92,9 @@ public class MirrorHandler implements IMirrorHandler {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
 					if (EnchantHelper.hasEnchantment(enchant, mirror[i])) {
+						if(EnchantmentElemental.hasElement(enchant, amount, mirror[i]))
+							continue;
 						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
-							//Now that the item is 'destroyed', update the client so that it knows it can no longer be used
 							Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 						}
 					}
@@ -100,7 +102,7 @@ public class MirrorHandler implements IMirrorHandler {
 			}
 		}
 
-		MirrorHelper.instance().save(player, mirror);
+		MirrorData.save(player, mirror);
 	}
 
 	@Override

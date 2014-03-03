@@ -6,11 +6,14 @@ import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.AirMeta;
+import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileCustom;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
@@ -23,100 +26,65 @@ public class ItemPaintbrush extends ItemDamageable {
 	
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		String name = StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name");
+		if(stack.hasTagCompound()) {
+			Item item = Item.getItemFromBlock(((Block)Block.blockRegistry.getObject(stack.stackTagCompound.getString("Block"))));
+			return super.getItemStackDisplayName(stack) + " - " + item.getItemStackDisplayName(new ItemStack(item, 1, stack.stackTagCompound.getInteger("Meta")));
+		}
 		
-		//TODO: Redo Paintbrush fetching of name
-		/* if(stack.hasTagCompound()) {
-			if(Items.itemsList[stack.stackTagCompound.getInteger("BlockID")] != null) {
-				ItemStack block = new ItemStack(stack.stackTagCompound.getInteger("BlockID"), 1, stack.stackTagCompound.getInteger("BlockMeta"));
-				name = name + " - " + BlockHelper.getName(block);
-				return name;
-			}
-		} */
-		
-		
-		return name;
+		return super.getItemStackDisplayName(stack);
 	}
+	
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if(player.isSneaking()) {
+			if(!stack.hasTagCompound()) {
+				stack.setTagCompound(new NBTTagCompound());
+			} else if(world.isRemote) {
+				stack.stackTagCompound.setBoolean("Refresh", !stack.stackTagCompound.getBoolean("Refresh"));
+			}
+			
+			stack.stackTagCompound.setString("Block", Block.blockRegistry.getNameForObject(Core.airBlocks));
+			stack.stackTagCompound.setInteger("Meta", AirMeta.FAKE_AIR);
+			stack.stackTagCompound.setInteger("Side", 0);
+		}
+		
+        return stack;
+    }
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
-		//TODO: Redo Paintbrush once decided on new custom block system
+		if(!stack.hasTagCompound()) {
+			stack.setTagCompound(new NBTTagCompound());
+		} else if(world.isRemote) {
+			stack.stackTagCompound.setBoolean("Refresh", !stack.stackTagCompound.getBoolean("Refresh"));
+		}
 		
-		/*
-		boolean custom = false;
-		if (stack.hasTagCompound()) {
-			int id = stack.stackTagCompound.getInteger("BlockID");
-			int meta = stack.stackTagCompound.getInteger("BlockMeta");
-			int sideTexture = stack.stackTagCompound.getInteger("BlockSide");
-
-			if (id > 0) {
-				if (world.getTileEntity(x, y, z) != null) {
-					if (world.getTileEntity(x, y, z) instanceof TileCustom) {
-						int blockID = world.getBlockId(x, y, z);
-						if (!player.isSneaking() && blockID != Factory.customGate.blockID || (player.isSneaking() && blockID == Factory.customGate.blockID)) {
-							TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
-							if(tile.setSide(side, id, meta, sideTexture)) {
-								stack.attemptDamageItem(1, new Random());
-							}
-
-							if (world.isRemote) {
-								Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(x, y, z);
-							}
-						}
-
-						custom = true;
-
-						if (blockID == Factory.customGate.blockID) {
-							custom = false;
-						}
-					}
-				}
-			}
-		}
-
-		if (player.isSneaking()) {
-			if (!stack.hasTagCompound()) {
-				stack.setTagCompound(new NBTTagCompound());
-			}
-
-			if (world.getBlockId(x, y, z) != Factory.customGate.blockID) {
-				int newID;
-				int newMeta;
-				int prevID = stack.stackTagCompound.getInteger("BlockID");
-				int prevMeta = stack.stackTagCompound.getInteger("BlockMeta");
-				int prevSide = stack.stackTagCompound.getInteger("BlockSide");
-				if (custom) {
-					stack.stackTagCompound.setInteger("BlockID", Core.airBlocks.blockID);
-					stack.stackTagCompound.setInteger("BlockMeta", AirMeta.FAKE_AIR);
-					stack.stackTagCompound.setInteger("BlockSide", 0);
-					newID = Core.airBlocks.blockID;
-					newMeta = AirMeta.FAKE_AIR;
-				} else {
-					newID = world.getBlockId(x, y, z);
-					newMeta = world.getBlockMetadata(x, y, z);
-					stack.stackTagCompound.setInteger("BlockID", newID);
-					stack.stackTagCompound.setInteger("BlockMeta", newMeta);
-					stack.stackTagCompound.setInteger("BlockSide", side);
-				}
-			
-				if(newID != prevID || newMeta != prevMeta) {
-					stack.attemptDamageItem(1, new Random());
-				}
-			}
-		}
-
-		if (world.isRemote && player.isSneaking()) {
-			if (!stack.hasTagCompound()) {
-				stack.setTagCompound(new NBTTagCompound());
-			}
-
-			if (stack.stackTagCompound.getBoolean("update") == false) {
-				stack.stackTagCompound.setBoolean("update", true);
+		if(player.isSneaking() && world.getBlock(x, y, z) != Factory.customGate) {
+			if(world.getTileEntity(x, y, z) instanceof TileCustom) {
+				TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
+				stack.stackTagCompound.setString("Block", Block.blockRegistry.getNameForObject(tile.theBlocks(side)));
+				stack.stackTagCompound.setInteger("Meta", tile.theBlockMetas(side));
+				stack.stackTagCompound.setInteger("Side", tile.theBlockSides(side));
 			} else {
-				stack.stackTagCompound.setBoolean("update", false);
+				String block = Block.blockRegistry.getNameForObject(world.getBlock(x, y, z));
+				int meta = world.getBlockMetadata(x, y, z);
+				stack.stackTagCompound.setString("Block", block);
+				stack.stackTagCompound.setInteger("Meta", meta);
+				stack.stackTagCompound.setInteger("Side", side);
+			}
+		} else {
+			if (world.getTileEntity(x, y, z) instanceof TileCustom) {
+				Block block = Block.getBlockFromName(stack.stackTagCompound.getString("Block"));
+				int meta = stack.stackTagCompound.getInteger("Meta");
+				int texSide = stack.stackTagCompound.getInteger("Side");
+				TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
+				if(tile.setSide(side, block, meta, texSide)) {
+					if(stack.attemptDamageItem(1, Rand.rand))
+						stack.stackSize--;
+				}
 			}
 		}
-	*/
-		return true; 
+		
+		return true;
 	}
 }

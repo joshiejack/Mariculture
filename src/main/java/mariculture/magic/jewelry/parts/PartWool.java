@@ -6,6 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class PartWool extends JewelryPart {
+	public PartWool(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isValid(int type) {
 		return type == Jewelry.NECKLACE;

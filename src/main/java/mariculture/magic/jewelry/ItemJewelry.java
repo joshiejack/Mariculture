@@ -6,8 +6,8 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
+import mariculture.core.util.Text;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -143,31 +143,6 @@ public class ItemJewelry extends Item implements IItemRegistry {
 			list.add(StatCollector.translateToLocal("enchantment.oneRing.line4"));
 			list.add(" ");
 		}
-
-		if (EnchantHelper.getLevel(Magic.clock, stack) > 0) {
-			if (stack.stackTagCompound.getInteger("Extra") == Jewelry.DAY) {
-				list.add(Text.DARK_GREEN + "(" + StatCollector.translateToLocal("mariculture.string.keepDay") + ")");
-			}
-
-			if (stack.stackTagCompound.getInteger("Extra") == Jewelry.NIGHT) {
-				list.add(Text.RED + "(" + StatCollector.translateToLocal("mariculture.string.keepNight") + ")");
-			}
-		}
-	}
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (stack.hasTagCompound() && !world.isRemote) {
-			if (EnchantHelper.getLevel(Magic.clock, stack) > 0) {
-				if (stack.stackTagCompound.getInteger("Extra") == Jewelry.NIGHT) {
-					stack.stackTagCompound.setInteger("Extra", Jewelry.DAY);
-				} else {
-					stack.stackTagCompound.setInteger("Extra", Jewelry.NIGHT);
-				}
-			}
-		}
-
-		return stack;
 	}
 
 	@Override

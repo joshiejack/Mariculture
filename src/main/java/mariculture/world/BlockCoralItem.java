@@ -16,11 +16,11 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCoral extends ItemBlockMariculture {
+public class BlockCoralItem extends ItemBlockMariculture {
 	private IIcon[] icons;
 	private Block spawnBlock;
 
-	public ItemCoral(Block block) {
+	public BlockCoralItem(Block block) {
 		super(block);
 		this.spawnBlock = block;
 	}

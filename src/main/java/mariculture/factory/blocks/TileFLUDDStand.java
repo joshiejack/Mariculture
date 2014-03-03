@@ -4,7 +4,6 @@ import java.util.List;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -13,7 +12,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.network.Packets;
+import mariculture.core.lib.WaterMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
@@ -34,7 +33,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -182,7 +180,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.oysterBlock && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlock(x, y, z) == Core.waterBlocks && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
 	}
 	
 	private boolean hasEthereal() {

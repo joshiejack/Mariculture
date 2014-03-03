@@ -1,6 +1,6 @@
 package mariculture.core.guide;
 
-import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.util.Text;
 
 import org.lwjgl.opengl.GL11;
 
@@ -45,7 +45,7 @@ public class PageParagraph extends PageParser {
 		if(!heading.equals("")) {
 			GL11.glPushMatrix();
 			GL11.glScalef(hSize, hSize, hSize);
-			font.drawString(StringHelper.BOLD + heading, hX, y - 16 + hY, 4210752);
+			font.drawString(Text.BOLD + heading, hX, y - 16 + hY, 4210752);
 			GL11.glPopMatrix();
 		}
 

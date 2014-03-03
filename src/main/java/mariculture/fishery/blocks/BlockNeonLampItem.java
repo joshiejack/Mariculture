@@ -5,8 +5,8 @@ import mariculture.core.lib.PearlColor;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockItemNeonLamp extends ItemBlockMariculture {
-	public BlockItemNeonLamp(Block block) {
+public class BlockNeonLampItem extends ItemBlockMariculture {
+	public BlockNeonLampItem(Block block) {
 		super(block);
 	}
 

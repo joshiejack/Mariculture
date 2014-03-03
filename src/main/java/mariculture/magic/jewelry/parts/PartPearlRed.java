@@ -3,10 +3,16 @@ package mariculture.magic.jewelry.parts;
 import mariculture.core.Core;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 
 public class PartPearlRed extends JewelryPart {
+	public PartPearlRed(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isVisible(int type) {
 		return true;
@@ -54,5 +60,11 @@ public class PartPearlRed extends JewelryPart {
 		if(type == Jewelry.BRACELET)
 			return 60;
 		return 50;
+	}
+	
+	@Override
+	public boolean cancelDamage(EntityPlayer player, DamageSource source) {
+		player.extinguish();
+		return (source.equals(DamageSource.inFire) || source.equals(DamageSource.onFire) || source == DamageSource.lava);
 	}
 }

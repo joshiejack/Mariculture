@@ -5,9 +5,7 @@ import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.network.PacketClick;
-import mariculture.core.network.old.Packet116GUIClick;
 import mariculture.fishery.blocks.TileFishTank;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiFishTank extends GuiMariculture {

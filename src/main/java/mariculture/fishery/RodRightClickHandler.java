@@ -9,7 +9,7 @@ import java.util.Random;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishingRod;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import mariculture.fishery.RodQualityHandler.FishingRod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

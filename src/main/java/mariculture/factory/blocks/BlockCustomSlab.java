@@ -14,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -96,8 +97,8 @@ public class BlockCustomSlab extends BlockSlab implements IItemRegistry {
 	}
 	
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)  {
-		return BlockCustomHelper.getDrops(world, x, y, z, getID());
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
     }
 	
 	@Override

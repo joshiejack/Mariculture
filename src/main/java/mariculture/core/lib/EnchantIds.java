@@ -5,7 +5,6 @@ public class EnchantIds {
 	public static int oneRing;
 	public static int speed;
 	public static int health;
-	public static int clock;
 	public static int poison;
 	public static int repair;
 	public static int jump;
@@ -19,4 +18,5 @@ public class EnchantIds {
 	public static int flight;
 	public static int stepUp;
 	public static int luck;
+	public static int elemental;
 }

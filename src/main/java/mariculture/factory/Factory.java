@@ -121,7 +121,7 @@ public class Factory extends Module {
 		customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
 		customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
 		
-		GameRegistry.registerBlock(customFlooring, BlockItemCustom.class, "BlockCustomFlooring");
+		/*GameRegistry.registerBlock(customFlooring, BlockItemCustom.class, "BlockCustomFlooring");
 		GameRegistry.registerBlock(customBlock, BlockItemCustom.class, "BlockCustomBlock");
 		GameRegistry.registerBlock(customStairs, BlockItemCustom.class, "BlockCustomStairs");
 		GameRegistry.registerBlock(customFence, BlockItemCustom.class, "BlockCustomFence");
@@ -132,7 +132,7 @@ public class Factory extends Module {
 
 		//TODO: FIX CUSTOM SLAB STUFF BlockItemCustomSlab.setSlabs((BlockHalfSlab) customSlabs, (BlockHalfSlab) customSlabsDouble);
 		GameRegistry.registerBlock(customSlabs, BlockItemCustom.class, "BlockCustomSlab");
-		GameRegistry.registerBlock(customSlabsDouble, BlockItemCustom.class, "BlockCustomSlabDouble");
+		GameRegistry.registerBlock(customSlabsDouble, BlockItemCustom.class, "BlockCustomSlabDouble"); */
 
 		GameRegistry.registerTileEntity(TileCustom.class, "tileEntityCustom");
 		GameRegistry.registerTileEntity(TileCustomPowered.class, "tileEntityCustomRF");

@@ -1,6 +1,7 @@
 package mariculture.core.lib;
 
 import mariculture.factory.Factory;
+import mariculture.factory.blocks.BlockCustomHelper;
 import mariculture.factory.blocks.TileCustom;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
@@ -94,49 +95,32 @@ public class PlansMeta {
 		
 		return -1;
 	}
-
-	public static boolean isSame(ItemStack stack, ItemStack result) {
-		if (stack.hasTagCompound() && result.hasTagCompound()) {
-			int[] ids1 = stack.stackTagCompound.getIntArray("BlockIDs");
-			int[] ids2 = result.stackTagCompound.getIntArray("BlockIDs");
-			int[] meta1 = stack.stackTagCompound.getIntArray("BlockMetas");
-			int[] meta2 = result.stackTagCompound.getIntArray("BlockMetas");
-			String name1 = stack.stackTagCompound.getString("Name");
-			String name2 = result.stackTagCompound.getString("Name");
-			if (name1.equals(name2)) {
-				int ids = 0;
-				int metas = 0;
-				for(int i = 0; i < 6; i++) {
-					if(ids1[i] == ids2[i]) {
-						ids++;
-					}
-					
-					if(meta1[i] == meta2[i]) {
-						metas++;
-					}
-				}
-				if (ids == 6 && metas == 6) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	public static boolean isTheSame(World world, int x, int y, int z, ItemStack stack) {
-		if(world.getTileEntity(x, y, z) != null) {
-			if(world.getTileEntity(x, y, z) instanceof TileCustom) {
-				TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
-				ItemStack ret = new ItemStack(tile.getBlockType());
-				ret.setTagCompound(new NBTTagCompound());
-				ret.stackTagCompound.setIntArray("BlockIDs", tile.theBlockIDs());
-				ret.stackTagCompound.setIntArray("BlockMetas", tile.theBlockMetas());
-				ret.stackTagCompound.setString("Name", tile.name());
-				
-				return isSame(ret, stack);
-			}
+	
+	public static boolean matches(NBTTagCompound nbt1, NBTTagCompound nbt2) {
+		Block[] blocks1 = new Block[6];
+		Block[] blocks2 = new Block[6];
+		float resist1 = nbt1.getFloat("BlockResistance");
+		float resist2 = nbt2.getFloat("BlockResistance");
+		float hardness1 = nbt1.getFloat("BlockHardness");
+		float hardness2 = nbt2.getFloat("BlockHardness");
+		int[] theBlockMetas1 = nbt1.getIntArray("BlockMetas");
+		int[] theBlockMetas2 = nbt2.getIntArray("BlockMetas");
+		int[] theSides1 = nbt1.getIntArray("BlockSides");
+		int[] theSides2 = nbt2.getIntArray("BlockSides");
+		
+		if(resist1 != resist2 || hardness1 != hardness2) {
+			return false;
 		}
 		
-		return false;
+		for(int i = 0; i < 6; i++) {
+			blocks1[i] = (Block) Block.blockRegistry.getObject(nbt1.getString("BlockIdentifier" + i));
+			blocks2[i] = (Block) Block.blockRegistry.getObject(nbt2.getString("BlockIdentifier" + i));
+			if(blocks1[i] != blocks2[i])
+				return false;
+			if(theBlockMetas1[i] != theBlockMetas2[i] || theSides1[i] != theSides2[i])
+				return false;
+		}
+		
+		return true;
 	}
 }

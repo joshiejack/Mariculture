@@ -10,7 +10,6 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
-import mariculture.core.network.old.Packet119TurbineAnimate;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IPowered;
 import mariculture.core.util.IRedstoneControlled;

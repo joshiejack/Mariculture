@@ -2,7 +2,7 @@ package mariculture.core.blocks.base;
 
 import java.util.List;
 
-import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.ITank;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.nbt.NBTTagCompound;
@@ -51,12 +51,12 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public String getFluidName() {
-		return StringHelper.getFluidName(tank.getFluid());
+		return FluidHelper.getFluidName(tank.getFluid());
 	}
 	
 	@Override
 	public List getFluidQty(List tooltip) {
-		return StringHelper.getFluidQty(tooltip, tank.getFluid(), tank.getCapacity());
+		return FluidHelper.getFluidQty(tooltip, tank.getFluid(), tank.getCapacity());
 	}
 
 	@Override

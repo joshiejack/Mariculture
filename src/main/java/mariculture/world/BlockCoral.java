@@ -13,6 +13,7 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.OresMeta;
+import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -31,7 +33,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCoral extends Block implements IPlantable, IItemRegistry {
+public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHasMeta {
 	private IIcon[] icons;
 
 	protected BlockCoral() {
@@ -372,5 +374,10 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 	@Override
 	public String getName(ItemStack stack) {
 		return RegistryHelper.getName(stack);
+	}
+
+	@Override
+	public Class<? extends ItemBlock> getItemClass() {
+		return null;
 	}
 }

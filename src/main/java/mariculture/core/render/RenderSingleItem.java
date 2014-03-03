@@ -1,7 +1,6 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockOyster;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.SingleMeta;
 import mariculture.diving.render.ModelAirPump;
@@ -22,7 +21,6 @@ import net.minecraftforge.client.IItemRenderer;
 public class RenderSingleItem implements IItemRenderer {
 	private static final float scale = (float) (1.0 / 20.0);
 	private static final ResourceLocation AIR_PUMP = new ResourceLocation("mariculture", "textures/blocks/air_pump_texture.png");
-	private static final ResourceLocation OYSTER = new ResourceLocation("mariculture", "textures/blocks/oyster_texture.png");
 	private static final ResourceLocation SIFT = new ResourceLocation("mariculture", "textures/blocks/sift_texture.png");
 	private static final ResourceLocation FEEDER = new ResourceLocation("mariculture", "textures/blocks/feeder_texture.png");
 	private static final ResourceLocation FLUDD = new ResourceLocation("mariculture", "textures/blocks/fludd_texture.png");
@@ -31,7 +29,6 @@ public class RenderSingleItem implements IItemRenderer {
 	private static final ResourceLocation TURBINE_HAND = new ResourceLocation("mariculture", "textures/blocks/turbine_hand_texture.png");
 
 	private final ModelAirPump pump = new ModelAirPump(scale);
-	private final ModelOyster oyster = new ModelOyster(scale);
 	private final ModelSift sift = new ModelSift(scale);
 	private final ModelFeeder feeder = new ModelFeeder(scale);
 	private final ModelFLUDD fludd = new ModelFLUDD(scale);
@@ -57,11 +54,6 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.getItem() == Item.getItemFromBlock(Core.oysterBlock) && item.getItemDamage() != BlockOyster.NET) {
-			Minecraft.getMinecraft().getTextureManager().bindTexture(OYSTER);
-			oyster.renderInventory(type);
-		}
-
 		if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.AIR_PUMP) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(AIR_PUMP);
 			pump.renderInventory(type);

@@ -3,10 +3,14 @@ package mariculture.magic.jewelry.parts;
 import mariculture.core.Core;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.item.ItemStack;
 
 public class PartPearlPink extends JewelryPart {
+	public PartPearlPink(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isVisible(int type) {
 		return true;

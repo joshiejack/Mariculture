@@ -5,6 +5,7 @@ import java.io.File;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.EnchantIds;
+import mariculture.core.lib.EnchantSetting;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
@@ -20,7 +21,7 @@ import org.apache.logging.log4j.Level;
 public class Config {
     public static void init(String dir) {
         initOther(new Configuration(new File(dir, "other.cfg")));
-        initIDs(new Configuration(new File(dir, "ids.cfg")));
+        initEnchantments(new Configuration(new File(dir, "enchantments.cfg")));
         initMachines(new Configuration(new File(dir, "mechanics.cfg")));
         initModules(new Configuration(new File(dir, "modules.cfg")));
         initWorld(new Configuration(new File(dir, "worldgen.cfg")));
@@ -203,11 +204,11 @@ public class Config {
         }
     }
 
-    private static void initIDs(Configuration config) {
+    private static void initEnchantments(Configuration config) {
         try {
             config.load();
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 70).getInt();
-            EnchantIds.clock = config.get(Category.ENCHANT, "Timelord", 71).getInt();
+            EnchantIds.elemental = config.get(Category.ENCHANT, "Elemental Affinity", 71).getInt();
             EnchantIds.fall = config.get(Category.ENCHANT, "Fall Resistance", 72).getInt();
             EnchantIds.fire = config.get(Category.ENCHANT, "Inferno", 73).getInt();
             EnchantIds.flight = config.get(Category.ENCHANT, "Superman", 74).getInt();
@@ -224,6 +225,11 @@ public class Config {
             EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 85).getInt();
             EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 86).getInt();
             EnchantIds.luck = config.get(Category.ENCHANT, "Luck of the Irish", 87).getInt();
+            
+            EnchantSetting.JUMPS_PER = config.get(Category.EXTRA, "Leapfrog > Jumps per Damage", 10).getInt();
+            EnchantSetting.JUMP_FACTOR = config.get(Category.EXTRA, "Leapfrog > Jump Factor", 0.15).getDouble(0.15);
+            EnchantSetting.JUMPS_PER = config.get(Category.EXTRA, "Sonic the Hedgehog > Ticks per Damage", 1200).getInt();
+            EnchantSetting.JUMP_FACTOR = config.get(Category.EXTRA, "Sonic the Hedgehog > Speed Factor", 0.035).getDouble(0.035);
         } catch (Exception e) {
             LogHandler.log(Level.ERROR, "Mariculture had a serious issue loading it's block/item/enchant ids");
         	e.printStackTrace();

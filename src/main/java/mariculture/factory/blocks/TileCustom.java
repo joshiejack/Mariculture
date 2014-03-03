@@ -1,26 +1,30 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.network.Packets;
-import mariculture.core.network.old.Packet110CustomTileUpdate;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileCustom extends TileEntity {
-	private int[] theBlockIDs = new int[6];
+	private float hardness, resist;
+	private Block[] theBlocks = new Block[6];
 	private int[] theBlockMetas = new int[6];
 	private int[] theSides = new int[6];
 	private String name = "CustomTile";
 	
 	public int size() {
-		return theBlockIDs.length;
+		return theBlocks.length;
 	}
 	
 	public String name() {
 		return name;
 	}
 	
-	public int[] theBlockIDs() {
-		return theBlockIDs;
+	public Block[] theBlocks() {
+		return theBlocks;
 	}
 	
 	public int[] theBlockMetas() {
@@ -30,8 +34,8 @@ public class TileCustom extends TileEntity {
 		return theSides;
 	}
 
-	public int theBlockIDs(int i) {
-		return theBlockIDs[i];
+	public Block theBlocks(int i) {
+		return theBlocks[i];
 	}
 	
 	public int theBlockMetas(int i) {
@@ -42,66 +46,116 @@ public class TileCustom extends TileEntity {
 		return theSides[i];
 	}
 	
+	public float getHardness() {
+		return hardness;
+	}
+	
+	public float getResistance() {
+		return resist;
+	}
+	
 	@Override
 	public boolean canUpdate() {
 		return false;
     }
 
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.theBlockIDs = tagCompound.getIntArray("BlockIDs");
-		this.theBlockMetas = tagCompound.getIntArray("BlockMetas");
-		this.theSides = tagCompound.getIntArray("BlockSides");
-		this.name = tagCompound.getString("Name");
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-
-		tagCompound.setIntArray("BlockIDs", this.theBlockIDs);
-		tagCompound.setIntArray("BlockMetas", this.theBlockMetas);
-		tagCompound.setIntArray("BlockSides", this.theSides);
-		tagCompound.setString("Name", this.name);
-	}
-
-	//TODO: PACKET SYNC CUSTOM BLOCKS
-	/*
-	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 2, tagCompound);
-	}
-
-	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	} */
-	
-	public void set(int[] ids, int metas[], int sides[], String name2) {
-		if(theBlockIDs.length == 6) {
-			theBlockIDs = ids;
-			theBlockMetas = metas;
-			theSides = sides;
-			name = name2;
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			updateRender();
+	public void readData(NBTTagCompound nbt) {
+		for(int i = 0; i < 6; i++) {
+			this.theBlocks[i] = (Block) Block.blockRegistry.getObject(nbt.getString("BlockIdentifier" + i));
 		}
+		
+		this.resist = nbt.getFloat("BlockResistance");
+		this.hardness = nbt.getFloat("BlockHardness");
+		this.theBlockMetas = nbt.getIntArray("BlockMetas");
+		this.theSides = nbt.getIntArray("BlockSides");
+		this.name = nbt.getString("Name");
 	}
 
-	public boolean setSide(int side, int id, int meta, int sideTexture) {
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		readData(nbt);
+	}
+	
+	public void writeData(NBTTagCompound nbt) {
+		for(int i = 0; i < 6; i++) {
+			nbt.setString("BlockIdentifier" + i, Block.blockRegistry.getNameForObject(this.theBlocks[i]));
+		}
+		
+		nbt.setFloat("BlockResistance", this.resist);
+		nbt.setFloat("BlockHardness", this.hardness);
+		nbt.setIntArray("BlockMetas", this.theBlockMetas);
+		nbt.setIntArray("BlockSides", this.theSides);
+		nbt.setString("Name", this.name);
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		writeData(nbt);
+	}
+
+	@Override
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
+	
+	public void set(String[] blockNames, int[] metas, int[] sides, String name) {
+		Block[] blocks = new Block[6];
+		for(int i = 0; i < 6; i++) {
+			blocks[i] = (Block) Block.blockRegistry.getObject(blockNames[i]);
+		}
+		
+		set(blocks, metas, sides, name);
+	}
+	
+	public void updateHardness() {
+		hardness = 0F;
+		for(int i = 0; i < 6; i++) {
+			hardness += theBlocks[i].getBlockHardness(worldObj, xCoord, yCoord, zCoord);
+		}
+		
+		hardness /= 6;
+	}
+	
+	public void updateResistance() {
+		resist = 0F;
+		for(int i = 0; i < 6; i++) {
+			resist += theBlocks[i].getExplosionResistance(null, worldObj, xCoord, yCoord, zCoord, 0, 0, 0);
+		}
+		
+		resist /= 6;
+	}
+	
+	public void set(Block[] blocks, int[] metas, int[] sides, String name) {
+		this.theBlocks = blocks;
+		this.theBlockMetas = metas;
+		this.theSides = sides;
+		this.name = name;
+		updateHardness();
+		updateResistance();
+		updateRender();
+	}
+	
+	public boolean setSide(int side, Block block, int meta, int sideTexture) {
 		boolean ret = false;
-		if(theBlockIDs.length == 6) {
-			if(theBlockIDs[side] != id || theBlockMetas[side] != meta || theSides[side] != sideTexture) {
+		if(size() == 6) {
+			if(theBlocks[side] != block || theBlockMetas[side] != meta || theSides[side] != sideTexture) {
 				ret = true;
 			}
 			
-			theBlockIDs[side] = id;
+			theBlocks[side] = block;
 			theBlockMetas[side] = meta;
 			theSides[side] = sideTexture;
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			updateHardness();
+			updateResistance();
 			updateRender();
 		}
 		
@@ -109,6 +163,7 @@ public class TileCustom extends TileEntity {
 	}
 
 	public void updateRender() {
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		if (!worldObj.isRemote) {
 			//TODO: PACKET UPDATE RENDER Packets.updateTile(this, 128, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
 		}

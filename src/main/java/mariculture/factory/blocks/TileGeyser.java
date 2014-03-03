@@ -3,12 +3,11 @@ package mariculture.factory.blocks;
 import java.util.List;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.base.TileTank;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.network.Packets;
+import mariculture.core.lib.WaterMeta;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
@@ -19,7 +18,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -61,7 +59,7 @@ public class TileGeyser extends TileTank {
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.oysterBlock && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlock(x, y, z) == Core.waterBlocks && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
 	}
 
 	@Override

@@ -4,11 +4,11 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.TankMeta;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -73,8 +73,8 @@ public class ItemFluidContainer extends ItemMariculture {
 		
 		FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
 		int amount = fluid == null? 0: fluid.amount;
-		list.add(StringHelper.getFluidName(fluid));
-		StringHelper.getFluidQty(list, fluid, -1);
+		list.add(FluidHelper.getFluidName(fluid));
+		FluidHelper.getFluidQty(list, fluid, -1);
 	}
 
 	@Override

@@ -153,7 +153,7 @@ public class BlockTransferHelper {
 			ForgeDirection dir = ForgeDirection.getOrientation(side);
 			TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 			if(tile instanceof IInventory && !(tile instanceof TileEntityHopper) && !isSameBlock(tile)) {
-				stack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, dir.ordinal());
+				stack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, dir.getOpposite().ordinal());
 			}
 		}
 		

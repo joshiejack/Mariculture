@@ -25,7 +25,7 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;

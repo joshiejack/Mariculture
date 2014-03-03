@@ -1,7 +1,7 @@
 package mariculture.fishery.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockOyster;
+import mariculture.core.lib.WaterMeta;
 import mariculture.core.render.RenderBase;
 import net.minecraft.client.renderer.RenderBlocks;
 
@@ -12,7 +12,7 @@ public class RenderNet extends RenderBase {
 
 	@Override
 	public void renderBlock() {
-		setTexture(Core.oysterBlock.getIcon(0, BlockOyster.NET));
+		setTexture(Core.waterBlocks.getIcon(0, WaterMeta.NET));
 		renderBlock(0, -0.115, 0, 1, -0.05, 1);
 	}
 }

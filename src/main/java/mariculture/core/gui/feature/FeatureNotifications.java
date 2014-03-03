@@ -3,8 +3,8 @@ package mariculture.core.gui.feature;
 import java.util.List;
 
 import mariculture.core.gui.GuiMariculture;
-import mariculture.core.lib.Text;
 import mariculture.core.util.IHasNotification;
+import mariculture.core.util.Text;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;

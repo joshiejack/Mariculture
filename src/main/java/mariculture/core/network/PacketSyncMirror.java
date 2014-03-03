@@ -1,18 +1,11 @@
 package mariculture.core.network;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.helpers.ClientHelper;
-import mariculture.core.helpers.EnchantHelper;
-import mariculture.magic.Magic;
 import mariculture.magic.MirrorData;
-import mariculture.magic.MirrorHelper;
-import mariculture.magic.enchantments.EnchantmentSpeed;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class PacketSyncMirror extends PacketNBT {

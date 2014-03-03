@@ -1,15 +1,21 @@
 package mariculture.core.helpers;
 
+import java.util.List;
+
 import mariculture.core.Core;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Text;
 import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -21,22 +27,6 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class FluidHelper {
-	public static void process(IInventory invent, int in, int out) {
-		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
-		if (result != null) {
-			invent.decrStackSize(in, 1);
-			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
-				if (invent.getStackInSlot(out) == null) {
-					invent.setInventorySlotContents(out, result.copy());
-				} else if (invent.getStackInSlot(out).getItem() == result.getItem()) {
-					ItemStack stack = invent.getStackInSlot(out);
-					++stack.stackSize;
-					invent.setInventorySlotContents(out, stack);
-				}
-			}
-		}
-	}
-	
 	public static boolean isFluidOrEmpty(ItemStack stack) {
 		return isEmpty(stack) || isFilled(stack) || isVoid(stack) || FishFoodHandler.isFishFood(stack);
 	}
@@ -111,22 +101,6 @@ public class FluidHelper {
 		return null;
 	}
 	
-	public static int getRequiredVolumeForBlock(Fluid fluid) {
-		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
-		int highest = -1;
-
-		for (int j = 0; j < data.length; j++) {
-			if (data[j].fluid.fluidID == fluid.getID()) {
-				if(data[j].fluid.amount > highest)
-					highest = data[j].fluid.amount;
-				if(data[j].emptyContainer.getItem() == Items.bucket)
-					return data[j].fluid.amount;
-			}
-		}
-		
-		return highest;
-	}
-
 	private static ItemStack doEmpty(IFluidHandler tile, ItemStack top, ItemStack bottom) {
 		ItemStack result = getEmptyContainerForFilledItem(top);
 		FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(top);
@@ -193,6 +167,40 @@ public class FluidHelper {
 		
 		return null;
 	}
+	
+	public static void process(IInventory invent, int in, int out) {
+		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
+		if (result != null) {
+			invent.decrStackSize(in, 1);
+			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
+				if (invent.getStackInSlot(out) == null) {
+					invent.setInventorySlotContents(out, result.copy());
+				} else if (invent.getStackInSlot(out).getItem() == result.getItem()) {
+					ItemStack stack = invent.getStackInSlot(out);
+					++stack.stackSize;
+					invent.setInventorySlotContents(out, stack);
+				}
+			}
+		}
+	}
+	
+	/** End Fluid Containers stuff **/
+	
+	public static int getRequiredVolumeForBlock(Fluid fluid) {
+		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
+		int highest = -1;
+
+		for (int j = 0; j < data.length; j++) {
+			if (data[j].fluid.fluidID == fluid.getID()) {
+				if(data[j].fluid.amount > highest)
+					highest = data[j].fluid.amount;
+				if(data[j].emptyContainer.getItem() == Items.bucket)
+					return data[j].fluid.amount;
+			}
+		}
+		
+		return highest;
+	}	
 
 	public static boolean matches(ItemStack top, ItemStack bottom, ItemStack result) {
 		if (bottom == null) {
@@ -272,5 +280,60 @@ public class FluidHelper {
 		}
 		
 		return false;
+	}
+
+	public static String getFluidName(FluidStack fluid) {
+		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0)
+			return Text.WHITE + StatCollector.translateToLocal("mariculture.string.empty");
+		return FluidHelper.getFluidName(fluid.getFluid());
+	}
+	
+	public static String getFluidName(Fluid fluid) {
+		
+		String fluidName = "";
+		if (fluid.getRarity() == EnumRarity.uncommon) {
+			fluidName += Text.YELLOW;
+		} else if (fluid.getRarity() == EnumRarity.rare) {
+			fluidName += Text.AQUA;
+		} else if (fluid.getRarity() == EnumRarity.epic) {
+			fluidName += Text.PINK;
+		} 
+		fluidName += fluid.getLocalizedName() + Text.END;
+	
+		return fluidName;
+	}
+
+	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
+		if(fluid == null || fluid.getFluid() == null) {
+			tooltip.add(Text.GREY + "" + 0 + ((max > 0)? "/" + max + "mB": "mB"));
+		} else if(Modules.fishery.isActive() && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0) ?"/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"): " " + StatCollector.translateToLocal("mariculture.string.pieces")));
+		else if(fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt"))
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
+		else if(fluid.getFluid().getName().contains("molten")) {
+			int ingots = fluid.amount / MetalRates.INGOT;
+	        if (ingots > 0)
+	            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.ingots") + ": " + ingots);
+	        int mB = fluid.amount % MetalRates.INGOT;
+	        if (mB > 0)  {
+	            int nuggets = mB / MetalRates.NUGGET;
+	            int junk = (mB % MetalRates.NUGGET);
+	            if (nuggets > 0)
+	                tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.nuggets") + ": " + nuggets);
+	            if (junk > 0)
+	                tooltip.add(Text.GREY + "mB: " + junk);
+	        }
+	        
+	        if(max > 0) {
+	            tooltip.add("");
+	            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
+	            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
+	            			+ max%MetalRates.INGOT + "mB");
+	        }
+		} else {
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
+		}
+		
+		return tooltip;
 	}
 }

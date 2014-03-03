@@ -90,13 +90,11 @@ public class FluidHelper {
 		return handler instanceof IFluidHandler ? ((IFluidHandler) handler).fill(ForgeDirection.VALID_DIRECTIONS[side ^ 1], fluid, doFill) : 0;
 	}
 
-	// TODO: Replace with sided version post-1.7 Fluid revamp
 	public static boolean isAdjacentFluidHandler(TileEntity tile, int side) {
 
 		return BlockHelper.getAdjacentTileEntity(tile, side) instanceof IFluidHandler;
 	}
 
-	// TODO: Replace with sided version post-1.7 Fluid revamp
 	public static boolean isFluidHandler(TileEntity tile) {
 
 		return tile instanceof IFluidHandler;
@@ -133,52 +131,6 @@ public class FluidHelper {
 			return true;
 		}
 		return false;
-	}
-
-	public static boolean fillHandlerWithContainer(World world, IFluidHandler handler, EntityPlayer player) {
-
-		ItemStack container = player.getCurrentEquippedItem();
-		FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(container);
-
-		if (fluid != null) {
-			if (handler.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount || player.capabilities.isCreativeMode) {
-				if (ServerHelper.isClientWorld(world)) {
-					return true;
-				}
-				handler.fill(ForgeDirection.UNKNOWN, fluid, true);
-
-				if (!player.capabilities.isCreativeMode) {
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemHelper.consumeItem(container));
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/* PACKETS */
-	public static void writeFluidStackToPacket(FluidStack fluid, DataOutput data) throws IOException {
-
-		if (!isValidFluidStack(fluid)) {
-			data.writeShort(-1);
-		} else {
-			byte[] abyte = CompressedStreamTools.compress(fluid.writeToNBT(new NBTTagCompound()));
-			data.writeShort((short) abyte.length);
-			data.write(abyte);
-		}
-	}
-
-	public static FluidStack readFluidStackFromPacket(DataInput data) throws IOException {
-
-		short length = data.readShort();
-
-		if (length < 0) {
-			return null;
-		} else {
-			byte[] abyte = new byte[length];
-			data.readFully(abyte);
-			return FluidStack.loadFluidStackFromNBT(CompressedStreamTools.decompress(abyte));
-		}
 	}
 
 	/* HELPERS */

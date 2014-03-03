@@ -8,9 +8,8 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.cofh.StringHelper;
-import mariculture.core.lib.Text;
 import mariculture.core.util.IItemRegistry;
+import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -192,7 +191,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		FluidStack fluid = getFluid(stack);
 		int amount = fluid == null? 0: fluid.amount;
-		list.add(StringHelper.getFluidName(fluid));
+		list.add(FluidHelper.getFluidName(fluid));
 		list.add("" + amount + "/" + capacity +  "mB");
 	}
 	

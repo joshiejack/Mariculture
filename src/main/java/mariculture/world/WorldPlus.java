@@ -62,8 +62,6 @@ public class WorldPlus extends Module {
 	@Override
 	public void registerBlocks() {
 		coral = new BlockCoral().setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("coral");
-		GameRegistry.registerBlock(coral, ItemCoral.class, "BlockCoral");
-		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		RegistryHelper.register(new Object[] { coral });
 	}
 
@@ -90,6 +88,7 @@ public class WorldPlus extends Module {
 		OreDictionary.registerOre("coralWhite", new ItemStack(coral, 1, CoralMeta.CORAL_WHITE));
 		OreDictionary.registerOre("coralGray", new ItemStack(coral, 1, CoralMeta.CORAL_GREY));
 		OreDictionary.registerOre("coralLightGray", new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY));
+		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
 		
 		if(WorldGeneration.DEEP_OCEAN) {
 			addDeepOcean();

@@ -1,7 +1,6 @@
 package mariculture.core.guide;
 
-import mariculture.core.helpers.cofh.StringHelper;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 
 import org.lwjgl.opengl.GL11;
 
@@ -15,9 +14,9 @@ public class PageText extends PageParser {
 			color = Text.getColor(xml.getAttribute("color"));
 		else
 			color = "";
-		bold = (xml.getAttribAsBoolean("bold"))? StringHelper.BOLD: "";
-		italics = (xml.getAttribAsBoolean("italic"))? StringHelper.ITALIC: "";
-		underline = (xml.getAttribAsBoolean("underline"))? StringHelper.UNDERLINE: "";
+		bold = (xml.getAttribAsBoolean("bold"))? Text.BOLD: "";
+		italics = (xml.getAttribAsBoolean("italic"))? Text.ITALIC: "";
+		underline = (xml.getAttribAsBoolean("underline"))? Text.UNDERLINE: "";
 		wrap = xml.getAttribAsInteger("wrap", 216);
 		text = xml.getSelf();
 	}

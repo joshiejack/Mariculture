@@ -4,6 +4,7 @@ import mariculture.core.Core;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.WaterMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeHooks;
@@ -43,7 +44,7 @@ public class ArmorEventHandler {
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.scubaSuit)) {
 					event.newSpeed = event.originalSpeed * 4;
 					
-					if (event.block == Core.oysterBlock) {
+					if (event.block == Core.waterBlocks && event.metadata == WaterMeta.OYSTER) {
 						event.newSpeed = event.originalSpeed * 128;
 					}
 				}
@@ -55,7 +56,7 @@ public class ArmorEventHandler {
 				// Diving Pants
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.divingPants)) {
 					event.newSpeed = event.originalSpeed * 2;
-					if (event.block == Core.oysterBlock) {
+					if (event.block == Core.waterBlocks && event.metadata == WaterMeta.OYSTER) {
 						event.newSpeed = event.originalSpeed * 64;
 					}
 				}

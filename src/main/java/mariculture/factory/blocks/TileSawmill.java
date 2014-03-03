@@ -16,6 +16,7 @@ import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.Rand;
 import mariculture.factory.items.ItemPlan;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -116,7 +117,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 		if(!stack1.isItemEqual(stack2))
 			return false;
 		if(stack1.hasTagCompound() && stack2.hasTagCompound())
-			return PlansMeta.isSame(stack1, stack2);
+			return PlansMeta.matches(stack1.stackTagCompound, stack2.stackTagCompound);
 		return stack1.stackTagCompound == null && stack2.stackTagCompound == null;
 	}
 	
@@ -151,45 +152,42 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 	
 	public ItemStack getResult() {
+		String[] blocks = new String[] { getBlock(BOTTOM), getBlock(TOP), getBlock(NORTH), getBlock(SOUTH), getBlock(WEST), getBlock(EAST) };
+		int[] metas = new int[] { getMeta(BOTTOM), getMeta(TOP), getMeta(NORTH), getMeta(SOUTH), getMeta(WEST),	getMeta(EAST) };
+		
 		ItemStack stack = PlansMeta.getBlockStack(PlansMeta.getType(inventory[selected]));
 		stack.setTagCompound(new NBTTagCompound());
+		for(int i = 0; i < 6; i++) {
+			stack.stackTagCompound.setString("BlockIdentifier" + i, blocks[i]);
+		}
 		
-		int[] ids = new int[] { getID(BOTTOM), getID(TOP), getID(NORTH), getID(SOUTH), getID(WEST), getID(EAST) };
-		int[] metas = new int[] { getMeta(BOTTOM), getMeta(TOP), getMeta(NORTH), getMeta(SOUTH), getMeta(WEST),	getMeta(EAST) };
-
-		String name = BlockHelper.getName(inventory[TOP]) + " - " + stack.getDisplayName();
-
-		stack.stackTagCompound.setIntArray("BlockIDs", ids);
+		stack.stackTagCompound.setFloat("BlockResistance", 0F);
+		stack.stackTagCompound.setFloat("BlockHardness", 0F);
 		stack.stackTagCompound.setIntArray("BlockMetas", metas);
-		stack.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 1, 2, 3, 4, 5 });
-		stack.stackTagCompound.setString("Name", name);
+		stack.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 0, 0, 0, 0, 0});
+		stack.stackTagCompound.setString("Name", BlockHelper.getName(inventory[TOP]) + " - " + stack.getDisplayName());
 		stack.stackSize = ((ItemPlan) inventory[selected].getItem()).getStackSize(inventory[selected]);
 		if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", this))
 			stack.stackSize*=2;
 		return stack;
 	}
 	
-	private int getID(int slot) {
-		return 0;
-		
-		//TODO: Redo how Block data is stored for custom blocks 
-		/*
-		if (inventory[slot].getItem() == Items.feather) {
-			return Core.airBlocks;
-		}
-
-		return inventory[slot].itemID; */
+	private boolean isFeather(int slot) {
+		return inventory[slot].getItem() == Items.feather;
+	}
+	
+	private String getBlock(int slot) {
+		if(isFeather(slot))
+			return Block.blockRegistry.getNameForObject(Core.airBlocks);
+		else
+			return Block.blockRegistry.getNameForObject(Block.getBlockFromItem(inventory[slot].getItem()));
 	}
 
 	private int getMeta(int slot) {
-		return 0;
-		//TODO: Redo how Block data is stored for custom blocks 
-				/*
-		if (inventory[slot].itemID == Items.feather.itemID) {
+		if(isFeather(slot))
 			return AirMeta.FAKE_AIR;
-		}
-
-		return inventory[slot].getItemDamage(); */
+		else
+			return inventory[slot].getItemDamage();
 	}
 
 //Gui Stuff

@@ -17,9 +17,8 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.UtilMeta;
 import mariculture.magic.enchantments.EnchantmentBlink;
-import mariculture.magic.enchantments.EnchantmentClock;
+import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.enchantments.EnchantmentFallDamage;
-import mariculture.magic.enchantments.EnchantmentFire;
 import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentHealth;
@@ -27,8 +26,6 @@ import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentLuck;
 import mariculture.magic.enchantments.EnchantmentNeverHungry;
 import mariculture.magic.enchantments.EnchantmentOneRing;
-import mariculture.magic.enchantments.EnchantmentPoison;
-import mariculture.magic.enchantments.EnchantmentPunch;
 import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
@@ -83,19 +80,29 @@ public class Magic extends Module {
 		isActive = active;
 	}
 	
+	public static JewelryPart pearlBlack;
+	public static JewelryPart pearlBlue;
+	public static JewelryPart pearlBrown;
+	public static JewelryPart pearlGold;
+	public static JewelryPart pearlGreen;
+	public static JewelryPart pearlOrange;
+	public static JewelryPart pearlPink;
+	public static JewelryPart pearlPurple;
+	public static JewelryPart pearlRed;
+	public static JewelryPart pearlSilver;
+	public static JewelryPart pearlWhite;
+	public static JewelryPart pearlYellow;
+	
+	public static Enchantment elemental;
 	public static Enchantment spider;
 	public static Enchantment blink;
-	public static Enchantment clock;
 	public static Enchantment fall;
-	public static Enchantment fire;
 	public static Enchantment flight;
 	public static Enchantment glide;
 	public static Enchantment health;
 	public static Enchantment jump;
 	public static Enchantment hungry;
 	public static Enchantment oneRing;
-	public static Enchantment poison;
-	public static Enchantment punch;
 	public static Enchantment repair;
 	public static Enchantment resurrection;
 	public static Enchantment speed;
@@ -113,22 +120,19 @@ public class Magic extends Module {
 	public void registerEnchants() {
 		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 4, EnumEnchantmentType.all); }
 		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.clock > 0) { clock = new EnchantmentClock(EnchantIds.clock, 2, EnumEnchantmentType.all); }
 		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 10, EnumEnchantmentType.all); }
-		if(EnchantIds.fire > 0) { fire = new EnchantmentFire(EnchantIds.fire, 10, EnumEnchantmentType.all); }
 		if(EnchantIds.flight > 0) { flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all); }
 		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 8, EnumEnchantmentType.all); }
 		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 8, EnumEnchantmentType.all); }
 		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 12, EnumEnchantmentType.all); }
 		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 8, EnumEnchantmentType.all); }
 		if(EnchantIds.oneRing > 0) { oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all); }
-		if(EnchantIds.poison > 0) { poison = new EnchantmentPoison(EnchantIds.poison, 11, EnumEnchantmentType.all); }
-		if(EnchantIds.punch > 0) { punch = new EnchantmentPunch(EnchantIds.punch, 12, EnumEnchantmentType.all); }
 		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 6, EnumEnchantmentType.all); }
 		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
 		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 10, EnumEnchantmentType.all); }
 		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 9, EnumEnchantmentType.all); }
 		if(EnchantIds.luck > 0) { luck = new EnchantmentLuck(EnchantIds.luck, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 5, EnumEnchantmentType.all); }
 	}
 
 	@Override
@@ -152,26 +156,26 @@ public class Magic extends Module {
 
 	//Keep this order
 	private void registerJewelry() {
-		new PartPearlBlack();
-		new PartPearlBlue();
-		new PartPearlBrown();
-		new PartPearlGold();
-		new PartPearlGreen();
-		new PartPearlOrange();
-		new PartPearlPink();
-		new PartPearlPurple();
-		new PartPearlRed();
-		new PartPearlSilver();
-		new PartPearlWhite();
-		new PartPearlYellow();
-		new PartDiamond();
-		new PartGold();
-		new PartIron();
-		new PartGoldString();
-		new PartString();
-		new PartOneRing();
-		new PartGoldThread();
-		new PartWool();
+		pearlBlack = new PartPearlBlack(0);
+		pearlBlue = new PartPearlBlue(1);
+		pearlBrown = new PartPearlBrown(2);
+		pearlGold = new PartPearlGold(3);
+		pearlGreen = new PartPearlGreen(4);
+		pearlOrange = new PartPearlOrange(5);
+		pearlPink = new PartPearlPink(6);
+		pearlPurple = new PartPearlPurple(7);
+		pearlRed = new PartPearlRed(8);
+		pearlSilver = new PartPearlSilver(9);
+		pearlWhite = new PartPearlWhite(10);
+		pearlYellow = new PartPearlYellow(11);
+		new PartDiamond(12);
+		new PartGold(13);
+		new PartIron(14);
+		new PartGoldString(15);
+		new PartString(16);
+		new PartOneRing(17);
+		new PartGoldThread(18);
+		new PartWool(19);
 	}
 
 	@Override

@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import mariculture.Mariculture;
-import mariculture.core.helpers.cofh.StringHelper;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -107,7 +106,7 @@ public class GuiGuide extends GuiScreen {
 		drawPage(page1, x + 24, y + 15, true);
 		
 		//Numbers
-		mc.fontRenderer.drawString(Text.DARK_GREY + StringHelper.BOLD + (currentPage + 1) + "/" + guide.getLength(), x + 42, y + 202, 0);
+		mc.fontRenderer.drawString(Text.DARK_GREY + Text.BOLD + (currentPage + 1) + "/" + guide.getLength(), x + 42, y + 202, 0);
 	}
 	
 	public void drawRightPage(int x, int y) {
@@ -143,7 +142,7 @@ public class GuiGuide extends GuiScreen {
 				xBonus = 8;
 			else if(name.length() < 8)
 				xBonus = 0;
-			mc.fontRenderer.drawString(Text.DARK_GREY + StringHelper.BOLD + name, x + 124 + xBonus, y + 202, 0);
+			mc.fontRenderer.drawString(Text.DARK_GREY + Text.BOLD + name, x + 124 + xBonus, y + 202, 0);
 		}
 	}
 

@@ -1,13 +1,12 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileIngotCaster;
-import mariculture.core.blocks.TileOldOyster;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.WaterMeta;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileGeyser;
@@ -51,11 +50,6 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		if (tileEntity instanceof TileAirPump) {
 			bindTexture(resource);
 			((ModelAirPump) model).render((TileAirPump) tileEntity, x, y, z);
-		}
-
-		if (tileEntity instanceof TileOldOyster) {
-			bindTexture(resource);
-			((ModelOyster) model).render((TileOldOyster) tileEntity, x, y, z);
 		}
 
 		if (tileEntity instanceof TileSift) {
@@ -109,7 +103,7 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 			return new RenderGeyser(render).setCoords(world, x, y, z).setDir(((TileGeyser)tile).orientation).render();
 		} else if (tile instanceof TileIngotCaster) {
 			return new RenderCaster(render).setCoords(world, x, y, z).render();
-		} else if (world.getBlock(x, y, z) == Core.oysterBlock && meta == BlockOyster.NET) {
+		} else if (world.getBlock(x, y, z) == Core.waterBlocks && meta == WaterMeta.NET) {
 			return new RenderNet(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileAnvil) {
 			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? 

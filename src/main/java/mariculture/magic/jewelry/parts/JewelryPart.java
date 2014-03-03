@@ -3,13 +3,17 @@ package mariculture.magic.jewelry.parts;
 import java.util.ArrayList;
 
 import mariculture.core.lib.Jewelry;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 
 public class JewelryPart {
 	public static final ArrayList<JewelryPart> materialList = new ArrayList();
+	public final int id;
 	
-	public JewelryPart() {
+	public JewelryPart(int id) {
+		this.id = id;
 		materialList.add(this);
 	}
 	
@@ -85,5 +89,10 @@ public class JewelryPart {
 	//How much this part modifies the durability by
 	public double getDurabilityModifier(int type) {
 		return 1.0D;
+	}
+
+	//Do nothing
+	public boolean cancelDamage(EntityPlayer player, DamageSource source) {
+		return false;
 	}
 }

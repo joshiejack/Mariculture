@@ -6,6 +6,10 @@ import mariculture.magic.Magic;
 import net.minecraft.item.ItemStack;
 
 public class PartOneRing extends JewelryPart {
+	public PartOneRing(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean addOnce() {
 		return true;

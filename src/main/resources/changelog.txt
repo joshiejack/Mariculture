@@ -3,6 +3,10 @@
 * Mirrors are now required to take jewelry off, you don't need them to put them on, the controls to take off were fiddly anyways. (You can still swap existing pieces though).
 * Jewelry is no longer damaged when the player is in creative
 * Sonic the Hedgehog buffed to provide 1 minute per damage
+* Shift + Right Clicking Custom blocks, now copies the texture as with others, simply shift + right click the paintbrush on NO blocks to set it to air now
+* Fixed Machines trying to eject to wrong side
+* Removed Timelord, Focus Punch, Poison Ivy and Inferno Enchants
+* Added Elemental Affinity Enchantment - Each pearl colour has a different effect with this enchantment, has negative affects on stuff other than pearls
 
 == Mariculture 1.2.0d ==
 * Gas is a little more dangerous

@@ -1,11 +1,15 @@
 package mariculture.magic.jewelry.parts;
 
 import mariculture.core.lib.Jewelry;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class PartIron extends JewelryPart {
+	public PartIron(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isVisible(int type) {
 		return true;

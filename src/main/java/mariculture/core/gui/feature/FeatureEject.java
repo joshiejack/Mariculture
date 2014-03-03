@@ -3,10 +3,8 @@ package mariculture.core.gui.feature;
 import java.util.List;
 
 import mariculture.core.gui.GuiMariculture;
-import mariculture.core.lib.Text;
-import mariculture.core.network.old.Packet115EjectSetting;
 import mariculture.core.util.IEjectable;
-import net.minecraft.client.Minecraft;
+import mariculture.core.util.Text;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;

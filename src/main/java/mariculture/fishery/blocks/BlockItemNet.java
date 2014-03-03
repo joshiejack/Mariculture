@@ -2,9 +2,9 @@ package mariculture.fishery.blocks;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockOyster;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.items.ItemMariculture;
+import mariculture.core.lib.WaterMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,7 +42,7 @@ public class BlockItemNet extends ItemMariculture {
 
 				if (world.getBlock(x, y, z).getMaterial() == Material.water 
 						&& world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
-					world.setBlock(x, y + 1, z, Core.oysterBlock, BlockOyster.NET, 2);
+					world.setBlock(x, y + 1, z, Core.waterBlocks, WaterMeta.NET, 2);
 
 					if (!player.capabilities.isCreativeMode) {
 						--stack.stackSize;

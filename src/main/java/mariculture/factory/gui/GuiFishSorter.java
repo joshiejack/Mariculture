@@ -4,10 +4,7 @@ import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.network.PacketClick;
-import mariculture.core.network.Packets;
-import mariculture.core.network.old.Packet116GUIClick;
 import mariculture.factory.blocks.TileFishSorter;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiFishSorter extends GuiMariculture {

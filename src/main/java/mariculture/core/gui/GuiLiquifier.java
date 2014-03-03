@@ -13,7 +13,7 @@ import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;

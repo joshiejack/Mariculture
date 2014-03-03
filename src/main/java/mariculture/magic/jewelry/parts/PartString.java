@@ -5,6 +5,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class PartString extends JewelryPart {
+	public PartString(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isValid(int type) {
 		return type == Jewelry.BRACELET;

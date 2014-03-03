@@ -2,9 +2,9 @@ package mariculture.core.blocks;
 
 import java.util.List;
 
-import mariculture.core.helpers.cofh.StringHelper;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.TankMeta;
-import mariculture.core.lib.Text;
+import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -51,7 +51,7 @@ public class BlockTankItem extends ItemBlockMariculture {
 		if(stack.getItemDamage() == TankMeta.TANK) {
 			FluidStack fluid = getFluid(stack);
 			int amount = fluid == null? 0: fluid.amount;
-			list.add(StringHelper.getFluidName(fluid));
+			list.add(FluidHelper.getFluidName(fluid));
 			list.add(""+ amount + "/16000mB");
 		}
 	}

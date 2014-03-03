@@ -4,44 +4,37 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureRegistry;
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockMachine;
-import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
+import mariculture.core.lib.UtilMeta;
+import mariculture.core.util.IItemRegistry;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSift extends BlockMachine {
+public class BlockSift extends BlockContainer implements IItemRegistry {
 	public BlockSift() {
 		super(Material.wood);
-	}
-	
-	@Override
-	public String getToolType(int meta) {
-		return "axe";
-	}
-
-	@Override
-	public int getToolLevel(int meta) {
-		return 0;
+		setCreativeTab(MaricultureTab.tabMariculture);
+		setHarvestLevel("axe", 0, UtilMeta.INCUBATOR_BASE);
 	}
 
 	@Override
@@ -57,6 +50,12 @@ public class BlockSift extends BlockMachine {
 	@Override
 	public int getRenderType() {
 		return RenderIds.BLOCK_SINGLE;
+	}
+	
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		BlockHelper.dropItems(world, x, y, z);
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	@Override
@@ -245,7 +244,7 @@ public class BlockSift extends BlockMachine {
 	}
 
 	@Override
-	public boolean isActive(int meta) {
-		return true;
+	public void register() {
+		MaricultureRegistry.register(getName(new ItemStack(this)), new ItemStack(this, 1));
 	}
 }

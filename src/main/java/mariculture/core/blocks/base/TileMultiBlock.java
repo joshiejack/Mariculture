@@ -2,11 +2,8 @@ package mariculture.core.blocks.base;
 
 import java.util.ArrayList;
 
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import mariculture.Mariculture;
 import mariculture.core.network.PacketMultiInit;
 import mariculture.core.network.Packets;
-import mariculture.core.network.old.Packet113MultiInit;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;

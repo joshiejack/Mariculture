@@ -6,6 +6,7 @@ import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.NBTHelper;
 import mariculture.core.lib.Extra;
+import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,6 +101,7 @@ public class MirrorData {
 		
 		//Setup the speeds after initially saving client data
 		EnchantmentSpeed.set(EnchantHelper.getEnchantStrength(Magic.speed, ClientHelper.getPlayer()));
+		EnchantmentJump.set(EnchantHelper.getEnchantStrength(Magic.jump, ClientHelper.getPlayer()));
 		return true;
 	}
 	

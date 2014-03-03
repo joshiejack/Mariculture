@@ -33,7 +33,7 @@ import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.blocks.BlockItemNeonLamp;
+import mariculture.fishery.blocks.BlockNeonLampItem;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
 import mariculture.fishery.blocks.BlockSift;
@@ -190,9 +190,10 @@ public class Fishery extends Module {
 		lampsOff = new BlockNeonLamp(true).setBlockName("lampsOff").setLightOpacity(0);
 		lampsOn = new BlockNeonLamp(false).setBlockName("lampsOn").setLightOpacity(0);
 		
-		GameRegistry.registerBlock(lampsOff, BlockItemNeonLamp.class, "BlockNeonLampOff");
-		GameRegistry.registerBlock(lampsOn, BlockItemNeonLamp.class, "BlockNeonLampOn");
-		GameRegistry.registerBlock(siftBlock, "BlockSift");
+		//GameRegistry.registerBlock(lampsOff, BlockNeonLampItem.class, "BlockNeonLampOff");
+		//GameRegistry.registerBlock(lampsOn, BlockNeonLampItem.class, "BlockNeonLampOn");
+		
+		//GameRegistry.registerBlock(siftBlock, "BlockSift");
 		GameRegistry.registerTileEntity(TileAutofisher.class, "tileEntityAutofisher");
 		GameRegistry.registerTileEntity(TileSift.class, "tileEntitySift");
 		GameRegistry.registerTileEntity(TileIncubator.class, "tileIncubator");

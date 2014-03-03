@@ -6,6 +6,10 @@ import mariculture.core.lib.PearlColor;
 import net.minecraft.item.ItemStack;
 
 public class PartPearlWhite extends JewelryPart {
+	public PartPearlWhite(int id) {
+		super(id);
+	}
+
 	@Override
 	public boolean isVisible(int type) {
 		return true;
