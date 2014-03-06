@@ -34,6 +34,11 @@ public class FishHelper implements IFishHelper {
 
 		return fishStack;
 	}
+	
+	@Override
+	public ItemStack makePureFish(FishSpecies species, int gender) {
+		return Fishery.gender.addDNA(makePureFish(species), gender);
+	}
 
 	public static int[] swapDominance(int dominance1, int dominance2, int option1, int option2, Random rand) {
 		int[] array = new int[2];

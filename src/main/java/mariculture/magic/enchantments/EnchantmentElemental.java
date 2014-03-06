@@ -34,16 +34,14 @@ public class EnchantmentElemental extends EnchantmentJewelry {
 	}
 
 	public static void onHurt(LivingHurtEvent event) {
-		if(event.entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entity;
-			if(EnchantHelper.hasEnchantment(Magic.elemental, player)) {
-				ItemStack[] mirror = MirrorData.getInventory(player);
-				for(ItemStack stack: mirror) {
-					if(stack != null && stack.hasTagCompound()) {
-						int part1 = stack.stackTagCompound.getInteger("Part1");
-						if(JewelryPart.materialList.get(part1).cancelDamage(player, event.source)) {
-							if(Rand.nextInt(20))
-								EnchantHelper.damageItems(Magic.elemental, player, part1);
+		if(!event.entity.worldObj.isRemote) {
+			if(event.entity instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer) event.entity;
+				if(EnchantHelper.hasEnchantment(Magic.elemental, player)) {
+					for(Integer color: MirrorData.getColors(player)) {
+						int chance = JewelryPart.materialList.get(color).cancelDamage(player, event.source);
+						if(chance > 0) {
+							if(Rand.rand.nextInt(100) < chance) EnchantHelper.damageItems(Magic.elemental, player, color);
 							event.setCanceled(true);
 						}
 					}

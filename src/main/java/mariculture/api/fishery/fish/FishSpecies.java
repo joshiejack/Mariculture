@@ -2,10 +2,13 @@ package mariculture.api.fishery.fish;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -132,25 +135,10 @@ public abstract class FishSpecies {
 	}
 	
 	/* Called Methods */
-	/**
-	 * Whether or not this fish can be caught in the wild, and under what
-	 * conditions
-	 * @param random
-	 * @param World Object
-	 * @param xCoordinate where player is fishing
-	 * @param yCoordinate where player is fishing
-	 * @param zCoordinate where player is fishing
-	 * @param The quality of the rod the player is using
-	 **/
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
-		if(isWorldCorrect(world) && quality.getRank() >= getRodNeeded().getRank() && rand.nextInt(100) < getCatchChance())
-			return Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), getGroup().getBiomes());
-		return false;
-	}
 	
-	/** Return whether this type of world is suitable to catch these fish**/
-	public boolean isWorldCorrect(World world) {
-		return !world.provider.isHellWorld && world.provider.dimensionId != 1;
+	/** return a weighted number to be used to determine how often this fish is caught, Vanilla Raw Fish = 60, Higher = More Common **/
+	public int getCatchChance() {
+		return 20;
 	}
 	
 	/** Whether when this fish is caught it is ALWAYS dead, Defaults to true **/
@@ -158,14 +146,19 @@ public abstract class FishSpecies {
 		return true;
 	}
 	
-	/** Return a number between 1 and 100 (percentage) **/
-	public int getCatchChance() {
-		return 20;
+	/** Return a list of the biomes that this fish can be caught in, defaults to the biomes of their group **/
+	public List<EnumBiomeType> getCatchableBiomes() {
+		List<EnumBiomeType> biomes = new ArrayList();
+		for(EnumBiomeType biome: getGroup().getBiomes()) {
+			biomes.add(biome);
+		}
+		
+		return biomes;
 	}
 	
-	/** Return the rod Quality needed to catch this fish **/
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.OLD;
+	/** Return the Quality type this fish is considered, most fish should be under the 'fish' quality, use good and rare for rarer fish **/
+	public LootQuality getLootQuality() {
+		return LootQuality.FISH;
 	}
 
 	/** Whether this fish can live in the area that they are, defaults to calling their group biome preference
@@ -174,7 +167,7 @@ public abstract class FishSpecies {
 	 * @param yCoordinate of FishFeeder
 	 * @param zCoordinate of FishFeeder **/
 	public boolean canLive(World world, int x, int y, int z) {
-		return isWorldCorrect(world) && getGroup().canLive(world, x, y, z);
+		return getGroup().canLive(world, x, y, z);
 	}
 
 	/** This is called when a player attempts to eat the raw fish

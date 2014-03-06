@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.EnumFishWorkEthic;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -60,8 +61,8 @@ public class FishClown extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.SUPER;
+	public LootQuality getLootQuality() {
+		return LootQuality.RARE;
 	}
 	
 	@Override

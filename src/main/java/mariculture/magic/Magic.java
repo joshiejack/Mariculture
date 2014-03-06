@@ -23,7 +23,6 @@ import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentHealth;
 import mariculture.magic.enchantments.EnchantmentJump;
-import mariculture.magic.enchantments.EnchantmentLuck;
 import mariculture.magic.enchantments.EnchantmentNeverHungry;
 import mariculture.magic.enchantments.EnchantmentOneRing;
 import mariculture.magic.enchantments.EnchantmentRestore;
@@ -107,7 +106,6 @@ public class Magic extends Module {
 	public static Enchantment resurrection;
 	public static Enchantment speed;
 	public static Enchantment stepUp;
-	public static Enchantment luck;
 	
 	public static Item basicMirror;
 	public static Item magicMirror;
@@ -131,7 +129,6 @@ public class Magic extends Module {
 		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
 		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 10, EnumEnchantmentType.all); }
 		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 9, EnumEnchantmentType.all); }
-		if(EnchantIds.luck > 0) { luck = new EnchantmentLuck(EnchantIds.luck, 5, EnumEnchantmentType.all); }
 		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 5, EnumEnchantmentType.all); }
 	}
 

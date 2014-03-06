@@ -1,34 +1,25 @@
 package mariculture.api.fishery;
 
+import java.util.HashMap;
+import java.util.List;
+
+import mariculture.api.core.EnumBiomeType;
+
 public enum EnumRodQuality {
-	OLD(63, 15, 1),
-	GOOD(191, 45, 3),
-	SUPER(575, 100, 9),
-	FLUX(0, 100, 0);
-
-	private final int maxUses;
+	OLD(15),
+	GOOD(45),
+	SUPER(100), 
+	ELECTRIC(101);
+	
 	private final int rank;
-	private final int enchantability;
-
-	/**
-	 * These are the different rod qualities, the rank determines how good a rod
+	/** These are the different rod qualities, the rank determines how good a rod
 	 * is compared to others, higher = better
 	 **/
-	private EnumRodQuality(int uses, int rank, int enchantability) {
-		this.maxUses = uses;
+	private EnumRodQuality(int rank) {
 		this.rank = rank;
-		this.enchantability = enchantability;
 	}
 
 	public int getRank() {
 		return this.rank;
-	}
-
-	public int getMaxUses() {
-		return this.maxUses;
-	}
-
-	public int getEnchantability() {
-		return this.enchantability;
 	}
 }

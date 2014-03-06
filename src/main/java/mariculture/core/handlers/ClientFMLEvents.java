@@ -2,16 +2,13 @@ package mariculture.core.handlers;
 
 import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
-import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketJewelrySwap;
-import mariculture.magic.Magic;
-import mariculture.magic.enchantments.EnchantmentSpeed;
+import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.jewelry.ItemJewelry;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.MouseInputEvent;
 
 public class ClientFMLEvents {
 	@SubscribeEvent

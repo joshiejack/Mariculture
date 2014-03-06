@@ -76,11 +76,6 @@ public class BlockWater extends BlockMachine {
 		return true;
 	}
 	
-	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 0? 1: 0;
-    }
-	
 	public int getMixedBrightnessForBlock(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z) == 0? world.getLightBrightnessForSkyBlocks(x, y, z, 15): world.getLightBrightnessForSkyBlocks(x, y, z, 0);
     }

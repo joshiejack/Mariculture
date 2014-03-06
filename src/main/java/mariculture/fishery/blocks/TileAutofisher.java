@@ -1,8 +1,8 @@
 package mariculture.fishery.blocks;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.blocks.base.TileMachinePowered;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -13,9 +13,11 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
-import mariculture.magic.Magic;
+import mariculture.fishery.EntityHook;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.WeightedRandomFishable;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class TileAutofisher extends TileMachinePowered implements IHasNotification {
@@ -48,7 +50,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == rod && stack.getItem() instanceof ItemBaseRod)
+		if(slot == rod && Fishing.rodHandler.getRodQuality(stack) != null)
 			return true;
 		if(slot >= 5 && slot <= 10 && Fishing.bait.getBaitQuality(stack) > 0)
 			return true;
@@ -65,17 +67,22 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		if(!worldObj.isRemote) {
 			if(canWork) {
 				energyStorage.extractEnergy(getRFUsage(), false);
-				
 				if(baitQuality == -1 && canWork()) {
 					baitQuality = getBaitQualityAndDelete();
 				} else {
+					
 					processed+=speed;
 					if(processed >= max) {
 						processed = 0;
-						int bonusQuality = baitQuality + (EnchantHelper.getLevel(Magic.luck, inventory[rod]) * 3);
-						if (Rand.rand.nextInt(100) < bonusQuality && canWork())
-							catchFish();
-						baitQuality = -1;
+						//For looping catches with the speed enchantment
+						int speed = 1 + EnchantHelper.getLevel(Enchantment.field_151369_A, inventory[rod]);
+						//Bonus for Catching fish with the vanilla luck enchantment
+						for(int i = 0; i < speed && canWork; i++) {
+							int bonusQuality = baitQuality + (EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4);
+							if (Rand.rand.nextInt(100) < bonusQuality && canWork())
+								catchFish();
+							baitQuality = -1;
+						}
 					}
 					
 					if(processed <= 0)
@@ -84,6 +91,21 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 			} else {
 				baitQuality = -1;
 				processed = 0;
+			}
+			
+			//Auto-Eject Item Stacks that are already in the system
+			if(onTick(30)) {
+				if(setting.canEject(EjectSetting.ITEM)) {
+					for(int i: out) {
+						if(inventory[i] != null) {
+							ItemStack ejecting = inventory[i].copy();
+							inventory[i] = null;
+							if (ejecting != null) {
+								helper.insertStack(ejecting, out);
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -105,11 +127,10 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private boolean canUseRod() {
-		EnumRodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
-		
+		EnumRodQuality quality = Fishing.rodHandler.getRodQuality(inventory[rod]);
 		for(int i: bait) {
 			if(inventory[i] != null) {
-				return Fishing.quality.canUseBait(inventory[i], quality);
+				return Fishing.rodHandler.canUseBait(inventory[i], quality);
 			}
 		}
 		
@@ -135,7 +156,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private boolean hasRod() {
-		if(inventory[rod] != null && inventory[rod].getItem() instanceof ItemBaseRod) {
+		if(inventory[rod] != null && Fishing.rodHandler.getRodQuality(inventory[rod]) != null) {
 			if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
 				return ((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, true) >= 100;
 			}
@@ -172,11 +193,10 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 
 	private int getBaitQualityAndDelete() {
-		EnumRodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
-		
+		EnumRodQuality quality = Fishing.rodHandler.getRodQuality(inventory[rod]);
 		for(int i: bait) {
 			if(inventory[i] != null) {
-				if(Fishing.quality.canUseBait(inventory[i], quality)) {
+				if(Fishing.rodHandler.canUseBait(inventory[i], quality)) {
 					int qual = Fishing.bait.getBaitQuality(inventory[i]);
 					decrStackSize(i, 1);
 					return qual;
@@ -193,9 +213,8 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	
 	//Process
 	private void catchFish() {
-		EnumRodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
-		ItemStack lootResult = Fishing.loot.getLoot(Rand.rand, quality, worldObj, xCoord, yCoord, zCoord);
-
+		EnumRodQuality quality = Fishing.rodHandler.getRodQuality(inventory[rod]);
+		ItemStack lootResult = Fishing.loot.getLoot(null, inventory[rod], Rand.rand, worldObj, xCoord, yCoord, zCoord);
 		if (lootResult != null) {
 			helper.insertStack(lootResult, out);
 		}

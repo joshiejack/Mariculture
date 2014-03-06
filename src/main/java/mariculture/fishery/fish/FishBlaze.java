@@ -1,6 +1,12 @@
 package mariculture.fishery.fish;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -45,11 +51,6 @@ public class FishBlaze extends FishSpecies {
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 10D);
 		addProduct(new ItemStack(Items.blaze_powder), 5.0D);
 	}
-
-	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.isHellWorld;
-	}
 	
 	@Override
 	public int getCatchChance() {
@@ -57,8 +58,13 @@ public class FishBlaze extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.SUPER;
+	public List<EnumBiomeType> getCatchableBiomes() {
+		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.HELL });
+	}
+	
+	@Override
+	public LootQuality getLootQuality() {
+		return LootQuality.RARE;
 	}
 	
 	@Override

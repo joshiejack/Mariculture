@@ -19,7 +19,7 @@ public class Compat {
 	public static void init() {
 		if(Modules.fishery.isActive()) {
 			try {
-				CompatBait.init();
+				//CompatBait.init();
 			} catch (Exception e) {
 				LogHandler.log(Level.WARN, "Mariculture - Something went wrong when loading the Bait Compatibility Config");
 			}

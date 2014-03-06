@@ -87,13 +87,13 @@ public class MirrorHandler implements IMirrorHandler {
 
 	public static void handleDamage(EntityPlayer player, int enchant, int amount) {
 		// Mirror
+		//Set the amount of damage to 1 if the enchantment is the elemental enchant
+		amount = (EnchantHelper.exists(Magic.elemental) && enchant == Magic.elemental.effectId)? 1: amount;
 		ItemStack[] mirror = MirrorData.getInventory(player);
-		for(int damaged = 0; damaged <= amount; damaged++) {
+		for(int damaged = 0; damaged < amount; damaged++) {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
 					if (EnchantHelper.hasEnchantment(enchant, mirror[i])) {
-						if(EnchantmentElemental.hasElement(enchant, amount, mirror[i]))
-							continue;
 						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
 							Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 						}

@@ -36,6 +36,7 @@ import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityFishing;
+import mariculture.fishery.EntityHook;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileFishTank;
@@ -50,6 +51,7 @@ import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
 import mariculture.transport.render.RenderSpeedBoatItem;
+import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -129,6 +131,7 @@ public class ClientProxy extends CommonProxy {
 		}
 		
 		if(Modules.fishery.isActive()) {
+			RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
 			RenderingRegistry.registerEntityRenderingHandler(EntityFishing.class, new RenderFishingHook());
 			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Fishery.siftBlock), new RenderSingleItem());

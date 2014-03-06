@@ -1,14 +1,13 @@
 package mariculture.magic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.NBTHelper;
-import mariculture.core.lib.Extra;
 import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentSpeed;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,8 +17,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class MirrorData {
 	public static String world = "ls43llsds#232423d";
+	public static HashMap<String, Integer[]> colors = new HashMap();
 	public static HashMap<String, ItemStack[]> inventories = new HashMap();
 	public static ItemStack[] inventory;
+	public static Integer[] color;
 	private static int updateTick;
 	
 	public static boolean isSameWorld(EntityPlayer player) {
@@ -31,7 +32,46 @@ public class MirrorData {
 			return false;
 		}
 	}
+	/** Color Updates **/
 	
+/* Cache of the colors */
+	public static Integer[] getColors(EntityPlayer player) {
+		return player.worldObj.isRemote? getColorsForClient(): getColorsForPlayer(player);
+	}
+	
+	public static Integer[] getColorsForPlayer(EntityPlayer player) {
+		if(colors.get(player.getDisplayName()) != null && isSameWorld(player)) {
+			return colors.get(player.getDisplayName());
+		}
+		
+		Integer[] arr = fetchColors(player);
+		colors.put(player.getDisplayName(), arr);
+		return arr;
+	}
+	
+	@SideOnly(value = Side.CLIENT)
+	private static Integer[] getColorsForClient() {
+		if(color != null && isSameWorld(ClientHelper.getPlayer())) {
+			return color;
+		}
+		
+		color = fetchColors(ClientHelper.getPlayer());
+		return color;
+	}
+	
+	private static Integer[] fetchColors(EntityPlayer player) {
+		ArrayList<Integer> colorsArray = new ArrayList();
+		ItemStack[] mirror = MirrorData.getInventory(player);
+		for(int i = 0; i < mirror.length; i++) {
+			if(mirror[i] != null && mirror[i].hasTagCompound()) {
+				colorsArray.add(mirror[i].stackTagCompound.getInteger("Part1"));
+			}
+		}
+		
+		return colorsArray.toArray(new Integer[colorsArray.size()]);
+	}
+	
+/* Inventory Functions */
 	public static ItemStack[] getInventory(EntityPlayer player) {
 		return player.worldObj.isRemote? getInventoryForClient(): getInventoryForPlayer(player);
 	}
@@ -98,10 +138,13 @@ public class MirrorData {
 		}
 
 		nbt.setTag("mirrorContents", nbttaglist);
+		//Reset the color
+		color = null;
 		
 		//Setup the speeds after initially saving client data
 		EnchantmentSpeed.set(EnchantHelper.getEnchantStrength(Magic.speed, ClientHelper.getPlayer()));
 		EnchantmentJump.set(EnchantHelper.getEnchantStrength(Magic.jump, ClientHelper.getPlayer()));
+		
 		return true;
 	}
 	
@@ -120,102 +163,11 @@ public class MirrorData {
 		}
 
 		nbt.setTag("mirrorContents", nbttaglist);
+		//Reset the color
+		if(colors.containsKey(player.getDisplayName())) {
+			colors.remove(player.getDisplayName());
+		}
+		
 		return true;
 	}
-	
-	/*
-	public static NBTTagCompound getDataTag(EntityPlayer player) {
-		return player.getEntityData().getCompoundTag(player.PERSISTED_NBT_TAG);
-	}
-	
-	public static ItemStack[] get(EntityPlayer player) {
-		return get(getDataTag(player));
-	}
-	
-	public static ItemStack[] get(NBTTagCompound nbt) {
-		ItemStack[] contents = new ItemStack[4];
-		NBTTagList nbttaglist = nbt.getTagList("mirrorContents", 10);
-		if (nbttaglist != null) {
-			for (int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
-				byte byte0 = nbttagcompound1.getByte("Slot");
-				if (byte0 >= 0 && byte0 < contents.length) {
-					contents[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-				}
-			}
-		}
-		
-		System.out.println(contents[0]);
-		
-		return contents;
-	}
-	
-	public static void save(EntityPlayer player, ItemStack[] contents) {
-		System.out.println(contents[0]);
-		save(getDataTag(player), contents);
-	}
-	
-	public static void save(NBTTagCompound nbt, ItemStack[] contents) {
-		try {
-			NBTTagList nbttaglist = new NBTTagList();
-			for (int i = 0; i < 3; i++) {
-				if (contents[i] != null) {
-					NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-					nbttagcompound1.setByte("Slot", (byte) i);
-					contents[i].writeToNBT(nbttagcompound1);
-					nbttaglist.appendTag(nbttagcompound1);
-				}
-			}
-
-			nbt.setTag("mirrorContents", nbttaglist);
-		} catch (Exception e) {
-			LogHandler.log(Level.WARN, "Mariculture had trouble saving Mirror Contents for Someone");
-		}
-	}
-	
-	//Localised Saving and loading
-	public static ItemStack[] inventory;
-	public static ItemStack[] readDataFromServer(NBTTagCompound nbt) {
-		inventory = new ItemStack[4];
-		NBTTagList nbttaglist = nbt.getTagList("mirrorContents", 10);
-		if (nbttaglist != null) {
-			for (int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
-				byte byte0 = nbttagcompound1.getByte("Slot");
-				if (byte0 >= 0 && byte0 < inventory.length) {
-					inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-				}
-			}
-		}
-		
-		return inventory;
-	}
-	
-	public static ItemStack[] readDataFromClient(EntityPlayer player) {
-		if(inventory == null) {
-			return readDataFromServer(getDataTag(player));
-		} else {
-			return inventory;
-		}
-	}
-	
-	public static void saveDataToClient(NBTTagCompound nbt) {
-		try {
-			inventory = new ItemStack[4];
-			NBTTagList nbttaglist = new NBTTagList();
-			for (int i = 0; i < 3; i++) {
-				if (inventory[i] != null) {
-					NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-					nbttagcompound1.setByte("Slot", (byte) i);
-					inventory[i].writeToNBT(nbttagcompound1);
-					nbttaglist.appendTag(nbttagcompound1);
-				}
-			}
-
-			nbt.setTag("mirrorContents", nbttaglist);
-
-		} catch (Exception e) {
-			LogHandler.log(Level.WARN, "Mariculture had trouble saving Mirror Contents for Someone");
-		}
-	} */
 }

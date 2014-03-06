@@ -1,8 +1,11 @@
 package mariculture.fishery;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
@@ -19,7 +22,6 @@ import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.EntityIds;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GuideMeta;
@@ -33,7 +35,6 @@ import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.blocks.BlockNeonLampItem;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
 import mariculture.fishery.blocks.BlockSift;
@@ -85,12 +86,13 @@ import mariculture.fishery.items.ItemFishyFood;
 import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
 import net.minecraft.block.Block;
+import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.util.WeightedRandomFishable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -99,7 +101,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class Fishery extends Module {
 	public static boolean isActive;
@@ -174,14 +175,14 @@ public class Fishery extends Module {
 	@Override
 	public void registerHandlers() {
 		Fishing.bait = new BaitHandler();
-		Fishing.quality = new RodQualityHandler();
+		Fishing.rodHandler = new FishingRodHandler();
 		Fishing.mutation = new FishMutationHandler();
 		Fishing.fishHelper = new FishHelper();
-		Fishing.loot = new LootHandler();
-		Fishing.rodHandler = new RodRightClickHandler();
 		Fishing.food = new FishFoodHandler();
 		Fishing.sifter = new SifterHandler();
+		Fishing.loot = new FishingLootHandler();
 		MinecraftForge.EVENT_BUS.register(new FisheryEventHandler());
+		MinecraftForge.EVENT_BUS.register(new BaitListingsHandler());
 	}
 
 	@Override
@@ -225,6 +226,7 @@ public class Fishery extends Module {
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityBass.class, "BassBomb", EntityIds.BASS, Mariculture.instance, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityFishing.class, "NewFishing", EntityIds.FISHING, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityHook.class, "FishingNew", EntityIds.FISHING_NEW, Mariculture.instance, 80, 3, true);
 	}
 
 	private void registerFish() {
@@ -303,10 +305,10 @@ public class Fishery extends Module {
 	@Override
 	public void registerItems() {
 		bait = new ItemBait().setUnlocalizedName("bait");
-		rodReed = new ItemRod(EnumRodQuality.OLD).setUnlocalizedName("rodReed");
-		rodWood = new ItemRod(EnumRodQuality.GOOD).setUnlocalizedName("rodWood");
-		rodTitanium = new ItemRod(EnumRodQuality.SUPER).setUnlocalizedName("rodTitanium");
-		rodFlux = new ItemFluxRod(EnumRodQuality.FLUX).setUnlocalizedName("rodFlux");
+		rodReed = new ItemRod(EnumRodQuality.OLD, 63, 1).setUnlocalizedName("rodReed");
+		rodWood = new ItemRod(EnumRodQuality.GOOD, 191, 3).setUnlocalizedName("rodWood");
+		rodTitanium = new ItemRod(EnumRodQuality.SUPER, 575, 9).setUnlocalizedName("rodTitanium");
+		rodFlux = new ItemFluxRod().setUnlocalizedName("rodFlux");
 		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		fishyFood = new ItemFishyFood().setUnlocalizedName("fishyFood");
 		net = new BlockItemNet().setUnlocalizedName("net");
@@ -323,6 +325,28 @@ public class Fishery extends Module {
 
 	@Override
 	public void addRecipes() {
+		String bad = "field_146039_d";
+		String good = "field_146041_e";
+		String fish = "field_146036_f";
+		
+		//Copy over the existing loots to my versions
+		try {
+			List good_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(good));
+			List rare_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(good));
+			List bad_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(bad));
+			List fish_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(fish));
+			
+			for(EnumBiomeType biome: EnumBiomeType.values()) {
+				EntityHook.bad_loot.put(biome, new ArrayList(bad_loot));
+				EntityHook.fish_loot.put(biome, new ArrayList(fish_loot));
+				EntityHook.rare_loot.put(biome, new ArrayList(rare_loot));
+				EntityHook.good_loot.put(biome, new ArrayList(good_loot));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		addBait();
 		addDropletRecipes();
 		addFishRecipes();
@@ -429,7 +453,7 @@ public class Fishery extends Module {
 	}
 
 	private void addBait() {
-		Fishing.bait.addBait(new ItemStack(bait, 1, BaitMeta.ANT), 10);
+		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.ANT), 10);
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.dirt), 1, 2, 50));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.tallgrass, 0, 1), 1, 1, 5));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.log), 1, 1, 10));
@@ -437,39 +461,39 @@ public class Fishery extends Module {
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.grass), 2, 3, 40));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.sapling), 1, 1, 4));
 		
-		Fishing.bait.addBait(new ItemStack(bait, 1, BaitMeta.WORM), 60);
+		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.WORM), 60);
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.WORM), new ItemStack(Blocks.dirt), 2, 3, 10));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.WORM), new ItemStack(Blocks.grass), 3, 5, 20));
 		
-		Fishing.bait.addBait(new ItemStack(bait, 1, BaitMeta.HOPPER), 35);
+		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.HOPPER), 35);
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.leaves), 2, 3, 15));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.tallgrass, 0, 1), 2, 3, 20));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.grass), 2, 3, 25));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.sapling), 2, 5, 50));
 		
-		Fishing.bait.addBait(new ItemStack(bait, 1, BaitMeta.MAGGOT), 30);
+		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.MAGGOT), 30);
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.rotten_flesh), 1, 2, 60));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.beef), 14, 22, 10));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.chicken), 6, 14, 20));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.porkchop), 10, 18, 15));
 		
-		Fishing.bait.addBait(new ItemStack(bait, 1, BaitMeta.BEE), 70);
+		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.BEE), 70);
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.yellow_flower), 2, 3, 20));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.red_flower), 1, 2, 25));
 		
-		Fishing.bait.addBait(new ItemStack(Items.bread), 25);
-		Fishing.bait.addBait(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), 90);
-		Fishing.bait.addBait(new ItemStack(Items.fish), 50);
+		Fishing.bait.addBaitType(new ItemStack(Items.bread), 25);
+		Fishing.bait.addBaitType(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), 90);
+		Fishing.bait.addBaitType(new ItemStack(Items.fish), 50);
 		
 		//Extra Sifter Recipes
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(Items.bread), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(Items.fish), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.FLUX));
+		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(Items.bread), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(Items.fish), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
 	}
 	
 	private void addDropletRecipes() {
@@ -579,10 +603,17 @@ public class Fishery extends Module {
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			if (FishSpecies.speciesList.get(i) != null) {
 				FishSpecies fish = FishSpecies.speciesList.get(i);
-				
 				fish.addFishProducts();
 				
 				ItemStack stack = new ItemStack(fishyFood, 1, fish.fishID);
+				
+				//Adds all fish as loot
+				if(fish.caughtAsRaw()) {
+					Fishing.loot.addLoot(fish.getLootQuality(), new WeightedRandomFishable(stack, fish.getCatchChance()), fish.getCatchableBiomes());
+				} else {
+					Fishing.loot.addLoot(fish.getLootQuality(), new WeightedRandomFishable(Fishing.fishHelper.makePureFish(fish, FishHelper.MALE) , fish.getCatchChance()), fish.getCatchableBiomes());
+					Fishing.loot.addLoot(fish.getLootQuality(), new WeightedRandomFishable(Fishing.fishHelper.makePureFish(fish, FishHelper.FEMALE) , fish.getCatchChance()), fish.getCatchableBiomes());
+				}
 				
 				if(fish.getFishOilVolume() > 0) {
 					RecipeHelper.addMelting(stack, 180, 

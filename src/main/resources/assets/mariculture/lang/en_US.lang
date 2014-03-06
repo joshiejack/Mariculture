@@ -399,17 +399,14 @@ fish.data.species.clown=Clownfish
 itemGroup.jewelryTab=Mariculture Jewelry
 
 #enchantments
-enchantment.fireResistance=Inferno
+enchantment.elemental=Elemental Affinity
 enchantment.hungry=Never Hungry
 enchantment.speed=Sonic the Hedgehog
 enchantment.health=1 Up
-enchantment.clock=Timelord
-enchantment.poison=Poison Ivy
 enchantment.restore=Restoration
 enchantment.jump=Leapfrog
 enchantment.spiderman=Spiderman
 enchantment.glide=Paraglide
-enchantment.punch=Focus Punch
 enchantment.fall=Fall Resistance
 enchantment.resurrection=Reaper
 enchantment.blink=Blink

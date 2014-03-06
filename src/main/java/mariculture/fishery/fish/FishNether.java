@@ -1,5 +1,9 @@
 package mariculture.fishery.fish;
 
+import java.util.Arrays;
+import java.util.List;
+
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.EnumFishWorkEthic;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -49,8 +53,8 @@ public class FishNether extends FishSpecies {
 	}
 	
 	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.isHellWorld;
+	public List<EnumBiomeType> getCatchableBiomes() {
+		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.HELL });
 	}
 
 	@Override

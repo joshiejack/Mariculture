@@ -1,6 +1,7 @@
 package mariculture.magic.jewelry.parts;
 
 import mariculture.core.Core;
+import mariculture.core.lib.EnchantSetting;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.util.Text;
@@ -63,8 +64,8 @@ public class PartPearlRed extends JewelryPart {
 	}
 	
 	@Override
-	public boolean cancelDamage(EntityPlayer player, DamageSource source) {
+	public int cancelDamage(EntityPlayer player, DamageSource source) {
 		player.extinguish();
-		return (source.equals(DamageSource.inFire) || source.equals(DamageSource.onFire) || source == DamageSource.lava);
+		return (source.equals(DamageSource.inFire) || source.equals(DamageSource.onFire) || source == DamageSource.lava)? EnchantSetting.RED_PEARL_DMG_CHANCE: 0;
 	}
 }

@@ -1,5 +1,9 @@
 package mariculture.fishery.fish;
 
+import java.util.Arrays;
+import java.util.List;
+
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -53,8 +57,8 @@ public class FishNight extends FishSpecies {
 	}
 	
 	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.dimensionId == 1;
+	public List<EnumBiomeType> getCatchableBiomes() {
+		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.ENDER });
 	}
 
 	@Override

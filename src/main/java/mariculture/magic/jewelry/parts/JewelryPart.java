@@ -92,7 +92,7 @@ public class JewelryPart {
 	}
 
 	//Do nothing
-	public boolean cancelDamage(EntityPlayer player, DamageSource source) {
-		return false;
+	public int cancelDamage(EntityPlayer player, DamageSource source) {
+		return 0;
 	}
 }

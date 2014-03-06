@@ -10,6 +10,7 @@ import mariculture.magic.enchantments.EnchantmentFallDamage;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentOneRing;
+import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
@@ -44,7 +45,11 @@ public class MagicEventHandler {
 				if(EnchantHelper.exists(Magic.spider))
 					EnchantmentSpider.activate(player);
 			} else if(EnchantHelper.exists(Magic.oneRing)){
-				EnchantmentOneRing.activate((EntityPlayer) event.entity);
+				EnchantmentOneRing.activate(player);
+			}
+			
+			if(!player.capabilities.isCreativeMode) {
+				EnchantmentRestore.activate(player);
 			}
 		}
 	}

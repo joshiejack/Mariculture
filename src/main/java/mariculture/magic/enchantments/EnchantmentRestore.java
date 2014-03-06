@@ -1,14 +1,16 @@
 package mariculture.magic.enchantments;
 
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.lib.EnchantSetting;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class EnchantmentRestore extends EnchantmentJewelry {
-	public EnchantmentRestore(final int i, final int weight,
-			final EnumEnchantmentType type) {
+	private static int ticker;
+	public EnchantmentRestore(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
 		this.setName("restore");
 	}
@@ -29,13 +31,17 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 	}
 
 	public static void activate(EntityPlayer player) {
+		ticker++;
+		if(ticker % EnchantSetting.TICK_REPAIR != 0)
+			return;
 		//Repair Handheld
+		World world = player.worldObj;
 		ItemStack hand = player.getCurrentEquippedItem();
 		if (hand != null) {
 			if (hand.isItemStackDamageable() && hand.isItemDamaged() && hand.getItem().isRepairable()) {
 				if (hand.getItemDamage() > 0) {
 					hand.setItemDamage(player.getCurrentEquippedItem().getItemDamage() - 1);
-					EnchantHelper.damageItems(Magic.repair, player, 1);
+					if(!world.isRemote) EnchantHelper.damageItems(Magic.repair, player, 1);
 				}
 			}
 		}
@@ -51,7 +57,7 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 						if (armor.isItemStackDamageable() && armor.isItemDamaged() && armor.getItem().isRepairable()) {
 							if (armor.getItemDamage() > 0) {
 								armor.setItemDamage(armor.getItemDamage() - 1);
-								EnchantHelper.damageItems(Magic.repair, player, 1);
+								if(!world.isRemote) EnchantHelper.damageItems(Magic.repair, player, 1);
 							}
 						}
 					}
@@ -67,7 +73,7 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 					if (stack.isItemStackDamageable() && stack.isItemDamaged() && stack.getItem().isRepairable()) {
 						if (stack.getItemDamage() > 0) {
 							stack.setItemDamage(stack.getItemDamage() - 1);
-							EnchantHelper.damageItems(Magic.repair, player, 1);
+							if(!world.isRemote) EnchantHelper.damageItems(Magic.repair, player, 1);
 						}
 					}
 				}

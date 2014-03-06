@@ -15,6 +15,9 @@ public interface IFishHelper {
 	 * @param The fish type you want to make a pure bred of
 	 * @return Returns a pure bred fish */
 	public ItemStack makePureFish(FishSpecies fish);
+	
+	/** Same as above, but makes the specified gender **/
+	public ItemStack makePureFish(FishSpecies fish, int gender);
 
 	/**
 	 * Biome can Live Helper, Multiple Biome

@@ -27,9 +27,7 @@ public class MirrorEnchantmentHelper {
 			j = j + JewelryPart.materialList.get(id1).getEnchantability()
 					+ (JewelryPart.materialList.get(id2).getEnchantability() / 2);
 		}
-		
-		j += EnchantHelper.getLevel(Magic.luck, mirror) * 4;
-		
+				
 		if (j <= 0) {
 			return null;
 		} else {

@@ -22,7 +22,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemFishy extends Item {
 	private static IIcon egg;
 	public ItemFishy() {
-		maxStackSize = 1;
 		setHasSubtypes(true);
 	}
 

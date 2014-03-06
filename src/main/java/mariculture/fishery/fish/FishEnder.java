@@ -1,6 +1,10 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.EnumRodQuality;
+import java.util.Arrays;
+import java.util.List;
+
+import mariculture.api.core.EnumBiomeType;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -53,15 +57,14 @@ public class FishEnder extends FishSpecies {
 	public int getCatchChance() {
 		return 25;
 	}
-	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.GOOD;
+	public List<EnumBiomeType> getCatchableBiomes() {
+		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.ENDER });
 	}
 	
 	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.dimensionId == 1;
+	public LootQuality getLootQuality() {
+		return LootQuality.GOOD;
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package mariculture.fishery.fish;
 
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -42,6 +43,11 @@ public class FishSquid extends FishSpecies {
 	@Override
 	public boolean caughtAsRaw() {
 		return false;
+	}
+	
+	@Override
+	public LootQuality getLootQuality() {
+		return LootQuality.BAD;
 	}
 	
 	@Override

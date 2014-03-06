@@ -5,7 +5,6 @@ import java.util.List;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.EnumRodQuality;
-import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.items.ItemBattery;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,9 +16,9 @@ import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
-	public ItemFluxRod(EnumRodQuality quality) {
-		super(quality);
+public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
+	public ItemFluxRod() {
+		super(EnumRodQuality.ELECTRIC, 0, 0);
 		setNoRepair();
 		setMaxStackSize(1);
 		setCreativeTab(MaricultureTab.tabMariculture);
@@ -53,8 +52,6 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 		list.add("Charge: " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " RF");
 		list.add("Transfer: " + this.maxReceive + " RF/t");
 		list.add("RF Per Use: " + this.maxExtract + " RF");
-		
-		super.addInformation(stack, player, list, bool);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package mariculture.fishery.fish;
 import java.util.Random;
 
 import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -54,8 +55,8 @@ public class FishElectricRay extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.SUPER;
+	public LootQuality getLootQuality() {
+		return LootQuality.RARE;
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -44,8 +45,8 @@ public class FishPerch extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.GOOD;
+	public LootQuality getLootQuality() {
+		return LootQuality.GOOD;
 	}
 	
 	@Override

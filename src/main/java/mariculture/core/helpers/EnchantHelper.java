@@ -69,6 +69,6 @@ public class EnchantHelper {
 	
 	//Whether the item is broken
 	public static boolean isBroken(ItemStack stack) {
-		return stack.getItemDamage() >= stack.getMaxDamage();
+		return stack != null && stack.getItemDamage() >= stack.getMaxDamage();
 	}
 }

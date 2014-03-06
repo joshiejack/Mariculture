@@ -1,6 +1,11 @@
 package mariculture.fishery.fish;
 
+import java.util.Arrays;
+import java.util.List;
+
+import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -46,8 +51,8 @@ public class FishGlow extends FishSpecies {
 	}
 	
 	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.isHellWorld;
+	public List<EnumBiomeType> getCatchableBiomes() {
+		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.HELL });
 	}
 
 	@Override
@@ -56,8 +61,8 @@ public class FishGlow extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.GOOD;
+	public LootQuality getLootQuality() {
+		return LootQuality.GOOD;
 	}
 	
 	@Override

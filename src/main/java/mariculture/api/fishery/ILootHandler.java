@@ -1,31 +1,27 @@
 package mariculture.api.fishery;
 
+import java.util.List;
 import java.util.Random;
 
+import mariculture.api.core.EnumBiomeType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
 
 public interface ILootHandler {
-	/**
-	 * Add any new type of loot
+	public static enum LootQuality {
+		BAD, GOOD, RARE, FISH
+	}
+	
+	/** Add new loots to the Mariculture fishing system
 	 * 
-	 * @param The item you wish to add as fish loot
-	 * @param Object
-	 * @param EnumRodQuality
-	 *            quality the type of rod quality that is needed as a minimum to
-	 *            catch
-	 * @param int chance, the chance to catch this loot, Example values: record
-	 *        2000, expBottle 100, Diamond 5000, leatherBoots 50
-	 * @param (Optional) Dimension ID: -1 for Nether, 1 for End. If ignored this
-	 *        will default to the overworld and any dimension other than the end
-	 *        and the nether
-	 *
-	 * 
-	 * Example (Adds Void Bottle to Fishing Loot for the end dimension):
-	 *  Fishing.loot.addLoot(new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_VOID), 
-	 *  															new Object[] { EnumRodQuality.OLD, 75, 1 }); **/
-	public void addLoot(ItemStack stack, Object... args);
+	 * @param quality - The loot list it should be added to
+	 * @param loot - The loot itself
+	 * @param biomes - list of biome types you can catch this in, return null for all biomes (Also adds to the vanilla loot list).
+	 */
+	public void addLoot(LootQuality quality, WeightedRandomFishable loot, List<EnumBiomeType> biomes);
 
-	/** This will generate random loot making use of the parameters specified **/
-	public ItemStack getLoot(Random rand, EnumRodQuality quality, World world, int x, int y, int z);
+	/** This will generate random loot making use of the parameters specified (Player can be null) **/
+	public ItemStack getLoot(EntityPlayer player, ItemStack rod, Random rand, World world, int x, int y, int z);
 }

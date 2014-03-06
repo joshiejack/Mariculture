@@ -1,30 +1,7 @@
 package mariculture.fishery;
 
-import java.util.List;
-import java.util.Random;
-
-import mariculture.api.fishery.EnumRodQuality;
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.ItemBaseRod;
-import mariculture.core.helpers.EnchantHelper;
-import mariculture.magic.Magic;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityFishing extends EntityFishHook {
 	public EntityFishing(World par1World) {

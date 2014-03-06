@@ -120,6 +120,19 @@ public final class ItemHelper {
 				&& (stackA.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackB.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackA
 						.getHasSubtypes() == false ? true : stackB.getItemDamage() == stackA.getItemDamage());
 	}
+	
+	public static boolean areItemStacksEqualWithNBT(ItemStack stackA, ItemStack stackB) {
+		
+		if (stackB == null) {
+			return false;
+		}
+		
+		if(!doNBTsMatch(stackA.stackTagCompound, stackB.stackTagCompound)) return false;
+		
+		return stackA.getItem() == stackB.getItem()
+				&& (stackA.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackB.getItemDamage() == OreDictionary.WILDCARD_VALUE ? true : stackA
+						.getHasSubtypes() == false ? true : stackB.getItemDamage() == stackA.getItemDamage());
+	}
 
 	public static String getItemNBTString(ItemStack theItem, String nbtKey, String invalidReturn) {
 

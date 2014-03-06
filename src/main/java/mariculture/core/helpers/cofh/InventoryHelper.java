@@ -40,7 +40,7 @@ public class InventoryHelper {
 		}
 		int openSlot = -1;
 		for (int i = startIndex; i < inventory.length; i++) {
-			if (ItemHelper.areItemStacksEqualNoNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
+			if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
 				int hold = inventory[i].getMaxStackSize() - inventory[i].stackSize;
 				if (hold >= stack.stackSize) {
 					inventory[i].stackSize += stack.stackSize;
@@ -72,7 +72,7 @@ public class InventoryHelper {
 		}
 		int openSlot = -1;
 		for (int i : slots) {
-			if (ItemHelper.areItemStacksEqualNoNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
+			if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
 				int hold = inventory[i].getMaxStackSize() - inventory[i].stackSize;
 				if (hold >= stack.stackSize) {
 					inventory[i].stackSize += stack.stackSize;
@@ -103,7 +103,7 @@ public class InventoryHelper {
 		}
 		int openSlot = -1;
 		for (int i : slots) {
-			if (ItemHelper.areItemStacksEqualNoNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
+			if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
 				return true;
 			} else if (inventory[i] == null && openSlot == -1) {
 				openSlot = i;

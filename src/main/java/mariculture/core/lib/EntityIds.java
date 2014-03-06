@@ -8,4 +8,5 @@ public class EntityIds {
 	public static final int FAKE_ITEM = 44;
 	public static final int SPEED_BOAT = 187;
 	public static final int HAMMERHEAD = 200;
+	public static final int FISHING_NEW = 45;
 }

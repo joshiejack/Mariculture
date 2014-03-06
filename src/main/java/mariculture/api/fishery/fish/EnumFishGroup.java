@@ -35,11 +35,11 @@ public enum EnumFishGroup {
 				 new EnumSalinityType[] { EnumSalinityType.FRESH }),
 	
 	//Flat fish
-	FLATFISH(7, new EnumBiomeType[] { EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.OCEAN, EnumBiomeType.HOT, EnumBiomeType.ARID, EnumBiomeType.HELL }, 
+	FLATFISH(7, new EnumBiomeType[] { EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.OCEAN, EnumBiomeType.HOT, EnumBiomeType.ARID }, 
 				new EnumSalinityType[] { EnumSalinityType.SALT, EnumSalinityType.MAGIC }),
 				
 	//Jellyfish
-	JELLY(8, new EnumBiomeType[] { EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.ENDER },  
+	JELLY(8, new EnumBiomeType[] { EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.COLD },  
 			 new EnumSalinityType[] { EnumSalinityType.SALT, EnumSalinityType.MAGIC }),
 			 
 	//Nemo Fish

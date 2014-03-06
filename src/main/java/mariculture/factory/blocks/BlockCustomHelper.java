@@ -62,11 +62,11 @@ public class BlockCustomHelper {
 	}
 
 	public static float getBlockHardness(World world, int x, int y, int z) {
-		return ((TileCustom) world.getTileEntity(x, y, z)).getHardness();
+		return world.getTileEntity(x, y, z) != null? ((TileCustom) world.getTileEntity(x, y, z)).getHardness(): 1F;
 	}
 
 	public static float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-		return ((TileCustom) world.getTileEntity(x, y, z)).getResistance();
+		return world.getTileEntity(x, y, z) != null? ((TileCustom) world.getTileEntity(x, y, z)).getResistance(): 1F;
 	}
 
 	public static boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z, int plan) {

@@ -7,6 +7,7 @@
 * Fixed Machines trying to eject to wrong side
 * Removed Timelord, Focus Punch, Poison Ivy and Inferno Enchants
 * Added Elemental Affinity Enchantment - Each pearl colour has a different effect with this enchantment, has negative affects on stuff other than pearls
+* Ender Fish and Netherfish are no longer FORCED to live in the nether/end biomes. Now as long as the environment is correct, they will be happy.
 
 == Mariculture 1.2.0d ==
 * Gas is a little more dangerous

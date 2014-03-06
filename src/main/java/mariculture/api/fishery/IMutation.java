@@ -17,5 +17,6 @@ public interface IMutation {
 	/** Retrieve mutation chance for this combo **/
 	public int getMutationChance(FishSpecies mother, FishSpecies father);
 	
-	public HashMap<List<FishSpecies>, FishSpecies> getMutations();
+	/** Returns a list of all mutations, the mutations are returned in the form of the 'species identifier' rather than the species data **/
+	public HashMap<List<String>, String> getMutations();
 }

@@ -2,7 +2,6 @@ package mariculture.fishery.gui;
 
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
 import mariculture.fishery.blocks.TileAutofisher;
@@ -56,7 +55,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (stack.getItem() instanceof ItemBaseRod) {
+				if (Fishing.rodHandler.getRodQuality(stack) != null) {
 					if (!this.mergeItemStack(stack, 4, 5, false)) { // Slot 4-4
 						return null;
 					}
@@ -108,7 +107,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return stack.getItem() instanceof ItemBaseRod;
+			return Fishing.rodHandler.getRodQuality(stack) != null;
 		}
 	}
 

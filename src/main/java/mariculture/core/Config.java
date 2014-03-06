@@ -210,26 +210,24 @@ public class Config {
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 70).getInt();
             EnchantIds.elemental = config.get(Category.ENCHANT, "Elemental Affinity", 71).getInt();
             EnchantIds.fall = config.get(Category.ENCHANT, "Fall Resistance", 72).getInt();
-            EnchantIds.fire = config.get(Category.ENCHANT, "Inferno", 73).getInt();
             EnchantIds.flight = config.get(Category.ENCHANT, "Superman", 74).getInt();
             EnchantIds.glide = config.get(Category.ENCHANT, "Paraglide", 75).getInt();
             EnchantIds.health = config.get(Category.ENCHANT, "1 Up", 76).getInt();
             EnchantIds.jump = config.get(Category.ENCHANT, "Leapfrog", 77).getInt();
             EnchantIds.hungry = config.get(Category.ENCHANT, "Never Hungry", 78).getInt();
             EnchantIds.oneRing = config.get(Category.ENCHANT, "The One Ring", 79).getInt();
-            EnchantIds.poison = config.get(Category.ENCHANT, "Poison Ivy", 80).getInt();
-            EnchantIds.punch = config.get(Category.ENCHANT, "Power Punch", 81).getInt();
             EnchantIds.repair = config.get(Category.ENCHANT, "Restoration", 82).getInt();
             EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 83).getInt();
             EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 84).getInt();
             EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 85).getInt();
             EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 86).getInt();
-            EnchantIds.luck = config.get(Category.ENCHANT, "Luck of the Irish", 87).getInt();
             
             EnchantSetting.JUMPS_PER = config.get(Category.EXTRA, "Leapfrog > Jumps per Damage", 10).getInt();
             EnchantSetting.JUMP_FACTOR = config.get(Category.EXTRA, "Leapfrog > Jump Factor", 0.15).getDouble(0.15);
             EnchantSetting.JUMPS_PER = config.get(Category.EXTRA, "Sonic the Hedgehog > Ticks per Damage", 1200).getInt();
             EnchantSetting.JUMP_FACTOR = config.get(Category.EXTRA, "Sonic the Hedgehog > Speed Factor", 0.035).getDouble(0.035);
+            EnchantSetting.TICK_REPAIR = config.get(Category.EXTRA, "Restoration - Ticks between Repair", 100).getInt();
+            EnchantSetting.RED_PEARL_DMG_CHANCE = config.get(Category.EXTRA, "Red Pearl - Damage Chance", 10).getInt();
         } catch (Exception e) {
             LogHandler.log(Level.ERROR, "Mariculture had a serious issue loading it's block/item/enchant ids");
         	e.printStackTrace();
