@@ -4,6 +4,8 @@ import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.feature.Feature;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
@@ -343,6 +345,11 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		Packets.updateGUI(player, container, 3, tank.getCapacity());
 		Packets.updateGUI(player, container, 4, energyStorage.getEnergyStored());
 		Packets.updateGUI(player, container, 5, energyStorage.getMaxEnergyStored());
+	}
+	
+	@Override
+	public void handleButtonClick(int id) {
+		if(id == Feature.REDSTONE) setRSMode(RedstoneMode.toggle(getRSMode()));
 	}
 	
 	@Override

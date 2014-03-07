@@ -1,6 +1,9 @@
 package mariculture.factory.gui;
 
+import mariculture.api.core.IItemUpgrade;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMachine;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.factory.blocks.TileDictionary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,55 +13,62 @@ import net.minecraft.item.ItemStack;
 public class ContainerDictionary extends ContainerMachine {
 	public ContainerDictionary(TileDictionary tile, InventoryPlayer playerInventory) {
 		super(tile);
-
-		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new SlotDictionary(tile, i, 8 + (i * 18), 18));
-		}
-
-		for (int j = 0; j < 2; j++) {
-			for (int i = 0; i < 3; i++) {
-				addSlotToContainer(new Slot(tile, 9 + (i + (j * 3)), 12 + (i * 18), 42 + (j * 18)));
+		
+		for(int j = 0; j < 4; j++) {
+			for(int i = 0; i < 6; i++) {
+				addSlotToContainer(new SlotDictionary(tile, (i + (j * 6)), 12 + (i * 18), 15 + (j * 18)));
 			}
 		}
-		for (int j = 0; j < 2; j++) {
-			for (int i = 0; i < 3; i++) {
-				addSlotToContainer(new Slot(tile, 15 + (i + (j * 3)), 112 + (i * 18), 42 + (j * 18)));
+		
+		addSlotToContainer(new Slot(tile, 24, 139, 20));
+		
+		for(int i = 0; i < 2; i ++) {
+			for(int j = 0; j < 2; j++) {
+				addSlotToContainer(new Slot(tile, 25 + i + (j * 2), 130 + (i * 18), 46 + (j * 18)));
 			}
 		}
 
-		bindPlayerInventory(playerInventory, 10);
+		bindPlayerInventory(playerInventory, 14);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int par2) {
-		ItemStack stack = null;
-		Slot slot = (Slot) this.inventorySlots.get(par2);
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+		int size = getSizeInventory();
+		int low = size + 27;
+		int high = low + 9;
+		ItemStack itemstack = null;
+		Slot slot = (Slot) this.inventorySlots.get(slotID);
 
 		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			stack = itemstack1.copy();
+			ItemStack stack = slot.getStack();
+			itemstack = stack.copy();
 
-			if (par2 < 21) {
-				if (!this.mergeItemStack(itemstack1, 21, 57, true)) {
+			if (slotID < size) {
+				if (!this.mergeItemStack(stack, size, high, true)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 9, 15, false)) {
+				slot.onSlotChange(stack, itemstack);
+			} else if (slotID >= size) {
+				if (!this.mergeItemStack(stack, 24, 25, false)) { // Slot 7-7
+					return null;
+				}
+			} else if (!this.mergeItemStack(stack, size, high, false)) {
 				return null;
 			}
 
-			if (itemstack1.stackSize == 0) {
+			if (stack.stackSize == 0) {
 				slot.putStack((ItemStack) null);
 			} else {
 				slot.onSlotChanged();
 			}
 
-			if (itemstack1.stackSize == stack.stackSize) {
+			if (stack.stackSize == itemstack.stackSize) {
 				return null;
 			}
 
-			slot.onPickupFromSlot(player, itemstack1);
+			slot.onPickupFromSlot(player, stack);
 		}
 
-		return stack;
+		return itemstack;
 	}
 }

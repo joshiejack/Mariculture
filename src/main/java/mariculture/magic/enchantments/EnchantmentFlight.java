@@ -1,5 +1,6 @@
 package mariculture.magic.enchantments;
 
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.magic.Magic;
@@ -49,9 +50,7 @@ public class EnchantmentFlight extends EnchantmentJewelry {
 						mode = 0;
 					}
 					
-					//TODO: Print Changing Game Mode for flight to client
-					/*FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(
-							StatCollector.translateToLocal("mariculture.string.flight") + (mode + 1)); */
+					ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.flight") + (mode + 1));
 				}
 				
 				float flightSpeed = (mode + 1) * 0.025F;

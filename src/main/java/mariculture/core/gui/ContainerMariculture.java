@@ -52,11 +52,6 @@ public class ContainerMariculture extends Container {
 	@Override
     public ItemStack slotClick(int slotID, int mouseButton, int modifier, EntityPlayer player) {
 		Slot slot = (slotID < 0 || slotID > this.inventorySlots.size())? null: (Slot)this.inventorySlots.get(slotID);
-
-	    if(slot instanceof SlotFake) {
-	    	return ((SlotFake)slot).handle(player, mouseButton, slot);
-	    }
-
-        return super.slotClick(slotID, mouseButton, modifier, player);
+		return (slot instanceof SlotFake && ((SlotFake)slot).handle(player, mouseButton, slot) == null)? null: super.slotClick(slotID, mouseButton, modifier, player);
     }
 }

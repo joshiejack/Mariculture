@@ -199,10 +199,9 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			setInventorySlotContents(1, output);
 		}
 		
-		//Let the world know that the tanks have changed, the items get their packets sent with the respective items...
-		//TODO: PACKET TANKS Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)1), (byte) 1).build());
-		//TODO: PACKET TANKS Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)2), (byte) 2).build());
-		//TODO: PACKET TANKS Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build()); 
+		Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
+		Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);
+		Packets.syncFluidTank(this, getFluid((byte)3), (byte)3);
 	}
 
 	public boolean canWork() {
@@ -390,26 +389,24 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		TileVat vat = (master != null)? (TileVat)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
-		if(vat == null)
-			return null;
-		
+		if(vat == null) return null;
 		//If the draining from tank3 didn't fail, send packet update, otherwise try for tank2, then tank1
 		FluidStack ret = vat.tank3.drain(maxDrain, doDrain);
 		if(ret != null) {
 			if(doDrain) {
-				//TODO: PACKET TANK SYNC Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)3), (byte) 3).build());
+				Packets.syncFluidTank(this, getFluid((byte)3), (byte)3);
 			}
 		} else {
 			ret = vat.tank2.drain(maxDrain, doDrain);
 			if(ret != null) {
 				if(doDrain) {
-					//TODO: PACKET TANK SYNC Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
+					Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);
 				}
 			} else {
 				ret = vat.tank.drain(maxDrain, doDrain);
 				if(ret != null) {
 					if(doDrain) {
-						//TODO: PACKET TANK SYNC Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
+						Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
 					}
 				}
 			}
@@ -427,13 +424,13 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		int ret = vat.tank.fill(resource, doFill);
 		if(ret > 0) {
 			if(doFill) {
-				//TODO: PACKET TANK SYNC Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
+				Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
 			}
 		} else {
 			ret = vat.tank2.fill(resource, doFill);
 			if(ret > 0) {
 				if(doFill) {
-					//TODO: PACKET TANK SYNC Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
+					Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);
 				}
 			}
 		}

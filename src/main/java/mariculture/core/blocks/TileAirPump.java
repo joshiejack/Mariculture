@@ -5,7 +5,6 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorageTank;
-import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.AirMeta;
@@ -13,7 +12,6 @@ import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.IEjectable;
 import mariculture.diving.Diving;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.block.material.Material;
@@ -25,7 +23,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
-public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEjectable {
+//TODO: test ejecting of the air pump
+public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	protected BlockTransferHelper helper;
 	protected EnergyStorage storage = new EnergyStorage(100);
 	public boolean animate;
@@ -253,21 +252,5 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 
 	public boolean rotate() {
 		return false;
-	}
-
-//Unused but hey!	
-	@Override
-	public EjectSetting getEjectSetting() {
-		return EjectSetting.FLUID;
-	}
-
-	@Override
-	public void setEjectSetting(EjectSetting setting) {
-		return;
-	}
-
-	@Override
-	public EjectSetting getEjectType() {
-		return EjectSetting.FLUID;
 	}
 }

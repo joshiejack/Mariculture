@@ -6,7 +6,7 @@ import mariculture.core.util.IHasClickableButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
-public class PacketClick extends PacketCoords {
+public class PacketClick extends PacketCoords {	
 	int id;
 	
 	public PacketClick() { }

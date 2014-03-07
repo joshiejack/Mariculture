@@ -86,32 +86,6 @@ public class OreDicHelper {
 			OreDictionary.registerOre(name, stack);
 		}
 	}
-
-	public static boolean areEqual(ItemStack stack1, ItemStack stack2) {
-		if(isInDictionary(stack1) && isInDictionary(stack2)) {
-			if(getDictionaryName(stack1).equals(getDictionaryName(stack2))) {
-				return true;
-			}
-			
-			if(checkException(getDictionaryName(stack1), getDictionaryName(stack2))) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private static boolean checkException(String check, String name) {
-		for(int i = 0; i < Compatibility.EXCEPTIONS.length; i++) {
-			String[] names = Compatibility.EXCEPTIONS[i].split("\\s*:\\s*");
-			if((check.equals(names[0]) && name.equals(names[1])) ||
-					(check.equals(names[1]) && name.equals(names[0]))) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
 	
 	public static ItemStack getNextValidEntry(ItemStack stack) {
 		return getNextOreDicEntry(stack, true);
@@ -130,11 +104,6 @@ public class OreDicHelper {
 					id++;
 					
 					if (id >= OreDictionary.getOres(name).size()) {
-						if(checkWhitelist) {
-							ItemStack check = checkException(stack, name);
-							stack = (check != null) ? check : stack;
-						}
-
 						id = 0;
 					}
 				}
@@ -168,22 +137,5 @@ public class OreDicHelper {
 		}
 
 		return id;
-	}
-	
-	private static ItemStack checkException(ItemStack stack, String name) {
-		if (!OreDicHelper.isWhitelisted(stack)) {
-			return null;
-		}
-
-		for (int i = 0; i < Compatibility.EXCEPTIONS.length; i++) {
-			String[] names = Compatibility.EXCEPTIONS[i].split("\\s*:\\s*");
-			if (names[0].equals(name)) {
-				return (OreDictionary.getOres(names[1]).size() > 0) ? OreDictionary.getOres(names[1]).get(0) : null;
-			} else if (names[1].equals(name)) {
-				return (OreDictionary.getOres(names[0]).size() > 0) ? OreDictionary.getOres(names[0]).get(0) : null;
-			}
-		}
-
-		return null;
 	}
 }

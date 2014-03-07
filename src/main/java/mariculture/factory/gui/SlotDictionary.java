@@ -1,13 +1,20 @@
 package mariculture.factory.gui;
 
+import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.SlotFake;
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.util.Text;
+import mariculture.factory.OreDicHandler;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 
 public class SlotDictionary extends SlotFake {
 	public SlotDictionary(IInventory inv, int id, int x, int y) {
@@ -16,7 +23,7 @@ public class SlotDictionary extends SlotFake {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return OreDicHelper.isWhitelisted(stack) || stack.getItem() instanceof ItemFilter;
+		return (OreDicHandler.isInDictionary(stack) && OreDicHandler.isWhitelisted(stack)) || stack.getItem() instanceof ItemFilter;
 	}
 
 	@Override
@@ -34,22 +41,44 @@ public class SlotDictionary extends SlotFake {
 
 	@Override
 	public boolean canTakeStack(EntityPlayer player) {
-		return false;
+		return true;
+	}
+	
+	public void updateOreDisplayTag(ItemStack stack) {
+		NBTTagCompound tag = stack.stackTagCompound;
+		if (tag == null) {
+			tag = new NBTTagCompound();
+		}
+		
+		if (!tag.hasKey("display")) {
+			tag.setTag("display", new NBTTagCompound());
+		}
+		
+		NBTTagCompound display = tag.getCompoundTag("display");
+		NBTTagList lore = display.getTagList("Lore", 8);
+		String old = lore.getStringTagAt(0) != null? lore.getStringTagAt(0): "";
+		if(old.startsWith("§")) old = old.substring(2);
+		lore = new NBTTagList();
+		String next = OreDicHandler.getNextString(stack, old);
+		display.setTag("Lore", OreDicHandler.addAllTags(stack, lore, next));
+		stack.stackTagCompound = tag;
 	}
 
-	public ItemStack handle(EntityPlayer player, int mouseButton, Slot slot) {
-		boolean isFilter = false;
-
+	public ItemStack handle(EntityPlayer player, int mouseButton, Slot slot) {		
 		ItemStack filterCheck = player.inventory.getItemStack();
-		if (filterCheck != null) {
-			if (filterCheck.getItem() instanceof ItemFilter) {
-				isFilter = true;
-			}
-		}
+		ItemStack filterInSlot = slot.getStack();
+		if(filterCheck != null && filterCheck.getItem() instanceof ItemFilter) return player.openContainer instanceof ContainerStorage? null: filterCheck;
+		if(filterInSlot != null && filterInSlot.getItem() instanceof ItemFilter) return player.openContainer instanceof ContainerStorage? null: filterInSlot;
 
-		if (mouseButton > 0) {
+		if (mouseButton == 1 && filterCheck == null) {
 			slot.putStack(null);
-		} else if (mouseButton == 0) {
+		} else if(mouseButton == 2 && filterCheck == null) {
+			ItemStack stackSlot = slot.getStack();
+			ItemStack stackHeld = player.inventory.getItemStack();
+			if (stackSlot != null && stackHeld == null) {
+				updateOreDisplayTag(stackSlot);
+			}
+		} else {
 			ItemStack stack;
 			InventoryPlayer playerInv = player.inventory;
 			slot.onSlotChanged();
@@ -57,17 +86,18 @@ public class SlotDictionary extends SlotFake {
 			ItemStack stackHeld = playerInv.getItemStack();
 
 			if (stackSlot == null && stackHeld != null) {
-				if (isFilter || OreDicHelper.isInDictionary(stackHeld)) {
-					if (isFilter || OreDicHelper.isWhitelisted(stackHeld)) {
+				if (OreDicHandler.isInDictionary(stackHeld)) {
+					if (OreDicHandler.isWhitelisted(stackHeld)) {
 						ItemStack copy = stackHeld.copy();
 						copy.stackSize = 1;
+						updateOreDisplayTag(copy);
 						slot.putStack(copy);
 					}
 				}
 			}
 
 			if (stackSlot != null && stackHeld == null) {
-				slot.putStack(OreDicHelper.getNextValidEntry(stackSlot));
+				slot.putStack(OreDicHandler.getNextValidEntry(stackSlot));
 			}
 		}
 

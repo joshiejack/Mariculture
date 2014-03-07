@@ -52,4 +52,6 @@ public class Extra {
 	public static int PERCENT_NEEDED;
 	public static boolean SPAWN_BOOKS;
 	public static boolean DISABLE_FISH;
+	
+	public static int PACKET_DISTANCE;
 }

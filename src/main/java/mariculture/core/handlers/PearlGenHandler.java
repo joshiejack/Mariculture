@@ -13,8 +13,6 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomChestContent;
 
 public class PearlGenHandler {
-	//TODO: Redo the Pearl Generation Handler
-	
 	private static ArrayList<GeneratedPearls> pearls = new ArrayList<GeneratedPearls>();
 
 	public static void addPearl(ItemStack item, int rarity) {

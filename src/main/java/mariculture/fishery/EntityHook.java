@@ -37,9 +37,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 	public static HashMap<EnumBiomeType, List> bad_loot = new HashMap();
 	public static HashMap<EnumBiomeType, List> fish_loot = new HashMap();
 
-	private EnumRodQuality quality;
 	private int baitQuality;
-
 	public EntityHook(World world) {
 		super(world);
 	}
@@ -200,7 +198,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 					double d4 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (j + 1) / (double) b0 - 0.125D + 0.125D;
 					AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getAABBPool().getAABB(this.boundingBox.minX, d3, this.boundingBox.minZ, this.boundingBox.maxX, d4, this.boundingBox.maxZ);
 
-					if (this.worldObj.isAABBInMaterial(axisalignedbb1, Material.water)) {
+					if (this.worldObj.isAABBInMaterial(axisalignedbb1, Material.water) || (this.worldObj.provider.isHellWorld && this.worldObj.isAABBInMaterial(axisalignedbb1, Material.lava))) {
 						d10 += 0.65D / (double) b0;
 					}
 				}
@@ -364,6 +362,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 	@Override
     public void readEntityFromNBT(NBTTagCompound nbt)  {
     	super.readEntityFromNBT(nbt);
+    	this.baitQuality = nbt.getByte("Quality");
     }
 
 	@Override

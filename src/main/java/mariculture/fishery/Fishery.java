@@ -225,8 +225,7 @@ public class Fishery extends Module {
 	@Override
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityBass.class, "BassBomb", EntityIds.BASS, Mariculture.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityFishing.class, "NewFishing", EntityIds.FISHING, Mariculture.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityHook.class, "FishingNew", EntityIds.FISHING_NEW, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityHook.class, "FishingHook", EntityIds.FISHING, Mariculture.instance, 80, 3, true);
 	}
 
 	private void registerFish() {

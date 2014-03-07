@@ -74,7 +74,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 	}
 	
 	public boolean canWork() {
-		return !worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) && hasRoom() && canFreeze();
+		return hasRoom() && canFreeze();
 	}
 	
 	public boolean canFreeze() {
@@ -111,8 +111,9 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 		int amount =  tank.fill(resource, doFill);
         if (amount > 0 && doFill) {
         	canWork = canWork();
-        	//TODO: Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	Packets.syncFluids(this, getFluid());
         }
+        
         return amount;
 	}
 	
@@ -121,7 +122,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 		FluidStack amount = tank.drain(maxDrain, doDrain);
         if (amount != null && doDrain) {
         	canWork = canWork();
-        	//TODO: Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	Packets.syncFluids(this, getFluid());
         }
         return amount;
 	}

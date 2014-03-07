@@ -13,6 +13,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -78,6 +79,22 @@ public final class ItemHelper {
 		}
 		tag.getCompoundTag("display").setString("Name", name);
 
+		return tag;
+	}
+	
+	public static NBTTagCompound setItemStackLore(NBTTagCompound tag, String str) {
+		if (tag == null) {
+			tag = new NBTTagCompound();
+		}
+		
+		if (!tag.hasKey("display")) {
+			tag.setTag("display", new NBTTagCompound());
+		}
+		
+		NBTTagCompound display = tag.getCompoundTag("display");
+		NBTTagList lore = display.getTagList("Lore", 8);
+		if(lore.tagCount() < 1) lore.appendTag(new NBTTagString(str));
+		display.setTag("Lore", lore);
 		return tag;
 	}
 

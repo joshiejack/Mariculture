@@ -3,6 +3,7 @@ package mariculture.core.blocks.base;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
@@ -139,6 +140,12 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		Packets.updateGUI(player, container, 3, tank.getFluidID());
 		Packets.updateGUI(player, container, 4, tank.getFluidAmount());
 		Packets.updateGUI(player, container, 5, tank.getCapacity());
+	}
+	
+	@Override
+	public void handleButtonClick(int id) {
+		if(id == Feature.REDSTONE) setRSMode(RedstoneMode.toggle(getRSMode()));
+		if(id == Feature.EJECT) setEjectSetting(EjectSetting.toggle(getEjectType(), getEjectSetting()));
 	}
 	
 	@Override

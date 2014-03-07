@@ -19,7 +19,6 @@ public class Comment {
 	public static final String PUMP_MANUAL = "Whether or not the Air Pump can be activated by right clicking on it";
 	public static final String PUMP_REDSTONE = "Whether or not giving the Air Pump a Redstone Signal will cause it to provide air";
 	public static final String PUMP_RF = "Whether an Air Pump can be powered by Redstone Flux";
-	public static final String EXCEPTIONS = "Place names that are practically equivalent and should be converted between each other by dictionary, format - item1: item2";
 	public static final String WHITELIST = "Place Ore Dictionary Prefixes here, that are acceptable to be converted";
 	public static final String TANK_UPDATE = "This is how many seconds must pass before the feeder will 'tick' to check for the tank size, If set to 0, the size will only be set when you open the interface";
 	public static final String FISH_FOOD_TICK = "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable";

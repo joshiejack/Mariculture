@@ -43,11 +43,11 @@ public class Config {
             Extra.DROP_JEWELRY = config.get(Category.EXTRA, "Jewelry Drops on Death", false).getBoolean(false);
             Extra.MOB_MAGNET = config.get(Category.EXTRA, "Mob Magnet Crafting Enabled", true).getBoolean(true);
             Extra.PERCENT_NEEDED = config.get(Category.EXTRA, "Percentage Needed for Timelord Enchant", 5).getInt();
+            Extra.PACKET_DISTANCE = config.get(Category.EXTRA, "How many blocks away to send rendering packet updates to players", 176).getInt();
             
             Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
-            Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "AutoDictionary > Exceptions", Compatibility.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
         } catch (Exception e) {
         	LogHandler.log(Level.ERROR, "Mariculture had a problem loading the other settings");
         	e.printStackTrace();
@@ -157,7 +157,6 @@ public class Config {
         try {
             config.load();
             MachineSpeeds.autofisher = config.get(Category.SPEED, "Automatic Fisher", 2500).getInt();
-            MachineSpeeds.dictionary = config.get(Category.SPEED, "Autodictionary", 1).getInt();
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();
             MachineSpeeds.liquifier = config.get(Category.SPEED, "Industrial Smelter", 40000).getInt();

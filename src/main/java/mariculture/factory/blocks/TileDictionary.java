@@ -2,12 +2,12 @@ package mariculture.factory.blocks;
 
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
@@ -15,6 +15,7 @@ import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.IRedstoneControlled;
+import mariculture.factory.OreDicHandler;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -22,24 +23,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class TileDictionary extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
+public class TileDictionary extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
 	protected BlockTransferHelper helper;
 	private EjectSetting setting;
-	private RedstoneMode mode;
-	private boolean canWork;
-	private int machineTick = 0;
-	private int processed = 0;
-	private int max;
 
 	public TileDictionary() {
-		inventory = new ItemStack[21];
-		max = MachineSpeeds.getDictionarySpeed();
-		mode = RedstoneMode.LOW;
+		inventory = new ItemStack[29];
 		setting = EjectSetting.ITEM;
-	}
-	
-	public boolean onTick(int i) {
-		return machineTick % i == 0;
 	}
 	
 	@Override
@@ -47,56 +37,42 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 		return(i < 9)? false: true;
 	}
 	
-	public static final int[] filter = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-	public static final int[] in = new int[] { 9, 10, 11, 12, 13, 14 };
-	public static final int[] out = new int[] { 15, 16, 17, 18, 19, 20 };
+	public static final int[] filter = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+	public static final int[] in = new int[] { 24 };
+	public static final int[] out = new int[] { 25, 26, 27, 28 };
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+		return new int[] { 24, 25, 26, 27, 28 };
 	}
 
 	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-		return i > 8 && i < 15 && j < 2;
+	public boolean canInsertItem(int i, ItemStack stack, int j) {
+		return i == 24;
 	}
 
 	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		return i > 14 && j > 1;
+	public boolean canExtractItem(int i, ItemStack stack, int j) {
+		return i > 24;
 	}
 	
 	@Override
-	public boolean canUpdate() {
-		return true;
-	}
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		this.inventory[slot] = stack;
 
-	@Override
-	public void updateEntity() {	
-		if(helper == null)
-			helper = new BlockTransferHelper(this);
-		
-		if(!worldObj.isRemote) {
-			machineTick++;
-			
-			if(onTick(Extra.CAN_WORK_TICK)) {
-				canWork = canWork();
-			}
-			
-			if(canWork) {
-				processed++;
-				if(processed >= max) {
-					processed = 0;
-					swap();
-				}
-			} else {
-				processed = 0;
-			}
-		}
-	}
-	
-	private boolean canWork() {
-		return RedstoneMode.canWork(this, mode) && hasItem() && hasRoom();
+        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+        	stack.stackSize = this.getInventoryStackLimit();
+        }
+        
+        if(helper == null) helper = new BlockTransferHelper(this);
+        if(canInsertItem(slot, stack, 0) && hasRoom() && stack != null) {
+        	int size = stack.stackSize;
+	        for(int i = 0; i < size; i ++) {
+	        	if(stack != null) swap();
+	        }
+        }
+
+        this.markDirty();
 	}
 	
 	private boolean hasRoom() {
@@ -136,8 +112,6 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 				decrStackSize(i, 1);
 			}
 		}
-		
-		canWork = canWork();
 	}
 	
 	private ItemStack convert(ItemStack stack) {
@@ -152,15 +126,27 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 							byte byte0 = nbt.getByte("Slot");
 							if (byte0 >= 0 && byte0 < ItemFilter.SIZE) {
 								ItemStack aStack = ItemStack.loadItemStackFromNBT(nbt);
-								if(OreDicHelper.areEqual(aStack, stack)) {
-									return aStack;
+								if(OreDicHandler.areEqual(aStack, stack)) {
+									ItemStack stack2 = aStack.copy();
+									if(stack2.hasTagCompound() && stack2.stackTagCompound.hasKey("display")) {
+										stack2.stackTagCompound.removeTag("display");
+										if(stack2.stackTagCompound.hasNoTags()) stack2.setTagCompound(null);
+									}
+									
+									return stack2;
 								}
 							}
 						}
 					}
 				} else {
-					if(OreDicHelper.areEqual(filtered, stack)) {
-						return filtered;
+					if(OreDicHandler.areEqual(filtered, stack)) {
+						ItemStack stack2 = filtered.copy();
+						if(stack2.hasTagCompound() && stack2.stackTagCompound.hasKey("display")) {
+							stack2.stackTagCompound.removeTag("display");
+							if(stack2.stackTagCompound.hasNoTags()) stack2.setTagCompound(null);
+						}
+						
+						return stack2;
 					}
 				}
 			}
@@ -171,29 +157,17 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
-		switch (id) {
-		case 0:
-			mode = RedstoneMode.values()[value];
-			break;
-		case 1:
-			setting = EjectSetting.values()[value];
-			break;
-		case 2:
-			processed = value;
-			break;
-		}
+		if(id == 0) setting = EjectSetting.values()[value];
 	}
 
 	@Override
 	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, mode.ordinal());
-		Packets.updateGUI(player, container, 1, setting.ordinal());
-		Packets.updateGUI(player, container, 2, processed);
+		Packets.updateGUI(player, container, 0, setting.ordinal());
 	}
 
 	@Override
 	public boolean doesDrop(int slot) {
-		return slot > 8;
+		return slot > 23;
 	}
 
 	@Override
@@ -202,13 +176,8 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 	}
 	
 	@Override
-	public RedstoneMode getRSMode() {
-		return mode != null? mode: RedstoneMode.DISABLED;
-	}
-	
-	@Override
-	public void setRSMode(RedstoneMode mode) {
-		this.mode = mode;
+	public void handleButtonClick(int id) {
+		if(id == Feature.EJECT) setEjectSetting(EjectSetting.toggle(getEjectType(), getEjectSetting()));
 	}
 	
 	@Override
@@ -225,27 +194,16 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 	public void setEjectSetting(EjectSetting setting) {
 		this.setting = setting;
 	}
-
-	@Override
-	public int getProgressScaled(int i) {
-		return (processed * i) / max;
-	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		setting = EjectSetting.readFromNBT(nbt);
-		mode = RedstoneMode.readFromNBT(nbt);
-		processed = nbt.getInteger("Processed");
-		canWork = nbt.getBoolean("CanWork");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		EjectSetting.writeToNBT(nbt, setting);
-		RedstoneMode.writeToNBT(nbt, mode);
-		nbt.setInteger("Processed", processed);
-		nbt.setBoolean("CanWork", canWork);
 	}
 }

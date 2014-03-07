@@ -3,6 +3,7 @@ package mariculture.core.blocks.base;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
@@ -161,6 +162,12 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
 		Packets.updateGUI(player, container, 3, master != null? master.xCoord: 0);
 		Packets.updateGUI(player, container, 4, master != null? master.yCoord: 0);
 		Packets.updateGUI(player, container, 5, master != null? master.zCoord: 0);
+	}
+	
+	@Override
+	public void handleButtonClick(int id) {
+		if(id == Feature.REDSTONE) setRSMode(RedstoneMode.toggle(getRSMode()));
+		if(id == Feature.EJECT) setEjectSetting(EjectSetting.toggle(getEjectType(), getEjectSetting()));
 	}
 	
 	@Override

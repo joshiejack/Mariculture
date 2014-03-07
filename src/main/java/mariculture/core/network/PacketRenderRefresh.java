@@ -3,11 +3,13 @@ package mariculture.core.network;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PacketRenderRefresh extends PacketCoords {
+	public PacketRenderRefresh(int x, int y, int z) {
+		super(x, y, z);
+	}
 
 	@Override
 	public void handleClientSide(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
+		player.worldObj.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
 	}
 
 	@Override

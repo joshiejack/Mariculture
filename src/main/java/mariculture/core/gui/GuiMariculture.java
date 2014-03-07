@@ -19,9 +19,12 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public abstract class GuiMariculture extends GuiContainer {
+	protected int redstone = -777;
+	protected int eject = -888;
 	protected String name;
 	protected static ResourceLocation TEXTURE;
 	protected int nameHeight = 5;
+	protected int inventOffset = 3;
 	public int mouseX = 0;
 	public int mouseY = 0;
 	public ArrayList<String> tooltip = new ArrayList<String>();
@@ -43,7 +46,7 @@ public abstract class GuiMariculture extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		drawForeground();
 		fontRendererObj.drawString(getName(), getX(), nameHeight, 4210752);
-		fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
+		fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + inventOffset, 4210752);
 		tooltip.clear();
 		addToolTips();
 		drawToolTip(tooltip, mouseX, mouseY, fontRendererObj);
@@ -89,7 +92,7 @@ public abstract class GuiMariculture extends GuiContainer {
 		}
 	}
 	
-	private void addToolTips() {
+	public void addToolTips() {
 		for(Feature feat: features) {
 			feat.addTooltip(tooltip, mouseX, mouseY);
 		}
@@ -194,37 +197,5 @@ public abstract class GuiMariculture extends GuiContainer {
 	
 	protected void onMouseClick(int mouseX, int mouseY) {
 		return;
-	}
-
-	@Override
-	protected void mouseClickMove(int x, int y, int mouseButton, long time) {
-		Slot slot = getSlotAtPosition(x, y);
-		if (mouseButton == 1 && slot instanceof SlotFake) {
-			return;
-		}
-
-		super.mouseClickMove(x, y, mouseButton, time);
-	}
-
-	public Slot getSlotAtPosition(int x, int y) {
-		for (int slotIndex = 0; slotIndex < this.inventorySlots.inventorySlots .size(); ++slotIndex) {
-			Slot slot = (Slot) this.inventorySlots.inventorySlots.get(slotIndex);
-			if (isTheMouseOverSlot(slot, x, y)) {
-				return slot;
-			}
-		}
-
-		return null;
-	}
-
-	private boolean isTheMouseOverSlot(Slot slot, int mouseX, int mouseY) {
-		int left = this.guiLeft;
-		int top = this.guiTop;
-		mouseX -= left;
-		mouseY -= top;
-		return mouseX >= slot.xDisplayPosition - 1
-				&& mouseX < slot.xDisplayPosition + 16 + 1
-				&& mouseY >= slot.yDisplayPosition - 1
-				&& mouseY < slot.yDisplayPosition + 16 + 1;
 	}
 }

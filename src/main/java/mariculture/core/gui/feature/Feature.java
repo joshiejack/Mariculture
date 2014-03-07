@@ -10,6 +10,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 public class Feature {
+	public static final int EJECT = -888;
+	public static final int REDSTONE = -777;
 	public static final ResourceLocation texture = new ResourceLocation(Mariculture.modid, "textures/gui/gui_elements.png");
 	protected TextureManager tm;
 	
