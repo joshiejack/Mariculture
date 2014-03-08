@@ -7,6 +7,7 @@ import mariculture.core.Core;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.Extra;
@@ -168,6 +169,7 @@ public class BlockSingle extends BlockMachine {
 			
 			if(tile instanceof TileGeyser) {
 				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(facing);
+				//TODO: Orientation Packet
 				//TODO: PACKET Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
 			}
 		}
@@ -232,12 +234,7 @@ public class BlockSingle extends BlockMachine {
 			return false;
 		
 		if(tile instanceof TileTurbineHand) {
-			if(player.getDisplayName().equals("[CoFH]"))
-				return false;
-			if(player instanceof FakePlayer) {
-				return false;
-			}
-
+			if(PlayerHelper.isFake(player)) return false;
             TileTurbineHand turbine = (TileTurbineHand)tile;
 			
 			turbine.energyStorage.modifyEnergyStored(((TileTurbineHand)tile).getEnergyGenerated());
@@ -275,10 +272,7 @@ public class BlockSingle extends BlockMachine {
 		}
 		
 		if(tile instanceof TileAnvil) {
-			if(player.getDisplayName().equals("[CoFH]"))
-				return false;
-			if(player instanceof FakePlayer)
-				return false;
+			if(PlayerHelper.isFake(player)) return false;
 			TileAnvil anvil = (TileAnvil) tile;
 			if(anvil.getStackInSlot(0) != null) {
 				Packets.syncInventory(anvil, anvil.getInventory());

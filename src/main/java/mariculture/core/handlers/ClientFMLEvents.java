@@ -2,7 +2,9 @@ package mariculture.core.handlers;
 
 import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
+import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketJewelrySwap;
+import mariculture.magic.MagicKeyHandler;
 import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,10 @@ public class ClientFMLEvents {
 		ItemStack selected = ClientHelper.getHeldItem();
 		if(selected != null && selected.getItem() instanceof ItemJewelry && ClientHelper.isActivateKeyPressed()) {
 			Mariculture.packets.sendToServer(new PacketJewelrySwap(ClientHelper.getPlayer().inventory.currentItem));
+		}
+		
+		if(Modules.magic.isActive()) {
+			MagicKeyHandler.activate();
 		}
 	}
 }

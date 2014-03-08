@@ -12,8 +12,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
@@ -74,6 +76,22 @@ public class BlockNeonLamp extends BlockDecorative {
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(Fishery.lampsOn, 1, world.getBlockMetadata(x, y, z));
 	}
+	
+	 @SideOnly(Side.CLIENT)
+	 public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+	 	Block block = world.getBlock(x, y, z);
+	 	if (this == Fishery.lampsOff || this == Fishery.lampsOn) {
+	 		if (world.getBlockMetadata(x, y, z) != world.getBlockMetadata(x - Facing.offsetsXForSide[side], y - Facing.offsetsYForSide[side], z - Facing.offsetsZForSide[side])) {
+	                return true;
+	            }
+
+	            if (block == this) {
+	                return false;
+	            }
+	        }
+
+	        return block == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
+	    }
 
 	@Override
 	public int getRenderBlockPass() {
@@ -93,15 +111,6 @@ public class BlockNeonLamp extends BlockDecorative {
 	@Override
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
-	}
-
-	@Override
-	public int getMixedBrightnessForBlock(IBlockAccess block, int x, int y, int z) {
-		if (block.getBlock(x, y, z) == Fishery.lampsOn) {
-			return 15;
-		}
-
-		return 0;
 	}
 
 	@Override

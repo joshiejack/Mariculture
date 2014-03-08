@@ -37,35 +37,33 @@ public class EnchantmentFlight extends EnchantmentJewelry {
 	}
 
 	public static int mode = 0;
-	private static int maxMode = 0;
+	public static int maxMode = 0;
 	private static int damageTicker = 0;
+	
+	public static void damage(EntityPlayer player) {
+		if (player.getEntityData().hasKey("SupermanIsFlying")) {
+			if(player.capabilities.isFlying && !player.capabilities.isCreativeMode) {
+				damageTicker++;
 
-	public static void activate(EntityPlayer player) {
-		if (!player.capabilities.isCreativeMode) {
-			if (maxMode > 0) {
-				if(KeyHelper.ACTIVATE_PRESSED && player.capabilities.isFlying) {
-					if(mode < maxMode) {
-						mode++;
-					} else {
-						mode = 0;
-					}
-					
-					ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.flight") + (mode + 1));
+				if (damageTicker >= 300) {
+					damageTicker = 0;
+
+					EnchantHelper.damageItems(Magic.flight, player, 1);
 				}
-				
+			}
+		}
+	}
+
+	public static void set(int flight, EntityPlayer player) {
+		maxMode = flight - 1;
+		
+		if (!player.capabilities.isCreativeMode) {
+			if (maxMode > 0) {				
 				float flightSpeed = (mode + 1) * 0.025F;
 				player.getEntityData().setBoolean("SupermanIsFlying", true);
 				player.capabilities.allowFlying = true;
 				player.capabilities.setFlySpeed(flightSpeed);
 				player.fallDistance = 0F;
-
-				damageTicker++;
-
-				if (damageTicker >= 300 && player.capabilities.isFlying) {
-					damageTicker = 0;
-
-					EnchantHelper.damageItems(Magic.flight, player, 1);
-				}
 			} else {
 				// Deactivate
 				if (player.getEntityData().hasKey("SupermanIsFlying")) {
@@ -77,9 +75,5 @@ public class EnchantmentFlight extends EnchantmentJewelry {
 				}
 			}
 		}
-	}
-
-	public static void set(int flight) {
-		maxMode = flight - 1;
 	}
 }

@@ -8,6 +8,7 @@ import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.WaterMeta;
+import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
@@ -75,7 +76,7 @@ public class TileGeyser extends TileTank {
 				
 			if(onTick(100)) {
 				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 1), true);
-				//TODO: PACKET INIT Packets.updateTile(this, 32, getDescriptionPacket());
+				if(tank.getFluidAmount() <= 0) Packets.syncFluids(this, this.getFluid());
 				pullFromInventory();
 			}
 		}

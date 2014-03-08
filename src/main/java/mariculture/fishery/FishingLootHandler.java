@@ -11,6 +11,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler;
+import mariculture.core.helpers.ReflectionHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,28 +32,20 @@ public class FishingLootHandler implements ILootHandler {
 		return (List) field.get(field);
 	}
 
-	public static void setFinalStatic(Field field, Object newValue) throws Exception {
-		field.setAccessible(true);
-		Field modifiersField = Field.class.getDeclaredField("modifiers");
-		modifiersField.setAccessible(true);
-		modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-		field.set(null, newValue);
-	}
-
 	public static void addVanillaLoot(LootQuality quality, WeightedRandomFishable loot) {
 		try {
 			if(quality == LootQuality.FISH) {
 				List list = new ArrayList(getFinalStatic(EntityHook.class.getField("field_146036_f")));
 				list.add(loot);
-				setFinalStatic(EntityHook.class.getField("field_146036_f"), list);
+				ReflectionHelper.setFinalStatic(EntityHook.class.getField("field_146036_f"), list);
 			} else if(quality == LootQuality.BAD) {
 				List list = new ArrayList(getFinalStatic(EntityHook.class.getField("field_146039_d")));
 				list.add(loot);
-				setFinalStatic(EntityHook.class.getField("field_146039_d"), list);
+				ReflectionHelper.setFinalStatic(EntityHook.class.getField("field_146039_d"), list);
 			} else {
 				List list = new ArrayList(getFinalStatic(EntityHook.class.getField("field_146041_e")));
 				list.add(loot);
-				setFinalStatic(EntityHook.class.getField("field_146041_e"), list);
+				ReflectionHelper.setFinalStatic(EntityHook.class.getField("field_146041_e"), list);
 			}
 		} catch (Exception e)  {
 			e.printStackTrace();

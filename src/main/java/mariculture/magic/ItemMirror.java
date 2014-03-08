@@ -54,7 +54,6 @@ public class ItemMirror extends ItemStorage {
 					stack.stackSize--;
 				else
 					player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
-				//TODO: I changed it from sending the item id, so check mirror guis work
 			}
 
 			return stack;

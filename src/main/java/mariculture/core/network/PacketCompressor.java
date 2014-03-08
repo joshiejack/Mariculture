@@ -2,6 +2,7 @@ package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.diving.TileAirCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -36,7 +37,7 @@ public class PacketCompressor extends PacketCoords {
 		if(tile != null && tile instanceof TileAirCompressor) {
 			((TileAirCompressor)tile).storedAir = air;
 			((TileAirCompressor)tile).energyStorage.setEnergyStored(power);
-			player.worldObj.markBlockForUpdate(x, y, z);
+			ClientHelper.updateRender(x, y, z);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishingRod;

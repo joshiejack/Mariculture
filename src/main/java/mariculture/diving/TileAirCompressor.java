@@ -84,8 +84,6 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 				if(storedAir < max) {
 					storedAir++;
 					Packets.updateAround(this, new PacketCompressor(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)));
-					//TODO: PACKET Fix sending air compressor render update info
-					//Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
 				}
 			}
 		}

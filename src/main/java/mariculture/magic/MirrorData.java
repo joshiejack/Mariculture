@@ -6,8 +6,12 @@ import java.util.HashMap;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.NBTHelper;
+import mariculture.magic.enchantments.EnchantmentFlight;
+import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentSpeed;
+import mariculture.magic.enchantments.EnchantmentSpider;
+import mariculture.magic.enchantments.EnchantmentStepUp;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -121,7 +125,7 @@ public class MirrorData {
 	}
 	
 	public static boolean save(EntityPlayer player, ItemStack[] invent) {
-		return player.worldObj.isRemote? saveClient(player, invent): saveServer(player, invent);
+		return player.worldObj.isRemote? saveClient(ClientHelper.getPlayer(), invent): saveServer(player, invent);
 	}
 	
 	public static boolean saveClient(EntityPlayer player, ItemStack[] invent) {
@@ -142,8 +146,12 @@ public class MirrorData {
 		color = null;
 		
 		//Setup the speeds after initially saving client data
-		EnchantmentSpeed.set(EnchantHelper.getEnchantStrength(Magic.speed, ClientHelper.getPlayer()));
-		EnchantmentJump.set(EnchantHelper.getEnchantStrength(Magic.jump, ClientHelper.getPlayer()));
+		if(EnchantHelper.exists(Magic.speed)) 	EnchantmentSpeed.set(EnchantHelper.getEnchantStrength(Magic.speed, player));
+		if(EnchantHelper.exists(Magic.jump)) 	EnchantmentJump.set(EnchantHelper.getEnchantStrength(Magic.jump, player));
+		if(EnchantHelper.exists(Magic.glide)) 	EnchantmentGlide.set(EnchantHelper.getEnchantStrength(Magic.glide, player));
+		if(EnchantHelper.exists(Magic.spider))	EnchantmentSpider.set(EnchantHelper.hasEnchantment(Magic.spider, player));
+		if(EnchantHelper.exists(Magic.flight))	EnchantmentFlight.set(EnchantHelper.getEnchantStrength(Magic.flight, player), player);
+		if(EnchantHelper.exists(Magic.stepUp))	EnchantmentStepUp.set(EnchantHelper.getEnchantStrength(Magic.stepUp, player), player);
 		
 		return true;
 	}

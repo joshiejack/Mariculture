@@ -1,8 +1,11 @@
 package mariculture.magic.enchantments;
 
+import mariculture.Mariculture;
+import mariculture.core.helpers.ClientHelper;
+import mariculture.core.network.PacketTeleport;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 
@@ -32,13 +35,10 @@ public class EnchantmentBlink extends EnchantmentJewelry {
 		return false;
 	}
 
-	public static void sendPacket(EntityPlayer player) {
-		MovingObjectPosition lookAt;
-		lookAt = player.rayTrace(2000, 1);
-
-		if (lookAt != null && lookAt.typeOfHit == MovingObjectType.BLOCK) {
-			//if(player instanceof EntityClientPlayerMP)
-				//TODO: PACKET Blink Teleport ((EntityClientPlayerMP)player).sendQueue.addToSendQueue(new Packet108Teleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ, KeyHelper.ACTIVATE_PRESSED).build());
+	public static void sendPacket(EntityClientPlayerMP player) {
+		MovingObjectPosition lookAt = player.rayTrace(2000, 1);
+		if (lookAt != null && lookAt.typeOfHit == MovingObjectType.BLOCK && ClientHelper.isActivateKeyPressed()) {
+			Mariculture.packets.sendToServer(new PacketTeleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ));
 		}
 	}
 }

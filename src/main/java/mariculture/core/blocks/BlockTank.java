@@ -12,6 +12,7 @@ import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.network.Packets;
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -164,9 +165,7 @@ public class BlockTank extends BlockConnected {
 				if (tile instanceof TileTankBlock) {
 					TileTankBlock tank = (TileTankBlock) tile;
 					tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
-					//TODO: PACKET Add Packet Sending to update Fluids in the Tank for display purposes
-					/*if(!world.isRemote)
-						Packets.updateTile(tank, 64, new Packet118FluidUpdate(x, y, z, tank.getFluid()).build());*/
+					Packets.syncFluids(tank, tank.getFluid());
 				}
 			}
 		}

@@ -6,6 +6,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
@@ -56,6 +57,7 @@ import mariculture.magic.jewelry.parts.PartPearlYellow;
 import mariculture.magic.jewelry.parts.PartString;
 import mariculture.magic.jewelry.parts.PartWool;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -130,6 +132,8 @@ public class Magic extends Module {
 		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 10, EnumEnchantmentType.all); }
 		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 9, EnumEnchantmentType.all); }
 		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 5, EnumEnchantmentType.all); }
+		
+		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77358_D", new int[] {40, 24, 20, 24, 30});
 	}
 
 	@Override

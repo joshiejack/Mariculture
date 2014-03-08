@@ -3,17 +3,22 @@ package mariculture.magic;
 import java.util.Random;
 
 import mariculture.core.helpers.EnchantHelper;
+import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.enchantments.EnchantmentFallDamage;
+import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.enchantments.EnchantmentGlide;
+import mariculture.magic.enchantments.EnchantmentHealth;
 import mariculture.magic.enchantments.EnchantmentJump;
+import mariculture.magic.enchantments.EnchantmentNeverHungry;
 import mariculture.magic.enchantments.EnchantmentOneRing;
 import mariculture.magic.enchantments.EnchantmentRestore;
 import mariculture.magic.enchantments.EnchantmentResurrection;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,18 +39,18 @@ public class MagicEventHandler {
 	
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
-		if(event.entity instanceof EntityPlayer) {
+		if(event.entity instanceof EntityPlayer && !PlayerHelper.isFake((EntityPlayer)event.entity)) {
 			World world = event.entity.worldObj;
 			EntityPlayer player = (EntityPlayer) event.entity;
 			if(world.isRemote) {
-				if(EnchantHelper.exists(Magic.glide))
-					EnchantmentGlide.activate(player);
-				if(EnchantHelper.exists(Magic.speed))
-					EnchantmentSpeed.activate(player);
-				if(EnchantHelper.exists(Magic.spider))
-					EnchantmentSpider.activate(player);
-			} else if(EnchantHelper.exists(Magic.oneRing)){
-				EnchantmentOneRing.activate(player);
+				if(EnchantHelper.exists(Magic.glide)) 	EnchantmentGlide.activate(player);
+				if(EnchantHelper.exists(Magic.speed))	EnchantmentSpeed.activate(player);
+				if(EnchantHelper.exists(Magic.spider)) 	EnchantmentSpider.activate(player);
+				if(EnchantHelper.exists(Magic.flight))	EnchantmentFlight.damage(player);
+			} else {
+				if(EnchantHelper.exists(Magic.oneRing))	EnchantmentOneRing.activate(player);
+				if(EnchantHelper.exists(Magic.hungry))	EnchantmentNeverHungry.activate(player);
+				if(EnchantHelper.exists(Magic.health)) 	EnchantmentHealth.activate(player);
 			}
 			
 			if(!player.capabilities.isCreativeMode) {
@@ -91,9 +96,9 @@ public class MagicEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(EnchantHelper.exists(Magic.blink)) {
+		if(EnchantHelper.hasEnchantment(Magic.blink, event.entityPlayer)) {
 			if (event.entityPlayer.worldObj.isRemote && event.action == Action.RIGHT_CLICK_AIR) {
-				EnchantmentBlink.sendPacket(event.entityPlayer);
+				EnchantmentBlink.sendPacket((EntityClientPlayerMP)event.entityPlayer);
 			}
 		}
 	}

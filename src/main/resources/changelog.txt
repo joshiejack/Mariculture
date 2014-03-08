@@ -10,6 +10,7 @@
 * Ender Fish and Netherfish are no longer FORCED to live in the nether/end biomes. Now as long as the environment is correct, they will be happy.
 * AutoDictionary no longer ticks, therefore no longer has redstone control settings. It also works faster, you can specify upto 216 exceptions, and middle clicking will now switch the ore dictionary reference you are 'linked' to on an item, (this ONLY, affects cycling, as in, you will cycle to the next ore dictionary equivalent with that tag also).
 * Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
+* Blink distance per level increased to 16 blocks, you no longer need to be above a certain level to use it any time
 
 == Mariculture 1.2.0d ==
 * Gas is a little more dangerous

@@ -1,7 +1,9 @@
 package mariculture.magic.gui;
 
+import mariculture.Mariculture;
 import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
+import mariculture.core.network.PacketEnchant;
 import mariculture.magic.ItemMirror;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -175,7 +177,7 @@ public class GuiMirror extends GuiStorage {
 				if (var7 >= 0 && var8 >= 0 && var7 < 108 && var8 < 19 
 						&& ((ContainerMirror)inventorySlots).enchantItem(this.mc.thePlayer, (var6) + 1)) {
 					int level = enchantLevels[var6];
-					//TODO: PACKET Enchantment Packet mc.thePlayer.sendQueue.addToSendQueue(new Packet112Enchant(mc.thePlayer.openContainer.windowId, level).build());
+					Mariculture.packets.sendToServer(new PacketEnchant(mc.thePlayer.openContainer.windowId, level));
 				}
 			}
 		}

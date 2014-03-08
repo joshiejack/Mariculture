@@ -249,7 +249,6 @@ public class FluidHelper {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, newHeld);
 					} else {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);
-						//TODO: Check the player drop when doing this stuffs
 						if (!player.inventory.addItemStackToInventory(newHeld))
 							player.dropPlayerItemWithRandomChoice(newHeld, true);
 					}
@@ -269,7 +268,6 @@ public class FluidHelper {
 					} else {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);
 
-						//TODO: Check the player drop when doing this stuffs
 						if (!player.inventory.addItemStackToInventory(result))
 							player.dropPlayerItemWithRandomChoice(result, true);
 					}

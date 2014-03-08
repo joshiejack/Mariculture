@@ -2,6 +2,7 @@ package mariculture.core.helpers;
 
 import com.mojang.authlib.GameProfile;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,5 +56,9 @@ public class PlayerHelper {
 	
 	public static FakePlayer getFakePlayer(World world) {
 		return new FakePlayer((WorldServer) world, new GameProfile(null, "Mariculture"));
+	}
+
+	public static boolean isFake(EntityPlayer player) {
+		return !(player instanceof FakePlayer || player.getDisplayName().equals("[CoFh]"));
 	}
 }

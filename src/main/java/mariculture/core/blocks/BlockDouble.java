@@ -9,6 +9,8 @@ import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.network.PacketCompressor;
+import mariculture.core.network.Packets;
 import mariculture.core.util.IHasGUI;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
@@ -129,29 +131,26 @@ public class BlockDouble extends BlockMachineMulti {
 		
 		ItemStack heldItem = player.getCurrentEquippedItem();
 		if(heldItem != null && tile instanceof TileAirCompressor) {
-			TileAirCompressor compressor = (TileAirCompressor) ((TileAirCompressor) tile).getMaster();
-			if(compressor != null) {
+			TileAirCompressor te = (TileAirCompressor) ((TileAirCompressor) tile).getMaster();
+			if(te != null) {
 				int rf = (heldItem.getItem() instanceof IEnergyContainerItem)? 
 						((IEnergyContainerItem)heldItem.getItem()).extractEnergy(heldItem, 5000, true): 0;
 				if(rf > 0) {
-					int drain = compressor.receiveEnergy(ForgeDirection.UP, rf, true);
+					int drain = te.receiveEnergy(ForgeDirection.UP, rf, true);
 					if(drain > 0) {
 						((IEnergyContainerItem)heldItem.getItem()).extractEnergy(heldItem, drain, false);
-						compressor.receiveEnergy(ForgeDirection.UP, drain, false);
+						te.receiveEnergy(ForgeDirection.UP, drain, false);
 					}
 					
 					return true;
 				}
 				
 				if(heldItem.getItem() == Diving.scubaTank) {
-					if(heldItem.getItemDamage() > 1 && compressor.storedAir > 0) {
+					if(heldItem.getItemDamage() > 1 && te.storedAir > 0) {
 						heldItem.setItemDamage(heldItem.getItemDamage() - 1);
 						if(!world.isRemote) {
-							compressor.storedAir--;
-							//TODO: PACKET Handle Packet for updating the energy stored in air compressor
-							/* Packets.updateTile(compressor, 64, 
-									new Packet117AirCompressorUpdate(compressor.xCoord, compressor.yCoord, compressor.zCoord, 
-													compressor.storedAir, compressor.getEnergyStored(ForgeDirection.UP)).build()); */
+							te.storedAir--;
+							Packets.updateAround(te, new PacketCompressor(te.xCoord, te.yCoord, te.zCoord,  te.storedAir, te.getEnergyStored(ForgeDirection.UP)));
 						}
 						return true;
 					}

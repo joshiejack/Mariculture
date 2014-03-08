@@ -36,17 +36,23 @@ public class ItemFluidContainer extends ItemMariculture {
 
 		if (!world.isRemote) {
 			if (player.shouldHeal()) {
-				player.heal(5);
+				int meta = stack.getItemDamage();
+				player.heal(meta == FluidContainerMeta.BOTTLE_FISH_OIL? 7: 3);
 			}
 		}
 
 		return stack.stackSize <= 0 ? new ItemStack(Items.glass_bottle) : stack;
 	}
+	
+	@Override
+	public EnumAction getItemUseAction(final ItemStack stack) {
+		return EnumAction.drink;
+	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		//TODO: Fix Drinking Fish oil for the various bottle types so it returns the correct versions + Heals more
-		if (stack.getItemDamage() == FluidContainerMeta.BOTTLE_FISH_OIL && player.shouldHeal()) {
+		int meta = stack.getItemDamage();
+		if((meta == FluidContainerMeta.BOTTLE_FISH_OIL || meta == FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL) && player.shouldHeal()) {
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 		}
 
@@ -75,11 +81,6 @@ public class ItemFluidContainer extends ItemMariculture {
 		int amount = fluid == null? 0: fluid.amount;
 		list.add(FluidHelper.getFluidName(fluid));
 		FluidHelper.getFluidQty(list, fluid, -1);
-	}
-
-	@Override
-	public EnumAction getItemUseAction(final ItemStack stack) {
-		return EnumAction.drink;
 	}
 
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
@@ -115,7 +116,6 @@ public class ItemFluidContainer extends ItemMariculture {
 			int meta = TankMeta.BOTTLE;
 			int metadata = block.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
 
-			//TODO: func_150496_b = getPlaceSound()
 			if (placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata)) {
 				world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), 
 				block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
