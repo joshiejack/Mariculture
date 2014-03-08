@@ -1,7 +1,6 @@
 package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
-//TODO Hunger Overhaul
 public class PluginHungerOverhaul extends Plugin {
 
 	@Override

@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import mariculture.core.util.IHasClickableButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketClick extends PacketCoords {	
 	int id;
@@ -26,13 +27,9 @@ public class PacketClick extends PacketCoords {
 		super.decodeInto(ctx, buffer);
 		id = buffer.readInt();
 	}
-	
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof IHasClickableButton) {
 			((IHasClickableButton)tile).handleButtonClick(id);

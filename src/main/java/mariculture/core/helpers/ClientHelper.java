@@ -46,4 +46,8 @@ public class ClientHelper {
 	public static boolean isForwardPressed() {
 		return GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward);
 	}
+
+	public static void updateRender(int x, int y, int z) {
+		getPlayer().worldObj.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
+	}
 }

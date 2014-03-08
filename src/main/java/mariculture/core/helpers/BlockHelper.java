@@ -202,8 +202,8 @@ public class BlockHelper {
 	public static void destroyBlock(World world, int x, int y, int z) {
 		if(!(world instanceof WorldServer))
 			return;
-		FakePlayer player = new FakePlayer((WorldServer) world, new GameProfile(null, "Mariculture"));
 		Block block = world.getBlock(x, y, z);
+		FakePlayer player = PlayerHelper.getFakePlayer(world);
 		int meta = world.getBlockMetadata(x, y, z);
 		if (block.removedByPlayer(world, player, x, y, z)) {
             block.onBlockDestroyedByPlayer(world, x, y, z, meta);

@@ -15,7 +15,10 @@ import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
+import mariculture.factory.OreDicHandler;
 import mariculture.plugins.compatibility.CompatBooks;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
@@ -68,7 +71,7 @@ public class GuideHandler implements IGuideHandler {
 	
 	public static void updateIcons() {
 		for(String str: oreDicCycling) {
-			icons.put(str, OreDicHelper.getNextEntry(icons.get(str)));
+			icons.put(str, OreDicHandler.getNextValidEntry(icons.get(str)));
 		}
 		
 		for(LinkedMeta link: metaCycling) {
@@ -79,18 +82,20 @@ public class GuideHandler implements IGuideHandler {
 	}
 	
 	public static ItemStack getIcon(String key) {
-		if(icons.get(key) == null)
-			return new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR);
-		if(icons.containsKey(key))
+		return getIcon(key, 0);
+	}
+	
+	public static ItemStack getIcon(String name, int meta) {
+		String key = name + ":" + meta;
+		if(icons.get(key).getItem() == Item.getItemFromBlock(Blocks.air))
+			return null;
+		if(icons.containsKey(key)) {
 			return icons.get(key);
-		//TODO: CHECK ALL ICONS LOAD?
-		if(OreDictionary.getOres(key).size() > 0) {
-			ItemStack stack = OreDictionary.getOres(key).get(0);
+		} else {
+			ItemStack stack = new ItemStack((Item)Item.itemRegistry.getObject(key), 1, meta);
 			icons.put(key, stack);
 			return stack;
 		}
-		
-		return new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR);
 	}
 	
 	public static String getFluidIcon(String key) {

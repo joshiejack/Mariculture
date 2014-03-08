@@ -70,7 +70,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public boolean isMaster() {
-		return master!= null && master.isSame(xCoord, yCoord, zCoord);
+		return master != null && master.isSame(xCoord, yCoord, zCoord);
 	}
 	
 	protected boolean isInit() {
@@ -141,7 +141,7 @@ public class TileMultiBlock extends TileEntity {
 							te.setMaster(null);
 							te.setInit(false);
 							((TileMultiBlock) te).setFacing(ForgeDirection.UNKNOWN);
-							Packets.updateAround(mstr, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN));
+							Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN));
 						}
 					}
 				}
@@ -184,7 +184,7 @@ public class TileMultiBlock extends TileEntity {
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te.getClass().equals(getTEClass())) {
-					Packets.updateAround(this, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
+					Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
 				}
 			}
 			
@@ -193,7 +193,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public Class getTEClass() {
-		return TileMultiBlock.class;
+		return this.getClass();
 	}
 
 	public void updateMaster() {

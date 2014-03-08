@@ -96,7 +96,7 @@ public class GuideRegistry {
 		guide.registerIcon("plasticLens", new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS));
 		guide.registerIcon("glassLens", new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS));
 		guide.registerIcon("reed", new ItemStack(Items.sugar));
-		guide.registerIcon("blank", new ItemStack(Core.airBlocks, 1, AirMeta.FAKE_AIR));
+		guide.registerIcon("blank", new ItemStack(Blocks.air));
 		guide.registerIcon("glassPane", new ItemStack(Blocks.glass_pane));
 		guide.registerIcon("vat", new ItemStack(Core.doubleBlock, 1, DoubleMeta.VAT));
 		guide.registerIcon("storage", new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF));

@@ -6,6 +6,7 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiMachineTank;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -388,11 +389,11 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			nbt.setInteger("BiomeType", biome.ordinal());
 	}
 	
-//Master stuff
+//Master stuff	
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		Packets.updateRender(this);
 	}
 	
 	public void onBlockPlaced(int x, int y, int z) {
@@ -409,8 +410,6 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			parts.add(setAsSlave(mstr, xCoord, yCoord, zCoord));
 			setAsMaster(mstr, parts);
 		}
-		
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	@Override

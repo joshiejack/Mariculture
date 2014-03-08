@@ -92,22 +92,9 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
         AbstractPacket pkt = clazz.newInstance();
         pkt.decodeInto(ctx, payload.slice());
-
-        EntityPlayer player;
-        switch (FMLCommonHandler.instance().getEffectiveSide()) {
-            case CLIENT:
-                player = this.getClientPlayer();
-                pkt.handleClientSide(player);
-                break;
-
-            case SERVER:
-                INetHandler netHandler = ctx.channel().attr(NetworkRegistry.NET_HANDLER).get();
-                player = ((NetHandlerPlayServer) netHandler).playerEntity;
-                pkt.handleServerSide(player);
-                break;
-
-            default:
-        }
+        Side side = FMLCommonHandler.instance().getEffectiveSide();
+        EntityPlayer player = (side == Side.CLIENT)? this.getClientPlayer(): ((NetHandlerPlayServer) ctx.channel().attr(NetworkRegistry.NET_HANDLER).get()).playerEntity;
+        pkt.handle(side, player);
 
         out.add(pkt);
     }

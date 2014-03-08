@@ -35,9 +35,7 @@ public class BaitListingsHandler {
 				}
 			}
 		} else if(Fishing.rodHandler.getRodQuality(stack) != null) {
-			list.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.shift.hold") + " " +
-					Text.WHITE + StatCollector.translateToLocal("mariculture.string.shift.shift") + " " + 
-					Text.INDIGO + StatCollector.translateToLocal("mariculture.string.shift.rod"));
+			list.add(Text.getShiftText("rod"));
 		}
 	}
 }

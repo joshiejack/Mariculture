@@ -2,7 +2,6 @@ package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
 
-//TODO Railcraft
 public class PluginRailcraft extends Plugin {
 
 	@Override

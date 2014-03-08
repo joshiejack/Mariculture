@@ -57,33 +57,31 @@ public class PageVat extends PageParser {
 		//Fluid 1
 		if(!fluid1.equals("")) {
 			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid1)).getIcon();
-			//TODO: Move Drawing Tank Icons to another class
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 28, icon, 7, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 28, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 6, y + 12, icon, 7, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 13, y + 12, icon, 16, 16);
+			drawFluidStack(x + 6, y + 28, icon, 7, 16);
+			drawFluidStack(x + 13, y + 28, icon, 16, 16);
+			drawFluidStack(x + 6, y + 12, icon, 7, 16);
+			drawFluidStack(x + 13, y + 12, icon, 16, 16);
 			
 			if(!fluid2.equals("")) {
 				icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid2)).getIcon();
 			}
 			
-			//Fluid 2
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 29, y + 28, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 28, icon, 7, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 29, y + 12, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 45, y + 12, icon, 7, 16);
+			drawFluidStack(x + 29, y + 28, icon, 16, 16);
+			drawFluidStack(x + 45, y + 28, icon, 7, 16);
+			drawFluidStack(x + 29, y + 12, icon, 16, 16);
+			drawFluidStack(x + 45, y + 12, icon, 7, 16);
 		}
 		
 		if(!fluid3.equals("")) {
 			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid3)).getIcon();
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 28, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 28, icon, 7, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 28, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 28, icon, 7, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 97, y + 12, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 90, y + 12, icon, 7, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 113, y + 12, icon, 16, 16);
-			//NEIBase.drawScaledTexturedModelRectFromIcon(x + 129, y + 12, icon, 7, 16);
+			drawFluidStack(x + 97, y + 28, icon, 16, 16);
+			drawFluidStack(x + 90, y + 28, icon, 7, 16);
+			drawFluidStack(x + 113, y + 28, icon, 16, 16);
+			drawFluidStack(x + 129, y + 28, icon, 7, 16);
+			drawFluidStack(x + 97, y + 12, icon, 16, 16);
+			drawFluidStack(x + 90, y + 12, icon, 7, 16);
+			drawFluidStack(x + 113, y + 12, icon, 16, 16);
+			drawFluidStack(x + 129, y + 12, icon, 7, 16);
 		}
 		
 		/** End Left Tank Begin Right Tank **/
@@ -94,12 +92,12 @@ public class PageVat extends PageParser {
 		gui.drawTexturedModalRect(x + 62, y + 20, 2, 63, 22, 14);
 		
 		if(!input.equals("")) {
-			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(input), x + 20, y + 20);
+			drawItemStack((ItemStack) GuideHandler.getIcon(input), x + 20, y + 20);
 			gui.getMC().fontRenderer.drawString(colorIn + "x" + numInput, x + 36, y + 27, 4210752);
 		} 
 		
 		if(!output.equals("")) {
-			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(output), x + 104, y + 20);
+			drawItemStack((ItemStack) GuideHandler.getIcon(output), x + 104, y + 20);
 			gui.getMC().fontRenderer.drawString(colorOut + "x" + numOutput, x + 120, y + 27, 4210752);
 		}
 		

@@ -97,7 +97,6 @@ public class ItemStorage extends Item implements IItemRegistry {
 	}
 
 	public ItemStack[] load(EntityPlayer player, ItemStack stack, int size) {
-		//TODO: Check if loading correctly
 		NBTTagCompound loader = stack.hasTagCompound() ? stack.stackTagCompound: new NBTTagCompound();
 		NBTTagList nbttaglist = loader.getTagList("Inventory", 10);
 

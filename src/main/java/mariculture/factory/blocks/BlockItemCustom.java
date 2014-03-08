@@ -2,9 +2,13 @@ package mariculture.factory.blocks;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import mariculture.core.blocks.ItemBlockMariculture;
+import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -38,7 +42,8 @@ public class BlockItemCustom extends ItemBlockMariculture {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		addTextureInfo(stack, player, list, bool);
+		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) addTextureInfo(stack, player, list, bool);
+		else list.add(Text.getShiftText("custom"));
 	}
 
 	public static void addTextureInfo(ItemStack stack, EntityPlayer player, List list, boolean bool) {
@@ -53,12 +58,9 @@ public class BlockItemCustom extends ItemBlockMariculture {
 	}
 
 	public static void addToList(List list, int num, ItemStack stack) {
-		/*
-		list.add(getName(num)
-				+ ": "
-				+ new ItemStack(stack.stackTagCompound.getIntArray("BlockIDs")[num], 1, stack.stackTagCompound
-						.getIntArray("BlockMetas")[num]).getDisplayName()); */
-		//TODO: Adding the directional information to blocks
+		String name = stack.stackTagCompound.getString("BlockIdentifier" + num);
+		Item block = (Item)Item.itemRegistry.getObject(name);
+		list.add(getName(num) + ": " + block.getItemStackDisplayName(new ItemStack(block, 1, stack.stackTagCompound.getIntArray("BlockMetas")[num])));
 	}
 
 	public static String getName(final int i) {

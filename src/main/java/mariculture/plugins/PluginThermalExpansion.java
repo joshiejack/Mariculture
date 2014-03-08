@@ -2,7 +2,6 @@ package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
 
-//TODO Thermal Expansion
 public class PluginThermalExpansion extends Plugin {
 
 	@Override

@@ -24,12 +24,12 @@ public class PageCrafting extends PageParser {
 		gui.drawTexturedModalRect(x - 1, y - 1, 0, 0, 58, 58);
 		
 		for(int i = 0; i < 3; i++) {
-			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(craft1[i]), x + (i * 20), y + 0);
-			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(craft2[i]), x + (i * 20), y + 20);
-			drawItemStack(gui, (ItemStack) GuideHandler.getIcon(craft3[i]), x + (i * 20), y + 40);
+			drawItemStack((ItemStack) GuideHandler.getIcon(craft1[i]), x + (i * 20), y + 0);
+			drawItemStack((ItemStack) GuideHandler.getIcon(craft2[i]), x + (i * 20), y + 20);
+			drawItemStack((ItemStack) GuideHandler.getIcon(craft3[i]), x + (i * 20), y + 40);
 		}
 		
-		drawItemStack(gui, (ItemStack) GuideHandler.getIcon(output), x + 64, y + 18);
+		drawItemStack((ItemStack) GuideHandler.getIcon(output), x + 64, y + 18);
 		if(number < 10)
 			gui.getMC().fontRenderer.drawString("x" + number, x + 67, y + 36, 4210752);
 		else

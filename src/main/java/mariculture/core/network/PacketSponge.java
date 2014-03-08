@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketSponge extends PacketCoords {
 	int stored, max;
@@ -51,18 +52,16 @@ public class PacketSponge extends PacketCoords {
 	}
 	
 	@Override
-	public void handleClientSide(EntityPlayer player) {
-		ClientHelper.addToChat(stored + " / " + max + " RF");
-	}
-	
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
-		if(tile != null && tile instanceof TileSponge) {
-			TileSponge sponge = (TileSponge) tile;
-			stored = sponge.getEnergyStored(ForgeDirection.UNKNOWN);
-			max = sponge.getMaxEnergyStored(ForgeDirection.UNKNOWN);
-			Mariculture.packets.sendTo(new PacketSponge(stored, max, false), (EntityPlayerMP) player);
+	public void handle(Side side, EntityPlayer player) {
+		if(side == Side.CLIENT) ClientHelper.addToChat(stored + " / " + max + " RF");
+		if(side == Side.SERVER) {
+			TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+			if(tile != null && tile instanceof TileSponge) {
+				TileSponge sponge = (TileSponge) tile;
+				stored = sponge.getEnergyStored(ForgeDirection.UNKNOWN);
+				max = sponge.getMaxEnergyStored(ForgeDirection.UNKNOWN);
+				Mariculture.packets.sendTo(new PacketSponge(stored, max, false), (EntityPlayerMP) player);
+			}
 		}
 	}
 }

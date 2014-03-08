@@ -1,5 +1,6 @@
 package mariculture.core.network;
 
+import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,18 +27,12 @@ public abstract class AbstractPacket {
      * @param buffer the buffer to decode from
      */
     public abstract void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer);
-
+    
     /**
-     * Handle a packet on the client side. Note this occurs after decoding has completed.
+     * Handle a packet on either side. Note this occurs after decoding has completed.
      *
+     * @param side 	 the side, server or client
      * @param player the player reference
      */
-    public abstract void handleClientSide(EntityPlayer player);
-
-    /**
-     * Handle a packet on the server side. Note this occurs after decoding has completed.
-     *
-     * @param player the player reference
-     */
-    public abstract void handleServerSide(EntityPlayer player);
+    public abstract void handle(Side side, EntityPlayer player);
 }

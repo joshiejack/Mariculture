@@ -1,5 +1,6 @@
 package mariculture.core.network;
 
+import cpw.mods.fml.relauncher.Side;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.magic.MirrorData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +36,7 @@ public class PacketSyncMirror extends PacketNBT {
 	}
 	
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		World world = player.worldObj;
 		int length = nbt.getInteger("length");
 		
@@ -52,10 +53,5 @@ public class PacketSyncMirror extends PacketNBT {
 		}
 		
 		MirrorData.saveClient(player, inventory);
-	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		
 	}
 }

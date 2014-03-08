@@ -1,7 +1,6 @@
 package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
-//TODO Forestry
 public class PluginForestry extends Plugin {
 
 	@Override

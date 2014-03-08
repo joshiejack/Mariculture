@@ -12,6 +12,6 @@ public class PageStack extends PageParser {
 
 	@Override
 	public void parse() {
-		drawItemStack(gui, (ItemStack) GuideHandler.getIcon(stack), x, y + 0);
+		drawItemStack((ItemStack) GuideHandler.getIcon(stack), x, y + 0);
 	}
 }

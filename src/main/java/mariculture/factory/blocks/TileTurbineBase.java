@@ -18,6 +18,9 @@ import mariculture.core.util.IRedstoneControlled;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -298,19 +301,17 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	}
 	
 //Packets
-	//TODO PACKET
-	/*
 	@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		this.writeToNBT(tagCompound);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 2, tagCompound);
-	}
-
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
 	@Override
-	public void onDataPacket(INetworkManager netManager, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	} */
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
 	
 //GUI Stuff	
 	@Override

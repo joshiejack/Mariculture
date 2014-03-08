@@ -3,10 +3,15 @@ package mariculture.factory;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.logging.log4j.Level;
+
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.util.Text;
-import mariculture.factory.gui.SlotDictionary;
+import mariculture.plugins.Plugins;
+import mariculture.plugins.Plugins.Plugin;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,33 +24,80 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 //This handles all the OreDictionaryRelated things to do with the Automatic Dictionary Converter
 public class OreDicHandler {
 	public static HashMap<String, ArrayList<String>> entries;
+	public static HashMap<String, Integer[]> specials = new HashMap();
+	public static HashMap<String, ArrayList<ItemStack>> items;
+	
+	public static void registerWildCards() {
+		registerWildcard(new ItemStack(Blocks.planks), new Integer[] { 0, 1, 2, 3, 4, 5 });
+		registerWildcard(new ItemStack(Blocks.wooden_slab), new Integer[] { 0, 1, 2, 3, 4, 5 });
+		registerWildcard(new ItemStack(Blocks.log), new Integer[] { 0, 1, 2, 3 });
+		registerWildcard(new ItemStack(Blocks.log2), new Integer[] { 0, 1 });
+		registerWildcard(new ItemStack(Blocks.sapling), new Integer[] { 0, 1, 2, 3, 4, 5 });
+		registerWildcard(new ItemStack(Blocks.leaves), new Integer[] { 0, 1, 2, 3 });
+		registerWildcard(new ItemStack(Blocks.leaves2), new Integer[] { 0, 1 });
+		
+		for(Plugin plugin: Plugins.plugins) {
+			plugin.registerWildcards();
+		}
+	}
 	
 	@SubscribeEvent
 	public void onOreDictionaryRegistration(OreRegisterEvent event) {
 		//Initialize all existing Entries
 		if(entries == null) {
+			items = new HashMap();
 			entries = new HashMap();
 			String[] ores = OreDictionary.getOreNames();
 			for(String ore: ores) {
 				ArrayList<ItemStack> stacks = OreDictionary.getOres(ore);
 				for(ItemStack stack: stacks) {
-					if(stack != null && ore != null && !ore.equals("")) add(stack, ore);
+					if(stack != null && ore != null && !ore.equals("")) {
+						if(stack.getItem() == null || stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+							addSpecial(stack, ore);
+						} else {
+							add(stack, ore);
+						}
+					}
 				}
 			}
 		}
 		
-		add(event.Ore, event.Name);
+		if(event.Ore.getItemDamage() == OreDictionary.WILDCARD_VALUE) addSpecial(event.Ore, event.Name);
+		else add(event.Ore, event.Name);
 	}
 	
+	public static void registerWildcard(ItemStack stack, Integer[] metas) {
+		String name = Item.itemRegistry.getNameForObject(stack.getItem());
+		specials.put(name, metas);
+		
+		LogHandler.log(Level.INFO, "Successfully registered wildcard for " + name + "(" + stack.toString() + ")");
+	}
+	
+	private void addSpecial(ItemStack stack, String ore) {
+		String name = Item.itemRegistry.getNameForObject(stack.getItem());
+		Integer[] meta = specials.get(name);
+		if(meta == null) return;
+		for(Integer i: meta) {
+			add(new ItemStack(stack.getItem(), 1, i), ore);
+		}
+	}
+
 	public static void add(ItemStack stack, String name) {
 		String id = convert(stack);
 		ArrayList<String> list = entries.containsKey(id)? entries.get(id): new ArrayList();
 		list.add(name);
 		entries.put(id, list);
+		ArrayList<ItemStack> stacks = items.get(name) != null? items.get(name): new ArrayList();
+		stacks.add(stack);
+		items.put(name, stacks);
 	}
 	
 	public static String convert(ItemStack stack) {
-		return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage();
+		try {
+			return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage();
+		} catch (Exception e) {
+			return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + OreDictionary.WILDCARD_VALUE;
+		}
 	}
 	
 	public static boolean isInDictionary(ItemStack stack) {
@@ -107,7 +159,7 @@ public class OreDicHandler {
 	private static ItemStack getNextValidEntry(ItemStack stack, String name) {
 		String converted = convert(stack);
 		boolean found = false;
-		ArrayList<ItemStack> stacks = OreDictionary.getOres(name);
+		ArrayList<ItemStack> stacks = items.get(name);
 		if(stacks == null || stacks.size() < 1) return stack;
 		for(ItemStack item: stacks) {
 			if(found && item != null && !convert(item).equals(converted)) {

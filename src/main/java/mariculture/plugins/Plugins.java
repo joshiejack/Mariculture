@@ -15,12 +15,6 @@ public class Plugins {
 
 	public abstract static class Plugin {
 		public String name;
-
-		public Plugin(String name) {
-			this.name = name;
-			plugins.add(this);
-		}
-		
 		public Plugin() {
 			this.name = this.getClass().getSimpleName().toString().substring(6);
 			plugins.add(this);
@@ -47,14 +41,15 @@ public class Plugins {
 		public abstract void preInit();
 		public abstract void init();
 		public abstract void postInit();
+		public void registerWildcards() {
+			return;
+		}
 	}
 	
 	public void add(String str) {
 		if(Loader.isModLoaded(str)) {
 			try {
-				Class clazz = Class.forName("mariculture.plugins.Plugin" + str);
-				Constructor constructor = clazz.getConstructor(new Class[] {String.class});
-				constructor.newInstance(new Object[] {str});
+				Class.forName("mariculture.plugins.Plugin" + str).newInstance();
 			} catch (Exception e) {
 				LogHandler.log(Level.WARN, "Mariculture - Something went wrong when initializing " + str + " Plugin");
 			}

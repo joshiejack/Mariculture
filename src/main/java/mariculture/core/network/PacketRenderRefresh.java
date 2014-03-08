@@ -1,20 +1,17 @@
 package mariculture.core.network;
 
+import mariculture.core.helpers.ClientHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketRenderRefresh extends PacketCoords {
+	public PacketRenderRefresh(){}
 	public PacketRenderRefresh(int x, int y, int z) {
 		super(x, y, z);
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
-		player.worldObj.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
-	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
+	public void handle(Side side, EntityPlayer player) {
+		ClientHelper.updateRender(x, y, z);
 	}
 }

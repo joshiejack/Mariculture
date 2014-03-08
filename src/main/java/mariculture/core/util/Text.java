@@ -40,4 +40,9 @@ public class Text {
 	public static String localize(String key) {
 		return StatCollector.translateToLocal(key);
 	}
+
+	public static String getShiftText(String string) {
+		String shift = "mariculture.string.shift";
+		return Text.INDIGO + localize(shift + ".hold") + " " + Text.WHITE + localize(shift + ".shift") + " " +  Text.INDIGO + localize(shift +"." + string);
+	}
 }

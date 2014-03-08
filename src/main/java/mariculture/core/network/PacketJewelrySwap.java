@@ -6,6 +6,7 @@ import mariculture.magic.MirrorData;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketJewelrySwap extends AbstractPacket {
 	int slot;
@@ -25,13 +26,7 @@ public class PacketJewelrySwap extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		ItemStack[] mirror = MirrorData.getInventoryForPlayer(player);
 		ItemStack stack = player.inventory.mainInventory[slot];
 		if(stack != null) {

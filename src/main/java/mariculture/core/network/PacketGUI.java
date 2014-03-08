@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mariculture.core.gui.ContainerMariculture;
 import net.minecraft.entity.player.EntityPlayer;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketGUI extends AbstractPacket {
 	public int windowID;
@@ -32,7 +33,7 @@ public class PacketGUI extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		if (player.openContainer.windowId == windowID && player.openContainer.isPlayerNotUsingContainer(player)) {
 			if (player.openContainer instanceof ContainerMariculture) {
 				ContainerMariculture container = (ContainerMariculture) player.openContainer;
@@ -40,11 +41,4 @@ public class PacketGUI extends AbstractPacket {
 			}
 		}
 	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

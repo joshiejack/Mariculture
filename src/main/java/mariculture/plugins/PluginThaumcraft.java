@@ -2,7 +2,6 @@ package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
 
-//TODO Thaumcraft
 public class PluginThaumcraft extends Plugin {
 
 	@Override

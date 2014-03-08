@@ -2,10 +2,12 @@ package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.util.ITank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketFluidSync extends PacketCoords {
 	byte tank;
@@ -20,8 +22,8 @@ public class PacketFluidSync extends PacketCoords {
 	@Override
 	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
 		super.encodeInto(ctx, buffer);
+		buffer.writeByte(tank);
 		if(fluid == null) {
-			buffer.writeByte(tank);
 			buffer.writeInt(0);
 		} else {
 			buffer.writeInt(fluid.fluidID);
@@ -42,16 +44,12 @@ public class PacketFluidSync extends PacketCoords {
 	}
 	
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		TileEntity te = player.worldObj.getTileEntity(x, y, z);
 		if(te instanceof ITank) {
 			((ITank)te).setFluid(fluid, tank);
 		}
-	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
 		
-		
+		ClientHelper.updateRender(x, y, z);
 	}
 }

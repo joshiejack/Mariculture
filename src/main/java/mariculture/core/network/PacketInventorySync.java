@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketInventorySync extends PacketNBT {
 	public PacketInventorySync(){}
@@ -38,7 +39,7 @@ public class PacketInventorySync extends PacketNBT {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		World world = player.worldObj;
 		int x = nbt.getInteger("x");
 		int y = nbt.getInteger("y");
@@ -61,11 +62,4 @@ public class PacketInventorySync extends PacketNBT {
 		
 		world.markBlockForUpdate(x, y, z);
 	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -4,6 +4,8 @@ import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
+import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.FluidContainerMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,14 +17,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import com.mojang.authlib.GameProfile;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -85,25 +83,16 @@ public class BlockFluidMari extends BlockFluidClassic {
 		super.updateTick(world, x, y, z, rand);
 		tick++;
 		
-		if(tick % 25 == 0 && !world.isRemote) {
+		if(tick % 15 == 0 && !world.isRemote && world instanceof WorldServer) {
 			int x2 = x + rand.nextInt(3) - 1;
 			int y2 = y - rand.nextInt(2);
 			int z2 = z + rand.nextInt(3) - 1;
 			Block block = world.getBlock(x2, y, z2);
 			if(block != null) {
-				float hardnessMax = Blocks.stone.getBlockHardness(world, x2, y2, z2);
-				float blockHardness = block.getBlockHardness(world, x2, y2, z2);
-				if(blockHardness <= hardnessMax) {
-					int meta = world.getBlockMetadata(x2, y2, z2);
-					//TODO: BREAK BLOCKS WITH FLUIDS
-					/*
-					FakePlayer player = new FakePlayer((WorldServer) world, new GameProfile("mariculture.hpwater", "hpwater"));
-					if (block.removeBlockByPlayer(world, player, x2, y2, z2)) {
-                            block.onBlockDestroyedByPlayer(world, x2, y2, z2, meta);
-                    }
-						
-                    block.harvestBlock(world, player, x2, y2, z2, meta);
-                    block.onBlockHarvested(world, x2, y2, z2, meta, player); */
+				float resistanceMax = Blocks.stone.getExplosionResistance(PlayerHelper.getFakePlayer(world), world, x2, y2, z2, 0, 0, 0);
+				float resistance = block.getExplosionResistance(PlayerHelper.getFakePlayer(world), world, x2, y2, z2, 0, 0, 0);
+				if(resistance <= resistanceMax) {
+					BlockHelper.destroyBlock(world, x2, y2, z2);
 				}
 			}
 		}

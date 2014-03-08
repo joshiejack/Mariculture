@@ -71,6 +71,7 @@ import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
+import mariculture.factory.OreDicHandler;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -89,6 +90,8 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -149,6 +152,7 @@ public class Core extends Module {
 	@Override
 	public void registerHandlers() {
 		Guides.instance = new GuideHandler();
+		OreDicHandler.registerWildCards();
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
 		MaricultureHandlers.casting = new IngotCastingHandler();
@@ -159,6 +163,7 @@ public class Core extends Module {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler(), 1);
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
+		MinecraftForge.EVENT_BUS.register(new OreDicHandler());
 		FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
 		FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
 		if(RetroGeneration.ENABLED)

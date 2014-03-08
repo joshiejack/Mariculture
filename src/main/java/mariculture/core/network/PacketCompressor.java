@@ -2,16 +2,10 @@ package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import mariculture.Mariculture;
-import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
-import mariculture.core.helpers.ClientHelper;
 import mariculture.diving.TileAirCompressor;
-import mariculture.factory.blocks.TileSponge;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
 
 public class PacketCompressor extends PacketCoords {
 	public int air, power;
@@ -37,7 +31,7 @@ public class PacketCompressor extends PacketCoords {
 	}
 	
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void handle(Side side, EntityPlayer player) {
 		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof TileAirCompressor) {
 			((TileAirCompressor)tile).storedAir = air;
@@ -45,7 +39,4 @@ public class PacketCompressor extends PacketCoords {
 			player.worldObj.markBlockForUpdate(x, y, z);
 		}
 	}
-	
-	@Override
-	public void handleServerSide(EntityPlayer player) {}
 }

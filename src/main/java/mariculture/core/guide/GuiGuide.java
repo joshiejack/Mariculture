@@ -53,6 +53,10 @@ public class GuiGuide extends GuiScreen {
 	public void setZLevel(float f) {
 		this.zLevel = f;
 	}
+	
+	public double getZLevel() {
+		return this.zLevel;
+	}
 
 	public GuiGuide(int hex, String xml) {
 		this.hex = hex;

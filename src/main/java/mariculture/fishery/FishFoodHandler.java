@@ -12,9 +12,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class FishFoodHandler implements IFishFoodHandler {
 	private static Map foodList = new HashMap();
-	
-	//TODO: Check Fish Food Registry
-
 	@Override
 	public void addFishFood(ItemStack food, int value) {
 		foodList.put(Arrays.asList(food, food.getItemDamage()), value);

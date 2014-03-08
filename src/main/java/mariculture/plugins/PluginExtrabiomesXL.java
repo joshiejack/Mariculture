@@ -1,7 +1,6 @@
 package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
-//TODO EXBL
 public class PluginExtrabiomesXL extends Plugin {
 
 	@Override

@@ -508,6 +508,7 @@ mariculture.string.keepDay=Keeping Day
 mariculture.string.shift.hold=Hold
 mariculture.string.shift.shift=Shift
 mariculture.string.shift.rod=to display usable bait
+mariculture.string.shift.custom=to display texture information
 mariculture.string.bait=Usable Bait
 mariculture.string.eggsRemaining=Eggs Remaining
 mariculture.string.undetermined=Undetermined

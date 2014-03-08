@@ -1,8 +1,13 @@
 package mariculture.core.helpers;
 
+import com.mojang.authlib.GameProfile;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayer;
 
 public class PlayerHelper {
 	public static ItemStack getArmor(EntityPlayer player, int slot, Item item) {
@@ -46,5 +51,9 @@ public class PlayerHelper {
 		}
 
 		return -1;
+	}
+	
+	public static FakePlayer getFakePlayer(World world) {
+		return new FakePlayer((WorldServer) world, new GameProfile(null, "Mariculture"));
 	}
 }

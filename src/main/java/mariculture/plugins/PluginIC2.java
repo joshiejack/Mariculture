@@ -1,7 +1,6 @@
 package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
-//TODO IC2
 public class PluginIC2 extends Plugin {
 
 	@Override

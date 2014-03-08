@@ -101,7 +101,6 @@ public class Factory extends Module {
 	public void registerHandlers() {
 		MaricultureHandlers.turbine = new TileTurbineGas();
 		MinecraftForge.EVENT_BUS.register(new FactoryEvents());
-		MinecraftForge.EVENT_BUS.register(new OreDicHandler());
 	}
 
 	@Override

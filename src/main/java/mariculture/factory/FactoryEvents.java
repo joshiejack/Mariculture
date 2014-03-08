@@ -27,7 +27,6 @@ public class FactoryEvents {
 	public void HarvestSpeed(BreakSpeed event) {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
-			//TODO: Add in check for the block being slabs
 			if(Item.getItemFromBlock(event.block) == Item.getItemFromBlock(Factory.customBlock)) {
 				if (player.getCurrentEquippedItem() != null) {
 					if (player.getCurrentEquippedItem().getItem() instanceof ItemPickaxe) {
