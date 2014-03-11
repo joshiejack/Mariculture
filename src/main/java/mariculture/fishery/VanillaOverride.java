@@ -22,7 +22,7 @@ import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
-public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlugin, IClassTransformer {
+public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlugin, IClassTransformer {	
 	public VanillaOverride() {
 		super(new ModMetadata());
 		ModMetadata meta = getMetadata();
@@ -73,8 +73,13 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 	public byte[] transform(String className, String arg1, byte[] data) {
 		remapper = FMLDeobfuscatingRemapper.INSTANCE;
 		byte[] newData = data;
+		
+		if(className.equals("net.minecraft.item.abn")) {
+			System.out.println("Mariculture is patching the vanilla class: " + className);
+			newData = patchClassBlock(data, true);
+		}
 
-		if(className.equals("net.minecraft.item.abn") || className.equals("net.minecraft.item.Item")) {
+		if(className.equals("net.minecraft.item.Item")) {
 			System.out.println("Mariculture is patching the vanilla class: " + className);
 			newData = patchClassBlock(data, false);
 		}
