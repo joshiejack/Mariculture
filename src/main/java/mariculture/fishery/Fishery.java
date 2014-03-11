@@ -14,11 +14,9 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.BlockTest;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.helpers.VanillaReplacementHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CraftingMeta;
@@ -311,14 +309,6 @@ public class Fishery extends Module {
 		net = new BlockItemNet().setUnlocalizedName("net");
 
 		RegistryHelper.register(new Object[] { bait, rodReed, rodWood, rodTitanium, fishy, fishyFood, net, rodFlux });
-		
-		RecipeHelper.addShapelessRecipe(new ItemStack(Blocks.acacia_stairs), new Object[] { new ItemStack(Items.fishing_rod), new ItemStack(Blocks.bedrock) });
-		//VanillaReplacementHelper.replaceItem(Items.fishing_rod, ItemRod.class);
-		RecipeHelper.addShapelessRecipe(new ItemStack(Blocks.bedrock), new Object[] { new ItemStack(Items.fishing_rod), new ItemStack(Blocks.cobblestone) });
-		
-		RecipeHelper.addShapelessRecipe(new ItemStack(Blocks.acacia_stairs), new Object[] { new ItemStack(Blocks.bookshelf), new ItemStack(Blocks.dirt) });
-		VanillaReplacementHelper.replaceBlock(Blocks.bookshelf, BlockTest.class);
-		RecipeHelper.addShapelessRecipe(new ItemStack(Blocks.bedrock), new Object[] { new ItemStack(Blocks.bookshelf), new ItemStack(Blocks.cobblestone) });
 	}
 
 	@Override

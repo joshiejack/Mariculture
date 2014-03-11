@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.helpers.VanillaReplacementHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
@@ -24,13 +23,8 @@ import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.Fishery;
-import mariculture.fishery.items.ItemRod;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBookshelf;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
