@@ -12,8 +12,16 @@ import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class Packets {	
+	public static TargetPoint getTarget(TileEntity tile) {
+		return new TargetPoint(tile.getWorldObj().provider.dimensionId, tile.xCoord, tile.yCoord, tile.zCoord, Extra.PACKET_DISTANCE);
+	}
+	
+	public static TargetPoint getTarget(EntityPlayer player) {
+		return new TargetPoint(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ, Extra.PACKET_DISTANCE);
+	}
+	
 	public static void updateAround(TileEntity tile, AbstractPacket packet) {
-		Mariculture.packets.sendToAllAround(packet, new TargetPoint(tile.getWorldObj().provider.dimensionId, tile.xCoord, tile.yCoord, tile.zCoord, Extra.PACKET_DISTANCE));
+		Mariculture.packets.sendToAllAround(packet, getTarget(tile));
 	}
 	
 	public static void updateGUI(EntityPlayer player, ContainerMariculture container, int id, int val) {

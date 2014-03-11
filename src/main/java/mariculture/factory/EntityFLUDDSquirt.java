@@ -22,7 +22,7 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 		this.damage = damage;
 	}
 
-	public EntityFLUDDSquirt(final World world, final double x, final double y, final double z) {
+	public EntityFLUDDSquirt(World world, double x, double y, double z) {
 		super(world, x, y, z);
 	}
 
@@ -30,9 +30,8 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 	public void onUpdate() {
 		super.onUpdate();
 
-		for (int l = 0; l < 3; ++l) {
-			this.worldObj.spawnParticle("cloud", this.posX + (this.motionX * l), this.posY, this.posZ
-					+ (this.motionZ * l), 0, 0, 0);
+		for (int l = 0; l < 90; ++l) {
+			this.worldObj.spawnParticle("cloud", this.posX + (this.motionX * l), this.posY, this.posZ + (this.motionZ * l), 0, 0, 0);
 		}
 	}
 
@@ -40,24 +39,7 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition thingHit) {
 		if (thingHit.entityHit != null && damage) {
 			DamageSource source = (new EntityDamageSourceIndirect("fludd", this, this.getThrower())).setProjectile();
-			thingHit.entityHit.attackEntityFrom(source, 1);
-		}
-
-		if (!this.worldObj.isRemote) {
-			//TODO: FLUDD SQUIRT BREAK BLOCKS
-			/*
-			int id = this.worldObj.getBlockId(thingHit.blockX, thingHit.blockY, thingHit.blockZ);
-			float hardness = 5F;
-			if (!this.worldObj.isRemote && rand.nextInt(25) == 1 && damage) {
-				if (Blocks.blocksList[id] != null) {
-					hardness = Blocks.blocksList[id].getBlockHardness(this.worldObj, thingHit.blockX, thingHit.blockY,
-							thingHit.blockZ);
-				}
-
-				if (hardness < 2.5F && hardness >= 0) {
-					this.worldObj.destroyBlock(thingHit.blockX, thingHit.blockY, thingHit.blockZ, true);
-				}
-			} */
+			thingHit.entityHit.attackEntityFrom(source, 10);
 		}
 
 		for (int var5 = 0; var5 < 8; ++var5) {

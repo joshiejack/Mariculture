@@ -3,6 +3,7 @@ package mariculture.fishery;
 import java.util.Arrays;
 import java.util.Map;
 
+import mariculture.Mariculture;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 import org.objectweb.asm.ClassReader;

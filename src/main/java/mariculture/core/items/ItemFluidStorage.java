@@ -128,7 +128,6 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 								theBlock.onPostBlockPlaced(world, x, y, z, 0);
 							}
 
-							//TODO: func_150496_b = getPlaceSound()
 							world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F),
 									(double) ((float) z + 0.5F), theBlock.stepSound.func_150496_b(),
 									(theBlock.stepSound.getVolume() + 1.0F) / 2.0F, theBlock.stepSound.getPitch() * 0.8F);

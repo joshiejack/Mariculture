@@ -117,7 +117,8 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 	public static Mode getMode(ItemStack stack) {
 		if(stack.hasTagCompound()) {
 			if(stack.stackTagCompound.getInteger("water") > 0) {
-				return Mode.values()[stack.stackTagCompound.getInteger("mode")];
+				int mode = stack.stackTagCompound.getInteger("mode");
+				return Mode.values()[mode < 4 && mode >= 0? mode: 0];
 			}
 		}
 		

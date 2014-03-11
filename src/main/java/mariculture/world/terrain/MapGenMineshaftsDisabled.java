@@ -34,9 +34,12 @@ public class MapGenMineshaftsDisabled extends MapGenMineshaft {
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-		if(MaricultureHandlers.biomeType.getBiomeType(worldObj
-				.getBiomeGenForCoords(chunkX * 16, chunkZ * 16)) == EnumBiomeType.OCEAN) {
-			return false;
+		try {
+			if(MaricultureHandlers.biomeType.getBiomeType(worldObj.getBiomeGenForCoords(chunkX * 16, chunkZ * 16)) == EnumBiomeType.OCEAN) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return this.rand.nextDouble() < this.field_82673_e && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));

@@ -6,8 +6,12 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Modules;
+import mariculture.core.network.PacketFLUDD;
 import mariculture.core.network.PacketJewelrySwap;
 import mariculture.factory.Factory;
+import mariculture.factory.FactoryEvents;
+import mariculture.factory.items.ItemArmorFLUDD;
+import mariculture.factory.items.ItemArmorFLUDD.Mode;
 import mariculture.magic.Magic;
 import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -28,19 +32,23 @@ public class ClientFMLEvents {
 		}
 		
 		if(Modules.factory.isActive()) {
-			if(ClientHelper.isActivateKeyPressed() && player.isSneaking() && PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) {
-				ItemStack stack = PlayerHelper.getArmorStack(player, ArmorSlot.TOP);
-				if(stack.hasTagCompound()) {
-					int mode = stack.stackTagCompound.getInteger("mode");
-					mode++;
-					if (mode > 3) {
-						mode = 0;
+			if(ClientHelper.isActivateKeyPressed() && PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) {
+				if(player.isSneaking()) {
+					ItemStack stack = PlayerHelper.getArmorStack(player, ArmorSlot.TOP);
+					if(stack.hasTagCompound()) {
+						int mode = stack.stackTagCompound.getInteger("mode");
+						mode++;
+						if (mode > 3) {
+							mode = 0;
+						}
+	
+						ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
+						stack.stackTagCompound.setInteger("mode", mode);
+					} else {
+						stack.setTagCompound(new NBTTagCompound());
 					}
-
-					ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
-					stack.stackTagCompound.setInteger("mode", mode);
 				} else {
-					stack.setTagCompound(new NBTTagCompound());
+					if(FactoryEvents.getArmorMode(player) == Mode.SQUIRT) Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemArmorFLUDD.SQUIRT));
 				}
 			}
 		}

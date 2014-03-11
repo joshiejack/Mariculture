@@ -12,6 +12,7 @@
 * Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
 * Blink distance per level increased to 16 blocks, you no longer need to be above a certain level to use it any time
 * Air Pumps will now only 'work' when they receive power, they will only extract fluid at that point too
+* FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
 
 == Mariculture 1.2.0d ==
 * Gas is a little more dangerous
