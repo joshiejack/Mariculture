@@ -33,17 +33,18 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHasMeta {
+public class BlockCoral extends Block implements IItemRegistry, IHasMeta {
 	private IIcon[] icons;
 
 	protected BlockCoral() {
 		super(Material.water);
 		float f = 0.375F;
 		this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
-		this.setTickRandomly(true);
+		//this.setTickRandomly(true);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
 	}
 	
+	/*
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		if(world.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
@@ -114,7 +115,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 	@SideOnly(Side.CLIENT)
 	@Override
 	public int colorMultiplier(IBlockAccess block, int x, int y, int z) {
-		/*
+		
 		if(block.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
 			int id1 = block.getBlockId(x + 1, 16, z);
 			int id2 = block.getBlockId(x, y, z + 8);
@@ -151,7 +152,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 			} else {
 				return 5411426;
 			}
-		} */
+		} 
 		
         return 16777215;
     }
@@ -285,7 +286,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 		}
 		
 		world.notifyBlocksOfNeighborChange(x, y, z, this, meta);
-	}
+	} */
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
@@ -316,6 +317,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 		return 1;
 	}
 	
+	/*
 	@Override
 	public Block getPlant(IBlockAccess world, int x, int y, int z) {
 		return this;
@@ -329,7 +331,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 	@Override
 	public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z);
-	}
+	} */
 
 	@Override
 	public IIcon getIcon(int side, int meta) {

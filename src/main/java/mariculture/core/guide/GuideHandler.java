@@ -87,14 +87,15 @@ public class GuideHandler implements IGuideHandler {
 	
 	public static ItemStack getIcon(String name, int meta) {
 		String key = name + ":" + meta;
-		if(icons.get(key).getItem() == Item.getItemFromBlock(Blocks.air))
-			return null;
-		if(icons.containsKey(key)) {
-			return icons.get(key);
+		System.out.println(key);
+		
+		ItemStack stack = icons.get(key);
+		if(stack != null) {
+			return stack.getItem() == Item.getItemFromBlock(Blocks.air)? null: stack;
 		} else {
-			ItemStack stack = new ItemStack((Item)Item.itemRegistry.getObject(key), 1, meta);
-			icons.put(key, stack);
-			return stack;
+			ItemStack item = new ItemStack((Item)Item.itemRegistry.getObject(key), 1, meta);
+			icons.put(key, item);
+			return item != null? item: null;
 		}
 	}
 	

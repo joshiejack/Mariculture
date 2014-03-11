@@ -284,8 +284,8 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 								this.field_146038_az = MathHelper.getRandomIntegerInRange(this.rand, 20, 80);
 							}
 						} else {
-							this.field_146040_ay = MathHelper.getRandomIntegerInRange(this.rand, 100, 900);
-							this.field_146040_ay -= (EnchantmentHelper.func_151387_h(this.field_146042_b) * 25 * 5) * ((baitQuality)/10);
+							this.field_146040_ay = MathHelper.getRandomIntegerInRange(this.rand, 100, baitQuality > 0 ? 900: 1500);
+							this.field_146040_ay -= (EnchantmentHelper.func_151387_h(this.field_146042_b) * 25 * 5) * (baitQuality > 0 ?((baitQuality)/10): 0.75);
 						}
 					}
 
@@ -328,7 +328,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 				this.field_146043_c.motionZ += d4 * d8;
 				b0 = 3;
 			} else if (this.field_146045_ax > 0) {
-				ItemStack result = Fishing.loot.getLoot(field_146042_b, field_146042_b.getHeldItem(), rand, worldObj, (int)posX, (int)posY, (int)posZ);
+				ItemStack result = Fishing.loot.getLoot(field_146042_b, field_146042_b.getHeldItem(), baitQuality, rand, worldObj, (int)posX, (int)posY, (int)posZ);
 				EntityItem entityitem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, result);
 				double d1 = this.field_146042_b.posX - this.posX;
 				double d3 = this.field_146042_b.posY - this.posY;

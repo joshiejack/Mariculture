@@ -58,10 +58,6 @@ public class RetroGen {
 						WorldGenHandler.generateBauxite(chunk.worldObj, Rand.rand, x, z);
 					if(OreGeneration.COPPER_ON && doGen(data, "copper", chunk))
 						WorldGenHandler.generateCopper(chunk.worldObj, Rand.rand, x, z);
-					if(OreGeneration.LIMESTONE && doGen(data, "limestone", chunk))
-						WorldGenHandler.generateLimestone(chunk.worldObj, Rand.rand, x, z);
-					if(OreGeneration.RUTILE && doGen(data, "rutile", chunk))
-						WorldGenHandler.generateRutile(chunk.worldObj, Rand.rand, x, z);
 					if(WorldGeneration.OYSTER_ENABLED && doGen(data, "oyster", chunk))
 						WorldGenHandler.generateOyster(chunk.worldObj, Rand.rand, x, z);
 					if(Modules.world.isActive()) {

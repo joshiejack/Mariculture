@@ -11,22 +11,28 @@ import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
+import mariculture.core.network.PacketAirPump;
+import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.IFaceable;
 import mariculture.diving.Diving;
 import mariculture.factory.blocks.Tank;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 
-//TODO: test ejecting of the air pump
-public class TileAirPump extends TileStorageTank implements IEnergyHandler {
+public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFaceable {
 	protected BlockTransferHelper helper;
 	protected EnergyStorage storage = new EnergyStorage(100);
+	public ForgeDirection orientation = ForgeDirection.WEST;
 	public boolean animate;
 	private double wheelAngle1 = 0;
 	private double wheelAngle2 = 0;
@@ -40,149 +46,6 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		tank = new Tank(8000);
 		inventory = new ItemStack[1];
 	}
-
-	public double getWheelAngle(int which) {
-		if (which == 1) {
-			return wheelAngle1;
-		}
-
-		return wheelAngle2;
-	}
-	
-	public void supplyWithAir(int value, double x, double y, double z) {
-		if (!worldObj.isRemote && worldObj.getTileEntity(xCoord, yCoord, zCoord) != null) {
-			List playerList = worldObj.getEntitiesWithinAABB(EntityPlayer.class, worldObj.getTileEntity(xCoord, yCoord, zCoord).getBlockType()
-					.getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord, zCoord).expand(x, y, z));
-			if (!playerList.isEmpty()) {
-				for (int i = 0; i < playerList.size(); i++) {
-					EntityPlayer player = (EntityPlayer) playerList.get(i);
-					if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Diving.divingTop)
-							&& PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.divingHelmet)) {
-						if (player.isInsideOfMaterial(Material.water)) {
-							if(value == 300) {
-								player.setAir(300);
-							} else {
-								player.setAir(player.getAir() + 35);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public void doPoweredPump() {
-		if (Extra.BUILDCRAFT_PUMP) {
-			if (storage.extractEnergy(100, true) < 100) {
-				return;
-			}
-			
-			storage.extractEnergy(100, false);
-			
-			if(updateAirArea(Type.CHECK)) {
-				if(Modules.diving.isActive()) {
-					supplyWithAir(300, 40.0D, 50.0D, 40.0D);
-				}
-				
-				animate = true;
-				
-				//TODO: PACKET Update Air Pump Animations
-				//Packets.updateTile(this, 32, new Packet102AirPump(xCoord, yCoord, zCoord).build());
-			}
-			
-			suckUpGas(4096);
-		}
-	}
-
-	public boolean suckUpGas(int chance) {
-		boolean collected = false;
-		for(int x = xCoord - 6; x < xCoord + 7; x++) {
-			for (int z = zCoord - 6; z < zCoord + 7; z++) {
-				for (int y = yCoord; y < yCoord + 10; y++) {
-					if(rand.nextInt(1) == 0) {
-						if(isNaturalGas(x, y, z)) {
-							if(fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), false) >= 1000) {
-								if(!worldObj.isRemote) {
-									fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), true);
-									worldObj.setBlockToAir(x, y, z);
-								}
-								
-								collected = true;
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		return collected;
-	}
-	
-	private boolean isNaturalGas(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.airBlocks && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
-	}
-	
-	private int tick;
-	
-	@Override
-	public boolean canUpdate() {
-		return true;
-	}
-
-	@Override
-	public void updateEntity() {
-		if(helper == null)
-			helper = new BlockTransferHelper(this);
-		
-		tick++;
-		if(tick %100 == 0) {
-			doPoweredPump();
-		}
-		
-		//Transfer internals to a nearby tank
-		if(tick %100 == 0 && tank.getFluidAmount() > 0) {			
-			helper.ejectFluid(new int[] { 8000, 4000, 2000, 1000, 100, 20, 1 });
-		}
-
-		if (animate) {
-			wheelAngle1 = wheelAngle1 + 0.1;
-			wheelAngle2 = wheelAngle2 + 0.1;
-
-			if (wheelAngle1 > 6.2198) {
-				wheelAngle1 = 0;
-				animate = false;
-			}
-
-			if (wheelAngle2 > 6.2198) {
-				wheelAngle2 = 0;
-				animate = false;
-			}
-
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-		}
-
-		if(Modules.diving.isActive()){
-			if (Extra.REDSTONE_PUMP && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-				supplyWithAir(30, 25.0D, 36.0D, 25.0D);
-			}
-		}
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		storage.readFromNBT(nbt);
-		on = nbt.getBoolean("DisplayOn");
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		storage.writeToNBT(nbt);
-		nbt.setBoolean("DisplayOn", on);
-	}
-
-	public boolean on = true;
 	
 	public boolean updateAirArea(Type type) {
 		on = !on;
@@ -224,10 +87,134 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 		
 		return true;
 	}
+	
+	private int tick;
+	public void supplyWithAir(int value, double x, double y, double z) {
+		if (!worldObj.isRemote && worldObj.getTileEntity(xCoord, yCoord, zCoord) != null) {
+			List playerList = worldObj.getEntitiesWithinAABB(EntityPlayer.class, worldObj.getTileEntity(xCoord, yCoord, zCoord).getBlockType()
+					.getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord, zCoord).expand(x, y, z));
+			if (!playerList.isEmpty()) {
+				for (int i = 0; i < playerList.size(); i++) {
+					EntityPlayer player = (EntityPlayer) playerList.get(i);
+					if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Diving.divingTop)
+							&& PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.divingHelmet)) {
+						if (player.isInsideOfMaterial(Material.water)) {
+							if(value == 300) {
+								player.setAir(300);
+							} else {
+								player.setAir(player.getAir() + 35);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void doPoweredPump(boolean rf, int value, double x, double y, double z) {
+		if(rf) {
+			if (storage.extractEnergy(100, true) < 100) {
+				return;
+			}
+	
+			storage.extractEnergy(100, false);
+		}
+			
+		if(updateAirArea(Type.CHECK)) {
+			if(Modules.diving.isActive()) {
+				supplyWithAir(300, 40.0D, 64.0D, 40.0D);
+			}
+				
+			animate = true;
+				
+			if(canUpdate()) Packets.updateAround(this, new PacketAirPump(xCoord, yCoord, zCoord));
+		}
+			
+		suckUpGas(4096);
+		
+		if(helper == null) helper = new BlockTransferHelper(this);
+		helper.ejectFluid(new int[] { 8000, 4000, 2000, 1000, 100, 20, 1 });
+	}
+
+	public boolean suckUpGas(int chance) {
+		boolean collected = false;
+		for(int x = xCoord - 6; x < xCoord + 7; x++) {
+			for (int z = zCoord - 6; z < zCoord + 7; z++) {
+				for (int y = yCoord; y < yCoord + 10; y++) {
+					if(rand.nextInt(1) == 0) {
+						if(isNaturalGas(x, y, z)) {
+							if(fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), false) >= 1000) {
+								if(!worldObj.isRemote) {
+									fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), true);
+									worldObj.setBlockToAir(x, y, z);
+								}
+								
+								collected = true;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return collected;
+	}
+	
+	private boolean isNaturalGas(int x, int y, int z) {
+		return worldObj.getBlock(x, y, z) == Core.airBlocks && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
+	}
+	
+	public double getWheelAngle(int which) {
+		return which == 1? wheelAngle1: wheelAngle2;
+	}
+	
+	@Override
+	public boolean canUpdate() {
+		return Extra.PUMP_ANIMATE;
+	}
+
+	@Override
+	public void updateEntity() {
+		if (animate) {
+			wheelAngle1 = wheelAngle1 + 0.1;
+			wheelAngle2 = wheelAngle2 + 0.1;
+
+			if (wheelAngle1 > 6.2198) {
+				wheelAngle1 = 0;
+				animate = false;
+			}
+
+			if (wheelAngle2 > 6.2198) {
+				wheelAngle2 = 0;
+				animate = false;
+			}
+
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
+	}
+
+	public boolean on = true;
+	
+	public boolean onTick(int i) {
+		return tick % i == 0;
+	}
+	
+	@Override
+	public void setFacing(ForgeDirection dir) {
+		this.orientation = dir;
+	}
 
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return storage.receiveEnergy(maxReceive, simulate);
+		int receive = storage.receiveEnergy(maxReceive, simulate);		
+		if(!simulate && (getEnergyStored(from) > 0)) {
+			tick++;
+			if(onTick(300)) {
+				doPoweredPump(true, 300, 40.0D, 64.0D, 40.0D);		
+			}
+		}
+		
+		return receive;
 	}
 
 	@Override
@@ -249,8 +236,32 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler {
 	public int getMaxEnergyStored(ForgeDirection from) {
 		return storage.getMaxEnergyStored();
 	}
+	
+	@Override
+	public Packet getDescriptionPacket()  {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        this.writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+    }
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		storage.readFromNBT(nbt);
+		on = nbt.getBoolean("DisplayOn");
+		orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+	}
 
-	public boolean rotate() {
-		return false;
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		storage.writeToNBT(nbt);
+		nbt.setBoolean("DisplayOn", on);
+		nbt.setInteger("Orientation", orientation.ordinal());
 	}
 }

@@ -17,7 +17,7 @@ public class ReflectionHelper {
 			setFinalStatic(clazz.getDeclaredField(field1), newValue);
 		} catch(Exception e) {
 			try {
-				setFinalStatic(clazz.getDeclaredField(field2), newValue);
+				if(!field2.equals(""))setFinalStatic(clazz.getDeclaredField(field2), newValue);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

@@ -14,9 +14,6 @@ public class Extra {
 	public static int PEARL_GEN_CHANCE;
 	public static boolean DEBUG_ON;
 	public static int REFRESH_CLIENT_RATE;
-	public static boolean REDSTONE_PUMP;
-	public static boolean ACTIVATE_PUMP;
-	public static boolean BUILDCRAFT_PUMP;
 	public static int METAL_RATE;
 	public static int bait0;
 	public static int bait1;
@@ -54,4 +51,6 @@ public class Extra {
 	public static boolean DISABLE_FISH;
 	
 	public static int PACKET_DISTANCE;
+	public static boolean PUMP_ANIMATE;
+	public static boolean VANILLA_FORCE;
 }

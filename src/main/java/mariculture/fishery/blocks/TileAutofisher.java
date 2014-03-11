@@ -43,8 +43,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	//Sided Inventory
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		if(side <= 1)
-			return new int[] { rod };
+		if(side <= 1) return new int[] { rod };
 		return new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
 	}
 
@@ -80,7 +79,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 						for(int i = 0; i < speed && canWork; i++) {
 							int bonusQuality = baitQuality + (EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4);
 							if (Rand.rand.nextInt(100) < bonusQuality && canWork())
-								catchFish();
+								catchFish(bonusQuality);
 							baitQuality = -1;
 						}
 					}
@@ -212,9 +211,9 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	//Process
-	private void catchFish() {
+	private void catchFish(int baitQuality) {
 		EnumRodQuality quality = Fishing.rodHandler.getRodQuality(inventory[rod]);
-		ItemStack lootResult = Fishing.loot.getLoot(null, inventory[rod], Rand.rand, worldObj, xCoord, yCoord, zCoord);
+		ItemStack lootResult = Fishing.loot.getLoot(null, inventory[rod], baitQuality, Rand.rand, worldObj, xCoord, yCoord, zCoord);
 		if (lootResult != null) {
 			helper.insertStack(lootResult, out);
 		}

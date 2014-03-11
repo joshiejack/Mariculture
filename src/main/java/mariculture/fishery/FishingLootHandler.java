@@ -103,7 +103,7 @@ public class FishingLootHandler implements ILootHandler {
 	}
 
 	@Override
-	public ItemStack getLoot(EntityPlayer player, ItemStack rod, Random rand, World world, int x, int y, int z) {
+	public ItemStack getLoot(EntityPlayer player, ItemStack rod, int baitQuality, Random rand, World world, int x, int y, int z) {
 		EnumRodQuality quality = Fishing.rodHandler.getRodQuality(rod);
 		EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords((int) x, (int) z));
 		float f = world.rand.nextFloat();
@@ -114,7 +114,7 @@ public class FishingLootHandler implements ILootHandler {
 		f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
 		f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
 
-		if (f < f1 && quality.getRank() >= EnumRodQuality.OLD.getRank()) {
+		if ((f < f1 && quality.getRank() >= EnumRodQuality.OLD.getRank()) || (baitQuality == 0 && rand.nextInt(10) == 0)) {
 			if (player != null)
 				player.addStat(StatList.field_151183_A, 1);
 			return ((WeightedRandomFishable) WeightedRandom.getRandomItem(rand, EntityHook.bad_loot.get(biome))).func_150708_a(rand);

@@ -1,10 +1,12 @@
 package mariculture.factory;
 
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.factory.items.ItemArmorFLUDD;
+import mariculture.factory.items.ItemArmorFLUDD.Mode;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -44,18 +46,21 @@ public class FactoryEvents {
 			}
 		}
 	}
+	
+	public Mode getArmorMode(EntityPlayer player) {
+		if(!PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) return Mode.NONE;
+		return ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]);
+	}
 
 	@SubscribeEvent
 	public void LivingUpdateEvent(LivingUpdateEvent event) {
-		if (event.entity.worldObj.isRemote) {
+		World world = event.entity.worldObj;
+		if (world.isRemote) {
 			if (event.entity instanceof EntityPlayer) {
-
 				EntityPlayer player = (EntityPlayer) event.entity;
-				World world = event.entity.worldObj;
-
-				if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
-						&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.TURBO) {
-					if (KeyHelper.FLUDD_KEY_DOWN && !player.isSneaking()) {
+				if(ClientHelper.isActivateKeyPressed() && !player.isSneaking()) {
+					//Turbo Mode
+					if (getArmorMode(player) == Mode.TURBO) {
 						if (player.isInWater()) {
 							player.moveFlying(0.0F, 1.0F, 0.05F);
 						} else if (player.onGround) {
@@ -63,68 +68,61 @@ public class FactoryEvents {
 						} else {
 							player.moveFlying(0.0F, 1.0F, 0.1F);
 						}
-						if (world.isRemote) {
-							sendDamagePacket(player, ItemArmorFLUDD.TURBO);
-						}
-
+							
+						sendDamagePacket(player, ItemArmorFLUDD.TURBO);
 						playSmoke(ItemArmorFLUDD.TURBO, player, true);
 					}
-				}
-
-				if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
-						&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.ROCKET) {
-					if (KeyHelper.FLUDD_KEY_DOWN && !player.isSneaking()) {
+	
+					//Rocket Mode
+					if (getArmorMode(player) == Mode.ROCKET) {
 						if (jumpTick < 10) {
 							player.addVelocity(0, 0.35, 0);
-
-							if (world.isRemote) {
-								sendDamagePacket(player, ItemArmorFLUDD.ROCKET);
-							}
-
+	
+							sendDamagePacket(player, ItemArmorFLUDD.ROCKET);
 							playSmoke(ItemArmorFLUDD.ROCKET, player, true);
 						}
 					}
-				}
-
-				if (player.onGround) {
-					jumpTick = 0;
-				}
-
-				hoverTick++;
-				jumpTick++;
-
-				if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
-						&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.HOVER) {
-					if (KeyHelper.FLUDD_KEY_DOWN && !player.isSneaking()) {
-						if (hoverTick >= 128) {
+	
+					if (player.onGround) {
+						jumpTick = 0;
+					}
+	
+					hoverTick++;
+					jumpTick++;
+	
+					//Hover Mode
+					if (getArmorMode(player) == Mode.HOVER) {
+						if (hoverTick >= 64) {
 							disableHover(player);
 						} else {
-
+							if(player.onGround) player.motionY = 10;
 							if (jumpTick < 10) {
 								player.addVelocity(0, 0.01, 0);
-								if (world.isRemote) {
-									sendDamagePacket(player, ItemArmorFLUDD.HOVER);
-								}
+								sendDamagePacket(player, ItemArmorFLUDD.HOVER);
 							}
-
+	
 							player.getEntityData().setBoolean("UsingFLUDDHover", true);
 							player.capabilities.isFlying = true;
 							player.capabilities.setFlySpeed(0.005F);
-							player.motionY = -0.03F;
-							if (!player.onGround && GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward)) {
+							player.motionY = ClientHelper.isForwardPressed()? 0F: ClientHelper.isJumpPressed()? 0.08F: 0.05F;
+							if (!player.onGround && ClientHelper.isForwardPressed()) {
 								player.moveFlying(0.0F, 1.0F, 0.03F);
 							}
-
+	
 							playSmoke(ItemArmorFLUDD.HOVER, player, true);
 						}
 					} else {
 						if (player.onGround) {
 							hoverTick = 0;
 						}
-
+	
 						disableHover(player);
 					}
 				} else {
+					if (player.onGround) {
+						hoverTick = 0;
+					}
+
 					disableHover(player);
 				}
 			}
@@ -144,23 +142,19 @@ public class FactoryEvents {
 		}
 	}
 
-	private static boolean playHover(final EntityPlayer player, final boolean original) {
+	private static boolean playHover(EntityPlayer player, boolean original) {
 		if (Extra.FLUDD_WATER_ON) {
 			if (original) {
 				sendWaterAnimateServer(ItemArmorFLUDD.HOVER, player);
 			}
 			for (float j = -0.1F; j < 0.15F; j = j + 0.05F) {
-				int i = 0;
-				while (player.worldObj.isAirBlock((int) player.posX, (int) player.posY - i, (int) player.posZ)) {
+				double i = 0.2D;
+				while (player.worldObj.isAirBlock((int) player.posX, (int) (player.posY - i), (int) player.posZ)) {
 					player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + j, 0, -1D, 0);
-					player.worldObj.spawnParticle("cloud", player.posX + j + 0.5F, player.posY - 0.23F - i, player.posZ + j, 0,
-							-5D, 0);
-					player.worldObj.spawnParticle("cloud", player.posX + j - 0.5F, player.posY - 0.23F - i, player.posZ + j, 0,
-							-5D, 0);
-					player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + j + 0.5F, 0,
-							-5D, 0);
-					player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + j - 0.5F, 0,
-							-5D, 0);
+					player.worldObj.spawnParticle("cloud", player.posX + j + 0.5F, player.posY - 0.23F - i, player.posZ + j, 0, -5D, 0);
+					player.worldObj.spawnParticle("cloud", player.posX + j - 0.5F, player.posY - 0.23F - i, player.posZ + j, 0, -5D, 0);
+					player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + j + 0.5F, 0, -5D, 0);
+					player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + j - 0.5F, 0, -5D, 0);
 					i++;
 				}
 			}
@@ -178,16 +172,11 @@ public class FactoryEvents {
 				for (float j = -1F; j < 1.05F; j = j + 0.15F) {
 					int i = 0;
 					while (player.worldObj.isAirBlock((int) player.posX, (int) player.posY - i, (int) player.posZ)) {
-						player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + k, 0, -1D,
-								0);
-						player.worldObj.spawnParticle("cloud", player.posX + j + 0.5F, player.posY - 0.23F - i, player.posZ + k,
-								0, -5D, 0);
-						player.worldObj.spawnParticle("cloud", player.posX + j - 0.5F, player.posY - 0.23F - i, player.posZ + k,
-								0, -5D, 0);
-						player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + k + 0.5F,
-								0, -5D, 0);
-						player.worldObj.spawnParticle("cloud", player.posX + j, player.posY - 0.23F - i, player.posZ + k - 0.5F,
-								0, -5D, 0);
+						player.worldObj.spawnParticle("explode", player.posX + j, player.posY - 0.23F - i, player.posZ + k, 0, -1D, 0);
+						player.worldObj.spawnParticle("explode", player.posX + j + 0.5F, player.posY - 0.23F - i, player.posZ + k, 0, -5D, 0);
+						player.worldObj.spawnParticle("explode", player.posX + j - 0.5F, player.posY - 0.23F - i, player.posZ + k, 0, -5D, 0);
+						player.worldObj.spawnParticle("explode", player.posX + j, player.posY - 0.23F - i, player.posZ + k + 0.5F, 0, -5D, 0);
+						player.worldObj.spawnParticle("explode", player.posX + j, player.posY - 0.23F - i, player.posZ + k - 0.5F, 0, -5D, 0);
 						i++;
 					}
 				}
@@ -230,8 +219,7 @@ public class FactoryEvents {
 	}
 
 	public static void activateSquirt(EntityPlayer player) {
-		if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)
-				&& ItemArmorFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]) == ItemArmorFLUDD.SQUIRT) {
+		if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) {
 			//TODO: Packet Send Activate packet to client ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(new Packet107FLUDD(false, 0, player.entityId, PacketType.SQUIRT).build());
 		}
 	}

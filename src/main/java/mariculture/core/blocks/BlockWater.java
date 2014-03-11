@@ -56,9 +56,7 @@ public class BlockWater extends BlockMachine {
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		if(stack.getItemDamage() == 0) {
-			((TileOyster)world.getTileEntity(x, y, z)).orientation = DirectionHelper.getFacingFromEntity(entity);
-		}
+		if(stack.getItemDamage() == 0) ((TileOyster)world.getTileEntity(x, y, z)).orientation = DirectionHelper.getFacingFromEntity(entity);
 	}
 
 	@Override
@@ -77,7 +75,7 @@ public class BlockWater extends BlockMachine {
 	}
 	
 	public int getMixedBrightnessForBlock(IBlockAccess world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 0? world.getLightBrightnessForSkyBlocks(x, y, z, 15): world.getLightBrightnessForSkyBlocks(x, y, z, 0);
+		return world.getLightBrightnessForSkyBlocks(x, y, z, 0);
     }
 	
 	@Override

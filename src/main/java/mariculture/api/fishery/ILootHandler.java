@@ -23,5 +23,5 @@ public interface ILootHandler {
 	public void addLoot(LootQuality quality, WeightedRandomFishable loot, List<EnumBiomeType> biomes);
 
 	/** This will generate random loot making use of the parameters specified (Player can be null) **/
-	public ItemStack getLoot(EntityPlayer player, ItemStack rod, Random rand, World world, int x, int y, int z);
+	public ItemStack getLoot(EntityPlayer player, ItemStack rod, int baitQuality, Random rand, World world, int x, int y, int z);
 }

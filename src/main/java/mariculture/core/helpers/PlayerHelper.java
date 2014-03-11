@@ -25,16 +25,20 @@ public class PlayerHelper {
 		return null;
 	}
 	
-	public static Item getArmor(EntityPlayer player, int slot) {
+	public static ItemStack getArmorStack(EntityPlayer player, int slot) {
 		ItemStack[] armor = player.inventory.armorInventory;
 
 		if (slot > -1 && slot < 4) {
 			if (armor[slot] != null) {
-				return armor[slot].getItem();
+				return armor[slot];
 			}
 		}
 		
 		return null;
+	}
+	
+	public static Item getArmor(EntityPlayer player, int slot) {
+		return getArmorStack(player, slot) != null? getArmorStack(player, slot).getItem(): null;
 	}
 	
 	public static boolean hasArmor(EntityPlayer player, int slot, Item item) {
@@ -59,6 +63,6 @@ public class PlayerHelper {
 	}
 
 	public static boolean isFake(EntityPlayer player) {
-		return !(player instanceof FakePlayer || player.getDisplayName().equals("[CoFh]"));
+		return player instanceof FakePlayer || player.getDisplayName().equals("[CoFH]")? true: false;
 	}
 }

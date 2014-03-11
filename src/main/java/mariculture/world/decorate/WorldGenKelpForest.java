@@ -25,19 +25,19 @@ public class WorldGenKelpForest extends WorldGenerator {
 					int randZ = random.nextInt(32) - 16;
 					if (world.getChunkProvider().chunkExists(x2 + x3 + randZ >> 4, z2 + z3 + randX >> 4)) {
 				        try {
-				        	new WorldGenKelp().generate(world, random, x2 + x3 + randZ, z2 + z3 + randX, true, max, WorldGeneration.KELP_FOREST_DENSITY);
+				        	//new WorldGenKelp().generate(world, random, x2 + x3 + randZ, z2 + z3 + randX, true, max, WorldGeneration.KELP_FOREST_DENSITY);
 				        } catch (Exception e) { }
 					}
 					
 					if (world.getChunkProvider().chunkExists(x2 + x3 + randX >> 4, z2 + z3 + randZ >> 4)) {
 				        try {
-				        	new WorldGenKelp().generate(world, random, x2 + x3 + randX, z2 + z3 + randZ, true, max, WorldGeneration.KELP_FOREST_DENSITY);
+				        	//new WorldGenKelp().generate(world, random, x2 + x3 + randX, z2 + z3 + randZ, true, max, WorldGeneration.KELP_FOREST_DENSITY);
 				        } catch (Exception e) { }
 					}
 					
 					if (world.getChunkProvider().chunkExists(x >> 4, z >> 4)) {
 				        try {
-				        	new WorldGenKelp().generate(world, random, x2 + x3 + randX, z2 + z3 + randZ, true, 5, WorldGeneration.KELP_FOREST_DENSITY);
+				        	//new WorldGenKelp().generate(world, random, x2 + x3 + randX, z2 + z3 + randZ, true, 5, WorldGeneration.KELP_FOREST_DENSITY);
 				        } catch (Exception e) { }
 					}
 				}

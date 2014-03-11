@@ -99,7 +99,7 @@ public class BlockHelper {
 		return tile!= null ? getName(new ItemStack(tile.getBlockType(), 1, tile.getBlockMetadata())): "";
 	}
 	
-	public static ForgeDirection rotate(ForgeDirection dir) {
+	public static ForgeDirection rotate(ForgeDirection dir, int num) {
 		if(dir == ForgeDirection.NORTH)
 			return ForgeDirection.EAST;
 		if(dir == ForgeDirection.EAST)
@@ -107,10 +107,14 @@ public class BlockHelper {
 		if(dir == ForgeDirection.SOUTH)
 			return ForgeDirection.WEST;
 		if(dir == ForgeDirection.WEST)
-			return ForgeDirection.UP;
+			return num == 6? ForgeDirection.UP: ForgeDirection.NORTH;
 		if(dir == ForgeDirection.UP)
 			return ForgeDirection.DOWN;
 		return ForgeDirection.NORTH;
+	}
+	
+	public static ForgeDirection rotate(ForgeDirection dir) {
+		return rotate(dir, 6);
 	}
 
 	public static void dropItems(World world, int x, int y, int z) {

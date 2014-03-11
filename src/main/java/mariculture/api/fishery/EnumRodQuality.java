@@ -6,7 +6,8 @@ import java.util.List;
 import mariculture.api.core.EnumBiomeType;
 
 public enum EnumRodQuality {
-	OLD(15),
+	DIRE(5),
+	OLD(20),
 	GOOD(45),
 	SUPER(100), 
 	ELECTRIC(101);

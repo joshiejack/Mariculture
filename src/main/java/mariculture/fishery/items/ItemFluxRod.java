@@ -79,7 +79,7 @@ public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
 		list.add(ItemBattery.make(battery, this.capacity));
 	}
 	
-	protected int capacity = 100000;
+	protected int capacity = 250000;
 	protected int maxReceive = 250;
 	protected int maxExtract = 100;
 

@@ -67,11 +67,7 @@ public class WorldGenLimestone extends WorldGenerator {
 						if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
 							if(y < 64) {
 								if (isValidPlacement(world, x, y, z)) {
-									if (OreGeneration.RUTILE && random.nextInt(OreGeneration.RUTILE_CHANCE) == 0) {
-										world.setBlock(x, y, z, Core.oreBlocks, OresMeta.RUTILE, 2);
-									} else {
-										world.setBlock(x, y, z, Core.oreBlocks, OresMeta.LIMESTONE, 2);
-									}
+									world.setBlock(x, y, z, Core.oreBlocks, OresMeta.LIMESTONE, 2);
 								}
 							}
 						}

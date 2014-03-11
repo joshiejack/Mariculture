@@ -2,25 +2,18 @@ package mariculture.fishery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
-import mariculture.Mariculture;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishingRod;
+import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
-import mariculture.core.util.Text;
+import mariculture.fishery.items.ItemVanillaRod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
-
-import org.lwjgl.input.Keyboard;
-
 import cofh.api.energy.IEnergyContainerItem;
 
 public class FishingRodHandler implements IFishingRod {
@@ -96,16 +89,17 @@ public class FishingRodHandler implements IFishingRod {
 	            }
 	            
 	            player.swingItem();
-	        } else if(baitSlot != -1) {
+	        } else if(baitSlot != -1 || (!Extra.VANILLA_FORCE && stack.getItem() instanceof ItemVanillaRod)) {
 	        	world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (Rand.rand.nextFloat() * 0.4F + 0.8F));
 	        	        	
 	        	EntityHook hook = new EntityHook(world, player, baitQuality);
 	        	if(!world.isRemote)  {
 	        		world.spawnEntityInWorld(hook);
-	        		if (!player.capabilities.isCreativeMode) {
-    					player.inventory.decrStackSize(baitSlot, 1);
-    				}
 	        	}
+	        	
+	        	if (!player.capabilities.isCreativeMode) {
+					if(baitQuality > 0) player.inventory.decrStackSize(baitSlot, 1);
+				}
 		/*
 	        	if(id == 0 || world.getEntityByID(id) == null || notFound) {        		
 	        		stack.stackTagCompound.setInteger("EntityID", bobber.getEntityId());
@@ -115,7 +109,7 @@ public class FishingRodHandler implements IFishingRod {
 	    				}
 	        			
 	                	world.spawnEntityInWorld(new EntityFishing(world, player, baitQuality + 1));
-	                	//TODO: PACKET Set SlotPacketDispatcher.sendPacketToPlayer(new Packet103SetSlot(0, baitSlot + 36, player.inventory.getStackInSlot(baitSlot)), (Player) player);
+	                	Set SlotPacketDispatcher.sendPacketToPlayer(new Packet103SetSlot(0, baitSlot + 36, player.inventory.getStackInSlot(baitSlot)), (Player) player);
 	                }
 	        	} */
 	

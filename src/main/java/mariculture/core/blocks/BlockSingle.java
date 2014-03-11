@@ -1,21 +1,20 @@
 package mariculture.core.blocks;
 
-import java.util.Random;
-
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.TileAirPump.Type;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.DirectionHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
+import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
@@ -31,10 +30,8 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -122,15 +119,16 @@ public class BlockSingle extends BlockMachine {
 				return ((TileTurbineBase) tile).switchOrientation();
 			}
 			
-			if(tile instanceof TileAirPump) {
-				return ((TileAirPump) tile).rotate();
+			if(tile instanceof TileGeyser) {
+				TileGeyser geyser = (TileGeyser)tile;
+				geyser.orientation = BlockHelper.rotate(geyser.orientation);
+				Packets.updateAround(geyser, new PacketOrientationSync(geyser.xCoord, geyser.yCoord, geyser.zCoord, geyser.orientation));
 			}
 			
-			if(tile instanceof TileGeyser) {
-				((TileGeyser)tile).orientation = BlockHelper.rotate(((TileGeyser)tile).orientation);
-				//TODO: PACKET fix sending render update to geysers 
-				/* Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
-				world.markBlockForRenderUpdate(x, y, z); */
+			if(tile instanceof TileAirPump) {
+				TileAirPump pump = (TileAirPump)tile;
+				pump.orientation = BlockHelper.rotate(pump.orientation, 4);
+				Packets.updateAround(pump, new PacketOrientationSync(pump.xCoord, pump.yCoord, pump.zCoord, pump.orientation));
 			}
 		}
 		return false;
@@ -168,10 +166,12 @@ public class BlockSingle extends BlockMachine {
 			}
 			
 			if(tile instanceof TileGeyser) {
-				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(facing);
-				//TODO: Orientation Packet
-				//TODO: PACKET Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				TileGeyser geyser = (TileGeyser) tile;
+				geyser.orientation = ForgeDirection.getOrientation(facing);
+				Packets.updateAround(geyser, new PacketOrientationSync(geyser.xCoord, geyser.yCoord, geyser.zCoord, geyser.orientation));
 			}
+			
+			if(tile instanceof TileAirPump) ((TileAirPump)world.getTileEntity(x, y, z)).orientation = DirectionHelper.getFacingFromEntity(entity);
 		}
 		
 		int meta = stack.getItemDamage();
@@ -210,16 +210,18 @@ public class BlockSingle extends BlockMachine {
 			return false;
 		}
 		
-		if (tile instanceof TileAirPump && Extra.ACTIVATE_PUMP) {	
+		if (tile instanceof TileAirPump) {	
 			TileAirPump pump = (TileAirPump) tile;
 			if (pump.animate == false) {
 				if(Modules.diving.isActive()) {
 					if(pump.updateAirArea(Type.CHECK)) {
-						if(!world.isRemote)
-							pump.supplyWithAir(300, 64.0D, 64.0D, 64.0D);
+						if(!world.isRemote) { 
+							pump.doPoweredPump(false, 300, 64.0D, 128.0D, 64.0D);
+						}
 						pump.animate = true;
 					}
 				}
+				
 				if(pump.suckUpGas(1024)) {
 					pump.animate = true;
 				}
@@ -236,7 +238,6 @@ public class BlockSingle extends BlockMachine {
 		if(tile instanceof TileTurbineHand) {
 			if(PlayerHelper.isFake(player)) return false;
             TileTurbineHand turbine = (TileTurbineHand)tile;
-			
 			turbine.energyStorage.modifyEnergyStored(((TileTurbineHand)tile).getEnergyGenerated());
 			turbine.isCreatingPower = true;
 			turbine.cooldown = 5;

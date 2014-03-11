@@ -33,6 +33,10 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 	public static final int TURBO = 2;
 	public static final int SQUIRT = 3;
 	public static final int STORAGE = 20000;
+	
+	public static enum Mode {
+		HOVER, ROCKET, TURBO, SQUIRT, NONE
+	}
 
 	public ItemArmorFLUDD(ArmorMaterial material, int j, int k) {
 		super(material, j, k);
@@ -109,14 +113,15 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 			list.add(stack.stackTagCompound.getInteger("water") + " " + StatCollector.translateToLocal("mariculture.string.water"));
 		}
 	}
-
-	public static int getMode(final ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.getInteger("water") > 0) {
-				return stack.stackTagCompound.getInteger("mode");
+	
+	public static Mode getMode(ItemStack stack) {
+		if(stack.hasTagCompound()) {
+			if(stack.stackTagCompound.getInteger("water") > 0) {
+				return Mode.values()[stack.stackTagCompound.getInteger("mode")];
 			}
 		}
-		return -1;
+		
+		return Mode.NONE;
 	}
 
 	@Override

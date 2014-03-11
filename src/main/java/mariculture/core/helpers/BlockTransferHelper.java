@@ -46,6 +46,7 @@ public class BlockTransferHelper {
 	}
 	
 	public boolean ejectFluid(int[] rate) {
+		boolean canEject = true;
 		if(handler instanceof IEjectable) {
 			IEjectable ejectable = (IEjectable) handler;
 			if(ejectable instanceof TileMultiStorageTank) {
@@ -54,26 +55,28 @@ public class BlockTransferHelper {
 					ejectable = (IEjectable) tile.getMaster();
 				}
 			}
+				
+			canEject = EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.FLUID);
+		}
 			
-			if(EjectSetting.canEject(ejectable.getEjectSetting(), EjectSetting.FLUID)) {
-				Collections.shuffle(sides);
-				for(Integer side: sides) {
-					ForgeDirection dir = ForgeDirection.getOrientation(side);
-					TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+		if(canEject) {
+			Collections.shuffle(sides);
+			for(Integer side: sides) {
+				ForgeDirection dir = ForgeDirection.getOrientation(side);
+				TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 					
-					if(isSameBlock(tile))
-						continue;
-					if(tile instanceof IFluidHandler) {
-						IFluidHandler tank = (IFluidHandler) tile;
-						if(tank instanceof IBlacklisted) {
-							if(((IBlacklisted)tank).isBlacklisted(world, x, y, z))
-								continue;
-						}
+				if(isSameBlock(tile))
+					continue;
+				if(tile instanceof IFluidHandler) {
+					IFluidHandler tank = (IFluidHandler) tile;
+					if(tank instanceof IBlacklisted) {
+						if(((IBlacklisted)tank).isBlacklisted(world, x, y, z))
+							continue;
+					}
 						
-						for(int drain: rate) {
-							if(transfer(tank, dir.getOpposite(), drain)) {
-								return true;
-							}
+					for(int drain: rate) {
+						if(transfer(tank, dir.getOpposite(), drain)) {
+							return true;
 						}
 					}
 				}

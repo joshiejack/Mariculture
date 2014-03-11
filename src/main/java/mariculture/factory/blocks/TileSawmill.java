@@ -66,8 +66,10 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == OUT || slot < TOP)
+		if(slot == OUT)
 			return false;
+		if(slot < TOP)
+			return stack.getItem() instanceof ItemPlan;
 		if (stack.getItem() instanceof BlockItemCustom) {
 			return false;
 		}

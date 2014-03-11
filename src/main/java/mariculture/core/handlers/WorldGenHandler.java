@@ -47,8 +47,6 @@ public class WorldGenHandler implements IWorldGenerator {
 		generateGas(world, random, x, z);
 		generateBauxite(world, random, x, z);
 		generateCopper(world, random, x, z);
-		generateLimestone(world, random, x, z);
-		generateRutile(world, random, x, z);
 		generateOyster(world, random, x, z);
 	}
 	
@@ -92,38 +90,6 @@ public class WorldGenHandler implements IWorldGenerator {
 		     		.generate(world, random, posX, posY, posZ);
 			}
 		}		
-	}
-	
-	public static void generateLimestone(World world, Random random, int x, int z) {
-		int posX, posY, posZ;
-		// Under rivers for Limestone
-		if (OreGeneration.LIMESTONE) {
-			for(int i = 0; i < OreGeneration.LIMESTONE_CHANCE; i++) {
-				posX = x + random.nextInt(16);
-				posZ = z + random.nextInt(16);
-				if(isRiverBiome(world, posX, posZ) && world.getTopSolidOrLiquidBlock(posX, posZ) >= OreGeneration.LIMESTONE_MAX_DEPTH) {
-					if(BlockHelper.isWater(world, posX, world.getTopSolidOrLiquidBlock(posX, posZ) + 1, posZ)) {
-						new WorldGenLimestone(OreGeneration.LIMESTONE_VEIN).generate(world, random, posX, posZ);
-					}
-				}
-			}
-		}
-	}
-	
-	public static void generateRutile(World world, Random random, int x, int z) {
-		int posX, posY, posZ;
-		if(!OreGeneration.LIMESTONE && OreGeneration.RUTILE) {
-			posX = x + random.nextInt(16);
-			posZ = z + random.nextInt(16);
-			if(isRiverBiome(world, posX, posZ)) {
-				for (int i = 0; i < (OreGeneration.RUTILE_CHANCE/10); i++) {
-					posX = x + random.nextInt(16);
-					posY = 54 + random.nextInt(10);
-	                posZ = z + random.nextInt(16);
-	                new WorldGenOre(Core.oreBlocks, OresMeta.RUTILE,  2, Blocks.stone).generate(world, random, posX, posY, posZ);
-	            }
-			}
-		}
 	}
 	
 	public static boolean isRiverBiome(World world, int posX, int posZ) {
@@ -176,12 +142,14 @@ public class WorldGenHandler implements IWorldGenerator {
 						int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
 	
 						if (Core.waterBlocks.canBlockStay(world, randX, blockY, randZ)) {
-							world.setBlock(randX, blockY, randZ, Core.waterBlocks);
-							TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
-							if (oyster != null) {
-								oyster.orientation = ForgeDirection.values()[2 + random.nextInt(4)];
-								if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {
-									oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
+							if(BlockHelper.isWater(world, randX, blockY + 1, randZ)) {
+								world.setBlock(randX, blockY, randZ, Core.waterBlocks);
+								TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
+								if (oyster != null) {
+									oyster.orientation = ForgeDirection.values()[2 + random.nextInt(4)];
+									if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {
+										oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
+									}
 								}
 							}
 						}

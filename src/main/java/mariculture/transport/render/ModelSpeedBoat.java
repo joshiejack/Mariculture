@@ -91,6 +91,7 @@ public class ModelSpeedBoat extends ModelBase {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5);
 
+		GL11.glTranslatef(0.4F, 0.1F, 0F);
 		EntitySpeedBoat boat = (EntitySpeedBoat) entity;
 		motorend.rotateAngleX = boat.motorPos;
 		base.render(f5);

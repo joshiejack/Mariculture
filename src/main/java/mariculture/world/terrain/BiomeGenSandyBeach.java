@@ -3,30 +3,21 @@ package mariculture.world.terrain;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.Rand;
-import mariculture.world.WorldPlus;
-import mariculture.world.decorate.WorldGenKelp;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenOcean;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.biome.BiomeGenBeach;
 
-public class BiomeGenSandyOcean extends BiomeGenOcean {
-    public BiomeGenSandyOcean(int id) {
-        super(id);
-    }
-    
-    @Override
-    public WorldGenerator getRandomWorldGenForGrass(Random par1Random) {
-        return new WorldGenKelp(WorldPlus.coral, CoralMeta.KELP_MIDDLE);
-    }
-    
-    @Override
+public class BiomeGenSandyBeach extends BiomeGenBeach {
+	public BiomeGenSandyBeach(int id) {
+		super(id);
+	}
+	
+	@Override
     public void genTerrainBlocks(World world, Random rand, Block[] blocks, byte[] metas, int x, int z, double noise) {
     	boolean flag = true;
         Block block = this.topBlock;
@@ -94,7 +85,8 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
                             {
                                 block = null;
                                 block1 = Core.oreBlocks;
-                                blocks[i2] = Blocks.sand;
+                                blocks[i2] = Core.oreBlocks;
+                                metas[i2] = OresMeta.LIMESTONE;
                             }
                             else
                             {

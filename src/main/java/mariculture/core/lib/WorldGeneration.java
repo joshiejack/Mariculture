@@ -12,7 +12,6 @@ public class WorldGeneration {
 	public static boolean KELP_FOREST_ENABLED;
 	public static int KELP_FOREST_DENSITY;
 	public static int KELP_CHEST_CHANCE;
-	public static boolean DEEP_OCEAN;
 	public static boolean WATER_RAVINES;
 	public static boolean NO_MINESHAFTS;
 	public static boolean WATER_CAVES;

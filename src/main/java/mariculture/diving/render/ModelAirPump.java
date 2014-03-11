@@ -4,6 +4,7 @@ import mariculture.core.blocks.TileAirPump;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -57,8 +58,12 @@ public class ModelAirPump extends ModelBase {
 		GL11.glDisable(GL11.GL_LIGHTING);
 
 		GL11.glTranslated(x + 0.45F, y + 0.45F, z + 0.5F);
-
 		GL11.glRotatef(180, 0F, 0F, 1F);
+		ForgeDirection dir = tile.orientation;
+		if(dir == ForgeDirection.WEST) GL11.glRotatef(90, 0F, 1F, 0F);
+		else if(dir == ForgeDirection.EAST) GL11.glRotatef(-90, 0F, 1F, 0F);
+		else if(dir == ForgeDirection.NORTH) GL11.glRotatef(180, 0F, 1F, 0F);
+		else if(dir == ForgeDirection.SOUTH) ;
 
 		base.render(scale);
 		leg1.render(scale);

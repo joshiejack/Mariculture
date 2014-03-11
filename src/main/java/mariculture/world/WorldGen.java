@@ -80,7 +80,7 @@ public class WorldGen implements IWorldGenerator {
 			for (int j = 0; j < 5; ++j) {
 				int x2 = x + random.nextInt(16) + 8;
 				int z2 = z + random.nextInt(16) + 8;
-				new WorldGenKelp().generate(world, random, x2, 0, z2);
+				//new WorldGenKelp().generate(world, random, x2, 0, z2);
 			}
 		}
 	}

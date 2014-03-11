@@ -10,6 +10,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.WaterMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.IFaceable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
 import net.minecraft.block.material.MaterialTransparent;
@@ -24,7 +25,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileGeyser extends TileTank {
+public class TileGeyser extends TileTank implements IFaceable {
 	public ForgeDirection orientation = ForgeDirection.UP;
 	private int machineTick;
 	private boolean canWork;
@@ -163,5 +164,10 @@ public class TileGeyser extends TileTank {
 		nbt.setInteger("Orientation", orientation.ordinal());
 		nbt.setBoolean("CanWork", canWork);
 		nbt.setInteger("Size", size);
+	}
+
+	@Override
+	public void setFacing(ForgeDirection dir) {
+		this.orientation = dir;
 	}
 }

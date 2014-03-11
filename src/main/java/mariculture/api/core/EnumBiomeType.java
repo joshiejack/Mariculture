@@ -7,9 +7,9 @@ public enum EnumBiomeType {
 	NORMAL(0, -1, 1, 5, EnumSalinityType.FRESH), // Plains, Swamps, Forests, River - Fresh Water
 	ARID(14, 14, 28, 2, EnumSalinityType.FRESH), // Desert - Fresh Water
 	HOT(3, 3, 13, 3, EnumSalinityType.FRESH), // Jungle - Fresh Water
-	FROZEN(-14, -100, -10, 9, EnumSalinityType.FRESH), // Frozen River, Tundra - Fresh Water
+	FROZEN(-14, -100, -10, 9, EnumSalinityType.FRESH), // Ice Biomes - Frozen River - Fresh Water
 	HELL(28, 28, 100, 1, EnumSalinityType.MAGIC), // The Nether - Fresh Water
-	COLD(-3, -10, -1, 8, EnumSalinityType.FRESH), // Mountains, Taiga - Fresh Water
+	COLD(-3, -10, -1, 8, EnumSalinityType.FRESH), // Snow Biomes - Mountains, Taiga - Fresh Water
 	FROZEN_OCEAN(-10, -65, -1, 10, EnumSalinityType.SALT), // Frozen Ocean - Saltwater
 	MUSHROOM(0, -1, 2, 4, EnumSalinityType.MAGIC), // Mushroom Biome - Fresh Water
 	ENDER(-28, -50, -28, 7, EnumSalinityType.FRESH); // The End - Fresh Water

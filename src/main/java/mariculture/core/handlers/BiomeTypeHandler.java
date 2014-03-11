@@ -6,6 +6,7 @@ import java.util.Map;
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.IBiomeType;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenMutated;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -19,6 +20,13 @@ public class BiomeTypeHandler implements IBiomeType {
 
 	@Override
 	public EnumBiomeType getBiomeType(BiomeGenBase biome) {
+		if(biome instanceof BiomeGenMutated) {
+			BiomeGenBase orig = ((BiomeGenMutated)biome).baseBiome;
+			if(biomeList.get(orig) != null) {
+				return (EnumBiomeType) biomeList.get(orig);
+			}
+		}
+		
 		if (biomeList.get(biome) != null) {
 			return (EnumBiomeType) biomeList.get(biome);
 		}

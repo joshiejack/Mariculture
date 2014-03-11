@@ -100,7 +100,7 @@ public class WorldGenReef extends WorldGenerator {
 												} else {
 													ItemStack coral = CoralRegistry.corals.get(random.nextInt(CoralRegistry.corals.size()));
 													BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, WorldPlus.coral, coral.getItemDamage());
-													BlockCoral.fullSpread(world, x, world.getTopSolidOrLiquidBlock(x, z), z, random);
+													//BlockCoral.fullSpread(world, x, world.getTopSolidOrLiquidBlock(x, z), z, random);
 												}
 											}
 										}

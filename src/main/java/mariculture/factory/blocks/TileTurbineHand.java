@@ -17,7 +17,7 @@ public class TileTurbineHand extends TileTurbineBase {
 
 	@Override
 	public int getEnergyGenerated() {
-		return 20;
+		return 2000;
 	}
 
 	@Override

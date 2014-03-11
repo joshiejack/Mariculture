@@ -253,28 +253,7 @@ public class Core extends Module {
 		registerBiomes();
 		registerLiquids();
 		addToOreDictionary();
-		if(!WorldPlus.isActive && WorldGeneration.DEEP_OCEAN) {
-			addDeepOcean();
-		}
-
 		MaricultureTab.tabMariculture.icon = new ItemStack(pearls, 1, PearlColor.WHITE);
-	}
-	
-	private void addDeepOcean() {
-		try {
-			Field field = BiomeGenBase.class.getField("ocean");
-			if(field == null)
-				field = BiomeGenBase.class.getField("field_76771_b");
-			Object newValue = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.8F, 0.4F));
-		    field.setAccessible(true);
-		    Field modifiersField = Field.class.getDeclaredField("modifiers");
-		    modifiersField.setAccessible(true);
-		    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-		    field.set(null, newValue);
-		} catch (Exception e) {
-			LogHandler.log(Level.WARN, "Mariculture failed to adjust the ocean depth");
-		}
 	}
 
 	private void registerLiquids() {
@@ -375,29 +354,64 @@ public class Core extends Module {
 	}
 
 	private void registerBiomes() {
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.beach, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desert, EnumBiomeType.ARID);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desertHills, EnumBiomeType.ARID);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHills, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsEdge, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forest, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forestHills, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenOcean, EnumBiomeType.FROZEN_OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenRiver, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.hell, EnumBiomeType.HELL);
+		//Frozen Biomes
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.iceMountains, EnumBiomeType.FROZEN);
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.icePlains, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungle, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungleHills, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIsland, EnumBiomeType.MUSHROOM);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIslandShore, EnumBiomeType.MUSHROOM);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenRiver, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaiga, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaigaHills, EnumBiomeType.FROZEN);
+		
+		//Frozen Ocean
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldBeach, EnumBiomeType.FROZEN_OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenOcean, EnumBiomeType.FROZEN_OCEAN);
+		
+		//Ocean
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.beach, EnumBiomeType.OCEAN);
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.ocean, EnumBiomeType.OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.deepOcean, EnumBiomeType.OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.stoneBeach, EnumBiomeType.OCEAN);
+		
+		//Cold
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHills, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsEdge, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsPlus, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taiga, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taigaHills, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaiga, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaigaHills, EnumBiomeType.COLD);
+		
+		//Normal
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forest, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forestHills, EnumBiomeType.NORMAL);
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.plains, EnumBiomeType.NORMAL);
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.river, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.sky, EnumBiomeType.ENDER);
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.swampland, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taiga, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taigaHills, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForest, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForestHills, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.roofedForest, EnumBiomeType.NORMAL);
+		
+		//Hot
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungle, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungleHills, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savanna, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savannaPlateau, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesa, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau_F, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau, EnumBiomeType.HOT);
+		
+		//Arid
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desert, EnumBiomeType.ARID);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desertHills, EnumBiomeType.ARID);
+
+		//Nether
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.hell, EnumBiomeType.HELL);
+		
+		//End
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.sky, EnumBiomeType.ENDER);
+		
+		//Mushroom
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIsland, EnumBiomeType.MUSHROOM);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIslandShore, EnumBiomeType.MUSHROOM);	
 	}
 	
 	@Override

@@ -111,7 +111,7 @@ public abstract class PageParser {
 		        	itemRenderer.renderItemIntoGUI(font, gui.getMC().getTextureManager(), stack2, x, y, false);
 		        }
 			} catch (Exception e2) {
-				LogHandler.log(Level.ERROR, "Rendering failed when trying to render " + stack.toString());
+				LogHandler.log(Level.ERROR, "Rendering failed when trying to render an item!");
 				e2.printStackTrace();
 			}
 		} 
