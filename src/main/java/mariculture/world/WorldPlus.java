@@ -44,8 +44,6 @@ public class WorldPlus extends Module {
 	}
 	
 	public static final String OCEAN_CHEST = "oceanFloorChest";
-
-	public static Block coral;
 	public static Block plantGrowable;
 	public static Block plantStatic;
 
@@ -59,8 +57,9 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerBlocks() {
-		coral = new BlockCoral().setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("coral");
-		RegistryHelper.register(new Object[] { coral });
+		plantGrowable = new BlockCoral(true).setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("plantGrowable");
+		plantStatic = new BlockCoral(false).setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("plantStatic");
+		RegistryHelper.register(new Object[] { plantGrowable, plantStatic });
 	}
 
 	@Override
@@ -74,18 +73,18 @@ public class WorldPlus extends Module {
 	
 	@Override
 	public void registerOther() {
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_BLUE), "LightBlue");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_BRAIN), "Yellow");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_CANDYCANE), "Magenta");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_CUCUMBER), "Brown");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_ORANGE), "Orange");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_PINK), "Pink");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_PURPLE), "Purple");
-		RegistryHelper.registerCoral(new ItemStack(coral, 1, CoralMeta.CORAL_RED), "Red");  
-		OreDictionary.registerOre("coralWhite", new ItemStack(coral, 1, CoralMeta.CORAL_WHITE));
-		OreDictionary.registerOre("coralGray", new ItemStack(coral, 1, CoralMeta.CORAL_GREY));
-		OreDictionary.registerOre("coralLightGray", new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY));
-		OreDictionary.registerOre("plantKelp", new ItemStack(coral, 1, CoralMeta.KELP));
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), "Yellow");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), "Magenta");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.BROWN), "Brown");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), "Orange");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.PINK), "Pink");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), "Purple");
+		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.RED), "Red");  
+		OreDictionary.registerOre("coralWhite", new ItemStack(plantStatic, 1, CoralMeta.WHITE));
+		OreDictionary.registerOre("coralGray", new ItemStack(plantStatic, 1, CoralMeta.GREY));
+		OreDictionary.registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
+		OreDictionary.registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
 		
 		ReflectionHelper.setFinalStatic(BiomeGenBase.class, "ocean", "field_76771_b", (new BiomeGenSandyOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.4F, 0.25F)));
 		ReflectionHelper.setFinalStatic(BiomeGenBase.class, "deepOcean", "", (new BiomeGenSandyOcean(24)).setColor(48).setBiomeName("Deep Ocean").setHeight(new Height(-1.95F, 0F)));
@@ -111,16 +110,16 @@ public class WorldPlus extends Module {
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE), "coralWhite", false);
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN), "plantKelp", true);
 		
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_BLUE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_BRAIN), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_CANDYCANE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_CUCUMBER), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_ORANGE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_PINK), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_PURPLE), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_RED), new ItemStack(coral, 1, CoralMeta.CORAL_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_GREY), new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY), new ItemStack(coral, 1, CoralMeta.CORAL_WHITE), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.BROWN), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.PINK), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.RED), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.GREY), new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), 5);
+		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), new ItemStack(plantStatic, 1, CoralMeta.WHITE), 5);
 		
 		//Kelp Wrap Recipe
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");

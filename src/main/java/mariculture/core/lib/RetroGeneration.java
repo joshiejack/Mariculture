@@ -10,7 +10,7 @@ public class RetroGeneration {
 	public static boolean COPPER;
 	public static boolean OYSTER;
 	public static boolean GAS;
-	public static boolean KELPPATCH;
-	public static boolean KELPFOREST;
+	public static boolean KELP;
 	public static boolean CORALREEF;
+	public static boolean ANCIENT;
 }

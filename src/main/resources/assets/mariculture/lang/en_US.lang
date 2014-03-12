@@ -46,6 +46,7 @@ tile.woodBlocks.baseWood.name=Wooden Construction Block
 tile.tankBlocks.normal.name=Fluid Tank
 tile.tankBlocks.bottle.name=Void Bottle
 tile.groundBlocks.gas.name=Gas Leak
+tile.groundBlocks.ancientSand.name=Ancient Sand
 tile.customBlocks.anvil.name=Blacksmith's Anvil
 tile.customBlocks.ingotCaster.name=Ingot Caster
 tile.doubleBlocks.vat.name=Vat

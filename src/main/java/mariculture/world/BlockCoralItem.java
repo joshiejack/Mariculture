@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,6 +25,11 @@ public class BlockCoralItem extends ItemBlockMariculture {
 		super(block);
 		this.spawnBlock = block;
 	}
+	
+	@Override 
+	public String getUnlocalizedName(ItemStack stack) {
+		return "item.coral" + "." + getName(stack);
+	}
 
 	@Override
 	public String getName(ItemStack stack) {
@@ -33,27 +39,27 @@ public class BlockCoralItem extends ItemBlockMariculture {
 			return "kelp";
 		case CoralMeta.KELP_MIDDLE:
 			return "kelp_middle";
-		case CoralMeta.CORAL_BLUE:
+		case CoralMeta.LIGHT_BLUE:
 			return"blue";
-		case CoralMeta.CORAL_BRAIN:
+		case CoralMeta.YELLOW:
 			return "yellow";
-		case CoralMeta.CORAL_CANDYCANE:
+		case CoralMeta.MAGENTA:
 			return "magenta";
-		case CoralMeta.CORAL_CUCUMBER:
+		case CoralMeta.BROWN:
 			return "brown";
-		case CoralMeta.CORAL_ORANGE:
+		case CoralMeta.ORANGE:
 			return "orange";
-		case CoralMeta.CORAL_PINK:
+		case CoralMeta.PINK:
 			return "pink";
-		case CoralMeta.CORAL_PURPLE:
+		case CoralMeta.PURPLE:
 			return "purple";
-		case CoralMeta.CORAL_RED:
+		case CoralMeta.RED:
 			return "red";
-		case CoralMeta.CORAL_GREY:
+		case CoralMeta.GREY:
 			return "grey";
-		case CoralMeta.CORAL_LIGHT_GREY:
+		case CoralMeta.LIGHT_GREY:
 			return "lightgrey";
-		case CoralMeta.CORAL_WHITE:
+		case CoralMeta.WHITE:
 			return "white";
 		default:
 			return "coral";
@@ -132,38 +138,14 @@ public class BlockCoralItem extends ItemBlockMariculture {
 			return false;
 		}
 
+		Block block = world.getBlock(x, y - 1, z);
+		int meta = world.getBlockMetadata(x, y - 1, z);
 		if (stack.getItemDamage() == CoralMeta.KELP) {
-			if (world.getBlock(x, y - 1, z) == Blocks.gravel) {
-				return true;
-			}
-			if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
-				return true;
-			}
-			if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
-				return true;
-			}
-			if (world.getBlock(x, y - 1, z) == Core.oreBlocks && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
-				return true;
-			}
-			if (world.getBlock(x, y - 1, z) == Blocks.sand) {
-				return true;
-			}
-
-			if (world.getBlock(x, y - 1, z) == WorldPlus.coral && world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
-				return true;
-			}
+			return BlockCoral.canSustainKelp(block, meta);
 		}
 
 		if (stack.getItemDamage() > CoralMeta.KELP_MIDDLE) {
-			if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
-				return true;
-			}
-			if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
-				return true;
-			}
-			if (world.getBlock(x, y - 1, z) == Core.oreBlocks && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
-				return true;
-			}
+			return BlockCoral.canSustainCoral(block, meta);
 		}
 
 		return false;

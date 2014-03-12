@@ -9,7 +9,6 @@ public class WorldGeneration {
 	public static int KELP_HEIGHT;
 	public static boolean KELP_PATCH_ENABLED;
 	public static int KELP_PATCH_DENSITY;
-	public static boolean KELP_FOREST_ENABLED;
 	public static int KELP_FOREST_DENSITY;
 	public static int KELP_CHEST_CHANCE;
 	public static boolean WATER_RAVINES;
@@ -24,4 +23,12 @@ public class WorldGeneration {
 	public static int OYSTER_PEARL_CHANCE;
 	public static String[] CORAL_BIOMESOP_TYPES;
 	public static String[] KELP_BIOMESOP_TYPES;
+	public static boolean ANCIENT_SAND_ENABLED;
+	
+	public static boolean KELP_FOREST_ENABLED;
+	public static int KELP_FOREST_START_CHANCE;
+	public static int KELP_FOREST_END_CHANCE;
+	public static int KELP_FOREST_CHEST_CHANCE;
+	public static int KELP_FOREST_CHEST_MIN_ITEMS;
+	public static int KELP_FOREST_CHEST_MAX_ITEMS;
 }

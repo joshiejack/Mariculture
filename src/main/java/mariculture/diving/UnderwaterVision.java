@@ -1,5 +1,9 @@
 package mariculture.diving;
 
+import java.nio.FloatBuffer;
+
+import org.lwjgl.opengl.GL11;
+
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import net.minecraft.block.material.Material;
@@ -54,6 +58,7 @@ public class UnderwaterVision {
 	
 	protected void activate() {
 		if(Minecraft.getMinecraft().thePlayer == player) {
+			Minecraft.getMinecraft().entityRenderer.fogColorBuffer.clear();
 			float gamma = Minecraft.getMinecraft().gameSettings.gammaSetting;
 			if(gamma <= 1) {						
 				ItemStack mask = player.inventory.armorItemInSlot(ArmorSlot.HAT);

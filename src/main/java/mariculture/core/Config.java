@@ -94,16 +94,7 @@ public class Config {
             WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);
             WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 64).getInt();
             WorldGeneration.CORAL_DEPTH = config.get(Category.WORLD, "Coral > Maximum Depth", 25).getInt();
-            WorldGeneration.KELP_CHANCE = config.get(Category.WORLD, "Kelp > 1 Forest Per This Many Chunks", 400).getInt();
-            WorldGeneration.KELP_DEPTH = config.get(Category.WORLD, "Kelp > Maximum Depth", 35).getInt();
-            WorldGeneration.KELP_HEIGHT = config.get(Category.WORLD, "Kelp > Maximum World Gen Height", 25).getInt();
-            WorldGeneration.KELP_PATCH_ENABLED = config.get(Category.WORLD, "Kelp > Single Generation", true).getBoolean(true);
-            WorldGeneration.KELP_PATCH_DENSITY = config.get(Category.WORLD, "Kelp > Single Density", 10).getInt();
-            WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp > Forest Generation", true).getBoolean(true);
-            WorldGeneration.KELP_FOREST_DENSITY = config.get(Category.WORLD, "Kelp > Forest Density", 25).getInt();
-            WorldGeneration.KELP_CHEST_CHANCE = config.get(Category.WORLD, "Kelp > 1 Treasure Chest Per This Many Kelp", 1024).getInt();
-            WorldGeneration.KELP_BIOMESOP = config.get(Category.WORLD, "Kelp > (Forest) Force in BOP Kelp Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
-            WorldGeneration.KELP_BIOMESOP_TYPES = config.get(Category.WORLD, "Kelp > (Forest) Force in Kelp Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
+            
             WorldGeneration.WATER_CAVES = config.get(Category.WORLD, "Water Filled Caves in Oceans", false).getBoolean(false);
             WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
             WorldGeneration.RAVINE_CHANCE = config.get(Category.WORLD, "Water Ravine Chance (Lower = More Common)", 25).getInt();
@@ -112,6 +103,18 @@ public class Config {
             WorldGeneration.OYSTER_PER_CHUNK = config.get(Category.WORLD, "Pearl Oyster > Number Chances to Gen Per Chunk", 3).getInt(3);
             WorldGeneration.OYSTER_CHANCE = config.get(Category.WORLD, "Pearl Oyster > 1 Oyster per This Many Blocks Per Chunk", 12).getInt();
             WorldGeneration.OYSTER_PEARL_CHANCE = config.get(Category.WORLD, "Pearl Oyster > 1 Natural Pearl Per this Many Oysters", 3).getInt();
+            WorldGeneration.ANCIENT_SAND_ENABLED = config.get(Category.WORLD, "Ancient Sand > Enabled", true).getBoolean(true);
+            
+            WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp Forest > Enabled", true).getBoolean(true);
+            WorldGeneration.KELP_FOREST_START_CHANCE = config.get(Category.WORLD, "Kelp Forest > Start Chance", 640, Comment.KELP_FOREST_START).getInt();
+            WorldGeneration.KELP_FOREST_START_CHANCE = config.get(Category.WORLD, "Kelp Forest > End Chance", 96, Comment.KELP_FOREST_END).getInt();
+            WorldGeneration.KELP_FOREST_CHEST_MAX_ITEMS = config.get(Category.WORLD, "Kelp Forest > Maximum Items", 10).getInt();
+            WorldGeneration.KELP_FOREST_CHEST_MIN_ITEMS = config.get(Category.WORLD, "Kelp Forest > Minimum Items", 2).getInt();
+            WorldGeneration.KELP_FOREST_CHEST_CHANCE = config.get(Category.WORLD, "Kelp Forest > Chest Chance", 640, Comment.KELP_FOREST_CHEST_CHANCE).getInt();
+            
+            //TODO: Readd the kelp biome forcing
+            WorldGeneration.KELP_BIOMESOP = config.get(Category.WORLD, "Kelp > (Forest) Force in BOP Kelp Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
+            WorldGeneration.KELP_BIOMESOP_TYPES = config.get(Category.WORLD, "Kelp > (Forest) Force in Kelp Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
             
             RetroGeneration.ENABLED = config.get(Category.RETRO, "Enable Retro-Gen", false).getBoolean(false);
             RetroGeneration.KEY = config.get(Category.RETRO, "Key", 555, Comment.RETRO_KEY).getInt();
@@ -120,11 +123,11 @@ public class Config {
             RetroGeneration.COPPER = config.get(Category.RETRO, "Copper", false).getBoolean(false);
             RetroGeneration.CORALREEF = config.get(Category.RETRO, "Coral Reef", false).getBoolean(false);
             RetroGeneration.GAS = config.get(Category.RETRO, "Natural Gas", false).getBoolean(false);
-            RetroGeneration.KELPFOREST = config.get(Category.RETRO, "Kelp Forest", false).getBoolean(false);
-            RetroGeneration.KELPPATCH = config.get(Category.RETRO, "Kelp Patch", false).getBoolean(false);
+            RetroGeneration.KELP = config.get(Category.RETRO, "Kelp Forest", false).getBoolean(false);
             RetroGeneration.LIMESTONE = config.get(Category.RETRO, "Limestone", false).getBoolean(false);
             RetroGeneration.OYSTER = config.get(Category.RETRO, "Oysters", false).getBoolean(false);
             RetroGeneration.RUTILE = config.get(Category.RETRO, "Rutile", false).getBoolean(false);
+            RetroGeneration.ANCIENT = config.get(Category.RETRO, "Ancient Sand", false).getBoolean(false);
         } catch (Exception e) {
         	LogHandler.log(Level.ERROR, "Oh dear, there was a problem with Mariculture loading it's world configuration");
         	e.printStackTrace();
@@ -187,9 +190,12 @@ public class Config {
             Extra.bait3 = config.get(Category.PROD, "Bait Quality 3 Chance", 6, "Worm - " + Comment.BAIT).getInt();
             Extra.bait4 = config.get(Category.PROD, "Bait Quality 4 Chance", 3, Comment.BAIT).getInt();
             Extra.bait5 = config.get(Category.PROD, "Bait Quality 5 Chance", 1, "Minnow - " + Comment.BAIT).getInt();
-            Extra.CORAL_SPREAD_CHANCE = config.get(Category.PROD, "Coral Spread Chance", 75, Comment.CORAL_SPREAD).getInt();
-            Extra.KELP_SPREAD_CHANCE = config.get(Category.PROD, "Kelp Spread Moss Chance", 65, Comment.KELP_SPREAD).getInt();
-            Extra.KELP_GROWTH_CHANCE = config.get(Category.PROD, "Kelp Growth Chance", 200, Comment.KELP_GROWTH).getInt();
+            Extra.CORAL_SPREAD_ENABLED = config.get(Category.PROD, "Coral > Spread Enabled", true).getBoolean(true);
+            Extra.CORAL_SPREAD_CHANCE = config.get(Category.PROD, "Coral > Spread Chance", 75, Comment.CORAL_SPREAD).getInt();
+            Extra.MOSS_SPREAD_ENABLED = config.get(Category.PROD, "Kelp > Spread Moss Enabled", true).getBoolean(true);
+            Extra.KELP_SPREAD_CHANCE = config.get(Category.PROD, "Kelp > Spread Moss Chance", 65, Comment.KELP_SPREAD).getInt();
+            Extra.KELP_GROWTH_ENABLED = config.get(Category.PROD, "Kelp > Growth Enabled", true).getBoolean(true);
+            Extra.KELP_GROWTH_CHANCE = config.get(Category.PROD, "Kelp > Growth Chance", 200, Comment.KELP_GROWTH).getInt();
             Extra.GEN_ENDER_PEARLS = config.get(Category.EXTRA, "Pearl Oyster > Generate Ender Pearls", true).getBoolean(true);
             Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster > Pearl Generation Chance", 32, Comment.PEARL_CHANCE).getInt();
         } catch (Exception e) {

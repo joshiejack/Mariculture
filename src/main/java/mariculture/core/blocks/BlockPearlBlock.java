@@ -18,6 +18,16 @@ public class BlockPearlBlock extends BlockDecorative {
 	}
 	
 	@Override
+	public String getToolType(int meta) {
+		return "pickaxe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 1;
+	}
+	
+	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
 			MaricultureRegistry.register("pearlBrick." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));

@@ -50,7 +50,7 @@ public class Fish {
 		//Adds all the basic recipes for each fish
 		int fishSize = species.getFishMealSize();
 		if(fishSize > 0) {
-			ItemStack kelp = Modules.world.isActive()? new ItemStack(WorldPlus.coral, 1, CoralMeta.KELP): new ItemStack(Items.dye, 1, Dye.GREEN);
+			ItemStack kelp = Modules.world.isActive()? new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP): new ItemStack(Items.dye, 1, Dye.GREEN);
 			RecipeHelper.addShapedRecipe(new ItemStack(Core.food, (int)Math.ceil(fishSize/1.5), FoodMeta.SUSHI), new Object[] {
 				" K ", "KFK", " K ", 'K', kelp, 'F', raw
 			});
@@ -61,17 +61,5 @@ public class Fish {
 
 			RecipeHelper.addShapelessRecipe(new ItemStack(Core.materials, fishSize, MaterialsMeta.FISH_MEAL), new Object[] { raw });
 		}
-		
-		addFishEnum(species.getSpecies(), species.fishID, (int)Math.ceil(fishSize/2), fishSize/10, species.getFoodStat(), species.getFoodSaturation());
-	}
-	
-	public static void addFishEnum(String name, int id, int feedMan, float satMan) {
-		addFishEnum(name, id, 0, 0F, feedMan, satMan);
-	}
-	
-	public static void addFishEnum(String name, int id, int feedDog, float satDog, int feedMan, float satMan) {
-		FishType type = EnumHelper.addEnum(net.minecraft.item.ItemFishFood.FishType.class, name.toUpperCase(), id, name, feedDog, satDog, feedMan, satMan);
-		
-		System.out.println("Sucessfully added " + type);
 	}
 }

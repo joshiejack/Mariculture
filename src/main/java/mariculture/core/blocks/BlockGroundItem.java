@@ -14,6 +14,8 @@ public class BlockGroundItem extends ItemBlockMariculture {
 		switch (itemstack.getItemDamage()) {
 		case GroundMeta.BUBBLES:
 			return "gas";
+		case GroundMeta.ANCIENT:
+			return "ancientSand";
 		default:
 			return "groundBlocks";
 		}

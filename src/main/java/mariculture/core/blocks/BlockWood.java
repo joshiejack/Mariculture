@@ -23,6 +23,21 @@ public class BlockWood extends BlockDecorative {
 	}
 	
 	@Override
+	public String getToolType(int meta) {
+		return "axe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		switch(meta) {
+			case WoodMeta.BASE_WOOD: 		return 1;
+			case WoodMeta.POLISHED_LOG: 	return 2;
+			case WoodMeta.POLISHED_PLANK: 	return 2;
+			default:						return 0;
+		}
+	}
+	
+	@Override
 	public boolean isActive(int meta) {
 		switch(meta) {
 		case WoodMeta.BASE_WOOD:

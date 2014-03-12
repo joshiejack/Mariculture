@@ -1,15 +1,24 @@
 package mariculture.core.blocks;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import mariculture.Mariculture;
+import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.lib.Dye;
 import mariculture.core.lib.GroundMeta;
+import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -19,10 +28,22 @@ public class BlockGround extends BlockDecorative {
 	}
 	
 	@Override
+	public String getToolType(int meta) {
+		return "shovel";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return meta == GroundMeta.BUBBLES? 0: 1;
+	}
+	
+	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
 		case GroundMeta.BUBBLES:
 			return 0.5F;
+		case GroundMeta.ANCIENT:
+			return 0.7F;
 		}
 
 		return 3F;
@@ -44,13 +65,46 @@ public class BlockGround extends BlockDecorative {
 	}
 	
 	@Override
-	public Item getItemDropped(int i, Random random, int j) {
-        return Item.getItemFromBlock(Blocks.sand);
+	public Item getItemDropped(int meta, Random random, int j) {
+       return Item.getItemFromBlock(Blocks.sand);
+    }
+	
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+
+        int count = quantityDropped(metadata, fortune, world.rand);
+        for(int i = 0; i < count; i++) {
+            if(metadata == GroundMeta.ANCIENT) {
+            	if(!Loader.isModLoaded("HungerOverhaul")) {
+	            	if(world.rand.nextInt(7) <= fortune) ret.add(new ItemStack(Items.bone));
+	            	if(world.rand.nextInt(3) <= fortune) ret.add(new ItemStack(Items.dye, 1, Dye.BONE));
+            	}
+            	
+            	if(world.rand.nextInt(15) <= fortune) ret.add(new ItemStack(Items.dye, 1, Dye.INK));
+            	if(world.rand.nextInt(64) <= fortune) ret.add(new ItemStack(Items.gold_nugget));
+            	if(world.rand.nextInt(48) <= fortune) ret.add(new ItemStack(Blocks.chest));
+            	if(world.rand.nextInt(52) <= fortune) ret.add(new ItemStack(Blocks.trapped_chest));
+            	if(world.rand.nextInt(32) <= fortune) ret.add(new ItemStack(Items.fish, 1, world.rand.nextInt(FishSpecies.speciesList.size())));
+            	if(ret.size() == 0) ret.add(new ItemStack(this, 1, GroundMeta.ANCIENT));
+            } else {
+            	Item item = getItemDropped(metadata, world.rand, fortune);
+                if (item != null) {
+                    ret.add(new ItemStack(item, 1, damageDropped(metadata)));
+                }
+            }
+        }
+        return ret;
     }
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return Blocks.sand.getIcon(side, meta);
+		if(meta == GroundMeta.BUBBLES) return Blocks.sand.getIcon(side, meta);
+		if(meta < getMetaCount()) {
+			return icons[meta - 1];
+		} else { 
+			return icons[0];
+		}
 	}
 
 	@Override
@@ -61,6 +115,10 @@ public class BlockGround extends BlockDecorative {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		return;
+		icons = new IIcon[getMetaCount() - 1];
+
+		for (int i = 0; i < icons.length; i++) {
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i + 1)));
+		}
 	}
 }

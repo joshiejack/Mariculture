@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.RegistryHelper;
+import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
@@ -25,8 +26,18 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 	
 	public BlockDecorative(Material material) {
 		super(material);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabMariculture);
+		setHarvestLevels();
 	}
+	
+	public void setHarvestLevels() {
+		for(int i = 0; i < getMetaCount(); i++) {
+			setHarvestLevel(getToolType(i), getToolLevel(i), UtilMeta.INCUBATOR_BASE);
+		}
+	}
+	
+	public abstract String getToolType(int meta);
+	public abstract int getToolLevel(int meta);
 	
 	public boolean isActive(int meta) {
 		return true;

@@ -12,6 +12,7 @@ import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.Rand;
 import mariculture.world.WorldGen;
+import mariculture.world.terrain.BiomeGenSandyOcean;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -60,13 +61,13 @@ public class RetroGen {
 						WorldGenHandler.generateCopper(chunk.worldObj, Rand.rand, x, z);
 					if(WorldGeneration.OYSTER_ENABLED && doGen(data, "oyster", chunk))
 						WorldGenHandler.generateOyster(chunk.worldObj, Rand.rand, x, z);
+					if(WorldGeneration.KELP_FOREST_ENABLED && doGen(data, "kelp", chunk));
+						BiomeGenSandyOcean.kelpGenerator.generate(chunk.worldObj, Rand.rand, x, 0, z);
 					if(Modules.world.isActive()) {
-						if(WorldGeneration.KELP_PATCH_ENABLED && doGen(data, "kelppatch", chunk))
-							WorldGen.generateKelp(chunk.worldObj, Rand.rand, x, z);
-						if(WorldGeneration.KELP_FOREST_ENABLED && doGen(data, "kelpforest", chunk))
-							WorldGen.generateKelpForest(chunk.worldObj, Rand.rand, x, z);
 						if(WorldGeneration.CORAL_ENABLED && doGen(data, "coralreef", chunk))
 							WorldGen.generateCoral(chunk.worldObj, Rand.rand, x, z);
+						if(WorldGeneration.ANCIENT_SAND_ENABLED && doGen(data, "ancient", chunk))
+							WorldGen.generateAncientSand(chunk.worldObj, Rand.rand, x, z);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

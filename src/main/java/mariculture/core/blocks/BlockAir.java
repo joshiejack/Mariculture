@@ -26,6 +26,16 @@ public class BlockAir extends BlockDecorative {
 	public BlockAir() {
 		super(Material.air);
 	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return null;
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
+	}
 
 	@Override
 	public boolean isOpaqueCube() {

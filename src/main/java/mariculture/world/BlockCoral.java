@@ -1,10 +1,10 @@
 package mariculture.world;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.core.CoralRegistry;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
@@ -15,10 +15,12 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
+import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -29,100 +31,69 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCoral extends Block implements IItemRegistry, IHasMeta {
+public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHasMeta {
 	private IIcon[] icons;
 
-	protected BlockCoral() {
+	protected BlockCoral(boolean tick) {
 		super(Material.water);
 		float f = 0.375F;
-		this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
-		//this.setTickRandomly(true);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
+		setTickRandomly(tick);
+		setCreativeTab(MaricultureTab.tabMariculture);
 	}
 	
-	/*
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
-			return 0.05F;
-		}
-		
-		return 1F;
+		return world.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE? 0.05F: 1F;
 	}
 	
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {
-		if(world.getBlockMetadata(x, y, z) == CoralMeta.KELP) {
-			updateKelp(world, x, y, z, rand);
-		} else if(world.getBlock(x, y - 1, z) != this) { 
-			if(world.getBlockMetadata(x, y, z) == CoralMeta.KELP_MIDDLE) {
-				updateMoss(world, x, y, z, rand);
-			} else {
-				updateCoral(world, x, y, z, rand);
-			}
-		}
-	}
-
-	private void updateCoral(World world, int x, int y, int z, Random rand) {
-		if(rand.nextInt(Extra.CORAL_SPREAD_CHANCE) == 0) {
-			int xBonus = rand.nextInt(3) - 1;
-			int zBonus = rand.nextInt(3) - 1;
-			spread(world, x + xBonus, y, z + zBonus, rand);
-		}
-	}
+	public Item getItemDropped(int i, Random rand, int j) {
+        return Item.getItemFromBlock(WorldPlus.plantStatic);
+    }
 	
-	private void updateKelp(World world, int x, int y, int z, Random rand) {
-		if(rand.nextInt(Extra.KELP_GROWTH_CHANCE) == 0) {
-			if (BlockHelper.isWater(world, x, y + 1, z) && BlockHelper.isWater(world, x, y + 2, z)) {
-				world.setBlock(x, y + 1, z, this, 0, 2);
-				onPostBlockPlaced(world, x, y + 1, z, 0);
-			}
-		}
-	}
-
-	private void updateMoss(World world, int x, int y, int z, Random rand) {
-		if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone ||
-				(world.getBlock(x, y - 1, z) == Blocks.stonebrick
-						&& world.getBlockMetadata(x, y - 1, z) == 1))
-		{
-			if(rand.nextInt(Extra.KELP_SPREAD_CHANCE) == 0) {
-				int x2 = x + rand.nextInt(4) - 2;
-				int z2 = z + rand.nextInt(4) - 2;
-								
-				if(BlockHelper.isWater(world, x2, y, z2)) {
-					if (world.getBlock(x2, y - 1, z2) == Blocks.cobblestone) {
-						world.setBlock(x2, y - 1, z2, Blocks.mossy_cobblestone);
-					}
-					
-					if (world.getBlock(x2, y - 1, z2) == Blocks.stonebrick
-							&& world.getBlockMetadata(x2, y - 1, z2) == 0) {
-						world.setBlockMetadataWithNotify(x2, y - 1, z2, 1, 2);
-					}
-				}
-			}
-		}
+	@Override
+	public int damageDropped(int dmg) {
+		return dmg == CoralMeta.KELP_MIDDLE? CoralMeta.KELP: dmg;
 	}
 
 	@Override
-	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
-		return false;
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
+        Block block = world.getBlock(x, y - 1, z);
+        int metaDown = world.getBlockMetadata(x, y - 1, z);
+        if(!canSustainPlant(block, metaDown)) {
+        	dropBlockAsItem(world, x, y, z, metaDown, 0);
+        	world.setBlock(x, y, z, Blocks.water);
+        }
+    }
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack stack) {
+		if(stack == null || stack.getItemDamage() <= CoralMeta.KELP_MIDDLE) {
+			Block block = world.getBlock(x, y - 1, z);
+			int meta = world.getBlockMetadata(x, y - 1, z);
+			
+			if(isKelpTop(block, meta)) {
+				world.setBlockMetadataWithNotify(x, y - 1, z, CoralMeta.KELP_MIDDLE, 2);
+			}
+		}
+	}
+	
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		if(meta == CoralMeta.KELP && isKelp(world.getBlock(x, y - 1, z), world.getBlockMetadata(x, y - 1, z))) world.setBlockMetadataWithNotify(x, y, z, CoralMeta.KELP, 2);
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public int colorMultiplier(IBlockAccess block, int x, int y, int z) {
-		
 		if(block.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
-			int id1 = block.getBlockId(x + 1, 16, z);
-			int id2 = block.getBlockId(x, y, z + 8);
-			int id3 = block.getBlockMetadata(x - 6, 25, z);
-			int id4 = block.getBlockId(x, 5, z);
-
-			int number = (int) id1 * id2 * id3 * id4 + z + x;
+			Block check = block.getBlock(x, 0, z);
+			int number = (3 * x * z);
+			
 			number = (number <= 0)? -number: number;
 			
 			if(number %13 == 0) {
@@ -152,156 +123,21 @@ public class BlockCoral extends Block implements IItemRegistry, IHasMeta {
 			} else {
 				return 5411426;
 			}
-		} 
+		}  
 		
         return 16777215;
     }
-
-	public static void fullSpread(World world, int x, int y, int z, Random random) {
-		for (int x2 = -3; x2 < 4 + 1; x2++) {
-			for (int z2 = -3; z2 < 4 + 1; z2++) {
-				spread(world, x + x2, y - 1, z + z2, random);
-				spread(world, x + x2 + 1, y - 1, z + z2, random);
-				spread(world, x + x2 - 1, y - 1, z + z2, random);
-				spread(world, x + x2, y - 1, z + 1 + z2, random);
-				spread(world, x + x2, y - 1, z - 1 + z2, random);
-			}
-		}
-	}
-
-	private static void spread(World world, int x, int y, int z, Random random) {
-		for (int y2 = -2; y2 < 3; y2++) {
-			if (isValidFloor(world, x, y + y2, z)) {
-				if (BlockHelper.isWater(world, x, y + y2 + 1, z)) {
-					if (random.nextInt(5096) == 1) {
-						world.setBlock(x, y + y2 + 1, z, Blocks.sponge);
-					} else {
-						ItemStack coral = CoralRegistry.corals.get(random.nextInt(CoralRegistry.corals.size()));
-						world.setBlock(x, y + y2 + 1, z, Block.getBlockFromItem(coral.getItem()), coral.getItemDamage(), 2);
-					}
-				}
-			}
-		}
+	
+	@Override
+	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
+		return false;
 	}
 	
-	private static boolean isValidFloor(World world, int x, int y, int z) {
-		if(world.getBlock(x, y, z) == Core.oreBlocks && world.getBlockMetadata(x, y, z) == OresMeta.CORAL_ROCK) {
-			return true;
-		}
-		
-		return false;
-	}
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		if (world.getBlock(x, y - 1, z) == WorldPlus.coral
-				&& world.getBlockMetadata(x, y - 1, z) == CoralMeta.KELP_MIDDLE) {
-			if(world instanceof World) {
-				((World)world).setBlockMetadataWithNotify(x, y - 1, z, CoralMeta.KELP, 2);
-			}
-		}
-	}
-
-	@Override
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
-		if (world.getBlock(x, y, z).getMaterial() != Material.water) {
-			return false;
-		}
-
-		if (world.getBlock(x, y, z) == WorldPlus.coral) {
-			if (world.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
-				if (world.getBlock(x, y - 1, z) == WorldPlus.coral
-						&& world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Blocks.gravel) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Core.oreBlocks
-						&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Blocks.sand) {
-					return true;
-				}
-			} else if (world.getBlockMetadata(x, y, z) > CoralMeta.KELP_MIDDLE) {
-				if (world.getBlock(x, y - 1, z) == Blocks.cobblestone) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Blocks.mossy_cobblestone) {
-					return true;
-				}
-				if (world.getBlock(x, y - 1, z) == Core.oreBlocks
-						&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
-					return true;
-				}
-			}
-
-		}
-
-		return false;
-	}
-
-	@Override
-	public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ) {
-		if(world instanceof World) {
-			if (!this.canBlockStay((World)world, x, y, z)) {
-				this.dropBlockAsItem((World)world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-				((World)world).setBlock(x, y, z, Blocks.water);
-			}
-		}
-	}
-
-	@Override
-	public boolean canBlockStay(World world, int x, int y, int z) {
-		return canSustainPlant(world, x, y, z, ForgeDirection.UNKNOWN, this);
-	}
-
-	@Override
-	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
-		world.notifyBlocksOfNeighborChange(x, y, z, this, meta);
-		
-		if(BlockHelper.isWater(world, x, y - 1, z) && !world.isAirBlock(x, y + 1, z)) {
-			world.setBlock(x, y, z, Blocks.water);
-		}
-		
-		if(world.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
-			if (world.getBlock(x, y - 1, z) == this) {
-				world.setBlockMetadataWithNotify(x, y - 1, z, CoralMeta.KELP_MIDDLE, 2);
-			}
-			
-			if (world.getBlock(x, y + 1, z) == this) {
-				world.setBlockMetadataWithNotify(x, y, z, CoralMeta.KELP_MIDDLE, 2);
-			}
-			
-			if (world.getBlock(x, y + 1, z) != this) {
-				world.setBlockMetadataWithNotify(x, y, z, CoralMeta.KELP, 2);
-			}
-		}
-		
-		world.notifyBlocksOfNeighborChange(x, y, z, this, meta);
-	} */
-
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
 		return null;
 	}
-
-	@Override
-	public int damageDropped(int i) {
-		if (i == CoralMeta.KELP_MIDDLE) {
-			return CoralMeta.KELP;
-		}
-
-		return i;
-	}
-
+	
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
@@ -317,21 +153,130 @@ public class BlockCoral extends Block implements IItemRegistry, IHasMeta {
 		return 1;
 	}
 	
-	/*
-	@Override
-	public Block getPlant(IBlockAccess world, int x, int y, int z) {
-		return this;
-	}
-
 	@Override
 	public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z) {
 		return EnumPlantType.Water;
 	}
 
 	@Override
+	public Block getPlant(IBlockAccess world, int x, int y, int z) {
+		return world.getBlock(x, y, z);
+	}
+
+	@Override
 	public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z);
-	} */
+	}
+	
+	//Static Methods
+	public static boolean canSustainPlant(Block block, int meta) {
+		return meta <= CoralMeta.KELP_MIDDLE? canSustainKelp(block, meta): canSustainCoral(block, meta);
+	}
+	
+	public static boolean canSustainCoral(Block block, int meta) {
+		return block == Core.groundBlocks|| block == Core.limestone || block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || (block == Core.oreBlocks && meta == OresMeta.CORAL_ROCK);
+	}
+	
+	public static boolean canSustainKelp(Block block, int meta) {
+		if(block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || block == Blocks.sand || block == Blocks.gravel) return true;
+		if((block == Core.oreBlocks && meta == OresMeta.CORAL_ROCK) || block == Core.limestone || block == Core.groundBlocks) return true;
+		return isKelp(block, meta);
+	}
+	
+	private static boolean isPlant(Block block) {
+		return (block == WorldPlus.plantGrowable || block == WorldPlus.plantStatic);
+	}
+	
+	private static boolean isKelp(Block block, int meta) {
+		return isPlant(block) && meta <= CoralMeta.KELP_MIDDLE;
+	}
+	
+	private static boolean isKelpTop(Block block, int meta) {
+		return isKelp(block, meta) && meta == CoralMeta.KELP;
+	}
+	
+	/** End Block Data, Begin Functional Methods **/
+	@Override
+	public void updateTick(World world, int x, int y, int z, Random rand) {
+		int meta = world.getBlockMetadata(x, y, z);
+		if(Extra.CORAL_SPREAD_ENABLED && meta == CoralMeta.KELP) updateKelp(world, x, y, z, rand);
+		else if(Extra.KELP_GROWTH_ENABLED && meta > CoralMeta.KELP_MIDDLE) updateCoral(world, x, y, z, rand);
+		else if(Extra.MOSS_SPREAD_ENABLED && meta == CoralMeta.KELP_MIDDLE) updateMoss(world, x, y, z, rand);
+	}
+	
+	private void updateKelp(World world, int x, int y, int z, Random rand) {
+		if(Rand.nextInt(Extra.KELP_GROWTH_CHANCE)) {
+			if(BlockHelper.isWater(world, x, y + 2, z)) {
+				world.setBlock(x, y + 1, z, this);
+				onBlockPlacedBy(world, x, y, z, null, null);
+			}
+		}
+	}
+	
+	private void updateMoss(World world, int x, int y, int z, Random rand) {
+		if(Rand.nextInt(Extra.KELP_SPREAD_CHANCE)) {
+			Block block = world.getBlock(x, y - 1, z);
+			if(block == Blocks.mossy_cobblestone || (block == Blocks.stonebrick && world.getBlockMetadata(x, y - 1, z) == 1)) {
+				int randX = rand.nextInt(8) - 4;
+				int randZ = rand.nextInt(8) - 4;
+				if(world.getBlock(randX, y + 1, randZ) == Blocks.water) {
+					Block theBlock = world.getBlock(randX, y - 1, randZ);
+					if(theBlock == Blocks.cobblestone) world.setBlock(x, y - 1, z, Blocks.mossy_cobblestone);
+					else if(theBlock == Blocks.stonebrick && world.getBlockMetadata(x, y, z) != 1) world.setBlockMetadataWithNotify(x, y - 1, z, 1, 2);
+				}
+			}
+		}
+	}
+	
+	private void updateCoral(World world, int x, int y, int z, Random rand) {
+		if(Rand.nextInt(Extra.CORAL_SPREAD_CHANCE)) {
+			Block block = world.getBlock(x, y - 1, z);
+			if(block == Core.oreBlocks && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
+				int randX = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);
+				int randY = rand.nextInt(3) - 1;
+				int randZ = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);
+				if(world.getBlock(randX, randY, randZ) == WorldPlus.plantGrowable) {
+					int thisMeta = world.getBlockMetadata(x, y, z);
+					int thatMeta = world.getBlockMetadata(randX, randY, randZ);
+					int newMeta = getNewColor(thisMeta, thatMeta);
+					
+					randX = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);
+					randY = rand.nextInt(3) - 1;
+					randZ = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);
+					if(world.getBlock(randX, randY, randZ) == Blocks.water && world.getBlock(randX, randY + 1, randZ) == Blocks.water
+							&& canSustainCoral(world.getBlock(randX, randY - 1, randZ), world.getBlockMetadata(randX, randY - 1, randZ))) {
+						world.setBlock(randX, randY, randZ, WorldPlus.plantGrowable, newMeta, 2);
+					}
+				}
+			}
+		}
+	}
+	
+	private static HashMap<String, Integer[]> outcomes = new HashMap(); 
+	static {
+		outcomes.put(CoralMeta.RED + "|" + CoralMeta.WHITE, new Integer[] { CoralMeta.PINK, CoralMeta.YELLOW });
+		outcomes.put(CoralMeta.RED + "|" + CoralMeta.LIGHT_BLUE, new Integer[] { CoralMeta.PURPLE, CoralMeta.MAGENTA });
+		outcomes.put(CoralMeta.RED + "|" + CoralMeta.YELLOW, new Integer[] { CoralMeta.ORANGE, CoralMeta.BROWN });
+		outcomes.put(CoralMeta.WHITE + "|" + CoralMeta.GREY, new Integer[] { CoralMeta.LIGHT_GREY });
+		outcomes.put(CoralMeta.WHITE + "|" + CoralMeta.PURPLE, new Integer[] { CoralMeta.LIGHT_BLUE, CoralMeta.GREY, CoralMeta.LIGHT_GREY });
+		outcomes.put(CoralMeta.WHITE + "|" + CoralMeta.LIGHT_BLUE, new Integer[] { CoralMeta.GREY });
+		outcomes.put(CoralMeta.PURPLE + "|" + CoralMeta.RED, new Integer[] { CoralMeta.MAGENTA });
+		outcomes.put(CoralMeta.ORANGE + "|" + CoralMeta.RED, new Integer[] { CoralMeta.YELLOW, CoralMeta.BROWN });
+		outcomes.put(CoralMeta.ORANGE + "|" + CoralMeta.GREY, new Integer[] { CoralMeta.RED });
+		outcomes.put(CoralMeta.ORANGE + "|" + CoralMeta.LIGHT_BLUE, new Integer[] { CoralMeta.RED });
+		outcomes.put(CoralMeta.YELLOW + "|" + CoralMeta.GREY, new Integer[] { CoralMeta.RED });
+		outcomes.put(CoralMeta.YELLOW + "|" + CoralMeta.LIGHT_GREY, new Integer[] { CoralMeta.WHITE });
+	}
+	
+	private Integer getNewColor(int thisMeta, int thatMeta) {
+		Integer[] values = outcomes.get("" + thisMeta + "|" + thatMeta);
+		if(values == null) values = outcomes.get("" + thatMeta + "|" + thisMeta);
+		if(Rand.nextInt(2)) return thisMeta;
+		if(Rand.nextInt(2)) return thatMeta;
+		if(values != null) {
+			return values[Rand.rand.nextInt(values.length)];
+		} else return Rand.nextInt(2)? thisMeta: thatMeta;
+	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {

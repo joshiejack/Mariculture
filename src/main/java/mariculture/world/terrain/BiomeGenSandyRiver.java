@@ -11,10 +11,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenRiver;
+import net.minecraft.world.gen.feature.WorldGenSand;
 
 public class BiomeGenSandyRiver extends BiomeGenRiver {
 	public BiomeGenSandyRiver(int id) {
 		super(id);
+		
+		theBiomeDecorator.gravelAsSandGen = new WorldGenSand(Blocks.gold_block, 6);
 	}
 
 	@Override

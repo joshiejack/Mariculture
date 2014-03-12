@@ -111,6 +111,7 @@ public class Core extends Module {
 	public static Block groundBlocks;
 	public static Block transparentBlocks;
 	public static Block waterBlocks;
+	public static Block limestone;
 
 	public static Fluid moltenAluminum;
 	public static Fluid moltenTitanium;

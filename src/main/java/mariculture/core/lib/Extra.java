@@ -9,6 +9,9 @@ public class Extra {
 	public static boolean OCEAN_FORCE;
 	public static int[] OCEAN_BIOMES;
 	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID, BiomeGenBase.frozenOcean.biomeID };
+	public static boolean KELP_GROWTH_ENABLED;
+	public static boolean MOSS_SPREAD_ENABLED;
+	public static boolean CORAL_SPREAD_ENABLED;
 	public static int HARDCORE_DIVING;
 	public static boolean FLUDD_WATER_ON;
 	public static int PEARL_GEN_CHANCE;

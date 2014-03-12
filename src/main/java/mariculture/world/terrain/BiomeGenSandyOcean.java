@@ -4,26 +4,33 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.lib.CoralMeta;
+import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.Rand;
 import mariculture.world.WorldPlus;
 import mariculture.world.decorate.WorldGenKelp;
+import mariculture.world.decorate.WorldGenAncientSand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenOcean;
+import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenSand;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenSandyOcean extends BiomeGenOcean {
     public BiomeGenSandyOcean(int id) {
         super(id);
+        
+        theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.lapis_ore, 8);
     }
     
+    public static WorldGenKelp kelpGenerator = new WorldGenKelp(WorldPlus.plantStatic, CoralMeta.KELP_MIDDLE); 
     @Override
     public WorldGenerator getRandomWorldGenForGrass(Random par1Random) {
-        return new WorldGenKelp(WorldPlus.coral, CoralMeta.KELP_MIDDLE);
+        return kelpGenerator;
     }
     
     @Override

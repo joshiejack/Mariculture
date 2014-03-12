@@ -19,6 +19,17 @@ public class BlockOre extends BlockDecorative {
 	public BlockOre() {
 		super(Material.rock);
 	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return "pickaxe";
+	}
+
+	//TODO: Tool Levels for Ore Blocks
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
+	}
 
 	@Override
 	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {

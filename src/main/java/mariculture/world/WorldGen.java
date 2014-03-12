@@ -2,10 +2,13 @@ package mariculture.world;
 
 import java.util.Random;
 
+import mariculture.core.Core;
 import mariculture.core.handlers.WorldGenHandler;
+import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.PluginBiomesOPlenty;
 import mariculture.plugins.PluginBiomesOPlenty.Biome;
+import mariculture.world.decorate.WorldGenAncientSand;
 import mariculture.world.decorate.WorldGenKelp;
 import mariculture.world.decorate.WorldGenKelpForest;
 import mariculture.world.decorate.WorldGenReef;
@@ -37,24 +40,23 @@ public class WorldGen implements IWorldGenerator {
 
 	private void generateOceanFeatures(World world, Random random, int x, int z) {
 		try {
-			if(WorldGeneration.CORAL_ENABLED)
-				generateCoral(world, random, x, z);
+			if(WorldGeneration.CORAL_ENABLED) generateCoral(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			if(WorldGeneration.KELP_PATCH_ENABLED)
-				generateKelp(world, random, x, z);
+			if(WorldGeneration.ANCIENT_SAND_ENABLED) generateAncientSand(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			if(WorldGeneration.KELP_FOREST_ENABLED)
-				generateKelpForest(world, random, x, z);
-		} catch (Exception e) {
-			e.printStackTrace();
+	}
+	
+	public static void generateAncientSand(World world, Random random, int x, int z) {
+		if(random.nextInt(2) == 0) {
+	    	int j = x + random.nextInt(16) + 8;
+	    	int k = z + random.nextInt(16) + 8;
+	        new WorldGenAncientSand(Core.groundBlocks, GroundMeta.ANCIENT, 4).generate(world, random, j, world.getTopSolidOrLiquidBlock(j, k), k);
 		}
 	}
 	
@@ -68,35 +70,6 @@ public class WorldGen implements IWorldGenerator {
 				int x2 = x + random.nextInt(16) + 8;
 				int z2 = z + random.nextInt(16) + 8;
 				(new WorldGenReef(128)).generate(world, random, x2, z2);
-			}
-		}
-	}
-	
-	public static void generateKelp(World world, Random random, int x, int z) {
-		int chance = WorldGeneration.KELP_CHANCE / 128;
-		chance = (chance <= 1)? 1: chance;
-		
-		if (random.nextInt(chance) == 0) {
-			for (int j = 0; j < 5; ++j) {
-				int x2 = x + random.nextInt(16) + 8;
-				int z2 = z + random.nextInt(16) + 8;
-				//new WorldGenKelp().generate(world, random, x2, 0, z2);
-			}
-		}
-	}
-	
-	public static void generateKelpForest(World world, Random random, int x, int z) {
-		boolean isKelpForest = PluginBiomesOPlenty.isBiome(world, x, z, Biome.KELP);
-		int maxHeight = WorldGeneration.KELP_HEIGHT;
-		int chance = (Loader.isModLoaded("BiomesOPlenty")) ? WorldGeneration.KELP_CHANCE: WorldGeneration.KELP_CHANCE * 3;
-		
-		chance = (chance <= 1)? 1: chance;
-		maxHeight = (maxHeight <= 1)? 1: maxHeight;
-		if(isKelpForest) {
-			if ((random.nextInt(chance) + 1) == 1) {
-				int x2 = x + random.nextInt(16) + 8;
-				int z2 = z + random.nextInt(16) + 8;
-				new WorldGenKelpForest().generate(world, random, x2, 0, z2, maxHeight);
 			}
 		}
 	}
