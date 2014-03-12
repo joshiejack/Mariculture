@@ -229,7 +229,7 @@ tile.customLight.customLight=Custom Light
 tile.customFlooring.customFlooring=Custom Flooring
 tile.customBlock.customBlock=Custom Block
 tile.customStairs.customStairs=Custom Stairs
-tile.customSlabs.stone=Custom Slabs
+tile.customSlabs.customSlabs=Custom Slabs
 tile.customRFBlock.customRFBlock=Custom Redstone Flux Block
 
 #items

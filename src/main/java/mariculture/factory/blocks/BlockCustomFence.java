@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
+import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
@@ -13,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -23,7 +25,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomFence extends BlockFence implements IItemRegistry {
+public class BlockCustomFence extends BlockFence implements IItemRegistry, IHasMeta {
 
 	public BlockCustomFence() {
 		super("customFence", Material.rock);
@@ -78,11 +80,10 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 		return 0;
 	}
 
-	/*
 	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return BlockCustomHelper.removeBlockByPlayer(world, player, x, y, z, getID());
-	} */
+    }
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
@@ -122,4 +123,9 @@ public class BlockCustomFence extends BlockFence implements IItemRegistry {
 	
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister) { }
+	
+	@Override
+	public Class<? extends ItemBlock> getItemClass() {
+		return BlockItemCustom.class;
+	}
 }

@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigate;
@@ -52,7 +53,7 @@ public class EntityAIAvoidCatfish extends EntityAIBase {
 			if (closestLivingEntity instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) closestLivingEntity;
 				if (!player.inventory
-						.hasItemStack(new ItemStack(Fishery.fishyFood, 1, Fishery.catfish.fishID))) {
+						.hasItemStack(new ItemStack(Items.fish, 1, Fishery.catfish.fishID))) {
 					return false;
 				}
 			}

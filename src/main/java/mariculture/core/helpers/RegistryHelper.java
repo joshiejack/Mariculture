@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
 import mariculture.core.blocks.BlockWaterItem;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
@@ -37,6 +38,8 @@ public class RegistryHelper {
 	private static void registerItem(Item item) {
 		try {
 			String name = item.getUnlocalizedName().substring(5);
+			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			if(Extra.DEBUG_ON) System.out.println("Mariculture successfully registered the item " + item.getClass().getSimpleName() + " as Mariculture:" + name);
 			GameRegistry.registerItem(item, name, Mariculture.modid);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,19 +49,13 @@ public class RegistryHelper {
 	
 	private static void registerMetaBlock(Class<? extends ItemBlock> clazz, Block block) {
 		try {
-			String name = block.getClass().getSimpleName();
+			String name = block.getUnlocalizedName().substring(5);
+			name = name.substring(0, 1).toUpperCase() + name.substring(1);
 			if(clazz == null) {
 				clazz = (Class<? extends ItemBlock>) Class.forName(block.getClass().getCanonicalName().toString() + "Item");
 			}
 			
-			if(Modules.fishery.isActive()) {
-				name += (block == Fishery.lampsOff)? "Off" : (block == Fishery.lampsOn)? "On": "";
-			}
-			
-			if(Modules.factory.isActive()) {
-				name += (block == Factory.customSlabs)? "Single" : (block == Factory.customSlabsDouble)? "Double": "";
-			}
-			
+			if(Extra.DEBUG_ON) System.out.println("Mariculture successfully registered the block " + block.getClass().getSimpleName() + " with the item " + clazz.getSimpleName() + " as Mariculture:" + name);
 			GameRegistry.registerBlock(block, clazz, name);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,7 +63,10 @@ public class RegistryHelper {
 	}
 	
 	private static void registerBlock(Block block) {
-		GameRegistry.registerBlock(block, block.getClass().getSimpleName());
+		String name = block.getUnlocalizedName().substring(5);
+		name = name.substring(0, 1).toUpperCase() + name.substring(1);
+		if(Extra.DEBUG_ON) System.out.println("Mariculture successfully registered the block " + block.getClass().getSimpleName() + " as Mariculture:" + name);
+		GameRegistry.registerBlock(block, name);
 	}
 
 	public static void registerCoral(ItemStack stack, String color) {

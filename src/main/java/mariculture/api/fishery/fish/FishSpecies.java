@@ -87,6 +87,11 @@ public abstract class FishSpecies {
 		return 2;
 	}
 	
+	/** Number between 1 and 2000, for the melting point of this fish **/
+	public int getMeltingPoint() {
+		return 180;
+	}
+	
 	/** How much fish oil the fish will give you when liquified in the liquifier,
 	 * this is number of buckets worth So if you return 6, the fish will give
 	 * you 6 buckets worth of fish oil, the default is roughly 1/6th of a bucket */
@@ -169,15 +174,33 @@ public abstract class FishSpecies {
 	public boolean canLive(World world, int x, int y, int z) {
 		return getGroup().canLive(world, x, y, z);
 	}
+	
+	/** How much food eating this fish restores, return -1 if it's not edible **/
+	public int getFoodStat() {
+		return 1;
+	}
+	
+	/** How much saturation this fish restores **/
+	public float getFoodSaturation() {
+		return 0.3F;
+	}
+	
+	/** How long in ticks, it takes to teat this fish **/
+	public int getFoodDuration() {
+		return 32;
+	}
+	
+	/** Whether or not this fish can eaten if the player is full **/
+	public boolean canAlwaysEat() {
+		return false;
+	}
 
-	/** This is called when a player attempts to eat the raw fish
+	/** This is called after a player has eaten, and only if it can eat, which is define by the getFoodStat call
 	 * 
 	 * @param World object
 	 * @param The player eating */
 	public void onConsumed(World world, EntityPlayer player) {
-		player.getFoodStats().addStats(1, 0.3F);
-
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		return;
 	}
 
 	/** Called when you right click a fish

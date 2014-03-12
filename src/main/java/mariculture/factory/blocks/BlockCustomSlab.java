@@ -1,11 +1,11 @@
 package mariculture.factory.blocks;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
+import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.factory.Factory;
 import net.minecraft.block.BlockSlab;
@@ -17,6 +17,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -27,7 +28,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomSlab extends BlockSlab implements IItemRegistry {
+public class BlockCustomSlab extends BlockSlab implements IItemRegistry, IHasMeta {
 	public BlockCustomSlab(boolean isDouble) {
 		super(isDouble, Material.piston);		
 		setLightOpacity(0);
@@ -146,5 +147,10 @@ public class BlockCustomSlab extends BlockSlab implements IItemRegistry {
 	@Override
 	public String func_150002_b(int var1) {
 		return null;
+	}
+	
+	@Override
+	public Class<? extends ItemBlock> getItemClass() {
+		return BlockItemCustom.class;
 	}
 }

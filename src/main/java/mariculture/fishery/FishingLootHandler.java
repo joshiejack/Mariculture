@@ -12,6 +12,7 @@ import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler;
 import mariculture.core.helpers.ReflectionHelper;
+import mariculture.core.lib.Extra;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -114,7 +115,8 @@ public class FishingLootHandler implements ILootHandler {
 		f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
 		f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
 
-		if ((f < f1 && quality.getRank() >= EnumRodQuality.OLD.getRank()) || (baitQuality == 0 && rand.nextInt(10) != 0)) {
+		EnumRodQuality min = Extra.VANILLA_POOR? EnumRodQuality.OLD: EnumRodQuality.DIRE;
+		if ((f < f1 && quality.getRank() >= min.getRank()) || (Extra.VANILLA_POOR && baitQuality == 0 && rand.nextInt(10) != 0)) {
 			if (player != null)
 				player.addStat(StatList.field_151183_A, 1);
 			return ((WeightedRandomFishable) WeightedRandom.getRandomItem(rand, EntityHook.bad_loot.get(biome))).func_150708_a(rand);

@@ -65,6 +65,8 @@ public class GuideRegistry {
 		/** Rotatables **/
 		guide.registerCyclingMetaIcon("wool", new ItemStack(Blocks.wool), 16);
 		guide.registerCyclingMetaIcon("pearl", new ItemStack(Core.pearls, 1, PearlColor.COUNT), PearlColor.COUNT);
+		guide.registerCyclingMetaIcon("fish", new ItemStack(Items.fish, 1, 0), FishSpecies.speciesList.size());
+		
 		guide.registerOreDicIcon("plankWood", new ItemStack(Blocks.planks, 1, 1));
 		guide.registerOreDicIcon("ingotGold", new ItemStack(Items.gold_ingot));
 		guide.registerOreDicIcon("ingotIron", new ItemStack(Items.iron_ingot));
@@ -164,7 +166,6 @@ public class GuideRegistry {
 		guide.registerIcon("sponge", new ItemStack(Items.water_bucket));
 		guide.registerIcon("fishingNet", new ItemStack(Blocks.chest));
 		guide.registerIcon("waterDroplet", new ItemStack(Items.potionitem, 1, 0));
-		guide.registerIcon("fish", new ItemStack(Items.fish));
 		guide.registerIcon("scubaTank", new ItemStack(Blocks.lever));
 		/** Ignore replaceables **/
 		
@@ -213,7 +214,6 @@ public class GuideRegistry {
 		}
 		
 		if(Modules.fishery.isActive()) {
-			guide.registerCyclingMetaIcon("fish", new ItemStack(Fishery.fishyFood, 1, Fishery.nether.fishID), FishSpecies.speciesList.size());
 			guide.registerIcon("polishedLog", new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG));
 			guide.registerIcon("polishedPlank", new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK));
 			guide.registerIcon("rodReed", new ItemStack(Fishery.rodReed));
@@ -230,14 +230,14 @@ public class GuideRegistry {
 			guide.registerIcon("grasshopper", new ItemStack(Fishery.bait, 1, BaitMeta.HOPPER));
 			guide.registerIcon("maggot", new ItemStack(Fishery.bait, 1, BaitMeta.MAGGOT));
 			guide.registerIcon("worm", new ItemStack(Fishery.bait, 1, BaitMeta.WORM));
-			guide.registerIcon("minnow", new ItemStack(Fishery.fishyFood, 1, Fishery.minnow.fishID));
-			guide.registerIcon("netherfish", new ItemStack(Fishery.fishyFood, 1, Fishery.nether.fishID));
-			guide.registerIcon("nightfish", new ItemStack(Fishery.fishyFood, 1, Fishery.night.fishID));
-			guide.registerIcon("tetra", new ItemStack(Fishery.fishyFood, 1, Fishery.tetra.fishID));
-			guide.registerIcon("cod", new ItemStack(Fishery.fishyFood, 1, Fishery.cod.fishID));
-			guide.registerIcon("stingray", new ItemStack(Fishery.fishyFood, 1, Fishery.stingRay.fishID));
-			guide.registerIcon("damselfish", new ItemStack(Fishery.fishyFood, 1, Fishery.damsel.fishID));
-			guide.registerIcon("squid", new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID));
+			guide.registerIcon("minnow", new ItemStack(Items.fish, 1, Fishery.minnow.fishID));
+			guide.registerIcon("netherfish", new ItemStack(Items.fish, 1, Fishery.nether.fishID));
+			guide.registerIcon("nightfish", new ItemStack(Items.fish, 1, Fishery.night.fishID));
+			guide.registerIcon("tetra", new ItemStack(Items.fish, 1, Fishery.tetra.fishID));
+			guide.registerIcon("cod", new ItemStack(Items.fish, 1, Fishery.cod.fishID));
+			guide.registerIcon("stingray", new ItemStack(Items.fish, 1, Fishery.stingRay.fishID));
+			guide.registerIcon("damselfish", new ItemStack(Items.fish, 1, Fishery.damsel.fishID));
+			guide.registerIcon("squid", new ItemStack(Items.fish, 1, Fishery.squid.fishID));
 			guide.registerIcon("autofisher", new ItemStack(Core.utilBlocks, 1, UtilMeta.AUTOFISHER));
 			guide.registerIcon("feeder", new ItemStack(Core.singleBlocks, 1, SingleMeta.FISH_FEEDER));
 			guide.registerIcon("incubatorBase", new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_BASE));

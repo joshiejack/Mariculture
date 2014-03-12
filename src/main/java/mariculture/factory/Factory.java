@@ -115,19 +115,6 @@ public class Factory extends Module {
 		customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
 		customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
 		customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
-		
-		/*GameRegistry.registerBlock(customFlooring, BlockItemCustom.class, "BlockCustomFlooring");
-		GameRegistry.registerBlock(customBlock, BlockItemCustom.class, "BlockCustomBlock");
-		GameRegistry.registerBlock(customStairs, BlockItemCustom.class, "BlockCustomStairs");
-		GameRegistry.registerBlock(customFence, BlockItemCustom.class, "BlockCustomFence");
-		GameRegistry.registerBlock(customGate, BlockItemCustom.class, "BlockCustomGate");
-		GameRegistry.registerBlock(customWall, BlockItemCustom.class, "BlockCustomWall");
-		GameRegistry.registerBlock(customLight, BlockItemCustom.class, "BlockCustomLight");
-		GameRegistry.registerBlock(customRFBlock, BlockItemCustom.class, "BlockCustomRFBlock");
-
-		//TODO: FIX CUSTOM SLAB STUFF BlockItemCustomSlab.setSlabs((BlockHalfSlab) customSlabs, (BlockHalfSlab) customSlabsDouble);
-		GameRegistry.registerBlock(customSlabs, BlockItemCustom.class, "BlockCustomSlab");
-		GameRegistry.registerBlock(customSlabsDouble, BlockItemCustom.class, "BlockCustomSlabDouble"); */
 
 		GameRegistry.registerTileEntity(TileCustom.class, "tileEntityCustom");
 		GameRegistry.registerTileEntity(TileCustomPowered.class, "tileEntityCustomRF");
@@ -202,7 +189,7 @@ public class Factory extends Module {
 		//Mechanized Sponge
 		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Blocks.sponge): new ItemStack(Items.water_bucket);
 		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
-		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fish);
+		ItemStack fish = new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
 			Character.valueOf('D'), fish, 

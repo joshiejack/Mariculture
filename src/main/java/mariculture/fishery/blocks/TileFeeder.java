@@ -26,6 +26,7 @@ import mariculture.fishery.Fishery;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -390,7 +391,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					int gender = Fishery.gender.getDNA(fish);
 					int species = Fishery.species.getDNA(fish);
 
-					ItemStack rawFish = new ItemStack(Fishery.fishyFood, 1, species);
+					ItemStack rawFish = new ItemStack(Items.fish, 1, species);
 					rawFish.setItemDamage(species);
 
 					if (rawFish != null)

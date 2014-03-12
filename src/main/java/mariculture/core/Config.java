@@ -44,7 +44,10 @@ public class Config {
             Extra.MOB_MAGNET = config.get(Category.EXTRA, "Mob Magnet Crafting Enabled", true).getBoolean(true);
             Extra.PERCENT_NEEDED = config.get(Category.EXTRA, "Percentage Needed for Timelord Enchant", 5).getInt();
             Extra.PACKET_DISTANCE = config.get(Category.EXTRA, "How many blocks away to send rendering packet updates to players", 176).getInt();
+            Extra.VANILLA_STATS = config.get(Category.EXTRA, "Use Vanilla stats for fish", false).getBoolean(false);
+            Extra.VANILLA_POOR = config.get(Category.EXTRA, "Vanilla rods are not as good without bait", true).getBoolean(true);
             Extra.VANILLA_FORCE = config.get(Category.EXTRA, "Vanilla rods need bait to work", false).getBoolean(false);
+            Extra.VANILLA_TEXTURES = config.get(Category.EXTRA, "Use Vanilla textures for Fish", false).getBoolean(false);
             
             Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();

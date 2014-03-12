@@ -88,26 +88,23 @@ public class Diving extends Module {
 		
 		//Air Compressor Top
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
-			"  F", " PB", "III",
-			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
-			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
-			Character.valueOf('P'), Blocks.piston
+			"  F", " PB", "III", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
+			'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
+			'P', Blocks.piston
 		});
 		
 		//Air Compressor Base
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
-			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
-			Character.valueOf('T'), "ingotTitanium"
+			'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
+			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
+			'T', "ingotTitanium"
 		});
 		
 		//Snorkel
 		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
-			"  R", "LLR",
-			Character.valueOf('R'), Items.sugar,
-			Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
+			"  R", "LLR", 'R', Items.sugar, 'L', new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
 		});
 		
 		CraftingManager
@@ -126,8 +123,8 @@ public class Diving extends Module {
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(new ItemStack(Diving.divingBoots), true, new Object[] { "C C", "L L",
-					Character.valueOf('C'), new ItemStack(Items.leather),
-					Character.valueOf('L'), new ItemStack(Items.iron_ingot) }));
+					'C', new ItemStack(Items.leather),
+					'L', new ItemStack(Items.iron_ingot) }));
 		
 		CraftingManager
 				.getInstance()

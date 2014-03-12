@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -17,7 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockCustomHelper {
 	public static IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
 		TileCustom tile = (TileCustom) block.getTileEntity(x, y, z);
-		return tile.theBlocks(side).getIcon(tile.theBlockSides(side), tile.theBlockMetas(side));
+		return tile != null? tile.theBlocks(side).getIcon(tile.theBlockSides(side), tile.theBlockMetas(side)): Blocks.stone.getBlockTextureFromSide(side);
 	}
 
 	public static void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {

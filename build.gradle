@@ -25,6 +25,7 @@ minecraft {
     version = "1.7.2-10.12.0.1046"
     assetDir = "eclipse/assets"
 }
+
 processResources
 {
     // replace stuff in mcmod.info, nothing else
@@ -38,5 +39,12 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }

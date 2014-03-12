@@ -11,6 +11,7 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.Extra;
+import mariculture.core.network.PacketTurbine;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IPowered;
@@ -178,7 +179,6 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 				int extract = -((IEnergyHandler)tile).receiveEnergy(direction.getOpposite(), Math.min(getEnergyTransferMax(), energyStorage.getEnergyStored()), false);
 				energyStorage.modifyEnergyStored(extract);
 				
-				//Special Conditioning for conduits
 				if(tile.toString().contains("conduit") && extract == -75) {
 					isTransferringPower = false;
 				} else {
@@ -205,7 +205,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		if(Extra.TURBINE_ANIM) {
 			if(!worldObj.isRemote && onTick(Extra.TURBINE_RATE)) {
 				isAnimating = isCreatingPower || isTransferringPower;
-				//TODO: PACKET TURBINE ANIMATE Packets.updateTile(this, 32, new Packet119TurbineAnimate(xCoord, yCoord, zCoord, isAnimating).build());
+				Packets.updateAround(this, new PacketTurbine(xCoord, yCoord, zCoord, isAnimating));
 			} else if(worldObj.isRemote) {
 				if(isAnimating) {
 					angle = angle + 0.1;

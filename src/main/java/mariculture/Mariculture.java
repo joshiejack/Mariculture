@@ -47,8 +47,8 @@ public class Mariculture {
 	public void preInit(FMLPreInitializationEvent event) {
 		root = event.getModConfigurationDirectory();
 		Config.init(root + "/mariculture/");		
+		if(MaricultureTab.tabFish == null) MaricultureTab.tabFish = (Modules.fishery.isActive())? new MaricultureTab("fishTab"): null;
 		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
-		MaricultureTab.tabFish = (Modules.fishery.isActive())? new MaricultureTab("fishTab"): null;
 		MaricultureTab.tabJewelry = (Modules.magic.isActive())? new MaricultureTab("jewelryTab"): null;
 		
 		plugins.init();

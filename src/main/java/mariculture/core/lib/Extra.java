@@ -53,4 +53,7 @@ public class Extra {
 	public static int PACKET_DISTANCE;
 	public static boolean PUMP_ANIMATE;
 	public static boolean VANILLA_FORCE;
+	public static boolean VANILLA_TEXTURES;
+	public static boolean VANILLA_POOR;
+	public static boolean VANILLA_STATS;
 }

@@ -1,7 +1,6 @@
 package mariculture.core.lib;
 
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.BlockCustomHelper;
 import mariculture.factory.blocks.TileCustom;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
@@ -97,6 +96,10 @@ public class PlansMeta {
 	}
 	
 	public static boolean matches(NBTTagCompound nbt1, NBTTagCompound nbt2) {
+		return matches(nbt1, nbt2, true);
+	}
+	
+	public static boolean matches(NBTTagCompound nbt1, NBTTagCompound nbt2, boolean checkHardness) {
 		Block[] blocks1 = new Block[6];
 		Block[] blocks2 = new Block[6];
 		float resist1 = nbt1.getFloat("BlockResistance");
@@ -108,10 +111,12 @@ public class PlansMeta {
 		int[] theSides1 = nbt1.getIntArray("BlockSides");
 		int[] theSides2 = nbt2.getIntArray("BlockSides");
 		
-		if(resist1 != resist2 || hardness1 != hardness2) {
-			return false;
+		if(checkHardness) {
+			if(resist1 != resist2 || hardness1 != hardness2) {
+				return false;
+			}
 		}
-		
+				
 		for(int i = 0; i < 6; i++) {
 			blocks1[i] = (Block) Block.blockRegistry.getObject(nbt1.getString("BlockIdentifier" + i));
 			blocks2[i] = (Block) Block.blockRegistry.getObject(nbt2.getString("BlockIdentifier" + i));
@@ -122,5 +127,14 @@ public class PlansMeta {
 		}
 		
 		return true;
+	}
+
+	public static boolean isTheSame(World world, int x, int y, int z, ItemStack stack) {
+		TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
+		ItemStack block = new ItemStack(Factory.customSlabs);
+		block.setTagCompound(new NBTTagCompound());
+		if(tile != null) tile.writeData(block.stackTagCompound);
+		else return false;
+		return matches(block.stackTagCompound, stack.stackTagCompound, false);
 	}
 }

@@ -1,7 +1,9 @@
 package mariculture.factory.blocks;
 
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.network.Packets;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -36,15 +38,15 @@ public class TileCustom extends TileEntity {
 	}
 
 	public Block theBlocks(int i) {
-		return theBlocks[i];
+		return theBlocks[i] != null? theBlocks[i]: Blocks.stone;
 	}
 	
 	public int theBlockMetas(int i) {
-		return theBlockMetas[i];
+		return theBlockMetas.length > i? theBlockMetas[i]: 0;
 	}
 	
 	public int theBlockSides(int i) {
-		return theSides[i];
+		return theSides.length > i? theSides[i]: 0;
 	}
 	
 	public float getHardness() {
@@ -82,7 +84,7 @@ public class TileCustom extends TileEntity {
 		for(int i = 0; i < 6; i++) {
 			nbt.setString("BlockIdentifier" + i, Block.blockRegistry.getNameForObject(this.theBlocks[i]));
 		}
-		
+			
 		nbt.setFloat("BlockResistance", this.resist);
 		nbt.setFloat("BlockHardness", this.hardness);
 		nbt.setIntArray("BlockMetas", this.theBlockMetas);

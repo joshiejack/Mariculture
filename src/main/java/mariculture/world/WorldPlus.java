@@ -70,7 +70,6 @@ public class WorldPlus extends Module {
 		OreDictionary.registerOre("dyeBrown", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN));
 		OreDictionary.registerOre("dyeGreen", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN));
 		OreDictionary.registerOre("dyeWhite", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE));
-		//OreDictionary.registerOre("dyeBlack", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BLACK));
 	}
 	
 	@Override
@@ -155,10 +154,15 @@ public class WorldPlus extends Module {
 			for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 				int[] fishRarity = FishSpecies.speciesList.get(i).getChestGenChance();
 				if (fishRarity != null && fishRarity.length == 3) {
-					ItemStack fish = new ItemStack(Fishery.fishyFood, 1, FishSpecies.speciesList.get(i).fishID);
+					ItemStack fish = new ItemStack(Items.fish, 1, FishSpecies.speciesList.get(i).fishID);
 					ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(fish, fishRarity[0], fishRarity[1], fishRarity[2]));
 				}
 			}
+		} else {
+			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 0), 5, 5, 5));
+			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 1), 5, 5, 5));
+			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 2), 5, 5, 5));
+			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 3), 5, 5, 5));
 		}
 	}
 }

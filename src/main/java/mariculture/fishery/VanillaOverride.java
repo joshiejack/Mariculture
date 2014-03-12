@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import mariculture.Mariculture;
+import mariculture.core.lib.Modules;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 import org.objectweb.asm.ClassReader;
@@ -94,16 +95,18 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 
 	public byte[] patchClassBlock(byte[] data, boolean obfuscated) {
 		String classBlock = obfuscated ? "net/minecraft/item/abn" : "net/minecraft/item/Item";		
-		String methodRegisterBlocks = obfuscated ? "l" : "registerItems";
+		String registerItems = obfuscated ? "l" : "registerItems";
 		
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(data);
 		classReader.accept(classNode, 0);
 		
 		boolean rodFound = false;
+		boolean fishFound = false;
+		
 		for(int i = 0; i < classNode.methods.size(); i++) {
 			MethodNode method = classNode.methods.get(i);
-			if(method.name.equals(methodRegisterBlocks) && method.desc.equals("()V")) {				
+			if(method.name.equals(registerItems) && method.desc.equals("()V")) {				
 				for(int j = 0; j < method.instructions.size(); j++) {					
 					AbstractInsnNode instruction = method.instructions.get(j);
 					if(instruction.getType() == AbstractInsnNode.LDC_INSN) {
@@ -112,8 +115,16 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 							if(!rodFound) {
 								((TypeInsnNode)method.instructions.get(j + 1)).desc = "mariculture/fishery/items/ItemVanillaRod";
 								((MethodInsnNode)method.instructions.get(j + 3)).owner = "mariculture/fishery/items/ItemVanillaRod";
-								rodFound = true;
 							}
+							
+							rodFound = true;
+						} else if (ldcInstruction.cst.equals("fish")) {
+							if(!fishFound) {
+								((TypeInsnNode)method.instructions.get(j + 1)).desc = "mariculture/fishery/items/ItemVanillaFish";
+								((MethodInsnNode)method.instructions.get(j + 4)).owner = "mariculture/fishery/items/ItemVanillaFish";
+							}
+							
+							fishFound = true;
 						}
 					}
 				}

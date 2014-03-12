@@ -392,8 +392,8 @@ public class Recipes {
 		
 		ItemStack attack = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Items.potionitem, 1, 8204);
 		ItemStack poison = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): new ItemStack(Items.potionitem, 1, 8228);
-		ItemStack night = (Modules.fishery.isActive())? new ItemStack(Fishery.fishyFood, 1, Fishery.night.fishID): new ItemStack(Items.ender_pearl);
-		ItemStack ender = (Modules.fishery.isActive())? new ItemStack(Fishery.fishyFood, 1, Fishery.ender.fishID): new ItemStack(Items.ender_eye);
+		ItemStack night = (Modules.fishery.isActive())? new ItemStack(Items.fish, 1, Fishery.night.fishID): new ItemStack(Items.ender_pearl);
+		ItemStack ender = (Modules.fishery.isActive())? new ItemStack(Items.fish, 1, Fishery.ender.fishID): new ItemStack(Items.ender_eye);
 		
 		//Basic Impurity
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY), new Object[] {

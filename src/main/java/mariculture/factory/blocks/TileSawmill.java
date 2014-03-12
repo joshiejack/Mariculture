@@ -167,7 +167,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 		stack.stackTagCompound.setFloat("BlockHardness", 0F);
 		stack.stackTagCompound.setIntArray("BlockMetas", metas);
 		stack.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 0, 0, 0, 0, 0});
-		stack.stackTagCompound.setString("Name", BlockHelper.getName(inventory[TOP]) + " - " + stack.getDisplayName());
+		stack.stackTagCompound.setString("Name", stack.getDisplayName());
 		stack.stackSize = ((ItemPlan) inventory[selected].getItem()).getStackSize(inventory[selected]);
 		if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", this))
 			stack.stackSize*=2;

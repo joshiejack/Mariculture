@@ -11,6 +11,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -57,8 +58,7 @@ public class FisheryEventHandler {
 					}
 				}
 				
-				ItemStack stack = new ItemStack(Fishery.fishyFood, 1, fish);
-				
+				ItemStack stack = new ItemStack(Items.fish, 1, fish);
 				if (stack != null) {
 					updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
 					event.setCanceled(true);
@@ -72,7 +72,7 @@ public class FisheryEventHandler {
 	public void onKillSquid(LivingDropsEvent event) {
 		if (event.entity instanceof EntitySquid) {
 			EntitySquid entity = (EntitySquid) event.entity;
-			ItemStack squid = new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID);
+			ItemStack squid = new ItemStack(Items.fish, 1, Fishery.squid.fishID);
 			event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
 			if (event.lootingLevel > 0) {
 				for (int i = 0; i < event.lootingLevel; i++) {
