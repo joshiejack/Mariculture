@@ -57,6 +57,10 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 	}
 	
 	public static boolean hasSameFishDNA(ItemStack fish1, ItemStack fish2) {
+		if(Fishing.fishHelper.isEgg(fish1) && Fishing.fishHelper.isEgg(fish2)) {
+			return true;
+		}
+		
 		if(Fishery.species.getDNA(fish1).equals(Fishery.species.getDNA(fish2)) &&
 				Fishery.species.getLowerDNA(fish1).equals(Fishery.species.getLowerDNA(fish2))) {
 			return true;
@@ -64,10 +68,6 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 		
 		if(Fishery.species.getDNA(fish1).equals(Fishery.species.getLowerDNA(fish1)) &&
 				Fishery.species.getLowerDNA(fish1).equals(Fishery.species.getDNA(fish2))) {
-			return true;
-		}
-		
-		if(Fishing.fishHelper.isEgg(fish1) && Fishing.fishHelper.isEgg(fish2)) {
 			return true;
 		}
 		

@@ -274,17 +274,25 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		}		
 
 		tankSize = 0;
-		
-		if(water >= 15 && water <= 36)
-			tankSize = 1;
-		if(water > 36 && water <= 82)
-			tankSize = 2;
-		if(water > 82 && water <= 150)
-			tankSize = 3;
-		if(water > 150 && water <= 240)
-			tankSize = 4;
-		if(water > 240)
-			tankSize = 5;
+		/** Hard Mode?
+		 * 	3x3x3 (20 - 80)
+			4.5x4.5x4.5 (81-300)
+			7.25x7.25x7.25 (301-700)
+			9x9x9(701-1250)
+			11x11x11 (1251+)
+			
+			Default Mode?
+			10-40 = tankSize 1
+			41-150 = tankSize2
+			151-350 = tankSize3
+			351-625= tankSize4
+			626+ = tankSize5
+		 */
+		if(water >= 15 && water <= 36) tankSize = 1;
+		if(water > 36 && water <= 82) tankSize = 2;
+		if(water > 82 && water <= 150) tankSize = 3;
+		if(water > 150 && water <= 240) tankSize = 4;
+		if(water > 240) tankSize = 5;
 	}
 	
 	private void doEffect(int slot) {
