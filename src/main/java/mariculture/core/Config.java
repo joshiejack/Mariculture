@@ -107,7 +107,7 @@ public class Config {
             
             WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp Forest > Enabled", true).getBoolean(true);
             WorldGeneration.KELP_FOREST_START_CHANCE = config.get(Category.WORLD, "Kelp Forest > Start Chance", 640, Comment.KELP_FOREST_START).getInt();
-            WorldGeneration.KELP_FOREST_START_CHANCE = config.get(Category.WORLD, "Kelp Forest > End Chance", 96, Comment.KELP_FOREST_END).getInt();
+            WorldGeneration.KELP_FOREST_END_CHANCE = config.get(Category.WORLD, "Kelp Forest > End Chance", 96, Comment.KELP_FOREST_END).getInt();
             WorldGeneration.KELP_FOREST_CHEST_MAX_ITEMS = config.get(Category.WORLD, "Kelp Forest > Maximum Items", 10).getInt();
             WorldGeneration.KELP_FOREST_CHEST_MIN_ITEMS = config.get(Category.WORLD, "Kelp Forest > Minimum Items", 2).getInt();
             WorldGeneration.KELP_FOREST_CHEST_CHANCE = config.get(Category.WORLD, "Kelp Forest > Chest Chance", 640, Comment.KELP_FOREST_CHEST_CHANCE).getInt();

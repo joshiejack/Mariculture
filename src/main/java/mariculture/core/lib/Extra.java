@@ -8,7 +8,7 @@ public class Extra {
 	public static final int[] RIVERS_DEFAULT = new int[] { BiomeGenBase.river.biomeID, BiomeGenBase.frozenRiver.biomeID };
 	public static boolean OCEAN_FORCE;
 	public static int[] OCEAN_BIOMES;
-	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID, BiomeGenBase.frozenOcean.biomeID };
+	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID, BiomeGenBase.frozenOcean.biomeID, BiomeGenBase.deepOcean.biomeID };
 	public static boolean KELP_GROWTH_ENABLED;
 	public static boolean MOSS_SPREAD_ENABLED;
 	public static boolean CORAL_SPREAD_ENABLED;

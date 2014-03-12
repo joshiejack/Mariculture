@@ -54,7 +54,7 @@ public class MagicEventHandler {
 			}
 			
 			if(!player.capabilities.isCreativeMode) {
-				EnchantmentRestore.activate(player);
+				if(EnchantHelper.hasEnchantment(Magic.repair, player)) EnchantmentRestore.activate(player);
 			}
 		}
 	}

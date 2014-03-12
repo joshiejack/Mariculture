@@ -6,11 +6,11 @@ import mariculture.core.Core;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.WorldGeneration;
+import mariculture.core.util.Rand;
 import mariculture.plugins.PluginBiomesOPlenty;
 import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import mariculture.world.decorate.WorldGenAncientSand;
-import mariculture.world.decorate.WorldGenKelp;
-import mariculture.world.decorate.WorldGenKelpForest;
+import mariculture.world.decorate.WorldGenCoralReef;
 import mariculture.world.decorate.WorldGenReef;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -49,6 +49,24 @@ public class WorldGen implements IWorldGenerator {
 			if(WorldGeneration.ANCIENT_SAND_ENABLED) generateAncientSand(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		try {
+			generateCoralReef(world, random, x, z);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static boolean isCoralReef = false;
+	private static WorldGenCoralReef coralGen = new WorldGenCoralReef();
+	public static void generateCoralReef(World world, Random random, int x, int z) {
+		if(!isCoralReef && Rand.nextInt(256)) isCoralReef = true;
+		if(isCoralReef && Rand.nextInt(40)) isCoralReef = false;
+		if(isCoralReef) {
+			for(int i = 0; i < 5; i++) {
+				coralGen.generate(world, random, x + random.nextInt(16) + 8, 64, z + random.nextInt(16) + 18);
+			}
 		}
 	}
 	

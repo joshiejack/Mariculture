@@ -25,8 +25,8 @@ public class WorldGenReef extends WorldGenerator {
 	}
 
 	@Override
-	public boolean generate(World world, Random random, int x, int y, int z) {
-		return generate(world, random, x, world.getTopSolidOrLiquidBlock(x, z), z);
+	public boolean generate(World world, Random rand, int x, int y, int z) {
+		return generate(world, rand, x, world.getTopSolidOrLiquidBlock(x, z), z);
 	}
 
 	public boolean generate(World world, Random random, int xCoord, int zCoord) {

@@ -1,12 +1,17 @@
 package mariculture.fishery;
 
 import java.util.Random;
+import java.util.UUID;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
@@ -22,13 +27,22 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {
 	Random rand = new Random();
-
+	
 	@SubscribeEvent
 	public void onLivingSpawned(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityCreeper) {
 			EntityCreeper creeper = (EntityCreeper) event.entity;
 			creeper.tasks.addTask(3, new EntityAIAvoidCatfish(creeper, EntityPlayer.class, 8.0F, 0.25F, 0.3F));
 		}
+		
+		/* Future Based Stuffs
+		if(event.entity instanceof EntityLivingBase && !(event.entity instanceof EntityPlayer)) {
+			EntityLivingBase entity = (EntityLivingBase) event.entity;
+			float health = (float) (entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() * (1 + Rand.rand.nextInt(3)));
+			entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
+			entity.getDataWatcher().updateObject(6, Float.valueOf(MathHelper.clamp_float(health, 0.0F, health)));
+			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((0.10000000149011612D * (1 + Rand.rand.nextInt(5))));
+		} */
 	}
 
 	public static void updateStack(World world, EntityItem entity, int lifespan, ItemStack stack, Random rand) {
