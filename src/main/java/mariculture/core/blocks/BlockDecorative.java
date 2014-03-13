@@ -36,8 +36,13 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 		}
 	}
 	
-	public abstract String getToolType(int meta);
-	public abstract int getToolLevel(int meta);
+	public String getToolType(int meta) {
+		return null;
+	}
+
+	public int getToolLevel(int meta) {
+		return 0;
+	}
 	
 	public boolean isActive(int meta) {
 		return true;

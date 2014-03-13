@@ -152,7 +152,7 @@ public class GuideRegistry {
 		guide.registerIcon("bookNQuill", new ItemStack(Items.writable_book));
 		guide.registerIcon("feather", new ItemStack(Items.feather));
 		guide.registerIcon("hopper", new ItemStack(Blocks.hopper));
-		guide.registerIcon("limestone", new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE));
+		guide.registerIcon("limestone", new ItemStack(Core.limestone));
 		guide.registerIcon("ironAxe", new ItemStack(Items.iron_axe));
 		guide.registerIcon("baseIron", new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON));
 		guide.registerIcon("slabQuartz", new ItemStack(Blocks.stone_slab, 1, 7));

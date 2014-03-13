@@ -14,4 +14,22 @@ public class PearlColor {
 	public static final int BLACK = 9;
 	public static final int PINK = 10;
 	public static final int SILVER = 11;
+	
+	public static String get(int i) {
+		switch(i) {
+			case WHITE:	 return "white";
+			case GREEN:  return "green";
+			case YELLOW: return "yellow";
+			case ORANGE: return "orange";
+			case RED: 	 return "red";
+			case GOLD: 	 return "gold";
+			case BROWN:	 return "brown";
+			case PURPLE: return "purple";
+			case BLUE: 	 return "blue";
+			case BLACK:  return "black";
+			case PINK: 	 return "pink";
+			case SILVER: return "silver";
+			default:	 return null;
+		}
+	}
 }

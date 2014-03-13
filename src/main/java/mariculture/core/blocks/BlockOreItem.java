@@ -13,38 +13,18 @@ public class BlockOreItem extends ItemBlockMariculture {
 	public String getName(ItemStack itemstack) {
 		String name = "";
 		switch (itemstack.getItemDamage()) {
-		case OresMeta.BAUXITE:
-			return "bauxiteOre";
-		case OresMeta.COPPER:
-			return "copperOre";
-		case OresMeta.RUTILE:
-			return "rutileOre";
-		case OresMeta.LIMESTONE:
-			return "limestone";
-		case OresMeta.LIMESTONE_BRICK:
-			return "limestoneBrick";
-		case OresMeta.CORAL_ROCK:
-			return "coralRock";
-		case OresMeta.ALUMINUM_BLOCK:
-			return "aluminumBlock";
-		case OresMeta.TITANIUM_BLOCK:
-			return "titaniumBlock";
-		case OresMeta.MAGNESIUM_BLOCK:
-			return "magnesiumBlock";
-		case OresMeta.COPPER_BLOCK:
-			return "copperBlock";
-		case OresMeta.LIMESTONE_SMOOTH:
-			return "limestoneSmooth";
-		case OresMeta.LIMESTONE_CHISELED:
-			return "limestoneBordered";
-		case OresMeta.BASE_BRICK:
-			return "baseBrick";
-		case OresMeta.BASE_IRON:
-			return "baseIron";
-		case OresMeta.LIMESTONE_THIN:
-			return "limestoneThing";
-		default:
-			return "baseWood";
+			case OresMeta.BAUXITE: 		   return "bauxiteOre";
+			case OresMeta.COPPER: 		   return "copperOre";
+			case OresMeta.RUTILE: 		   return "rutileOre";
+			case OresMeta.CORAL_ROCK: 	   return "coralRock";
+			case OresMeta.ALUMINUM_BLOCK:  return "aluminumBlock";
+			case OresMeta.TITANIUM_BLOCK:  return "titaniumBlock";
+			case OresMeta.MAGNESIUM_BLOCK: return "magnesiumBlock";
+			case OresMeta.RUTILE_BLOCK:    return "rutileBlock";
+			case OresMeta.COPPER_BLOCK:    return "copperBlock";
+			case OresMeta.BASE_BRICK: 	   return "baseBrick";
+			case OresMeta.BASE_IRON: 	   return "baseIron";
+			default: 					   return null;
 		}
 	}
 }

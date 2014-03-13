@@ -111,9 +111,13 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
                         else if (k > 0)
                         {
                             --k;
+                            
                             blocks[i2] = block1;
-                            if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) metas[i2] = OresMeta.RUTILE;
-                            else metas[i2] = OresMeta.LIMESTONE;
+                            if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
+                            	blocks[i2] = Core.oreBlocks;
+                            	metas[i2] = OresMeta.RUTILE;
+                            }
+                            
 
                             if (k == 0 && block1 == Blocks.sand)
                             {

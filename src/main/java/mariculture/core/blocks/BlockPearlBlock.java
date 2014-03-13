@@ -3,6 +3,7 @@ package mariculture.core.blocks;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PearlColor;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
@@ -11,11 +12,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPearlBlock extends BlockDecorative {
+	public String name;
 	public BlockPearlBlock() {
 		super(Material.rock);
-		this.setResistance(20F);
-		this.setHardness(2F);
+		setResistance(20F);
+		setHardness(2F);
 	}
+	
+	public Block setBlockName(String name) {
+		super.setBlockName(name);
+		this.name = name;
+        return this;
+    }
 	
 	@Override
 	public String getToolType(int meta) {
@@ -30,7 +38,7 @@ public class BlockPearlBlock extends BlockDecorative {
 	@Override
 	public void register() {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("pearlBrick." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
+			MaricultureRegistry.register(name + "." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 	
@@ -45,7 +53,7 @@ public class BlockPearlBlock extends BlockDecorative {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "pearlBrick_" + getName(new ItemStack(this, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + "_" + getName(new ItemStack(this, 1, i)));
 		}
 	}
 }

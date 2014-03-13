@@ -10,6 +10,7 @@ import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
@@ -68,15 +69,21 @@ public class Recipes {
 		});
 
 	//Basic Blocks
-		//Limestone Brick
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_BRICK), Core.oreBlocks, OresMeta.LIMESTONE);
-		//Chiseled Limestone
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_SMOOTH);
-		//Smooth Limestone
-		RecipeHelper.addSmelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
-		//Thin Limestone Brick
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_THIN), new Object[] {
-			"CX", "XC", 'C', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK), 'X', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED)
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BRICK), Core.limestone, LimestoneMeta.RAW);
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BORDERED), Core.limestone, LimestoneMeta.SMOOTH);
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.SMALL_BRICK), Core.limestone, LimestoneMeta.BRICK);
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.CHISELED), Core.limestone, LimestoneMeta.BORDERED);
+		RecipeHelper.addSmelting(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 0.1F);
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 4, LimestoneMeta.THIN_BRICK), new Object[] {
+			"XY", "YX", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.BRICK), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.SMALL_BRICK)
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
+			"X", "X", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH)
+		});
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 4, LimestoneMeta.PEDESTAL_1), new Object[] {
+			"XY", "YX", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.BORDERED)
 		});
 		
 		//Base Brick
@@ -157,6 +164,7 @@ public class Recipes {
 
 		//Pearl Bricks
 		for (int i = 0; i < 12; i++) {
+			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBrick, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBlock, 1, i), new ItemStack(Core.pearls, 1, i));
 			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 		}
@@ -188,7 +196,7 @@ public class Recipes {
 		});
 		
 		//Plastic > 60 Seconds > 30 Buckets of Natural Gas + 16 Limestone
-		RecipeHelper.addVatItemRecipe(new ItemStack(Core.oreBlocks, 16, OresMeta.LIMESTONE), FluidDictionary.natural_gas, 30000, 
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.limestone, 16, LimestoneMeta.RAW), FluidDictionary.natural_gas, 30000, 
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 60);
 		
 		//Plastic Lens
@@ -273,7 +281,7 @@ public class Recipes {
 		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_ALUMINUM), "blockAluminum");
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.oreBlocks, 1, OresMeta.COPPER_BLOCK), "ingotCopper");
 		RecipeHelper.addUncraftingRecipe(new ItemStack(Core.materials, 9, MaterialsMeta.INGOT_COPPER), "blockCopper");
-		RecipeHelper.addSmelting(new ItemStack(Core.oreBlocks, 1, OresMeta.COPPER), new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), 0.5F);
+		RecipeHelper.addSmelting(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), new ItemStack(Core.oreBlocks, 1, OresMeta.COPPER), 0.5F);
 	}
 	
 	private static void addUpgradeRecipes() {

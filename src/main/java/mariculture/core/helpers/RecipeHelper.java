@@ -28,7 +28,7 @@ public class RecipeHelper {
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(result, input));
 	}
 
-	public static void addSmelting(ItemStack input, ItemStack output, float xp) {
+	public static void addSmelting(ItemStack output, ItemStack input, float xp) {
 		GameRegistry.addSmelting(input, output, xp);
 	}
 

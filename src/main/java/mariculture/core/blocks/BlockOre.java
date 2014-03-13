@@ -63,36 +63,16 @@ public class BlockOre extends BlockDecorative {
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
-		case OresMeta.BAUXITE:
-			return 3F;
-		case OresMeta.RUTILE:
-			return 10F;
-		case OresMeta.LIMESTONE:
-			return 1F;
-		case OresMeta.LIMESTONE_BRICK:
-			return 1.5F;
-		case OresMeta.CORAL_ROCK:
-			return 5F;
-		case OresMeta.ALUMINUM_BLOCK:
-			return 3.5F;
-		case OresMeta.TITANIUM_BLOCK:
-			return 15F;
-		case OresMeta.MAGNESIUM_BLOCK:
-			return 3F;
-		case OresMeta.COPPER:
-			return 1.5F;
-		case OresMeta.COPPER_BLOCK:
-			return 2F;
-		case OresMeta.LIMESTONE_SMOOTH:
-			return 1.5F;
-		case OresMeta.LIMESTONE_CHISELED:
-			return 1.5F;
-		case OresMeta.BASE_BRICK:
-			return 8F;
-		case OresMeta.BASE_IRON:
-			return 5F;
-		case OresMeta.LIMESTONE_THIN:
-			return 1.4F;
+			case OresMeta.BAUXITE: 			return 3F;
+			case OresMeta.RUTILE: 			return 10F;
+			case OresMeta.CORAL_ROCK: 		return 5F;
+			case OresMeta.ALUMINUM_BLOCK: 	return 3.5F;
+			case OresMeta.TITANIUM_BLOCK: 	return 15F;
+			case OresMeta.MAGNESIUM_BLOCK: 	return 3F;
+			case OresMeta.COPPER: 			return 1.5F;
+			case OresMeta.COPPER_BLOCK: 	return 2F;
+			case OresMeta.BASE_BRICK: 		return 8F;
+			case OresMeta.BASE_IRON:		return 5F;
 		}
 
 		return 3F;
@@ -106,16 +86,9 @@ public class BlockOre extends BlockDecorative {
 			return getBlockHardness(world, x, y, z) * 3;
 		}
 	}
-
-	@Override
-	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
-		return world.getBlockMetadata(x, y, z) == OresMeta.LIMESTONE;
-	}
 	
 	public boolean isActive(int meta) {
-		if(meta == OresMeta.CORAL_ROCK)
-			return Modules.world.isActive();
-		return meta != OresMeta.UNUSED;
+		return (meta == OresMeta.CORAL_ROCK)? Modules.world.isActive(): true;
 	}
 	
 	@Override

@@ -1,7 +1,5 @@
 package mariculture.core;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,7 @@ import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.BlockFluidMari;
 import mariculture.core.blocks.BlockGlass;
 import mariculture.core.blocks.BlockGround;
+import mariculture.core.blocks.BlockLimestone;
 import mariculture.core.blocks.BlockOre;
 import mariculture.core.blocks.BlockPearlBlock;
 import mariculture.core.blocks.BlockSingle;
@@ -39,7 +38,6 @@ import mariculture.core.handlers.ClientFMLEvents;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.ModulesHandler;
 import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.handlers.UpgradeHandler;
@@ -61,18 +59,17 @@ import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
 import mariculture.factory.OreDicHandler;
-import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -81,19 +78,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.Height;
-import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
-import org.apache.logging.log4j.Level;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -103,6 +93,7 @@ public class Core extends Module {
 	public static Block utilBlocks;
 	public static Block singleBlocks;
 	public static Block pearlBlock;
+	public static Block pearlBrick;
 	public static Block doubleBlock;
 	public static Block glassBlocks;
 	public static Block airBlocks;
@@ -182,10 +173,12 @@ public class Core extends Module {
 	@Override
 	public void registerBlocks() {
 		oreBlocks = new BlockOre().setStepSound(Block.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
+		limestone = new BlockLimestone().setStepSound(Block.soundTypeStone).setBlockName("limestone");
 		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
 		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
 		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		pearlBlock = new BlockPearlBlock().setBlockName("pearlBrick");
+		pearlBlock = new BlockPearlBlock().setBlockName("pearlBlock");
+		pearlBrick = new BlockPearlBlock().setBlockName("pearlBrick");
 		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
 		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
 		woodBlocks = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
@@ -193,20 +186,6 @@ public class Core extends Module {
 		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
 		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
 		waterBlocks = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("waterBlocks");
-		
-		/* GameRegistry.registerBlock(oreBlocks, BlockOreItem.class, "BlockOre");
-		GameRegistry.registerBlock(utilBlocks, BlockUtilItem.class, "BlockUtil");
-		GameRegistry.registerBlock(singleBlocks, BlockSingleItem.class, "BlockSingle");
-		GameRegistry.registerBlock(doubleBlock, BlockDoubleItem.class, "BlockDouble");
-		GameRegistry.registerBlock(pearlBlock, BlockPearlBlockItem.class, "BlockPearlBlock");
-		GameRegistry.registerBlock(glassBlocks, BlockGlassItem.class, "BlockGlass");
-		GameRegistry.registerBlock(airBlocks, BlockAirItem.class, "BlockAir");
-		GameRegistry.registerBlock(woodBlocks, BlockWoodItem.class, "BlockWood");
-		GameRegistry.registerBlock(tankBlocks, BlockTankItem.class, "BlockTank");
-		GameRegistry.registerBlock(groundBlocks, BlockGroundItem.class, "BlockGround");
-		GameRegistry.registerBlock(transparentBlocks, BlockTransparentItem.class, "BlockTransparent");
-		GameRegistry.registerBlock(waterBlocks, BlockWaterItem.class, "BlockWater");
-		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock"); */
 		
 		GameRegistry.registerTileEntity(TileAirPump.class, "TileAirPump");
 		GameRegistry.registerTileEntity(TileLiquifier.class, "TileLiquifier");
@@ -218,7 +197,7 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileVoidBottle.class, "TileVoidBottle");
 		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
 
-		RegistryHelper.register(new Object[] { oreBlocks, pearlBlock, utilBlocks, doubleBlock,
+		RegistryHelper.register(new Object[] { oreBlocks, limestone, pearlBlock, pearlBrick, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks, waterBlocks });
 	}
 	
@@ -278,7 +257,7 @@ public class Core extends Module {
 		OreDicHelper.add("blockRedstone", new ItemStack(Blocks.redstone_block));
 		OreDicHelper.add("dustRedstone", new ItemStack(Items.redstone));
 		
-		OreDictionary.registerOre("blockLimestone", new ItemStack(oreBlocks, 1, OresMeta.LIMESTONE));
+		OreDictionary.registerOre("blockLimestone", new ItemStack(limestone, 1, LimestoneMeta.RAW));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER));
 		OreDictionary.registerOre("oreAluminum", new ItemStack(oreBlocks, 1, OresMeta.BAUXITE));
 		OreDictionary.registerOre("oreRutile", new ItemStack(oreBlocks, 1, OresMeta.RUTILE));

@@ -54,7 +54,7 @@ public class BiomeGenSandyRiver extends BiomeGenRiver {
                             {
                                 block = null;
                                 b0 = 0;
-                                block1 = Core.oreBlocks;
+                                block1 = Core.limestone;
                             }
                             else if (l1 >= 59 && l1 <= 64)
                             {
@@ -87,7 +87,7 @@ public class BiomeGenSandyRiver extends BiomeGenRiver {
                             else if (l1 < 56 - l)
                             {
                                 block = null;
-                                block1 = Core.oreBlocks;
+                                block1 = Core.limestone;
                                 blocks[i2] = Blocks.sand;
                             }
                             else
@@ -98,10 +98,13 @@ public class BiomeGenSandyRiver extends BiomeGenRiver {
                         else if (k > 0)
                         {
                             --k;
+                            
                             blocks[i2] = block1;
-                            if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) metas[i2] = OresMeta.RUTILE;
-                            else metas[i2] = OresMeta.LIMESTONE;
-
+                            if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
+                            	blocks[i2] = Core.oreBlocks;
+                            	metas[i2] = OresMeta.RUTILE;
+                            }
+                            
                             if (k == 0 && block1 == Blocks.sand)
                             {
                                 k = rand.nextInt(4) + Math.max(0, l1 - 63);

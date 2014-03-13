@@ -77,11 +77,12 @@ public abstract class BlockConnected extends BlockDecorative {
 	}
 	
 	private boolean isSameBlock(IBlockAccess block, int[] coords1, int[] coords2) {
-		if (block.getBlock(coords1[0], coords1[1], coords1[2]) == this) {
+		if (block.getBlock(coords1[0], coords1[1], coords1[2]) == block.getBlock(coords2[0], coords2[1], coords2[2])) {
 			if (block.getBlockMetadata(coords1[0], coords1[1], coords1[2]) == block.getBlockMetadata(coords2[0], coords2[1], coords2[2])) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	

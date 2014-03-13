@@ -8,6 +8,7 @@ import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.OresMeta;
@@ -249,11 +250,11 @@ public class RecipesSmelting {
 		
 		addRecipe(FluidDictionary.titanium, MetalRates.MATERIALS, new Object[] { 
 				"oreRutile", "nuggetTitanium", "ingotTitanium", "blockTitanium", "dustTitanium" }, 
-						titanium, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
+						titanium, new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 2);
 		RecipeHelper.addIngotCasting(FluidDictionary.titanium, "Titanium");
 
 		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.RUTILE), titanium, 
-				FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 2);
+				FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 2);
 		
 		RecipeHelper.addIngotCasting(FluidDictionary.rutile, new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE));
 		
@@ -309,10 +310,8 @@ public class RecipesSmelting {
 				FluidRegistry.getFluidStack("water", 10000), new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE), 10);
 		
 		//Limestone > Quicklime
-		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE), 825, get(FluidDictionary.quicklime, 1000));
-		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK), 825, get(FluidDictionary.quicklime, 1000));
-		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 825, get(FluidDictionary.quicklime, 1100));
-		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED), 825, get(FluidDictionary.quicklime, 1100));
+		RecipeHelper.addMelting(new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 825, get(FluidDictionary.quicklime, 900));
+		RecipeHelper.addMelting(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), 825, get(FluidDictionary.quicklime, 1000));
 		
 		//1500mB QuickLime + 1 Cobble = 2 Gravel
 		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.cobblestone), FluidDictionary.quicklime, 1500, new ItemStack(Blocks.gravel, 3, 0), 10);

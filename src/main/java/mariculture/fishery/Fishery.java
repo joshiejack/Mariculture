@@ -528,7 +528,7 @@ public class Fishery extends Module {
 				new ItemStack(Items.bowl) });
 		
 		//Smoked Salmon
-		RecipeHelper.addSmelting(new ItemStack(Items.fish, 1, salmon.fishID), new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), 0.1F);
+		RecipeHelper.addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), new ItemStack(Items.fish, 1, salmon.fishID), 0.1F);
 
 		// Cod > Fish Finger
 		GameRegistry.addRecipe(new ItemStack(Core.food, 64, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",

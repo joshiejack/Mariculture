@@ -62,8 +62,7 @@ public class BlockWood extends BlockDecorative {
 	        int j1 = meta & 3;
 	        byte b0 = 0;
 	
-	        switch (side)
-	        {
+	        switch (side) {
 	            case 0:
 	            case 1:
 	                b0 = 0;

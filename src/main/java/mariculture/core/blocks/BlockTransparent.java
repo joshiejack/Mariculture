@@ -18,17 +18,6 @@ public class BlockTransparent extends BlockConnected {
 		super(Material.glass);
 		this.setHardness(0.5F);
 	}
-	
-	//TODO: Check Plastic is harvestable
-	@Override
-	public String getToolType(int meta) {
-		return null;
-	}
-
-	@Override
-	public int getToolLevel(int meta) {
-		return 0;
-	}
 
 	@Override
 	public int getRenderBlockPass() {

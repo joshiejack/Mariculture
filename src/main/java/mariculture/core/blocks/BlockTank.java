@@ -40,17 +40,6 @@ public class BlockTank extends BlockConnected {
 	public BlockTank() {
 		super(Material.piston);
 	}
-	
-	//TODO: Check Tanks are harvestable
-	@Override
-	public String getToolType(int meta) {
-		return null;
-	}
-
-	@Override
-	public int getToolLevel(int meta) {
-		return 0;
-	}
 
 	@Override
 	public int getRenderBlockPass() {
