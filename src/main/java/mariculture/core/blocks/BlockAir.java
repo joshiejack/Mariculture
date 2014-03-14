@@ -99,7 +99,7 @@ public class BlockAir extends BlockDecorative {
     }
 	
 	private boolean isNaturalGas(IBlockAccess world, int x, int y, int z) {
-		return world.getBlock(x, y, z) == Core.airBlocks && world.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
+		return world.getBlock(x, y, z) == Core.air && world.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
 	}
 	
 	@Override

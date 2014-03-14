@@ -25,6 +25,8 @@ import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.MachineMeta;
+import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
@@ -32,7 +34,6 @@ import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.blocks.BlockItemNet;
@@ -359,22 +360,22 @@ public class Fishery extends Module {
 		
 		// Log > 30000mB of Fish Oil > 45 Seconds = 1 Polished Log (or 30000mB for 8 Sticks)
 		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.planks), FluidDictionary.fish_oil, 30000, 
-				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG), 45);
+				new ItemStack(Core.woods, 1, WoodMeta.POLISHED_LOG), 45);
 		//1 Plank = 9000mB > 30 Seconds = 1 Polished Plank (or 36000mB for 8 Sticks)
 		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.planks), FluidDictionary.fish_oil, 10000, 
-				new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK), 30);
+				new ItemStack(Core.woods, 1, WoodMeta.POLISHED_PLANK), 30);
 		//1 Stick = 5000mB > 15 Seconds or (40000mB for 8 Sticks)
 		RecipeHelper.addVatItemRecipe(new ItemStack(Items.stick), FluidDictionary.fish_oil, 5000, 
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 15);
 				
 		//1 Polished Log = 4 Polished Planks
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.woodBlocks, 4, WoodMeta.POLISHED_PLANK), new Object[] {
-			new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_LOG)
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.woods, 4, WoodMeta.POLISHED_PLANK), new Object[] {
+			new ItemStack(Core.woods, 1, WoodMeta.POLISHED_LOG)
 		});
 				
 		//2 Polished Planks = 4 Polished Sticks
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
-			"S", "S", 'S', new ItemStack(Core.woodBlocks, 1, WoodMeta.POLISHED_PLANK)
+			"S", "S", 'S', new ItemStack(Core.woods, 1, WoodMeta.POLISHED_PLANK)
 		});
 				
 		//Polished Titanium Rod > 6500mB Fish Oil + Titanium Rod
@@ -400,15 +401,15 @@ public class Fishery extends Module {
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.AUTOFISHER), new Object[] { " F ", "RPR", "WBW", 
+				.add(new ShapedOreRecipe(new ItemStack(Core.machines, 1, MachineMeta.AUTOFISHER), new Object[] { " F ", "RPR", "WBW", 
 					Character.valueOf('W'), "logWood", 
 					Character.valueOf('R'), new ItemStack(rodWood), 
 					Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-					Character.valueOf('B'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
+					Character.valueOf('B'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD),
 					Character.valueOf('P'), "plankWood"}));
 		
 		/* Fish Feeder and Incubator Blocks */
-		GameRegistry.addRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.FISH_FEEDER), new Object[] { "WFW", "WCW", "WFW", 
+		GameRegistry.addRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.FISH_FEEDER), new Object[] { "WFW", "WCW", "WFW", 
 				Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
 				Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
 				Character.valueOf('C'), Blocks.chest });
@@ -416,14 +417,14 @@ public class Fishery extends Module {
 		CraftingManager
 				.getInstance()
 				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_TOP), new Object[] {"DFD", "CHC", 
+				.add(new ShapedOreRecipe(new ItemStack(Core.multiMachines, 1, MachineMultiMeta.INCUBATOR_TOP), new Object[] {"DFD", "CHC", 
 					Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
 					Character.valueOf('D'), "dyeBrown", 
 					Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 0), 
 					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
 
 		//Incubator Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.INCUBATOR_BASE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMultiMeta.INCUBATOR_BASE), new Object[] {
 			"DBD", "CHC",
 			Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 3),
 			Character.valueOf('B'), new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
@@ -432,7 +433,7 @@ public class Fishery extends Module {
 		});
 		
 		//FishTank
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.tankBlocks, 1, TankMeta.FISH), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.tanks, 1, TankMeta.FISH), new Object[] {
 			"AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "glass",
 			'F', new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE)
 		});
@@ -477,9 +478,9 @@ public class Fishery extends Module {
 		//Extra Sifter Recipes
 		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.DIRE, EnumRodQuality.OLD, EnumRodQuality.ELECTRIC));
 		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.ELECTRIC));
 		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.DIRE, EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(Items.bread), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
+		Fishing.bait.addBaitForQuality(new ItemStack(Items.bread), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
 		Fishing.bait.addBaitForQuality(new ItemStack(Items.fish, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
 		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(EnumRodQuality.ELECTRIC));
 	}
@@ -552,7 +553,7 @@ public class Fishery extends Module {
 		for (int i = 0; i < 12; i++) {
 			GameRegistry.addRecipe(new ItemStack(lampsOn, 4, i), new Object[] { "GDG", "PFP", "GRG", 
 					Character.valueOf('P'), new ItemStack(Core.pearls, 1, i),
-					Character.valueOf('G'), new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC),
+					Character.valueOf('G'), new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC),
 					Character.valueOf('R'), Items.redstone, 
 					Character.valueOf('D'), Items.glowstone_dust,
 					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fishery.tetra.fishID) });

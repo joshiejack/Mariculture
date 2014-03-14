@@ -1,131 +1,201 @@
 package mariculture.core.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
-import mariculture.api.core.MaricultureTab;
-import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.SingleMeta;
-import mariculture.core.lib.UtilMeta;
-import mariculture.core.util.IHasMeta;
-import mariculture.core.util.IItemRegistry;
+import mariculture.core.Core;
+import mariculture.core.lib.MachineMeta;
+import mariculture.core.lib.MetalMeta;
+import mariculture.core.lib.Modules;
+import mariculture.core.lib.WoodMeta;
+import mariculture.core.network.PacketSponge;
+import mariculture.factory.blocks.TileDictionaryFluid;
+import mariculture.factory.blocks.TileDictionaryItem;
+import mariculture.factory.blocks.TileFishSorter;
+import mariculture.factory.blocks.TileSawmill;
+import mariculture.factory.blocks.TileSluice;
+import mariculture.factory.blocks.TileSponge;
+import mariculture.fishery.blocks.TileAutofisher;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import cofh.api.energy.IEnergyContainerItem;
+import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BlockMachine extends BlockContainer implements IItemRegistry, IHasMeta {
-	protected IIcon[] icons;
+public class BlockMachine extends BlockFunctional {
+	private IIcon[] fishSorter;
+	private IIcon sluiceBack;
+	private IIcon sluiceUp;
+	private IIcon sluiceDown;
 	
-	public BlockMachine(Material material) {
-		super(material);
-		setCreativeTab(MaricultureTab.tabMariculture);
-		setHarvestLevels();
+	public BlockMachine() {
+		super(Material.piston);
 	}
 	
-	public void setHarvestLevels() {
-		for(int i = 0; i < getMetaCount(); i++) {
-			setHarvestLevel(getToolType(i), getToolLevel(i), UtilMeta.INCUBATOR_BASE);
+	@Override
+	public String getToolType(int meta) {
+		switch (meta) {
+			case MachineMeta.SLUICE: return "pickaxe";
+			case MachineMeta.SPONGE: return "pickaxe";
+			default:				 return "axe";
+		}
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		switch (meta) {
+			case MachineMeta.SLUICE: return 1;
+			case MachineMeta.SPONGE: return 1;
+			default:				 return 0;
 		}
 	}
 	
-	public abstract String getToolType(int meta);
-	public abstract int getToolLevel(int meta);
-	public abstract boolean isActive(int meta);
+	@Override
+	public float getBlockHardness(World world, int x, int y, int z) {
+		switch (world.getBlockMetadata(x, y, z)) {
+			case MachineMeta.BOOKSHELF: 		return 1F;
+			case MachineMeta.DICTIONARY_ITEM: 	return 2F;
+			case MachineMeta.DICTIONARY_FLUID: 	return 2.5F;
+			case MachineMeta.SAWMILL:			return 2F;
+			case MachineMeta.SLUICE: 			return 5F;
+			case MachineMeta.SPONGE: 			return 2.5F;
+			case MachineMeta.AUTOFISHER: 		return 2F;
+			case MachineMeta.FISH_SORTER: 		return 1.5F;
+			default:							return 1F;
+		}
+	}
 	
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		super.onBlockAdded(world, x, y, z);
+	public float getEnchantPowerBonus(World world, int x, int y, int z) {
+        return world.getBlockMetadata(x, y, z) == MachineMeta.BOOKSHELF ? 5 : 0;
+    }
+	
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		if (meta == MachineMeta.FISH_SORTER) return fishSorter[side];
+		if(side < 2) {
+			if(meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
+			if(meta == MachineMeta.SLUICE) 	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+			if(meta == MachineMeta.SPONGE)	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+			return Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
+		}
+
+		return super.getIcon(side, meta);
+	}
+	
+	@Override
+	public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
+		TileEntity tile = block.getTileEntity(x, y, z);
+		if(tile instanceof TileBookshelf) return Blocks.bookshelf.getIcon(side, 0);
+		else if(tile instanceof TileSluice) {
+			TileSluice sluice = (TileSluice) tile;
+			if(sluice.direction.ordinal() == side) return side > 1? icons[MachineMeta.SLUICE]: sluiceUp;
+			else if(sluice.direction.getOpposite().ordinal() == side) return side > 1? sluiceBack: sluiceDown;
+			else return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+		} else return super.getIcon(block, x, y, z, side);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if (tile == null || player.isSneaking()) {
+			return false;
+		}
+		
+		if (tile instanceof TileSponge) {
+			if(world.isRemote && player instanceof EntityClientPlayerMP) {
+				Mariculture.packets.sendToServer(new PacketSponge(x, y, z, true));
+			} else if(player.getCurrentEquippedItem() != null && !world.isRemote) {
+				Item currentItem = player.getCurrentEquippedItem().getItem();
+				if (currentItem instanceof IEnergyContainerItem && !world.isRemote) {
+					int powerAdd = ((IEnergyContainerItem)currentItem).extractEnergy(player.getCurrentEquippedItem(), 5000, true);
+					int reduce = ((IEnergyHandler)tile).receiveEnergy(ForgeDirection.UNKNOWN, powerAdd, false);
+					((IEnergyContainerItem)currentItem).extractEnergy(player.getCurrentEquippedItem(), reduce, false);
+				} 
+			}
+			
+			return true;
+		}
+
+		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	}
+	
+	//Clears water blocks around the sluice
+	private void clearWater(World world, int x, int y, int z) {
+		if (world.getBlock(x, y, z).getMaterial() == Material.water) {
+			world.setBlockToAir(x, y, z);
+		}
 	}
 	
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		BlockHelper.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, block, meta);
-	}
-	
-	@Override
-	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		if(player.capabilities.isCreativeMode)
-			return world.setBlockToAir(x, y, z);
-		if(doesDrop(world.getBlockMetadata(x, y, z)) || world.isRemote) {
-			return super.removedByPlayer(world, player, x, y, z);
-		} else {
-			return onBlockDropped(world, x, y, z);
-		}
-    }
-	
-	public Item getItemDropped(int meta, Random random, int j) {
-		return !doesDrop(meta)? null: super.getItemDropped(meta, random, j);
-    }
-	
-	//Whether this block drops or not
-	public boolean doesDrop(int meta) {
-		return true;
-	}
-	
-	//Call by removed by player for when the block is dropped
-	public boolean onBlockDropped(World world, int x, int y, int z) { 
-		return world.setBlockToAir(x, y, z);
-	}
-
-	@Override
-	public void register() {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
+		
+		if (meta == MachineMeta.SLUICE) {
+			clearWater(world, x + 1, y, z);
+			clearWater(world, x - 1, y, z);
+			clearWater(world, x, y, z + 1);
+			clearWater(world, x, y, z - 1);
 		}
 	}
 
 	@Override
-	public String getName(ItemStack stack) {
-		return RegistryHelper.getName(stack);
+	public TileEntity createTileEntity(World world, int meta) {
+		switch (meta) {
+			case MachineMeta.BOOKSHELF: 		return new TileBookshelf();
+			case MachineMeta.DICTIONARY_ITEM: 	return new TileDictionaryItem();
+			case MachineMeta.DICTIONARY_FLUID: 	return new TileDictionaryFluid();
+			case MachineMeta.SAWMILL:			return new TileSawmill();
+			case MachineMeta.SLUICE: 			return new TileSluice();
+			case MachineMeta.SPONGE: 			return new TileSponge();
+			case MachineMeta.AUTOFISHER: 		return new TileAutofisher();
+			case MachineMeta.FISH_SORTER: 		return new TileFishSorter();
+			default:							return null;
+		}
+	}
+	
+	@Override
+	public boolean isActive(int meta) {
+		switch (meta) {
+			case MachineMeta.BOOKSHELF: 		return true;
+			case MachineMeta.DICTIONARY_ITEM: 	return Modules.factory.isActive();
+			case MachineMeta.DICTIONARY_FLUID: 	return Modules.factory.isActive();
+			case MachineMeta.SAWMILL:			return Modules.factory.isActive();
+			case MachineMeta.SLUICE: 			return Modules.factory.isActive();
+			case MachineMeta.SPONGE: 			return Modules.factory.isActive();
+			case MachineMeta.AUTOFISHER: 		return Modules.fishery.isActive();
+			case MachineMeta.FISH_SORTER: 		return Modules.fishery.isActive();
+			default:							return true;
+		}
+	}
+
+	@Override
+	public int getMetaCount() {
+		return MachineMeta.COUNT;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creative, List list) {
-		for (int meta = 0; meta < getMetaCount(); ++meta) {
-			if (isActive(meta)) {
-				list.add(new ItemStack(item, 1, meta));
-			}
+	public void registerBlockIcons(IIconRegister iconRegister) {	
+		super.registerBlockIcons(iconRegister);
+		
+		//Register other icons
+		fishSorter = new IIcon[6];
+		for(int i = 0; i < 6; i++) {
+			fishSorter[i] = iconRegister.registerIcon(Mariculture.modid + ":fishsorter" + (i + 1));
 		}
-	}
-	
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		if(meta < getMetaCount()) {
-			return icons[meta];
-		} else { 
-			return icons[0];
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister iconRegister) {
-		icons = new IIcon[getMetaCount()];
-
-		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
-		}
-	}
-	
-	@Override
-	public Class<? extends ItemBlock> getItemClass() {
-		return null;
+		
+		sluiceBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceBack");
+		sluiceUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceUp");
+		sluiceDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceDown");
 	}
 }

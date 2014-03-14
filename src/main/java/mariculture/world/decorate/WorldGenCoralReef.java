@@ -6,11 +6,8 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.OresMeta;
-import mariculture.core.util.Rand;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -29,7 +26,7 @@ public class WorldGenCoralReef extends WorldGenerator {
 	
 	private void setBlock(World world, int x, int y, int z) {
 		cache.add(new Coords(x, y, z));
-		world.setBlock(x, y, z, Core.oreBlocks, OresMeta.CORAL_ROCK, 2);
+		world.setBlock(x, y, z, Core.rocks);
 	}
 	
 	public boolean coralCanReplace(Block block) {

@@ -11,15 +11,15 @@ import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.diving.Diving;
@@ -34,7 +34,7 @@ import mariculture.factory.blocks.BlockCustomStairs;
 import mariculture.factory.blocks.BlockCustomWall;
 import mariculture.factory.blocks.TileCustom;
 import mariculture.factory.blocks.TileCustomPowered;
-import mariculture.factory.blocks.TileDictionary;
+import mariculture.factory.blocks.TileDictionaryItem;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileGeyser;
@@ -123,7 +123,7 @@ public class Factory extends Module {
 		GameRegistry.registerTileEntity(TileTurbineWater.class, "tileEntityTurbine");
 		GameRegistry.registerTileEntity(TileFLUDDStand.class, "tileEntityFLUDD");
 		GameRegistry.registerTileEntity(TilePressureVessel.class, "tileEntityPressureVessel");
-		GameRegistry.registerTileEntity(TileDictionary.class, "tileEntityDictionary");
+		GameRegistry.registerTileEntity(TileDictionaryItem.class, "tileEntityDictionary");
 		GameRegistry.registerTileEntity(TileTurbineGas.class, "tileEntityTurbineGas");
         GameRegistry.registerTileEntity(TileSponge.class, "tileEntitySponge");
         GameRegistry.registerTileEntity(TileTurbineHand.class, "tileEntityTurbineHand");
@@ -155,32 +155,32 @@ public class Factory extends Module {
 	public void addRecipes() {
 	//Blocks
 		//Sawmill
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.SAWMILL), new Object[] {
 			" A ", "DWD", "IMI",
 			Character.valueOf('A'), Items.iron_axe, 
 			Character.valueOf('D'), "slabWood",
-			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
+			Character.valueOf('M'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD),
 			Character.valueOf('W'), "logWood", 
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
 		//Autodictionary Converter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {
 			" B ", "FPF", "IMI",
 			Character.valueOf('F'), Items.feather, 
 			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
-			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
+			Character.valueOf('M'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD), 
 			Character.valueOf('B'), Items.writable_book,
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
 		if(Extra.ENDER_CONVERTER) {
 			//Alternative for Converter
-			RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
+			RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {
 				" B ", "FPF", "IMI",
 				Character.valueOf('F'), Items.feather, 
 				Character.valueOf('P'), Items.ender_pearl, 
-				Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
+				Character.valueOf('M'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD), 
 				Character.valueOf('B'), Items.writable_book,
 				Character.valueOf('I'), "ingotCopper"
 			});
@@ -190,67 +190,67 @@ public class Factory extends Module {
 		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Blocks.sponge): new ItemStack(Items.water_bucket);
 		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
 		ItemStack fish = new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
 			Character.valueOf('D'), fish, 
 			Character.valueOf('S'), sponge, 
-			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
+			Character.valueOf('C'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON),
 			Character.valueOf('A'), water,
 			Character.valueOf('T'), "ingotAluminum"
 		});
 		
 		//Sluice
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 4, UtilMeta.SLUICE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 4, MachineMeta.SLUICE), new Object[] {
 			" H ", "WBW", "IMI",
 			Character.valueOf('H'), Blocks.hopper, 
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
-			Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
+			Character.valueOf('M'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON), 
 			Character.valueOf('B'), Blocks.iron_bars,
 			Character.valueOf('I'), "ingotAluminum"
 		});
 		
 		//Manual Turbine Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_HAND), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.TURBINE_HAND), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineCopper,
 			Character.valueOf('I'), "ingotCopper", 
-			Character.valueOf('B'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
+			Character.valueOf('B'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD), 
 			Character.valueOf('S'), "slabWood",
 			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Water Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_WATER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.TURBINE_WATER), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineAluminum,
 			Character.valueOf('I'), "ingotAluminum", 
-			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
+			Character.valueOf('B'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON), 
 			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 0),
 			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Gas Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_GAS), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.TURBINE_GAS), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineTitanium,
 			Character.valueOf('I'), "ingotTitanium", 
-			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
+			Character.valueOf('B'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON), 
 			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 7),
 			Character.valueOf('P'), Blocks.piston
 		});
 		
 		//Pressure Vessel
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
 			"WLW", "PTP", "PSP",
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET),
-			Character.valueOf('T'), new ItemStack(Core.tankBlocks, 1, TankMeta.TANK),
-			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE)
+			Character.valueOf('T'), new ItemStack(Core.tanks, 1, TankMeta.TANK),
+			Character.valueOf('S'), new ItemStack(Core.machines, 1, MachineMeta.SLUICE)
 		});
 		
 		//Sorter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.FISH_SORTER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER), new Object[] {
 			"BPY", "GFA", "RCW",
 			Character.valueOf('B'), "dyeBlack",
 			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE),
@@ -259,17 +259,17 @@ public class Factory extends Module {
 			Character.valueOf('F'), fish,
 			Character.valueOf('A'), "dyeCyan",
 			Character.valueOf('R'), "dyeRed",
-			Character.valueOf('C'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
+			Character.valueOf('C'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD),
 			Character.valueOf('W'), "dyeWhite"
 		});
 		
 		//Geyser
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 16, SingleMeta.GEYSER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 16, SingleMeta.GEYSER), new Object[] {
 			" W ", " G ", "RCR",
 			Character.valueOf('W'), Items.water_bucket,
 			Character.valueOf('G'), "glass",
 			Character.valueOf('R'), Items.redstone,
-			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
+			Character.valueOf('C'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON),
 		});
 		
 	//Items
@@ -285,7 +285,7 @@ public class Factory extends Module {
 			" E ", "PGP", "LUL",
 			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
 			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 
-			Character.valueOf('G'), new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC), 
+			Character.valueOf('G'), new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 
 			Character.valueOf('L'), tank, 
 			Character.valueOf('U'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE)
 		});
@@ -348,7 +348,7 @@ public class Factory extends Module {
 			" WW", " IW", "S  ",
 			Character.valueOf('W'), new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE), 
 			Character.valueOf('I'), "blockAluminum", 
-			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL)
+			Character.valueOf('S'), new ItemStack(Core.machines, 1, MachineMeta.SAWMILL)
 		});
 		
 		//Copper Turbine

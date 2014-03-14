@@ -43,7 +43,7 @@ public class ItemPaintbrush extends ItemDamageable {
 				stack.stackTagCompound.setBoolean("Refresh", !stack.stackTagCompound.getBoolean("Refresh"));
 			}
 			
-			stack.stackTagCompound.setString("Block", Block.blockRegistry.getNameForObject(Core.airBlocks));
+			stack.stackTagCompound.setString("Block", Block.blockRegistry.getNameForObject(Core.air));
 			stack.stackTagCompound.setInteger("Meta", AirMeta.FAKE_AIR);
 			stack.stackTagCompound.setInteger("Side", 0);
 		}

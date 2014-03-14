@@ -46,7 +46,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSingle extends BlockMachine {
+public class BlockSingle extends BlockOldMachine {
 	public BlockSingle() {
 		super(Material.piston);
 	}

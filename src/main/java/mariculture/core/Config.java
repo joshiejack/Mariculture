@@ -88,12 +88,6 @@ public class Config {
             OreGeneration.NATURAL_GAS_VEIN = config.get(Category.ORE, "Natural Gas > Maximum Vein Size", 48).getInt();
             OreGeneration.NATURAL_GAS_MIN = config.get(Category.ORE, "Natural Gas > Minimum Y Height", 16).getInt();
             OreGeneration.NATURAL_GAS_MAX = config.get(Category.ORE, "Natural Gas > Maximum Y Height", 26).getInt();
-
-            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > Force in BOP Coral Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
-            WorldGeneration.CORAL_BIOMESOP_TYPES = config.get(Category.WORLD, "Coral > Force in Coral Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
-            WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);
-            WorldGeneration.CORAL_CHANCE = config.get(Category.WORLD, "Coral > 1 Reef Per this Many Chunks", 64).getInt();
-            WorldGeneration.CORAL_DEPTH = config.get(Category.WORLD, "Coral > Maximum Depth", 25).getInt();
             
             WorldGeneration.WATER_CAVES = config.get(Category.WORLD, "Water Filled Caves in Oceans", false).getBoolean(false);
             WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
@@ -105,6 +99,13 @@ public class Config {
             WorldGeneration.OYSTER_PEARL_CHANCE = config.get(Category.WORLD, "Pearl Oyster > 1 Natural Pearl Per this Many Oysters", 3).getInt();
             WorldGeneration.ANCIENT_SAND_ENABLED = config.get(Category.WORLD, "Ancient Sand > Enabled", true).getBoolean(true);
             
+            WorldGeneration.CORAL_REEF_ENABLED = config.get(Category.WORLD, "Coral Reef > Generation", true).getBoolean(true);
+            
+            //TODO: Readd the coral biome forcing
+            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > Force in BOP Coral Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
+            WorldGeneration.CORAL_BIOMESOP_TYPES = config.get(Category.WORLD, "Coral > Force in Coral Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
+            
+            //Kelp Settins
             WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp Forest > Enabled", true).getBoolean(true);
             WorldGeneration.KELP_FOREST_START_CHANCE = config.get(Category.WORLD, "Kelp Forest > Start Chance", 640, Comment.KELP_FOREST_START).getInt();
             WorldGeneration.KELP_FOREST_END_CHANCE = config.get(Category.WORLD, "Kelp Forest > End Chance", 96, Comment.KELP_FOREST_END).getInt();

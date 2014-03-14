@@ -27,6 +27,6 @@ public class GuiIncubator extends GuiMariculture {
 
 	@Override
 	public String getName() {
-		return StatCollector.translateToLocal("tile.utilBlocks.incubator.name");
+		return StatCollector.translateToLocal("tile.machines.multi.incubator.name");
 	}
 }

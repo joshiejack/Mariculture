@@ -4,20 +4,17 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.OreGeneration;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Rand;
 import mariculture.world.WorldPlus;
 import mariculture.world.decorate.WorldGenKelp;
-import mariculture.world.decorate.WorldGenAncientSand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenSand;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenSandyOcean extends BiomeGenOcean {
@@ -67,7 +64,7 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
                             {
                                 block = null;
                                 b0 = 0;
-                                block1 = Core.oreBlocks;
+                                block1 = Core.limestone;
                             }
                             else if (l1 >= 59 && l1 <= 64)
                             {
@@ -100,7 +97,7 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
                             else if (l1 < 56 - l)
                             {
                                 block = null;
-                                block1 = Core.oreBlocks;
+                                block1 = Core.limestone;
                                 blocks[i2] = Blocks.sand;
                             }
                             else
@@ -114,8 +111,8 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
                             
                             blocks[i2] = block1;
                             if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
-                            	blocks[i2] = Core.oreBlocks;
-                            	metas[i2] = OresMeta.RUTILE;
+                            	blocks[i2] = Core.rocks;
+                            	metas[i2] = RockMeta.RUTILE;
                             }
                             
 

@@ -4,14 +4,14 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.factory.blocks.TileDictionary;
+import mariculture.factory.blocks.TileDictionaryItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDictionary extends ContainerMachine {
-	public ContainerDictionary(TileDictionary tile, InventoryPlayer playerInventory) {
+	public ContainerDictionary(TileDictionaryItem tile, InventoryPlayer playerInventory) {
 		super(tile);
 		
 		for(int j = 0; j < 4; j++) {

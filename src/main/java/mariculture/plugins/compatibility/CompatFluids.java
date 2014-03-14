@@ -61,7 +61,7 @@ public class CompatFluids {
 					XMLHelper xml = new XMLHelper((Element) nNode);
 					String ident = xml.getElement("identifier");
 					String name = xml.getElement("name");
-					String block = xml.getOptionalElement("blockTextureName").equals("")? Item.itemRegistry.getNameForObject(Core.transparentBlocks): xml.getOptionalElement("blockTextureName"); 
+					String block = xml.getOptionalElement("blockTextureName").equals("")? Item.itemRegistry.getNameForObject(Core.transparent): xml.getOptionalElement("blockTextureName"); 
 					int meta = (xml.getElementAsInteger("blockTextureMeta", -1) == -1)? TransparentMeta.PLASTIC: xml.getElementAsInteger("blockTextureMeta", -1);
 					
 					//TODO: FLUID REGISTRATION FROM CONFIG FluidRegistry.registerFluid(new FluidCustom(ident, name, id, meta).setUnlocalizedName(name));

@@ -40,6 +40,16 @@ public class BlockTank extends BlockConnected {
 	public BlockTank() {
 		super(Material.piston);
 	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return null;
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
+	}
 
 	@Override
 	public int getRenderBlockPass() {
@@ -177,7 +187,7 @@ public class BlockTank extends BlockConnected {
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		if(world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
 			ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-			ItemStack drop = new ItemStack(Core.tankBlocks, 1, TankMeta.TANK);
+			ItemStack drop = new ItemStack(Core.tanks, 1, TankMeta.TANK);
 			TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
 			if(tank != null && tank.getFluid() != null) {
 				if (!drop.hasTagCompound()) {

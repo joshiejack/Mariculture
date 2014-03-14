@@ -13,19 +13,21 @@ import mariculture.core.blocks.BlockFluidMari;
 import mariculture.core.blocks.BlockGlass;
 import mariculture.core.blocks.BlockGround;
 import mariculture.core.blocks.BlockLimestone;
-import mariculture.core.blocks.BlockOre;
+import mariculture.core.blocks.BlockMachine;
+import mariculture.core.blocks.BlockMachineMulti;
+import mariculture.core.blocks.BlockMetal;
 import mariculture.core.blocks.BlockPearlBlock;
+import mariculture.core.blocks.BlockRock;
 import mariculture.core.blocks.BlockSingle;
 import mariculture.core.blocks.BlockTank;
 import mariculture.core.blocks.BlockTransparent;
-import mariculture.core.blocks.BlockUtil;
 import mariculture.core.blocks.BlockWater;
 import mariculture.core.blocks.BlockWood;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileBookshelf;
+import mariculture.core.blocks.TileCrucible;
 import mariculture.core.blocks.TileIngotCaster;
-import mariculture.core.blocks.TileLiquifier;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
@@ -61,11 +63,12 @@ import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules.Module;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
@@ -89,20 +92,22 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Core extends Module {	
-	public static Block oreBlocks;
-	public static Block utilBlocks;
-	public static Block singleBlocks;
+	public static Block rocks;
+	public static Block limestone;
+	public static Block metals;
 	public static Block pearlBlock;
 	public static Block pearlBrick;
-	public static Block doubleBlock;
-	public static Block glassBlocks;
-	public static Block airBlocks;
-	public static Block woodBlocks;
-	public static Block tankBlocks;
-	public static Block groundBlocks;
-	public static Block transparentBlocks;
-	public static Block waterBlocks;
-	public static Block limestone;
+	public static Block glass;
+	public static Block woods;
+	public static Block machines;
+	public static Block multiMachines;
+	public static Block renderedMachines;
+	public static Block renderedMultiMachines;
+	public static Block air;
+	public static Block tanks;
+	public static Block sands;
+	public static Block transparent;
+	public static Block water;
 
 	public static Fluid moltenAluminum;
 	public static Fluid moltenTitanium;
@@ -172,23 +177,28 @@ public class Core extends Module {
 
 	@Override
 	public void registerBlocks() {
-		oreBlocks = new BlockOre().setStepSound(Block.soundTypeStone).setResistance(5F).setBlockName("oreBlocks");
-		limestone = new BlockLimestone().setStepSound(Block.soundTypeStone).setBlockName("limestone");
-		utilBlocks = new BlockUtil().setStepSound(Block.soundTypeMetal).setHardness(2F).setResistance(5F).setBlockName("utilBlocks");
-		doubleBlock = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setBlockName("doubleBlocks").setHardness(3F);
-		singleBlocks = new BlockSingle().setStepSound(Block.soundTypeMetal).setHardness(1F).setResistance(1F).setBlockName("customBlocks");
-		pearlBlock = new BlockPearlBlock().setBlockName("pearlBlock");
-		pearlBrick = new BlockPearlBlock().setBlockName("pearlBrick");
-		glassBlocks = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(10F).setBlockName("glassBlocks");
-		airBlocks = new BlockAir().setBlockUnbreakable().setBlockName("airBlocks");
-		woodBlocks = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woodBlocks").setHardness(2.0F);
-		tankBlocks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tankBlocks").setHardness(1F);
-		groundBlocks = new BlockGround().setBlockName("groundBlocks").setHardness(1F);
-		transparentBlocks = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparentBlocks").setHardness(1F);
-		waterBlocks = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("waterBlocks");
+		rocks = new BlockRock().setStepSound(Block.soundTypeStone).setResistance(2F).setBlockName("rocks");
+		limestone = new BlockLimestone().setStepSound(Block.soundTypeStone).setResistance(1F).setBlockName("limestone");
+		metals = new BlockMetal().setStepSound(Block.soundTypeMetal).setResistance(5F).setBlockName("metals");
+		pearlBlock = new BlockPearlBlock("pearlBlock_").setStepSound(Block.soundTypeStone).setResistance(1.5F).setBlockName("pearl.block");
+		pearlBrick = new BlockPearlBlock("pearlBrick_").setStepSound(Block.soundTypeStone).setResistance(2F).setBlockName("pearl.brick");
+		machines = new BlockMachine().setStepSound(Block.soundTypeWood).setResistance(10F).setBlockName("machines.single");
+		multiMachines = new BlockMachineMulti().setStepSound(Block.soundTypeStone).setResistance(20F).setBlockName("machines.multi");
+		
+		//TODO: Move Rendered machines over to the block basing
+		renderedMachines = new BlockSingle().setStepSound(Block.soundTypeMetal).setResistance(1F).setHardness(1F).setBlockName("machines.single.rendered");
+		renderedMultiMachines = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setHardness(3F).setBlockName("machines.multi.rendered");
+		
+		glass = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(5F).setBlockName("glass");
+		air = new BlockAir().setBlockUnbreakable().setBlockName("air");
+		woods = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woods").setHardness(2.0F);
+		tanks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tanks").setHardness(1F);
+		sands = new BlockGround().setBlockName("sands").setHardness(1F);
+		transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
+		water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
 		
 		GameRegistry.registerTileEntity(TileAirPump.class, "TileAirPump");
-		GameRegistry.registerTileEntity(TileLiquifier.class, "TileLiquifier");
+		GameRegistry.registerTileEntity(TileCrucible.class, "TileLiquifier");
 		GameRegistry.registerTileEntity(TileBookshelf.class, "TileBookshelf");
 		GameRegistry.registerTileEntity(TileTankBlock.class, "TileTankBlock");
 		GameRegistry.registerTileEntity(TileVat.class, "TileVat");
@@ -197,8 +207,8 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileVoidBottle.class, "TileVoidBottle");
 		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
 
-		RegistryHelper.register(new Object[] { oreBlocks, limestone, pearlBlock, pearlBrick, utilBlocks, doubleBlock,
-				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks, waterBlocks });
+		RegistryHelper.register(new Object[] { rocks, limestone, water, metals, sands, woods, glass, transparent, 
+				pearlBlock, pearlBrick, machines, multiMachines, renderedMultiMachines, renderedMachines, tanks, air });
 	}
 	
 	@Override
@@ -258,14 +268,15 @@ public class Core extends Module {
 		OreDicHelper.add("dustRedstone", new ItemStack(Items.redstone));
 		
 		OreDictionary.registerOre("blockLimestone", new ItemStack(limestone, 1, LimestoneMeta.RAW));
-		OreDictionary.registerOre("oreCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER));
-		OreDictionary.registerOre("oreAluminum", new ItemStack(oreBlocks, 1, OresMeta.BAUXITE));
-		OreDictionary.registerOre("oreRutile", new ItemStack(oreBlocks, 1, OresMeta.RUTILE));
+		OreDictionary.registerOre("oreCopper", new ItemStack(rocks, 1, RockMeta.COPPER));
+		OreDictionary.registerOre("oreAluminum", new ItemStack(rocks, 1, RockMeta.BAUXITE));
+		OreDictionary.registerOre("oreRutile", new ItemStack(rocks, 1, RockMeta.RUTILE));
 		
-		OreDictionary.registerOre("blockAluminum", new ItemStack(oreBlocks, 1, OresMeta.ALUMINUM_BLOCK));
-		OreDictionary.registerOre("blockCopper", new ItemStack(oreBlocks, 1, OresMeta.COPPER_BLOCK));
-		OreDictionary.registerOre("blockMagnesium", new ItemStack(oreBlocks, 1, OresMeta.MAGNESIUM_BLOCK));
-		OreDictionary.registerOre("blockTitanium", new ItemStack(oreBlocks, 1, OresMeta.TITANIUM_BLOCK));
+		OreDictionary.registerOre("blockAluminum", new ItemStack(metals, 1, MetalMeta.ALUMINUM_BLOCK));
+		OreDictionary.registerOre("blockCopper", new ItemStack(metals, 1, MetalMeta.COPPER_BLOCK));
+		OreDictionary.registerOre("blockMagnesium", new ItemStack(metals, 1, MetalMeta.MAGNESIUM_BLOCK));
+		OreDictionary.registerOre("blockRutile", new ItemStack(metals, 1, MetalMeta.RUTILE_BLOCK));
+		OreDictionary.registerOre("blockTitanium", new ItemStack(metals, 1, MetalMeta.TITANIUM_BLOCK));
 		
 		OreDictionary.registerOre("foodSalt", new ItemStack(materials, 1, MaterialsMeta.DUST_SALT));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, MaterialsMeta.INGOT_ALUMINUM));

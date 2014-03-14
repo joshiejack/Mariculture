@@ -161,7 +161,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 	}
 	
 	private boolean isNaturalGas(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.airBlocks && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
+		return worldObj.getBlock(x, y, z) == Core.air && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
 	}
 	
 	public double getWheelAngle(int which) {

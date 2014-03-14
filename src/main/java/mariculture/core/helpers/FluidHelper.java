@@ -79,7 +79,7 @@ public class FluidHelper {
 			int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
 			if(fill > 0) {
 				tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
-				return new ItemStack(Core.airBlocks);
+				return new ItemStack(Core.air);
 			}
 		}
 
@@ -172,7 +172,7 @@ public class FluidHelper {
 		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
 		if (result != null) {
 			invent.decrStackSize(in, 1);
-			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
+			if(result.getItem() != Item.getItemFromBlock(Core.air)) {
 				if (invent.getStackInSlot(out) == null) {
 					invent.setInventorySlotContents(out, result.copy());
 				} else if (invent.getStackInSlot(out).getItem() == result.getItem()) {

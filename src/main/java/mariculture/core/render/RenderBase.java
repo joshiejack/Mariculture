@@ -2,8 +2,6 @@ package mariculture.core.render;
 
 import java.util.HashMap;
 
-import mariculture.core.Core;
-import mariculture.core.lib.OresMeta;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;

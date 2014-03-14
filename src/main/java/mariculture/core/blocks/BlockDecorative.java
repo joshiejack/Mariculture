@@ -6,7 +6,6 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
@@ -23,26 +22,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class BlockDecorative extends Block implements IItemRegistry, IHasMeta {
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
+	protected String prefix;
 	
 	public BlockDecorative(Material material) {
 		super(material);
 		setCreativeTab(MaricultureTab.tabMariculture);
-		setHarvestLevels();
-	}
-	
-	public void setHarvestLevels() {
 		for(int i = 0; i < getMetaCount(); i++) {
-			setHarvestLevel(getToolType(i), getToolLevel(i), UtilMeta.INCUBATOR_BASE);
+			setHarvestLevel(getToolType(i), getToolLevel(i), i);
 		}
 	}
 	
-	public String getToolType(int meta) {
-		return null;
-	}
-
-	public int getToolLevel(int meta) {
-		return 0;
-	}
+	public abstract String getToolType(int meta);
+	public abstract int getToolLevel(int meta);
 	
 	public boolean isActive(int meta) {
 		return true;
@@ -50,14 +41,10 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 
 	@Override
 	public void register() {
+		String name = prefix != null? prefix.replaceAll("_", ","): "";
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
+			MaricultureRegistry.register(name + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
-	}
-
-	@Override
-	public int getMetaCount() {
-		return 1;
 	}
 
 	@Override
@@ -94,10 +81,11 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
+		String name = prefix != null? prefix: "";
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(new ItemStack(this, 1, i)));
 		}
 	}
 

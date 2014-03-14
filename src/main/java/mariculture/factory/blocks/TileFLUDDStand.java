@@ -180,7 +180,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.waterBlocks && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
+		return worldObj.getBlock(x, y, z) == Core.water && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
 	}
 	
 	private boolean hasEthereal() {

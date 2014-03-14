@@ -5,7 +5,7 @@ import java.util.Random;
 import mariculture.core.Core;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.OreGeneration;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Rand;
 import mariculture.world.decorate.WorldGenAncientSand;
 import net.minecraft.block.Block;
@@ -13,14 +13,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBeach;
-import net.minecraft.world.gen.feature.WorldGenSand;
 
 public class BiomeGenSandyBeach extends BiomeGenBeach {
 	public BiomeGenSandyBeach(int id) {
 		super(id);
 	
-		theBiomeDecorator.sandGen = new WorldGenAncientSand(Core.groundBlocks, GroundMeta.ANCIENT, 7);
-		theBiomeDecorator.gravelAsSandGen = new WorldGenAncientSand(Core.groundBlocks, GroundMeta.ANCIENT, 6);
+		theBiomeDecorator.sandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, 7);
+		theBiomeDecorator.gravelAsSandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, 6);
         theBiomeDecorator.deadBushPerChunk = 1;
         theBiomeDecorator.reedsPerChunk = 1;
 	}
@@ -105,8 +104,8 @@ public class BiomeGenSandyBeach extends BiomeGenBeach {
                             --k;
                             blocks[i2] = block1;
                             if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
-                            	blocks[i2] = Core.oreBlocks;
-                            	metas[i2] = OresMeta.RUTILE;
+                            	blocks[i2] = Core.rocks;
+                            	metas[i2] = RockMeta.RUTILE;
                             }
                             
 

@@ -180,7 +180,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	
 	private String getBlock(int slot) {
 		if(isFeather(slot))
-			return Block.blockRegistry.getNameForObject(Core.airBlocks);
+			return Block.blockRegistry.getNameForObject(Core.air);
 		else
 			return Block.blockRegistry.getNameForObject(Block.getBlockFromItem(inventory[slot].getItem()));
 	}

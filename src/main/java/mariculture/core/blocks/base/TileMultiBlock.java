@@ -3,6 +3,7 @@ package mariculture.core.blocks.base;
 import java.util.ArrayList;
 
 import mariculture.core.network.PacketMultiInit;
+import mariculture.core.network.PacketRenderRefresh;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -165,8 +166,10 @@ public class TileMultiBlock extends TileEntity {
 	public void updateEntity() {
 		if(master != null){
 			if(isMaster()) {
-				if(needsInit && !init) {
-					init();
+				if(!worldObj.isRemote) {
+					if(needsInit && !init) {
+						init();
+					}
 				}
 				
 				updateMaster();
@@ -178,18 +181,17 @@ public class TileMultiBlock extends TileEntity {
 	
 	//Initialize
 	public void init() {
-		if(!worldObj.isRemote) {
-			//Init Master
-			Packets.updateAround(this, new PacketMultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing));
-			for(MultiPart slave: slaves) {
-				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
-				if(te != null && te.getClass().equals(getTEClass())) {
-					Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
-				}
+		//Init Master
+		Packets.updateAround(this, new PacketMultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing));
+		for(MultiPart slave: slaves) {
+			TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
+			if(te != null && te.getClass().equals(getTEClass())) {
+				Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
+				System.out.println("packet sent to " + te.xCoord + " . " + te.zCoord);
 			}
-			
-			this.setInit(true);
 		}
+			
+		this.setInit(true);
 	}
 	
 	public Class getTEClass() {

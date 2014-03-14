@@ -6,7 +6,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.OresMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

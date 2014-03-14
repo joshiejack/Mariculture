@@ -1,10 +1,8 @@
 package mariculture.world;
 
 import mariculture.Mariculture;
-import mariculture.core.Core;
 import mariculture.core.blocks.ItemBlockMariculture;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.OresMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -35,34 +32,20 @@ public class BlockCoralItem extends ItemBlockMariculture {
 	public String getName(ItemStack stack) {
 		String name = "";
 		switch (stack.getItemDamage()) {
-		case CoralMeta.KELP:
-			return "kelp";
-		case CoralMeta.KELP_MIDDLE:
-			return "kelp_middle";
-		case CoralMeta.LIGHT_BLUE:
-			return"blue";
-		case CoralMeta.YELLOW:
-			return "yellow";
-		case CoralMeta.MAGENTA:
-			return "magenta";
-		case CoralMeta.BROWN:
-			return "brown";
-		case CoralMeta.ORANGE:
-			return "orange";
-		case CoralMeta.PINK:
-			return "pink";
-		case CoralMeta.PURPLE:
-			return "purple";
-		case CoralMeta.RED:
-			return "red";
-		case CoralMeta.GREY:
-			return "grey";
-		case CoralMeta.LIGHT_GREY:
-			return "lightgrey";
-		case CoralMeta.WHITE:
-			return "white";
-		default:
-			return "coral";
+			case CoralMeta.KELP: 		return "kelp";
+			case CoralMeta.KELP_MIDDLE: return "kelp_middle";
+			case CoralMeta.LIGHT_BLUE: 	return"blue";
+			case CoralMeta.YELLOW: 		return "yellow";
+			case CoralMeta.MAGENTA: 	return "magenta";
+			case CoralMeta.BROWN: 		return "brown";
+			case CoralMeta.ORANGE: 		return "orange";
+			case CoralMeta.PINK: 		return "pink";
+			case CoralMeta.PURPLE: 		return "purple";
+			case CoralMeta.RED: 		return "red";
+			case CoralMeta.GREY: 		return "grey";
+			case CoralMeta.LIGHT_GREY:  return "lightgrey";
+			case CoralMeta.WHITE: 		return "white";
+			default: 					return "coral";
 		}
 	}
 

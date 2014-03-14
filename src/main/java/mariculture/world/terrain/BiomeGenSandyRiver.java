@@ -4,7 +4,7 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.lib.OreGeneration;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -101,8 +101,8 @@ public class BiomeGenSandyRiver extends BiomeGenRiver {
                             
                             blocks[i2] = block1;
                             if(Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
-                            	blocks[i2] = Core.oreBlocks;
-                            	metas[i2] = OresMeta.RUTILE;
+                            	blocks[i2] = Core.rocks;
+                            	metas[i2] = RockMeta.RUTILE;
                             }
                             
                             if (k == 0 && block1 == Blocks.sand)

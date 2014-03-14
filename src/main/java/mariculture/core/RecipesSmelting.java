@@ -11,7 +11,7 @@ import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
@@ -253,7 +253,7 @@ public class RecipesSmelting {
 						titanium, new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 2);
 		RecipeHelper.addIngotCasting(FluidDictionary.titanium, "Titanium");
 
-		RecipeHelper.addMelting(new ItemStack(Core.oreBlocks, 1, OresMeta.RUTILE), titanium, 
+		RecipeHelper.addMelting(new ItemStack(Core.rocks, 1, RockMeta.RUTILE), titanium, 
 				FluidRegistry.getFluidStack(FluidDictionary.rutile, MetalRates.ORE), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 2);
 		
 		RecipeHelper.addIngotCasting(FluidDictionary.rutile, new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE));
@@ -298,7 +298,7 @@ public class RecipesSmelting {
 		
 		//Glass > Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
-				FluidDictionary.glass, 30000, new ItemStack(Core.transparentBlocks, 8, TransparentMeta.PLASTIC), 5);
+				FluidDictionary.glass, 30000, new ItemStack(Core.transparent, 8, TransparentMeta.PLASTIC), 5);
 		
 		//Water + Lava = Obsidian
 		RecipeHelper.addFluidAlloyResultItem(FluidRegistry.getFluidStack("water", 1000), 
@@ -330,7 +330,7 @@ public class RecipesSmelting {
 		//1 Part Quicklime + 1 Nugget Aluminum + 1 Block Glass = 1 Heat Resistant Glass (15 Seconds)
 		RecipeHelper.addFluidAlloyNItemResultItem(get(FluidDictionary.aluminum, MetalRates.NUGGET), 
 				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 1000),
-				new ItemStack(Blocks.glass), new ItemStack(Core.glassBlocks, 1, GlassMeta.HEAT), 15);
+				new ItemStack(Blocks.glass), new ItemStack(Core.glass, 1, GlassMeta.HEAT), 15);
 	}
 	
 	public static FluidStack gold(int vol) {

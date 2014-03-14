@@ -5,7 +5,7 @@ import java.util.List;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.blocks.TileCrucible;
 import mariculture.core.gui.feature.FeatureArrow;
 import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.gui.feature.FeatureRedstone;
@@ -21,9 +21,9 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class GuiLiquifier extends GuiMariculture {
-	private final TileLiquifier tile;
+	private final TileCrucible tile;
 
-	public GuiLiquifier(InventoryPlayer player, TileLiquifier tile) {
+	public GuiLiquifier(InventoryPlayer player, TileCrucible tile) {
 		super(new ContainerLiquifier(tile, player), "liquifier", 10);
 		this.tile = tile;
 		features.add(new FeatureUpgrades());

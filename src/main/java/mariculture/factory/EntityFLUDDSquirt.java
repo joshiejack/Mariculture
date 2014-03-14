@@ -2,9 +2,9 @@ package mariculture.factory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -38,7 +38,9 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 	@Override
 	protected void onImpact(MovingObjectPosition thingHit) {
 		if (thingHit.entityHit != null && damage) {
-			DamageSource source = (new EntityDamageSourceIndirect("fludd", this, this.getThrower())).setProjectile();
+			DamageSource source = null;
+			if(thingHit.entityHit instanceof EntityPlayer) source = (new EntityDamageSourceIndirect("fludd", this, this.getThrower())).setProjectile();
+			else source = (new EntityDamageSource("fludd", this)).setProjectile();
 			thingHit.entityHit.attackEntityFrom(source, 10);
 		}
 

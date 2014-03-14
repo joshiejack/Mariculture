@@ -36,6 +36,16 @@ public class BlockNeonLamp extends BlockDecorative {
 
 		this.setHardness(1F);
 	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return null;
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
+	}
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {

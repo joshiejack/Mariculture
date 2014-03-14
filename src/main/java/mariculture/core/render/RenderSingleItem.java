@@ -38,7 +38,7 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		if(item.getItem() == Item.getItemFromBlock(Core.singleBlocks)) {
+		if(item.getItem() == Item.getItemFromBlock(Core.renderedMachines)) {
 			int meta = item.getItemDamage();
 			if(meta == SingleMeta.GEYSER || meta == SingleMeta.ANVIL_1 || meta == SingleMeta.INGOT_CASTER)
 				return false;
@@ -54,35 +54,35 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.AIR_PUMP) {
+		if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.AIR_PUMP) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(AIR_PUMP);
 			pump.renderInventory(type);
 		}
 
 		if (Modules.factory.isActive()) {
-			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
+			if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE);
 				turbine.renderInventory(type);
 			}
 			
-			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.TURBINE_GAS) {
+			if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.TURBINE_GAS) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_GAS);
 				turbineGas.renderInventory(type);
 			}
 			
-			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.TURBINE_HAND) {
+			if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.TURBINE_HAND) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_HAND);
 				turbineHand.renderInventory(type);
 			}
 
-			if ((item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.FLUDD_STAND) || item.getItem() == Factory.fludd) {
+			if ((item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.FLUDD_STAND) || item.getItem() == Factory.fludd) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FLUDD);
 				fludd.renderInventory(type);
 			}
 		}
 
 		if (Modules.fishery.isActive()) {
-			if (item.getItem() == Item.getItemFromBlock(Core.singleBlocks) && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
+			if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FEEDER);
 				feeder.renderInventory(type);
 			}

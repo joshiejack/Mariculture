@@ -13,7 +13,7 @@ public class RenderVat extends RenderBase {
 
 	@Override
 	public void renderBlock() {		
-		setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		setTexture(Core.renderedMultiMachines, DoubleMeta.VAT);
 		if(dir == ForgeDirection.UNKNOWN) {
 			//Edge Inner - Edge Outer
 			renderBlock(0, 0.3, 0, 0.1, 0.9, 1);

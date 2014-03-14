@@ -12,7 +12,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.core.util.Rand;
@@ -174,12 +174,12 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 	}
 	
 	public static boolean canSustainCoral(Block block, int meta) {
-		return block == Core.groundBlocks|| block == Core.limestone || block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || (block == Core.oreBlocks && meta == OresMeta.CORAL_ROCK);
+		return block == Core.sands|| block == Core.limestone || block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || (block == Core.rocks && meta == RockMeta.CORAL_ROCK);
 	}
 	
 	public static boolean canSustainKelp(Block block, int meta) {
 		if(block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || block == Blocks.sand || block == Blocks.gravel) return true;
-		if((block == Core.oreBlocks && meta == OresMeta.CORAL_ROCK) || block == Core.limestone || block == Core.groundBlocks) return true;
+		if((block == Core.rocks && meta == RockMeta.CORAL_ROCK) || block == Core.limestone || block == Core.sands) return true;
 		return isKelp(block, meta);
 	}
 	
@@ -231,7 +231,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 	private void updateCoral(World world, int x, int y, int z, Random rand) {
 		if(Rand.nextInt(Extra.CORAL_SPREAD_CHANCE)) {
 			Block block = world.getBlock(x, y - 1, z);
-			if(block == Core.oreBlocks && world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
+			if(block == Core.rocks && world.getBlockMetadata(x, y - 1, z) == RockMeta.CORAL_ROCK) {
 				int randX = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);
 				int randY = rand.nextInt(3) - 1;
 				int randZ = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);

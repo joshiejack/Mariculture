@@ -23,11 +23,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class TileDictionary extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
+public class TileDictionaryItem extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
 	protected BlockTransferHelper helper;
 	private EjectSetting setting;
 
-	public TileDictionary() {
+	public TileDictionaryItem() {
 		inventory = new ItemStack[29];
 		setting = EjectSetting.ITEM;
 	}

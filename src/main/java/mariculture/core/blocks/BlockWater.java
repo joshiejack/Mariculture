@@ -18,7 +18,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockWater extends BlockMachine {
+public class BlockWater extends BlockOldMachine {
 	public BlockWater() {
 		super(Material.water);
 		setTickRandomly(true);

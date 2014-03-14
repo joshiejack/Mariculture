@@ -87,7 +87,7 @@ public class Diving extends Module {
 		});
 		
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
 			'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
@@ -95,7 +95,7 @@ public class Diving extends Module {
 		});
 		
 		//Air Compressor Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_BASE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, DoubleMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
 			'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),

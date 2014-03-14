@@ -10,7 +10,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.OreGeneration;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.RockMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.world.WorldGenGas;
 import mariculture.core.world.WorldGenOre;
@@ -56,8 +56,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.BAUXITE_MIN + random.nextInt(OreGeneration.BAUXITE_MAX - OreGeneration.BAUXITE_MIN);
 		        posZ = z + random.nextInt(16);
-			    new WorldGenOre(Core.oreBlocks, OresMeta.BAUXITE, 
-			        OreGeneration.BAUXITE_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
+			    new WorldGenOre(Core.rocks, RockMeta.BAUXITE, OreGeneration.BAUXITE_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 		    }
 		}
 	}
@@ -70,7 +69,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.NATURAL_GAS_MIN + random.nextInt(OreGeneration.NATURAL_GAS_MAX - OreGeneration.NATURAL_GAS_MIN);
 				posZ = z + random.nextInt(16);
-				new WorldGenGas(Core.airBlocks, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone)
+				new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone)
 					.generate(world, random, posX, posY, posZ);
 			}
 		}
@@ -84,8 +83,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.COPPER_MIN + random.nextInt(OreGeneration.COPPER_MAX - OreGeneration.COPPER_MIN);
 		     	posZ = z + random.nextInt(16);
-		     	new WorldGenOre(Core.oreBlocks, OresMeta.COPPER,  OreGeneration.COPPER_VEIN, Blocks.stone)
-		     		.generate(world, random, posX, posY, posZ);
+		     	new WorldGenOre(Core.rocks, RockMeta.COPPER,  OreGeneration.COPPER_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 			}
 		}		
 	}
@@ -139,9 +137,9 @@ public class WorldGenHandler implements IWorldGenerator {
 						int randZ = blockZ - 8 + random.nextInt(4);
 						int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
 	
-						if (Core.waterBlocks.canBlockStay(world, randX, blockY, randZ)) {
+						if (Core.water.canBlockStay(world, randX, blockY, randZ)) {
 							if(BlockHelper.isWater(world, randX, blockY + 1, randZ)) {
-								world.setBlock(randX, blockY, randZ, Core.waterBlocks);
+								world.setBlock(randX, blockY, randZ, Core.water);
 								TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
 								if (oyster != null) {
 									oyster.orientation = ForgeDirection.values()[2 + random.nextInt(4)];

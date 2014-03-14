@@ -129,7 +129,7 @@ public class ItemFluidContainer extends ItemMariculture {
 	}
 
 	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-		Block block = Core.tankBlocks;
+		Block block = Core.tanks;
 		if (!world.setBlock(x, y, z, block, meta, 3)) {
 			return false;
 		}

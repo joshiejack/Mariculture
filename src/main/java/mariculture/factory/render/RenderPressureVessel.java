@@ -2,7 +2,7 @@ package mariculture.factory.render;
 
 import mariculture.core.Core;
 import mariculture.core.lib.DoubleMeta;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.MetalMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.factory.blocks.TilePressureVessel;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -20,7 +20,7 @@ public class RenderPressureVessel extends RenderBase {
 	
 	private void renderSide(IBlockAccess world, int x, int y, int z, double yStart, double yEnd) {
 		//Set Texture
-		setTexture(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL);
+		setTexture(Core.renderedMultiMachines, DoubleMeta.PRESSURE_VESSEL);
 		if(!(world.getTileEntity(x, y, z - 1) instanceof TilePressureVessel))
 			renderBlock(0, yStart, 0.045, 1, yEnd, 0.01);
 		//Left hand side
@@ -36,7 +36,7 @@ public class RenderPressureVessel extends RenderBase {
 
 	@Override
 	public void renderBlock() {
-		setTexture(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL);
+		setTexture(Core.renderedMultiMachines, DoubleMeta.PRESSURE_VESSEL);
 		
 		if(isItem()) {
 			renderBlock(0.1, 0.2, 0.1, 0.9, 0.9, 0.9);
@@ -59,10 +59,10 @@ public class RenderPressureVessel extends RenderBase {
 			if(!(world.getTileEntity(x, y, z - 1) instanceof TilePressureVessel) &&
 					!(world.getTileEntity(x + 1, y, z) instanceof TilePressureVessel)) {
 				//Side
-				setTexture(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL);
+				setTexture(Core.renderedMultiMachines, DoubleMeta.PRESSURE_VESSEL);
 				renderBlock(0.95, yStart, 0, 1, yEnd, 0.05);
 				if(!(world.getTileEntity(x, y - 1, z) instanceof TilePressureVessel) && !world.isAirBlock(x, y - 1, z)) {
-					setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+					setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 					renderBlock(0.6, 0, 0.1, 0.9, 0.2, 0.4);
 				}
 			}
@@ -71,11 +71,11 @@ public class RenderPressureVessel extends RenderBase {
 			if(!(world.getTileEntity(x, y, z + 1) instanceof TilePressureVessel) &&
 					!(world.getTileEntity(x - 1, y, z) instanceof TilePressureVessel)) {
 				//Side
-				setTexture(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL);
+				setTexture(Core.renderedMultiMachines, DoubleMeta.PRESSURE_VESSEL);
 				renderBlock(0, yStart, 0.95, 0.05, yEnd, 1);
 				if(!(world.getTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
 						!world.isAirBlock(x, y - 1, z)) {
-					setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+					setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 					renderBlock(0.1, 0, 0.6, 0.4, 0.2, 0.9);
 				}
 			}
@@ -84,11 +84,11 @@ public class RenderPressureVessel extends RenderBase {
 			if(!(world.getTileEntity(x - 1, y, z) instanceof TilePressureVessel) &&
 					!(world.getTileEntity(x, y, z - 1) instanceof TilePressureVessel)) {
 				//Side
-				setTexture(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL);
+				setTexture(Core.renderedMultiMachines, DoubleMeta.PRESSURE_VESSEL);
 				renderBlock(0, yStart, 0, 0.05, yEnd, 0.05);
 				if(!(world.getTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
 						!world.isAirBlock(x, y - 1, z)) {
-					setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+					setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 					renderBlock(0.1, 0, 0.1, 0.4, 0.2, 0.4);
 				}
 			}
@@ -97,11 +97,11 @@ public class RenderPressureVessel extends RenderBase {
 			if(!(world.getTileEntity(x + 1, y, z) instanceof TilePressureVessel) &&
 					!(world.getTileEntity(x , y, z + 1) instanceof TilePressureVessel)) {
 				//Side
-				setTexture(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL);
+				setTexture(Core.renderedMultiMachines, DoubleMeta.PRESSURE_VESSEL);
 				renderBlock(0.95, yStart, 0.95, 1, yEnd, 1);
 				if(!(world.getTileEntity(x, y - 1, z) instanceof TilePressureVessel) &&
 						!world.isAirBlock(x, y - 1, z)) {
-					setTexture(Core.oreBlocks, OresMeta.TITANIUM_BLOCK);
+					setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 					renderBlock(0.6, 0, 0.6, 0.9, 0.2, 0.9);
 				}
 			}

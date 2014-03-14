@@ -92,7 +92,7 @@ public class ClientProxy extends CommonProxy {
 		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.RENDER_ALL = RenderingRegistry.getNextAvailableRenderId();
 
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.singleBlocks), new RenderSingleItem());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.renderedMachines), new RenderSingleItem());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));

@@ -6,7 +6,6 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiMachineTank;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -15,9 +14,9 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
@@ -29,13 +28,13 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileLiquifier extends TileMultiMachineTank implements IHasNotification {
+public class TileCrucible extends TileMultiMachineTank implements IHasNotification {
 	public static final int MAX_TEMP = 25000;
 	private int temp;
 	private boolean canFuel;
 	private EnumBiomeType biome;
 	
-	public TileLiquifier() {
+	public TileCrucible() {
 		max = MachineSpeeds.getLiquifierSpeed();
 		inventory = new ItemStack[9];
 		needsInit = true;
@@ -146,7 +145,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	@Override
 	public void updateSlaveMachine() {
 		if(onTick(100)) {
-			TileLiquifier mstr = (TileLiquifier) getMaster();
+			TileCrucible mstr = (TileCrucible) getMaster();
 			if(mstr != null &&  mstr.tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID))
 				helper.ejectFluid(new int[] { 5000, MetalRates.BLOCK, 1000, MetalRates.ORE, MetalRates.INGOT, MetalRates.NUGGET, 1 });
 		}
@@ -414,7 +413,6 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	
 	@Override
 	public boolean isPart(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == this.getBlockType() 
-				&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.LIQUIFIER & !isPartnered(x, y, z);
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == MachineMultiMeta.CRUCIBLE & !isPartnered(x, y, z);
 	}
 }

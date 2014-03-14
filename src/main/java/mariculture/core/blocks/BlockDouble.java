@@ -32,7 +32,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDouble extends BlockMachineMulti {
+public class BlockDouble extends BlockMachineMultiOld {
 	public IIcon bar1;
 
 	public BlockDouble() {

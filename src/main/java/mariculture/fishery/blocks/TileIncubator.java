@@ -14,8 +14,8 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.helpers.AverageHelper;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
@@ -26,11 +26,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 
 public class TileIncubator extends TileMultiMachinePowered implements IHasNotification {
 
 	public TileIncubator() {
+		needsInit = true;
 		max = MachineSpeeds.getIncubatorSpeed();
 		inventory = new ItemStack[22];
 	}
@@ -245,7 +247,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 		if(isBase(x, y, z) && isTop(x, y + 1, z) && isTop(x, y + 2, z) && !isTop(x, y + 3, z)) {
 			MultiPart mstr = new MultiPart(x, y, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y + 1, z));
+			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.DOWN));
 			parts.add(setAsSlave(mstr, x, y + 2, z));
 			setAsMaster(mstr, parts);
 		}
@@ -253,7 +255,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 		if(isBase(x, y - 1, z) && isTop(x, y, z) && isTop(x, y + 1, z) && !isTop(x, y + 2, z)) {
 			MultiPart mstr = new MultiPart(x, y - 1, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y, z));
+			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.DOWN));
 			parts.add(setAsSlave(mstr, x, y + 1, z));
 			setAsMaster(mstr, parts);
 		}
@@ -261,19 +263,19 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 		if(isBase(x, y - 2, z) && isTop(x, y - 1, z) && isTop(x, y, z) && !isTop(x, y + 1, z)) {
 			MultiPart mstr = new MultiPart(x, y - 2, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y - 1, z));
+			parts.add(setAsSlave(mstr, x, y - 1, z, ForgeDirection.DOWN));
 			parts.add(setAsSlave(mstr, x, y, z));
 			setAsMaster(mstr, parts);
 		}
+		
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	public boolean isBase(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == this.getBlockType() 
-					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_BASE;
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == MachineMultiMeta.INCUBATOR_BASE;
 	}
 	
 	public boolean isTop(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == this.getBlockType() 
-					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP;
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == MachineMultiMeta.INCUBATOR_TOP;
 	}
 }

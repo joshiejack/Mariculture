@@ -61,7 +61,7 @@ public class TileGeyser extends TileTank implements IFaceable {
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.waterBlocks && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
+		return worldObj.getBlock(x, y, z) == Core.water && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
 	}
 
 	@Override

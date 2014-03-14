@@ -2,7 +2,7 @@ package mariculture.core.gui;
 
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.blocks.TileCrucible;
 import mariculture.core.helpers.FluidHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,7 +10,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerLiquifier extends ContainerMachine {	
-	public ContainerLiquifier(TileLiquifier tile, InventoryPlayer inventory) {
+	public ContainerLiquifier(TileCrucible tile, InventoryPlayer inventory) {
 		super(tile);
 
 		addUpgradeSlots(tile);

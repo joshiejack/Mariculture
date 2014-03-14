@@ -17,7 +17,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 public class RenderHandler implements ISimpleBlockRenderingHandler {
 	public static final HashMap<String, RenderBase> renders = new HashMap();
 	static {
-		renders.put(Block.blockRegistry.getNameForObject(Core.waterBlocks) + ":0", new RenderOyster());
+		renders.put(Block.blockRegistry.getNameForObject(Core.water) + ":0", new RenderOyster());
 	}
 	
 	@Override

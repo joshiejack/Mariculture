@@ -2,7 +2,7 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.core.blocks.BlockMachine;
+import mariculture.core.blocks.BlockOldMachine;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomBase extends BlockMachine {
+public class BlockCustomBase extends BlockOldMachine {
 	BlockCustomBase(Material material) {
 		super(material);
 		setCreativeTab(null);

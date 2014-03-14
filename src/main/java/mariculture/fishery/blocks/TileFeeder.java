@@ -233,7 +233,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		ItemStack result = FluidHelper.getFluidResult(this, inventory[3], inventory[4]);
 		if (result != null) {
 			decrStackSize(3, 1);
-			if(result.getItem() != Item.getItemFromBlock(Core.airBlocks)) {
+			if(result.getItem() != Item.getItemFromBlock(Core.air)) {
 				if (this.inventory[4] == null) {
 					this.inventory[4] = result.copy();
 				} else if (this.inventory[4].getItem() == result.getItem()) {

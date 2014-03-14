@@ -42,7 +42,7 @@ public class BlockItemNet extends ItemMariculture {
 
 				if (world.getBlock(x, y, z).getMaterial() == Material.water 
 						&& world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
-					world.setBlock(x, y + 1, z, Core.waterBlocks, WaterMeta.NET, 2);
+					world.setBlock(x, y + 1, z, Core.water, WaterMeta.NET, 2);
 
 					if (!player.capabilities.isCreativeMode) {
 						--stack.stackSize;

@@ -13,10 +13,10 @@ import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Jewelry;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
-import mariculture.core.lib.UtilMeta;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.enchantments.EnchantmentFallDamage;
@@ -202,7 +202,7 @@ public class Magic extends Module {
 		//Magic Mirror
 		RecipeHelper.addShapedRecipe(new ItemStack(magicMirror), new Object[] {
 			"PMP", "BEB", "PBP", 
-			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
+			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 
 			'M', basicMirror, 
 			'E', Blocks.enchanting_table, 
 			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
@@ -212,7 +212,7 @@ public class Magic extends Module {
 		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
 		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
 			"TST", "BMB", "GBG", 
-			'B', new ItemStack(Core.utilBlocks, 1, UtilMeta.BOOKSHELF), 
+			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 
 			'M', magicMirror, 
 			'S', Items.nether_star,
 			'T', drop,

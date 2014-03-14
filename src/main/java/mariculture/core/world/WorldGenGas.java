@@ -107,7 +107,7 @@ public class WorldGenGas extends WorldGenerator
             }
         }
         
-        world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.groundBlocks, GroundMeta.BUBBLES, 2);
+        world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.sands, GroundMeta.BUBBLES, 2);
         if(Extra.DEBUG_ON)
         	world.setBlock(xLast, 65, zLast, Blocks.obsidian, 1, 2);
 

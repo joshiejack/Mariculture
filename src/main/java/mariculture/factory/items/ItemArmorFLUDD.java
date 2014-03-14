@@ -70,7 +70,7 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 			return false;
 		} else {
 			if (stack.hasTagCompound() && !world.isRemote) {
-				Block fludd = Core.singleBlocks;
+				Block fludd = Core.renderedMachines;
 				if (world.canPlaceEntityOnSide(fludd, x, y, z, false, side, (Entity) null, stack)) {
 					int j1 = fludd.onBlockPlaced(world, x, y, z, side, par8, par9, par10, SingleMeta.FLUDD_STAND);
 

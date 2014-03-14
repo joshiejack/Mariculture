@@ -12,7 +12,7 @@ public class RenderNet extends RenderBase {
 
 	@Override
 	public void renderBlock() {
-		setTexture(Core.waterBlocks.getIcon(0, WaterMeta.NET));
+		setTexture(Core.water.getIcon(0, WaterMeta.NET));
 		renderBlock(0, -0.115, 0, 1, -0.05, 1);
 	}
 }

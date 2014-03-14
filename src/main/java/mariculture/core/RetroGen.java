@@ -64,8 +64,8 @@ public class RetroGen {
 					if(WorldGeneration.KELP_FOREST_ENABLED && doGen(data, "kelp", chunk));
 						BiomeGenSandyOcean.kelpGenerator.generate(chunk.worldObj, Rand.rand, x, 0, z);
 					if(Modules.world.isActive()) {
-						if(WorldGeneration.CORAL_ENABLED && doGen(data, "coralreef", chunk))
-							WorldGen.generateCoral(chunk.worldObj, Rand.rand, x, z);
+						if(WorldGeneration.CORAL_REEF_ENABLED && doGen(data, "coralreef", chunk))
+							WorldGen.generateCoralReef(chunk.worldObj, Rand.rand, x, z);
 						if(WorldGeneration.ANCIENT_SAND_ENABLED && doGen(data, "ancient", chunk))
 							WorldGen.generateAncientSand(chunk.worldObj, Rand.rand, x, z);
 					}

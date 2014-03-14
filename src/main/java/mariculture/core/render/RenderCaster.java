@@ -50,16 +50,16 @@ public class RenderCaster extends RenderBase {
 			}
 		}
 		
-		setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		setTexture(Core.renderedMultiMachines, DoubleMeta.VAT);
 		renderBlock(0, 0, 0, 1, 0.05, 1);
 		//Sides
-		setTexture(Core.singleBlocks, SingleMeta.INGOT_CASTER);
+		setTexture(Core.renderedMachines, SingleMeta.INGOT_CASTER);
 		renderBlock(0, 0.05, 0, 1, 1, 0.1);
 		renderBlock(0, 0.05, 0.9, 1, 1, 1);
 		renderBlock(0, 0.05, 0.1, 0.1, 1, 0.9);
 		renderBlock(0.9, 0.05, 0.1, 1, 1, 0.9);
 		
-		setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		setTexture(Core.renderedMultiMachines, DoubleMeta.VAT);
 		//Crossbars
 		renderBlock(0.4, 0.05, 0.1, 0.6, 1, 0.9);
 		renderBlock(0.1, 0.05, 0.4, 0.4, 1, 0.6);

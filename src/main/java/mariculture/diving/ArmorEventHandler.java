@@ -44,7 +44,7 @@ public class ArmorEventHandler {
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.scubaSuit)) {
 					event.newSpeed = event.originalSpeed * 4;
 					
-					if (event.block == Core.waterBlocks && event.metadata == WaterMeta.OYSTER) {
+					if (event.block == Core.water && event.metadata == WaterMeta.OYSTER) {
 						event.newSpeed = event.originalSpeed * 128;
 					}
 				}
@@ -56,7 +56,7 @@ public class ArmorEventHandler {
 				// Diving Pants
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.divingPants)) {
 					event.newSpeed = event.originalSpeed * 2;
-					if (event.block == Core.waterBlocks && event.metadata == WaterMeta.OYSTER) {
+					if (event.block == Core.water && event.metadata == WaterMeta.OYSTER) {
 						event.newSpeed = event.originalSpeed * 64;
 					}
 				}

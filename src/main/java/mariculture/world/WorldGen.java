@@ -7,15 +7,11 @@ import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.Rand;
-import mariculture.plugins.PluginBiomesOPlenty;
-import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import mariculture.world.decorate.WorldGenAncientSand;
 import mariculture.world.decorate.WorldGenCoralReef;
-import mariculture.world.decorate.WorldGenReef;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import cpw.mods.fml.common.IWorldGenerator;
-import cpw.mods.fml.common.Loader;
 
 public class WorldGen implements IWorldGenerator {	
 	@Override
@@ -40,19 +36,13 @@ public class WorldGen implements IWorldGenerator {
 
 	private void generateOceanFeatures(World world, Random random, int x, int z) {
 		try {
-			if(WorldGeneration.CORAL_ENABLED) generateCoral(world, random, x, z);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			if(WorldGeneration.ANCIENT_SAND_ENABLED) generateAncientSand(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			generateCoralReef(world, random, x, z);
+			if(WorldGeneration.CORAL_REEF_ENABLED) generateCoralReef(world, random, x, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,21 +64,7 @@ public class WorldGen implements IWorldGenerator {
 		if(random.nextInt(2) == 0) {
 	    	int j = x + random.nextInt(16) + 8;
 	    	int k = z + random.nextInt(16) + 8;
-	        new WorldGenAncientSand(Core.groundBlocks, GroundMeta.ANCIENT, 4).generate(world, random, j, world.getTopSolidOrLiquidBlock(j, k), k);
-		}
-	}
-	
-	public static void generateCoral(World world, Random random, int x, int z) {		
-		boolean isCoralReef = PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL);
-		int chance = (Loader.isModLoaded("BiomesOPlenty")) ? WorldGeneration.CORAL_CHANCE: WorldGeneration.CORAL_CHANCE * 10;
-		
-		chance = (chance <= 1)? 1: chance;
-		if(isCoralReef) {
-			if (random.nextInt(chance) == 0) {
-				int x2 = x + random.nextInt(16) + 8;
-				int z2 = z + random.nextInt(16) + 8;
-				(new WorldGenReef(128)).generate(world, random, x2, z2);
-			}
+	        new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, 4).generate(world, random, j, world.getTopSolidOrLiquidBlock(j, k), k);
 		}
 	}
 }

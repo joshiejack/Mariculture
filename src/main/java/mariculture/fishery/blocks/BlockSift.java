@@ -13,7 +13,6 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
@@ -34,7 +33,7 @@ public class BlockSift extends BlockContainer implements IItemRegistry {
 	public BlockSift() {
 		super(Material.wood);
 		setCreativeTab(MaricultureTab.tabMariculture);
-		setHarvestLevel("axe", 0, UtilMeta.INCUBATOR_BASE);
+		setHarvestLevel("axe", 0, 0);
 	}
 
 	@Override

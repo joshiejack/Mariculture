@@ -1,7 +1,7 @@
 package mariculture.core;
 
 import mariculture.core.blocks.TileBookshelf;
-import mariculture.core.blocks.TileLiquifier;
+import mariculture.core.blocks.TileCrucible;
 import mariculture.core.gui.ContainerBookshelf;
 import mariculture.core.gui.ContainerLiquifier;
 import mariculture.core.gui.GuiBookshelf;
@@ -9,7 +9,7 @@ import mariculture.core.gui.GuiLiquifier;
 import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
-import mariculture.factory.blocks.TileDictionary;
+import mariculture.factory.blocks.TileDictionaryItem;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TilePressureVessel;
@@ -61,8 +61,8 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerAutofisher((TileAutofisher) tile, player.inventory);
 			}
 			
-			if(tile instanceof TileLiquifier) {
-				return new ContainerLiquifier((TileLiquifier) tile, player.inventory);
+			if(tile instanceof TileCrucible) {
+				return new ContainerLiquifier((TileCrucible) tile, player.inventory);
 			}
 			
 			if(tile instanceof TileIncubator) {
@@ -97,8 +97,8 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerPressureVessel((TilePressureVessel) tile, player.inventory);
 			}
 			
-			if(tile instanceof TileDictionary) {
-				return new ContainerDictionary((TileDictionary) tile, player.inventory);
+			if(tile instanceof TileDictionaryItem) {
+				return new ContainerDictionary((TileDictionaryItem) tile, player.inventory);
 			}
 			
 			if(tile instanceof TileFishSorter) {
@@ -130,8 +130,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiAutofisher(player.inventory, (TileAutofisher) tile);
 			}
 			
-			if(tile instanceof TileLiquifier) {
-				return new GuiLiquifier(player.inventory, (TileLiquifier) tile);
+			if(tile instanceof TileCrucible) {
+				return new GuiLiquifier(player.inventory, (TileCrucible) tile);
 			}
 			
 			if(tile instanceof TileIncubator) {
@@ -166,8 +166,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiPressureVessel(player.inventory, (TilePressureVessel) tile);
 			}
 			
-			if(tile instanceof TileDictionary) {
-				return new GuiDictionary(player.inventory, (TileDictionary) tile);
+			if(tile instanceof TileDictionaryItem) {
+				return new GuiDictionary(player.inventory, (TileDictionaryItem) tile);
 			}
 			
 			if(tile instanceof TileFishSorter) {
