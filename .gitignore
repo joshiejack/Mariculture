@@ -14,4 +14,4 @@
 .settings/*
 src/api/*
 src/main/java/enchiridion/*
-src/main/resources/books/*
+src/main/resources/assets/books/*
