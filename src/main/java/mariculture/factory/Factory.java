@@ -145,9 +145,9 @@ public class Factory extends Module {
 		fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
 		paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
 		filter = new ItemFilter().setUnlocalizedName("filter");
-		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbineCopper");
-		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbineAluminum");
-		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbineTitanium");
+		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
+		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
+		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
 		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 
@@ -272,12 +272,7 @@ public class Factory extends Module {
 			Character.valueOf('C'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON),
 		});
 		
-	//Items
-		//Machine Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.MACHINES), new Object[] {
-			Items.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
-		});
-		
+	//Items		
 		//FLUDD
 		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
 		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Blocks.lever);

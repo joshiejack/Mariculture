@@ -3,7 +3,9 @@ package mariculture.core.items;
 import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +16,7 @@ import cofh.api.energy.ItemEnergyContainer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBattery extends ItemEnergyContainer {
+public class ItemBattery extends ItemEnergyContainer implements IItemRegistry {
 	public ItemBattery(int capacity, int maxReceive, int maxExtract) {
 		super(capacity, maxReceive, maxExtract);
 		this.setCreativeTab(MaricultureTab.tabMariculture);
@@ -34,7 +36,10 @@ public class ItemBattery extends ItemEnergyContainer {
 
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
+		String theName, name = getUnlocalizedName().substring(5);
+		String[] aName = name.split("\\.");
+		theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
 	}
 	
 	@Override
@@ -72,5 +77,20 @@ public class ItemBattery extends ItemEnergyContainer {
 		ItemStack battery = new ItemStack(item, 1, 0);
 		list.add(this.make(battery, 0));
 		list.add(this.make(battery, this.capacity));
+	}
+
+	@Override
+	public void register(Item item) {
+		MaricultureRegistry.register(getName(new ItemStack(item)), new ItemStack(item));
+	}
+
+	@Override
+	public int getMetaCount() {
+		return 1;
+	}
+
+	@Override
+	public String getName(ItemStack stack) {
+		return getUnlocalizedName().substring(5);
 	}
 }

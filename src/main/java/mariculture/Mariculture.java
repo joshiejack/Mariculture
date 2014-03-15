@@ -23,7 +23,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.1", dependencies="after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty;after:AWWayofTime")
+@Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.1", dependencies="after:Enchiridion;after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty;after:AWWayofTime")
 public class Mariculture {
 	public static final PacketPipeline packets = new PacketPipeline();
 	public static final String modid = "mariculture";
@@ -90,4 +90,15 @@ public class Mariculture {
 		RecipesSmelting.postAdd();
 		packets.postInitialise();
 	}
+	
+	//TODO:
+	/** Finish off Oyster Rendering
+	 *  Fix the rendering for the custom blocks
+	 *  Split the books in 1.7, and in 1.6, Merge up the fixes from 1.6
+	 *  Then do the forge fluid dictionary and dsu for fluids
+	 *  Then merge down what I need to, for 1.6 + Bug fixes for it, Plus other stuff
+	 *  Make Vats not accept extra liquids in other tank
+	 *  Release Fixied 1.6 Tomorrow/Saturday as 1.2.1
+	 *  Work on new Jewelry System, Enchantment Numbers, Jewelry Mobs, Make Mob Magnet require LP for 1.2.2
+	 */
 }

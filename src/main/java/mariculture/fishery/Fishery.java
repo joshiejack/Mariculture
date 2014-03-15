@@ -100,6 +100,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import enchiridion.api.GuideHandler;
 
 public class Fishery extends Module {
 	public static boolean isActive;
@@ -186,8 +187,8 @@ public class Fishery extends Module {
 	@Override
 	public void registerBlocks() {
 		siftBlock = new BlockSift().setStepSound(Block.soundTypeWood).setHardness(1F).setBlockName("siftBlock");
-		lampsOff = new BlockNeonLamp(true).setBlockName("lampsOff");
-		lampsOn = new BlockNeonLamp(false).setBlockName("lampsOn");
+		lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lampsOff");
+		lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lampsOn");
 		
 		GameRegistry.registerTileEntity(TileAutofisher.class, "tileEntityAutofisher");
 		GameRegistry.registerTileEntity(TileSift.class, "tileEntitySift");
@@ -197,8 +198,8 @@ public class Fishery extends Module {
 
 		RegistryHelper.register(new Object[] { siftBlock, lampsOff, lampsOn });
 		
-		FluidDictionary.fish_food = Core.addFluid("food.fish", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
-		FluidDictionary.fish_oil = Core.addFluid("oil.fish", fishOil, 2000, FluidContainerMeta.BOTTLE_FISH_OIL);
+		FluidDictionary.fish_food = Core.addFluid("fishfood", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
+		FluidDictionary.fish_oil = Core.addFluid("fishoil", fishOil, 2000, FluidContainerMeta.BOTTLE_FISH_OIL);
 		FluidDictionary.milk = Core.addFluid("milk", milk, 2000, FluidContainerMeta.BOTTLE_MILK);
 		FluidDictionary.custard = Core.addFluid("custard", custard, 2000, FluidContainerMeta.BOTTLE_CUSTARD);
 		
@@ -231,45 +232,38 @@ public class Fishery extends Module {
 		foodUsage = new FishDNAFoodUsage();
 		production = new FishDNAWorkEthic();
 
+		//Reorder fish for the sake of 'vanilla'
 		cod = new FishCod(0);
-		perch = new FishPerch(1);
-		tuna = new FishTuna(2);
-
-		nether = new FishNether(3);
+		salmon = new FishSalmon(1);
+		clown = new FishClown(2);
+		puffer = new FishPuffer(3);
 		glow = new FishGlow(4);
 		blaze = new FishBlaze(5);
-
 		night = new FishNight(6);
 		ender = new FishEnder(7);
 		dragon = new FishDragon(8);
-
 		minnow = new FishMinnow(9);
-		salmon = new FishSalmon(10);
+		perch = new FishPerch(10);
 		bass = new FishBass(11);
-
 		tetra = new FishTetra(12);
 		catfish = new FishCatfish(13);
 		piranha = new FishPiranha(14);
-
 		stingRay = new FishStingRay(15);
 		mantaRay = new FishMantaRay(16);
 		electricRay = new FishElectricRay(17);
-
 		damsel = new FishDamsel(18);
 		angel = new FishAngel(19);
-		puffer = new FishPuffer(20);
-
+		nether = new FishNether(20);
 		squid = new FishSquid(21);
 		jelly = new FishJelly(22);
 		manOWar = new FishManOWar(23);
-
 		gold = new FishGold(24);
 		siamese = new FishSiamese(25);
 		koi = new FishKoi(26);
-
 		butterfly = new FishButterfly(27);
 		tang = new FishTang(28);
-		clown = new FishClown(29);
+		tuna = new FishTuna(29);
+		
 
 		Fishing.mutation.addMutation(nether, koi, glow, 6D);
 		Fishing.mutation.addMutation(glow, nether, blaze, 10D);
@@ -298,10 +292,10 @@ public class Fishery extends Module {
 	@Override
 	public void registerItems() {
 		bait = new ItemBait().setUnlocalizedName("bait");
-		rodReed = new ItemRod(EnumRodQuality.OLD, 128, 24).setUnlocalizedName("rodReed");
-		rodWood = new ItemRod(EnumRodQuality.GOOD, 448, 10).setUnlocalizedName("rodWood");
-		rodTitanium = new ItemRod(EnumRodQuality.SUPER, 960, 16).setUnlocalizedName("rodTitanium");
-		rodFlux = new ItemFluxRod().setUnlocalizedName("rodFlux");
+		rodReed = new ItemRod(EnumRodQuality.OLD, 96, 24).setUnlocalizedName("rod.reed");
+		rodWood = new ItemRod(EnumRodQuality.GOOD, 320, 10).setUnlocalizedName("rod.wood");
+		rodTitanium = new ItemRod(EnumRodQuality.SUPER, 640, 16).setUnlocalizedName("rod.titanium");
+		rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
 		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		net = new BlockItemNet().setUnlocalizedName("net");
 
@@ -342,11 +336,6 @@ public class Fishery extends Module {
 		addDropletRecipes();
 		addFishRecipes();
 		FishingLoot.add();
-		
-		/* Fishing Book */
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.FISHING), new Object[] {
-			Items.book, rodReed
-		});
 		
 		//Fishing Rods
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Items.sugar);

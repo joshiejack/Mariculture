@@ -117,7 +117,7 @@ public class BlockLimestone extends BlockDecorative {
 		icons = new IIcon[getMetaCount() - 2];
 
 		for (int i = 0; i < icons.length; i++) {
-			String name = getName(new ItemStack(this, 1, i));
+			String name = getName(i);
 			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + prefix + name.substring(0, 1).toUpperCase() + name.substring(1));
 		}
 	}

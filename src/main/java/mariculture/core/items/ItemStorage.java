@@ -66,8 +66,8 @@ public class ItemStorage extends Item implements IItemRegistry {
 	}
 
 	@Override
-	public void register() {
-		MaricultureRegistry.register(getName(new ItemStack(this, 1, 0)), new ItemStack(this, 1, 0));
+	public void register(Item item) {
+		MaricultureRegistry.register(getName(new ItemStack(item, 1, 0)), new ItemStack(item, 1, 0));
 	}
 
 	@Override

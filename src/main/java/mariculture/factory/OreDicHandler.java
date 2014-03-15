@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import enchiridion.api.DisplayRegistry;
 
 //This handles all the OreDictionaryRelated things to do with the Automatic Dictionary Converter
 public class OreDicHandler {
@@ -90,6 +91,14 @@ public class OreDicHandler {
 		ArrayList<ItemStack> stacks = items.get(name) != null? items.get(name): new ArrayList();
 		stacks.add(stack);
 		items.put(name, stacks);
+		
+		//Add Cycling
+		try {
+			DisplayRegistry.registerOreDictionaryCycling(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogHandler.log(Level.WARN, "Mariculture attempted to add Ore Dictionary Cycling for the guide books but it found the required mod Enchridion was not installed");
+		}
 	}
 	
 	public static String convert(ItemStack stack) {

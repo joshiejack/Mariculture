@@ -1,12 +1,15 @@
-package mariculture.core.guide;
+package mariculture.plugins.enchiridion;
 
 import mariculture.core.util.Text;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import org.lwjgl.opengl.GL11;
+
+import enchiridion.api.DisplayRegistry;
+import enchiridion.api.XMLHelper;
+import enchiridion.api.pages.PageParser;
 
 public class PageVat extends PageParser {
 	String input, fluid1, fluid2, fluid3, output, colorIn, colorOut, fluid1Type, fluid2Type, fluid3Type;
@@ -56,14 +59,14 @@ public class PageVat extends PageParser {
 		
 		//Fluid 1
 		if(!fluid1.equals("")) {
-			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid1)).getIcon();
+			IIcon icon = DisplayRegistry.getFluidIcon(fluid1);
 			drawFluidStack(x + 6, y + 28, icon, 7, 16);
 			drawFluidStack(x + 13, y + 28, icon, 16, 16);
 			drawFluidStack(x + 6, y + 12, icon, 7, 16);
 			drawFluidStack(x + 13, y + 12, icon, 16, 16);
 			
 			if(!fluid2.equals("")) {
-				icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid2)).getIcon();
+				icon = DisplayRegistry.getFluidIcon(fluid2);
 			}
 			
 			drawFluidStack(x + 29, y + 28, icon, 16, 16);
@@ -73,7 +76,7 @@ public class PageVat extends PageParser {
 		}
 		
 		if(!fluid3.equals("")) {
-			IIcon icon = FluidRegistry.getFluid(GuideHandler.getFluidIcon(fluid3)).getIcon();
+			IIcon icon = DisplayRegistry.getFluidIcon(fluid3);
 			drawFluidStack(x + 97, y + 28, icon, 16, 16);
 			drawFluidStack(x + 90, y + 28, icon, 7, 16);
 			drawFluidStack(x + 113, y + 28, icon, 16, 16);
@@ -92,12 +95,12 @@ public class PageVat extends PageParser {
 		gui.drawTexturedModalRect(x + 62, y + 20, 2, 63, 22, 14);
 		
 		if(!input.equals("")) {
-			drawItemStack((ItemStack) GuideHandler.getIcon(input), x + 20, y + 20);
+			drawItemStack((ItemStack) DisplayRegistry.getIcon(input), x + 20, y + 20);
 			gui.getMC().fontRenderer.drawString(colorIn + "x" + numInput, x + 36, y + 27, 4210752);
 		} 
 		
 		if(!output.equals("")) {
-			drawItemStack((ItemStack) GuideHandler.getIcon(output), x + 104, y + 20);
+			drawItemStack((ItemStack) DisplayRegistry.getIcon(output), x + 104, y + 20);
 			gui.getMC().fontRenderer.drawString(colorOut + "x" + numOutput, x + 120, y + 27, 4210752);
 		}
 		

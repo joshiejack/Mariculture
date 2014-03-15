@@ -66,6 +66,7 @@ public class Plugins {
 		add("BiomesOPlenty");
 		add("HungerOverhaul");
 		add("ThermalExpansion");
+		add("Enchiridion");
 	}
 
 	public void load(Stage stage) {

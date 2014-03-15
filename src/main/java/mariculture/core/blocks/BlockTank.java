@@ -237,7 +237,7 @@ public class BlockTank extends BlockConnected {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)) + "Tank");
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(i) + "Tank");
 		}
 		
 		registerConnectedTextures(iconRegister);

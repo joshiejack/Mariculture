@@ -26,9 +26,5 @@ public class GuiItemToolTip {
 			if(gui instanceof GuiMariculture)
 				((GuiMariculture) gui).addItemToolTip(stack, list);
 		} 
-		
-		if(Extra.DEBUG_ON) {
-			list.add(stack.getItem().getUnlocalizedName());
-		}
 	}
 }

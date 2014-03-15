@@ -12,6 +12,7 @@ import mariculture.core.util.Text;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -96,9 +97,9 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 	}
 	
 	@Override
-	public void register() {
+	public void register(Item item) {
 		for(int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
+			MaricultureRegistry.register(getName(new ItemStack(item, 1, j)), new ItemStack(item, 1, j));
 		}
 	}
 }

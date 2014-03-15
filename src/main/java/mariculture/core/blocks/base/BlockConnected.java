@@ -110,7 +110,7 @@ public abstract class BlockConnected extends BlockDecorative {
 		registerConnectedTextures(iconRegister);
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "glass_" + getName(new ItemStack(this, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "glass_" + getName(i));
 		}
 	}
 }

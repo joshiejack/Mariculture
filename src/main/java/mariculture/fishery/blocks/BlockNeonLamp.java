@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
@@ -26,9 +25,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockNeonLamp extends BlockDecorative {
 	private final boolean powered;
 
-	public BlockNeonLamp(boolean powered) {
+	public BlockNeonLamp(boolean powered, String prefix) {
 		super(Material.glass);
 		this.powered = powered;
+		this.prefix = prefix;
 
 		if (!powered) {
 			setLightLevel(1.0F);
@@ -142,13 +142,6 @@ public class BlockNeonLamp extends BlockDecorative {
 					list.add(new ItemStack(item, 1, meta));
 				}
 			}
-		}
-	}
-
-	@Override
-	public void register() {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("neonLamp." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
 		}
 	}
 

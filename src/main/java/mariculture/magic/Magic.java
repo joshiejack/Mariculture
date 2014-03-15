@@ -11,7 +11,6 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -188,12 +187,7 @@ public class Magic extends Module {
 	}
 
 	@Override
-	public void addRecipes() {
-		//Enchant Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.ENCHANTS), new Object[] {
-			Items.book, new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
-		});
-		
+	public void addRecipes() {		
 		//Basic Mirror
 		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
 			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"

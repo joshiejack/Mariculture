@@ -2,7 +2,6 @@ package mariculture.core.blocks;
 
 import mariculture.Mariculture;
 import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
@@ -15,7 +14,6 @@ import mariculture.core.util.IHasGUI;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.blocks.TilePressureVessel;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +30,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDouble extends BlockMachineMultiOld {
+public class BlockDouble extends BlockFunctionalMulti {
 	public IIcon bar1;
 
 	public BlockDouble() {
@@ -245,7 +243,7 @@ public class BlockDouble extends BlockMachineMultiOld {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(World world, int meta) {
 		switch (meta) {
 		case DoubleMeta.COMPRESSOR_BASE:
 			return new TileAirCompressor();
@@ -303,11 +301,6 @@ public class BlockDouble extends BlockMachineMultiOld {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		bar1 = iconRegister.registerIcon(Mariculture.modid + ":bar1");
-		
-		icons = new IIcon[getMetaCount()];
-
-		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
-		}
+		super.registerBlockIcons(iconRegister);
 	}
 }

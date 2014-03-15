@@ -23,7 +23,7 @@ public class BlockCustomPower extends BlockCustomBase {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TileCustomPowered();
 	}
 }

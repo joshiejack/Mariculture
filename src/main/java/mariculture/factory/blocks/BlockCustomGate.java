@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +24,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomGate extends BlockFenceGate implements IItemRegistry, IHasMeta {
+public class BlockCustomGate extends BlockFenceGate implements IHasMeta {
 
 	public BlockCustomGate() {
 		setCreativeTab(null);
@@ -101,20 +102,8 @@ public class BlockCustomGate extends BlockFenceGate implements IItemRegistry, IH
 	}
 
 	@Override
-	public void register() {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
-		}
-	}
-
-	@Override
 	public int getMetaCount() {
 		return 1;
-	}
-
-	@Override
-	public String getName(ItemStack stack) {
-		return "customGate";
 	}
 	
 	@Override

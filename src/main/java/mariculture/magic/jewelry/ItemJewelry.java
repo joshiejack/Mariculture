@@ -3,11 +3,11 @@ package mariculture.magic.jewelry;
 import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Jewelry;
 import mariculture.core.util.IItemRegistry;
-import mariculture.core.util.Text;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryPart;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,11 +18,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemJewelry extends Item implements IItemRegistry {
+public abstract class ItemJewelry extends Item implements IItemRegistry {
 
 	private IIcon[] parts;
 	private IIcon[] special;
@@ -37,25 +36,11 @@ public class ItemJewelry extends Item implements IItemRegistry {
 	}
 
 	@Override
-	public int getItemEnchantability() {
-		return 1;
-	}
-
-	public int getType() {
-		return 0;
-	}
-
-	public String getTypeString() {
-		return "blank";
-	}
-
-	public String getPart1() {
-		return "blank";
-	}
-
-	public String getPart2() {
-		return "blank";
-	}
+	public abstract int getItemEnchantability();
+	public abstract int getType();
+	public abstract String getTypeString();
+	public abstract String getPart1();
+	public abstract String getPart2();
 
 	@Override
 	public boolean requiresMultipleRenderPasses() {
@@ -210,6 +195,19 @@ public class ItemJewelry extends Item implements IItemRegistry {
 			}
 		}
 	}
+	
+	@Override
+	public void register(Item item) { }
+	
+	@Override
+	public int getMetaCount() {
+		return 1;
+	}
+	
+	@Override
+	public String getName(ItemStack stack) {
+		return null;
+	}
 
 	public static ItemStack buildJewelry(Item item, int part1, int part2) {
 		ItemStack stack = new ItemStack(item, 1, 0);
@@ -231,20 +229,5 @@ public class ItemJewelry extends Item implements IItemRegistry {
 		}
 
 		return 0;
-	}
-
-	@Override
-	public void register() {		
-		
-	}
-
-	@Override
-	public int getMetaCount() {
-		return 0;
-	}
-
-	@Override
-	public String getName(ItemStack stack) {
-		return null;
 	}
 }

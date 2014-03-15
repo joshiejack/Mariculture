@@ -100,11 +100,7 @@ public class BlockGround extends BlockDecorative {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if(meta == GroundMeta.BUBBLES) return Blocks.sand.getIcon(side, meta);
-		if(meta < getMetaCount()) {
-			return icons[meta - 1];
-		} else { 
-			return icons[0];
-		}
+		else return blockIcon;
 	}
 
 	@Override
@@ -115,10 +111,6 @@ public class BlockGround extends BlockDecorative {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		icons = new IIcon[getMetaCount() - 1];
-
-		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i + 1)));
-		}
+		blockIcon = iconRegister.registerIcon(Mariculture.modid + ":ancientSand");
 	}
 }

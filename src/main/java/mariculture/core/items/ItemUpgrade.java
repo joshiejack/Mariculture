@@ -6,6 +6,7 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -227,9 +228,9 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public void register() {
+	public void register(Item item) {
 		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("upgrade." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
+			MaricultureRegistry.register("upgrade." + getName(new ItemStack(item, 1, j)), new ItemStack(item, 1, j));
 		}
 	}
 

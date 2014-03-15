@@ -80,12 +80,7 @@ public class Diving extends Module {
 	}
 	
 	@Override
-	public void addRecipes() {
-		//Diving Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.DIVING), new Object[] {
-			Items.book, new ItemStack(snorkel)
-		});
-		
+	public void addRecipes() {		
 		//Air Compressor Top
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),

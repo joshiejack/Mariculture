@@ -46,7 +46,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSingle extends BlockOldMachine {
+public class BlockSingle extends BlockFunctional {
 	public BlockSingle() {
 		super(Material.piston);
 	}
@@ -384,7 +384,7 @@ public class BlockSingle extends BlockOldMachine {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(World world, int meta) {
 		switch (meta) {
 		case SingleMeta.AIR_PUMP:
 			return new TileAirPump();
@@ -497,11 +497,12 @@ public class BlockSingle extends BlockOldMachine {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
+		String name = prefix != null? prefix: "";
+		
 		icons = new IIcon[getMetaCount()];
-
 		for (int i = 0; i < icons.length; i++) {
 			if(i <= SingleMeta.ANVIL_1 || i > SingleMeta.ANVIL_4) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
+				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
 			}
 		}
 	}

@@ -194,6 +194,11 @@ public abstract class FishSpecies {
 	public boolean canAlwaysEat() {
 		return false;
 	}
+	
+	/** Add a potion effect for this fish to return **/
+	public String getPotionEffect(ItemStack stack) {
+		return null;
+	}
 
 	/** This is called after a player has eaten, and only if it can eat, which is define by the getFoodStat call
 	 * 

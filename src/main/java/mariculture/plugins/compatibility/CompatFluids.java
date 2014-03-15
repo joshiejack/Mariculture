@@ -14,8 +14,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.guide.XMLHelper;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.XMLHelper;
 import mariculture.core.lib.TransparentMeta;
 import net.minecraft.item.Item;
 

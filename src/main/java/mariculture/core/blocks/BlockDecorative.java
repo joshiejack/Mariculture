@@ -19,7 +19,7 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BlockDecorative extends Block implements IItemRegistry, IHasMeta {
+public abstract class BlockDecorative extends Block implements IHasMeta {
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
 	protected String prefix;
@@ -35,21 +35,9 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 	public abstract String getToolType(int meta);
 	public abstract int getToolLevel(int meta);
 	
+	public abstract int getMetaCount();
 	public boolean isActive(int meta) {
 		return true;
-	}
-
-	@Override
-	public void register() {
-		String name = prefix != null? prefix.replaceAll("_", ","): "";
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(name + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
-		}
-	}
-
-	@Override
-	public String getName(ItemStack stack) {
-		return RegistryHelper.getName(stack);
 	}
 	
 	@Override
@@ -69,13 +57,16 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		if(blockIcon != null)
-			return blockIcon;
+		if(blockIcon != null) return blockIcon;
 		if(meta < getMetaCount()) {
 			return icons[meta];
 		} else { 
 			return icons[0];
 		}
+	}
+	
+	protected String getName(int i) {
+		return ((IItemRegistry)Item.getItemFromBlock(this)).getName(new ItemStack(this, 1, i));
 	}
 
 	@Override
@@ -85,7 +76,7 @@ public abstract class BlockDecorative extends Block implements IItemRegistry, IH
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(new ItemStack(this, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
 		}
 	}
 

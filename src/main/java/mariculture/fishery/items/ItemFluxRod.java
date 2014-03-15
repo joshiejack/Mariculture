@@ -65,11 +65,6 @@ public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
 	public boolean shouldRotateAroundWhenRendering() {
 		return true;
 	}
-
-	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
-	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)

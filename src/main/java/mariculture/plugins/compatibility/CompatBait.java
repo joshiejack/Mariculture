@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamResult;
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
-import mariculture.core.guide.XMLHelper;
+import mariculture.core.helpers.XMLHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
@@ -26,6 +26,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+
 
 public class CompatBait {
 

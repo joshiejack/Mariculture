@@ -115,7 +115,7 @@ public class RecipesSmelting {
 		//Magnesium Metal Dust!!!
 		LinkedMetal[] magnesiums = new LinkedMetal[] {
 				new LinkedMetal("ingotMagnesium", FluidDictionary.magnesium, 2),
-				new LinkedMetal("ingotNickel", FluidDictionary.nickel, 3),
+				new LinkedMetal("ingotNickel", FluidDictionary.nickel, 7),
 				new LinkedMetal("ingotCobalt", FluidDictionary.cobalt, 20), };
 		addDust(MaterialsMeta.DUST_MAGNESITE, magnesium, salt, 1, magnesiums);
 		

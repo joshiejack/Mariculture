@@ -21,14 +21,18 @@ public class ItemDamageable extends Item implements IItemRegistry {
 	}
 	
 	@Override
-	public void register() {
-		MaricultureRegistry.register(getName(new ItemStack(this, 1, 0)), new ItemStack(this, 1, 0));
+	public void register(Item item) {
+		MaricultureRegistry.register(getName(new ItemStack(item, 1, 0)), new ItemStack(item, 1, 0));
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, 0)));
+		String theName, name = getName(new ItemStack(this));
+		String[] aName = name.split("\\.");
+		if(aName.length == 2) theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+		else theName = name;
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
 	}
 
 	@Override

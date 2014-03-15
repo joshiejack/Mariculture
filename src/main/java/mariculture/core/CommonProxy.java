@@ -6,7 +6,6 @@ import mariculture.core.gui.ContainerBookshelf;
 import mariculture.core.gui.ContainerLiquifier;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
-import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
 import mariculture.factory.blocks.TileDictionaryItem;
@@ -118,10 +117,6 @@ public class CommonProxy implements IGuiHandler {
 		if(id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
 			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
 			return storage.getGUIElement(player);
-		}
-		
-		if(id == GuiIds.GUIDE) {
-			return ItemGuide.getGui(player.getCurrentEquippedItem());
 		}
 		
 		TileEntity tile = world.getTileEntity(x, y, z);

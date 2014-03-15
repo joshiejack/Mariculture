@@ -18,7 +18,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockWater extends BlockOldMachine {
+public class BlockWater extends BlockFunctional {
 	public BlockWater() {
 		super(Material.water);
 		setTickRandomly(true);
@@ -60,7 +60,7 @@ public class BlockWater extends BlockOldMachine {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TileOyster();
 	}
 	

@@ -47,10 +47,10 @@ public class ItemPlan extends ItemMariculture {
 	}
 	
 	@Override
-	public void register() {
+	public void register(Item item) {
 		for(int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(PlansMeta.setType(new ItemStack(this, 1, 0), j)), 
-					PlansMeta.setType(new ItemStack(this, 1, 0), j));
+			MaricultureRegistry.register(getName(PlansMeta.setType(new ItemStack(item, 1, 0), j)), 
+					PlansMeta.setType(new ItemStack(item, 1, 0), j));
 		}
 	}
 

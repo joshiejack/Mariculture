@@ -7,6 +7,7 @@ import mariculture.core.lib.GlassMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -49,13 +50,6 @@ public class BlockGlass extends BlockConnected {
         Block block = world.getBlock(x, y, z);
         return block == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
     }
-
-	@Override
-	public void register() {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register("glass." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
-		}
-	}
 
 	@Override
 	public int getMetaCount() {

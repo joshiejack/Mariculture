@@ -8,9 +8,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import org.apache.logging.log4j.Level;
 
 public class Compat {
-	public static void preInit() {
-		CompatBooks.preInit();
-		
+	public static void preInit() {		
 		if(FluidRegistry.getFluid("milk") != null) {
 			FluidDictionary.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
 		}
@@ -26,6 +24,5 @@ public class Compat {
 		}
 		
 		CompatFluids.init();
-		CompatBooks.init();
 	}
 }

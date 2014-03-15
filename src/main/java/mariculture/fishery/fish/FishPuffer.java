@@ -6,7 +6,12 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
+import net.minecraft.world.World;
 
 public class FishPuffer extends FishSpecies {
 	public FishPuffer(int id) {
@@ -53,6 +58,18 @@ public class FishPuffer extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 3.000;
+	}
+	
+	@Override
+	public String getPotionEffect(ItemStack stack) {
+		return PotionHelper.field_151423_m;
+	}
+	
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(Potion.poison.id, 1200, 3));
+		player.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 2));
+		player.addPotionEffect(new PotionEffect(Potion.confusion.id, 300, 1));
 	}
 
 	@Override

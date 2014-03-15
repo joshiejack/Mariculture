@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
+import mariculture.core.blocks.BlockFunctional;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.util.IItemRegistry;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,7 +27,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSift extends BlockContainer implements IItemRegistry {
+public class BlockSift extends BlockFunctional {
 	public BlockSift() {
 		super(Material.wood);
 		setCreativeTab(MaricultureTab.tabMariculture);
@@ -68,7 +66,7 @@ public class BlockSift extends BlockContainer implements IItemRegistry {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TileSift();
 	}
 
@@ -233,17 +231,17 @@ public class BlockSift extends BlockContainer implements IItemRegistry {
     }
 
 	@Override
-	public String getName(ItemStack stack) {
-		return "sift";
+	public String getToolType(int meta) {
+		return "axe";
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
 	}
 
 	@Override
 	public int getMetaCount() {
 		return 1;
-	}
-
-	@Override
-	public void register() {
-		MaricultureRegistry.register(getName(new ItemStack(this)), new ItemStack(this, 1));
 	}
 }

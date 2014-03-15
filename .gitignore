@@ -13,3 +13,5 @@
 .project
 .settings/*
 src/api/*
+src/main/java/enchiridion/*
+src/main/resources/books/*

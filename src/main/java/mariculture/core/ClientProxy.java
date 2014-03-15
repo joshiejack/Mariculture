@@ -1,15 +1,10 @@
 package mariculture.core;
 
-import java.io.InputStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import mariculture.Mariculture;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
 import mariculture.core.blocks.TileVat;
-import mariculture.core.guide.GuideRegistry;
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.render.AnvilSpecialRenderer;
@@ -44,7 +39,7 @@ import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
 import mariculture.fishery.render.RenderProjectileFish;
-import mariculture.plugins.compatibility.CompatBooks;
+import mariculture.plugins.enchiridion.PageVat;
 import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
@@ -55,12 +50,13 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
-import org.w3c.dom.Document;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
+import enchiridion.api.GuideHandler;
 
 public class ClientProxy extends CommonProxy {
 	public static final float scale = (float) (1.0 / 20.0);
@@ -141,57 +137,12 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpeedBoat.class, new RenderSpeedBoat());
 			MinecraftForgeClient.registerItemRenderer(Transport.speedBoat, new RenderSpeedBoatItem());
 		}
-	}
-	
-	public static Document breeding;
-	public static Document diving;
-	public static Document enchants;
-	public static Document fishing;
-	public static Document machines;
-	public static Document processing;
-	
-	@Override
-	public void loadBooks() {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		breeding = loadGuide("breeding", factory);
-        diving = loadGuide("diving", factory);
-        enchants = loadGuide("enchants", factory);
-        fishing = loadGuide("fishing", factory);
-        machines = loadGuide("machines", factory);
-        processing = loadGuide("processing", factory);
-        GuideRegistry.init();
-	}
-	
-	private Document loadGuide (String location, DocumentBuilderFactory factory) {
-        try {
-        	String lang = FMLClientHandler.instance().getCurrentLanguage();
-            InputStream stream = Mariculture.class.getResourceAsStream("/assets/mariculture/books/" + location + "_" + lang + ".xml");
-            if(stream == null)
-            	stream = Mariculture.class.getResourceAsStream("/assets/mariculture/books/" + location + "_en_US.xml");
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(stream);
-            doc.getDocumentElement().normalize();
-            return doc;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-	public static Document getDocument(String xml) {
-		if(xml.equals("breeding"))
-			return breeding;
-		if(xml.equals("diving"))
-			return diving;
-		if(xml.equals("enchants"))
-			return enchants;
-		if(xml.equals("fishing"))
-			return fishing;
-		if(xml.equals("machines"))
-			return machines;
-		if(xml.equals("processing"))
-			return processing;
-		return CompatBooks.getDocument(xml);
+		
+		try {
+			GuideHandler.registerPageHandler("vat", new PageVat());
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogHandler.log(Level.WARN, "Mariculture attempted to register the vat page handler for it's books, but the required mod Enchiridion was not found");
+		}
 	}
 }

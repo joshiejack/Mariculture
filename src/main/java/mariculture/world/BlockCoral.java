@@ -5,16 +5,14 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
+import mariculture.core.blocks.BlockDecorative;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.util.IHasMeta;
-import mariculture.core.util.IItemRegistry;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,15 +32,26 @@ import net.minecraftforge.common.IPlantable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHasMeta {
+public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta {
 	private IIcon[] icons;
 
-	protected BlockCoral(boolean tick) {
+	protected BlockCoral(boolean tick, String prefix) {
 		super(Material.water);
 		float f = 0.375F;
 		setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
 		setTickRandomly(tick);
 		setCreativeTab(MaricultureTab.tabMariculture);
+		this.prefix = prefix;
+	}
+	
+	@Override
+	public String getToolType(int meta) {
+		return null;
+	}
+
+	@Override
+	public int getToolLevel(int meta) {
+		return 0;
 	}
 	
 	@Override
@@ -279,17 +288,12 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return icons[meta];
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		icons = new IIcon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "coral_" + getName(new ItemStack(this, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "coral_" + getName(i));
 		}
 	}
 
@@ -304,23 +308,8 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry, IHas
 	}
 
 	@Override
-	public void register() {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			if (j == 1) {
-				j++;
-			}
-			MaricultureRegistry.register("coral." + getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
-		}
-	}
-
-	@Override
 	public int getMetaCount() {
 		return CoralMeta.COUNT;
-	}
-
-	@Override
-	public String getName(ItemStack stack) {
-		return RegistryHelper.getName(stack);
 	}
 
 	@Override

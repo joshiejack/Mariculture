@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -78,6 +79,17 @@ public class ItemVanillaFish extends ItemFishFood {
 				fish.onConsumed(world, player);
 				return stack;
 			} else return super.onEaten(stack, world, player);
+		}
+    }
+	
+	@Override
+	public String getPotionEffect(ItemStack stack) {
+		if(Extra.VANILLA_STATS && stack.getItemDamage() < LAST_VANILLA) return super.getPotionEffect(stack);
+		else {
+			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
+			if(fish != null) {
+				return fish.getPotionEffect(stack);
+			} else return super.getPotionEffect(stack);
 		}
     }
 	

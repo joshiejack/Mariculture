@@ -60,11 +60,6 @@ public class Recipes {
 			"foodSalt", "foodSalt", Items.beef, new ItemStack(Core.water, 1, 0), Items.wheat, Items.egg, "dustSalt", Items.porkchop, Items.wheat
 		});
 		
-		//Processing Book
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.guides, 1, GuideMeta.PROCESSING), new Object[] {
-			Items.book, new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
-		});
-		
 		//Heat Resistant Bottles
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.liquidContainers, 3, FluidContainerMeta.BOTTLE_EMPTY), new Object[] {
 			"G G", " G ", 'G', new ItemStack(Core.glass, 1, GlassMeta.HEAT)
@@ -178,8 +173,8 @@ public class Recipes {
 	}
 
 	private static void addCraftingItems() {
-		//Golden Silk > 5 Seconds, 1 x Ingot Gold(mB) + String
-		RecipeHelper.addVatItemRecipe(new ItemStack(Items.string), FluidDictionary.gold, MetalRates.INGOT, 
+		//Golden Silk > 5 Seconds, 4 x Ingot Gold(mB) + String
+		RecipeHelper.addVatItemRecipe(new ItemStack(Items.string), FluidDictionary.gold, MetalRates.INGOT * 4, 
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 5);
 		
 		//Golden Thread

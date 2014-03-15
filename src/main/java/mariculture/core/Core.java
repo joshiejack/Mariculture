@@ -33,8 +33,6 @@ import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.blocks.TileVat;
 import mariculture.core.blocks.TileVoidBottle;
 import mariculture.core.gui.GuiItemToolTip;
-import mariculture.core.guide.GuideHandler;
-import mariculture.core.guide.Guides;
 import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.ClientFMLEvents;
 import mariculture.core.handlers.FuelHandler;
@@ -53,7 +51,6 @@ import mariculture.core.items.ItemCrafting;
 import mariculture.core.items.ItemFluidContainer;
 import mariculture.core.items.ItemFluidStorage;
 import mariculture.core.items.ItemFood;
-import mariculture.core.items.ItemGuide;
 import mariculture.core.items.ItemHammer;
 import mariculture.core.items.ItemMaterial;
 import mariculture.core.items.ItemPearl;
@@ -141,14 +138,12 @@ public class Core extends Module {
 	public static Item pearls;
 	public static Item hammer;
 	public static Item worked;
-	public static Item guides;
 	public static Item ladle;
 	public static Item can;
 	public static Item bucket;
 	
 	@Override
 	public void registerHandlers() {
-		Guides.instance = new GuideHandler();
 		OreDicHandler.registerWildCards();
 		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
@@ -221,21 +216,20 @@ public class Core extends Module {
 	@Override
 	public void registerItems() {
 		materials = new ItemMaterial().setUnlocalizedName("materials");
-		craftingItem = new ItemCrafting().setUnlocalizedName("craftingItems");
-		batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("batteryCopper");
-		batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("batteryTitanium");
+		craftingItem = new ItemCrafting().setUnlocalizedName("crafting");
+		batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("battery.copper");
+		batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("battery.titanium");
 		food = new ItemFood().setUnlocalizedName("food");
 		upgrade = new ItemUpgrade().setUnlocalizedName("upgrade");
 		pearls = new ItemPearl().setUnlocalizedName("pearls");
-		liquidContainers = new ItemFluidContainer().setUnlocalizedName("liquidContainers");
+		liquidContainers = new ItemFluidContainer().setUnlocalizedName("fluids");
 		hammer = new ItemHammer(brick).setUnlocalizedName("hammer");
 		worked = new ItemWorked().setUnlocalizedName("worked");
-		guides = new ItemGuide().setUnlocalizedName("guide");
-		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
-		bucket = new ItemFluidStorage(8000).setUnlocalizedName("titaniumBucket");
 		
-		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, 
-				liquidContainers, hammer, worked, batteryCopper, guides, ladle, bucket });
+		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
+		bucket = new ItemFluidStorage(8000).setUnlocalizedName("bucket.titanium");
+		
+		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, liquidContainers, hammer, worked, batteryCopper, ladle, bucket });
 	}
 	
 	@Override

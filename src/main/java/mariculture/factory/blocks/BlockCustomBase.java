@@ -2,7 +2,7 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.core.blocks.BlockOldMachine;
+import mariculture.core.blocks.BlockFunctional;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomBase extends BlockOldMachine {
+public class BlockCustomBase extends BlockFunctional {
 	BlockCustomBase(Material material) {
 		super(material);
 		setCreativeTab(null);
@@ -115,7 +115,7 @@ public class BlockCustomBase extends BlockOldMachine {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TileCustom();
 	}
 

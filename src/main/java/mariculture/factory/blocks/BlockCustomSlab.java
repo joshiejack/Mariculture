@@ -28,7 +28,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustomSlab extends BlockSlab implements IItemRegistry, IHasMeta {
+public class BlockCustomSlab extends BlockSlab implements IHasMeta {
 	public BlockCustomSlab(boolean isDouble) {
 		super(isDouble, Material.piston);		
 		setLightOpacity(0);
@@ -126,22 +126,10 @@ public class BlockCustomSlab extends BlockSlab implements IItemRegistry, IHasMet
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		return;
 	}
-	
-	@Override
-	public void register() {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(this, 1, j)), new ItemStack(this, 1, j));
-		}
-	}
 
 	@Override
 	public int getMetaCount() {
 		return 1;
-	}
-
-	@Override
-	public String getName(ItemStack stack) {
-		return "customSlab";
 	}
 
 	@Override
