@@ -46,6 +46,21 @@ public abstract class JewelryMaterial {
 	public void registerIcons(IIconRegister iconRegistry, JewelryType type) {
 		icons.put(type, iconRegistry.registerIcon(Mariculture.modid + ":jewelry/" + type.name().toLowerCase() + "/material/" + getIdentifier()));
 	}
+	
+	/** A boost/reduction to maximum number of enchantments based on this color **/
+	public int getExtraEnchantments(JewelryType type) {
+		return 0;
+	}
+	
+	/** A limiting factor for the enchantment level on this piece of jewelry **/
+	public int getMaximumEnchantmentLevel(JewelryType type) {
+		return 3;
+	}
+	
+	/** Repair cost modifier, in anvil **/
+	public float getRepairModifier(JewelryType type) {
+		return 1.5F;
+	}
 
 	/** The modifier to durability **/
 	public abstract float getDurabilityModifier(JewelryType type);

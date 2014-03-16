@@ -69,8 +69,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.NATURAL_GAS_MIN + random.nextInt(OreGeneration.NATURAL_GAS_MAX - OreGeneration.NATURAL_GAS_MIN);
 				posZ = z + random.nextInt(16);
-				new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone)
-					.generate(world, random, posX, posY, posZ);
+				new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 			}
 		}
 	}

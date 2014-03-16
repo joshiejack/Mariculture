@@ -33,7 +33,6 @@ public class ContainerMirror extends ContainerStorage {
 			if (!player.worldObj.isRemote) {
 				List var4 = EnchantmentHelper.buildEnchantmentList(Rand.rand, itemToEnchant, levelToEnchant);
 				boolean var5 = itemToEnchant.getItem() == Items.book;
-				System.out.println(var4);
 				if (var4 != null) {
 					player.addExperienceLevel(-levelToEnchant);
 

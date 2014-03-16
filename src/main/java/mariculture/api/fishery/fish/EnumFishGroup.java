@@ -11,7 +11,7 @@ public enum EnumFishGroup {
 	
 	//River Fish
 	RIVER(1, new EnumBiomeType[] { EnumBiomeType.NORMAL, EnumBiomeType.COLD, EnumBiomeType.FROZEN }, 
-			 new EnumSalinityType[] { EnumSalinityType.FRESH }),
+			 new EnumSalinityType[] { EnumSalinityType.FRESH, EnumSalinityType.MAGIC }),
 			
 	//Ocean Fish
 	OCEAN(2, new EnumBiomeType[] { EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.COLD, EnumBiomeType.FROZEN }, 
@@ -65,7 +65,7 @@ public enum EnumFishGroup {
 	}
 
 	public boolean canLive(World world, int x, int y, int z) {
-		return Fishing.fishHelper.canLive(world.getWorldChunkManager().getBiomeGenAt(x, z), getBiomes(), getSalinityRequired(), world.getTileEntity(x, y, z));
+		return Fishing.fishHelper.canLive(world, x, y, z, getBiomes(), getSalinityRequired());
 	}
 
 	public EnumSalinityType[] getSalinityRequired() {

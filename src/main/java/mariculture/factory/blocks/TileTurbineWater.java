@@ -1,5 +1,6 @@
 package mariculture.factory.blocks;
 
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.Rand;
 import mariculture.factory.items.ItemRotor;
@@ -66,4 +67,19 @@ public class TileTurbineWater extends TileTurbineBase {
 			isCreatingPower = false;
 		}
 	}
+	
+	@Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        return new int[] { 3, 4, 6} ;
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, int side) {
+        return (slot == 3 && FluidHelper.isFluidOrEmpty(stack)) || (slot == 6 && stack.getItem() instanceof ItemRotor);
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+        return slot == 4;
+    }
 }

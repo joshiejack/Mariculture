@@ -31,7 +31,6 @@ public class Extra {
 	public static int FISH_FOOD_TICK;
 	public static int TANK_UPDATE;
 	public static int EFFECT_TICK;
-	public static int DEATH_TICKER;
 	public static int DRAGON_EGG_BASE;
 	public static int DRAGON_EGG_ETHEREAL;
 	public static boolean DROP_JEWELRY;

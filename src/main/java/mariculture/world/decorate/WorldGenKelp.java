@@ -25,11 +25,10 @@ public class WorldGenKelp extends WorldGenerator {
     
     private static boolean genForest = false;
     public boolean generate(World world, Random rand, int x, int y, int z) {
+    	if(!WorldGeneration.KELP_FOREST_ENABLED) return true;
     	//If forests enabled, turn them on/off
-    	if(WorldGeneration.KELP_FOREST_ENABLED) {
-	    	if(rand.nextInt(WorldGeneration.KELP_FOREST_START_CHANCE) == 0) genForest = true;
-	    	if(genForest && rand.nextInt(WorldGeneration.KELP_FOREST_END_CHANCE) == 0) genForest = false;
-    	}
+	    if(rand.nextInt(WorldGeneration.KELP_FOREST_START_CHANCE) == 0) genForest = true;
+	    if(genForest && rand.nextInt(WorldGeneration.KELP_FOREST_END_CHANCE) == 0) genForest = false;
     	
     	for(int l = 0; l < (genForest? 128: rand.nextInt(129)); l++) {
     		int i1 = x + rand.nextInt(8) - rand.nextInt(8); 

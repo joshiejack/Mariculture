@@ -14,6 +14,7 @@ import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class FishHelper implements IFishHelper {
@@ -123,39 +124,46 @@ public class FishHelper implements IFishHelper {
 		return fish;
 	}
 	
-	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile) {
-		TileFeeder feeder = (TileFeeder) tile;
-		if(feeder != null && feeder instanceof IUpgradable) {
-			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.getWorldObj().getBiomeGenForCoords(tile.xCoord, tile.zCoord));
-			EnumSalinityType saltType = theBiome.getSalinity();
-			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
+	@Override
+	public boolean canLive(World world, int x, int y, int z, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity) {
+		EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(x, z));
+		EnumSalinityType saltType = theBiome.getSalinity();
+		
+		int min = biomeTypes[0].minTemp();
+		int max = biomeTypes[0].maxTemp();
+		int temp = theBiome.baseTemp();
+		
+		//Change the biome type if it's upgradable
+		if(world.getTileEntity(x, y, z) instanceof IUpgradable) {
+			IUpgradable tile = (IUpgradable) world.getTileEntity(x, y, z);
+			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", tile))
 				saltType = EnumSalinityType.SALT;
-			if(MaricultureHandlers.upgrades.hasUpgrade("filter", (IUpgradable) tile))
+			if(MaricultureHandlers.upgrades.hasUpgrade("filter", tile))
 				saltType = EnumSalinityType.FRESH;
-			if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile))
+			if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", tile))
 				saltType = EnumSalinityType.MAGIC;
-			boolean saltMatches = false;
-			for(EnumSalinityType salt: salinity) {
-				if(salt.equals(saltType))
-					saltMatches = true;
-			}
-			
-			if(!saltMatches)
-				return false;
-						
-			int min = biomeTypes[0].minTemp();
-			int max = biomeTypes[0].maxTemp();
-			int temp = theBiome.baseTemp() + MaricultureHandlers.upgrades.getData("temp", (IUpgradable) tile);
-			for(EnumBiomeType type: biomeTypes) {
-				if(type.minTemp() < min)
-					min = type.minTemp();
-				if(type.maxTemp() > max)
-					max = type.maxTemp();
-			}
-			
-			if(temp >= min && temp <= max) {
-				return true;
-			}
+			temp += MaricultureHandlers.upgrades.getData("temp", tile);
+		}
+		
+		//Check the salt type of this location
+		boolean saltMatches = false;
+		for(EnumSalinityType salt: salinity) {
+			if(salt.equals(saltType))
+				saltMatches = true;
+		}
+		
+		if(!saltMatches) return false;
+		
+		//Check the water temperatures
+		for(EnumBiomeType type: biomeTypes) {
+			if(type.minTemp() < min)
+				min = type.minTemp();
+			if(type.maxTemp() > max)
+				max = type.maxTemp();
+		}
+		
+		if(temp >= min && temp <= max) {
+			return true;
 		}
 		
 		return false;

@@ -269,7 +269,7 @@ public class Fishery extends Module {
 
 		Fishing.mutation.addMutation(nether, koi, glow, 6D);
 		Fishing.mutation.addMutation(glow, nether, blaze, 10D);
-		Fishing.mutation.addMutation(night, jelly, ender, 8D);
+		Fishing.mutation.addMutation(night, electricRay, ender, 8D);
 		Fishing.mutation.addMutation(ender, night, dragon, 5D);
 		Fishing.mutation.addMutation(minnow, gold, salmon, 15D);
 		Fishing.mutation.addMutation(salmon, minnow, bass, 20D);

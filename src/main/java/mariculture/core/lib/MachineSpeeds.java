@@ -8,7 +8,6 @@ public class MachineSpeeds {
 	public static int autofisher;
 	public static int feeder;
 	public static int net;
-	public static int oven;
 	
 	public static int getSawmillSpeed() {
 		return Extra.DEBUG_ON? 10: sawmill;
@@ -36,9 +35,5 @@ public class MachineSpeeds {
 
 	public static int getNetSpeed() {
 		return Extra.DEBUG_ON? 10: net;
-	}
-
-	public static int getOvenSpeed() {
-		return Extra.DEBUG_ON? 1: oven;
 	}
 }

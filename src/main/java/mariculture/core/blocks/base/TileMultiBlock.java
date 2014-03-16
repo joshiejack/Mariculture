@@ -187,7 +187,6 @@ public class TileMultiBlock extends TileEntity {
 			TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 			if(te != null && te.getClass().equals(getTEClass())) {
 				Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
-				System.out.println("packet sent to " + te.xCoord + " . " + te.zCoord);
 			}
 		}
 			

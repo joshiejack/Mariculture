@@ -5,7 +5,6 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
-import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
@@ -17,6 +16,7 @@ import mariculture.core.util.IMachine;
 import mariculture.core.util.IPowered;
 import mariculture.core.util.IRedstoneControlled;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -29,7 +29,7 @@ import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
-public abstract class TileTurbineBase extends TileStorageTank implements IUpgradable, IMachine, IRedstoneControlled, IEnergyHandler, IPowered {
+public abstract class TileTurbineBase extends TileStorageTank implements IUpgradable, IMachine, IRedstoneControlled, IEnergyHandler, IPowered, ISidedInventory {
 	protected int machineTick = 0;
 	//Upgrade Stats
 	protected int purity = 0;

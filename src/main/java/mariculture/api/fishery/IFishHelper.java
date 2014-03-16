@@ -7,6 +7,7 @@ import mariculture.api.fishery.fish.EnumSalinityType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public interface IFishHelper {
@@ -27,7 +28,7 @@ public interface IFishHelper {
 	 * @param The biome types you want to check if the current biome matches
 	 * @param The tile entity of the fish feeder itself
 	 * @return true or false whether the biome matches the the biome type **/
-	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile);
+	public boolean canLive(World world, int x, int y, int z, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity);
 
 	/**
 	 * Whether or not the specified biome matches any of the specified enum

@@ -24,7 +24,6 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 	private static int damageTicker = 0;
 
 	public static void activate(EntityPlayer player) {
-		System.out.println(runSpeed);
 		if(runSpeed > 0 && player.onGround && !player.isInWater() && player.isSprinting() && ClientHelper.isForwardPressed()) {
 			player.moveFlying(0F, 1.0F, runSpeed);
 			

@@ -72,8 +72,13 @@ public class ItemVanillaFish extends ItemFishFood {
 			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
 			if(fish != null) {
 				--stack.stackSize;
-				int food = !Loader.isModLoaded("HungerOverhaul")? fish.getFoodStat(): fish.getFoodStat() > 2? 2: fish.getFoodStat();
-				float sat = !Loader.isModLoaded("HungerOverhaul")? fish.getFoodSaturation(): fish.getFoodSaturation()/10;
+				int food = fish.getFoodStat();
+				float sat = fish.getFoodSaturation();
+				if(Loader.isModLoaded("HungerOverhaul")) {
+					food = Math.max(1, food/2);
+					sat = Math.max(0.0F, sat/10);
+				}
+				
 				player.getFoodStats().addStats(food, sat);
 				world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 				fish.onConsumed(world, player);

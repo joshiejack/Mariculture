@@ -12,7 +12,7 @@ public enum EnumBiomeType {
 	COLD(-3, -10, -1, 8, EnumSalinityType.FRESH), // Snow Biomes - Mountains, Taiga - Fresh Water
 	FROZEN_OCEAN(-10, -65, -1, 10, EnumSalinityType.SALT), // Frozen Ocean - Saltwater
 	MUSHROOM(0, -1, 2, 4, EnumSalinityType.MAGIC), // Mushroom Biome - Fresh Water
-	ENDER(-28, -50, -28, 7, EnumSalinityType.FRESH); // The End - Fresh Water
+	ENDER(-28, -50, -28, 7, EnumSalinityType.MAGIC); // The End - Fresh Water
 
 	private int baseTemp;
 	private int minTemp;

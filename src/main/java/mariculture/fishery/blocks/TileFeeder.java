@@ -127,15 +127,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					canWork = canWork();
 				}
 			} else {
-				if(Extra.DEATH_TICKER > 0) {
-					if(onTick(Extra.DEATH_TICKER) && hasMale() && hasFemale()) {
-						if(!fishCanLive(male))
-							damageFish(male, false);
-						if(!fishCanLive(female))
-							damageFish(female, false);
-					}
-				}
-				
 				processed = 0;
 			}
 		}

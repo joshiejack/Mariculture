@@ -1,6 +1,5 @@
 package mariculture.plugins.enchiridion;
 
-import mariculture.core.util.Text;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -8,6 +7,7 @@ import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 import enchiridion.api.DisplayRegistry;
+import enchiridion.api.Formatting;
 import enchiridion.api.XMLHelper;
 import enchiridion.api.pages.PageParser;
 
@@ -24,12 +24,12 @@ public class PageVat extends PageParser {
 		output = xml.getOptionalElement("output");
 
 		if(!input.equals("")) {
-			colorIn = Text.getColor(xml.getHelper("input").getOptionalAttribute("color"));
+			colorIn = Formatting.getColor(xml.getHelper("input").getOptionalAttribute("color"));
 			numInput = xml.getHelper("input").getAttribAsInteger("num", 1);
 		} 
 		
 		if(!output.equals("")) {
-			colorOut = Text.getColor(xml.getHelper("output").getOptionalAttribute("color"));
+			colorOut = Formatting.getColor(xml.getHelper("output").getOptionalAttribute("color"));
 			numOutput = xml.getHelper("output").getAttribAsInteger("num", 1);
 		}
 		

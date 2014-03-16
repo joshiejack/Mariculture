@@ -49,7 +49,6 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerHandlers() {
-		GameRegistry.registerWorldGenerator(new WorldGen(), 2);
 		if(!Loader.isModLoaded("ATG")) {
 			MinecraftForge.TERRAIN_GEN_BUS.register(new WorldEvents());
 		}

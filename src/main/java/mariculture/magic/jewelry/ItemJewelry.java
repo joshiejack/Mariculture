@@ -135,9 +135,11 @@ public abstract class ItemJewelry extends ItemDamageable {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
 		//Register the binding icons for this type
-		for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
-			if(binding.getValue().ignore) continue;
-			binding.getValue().registerIcons(iconRegister, getType());
+		if(renderBinding()) {
+			for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
+				if(binding.getValue().ignore) continue;
+				binding.getValue().registerIcons(iconRegister, getType());
+			}
 		}
 		
 		//Register the material icons for this type

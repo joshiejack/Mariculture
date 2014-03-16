@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenCoralReef extends WorldGenerator {
+public class WorldGenReef extends WorldGenerator {
 	private static class Coords {
 		int x, y, z;
 		public Coords(int x, int y, int z) {

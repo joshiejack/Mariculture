@@ -1,5 +1,7 @@
 package mariculture.factory.blocks;
 
+import net.minecraft.item.ItemStack;
+
 
 public class TileTurbineHand extends TileTurbineBase {		
 	public int cooldown = 0;
@@ -50,4 +52,19 @@ public class TileTurbineHand extends TileTurbineBase {
             produced-=40;
         }
 	}
+	
+	@Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        return new int[] {} ;
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, int side) {
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+        return false;
+    }
 }

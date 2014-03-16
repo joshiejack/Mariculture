@@ -3,11 +3,13 @@ package mariculture.plugins;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.logging.log4j.Level;
 import org.w3c.dom.Document;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Core;
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
@@ -55,7 +57,7 @@ public class PluginEnchiridion extends Plugin {
 		Integer[] colors = new Integer[] { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11 };
 		for (Entry<String, ItemStack> stack : MaricultureRegistry.getRegistry().entrySet()) {
 			DisplayRegistry.registerShorthand(stack.getKey(), stack.getValue());
-			if(GuideHandler.DEBUG_ENABLED) System.out.println("Registered " + stack.getKey());
+			if(GuideHandler.DEBUG_ENABLED) LogHandler.log(Level.DEBUG, "Registered " + stack.getKey());
 		}
 		
 		DisplayRegistry.registerMetaCycling(Core.pearls, "pearl", colors);

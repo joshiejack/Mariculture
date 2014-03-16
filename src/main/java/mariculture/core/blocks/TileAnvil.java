@@ -102,6 +102,10 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 				
 				modifier /= 3;
 				modifier = (modifier >= 1)? modifier: 1;
+				
+				if(stack.getItem() instanceof  ItemJewelry) {
+                    modifier *= JewelryHandler.getMaterial(stack).getRepairModifier(JewelryHandler.getType(stack));
+                }
 			}
 			
 			float drop = ((1.0F / (player.xpBarCap() * 1)) /4) * modifier;

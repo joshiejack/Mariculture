@@ -1,11 +1,13 @@
 package mariculture.core.blocks;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.util.Rand;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -16,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -23,6 +26,15 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockAir extends BlockDecorative {	
+	public static ArrayList<Block> flammables = new ArrayList();
+	public IIcon theIcon;
+	
+	static {
+		flammables.add(Blocks.fire);
+		flammables.add(Blocks.torch);
+		flammables.add(Blocks.lava);
+	}
+	
 	public BlockAir() {
 		super(Material.air);
 	}
@@ -52,9 +64,8 @@ public class BlockAir extends BlockDecorative {
         return true;
     }
 	
-	public boolean trySetFire(IBlockAccess block, int x, int y, int z) {
-		if(block instanceof World && Rand.nextInt(4) && ((World) block).getBlockLightValue(x, y, z) > 8) {
-			World world = (World) block;
+	public boolean trySetFire(World world, int x, int y, int z) {
+		if(world instanceof World) {
 			if(world.isAirBlock(x, y + 1, z)) {
 				world.setBlock(x, y + 1, z, Blocks.fire);
 			} else if (world.isAirBlock(x, y - 1, z)) {
@@ -74,8 +85,17 @@ public class BlockAir extends BlockDecorative {
 	}
 	
 	@Override
-	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
-		return trySetFire(world, x, y, z);
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+		for(int i = -1; i <= 1; i++) {
+			for(int j = -1; j <= 1; j++) {
+				for(int k = -1; k <=1; k++) {
+					Block aBlock = world.getBlock(x + i, y + j, z + k);
+					if(flammables.contains(aBlock)) {
+						trySetFire(world, x, y, z);
+					}
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -108,17 +128,16 @@ public class BlockAir extends BlockDecorative {
     }
 	
 	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-		trySetFire(world, x, y, z);
-		return super.isSideSolid(world, x, y, z, side);
-	}
-	
-	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
 		if(entity instanceof EntityLivingBase) {
 			EntityLivingBase living = (EntityLivingBase) entity;
 			living.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 5, 2, true));
 			living.addPotionEffect(new PotionEffect(Potion.weakness.id, 5, 0, true));
+			if(Rand.nextInt(250)) {
+				living.addPotionEffect(new PotionEffect(Potion.confusion.id, 60, 0, true));
+				living.addPotionEffect(new PotionEffect(Potion.weakness.id, 40, 1, true));
+			} else if(Rand.nextInt(500)) living.addPotionEffect(new PotionEffect(Potion.poison.id, 30, 0, true));
+			else if(Rand.nextInt(1000)) world.createExplosion(entity, x, y, z, 1.0F, true);
 		}
 	}
 	
@@ -143,9 +162,14 @@ public class BlockAir extends BlockDecorative {
 	}
 	
 	@Override
+	public IIcon getIcon(int side, int meta) {
+		return theIcon;
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		blockIcon = iconRegister.registerIcon(Mariculture.modid + ":air");
+		theIcon = iconRegister.registerIcon(Mariculture.modid + ":air");
 	}
 	
 	@Override
@@ -155,6 +179,6 @@ public class BlockAir extends BlockDecorative {
 	
 	@Override
 	public boolean isActive(int meta) {
-		return false;
+		return true;
 	}
 }

@@ -6,6 +6,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.PearlColor;
+import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemBracelet;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
@@ -167,10 +168,15 @@ public class JewelryHandler {
 	public static int getSetting(ItemStack stack, SettingType type) {
 		return stack.hasTagCompound()? stack.stackTagCompound.getInteger(type.getName()): 0;
 	}
+	
+	public static int getLevel(JewelryType type, JewelryMaterial mat, JewelryBinding bind, int start) {
+		return Math.min(start, Math.min(bind.getMaxEnchantmentLevel(type), mat.getMaximumEnchantmentLevel(type)));
+	}
 
 	public static ItemStack finishJewelry(ItemStack stack, ItemStack result, Random rand) {
 		if(stack.hasTagCompound() && stack.stackTagCompound.hasKey("EnchantmentList") && stack.stackTagCompound.hasKey("EnchantmentLevels")) {
 			JewelryType type = getType(result);
+			JewelryMaterial material = getMaterial(result);
 			JewelryBinding binding = getBinding(result);
 			int chance = binding.getKeepEnchantmentChance(type);
 			int[] enchants = stack.stackTagCompound.getIntArray("EnchantmentList");
@@ -178,23 +184,26 @@ public class JewelryHandler {
 			int total = 0;
 			for(int j = 0; j < enchants.length; j++) {
 				if(rand.nextInt(100) < chance) {
-					if(total < type.getMaximumEnchantments()) {
+					if(total < type.getMaximumEnchantments() + material.getExtraEnchantments(type)) {
 						total++;
 					//Add the enchantment after increasing the enchants added
 						Enchantment enchant = Enchantment.enchantmentsList[enchants[j]];
-						int level = Math.min(levels[j], binding.getMaxEnchantmentLevel(type));
+						int level = getLevel(type, material, binding, levels[j]);
 						int current = EnchantmentHelper.getEnchantmentLevel(enchant.effectId, result);
 						if(current < enchant.getMaxLevel()) {
-							int newLevel = Math.min(current + level, enchant.getMaxLevel());
+							int newLevel = getLevel(type, material, binding, current + level);
 							if(current != 0) {
-						        NBTTagList tagList = result.stackTagCompound.getTagList("ench", 10);
-						        for (int i = 0; i < tagList.tagCount(); i++) {
-									NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
-									int id = tag.getShort("id");
-									if(id == enchant.effectId) {
-										tag.setShort("lvl", (short) newLevel);
-										tagList.removeTag(i);
-										tagList.appendTag(tag);
+								//Not guaranteed to increase the level, but there's a chance to
+								if(rand.nextInt(1 + (100 - chance)) == 0) {
+							        NBTTagList tagList = result.stackTagCompound.getTagList("ench", 10);
+							        for (int i = 0; i < tagList.tagCount(); i++) {
+										NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+										int id = tag.getShort("id");
+										if(id == enchant.effectId) {
+											tag.setShort("lvl", (short) newLevel);
+											tagList.removeTag(i);
+											tagList.appendTag(tag);
+										}
 									}
 								}
 							} else {
