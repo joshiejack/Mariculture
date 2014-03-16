@@ -12,17 +12,9 @@ import net.minecraft.util.StatCollector;
 public class EnchantmentGlide extends EnchantmentJewelry {
 	public EnchantmentGlide(final int i, final int weight, final EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("glide");
-	}
-
-	@Override
-	public int getMinEnchantability(final int level) {
-		return 10 + 20 * (level - 1);
-	}
-
-	@Override
-	public int getMaxEnchantability(final int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("glide");
+		minLevel = 1;
+		maxLevel = 15;
 	}
 
 	@Override

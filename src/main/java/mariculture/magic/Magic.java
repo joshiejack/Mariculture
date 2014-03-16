@@ -1,5 +1,7 @@
 package mariculture.magic;
 
+import java.util.Map.Entry;
+
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
@@ -11,7 +13,6 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.Jewelry;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -32,29 +33,27 @@ import mariculture.magic.enchantments.EnchantmentSpider;
 import mariculture.magic.enchantments.EnchantmentStepUp;
 import mariculture.magic.jewelry.ItemBracelet;
 import mariculture.magic.jewelry.ItemJewelry;
+import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import mariculture.magic.jewelry.ItemNecklace;
 import mariculture.magic.jewelry.ItemRing;
-import mariculture.magic.jewelry.parts.JewelryPart;
-import mariculture.magic.jewelry.parts.PartDiamond;
-import mariculture.magic.jewelry.parts.PartGold;
-import mariculture.magic.jewelry.parts.PartGoldString;
-import mariculture.magic.jewelry.parts.PartGoldThread;
-import mariculture.magic.jewelry.parts.PartIron;
-import mariculture.magic.jewelry.parts.PartOneRing;
-import mariculture.magic.jewelry.parts.PartPearlBlack;
-import mariculture.magic.jewelry.parts.PartPearlBlue;
-import mariculture.magic.jewelry.parts.PartPearlBrown;
-import mariculture.magic.jewelry.parts.PartPearlGold;
-import mariculture.magic.jewelry.parts.PartPearlGreen;
-import mariculture.magic.jewelry.parts.PartPearlOrange;
-import mariculture.magic.jewelry.parts.PartPearlPink;
-import mariculture.magic.jewelry.parts.PartPearlPurple;
-import mariculture.magic.jewelry.parts.PartPearlRed;
-import mariculture.magic.jewelry.parts.PartPearlSilver;
-import mariculture.magic.jewelry.parts.PartPearlWhite;
-import mariculture.magic.jewelry.parts.PartPearlYellow;
-import mariculture.magic.jewelry.parts.PartString;
-import mariculture.magic.jewelry.parts.PartWool;
+import mariculture.magic.jewelry.parts.BindingBasic;
+import mariculture.magic.jewelry.parts.BindingDummy;
+import mariculture.magic.jewelry.parts.BindingGold;
+import mariculture.magic.jewelry.parts.JewelryBinding;
+import mariculture.magic.jewelry.parts.JewelryMaterial;
+import mariculture.magic.jewelry.parts.MaterialDummy;
+import mariculture.magic.jewelry.parts.MaterialPearlBlack;
+import mariculture.magic.jewelry.parts.MaterialPearlBlue;
+import mariculture.magic.jewelry.parts.MaterialPearlBrown;
+import mariculture.magic.jewelry.parts.MaterialPearlGold;
+import mariculture.magic.jewelry.parts.MaterialPearlGreen;
+import mariculture.magic.jewelry.parts.MaterialPearlOrange;
+import mariculture.magic.jewelry.parts.MaterialPearlPink;
+import mariculture.magic.jewelry.parts.MaterialPearlPurple;
+import mariculture.magic.jewelry.parts.MaterialPearlRed;
+import mariculture.magic.jewelry.parts.MaterialPearlSilver;
+import mariculture.magic.jewelry.parts.MaterialPearlWhite;
+import mariculture.magic.jewelry.parts.MaterialPearlYellow;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -66,6 +65,8 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 
 public class Magic extends Module {
 	public static boolean isActive;
@@ -80,18 +81,22 @@ public class Magic extends Module {
 		isActive = active;
 	}
 	
-	public static JewelryPart pearlBlack;
-	public static JewelryPart pearlBlue;
-	public static JewelryPart pearlBrown;
-	public static JewelryPart pearlGold;
-	public static JewelryPart pearlGreen;
-	public static JewelryPart pearlOrange;
-	public static JewelryPart pearlPink;
-	public static JewelryPart pearlPurple;
-	public static JewelryPart pearlRed;
-	public static JewelryPart pearlSilver;
-	public static JewelryPart pearlWhite;
-	public static JewelryPart pearlYellow;
+	public static JewelryMaterial dummyMaterial;
+	public static JewelryMaterial pearlBlack;
+	public static JewelryMaterial pearlBlue;
+	public static JewelryMaterial pearlBrown;
+	public static JewelryMaterial pearlGold;
+	public static JewelryMaterial pearlGreen;
+	public static JewelryMaterial pearlOrange;
+	public static JewelryMaterial pearlPink;
+	public static JewelryMaterial pearlPurple;
+	public static JewelryMaterial pearlRed;
+	public static JewelryMaterial pearlSilver;
+	public static JewelryMaterial pearlWhite;
+	public static JewelryMaterial pearlYellow;
+	public static JewelryBinding bindingGold;
+	public static JewelryBinding bindingBasic;
+	public static JewelryBinding dummyBinding;
 	
 	public static Enchantment elemental;
 	public static Enchantment spider;
@@ -117,20 +122,20 @@ public class Magic extends Module {
 	public static Item magnet;
 	
 	public void registerEnchants() {
-		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 4, EnumEnchantmentType.all); }
-		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 10, EnumEnchantmentType.all); }
+		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 3, EnumEnchantmentType.all); }
+		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 5, EnumEnchantmentType.all); }
 		if(EnchantIds.flight > 0) { flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 8, EnumEnchantmentType.all); }
-		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 8, EnumEnchantmentType.all); }
-		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 12, EnumEnchantmentType.all); }
-		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 8, EnumEnchantmentType.all); }
+		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 1, EnumEnchantmentType.all); }
+		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 4, EnumEnchantmentType.all); }
+		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 6, EnumEnchantmentType.all); }
+		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 2, EnumEnchantmentType.all); }
 		if(EnchantIds.oneRing > 0) { oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all); }
-		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 6, EnumEnchantmentType.all); }
+		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 3, EnumEnchantmentType.all); }
 		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 10, EnumEnchantmentType.all); }
-		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 9, EnumEnchantmentType.all); }
-		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 6, EnumEnchantmentType.all); }
+		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all); }
 		
 		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77353_D", new int[] {40, 24, 20, 24, 30});
 	}
@@ -156,30 +161,31 @@ public class Magic extends Module {
 
 	//Keep this order
 	private void registerJewelry() {
-		pearlBlack = new PartPearlBlack(0);
-		pearlBlue = new PartPearlBlue(1);
-		pearlBrown = new PartPearlBrown(2);
-		pearlGold = new PartPearlGold(3);
-		pearlGreen = new PartPearlGreen(4);
-		pearlOrange = new PartPearlOrange(5);
-		pearlPink = new PartPearlPink(6);
-		pearlPurple = new PartPearlPurple(7);
-		pearlRed = new PartPearlRed(8);
-		pearlSilver = new PartPearlSilver(9);
-		pearlWhite = new PartPearlWhite(10);
-		pearlYellow = new PartPearlYellow(11);
-		new PartDiamond(12);
-		new PartGold(13);
-		new PartIron(14);
-		new PartGoldString(15);
-		new PartString(16);
-		new PartOneRing(17);
-		new PartGoldThread(18);
-		new PartWool(19);
+		dummyBinding = new BindingDummy();
+		dummyMaterial = new MaterialDummy();
+		//Real parts
+		pearlBlack = new MaterialPearlBlack();
+		pearlBlue = new MaterialPearlBlue();
+		pearlBrown = new MaterialPearlBrown();
+		pearlGold = new MaterialPearlGold();
+		pearlGreen = new MaterialPearlGreen();
+		pearlOrange = new MaterialPearlOrange();
+		pearlPink = new MaterialPearlPink();
+		pearlPurple = new MaterialPearlPurple();
+		pearlRed = new MaterialPearlRed();
+		pearlSilver = new MaterialPearlSilver();
+		pearlWhite = new MaterialPearlWhite();
+		pearlYellow = new MaterialPearlYellow();
+		bindingBasic = new BindingBasic();
+		bindingGold = new BindingGold();
 	}
 
 	@Override
 	public void registerOther() {
+		//Jewelry Recipes
+		RecipeSorter.INSTANCE.register("mariculture:jewelryshaped", ShapedJewelryRecipe.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
+		RecipeSorter.INSTANCE.register("mariculture:jewelryshapeless", ShapelessJewelryRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		
 		registerJewelry();
 		registerEnchants();
 		// Setup IIcon
@@ -212,10 +218,10 @@ public class Magic extends Module {
 			'T', drop,
 			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
 		});
-			
-		addJewelry(Magic.ring, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
-		addJewelry(Magic.bracelet, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
-		addJewelry(Magic.necklace, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);
+		
+		addJewelry((ItemJewelry)ring);
+		addJewelry((ItemJewelry)bracelet);
+		addJewelry((ItemJewelry)necklace);
 		addDungeonChestLoot();
 		
 		//Mob Magnet Crafting
@@ -226,52 +232,16 @@ public class Magic extends Module {
 		}
 	}
 
-	private void addJewelry(Item jewelry, int type, String partOne, String partTwo) {
-		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
-			for (int j = 0; j < JewelryPart.materialList.size(); j++) {
-				if (JewelryPart.materialList.get(i).isValid(type) && JewelryPart.materialList.get(j).isValid(type)) {
-					if (JewelryPart.materialList.get(i).getPartType(type).equals(partOne)) {
-						if (JewelryPart.materialList.get(j).getPartType(type).equals(partTwo)) {
-							ItemStack output = ItemJewelry.buildJewelry(jewelry, i, j);
-							output = JewelryPart.materialList.get(i).addEnchantments(output);
-							if (i != j) {
-								output = JewelryPart.materialList.get(j).addEnchantments(output);
-							}
-							ItemStack input1 = JewelryPart.materialList.get(i).getItemStack();
-							ItemStack input2 = JewelryPart.materialList.get(j).getItemStack();
-							int Multiply1 = (type == Jewelry.RING)? 1: (type == Jewelry.BRACELET)? 3: 7;
-							int Multiply2 = (type == Jewelry.RING)? 7: (type == Jewelry.BRACELET)? 2: 1;
-							int frame = JewelryPart.materialList.get(i).getHits(type) * Multiply1;
-							int other = JewelryPart.materialList.get(j).getHits(type) * Multiply2;
-							int hits = frame + other;
-							if (input1 != null && input2 != null && output != null) {
-								JewelryHandler.addJewelry(output, input1, input2, type, hits);
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
-			for (int j = 0; j < JewelryPart.materialList.size(); j++) {				
-				if (JewelryPart.materialList.get(i).isValid(type) && JewelryPart.materialList.get(j).isValid(type)) {
-					if (JewelryPart.materialList.get(i).getPartType(type).equals(partOne)) {
-						if (JewelryPart.materialList.get(j).getPartType(type).equals(partTwo)) {
-							ItemStack output = ItemJewelry.buildJewelry(jewelry, i, j);
-							output = JewelryPart.materialList.get(i).addEnchantments(output);
-							if (i != j) {
-								output = JewelryPart.materialList.get(j).addEnchantments(output);
-							}
-							
-							String name = output.getUnlocalizedName().substring(5);
-							name += "." + JewelryPart.materialList.get(i).getPartName();
-							if(!JewelryPart.materialList.get(i).isSingle())
-								name += "." + JewelryPart.materialList.get(j).getPartName();
-							MaricultureRegistry.register(name, output);
-						}
-					}
-				}
+	private void addJewelry(ItemJewelry item) {
+		JewelryType type = item.getType();
+		for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
+			if(binding.getValue().ignore) continue;
+			for (Entry<String, JewelryMaterial> material : JewelryMaterial.list.entrySet()) {
+				if(material.getValue().ignore) continue;
+				JewelryBinding bind = binding.getValue();
+				JewelryMaterial mat = material.getValue();
+				ItemStack worked = JewelryHandler.createNewJewelry(item, bind, mat);
+				JewelryHandler.addJewelry(type, worked, bind.getCraftingItem(type), mat.getCraftingItem(type), (int)(bind.getHitsBase(type) * mat.getHitsModifier(type)));
 			}
 		}
 	}

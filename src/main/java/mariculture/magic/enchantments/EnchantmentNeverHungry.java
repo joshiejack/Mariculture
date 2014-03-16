@@ -13,33 +13,14 @@ import net.minecraft.item.ItemStack;
 public class EnchantmentNeverHungry extends EnchantmentJewelry {
 	public EnchantmentNeverHungry(final int i, final int weight, final EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("hungry");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 30 + (level - 1) * 9;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("hungry");
+		minLevel = 45;
+		maxLevel = 60;
 	}
 
 	@Override
 	public int getMaxLevel() {
 		return 5;
-	}
-
-	@Override
-	public boolean canApplyTogether(Enchantment enchantment) {
-		if(EnchantHelper.exists(Magic.health)) {
-			if (enchantment.effectId == Magic.health.effectId) {
-				return false;
-			}
-		}
-
-		return super.canApplyTogether(enchantment);
 	}
 
 	public static void activate(EntityPlayer player) {

@@ -29,7 +29,7 @@ public class ItemMagicMirror extends ItemMirror {
 	}
 	
 	public ItemStack get(ItemStack stack) {
-		if(!stack.hasTagCompound()) {
+		if(!stack.hasTagCompound() || !stack.stackTagCompound.hasKey("Levels")) {
 			stack.setTagCompound(new NBTTagCompound());
 			stack.stackTagCompound.setIntArray("Levels", new int[] { minLevel, minLevel + 1, minLevel + 2 });
 		}
@@ -39,10 +39,8 @@ public class ItemMagicMirror extends ItemMirror {
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if(!stack.hasTagCompound()) {
-			stack = get(stack);
-		}
-		
+		stack = get(stack);
+
 		if(player.isSneaking()) {
 			int[] vals = stack.stackTagCompound.getIntArray("Levels");
 			if(vals[2] + 1 > maxLevel) {

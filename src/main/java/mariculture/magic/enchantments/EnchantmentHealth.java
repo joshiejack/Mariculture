@@ -9,33 +9,14 @@ import net.minecraft.entity.player.EntityPlayer;
 public class EnchantmentHealth extends EnchantmentJewelry {
 	public EnchantmentHealth(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("health");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 35 + (level - 1) * 9;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("health");
+		minLevel = 30;
+		maxLevel = 45;
 	}
 
 	@Override
 	public int getMaxLevel() {
 		return 3;
-	}
-
-	@Override
-	public boolean canApplyTogether(Enchantment enchantment) {
-		if(EnchantHelper.exists(Magic.hungry)) {
-			if (enchantment.effectId == Magic.hungry.effectId) {
-				return false;
-			}
-		}
-
-		return super.canApplyTogether(enchantment);
 	}
 
 	public static void activate(EntityPlayer player) {

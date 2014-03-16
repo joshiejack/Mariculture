@@ -444,13 +444,9 @@ item.mirror.magic.name=Magic Mirror
 item.mirror.celestial.name=Celestial Mirror
 item.mobMagnet.name=Mob Magnet
 #jewelry-parts
-part.jewelry.ring=Ring
-part.jewelry.bracelet=Bracelet
-part.jewelry.necklace=Necklace
-part.jewel.diamond=Diamond
-part.material.gold=Gold
-part.material.iron=Iron
-part.special.oneRing=One
+item.ring.name=Ring
+item.bracelet.name=Bracelet
+item.necklace.name=Necklace
 
 ### Transport ###
 #items

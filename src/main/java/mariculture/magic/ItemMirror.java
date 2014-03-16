@@ -6,11 +6,11 @@ import mariculture.core.gui.InventoryStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;
-import mariculture.core.lib.Jewelry;
 import mariculture.core.util.Rand;
 import mariculture.magic.gui.ContainerMirror;
 import mariculture.magic.gui.GuiMirror;
 import mariculture.magic.jewelry.ItemJewelry;
+import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,10 +36,10 @@ public class ItemMirror extends ItemStorage {
 	@Override
 	public Slot getSlot(InventoryStorage storage, int i) {
 		switch(i) {
-			case 0: return new SlotJewelry(storage, i, 8, 10, Jewelry.RING);
-			case 1: return new SlotJewelry(storage, i, 8, 32, Jewelry.BRACELET);
-			case 2: return new SlotJewelry(storage, i, 8, 54, Jewelry.NECKLACE);
-			case 3: return new Slot(storage, i, 35, 47);
+			case 0: return new SlotJewelry(storage, i, 8, 10, JewelryType.RING);
+			case 1: return new SlotJewelry(storage, i, 8, 32, JewelryType.BRACELET);
+			case 2: return new SlotJewelry(storage, i, 8, 54, JewelryType.NECKLACE);
+			case 3: return new SlotSingle(storage, i, 35, 47);
 		}
 		
 		return new Slot(storage, i, 100, 100);
@@ -76,14 +76,25 @@ public class ItemMirror extends ItemStorage {
 		return new GuiMirror(player.inventory, new InventoryMirror(player), player.worldObj, gui, player.getCurrentEquippedItem());
 	}
 	
+	private class SlotSingle extends Slot {
+		public SlotSingle(IInventory inv, int id, int x, int y) {
+			super(inv, id, x, y);
+		}
+		
+		@Override
+		public int getSlotStackLimit() {
+	        return 1;
+	    }
+	}
+	
 	private class SlotJewelry extends Slot {
 		private ResourceLocation ring = new ResourceLocation(Mariculture.modid + ":" + "textures/gui/icon_ring.png");
 		private ResourceLocation bracelet = new ResourceLocation(Mariculture.modid + ":" + "textures/gui/icon_bracelet.png");
 		private ResourceLocation necklace = new ResourceLocation(Mariculture.modid + ":" + "textures/gui/icon_necklace.png");
-		private int type;
+		private JewelryType type;
 		private IIcon[] bgIcons;
 
-		public SlotJewelry(IInventory inv, int id, int x, int y, int type) {
+		public SlotJewelry(IInventory inv, int id, int x, int y, JewelryType type) {
 			super(inv, id, x, y);
 			this.type = type;
 		}
@@ -100,16 +111,7 @@ public class ItemMirror extends ItemStorage {
 
 		@SideOnly(Side.CLIENT)
 		public ResourceLocation getBackgroundIconTexture() {
-			switch (this.type) {
-			case Jewelry.RING:
-				return ring;
-			case Jewelry.BRACELET:
-				return bracelet;
-			case Jewelry.NECKLACE:
-				return necklace;
-			}
-
-			return (texture == null ? TextureMap.locationItemsTexture : texture);
+			return type == JewelryType.RING? ring: type == JewelryType.BRACELET? bracelet: type == JewelryType.NECKLACE? necklace: texture == null? TextureMap.locationItemsTexture: texture;
 		}
 	}
 	

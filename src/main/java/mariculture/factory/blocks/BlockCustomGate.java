@@ -25,7 +25,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomGate extends BlockFenceGate implements IHasMeta {
-
 	public BlockCustomGate() {
 		setCreativeTab(null);
 	}

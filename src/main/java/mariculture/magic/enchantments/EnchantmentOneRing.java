@@ -14,26 +14,13 @@ public class EnchantmentOneRing extends EnchantmentJewelry {
 	public EnchantmentOneRing(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
 		this.setName("oneRing");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 15;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		minLevel = 100;
+		maxLevel = 100;
 	}
 
 	@Override
 	public int getMaxLevel() {
 		return 1;
-	}
-
-	@Override
-	public boolean canApplyTogether(Enchantment enchantment) {
-		return false;
 	}
 
 	public static void activate(EntityPlayer player) {

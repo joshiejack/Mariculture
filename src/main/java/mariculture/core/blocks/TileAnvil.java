@@ -10,7 +10,10 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
+import mariculture.core.lib.Modules;
 import mariculture.core.network.Packets;
+import mariculture.core.util.Rand;
+import mariculture.magic.JewelryHandler;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -135,6 +138,10 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			stack.stackTagCompound.setInteger("Worked", workedVal);
 			if(workedVal >= stack.stackTagCompound.getInteger("Required")) {
 				ItemStack result = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
+				if(Modules.magic.isActive()) {
+					result = JewelryHandler.finishJewelry(stack, result, Rand.rand);
+				}
+				
 				setInventorySlotContents(0, result);
 				
 				worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);

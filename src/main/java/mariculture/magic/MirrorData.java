@@ -12,6 +12,7 @@ import mariculture.magic.enchantments.EnchantmentJump;
 import mariculture.magic.enchantments.EnchantmentSpeed;
 import mariculture.magic.enchantments.EnchantmentSpider;
 import mariculture.magic.enchantments.EnchantmentStepUp;
+import mariculture.magic.jewelry.parts.JewelryMaterial;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,10 +22,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class MirrorData {
 	public static String world = "ls43llsds#232423d";
-	public static HashMap<String, Integer[]> colors = new HashMap();
 	public static HashMap<String, ItemStack[]> inventories = new HashMap();
 	public static ItemStack[] inventory;
-	public static Integer[] color;
+	
+	//This is the 'cached' list of the materials the jewelry piece is made up of
+	public static HashMap<String, JewelryMaterial[]> materialList = new HashMap();
+	public static JewelryMaterial[] materials;
+	
 	private static int updateTick;
 	
 	public static boolean isSameWorld(EntityPlayer player) {
@@ -36,43 +40,42 @@ public class MirrorData {
 			return false;
 		}
 	}
-	/** Color Updates **/
 	
-/* Cache of the colors */
-	public static Integer[] getColors(EntityPlayer player) {
+/* Cache of the Jewelry Material */
+	public static JewelryMaterial[] getMaterials(EntityPlayer player) {
 		return player.worldObj.isRemote? getColorsForClient(): getColorsForPlayer(player);
 	}
 	
-	public static Integer[] getColorsForPlayer(EntityPlayer player) {
-		if(colors.get(player.getDisplayName()) != null && isSameWorld(player)) {
-			return colors.get(player.getDisplayName());
+	public static JewelryMaterial[] getColorsForPlayer(EntityPlayer player) {
+		String key = player.getDisplayName();
+		if(materialList.get(key) != null && isSameWorld(player)) {
+			return materialList.get(key);
+		} else {
+			JewelryMaterial[] arr = fetchMaterials(player);
+			return materialList.put(key, arr) != null? arr: null;
 		}
-		
-		Integer[] arr = fetchColors(player);
-		colors.put(player.getDisplayName(), arr);
-		return arr;
 	}
 	
 	@SideOnly(value = Side.CLIENT)
-	private static Integer[] getColorsForClient() {
-		if(color != null && isSameWorld(ClientHelper.getPlayer())) {
-			return color;
+	private static JewelryMaterial[] getColorsForClient() {
+		EntityPlayer player = ClientHelper.getPlayer();
+		if(materials != null && isSameWorld(player)) return materials;
+		else {
+			materials = fetchMaterials(player);
+			return materials;
 		}
-		
-		color = fetchColors(ClientHelper.getPlayer());
-		return color;
 	}
 	
-	private static Integer[] fetchColors(EntityPlayer player) {
-		ArrayList<Integer> colorsArray = new ArrayList();
+	private static JewelryMaterial[] fetchMaterials(EntityPlayer player) {
+		ArrayList<JewelryMaterial> array = new ArrayList();
 		ItemStack[] mirror = MirrorData.getInventory(player);
 		for(int i = 0; i < mirror.length; i++) {
 			if(mirror[i] != null && mirror[i].hasTagCompound()) {
-				colorsArray.add(mirror[i].stackTagCompound.getInteger("Part1"));
+				array.add(JewelryMaterial.list.get(mirror[i].stackTagCompound.getString(JewelryMaterial.nbt)));
 			}
 		}
 		
-		return colorsArray.toArray(new Integer[colorsArray.size()]);
+		return array.toArray(new JewelryMaterial[array.size()]);
 	}
 	
 /* Inventory Functions */
@@ -140,10 +143,10 @@ public class MirrorData {
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
-
+		
 		nbt.setTag("mirrorContents", nbttaglist);
 		//Reset the color
-		color = null;
+		materials = null;
 		
 		//Setup the speeds after initially saving client data
 		if(EnchantHelper.exists(Magic.speed)) 	EnchantmentSpeed.set(EnchantHelper.getEnchantStrength(Magic.speed, player));
@@ -157,7 +160,8 @@ public class MirrorData {
 	}
 	
 	public static boolean saveServer(EntityPlayer player, ItemStack[] invent) {
-		inventories.put(player.getDisplayName(), invent);
+		String key = player.getDisplayName();
+		inventories.put(key, invent);
 		
 		NBTTagCompound nbt = NBTHelper.getPlayerData(player);
 		NBTTagList nbttaglist = new NBTTagList();
@@ -172,8 +176,8 @@ public class MirrorData {
 
 		nbt.setTag("mirrorContents", nbttaglist);
 		//Reset the color
-		if(colors.containsKey(player.getDisplayName())) {
-			colors.remove(player.getDisplayName());
+		if(materialList.containsKey(key)) {
+			materialList.remove(key);
 		}
 		
 		return true;

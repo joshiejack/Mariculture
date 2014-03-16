@@ -9,16 +9,8 @@ public class EnchantmentStepUp extends EnchantmentJewelry {
 	public EnchantmentStepUp(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
 		setName("stepUp");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 4 + (level - 1) * 7;
-	}
-	
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 60;
+		minLevel = 1;
+		maxLevel = 30;
 	}
 	
 	@Override

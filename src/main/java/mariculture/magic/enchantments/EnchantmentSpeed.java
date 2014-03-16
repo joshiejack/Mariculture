@@ -10,17 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 public class EnchantmentSpeed extends EnchantmentJewelry {
 	public EnchantmentSpeed(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("speed");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 5 + (level - 1) * 8;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("speed");
+		minLevel = 1;
+		maxLevel = 35;
 	}
 
 	@Override
@@ -32,6 +24,7 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 	private static int damageTicker = 0;
 
 	public static void activate(EntityPlayer player) {
+		System.out.println(runSpeed);
 		if(runSpeed > 0 && player.onGround && !player.isInWater() && player.isSprinting() && ClientHelper.isForwardPressed()) {
 			player.moveFlying(0F, 1.0F, runSpeed);
 			
@@ -43,9 +36,7 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 	}
 
 	public static void set(int speed) {	
-		if(speed > 0)
-			runSpeed = EnchantSetting.SPEED_FACTOR * speed;
-		else
-			runSpeed = 0;
+		if(speed > 0) runSpeed = (float)(EnchantSetting.SPEED_FACTOR * speed);
+		else runSpeed = 0;
 	}
 }

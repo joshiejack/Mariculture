@@ -1,30 +1,24 @@
 package mariculture.magic.jewelry;
 
-import mariculture.core.lib.Jewelry;
 
-public class ItemNecklace extends ItemJewelry {	
+public class ItemNecklace extends ItemJewelry {
 	@Override
-	public int getItemEnchantability() {
-		return Jewelry.BONUS_NECKLACE;
+	public JewelryType getType() {
+		return JewelryType.NECKLACE;
 	}
 
 	@Override
-	public int getType() {
-		return Jewelry.NECKLACE;
+	public int getMaxDurability() {
+		return 100;
 	}
 
 	@Override
-	public String getTypeString() {
-		return "necklace";
+	public int getMaxLevel() {
+		return 200;
 	}
 
 	@Override
-	public String getPart1() {
-		return Jewelry.NECKLACE_PART1;
-	}
-
-	@Override
-	public String getPart2() {
-		return Jewelry.NECKLACE_PART2;
+	public boolean renderBinding() {
+		return false;
 	}
 }

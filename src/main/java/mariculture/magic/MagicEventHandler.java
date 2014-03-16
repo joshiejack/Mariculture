@@ -90,8 +90,9 @@ public class MagicEventHandler {
 
 	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
-		if(EnchantHelper.exists(Magic.elemental))
-			EnchantmentElemental.onHurt(event);
+		if(EnchantHelper.exists(Magic.elemental) && event.entity instanceof EntityPlayer) {
+			EnchantmentElemental.onHurt(event, (EntityPlayer)event.entity);
+		}
 	}
 
 	@SubscribeEvent

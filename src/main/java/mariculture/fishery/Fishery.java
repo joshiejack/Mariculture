@@ -97,7 +97,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import enchiridion.api.GuideHandler;
@@ -304,6 +306,7 @@ public class Fishery extends Module {
 
 	@Override
 	public void registerOther() {
+		RecipeSorter.INSTANCE.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		registerFish();
 		MaricultureTab.tabFish.icon = Fishing.fishHelper.makePureFish(Fishery.cod);
 	}

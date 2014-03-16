@@ -12,17 +12,9 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 	private static int ticker;
 	public EnchantmentRestore(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("restore");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 10 + 20 * (level - 1);
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("restore");
+		minLevel = 40;
+		maxLevel = 55;
 	}
 
 	@Override

@@ -1,47 +1,65 @@
 package mariculture.magic.jewelry;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.Jewelry;
-import mariculture.core.util.IItemRegistry;
+import mariculture.core.items.ItemDamageable;
+import mariculture.core.util.Text;
+import mariculture.magic.JewelryHandler;
+import mariculture.magic.JewelryHandler.SettingType;
 import mariculture.magic.Magic;
-import mariculture.magic.jewelry.parts.JewelryPart;
+import mariculture.magic.jewelry.parts.JewelryBinding;
+import mariculture.magic.jewelry.parts.JewelryMaterial;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemJewelry extends Item implements IItemRegistry {
+public abstract class ItemJewelry extends ItemDamageable {	
+	public static final HashMap<String, IIcon> specials = new HashMap();
+	
+	public static enum JewelryType {
+		RING(1), BRACELET(3), NECKLACE(7), NONE(0);
 
-	private IIcon[] parts;
-	private IIcon[] special;
-	private IIcon blank;
-
+		public final int max;
+		private JewelryType(int max) {
+			this.max = max;
+		}
+		
+		public int getMaximumEnchantments() {
+			return this.max;
+		}
+	}
+	
 	public ItemJewelry() {
-		this.setMaxDamage(100);
-		this.setMaxStackSize(1);
-		this.setCreativeTab(MaricultureTab.tabJewelry);
+		super(100);
 		setNoRepair();
-        canRepair = false;
+		setCreativeTab(MaricultureTab.tabJewelry);
 	}
 
+	//The 'code' 0, 1, 2 for the item types
+	public abstract JewelryType getType();
+	//This is the utter maximum durability upgrades this piece can have
+	public abstract int getMaxDurability();
+	//This is the maximum levels this piece can gain
+	public abstract int getMaxLevel();
+	//Whether to render the binding
+	public abstract boolean renderBinding();
+	
 	@Override
-	public abstract int getItemEnchantability();
-	public abstract int getType();
-	public abstract String getTypeString();
-	public abstract String getPart1();
-	public abstract String getPart2();
-
+	public int getItemEnchantability() {
+        return 2;
+    }
+	
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
@@ -51,77 +69,32 @@ public abstract class ItemJewelry extends Item implements IItemRegistry {
 	public int getRenderPasses(int meta) {
 		return 3;
 	}
-
+		
 	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.hasTagCompound()) {
-			if (pass == 0) {
-				int i = stack.stackTagCompound.getInteger("Part1");
-				if (JewelryPart.materialList.get(i).isValid(getType())) {
-					if (JewelryPart.materialList.get(i).isVisible(getType())) {
-						return parts[i];
-					}
-				}
-			} else if (pass == 1) {
-				if (stack.stackTagCompound.hasKey("Part2")) {
-					int i = stack.stackTagCompound.getInteger("Part2");
-					if (JewelryPart.materialList.get(i).isValid(getType())) {
-						if (JewelryPart.materialList.get(i).isVisible(getType())) {
-							return parts[i];
-						}
-					}
-				}
-			} else if (pass == 2) {
-				if (stack.stackTagCompound.hasKey("Extra")) {
-					if(stack.stackTagCompound.getInteger("Extra") < special.length) {
-						return special[stack.stackTagCompound.getInteger("Extra")];
-					}
-				}
-			}
+			String level =  " (" + JewelryHandler.getSetting(stack, SettingType.LEVEL) + "/" + getMaxLevel() + ")";
+			JewelryMaterial material = JewelryHandler.getMaterial(stack);
+			if(material.ignore) return stack.stackTagCompound.getString("Specials") + level;
+			return material.getColor() + material.getCraftingItem(getType()).getDisplayName() + " " + Text.localize(getUnlocalizedName(stack) + ".name") + level;
 		}
 
-		return blank;
+		return Text.localize(getUnlocalizedName(stack));
 	}
 	
 	@Override
-	public int getMaxDamage(ItemStack stack) {
-       if(stack.hasTagCompound()) {
-    	   //Jewel + Pearls/Iron
-    	   int part1 = stack.stackTagCompound.getInteger("Part1");
-    	   
-    	   //String + Metals
-    	   int part2 = stack.stackTagCompound.getInteger("Part2");
-    	   double modifier = 1.0D;
-    	   double base = 100;
-    	   
-    	   if(getType() == Jewelry.RING) {
-    		   modifier = JewelryPart.materialList.get(part1).getDurabilityModifier(getType());
-    		   base = JewelryPart.materialList.get(part2).getDurabilityBase(getType());
-    	   } else {
-    		   base = JewelryPart.materialList.get(part1).getDurabilityBase(getType());
-    		   modifier = JewelryPart.materialList.get(part2).getDurabilityModifier(getType());
-    	   }
-    	   
-    	   return (int) (base * modifier);
-       }
-        return 0;
-    }
-
-	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.hasKey("Part2")) {
-				int id = stack.stackTagCompound.getInteger("Part2");
-				if (JewelryPart.materialList.get(id) != null) {
-					String color = JewelryPart.materialList.get(id).getColor();
-					String name = JewelryPart.materialList.get(id).getPartLang();
-
-					list.add(color + StatCollector.translateToLocal("mariculture.string.with") + " " + StatCollector.translateToLocal(name));
-				}
-			}
+			JewelryBinding binding = JewelryHandler.getBinding(stack);
+			list.add(binding.getColor() + StatCollector.translateToLocal("mariculture.string.with") + " " + binding.getCraftingItem(getType()).getDisplayName());
+			
+			list.add(" ");
+			list.add(Text.BRIGHT_GREEN + "XP: (" + JewelryHandler.getSetting(stack, SettingType.XP) + " / 100)");
 		}
 
+		//Add the one ring lore
 		if (EnchantHelper.getLevel(Magic.oneRing, stack) > 0) {
+			list.add(" ");
 			list.add(StatCollector.translateToLocal("enchantment.oneRing.line1"));
 			list.add(StatCollector.translateToLocal("enchantment.oneRing.line2"));
 			list.add(StatCollector.translateToLocal("enchantment.oneRing.line3"));
@@ -129,105 +102,76 @@ public abstract class ItemJewelry extends Item implements IItemRegistry {
 			list.add(" ");
 		}
 	}
-
+	
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			int id = stack.stackTagCompound.getInteger("Part1");
-			if (JewelryPart.materialList.get(id) != null) {
-				String color = JewelryPart.materialList.get(id).getColor();
-				String name = JewelryPart.materialList.get(id).getPartLang();
-
-				return color + StatCollector.translateToLocal(name) + " "
-						+ StatCollector.translateToLocal("part.jewelry." + getTypeString());
-			}
-		}
-
-		return StatCollector.translateToLocal(this.getUnlocalizedName(stack));
+	public int getMaxDamage(ItemStack stack) {
+		if(stack.hasTagCompound()) {
+			int base = (int) (JewelryHandler.getBinding(stack).getDurabilityBase(getType()) * JewelryHandler.getMaterial(stack).getDurabilityModifier(getType()));
+			int boost = JewelryHandler.getSetting(stack, SettingType.DURABILITY) * 50;
+			return base + boost;
+		} else return this.getMaxDamage();
 	}
-
+	
+	@Override
+	public IIcon getIcon(ItemStack stack, int pass) {
+		if(stack.hasTagCompound()) {
+			if(pass == 0) {
+				if(renderBinding()) {
+					JewelryBinding binding = JewelryHandler.getBinding(stack);
+					if(binding != null && !binding.ignore) return binding.getIcon(getType());
+				}
+			} else if (pass == 1) {
+				JewelryMaterial material = JewelryHandler.getMaterial(stack);
+				if(material != null && !material.ignore) return material.getIcon(getType());
+			} else if(stack.stackTagCompound.hasKey("Specials")) {
+				return specials.get(stack.stackTagCompound.getString("Specials"));
+			}
+		} 
+		
+		return itemIcon;
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
-		blank = iconRegister.registerIcon(Mariculture.modid + ":jewelry/blank");
-		special = new IIcon[2];
-		special[0] = iconRegister.registerIcon(Mariculture.modid + ":jewelry/day");
-		special[1] = iconRegister.registerIcon(Mariculture.modid + ":jewelry/night");
-
-		parts = new IIcon[JewelryPart.materialList.size()];
-		for (int i = 0; i < parts.length; i++) {
-			if (JewelryPart.materialList.get(i).isValid(getType())) {
-				if (JewelryPart.materialList.get(i).isVisible(getType())) {
-					parts[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "jewelry/" + getTypeString() + "/"
-							+ JewelryPart.materialList.get(i).getPartType(getType()) + "/"
-							+ JewelryPart.materialList.get(i).getPartName());
-				}
-			}
+		//Register the binding icons for this type
+		for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
+			if(binding.getValue().ignore) continue;
+			binding.getValue().registerIcons(iconRegister, getType());
 		}
+		
+		//Register the material icons for this type
+		for (Entry<String, JewelryMaterial> material : JewelryMaterial.list.entrySet()) {
+			if(material.getValue().ignore) continue;
+			material.getValue().registerIcons(iconRegister, getType());
+		}
+		
+		//Register the invisible icon
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":jewelry/blank");
+		
+		//Register the onering
+		specials.put(Text.YELLOW + "One Ring", iconRegister.registerIcon(Mariculture.modid + ":jewelry/ring/oneRing"));
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
-			boolean added = false;
-			for (int j = 0; j < JewelryPart.materialList.size() && !added; j++) {
-				if (JewelryPart.materialList.get(i).isValid(getType()) && JewelryPart.materialList.get(j).isValid(getType())) {
-					if (JewelryPart.materialList.get(i).getPartType(getType()).equals(getPart1())) {
-						if (JewelryPart.materialList.get(j).getPartType(getType()).equals(getPart2())) {
-							int part1 = i;
-							int part2 = j;
-							if (JewelryPart.materialList.get(i).isSingle()) {
-								part2 = part1;
-							}
-							ItemStack stack = buildJewelry(item, part1, part2);
-							stack = JewelryPart.materialList.get(i).addEnchantments(stack);
-							if (i != j) {
-								stack = JewelryPart.materialList.get(j).addEnchantments(stack);
-							}
-							
-							list.add(stack);
-
-							added = JewelryPart.materialList.get(i).addOnce();
-						}
-					}
-				}
+		//Add all item variants to the list
+		for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
+			if(binding.getValue().ignore) continue;
+			for (Entry<String, JewelryMaterial> material : JewelryMaterial.list.entrySet()) {
+				if(material.getValue().ignore) continue;
+				list.add(JewelryHandler.createBestJewelry((ItemJewelry)item, binding.getValue(), material.getValue()));
 			}
 		}
-	}
-	
-	@Override
-	public void register(Item item) { }
-	
-	@Override
-	public int getMetaCount() {
-		return 1;
-	}
-	
-	@Override
-	public String getName(ItemStack stack) {
-		return null;
-	}
-
-	public static ItemStack buildJewelry(Item item, int part1, int part2) {
-		ItemStack stack = new ItemStack(item, 1, 0);
-		stack.setTagCompound(new NBTTagCompound());
-		stack.stackTagCompound.setInteger("Part1", part1);
-		if (part1 != part2) {
-			stack.stackTagCompound.setInteger("Part2", part2);
-		}
-		return stack;
-	}
-	
-	public static int getPieceID(String piece) {
-		for (int i = 0; i < JewelryPart.materialList.size(); i++) {
-			JewelryPart part = JewelryPart.materialList.get(i);
-
-			if (part.getPartName().equals(piece)) {
-				return i;
+		
+		//Add the one ring to the list
+		ItemStack stack = JewelryHandler.createSpecial((ItemJewelry) item, JewelryType.RING, Text.YELLOW + "One Ring");
+		if(stack != null) {
+			if(EnchantHelper.exists(Magic.oneRing)) {
+				stack.addEnchantment(Magic.oneRing, 1);
+				list.add(stack);
 			}
 		}
-
-		return 0;
 	}
 }

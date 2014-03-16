@@ -13,17 +13,9 @@ public class EnchantmentSpider extends EnchantmentJewelry {
 
 	public EnchantmentSpider(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("spiderman");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 20;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return 50;
+		setName("spiderman");
+		minLevel = 1;
+		maxLevel = 25;
 	}
 
 	@Override

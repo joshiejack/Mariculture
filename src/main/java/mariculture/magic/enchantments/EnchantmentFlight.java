@@ -13,27 +13,14 @@ import cpw.mods.fml.client.FMLClientHandler;
 public class EnchantmentFlight extends EnchantmentJewelry {
 	public EnchantmentFlight(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("flight");
-	}
-	
-	@Override
-	public int getMinEnchantability(int level) {
-		return 58;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("flight");
+		minLevel = 55;
+		maxLevel = 60;
 	}
 
 	@Override
 	public int getMaxLevel() {
 		return 3;
-	}
-
-	@Override
-	public boolean canApplyTogether(Enchantment enchantment) {
-		return false;
 	}
 
 	public static int mode = 0;
@@ -48,6 +35,7 @@ public class EnchantmentFlight extends EnchantmentJewelry {
 				if (damageTicker >= 300) {
 					damageTicker = 0;
 
+					player.fallDistance = 0F;
 					EnchantHelper.damageItems(Magic.flight, player, 1);
 				}
 			}

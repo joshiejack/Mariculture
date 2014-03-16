@@ -11,17 +11,9 @@ import net.minecraft.entity.player.EntityPlayer;
 public class EnchantmentJump extends EnchantmentJewelry {
 	public EnchantmentJump(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("jump");
-	}
-
-	@Override
-	public int getMinEnchantability(final int level) {
-		return 5 + (level - 1) * 8;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("jump");
+		minLevel = 1;
+		maxLevel = 35;
 	}
 
 	@Override

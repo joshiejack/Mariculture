@@ -6,6 +6,7 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketDamageJewelry;
 import mariculture.core.network.PacketSyncMirror;
 import mariculture.core.util.Rand;
+import mariculture.magic.JewelryHandler.SettingType;
 import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -96,6 +97,9 @@ public class MirrorHandler implements IMirrorHandler {
 					if (EnchantHelper.hasEnchantment(enchant, mirror[i])) {
 						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
 							Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+						} else if(JewelryHandler.getSetting(mirror[i], SettingType.LEVEL) < JewelryHandler.getMaxLevel(mirror[i])) {
+							JewelryHandler.adjustSetting(mirror[i], +1, SettingType.XP);
+							// ^ increase the xp level of the jewelry piece, after being damaged
 						}
 					}
 				}

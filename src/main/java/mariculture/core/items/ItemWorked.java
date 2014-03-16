@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -41,6 +42,11 @@ public class ItemWorked extends ItemDamageable {
 		return 1 + stack.stackTagCompound.getInteger("Required") - stack.stackTagCompound.getInteger("Worked");
 	}
 	
+	@SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack, int pass) {
+        return stack.hasTagCompound() && stack.stackTagCompound.hasKey("EnchantmentList");
+    }
+	
 	@Override
 	public int getMaxDamage(ItemStack stack) {
 		if(stack.stackTagCompound == null) {
@@ -61,8 +67,6 @@ public class ItemWorked extends ItemDamageable {
 		int percent = (int) (((double)cur/(double)max) * 100);
 		
 		list.add(percent + "% Worked");
-		ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-		worked.getItem().addInformation(stack, player, list, bool);
 	}
 	
 	@Override

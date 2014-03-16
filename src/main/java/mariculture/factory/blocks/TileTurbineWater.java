@@ -48,7 +48,7 @@ public class TileTurbineWater extends TileTurbineBase {
 		if(fluid != null && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
 			String name = fluid.getFluid().getName();
 			if(name.equals(FluidDictionary.hp_water)) {
-				if(onTick(20)) {
+				if(onTick(200)) {
 					if(inventory[6].attemptDamageItem(1, Rand.rand)) {
 						inventory[6] = null;
 						return;

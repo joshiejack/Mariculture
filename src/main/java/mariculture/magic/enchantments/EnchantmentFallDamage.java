@@ -9,17 +9,9 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 public class EnchantmentFallDamage extends EnchantmentJewelry {
 	public EnchantmentFallDamage(final int i, final int weight, final EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("fall");
-	}
-
-	@Override
-	public int getMinEnchantability(final int level) {
-		return 1 + 10 * (level - 1);
-	}
-
-	@Override
-	public int getMaxEnchantability(final int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("fall");
+		minLevel = 1;
+		maxLevel = 35;
 	}
 
 	@Override

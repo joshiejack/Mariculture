@@ -30,7 +30,7 @@ public class PacketJewelrySwap extends AbstractPacket {
 		ItemStack[] mirror = MirrorData.getInventoryForPlayer(player);
 		ItemStack stack = player.inventory.mainInventory[slot];
 		if(stack != null) {
-			int type = ((ItemJewelry)stack.getItem()).getType();
+			int type = ((ItemJewelry)stack.getItem()).getType().ordinal();
 			ItemStack inMirror = mirror[type];
 			mirror[type] = stack;
 			player.setCurrentItemOrArmor(0, inMirror);

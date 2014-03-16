@@ -174,8 +174,7 @@ public class GuiMirror extends GuiStorage {
 				final int var7 = par1 - (var4 + 60);
 				final int var8 = par2 - (var5 + 14 + 19 * var6);
 
-				if (var7 >= 0 && var8 >= 0 && var7 < 108 && var8 < 19 
-						&& ((ContainerMirror)inventorySlots).enchantItem(this.mc.thePlayer, (var6) + 1)) {
+				if (var7 >= 0 && var8 >= 0 && var7 < 108 && var8 < 19 && ((ContainerMirror)inventorySlots).enchantItem(this.mc.thePlayer, (var6) + 1)) {
 					int level = enchantLevels[var6];
 					Mariculture.packets.sendToServer(new PacketEnchant(mc.thePlayer.openContainer.windowId, level));
 				}

@@ -22,27 +22,14 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 
 	public EnchantmentResurrection(int i, int weight, EnumEnchantmentType type) {
 		super(i, weight, type);
-		this.setName("resurrection");
-	}
-
-	@Override
-	public int getMinEnchantability(int level) {
-		return 60;
-	}
-
-	@Override
-	public int getMaxEnchantability(int level) {
-		return super.getMinEnchantability(level) + 50;
+		setName("resurrection");
+		minLevel = 50;
+		maxLevel = 55;
 	}
 
 	@Override
 	public int getMaxLevel() {
 		return 3;
-	}
-
-	@Override
-	public boolean canApplyTogether(Enchantment enchantment) {
-		return false;
 	}
 
 	public static void activate(LivingDeathEvent event) {
