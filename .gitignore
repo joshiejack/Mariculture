@@ -3,12 +3,14 @@
 /MinecraftForge-License.txt
 /README.txt
 /CREDITS-fml.txt
-/forge-1.6.4*
+/forge*
 /build
 /common
 /eclipse/*
 /.gradle
 /bin/*
+/lib/*
+/out/*
 .classpath
 .project
 .settings/*
