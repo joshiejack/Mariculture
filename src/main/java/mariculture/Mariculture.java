@@ -23,7 +23,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.1", dependencies="after:Enchiridion;after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty;after:AWWayofTime")
+@Mod(modid = "Mariculture", name = "Mariculture", version = "1.2.2", dependencies="after:Enchiridion;after:TConstruct;after:Railcraft;after:ExtrabiomesXL;after:Forestry;after:IC2;after:Thaumcraft;after:BiomesOPlenty;after:AWWayofTime")
 public class Mariculture {
 	public static final PacketPipeline packets = new PacketPipeline();
 	public static final String modid = "mariculture";
@@ -95,6 +95,6 @@ public class Mariculture {
 	/** Finish off Oyster Rendering
 	 *  Fix the rendering for the custom blocks
 	 *  forge fluid dictionary and dsu for fluids
-	 *  1.7 Elemental Affinity Enchantment
+	 *  1.7 Elemental Affinity Enchantments
 	 */
 }
