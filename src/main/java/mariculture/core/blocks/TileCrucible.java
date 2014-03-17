@@ -35,7 +35,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	private EnumBiomeType biome;
 	
 	public TileCrucible() {
-		max = MachineSpeeds.getLiquifierSpeed();
+		max = MachineSpeeds.getCrucibleSpeed();
 		inventory = new ItemStack[9];
 		needsInit = true;
 	}
@@ -260,8 +260,10 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		if(info == null) {
 			IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] tank = handler.getTankInfo(ForgeDirection.UP);
-			info = MaricultureHandlers.smelter.getFuelInfo(tank[0].fluid);
-			handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 16), true);
+			if(tank.length > 0 && tank[0] != null && tank[0].fluid != null) {
+				info = MaricultureHandlers.smelter.getFuelInfo(tank[0].fluid);
+				handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 16), true);
+			}
 		} else {
 			decrStackSize(fuel, 1);
 		}

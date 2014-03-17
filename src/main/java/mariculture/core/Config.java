@@ -162,10 +162,9 @@ public class Config {
             MachineSpeeds.autofisher = config.get(Category.SPEED, "Automatic Fisher", 2500).getInt();
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();
-            MachineSpeeds.liquifier = config.get(Category.SPEED, "Industrial Smelter", 40000).getInt();
+            MachineSpeeds.crucible = config.get(Category.SPEED, "Industrial Smelter", 40000).getInt();
             MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 350).getInt();
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
-            MachineSpeeds.settler = config.get(Category.SPEED, "Industrial Freezer", 60000).getInt();
 
             Extra.GEYSER_ANIM = config.get(Category.CLIENT, "Geyser - Enable Particles", true).getBoolean(true);
             Extra.FLUDD_BLOCK_ANIM = config.get(Category.CLIENT, "FLUDD - Enable Particles", true).getBoolean(true);

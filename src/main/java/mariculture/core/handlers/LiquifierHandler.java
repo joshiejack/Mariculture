@@ -26,8 +26,8 @@ public class LiquifierHandler implements ISmelterHandler {
 	@Override
 	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
 		RecipeSmelter recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input) + "|" + OreDicHelper.convert(input2));
-		if(recipe == null)
-			recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
+		if(recipe == null) recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input2) + "|" + OreDicHelper.convert(input));
+		if(recipe == null) recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
 		if(recipe != null) {
 			FluidStack fluid = recipe.fluid.copy();
 			if(temp < recipe.temp && temp != -1)

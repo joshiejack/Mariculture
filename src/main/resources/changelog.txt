@@ -15,7 +15,13 @@
 * FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
 
 == Mariculture 1.2.1 ==
-* 
+====Changes====
+* MAJOR: Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.
+====Bugfixes====
+* The slots for crucible furnace recipes no longer matter(with duel melting).
+* Fixed sluice crashing with sided tanks
+* Crucible Furnace no longer crashes when a tesseract is placed under it
+* Fixed Molten dirt NEI Crash
 
 == Mariculture 1.2.0i==
 * More fish breeding derp... fixed wrong cross-breeding of enderfish

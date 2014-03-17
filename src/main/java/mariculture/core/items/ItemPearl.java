@@ -53,18 +53,18 @@ public class ItemPearl extends ItemMariculture {
 
 	public Enchantment getBiasedEnchantment(Random rand, int level, int dmg) {
 		switch (dmg) {
-			case PearlColor.WHITE:	return (level > 55 && rand.nextInt(8) == 0)? Magic.flight: null;
-			case PearlColor.GREEN:	return (rand.nextInt(10) == 0)? Magic.jump: null;
-			case PearlColor.YELLOW: return (level > 45 && rand.nextInt(7) == 0)? Magic.hungry: null;
-			case PearlColor.ORANGE: return (level > 40 && rand.nextInt(8) == 0)? Magic.repair: null;
-			case PearlColor.RED: 	return (level > 30 && rand.nextInt(9) == 0)? Magic.health: null;
-			case PearlColor.GOLD: 	return (rand.nextInt(10) == 0)? Magic.fall: null;
-			case PearlColor.BROWN: 	return (rand.nextInt(11) == 0)? Magic.stepUp: null;
-			case PearlColor.PURPLE: return (rand.nextInt(7) == 0)? Magic.glide: null;
-			case PearlColor.BLUE: 	return (rand.nextInt(15) == 0)? Magic.speed: null;
+			case PearlColor.WHITE:	return (level > 55 && rand.nextInt(5) == 0)? Magic.flight: null;
+			case PearlColor.GREEN:	return (rand.nextInt(5) == 0)? Magic.jump: null;
+			case PearlColor.YELLOW: return (level > 45 && rand.nextInt(6) == 0)? Magic.hungry: null;
+			case PearlColor.ORANGE: return (level > 40 && rand.nextInt(6) == 0)? Magic.repair: null;
+			case PearlColor.RED: 	return (level > 30 && rand.nextInt(6) == 0)? Magic.health: null;
+			case PearlColor.GOLD: 	return (rand.nextInt(5) == 0)? Magic.fall: null;
+			case PearlColor.BROWN: 	return (rand.nextInt(8) == 0)? Magic.stepUp: null;
+			case PearlColor.PURPLE: return (rand.nextInt(10) == 0)? Magic.glide: null;
+			case PearlColor.BLUE: 	return (rand.nextInt(6) == 0)? Magic.speed: null;
 			case PearlColor.BLACK: 	return (rand.nextInt(12) == 0)? Magic.spider: null;
-			case PearlColor.PINK:	return (level > 50 && rand.nextInt(9) == 0)? Magic.resurrection: null;
-			case PearlColor.SILVER: return (rand.nextInt(9) == 0)? Enchantment.unbreaking: null;
+			case PearlColor.PINK:	return (level > 50 && rand.nextInt(6) == 0)? Magic.resurrection: null;
+			case PearlColor.SILVER: return (rand.nextInt(6) == 0)? Enchantment.unbreaking: null;
 			default: 				return null;
 		}
 	}

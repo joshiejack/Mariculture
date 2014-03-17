@@ -2,8 +2,7 @@ package mariculture.core.lib;
 
 public class MachineSpeeds {
 	public static int sawmill;
-	public static int liquifier;
-	public static int settler;
+	public static int crucible;
 	public static int incubator;
 	public static int autofisher;
 	public static int feeder;
@@ -13,12 +12,8 @@ public class MachineSpeeds {
 		return Extra.DEBUG_ON? 10: sawmill;
 	}
 
-	public static int getLiquifierSpeed() {
-		return Extra.DEBUG_ON? 10: liquifier;
-	}
-
-	public static int getSettlerSpeed() {
-		return Extra.DEBUG_ON? 10: settler;
+	public static int getCrucibleSpeed() {
+		return Extra.DEBUG_ON? 10: crucible;
 	}
 
 	public static int getIncubatorSpeed() {
