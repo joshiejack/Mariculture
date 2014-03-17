@@ -2,7 +2,7 @@ package mariculture.factory.gui;
 
 import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
-import mariculture.core.gui.feature.FeatureRedstone;
+import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.network.PacketClick;
 import mariculture.factory.blocks.TileFishSorter;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,10 +10,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 public class GuiFishSorter extends GuiMariculture {
 
 	private TileFishSorter tile;
-	
 	public GuiFishSorter(InventoryPlayer player, TileFishSorter tile) {
 		super(new ContainerFishSorter(tile, player), "fishsorter", 10);
-		features.add(new FeatureRedstone(tile));
+		features.add(new FeatureEject(tile));
 		this.tile = tile;
 	}
 	

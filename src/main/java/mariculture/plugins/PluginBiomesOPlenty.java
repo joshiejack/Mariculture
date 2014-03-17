@@ -2,7 +2,7 @@ package mariculture.plugins;
 
 import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.factory.OreDicHandler;
+import mariculture.core.handlers.OreDicHandler;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

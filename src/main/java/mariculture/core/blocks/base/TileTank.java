@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.ITank;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;

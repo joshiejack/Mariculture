@@ -1,6 +1,6 @@
 package mariculture.core.blocks;
 
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;

@@ -1,15 +1,18 @@
-==Mariculture 1.2.2==
+==Mariculture 1.2.2 BETA==
+==== BETA Notes ====
+* MAJOR: You need to install 'Enchiridion' if you want to keep my books, it's been split to a seperate mod for 'reasons'.
+* Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
+* Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
+
+==== Other ====
 * Damaging jewelry will now not apply the damage to every item, but split it out across the items(if it's doing more than one damage), otherwise rings will die first, then bracelets, then necklaces.
 * Mirrors are now required to take jewelry off, you don't need them to put them on, the controls to take off were fiddly anyways. (You can still swap existing pieces though).
 * Jewelry is no longer damaged when the player is in creative
 * Sonic the Hedgehog buffed to provide 1 minute per damage
 * Shift + Right Clicking Custom blocks, now copies the texture as with others, simply shift + right click the paintbrush on NO blocks to set it to air now
-* Fixed Machines trying to eject to wrong side
 * Removed Timelord, Focus Punch, Poison Ivy and Inferno Enchants
 * Added Elemental Affinity Enchantment - Each pearl colour has a different effect with this enchantment, has negative affects on stuff other than pearls
 * Ender Fish and Netherfish are no longer FORCED to live in the nether/end biomes. Now as long as the environment is correct, they will be happy.
-* AutoDictionary no longer ticks, therefore no longer has redstone control settings. It also works faster, you can specify upto 216 exceptions, and middle clicking will now switch the ore dictionary reference you are 'linked' to on an item, (this ONLY, affects cycling, as in, you will cycle to the next ore dictionary equivalent with that tag also).
-* Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
 * Blink distance per level increased to 16 blocks, you no longer need to be above a certain level to use it any time
 * Air Pumps will now only 'work' when they receive power, they will only extract fluid at that point too
 * FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
@@ -17,11 +20,18 @@
 == Mariculture 1.2.1 ==
 ====Changes====
 * MAJOR: Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.
+* You can no longer put liquids in one of the vats tanks if the other tank already has some of that liquid
+* Once again fixed obsidian taking 2 seconds instead of 15 seconds to make in a vat
+* AutoDictionary no longer ticks, therefore no longer has redstone control settings. It however works faster, and you can now specify upto 216 exceptions, and middle clicking will now switch the ore dictionary reference you are 'linked' to on an item, (this ONLY, affects cycling, as in, you will cycle to the next ore dictionary equivalent with that tag also).
+* Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
+* Fish Sorter no longer has redstone controls, but will now auto-eject to chests
 ====Bugfixes====
+* Fixed Fish Sorter not telling difference between eggs and fish
 * The slots for crucible furnace recipes no longer matter(with duel melting).
 * Fixed sluice crashing with sided tanks
 * Crucible Furnace no longer crashes when a tesseract is placed under it
 * Fixed Molten dirt NEI Crash
+* Fixed Machines trying to eject to wrong side
 
 == Mariculture 1.2.0i==
 * More fish breeding derp... fixed wrong cross-breeding of enderfish

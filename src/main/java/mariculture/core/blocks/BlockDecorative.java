@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -59,9 +60,9 @@ public abstract class BlockDecorative extends Block implements IHasMeta {
 	public IIcon getIcon(int side, int meta) {
 		if(blockIcon != null) return blockIcon;
 		if(meta < getMetaCount()) {
-			return icons[meta];
+			return icons[meta] != null? icons[meta]: Blocks.air.getIcon(side, meta);
 		} else { 
-			return icons[0];
+			return icons[0] != null? icons[0]: Blocks.air.getIcon(side, meta);
 		}
 	}
 	

@@ -12,7 +12,7 @@ import mariculture.core.network.PacketMultiInit;
 import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
 import mariculture.core.util.Rand;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -421,13 +421,13 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		if(vat == null)
 			return 0;
 		
-		int ret = vat.tank.fill(resource, doFill);
+		int ret = vat.tank.fill(resource, doFill, tank2);
 		if(ret > 0) {
 			if(doFill) {
 				Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
 			}
 		} else {
-			ret = vat.tank2.fill(resource, doFill);
+			ret = vat.tank2.fill(resource, doFill, tank);
 			if(ret > 0) {
 				if(doFill) {
 					Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);

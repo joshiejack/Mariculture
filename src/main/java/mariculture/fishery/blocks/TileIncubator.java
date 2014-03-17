@@ -53,7 +53,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return slot > 3 && slot < 13;
+		return (slot > 3 && slot < 13) && (Fishing.fishHelper.isEgg(stack) || stack.getItem() == Items.egg || stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg));
 	}
 
 	@Override

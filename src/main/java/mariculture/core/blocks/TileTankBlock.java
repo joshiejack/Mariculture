@@ -5,7 +5,7 @@ import java.util.List;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;

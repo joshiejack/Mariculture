@@ -66,6 +66,7 @@ public class ItemVanillaFish extends ItemFishFood {
 		}
     }
 	
+	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if(Extra.VANILLA_STATS && stack.getItemDamage() < LAST_VANILLA) return super.onEaten(stack, world, player);
 		else {

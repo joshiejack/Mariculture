@@ -23,7 +23,43 @@ public class ContainerFishSorter extends ContainerMachine {
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
-		return null;
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+		int size = getSizeInventory();
+		int low = size + 27;
+		int high = low + 9;
+		ItemStack itemstack = null;
+		Slot slot = (Slot) this.inventorySlots.get(slotID);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack stack = slot.getStack();
+			itemstack = stack.copy();
+
+			if (slotID < size) {
+				if (!this.mergeItemStack(stack, size, high, true)) {
+					return null;
+				}
+				slot.onSlotChange(stack, itemstack);
+			} else if (slotID >= size) {
+				if (!this.mergeItemStack(stack, TileFishSorter.input, TileFishSorter.input + 1, false)) { // Slot 7-7
+					return null;
+				}
+			} else if (!this.mergeItemStack(stack, size, high, false)) {
+				return null;
+			}
+
+			if (stack.stackSize == 0) {
+				slot.putStack((ItemStack) null);
+			} else {
+				slot.onSlotChanged();
+			}
+
+			if (stack.stackSize == itemstack.stackSize) {
+				return null;
+			}
+
+			slot.onPickupFromSlot(player, stack);
+		}
+
+		return itemstack;
 	}
 }

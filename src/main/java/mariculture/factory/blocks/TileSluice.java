@@ -7,6 +7,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;

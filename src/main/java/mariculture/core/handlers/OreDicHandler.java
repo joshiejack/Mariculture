@@ -1,11 +1,10 @@
-package mariculture.factory;
+package mariculture.core.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.logging.log4j.Level;
 
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.util.Text;

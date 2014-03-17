@@ -1,4 +1,4 @@
-package mariculture.factory.blocks;
+package mariculture.core.util;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -166,5 +166,10 @@ public class Tank implements IFluidTank {
 			}
 		}
 		return stack;
+	}
+	
+	public int fill(FluidStack resource, boolean doFill, Tank tank) {
+		if(resource.fluidID == tank.getFluidID()) return 0;
+		return fill(resource, doFill);
 	}
 }

@@ -50,10 +50,9 @@ public class ItemMirror extends ItemStorage {
 		if (stack != null) {
 			if (!player.isSneaking()) {
 				world.playSoundAtEntity(player, Mariculture.modid + ":mirror", 1.0F, 1.0F);
-				if(stack.attemptDamageItem(1, Rand.rand))
+				if(!player.capabilities.isCreativeMode && stack.attemptDamageItem(1, Rand.rand))
 					stack.stackSize--;
-				else
-					player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
+				else player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
 			}
 
 			return stack;

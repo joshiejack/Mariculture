@@ -6,7 +6,7 @@ import mariculture.api.core.RecipeIngotCasting;
 import mariculture.core.blocks.base.TileStorageTank;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packets;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

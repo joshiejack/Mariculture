@@ -2,10 +2,10 @@ package mariculture.factory.gui;
 
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.SlotFake;
+import mariculture.core.handlers.OreDicHandler;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.util.Text;
-import mariculture.factory.OreDicHandler;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -64,6 +64,7 @@ public class SlotDictionary extends SlotFake {
 		stack.stackTagCompound = tag;
 	}
 
+	@Override
 	public ItemStack handle(EntityPlayer player, int mouseButton, Slot slot) {		
 		ItemStack filterCheck = player.inventory.getItemStack();
 		ItemStack filterInSlot = slot.getStack();

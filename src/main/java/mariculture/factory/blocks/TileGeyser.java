@@ -11,6 +11,7 @@ import mariculture.core.lib.WaterMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IFaceable;
+import mariculture.core.util.Tank;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
 import net.minecraft.block.material.MaterialTransparent;
