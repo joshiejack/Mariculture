@@ -6,7 +6,7 @@ import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -49,7 +49,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
         if (amount > 0 && doFill)
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         return amount;
 	}
 	
@@ -57,7 +57,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		FluidStack amount = tank.drain(maxDrain, doDrain);
         if (amount != null && doDrain)
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         return amount;
 	}
 

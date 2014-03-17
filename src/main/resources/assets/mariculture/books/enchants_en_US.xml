@@ -10,10 +10,10 @@
         <text x="22" y="-13" bold="true">Basic Mirror</text>
         <text>The basic mirror can be used to put on/take off your jewelry. It also acts like portable enchanting, but only allowing you to enchant at level 1, 3 or 5. It has 30 uses. Right click to open the interface. Mirrors also give a bonus to jewelry when they are used to enchant those items.</text>
         <crafting x="15" y="15" size="2">
-            <craft1>blank,ingotAluminum,ingotAluminum</craft1>
-            <craft2>ingotAluminum,glassPane,ingotAluminum</craft2>
-            <craft3>ingotIron,ingotAluminum,blank</craft3>
-            <craftResult>basicMirror</craftResult>
+            <craft1>|ingotAluminum|ingotAluminum</craft1>
+            <craft2>ingotAluminum|thinGlass|ingotAluminum</craft2>
+            <craft3>ingotIron|ingotAluminum|</craft3>
+            <craftResult>mirror.basic</craftResult>
             <craftNum>1</craftNum>
         </crafting>
     </page>
@@ -25,24 +25,24 @@
     </page>
     <page>
         <crafting x="5">
-            <craft1>bookshelf,plankWood,bookshelf</craft1>
-            <craft2>plankWood,chest,plankWood</craft2>
-            <craft3>bookshelf,bookshelf,bookshelf</craft3>
-            <craftResult>storage</craftResult>
+            <craft1>minecraft:bookshelf|plankWood|minecraft:bookshelf</craft1>
+            <craft2>plankWood|chest|plankWood</craft2>
+            <craft3>minecraft:bookshelf|minecraft:bookshelf|minecraft:bookshelf</craft3>
+            <craftResult>bookshelf</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="100" size="1">
-            <craft1>pearl,basicMirror,pearl</craft1>
-            <craft2>storage,enchant,storage</craft2>
-            <craft3>pearl,storage,pearl</craft3>
-            <craftResult>magicMirror</craftResult>
+            <craft1>pearl|mirror.basic|pearl</craft1>
+            <craft2>bookshelf|enchantmentTable|bookshelf</craft2>
+            <craft3>pearl|bookshelf|pearl</craft3>
+            <craftResult>mirror.magic</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="15" y="15" size="2">
-            <craft1>magicDroplet,netherStar,magicDroplet</craft1>
-            <craft2>storage,magicMirror,storage</craft2>
-            <craft3>goldenThread,storage,goldenThread</craft3>
-            <craftResult>celestialMirror</craftResult>
+            <craft1>dropletMagic|netherStar|dropletMagic</craft1>
+            <craft2>bookshelf|mirror.magic|bookshelf</craft2>
+            <craft3>goldenThread|bookshelf|goldenThread</craft3>
+            <craftResult>mirror.celestial</craftResult>
             <craftNum>1</craftNum>
         </crafting>
     </page>
@@ -54,45 +54,45 @@
     <page>
         <text>Jewelry is first crafted in to an unworked version, then you need to beat it with a hammer in an anvil, varying amounts of time in order to finish creating the jewelry.</text>
         <crafting x="15" y="50" size="0.8">
-            <craft1>ingotIron,diamond,ingotIron</craft1>
-            <craft2>ingotIron,blank,ingotIron</craft2>
-            <craft3>ingotIron,ingotIron,ingotIron</craft3>
-            <craftResult>ringIron</craftResult>
+            <craft1>ingotIron|diamond|ingotIron</craft1>
+            <craft2>ingotIron||ingotIron</craft2>
+            <craft3>ingotIron|ingotIron|ingotIron</craft3>
+            <craftResult>ring.diamond.iron</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="90" y="50" size="0.8">
-            <craft1>ingotGold,pearlRed,ingotGold</craft1>
-            <craft2>ingotGold,blank,ingotGold</craft2>
-            <craft3>ingotGold,ingotGold,ingotGold</craft3>
-            <craftResult>ringPearl</craftResult>
+            <craft1>ingotGold|pearlRed|ingotGold</craft1>
+            <craft2>ingotGold||ingotGold</craft2>
+            <craft3>ingotGold|ingotGold|ingotGold</craft3>
+            <craftResult>ring.pearlRed.gold</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="15" y="115" size="0.8">
-            <craft1>string,blank,string</craft1>
-            <craft2>ingotIron,blank,ingotIron</craft2>
-            <craft3>blank,ingotIron,blank</craft3>
-            <craftResult>braceletIron</craftResult>
+            <craft1>string||string</craft1>
+            <craft2>ingotIron||ingotIron</craft2>
+            <craft3>|ingotIron|</craft3>
+            <craftResult>bracelet.iron.string</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="90" y="115" size="0.8">
-            <craft1>goldenSilk,blank,goldenSilk</craft1>
-            <craft2>pearlBlack,blank,pearlBlack</craft2>
-            <craft3>blank,pearlBlack,blank</craft3>
-            <craftResult>braceletPearl</craftResult>
+            <craft1>goldenSilk||goldenSilk</craft1>
+            <craft2>pearlBlack||pearlBlack</craft2>
+            <craft3>|pearlBlack|</craft3>
+            <craftResult>bracelet.pearlBlack.goldString</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="15" y="180" size="0.8">
-            <craft1>ingotIron,wool,ingotIron</craft1>
-            <craft2>ingotIron,blank,ingotIron</craft2>
-            <craft3>ingotIron,ingotIron,ingotIron</craft3>
-            <craftResult>necklaceIron</craftResult>
+            <craft1>ingotIron|wool|ingotIron</craft1>
+            <craft2>ingotIron||ingotIron</craft2>
+            <craft3>ingotIron|ingotIron|ingotIron</craft3>
+            <craftResult>necklace.iron.wool</craftResult>
             <craftNum>1</craftNum>
         </crafting>
         <crafting x="90" y="180" size="0.8">
-            <craft1>pearlWhite,goldenThread,pearlWhite</craft1>
-            <craft2>pearlWhite,blank,pearlWhite</craft2>
-            <craft3>pearlWhite,pearlWhite,pearlWhite</craft3>
-            <craftResult>necklacePearl</craftResult>
+            <craft1>pearlWhite|goldenThread|pearlWhite</craft1>
+            <craft2>pearlWhite||pearlWhite</craft2>
+            <craft3>pearlWhite|pearlWhite|pearlWhite</craft3>
+            <craftResult>necklace.pearlWhite.goldThread</craftResult>
             <craftNum>1</craftNum>
         </crafting>
     </page>

@@ -18,10 +18,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginRailcraft extends Plugin {
-	public PluginRailcraft(String name) {
-		super(name);
-	}
-
 	public void init() {
 		String id = "Railcraft";
 

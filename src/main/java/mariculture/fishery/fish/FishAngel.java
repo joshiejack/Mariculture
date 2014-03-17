@@ -72,11 +72,15 @@ public class FishAngel extends FishSpecies {
 
 		return stack;
 	}
-
+	
 	@Override
-	public void onConsumed(final World world, final EntityPlayer player) {
-		player.getFoodStats().addStats(2, 2F);
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+	public int getFoodStat() {
+		return 1;
+	}
+	
+	@Override
+	public float getFoodSaturation() {
+		return 0.6F;
 	}
 
 	@Override

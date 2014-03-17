@@ -84,7 +84,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 				if(storedAir < max) {
 					storedAir++;
 					
-					Packets.updateTile(this, 64, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
+					Packets.updateTile(this, new Packet117AirCompressorUpdate(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)).build());
 				}
 			}
 		}
@@ -130,7 +130,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 			onBlockPlacedBase(xCoord, yCoord, zCoord);
 		else if(this.getBlockMetadata() == DoubleMeta.COMPRESSOR_TOP)
 			onBlockPlacedTop(xCoord, yCoord, zCoord);
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		Packets.updateTile(this, getDescriptionPacket());
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 	

@@ -25,6 +25,7 @@ import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeDirection;
 
 
 public class TileIncubator extends TileMultiMachinePowered implements IHasNotification {
@@ -32,6 +33,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	public TileIncubator() {
 		max = MachineSpeeds.getIncubatorSpeed();
 		inventory = new ItemStack[22];
+		needsInit = true;
 	}
 	
 	@Override
@@ -50,7 +52,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return slot > 3 && slot < 13;
+		return (slot > 3 && slot < 13) && (Fishing.fishHelper.isEgg(stack) || stack.itemID == Item.egg.itemID || stack.itemID == Block.dragonEgg.blockID);
 	}
 
 	@Override
@@ -237,14 +239,14 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		Packets.updateTile(this, getDescriptionPacket());
 	}
 	
 	public void onBlockPlaced(int x, int y, int z) {
 		if(isBase(x, y, z) && isTop(x, y + 1, z) && isTop(x, y + 2, z) && !isTop(x, y + 3, z)) {
 			MultiPart mstr = new MultiPart(x, y, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y + 1, z));
+			parts.add(setAsSlave(mstr, x, y + 1, z, ForgeDirection.DOWN));
 			parts.add(setAsSlave(mstr, x, y + 2, z));
 			setAsMaster(mstr, parts);
 		}
@@ -252,7 +254,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 		if(isBase(x, y - 1, z) && isTop(x, y, z) && isTop(x, y + 1, z) && !isTop(x, y + 2, z)) {
 			MultiPart mstr = new MultiPart(x, y - 1, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y, z));
+			parts.add(setAsSlave(mstr, x, y, z, ForgeDirection.DOWN));
 			parts.add(setAsSlave(mstr, x, y + 1, z));
 			setAsMaster(mstr, parts);
 		}
@@ -260,7 +262,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 		if(isBase(x, y - 2, z) && isTop(x, y - 1, z) && isTop(x, y, z) && !isTop(x, y + 1, z)) {
 			MultiPart mstr = new MultiPart(x, y - 2, z);
 			ArrayList<MultiPart> parts = new ArrayList<MultiPart>();
-			parts.add(setAsSlave(mstr, x, y - 1, z));
+			parts.add(setAsSlave(mstr, x, y - 1, z, ForgeDirection.DOWN));
 			parts.add(setAsSlave(mstr, x, y, z));
 			setAsMaster(mstr, parts);
 		}

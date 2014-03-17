@@ -17,11 +17,6 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
 public class PluginThaumcraft extends Plugin {
-
-	public PluginThaumcraft(String name) {
-		super(name);
-	}
-
 	@Override
 	public void preInit() {
 		
@@ -36,6 +31,7 @@ public class PluginThaumcraft extends Plugin {
 			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID, BaitMeta.MAGGOT, new AspectList().add(Aspect.BEAST, 1).add(Aspect.FLESH, 1));
 			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID, BaitMeta.WORM, new AspectList().add(Aspect.BEAST, 1).add(Aspect.EARTH, 2));
 			ThaumcraftApi.registerObjectTag(Fishery.fishyFood.itemID, -1, new AspectList().add(Aspect.WATER, 1).add(Aspect.FLESH, 3).add(Aspect.HUNGER, 1));
+			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID,  BaitMeta.BEE, new AspectList().add(Aspect.BEAST, 1).add(Aspect.PLANT, 1));
 		}
 		
 		//Coral
@@ -76,6 +72,7 @@ public class PluginThaumcraft extends Plugin {
 		//Crafting Items
 		ThaumcraftApi.registerObjectTag(Core.craftingItem.itemID, CraftingMeta.ALUMINUM_SHEET, new AspectList().add(Aspect.METAL, 2).add(Aspect.AIR, 4));
 		ThaumcraftApi.registerObjectTag(Core.craftingItem.itemID, CraftingMeta.POLISHED_STICK, new AspectList().add(Aspect.TREE, 1).add(Aspect.ORDER, 1));
+		ThaumcraftApi.registerObjectTag(Core.craftingItem.itemID, CraftingMeta.BURNT_BRICK, new AspectList().add(Aspect.FIRE, 1).add(Aspect.DARKNESS, 1));
 		
 		//Materials
 		ThaumcraftApi.registerObjectTag(Core.materials.itemID, MaterialsMeta.DROP_AQUA, new AspectList().add(Aspect.WATER, 2));
@@ -87,6 +84,7 @@ public class PluginThaumcraft extends Plugin {
 		ThaumcraftApi.registerObjectTag(Core.materials.itemID, MaterialsMeta.DROP_NETHER, new AspectList().add(Aspect.FIRE, 2));
 		ThaumcraftApi.registerObjectTag(Core.materials.itemID, MaterialsMeta.DROP_POISON, new AspectList().add(Aspect.POISON, 2));
 		ThaumcraftApi.registerObjectTag(Core.materials.itemID, MaterialsMeta.DROP_WATER, new AspectList().add(Aspect.WATER, 1));
+		ThaumcraftApi.registerObjectTag("ingotRutile", new AspectList().add(Aspect.METAL, 1));
 		ThaumcraftApi.registerObjectTag("ingotAluminum", new AspectList().add(Aspect.AIR, 2).add(Aspect.METAL, 1));
 		ThaumcraftApi.registerObjectTag("ingotTitanium", new AspectList().add(Aspect.METAL, 4).add(Aspect.DARKNESS, 1));
 		ThaumcraftApi.registerObjectTag("ingotMagnesium", new AspectList().add(Aspect.ENERGY, 1).add(Aspect.METAL, 1).add(Aspect.ENTROPY, 1));

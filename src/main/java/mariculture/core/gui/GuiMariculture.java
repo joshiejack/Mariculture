@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL12;
 public abstract class GuiMariculture extends GuiContainer {
 	protected String name;
 	protected static ResourceLocation TEXTURE;
+	protected int inventOffset = 3;
 	protected int nameHeight = 5;
 	public int mouseX = 0;
 	public int mouseY = 0;
@@ -43,7 +44,7 @@ public abstract class GuiMariculture extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		drawForeground();
 		fontRenderer.drawString(getName(), getX(), nameHeight, 4210752);
-		fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 3, 4210752);
+		fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + inventOffset, 4210752);
 		tooltip.clear();
 		addToolTips();
 		drawToolTip(tooltip, mouseX, mouseY, fontRenderer);

@@ -8,8 +8,8 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 public class Packets {
-	public static void updateTile(TileEntity tile, int size, Packet packet) {
-		PacketDispatcher.sendPacketToAllAround(tile.xCoord, tile.yCoord, tile.zCoord, size, tile.worldObj.provider.dimensionId, packet);
+	public static void updateTile(TileEntity tile, Packet packet) {
+		PacketDispatcher.sendPacketToAllAround(tile.xCoord, tile.yCoord, tile.zCoord, 178, tile.worldObj.provider.dimensionId, packet);
 	}
 	
 	public static void updatePlayer(EntityPlayer player, int size, Packet packet) {

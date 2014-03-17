@@ -48,7 +48,6 @@ public class Config {
             Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
-            Compatibility.EXCEPTIONS = config.get(Category.DICTIONARY, "AutoDictionary > Exceptions", Compatibility.EXCEPTIONS_DEFAULT, Comment.EXCEPTIONS).getStringList();
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Mariculture had a problem loading the other settings");
         } finally {

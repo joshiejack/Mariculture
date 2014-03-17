@@ -166,7 +166,7 @@ public class BlockTank extends BlockConnected {
 					TileTankBlock tank = (TileTankBlock) tile;
 					tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
 					if(!world.isRemote)
-						Packets.updateTile(tank, 64, new Packet118FluidUpdate(x, y, z, tank.getFluid()).build());
+						Packets.updateTile(tank, new Packet118FluidUpdate(x, y, z, tank.getFluid()).build());
 				}
 			}
 		}

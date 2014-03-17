@@ -145,7 +145,7 @@ public class BlockDouble extends BlockMachine {
 						heldItem.setItemDamage(heldItem.getItemDamage() - 1);
 						if(!world.isRemote) {
 							compressor.storedAir--;
-							Packets.updateTile(compressor, 64, 
+							Packets.updateTile(compressor, 
 									new Packet117AirCompressorUpdate(compressor.xCoord, compressor.yCoord, compressor.zCoord, 
 													compressor.storedAir, compressor.getEnergyStored(ForgeDirection.UP)).build());
 						}

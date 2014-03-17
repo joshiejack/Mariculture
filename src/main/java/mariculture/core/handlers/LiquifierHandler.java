@@ -17,17 +17,15 @@ public class LiquifierHandler implements ISmelterHandler {
 
 	@Override
 	public void addRecipe(RecipeSmelter recipe) {
-		if(recipe.input2 != null)
-			recipes.put(OreDicHelper.convert(recipe.input) + "|" + OreDicHelper.convert(recipe.input2), recipe);
-		else
-			recipes.put(OreDicHelper.convert(recipe.input), recipe);
+		if(recipe.input2 != null) recipes.put(OreDicHelper.convert(recipe.input) + "|" + OreDicHelper.convert(recipe.input2), recipe);
+		else recipes.put(OreDicHelper.convert(recipe.input), recipe);
 	}
 
 	@Override
 	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
 		RecipeSmelter recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input) + "|" + OreDicHelper.convert(input2));
-		if(recipe == null)
-			recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
+		if(recipe == null) recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input2) + "|" + OreDicHelper.convert(input));
+		if(recipe == null) recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
 		if(recipe != null) {
 			FluidStack fluid = recipe.fluid.copy();
 			if(temp < recipe.temp && temp != -1)

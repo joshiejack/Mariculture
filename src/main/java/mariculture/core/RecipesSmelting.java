@@ -299,7 +299,7 @@ public class RecipesSmelting {
 		
 		//Water + Lava = Obsidian
 		RecipeHelper.addFluidAlloyResultItem(FluidRegistry.getFluidStack("water", 1000), 
-				FluidRegistry.getFluidStack("lava", 1000), new ItemStack(Block.obsidian), 2);
+				FluidRegistry.getFluidStack("lava", 1000), new ItemStack(Block.obsidian), 15);
 		
 		//24 Parts Quicklime + 16 Parts Water = Unknown Metal Dust + 10 Parts Water (Takes 10 seconds)
 		RecipeHelper.addFluidAlloyResultItemNFluid(FluidRegistry.getFluidStack("water", 16000), 

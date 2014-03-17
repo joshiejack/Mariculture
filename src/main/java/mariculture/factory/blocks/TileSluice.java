@@ -7,6 +7,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.nbt.NBTTagCompound;
@@ -108,6 +109,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 						Fluid fluid = tanks.fluid.getFluid();
 						if(fluid.canBePlacedInWorld()) {
 							int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
+							if(tank.drain(direction.getOpposite(), drain, false) == null) return;
 							if (tank.drain(direction.getOpposite(), drain, false).amount == drain) {
 								int id = fluid.getBlockID();
 								if (Block.blocksList[id] != null) {

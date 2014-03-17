@@ -115,7 +115,7 @@ public class BlockSingle extends BlockMachine {
 			
 			if(tile instanceof TileGeyser) {
 				((TileGeyser)tile).orientation = BlockHelper.rotate(((TileGeyser)tile).orientation);
-				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				Packets.updateTile(((TileGeyser)tile), ((TileGeyser)tile).getDescriptionPacket());
 				world.markBlockForRenderUpdate(x, y, z);
 			}
 		}
@@ -150,12 +150,12 @@ public class BlockSingle extends BlockMachine {
 				fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
 				fludd.tank.setFluidID(Core.highPressureWater.getID());
 				fludd.tank.setFluidAmount(water);
-				Packets.updateTile(fludd, 32, fludd.getDescriptionPacket());
+				Packets.updateTile(fludd, fludd.getDescriptionPacket());
 			}
 			
 			if(tile instanceof TileGeyser) {
 				((TileGeyser)tile).orientation = ForgeDirection.getOrientation(facing);
-				Packets.updateTile(((TileGeyser)tile), 32, ((TileGeyser)tile).getDescriptionPacket());
+				Packets.updateTile(((TileGeyser)tile), ((TileGeyser)tile).getDescriptionPacket());
 			}
 		}
 		

@@ -152,34 +152,21 @@ public class BlockUtil extends BlockMachine {
 		}
 		
 		if (side > 1) {
-			if (block.getBlockTileEntity(x, y, z) instanceof TileLiquifier) {
-				TileLiquifier smelter = (TileLiquifier) block.getBlockTileEntity(x, y, z);
-				if(smelter.master == null) {
-					return this.getIcon(side, block.getBlockMetadata(x, y, z));
-				} else {
-					if(smelter.isMaster()) {
-						return liquifierIcons[1];
-					} else {
-						return liquifierIcons[0];
+			if(side > 1) {
+				TileEntity tile = block.getBlockTileEntity(x, y, z);
+				if(tile instanceof TileLiquifier) {
+					TileLiquifier crucible = (TileLiquifier) tile;
+					if(crucible.master == null) return getIcon(side, UtilMeta.LIQUIFIER);
+					else {
+						if(crucible.isMaster()) return liquifierIcons[1];
+						else return liquifierIcons[0];
 					}
-				}
-			}
-
-			if (block.getBlockTileEntity(x, y, z) instanceof TileIncubator && side > 1) {
-				TileIncubator incubator = (TileIncubator) block.getBlockTileEntity(x, y, z);
-				if (incubator.isBase(x, y - 1, z)) {
-					if (incubator.isTop(x, y, z) && incubator.isTop(x, y + 1, z)) {
-						if (!incubator.isTop(x, y + 2, z)) {
-							return incubatorIcons[0];
-						}
-					}
-				}
-
-				if (incubator.isBase(x, y - 2, z)) {
-					if (incubator.isTop(x, y, z) && incubator.isTop(x, y - 1, z)) {
-						if (!incubator.isTop(x, y + 1, z)) {
-							return incubatorIcons[1];
-						}
+				} else if (tile instanceof TileIncubator && block.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_BASE) {
+					TileIncubator incubator = (TileIncubator) tile;
+					if(incubator.master == null) return getIcon(side, UtilMeta.INCUBATOR_TOP);
+					else {
+						if(incubator.facing == ForgeDirection.DOWN) return incubatorIcons[0];
+						else return incubatorIcons[1];
 					}
 				}
 			}
@@ -205,7 +192,7 @@ public class BlockUtil extends BlockMachine {
 		if (tile != null) {			
 			if(tile instanceof TileSluice) {
 				((TileSluice)tile).direction = ForgeDirection.getOrientation(facing);
-				Packets.updateTile(((TileSluice)tile), 32, ((TileSluice)tile).getDescriptionPacket());
+				Packets.updateTile(((TileSluice)tile), ((TileSluice)tile).getDescriptionPacket());
 			}
 		}
 	}

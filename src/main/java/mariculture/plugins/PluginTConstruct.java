@@ -46,10 +46,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class PluginTConstruct extends Plugin {	
-	public PluginTConstruct(String name) {
-		super(name);
-	}
-
 	public static final int titanium_id = 200;
 	
 	public static TitaniumPart arrowhead;

@@ -46,14 +46,18 @@ public class Plugins {
 		public abstract void preInit();
 		public abstract void init();
 		public abstract void postInit();
+
+		//Wildcard entries for blocks
+		public void registerWildcards() {
+			return;
+		}
 	}
 	
 	public void add(String str) {
 		if(Loader.isModLoaded(str)) {
 			try {
 				Class clazz = Class.forName("mariculture.plugins.Plugin" + str);
-				Constructor constructor = clazz.getConstructor(new Class[] {String.class});
-				constructor.newInstance(new Object[] {str});
+				clazz.newInstance();
 			} catch (Exception e) {
 				LogHandler.log(Level.INFO, "Mariculture - Something went wrong when initializing " + str + " Plugin");
 			}

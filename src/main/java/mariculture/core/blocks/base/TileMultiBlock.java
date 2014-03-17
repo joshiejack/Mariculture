@@ -125,7 +125,7 @@ public class TileMultiBlock extends TileEntity {
 			setAsMaster(mstr, parts);
 		}
 		
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		Packets.updateTile(this, getDescriptionPacket());
 	}
 	
 	public void onBlockBreak() {
@@ -141,7 +141,7 @@ public class TileMultiBlock extends TileEntity {
 							te.setMaster(null);
 							te.setInit(false);
 							((TileMultiBlock) te).setFacing(ForgeDirection.UNKNOWN);
-							Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN).build());
+							Packets.updateTile(te, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN).build());
 						}
 					}
 				}
@@ -151,7 +151,7 @@ public class TileMultiBlock extends TileEntity {
 				mstr.setMaster(null);
 				mstr.setInit(false);
 				((TileMultiBlock) mstr).setFacing(ForgeDirection.UNKNOWN);
-				Packets.updateTile(mstr, 32, new Packet113MultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
+				Packets.updateTile(mstr, new Packet113MultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN).build());
 			}
 		}
 	}
@@ -180,11 +180,11 @@ public class TileMultiBlock extends TileEntity {
 	public void init() {
 		if(!worldObj.isRemote) {
 			//Init Master
-			Packets.updateTile(this, 32, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			Packets.updateTile(this, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te.getClass().equals(getTEClass())) {
-					Packets.updateTile(te, 32, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
+					Packets.updateTile(te, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
 							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
 				}
 			}

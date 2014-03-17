@@ -111,10 +111,14 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 	@Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 		if(outputId.equals("fluid") && results.length == 1) {
+			FluidStack fluidStack = (FluidStack) results[0];
+			if(fluidStack == null || fluidStack.getFluid() == null) return;
 			String fluid = ((FluidStack) results[0]).getFluid().getName();
 			ArrayList<ItemStack> stacks = NEIConfig.containers.get(fluid);
-			for(ItemStack stack: stacks) {
-				GuiCraftingRecipe.openRecipeGui("item", stack);
+			if(stacks != null) {
+				for(ItemStack stack: stacks) {
+					GuiCraftingRecipe.openRecipeGui("item", stack);
+				}
 			}
 		} else {
 			super.loadCraftingRecipes(outputId, results);

@@ -6,10 +6,6 @@ import mariculture.plugins.Plugins.Plugin;
 import extrabiomes.api.Biomes;
 
 public class PluginExtrabiomesXL extends Plugin {
-	public PluginExtrabiomesXL(String name) {
-		super(name);
-	}
-	
 	@Override
 	public void preInit() {
 		

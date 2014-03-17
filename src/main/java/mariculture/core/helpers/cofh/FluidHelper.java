@@ -89,13 +89,11 @@ public class FluidHelper {
 		return handler instanceof IFluidHandler ? ((IFluidHandler) handler).fill(ForgeDirection.VALID_DIRECTIONS[side ^ 1], fluid, doFill) : 0;
 	}
 
-	// TODO: Replace with sided version post-1.7 Fluid revamp
 	public static boolean isAdjacentFluidHandler(TileEntity tile, int side) {
 
 		return BlockHelper.getAdjacentTileEntity(tile, side) instanceof IFluidHandler;
 	}
 
-	// TODO: Replace with sided version post-1.7 Fluid revamp
 	public static boolean isFluidHandler(TileEntity tile) {
 
 		return tile instanceof IFluidHandler;

@@ -14,6 +14,7 @@ import mariculture.core.network.Packets;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IPowered;
 import mariculture.core.util.IRedstoneControlled;
+import mariculture.core.util.Tank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -205,7 +206,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		if(Extra.TURBINE_ANIM) {
 			if(!worldObj.isRemote && onTick(Extra.TURBINE_RATE)) {
 				isAnimating = isCreatingPower || isTransferringPower;
-				Packets.updateTile(this, 32, new Packet119TurbineAnimate(xCoord, yCoord, zCoord, isAnimating).build());
+				Packets.updateTile(this, new Packet119TurbineAnimate(xCoord, yCoord, zCoord, isAnimating).build());
 			} else if(worldObj.isRemote) {
 				if(isAnimating) {
 					angle = angle + 0.1;

@@ -15,10 +15,6 @@ import biomesoplenty.api.Blocks;
 import com.google.common.base.Optional;
 
 public class PluginBiomesOPlenty extends Plugin {
-	public PluginBiomesOPlenty(String name) {
-		super(name);
-	}
-
 	private static void addBiome(Optional<? extends BiomeGenBase> biome, EnumBiomeType type) {
 		if (biome.isPresent()) {
 			MaricultureHandlers.biomeType.addBiome(biome.get(), type);

@@ -44,10 +44,6 @@ public class PluginForestry extends Plugin {
 	private static Item aquaBackpackT1;
 	private static Item aquaBackpackT2;
 
-	public PluginForestry(String name) {
-		super(name);
-	}
-	
 	@Override
 	public void preInit() {
 		

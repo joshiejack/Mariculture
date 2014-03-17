@@ -44,7 +44,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		super.onInventoryChanged();
 		
 		if(!worldObj.isRemote) {
-			 Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
+			 Packets.updateTile(this, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
 		}
 	}
 	

@@ -111,7 +111,7 @@ public class TileCustom extends TileEntity {
 
 	public void updateRender() {
 		if (!worldObj.isRemote) {
-			Packets.updateTile(this, 128, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
+			Packets.updateTile(this, new Packet110CustomTileUpdate(xCoord, yCoord, zCoord).build());
 		}
 	}
 }

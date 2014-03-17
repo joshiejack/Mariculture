@@ -8,7 +8,7 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -92,7 +92,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 		super.onInventoryChanged();
 		
 		if(!worldObj.isRemote) {
-			 Packets.updateTile(this, 64, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
+			 Packets.updateTile(this, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
 		}
 	}
 	
@@ -113,7 +113,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 		int amount =  tank.fill(resource, doFill);
         if (amount > 0 && doFill) {
         	canWork = canWork();
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         }
         return amount;
 	}
@@ -123,7 +123,7 @@ public class TileIngotCaster extends TileStorageTank implements ISidedInventory 
 		FluidStack amount = tank.drain(maxDrain, doDrain);
         if (amount != null && doDrain) {
         	canWork = canWork();
-        	Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
         }
         return amount;
 	}

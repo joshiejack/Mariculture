@@ -6,6 +6,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -18,10 +19,11 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFishyFood extends Item implements IEnergyContainerItem {
+public class ItemFishyFood extends Item {
 	public ItemFishyFood(int i) {
 		super(i);
 		this.setCreativeTab(MaricultureTab.tabFish);
@@ -35,23 +37,20 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
-		return StatCollector.translateToLocal("fish.data.dead") + " "
-				+ Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
+		if(Fishing.fishHelper == null) return super.getItemStackDisplayName(stack);
+		return StatCollector.translateToLocal("fish.data.dead") + " " + Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
 	}
 
 	@Override
 	public Icon getIconFromDamage(int dmg) {
 		FishSpecies fish = Fishing.fishHelper.getSpecies(dmg);
-		if(fish != null) {
-			return fish.getIcon();
-		}
-
-		return Fishery.cod.getIcon();
+		return fish != null? fish.getIcon(): super.getIconFromDamage(dmg);
 	}
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
-		return 32;
+		FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
+		return fish != null? fish.getFoodDuration(): 32;
 	}
 
 	@Override
@@ -61,60 +60,34 @@ public class ItemFishyFood extends Item implements IEnergyContainerItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (player.canEat(false))
-			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-		stack = Fishing.fishHelper.getSpecies(stack.getItemDamage()).onRightClick(world, player, stack, itemRand);
-		return stack;
-	}
+		FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
+		if(fish != null) {
+			if(player.canEat(fish.canAlwaysEat())) {
+				player.setItemInUse(stack, getMaxItemUseDuration(stack));
+			}
+				
+			return fish.onRightClick(world, player, stack, itemRand);
+		} else return super.onItemRightClick(stack, world, player);
+    }
 
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
-		--stack.stackSize;
-		Fishing.fishHelper.getSpecies(stack.getItemDamage()).onConsumed(world, player);
-		return stack;
-	}
-	
-	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		return 0;
-	}
-	
-	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		if(container.getItemDamage() == Fishery.electricRay.fishID) {
-			if(!simulate) {
-				if(container.stackSize <= 1) {
-					container.stackSize = Fishery.electricRay.getFishMealSize();
-					container.itemID = Core.materials.itemID;
-					container.setItemDamage(MaterialsMeta.FISH_MEAL);
-					container.stackTagCompound = null;
-				} else {
-					container.stackSize--;
-				}
+		FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
+		if(fish != null) {
+			--stack.stackSize;
+			int food = fish.getFoodStat();
+			float sat = fish.getFoodSaturation();
+			if(Loader.isModLoaded("HungerOverhaul")) {
+				food = Math.max(1, food/2);
+				sat = Math.max(0.0F, sat/10);
 			}
-			return 1000;
-		}
-		
-		return 0;
-	}
-	
-	@Override
-	public int getEnergyStored(ItemStack container) {
-		if(container.getItemDamage() == Fishery.electricRay.fishID) {
-			return 1000;
-		}
-		
-		return 0;
-	}
-
-	@Override
-	public int getMaxEnergyStored(ItemStack container) {
-		if(container.getItemDamage() == Fishery.electricRay.fishID) {
-			return 1000;
-		}
-		
-		return 0;
-	}
+				
+			player.getFoodStats().addStats(food, sat);
+			world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+			fish.onConsumed(world, player);
+			return stack;
+		} else return super.onEaten(stack, world, player);
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)

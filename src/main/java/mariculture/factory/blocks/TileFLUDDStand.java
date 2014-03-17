@@ -75,7 +75,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				
 			if(onTick(100)) {
 				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), getWaterUsage()), true);
-				Packets.updateTile(this, 32, getDescriptionPacket());
+				Packets.updateTile(this, getDescriptionPacket());
 			}
 		}
 	}

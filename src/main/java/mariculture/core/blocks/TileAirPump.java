@@ -16,8 +16,8 @@ import mariculture.core.network.Packet102AirPump;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IEjectable;
+import mariculture.core.util.Tank;
 import mariculture.diving.Diving;
-import mariculture.factory.blocks.Tank;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -89,7 +89,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 				
 				animate = true;
 				
-				Packets.updateTile(this, 32, new Packet102AirPump(xCoord, yCoord, zCoord).build());
+				Packets.updateTile(this, new Packet102AirPump(xCoord, yCoord, zCoord).build());
 			}
 			
 			suckUpGas(4096);

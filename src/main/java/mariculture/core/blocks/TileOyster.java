@@ -54,7 +54,7 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 		if(!worldObj.isRemote) {
 			int id = getCurrentPearl() != null ? getCurrentPearl().itemID : -1;
 			int meta = getCurrentPearl() != null ? getCurrentPearl().getItemDamage() : 0;
-			Packets.updateTile(this, 128, new Packet103Oyster(xCoord, yCoord, zCoord, id, meta).build());
+			Packets.updateTile(this, new Packet103Oyster(xCoord, yCoord, zCoord, id, meta).build());
 		}
 	}
 

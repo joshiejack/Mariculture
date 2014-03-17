@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<book>
+    <page>
+        <text x="92" y="-13" bold="true">Введение</text>
+        <text>Модификация Mariculture предоставляет различные предметы для того, чтобы дышать и работать под водой. Начиная от простой Маски с трубкой и заканчивая великолепным Гидрокостюмом для исследований самых глубоких океанских впадин.</text>
+        <hr y="46"></hr>
+        <text y="53" bold="true">Маска с трубкой</text>
+        <text y="78">Маска с трубкой позволит вам немного дольше находиться под водой, время от времени давая вам дополнительные пузырики кислорода.</text>
+        <crafting x="0" y="90" size="1.1">
+            <craft1>blank,blank,reed</craft1>
+            <craft2>glassLens,glassLens,reed</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>snorkel</craftResult>
+        </crafting>
+        <crafting x="100" y="90" size="1.1">
+            <craft1>ironWheel,glass,ironWheel</craft1>
+            <craft2>plankWood,redstone,plankWood</craft2>
+            <craft3>plankWood,piston,plankWood</craft3>
+            <craftResult>airPump</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <img mod="mariculture" src="diving/airPump" x="130" y="5" size="0.7" stretch="0.3"></img>
+        <text x="38" y="-13" bold="true">Воздушный насос</text>
+        <text size="0.8" wrap="160">Насос вам понадобится чтобы накачивать кислород в шланг, присоединенный к вашему водолазному костюму. Готовый насос нужно поместить над поверхностью воды, недалеко от того места, куда вы планируете погружение. Если крутить насос вручную, дальность его действия будет 64 блока по всем направлениям, если насос подключить к питанию RF, дальность будет составлять 40 блоков. Как вы уже поняли, насос можно крутить руками, а можно подсоединить к источнику RF-энергии. При активации, насос будет предоставлять кислород всем, кто носит Водолазный шлем и Шланг в пределах радиуса действия.</text>
+        <text y="158" size="0.8" wrap="160">Насосу требуется приличное количество пустых блоков вокруг. Чтобы проверить, достаточно ли насосу чистого воздуха, сделайте на нем shift + правый клик пустой рукой. Это вызовет частички. Если они зеленого цвета - значит все в порядке.</text>
+    </page>
+     <page>
+        <text x="92" y="-13" bold="true">Водолазный костюм</text>
+        <text>Водолазный костюм - не очень сложный набор брони, состоящий из Водолазного шлема, Шланга, Комбинезона и Ботинок. Чтобы полностью ощутить прелесть костюма, не забудьте сделать Воздушный насос.</text>
+        <crafting x="5" y="43">
+            <craft1>ingotCopper,ingotCopper,ingotCopper</craft1>
+            <craft2>ingotCopper,glass,ingotCopper</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>divingHelmet</craftResult>
+        </crafting>
+        <crafting x="100" y="43">
+            <craft1>blank,leather,blank</craft1>
+            <craft2>leather,blank,leather</craft2>
+            <craft3>blank,leather,blank</craft3>
+            <craftResult>divingTop</craftResult>
+        </crafting>
+        <crafting x="5" y="113">
+            <craft1>leather,leather,leather</craft1>
+            <craft2>blank,leather,blank</craft2>
+            <craft3>leather,leather,leather</craft3>
+            <craftResult>divingPants</craftResult>
+        </crafting>
+        <crafting x="100" y="113">
+            <craft1>leather,blank,leather</craft1>
+            <craft2>ingotIron,blank,ingotIron</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>divingBoots</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="32" y="-13" bold="true">Части</text>
+        <text>Здесь приводится список функций, предоставляемых каждой частью Водолазного костюма.</text>
+        <stack item="divingHelmet" y="-5" size="1.8"></stack>
+        <text x="30" y="26" bold="true" size="0.8">Водолазный шлем</text>
+        <text x="30" y="44" size="0.7" wrap="220">При использовании совместно со Шлангом и Воздушным насосом, вы сможете дышать под водой. Кроме того, шлем вам позволяет видеть под водой немного лучше.</text>
+        <hr x="10" y="53" width="160"></hr>
+        
+        <stack item="divingTop" y="18" size="1.8"></stack>
+        <text x="30" y="80" bold="true" size="0.8">Водолазный шланг</text>
+        <text x="30" y="106" size="0.7" wrap="220">Требуется для того, чтобы кислород от Воздушного насоса смог поступать в Водолазный шлем.</text>
+        <hr x="10" y="88" width="160"></hr>
+        
+        <stack item="divingPants" y="38" size="1.8"></stack>
+        <text x="30" y="127" bold="true" size="0.8">Водолазный комбинезон</text>
+        <text x="30" y="160" size="0.7" wrap="220">Водолазный комбинезон позволяет вам копать быстрее, находясь под водой.</text>
+        <hr x="10" y="127" width="160"></hr>
+        
+        <stack item="divingBoots" y="61" size="1.8"></stack>
+        <text x="30" y="174" bold="true" size="0.8">Водолазные ботинки</text>
+        <text x="30" y="215" size="0.7" wrap="220">Ботинки позволяют вам передвигаться под вотой с той же скоростью, с которой и по суше.</text>
+    </page>
+    <page>
+        <text x="92" y="-13" bold="true">Гидрокостюм</text>
+        <text>Гидрокостюм - более продвинутый набор доспехов для длительного нахождения под водой. Однако, вам понадобится сделать Воздушный компрессор.</text>
+        <crafting x="5" y="43">
+            <craft1>dyeBlack,dyeYellow,blank</craft1>
+            <craft2>plasticLens,plasticLens,blank</craft2>
+            <craft3>blank,blank,blank</craft3>
+            <craftResult>scubaMask</craftResult>
+        </crafting>
+        <crafting x="100" y="43">
+            <craft1>dyeYellow,aluminumSheet,dyeYellow</craft1>
+            <craft2>aluminumSheet,blank,aluminumSheet</craft2>
+            <craft3>dyeYellow,aluminumSheet,dyeYellow</craft3>
+            <craftResult>scubaTank</craftResult>
+        </crafting>
+        <crafting x="5" y="113">
+            <craft1>neoprene,neoprene,neoprene</craft1>
+            <craft2>blank,neoprene,blank</craft2>
+            <craft3>neoprene,neoprene,neoprene</craft3>
+            <craftResult>wetsuit</craftResult>
+        </crafting>
+        <crafting x="100" y="113">
+            <craft1>neoprene,blank,neoprene</craft1>
+            <craft2>hardPlastic,dyeBlack,hardPlastic</craft2>
+            <craft3>hardPlastic,dyeBlack,hardPlastic</craft3>
+            <craftResult>flippers</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="32" y="-13" bold="true">Части</text>
+        <text>Здесь приводится список функций, предоставляемых каждой частью Гидрокостюма.</text>
+        <stack item="scubaMask" y="-5" size="1.8"></stack>
+        <text x="30" y="26" bold="true" size="0.8">Маска</text>
+        <text x="30" y="44" size="0.7" wrap="220">Маска, при совместном использовании с Баллоном, позволяет вам дышать под водой, используя кислород из Баллона. Кроме того, вы сможете лучше видеть под водой, и даже через воду, если активируете режим Фонарей (Используйте shift + правый клик, держа в руках маску).</text>
+        <hr x="10" y="53" width="160"></hr>
+        
+        <stack item="scubaTank" y="18" size="1.8"></stack>
+        <text x="30" y="80" bold="true" size="0.8">Баллон</text>
+        <text x="30" y="106" size="0.7" wrap="230">Эти баллоны должны быть наполнены сжатым воздухом из Воздушного компрессора. Предоставляют вам так нужный под водой кислород. Работают только совместно с Маской.</text>
+        <hr x="10" y="88" width="160"></hr>
+        
+        <stack item="wetsuit" y="38" size="1.8"></stack>
+        <text x="30" y="127" bold="true" size="0.8">Гидрокостюм</text>
+        <text x="30" y="160" size="0.7" wrap="220">Гидрокостюм значительно увеличивает скорость копания под водой.</text>
+        <hr x="10" y="127" width="160"></hr>
+        
+        <stack item="flippers" y="61" size="1.8"></stack>
+        <text x="30" y="174" bold="true" size="0.8">Ласты</text>
+        <text x="30" y="215" size="0.7" wrap="220">Ласты позволяют вам не только значительно быстрее передвигаться под водой, но и дают возможность "полета", когда вы находитесь в пучине.</text>
+    </page>
+    <page>
+        <text x="82" y="-13" bold="true">Воздушный компессор</text>
+        <text>Воздушный компрессор используется для наполнения Баллонов кислородом. Они потребляют RF-энергию, так что вы можете либо подключить компессор к источнику RF-энергии, либо воспользоваться батареями. Компрессор состоит из двух "базовых" блоков и двух "верхних" блоков, помещенных сверху на "базовые" блоки. Как будто два двойных сундука стоят друг на друге.</text>
+        <crafting x="10" y="65">
+            <craft1>aluminumSheet,ingotTitanium,ingotTitanium</craft1>
+            <craft2>aluminumSheet,aluminumSheet,aluminumSheet</craft2>
+            <craft3>ironWheel,blank,blank</craft3>
+            <craftResult>compressorBase</craftResult>
+        </crafting>
+        <crafting x="100" y="65">
+            <craft1>blank,blank,cooling</craft1>
+            <craft2>blank,piston,titaniumBattery</craft2>
+            <craft3>aluminumSheet,aluminumSheet,aluminumSheet</craft3>
+            <craftResult num="2">compressorTop</craftResult>
+        </crafting>
+        <text y="156">Периодически компрессор будет генерировать сжатый кислород, потребляя энергию. Количество накопленного кислорода можно определить по зеленому индикатору на сторонах компрессора. Правым кликом по компрессору, держа в руке Баллон, можно начать перемещать кислород из компрессора в Баллон. Компрессор может содержать количество кислорода достаточное для двух полных Баллонов.</text>
+    </page>
+    <page>
+        <img mod="mariculture" src="diving/airCompressor" x="10" y="5" size="0.7" stretch="0.9"></img>
+    </page>
+</book>

@@ -14,7 +14,7 @@ import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.ITank;
 import mariculture.core.util.Rand;
-import mariculture.factory.blocks.Tank;
+import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -78,11 +78,11 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		machineTick++;
 		if(!isInit() && !worldObj.isRemote) {
 			//Init Master
-			Packets.updateTile(this, 64, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
+			Packets.updateTile(this, new Packet113MultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing).build());
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te instanceof TileVat) {
-					Packets.updateTile(te, 64, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord,
+					Packets.updateTile(te, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord,
 							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
 				}
 			}
@@ -218,9 +218,9 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		}
 		
 		//Let the world know that the tanks have changed, the items get their packets sent with the respective items...
-		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)1), (byte) 1).build());
-		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)2), (byte) 2).build());
-		Packets.updateTile(this, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build());
+		Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)1), (byte) 1).build());
+		Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)2), (byte) 2).build());
+		Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid((byte)3), (byte) 3).build());
 	}
 
 	public boolean canWork() {
@@ -350,7 +350,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 				
 		if(!worldObj.isRemote) {
 			TileVat vat = (master != null)? (TileVat)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord): this;
-			Packets.updateTile(vat, 64, new Packet120ItemSync(vat.xCoord, vat.yCoord, vat.zCoord, vat.inventory).build());
+			Packets.updateTile(vat, new Packet120ItemSync(vat.xCoord, vat.yCoord, vat.zCoord, vat.inventory).build());
 		}
 	}
 	
@@ -416,19 +416,19 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		FluidStack ret = vat.tank3.drain(maxDrain, doDrain);
 		if(ret != null) {
 			if(doDrain) {
-				Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)3), (byte) 3).build());
+				Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)3), (byte) 3).build());
 			}
 		} else {
 			ret = vat.tank2.drain(maxDrain, doDrain);
 			if(ret != null) {
 				if(doDrain) {
-					Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
+					Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
 				}
 			} else {
 				ret = vat.tank.drain(maxDrain, doDrain);
 				if(ret != null) {
 					if(doDrain) {
-						Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
+						Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
 					}
 				}
 			}
@@ -443,16 +443,16 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		if(vat == null)
 			return 0;
 		
-		int ret = vat.tank.fill(resource, doFill);
+		int ret = vat.tank.fill(resource, doFill, tank2);
 		if(ret > 0) {
 			if(doFill) {
-				Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
+				Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
 			}
 		} else {
-			ret = vat.tank2.fill(resource, doFill);
+			ret = vat.tank2.fill(resource, doFill, tank);
 			if(ret > 0) {
 				if(doFill) {
-					Packets.updateTile(vat, 64, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
+					Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());
 				}
 			}
 		}
@@ -549,7 +549,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		Packets.updateTile(this, getDescriptionPacket());
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 	
@@ -590,7 +590,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			setAsMaster(mstr, parts, ForgeDirection.SOUTH);
 		}
 		
-		Packets.updateTile(this, 32, getDescriptionPacket());
+		Packets.updateTile(this, getDescriptionPacket());
 	}
 
 	@Override

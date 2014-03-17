@@ -19,10 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class PluginIC2 extends Plugin {
-	public PluginIC2(String name) {
-		super(name);
-	}
-
 	@Override
 	public void preInit() {
 		

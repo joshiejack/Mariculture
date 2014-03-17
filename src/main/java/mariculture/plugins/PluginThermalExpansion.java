@@ -17,10 +17,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class PluginThermalExpansion extends Plugin {
-	public PluginThermalExpansion(String name) {
-		super(name);
-	}
-
 	@Override
 	public void preInit() {
 		
