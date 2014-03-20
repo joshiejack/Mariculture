@@ -3,9 +3,7 @@ package mariculture.core.blocks;
 import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
@@ -59,10 +57,11 @@ public abstract class BlockDecorative extends Block implements IHasMeta {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if(blockIcon != null) return blockIcon;
+		if(icons == null) return Blocks.stone.getIcon(side, meta);
 		if(meta < getMetaCount()) {
-			return icons[meta] != null? icons[meta]: Blocks.air.getIcon(side, meta);
+			return icons[meta];
 		} else { 
-			return icons[0] != null? icons[0]: Blocks.air.getIcon(side, meta);
+			return icons[0];
 		}
 	}
 	

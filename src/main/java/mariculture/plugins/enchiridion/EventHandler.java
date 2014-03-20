@@ -37,9 +37,9 @@ public class EventHandler {
 	public void onCrafting(ItemCraftedEvent event) {
 		if(Extra.SPAWN_BOOKS) {
 			ItemStack stack = event.crafting;
-			if(Modules.diving.isActive() && stack.getItem() instanceof ItemArmorScuba) 	spawnBook(event.player, GuideMeta.DIVING);
-			if(Modules.fishery.isActive() && stack.getItem() == Fishery.rodReed) 		spawnBook(event.player, GuideMeta.FISHING);
-			if(Modules.factory.isActive() && stack.getItem() == Core.craftingItem && stack.getItemDamage() == CraftingMeta.WHEEL) {
+			if(Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) 	spawnBook(event.player, GuideMeta.DIVING);
+			if(Modules.isActive(Modules.fishery) && stack.getItem() == Fishery.rodReed) 		spawnBook(event.player, GuideMeta.FISHING);
+			if(Modules.isActive(Modules.factory) && stack.getItem() == Core.craftingItem && stack.getItemDamage() == CraftingMeta.WHEEL) {
 				spawnBook(event.player, GuideMeta.FISHING);
 			}
 		}

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -12,7 +11,6 @@ import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class FishGlow extends FishSpecies {
 	public FishGlow(int id) {

@@ -1,19 +1,11 @@
 package mariculture.core.items;
 
-import java.util.List;
 import java.util.Random;
 
-import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.util.Rand;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class ItemPearl extends ItemMariculture {
 	@Override

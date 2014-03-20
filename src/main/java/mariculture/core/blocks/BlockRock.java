@@ -54,7 +54,7 @@ public class BlockRock extends BlockDecorative {
 	
 	@Override
 	public boolean isActive(int meta) {
-		return (meta == RockMeta.CORAL_ROCK)? Modules.world.isActive(): true;
+		return (meta == RockMeta.CORAL_ROCK)? Modules.isActive(Modules.worldplus): true;
 	}
 	
 	@Override

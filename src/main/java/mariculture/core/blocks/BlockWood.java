@@ -43,9 +43,9 @@ public class BlockWood extends BlockDecorative {
 		case WoodMeta.BASE_WOOD:
 			return true;
 		case WoodMeta.POLISHED_LOG:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case WoodMeta.POLISHED_PLANK:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		default:
 			return true;
 		}

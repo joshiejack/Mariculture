@@ -1,10 +1,6 @@
 package mariculture.plugins;
 
-import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.logging.log4j.Level;
-import org.w3c.dom.Document;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
@@ -13,11 +9,8 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.GuideMeta;
-import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.TankMeta;
 import mariculture.diving.Diving;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
@@ -28,6 +21,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
+
 import enchiridion.api.DisplayRegistry;
 import enchiridion.api.GuideHandler;
 
@@ -37,7 +33,7 @@ public class PluginEnchiridion extends Plugin {
 	@Override
 	public void preInit() {
 		guides = new ItemGuide().setUnlocalizedName("guide");
-		RegistryHelper.register(new Object[] { guides });
+		RegistryHelper.registerItems(new Item[] { guides });
 		GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.PROCESSING), Mariculture.modid, "processing", 0x1C1B1B);
 		GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
 		GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
@@ -45,10 +41,10 @@ public class PluginEnchiridion extends Plugin {
 		GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
 		
 		RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.PROCESSING), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK));
-		if(Modules.diving.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));
-		if(Modules.factory.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL));
-		if(Modules.fishery.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
-		if(Modules.magic.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
+		if(Modules.isActive(Modules.diving)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));
+		if(Modules.isActive(Modules.factory)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL));
+		if(Modules.isActive(Modules.fishery)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
+		if(Modules.isActive(Modules.magic)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 	}
 	

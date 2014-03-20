@@ -164,7 +164,7 @@ public class FishingLootHandler implements ILootHandler {
 	@Override
 	public ItemStack getLoot(EntityPlayer player, ItemStack rod, int baitQuality, Random rand, World world, int x, int y, int z) {
 		EnumRodQuality quality = Fishing.rodHandler.getRodQuality(rod);
-		EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords((int) x, (int) z));
+		EnumBiomeType biome = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt((int) x, (int) z));
 		float f = world.rand.nextFloat();
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, rod);
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151369_A.effectId, rod);

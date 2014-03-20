@@ -75,7 +75,7 @@ public class RetroGen {
 						WorldGenHandler.generateCopper(chunk.worldObj, Rand.rand, x, z);
 					if(WorldGeneration.OYSTER_ENABLED && doGen(data, "oyster", chunk))
 						WorldGenHandler.generateOyster(chunk.worldObj, Rand.rand, x, z);
-					if(Modules.world.isActive() && MaricultureHandlers.biomeType.getBiomeType(chunk.worldObj.getBiomeGenForCoords(x, z)) == EnumBiomeType.OCEAN) {
+					if(Modules.isActive(Modules.worldplus) && MaricultureHandlers.biomeType.getBiomeType(chunk.worldObj.getBiomeGenForCoords(x, z)) == EnumBiomeType.OCEAN) {
 						if(WorldGeneration.KELP_FOREST_ENABLED && doGen(data, "kelp", chunk))
 							BiomeGenSandyOcean.kelpGenerator.generate(chunk.worldObj, Rand.rand, x, 0, z);
 						if(WorldGeneration.CORAL_REEF_ENABLED && doGen(data, "coralreef", chunk))

@@ -73,8 +73,8 @@ public class PluginTConstruct extends Plugin {
         }
         
         RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE));
-        ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fishRaw);
-        ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spiderEye);
+        ItemStack fish = (Modules.isActive(Modules.fishery)) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.fishRaw);
+        ItemStack bait = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spiderEye);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
 			"DSR", "FHB", "PAC", 'D', Blocks.plantYellow, 'S', "treeSapling", 'R', Blocks.plantRed,
 			'F', fish, 'H', TConstructRegistry.getItemStack("canisterRedHeart"), 'B', bait, 

@@ -1,23 +1,19 @@
 package mariculture.core.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.Mariculture;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import mariculture.core.lib.LimestoneMeta;
-import mariculture.core.lib.WoodMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockLimestone extends BlockDecorative {
 	public BlockLimestone() {

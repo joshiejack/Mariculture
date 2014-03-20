@@ -9,7 +9,6 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
-import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
@@ -178,7 +177,7 @@ public class Recipes {
 				new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 5);
 		
 		//Golden Thread
-		Object stick = (Modules.fishery.isActive())? new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK): "plankWood";
+		Object stick = (Modules.isActive(Modules.fishery))? new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK): "plankWood";
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD), new Object[] {
 			"ABA", "ABA", 'B', stick, 'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
 		});
@@ -366,7 +365,7 @@ public class Recipes {
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING)
 		});
 		
-		ItemStack heart = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): new ItemStack(Items.potionitem, 1, 8197);
+		ItemStack heart = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): new ItemStack(Items.potionitem, 1, 8197);
 		
 		//Basic Purity
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY), new Object[] {
@@ -397,10 +396,10 @@ public class Recipes {
 			'S', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
 		});
 		
-		ItemStack attack = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Items.potionitem, 1, 8204);
-		ItemStack poison = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): new ItemStack(Items.potionitem, 1, 8228);
-		ItemStack night = (Modules.fishery.isActive())? new ItemStack(Items.fish, 1, Fishery.night.fishID): new ItemStack(Items.ender_pearl);
-		ItemStack ender = (Modules.fishery.isActive())? new ItemStack(Items.fish, 1, Fishery.ender.fishID): new ItemStack(Items.ender_eye);
+		ItemStack attack = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Items.potionitem, 1, 8204);
+		ItemStack poison = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): new ItemStack(Items.potionitem, 1, 8228);
+		ItemStack night = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fishery.night.fishID): new ItemStack(Items.ender_pearl);
+		ItemStack ender = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fishery.ender.fishID): new ItemStack(Items.ender_eye);
 		
 		//Basic Impurity
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY), new Object[] {

@@ -3,8 +3,6 @@ package mariculture.fishery;
 import java.util.Arrays;
 import java.util.Map;
 
-import mariculture.Mariculture;
-import mariculture.core.lib.Modules;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 import org.objectweb.asm.ClassReader;
@@ -28,7 +26,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 	public VanillaOverride() {
 		super(new ModMetadata());
 		ModMetadata meta = getMetadata();
-		meta.modId = "Mariculture - Vanilla Tweaks";
+		meta.modId = "MCVanillaTweaks";
 		meta.name = "Mariculture - Vanilla Tweaks";
 		meta.version = "1.0";
 		meta.description = "Fishies! This mod overwrites the vanilla mechanics";
@@ -41,6 +39,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 	@Override
 	public boolean registerBus(EventBus bus, LoadController controller) {
 		bus.register(this);
+		
 		return true;
 	}
 	
@@ -78,12 +77,12 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 		
 		if(className.equals("net.minecraft.item.abn")) {
 			System.out.println("Mariculture is patching the vanilla class: " + className);
-			newData = patchClassBlock(data, true);
+			newData = patchFishingStuff(data, true);
 		}
 
 		if(className.equals("net.minecraft.item.Item")) {
 			System.out.println("Mariculture is patching the vanilla class: " + className);
-			newData = patchClassBlock(data, false);
+			newData = patchFishingStuff(data, false);
 		}
 
 		if(newData != data) {
@@ -93,7 +92,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 		return newData;
 	}
 
-	public byte[] patchClassBlock(byte[] data, boolean obfuscated) {
+	public byte[] patchFishingStuff(byte[] data, boolean obfuscated) {
 		String classBlock = obfuscated ? "net/minecraft/item/abn" : "net/minecraft/item/Item";		
 		String registerItems = obfuscated ? "l" : "registerItems";
 		

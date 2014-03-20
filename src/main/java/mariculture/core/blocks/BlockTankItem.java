@@ -22,10 +22,11 @@ public class BlockTankItem extends ItemBlockMariculture {
 	public String getName(ItemStack itemstack) {
 		String name = "";
 		switch (itemstack.getItemDamage()) {
-		case TankMeta.FISH:   return "fish";
-		case TankMeta.TANK:	  return "normal";
-		case TankMeta.BOTTLE: return "bottle";
-		default: 			  return "tank";
+			case TankMeta.FISH:   return "fish";
+			case TankMeta.TANK:	  return "normal";
+			case TankMeta.BOTTLE: return "bottle";
+			case TankMeta.DIC: 	  return "fluidtionary";
+			default: 			  return "tank";
 		}
 	}
 	

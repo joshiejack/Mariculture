@@ -10,7 +10,6 @@ import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;

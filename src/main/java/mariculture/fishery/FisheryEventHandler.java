@@ -1,17 +1,12 @@
 package mariculture.fishery;
 
 import java.util.Random;
-import java.util.UUID;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;

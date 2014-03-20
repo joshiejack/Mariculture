@@ -8,11 +8,13 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packets;
+import mariculture.factory.blocks.TileDictionaryFluid;
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -43,12 +45,12 @@ public class BlockTank extends BlockConnected {
 	
 	@Override
 	public String getToolType(int meta) {
-		return null;
+		return meta == TankMeta.DIC? "axe": null;
 	}
 
 	@Override
 	public int getToolLevel(int meta) {
-		return 0;
+		return meta == TankMeta.DIC? 1: 0;
 	}
 
 	@Override
@@ -96,15 +98,12 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		switch(meta) {
-		case TankMeta.BOTTLE:
-			return new TileVoidBottle();
-		case TankMeta.TANK:
-			return new TileTankBlock();
-		case TankMeta.FISH:
-			return new TileFishTank();
+			case TankMeta.BOTTLE: 		return new TileVoidBottle();
+			case TankMeta.TANK: 		return new TileTankBlock();
+			case TankMeta.FISH: 		return new TileFishTank();
+			case TankMeta.DIC:			return new TileDictionaryFluid();
+			default:					return null;
 		}
-		
-		return new TileTankBlock();
 	}
 	
 	@Override
@@ -141,22 +140,17 @@ public class BlockTank extends BlockConnected {
 	
 	public Item getItemDropped(int meta, Random random, int j) {
 		switch(meta) {
-			case TankMeta.TANK:
-				return null;
-			case TankMeta.BOTTLE:
-				return Core.liquidContainers;
-			default:
-				return super.getItemDropped(meta, random, j);
+			case TankMeta.TANK: return null;
+			case TankMeta.BOTTLE: return Core.liquidContainers;
+			default: return super.getItemDropped(meta, random, j);
 		}
     }
 	
 	@Override
 	public int damageDropped(int meta) {
 		switch(meta) {
-			case TankMeta.BOTTLE:
-				return FluidContainerMeta.BOTTLE_VOID;
-			default:
-				return meta;
+			case TankMeta.BOTTLE: return FluidContainerMeta.BOTTLE_VOID;
+			default: return meta;
 		}
 	}
 	
@@ -181,11 +175,10 @@ public class BlockTank extends BlockConnected {
 		}
 	}
 	
-	
 	//Change back to remove block block by player instead of getDrops for everything
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		if(world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+		if(world.getBlockMetadata(x, y, z) == TankMeta.TANK && !player.capabilities.isCreativeMode) {
 			ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 			ItemStack drop = new ItemStack(Core.tanks, 1, TankMeta.TANK);
 			TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
@@ -197,10 +190,10 @@ public class BlockTank extends BlockConnected {
 				tank.getFluid().writeToNBT(drop.stackTagCompound);
 			}
 			
-			ret.add(drop);
-			return ret;
+			SpawnItemHelper.spawnItem(world, x, y, z, drop);
+			return world.setBlockToAir(x, y, z);
 		} else {
-			return super.getDrops(world, x, y, z, metadata, fortune);
+			return world.setBlockToAir(x, y, z);
 		}
     }
 	
@@ -220,8 +213,8 @@ public class BlockTank extends BlockConnected {
 
 	@Override
 	public boolean isActive(int meta) {
-		if(meta == TankMeta.FISH)
-			return Modules.fishery.isActive();
+		if(meta == TankMeta.FISH)		 return Modules.isActive(Modules.fishery);
+		if(meta == TankMeta.DIC)	 	 return Modules.isActive(Modules.factory);
 		return meta != TankMeta.BOTTLE;
 	}
 	

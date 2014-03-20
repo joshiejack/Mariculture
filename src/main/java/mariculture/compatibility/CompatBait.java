@@ -1,4 +1,4 @@
-package mariculture.plugins.compatibility;
+package mariculture.compatibility;
 
 import java.io.File;
 

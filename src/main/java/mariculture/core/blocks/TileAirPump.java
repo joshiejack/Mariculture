@@ -121,7 +121,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 		}
 			
 		if(updateAirArea(Type.CHECK)) {
-			if(Modules.diving.isActive()) {
+			if(Modules.isActive(Modules.diving)) {
 				supplyWithAir(300, 40.0D, 64.0D, 40.0D);
 			}
 				

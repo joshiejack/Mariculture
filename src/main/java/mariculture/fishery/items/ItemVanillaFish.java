@@ -2,19 +2,14 @@ package mariculture.fishery.items;
 
 import java.util.List;
 
-import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.Modules;
-import mariculture.fishery.Fish;
-import mariculture.fishery.FishHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;

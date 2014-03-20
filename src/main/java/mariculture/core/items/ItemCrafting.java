@@ -123,17 +123,17 @@ public class ItemCrafting extends ItemMariculture {
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case CraftingMeta.DRAGON_EGG:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case CraftingMeta.CHALK:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case CraftingMeta.BLANK_PLAN:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case CraftingMeta.POLISHED_STICK:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case CraftingMeta.POLISHED_TITANIUM:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case CraftingMeta.LIFE_CORE:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		default:
 			return true;
 		}

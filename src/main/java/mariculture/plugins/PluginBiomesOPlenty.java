@@ -7,7 +7,6 @@ import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
 import biomesoplenty.api.BOPBiomeHelper;
 import biomesoplenty.api.BOPBlockHelper;
 

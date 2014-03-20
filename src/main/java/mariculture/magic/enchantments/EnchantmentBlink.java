@@ -4,7 +4,6 @@ import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.network.PacketTeleport;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;

@@ -1,16 +1,11 @@
 package mariculture.magic.jewelry.parts;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.core.util.Text;
-import mariculture.magic.JewelryHandler;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;

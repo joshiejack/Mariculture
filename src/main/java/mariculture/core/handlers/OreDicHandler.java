@@ -3,8 +3,6 @@ package mariculture.core.handlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.util.Text;
@@ -18,6 +16,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
+
+import org.apache.logging.log4j.Level;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import enchiridion.api.DisplayRegistry;
 

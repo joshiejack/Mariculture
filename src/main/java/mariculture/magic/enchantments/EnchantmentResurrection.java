@@ -4,7 +4,6 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Extra;
 import mariculture.magic.Magic;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

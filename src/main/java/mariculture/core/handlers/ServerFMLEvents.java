@@ -17,14 +17,14 @@ public class ServerFMLEvents {
 	@SubscribeEvent
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
-		if(Modules.magic.isActive() && player instanceof EntityPlayerMP) {
+		if(Modules.isActive(Modules.magic) && player instanceof EntityPlayerMP) {
 			Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 		}
 	}
 	
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
-		if(Modules.magic.isActive() && EnchantHelper.exists(Magic.resurrection)) {
+		if(Modules.isActive(Modules.magic) && EnchantHelper.exists(Magic.resurrection)) {
 			ResurrectionTracker.onPlayerRespawn(event.player);
 		}
 	}

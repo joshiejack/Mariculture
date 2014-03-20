@@ -1,22 +1,16 @@
 package mariculture.factory.items;
 
-import java.util.Random;
-
 import mariculture.core.Core;
-import mariculture.core.helpers.BlockHelper;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.blocks.TileCustom;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemPaintbrush extends ItemDamageable {

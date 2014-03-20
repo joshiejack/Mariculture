@@ -1,15 +1,9 @@
 package mariculture.factory.gui;
 
-import java.util.List;
-
 import mariculture.core.gui.GuiMariculture;
-import mariculture.core.gui.feature.FeatureArrow;
 import mariculture.core.gui.feature.FeatureEject;
-import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.factory.blocks.TileDictionaryItem;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
 
 public class GuiDictionary extends GuiMariculture {
 	public GuiDictionary(InventoryPlayer player, TileDictionaryItem tile) {

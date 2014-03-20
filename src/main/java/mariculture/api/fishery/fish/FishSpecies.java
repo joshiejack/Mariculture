@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.EnumRodQuality;
-import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler.LootQuality;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;

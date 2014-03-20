@@ -3,7 +3,6 @@ package mariculture.core.blocks.base;
 import java.util.ArrayList;
 
 import mariculture.core.network.PacketMultiInit;
-import mariculture.core.network.PacketRenderRefresh;
 import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

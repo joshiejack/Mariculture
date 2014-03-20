@@ -22,8 +22,7 @@ public class ArmorEventHandler {
 			if (!player.worldObj.isRemote) {
 				ScubaTank.init(player);
 				ScubaMask.damage(player);
-				if(Extra.HARDCORE_DIVING > 0)
-					HardcoreDiving.init(player);
+				if(Extra.HARDCORE_DIVING > 0) HardcoreDiving.init(player);
 				Snorkel.init(player);
 			} else {
 				vision = (vision == null)? new UnderwaterVision(): vision.onUpdate(player);

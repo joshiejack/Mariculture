@@ -282,11 +282,11 @@ public class BlockDouble extends BlockFunctionalMulti {
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case DoubleMeta.COMPRESSOR_BASE:
-			return (Modules.diving.isActive());
+			return (Modules.isActive(Modules.diving));
 		case DoubleMeta.COMPRESSOR_TOP:
-			return (Modules.diving.isActive());
+			return (Modules.isActive(Modules.diving));
 		case DoubleMeta.PRESSURE_VESSEL:
-			return (Modules.factory.isActive());
+			return (Modules.isActive(Modules.factory));
 		default:
 			return true;
 		}

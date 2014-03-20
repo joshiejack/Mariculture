@@ -2,8 +2,6 @@ package mariculture.magic;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.util.Rand;
@@ -13,6 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
+import org.apache.logging.log4j.Level;
 
 /** Mob Magnet, On Right Click, Teleports all mobs within 64 x 64 blocks around the player of the type to an area near you
  * You must first kill a mob of the type you want first, in order to teleport them all to you **/

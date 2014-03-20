@@ -49,7 +49,7 @@ public class PluginIC2 extends Plugin {
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(Fishery.fishy, 1, OreDictionary.WILDCARD_VALUE)),
 				null, new ItemStack(Core.materials, 2, MaterialsMeta.FISH_MEAL));
 
-		if (Modules.world.isActive()) {
+		if (Modules.isActive(Modules.world)) {
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(WorldPlus.coral, 1,
 					CoralMeta.CORAL_BLUE)), null,
 					new ItemStack(Items.dyePowder, 2, Dye.LIGHT_BLUE));

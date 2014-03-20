@@ -2,6 +2,9 @@ package mariculture.core;
 
 import java.io.File;
 
+import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
+import mariculture.compatibility.Compat;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.EnchantIds;
@@ -14,17 +17,34 @@ import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
+import mariculture.diving.Diving;
+import mariculture.factory.Factory;
+import mariculture.fishery.Fishery;
+import mariculture.magic.Magic;
+import mariculture.plugins.Plugins;
+import mariculture.sealife.Sealife;
+import mariculture.transport.Transport;
+import mariculture.world.WorldPlus;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.Level;
 
 public class Config {
-    public static void init(String dir) {
+    public static void setup(String dir) {
         initOther(new Configuration(new File(dir, "other.cfg")));
         initEnchantments(new Configuration(new File(dir, "enchantments.cfg")));
         initMachines(new Configuration(new File(dir, "mechanics.cfg")));
         initModules(new Configuration(new File(dir, "modules.cfg")));
         initWorld(new Configuration(new File(dir, "worldgen.cfg")));
+    
+        //Setup the tab icons
+        setupTabs();
+    }
+    
+    private static void setupTabs() {
+    	MaricultureTab.tabFish = (Modules.isActive(Modules.fishery))? new MaricultureTab("fishTab"): null;
+		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
+		MaricultureTab.tabJewelry = (Modules.isActive(Modules.magic))? new MaricultureTab("jewelryTab"): null;
     }
 
     private static void initOther(Configuration config) {
@@ -140,14 +160,16 @@ public class Config {
     private static void initModules(Configuration config) {
         try {
             config.load();
-            Modules.core.setActive(true);
-            Modules.diving.setActive(config.get(Category.MODULES, "Diving", true).getBoolean(true));
-            Modules.factory.setActive(config.get(Category.MODULES, "Factory", true).getBoolean(true));
-            Modules.fishery.setActive(config.get(Category.MODULES, "Fishery", true).getBoolean(true));
-            Modules.magic.setActive(config.get(Category.MODULES, "Magic", true).getBoolean(true));
-            Modules.sealife.setActive(false);
-            Modules.transport.setActive(config.get(Category.MODULES, "Transport", true).getBoolean(true));
-            Modules.world.setActive(config.get(Category.MODULES, "World Plus", true).getBoolean(true));
+            Mariculture.modules.setup(Core.class, true);
+            Mariculture.modules.setup(Compat.class, true);
+            Mariculture.modules.setup(Plugins.class, true);
+            Mariculture.modules.setup(Diving.class, config.get(Category.MODULES, "Diving", true).getBoolean(true));
+            Mariculture.modules.setup(Factory.class, config.get(Category.MODULES, "Factory", true).getBoolean(true));
+            Mariculture.modules.setup(Fishery.class, config.get(Category.MODULES, "Fishery", true).getBoolean(true));
+            Mariculture.modules.setup(Magic.class, config.get(Category.MODULES, "Magic", true).getBoolean(true));
+            Mariculture.modules.setup(Sealife.class, false);
+            Mariculture.modules.setup(Transport.class, config.get(Category.MODULES, "Transport", true).getBoolean(true));
+            Mariculture.modules.setup(WorldPlus.class, config.get(Category.MODULES, "World Plus", true).getBoolean(true));
         } catch (Exception e) {
             LogHandler.log(Level.ERROR, "Problem with Mariculture when copying over the module data");
         	e.printStackTrace();

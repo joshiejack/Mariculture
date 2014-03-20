@@ -1,12 +1,12 @@
 package mariculture.core.items;
 
-import cpw.mods.fml.common.Loader;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.Loader;
 
 public class ItemFood extends ItemMariculture {
 	private int getFoodLevel(int dmg) {
@@ -153,9 +153,9 @@ public class ItemFood extends ItemMariculture {
 		if(meta == FoodMeta.OYSTER)
 			return true;
 		if (meta < 7) {
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		}
 
-		return Modules.world.isActive();
+		return Modules.isActive(Modules.worldplus);
 	}
 }

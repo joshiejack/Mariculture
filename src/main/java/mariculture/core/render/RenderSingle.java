@@ -106,8 +106,7 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		} else if (world.getBlock(x, y, z) == Core.water && meta == WaterMeta.NET) {
 			return new RenderNet(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileAnvil) {
-			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? 
-					ForgeDirection.WEST: ((meta - 7) == 1)? ForgeDirection.NORTH: ForgeDirection.EAST;
+			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? ForgeDirection.WEST: ((meta - 7) == 1)? ForgeDirection.NORTH: ForgeDirection.EAST;
 			return new RenderAnvil(render).setCoords(world, x, y, z).setDir(facing).render();
 		}
 		

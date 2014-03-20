@@ -1,22 +1,13 @@
 package mariculture;
 
 import java.io.File;
-import java.util.Arrays;
 
-import com.google.common.eventbus.EventBus;
-
-import mariculture.api.core.MaricultureTab;
 import mariculture.core.CommonProxy;
 import mariculture.core.Config;
-import mariculture.core.RecipesSmelting;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.Modules.Module;
 import mariculture.core.network.PacketPipeline;
-import mariculture.plugins.Plugins;
-import mariculture.plugins.compatibility.Compat;
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -37,64 +28,50 @@ public class Mariculture {
 	//Root folder
 	public static File root;
 	
-	//Plugins
-	public static Plugins plugins = new Plugins();
-	public static enum Stage {
-		PRE, INIT, POST;
-	}
+	//Modules
+	public static Modules modules = new Modules();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		root = event.getModConfigurationDirectory();
-		Config.init(root + "/mariculture/");		
-		if(MaricultureTab.tabFish == null) MaricultureTab.tabFish = (Modules.fishery.isActive())? new MaricultureTab("fishTab"): null;
-		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
-		MaricultureTab.tabJewelry = (Modules.magic.isActive())? new MaricultureTab("jewelryTab"): null;
-		
-		plugins.init();
-		Modules.core.preInit();
-		Modules.diving.preInit();
-		Modules.factory.preInit();
-		Modules.fishery.preInit();
-		Modules.magic.preInit();
-		Modules.sealife.preInit();
-		Modules.transport.preInit();
-		Modules.world.preInit();
-		plugins.load(Stage.PRE);
-		Compat.preInit();
-		proxy.registerKeyBindings();
+		Config.setup(root + "/mariculture/");	
+		for(Module module: Modules.modules) {
+			module.preInit();
+		}
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		plugins.load(Stage.INIT);
-		Modules.core.init();
-		Modules.diving.init();
-		Modules.factory.init();
-		Modules.fishery.init();
-		Modules.magic.init();
-		Modules.sealife.init();
-		Modules.transport.init();
-		Modules.world.init();
-		Compat.init();
-		packets.initialise();
+		packets.init();
+		for(Module module: Modules.modules) {
+			module.init();
+		}
 	}
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		plugins.load(Stage.POST);
-		proxy.initClient();
-		proxy.loadBooks();
-		RecipesSmelting.postAdd();
-		packets.postInitialise();
+		packets.postInit();
+		for(Module module: Modules.modules) {
+			module.postInit();
+		}
+		
+		proxy.setupClient();
 	}
 	
 	//TODO:
 	/** Finish off Oyster Rendering
 	 *  Fix the rendering for the custom blocks
-	 *  forge fluid dictionary and dsu for fluids
+	 *  forge fluid dictionary and dsu for fluids, hopper tank
 	 *  1.7 Elemental Affinity Enchantments
+	 *  Move all 1.7 to the same handler as the oyster
+	 *  Switch the rendered 'double' and 'single' blocks over to the rendered machine block types
+	 *  Fix tank drops of blocktank meta
+	 *  Fix Lava tank exploit with TiC
+	 *  Fix books using excessive ram when opened...
+	 *  1.7 Coral and Kelp growables
+	 *  Add Tinkers and carpenters torch to gas explode list
+	 *  Add 'exception' for the wood bucket to be returned
 	 */
 }

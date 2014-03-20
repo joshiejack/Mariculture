@@ -31,7 +31,7 @@ public class PluginThaumcraft extends Plugin {
 	@Override
 	public void init() {
 		//Bait
-		if(Modules.fishery.isActive()) {
+		if(Modules.isActive(Modules.fishery)) {
 			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID, BaitMeta.ANT, new AspectList().add(Aspect.BEAST, 1));
 			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID, BaitMeta.HOPPER, new AspectList().add(Aspect.BEAST, 1).add(Aspect.PLANT, 1));
 			ThaumcraftApi.registerObjectTag(Fishery.bait.itemID, BaitMeta.MAGGOT, new AspectList().add(Aspect.BEAST, 1).add(Aspect.FLESH, 1));
@@ -40,7 +40,7 @@ public class PluginThaumcraft extends Plugin {
 		}
 		
 		//Coral
-		if(Modules.world.isActive()) {
+		if(Modules.isActive(Modules.world)) {
 			ThaumcraftApi.registerObjectTag("coralLightBlue", new AspectList().add(Aspect.WATER, 1).add(Aspect.BEAST, 1));
 			ThaumcraftApi.registerObjectTag("coralRed", new AspectList().add(Aspect.WATER, 1).add(Aspect.BEAST, 1));
 			ThaumcraftApi.registerObjectTag("coralOrange", new AspectList().add(Aspect.WATER, 1).add(Aspect.BEAST, 1));

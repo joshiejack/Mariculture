@@ -6,27 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
-import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
@@ -329,7 +323,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 				b0 = 3;
 			} else if (this.field_146045_ax > 0) {
 				ItemStack result = Fishing.loot.getLoot(field_146042_b, field_146042_b.getHeldItem(), baitQuality, rand, worldObj, (int)posX, (int)posY, (int)posZ);
-				EntityItem entityitem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, result);
+				EntityItemFireImmune entityitem = new EntityItemFireImmune(this.worldObj, this.posX, this.posY, this.posZ, result);
 				double d1 = this.field_146042_b.posX - this.posX;
 				double d3 = this.field_146042_b.posY - this.posY;
 				double d5 = this.field_146042_b.posZ - this.posZ;

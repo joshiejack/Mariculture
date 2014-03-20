@@ -33,8 +33,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta {
-	private IIcon[] icons;
-
 	protected BlockCoral(boolean tick, String prefix) {
 		super(Material.water);
 		float f = 0.375F;
@@ -74,7 +72,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
         Block block = world.getBlock(x, y - 1, z);
         int metaDown = world.getBlockMetadata(x, y - 1, z);
         if(!canSustainPlant(block, metaDown)) {
-        	dropBlockAsItem(world, x, y, z, metaDown, 0);
+        	dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
         	world.setBlock(x, y, z, Blocks.water);
         }
     }
@@ -93,7 +91,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 	
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		if(meta == CoralMeta.KELP && isKelp(world.getBlock(x, y - 1, z), world.getBlockMetadata(x, y - 1, z))) world.setBlockMetadataWithNotify(x, y, z, CoralMeta.KELP, 2);
+		if(meta <= CoralMeta.KELP_MIDDLE && isKelp(world.getBlock(x, y - 1, z), world.getBlockMetadata(x, y - 1, z))) world.setBlockMetadataWithNotify(x, y - 1, z, CoralMeta.KELP, 2);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -183,7 +181,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 	}
 	
 	public static boolean canSustainCoral(Block block, int meta) {
-		return block == Core.sands|| block == Core.limestone || block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || (block == Core.rocks && meta == RockMeta.CORAL_ROCK);
+		return block == Core.sands || block == Core.limestone || block == Blocks.sand || block == Blocks.cobblestone || block == Blocks.mossy_cobblestone || (block == Core.rocks && meta == RockMeta.CORAL_ROCK);
 	}
 	
 	public static boolean canSustainKelp(Block block, int meta) {

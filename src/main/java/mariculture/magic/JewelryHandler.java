@@ -3,15 +3,8 @@ package mariculture.magic;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.PearlColor;
-import mariculture.core.util.Rand;
-import mariculture.magic.jewelry.ItemBracelet;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
-import mariculture.magic.jewelry.ItemNecklace;
-import mariculture.magic.jewelry.ItemRing;
 import mariculture.magic.jewelry.parts.JewelryBinding;
 import mariculture.magic.jewelry.parts.JewelryMaterial;
 import net.minecraft.enchantment.Enchantment;

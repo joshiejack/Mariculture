@@ -24,12 +24,11 @@ import mariculture.core.lib.Dye;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
@@ -98,25 +97,12 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import enchiridion.api.GuideHandler;
 
-public class Fishery extends Module {
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
+public class Fishery extends RegistrationModule {	
 	public static Block siftBlock;
 	public static Block lampsOff;
 	public static Block lampsOn;
@@ -191,14 +177,8 @@ public class Fishery extends Module {
 		siftBlock = new BlockSift().setStepSound(Block.soundTypeWood).setHardness(1F).setBlockName("siftBlock");
 		lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lampsOff");
 		lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lampsOn");
-		
-		GameRegistry.registerTileEntity(TileAutofisher.class, "tileEntityAutofisher");
-		GameRegistry.registerTileEntity(TileSift.class, "tileEntitySift");
-		GameRegistry.registerTileEntity(TileIncubator.class, "tileIncubator");
-		GameRegistry.registerTileEntity(TileFeeder.class, "tileFeeder");
-		GameRegistry.registerTileEntity(TileFishTank.class, "tileFishTank");
-
-		RegistryHelper.register(new Object[] { siftBlock, lampsOff, lampsOn });
+		RegistryHelper.registerBlocks(new Block[] { siftBlock, lampsOff, lampsOn });
+		RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileSift.class, TileIncubator.class, TileFeeder.class, TileFishTank.class });
 		
 		FluidDictionary.fish_food = Core.addFluid("fishfood", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
 		FluidDictionary.fish_oil = Core.addFluid("fishoil", fishOil, 2000, FluidContainerMeta.BOTTLE_FISH_OIL);
@@ -216,15 +196,34 @@ public class Fishery extends Module {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(FluidDictionary.milk, 1000), 
 				new ItemStack(Items.milk_bucket), new ItemStack(Items.bucket));
 	}
-	
-	
 
 	@Override
-	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityBass.class, "BassBomb", EntityIds.BASS, Mariculture.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityHook.class, "FishingHook", EntityIds.FISHING, Mariculture.instance, 80, 3, true);
+	public void registerItems() {
+		bait = new ItemBait().setUnlocalizedName("bait");
+		rodReed = new ItemRod(EnumRodQuality.OLD, 96, 24).setUnlocalizedName("rod.reed");
+		rodWood = new ItemRod(EnumRodQuality.GOOD, 320, 10).setUnlocalizedName("rod.wood");
+		rodTitanium = new ItemRod(EnumRodQuality.SUPER, 640, 16).setUnlocalizedName("rod.titanium");
+		rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
+		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
+		net = new BlockItemNet().setUnlocalizedName("net");
+
+		RegistryHelper.registerItems(new Item[] { bait, rodReed, rodWood, rodTitanium, fishy, net, rodFlux });
 	}
 
+	@Override
+	public void registerOther() {
+		RecipeSorter.INSTANCE.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		registerEntities();
+		registerFish();
+		MaricultureTab.tabFish.icon = Fishing.fishHelper.makePureFish(Fishery.cod);
+	}
+	
+	private void registerEntities() {
+		EntityRegistry.registerModEntity(EntityBass.class, "BassBomb", EntityIds.BASS, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityHook.class, "FishingHook", EntityIds.FISHING, Mariculture.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityItemFireImmune.class, "EntityItemImmune", EntityIds.ITEM, Mariculture.instance, 80, 30, true);
+	}
+	
 	private void registerFish() {
 		species = new FishDNASpecies();
 		gender = new FishDNAGender();
@@ -292,27 +291,7 @@ public class Fishery extends Module {
 	}
 
 	@Override
-	public void registerItems() {
-		bait = new ItemBait().setUnlocalizedName("bait");
-		rodReed = new ItemRod(EnumRodQuality.OLD, 96, 24).setUnlocalizedName("rod.reed");
-		rodWood = new ItemRod(EnumRodQuality.GOOD, 320, 10).setUnlocalizedName("rod.wood");
-		rodTitanium = new ItemRod(EnumRodQuality.SUPER, 640, 16).setUnlocalizedName("rod.titanium");
-		rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
-		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
-		net = new BlockItemNet().setUnlocalizedName("net");
-
-		RegistryHelper.register(new Object[] { bait, rodReed, rodWood, rodTitanium, fishy, net, rodFlux });
-	}
-
-	@Override
-	public void registerOther() {
-		RecipeSorter.INSTANCE.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
-		registerFish();
-		MaricultureTab.tabFish.icon = Fishing.fishHelper.makePureFish(Fishery.cod);
-	}
-
-	@Override
-	public void addRecipes() {
+	public void registerRecipes() {
 		String bad = "field_146039_d";
 		String good = "field_146041_e";
 		String fish = "field_146036_f";
@@ -579,7 +558,7 @@ public class Fishery extends Module {
 		
 		RecipeHelper.addMelting(new ItemStack(Items.fish), 180, FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 100));
 		GameRegistry.addShapelessRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL), new Object[] { Items.fish });
-		ItemStack kelp = (Modules.world.isActive())? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): new ItemStack(Items.dye, 1, Dye.GREEN);
+		ItemStack kelp = (Modules.isActive(Modules.worldplus))? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): new ItemStack(Items.dye, 1, Dye.GREEN);
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			if(FishSpecies.speciesList.get(i) != null) {
 				FishSpecies species = FishSpecies.speciesList.get(i);

@@ -14,16 +14,11 @@ import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.items.ItemVanillaFish;
 import mariculture.world.WorldPlus;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemFishFood.FishType;
-import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomFishable;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class Fish {
@@ -50,7 +45,7 @@ public class Fish {
 		//Adds all the basic recipes for each fish
 		int fishSize = species.getFishMealSize();
 		if(fishSize > 0) {
-			ItemStack kelp = Modules.world.isActive()? new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP): new ItemStack(Items.dye, 1, Dye.GREEN);
+			ItemStack kelp = Modules.isActive(Modules.worldplus)? new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP): new ItemStack(Items.dye, 1, Dye.GREEN);
 			RecipeHelper.addShapedRecipe(new ItemStack(Core.food, (int)Math.ceil(fishSize/1.5), FoodMeta.SUSHI), new Object[] {
 				" K ", "KFK", " K ", 'K', kelp, 'F', raw
 			});

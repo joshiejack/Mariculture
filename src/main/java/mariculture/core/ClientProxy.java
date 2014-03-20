@@ -31,6 +31,7 @@ import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityHook;
+import mariculture.fishery.EntityItemFireImmune;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileFishTank;
@@ -45,6 +46,7 @@ import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
 import mariculture.transport.render.RenderSpeedBoatItem;
 import net.minecraft.client.renderer.entity.RenderFish;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -55,7 +57,6 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.Loader;
 import enchiridion.api.GuideHandler;
 
 public class ClientProxy extends CommonProxy {
@@ -71,18 +72,15 @@ public class ClientProxy extends CommonProxy {
 	
 	public static KeyBinding key_activate;
 	public static KeyBinding key_toggle;
-	
+
 	@Override
-	public void registerKeyBindings() {
+	public void setupClient() {		
 		key_activate = new KeyBinding("key.activate", Keyboard.KEY_V, "key.categories.gameplay");
 		key_toggle = new KeyBinding("key.toggle", Keyboard.KEY_Y, "key.categories.gameplay");
 		
 		ClientRegistry.registerKeyBinding(key_activate);
 		ClientRegistry.registerKeyBinding(key_toggle);
-	}
-
-	@Override
-	public void initClient() {			
+		
 		RenderIds.BLOCK_SINGLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
@@ -98,13 +96,13 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderHandler());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
 		
-		if(Modules.diving.isActive()) {
+		if(Modules.isActive(Modules.fishery)) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
 			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
 		}
 		
-		if(Modules.factory.isActive()) {
+		if(Modules.isActive(Modules.factory)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
 			RenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customBlock), new RenderCustomItem());
@@ -124,7 +122,8 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSingle(new ModelTurbineHand(scale), TURBINE_HAND));
 		}
 		
-		if(Modules.fishery.isActive()) {
+		if(Modules.isActive(Modules.fishery)) {
+			RenderingRegistry.registerEntityRenderingHandler(EntityItemFireImmune.class, new RenderItem());
 			RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
 			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Fishery.siftBlock), new RenderSingleItem());
@@ -133,7 +132,7 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
 		}
 		
-		if(Modules.transport.isActive()) {
+		if(Modules.isActive(Modules.transport)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpeedBoat.class, new RenderSpeedBoat());
 			MinecraftForgeClient.registerItemRenderer(Transport.speedBoat, new RenderSpeedBoatItem());
 		}

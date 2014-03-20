@@ -3,8 +3,6 @@ package mariculture.magic.jewelry.parts;
 import java.util.HashMap;
 
 import mariculture.Mariculture;
-import mariculture.core.util.Text;
-import mariculture.magic.JewelryHandler;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;

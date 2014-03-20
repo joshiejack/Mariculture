@@ -204,9 +204,9 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case UpgradeMeta.ETERNAL_MALE:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 		case UpgradeMeta.ETERNAL_FEMALE:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 
 		default:
 			return true;

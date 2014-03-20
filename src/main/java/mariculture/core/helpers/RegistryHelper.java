@@ -4,30 +4,40 @@ import java.lang.reflect.Field;
 
 import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
-import mariculture.core.blocks.BlockWaterItem;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.Modules;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
-import mariculture.factory.Factory;
-import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RegistryHelper {
-	public static void register(Object[] items) {
-		for (int i = 0; i < items.length; i++) {			
-			if(items[i] instanceof Item) {
-				registerItem((Item) items[i]);
-			} else if(items[i] instanceof IHasMeta) {
-				registerMetaBlock(((IHasMeta)items[i]).getItemClass(), (Block) items[i]);
-			} else if(items[i] instanceof Block) {
-				registerBlock((Block) items[i]);
+	//Shorthand for registering items
+	public static void registerItems(Item[] items) {
+		for(Item item: items) {
+			registerItem((Item) item);
+		}
+	}
+	
+	//Short hand for registering blocks
+	public static void registerBlocks(Block[] blocks) {
+		for(Block block: blocks) {
+			if(block instanceof IHasMeta) {
+				registerMetaBlock(((IHasMeta)block).getItemClass(), block);
+			} else {
+				registerBlock(block);
 			}
+		}
+	}
+	
+	//Short hand for registering tile entities
+	public static void registerTiles(Class<? extends TileEntity>[] tiles) {
+		for(Class<? extends TileEntity> tile: tiles) {
+			GameRegistry.registerTileEntity(tile, "Mariculture:" + tile.getSimpleName());
 		}
 	}
 

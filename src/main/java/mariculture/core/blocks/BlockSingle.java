@@ -213,7 +213,7 @@ public class BlockSingle extends BlockFunctional {
 		if (tile instanceof TileAirPump) {	
 			TileAirPump pump = (TileAirPump) tile;
 			if (pump.animate == false) {
-				if(Modules.diving.isActive()) {
+				if(Modules.isActive(Modules.diving)) {
 					if(pump.updateAirArea(Type.CHECK)) {
 						if(!world.isRemote) { 
 							pump.doPoweredPump(false, 300, 64.0D, 128.0D, 64.0D);
@@ -467,17 +467,17 @@ public class BlockSingle extends BlockFunctional {
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case SingleMeta.FISH_FEEDER:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case SingleMeta.TURBINE_WATER:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case SingleMeta.FLUDD_STAND:
 			return false;
 		case SingleMeta.TURBINE_GAS:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case SingleMeta.GEYSER:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case SingleMeta.TURBINE_HAND:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case SingleMeta.ANVIL_2:
 			return false;
 		case SingleMeta.ANVIL_3:

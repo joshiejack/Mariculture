@@ -85,17 +85,17 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case MaterialsMeta.FISH_MEAL:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 		case MaterialsMeta.DYE_RED:
-			return (Modules.world.isActive());
+			return (Modules.isActive(Modules.worldplus));
 		case MaterialsMeta.DYE_YELLOW:
-			return (Modules.world.isActive());
+			return (Modules.isActive(Modules.worldplus));
 		case MaterialsMeta.DYE_BROWN:
-			return (Modules.world.isActive());
+			return (Modules.isActive(Modules.worldplus));
 		case MaterialsMeta.DYE_GREEN:
-			return Modules.world.isActive();
+			return Modules.isActive(Modules.worldplus);
 		case MaterialsMeta.DYE_WHITE:
-			return Modules.world.isActive();
+			return Modules.isActive(Modules.worldplus);
 		case MaterialsMeta.DYE_BLACK:
 			return false;
 		case MaterialsMeta.UNUSED:
@@ -109,7 +109,7 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 		}
 
 		if (meta >= MaterialsMeta.DROP_WATER && meta <= MaterialsMeta.DROP_HEALTH) {
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 		}
 
 		return true;

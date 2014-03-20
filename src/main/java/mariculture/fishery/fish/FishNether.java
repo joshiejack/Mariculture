@@ -10,7 +10,6 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class FishNether extends FishSpecies {
 	public FishNether(int id) {

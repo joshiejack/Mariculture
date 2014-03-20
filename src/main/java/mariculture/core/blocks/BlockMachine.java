@@ -2,14 +2,15 @@ package mariculture.core.blocks;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.network.PacketSponge;
-import mariculture.factory.blocks.TileDictionaryFluid;
 import mariculture.factory.blocks.TileDictionaryItem;
 import mariculture.factory.blocks.TileFishSorter;
+import mariculture.factory.blocks.TileHFCU;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileSponge;
@@ -46,6 +47,7 @@ public class BlockMachine extends BlockFunctional {
 		switch (meta) {
 			case MachineMeta.SLUICE: return "pickaxe";
 			case MachineMeta.SPONGE: return "pickaxe";
+			case MachineMeta.HFCU: 	 return "pickaxe";
 			default:				 return "axe";
 		}
 	}
@@ -55,6 +57,7 @@ public class BlockMachine extends BlockFunctional {
 		switch (meta) {
 			case MachineMeta.SLUICE: return 1;
 			case MachineMeta.SPONGE: return 1;
+			case MachineMeta.HFCU:	 return 3;
 			default:				 return 0;
 		}
 	}
@@ -64,12 +67,12 @@ public class BlockMachine extends BlockFunctional {
 		switch (world.getBlockMetadata(x, y, z)) {
 			case MachineMeta.BOOKSHELF: 		return 1F;
 			case MachineMeta.DICTIONARY_ITEM: 	return 2F;
-			case MachineMeta.DICTIONARY_FLUID: 	return 2.5F;
 			case MachineMeta.SAWMILL:			return 2F;
 			case MachineMeta.SLUICE: 			return 5F;
 			case MachineMeta.SPONGE: 			return 2.5F;
 			case MachineMeta.AUTOFISHER: 		return 2F;
 			case MachineMeta.FISH_SORTER: 		return 1.5F;
+			case MachineMeta.HFCU:				return 40F;
 			default:							return 1F;
 		}
 	}
@@ -86,6 +89,7 @@ public class BlockMachine extends BlockFunctional {
 			if(meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
 			if(meta == MachineMeta.SLUICE) 	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
 			if(meta == MachineMeta.SPONGE)	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+			if(meta == MachineMeta.HFCU)	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
 			return Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
 		}
 
@@ -109,6 +113,10 @@ public class BlockMachine extends BlockFunctional {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile == null || player.isSneaking()) {
 			return false;
+		}
+		
+		if(tile instanceof TileHFCU) {
+			return FluidHelper.handleFillOrDrain((TileHFCU)tile, player, ForgeDirection.UP);
 		}
 		
 		if (tile instanceof TileSponge) {
@@ -153,12 +161,12 @@ public class BlockMachine extends BlockFunctional {
 		switch (meta) {
 			case MachineMeta.BOOKSHELF: 		return new TileBookshelf();
 			case MachineMeta.DICTIONARY_ITEM: 	return new TileDictionaryItem();
-			case MachineMeta.DICTIONARY_FLUID: 	return new TileDictionaryFluid();
 			case MachineMeta.SAWMILL:			return new TileSawmill();
 			case MachineMeta.SLUICE: 			return new TileSluice();
 			case MachineMeta.SPONGE: 			return new TileSponge();
 			case MachineMeta.AUTOFISHER: 		return new TileAutofisher();
 			case MachineMeta.FISH_SORTER: 		return new TileFishSorter();
+			case MachineMeta.HFCU:				return new TileHFCU();
 			default:							return null;
 		}
 	}
@@ -167,13 +175,13 @@ public class BlockMachine extends BlockFunctional {
 	public boolean isActive(int meta) {
 		switch (meta) {
 			case MachineMeta.BOOKSHELF: 		return true;
-			case MachineMeta.DICTIONARY_ITEM: 	return Modules.factory.isActive();
-			case MachineMeta.DICTIONARY_FLUID: 	return Modules.factory.isActive();
-			case MachineMeta.SAWMILL:			return Modules.factory.isActive();
-			case MachineMeta.SLUICE: 			return Modules.factory.isActive();
-			case MachineMeta.SPONGE: 			return Modules.factory.isActive();
-			case MachineMeta.AUTOFISHER: 		return Modules.fishery.isActive();
-			case MachineMeta.FISH_SORTER: 		return Modules.fishery.isActive();
+			case MachineMeta.DICTIONARY_ITEM: 	return Modules.isActive(Modules.factory);
+			case MachineMeta.SAWMILL:			return Modules.isActive(Modules.factory);
+			case MachineMeta.SLUICE: 			return Modules.isActive(Modules.factory);
+			case MachineMeta.SPONGE: 			return Modules.isActive(Modules.factory);
+			case MachineMeta.AUTOFISHER: 		return Modules.isActive(Modules.fishery);
+			case MachineMeta.FISH_SORTER: 		return Modules.isActive(Modules.fishery);
+			case MachineMeta.HFCU:				return Modules.isActive(Modules.factory);
 			default:							return true;
 		}
 	}

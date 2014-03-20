@@ -11,14 +11,13 @@ import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.Rand;
 import mariculture.world.WorldPlus;
 import mariculture.world.decorate.WorldGenAncientSand;
-import mariculture.world.decorate.WorldGenReef;
 import mariculture.world.decorate.WorldGenKelp;
+import mariculture.world.decorate.WorldGenReef;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenOcean;
-import net.minecraft.world.gen.feature.WorldGenDesertWells;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 

@@ -1,15 +1,12 @@
 package mariculture.diving;
 
-import java.util.HashMap;
-
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
-import mariculture.core.lib.GuideMeta;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -23,20 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Diving extends Module {
-	public static final HashMap facingList = new HashMap();
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
+public class Diving extends RegistrationModule {	
 	public static Item divingHelmet;
 	public static Item divingTop;
 	public static Item divingPants;
@@ -58,7 +42,7 @@ public class Diving extends Module {
 
 	@Override
 	public void registerBlocks() {
-		GameRegistry.registerTileEntity(TileAirCompressor.class, "TileAirCompressor");		
+		RegistryHelper.registerTiles(new Class[] { TileAirCompressor.class });
 	}
 
 	@Override
@@ -67,20 +51,21 @@ public class Diving extends Module {
 		divingTop = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 1)).setUnlocalizedName("divingTop");
 		divingPants = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 2)).setUnlocalizedName("divingPants");
 		divingBoots = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 3)).setUnlocalizedName("divingBoots");
-
 		scubaMask = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 0)).setUnlocalizedName("scubaMask");
 		scubaTank = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 1)).setUnlocalizedName("scubaTank").setNoRepair();
 		scubaSuit = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 2)).setUnlocalizedName("scubaSuit");
 		swimfin = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 3)).setUnlocalizedName("swimfin");
-		
 		snorkel = (new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 0)).setUnlocalizedName("snorkel");
-		
-		RegistryHelper.register(new Object[]{ divingHelmet, divingTop, divingPants, divingBoots, 
-												scubaMask, scubaTank, scubaSuit, swimfin, snorkel });
+		RegistryHelper.registerItems(new Item[]{ divingHelmet, divingTop, divingPants, divingBoots, scubaMask, scubaTank, scubaSuit, swimfin, snorkel });
 	}
 	
 	@Override
-	public void addRecipes() {		
+	public void registerOther() {
+		return;
+	}
+	
+	@Override
+	public void registerRecipes() {		
 		//Air Compressor Top
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
@@ -102,11 +87,10 @@ public class Diving extends Module {
 			"  R", "LLR", 'R', Items.sugar, 'L', new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
 		});
 		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Diving.divingHelmet), true, new Object[] { "CCC", "CGC",
-					Character.valueOf('C'), "ingotCopper", Character.valueOf('G'), "glass" }));
+		//Diving Helmet
+		RecipeHelper.addShapedRecipe(new ItemStack(divingHelmet), new Object[] {
+			"CCC", "CGC", 'C', "ingotCopper", 'G', "glass"
+		});
 
 		GameRegistry.addRecipe(new ItemStack(Diving.divingTop), new Object[] { " C ", "C C", " C ", 
 			Character.valueOf('C'), new ItemStack(Items.leather) });

@@ -39,12 +39,12 @@ public class PluginForestry extends Plugin {
 
 	@Override
 	public void init() {
-		if (Modules.world.isActive()) {
+		if (Modules.isActive(Modules.world)) {
 			FuelManager.fermenterFuel.put(new ItemStack(WorldPlus.coral, 1, CoralMeta.KELP), new FermenterFuel(
 					new ItemStack(WorldPlus.coral, 1, CoralMeta.KELP), 150, 1));
 		}
 		
-		if (Modules.fishery.isActive()) {
+		if (Modules.isActive(Modules.fishery)) {
 			addBee("beeDroneGE", 1);
 			addBee("beePrincessGE", 5);
 			addBee("beeQueenGE", 7);
@@ -110,13 +110,13 @@ public class PluginForestry extends Plugin {
 	public class AquaBackpack implements IBackpackDefinition {
 		private final List items = new ArrayList(50);
 		public void setup() {
-			if (Modules.fishery.isActive()) {
+			if (Modules.isActive(Modules.fishery)) {
 				addValidItem(new ItemStack(Fishery.fishy, 1, OreDictionary.WILDCARD_VALUE));
 				addValidItem(new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE));
 				addValidItem(new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE));
 			}
 			
-			if(Modules.world.isActive()) {
+			if(Modules.isActive(Modules.world)) {
 				addValidItem(new ItemStack(WorldPlus.coral, 1, OreDictionary.WILDCARD_VALUE));
 			}
 			

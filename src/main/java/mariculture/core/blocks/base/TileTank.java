@@ -20,6 +20,11 @@ public class TileTank extends TileEntity implements IFluidHandler, ITank {
 	public TileTank() {
 		tank = new Tank(getTankSize());
 	}
+	
+	@Override
+	public boolean canUpdate() {
+		return false;
+	}
 
 	public int getTankSize() {
 		return FluidContainerRegistry.BUCKET_VOLUME;

@@ -1,14 +1,13 @@
 package mariculture.core.helpers;
 
-import com.mojang.authlib.GameProfile;
-
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
+
+import com.mojang.authlib.GameProfile;
 
 public class PlayerHelper {
 	public static ItemStack getArmor(EntityPlayer player, int slot, Item item) {

@@ -63,7 +63,7 @@ import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.RockMeta;
@@ -88,7 +88,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Core extends Module {	
+public class Core extends RegistrationModule {	
 	public static Block rocks;
 	public static Block limestone;
 	public static Block metals;
@@ -191,28 +191,15 @@ public class Core extends Module {
 		sands = new BlockGround().setBlockName("sands").setHardness(1F);
 		transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
 		water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
-		
-		GameRegistry.registerTileEntity(TileAirPump.class, "TileAirPump");
-		GameRegistry.registerTileEntity(TileCrucible.class, "TileLiquifier");
-		GameRegistry.registerTileEntity(TileBookshelf.class, "TileBookshelf");
-		GameRegistry.registerTileEntity(TileTankBlock.class, "TileTankBlock");
-		GameRegistry.registerTileEntity(TileVat.class, "TileVat");
-		GameRegistry.registerTileEntity(TileAnvil.class, "TileAnvil");
-		GameRegistry.registerTileEntity(TileIngotCaster.class, "TileIngotCaster");
-		GameRegistry.registerTileEntity(TileVoidBottle.class, "TileVoidBottle");
-		GameRegistry.registerTileEntity(TileOyster.class, "TileOyster");
-
-		RegistryHelper.register(new Object[] { rocks, limestone, water, metals, sands, woods, glass, transparent, 
-				pearlBlock, pearlBrick, machines, multiMachines, renderedMultiMachines, renderedMachines, tanks, air });
-	}
-	
-	@Override
-	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
+		RegistryHelper.registerBlocks(new Block[] { 
+				rocks, limestone, water, metals, sands, woods, glass, transparent,  pearlBlock, pearlBrick, 
+				machines, multiMachines, renderedMultiMachines, renderedMachines, tanks, air });
+		RegistryHelper.registerTiles(new Class[] { 
+				TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, 
+				TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class});
 	}
 	
 	ToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
-
 	@Override
 	public void registerItems() {
 		materials = new ItemMaterial().setUnlocalizedName("materials");
@@ -225,19 +212,24 @@ public class Core extends Module {
 		liquidContainers = new ItemFluidContainer().setUnlocalizedName("fluids");
 		hammer = new ItemHammer(brick).setUnlocalizedName("hammer");
 		worked = new ItemWorked().setUnlocalizedName("worked");
-		
 		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
 		bucket = new ItemFluidStorage(8000).setUnlocalizedName("bucket.titanium");
-		
-		RegistryHelper.register(new Object[] { materials, craftingItem, batteryTitanium, food, upgrade, pearls, liquidContainers, hammer, worked, batteryCopper, ladle, bucket });
+		RegistryHelper.registerItems(new Item[] { 
+				materials, craftingItem, batteryTitanium, food, upgrade, pearls, liquidContainers, 
+				hammer, worked, batteryCopper, ladle, bucket });
 	}
 	
 	@Override
 	public void registerOther() {
 		registerBiomes();
+		registerEntities();
 		registerLiquids();
 		addToOreDictionary();
 		MaricultureTab.tabMariculture.icon = new ItemStack(pearls, 1, PearlColor.WHITE);
+	}
+	
+	private void registerEntities() {
+		EntityRegistry.registerModEntity(EntityFakeItem.class, "FakeItem", EntityIds.FAKE_ITEM, Mariculture.instance, 80, 3, false);
 	}
 
 	private void registerLiquids() {
@@ -248,6 +240,67 @@ public class Core extends Module {
         GameRegistry.registerBlock(highPressureWaterBlock, "Mariculture_highPressureWaterBlock");
         highPressureWater.setBlock(highPressureWaterBlock);
         registerHeatBottle(FluidDictionary.hp_water, 1000, FluidContainerMeta.BOTTLE_HP_WATER);
+	}
+	
+	private void registerBiomes() {
+		//Frozen Biomes
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.iceMountains, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.icePlains, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenRiver, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaiga, EnumBiomeType.FROZEN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaigaHills, EnumBiomeType.FROZEN);
+		
+		//Frozen Ocean
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldBeach, EnumBiomeType.FROZEN_OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenOcean, EnumBiomeType.FROZEN_OCEAN);
+		
+		//Ocean
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.beach, EnumBiomeType.OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.ocean, EnumBiomeType.OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.deepOcean, EnumBiomeType.OCEAN);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.stoneBeach, EnumBiomeType.OCEAN);
+		
+		//Cold
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHills, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsEdge, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsPlus, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taiga, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taigaHills, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaiga, EnumBiomeType.COLD);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaigaHills, EnumBiomeType.COLD);
+		
+		//Normal
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forest, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forestHills, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.plains, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.river, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.swampland, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForest, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForestHills, EnumBiomeType.NORMAL);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.roofedForest, EnumBiomeType.NORMAL);
+		
+		//Hot
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungle, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungleHills, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savanna, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savannaPlateau, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesa, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau_F, EnumBiomeType.HOT);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau, EnumBiomeType.HOT);
+		
+		//Arid
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desert, EnumBiomeType.ARID);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desertHills, EnumBiomeType.ARID);
+
+		//Nether
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.hell, EnumBiomeType.HELL);
+		
+		//End
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.sky, EnumBiomeType.ENDER);
+		
+		//Mushroom
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIsland, EnumBiomeType.MUSHROOM);
+		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIslandShore, EnumBiomeType.MUSHROOM);	
 	}
 
 	private void addToOreDictionary() {	
@@ -338,70 +391,14 @@ public class Core extends Module {
 		return FluidDictionary.getFluid(name).getName();
 	}
 
-	private void registerBiomes() {
-		//Frozen Biomes
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.iceMountains, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.icePlains, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenRiver, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaiga, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaigaHills, EnumBiomeType.FROZEN);
-		
-		//Frozen Ocean
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldBeach, EnumBiomeType.FROZEN_OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenOcean, EnumBiomeType.FROZEN_OCEAN);
-		
-		//Ocean
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.beach, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.ocean, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.deepOcean, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.stoneBeach, EnumBiomeType.OCEAN);
-		
-		//Cold
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHills, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsEdge, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsPlus, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taiga, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taigaHills, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaiga, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaigaHills, EnumBiomeType.COLD);
-		
-		//Normal
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forest, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forestHills, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.plains, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.river, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.swampland, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForest, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForestHills, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.roofedForest, EnumBiomeType.NORMAL);
-		
-		//Hot
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungle, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungleHills, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savanna, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savannaPlateau, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesa, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau_F, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau, EnumBiomeType.HOT);
-		
-		//Arid
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desert, EnumBiomeType.ARID);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desertHills, EnumBiomeType.ARID);
-
-		//Nether
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.hell, EnumBiomeType.HELL);
-		
-		//End
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.sky, EnumBiomeType.ENDER);
-		
-		//Mushroom
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIsland, EnumBiomeType.MUSHROOM);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIslandShore, EnumBiomeType.MUSHROOM);	
+	@Override
+	public void registerRecipes() {
+		addFluids();
+		Recipes.add();
 	}
 	
 	@Override
-	public void addRecipes() {
-		addFluids();
-		Recipes.add();
+	public void postInit() {
+		RecipesSmelting.postAdd();
 	}
 }

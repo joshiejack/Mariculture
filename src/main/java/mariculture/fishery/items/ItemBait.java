@@ -38,8 +38,8 @@ public class ItemBait extends ItemMariculture {
 		float sat = -(float) (fill/5);
 		//Decrease food if hunger overhaul is installed
 		if(Loader.isModLoaded("HungerOverhaul")) {
-			fill = Math.max(1, fill/2);
-			sat = Math.max(0.0F, sat/10);
+			fill = 1;
+			sat = Math.max(-1.0F, -sat/10);
 			player.addPotionEffect(new PotionEffect(Potion.hunger.id, 30, 0));
 			if(Rand.nextInt(64)) player.addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0));
 			if(Rand.nextInt(8))  player.addPotionEffect(new PotionEffect(Potion.confusion.id, 50, 0));

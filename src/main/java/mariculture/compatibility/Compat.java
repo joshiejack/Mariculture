@@ -1,21 +1,24 @@
-package mariculture.plugins.compatibility;
+package mariculture.compatibility;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.Modules.Module;
 import mariculture.core.util.FluidDictionary;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import org.apache.logging.log4j.Level;
 
-public class Compat {
-	public static void preInit() {		
+public class Compat extends Module {
+	@Override
+	public void preInit() {		
 		if(FluidRegistry.getFluid("milk") != null) {
 			FluidDictionary.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
 		}
 	}
 	
-	public static void init() {
-		if(Modules.fishery.isActive()) {
+	@Override
+	public void init() {
+		if(Modules.isActive(Modules.fishery)) {
 			try {
 				//CompatBait.init();
 			} catch (Exception e) {
@@ -24,5 +27,10 @@ public class Compat {
 		}
 		
 		CompatFluids.init();
+	}
+	
+	@Override
+	public void postInit() {
+		setLoaded(null);
 	}
 }

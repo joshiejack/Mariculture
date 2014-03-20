@@ -1,6 +1,5 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.EnumFishWorkEthic;
@@ -46,7 +45,7 @@ public class FishClown extends FishSpecies {
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 2.5D);
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC), 1.0D);
 		addProduct(new ItemStack(Items.dye, 1, Dye.ORANGE), 10.0D);
-		if(Modules.world.isActive()) addProduct(new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.ORANGE), 5.0D);
+		if(Modules.isActive(Modules.worldplus)) addProduct(new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.ORANGE), 5.0D);
 	}
 
 	@Override

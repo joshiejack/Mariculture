@@ -142,7 +142,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			stack.stackTagCompound.setInteger("Worked", workedVal);
 			if(workedVal >= stack.stackTagCompound.getInteger("Required")) {
 				ItemStack result = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-				if(Modules.magic.isActive()) {
+				if(Modules.isActive(Modules.magic)) {
 					result = JewelryHandler.finishJewelry(stack, result, Rand.rand);
 				}
 				

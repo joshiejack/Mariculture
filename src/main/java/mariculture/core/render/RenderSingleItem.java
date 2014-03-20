@@ -59,7 +59,7 @@ public class RenderSingleItem implements IItemRenderer {
 			pump.renderInventory(type);
 		}
 
-		if (Modules.factory.isActive()) {
+		if (Modules.isActive(Modules.factory)) {
 			if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE);
 				turbine.renderInventory(type);
@@ -81,7 +81,7 @@ public class RenderSingleItem implements IItemRenderer {
 			}
 		}
 
-		if (Modules.fishery.isActive()) {
+		if (Modules.isActive(Modules.fishery)) {
 			if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FEEDER);
 				feeder.renderInventory(type);

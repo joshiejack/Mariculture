@@ -9,7 +9,6 @@ import mariculture.core.network.PacketFLUDD;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.items.ItemArmorFLUDD.Mode;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;

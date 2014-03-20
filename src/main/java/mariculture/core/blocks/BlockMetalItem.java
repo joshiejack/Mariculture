@@ -1,7 +1,6 @@
 package mariculture.core.blocks;
 
 import mariculture.core.lib.MetalMeta;
-import mariculture.core.lib.RockMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

@@ -1,6 +1,5 @@
 package mariculture.fishery.blocks;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.blocks.base.TileMachinePowered;
@@ -13,11 +12,9 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
-import mariculture.fishery.EntityHook;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.WeightedRandomFishable;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class TileAutofisher extends TileMachinePowered implements IHasNotification {

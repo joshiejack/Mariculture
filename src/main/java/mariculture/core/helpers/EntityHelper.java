@@ -3,7 +3,6 @@ package mariculture.core.helpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 
 public class EntityHelper {

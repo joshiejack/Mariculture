@@ -2,6 +2,7 @@
 ==== BETA Notes ====
 * MAJOR: You need to install 'Enchiridion' if you want to keep my books, it's been split to a seperate mod for 'reasons'.
 * Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
+* The screwed up rendering of void bottles is known, and is on the to do list
 * Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
 
 ==== Other ====
@@ -18,6 +19,9 @@
 * FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
 
 == Mariculture 1.2.1 ==
+====New====
+* Added Fluid Dictionary
+
 ====Changes====
 * MAJOR: Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.
 * You can no longer put liquids in one of the vats tanks if the other tank already has some of that liquid

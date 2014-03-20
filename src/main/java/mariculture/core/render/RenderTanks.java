@@ -2,6 +2,7 @@ package mariculture.core.render;
 
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
+import mariculture.factory.render.RenderFluidDictionary;
 import mariculture.fishery.render.RenderFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -12,10 +13,9 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int id, RenderBlocks render) {
 		if (id == RenderIds.BLOCK_TANKS) {
-			if(meta == TankMeta.FISH)
-				new RenderFishTank(render).setBlock(block).render();
-			if(meta == TankMeta.TANK)
-				new RenderCopperTank(render).setBlock(block).render();
+			if(meta == TankMeta.FISH) new RenderFishTank(render).setBlock(block).render();
+			if(meta == TankMeta.TANK) new RenderCopperTank(render).setBlock(block).render();
+			if(meta == TankMeta.DIC) new RenderFluidDictionary(render).setBlock(block).render();
 		}
 	}
 
@@ -28,6 +28,8 @@ public class RenderTanks implements ISimpleBlockRenderingHandler {
 			return new RenderCopperTank(render).setCoords(world, x, y, z).render();
 		} else if(meta == TankMeta.FISH) {
 			return new RenderFishTank(render).setCoords(world, x, y, z).render();
+		} else if(meta == TankMeta.DIC) {
+			return new RenderFluidDictionary(render).setCoords(world, x, y, z).render();
 		}
 		
 		return true;

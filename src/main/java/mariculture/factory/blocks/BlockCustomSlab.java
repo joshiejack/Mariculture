@@ -3,13 +3,12 @@ package mariculture.factory.blocks;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IHasMeta;
-import mariculture.core.util.IItemRegistry;
 import mariculture.factory.Factory;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -119,6 +118,11 @@ public class BlockCustomSlab extends BlockSlab implements IHasMeta {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		return new TileCustom();
+	}
+	
+	@Override
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		//
 	}
 
 	@Override

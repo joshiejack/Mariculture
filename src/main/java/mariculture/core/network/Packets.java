@@ -6,7 +6,6 @@ import mariculture.core.lib.Extra;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;

@@ -235,9 +235,9 @@ public class ItemFluidContainer extends ItemMariculture {
 		case FluidContainerMeta.BOTTLE_TIN:
 			return OreDictionary.getOres("ingotTin").size() > 0;
 		case FluidContainerMeta.BOTTLE_FISH_OIL:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 		case FluidContainerMeta.BOTTLE_FISH_FOOD:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 
 		default:
 			return true;

@@ -6,7 +6,6 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.fish.EnumSalinityType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 

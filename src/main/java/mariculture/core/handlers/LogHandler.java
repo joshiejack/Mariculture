@@ -1,7 +1,6 @@
 package mariculture.core.handlers;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.FMLLog;
 

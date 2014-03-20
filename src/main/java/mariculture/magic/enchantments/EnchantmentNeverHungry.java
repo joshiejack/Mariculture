@@ -5,7 +5,6 @@ import java.util.List;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
 import mariculture.magic.gui.ContainerMirror;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

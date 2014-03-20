@@ -15,7 +15,7 @@ public class TileSponge extends TileEnergyHandler {
     }
     
     public boolean isBlockSponge(int x, int y, int z) {
-    	if(Modules.world.isActive())
+    	if(Modules.isActive(Modules.worldplus))
     		return worldObj.getBlock(x, y, z) == Blocks.sponge;
     	return worldObj.getBlock(x, y, z) == Blocks.wool && worldObj.getBlockMetadata(x, y, z) == 4;
     }

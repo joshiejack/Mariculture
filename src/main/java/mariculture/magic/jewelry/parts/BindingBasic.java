@@ -1,10 +1,10 @@
 package mariculture.magic.jewelry.parts;
 
+import mariculture.core.util.Text;
+import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import mariculture.core.util.Text;
-import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 
 public class BindingBasic extends JewelryBinding {
 	@Override

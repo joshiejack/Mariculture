@@ -1,7 +1,5 @@
 package mariculture.world;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.terrain.MapGenCavesWater;
@@ -11,6 +9,9 @@ import mariculture.world.terrain.MapGenRavineWaterBOP;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
+
+import org.apache.logging.log4j.Level;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 

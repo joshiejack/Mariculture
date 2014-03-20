@@ -16,7 +16,6 @@ import mariculture.core.helpers.AverageHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import mariculture.fishery.FishHelper;

@@ -1,11 +1,11 @@
 package mariculture.fishery.items;
 
+import mariculture.api.fishery.EnumRodQuality;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mariculture.api.fishery.EnumRodQuality;
 
 public class ItemVanillaRod extends ItemRod {
 	@SideOnly(Side.CLIENT)

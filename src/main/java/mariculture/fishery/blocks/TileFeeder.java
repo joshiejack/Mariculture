@@ -79,8 +79,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 
 	@Override
 	public void updateMachine() {	
-		if(theBiome == null)
-			theBiome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getBiomeGenForCoords(xCoord, zCoord));
+		if(theBiome == null) theBiome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord));
 		
 		//Every 5 Seconds update the tank size
 		if(!worldObj.isRemote) {

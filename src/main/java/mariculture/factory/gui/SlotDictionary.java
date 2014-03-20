@@ -3,9 +3,6 @@ package mariculture.factory.gui;
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.SlotFake;
 import mariculture.core.handlers.OreDicHandler;
-import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.util.Text;
 import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,7 +11,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
 
 public class SlotDictionary extends SlotFake {
 	public SlotDictionary(IInventory inv, int id, int x, int y) {

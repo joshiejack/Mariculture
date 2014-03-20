@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.GroundMeta;
-import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;

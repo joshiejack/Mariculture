@@ -4,18 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.core.Core;
-import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.factory.Factory;
-import mariculture.magic.Magic;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomFishable;
@@ -64,6 +59,6 @@ public class FishingLoot {
 		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_mall), 1), overworld);
 		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_strad), 1), overworld);
 		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_cat), 1), overworld);
-		if(Modules.factory.isActive()) Fishing.loot.addLoot(LootQuality.RARE, new WeightedRandomFishable(new ItemStack(Factory.fludd), 1), mushroom);
+		if(Modules.isActive(Modules.factory)) Fishing.loot.addLoot(LootQuality.RARE, new WeightedRandomFishable(new ItemStack(Factory.fludd), 1), mushroom);
 	}
 }

@@ -15,7 +15,6 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetHandlerPlayServer;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
@@ -100,7 +99,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
     }
 
     // Method to call from FMLInitializationEvent
-    public void initialise() {
+    public void init() {
         this.channels = NetworkRegistry.INSTANCE.newChannel("Mariculture", this);
         
         registerPacket(PacketSponge.class);
@@ -124,7 +123,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
     // Method to call from FMLPostInitializationEvent
     // Ensures that packet discriminators are common between server and client by using logical sorting
-    public void postInitialise() {
+    public void postInit() {
         if (this.isPostInitialised) {
             return;
         }

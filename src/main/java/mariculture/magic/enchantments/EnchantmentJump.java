@@ -2,7 +2,6 @@ package mariculture.magic.enchantments;
 
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.KeyHelper;
 import mariculture.core.lib.EnchantSetting;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;

@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.api.core.IVatHandler;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+
+import org.apache.logging.log4j.Level;
 
 public class VatHandler implements IVatHandler {
 	private final HashMap<List<? extends Object>, RecipeVat> recipes = new HashMap();

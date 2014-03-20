@@ -10,12 +10,11 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
@@ -34,10 +33,12 @@ import mariculture.factory.blocks.BlockCustomStairs;
 import mariculture.factory.blocks.BlockCustomWall;
 import mariculture.factory.blocks.TileCustom;
 import mariculture.factory.blocks.TileCustomPowered;
+import mariculture.factory.blocks.TileDictionaryFluid;
 import mariculture.factory.blocks.TileDictionaryItem;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileGeyser;
+import mariculture.factory.blocks.TileHFCU;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
@@ -62,21 +63,8 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Factory extends Module {
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
+public class Factory extends RegistrationModule {	
 	public static Block customFlooring;
 	public static Block customBlock;
 	public static Block customStairs;
@@ -115,28 +103,15 @@ public class Factory extends Module {
 		customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
 		customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
 		customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
-
-		GameRegistry.registerTileEntity(TileCustom.class, "tileEntityCustom");
-		GameRegistry.registerTileEntity(TileCustomPowered.class, "tileEntityCustomRF");
-		GameRegistry.registerTileEntity(TileSawmill.class, "tileEntitySawmill");
-		GameRegistry.registerTileEntity(TileSluice.class, "tileEntitySluice");
-		GameRegistry.registerTileEntity(TileTurbineWater.class, "tileEntityTurbine");
-		GameRegistry.registerTileEntity(TileFLUDDStand.class, "tileEntityFLUDD");
-		GameRegistry.registerTileEntity(TilePressureVessel.class, "tileEntityPressureVessel");
-		GameRegistry.registerTileEntity(TileDictionaryItem.class, "tileEntityDictionary");
-		GameRegistry.registerTileEntity(TileTurbineGas.class, "tileEntityTurbineGas");
-        GameRegistry.registerTileEntity(TileSponge.class, "tileEntitySponge");
-        GameRegistry.registerTileEntity(TileTurbineHand.class, "tileEntityTurbineHand");
-        GameRegistry.registerTileEntity(TileFishSorter.class, "tileFishSorter");
-        GameRegistry.registerTileEntity(TileGeyser.class, "tileGeyser");
-
-		RegistryHelper.register(new Object[] { customFlooring, customBlock, customStairs, customSlabs, 
-				customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
-	}
-
-	@Override
-	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
+		
+		RegistryHelper.registerBlocks(new Block[] { 
+				customFlooring, customBlock, customStairs, customSlabs,  customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
+		
+		RegistryHelper.registerTiles(new Class[] { 
+				TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, 
+				TileFLUDDStand.class, TilePressureVessel.class, TileDictionaryItem.class, TileTurbineGas.class, 
+				TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class,
+				TileHFCU.class});
 	}
 
 	@Override
@@ -148,11 +123,16 @@ public class Factory extends Module {
 		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
 		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
 		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
-		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
+		RegistryHelper.registerItems(new Item[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
+	}
+	
+	@Override
+	public void registerOther() {
+		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
 	}
 
 	@Override
-	public void addRecipes() {
+	public void registerRecipes() {
 	//Blocks
 		//Sawmill
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.SAWMILL), new Object[] {
@@ -187,8 +167,8 @@ public class Factory extends Module {
 		}
 		
 		//Mechanized Sponge
-		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Blocks.sponge): new ItemStack(Items.water_bucket);
-		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
+		ItemStack sponge = (Modules.isActive(Modules.worldplus))? new ItemStack(Blocks.sponge): new ItemStack(Items.water_bucket);
+		ItemStack water = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
 		ItemStack fish = new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
@@ -275,7 +255,7 @@ public class Factory extends Module {
 	//Items		
 		//FLUDD
 		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
-		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Blocks.lever);
+		ItemStack tank = (Modules.isActive(Modules.diving))? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Blocks.lever);
 		RecipeHelper.addShapedRecipe(fludd, new Object[] {
 			" E ", "PGP", "LUL",
 			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
@@ -286,7 +266,7 @@ public class Factory extends Module {
 		});
 		
 		//Crafting of Life Core
-		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spider_eye);
+		ItemStack bait = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spider_eye);
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
 			"DSR", "FHB", "PAC", 'D', Blocks.yellow_flower, 'S', "treeSapling", 'R', Blocks.red_flower,
 			'F', fish, 'H', new ItemStack(Items.potionitem, 1, 8229), 'B', bait, 'P', Items.potato, 'A', Items.diamond_boots, 'C', Items.carrot
@@ -331,7 +311,7 @@ public class Factory extends Module {
 		});
 		
 		//Item Filter
-		ItemStack filterer = (Modules.fishery.isActive())? new ItemStack(Fishery.net): new ItemStack(Blocks.chest);
+		ItemStack filterer = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.net): new ItemStack(Blocks.chest);
 		RecipeHelper.addShapedRecipe(new ItemStack(filter), new Object[] {
 			"W W", "WNW", " W ",
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER),
@@ -368,6 +348,6 @@ public class Factory extends Module {
 		});	
 		
 		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas);
-		MaricultureHandlers.turbine.add("gasCraft_naturalGas");
+		MaricultureHandlers.turbine.add("gascraft_naturalgas");
 	}
 }

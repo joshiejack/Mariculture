@@ -41,7 +41,7 @@ public class MapGenRavineWaterBOP extends MapGenRavine
 
     @Override
     protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ) {
-		BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
+		BiomeGenBase biome = worldObj.getWorldChunkManager().getBiomeGenAt(x + chunkX * 16, z + chunkZ * 16);
     	if(MaricultureHandlers.biomeType.getBiomeType(biome) == EnumBiomeType.OCEAN && y < 63) {
     		return false;
     	}
@@ -50,7 +50,7 @@ public class MapGenRavineWaterBOP extends MapGenRavine
     }
     
     private boolean isTopBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ)  {
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
+        BiomeGenBase biome = worldObj.getWorldChunkManager().getBiomeGenAt(x + chunkX * 16, z + chunkZ * 16);
         return (isExceptionBiome(biome) ? data[index] == Blocks.grass : data[index] == biome.topBlock);
     }
 
@@ -63,7 +63,7 @@ public class MapGenRavineWaterBOP extends MapGenRavine
 
     @Override
     protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
-    	BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
+    	BiomeGenBase biome = worldObj.getWorldChunkManager().getBiomeGenAt(x + chunkX * 16, z + chunkZ * 16);
     	if(MaricultureHandlers.biomeType.getBiomeType(biome) == EnumBiomeType.OCEAN && y < 63) {
     		Block top    = (isExceptionBiome(biome) ? Blocks.grass : biome.topBlock);
             Block filler = (isExceptionBiome(biome) ? Blocks.dirt  : biome.fillerBlock);

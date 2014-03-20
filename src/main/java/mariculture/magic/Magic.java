@@ -16,7 +16,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.enchantments.EnchantmentFallDamage;
@@ -68,19 +68,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
-public class Magic extends Module {
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
+public class Magic extends RegistrationModule {
 	public static JewelryMaterial dummyMaterial;
 	public static JewelryMaterial pearlBlack;
 	public static JewelryMaterial pearlBlue;
@@ -120,30 +108,16 @@ public class Magic extends Module {
 	public static Item bracelet;
 	public static Item necklace;
 	public static Item magnet;
-	
-	public void registerEnchants() {
-		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 3, EnumEnchantmentType.all); }
-		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 5, EnumEnchantmentType.all); }
-		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 5, EnumEnchantmentType.all); }
-		if(EnchantIds.flight > 0) { flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 4, EnumEnchantmentType.all); }
-		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 6, EnumEnchantmentType.all); }
-		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 2, EnumEnchantmentType.all); }
-		if(EnchantIds.oneRing > 0) { oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all); }
-		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 3, EnumEnchantmentType.all); }
-		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 6, EnumEnchantmentType.all); }
-		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all); }
-		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all); }
-		
-		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77353_D", new int[] {40, 24, 20, 24, 30});
-	}
 
 	@Override
 	public void registerHandlers() {
 		MaricultureHandlers.mirror = new MirrorHandler();
 		MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
+	}
+	
+	@Override
+	public void registerBlocks() {
+		return;
 	}
 
 	@Override
@@ -156,10 +130,21 @@ public class Magic extends Module {
 		necklace = new ItemNecklace().setUnlocalizedName("necklace");
 		magnet = new ItemMobMagnet(100).setUnlocalizedName("mobMagnet");
 
-		RegistryHelper.register(new Object[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
+		RegistryHelper.registerItems(new Item[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
 	}
 
-	//Keep this order
+	@Override
+	public void registerOther() {
+		//Jewelry Recipes
+		RecipeSorter.INSTANCE.register("mariculture:jewelryshaped", ShapedJewelryRecipe.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
+		RecipeSorter.INSTANCE.register("mariculture:jewelryshapeless", ShapelessJewelryRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		
+		registerJewelry();
+		registerEnchants();
+		// Setup IIcon
+		MaricultureTab.tabJewelry.icon = new ItemStack(basicMirror);
+	}
+	
 	private void registerJewelry() {
 		dummyBinding = new BindingDummy();
 		dummyMaterial = new MaterialDummy();
@@ -179,21 +164,28 @@ public class Magic extends Module {
 		bindingBasic = new BindingBasic();
 		bindingGold = new BindingGold();
 	}
-
-	@Override
-	public void registerOther() {
-		//Jewelry Recipes
-		RecipeSorter.INSTANCE.register("mariculture:jewelryshaped", ShapedJewelryRecipe.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
-		RecipeSorter.INSTANCE.register("mariculture:jewelryshapeless", ShapelessJewelryRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+	
+	private void registerEnchants() {
+		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 3, EnumEnchantmentType.all); }
+		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.flight > 0) { flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all); }
+		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 1, EnumEnchantmentType.all); }
+		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 4, EnumEnchantmentType.all); }
+		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 6, EnumEnchantmentType.all); }
+		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 2, EnumEnchantmentType.all); }
+		if(EnchantIds.oneRing > 0) { oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all); }
+		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 3, EnumEnchantmentType.all); }
+		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
+		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 6, EnumEnchantmentType.all); }
+		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all); }
+		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all); }
 		
-		registerJewelry();
-		registerEnchants();
-		// Setup IIcon
-		MaricultureTab.tabJewelry.icon = new ItemStack(basicMirror);
+		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77353_D", new int[] {40, 24, 20, 24, 30});
 	}
 
 	@Override
-	public void addRecipes() {		
+	public void registerRecipes() {		
 		//Basic Mirror
 		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
 			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"
@@ -209,7 +201,7 @@ public class Magic extends Module {
 		});
 			
 		//Celestial Mirror
-		ItemStack drop = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
+		ItemStack drop = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
 		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
 			"TST", "BMB", "GBG", 
 			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 

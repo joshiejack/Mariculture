@@ -1,19 +1,24 @@
 package mariculture.plugins;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+
+import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.Modules.Module;
+import mariculture.plugins.Plugins.Plugin.Stage;
 
 import org.apache.logging.log4j.Level;
 
-import mariculture.Mariculture.Stage;
-import mariculture.core.handlers.LogHandler;
 import cpw.mods.fml.common.Loader;
 
-public class Plugins {
+public class Plugins extends Module {
 	// Only used for loading
 	public static ArrayList<Plugin> plugins = new ArrayList<Plugin>();
 
 	public abstract static class Plugin {
+		public static enum Stage {
+			PRE, INIT, POST;
+		}
+		
 		public String name;
 		public Plugin() {
 			this.name = this.getClass().getSimpleName().toString().substring(6);
@@ -55,8 +60,14 @@ public class Plugins {
 			}
 		}
 	}
-
-	public void init() {
+	
+	@Override
+	public void setLoaded(String str) {
+		LogHandler.log(Level.INFO, "Mariculture: " + str + " Plugin Finished Loading");
+	}
+	
+	@Override
+	public void preInit() {
 		add("Railcraft");
 		add("TConstruct");
 		add("ExtrabiomesXL");
@@ -67,11 +78,28 @@ public class Plugins {
 		add("HungerOverhaul");
 		add("ThermalExpansion");
 		add("Enchiridion");
+		
+		for (Plugin plug : plugins) {
+			plug.load(Stage.PRE);
+		}
 	}
 
-	public void load(Stage stage) {
+	@Override
+	public void init() {
 		for (Plugin plug : plugins) {
-			plug.load(stage);
+			plug.load(Stage.INIT);
+		}
+	}
+	
+	@Override
+	public void postInit() {
+		for (Plugin plug : plugins) {
+			plug.load(Stage.POST);
+		
+		//Display that the plugin finished loading
+			String name = plug.name;
+			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			setLoaded(name);
 		}
 	}
 }

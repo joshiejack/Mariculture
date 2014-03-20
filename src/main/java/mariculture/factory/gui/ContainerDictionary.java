@@ -1,9 +1,6 @@
 package mariculture.factory.gui;
 
-import mariculture.api.core.IItemUpgrade;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.gui.ContainerMachine;
-import mariculture.core.helpers.FluidHelper;
 import mariculture.factory.blocks.TileDictionaryItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

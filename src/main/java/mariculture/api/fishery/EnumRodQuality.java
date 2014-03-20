@@ -1,9 +1,5 @@
 package mariculture.api.fishery;
 
-import java.util.HashMap;
-import java.util.List;
-
-import mariculture.api.core.EnumBiomeType;
 
 public enum EnumRodQuality {
 	DIRE(5),

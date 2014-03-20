@@ -2,10 +2,8 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IHasMeta;
-import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,7 +12,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

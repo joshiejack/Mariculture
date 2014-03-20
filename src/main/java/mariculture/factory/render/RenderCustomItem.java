@@ -1,10 +1,7 @@
 package mariculture.factory.render;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-
-import org.lwjgl.opengl.GL11;
 
 public class RenderCustomItem implements IItemRenderer {
 	@Override

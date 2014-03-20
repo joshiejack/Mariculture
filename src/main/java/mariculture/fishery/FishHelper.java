@@ -10,10 +10,8 @@ import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.fish.EnumSalinityType;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -126,7 +124,7 @@ public class FishHelper implements IFishHelper {
 	
 	@Override
 	public boolean canLive(World world, int x, int y, int z, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity) {
-		EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(world.getBiomeGenForCoords(x, z));
+		EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z));
 		EnumSalinityType saltType = theBiome.getSalinity();
 		
 		int min = biomeTypes[0].minTemp();

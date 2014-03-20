@@ -1,6 +1,5 @@
 package mariculture.fishery.render;
 
-import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;

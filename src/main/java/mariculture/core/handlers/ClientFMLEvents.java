@@ -31,7 +31,7 @@ public class ClientFMLEvents {
 			Mariculture.packets.sendToServer(new PacketJewelrySwap(ClientHelper.getPlayer().inventory.currentItem));
 		}
 		
-		if(Modules.factory.isActive()) {
+		if(Modules.isActive(Modules.factory)) {
 			if(ClientHelper.isActivateKeyPressed() && PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) {
 				if(player.isSneaking()) {
 					ItemStack stack = PlayerHelper.getArmorStack(player, ArmorSlot.TOP);
@@ -53,7 +53,7 @@ public class ClientFMLEvents {
 			}
 		}
 		
-		if(Modules.magic.isActive()) {
+		if(Modules.isActive(Modules.magic)) {
 			if(ClientHelper.isActivateKeyPressed() && ClientHelper.isToggleKeyPressed() && player.capabilities.isFlying && EnchantHelper.hasEnchantment(Magic.flight, player)) {
 				if(EnchantmentFlight.mode < EnchantmentFlight.maxMode) {
 					EnchantmentFlight.mode++;

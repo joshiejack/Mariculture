@@ -87,8 +87,8 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
 	public boolean isActive(int meta) {
 		switch (meta) {
 			case MachineMultiMeta.CRUCIBLE: 	return true;
-			case MachineMultiMeta.INCUBATOR_BASE: return Modules.fishery.isActive();
-			case MachineMultiMeta.INCUBATOR_TOP: return Modules.fishery.isActive();
+			case MachineMultiMeta.INCUBATOR_BASE: return Modules.isActive(Modules.fishery);
+			case MachineMultiMeta.INCUBATOR_TOP: return Modules.isActive(Modules.fishery);
 			default:							return true;
 		}
 	}

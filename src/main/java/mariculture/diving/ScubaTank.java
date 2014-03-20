@@ -9,9 +9,8 @@ import net.minecraft.item.ItemStack;
 public class ScubaTank {
 
 	public static void init(EntityPlayer player) {
-		if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.scubaMask)
-				&& PlayerHelper.hasArmor(player, ArmorSlot.TOP, Diving.scubaTank)) {
-			if (player.isInsideOfMaterial(Material.water)) {
+		if(player.isInsideOfMaterial(Material.water)) {
+			if(PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.scubaMask) && PlayerHelper.hasArmor(player, ArmorSlot.TOP, Diving.scubaTank)) {
 				activate(player);
 				damage(player.inventory.armorItemInSlot(ArmorSlot.TOP), player);
 			}

@@ -1,9 +1,7 @@
 package mariculture.core.blocks;
 
 import mariculture.core.lib.PearlColor;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.StatCollector;
 
 public class BlockPearlBlock extends BlockDecorative {
 	public BlockPearlBlock(String prefix) {

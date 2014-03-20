@@ -1,10 +1,8 @@
 package mariculture.factory.blocks;
 
-import mariculture.core.helpers.BlockHelper;
 import mariculture.core.network.Packets;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;

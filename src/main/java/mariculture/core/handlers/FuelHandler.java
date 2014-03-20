@@ -9,7 +9,7 @@ import cpw.mods.fml.common.IFuelHandler;
 public class FuelHandler implements IFuelHandler {
 	@Override
 	public int getBurnTime(ItemStack fuel) {
-		if (Modules.fishery.isActive()) {
+		if (Modules.isActive(Modules.fishery)) {
 			if (fuel.getItem() == Items.fish) {
 				int speciesID = fuel.getItemDamage();
 				if (fuel.getItemDamage() == Fishery.nether.fishID) {

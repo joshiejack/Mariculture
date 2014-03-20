@@ -2,7 +2,6 @@ package mariculture.world.decorate;
 
 import java.util.Random;
 
-import mariculture.core.lib.WorldGeneration;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
