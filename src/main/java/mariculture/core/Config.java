@@ -161,7 +161,7 @@ public class Config {
         try {
             config.load();
             Mariculture.modules.setup(Core.class, true);
-            Mariculture.modules.setup(Compat.class, true);
+            Mariculture.modules.setup(Compat.class, false);
             Mariculture.modules.setup(Plugins.class, true);
             Mariculture.modules.setup(Diving.class, config.get(Category.MODULES, "Diving", true).getBoolean(true));
             Mariculture.modules.setup(Factory.class, config.get(Category.MODULES, "Factory", true).getBoolean(true));

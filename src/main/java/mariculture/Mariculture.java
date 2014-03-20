@@ -59,19 +59,4 @@ public class Mariculture {
 		
 		proxy.setupClient();
 	}
-	
-	//TODO:
-	/** Finish off Oyster Rendering
-	 *  Fix the rendering for the custom blocks
-	 *  forge fluid dictionary and dsu for fluids, hopper tank
-	 *  1.7 Elemental Affinity Enchantments
-	 *  Move all 1.7 to the same handler as the oyster
-	 *  Switch the rendered 'double' and 'single' blocks over to the rendered machine block types
-	 *  Fix tank drops of blocktank meta
-	 *  Fix Lava tank exploit with TiC
-	 *  Fix books using excessive ram when opened...
-	 *  1.7 Coral and Kelp growables
-	 *  Add Tinkers and carpenters torch to gas explode list
-	 *  Add 'exception' for the wood bucket to be returned
-	 */
 }

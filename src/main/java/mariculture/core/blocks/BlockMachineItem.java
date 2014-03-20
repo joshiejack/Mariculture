@@ -19,7 +19,6 @@ public class BlockMachineItem extends ItemBlockMariculture {
 			case MachineMeta.SPONGE: 			return "sponge";
 			case MachineMeta.AUTOFISHER: 		return "autofisher";
 			case MachineMeta.FISH_SORTER: 		return "fishSorter";
-			case MachineMeta.HFCU:	return "hpv";
 			default:							return null;
 		}
 	}

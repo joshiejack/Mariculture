@@ -43,6 +43,16 @@ public abstract class BlockFunctional extends BlockDecorative {
 	}
 	
 	@Override
+	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile != null && tile instanceof IFaceable) {
+			((IFaceable)tile).rotate();
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile == null || player.isSneaking()) {

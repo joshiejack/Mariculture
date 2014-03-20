@@ -47,6 +47,7 @@ import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.RegistryHelper;
+import mariculture.core.helpers.cofh.FluidHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
 import mariculture.core.items.ItemFluidContainer;
@@ -179,11 +180,8 @@ public class Core extends RegistrationModule {
 		pearlBrick = new BlockPearlBlock("pearlBrick_").setStepSound(Block.soundTypeStone).setResistance(2F).setBlockName("pearl.brick");
 		machines = new BlockMachine().setStepSound(Block.soundTypeWood).setResistance(10F).setBlockName("machines.single");
 		multiMachines = new BlockMachineMulti().setStepSound(Block.soundTypeStone).setResistance(20F).setBlockName("machines.multi");
-		
-		//TODO: Move Rendered machines over to the block basing
 		renderedMachines = new BlockSingle().setStepSound(Block.soundTypeMetal).setResistance(1F).setHardness(1F).setBlockName("machines.single.rendered");
 		renderedMultiMachines = new BlockDouble().setStepSound(Block.soundTypeMetal).setResistance(3F).setHardness(3F).setBlockName("machines.multi.rendered");
-		
 		glass = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(5F).setBlockName("glass");
 		air = new BlockAir().setBlockUnbreakable().setBlockName("air");
 		woods = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woods").setHardness(2.0F);
@@ -204,19 +202,19 @@ public class Core extends RegistrationModule {
 	public void registerItems() {
 		materials = new ItemMaterial().setUnlocalizedName("materials");
 		craftingItem = new ItemCrafting().setUnlocalizedName("crafting");
-		batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("battery.copper");
-		batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("battery.titanium");
+		pearls = new ItemPearl().setUnlocalizedName("pearls");
 		food = new ItemFood().setUnlocalizedName("food");
 		upgrade = new ItemUpgrade().setUnlocalizedName("upgrade");
-		pearls = new ItemPearl().setUnlocalizedName("pearls");
 		liquidContainers = new ItemFluidContainer().setUnlocalizedName("fluids");
 		hammer = new ItemHammer(brick).setUnlocalizedName("hammer");
-		worked = new ItemWorked().setUnlocalizedName("worked");
 		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
 		bucket = new ItemFluidStorage(8000).setUnlocalizedName("bucket.titanium");
+		batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("battery.copper");
+		batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("battery.titanium");
+		worked = new ItemWorked().setUnlocalizedName("worked");
 		RegistryHelper.registerItems(new Item[] { 
-				materials, craftingItem, batteryTitanium, food, upgrade, pearls, liquidContainers, 
-				hammer, worked, batteryCopper, ladle, bucket });
+				materials, craftingItem, pearls, food, upgrade, liquidContainers, hammer, 
+				ladle, bucket, batteryCopper, batteryTitanium, worked });
 	}
 	
 	@Override
@@ -399,6 +397,7 @@ public class Core extends RegistrationModule {
 	
 	@Override
 	public void postInit() {
+		mariculture.core.helpers.FluidHelper.setup();
 		RecipesSmelting.postAdd();
 	}
 }

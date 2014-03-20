@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 public class TileMultiStorage extends TileMultiBlock implements IInventory {
-	protected ItemStack[] inventory;
+	public ItemStack[] inventory;
 	
 	@Override
 	public int getSizeInventory() {

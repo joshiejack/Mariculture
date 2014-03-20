@@ -43,7 +43,7 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 	
 	public TileMultiMachineTank() {
 		inventory = new ItemStack[5];
-		tank = new Tank(getTankCapacity(0));
+		tank = new Tank(getTankCapacity(storage));
 		mode = RedstoneMode.LOW;
 		setting = EjectSetting.NONE;
 	}

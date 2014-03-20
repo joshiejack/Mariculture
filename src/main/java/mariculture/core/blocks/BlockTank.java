@@ -6,6 +6,7 @@ import java.util.Random;
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
+import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
@@ -31,6 +32,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -81,10 +84,24 @@ public class BlockTank extends BlockConnected {
 		}
 		
 		if(tile instanceof TileFishTank) {
-			if(player.isSneaking())
-				return false;
-			player.openGui(Mariculture.instance, -1, world, x, y, z);
-			return true;
+			if(player.isSneaking()) return false;
+			else {
+				player.openGui(Mariculture.instance, -1, world, x, y, z);
+				return true;
+			}
+		}
+		
+		if(tile instanceof TileDictionaryFluid) {
+			if(player.isSneaking()) return false;
+			else {
+				TileDictionaryFluid dic = (TileDictionaryFluid) tile;
+				String next = FluidDicHandler.getNext(dic.getFluid());
+				Fluid fluid = FluidRegistry.getFluid(next);
+				if(fluid != null) {
+					dic.tank.setFluid(new FluidStack(fluid, 1));
+					Packets.syncFluids(dic, dic.tank.getFluid());
+				}
+			}
 		}
 			
 		return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);

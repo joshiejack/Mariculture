@@ -113,22 +113,11 @@ public class BlockSingle extends BlockFunctional {
 
 	@Override
 	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
+		super.rotateBlock(world, x, y, z, axis);
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (tile instanceof TileTurbineBase) {
 				return ((TileTurbineBase) tile).switchOrientation();
-			}
-			
-			if(tile instanceof TileGeyser) {
-				TileGeyser geyser = (TileGeyser)tile;
-				geyser.orientation = BlockHelper.rotate(geyser.orientation);
-				Packets.updateAround(geyser, new PacketOrientationSync(geyser.xCoord, geyser.yCoord, geyser.zCoord, geyser.orientation));
-			}
-			
-			if(tile instanceof TileAirPump) {
-				TileAirPump pump = (TileAirPump)tile;
-				pump.orientation = BlockHelper.rotate(pump.orientation, 4);
-				Packets.updateAround(pump, new PacketOrientationSync(pump.xCoord, pump.yCoord, pump.zCoord, pump.orientation));
 			}
 		}
 		return false;

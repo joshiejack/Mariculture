@@ -1,5 +1,6 @@
 package mariculture.core.helpers;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mariculture.core.Core;
@@ -86,19 +87,21 @@ public class FluidHelper {
 		return null;
 	}
 	
-	public static ItemStack getEmptyContainerForFilledItem(ItemStack filledContainer) {
-		if(filledContainer == null)
-			return null;
+	public static HashMap<String, ItemStack> empties = new HashMap();
+	public static void setup() {
 		FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
-
-		for (int i = 0; i < data.length; i++) {
-			if (data[i].filledContainer.getItem() == filledContainer.getItem()
-					&& data[i].filledContainer.getItemDamage() == filledContainer.getItemDamage()) {
-				return data[i].emptyContainer;
+		for(FluidContainerData container: data) {
+			ItemStack filled = container.filledContainer;
+			ItemStack empty = container.emptyContainer;
+			if(filled != null && empty != null) {
+				empties.put(Item.itemRegistry.getNameForObject(filled.getItem()) + ":" + filled.getItemDamage(), empty);
 			}
 		}
-
-		return null;
+	}
+	
+	public static ItemStack getEmptyContainerForFilledItem(ItemStack stack) {
+		if(stack == null) return null;
+		return empties.get(Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage());
 	}
 	
 	private static ItemStack doEmpty(IFluidHandler tile, ItemStack top, ItemStack bottom) {
@@ -169,7 +172,7 @@ public class FluidHelper {
 	}
 	
 	public static void process(IInventory invent, int in, int out) {
-		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
+		ItemStack result = getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
 		if (result != null) {
 			invent.decrStackSize(in, 1);
 			if(result.getItem() != Item.getItemFromBlock(Core.air)) {

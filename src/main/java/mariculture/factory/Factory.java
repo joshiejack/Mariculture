@@ -4,6 +4,7 @@ package mariculture.factory;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
+import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
@@ -38,7 +39,6 @@ import mariculture.factory.blocks.TileDictionaryItem;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileGeyser;
-import mariculture.factory.blocks.TileHFCU;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
@@ -110,8 +110,7 @@ public class Factory extends RegistrationModule {
 		RegistryHelper.registerTiles(new Class[] { 
 				TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, 
 				TileFLUDDStand.class, TilePressureVessel.class, TileDictionaryItem.class, TileTurbineGas.class, 
-				TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class,
-				TileHFCU.class});
+				TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class });
 	}
 
 	@Override
@@ -123,12 +122,16 @@ public class Factory extends RegistrationModule {
 		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
 		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
 		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
-		RegistryHelper.registerItems(new Item[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
+		RegistryHelper.registerItems(new Item[] { plans, paintbrush, fludd, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 	
 	@Override
 	public void registerOther() {
 		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
+		FluidDicHandler.register("water", "water", 2000);
+		FluidDicHandler.register("xp", "xpjuice", 20);
+		FluidDicHandler.register("xp", "immibis.liquidxp", 100);
+		FluidDicHandler.register("xp", "mobessence", 66);
 	}
 
 	@Override

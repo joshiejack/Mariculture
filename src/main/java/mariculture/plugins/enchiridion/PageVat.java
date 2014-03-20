@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
+import org.w3c.dom.Element;
 
 import enchiridion.api.DisplayRegistry;
 import enchiridion.api.Formatting;
@@ -16,39 +17,44 @@ public class PageVat extends PageParser {
 	int numInput, vol1, vol2, vol3, numOutput, time;
 	
 	@Override
-	public void read(XMLHelper xml) {
-		input = xml.getOptionalElement("input");
-		fluid1 = xml.getOptionalElement("fluid1");
-		fluid2 = xml.getOptionalElement("fluid2");
-		fluid3 = xml.getOptionalElement("fluid3");
-		output = xml.getOptionalElement("output");
+	public void read(Element xml) {
+		input = XMLHelper.getElement(xml, "input");
+		fluid1 = XMLHelper.getElement(xml, "fluid1");
+		fluid2 = XMLHelper.getElement(xml, "fluid2");
+		fluid3 = XMLHelper.getElement(xml, "fluid3");
+		output = XMLHelper.getElement(xml, "output");
 
 		if(!input.equals("")) {
-			colorIn = Formatting.getColor(xml.getHelper("input").getOptionalAttribute("color"));
-			numInput = xml.getHelper("input").getAttribAsInteger("num", 1);
+			Element e = XMLHelper.getNode(xml, "input");
+			colorIn = Formatting.getColor(XMLHelper.getAttribute(e, "color"));
+			numInput = XMLHelper.getAttribAsInteger(e, "num", 1);
 		} 
 		
 		if(!output.equals("")) {
-			colorOut = Formatting.getColor(xml.getHelper("output").getOptionalAttribute("color"));
-			numOutput = xml.getHelper("output").getAttribAsInteger("num", 1);
+			Element e = XMLHelper.getNode(xml, "output");
+			colorOut = Formatting.getColor(XMLHelper.getAttribute(e, "color"));
+			numOutput = XMLHelper.getAttribAsInteger(e, "num", 1);
 		}
 		
 		if(!fluid1.equals("")) {
-			vol1 = xml.getHelper("fluid1").getAttribAsInteger("vol", 1000);
-			fluid1Type = xml.getHelper("fluid1").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid1").getOptionalAttribute("type");
+			Element e = XMLHelper.getNode(xml, "fluid1");
+			vol1 = XMLHelper.getAttribAsInteger(e, "vol", 1000);
+			fluid1Type = XMLHelper.getAttribute(e, "type").equals("")? "mB": " " + XMLHelper.getAttribute(e, "type");
 		}
 		
 		if(!fluid2.equals("")) {
-			vol2 = xml.getHelper("fluid2").getAttribAsInteger("vol", 1000);
-			fluid2Type = xml.getHelper("fluid2").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid2").getOptionalAttribute("type");
+			Element e = XMLHelper.getNode(xml, "fluid2");
+			vol2 = XMLHelper.getAttribAsInteger(e, "vol", 1000);
+			fluid2Type = XMLHelper.getAttribute(e, "type").equals("")? "mB": " " + XMLHelper.getAttribute(e, "type");
 		}
 		
 		if(!fluid3.equals("")) {
-			vol3 = xml.getHelper("fluid3").getAttribAsInteger("vol", 1000);
-			fluid3Type = xml.getHelper("fluid3").getOptionalAttribute("type").equals("")? "mB": " " + xml.getHelper("fluid3").getOptionalAttribute("type");
+			Element e = XMLHelper.getNode(xml, "fluid3");
+			vol3 = XMLHelper.getAttribAsInteger(e, "vol", 1000);
+			fluid3Type = XMLHelper.getAttribute(e, "type").equals("")? "mB": " " + XMLHelper.getAttribute(e, "type");
 		}
 		
-		time = xml.getElementAsInteger("time", 10);
+		time = XMLHelper.getAttribAsInteger(xml, "time", 10);
 	}
 
 	@Override

@@ -42,6 +42,11 @@ public class ItemPearl extends ItemMariculture {
 			default: 				return "pearl";
 		}
 	}
+	
+	@Override
+	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
 
 	public Enchantment getBiasedEnchantment(Random rand, int level, int dmg) {
 		switch (dmg) {

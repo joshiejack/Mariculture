@@ -1,14 +1,19 @@
 package mariculture.factory.blocks;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.blocks.base.TileMultiMachineTank;
+import mariculture.core.blocks.base.TileMultiStorage;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Tank;
 import mariculture.factory.items.ItemArmorFLUDD;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -30,6 +35,16 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	public static final int in = 3;
 	public static final int out = 4;
 	public static final int fludd = 5;
+	
+	@Override
+	public void updateMasterMachine() {
+		return;
+	}
+
+	@Override
+	public void updateSlaveMachine() {
+		return;
+	}
 	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
@@ -54,20 +69,40 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	}
 	
 	@Override
-	public void updateMasterMachine() {
-		if(onTick(30) && tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mode) && EjectSetting.canEject(setting, EjectSetting.FLUID))
-			helper.ejectFluid(new int[] { speed * 100, 100, 50, 25, 10, 5, 1 });
-		if(onTick(20))
-			fillFLUDD();
+	public boolean canUpdate() {
+		return false;
 	}
 	
 	@Override
-	public void updateSlaveMachine() {
-		if(onTick(30)) {
-			TilePressureVessel mstr = (TilePressureVessel) getMaster();
-			if(mstr != null && tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID))
-				helper.ejectFluid(new int[] { ((TilePressureVessel)getMaster()).speed * 100, 100, 50, 25, 10, 5, 1 });
-		}
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		TilePressureVessel mstr = getMaster() != null? ((TilePressureVessel)getMaster()): null;
+		if(mstr == null) return;
+		mstr.inventory[slot] = stack;
+
+        if (stack != null && stack.stackSize > mstr.getInventoryStackLimit()) {
+        	stack.stackSize = mstr.getInventoryStackLimit();
+        }
+        
+        fillFLUDD();
+        FluidHelper.process(this, 3, 4);
+		updateUpgrades();
+
+        mstr.markDirty();
+	}
+	
+	@Override
+	public Packet getDescriptionPacket()  {
+		fillFLUDD();
+        FluidHelper.process(this, 3, 4);
+		updateUpgrades();
+        return super.getDescriptionPacket();
+    }
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		
+		
 	}
 	
 	private void fillFLUDD() {
@@ -79,21 +114,10 @@ public class TilePressureVessel extends TileMultiMachineTank {
 					water = stack.stackTagCompound.getInteger("water");
 				}
 				
-				if(water + (speed * 100) < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= (speed * 100)) {
-					stack.stackTagCompound.setInteger("water", water + (speed * 100));
-					drain(ForgeDirection.UNKNOWN, (speed * 100), true);
-				} else if(water + 100 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 100) {
-					stack.stackTagCompound.setInteger("water", water + 100);
-					drain(ForgeDirection.UNKNOWN, 100, true);
-				} else if(water + 50 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 50) {
-					stack.stackTagCompound.setInteger("water", water + 50);
-					drain(ForgeDirection.UNKNOWN, 50, true);
-				} else if(water + 10 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 100) {
-					stack.stackTagCompound.setInteger("water", water + 10);
-					drain(ForgeDirection.UNKNOWN, 10, true);
-				} else if(water + 1 < ItemArmorFLUDD.STORAGE && tank.getFluidAmount() >= 1) {
-					stack.stackTagCompound.setInteger("water", water + 1);
-					drain(ForgeDirection.UNKNOWN, 1, true);
+				int drain = ItemArmorFLUDD.STORAGE - water;
+				if(drain > 0 && tank.getFluidAmount() == drain) {
+					tank.drain(drain, true);
+					stack.stackTagCompound.setInteger("water", ItemArmorFLUDD.STORAGE);
 				}
 				
 				inventory[fludd] = stack;

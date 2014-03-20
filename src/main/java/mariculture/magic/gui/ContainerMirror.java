@@ -53,7 +53,7 @@ public class ContainerMirror extends ContainerStorage {
 									ItemPearl pearl = (ItemPearl) itemToEnchant.getItem();
 									Enchantment enchant = pearl.getBiasedEnchantment(Rand.rand, levelToEnchant, itemToEnchant.getItemDamage());
 									if(enchant != null) {
-										itemToEnchant.addEnchantment(enchant, enchant.getMaxLevel()); break;
+										itemToEnchant.addEnchantment(enchant, Rand.rand.nextInt(enchant.getMaxLevel()) + 1); break;
 									} else itemToEnchant.addEnchantment(enchantData.enchantmentobj, enchantData.enchantmentLevel);
 								} else itemToEnchant.addEnchantment(enchantData.enchantmentobj, enchantData.enchantmentLevel);
 							}

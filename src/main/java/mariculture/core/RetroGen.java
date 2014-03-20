@@ -23,7 +23,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class RetroGen {
 	public static ArrayList<String> retro;
 	
-	//TODO: Add Methods for Retro-Gen of limestone and rutile
 	public boolean doGen(RetroData data, String ore, Chunk chunk) {
 		try {
 			Field field = mariculture.core.lib.RetroGeneration.class.getField(ore.toUpperCase());

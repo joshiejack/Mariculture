@@ -26,7 +26,7 @@ public class Comment {
 	public static final String DEATH_TICK = "This is the number of ticks, before 'damaging' a fish that can't stay alive in the current feeder, set to 0 to disable";
 	public static final String DRAGON_EGG_BASE = "This is a 1 in this many chance for the chance to get a Spawn Ender Dragon from a Dragon Egg";
 	public static final String DRAGON_EGG_ETHEREAL = "Same as the normal chance but this is the chance when you have an ethereal upgrade in the incubator";
-	public static final String BIOMESOP_CORAL = "If enabled this will force Coral to only generate in Coral Reef Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
+	public static final String BIOMESOP_CORAL = "If enabled this will force this to only generate in the corresponding BOP Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
 	public static final String BIOMESOP_KELP = "If enabled this will force Kelp Forests to only generate in Kelp Forest Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
 	public static final String RETRO_KEY = "This key is what stops, retro gen from generating in chunks over and over, if you want to retro gen again, change the key to any other integer";
 	public static final String RETRO = "Retro-Generation allows you to generate ores/other features in your existing worlds, without you having to go off and explore new areas. If you set all to true, it will override the individual settings for retro-gen";

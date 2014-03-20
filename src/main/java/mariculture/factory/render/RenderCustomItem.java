@@ -27,7 +27,6 @@ public class RenderCustomItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		//TODO: REDO Custom Block Item Rendering
 		/*
 		if(item.hasTagCompound()) {
 			if(item.stackTagCompound.getIntArray("BlockIDs").length != 6) {

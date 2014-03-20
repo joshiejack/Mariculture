@@ -2,9 +2,11 @@ package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import mariculture.Mariculture;
 import mariculture.magic.MirrorData;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 
@@ -35,6 +37,7 @@ public class PacketJewelrySwap extends AbstractPacket {
 			mirror[type] = stack;
 			player.setCurrentItemOrArmor(0, inMirror);
 			MirrorData.save(player, mirror);
+			Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 		}
 	}
 

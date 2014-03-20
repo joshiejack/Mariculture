@@ -2,26 +2,29 @@ package mariculture.core.blocks;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
-import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
+import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.PacketSponge;
+import mariculture.core.network.Packets;
 import mariculture.factory.blocks.TileDictionaryItem;
 import mariculture.factory.blocks.TileFishSorter;
-import mariculture.factory.blocks.TileHFCU;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
 import mariculture.factory.blocks.TileSponge;
 import mariculture.fishery.blocks.TileAutofisher;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -47,7 +50,6 @@ public class BlockMachine extends BlockFunctional {
 		switch (meta) {
 			case MachineMeta.SLUICE: return "pickaxe";
 			case MachineMeta.SPONGE: return "pickaxe";
-			case MachineMeta.HFCU: 	 return "pickaxe";
 			default:				 return "axe";
 		}
 	}
@@ -57,7 +59,6 @@ public class BlockMachine extends BlockFunctional {
 		switch (meta) {
 			case MachineMeta.SLUICE: return 1;
 			case MachineMeta.SPONGE: return 1;
-			case MachineMeta.HFCU:	 return 3;
 			default:				 return 0;
 		}
 	}
@@ -72,7 +73,6 @@ public class BlockMachine extends BlockFunctional {
 			case MachineMeta.SPONGE: 			return 2.5F;
 			case MachineMeta.AUTOFISHER: 		return 2F;
 			case MachineMeta.FISH_SORTER: 		return 1.5F;
-			case MachineMeta.HFCU:				return 40F;
 			default:							return 1F;
 		}
 	}
@@ -85,11 +85,10 @@ public class BlockMachine extends BlockFunctional {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if (meta == MachineMeta.FISH_SORTER) return fishSorter[side];
+		if(meta == MachineMeta.SLUICE) return side == 3? icons[MachineMeta.SLUICE]: Core.metals.getIcon(side, MetalMeta.BASE_IRON);
 		if(side < 2) {
 			if(meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
-			if(meta == MachineMeta.SLUICE) 	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
 			if(meta == MachineMeta.SPONGE)	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
-			if(meta == MachineMeta.HFCU)	return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
 			return Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
 		}
 
@@ -102,21 +101,30 @@ public class BlockMachine extends BlockFunctional {
 		if(tile instanceof TileBookshelf) return Blocks.bookshelf.getIcon(side, 0);
 		else if(tile instanceof TileSluice) {
 			TileSluice sluice = (TileSluice) tile;
-			if(sluice.direction.ordinal() == side) return side > 1? icons[MachineMeta.SLUICE]: sluiceUp;
-			else if(sluice.direction.getOpposite().ordinal() == side) return side > 1? sluiceBack: sluiceDown;
+			if(sluice.orientation.ordinal() == side) return side > 1? icons[MachineMeta.SLUICE]: sluiceUp;
+			else if(sluice.orientation.getOpposite().ordinal() == side) return side > 1? sluiceBack: sluiceDown;
 			else return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
 		} else return super.getIcon(block, x, y, z, side);
 	}
 	
 	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
+		if (tile != null) {			
+			if(tile instanceof TileSluice) {
+				TileSluice sluice = (TileSluice) tile;
+				sluice.orientation = ForgeDirection.getOrientation(facing);
+				Packets.updateAround(sluice, new PacketOrientationSync(sluice.xCoord, sluice.yCoord, sluice.zCoord, sluice.orientation));
+			}
+		}
+	}
+	
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if (tile == null || player.isSneaking()) {
+		if (tile == null || player.isSneaking() || tile instanceof TileSluice) {
 			return false;
-		}
-		
-		if(tile instanceof TileHFCU) {
-			return FluidHelper.handleFillOrDrain((TileHFCU)tile, player, ForgeDirection.UP);
 		}
 		
 		if (tile instanceof TileSponge) {
@@ -166,7 +174,6 @@ public class BlockMachine extends BlockFunctional {
 			case MachineMeta.SPONGE: 			return new TileSponge();
 			case MachineMeta.AUTOFISHER: 		return new TileAutofisher();
 			case MachineMeta.FISH_SORTER: 		return new TileFishSorter();
-			case MachineMeta.HFCU:				return new TileHFCU();
 			default:							return null;
 		}
 	}
@@ -181,7 +188,6 @@ public class BlockMachine extends BlockFunctional {
 			case MachineMeta.SPONGE: 			return Modules.isActive(Modules.factory);
 			case MachineMeta.AUTOFISHER: 		return Modules.isActive(Modules.fishery);
 			case MachineMeta.FISH_SORTER: 		return Modules.isActive(Modules.fishery);
-			case MachineMeta.HFCU:				return Modules.isActive(Modules.factory);
 			default:							return true;
 		}
 	}

@@ -63,8 +63,6 @@ public class CompatFluids {
 					String name = xml.getElement("name");
 					String block = xml.getOptionalElement("blockTextureName").equals("")? Item.itemRegistry.getNameForObject(Core.transparent): xml.getOptionalElement("blockTextureName"); 
 					int meta = (xml.getElementAsInteger("blockTextureMeta", -1) == -1)? TransparentMeta.PLASTIC: xml.getElementAsInteger("blockTextureMeta", -1);
-					
-					//TODO: FLUID REGISTRATION FROM CONFIG FluidRegistry.registerFluid(new FluidCustom(ident, name, id, meta).setUnlocalizedName(name));
 				}
 			}
 		} catch (Exception e) {
@@ -91,7 +89,6 @@ public class CompatFluids {
 					String type = xml.getAttribute("type");
 					String fluid = xml.getElement("fluid");
 					int temperature = xml.getElementAsInteger("temp", 100);
-					//TODO: Fluid Recipes
 					/*
 					if(type.equals("metal")) {
 						String name = xml.getElement("metal");

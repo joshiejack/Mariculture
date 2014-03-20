@@ -1,40 +1,32 @@
 package mariculture.core.handlers;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidDicHandler {
-
-	
-	//Key = The FluidName, Value = The Dictionary Name
-	public static final HashMap<String, Integer> ratios = new HashMap();
-	//Key = The FluidName, Value = The Dictionary name
-	public static final HashMap<String, String> dicNames = new HashMap();
-	
-	public static void init() {
-		register("xp", "xpjuice", 20);
-		register("xp", "immibis.liquidxp", 100);
-		register("xp", "mobessence", 66);
-		register("water", "lava", 100);
-		register("water", "water", 100);
-	}
+	public static final HashMap<String, FluidDicEntry> entries = new HashMap();
 	
 	public static void register(String dictionaryName, String fluid, int ratio) {
-		dicNames.put(fluid, dictionaryName);
-		ratios.put(fluid, ratio);
+		entries.put(fluid, new FluidDicEntry(dictionaryName, ratio));
 	}
 	
-	public static boolean areSameDicNames(FluidStack stack, String fluid) {
-		if(stack != null && stack.getFluid() != null) {
-			String stackName = dicNames.get(stack.getFluid().getName());
-			System.out.println(dicNames.size());
-			return stackName != null? stackName.equals(dicNames.get(fluid)): false;
+	public static boolean areSameDicNames(FluidStack stack, FluidStack fluid) {
+		if(stack != null && stack.getFluid() != null && fluid != null && fluid.getFluid() != null) {
+			String stackName = entries.get(stack.getFluid().getName()) != null? entries.get(stack.getFluid().getName()).name: null;
+			String fluidName = entries.get(fluid.getFluid().getName()) != null? entries.get(fluid.getFluid().getName()).name: "";
+			return stackName != null? stackName.equals(fluidName): false;
 		} else return false;
 	}
 	
 	public static Integer getValue(String fluid) {
-		return ratios.get(fluid);
+		return entries.get(fluid) != null? entries.get(fluid).ratio: 0;
 	}
 	
 	public static class FluidDicEntry {
@@ -46,54 +38,33 @@ public class FluidDicHandler {
 			this.ratio = ratio;
 		}
 	}
-	
 
-	/*public static HashMap<String, String> references = new HashMap();
-	public static HashMap<String, ArrayList<FluidDicEntry>> entries = new HashMap();
-	public static void init() {
-		//These are fluid amounts of 100
-		register("xp", "xpjuice", 20);
-		register("xp", "immibis.liquidxp", 100);
-		register("xp", "mobessence", 66);
-		register("water", "lava", 100);
-		register("water", "water", 100);
-		//My Natural gas > Emashers
-		//Dart > Emasher Slick Water
-		//PR > TE > Liquid Redstone
-		//TE > TiC > Liquid Ender
-		//MFR > Forestry > Milk
-		//Poison BOP, Binnie
-	}
-	
-	public static void register(String dicName, String fluidName) {
-		register(dicName, fluidName, 1);
-	}
-	
-	public static void register(String dicName, String fluidName, int ratio) {
-		references.put(dicName, fluidName);
-		ArrayList<FluidDicEntry> list = entries.get(dicName);
-		if(list == null) list = new ArrayList();
-		list.add(new FluidDicEntry(fluidName, ratio));
-		entries.put(dicName, list);
-	}
-	
-	public static String getDicName(String fluid) {
-		return references.get(fluid) != null? references.get(fluid): "";
-	}
-	
-	public static String getDicName(FluidStack stack) {
-		if(stack != null && stack.getFluid() != null) {
-			return getDicName(stack.getFluid().getName());
-		} return "";
-	}
-	
-	//Ratio = Bucket to Bucket based... Hard to explain :p
-	public static class FluidDicEntry {
-		public String fluid;
-		public int ratio;
-		public FluidDicEntry(String fluid, int ratio) {
-			this.fluid = fluid;
-			this.ratio = ratio;
+	public static int getPosition(FluidStack fluid) {
+		if(fluid != null && fluid.getFluid() != null) {
+			int i = 0;
+			for (Entry<String, FluidDicEntry> entr : FluidDicHandler.entries.entrySet()) {
+				if(entr.getKey().equals(fluid.getFluid().getName())) {
+					return i;
+				}
+				
+				i++;
+			}
 		}
-	} */
+		
+		return 0;
+	}
+
+	public static String getNext(FluidStack fluid) {
+		if(fluid != null && fluid.getFluid() != null) {
+			boolean found = false;
+			for (Entry<String, FluidDicEntry> entr : FluidDicHandler.entries.entrySet()) {
+				if(found && FluidRegistry.getFluid(entr.getKey()) != null) return entr.getKey();
+				if(entr.getKey().equals(fluid.getFluid().getName())) {
+					found = true;
+				}
+			}
+		} 
+		
+		return "water";
+	}
 }

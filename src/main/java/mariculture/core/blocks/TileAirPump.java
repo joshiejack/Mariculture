@@ -5,6 +5,7 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorageTank;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.AirMeta;
@@ -12,6 +13,7 @@ import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketAirPump;
+import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IFaceable;
@@ -197,6 +199,12 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 	
 	public boolean onTick(int i) {
 		return tick % i == 0;
+	}
+	
+	@Override
+	public void rotate() {
+		orientation = BlockHelper.rotate(orientation, 4);
+		Packets.updateAround(this, new PacketOrientationSync(xCoord, yCoord, zCoord, orientation));
 	}
 	
 	@Override
