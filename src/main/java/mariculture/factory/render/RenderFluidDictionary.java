@@ -1,7 +1,6 @@
 package mariculture.factory.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.TileTankBlock;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.render.RenderBase;

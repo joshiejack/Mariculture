@@ -28,7 +28,9 @@ public class PacketTurbine extends PacketCoords {
 
 	@Override
 	public void handle(Side side, EntityPlayer player) {
-		((TileTurbineBase)player.worldObj.getTileEntity(x, y, z)).isAnimating = isAnimating;
+		if(player.worldObj.getTileEntity(x, y, z) instanceof TileTurbineBase) {
+			((TileTurbineBase)player.worldObj.getTileEntity(x, y, z)).isAnimating = isAnimating;
+		}
 	}
 
 }

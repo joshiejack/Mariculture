@@ -1,8 +1,6 @@
 package mariculture.factory.gui;
 
 import mariculture.core.gui.GuiMariculture;
-import mariculture.core.gui.feature.FeatureEject;
-import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;

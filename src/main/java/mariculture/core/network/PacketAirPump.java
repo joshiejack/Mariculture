@@ -12,6 +12,8 @@ public class PacketAirPump extends PacketCoords {
 	
 	@Override
 	public void handle(Side side, EntityPlayer player) {
-		((TileAirPump) player.worldObj.getTileEntity(x, y, z)).animate = true;
+		if(player.worldObj.getTileEntity(x, y, z) instanceof TileAirPump) {
+			((TileAirPump) player.worldObj.getTileEntity(x, y, z)).animate = true;
+		}
 	}
 }

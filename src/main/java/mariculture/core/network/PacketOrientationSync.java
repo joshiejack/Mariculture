@@ -30,7 +30,9 @@ public class PacketOrientationSync extends PacketCoords {
 
 	@Override
 	public void handle(Side side, EntityPlayer player) {
-		((IFaceable)player.worldObj.getTileEntity(x, y, z)).setFacing(dir);
-		ClientHelper.updateRender(x, y, z);
+		if(player.worldObj.getTileEntity(x, y, z) instanceof IFaceable) {
+			((IFaceable)player.worldObj.getTileEntity(x, y, z)).setFacing(dir);
+			ClientHelper.updateRender(x, y, z);
+		}
 	}
 }

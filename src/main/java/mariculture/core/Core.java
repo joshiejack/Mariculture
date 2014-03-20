@@ -47,7 +47,6 @@ import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.helpers.cofh.FluidHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemCrafting;
 import mariculture.core.items.ItemFluidContainer;

@@ -39,6 +39,21 @@ public static ArrayList<Object[]> handlers = new ArrayList();
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
 		cameFrom = from;
+		if(this.storage.getEnergyStored() > 0) {
+			IEnergyHandler handler = null;
+			Object[] res = PowerHelper.getNextEnergyHandler(cameFrom, worldObj, xCoord, yCoord, zCoord);
+			if(res[0] != null) {
+				handler = (IEnergyHandler) res[0];
+				cameFrom = (ForgeDirection) res[1];
+			}
+					
+			if(handler != null) {
+				if(handler.canInterface(cameFrom)) {
+		            this.storage.modifyEnergyStored(-(handler).receiveEnergy(cameFrom.getOpposite(), Math.min(this.storage.getMaxEnergyStored(), this.storage.getEnergyStored()), false));
+		       }
+			}
+		}
+		
 		return this.storage.receiveEnergy(maxReceive, simulate);
 	}
 
@@ -60,32 +75,5 @@ public static ArrayList<Object[]> handlers = new ArrayList();
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		return this.storage.getMaxEnergyStored();
-	}
-	
-	@Override
-	public boolean canUpdate() {
-		return true;
-    }
-
-	@Override
-	public void updateEntity() {
-		if(this.storage.getEnergyStored() > 0) {
-			tick++;
-			if(tick %5 == 0) {
-				IEnergyHandler handler = null;
-				Object[] res = PowerHelper.getNextEnergyHandler(cameFrom, worldObj, xCoord, yCoord, zCoord);
-				if(res[0] != null) {
-					handler = (IEnergyHandler) res[0];
-					cameFrom = (ForgeDirection) res[1];
-				}
-						
-				if(handler != null) {
-					if(handler.canInterface(cameFrom)) {
-			            this.storage.modifyEnergyStored(-(handler).receiveEnergy(cameFrom.getOpposite(), Math.min(this.storage.getMaxEnergyStored(), this.storage.getEnergyStored()), false));
-			            return;
-			       }
-				}
-			}
-		}
 	}
 }
