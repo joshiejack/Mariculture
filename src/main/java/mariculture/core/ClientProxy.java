@@ -1,45 +1,60 @@
 package mariculture.core;
 
 import mariculture.Mariculture;
-import mariculture.core.blocks.TileAirPump;
-import mariculture.core.blocks.TileAnvil;
-import mariculture.core.blocks.TileVat;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.TankMeta;
+import mariculture.core.lib.WaterMeta;
 import mariculture.core.render.AnvilSpecialRenderer;
-import mariculture.core.render.RenderDouble;
+import mariculture.core.render.RenderAnvil;
+import mariculture.core.render.RenderCaster;
+import mariculture.core.render.RenderCopperTank;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderHandler;
-import mariculture.core.render.RenderSingle;
+import mariculture.core.render.RenderOyster;
 import mariculture.core.render.RenderSingleItem;
-import mariculture.core.render.RenderTanks;
+import mariculture.core.render.RenderSpecialHandler;
+import mariculture.core.render.RenderVat;
+import mariculture.core.render.RenderVoidBottle;
 import mariculture.core.render.VatSpecialRenderer;
+import mariculture.core.tile.TileAirPump;
+import mariculture.core.tile.TileAnvil;
+import mariculture.core.tile.TileVat;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.diving.render.ModelAirPump;
+import mariculture.diving.render.RenderCompressorBase;
+import mariculture.diving.render.RenderCompressorTop;
 import mariculture.factory.EntityFLUDDSquirt;
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.TileFLUDDStand;
-import mariculture.factory.blocks.TileTurbineGas;
-import mariculture.factory.blocks.TileTurbineHand;
-import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.ModelTurbineGas;
 import mariculture.factory.render.ModelTurbineHand;
 import mariculture.factory.render.ModelTurbineWater;
 import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
+import mariculture.factory.render.RenderFluidDictionary;
+import mariculture.factory.render.RenderGeyser;
+import mariculture.factory.render.RenderPressureVessel;
+import mariculture.factory.tile.TileFLUDDStand;
+import mariculture.factory.tile.TileTurbineGas;
+import mariculture.factory.tile.TileTurbineHand;
+import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityHook;
 import mariculture.fishery.EntityItemFireImmune;
 import mariculture.fishery.Fishery;
-import mariculture.fishery.blocks.TileFeeder;
-import mariculture.fishery.blocks.TileFishTank;
-import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
+import mariculture.fishery.render.RenderFishTank;
+import mariculture.fishery.render.RenderNet;
 import mariculture.fishery.render.RenderProjectileFish;
+import mariculture.fishery.tile.TileFeeder;
+import mariculture.fishery.tile.TileFishTank;
+import mariculture.fishery.tile.TileSift;
 import mariculture.plugins.enchiridion.PageVat;
 import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
@@ -81,25 +96,27 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerKeyBinding(key_activate);
 		ClientRegistry.registerKeyBinding(key_toggle);
 		
-		RenderIds.BLOCK_SINGLE = RenderingRegistry.getNextAvailableRenderId();
-		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
-		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.RENDER_ALL = RenderingRegistry.getNextAvailableRenderId();
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.renderedMachines), new RenderSingleItem());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
-		RenderingRegistry.registerBlockHandler(new RenderTanks());
-		RenderingRegistry.registerBlockHandler(new RenderDouble());
-		RenderingRegistry.registerBlockHandler(new RenderSingle());
 		RenderingRegistry.registerBlockHandler(new RenderHandler());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSpecialHandler(new ModelAirPump(), AIR_PUMP));
+		RenderHandler.register(Core.water, WaterMeta.OYSTER, RenderOyster.class);
+		RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.ANVIL, RenderAnvil.class);
+		RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.INGOT_CASTER, RenderCaster.class);
+		RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.VAT, RenderVat.class);
+		RenderHandler.register(Core.tanks, TankMeta.TANK, RenderCopperTank.class);
+		RenderHandler.register(Core.tanks, TankMeta.BOTTLE, RenderVoidBottle.class);
 		
-		if(Modules.isActive(Modules.fishery)) {
+		if(Modules.isActive(Modules.diving)) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
 			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
+			RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE, RenderCompressorBase.class);
+			RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_TOP, RenderCompressorTop.class);
 		}
 		
 		if(Modules.isActive(Modules.factory)) {
@@ -116,20 +133,24 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
 			MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
-			ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSingle(new ModelFLUDD(scale), FLUDD));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSingle(new ModelTurbineWater(scale), TURBINE));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSingle(new ModelTurbineGas(scale), TURBINE_GAS));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSingle(new ModelTurbineHand(scale), TURBINE_HAND));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSpecialHandler(new ModelTurbineHand(), TURBINE_HAND));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSpecialHandler(new ModelTurbineWater(), TURBINE));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSpecialHandler(new ModelTurbineGas(), TURBINE_GAS));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
+			RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
+			RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);
+			RenderHandler.register(Core.tanks, TankMeta.DIC, RenderFluidDictionary.class);
 		}
 		
 		if(Modules.isActive(Modules.fishery)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityItemFireImmune.class, new RenderItem());
 			RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
 			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Fishery.siftBlock), new RenderSingleItem());
-			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSingle(new ModelFeeder(scale), FEEDER));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSpecialHandler(new ModelFeeder(), FEEDER));
+			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSpecialHandler(new ModelSift(), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
+			RenderHandler.register(Core.water, WaterMeta.NET, RenderNet.class);
+			RenderHandler.register(Core.tanks, TankMeta.FISH, RenderFishTank.class);
 		}
 		
 		if(Modules.isActive(Modules.transport)) {

@@ -1,5 +1,6 @@
 package mariculture.core.blocks;
 
+import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.MachineMultiMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

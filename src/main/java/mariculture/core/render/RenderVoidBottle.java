@@ -8,9 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
 public class RenderVoidBottle extends RenderBase {
-	public RenderVoidBottle(RenderBlocks render) {
-		super(render);
-	}
+	public RenderVoidBottle() {}
 
 	@Override
 	public void renderBlock() {		

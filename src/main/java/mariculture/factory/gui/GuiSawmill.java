@@ -7,7 +7,7 @@ import mariculture.core.gui.feature.FeatureNotifications;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureUpgrades;
-import mariculture.factory.blocks.TileSawmill;
+import mariculture.factory.tile.TileSawmill;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiSawmill extends GuiMariculture {	

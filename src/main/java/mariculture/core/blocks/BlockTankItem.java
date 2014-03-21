@@ -3,6 +3,7 @@ package mariculture.core.blocks;
 import java.util.List;
 
 import mariculture.api.core.MaricultureRegistry;
+import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.util.Text;

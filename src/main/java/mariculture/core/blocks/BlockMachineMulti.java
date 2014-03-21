@@ -2,10 +2,12 @@ package mariculture.core.blocks;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
+import mariculture.core.blocks.base.BlockFunctionalMulti;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RockMeta;
-import mariculture.fishery.blocks.TileIncubator;
+import mariculture.core.tile.TileCrucible;
+import mariculture.fishery.tile.TileIncubator;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;

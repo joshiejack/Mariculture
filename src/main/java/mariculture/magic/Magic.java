@@ -232,7 +232,7 @@ public class Magic extends RegistrationModule {
 				if(material.getValue().ignore) continue;
 				JewelryBinding bind = binding.getValue();
 				JewelryMaterial mat = material.getValue();
-				ItemStack worked = JewelryHandler.createNewJewelry(item, bind, mat);
+				ItemStack worked = JewelryHandler.createJewelry(item, bind, mat);
 				JewelryHandler.addJewelry(type, worked, bind.getCraftingItem(type), mat.getCraftingItem(type), (int)(bind.getHitsBase(type) * mat.getHitsModifier(type)));
 			}
 		}

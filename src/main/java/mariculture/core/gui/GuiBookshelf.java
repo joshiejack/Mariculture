@@ -1,7 +1,7 @@
 package mariculture.core.gui;
 
-import mariculture.core.blocks.TileBookshelf;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.tile.TileBookshelf;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;

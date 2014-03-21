@@ -6,7 +6,7 @@ import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
-import mariculture.factory.blocks.TileTurbineBase;
+import mariculture.factory.tile.TileTurbineBase;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiTurbine extends GuiMariculture {

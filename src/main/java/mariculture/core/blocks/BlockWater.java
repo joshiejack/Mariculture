@@ -1,9 +1,11 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.helpers.DirectionHelper;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.render.RenderOyster;
+import mariculture.core.tile.TileOyster;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;

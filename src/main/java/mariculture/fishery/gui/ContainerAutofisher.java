@@ -4,7 +4,7 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
-import mariculture.fishery.blocks.TileAutofisher;
+import mariculture.fishery.tile.TileAutofisher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;

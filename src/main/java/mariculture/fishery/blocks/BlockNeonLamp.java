@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.core.blocks.BlockDecorative;
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.PearlColor;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;

@@ -1,8 +1,8 @@
 package mariculture.fishery.gui;
 
 import mariculture.core.gui.ContainerMachine;
-import mariculture.fishery.blocks.TileFishTank;
 import mariculture.fishery.items.ItemFishy;
+import mariculture.fishery.tile.TileFishTank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;

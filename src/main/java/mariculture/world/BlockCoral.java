@@ -7,7 +7,7 @@ import java.util.Random;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockDecorative;
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Extra;

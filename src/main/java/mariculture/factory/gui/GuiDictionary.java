@@ -2,7 +2,7 @@ package mariculture.factory.gui;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureEject;
-import mariculture.factory.blocks.TileDictionaryItem;
+import mariculture.factory.tile.TileDictionaryItem;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiDictionary extends GuiMariculture {

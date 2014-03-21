@@ -5,7 +5,7 @@ import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.TileCustom;
+import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

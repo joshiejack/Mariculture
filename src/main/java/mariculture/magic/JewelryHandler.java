@@ -86,80 +86,23 @@ public class JewelryHandler {
 		return (stack.getItem() instanceof ItemJewelry)?((ItemJewelry)stack.getItem()).getMaxLevel() : -1;
 	}
 	
-	public static enum SettingType {
-		LEVEL, USED_LEVEL, DURABILITY, XP;
-		
-		public String getName() {
-			return name().toLowerCase();
-		}
-	}
-	
 	//Creates a 'special' piece of jewelry
 	public static ItemStack createSpecial(ItemJewelry item, JewelryType accepted, String special) {
 		ItemStack stack = new ItemStack(item);
 		if(getType(stack) == accepted) {
 			stack.setTagCompound(new NBTTagCompound());
 			stack.stackTagCompound.setString("Specials", special);
-			stack.stackTagCompound.setInteger(SettingType.LEVEL.getName(), 0);
-			stack.stackTagCompound.setInteger(SettingType.USED_LEVEL.getName(), 0);
-			stack.stackTagCompound.setInteger(SettingType.DURABILITY.getName(), 0);
-			stack.stackTagCompound.setInteger(SettingType.XP.getName(), 0);
 			return stack;
 		} else return null;
 	}
 	
-	//Creates a 'new' piece of jewelry
-	public static ItemStack createNewJewelry(ItemJewelry item, JewelryBinding binding, JewelryMaterial material) {
-		return createJewelry(item,  binding, material, new Integer[] { 0, 0, 0, 0 });
-	}
-	
-	//Crates the 'best' version of this jewelry
-	public static ItemStack createBestJewelry(ItemJewelry item, JewelryBinding binding, JewelryMaterial material) {
-		return createJewelry(item, binding, material, new Integer[] { item.getMaxLevel(), 0, item.getMaxDurability(), 0 });
-	}
-	
 	//Creates a piece of jewelry with these specific settings
-	public static ItemStack createJewelry(ItemJewelry item, JewelryBinding binding, JewelryMaterial material, Integer[] settings) {
+	public static ItemStack createJewelry(ItemJewelry item, JewelryBinding binding, JewelryMaterial material) {
 		ItemStack stack = new ItemStack(item);
 		stack.setTagCompound(new NBTTagCompound());
 		stack.stackTagCompound.setString(JewelryBinding.nbt, binding.getIdentifier());
 		stack.stackTagCompound.setString(JewelryMaterial.nbt, material.getIdentifier());
-		stack.stackTagCompound.setInteger(SettingType.LEVEL.getName(), settings[0]);
-		stack.stackTagCompound.setInteger(SettingType.USED_LEVEL.getName(), settings[1]);
-		stack.stackTagCompound.setInteger(SettingType.DURABILITY.getName(), settings[2]);
-		stack.stackTagCompound.setInteger(SettingType.XP.getName(), settings[3]);
 		return stack;
-	}
-	
-	//Sets the jewelry level
-	private static ItemStack setSetting(ItemStack stack, int level, SettingType type) {
-		if(!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-		stack.stackTagCompound.setInteger(type.getName(), level);
-		return stack;
-	}
-	
-	//Adjusts the jewelry levels
-	public static void adjustSetting(ItemStack stack, int mod, SettingType type) {
-		int adjust = getSetting(stack, type) + mod;
-		int max = (type == SettingType.LEVEL)? getMaxLevel(stack): getMaxDurability(stack);
-		if(type != SettingType.USED_LEVEL) {
-			if(adjust >= max) adjust = max;
-		}
-		
-		//if xp, check if it's above the leveling threshold if so, then increase the level
-		if(type == SettingType.XP) {
-			if(adjust >= 100) {
-				adjustSetting(stack, +1, SettingType.LEVEL);
-				adjust -= 100;
-			}
-		}
-		
-		setSetting(stack, adjust, type);
-	}
-	
-	//Returns the level this jewelry is on
-	public static int getSetting(ItemStack stack, SettingType type) {
-		return stack.hasTagCompound()? stack.stackTagCompound.getInteger(type.getName()): 0;
 	}
 	
 	public static int getLevel(JewelryType type, JewelryMaterial mat, JewelryBinding bind, int start) {

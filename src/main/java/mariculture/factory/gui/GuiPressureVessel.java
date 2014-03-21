@@ -5,7 +5,7 @@ import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.factory.blocks.TilePressureVessel;
+import mariculture.factory.tile.TilePressureVessel;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiPressureVessel extends GuiMariculture {

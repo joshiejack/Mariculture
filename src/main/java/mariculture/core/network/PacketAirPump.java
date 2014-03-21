@@ -1,6 +1,6 @@
 package mariculture.core.network;
 
-import mariculture.core.blocks.TileAirPump;
+import mariculture.core.tile.TileAirPump;
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.relauncher.Side;
 

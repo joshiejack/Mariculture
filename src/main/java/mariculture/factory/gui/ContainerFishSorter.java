@@ -1,7 +1,7 @@
 package mariculture.factory.gui;
 
 import mariculture.core.gui.ContainerMachine;
-import mariculture.factory.blocks.TileFishSorter;
+import mariculture.factory.tile.TileFishSorter;
 import mariculture.fishery.gui.SlotSorter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

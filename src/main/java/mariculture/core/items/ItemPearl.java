@@ -49,6 +49,8 @@ public class ItemPearl extends ItemMariculture {
     }
 
 	public Enchantment getBiasedEnchantment(Random rand, int level, int dmg) {
+		return Magic.elemental;
+		/*
 		switch (dmg) {
 			case PearlColor.WHITE:	return (level > 55 && rand.nextInt(5) == 0)? Magic.flight: null;
 			case PearlColor.GREEN:	return (rand.nextInt(5) == 0)? Magic.jump: null;
@@ -63,6 +65,6 @@ public class ItemPearl extends ItemMariculture {
 			case PearlColor.PINK:	return (level > 50 && rand.nextInt(6) == 0)? Magic.resurrection: null;
 			case PearlColor.SILVER: return (rand.nextInt(6) == 0)? Enchantment.unbreaking: null;
 			default: 				return null;
-		}
+		} */
 	}
 }

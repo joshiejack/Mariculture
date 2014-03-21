@@ -52,7 +52,8 @@ public class MirrorData {
 			return materialList.get(key);
 		} else {
 			JewelryMaterial[] arr = fetchMaterials(player);
-			return materialList.put(key, arr) != null? arr: null;
+			materialList.put(key, arr);
+			return arr;
 		}
 	}
 	

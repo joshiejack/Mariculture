@@ -1,5 +1,6 @@
 package mariculture.core.blocks;
 
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RockMeta;
 import net.minecraft.block.material.Material;

@@ -2,7 +2,7 @@ package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import mariculture.factory.blocks.TileTurbineBase;
+import mariculture.factory.tile.TileTurbineBase;
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.relauncher.Side;
 

@@ -1,6 +1,7 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import mariculture.core.lib.LimestoneMeta;

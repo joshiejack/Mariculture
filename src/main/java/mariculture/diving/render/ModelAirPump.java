@@ -1,24 +1,24 @@
 package mariculture.diving.render;
 
-import mariculture.core.blocks.TileAirPump;
+import mariculture.core.render.IModelMariculture;
+import mariculture.core.tile.TileAirPump;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelAirPump extends ModelBase {
+public class ModelAirPump extends ModelBase implements IModelMariculture {
+	private static final float scale = (float) (1.0 / 20.0);
 	private ModelRenderer base;
 	private ModelRenderer leg1;
 	private ModelRenderer leg2;
 	private ModelRenderer wheel1;
 	private ModelRenderer wheel2;
 
-	private final float scale;
-
-	public ModelAirPump(final float scale) {
-		this.scale = scale;
+	public ModelAirPump() {
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -52,8 +52,13 @@ public class ModelAirPump extends ModelBase {
 		wheel2.setTextureSize(64, 64);
 		wheel2.mirror = true;
 	}
+	
+	@Override
+	public void render(TileEntity tile, double x, double y, double z) {
+		render(((TileAirPump)tile), x, y, z);
+	}
 
-	public void render(final TileAirPump tile, final double x, final double y, final double z) {
+	public void render(TileAirPump tile, double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -69,8 +74,8 @@ public class ModelAirPump extends ModelBase {
 		leg1.render(scale);
 		leg2.render(scale);
 
-		final float wheelAngle1 = (float) tile.getWheelAngle(1);
-		final float wheelAngle2 = (float) tile.getWheelAngle(2);
+		float wheelAngle1 = (float) tile.getWheelAngle(1);
+		float wheelAngle2 = (float) tile.getWheelAngle(2);
 
 		wheel1.rotateAngleX = wheelAngle1;
 		wheel2.rotateAngleX = wheelAngle2;
@@ -82,7 +87,7 @@ public class ModelAirPump extends ModelBase {
 		GL11.glPopMatrix();
 	}
 
-	public void renderInventory(final ItemRenderType type) {
+	public void renderInventory(ItemRenderType type) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		switch (type) {

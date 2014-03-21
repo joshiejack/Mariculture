@@ -1,13 +1,18 @@
 package mariculture.fishery.render;
 
-import mariculture.fishery.blocks.TileSift;
+import mariculture.core.render.IModelMariculture;
+import mariculture.fishery.tile.TileSift;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelSift extends ModelBase {
+public class ModelSift extends ModelBase implements IModelMariculture {
+	private static final float scale_tile = (float) (1.0 / 20.0);
+	private static final float scale_inv = (float) (1.0 / 1.0);
 	private ModelRenderer edge1;
 	private ModelRenderer edge2;
 	private ModelRenderer edge3;
@@ -22,11 +27,8 @@ public class ModelSift extends ModelBase {
 	private ModelRenderer tray2;
 	private ModelRenderer tray3;
 	private ModelRenderer tray4;
-	private float scale;
 
-	public ModelSift(float scale) {
-
-		this.scale = scale;
+	public ModelSift() {
 		textureWidth = 128;
 		textureHeight = 128;
 
@@ -102,15 +104,17 @@ public class ModelSift extends ModelBase {
 		base.setTextureSize(128, 128);
 		base.mirror = true;
 	}
+	
+	@Override
+	public void render(TileEntity tile, double x, double y, double z) {
+		render(((TileSift)tile), x, y, z);
+	}
 
-	public void render(TileSift sift, double x, double y, double z) {
-
-		int meta = sift.getBlockMetadata();
-
+	private void render(TileSift sift, double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
-		if (meta == 1 || meta == 3) {
+		if (sift.getFacing() == ForgeDirection.EAST) {
 			GL11.glTranslated(x + 0.9F, y + 1.2F, z + 0.25F);
 			GL11.glRotatef(180, 0F, 0F, 1F);
 		} else {
@@ -119,23 +123,23 @@ public class ModelSift extends ModelBase {
 			GL11.glRotatef(90, 0F, 1F, 0F);
 		}
 
-		edge1.render(scale);
-		edge2.render(scale);
-		edge3.render(scale);
-		edge4.render(scale);
-		netting.render(scale);
+		edge1.render(scale_tile);
+		edge2.render(scale_tile);
+		edge3.render(scale_tile);
+		edge4.render(scale_tile);
+		netting.render(scale_tile);
 
-		leg1.render(scale);
-		leg2.render(scale);
-		leg3.render(scale);
-		leg4.render(scale);
+		leg1.render(scale_tile);
+		leg2.render(scale_tile);
+		leg3.render(scale_tile);
+		leg4.render(scale_tile);
 
-		if (meta > 1) {
-			base.render(scale);
-			tray1.render(scale);
-			tray2.render(scale);
-			tray3.render(scale);
-			tray4.render(scale);
+		if (sift.hasInventory) {
+			base.render(scale_tile);
+			tray1.render(scale_tile);
+			tray2.render(scale_tile);
+			tray3.render(scale_tile);
+			tray4.render(scale_tile);
 		}
 
 		GL11.glEnable(GL11.GL_LIGHTING);
@@ -143,8 +147,6 @@ public class ModelSift extends ModelBase {
 	}
 
 	public void renderInventory(ItemRenderType type) {
-		this.scale = (float) (1.0 / 1.0);
-
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -169,16 +171,16 @@ public class ModelSift extends ModelBase {
 			break;
 		}
 
-		edge1.render(scale);
-		edge2.render(scale);
-		edge3.render(scale);
-		edge4.render(scale);
-		netting.render(scale);
+		edge1.render(scale_inv);
+		edge2.render(scale_inv);
+		edge3.render(scale_inv);
+		edge4.render(scale_inv);
+		netting.render(scale_inv);
 
-		leg1.render(scale);
-		leg2.render(scale);
-		leg3.render(scale);
-		leg4.render(scale);
+		leg1.render(scale_inv);
+		leg2.render(scale_inv);
+		leg3.render(scale_inv);
+		leg4.render(scale_inv);
 
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();

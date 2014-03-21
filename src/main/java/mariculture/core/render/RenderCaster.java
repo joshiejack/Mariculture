@@ -1,22 +1,21 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.handlers.IngotCastingHandler;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.tile.TileIngotCaster;
 import net.minecraft.client.renderer.RenderBlocks;
 
 public class RenderCaster extends RenderBase {
-	public RenderCaster(RenderBlocks render) {
-		super(render);
-	}
-
+	public RenderCaster(){}
+	
 	@Override
 	public void renderBlock() {
 		if(!isItem()) {
 			TileIngotCaster tile = (TileIngotCaster) world.getTileEntity(x, y, z);
+			if(tile == null) return;
 			//Render Ingot in slot 1
 			if(tile.getStackInSlot(0) != null) {
 				setTexture(IngotCastingHandler.getTexture(tile.getStackInSlot(0)));
@@ -50,16 +49,16 @@ public class RenderCaster extends RenderBase {
 			}
 		}
 		
-		setTexture(Core.renderedMultiMachines, DoubleMeta.VAT);
+		setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.VAT);
 		renderBlock(0, 0, 0, 1, 0.05, 1);
 		//Sides
-		setTexture(Core.renderedMachines, SingleMeta.INGOT_CASTER);
+		setTexture(Core.renderedMachines, MachineRenderedMeta.INGOT_CASTER);
 		renderBlock(0, 0.05, 0, 1, 1, 0.1);
 		renderBlock(0, 0.05, 0.9, 1, 1, 1);
 		renderBlock(0, 0.05, 0.1, 0.1, 1, 0.9);
 		renderBlock(0.9, 0.05, 0.1, 1, 1, 0.9);
 		
-		setTexture(Core.renderedMultiMachines, DoubleMeta.VAT);
+		setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.VAT);
 		//Crossbars
 		renderBlock(0.4, 0.05, 0.1, 0.6, 1, 0.9);
 		renderBlock(0.1, 0.05, 0.4, 0.4, 1, 0.6);

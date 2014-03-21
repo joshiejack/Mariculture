@@ -1,7 +1,7 @@
 package mariculture.world;
 
 import mariculture.Mariculture;
-import mariculture.core.blocks.ItemBlockMariculture;
+import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.CoralMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

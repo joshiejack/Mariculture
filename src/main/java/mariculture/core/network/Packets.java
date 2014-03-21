@@ -3,6 +3,7 @@ package mariculture.core.network;
 import mariculture.Mariculture;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.lib.Extra;
+import mariculture.core.util.IFaceable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -41,5 +42,10 @@ public class Packets {
 
 	public static void updateRender(TileEntity tile) {
 		updateAround(tile, new PacketRenderRefresh(tile.xCoord, tile.yCoord, tile.zCoord));
+	}
+
+	public static void updateOrientation(TileEntity tile) {
+		IFaceable faceable = (IFaceable) tile;
+		updateAround(tile, new PacketOrientationSync(tile.xCoord, tile.yCoord, tile.zCoord, faceable.getFacing()));
 	}
 }

@@ -1,19 +1,21 @@
 package mariculture.factory.render;
 
 import mariculture.core.lib.ArmorSlot;
-import mariculture.factory.blocks.TileFLUDDStand;
+import mariculture.core.render.IModelMariculture;
 import mariculture.factory.items.ItemArmorFLUDD;
+import mariculture.factory.tile.TileFLUDDStand;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelFLUDD extends ModelBiped {
-	private final float scale;
+public class ModelFLUDD extends ModelBiped implements IModelMariculture {
+	private static final float scale = (float) (1.0 / 20.0);
 	private ModelRenderer Mouth;
 	private ModelRenderer Handle2;
 	private ModelRenderer Neck;
@@ -57,10 +59,8 @@ public class ModelFLUDD extends ModelBiped {
 	private ModelRenderer RocketBody4Reverse;
 	private ModelRenderer RocketBody5Reverse;
 
-	public ModelFLUDD(final float scale) {
+	public ModelFLUDD() {
 		super();
-
-		this.scale = scale;
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -288,6 +288,11 @@ public class ModelFLUDD extends ModelBiped {
 		RocketBody5Reverse.mirror = true;
 		setRotation(RocketBody5Reverse, 0F, 0F, 3.141593F);
 	}
+	
+	@Override
+	public void render(TileEntity tile, double x, double y, double z) {
+		render(((TileFLUDDStand)tile), x, y, z);
+	}
 
 	public void render(TileFLUDDStand tile, double x, double y, double z) {
 		GL11.glPushMatrix();
@@ -346,10 +351,10 @@ public class ModelFLUDD extends ModelBiped {
 	@Override
 	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
 		if (entity instanceof EntityPlayer) {
-			final EntityPlayer player = (EntityPlayer) entity;
+			EntityPlayer player = (EntityPlayer) entity;
 			if (player.inventory.armorInventory[ArmorSlot.TOP] != null) {
 				if (player.inventory.armorInventory[ArmorSlot.TOP].hasTagCompound()) {
-					final int mode = player.inventory.armorInventory[ArmorSlot.TOP].stackTagCompound.getInteger("mode");
+					int mode = player.inventory.armorInventory[ArmorSlot.TOP].stackTagCompound.getInteger("mode");
 
 					GL11.glPushMatrix();
 					GL11.glDisable(GL11.GL_LIGHTING);

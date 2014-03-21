@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.Rand;
-import mariculture.fishery.blocks.TileFishTank;
+import mariculture.fishery.tile.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -100,7 +100,7 @@ public class BlockHelper {
 		if(dir == ForgeDirection.NORTH)
 			return ForgeDirection.EAST;
 		if(dir == ForgeDirection.EAST)
-			return ForgeDirection.SOUTH;
+			return num == 2? ForgeDirection.NORTH: ForgeDirection.SOUTH;
 		if(dir == ForgeDirection.SOUTH)
 			return ForgeDirection.WEST;
 		if(dir == ForgeDirection.WEST)

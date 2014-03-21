@@ -3,7 +3,10 @@ package mariculture.core.render;
 import java.util.HashMap;
 
 import mariculture.core.Core;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.WaterMeta;
+import mariculture.factory.render.RenderGeyser;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
@@ -11,8 +14,12 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderHandler implements ISimpleBlockRenderingHandler {
 	public static final HashMap<String, RenderBase> renders = new HashMap();
-	static {
-		renders.put(Block.blockRegistry.getNameForObject(Core.water) + ":0", new RenderOyster());
+	public static void register(Block block, int meta, Class clazz) {
+		try {
+			renders.put(Block.blockRegistry.getNameForObject(block) + ":" + meta, (RenderBase) clazz.newInstance());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

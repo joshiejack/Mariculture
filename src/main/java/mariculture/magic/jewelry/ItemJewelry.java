@@ -10,7 +10,6 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.util.Text;
 import mariculture.magic.JewelryHandler;
-import mariculture.magic.JewelryHandler.SettingType;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryBinding;
 import mariculture.magic.jewelry.parts.JewelryMaterial;
@@ -73,10 +72,8 @@ public abstract class ItemJewelry extends ItemDamageable {
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.hasTagCompound()) {
-			String level =  " (" + JewelryHandler.getSetting(stack, SettingType.LEVEL) + "/" + getMaxLevel() + ")";
 			JewelryMaterial material = JewelryHandler.getMaterial(stack);
-			if(material.ignore) return stack.stackTagCompound.getString("Specials") + level;
-			return material.getColor() + material.getCraftingItem(getType()).getDisplayName() + " " + Text.localize(getUnlocalizedName(stack) + ".name") + level;
+			return material.getColor() + material.getCraftingItem(getType()).getDisplayName() + " " + Text.localize(getUnlocalizedName(stack) + ".name");
 		}
 
 		return Text.localize(getUnlocalizedName(stack));
@@ -87,9 +84,6 @@ public abstract class ItemJewelry extends ItemDamageable {
 		if (stack.hasTagCompound()) {
 			JewelryBinding binding = JewelryHandler.getBinding(stack);
 			list.add(binding.getColor() + StatCollector.translateToLocal("mariculture.string.with") + " " + binding.getCraftingItem(getType()).getDisplayName());
-			
-			list.add(" ");
-			list.add(Text.BRIGHT_GREEN + "XP: (" + JewelryHandler.getSetting(stack, SettingType.XP) + " / 100)");
 		}
 
 		//Add the one ring lore
@@ -106,9 +100,7 @@ public abstract class ItemJewelry extends ItemDamageable {
 	@Override
 	public int getMaxDamage(ItemStack stack) {
 		if(stack.hasTagCompound()) {
-			int base = (int) (JewelryHandler.getBinding(stack).getDurabilityBase(getType()) * JewelryHandler.getMaterial(stack).getDurabilityModifier(getType()));
-			int boost = JewelryHandler.getSetting(stack, SettingType.DURABILITY) * 50;
-			return base + boost;
+			return (int) (JewelryHandler.getBinding(stack).getDurabilityBase(getType()) * JewelryHandler.getMaterial(stack).getDurabilityModifier(getType()));
 		} else return this.getMaxDamage();
 	}
 	
@@ -163,7 +155,7 @@ public abstract class ItemJewelry extends ItemDamageable {
 			if(binding.getValue().ignore) continue;
 			for (Entry<String, JewelryMaterial> material : JewelryMaterial.list.entrySet()) {
 				if(material.getValue().ignore) continue;
-				list.add(JewelryHandler.createBestJewelry((ItemJewelry)item, binding.getValue(), material.getValue()));
+				list.add(JewelryHandler.createJewelry((ItemJewelry)item, binding.getValue(), material.getValue()));
 			}
 		}
 		

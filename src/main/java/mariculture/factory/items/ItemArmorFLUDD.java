@@ -6,7 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.RenderFLUDDSquirt;
@@ -72,7 +72,7 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 			if (stack.hasTagCompound() && !world.isRemote) {
 				Block fludd = Core.renderedMachines;
 				if (world.canPlaceEntityOnSide(fludd, x, y, z, false, side, (Entity) null, stack)) {
-					int j1 = fludd.onBlockPlaced(world, x, y, z, side, par8, par9, par10, SingleMeta.FLUDD_STAND);
+					int j1 = fludd.onBlockPlaced(world, x, y, z, side, par8, par9, par10, MachineRenderedMeta.FLUDD_STAND);
 
 					world.setBlock(x, y, z, fludd, j1, 3);
 
@@ -128,7 +128,7 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
-		return new ModelFLUDD((float) (1.0 / 20.0));
+		return new ModelFLUDD();
 	}
 
 	@Override

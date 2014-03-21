@@ -1,6 +1,6 @@
 package mariculture.core.render;
 
-import mariculture.core.blocks.TileAnvil;
+import mariculture.core.tile.TileAnvil;
 import mariculture.core.util.EntityFakeItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

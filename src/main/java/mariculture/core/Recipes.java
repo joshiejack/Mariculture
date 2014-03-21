@@ -3,7 +3,6 @@ package mariculture.core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
@@ -12,13 +11,14 @@ import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
+import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RockMeta;
-import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
@@ -99,7 +99,7 @@ public class Recipes {
 		
 	//Machines
 		//Air Pump
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.AIR_PUMP), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.AIR_PUMP), new Object[] {
 			"WGW", "PRP", "PMP", 'G', "glass", 'R', "dustRedstone", 'P', "plankWood", 'M', Blocks.piston,
 			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
 		});
@@ -125,7 +125,7 @@ public class Recipes {
 		});
 		
 		//Anvil Recipe
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.ANVIL_1), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.ANVIL), new Object[] {
 			"CCC", " N ", "BBB",
 			'C', new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK),
 			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
@@ -133,12 +133,12 @@ public class Recipes {
 		});
 
 		//VAT Recipe
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, DoubleMeta.VAT), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.VAT), new Object[] {
 			"C C", "C C", "CCC", 'C', "ingotCopper"
 		});
 		
 		//Ingot Caster
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.INGOT_CASTER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.INGOT_CASTER), new Object[] {
 			" B ", "BBB", " B ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
 		});
 		
@@ -235,7 +235,7 @@ public class Recipes {
 
 		//Carbide
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE), new Object[] {
-			"CSF", "FBS", "SFC", 'C', Items.clay_ball, 'F', new ItemStack(Items.coal, 1, 0), 'S', Blocks.sand, 'B', Blocks.clay
+			" S ", "FBF", " S ", 'F', new ItemStack(Items.coal, 1, 0), 'S', Blocks.sand, 'B', Blocks.clay
 		});
 
 		//Wheel

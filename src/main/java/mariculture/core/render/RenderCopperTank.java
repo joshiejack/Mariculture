@@ -1,14 +1,11 @@
 package mariculture.core.render;
 
-import mariculture.core.blocks.TileTankBlock;
+import mariculture.core.tile.TileTankBlock;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RenderCopperTank extends RenderBase {
-	public RenderCopperTank(RenderBlocks render) {
-		super(render);
-	}
-
+	public RenderCopperTank() {}
 	@Override
 	public void renderBlock() {
 		if(!isItem()) {

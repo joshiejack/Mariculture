@@ -5,6 +5,7 @@ import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.GroundMeta;

@@ -5,14 +5,12 @@ import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.core.util.Tank;
-import mariculture.factory.blocks.TileDictionaryFluid;
+import mariculture.factory.tile.TileDictionaryFluid;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RenderFluidDictionary extends RenderBase {
-	public RenderFluidDictionary(RenderBlocks render) {
-		super(render);
-	}
+	public RenderFluidDictionary() {}
 	
 	private void renderFluid(Tank tank, double i1, double k1, double i2, double k2) {
 		if(tank.getFluidAmount() > 0) {

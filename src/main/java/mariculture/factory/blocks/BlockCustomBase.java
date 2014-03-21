@@ -2,7 +2,8 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
-import mariculture.core.blocks.BlockFunctional;
+import mariculture.core.blocks.base.BlockFunctional;
+import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;

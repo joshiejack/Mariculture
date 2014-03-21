@@ -2,6 +2,8 @@ package mariculture.core.render;
 
 import java.util.HashMap;
 
+import mariculture.core.tile.base.TileMultiBlock;
+import mariculture.core.util.IFaceable;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -31,34 +33,6 @@ public abstract class RenderBase {
 	public boolean isItem;
 	
 	public RenderBase() {}
-	public RenderBase(RenderBlocks render) {
-		this.render = render;
-	}
-	
-	protected RenderBase setRenderBlocks(RenderBlocks render) {
-		this.render = render;
-		return this;
-	}
-	
-	public RenderBase setCoords(IBlockAccess world, int x, int y, int z) {
-		this.world = world;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.block = world.getBlock(x, y, z);
-		return this;
-	}
-	
-	public RenderBase setDir(ForgeDirection dir) {
-		this.dir = dir;
-		return this;
-	}
-	
-	public RenderBase setBlock(Block block) {
-		this.block = block;
-		return this;
-	}
-	
 	//World Based Rendering
 	public boolean render(RenderBlocks render, IBlockAccess world, int x, int y, int z) {
 		this.isItem = false;
@@ -100,17 +74,22 @@ public abstract class RenderBase {
 	
 	public abstract void renderBlock();
 	public void init() {
-		//null;
+		if(world.getTileEntity(x, y, z) instanceof IFaceable) {
+			this.dir = ((IFaceable)world.getTileEntity(x, y, z)).getFacing();
+		}
+		
+		if(world.getTileEntity(x, y, z) instanceof TileMultiBlock) {
+			this.dir = ((TileMultiBlock)world.getTileEntity(x, y, z)).facing;
+		}
 	}
 	
 	public boolean isItem() {
-		return world == null;
+		return isItem;
 	}
 	
 	protected void setTexture(IIcon texture) {
 		icon = texture;
-		if(!isItem())
-			render.setOverrideBlockTexture(texture);
+		if(!isItem()) render.setOverrideBlockTexture(texture);
 	}
 	
 	protected void setTexture(Block block, int meta) {

@@ -1,16 +1,18 @@
 package mariculture.factory.render;
 
-import mariculture.factory.blocks.TileTurbineBase.EnergyStage;
-import mariculture.factory.blocks.TileTurbineHand;
+import mariculture.core.render.IModelMariculture;
+import mariculture.factory.tile.TileTurbineBase.EnergyStage;
+import mariculture.factory.tile.TileTurbineHand;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelTurbineHand extends ModelBase {
-	private final float scale;
+public class ModelTurbineHand extends ModelBase implements IModelMariculture {
+	private static final float scale = (float) (1.0 / 20.0);
 	private ModelRenderer Base2;
 	private ModelRenderer Top;
 	private ModelRenderer Base;
@@ -24,8 +26,7 @@ public class ModelTurbineHand extends ModelBase {
 	private ModelRenderer Blade3H;
 	private ModelRenderer Blade4H;
 
-	public ModelTurbineHand(float scale) {
-		this.scale = scale;
+	public ModelTurbineHand() {
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -102,12 +103,17 @@ public class ModelTurbineHand extends ModelBase {
 		Blade4H.mirror = true;
 		setRotation(Blade4H, 0F, -0.7853982F, 0F);
 	}
-	
-	public void render(TileTurbineHand tile, double x, double y, double z) {
+
+	@Override
+	public void render(TileEntity tile, double x, double y, double z) {
+		render(((TileTurbineHand) tile), x, y, z);
+	}
+
+	private void render(TileTurbineHand tile, double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
-		ForgeDirection facing = tile.direction;
+		ForgeDirection facing = tile.orientation;
 		if (facing == ForgeDirection.DOWN) {
 			GL11.glTranslated(x + 0.5F, y + 0.89F, z + 0.5F);
 			GL11.glRotatef(180, 0F, 0F, 1F);
@@ -130,7 +136,7 @@ public class ModelTurbineHand extends ModelBase {
 
 		GL11.glRotatef(180, 0F, 0F, 1F);
 		GL11.glScalef(1.2F, 1.2F, 1.2F);
-		
+
 		Base2.render(scale);
 		Top.render(scale);
 		Base.render(scale);
@@ -156,7 +162,7 @@ public class ModelTurbineHand extends ModelBase {
 		Blade2L.rotateAngleY = angle + 45;
 		Blade3L.rotateAngleY = angle + 90;
 		Blade4L.rotateAngleY = angle + 135;
-		
+
 		Blade1H.rotateAngleY = (float) (angle + 22.5);
 		Blade2H.rotateAngleY = (float) (angle + 45 + 22.5);
 		Blade3H.rotateAngleY = (float) (angle + 90 + 22.5);
@@ -175,14 +181,14 @@ public class ModelTurbineHand extends ModelBase {
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();
 	}
-	
+
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
-	
-	public void renderInventory(final ItemRenderType type) {
+
+	public void renderInventory(ItemRenderType type) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		switch (type) {

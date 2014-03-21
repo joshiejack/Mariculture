@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.TileCustom;
+import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockFence;

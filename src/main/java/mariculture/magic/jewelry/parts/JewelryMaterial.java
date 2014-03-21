@@ -8,15 +8,20 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public abstract class JewelryMaterial {
 	public static final String nbt = "material";
 	public static final HashMap<String, JewelryMaterial> list = new HashMap();
 	public final HashMap<JewelryType, IIcon> icons = new HashMap();
 	public boolean ignore;
+	public int id;
 	
 	public JewelryMaterial() {
+		this.id = list.size();
 		list.put(getIdentifier(), this);
 	}
 	
@@ -28,8 +33,36 @@ public abstract class JewelryMaterial {
 	/** Called by the jewelry handler when a player has the elemental affinity enchantment on a living hurt event 
 	 * @param event - The event, can be cancelled from here
 	 * @param player - Quicker access to the player **/
-	public void onHurt(LivingHurtEvent event, EntityPlayer player) {
-		return;
+	public int onHurt(LivingHurtEvent event, EntityPlayer player) {
+		return 0;
+	}
+	
+	/** Called by the jewelry handler when a player has the elemental affinity enchantment on a living attack event and they're being attacked
+	 * @param event - The event, can be cancelled from here
+	 * @param player - Quicker access to the player **/
+	public int onAttacked(LivingAttackEvent event, EntityPlayer player) {
+		return 0;
+	}
+	
+	/** Called by the jewelry handler when a player has the elemental affinity enchantment on a living attack event and they're being attacking
+	 * @param event - The event, can be cancelled from here
+	 * @param player - Quicker access to the player **/
+	public int onAttack(LivingAttackEvent event, EntityPlayer player) {
+		return 0;
+	}
+	
+	/** Called by the jewelry handler when a player has the elemental affinity enchantment on a living death event 
+	 * @param event - The event, can be cancelled from here
+	 * @param player - Quicker access to the player **/
+	public int onKill(LivingDeathEvent event, EntityPlayer player) {
+		return 0;
+	}
+	
+	/** Called by the jewelry handler when a player has the elemental affinity enchantment on a block break event 
+	 * @param event - The event, can be cancelled from here
+	 * @param player - Quicker access to the player **/
+	public int onBlockBreak(HarvestDropsEvent event, EntityPlayer player) {
+		return 0;
 	}
 
 	/** The icon for this material **/
@@ -43,19 +76,13 @@ public abstract class JewelryMaterial {
 	}
 	
 	/** A boost/reduction to maximum number of enchantments based on this color **/
-	public int getExtraEnchantments(JewelryType type) {
-		return 0;
-	}
+	public abstract int getExtraEnchantments(JewelryType type);
 	
 	/** A limiting factor for the enchantment level on this piece of jewelry **/
-	public int getMaximumEnchantmentLevel(JewelryType type) {
-		return 3;
-	}
+	public abstract int getMaximumEnchantmentLevel(JewelryType type);
 	
 	/** Repair cost modifier, in anvil **/
-	public float getRepairModifier(JewelryType type) {
-		return 1.5F;
-	}
+	public abstract float getRepairModifier(JewelryType type);
 
 	/** The modifier to durability **/
 	public abstract float getDurabilityModifier(JewelryType type);

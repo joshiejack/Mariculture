@@ -1,5 +1,6 @@
 package mariculture.core.blocks;
 
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.block.material.Material;
 

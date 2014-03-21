@@ -16,6 +16,21 @@ public class MaterialDummy extends JewelryMaterial {
 	}
 
 	@Override
+	public int getExtraEnchantments(JewelryType type) {
+		return 0;
+	}
+
+	@Override
+	public int getMaximumEnchantmentLevel (JewelryType type) {
+		return 0;
+	}
+
+	@Override
+	public float getRepairModifier(JewelryType type) {
+		return 1.0F;
+	}
+
+	@Override
 	public float getHitsModifier(JewelryType type) {
 		return 1.0F;
 	}

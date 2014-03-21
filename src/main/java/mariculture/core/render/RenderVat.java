@@ -1,20 +1,18 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.TileVat;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
+import mariculture.core.tile.TileVat;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderVat extends RenderBase {
-	public RenderVat(RenderBlocks render) {
-		super(render);
-	}
+	public RenderVat() {}
 
 	@Override
 	public void renderBlock() {		
-		setTexture(Core.renderedMultiMachines, DoubleMeta.VAT);
-		if(dir == ForgeDirection.UNKNOWN) {
+		setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.VAT);
+		if(dir == ForgeDirection.UNKNOWN || isItem()) {
 			//Edge Inner - Edge Outer
 			renderBlock(0, 0.3, 0, 0.1, 0.9, 1);
 			renderBlock(-0.1, 0.35, 0.1, 0, 0.85, 0.9);

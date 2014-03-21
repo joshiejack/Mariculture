@@ -6,7 +6,7 @@ import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.factory.Factory;
-import mariculture.factory.blocks.TilePressureVessel;
+import mariculture.factory.tile.TilePressureVessel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;

@@ -4,7 +4,7 @@ import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.network.PacketClick;
-import mariculture.factory.blocks.TileFishSorter;
+import mariculture.factory.tile.TileFishSorter;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiFishSorter extends GuiMariculture {

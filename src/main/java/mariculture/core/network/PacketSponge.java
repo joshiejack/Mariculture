@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
-import mariculture.factory.blocks.TileSponge;
+import mariculture.factory.tile.TileSponge;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;

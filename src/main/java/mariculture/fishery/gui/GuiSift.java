@@ -1,7 +1,7 @@
 package mariculture.fishery.gui;
 
 import mariculture.core.gui.GuiMariculture;
-import mariculture.fishery.blocks.TileSift;
+import mariculture.fishery.tile.TileSift;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiSift extends GuiMariculture {	

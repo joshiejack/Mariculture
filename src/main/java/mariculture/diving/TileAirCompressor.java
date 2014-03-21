@@ -2,10 +2,10 @@ package mariculture.diving;
 
 import java.util.ArrayList;
 
-import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.network.PacketCompressor;
 import mariculture.core.network.Packets;
+import mariculture.core.tile.base.TileMultiBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -106,11 +106,11 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 	}
 	
 	public boolean isBaseBlock(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_BASE;
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == MachineRenderedMultiMeta.COMPRESSOR_BASE;
 	}
 	
 	public boolean isTopBlock(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_TOP;
+		return worldObj.getBlock(x, y, z) == this.getBlockType() && worldObj.getBlockMetadata(x, y, z) == MachineRenderedMultiMeta.COMPRESSOR_TOP;
 	}
 	
 	public boolean isBase(int x, int y, int z) {
@@ -123,9 +123,9 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 	
 	@Override
 	public void onBlockPlaced() {
-		if(this.getBlockMetadata() == DoubleMeta.COMPRESSOR_BASE)
+		if(this.getBlockMetadata() == MachineRenderedMultiMeta.COMPRESSOR_BASE)
 			onBlockPlacedBase(xCoord, yCoord, zCoord);
-		else if(this.getBlockMetadata() == DoubleMeta.COMPRESSOR_TOP)
+		else if(this.getBlockMetadata() == MachineRenderedMultiMeta.COMPRESSOR_TOP)
 			onBlockPlacedTop(xCoord, yCoord, zCoord);
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}

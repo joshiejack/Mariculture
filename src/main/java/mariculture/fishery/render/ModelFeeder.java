@@ -1,20 +1,20 @@
 package mariculture.fishery.render;
 
-import mariculture.fishery.blocks.TileFeeder;
+import mariculture.core.render.IModelMariculture;
+import mariculture.fishery.tile.TileFeeder;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelFeeder extends ModelBase {
+public class ModelFeeder extends ModelBase implements IModelMariculture {
 	// fields
+	private static final float scale = (float) (1.0 / 20.0);
 	private ModelRenderer basket;
-	private final float scale;
 
-	public ModelFeeder(float scale) {
-
-		this.scale = scale;
+	public ModelFeeder() {
 		textureWidth = 64;
 		textureHeight = 32;
 
@@ -24,8 +24,13 @@ public class ModelFeeder extends ModelBase {
 		basket.setTextureSize(64, 32);
 		basket.mirror = true;
 	}
+	
+	@Override
+	public void render(TileEntity tile, double x, double y, double z) {
+		render(((TileFeeder)tile), x, y, z);
+	}
 
-	public void render(TileFeeder tile, double x, double y, double z) {
+	private void render(TileFeeder tile, double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -60,7 +65,7 @@ public class ModelFeeder extends ModelBase {
 			break;
 		}
 
-		basket.render((float) (1.0 / 20.0));
+		basket.render(scale);
 
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();

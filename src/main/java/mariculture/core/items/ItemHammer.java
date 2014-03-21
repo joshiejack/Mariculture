@@ -1,9 +1,10 @@
 package mariculture.core.items;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.TileAnvil;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.tile.TileAnvil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -36,6 +37,7 @@ public class ItemHammer extends ItemDamageable {
 		}
 		
 		if(block != null) {
+			if(block == Core.renderedMachines && world.getBlockMetadata(x, y, z) == MachineRenderedMeta.ANVIL && !player.isSneaking()) return false;
 			if(block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
 				return !world.isRemote;
 		}

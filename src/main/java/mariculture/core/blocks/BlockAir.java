@@ -5,6 +5,7 @@ import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;

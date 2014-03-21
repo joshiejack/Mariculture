@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 import mariculture.api.core.IBlacklisted;
-import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
-import mariculture.core.blocks.base.TileMultiStorage;
-import mariculture.core.blocks.base.TileMultiStorageTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.cofh.InventoryHelper;
+import mariculture.core.tile.base.TileMultiBlock;
+import mariculture.core.tile.base.TileMultiStorage;
+import mariculture.core.tile.base.TileMultiStorageTank;
+import mariculture.core.tile.base.TileMultiBlock.MultiPart;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.ITank;

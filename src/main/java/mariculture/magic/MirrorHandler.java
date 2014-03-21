@@ -6,8 +6,8 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketDamageJewelry;
 import mariculture.core.network.PacketSyncMirror;
 import mariculture.core.util.Rand;
-import mariculture.magic.JewelryHandler.SettingType;
 import mariculture.magic.jewelry.ItemJewelry;
+import mariculture.magic.jewelry.parts.JewelryMaterial;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -86,17 +86,24 @@ public class MirrorHandler implements IMirrorHandler {
 	public static void handleDamage(EntityPlayer player, int enchant, int amount) {
 		// Mirror
 		//Set the amount of damage to 1 if the enchantment is the elemental enchant
+		int matId = amount;
 		amount = (EnchantHelper.exists(Magic.elemental) && enchant == Magic.elemental.effectId)? 1: amount;
 		ItemStack[] mirror = MirrorData.getInventory(player);
 		for(int damaged = 0; damaged < amount; damaged++) {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
 					if (EnchantHelper.hasEnchantment(enchant, mirror[i])) {
-						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
-							Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
-						} else if(JewelryHandler.getSetting(mirror[i], SettingType.LEVEL) < JewelryHandler.getMaxLevel(mirror[i])) {
-							JewelryHandler.adjustSetting(mirror[i], +1, SettingType.XP);
-							// ^ increase the xp level of the jewelry piece, after being damaged
+						if(EnchantHelper.exists(Magic.elemental) && enchant == Magic.elemental.effectId) {
+							JewelryMaterial material = JewelryHandler.getMaterial(mirror[i]);
+							if(material.id == matId) {
+								if(mirror[i].attemptDamageItem(1, Rand.rand)) {
+									Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+								}
+							}
+						} else {
+	 						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
+								Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+							}
 						}
 					}
 				}

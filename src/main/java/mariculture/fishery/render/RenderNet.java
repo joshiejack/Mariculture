@@ -6,10 +6,8 @@ import mariculture.core.render.RenderBase;
 import net.minecraft.client.renderer.RenderBlocks;
 
 public class RenderNet extends RenderBase {
-	public RenderNet(RenderBlocks render) {
-		super(render);
-	}
-
+	public RenderNet() {}
+	
 	@Override
 	public void renderBlock() {
 		setTexture(Core.water.getIcon(0, WaterMeta.NET));

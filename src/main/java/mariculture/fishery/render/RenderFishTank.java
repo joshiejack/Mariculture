@@ -6,9 +6,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 
 public class RenderFishTank extends RenderBase {
-	public RenderFishTank(RenderBlocks render) {
-		super(render);
-	}
+	public RenderFishTank() {}
 
 	@Override
 	public void renderBlock() {

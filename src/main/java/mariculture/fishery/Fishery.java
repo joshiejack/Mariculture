@@ -26,10 +26,10 @@ import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
-import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
@@ -37,12 +37,6 @@ import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.FluidDictionary;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
-import mariculture.fishery.blocks.BlockSift;
-import mariculture.fishery.blocks.TileAutofisher;
-import mariculture.fishery.blocks.TileFeeder;
-import mariculture.fishery.blocks.TileFishTank;
-import mariculture.fishery.blocks.TileIncubator;
-import mariculture.fishery.blocks.TileSift;
 import mariculture.fishery.fish.FishAngel;
 import mariculture.fishery.fish.FishBass;
 import mariculture.fishery.fish.FishBlaze;
@@ -84,6 +78,11 @@ import mariculture.fishery.items.ItemBait;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
+import mariculture.fishery.tile.TileAutofisher;
+import mariculture.fishery.tile.TileFeeder;
+import mariculture.fishery.tile.TileFishTank;
+import mariculture.fishery.tile.TileIncubator;
+import mariculture.fishery.tile.TileSift;
 import net.minecraft.block.Block;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Blocks;
@@ -103,7 +102,6 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Fishery extends RegistrationModule {	
-	public static Block siftBlock;
 	public static Block lampsOff;
 	public static Block lampsOn;
 
@@ -174,10 +172,9 @@ public class Fishery extends RegistrationModule {
 
 	@Override
 	public void registerBlocks() {
-		siftBlock = new BlockSift().setStepSound(Block.soundTypeWood).setHardness(1F).setBlockName("siftBlock");
 		lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lampsOff");
 		lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lampsOn");
-		RegistryHelper.registerBlocks(new Block[] { siftBlock, lampsOff, lampsOn });
+		RegistryHelper.registerBlocks(new Block[] { lampsOff, lampsOn });
 		RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileSift.class, TileIncubator.class, TileFeeder.class, TileFishTank.class });
 		
 		FluidDictionary.fish_food = Core.addFluid("fishfood", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
@@ -360,14 +357,10 @@ public class Fishery extends RegistrationModule {
 				.add(new ShapedOreRecipe(new ItemStack(net, 4, 0), new Object[] { "SWS", "WWW", "SWS",
 					Character.valueOf('S'), "stickWood", 
 					Character.valueOf('W'), Items.string }));
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(siftBlock), new Object[] { "PNP", "S S",
-					Character.valueOf('S'), "stickWood", 
-					Character.valueOf('P'), "plankWood",
-					Character.valueOf('N'), net }));
+		
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.SIFTER), new Object[] {
+			"PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net
+		});
 		
 		CraftingManager
 				.getInstance()
@@ -380,10 +373,9 @@ public class Fishery extends RegistrationModule {
 					Character.valueOf('P'), "plankWood"}));
 		
 		/* Fish Feeder and Incubator Blocks */
-		GameRegistry.addRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.FISH_FEEDER), new Object[] { "WFW", "WCW", "WFW", 
-				Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-				Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
-				Character.valueOf('C'), Blocks.chest });
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.FISH_FEEDER), new Object[] { 
+			"WFW", "WCW", "WFW",  'F', new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
+				'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 'C', Blocks.chest });
 
 		CraftingManager
 				.getInstance()

@@ -279,7 +279,7 @@ tile.machines.multi.incubator.name=Incubator
 tile.machines.multi.incubatorBase.name=Incubator Base
 tile.machines.multi.incubatorTop.name=Incubator Top
 tile.machines.single.autofisher.name=Automatic Fisher
-tile.siftBlock.name=Sifter
+tile.machines.single.rendered.sifter.name=Sifter
 tile.lampsOn.white.name=White Neon Lamp
 tile.lampsOn.green.name=Green Neon Lamp
 tile.lampsOn.yellow.name=Yellow Neon Lamp
@@ -309,8 +309,8 @@ item.net.name=Fishing Net
 tile.woods.polishedPlank.name=Polished Planks
 tile.woods.polishedLog.name=Polished Logs
 #fluid
-fluid.food.fish=Fish Food
-fluid.oil.fish=Fish Oil
+fluid.fishfood=Fish Food
+fluid.fishoil=Fish Oil
 fluid.milk=Milk
 fluid.custard=Custard
 #items

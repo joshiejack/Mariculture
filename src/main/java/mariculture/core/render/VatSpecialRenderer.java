@@ -1,6 +1,6 @@
 package mariculture.core.render;
 
-import mariculture.core.blocks.TileVat;
+import mariculture.core.tile.TileVat;
 import mariculture.core.util.EntityFakeItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class VatSpecialRenderer extends TileEntitySpecialRenderer {
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTick) {
+	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float tick) {
 		TileVat vat = (TileVat) tile;
 		World world = vat.getWorldObj();
 		if(vat.master == null) {

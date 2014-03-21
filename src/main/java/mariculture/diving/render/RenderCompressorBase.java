@@ -1,8 +1,8 @@
 package mariculture.diving.render;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockDouble;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.blocks.BlockRenderedMachineMulti;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.diving.TileAirCompressor;
@@ -12,9 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 public class RenderCompressorBase extends RenderBase {
-	public RenderCompressorBase(RenderBlocks render) {
-		super(render);
-	}
+	public RenderCompressorBase() {}
 
 	@Override
 	public void renderBlock() {
@@ -23,13 +21,13 @@ public class RenderCompressorBase extends RenderBase {
 		}
 		
 		TileAirCompressor tile = (TileAirCompressor) (isItem() ? null: world.getTileEntity(x, y, z));
-		if(dir == ForgeDirection.UNKNOWN) {
-			setTexture(Core.renderedMultiMachines, DoubleMeta.COMPRESSOR_BASE);
+		if(dir == ForgeDirection.UNKNOWN || isItem()) {
+			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 			renderBlock(0, 0.2, 0, 1, 1, 1);
 			setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 			renderBlock(0.15, 0, 0.15, 0.85, 0.2, 0.85);
 		} else if (dir == ForgeDirection.SOUTH) {
-			setTexture(Core.renderedMultiMachines, DoubleMeta.COMPRESSOR_BASE);
+			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 			renderBlock(0.05, 0.2, 0, 0.95, 1, 0.95);
 			renderBlock(0.2, 0.15, 0, 0.8, 0.2, 0.7);
 			renderBlock(0.1, 1, 0, 0.9, 1.05, 0.85);
@@ -39,7 +37,7 @@ public class RenderCompressorBase extends RenderBase {
 			setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 			renderBlock(0.15, 0, 0.7, 0.85, 0.2, 0.85);
 		} else if (dir == ForgeDirection.NORTH) {
-			setTexture(Core.renderedMultiMachines, DoubleMeta.COMPRESSOR_BASE);
+			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 			renderBlock(0.05, 0.2, 0.05, 0.95, 1, 1);
 			renderBlock(0.2, 0.15, 0.3, 0.8, 0.2, 1);
 			renderBlock(0.1, 1, 0.15, 0.9, 1.05, 1);
@@ -55,7 +53,7 @@ public class RenderCompressorBase extends RenderBase {
 				if(start >= 1.75D)
 					start = 1.7499D;
 				
-				setTexture(((BlockDouble)Core.renderedMultiMachines).bar1);
+				setTexture(((BlockRenderedMachineMulti)Core.renderedMultiMachines).bar1);
 				renderBlock(0.99, 0.4, start, 1, 0.8, 1.75);
 				//Opposite
 				start = 2D - (1.75D - (1.5D - (tile.getAirStored() * 1.5D)/ 480));
@@ -77,7 +75,7 @@ public class RenderCompressorBase extends RenderBase {
 					start = 0.2501D;
 				
 				//Side 2
-				setTexture(((BlockDouble)Core.renderedMultiMachines).bar1);
+				setTexture(((BlockRenderedMachineMulti)Core.renderedMultiMachines).bar1);
 				renderBlock(0, 0.4, 0.25, 0.0001, 0.8, start);
 				
 				//Opposite
@@ -95,7 +93,7 @@ public class RenderCompressorBase extends RenderBase {
 				renderBlock(0, 0.4, 0.2, 0.01, 0.8, 0.25);
 			}
 		} else if(dir == ForgeDirection.EAST) {
-			setTexture(Core.renderedMultiMachines, DoubleMeta.COMPRESSOR_BASE);
+			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 			renderBlock(0.05, 0.2, 0.05, 1, 1, 0.95);
 			renderBlock(0.3, 0.15, 0.2, 1, 0.2, 0.8);
 			renderBlock(0.1, 1, 0.15, 1, 1.05, 0.85);
@@ -110,7 +108,7 @@ public class RenderCompressorBase extends RenderBase {
 				if(start >= 1.75D)
 					start = 1.7499D;
 				
-				setTexture(((BlockDouble)Core.renderedMultiMachines).bar1);
+				setTexture(((BlockRenderedMachineMulti)Core.renderedMultiMachines).bar1);
 				renderBlock(start, 0.4, 0, 1.75, 0.8, 0.0001);
 				start = 2D - (1.75D - (1.5D - (tile.getAirStored() * 1.5D)/ 480));
 				if(start <= 0.25D)
@@ -128,7 +126,7 @@ public class RenderCompressorBase extends RenderBase {
 				if(start <= 0.25D)
 					start = 0.2501D;
 				
-				setTexture(((BlockDouble)Core.renderedMultiMachines).bar1);
+				setTexture(((BlockRenderedMachineMulti)Core.renderedMultiMachines).bar1);
 				renderBlock(0.25, 0.4, 0.9999, start, 0.8, 1);
 				
 				start = 2D - (0.25D + (1.5D - (tile.getAirStored() * 1.5D)/ 480));
@@ -145,7 +143,7 @@ public class RenderCompressorBase extends RenderBase {
 			}
 			
 		} else if(dir == ForgeDirection.WEST) {
-				setTexture(Core.renderedMultiMachines, DoubleMeta.COMPRESSOR_BASE);
+				setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 				renderBlock(0, 0.2, 0.05, 0.95, 1, 0.95);
 				renderBlock(0.3, 0.15, 0.2, 1, 0.2, 0.8);
 				renderBlock(0, 1, 0.15, 0.9, 1.05, 0.85);

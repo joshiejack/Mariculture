@@ -4,8 +4,8 @@ import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import net.minecraft.init.Blocks;
@@ -67,7 +67,7 @@ public class Diving extends RegistrationModule {
 	@Override
 	public void registerRecipes() {		
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, MachineRenderedMultiMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
 			'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
@@ -75,7 +75,7 @@ public class Diving extends RegistrationModule {
 		});
 		
 		//Air Compressor Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, DoubleMeta.COMPRESSOR_BASE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
 			'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
 			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),

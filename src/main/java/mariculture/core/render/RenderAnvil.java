@@ -2,19 +2,18 @@ package mariculture.core.render;
 
 import mariculture.core.Core;
 import mariculture.core.lib.RockMeta;
+import mariculture.core.tile.TileOyster;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderAnvil extends RenderBase {
 	
-	public RenderAnvil(RenderBlocks render) {
-		super(render);
-	}
+	public RenderAnvil(){}
 	
 	@Override
 	public void renderBlock() {
-		if(dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) {
+		if(dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH || isItem()) {
 			//Bottom
 			setTexture(Core.rocks, RockMeta.BASE_BRICK);
 			renderBlock(0.05, 0, 0.1, 0.95D, 0.2D, 0.9D);

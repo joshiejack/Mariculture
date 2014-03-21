@@ -15,8 +15,10 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packets;
-import mariculture.factory.blocks.TileDictionaryFluid;
-import mariculture.fishery.blocks.TileFishTank;
+import mariculture.core.tile.TileTankBlock;
+import mariculture.core.tile.TileVoidBottle;
+import mariculture.factory.tile.TileDictionaryFluid;
+import mariculture.fishery.tile.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -73,7 +75,7 @@ public class BlockTank extends BlockConnected {
 
 	@Override
 	public int getRenderType() {
-		return RenderIds.BLOCK_TANKS;
+		return RenderIds.RENDER_ALL;
 	}
 
 	@Override

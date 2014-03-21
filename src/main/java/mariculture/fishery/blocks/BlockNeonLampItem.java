@@ -1,6 +1,6 @@
 package mariculture.fishery.blocks;
 
-import mariculture.core.blocks.ItemBlockMariculture;
+import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.PearlColor;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

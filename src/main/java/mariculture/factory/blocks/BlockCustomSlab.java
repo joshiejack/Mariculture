@@ -6,6 +6,7 @@ import java.util.Random;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.IHasMeta;
 import mariculture.factory.Factory;
+import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

@@ -1,6 +1,7 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.MetalMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

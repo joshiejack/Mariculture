@@ -1,7 +1,7 @@
 package mariculture.fishery.gui;
 
 import mariculture.core.gui.SlotFake;
-import mariculture.factory.blocks.TileFishSorter;
+import mariculture.factory.tile.TileFishSorter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;

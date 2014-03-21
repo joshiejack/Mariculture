@@ -5,7 +5,7 @@ import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.gui.feature.FeatureUpgrades;
-import mariculture.factory.blocks.TileFLUDDStand;
+import mariculture.factory.tile.TileFLUDDStand;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiFLUDDStand extends GuiMariculture {

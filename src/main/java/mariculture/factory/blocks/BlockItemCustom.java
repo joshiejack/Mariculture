@@ -2,7 +2,7 @@ package mariculture.factory.blocks;
 
 import java.util.List;
 
-import mariculture.core.blocks.ItemBlockMariculture;
+import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.Text;
 import mariculture.factory.Factory;

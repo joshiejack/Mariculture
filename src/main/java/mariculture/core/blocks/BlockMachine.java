@@ -2,6 +2,7 @@ package mariculture.core.blocks;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
+import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
@@ -9,12 +10,13 @@ import mariculture.core.lib.WoodMeta;
 import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.PacketSponge;
 import mariculture.core.network.Packets;
-import mariculture.factory.blocks.TileDictionaryItem;
-import mariculture.factory.blocks.TileFishSorter;
-import mariculture.factory.blocks.TileSawmill;
-import mariculture.factory.blocks.TileSluice;
-import mariculture.factory.blocks.TileSponge;
-import mariculture.fishery.blocks.TileAutofisher;
+import mariculture.core.tile.TileBookshelf;
+import mariculture.factory.tile.TileDictionaryItem;
+import mariculture.factory.tile.TileFishSorter;
+import mariculture.factory.tile.TileSawmill;
+import mariculture.factory.tile.TileSluice;
+import mariculture.factory.tile.TileSponge;
+import mariculture.fishery.tile.TileAutofisher;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -115,7 +117,7 @@ public class BlockMachine extends BlockFunctional {
 			if(tile instanceof TileSluice) {
 				TileSluice sluice = (TileSluice) tile;
 				sluice.orientation = ForgeDirection.getOrientation(facing);
-				Packets.updateAround(sluice, new PacketOrientationSync(sluice.xCoord, sluice.yCoord, sluice.zCoord, sluice.orientation));
+				Packets.updateOrientation(sluice);
 			}
 		}
 	}

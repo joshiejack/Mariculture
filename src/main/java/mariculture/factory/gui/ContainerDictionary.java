@@ -1,7 +1,7 @@
 package mariculture.factory.gui;
 
 import mariculture.core.gui.ContainerMachine;
-import mariculture.factory.blocks.TileDictionaryItem;
+import mariculture.factory.tile.TileDictionaryItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;

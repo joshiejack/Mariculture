@@ -1,16 +1,18 @@
 package mariculture.factory.render;
 
-import mariculture.factory.blocks.TileTurbineBase.EnergyStage;
-import mariculture.factory.blocks.TileTurbineWater;
+import mariculture.core.render.IModelMariculture;
+import mariculture.factory.tile.TileTurbineBase.EnergyStage;
+import mariculture.factory.tile.TileTurbineWater;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelTurbineWater extends ModelBase {
-	private final float scale;
+public class ModelTurbineWater extends ModelBase implements IModelMariculture {
+	private static final float scale = (float) (1.0 / 20.0);
 	private ModelRenderer Base;
 	private ModelRenderer Rod;
 	private ModelRenderer Blade6;
@@ -27,8 +29,7 @@ public class ModelTurbineWater extends ModelBase {
 	private ModelRenderer Blade12;
 	private ModelRenderer Top;
 
-	public ModelTurbineWater(final float scale) {
-		this.scale = scale;
+	public ModelTurbineWater() {
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -123,12 +124,17 @@ public class ModelTurbineWater extends ModelBase {
 		Top.mirror = true;
 		setRotation(Top, 0F, 0F, 0F);
 	}
+	
+	@Override
+	public void render(TileEntity tile, double x, double y, double z) {
+		render(((TileTurbineWater)tile), x, y, z);
+	}
 
-	public void render(TileTurbineWater tile, final double x, final double y, final double z) {
+	private void render(TileTurbineWater tile, double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 
-		ForgeDirection facing = tile.direction;
+		ForgeDirection facing = tile.orientation;
 		if (facing == ForgeDirection.DOWN) {
 			GL11.glTranslated(x + 0.5F, y + 0.89F, z + 0.5F);
 			GL11.glRotatef(180, 0F, 0F, 1F);
@@ -176,7 +182,7 @@ public class ModelTurbineWater extends ModelBase {
 		Rod.mirror = true;
 		setRotation(Rod, 0F, 0F, 0F);
 
-		final float angle = (float) tile.getAngle();
+		float angle = (float) tile.getAngle();
 
 		Rod.rotateAngleY = angle;
 		Blade1.rotateAngleY = angle;
@@ -208,13 +214,13 @@ public class ModelTurbineWater extends ModelBase {
 		GL11.glPopMatrix();
 	}
 
-	private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
 
-	public void renderInventory(final ItemRenderType type) {
+	public void renderInventory(ItemRenderType type) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		switch (type) {

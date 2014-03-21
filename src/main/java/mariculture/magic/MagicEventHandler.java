@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -32,6 +33,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MagicEventHandler {
@@ -87,12 +89,36 @@ public class MagicEventHandler {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public void onBlockBreak(HarvestDropsEvent event) {
+		if(event.harvester == null) return;
+		if(event.harvester.worldObj.isRemote) return;
+		if(EnchantHelper.exists(Magic.elemental)) {
+			EnchantmentElemental.onBlockBreak(event, event.harvester);
+		}
+	}
 
 	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
+		if(event.entity.worldObj.isRemote) return;
 		if(EnchantHelper.exists(Magic.elemental) && event.entity instanceof EntityPlayer) {
 			EnchantmentElemental.onHurt(event, (EntityPlayer)event.entity);
 		}
+	}
+	
+	@SubscribeEvent
+	public void onAttackLiving(LivingAttackEvent event) {
+		if(event.entity.worldObj.isRemote) return;
+		if(EnchantHelper.exists(Magic.elemental)) {
+			if(event.entity instanceof EntityPlayer) {
+				EnchantmentElemental.onAttacked(event, (EntityPlayer)event.entity);
+			}
+			
+			if(event.source.getSourceOfDamage() instanceof EntityPlayer) {
+				EnchantmentElemental.onAttack(event, (EntityPlayer)event.source.getSourceOfDamage());
+			}
+		} 
 	}
 
 	@SubscribeEvent
@@ -120,6 +146,11 @@ public class MagicEventHandler {
 				}
 			}
  		}
+		
+		if(event.entity.worldObj.isRemote) return;
+		if(EnchantHelper.exists(Magic.elemental) && event.source.getSourceOfDamage() instanceof EntityPlayer) {
+			EnchantmentElemental.onKillEntity(event, (EntityPlayer)event.source.getSourceOfDamage());
+		}
 	}
 
 	@SubscribeEvent

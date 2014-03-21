@@ -8,7 +8,7 @@ import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeaturePower;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureUpgrades;
-import mariculture.fishery.blocks.TileAutofisher;
+import mariculture.fishery.tile.TileAutofisher;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiAutofisher extends GuiMariculture {	

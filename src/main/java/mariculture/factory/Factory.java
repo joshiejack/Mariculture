@@ -8,16 +8,16 @@ import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineMeta;
+import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.WoodMeta;
@@ -32,25 +32,25 @@ import mariculture.factory.blocks.BlockCustomPower;
 import mariculture.factory.blocks.BlockCustomSlab;
 import mariculture.factory.blocks.BlockCustomStairs;
 import mariculture.factory.blocks.BlockCustomWall;
-import mariculture.factory.blocks.TileCustom;
-import mariculture.factory.blocks.TileCustomPowered;
-import mariculture.factory.blocks.TileDictionaryFluid;
-import mariculture.factory.blocks.TileDictionaryItem;
-import mariculture.factory.blocks.TileFLUDDStand;
-import mariculture.factory.blocks.TileFishSorter;
-import mariculture.factory.blocks.TileGeyser;
-import mariculture.factory.blocks.TilePressureVessel;
-import mariculture.factory.blocks.TileSawmill;
-import mariculture.factory.blocks.TileSluice;
-import mariculture.factory.blocks.TileSponge;
-import mariculture.factory.blocks.TileTurbineGas;
-import mariculture.factory.blocks.TileTurbineHand;
-import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.items.ItemFilter;
 import mariculture.factory.items.ItemPaintbrush;
 import mariculture.factory.items.ItemPlan;
 import mariculture.factory.items.ItemRotor;
+import mariculture.factory.tile.TileCustom;
+import mariculture.factory.tile.TileCustomPowered;
+import mariculture.factory.tile.TileDictionaryFluid;
+import mariculture.factory.tile.TileDictionaryItem;
+import mariculture.factory.tile.TileFLUDDStand;
+import mariculture.factory.tile.TileFishSorter;
+import mariculture.factory.tile.TileGeyser;
+import mariculture.factory.tile.TilePressureVessel;
+import mariculture.factory.tile.TileSawmill;
+import mariculture.factory.tile.TileSluice;
+import mariculture.factory.tile.TileSponge;
+import mariculture.factory.tile.TileTurbineGas;
+import mariculture.factory.tile.TileTurbineHand;
+import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -193,7 +193,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Manual Turbine Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.TURBINE_HAND), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_HAND), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineCopper,
 			Character.valueOf('I'), "ingotCopper", 
@@ -203,7 +203,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Water Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.TURBINE_WATER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_WATER), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineAluminum,
 			Character.valueOf('I'), "ingotAluminum", 
@@ -213,7 +213,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Gas Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, SingleMeta.TURBINE_GAS), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_GAS), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineTitanium,
 			Character.valueOf('I'), "ingotTitanium", 
@@ -223,7 +223,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Pressure Vessel
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL), new Object[] {
 			"WLW", "PTP", "PSP",
 			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
@@ -247,7 +247,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Geyser
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 16, SingleMeta.GEYSER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 16, MachineRenderedMeta.GEYSER), new Object[] {
 			" W ", " G ", "RCR",
 			Character.valueOf('W'), Items.water_bucket,
 			Character.valueOf('G'), "glass",

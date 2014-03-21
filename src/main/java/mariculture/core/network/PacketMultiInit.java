@@ -2,9 +2,9 @@ package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.helpers.ClientHelper;
+import mariculture.core.tile.base.TileMultiBlock;
+import mariculture.core.tile.base.TileMultiBlock.MultiPart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;

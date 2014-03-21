@@ -2,7 +2,7 @@ package mariculture.core.util;
 
 import java.util.Collections;
 
-import mariculture.factory.blocks.TileCustomPowered;
+import mariculture.factory.tile.TileCustomPowered;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;

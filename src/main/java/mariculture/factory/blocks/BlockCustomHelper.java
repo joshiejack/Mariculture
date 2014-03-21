@@ -2,6 +2,7 @@ package mariculture.factory.blocks;
 
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.PlansMeta;
+import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

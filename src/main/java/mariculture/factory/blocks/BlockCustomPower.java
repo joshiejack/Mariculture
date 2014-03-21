@@ -1,6 +1,7 @@
 package mariculture.factory.blocks;
 
 import mariculture.core.lib.PlansMeta;
+import mariculture.factory.tile.TileCustomPowered;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;

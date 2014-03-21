@@ -1,7 +1,6 @@
 package mariculture.core.blocks.base;
 
 import mariculture.Mariculture;
-import mariculture.core.blocks.BlockDecorative;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;

@@ -1,25 +1,63 @@
 package mariculture.magic.jewelry.parts;
 
+import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
+import mariculture.core.helpers.SpawnItemHelper;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
+import mariculture.core.util.Rand;
 import mariculture.core.util.Text;
+import mariculture.fishery.Fishery;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
+import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class MaterialPearlSilver extends JewelryMaterial {
 	@Override
 	public String getColor() {
 		return Text.WHITE;
 	}
+	
+	@Override
+	public int onKill(LivingDeathEvent event, EntityPlayer player) {
+		if(event.entity instanceof EntitySilverfish && Rand.nextInt(8)) {
+			ItemStack stack = null;
+			if(Modules.isActive(Modules.fishery)) {
+				stack = Fishing.loot.getLoot(null, new ItemStack(Fishery.rodWood), 50, Rand.rand, 
+						event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ);
+			} else stack = new ItemStack(Items.cooked_fished);
+			
+			SpawnItemHelper.spawnItem(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, stack);
+			return 3;
+		} else return 0;
+	}
+
+	@Override
+	public int getExtraEnchantments(JewelryType type) {
+		return 1;
+	}
+
+	@Override
+	public int getMaximumEnchantmentLevel (JewelryType type) {
+		return 5;
+	}
+
+	@Override
+	public float getRepairModifier(JewelryType type) {
+		return 1.75F;
+	}
 
 	@Override
 	public float getHitsModifier(JewelryType type) {
-		return 1.0F;
+		return 2.0F;
 	}
 	
 	@Override
 	public float getDurabilityModifier(JewelryType type) {
-		return 1.0F;
+		return 0.9F;
 	}
 	
 	@Override

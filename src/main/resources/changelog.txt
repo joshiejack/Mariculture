@@ -30,6 +30,7 @@
 * AutoDictionary no longer ticks, therefore no longer has redstone control settings. It however works faster, and you can now specify upto 216 exceptions, and middle clicking will now switch the ore dictionary reference you are 'linked' to on an item, (this ONLY, affects cycling, as in, you will cycle to the next ore dictionary equivalent with that tag also).
 * Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
 * Fish Sorter no longer has redstone controls, but will now auto-eject to chests
+* Cheapened Silicon Carbide Recipe
 ====Bugfixes====
 * Fixed Fish Sorter not telling difference between eggs and fish
 * The slots for crucible furnace recipes no longer matter(with duel melting).
@@ -37,6 +38,8 @@
 * Crucible Furnace no longer crashes when a tesseract is placed under it
 * Fixed Molten dirt NEI Crash
 * Fixed Machines trying to eject to wrong side
+* Fixed Turbines accepting RF
+* Removed Electric Droplet Exploit(will think of another way to use them in the future)
 
 == Mariculture 1.2.0i==
 * More fish breeding derp... fixed wrong cross-breeding of enderfish
