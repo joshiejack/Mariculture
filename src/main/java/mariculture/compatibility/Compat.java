@@ -22,7 +22,7 @@ public class Compat extends Module {
 			try {
 				//CompatBait.init();
 			} catch (Exception e) {
-				LogHandler.log(Level.WARN, "Mariculture - Something went wrong when loading the Bait Compatibility Config");
+				LogHandler.log(Level.WARN, "Something went wrong when loading the Bait Compatibility Config");
 			}
 		}
 		

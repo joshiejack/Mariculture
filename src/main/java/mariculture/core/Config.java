@@ -73,7 +73,7 @@ public class Config {
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
         } catch (Exception e) {
-        	LogHandler.log(Level.ERROR, "Mariculture had a problem loading the other settings");
+        	LogHandler.log(Level.ERROR, "There was a problem loading the other config settings");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -150,7 +150,7 @@ public class Config {
             RetroGeneration.RUTILE = config.get(Category.RETRO, "Rutile", false).getBoolean(false);
             RetroGeneration.ANCIENT = config.get(Category.RETRO, "Ancient Sand", false).getBoolean(false);
         } catch (Exception e) {
-        	LogHandler.log(Level.ERROR, "Oh dear, there was a problem with Mariculture loading it's world configuration");
+        	LogHandler.log(Level.ERROR, "Oh dear, there was a problem with loading the world configuration file");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -161,8 +161,6 @@ public class Config {
         try {
             config.load();
             Mariculture.modules.setup(Core.class, true);
-            Mariculture.modules.setup(Compat.class, false);
-            Mariculture.modules.setup(Plugins.class, true);
             Mariculture.modules.setup(Diving.class, config.get(Category.MODULES, "Diving", true).getBoolean(true));
             Mariculture.modules.setup(Factory.class, config.get(Category.MODULES, "Factory", true).getBoolean(true));
             Mariculture.modules.setup(Fishery.class, config.get(Category.MODULES, "Fishery", true).getBoolean(true));
@@ -170,8 +168,10 @@ public class Config {
             Mariculture.modules.setup(Sealife.class, false);
             Mariculture.modules.setup(Transport.class, config.get(Category.MODULES, "Transport", true).getBoolean(true));
             Mariculture.modules.setup(WorldPlus.class, config.get(Category.MODULES, "World Plus", true).getBoolean(true));
+            Mariculture.modules.setup(Compat.class, false);
+            Mariculture.modules.setup(Plugins.class, true);
         } catch (Exception e) {
-            LogHandler.log(Level.ERROR, "Problem with Mariculture when copying over the module data");
+            LogHandler.log(Level.ERROR, "Problem when reading which modules are activated");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -219,7 +219,7 @@ public class Config {
             Extra.GEN_ENDER_PEARLS = config.get(Category.EXTRA, "Pearl Oyster > Generate Ender Pearls", true).getBoolean(true);
             Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster > Pearl Generation Chance", 32, Comment.PEARL_CHANCE).getInt();
         } catch (Exception e) {
-            LogHandler.log(Level.ERROR, "There was an issue with Mariculture when adjusting machine settings");
+            LogHandler.log(Level.ERROR, "There was an issue with when adjusting machine settings");
         	e.printStackTrace();
         } finally {
             config.save();
@@ -251,7 +251,7 @@ public class Config {
             EnchantSetting.TICK_REPAIR = config.get(Category.EXTRA, "Restoration - Ticks between Repair", 100).getInt();
             EnchantSetting.RED_PEARL_DMG_CHANCE = config.get(Category.EXTRA, "Red Pearl - Damage Chance", 10).getInt();
         } catch (Exception e) {
-            LogHandler.log(Level.ERROR, "Mariculture had a serious issue loading it's block/item/enchant ids");
+            LogHandler.log(Level.ERROR, "Failed to assign Enchantment config settings correctly");
         	e.printStackTrace();
         } finally {
             config.save();

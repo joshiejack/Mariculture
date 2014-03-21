@@ -17,6 +17,7 @@ public class PluginExtrabiomesXL extends Plugin {
 	public void postInit() {
 		
 	}
+	
 	/*
 	public PluginExtrabiomesXL(String name) {
 		super(name);

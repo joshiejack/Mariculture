@@ -32,46 +32,46 @@
             <craft1>ingotCopper|ingotCopper|ingotCopper</craft1>
             <craft2>ingotCopper|glass|ingotCopper</craft2>
             <craft3>||</craft3>
-            <craftResult>divingHelmet</craftResult>
+            <craftResult>diving.helmet</craftResult>
         </crafting>
         <crafting x="100" y="43">
             <craft1>|leather|</craft1>
             <craft2>leather||leather</craft2>
             <craft3>|leather|</craft3>
-            <craftResult>divingTop</craftResult>
+            <craftResult>diving.top</craftResult>
         </crafting>
         <crafting x="5" y="113">
             <craft1>leather|leather|leather</craft1>
             <craft2>|leather|</craft2>
             <craft3>leather|leather|leather</craft3>
-            <craftResult>divingPants</craftResult>
+            <craftResult>diving.pants</craftResult>
         </crafting>
         <crafting x="100" y="113">
             <craft1>leather||leather</craft1>
             <craft2>ingotIron||ingotIron</craft2>
             <craft3>||</craft3>
-            <craftResult>divingBoots</craftResult>
+            <craftResult>diving.boots</craftResult>
         </crafting>
     </page>
     <page>
         <text x="32" y="-13" bold="true">The Pieces</text>
         <text>Here's a list of the function of each piece of the Diving Gear.</text>
-        <stack item="divingHelmet" y="-5" size="1.8"></stack>
+        <stack item="diving.helmet" y="-5" size="1.8"></stack>
         <text x="30" y="26" bold="true" size="0.8">Diving Helmet</text>
         <text x="30" y="44" size="0.7" wrap="220">This when used in conjunction with an Air Pump and air supply will help you breathe underwater. It also also brightens up your vision underwater slightly.</text>
         <hr x="10" y="53" width="160"></hr>
         
-        <stack item="divingTop" y="18" size="1.8"></stack>
+        <stack item="diving.top" y="18" size="1.8"></stack>
         <text x="30" y="80" bold="true" size="0.8">Air Supply</text>
         <text x="30" y="106" size="0.7" wrap="220">Required to assist with breathing underwater in conjunction with Diving Helmet and an Air Pump.</text>
         <hr x="10" y="88" width="160"></hr>
         
-        <stack item="divingPants" y="38" size="1.8"></stack>
+        <stack item="diving.pants" y="38" size="1.8"></stack>
         <text x="30" y="127" bold="true" size="0.8">Diving Suit</text>
         <text x="30" y="160" size="0.7" wrap="220">Diving Pants work like Aqua Affinity and make you mine faster when underwater.</text>
         <hr x="10" y="127" width="160"></hr>
         
-        <stack item="divingBoots" y="61" size="1.8"></stack>
+        <stack item="diving.boots" y="61" size="1.8"></stack>
         <text x="30" y="174" bold="true" size="0.8">Diving Boots</text>
         <text x="30" y="215" size="0.7" wrap="220">The Diving Boots cause your player to walk through water faster, at roughly the same speed as on land.</text>
     </page>
@@ -82,46 +82,46 @@
             <craft1>dyeBlack|dyeYellow|</craft1>
             <craft2>scubaLens|scubaLens|</craft2>
             <craft3>||</craft3>
-            <craftResult>scubaMask</craftResult>
+            <craftResult>scuba.mask</craftResult>
         </crafting>
         <crafting x="100" y="43">
             <craft1>dyeYellow|aluminumSheet|dyeYellow</craft1>
             <craft2>aluminumSheet||aluminumSheet</craft2>
             <craft3>dyeYellow|aluminumSheet|dyeYellow</craft3>
-            <craftResult>scubaTank</craftResult>
+            <craftResult>scuba.tank</craftResult>
         </crafting>
         <crafting x="5" y="113">
             <craft1>neoprene|neoprene|neoprene</craft1>
             <craft2>|neoprene|</craft2>
             <craft3>neoprene|neoprene|neoprene</craft3>
-            <craftResult>wetsuit</craftResult>
+            <craftResult>scuba.suit</craftResult>
         </crafting>
         <crafting x="100" y="113">
             <craft1>neoprene||neoprene</craft1>
             <craft2>plastic|dyeBlack|plastic</craft2>
             <craft3>plastic|dyeBlack|plastic</craft3>
-            <craftResult>flippers</craftResult>
+            <craftResult>swimfin</craftResult>
         </crafting>
     </page>
     <page>
         <text x="32" y="-13" bold="true">The Pieces</text>
         <text>Here's a list of the function of each piece of the Scuba Gear.</text>
-        <stack item="scubaMask" y="-5" size="1.8"></stack>
+        <stack item="scuba.mask" y="-5" size="1.8"></stack>
         <text x="30" y="26" bold="true" size="0.8">Scuba Mask</text>
         <text x="30" y="44" size="0.7" wrap="220">Scuba Masks, when used with Scuba Tanks let you breathe underwater, they also can make your vision clearer underwater. (You can shift right click them so the vision works on land too!)</text>
         <hr x="10" y="53" width="160"></hr>
         
-        <stack item="scubaTank" y="18" size="1.8"></stack>
+        <stack item="scuba.tank" y="18" size="1.8"></stack>
         <text x="30" y="80" bold="true" size="0.8">Scuba Tank</text>
         <text x="30" y="106" size="0.7" wrap="230">These when filled with air via an Air Compressor, will provide you with Oxygen underwater as long as you also have a Mask.</text>
         <hr x="10" y="88" width="160"></hr>
         
-        <stack item="wetsuit" y="38" size="1.8"></stack>
+        <stack item="scuba.suit" y="38" size="1.8"></stack>
         <text x="30" y="127" bold="true" size="0.8">Wetsuit</text>
         <text x="30" y="160" size="0.7" wrap="220">Wetsuits seriously increase your mining speed underwater.</text>
         <hr x="10" y="127" width="160"></hr>
         
-        <stack item="flippers" y="61" size="1.8"></stack>
+        <stack item="swimfin" y="61" size="1.8"></stack>
         <text x="30" y="174" bold="true" size="0.8">Flippers</text>
         <text x="30" y="215" size="0.7" wrap="220">Flippers make you move significantly faster in water, and will set you in to fly mode in deep water.</text>
     </page>
@@ -132,13 +132,13 @@
             <craft1>aluminumSheet|ingotTitanium|ingotTitanium</craft1>
             <craft2>aluminumSheet|aluminumSheet|aluminumSheet</craft2>
             <craft3>wheel||</craft3>
-            <craftResult>compressorBase</craftResult>
+            <craftResult>airCompressor</craftResult>
         </crafting>
         <crafting x="100" y="65">
             <craft1>||cooler</craft1>
             <craft2>|piston|battery.titanium</craft2>
             <craft3>aluminumSheet|aluminumSheet|aluminumSheet</craft3>
-            <craftResult num="2">compressorTop</craftResult>
+            <craftResult num="2">airCompressorPower</craftResult>
         </crafting>
         <text y="156">Overtime they will produce air from the RF, and you can see an indicator of how much air is inside by the bar that shows up. Once there is enough air, you right the block with your Scuba Tank and it will fill it up with the air. They hold 2 Tanks worth.</text>
     </page>

@@ -14,6 +14,8 @@ import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.items.ItemArmorFLUDD.Mode;
 import mariculture.magic.Magic;
 import mariculture.magic.enchantments.EnchantmentFlight;
+import mariculture.magic.enchantments.EnchantmentGlide;
+import mariculture.magic.enchantments.EnchantmentSpider;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -63,6 +65,11 @@ public class ClientFMLEvents {
 				
 				ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.flight") + (EnchantmentFlight.mode + 1));
 				EnchantmentFlight.set(EnchantHelper.getEnchantStrength(Magic.flight, player), player);
+			} else if(ClientHelper.isToggleKeyPressed() && player.isSneaking() && EnchantHelper.hasEnchantment(Magic.spider, player)) {
+				EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
+				ClientHelper.addToChat(EnchantmentSpider.getChat());
+			} else if(ClientHelper.isToggleKeyPressed() && EnchantHelper.hasEnchantment(Magic.glide, player)) {
+				EnchantmentGlide.toggle();
 			}
 		}
 	}

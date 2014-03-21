@@ -57,10 +57,14 @@ public class BlockLimestone extends BlockDecorative {
 	@Override
 	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if(meta >= LimestoneMeta.PILLAR_1 && meta <= LimestoneMeta.PILLAR_3) {
-			BlockHelper.rotateType[Block.getIdFromBlock(this)] = RotationType.LOG;
-			BlockHelper.rotateVanillaBlockAlt(world, Block.getIdFromBlock(this), world.getBlockMetadata(x, y, z), x, y, z);
-			return true;
+		if(meta >= LimestoneMeta.PILLAR_1 && meta < LimestoneMeta.PILLAR_3) {
+			world.setBlockMetadataWithNotify(x, y, z, meta + 1, 2);
+		} else if(meta == LimestoneMeta.PILLAR_3) {
+			world.setBlockMetadataWithNotify(x, y, z, LimestoneMeta.PILLAR_1, 2);
+		} else if(meta >= LimestoneMeta.PEDESTAL_1 && meta < LimestoneMeta.PEDESTAL_6) {
+			world.setBlockMetadataWithNotify(x, y, z, meta + 1, 2);
+		} else if(meta == LimestoneMeta.PEDESTAL_6) {
+			world.setBlockMetadataWithNotify(x, y, z, LimestoneMeta.PEDESTAL_1, 2);
 		}
 		
 		return false;

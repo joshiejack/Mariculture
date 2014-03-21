@@ -172,8 +172,8 @@ public class Fishery extends RegistrationModule {
 
 	@Override
 	public void registerBlocks() {
-		lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lampsOff");
-		lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lampsOn");
+		lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lamps.off");
+		lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lamps.on");
 		RegistryHelper.registerBlocks(new Block[] { lampsOff, lampsOn });
 		RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileSift.class, TileIncubator.class, TileFeeder.class, TileFishTank.class });
 		

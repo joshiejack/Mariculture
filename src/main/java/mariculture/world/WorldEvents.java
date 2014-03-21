@@ -23,7 +23,7 @@ public class WorldEvents {
 				try {
 					event.newGen = new MapGenMineshaftsDisabled();
 				} catch (Exception e) {
-					LogHandler.log(Level.TRACE, "Mariculture couldn't remove mineshafts from oceans");
+					LogHandler.log(Level.TRACE, "Failed to remove mineshafts from oceans");
 				}
 			}
 		}
@@ -33,7 +33,7 @@ public class WorldEvents {
 				try {
 					event.newGen = new MapGenCavesWater();
 				} catch (Exception e) {
-					LogHandler.log(Level.TRACE, "Mariculture couldn't add water filled caves");
+					LogHandler.log(Level.TRACE, "Failed to add water filled caves");
 				}
 			}
 		}
@@ -47,7 +47,7 @@ public class WorldEvents {
 						event.newGen = new MapGenRavineWater();
 					}
 				} catch (Exception e) {
-					LogHandler.log(Level.TRACE, "Mariculture couldn't add water filled ravines");
+					LogHandler.log(Level.TRACE, "Failed to add water filled ravines");
 				}
 			}
 		}

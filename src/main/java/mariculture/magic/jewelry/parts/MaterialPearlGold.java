@@ -28,12 +28,12 @@ public class MaterialPearlGold extends JewelryMaterial {
 	
 	@Override
 	public int getExtraEnchantments(JewelryType type) {
-		return 2;
+		return type == JewelryType.BRACELET?2 : type == JewelryType.RING? 0: 1;
 	}
 
 	@Override
 	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return 5;
+		return type == JewelryType.BRACELET? 5: 4;
 	}
 
 	@Override

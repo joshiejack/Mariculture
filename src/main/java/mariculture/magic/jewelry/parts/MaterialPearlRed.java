@@ -37,12 +37,12 @@ public class MaterialPearlRed extends JewelryMaterial {
 
 	@Override
 	public int getExtraEnchantments(JewelryType type) {
-		return -1;
+		return type == JewelryType.RING? 0: type == JewelryType.BRACELET? -1: -2;
 	}
 
 	@Override
 	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return 1;
+		return type == JewelryType.NECKLACE? 2: 1;
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class MaterialPearlRed extends JewelryMaterial {
 
 	@Override
 	public float getHitsModifier(JewelryType type) {
-		return 3.0F;
+		return type == JewelryType.RING? 2.0F: 3.5F;
 	}
 	
 	@Override
 	public float getDurabilityModifier(JewelryType type) {
-		return 10.0F;
+		return type == JewelryType.RING? 5F: 7.5F;
 	}
 	
 	@Override

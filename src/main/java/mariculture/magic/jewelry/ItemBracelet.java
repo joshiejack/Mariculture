@@ -13,11 +13,6 @@ public class ItemBracelet extends ItemJewelry {
 	}
 
 	@Override
-	public int getMaxLevel() {
-		return 90;
-	}
-
-	@Override
 	public boolean renderBinding() {
 		return false;
 	}

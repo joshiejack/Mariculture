@@ -44,7 +44,7 @@ public class Modules {
 		
 		//Just a display helper
 		public void setLoaded(String str) {
-			LogHandler.log(Level.INFO, "Mariculture: " + this.getClass().getSimpleName() + " Module Finished Loading");
+			LogHandler.log(Level.INFO, this.getClass().getSimpleName() + " Module Finished Loading");
 		}
 		
 		public abstract void preInit();

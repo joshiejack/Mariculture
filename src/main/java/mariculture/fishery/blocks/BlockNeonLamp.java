@@ -128,7 +128,12 @@ public class BlockNeonLamp extends BlockDecorative {
 		icons = new IIcon[PearlColor.COUNT];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = register.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)) + i);
+			String theName, name = getUnlocalizedName().substring(5) + i;
+			String[] aName = name.split("\\.");
+			if(aName.length == 2) theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+			else theName = name;
+			
+			icons[i] = register.registerIcon(Mariculture.modid + ":" + theName);
 		}
 	}
 

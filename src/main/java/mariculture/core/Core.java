@@ -398,5 +398,6 @@ public class Core extends RegistrationModule {
 	public void postInit() {
 		mariculture.core.helpers.FluidHelper.setup();
 		RecipesSmelting.postAdd();
+		super.postInit();
 	}
 }

@@ -49,14 +49,12 @@ public abstract class ItemJewelry extends ItemDamageable {
 	public abstract JewelryType getType();
 	//This is the utter maximum durability upgrades this piece can have
 	public abstract int getMaxDurability();
-	//This is the maximum levels this piece can gain
-	public abstract int getMaxLevel();
 	//Whether to render the binding
 	public abstract boolean renderBinding();
 	
 	@Override
 	public int getItemEnchantability() {
-        return 2;
+        return 0;
     }
 	
 	@Override

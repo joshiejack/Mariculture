@@ -68,6 +68,8 @@ public class OreDicHandler {
 	}
 	
 	public static void registerWildcard(ItemStack stack, Integer[] metas) {
+		if(stack == null || metas == null) return;
+	//Get the wildcard and add it
 		String name = Item.itemRegistry.getNameForObject(stack.getItem());
 		specials.put(name, metas);
 		
@@ -97,7 +99,7 @@ public class OreDicHandler {
 			DisplayRegistry.registerOreDictionaryCycling(name);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LogHandler.log(Level.WARN, "Mariculture attempted to add Ore Dictionary Cycling for the guide books but it found the required mod Enchridion was not installed");
+			LogHandler.log(Level.WARN, "Attempted to add Ore Dictionary Cycling for the guide books but found the required mod Enchridion was not installed");
 		}
 	}
 	

@@ -47,13 +47,13 @@ public class Diving extends RegistrationModule {
 
 	@Override
 	public void registerItems() {
-		divingHelmet = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 0)).setUnlocalizedName("divingHelmet");
-		divingTop = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 1)).setUnlocalizedName("divingTop");
-		divingPants = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 2)).setUnlocalizedName("divingPants");
-		divingBoots = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 3)).setUnlocalizedName("divingBoots");
-		scubaMask = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 0)).setUnlocalizedName("scubaMask");
-		scubaTank = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 1)).setUnlocalizedName("scubaTank").setNoRepair();
-		scubaSuit = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 2)).setUnlocalizedName("scubaSuit");
+		divingHelmet = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 0)).setUnlocalizedName("diving.helmet");
+		divingTop = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 1)).setUnlocalizedName("diving.top");
+		divingPants = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 2)).setUnlocalizedName("diving.pants");
+		divingBoots = (new ItemArmorDiving(armorDIVING, RenderIds.DIVING, 3)).setUnlocalizedName("diving.boots");
+		scubaMask = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 0)).setUnlocalizedName("scuba.mask");
+		scubaTank = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 1)).setUnlocalizedName("scuba.tank").setNoRepair();
+		scubaSuit = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 2)).setUnlocalizedName("scuba.suit");
 		swimfin = (new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 3)).setUnlocalizedName("swimfin");
 		snorkel = (new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 0)).setUnlocalizedName("snorkel");
 		RegistryHelper.registerItems(new Item[]{ divingHelmet, divingTop, divingPants, divingBoots, scubaMask, scubaTank, scubaSuit, swimfin, snorkel });

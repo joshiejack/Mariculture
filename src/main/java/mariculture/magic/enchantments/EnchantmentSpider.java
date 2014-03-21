@@ -66,9 +66,7 @@ public class EnchantmentSpider extends EnchantmentJewelry {
 	}
 
 	public static String getChat() {
-		if(toggledOn)
-			return StatCollector.translateToLocal("mariculture.string.enabledSpider");
-		else
-			return StatCollector.translateToLocal("mariculture.string.disabledSpider");
+		if(toggledOn) return StatCollector.translateToLocal("mariculture.string.enabledSpider");
+		else return StatCollector.translateToLocal("mariculture.string.disabledSpider");
 	}
 }

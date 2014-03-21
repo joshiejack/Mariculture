@@ -11,12 +11,7 @@ public class ItemNecklace extends ItemJewelry {
 	public int getMaxDurability() {
 		return 100;
 	}
-
-	@Override
-	public int getMaxLevel() {
-		return 200;
-	}
-
+	
 	@Override
 	public boolean renderBinding() {
 		return false;

@@ -134,7 +134,8 @@ public class ItemStorage extends Item implements IItemRegistry {
 			player.getCurrentEquippedItem().stackTagCompound.setTag("Inventory", nbttaglist);
 
 		} catch (Exception e) {
-			LogHandler.log(Level.WARN, "Mariculture had trouble saving an inventory");
+			e.printStackTrace();
+			LogHandler.log(Level.WARN, "Trouble saving an items inventory");
 		}
 	}
 

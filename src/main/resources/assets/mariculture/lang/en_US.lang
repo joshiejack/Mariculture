@@ -216,13 +216,13 @@ tile.machines.multi.rendered.pressureVessel.name=Pressure Vessel
 item.guide.diving.name=How to Dive (Breathing Underwater)
 item.guide.diving.author=Tom Daley
 item.snorkel.name=Snorkel
-item.divingHelmet.name=Diving Helmet
-item.divingTop.name=Diving Air Supply
-item.divingPants.name=Diving Suit
-item.divingBoots.name=Diving Boots
-item.scubaMask.name=Scuba Mask
-item.scubaTank.name=Scuba Tank
-item.scubaSuit.name=Wetsuit
+item.diving.helmet.name=Diving Helmet
+item.diving.top.name=Diving Air Supply
+item.diving.pants.name=Diving Suit
+item.diving.boots.name=Diving Boots
+item.scuba.mask.name=Scuba Mask
+item.scuba.tank.name=Scuba Tank
+item.scuba.suit.name=Wetsuit
 item.swimfin.name=Flippers
 
 ### Factory ###
@@ -280,30 +280,30 @@ tile.machines.multi.incubatorBase.name=Incubator Base
 tile.machines.multi.incubatorTop.name=Incubator Top
 tile.machines.single.autofisher.name=Automatic Fisher
 tile.machines.single.rendered.sifter.name=Sifter
-tile.lampsOn.white.name=White Neon Lamp
-tile.lampsOn.green.name=Green Neon Lamp
-tile.lampsOn.yellow.name=Yellow Neon Lamp
-tile.lampsOn.orange.name=Orange Neon Lamp
-tile.lampsOn.red.name=Red Neon Lamp
-tile.lampsOn.gold.name=Gold Neon Lamp
-tile.lampsOn.brown.name=Brown Neon Lamp
-tile.lampsOn.purple.name=Purple Neon Lamp
-tile.lampsOn.blue.name=Blue Neon Lamp
-tile.lampsOn.black.name=Black Neon Lamp
-tile.lampsOn.pink.name=Pink Neon Lamp
-tile.lampsOn.silver.name=Silver Neon Lamp
-tile.lampsOff.white.name=White Neon Lamp
-tile.lampsOff.green.name=Green Neon Lamp
-tile.lampsOff.yellow.name=Yellow Neon Lamp
-tile.lampsOff.orange.name=Orange Neon Lamp
-tile.lampsOff.red.name=Red Neon Lamp
-tile.lampsOff.gold.name=Gold Neon Lamp
-tile.lampsOff.brown.name=Brown Neon Lamp
-tile.lampsOff.purple.name=Purple Neon Lamp
-tile.lampsOff.blue.name=Blue Neon Lamp
-tile.lampsOff.black.name=Black Neon Lamp
-tile.lampsOff.pink.name=Pink Neon Lamp
-tile.lampsOff.silver.name=Silver Neon Lamp
+tile.lamps.on.white.name=White Neon Lamp
+tile.lamps.on.green.name=Green Neon Lamp
+tile.lamps.on.yellow.name=Yellow Neon Lamp
+tile.lamps.on.orange.name=Orange Neon Lamp
+tile.lamps.on.red.name=Red Neon Lamp
+tile.lamps.on.gold.name=Gold Neon Lamp
+tile.lamps.on.brown.name=Brown Neon Lamp
+tile.lamps.on.purple.name=Purple Neon Lamp
+tile.lamps.on.blue.name=Blue Neon Lamp
+tile.lamps.on.black.name=Black Neon Lamp
+tile.lamps.on.pink.name=Pink Neon Lamp
+tile.lamps.on.silver.name=Silver Neon Lamp
+tile.lamps.off.white.name=White Neon Lamp
+tile.lamps.off.green.name=Green Neon Lamp
+tile.lamps.off.yellow.name=Yellow Neon Lamp
+tile.lamps.off.orange.name=Orange Neon Lamp
+tile.lamps.off.red.name=Red Neon Lamp
+tile.lamps.off.gold.name=Gold Neon Lamp
+tile.lamps.off.brown.name=Brown Neon Lamp
+tile.lamps.off.purple.name=Purple Neon Lamp
+tile.lamps.off.blue.name=Blue Neon Lamp
+tile.lamps.off.black.name=Black Neon Lamp
+tile.lamps.off.pink.name=Pink Neon Lamp
+tile.lamps.off.silver.name=Silver Neon Lamp
 tile.tanks.fish.name=Fish Tank
 item.net.name=Fishing Net
 tile.woods.polishedPlank.name=Polished Planks
@@ -443,7 +443,7 @@ item.guide.enchants.author=Ursula
 item.mirror.basic.name=Mirror
 item.mirror.magic.name=Magic Mirror
 item.mirror.celestial.name=Celestial Mirror
-item.mobMagnet.name=Mob Magnet
+item.mobmagnet.name=Mob Magnet
 #jewelry-parts
 item.ring.name=Ring
 item.bracelet.name=Bracelet
@@ -451,7 +451,7 @@ item.necklace.name=Necklace
 
 ### Transport ###
 #items
-item.speedBoat.name=Speed Boat
+item.boat.speed.name=Speed Boat
 
 ### World ###
 #blocks

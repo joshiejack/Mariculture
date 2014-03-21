@@ -2,6 +2,7 @@
 ==== BETA Notes ====
 * MAJOR: You need to install 'Enchiridion' if you want to keep my books, it's been split to a seperate mod for 'reasons'.
 * Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
+* Plugins for mods, like tinkers and BOP are not implemented yet
 * The screwed up rendering of void bottles is known, and is on the to do list
 * Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
 

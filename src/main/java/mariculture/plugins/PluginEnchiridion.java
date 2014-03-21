@@ -9,6 +9,7 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
 import mariculture.diving.Diving;
@@ -61,7 +62,7 @@ public class PluginEnchiridion extends Plugin {
 		
 		for (Entry<String, ItemStack> stack : MaricultureRegistry.getRegistry().entrySet()) {
 			DisplayRegistry.registerShorthand(stack.getKey(), stack.getValue());
-			if(GuideHandler.DEBUG_ENABLED) LogHandler.log(Level.INFO, "Registered " + stack.getKey());
+			if(Extra.DEBUG_ON) LogHandler.log(Level.INFO, "Registered " + stack.getKey());
 		}
 	}	
 }

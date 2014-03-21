@@ -37,7 +37,7 @@ public class RetroGen {
 		} catch (Exception e) {
 			e.printStackTrace();
 			ore = ore.substring(0, 1).toUpperCase() + ore.substring(1);
-			LogHandler.log(Level.WARN, "Mariculture's Retro-Gen of " + ore + " Failed");
+			LogHandler.log(Level.WARN, "Retro-Gen of " + ore + " Failed");
 		}
 		
 		return false;

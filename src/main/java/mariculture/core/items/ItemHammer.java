@@ -5,10 +5,12 @@ import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.tile.TileAnvil;
+import mariculture.core.util.IHasGUI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -27,6 +29,7 @@ public class ItemHammer extends ItemDamageable {
 	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		Block block = world.getBlock(x, y, z);
+		if(block == Blocks.bed) return false;
 		if(BlockHelper.canRotate(block)) {
 			int meta = world.getBlockMetadata(x, y, z);
 			if(player.isSneaking()) {
@@ -38,6 +41,7 @@ public class ItemHammer extends ItemDamageable {
 		
 		if(block != null) {
 			if(block == Core.renderedMachines && world.getBlockMetadata(x, y, z) == MachineRenderedMeta.ANVIL && !player.isSneaking()) return false;
+			if(world.getTileEntity(x, y, z) instanceof IHasGUI && !player.isSneaking()) return false;
 			if(block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
 				return !world.isRemote;
 		}

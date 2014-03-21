@@ -41,12 +41,12 @@ public class MaterialPearlPurple extends JewelryMaterial {
 
 	@Override
 	public int getExtraEnchantments(JewelryType type) {
-		return 1;
+		return type == JewelryType.RING? 1: 0;
 	}
 
 	@Override
 	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return 5;
+		return type == JewelryType.RING? 5: 3;
 	}
 
 	@Override

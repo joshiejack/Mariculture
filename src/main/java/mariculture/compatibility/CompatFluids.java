@@ -32,14 +32,14 @@ public class CompatFluids {
 		try {
 			addCustomFluids();
 		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture - Something went wrong with adding Custom Fluids");
+			LogHandler.log(Level.INFO, "Something went wrong with adding Custom Fluids");
 		}
 		
 		try {
 			addRecipes();
 		} catch (Exception e) {
 			e.printStackTrace();
-			LogHandler.log(Level.INFO, "Mariculture - Something went wrong with adding Fluid Recipes");
+			LogHandler.log(Level.INFO, "Something went wrong with adding Fluid Recipes");
 		}
 	}
 	

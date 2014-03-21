@@ -2,6 +2,8 @@ package mariculture.diving;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
@@ -80,11 +82,6 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 
 		return stack;
 	}
-
-	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + (this.getUnlocalizedName().substring(5)));
-	}
 	
 	@Override
 	public int getMetaCount() {
@@ -101,5 +98,15 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 		for(int j = 0; j < this.getMetaCount(); j++) {
 			MaricultureRegistry.register(getName(new ItemStack(item, 1, j)), new ItemStack(item, 1, j));
 		}
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IIconRegister iconRegister) {
+		String theName, name = getName(new ItemStack(this));
+		String[] aName = name.split("\\.");
+		if(aName.length == 2) theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+		else theName = name;
+		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
 	}
 }

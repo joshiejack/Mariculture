@@ -46,9 +46,9 @@ public class BindingGold extends JewelryBinding {
 	@Override
 	public int getKeepEnchantmentChance(JewelryType type) {
 		switch (type) {
-			case RING:		return 100;
-			case BRACELET: 	return 95;
-			case NECKLACE: 	return 100;
+			case RING:		return 95;
+			case BRACELET: 	return 85;
+			case NECKLACE: 	return 75;
 			default:		return 95;
 		}
 	}

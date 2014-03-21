@@ -39,7 +39,7 @@ public class Plugins extends Module {
 						break;
 				}
 			} catch (Exception e) {
-				LogHandler.log(Level.WARN, "Mariculture - Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
+				LogHandler.log(Level.WARN, "Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
 			}
 		}
 
@@ -56,14 +56,14 @@ public class Plugins extends Module {
 			try {
 				Class.forName("mariculture.plugins.Plugin" + str).newInstance();
 			} catch (Exception e) {
-				LogHandler.log(Level.WARN, "Mariculture - Something went wrong when initializing " + str + " Plugin");
+				LogHandler.log(Level.WARN, "Something went wrong when initializing " + str + " Plugin");
 			}
 		}
 	}
 	
 	@Override
 	public void setLoaded(String str) {
-		LogHandler.log(Level.INFO, "Mariculture: " + str + " Plugin Finished Loading");
+		LogHandler.log(Level.INFO, str + " Plugin Finished Loading");
 	}
 	
 	@Override

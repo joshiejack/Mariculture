@@ -76,16 +76,6 @@ public class JewelryHandler {
 		return (stack.getItem() instanceof ItemJewelry)?((ItemJewelry)stack.getItem()).getType() : JewelryType.NONE;
 	}
 	
-	//Returns the maximum level this item can go
-	public static int getMaxLevel(ItemStack stack) {
-		return (stack.getItem() instanceof ItemJewelry)?((ItemJewelry)stack.getItem()).getMaxLevel() : -1;
-	}
-	
-	//Max durability
-	public static int getMaxDurability(ItemStack stack) {
-		return (stack.getItem() instanceof ItemJewelry)?((ItemJewelry)stack.getItem()).getMaxLevel() : -1;
-	}
-	
 	//Creates a 'special' piece of jewelry
 	public static ItemStack createSpecial(ItemJewelry item, JewelryType accepted, String special) {
 		ItemStack stack = new ItemStack(item);
