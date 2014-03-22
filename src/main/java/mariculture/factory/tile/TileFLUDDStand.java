@@ -11,7 +11,6 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.lib.WaterMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileMachineTank;
 import mariculture.core.util.FluidDictionary;
@@ -182,7 +181,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification,
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.water && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
+		return worldObj.getBlock(x, y, z) == Core.ticking;
 	}
 	
 	private boolean hasEthereal() {

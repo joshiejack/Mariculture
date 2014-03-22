@@ -110,6 +110,10 @@ public final class ItemHelper {
 
 		return ItemStack.areItemStacksEqual(stackA, stackB);
 	}
+	
+	public static final boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {
+		return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage();
+	}
 
 	public static final boolean areItemStackEqualNoNull(ItemStack stackA, ItemStack stackB) {
 

@@ -21,9 +21,9 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.TileAirPump;
+import mariculture.core.tile.TileAirPump.Type;
 import mariculture.core.tile.TileAnvil;
 import mariculture.core.tile.TileIngotCaster;
-import mariculture.core.tile.TileAirPump.Type;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.items.ItemArmorFLUDD;
@@ -228,13 +228,11 @@ public class BlockRenderedMachine extends BlockFunctional {
 			if(PlayerHelper.isFake(player)) return false;
 			TileAnvil anvil = (TileAnvil) tile;
 			if(anvil.getStackInSlot(0) != null) {
-				Packets.syncInventory(anvil, anvil.getInventory());
-				if (!player.inventory.addItemStackToInventory(anvil.getStackInSlot(0))) {
-					if(!world.isRemote) {
-						SpawnItemHelper.spawnItem(world, x, y + 1, z, anvil.getStackInSlot(0));
-					}
+				if(!world.isRemote) {
+					Packets.syncInventory(anvil, anvil.getInventory());
 				}
-					
+				
+				SpawnItemHelper.addToPlayerInventory(player, world, x, y + 1, z, anvil.getStackInSlot(0));
 				anvil.setInventorySlotContents(0, null);
 			} else if(player.getCurrentEquippedItem() != null) {
 				ItemStack stack = player.getCurrentEquippedItem().copy();

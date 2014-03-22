@@ -4,7 +4,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.items.ItemMariculture;
-import mariculture.core.lib.WaterMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,9 +39,8 @@ public class BlockItemNet extends ItemMariculture {
 					return stack;
 				}
 
-				if (world.getBlock(x, y, z).getMaterial() == Material.water 
-						&& world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
-					world.setBlock(x, y + 1, z, Core.water, WaterMeta.NET, 2);
+				if (world.getBlock(x, y, z).getMaterial() == Material.water  && world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
+					world.setBlock(x, y + 1, z, Core.ticking);
 
 					if (!player.capabilities.isCreativeMode) {
 						--stack.stackSize;

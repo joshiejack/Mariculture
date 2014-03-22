@@ -7,7 +7,6 @@ import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
@@ -107,7 +106,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
 			updateUpgrades();
 		}
 		
-		if(onTick(Extra.CAN_WORK_TICK)) {
+		if(onTick(20)) {
 			canWork = canWork();
 		}
 		

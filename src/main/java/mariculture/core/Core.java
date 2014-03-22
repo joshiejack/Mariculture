@@ -20,6 +20,7 @@ import mariculture.core.blocks.BlockRenderedMachine;
 import mariculture.core.blocks.BlockRenderedMachineMulti;
 import mariculture.core.blocks.BlockRock;
 import mariculture.core.blocks.BlockTank;
+import mariculture.core.blocks.BlockTicking;
 import mariculture.core.blocks.BlockTransparent;
 import mariculture.core.blocks.BlockWater;
 import mariculture.core.blocks.BlockWood;
@@ -31,6 +32,7 @@ import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
 import mariculture.core.handlers.ModulesHandler;
 import mariculture.core.handlers.OreDicHandler;
+import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
@@ -49,6 +51,7 @@ import mariculture.core.items.ItemPearl;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.EntityIds;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -103,6 +106,7 @@ public class Core extends RegistrationModule {
 	public static Block air;
 	public static Block tanks;
 	public static Block sands;
+	public static Block ticking;
 	public static Block transparent;
 	public static Block water;
 
@@ -187,10 +191,11 @@ public class Core extends RegistrationModule {
 		tanks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tanks").setHardness(1F);
 		sands = new BlockGround().setBlockName("sands").setHardness(1F);
 		transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
+		ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
 		water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
 		RegistryHelper.registerBlocks(new Block[] { 
 				rocks, limestone, water, metals, sands, woods, glass, transparent,  pearlBlock, pearlBrick, 
-				machines, multiMachines, renderedMultiMachines, renderedMachines, tanks, air });
+				machines, multiMachines, renderedMultiMachines, renderedMachines, ticking, tanks, air });
 		RegistryHelper.registerTiles(new Class[] { 
 				TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, 
 				TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class});
@@ -221,6 +226,7 @@ public class Core extends RegistrationModule {
 		registerBiomes();
 		registerEntities();
 		registerLiquids();
+		registerPearls();
 		addToOreDictionary();
 		MaricultureTab.tabMariculture.icon = new ItemStack(pearls, 1, PearlColor.WHITE);
 	}
@@ -298,6 +304,25 @@ public class Core extends RegistrationModule {
 		//Mushroom
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIsland, EnumBiomeType.MUSHROOM);
 		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIslandShore, EnumBiomeType.MUSHROOM);	
+	}
+	
+	private void registerPearls() {
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLACK), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLUE), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BROWN), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.GOLD), 5);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.GREEN), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.ORANGE), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.PINK), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.PURPLE), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.RED), 10);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.SILVER), 6);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 7);
+		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
+		PearlGenHandler.addPearl(new ItemStack(Blocks.sand), 15);
+		if(Extra.GEN_ENDER_PEARLS) {
+			PearlGenHandler.addPearl(new ItemStack(Items.ender_pearl), 1);
+		}
 	}
 
 	private void addToOreDictionary() {	

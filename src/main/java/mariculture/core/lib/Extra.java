@@ -9,6 +9,7 @@ public class Extra {
 	public static boolean OCEAN_FORCE;
 	public static int[] OCEAN_BIOMES;
 	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID, BiomeGenBase.frozenOcean.biomeID, BiomeGenBase.deepOcean.biomeID };
+	public static boolean ENABLE_FLUIDIC;
 	public static boolean KELP_GROWTH_ENABLED;
 	public static boolean MOSS_SPREAD_ENABLED;
 	public static boolean CORAL_SPREAD_ENABLED;
@@ -39,7 +40,6 @@ public class Extra {
 	
 	public static int SONIC_MOD;
 	public static int LEAP_MOD;
-	public static int CAN_WORK_TICK;
 	public static boolean GEYSER_ANIM;
 	public static boolean FLUDD_BLOCK_ANIM;
 	public static boolean ENDER_CONVERTER;

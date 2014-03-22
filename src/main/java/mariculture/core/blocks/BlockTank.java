@@ -10,6 +10,7 @@ import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
@@ -232,8 +233,8 @@ public class BlockTank extends BlockConnected {
 
 	@Override
 	public boolean isActive(int meta) {
-		if(meta == TankMeta.FISH)		 return Modules.isActive(Modules.fishery);
-		if(meta == TankMeta.DIC)	 	 return Modules.isActive(Modules.factory);
+		if(meta == TankMeta.FISH)							return Modules.isActive(Modules.fishery);
+		if(meta == TankMeta.DIC && Extra.ENABLE_FLUIDIC)	return Modules.isActive(Modules.factory);
 		return meta != TankMeta.BOTTLE;
 	}
 	

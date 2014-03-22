@@ -5,7 +5,6 @@ import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.factory.tile.TilePressureVessel;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 

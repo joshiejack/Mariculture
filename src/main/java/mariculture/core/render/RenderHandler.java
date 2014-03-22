@@ -2,11 +2,7 @@ package mariculture.core.render;
 
 import java.util.HashMap;
 
-import mariculture.core.Core;
-import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.WaterMeta;
-import mariculture.factory.render.RenderGeyser;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;

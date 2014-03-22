@@ -35,17 +35,16 @@ public class ItemBait extends ItemMariculture {
 		--stack.stackSize;
 		int quality = Fishing.bait.getBaitQuality(stack);
 		int fill = (int)(((double)quality/100) * 4.0D);
-		float sat = -(float) (fill/5);
 		//Decrease food if hunger overhaul is installed
 		if(Loader.isModLoaded("HungerOverhaul")) {
 			fill = 1;
-			sat = Math.max(-1.0F, -sat/10);
 			player.addPotionEffect(new PotionEffect(Potion.hunger.id, 30, 0));
 			if(Rand.nextInt(64)) player.addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0));
 			if(Rand.nextInt(8))  player.addPotionEffect(new PotionEffect(Potion.confusion.id, 50, 0));
 		}
 		
-		player.getFoodStats().addStats(fill, sat);
+		player.getFoodStats().addStats(fill, 0F);
+		player.getFoodStats().setFoodSaturationLevel(0F);
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		return stack;

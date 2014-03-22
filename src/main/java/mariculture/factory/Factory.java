@@ -7,6 +7,7 @@ import mariculture.core.Core;
 import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
+import mariculture.core.items.ItemChalk;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
@@ -75,6 +76,8 @@ public class Factory extends RegistrationModule {
 	public static Block customWall;
 	public static Block customLight;
 	public static Block customRFBlock;
+	
+	public static Item chalk;
 	public static Item plans;
 	public static Item fludd;
 	public static Item paintbrush;
@@ -115,6 +118,7 @@ public class Factory extends RegistrationModule {
 
 	@Override
 	public void registerItems() {
+		chalk = new ItemChalk(64).setUnlocalizedName("chalk");
 		plans = new ItemPlan().setUnlocalizedName("plans");
 		fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
 		paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
@@ -122,16 +126,16 @@ public class Factory extends RegistrationModule {
 		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
 		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
 		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
-		RegistryHelper.registerItems(new Item[] { plans, paintbrush, fludd, filter, turbineCopper, turbineAluminum, turbineTitanium });
+		RegistryHelper.registerItems(new Item[] { chalk, plans, paintbrush, fludd, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 	
 	@Override
 	public void registerOther() {
 		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
 		FluidDicHandler.register("water", "water", 2000);
-		FluidDicHandler.register("xp", "xpjuice", 20);
-		FluidDicHandler.register("xp", "immibis.liquidxp", 100);
-		FluidDicHandler.register("xp", "mobessence", 66);
+		FluidDicHandler.register("xp", "xpjuice", 200);
+		FluidDicHandler.register("xp", "immibis.liquidxp", 1000);
+		FluidDicHandler.register("xp", "mobessence", 666);
 	}
 
 	@Override
@@ -156,6 +160,17 @@ public class Factory extends RegistrationModule {
 			Character.valueOf('B'), Items.writable_book,
 			Character.valueOf('I'), "ingotCopper"
 		});
+		
+		if(Extra.ENABLE_FLUIDIC) {
+			RecipeHelper.addShapedRecipe(new ItemStack(Core.tanks, 1, TankMeta.DIC), new Object[] {
+				" B ", "FPF", "IMI",
+				Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
+				Character.valueOf('P'), new ItemStack(Core.tanks, 1, TankMeta.DIC), 
+				Character.valueOf('M'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD), 
+				Character.valueOf('B'), Items.water_bucket,
+				Character.valueOf('I'), "ingotCopper"
+			});
+		}
 		
 		if(Extra.ENDER_CONVERTER) {
 			//Alternative for Converter
@@ -276,36 +291,36 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Planning Chalk
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"LLN", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
 		//Chalk Vertically x 3
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			" L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			" N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addMelting(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), 825, 
+		RecipeHelper.addMelting(new ItemStack(chalk), 825, 
 				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 2500));
 		
 		//Blank Plan

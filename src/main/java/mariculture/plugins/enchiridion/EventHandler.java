@@ -18,7 +18,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class EventHandler {
 	//Reads the nbt of a player and sets if this book has been collected or not
-	public void spawnBook(EntityPlayer player, int meta) {
+	public static void spawnBook(EntityPlayer player, int meta) {
 		if(!NBTHelper.getPlayerData(player).hasKey("BookCollected" + meta)) {
 			NBTHelper.getPlayerData(player).setBoolean("BookCollected" + meta, true);
 			ItemStack book = new ItemStack(PluginEnchiridion.guides, 1, meta);

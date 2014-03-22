@@ -5,7 +5,6 @@ import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileTank;
 import mariculture.core.util.FluidDictionary;
@@ -62,6 +61,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 		if(onTick(60)) {
 			placeInTank();
 			pullFromTank();
+			switchTanks();
 		}
 		
 		if(onTick(30) && tank.getFluidAmount() > 0 && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
@@ -116,6 +116,8 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 							if (tank.drain(orientation.getOpposite(), drain, false).amount == drain) {
 								Block block = fluid.getBlock();
 								if (block != null) {
+									FluidStack stack = tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), false);
+									if(stack == null) return;
 									if (block instanceof BlockFluidFinite) {
 										if (worldObj.isAirBlock(x2, y2, z2)) {
 											worldObj.setBlock(x2, y2, z2, block, 0, 2);
@@ -138,6 +140,27 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	public void switchTanks() {
+		int x2 = xCoord + orientation.offsetX;
+		int y2 = yCoord + orientation.offsetY;
+		int z2 = zCoord + orientation.offsetZ;
+		int x3 = xCoord + orientation.getOpposite().offsetX;
+		int y3 = yCoord + orientation.getOpposite().offsetY;
+		int z3 = zCoord + orientation.getOpposite().offsetZ;
+		if(worldObj.getTileEntity(x2, y2, z2) instanceof IFluidHandler && worldObj.getTileEntity(x3, y3, z3) instanceof IFluidHandler) {
+			IFluidHandler tankFrom = (IFluidHandler) worldObj.getTileEntity(x3, y3, z3);
+			IFluidHandler tankTo = (IFluidHandler) worldObj.getTileEntity(x2, y2, z2);
+			if(tankTo instanceof TileSluice) return;
+			FluidStack fluid = tankFrom.drain(orientation, 1000, false);
+			if(fluid == null) return;
+			int drained = tankTo.fill(orientation.getOpposite(), fluid, false);
+			if(drained > 0) {
+				FluidStack drain = tankFrom.drain(orientation, drained, true);
+				tankTo.fill(orientation.getOpposite(), drain, true);
 			}
 		}
 	}

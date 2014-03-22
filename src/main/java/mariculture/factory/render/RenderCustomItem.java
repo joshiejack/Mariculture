@@ -1,9 +1,14 @@
 package mariculture.factory.render;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
+import org.lwjgl.opengl.GL11;
+
 public class RenderCustomItem implements IItemRenderer {
+	public static final RenderBlocksCustom renderBlocks = new RenderBlocksCustom();
+	
 	@Override
 	public boolean handleRenderType(ItemStack stack, ItemRenderType type) {
 		switch (type) {
@@ -27,42 +32,29 @@ public class RenderCustomItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		/*
-		if(item.hasTagCompound()) {
-			if(item.stackTagCompound.getIntArray("BlockIDs").length != 6) {
-				return;
-			} else {
-				for(int i = 0; i <= 5; i++) {
-					if(Blocks.blocksList[item.stackTagCompound.getIntArray("BlockIDs")[i]] == null) {
-						return;
-					}
-				}
-			}
-		}
-		
-		RenderBlocksCustom renderBlocks = new RenderBlocksCustom();
 		switch (type) {
 		case ENTITY:
-			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item.getItem()), item.getItemDamage(), 1.0F, item);
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		case EQUIPPED:
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.75F, 0.0F, 0.0F);
-			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			GL11.glScalef(0.85F, 0.85F, 0.85F);
+			renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item.getItem()), item.getItemDamage(), 1.0F, item);
 			GL11.glPopMatrix();
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		case EQUIPPED_FIRST_PERSON:
-			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item.getItem()), item.getItemDamage(), 1.0F, item);
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		case INVENTORY:
-			renderBlocks.renderBlockAsItem(Blocks.blocksList[item.itemID], item.getItemDamage(), 1.0F, item);
+			renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item.getItem()), item.getItemDamage(), 1.0F, item);
 			renderBlocks.clearOverrideBlockTexture();
 			break;
 		default:
 			break;
-		} */
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package mariculture.core.helpers;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -42,5 +43,17 @@ public class SpawnItemHelper {
         }
 		
 		return null;
+	}
+	
+	public static void addToPlayerInventory(EntityPlayer player, ItemStack stack) {
+		addToPlayerInventory(player, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ, stack);
+	}
+
+	public static void addToPlayerInventory(EntityPlayer player, World world, int x, int y, int z, ItemStack stack) {
+		if (!player.inventory.addItemStackToInventory(stack)) {
+			if(!world.isRemote) {
+				spawnItem(world, x, y + 1, z, stack);
+			}
+		}
 	}
 }

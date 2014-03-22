@@ -20,9 +20,9 @@ public class CraftingMeta {
 	public static final int BURNT_BRICK = 14;
 	public static final int DRAGON_EGG = 15;
 	public static final int BLANK_PLAN = 16;
-	public static final int CHALK = 17;
-	public static final int TITANIUM_SHEET = 18;
-	public static final int LENS_GLASS = 19;
-	public static final int TITANIUM_ROD = 20;
-	public static final int LIFE_CORE = 21;
+	public static final int TITANIUM_SHEET = 17;
+	public static final int LENS_GLASS = 18;
+	public static final int TITANIUM_ROD = 19;
+	public static final int LIFE_CORE = 20;
+	public static final int SEEDS_KELP = 21;
 }

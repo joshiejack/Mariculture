@@ -7,7 +7,6 @@ import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
-import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.PacketSponge;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.TileBookshelf;

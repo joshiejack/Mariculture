@@ -51,6 +51,19 @@ public class Plugins extends Module {
 		}
 	}
 	
+	public Plugins() {
+		add("Railcraft");
+		add("TConstruct");
+		add("ExtrabiomesXL");
+		add("Forestry");
+		add("IC2");
+		add("Thaumcraft");
+		add("BiomesOPlenty");
+		add("HungerOverhaul");
+		add("ThermalExpansion");
+		add("Enchiridion");
+	}
+	
 	public void add(String str) {
 		if(Loader.isModLoaded(str)) {
 			try {
@@ -68,17 +81,6 @@ public class Plugins extends Module {
 	
 	@Override
 	public void preInit() {
-		add("Railcraft");
-		add("TConstruct");
-		add("ExtrabiomesXL");
-		add("Forestry");
-		add("IC2");
-		add("Thaumcraft");
-		add("BiomesOPlenty");
-		add("HungerOverhaul");
-		add("ThermalExpansion");
-		add("Enchiridion");
-		
 		for (Plugin plug : plugins) {
 			plug.load(Stage.PRE);
 		}

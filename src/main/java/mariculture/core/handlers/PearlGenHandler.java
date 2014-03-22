@@ -3,11 +3,6 @@ package mariculture.core.handlers;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mariculture.core.Core;
-import mariculture.core.lib.Extra;
-import mariculture.core.lib.PearlColor;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -64,23 +59,5 @@ public class PearlGenHandler {
 		public boolean equals(ItemStack item) {
 			return item.isItemEqual(this.itemStack);
 		}
-	}
-
-	static {
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLACK), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLUE), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.BROWN), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.GOLD), 5);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.GREEN), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.ORANGE), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.PINK), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.PURPLE), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.RED), 10);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.SILVER), 6);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 7);
-		addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
-		addPearl(new ItemStack(Blocks.sand), 15);
-		if(Extra.GEN_ENDER_PEARLS)
-			addPearl(new ItemStack(Items.ender_pearl), 1);
 	}
 }

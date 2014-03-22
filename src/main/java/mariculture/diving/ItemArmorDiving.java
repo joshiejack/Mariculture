@@ -1,7 +1,5 @@
 package mariculture.diving;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
@@ -19,6 +17,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
 	public ItemArmorDiving(ArmorMaterial material, int j, int k) {

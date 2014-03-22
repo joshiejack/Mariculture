@@ -71,7 +71,7 @@ public class TileStorage extends TileEntity implements IInventory {
 
         this.markDirty();
 	}
-
+	
 	@Override
 	public String getInventoryName() {
 		return "";

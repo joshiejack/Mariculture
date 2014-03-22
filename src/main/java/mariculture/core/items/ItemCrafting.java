@@ -1,16 +1,12 @@
 package mariculture.core.items;
 
-import mariculture.core.Core;
-import mariculture.core.helpers.PlayerHelper;
-import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.PlansMeta;
-import mariculture.factory.Factory;
-import net.minecraft.block.Block;
+import mariculture.world.WorldPlus;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -56,8 +52,6 @@ public class ItemCrafting extends ItemMariculture {
 				return "titaniumRod";
 			case CraftingMeta.BLANK_PLAN: 
 				return "plan_blank"; 
-			case CraftingMeta.CHALK: 
-				return "chalk";
 			case CraftingMeta.TITANIUM_SHEET:
 				return "titaniumSheet";
 			case CraftingMeta.LENS_GLASS:
@@ -68,6 +62,8 @@ public class ItemCrafting extends ItemMariculture {
 				return "titaniumRodBasic";
 			case CraftingMeta.LIFE_CORE:
 				return "lifeCore";
+			case CraftingMeta.SEEDS_KELP:
+				return "kelpSeeds";
 			default:
 				return "unnamed";
 		}
@@ -85,35 +81,16 @@ public class ItemCrafting extends ItemMariculture {
 		
 		return true;
 	}
-	
-	public boolean useChalk(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
-		int slot = PlayerHelper.hasItem(player, new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), false);
-		if(slot != -1) {
-			Block block = world.getBlock(x, y, z);
-			if(block != null) {
-				int plan = PlansMeta.getPlanType(block, world, x, y, z);
-				if(plan != -1) {
-					SpawnItemHelper.spawnItem(world, x, y + 1, z, PlansMeta.setType(new ItemStack(Factory.plans), plan));
-					if(!player.capabilities.isCreativeMode) {
-						player.inventory.decrStackSize(slot, 1);
-					}
-					
-					world.spawnParticle("largeexplode", x, y + 1, z, 0.0D, 0.0D, 0.0D);
-					stack.stackSize--;
-				}
-			}
-		}
-		
-		return true;
-	}
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
 		int dmg = stack.getItemDamage();
 		if(dmg == CraftingMeta.DRAGON_EGG && Extra.ENABLE_ENDER_SPAWN) {
 			return spawnEnderDragon(stack, player, world, x, y, z);
-		} else if (dmg == CraftingMeta.CHALK) {
-			return useChalk(stack, player, world, x, y, z);
+		} else if(Modules.isActive(Modules.worldplus) && dmg == CraftingMeta.SEEDS_KELP) {
+			if(Item.getItemFromBlock(WorldPlus.plantGrowable).onItemUse(new ItemStack(WorldPlus.plantGrowable), player, world, x, y, z, side, par8, par9, par10)) {
+				stack.stackSize--;
+			}
 		}
 
 		return true;
@@ -124,8 +101,6 @@ public class ItemCrafting extends ItemMariculture {
 		switch (meta) {
 		case CraftingMeta.DRAGON_EGG:
 			return Modules.isActive(Modules.fishery);
-		case CraftingMeta.CHALK:
-			return Modules.isActive(Modules.factory);
 		case CraftingMeta.BLANK_PLAN:
 			return Modules.isActive(Modules.factory);
 		case CraftingMeta.POLISHED_STICK:

@@ -192,19 +192,21 @@ public class RecipesSmelting {
 	}
 
 	private static void addFuels() {
-		//Wood, Planks, Charcoal more useful for heating up, Coal for When ur heat is up
-		RecipeHelper.addFuel("blockCoal", new FuelInfo(2000, 432, 10800));
-		RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 0), new FuelInfo(2000, 48, 1200));
-		RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 1), new FuelInfo(1600, 32, 320));
-		RecipeHelper.addFuel("logWood", new FuelInfo(750, 8, 80));
-		RecipeHelper.addFuel("plankWood", new FuelInfo(300, 4, 40));
-		RecipeHelper.addFuel("stickWood", new FuelInfo(100, 2, 100));
-		RecipeHelper.addFuel("lava", new FuelInfo(2000, 32, 100));
-		RecipeHelper.addFuel(FluidDictionary.natural_gas, new FuelInfo(2000, 64, 1200));
-		RecipeHelper.addFuel("oil", new FuelInfo(2000, 48, 800));
-		RecipeHelper.addFuel("fuel", new FuelInfo(2000, 80, 3000));
-		RecipeHelper.addFuel("pyrotheum", new FuelInfo(2000, 128, 256));
-		RecipeHelper.addFuel("coal", new FuelInfo(2000, 8, 200));
+		RecipeHelper.addFuel("blockCoal", new FuelInfo(2000, 378, 10800));
+		RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 0), new FuelInfo(2000, 42, 1200));
+		RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 1), new FuelInfo(1600, 32, 900));
+		RecipeHelper.addFuel("logWood", new FuelInfo(480, 12, 300));
+		RecipeHelper.addFuel("plankWood", new FuelInfo(320, 8, 200));
+		RecipeHelper.addFuel("stickWood", new FuelInfo(160, 4, 100));
+		RecipeHelper.addFuel(FluidDictionary.natural_gas, new FuelInfo(2000, 35, 1200));
+		RecipeHelper.addFuel("gascraft_naturalgas", new FuelInfo(2000, 35, 1000));
+		RecipeHelper.addFuel("fuel", new FuelInfo(2000, 35, 1000));
+		RecipeHelper.addFuel("pyrotheum", new FuelInfo(2000, 100, 100));
+		RecipeHelper.addFuel("coal", new FuelInfo(2000, 40, 300));
+		RecipeHelper.addFuel("biofuel", new FuelInfo(1800, 20, 2000));
+		RecipeHelper.addFuel("oil", new FuelInfo(1750, 20, 400));
+		RecipeHelper.addFuel("lava", new FuelInfo(1500, 20, 360));
+		RecipeHelper.addFuel("biomass", new FuelInfo(1500, 10, 1800));
 	}
 	
 	public static void addFullSet(String fluid, Object[] items, int temp, ItemStack output, int chance) {

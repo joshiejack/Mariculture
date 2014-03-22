@@ -3,7 +3,6 @@ package mariculture.core.render;
 import mariculture.core.Core;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.tile.TileVat;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderVat extends RenderBase {

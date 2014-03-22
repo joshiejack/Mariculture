@@ -1,7 +1,6 @@
 package mariculture.magic.enchantments;
 
 import mariculture.core.items.ItemPearl;
-import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemStack;

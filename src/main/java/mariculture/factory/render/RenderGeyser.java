@@ -1,7 +1,6 @@
 package mariculture.factory.render;
 
 import mariculture.core.render.RenderBase;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.util.ForgeDirection;
 

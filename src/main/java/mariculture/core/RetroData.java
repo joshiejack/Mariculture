@@ -2,11 +2,14 @@ package mariculture.core;
 
 import java.util.ArrayList;
 
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.RetroGeneration;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.WorldSavedData;
 import net.minecraft.world.chunk.Chunk;
+
+import org.apache.logging.log4j.Level;
 
 public class RetroData extends WorldSavedData {
 	private int lastData = 1;
@@ -35,7 +38,7 @@ public class RetroData extends WorldSavedData {
 	public boolean setHasRetroGenned(String string, Chunk chunk) {
 		String check = string + "~" + chunk.xPosition + "~" + chunk.zPosition;
         if(!RetroGen.retro.contains(check)) {
-            System.out.println("Retro-Generating " + check);
+            LogHandler.log(Level.TRACE, "Retro-Generating " + check);
             RetroGen.retro.add(check);
             lastData = RetroGeneration.KEY;
         } else {

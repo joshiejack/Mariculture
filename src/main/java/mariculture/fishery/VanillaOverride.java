@@ -3,10 +3,8 @@ package mariculture.fishery;
 import java.util.Arrays;
 import java.util.Map;
 
-import mariculture.core.handlers.LogHandler;
 import net.minecraft.launchwrapper.IClassTransformer;
 
-import org.apache.logging.log4j.Level;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;

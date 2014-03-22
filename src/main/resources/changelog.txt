@@ -4,6 +4,7 @@
 * Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
 * Plugins for mods, like tinkers and BOP are not implemented yet
 * The screwed up rendering of void bottles is known, and is on the to do list
+* Currently disabling the Fishery module can have dire consequences due to the vanilla fishing override, will sort this out later
 * Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
 
 ==== Other ====
@@ -19,10 +20,11 @@
 * Air Pumps will now only 'work' when they receive power, they will only extract fluid at that point too
 * FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
 * Pressure Vessels will no longer tick/auto-output, you'll need to use pipes from other mods or the sluice to extract liquids in to your machines, it now instafills fludds
+* Kelp and Coral come in two forms, static and growable, what you find in the wild will always be static. In order to get ones that grow, kelp you craft with itself for seeds, and coral you soak in one tenth of a bucket of water in a vat.
 
 == Mariculture 1.2.1 ==
 ====New====
-* Added Fluid Dictionary
+* Added Fluid Dictionary (Disabled by default, as it can be a bit exploitive xp wise, if not used correctly)
 
 ====Changes====
 * MAJOR: Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.
@@ -32,6 +34,7 @@
 * Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
 * Fish Sorter no longer has redstone controls, but will now auto-eject to chests
 * Cheapened Silicon Carbide Recipe
+* Adjusted Crucible Furnace fuel rates, fluids are now per 10mB
 ====Bugfixes====
 * Fixed Fish Sorter not telling difference between eggs and fish
 * The slots for crucible furnace recipes no longer matter(with duel melting).

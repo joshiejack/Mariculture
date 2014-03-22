@@ -28,12 +28,21 @@ public class TileOyster extends TileStorage implements ISidedInventory, IFaceabl
 
 	@Override
 	public boolean canInsertItem(int side, ItemStack stack, int slot) {
-		return stack.getItem() == Item.getItemFromBlock(Blocks.sand);
+		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) && inventory[0] == null;
 	}
 
 	@Override
 	public boolean canExtractItem(int side, ItemStack stack, int slot) {
 		return stack.getItem() != Item.getItemFromBlock(Blocks.sand);
+	}
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		
+		if(!worldObj.isRemote) {
+			Packets.syncInventory(this, inventory);
+		}
 	}
 	
 	@Override
@@ -75,5 +84,9 @@ public class TileOyster extends TileStorage implements ISidedInventory, IFaceabl
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("Orientation", orientation.ordinal());
+	}
+
+	public boolean hasSand() {
+		return inventory[0] != null && inventory[0].getItem() == Item.getItemFromBlock(Blocks.sand);
 	}
 }

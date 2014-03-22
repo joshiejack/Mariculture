@@ -7,6 +7,7 @@ import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.lib.TickingMeta;
 import mariculture.core.lib.WaterMeta;
 import mariculture.core.render.AnvilSpecialRenderer;
 import mariculture.core.render.RenderAnvil;
@@ -149,7 +150,7 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSpecialHandler(new ModelFeeder(), FEEDER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSpecialHandler(new ModelSift(), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
-			RenderHandler.register(Core.water, WaterMeta.NET, RenderNet.class);
+			RenderHandler.register(Core.ticking, TickingMeta.NET, RenderNet.class);
 			RenderHandler.register(Core.tanks, TankMeta.FISH, RenderFishTank.class);
 		}
 		

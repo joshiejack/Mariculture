@@ -7,7 +7,6 @@ import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
@@ -49,6 +48,11 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	}
 	
 	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		super.setInventorySlotContents(slot, stack);
+	}
+	
+	@Override
 	public boolean canUpdate() {
 		return true;
 	}
@@ -84,7 +88,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 			updateUpgrades();
 		}
 		
-		if(onTick(Extra.CAN_WORK_TICK)) {
+		if(onTick(20)) {
 			canWork = canWork();
 		}
 		

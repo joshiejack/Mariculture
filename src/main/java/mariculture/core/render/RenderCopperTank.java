@@ -1,7 +1,6 @@
 package mariculture.core.render;
 
 import mariculture.core.tile.TileTankBlock;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RenderCopperTank extends RenderBase {

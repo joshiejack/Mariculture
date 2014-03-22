@@ -22,6 +22,7 @@ import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
 import mariculture.magic.Magic;
 import mariculture.plugins.Plugins;
+import mariculture.plugins.Plugins.Plugin;
 import mariculture.sealife.Sealife;
 import mariculture.transport.Transport;
 import mariculture.world.WorldPlus;
@@ -170,6 +171,13 @@ public class Config {
             Mariculture.modules.setup(WorldPlus.class, config.get(Category.MODULES, "World Plus", true).getBoolean(true));
             Mariculture.modules.setup(Compat.class, false);
             Mariculture.modules.setup(Plugins.class, true);
+            
+            for(int i = 0; i < Plugins.plugins.size(); i++) {
+            	Plugin plugin = Plugins.plugins.get(i);
+            	if(config.get(Category.PLUGINS, plugin.name, true).getBoolean(true) == false) {
+            		Plugins.plugins.remove(i);
+            	}
+            }
         } catch (Exception e) {
             LogHandler.log(Level.ERROR, "Problem when reading which modules are activated");
         	e.printStackTrace();
@@ -193,10 +201,10 @@ public class Config {
             Extra.TURBINE_ANIM = config.get(Category.CLIENT, "Turbines - Enable Rotation", true).getBoolean(true);
             Extra.PUMP_ANIMATE = config.get(Category.CLIENT, "Air Pump - Enable Animation", true).getBoolean(true);
             
+            Extra.ENABLE_FLUIDIC = config.get(Category.EXTRA, "Fluid Auto-Dictionary Enabled", false).getBoolean(false);
             Extra.TURBINE_RATE = config.get(Category.EXTRA, "Turbines - Ticks between Packet Updates", 20).getInt();
             Extra.PURITY = config.get(Category.EXTRA, "Crucible Furnace > Nuggets Per Purity Upgrade Level", 2).getInt();
             Extra.ENDER_CONVERTER = config.get(Category.EXTRA, "Autodictionary > Enable Ender Pearl for Recipe", false).getBoolean(false);
-            Extra.CAN_WORK_TICK = config.get(Category.EXTRA, "Can Work Tick", 20, Comment.CAN_WORK_TICK).getInt();
             Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
             Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
             Extra.EFFECT_TICK = config.get(Category.EXTRA, "Fish Feeder > Effect Tick", 20, Comment.EFFECT_TICK).getInt();

@@ -3,6 +3,7 @@ package mariculture.world;
 import mariculture.Mariculture;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.CoralMeta;
+import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,6 +23,14 @@ public class BlockCoralItem extends ItemBlockMariculture {
 		super(block);
 		this.spawnBlock = block;
 	}
+	
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
+		if(spawnBlock == WorldPlus.plantGrowable) return super.getItemStackDisplayName(stack);
+		else {
+			return Text.localize("mariculture.string.dried") + " " + super.getItemStackDisplayName(stack);
+		}
+    }
 	
 	@Override 
 	public String getUnlocalizedName(ItemStack stack) {
@@ -105,10 +114,12 @@ public class BlockCoralItem extends ItemBlockMariculture {
 							(double) ((float) z + 0.5F), block.stepSound.func_150496_b(),
 							(block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 					--stack.stackSize;
+					
+					return true;
 				}
 			}
 
-			return true;
+			return false;
 		}
 	}
 

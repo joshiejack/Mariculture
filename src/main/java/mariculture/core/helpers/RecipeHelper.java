@@ -155,6 +155,10 @@ public class RecipeHelper {
 	public static void addBleachRecipe(ItemStack input, ItemStack output, int time) {
 		addVatItemRecipe(input, FluidDictionary.quicklime, 50, output, time);
 	}
+	
+	public static void addSoakRecipe(ItemStack input, ItemStack output, int time) {
+		addVatItemRecipe(input, "water", 100, output, time);
+	}
 
 	public static void addBookRecipe(ItemStack output, ItemStack input) {
 		addShapelessRecipe(output, new Object[] { input, Items.book});

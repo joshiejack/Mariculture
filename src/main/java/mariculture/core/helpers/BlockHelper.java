@@ -204,6 +204,7 @@ public class BlockHelper {
 		if(!(world instanceof WorldServer))
 			return;
 		Block block = world.getBlock(x, y, z);
+		if(block.getBlockHardness(world, x, y, z) < 0.0F) return;
 		FakePlayer player = PlayerHelper.getFakePlayer(world);
 		int meta = world.getBlockMetadata(x, y, z);
 		if (block.removedByPlayer(world, player, x, y, z)) {

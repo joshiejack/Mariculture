@@ -12,7 +12,6 @@ import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketAirPump;
-import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileStorageTank;
 import mariculture.core.util.FluidDictionary;

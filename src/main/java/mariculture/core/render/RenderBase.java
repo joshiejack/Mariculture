@@ -196,6 +196,7 @@ public abstract class RenderBase {
 	}
 	
 	protected void renderAngledBlock(double x2, double y2, double z2, double x3, double y3, double z3, double x1, double y1, double z1, double x4, double y4, double z4, double xDim, double height, double zDim) {
+		if(icon == null) return;
 		renderFace(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4);
 		renderFace(x1, y1 + height, z1, x2, y2 + height, z2, x3, y3 + height, z3, x4, y4 + height, z4);
 		renderFace(x1, y1, z1, x2, y2, z2, x2 + 1, y2 + height, z2, x1 + 1, y1 + height, z1);
@@ -205,6 +206,7 @@ public abstract class RenderBase {
 	}
 
 	private void renderItemBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		if(icon == null) return;
 		render.renderMinX = minX;
 	    render.renderMinY = minY;
 	    render.renderMinZ = minZ;

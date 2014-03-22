@@ -89,19 +89,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	}
 
 	public boolean hasRoom() {
-		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[0]], inventory[in[1]], getTemperatureScaled(2000));
-		if (recipe == null)
-			return false;
-		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
-		FluidStack fluid = recipe.fluid.copy();
-		fluid.amount = fluidAmount;
-		if (tank.fill(fluid, false) < fluid.amount)
-			return false;
-		if (recipe.output == null)
-			return true;
-		if (setting.canEject(EjectSetting.ITEM))
-			return true;
-		return inventory[out] == null || (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize < inventory[out].getMaxStackSize());
+		return canMelt(0) || canMelt(1);
 	}
 
 	private boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {
@@ -215,7 +203,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		if (worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler) {
 			IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] info = handler.getTankInfo(ForgeDirection.UP);
-			if (info != null && info[0].fluid != null && info[0].fluid.amount >= 16)
+			if (info != null && info[0].fluid != null && info[0].fluid.amount >= 10)
 				return MaricultureHandlers.smelter.getFuelInfo(info[0].fluid) != null;
 		}
 
@@ -260,7 +248,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 			FluidTankInfo[] tank = handler.getTankInfo(ForgeDirection.UP);
 			if (tank.length > 0 && tank[0] != null && tank[0].fluid != null) {
 				info = MaricultureHandlers.smelter.getFuelInfo(tank[0].fluid);
-				handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 16), true);
+				handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 10), true);
 			}
 		} else {
 			decrStackSize(fuel, 1);
@@ -272,8 +260,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	public boolean canMelt(int slot) {
 		int other = (slot == 0) ? 1 : 0;
 		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
-		if (recipe == null)
-			return false;
+		if (recipe == null) return false;
 		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
 		FluidStack fluid = recipe.fluid.copy();
 		fluid.amount = fluidAmount;
@@ -289,8 +276,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	public void melt(int slot) {
 		int other = (slot == 0) ? 1 : 0;
 		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
-		if (recipe == null)
-			return;
+		if (recipe == null) return;
 		if (recipe.input2 != null) {
 			decrStackSize(in[slot], recipe.input.stackSize);
 			if (slot == 0)

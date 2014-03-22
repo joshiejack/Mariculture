@@ -2,7 +2,6 @@ package mariculture.core.render;
 
 import mariculture.core.Core;
 import mariculture.core.lib.TankMeta;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;

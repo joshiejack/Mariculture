@@ -1,5 +1,6 @@
 package mariculture.core.network;
 
+import mariculture.core.helpers.ClientHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -49,6 +50,7 @@ public class PacketInventorySync extends PacketNBT {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		ItemStack[] inventory = new ItemStack[length];
 		IInventory block = (IInventory) world.getTileEntity(x, y, z);
+		if(block == null || tile == null) return;
 		NBTTagList tagList = nbt.getTagList("Inventory", 10);
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
@@ -60,6 +62,6 @@ public class PacketInventorySync extends PacketNBT {
 			}
 		}
 		
-		world.markBlockForUpdate(x, y, z);
+		ClientHelper.updateRender(x, y, z);
 	}
 }

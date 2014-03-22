@@ -1,6 +1,7 @@
 package mariculture.core.blocks;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
@@ -11,6 +12,7 @@ import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -171,6 +173,12 @@ public class BlockAir extends BlockDecorative {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		theIcon = iconRegister.registerIcon(Mariculture.modid + ":air");
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(Item item, CreativeTabs creative, List list) {
+		return;
 	}
 	
 	@Override

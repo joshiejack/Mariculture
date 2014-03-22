@@ -6,7 +6,6 @@ import mariculture.core.lib.PearlColor;
 import mariculture.core.util.Rand;
 import mariculture.core.util.Text;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

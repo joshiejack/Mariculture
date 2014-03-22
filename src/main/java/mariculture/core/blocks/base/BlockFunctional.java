@@ -27,7 +27,7 @@ public abstract class BlockFunctional extends BlockDecorative {
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		if(player.capabilities.isCreativeMode)
 			return world.setBlockToAir(x, y, z);
-		if(doesDrop(world.getBlockMetadata(x, y, z)) || world.isRemote) {
+		if(doesDrop(world.getBlockMetadata(x, y, z))) {
 			return super.removedByPlayer(world, player, x, y, z);
 		} else {
 			return onBlockDropped(world, x, y, z);

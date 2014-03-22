@@ -7,8 +7,6 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.WaterMeta;
-import mariculture.core.network.PacketOrientationSync;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileTank;
 import mariculture.core.util.FluidDictionary;
@@ -67,14 +65,14 @@ public class TileGeyser extends TileTank implements IFaceable {
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlock(x, y, z) == Core.water && worldObj.getBlockMetadata(x, y, z) == WaterMeta.NET;
+		return worldObj.getBlock(x, y, z) == Core.ticking;
 	}
 
 	@Override
 	public void updateEntity() {
 		machineTick++;
 		
-		if(onTick(Extra.CAN_WORK_TICK)) {
+		if(onTick(20)) {
 			canWork = canWork();
 		}
 		

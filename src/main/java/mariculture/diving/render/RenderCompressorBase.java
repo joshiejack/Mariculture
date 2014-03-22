@@ -6,7 +6,6 @@ import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.diving.TileAirCompressor;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;

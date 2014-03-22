@@ -2,8 +2,6 @@ package mariculture.core.render;
 
 import mariculture.core.Core;
 import mariculture.core.lib.RockMeta;
-import mariculture.core.tile.TileOyster;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.util.ForgeDirection;
 
