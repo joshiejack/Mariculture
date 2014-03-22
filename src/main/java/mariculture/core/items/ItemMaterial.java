@@ -7,9 +7,8 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.world.World;
-import cofh.api.energy.IEnergyContainerItem;
 
-public class ItemMaterial extends ItemMariculture implements IEnergyContainerItem {
+public class ItemMaterial extends ItemMariculture {
 	public ItemMaterial(int i) {
 		super(i);
 	}
@@ -162,38 +161,5 @@ public class ItemMaterial extends ItemMariculture implements IEnergyContainerIte
 
 			return false;
 		}
-	}
-
-	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		return 0;
-	}
-
-	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		if(container.getItemDamage() == MaterialsMeta.DROP_ELECTRIC) {
-			container.stackSize--;
-			return 5000;
-		}
-		
-		return 0;
-	}
-
-	@Override
-	public int getEnergyStored(ItemStack container) {
-		if(container.getItemDamage() == MaterialsMeta.DROP_ELECTRIC) {
-			return 5000;
-		}
-		
-		return 0;
-	}
-
-	@Override
-	public int getMaxEnergyStored(ItemStack container) {
-		if(container.getItemDamage() == MaterialsMeta.DROP_ELECTRIC) {
-			return 5000;
-		}
-		
-		return 0;
 	}
 }

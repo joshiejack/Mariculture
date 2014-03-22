@@ -268,7 +268,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 //Energy
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return energyStorage.receiveEnergy(maxReceive, simulate);
+		return 0;
 	}
 
 	@Override

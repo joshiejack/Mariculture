@@ -36,7 +36,7 @@ public class ItemHammer extends ItemDamageable {
 		}
 		
 		if(Block.blocksList[id] != null) {
-			if(Block.blocksList[side].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
+			if(Block.blocksList[id].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
 				return !world.isRemote;
 		}
 		

@@ -49,6 +49,7 @@ import mariculture.factory.blocks.TileTurbineGas;
 import mariculture.factory.blocks.TileTurbineHand;
 import mariculture.factory.blocks.TileTurbineWater;
 import mariculture.factory.items.ItemArmorFLUDD;
+import mariculture.factory.items.ItemChalk;
 import mariculture.factory.items.ItemFilter;
 import mariculture.factory.items.ItemPaintbrush;
 import mariculture.factory.items.ItemPlan;
@@ -89,6 +90,7 @@ public class Factory extends Module {
 	public static Block customWall;
 	public static Block customLight;
 	public static Block customRFBlock;
+	public static Item chalk;
 	public static Item plans;
 	public static Item fludd;
 	public static Item paintbrush;
@@ -167,6 +169,7 @@ public class Factory extends Module {
 
 	@Override
 	public void registerItems() {
+		chalk = new ItemChalk(ItemIds.chalk, 64).setUnlocalizedName("chalk");
 		plans = new ItemPlan(ItemIds.plans).setUnlocalizedName("plans");
 		fludd = new ItemArmorFLUDD(ItemIds.fludd, armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
 		paintbrush = new ItemPaintbrush(ItemIds.paintbrush, 128).setUnlocalizedName("paintbrush");
@@ -174,7 +177,7 @@ public class Factory extends Module {
 		turbineCopper = new ItemRotor(ItemIds.turbineCopper, 900, 1).setUnlocalizedName("turbineCopper");
 		turbineAluminum = new ItemRotor(ItemIds.turbineAluminum, 3600, 2).setUnlocalizedName("turbineAluminum");
 		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 28800, 3).setUnlocalizedName("turbineTitanium");
-		RegistryHelper.register(new Object[] { plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
+		RegistryHelper.register(new Object[] { chalk, plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
 
 	@Override
@@ -319,36 +322,41 @@ public class Factory extends Module {
 		});
 		
 		//Planning Chalk
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"LLN", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
 		//Chalk Vertically x 3
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			" L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			" N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
 			"L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addMelting(new ItemStack(Core.craftingItem, 1, CraftingMeta.CHALK), 825, 
+	//Legacy chalk
+		RecipeHelper.addShapelessRecipe(new ItemStack(chalk), new Object[] {
+			new ItemStack(Core.craftingItem, 1, CraftingMeta.DEPRECATED_CHALK)
+		});
+		
+		RecipeHelper.addMelting(new ItemStack(chalk), 825, 
 				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 2500));
 		
 		//Blank Plan

@@ -132,13 +132,13 @@
             <craft1>aluminumSheet|ingotTitanium|ingotTitanium</craft1>
             <craft2>aluminumSheet|aluminumSheet|aluminumSheet</craft2>
             <craft3>wheel||</craft3>
-            <craftResult>compressorBase</craftResult>
+            <craftResult>airCompressor</craftResult>
         </crafting>
         <crafting x="100" y="65">
             <craft1>||cooler</craft1>
             <craft2>|piston|batteryTitanium</craft2>
             <craft3>aluminumSheet|aluminumSheet|aluminumSheet</craft3>
-            <craftResult num="2">compressorTop</craftResult>
+            <craftResult num="2">airCompressorPower</craftResult>
         </crafting>
         <text y="156">Overtime they will produce air from the RF, and you can see an indicator of how much air is inside by the bar that shows up. Once there is enough air, you right the block with your Scuba Tank and it will fill it up with the air. They hold 2 Tanks worth.</text>
     </page>

@@ -4,11 +4,16 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.Text;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
@@ -29,6 +34,21 @@ public class GuiItemToolTip {
 		
 		if(Extra.DEBUG_ON) {
 			list.add(stack.getItem().getUnlocalizedName());
+		}
+		
+		if(stack.hasTagCompound()) {
+			if (stack.stackTagCompound.hasKey("OreDictionaryDisplay"))  {
+                NBTTagCompound nbttagcompound = stack.stackTagCompound.getCompoundTag("OreDictionaryDisplay");
+                if (nbttagcompound.hasKey("Lore")) {
+                    NBTTagList nbttaglist1 = nbttagcompound.getTagList("Lore");
+                    if (nbttaglist1.tagCount() > 0) {
+                        for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
+                        	String color = j == 0? Text.ORANGE: Text.GREY;
+                            list.add(color + ((NBTTagString)nbttaglist1.tagAt(j)).data);
+                        }
+                    }
+                }
+            }
 		}
 	}
 }

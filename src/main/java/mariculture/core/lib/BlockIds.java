@@ -10,7 +10,7 @@ public class BlockIds {
 	public static int singleBlocks;
 	public static int lampsOn;
 	public static int lampsOff;
-	public static int pearlBrick;
+	public static int pearlBlock;
 	public static int coral;
 	public static int glassBlocks;
 	public static int airBlocks;
@@ -18,6 +18,8 @@ public class BlockIds {
 	public static int tankBlocks;
 	public static int groundBlocks;
 	public static int transparentBlocks;
+	public static int pearlBricks;
+	public static int limestone;
 	
 	public static int customFlooring;
 	public static int customBlock;

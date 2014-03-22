@@ -44,10 +44,13 @@ import mariculture.fishery.gui.GuiFeeder;
 import mariculture.fishery.gui.GuiFishTank;
 import mariculture.fishery.gui.GuiIncubator;
 import mariculture.fishery.gui.GuiSift;
+import mariculture.plugins.enchiridion.ItemGuide;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
+import enchiridion.api.GuideHandler;
 
 public class CommonProxy implements IGuiHandler {
 	@Override
@@ -124,6 +127,12 @@ public class CommonProxy implements IGuiHandler {
 		if(id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
 			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
 			return storage.getGUIElement(player);
+		}
+		
+		//Handling the book opening
+		ItemStack held = player.getCurrentEquippedItem();
+		if(held != null && held.getItem() instanceof ItemGuide) {
+			return GuideHandler.getGui(held);
 		}
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);

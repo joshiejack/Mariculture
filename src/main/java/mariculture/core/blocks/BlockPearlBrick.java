@@ -11,10 +11,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPearlBrick extends BlockDecorative {
-	public BlockPearlBrick(final int i) {
+	String prefix;
+	public BlockPearlBrick(int i, String prefix) {
 		super(i, Material.rock);
 		this.setResistance(20F);
 		this.setHardness(2F);
+		this.prefix = prefix;
 	}
 	
 	@Override
@@ -35,7 +37,7 @@ public class BlockPearlBrick extends BlockDecorative {
 		icons = new Icon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + "pearlBrick_" + getName(new ItemStack(this.blockID, 1, i)));
+			icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + prefix + getName(new ItemStack(this.blockID, 1, i)));
 		}
 	}
 }

@@ -51,8 +51,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 	
 	@Override
 	public void updateEntity() {
-		if(helper == null)
-			helper = new BlockTransferHelper(this);
+		if(helper == null) 	helper = new BlockTransferHelper(this);
 		
 		machineTick++;
 		if(onTick(200) && direction.ordinal() > 1)
@@ -60,6 +59,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		if(onTick(60)) {
 			placeInTank();
 			pullFromTank();
+			switchTanks();
 		}
 		
 		if(onTick(30) && tank.getFluidAmount() > 0 && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
@@ -104,6 +104,7 @@ public class TileSluice extends TileTank implements IBlacklisted {
 			if(worldObj.isAirBlock(x2, y2, z2)) {
 				IFluidHandler tank = (IFluidHandler) tile;
 				FluidTankInfo[] info = tank.getTankInfo(direction.getOpposite());
+				if(info == null || info.length < 1) return;
 				for(FluidTankInfo tanks: info) {
 					if(tanks.fluid != null) {
 						Fluid fluid = tanks.fluid.getFluid();
@@ -114,6 +115,8 @@ public class TileSluice extends TileTank implements IBlacklisted {
 								int id = fluid.getBlockID();
 								if (Block.blocksList[id] != null) {
 									Block block = Block.blocksList[id];
+									FluidStack stack = tank.drain(direction.getOpposite(), new FluidStack(fluid.getID(), drain), false);
+									if(stack == null) return;
 									if (block instanceof BlockFluidFinite) {
 										if (worldObj.isAirBlock(x2, y2, z2)) {
 											worldObj.setBlock(x2, y2, z2, id, 0, 2);
@@ -140,8 +143,25 @@ public class TileSluice extends TileTank implements IBlacklisted {
 		}
 	}
 	
-	public void swapFluids() {
-		
+	public void switchTanks() {
+		int x2 = xCoord + direction.offsetX;
+		int y2 = yCoord + direction.offsetY;
+		int z2 = zCoord + direction.offsetZ;
+		int x3 = xCoord + direction.getOpposite().offsetX;
+		int y3 = yCoord + direction.getOpposite().offsetY;
+		int z3 = zCoord + direction.getOpposite().offsetZ;
+		if(worldObj.getBlockTileEntity(x2, y2, z2) instanceof IFluidHandler && worldObj.getBlockTileEntity(x3, y3, z3) instanceof IFluidHandler) {
+			IFluidHandler tankFrom = (IFluidHandler) worldObj.getBlockTileEntity(x3, y3, z3);
+			IFluidHandler tankTo = (IFluidHandler) worldObj.getBlockTileEntity(x2, y2, z2);
+			if(tankTo instanceof TileSluice) return;
+			FluidStack fluid = tankFrom.drain(direction, 1000, false);
+			if(fluid == null) return;
+			int drained = tankTo.fill(direction.getOpposite(), fluid, false);
+			if(drained > 0) {
+				FluidStack drain = tankFrom.drain(direction, drained, true);
+				tankTo.fill(direction.getOpposite(), drain, true);
+			}
+		}
 	}
 	
 	public void generateHPWater() {

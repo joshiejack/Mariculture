@@ -6,11 +6,10 @@ import java.util.logging.Level;
 
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Compatibility;
-import mariculture.core.lib.Text;
+import mariculture.core.lib.Extra;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -18,13 +17,12 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import enchiridion.api.DisplayRegistry;
 
 //This handles all the OreDictionaryRelated things to do with the Automatic Dictionary Converter
 public class OreDicHandler {
-	public static HashMap<String, ArrayList<String>> entries;
-	public static HashMap<String, Integer[]> specials = new HashMap();
-	public static HashMap<String, ArrayList<ItemStack>> items;
+	public static final HashMap<String, ArrayList<String>> entries = new HashMap();
+	public static final HashMap<String, Integer[]> specials = new HashMap();
+	public static final HashMap<String, ArrayList<ItemStack>> items = new HashMap();
 	
 	public static void registerWildCards() {
 		registerWildcard(new ItemStack(Block.planks), new Integer[] { 0, 1, 2, 3 });
@@ -41,9 +39,7 @@ public class OreDicHandler {
 	@ForgeSubscribe
 	public void onOreDictionaryRegistration(OreRegisterEvent event) {
 		//Initialize all existing Entries
-		if(entries == null) {
-			items = new HashMap();
-			entries = new HashMap();
+		if(entries.size() < 1) {
 			String[] ores = OreDictionary.getOreNames();
 			for(String ore: ores) {
 				ArrayList<ItemStack> stacks = OreDictionary.getOres(ore);
@@ -88,12 +84,8 @@ public class OreDicHandler {
 		stacks.add(stack);
 		items.put(name, stacks);
 		
-		//Add Cycling
-		try {
-			DisplayRegistry.registerOreDictionaryCycling(name);
-		} catch (Exception e) {
-			e.printStackTrace();
-			LogHandler.log(Level.WARNING, "Mariculture attempted to add Ore Dictionary Cycling for the guide books but it found the required mod Enchridion was not installed");
+		if(Extra.DEBUG_ON) {
+			System.out.println(stack.toString() + " registered for ore dic handling as " + name);
 		}
 	}
 	
@@ -148,16 +140,15 @@ public class OreDicHandler {
 
 	public static ItemStack getNextValidEntry(ItemStack stack) {
 		NBTTagCompound tag = stack.stackTagCompound;
-		if(tag != null && tag.hasKey("display")) {
+		if(tag != null && tag.hasKey("OreDictionaryDisplay")) {
 			String old = "";
-			NBTTagCompound display = tag.getCompoundTag("display");
+			NBTTagCompound display = tag.getCompoundTag("OreDictionaryDisplay");
 			NBTTagList lore = display.getTagList("Lore");
 			if(lore != null && lore.tagCount() > 0) {
 				old = ((NBTTagString)lore.tagAt(0)).data;
 			}
-
+			
 			if(old != null) {
-				if(old.startsWith("§")) old = old.substring(2);
 				return getNextValidEntry(stack, old);
 			}
 		}
@@ -174,18 +165,17 @@ public class OreDicHandler {
 			if(found && item != null && !convert(item).equals(converted)) {
 				ItemStack ret = item.copy();
 				if(!ret.hasTagCompound()) ret.setTagCompound(new NBTTagCompound());
-				if(!ret.stackTagCompound.hasKey("display")) ret.stackTagCompound.setTag("display", new NBTTagCompound());
-				ret.stackTagCompound.getCompoundTag("display").setTag("Lore", OreDicHandler.addAllTags(ret, name));
+				if(!ret.stackTagCompound.hasKey("OreDictionaryDisplay")) ret.stackTagCompound.setTag("OreDictionaryDisplay", new NBTTagCompound());
+				ret.stackTagCompound.getCompoundTag("OreDictionaryDisplay").setTag("Lore", OreDicHandler.addAllTags(ret, name));
 				return ret;
 			}
-			
 			found = convert(item).equals(converted);
 		}
 		
 		ItemStack ret = stacks.get(0).copy();
 		if(!ret.hasTagCompound()) ret.setTagCompound(new NBTTagCompound());
-		if(!ret.stackTagCompound.hasKey("display")) ret.stackTagCompound.setTag("display", new NBTTagCompound());
-		ret.stackTagCompound.getCompoundTag("display").setTag("Lore", OreDicHandler.addAllTags(ret, name));
+		if(!ret.stackTagCompound.hasKey("OreDictionaryDisplay")) ret.stackTagCompound.setTag("OreDictionaryDisplay", new NBTTagCompound());
+		ret.stackTagCompound.getCompoundTag("OreDictionaryDisplay").setTag("Lore", OreDicHandler.addAllTags(ret, name));
 		return ret;
 	}
 
@@ -203,13 +193,13 @@ public class OreDicHandler {
 
 	public static NBTTagList addAllTags(ItemStack stack, String name) {
 		NBTTagList lore = new NBTTagList();
-		lore.appendTag(new NBTTagString("OreDicName1st", Text.ORANGE + name));
+		lore.appendTag(new NBTTagString("OreDicName1st", name));
 		String last = "";
 		ArrayList<String> names = entries.get(convert(stack));
 		if(names == null) return lore;
 		for(String entry: names) {
 			if(!entry.equals(name) && !last.equals(entry)) {
-				lore.appendTag(new NBTTagString("OreDicName2nd", Text.GREY + entry));
+				lore.appendTag(new NBTTagString("OreDicName2nd", entry));
 				last = entry;
 			}
 		}

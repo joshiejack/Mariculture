@@ -20,7 +20,7 @@ public class CraftingMeta {
 	public static final int BURNT_BRICK = 14;
 	public static final int DRAGON_EGG = 15;
 	public static final int BLANK_PLAN = 16;
-	public static final int CHALK = 17;
+	public static final int DEPRECATED_CHALK = 17;
 	public static final int TITANIUM_SHEET = 18;
 	public static final int LENS_GLASS = 19;
 	public static final int TITANIUM_ROD = 20;

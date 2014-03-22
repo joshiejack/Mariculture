@@ -15,6 +15,7 @@ import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.Rand;
+import mariculture.factory.Factory;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -46,17 +47,17 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	public int[] getAccessibleSlotsFromSide(int side) {
 		switch (side) {
 		case 0:
-			return new int[] { BOTTOM, OUT };
+			return new int[] { 3, 4, 5, BOTTOM, OUT };
 		case 1:
-			return new int[] { TOP, OUT };
+			return new int[] { 3, 4, 5, TOP, OUT };
 		case 2:
-			return new int[] { NORTH, OUT };
+			return new int[] { 3, 4, 5, NORTH, OUT };
 		case 3:
-			return new int[] { SOUTH, OUT };
+			return new int[] { 3, 4, 5, SOUTH, OUT };
 		case 4:
-			return new int[] { WEST, OUT };
+			return new int[] { 3, 4, 5, WEST, OUT };
 		case 5:
-			return new int[] { EAST, OUT };
+			return new int[] { 3, 4, 5, EAST, OUT };
 		}
 
 		return null;
@@ -64,8 +65,8 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == OUT || slot < TOP)
-			return false;
+		if(slot == OUT) return false;
+		if(slot < TOP) return stack.itemID == Factory.plans.itemID;
 		if (stack.getItem() instanceof BlockItemCustom || stack.getItem() instanceof BlockItemCustomSlabBase) {
 			return false;
 		}

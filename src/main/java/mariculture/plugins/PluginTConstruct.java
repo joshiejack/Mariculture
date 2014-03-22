@@ -3,11 +3,13 @@ package mariculture.plugins;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.ItemIds;
@@ -80,7 +82,7 @@ public class PluginTConstruct extends Plugin {
 	private static void addModifiers() {
 		ToolBuilder tb = ToolBuilder.instance;
 		ItemStack pearl = new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE);
-        ItemStack pearlBlock = new ItemStack(Core.pearlBrick, 1, OreDictionary.WILDCARD_VALUE);
+        ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);
         int effect = 20;
         tb.registerToolMod(new ModPearl(new ItemStack[] { pearl }, effect, 1));
         tb.registerToolMod(new ModPearl(new ItemStack[] { pearl, pearl }, effect, 2));
@@ -429,19 +431,24 @@ public class PluginTConstruct extends Plugin {
 	
 	@Override
 	public void preInit() {
-		FluidDictionary.instance.addFluid("aluminum.molten", FluidType.Aluminum.fluid);
-		FluidDictionary.instance.addFluid("bronze.molten", FluidType.Bronze.fluid);
-		FluidDictionary.instance.addFluid("copper.molten", FluidType.Copper.fluid);
-		FluidDictionary.instance.addFluid("glass.molten", FluidType.Glass.fluid);
-		FluidDictionary.instance.addFluid("gold.molten", FluidType.Gold.fluid);
-		FluidDictionary.instance.addFluid("iron.molten", FluidType.Iron.fluid);
-		FluidDictionary.instance.addFluid("lead.molten", FluidType.Lead.fluid);
-		FluidDictionary.instance.addFluid("nickel.molten", FluidType.Nickel.fluid);
-		FluidDictionary.instance.addFluid("silver.molten", FluidType.Silver.fluid);
-		FluidDictionary.instance.addFluid("steel.molten", FluidType.Steel.fluid);
-		FluidDictionary.instance.addFluid("tin.molten", FluidType.Tin.fluid);
-		FluidDictionary.instance.addFluid("electrum.molten", FluidType.Electrum.fluid);
-		FluidDictionary.instance.addFluid("cobalt.molten", FluidType.Cobalt.fluid);
+		try {
+			FluidDictionary.instance.addFluid("aluminum.molten", FluidType.Aluminum.fluid);
+			FluidDictionary.instance.addFluid("bronze.molten", FluidType.Bronze.fluid);
+			FluidDictionary.instance.addFluid("copper.molten", FluidType.Copper.fluid);
+			FluidDictionary.instance.addFluid("glass.molten", FluidType.Glass.fluid);
+			FluidDictionary.instance.addFluid("gold.molten", FluidType.Gold.fluid);
+			FluidDictionary.instance.addFluid("iron.molten", FluidType.Iron.fluid);
+			FluidDictionary.instance.addFluid("lead.molten", FluidType.Lead.fluid);
+			FluidDictionary.instance.addFluid("nickel.molten", FluidType.Nickel.fluid);
+			FluidDictionary.instance.addFluid("silver.molten", FluidType.Silver.fluid);
+			FluidDictionary.instance.addFluid("steel.molten", FluidType.Steel.fluid);
+			FluidDictionary.instance.addFluid("tin.molten", FluidType.Tin.fluid);
+			FluidDictionary.instance.addFluid("electrum.molten", FluidType.Electrum.fluid);
+			FluidDictionary.instance.addFluid("cobalt.molten", FluidType.Cobalt.fluid);
+		} catch (Exception e) {
+			LogHandler.log(Level.SEVERE, "Mariculture will NOT use Tinkers constructs molten fluids due to an error on load");
+			e.printStackTrace();
+		}
 	}
 
 	@Override

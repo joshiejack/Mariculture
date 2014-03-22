@@ -30,6 +30,8 @@ public class Packet103Oyster extends PacketMariculture {
 			ItemStack stack = (id > -1) ? new ItemStack(id, 1, meta) : null;
 			((TileOyster) tile).setInventorySlotContents(0, stack);;
 		}
+		
+		world.markBlockForRenderUpdate(x, y, z);
 	}
 	
 	@Override

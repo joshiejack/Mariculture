@@ -15,7 +15,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import enchiridion.api.GuideHandler;
 
 public class ItemGuide extends ItemMariculture {
     public ItemGuide(int i) {
@@ -44,7 +43,10 @@ public class ItemGuide extends ItemMariculture {
 	}
 
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		GuideHandler.openBook(player, Mariculture.modid + ":" + getName(stack));
+		if(player.worldObj.isRemote) {
+			player.openGui(Mariculture.instance, 0, player.worldObj, 0, 0, 0);
+		}
+	
 		return stack;
 	}
 

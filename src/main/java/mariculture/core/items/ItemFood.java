@@ -1,12 +1,14 @@
 package mariculture.core.items;
 
-import cpw.mods.fml.common.Loader;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.Loader;
 
 public class ItemFood extends ItemMariculture {
 	public ItemFood(int i) {
@@ -66,6 +68,10 @@ public class ItemFood extends ItemMariculture {
 			return 0.3F;
 		}
 	}
+	
+	private boolean hasBowl(int meta) {
+		return meta == FoodMeta.CALAMARI || meta == FoodMeta.CUSTARD || meta == FoodMeta.FISH_N_CUSTARD || meta == FoodMeta.MISO_SOUP;
+	}
 
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
@@ -73,6 +79,9 @@ public class ItemFood extends ItemMariculture {
 		
 		if(!player.capabilities.isCreativeMode)
 			--stack.stackSize;
+		if(hasBowl(meta)) {
+			SpawnItemHelper.addToPlayerInventory(player, new ItemStack(Item.bowlEmpty));
+		}
 		int level = getFoodLevel(stack.getItemDamage());
 		float sat = getFoodSaturation(stack.getItemDamage());
 		//Decrease food if hunger overhaul is installed

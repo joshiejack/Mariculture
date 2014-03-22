@@ -15,6 +15,7 @@ import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.render.RenderOyster;
 import mariculture.core.util.Rand;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
@@ -242,7 +243,7 @@ public class BlockOyster extends BlockMachine {
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
-						if (world.getBlockId(x, y - 1, z) == Core.pearlBrick.blockID) {
+						if (world.getBlockId(x, y - 1, z) == Core.pearlBlock.blockID) {
 							oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
 						} else {
 							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));
@@ -289,5 +290,8 @@ public class BlockOyster extends BlockMachine {
 		icons = new Icon[2];
 		icons[0] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, 0)));
 		icons[1] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, NET)));
+		RenderOyster.lid_blur = iconRegister.registerIcon(Mariculture.modid + ":" + "oysterLidBlur");
+		RenderOyster.lid = iconRegister.registerIcon(Mariculture.modid + ":" + "oysterLid");
+		RenderOyster.tongue = iconRegister.registerIcon(Mariculture.modid + ":" + "oysterTongue");
 	}
 }

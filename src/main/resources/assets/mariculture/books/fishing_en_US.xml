@@ -176,7 +176,7 @@
             <craft1>|fish|</craft1>
             <craft2>rodWood|plankWood|rodWood</craft2>
             <craft3>logWood|baseWood|logWood</craft3>
-            <craftResult>autofisher</craftResult>
+            <craftResult>autoFishing</craftResult>
         </crafting>
     </page>
     <page>

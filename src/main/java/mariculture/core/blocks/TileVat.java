@@ -443,13 +443,13 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		if(vat == null)
 			return 0;
 		
-		int ret = vat.tank.fill(resource, doFill, tank2);
+		int ret = vat.tank.fill(resource, doFill, vat.tank2);
 		if(ret > 0) {
 			if(doFill) {
 				Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)1), (byte) 1).build());
 			}
 		} else {
-			ret = vat.tank2.fill(resource, doFill, tank);
+			ret = vat.tank2.fill(resource, doFill, vat.tank);
 			if(ret > 0) {
 				if(doFill) {
 					Packets.updateTile(vat, new Packet118FluidUpdate(xCoord, yCoord, zCoord, vat.getFluid((byte)2), (byte) 2).build());

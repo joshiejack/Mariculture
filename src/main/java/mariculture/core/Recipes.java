@@ -9,6 +9,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
@@ -62,15 +63,21 @@ public class Recipes {
 		});
 
 	//Basic Blocks
-		//Limestone Brick
 		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_BRICK), Core.oreBlocks, OresMeta.LIMESTONE);
-		//Chiseled Limestone
 		RecipeHelper.add4x4Recipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_SMOOTH);
-		//Smooth Limestone
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.SMALL_BRICK), Core.oreBlocks, OresMeta.LIMESTONE_BRICK);
+		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.CHISELED), Core.oreBlocks, OresMeta.LIMESTONE_CHISELED);
 		RecipeHelper.addSmelting(Core.oreBlocks.blockID, OresMeta.LIMESTONE, new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH), 0.1F);
-		//Thin Limestone Brick
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.oreBlocks, 4, OresMeta.LIMESTONE_THIN), new Object[] {
-			"CX", "XC", 'C', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK), 'X', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED)
+			"XY", "YX", 'X', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_BRICK), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.SMALL_BRICK)
+		});
+
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
+			"X", "X", 'X', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_SMOOTH)
+		});
+
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
+			"X", "Y", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE_CHISELED)
 		});
 		
 		//Base Brick
@@ -151,8 +158,9 @@ public class Recipes {
 
 		//Pearl Bricks
 		for (int i = 0; i < 12; i++) {
-			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBrick, 1, i), new ItemStack(Core.pearls, 1, i));
-			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBrick, 1, i));
+			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBrick, 4, i), new ItemStack(Core.pearlBlock, 1, i));
+			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBlock, 1, i), new ItemStack(Core.pearls, 1, i));
+			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 		}
 		
 		//Piston
@@ -225,7 +233,7 @@ public class Recipes {
 
 		//Carbide
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE), new Object[] {
-			"CSF", "FBS", "SFC", 'C', Item.clay, 'F', new ItemStack(Item.coal, 1, 0), 'S', Block.sand, 'B', Block.blockClay
+			" S ", "FBF", " S ", 'F', new ItemStack(Item.coal, 1, 0), 'S', Block.sand, 'B', Block.blockClay
 		});
 
 		//Wheel

@@ -215,10 +215,12 @@ public class Config {
             BlockIds.woodBlocks = config.getBlock("Wooden Blocks", 756).getInt();
             BlockIds.tankBlocks = config.getBlock("Tank Blocks", 757).getInt();
             BlockIds.groundBlocks = config.getBlock("Earthy Blocks", 758).getInt();
+            BlockIds.pearlBricks = config.getBlock("Pearl Bricks - Legacy", 759).getInt();
+            BlockIds.limestone = config.getBlock("Limestone Variants", 759).getInt();
             //FREEID: 758 > 761
             BlockIds.lampsOn = config.getBlock("Neon Lamps On", 762).getInt();
             BlockIds.lampsOff = config.getBlock("Neon Lamps Off", 763).getInt();
-            BlockIds.pearlBrick = config.getBlock("Pearl Bricks", 764).getInt();
+            BlockIds.pearlBlock = config.getBlock("Pearl Bricks", 764).getInt();
             BlockIds.glassBlocks = config.getBlock("Glass Blocks", 765).getInt();
             BlockIds.coral = config.getBlock("Coral & Kelp", 766).getInt();
             BlockIds.airBlocks = config.getBlock("Air Blocks", 767).getInt();
@@ -317,6 +319,7 @@ public class Config {
             ItemIds.ladle = config.getItem("Ladle", 29068).getInt();
             ItemIds.magnet = config.getItem("Magnet", 29069).getInt();
             ItemIds.bucket = config.getItem("Titanium Bucket", 29070).getInt();
+            ItemIds.chalk = config.getItem("Chalk", 29071).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

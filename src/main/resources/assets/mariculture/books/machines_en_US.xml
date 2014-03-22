@@ -17,7 +17,7 @@
     </page>
      <page>
         <text x="0" y="-13" bold="true">Automatic Dictionary Converter</text>
-        <text y="2" wrap="235" size="0.8">This block can convert Ore Dictionary equivalent items from one to another. Other than the block all you need is one item that you would like to convert. You do not need the target item. Simply in the converter interface, place the ingot you want to convert in the top slots of the machine and it'll place a ghost item. You can then left click this and it will cycle through all of the ore dictionary equivalent items! Then simply place the item in the slots on the left and it will quickly convert the item for you. (Right click to remove item from the top slots).</text>
+        <text y="8" wrap="240" size="0.75">This block can convert Ore Dictionary equivalent items from one to another. All you need is one item that you would like to convert. You do not need the target item. Simply in the converter interface, place the ingot you want to convert in one of the left slots of the machine and it'll place a ghost item. You can then left click this and it will cycle through all of the ore dictionary equivalent items! Then place the item on the slot on the left and it will quickly convert the item for you. (Right click to remove item from the top slots)(Middle click changes the ore dictionary name being cycled)</text>
         <text y="185">If you run out of room in the top 9 slots, you can place item filters (right click them to edit their contents), in the slots instead.</text>
         <crafting x="5" y="92" size="1">
             <craft1>|writingBook|</craft1>

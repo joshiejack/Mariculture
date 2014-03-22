@@ -1,18 +1,11 @@
 package mariculture.factory.blocks;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.core.blocks.base.TileMultiBlock;
-import mariculture.core.blocks.base.TileMultiStorage;
 import mariculture.core.blocks.base.TileStorage;
-import mariculture.core.blocks.base.TileMultiBlock.MultiPart;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
-import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
-import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;

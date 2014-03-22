@@ -1,9 +1,5 @@
 package mariculture.core.helpers;
 
-import java.util.ArrayList;
-
-import mariculture.core.lib.Compatibility;
-import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishyFood;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

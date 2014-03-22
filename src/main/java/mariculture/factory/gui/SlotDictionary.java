@@ -4,7 +4,6 @@ import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.SlotFake;
 import mariculture.core.handlers.OreDicHandler;
 import mariculture.factory.Factory;
-import mariculture.factory.items.ItemFilter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -49,12 +48,12 @@ public class SlotDictionary extends SlotFake {
 			tag = new NBTTagCompound();
 		}
 		
-		if (!tag.hasKey("display")) {
-			tag.setTag("display", new NBTTagCompound());
+		if (!tag.hasKey("OreDictionaryDisplay")) {
+			tag.setTag("OreDictionaryDisplay", new NBTTagCompound());
 		}
 		
 		String old = "";
-		NBTTagCompound display = tag.getCompoundTag("display");
+		NBTTagCompound display = tag.getCompoundTag("OreDictionaryDisplay");
 		NBTTagList lore = display.getTagList("Lore");
 		if(lore != null && lore.tagCount() > 0) {
 			old = ((NBTTagString)lore.tagAt(0)).data;

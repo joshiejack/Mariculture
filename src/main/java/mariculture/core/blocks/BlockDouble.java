@@ -35,7 +35,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDouble extends BlockMachine {
 	public Icon bar1;
-	public Icon bar2;
 
 	public BlockDouble(int i) {
 		super(i, Material.iron);
@@ -316,7 +315,6 @@ public class BlockDouble extends BlockMachine {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 		bar1 = iconRegister.registerIcon(Mariculture.modid + ":bar1");
-		bar2 = iconRegister.registerIcon(Mariculture.modid + ":bar2");
 		
 		icons = new Icon[getMetaCount()];
 

@@ -53,11 +53,6 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 			((ModelAirPump) model).render((TileAirPump) tileEntity, x, y, z);
 		}
 
-		if (tileEntity instanceof TileOyster) {
-			bindTexture(resource);
-			((ModelOyster) model).render((TileOyster) tileEntity, x, y, z);
-		}
-
 		if (tileEntity instanceof TileSift) {
 			bindTexture(resource);
 			((ModelSift) model).render((TileSift) tileEntity, x, y, z);
@@ -98,6 +93,10 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 				new RenderCaster(render).render();
 			if(meta == SingleMeta.GEYSER)
 				new RenderGeyser(render).render();
+		} else if (block.blockID == Core.oysterBlock.blockID) {
+			if(meta < BlockOyster.NET) {
+				new RenderOyster(render).render();
+			}
 		}
 	}
 
@@ -115,6 +114,10 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? 
 					ForgeDirection.WEST: ((meta - 7) == 1)? ForgeDirection.NORTH: ForgeDirection.EAST;
 			return new RenderAnvil(render).setCoords(world, x, y, z).setDir(facing).render();
+		} else if (tile instanceof TileOyster) {
+			ForgeDirection facing = (meta == 3)? ForgeDirection.SOUTH: ((meta) == 2)? 
+					ForgeDirection.WEST: (meta == 1)? ForgeDirection.NORTH: ForgeDirection.EAST;
+			return new RenderOyster(render).setCoords(world, x, y, z).setDir(facing).render();
 		}
 		
 		return false;

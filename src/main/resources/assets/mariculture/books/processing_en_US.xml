@@ -76,7 +76,7 @@
             <craft1>|bucketLava|</craft1>
             <craft2>burntBrick|normalTank|burntBrick</craft2>
             <craft3>heater|baseBrick|heater</craft3>
-            <craftResult>crucible</craftResult>
+            <craftResult>liquifier</craftResult>
         </crafting>
         <crafting x="100" y="55" size="1">
             <craft1>burntBrick|fenceIron|burntBrick</craft1>

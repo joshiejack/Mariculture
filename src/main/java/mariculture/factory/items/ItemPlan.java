@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemPlan extends ItemMariculture {
 	public ItemPlan(int i) {
 		super(i);
-		this.setMaxDamage(16);
+		this.setMaxDamage(64);
 		this.setMaxStackSize(1);
 		setHasSubtypes(false);
 	}

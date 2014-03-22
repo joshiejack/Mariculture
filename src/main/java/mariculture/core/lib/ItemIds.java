@@ -48,6 +48,7 @@ public class ItemIds {
 	public static int ladle;
 	public static int bucket;
 	public static int magnet;
+	public static int chalk;
 	
 	//parts
 	public static int titanium_part_1;

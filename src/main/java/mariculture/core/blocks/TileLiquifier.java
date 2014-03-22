@@ -89,22 +89,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	}
 	
 	public boolean hasRoom() {
-		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[0]], inventory[in[1]], getTemperatureScaled(2000));
-		if(recipe == null)
-			recipe = MaricultureHandlers.smelter.getResult(inventory[in[1]], inventory[in[0]], getTemperatureScaled(2000));
-		if(recipe == null)
-			return false;
-		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
-		FluidStack fluid = recipe.fluid.copy();
-		fluid.amount = fluidAmount;
-		if(tank.fill(fluid, false) < fluid.amount)
-			return false;
-		if(recipe.output == null)
-			return true;
-		if(setting.canEject(EjectSetting.ITEM))
-			return true;
-		return inventory[out] == null ||  (areStacksEqual(inventory[out], recipe.output) 
-						&& inventory[out].stackSize + recipe.output.stackSize < inventory[out].getMaxStackSize());
+		return canMelt(0) || canMelt(1);
 	}
 	
 	private boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {

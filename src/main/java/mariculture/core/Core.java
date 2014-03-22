@@ -19,6 +19,8 @@ import mariculture.core.blocks.BlockGlass;
 import mariculture.core.blocks.BlockGlassItem;
 import mariculture.core.blocks.BlockGround;
 import mariculture.core.blocks.BlockGroundItem;
+import mariculture.core.blocks.BlockLimestone;
+import mariculture.core.blocks.BlockLimestoneItem;
 import mariculture.core.blocks.BlockOre;
 import mariculture.core.blocks.BlockOreItem;
 import mariculture.core.blocks.BlockOyster;
@@ -109,7 +111,7 @@ public class Core extends Module {
 	public static Block utilBlocks;
 	public static Block singleBlocks;
 	public static Block oysterBlock;
-	public static Block pearlBrick;
+	public static Block pearlBlock;
 	public static Block doubleBlock;
 	public static Block glassBlocks;
 	public static Block airBlocks;
@@ -117,6 +119,8 @@ public class Core extends Module {
 	public static Block tankBlocks;
 	public static Block groundBlocks;
 	public static Block transparentBlocks;
+	public static Block pearlBrick;
+	public static Block limestone;
 
 	public static Fluid moltenAluminum;
 	public static Fluid moltenTitanium;
@@ -188,25 +192,29 @@ public class Core extends Module {
 		doubleBlock = new BlockDouble(BlockIds.doubleBlocks).setStepSound(Block.soundMetalFootstep).setResistance(3F).setUnlocalizedName("doubleBlocks").setHardness(3F);
 		singleBlocks = new BlockSingle(BlockIds.singleBlocks).setStepSound(Block.soundStoneFootstep).setHardness(1F).setResistance(1F).setUnlocalizedName("customBlocks");
 		oysterBlock = new BlockOyster(BlockIds.oyster).setStepSound(Block.soundStoneFootstep).setHardness(10F).setResistance(50F).setUnlocalizedName("oysterBlock").setLightValue(0.4F);
-		pearlBrick = new BlockPearlBrick(BlockIds.pearlBrick).setUnlocalizedName("pearlBrick");
+		pearlBlock = new BlockPearlBrick(BlockIds.pearlBlock, "pearlBlock_").setUnlocalizedName("pearlBlock");
+		pearlBrick = new BlockPearlBrick(BlockIds.pearlBricks, "pearlBrick_").setUnlocalizedName("pearlBrick");
 		glassBlocks = new BlockGlass(BlockIds.glassBlocks).setStepSound(Block.soundGlassFootstep).setResistance(10F).setUnlocalizedName("glassBlocks");
 		airBlocks = new BlockAir(BlockIds.airBlocks).setBlockUnbreakable().setUnlocalizedName("airBlocks");
 		woodBlocks = new BlockWood(BlockIds.woodBlocks).setUnlocalizedName("woodBlocks").setHardness(2.0F);
 		tankBlocks = new BlockTank(BlockIds.tankBlocks).setUnlocalizedName("tankBlocks").setHardness(1F);
 		groundBlocks = new BlockGround(BlockIds.groundBlocks).setUnlocalizedName("groundBlocks").setHardness(1F);
 		transparentBlocks = new BlockTransparent(BlockIds.transparentBlocks).setStepSound(Block.soundGlassFootstep).setUnlocalizedName("transparentBlocks").setHardness(1F);
+		limestone = new BlockLimestone(BlockIds.limestone).setStepSound(Block.soundStoneFootstep).setResistance(1F).setUnlocalizedName("limestone");
 
 		Item.itemsList[BlockIds.ores] = new BlockOreItem(BlockIds.ores - 256, oreBlocks).setUnlocalizedName("oreBlocks");
 		Item.itemsList[BlockIds.util] = new BlockUtilItem(BlockIds.util - 256, utilBlocks).setUnlocalizedName("utilBlocks");
 		Item.itemsList[BlockIds.singleBlocks] = new BlockSingleItem(BlockIds.singleBlocks - 256, singleBlocks).setUnlocalizedName("customBlocks");
 		Item.itemsList[BlockIds.doubleBlocks] = new BlockDoubleItem(BlockIds.doubleBlocks - 256, doubleBlock).setUnlocalizedName("doubleBlocks");
-		Item.itemsList[BlockIds.pearlBrick] = new BlockPearlBrickItem(BlockIds.pearlBrick - 256, Core.pearlBrick).setUnlocalizedName("pearlBrick");
+		Item.itemsList[BlockIds.pearlBlock] = new BlockPearlBrickItem(BlockIds.pearlBlock - 256, Core.pearlBlock).setUnlocalizedName("pearlBlock");
+		Item.itemsList[BlockIds.pearlBricks] = new BlockPearlBrickItem(BlockIds.pearlBricks - 256, Core.pearlBrick).setUnlocalizedName("pearlBrick");
 		Item.itemsList[BlockIds.glassBlocks] = new BlockGlassItem(BlockIds.glassBlocks - 256, glassBlocks).setUnlocalizedName("glassBlocks");
 		Item.itemsList[BlockIds.airBlocks] = new BlockAirItem(BlockIds.airBlocks - 256, airBlocks).setUnlocalizedName("airBlocks");
 		Item.itemsList[BlockIds.woodBlocks] = new BlockWoodItem(BlockIds.woodBlocks - 256, woodBlocks).setUnlocalizedName("woodBlocks");
 		Item.itemsList[BlockIds.tankBlocks] = new BlockTankItem(BlockIds.tankBlocks - 256, tankBlocks).setUnlocalizedName("tankBlocks");
 		Item.itemsList[BlockIds.groundBlocks] = new BlockGroundItem(BlockIds.groundBlocks - 256, groundBlocks).setUnlocalizedName("groundBlocks");
 		Item.itemsList[BlockIds.transparentBlocks] = new BlockTransparentItem(BlockIds.transparentBlocks - 256, transparentBlocks).setUnlocalizedName("transparentBlocks");
+		Item.itemsList[BlockIds.limestone] = new BlockLimestoneItem(BlockIds.limestone - 256, limestone).setUnlocalizedName("limestone");
 
 		GameRegistry.registerBlock(Core.oysterBlock, "Mariculture_oysterBlock");
 		
@@ -220,6 +228,8 @@ public class Core extends Module {
 		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
 		GameRegistry.registerTileEntity(TileVoidBottle.class, "tileVoidBottle");
 
+		MinecraftForge.setBlockHarvestLevel(limestone, OreDictionary.WILDCARD_VALUE, "pickaxe", 0);
+		MinecraftForge.setBlockHarvestLevel(pearlBrick, OreDictionary.WILDCARD_VALUE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.ALUMINUM_BLOCK, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.BAUXITE, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(oreBlocks, OresMeta.COPPER, "pickaxe", 0);
@@ -245,7 +255,7 @@ public class Core extends Module {
 		MinecraftForge.setBlockHarvestLevel(groundBlocks, GroundMeta.BUBBLES, "shovel", 0);
 		MinecraftForge.setBlockHarvestLevel(woodBlocks, WoodMeta.BASE_WOOD, "axe", 1);
 
-		RegistryHelper.register(new Object[] { oreBlocks, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
+		RegistryHelper.register(new Object[] { oreBlocks, limestone, pearlBlock, pearlBrick, oysterBlock, utilBlocks, doubleBlock,
 				singleBlocks, glassBlocks, airBlocks, woodBlocks, tankBlocks, groundBlocks, transparentBlocks });
 	}
 	
