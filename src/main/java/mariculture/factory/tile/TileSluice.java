@@ -107,7 +107,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 			if(worldObj.isAirBlock(x2, y2, z2)) {
 				IFluidHandler tank = (IFluidHandler) tile;
 				FluidTankInfo[] info = tank.getTankInfo(orientation.getOpposite());
-				if(info.length < 1) return;
+				if(info == null || info.length < 1) return;
 				for(FluidTankInfo tanks: info) {
 					if(tanks.fluid != null) {
 						Fluid fluid = tanks.fluid.getFluid();

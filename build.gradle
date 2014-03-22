@@ -27,7 +27,7 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = config.mod_version
+version = config.minecraft_version + "-" + config.mod_version
 group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Mariculture"
 
