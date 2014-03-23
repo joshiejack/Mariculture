@@ -1,5 +1,7 @@
 package mariculture.plugins.enchiridion;
 
+import java.util.ArrayList;
+
 import mariculture.core.Core;
 import mariculture.core.helpers.NBTHelper;
 import mariculture.core.helpers.SpawnItemHelper;
@@ -13,10 +15,16 @@ import mariculture.plugins.PluginEnchiridion;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IPlayerTracker;
+import enchiridion.api.DisplayRegistry;
 
 public class EventHandler implements ICraftingHandler, IPlayerTracker {
+	public static boolean isLoaded = false;
+	
 	//Reads the nbt of a player and sets if this book has been collected or not
 	public static void spawnBook(EntityPlayer player, int meta) {
 		if(!NBTHelper.getPlayerData(player).hasKey("BookCollected" + meta)) {
@@ -62,5 +70,25 @@ public class EventHandler implements ICraftingHandler, IPlayerTracker {
 	@Override
 	public void onSmelting(EntityPlayer player, ItemStack item) {
 		return;
+	}
+	
+	@ForgeSubscribe
+	public void onOreDictionaryRegistration(OreRegisterEvent event) {
+		//Initialize all existing Entries
+		if(!isLoaded) {
+			String[] ores = OreDictionary.getOreNames();
+			for(String ore: ores) {
+				ArrayList<ItemStack> stacks = OreDictionary.getOres(ore);
+				for(ItemStack stack: stacks) {
+					if(stack != null && ore != null && !ore.equals("")) {
+						DisplayRegistry.registerOreDictionaryCycling(ore);
+					}
+				}
+			}
+			
+			isLoaded = true;
+		}
+		
+		DisplayRegistry.registerOreDictionaryCycling(event.Name);
 	}
 }

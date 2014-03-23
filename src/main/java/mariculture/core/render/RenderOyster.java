@@ -132,7 +132,7 @@ public class RenderOyster extends RenderBase {
 					renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
 				} else {
 					setTexture(Block.sand);
-					renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
+					renderBlock(0.45, 0.05, 0.45, 0.55, 0.2, 0.55);
 				}
 			}
 		}

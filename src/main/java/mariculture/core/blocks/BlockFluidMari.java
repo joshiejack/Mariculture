@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.core.Core;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.FluidContainerMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -89,14 +90,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 				float hardnessMax = Block.stone.blockHardness;
 				float blockHardness = block.getBlockHardness(world, x2, y2, z2);
 				if(blockHardness <= hardnessMax) {
-					int meta = world.getBlockMetadata(x2, y2, z2);
-					FakePlayer player = new FakePlayer(world, "hpwater");
-					if (block.removeBlockByPlayer(world, player, x2, y2, z2)) {
-                            block.onBlockDestroyedByPlayer(world, x2, y2, z2, meta);
-                    }
-						
-                    block.harvestBlock(world, player, x2, y2, z2, meta);
-                    block.onBlockHarvested(world, x2, y2, z2, meta, player);
+					BlockHelper.destroyBlock(world, x2, y2, z2);
 				}
 			}
 		}

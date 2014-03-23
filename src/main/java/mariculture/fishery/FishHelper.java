@@ -119,15 +119,15 @@ public class FishHelper implements IFishHelper {
 	}
 	
 	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile) {
-		TileFeeder feeder = (TileFeeder) tile;
-		if(feeder != null && feeder instanceof IUpgradable) {
+		IUpgradable upgradable = (IUpgradable) tile;
+		if(upgradable != null && upgradable instanceof IUpgradable) {
 			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getBiomeGenForCoords(tile.xCoord, tile.zCoord));
 			EnumSalinityType saltType = theBiome.getSalinity();
-			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", (IUpgradable) tile))
+			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", upgradable))
 				saltType = EnumSalinityType.SALT;
-			if(MaricultureHandlers.upgrades.hasUpgrade("filter", (IUpgradable) tile))
+			if(MaricultureHandlers.upgrades.hasUpgrade("filter", upgradable))
 				saltType = EnumSalinityType.FRESH;
-			if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile))
+			if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable))
 				saltType = EnumSalinityType.MAGIC;
 			boolean saltMatches = false;
 			for(EnumSalinityType salt: salinity) {

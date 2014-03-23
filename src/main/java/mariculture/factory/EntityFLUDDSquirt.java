@@ -1,5 +1,6 @@
 package mariculture.factory;
 
+import mariculture.core.helpers.BlockHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -52,8 +53,8 @@ public class EntityFLUDDSquirt extends EntityThrowable {
 							thingHit.blockZ);
 				}
 
-				if (hardness < 2.5F && hardness >= 0) {
-					this.worldObj.destroyBlock(thingHit.blockX, thingHit.blockY, thingHit.blockZ, true);
+				if (hardness < 2.5F) {
+					BlockHelper.destroyBlock(worldObj, thingHit.blockX, thingHit.blockY, thingHit.blockZ);
 				}
 			}
 		}

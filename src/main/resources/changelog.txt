@@ -1,3 +1,14 @@
+== Mariculture 1.2.1a ==
+* Fixed Server startup crash (Need to update Enchiridion too)
+* Fixed my stuff breaking bedrock, namely pressurised water
+* Fixed a crash with Ex Aliquo, could of been prevented on their end but, works better with my fix ;)
+* Fixed Auto-Dictionary issue
+* Sand Renders smaller than pearls again
+* Ported 1.7.2 Fuel changes to 1.6.4
+* Ported 1.7.2 Paintbrush changes to 1.6.4
+* Reduced Transparent plastic glass costs, now 8000mB of molten glass and hard plastic for 16 Transparent
+* Oysters in the end always produce ender pearls
+
 == Mariculture 1.2.1 ==
 ====IMPORTANT NOTES====
 * I have Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.

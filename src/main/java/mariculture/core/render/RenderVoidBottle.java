@@ -33,7 +33,7 @@ public class RenderVoidBottle extends RenderBase {
 		v3 = v2;
 
 		tessellator.setBrightness(200);
-		tessellator.setColorOpaque_F(LIGHT_Y_POS * red, LIGHT_Y_POS * green, LIGHT_Y_POS * blue);
+		tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
 		//Base
 		tessellator.addVertexWithUV(x + 0, y, z + 0, u2, v2);
 		tessellator.addVertexWithUV(x + 0, y, z + 1, u1, v1);

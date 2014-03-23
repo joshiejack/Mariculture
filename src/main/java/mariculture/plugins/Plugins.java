@@ -68,7 +68,6 @@ public class Plugins {
 		add("TConstruct");
 		add("ExtrabiomesXL");
 		add("Forestry");
-		add("IC2");
 		add("Thaumcraft");
 		add("BiomesOPlenty");
 		add("HungerOverhaul");

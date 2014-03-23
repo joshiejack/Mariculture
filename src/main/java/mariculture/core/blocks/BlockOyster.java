@@ -25,6 +25,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -243,7 +244,9 @@ public class BlockOyster extends BlockMachine {
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
-						if (world.getBlockId(x, y - 1, z) == Core.pearlBlock.blockID) {
+						if(world.provider.dimensionId == 1) {
+							oyster.setInventorySlotContents(0, new ItemStack(Item.enderPearl));
+						} else if (world.getBlockId(x, y - 1, z) == Core.pearlBlock.blockID) {
 							oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
 						} else {
 							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));

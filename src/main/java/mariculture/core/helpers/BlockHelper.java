@@ -19,6 +19,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 
 public class BlockHelper {
@@ -213,5 +215,21 @@ public class BlockHelper {
 		}
 		
 		dropItems(world, x, y, z);
+	}
+	
+	public static void destroyBlock(World world, int x, int y, int z) {
+		if(!(world instanceof WorldServer))
+			return;
+		Block block = Block.blocksList[world.getBlockId(x, y, z)];
+		if(block.getBlockHardness(world, x, y, z) < 0.0F) return;
+		FakePlayer player = new FakePlayer(world, "Mariculture");
+		int meta = world.getBlockMetadata(x, y, z);
+		if (block.removeBlockByPlayer(world, player, x, y, z)) {
+            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+        }
+		
+        block.harvestBlock(world, player, x, y, z, meta);
+        block.onBlockHarvested(world, x, y, z, meta, player);
+        world.markBlockForRenderUpdate(x, y, z);
 	}
 }

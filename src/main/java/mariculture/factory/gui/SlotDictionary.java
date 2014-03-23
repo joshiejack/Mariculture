@@ -60,7 +60,6 @@ public class SlotDictionary extends SlotFake {
 		}
 
 		if(old != null) {
-			if(old.startsWith("§")) old = old.substring(2);
 			String next = OreDicHandler.getNextString(stack, old);
 			display.setTag("Lore", OreDicHandler.addAllTags(stack, next));
 			stack.stackTagCompound = tag;

@@ -202,7 +202,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 		if(worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler) {
 			IFluidHandler handler = (IFluidHandler) worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] info = handler.getTankInfo(ForgeDirection.UP);
-			if(info != null && info[0].fluid != null && info[0].fluid.amount >= 16)
+			if(info != null && info[0].fluid != null && info[0].fluid.amount >= 10)
 				return MaricultureHandlers.smelter.getFuelInfo(info[0].fluid) != null;
 		}
 		
@@ -247,7 +247,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			FluidTankInfo[] tank = handler.getTankInfo(ForgeDirection.UP);
 			if(tank.length > 0 && tank[0] != null && tank[0].fluid != null) {
 				info = MaricultureHandlers.smelter.getFuelInfo(tank[0].fluid);
-				handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 16), true);
+				handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 10), true);
 			}
 		} else {
 			decrStackSize(fuel, 1);
