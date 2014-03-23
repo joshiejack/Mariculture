@@ -11,6 +11,19 @@ public class RenderVoidBottle extends RenderBase {
 
 	@Override
 	public void renderBlock() {		
+		setTexture(Core.tanks, TankMeta.BOTTLE);
+		//WHITE, BLUE, RED, GREEN
+		renderAngledBlock(0D, -0.065D, 0D, 
+				0D, -0.065D, 0D, 
+				0D, 0.3D, 1D, 
+				0D, 0.3D, 1D, 0D, 0D, 0D);
+		
+		renderAngledBlock(-1D, 0.3D, 0D, 
+				0D, -0.065D, 0D, 
+				-1D, 0.3D, 0D, 
+				0D, -0.065D, 0D, 
+				0D, 0D, 0D);
+		/*
 		Tessellator tessellator = Tessellator.instance;
 		int color = Blocks.stone.colorMultiplier(world, x, y, z);
 		float red = (color >> 16 & 255) / 255.0F;
@@ -102,6 +115,6 @@ public class RenderVoidBottle extends RenderBase {
 		tessellator.addVertexWithUV(x + 0.3, y + 1, z + 0.7, u3, v3);
 
 		render.renderMinY = 0;
-		render.renderMaxY = 1;
+		render.renderMaxY = 1; */
 	}
 }
