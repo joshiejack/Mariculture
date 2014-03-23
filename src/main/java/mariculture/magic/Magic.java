@@ -181,7 +181,7 @@ public class Magic extends RegistrationModule {
 		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all); }
 		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all); }
 		
-		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77353_D", new int[] {40, 24, 20, 24, 30});
+		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77358_D", new int[] {40, 24, 20, 24, 30});
 	}
 
 	@Override

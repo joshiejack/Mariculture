@@ -22,23 +22,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {
 	Random rand = new Random();
-	
-	@SubscribeEvent
-	public void onLivingSpawned(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityCreeper) {
-			EntityCreeper creeper = (EntityCreeper) event.entity;
-			creeper.tasks.addTask(3, new EntityAIAvoidCatfish(creeper, EntityPlayer.class, 8.0F, 0.25F, 0.3F));
-		}
-		
-		/* Future Based Stuffs
-		if(event.entity instanceof EntityLivingBase && !(event.entity instanceof EntityPlayer)) {
-			EntityLivingBase entity = (EntityLivingBase) event.entity;
-			float health = (float) (entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() * (1 + Rand.rand.nextInt(3)));
-			entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
-			entity.getDataWatcher().updateObject(6, Float.valueOf(MathHelper.clamp_float(health, 0.0F, health)));
-			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((0.10000000149011612D * (1 + Rand.rand.nextInt(5))));
-		} */
-	}
 
 	public static void updateStack(World world, EntityItem entity, int lifespan, ItemStack stack, Random rand) {
 		float var2 = MathHelper.floor_double(entity.boundingBox.minY);

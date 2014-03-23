@@ -3,10 +3,13 @@ package mariculture.core.gui;
 import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.core.util.Text;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -25,5 +28,20 @@ public class GuiItemToolTip {
 			if(gui instanceof GuiMariculture)
 				((GuiMariculture) gui).addItemToolTip(stack, list);
 		} 
+		
+		if(stack.hasTagCompound()) {
+			if (stack.stackTagCompound.hasKey("OreDictionaryDisplay"))  {
+                NBTTagCompound nbttagcompound = stack.stackTagCompound.getCompoundTag("OreDictionaryDisplay");
+                if (nbttagcompound.hasKey("Lore")) {
+                    NBTTagList nbttaglist1 = nbttagcompound.getTagList("Lore", 10);
+                    if (nbttaglist1.tagCount() > 0) {
+                        for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
+                        	String color = j == 0? Text.ORANGE: Text.GREY;
+                            list.add(color + (nbttaglist1.getStringTagAt(j)));
+                        }
+                    }
+                }
+            }
+		}
 	}
 }

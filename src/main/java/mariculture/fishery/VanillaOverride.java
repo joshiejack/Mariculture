@@ -65,7 +65,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 
 	@Override
 	public String getAccessTransformerClass() {
-		return null;
+		return "mariculture.core.AccessTransformers";
 	}
 	
 	private FMLDeobfuscatingRemapper remapper;
@@ -75,7 +75,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 		remapper = FMLDeobfuscatingRemapper.INSTANCE;
 		byte[] newData = data;
 		
-		if(className.equals("net.minecraft.item.abn")) {
+		if(className.equals("abn")) {
 			System.out.println("[Mariculture] Patching the vanilla class: " + className);
 			newData = patchFishingStuff(data, true);
 			if(newData != data) {
@@ -94,14 +94,12 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 				System.out.println("[Mariculture] Failed to replace Vanilla Fishing Rod and Fish");
 			}
 		}
-
+		
 		return newData;
 	}
 
 	public byte[] patchFishingStuff(byte[] data, boolean obfuscated) {
-		String classBlock = obfuscated ? "net/minecraft/item/abn" : "net/minecraft/item/Item";		
 		String registerItems = obfuscated ? "l" : "registerItems";
-		
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(data);
 		classReader.accept(classNode, 0);

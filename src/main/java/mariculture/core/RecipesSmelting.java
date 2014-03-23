@@ -300,7 +300,7 @@ public class RecipesSmelting {
 		
 		//Glass > Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
-				FluidDictionary.glass, 30000, new ItemStack(Core.transparent, 8, TransparentMeta.PLASTIC), 5);
+				FluidDictionary.glass, 8000, new ItemStack(Core.transparent, 16, TransparentMeta.PLASTIC), 5);
 		
 		//Water + Lava = Obsidian
 		RecipeHelper.addFluidAlloyResultItem(FluidRegistry.getFluidStack("water", 1000), 

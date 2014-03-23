@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import mariculture.Mariculture;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
@@ -56,7 +55,6 @@ import mariculture.fishery.render.RenderProjectileFish;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileSift;
-import mariculture.plugins.enchiridion.PageVat;
 import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
@@ -68,12 +66,10 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 
-import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import enchiridion.api.GuideHandler;
 
 public class ClientProxy extends CommonProxy {
 	public static final float scale = (float) (1.0 / 20.0);
@@ -157,13 +153,6 @@ public class ClientProxy extends CommonProxy {
 		if(Modules.isActive(Modules.transport)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpeedBoat.class, new RenderSpeedBoat());
 			MinecraftForgeClient.registerItemRenderer(Transport.speedBoat, new RenderSpeedBoatItem());
-		}
-		
-		try {
-			GuideHandler.registerPageHandler("vat", new PageVat());
-		} catch (Exception e) {
-			e.printStackTrace();
-			LogHandler.log(Level.WARN, "Mariculture attempted to register the vat page handler for it's books, but the required mod Enchiridion was not found");
 		}
 	}
 }

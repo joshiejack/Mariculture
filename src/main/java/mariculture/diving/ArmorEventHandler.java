@@ -13,17 +13,21 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorEventHandler {
-	private UnderwaterVision vision;
+	private int tick;
+	private static UnderwaterVision vision;
 	
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
+			tick++;
 			if (!player.worldObj.isRemote) {
-				ScubaTank.init(player);
-				ScubaMask.damage(player);
-				if(Extra.HARDCORE_DIVING > 0) HardcoreDiving.init(player);
 				Snorkel.init(player);
+				if(tick % 5 == 0) {
+					ScubaTank.init(player);
+					ScubaMask.damage(player);
+					if(Extra.HARDCORE_DIVING > 0) HardcoreDiving.init(player);
+				}
 			} else {
 				vision = (vision == null)? new UnderwaterVision(): vision.onUpdate(player);
 				DivingBoots.init(player);

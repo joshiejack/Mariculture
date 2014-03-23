@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
@@ -17,6 +18,7 @@ import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.enchiridion.EventHandler;
 import mariculture.plugins.enchiridion.ItemGuide;
+import mariculture.plugins.enchiridion.PageVat;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,14 +27,18 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Level;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import enchiridion.api.DisplayRegistry;
 import enchiridion.api.GuideHandler;
 
 public class PluginEnchiridion extends Plugin {
 	public static Item guides;
+	public static EventHandler handler;
 	
 	@Override
 	public void preInit() {
+		handler = new EventHandler();
 		guides = new ItemGuide().setUnlocalizedName("guide");
 		RegistryHelper.registerItems(new Item[] { guides });
 		GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.PROCESSING), Mariculture.modid, "processing", 0x1C1B1B);
@@ -46,7 +52,13 @@ public class PluginEnchiridion extends Plugin {
 		if(Modules.isActive(Modules.factory)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL));
 		if(Modules.isActive(Modules.fishery)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
 		if(Modules.isActive(Modules.magic)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
-		MinecraftForge.EVENT_BUS.register(new EventHandler());
+		
+		MinecraftForge.EVENT_BUS.register(handler);
+		FMLCommonHandler.instance().bus().register(handler);
+		
+		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			GuideHandler.registerPageHandler("vat", new PageVat());
+		}
 	}
 	
 	@Override

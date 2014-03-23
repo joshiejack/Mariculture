@@ -46,14 +46,13 @@ public class SlotDictionary extends SlotFake {
 			tag = new NBTTagCompound();
 		}
 		
-		if (!tag.hasKey("display")) {
-			tag.setTag("display", new NBTTagCompound());
+		if (!tag.hasKey("OreDictionaryDisplay")) {
+			tag.setTag("OreDictionaryDisplay", new NBTTagCompound());
 		}
 		
-		NBTTagCompound display = tag.getCompoundTag("display");
+		NBTTagCompound display = tag.getCompoundTag("OreDictionaryDisplay");
 		NBTTagList lore = display.getTagList("Lore", 8);
 		String old = lore.getStringTagAt(0) != null? lore.getStringTagAt(0): "";
-		if(old.startsWith("§")) old = old.substring(2);
 		lore = new NBTTagList();
 		String next = OreDicHandler.getNextString(stack, old);
 		display.setTag("Lore", OreDicHandler.addAllTags(stack, lore, next));

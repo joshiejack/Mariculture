@@ -14,7 +14,7 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.WaterMeta;
 import mariculture.core.render.RenderOyster;
 import mariculture.core.tile.TileOyster;
-import mariculture.plugins.enchiridion.EventHandler;
+import mariculture.plugins.enchiridion.BookSpawnHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -112,7 +112,7 @@ public class BlockWater extends BlockFunctional {
 			if(Extra.SPAWN_BOOKS) {
                 if(Loader.isModLoaded("Enchiridion")) {
                 	if(oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
-                		EventHandler.spawnBook(player, GuideMeta.ENCHANTS);
+                		BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
                 	}
                 }
             }
@@ -160,10 +160,11 @@ public class BlockWater extends BlockFunctional {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
 						Block block = world.getBlock(x, y - 1, z);
-						if(block instanceof BlockPearlBlock) {
+						if(world.provider.dimensionId == 1) {
+							oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));
+						} if(block instanceof BlockPearlBlock) {
 							oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
 						} else {
-							oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));
 							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));
 						}
 					}

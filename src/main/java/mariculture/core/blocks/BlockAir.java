@@ -132,15 +132,14 @@ public class BlockAir extends BlockDecorative {
 	
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if(entity instanceof EntityLivingBase) {
-			EntityLivingBase living = (EntityLivingBase) entity;
-			living.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 5, 2, true));
-			living.addPotionEffect(new PotionEffect(Potion.weakness.id, 5, 0, true));
-			if(Rand.nextInt(250)) {
-				living.addPotionEffect(new PotionEffect(Potion.confusion.id, 60, 0, true));
-				living.addPotionEffect(new PotionEffect(Potion.weakness.id, 40, 1, true));
-			} else if(Rand.nextInt(500)) living.addPotionEffect(new PotionEffect(Potion.poison.id, 30, 0, true));
-			else if(Rand.nextInt(1000)) world.createExplosion(entity, x, y, z, 1.0F, true);
+		if(entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 5, 2, true));
+			player.addPotionEffect(new PotionEffect(Potion.weakness.id, 5, 0, true));
+			if(Rand.nextInt(500)) {
+				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 60, 0, true));
+				player.addPotionEffect(new PotionEffect(Potion.weakness.id, 40, 1, true));
+			} else if(Rand.nextInt(1000)) player.addPotionEffect(new PotionEffect(Potion.poison.id, 30, 0, true));
 		}
 	}
 	
