@@ -1,10 +1,13 @@
 ==Mariculture 1.7.2 BETA 2==
 * Vanilla overriding should now work for biomes, fish and fishing rods
+* Access Transformers should behave for things like scuba masks and fishing rods
 * Fixed the Enchiridion Dependency, now an optional dependency
 * Removed Creepers avoiding players holding catfish
 * Scuba Gear will last longer
 * Natural Gas now only affects players
 * Removed random explosions from natural gas
+* Fixed Void Bottle rendering
+* Fixed pick block on void bottles, tank blocks also are now picked with their contents in tact
 
 ==Mariculture 1.7.2 BETA 1==
 ==== BETA Notes ====

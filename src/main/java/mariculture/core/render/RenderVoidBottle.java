@@ -11,19 +11,89 @@ public class RenderVoidBottle extends RenderBase {
 
 	@Override
 	public void renderBlock() {		
+		boolean old = false;
+		
+		if(!old) {
+		int color = Blocks.stone.colorMultiplier(world, x, y, z);
+		float red = (color >> 16 & 255) / 255.0F;
+		float green = (color >> 8 & 255) / 255.0F;
+		float blue = (color & 255) / 255.0F;
+		if(!isItem()) {
+			brightness = world.getBlock(x, y, z).getMixedBrightnessForBlock(world, x, y, z) + 100;
+		} else brightness = 200;
+		rgb_red = LIGHT_Y_POS * red;
+		rgb_green = LIGHT_Y_POS * green;
+		rgb_blue = LIGHT_Y_POS * blue;
+		render.flipTexture = true;
 		setTexture(Core.tanks, TankMeta.BOTTLE);
 		//WHITE, BLUE, RED, GREEN
 		renderAngledBlock(0D, -0.065D, 0D, 
 				0D, -0.065D, 0D, 
-				0D, 0.3D, 1D, 
-				0D, 0.3D, 1D, 0D, 0D, 0D);
+				0D, 0.2D, 1D, 
+				0D, 0.2D, 1D);
 		
-		renderAngledBlock(-1D, 0.3D, 0D, 
+		renderAngledBlock(0D, 0.2D, 0D, 
+				0D, 0.2D, 0D, 
+				-0.3D, 0.85D, 0.7D, 
+				0.3D, 0.85D, 0.7D);
+		
+		renderAngledBlock(-0.3D, 0.85D, -0.3D, 
+				0.3D, 0.85D, -0.3D, 
+				-0.3D, 1D, 0.7D, 
+				0.3D, 1D, 0.7D);
+		
+		renderAngledBlock(0D, -0.065D, -1D, 
+				0D, -0.065D, -1D, 
+				0D, 0.2D, 0D, 
+				0D, 0.2D, 0D);
+		
+		renderAngledBlock(0D, 0.2D, -1D, 
+				0D, 0.2D, -1D, 
+				-0.3D, 0.85D, 0.3D, 
+				0.3D, 0.85D, 0.3D);
+		
+		renderAngledBlock(-0.3D, 0.85D, -0.7D, 
+				0.3D, 0.85D, -0.7D, 
+				-0.3D, 1D, 0.3D, 
+				0.3D, 1D, 0.3D);
+		
+		//dun dun
+		renderAngledBlock(-1D, 0.2D, 0D, 
 				0D, -0.065D, 0D, 
-				-1D, 0.3D, 0D, 
-				0D, -0.065D, 0D, 
-				0D, 0D, 0D);
-		/*
+				-1D, 0.2D, 0D, 
+				0D, -0.065D, 0D);
+		
+		renderAngledBlock(-0.7D, 0.85D, -0.3D, 
+				0D, 0.2D, 0D, 
+				-0.7D, 0.85D, 0.3D, 
+				0D, 0.2D, 0D);
+		
+		renderAngledBlock(-0.7D, 1D, -0.3D, 
+				0.3D, 0.85D, -0.3D, 
+				-0.7D, 1D, 0.3D, 
+				0.3D, 0.85D, 0.3D);
+		
+		renderAngledBlock(0D, 0.2D, 0D, 
+				1D, -0.065D, 0D, 
+				0D, 0.2D, 0D, 
+				1D, -0.065D, 0D);
+		
+		renderAngledBlock(-0.3D, 0.85D, -0.3D, 
+				1D, 0.2D, 0D, 
+				-0.3D, 0.85D, 0.3D, 
+				1D, 0.2D, 0D);
+		
+		renderAngledBlock(-0.3D, 1D, -0.3D, 
+				0.7D, 0.85D, -0.3D, 
+				-0.3D, 1D, 0.3D, 
+				0.7D, 0.85D, 0.3D);
+		
+		renderAngledBlock(0D, -0.061D, 0D, 
+				0D, -0.061D, 0D, 
+				0D, -0.061D, 0D, 
+				0D, -0.061D, 0D);
+		} else {
+		
 		Tessellator tessellator = Tessellator.instance;
 		int color = Blocks.stone.colorMultiplier(world, x, y, z);
 		float red = (color >> 16 & 255) / 255.0F;
@@ -115,6 +185,7 @@ public class RenderVoidBottle extends RenderBase {
 		tessellator.addVertexWithUV(x + 0.3, y + 1, z + 0.7, u3, v3);
 
 		render.renderMinY = 0;
-		render.renderMaxY = 1; */
+		render.renderMaxY = 1; 
+		}
 	}
 }

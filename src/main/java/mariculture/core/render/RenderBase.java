@@ -31,6 +31,10 @@ public abstract class RenderBase {
 	public IIcon icon;
 	public Block block;
 	public boolean isItem;
+	public int brightness = -1;
+	public float rgb_red = 1.0F;
+	public float rgb_green = 1.0F;
+	public float rgb_blue = 1.0F;
 	
 	public RenderBase() {}
 	//World Based Rendering
@@ -111,10 +115,17 @@ public abstract class RenderBase {
 		//Diagonal Guessing
 		Tessellator tessellator = Tessellator.instance;
         IIcon iicon = this.icon;
-        if(!isItem())
-        	tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+        if(!isItem()) tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+        if(brightness > -1) {
+        	tessellator.setBrightness(brightness);
+        }
+        
+        if(!isItem()) {
+        	iicon = render.getBlockIcon(block, render.blockAccess, x, y, z, 0);
+        }
+        
         //tessellator.setBrightness(240);
-        tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
+        tessellator.setColorOpaque_F(rgb_red, rgb_green, rgb_blue);
         double d0 = (double)iicon.getMinU();
         double d1 = (double)iicon.getMinV();
         double d2 = (double)iicon.getMaxU();
@@ -193,6 +204,10 @@ public abstract class RenderBase {
 		render.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
 		render.renderStandardBlock(block, this.x, this.y, this.z);
 		render.renderAllFaces = false;
+	}
+	
+	protected void renderAngledBlock(double x2, double y2, double z2, double x3, double y3, double z3, double x1, double y1, double z1, double x4, double y4, double z4) {
+		renderAngledBlock(x2, y2, z2, x3, y3, z3, x1, y1, z1, x4, y4, z4, 0D, 0D, 0D);
 	}
 	
 	protected void renderAngledBlock(double x2, double y2, double z2, double x3, double y3, double z3, double x1, double y1, double z1, double x4, double y4, double z4, double xDim, double height, double zDim) {

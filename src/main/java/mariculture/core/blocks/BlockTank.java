@@ -12,6 +12,7 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
@@ -27,11 +28,13 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -57,6 +60,17 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public int getToolLevel(int meta) {
 		return meta == TankMeta.DIC? 1: 0;
+	}
+	
+	@Override
+	public float getBlockHardness(World world, int x, int y, int z) {
+		switch(world.getBlockMetadata(x, y, z)) {
+			case TankMeta.BOTTLE:	return 0.1F; 
+			case TankMeta.TANK:		return 0.5F;
+			case TankMeta.FISH:		return 1.0F;
+			case TankMeta.DIC:		return 1.5F;
+			default: 				return 1.0F;
+		}
 	}
 
 	@Override
@@ -199,7 +213,6 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		if(world.getBlockMetadata(x, y, z) == TankMeta.TANK && !player.capabilities.isCreativeMode) {
-			ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 			ItemStack drop = new ItemStack(Core.tanks, 1, TankMeta.TANK);
 			TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
 			if(tank != null && tank.getFluid() != null) {
@@ -230,6 +243,26 @@ public class BlockTank extends BlockConnected {
 			}
 		}
 	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+		int meta = world.getBlockMetadata(x, y, z);
+		ItemStack drop = new ItemStack(Core.tanks, 1, meta);
+		if(meta == TankMeta.TANK) {
+			TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
+			if(tank != null && tank.getFluid() != null) {
+				if (!drop.hasTagCompound()) {
+					drop.setTagCompound(new NBTTagCompound());
+				}
+					
+				tank.getFluid().writeToNBT(drop.stackTagCompound);
+			}
+		} else if(meta == TankMeta.BOTTLE) {
+			drop = new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_VOID);
+		}
+
+		return drop;
+    }
 
 	@Override
 	public boolean isActive(int meta) {
