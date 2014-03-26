@@ -60,10 +60,10 @@ public class BlockLimestone extends BlockDecorative {
 		if(meta == LimestoneMeta.PILLAR_3) return (side == 4 || side == 5) ? icons[LimestoneMeta.PILLAR_2]: icons[LimestoneMeta.PILLAR_1];
 		if(meta == LimestoneMeta.PEDESTAL_1) return (side == 0)? icons[LimestoneMeta.PILLAR_2]: (side == 1)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): icons[LimestoneMeta.PEDESTAL_2];
 		if(meta == LimestoneMeta.PEDESTAL_2) return (side == 1)? icons[LimestoneMeta.PILLAR_2]: (side == 0)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): icons[LimestoneMeta.PEDESTAL_1];
-		if(meta == LimestoneMeta.PEDESTAL_3) return (side == 3)? icons[LimestoneMeta.PILLAR_2]: (side == 2)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): (side == 0 || side == 1)? icons[LimestoneMeta.PEDESTAL_2] : icons[LimestoneMeta.PEDESTAL_3];
-		if(meta == LimestoneMeta.PEDESTAL_4) return (side == 2)? icons[LimestoneMeta.PILLAR_2]: (side == 3)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): (side == 0 || side == 1)? icons[LimestoneMeta.PEDESTAL_1] : icons[LimestoneMeta.PEDESTAL_4];
-		if(meta == LimestoneMeta.PEDESTAL_5) return (side == 5)? icons[LimestoneMeta.PILLAR_2]: (side == 4)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): icons[LimestoneMeta.PEDESTAL_3];
-		if(meta == LimestoneMeta.PEDESTAL_6) return (side == 4)? icons[LimestoneMeta.PILLAR_2]: (side == 5)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): icons[LimestoneMeta.PEDESTAL_4];
+		if(meta == LimestoneMeta.PEDESTAL_3) return (side == 3)? icons[LimestoneMeta.PILLAR_2]: (side == 2)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): (side == 0 || side == 1)? icons[LimestoneMeta.PEDESTAL_2] : (side == 5)? icons[LimestoneMeta.PEDESTAL_4]: icons[LimestoneMeta.PEDESTAL_3];
+		if(meta == LimestoneMeta.PEDESTAL_4) return (side == 2)? icons[LimestoneMeta.PILLAR_2]: (side == 3)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): (side == 0 || side == 1)? icons[LimestoneMeta.PEDESTAL_1] : (side == 5)? icons[LimestoneMeta.PEDESTAL_3]: icons[LimestoneMeta.PEDESTAL_4];
+		if(meta == LimestoneMeta.PEDESTAL_5) return (side == 5)? icons[LimestoneMeta.PILLAR_2]: (side == 4)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): (side == 2)? icons[LimestoneMeta.PEDESTAL_4]: icons[LimestoneMeta.PEDESTAL_3];
+		if(meta == LimestoneMeta.PEDESTAL_6) return (side == 4)? icons[LimestoneMeta.PILLAR_2]: (side == 5)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): (side == 2)? icons[LimestoneMeta.PEDESTAL_3]: icons[LimestoneMeta.PEDESTAL_4];
 		if(meta == LimestoneMeta.CHISELED) return (side < 2)? Core.oreBlocks.getIcon(0, OresMeta.LIMESTONE_CHISELED): super.getIcon(side, meta);
 		return super.getIcon(side, meta);
     }

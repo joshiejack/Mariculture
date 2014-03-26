@@ -33,7 +33,10 @@ public class GuiItemToolTip {
 		} 
 		
 		if(Extra.DEBUG_ON) {
-			list.add(stack.getItem().getUnlocalizedName());
+			String name = stack.getItem().getUnlocalizedName();
+			if(name.length() > 5) {
+				list.add(stack.getItem().getUnlocalizedName().substring(5));
+			}
 		}
 		
 		if(stack.hasTagCompound()) {

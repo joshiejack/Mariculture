@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.helpers.StackHelper;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.Extra;
 import mariculture.plugins.Plugins;
@@ -76,6 +77,18 @@ public class OreDicHandler {
 	}
 
 	public static void add(ItemStack stack, String name) {
+		if(!isWhitelisted(name)) return;
+		for(String str: Compatibility.BLACKLIST_PREFIX_DEFAULT) {
+			if(name.startsWith(str)) return;
+		}
+		
+		for(String str: Compatibility.BLACKLIST_ITEMS) {
+			ItemStack check = StackHelper.getStackFromString(str);
+			if(check != null) {
+				if(check.itemID == stack.itemID && check.getItemDamage() == stack.getItemDamage()) return;
+			}
+		}
+		
 		String id = convert(stack);
 		ArrayList<String> list = entries.containsKey(id)? entries.get(id): new ArrayList();
 		list.add(name);
@@ -98,7 +111,7 @@ public class OreDicHandler {
 	}
 	
 	public static boolean isInDictionary(ItemStack stack) {
-		return OreDictionary.getOreID(stack) > 0;
+		return entries.get(convert(stack)) != null;
 	}
 	
 	public static boolean areEqual(ItemStack stack1, ItemStack stack2) {
@@ -115,27 +128,21 @@ public class OreDicHandler {
 		
 		return false;
 	}
-
-	public static boolean isWhitelisted(ItemStack stack) {
-		ArrayList<String> names = entries.get(convert(stack));
-		if(names == null) return false;
-		for(String name: names) {
-			if(Compatibility.ENABLE_WHITELIST) {
-				for(String whitelist: Compatibility.WHITELIST) {
-					if(name.startsWith(whitelist)) return true;
-				}
-				
-				return false;
-			} else {
-				for(String blacklist: Compatibility.BLACKLIST) {
-					if(name.equals(blacklist)) return false;
-				}
-				
-				return true;
+	
+	public static boolean isWhitelisted(String name) {
+		if(Compatibility.ENABLE_WHITELIST) {
+			for(String whitelist: Compatibility.WHITELIST) {
+				if(name.startsWith(whitelist)) return true;
 			}
+				
+			return false;
+		} else {
+			for(String blacklist: Compatibility.BLACKLIST) {
+				if(name.equals(blacklist)) return false;
+			}
+				
+			return true;
 		}
-		
-		return false;
 	}
 
 	public static ItemStack getNextValidEntry(ItemStack stack) {

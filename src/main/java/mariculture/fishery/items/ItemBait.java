@@ -44,7 +44,7 @@ public class ItemBait extends ItemMariculture {
 		if(Loader.isModLoaded("HungerOverhaul")) {
 			fill = 1;
 			player.addPotionEffect(new PotionEffect(Potion.hunger.id, 30, 0));
-			if(Rand.nextInt(64)) player.addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0));
+			if(Rand.nextInt(48)) player.addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0));
 			if(Rand.nextInt(8))  player.addPotionEffect(new PotionEffect(Potion.confusion.id, 50, 0));
 		}
 		

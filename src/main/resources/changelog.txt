@@ -1,3 +1,11 @@
+== Mariculture 1.2.2 ==
+
+== Mariculture 1.2.1c ==
+* NOTE: I have added the vanilla dyes to the item blacklist! So feel free to remove dyeBlue, dyeBlack etc. from the name blacklist
+* The whitelisting check is now handled on load rather than live
+* Added blacklisting for prefixes for autodictionary, by default adds listAll, to stop the exploit with harvestcraft
+* Added blacklisting for items individually uses the format of 'id meta' or 'unlocalizedname meta', by default adds tconstruct glue to stop exploit between slimeballs and rubber, as well as vanilla dyes
+
 == Mariculture 1.2.1b ==
 * Limestone shouldn't crash loading on some instances
 * Reduced chance for the one ring to generate in dungeon chests
@@ -11,6 +19,7 @@
 * Rather than failing to catch anything when it generates loot instead of fish, fishing nets will generate vanilla raw fish instead
 * Jewelry is no longer stored on the players nbt, this appears to be 'unreliable' due to a forge bug, the data is now saved to the map. You shouldn't lose jewelry on upgrade, but i'd recommend you take it off beforehand just in case. Take note this new method, uses your username, so you will need to be logged in. There is a config option to enable SinglePlayer offline mode. (Uses the same username always)
 * Removed accidental debug text from the dictionary slots
+* Fixed Texture flipping on limestone
 
 == Mariculture 1.2.1a ==
 * Fixed Server startup crash (Need to update Enchiridion too)

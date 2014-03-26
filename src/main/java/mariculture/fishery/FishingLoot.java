@@ -34,15 +34,6 @@ public class FishingLoot {
 		Fishing.loot.addLoot(new ItemStack(Item.record11), new Object[] { EnumRodQuality.GOOD, 2000, 1 });
 		Fishing.loot.addLoot(new ItemStack(Item.recordMellohi), new Object[] { EnumRodQuality.GOOD, 2000, 1 });
 		Fishing.loot.addLoot(new ItemStack(Item.recordStal), new Object[] { EnumRodQuality.GOOD, 2000, 1 });
-		
-		if(Modules.magic.isActive()) {
-			if(EnchantHelper.exists(Magic.flight)) {
-				ItemStack feather = new ItemStack(Item.feather);
-				feather.setItemName("Mystical Feather of MagicManMe");
-				feather.addEnchantment(Magic.flight, 5);
-				Fishing.loot.addLoot(feather, new Object[] { EnumRodQuality.SUPER, 20000, 1 });
-			}
-		}
 	}
 
 	private static void addNetherLoot() {

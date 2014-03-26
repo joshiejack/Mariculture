@@ -354,7 +354,6 @@ public class Core extends Module {
 		
 		OreDictionary.registerOre("foodSalt", new ItemStack(materials, 1, MaterialsMeta.DUST_SALT));
 		OreDictionary.registerOre("dustSalt", new ItemStack(materials, 1, MaterialsMeta.DUST_SALT));
-		OreDictionary.registerOre("oreSalt", new ItemStack(materials, 1, MaterialsMeta.DUST_SALT));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, MaterialsMeta.INGOT_ALUMINUM));
 		OreDictionary.registerOre("ingotAluminium", new ItemStack(materials, 1, MaterialsMeta.INGOT_ALUMINUM));
 		OreDictionary.registerOre("ingotNaturalAluminum", new ItemStack(materials, 1, MaterialsMeta.INGOT_ALUMINUM));

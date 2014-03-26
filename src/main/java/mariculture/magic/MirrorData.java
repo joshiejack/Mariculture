@@ -63,7 +63,7 @@ public class MirrorData extends WorldSavedData {
 				ItemStack[] contents = new ItemStack[4];
 				NBTTagList items = tag.getTagList("MirrorContents");
 				if(items != null) {
-					for(int j = 0; j < 3; j++) {
+					for(int j = 0; j < items.tagCount(); j++) {
 						NBTTagCompound itemTag = (NBTTagCompound) items.tagAt(j);
 						byte byte0 = itemTag.getByte("Slot");
 						if (byte0 >= 0 && byte0 < contents.length) {
@@ -87,7 +87,7 @@ public class MirrorData extends WorldSavedData {
 			tag.setString("Username", player);
 			NBTTagList items = new NBTTagList();
 			//Don't save the last slot
-			for(int i = 0; i < 3; i++) {
+			for(int i = 0; i < items.tagCount(); i++) {
 				ItemStack stack = contents[i];
 				if(stack != null) {
 					NBTTagCompound itemTag = new NBTTagCompound();
