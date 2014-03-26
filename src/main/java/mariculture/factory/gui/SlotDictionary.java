@@ -20,7 +20,6 @@ public class SlotDictionary extends SlotFake {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		System.out.println("can insert");
 		return (OreDicHandler.isInDictionary(stack) && OreDicHandler.isWhitelisted(stack)) || stack.itemID == Factory.filter.itemID;
 	}
 

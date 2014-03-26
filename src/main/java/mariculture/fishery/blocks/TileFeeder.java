@@ -325,7 +325,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishHelper.FEMALE) {
 						int fertility = 150 - Fishing.fishHelper.getSpecies(speciesID).getFertility();
 						fertility = (fertility <= 0) ? 1 : fertility;
-						if (Rand.nextInt(fertility)) {
+						if (Rand.nextInt((fertility * 10))) {
 							ItemStack fishMale = inventory[male];
 							if (fishMale != null && fishMale.hasTagCompound()) {
 								if (!Fishing.fishHelper.isEgg(fishMale)) {
@@ -339,8 +339,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					//However if we have the eternal male, let's make an additional product!
 					if (MaricultureHandlers.upgrades.hasUpgrade("male", this) && gender == FishHelper.MALE) {
 						product = Fishing.fishHelper.getSpecies(speciesID).getProduct(Rand.rand);
-						if(product != null)
-							helper.insertStack(product, out);
+						if(product != null) helper.insertStack(product, out);
 					}
 				}
 			}

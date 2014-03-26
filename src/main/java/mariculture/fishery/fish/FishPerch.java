@@ -5,8 +5,12 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 
 public class FishPerch extends FishSpecies {
 	public FishPerch(int id) {
@@ -36,6 +40,16 @@ public class FishPerch extends FishSpecies {
 	@Override
 	public void addFishProducts() {
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 8D);
+	}
+	
+	@Override
+	public int getFoodStat() {
+		return 4;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.65F;
 	}
 	
 	@Override

@@ -336,6 +336,7 @@ item.rodTitanium.name=Titanium Fishing Rod
 item.rodReed.name=Reed Fishing Rod
 item.food.fishFinger.name=Fish Finger
 item.food.calamari.name=Calamari
+item.food.calamari2.name=Half-Eaten Calamari
 item.food.smokedSalmon.name=Smoked Salmon
 item.food.custard.name=Custard
 item.food.fishNCustard.name=Fish Fingers 'n Custard
@@ -479,7 +480,9 @@ item.coral.grey.name=Partially Bleached Coral
 item.materials.dyeYellow.name=Yellow Dye
 item.materials.dyeRed.name=Red Dye
 item.materials.dyeBrown.name=Brown Dye
-item.food.misoSoup.name=Miso Soup
+item.food.misoSoup.name=1 Portion of Miso Soup
+item.food.misoSoup2.name=2 Portions of Miso Soup
+item.food.misoSoup3.name=3 Portions of Miso Soup
 item.food.kelpWrap.name=Kelp Wrap
 
 ### Other Strings ###

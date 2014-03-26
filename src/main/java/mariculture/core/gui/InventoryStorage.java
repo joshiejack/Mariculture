@@ -15,8 +15,7 @@ public class InventoryStorage implements IInventory {
 
 	public InventoryStorage(EntityPlayer player, int size) {
 		this.player = player;
-		if(this.inventory == null)
-			this.inventory = load(player, size);
+		if(this.inventory == null) this.inventory = load(player, size);
 	}
 	
 	public ItemStack getHeldItem() {

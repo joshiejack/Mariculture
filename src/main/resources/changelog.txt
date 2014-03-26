@@ -1,3 +1,17 @@
+== Mariculture 1.2.1b ==
+* Limestone shouldn't crash loading on some instances
+* Reduced chance for the one ring to generate in dungeon chests
+* Pressurised water should now only break blocks on the side, fixed y coordinate bug with it too
+* Fish egg generation has been reduced 10 fold when producing with an eternal life upgrade
+* Nerfed Fish finger output to 16. Still more than the raw ingredients, in terms of 'nutrition'. 25 food vs 32, 3 Saturation vs 8(nerfed with hunger overhaul as always)
+* Water Geysers will now also pull from the tanks behind them to fill themselves up
+* More fish have special effects on consumption
+* Removed the custard, bowl + bottle recipe. You need to manually fill bowls with custard directly from a vat.
+* Bowl exploits should be fixed :p, you now get half-eaten calamari once you eat one
+* Rather than failing to catch anything when it generates loot instead of fish, fishing nets will generate vanilla raw fish instead
+* Jewelry is no longer stored on the players nbt, this appears to be 'unreliable' due to a forge bug, the data is now saved to the map. You shouldn't lose jewelry on upgrade, but i'd recommend you take it off beforehand just in case. Take note this new method, uses your username, so you will need to be logged in. There is a config option to enable SinglePlayer offline mode. (Uses the same username always)
+* Removed accidental debug text from the dictionary slots
+
 == Mariculture 1.2.1a ==
 * Fixed Server startup crash (Need to update Enchiridion too)
 * Fixed my stuff breaking bedrock, namely pressurised water

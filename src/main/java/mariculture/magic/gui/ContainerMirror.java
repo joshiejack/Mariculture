@@ -72,10 +72,11 @@ public class ContainerMirror extends ContainerStorage {
 
 			if (var2 != null) {
 				player.dropPlayerItem(var2);
+				storage.setInventorySlotContents(3, null);
 			}
 		}
 
-		storage.closeChest();
+		storage.onInventoryChanged();
 	}
 	
 	@Override

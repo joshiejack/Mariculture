@@ -3,7 +3,6 @@ package mariculture.magic;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.helpers.MirrorHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.lib.GuiIds;

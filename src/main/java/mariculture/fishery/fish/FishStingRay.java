@@ -63,9 +63,7 @@ public class FishStingRay extends FishSpecies {
 
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
-		player.addPotionEffect(new PotionEffect(Potion.poison.id, 600, 0));
-		player.getFoodStats().addStats(2, 2F);
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.addPotionEffect(new PotionEffect(Potion.confusion.id, 800, 1));
 	}
 
 	@Override

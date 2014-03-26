@@ -10,7 +10,6 @@ import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.fish.EnumSalinityType;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.fishery.blocks.TileFeeder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

@@ -75,7 +75,7 @@ public class FishAngel extends FishSpecies {
 	
 	@Override
 	public int getFoodStat() {
-		return 1;
+		return 2;
 	}
 	
 	@Override

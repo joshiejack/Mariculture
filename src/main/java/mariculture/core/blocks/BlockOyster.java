@@ -225,16 +225,12 @@ public class BlockOyster extends BlockMachine {
 
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
-		if(meta != NET)
-			return new TileOyster();
-		return null;
+		return meta != NET? new TileOyster(): null;
 	}
 
 	@Override
 	public String getName(ItemStack stack) {
-		if(stack.getItemDamage() != NET)
-			return "oyster";
-		return "net";
+		return stack.getItemDamage() != NET? "oyster": "net";
 	}
 	
 	@Override
@@ -257,8 +253,12 @@ public class BlockOyster extends BlockMachine {
 		} else {
 			if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
 				ItemStack loot = Fishing.loot.getLoot(rand, EnumRodQuality.OLD, world, x, y, z);
-				if (loot != null && loot.getItem() instanceof ItemFishy) {
-					SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
+				if (loot != null) {
+					if(loot.getItem() instanceof ItemFishy) {
+						SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
+					} else {
+						SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Item.fishRaw), true, OreDictionary.WILDCARD_VALUE);
+					}
 				}
 			}
 		}
@@ -266,16 +266,12 @@ public class BlockOyster extends BlockMachine {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
-		if(meta < NET)
-			return icons[0];
-		return icons[1];
+		return meta < NET? icons[0]: icons[1];
 	}
 	
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) == NET)
-			return 0;
-		return 1;
+		return world.getBlockMetadata(x, y, z) < NET? 1: 0;
     }
 	
 	@Override

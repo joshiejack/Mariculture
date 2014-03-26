@@ -516,7 +516,7 @@ public class Fishery extends Module {
 		Fishing.food.addFishFood(new ItemStack(Core.materials.itemID, 1, MaterialsMeta.FISH_MEAL), 12);
 		
 		// Squid > Calamari
-		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 2, FoodMeta.CALAMARI), new Object[] {
+		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
 				new ItemStack(fishyFood, 1, Fishery.squid.fishID),
 				new ItemStack(Item.bowlEmpty) });
 		
@@ -524,17 +524,9 @@ public class Fishery extends Module {
 		RecipeHelper.addSmelting(fishyFood.itemID, salmon.fishID, new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), 0.1F);
 
 		// Cod > Fish Finger
-		GameRegistry.addRecipe(new ItemStack(Core.food, 64, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
+		GameRegistry.addRecipe(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
 				Character.valueOf('F'), new ItemStack(fishyFood, 1, Fishery.cod.fishID),
 				Character.valueOf('B'), Item.bread });
-		
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 8, FoodMeta.CUSTARD), new Object[] { 
-			 new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_CUSTARD), Item.bowlEmpty
-		});
-		
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 4, FoodMeta.CUSTARD), new Object[] { 
-			 new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_NORMAL_CUSTARD), Item.bowlEmpty
-		});
 		
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { 
 			 new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER),
@@ -600,7 +592,9 @@ public class Fishery extends Module {
 						" K ", "KFK", " K ", 'K', kelp, 'F', stack
 					});
 					
-					RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, (int)Math.ceil(fish.getFishMealSize()/2), FoodMeta.MISO_SOUP), new Object[] {
+					int number = (int)Math.ceil(fish.getFishMealSize()/2);
+					int meta = (number == 2)? FoodMeta.MISO_SOUP_2: (number == 3)? FoodMeta.MISO_SOUP_3: FoodMeta.MISO_SOUP_1;
+					RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, (int)Math.ceil(fish.getFishMealSize()/2), meta), new Object[] {
 						Item.bowlEmpty, kelp, stack, Block.mushroomBrown, Block.mushroomRed
 					});
 

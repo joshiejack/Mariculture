@@ -4,8 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import mariculture.core.helpers.MirrorHelper;
 import mariculture.magic.Magic;
+import mariculture.magic.MirrorHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

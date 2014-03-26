@@ -85,7 +85,7 @@ public class OreDicHandler {
 		items.put(name, stacks);
 		
 		if(Extra.DEBUG_ON) {
-			System.out.println(stack.toString() + " registered for ore dic handling as " + name);
+			LogHandler.log(Level.INFO, stack.toString() + " registered for ore dic handling as " + name);
 		}
 	}
 	

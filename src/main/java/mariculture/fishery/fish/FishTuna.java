@@ -5,8 +5,12 @@ import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 
 public class FishTuna extends FishSpecies {
 	public FishTuna(int id) {
@@ -47,6 +51,26 @@ public class FishTuna extends FishSpecies {
 	@Override
 	public boolean caughtAsRaw() {
 		return true;
+	}
+	
+	@Override
+	public int getFoodStat() {
+		return 4;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.5F;
+	}
+	
+	@Override
+	public int getFoodDuration() {
+		return 48;
+	}
+
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 160, 1));
 	}
 	
 	@Override

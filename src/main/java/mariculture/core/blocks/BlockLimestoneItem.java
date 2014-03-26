@@ -33,7 +33,7 @@ public class BlockLimestoneItem extends ItemBlockMariculture {
 			case LimestoneMeta.PEDESTAL_4:	return "pedestal4";
 			case LimestoneMeta.PEDESTAL_5:	return "pedestal5";
 			case LimestoneMeta.PEDESTAL_6:	return "pedestal6";
-			default: return null;
+			default: 						return "limestone";
 		}
 	}
 }

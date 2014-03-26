@@ -24,8 +24,8 @@ public class PluginHungerOverhaul extends Plugin {
 	@Override
 	public void postInit() {
 		if (Modules.fishery.isActive()) {
-			RecipeRemover.remove(new ItemStack(Core.food, 3, FoodMeta.CALAMARI));
-			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
+			RecipeRemover.remove(new ItemStack(Core.food, 1, FoodMeta.CALAMARI));
+			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI_HALF), new Object[] {
 				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Item.bowlEmpty
 			});
 		}
