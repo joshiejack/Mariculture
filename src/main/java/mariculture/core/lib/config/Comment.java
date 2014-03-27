@@ -33,6 +33,8 @@ public class Comment {
 	public static final String JEWELRY_TICK_RATE = "This is how many ticks before the server will send an update to a player about what level enchant they have in their mirror inventory";
 	public static final String CAN_WORK_TICK = "This is how many ticks before blocks check, whether they can perform their operations. This is what causes the delay for machines to start working";
 	public static final String BLACKLIST = "Place Ore Dictionary names, to blacklist here (this only works if use white list is set to false)";
+	public static final String PREFIX = "Add a list of prefixes you want to blacklist from the auto-dictionary";
+	public static final String ITEMS = "This is a list of items to blacklist from being able to converted, format is either (itemid meta) or (unlocalizedname meta) (without the brackets)";
 	
 	public static final String KELP_FOREST_CHEST_CHANCE = "The higher the number the less common a chest will be, this roughly works out to this 1 chest per this many blocks of a forest.";
 	public static final String KELP_FOREST_START = "The higher the number, the rarer kelp forests will be, this number defines the chance of them spawning";

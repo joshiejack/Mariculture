@@ -9,7 +9,10 @@ public interface ISmelterHandler {
 	 * Take note that if you set the liquid output to the same as the ore rate, 
 	 * 	then your item will be affected by the purity upgrade */
 	public void addRecipe(RecipeSmelter recipe);
-	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp);
+	
+	//The Crucible calls the dual smelting first to check if that's an option, if that fails it moves on to the normal result
+	public RecipeSmelter getDualResult(ItemStack input, ItemStack input2, int temp);
+	public RecipeSmelter getResult(ItemStack input, int temp);
 	
 	//Can be either a FluidStack, ItemStack, FluidName or Ore Dictionary Name
 	public void addFuel(Object stack, FuelInfo info);

@@ -127,7 +127,7 @@ public class RecipeHelper {
 		MaricultureHandlers.smelter.addFuel(obj, fuelInfo);
 	}
 
-	public static void addMeltingAlloy(ItemStack stack1, ItemStack stack2, int temp, FluidStack fluid) {
+	public static void addMeltingAlloy(Object stack1, Object stack2, int temp, FluidStack fluid) {
 		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack1, stack2, temp, fluid, null, 0));
 	}
 

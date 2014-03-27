@@ -45,6 +45,10 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	public static final int[] in = new int[] { 5, 6 };
 	public static final int fuel = 7;
 	public static final int out = 8;
+	
+	public int[] getInputSlots() {
+		return in;
+	}
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
@@ -89,7 +93,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	}
 
 	public boolean hasRoom() {
-		return canMelt(0) || canMelt(1);
+		return canMelt(0, true) || canMelt(1, true) || canMelt(0, false) || canMelt(1, false);
 	}
 
 	private boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {
@@ -107,10 +111,10 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 				if (processed >= max) {
 					processed = 0;
 					if (canWork()) {
-						if (canMelt(0))
-							melt(0);
-						if (canMelt(1))
-							melt(1);
+						if(canMelt(0, true)) melt(0, true);
+						else if(canMelt(1, true)) melt(1, true);
+						if(canMelt(0, false)) melt(0, false);
+						if(canMelt(1, false)) melt(1, false);
 					}
 
 					canWork = canWork();
@@ -257,13 +261,14 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		return info;
 	}
 
-	public boolean canMelt(int slot) {
+	public boolean canMelt(int slot, boolean dual) {
 		int other = (slot == 0) ? 1 : 0;
-		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		RecipeSmelter recipe = null;
+		if(dual) recipe = MaricultureHandlers.smelter.getDualResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		else recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], getTemperatureScaled(2000));
 		if (recipe == null) return false;
-		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
 		FluidStack fluid = recipe.fluid.copy();
-		fluid.amount = fluidAmount;
+		fluid.amount = (recipe.input instanceof String)? getFluidAmount((String) recipe.input, recipe.fluid.amount): fluid.amount;
 		if (tank.fill(fluid, false) < fluid.amount)
 			return false;
 		if (recipe.output == null || recipe.chance <= 0)
@@ -273,16 +278,18 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		return inventory[out] == null || (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize < inventory[out].getMaxStackSize());
 	}
 
-	public void melt(int slot) {
+	public void melt(int slot, boolean dual) {
 		int other = (slot == 0) ? 1 : 0;
-		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		RecipeSmelter recipe = null;
+		if(dual) recipe = MaricultureHandlers.smelter.getDualResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		else recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], getTemperatureScaled(2000));
 		if (recipe == null) return;
 		if (recipe.input2 != null) {
-			decrStackSize(in[slot], recipe.input.stackSize);
+			decrStackSize(in[slot], 1);
 			if (slot == 0)
-				decrStackSize(in[1], recipe.input2.stackSize);
+				decrStackSize(in[1], 1);
 			else
-				decrStackSize(in[0], recipe.input2.stackSize);
+				decrStackSize(in[0], 1);
 			tank.fill(recipe.fluid.copy(), true);
 			if (recipe.output != null && recipe.chance > 0) {
 				if (Rand.nextInt(recipe.chance)) {
@@ -290,10 +297,9 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 				}
 			}
 		} else {
-			decrStackSize(in[slot], recipe.input.stackSize);
-			int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
+			decrStackSize(in[slot], 1);
 			FluidStack fluid = recipe.fluid.copy();
-			fluid.amount = fluidAmount;
+			fluid.amount = (recipe.input instanceof String)? getFluidAmount((String) recipe.input, recipe.fluid.amount): fluid.amount;
 			tank.fill(fluid, true);
 			if (recipe.output != null) {
 				if (Rand.nextInt(recipe.chance))
@@ -341,12 +347,9 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		return "" + (temp * 2000) / MAX_TEMP;
 	}
 
-	public int getFluidAmount(ItemStack stack, int amount) {
-		if (OreDicHelper.isInDictionary(stack)) {
-			String name = OreDicHelper.getDictionaryName(stack);
-			if (name.startsWith("ore")) {
-				amount += (purity * ((MetalRates.NUGGET) * Extra.PURITY));
-			}
+	public int getFluidAmount(String name, int amount) {
+		if (name.startsWith("ore")) {
+			amount += (purity * ((MetalRates.NUGGET) * Extra.PURITY));
 		}
 
 		return amount;

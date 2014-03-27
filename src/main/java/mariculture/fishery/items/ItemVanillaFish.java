@@ -5,6 +5,7 @@ import java.util.List;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.Modules;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -27,6 +28,7 @@ public class ItemVanillaFish extends ItemFishFood {
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		if(Fishing.fishHelper == null) return super.getItemStackDisplayName(stack);
+		if(Extra.VANILLA_TEXTURES && stack.getItemDamage() < LAST_VANILLA) return super.getItemStackDisplayName(stack);
 		return StatCollector.translateToLocal("fish.data.dead") + " " + Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
 	}
 	
@@ -97,7 +99,8 @@ public class ItemVanillaFish extends ItemFishFood {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); ++i) {
+		int size = Modules.isActive(Modules.fishery)? FishSpecies.speciesList.size(): 4;
+		for (int i = 0; i < size; ++i) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}

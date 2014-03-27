@@ -197,9 +197,9 @@ public class Fishery extends RegistrationModule {
 	@Override
 	public void registerItems() {
 		bait = new ItemBait().setUnlocalizedName("bait");
-		rodReed = new ItemRod(EnumRodQuality.OLD, 96, 24).setUnlocalizedName("rod.reed");
-		rodWood = new ItemRod(EnumRodQuality.GOOD, 320, 10).setUnlocalizedName("rod.wood");
-		rodTitanium = new ItemRod(EnumRodQuality.SUPER, 640, 16).setUnlocalizedName("rod.titanium");
+		rodReed = new ItemRod(96, 24).setUnlocalizedName("rod.reed");
+		rodWood = new ItemRod(320, 10).setUnlocalizedName("rod.wood");
+		rodTitanium = new ItemRod(640, 16).setUnlocalizedName("rod.titanium");
 		rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
 		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		net = new BlockItemNet().setUnlocalizedName("net");
@@ -212,6 +212,7 @@ public class Fishery extends RegistrationModule {
 		RecipeSorter.INSTANCE.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		registerEntities();
 		registerFish();
+		registerRods();
 		MaricultureTab.tabFish.icon = Fishing.fishHelper.makePureFish(Fishery.cod);
 	}
 	
@@ -286,6 +287,14 @@ public class Fishery extends RegistrationModule {
 		Fishing.mutation.addMutation(butterfly, piranha, tang, 7.5D);
 		Fishing.mutation.addMutation(tang, butterfly, clown, 5D);
 	}
+	
+	private void registerRods() {
+		Fishing.rodHandler.registerRod(Items.fishing_rod, EnumRodQuality.DIRE);
+		Fishing.rodHandler.registerRod(rodReed, EnumRodQuality.OLD);
+		Fishing.rodHandler.registerRod(rodWood, EnumRodQuality.GOOD);
+		Fishing.rodHandler.registerRod(rodTitanium, EnumRodQuality.GOOD);
+		Fishing.rodHandler.registerRod(rodFlux, EnumRodQuality.ELECTRIC);
+	}
 
 	@Override
 	public void registerRecipes() {
@@ -317,7 +326,7 @@ public class Fishery extends RegistrationModule {
 		FishingLoot.add();
 		
 		//Fishing Rods
-		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Items.sugar);
+		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Items.reeds);
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodWood), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK));
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodTitanium), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_TITANIUM));
 		

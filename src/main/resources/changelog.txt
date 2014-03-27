@@ -1,3 +1,9 @@
+==Mariculture 1.7.2 BETA 3==
+* Disabling Fishery, even though it says rods are overriden, the rods/fish will act exactly like vanilla
+* Fixed recipes using sugar, when they should of been using sugar cane
+* Fixed book duplication exploit
+* Merged up the blacklisting changes from 1.6.4
+
 ==Mariculture 1.7.2 BETA 2==
 * Vanilla overriding should now work for biomes, fish and fishing rods
 * Access Transformers should behave for things like scuba masks and fishing rods

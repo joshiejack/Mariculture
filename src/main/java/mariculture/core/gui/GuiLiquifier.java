@@ -54,14 +54,14 @@ public class GuiLiquifier extends GuiMariculture {
 				currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + meltingPoint + "\u00B0" + "C");
 			}
 			
-			if (MaricultureHandlers.smelter.getResult(stack, null, -1) != null) {
-				RecipeSmelter result = MaricultureHandlers.smelter.getResult(stack, null, -1);
+			if (MaricultureHandlers.smelter.getResult(stack, -1) != null) {
+				RecipeSmelter result = MaricultureHandlers.smelter.getResult(stack, -1);
 				if(result.input2 == null) {
 					if (result.fluid.amount > 0) {
 						if(result.rands != null)
 							currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
 						else
-							currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + tile.getFluidAmount(stack, result.fluid.amount) + "mB");
+							currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
 					}
 					
 					if(result.output != null && result.chance > 0) {

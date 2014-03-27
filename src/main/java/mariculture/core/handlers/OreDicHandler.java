@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.helpers.StackHelper;
 import mariculture.core.lib.Compatibility;
 import mariculture.plugins.Plugins;
 import mariculture.plugins.Plugins.Plugin;
@@ -22,6 +23,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 //This handles all the OreDictionaryRelated things to do with the Automatic Dictionary Converter
 public class OreDicHandler {
+	public static HashMap<String, ArrayList<String>> all;
 	public static HashMap<String, ArrayList<String>> entries;
 	public static HashMap<String, Integer[]> specials = new HashMap();
 	public static HashMap<String, ArrayList<ItemStack>> items;
@@ -44,6 +46,7 @@ public class OreDicHandler {
 	public void onOreDictionaryRegistration(OreRegisterEvent event) {
 		//Initialize all existing Entries
 		if(entries == null) {
+			all = new HashMap();
 			items = new HashMap();
 			entries = new HashMap();
 			String[] ores = OreDictionary.getOreNames();
@@ -85,9 +88,28 @@ public class OreDicHandler {
 
 	public static void add(ItemStack stack, String name) {
 		String id = convert(stack);
+		//All
+		ArrayList<String> alls = all.containsKey(id)? all.get(id): new ArrayList();
+		alls.add(name);
+		all.put(id, alls);
+		
+		if(!isWhitelisted(name)) return;
+		for(String str: Compatibility.BLACKLIST_PREFIX_DEFAULT) {
+			if(name.startsWith(str)) return;
+		}
+		
+		for(String str: Compatibility.BLACKLIST_ITEMS) {
+			ItemStack check = StackHelper.getStackFromString(str);
+			if(check != null) {
+				if(check.getItem() == stack.getItem() && check.getItemDamage() == stack.getItemDamage()) return;
+			}
+		}
+		
+		//Entries
 		ArrayList<String> list = entries.containsKey(id)? entries.get(id): new ArrayList();
 		list.add(name);
 		entries.put(id, list);
+		//Items
 		ArrayList<ItemStack> stacks = items.get(name) != null? items.get(name): new ArrayList();
 		stacks.add(stack);
 		items.put(name, stacks);
@@ -97,7 +119,11 @@ public class OreDicHandler {
 		try {
 			return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage();
 		} catch (Exception e) {
-			return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + OreDictionary.WILDCARD_VALUE;
+			try {
+				return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + OreDictionary.WILDCARD_VALUE;
+			} catch (Exception e2) {
+				return "";
+			}
 		}
 	}
 	
@@ -120,26 +146,20 @@ public class OreDicHandler {
 		return false;
 	}
 
-	public static boolean isWhitelisted(ItemStack stack) {
-		ArrayList<String> names = entries.get(convert(stack));
-		if(names == null) return false;
-		for(String name: names) {
-			if(Compatibility.ENABLE_WHITELIST) {
-				for(String whitelist: Compatibility.WHITELIST) {
-					if(name.startsWith(whitelist)) return true;
-				}
-				
-				return false;
-			} else {
-				for(String blacklist: Compatibility.BLACKLIST) {
-					if(name.equals(blacklist)) return false;
-				}
-				
-				return true;
+	public static boolean isWhitelisted(String name) {
+		if(Compatibility.ENABLE_WHITELIST) {
+			for(String whitelist: Compatibility.WHITELIST) {
+				if(name.startsWith(whitelist)) return true;
 			}
+				
+			return false;
+		} else {
+			for(String blacklist: Compatibility.BLACKLIST) {
+				if(name.equals(blacklist)) return false;
+			}
+				
+			return true;
 		}
-		
-		return false;
 	}
 
 	public static ItemStack getNextValidEntry(ItemStack stack) {

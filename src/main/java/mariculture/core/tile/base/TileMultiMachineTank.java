@@ -62,6 +62,30 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 		};
 	}
 	
+	public int[] getInputSlots() {
+		return null;
+	}
+	
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		TileMultiMachineTank mstr = getMaster() != null? ((TileMultiMachineTank)getMaster()): null;
+		if(mstr == null) return;
+		mstr.inventory[slot] = stack;
+
+        if (stack != null && stack.stackSize > mstr.getInventoryStackLimit()) {
+        	stack.stackSize = mstr.getInventoryStackLimit();
+        }
+        
+        int[] inputs = getInputSlots();
+        if(inputs != null) {
+	        for(int i: inputs) {
+	        	if(slot == i) mstr.canWork = mstr.canWork();
+	        }
+        }
+
+        mstr.markDirty();
+	}
+	
 	@Override
 	public void updateUpgrades() {
 		purity = MaricultureHandlers.upgrades.getData("purity", this);

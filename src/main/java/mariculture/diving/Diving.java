@@ -84,7 +84,7 @@ public class Diving extends RegistrationModule {
 		
 		//Snorkel
 		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
-			"  R", "LLR", 'R', Items.sugar, 'L', new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
+			"  R", "LLR", 'R', Items.reeds, 'L', new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
 		});
 		
 		//Diving Helmet

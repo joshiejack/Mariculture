@@ -12,7 +12,7 @@ public class ItemVanillaRod extends ItemRod {
 	private IIcon theIcon;
 	
 	public ItemVanillaRod() {
-		super(EnumRodQuality.DIRE, 64, 1);
+		super(64, 1);
 		setCreativeTab(CreativeTabs.tabTools);
 		setUnlocalizedName("fishingRod");
 		setTextureName("fishing_rod");
@@ -20,8 +20,8 @@ public class ItemVanillaRod extends ItemRod {
 	
 	@SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon(this.getIconString() + "_uncast");
-        theIcon = iconRegister.registerIcon(this.getIconString() + "_cast");
+        itemIcon = iconRegister.registerIcon(getIconString() + "_uncast");
+        theIcon = iconRegister.registerIcon(getIconString() + "_cast");
     }
 	
 	@SideOnly(Side.CLIENT)

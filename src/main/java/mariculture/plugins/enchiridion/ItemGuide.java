@@ -4,18 +4,26 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
+import mariculture.core.Core;
+import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.IHasGUI;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import enchiridion.Enchiridion;
 
 public class ItemGuide extends ItemMariculture {	
 	public String getName(ItemStack stack) {
@@ -35,16 +43,8 @@ public class ItemGuide extends ItemMariculture {
 	}
 	
 	@Override
-	public boolean getShareTag() {
-		return true;
-	}
-
-	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if(player.worldObj.isRemote) {
-			player.openGui(Mariculture.instance, 0, player.worldObj, 0, 0, 0);
-		}
-	
+		player.openGui(Enchiridion.instance, 0, player.worldObj, 0, 0, 0);
 		return stack;
 	}
 

@@ -52,7 +52,7 @@ public class ContainerLiquifier extends ContainerMachine {
 					if (!this.mergeItemStack(stack, 7, 8, false)) { // Slot 7-7
 						return null;
 					}
-				} else if (MaricultureHandlers.smelter.getResult(stack, null, -1) != null) {
+				} else if (MaricultureHandlers.smelter.getResult(stack, -1) != null) {
 					if (!this.mergeItemStack(stack, 5, 7, false)) { // Slot 5-6
 						return null;
 					}

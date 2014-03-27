@@ -32,10 +32,10 @@ import org.apache.logging.log4j.Level;
 
 public class Config {
     public static void setup(String dir) {
+    	initModules(new Configuration(new File(dir, "modules.cfg")));
+    	initEnchantments(new Configuration(new File(dir, "enchantments.cfg")));
         initOther(new Configuration(new File(dir, "other.cfg")));
-        initEnchantments(new Configuration(new File(dir, "enchantments.cfg")));
-        initMachines(new Configuration(new File(dir, "mechanics.cfg")));
-        initModules(new Configuration(new File(dir, "modules.cfg")));
+        initMachines(new Configuration(new File(dir, "mechanics.cfg"))); 
         initWorld(new Configuration(new File(dir, "worldgen.cfg")));
     
         //Setup the tab icons
@@ -69,10 +69,18 @@ public class Config {
             Extra.VANILLA_POOR = config.get(Category.EXTRA, "Vanilla rods are not as good without bait", true).getBoolean(true);
             Extra.VANILLA_FORCE = config.get(Category.EXTRA, "Vanilla rods need bait to work", false).getBoolean(false);
             Extra.VANILLA_TEXTURES = config.get(Category.EXTRA, "Use Vanilla textures for Fish", false).getBoolean(false);
+            if(!Modules.isActive(Modules.fishery)) {
+            	Extra.VANILLA_STATS = true;
+            	Extra.VANILLA_POOR = false;
+            	Extra.VANILLA_FORCE = false;
+            	Extra.VANILLA_TEXTURES = true;
+            }
             
             Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
+            Compatibility.BLACKLIST_PREFIX = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist Prefixes", Compatibility.BLACKLIST_PREFIX_DEFAULT, Comment.PREFIX).getStringList();
+            Compatibility.BLACKLIST_ITEMS = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist Items", Compatibility.BLACKLIST_ITEMS_DEFAULT, Comment.ITEMS).getStringList();
         } catch (Exception e) {
         	LogHandler.log(Level.ERROR, "There was a problem loading the other config settings");
         	e.printStackTrace();

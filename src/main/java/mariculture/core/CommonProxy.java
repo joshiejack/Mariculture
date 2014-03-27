@@ -122,12 +122,6 @@ public class CommonProxy implements IGuiHandler {
 			return storage.getGUIElement(player);
 		}
 		
-		//Handling the book opening
-		ItemStack held = player.getCurrentEquippedItem();
-		if(held != null && held.getItem() instanceof ItemGuide) {
-			return GuideHandler.getGui(held);
-		}
-		
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null) {			
 			if(tile instanceof TileAutofisher) {

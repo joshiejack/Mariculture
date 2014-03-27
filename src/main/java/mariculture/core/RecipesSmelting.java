@@ -267,8 +267,7 @@ public class RecipesSmelting {
 		RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 6);
 		
 		//Melting Rutile and Magnesium Ingots = Molten Titanium
-		RecipeHelper.addMeltingAlloy(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM), 
-				new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE), titanium, get(FluidDictionary.titanium));
+		RecipeHelper.addMeltingAlloy("ingotMagnesium", "ingotRutile", titanium, get(FluidDictionary.titanium));
 		
 		//Gold Back
 		RecipeHelper.addMelting(new ItemStack(Blocks.light_weighted_pressure_plate), gold, gold(MetalRates.INGOT * 2));

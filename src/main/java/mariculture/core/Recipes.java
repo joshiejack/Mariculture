@@ -242,7 +242,7 @@ public class Recipes {
 		RecipeHelper.addWheelRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), "ingotIron", "slabWood");
 		
 		//Wicker
-		RecipeHelper.addCrossHatchRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), "stickWood", Items.sugar);
+		RecipeHelper.addCrossHatchRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), "stickWood", Items.reeds);
 		
 		//Yellow Plastic > 5 Minutes > 1 Block of Gold(mB) + 4 Plastic
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.PLASTIC), 

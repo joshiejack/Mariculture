@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
 	public ItemFluxRod() {
-		super(EnumRodQuality.ELECTRIC, 0, 0);
+		super(0, 0);
 		setNoRepair();
 		setMaxStackSize(1);
 		setCreativeTab(MaricultureTab.tabMariculture);

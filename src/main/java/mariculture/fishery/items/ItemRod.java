@@ -5,6 +5,7 @@ import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
+import mariculture.core.lib.Modules;
 import mariculture.core.util.IItemRegistry;
 import mariculture.fishery.FishingRodHandler;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,20 +20,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemRod extends ItemFishingRod implements IItemRegistry {
 	private int enchant;
 	public ItemRod() {
-		this(EnumRodQuality.OLD, 127, 1);
+		this(127, 1);
 	}
 	
-	public ItemRod(EnumRodQuality quality, int max, int enchant) {
+	public ItemRod(int max, int enchant) {
 		this.enchant = enchant;
 		setMaxStackSize(1);
 		setCreativeTab(MaricultureTab.tabMariculture);
 		if(max > 0) this.setMaxDamage(max);
-		if(Fishing.rodHandler == null) Fishing.rodHandler = new FishingRodHandler();
-		Fishing.rodHandler.registerRod(this, quality);
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if(!Modules.isActive(Modules.fishery)) return super.onItemRightClick(stack, world, player);
 		return Fishing.rodHandler.handleRightClick(stack, world, player);
     }
 	

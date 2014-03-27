@@ -19,7 +19,7 @@ public class SlotDictionary extends SlotFake {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return (OreDicHandler.isInDictionary(stack) && OreDicHandler.isWhitelisted(stack)) || stack.getItem() instanceof ItemFilter;
+		return (OreDicHandler.isInDictionary(stack)) || stack.getItem() instanceof ItemFilter;
 	}
 
 	@Override
@@ -83,12 +83,10 @@ public class SlotDictionary extends SlotFake {
 
 			if (stackSlot == null && stackHeld != null) {
 				if (OreDicHandler.isInDictionary(stackHeld)) {
-					if (OreDicHandler.isWhitelisted(stackHeld)) {
-						ItemStack copy = stackHeld.copy();
-						copy.stackSize = 1;
-						updateOreDisplayTag(copy);
-						slot.putStack(copy);
-					}
+					ItemStack copy = stackHeld.copy();
+					copy.stackSize = 1;
+					updateOreDisplayTag(copy);
+					slot.putStack(copy);
 				}
 			}
 
