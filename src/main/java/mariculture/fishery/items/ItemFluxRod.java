@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.items.ItemBattery;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -12,12 +12,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
-	public ItemFluxRod(int i, EnumRodQuality quality) {
+	public ItemFluxRod(int i, RodQuality quality) {
 		super(i, quality);
 		setNoRepair();
 		setMaxStackSize(1);
@@ -135,5 +136,16 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {
 		return capacity;
+	}
+	
+	@Override
+	public boolean canFish(World world, int x, int y, int z, EntityPlayer player, ItemStack stack) {
+		return (((IEnergyContainerItem)stack.getItem()).getEnergyStored(stack) < 100)? false: true;
+	}
+	
+	@Override
+	public ItemStack damage(EntityPlayer player, ItemStack stack, int fish) {
+		((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 100, false);
+		return stack;
 	}
 }

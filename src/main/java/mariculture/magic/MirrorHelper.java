@@ -3,6 +3,7 @@ package mariculture.magic;
 import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.Extra;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,29 +12,25 @@ import net.minecraft.nbt.NBTTagList;
 public class MirrorHelper {
 
 	private static final MirrorHelper INSTANCE = new MirrorHelper();
-
 	public static MirrorHelper instance() {
 		return INSTANCE;
 	}
 	
 	public MirrorData getData(EntityPlayer player) {
-		MirrorData data = (MirrorData) player.worldObj.mapStorage.loadData(MirrorData.class, MirrorData.name);
-		if(data == null) {
-			data = new MirrorData();
-			player.worldObj.setItemData(MirrorData.name, data);
-		}
-		
-		if(!data.hasInit()) {
-			data.init();
-		}
-		
+		String check = MirrorData.name + "-" + (Extra.JEWELRY_OFFLINE? "PlayerOffline": player.username);
+        MirrorData data = (MirrorData) player.worldObj.loadItemData(MirrorData.class, check);
+        if (data == null) {
+            data = new MirrorData(check);
+            player.worldObj.setItemData(check, data);
+        }
+        
 		return data;
 	}
 	
 	public ItemStack[] get(EntityPlayer player) {
 		if (!player.worldObj.isRemote) {
 			MirrorData data = getData(player);
-			if(data.getJewelry(player) == null) {
+			if(data.getJewelry() == null) {
 				NBTTagCompound loader = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 				NBTTagList nbttaglist = loader.getTagList("mirrorContents");
 				if (nbttaglist != null) {
@@ -47,10 +44,9 @@ public class MirrorHelper {
 					}
 					
 					player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).removeTag("mirrorContents");
-
-					return data.setJewelry(player, mirrorContents);
-				} else return data.addPlayer(player);
-			} else return data.getJewelry(player);
+					return data.setJewelry(mirrorContents);
+				} else return data.setJewelry(new ItemStack[4]);
+			} else return data.getJewelry();
 		}
 
 		return new ItemStack[4];
@@ -59,8 +55,7 @@ public class MirrorHelper {
 	public void save(EntityPlayer player, ItemStack[] mirrorContents) {
 		if (!player.worldObj.isRemote) {
 			try {
-				MirrorData data = getData(player);
-				data.setJewelry(player, mirrorContents);
+				getData(player).setJewelry(mirrorContents);
 			} catch (Exception e) {
 				LogHandler.log(Level.WARNING, "Mariculture had trouble saving Mirror Contents for " + player.username);
 			}

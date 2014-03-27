@@ -323,6 +323,7 @@ public class Config {
             ItemIds.magnet = config.getItem("Magnet", 29069).getInt();
             ItemIds.bucket = config.getItem("Titanium Bucket", 29070).getInt();
             ItemIds.chalk = config.getItem("Chalk", 29071).getInt();
+            ItemIds.rodBlood = config.getItem("Fishing Rod - Blood", 29072).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

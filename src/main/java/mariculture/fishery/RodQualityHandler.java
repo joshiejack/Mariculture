@@ -3,7 +3,7 @@ package mariculture.fishery;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.IRodQuality;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.EnumHelper;
@@ -16,35 +16,30 @@ public class RodQualityHandler implements IRodQuality {
 	}
 
 	@Override
-	public EnumRodQuality addRodQuality(String name, int maxUses) {
-		return EnumHelper.addEnum(EnumRodQuality.class, name, maxUses);
-	}
-
-	@Override
-	public void addBaitForQuality(ItemStack bait, List<EnumRodQuality> rods) {
+	public void addBaitForQuality(ItemStack bait, List<RodQuality> rods) {
 		for (int i = 0; i < rods.size(); i++) {
-			if (rods.get(i) instanceof EnumRodQuality) {
+			if (rods.get(i) instanceof RodQuality) {
 				addBaitForQuality(bait, rods.get(i));
 			}
 		}
 	}
 
 	@Override
-	public void removeBaitForQuality(ItemStack bait, List<EnumRodQuality> rods) {
+	public void removeBaitForQuality(ItemStack bait, List<RodQuality> rods) {
 		for (int i = 0; i < rods.size(); i++) {
-			if (rods.get(i) instanceof EnumRodQuality) {
+			if (rods.get(i) instanceof RodQuality) {
 				removeBaitForQuality(bait, rods.get(i));
 			}
 		}
 	}
 
 	@Override
-	public void addBaitForQuality(ItemStack bait, EnumRodQuality quality) {
+	public void addBaitForQuality(ItemStack bait, RodQuality quality) {
 		canUseBait.add(new FishingRod(bait, quality));
 	}
 
 	@Override
-	public void removeBaitForQuality(ItemStack bait, EnumRodQuality quality) {
+	public void removeBaitForQuality(ItemStack bait, RodQuality quality) {
 		ArrayList<FishingRod> lootTmp = (ArrayList<FishingRod>) canUseBait.clone();
 		for (FishingRod loot : lootTmp) {
 			if (loot.equals(bait, quality)) {
@@ -55,20 +50,20 @@ public class RodQualityHandler implements IRodQuality {
 
 	static class FishingRod {
 		ItemStack itemStack;
-		EnumRodQuality enumQuality;
+		RodQuality enumQuality;
 
-		private FishingRod(ItemStack item, EnumRodQuality quality) {
+		private FishingRod(ItemStack item, RodQuality quality) {
 			this.itemStack = item;
 			this.enumQuality = quality;
 		}
 
-		private boolean equals(ItemStack item, EnumRodQuality quality) {
+		private boolean equals(ItemStack item, RodQuality quality) {
 			return (quality == enumQuality && item.isItemEqual(this.itemStack));
 		}
 	}
 
 	@Override
-	public boolean canUseBait(ItemStack stack, EnumRodQuality quality) {
+	public boolean canUseBait(ItemStack stack, RodQuality quality) {
 		ArrayList<FishingRod> lootTmp = (ArrayList<FishingRod>) canUseBait.clone();
 		for (FishingRod loot : lootTmp) {
 			if (loot.equals(stack, quality)) {

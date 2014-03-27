@@ -1,4 +1,11 @@
 == Mariculture 1.2.2 ==
+====Blood Magic Stuff====
+* Bound Fishing Rod added, uses blood shards and flesh as bait, can catch BM loot and higher tier fish, also has a beast mode ;)
+====API====
+* Fishing rod + quality changes to accomodate the blood rod
+
+== Mariculture 1.2.1d ==
+* MAJOR: Fixed the jewelry saving... somehow i'd messed up the new saving method -_-
 
 == Mariculture 1.2.1c ==
 * NOTE: I have added the vanilla dyes to the item blacklist! So feel free to remove dyeBlue, dyeBlack etc. from the name blacklist

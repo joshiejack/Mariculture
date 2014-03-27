@@ -2,14 +2,14 @@ package mariculture.fishery.items;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.ItemBaseRod;
 import net.minecraft.client.renderer.texture.IconRegister;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRod extends ItemBaseRod {
-	public ItemRod(int i, EnumRodQuality quality) {
+	public ItemRod(int i, RodQuality quality) {
 		super(i, quality);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(quality.getMaxUses());

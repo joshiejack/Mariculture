@@ -50,7 +50,7 @@ public class ItemIds {
 	public static int magnet;
 	public static int chalk;
 	
-	//parts
+	//Tinkers Construct
 	public static int titanium_part_1;
 	public static int titanium_part_2;
 	public static int titanium_part_3;
@@ -75,4 +75,7 @@ public class ItemIds {
 	public static int titanium_part_22;
 	public static int titanium_part_23;
 	public static int titanium_part_24;
+	
+	//Blood Magic
+	public static int rodBlood;
 }

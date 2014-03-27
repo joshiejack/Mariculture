@@ -622,3 +622,6 @@ item.titanium.sword.blade.name=Titanium Sword Blade
 item.titanium.tool.rod.name=Titanium Tool Rod
 item.titanium.tough.binding.name=Titanium Tough Binding
 item.titanium.tough.rod.name=Titanium Tough Rod
+
+### Blood Magic ###
+item.rodBlood.name=Bound Fishing Rod

@@ -11,7 +11,7 @@ public interface ILootHandler {
 	 * 
 	 * @param The item you wish to add as fish loot
 	 * @param Object
-	 * @param EnumRodQuality
+	 * @param RodQuality
 	 *            quality the type of rod quality that is needed as a minimum to
 	 *            catch
 	 * @param int chance, the chance to catch this loot, Example values: record
@@ -27,5 +27,5 @@ public interface ILootHandler {
 	public void addLoot(ItemStack stack, Object... args);
 
 	/** This will generate random loot making use of the parameters specified **/
-	public ItemStack getLoot(Random rand, EnumRodQuality quality, World world, int x, int y, int z);
+	public ItemStack getLoot(Random rand, RodQuality quality, World world, int x, int y, int z);
 }

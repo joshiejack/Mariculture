@@ -3,7 +3,7 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.handlers.PearlGenHandler;
@@ -252,7 +252,7 @@ public class BlockOyster extends BlockMachine {
 			}
 		} else {
 			if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
-				ItemStack loot = Fishing.loot.getLoot(rand, EnumRodQuality.OLD, world, x, y, z);
+				ItemStack loot = Fishing.loot.getLoot(rand, RodQuality.OLD, world, x, y, z);
 				if (loot != null) {
 					if(loot.getItem() instanceof ItemFishy) {
 						SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);

@@ -1,8 +1,8 @@
 package mariculture.fishery.blocks;
 
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
+import mariculture.api.fishery.RodQuality;
 import mariculture.core.blocks.base.TileMachinePowered;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -105,7 +105,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private boolean canUseRod() {
-		EnumRodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
+		RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
 		
 		for(int i: bait) {
 			if(inventory[i] != null) {
@@ -136,11 +136,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	
 	private boolean hasRod() {
 		if(inventory[rod] != null && inventory[rod].getItem() instanceof ItemBaseRod) {
-			if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
-				return ((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, true) >= 100;
-			}
-			
-			return true;
+			return ((ItemBaseRod)inventory[rod].getItem()).canFish(worldObj, xCoord, yCoord, zCoord, null, inventory[rod]);
 		}
 		
 		return false;
@@ -172,7 +168,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 
 	private int getBaitQualityAndDelete() {
-		EnumRodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
+		RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
 		
 		for(int i: bait) {
 			if(inventory[i] != null) {
@@ -193,20 +189,17 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	
 	//Process
 	private void catchFish() {
-		EnumRodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
+		RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
 		ItemStack lootResult = Fishing.loot.getLoot(Rand.rand, quality, worldObj, xCoord, yCoord, zCoord);
 
 		if (lootResult != null) {
 			helper.insertStack(lootResult, out);
 		}
 		
-		if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
-			((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, false);
-		} else {
-			inventory[rod].attemptDamageItem(1, Rand.rand);
-			if(inventory[rod].getItemDamage() > inventory[rod].getMaxDamage())
-				inventory[rod] = null;
-				canWork = canWork();
+		inventory[rod] = ((ItemBaseRod)inventory[rod].getItem()).damage(null, inventory[rod], 0);
+		if(inventory[rod].getItemDamage() > inventory[rod].getMaxDamage()) {
+			inventory[rod] = null;
+			canWork = canWork();
 		}
 	}
 

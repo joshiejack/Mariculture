@@ -3,7 +3,10 @@ package mariculture.fishery;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.fishery.EnumRodQuality;
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteArrayDataOutput;
+
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.helpers.EnchantHelper;
@@ -23,6 +26,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -359,9 +363,8 @@ public class EntityFishing extends EntityFishHook {
 				b0 = 3;
 			} else if (this.ticksCatchable > 0
 					&& this.angler.getCurrentEquippedItem().getItem() instanceof ItemBaseRod) {
-				EnumRodQuality quality = ((ItemBaseRod) this.angler.getCurrentEquippedItem().getItem()).getQuality();
-				ItemStack loot = Fishing.loot.getLoot(new Random(), quality, this.worldObj, (int) this.posX,
-						(int) this.posY, (int) this.posZ);
+				RodQuality quality = ((ItemBaseRod) this.angler.getCurrentEquippedItem().getItem()).getQuality();
+				ItemStack loot = Fishing.loot.getLoot(new Random(), quality, this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ);
 				if (loot != null) {
 					EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, loot);
 					entityItem.fireResistance = 200;

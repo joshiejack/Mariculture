@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 
 public interface IFishingRod {
 	/** Handles the right clicking code for the fishing rods **/
-	public ItemStack handleRightClick(ItemStack stack, World world, EntityPlayer player, EnumRodQuality quality, Random rand);
+	public ItemStack handleRightClick(ItemStack stack, World world, EntityPlayer player, RodQuality quality, Random rand);
 
 	/** adds the text for the bait types to the rods **/
-	public void addBaitList(List list, EnumRodQuality quality);
+	public void addBaitList(List list, RodQuality quality);
 }

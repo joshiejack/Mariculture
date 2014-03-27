@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishingRod;
+import mariculture.api.fishery.ItemBaseRod;
 import mariculture.core.lib.Text;
 import mariculture.fishery.RodQualityHandler.FishingRod;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,23 +25,15 @@ import cpw.mods.fml.common.network.Player;
 
 public class RodRightClickHandler implements IFishingRod {	
 	@Override
-	public ItemStack handleRightClick(ItemStack stack, World world, EntityPlayer player, EnumRodQuality quality, Random rand) {
-		if(stack.getItem() instanceof IEnergyContainerItem) {
-			if(((IEnergyContainerItem)stack.getItem()).getEnergyStored(stack) < 100)
-				return stack;
-		}
+	public ItemStack handleRightClick(ItemStack stack, World world, EntityPlayer player, RodQuality quality, Random rand) {
+		ItemBaseRod rod = (ItemBaseRod) stack.getItem();
+		if(!rod.canFish(world, (int)player.posX, (int)player.posY, (int)player.posZ, player, stack)) return stack;
 		
 		int baitQuality = getBait(player, quality)[0];
 		int baitSlot = getBait(player, quality)[1];
 		
 		if (player.fishEntity != null) {
-            int i = player.fishEntity.catchFish();
-            if(stack.getItem() instanceof IEnergyContainerItem) {
-            	((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 100, false);
-            } else {
-            	stack.damageItem(i, player);
-            }
-            
+            ((ItemBaseRod)stack.getItem()).damage(player, stack, player.fishEntity.catchFish());
             player.swingItem();
         } else if(baitSlot != -1) {
         	world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
@@ -78,7 +71,7 @@ public class RodRightClickHandler implements IFishingRod {
         return stack;
 	}
 
-	private int[] getBait(EntityPlayer player, EnumRodQuality quality) {
+	public static int[] getBait(EntityPlayer player, RodQuality quality) {
 		int baitQuality = 0;
 		int currentSlot = player.inventory.currentItem;
 		int foundSlot = -1;
@@ -109,13 +102,13 @@ public class RodRightClickHandler implements IFishingRod {
 	}
 
 	@Override
-	public void addBaitList(List list, EnumRodQuality quality) {
+	public void addBaitList(List list, RodQuality quality) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			list.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.bait"));
 			
 			ArrayList<FishingRod> lootTmp = (ArrayList<FishingRod>) RodQualityHandler.getCanUseList().clone();
 			for (FishingRod loot : lootTmp) {
-				if (loot.enumQuality == quality) {
+				if (loot.enumQuality== quality) {
 					list.add(loot.itemStack.getItem().getItemDisplayName(loot.itemStack));
 				}
 			}

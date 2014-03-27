@@ -1,10 +1,10 @@
 package mariculture.api.fishery;
 
-public enum EnumRodQuality {
-	OLD(63, 15, 1),
-	GOOD(191, 45, 3),
-	SUPER(575, 100, 9),
-	FLUX(0, 100, 0);
+public class RodQuality {
+	public static final RodQuality OLD = new RodQuality(63, 15, 1);
+	public static final RodQuality GOOD = new RodQuality(191, 45, 3);
+	public static final RodQuality SUPER = new RodQuality(575, 100, 9);
+	public static final RodQuality FLUX = new RodQuality(0, 100, 0);
 
 	private final int maxUses;
 	private final int rank;
@@ -14,7 +14,7 @@ public enum EnumRodQuality {
 	 * These are the different rod qualities, the rank determines how good a rod
 	 * is compared to others, higher = better
 	 **/
-	private EnumRodQuality(int uses, int rank, int enchantability) {
+	public RodQuality(int uses, int rank, int enchantability) {
 		this.maxUses = uses;
 		this.rank = rank;
 		this.enchantability = enchantability;

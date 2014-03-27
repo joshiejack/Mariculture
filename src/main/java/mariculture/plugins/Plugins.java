@@ -1,6 +1,8 @@
 package mariculture.plugins;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.logging.Level;
 
 import mariculture.Mariculture.Stage;
@@ -38,6 +40,7 @@ public class Plugins {
 						break;
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				LogHandler.log(Level.INFO, "Mariculture - Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
 			}
 		}
@@ -73,6 +76,7 @@ public class Plugins {
 		add("HungerOverhaul");
 		add("ThermalExpansion");
         add("Enchiridion");
+        add("AWWayofTime");
 	}
 
 	public void load(Stage stage) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -142,7 +142,7 @@ public abstract class FishSpecies {
 	 * @param zCoordinate where player is fishing
 	 * @param The quality of the rod the player is using
 	 **/
-	public boolean canCatch(Random rand, World world, int x, int y, int z, EnumRodQuality quality) {
+	public boolean canCatch(Random rand, World world, int x, int y, int z, RodQuality quality) {
 		if(isWorldCorrect(world) && quality.getRank() >= getRodNeeded().getRank() && rand.nextInt(100) < getCatchChance())
 			return Fishing.fishHelper.biomeMatches(world.getWorldChunkManager().getBiomeGenAt(x, z), getGroup().getBiomes());
 		return false;
@@ -164,8 +164,8 @@ public abstract class FishSpecies {
 	}
 	
 	/** Return the rod Quality needed to catch this fish **/
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.OLD;
+	public RodQuality getRodNeeded() {
+		return RodQuality.OLD;
 	}
 
 	/** Whether this fish can live in the area that they are, defaults to calling their group biome preference

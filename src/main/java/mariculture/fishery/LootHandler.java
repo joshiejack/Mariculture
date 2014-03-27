@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -22,16 +22,16 @@ public class LootHandler implements ILootHandler {
 	public void addLoot(ItemStack stack, Object... args) {
 		switch (args.length) {
 		case 2:
-			fishingLoot.add(new FishingLoot(stack, (EnumRodQuality) args[0], (Integer) args[1], OreDictionary.WILDCARD_VALUE));
+			fishingLoot.add(new FishingLoot(stack, (RodQuality) args[0], (Integer) args[1], OreDictionary.WILDCARD_VALUE));
 			break;
 		case 3:
-			fishingLoot.add(new FishingLoot(stack, (EnumRodQuality) args[0], (Integer) args[1], (Integer) args[2]));
+			fishingLoot.add(new FishingLoot(stack, (RodQuality) args[0], (Integer) args[1], (Integer) args[2]));
 			break;
 		}
 	}
 
 	@Override
-	public ItemStack getLoot(Random rand, EnumRodQuality quality, World world, int x, int y, int z) {
+	public ItemStack getLoot(Random rand, RodQuality quality, World world, int x, int y, int z) {
 		Collections.shuffle(fishingLoot);
 		Iterator it = fishingLoot.iterator();
 		while (it.hasNext()) {
@@ -67,7 +67,7 @@ public class LootHandler implements ILootHandler {
 		return getFishForLocation(rand, quality, world, x, y, z);
 	}
 
-	private ItemStack getFishForLocation(Random rand, EnumRodQuality quality, World world, int x, int y, int z) {
+	private ItemStack getFishForLocation(Random rand, RodQuality quality, World world, int x, int y, int z) {
 		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
 			FishSpecies fish = FishSpecies.speciesList.get(i);
 			if (fish != null) {
@@ -85,10 +85,10 @@ public class LootHandler implements ILootHandler {
 	public class FishingLoot {
 		private int rarity;
 		private ItemStack loot;
-		private EnumRodQuality quality;
+		private RodQuality quality;
 		private int dimension;
 
-		private FishingLoot(ItemStack output, EnumRodQuality quality, int rarity, int dimension) {
+		private FishingLoot(ItemStack output, RodQuality quality, int rarity, int dimension) {
 			this.rarity = rarity;
 			this.loot = output;
 			this.quality = quality;

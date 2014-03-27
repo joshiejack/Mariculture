@@ -2,7 +2,7 @@ package mariculture.fishery.fish;
 
 import java.util.Random;
 
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -66,8 +66,8 @@ public class FishBass extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.SUPER;
+	public RodQuality getRodNeeded() {
+		return RodQuality.SUPER;
 	}
 	
 	@Override

@@ -6,7 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.api.fishery.fish.FishDNA;
@@ -308,10 +308,10 @@ public class Fishery extends Module {
 	@Override
 	public void registerItems() {
 		bait = new ItemBait(ItemIds.bait).setUnlocalizedName("bait");
-		rodReed = new ItemRod(ItemIds.rodReed, EnumRodQuality.OLD).setUnlocalizedName("rodReed");
-		rodWood = new ItemRod(ItemIds.rodWood, EnumRodQuality.GOOD).setUnlocalizedName("rodWood");
-		rodTitanium = new ItemRod(ItemIds.rodTitanium, EnumRodQuality.SUPER).setUnlocalizedName("rodTitanium");
-		rodFlux = new ItemFluxRod(ItemIds.rodFlux, EnumRodQuality.FLUX).setUnlocalizedName("rodFlux");
+		rodReed = new ItemRod(ItemIds.rodReed, RodQuality.OLD).setUnlocalizedName("rodReed");
+		rodWood = new ItemRod(ItemIds.rodWood, RodQuality.GOOD).setUnlocalizedName("rodWood");
+		rodTitanium = new ItemRod(ItemIds.rodTitanium, RodQuality.SUPER).setUnlocalizedName("rodTitanium");
+		rodFlux = new ItemFluxRod(ItemIds.rodFlux, RodQuality.FLUX).setUnlocalizedName("rodFlux");
 		fishy = new ItemFishy(ItemIds.fishy).setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		fishyFood = new ItemFishyFood(ItemIds.fishyFood).setUnlocalizedName("fishyFood");
 		net = new BlockItemNet(ItemIds.net).setUnlocalizedName("net");
@@ -466,15 +466,14 @@ public class Fishery extends Module {
 		Fishing.bait.addBait(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), 90);
 		Fishing.bait.addBait(new ItemStack(Item.fishRaw), 50);
 		
-		//Extra Sifter Recipes
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(Item.bread), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(EnumRodQuality.FLUX));
-		Fishing.quality.addBaitForQuality(new ItemStack(Item.fishRaw), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(RodQuality.OLD, RodQuality.GOOD, RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(RodQuality.GOOD, RodQuality.SUPER, RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(RodQuality.OLD, RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(RodQuality.OLD, RodQuality.GOOD, RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(Item.bread), Arrays.asList(RodQuality.SUPER, RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(fishyFood, 1, Fishery.minnow.fishID), Arrays.asList(RodQuality.SUPER, RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(RodQuality.FLUX));
+		Fishing.quality.addBaitForQuality(new ItemStack(Item.fishRaw), Arrays.asList(RodQuality.OLD, RodQuality.GOOD, RodQuality.SUPER, RodQuality.FLUX));
 	}
 	
 	private void addDropletRecipes() {

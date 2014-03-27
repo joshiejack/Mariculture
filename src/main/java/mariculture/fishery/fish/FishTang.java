@@ -1,6 +1,6 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.EnumRodQuality;
+import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -76,8 +76,8 @@ public class FishTang extends FishSpecies {
 	}
 	
 	@Override
-	public EnumRodQuality getRodNeeded() {
-		return EnumRodQuality.GOOD;
+	public RodQuality getRodNeeded() {
+		return RodQuality.GOOD;
 	}
 
 	@Override
