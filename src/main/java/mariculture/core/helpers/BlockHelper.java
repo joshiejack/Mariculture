@@ -27,7 +27,6 @@ public class BlockHelper {
 
 	public static boolean isWater(World world, int x, int y, int z) {
 		int id = world.getBlockId(x, y, z);
-		
 		return id == Block.waterStill.blockID || id == Block.waterMoving.blockID;
 	}
 	
@@ -37,7 +36,6 @@ public class BlockHelper {
 	
 	public static boolean isLava(World world, int x, int y, int z) {
 		int id = world.getBlockId(x, y, z);
-		
 		return id == Block.lavaStill.blockID || id == Block.lavaMoving.blockID;
 	}
 	
@@ -218,8 +216,7 @@ public class BlockHelper {
 	}
 	
 	public static void destroyBlock(World world, int x, int y, int z) {
-		if(!(world instanceof WorldServer))
-			return;
+		if(!(world instanceof WorldServer)) return;
 		Block block = Block.blocksList[world.getBlockId(x, y, z)];
 		if(block.getBlockHardness(world, x, y, z) < 0.0F) return;
 		FakePlayer player = new FakePlayer(world, "Mariculture");
