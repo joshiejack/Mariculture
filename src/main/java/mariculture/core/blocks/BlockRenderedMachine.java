@@ -481,10 +481,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileSift) {
 			if(((TileSift)tile).hasInventory) {
-				SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(this, 1, MachineRenderedMeta.SIFTER));
 				SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE));
-			} else {
-				SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(this, 1, MachineRenderedMeta.SIFTER));
 			}
 			
 			return world.setBlockToAir(x, y, z);

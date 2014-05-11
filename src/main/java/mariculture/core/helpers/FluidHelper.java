@@ -75,13 +75,11 @@ public class FluidHelper {
 	}
 
 	private static ItemStack addFishFood(IFluidHandler tile, ItemStack stack) {
-		if (FishFoodHandler.isFishFood(stack)) {
-			int increase = FishFoodHandler.getValue(stack);
-			int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
-			if(fill > 0) {
-				tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
-				return new ItemStack(Core.air);
-			}
+		int increase = FishFoodHandler.getValue(stack);
+		int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
+		if(fill >= increase) {
+			tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
+			return new ItemStack(Core.air);
 		}
 
 		return null;

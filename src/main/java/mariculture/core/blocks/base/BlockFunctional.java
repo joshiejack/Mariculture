@@ -83,7 +83,7 @@ public abstract class BlockFunctional extends BlockDecorative {
 		return true;
 	}
 	
-	//Called when the block is trying to be destoyed
+	//Called when the block is trying to be destroyed
 	public boolean onBlockDropped(World world, int x, int y, int z) { 
 		return world.setBlockToAir(x, y, z);
 	}

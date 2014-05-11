@@ -6,6 +6,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
+import mariculture.fishery.FishHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -89,6 +89,7 @@ public class ItemVanillaFish extends ItemFishFood {
 	public String getPotionEffect(ItemStack stack) {
 		if(Extra.VANILLA_STATS && stack.getItemDamage() < LAST_VANILLA) return super.getPotionEffect(stack);
 		else {
+			if(Fishing.fishHelper == null) Fishing.fishHelper = new FishHelper();
 			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
 			if(fish != null) {
 				return fish.getPotionEffect(stack);

@@ -204,7 +204,7 @@ public class Fishery extends RegistrationModule {
 		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		net = new BlockItemNet().setUnlocalizedName("net");
 
-		RegistryHelper.registerItems(new Item[] { bait, rodReed, rodWood, rodTitanium, fishy, net, rodFlux });
+		RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux });
 	}
 
 	@Override
@@ -292,7 +292,7 @@ public class Fishery extends RegistrationModule {
 		Fishing.rodHandler.registerRod(Items.fishing_rod, EnumRodQuality.DIRE);
 		Fishing.rodHandler.registerRod(rodReed, EnumRodQuality.OLD);
 		Fishing.rodHandler.registerRod(rodWood, EnumRodQuality.GOOD);
-		Fishing.rodHandler.registerRod(rodTitanium, EnumRodQuality.GOOD);
+		Fishing.rodHandler.registerRod(rodTitanium, EnumRodQuality.SUPER);
 		Fishing.rodHandler.registerRod(rodFlux, EnumRodQuality.ELECTRIC);
 	}
 

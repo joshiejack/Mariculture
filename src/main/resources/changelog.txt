@@ -1,8 +1,15 @@
 ==Mariculture 1.7.2 BETA 3==
-* Disabling Fishery, even though it says rods are overriden, the rods/fish will act exactly like vanilla
+* Fixed ExU startup Crash, *Whistles, pretends he didn't blame it on ExU*, the GUILT.
+* When Disabling Fishery Module, even though it says rods are overriden, the rods/fish will act exactly like vanilla
 * Fixed recipes using sugar, when they should of been using sugar cane
 * Fixed book duplication exploit
-* Merged up b, c, d, e fixes for 1.6.4
+* Fixed Mirrors always giving pearls the elemental affinity enchantment
+* Fixed Sifters dropping two items
+* Fixed crash bug when eating certain foods
+* Fixed Auto-Dictionary not removing the correct tags
+* Fish Food no longer will be added to feeders if there isn't room for the amount they give.
+* Titanium Rods now have their proper quality(were accidentally the same as wood before!)
+* Merged up 1.2.1. b, c, d, e fixes for 1.6.4
 
 ==Mariculture 1.7.2 BETA 2==
 * Vanilla overriding should now work for biomes, fish and fishing rods

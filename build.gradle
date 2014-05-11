@@ -31,13 +31,16 @@ version = config.minecraft_version + "-" + config.mod_version
 group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Mariculture"
 
+dependencies {
+    compile files("lib/CodeChickenCore-1.7.2-1.0.0-dev.jar", "lib/NotEnoughItems-1.7.2-1.0.1-dev.jar")
+}
+
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     assetDir = "eclipse/assets"
 }
 
-processResources
-{
+processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'

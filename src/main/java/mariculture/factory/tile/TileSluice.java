@@ -113,7 +113,8 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 						Fluid fluid = tanks.fluid.getFluid();
 						if(fluid != null && fluid.canBePlacedInWorld()) {
 							int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
-							if (tank.drain(orientation.getOpposite(), drain, false).amount == drain) {
+							FluidStack drainStack = tank.drain(orientation.getOpposite(), drain, false);
+							if (drainStack != null && drainStack.amount == drain) {
 								Block block = fluid.getBlock();
 								if (block != null) {
 									FluidStack stack = tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), false);

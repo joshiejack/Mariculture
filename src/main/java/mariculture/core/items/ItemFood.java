@@ -85,7 +85,7 @@ public class ItemFood extends ItemMariculture {
 		if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP)
 			player.heal(2);
 		
-		return (stack.stackSize > 0)? stack: bowl;
+		return bowl != null? bowl: stack;
 	}
 
 	@Override
