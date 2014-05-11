@@ -180,8 +180,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	//Adding Fish Food to the Tank if Enabled
 	private void addFishFood() {
 		for(CachedCoords cord: cords) {
-			List list = worldObj.getEntitiesWithinAABB(EntityItem.class,
-					Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+			List list = worldObj.getEntitiesWithinAABB(EntityItem.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 			if(!list.isEmpty()) {
 				for (Object i : list) {
 					EntityItem entity = (EntityItem) i;
@@ -290,11 +289,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 			return;
 		int species = Fishery.species.getDNA(inventory[slot]);
 		if (!this.worldObj.isRemote) {
-			Fishing.fishHelper.getSpecies(species).affectWorld(this.worldObj, this.xCoord, this.yCoord, this.zCoord, tankSize);
+			Fishing.fishHelper.getSpecies(species).affectWorld(worldObj, xCoord, yCoord, zCoord, tankSize);
 			
 			for(CachedCoords cord: cords) {
-				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class,
-						Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 				if(!list.isEmpty()) {
 					for (Object i : list) {
 						EntityLivingBase entity = (EntityLivingBase) i;
@@ -332,7 +330,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 
 					//If we have the eternal female upgrade, we need to force generate eggs if the fish is a girl
 					if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishHelper.FEMALE) {
-						int fertility = 150 - Fishing.fishHelper.getSpecies(speciesID).getFertility();
+						int fertility = (150 - Fishing.fishHelper.getSpecies(speciesID).getFertility()) * 10;
 						fertility = (fertility <= 0) ? 1 : fertility;
 						if (Rand.nextInt(fertility)) {
 							ItemStack fishMale = inventory[male];

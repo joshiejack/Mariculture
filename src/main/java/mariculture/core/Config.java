@@ -30,6 +30,8 @@ import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.Level;
 
+import cpw.mods.fml.common.Loader;
+
 public class Config {
     public static void setup(String dir) {
     	initModules(new Configuration(new File(dir, "modules.cfg")));
@@ -54,6 +56,7 @@ public class Config {
                
             Extra.DISABLE_FISH = config.get(Category.EXTRA, "Disable Mariculture Live Fish in NEI", false).getBoolean(false);
             Extra.SPAWN_BOOKS = config.get(Category.EXTRA, "Spawn Books on First Action", true).getBoolean(true);
+            if(!Loader.isModLoaded("Enchiridion")) Extra.SPAWN_BOOKS = false;
             Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
             Extra.REFRESH_CLIENT_RATE = config.get(Category.EXTRA, "Server-Client Refresh Rate", 30, Comment.REFRESH).getInt();
@@ -65,6 +68,7 @@ public class Config {
             Extra.MOB_MAGNET = config.get(Category.EXTRA, "Mob Magnet Crafting Enabled", true).getBoolean(true);
             Extra.PERCENT_NEEDED = config.get(Category.EXTRA, "Percentage Needed for Timelord Enchant", 5).getInt();
             Extra.PACKET_DISTANCE = config.get(Category.EXTRA, "How many blocks away to send rendering packet updates to players", 176).getInt();
+            Extra.JEWELRY_OFFLINE = config.get(Category.EXTRA, "Enable Singleplayer Jewelry Offline Mode", false).getBoolean(false);
             Extra.VANILLA_STATS = config.get(Category.EXTRA, "Use Vanilla stats for fish", false).getBoolean(false);
             Extra.VANILLA_POOR = config.get(Category.EXTRA, "Vanilla rods are not as good without bait", true).getBoolean(true);
             Extra.VANILLA_FORCE = config.get(Category.EXTRA, "Vanilla rods need bait to work", false).getBoolean(false);
@@ -179,7 +183,7 @@ public class Config {
             Mariculture.modules.setup(WorldPlus.class, config.get(Category.MODULES, "World Plus", true).getBoolean(true));
             Mariculture.modules.setup(Compat.class, false);
             Mariculture.modules.setup(Plugins.class, true);
-            
+            Extra.HAS_BOP = Loader.isModLoaded("BiomesOPlenty");
             for(int i = 0; i < Plugins.plugins.size(); i++) {
             	Plugin plugin = Plugins.plugins.get(i);
             	if(config.get(Category.PLUGINS, plugin.name, true).getBoolean(true) == false) {

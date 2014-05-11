@@ -1,7 +1,7 @@
 package mariculture.core.network;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.magic.MirrorData;
+import mariculture.magic.MirrorHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,6 +52,6 @@ public class PacketSyncMirror extends PacketNBT {
 			}
 		}
 		
-		MirrorData.saveClient(player, inventory);
+		MirrorHelper.saveClient(player, inventory);
 	}
 }

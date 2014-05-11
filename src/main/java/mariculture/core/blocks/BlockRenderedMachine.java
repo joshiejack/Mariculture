@@ -540,6 +540,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.TURBINE_GAS: 	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.TURBINE_HAND: 	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.TURBINE_WATER:	return Modules.isActive(Modules.factory);
+			case MachineRenderedMeta.FLUDD_STAND:	return false;
 			default:								return true;
 		}
 	}

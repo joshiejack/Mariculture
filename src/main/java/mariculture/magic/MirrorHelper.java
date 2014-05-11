@@ -6,6 +6,7 @@ import java.util.HashMap;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.NBTHelper;
+import mariculture.core.lib.Extra;
 import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentJump;
@@ -17,10 +18,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MirrorData {
+public class MirrorHelper {
 	public static String world = "ls43llsds#232423d";
 	public static HashMap<String, ItemStack[]> inventories = new HashMap();
 	public static ItemStack[] inventory;
@@ -30,6 +32,21 @@ public class MirrorData {
 	public static JewelryMaterial[] materials;
 	
 	private static int updateTick;
+	
+	public static MirrorSavedData getData(EntityPlayer player) {
+		return getData(player.worldObj, player.getDisplayName());
+	}
+	
+	public static MirrorSavedData getData(World world, String name) {
+		String check = MirrorSavedData.name + "-" + (Extra.JEWELRY_OFFLINE? "PlayerOffline": name);
+		MirrorSavedData data = (MirrorSavedData) world.loadItemData(MirrorSavedData.class, check);
+        if (data == null) {
+            data = new MirrorSavedData(check);
+            world.setItemData(check, data);
+        }
+        
+		return data;
+	}
 	
 	public static boolean isSameWorld(EntityPlayer player) {
 		String check = player.worldObj.getWorldInfo().getWorldName();
@@ -69,7 +86,7 @@ public class MirrorData {
 	
 	private static JewelryMaterial[] fetchMaterials(EntityPlayer player) {
 		ArrayList<JewelryMaterial> array = new ArrayList();
-		ItemStack[] mirror = MirrorData.getInventory(player);
+		ItemStack[] mirror = MirrorHelper.getInventory(player);
 		for(int i = 0; i < mirror.length; i++) {
 			if(mirror[i] != null && mirror[i].hasTagCompound()) {
 				array.add(JewelryMaterial.list.get(mirror[i].stackTagCompound.getString(JewelryMaterial.nbt)));
@@ -89,18 +106,11 @@ public class MirrorData {
 			return inventories.get(player.getDisplayName());
 		}
 		
-		NBTTagCompound nbt = NBTHelper.getPlayerData(player);
-		ItemStack[] contents = new ItemStack[4];
-		NBTTagList nbttaglist = nbt.getTagList("mirrorContents", 10);
-		if (nbttaglist != null) {
-			for (int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
-				byte byte0 = nbttagcompound1.getByte("Slot");
-				if (byte0 >= 0 && byte0 < contents.length) {
-					contents[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-				}
-			}
-		}
+		ItemStack[] contents = null;
+		MirrorSavedData data = getData(player);
+		if(data.getJewelry() == null) {
+			contents = data.setJewelry(new ItemStack[4]);
+		} else contents = data.getJewelry();
 		
 		inventories.put(player.getDisplayName(), contents);
 		return contents;
@@ -112,19 +122,10 @@ public class MirrorData {
 			return inventory;
 		}
 		
-		NBTTagCompound nbt = NBTHelper.getPlayerData(ClientHelper.getPlayer());
-		inventory = new ItemStack[4];
-		NBTTagList nbttaglist = nbt.getTagList("mirrorContents", 10);
-		if (nbttaglist != null) {
-			for (int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
-				byte byte0 = nbttagcompound1.getByte("Slot");
-				if (byte0 >= 0 && byte0 < inventory.length) {
-					inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-				}
-			}
-		}
-		
+		MirrorSavedData data = getData(ClientHelper.getPlayer());
+		if(data.getJewelry() == null) {
+			inventory = data.setJewelry(new ItemStack[4]);
+		} else inventory = data.getJewelry();
 		return inventory;
 	}
 	
@@ -133,19 +134,7 @@ public class MirrorData {
 	}
 	
 	public static boolean saveClient(EntityPlayer player, ItemStack[] invent) {
-		inventory = invent;
-		NBTTagCompound nbt = NBTHelper.getPlayerData(player);
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < 3; i++) {
-			if (invent[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				invent[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-		
-		nbt.setTag("mirrorContents", nbttaglist);
+		inventory = getData(player).setJewelry(invent);
 		//Reset the color
 		materials = null;
 		
@@ -162,20 +151,7 @@ public class MirrorData {
 	
 	public static boolean saveServer(EntityPlayer player, ItemStack[] invent) {
 		String key = player.getDisplayName();
-		inventories.put(key, invent);
-		
-		NBTTagCompound nbt = NBTHelper.getPlayerData(player);
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < 3; i++) {
-			if (invent[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				invent[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbt.setTag("mirrorContents", nbttaglist);
+		inventories.put(key, getData(player).setJewelry(invent));
 		//Reset the color
 		if(materialList.containsKey(key)) {
 			materialList.remove(key);

@@ -110,10 +110,8 @@ public class BlockWater extends BlockFunctional {
 		if (tile instanceof TileOyster) {
 			TileOyster oyster = (TileOyster) tile;
 			if(Extra.SPAWN_BOOKS) {
-                if(Loader.isModLoaded("Enchiridion")) {
-                	if(oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
-                		BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
-                	}
+                if(oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
+                	BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
                 }
             }
 

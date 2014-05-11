@@ -9,6 +9,7 @@ import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.util.PowerHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -46,6 +47,11 @@ public class FishElectricRay extends FishSpecies {
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 1D);
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC), 4D);
+	}
+	
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		world.addWeatherEffect(new EntityLightningBolt(world, player.posX,player.posY, player.posZ));
 	}
 
 	@Override

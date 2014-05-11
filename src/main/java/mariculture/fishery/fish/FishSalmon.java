@@ -38,6 +38,21 @@ public class FishSalmon extends FishSpecies {
 	}
 	
 	@Override
+	public int getFoodStat() {
+		return 5;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 1F;
+	}
+	
+	@Override
+	public int getFoodDuration() {
+		return 64;
+	}
+	
+	@Override
 	public LootQuality getLootQuality() {
 		return LootQuality.GOOD;
 	}

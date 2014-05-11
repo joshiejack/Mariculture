@@ -9,6 +9,9 @@ import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 
 public class FishSiamese extends FishSpecies {
 	public FishSiamese(int id) {
@@ -49,6 +52,21 @@ public class FishSiamese extends FishSpecies {
 	@Override
 	public int getCatchChance() {
 		return 9;
+	}
+	
+	@Override
+	public int getFoodStat() {
+		return 2;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.65F;
+	}
+
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		if(world.isDaytime()) player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 600, 0));
 	}
 	
 	@Override

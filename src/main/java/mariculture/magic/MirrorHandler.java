@@ -18,7 +18,7 @@ public class MirrorHandler implements IMirrorHandler {
 	@Override
 	public boolean containsEnchantedItems(EntityPlayer player) {
 		// Mirror
-		ItemStack[] mirror = MirrorData.getInventory(player);
+		ItemStack[] mirror = MirrorHelper.getInventory(player);
 		if (mirror != null) {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
@@ -34,7 +34,7 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public void dropItems(EntityPlayer player, World world, double posX, double posY, double posZ) {
-		ItemStack[] mirror = MirrorData.getInventory(player);
+		ItemStack[] mirror = MirrorHelper.getInventory(player);
 		for (int i = 0; i < mirror.length; ++i) {
 			if (mirror[i] != null) {
 				player.dropPlayerItemWithRandomChoice(mirror[i], true);
@@ -45,7 +45,7 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public int getEnchantmentStrength(EntityPlayer player, int enchant) {
-		ItemStack[] mirror = MirrorData.getInventory(player);
+		ItemStack[] mirror = MirrorHelper.getInventory(player);
 		int total = 0;
 		for (int i = 0; i < 3; i++) {
 			if (mirror[i] != null && !EnchantHelper.isBroken(mirror[i])) {
@@ -58,7 +58,7 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public boolean hasEnchantment(EntityPlayer player, int enchant) {
-		ItemStack[] mirror = MirrorData.getInventory(player);
+		ItemStack[] mirror = MirrorHelper.getInventory(player);
 		for (int i = 0; i < 3; i++) {
 			if (mirror[i] != null) {
 				if(EnchantHelper.hasEnchantment(enchant, mirror[i]))
@@ -71,7 +71,7 @@ public class MirrorHandler implements IMirrorHandler {
 
 	@Override
 	public ItemStack[] getMirrorContents(EntityPlayer player) {
-		return MirrorData.getInventory(player);
+		return MirrorHelper.getInventory(player);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class MirrorHandler implements IMirrorHandler {
 		//Set the amount of damage to 1 if the enchantment is the elemental enchant
 		int matId = amount;
 		amount = (EnchantHelper.exists(Magic.elemental) && enchant == Magic.elemental.effectId)? 1: amount;
-		ItemStack[] mirror = MirrorData.getInventory(player);
+		ItemStack[] mirror = MirrorHelper.getInventory(player);
 		for(int damaged = 0; damaged < amount; damaged++) {
 			for (int i = 0; i < 3; i++) {
 				if (mirror[i] != null) {
@@ -97,12 +97,12 @@ public class MirrorHandler implements IMirrorHandler {
 							JewelryMaterial material = JewelryHandler.getMaterial(mirror[i]);
 							if(material.id == matId) {
 								if(mirror[i].attemptDamageItem(1, Rand.rand)) {
-									Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+									Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 								}
 							}
 						} else {
 	 						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
-								Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+								Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 							}
 						}
 					}
@@ -110,7 +110,7 @@ public class MirrorHandler implements IMirrorHandler {
 			}
 		}
 
-		MirrorData.save(player, mirror);
+		MirrorHelper.save(player, mirror);
 	}
 
 	@Override

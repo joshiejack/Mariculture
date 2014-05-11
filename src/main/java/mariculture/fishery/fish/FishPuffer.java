@@ -43,6 +43,13 @@ public class FishPuffer extends FishSpecies {
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 7.5D);
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 1.5D);
 	}
+	
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(Potion.poison.id, 1200, 3));
+		player.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 2));
+		player.addPotionEffect(new PotionEffect(Potion.confusion.id, 300, 1));
+	}
 
 	@Override
 	public int getCatchChance() {
@@ -62,13 +69,6 @@ public class FishPuffer extends FishSpecies {
 	@Override
 	public String getPotionEffect(ItemStack stack) {
 		return PotionHelper.field_151423_m;
-	}
-	
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		player.addPotionEffect(new PotionEffect(Potion.poison.id, 1200, 3));
-		player.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 2));
-		player.addPotionEffect(new PotionEffect(Potion.confusion.id, 300, 1));
 	}
 
 	@Override

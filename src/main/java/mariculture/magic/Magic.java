@@ -242,7 +242,7 @@ public class Magic extends RegistrationModule {
 		if(EnchantHelper.exists(oneRing)) {
 			ItemStack oneRing = MaricultureRegistry.get("ring.oneRing");
 			if (oneRing != null) {
-				ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(oneRing, 1, 3, 3));
+				ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(oneRing, 1, 1, 1));
 			}
 		}
 	}

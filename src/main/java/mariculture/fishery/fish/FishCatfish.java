@@ -56,13 +56,6 @@ public class FishCatfish extends FishSpecies {
 	}
 
 	@Override
-	public void onConsumed(final World world, final EntityPlayer player) {
-		player.getFoodStats().addStats(3, 0.5F);
-
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-	}
-
-	@Override
 	public int[] getChestGenChance() {
 		return new int[] { 1, 1, 5 };
 	}

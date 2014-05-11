@@ -186,7 +186,7 @@ public class Core extends RegistrationModule {
 		renderedMachines = new BlockRenderedMachine().setStepSound(Block.soundTypeMetal).setResistance(1F).setHardness(1F).setBlockName("machines.single.rendered");
 		renderedMultiMachines = new BlockRenderedMachineMulti().setStepSound(Block.soundTypeMetal).setResistance(3F).setHardness(3F).setBlockName("machines.multi.rendered");
 		glass = new BlockGlass().setStepSound(Block.soundTypeGlass).setResistance(5F).setBlockName("glass");
-		air = new BlockAir().setBlockUnbreakable().setBlockName("air");
+		air = new BlockAir().setBlockName("air");
 		woods = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woods").setHardness(2.0F);
 		tanks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tanks").setHardness(1F);
 		sands = new BlockGround().setBlockName("sands").setHardness(1F);

@@ -9,6 +9,7 @@ public class Extra {
 	public static boolean OCEAN_FORCE;
 	public static int[] OCEAN_BIOMES;
 	public static final int[] OCEANS_DEFAULT =  new int[] { BiomeGenBase.ocean.biomeID, BiomeGenBase.frozenOcean.biomeID, BiomeGenBase.deepOcean.biomeID };
+	public static boolean JEWELRY_OFFLINE;
 	public static boolean ENABLE_FLUIDIC;
 	public static boolean KELP_GROWTH_ENABLED;
 	public static boolean MOSS_SPREAD_ENABLED;
@@ -36,6 +37,7 @@ public class Extra {
 	public static int DRAGON_EGG_ETHEREAL;
 	public static boolean DROP_JEWELRY;
 	public static boolean GEN_ENDER_PEARLS;
+	public static boolean NERF_FOOD;
 	public static int JEWELRY_TICK_RATE;
 	
 	public static int SONIC_MOD;
@@ -51,6 +53,7 @@ public class Extra {
 	public static int PERCENT_NEEDED;
 	public static boolean SPAWN_BOOKS;
 	public static boolean DISABLE_FISH;
+	public static boolean HAS_BOP;
 	
 	public static int PACKET_DISTANCE;
 	public static boolean PUMP_ANIMATE;

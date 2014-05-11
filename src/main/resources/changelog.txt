@@ -2,7 +2,7 @@
 * Disabling Fishery, even though it says rods are overriden, the rods/fish will act exactly like vanilla
 * Fixed recipes using sugar, when they should of been using sugar cane
 * Fixed book duplication exploit
-* Merged up the blacklisting changes from 1.6.4
+* Merged up b, c, d, e fixes for 1.6.4
 
 ==Mariculture 1.7.2 BETA 2==
 * Vanilla overriding should now work for biomes, fish and fishing rods

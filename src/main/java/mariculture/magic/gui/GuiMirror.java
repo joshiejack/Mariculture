@@ -5,6 +5,7 @@ import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.network.PacketEnchant;
 import mariculture.magic.ItemMirror;
+import mariculture.magic.Magic;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
@@ -185,7 +186,7 @@ public class GuiMirror extends GuiStorage {
 	public void loadLevels() {
 		if(storage.getHeldItem() != null) {
 			ItemStack stack = storage.getHeldItem();
-			if(stack.hasTagCompound()) {
+			if(stack.hasTagCompound() && stack.getItem() != Magic.basicMirror) {
 				enchantLevels = stack.stackTagCompound.getIntArray("Levels");
 			} else {
 				enchantLevels[0] = 1;

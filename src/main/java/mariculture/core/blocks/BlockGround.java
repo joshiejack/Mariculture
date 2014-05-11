@@ -8,6 +8,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.GroundMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -75,7 +76,7 @@ public class BlockGround extends BlockDecorative {
         int count = quantityDropped(metadata, fortune, world.rand);
         for(int i = 0; i < count; i++) {
             if(metadata == GroundMeta.ANCIENT) {
-            	if(!Loader.isModLoaded("HungerOverhaul")) {
+            	if(!Extra.NERF_FOOD) {
 	            	if(world.rand.nextInt(7) <= fortune) ret.add(new ItemStack(Items.bone));
 	            	if(world.rand.nextInt(3) <= fortune) ret.add(new ItemStack(Items.dye, 1, Dye.BONE));
             	}

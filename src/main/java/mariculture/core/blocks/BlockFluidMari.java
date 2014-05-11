@@ -17,6 +17,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -84,10 +85,11 @@ public class BlockFluidMari extends BlockFluidClassic {
 		tick++;
 		
 		if(tick % 15 == 0 && !world.isRemote && world instanceof WorldServer) {
-			int x2 = x + rand.nextInt(3) - 1;
+			ForgeDirection dir = ForgeDirection.values()[rand.nextInt(6)];
+			int x2 = x + dir.offsetX;
 			int y2 = y - rand.nextInt(2);
-			int z2 = z + rand.nextInt(3) - 1;
-			Block block = world.getBlock(x2, y, z2);
+			int z2 = z + dir.offsetZ;
+			Block block = world.getBlock(x2, y2, z2);
 			if(block != null) {
 				float resistanceMax = Blocks.stone.getExplosionResistance(PlayerHelper.getFakePlayer(world), world, x2, y2, z2, 0, 0, 0);
 				float resistance = block.getExplosionResistance(PlayerHelper.getFakePlayer(world), world, x2, y2, z2, 0, 0, 0);

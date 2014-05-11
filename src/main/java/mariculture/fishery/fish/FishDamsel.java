@@ -59,9 +59,6 @@ public class FishDamsel extends FishSpecies {
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
 		player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 0));
-
-		player.getFoodStats().addStats(1, 1F);
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 	}
 
 	@Override

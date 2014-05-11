@@ -39,6 +39,16 @@ public class FishPerch extends FishSpecies {
 	}
 	
 	@Override
+	public int getFoodStat() {
+		return 4;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.65F;
+	}
+	
+	@Override
 	public int getCatchChance() {
 		return 10;
 	}

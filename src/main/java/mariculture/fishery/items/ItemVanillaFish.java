@@ -72,7 +72,7 @@ public class ItemVanillaFish extends ItemFishFood {
 				--stack.stackSize;
 				int food = fish.getFoodStat();
 				float sat = fish.getFoodSaturation();
-				if(Loader.isModLoaded("HungerOverhaul")) {
+				if(Extra.NERF_FOOD) {
 					food = Math.max(1, food/2);
 					sat = Math.max(0.0F, sat/10);
 				}

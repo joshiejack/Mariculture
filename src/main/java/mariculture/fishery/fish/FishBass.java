@@ -46,6 +46,21 @@ public class FishBass extends FishSpecies {
 	}
 	
 	@Override
+	public int getFoodStat() {
+		return 2;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.1F;
+	}
+	
+	@Override
+	public int getFoodDuration() {
+		return 1;
+	}
+	
+	@Override
 	public int getCatchChance() {
 		return 5;
 	}

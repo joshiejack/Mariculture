@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileGeyser extends TileTank implements IFaceable {
 	public ForgeDirection orientation = ForgeDirection.UP;
@@ -133,10 +134,18 @@ public class TileGeyser extends TileTank implements IFaceable {
 	
 	public void pullFromInventory() {
 		TileEntity tile = worldObj.getTileEntity(xCoord -orientation.offsetX, yCoord -orientation.offsetY, zCoord - orientation.offsetZ);
-		if(tile != null && tile instanceof IInventory) {
-			ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
-			if(stack != null) {
-				SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+		if(tile != null) {
+			if(tile instanceof IInventory) {
+				ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
+				if(stack != null) {
+					SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+				}
+			} else if(tile instanceof IFluidHandler) {
+				IFluidHandler handler = (IFluidHandler) tile;
+				if(tank.getFluidAmount() + 1000 < tank.getCapacity()) {
+					FluidStack fluid = handler.drain(orientation.getOpposite(), 1000, true);
+					if(fluid != null) tank.fill(fluid, true);
+				}
 			}
 		}
 	}

@@ -504,17 +504,9 @@ public class Fishery extends RegistrationModule {
 		RecipeHelper.addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), new ItemStack(Items.fish, 1, salmon.fishID), 0.1F);
 
 		// Cod > Fish Finger
-		GameRegistry.addRecipe(new ItemStack(Core.food, 64, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
+		GameRegistry.addRecipe(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
 				Character.valueOf('F'), new ItemStack(Items.fish, 1, Fishery.cod.fishID),
 				Character.valueOf('B'), Items.bread });
-		
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 8, FoodMeta.CUSTARD), new Object[] { 
-			 new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_CUSTARD), Items.bowl
-		});
-		
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 4, FoodMeta.CUSTARD), new Object[] { 
-			 new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_NORMAL_CUSTARD), Items.bowl
-		});
 		
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { 
 			 new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER),

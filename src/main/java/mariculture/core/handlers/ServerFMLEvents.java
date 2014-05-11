@@ -5,7 +5,7 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketSyncMirror;
 import mariculture.magic.Magic;
-import mariculture.magic.MirrorData;
+import mariculture.magic.MirrorHelper;
 import mariculture.magic.ResurrectionTracker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,7 +18,7 @@ public class ServerFMLEvents {
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
 		if(Modules.isActive(Modules.magic) && player instanceof EntityPlayerMP) {
-			Mariculture.packets.sendTo(new PacketSyncMirror(MirrorData.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+			Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 		}
 	}
 	

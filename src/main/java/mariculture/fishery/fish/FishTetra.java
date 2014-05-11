@@ -5,7 +5,11 @@ import mariculture.api.fishery.fish.EnumFishWorkEthic;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 
 public class FishTetra extends FishSpecies {
 	public FishTetra(int id) {
@@ -40,6 +44,16 @@ public class FishTetra extends FishSpecies {
 	@Override
 	public boolean caughtAsRaw() {
 		return false;
+	}
+	
+	@Override
+	public int getFoodDuration() {
+		return 4;
+	}
+
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 160, 0));
 	}
 	
 	@Override

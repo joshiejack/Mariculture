@@ -16,7 +16,7 @@ public class InventoryMirror extends InventoryStorage {
 	public InventoryMirror(EntityPlayer player) {
 		this.player = player;
 		this.world = player.worldObj;
-		this.inventory = MirrorData.getInventory(player);
+		this.inventory = MirrorHelper.getInventory(player);
 	}
 	
 	public ItemStack getHeldItem() {
@@ -81,7 +81,7 @@ public class InventoryMirror extends InventoryStorage {
 	@Override
 	public void markDirty() {		
 		seed = Rand.rand.nextLong();
-		MirrorData.save(player, inventory);
+		MirrorHelper.save(player, inventory);
 	}
 
 	@Override

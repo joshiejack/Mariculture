@@ -6,8 +6,12 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 
 public class FishTang extends FishSpecies {
 	public FishTang(int id) {
@@ -44,6 +48,21 @@ public class FishTang extends FishSpecies {
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 6.5D);
 		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 4.5D);
 		addProduct(new ItemStack(Items.dye, 1, Dye.LAPIS), 2.0D);
+	}
+	
+	@Override
+	public int getFoodStat() {
+		return 2;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.8F;
+	}
+
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(Potion.jump.id, 80, 0));
 	}
 
 	@Override

@@ -10,7 +10,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.World;
 
 public class FishPiranha extends FishSpecies {
 	public FishPiranha(int id) {
@@ -48,6 +51,21 @@ public class FishPiranha extends FishSpecies {
 	@Override
 	public int getCatchChance() {
 		return 8;
+	}
+	
+	@Override
+	public int getFoodStat() {
+		return 3;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.5F;
+	}
+	
+	@Override
+	public void onConsumed(World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(Potion.harm.id, 20, 0));
 	}
 	
 	@Override

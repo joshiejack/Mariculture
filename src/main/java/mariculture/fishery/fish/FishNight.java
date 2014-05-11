@@ -76,9 +76,6 @@ public class FishNight extends FishSpecies {
 		if (!world.isDaytime()) {
 			player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 1800, 0));
 		}
-
-		player.getFoodStats().addStats(1, 1F);
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package mariculture.world;
 
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.terrain.MapGenCavesWater;
 import mariculture.world.terrain.MapGenMineshaftsDisabled;
@@ -41,7 +42,7 @@ public class WorldEvents {
 		if(WorldGeneration.WATER_RAVINES) {
 			if(event.type == EventType.RAVINE) {
 				try {
-					if(Loader.isModLoaded("BiomesOPlenty")) {
+					if(Extra.HAS_BOP) {
 						event.newGen = new MapGenRavineWaterBOP();
 					} else {
 						event.newGen = new MapGenRavineWater();

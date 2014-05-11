@@ -50,7 +50,7 @@ public class Fish {
 				" K ", "KFK", " K ", 'K', kelp, 'F', raw
 			});
 			
-			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, (int)Math.ceil(fishSize/2), FoodMeta.MISO_SOUP), new Object[] {
+			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, (int)Math.ceil(fishSize/2), FoodMeta.MISO_SOUP_1), new Object[] {
 				Items.bowl, kelp, raw, Blocks.brown_mushroom, Blocks.red_mushroom
 			});
 

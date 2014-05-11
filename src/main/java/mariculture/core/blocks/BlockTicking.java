@@ -7,6 +7,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.core.blocks.base.BlockFunctional;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
@@ -15,8 +16,10 @@ import mariculture.core.lib.WaterMeta;
 import mariculture.core.util.Rand;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -91,6 +94,14 @@ public class BlockTicking extends BlockFunctional {
 	}
 	
 	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+		if(!BlockHelper.isFishable(world, x, y - 1, z)) {
+			SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
+			world.setBlockToAir(x, y, z);
+		}
+	}
+	
+	@Override
 	public boolean onBlockDropped(World world, int x, int y, int z) { 
 		SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
 		world.setBlockToAir(x, y, z);
@@ -103,7 +114,7 @@ public class BlockTicking extends BlockFunctional {
 			ItemStack loot = Fishing.loot.getCatch(null, MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z)), rand, LootQuality.FISH);
 			if (loot != null && loot.getItem() instanceof ItemFishy) {
 				SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
-			}
+			} else SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Items.fish, 1, Fishery.cod.fishID), true, OreDictionary.WILDCARD_VALUE);
 		}
 	}
 	
