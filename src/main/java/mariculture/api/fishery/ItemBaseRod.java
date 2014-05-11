@@ -47,7 +47,7 @@ public class ItemBaseRod extends ItemFishingRod {
 	}
 	
 	//This method is called when ever this item needs to be damaged, it can have various effects, player can be null
-	public ItemStack damage(EntityPlayer player, ItemStack stack, int fish) {
+	public ItemStack damage(World world, EntityPlayer player, ItemStack stack, int fish) {
 		if(player != null) stack.damageItem(fish, player);
 		else {
 			if(stack.attemptDamageItem(1, Rand.rand)) {
@@ -56,5 +56,10 @@ public class ItemBaseRod extends ItemFishingRod {
 		}
 		
 		return stack;
+	}
+
+	//This method returns how much damage the bobber from this fishing rod does
+	public float getDamage() {
+		return 0.0F;
 	}
 }

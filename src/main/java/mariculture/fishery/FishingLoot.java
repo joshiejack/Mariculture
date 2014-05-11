@@ -1,77 +1,95 @@
 package mariculture.fishery;
 
+import static mariculture.core.lib.Items.bone;
+import static mariculture.core.lib.Items.book;
+import static mariculture.core.lib.Items.bowl;
+import static mariculture.core.lib.Items.enderPearl;
+import static mariculture.core.lib.Items.eyeOfEnder;
+import static mariculture.core.lib.Items.ghastTear;
+import static mariculture.core.lib.Items.goldNugget;
+import static mariculture.core.lib.Items.ink;
+import static mariculture.core.lib.Items.ironWheel;
+import static mariculture.core.lib.Items.leather;
+import static mariculture.core.lib.Items.nameTag;
+import static mariculture.core.lib.Items.netherStar;
+import static mariculture.core.lib.Items.rottenFlesh;
+import static mariculture.core.lib.Items.stick;
+import static mariculture.core.lib.Items.string;
+import static mariculture.core.lib.Items.vanillaFish;
+import static mariculture.core.lib.Items.voidBottle;
+import static mariculture.core.lib.Items.xpBottle;
+import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodQuality;
-import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
-import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.Modules;
 import mariculture.factory.Factory;
-import mariculture.magic.Magic;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class FishingLoot {
-
 	public static void add() {
 		addOverworldLoot();
 		addNetherLoot();
 		addEndLoot();
 
-		Fishing.loot.addLoot(new ItemStack(Item.expBottle), new Object[] { RodQuality.OLD, 100 });
-		Fishing.loot.addLoot(new ItemStack(Item.book), new Object[] { RodQuality.OLD, 120 });
-		Fishing.loot.addLoot(new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), new Object[] { RodQuality.OLD, 200 });
-		Fishing.loot.addLoot(new ItemStack(Item.nameTag), new Object[] { RodQuality.OLD, 850 });
+		RecipeHelper.addLoot(xpBottle, RodQuality.OLD, Rarity.JUNK, 5);
+		RecipeHelper.addLoot(xpBottle, RodQuality.OLD, Rarity.GOOD, 5);
+		RecipeHelper.addLoot(nameTag, RodQuality.OLD, Rarity.GOOD, 25);
+		RecipeHelper.addLoot(ironWheel, RodQuality.OLD, Rarity.JUNK, 10);
+		RecipeHelper.addLoot(book, RodQuality.OLD, Rarity.JUNK, 6);
 	}
 
 	private static void addEndLoot() {
-		Fishing.loot.addLoot(new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_VOID), new Object[] { RodQuality.OLD, 75, 1 });
-		Fishing.loot.addLoot(new ItemStack(Item.enderPearl), new Object[] { RodQuality.OLD, 300, 1 });
-		Fishing.loot.addLoot(new ItemStack(Item.eyeOfEnder), new Object[] { RodQuality.OLD, 250, 1 });
-		Fishing.loot.addLoot(new ItemStack(Item.record11), new Object[] { RodQuality.GOOD, 2000, 1 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordMellohi), new Object[] { RodQuality.GOOD, 2000, 1 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordStal), new Object[] { RodQuality.GOOD, 2000, 1 });
+		RecipeHelper.addEndLoot(voidBottle, RodQuality.OLD, Rarity.JUNK, 7);
+		RecipeHelper.addEndLoot(enderPearl, RodQuality.OLD, Rarity.GOOD, 5);
+		RecipeHelper.addEndLoot(eyeOfEnder, RodQuality.OLD, Rarity.GOOD, 4);
+		RecipeHelper.addEndLoot(Item.record11, RodQuality.GOOD, Rarity.GOOD, 10);
+		RecipeHelper.addEndLoot(Item.recordMellohi, RodQuality.GOOD, Rarity.GOOD, 10);
+		RecipeHelper.addEndLoot(Item.recordStal, RodQuality.GOOD, Rarity.GOOD, 10);
 	}
 
 	private static void addNetherLoot() {
-		Fishing.loot.addLoot(new ItemStack(Item.goldNugget), new Object[] { RodQuality.OLD, 65, -1 });
-		Fishing.loot.addLoot(new ItemStack(Item.ghastTear), new Object[] { RodQuality.GOOD, 550, -1 });
-		Fishing.loot.addLoot(new ItemStack(Item.record13), new Object[] { RodQuality.GOOD, 2000, -1 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordBlocks), new Object[] { RodQuality.GOOD, 2000, -1 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordChirp), new Object[] { RodQuality.GOOD, 2000, -1 });
-		Fishing.loot.addLoot(new ItemStack(Item.potion, 1, 8195), new Object[] { RodQuality.GOOD, 1000, -1 });
-		Fishing.loot.addLoot(new ItemStack(Item.netherStar), new Object[] { RodQuality.SUPER, 30000, -1 });
+		RecipeHelper.addNetherLoot(goldNugget, RodQuality.OLD, Rarity.JUNK, 2);
+		RecipeHelper.addNetherLoot(ghastTear, RodQuality.OLD, Rarity.GOOD, 3);
+		RecipeHelper.addNetherLoot(Item.record13, RodQuality.GOOD, Rarity.GOOD, 10);
+		RecipeHelper.addNetherLoot(Item.recordBlocks, RodQuality.GOOD, Rarity.GOOD, 10);
+		RecipeHelper.addNetherLoot(Item.recordChirp, RodQuality.GOOD, Rarity.GOOD, 10);
+		RecipeHelper.addNetherLoot(new ItemStack(Item.potion, 1, 8195), RodQuality.GOOD, Rarity.GOOD, 10);
+		RecipeHelper.addNetherLoot(netherStar, RodQuality.SUPER, Rarity.GOOD, 250);
 	}
 
 	private static void addOverworldLoot() {
 		for (int i = 0; i < 12; i++) {
-			Fishing.loot.addLoot(new ItemStack(Core.pearls, 1, i), new Object[] { RodQuality.GOOD, 150, 0 });
+			RecipeHelper.addOverworldLoot(new ItemStack(Core.pearls, 1, i), RodQuality.GOOD, Rarity.JUNK, 15);
 		}
-		
-		Fishing.loot.addLoot(new ItemStack(Item.fishRaw), new Object[] { RodQuality.OLD, 10, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.saddle), new Object[] { RodQuality.OLD, 1000, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordFar), new Object[] { RodQuality.GOOD, 2000, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordMall), new Object[] { RodQuality.GOOD, 2000, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordStrad), new Object[] { RodQuality.GOOD, 2000, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordWard), new Object[] { RodQuality.GOOD, 2000, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.recordCat), new Object[] { RodQuality.GOOD, 2000, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.bootsLeather), new Object[] { RodQuality.OLD, 50, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.bow), new Object[] { RodQuality.OLD, 1500, 0 });
-		Fishing.loot.addLoot(new ItemStack(Block.waterlily), new Object[] { RodQuality.OLD, 55, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.bowlEmpty), new Object[] { RodQuality.OLD, 30, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.leather), new Object[] { RodQuality.OLD, 45, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.rottenFlesh), new Object[] { RodQuality.OLD, 60, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.stick), new Object[] { RodQuality.OLD, 15, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.silk), new Object[] { RodQuality.OLD, 40, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.potion), new Object[] { RodQuality.OLD, 55, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.bone), new Object[] { RodQuality.OLD, 65, 0 });
-		Fishing.loot.addLoot(new ItemStack(Item.dyePowder, 1, Dye.INK), new Object[] { RodQuality.OLD, 35, 0 });
-		
-		if(Modules.factory.isActive()) {
-			Fishing.loot.addLoot(new ItemStack(Factory.fludd), new Object[] { RodQuality.SUPER, 10000, 0 });
+
+		RecipeHelper.addOverworldLoot(bowl, RodQuality.OLD, Rarity.JUNK, 3);
+		RecipeHelper.addOverworldLoot(stick, RodQuality.OLD, Rarity.JUNK, 3);
+		RecipeHelper.addOverworldLoot(string, RodQuality.OLD, Rarity.JUNK, 4);
+		RecipeHelper.addOverworldLoot(leather, RodQuality.OLD, Rarity.JUNK, 6);
+		RecipeHelper.addOverworldLoot(rottenFlesh, RodQuality.OLD, Rarity.JUNK, 4);
+		RecipeHelper.addOverworldLoot(bone, RodQuality.OLD, Rarity.JUNK, 6);
+		RecipeHelper.addOverworldLoot(ink, RodQuality.OLD, Rarity.JUNK, 3);
+		RecipeHelper.addOverworldLoot(Item.bootsLeather, RodQuality.OLD, Rarity.JUNK, 5);
+		RecipeHelper.addOverworldLoot(Item.potion, RodQuality.OLD, Rarity.JUNK, 10);
+		RecipeHelper.addOverworldLoot(Item.bow, RodQuality.OLD, Rarity.JUNK, 10);
+
+		RecipeHelper.addOverworldLoot(Item.saddle, RodQuality.GOOD, Rarity.GOOD, 12);
+		RecipeHelper.addOverworldLoot(Item.recordFar, RodQuality.GOOD, Rarity.GOOD, 15);
+		RecipeHelper.addOverworldLoot(Item.recordMall, RodQuality.GOOD, Rarity.GOOD, 15);
+		RecipeHelper.addOverworldLoot(Item.recordStrad, RodQuality.GOOD, Rarity.GOOD, 15);
+		RecipeHelper.addOverworldLoot(Item.recordWard, RodQuality.GOOD, Rarity.GOOD, 15);
+		RecipeHelper.addOverworldLoot(Item.recordCat, RodQuality.GOOD, Rarity.GOOD, 15);
+
+		if (Modules.isActive(Modules.factory)) {
+			RecipeHelper.addOverworldLoot(new ItemStack(Factory.fludd), RodQuality.SUPER, Rarity.GOOD, 250);
 		}
+
+		RecipeHelper.addOverworldLoot(vanillaFish, RodQuality.OLD, Rarity.JUNK, 5);
+		RecipeHelper.addOverworldLoot(vanillaFish, RodQuality.OLD, Rarity.GOOD, 3);
+		RecipeHelper.addOverworldLoot(new ItemStack(Block.waterlily), RodQuality.OLD, Rarity.JUNK, 5);
+		RecipeHelper.addOverworldLoot(new ItemStack(Block.waterlily), RodQuality.OLD, Rarity.GOOD, 5);
 	}
 }

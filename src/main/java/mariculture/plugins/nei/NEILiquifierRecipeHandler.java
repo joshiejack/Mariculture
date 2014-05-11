@@ -22,6 +22,7 @@ import mariculture.core.lib.Text;
 import mariculture.core.util.Rand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -104,8 +105,9 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		}
 		
 		public PositionedStack getOtherStack() {
-			checkAndFixFuels();
-            return afuels.get((cycleticks/64) % afuels.size()).stack;
+			if(checkAndFixFuels()) {
+				return afuels.get((cycleticks/64) % afuels.size()).stack;
+			} else return new PositionedStack(new ItemStack(Item.coal, 1, 0), 33, 44, false);
         }
 	}
 	
@@ -131,13 +133,13 @@ public class NEILiquifierRecipeHandler extends NEIBase {
         return super.newInstance();
     }
 	
-	private void checkAndFixFuels() {
+	private boolean checkAndFixFuels() {
 		if(afuels == null || afuels.size() < 1) {
-			findFuels();
-		}
+			return findFuels();
+		} else return true;
 	}
 	
-	private static void findFuels()  {        
+	private static boolean findFuels()  {        
         afuels = new ArrayList<LiquifierFuel>();
         for(ItemStack item : ItemList.items)  {
         	FuelInfo info = MaricultureHandlers.smelter.getFuelInfo(item);
@@ -155,13 +157,17 @@ public class NEILiquifierRecipeHandler extends NEIBase {
         		afuels.add(new LiquifierFuel(item.copy(), info));
         	}
         }
+        
+        return (afuels != null && afuels.size() > 0);
     }
 	
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals("liquifier") && getClass() == NEILiquifierRecipeHandler.class) {
+		boolean isSecondSearch = isSecondSearch(outputId, results);
+		if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEILiquifierRecipeHandler.class) {
 			HashMap<String, RecipeSmelter> recipes = MaricultureHandlers.smelter.getRecipes();
 			for (Entry<String, RecipeSmelter> recipe : recipes.entrySet()) {
+				if(!isSecondSearch || (isSecondSearch && recipe.getValue().fluid.getFluid().getName().equals(results[1])))
 				arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
 			}
 		} else {

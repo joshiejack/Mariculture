@@ -2,7 +2,7 @@ package mariculture.core.blocks;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
@@ -14,9 +14,9 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
@@ -32,7 +32,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	public static final int MAX_TEMP = 25000;
 	private int temp;
 	private boolean canFuel;
-	private EnumBiomeType biome;
+	private int cooling;
 	
 	public TileLiquifier() {
 		max = MachineSpeeds.getLiquifierSpeed();
@@ -53,11 +53,9 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == liquid_in)
-			return FluidHelper.isFluidOrEmpty(stack);
-		if(slot == fuel)
-			return MaricultureHandlers.smelter.getFuelInfo(stack) != null;
-		return slot == 5 || slot == 6;
+		if(slot == liquid_in) return FluidHelper.isFluidOrEmpty(stack);
+		if(slot == fuel) return MaricultureHandlers.smelter.getFuelInfo(stack) != null;
+		return (slot == 5 || slot == 6)? MaricultureHandlers.smelter.getFuelInfo(stack) == null && !FluidHelper.isFluidOrEmpty(stack): false;
 	}
 
 	@Override
@@ -230,11 +228,12 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	}
 	
 	public void coolDown() {
-		if(biome == null)
-			biome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord));
-			
+		if(cooling <= 0) {
+			cooling = Math.max(1, Temperature.getCoolingSpeed(MaricultureHandlers.environment.getBiomeTemperature(worldObj, xCoord, yCoord, zCoord)));
+		}
+		
 		if(onTick(20)) {
-			temp-=biome.getCoolingSpeed();
+			temp-=cooling;
 			if(temp <= 0)
 				temp = 0;
 		}
@@ -259,8 +258,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	public boolean canMelt(int slot) {
 		int other = (slot == 0)? 1: 0;
 		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
-		if(recipe == null)
-			return false;
+		if(recipe == null) return false;
 		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
 		FluidStack fluid = recipe.fluid.copy();
 		fluid.amount = fluidAmount;
@@ -270,8 +268,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			return true;
 		if(setting.canEject(EjectSetting.ITEM))
 			return true;
-		return inventory[out] == null ||  (areStacksEqual(inventory[out], recipe.output) 
-						&& inventory[out].stackSize + recipe.output.stackSize < inventory[out].getMaxStackSize());
+		return inventory[out] == null ||  (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize <= inventory[out].getMaxStackSize());
 	}
 	
 	public void melt(int slot) {
@@ -357,22 +354,20 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
+		cooling = nbt.getInteger("CoolingSpeed");
 		temp = nbt.getInteger("Temperature");
 		canFuel = nbt.getBoolean("CanFuel");
 		fuelHandler = new FuelHandler();
 		fuelHandler.read(nbt);
-		biome = EnumBiomeType.values()[nbt.getInteger("BiomeType")];
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
+		nbt.setInteger("CoolingSpeed", cooling);
 		nbt.setInteger("Temperature", temp);
 		nbt.setBoolean("CanFuel", canFuel);
-		if(fuelHandler != null)
-			fuelHandler.write(nbt);
-		if(biome != null)
-			nbt.setInteger("BiomeType", biome.ordinal());
+		if(fuelHandler != null) fuelHandler.write(nbt);
 	}
 	
 //Master stuff
@@ -403,6 +398,6 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 	@Override
 	public boolean isPart(int x, int y, int z) {
 		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
-					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.LIQUIFIER && !isPartnered(x, y, z);
+					&& worldObj.getBlockMetadata(x, y, z) == MachineMeta.LIQUIFIER && !isPartnered(x, y, z);
 	}
 }

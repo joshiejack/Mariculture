@@ -1,6 +1,6 @@
 package mariculture.core.blocks;
 
-import mariculture.core.lib.UtilMeta;
+import mariculture.core.lib.MachineMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -13,34 +13,34 @@ public class BlockUtilItem extends ItemBlockMariculture {
 	public String getName(ItemStack stack) {
 		String name = "";
 		switch (stack.getItemDamage()) {
-		case UtilMeta.INCUBATOR_BASE: 
+		case MachineMeta.INCUBATOR_BASE: 
 			name = "incubatorBase";
 			break;
-		case UtilMeta.INCUBATOR_TOP: 
+		case MachineMeta.INCUBATOR_TOP: 
 			name = "incubatorTop";
 			break;
-		case UtilMeta.AUTOFISHER:
+		case MachineMeta.AUTOFISHER:
 			name = "autoFishing";
 			break;
-		case UtilMeta.LIQUIFIER:
+		case MachineMeta.LIQUIFIER:
 			name = "liquifier";
 			break;
-		case UtilMeta.BOOKSHELF:
+		case MachineMeta.BOOKSHELF:
 			name = "bookshelf";
 			break;
-		case UtilMeta.SAWMILL:
+		case MachineMeta.SAWMILL:
 			name = "sawmill";
 			break;
-		case UtilMeta.SLUICE:
+		case MachineMeta.SLUICE:
 			name = "sluice";
 			break;
-		case UtilMeta.SPONGE: 
+		case MachineMeta.SPONGE: 
 			name = "sponge";
 			break;
-		case UtilMeta.DICTIONARY: 
+		case MachineMeta.DICTIONARY: 
 			name = "dictionary";
 			break;
-		case UtilMeta.FISH_SORTER:
+		case MachineMeta.FISH_SORTER:
 			name = "fishSorter";
 			break;
 		default:

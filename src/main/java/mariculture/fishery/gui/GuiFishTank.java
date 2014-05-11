@@ -3,7 +3,7 @@ package mariculture.fishery.gui;
 import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.Feature;
-import mariculture.core.helpers.KeyBindingHelper;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.network.Packet116GUIClick;
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.client.Minecraft;
@@ -29,16 +29,16 @@ public class GuiFishTank extends GuiMariculture {
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
 					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous).build());
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().entityId).build());
-			KeyBindingHelper.getPlayer().openGui(Mariculture.instance, -1, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().entityId).build());
+			ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
 		}
 		
 		if(mouseX >= 172 && mouseX <= 192 && mouseY >= 104 && mouseY <= 124) {
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
 					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next).build());
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
-					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, KeyBindingHelper.getPlayer().entityId).build());
-			KeyBindingHelper.getPlayer().openGui(Mariculture.instance, -1, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+					new Packet116GUIClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().entityId).build());
+			ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
 		}
     }
 	

@@ -3,10 +3,10 @@ package mariculture.fishery.fish.dna;
 import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishDNA;
+import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 
-public class FishDNASpecies extends FishDNA {
+public class FishDNASpecies extends FishDNABase {
 	@Override
 	public String getEggString() {
 		return "SpeciesList";
@@ -24,7 +24,7 @@ public class FishDNASpecies extends FishDNA {
 
 	@Override
 	public Integer getDNAFromSpecies(FishSpecies species) {
-		return species.fishID;
+		return species.getID();
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package mariculture.api.core;
 
-import mariculture.api.fishery.fish.EnumSalinityType;
 
+@Deprecated
 public enum EnumBiomeType {
 	OCEAN(0, -7, 10, 6, EnumSalinityType.SALT), // Ocean Biomes - Saltwater
 	NORMAL(0, -1, 1, 5, EnumSalinityType.FRESH), // Plains, Swamps, Forests, River - Fresh Water
@@ -12,8 +12,9 @@ public enum EnumBiomeType {
 	COLD(-3, -10, -1, 8, EnumSalinityType.FRESH), // Mountains, Taiga - Fresh Water
 	FROZEN_OCEAN(-10, -65, -1, 10, EnumSalinityType.SALT), // Frozen Ocean - Saltwater
 	MUSHROOM(0, -1, 2, 4, EnumSalinityType.MAGIC), // Mushroom Biome - Fresh Water
-	ENDER(-28, -50, -28, 7, EnumSalinityType.MAGIC); // The End - Magic Water
-
+	ENDER(-28, -50, -28, 7, EnumSalinityType.MAGIC), // The End - Magic Water
+	DEEP(-1, -5, 0, 6, EnumSalinityType.SALT); //Deep Ocean Biomes, BOP Only
+	
 	private int baseTemp;
 	private int minTemp;
 	private int maxTemp;

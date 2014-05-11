@@ -32,7 +32,7 @@ public class PluginThermalExpansion extends Plugin {
 
 	@Override
 	public void init() {
-		if(Modules.world.isActive()) {
+		if(Modules.isActive(Modules.worldplus)) {
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 
 					new ItemStack(WorldPlus.coral, 1, CoralMeta.CORAL_BLUE), new ItemStack(Item.dyePowder, 2, Dye.LIGHT_BLUE));
 			ThermalExpansionHelper.addPulverizerRecipe(4000, 

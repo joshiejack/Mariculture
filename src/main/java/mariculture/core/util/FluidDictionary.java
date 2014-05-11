@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class FluidDictionary {
 	public static FluidDictionary instance = new FluidDictionary();
@@ -13,6 +14,10 @@ public class FluidDictionary {
 
 	public void addFluid(String name, Fluid fluid) {
 		metals.put(name, fluid);
+	}
+	
+	public static FluidStack getFluidStack(String name, int amount) {
+		return FluidRegistry.getFluidStack(name, amount);
 	}
 	
 	public static Fluid getFluid(String name) {

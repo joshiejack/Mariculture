@@ -6,7 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.RenderMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.factory.render.ModelFLUDD;
 import mariculture.factory.render.RenderFLUDDSquirt;
@@ -77,11 +77,11 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 			return false;
 		} else {
 			if (stack.hasTagCompound() && !world.isRemote) {
-				int blockID = Core.singleBlocks.blockID;
+				int blockID = Core.rendered.blockID;
 
 				if (world.canPlaceEntityOnSide(blockID, x, y, z, false, par7, (Entity) null, stack)) {
 					Block block = Block.blocksList[blockID];
-					int j1 = block.onBlockPlaced(world, x, y, z, par7, par8, par9, par10, SingleMeta.FLUDD_STAND);
+					int j1 = block.onBlockPlaced(world, x, y, z, par7, par8, par9, par10, RenderMeta.FLUDD_STAND);
 
 					world.setBlock(x, y, z, blockID, j1, 3);
 

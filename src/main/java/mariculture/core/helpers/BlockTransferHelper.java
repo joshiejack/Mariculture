@@ -143,7 +143,6 @@ public class BlockTransferHelper {
 		
 		if(!InventoryHelper.addItemStackToInventory(((IMachine)inventory).getInventory(), stack, slots))
 			return SpawnItemHelper.spawnItem(this, stack);
-		
 		return null;
 	}
 

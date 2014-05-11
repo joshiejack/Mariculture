@@ -15,13 +15,15 @@ public class InventoryStorage implements IInventory {
 
 	public InventoryStorage(EntityPlayer player, int size) {
 		this.player = player;
-		if(this.inventory == null) this.inventory = load(player, size);
+		if (this.inventory == null) {
+			this.inventory = load(player, size);
+		}
 	}
-	
+
 	public ItemStack getHeldItem() {
-		return player != null? player.getCurrentEquippedItem(): null;
+		return player != null ? player.getCurrentEquippedItem() : null;
 	}
-	
+
 	public String getName() {
 		return "Default Storage Item";
 	}
@@ -78,7 +80,7 @@ public class InventoryStorage implements IInventory {
 	}
 
 	@Override
-	public void onInventoryChanged() {		
+	public void onInventoryChanged() {
 		seed = Rand.rand.nextLong();
 		save(player, inventory);
 	}
@@ -90,12 +92,12 @@ public class InventoryStorage implements IInventory {
 
 	@Override
 	public void openChest() {
-		//onInventoryChanged();
+		// onInventoryChanged();
 	}
 
 	@Override
 	public void closeChest() {
-		//onInventoryChanged();
+		// onInventoryChanged();
 	}
 
 	@Override
@@ -112,7 +114,7 @@ public class InventoryStorage implements IInventory {
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
 	}
-	
+
 	public void getGUINetworkData(int i, int j) {
 		return;
 	}
@@ -120,25 +122,21 @@ public class InventoryStorage implements IInventory {
 	public void sendGUINetworkData(ContainerStorage container, ICrafting iCrafting) {
 		return;
 	}
-	
-	public ItemStack[] load(EntityPlayer player, int size)  {
-		if(!player.worldObj.isRemote) {
-			ItemStack stack = player.getCurrentEquippedItem();
-			if(stack != null && stack.getItem() instanceof ItemStorage) {
-				ItemStorage storage = (ItemStorage) stack.getItem();
-				return storage.load(player, stack, size);
-			}
+
+	public ItemStack[] load(EntityPlayer player, int size) {
+		ItemStack stack = player.getCurrentEquippedItem();
+		if (stack != null && stack.getItem() instanceof ItemStorage) {
+			ItemStorage storage = (ItemStorage) stack.getItem();
+			return storage.load(player, stack, size);
 		}
-		
+
 		return new ItemStack[size];
 	}
-	
+
 	public void save(EntityPlayer player, ItemStack[] mirrorContents) {
-		if (!player.worldObj.isRemote) {
-			if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-				ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-				storage.save(player, mirrorContents);
-			}
+		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
+			storage.save(player, mirrorContents);
 		}
 	}
 }

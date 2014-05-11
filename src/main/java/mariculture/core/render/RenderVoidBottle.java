@@ -20,7 +20,7 @@ public class RenderVoidBottle extends RenderBase {
 		float green = (color >> 8 & 255) / 255.0F;
 		float blue = (color & 255) / 255.0F;
 		
-		Icon iconStill = Core.tankBlocks.getIcon(0, TankMeta.BOTTLE);
+		Icon iconStill = Core.tanks.getIcon(0, TankMeta.BOTTLE);
 
 		double u1, u2, u3, u4, v1, v2, v3, v4;
 		u2 = iconStill.getInterpolatedU(0.0D);

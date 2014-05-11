@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-/** Mob Magnet, On Right Click, Teleports all mobs within 64 x 64 blocks around the player of the type to an area near you
+/** Mob Magnet, On Right Click, Teleports all mobs within 32 x 32 blocks around the player of the type to an area near you
  * You must first kill a mob of the type you want first, in order to teleport them all to you **/
 public class ItemMobMagnet extends ItemDamageable {
 	public ItemMobMagnet(int i, int dmg) {
@@ -45,13 +45,18 @@ public class ItemMobMagnet extends ItemDamageable {
 			int x = (int) player.posX;
 			int y = (int) (player.posY + 1);
 			int z = (int) player.posZ;
-			world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
+			boolean teleported = false;
 			for(Object i: enemies) {
 				if (i instanceof EntityLivingBase) {
 					((EntityLivingBase)i).setPositionAndUpdate(x, y, z);
+					teleported = true;
 					if(stack.attemptDamageItem(1, Rand.rand))
 						stack.stackSize--;
 				}
+			}
+			
+			if(teleported) {
+				world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
 			}
 		} catch (Exception e) {
 			LogHandler.log(Level.WARNING, "Mob Magnet Failed to find class for the target entities!");

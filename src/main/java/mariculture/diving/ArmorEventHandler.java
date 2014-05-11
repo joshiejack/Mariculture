@@ -43,7 +43,7 @@ public class ArmorEventHandler {
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.scubaSuit)) {
 					event.newSpeed = event.originalSpeed * 4;
 					
-					if (event.block.blockID == Core.oysterBlock.blockID) {
+					if (event.block.blockID == Core.oyster.blockID) {
 						event.newSpeed = event.originalSpeed * 128;
 					}
 				}
@@ -55,7 +55,7 @@ public class ArmorEventHandler {
 				// Diving Pants
 				if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.divingPants)) {
 					event.newSpeed = event.originalSpeed * 2;
-					if (event.block.blockID == Core.oysterBlock.blockID) {
+					if (event.block.blockID == Core.oyster.blockID) {
 						event.newSpeed = event.originalSpeed * 64;
 					}
 				}

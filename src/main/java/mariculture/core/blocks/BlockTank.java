@@ -13,6 +13,7 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.network.Packet118FluidUpdate;
 import mariculture.core.network.Packets;
+import mariculture.factory.blocks.TileHDFPV;
 import mariculture.fishery.blocks.TileFishTank;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -68,8 +69,7 @@ public class BlockTank extends BlockConnected {
 		}
 		
 		if(tile instanceof TileFishTank) {
-			if(player.isSneaking())
-				return false;
+			if(player.isSneaking()) return false;
 			player.openGui(Mariculture.instance, -1, world, x, y, z);
 			return true;
 		}
@@ -85,12 +85,10 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		switch(meta) {
-		case TankMeta.BOTTLE:
-			return new TileVoidBottle();
-		case TankMeta.TANK:
-			return new TileTankBlock();
-		case TankMeta.FISH:
-			return new TileFishTank();
+			case TankMeta.BOTTLE: 	return new TileVoidBottle();
+			case TankMeta.TANK: 	return new TileTankBlock();
+			case TankMeta.FISH: 	return new TileFishTank();
+			case TankMeta.HDFPV: 	return new TileHDFPV();
 		}
 		
 		return new TileTankBlock();
@@ -131,12 +129,9 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public int idDropped(int meta, Random random, int j) {
 		switch(meta) {
-			case TankMeta.TANK:
-				return 0;
-			case TankMeta.BOTTLE:
-				return Core.liquidContainers.itemID;
-			default:
-				return this.blockID;
+			case TankMeta.TANK: 	return 0;
+			case TankMeta.BOTTLE: 	return Core.bottles.itemID;
+			default: 				return this.blockID;
 		}
 	}
 	
@@ -177,7 +172,7 @@ public class BlockTank extends BlockConnected {
 		if (!world.isRemote) {
 			if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
 				if (!player.capabilities.isCreativeMode) {
-					ItemStack drop = new ItemStack(Core.tankBlocks, 1, TankMeta.TANK);
+					ItemStack drop = new ItemStack(Core.tanks, 1, TankMeta.TANK);
 					
 					TileTankBlock tank = (TileTankBlock) world.getBlockTileEntity(x, y, z);
 					if(tank != null && tank.getFluid() != null) {
@@ -217,9 +212,11 @@ public class BlockTank extends BlockConnected {
 
 	@Override
 	public boolean isActive(int meta) {
-		if(meta == TankMeta.FISH)
-			return Modules.fishery.isActive();
-		return meta != TankMeta.BOTTLE;
+		switch(meta) {
+			case TankMeta.FISH:		return Modules.isActive(Modules.fishery);
+			case TankMeta.HDFPV:	return false;
+			default:				return meta != TankMeta.BOTTLE;
+		}
 	}
 	
 	@Override

@@ -1,21 +1,23 @@
 package mariculture.plugins;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.logging.Level;
 
-import mariculture.Mariculture.Stage;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.Modules.Module;
+import mariculture.plugins.Plugins.Plugin.Stage;
 import cpw.mods.fml.common.Loader;
 
-public class Plugins {
+public class Plugins extends Module {
 	// Only used for loading
 	public static ArrayList<Plugin> plugins = new ArrayList<Plugin>();
 
 	public abstract static class Plugin {
+		public static enum Stage {
+			PRE, INIT, POST;
+		}
+		
 		public String name;
-
 		public Plugin(String name) {
 			this.name = name;
 			plugins.add(this);
@@ -55,6 +57,19 @@ public class Plugins {
 		}
 	}
 	
+	public Plugins() {
+		add("Railcraft");
+		add("TConstruct");
+		add("Forestry");
+		add("Thaumcraft");
+		add("BiomesOPlenty");
+		add("HungerOverhaul");
+		add("ThermalExpansion");
+        add("Enchiridion");
+        add("AWWayofTime");
+        add("Waila");
+	}
+	
 	public void add(String str) {
 		if(Loader.isModLoaded(str)) {
 			try {
@@ -66,22 +81,34 @@ public class Plugins {
 		}
 	}
 
-	public void init() {
-		add("Railcraft");
-		add("TConstruct");
-		add("ExtrabiomesXL");
-		add("Forestry");
-		add("Thaumcraft");
-		add("BiomesOPlenty");
-		add("HungerOverhaul");
-		add("ThermalExpansion");
-        add("Enchiridion");
-        add("AWWayofTime");
+	@Override
+	public void setLoaded(String str) {
+		LogHandler.log(Level.INFO, str + " Plugin Finished Loading");
+	}
+	
+	@Override
+	public void preInit() {
+		for (Plugin plug : plugins) {
+			plug.load(Stage.PRE);
+		}
 	}
 
-	public void load(Stage stage) {
+	@Override
+	public void init() {
 		for (Plugin plug : plugins) {
-			plug.load(stage);
+			plug.load(Stage.INIT);
+		}
+	}
+	
+	@Override
+	public void postInit() {
+		for (Plugin plug : plugins) {
+			plug.load(Stage.POST);
+		
+		//Display that the plugin finished loading
+			String name = plug.name;
+			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			setLoaded(name);
 		}
 	}
 }

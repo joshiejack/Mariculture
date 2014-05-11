@@ -3,7 +3,7 @@ package mariculture.magic.enchantments;
 import java.util.Random;
 
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.KeyBindingHelper;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,18 +56,18 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 
 	public static void toggle() {
 		if (toggleOn == 0) {
-			KeyBindingHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledGlide"));
+			ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledGlide"));
 			toggleOn = 1;
 		} else if (EnchantmentGlide.toggleOn == 1) {
 			if (EnchantmentGlide.hasGlide > 0) {
-				KeyBindingHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledFastFall"));
+				ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledFastFall"));
 				toggleOn = 2;
 			} else {
-				KeyBindingHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
+				ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
 				toggleOn = 0;
 			}
 		} else if (EnchantmentGlide.toggleOn == 2) {
-			KeyBindingHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
+			ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
 			toggleOn = 0;
 		}
 		

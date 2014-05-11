@@ -49,6 +49,8 @@ public class ItemIds {
 	public static int bucket;
 	public static int magnet;
 	public static int chalk;
+	public static int wallArt;
+	public static int scanner;
 	
 	//Tinkers Construct
 	public static int titanium_part_1;

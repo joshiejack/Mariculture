@@ -59,7 +59,7 @@ public class NEIAnvilRecipeHandler extends NEIBase {
 				arecipes.add(new CachedAnvilRecipe(recipe.getValue().input, recipe.getValue().output, recipe.getValue().hits));
 			}
 			
-			if(Modules.magic.isActive()) {
+			if(Modules.isActive(Modules.magic)) {
 				for(Entry<ItemStack, RecipeJewelry> recipe: jewelry.entrySet())  {
 					arecipes.add(new CachedAnvilRecipe(recipe.getValue().input, recipe.getKey(), recipe.getValue().hits));
 				}
@@ -78,7 +78,7 @@ public class NEIAnvilRecipeHandler extends NEIBase {
 			}
 		}
 		
-		if(Modules.magic.isActive()) {
+		if(Modules.isActive(Modules.magic)) {
 			for(Entry<ItemStack, RecipeJewelry> recipe: jewelry.entrySet())  {
 				if(result.hasTagCompound() && recipe.getKey().hasTagCompound()) {
 					ItemStack other = recipe.getKey();
@@ -100,7 +100,7 @@ public class NEIAnvilRecipeHandler extends NEIBase {
 			}
 		}
 		
-		if(Modules.magic.isActive()) {
+		if(Modules.isActive(Modules.magic)) {
 			for(Entry<ItemStack, RecipeJewelry> recipe: jewelry.entrySet())  {
 				if(NEIServerUtils.areStacksSameTypeCrafting(ingredient, recipe.getValue().input)) {
 					arecipes.add(new CachedAnvilRecipe(recipe.getValue().input, recipe.getKey(), recipe.getValue().hits));

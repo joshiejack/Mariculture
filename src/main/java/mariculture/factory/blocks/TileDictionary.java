@@ -122,8 +122,8 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 								ItemStack aStack = ItemStack.loadItemStackFromNBT(nbt);
 								if(OreDicHandler.areEqual(aStack, stack)) {
 									ItemStack stack2 = aStack.copy();
-									if(stack2.hasTagCompound() && stack2.stackTagCompound.hasKey("display")) {
-										stack2.stackTagCompound.removeTag("display");
+									if(stack2.hasTagCompound() && stack2.stackTagCompound.hasKey("OreDictionaryDisplay")) {
+										stack2.stackTagCompound.removeTag("OreDictionaryDisplay");
 										if(stack2.stackTagCompound.hasNoTags()) stack2.setTagCompound(null);
 									}
 									
@@ -135,8 +135,8 @@ public class TileDictionary extends TileStorage implements IItemDropBlacklist, I
 				} else {
 					if(OreDicHandler.areEqual(filtered, stack)) {
 						ItemStack stack2 = filtered.copy();
-						if(stack2.hasTagCompound() && stack2.stackTagCompound.hasKey("display")) {
-							stack2.stackTagCompound.removeTag("display");
+						if(stack2.hasTagCompound() && stack2.stackTagCompound.hasKey("OreDictionaryDisplay")) {
+							stack2.stackTagCompound.removeTag("OreDictionaryDisplay");
 							if(stack2.stackTagCompound.hasNoTags()) stack2.setTagCompound(null);
 						}
 						

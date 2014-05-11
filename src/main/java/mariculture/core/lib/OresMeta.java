@@ -13,7 +13,7 @@ public class OresMeta {
 	public static final int ALUMINUM_BLOCK = 8;
 	public static final int TITANIUM_BLOCK = 9;
 	public static final int MAGNESIUM_BLOCK = 10;
-	public static final int UNUSED = 11;
+	public static final int RUTILE_BLOCK = 11;
 	public static final int COPPER_BLOCK = 12;
 	public static final int BASE_BRICK = 13;
 	public static final int BASE_IRON = 14;

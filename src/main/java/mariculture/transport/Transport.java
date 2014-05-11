@@ -7,30 +7,22 @@ import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.ItemIds;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
-public class Transport extends Module {
-	public static boolean isActive;
-	
+public class Transport extends RegistrationModule {
+	public static Item speedBoat;
 	@Override
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
+	public void registerHandlers() {
+		return;
 	}
 
-	public static Item speedBoat;
-	
 	@Override
-	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 250, 5, false);
+	public void registerBlocks() {
+		return;
 	}
 
 	@Override
@@ -38,11 +30,16 @@ public class Transport extends Module {
 		speedBoat = new ItemSpeedBoat(ItemIds.speedBoat).setUnlocalizedName("speedBoat");
 		RegistryHelper.register(new Object[] { speedBoat });
 	}
+	
+	@Override
+	public void registerOther() {
+		EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 250, 5, false);
+	}
 
 	@Override
-	public void addRecipes() {
+	public void registerRecipes() {
 		RecipeHelper.addShapedRecipe(new ItemStack(speedBoat), new Object[] {
-			"G F", "AAA", 'G', Block.thinGlass, 'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
+			"G F", "AAA", 'G', Block.thinGlass, 'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
 		});
 	}
 }

@@ -3,8 +3,8 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.Mariculture;
-import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RodQuality;
 import mariculture.core.Core;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.BlockHelper;
@@ -36,7 +36,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -77,12 +76,10 @@ public class BlockOyster extends BlockMachine {
 			return true;
 		} else {
 			if (world.getBlockMaterial(x, y + 1, z) != Material.water) {
-				world.destroyBlock(x, y, z, true);
 				return false;
 			}
 	
 			if (!world.isBlockSolidOnSide(x, y - 1, z, ForgeDirection.UP)) {
-				world.destroyBlock(x, y, z, true);
 				return false;
 			}
 		}
@@ -93,11 +90,13 @@ public class BlockOyster extends BlockMachine {
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, int par5) {
 		if(world.getBlockMetadata(x, y, z) != NET) {
-			if (!this.canBlockStay(world, x, y, z)) {
-				if (rand.nextInt(10) == 0) {
-					this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-				}
-	
+			if (!canBlockStay(world, x, y, z)) {
+				dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+				world.setBlock(x, y, z, 0);
+			}
+		} else if(Modules.isActive(Modules.fishery)) {
+			if(!BlockHelper.isFishable(world, x, y - 1, z)) {
+				SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
 				world.setBlock(x, y, z, 0);
 			}
 		}
@@ -120,8 +119,7 @@ public class BlockOyster extends BlockMachine {
 	
 	@Override
 	public int idDropped(int i, Random random, int j) {
-		if(i != NET)
-			return this.blockID;
+		if(i != NET) return blockID;
 		return Fishery.net.itemID;
 	}
 	
@@ -187,9 +185,7 @@ public class BlockOyster extends BlockMachine {
 			
 			//Spawn in the Jewelry Book on first collection of a pearl
             if(Extra.SPAWN_BOOKS) {
-                if(Loader.isModLoaded("Enchiridion")) {
-                    EventHandler.spawnBook(player, GuideMeta.ENCHANTS);
-                }
+            	EventHandler.spawnBook(player, GuideMeta.ENCHANTS);
             }
 
 			if (!player.isSneaking()) {
@@ -242,7 +238,7 @@ public class BlockOyster extends BlockMachine {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
 						if(world.provider.dimensionId == 1) {
 							oyster.setInventorySlotContents(0, new ItemStack(Item.enderPearl));
-						} else if (world.getBlockId(x, y - 1, z) == Core.pearlBlock.blockID) {
+						} else if (world.getBlockId(x, y - 1, z) == Core.pearl.blockID) {
 							oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
 						} else {
 							oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));
@@ -276,7 +272,7 @@ public class BlockOyster extends BlockMachine {
 	
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) == NET && Modules.fishery.isActive()) {
+		if(world.getBlockMetadata(x, y, z) == NET && Modules.isActive(Modules.fishery)) {
 			return new ItemStack(Fishery.net, 1, 0);
 		}
 		

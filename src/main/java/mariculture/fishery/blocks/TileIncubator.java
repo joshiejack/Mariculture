@@ -12,28 +12,38 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiMachinePowered;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
-import mariculture.core.helpers.AverageHelper;
 import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
+import mariculture.fishery.Fish;
 import mariculture.fishery.FishHelper;
-import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 
 
 public class TileIncubator extends TileMultiMachinePowered implements IHasNotification {
-
+	private int cooldown = 0;
+	private double mutation = 1.0D;
 	public TileIncubator() {
 		max = MachineSpeeds.getIncubatorSpeed();
 		inventory = new ItemStack[22];
 		needsInit = true;
+	}
+	
+	//Sets the mutation modifier for this incubator
+	public void setMutationModifier(double d) {
+		TileIncubator tile = (TileIncubator) getMaster();
+		if(tile != null) {
+			tile.cooldown = 25;
+			tile.mutation = d;
+		}
 	}
 	
 	@Override
@@ -46,8 +56,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12,
-							13, 14, 15, 16, 17, 18, 19, 20, 21};
+		return new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
 	}
 
 	@Override
@@ -79,6 +88,12 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	@Override
 	public void updateMasterMachine() {
 		if(!worldObj.isRemote) {
+			if(cooldown > 0) {
+				cooldown--;
+			} else {
+				mutation = 1.0D;
+			}
+			
 			if(canWork) {
 				energyStorage.extractEnergy(getRFUsage(), false);
 				processed+=speed;
@@ -88,7 +103,8 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 				if(processed >= max) {
 					processed = 0;
 					if(canWork()) {
-						for(int o = 0; o < heat + 1; o++) {
+						int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this)? 1024: heat + 1;
+						for(int o = 0; o < loop; o++) {
 							hatchEgg();
 						}
 					}
@@ -146,52 +162,45 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	}
 	
 	private boolean openEgg(int slot) {
+		if(inventory[slot] == null) return false;
 		Random rand = new Random();
 		if (inventory[slot].getItem() instanceof ItemFishy) {
-			int[] fertility = inventory[slot].stackTagCompound.getIntArray(Fishery.fertility.getEggString());
-			int[] lifes = inventory[slot].stackTagCompound.getIntArray(Fishery.lifespan.getEggString());
+			int[] fertility = inventory[slot].stackTagCompound.getIntArray(Fish.fertility.getEggString());
+			int[] lifes = inventory[slot].stackTagCompound.getIntArray(Fish.lifespan.getEggString());
 
 			if (inventory[slot].getTagCompound().hasKey("SpeciesList")) {
-				int birthChance = AverageHelper.getMode(fertility);
-				int eggLife = (AverageHelper.getMode(lifes)/20/60) * 10;
-
-				if (inventory[slot].getTagCompound().getInteger("currentFertility") == -1) {
-					energyStorage.extractEnergy(getRFUsage(), false);
-					inventory[slot].getTagCompound().setInteger("currentFertility", eggLife);
-					inventory[slot].getTagCompound().setInteger("malesGenerated", 0);
-					inventory[slot].getTagCompound().setInteger("femalesGenerated", 0);
-				}
-
-				inventory[slot].getTagCompound().setInteger("currentFertility",
-						inventory[slot].getTagCompound().getInteger("currentFertility") - 1);
-
-				int chance = rand.nextInt(birthChance);
-
-				if (chance == 0) {
-					ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand);
-					int dna = Fishery.gender.getDNA(fish);
-					helper.insertStack(fish, out);
-
-					if (dna == FishHelper.MALE) {
-						inventory[slot].getTagCompound().setInteger("malesGenerated",
-								inventory[slot].getTagCompound().getInteger("malesGenerated") + 1);
-					} else if (dna == FishHelper.FEMALE) {
-						inventory[slot].getTagCompound().setInteger("femalesGenerated",
-								inventory[slot].getTagCompound().getInteger("femalesGenerated") + 1);
-					}
+				int birthChance = 1 + MaricultureHandlers.upgrades.getData("purity", this);
+				inventory[slot].getTagCompound().setInteger("currentFertility", inventory[slot].getTagCompound().getInteger("currentFertility") - 1);
+				if (rand.nextInt(1000) < birthChance) {
+					ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
+					if(fish != null) {
+						int dna = Fish.gender.getDNA(fish);
+						helper.insertStack(fish, out);
+	
+						if (dna == FishHelper.MALE) {
+							inventory[slot].getTagCompound().setInteger("malesGenerated", inventory[slot].getTagCompound().getInteger("malesGenerated") + 1);
+						} else if (dna == FishHelper.FEMALE) {
+							inventory[slot].getTagCompound().setInteger("femalesGenerated", inventory[slot].getTagCompound().getInteger("femalesGenerated") + 1);
+						}
+					} else helper.insertStack(new ItemStack(Item.fishRaw, 2, 0), out);
 				}
 
 				if (inventory[slot].getTagCompound().getInteger("currentFertility") == 0) {
-					ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand);
-					// If no males were generated create one
-					if (inventory[slot].getTagCompound().getInteger("malesGenerated") <= 0) {
-						helper.insertStack(Fishery.gender.addDNA(fish.copy(), FishHelper.MALE), out);
-					}
-
-					// If no females were generated create one
-					if (inventory[slot].getTagCompound().getInteger("femalesGenerated") <= 0) {
-						helper.insertStack(Fishery.gender.addDNA(fish.copy(), FishHelper.FEMALE), out);
-					}
+					ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
+					if(fish != null) {
+						// If no males were generated create one
+						if (inventory[slot].getTagCompound().getInteger("malesGenerated") <= 0) {
+							helper.insertStack(Fish.gender.addDNA(fish.copy(), FishHelper.MALE), out);
+						}
+	
+						fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
+						if(fish != null) {
+							// If no females were generated create one
+							if (inventory[slot].getTagCompound().getInteger("femalesGenerated") <= 0) {
+								helper.insertStack(Fish.gender.addDNA(fish.copy(), FishHelper.FEMALE), out);
+							}
+						}
+					} else helper.insertStack(new ItemStack(Item.fishRaw), out);
 
 					decrStackSize(slot, 1);
 					return true;
@@ -207,7 +216,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 		} else if(inventory[slot].itemID == Block.dragonEgg.blockID) {
 			int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)? 48000: 64000;
 			if(Rand.nextInt(chance)) {
-				helper.insertStack(new ItemStack(Core.craftingItem, 1, CraftingMeta.DRAGON_EGG), out);
+				helper.insertStack(new ItemStack(Core.crafting, 1, CraftingMeta.DRAGON_EGG), out);
 			}
 			
 			if(Rand.nextInt(10)) {
@@ -234,6 +243,11 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	@Override
 	public EjectSetting getEjectType() {
 		return EjectSetting.ITEM;
+	}
+	
+	@Override
+	public Class getTEClass() {
+		return TileIncubator.class;
 	}
 	
 	@Override
@@ -269,12 +283,22 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	}
 	
 	public boolean isBase(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
-					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_BASE;
+		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID && worldObj.getBlockMetadata(x, y, z) == MachineMeta.INCUBATOR_BASE;
 	}
 	
 	public boolean isTop(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID 
-					&& worldObj.getBlockMetadata(x, y, z) == UtilMeta.INCUBATOR_TOP;
+		return worldObj.getBlockId(x, y, z) == this.getBlockType().blockID && worldObj.getBlockMetadata(x, y, z) == MachineMeta.INCUBATOR_TOP;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		mutation = nbt.getDouble("MutationModifier");
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setDouble("MutationModifier", mutation);
 	}
 }

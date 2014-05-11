@@ -3,6 +3,7 @@ package mariculture.world;
 import java.util.logging.Level;
 
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.terrain.MapGenCavesWater;
 import mariculture.world.terrain.MapGenMineshaftsDisabled;
@@ -12,7 +13,6 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
-import cpw.mods.fml.common.Loader;
 
 public class WorldEvents {
 	@ForgeSubscribe
@@ -40,7 +40,7 @@ public class WorldEvents {
 		if(WorldGeneration.WATER_RAVINES) {
 			if(event.type == EventType.RAVINE) {
 				try {
-					if(Loader.isModLoaded("BiomesOPlenty")) {
+					if(Extra.HAS_BOP) {
 						event.newGen = new MapGenRavineWaterBOP();
 					} else {
 						event.newGen = new MapGenRavineWater();

@@ -3,10 +3,21 @@ package mariculture.core.helpers;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeIngotCasting;
+import mariculture.api.core.RecipeCasting.RecipeBlockCasting;
+import mariculture.api.core.RecipeCasting.RecipeIngotCasting;
+import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
+import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.Loot;
+import mariculture.api.fishery.Loot.Rarity;
+import mariculture.api.fishery.RodQuality;
+import mariculture.core.Core;
+import mariculture.core.lib.Dye;
+import mariculture.core.lib.FoodMeta;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -20,6 +31,12 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeHelper {
+	public static ItemStack addUpgrade(int meta, Object[] input) {
+		ItemStack result = new ItemStack(Core.upgrade, 1, meta);
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(result, input));
+		return result;
+	}
+	
 	public static void addShapedRecipe(ItemStack result, Object[] input) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(result, input));
 	}
@@ -39,17 +56,26 @@ public class RecipeHelper {
 	public static void addVatItemRecipeResultFluid(ItemStack input, FluidStack inputFluid, FluidStack output, int time) {
 		MaricultureHandlers.vat.addRecipe(new RecipeVat(input, inputFluid, output, time));
 	}
+	
+	public static void addNuggetCasting(FluidStack fluid, ItemStack stack) {
+		MaricultureHandlers.casting.addRecipe(new RecipeNuggetCasting(fluid, stack));
+	}
 
-	public static void addIngotCasting(String fluid, ItemStack stack) {
-		MaricultureHandlers.casting.addRecipe(new RecipeIngotCasting(
-				FluidRegistry.getFluidStack(fluid, MetalRates.INGOT), stack));
+	public static void addIngotCasting(FluidStack fluid, ItemStack stack) {
+		MaricultureHandlers.casting.addRecipe(new RecipeIngotCasting(fluid, stack));
 	}
 	
-	public static void addIngotCasting(String fluid, String metal) {
+	public static void addBlockCasting(FluidStack fluid, ItemStack stack) {
+		MaricultureHandlers.casting.addRecipe(new RecipeBlockCasting(fluid, stack));
+	}
+	
+	public static void addMetalCasting(String fluid, String metal) {
+		String nugget = "nugget" + metal;
 		String ingot = "ingot" + metal;
-		if(OreDictionary.getOres(ingot).size() > 0) {
-			RecipeHelper.addIngotCasting(fluid, OreDictionary.getOres("ingot" + metal).get(0));
-		}
+		String block = "block" + metal;
+		if(OreDictionary.getOres(nugget).size() > 0) RecipeHelper.addNuggetCasting(FluidDictionary.getFluidStack(fluid, MetalRates.NUGGET), OreDictionary.getOres(nugget).get(0));
+		if(OreDictionary.getOres(ingot).size() > 0) RecipeHelper.addIngotCasting(FluidDictionary.getFluidStack(fluid, MetalRates.INGOT), OreDictionary.getOres(ingot).get(0));
+		if(OreDictionary.getOres(block).size() > 0) RecipeHelper.addBlockCasting(FluidDictionary.getFluidStack(fluid, MetalRates.BLOCK), OreDictionary.getOres(block).get(0));
 	}
 
 	public static void addFluidAlloy(FluidStack fluid1, FluidStack fluid2, FluidStack result, int time) {
@@ -72,11 +98,11 @@ public class RecipeHelper {
 		addShapedRecipe(result, new Object[] { "##", "##", '#', new ItemStack(block, 1, meta) });
 	}
 	
-	public static void add4x4Recipe(ItemStack result, Object input) {
+	public static void add2x2Recipe(ItemStack result, Object input) {
 		addShapedRecipe(result, new Object[] { "##", "##", '#', input });
 	}
 
-	public static void add9x9Recipe(ItemStack result, Object input) {
+	public static void add3x3Recipe(ItemStack result, Object input) {
 		addShapedRecipe(result, new Object[] { "###", "###", "###", '#', input });
 	}
 
@@ -159,4 +185,70 @@ public class RecipeHelper {
     public static void addBookRecipe(ItemStack output, ItemStack input) {
         addShapelessRecipe(output, new Object[] { input, Item.book});
     }
+
+    
+//Fish Based helpper recipes
+	public static void addFishMelting(ItemStack stack, double volume, ItemStack product, int chance) {
+		addMelting(stack, 180, FluidRegistry.getFluidStack(FluidDictionary.fish_oil, (int) (volume * 1000)), product, chance);
+	}
+
+	public static void addFishSushi(ItemStack raw, int meal) {
+		ItemStack kelp = (Modules.isActive(Modules.worldplus))? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): new ItemStack(Item.dyePowder, 1, Dye.GREEN);
+		addShapedRecipe(new ItemStack(Core.food, (int)Math.ceil(meal/1.5), FoodMeta.SUSHI), new Object[] {
+			" K ", "KFK", " K ", 'K', kelp, 'F', raw
+		});
+	}
+
+	public static void addFishSoup(ItemStack raw, int meal) {
+		ItemStack kelp = (Modules.isActive(Modules.worldplus))? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): new ItemStack(Item.dyePowder, 1, Dye.GREEN);
+		int number = (int)Math.ceil(meal/2);
+		int meta = (number == 2)? FoodMeta.MISO_SOUP_2: (number >= 3)? FoodMeta.MISO_SOUP_3: FoodMeta.MISO_SOUP_1;
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, meta), new Object[] {
+			Item.bowlEmpty, kelp, raw, Block.mushroomBrown, Block.mushroomRed
+		});
+	}
+
+	public static void addFishMeal(ItemStack raw, int meal) {
+		addShapelessRecipe(new ItemStack(Core.materials, meal, MaterialsMeta.FISH_MEAL), new Object[] { raw });
+	}
+	
+	public static void addEndLoot(Item item, RodQuality quality, Rarity type, int rarity) {
+		addEndLoot(new ItemStack(item), quality, type, rarity);
+	}
+	
+	public static void addEndLoot(ItemStack stack, RodQuality quality, Rarity type, int rarity) {
+		addLoot(stack, quality, type, rarity, 1);
+	}
+	
+	public static void addNetherLoot(Item item, RodQuality quality, Rarity type, int rarity) {
+		addNetherLoot(new ItemStack(item), quality, type, rarity);
+	}
+	
+	public static void addNetherLoot(ItemStack stack, RodQuality quality, Rarity type, int rarity) {
+		addLoot(stack, quality, type, rarity, -1);
+	}
+	
+	public static void addOverworldLoot(Item item, RodQuality quality, Rarity type, int rarity) {
+		addOverworldLoot(new ItemStack(item), quality, type, rarity);
+	}
+	
+	public static void addOverworldLoot(ItemStack stack, RodQuality quality, Rarity type, int rarity) {
+		addLoot(stack, quality, type, rarity, 0);
+	}
+	
+	public static void addLoot(Item item, RodQuality quality, Rarity type, int rarity) {
+		addLoot(new ItemStack(item), quality, type, rarity);
+	}
+	
+	public static void addLoot(ItemStack stack, RodQuality quality, Rarity type, int rarity) {
+		addLoot(stack, quality, type, rarity, OreDictionary.WILDCARD_VALUE);
+	}
+	
+	public static void addLoot(ItemStack stack, RodQuality quality, Rarity type, int rarity, int dimension) {
+		Fishing.loot.addLoot(new Loot(stack, quality, type, rarity, dimension, false));
+	}
+	
+	public static void addExactLoot(ItemStack stack, RodQuality quality, Rarity type, int rarity, int dimension) {
+		Fishing.loot.addLoot(new Loot(stack, quality, type, rarity, dimension, true));
+	}
 }

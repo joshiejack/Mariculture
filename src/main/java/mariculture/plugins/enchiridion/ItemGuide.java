@@ -15,6 +15,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import enchiridion.Enchiridion;
 
 public class ItemGuide extends ItemMariculture {
     public ItemGuide(int i) {
@@ -42,9 +43,9 @@ public class ItemGuide extends ItemMariculture {
 		return true;
 	}
 
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {		
 		if(player.worldObj.isRemote) {
-			player.openGui(Mariculture.instance, 0, player.worldObj, 0, 0, 0);
+			player.openGui(Enchiridion.instance, 0, player.worldObj, 0, 0, 0);
 		}
 	
 		return stack;
@@ -56,15 +57,15 @@ public class ItemGuide extends ItemMariculture {
 		case GuideMeta.PROCESSING:
 			return true;
 		case GuideMeta.FISHING:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case GuideMeta.MACHINES:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case GuideMeta.BREEDING:
 			return false;
 		case GuideMeta.ENCHANTS:
-			return Modules.magic.isActive();
+			return Modules.isActive(Modules.magic);
 		case GuideMeta.DIVING:
-			return Modules.diving.isActive();
+			return Modules.isActive(Modules.diving);
 		default:
 			return false;
 		}

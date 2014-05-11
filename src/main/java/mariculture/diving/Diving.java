@@ -6,10 +6,10 @@ import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.ItemIds;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
+import mariculture.core.lib.MultiMeta;
 import mariculture.core.lib.RenderIds;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
@@ -22,20 +22,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Diving extends Module {
+public class Diving extends RegistrationModule {
 	public static final HashMap facingList = new HashMap();
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
 	public static Item divingHelmet;
 	public static Item divingTop;
 	public static Item divingPants;
@@ -58,9 +46,9 @@ public class Diving extends Module {
 	@Override
 	public void registerBlocks() {
 		GameRegistry.registerTileEntity(TileAirCompressor.class, "tileEntityAirCompressor");		
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.COMPRESSOR_BASE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.COMPRESSOR_TOP, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.doubleBlock, DoubleMeta.PRESSURE_VESSEL, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.multi, MultiMeta.COMPRESSOR_BASE, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.multi, MultiMeta.COMPRESSOR_TOP, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.multi, MultiMeta.PRESSURE_VESSEL, "pickaxe", 1);
 	}
 
 	@Override
@@ -82,21 +70,26 @@ public class Diving extends Module {
 	}
 	
 	@Override
-	public void addRecipes() {
+	public void registerOther() {
+		return;
+	}
+	
+	@Override
+	public void registerRecipes() {
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 2, DoubleMeta.COMPRESSOR_TOP), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.multi, 2, MultiMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III",
-			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			Character.valueOf('F'), new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			Character.valueOf('I'), new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
+			Character.valueOf('F'), new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			Character.valueOf('B'), new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('P'), Block.pistonBase
 		});
 		
 		//Air Compressor Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.COMPRESSOR_BASE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.multi, 1, MultiMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
-			Character.valueOf('I'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
+			Character.valueOf('I'), new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
+			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL),
 			Character.valueOf('T'), "ingotTitanium"
 		});
 		
@@ -104,7 +97,7 @@ public class Diving extends Module {
 		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
 			"  R", "LLR",
 			Character.valueOf('R'), Item.reed,
-			Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
+			Character.valueOf('L'), new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS)
 		});
 		
 		CraftingManager
@@ -131,7 +124,7 @@ public class Diving extends Module {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(Diving.scubaMask, true, new Object[] { "PD", "LL", 
 						Character.valueOf('P'), "dyeBlack", 
-						Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
+						Character.valueOf('L'), new ItemStack(Core.crafting, 1, CraftingMeta.LENS), 
 						Character.valueOf('D'), "dyeYellow" }));
 		
 		ItemStack tank = new ItemStack(Diving.scubaTank);
@@ -141,15 +134,15 @@ public class Diving extends Module {
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(tank, true, new Object[] { "DSD", "S S", "DSD",
-					Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET), 
+					Character.valueOf('S'), new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET), 
 					Character.valueOf('D'), "dyeYellow" }));
 
 		GameRegistry.addRecipe(new ItemStack(Diving.scubaSuit), new Object[] { "NNN", " N ", "NNN", 
-				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE) });
+				Character.valueOf('N'), new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE) });
 		
 		GameRegistry.addRecipe(new ItemStack(Diving.swimfin), new Object[] { "N N", "PDP", "PDP", 
-				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
-				Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
+				Character.valueOf('N'), new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE), 
+				Character.valueOf('P'), new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC), 
 				Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, Dye.INK) });
 	}
 }

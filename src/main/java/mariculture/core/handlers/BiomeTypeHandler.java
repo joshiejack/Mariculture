@@ -1,61 +1,40 @@
 package mariculture.core.handlers;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.logging.Level;
 
 import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.EnumSalinityType;
+import mariculture.api.core.Environment;
 import mariculture.api.fishery.IBiomeType;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class BiomeTypeHandler implements IBiomeType {
-	private final Map biomeList = new HashMap();
-
+	private final HashMap<BiomeGenBase, Environment> biomes = new HashMap();
 	@Override
 	public void addBiome(BiomeGenBase biome, EnumBiomeType type) {
-		biomeList.put(biome, type);
+		LogHandler.log(Level.WARNING, "A mod attempted to register a biome type with mariculture, but failed due to using an older method");
+		LogHandler.log(Level.WARNING, biome.biomeName + " - " + type.name());
 	}
 
 	@Override
 	public EnumBiomeType getBiomeType(BiomeGenBase biome) {
-		if (biomeList.get(biome) != null) {
-			return (EnumBiomeType) biomeList.get(biome);
-		}
-		
-		// Let's guess
-		if (BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
-			return EnumBiomeType.OCEAN;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) {
-			return EnumBiomeType.ARID;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.END)) {
-			return EnumBiomeType.ENDER;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.FROZEN)) {
-			return EnumBiomeType.FROZEN;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.FOREST)) {
-			return EnumBiomeType.NORMAL;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.FROZEN)) {
-			return EnumBiomeType.NORMAL;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.HILLS)) {
-			return EnumBiomeType.COLD;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE)) {
-			return EnumBiomeType.HOT;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.MAGICAL)) {
-			return EnumBiomeType.MUSHROOM;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.MOUNTAIN)) {
-			return EnumBiomeType.COLD;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.NETHER)) {
-			return EnumBiomeType.HELL;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.PLAINS)) {
-			return EnumBiomeType.NORMAL;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.SWAMP)) {
-			return EnumBiomeType.NORMAL;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.WASTELAND)) {
-			return EnumBiomeType.HOT;
-		} else if (BiomeDictionary.isBiomeOfType(biome, Type.WATER)) {
-			return EnumBiomeType.OCEAN;
-		}
-
 		return EnumBiomeType.NORMAL;
+	}
+
+	@Override
+	public EnumBiomeType getBiomeType(World world, int x, int y, int z) {
+		return EnumBiomeType.NORMAL;
+	}
+
+	@Override
+	public EnumSalinityType getSalinity(BiomeGenBase biome) {
+		return  EnumSalinityType.FRESH;
+	}
+
+	@Override
+	public EnumSalinityType getSalinity(World world, int x, int y, int z) {
+		return EnumSalinityType.FRESH;
 	}
 }

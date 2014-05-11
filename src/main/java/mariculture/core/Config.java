@@ -3,6 +3,10 @@ package mariculture.core;
 import java.io.File;
 import java.util.logging.Level;
 
+import mariculture.Mariculture;
+import mariculture.aesthetics.Aesthetics;
+import mariculture.api.core.MaricultureTab;
+import mariculture.compatibility.Compat;
 import mariculture.core.lib.BlockIds;
 import mariculture.core.lib.Compatibility;
 import mariculture.core.lib.EnchantIds;
@@ -15,8 +19,18 @@ import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
+import mariculture.diving.Diving;
+import mariculture.factory.Factory;
+import mariculture.fishery.Fishery;
+import mariculture.magic.Magic;
+import mariculture.plugins.Plugins;
+import mariculture.plugins.Plugins.Plugin;
+import mariculture.sealife.Sealife;
+import mariculture.transport.Transport;
+import mariculture.world.WorldPlus;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 
 public class Config {
     public static void init(String dir) {
@@ -25,15 +39,25 @@ public class Config {
         initMachines(new Configuration(new File(dir, "mechanics.cfg")));
         initModules(new Configuration(new File(dir, "modules.cfg")));
         initWorld(new Configuration(new File(dir, "worldgen.cfg")));
+        
+        setupTabs();
+    }
+    
+    private static void setupTabs() {
+    	MaricultureTab.tabFish = (Modules.isActive(Modules.fishery))? new MaricultureTab("fishTab"): null;
+		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
+		MaricultureTab.tabJewelry = (Modules.isActive(Modules.magic))? new MaricultureTab("jewelryTab"): null;
     }
 
     private static void initOther(Configuration config) {
         try {
             config.load();
 
+            Extra.ENABLE_EDIBLE_BAIT = config.get(Category.EXTRA, "Enable Edible Bait", true).getBoolean(true);
             Extra.ENABLE_EASY_JEWELRY = config.get(Category.EXTRA, "Enable Iron and Diamond Jewelry", false).getBoolean(false);
             Extra.DISABLE_FISH = config.get(Category.EXTRA, "Disable Mariculture Live Fish in NEI", false).getBoolean(false);
             Extra.SPAWN_BOOKS = config.get(Category.EXTRA, "Spawn Books on First Action", true).getBoolean(true);
+            if(!Loader.isModLoaded("Enchiridion")) Extra.SPAWN_BOOKS = false;
             Extra.JEWELRY_TICK_RATE = config.get(Category.EXTRA, "Jewelry Tick Rate", 60, Comment.JEWELRY_TICK_RATE).getInt();
             Extra.HARDCORE_DIVING = config.get(Category.DIFF, "Hardcore Diving Setting", 0, Comment.HARDCORE).getInt();
             Extra.REFRESH_CLIENT_RATE = config.get(Category.EXTRA, "Server-Client Refresh Rate", 30, Comment.REFRESH).getInt();
@@ -45,7 +69,12 @@ public class Config {
             Extra.MOB_MAGNET = config.get(Category.EXTRA, "Mob Magnet Crafting Enabled", true).getBoolean(true);
             Extra.PERCENT_NEEDED = config.get(Category.EXTRA, "Percentage Needed for Timelord Enchant", 5).getInt();
             Extra.JEWELRY_OFFLINE = config.get(Category.EXTRA, "Enable Singleplayer Jewelry Offline Mode", false).getBoolean(false);
-            
+            Extra.BREEDING_MULTIPLIER = config.get(Category.EXTRA, "Breeding Multiplier", 1.0D, Comment.BREEDING).getDouble(1.0D);
+            Extra.IGNORE_BIOMES = config.get(Category.EXTRA, "Enable Catching of all fish in all biomes", false).getBoolean(false);
+            Extra.WEAK_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Weak)", 8).getInt();
+			Extra.WEAK_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Demon)", 64).getInt();
+            Extra.DISABLE_DIRT_CRAFTING = config.get(Category.EXTRA, "Disable Crafting of Dirt from Molten Dirt", false).getBoolean(false);
+            Extra.DISABLE_GRASS = config.get(Category.EXTRA, "Disable Crafting of Grass from Fish Droplets", false).getBoolean(false);            
             Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
@@ -138,14 +167,25 @@ public class Config {
     private static void initModules(Configuration config) {
         try {
             config.load();
-            Modules.core.setActive(true);
-            Modules.diving.setActive(config.get(Category.MODULES, "Diving", true).getBoolean(true));
-            Modules.factory.setActive(config.get(Category.MODULES, "Factory", true).getBoolean(true));
-            Modules.fishery.setActive(config.get(Category.MODULES, "Fishery", true).getBoolean(true));
-            Modules.magic.setActive(config.get(Category.MODULES, "Magic", true).getBoolean(true));
-            Modules.sealife.setActive(false);
-            Modules.transport.setActive(config.get(Category.MODULES, "Transport", true).getBoolean(true));
-            Modules.world.setActive(config.get(Category.MODULES, "World Plus", true).getBoolean(true));
+            Mariculture.modules.setup(Core.class, true);
+            Mariculture.modules.setup(Aesthetics.class, config.get(Category.MODULES, "Aesthetics", true).getBoolean(true));
+            Mariculture.modules.setup(Diving.class, config.get(Category.MODULES, "Diving", true).getBoolean(true));
+            Mariculture.modules.setup(Factory.class, config.get(Category.MODULES, "Factory", true).getBoolean(true));
+            Mariculture.modules.setup(Fishery.class, config.get(Category.MODULES, "Fishery", true).getBoolean(true));
+            Mariculture.modules.setup(Magic.class, config.get(Category.MODULES, "Magic", true).getBoolean(true));
+            Mariculture.modules.setup(Sealife.class, false);
+            Mariculture.modules.setup(Transport.class, config.get(Category.MODULES, "Transport", true).getBoolean(true));
+            Mariculture.modules.setup(WorldPlus.class, config.get(Category.MODULES, "World Plus", true).getBoolean(true));
+            Mariculture.modules.setup(Compat.class, true);
+            Mariculture.modules.setup(Plugins.class, true);
+            Extra.NERF_FOOD = Loader.isModLoaded("HungerOverhaul");
+            Extra.HAS_BOP = Loader.isModLoaded("BiomesOPlenty");
+            for(int i = 0; i < Plugins.plugins.size(); i++) {
+            	Plugin plugin = Plugins.plugins.get(i);
+            	if(config.get(Category.PLUGINS, plugin.name, true).getBoolean(true) == false) {
+            		Plugins.plugins.remove(i);
+            	}
+            }
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, "Problem with Mariculture when copying over the module data");
         } finally {
@@ -162,7 +202,7 @@ public class Config {
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();
             MachineSpeeds.liquifier = config.get(Category.SPEED, "Industrial Smelter", 40000).getInt();
-            MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 350).getInt();
+            MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 256).getInt();
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
             MachineSpeeds.settler = config.get(Category.SPEED, "Industrial Freezer", 60000).getInt();
             MachineSpeeds.oven = config.get(Category.SPEED, "Gas Oven", 450).getInt();
@@ -178,8 +218,7 @@ public class Config {
             Extra.DRAGON_EGG_ETHEREAL = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance - Ethereal", 48000, Comment.DRAGON_EGG_ETHEREAL).getInt();
             Extra.DRAGON_EGG_BASE = config.get(Category.EXTRA, "Incubator > Dragon Egg Chance", 64000, Comment.DRAGON_EGG_BASE).getInt();
             Extra.EFFECT_TICK = config.get(Category.EXTRA, "Fish Feeder > Effect Tick", 20, Comment.EFFECT_TICK).getInt();
-            Extra.FISH_FOOD_TICK = config.get(Category.EXTRA, "Fish Feeder > Fish Food Tick Rate", 25, Comment.FISH_FOOD_TICK).getInt();
-            Extra.TANK_UPDATE = config.get(Category.EXTRA, "Fish Feeder > Tank Update", 5, Comment.TANK_UPDATE).getInt();
+            Extra.FISH_FOOD_TICK = config.get(Category.EXTRA, "Fish Feeder > Ticks Between Fish Eating", 500).getInt();
             Extra.ACTIVATE_PUMP = config.get(Category.EXTRA, "Air Pump > Manual Power Enabled", true, Comment.PUMP_MANUAL).getBoolean(true);
             Extra.REDSTONE_PUMP = config.get(Category.EXTRA, "Air Pump > Redstone Power Enabled", false, Comment.PUMP_REDSTONE).getBoolean(false);
             Extra.BUILDCRAFT_PUMP = config.get(Category.EXTRA, "Air Pump > MJ/RF Power Enabled", true, Comment.PUMP_RF).getBoolean(true);
@@ -324,6 +363,8 @@ public class Config {
             ItemIds.bucket = config.getItem("Titanium Bucket", 29070).getInt();
             ItemIds.chalk = config.getItem("Chalk", 29071).getInt();
             ItemIds.rodBlood = config.getItem("Fishing Rod - Blood", 29072).getInt();
+            ItemIds.wallArt = config.getItem("Wall Art", 29073).getInt();
+            ItemIds.scanner = config.getItem("Fish Scanner", 29074).getInt();
 
             /** END ITEM IDS BEGIN ENCHANT IDS **/
             EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 53).getInt();

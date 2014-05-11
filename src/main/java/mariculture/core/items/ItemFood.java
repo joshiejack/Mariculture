@@ -2,6 +2,7 @@ package mariculture.core.items;
 
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +10,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.Loader;
 
 public class ItemFood extends ItemMariculture {
 	public ItemFood(int i) {
@@ -70,25 +70,30 @@ public class ItemFood extends ItemMariculture {
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		int meta = stack.getItemDamage();
-		
-		if(!player.capabilities.isCreativeMode)
-			--stack.stackSize;
-		ItemStack bowl = getLeftovers(meta);
-		if(bowl != null && stack.stackSize > 0) SpawnItemHelper.addToPlayerInventory(player, bowl);
-		int level = getFoodLevel(stack.getItemDamage());
-		float sat = getFoodSaturation(stack.getItemDamage());
-		//Decrease food if hunger overhaul is installed
-		if(Loader.isModLoaded("HungerOverhaul")) {
-			level = (int) Math.max(1, level/2.5);
-			sat = Math.max(0.0F, sat/10);
+		if(meta == FoodMeta.DEBUG_FOOD) {
+			player.getFoodStats().addExhaustion(100);
+			player.getFoodStats().addStats(-10, 0F);
+			return stack;
+		} else {
+			if(!player.capabilities.isCreativeMode)
+				--stack.stackSize;
+			ItemStack bowl = getLeftovers(meta);
+			if(bowl != null && stack.stackSize > 0) SpawnItemHelper.addToPlayerInventory(player, bowl);
+			int level = getFoodLevel(stack.getItemDamage());
+			float sat = getFoodSaturation(stack.getItemDamage());
+			//Decrease food if hunger overhaul is installed
+			if(Extra.NERF_FOOD) {
+				level = (int) Math.max(1, level/2.5);
+				sat = Math.max(0.0F, sat/10);
+			}
+			
+			player.getFoodStats().addStats(level, sat);
+			world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+			if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP)
+				player.heal(2);
+			
+			return bowl != null? bowl: stack;
 		}
-		
-		player.getFoodStats().addStats(level, sat);
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-		if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP)
-			player.heal(2);
-		
-		return (stack.stackSize > 0)? stack: bowl;
 	}
 
 	@Override
@@ -100,6 +105,7 @@ public class ItemFood extends ItemMariculture {
 			case FoodMeta.MISO_SOUP_2: 		return 64;
 			case FoodMeta.MISO_SOUP_3: 		return 64;
 			case FoodMeta.OYSTER: 			return 128;
+			case FoodMeta.DEBUG_FOOD:		return 4;
 			default: 						return 32;
 		}
 	}
@@ -111,7 +117,7 @@ public class ItemFood extends ItemMariculture {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (player.canEat(false)) {
+		if (player.canEat(false) || stack.getItemDamage() == FoodMeta.DEBUG_FOOD) {
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 		}
 
@@ -139,18 +145,15 @@ public class ItemFood extends ItemMariculture {
 			case FoodMeta.MISO_SOUP_2: 		return "misoSoup2";
 			case FoodMeta.MISO_SOUP_3: 		return "misoSoup3";
 			case FoodMeta.OYSTER: 			return "oyster";
+			case FoodMeta.DEBUG_FOOD:		return "debug";
 			default: 						return "food";
 		}
 	}
 
 	@Override
 	public boolean isActive(int meta) {
-		if(meta == FoodMeta.OYSTER)
-			return true;
-		if (meta < 7) {
-			return Modules.fishery.isActive();
-		}
-
-		return Modules.world.isActive();
+		if(meta == FoodMeta.OYSTER) return true;
+		else if(meta == FoodMeta.KELP_WRAP) return Modules.isActive(Modules.worldplus);
+		else return Modules.isActive(Modules.fishery);
 	}
 }

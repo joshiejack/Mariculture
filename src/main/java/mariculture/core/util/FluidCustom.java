@@ -25,7 +25,7 @@ public class FluidCustom extends Fluid {
 			}
 		}
 		
-		return Core.transparentBlocks.getIcon(0, TransparentMeta.PLASTIC);
+		return Core.transparent.getIcon(0, TransparentMeta.PLASTIC);
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class FluidCustom extends Fluid {
 			}
 		}
 		
-		return Core.transparentBlocks.getIcon(0, TransparentMeta.PLASTIC);
+		return Core.transparent.getIcon(0, TransparentMeta.PLASTIC);
 	}
 	
 	public boolean isMolten() {

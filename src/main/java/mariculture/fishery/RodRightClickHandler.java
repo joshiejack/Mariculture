@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishingRod;
 import mariculture.api.fishery.ItemBaseRod;
+import mariculture.api.fishery.RodQuality;
 import mariculture.core.lib.Text;
 import mariculture.fishery.RodQualityHandler.FishingRod;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
-import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -33,7 +32,7 @@ public class RodRightClickHandler implements IFishingRod {
 		int baitSlot = getBait(player, quality)[1];
 		
 		if (player.fishEntity != null) {
-            ((ItemBaseRod)stack.getItem()).damage(player, stack, player.fishEntity.catchFish());
+            ((ItemBaseRod)stack.getItem()).damage(world, player, stack, player.fishEntity.catchFish());
             player.swingItem();
         } else if(baitSlot != -1) {
         	world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));

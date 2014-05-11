@@ -3,6 +3,7 @@ package mariculture.plugins;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -58,12 +59,12 @@ public class PluginForestry extends Plugin {
 
 	@Override
 	public void init() {
-		if (Modules.world.isActive()) {
+		if (Modules.isActive(Modules.worldplus)) {
 			FuelManager.fermenterFuel.put(new ItemStack(WorldPlus.coral, 1, CoralMeta.KELP), new FermenterFuel(
 					new ItemStack(WorldPlus.coral, 1, CoralMeta.KELP), 150, 1));
 		}
 		
-		if (Modules.fishery.isActive()) {
+		if (Modules.isActive(Modules.fishery)) {
 			addBee("beeDroneGE", 1);
 			addBee("beePrincessGE", 5);
 			addBee("beeQueenGE", 7);
@@ -71,7 +72,7 @@ public class PluginForestry extends Plugin {
 			FMLInterModComms.sendMessage(
 					"Forestry",
 					"add-backpack-items",
-					String.format("%s@%d:%d", new Object[] { "digger", Integer.valueOf(Core.oreBlocks.blockID),
+					String.format("%s@%d:%d", new Object[] { "digger", Integer.valueOf(Core.ores.blockID),
 							Integer.valueOf(OresMeta.LIMESTONE) }));
 
 			if (BackpackManager.backpackInterface != null) {
@@ -107,15 +108,12 @@ public class PluginForestry extends Plugin {
 
 			FuelManager.bronzeEngineFuel.put(FluidRegistry.getFluid(FluidDictionary.fish_oil), new EngineBronzeFuel(
 					FluidRegistry.getFluid(FluidDictionary.fish_oil), 1, 7500, 1));
-				
-			for(int i = 0; i < FishSpecies.speciesList.size(); i++) {
-				if(FishSpecies.speciesList.get(i) != null) {
-					FishSpecies fish = FishSpecies.speciesList.get(i);
-					int id = fish.fishID;
-						
-					RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(Fishery.fishyFood, 1, id) }, 
-							new FluidStack(Fishery.fishOil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
-				}
+			
+			for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+				Integer fishID = species.getKey();
+				FishSpecies fish = species.getValue();
+				RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(Fishery.fishyFood, 1, fishID) }, 
+						new FluidStack(Fishery.fishOil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
 			}
 		}
 	}
@@ -129,13 +127,13 @@ public class PluginForestry extends Plugin {
 	public class AquaBackpack implements IBackpackDefinition {
 		private final List items = new ArrayList(50);
 		public void setup() {
-			if (Modules.fishery.isActive()) {
+			if (Modules.isActive(Modules.fishery)) {
 				addValidItem(new ItemStack(Fishery.fishy, 1, OreDictionary.WILDCARD_VALUE));
 				addValidItem(new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE));
 				addValidItem(new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE));
 			}
 			
-			if(Modules.world.isActive()) {
+			if(Modules.isActive(Modules.worldplus)) {
 				addValidItem(new ItemStack(WorldPlus.coral, 1, OreDictionary.WILDCARD_VALUE));
 			}
 			
@@ -144,7 +142,7 @@ public class PluginForestry extends Plugin {
 			addValidItem(new ItemStack(Item.dyePowder, 1, Dye.INK));
 			addValidItem(new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
 			addValidItem(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL));
-			addValidItem(new ItemStack(Core.oysterBlock));
+			addValidItem(new ItemStack(Core.oyster));
 			for(int i = 0; i < 9; i++) {
 				addValidItem(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER + i));
 			}

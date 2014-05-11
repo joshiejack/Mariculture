@@ -1,10 +1,12 @@
 package mariculture.fishery.items;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.lib.Extra;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -39,7 +40,7 @@ public class ItemFishyFood extends Item {
 	@Override
 	public Icon getIconFromDamage(int dmg) {
 		FishSpecies fish = Fishing.fishHelper.getSpecies(dmg);
-		return fish != null? fish.getIcon(): super.getIconFromDamage(dmg);
+		return fish != null? fish.getIcon(1): super.getIconFromDamage(dmg);
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class ItemFishyFood extends Item {
 			--stack.stackSize;
 			int food = fish.getFoodStat();
 			float sat = fish.getFoodSaturation();
-			if(Loader.isModLoaded("HungerOverhaul")) {
+			if(Extra.NERF_FOOD) {
 				food = Math.max(1, food/2);
 				sat = Math.max(0.0F, sat/10);
 			}
@@ -87,8 +88,8 @@ public class ItemFishyFood extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int j, CreativeTabs creative, List list) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); ++i) {
-			list.add(new ItemStack(j, 1, i));
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			list.add(new ItemStack(j, 1, species.getKey()));
 		}
 	}
 

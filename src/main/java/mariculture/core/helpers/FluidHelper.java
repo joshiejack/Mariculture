@@ -24,7 +24,7 @@ public class FluidHelper {
 		ItemStack result = FluidHelper.getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
 		if (result != null) {
 			invent.decrStackSize(in, 1);
-			if(result.itemID != Core.airBlocks.blockID) {
+			if(result.itemID != Core.air.blockID) {
 				if (invent.getStackInSlot(out) == null) {
 					invent.setInventorySlotContents(out, result.copy());
 				} else if (invent.getStackInSlot(out).itemID == result.itemID) {
@@ -49,7 +49,7 @@ public class FluidHelper {
 	}
 
 	public static boolean isVoid(ItemStack stack) {
-		return (stack != null && stack.getItem().itemID == Core.liquidContainers.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
+		return (stack != null && stack.getItem().itemID == Core.bottles.itemID && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
 	}
 	
 	public static boolean isIContainer(ItemStack stack) {
@@ -86,9 +86,9 @@ public class FluidHelper {
 		if (FishFoodHandler.isFishFood(stack)) {
 			int increase = FishFoodHandler.getValue(stack);
 			int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
-			if(fill > 0) {
+			if(fill >= increase) {
 				tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
-				return new ItemStack(Core.airBlocks);
+				return new ItemStack(Core.air);
 			}
 		}
 
@@ -181,13 +181,13 @@ public class FluidHelper {
 	}
 
 	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-		if (matches(top, bottom, new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY))) {
+		if (matches(top, bottom, new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY))) {
 			FluidStack fluid = tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, false);
 			if(fluid == null || fluid != null && fluid.amount <= 0)
 				return null;
 			
 			tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
-			return new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY);
+			return new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY);
 		}
 		
 		return null;

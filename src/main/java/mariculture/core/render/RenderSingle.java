@@ -4,10 +4,11 @@ import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.blocks.TileAirPump;
 import mariculture.core.blocks.TileAnvil;
+import mariculture.core.blocks.TileBlockCaster;
 import mariculture.core.blocks.TileIngotCaster;
 import mariculture.core.blocks.TileOyster;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.RenderMeta;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileGeyser;
@@ -86,14 +87,16 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 	
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks render) {
-		if(block.blockID == Core.singleBlocks.blockID) {
-			if(meta == SingleMeta.ANVIL_1)
+		if(block.blockID == Core.rendered.blockID) {
+			if(meta == RenderMeta.ANVIL_1)
 				new RenderAnvil(render).render();
-			if(meta == SingleMeta.INGOT_CASTER)
-				new RenderCaster(render).render();
-			if(meta == SingleMeta.GEYSER)
+			if(meta == RenderMeta.INGOT_CASTER)
+				new RenderIngotCaster(render).render();
+			if(meta == RenderMeta.BLOCK_CASTER)
+				new RenderBlockCaster(render).render();
+			if(meta == RenderMeta.GEYSER)
 				new RenderGeyser(render).render();
-		} else if (block.blockID == Core.oysterBlock.blockID) {
+		} else if (block.blockID == Core.oyster.blockID) {
 			if(meta < BlockOyster.NET) {
 				new RenderOyster(render).render();
 			}
@@ -107,8 +110,10 @@ public class RenderSingle extends TileEntitySpecialRenderer implements ISimpleBl
 		if(tile instanceof TileGeyser) {
 			return new RenderGeyser(render).setCoords(world, x, y, z).setDir(((TileGeyser)tile).orientation).render();
 		} else if (tile instanceof TileIngotCaster) {
-			return new RenderCaster(render).setCoords(world, x, y, z).render();
-		} else if (world.getBlockId(x, y, z) == Core.oysterBlock.blockID && meta == BlockOyster.NET) {
+			return new RenderIngotCaster(render).setCoords(world, x, y, z).render();
+		} else if (tile instanceof TileBlockCaster) {
+			return new RenderBlockCaster(render).setCoords(world, x, y, z).render();
+		} else if (world.getBlockId(x, y, z) == Core.oyster.blockID && meta == BlockOyster.NET) {
 			return new RenderNet(render).setCoords(world, x, y, z).render();
 		} else if (tile instanceof TileAnvil) {
 			ForgeDirection facing = ((meta - 7) == 3)? ForgeDirection.SOUTH: ((meta - 7) == 2)? 

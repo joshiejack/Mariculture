@@ -1,6 +1,8 @@
 package mariculture.api.fishery.fish;
 
+@Deprecated
 public enum EnumFishFertility {
+	/** Enums have been deprecated for easier to adjust dna method **/
 	EXTREMEHIGH(0, 10, false),
 	VERYHIGH(11, 35, true),
 	HIGH(36, 60, false),

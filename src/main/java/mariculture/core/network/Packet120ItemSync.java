@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import mariculture.core.blocks.TileAnvil;
-import mariculture.core.blocks.TileIngotCaster;
+import mariculture.core.blocks.TileCooling;
 import mariculture.core.blocks.TileVat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -57,7 +57,7 @@ public class Packet120ItemSync extends PacketMariculture {
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		
-		if(tile instanceof TileVat || tile instanceof TileAnvil || tile instanceof TileIngotCaster) {
+		if(tile instanceof TileVat || tile instanceof TileAnvil || tile instanceof TileCooling) {
 			ItemStack[] inventory = new ItemStack[length];
 			IInventory block = (IInventory) world.getBlockTileEntity(x, y, z);
 			NBTTagList tagList = nbt.getTagList("Inventory");

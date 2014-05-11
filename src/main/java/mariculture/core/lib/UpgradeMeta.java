@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class UpgradeMeta {
-	public static final int COUNT = 35;
+	public static final int COUNT = 42;
 
 	public static final int BASIC_STORAGE = 0;
 	public static final int BASIC_HEATING = 1;
@@ -38,4 +38,11 @@ public class UpgradeMeta {
 	public static final int ULTIMATE_RF = 32;
 	public static final int SALINATOR = 33;
 	public static final int FILTER = 34;
+	public static final int DEBUG_EGG = 35;
+	public static final int DEBUG_SPEED = 36;
+	public static final int DEBUG_HEATING = 37;
+	public static final int DEBUG_STORAGE = 38;
+	public static final int DEBUG_ALL = 39;
+	public static final int SALINATOR_2 = 40;
+	public static final int FILTER_2 = 41;
 }

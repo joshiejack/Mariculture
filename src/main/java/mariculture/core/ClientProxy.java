@@ -32,10 +32,12 @@ import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityFishing;
+import mariculture.fishery.Fish;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.blocks.TileFishTank;
 import mariculture.fishery.blocks.TileSift;
+import mariculture.fishery.gui.GuiScanner;
 import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
@@ -47,6 +49,9 @@ import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
 import mariculture.transport.render.RenderSpeedBoatItem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.resources.ReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -66,7 +71,7 @@ public class ClientProxy extends CommonProxy {
 	private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
 
 	@Override
-	public void initClient() {	
+	public void setupClient() {	
 		KeyBindingRegistry.registerKeyBinding(new KeyBindingHandler());
 		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
 		
@@ -74,8 +79,8 @@ public class ClientProxy extends CommonProxy {
 		RenderIds.BLOCK_DOUBLE = RenderingRegistry.getNextAvailableRenderId();
 		RenderIds.BLOCK_TANKS = RenderingRegistry.getNextAvailableRenderId();
 
-		MinecraftForgeClient.registerItemRenderer(Core.singleBlocks.blockID, new RenderSingleItem());
-		MinecraftForgeClient.registerItemRenderer(Core.oysterBlock.blockID, new RenderSingleItem());
+		MinecraftForgeClient.registerItemRenderer(Core.rendered.blockID, new RenderSingleItem());
+		MinecraftForgeClient.registerItemRenderer(Core.oyster.blockID, new RenderSingleItem());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAnvil.class, new AnvilSpecialRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSingle(new ModelAirPump(scale), AIR_PUMP));
@@ -84,13 +89,13 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderSingle());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
 		
-		if(Modules.diving.isActive()) {
+		if(Modules.isActive(Modules.diving)) {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
 			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
 		}
 		
-		if(Modules.factory.isActive()) {
+		if(Modules.isActive(Modules.factory)) {
 			KeyBindingRegistry.registerKeyBinding(new FLUDDKeyHandler());
 			RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
 			RenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
@@ -111,20 +116,24 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSingle(new ModelTurbineHand(scale), TURBINE_HAND));
 		}
 		
-		if(Modules.fishery.isActive()) {
+		if(Modules.isActive(Modules.fishery)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityFishing.class, new RenderFishingHook());
-			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
+			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fish.bass.getID()));
 			MinecraftForgeClient.registerItemRenderer(Fishery.siftBlock.blockID, new RenderSingleItem());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSingle(new ModelFeeder(scale), FEEDER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSingle(new ModelSift(scale), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
+			GuiScanner.font = new FontRenderer(Minecraft.getMinecraft().gameSettings, new ResourceLocation(Mariculture.modid, "textures/font/scanner.png"), Minecraft.getMinecraft().getTextureManager(), true);
+			GuiScanner.font.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode());
+			GuiScanner.font.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+			((ReloadableResourceManager)Minecraft.getMinecraft().getResourceManager()).registerReloadListener(GuiScanner.font);
 		}
 		
-		if(Modules.sealife.isActive()) {
+		if(Modules.isActive(Modules.sealife)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityHammerhead.class, new RenderHammerhead());
 		}
 		
-		if(Modules.transport.isActive()) {
+		if(Modules.isActive(Modules.transport)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpeedBoat.class, new RenderSpeedBoat());
 			MinecraftForgeClient.registerItemRenderer(Transport.speedBoat.itemID, new RenderSpeedBoatItem());
 		}

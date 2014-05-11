@@ -2,8 +2,8 @@ package mariculture.fishery.items;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.ItemBaseRod;
+import mariculture.api.fishery.RodQuality;
 import net.minecraft.client.renderer.texture.IconRegister;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -3,10 +3,12 @@ package mariculture.fishery.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.fishery.CachedCoords;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.EnumSalinityType;
+import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMachineTank;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -20,23 +22,26 @@ import mariculture.core.lib.Text;
 import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
+import mariculture.fishery.Fish;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.Fishery;
+import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class TileFeeder extends TileMachineTank implements IHasNotification {
-
-	private EnumBiomeType theBiome;
 	private boolean swap = false;
 	public int tankSize = 0;
+	private int foodTick;
 	
 	public TileFeeder() {
 		max = MachineSpeeds.getFeederSpeed();
@@ -45,7 +50,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	
 	@Override
 	public int getTankCapacity(int storage) {
-		return ((32 * tankSize) * (storage + 1));
+		return ((2 * tankSize) * (storage + 1));
 	}
 	
 	//Slot Vars
@@ -61,12 +66,9 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == male)
-			return Fishing.fishHelper.isMale(stack);
-		if(slot == female)
-			return Fishing.fishHelper.isFemale(stack);
-		if(slot == fluid)
-			return FluidHelper.isFluidOrEmpty(stack);
+		if(slot == male) 	return Fishing.fishHelper.isMale(stack);
+		if(slot == female)	return Fishing.fishHelper.isFemale(stack);
+		if(slot == fluid) 	return FluidHelper.isFluidOrEmpty(stack);
 		return false;
 	}
 
@@ -74,30 +76,28 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
 		return slot > female;
 	}
+	
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		super.setInventorySlotContents(slot, stack);
+		if(slot == male && stack != null && stack.getItem() instanceof ItemFishy && Fishing.fishHelper.isMale(stack)) {
+			updateTankSize();
+		}
+	}
 
 	@Override
 	public void updateMachine() {	
-		if(theBiome == null)
-			theBiome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getBiomeGenForCoords(xCoord, zCoord));
-		
 		//Every 5 Seconds update the tank size
 		if(!worldObj.isRemote) {
-			if(Extra.TANK_UPDATE > 0) {
-				if(onTick(Extra.TANK_UPDATE * 20)) {
-					updateTankSize();
-				}
-			}
-			
-			if(Extra.FISH_FOOD_TICK > 0) {
-				if(onTick(Extra.FISH_FOOD_TICK) || worldObj.provider.isHellWorld)
-					addFishFood();
-			}
+			if(onTick(30) || worldObj.provider.isHellWorld)
+				addFishFood();
 			
 			if(onTick(30)) {
 				processContainers();
 			}
 
 			if(canWork) {
+				foodTick++;
 				processed++;
 				if(onTick(Extra.EFFECT_TICK)) {
 					if(swap) {
@@ -109,14 +109,21 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 					}
 				}
 				
+				//Fish will eat every 25 seconds by default
+				if(foodTick % Extra.FISH_FOOD_TICK == 0) {
+					if(swap) {
+						useFood(male);
+					} else {
+						useFood(female);
+					}
+				}
+				
 				if(processed >= max) {
 					processed = 0;
 					if(swap) {
 						makeProduct(female);
-						useFood(male);
 					} else {
 						makeProduct(male);
-						useFood(female);
 					}
 					
 					damageFish(female, true);
@@ -165,22 +172,38 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		ItemStack fish = inventory[slot];
 		if (fish != null && fish.hasTagCompound()) {
 			if (!Fishing.fishHelper.isEgg(fish)) {
-				if (Fishery.tankSize.getDNA(fish) > tankSize) {
+				if (Fish.tankSize.getDNA(fish) > tankSize) {
 					return false;
 				}
 				
-				return Fishing.fishHelper.getSpecies(Fishery.species.getDNA(fish)).canLive(worldObj, xCoord, yCoord, zCoord);
+				return Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
 			}
 		}
 
 		return false;
 	}
+	
+	public int getLightValue() {
+		int lM = 0, lF = 0;
+		if(inventory[male] != null && inventory[male].hasTagCompound()) {
+			FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(inventory[male]));
+			if(species.getLightValue() > 0) lM = species.getLightValue();
+		}
+		
+		if(inventory[female] != null && inventory[female].hasTagCompound()) {
+			FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(inventory[female]));
+			if(species.getLightValue() > 0) lF = species.getLightValue();
+		}
+		
+		if(lM == 0) return lF;
+		else if(lF == 0) return lM;
+		else return (lM + lF) / 2;
+	}
 
 	//Adding Fish Food to the Tank if Enabled
 	private void addFishFood() {
-		for(CachedCoords cord: cords) {
-			List list = worldObj.getEntitiesWithinAABB(EntityItem.class,
-					Block.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+		for(CachedCoords coord: coords) {
+			List list = worldObj.getEntitiesWithinAABB(EntityItem.class, Block.stone.getCollisionBoundingBoxFromPool(worldObj, coord.x, coord.y, coord.z));
 			if(!list.isEmpty()) {
 				for (Object i : list) {
 					EntityItem entity = (EntityItem) i;
@@ -222,7 +245,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		ItemStack result = FluidHelper.getFluidResult(this, inventory[3], inventory[4]);
 		if (result != null) {
 			decrStackSize(3, 1);
-			if(result.itemID != Core.airBlocks.blockID) {
+			if(result.itemID != Core.air.blockID) {
 				if (this.inventory[4] == null) {
 					this.inventory[4] = result.copy();
 				} else if (this.inventory[4].itemID == result.itemID) {
@@ -233,59 +256,44 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 
 	//Cached Coordinates of blocks that are considered water, Rather than checking for water everytime
-	public ArrayList<CachedCoords> cords = new ArrayList<CachedCoords>();
-	public class CachedCoords {
-		public int x;
-		public int y;
-		public int z;
-		
-		public CachedCoords(int x, int y, int z) {
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-	}
-	
+	public ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
 	//Update the Tank size
 	public void updateTankSize() {
-		cords = new ArrayList<CachedCoords>();
+		int xP = 0;
+		int xN = 0;
+		int yP = 0;
+		int yN = 0;
+		int zP = 0;
+		int zN = 0;
 		
-		int water = 0;
-		for(int x = -5; x <= 5; x++) {
-			for(int z = -5; z <= 5; z++) {
-				for(int y = -5; y <= 5; y++) {
+		ItemStack male = inventory[this.male];
+		if(male != null) {
+			
+		}
+		
+		coords = new ArrayList<CachedCoords>();
+		tankSize = 0;
+		for(int x = -5 - xN; x <= 5 + xP; x++) {
+			for(int z = -5 - zN; z <= 5 + zP; z++) {
+				for(int y = -5 - yN; y <= 5 + yP; y++) {
 					if(BlockHelper.isFishLiveable(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
-						cords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
-						water++;
+						coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
+						tankSize++;
 					}
 				}
 			}
 		}		
-
-		tankSize = 0;
-		
-		if(water >= 15 && water <= 36)
-			tankSize = 1;
-		if(water > 36 && water <= 82)
-			tankSize = 2;
-		if(water > 82 && water <= 150)
-			tankSize = 3;
-		if(water > 150 && water <= 240)
-			tankSize = 4;
-		if(water > 240)
-			tankSize = 5;
 	}
 	
 	private void doEffect(int slot) {
 		if(inventory[slot] == null)
 			return;
-		int species = Fishery.species.getDNA(inventory[slot]);
+		int species = Fish.species.getDNA(inventory[slot]);
 		if (!this.worldObj.isRemote) {
-			Fishing.fishHelper.getSpecies(species).affectWorld(this.worldObj, this.xCoord, this.yCoord, this.zCoord, tankSize);
+			Fishing.fishHelper.getSpecies(species).affectWorld(this.worldObj, this.xCoord, this.yCoord, this.zCoord, coords);
 			
-			for(CachedCoords cord: cords) {
-				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class,
-						Block.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+			for(CachedCoords cord: coords) {
+				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Block.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 				if(!list.isEmpty()) {
 					for (Object i : list) {
 						EntityLivingBase entity = (EntityLivingBase) i;
@@ -300,9 +308,13 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		int foodUsage = 0;
 		ItemStack fish = inventory[slot];
 		if (fish != null && fish.hasTagCompound()) {
-			foodUsage = Fishery.foodUsage.getDNA(fish);
+			foodUsage = Fish.foodUsage.getDNA(fish);
+			if(foodUsage == 0) {
+				FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(fish));
+				if(species.requiresFood()) foodUsage = 1;
+			}
 		}
-		
+
 		drain(ForgeDirection.UNKNOWN, FluidRegistry.getFluidStack(FluidDictionary.fish_food, foodUsage), true);
 	}
 	
@@ -310,16 +322,15 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		//Be more productive!
 		if(inventory[slot] == null)
 			return;
-		for (int i = 0; i < Fishery.production.getDNA(inventory[slot]); i++) {
+		for (int i = 0; i < Fish.production.getDNA(inventory[slot]); i++) {
 			ItemStack fish = inventory[slot];
 			if (fish != null && fish.hasTagCompound()) {
 				if (!Fishing.fishHelper.isEgg(fish)) {
-					int speciesID = Fishery.species.getDNA(fish);
-					int gender = Fishery.gender.getDNA(fish);
+					int speciesID = Fish.species.getDNA(fish);
+					int gender = Fish.gender.getDNA(fish);
 					
 					ItemStack product = Fishing.fishHelper.getSpecies(speciesID).getProduct(Rand.rand);
-					if(product != null)
-						helper.insertStack(product, out);
+					if(product != null) helper.insertStack(product, out);
 
 					//If we have the eternal female upgrade, we need to force generate eggs if the fish is a girl
 					if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishHelper.FEMALE) {
@@ -351,7 +362,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		if (fish != null && fish.hasTagCompound()) {
 			if (!Fishing.fishHelper.isEgg(fish) && fish.stackTagCompound.hasKey("SpeciesID")) {
 				//
-				int gender = Fishery.gender.getDNA(fish);
+				int gender = Fish.gender.getDNA(fish);
 				//If we have the eternal life upgrades, let's cancel damaging or killing our fishies
 				if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishHelper.FEMALE) {
 					return;
@@ -376,14 +387,15 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 			ItemStack fish = inventory[slot];
 			if (fish != null && fish.hasTagCompound()) {
 				if (!Fishing.fishHelper.isEgg(fish)) {
-					int gender = Fishery.gender.getDNA(fish);
-					int species = Fishery.species.getDNA(fish);
+					int gender = Fish.gender.getDNA(fish);
+					int species = Fish.species.getDNA(fish);
 
 					ItemStack rawFish = new ItemStack(Fishery.fishyFood, 1, species);
 					rawFish.setItemDamage(species);
 
-					if (rawFish != null)
+					if (rawFish != null) {
 						helper.insertStack(rawFish, out);
+					}
 
 					if (gender == FishHelper.FEMALE) {
 						ItemStack fishMale = inventory[male];
@@ -393,6 +405,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 								helper.insertStack(egg, out);
 							}
 						}
+					} else if(gender == FishHelper.MALE) {
+						updateTankSize();
 					}
 				}
 			}
@@ -422,82 +436,80 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		return EjectSetting.ITEM;
 	}
 	
+	public boolean addToolTip(ArrayList<String> tooltip, String text) {
+		tooltip.add(Text.RED + text);
+		return false;
+	}
+	
+	public Salinity getSalinity() {
+		Salinity salt = MaricultureHandlers.environment.getSalinity(worldObj, xCoord, zCoord);
+		int salinity = salt.ordinal() + MaricultureHandlers.upgrades.getData("salinity", this);
+		if(salinity <= 0) salinity = 0; if(salinity > 2) salinity = 2;
+		salt = Salinity.values()[salinity];
+		return salt;
+	}
+	
 	public ArrayList<String> getTooltip(int slot, ArrayList<String> tooltip) {
 		boolean noBad = true;
 		ItemStack fish = inventory[slot];
-		if (fish != null && fish.hasTagCompound()) {
-			if (!Fishing.fishHelper.isEgg(fish) && fish.stackTagCompound.hasKey("SpeciesID")) {
-				int currentLife = fish.stackTagCompound.getInteger("CurrentLife") / 20;
-
-				if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
-					if (hasMale() && hasFemale()) {
-						tooltip.add(Text.DARK_GREEN + currentLife + " HP");
-						return tooltip;
+		if(fish != null && fish.hasTagCompound() && !Fishing.fishHelper.isEgg(fish) && fish.stackTagCompound.hasKey("SpeciesID")) {
+			int currentLife = fish.stackTagCompound.getInteger("CurrentLife") / 20;
+			if (!MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
+				FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(fish));
+				if(!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isWorldCorrect(worldObj)) {
+					noBad = addToolTip(tooltip, Text.translate("badWorld"));
+				}
+				
+				int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
+				if(temperature < species.temperature[0]) {
+					int required = species.temperature[0] - temperature;
+					noBad = addToolTip(tooltip, Text.translate("tooCold"));
+					noBad = addToolTip(tooltip, "  +" + required + Text.DEGREES);
+				} else if (temperature > species.temperature[1]) {
+					int required = temperature - species.temperature[1];
+					noBad = addToolTip(tooltip, Text.translate("tooHot"));
+					noBad = addToolTip(tooltip, "  -" + required + Text.DEGREES);
+				}
+				
+				boolean match = false;
+				Salinity salt = getSalinity();
+				for(Salinity salinity: species.salinity) {
+					if(salt == salinity) {
+						match = true;
+						break;
 					}
 				}
-
-				//Instead of 'Bad Biome', we want too hot, too cold, needs fresh or salt
-				EnumBiomeType[] biomeTypes = Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getGroup().getBiomes();
-				int min = biomeTypes[0].minTemp();
-				int max = biomeTypes[0].maxTemp();
-				int temp = theBiome.baseTemp() + heat;
-				for(EnumBiomeType type: biomeTypes) {
-					if(type.minTemp() < min)
-						min = type.minTemp();
-					if(type.maxTemp() > max)
-						max = type.maxTemp();
-				}
-				
-				if(temp < min) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.tooCold"));
-					noBad = false;
-				}
-				
-				if(temp > max) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.tooHot"));
-					noBad = false;
-				}
-				
-				boolean salinityMatches = false;
-				EnumSalinityType type = theBiome.getSalinity();
-				if(MaricultureHandlers.upgrades.hasUpgrade("salinator", this))
-					type = EnumSalinityType.SALT;
-				if(MaricultureHandlers.upgrades.hasUpgrade("filter", this))
-					type = EnumSalinityType.FRESH;
-				if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", this))
-					type = EnumSalinityType.MAGIC;
-				EnumSalinityType[] types = Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getGroup().getSalinityRequired();
-				for(EnumSalinityType salt: types) {
-					if(type.equals(salt))
-						salinityMatches = true;
-				}
-				
-				if(!salinityMatches) {
-					for(EnumSalinityType salt: types) {
-						tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.salinity." + salt.toString().toLowerCase()));
+								
+				if(!match) {
+					for(Salinity salinity: species.salinity) {
+						noBad = addToolTip(tooltip, Text.translate("salinity.prefers") + " " + Text.translate("salinity." + salinity.toString().toLowerCase()));
 					}
-					
-					noBad = false;
 				}
-
-				if (Fishing.fishHelper.getSpecies(fish.stackTagCompound.getInteger("SpeciesID")).getTankLevel() > tankSize) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.notAdvanced"));
-					noBad = false;
+				
+				int size = Fish.tankSize.getDNA(fish);
+				if(tankSize < size) {
+					noBad = addToolTip(tooltip, Text.translate("notAdvanced"));
+					String text = worldObj.provider.isHellWorld? Text.translate("blocks.lava"): Text.translate("blocks.water");
+					noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
 				}
-
-				if (!(hasMale() && hasFemale())) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.missingMate"));
-					noBad = false;
+				
+				if(!species.canWork(Time.getTime(worldObj))) {
+					noBad = addToolTip(tooltip, Text.translate("badTime"));
 				}
-
-				if (tank.getFluid() == null || (tank.getFluid() != null && tank.getFluid().fluidID != FluidRegistry.getFluidID(FluidDictionary.fish_food))) {
-					tooltip.add(Text.RED + StatCollector.translateToLocal("mariculture.string.noFood"));
-					noBad = false;
+				
+				if(!hasMale() || !hasFemale()) {
+					noBad = addToolTip(tooltip, Text.translate("missingMate"));
 				}
-
-				if (hasMale() && hasFemale() && noBad) {
+				
+				if(tank.getFluidAmount() < 1 || tank.getFluid().fluidID != FluidDictionary.getFluid(FluidDictionary.fish_food).getID()){
+					noBad = addToolTip(tooltip, Text.translate("noFood"));
+				}
+				
+				if(noBad) {
 					tooltip.add(Text.DARK_GREEN + currentLife + " HP");
 				}
+			} else if(hasMale() && hasFemale()) {
+				tooltip.add(Text.DARK_GREEN + currentLife + " HP");
 			}
 		}
 
@@ -514,8 +526,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 				if ((slot == male && !hasFemale()) || (slot == female && !hasMale()))
 					return -1;
 				
-				if(fishCanLive(slot))
-					return (currentLife * scale) / maxLife;
+				if(fishCanLive(slot)) return (currentLife * scale) / maxLife;
 
 				return -1;
 			}
@@ -525,17 +536,26 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 	
 	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound tag = new NBTTagCompound();
+		writeToNBT(tag);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+	}
+
+	@Override
+	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
+		readFromNBT(packet.data);
+	}
+	
+	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		tankSize = nbt.getInteger("TankSize");
-		theBiome = EnumBiomeType.values()[nbt.getInteger("BiomeType")];
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("TankSize", tankSize);
-		if(theBiome != null)
-			nbt.setInteger("BiomeType", theBiome.ordinal());
 	}
 }

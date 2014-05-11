@@ -14,9 +14,9 @@ import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import mariculture.magic.Magic;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import cofh.api.energy.IEnergyContainerItem;
 
 public class TileAutofisher extends TileMachinePowered implements IHasNotification {
 	//Data, Vars	
@@ -57,7 +57,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return slot >= 11;
+		return slot >= 11 || slot == rod;
 	}
 
 	@Override
@@ -67,7 +67,9 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 				energyStorage.extractEnergy(getRFUsage(), false);
 				
 				if(baitQuality == -1 && canWork()) {
-					baitQuality = getBaitQualityAndDelete();
+					if(inventory[rod].itemID == Item.fishingRod.itemID) {
+						baitQuality = 33;
+					} else baitQuality = getBaitQualityAndDelete();
 				} else {
 					processed+=speed;
 					if(processed >= max) {
@@ -105,8 +107,8 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private boolean canUseRod() {
+		if(inventory[rod].itemID == Item.fishingRod.itemID) return true;
 		RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
-		
 		for(int i: bait) {
 			if(inventory[i] != null) {
 				return Fishing.quality.canUseBait(inventory[i], quality);
@@ -117,6 +119,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 
 	private boolean hasBait() {
+		if(inventory[rod] != null && inventory[rod].itemID == Item.fishingRod.itemID) return true;
 		for(int i: bait) {
 			if(inventory[i] != null) {
 				return Fishing.bait.getBaitQuality(inventory[i]) > 0;
@@ -135,8 +138,11 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private boolean hasRod() {
-		if(inventory[rod] != null && inventory[rod].getItem() instanceof ItemBaseRod) {
-			return ((ItemBaseRod)inventory[rod].getItem()).canFish(worldObj, xCoord, yCoord, zCoord, null, inventory[rod]);
+		if(inventory[rod] != null) {
+			if(inventory[rod].itemID == Item.fishingRod.itemID) return true;
+			else if(inventory[rod].getItem() instanceof ItemBaseRod) {
+				return ((ItemBaseRod)inventory[rod].getItem()).canFish(worldObj, xCoord, yCoord, zCoord, null, inventory[rod]);
+			}
 		}
 		
 		return false;
@@ -169,7 +175,6 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
 	private int getBaitQualityAndDelete() {
 		RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
-		
 		for(int i: bait) {
 			if(inventory[i] != null) {
 				if(Fishing.quality.canUseBait(inventory[i], quality)) {
@@ -189,15 +194,22 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	
 	//Process
 	private void catchFish() {
-		RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
-		ItemStack lootResult = Fishing.loot.getLoot(Rand.rand, quality, worldObj, xCoord, yCoord, zCoord);
+		ItemStack lootResult = null;
+		if(inventory[rod].itemID == Item.fishingRod.itemID) {
+			lootResult = new ItemStack(Item.fishRaw);
+			inventory[rod].attemptDamageItem(1, Rand.rand);
+		} else {
+			RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
+			lootResult = Fishing.loot.getLoot(Rand.rand, quality, worldObj, xCoord, yCoord - 1, zCoord);
+			inventory[rod] = ((ItemBaseRod)inventory[rod].getItem()).damage(worldObj, null, inventory[rod], 0);
+		}
+		
 
 		if (lootResult != null) {
 			helper.insertStack(lootResult, out);
 		}
 		
-		inventory[rod] = ((ItemBaseRod)inventory[rod].getItem()).damage(null, inventory[rod], 0);
-		if(inventory[rod].getItemDamage() > inventory[rod].getMaxDamage()) {
+		if(inventory[rod] == null || inventory[rod].getItemDamage() > inventory[rod].getMaxDamage()) {
 			inventory[rod] = null;
 			canWork = canWork();
 		}

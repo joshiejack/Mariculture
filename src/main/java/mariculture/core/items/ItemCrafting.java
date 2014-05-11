@@ -1,15 +1,21 @@
 package mariculture.core.items;
 
+import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.Text;
+import mariculture.fishery.blocks.TileFeeder;
 import mariculture.sealife.EntityHammerhead;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cofh.api.energy.IEnergyContainerItem;
 
-public class ItemCrafting extends ItemMariculture {
+public class ItemCrafting extends ItemMariculture implements IEnergyContainerItem {
 	public ItemCrafting(int i) {
 		super(i);
 	}
@@ -67,6 +73,10 @@ public class ItemCrafting extends ItemMariculture {
 				return "titaniumRodBasic";
 			case CraftingMeta.LIFE_CORE:
 				return "lifeCore";
+			case CraftingMeta.CREATIVE_BATTERY:
+				return "batteryCreative";
+			case CraftingMeta.THERMOMETER:
+				return "thermometer";
 			default:
 				return "unnamed";
 		}
@@ -85,15 +95,34 @@ public class ItemCrafting extends ItemMariculture {
 		return true;
 	}
 	
+	private void displayTemperature(boolean isSneaking, World world, int x, int y, int z) {
+		if(world.isRemote) {
+			String prefix = "";
+			int temperature = 0;
+			if(isSneaking) {
+				prefix = Text.translate("temperature.generic");
+				temperature = MaricultureHandlers.environment.getBiomeTemperature(world, x, y, z);
+			} else {
+				prefix = Text.translate("temperature.precise");
+				temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
+			}
+				
+			ClientHelper.addToChat(prefix + ": " + temperature + Text.DEGREES);
+			ClientHelper.addToChat(Text.translate("environment.salinity") + ": " + Text.translate("salinity." + MaricultureHandlers.environment.getSalinity(world, x, z).name().toLowerCase()));
+		}
+	}
+	
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
 		int dmg = stack.getItemDamage();
 		if(dmg == CraftingMeta.DRAGON_EGG && Extra.ENABLE_ENDER_SPAWN) {
 			return spawnEnderDragon(stack, player, world, x, y, z);
+		} else if (dmg == CraftingMeta.THERMOMETER) {
+			displayTemperature(player.isSneaking(), world, x, y, z);
 		}
 		
 		if(Extra.DEBUG_ON && stack.getItemDamage() == CraftingMeta.ALUMINUM_SHEET) {
-			if(Modules.sealife.isActive()) {
+			if(Modules.isActive(Modules.sealife)) {
 				if(!world.isRemote) {
 					EntityHammerhead shark = new EntityHammerhead(world);
 					shark.setPosition(x, y + 1, z);
@@ -104,23 +133,50 @@ public class ItemCrafting extends ItemMariculture {
 
 		return true;
 	}
+	
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if(stack.getItemDamage() == CraftingMeta.THERMOMETER) {
+			displayTemperature(player.isSneaking(), world, (int)player.posX, (int)player.posY, (int)player.posZ);
+		}
+		
+        return stack;
+    }
 
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
 		case CraftingMeta.DRAGON_EGG:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case CraftingMeta.DEPRECATED_CHALK: return false;
 		case CraftingMeta.BLANK_PLAN:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.factory);
 		case CraftingMeta.POLISHED_STICK:
-			return Modules.fishery.isActive();
+			return Modules.isActive(Modules.fishery);
 		case CraftingMeta.POLISHED_TITANIUM:
-			return Modules.fishery.isActive();
-		case CraftingMeta.LIFE_CORE:
-			return Modules.factory.isActive();
+			return Modules.isActive(Modules.fishery);
 		default:
 			return true;
 		}
+	}
+
+	@Override
+	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+		return 0;
+	}
+
+	@Override
+	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+		return container.getItemDamage() == CraftingMeta.CREATIVE_BATTERY? 10000000: 0;
+	}
+
+	@Override
+	public int getEnergyStored(ItemStack container) {
+		return 0;
+	}
+
+	@Override
+	public int getMaxEnergyStored(ItemStack container) {
+		return 0;
 	}
 }

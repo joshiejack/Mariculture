@@ -21,9 +21,9 @@
         <text x="92" y="-13" bold="true">Magnesium</text>
         <text>Magnesium is required to make Titanium which is used in some of the more advanced recipes. To obtain Magnesium you need to mix quicklime(molten limestone) with water. This will create a random dust, which you should melt in a crucible furnace. (Not all the water is used). This will most likely give you Molten Magnesium but if you have mods that add cobalt or nickel, you may get these instead.</text>
         <vat x="20" y="90" size="1.1">
-            <fluid1 vol="16000">water</fluid1>
-            <fluid2 vol="24000">quicklime</fluid2>
-            <fluid3 vol="10000">water</fluid3>
+            <fluid1 vol="3000">water</fluid1>
+            <fluid2 vol="4000">quicklime</fluid2>
+            <fluid3 vol="2000">water</fluid3>
             <output>dustMagnesite</output>
             <time>10</time>
         </vat>
@@ -53,13 +53,13 @@
         <text>Burnt Bricks are made in a Vat, there are two recipes to create them, one that uses normal bricks and the other using netherbricks.</text>
         <vat x="15" y="25" size="1.1">
             <input>brick</input>
-            <fluid1 vol="1000">lava</fluid1>
+            <fluid1 vol="500">lava</fluid1>
             <output>burntBrick</output>
             <time>16</time>
         </vat>
         <vat x="15" y="90" size="1.1">
             <input>netherbrick</input>
-            <fluid1 vol="500">lava</fluid1>
+            <fluid1 vol="250">lava</fluid1>
             <output>burntBrick</output>
             <time>8</time>
         </vat>
@@ -88,7 +88,7 @@
             <craft1>ingotCopper|plankWood|ingotCopper</craft1>
             <craft2>plankWood|glass|plankWood</craft2>
             <craft3>ingotCopper|plankWood|ingotCopper</craft3>
-            <craftResult>normalTank</craftResult>
+            <craftResult num="2">normalTank</craftResult>
         </crafting>
     </page>
     <page>
@@ -115,7 +115,7 @@
         <vat x="20" y="90" size="1.05">
             <input>glass</input>
             <fluid1 type="nugget" vol="1">aluminum.molten</fluid1>
-            <fluid2>quicklime</fluid2>
+            <fluid2 vol="900">quicklime</fluid2>
             <output>glass.heatglass</output>
             <time>15</time>
         </vat>

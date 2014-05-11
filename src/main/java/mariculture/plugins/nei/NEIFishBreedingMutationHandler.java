@@ -2,9 +2,7 @@ package mariculture.plugins.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
@@ -12,8 +10,10 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.Text;
 import mariculture.factory.blocks.TileFishSorter;
+import mariculture.fishery.Fish;
+import mariculture.fishery.FishHelper;
+import mariculture.fishery.FishMutationHandler.Mutation;
 import mariculture.fishery.items.ItemFishy;
-import mariculture.fishery.items.ItemFishyFood;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -27,11 +27,11 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 		PositionedStack father;
 		PositionedStack baby;
 
-		public CachedBreedingRecipe(ItemStack mother, ItemStack father, ItemStack baby, int chance) {
+		public CachedBreedingRecipe(ItemStack mother, ItemStack father, ItemStack baby, double chance) {
 			this.mother = new PositionedStack(father, 11, 16);
 			this.father = new PositionedStack(mother, 67, 16);
 			this.baby = new PositionedStack(baby, 133, 16);
-			this.chance = ((double)chance)/10;
+			this.chance = ((double)chance);
 		}
 
 		@Override
@@ -51,13 +51,12 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals("fishbreeding") && getClass() == NEIFishBreedingMutationHandler.class) {
-			HashMap<List<FishSpecies>, FishSpecies> mutations = Fishing.mutation.getMutations();
-			for(Entry<List<FishSpecies>, FishSpecies> fish: mutations.entrySet()) {
-				int chance = Fishing.mutation.getMutationChance(fish.getKey().get(0), fish.getKey().get(1));
-				ItemStack mother = Fishing.fishHelper.makePureFish(fish.getKey().get(0));
-				ItemStack father = Fishing.fishHelper.makePureFish(fish.getKey().get(1));
-				ItemStack baby = Fishing.fishHelper.makePureFish(fish.getValue());
-				arecipes.add(new CachedBreedingRecipe(mother, father, baby, chance));
+			ArrayList<Mutation> mutations = Fishing.mutation.getMutations();
+			for(Mutation mute: mutations) {
+				ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
+				ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishHelper.MALE);
+				ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishHelper.FEMALE);
+				arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute.chance));
 			}
 		} else {
 			super.loadCraftingRecipes(outputId, results);
@@ -66,23 +65,20 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		HashMap<List<FishSpecies>, FishSpecies> mutations = Fishing.mutation.getMutations();
-		for(Entry<List<FishSpecies>, FishSpecies> fish: mutations.entrySet()) {
-			if(isAFish(result, fish.getValue().fishID)) {
-				ItemStack baby = Fishing.fishHelper.makePureFish(fish.getValue());
-				int chance = Fishing.mutation.getMutationChance(fish.getKey().get(0), fish.getKey().get(1));
-				ItemStack mother = Fishing.fishHelper.makePureFish(fish.getKey().get(0));
-				ItemStack father = Fishing.fishHelper.makePureFish(fish.getKey().get(1));
-				arecipes.add(new CachedBreedingRecipe(mother, father, baby, chance));
+		ArrayList<Mutation> mutations = Fishing.mutation.getMutations();
+		for(Mutation mute: mutations) {
+			FishSpecies species = Fishing.fishHelper.getSpecies(mute.baby);
+			if(isAFish(result, species)) {
+				ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
+				ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishHelper.MALE);
+				ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishHelper.FEMALE);
+				arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute.chance));
 			}
 		}
 	}
 	
-	public static boolean isAFish(ItemStack stack, int id) {
-		if(stack.getItem() instanceof ItemFishyFood && stack.getItemDamage() == id)
-			return true;
-		if(stack.getItem() instanceof ItemFishy && stack.hasTagCompound() 
-				&& TileFishSorter.hasSameFishDNA(stack, Fishing.fishHelper.makePureFish(FishSpecies.speciesList.get(id)))) {
+	public static boolean isAFish(ItemStack stack, FishSpecies fish) {
+		if(stack.getItem() instanceof ItemFishy && stack.hasTagCompound() && TileFishSorter.hasSameFishDNA(stack, Fishing.fishHelper.makePureFish(fish))) {
 			return true;
 		}
 		
@@ -95,16 +91,15 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 			return;
 		}
 		
-		HashMap<List<FishSpecies>, FishSpecies> mutations = Fishing.mutation.getMutations();
-		for(Entry<List<FishSpecies>, FishSpecies> fish: mutations.entrySet()) {
-			FishSpecies fishM = fish.getKey().get(0);
-			FishSpecies fishF = fish.getKey().get(1);
-			ItemStack mother = Fishing.fishHelper.makePureFish(fishM);
-			ItemStack father = Fishing.fishHelper.makePureFish(fishF);
-			if(isAFish(ingredient, fishM.fishID) || isAFish(ingredient, fishF.fishID)) {
-				int chance = Fishing.mutation.getMutationChance(fishM, fishF);
-				ItemStack baby = Fishing.fishHelper.makePureFish(fish.getValue());
-				arecipes.add(new CachedBreedingRecipe(mother, father, baby, chance));
+		ArrayList<Mutation> mutations = Fishing.mutation.getMutations();
+		for(Mutation mute: mutations) {
+			FishSpecies fSpecies = Fishing.fishHelper.getSpecies(mute.father);
+			FishSpecies mSpecies = Fishing.fishHelper.getSpecies(mute.mother);
+			if(isAFish(ingredient, fSpecies) || isAFish(ingredient, mSpecies)) {
+				ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
+				ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishHelper.MALE);
+				ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishHelper.FEMALE);
+				arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute.chance));
 			}
 		}
 	}

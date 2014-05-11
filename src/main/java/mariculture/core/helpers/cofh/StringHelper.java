@@ -87,7 +87,7 @@ public final class StringHelper {
 	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
 		if(fluid == null || fluid.getFluid() == null) {
 			tooltip.add(Text.GREY + "" + 0 + ((max > 0)? "/" + max + "mB": "mB"));
-		} else if(Modules.fishery.isActive() && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
+		} else if(Modules.isActive(Modules.fishery) && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
 			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0) ?"/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"): " " + StatCollector.translateToLocal("mariculture.string.pieces")));
 		else if(fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt"))
 			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
@@ -108,8 +108,7 @@ public final class StringHelper {
             if(max > 0) {
 	            tooltip.add("");
 	            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
-	            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
-	            			+ max%MetalRates.INGOT + "mB");
+	            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " + max%MetalRates.INGOT + "mB");
             }
 		} else {
 			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));

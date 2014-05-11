@@ -6,9 +6,10 @@ import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.lib.CraftingMeta;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;
-import mariculture.core.lib.UtilMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.network.Packet101Sponge;
 import mariculture.core.network.Packets;
@@ -55,25 +56,25 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
-		case UtilMeta.AUTOFISHER:
+		case MachineMeta.AUTOFISHER:
 			return 1.5F;
-		case UtilMeta.BOOKSHELF:
+		case MachineMeta.BOOKSHELF:
 			return 1F;
-		case UtilMeta.DICTIONARY:
+		case MachineMeta.DICTIONARY:
 			return 2F;
-		case UtilMeta.INCUBATOR_BASE:
+		case MachineMeta.INCUBATOR_BASE:
 			return 10F;
-		case UtilMeta.INCUBATOR_TOP:
+		case MachineMeta.INCUBATOR_TOP:
 			return 6F;
-		case UtilMeta.LIQUIFIER:
+		case MachineMeta.LIQUIFIER:
 			return 5F;
-		case UtilMeta.SAWMILL:
+		case MachineMeta.SAWMILL:
 			return 2F;
-		case UtilMeta.SLUICE:
+		case MachineMeta.SLUICE:
 			return 4F;
-		case UtilMeta.SPONGE:
+		case MachineMeta.SPONGE:
 			return 3F;
-		case UtilMeta.FISH_SORTER:
+		case MachineMeta.FISH_SORTER:
 			return 1F;
 		}
 
@@ -81,7 +82,7 @@ public class BlockUtil extends BlockMachine {
 	}
 	
 	public float getEnchantPowerBonus(World world, int x, int y, int z) {
-        return world.getBlockMetadata(x, y, z) == UtilMeta.BOOKSHELF ? 5 : 0;
+        return world.getBlockMetadata(x, y, z) == MachineMeta.BOOKSHELF ? 5 : 0;
     }
 	
 	@Override
@@ -113,19 +114,19 @@ public class BlockUtil extends BlockMachine {
 	public Icon getIcon(int side, int meta) {
 		if (meta < getMetaCount()) {
 			switch (meta) {
-			case UtilMeta.LIQUIFIER:
-				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_BRICK);
-			case UtilMeta.SAWMILL:
-				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
-			case UtilMeta.AUTOFISHER:
-				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
-			case UtilMeta.DICTIONARY:
-				return side > 1 ? icons[meta] : Core.woodBlocks.getIcon(side, WoodMeta.BASE_WOOD);
-			case UtilMeta.SLUICE:
-				return side == 4 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
-			case UtilMeta.SPONGE:
-				return side > 1 ? icons[meta] : Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
-			case UtilMeta.FISH_SORTER:
+			case MachineMeta.LIQUIFIER:
+				return side > 1 ? icons[meta] : Core.ores.getIcon(side, OresMeta.BASE_BRICK);
+			case MachineMeta.SAWMILL:
+				return side > 1 ? icons[meta] : Core.wood.getIcon(side, WoodMeta.BASE_WOOD);
+			case MachineMeta.AUTOFISHER:
+				return side > 1 ? icons[meta] : Core.wood.getIcon(side, WoodMeta.BASE_WOOD);
+			case MachineMeta.DICTIONARY:
+				return side > 1 ? icons[meta] : Core.wood.getIcon(side, WoodMeta.BASE_WOOD);
+			case MachineMeta.SLUICE:
+				return side == 4 ? icons[meta] : Core.ores.getIcon(side, OresMeta.BASE_IRON);
+			case MachineMeta.SPONGE:
+				return side > 1 ? icons[meta] : Core.ores.getIcon(side, OresMeta.BASE_IRON);
+			case MachineMeta.FISH_SORTER:
 				return fishSorter[side];
 			default:
 				return icons[meta];
@@ -144,11 +145,11 @@ public class BlockUtil extends BlockMachine {
 		if (block.getBlockTileEntity(x, y, z) instanceof TileSluice) {
 			TileSluice tile = (TileSluice) block.getBlockTileEntity(x, y, z);
 			if(tile.direction.ordinal() == side)
-				return side > 1? icons[UtilMeta.SLUICE]: sluiceUp;
+				return side > 1? icons[MachineMeta.SLUICE]: sluiceUp;
 			else if(tile.direction.getOpposite().ordinal() == side)
 				return side > 1? sluiceBack: sluiceDown;
 			else
-				return Core.oreBlocks.getIcon(side, OresMeta.BASE_IRON);
+				return Core.ores.getIcon(side, OresMeta.BASE_IRON);
 		}
 		
 		if (side > 1) {
@@ -156,14 +157,14 @@ public class BlockUtil extends BlockMachine {
 				TileEntity tile = block.getBlockTileEntity(x, y, z);
 				if(tile instanceof TileLiquifier) {
 					TileLiquifier crucible = (TileLiquifier) tile;
-					if(crucible.master == null) return getIcon(side, UtilMeta.LIQUIFIER);
+					if(crucible.master == null) return getIcon(side, MachineMeta.LIQUIFIER);
 					else {
 						if(crucible.isMaster()) return liquifierIcons[1];
 						else return liquifierIcons[0];
 					}
-				} else if (tile instanceof TileIncubator && block.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_BASE) {
+				} else if (tile instanceof TileIncubator && block.getBlockMetadata(x, y, z) != MachineMeta.INCUBATOR_BASE) {
 					TileIncubator incubator = (TileIncubator) tile;
-					if(incubator.master == null) return getIcon(side, UtilMeta.INCUBATOR_TOP);
+					if(incubator.master == null) return getIcon(side, MachineMeta.INCUBATOR_TOP);
 					else {
 						if(incubator.facing == ForgeDirection.DOWN) return incubatorIcons[0];
 						else return incubatorIcons[1];
@@ -200,10 +201,10 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile == null && world.getBlockMetadata(x, y, z) != UtilMeta.INCUBATOR_TOP || player.isSneaking()) {
+		if (tile == null && world.getBlockMetadata(x, y, z) != MachineMeta.INCUBATOR_TOP || player.isSneaking()) {
 			return false;
 		}
-		
+
 		if(tile instanceof TileSluice)
 			return false;
 		
@@ -253,25 +254,25 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		switch (meta) {
-		case UtilMeta.INCUBATOR_BASE:
+		case MachineMeta.INCUBATOR_BASE:
 			return new TileIncubator();
-		case UtilMeta.INCUBATOR_TOP:
+		case MachineMeta.INCUBATOR_TOP:
 			return new TileIncubator();
-		case UtilMeta.AUTOFISHER:
+		case MachineMeta.AUTOFISHER:
 			return new TileAutofisher();
-		case UtilMeta.LIQUIFIER:
+		case MachineMeta.LIQUIFIER:
 			return new TileLiquifier();
-		case UtilMeta.BOOKSHELF:
+		case MachineMeta.BOOKSHELF:
 			return new TileBookshelf();
-		case UtilMeta.SAWMILL:
+		case MachineMeta.SAWMILL:
 			return new TileSawmill();
-		case UtilMeta.SLUICE:
+		case MachineMeta.SLUICE:
 			return new TileSluice();
-		case UtilMeta.DICTIONARY:
+		case MachineMeta.DICTIONARY:
 			return new TileDictionary();
-        case UtilMeta.SPONGE:
+        case MachineMeta.SPONGE:
             return new TileSponge();
-        case UtilMeta.FISH_SORTER:
+        case MachineMeta.FISH_SORTER:
         	return new TileFishSorter();
 		}
 
@@ -289,7 +290,7 @@ public class BlockUtil extends BlockMachine {
 		
 		super.breakBlock(world, x, y, z, i, meta);
 
-		if (meta == UtilMeta.SLUICE) {
+		if (meta == MachineMeta.SLUICE) {
 			clearWater(world, x + 1, y, z);
 			clearWater(world, x - 1, y, z);
 			clearWater(world, x, y, z + 1);
@@ -306,23 +307,23 @@ public class BlockUtil extends BlockMachine {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case UtilMeta.AUTOFISHER:
-			return Modules.fishery.isActive();
-		case UtilMeta.SAWMILL:
-			return Modules.factory.isActive();
-		case UtilMeta.INCUBATOR_BASE:
-			return Modules.fishery.isActive();
-		case UtilMeta.INCUBATOR_TOP:
-			return Modules.fishery.isActive();
-		case UtilMeta.SLUICE:
-			return Modules.factory.isActive();
-		case UtilMeta.SPONGE:
-			return Modules.factory.isActive();
-		case UtilMeta.DICTIONARY:
-			return Modules.factory.isActive();
-		case UtilMeta.FISH_SORTER:
-			return Modules.factory.isActive();
-		case UtilMeta.UNUSED:
+		case MachineMeta.AUTOFISHER:
+			return Modules.isActive(Modules.fishery);
+		case MachineMeta.SAWMILL:
+			return Modules.isActive(Modules.factory);
+		case MachineMeta.INCUBATOR_BASE:
+			return Modules.isActive(Modules.fishery);
+		case MachineMeta.INCUBATOR_TOP:
+			return Modules.isActive(Modules.fishery);
+		case MachineMeta.SLUICE:
+			return Modules.isActive(Modules.factory);
+		case MachineMeta.SPONGE:
+			return Modules.isActive(Modules.factory);
+		case MachineMeta.DICTIONARY:
+			return Modules.isActive(Modules.factory);
+		case MachineMeta.FISH_SORTER:
+			return Modules.isActive(Modules.factory);
+		case MachineMeta.UNUSED:
 			return false;
 		default:
 			return true;
@@ -360,6 +361,6 @@ public class BlockUtil extends BlockMachine {
 
 	@Override
 	public int getMetaCount() {
-		return UtilMeta.COUNT;
+		return MachineMeta.COUNT;
 	}
 }

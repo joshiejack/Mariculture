@@ -54,13 +54,35 @@ public class NEIVatRecipeHandler extends NEIBase {
 	
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals("vat") && getClass() == NEIVatRecipeHandler.class) {
+		boolean isSecondSearch = isSecondSearch(outputId, results);
+		if ((outputId.equals("vat") || isSecondSearch) && getClass() == NEIVatRecipeHandler.class) {
 			HashMap<List<? extends Object>, RecipeVat> recipes = MaricultureHandlers.vat.getRecipes();
 			for (Entry<List<? extends Object>, RecipeVat> recipe : recipes.entrySet()) {
+				FluidStack fluid = recipe.getValue().outputFluid;
+				if(!isSecondSearch || (isSecondSearch &&  fluid != null && fluid.getFluid().getName().equals(results[1])))
 				arecipes.add(new CachedVatRecipe(recipe.getValue()));
 			}
 		} else {
 			super.loadCraftingRecipes(outputId, results);
+		}
+	}
+	
+	public boolean isEqual(FluidStack fluid1, FluidStack fluid2, String fluid) {
+		if(fluid1 != null && fluid1.getFluid() != null && fluid1.getFluid().getName().equals(fluid)) return true;
+		return fluid2 != null && fluid2.getFluid() != null && fluid2.getFluid().getName().equals(fluid);
+	}
+	
+	@Override
+	public void loadUsageRecipes(String inputId, Object... ingredients) {
+		boolean isSecondSearch = isSecondSearch(inputId, ingredients);
+		if ((inputId.equals("vat") || isSecondSearch) && getClass() == NEIVatRecipeHandler.class) {
+			HashMap<List<? extends Object>, RecipeVat> recipes = MaricultureHandlers.vat.getRecipes();
+			for (Entry<List<? extends Object>, RecipeVat> recipe : recipes.entrySet()) {
+				if(!isSecondSearch || (isSecondSearch && isEqual(recipe.getValue().inputFluid1, recipe.getValue().inputFluid2, (String) ingredients[1])))
+				arecipes.add(new CachedVatRecipe(recipe.getValue()));
+			}
+		} else {
+			super.loadUsageRecipes(inputId, ingredients);
 		}
 	}
 

@@ -63,7 +63,7 @@ public class BlockSift extends BlockMachine {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile == null || player.isSneaking()) {
+		if (tile == null) {
 			return false;
 		}
 
@@ -83,7 +83,7 @@ public class BlockSift extends BlockMachine {
 			if(Fishing.sifter.getResult(stack) != null) {
 				if(!world.isRemote) {
 					ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(stack);
-					int stackSize = stack.stackSize;
+					int stackSize = player.isSneaking()? 1: stack.stackSize;
 					for (int j = 0; j <= stackSize; j++) {
 						if(stack.stackSize > 0) {
 							for(RecipeSifter bait: recipe) {

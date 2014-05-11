@@ -1,6 +1,7 @@
 package mariculture.api.fishery.fish;
 
 //These values are the true values: (species.getLifeSpan() * 20) * 60;
+@Deprecated
 public enum EnumFishLifespan {
 	MINISCULE(0, 8750, true), 
 	TINY(8751, 16252, false), 

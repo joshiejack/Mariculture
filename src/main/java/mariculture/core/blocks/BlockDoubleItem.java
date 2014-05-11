@@ -1,6 +1,6 @@
 package mariculture.core.blocks;
 
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MultiMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -13,13 +13,13 @@ public class BlockDoubleItem extends ItemBlockMariculture {
 	public String getName(ItemStack stack) {
 		String name = "";
 		switch (stack.getItemDamage()) {
-		case DoubleMeta.COMPRESSOR_BASE:
+		case MultiMeta.COMPRESSOR_BASE:
 			return "airCompressor";
-		case DoubleMeta.COMPRESSOR_TOP:
+		case MultiMeta.COMPRESSOR_TOP:
 			return "airCompressorPower";
-		case DoubleMeta.PRESSURE_VESSEL:
+		case MultiMeta.PRESSURE_VESSEL:
 			return "pressureVessel";
-		case DoubleMeta.VAT:
+		case MultiMeta.VAT:
 			return "vat";
 		default:
 			name = "doubleBlocks";

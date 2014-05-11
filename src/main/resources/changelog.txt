@@ -1,8 +1,56 @@
 == Mariculture 1.2.2 ==
-====Blood Magic Stuff====
-* Bound Fishing Rod added, uses blood shards and flesh as bait, can catch BM loot and higher tier fish, also has a beast mode ;)
-====API====
-* Fishing rod + quality changes to accomodate the blood rod
+==== Last 1.6.4 ====
+* This should be the last of the 1.6.4 content updates, there will no doubt still be bugfix and balance updates
+==== New ====
+* Config added for Fish Breeding chance, increase the breeding multiplier to make breeding easier, or decrease it to make it harder
+* Bound Fishing Rod when Blood Magic is installed, + Ritual to double mutation chance in the incubator
+* Fish Scanner, and Biome Analyser lets you peer in to the crazy depths that is Fish DNA and See what the temperature of the current location is
+* Male DNA affects the area that is affected, they have six stats for this dna, for all six coordinates, representing + or minus to the radius, only opening a feeder, or placing a male in will now update the tank area
+* Ten new Fish Species, bringing the total up to 40!
+* Angelfish when working will now teleport items up to 16 blocks in each direction in to chests underneath fish feeders
+* All fish can be caught alive in the wild, but anything other than the base fish, have special catch conditions, such as time of day, height in world, temperature, salinity
+* Added WAILA Support to Vats
+* Can disable the requirements for catching fish in different biomes, allowing you to catch all fish in each biome(world related still applies)
+==== Changes ====
+* Limestone Variants and Pearl Bricks split in to a new 'Aesthetics' module.
+* Fish 'Groups' removed, doesn't affect anything, since they were just arbritary descriptors anyways, Allows for addition of 1 off fish, rather than having to install three new fish at a time
+* Fertility is now the number of eggs that are produced, The hatch chance of eggs is now a fixed 0.1%, so a fish that lays 3000 eggs will on average produce 3 extra fish, but can be improved with the use of purity upgrades in an incubator
+* Magnesium Dust now has 100% chance of Magnesium, Magnesium Dust reduced to 5000MB Quicklime and 3000MB Water. You can also make the dust now with 1000MB of water and a Flux Droplet
+* Burnt Bricks, now use half as much lava for both recipe variants
+* You can now melt Limestone in a Tinkers Smeltery as well as the Magnesium Dust
+* Obsidian time reduced to 10 seconds from 15
+* Mob Magnet requires LP to be used if you have Blood Magic installed
+* Breeding combinations completely revamped
+* Fish Stat defaults all changed, Due to this, any existing fish eggs will NOT work after upgrading. Make sure to hatch fish before updating.
+* Nightfish can now be caught rarely in the overworld but only when fishing at night.
+* Concept of 'Ethereal Waters' removed, Salinity now consists of Fresh, Brackish and Saline Water. The Salinator Upgrade increases the salinity of the biome by one, while the Purifier reduces it by one, so a fresh water biome would need two salinator upgrades to become salt water. Ethereal upgrade now nullifies the world requirement for fish instead. E.G. It lets you breed netherfish in overworld, endfish in nether or overworld fish in the end etc.
+* Fishing loot now split in to two lists, goodies and junk. Higher tier fishing rods have better chance of getting good stuff.
+* Food tick in the config is now how many ticks before a fish will eat, Fish are less greedy.
+* Fishing Net default speed, slightly faster
+* Reduced cost of Hard plastic, can also make it with ethanol now instead
+* Changed Transparent Plastic recipe to be glass + natural gas/ethanol
+* Can automatically extract fishing rods from autofisher, allowing automated charging of the RF rod
+* Can now use vanilla fishing rods in an autofisher, they will only generate vanilla fish, and require no bait
+* Luck of the Irish now can be put on Hammers, You have a chance to restore more than one damage point in an anvil when using the hammer
+* Changed around how much bait you get and from what you get it from
+* Shift clicking a sifter will cause it to sift one item at a time instead of the whole stack
+* Fish Tank size, while as before is determined by water, it's no longer based on 'various sizes'. Each fish now has it's own individual number of water block requirements. Ranging from 15 blocks of water up to 400. To see how much space a fish needs, you can use the scanner. Fish Food amount is also determined by water blocks.
+==== Bugfixes ====
+* Fixed AutoDictionary not correctly removing the extra tags when converting items
+* Fixed dupe glitch with books
+* Fixed Oyster dupe bug, with block updates
+* Fixed crash with enchanted basic mirrors
+* Fixed crash when fishing on tile entities that aren't instances of IUpgradable
+* Fixed crash when eating the last item in a stack of food
+* Fixed potential crash when reloading a Vat
+* When producing the last two fish from an egg if none are generated, they will no longer be 'twins', their dna is now generated seperately.
+
+== Mariculture 1.2.1e ==
+* Fixed internal server error from eating bait
+* Nets will now 'break' if there is no water under them
+* Natural Gas is no longer impenetrable
+* Fixed potential limestone crash on startup
+* Fixed Miso Soup using wrong textures for the larger portions
 
 == Mariculture 1.2.1d ==
 * MAJOR: Fixed the jewelry saving... somehow i'd messed up the new saving method -_-

@@ -1,18 +1,27 @@
 package mariculture.fishery;
 
+import java.util.ArrayList;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.logging.Level;
 
 import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.EnumSalinityType;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
-import mariculture.api.fishery.fish.EnumSalinityType;
-import mariculture.api.fishery.fish.FishDNA;
+import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.AverageHelper;
+import mariculture.fishery.FishMutationHandler.Mutation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class FishHelper implements IFishHelper {
@@ -26,9 +35,9 @@ public class FishHelper implements IFishHelper {
 			fishStack.setTagCompound(new NBTTagCompound());
 		}
 
-		for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-			FishDNA.DNAParts.get(i).addDNA(fishStack, FishDNA.DNAParts.get(i).getDNAFromSpecies(species));
-			FishDNA.DNAParts.get(i).addLowerDNA(fishStack, FishDNA.DNAParts.get(i).getDNAFromSpecies(species));
+		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+			FishDNABase.DNAParts.get(i).addDNA(fishStack, FishDNABase.DNAParts.get(i).getDNAFromSpecies(species));
+			FishDNABase.DNAParts.get(i).addLowerDNA(fishStack, FishDNABase.DNAParts.get(i).getDNAFromSpecies(species));
 		}
 
 		return fishStack;
@@ -57,69 +66,104 @@ public class FishHelper implements IFishHelper {
 
 		return array;
 	}
-
+	
 	@Override
 	public ItemStack makeBredFish(ItemStack egg, Random rand) {
+		return makeBredFish(egg, rand, 1.0D);
+	}
+
+	@Override
+	public ItemStack makeBredFish(ItemStack egg, Random rand, double modifier) {
 		ItemStack fish = new ItemStack(Fishery.fishy);
-		for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-			if (!egg.stackTagCompound.hasKey(FishDNA.DNAParts.get(i).getEggString())) {
+		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+			if(!FishDNABase.DNAParts.get(i).hasEggData(egg)) {
 				return null;
 			}
 		}
 
-		for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-			int[] DNAlist = FishDNA.DNAParts.get(i).getDNAList(egg);
+		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+			int[] DNAlist = FishDNABase.DNAParts.get(i).getDNAList(egg);
 
 			int parent1DNA = DNAlist[rand.nextInt(2)];
 			int parent2DNA = DNAlist[rand.nextInt(2) + 2];
 
-			int[] babyDNA = FishDNA.DNAParts.get(i).attemptMutation(parent1DNA, parent2DNA);
+			int[] babyDNA = FishDNABase.DNAParts.get(i).attemptMutation(parent1DNA, parent2DNA);
 
-			FishDNA.DNAParts.get(i).addDNA(fish, babyDNA[0]);
-			FishDNA.DNAParts.get(i).addLowerDNA(fish, babyDNA[1]);
+			FishDNABase.DNAParts.get(i).addDNA(fish, babyDNA[0]);
+			FishDNABase.DNAParts.get(i).addLowerDNA(fish, babyDNA[1]);
 		}
 
 		/* Mutate the fish species */
-		int species1 = Fishery.species.getDNA(fish);
-		int species2 = Fishery.species.getLowerDNA(fish);
+		int species1 = Fish.species.getDNA(fish);
+		int species2 = Fish.species.getLowerDNA(fish);
 
-		int chance = Fishing.mutation.getMutationChance(getSpecies(species1), getSpecies(species2));
-		if (chance > 0 && species1 != species2) {
-			FishSpecies newSpecies = Fishing.mutation.getMutation(getSpecies(species1), getSpecies(species2));
-			if (newSpecies != null) {
-				/* Attempt to mutate the fish * */
-				if (rand.nextInt(1000) < chance) {
-					for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-						FishDNA.DNAParts.get(i).addDNA(fish, FishDNA.DNAParts.get(i).getDNAFromSpecies(newSpecies));
+		ArrayList<Mutation> mutations = Fishing.mutation.getMutations(getSpecies(species1), getSpecies(species2));
+		if(species1 != species2 && mutations != null && mutations.size() > 0) {
+			for(Mutation mute: mutations) {
+				FishSpecies baby = Fishing.fishHelper.getSpecies(mute.baby);
+				if(baby != null) {
+					if(rand.nextInt(1000) < ((mute.chance * 10) * modifier)) {
+						for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+							FishDNABase.DNAParts.get(i).addDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+						}
 					}
-				}
-
-				/* Attempt to mutate the fish again * */
-				if (rand.nextInt(1000) < chance) {
-					for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-						FishDNA.DNAParts.get(i).addLowerDNA(fish, FishDNA.DNAParts.get(i).getDNAFromSpecies(newSpecies));
+					
+					//Second attempt for a mutation
+					if(rand.nextInt(1000) < ((mute.chance * 10)) * modifier) {
+						for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+							FishDNABase.DNAParts.get(i).addDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+						}
 					}
 				}
 			}
 		}
 
 		/* Reorder the fish's DNA to be sorted by dominance */
-		for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-			int dna1 = FishDNA.DNAParts.get(i).getDNA(fish);
-			int dna2 = FishDNA.DNAParts.get(i).getLowerDNA(fish);
+		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+			int dna1 = FishDNABase.DNAParts.get(i).getDNA(fish);
+			int dna2 = FishDNABase.DNAParts.get(i).getLowerDNA(fish);
 
-			int[] dominance = FishDNA.DNAParts.get(i).getDominant(dna1, dna2, rand);
+			int[] dominance = FishDNABase.DNAParts.get(i).getDominant(dna1, dna2, rand);
 
-			FishDNA.DNAParts.get(i).addDNA(fish, dominance[0]);
-			FishDNA.DNAParts.get(i).addLowerDNA(fish, dominance[1]);
+			FishDNABase.DNAParts.get(i).addDNA(fish, dominance[0]);
+			FishDNABase.DNAParts.get(i).addLowerDNA(fish, dominance[1]);
 		}
-
+		
+		Fish.gender.addDNA(fish, rand.nextInt(2));
+		
 		return fish;
 	}
 	
+	@Override
+	public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
+		FishSpecies fish = FishSpecies.species.get(Fish.species.getDNA(stack));
+		Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
+		int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
+		boolean worldCorrect = fish.isWorldCorrect(world);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile != null && tile instanceof IUpgradable) {
+			IUpgradable upgradable = (IUpgradable) tile;
+			temperature += MaricultureHandlers.upgrades.getData("temp", upgradable);
+			int salinity = salt.ordinal() + MaricultureHandlers.upgrades.getData("salinity", upgradable);
+			if(salinity <= 0) salinity = 0; if(salinity > 2) salinity = 2;
+			salt = Salinity.values()[salinity];
+			if(!worldCorrect) worldCorrect = MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable);
+		}
+		
+		if(!worldCorrect) return false;
+		
+		if(fish != null) {
+			if(!fish.canWork(Time.getTime(world))) return false;
+			else return MaricultureHandlers.environment.matches(salt, temperature, fish.salinity, fish.temperature);
+		} else return false;
+	}
+
+	@Override
+	@Deprecated
 	public boolean canLive(BiomeGenBase biome, EnumBiomeType[] biomeTypes, EnumSalinityType[] salinity, TileEntity tile) {
-		IUpgradable upgradable = (IUpgradable) tile;
-		if(upgradable != null && upgradable instanceof IUpgradable) {
+		LogHandler.log(Level.WARNING, "Please warn mod authors that this method is deprecated in Mariculture, CAN LIVE, using EnumBiomes and EnumSalinity");
+		if(tile instanceof IUpgradable) {
+			IUpgradable upgradable = (IUpgradable) tile;
 			EnumBiomeType theBiome = MaricultureHandlers.biomeType.getBiomeType(tile.worldObj.getBiomeGenForCoords(tile.xCoord, tile.zCoord));
 			EnumSalinityType saltType = theBiome.getSalinity();
 			if(MaricultureHandlers.upgrades.hasUpgrade("salinator", upgradable))
@@ -157,16 +201,7 @@ public class FishHelper implements IFishHelper {
 
 	@Override
 	public boolean biomeMatches(BiomeGenBase biome, EnumBiomeType[] biomeTypes) {
-		EnumBiomeType type = MaricultureHandlers.biomeType.getBiomeType(biome);
-		
-		for(int i = 0; i < biomeTypes.length; i++) {
-			if(biomeTypes[i] != null) {
-				if (biomeTypes[i] == type) {
-					return true;
-				}
-			}
-		}
-
+		LogHandler.log(Level.WARNING, "Deprecated method was called in Mariculture");
 		return false;
 	}
 
@@ -203,7 +238,7 @@ public class FishHelper implements IFishHelper {
 				return false;
 			}
 
-			if (Fishery.gender.getDNA(stack) == FEMALE) {
+			if (Fish.gender.getDNA(stack) == FEMALE) {
 				return true;
 			}
 		}
@@ -227,57 +262,48 @@ public class FishHelper implements IFishHelper {
 		ItemStack egg = new ItemStack(Fishery.fishy);
 		egg.setTagCompound(new NBTTagCompound());
 
-		for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
+		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
 			int[] DNAlist = new int[4];
-			DNAlist[0] = FishDNA.DNAParts.get(i).getDNA(fish1);
-			DNAlist[1] = FishDNA.DNAParts.get(i).getLowerDNA(fish1);
-			DNAlist[2] = FishDNA.DNAParts.get(i).getDNA(fish2);
-			DNAlist[3] = FishDNA.DNAParts.get(i).getLowerDNA(fish2);
-			FishDNA.DNAParts.get(i).addDNAList(egg, DNAlist);
+			DNAlist[0] = FishDNABase.DNAParts.get(i).getDNA(fish1);
+			DNAlist[1] = FishDNABase.DNAParts.get(i).getLowerDNA(fish1);
+			DNAlist[2] = FishDNABase.DNAParts.get(i).getDNA(fish2);
+			DNAlist[3] = FishDNABase.DNAParts.get(i).getLowerDNA(fish2);
+			FishDNABase.DNAParts.get(i).addDNAList(egg, DNAlist);
 		}
 
-		egg.stackTagCompound.setInteger("currentFertility", -1);
 		egg.stackTagCompound.setBoolean("isEgg", true);
+		int[] fertility = egg.stackTagCompound.getIntArray(Fish.fertility.getEggString());
+		int eggLife = AverageHelper.getMode(fertility);
+		egg.stackTagCompound.setInteger("currentFertility", eggLife);
+		egg.stackTagCompound.setInteger("malesGenerated", 0);
+		egg.stackTagCompound.setInteger("femalesGenerated", 0);
 
 		return egg;
 	}
 
 	@Override
 	public FishSpecies getSpecies(String species) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			FishSpecies fish = FishSpecies.speciesList.get(i);
-
+		for (Entry<Integer, FishSpecies> speciesList : FishSpecies.species.entrySet()) {
+			FishSpecies fish = speciesList.getValue();
 			if (fish.getSpecies().equals(species)) {
 				return fish;
 			}
 		}
 
-		return Fishery.cod;
+		return Fish.cod;
 	}
 	
 	@Override
 	public FishSpecies getSpecies(int id) {
-		if (id < FishSpecies.speciesList.size()) {
-			for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-				FishSpecies fish = FishSpecies.speciesList.get(i);
-				if(fish != null) {
-					if(fish.fishID == id) {
-						return fish;
-					}
-				}
-			}
-		}
-		
-		return Fishery.cod;
+		return FishSpecies.species.get((Integer)id);
 	}
 
 	@Override
 	public int getSpeciesID(String species) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			FishSpecies fish = FishSpecies.speciesList.get(i);
-
+		for (Entry<Integer, FishSpecies> speciesList : FishSpecies.species.entrySet()) {
+			FishSpecies fish = speciesList.getValue();
 			if (fish.getSpecies().equals(species)) {
-				return FishSpecies.speciesList.get(i).fishID;
+				return speciesList.getKey();
 			}
 		}
 
@@ -285,7 +311,20 @@ public class FishHelper implements IFishHelper {
 	}
 
 	@Override
-	public ItemStack makeBredFish(ItemStack input, ItemStack egg, Random rand) {
-		return makeBredFish(egg, rand);
+	public Integer getDNA(String str, ItemStack stack) {
+		for(FishDNABase dna: FishDNABase.DNAParts) {
+			if(str.equals(dna.getName())) return dna.getDNA(stack);
+		}
+		
+		return -1;
+	}
+
+	@Override
+	public Integer getLowerDNA(String str, ItemStack stack) {
+		for(FishDNABase dna: FishDNABase.DNAParts) {
+			if(str.equals(dna.getName())) return dna.getLowerDNA(stack);
+		}
+		
+		return -1;
 	}
 }

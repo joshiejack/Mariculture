@@ -16,11 +16,11 @@ public class RenderAnvil extends RenderBase {
 	public void renderBlock() {
 		if(dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) {
 			//Bottom
-			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			setTexture(Core.ores, OresMeta.BASE_BRICK);
 			renderBlock(0.05, 0, 0.1, 0.95D, 0.2D, 0.9D);
 			
 			//Bottomish
-			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			setTexture(Core.ores, OresMeta.BASE_BRICK);
 			renderBlock(0.15, 0.2, 0.2, 0.85D, 0.3D, 0.8D);
 			
 			//Middle
@@ -30,7 +30,7 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0.05, 0.6, 0.2, 0.95D, 0.65D, 0.8D);
 			
 			//Secondary Head
-			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			setTexture(Core.ores, OresMeta.BASE_BRICK);
 			renderBlock(0, 0.65, 0.15, 1D, 0.95D, 0.85D);
 			
 			//Head
@@ -46,11 +46,11 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0.05D, 0.95D, 0.2D, 0.95D, 1D, 0.8D);
 		} else {
 			//Bottom
-			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			setTexture(Core.ores, OresMeta.BASE_BRICK);
 			renderBlock(0.1, 0, 0.05, 0.9D, 0.2D, 0.95D);
 			
 			//Bottomish
-			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			setTexture(Core.ores, OresMeta.BASE_BRICK);
 			renderBlock(0.2, 0.2, 0.15, 0.8D, 0.3D, 0.85D);
 			
 			//Middle
@@ -60,7 +60,7 @@ public class RenderAnvil extends RenderBase {
 			renderBlock(0.2, 0.6, 0.05, 0.8D, 0.65D, 0.95D);
 			
 			//Secondary Head
-			setTexture(Core.oreBlocks, OresMeta.BASE_BRICK);
+			setTexture(Core.ores, OresMeta.BASE_BRICK);
 			renderBlock(0.15, 0.65, 0, 0.85D, 0.95D, 1D);
 			
 			//Head

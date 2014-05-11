@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.logging.Level;
 
-import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
@@ -15,7 +14,7 @@ import mariculture.core.lib.Dye;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
@@ -31,21 +30,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class WorldPlus extends Module {
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
+public class WorldPlus extends RegistrationModule {
 	public static final String OCEAN_CHEST = "oceanFloorChest";
-
 	public static Block coral;
 
 	@Override
@@ -66,12 +52,7 @@ public class WorldPlus extends Module {
 
 	@Override
 	public void registerItems() {
-		OreDictionary.registerOre("dyeYellow", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW));
-		OreDictionary.registerOre("dyeRed", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED));
-		OreDictionary.registerOre("dyeBrown", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN));
-		OreDictionary.registerOre("dyeGreen", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN));
-		OreDictionary.registerOre("dyeWhite", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE));
-		//OreDictionary.registerOre("dyeBlack", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BLACK));
+		return;
 	}
 	
 	@Override
@@ -112,7 +93,7 @@ public class WorldPlus extends Module {
 	}
 
 	@Override
-	public void addRecipes() {
+	public void registerRecipes() {
 		// Coral > Dye Recipes
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN), "coralBrown", false);
 		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED), "coralRed", false);
@@ -139,7 +120,7 @@ public class WorldPlus extends Module {
 		RecipeHelper.addBleachRecipe(new ItemStack(coral, 1, CoralMeta.CORAL_LIGHT_GREY), new ItemStack(coral, 1, CoralMeta.CORAL_WHITE), 5);
 		
 		//Kelp Wrap Recipe
-		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
+		RecipeHelper.add3x3Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
 		
 		addOceanChestLoot();
 	}
@@ -158,22 +139,17 @@ public class WorldPlus extends Module {
 		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Item.diamond, 1, 0), 1, 2, 3));
 		ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), 1, 3, 4));
 
-		if (Modules.factory.isActive()) {
+		if (Modules.isActive(Modules.factory)) {
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Factory.fludd), 1, 2, 1));
 		}
 
-		if (Modules.fishery.isActive()) {
+		if (Modules.isActive(Modules.fishery)) {
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodReed), 1, 2, 6));
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodWood), 1, 2, 4));
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodTitanium), 1, 1, 2));
-
-			for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-				int[] fishRarity = FishSpecies.speciesList.get(i).getChestGenChance();
-				if (fishRarity != null && fishRarity.length == 3) {
-					ItemStack fish = new ItemStack(Fishery.fishyFood, 1, FishSpecies.speciesList.get(i).fishID);
-					ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(fish, fishRarity[0], fishRarity[1], fishRarity[2]));
-				}
-			}
 		}
 	}
+	
+	@Deprecated
+	public static boolean isActive = Modules.isActive(Modules.worldplus);
 }

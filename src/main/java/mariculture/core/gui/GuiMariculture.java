@@ -60,8 +60,11 @@ public abstract class GuiMariculture extends GuiContainer {
 		drawBackground(f, i, j);
 		drawBackground(x, y);
 
-		if(features.size() > 0)
-			drawFeatures(x, y);
+		if(features.size() > 0) drawFeatures(x, y);
+	}
+	
+	public void drawText(String str, int x, int z) {
+		fontRenderer.drawString(str, x, z, 4210752);
 	}
 	
 	public String getName() {

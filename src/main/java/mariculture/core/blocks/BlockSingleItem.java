@@ -1,6 +1,6 @@
 package mariculture.core.blocks;
 
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.RenderMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -13,30 +13,34 @@ public class BlockSingleItem extends ItemBlockMariculture {
 	public String getName(ItemStack stack) {
 		String name = "";
 		switch (stack.getItemDamage()) {
-		case SingleMeta.AIR_PUMP:
+		case RenderMeta.AIR_PUMP:
 			return "airpump";
-		case SingleMeta.FISH_FEEDER:
+		case RenderMeta.FISH_FEEDER:
 			return "feeder";
-		case SingleMeta.TURBINE_WATER:
+		case RenderMeta.TURBINE_WATER:
 			return "turbine";
-		case SingleMeta.FLUDD_STAND:
+		case RenderMeta.FLUDD_STAND:
 			return "fludd";
-		case SingleMeta.TURBINE_GAS:
+		case RenderMeta.TURBINE_GAS:
 			return "turbineGas";
-		case SingleMeta.GEYSER:
+		case RenderMeta.GEYSER:
 			return "geyser";
-		case SingleMeta.TURBINE_HAND:
+		case RenderMeta.TURBINE_HAND:
 			return "turbineHand";
-		case SingleMeta.ANVIL_1:
+		case RenderMeta.ANVIL_1:
 			return "anvil";
-		case SingleMeta.ANVIL_2:
+		case RenderMeta.ANVIL_2:
 			return "anvil2";
-		case SingleMeta.ANVIL_3:
+		case RenderMeta.ANVIL_3:
 			return "anvil3";
-		case SingleMeta.ANVIL_4:
+		case RenderMeta.ANVIL_4:
 			return "anvil4";
-		case SingleMeta.INGOT_CASTER:
+		case RenderMeta.INGOT_CASTER:
 			return "ingotCaster";
+		case RenderMeta.BLOCK_CASTER:
+			return "blockCaster";
+		case RenderMeta.NUGGET_CASTER:
+			return "nuggetCaster";
 		default:
 			return "customBlocks";
 		}

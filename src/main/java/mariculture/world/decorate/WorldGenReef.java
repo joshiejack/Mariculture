@@ -5,6 +5,7 @@ import java.util.Random;
 import mariculture.api.core.CoralRegistry;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.world.BlockCoral;
@@ -13,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import cpw.mods.fml.common.Loader;
 
 public class WorldGenReef extends WorldGenerator {
 	private int numberOfBlocks;
@@ -39,7 +39,7 @@ public class WorldGenReef extends WorldGenerator {
 		double d5 = world.getTopSolidOrLiquidBlock(xCoord, zCoord);
 		int max = WorldGeneration.CORAL_DEPTH;
 
-		if (Loader.isModLoaded("BiomesOPlenty")) {
+		if (Extra.HAS_BOP) {
 			max = max + 10;
 		}
 
@@ -88,10 +88,10 @@ public class WorldGenReef extends WorldGenerator {
 
 									if (world.getTopSolidOrLiquidBlock(x, z) <= top) {
 										if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 3, z)) {
-											BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Core.oreBlocks.blockID, OresMeta.CORAL_ROCK);
+											BlockHelper.setBlock(world, x, world.getTopSolidOrLiquidBlock(x, z), z, Core.ores.blockID, OresMeta.CORAL_ROCK);
 										}
 									} else if (world.getTopSolidOrLiquidBlock(x, z) == top + 1) {
-										if (world.getBlockId(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == Core.oreBlocks.blockID
+										if (world.getBlockId(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == Core.ores.blockID
 												&& world.getBlockMetadata(x, world.getTopSolidOrLiquidBlock(x, z) - 1, z) == OresMeta.CORAL_ROCK) {
 											if (BlockHelper.isWater(world, x, world.getTopSolidOrLiquidBlock(x, z) + 1, z)) {
 												if (random.nextInt(400) == 0) {

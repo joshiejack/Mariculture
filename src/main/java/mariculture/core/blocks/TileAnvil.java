@@ -8,10 +8,13 @@ import mariculture.Mariculture;
 import mariculture.api.core.IAnvilHandler;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileStorage;
+import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
+import mariculture.core.util.Rand;
+import mariculture.magic.Magic;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -93,7 +96,16 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			
 			float drop = ((1.0F / (player.xpBarCap() * 1)) /4) * modifier;
 			if((player.experience >= drop || player.experienceLevel > 0) && canBeRepaired(stack)) {
+				if(EnchantHelper.hasEnchantment(Magic.luck, hammer)) {
+					for(int i = 0; i < EnchantmentHelper.getEnchantmentLevel(Magic.luck.effectId, hammer); i++) {
+						if(Rand.nextInt(3)) {
+							stack.setItemDamage(stack.getItemDamage() - 1);
+						}
+					}
+				}
+				
 				stack.setItemDamage(stack.getItemDamage() - 1);
+				if(stack.getItemDamage() < 0) stack.setItemDamage(0);
 				float experience = player.experience - drop;
 				if(experience <= 0.0F) {
 					player.experience = 1.0F;
@@ -122,6 +134,14 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			return true;
 		} else {
 			int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
+			if(EnchantHelper.hasEnchantment(Magic.luck, hammer)) {
+				for(int i = 0; i < EnchantmentHelper.getEnchantmentLevel(Magic.luck.effectId, hammer); i++) {
+					if(Rand.nextInt(3)) {
+						workedVal++;
+					}
+				}
+			}
+			
 			stack.stackTagCompound.setInteger("Worked", workedVal);
 			if(workedVal >= stack.stackTagCompound.getInteger("Required")) {
 				ItemStack result = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));

@@ -1,48 +1,47 @@
 package mariculture.api.fishery.fish;
 
 import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.EnumSalinityType;
 import mariculture.api.fishery.Fishing;
 import net.minecraft.world.World;
 
+@Deprecated
 public enum EnumFishGroup {
-	//Nether Fish
+	@Deprecated
 	NETHER(0, new EnumBiomeType[] { EnumBiomeType.HELL, EnumBiomeType.ARID }, 
 			  new EnumSalinityType[] { EnumSalinityType.MAGIC }),
 	
-	//River Fish
+	@Deprecated	
 	RIVER(1, new EnumBiomeType[] { EnumBiomeType.NORMAL, EnumBiomeType.COLD, EnumBiomeType.FROZEN }, 
 			 new EnumSalinityType[] { EnumSalinityType.FRESH }),
-			
-	//Ocean Fish
+	@Deprecated		
 	OCEAN(2, new EnumBiomeType[] { EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.COLD, EnumBiomeType.FROZEN }, 
 			 new EnumSalinityType[] { EnumSalinityType.SALT, EnumSalinityType.FRESH }),
 			
-	//Tropical Fish
-	TROPICAL(3, new EnumBiomeType[] { EnumBiomeType.HOT, EnumBiomeType.OCEAN }, 
+	@Deprecated
+	TROPICAL(3, new EnumBiomeType[] { EnumBiomeType.HOT, EnumBiomeType.NORMAL, EnumBiomeType.OCEAN }, 
 				new EnumSalinityType[] { EnumSalinityType.FRESH, EnumSalinityType.SALT }),
-				
-	//Domesticated Fish
+			
+	@Deprecated
 	DOMESTICATED(4, new EnumBiomeType[] { EnumBiomeType.NORMAL, EnumBiomeType.HOT, EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN,
 										  EnumBiomeType.COLD, EnumBiomeType.MUSHROOM, EnumBiomeType.FROZEN, EnumBiomeType.HELL},
 					new EnumSalinityType[] { EnumSalinityType.FRESH, EnumSalinityType.SALT, EnumSalinityType.MAGIC }),
-			
-	//Ender Fish
+	@Deprecated		
 	ENDER(5, new EnumBiomeType[] { EnumBiomeType.ENDER, EnumBiomeType.COLD }, 
 			 new EnumSalinityType[] { EnumSalinityType.MAGIC }),
 	
-	//Amazon River Fish
-	AMAZONIAN(6, new EnumBiomeType[] { EnumBiomeType.HOT }, 
+	@Deprecated
+	AMAZONIAN(6, new EnumBiomeType[] { EnumBiomeType.HOT, EnumBiomeType.ARID }, 
 				 new EnumSalinityType[] { EnumSalinityType.FRESH, EnumSalinityType.MAGIC }),
-	
-	//Flat fish
+	@Deprecated
 	FLATFISH(7, new EnumBiomeType[] { EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.OCEAN, EnumBiomeType.HOT, EnumBiomeType.ARID, EnumBiomeType.HELL }, 
 				new EnumSalinityType[] { EnumSalinityType.SALT, EnumSalinityType.MAGIC }),
 				
-	//Jellyfish
+	@Deprecated
 	JELLY(8, new EnumBiomeType[] { EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN, EnumBiomeType.ENDER },  
 			 new EnumSalinityType[] { EnumSalinityType.SALT, EnumSalinityType.MAGIC }),
 			 
-	//Nemo Fish
+	@Deprecated
 	NEMO(9, new EnumBiomeType[] { EnumBiomeType.MUSHROOM, EnumBiomeType.OCEAN }, 
 			new EnumSalinityType[] { EnumSalinityType.MAGIC, EnumSalinityType.SALT });
 

@@ -1,7 +1,7 @@
 package mariculture.core.render;
 
 import mariculture.core.blocks.TileVat;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MultiMeta;
 import mariculture.core.lib.RenderIds;
 import mariculture.diving.TileAirCompressor;
 import mariculture.diving.render.RenderCompressorBase;
@@ -17,13 +17,13 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 public class RenderDouble implements ISimpleBlockRenderingHandler {
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks render) {
-		if(meta == DoubleMeta.VAT) {
+		if(meta == MultiMeta.VAT) {
 			new RenderVat(render).render();
-		} else if (meta == DoubleMeta.COMPRESSOR_BASE) {
+		} else if (meta == MultiMeta.COMPRESSOR_BASE) {
 			new RenderCompressorBase(render).render();
-		} else if(meta == DoubleMeta.COMPRESSOR_TOP) {
+		} else if(meta == MultiMeta.COMPRESSOR_TOP) {
 			new RenderCompressorTop(render).render();
-		} else if(meta == DoubleMeta.PRESSURE_VESSEL) {
+		} else if(meta == MultiMeta.PRESSURE_VESSEL) {
 			new RenderPressureVessel(render).render();
 		}
 	}
@@ -36,7 +36,7 @@ public class RenderDouble implements ISimpleBlockRenderingHandler {
 		} else if (tile instanceof TileVat) {
 			return new RenderVat(render).setCoords(world, x, y, z).setDir(((TileVat)tile).facing).render();
 		} else if (tile instanceof TileAirCompressor) {
-			if(world.getBlockMetadata(x, y, z) == DoubleMeta.COMPRESSOR_BASE) {
+			if(world.getBlockMetadata(x, y, z) == MultiMeta.COMPRESSOR_BASE) {
 				return new RenderCompressorBase(render).setCoords(world, x, y, z).setDir(((TileAirCompressor)tile).facing).render();
 			} else {
 				return new RenderCompressorTop(render).setCoords(world, x, y, z).setDir(((TileAirCompressor)tile).facing).render();

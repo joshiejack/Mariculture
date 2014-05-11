@@ -23,23 +23,16 @@ public class ModPearl extends ToolMod {
 
 	@Override
 	protected boolean canModify(ItemStack tool, ItemStack[] input) {
-		ToolCore toolItem = (ToolCore) tool.getItem();
-		if (!validType(toolItem))
-			return false;
-
-		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-		if (!tags.hasKey(key))
-			return tags.getInteger("Modifiers") > 0;
-
-		int keyPair[] = tags.getIntArray(key);
-		if (keyPair[0] + increase <= keyPair[1])
-			return true;
-
-		else if (keyPair[0] == keyPair[1])
-			return tags.getInteger("Modifiers") > 0;
-
-		else
-			return false;
+		if(tool.getItem() instanceof ToolCore) {
+			ToolCore toolItem = (ToolCore) tool.getItem();
+			if (!validType(toolItem)) return false;
+			NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+			if (!tags.hasKey(key))return tags.getInteger("Modifiers") > 0;
+			int keyPair[] = tags.getIntArray(key);
+			if (keyPair[0] + increase <= keyPair[1])return true;
+			else if (keyPair[0] == keyPair[1])return tags.getInteger("Modifiers") > 0;
+			else return false;
+		} else return false;
 	}
 
 	@Override

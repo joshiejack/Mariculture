@@ -1,5 +1,6 @@
 package mariculture.api.fishery.fish;
 
+@Deprecated
 public enum EnumFishWorkEthic {
 	LAZY(0, false), 
 	NORMAL(1, true), 

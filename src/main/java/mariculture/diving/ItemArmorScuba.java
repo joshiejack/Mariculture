@@ -61,7 +61,7 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
 		if(stack1.itemID != Diving.scubaTank.itemID)
-			return stack2.itemID == Core.craftingItem.itemID && stack2.getItemDamage() == CraftingMeta.NEOPRENE;
+			return stack2.itemID == Core.crafting.itemID && stack2.getItemDamage() == CraftingMeta.NEOPRENE;
 		return false;
 	}
 

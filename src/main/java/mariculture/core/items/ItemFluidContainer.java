@@ -85,7 +85,7 @@ public class ItemFluidContainer extends ItemMariculture {
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		if(stack.getItemDamage() != FluidContainerMeta.BOTTLE_VOID)
 			return false;
-		int blockID = Core.tankBlocks.blockID;
+		int blockID = Core.tanks.blockID;
 		int id = world.getBlockId(x, y, z);
 
 		if (id == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1) {
@@ -141,7 +141,7 @@ public class ItemFluidContainer extends ItemMariculture {
 	}
 
 	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-		int blockID = Core.tankBlocks.blockID;
+		int blockID = Core.tanks.blockID;
 		if (!world.setBlock(x, y, z, blockID, meta, 3)) {
 			return false;
 		}
@@ -247,9 +247,9 @@ public class ItemFluidContainer extends ItemMariculture {
 		case FluidContainerMeta.BOTTLE_TIN:
 			return OreDictionary.getOres("ingotTin").size() > 0;
 		case FluidContainerMeta.BOTTLE_FISH_OIL:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 		case FluidContainerMeta.BOTTLE_FISH_FOOD:
-			return (Modules.fishery.isActive());
+			return (Modules.isActive(Modules.fishery));
 
 		default:
 			return true;

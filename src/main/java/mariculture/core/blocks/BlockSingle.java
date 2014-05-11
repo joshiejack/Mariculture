@@ -10,12 +10,13 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.RenderMeta;
 import mariculture.core.network.Packet120ItemSync;
 import mariculture.core.network.Packets;
 import mariculture.core.util.Rand;
@@ -56,35 +57,26 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	@Override
-	public void onBlockAdded(World par1World, int par2, int par3, int par4) {
-		super.onBlockAdded(par1World, par2, par3, par4);
+	public void onBlockAdded(World world, int par2, int par3, int par4) {
+		super.onBlockAdded(world, par2, par3, par4);
 	}
 
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
-		case SingleMeta.AIR_PUMP:
-			return 4F;
-		case SingleMeta.FISH_FEEDER:
-			return 0.5F;
-		case SingleMeta.TURBINE_WATER:
-			return 2.5F;
-		case SingleMeta.FLUDD_STAND:
-			return 3F;
-		case SingleMeta.TURBINE_GAS:
-			return 5F;
-		case SingleMeta.GEYSER:
-			return 1F;
-		case SingleMeta.ANVIL_1:
-			return 6F;
-		case SingleMeta.ANVIL_2:
-			return 6F;
-		case SingleMeta.ANVIL_3:
-			return 6F;
-		case SingleMeta.ANVIL_4:
-			return 6F;
-		case SingleMeta.INGOT_CASTER:
-			return 1F;
+			case RenderMeta.AIR_PUMP: 		return 4F;
+			case RenderMeta.FISH_FEEDER: 	return 0.5F;
+			case RenderMeta.TURBINE_WATER: 	return 2.5F;
+			case RenderMeta.FLUDD_STAND: 	return 3F;
+			case RenderMeta.TURBINE_GAS: 	return 5F;
+			case RenderMeta.GEYSER: 		return 1F;
+			case RenderMeta.ANVIL_1: 		return 6F;
+			case RenderMeta.ANVIL_2: 		return 6F;
+			case RenderMeta.ANVIL_3: 		return 6F;
+			case RenderMeta.ANVIL_4: 		return 6F;
+			case RenderMeta.INGOT_CASTER: 	return 1F;
+			case RenderMeta.NUGGET_CASTER: 	return 0.9F;
+			case RenderMeta.BLOCK_CASTER: 	return 1.1F;
 		}
 
 		return 1F;
@@ -160,30 +152,26 @@ public class BlockSingle extends BlockMachine {
 		}
 		
 		int meta = stack.getItemDamage();
-		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4) {
+		if(meta >= RenderMeta.ANVIL_1 && meta <= RenderMeta.ANVIL_4) {
 	        int l = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 	        int i1 = world.getBlockMetadata(x, y, z) >> 2;
 	        ++l;
 	        l %= 4;
 	
-	        if (l == 0)
-	        {
-	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_3, 2);
+	        if (l == 0) {
+	            world.setBlockMetadataWithNotify(x, y, z, RenderMeta.ANVIL_3, 2);
 	        }
 	
-	        if (l == 1)
-	        {
-	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_4, 2);
+	        if (l == 1) {
+	            world.setBlockMetadataWithNotify(x, y, z, RenderMeta.ANVIL_4, 2);
 	        }
 	
-	        if (l == 2)
-	        {
-	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_1, 2);
+	        if (l == 2) {
+	            world.setBlockMetadataWithNotify(x, y, z, RenderMeta.ANVIL_1, 2);
 	        }
 	
-	        if (l == 3)
-	        {
-	            world.setBlockMetadataWithNotify(x, y, z, SingleMeta.ANVIL_2, 2);
+	        if (l == 3) {
+	            world.setBlockMetadataWithNotify(x, y, z, RenderMeta.ANVIL_2, 2);
 	        }
 		}
 	}
@@ -195,10 +183,17 @@ public class BlockSingle extends BlockMachine {
 			return false;
 		}
 		
+		ItemStack held = player.getCurrentEquippedItem();
+		if(held != null) {
+			if(held.itemID == Core.crafting.itemID && held.getItemDamage() == CraftingMeta.THERMOMETER) {
+				return false;
+			}
+		}
+		
 		if (tile instanceof TileAirPump && Extra.ACTIVATE_PUMP) {	
 			TileAirPump pump = (TileAirPump) tile;
 			if (pump.animate == false) {
-				if(Modules.diving.isActive()) {
+				if(Modules.isActive(Modules.diving)) {
 					if(pump.updateAirArea(Type.CHECK)) {
 						if(!world.isRemote)
 							pump.supplyWithAir(300, 64.0D, 64.0D, 64.0D);
@@ -287,9 +282,9 @@ public class BlockSingle extends BlockMachine {
 			return true;
 		}
 		
-		if(tile instanceof TileIngotCaster) {
+		if(tile instanceof TileCooling) {
 			if (!world.isRemote) {
-				TileIngotCaster caster = (TileIngotCaster) tile;
+				TileCooling caster = (TileCooling) tile;
 				for(int i = 0; i < caster.getSizeInventory(); i++) {
 					if(caster.getStackInSlot(i) != null) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, caster.getStackInSlot(i));
@@ -308,6 +303,14 @@ public class BlockSingle extends BlockMachine {
 
 		return false;
 	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileFeeder) {
+			return ((TileFeeder)tile).getLightValue();
+		} else return 0;
+    }
 	
 	@Override
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
@@ -331,10 +334,10 @@ public class BlockSingle extends BlockMachine {
 		ForgeDirection facing;
 
 		switch (meta) {
-		case SingleMeta.AIR_PUMP:
+		case RenderMeta.AIR_PUMP:
 			setBlockBounds(0.2F, 0F, 0.2F, 0.8F, 0.9F, 0.8F);
 			break;
-		case SingleMeta.GEYSER:
+		case RenderMeta.GEYSER:
 			TileGeyser geyser = (TileGeyser)block.getBlockTileEntity(x, y, z);
 			if(geyser.orientation == ForgeDirection.UP)
 				setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.25F, 0.9F);
@@ -349,16 +352,16 @@ public class BlockSingle extends BlockMachine {
 			if(geyser.orientation == ForgeDirection.NORTH)
 				setBlockBounds(0.1F, 0.1F, 0.75F, 0.9F, 0.9F, 1.0F);
 			break;
-		case SingleMeta.ANVIL_1:
+		case RenderMeta.ANVIL_1:
 			setBlockBounds(0.125F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
 			break;
-		case SingleMeta.ANVIL_2:
+		case RenderMeta.ANVIL_2:
 			setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
 			break;
-		case SingleMeta.ANVIL_3:
+		case RenderMeta.ANVIL_3:
 			setBlockBounds(0.125F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
 			break;
-		case SingleMeta.ANVIL_4:
+		case RenderMeta.ANVIL_4:
 			setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
@@ -367,7 +370,7 @@ public class BlockSingle extends BlockMachine {
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == SingleMeta.GEYSER || (meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)) {
+		if (meta == RenderMeta.GEYSER || (meta >= RenderMeta.ANVIL_1 && meta <= RenderMeta.ANVIL_4)) {
 			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,
 					(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 		}
@@ -378,25 +381,29 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		switch (meta) {
-		case SingleMeta.AIR_PUMP:
+		case RenderMeta.AIR_PUMP:
 			return new TileAirPump();
-		case SingleMeta.FISH_FEEDER:
+		case RenderMeta.FISH_FEEDER:
 			return new TileFeeder();
-		case SingleMeta.TURBINE_WATER:
+		case RenderMeta.TURBINE_WATER:
 			return new TileTurbineWater();
-		case SingleMeta.FLUDD_STAND:
+		case RenderMeta.FLUDD_STAND:
 			return new TileFLUDDStand();
-		case SingleMeta.TURBINE_GAS:
+		case RenderMeta.TURBINE_GAS:
 			return new TileTurbineGas();
-		case SingleMeta.TURBINE_HAND:
+		case RenderMeta.TURBINE_HAND:
 			return new TileTurbineHand();
-		case SingleMeta.GEYSER:
+		case RenderMeta.GEYSER:
 			return new TileGeyser();
-		case SingleMeta.INGOT_CASTER:
+		case RenderMeta.INGOT_CASTER:
 			return new TileIngotCaster();
+		case RenderMeta.BLOCK_CASTER:
+			return new TileBlockCaster();
+		case RenderMeta.NUGGET_CASTER:
+			return new TileNuggetCaster();
 		}
 		
-		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)
+		if(meta >= RenderMeta.ANVIL_1 && meta <= RenderMeta.ANVIL_4)
 			return new TileAnvil();
 
 		return null;
@@ -426,11 +433,10 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		if (!world.isRemote) {
-			if (world.getBlockMetadata(x, y, z) == SingleMeta.FLUDD_STAND) {
+			TileEntity tile = world.getBlockTileEntity(x, y, z);
+			if (tile instanceof TileFLUDDStand) {
 				if (!player.capabilities.isCreativeMode) {
-					if (world.getBlockTileEntity(x, y, z) instanceof TileFLUDDStand) {
-						dropFLUDD(world, x, y, z);
-					}
+					dropFLUDD(world, x, y, z);
 				}
 			}
 		}
@@ -462,7 +468,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public int idDropped(int i, Random random, int j) {
-		if (i == SingleMeta.FLUDD_STAND) {
+		if (i == RenderMeta.FLUDD_STAND) {
 			return 0;
 		}
 
@@ -471,43 +477,45 @@ public class BlockSingle extends BlockMachine {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
-		if(meta == SingleMeta.GEYSER)
+		if(meta == RenderMeta.GEYSER)
 			return Block.hopperBlock.getIcon(0, 0);
-		if(meta == SingleMeta.INGOT_CASTER)
-			return super.getIcon(side, meta);
-		if(meta >= SingleMeta.ANVIL_1 && meta <= SingleMeta.ANVIL_4)
-			return super.getIcon(side, SingleMeta.INGOT_CASTER);
+		if(meta == RenderMeta.INGOT_CASTER || meta == RenderMeta.BLOCK_CASTER)
+			return super.getIcon(side, RenderMeta.INGOT_CASTER);
+		if(meta >= RenderMeta.ANVIL_1 && meta <= RenderMeta.ANVIL_4)
+			return super.getIcon(side, RenderMeta.INGOT_CASTER);
 		
 		return icons[meta];
 	}
 
 	@Override
 	public int damageDropped(int i) {
-		if(i >= SingleMeta.ANVIL_1 && i <= SingleMeta.ANVIL_4)
-			return SingleMeta.ANVIL_1;
+		if(i >= RenderMeta.ANVIL_1 && i <= RenderMeta.ANVIL_4)
+			return RenderMeta.ANVIL_1;
 		return i;
 	}
 
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case SingleMeta.FISH_FEEDER:
-			return Modules.fishery.isActive();
-		case SingleMeta.TURBINE_WATER:
-			return Modules.factory.isActive();
-		case SingleMeta.FLUDD_STAND:
+		case RenderMeta.FISH_FEEDER:
+			return Modules.isActive(Modules.fishery);
+		case RenderMeta.TURBINE_WATER:
+			return Modules.isActive(Modules.factory);
+		case RenderMeta.FLUDD_STAND:
 			return false;
-		case SingleMeta.TURBINE_GAS:
-			return Modules.factory.isActive();
-		case SingleMeta.GEYSER:
-			return Modules.factory.isActive();
-		case SingleMeta.TURBINE_HAND:
-			return Modules.factory.isActive();
-		case SingleMeta.ANVIL_2:
+		case RenderMeta.TURBINE_GAS:
+			return Modules.isActive(Modules.factory);
+		case RenderMeta.GEYSER:
+			return Modules.isActive(Modules.factory);
+		case RenderMeta.TURBINE_HAND:
+			return Modules.isActive(Modules.factory);
+		case RenderMeta.ANVIL_2:
 			return false;
-		case SingleMeta.ANVIL_3:
+		case RenderMeta.ANVIL_3:
 			return false;
-		case SingleMeta.ANVIL_4:
+		case RenderMeta.ANVIL_4:
+			return false;
+		case RenderMeta.NUGGET_CASTER:
 			return false;
 		default:
 			return true;
@@ -516,7 +524,7 @@ public class BlockSingle extends BlockMachine {
 
 	@Override
 	public int getMetaCount() {
-		return SingleMeta.COUNT;
+		return RenderMeta.COUNT;
 	}
 	
 	@Override
@@ -525,7 +533,8 @@ public class BlockSingle extends BlockMachine {
 		icons = new Icon[getMetaCount()];
 
 		for (int i = 0; i < icons.length; i++) {
-			if(i <= SingleMeta.ANVIL_1 || i > SingleMeta.ANVIL_4) {
+			if(i <= RenderMeta.ANVIL_1 || i > RenderMeta.ANVIL_4) {
+				if(i != RenderMeta.BLOCK_CASTER && i != RenderMeta.NUGGET_CASTER)
 				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this.blockID, 1, i)));
 			}
 		}

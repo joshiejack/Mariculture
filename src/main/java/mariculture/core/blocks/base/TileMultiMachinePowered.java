@@ -31,12 +31,14 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
 	
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return getMaster() != null? ((TileMultiMachinePowered)getMaster()).energyStorage.receiveEnergy(maxReceive, simulate): 0;
+		TileMultiMachinePowered tile = (TileMultiMachinePowered) getMaster();
+		return tile != null? tile.energyStorage.receiveEnergy(maxReceive, simulate): 0;
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return getMaster() != null? ((TileMultiMachinePowered)getMaster()).energyStorage.extractEnergy(maxExtract, simulate): 0;
+		TileMultiMachinePowered tile = (TileMultiMachinePowered) getMaster();
+		return tile != null? tile.energyStorage.extractEnergy(maxExtract, simulate): 0;
 	}
 
 	@Override
@@ -46,12 +48,14 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
 
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
-		return getMaster() != null? ((TileMultiMachinePowered)getMaster()).energyStorage.getEnergyStored(): 0;
+		TileMultiMachinePowered tile = (TileMultiMachinePowered) getMaster();
+		return tile != null? tile.energyStorage.getEnergyStored(): 0;
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
-		return getMaster() != null? ((TileMultiMachinePowered)getMaster()).energyStorage.getMaxEnergyStored(): 0;
+		TileMultiMachinePowered tile = (TileMultiMachinePowered) getMaster();
+		return tile != null? tile.energyStorage.getMaxEnergyStored(): 0;
 	}
 	
 	@Override

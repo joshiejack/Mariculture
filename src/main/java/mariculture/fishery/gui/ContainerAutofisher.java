@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
 
@@ -56,7 +57,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (stack.getItem() instanceof ItemBaseRod) {
+				if (stack.getItem() instanceof ItemBaseRod || stack.itemID == Item.fishingRod.itemID) {
 					if (!this.mergeItemStack(stack, 4, 5, false)) { // Slot 4-4
 						return null;
 					}
@@ -108,7 +109,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return stack.getItem() instanceof ItemBaseRod;
+			return stack.getItem() instanceof ItemBaseRod || stack.itemID == Item.fishingRod.itemID;
 		}
 	}
 

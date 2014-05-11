@@ -1,12 +1,15 @@
 package mariculture.fishery.fish;
-
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.Items.dropletDestroy;
+import static mariculture.core.lib.Items.dropletPoison;
+import static mariculture.core.lib.Items.dropletWater;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -15,34 +18,54 @@ public class FishPuffer extends FishSpecies {
 	public FishPuffer(int id) {
 		super(id);
 	}
-
+	
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.TROPICAL;
+	public int[] setSuitableTemperature() {
+		return new int[] { 20, 45 };
 	}
-
+	
 	@Override
-	public int getLifeSpan() {
-		return 37;
-	}
-
-	@Override
-	public int getFertility() {
-		return 370;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { BRACKISH, FRESH };
 	}
 
 	@Override
 	public boolean isDominant() {
 		return false;
 	}
-	
+
+	@Override
+	public int getLifeSpan() {
+		return 10;
+	}
+
+	@Override
+	public int getFertility() {
+		return 3;
+	}
+
+	@Override
+	public int getFoodConsumption() {
+		return 3;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 115;
+	}
+
 	@Override
 	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 7.5D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 1.5D);
+		addProduct(dropletWater, 3D);
+		addProduct(dropletPoison, 7.5D);
+		addProduct(dropletDestroy, 1.5D);
 	}
-	
+
+	@Override
+	public double getFishOilVolume() {
+		return 4.625D;
+	}
+
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
 		player.addPotionEffect(new PotionEffect(Potion.poison.id, 1200, 3));
@@ -51,27 +74,17 @@ public class FishPuffer extends FishSpecies {
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 15;
-	}
-	
-	@Override
 	public RodQuality getRodNeeded() {
-		return RodQuality.SUPER;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 3.000;
+		return RodQuality.GOOD;
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 2 };
+	public int getCatchChance() {
+		return 17;
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 4;
+	public double getCaughtAliveChance(int height, int time) {
+		return Time.isDawn(time) && Height.isShallows(height)? 5D: 0D;
 	}
 }

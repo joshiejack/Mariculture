@@ -44,7 +44,7 @@ public class PartGoldThread extends JewelryPart {
 
 	@Override
 	public ItemStack getItemStack() {
-		return new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD);
+		return new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD);
 	}
 	
 	@Override

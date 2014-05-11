@@ -179,7 +179,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 	}
 	
 	private static boolean isValidFloor(World world, int x, int y, int z) {
-		if(world.getBlockId(x, y, z) == Core.oreBlocks.blockID && world.getBlockMetadata(x, y, z) == OresMeta.CORAL_ROCK) {
+		if(world.getBlockId(x, y, z) == Core.ores.blockID && world.getBlockMetadata(x, y, z) == OresMeta.CORAL_ROCK) {
 			return true;
 		}
 		
@@ -215,7 +215,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 				if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Core.oreBlocks.blockID
+				if (world.getBlockId(x, y - 1, z) == Core.ores.blockID
 						&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
 					return true;
 				}
@@ -229,7 +229,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 				if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Core.oreBlocks.blockID
+				if (world.getBlockId(x, y - 1, z) == Core.ores.blockID
 						&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
 					return true;
 				}

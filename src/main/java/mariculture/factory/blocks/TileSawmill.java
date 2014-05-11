@@ -171,7 +171,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	
 	private int getID(int slot) {
 		if (inventory[slot].itemID == Item.feather.itemID) {
-			return Core.airBlocks.blockID;
+			return Core.air.blockID;
 		}
 
 		return inventory[slot].itemID;

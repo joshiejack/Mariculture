@@ -19,7 +19,6 @@ import net.minecraft.util.StatCollector;
 
 public class GuiFeeder extends GuiMariculture {	
 	public TileFeeder tile;
-	
 	public GuiFeeder(InventoryPlayer player, TileFeeder tile) {
 		super(new ContainerFeeder(tile, player), "feeder", 10);
 		this.tile = tile;
@@ -28,6 +27,7 @@ public class GuiFeeder extends GuiMariculture {
 		features.add(new FeatureNotifications(tile, new NotificationType[] { 
 				NotificationType.NO_FOOD, NotificationType.NO_MALE, NotificationType.NO_FEMALE, NotificationType.BAD_ENV 
 		}));
+		
 		features.add(new FeatureRedstone(tile));
 		features.add(new FeatureEject(tile));
 		features.add(new FeatureTank(tile, 33, 19, TankSize.DOUBLE));

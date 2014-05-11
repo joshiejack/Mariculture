@@ -110,18 +110,14 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 					TileEntity tile = worldObj.getBlockTileEntity(xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
 					if(tile != null && tile instanceof IInventory) {
 						ItemStack newStack = InventoryHelper.insertItemStackIntoInventory((IInventory)tile, stack, orientation.getOpposite().ordinal());
-						if(newStack == null)
-							item.setDead();
-						else
-							item.setEntityItemStack(newStack);
+						if(newStack == null) item.setDead();
+						else item.setEntityItemStack(newStack);
 					}
 				}
 				
 				if(orientation != ForgeDirection.UP) {
-					if(reverse)
-						entity.addVelocity(-orientation.offsetX * boostXZ, -orientation.offsetY * boostXZ, -orientation.offsetZ * boostXZ);
-					else
-						entity.addVelocity(orientation.offsetX * boostXZ, orientation.offsetY * boostXZ, orientation.offsetZ * boostXZ);
+					if(reverse) entity.addVelocity(-orientation.offsetX * boostXZ, -orientation.offsetY * boostXZ, -orientation.offsetZ * boostXZ);
+					else entity.addVelocity(orientation.offsetX * boostXZ, orientation.offsetY * boostXZ, orientation.offsetZ * boostXZ);
 				} else {
 					if(entity.motionY <= boostY - 0.1) {
 						entity.motionY+=boostY;
@@ -147,16 +143,13 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 				if(block != null) {
 					float blockHardness = block.getBlockHardness(worldObj, x2, y2, z2);
 					if(worldObj.isRemote) {
-						block.addBlockHitEffects(worldObj, 
-								new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), 
-										worldObj.getWorldVec3Pool().getVecFromPool(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
+						block.addBlockHitEffects(worldObj, new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), worldObj.getWorldVec3Pool().getVecFromPool(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
 					}
 					int chance = (int) (((blockHardness * 10) > 0)? (blockHardness * 10): 10);
 					if(Rand.nextInt(chance)) {
 						if(blockHardness <= hardnessMax) {
 							int meta = worldObj.getBlockMetadata(x2, y2, z2);
-							if(worldObj.isRemote)
-								block.addBlockDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
+							if(worldObj.isRemote) block.addBlockDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);
 							FakePlayer player = new FakePlayer(worldObj, "fludd");
 							if (block.removeBlockByPlayer(worldObj, player, x2, y2, z2)) {
 	                             block.onBlockDestroyedByPlayer(worldObj, x2, y2, z2, meta);
@@ -186,7 +179,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification 
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.oysterBlock.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlockId(x, y, z) == Core.oyster.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
 	}
 	
 	private boolean hasEthereal() {

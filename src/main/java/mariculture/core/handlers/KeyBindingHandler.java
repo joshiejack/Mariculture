@@ -2,7 +2,7 @@ package mariculture.core.handlers;
 
 import java.util.EnumSet;
 
-import mariculture.core.helpers.KeyBindingHelper;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.KeyHelper;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.Packet106JewelrySwap;
@@ -35,8 +35,8 @@ public class KeyBindingHandler extends KeyHandler {
 
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-		EntityPlayer player = KeyBindingHelper.getPlayer();
-		if(KeyBindingHelper.inFocus()) {
+		EntityPlayer player = ClientHelper.getPlayer();
+		if(ClientHelper.inFocus()) {
 			KeyHelper.ACTIVATE_PRESSED = kb == boost;
 			KeyHelper.TOGGLE_DOWN = kb == toggle;
 			
@@ -51,18 +51,18 @@ public class KeyBindingHandler extends KeyHandler {
 		KeyHelper.ACTIVATE_PRESSED = false;
 		KeyHelper.TOGGLE_DOWN = false;
 				
-		if(KeyBindingHelper.inFocus() && tickEnd) {
-			EntityPlayer player = KeyBindingHelper.getPlayer();
+		if(ClientHelper.inFocus() && tickEnd) {
+			EntityPlayer player = ClientHelper.getPlayer();
 			boolean isSneaking = player.isSneaking();
 			
-			if(Modules.magic.isActive()) {
+			if(Modules.isActive(Modules.magic)) {
 				if(kb == boost)
 					switchJewelry((EntityClientPlayerMP) player);
 				if(kb == toggle) {
 					if(isSneaking) {
 						if (EnchantmentSpider.activated) {
 							EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
-							KeyBindingHelper.addToChat(EnchantmentSpider.getChat());
+							ClientHelper.addToChat(EnchantmentSpider.getChat());
 						}
 					} else {
 						if(EnchantmentGlide.keyCoolDown > 0)

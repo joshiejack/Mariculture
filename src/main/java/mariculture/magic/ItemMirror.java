@@ -71,6 +71,7 @@ public class ItemMirror extends ItemStorage {
 		return new ContainerMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, player.getCurrentEquippedItem());
 	}
 
+	@Override
 	public Object getGUIElement(EntityPlayer player) {
 		return new GuiMirror(player.inventory, new InventoryStorage(player, size), player.worldObj, gui, player.getCurrentEquippedItem());
 	}

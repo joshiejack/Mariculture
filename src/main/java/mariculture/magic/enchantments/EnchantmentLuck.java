@@ -1,6 +1,7 @@
 package mariculture.magic.enchantments;
 
 import mariculture.api.fishery.ItemBaseRod;
+import mariculture.core.items.ItemHammer;
 import mariculture.magic.ItemMirror;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -14,12 +15,12 @@ public class EnchantmentLuck extends Enchantment {
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return stack.getItem() instanceof ItemMirror || stack.getItem() instanceof ItemBaseRod;
+		return stack.getItem() instanceof ItemMirror || stack.getItem() instanceof ItemBaseRod || stack.getItem() instanceof ItemHammer;
 	}
 	
 	@Override
 	public boolean canApply(ItemStack stack) {
-		return stack.getItem() instanceof ItemMirror || stack.getItem() instanceof ItemBaseRod;
+		return stack.getItem() instanceof ItemMirror || stack.getItem() instanceof ItemBaseRod || stack.getItem() instanceof ItemHammer;
 	}
 	
 	@Override

@@ -1,15 +1,18 @@
 package mariculture.fishery.fish;
 
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.Items.dropletAqua;
+import static mariculture.core.lib.Items.dropletDestroy;
+import static mariculture.core.lib.Items.dropletEarth;
+import static mariculture.core.lib.Items.dropletWater;
+import static mariculture.core.lib.Items.rottenFlesh;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -20,82 +23,88 @@ public class FishPiranha extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.AMAZONIAN;
+	public int[] setSuitableTemperature() {
+		return new int[] { 21, 28 };
 	}
 
 	@Override
-	public int getLifeSpan() {
-		return 50;
-	}
-
-	@Override
-	public int getFertility() {
-		return 500;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH };
 	}
 
 	@Override
 	public boolean isDominant() {
-		return false;
+		return true;
 	}
-	
+
 	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 2.5D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 5D);
-		addProduct(new ItemStack(Item.rottenFlesh), 15.0D);
+	public int getLifeSpan() {
+		return 10;
 	}
-	
+
 	@Override
-	public int getFoodStat() {
+	public int getFertility() {
+		return 5000;
+	}
+
+	@Override
+	public int getFoodConsumption() {
 		return 3;
 	}
 
 	@Override
-	public float getFoodSaturation() {
-		return 0.5F;
+	public int getWaterRequired() {
+		return 250;
 	}
-	
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletWater, 3D);
+		addProduct(dropletAqua, 2.5D);
+		addProduct(dropletDestroy, 5D);
+		addProduct(dropletEarth, 4.0D);
+		addProduct(rottenFlesh, 15.0D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 3.500D;
+	}
+
+	@Override
+	public int getFishMealSize() {
+		return 3;
+	}
+
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
 		player.addPotionEffect(new PotionEffect(Potion.harm.id, 20, 0));
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 8;
-	}
-	
-	@Override
-	public RodQuality getRodNeeded() {
-		return RodQuality.SUPER;
-	}
-
-	@Override
-	public double getFishOilVolume() {
-		return 1.750;
-	}
-	
-	@Override
-	public void affectLiving(EntityLivingBase living) {
-		if (living instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) living;
+	public void affectLiving(EntityLivingBase entity) {
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
 			if (player.worldObj.difficultySetting > 0) {
 				player.attackEntityFrom(MaricultureDamage.piranha, player.worldObj.difficultySetting);
 			}
 		} else {
-			living.attackEntityFrom(MaricultureDamage.piranha, 2);
+			entity.attackEntityFrom(MaricultureDamage.piranha, 2);
 		}
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 3 };
+	public RodQuality getRodNeeded() {
+		return RodQuality.FLUX;
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 3;
+	public double getCatchChance(int height, int time) {
+		return Time.isDusk(time) ? 35D : 3D;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return height > 70 && height < 80 && Time.isDusk(time) ? 5D : 0D;
 	}
 }

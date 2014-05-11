@@ -133,13 +133,12 @@ public class FluidHelper {
 	}
 
 	public static boolean fillHandlerWithContainer(World world, IFluidHandler handler, EntityPlayer player) {
-
 		ItemStack container = player.getCurrentEquippedItem();
 		FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(container);
 
 		if (fluid != null) {
 			if (handler.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount || player.capabilities.isCreativeMode) {
-				if (ServerHelper.isClientWorld(world)) {
+				if (world.isRemote) {
 					return true;
 				}
 				handler.fill(ForgeDirection.UNKNOWN, fluid, true);

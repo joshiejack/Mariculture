@@ -1,5 +1,7 @@
 package mariculture.core.lib;
 
+import net.minecraft.util.StatCollector;
+
 public class Text {
 	private final static String prfx = "\u00a7";
 	public static final String BLACK = prfx + "0";
@@ -18,6 +20,7 @@ public class Text {
 	public static final String PINK = prfx + "d";
 	public static final String YELLOW = prfx + "e";
 	public static final String WHITE = prfx + "f";
+	public static final String DEGREES = "\u00B0" + "C";
 	
 	public static String getColor(String color) {
 		if(color.equals("grey"))
@@ -27,5 +30,13 @@ public class Text {
 		if(color.equals("green"))
 			return DARK_GREEN;
 		return DARK_GREY;
+	}
+
+	public static String localize(String str) {
+		return StatCollector.translateToLocal(str);
+	}
+	
+	public static String translate(String str) {
+		return localize("mariculture.string." + str);
 	}
 }

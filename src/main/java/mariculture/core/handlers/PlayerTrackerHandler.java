@@ -25,7 +25,7 @@ public class PlayerTrackerHandler implements IPlayerTracker {
 
 	@Override
 	public void onPlayerRespawn(EntityPlayer player) {
-		if(Modules.magic.isActive() && EnchantHelper.exists(Magic.resurrection)) {
+		if(Modules.isActive(Modules.magic) && EnchantHelper.exists(Magic.resurrection)) {
 			ResurrectionTracker.onPlayerRespawn(player);
 		}
 	}

@@ -3,13 +3,15 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.MultiMeta;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.network.Packet117AirCompressorUpdate;
 import mariculture.core.network.Packets;
@@ -54,13 +56,13 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
-		case DoubleMeta.COMPRESSOR_BASE:
+		case MultiMeta.COMPRESSOR_BASE:
 			return 5F;
-		case DoubleMeta.COMPRESSOR_TOP:
+		case MultiMeta.COMPRESSOR_TOP:
 			return 3F;
-		case DoubleMeta.PRESSURE_VESSEL:
+		case MultiMeta.PRESSURE_VESSEL:
 			return 6F;
-		case DoubleMeta.VAT:
+		case MultiMeta.VAT:
 			return 2F;
 		}
 
@@ -69,7 +71,7 @@ public class BlockDouble extends BlockMachine {
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) != DoubleMeta.PRESSURE_VESSEL)
+		if(world.getBlockMetadata(x, y, z) != MultiMeta.PRESSURE_VESSEL)
 			return true;
 		
 		int count = 0;
@@ -111,6 +113,7 @@ public class BlockDouble extends BlockMachine {
 			return false;
 		}
 		
+		ItemStack held = player.getCurrentEquippedItem();
 		if(tile instanceof TileMultiBlock && tile instanceof IHasGUI) {
 			if(player.isSneaking())
 				return false;
@@ -156,10 +159,9 @@ public class BlockDouble extends BlockMachine {
 		
 		if(tile instanceof TileVat) {
 			TileVat vat = (TileVat) tile;
-			ItemStack held = player.getCurrentEquippedItem();
 			ItemStack input = vat.getStackInSlot(0);
 			ItemStack output = vat.getStackInSlot(1);
-			if(FluidHelper.isFluidOrEmpty(player.getCurrentEquippedItem())) {
+			if(FluidHelper.isFluidOrEmpty(held)) {
 				return FluidHelper.handleFillOrDrain((IFluidHandler) world.getBlockTileEntity(x, y, z), player, ForgeDirection.UP);
 			}
 			
@@ -218,10 +220,10 @@ public class BlockDouble extends BlockMachine {
 	public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
 		int meta = block.getBlockMetadata(x, y, z);
 		switch (meta) {
-		case DoubleMeta.COMPRESSOR_TOP:
+		case MultiMeta.COMPRESSOR_TOP:
 			setBlockBounds(0.05F, 0F, 0.05F, 0.95F, 0.15F, 0.95F);
 			break;
-		case DoubleMeta.COMPRESSOR_BASE:
+		case MultiMeta.COMPRESSOR_BASE:
 			setBlockBounds(0.05F, 0F, 0.05F, 0.95F, 1F, 0.95F);
 			break;
 		default:
@@ -231,7 +233,7 @@ public class BlockDouble extends BlockMachine {
 	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) == DoubleMeta.VAT) {
+		if(world.getBlockMetadata(x, y, z) == MultiMeta.VAT) {
 			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,		
 					(double) z + this.minZ, (double) x + this.maxX, (double) y + 0.50001F, (double) z + this.maxZ);
 		}
@@ -243,13 +245,13 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public TileEntity createTileEntity(World world, int meta) {
 		switch (meta) {
-		case DoubleMeta.COMPRESSOR_BASE:
+		case MultiMeta.COMPRESSOR_BASE:
 			return new TileAirCompressor();
-		case DoubleMeta.COMPRESSOR_TOP:
+		case MultiMeta.COMPRESSOR_TOP:
 			return new TileAirCompressor();
-		case DoubleMeta.PRESSURE_VESSEL:
+		case MultiMeta.PRESSURE_VESSEL:
 			return new TilePressureVessel();
-		case DoubleMeta.VAT:
+		case MultiMeta.VAT:
 			return new TileVat();
 		}
 
@@ -295,12 +297,12 @@ public class BlockDouble extends BlockMachine {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case DoubleMeta.COMPRESSOR_BASE:
-			return (Modules.diving.isActive());
-		case DoubleMeta.COMPRESSOR_TOP:
-			return (Modules.diving.isActive());
-		case DoubleMeta.PRESSURE_VESSEL:
-			return (Modules.factory.isActive());
+		case MultiMeta.COMPRESSOR_BASE:
+			return (Modules.isActive(Modules.diving));
+		case MultiMeta.COMPRESSOR_TOP:
+			return (Modules.isActive(Modules.diving));
+		case MultiMeta.PRESSURE_VESSEL:
+			return (Modules.isActive(Modules.factory));
 		default:
 			return true;
 		}
@@ -308,7 +310,7 @@ public class BlockDouble extends BlockMachine {
 	
 	@Override
 	public int getMetaCount() {
-		return DoubleMeta.COUNT;
+		return MultiMeta.COUNT;
 	}
 	
 	@Override

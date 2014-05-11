@@ -16,9 +16,13 @@ public interface IItemUpgrade {
 	
 	/** return 'rf count' boost **/
 	public int getRFBoost(int meta);
+	
+	/** return salinity boost **/
+	public int getSalinity(int meta);
 
 	/** The type of upgrade this is, used when checking if a machine has this type in it,
 	 * Currently used values are:
 	 * storage, heating, cooling, purity, impurity, male, female, ethereal, debugKill, debugLive **/
 	public String getType(int meta);
+
 }

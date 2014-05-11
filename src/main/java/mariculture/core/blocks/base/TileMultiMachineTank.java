@@ -86,6 +86,20 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 	}
 	
 	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		TileMultiMachineTank mstr = getMaster() != null? ((TileMultiMachineTank)getMaster()): null;
+		if(mstr == null) return;
+		mstr.inventory[slot] = stack;
+
+        if (stack != null && stack.stackSize > mstr.getInventoryStackLimit()) {
+        	stack.stackSize = mstr.getInventoryStackLimit();
+        }
+
+        mstr.canWork = canWork();
+        mstr.onInventoryChanged();
+	}
+	
+	@Override
 	public void updateMaster() {
 		super.updateMaster();
 		if(helper == null)
@@ -107,8 +121,7 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 	
 	@Override
 	public void updateSlaves() {
-		if(helper == null)
-			helper = new BlockTransferHelper(this);
+		if(helper == null) helper = new BlockTransferHelper(this);
 		
 		machineTick++;
 		updateSlaveMachine();

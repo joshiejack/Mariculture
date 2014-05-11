@@ -17,17 +17,14 @@ public class BlockTankItem extends ItemBlockMariculture {
 	}
 
 	@Override
-	public String getName(ItemStack itemstack) {
+	public String getName(ItemStack stack) {
 		String name = "";
-		switch (itemstack.getItemDamage()) {
-		case TankMeta.FISH:
-			return "fish";
-		case TankMeta.TANK:
-			return "normal";
-		case TankMeta.BOTTLE:
-			return "bottle";
-		default:
-			return "tank";
+		switch (stack.getItemDamage()) {
+			case TankMeta.FISH: 	return "fish";
+			case TankMeta.TANK: 	return "normal";
+			case TankMeta.BOTTLE: 	return "bottle";
+			case TankMeta.HDFPV:	return "hdfpv";
+			default: 				return "tank";
 		}
 	}
 	

@@ -43,6 +43,8 @@ public class BlockOreItem extends ItemBlockMariculture {
 			return "baseIron";
 		case OresMeta.LIMESTONE_THIN:
 			return "limestoneThing";
+		case OresMeta.RUTILE_BLOCK:
+			return "rutileBlock";
 		default:
 			return "baseWood";
 		}

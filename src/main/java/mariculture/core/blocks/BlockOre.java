@@ -116,9 +116,14 @@ public class BlockOre extends BlockDecorative {
 	}
 	
 	public boolean isActive(int meta) {
-		if(meta == OresMeta.CORAL_ROCK)
-			return Modules.world.isActive();
-		return meta != OresMeta.UNUSED;
+		switch(meta) {
+			case OresMeta.CORAL_ROCK: 		  return Modules.isActive(Modules.worldplus);
+			case OresMeta.LIMESTONE_BRICK:	  return Modules.isActive(Modules.aesthetics);
+			case OresMeta.LIMESTONE_CHISELED: return Modules.isActive(Modules.aesthetics);
+			case OresMeta.LIMESTONE_SMOOTH:   return Modules.isActive(Modules.aesthetics);
+			case OresMeta.LIMESTONE_THIN: 	  return Modules.isActive(Modules.aesthetics);
+			default:						  return true;
+		}
 	}
 
 	@Override

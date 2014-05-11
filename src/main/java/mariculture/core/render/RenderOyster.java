@@ -118,14 +118,14 @@ public class RenderOyster extends RenderBase {
 
 	public void renderContents() {
 		if (isItem()) {
-			setTexture(Core.pearlBlock, PearlColor.WHITE);
+			setTexture(Core.pearl, PearlColor.WHITE);
 			renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
 		} else {
 			TileOyster tile = (TileOyster) world.getBlockTileEntity(x, y, z);
 			ItemStack stack = tile.getStackInSlot(0);
 			if(stack != null) {
 				if(stack.itemID == Core.pearls.itemID) {
-					setTexture(Core.pearlBlock, stack.getItemDamage());
+					setTexture(Core.pearl, stack.getItemDamage());
 					renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
 				} else if (stack.itemID == Item.enderPearl.itemID) {
 					setTexture(Block.cloth, 13);

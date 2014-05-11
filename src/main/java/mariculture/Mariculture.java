@@ -2,16 +2,13 @@ package mariculture;
 
 import java.io.File;
 
-import mariculture.api.core.MaricultureTab;
 import mariculture.core.CommonProxy;
 import mariculture.core.Config;
-import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.Modules.Module;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.Packets;
-import mariculture.plugins.Plugins;
-import mariculture.plugins.compatibility.Compat;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -34,56 +31,36 @@ public class Mariculture {
 	//Root folder
 	public static File root;
 	
-	//Plugins
-	public static Plugins plugins = new Plugins();
-	public static enum Stage {
-		PRE, INIT, POST;
-	}
+	//Modules
+	public static Modules modules = new Modules();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		LogHandler.init();
 		root = event.getModConfigurationDirectory();
 		Config.init(root + "/mariculture/");
-		LogHandler.init();	
-		
-		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
-		MaricultureTab.tabFish = (Modules.fishery.isActive())? new MaricultureTab("fishTab"): null;
-		MaricultureTab.tabJewelry = (Modules.magic.isActive())? new MaricultureTab("jewelryTab"): null;
-		
-		plugins.init();
-		Modules.core.preInit();
-		Modules.diving.preInit();
-		Modules.factory.preInit();
-		Modules.fishery.preInit();
-		Modules.magic.preInit();
-		Modules.sealife.preInit();
-		Modules.transport.preInit();
-		Modules.world.preInit();
-		plugins.load(Stage.PRE);
-		Compat.preInit();
+		for(Module module: Modules.modules) {
+			module.preInit();
+		}
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		plugins.load(Stage.INIT);
-		Modules.core.init();
-		Modules.diving.init();
-		Modules.factory.init();
-		Modules.fishery.init();
-		Modules.magic.init();
-		Modules.sealife.init();
-		Modules.transport.init();
-		Modules.world.init();
-		Compat.init();
 		Packets.init();
+		for(Module module: Modules.modules) {
+			module.init();
+		}
 	}
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		plugins.load(Stage.POST);
-		proxy.initClient();
-		RecipesSmelting.postAdd();
+		for(Module module: Modules.modules) {
+			module.postInit();
+		}
+		
+		proxy.setupClient();
+		//TODO: RecipeSmelting.postAdd();
 	}
 }

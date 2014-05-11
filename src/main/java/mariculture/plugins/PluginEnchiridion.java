@@ -41,11 +41,11 @@ public class PluginEnchiridion extends Plugin {
 		guides = new ItemGuide(ItemIds.guides).setUnlocalizedName("guide");
 		RegistryHelper.register(new Object[] { guides });
 		
-		RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.PROCESSING), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK));
-		if(Modules.diving.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));
-		if(Modules.factory.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL));
-		if(Modules.fishery.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
-		if(Modules.magic.isActive()) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
+		RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.PROCESSING), new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK));
+		if(Modules.isActive(Modules.diving)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));
+		if(Modules.isActive(Modules.factory)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL));
+		if(Modules.isActive(Modules.fishery)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
+		if(Modules.isActive(Modules.magic)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
 		
 		GameRegistry.registerCraftingHandler(handler);
 		GameRegistry.registerPlayerTracker(handler);
@@ -54,12 +54,12 @@ public class PluginEnchiridion extends Plugin {
 		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			GuideHandler.registerPageHandler("vat", new PageVat());
 			GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.PROCESSING), Mariculture.modid, "processing", 0x1C1B1B);
-			if(Modules.diving.isActive())  	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
-			if(Modules.factory.isActive()) 	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
-			if(Modules.fishery.isActive()) 	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
-			if(Modules.magic.isActive())	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
+			if(Modules.isActive(Modules.diving))  	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
+			if(Modules.isActive(Modules.factory)) 	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
+			if(Modules.isActive(Modules.fishery)) 	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
+			if(Modules.isActive(Modules.magic))	GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
 			
-			DisplayRegistry.registerShorthand("normalTank", new ItemStack(Core.tankBlocks, 1, TankMeta.TANK));
+			DisplayRegistry.registerShorthand("normalTank", new ItemStack(Core.tanks, 1, TankMeta.TANK));
 		}
 	}
 	

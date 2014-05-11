@@ -2,7 +2,7 @@ package mariculture.core.handlers;
 
 import java.util.Random;
 
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.blocks.TileOyster;
@@ -58,7 +58,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.BAUXITE_MIN + random.nextInt(OreGeneration.BAUXITE_MAX - OreGeneration.BAUXITE_MIN);
 		        posZ = z + random.nextInt(16);
-			    new WorldGenOre(Core.oreBlocks.blockID, OresMeta.BAUXITE, 
+			    new WorldGenOre(Core.ores.blockID, OresMeta.BAUXITE, 
 			        OreGeneration.BAUXITE_VEIN, Block.stone.blockID).generate(world, random, posX, posY, posZ);
 		    }
 		}
@@ -72,8 +72,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.NATURAL_GAS_MIN + random.nextInt(OreGeneration.NATURAL_GAS_MAX - OreGeneration.NATURAL_GAS_MIN);
 				posZ = z + random.nextInt(16);
-				new WorldGenGas(Core.airBlocks.blockID, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Block.stone.blockID)
-					.generate(world, random, posX, posY, posZ);
+				new WorldGenGas(Core.air.blockID, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Block.stone.blockID).generate(world, random, posX, posY, posZ);
 			}
 		}
 	}
@@ -86,8 +85,7 @@ public class WorldGenHandler implements IWorldGenerator {
 				posX = x + random.nextInt(16);
 				posY = OreGeneration.COPPER_MIN + random.nextInt(OreGeneration.COPPER_MAX - OreGeneration.COPPER_MIN);
 		     	posZ = z + random.nextInt(16);
-		     	new WorldGenOre(Core.oreBlocks.blockID, OresMeta.COPPER,  OreGeneration.COPPER_VEIN, Block.stone.blockID)
-		     		.generate(world, random, posX, posY, posZ);
+		     	new WorldGenOre(Core.ores.blockID, OresMeta.COPPER,  OreGeneration.COPPER_VEIN, Block.stone.blockID).generate(world, random, posX, posY, posZ);
 			}
 		}		
 	}
@@ -118,20 +116,20 @@ public class WorldGenHandler implements IWorldGenerator {
 					posX = x + random.nextInt(16);
 					posY = 54 + random.nextInt(10);
 	                posZ = z + random.nextInt(16);
-	                new WorldGenOre(Core.oreBlocks.blockID, OresMeta.RUTILE, 
+	                new WorldGenOre(Core.ores.blockID, OresMeta.RUTILE, 
 	                		2, Block.stone.blockID).generate(world, random, posX, posY, posZ);
 	            }
 			}
 		}
 	}
 	
-	public static boolean isRiverBiome(World world, int posX, int posZ) {
+	public static boolean isRiverBiome(World world, int x, int z) {
 		if(!Extra.RIVER_FORCE) {
-			if(BiomeDictionary.isBiomeOfType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ), Type.WATER))
+			if(BiomeDictionary.isBiomeOfType(world.getWorldChunkManager().getBiomeGenAt(x, z), Type.WATER))
 				return true;
 		}
 		
-		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;
+		int id = world.getWorldChunkManager().getBiomeGenAt(x, z).biomeID;
 		for(int i = 0; i < Extra.RIVER_BIOMES.length; i++) {
 			if(Extra.RIVER_BIOMES[i] > -1) {
 				if(id == Extra.RIVER_BIOMES[i]) {
@@ -143,14 +141,14 @@ public class WorldGenHandler implements IWorldGenerator {
 		return false;
 	}
 	
-	public static boolean isOceanBiome(World world, int posX, int posZ) {
+	public static boolean isOceanBiome(World world, int x, int z) {
 		if(!Extra.OCEAN_FORCE) {
-			if(MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ)) == EnumBiomeType.OCEAN) {
+			if(MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
 				return true;
 			}
 		}
 		
-		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;
+		int id = world.getWorldChunkManager().getBiomeGenAt(x, z).biomeID;
 		for(int i = 0; i < Extra.OCEAN_BIOMES.length; i++) {
 			if(Extra.OCEAN_BIOMES[i] > -1) {
 				if(id == Extra.OCEAN_BIOMES[i]) {
@@ -163,19 +161,19 @@ public class WorldGenHandler implements IWorldGenerator {
 	}
 
 	// Generates Oysters in the Ocean
-	public static void generateOyster(World world, Random random, int blockX, int blockZ) {
+	public static void generateOyster(World world, Random random, int x, int z) {
 		if(WorldGeneration.OYSTER_ENABLED) {
-			if (MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(blockX, blockZ)) == EnumBiomeType.OCEAN) {
+			if(MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
 				for(int j = 0; j < WorldGeneration.OYSTER_PER_CHUNK; j++) {
-					int chance = (PluginBiomesOPlenty.isBiome(world, blockX, blockZ, Biome.CORAL))? WorldGeneration.OYSTER_CHANCE: WorldGeneration.OYSTER_CHANCE * 2;
+					int chance = (PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL))? WorldGeneration.OYSTER_CHANCE: WorldGeneration.OYSTER_CHANCE * 2;
 					if(random.nextInt(chance) == 0) {
 						int randMeta = random.nextInt(4);
-						int randX = blockX - 8 + random.nextInt(4);
-						int randZ = blockZ - 8 + random.nextInt(4);
+						int randX = x - 8 + random.nextInt(4);
+						int randZ = z - 8 + random.nextInt(4);
 						int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
 	
-						if (Core.oysterBlock.canBlockStay(world, randX, blockY, randZ)) {
-							world.setBlock(randX, blockY, randZ, Core.oysterBlock.blockID, randMeta, 2);
+						if (Core.oyster.canBlockStay(world, randX, blockY, randZ)) {
+							world.setBlock(randX, blockY, randZ, Core.oyster.blockID, randMeta, 2);
 							TileOyster oyster = (TileOyster) world.getBlockTileEntity(randX, blockY, randZ);
 							if (oyster != null) {
 								if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {

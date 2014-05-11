@@ -6,9 +6,9 @@ import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.fishery.Fish;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishHelper;
-import mariculture.fishery.Fishery;
 import mariculture.fishery.blocks.TileFeeder;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,9 +19,11 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerFeeder extends ContainerMachine {
 
+	public TileFeeder tile;
 	public ContainerFeeder(TileFeeder tile, InventoryPlayer playerInventory) {
 		super(tile);
 
+		this.tile = tile;
 		addUpgradeSlots(tile);
 		
 		//Fluids
@@ -62,11 +64,11 @@ public class ContainerFeeder extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (stack.getItem() instanceof ItemFishy && Fishery.gender.getDNA(stack) == FishHelper.MALE) {
+				if (stack.getItem() instanceof ItemFishy && Fish.gender.getDNA(stack) == FishHelper.MALE) {
 					if (!this.mergeItemStack(stack, 5, 6, false)) { // Slot 5-5
 						return null;
 					}
-				} else if (stack.getItem() instanceof ItemFishy && Fishery.gender.getDNA(stack) == FishHelper.FEMALE) {
+				} else if (stack.getItem() instanceof ItemFishy && Fish.gender.getDNA(stack) == FishHelper.FEMALE) {
 					if (!this.mergeItemStack(stack, 6, 7, false)) { // Slot 6-6
 						return null;
 					}
@@ -124,6 +126,17 @@ public class ContainerFeeder extends ContainerMachine {
 		@Override
 		public boolean isItemValid(ItemStack stack) {
 			return Fishing.fishHelper.isFemale(stack);
+		}
+	}
+	
+	private class SlotNone extends Slot {
+		public SlotNone(IInventory inventory, int id, int x, int y) {
+			super(inventory, id, x, y);
+		}
+		
+		@Override
+		public boolean isItemValid(ItemStack stack) {
+			return false;
 		}
 	}
 }

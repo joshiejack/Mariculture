@@ -59,9 +59,9 @@ public class EventHandler implements ICraftingHandler, IPlayerTracker {
 	@Override
 	public void onCrafting(EntityPlayer player, ItemStack stack, IInventory craftMatrix) {
 		if(Extra.SPAWN_BOOKS) {
-			if(Modules.diving.isActive() && stack.getItem() instanceof ItemArmorScuba) 	spawnBook(player, GuideMeta.DIVING);
-			if(Modules.fishery.isActive() && stack.getItem() == Fishery.rodReed) 		spawnBook(player, GuideMeta.FISHING);
-			if(Modules.factory.isActive() && stack.getItem() == Core.craftingItem && stack.getItemDamage() == CraftingMeta.WHEEL) {
+			if(Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) 	spawnBook(player, GuideMeta.DIVING);
+			if(Modules.isActive(Modules.fishery) && stack.getItem() == Fishery.rodReed) 		spawnBook(player, GuideMeta.FISHING);
+			if(Modules.isActive(Modules.factory) && stack.getItem() == Core.crafting && stack.getItemDamage() == CraftingMeta.WHEEL) {
 				spawnBook(player, GuideMeta.FISHING);
 			}
 		}

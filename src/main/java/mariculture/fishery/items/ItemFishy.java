@@ -1,13 +1,15 @@
 package mariculture.fishery.items;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishDNA;
+import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.lib.Text;
+import mariculture.fishery.Fish;
 import mariculture.fishery.FishHelper;
-import mariculture.fishery.Fishery;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -72,16 +74,15 @@ public class ItemFishy extends Item {
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if (stack.hasTagCompound()) {
 			if(!Fishing.fishHelper.isEgg(stack)) {
-				for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-					FishDNA.DNAParts.get(i).getInformationDisplay(stack, list);
+				for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+					FishDNABase.DNAParts.get(i).getInformationDisplay(stack, list);
 				}
 			} else {
+				String eggs = Text.translate("eggsRemaining");
 				if(stack.stackTagCompound.getInteger("currentFertility") > 0) {
-					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " 
-							+ StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
+					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " + eggs);
 				} else {
-					list.add(StatCollector.translateToLocal("mariculture.string.undetermined") + " " 
-							+ StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
+					list.add(Text.translate("undetermined") + " " + eggs);
 				}
 			}
 		}
@@ -96,21 +97,18 @@ public class ItemFishy extends Item {
 			
 			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID"));
 			if(fish != null) {
-				return fish.getIcon();
+				return fish.getIcon(Fish.gender.getDNA(stack));
 			}
 		}
 
-		return Fishery.cod.getIcon();
+		return Fish.cod.getIcon(0);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			FishSpecies fish = FishSpecies.speciesList.get(i);
-			if(fish != null) {
-				fish.registerIcon(iconRegister);
-			}
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			species.getValue().registerIcon(iconRegister);
 		}
 
 		egg = iconRegister.registerIcon(Mariculture.modid + ":" + "fish/egg");
@@ -119,11 +117,11 @@ public class ItemFishy extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int j, CreativeTabs creative, List list) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); ++i) {
-			ItemStack fish = Fishing.fishHelper.makePureFish(FishSpecies.speciesList.get(i));
-
-			list.add(Fishery.gender.addDNA(fish, FishHelper.MALE));
-			list.add(Fishery.gender.addDNA(fish.copy(), FishHelper.FEMALE));
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			FishSpecies fishy = species.getValue();
+			ItemStack fish = Fishing.fishHelper.makePureFish(fishy);
+			list.add(Fish.gender.addDNA(fish, FishHelper.MALE));
+			list.add(Fish.gender.addDNA(fish.copy(), FishHelper.FEMALE));
 		}
 	}
 

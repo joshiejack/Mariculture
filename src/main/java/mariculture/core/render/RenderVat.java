@@ -2,7 +2,7 @@ package mariculture.core.render;
 
 import mariculture.core.Core;
 import mariculture.core.blocks.TileVat;
-import mariculture.core.lib.DoubleMeta;
+import mariculture.core.lib.MultiMeta;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -13,7 +13,7 @@ public class RenderVat extends RenderBase {
 
 	@Override
 	public void renderBlock() {		
-		setTexture(Core.doubleBlock, DoubleMeta.VAT);
+		setTexture(Core.multi, MultiMeta.VAT);
 		if(dir == ForgeDirection.UNKNOWN) {
 			//Edge Inner - Edge Outer
 			renderBlock(0, 0.3, 0, 0.1, 0.9, 1);

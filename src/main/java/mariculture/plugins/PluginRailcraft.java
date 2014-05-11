@@ -21,8 +21,8 @@ public class PluginRailcraft extends Plugin {
 	public void init() {
 		String id = "Railcraft";
 
-		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.ALUMINUM_SHEET));
-		RecipeRemover.remove(new ItemStack(Core.craftingItem, 3, CraftingMeta.TITANIUM_SHEET));
+		RecipeRemover.remove(new ItemStack(Core.crafting, 3, CraftingMeta.ALUMINUM_SHEET));
+		RecipeRemover.remove(new ItemStack(Core.crafting, 3, CraftingMeta.TITANIUM_SHEET));
 
 		ItemStack steelBoots = GameRegistry.findItemStack(id, "armor.steel.boots", 1);
 		ItemStack steelHelm = GameRegistry.findItemStack(id, "armor.steel.helmet", 1);
@@ -45,7 +45,7 @@ public class PluginRailcraft extends Plugin {
 		MaricultureHandlers.smelter.addFuel(coalCokeBlock, new FuelInfo(2000, 576, 32400));
 		MaricultureHandlers.smelter.addFuel(coalCoke, new FuelInfo(2000, 64, 3600));
 
-		ItemStack input = new ItemStack(Core.oreBlocks, 1, OresMeta.LIMESTONE);
+		ItemStack input = new ItemStack(Core.ores, 1, OresMeta.LIMESTONE);
 		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);
 
 		RailcraftCraftingManager.rockCrusher.createNewRecipe(input, true, false).addOutput(output, 0.1F);
@@ -59,14 +59,14 @@ public class PluginRailcraft extends Plugin {
 	@Override
 	public void postInit() {
 		for(ItemStack ingot: OreDictionary.getOres("ingotAluminum")) {
-			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
+			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.crafting, 3,
 					CraftingMeta.ALUMINUM_SHEET),
 					new Object[] { "## ", "## ", Character.valueOf('#'),
 							(ingot) });
 		}
 		
 		for(ItemStack ingot: OreDictionary.getOres("ingotTitanium")) {
-			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.craftingItem, 3,
+			RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(Core.crafting, 3,
 					CraftingMeta.TITANIUM_SHEET),
 					new Object[] { "## ", "## ", Character.valueOf('#'),
 							(ingot) });

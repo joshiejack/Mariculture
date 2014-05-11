@@ -31,10 +31,12 @@ public class NEIConfig implements IConfigureNEI {
 		API.registerUsageHandler(new NEIVatRecipeHandler());
 		API.registerRecipeHandler(new NEIIngotCasterRecipeHandler());
 		API.registerUsageHandler(new NEIIngotCasterRecipeHandler());
+		API.registerRecipeHandler(new NEIBlockCasterRecipeHandler());
+		API.registerUsageHandler(new NEIBlockCasterRecipeHandler());
 		API.registerRecipeHandler(new NEIAnvilRecipeHandler());
 		API.registerUsageHandler(new NEIAnvilRecipeHandler());
 		
-		if(Modules.fishery.isActive()) {
+		if(Modules.isActive(Modules.fishery)) {
 			API.registerRecipeHandler(new NEISifterRecipeHandler());
 			API.registerUsageHandler(new NEISifterRecipeHandler());
 			API.registerRecipeHandler(new NEIFishBreedingMutationHandler());
@@ -59,7 +61,7 @@ public class NEIConfig implements IConfigureNEI {
 			}
 		}
 		
-		if(Modules.magic.isActive()) {
+		if(Modules.isActive(Modules.magic)) {
 			addJewelry(Magic.ring.itemID, Jewelry.RING, Jewelry.RING_PART1, Jewelry.RING_PART2);
 			addJewelry(Magic.bracelet.itemID, Jewelry.BRACELET, Jewelry.BRACELET_PART1, Jewelry.BRACELET_PART2);
 			addJewelry(Magic.necklace.itemID, Jewelry.NECKLACE, Jewelry.NECKLACE_PART1, Jewelry.NECKLACE_PART2);

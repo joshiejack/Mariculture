@@ -3,7 +3,7 @@ package mariculture.core.render;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.SingleMeta;
+import mariculture.core.lib.RenderMeta;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.Factory;
 import mariculture.factory.render.ModelFLUDD;
@@ -38,11 +38,11 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		if(item.itemID == Core.singleBlocks.blockID) {
+		if(item.itemID == Core.rendered.blockID) {
 			int meta = item.getItemDamage();
-			if(meta == SingleMeta.GEYSER || meta == SingleMeta.ANVIL_1 || meta == SingleMeta.INGOT_CASTER)
+			if(meta == RenderMeta.GEYSER || meta == RenderMeta.ANVIL_1 || meta >= RenderMeta.INGOT_CASTER)
 				return false;
-		} else if (item.itemID == Core.oysterBlock.blockID && item.getItemDamage() != BlockOyster.NET) {
+		} else if (item.itemID == Core.oyster.blockID && item.getItemDamage() != BlockOyster.NET) {
 			return false;
 		}
 
@@ -56,36 +56,36 @@ public class RenderSingleItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.AIR_PUMP) {
+		if (item.itemID == Core.rendered.blockID && item.getItemDamage() == RenderMeta.AIR_PUMP) {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(AIR_PUMP);
 			pump.renderInventory(type);
 		}
 
-		if (Modules.factory.isActive()) {
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_WATER) {
+		if (Modules.isActive(Modules.factory)) {
+			if (item.itemID == Core.rendered.blockID && item.getItemDamage() == RenderMeta.TURBINE_WATER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE);
 				turbine.renderInventory(type);
 			}
 			
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_GAS) {
+			if (item.itemID == Core.rendered.blockID && item.getItemDamage() == RenderMeta.TURBINE_GAS) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_GAS);
 				turbineGas.renderInventory(type);
 			}
 			
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.TURBINE_HAND) {
+			if (item.itemID == Core.rendered.blockID && item.getItemDamage() == RenderMeta.TURBINE_HAND) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_HAND);
 				turbineHand.renderInventory(type);
 			}
 
-			if ((item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.FLUDD_STAND)
+			if ((item.itemID == Core.rendered.blockID && item.getItemDamage() == RenderMeta.FLUDD_STAND)
 					|| item.itemID == Factory.fludd.itemID) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FLUDD);
 				fludd.renderInventory(type);
 			}
 		}
 
-		if (Modules.fishery.isActive()) {
-			if (item.itemID == Core.singleBlocks.blockID && item.getItemDamage() == SingleMeta.FISH_FEEDER) {
+		if (Modules.isActive(Modules.fishery)) {
+			if (item.itemID == Core.rendered.blockID && item.getItemDamage() == RenderMeta.FISH_FEEDER) {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(FEEDER);
 				feeder.renderInventory(type);
 			}

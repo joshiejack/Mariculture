@@ -1,29 +1,66 @@
 package mariculture.factory;
 
 
+import static mariculture.core.lib.Items.autodictionary;
+import static mariculture.core.lib.Items.baseIron;
+import static mariculture.core.lib.Items.baseWood;
+import static mariculture.core.lib.Items.black;
+import static mariculture.core.lib.Items.blue;
+import static mariculture.core.lib.Items.bookAndQuill;
+import static mariculture.core.lib.Items.cyan;
+import static mariculture.core.lib.Items.enderPearl;
+import static mariculture.core.lib.Items.feather;
+import static mariculture.core.lib.Items.filterer;
+import static mariculture.core.lib.Items.fish;
+import static mariculture.core.lib.Items.fishSorter;
+import static mariculture.core.lib.Items.gasTurbine;
+import static mariculture.core.lib.Items.goldPlastic;
+import static mariculture.core.lib.Items.green;
+import static mariculture.core.lib.Items.handTurbine;
+import static mariculture.core.lib.Items.hopper;
+import static mariculture.core.lib.Items.ironAxe;
+import static mariculture.core.lib.Items.ironBars;
+import static mariculture.core.lib.Items.ironWheel;
+import static mariculture.core.lib.Items.life;
+import static mariculture.core.lib.Items.mechSponge;
+import static mariculture.core.lib.Items.paper;
+import static mariculture.core.lib.Items.pearls;
+import static mariculture.core.lib.Items.piston;
+import static mariculture.core.lib.Items.plan;
+import static mariculture.core.lib.Items.plasticLens;
+import static mariculture.core.lib.Items.pressureVessel;
+import static mariculture.core.lib.Items.quartzSlab;
+import static mariculture.core.lib.Items.red;
+import static mariculture.core.lib.Items.redstone;
+import static mariculture.core.lib.Items.sawmill;
+import static mariculture.core.lib.Items.scubaTank;
+import static mariculture.core.lib.Items.sluice;
+import static mariculture.core.lib.Items.sponge;
+import static mariculture.core.lib.Items.stoneSlab;
+import static mariculture.core.lib.Items.tank;
+import static mariculture.core.lib.Items.titaniumSheet;
+import static mariculture.core.lib.Items.transparent;
+import static mariculture.core.lib.Items.water;
+import static mariculture.core.lib.Items.waterBucket;
+import static mariculture.core.lib.Items.waterTurbine;
+import static mariculture.core.lib.Items.white;
+import static mariculture.core.lib.Items.wicker;
+import static mariculture.core.lib.Items.wool;
+import static mariculture.core.lib.Items.yellow;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.BlockIds;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.DoubleMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.ItemIds;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
-import mariculture.core.lib.Modules.Module;
-import mariculture.core.lib.OresMeta;
+import mariculture.core.lib.MachineMeta;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.SingleMeta;
-import mariculture.core.lib.TankMeta;
-import mariculture.core.lib.TransparentMeta;
-import mariculture.core.lib.UtilMeta;
-import mariculture.core.lib.WoodMeta;
+import mariculture.core.lib.RenderMeta;
 import mariculture.core.util.FluidDictionary;
-import mariculture.diving.Diving;
 import mariculture.factory.blocks.BlockCustomBlock;
 import mariculture.factory.blocks.BlockCustomFence;
 import mariculture.factory.blocks.BlockCustomFlooring;
@@ -41,6 +78,7 @@ import mariculture.factory.blocks.TileDictionary;
 import mariculture.factory.blocks.TileFLUDDStand;
 import mariculture.factory.blocks.TileFishSorter;
 import mariculture.factory.blocks.TileGeyser;
+import mariculture.factory.blocks.TileHDFPV;
 import mariculture.factory.blocks.TilePressureVessel;
 import mariculture.factory.blocks.TileSawmill;
 import mariculture.factory.blocks.TileSluice;
@@ -54,7 +92,6 @@ import mariculture.factory.items.ItemFilter;
 import mariculture.factory.items.ItemPaintbrush;
 import mariculture.factory.items.ItemPlan;
 import mariculture.factory.items.ItemRotor;
-import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHalfSlab;
 import net.minecraft.item.EnumArmorMaterial;
@@ -62,24 +99,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Factory extends Module {
-	public static boolean isActive;
-	
-	@Override
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	@Override
-	public void setActive(boolean active) {
-		isActive = active;
-	}
-	
+public class Factory extends RegistrationModule {	
 	public static Block customFlooring;
 	public static Block customBlock;
 	public static Block customStairs;
@@ -149,22 +172,17 @@ public class Factory extends Module {
         GameRegistry.registerTileEntity(TileTurbineHand.class, "tileEntityTurbineHand");
         GameRegistry.registerTileEntity(TileFishSorter.class, "tileFishSorter");
         GameRegistry.registerTileEntity(TileGeyser.class, "tileGeyser");
+        GameRegistry.registerTileEntity(TileHDFPV.class, "tileHDFPV");
 
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SLUICE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.SPONGE, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_WATER, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_GAS, "pickaxe", 2);
-		MinecraftForge.setBlockHarvestLevel(Core.utilBlocks, UtilMeta.FISH_SORTER, "axe", 0);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.FLUDD_STAND, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(Core.singleBlocks, SingleMeta.TURBINE_HAND, "axe", 0);
+		MinecraftForge.setBlockHarvestLevel(Core.machines, MachineMeta.SLUICE, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.machines, MachineMeta.SPONGE, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.rendered, RenderMeta.TURBINE_WATER, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.rendered, RenderMeta.TURBINE_GAS, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(Core.machines, MachineMeta.FISH_SORTER, "axe", 0);
+		MinecraftForge.setBlockHarvestLevel(Core.rendered, RenderMeta.FLUDD_STAND, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(Core.rendered, RenderMeta.TURBINE_HAND, "axe", 0);
 
-		RegistryHelper.register(new Object[] { customFlooring, customBlock, customStairs, customSlabs, 
-				customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
-	}
-
-	@Override
-	public void registerEntities() {
-		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
+		RegistryHelper.register(new Object[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
 	}
 
 	@Override
@@ -179,229 +197,51 @@ public class Factory extends Module {
 		turbineTitanium = new ItemRotor(ItemIds.turbineTitanium, 28800, 3).setUnlocalizedName("turbineTitanium");
 		RegistryHelper.register(new Object[] { chalk, plans, fludd, paintbrush, filter, turbineCopper, turbineAluminum, turbineTitanium });
 	}
+	
+	@Override
+	public void registerOther() {
+		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
+	}
 
 	@Override
-	public void addRecipes() {
-	//Blocks
-		//Sawmill
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL), new Object[] {
-			" A ", "DWD", "IMI",
-			Character.valueOf('A'), Item.axeIron, 
-			Character.valueOf('D'), "slabWood",
-			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
-			Character.valueOf('W'), "logWood", 
-			Character.valueOf('I'), "ingotCopper"
-		});
-		
-		//Autodictionary Converter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
-			" B ", "FPF", "IMI",
-			Character.valueOf('F'), Item.feather, 
-			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
-			Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-			Character.valueOf('B'), Item.writableBook,
-			Character.valueOf('I'), "ingotCopper"
-		});
-		
-		if(Extra.ENDER_CONVERTER) {
-			//Alternative for Converter
-			RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.DICTIONARY), new Object[] {
-				" B ", "FPF", "IMI",
-				Character.valueOf('F'), Item.feather, 
-				Character.valueOf('P'), Item.enderPearl, 
-				Character.valueOf('M'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-				Character.valueOf('B'), Item.writableBook,
-				Character.valueOf('I'), "ingotCopper"
-			});
-		}
-		
-		//Mechanized Sponge
-		ItemStack sponge = (Modules.world.isActive())? new ItemStack(Block.sponge): new ItemStack(Item.bucketWater);
-		ItemStack water = (Modules.fishery.isActive())? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Item.potion, 1, 0);
-		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.fishRaw);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.SPONGE), new Object[] {
-			" D ", "ATA", "SCS",
-			Character.valueOf('D'), fish, 
-			Character.valueOf('S'), sponge, 
-			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
-			Character.valueOf('A'), water,
-			Character.valueOf('T'), "ingotAluminum"
-		});
-		
-		//Sluice
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 4, UtilMeta.SLUICE), new Object[] {
-			" H ", "WBW", "IMI",
-			Character.valueOf('H'), Block.hopperBlock, 
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
-			Character.valueOf('M'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('B'), Block.fenceIron,
-			Character.valueOf('I'), "ingotAluminum"
-		});
-		
-		//Manual Turbine Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_HAND), new Object[] {
-			" T ", "IBI", "SPS",
-			Character.valueOf('T'), turbineCopper,
-			Character.valueOf('I'), "ingotCopper", 
-			Character.valueOf('B'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD), 
-			Character.valueOf('S'), "slabWood",
-			Character.valueOf('P'), Block.pistonBase
-		});
-		
-		//Water Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_WATER), new Object[] {
-			" T ", "IBI", "SPS",
-			Character.valueOf('T'), turbineAluminum,
-			Character.valueOf('I'), "ingotAluminum", 
-			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 0),
-			Character.valueOf('P'), Block.pistonBase
-		});
-		
-		//Gas Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 1, SingleMeta.TURBINE_GAS), new Object[] {
-			" T ", "IBI", "SPS",
-			Character.valueOf('T'), turbineTitanium,
-			Character.valueOf('I'), "ingotTitanium", 
-			Character.valueOf('B'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON), 
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 7),
-			Character.valueOf('P'), Block.pistonBase
-		});
-		
-		//Pressure Vessel
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.doubleBlock, 1, DoubleMeta.PRESSURE_VESSEL), new Object[] {
-			"WLW", "PTP", "PSP",
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
-			Character.valueOf('L'), "blockLapis",
-			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET),
-			Character.valueOf('T'), new ItemStack(Core.tankBlocks, 1, TankMeta.TANK),
-			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SLUICE)
-		});
-		
-		//Sorter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.utilBlocks, 1, UtilMeta.FISH_SORTER), new Object[] {
-			"BPY", "GFA", "RCW",
-			Character.valueOf('B'), "dyeBlack",
-			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE),
-			Character.valueOf('Y'), "dyeYellow",
-			Character.valueOf('G'), "dyeGreen",
-			Character.valueOf('F'), fish,
-			Character.valueOf('A'), "dyeCyan",
-			Character.valueOf('R'), "dyeRed",
-			Character.valueOf('C'), new ItemStack(Core.woodBlocks, 1, WoodMeta.BASE_WOOD),
-			Character.valueOf('W'), "dyeWhite"
-		});
-		
-		//Geyser
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.singleBlocks, 16, SingleMeta.GEYSER), new Object[] {
-			" W ", " G ", "RCR",
-			Character.valueOf('W'), Item.bucketWater,
-			Character.valueOf('G'), "glass",
-			Character.valueOf('R'), Item.redstone,
-			Character.valueOf('C'), new ItemStack(Core.oreBlocks, 1, OresMeta.BASE_IRON),
-		});
-		
-	//Items
-		//FLUDD
-		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
-		ItemStack tank = (Modules.diving.isActive())? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Block.lever);
-		RecipeHelper.addShapedRecipe(fludd, new Object[] {
-			" E ", "PGP", "LUL",
-			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
-			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 
-			Character.valueOf('G'), new ItemStack(Core.transparentBlocks, 1, TransparentMeta.PLASTIC), 
-			Character.valueOf('L'), tank, 
-			Character.valueOf('U'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE)
-		});
-		
-		//Crafting of Life Core
-		ItemStack bait = (Modules.fishery.isActive())? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Item.spiderEye);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
-			"DSR", "FHB", "PAC", 'D', Block.plantYellow, 'S', "treeSapling", 'R', Block.plantRed,
-			'F', fish, 'H', new ItemStack(Item.potion, 1, 8229), 'B', bait, 'P', Item.potato, 'A', Item.bootsDiamond, 'C', Item.carrot
-		});
-		
-		//Planning Chalk
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			"LLN", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-		//Chalk Vertically x 3
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			"L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			" L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			" N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			"N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			"N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
-			"L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite"
-		});
-		
-	//Legacy chalk
-		RecipeHelper.addShapelessRecipe(new ItemStack(chalk), new Object[] {
-			new ItemStack(Core.craftingItem, 1, CraftingMeta.DEPRECATED_CHALK)
-		});
-		
-		RecipeHelper.addMelting(new ItemStack(chalk), 825, 
-				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 2500));
-		
-		//Blank Plan
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), new Object[] {
-			"dyeBlue", "dyeBlack", Item.paper, "dyeBlue"
-		});
-		
-		//Item Filter
-		ItemStack filterer = (Modules.fishery.isActive())? new ItemStack(Fishery.net): new ItemStack(Block.chest);
-		RecipeHelper.addShapedRecipe(new ItemStack(filter), new Object[] {
-			"W W", "WNW", " W ",
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER),
-			Character.valueOf('N'), filterer
-		});
-		
-		//Paintbrush
-		RecipeHelper.addShapedRecipe(new ItemStack(paintbrush), new Object[] {
-			" WW", " IW", "S  ",
-			Character.valueOf('W'), new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE), 
-			Character.valueOf('I'), "blockAluminum", 
-			Character.valueOf('S'), new ItemStack(Core.utilBlocks, 1, UtilMeta.SAWMILL)
-		});
-		
-		//Copper Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(turbineCopper), new Object[] {
-			" I ", "ISI", " I ",
-			Character.valueOf('I'), "ingotCopper",
-			Character.valueOf('S'), "slabWood"
-		});
-		
-		//Aluminum Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(turbineAluminum), new Object[] {
-			" I ", "ISI", " I ",
-			Character.valueOf('I'), "ingotAluminum",
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 0)
-		});	
-		
-		//Titanium Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(turbineTitanium), new Object[] {
-			" I ", "ISI", " I ",
-			Character.valueOf('I'), "ingotTitanium",
-			Character.valueOf('S'), new ItemStack(Block.stoneSingleSlab, 1, 7)
-		});	
-		
+	public void registerRecipes() {
+		registerBlockRecipes();
+		registerItemRecipes();
 		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas);
 		MaricultureHandlers.turbine.add("gasCraft_naturalGas");
+	}
+	
+	private void registerBlockRecipes() {
+		ItemStack geyser16 = new ItemStack(Core.rendered, 16, RenderMeta.GEYSER);
+		ItemStack sluice4 = new ItemStack(Core.machines, 4, MachineMeta.SLUICE);
+		RecipeHelper.addShapedRecipe(geyser16, new Object[] {" W ", " G ", "RCR", 'W', waterBucket, 'G', "glass", 'R', redstone, 'C', baseIron});
+		RecipeHelper.addShapedRecipe(sluice4, new Object[] {" H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum"});
+		RecipeHelper.addShapedRecipe(mechSponge, new Object[] {" D ", "ATA", "SCS", 'D', fish, 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum"});
+		RecipeHelper.addShapedRecipe(handTurbine, new Object[] {" T ", "IBI", "SPS", 'T', turbineCopper, 'I', "ingotCopper", 'B', baseWood, 'S', "slabWood", 'P', piston});
+		RecipeHelper.addShapedRecipe(waterTurbine, new Object[] {" T ", "IBI", "SPS", 'T', turbineAluminum, 'I', "ingotAluminum", 'B', baseIron, 'S', stoneSlab, 'P', piston});
+		RecipeHelper.addShapedRecipe(gasTurbine, new Object[] {" T ", "IBI", "SPS", 'T', turbineTitanium, 'I', "ingotTitanium", 'B', baseIron, 'S', quartzSlab, 'P', piston});
+		RecipeHelper.addShapedRecipe(pressureVessel, new Object[] {"WLW", "PTP", "PSP", 'W', ironWheel, 'L', "blockLapis", 'P', titaniumSheet, 'T', tank, 'S', sluice});
+		RecipeHelper.addShapedRecipe(sawmill, new Object[] {" A ", "DWD", "IMI", 'A', ironAxe, 'D', "slabWood", 'M', baseWood, 'W', "logWood",  'I', "ingotCopper"});
+		RecipeHelper.addShapedRecipe(fishSorter, new Object[] {"BPY", "GFA", "RCW", 'B', black, 'P', pearls, 'Y', yellow, 'G', green, 'F', fish, 'A', cyan, 'R', red, 'C', baseWood, 'W', white});
+		RecipeHelper.addShapedRecipe(autodictionary, new Object[] {" B ", "FPF", "IMI", 'F', feather,  'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper"});
+		if(Extra.ENDER_CONVERTER) RecipeHelper.addShapedRecipe(autodictionary, new Object[] {" B ", "FPF", "IMI", 'F', feather,  'P', enderPearl, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper"});
+	}
+	
+	private void registerItemRecipes() {
+		RecipeHelper.addMelting(new ItemStack(chalk), 825, FluidDictionary.getFluidStack(FluidDictionary.quicklime, 2500));
+		RecipeHelper.addShapedRecipe(((ItemArmorFLUDD)fludd).build(), new Object[] {" E ", "PGP", "LUL", 'E', plasticLens, 'P', goldPlastic, 'G', transparent, 'L', scubaTank, 'U', life });
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {"LLN", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {"L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {" L ", " L ", " N ", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {" N ", " L ", " L ", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {"N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {"N  ", " L ", "  L", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {"L  ", " L ", "  N", 'L', "blockLimestone", 'N', white});
+		RecipeHelper.addShapedRecipe(new ItemStack(filter), new Object[] {"W W", "WNW", " W ", 'W', wicker, 'N', filterer});
+		RecipeHelper.addShapedRecipe(new ItemStack(paintbrush), new Object[] {" WW", " IW", "S  ", 'W', wool, 'I', "blockAluminum", 'S', sawmill});
+		RecipeHelper.addShapedRecipe(new ItemStack(turbineCopper), new Object[] {" I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood"});
+		RecipeHelper.addShapedRecipe(new ItemStack(turbineAluminum), new Object[] {" I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab});	
+		RecipeHelper.addShapedRecipe(new ItemStack(turbineTitanium), new Object[] {" I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab});	
+		RecipeHelper.addShapelessRecipe(plan, new Object[] {blue, black, paper, blue});
 	}
 }

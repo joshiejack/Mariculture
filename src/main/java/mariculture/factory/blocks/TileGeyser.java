@@ -65,7 +65,7 @@ public class TileGeyser extends TileTank {
 	}
 	
 	private boolean isNet(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.oysterBlock.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
+		return worldObj.getBlockId(x, y, z) == Core.oyster.blockID && worldObj.getBlockMetadata(x, y, z) == BlockOyster.NET;
 	}
 
 	@Override

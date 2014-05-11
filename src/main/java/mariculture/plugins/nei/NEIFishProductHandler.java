@@ -6,6 +6,7 @@ import static codechicken.core.gui.GuiDraw.drawTexturedModalRect;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
@@ -81,8 +82,9 @@ public class NEIFishProductHandler extends NEIBase {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals("fishproducts") && getClass() == NEIFishProductHandler.class) {
-			for(int i = 0; i < FishSpecies.speciesList.size(); i++) {
-				FishSpecies fish = FishSpecies.speciesList.get(i);
+			for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+				Integer fishID = species.getKey();
+				FishSpecies fish = species.getValue();
 				arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
 			}
 		} else {
@@ -92,8 +94,8 @@ public class NEIFishProductHandler extends NEIBase {
 	
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		for(int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			FishSpecies fish = FishSpecies.speciesList.get(i);
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			FishSpecies fish = species.getValue();
 			for(FishProduct product: fish.getProductList()) {
 				if(NEIServerUtils.areStacksSameTypeCrafting(product.product, result)) {
 					arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
@@ -104,9 +106,9 @@ public class NEIFishProductHandler extends NEIBase {
 	
 	@Override
     public void loadUsageRecipes(ItemStack ingredient)  {
-		for(int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			FishSpecies fish = FishSpecies.speciesList.get(i);
-			if(NEIFishBreedingMutationHandler.isAFish(ingredient, i)) {
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			FishSpecies fish = species.getValue();
+			if(NEIFishBreedingMutationHandler.isAFish(ingredient, fish)) {
 				arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
 			}
 		}

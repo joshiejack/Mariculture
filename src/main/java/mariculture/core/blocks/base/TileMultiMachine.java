@@ -95,6 +95,20 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
 	}
 	
 	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		TileMultiMachine mstr = getMaster() != null? ((TileMultiMachine)getMaster()): null;
+		if(mstr == null) return;
+		mstr.inventory[slot] = stack;
+
+        if (stack != null && stack.stackSize > mstr.getInventoryStackLimit()) {
+        	stack.stackSize = mstr.getInventoryStackLimit();
+        }
+
+        mstr.canWork = canWork();
+        mstr.onInventoryChanged();
+	}
+	
+	@Override
 	public void updateMaster() {
 		super.updateMaster();
 		if(helper == null)

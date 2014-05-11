@@ -15,8 +15,8 @@ public class GuiStorage extends GuiMariculture {
 		((ItemStorage)storage.storage.player.getCurrentEquippedItem().getItem()).addFeatures(features);
 	}
 	
-	public GuiStorage(IInventory playerInv, InventoryStorage storage, World world, String gui) {
-		super(new ContainerStorage(playerInv, storage, world), gui);
+	public GuiStorage(IInventory playerInv, InventoryStorage storage, World world, String gui, int offset) {
+		super(new ContainerStorage(playerInv, storage, world, offset), gui, offset);
 		this.storage = storage;
 		((ItemStorage)storage.player.getCurrentEquippedItem().getItem()).addFeatures(features);
 	}

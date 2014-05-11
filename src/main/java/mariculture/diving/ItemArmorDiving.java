@@ -69,7 +69,7 @@ public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisabl
 									world.setBlockToAir(x, y, z);
 								}
 							} else {
-								if (world.getBlockId(x, y, z) == Core.oreBlocks.blockID
+								if (world.getBlockId(x, y, z) == Core.ores.blockID
 										&& world.getBlockMetadata(x, y, z) == OresMeta.LIMESTONE) {
 									world.setBlockToAir(x, y, z);
 								}

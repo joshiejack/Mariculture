@@ -7,19 +7,14 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.ItemIds;
+import mariculture.core.lib.Items;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidDictionary;
-import mariculture.core.util.RecipeRemover;
-import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.tconstruct.ModPearl;
 import mariculture.plugins.tconstruct.TiCEvents;
 import mariculture.plugins.tconstruct.TitaniumPart;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -173,9 +168,17 @@ public class PluginTConstruct extends Plugin {
 		addMelting("dustMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 300);
 		addMelting("blockMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.BLOCK), 300);
 		addMelting("nuggetMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.NUGGET), 300);
+		
+		//Magnesium Dust
+		Smeltery.addMelting(Items.dustMagnesium, 300, FluidDictionary.getFluidStack(FluidDictionary.magnesium, MetalRates.INGOT));
+		
 		// >> Form Ingot and Block
 		addCasting("ingotMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.INGOT), 100);
 		addBlockCasting("blockMagnesium", new FluidStack(FluidRegistry.getFluid(FluidDictionary.magnesium), MetalRates.BLOCK), 100);
+		
+		// >> Limestone Melted to Quicklime
+		addMelting("blockLimestone", FluidDictionary.getFluidStack(FluidDictionary.quicklime, 900), 100);
+		addMelting("limestone", FluidDictionary.getFluidStack(FluidDictionary.quicklime, 900), 100);
 
 		addCastings(titanium_id, new FluidStack(FluidRegistry.getFluid(FluidDictionary.titanium), MetalRates.INGOT), 80);
 
@@ -223,7 +226,7 @@ public class PluginTConstruct extends Plugin {
 	private void addModifiers() {
 		ToolBuilder tb = ToolBuilder.instance;
 		ItemStack pearl = new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE);
-		ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);
+		ItemStack pearlBlock = new ItemStack(Core.pearl, 1, OreDictionary.WILDCARD_VALUE);
 		int effect = 20;
 		tb.registerToolMod(new ModPearl(new ItemStack[] { pearl }, effect, 1));
 		tb.registerToolMod(new ModPearl(new ItemStack[] { pearl, pearl }, effect, 2));
@@ -236,13 +239,6 @@ public class PluginTConstruct extends Plugin {
 				TConstructClientRegistry.addEffectRenderMapping(tool, effect, "mariculture", "pearl", true);
 			}
 		}
-
-		RecipeRemover.remove(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE));
-		ItemStack fish = (Modules.fishery.isActive()) ? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE) : new ItemStack(Item.fishRaw);
-		ItemStack bait = (Modules.fishery.isActive()) ? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE) : new ItemStack(Item.spiderEye);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE),
-				new Object[] { "DSR", "FHB", "PAC", 'D', Block.plantYellow, 'S', "treeSapling", 'R', Block.plantRed, 'F', fish, 'H', TConstructRegistry.getItemStack("canisterRedHeart"), 'B', bait, 'P', Item.potato, 'A', Item.appleRed, 'C',
-						Item.carrot });
 
 		if (FluidRegistry.getFluid("xpjuice") != null) {
 			ItemStack xpberry = TConstructRegistry.getItemStack("oreberryEssence");

@@ -5,7 +5,7 @@ import mariculture.core.Core;
 import mariculture.core.blocks.BlockOyster;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.items.ItemMariculture;
-import mariculture.fishery.Fishery;
+import mariculture.fishery.Fish;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySquid;
@@ -41,9 +41,8 @@ public class BlockItemNet extends ItemMariculture {
 					return stack;
 				}
 
-				if (world.getBlockMaterial(x, y, z) == Material.water 
-						&& world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
-					world.setBlock(x, y + 1, z, Core.oysterBlock.blockID, BlockOyster.NET, 2);
+				if (world.getBlockMaterial(x, y, z) == Material.water && world.getBlockMetadata(x, y, z) == 0 && world.isAirBlock(x, y + 1, z)) {
+					world.setBlock(x, y + 1, z, Core.oyster.blockID, BlockOyster.NET, 2);
 
 					if (!player.capabilities.isCreativeMode) {
 						--stack.stackSize;
@@ -61,7 +60,7 @@ public class BlockItemNet extends ItemMariculture {
 			if(entity instanceof EntitySquid) {
 				player.inventory.decrStackSize(player.inventory.currentItem, 1);
 				SpawnItemHelper.spawnItem(entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
-						Fishing.fishHelper.makePureFish(Fishery.squid));
+						Fishing.fishHelper.makePureFish(Fish.squid));
 				entity.worldObj.spawnParticle("bubble", entity.posX, entity.posY, entity.posZ, 0, 0, 0);
 				entity.setDead();
 			}

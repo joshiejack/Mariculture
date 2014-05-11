@@ -14,7 +14,7 @@ import mariculture.core.util.IEjectable;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
-import mariculture.fishery.Fishery;
+import mariculture.fishery.Fish;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -104,12 +104,12 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 			return Fishing.fishHelper.isEgg(fish2);
 		}
 		
-		if(Fishery.species.getDNA(fish1).equals(Fishery.species.getDNA(fish2))) {
-			return Fishery.species.getLowerDNA(fish1).equals(Fishery.species.getLowerDNA(fish2));
+		if(Fish.species.getDNA(fish1).equals(Fish.species.getDNA(fish2))) {
+			return Fish.species.getLowerDNA(fish1).equals(Fish.species.getLowerDNA(fish2));
 		}
 		
-		if(Fishery.species.getDNA(fish1).equals(Fishery.species.getLowerDNA(fish2))) {
-			return Fishery.species.getLowerDNA(fish1).equals(Fishery.species.getDNA(fish2));
+		if(Fish.species.getDNA(fish1).equals(Fish.species.getLowerDNA(fish2))) {
+			return Fish.species.getLowerDNA(fish1).equals(Fish.species.getDNA(fish2));
 		}
 		
 		return false;

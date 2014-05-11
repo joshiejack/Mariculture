@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -46,7 +45,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 		still = new Icon[FluidContainerMeta.COUNT];
 
 		for (int i = 0; i < flowing.length; i++) {			
-			ItemStack bottle = new ItemStack(Core.liquidContainers, 1, i);
+			ItemStack bottle = new ItemStack(Core.bottles, 1, i);
 			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(bottle);
 			if(fluid != null) {
 				String name = (fluid.getFluid()).getName().replaceAll("\\.","");
@@ -83,7 +82,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 		tick++;
 		
 		if(tick % 25 == 0 && !world.isRemote) {
-			ForgeDirection dir = ForgeDirection.values()[6];
+			ForgeDirection dir = ForgeDirection.values()[rand.nextInt(6)];
 			int x2 = x + dir.offsetX;
 			int y2 = y - rand.nextInt(2);
 			int z2 = z + dir.offsetZ;

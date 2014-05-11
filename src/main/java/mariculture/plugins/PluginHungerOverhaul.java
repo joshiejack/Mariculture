@@ -5,6 +5,7 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.RecipeRemover;
+import mariculture.fishery.Fish;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.item.Item;
@@ -23,10 +24,10 @@ public class PluginHungerOverhaul extends Plugin {
 
 	@Override
 	public void postInit() {
-		if (Modules.fishery.isActive()) {
+		if (Modules.isActive(Modules.fishery)) {
 			RecipeRemover.remove(new ItemStack(Core.food, 1, FoodMeta.CALAMARI));
 			RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI_HALF), new Object[] {
-				new ItemStack(Fishery.fishyFood, 1, Fishery.squid.fishID), Item.bowlEmpty
+				new ItemStack(Fishery.fishyFood, 1, Fish.squid.getID()), Item.bowlEmpty
 			});
 		}
 	}

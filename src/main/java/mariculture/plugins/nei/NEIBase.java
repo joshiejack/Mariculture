@@ -44,6 +44,20 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 			drawScaledTexturedModelRectFromIcon(j, k + 21, fluid.getFluid().getIcon(), 16, 16);
 		}
 		
+		if(size.equals(TankSize.BLOCK_CASTER)) {
+			drawScaledTexturedModelRectFromIcon(j, k, fluid.getFluid().getIcon(), 12, 12);
+			drawScaledTexturedModelRectFromIcon(j + 12, k, fluid.getFluid().getIcon(), 13, 12);
+			drawScaledTexturedModelRectFromIcon(j + 25, k, fluid.getFluid().getIcon(), 12, 12);
+			
+			drawScaledTexturedModelRectFromIcon(j + 25, k + 12, fluid.getFluid().getIcon(), 12, 13);
+			drawScaledTexturedModelRectFromIcon(j + 12, k + 12, fluid.getFluid().getIcon(), 13, 13);
+			drawScaledTexturedModelRectFromIcon(j, k + 12, fluid.getFluid().getIcon(), 12, 13);
+			
+			drawScaledTexturedModelRectFromIcon(j + 25, k + 25, fluid.getFluid().getIcon(), 12, 12);
+			drawScaledTexturedModelRectFromIcon(j + 12, k + 25, fluid.getFluid().getIcon(), 13, 12);
+			drawScaledTexturedModelRectFromIcon(j, k + 25, fluid.getFluid().getIcon(), 12, 12);
+		}
+		
 		if(size.equals(TankSize.DOUBLE)) {
 			drawScaledTexturedModelRectFromIcon(j, k, fluid.getFluid().getIcon(), 16, 16);
 			drawScaledTexturedModelRectFromIcon(j + 16, k, fluid.getFluid().getIcon(), 16, 16);
@@ -108,9 +122,13 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 		tessellator.draw();
 	}
 	
+	public boolean isSecondSearch(String outputId, Object... results) {
+		return outputId.equals("fluid") && results.length == 2 && results[0] instanceof String && results[0].equals("fluid");
+	}
+	
 	@Override
     public void loadCraftingRecipes(String outputId, Object... results) {
-		if(outputId.equals("fluid") && results.length == 1) {
+		if(outputId.equals("fluid") && results.length == 1 && results[0] instanceof FluidStack) {
 			FluidStack fluidStack = (FluidStack) results[0];
 			if(fluidStack == null || fluidStack.getFluid() == null) return;
 			String fluid = ((FluidStack) results[0]).getFluid().getName();
@@ -120,6 +138,8 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 					GuiCraftingRecipe.openRecipeGui("item", stack);
 				}
 			}
+			
+			GuiCraftingRecipe.openRecipeGui("fluid", new Object[] { "fluid", fluid });
 		} else {
 			super.loadCraftingRecipes(outputId, results);
 		}
@@ -128,15 +148,16 @@ public abstract class NEIBase extends TemplateRecipeHandler {
 	public void loadUsageRecipes(String inputId, Object... ingredients) {
 		if(inputId.equals("fluid") && ingredients.length == 1) {
             Fluid fluidz = ((FluidStack) ingredients[0]).getFluid();
-            if(fluidz == null)
-                return;
+            if(fluidz == null) return;
 			String fluid = fluidz.getName();
 			ArrayList<ItemStack> stacks = NEIConfig.containers.get(fluid);
-            if(stacks == null)
-                return;
-			for(ItemStack stack: stacks) {
-				GuiUsageRecipe.openRecipeGui("item", stack);
-			}
+            if(stacks != null) {
+				for(ItemStack stack: stacks) {
+					GuiUsageRecipe.openRecipeGui("item", stack);
+				}
+            }
+			
+            GuiUsageRecipe.openRecipeGui("fluid", new Object[] { "fluid", fluid });
 		} else {
 			super.loadUsageRecipes(inputId, ingredients);
 		}

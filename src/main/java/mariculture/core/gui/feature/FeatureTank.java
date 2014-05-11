@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class FeatureTank extends Feature {
 	public enum TankSize {
-		SINGLE, DOUBLE, VAT, CASTER
+		SINGLE, DOUBLE, VAT, CASTER, BLOCK_CASTER
 	}
 	
 	private ITank tank;

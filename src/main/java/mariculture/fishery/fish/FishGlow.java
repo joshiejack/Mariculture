@@ -1,36 +1,35 @@
 package mariculture.fishery.fish;
-
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.Items.dropletNether;
+import static mariculture.core.lib.Items.glowstone;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishGlow extends FishSpecies {
 	public FishGlow(int id) {
 		super(id);
 	}
-
+	
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.NETHER;
+	public int[] setSuitableTemperature() {
+		return new int[] { 35, 100 };
 	}
-
+	
 	@Override
-	public int getLifeSpan() {
-		return 25;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH };
 	}
-
+	
 	@Override
-	public int getFertility() {
-		return 83;
+	public boolean isLavaFish() {
+		return true;
 	}
 
 	@Override
@@ -39,48 +38,88 @@ public class FishGlow extends FishSpecies {
 	}
 
 	@Override
-	public int getTankLevel() {
+	public int getLifeSpan() {
+		return 20;
+	}
+
+	@Override
+	public int getFertility() {
+		return 450;
+	}
+
+	@Override
+	public int getFoodConsumption() {
 		return 3;
 	}
 
 	@Override
+	public int getWaterRequired() {
+		return 120;
+	}
+
+	@Override
 	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 7.5D);
-		addProduct(new ItemStack(Item.glowstone), 7.5D);
+		addProduct(dropletNether, 7.5D);
+		addProduct(glowstone, 7.5D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 2.725D;
+	}
+
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return new ItemStack(glowstone);
+	}
+
+	@Override
+	public int getLiquifiedProductChance() {
+		return 1;
+	}
+
+	@Override
+	public int getFishMealSize() {
+		return 5;
+	}
+
+	@Override
+	public int getFoodStat() {
+		return 3;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.4F;
 	}
 
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
-		SpawnItemHelper.addToPlayerInventory(player, new ItemStack(Item.glowstone));
+		SpawnItemHelper.addToPlayerInventory(player, new ItemStack(glowstone));
 	}
-	
+
+	@Override
+	public int getLightValue() {
+		return 15;
+	}
+
+	@Override
+	public RodQuality getRodNeeded() {
+		return RodQuality.GOOD;
+	}
+
 	@Override
 	public boolean isWorldCorrect(World world) {
 		return world.provider.isHellWorld;
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 15;
-	}
-	
-	@Override
-	public RodQuality getRodNeeded() {
-		return RodQuality.GOOD;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 0.155;
+	public double getCatchChance(int height, int time) {
+		return Height.isHigh(height)? 50D: 25D;
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return null;
-	}
-	
-	@Override
-	public int getFishMealSize() {
-		return 1;
+	public double getCaughtAliveChance(int height, int time) {
+		return height > 110? 5D: 0D;
 	}
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.ItemBaseRod;
+import mariculture.api.fishery.RodQuality;
 import mariculture.core.items.ItemBattery;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -144,7 +144,7 @@ public class ItemFluxRod extends ItemBaseRod implements IEnergyContainerItem {
 	}
 	
 	@Override
-	public ItemStack damage(EntityPlayer player, ItemStack stack, int fish) {
+	public ItemStack damage(World world, EntityPlayer player, ItemStack stack, int fish) {
 		((IEnergyContainerItem)stack.getItem()).extractEnergy(stack, 100, false);
 		return stack;
 	}

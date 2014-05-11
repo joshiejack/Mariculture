@@ -78,10 +78,9 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public TileMultiBlock getMaster() {
-		if(master == null)
-			return null;
+		if(master == null) return null;
 		TileEntity tile = worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord);
-		return tile != null && tile instanceof TileMultiBlock? (TileMultiBlock)tile: null;
+		return tile instanceof TileMultiBlock? (TileMultiBlock)tile: null;
 	}
 	
 	public ArrayList<MultiPart> getSlaves() {
@@ -184,8 +183,7 @@ public class TileMultiBlock extends TileEntity {
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getBlockTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te.getClass().equals(getTEClass())) {
-					Packets.updateTile(te, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, 
-							master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
+					Packets.updateTile(te, new Packet113MultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing).build());
 				}
 			}
 			

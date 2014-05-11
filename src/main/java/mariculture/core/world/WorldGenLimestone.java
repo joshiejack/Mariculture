@@ -67,9 +67,9 @@ public class WorldGenLimestone extends WorldGenerator {
 							if(y < 64) {
 								if (isValidPlacement(world, x, y, z)) {
 									if (OreGeneration.RUTILE && random.nextInt(OreGeneration.RUTILE_CHANCE) == 0) {
-										world.setBlock(x, y, z, Core.oreBlocks.blockID, OresMeta.RUTILE, 2);
+										world.setBlock(x, y, z, Core.ores.blockID, OresMeta.RUTILE, 2);
 									} else {
-										world.setBlock(x, y, z, Core.oreBlocks.blockID, OresMeta.LIMESTONE, 2);
+										world.setBlock(x, y, z, Core.ores.blockID, OresMeta.LIMESTONE, 2);
 									}
 								}
 							}
@@ -95,7 +95,7 @@ public class WorldGenLimestone extends WorldGenerator {
 			if(isNotWater(world, x, y + 1, z) || isNotWater(world, x, y + 2, z))
 				return false;
 			int id = world.getBlockId(x, y, z);
-			if(id == Core.oreBlocks.blockID)
+			if(id == Core.ores.blockID)
 				return false;
 			if(id == Block.dirt.blockID)
 				return true;

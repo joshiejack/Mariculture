@@ -1,0 +1,185 @@
+package mariculture.core.lib;
+
+import mariculture.core.Core;
+import mariculture.diving.Diving;
+import mariculture.fishery.Fishery;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+
+public class Items {
+	/** Dye Shortcuts **/
+	public static final String black = "dyeBlack";
+	public static final String blue = "dyeBlue";
+	public static final String cyan = "dyeCyan";
+	public static final String green = "dyeGreen";
+	public static final String red = "dyeRed";
+	public static final String white = "dyeWhite";
+	public static final String yellow = "dyeYellow";
+	
+	/** Vanilla shortcuts for stacks **/
+	public static final ItemStack ink = new ItemStack(Item.dyePowder, 1, Dye.INK);
+	public static final ItemStack bonemeal = new ItemStack(Item.dyePowder, 1, Dye.BONE);
+	public static final ItemStack lapis = new ItemStack(Item.dyePowder, 1, Dye.LAPIS);
+	public static final ItemStack coal = new ItemStack(Item.coal, 1, 0);
+	public static final ItemStack blueWool = new ItemStack(Block.cloth, 1, 11);
+	public static final ItemStack pinkWool = new ItemStack(Block.cloth, 1, 6);
+	public static final ItemStack wool = new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE);
+	public static final ItemStack quartzSlab = new ItemStack(Block.stoneSingleSlab, 1, 7);
+	public static final ItemStack stoneSlab = new ItemStack(Block.stoneSingleSlab, 1, 0);
+	public static final ItemStack skull = new ItemStack(Item.skull, 1, 0);
+	public static final ItemStack witherSkull = new ItemStack(Item.skull, 1, 1);
+	public static final ItemStack zombie = new ItemStack(Item.skull, 1, 2);
+	public static final ItemStack orangeDye = new ItemStack(Item.dyePowder, 1, Dye.ORANGE);
+	public static final ItemStack purpleDye = new ItemStack(Item.dyePowder, 1, Dye.PURPLE);
+	
+	/** Vanilla shortcuts for blocks **/
+	public static final Block snow = Block.blockSnow;
+	public static final Block blockClay = Block.blockClay;
+	public static final Block chest = Block.chest;
+	public static final Block rose = Block.plantRed;
+	public static final Block dandelion = Block.plantYellow;
+	public static final Block ironBars = Block.fenceIron;
+	public static final Block hopper = Block.hopperBlock;
+	public static final Block piston = Block.pistonBase;
+	public static final Block emeraldBlock = Block.blockEmerald;
+	public static final Block dragonEgg = Block.dragonEgg;
+	public static final Block sand = Block.sand;
+	public static final Block ice = Block.ice;
+	public static final Block grass = Block.grass;
+	public static final Block dirt = Block.dirt;
+	public static final Block lily = Block.waterlily;
+	public static final Block netherrack = Block.netherrack;
+	
+	/** Vanilla shortcuts for items **/
+	public static final Item cookedFish = Item.fishCooked;
+	public static final Item vanillaFish = Item.fishRaw;
+	public static final Item leather = Item.leather;
+	public static final Item reeds = Item.reed;
+	public static final Item seeds = Item.seeds;
+	public static final Item diamond = Item.diamond;
+	public static final Item diamondBoots = Item.bootsDiamond;
+	public static final Item enderPearl = Item.enderPearl;
+	public static final Item eyeOfEnder = Item.eyeOfEnder;
+	public static final Item ghastTear = Item.ghastTear;
+	public static final Item bookAndQuill = Item.writableBook;
+	public static final Item feather = Item.feather;
+	public static final Item ironAxe = Item.axeIron;
+	public static final Item redstone = Item.redstone;
+	public static final Item waterBucket = Item.bucketWater;
+	public static final Item carrot = Item.carrot;
+	public static final Item potato = Item.potato;
+	public static final Item paper = Item.paper;
+	public static final Item glowstone = Item.glowstone;
+	public static final Item bread = Item.bread;
+	public static final Item rawFish = Item.fishRaw;
+	public static final Item bowl = Item.bowlEmpty;
+	public static final Item snowball = Item.snowball;
+	public static final Item string = Item.silk;
+	public static final Item blazePowder = Item.blazePowder;
+	public static final Item gunpowder = Item.gunpowder;
+	public static final Item bone = Item.bone;
+	public static final Item goldNugget = Item.goldNugget;
+	public static final Item slimeBall = Item.slimeBall;
+	public static final Item netherWart = Item.netherStalkSeeds;
+	public static final Item rottenFlesh = Item.rottenFlesh;
+	public static final Item spiderEye = Item.spiderEye;
+	public static final Item fermentedEye = Item.fermentedSpiderEye;
+	public static final Item book = Item.book;
+	public static final Item xpBottle = Item.expBottle;
+	public static final Item nameTag = Item.nameTag;
+	public static final Item netherStar = Item.netherStar;
+	public static final Item stick = Item.stick;
+	
+	/** ItemStack always based blocks **/
+	public static final ItemStack blockAluminum = new ItemStack(Core.ores, 1, OresMeta.ALUMINUM_BLOCK);
+	public static final ItemStack blockTitanium = new ItemStack(Core.ores, 1, OresMeta.TITANIUM_BLOCK);
+	public static final ItemStack transparent = new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC);
+	public static final ItemStack tank = new ItemStack(Core.tanks, 1, TankMeta.TANK);
+	public static final ItemStack fishTank = new ItemStack(Core.tanks, 1, TankMeta.FISH);
+	public static final ItemStack baseIron = new ItemStack(Core.ores, 1, OresMeta.BASE_IRON);
+	public static final ItemStack baseWood = new ItemStack(Core.wood, 1, WoodMeta.BASE_WOOD);
+	public static final ItemStack mechSponge = new ItemStack(Core.machines, 1, MachineMeta.SPONGE);
+	public static final ItemStack sluice = new ItemStack(Core.machines, 1, MachineMeta.SLUICE);
+	public static final ItemStack handTurbine = new ItemStack(Core.rendered, 1, RenderMeta.TURBINE_HAND);
+	public static final ItemStack waterTurbine = new ItemStack(Core.rendered, 1, RenderMeta.TURBINE_WATER);
+	public static final ItemStack gasTurbine = new ItemStack(Core.rendered, 1, RenderMeta.TURBINE_GAS);
+	public static final ItemStack pressureVessel = new ItemStack(Core.multi, 1, MultiMeta.PRESSURE_VESSEL);
+	public static final ItemStack autodictionary = new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY);
+	public static final ItemStack fishSorter = new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER);
+	public static final ItemStack sawmill = new ItemStack(Core.machines, 1, MachineMeta.SAWMILL);
+	public static final ItemStack incubatorBase = new ItemStack(Core.machines, 1, MachineMeta.INCUBATOR_BASE);
+	public static final ItemStack incubatorTop = new ItemStack(Core.machines, 1, MachineMeta.INCUBATOR_TOP);
+	public static final ItemStack fishFeeder = new ItemStack(Core.rendered, 1, RenderMeta.FISH_FEEDER);
+	public static final ItemStack autofisher = new ItemStack(Core.machines, 1, MachineMeta.AUTOFISHER);
+	public static final ItemStack polishedLog = new ItemStack(Core.wood, 1, WoodMeta.POLISHED_LOG);
+	public static final ItemStack polishedPlank = new ItemStack(Core.wood, 1, WoodMeta.POLISHED_PLANK);
+	
+	/** ItemStack always based items **/
+	public static final ItemStack burntBrick = new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK);
+	public static final ItemStack eternalMale = new ItemStack(Core.upgrade, 1, UpgradeMeta.ETERNAL_MALE);
+	public static final ItemStack eternalFemale = new ItemStack(Core.upgrade, 1, UpgradeMeta.ETERNAL_FEMALE);
+	public static final ItemStack filtrator = new ItemStack(Core.upgrade, 1, UpgradeMeta.FILTER);
+	public static final ItemStack salinator = new ItemStack(Core.upgrade, 1, UpgradeMeta.SALINATOR);
+	public static final ItemStack pearls = new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE);
+	public static final ItemStack ironWheel = new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL);
+	public static final ItemStack aluminumSheet = new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET);
+	public static final ItemStack titaniumSheet = new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_SHEET);
+	public static final ItemStack titaniumRod = new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_ROD);
+	public static final ItemStack goldPlastic = new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC_YELLOW);
+	public static final ItemStack glassLens = new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS);
+	public static final ItemStack plasticLens = new ItemStack(Core.crafting, 1, CraftingMeta.LENS);
+	public static final ItemStack neoprene = new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE);
+	public static final ItemStack plastic = new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC);
+	public static final ItemStack life = new ItemStack(Core.crafting, 1, CraftingMeta.LIFE_CORE);
+	public static final ItemStack plan = new ItemStack(Core.crafting, 1, CraftingMeta.BLANK_PLAN);
+	public static final ItemStack wicker = new ItemStack(Core.crafting, 1, CraftingMeta.WICKER);
+	public static final ItemStack goldSilk = new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_SILK);
+	public static final ItemStack goldThread = new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD);
+	public static final ItemStack custard = new ItemStack(Core.food, 1, FoodMeta.CUSTARD);
+	public static final ItemStack fishFinger = new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER);
+	public static final ItemStack fishNCustard = new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD);
+	public static final ItemStack fishMeal = new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL);
+	public static final ItemStack calamari = new ItemStack(Core.food, 1, FoodMeta.CALAMARI);
+	public static final ItemStack dropletAqua = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA);
+	public static final ItemStack dropletDestroy = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK);
+	public static final ItemStack dropletEarth = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_EARTH);
+	public static final ItemStack dropletEnder = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER);
+	public static final ItemStack dropletFlux = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC);
+	public static final ItemStack dropletFrozen = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_FROZEN);
+	public static final ItemStack dropletMagic = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC);
+	public static final ItemStack dropletNether = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER);
+	public static final ItemStack dropletPlant = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_PLANT);
+	public static final ItemStack dropletPoison = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON);
+	public static final ItemStack dropletRegen = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH);
+	public static final ItemStack dropletWater = new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER);
+	public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
+	public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
+	public static final ItemStack copperBattery = new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE);
+	public static final ItemStack titaniumBattery = new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE);
+	public static final ItemStack dustMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE);
+	public static final ItemStack carbide = new ItemStack(Core.crafting, 1, CraftingMeta.CARBIDE);
+	public static final ItemStack bottleGas2 = new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_GAS);
+	public static final ItemStack bottleGas = new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_NORMAL_GAS);
+	public static final ItemStack salt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
+	public static final ItemStack voidBottle = new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_VOID);
+	public static final ItemStack bluePearl = new ItemStack(Core.pearls, 1, PearlColor.BLUE);
+	public static final ItemStack whitePearl = new ItemStack(Core.pearls, 1, PearlColor.WHITE);
+	public static final ItemStack redDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED);
+	public static final ItemStack yellowDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW);
+	public static final ItemStack greenDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN);
+	public static final ItemStack blueDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BLUE);
+	public static final ItemStack thermometer = new ItemStack(Core.crafting, 1, CraftingMeta.THERMOMETER);
+	
+	/** Module based stuff **/
+	public static final ItemStack filterer = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.net): new ItemStack(Block.chest);
+	public static final ItemStack regen = Modules.isActive(Modules.fishery)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): new ItemStack(Item.potion, 1, 8229);
+	public static final Object bait = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): Item.spiderEye;
+	public static final Object scubaTank = Modules.isActive(Modules.diving)? new ItemStack(Diving.scubaTank, 1, 1): Block.lever;
+	public static final Object fish = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.fishyFood, 1, OreDictionary.WILDCARD_VALUE): Item.fishRaw;
+	public static final Object sponge = Modules.isActive(Modules.worldplus)? Block.sponge: Item.bucketWater;
+	public static final Object water = Modules.isActive(Modules.fishery)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Item.potion, 1, 0);
+	public static final Object rubber = (OreDictionary.getOres("itemRubber").size() > 0)? "itemRubber": new ItemStack(Item.dyePowder, 1, Dye.INK);
+	public static final Object polishedStick = (Modules.isActive(Modules.fishery))? new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK): "plankWood";
+}

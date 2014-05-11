@@ -260,11 +260,6 @@ public final class ItemHelper {
 		return FluidHelper.isPlayerHoldingFluidContainerItem(player);
 	}
 
-	public static final boolean isPlayerHoldingEnergyContainerItem(EntityPlayer player) {
-
-		return EnergyHelper.isPlayerHoldingEnergyContainerItem(player);
-	}
-
 	/**
 	 * Determine if a player is holding an ItemStack of a specific Item type.
 	 */

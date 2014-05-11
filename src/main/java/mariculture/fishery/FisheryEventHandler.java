@@ -3,33 +3,20 @@ package mariculture.fishery;
 import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 public class FisheryEventHandler {
 	Random rand = new Random();
-
-	@ForgeSubscribe
-	public void onLivingSpawned(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityCreeper) {
-			EntityCreeper creeper = (EntityCreeper) event.entity;
-			creeper.tasks.addTask(3, new EntityAIAvoidCatfish(creeper, EntityPlayer.class, 8.0F, 0.25F, 0.3F));
-		}
-	}
-
 	public static void updateStack(World world, EntityItem entity, int lifespan, ItemStack stack, Random rand) {
 		float var2 = MathHelper.floor_double(entity.boundingBox.minY);
 		float var4 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
@@ -46,11 +33,10 @@ public class FisheryEventHandler {
 		ItemStack item = event.entityItem.getEntityItem();
 
 		if (item.getItem() instanceof ItemFishy) {
-
 			if (item.hasTagCompound() && !Fishing.fishHelper.isEgg(item)) {
 				int fish = item.stackTagCompound.getInteger("SpeciesID");
 				FishSpecies species = Fishing.fishHelper.getSpecies(fish);
-				if(species.getGroup() != EnumFishGroup.NETHER) {
+				if(!species.isLavaFish()) {
 					if(event.entityItem.isInsideOfMaterial(Material.water)) {
 						event.setCanceled(true);
 						return;
@@ -72,7 +58,7 @@ public class FisheryEventHandler {
 	public void onKillSquid(LivingDropsEvent event) {
 		if (event.entity instanceof EntitySquid) {
 			EntitySquid entity = (EntitySquid) event.entity;
-			ItemStack squid = new ItemStack(Fishery.fishyFood.itemID, 1, Fishery.squid.fishID);
+			ItemStack squid = new ItemStack(Fishery.fishyFood.itemID, 1, Fish.squid.getID());
 			event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
 			if (event.lootingLevel > 0) {
 				for (int i = 0; i < event.lootingLevel; i++) {

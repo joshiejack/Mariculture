@@ -83,7 +83,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 			storage.extractEnergy(100, false);
 			
 			if(updateAirArea(Type.CHECK)) {
-				if(Modules.diving.isActive()) {
+				if(Modules.isActive(Modules.diving)) {
 					supplyWithAir(300, 40.0D, 50.0D, 40.0D);
 				}
 				
@@ -121,7 +121,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 	}
 	
 	private boolean isNaturalGas(int x, int y, int z) {
-		return worldObj.getBlockId(x, y, z) == Core.airBlocks.blockID && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
+		return worldObj.getBlockId(x, y, z) == Core.air.blockID && worldObj.getBlockMetadata(x, y, z) == AirMeta.NATURAL_GAS;
 	}
 	
 	private int tick;
@@ -163,7 +163,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IEje
 			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 		}
 
-		if(Modules.diving.isActive()){
+		if(Modules.isActive(Modules.diving)){
 			if (Extra.REDSTONE_PUMP && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
 				supplyWithAir(30, 25.0D, 36.0D, 25.0D);
 			}

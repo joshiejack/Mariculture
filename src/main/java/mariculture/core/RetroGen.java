@@ -74,7 +74,7 @@ public class RetroGen {
 						WorldGenHandler.generateRutile(chunk.worldObj, Rand.rand, x, z);
 					if(WorldGeneration.OYSTER_ENABLED && doGen(data, "oyster", chunk))
 						WorldGenHandler.generateOyster(chunk.worldObj, Rand.rand, x, z);
-					if(Modules.world.isActive()) {
+					if(Modules.isActive(Modules.worldplus)) {
 						if(WorldGeneration.KELP_PATCH_ENABLED && doGen(data, "kelppatch", chunk))
 							WorldGen.generateKelp(chunk.worldObj, Rand.rand, x, z);
 						if(WorldGeneration.KELP_FOREST_ENABLED && doGen(data, "kelpforest", chunk))
