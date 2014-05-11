@@ -7,6 +7,7 @@ import static mariculture.core.lib.Items.dropletDestroy;
 import static mariculture.core.lib.Items.dropletPlant;
 import static mariculture.core.lib.Items.dropletWater;
 import static mariculture.core.lib.Items.gunpowder;
+import static mariculture.core.lib.Items.redstone;
 
 import java.util.Random;
 
@@ -66,6 +67,11 @@ public class FishBass extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 4.325D;
+	}
+	
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return new ItemStack(gunpowder);
 	}
 
 	@Override

@@ -47,7 +47,6 @@ public class PluginRailcraft extends Plugin {
 
 		ItemStack input = new ItemStack(Core.ores, 1, OresMeta.LIMESTONE);
 		ItemStack output = new ItemStack(Item.dyePowder, 1, Dye.BONE);
-
 		RailcraftCraftingManager.rockCrusher.createNewRecipe(input, true, false).addOutput(output, 0.1F);
 	}
 

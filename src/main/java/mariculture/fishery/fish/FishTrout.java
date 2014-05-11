@@ -4,9 +4,12 @@ import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.Items.blueDye;
 import static mariculture.core.lib.Items.greenDye;
 import static mariculture.core.lib.Items.orangeDye;
+import static mariculture.core.lib.Items.pinkDye;
 import static mariculture.core.lib.Items.purpleDye;
 import static mariculture.core.lib.Items.redDye;
 import static mariculture.core.lib.Items.yellowDye;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
@@ -60,6 +63,11 @@ public class FishTrout extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 3.600D;
+	}
+	
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return pinkDye;
 	}
 
 	@Override

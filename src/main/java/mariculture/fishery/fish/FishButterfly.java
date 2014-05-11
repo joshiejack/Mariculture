@@ -3,6 +3,8 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.Items.dropletWater;
 import static mariculture.core.lib.Items.feather;
+import static mariculture.core.lib.Items.redstone;
+import net.minecraft.item.ItemStack;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
@@ -52,6 +54,16 @@ public class FishButterfly extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 0.120D;
+	}
+	
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return new ItemStack(feather);
+	}
+	
+	@Override
+	public int getLiquifiedProductChance() {
+		return 5;
 	}
 
 	@Override

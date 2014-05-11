@@ -12,9 +12,6 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.Modules;
-import mariculture.world.WorldPlus;
 import net.minecraft.item.ItemStack;
 
 public class FishClown extends FishSpecies {
@@ -73,6 +70,16 @@ public class FishClown extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 1.800D;
+	}
+	
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return orangeDye;
+	}
+	
+	@Override
+	public int getLiquifiedProductChance() {
+		return 3;
 	}
 
 	@Override

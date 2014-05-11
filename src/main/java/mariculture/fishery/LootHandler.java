@@ -114,7 +114,7 @@ public class LootHandler implements ILootHandler {
 		for(int i = 0; i < 2; i++) {
 			Collections.shuffle(catchables);
 			for(FishSpecies fish: catchables) {
-				double multiplier = Extra.IGNORE_BIOMES? 1.0D: 2.5D;
+				double multiplier = Extra.IGNORE_BIOMES? 1.0D: 5D;
 				double catchChance = (Extra.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y)) * multiplier;
 				if(quality.getEnum() != null && fish.canCatch(rand, world, x, y, z, quality.getEnum())) {
 					if(Extra.IGNORE_BIOMES) {

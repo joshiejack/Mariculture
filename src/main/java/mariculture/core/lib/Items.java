@@ -33,6 +33,7 @@ public class Items {
 	public static final ItemStack zombie = new ItemStack(Item.skull, 1, 2);
 	public static final ItemStack orangeDye = new ItemStack(Item.dyePowder, 1, Dye.ORANGE);
 	public static final ItemStack purpleDye = new ItemStack(Item.dyePowder, 1, Dye.PURPLE);
+	public static final ItemStack pinkDye = new ItemStack(Item.dyePowder, 1, Dye.PINK);
 	
 	/** Vanilla shortcuts for blocks **/
 	public static final Block snow = Block.blockSnow;

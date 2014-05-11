@@ -5,12 +5,14 @@ import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.Items.dropletAqua;
 import static mariculture.core.lib.Items.dropletWater;
 import static mariculture.core.lib.Items.lapis;
+import static mariculture.core.lib.Items.redstone;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -60,6 +62,16 @@ public class FishTang extends FishSpecies {
 	@Override
 	public double getFishOilVolume() {
 		return 0.725D;
+	}
+	
+	@Override
+	public ItemStack getLiquifiedProduct() {
+		return lapis;
+	}
+	
+	@Override
+	public int getLiquifiedProductChance() {
+		return 8;
 	}
 
 	@Override

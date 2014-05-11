@@ -84,6 +84,6 @@ public class FishPerch extends FishSpecies {
 
 	@Override
 	public double getCaughtAliveChance(int height, int time) {
-		return Height.isShallows(height) ? 15D : 0D;
+		return Height.isHigh(height) ? 15D : 0D;
 	}
 }

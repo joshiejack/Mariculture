@@ -64,7 +64,7 @@ public class FishMinnow extends FishSpecies {
 
 	@Override
 	public double getCatchChance(int height, int time) {
-		if (Time.isDay(time) && height > 70) {
+		if (Time.isDay(time)) {
 			return 33D;
 		} else return 5D;
 	}
