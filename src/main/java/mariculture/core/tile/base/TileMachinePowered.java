@@ -39,7 +39,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 

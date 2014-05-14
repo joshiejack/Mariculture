@@ -33,7 +33,7 @@ public class Transport extends RegistrationModule {
 	
 	@Override
 	public void registerOther() {
-		EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 250, 5, false);
+		EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 80, 3, false);
 	}
 
 	@Override

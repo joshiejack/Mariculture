@@ -7,7 +7,6 @@ import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.EnumSalinityType;
-import mariculture.core.Core;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -27,14 +26,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
+import cofh.api.energy.IEnergyConnection;
 
-public class TileFeeder extends TileMachineTank implements IHasNotification {
+public class TileFeeder extends TileMachineTank implements IHasNotification, IEnergyConnection {
 
 	private EnumBiomeType theBiome;
 	private boolean swap = false;
@@ -95,7 +94,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 			}
 			
 			if(onTick(30)) {
-				processContainers();
+				FluidHelper.process(this, 3, 4);
 			}
 
 			if(canWork) {
@@ -217,20 +216,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 
 		return stack;
 	}
-	
-	private void processContainers() {
-		ItemStack result = FluidHelper.getFluidResult(this, inventory[3], inventory[4]);
-		if (result != null) {
-			decrStackSize(3, 1);
-			if(result.getItem() != Item.getItemFromBlock(Core.air)) {
-				if (this.inventory[4] == null) {
-					this.inventory[4] = result.copy();
-				} else if (this.inventory[4].getItem() == result.getItem()) {
-					++this.inventory[4].stackSize;
-				}
-			}
-		}
-	}
 
 	//Cached Coordinates of blocks that are considered water, Rather than checking for water everytime
 	public ArrayList<CachedCoords> cords = new ArrayList<CachedCoords>();
@@ -285,12 +270,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 	}
 	
 	private void doEffect(int slot) {
-		if(inventory[slot] == null)
-			return;
+		if(inventory[slot] == null) return;
 		int species = Fishery.species.getDNA(inventory[slot]);
 		if (!this.worldObj.isRemote) {
 			Fishing.fishHelper.getSpecies(species).affectWorld(worldObj, xCoord, yCoord, zCoord, tankSize);
-			
 			for(CachedCoords cord: cords) {
 				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
 				if(!list.isEmpty()) {
@@ -423,6 +406,17 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		default:
 			return false;
 		}
+	}
+	
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from) {
+		for(int slot = 0; slot < 2; slot++) {
+			if(inventory[slot] == null) continue;
+			int species = Fishery.species.getDNA(inventory[slot]);
+			return Fishing.fishHelper.getSpecies(species).canConnectEnergy(from);
+		}
+		
+		return false;
 	}
 	
 	@Override

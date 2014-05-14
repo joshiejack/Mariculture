@@ -68,6 +68,11 @@ public class FishElectricRay extends FishSpecies {
 	public double getFishOilVolume() {
 		return 0.450;
 	}
+	
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from) {
+		return from == from.DOWN;
+	}
 
 	@Override
 	public void affectWorld(World world, int x, int y, int z, int tankType) {
@@ -78,7 +83,7 @@ public class FishElectricRay extends FishSpecies {
 		
 		if(PowerHelper.isEnergyHandler(world, x, y - 1, z) != null) {
 			IEnergyHandler handler = PowerHelper.isEnergyHandler(world, x, y - 1, z);
-			if(handler.canInterface(ForgeDirection.DOWN)) {
+			if(handler.canConnectEnergy(ForgeDirection.DOWN)) {
 				(handler).receiveEnergy(ForgeDirection.UP, 200, false);
 			}
 		}

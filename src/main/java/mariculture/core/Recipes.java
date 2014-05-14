@@ -78,8 +78,8 @@ public class Recipes {
 			"X", "X", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH)
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 4, LimestoneMeta.PEDESTAL_1), new Object[] {
-			"XY", "YX", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.BORDERED)
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
+			"X", "Y", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.BORDERED)
 		});
 		
 		//Base Brick

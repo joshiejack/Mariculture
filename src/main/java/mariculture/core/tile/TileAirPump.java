@@ -238,7 +238,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 

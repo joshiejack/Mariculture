@@ -14,7 +14,7 @@ public class FishFoodHandler implements IFishFoodHandler {
 	private static Map foodList = new HashMap();
 	@Override
 	public void addFishFood(ItemStack food, int value) {
-		foodList.put(Arrays.asList(food, food.getItemDamage()), value);
+		foodList.put(Arrays.asList(food.getItem(), food.getItemDamage()), value);
 		RecipeHelper.addMelting(food, 150, FluidRegistry.getFluidStack(FluidDictionary.fish_food, value));
 	}
 

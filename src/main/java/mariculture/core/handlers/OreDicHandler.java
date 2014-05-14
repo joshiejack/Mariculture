@@ -69,7 +69,7 @@ public class OreDicHandler {
 	}
 	
 	public static void registerWildcard(ItemStack stack, Integer[] metas) {
-		if(stack == null || metas == null) return;
+		if(stack == null || stack.getItem() == null || metas == null) return;
 	//Get the wildcard and add it
 		String name = Item.itemRegistry.getNameForObject(stack.getItem());
 		specials.put(name, metas);

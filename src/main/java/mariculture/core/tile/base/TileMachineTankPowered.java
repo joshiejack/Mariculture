@@ -39,7 +39,7 @@ public abstract class TileMachineTankPowered extends TileMachineTank implements 
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 

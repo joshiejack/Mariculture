@@ -177,7 +177,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	public void transferPower() {
 		TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, orientation);
 		if (tile instanceof IEnergyHandler && energyStorage.getEnergyStored() > 0) {
-			if(((IEnergyHandler) tile).canInterface(orientation.getOpposite())) {
+			if(((IEnergyHandler) tile).canConnectEnergy(orientation.getOpposite())) {
 				int extract = -((IEnergyHandler)tile).receiveEnergy(orientation.getOpposite(), Math.min(getEnergyTransferMax(), energyStorage.getEnergyStored()), false);
 				energyStorage.modifyEnergyStored(extract);
 				
@@ -254,7 +254,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 			ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[i % 6];
 			TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, facing);
 			if (tile instanceof IEnergyHandler) {
-				if(((IEnergyHandler) tile).canInterface(facing)) {
+				if(((IEnergyHandler) tile).canConnectEnergy(facing)) {
 					setFacing(facing);
 					worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	
@@ -291,10 +291,10 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
-
+	
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
 		return energyStorage.getEnergyStored();

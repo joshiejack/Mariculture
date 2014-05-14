@@ -1,3 +1,12 @@
+== Mariculture 1.7.2 BETA 4==
+* Updated to 1.7 Redstone Flux API
+* Fixed fish feeder not accepting food/liquids
+* Fixed potential fluid crash on startup
+* Calamari now gives one bowl as it should
+* Speed Boat should be functional now! Whizz! Speed Boats also go straight to ur inventory, even more convenient!
+* Fixed Incubator Base Recipe
+* Removed BOP Block/Item Compatibility temporarily
+
 ==Mariculture 1.7.2 BETA 3==
 * Fixed ExU startup Crash, *Whistles, pretends he didn't blame it on ExU*, the GUILT.
 * When Disabling Fishery Module, even though it says rods are overriden, the rods/fish will act exactly like vanilla

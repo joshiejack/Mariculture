@@ -396,7 +396,7 @@ public class Fishery extends RegistrationModule {
 					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
 
 		//Incubator Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMultiMeta.INCUBATOR_BASE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.multiMachines, 1, MachineMultiMeta.INCUBATOR_BASE), new Object[] {
 			"DBD", "CHC",
 			Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 3),
 			Character.valueOf('B'), new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
@@ -496,7 +496,7 @@ public class Fishery extends RegistrationModule {
 		Fishing.food.addFishFood(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL), 12);
 		
 		// Squid > Calamari
-		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 2, FoodMeta.CALAMARI), new Object[] {
+		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
 				new ItemStack(Items.fish, 1, Fishery.squid.fishID),
 				new ItemStack(Items.bowl) });
 		

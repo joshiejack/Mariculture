@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class FishSpecies {
 	public static ArrayList<FishSpecies> speciesList = new ArrayList();
@@ -214,6 +215,11 @@ public abstract class FishSpecies {
 	 * @param Random */
 	public ItemStack onRightClick(World world, EntityPlayer player, ItemStack stack, Random rand) {
 		return stack;
+	}
+	
+	/** Whether you can connect to this block or not **/
+	public boolean canConnectEnergy(ForgeDirection from) {
+		return false;
 	}
 
 	/** This is called every half a second, and lets you affect the world around

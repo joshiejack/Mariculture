@@ -34,7 +34,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 

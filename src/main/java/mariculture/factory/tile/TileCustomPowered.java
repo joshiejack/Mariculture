@@ -48,7 +48,7 @@ public static ArrayList<Object[]> handlers = new ArrayList();
 			}
 					
 			if(handler != null) {
-				if(handler.canInterface(cameFrom)) {
+				if(handler.canConnectEnergy(cameFrom)) {
 		            this.storage.modifyEnergyStored(-(handler).receiveEnergy(cameFrom.getOpposite(), Math.min(this.storage.getMaxEnergyStored(), this.storage.getEnergyStored()), false));
 		       }
 			}
@@ -63,7 +63,7 @@ public static ArrayList<Object[]> handlers = new ArrayList();
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 

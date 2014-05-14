@@ -17,7 +17,7 @@ public class PluginBiomesOPlenty extends Plugin {
 	
 	@Override
 	public void registerWildcards() {		
-		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("planks")), new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14 });
+		/*OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("planks")), new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("saplings")), new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("colorizedSaplings")), new Integer[] { 0, 1, 2, 3, 4, 5, 6 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("woodenSingleSlab1")), new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7 });
@@ -29,7 +29,7 @@ public class PluginBiomesOPlenty extends Plugin {
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("leaves3")), new Integer[] { 0, 1, 2, 3 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("leaves4")), new Integer[] { 0, 1 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("appleLeaves")), new Integer[] { 0 });
-		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("persimmonLeaves")), new Integer[] { 0 });
+		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("persimmonLeaves")), new Integer[] { 0 }); */
 	}
 		
 	@Override

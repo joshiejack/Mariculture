@@ -40,7 +40,7 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
 	}
 
 	@Override
-	public boolean canInterface(ForgeDirection from) {
+	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 
