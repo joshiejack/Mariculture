@@ -9,6 +9,7 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.ItemIds;
 import mariculture.core.lib.Modules;
+import mariculture.core.lib.Text;
 import mariculture.fishery.Fishery;
 import mariculture.magic.Magic;
 import mariculture.plugins.Plugins.Plugin;
@@ -70,7 +71,7 @@ public class PluginAWWayofTime extends Plugin {
 			addLoot(new ItemStack(ModItems.boundBoots), GOOD, 200);
 
 			// Rituals
-			Rituals.ritualList.add(new Rituals(1, 50000, new RitualOfTheBloodRiver(), "Ritual of the Blood River"));
+			Rituals.ritualList.add(new Rituals(1, 50000, new RitualOfTheBloodRiver(), Text.translate("ritual")));
 			BindingRegistry.registerRecipe(new ItemStack(rodBlood), new ItemStack(Fishery.rodTitanium));
 		}
 

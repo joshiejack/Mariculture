@@ -59,7 +59,6 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 							if(inventory[i] == null && tank.getFluidAmount() >= result.fluid.amount) {
 								drain(ForgeDirection.UP, result.fluid.amount, true);
 								setInventorySlotContents(i, result.output.copy());
-								canWork = canWork();
 								if(!canWork) break;
 							}
 						}
@@ -83,7 +82,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		for(int i = 0; i < inventory.length; i++) {
 			if(inventory[i] == null) return true;
 		}
-		
+				
 		return false;
 	}
 	
@@ -92,6 +91,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		super.onInventoryChanged();
 		
 		if(!worldObj.isRemote) {
+			canWork = canWork();
 			Packets.updateTile(this, new Packet120ItemSync(xCoord, yCoord, zCoord, inventory).build());
 		}
 	}
@@ -111,21 +111,29 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
-        if (amount > 0 && doFill) {
-        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
-        	freezeTick = 0;
-        	canWork = canWork();
-        }
+		if(doFill) {
+			if(amount > 0) {
+				Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+	        	freezeTick = 0;
+			}
+			
+			canWork = canWork();
+		}
+        
         return amount;
 	}
 	
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		FluidStack amount = tank.drain(maxDrain, doDrain);
-        if (amount != null && doDrain) {
-        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
-        	canWork = canWork();
-        }
+		if(doDrain) {
+	        if (amount != null) {
+	        	Packets.updateTile(this, new Packet118FluidUpdate(xCoord, yCoord, zCoord, getFluid()).build());
+	        }
+	        
+	        canWork = canWork();
+		}
+        
         return amount;
 	}
 

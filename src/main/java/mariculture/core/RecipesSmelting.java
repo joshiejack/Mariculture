@@ -292,12 +292,8 @@ public class RecipesSmelting {
 		RecipeHelper.addMelting(new ItemStack(Block.blockSnow), 1, "water", 1000);
 		
 		RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), FluidDictionary.natural_gas, 1000, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 5);
-		//RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), FluidDictionary.natural_gas, 10000, new ItemStack(Core.transparent, 16, TransparentMeta.PLASTIC), 45);
-		//RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), FluidDictionary.natural_gas, 25000, new ItemStack(Core.transparent, 64, TransparentMeta.PLASTIC), 90);
-		if(FluidRegistry.getFluid("ethanol") != null) {
-			RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), "ethanol", 2500, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 10);
-			//RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), "ethanol", 35000, new ItemStack(Core.transparent, 16, TransparentMeta.PLASTIC), 60);
-			//RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), "ethanol", 100000, new ItemStack(Core.transparent, 64, TransparentMeta.PLASTIC), 120);
+		if(FluidRegistry.getFluid("bioethanol") != null) {
+			RecipeHelper.addVatItemRecipe(new ItemStack(Block.glass), "bioethanol", 2500, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 10);
 		}
 		
 		RecipeHelper.addFluidAlloyResultItem(get("water", 1000), get("lava", 1000), new ItemStack(Block.obsidian), 10);

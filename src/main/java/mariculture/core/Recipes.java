@@ -207,7 +207,7 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(neoprene,  new Object[] {"IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas});
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 2, CraftingMeta.NEOPRENE),  new Object[] {"IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas2});
 		RecipeHelper.addVatItemRecipe(new ItemStack(Core.ores, 4, OresMeta.LIMESTONE), FluidDictionary.natural_gas, 5000, plastic, 45);
-		if(FluidRegistry.getFluid("ethanol") != null) RecipeHelper.addVatItemRecipe(new ItemStack(Core.ores, 4, OresMeta.LIMESTONE), "ethanol", 10000, plastic, 60);
+		if(FluidRegistry.getFluid("bioethanol") != null) RecipeHelper.addVatItemRecipe(new ItemStack(Core.ores, 4, OresMeta.LIMESTONE), "bioethanol", 10000, plastic, 60);
 		RecipeHelper.addShapedRecipe(plasticLens, new Object[] {" N ", "NGN", " N ", 'N', neoprene, 'G', transparent});
 		RecipeHelper.addShapedRecipe(glassLens, new Object[] {" P ", "PGP", " P ", 'P', "plankWood", 'G', "glass"});
 		RecipeHelper.addAnvilRecipe(blockAluminum, new ItemStack(Core.crafting, 8, CraftingMeta.ALUMINUM_SHEET), 50);

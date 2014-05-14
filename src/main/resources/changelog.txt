@@ -1,9 +1,15 @@
+== Mariculture 1.2.2a ==
+* Added localisation + tag to the Blood Magic Ritual
+* Fixed using the wrong ethanol name for the plastic recipes
+* Fixed potential fishing/environment related crashes
+* Fixed Casting Blocks messing up when fluids/items change sometimes
+
 == Mariculture 1.2.2 ==
 ==== Last 1.6.4 ====
 * This should be the last of the 1.6.4 content updates, there will no doubt still be bugfix and balance updates
 ==== New ====
 * Config added for Fish Breeding chance, increase the breeding multiplier to make breeding easier, or decrease it to make it harder
-* Bound Fishing Rod when Blood Magic is installed, + Ritual to double mutation chance in the incubator
+* Bound Fishing Rod when Blood Magic is installed, + Ritual to double mutation chance in the incubator (Requires Blood Magic 1.0.1+)
 * Fish Scanner, and Biome Analyser lets you peer in to the crazy depths that is Fish DNA and See what the temperature of the current location is
 * Male DNA affects the area that is affected, they have six stats for this dna, for all six coordinates, representing + or minus to the radius, only opening a feeder, or placing a male in will now update the tank area
 * Ten new Fish Species, bringing the total up to 40!

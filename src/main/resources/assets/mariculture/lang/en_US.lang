@@ -625,6 +625,7 @@ mariculture.string.temperature.precise=Precise Water Temperature
 mariculture.string.input=Input
 mariculture.string.output=Output
 mariculture.string.maxCapacity=Max Capacity
+mariculture.string.ritual=[Mariculture]Ritual of the Blood River
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

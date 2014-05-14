@@ -103,7 +103,7 @@ public class Config {
             OreGeneration.BAUXITE_VEIN = config.get(Category.ORE, "Bauxite > Maximum Vein Size", 8).getInt();
             OreGeneration.BAUXITE_MIN = config.get(Category.ORE, "Bauxite > Minimum Y Height", 60).getInt();
             OreGeneration.BAUXITE_MAX = config.get(Category.ORE, "Bauxite > Maximum Y Height", 256).getInt();
-            OreGeneration.COPPER_ON = config.get(Category.ORE, "Copper > Generation", false).getBoolean(false);
+            OreGeneration.COPPER_ON = config.get(Category.ORE, "Copper > Generation", true).getBoolean(true);
             OreGeneration.COPPER_TOTAL = config.get(Category.ORE, "Copper > Number of Veins", 8).getInt();
             OreGeneration.COPPER_VEIN = config.get(Category.ORE, "Copper > Maximum Vein Size", 3).getInt();
             OreGeneration.COPPER_MIN = config.get(Category.ORE, "Copper > Minimum Y Height", 1).getInt();
