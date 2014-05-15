@@ -139,6 +139,7 @@ public class Config {
             WorldGeneration.WATER_CAVES = config.get(Category.WORLD, "Water Filled Caves in Oceans", false).getBoolean(false);
             WorldGeneration.WATER_RAVINES = config.get(Category.WORLD, "Water Filled Ravines in Oceans", true).getBoolean(true);
             WorldGeneration.RAVINE_CHANCE = config.get(Category.WORLD, "Water Ravine Chance (Lower = More Common)", 25).getInt();
+            WorldGeneration.RAVINE_CHANCE = WorldGeneration.RAVINE_CHANCE < 1? 25: WorldGeneration.RAVINE_CHANCE;
             WorldGeneration.NO_MINESHAFTS = config.get(Category.WORLD, "Remove Mineshafts in Oceans", true).getBoolean(true);
             WorldGeneration.OYSTER_ENABLED = config.get(Category.WORLD, "Pearl Oyster > Generation", true).getBoolean(true);
             WorldGeneration.OYSTER_PER_CHUNK = config.get(Category.WORLD, "Pearl Oyster > Number Chances to Gen Per Chunk", 3).getInt(3);

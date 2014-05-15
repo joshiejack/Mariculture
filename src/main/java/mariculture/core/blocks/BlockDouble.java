@@ -42,16 +42,6 @@ public class BlockDouble extends BlockMachine {
 		super(i, Material.iron);
 		setLightOpacity(0);
 	}
-
-	@Override
-	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockBreak();
-		}
-		
-		super.onBlockExploded(world, x, y, z, explosion);
-    }
 	
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
@@ -94,16 +84,6 @@ public class BlockDouble extends BlockMachine {
 		return world.getBlockId(x, y, z) != this.blockID ? false : (world.getBlockId(x - 1, y, z) == this.blockID ? true : (world
 				.getBlockId(x + 1, y, z) == this.blockID ? true : (world.getBlockId(x, y, z - 1) == this.blockID ? true : world
 				.getBlockId(x, y, z + 1) == this.blockID)));
-	}
-
-	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockPlaced();
-		}
-		
-		super.onBlockAdded(world, x, y, z);
 	}
 	
 	@Override
@@ -256,17 +236,6 @@ public class BlockDouble extends BlockMachine {
 		}
 
 		return null;
-	}
-	
-	@Override
-	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
-		BlockHelper.dropItems(world, x, y, z);
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if(tile instanceof TileMultiBlock) {
-			((TileMultiBlock)tile).onBlockBreak();
-		}
-		
-		super.breakBlock(world, x, y, z, i, meta);
 	}
 
 	@Override

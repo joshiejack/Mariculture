@@ -179,6 +179,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 	}
 	
 	private static boolean isValidFloor(World world, int x, int y, int z) {
+		if(!BlockHelper.chunkExists(world, x, z)) return false;
 		if(world.getBlockId(x, y, z) == Core.ores.blockID && world.getBlockMetadata(x, y, z) == OresMeta.CORAL_ROCK) {
 			return true;
 		}

@@ -81,8 +81,8 @@ public class EnvironmentHandler implements IEnvironmentHandler {
 
 	// Copied from world
 	public int getLightBrightnessForSkyBlocks(World world, int par1, int par2, int par3, int par4) {
-		int i1 = world.getSkyBlockTypeBrightness(EnumSkyBlock.Sky, par1, par2, par3);
-		int j1 = world.getSkyBlockTypeBrightness(EnumSkyBlock.Block, par1, par2, par3);
+		int i1 = getSkyBlockTypeBrightness(world, EnumSkyBlock.Sky, par1, par2, par3);
+		int j1 = getSkyBlockTypeBrightness(world, EnumSkyBlock.Block, par1, par2, par3);
 
 		if (j1 < par4) {
 			j1 = par4;

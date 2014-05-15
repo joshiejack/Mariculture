@@ -5,6 +5,8 @@ import java.util.List;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.blocks.base.TileMultiBlock;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.BlockContainer;
@@ -14,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,6 +28,37 @@ public class BlockMachine extends BlockContainer implements IItemRegistry {
 	public BlockMachine(int i, Material material) {
 		super(i, material);
 		setCreativeTab(MaricultureTab.tabMariculture);
+	}
+	
+	@Override
+	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockBreak();
+		}
+		
+		super.onBlockExploded(world, x, y, z, explosion);
+    }
+	
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockPlaced();
+		}
+		
+		super.onBlockAdded(world, x, y, z);
+	}
+	
+	@Override
+	public void breakBlock(World world, int x, int y, int z, int i, int meta) {
+		BlockHelper.dropItems(world, x, y, z);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if(tile instanceof TileMultiBlock) {
+			((TileMultiBlock)tile).onBlockBreak();
+		}
+		
+		super.breakBlock(world, x, y, z, i, meta);
 	}
 
 	@Override

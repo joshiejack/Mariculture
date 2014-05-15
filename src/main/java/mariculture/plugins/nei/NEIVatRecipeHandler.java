@@ -59,7 +59,7 @@ public class NEIVatRecipeHandler extends NEIBase {
 			HashMap<List<? extends Object>, RecipeVat> recipes = MaricultureHandlers.vat.getRecipes();
 			for (Entry<List<? extends Object>, RecipeVat> recipe : recipes.entrySet()) {
 				FluidStack fluid = recipe.getValue().outputFluid;
-				if(!isSecondSearch || (isSecondSearch &&  fluid != null && fluid.getFluid().getName().equals(results[1])))
+				if(!isSecondSearch || (isSecondSearch &&  fluid != null && fluid.getFluid() != null && fluid.getFluid().getName().equals(results[1])))
 				arecipes.add(new CachedVatRecipe(recipe.getValue()));
 			}
 		} else {
@@ -98,7 +98,7 @@ public class NEIVatRecipeHandler extends NEIBase {
 			}
 
 			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
-			if (fluid == null || recipe.getValue().outputFluid == null) {
+			if (fluid == null || fluid.getFluid() == null || recipe.getValue().outputFluid == null) {
 				continue;
 			}
 

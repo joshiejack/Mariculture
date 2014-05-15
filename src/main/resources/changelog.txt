@@ -1,3 +1,14 @@
+== Mariculture 1.2.2c ==
+* Added in the missing code for fish area...
+
+== Mariculture 1.2.2b ==
+* Added a KirinDave proof check to the Crucible Furnace
+* Added a FTB DW20 Pack check to ravines...
+* Added silly mods with null fluid checks to vat handler
+* Fixed fishing crash again?
+* Coral Spreading should error less
+* Retro-Gen will only spam the console in debug mode
+
 == Mariculture 1.2.2a ==
 * Added localisation + tag to the Blood Magic Ritual
 * Fixed using the wrong ethanol name for the plastic recipes

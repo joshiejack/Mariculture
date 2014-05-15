@@ -268,7 +268,12 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 		
 		ItemStack male = inventory[this.male];
 		if(male != null) {
-			
+			xP = Fish.east.getDNA(male);
+			xN = Fish.west.getDNA(male);
+			yP = Fish.up.getDNA(male);
+			yN = Fish.down.getDNA(male);
+			zP = Fish.south.getDNA(male);
+			zN = Fish.north.getDNA(male);
 		}
 		
 		coords = new ArrayList<CachedCoords>();

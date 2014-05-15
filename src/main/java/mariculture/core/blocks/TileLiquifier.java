@@ -283,7 +283,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			else
 				decrStackSize(in[0], recipe.input2.stackSize);
 			tank.fill(recipe.fluid.copy(), true);
-			if(recipe.output != null) {
+			if(recipe.output != null && recipe.chance > 0) {
 				if(Rand.nextInt(recipe.chance))
 					helper.insertStack(recipe.output.copy(), new int[] { out });
 			}
@@ -293,7 +293,7 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 			FluidStack fluid = recipe.fluid.copy();
 			fluid.amount = fluidAmount;
 			tank.fill(fluid, true);
-			if(recipe.output != null) {
+			if(recipe.output != null && recipe.chance > 0) {
 				if(Rand.nextInt(recipe.chance))
 					helper.insertStack(recipe.output.copy(), new int[] { out });
 			}

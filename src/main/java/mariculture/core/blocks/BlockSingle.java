@@ -57,11 +57,6 @@ public class BlockSingle extends BlockMachine {
 	}
 
 	@Override
-	public void onBlockAdded(World world, int par2, int par3, int par4) {
-		super.onBlockAdded(world, par2, par3, par4);
-	}
-
-	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
 		switch (world.getBlockMetadata(x, y, z)) {
 			case RenderMeta.AIR_PUMP: 		return 4F;
@@ -422,12 +417,6 @@ public class BlockSingle extends BlockMachine {
 	@Override
 	public int getRenderType() {
 		return RenderIds.BLOCK_SINGLE;
-	}
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, int i, int j) {
-		BlockHelper.dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, i, j);
 	}
 
 	@Override
