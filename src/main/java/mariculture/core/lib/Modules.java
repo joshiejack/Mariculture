@@ -3,6 +3,7 @@ package mariculture.core.lib;
 import java.util.ArrayList;
 
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.Modules.Module;
 
 import org.apache.logging.log4j.Level;
 
@@ -14,6 +15,7 @@ public class Modules {
 	public static Module plugins;
 	
 //Other Modules	
+	public static Module aesthetics;
 	public static Module diving;
 	public static Module factory;
 	public static Module fishery;

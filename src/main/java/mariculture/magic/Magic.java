@@ -208,7 +208,7 @@ public class Magic extends RegistrationModule {
 			'M', magicMirror, 
 			'S', Items.nether_star,
 			'T', drop,
-			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
+			'G', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD)
 		});
 		
 		addJewelry((ItemJewelry)ring);

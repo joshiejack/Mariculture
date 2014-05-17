@@ -1,15 +1,18 @@
 package mariculture.fishery.fish;
 
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.ItemLib.dropletPoison;
+
 import java.util.Random;
 
-import mariculture.api.fishery.fish.EnumFishGroup;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -20,45 +23,48 @@ public class FishStingRay extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.FLATFISH;
+	public int[] setSuitableTemperature() {
+		return new int[] { 19, 29 };
 	}
 
 	@Override
-	public int getLifeSpan() {
-		return 37;
-	}
-
-	@Override
-	public int getFertility() {
-		return 93;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { BRACKISH, SALINE, FRESH };
 	}
 
 	@Override
 	public boolean isDominant() {
 		return true;
 	}
-	
+
 	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 2D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 4D);
-		addProduct(new ItemStack(Items.spider_eye), 3D);
-	}
-	
-	@Override
-	public boolean caughtAsRaw() {
-		return false;
+	public int getLifeSpan() {
+		return 25;
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 30;
+	public int getFertility() {
+		return 1;
 	}
 	
 	@Override
+	public int getWaterRequired() {
+		return 20;
+	}
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletPoison, 5D);
+	}
+
+	@Override
 	public double getFishOilVolume() {
-		return 0.170;
+		return 1.725D;
+	}
+	
+	@Override
+	public int getFishMealSize() {
+		return 3;
 	}
 
 	@Override
@@ -67,11 +73,11 @@ public class FishStingRay extends FishSpecies {
 	}
 
 	@Override
-	public void affectLiving(EntityLivingBase living) {
-		if (living instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) living;
+	public void affectLiving(EntityLivingBase entity) {
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
 			Random rand = new Random();
-			int difficulty = player.worldObj.difficultySetting.getDifficultyId();
+			int difficulty = player.worldObj.difficultySetting.ordinal();
 			if (difficulty > 0) {
 				int chance = 40 - (difficulty * 10);
 				if (rand.nextInt(chance) == 0) {
@@ -82,12 +88,17 @@ public class FishStingRay extends FishSpecies {
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return null;
+	public RodType getRodNeeded() {
+		return RodType.OLD;
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 2;
+	public int getCatchChance() {
+		return 35;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return Time.isDay(time) ? 50D : 25D;
 	}
 }

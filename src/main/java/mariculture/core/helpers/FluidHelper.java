@@ -7,7 +7,7 @@ import mariculture.core.Core;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.Text;
 import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +41,7 @@ public class FluidHelper {
 	}
 
 	public static boolean isVoid(ItemStack stack) {
-		return (stack != null && stack.getItem() == Core.liquidContainers && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
+		return (stack != null && stack.getItem() == Core.bottles && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
 	}
 	
 	public static boolean isIContainer(ItemStack stack) {
@@ -76,9 +76,9 @@ public class FluidHelper {
 
 	private static ItemStack addFishFood(IFluidHandler tile, ItemStack stack) {
 		int increase = FishFoodHandler.getValue(stack);
-		int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), false);
+		int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), false);
 		if(fill >= increase) {
-			tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.fish_food, increase), true);
+			tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), true);
 			return new ItemStack(Core.air);
 		}
 
@@ -157,13 +157,13 @@ public class FluidHelper {
 	}
 
 	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-		if (matches(top, bottom, new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY))) {
+		if (matches(top, bottom, new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY))) {
 			FluidStack fluid = tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, false);
 			if(fluid == null || fluid != null && fluid.amount <= 0)
 				return null;
 			
 			tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
-			return new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY);
+			return new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY);
 		}
 		
 		return null;
@@ -305,7 +305,7 @@ public class FluidHelper {
 	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
 		if(fluid == null || fluid.getFluid() == null) {
 			tooltip.add(Text.GREY + "" + 0 + ((max > 0)? "/" + max + "mB": "mB"));
-		} else if(Modules.isActive(Modules.fishery) && fluid.fluidID == FluidRegistry.getFluidID(FluidDictionary.fish_food))
+		} else if(Modules.isActive(Modules.fishery) && fluid.fluidID == FluidRegistry.getFluidID(Fluids.fish_food))
 			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0) ?"/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"): " " + StatCollector.translateToLocal("mariculture.string.pieces")));
 		else if(fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt"))
 			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));

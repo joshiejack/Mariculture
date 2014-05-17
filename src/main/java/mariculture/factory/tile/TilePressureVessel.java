@@ -5,7 +5,7 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.tile.base.TileMultiMachineTank;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.factory.items.ItemArmorFLUDD;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -102,7 +102,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	
 	private void fillFLUDD() {
 		if(inventory[fludd] != null && inventory[fludd].getItem() instanceof ItemArmorFLUDD) {
-			if(tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.hp_water) && tank.getFluidAmount() > 0) {
+			if(tank.getFluidID() == FluidRegistry.getFluidID(Fluids.hp_water) && tank.getFluidAmount() > 0) {
 				ItemStack stack = inventory[fludd].copy();
 				int water = 0;
 				if (stack.hasTagCompound()) {

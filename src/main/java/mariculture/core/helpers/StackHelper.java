@@ -53,7 +53,6 @@ public class StackHelper {
 
 	private static Item getItemByText(String str) {
 		Item item = (Item) Item.itemRegistry.getObject(str);
-
 		if (item == null) {
 			try {
 				Item item1 = Item.getItemById(Integer.parseInt(str));

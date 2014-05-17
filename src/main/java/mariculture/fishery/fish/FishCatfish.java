@@ -1,67 +1,96 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.ILootHandler.LootQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.ItemLib.dropletAqua;
+import static mariculture.core.lib.ItemLib.dropletEarth;
+import static mariculture.core.lib.ItemLib.dropletWater;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class FishCatfish extends FishSpecies {
 	public FishCatfish(int id) {
 		super(id);
 	}
-
+	
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.AMAZONIAN;
+	public int[] setSuitableTemperature() {
+		return new int[] { 20, 45 };
 	}
-
+	
 	@Override
-	public int getLifeSpan() {
-		return 37;
-	}
-
-	@Override
-	public int getFertility() {
-		return 135;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH, BRACKISH, SALINE };
 	}
 
 	@Override
 	public boolean isDominant() {
 		return true;
 	}
-	
+
 	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 8.0D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 2.0D);
-	}
-	
-	@Override
-	public int getCatchChance() {
-		return 4;
-	}
-	
-	@Override
-	public LootQuality getLootQuality() {
-		return LootQuality.GOOD;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 1.000;
+	public int getLifeSpan() {
+		return 22;
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 5 };
+	public int getFertility() {
+		return 4000;
+	}
+
+	@Override
+	public int getFoodConsumption() {
+		return 2;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 100;
+	}
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletWater, 8.0D);
+		addProduct(dropletAqua, 2.0D);
+		addProduct(dropletEarth, 5.0D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 1.950D;
 	}
 	
 	@Override
 	public int getFishMealSize() {
-		return 4;
+		return 7;
+	}
+
+	@Override
+	public float getFoodSaturation() {
+		return 0.8F;
+	}
+
+	@Override
+	public int getFoodDuration() {
+		return 48;
+	}
+
+	@Override
+	public RodType getRodNeeded() {
+		return RodType.GOOD;
+	}
+
+	@Override
+	public double getCatchChance(int height, int time) {
+		return Height.isShallows(height)? 25D: 0D;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return Height.isShallows(height) && !Time.isMidnight(time)? 5D: 0D;
 	}
 }

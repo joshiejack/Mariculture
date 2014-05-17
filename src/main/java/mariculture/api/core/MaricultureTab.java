@@ -8,18 +8,17 @@ public class MaricultureTab extends CreativeTabs {
 	public static MaricultureTab tabMariculture;
 	public static MaricultureTab tabFish;
 	public static MaricultureTab tabJewelry;
-	
-    public ItemStack icon;
 
-    public MaricultureTab(String label)
-    {
-        super(label);
-    }
+	public ItemStack icon;
 
-    @Override
-    public ItemStack getIconItemStack () {
-        return icon;
-    }
+	public MaricultureTab(String label) {
+		super(label);
+	}
+
+	@Override
+	public ItemStack getIconItemStack() {
+		return icon;
+	}
 
 	@Override
 	public Item getTabIconItem() {

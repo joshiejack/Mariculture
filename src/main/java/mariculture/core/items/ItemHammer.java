@@ -64,7 +64,7 @@ public class ItemHammer extends ItemDamageable {
 	
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-		return stack2.getItem() == Core.craftingItem && stack2.getItemDamage() == CraftingMeta.BURNT_BRICK;
+		return stack2.getItem() == Core.crafting && stack2.getItemDamage() == CraftingMeta.BURNT_BRICK;
 	}
 	
 	@Override

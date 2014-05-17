@@ -48,7 +48,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 		still = new IIcon[FluidContainerMeta.COUNT];
 
 		for (int i = 0; i < flowing.length; i++) {			
-			ItemStack bottle = new ItemStack(Core.liquidContainers, 1, i);
+			ItemStack bottle = new ItemStack(Core.bottles, 1, i);
 			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(bottle);
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getName() != null) {
 				String name = (fluid.getFluid()).getName().replaceAll("\\.","");

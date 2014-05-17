@@ -3,7 +3,7 @@ package mariculture.compatibility;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import org.apache.logging.log4j.Level;
@@ -12,7 +12,7 @@ public class Compat extends Module {
 	@Override
 	public void preInit() {		
 		if(FluidRegistry.getFluid("milk") != null) {
-			FluidDictionary.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
+			Fluids.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
 		}
 	}
 	

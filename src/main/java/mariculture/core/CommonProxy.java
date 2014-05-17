@@ -1,7 +1,7 @@
 package mariculture.core;
 
 import mariculture.core.gui.ContainerBookshelf;
-import mariculture.core.gui.ContainerLiquifier;
+import mariculture.core.gui.ContainerCrucible;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
 import mariculture.core.items.ItemStorage;
@@ -41,13 +41,10 @@ import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileIncubator;
 import mariculture.fishery.tile.TileSift;
-import mariculture.plugins.enchiridion.ItemGuide;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
-import enchiridion.api.GuideHandler;
 
 public class CommonProxy implements IGuiHandler {
 	@Override
@@ -64,7 +61,7 @@ public class CommonProxy implements IGuiHandler {
 			}
 			
 			if(tile instanceof TileCrucible) {
-				return new ContainerLiquifier((TileCrucible) tile, player.inventory);
+				return new ContainerCrucible((TileCrucible) tile, player.inventory);
 			}
 			
 			if(tile instanceof TileIncubator) {

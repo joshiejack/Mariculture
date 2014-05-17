@@ -121,7 +121,7 @@ public class WorldPlus extends RegistrationModule {
 		
 		//Kelp Wrap Recipe
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.SEEDS_KELP), new Object[] { new ItemStack(plantStatic, 1, CoralMeta.KELP) });
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.SEEDS_KELP), new Object[] { new ItemStack(plantStatic, 1, CoralMeta.KELP) });
 		
 		addOceanChestLoot();
 	}
@@ -148,14 +148,6 @@ public class WorldPlus extends RegistrationModule {
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodReed), 1, 2, 6));
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodWood), 1, 2, 4));
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodTitanium), 1, 1, 2));
-
-			for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-				int[] fishRarity = FishSpecies.speciesList.get(i).getChestGenChance();
-				if (fishRarity != null && fishRarity.length == 3) {
-					ItemStack fish = new ItemStack(Items.fish, 1, FishSpecies.speciesList.get(i).fishID);
-					ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(fish, fishRarity[0], fishRarity[1], fishRarity[2]));
-				}
-			}
 		} else {
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 0), 5, 5, 5));
 			ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 1), 5, 5, 5));

@@ -7,7 +7,6 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.util.Rand;
 import mariculture.core.util.Text;
-import mariculture.fishery.Fishery;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,8 +25,7 @@ public class MaterialPearlSilver extends JewelryMaterial {
 		if(event.entity instanceof EntitySilverfish && Rand.nextInt(8)) {
 			ItemStack stack = null;
 			if(Modules.isActive(Modules.fishery)) {
-				stack = Fishing.loot.getLoot(null, new ItemStack(Fishery.rodWood), 50, Rand.rand, 
-						event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ);
+				stack = Fishing.fishing.getCatch(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, null);
 			} else stack = new ItemStack(Items.cooked_fished);
 			
 			SpawnItemHelper.spawnItem(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, stack);

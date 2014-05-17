@@ -4,106 +4,122 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.core.util.Text;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
-public class FishDNA {
-	public static final ArrayList<FishDNA> DNAParts = new ArrayList<FishDNA>();
+import org.lwjgl.input.Keyboard;
 
-	public FishDNA() {
+public class FishDNA extends FishDNABase {
+	public ArrayList<FishDNA> types;
+	private boolean isHidden = false;
+	private boolean isToggled = false;
+	public String name;
+	public int minimum;
+	public int maximum;
+	public boolean isDominant;
+	
+	@Override
+	public FishDNA register() {
+		types = new ArrayList();
 		DNAParts.add(this);
-	}
-
-	/** The name of the string the egg array saves this in **/
-	public String getEggString() {
-		return null;
-	}
-
-	/** The name of the string to save the Dominant part of the gene as **/
-	public String getHigherString() {
-		return null;
-	}
-
-	/** The name of the string to save the Recessive part of the gene as **/
-	public String getLowerString() {
-		return null;
-	}
-
-	/** Add information about this piece of DNA to the list if necessary **/
-
-	public void getInformationDisplay(ItemStack stack, List list) {
-		// Do Nothing
-	}
-
-	/** Attempt to cause a mutation **/
-	public int[] attemptMutation(int parent1dna, int parent2dna) {
-		int[] ret = new int[2];
-		ret[0] = parent1dna;
-		ret[1] = parent2dna;
-		return ret;
-	}
-
-	/** return a list of these based on the dominance, dominant goes first **/
-	public int[] getDominant(int option1, int option2, Random rand) {
-		int[] ret = new int[2];
-		ret[0] = option1;
-		ret[1] = option2;
-		return ret;
-	}
-
-	/**
-	 * return the data needed for this piece of dna if it's coming from the
-	 * species file
-	 **/
-	public Integer getDNAFromSpecies(FishSpecies species) {
-		return -1;
+		return this;
 	}
 	
-	//Everything below this point is mostly irrelevant when adding new dna except in special cases
+	public void add(String name, int min, int max, boolean dominant) {
+		types.add(new FishDNA().setValues(name, min, max, dominant));
+	}
+	
+	//Sets whether this dna should be displayed underneath a fish
+	public FishDNA setHidden() {
+		this.isHidden = true;
+		return this;
+	}
+	
+	public FishDNA setShift() {
+		this.isToggled = true;
+		return this;
+	}
+	
+	public FishDNA setValues(String name, int min, int max, boolean dominant) {
+		this.name = name;
+		this.minimum = min;
+		this.maximum = max;
+		this.isDominant = dominant;
+		return this;
+	}
 
-	/** Automatically called when generating a fish **/
-	public ItemStack addDNA(ItemStack stack, Integer data) {
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
+	@Override
+	public void getInformationDisplay(ItemStack stack, List list) {
+		if(isHidden) return;
+		else if(!isToggled || (isToggled && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))) {
+			int type = stack.getTagCompound().getInteger(getHigherString());
+			for(FishDNA dna: types) {
+				if(type >= dna.minimum && type <= dna.maximum) {
+					String data = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)? "" + getDNA(stack): Text.localize("fish.data." + getHigherString().toLowerCase() + "." + dna.name);
+					list.add(Text.localize("fish.data." + getHigherString().toLowerCase()) + ": " + data);
+				}
+			}
+		}
+	}
+	
+	public String getDNAName(ItemStack stack) {
+		int type = stack.getTagCompound().getInteger(getHigherString());
+		for(FishDNA dna: types) {
+			if(type >= dna.minimum && type <= dna.maximum) {
+				return Text.localize("fish.data." + getHigherString().toLowerCase() + "." + dna.name);
+			}
+		}
+		
+		return "";
+	}
+	
+	public String getLowerDNAName(ItemStack stack) {
+		int type = stack.getTagCompound().getInteger(getLowerString());
+		for(FishDNA dna: types) {
+			if(type >= dna.minimum && type <= dna.maximum) {
+				return Text.localize("fish.data." + getHigherString().toLowerCase() + "." + dna.name);
+			}
+		}
+		
+		return "";
+	}
+	
+	@Override
+	public int[] getDominant(int option1, int option2, Random rand) {
+		int dominance1 = 0;
+		int dominance2 = 0;
+		
+		for(FishDNA dna: types) {
+			if(option1 >= dna.minimum && option1 <= dna.maximum) {
+				dominance1 = (dna.isDominant) ? 0: 1;
+			}
+			
+			if(option2 >= dna.minimum && option2 <= dna.maximum) {
+				dominance2 = (dna.isDominant)? 0: 1;
+			}
 		}
 
-		stack.stackTagCompound.setInteger(this.getHigherString(), data);
-
-		return stack;
+		return swapDominance(dominance1, dominance2, option1, option2, rand);
 	}
-
-	/** Automatically called when generating a fish **/
-	public ItemStack addLowerDNA(ItemStack stack, Integer data) {
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
+	
+	@Override
+	public String[] getScannedDisplay(ItemStack stack) {
+		boolean is1Dominant = false;
+		boolean is2Dominant = false;
+		int option1 = getDNA(stack);
+		int option2 = getLowerDNA(stack);
+		for(FishDNA dna: types) {
+			if(option1 >= dna.minimum && option1 <= dna.maximum) {
+				is1Dominant = dna.isDominant;
+			}
+			
+			if(option2 >= dna.minimum && option2 <= dna.maximum) {
+				is2Dominant = dna.isDominant;
+			}
 		}
-
-		stack.stackTagCompound.setInteger(this.getLowerString(), data);
-
-		return stack;
-	}
-
-	/** Automatically called when generating a fish **/
-	public void addDNAList(ItemStack stack, int[] data) {
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
-		}
-
-		stack.stackTagCompound.setIntArray(this.getEggString(), data);
-	}
-
-	/** Automatically called when reading a fish **/
-	public Integer getDNA(ItemStack stack) {
-		return stack.stackTagCompound.getInteger(this.getHigherString());
-	}
-
-	/** Automatically called when reading a fish **/
-	public Integer getLowerDNA(ItemStack stack) {
-		return stack.stackTagCompound.getInteger(this.getLowerString());
-	}
-
-	/** Automatically called when reading a fish **/
-	public int[] getDNAList(ItemStack stack) {
-		return stack.stackTagCompound.getIntArray(this.getEggString());
+		
+		String display1 = (is1Dominant? Text.ORANGE: Text.INDIGO) + getDNA(stack) + " (" + getDNAName(stack) + ")";
+		String display2 = (is2Dominant? Text.ORANGE: Text.INDIGO) + getLowerDNA(stack) + " (" + getLowerDNAName(stack) + ")";
+		return new String[] { Text.localize("fish.data." + getName().toLowerCase()), display1, display2 };
 	}
 }

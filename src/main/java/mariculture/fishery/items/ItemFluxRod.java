@@ -3,7 +3,6 @@ package mariculture.fishery.items;
 import java.util.List;
 
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.core.items.ItemBattery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

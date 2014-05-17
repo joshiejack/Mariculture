@@ -1,12 +1,16 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.ILootHandler.LootQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.ItemLib.dropletDestroy;
+import static mariculture.core.lib.ItemLib.dropletPoison;
+import static mariculture.core.lib.ItemLib.dropletWater;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -17,18 +21,13 @@ public class FishManOWar extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.JELLY;
+	public int[] setSuitableTemperature() {
+		return new int[] { 24, 45 };
 	}
 
 	@Override
-	public int getLifeSpan() {
-		return 30;
-	}
-
-	@Override
-	public int getFertility() {
-		return 150;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { SALINE, BRACKISH };
 	}
 
 	@Override
@@ -37,27 +36,47 @@ public class FishManOWar extends FishSpecies {
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 7;
+	public int getLifeSpan() {
+		return 1;
 	}
-	
+
 	@Override
-	public LootQuality getLootQuality() {
-		return LootQuality.RARE;
+	public int getFertility() {
+		return 90;
 	}
-	
+
 	@Override
-	public double getFishOilVolume() {
+	public int getFoodConsumption() {
 		return 0;
 	}
-	
+
+	@Override
+	public boolean requiresFood() {
+		return false;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 130;
+	}
+
 	@Override
 	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 3D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), 4.5D);
+		addProduct(dropletWater, 5D);
+		addProduct(dropletPoison, 3D);
+		addProduct(dropletDestroy, 4.5D);
 	}
-	
+
+	@Override
+	public double getFishOilVolume() {
+		return 0D;
+	}
+
+	@Override
+	public int getFishMealSize() {
+		return 0;
+	}
+
 	@Override
 	public int getFoodStat() {
 		return 1;
@@ -67,11 +86,6 @@ public class FishManOWar extends FishSpecies {
 	public float getFoodSaturation() {
 		return 0.1F;
 	}
-	
-	@Override
-	public int getFoodDuration() {
-		return 8;
-	}
 
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
@@ -80,12 +94,17 @@ public class FishManOWar extends FishSpecies {
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 2 };
+	public void affectLiving(EntityLivingBase entity) {
+		entity.addPotionEffect(new PotionEffect(Potion.confusion.id, 250, 1));
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 0;
+	public RodType getRodNeeded() {
+		return RodType.SUPER;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return Height.isOverground(height) ? 5D : 0D;
 	}
 }

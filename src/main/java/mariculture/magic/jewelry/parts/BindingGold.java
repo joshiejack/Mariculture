@@ -37,8 +37,8 @@ public class BindingGold extends JewelryBinding {
 	public ItemStack getCraftingItem(JewelryType type) {
 		switch (type) {
 			case RING:		return new ItemStack(Items.gold_ingot);
-			case BRACELET: 	return new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK);
-			case NECKLACE: 	return new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD);
+			case BRACELET: 	return new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_SILK);
+			case NECKLACE: 	return new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD);
 			default:		return null;
 		}
 	}

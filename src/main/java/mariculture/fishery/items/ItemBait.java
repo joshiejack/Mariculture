@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.Loader;
 
 public class ItemBait extends ItemMariculture {	
 	@Override
@@ -34,7 +33,7 @@ public class ItemBait extends ItemMariculture {
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		--stack.stackSize;
-		int quality = Fishing.bait.getBaitQuality(stack);
+		int quality = Fishing.fishing.getBaitQuality(stack);
 		int fill = (int)(((double)quality/100) * 4.0D);
 		//Decrease food if hunger overhaul is installed
 		if(Extra.NERF_FOOD) {

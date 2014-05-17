@@ -22,7 +22,7 @@ import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.WoodMeta;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.diving.Diving;
 import mariculture.factory.blocks.BlockCustomBlock;
 import mariculture.factory.blocks.BlockCustomFence;
@@ -201,7 +201,7 @@ public class Factory extends RegistrationModule {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 4, MachineMeta.SLUICE), new Object[] {
 			" H ", "WBW", "IMI",
 			Character.valueOf('H'), Blocks.hopper, 
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 
+			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL), 
 			Character.valueOf('M'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON), 
 			Character.valueOf('B'), Blocks.iron_bars,
 			Character.valueOf('I'), "ingotAluminum"
@@ -240,9 +240,9 @@ public class Factory extends RegistrationModule {
 		//Pressure Vessel
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL), new Object[] {
 			"WLW", "PTP", "PSP",
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
+			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
-			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_SHEET),
+			Character.valueOf('P'), new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_SHEET),
 			Character.valueOf('T'), new ItemStack(Core.tanks, 1, TankMeta.TANK),
 			Character.valueOf('S'), new ItemStack(Core.machines, 1, MachineMeta.SLUICE)
 		});
@@ -276,16 +276,16 @@ public class Factory extends RegistrationModule {
 		ItemStack tank = (Modules.isActive(Modules.diving))? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Blocks.lever);
 		RecipeHelper.addShapedRecipe(fludd, new Object[] {
 			" E ", "PGP", "LUL",
-			Character.valueOf('E'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
-			Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 
+			Character.valueOf('E'), new ItemStack(Core.crafting, 1, CraftingMeta.LENS), 
+			Character.valueOf('P'), new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC_YELLOW), 
 			Character.valueOf('G'), new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 
 			Character.valueOf('L'), tank, 
-			Character.valueOf('U'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE)
+			Character.valueOf('U'), new ItemStack(Core.crafting, 1, CraftingMeta.LIFE_CORE)
 		});
 		
 		//Crafting of Life Core
 		ItemStack bait = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spider_eye);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LIFE_CORE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.LIFE_CORE), new Object[] {
 			"DSR", "FHB", "PAC", 'D', Blocks.yellow_flower, 'S', "treeSapling", 'R', Blocks.red_flower,
 			'F', fish, 'H', new ItemStack(Items.potionitem, 1, 8229), 'B', bait, 'P', Items.potato, 'A', Items.diamond_boots, 'C', Items.carrot
 		});
@@ -321,10 +321,10 @@ public class Factory extends RegistrationModule {
 		});
 		
 		RecipeHelper.addMelting(new ItemStack(chalk), 825, 
-				FluidRegistry.getFluidStack(FluidDictionary.quicklime, 2500));
+				FluidRegistry.getFluidStack(Fluids.quicklime, 2500));
 		
 		//Blank Plan
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), new Object[] {
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.BLANK_PLAN), new Object[] {
 			"dyeBlue", "dyeBlack", Items.paper, "dyeBlue"
 		});
 		
@@ -332,7 +332,7 @@ public class Factory extends RegistrationModule {
 		ItemStack filterer = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.net): new ItemStack(Blocks.chest);
 		RecipeHelper.addShapedRecipe(new ItemStack(filter), new Object[] {
 			"W W", "WNW", " W ",
-			Character.valueOf('W'), new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER),
+			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WICKER),
 			Character.valueOf('N'), filterer
 		});
 		
@@ -365,7 +365,7 @@ public class Factory extends RegistrationModule {
 			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 7)
 		});	
 		
-		MaricultureHandlers.turbine.add(FluidDictionary.natural_gas);
+		MaricultureHandlers.turbine.add(Fluids.natural_gas);
 		MaricultureHandlers.turbine.add("gascraft_naturalgas");
 	}
 }

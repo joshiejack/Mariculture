@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.NBTHelper;
 import mariculture.core.lib.Extra;
 import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.enchantments.EnchantmentGlide;
@@ -16,8 +15,6 @@ import mariculture.magic.enchantments.EnchantmentStepUp;
 import mariculture.magic.jewelry.parts.JewelryMaterial;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

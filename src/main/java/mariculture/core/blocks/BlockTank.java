@@ -1,6 +1,5 @@
 package mariculture.core.blocks;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
@@ -12,7 +11,6 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FluidContainerMeta;
-import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
@@ -28,7 +26,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -175,7 +172,7 @@ public class BlockTank extends BlockConnected {
 	public Item getItemDropped(int meta, Random random, int j) {
 		switch(meta) {
 			case TankMeta.TANK: return null;
-			case TankMeta.BOTTLE: return Core.liquidContainers;
+			case TankMeta.BOTTLE: return Core.bottles;
 			default: return super.getItemDropped(meta, random, j);
 		}
     }
@@ -258,7 +255,7 @@ public class BlockTank extends BlockConnected {
 				tank.getFluid().writeToNBT(drop.stackTagCompound);
 			}
 		} else if(meta == TankMeta.BOTTLE) {
-			drop = new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_VOID);
+			drop = new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_VOID);
 		}
 
 		return drop;

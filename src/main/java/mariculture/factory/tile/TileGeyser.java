@@ -9,7 +9,7 @@ import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileTank;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.Tank;
 import net.minecraft.block.material.Material;
@@ -57,7 +57,7 @@ public class TileGeyser extends TileTank implements IFaceable {
 		if (id == FluidRegistry.getFluidID("water")) {
 			size = 8;
 			return true;
-		} else if (id == FluidRegistry.getFluidID(FluidDictionary.hp_water)) {
+		} else if (id == FluidRegistry.getFluidID(Fluids.hp_water)) {
 			size = 16;
 			return true;
 		} else {

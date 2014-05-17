@@ -13,7 +13,7 @@ import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileMachineTank;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
@@ -177,7 +177,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification,
 	
 	@Override
 	public boolean canWork() {
-		return tank.getFluidAmount() > 0 && tank.getFluidID() == FluidRegistry.getFluidID(FluidDictionary.hp_water) && RedstoneMode.canWork(this, mode);
+		return tank.getFluidAmount() > 0 && tank.getFluidID() == FluidRegistry.getFluidID(Fluids.hp_water) && RedstoneMode.canWork(this, mode);
 	}
 	
 	private boolean isNet(int x, int y, int z) {

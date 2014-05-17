@@ -1,92 +1,76 @@
 package mariculture.fishery.fish;
 
-import java.util.Arrays;
-import java.util.List;
-
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.ILootHandler.LootQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.ItemLib.dropletEnder;
+import static mariculture.core.lib.ItemLib.enderPearl;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.util.Rand;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class FishEnder extends FishSpecies {
 	public FishEnder(int id) {
 		super(id);
 	}
-
+	
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.ENDER;
+	public int[] setSuitableTemperature() {
+		return new int[] { 0, 5 };
 	}
-
+	
 	@Override
-	public int getLifeSpan() {
-		return 50;
-	}
-
-	@Override
-	public int getFertility() {
-		return 250;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH };
 	}
 
 	@Override
 	public boolean isDominant() {
-		return false;
-	}
-	
-	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER), 7.5D);
-		addProduct(new ItemStack(Items.ender_pearl), 5D);
+		return true;
 	}
 
 	@Override
-	public int getTankLevel() {
-		return 5;
-	}
-
-	@Override
-	public int getCatchChance() {
+	public int getLifeSpan() {
 		return 25;
 	}
+
 	@Override
-	public List<EnumBiomeType> getCatchableBiomes() {
-		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.ENDER });
-	}
-	
-	@Override
-	public LootQuality getLootQuality() {
-		return LootQuality.GOOD;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 0.155;
+	public int getFertility() {
+		return 75;
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return null;
+	public int getFoodConsumption() {
+		return 2;
 	}
-	
+
+	@Override
+	public int getWaterRequired() {
+		return 140;
+	}
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletEnder, 7.5D);
+		addProduct(enderPearl, 5D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 0.450D;
+	}
+
 	@Override
 	public int getFishMealSize() {
-		return 1;
+		return 2;
 	}
-	
+
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
-		player.getFoodStats().addStats(2, -0.1F);
-		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-		
 		if(!world.isRemote) {
 			world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
 			int x = (int) ((player.posX) + Rand.rand.nextInt(64) - 32);
@@ -101,5 +85,30 @@ public class FishEnder extends FishSpecies {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean canWork(int time) {
+		return !Time.isNoon(time);
+	}
+
+	@Override
+	public RodType getRodNeeded() {
+		return RodType.SUPER;
+	}
+
+	@Override
+	public boolean isWorldCorrect(World world) {
+		return world.provider.dimensionId == 1;
+	}
+
+	@Override
+	public int getCatchChance() {
+		return 66;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return height < 16D? 10D: 0D;
 	}
 }

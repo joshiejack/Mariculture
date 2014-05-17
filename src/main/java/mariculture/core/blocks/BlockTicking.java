@@ -3,9 +3,7 @@ package mariculture.core.blocks;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.ILootHandler.LootQuality;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;
@@ -14,6 +12,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.WaterMeta;
 import mariculture.core.util.Rand;
+import mariculture.fishery.Fish;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
@@ -111,10 +110,10 @@ public class BlockTicking extends BlockFunctional {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {		
 		if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
-			ItemStack loot = Fishing.loot.getCatch(null, MaricultureHandlers.biomeType.getBiomeType(world.getWorldChunkManager().getBiomeGenAt(x, z)), rand, LootQuality.FISH);
+			ItemStack loot = Fishing.fishing.getCatch(world, x, y, z, null);
 			if (loot != null && loot.getItem() instanceof ItemFishy) {
 				SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
-			} else SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Items.fish, 1, Fishery.cod.fishID), true, OreDictionary.WILDCARD_VALUE);
+			} else SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Items.fish, 1, Fish.cod.getID()), true, OreDictionary.WILDCARD_VALUE);
 		}
 	}
 	

@@ -1,14 +1,7 @@
 package mariculture.plugins;
 
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.handlers.OreDicHandler;
 import mariculture.plugins.Plugins.Plugin;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import biomesoplenty.api.BOPBiomeHelper;
-import biomesoplenty.api.BOPBlockHelper;
 
 public class PluginBiomesOPlenty extends Plugin {
 	public static enum Biome {
@@ -35,13 +28,6 @@ public class PluginBiomesOPlenty extends Plugin {
 	@Override
 	public void preInit() {
 		
-	}
-
-	private static void addBiome(String name, EnumBiomeType type) {
-		BiomeGenBase biome = BOPBiomeHelper.get(name);
-		if(biome != null) {
-			MaricultureHandlers.biomeType.addBiome(biome, type);
-		}
 	}
 
 	@Override

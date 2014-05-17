@@ -3,11 +3,9 @@ package mariculture.fishery.items;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.IItemRegistry;
-import mariculture.fishery.FishingRodHandler;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -33,7 +31,7 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if(!Modules.isActive(Modules.fishery)) return super.onItemRightClick(stack, world, player);
-		return Fishing.rodHandler.handleRightClick(stack, world, player);
+		return Fishing.fishing.handleRightClick(stack, world, player);
     }
 	
 	@Override

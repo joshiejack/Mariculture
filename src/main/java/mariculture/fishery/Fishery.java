@@ -1,90 +1,47 @@
 package mariculture.fishery;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.api.core.EnumBiomeType;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
-import mariculture.api.fishery.fish.FishDNA;
-import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.fishery.RodType;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.FoodMeta;
+import mariculture.core.lib.ItemLib;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.WoodMeta;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
-import mariculture.fishery.fish.FishAngel;
-import mariculture.fishery.fish.FishBass;
-import mariculture.fishery.fish.FishBlaze;
-import mariculture.fishery.fish.FishButterfly;
-import mariculture.fishery.fish.FishCatfish;
-import mariculture.fishery.fish.FishClown;
-import mariculture.fishery.fish.FishCod;
-import mariculture.fishery.fish.FishDamsel;
-import mariculture.fishery.fish.FishDragon;
-import mariculture.fishery.fish.FishElectricRay;
-import mariculture.fishery.fish.FishEnder;
-import mariculture.fishery.fish.FishGlow;
-import mariculture.fishery.fish.FishGold;
-import mariculture.fishery.fish.FishJelly;
-import mariculture.fishery.fish.FishKoi;
-import mariculture.fishery.fish.FishManOWar;
-import mariculture.fishery.fish.FishMantaRay;
-import mariculture.fishery.fish.FishMinnow;
-import mariculture.fishery.fish.FishNether;
-import mariculture.fishery.fish.FishNight;
-import mariculture.fishery.fish.FishPerch;
-import mariculture.fishery.fish.FishPiranha;
-import mariculture.fishery.fish.FishPuffer;
-import mariculture.fishery.fish.FishSalmon;
-import mariculture.fishery.fish.FishSiamese;
-import mariculture.fishery.fish.FishSquid;
-import mariculture.fishery.fish.FishStingRay;
-import mariculture.fishery.fish.FishTang;
-import mariculture.fishery.fish.FishTetra;
-import mariculture.fishery.fish.FishTuna;
-import mariculture.fishery.fish.dna.FishDNAFertility;
-import mariculture.fishery.fish.dna.FishDNAFoodUsage;
-import mariculture.fishery.fish.dna.FishDNAGender;
-import mariculture.fishery.fish.dna.FishDNALifespan;
-import mariculture.fishery.fish.dna.FishDNASpecies;
-import mariculture.fishery.fish.dna.FishDNATankSize;
-import mariculture.fishery.fish.dna.FishDNAWorkEthic;
 import mariculture.fishery.items.ItemBait;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
+import mariculture.fishery.items.ItemScanner;
 import mariculture.fishery.tile.TileAutofisher;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileIncubator;
 import mariculture.fishery.tile.TileSift;
 import net.minecraft.block.Block;
-import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -112,60 +69,21 @@ public class Fishery extends RegistrationModule {
 	public static Item rodFlux;
 	public static Item fishy;
 	public static Item net;
+	public static Item scanner;
 
 	public static Fluid fishFood;
 	public static Fluid fishOil;
 	public static Fluid milk;
 	public static Fluid custard;
+	public static Fluid dirt;
 	
-	public static FishDNA species;
-	public static FishDNA gender;
-	public static FishDNA lifespan;
-	public static FishDNA fertility;
-	public static FishDNA foodUsage;
-	public static FishDNA tankSize;
-	public static FishDNA production;
-
-	public static FishSpecies nether;
-	public static FishSpecies glow;
-	public static FishSpecies blaze;
-	public static FishSpecies night;
-	public static FishSpecies ender;
-	public static FishSpecies dragon;
-	public static FishSpecies minnow;
-	public static FishSpecies salmon;
-	public static FishSpecies bass;
-	public static FishSpecies tetra;
-	public static FishSpecies catfish;
-	public static FishSpecies piranha;
-	public static FishSpecies cod;
-	public static FishSpecies perch;
-	public static FishSpecies tuna;
-	public static FishSpecies stingRay;
-	public static FishSpecies mantaRay;
-	public static FishSpecies electricRay;
-	public static FishSpecies damsel;
-	public static FishSpecies angel;
-	public static FishSpecies puffer;
-	public static FishSpecies squid;
-	public static FishSpecies jelly;
-	public static FishSpecies manOWar;
-	public static FishSpecies gold;
-	public static FishSpecies siamese;
-	public static FishSpecies koi;
-	public static FishSpecies butterfly;
-	public static FishSpecies tang;
-	public static FishSpecies clown;
-
 	@Override
 	public void registerHandlers() {
-		if(Fishing.rodHandler == null) Fishing.rodHandler = new FishingRodHandler();
-		if(Fishing.fishHelper == null) Fishing.fishHelper = new FishHelper();
-		Fishing.bait = new BaitHandler();
+		if(Fishing.fishing == null) Fishing.fishing = new FishingHandler();
+		if(Fishing.fishHelper == null) Fishing.fishHelper = new FishyHelper();
 		Fishing.mutation = new FishMutationHandler();
 		Fishing.food = new FishFoodHandler();
 		Fishing.sifter = new SifterHandler();
-		Fishing.loot = new FishingLootHandler();
 		MinecraftForge.EVENT_BUS.register(new FisheryEventHandler());
 		MinecraftForge.EVENT_BUS.register(new BaitListingsHandler());
 	}
@@ -177,21 +95,18 @@ public class Fishery extends RegistrationModule {
 		RegistryHelper.registerBlocks(new Block[] { lampsOff, lampsOn });
 		RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileSift.class, TileIncubator.class, TileFeeder.class, TileFishTank.class });
 		
-		FluidDictionary.fish_food = Core.addFluid("fishfood", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
-		FluidDictionary.fish_oil = Core.addFluid("fishoil", fishOil, 2000, FluidContainerMeta.BOTTLE_FISH_OIL);
-		FluidDictionary.milk = Core.addFluid("milk", milk, 2000, FluidContainerMeta.BOTTLE_MILK);
-		FluidDictionary.custard = Core.addFluid("custard", custard, 2000, FluidContainerMeta.BOTTLE_CUSTARD);
+		Fluids.fish_food = Core.addFluid("fishfood", fishFood, 512, FluidContainerMeta.BOTTLE_FISH_FOOD);
+		Fluids.fish_oil = Core.addFluid("fishoil", fishOil, 2000, FluidContainerMeta.BOTTLE_FISH_OIL);
+		Fluids.milk = Core.addFluid("milk", milk, 2000, FluidContainerMeta.BOTTLE_MILK);
+		Fluids.custard = Core.addFluid("custard", custard, 2000, FluidContainerMeta.BOTTLE_CUSTARD);
 		
-		Core.registerVanillaBottle(FluidDictionary.fish_food, 256, FluidContainerMeta.BOTTLE_NORMAL_FISH_FOOD);
-		Core.registerVanillaBottle(FluidDictionary.fish_oil, 1000, FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL);
-		Core.registerVanillaBottle(FluidDictionary.milk, 1000, FluidContainerMeta.BOTTLE_NORMAL_MILK);
-		Core.registerVanillaBottle(FluidDictionary.custard, 1000, FluidContainerMeta.BOTTLE_NORMAL_CUSTARD);
+		Core.registerVanillaBottle(Fluids.fish_food, 256, FluidContainerMeta.BOTTLE_NORMAL_FISH_FOOD);
+		Core.registerVanillaBottle(Fluids.fish_oil, 1000, FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL);
+		Core.registerVanillaBottle(Fluids.milk, 1000, FluidContainerMeta.BOTTLE_NORMAL_MILK);
+		Core.registerVanillaBottle(Fluids.custard, 1000, FluidContainerMeta.BOTTLE_NORMAL_CUSTARD);
 		
-		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(FluidDictionary.custard, 250), 
-				new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Items.bowl));
-		
-		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(FluidDictionary.milk, 1000), 
-				new ItemStack(Items.milk_bucket), new ItemStack(Items.bucket));
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(Fluids.custard, 250), new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Items.bowl));
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(Fluids.milk, 1000), new ItemStack(Items.milk_bucket), new ItemStack(Items.bucket));
 	}
 
 	@Override
@@ -203,17 +118,18 @@ public class Fishery extends RegistrationModule {
 		rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
 		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
 		net = new BlockItemNet().setUnlocalizedName("net");
+		scanner = new ItemScanner().setUnlocalizedName("scanner");
 
-		RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux });
+		RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux, scanner });
 	}
 
 	@Override
 	public void registerOther() {
 		RecipeSorter.INSTANCE.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		registerEntities();
-		registerFish();
+		Fish.init();
 		registerRods();
-		MaricultureTab.tabFish.icon = Fishing.fishHelper.makePureFish(Fishery.cod);
+		MaricultureTab.tabFish.icon = new ItemStack(Items.fish);
 	}
 	
 	private void registerEntities() {
@@ -222,104 +138,16 @@ public class Fishery extends RegistrationModule {
 		EntityRegistry.registerModEntity(EntityItemFireImmune.class, "EntityItemImmune", EntityIds.ITEM, Mariculture.instance, 80, 30, true);
 	}
 	
-	private void registerFish() {
-		species = new FishDNASpecies();
-		gender = new FishDNAGender();
-		lifespan = new FishDNALifespan();
-		fertility = new FishDNAFertility();
-		tankSize = new FishDNATankSize();
-		foodUsage = new FishDNAFoodUsage();
-		production = new FishDNAWorkEthic();
-
-		//Reorder fish for the sake of 'vanilla'
-		cod = new FishCod(0);
-		salmon = new FishSalmon(1);
-		clown = new FishClown(2);
-		puffer = new FishPuffer(3);
-		glow = new FishGlow(4);
-		blaze = new FishBlaze(5);
-		night = new FishNight(6);
-		ender = new FishEnder(7);
-		dragon = new FishDragon(8);
-		minnow = new FishMinnow(9);
-		perch = new FishPerch(10);
-		bass = new FishBass(11);
-		tetra = new FishTetra(12);
-		catfish = new FishCatfish(13);
-		piranha = new FishPiranha(14);
-		stingRay = new FishStingRay(15);
-		mantaRay = new FishMantaRay(16);
-		electricRay = new FishElectricRay(17);
-		damsel = new FishDamsel(18);
-		angel = new FishAngel(19);
-		nether = new FishNether(20);
-		squid = new FishSquid(21);
-		jelly = new FishJelly(22);
-		manOWar = new FishManOWar(23);
-		gold = new FishGold(24);
-		siamese = new FishSiamese(25);
-		koi = new FishKoi(26);
-		butterfly = new FishButterfly(27);
-		tang = new FishTang(28);
-		tuna = new FishTuna(29);
-		
-
-		Fishing.mutation.addMutation(nether, koi, glow, 6D);
-		Fishing.mutation.addMutation(glow, nether, blaze, 10D);
-		Fishing.mutation.addMutation(night, electricRay, ender, 8D);
-		Fishing.mutation.addMutation(ender, night, dragon, 5D);
-		Fishing.mutation.addMutation(minnow, gold, salmon, 15D);
-		Fishing.mutation.addMutation(salmon, minnow, bass, 20D);
-		Fishing.mutation.addMutation(tetra, siamese, catfish, 12D);
-		Fishing.mutation.addMutation(catfish, tetra, piranha, 8D);
-		Fishing.mutation.addMutation(cod, gold, perch, 15D);
-		Fishing.mutation.addMutation(perch, cod, tuna, 20D);
-		Fishing.mutation.addMutation(stingRay, puffer, mantaRay, 8D);
-		Fishing.mutation.addMutation(mantaRay, stingRay, electricRay, 10D);
-		Fishing.mutation.addMutation(damsel, squid, angel, 7.5D);
-		Fishing.mutation.addMutation(angel, damsel, puffer, 15D);
-		Fishing.mutation.addMutation(squid, tuna, jelly, 20D);
-		Fishing.mutation.addMutation(jelly, squid, manOWar, 10D);
-		Fishing.mutation.addMutation(minnow, cod, gold, 25D);
-		Fishing.mutation.addMutation(gold, stingRay, siamese, 15D);
-		Fishing.mutation.addMutation(siamese, gold, koi, 7.5D);
-		Fishing.mutation.addMutation(angel, tetra, butterfly, 10D);
-		Fishing.mutation.addMutation(butterfly, piranha, tang, 7.5D);
-		Fishing.mutation.addMutation(tang, butterfly, clown, 5D);
-	}
-	
 	private void registerRods() {
-		Fishing.rodHandler.registerRod(Items.fishing_rod, EnumRodQuality.DIRE);
-		Fishing.rodHandler.registerRod(rodReed, EnumRodQuality.OLD);
-		Fishing.rodHandler.registerRod(rodWood, EnumRodQuality.GOOD);
-		Fishing.rodHandler.registerRod(rodTitanium, EnumRodQuality.SUPER);
-		Fishing.rodHandler.registerRod(rodFlux, EnumRodQuality.ELECTRIC);
+		Fishing.fishing.registerRod(Items.fishing_rod, RodType.DIRE);
+		Fishing.fishing.registerRod(rodReed, RodType.OLD);
+		Fishing.fishing.registerRod(rodWood, RodType.GOOD);
+		Fishing.fishing.registerRod(rodTitanium, RodType.SUPER);
+		Fishing.fishing.registerRod(rodFlux, RodType.FLUX);
 	}
 
 	@Override
-	public void registerRecipes() {
-		String bad = "field_146039_d";
-		String good = "field_146041_e";
-		String fish = "field_146036_f";
-		
-		//Copy over the existing loots to my versions
-		try {
-			List good_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(good));
-			List rare_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(good));
-			List bad_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(bad));
-			List fish_loot = FishingLootHandler.getFinalStatic(EntityFishHook.class.getDeclaredField(fish));
-			
-			for(EnumBiomeType biome: EnumBiomeType.values()) {
-				EntityHook.bad_loot.put(biome, new ArrayList(bad_loot));
-				EntityHook.fish_loot.put(biome, new ArrayList(fish_loot));
-				EntityHook.rare_loot.put(biome, new ArrayList(rare_loot));
-				EntityHook.good_loot.put(biome, new ArrayList(good_loot));
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	public void registerRecipes() {		
 		addBait();
 		addDropletRecipes();
 		addFishRecipes();
@@ -327,8 +155,8 @@ public class Fishery extends RegistrationModule {
 		
 		//Fishing Rods
 		RecipeHelper.addFishingRodRecipe(new ItemStack(rodReed), Items.reeds);
-		RecipeHelper.addFishingRodRecipe(new ItemStack(rodWood), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK));
-		RecipeHelper.addFishingRodRecipe(new ItemStack(rodTitanium), new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_TITANIUM));
+		RecipeHelper.addFishingRodRecipe(new ItemStack(rodWood), new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK));
+		RecipeHelper.addFishingRodRecipe(new ItemStack(rodTitanium), new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_TITANIUM));
 		
 		//Flux Rod
 		RecipeHelper.addShapedRecipe(ItemBattery.make(new ItemStack(rodFlux), 0), new Object[] {
@@ -336,14 +164,14 @@ public class Fishery extends RegistrationModule {
 		});
 		
 		// Log > 30000mB of Fish Oil > 45 Seconds = 1 Polished Log (or 30000mB for 8 Sticks)
-		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.planks), FluidDictionary.fish_oil, 30000, 
+		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.planks), Fluids.fish_oil, 30000, 
 				new ItemStack(Core.woods, 1, WoodMeta.POLISHED_LOG), 45);
 		//1 Plank = 9000mB > 30 Seconds = 1 Polished Plank (or 36000mB for 8 Sticks)
-		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.planks), FluidDictionary.fish_oil, 10000, 
+		RecipeHelper.addVatItemRecipe(new ItemStack(Blocks.planks), Fluids.fish_oil, 10000, 
 				new ItemStack(Core.woods, 1, WoodMeta.POLISHED_PLANK), 30);
 		//1 Stick = 5000mB > 15 Seconds or (40000mB for 8 Sticks)
-		RecipeHelper.addVatItemRecipe(new ItemStack(Items.stick), FluidDictionary.fish_oil, 5000, 
-				new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK), 15);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Items.stick), Fluids.fish_oil, 5000, 
+				new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK), 15);
 				
 		//1 Polished Log = 4 Polished Planks
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.woods, 4, WoodMeta.POLISHED_PLANK), new Object[] {
@@ -351,13 +179,13 @@ public class Fishery extends RegistrationModule {
 		});
 				
 		//2 Polished Planks = 4 Polished Sticks
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.POLISHED_STICK), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 4, CraftingMeta.POLISHED_STICK), new Object[] {
 			"S", "S", 'S', new ItemStack(Core.woods, 1, WoodMeta.POLISHED_PLANK)
 		});
 				
 		//Polished Titanium Rod > 6500mB Fish Oil + Titanium Rod
-		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_ROD), 
-				FluidDictionary.fish_oil, 6500, new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_TITANIUM), 30);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_ROD), 
+				Fluids.fish_oil, 6500, new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_TITANIUM), 30);
 		
 		/* Fishing Net, Autofisher and Sift */
 		CraftingManager
@@ -384,7 +212,7 @@ public class Fishery extends RegistrationModule {
 		/* Fish Feeder and Incubator Blocks */
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.FISH_FEEDER), new Object[] { 
 			"WFW", "WCW", "WFW",  'F', new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-				'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 'C', Blocks.chest });
+				'W', new ItemStack(Core.crafting, 1, CraftingMeta.WICKER), 'C', Blocks.chest });
 
 		CraftingManager
 				.getInstance()
@@ -393,7 +221,7 @@ public class Fishery extends RegistrationModule {
 					Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
 					Character.valueOf('D'), "dyeBrown", 
 					Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 0), 
-					Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER) }));
+					Character.valueOf('H'), new ItemStack(Core.crafting, 1, CraftingMeta.HEATER) }));
 
 		//Incubator Base
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.multiMachines, 1, MachineMultiMeta.INCUBATOR_BASE), new Object[] {
@@ -401,7 +229,7 @@ public class Fishery extends RegistrationModule {
 			Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 3),
 			Character.valueOf('B'), new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
 			Character.valueOf('D'), "dyeLightBlue",
-			Character.valueOf('H'), new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER)
+			Character.valueOf('H'), new ItemStack(Core.crafting, 1, CraftingMeta.HEATER)
 		});
 		
 		//FishTank
@@ -411,50 +239,52 @@ public class Fishery extends RegistrationModule {
 		});
 		
 		//Milk + 2 Sugar = Custard
-		RecipeHelper.addVatItemRecipeResultFluid(new ItemStack(Items.sugar, 2, 0), FluidRegistry.getFluidStack(FluidDictionary.milk, 1000),
-				FluidRegistry.getFluidStack(FluidDictionary.custard, 1000), 15);
+		RecipeHelper.addVatItemRecipeResultFluid(new ItemStack(Items.sugar, 2, 0), FluidRegistry.getFluidStack(Fluids.milk, 1000),
+				FluidRegistry.getFluidStack(Fluids.custard, 1000), 15);
 	}
 
 	private void addBait() {
-		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.ANT), 10);
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.dirt), 1, 2, 50));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.tallgrass, 0, 1), 1, 1, 5));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.log), 1, 1, 10));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.log2), 1, 1, 10));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.grass), 2, 3, 40));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.sapling), 1, 1, 4));
+		Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.ANT), 10);
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.dirt), 2, 3, 40));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.ANT), new ItemStack(Blocks.grass), 1, 2, 50));
 		
-		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.WORM), 60);
+		Fishing.fishing.addBait(new ItemStack(Items.bread), 30);
+		
+		Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.HOPPER), 40);
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.grass), 1, 2, 35));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.sapling), 2, 3, 35));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.leaves), 1, 2, 15));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.tallgrass, 0, 1), 4, 5, 45));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.tallgrass, 0, 2), 2, 3, 40));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.tallgrass, 0, 0), 1, 2, 10));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.yellow_flower), 2, 5, 20));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.red_flower), 3, 4, 25));
+		
+		Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.MAGGOT), 55);
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.rotten_flesh), 1, 2, 60));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.beef), 14, 22, 20));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.chicken), 6, 14, 30));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.porkchop), 10, 18, 25));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), ItemLib.zombie, 8, 15, 80));
+		
+		Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.BEE), 70);
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.yellow_flower), 2, 3, 25));
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.red_flower), 1, 2, 30));
+		
+		Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.WORM), 75);
+		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.WORM), new ItemStack(Items.apple), 1, 3, 15));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.WORM), new ItemStack(Blocks.dirt), 2, 3, 10));
 		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.WORM), new ItemStack(Blocks.grass), 3, 5, 20));
 		
-		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.HOPPER), 35);
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.leaves), 2, 3, 15));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.tallgrass, 0, 1), 2, 3, 20));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.grass), 2, 3, 25));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.HOPPER), new ItemStack(Blocks.sapling), 2, 5, 50));
+		Fishing.fishing.addBait(new ItemStack(Items.fish, 1, Fish.minnow.getID()), 100);
 		
-		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.MAGGOT), 30);
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.rotten_flesh), 1, 2, 60));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.beef), 14, 22, 10));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.chicken), 6, 14, 20));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.porkchop), 10, 18, 15));
-		
-		Fishing.bait.addBaitType(new ItemStack(bait, 1, BaitMeta.BEE), 70);
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.yellow_flower), 2, 3, 20));
-		Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.red_flower), 1, 2, 25));
-		
-		Fishing.bait.addBaitType(new ItemStack(Items.bread), 25);
-		Fishing.bait.addBaitType(new ItemStack(Items.fish, 1, Fishery.minnow.fishID), 90);
-		
-		//Extra Sifter Recipes
-		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(EnumRodQuality.DIRE, EnumRodQuality.OLD, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(EnumRodQuality.OLD, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(EnumRodQuality.DIRE, EnumRodQuality.OLD, EnumRodQuality.GOOD, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(Items.bread), Arrays.asList(EnumRodQuality.GOOD, EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(Items.fish, 1, Fishery.minnow.fishID), Arrays.asList(EnumRodQuality.SUPER, EnumRodQuality.ELECTRIC));
-		Fishing.bait.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(EnumRodQuality.ELECTRIC));
+		Fishing.fishing.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.ANT), Arrays.asList(RodType.DIRE, RodType.OLD, RodType.FLUX));
+		Fishing.fishing.addBaitForQuality(new ItemStack(Items.bread), Arrays.asList(RodType.DIRE, RodType.OLD, RodType.FLUX));
+		Fishing.fishing.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.HOPPER), Arrays.asList(RodType.OLD, RodType.GOOD, RodType.FLUX));
+		Fishing.fishing.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.MAGGOT), Arrays.asList(RodType.GOOD, RodType.FLUX));
+		Fishing.fishing.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.WORM), Arrays.asList(RodType.GOOD, RodType.SUPER, RodType.FLUX));
+		Fishing.fishing.addBaitForQuality(new ItemStack(bait, 1, BaitMeta.BEE), Arrays.asList(RodType.SUPER, RodType.FLUX));
+		Fishing.fishing.addBaitForQuality(new ItemStack(Items.fish, 1, Fish.minnow.getID()), Arrays.asList(RodType.SUPER, RodType.FLUX));
 	}
 	
 	private void addDropletRecipes() {
@@ -465,7 +295,7 @@ public class Fishery extends RegistrationModule {
 		
 		// Aqua Droplet to Pressurised Water
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 1, 
-				FluidRegistry.getFluidStack(FluidDictionary.hp_water, FluidContainerRegistry.BUCKET_VOLUME / 4));
+				FluidRegistry.getFluidStack(Fluids.hp_water, FluidContainerRegistry.BUCKET_VOLUME / 4));
 
 		// Nether Droplet to Lava in Liquifier Only
 		RecipeHelper.addMelting(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 1000, 
@@ -485,6 +315,12 @@ public class Fishery extends RegistrationModule {
 		}
 	}
 	
+	@Override
+	public void postInit() {
+		super.postInit();
+		Fish.addRecipes();
+	}
+	
 	private void addFishRecipes() {
 		//Food to feed a fish in a tank
 		Fishing.food.addFishFood(new ItemStack(bait, 1, BaitMeta.ANT), 1);
@@ -497,15 +333,15 @@ public class Fishery extends RegistrationModule {
 		
 		// Squid > Calamari
 		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
-				new ItemStack(Items.fish, 1, Fishery.squid.fishID),
+				new ItemStack(Items.fish, 1, Fish.squid.getID()),
 				new ItemStack(Items.bowl) });
 		
 		//Smoked Salmon
-		RecipeHelper.addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), new ItemStack(Items.fish, 1, salmon.fishID), 0.1F);
+		RecipeHelper.addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), new ItemStack(Items.fish, 1, Fish.salmon.getID()), 0.1F);
 
 		// Cod > Fish Finger
 		GameRegistry.addRecipe(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
-				Character.valueOf('F'), new ItemStack(Items.fish, 1, Fishery.cod.fishID),
+				Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.cod.getID()),
 				Character.valueOf('B'), Items.bread });
 		
 		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { 
@@ -520,7 +356,7 @@ public class Fishery extends RegistrationModule {
 					Character.valueOf('G'), new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC),
 					Character.valueOf('R'), Items.redstone, 
 					Character.valueOf('D'), Items.glowstone_dust,
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fishery.tetra.fishID) });
+					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
 		}
 		
 		//Dragonfish to Eternal Upgrades
@@ -530,7 +366,7 @@ public class Fishery extends RegistrationModule {
 				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ETERNAL_MALE), new Object[] {"WEW", "FRF", "DWD", 
 					Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 11),
 					Character.valueOf('E'), Blocks.emerald_block, 
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fishery.dragon.fishID),
+					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.dragon.getID()),
 					Character.valueOf('R'), Blocks.dragon_egg, 
 					Character.valueOf('D'), Items.diamond }));
 
@@ -540,26 +376,11 @@ public class Fishery extends RegistrationModule {
 				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ETERNAL_FEMALE), new Object[] {"WEW", "FRF", "DWD", 
 					Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 6),
 					Character.valueOf('E'), Blocks.emerald_block, 
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fishery.dragon.fishID),
+					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.dragon.getID()),
 					Character.valueOf('R'), Blocks.dragon_egg, 
 					Character.valueOf('D'), Items.diamond }));
 		
 		//Netherfish as Liquifier fuel		
-		MaricultureHandlers.smelter.addFuel(new ItemStack(Items.fish, 1, Fishery.nether.fishID), new FuelInfo(2000, 16, 2400));
-		//Fish Eggs to Caviar
-		CraftingManager.getInstance().getRecipeList().add(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishy)));
-		
-		RecipeHelper.addMelting(new ItemStack(Items.fish), 180, FluidRegistry.getFluidStack(FluidDictionary.fish_oil, 100));
-		GameRegistry.addShapelessRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL), new Object[] { Items.fish });
-		ItemStack kelp = (Modules.isActive(Modules.worldplus))? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): new ItemStack(Items.dye, 1, Dye.GREEN);
-		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			if(FishSpecies.speciesList.get(i) != null) {
-				FishSpecies species = FishSpecies.speciesList.get(i);
-				ItemStack male = Fishing.fishHelper.makePureFish(species, FishHelper.MALE);
-				ItemStack female = Fishing.fishHelper.makePureFish(species, FishHelper.FEMALE);
-				ItemStack raw = new ItemStack(Items.fish, 1, species.fishID);
-				Fish.init(male, female, raw, species);
-			}
-		}
+		MaricultureHandlers.smelter.addFuel(new ItemStack(Items.fish, 1, Fish.nether.getID()), new FuelInfo(2000, 16, 2400));
 	}
 }

@@ -1,11 +1,15 @@
 package mariculture.core.items;
 
+import java.util.List;
+
 import mariculture.Mariculture;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
+import mariculture.core.util.Text;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -37,6 +41,10 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 			return 14;
 		case UpgradeMeta.ULTIMATE_COOLING:
 			return -14;
+		case UpgradeMeta.DEBUG_HEATING:
+			return 1000;
+		case UpgradeMeta.DEBUG_ALL:
+			return 2500;
 		default:
 			return 0;
 		}
@@ -53,6 +61,10 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 			return 7;
 		case UpgradeMeta.ULTIMATE_STORAGE:
 			return 15;
+		case UpgradeMeta.DEBUG_STORAGE:
+			return 1000;
+		case UpgradeMeta.DEBUG_ALL:
+			return 2500;
 		default:
 			return 0;
 		}
@@ -95,6 +107,10 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 			return 4;
 		case UpgradeMeta.ULTIMATE_SPEED:
 			return 8;
+		case UpgradeMeta.DEBUG_SPEED:
+			return 1024;
+		case UpgradeMeta.DEBUG_ALL:
+			return 1024;
 		default:
 			return 0;
 		}
@@ -111,6 +127,26 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 			return 50000;
 		case UpgradeMeta.ULTIMATE_RF:
 			return 100000;
+		case UpgradeMeta.DEBUG_ALL:
+			return 25000000;
+		case UpgradeMeta.DEBUG_STORAGE:
+			return 5000000;
+		default:
+			return 0;
+		}
+	}
+	
+	@Override
+	public int getSalinity(int meta) {
+		switch(meta) {
+		case UpgradeMeta.SALINATOR:
+			return 1;
+		case UpgradeMeta.FILTER:
+			return -1;
+		case UpgradeMeta.SALINATOR_2:
+			return 2;
+		case UpgradeMeta.FILTER_2:
+			return -2;
 		default:
 			return 0;
 		}
@@ -195,8 +231,31 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 			return "salinator";
 		case UpgradeMeta.FILTER:
 			return "filter";
+		case UpgradeMeta.DEBUG_EGG:
+			return "incubator";
+		case UpgradeMeta.DEBUG_SPEED:
+			return "debugSpeed";
+		case UpgradeMeta.DEBUG_HEATING:
+			return "debugHeating";
+		case UpgradeMeta.DEBUG_STORAGE:
+			return "debugStorage";
+		case UpgradeMeta.DEBUG_ALL:
+			return "debugAll";
+		case UpgradeMeta.SALINATOR_2:
+			return "salinator2";
+		case UpgradeMeta.FILTER_2:
+			return "filter2";
 		default:
 			return "upgrade";
+		}
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		int temp = getTemperature(stack.getItemDamage());
+		if(temp != 0) {
+			if(temp > 0) list.add(Text.ORANGE + "+" + temp + Text.DEGREES);
+			if(temp < 0) list.add(Text.INDIGO + temp + Text.DEGREES);
 		}
 	}
 
@@ -316,6 +375,20 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 		case UpgradeMeta.SALINATOR:
 			return "salinator";
 		case UpgradeMeta.FILTER:
+			return "filter";
+		case UpgradeMeta.DEBUG_EGG:
+			return "incubator";
+		case UpgradeMeta.DEBUG_SPEED:
+			return "speed";
+		case UpgradeMeta.DEBUG_HEATING:
+			return "heating";
+		case UpgradeMeta.DEBUG_STORAGE:
+			return "storage";
+		case UpgradeMeta.DEBUG_ALL:
+			return "debugMachine";
+		case UpgradeMeta.SALINATOR_2:
+			return "salinator";
+		case UpgradeMeta.FILTER_2:
 			return "filter";
 		default:
 			return "null";

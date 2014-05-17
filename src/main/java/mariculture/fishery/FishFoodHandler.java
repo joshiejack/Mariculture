@@ -6,7 +6,7 @@ import java.util.Map;
 
 import mariculture.api.fishery.IFishFoodHandler;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -15,7 +15,7 @@ public class FishFoodHandler implements IFishFoodHandler {
 	@Override
 	public void addFishFood(ItemStack food, int value) {
 		foodList.put(Arrays.asList(food.getItem(), food.getItemDamage()), value);
-		RecipeHelper.addMelting(food, 150, FluidRegistry.getFluidStack(FluidDictionary.fish_food, value));
+		RecipeHelper.addMelting(food, 150, FluidRegistry.getFluidStack(Fluids.fish_food, value));
 	}
 
 	public static boolean isFishFood(ItemStack stack) {

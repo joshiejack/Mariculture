@@ -19,7 +19,7 @@ public class ItemChalk extends ItemDamageable {
 	
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		int slot = PlayerHelper.hasItem(player, new ItemStack(Core.craftingItem, 1, CraftingMeta.BLANK_PLAN), false);
+		int slot = PlayerHelper.hasItem(player, new ItemStack(Core.crafting, 1, CraftingMeta.BLANK_PLAN), false);
 		if(slot != -1) {
 			Block block = world.getBlock(x, y, z);
 			if(block != null) {

@@ -2,10 +2,8 @@ package mariculture.fishery;
 
 import io.netty.buffer.ByteBuf;
 
-import java.util.HashMap;
 import java.util.List;
 
-import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.Fishing;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -26,11 +24,6 @@ import net.minecraft.world.WorldServer;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawnData {
-	public static HashMap<EnumBiomeType, List> rare_loot = new HashMap();
-	public static HashMap<EnumBiomeType, List> good_loot = new HashMap();
-	public static HashMap<EnumBiomeType, List> bad_loot = new HashMap();
-	public static HashMap<EnumBiomeType, List> fish_loot = new HashMap();
-
 	private int baitQuality;
 	public EntityHook(World world) {
 		super(world);
@@ -322,7 +315,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 				this.field_146043_c.motionZ += d4 * d8;
 				b0 = 3;
 			} else if (this.field_146045_ax > 0) {
-				ItemStack result = Fishing.loot.getLoot(field_146042_b, field_146042_b.getHeldItem(), baitQuality, rand, worldObj, (int)posX, (int)posY, (int)posZ);
+				ItemStack result = Fishing.fishing.getCatch(worldObj, (int)posX, (int)posY, (int)posZ, field_146042_b.getHeldItem());
 				EntityItemFireImmune entityitem = new EntityItemFireImmune(this.worldObj, this.posX, this.posY, this.posZ, result);
 				double d1 = this.field_146042_b.posX - this.posX;
 				double d3 = this.field_146042_b.posY - this.posY;

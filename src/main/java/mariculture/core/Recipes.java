@@ -23,8 +23,8 @@ import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.TransparentMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.lib.WoodMeta;
-import mariculture.core.util.FluidDictionary;
-import mariculture.fishery.Fishery;
+import mariculture.core.util.Fluids;
+import mariculture.fishery.Fish;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -50,8 +50,8 @@ public class Recipes {
 		});
 
 		//Void Bottle
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.liquidContainers, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
-			new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY), "dustRedstone", new ItemStack(Items.dye, 1, Dye.INK)
+		RecipeHelper.addShapelessRecipe(new ItemStack(Core.bottles, 8, FluidContainerMeta.BOTTLE_VOID), new Object[] {
+			new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY), "dustRedstone", new ItemStack(Items.dye, 1, Dye.INK)
 		});
 		
 		//Oyster and Beef Pie
@@ -60,31 +60,14 @@ public class Recipes {
 		});
 		
 		//Heat Resistant Bottles
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.liquidContainers, 3, FluidContainerMeta.BOTTLE_EMPTY), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.bottles, 3, FluidContainerMeta.BOTTLE_EMPTY), new Object[] {
 			"G G", " G ", 'G', new ItemStack(Core.glass, 1, GlassMeta.HEAT)
 		});
 
 	//Basic Blocks
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BRICK), Core.limestone, LimestoneMeta.RAW);
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BORDERED), Core.limestone, LimestoneMeta.SMOOTH);
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.SMALL_BRICK), Core.limestone, LimestoneMeta.BRICK);
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.CHISELED), Core.limestone, LimestoneMeta.BORDERED);
-		RecipeHelper.addSmelting(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 0.1F);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 4, LimestoneMeta.THIN_BRICK), new Object[] {
-			"XY", "YX", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.BRICK), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.SMALL_BRICK)
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
-			"X", "X", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH)
-		});
-		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
-			"X", "Y", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.BORDERED)
-		});
-		
 		//Base Brick
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK), new Object[] {
-			"IGI", "G G", "IGI", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'G', Blocks.iron_bars
+			"IGI", "G G", "IGI", 'I', new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK), 'G', Blocks.iron_bars
 		});
 		
 		//Base Iron
@@ -101,7 +84,7 @@ public class Recipes {
 		//Air Pump
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.AIR_PUMP), new Object[] {
 			"WGW", "PRP", "PMP", 'G', "glass", 'R', "dustRedstone", 'P', "plankWood", 'M', Blocks.piston,
-			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL)
+			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL)
 		});
 		
 		//Copper Tank
@@ -117,10 +100,10 @@ public class Recipes {
 		//Crucible Furnace
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.multiMachines, 1, MachineMultiMeta.CRUCIBLE), new Object[] {
 			" L ", "BGB", "HCH", 
-			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
+			'B', new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK),
 			'L', Items.lava_bucket, 
 			'G', new ItemStack(Core.tanks, 1, TankMeta.TANK), 
-			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'H', new ItemStack(Core.crafting, 1, CraftingMeta.HEATER),
 			'C', new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK)
 		});
 		
@@ -128,7 +111,7 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.ANVIL), new Object[] {
 			"CCC", " N ", "BBB",
 			'C', new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK),
-			'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK),
+			'B', new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK),
 			'N', Blocks.nether_brick
 		});
 
@@ -139,7 +122,7 @@ public class Recipes {
 		
 		//Ingot Caster
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.INGOT_CASTER), new Object[] {
-			" B ", "BBB", " B ", 'B', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK)
+			" B ", "BBB", " B ", 'B', new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK)
 		});
 		
 		//Ladle
@@ -155,12 +138,11 @@ public class Recipes {
 		//Hammer
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.hammer), new Object[] {
 			"PP ", " SP", "S  ",
-			'P', new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 'S', Blocks.nether_brick
+			'P', new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK), 'S', Blocks.nether_brick
 		});
 
 		//Pearl Bricks
 		for (int i = 0; i < 12; i++) {
-			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBrick, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 			RecipeHelper.add4x4Recipe(new ItemStack(Core.pearlBlock, 1, i), new ItemStack(Core.pearls, 1, i));
 			RecipeHelper.addUncraftingRecipe(new ItemStack(Core.pearls, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 		}
@@ -173,99 +155,99 @@ public class Recipes {
 
 	private static void addCraftingItems() {
 		//Golden Silk > 5 Seconds, 4 x Ingot Gold(mB) + String
-		RecipeHelper.addVatItemRecipe(new ItemStack(Items.string), FluidDictionary.gold, MetalRates.INGOT * 4, 
-				new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK), 5);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Items.string), Fluids.gold, MetalRates.INGOT * 4, 
+				new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_SILK), 5);
 		
 		//Golden Thread
-		Object stick = (Modules.isActive(Modules.fishery))? new ItemStack(Core.craftingItem, 1, CraftingMeta.POLISHED_STICK): "plankWood";
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD), new Object[] {
-			"ABA", "ABA", 'B', stick, 'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
+		Object stick = (Modules.isActive(Modules.fishery))? new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK): "plankWood";
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD), new Object[] {
+			"ABA", "ABA", 'B', stick, 'A', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_SILK),
 		});
 
 		//Neoprene
 		Object rubber = (OreDictionary.getOres("itemRubber").size() > 0)? "itemRubber": new ItemStack(Items.dye, 1, Dye.INK);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE),  new Object[] { 
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE),  new Object[] { 
 			"IPI", "PEP", "IPI", 
 			'I', rubber, 
 			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
-			'E', new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_GAS) 
+			'E', new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_GAS) 
 		});
 		
 		//Plastic > 60 Seconds > 30 Buckets of Natural Gas + 16 Limestone
-		RecipeHelper.addVatItemRecipe(new ItemStack(Core.limestone, 16, LimestoneMeta.RAW), FluidDictionary.natural_gas, 30000, 
-				new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 60);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.limestone, 16, LimestoneMeta.RAW), Fluids.natural_gas, 30000, 
+				new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC), 60);
 		
 		//Plastic Lens
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), new Object[] { 
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.LENS), new Object[] { 
 			" N ", "NGN", " N ", 
-			'N', new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
+			'N', new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE), 
 			'G', new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC) 
 		});
 		
 		//Glass Lens
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS), new Object[] {
 			" P ", "PGP", " P ", 'P', "plankWood", 'G', "glass"
 		});
 		
 		//Aluminum Sheet
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.metals, 1, MetalMeta.ALUMINUM_BLOCK), 
-				new ItemStack(Core.craftingItem, 8, CraftingMeta.ALUMINUM_SHEET), 50);
+				new ItemStack(Core.crafting, 8, CraftingMeta.ALUMINUM_SHEET), 50);
 
 		//Heating
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER), new Object[] {
-			"CCC", "CCC", 'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE)
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.HEATER), new Object[] {
+			"CCC", "CCC", 'C', new ItemStack(Core.crafting, 1, CraftingMeta.CARBIDE)
 		});
 
 		//Cooling
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), new Object[] {
 			"  P", "PI ", "  P", 'P', "plankWood", 'I', "ingotIron"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), new Object[] {
 			" P ", " I ", "P P", 'P', "plankWood", 'I', "ingotIron"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), new Object[] {
 			"P  ", " IP", "P  ", 'P', "plankWood", 'I', "ingotIron"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), new Object[] {
 			"P P", " I ", " P ", 'P', "plankWood", 'I', "ingotIron"
 		});
 
 		//Carbide
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.CARBIDE), new Object[] {
+		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.CARBIDE), new Object[] {
 			" S ", "FBF", " S ", 'F', new ItemStack(Items.coal, 1, 0), 'S', Blocks.sand, 'B', Blocks.clay
 		});
 
 		//Wheel
-		RecipeHelper.addWheelRecipe(new ItemStack(Core.craftingItem, 3, CraftingMeta.WHEEL), "ingotIron", "slabWood");
+		RecipeHelper.addWheelRecipe(new ItemStack(Core.crafting, 3, CraftingMeta.WHEEL), "ingotIron", "slabWood");
 		
 		//Wicker
-		RecipeHelper.addCrossHatchRecipe(new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), "stickWood", Items.reeds);
+		RecipeHelper.addCrossHatchRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.WICKER), "stickWood", Items.reeds);
 		
 		//Yellow Plastic > 5 Minutes > 1 Block of Gold(mB) + 4 Plastic
-		RecipeHelper.addVatItemRecipe(new ItemStack(Core.craftingItem, 4, CraftingMeta.PLASTIC), 
-				FluidDictionary.gold, MetalRates.BLOCK,  new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC_YELLOW), 60 * 5);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Core.crafting, 4, CraftingMeta.PLASTIC), 
+				Fluids.gold, MetalRates.BLOCK,  new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC_YELLOW), 60 * 5);
 		
 		//Titanium Sheet, 500 hits in an Anvil
 		RecipeHelper.addAnvilRecipe(new ItemStack(Core.metals, 1, MetalMeta.TITANIUM_BLOCK), 
-				new ItemStack(Core.craftingItem, 8, CraftingMeta.TITANIUM_SHEET), 150);
+				new ItemStack(Core.crafting, 8, CraftingMeta.TITANIUM_SHEET), 150);
 		
 		
 		if(Extra.OVERWORLD) {
 			//Burnt Brick > Brick + 1000mB of Lava = Burnt Brick
 			RecipeHelper.addVatItemRecipe(new ItemStack(Items.brick), "lava", 1000, 
-													new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 16);
+													new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK), 16);
 		}
 		
 		//Burnt Brick > Nether Brick + 500mB of Lava
 		RecipeHelper.addVatItemRecipe(new ItemStack(Items.netherbrick), "lava", 500, 
-												new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK), 8);
+												new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK), 8);
 		
 		//Titanium Rod > 3 Ingots worth of Molten Metal + a Stick
-		RecipeHelper.addVatItemRecipe(new ItemStack(Items.stick),  FluidDictionary.titanium, MetalRates.INGOT * 3, 
-													new ItemStack(Core.craftingItem, 1, CraftingMeta.TITANIUM_ROD), 60);
+		RecipeHelper.addVatItemRecipe(new ItemStack(Items.stick),  Fluids.titanium, MetalRates.INGOT * 3, 
+													new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_ROD), 60);
 	}
 	
 	private static void addMetalRecipes() {		
@@ -286,82 +268,82 @@ public class Recipes {
 		//Basic Storage
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE), new Object[] {
 			"WPW", "DCD", "WPW", 'D', "ingotCopper", 'P', "plankWood", 'C', Blocks.chest,
-			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER)
+			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WICKER)
 		});
 		
 		//Standard Storage
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_STORAGE), new Object[] {
 			"WCW", "CUC", "STS", 'C', "ingotCopper", 'S', "slabWood", 'T', Blocks.trapped_chest,
-			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
+			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WICKER), 
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE)
 		});
 		
 		//Advanced Storage
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE), new Object[] {
 			"CSC", "AUA", "WTW", 'C', "ingotCopper", 'S', "slabWood", 'T', Blocks.trapped_chest,
-			'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
+			'A', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
+			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WICKER), 
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_STORAGE)
 		});
 		
 		//Ultimate Storage
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_STORAGE), new Object[] {
 			"GWG", "WUW", "ATA", 'G', "ingotGold", 'T', Blocks.trapped_chest,
-			'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WICKER), 
+			'A', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
+			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WICKER), 
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE)
 		});
 		
 		//Basic Cooling
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_COOLING), new Object[] {
 			" S ", "CBC", " S ", 'S', Items.snowball, 'B', Blocks.snow, 
-			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER)
+			'C', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER)
 		});
 		
 		//Standard Cooling
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING), new Object[] {
 			"ACA", "SUS", "CAC", 'S', Items.snowball, 'A', "ingotAluminum", 
-			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'C', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_COOLING)
 		});
 		
 		//Advanced Cooling
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING), new Object[] {
 			"CTC", "IUI", "TRT", 'I', Blocks.ice, 'R', "ingotIron", 'T', "ingotAluminum",
-			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'C', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_COOLING)
 		});
 		
 		//Ultimate Cooling
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_COOLING), new Object[] {
 			"TCT", "IUI", "CDC", 'I', Blocks.ice, 'D', "ingotAluminum", 'T', "ingotTitanium",
-			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'C', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_COOLING)
 		});
 		
 		//Basic Heating
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING), new Object[] {
-			"HIH", 'I', "ingotIron", 'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER)
+			"HIH", 'I', "ingotIron", 'H', new ItemStack(Core.crafting, 1, CraftingMeta.HEATER)
 		});
 		
 		//Standard Heating
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING), new Object[] {
 			"A A", "HUH", " A ", 'A', "ingotAluminum",
-			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'H', new ItemStack(Core.crafting, 1, CraftingMeta.HEATER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_HEATING)
 		});
 		
 		//Advanced Heating
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING), new Object[] {
 			"IHI", "TUT", "IHI", 'T', "ingotTitanium", 'I', "ingotIron",
-			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'H', new ItemStack(Core.crafting, 1, CraftingMeta.HEATER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_HEATING)
 		});
 	
 		//Ultimate Heating
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_HEATING), new Object[] {
 			"TDT", "HUH", "GTG", 'G', "ingotGold", 'T', "ingotTitanium", 'D', Items.blaze_rod,
-			'H', new ItemStack(Core.craftingItem, 1, CraftingMeta.HEATER),
+			'H', new ItemStack(Core.crafting, 1, CraftingMeta.HEATER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_HEATING)
 		});
 		
@@ -385,7 +367,7 @@ public class Recipes {
 			"PSP", "AUA", "TPT", 'A', heart, 'T', "ingotTitanium",
 			'P', new ItemStack(Core.pearls, 1, PearlColor.WHITE),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY),
-			'S', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK)
+			'S', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_SILK)
 		});
 		
 		//Ultimate Purity
@@ -393,13 +375,13 @@ public class Recipes {
 			"PSP", "TUT", "PAP", 'A', heart, 'T', "ingotTitanium",
 			'P', new ItemStack(Core.pearls, 1, PearlColor.WHITE),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_PURITY),
-			'S', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD)
+			'S', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD)
 		});
 		
 		ItemStack attack = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Items.potionitem, 1, 8204);
 		ItemStack poison = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): new ItemStack(Items.potionitem, 1, 8228);
-		ItemStack night = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fishery.night.fishID): new ItemStack(Items.ender_pearl);
-		ItemStack ender = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fishery.ender.fishID): new ItemStack(Items.ender_eye);
+		ItemStack night = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.night.getID()): new ItemStack(Items.ender_pearl);
+		ItemStack ender = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.ender.getID()): new ItemStack(Items.ender_eye);
 		
 		//Basic Impurity
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY), new Object[] {
@@ -410,7 +392,7 @@ public class Recipes {
 		//Standard Impurity
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_IMPURITY), new Object[] {
 			"TGT", "SUS", "PFP", 'T', Items.ghast_tear, 'F', Items.spider_eye, 'P', poison, 'S', attack,
-			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_SILK),
+			'G', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_SILK),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_IMPURITY),
 		});
 		
@@ -423,7 +405,7 @@ public class Recipes {
 		//Ultimate Impurity
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_IMPURITY), new Object[] {
 			"SGS", "PUP", "FSF", 'F', ender, 'P', poison, 'S', attack,
-			'G', new ItemStack(Core.craftingItem, 1, CraftingMeta.GOLDEN_THREAD),
+			'G', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_IMPURITY),
 		});
 		
@@ -443,7 +425,7 @@ public class Recipes {
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.FILTER), new Object[] {
 			"MPM", "CUC", "AMA", 'A', "ingotAluminum", 'M', "ingotMagnesium",
 			'P', new ItemStack(Core.pearls, 1, PearlColor.BLUE),
-			'C', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			'C', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_PURITY)
 		});
 		
@@ -464,7 +446,7 @@ public class Recipes {
 		
 		//Ultimate Speed Upgrade
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_SPEED), new Object[] {
-			"TRT", "SUS", "ARA", 'A', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET), 'S', Items.sugar, 
+			"TRT", "SUS", "ARA", 'A', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET), 'S', Items.sugar, 
 			'T', "ingotTitanium", 'R', Blocks.golden_rail,
 			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_SPEED)
 		});
@@ -496,8 +478,8 @@ public class Recipes {
 	}
 	
 	public static void addAnvilRecipes() {
-		RecipeHelper.addAnvilRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 4, Dye.BONE), 10);
-		RecipeHelper.addAnvilRecipe(new ItemStack(Blocks.red_flower), new ItemStack(Items.dye, 3, Dye.RED), 10);
-		RecipeHelper.addAnvilRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Items.dye, 3, Dye.YELLOW), 10);
+		RecipeHelper.addAnvilRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 5, Dye.BONE), 10);
+		RecipeHelper.addAnvilRecipe(new ItemStack(Blocks.red_flower), new ItemStack(Items.dye, 4, Dye.RED), 10);
+		RecipeHelper.addAnvilRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Items.dye, 4, Dye.YELLOW), 10);
 	}
 }

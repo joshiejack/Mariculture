@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.BlockAir;
@@ -25,8 +25,8 @@ import mariculture.core.blocks.BlockTransparent;
 import mariculture.core.blocks.BlockWater;
 import mariculture.core.blocks.BlockWood;
 import mariculture.core.gui.GuiItemToolTip;
-import mariculture.core.handlers.BiomeTypeHandler;
 import mariculture.core.handlers.ClientFMLEvents;
+import mariculture.core.handlers.EnvironmentHandler;
 import mariculture.core.handlers.FuelHandler;
 import mariculture.core.handlers.IngotCastingHandler;
 import mariculture.core.handlers.LiquifierHandler;
@@ -71,8 +71,8 @@ import mariculture.core.tile.TileTankBlock;
 import mariculture.core.tile.TileVat;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.core.util.EntityFakeItem;
-import mariculture.core.util.FluidDictionary;
 import mariculture.core.util.FluidMari;
+import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -96,7 +96,6 @@ public class Core extends RegistrationModule {
 	public static Block limestone;
 	public static Block metals;
 	public static Block pearlBlock;
-	public static Block pearlBrick;
 	public static Block glass;
 	public static Block woods;
 	public static Block machines;
@@ -132,9 +131,9 @@ public class Core extends RegistrationModule {
 	public static Fluid highPressureWater;
 	public static Block highPressureWaterBlock;
 
-	public static Item liquidContainers;
+	public static Item bottles;
 	public static Item materials;
-	public static Item craftingItem;
+	public static Item crafting;
 	public static Item batteryTitanium;
 	public static Item batteryCopper;
 	public static Item food;
@@ -149,13 +148,13 @@ public class Core extends RegistrationModule {
 	@Override
 	public void registerHandlers() {
 		OreDicHandler.registerWildCards();
-		MaricultureHandlers.biomeType = new BiomeTypeHandler();
 		MaricultureHandlers.smelter = new LiquifierHandler();
 		MaricultureHandlers.casting = new IngotCastingHandler();
 		MaricultureHandlers.vat = new VatHandler();
 		MaricultureHandlers.anvil = new TileAnvil();
 		MaricultureHandlers.upgrades = new UpgradeHandler();
 		MaricultureHandlers.modules = new ModulesHandler();
+		MaricultureHandlers.environment = new EnvironmentHandler();
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler(), 1);
 		MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
@@ -180,7 +179,7 @@ public class Core extends RegistrationModule {
 		limestone = new BlockLimestone().setStepSound(Block.soundTypeStone).setResistance(1F).setBlockName("limestone");
 		metals = new BlockMetal().setStepSound(Block.soundTypeMetal).setResistance(5F).setBlockName("metals");
 		pearlBlock = new BlockPearlBlock("pearlBlock_").setStepSound(Block.soundTypeStone).setResistance(1.5F).setBlockName("pearl.block");
-		pearlBrick = new BlockPearlBlock("pearlBrick_").setStepSound(Block.soundTypeStone).setResistance(2F).setBlockName("pearl.brick");
+		
 		machines = new BlockMachine().setStepSound(Block.soundTypeWood).setResistance(10F).setBlockName("machines.single");
 		multiMachines = new BlockMachineMulti().setStepSound(Block.soundTypeStone).setResistance(20F).setBlockName("machines.multi");
 		renderedMachines = new BlockRenderedMachine().setStepSound(Block.soundTypeMetal).setResistance(1F).setHardness(1F).setBlockName("machines.single.rendered");
@@ -194,7 +193,7 @@ public class Core extends RegistrationModule {
 		ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
 		water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
 		RegistryHelper.registerBlocks(new Block[] { 
-				rocks, limestone, water, metals, sands, woods, glass, transparent,  pearlBlock, pearlBrick, 
+				rocks, limestone, water, metals, sands, woods, glass, transparent,  pearlBlock, 
 				machines, multiMachines, renderedMultiMachines, renderedMachines, ticking, tanks, air });
 		RegistryHelper.registerTiles(new Class[] { 
 				TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, 
@@ -205,11 +204,11 @@ public class Core extends RegistrationModule {
 	@Override
 	public void registerItems() {
 		materials = new ItemMaterial().setUnlocalizedName("materials");
-		craftingItem = new ItemCrafting().setUnlocalizedName("crafting");
+		crafting = new ItemCrafting().setUnlocalizedName("crafting");
 		pearls = new ItemPearl().setUnlocalizedName("pearls");
 		food = new ItemFood().setUnlocalizedName("food");
 		upgrade = new ItemUpgrade().setUnlocalizedName("upgrade");
-		liquidContainers = new ItemFluidContainer().setUnlocalizedName("fluids");
+		bottles = new ItemFluidContainer().setUnlocalizedName("fluids");
 		hammer = new ItemHammer(brick).setUnlocalizedName("hammer");
 		ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
 		bucket = new ItemFluidStorage(8000).setUnlocalizedName("bucket.titanium");
@@ -217,7 +216,7 @@ public class Core extends RegistrationModule {
 		batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("battery.titanium");
 		worked = new ItemWorked().setUnlocalizedName("worked");
 		RegistryHelper.registerItems(new Item[] { 
-				materials, craftingItem, pearls, food, upgrade, liquidContainers, hammer, 
+				materials, crafting, pearls, food, upgrade, bottles, hammer, 
 				ladle, bucket, batteryCopper, batteryTitanium, worked });
 	}
 	
@@ -236,74 +235,57 @@ public class Core extends RegistrationModule {
 	}
 
 	private void registerLiquids() {
-		highPressureWater = new FluidMari(FluidDictionary.hp_water, -1);
+		highPressureWater = new FluidMari(Fluids.hp_water, -1);
         if (!FluidRegistry.registerFluid(highPressureWater))
-        	highPressureWater = FluidRegistry.getFluid(FluidDictionary.hp_water);
+        	highPressureWater = FluidRegistry.getFluid(Fluids.hp_water);
         highPressureWaterBlock = new BlockFluidMari(highPressureWater, Material.water).setBlockName("highPressureWater");
         GameRegistry.registerBlock(highPressureWaterBlock, "Mariculture_highPressureWaterBlock");
         highPressureWater.setBlock(highPressureWaterBlock);
-        registerHeatBottle(FluidDictionary.hp_water, 1000, FluidContainerMeta.BOTTLE_HP_WATER);
+        registerHeatBottle(Fluids.hp_water, 1000, FluidContainerMeta.BOTTLE_HP_WATER);
 	}
 	
 	private void registerBiomes() {
-		//Frozen Biomes
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.iceMountains, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.icePlains, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenRiver, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaiga, EnumBiomeType.FROZEN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldTaigaHills, EnumBiomeType.FROZEN);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.beach, Salinity.BRACKISH, 25);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.desert, Salinity.FRESH, 45);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.desertHills, Salinity.FRESH, 45);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.extremeHills, Salinity.FRESH, 5);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.extremeHillsEdge, Salinity.FRESH, 7);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.forest, Salinity.FRESH, 10);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.forestHills, Salinity.FRESH, 8);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.frozenOcean, Salinity.SALINE, -1);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.frozenRiver, Salinity.FRESH, -1);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.hell, Salinity.FRESH, 80);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.iceMountains, Salinity.FRESH, -1);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.icePlains, Salinity.FRESH, -1);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.jungle, Salinity.FRESH, 25);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.jungleHills, Salinity.FRESH, 24);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.mushroomIsland, Salinity.FRESH, 15);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.mushroomIslandShore, Salinity.BRACKISH, 20);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.ocean, Salinity.SALINE, 4);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.plains, Salinity.FRESH, 10);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.river, Salinity.FRESH, 10);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.sky, Salinity.FRESH, 3);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.swampland, Salinity.FRESH, 8);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.taiga, Salinity.FRESH, 5);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.taigaHills, Salinity.FRESH, 4);
 		
-		//Frozen Ocean
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.coldBeach, EnumBiomeType.FROZEN_OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.frozenOcean, EnumBiomeType.FROZEN_OCEAN);
-		
-		//Ocean
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.beach, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.ocean, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.deepOcean, EnumBiomeType.OCEAN);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.stoneBeach, EnumBiomeType.OCEAN);
-		
-		//Cold
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHills, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsEdge, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.extremeHillsPlus, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taiga, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.taigaHills, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaiga, EnumBiomeType.COLD);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.megaTaigaHills, EnumBiomeType.COLD);
-		
-		//Normal
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forest, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.forestHills, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.plains, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.river, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.swampland, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForest, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.birchForestHills, EnumBiomeType.NORMAL);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.roofedForest, EnumBiomeType.NORMAL);
-		
-		//Hot
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungle, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.jungleHills, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savanna, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.savannaPlateau, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesa, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau_F, EnumBiomeType.HOT);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mesaPlateau, EnumBiomeType.HOT);
-		
-		//Arid
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desert, EnumBiomeType.ARID);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.desertHills, EnumBiomeType.ARID);
-
-		//Nether
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.hell, EnumBiomeType.HELL);
-		
-		//End
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.sky, EnumBiomeType.ENDER);
-		
-		//Mushroom
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIsland, EnumBiomeType.MUSHROOM);
-		MaricultureHandlers.biomeType.addBiome(BiomeGenBase.mushroomIslandShore, EnumBiomeType.MUSHROOM);	
+		//1.7 Biomes
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.coldTaiga, Salinity.FRESH, 1);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.coldTaigaHills, Salinity.FRESH, 0);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.coldBeach, Salinity.BRACKISH, 1);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.stoneBeach, Salinity.BRACKISH, 15);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.deepOcean, Salinity.SALINE, 2);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.extremeHillsPlus, Salinity.FRESH, 5);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.megaTaiga, Salinity.FRESH, 3);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.megaTaigaHills, Salinity.FRESH, 2);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.birchForest, Salinity.FRESH, 10);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.birchForestHills, Salinity.FRESH, 8);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.roofedForest, Salinity.FRESH, 11);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.savanna, Salinity.FRESH, 23);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.savannaPlateau, Salinity.FRESH, 22);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.mesa, Salinity.FRESH, 40);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.mesaPlateau_F, Salinity.FRESH, 38);
+		MaricultureHandlers.environment.addEnvironment(BiomeGenBase.mesaPlateau, Salinity.FRESH, 39);
 	}
 	
 	private void registerPearls() {
@@ -357,60 +339,60 @@ public class Core extends RegistrationModule {
 
 	private void addFluids() {	
 	//Normal Fluids
-		FluidDictionary.natural_gas = addFluid("gas.natural", naturalGas, 2000, FluidContainerMeta.BOTTLE_GAS);
+		Fluids.natural_gas = addFluid("gas.natural", naturalGas, 2000, FluidContainerMeta.BOTTLE_GAS);
 		
 	//Molten Mari + Vanilla Fluids
-		FluidDictionary.quicklime = addFluid(("quicklime"), quicklime, 1000, FluidContainerMeta.BOTTLE_QUICKLIME);
-		FluidDictionary.salt = addFluid("salt.molten", moltenSalt, 1000, FluidContainerMeta.BOTTLE_SALT);
-		FluidDictionary.glass = addFluid("glass.molten", moltenGlass, 1000, FluidContainerMeta.BOTTLE_GLASS);
-		FluidDictionary.aluminum = addFluid("aluminum.molten", moltenAluminum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ALUMINUM);
-		FluidDictionary.magnesium = addFluid("magnesium.molten", moltenMagnesium, MetalRates.ORE, FluidContainerMeta.BOTTLE_MAGNESIUM);
-		FluidDictionary.titanium = addFluid("titanium.molten", moltenTitanium, MetalRates.ORE, FluidContainerMeta.BOTTLE_TITANIUM);
-		FluidDictionary.copper = addFluid("copper.molten", moltenCopper, MetalRates.ORE, FluidContainerMeta.BOTTLE_COPPER);
-		FluidDictionary.rutile = addFluid("rutile.molten", moltenRutile, MetalRates.ORE, FluidContainerMeta.BOTTLE_RUTILE);
+		Fluids.quicklime = addFluid(("quicklime"), quicklime, 1000, FluidContainerMeta.BOTTLE_QUICKLIME);
+		Fluids.salt = addFluid("salt.molten", moltenSalt, 1000, FluidContainerMeta.BOTTLE_SALT);
+		Fluids.glass = addFluid("glass.molten", moltenGlass, 1000, FluidContainerMeta.BOTTLE_GLASS);
+		Fluids.aluminum = addFluid("aluminum.molten", moltenAluminum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ALUMINUM);
+		Fluids.magnesium = addFluid("magnesium.molten", moltenMagnesium, MetalRates.ORE, FluidContainerMeta.BOTTLE_MAGNESIUM);
+		Fluids.titanium = addFluid("titanium.molten", moltenTitanium, MetalRates.ORE, FluidContainerMeta.BOTTLE_TITANIUM);
+		Fluids.copper = addFluid("copper.molten", moltenCopper, MetalRates.ORE, FluidContainerMeta.BOTTLE_COPPER);
+		Fluids.rutile = addFluid("rutile.molten", moltenRutile, MetalRates.ORE, FluidContainerMeta.BOTTLE_RUTILE);
 		
 	//Vanilla Fluids
-		FluidDictionary.iron = addFluid("iron.molten", moltenIron, MetalRates.ORE, FluidContainerMeta.BOTTLE_IRON);
-		FluidDictionary.gold = addFluid("gold.molten", moltenGold, MetalRates.ORE, FluidContainerMeta.BOTTLE_GOLD);
+		Fluids.iron = addFluid("iron.molten", moltenIron, MetalRates.ORE, FluidContainerMeta.BOTTLE_IRON);
+		Fluids.gold = addFluid("gold.molten", moltenGold, MetalRates.ORE, FluidContainerMeta.BOTTLE_GOLD);
 
 		//Modded Fluids
-		FluidDictionary.tin = addFluid("tin.molten", moltenTin, MetalRates.ORE, FluidContainerMeta.BOTTLE_TIN);
-		FluidDictionary.lead = addFluid("lead.molten", moltenLead, MetalRates.ORE, FluidContainerMeta.BOTTLE_LEAD);
-		FluidDictionary.silver = addFluid("silver.molten", moltenSilver, MetalRates.ORE, FluidContainerMeta.BOTTLE_SILVER);
-		FluidDictionary.nickel = addFluid("nickel.molten", moltenNickel, MetalRates.ORE, FluidContainerMeta.BOTTLE_NICKEL);
-		FluidDictionary.bronze = addFluid("bronze.molten", moltenBronze, MetalRates.ORE, FluidContainerMeta.BOTTLE_BRONZE);
-		FluidDictionary.steel =	addFluid("steel.molten", moltenSteel, MetalRates.ORE, FluidContainerMeta.BOTTLE_STEEL);
-		FluidDictionary.electrum = addFluid("electrum.molten", moltenElectrum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ELECTRUM);
+		Fluids.tin = addFluid("tin.molten", moltenTin, MetalRates.ORE, FluidContainerMeta.BOTTLE_TIN);
+		Fluids.lead = addFluid("lead.molten", moltenLead, MetalRates.ORE, FluidContainerMeta.BOTTLE_LEAD);
+		Fluids.silver = addFluid("silver.molten", moltenSilver, MetalRates.ORE, FluidContainerMeta.BOTTLE_SILVER);
+		Fluids.nickel = addFluid("nickel.molten", moltenNickel, MetalRates.ORE, FluidContainerMeta.BOTTLE_NICKEL);
+		Fluids.bronze = addFluid("bronze.molten", moltenBronze, MetalRates.ORE, FluidContainerMeta.BOTTLE_BRONZE);
+		Fluids.steel =	addFluid("steel.molten", moltenSteel, MetalRates.ORE, FluidContainerMeta.BOTTLE_STEEL);
+		Fluids.electrum = addFluid("electrum.molten", moltenElectrum, MetalRates.ORE, FluidContainerMeta.BOTTLE_ELECTRUM);
 		
-		registerVanillaBottle(FluidDictionary.natural_gas, 1000, FluidContainerMeta.BOTTLE_NORMAL_GAS);
+		registerVanillaBottle(Fluids.natural_gas, 1000, FluidContainerMeta.BOTTLE_NORMAL_GAS);
 		registerHeatBottle("water", 2000, FluidContainerMeta.BOTTLE_WATER);
 		registerHeatBottle("lava", 2000, FluidContainerMeta.BOTTLE_LAVA);
 	}
 	
 	public static void registerHeatBottle(String fluid, int vol, int meta) {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(fluid, vol), 
-				new ItemStack(Core.liquidContainers, 1, meta), new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_EMPTY));
+				new ItemStack(Core.bottles, 1, meta), new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY));
 	}
 	 
 	public static void registerVanillaBottle(String fluid, int vol, int meta) {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(fluid, vol), 
-				new ItemStack(Core.liquidContainers, 1, meta), new ItemStack(Items.glass_bottle));
+				new ItemStack(Core.bottles, 1, meta), new ItemStack(Items.glass_bottle));
 	}
 	
 	public static String addFluid(String name, Fluid globalFluid, int volume, int bottleMeta) {
-		if (!FluidDictionary.instance.fluidExists(name)) {
+		if (!Fluids.instance.fluidExists(name)) {
 			globalFluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name);
 			FluidRegistry.registerFluid(globalFluid);
-			FluidDictionary.instance.addFluid(name, globalFluid);
+			Fluids.instance.addFluid(name, globalFluid);
 		}
 		
-		Fluid fluid = FluidDictionary.getFluid(name);
+		Fluid fluid = Fluids.getFluid(name);
 		
 		if(volume != -1) {
 			registerHeatBottle(fluid.getName(), volume, bottleMeta);
 		}
 		
-		return FluidDictionary.getFluid(name).getName();
+		return Fluids.getFluid(name).getName();
 	}
 
 	@Override

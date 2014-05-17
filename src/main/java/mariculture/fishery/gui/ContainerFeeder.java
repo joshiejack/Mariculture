@@ -6,9 +6,9 @@ import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.fishery.Fish;
 import mariculture.fishery.FishFoodHandler;
-import mariculture.fishery.FishHelper;
-import mariculture.fishery.Fishery;
+import mariculture.fishery.FishyHelper;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.tile.TileFeeder;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,11 +62,11 @@ public class ContainerFeeder extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (stack.getItem() instanceof ItemFishy && Fishery.gender.getDNA(stack) == FishHelper.MALE) {
+				if (stack.getItem() instanceof ItemFishy && Fish.gender.getDNA(stack) == FishyHelper.MALE) {
 					if (!this.mergeItemStack(stack, 5, 6, false)) { // Slot 5-5
 						return null;
 					}
-				} else if (stack.getItem() instanceof ItemFishy && Fishery.gender.getDNA(stack) == FishHelper.FEMALE) {
+				} else if (stack.getItem() instanceof ItemFishy && Fish.gender.getDNA(stack) == FishyHelper.FEMALE) {
 					if (!this.mergeItemStack(stack, 6, 7, false)) { // Slot 6-6
 						return null;
 					}

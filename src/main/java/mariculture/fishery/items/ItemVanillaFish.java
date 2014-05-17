@@ -1,12 +1,13 @@
 package mariculture.fishery.items;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
-import mariculture.fishery.FishHelper;
+import mariculture.fishery.FishyHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -36,7 +37,7 @@ public class ItemVanillaFish extends ItemFishFood {
 	public IIcon getIconFromDamage(int dmg) {
 		if(Extra.VANILLA_TEXTURES && dmg < LAST_VANILLA) return super.getIconFromDamage(dmg);
 		FishSpecies fish = Fishing.fishHelper.getSpecies(dmg);
-		return fish != null? fish.getIcon(): super.getIconFromDamage(dmg);
+		return fish != null? fish.getIcon(1): super.getIconFromDamage(dmg);
 	}
 	
 	@Override
@@ -89,7 +90,7 @@ public class ItemVanillaFish extends ItemFishFood {
 	public String getPotionEffect(ItemStack stack) {
 		if(Extra.VANILLA_STATS && stack.getItemDamage() < LAST_VANILLA) return super.getPotionEffect(stack);
 		else {
-			if(Fishing.fishHelper == null) Fishing.fishHelper = new FishHelper();
+			if(Fishing.fishHelper == null) Fishing.fishHelper = new FishyHelper();
 			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
 			if(fish != null) {
 				return fish.getPotionEffect(stack);
@@ -100,9 +101,13 @@ public class ItemVanillaFish extends ItemFishFood {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		int size = Modules.isActive(Modules.fishery)? FishSpecies.speciesList.size(): 4;
-		for (int i = 0; i < size; ++i) {
-			list.add(new ItemStack(item, 1, i));
+		if(Modules.isActive(Modules.fishery)) {
+			for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+				FishSpecies fishy = species.getValue();
+				list.add(new ItemStack(item, 1, fishy.getID()));
+			}
+		} else {
+			super.getSubItems(item, creative, list);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 package mariculture.factory.tile;
 
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.Rand;
 import mariculture.factory.items.ItemRotor;
 import net.minecraft.item.ItemStack;
@@ -48,7 +48,7 @@ public class TileTurbineWater extends TileTurbineBase {
 		FluidStack fluid = tank.getFluid();
 		if(fluid != null && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
 			String name = fluid.getFluid().getName();
-			if(name.equals(FluidDictionary.hp_water)) {
+			if(name.equals(Fluids.hp_water)) {
 				if(onTick(200)) {
 					if(inventory[6].attemptDamageItem(1, Rand.rand)) {
 						inventory[6] = null;

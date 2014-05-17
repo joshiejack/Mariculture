@@ -17,66 +17,45 @@ public class ItemMaterial extends ItemMariculture {
 	@Override
 	public String getName(ItemStack stack) {
 		switch (stack.getItemDamage()) {
-		case MaterialsMeta.INGOT_ALUMINUM:
-			return "ingotAluminum";
-		case MaterialsMeta.INGOT_MAGNESIUM:
-			return "ingotMagnesium";
-		case MaterialsMeta.INGOT_TITANIUM:
-			return "ingotTitanium";
-		case MaterialsMeta.INGOT_COPPER:
-			return "ingotCopper";
-		case MaterialsMeta.FISH_MEAL:
-			return "fishMeal";
-		case MaterialsMeta.DYE_YELLOW:
-			return "dyeYellow";
-		case MaterialsMeta.DYE_RED:
-			return "dyeRed";
-		case MaterialsMeta.DYE_BROWN:
-			return "dyeBrown";
-		case MaterialsMeta.DROP_AQUA:
-			return "dropletAqua";
-		case MaterialsMeta.DROP_ATTACK:
-			return "dropletAttack";
-		case MaterialsMeta.DROP_ELECTRIC:
-			return "dropletElectric";
-		case MaterialsMeta.DROP_ENDER:
-			return "dropletEnder";
-		case MaterialsMeta.DROP_NETHER:
-			return "dropletNether";
-		case MaterialsMeta.DROP_HEALTH:
-			return "dropletHealth";
-		case MaterialsMeta.DROP_MAGIC:
-			return "dropletMagic";
-		case MaterialsMeta.DROP_POISON:
-			return "dropletPoison";
-		case MaterialsMeta.DROP_WATER:
-			return "dropletWater";
-		case MaterialsMeta.DUST_MAGNESITE:
-			return "dustMagnesite";
-		case MaterialsMeta.DUST_SALT:
-			return "foodSalt";
-		case MaterialsMeta.INGOT_RUTILE:
-			return "ingotRutile";
-		case MaterialsMeta.DUST_COPPEROUS:
-			return "dustCopperous";
-		case MaterialsMeta.DUST_GOLDEN:
-			return "dustGolden";
-		case MaterialsMeta.DUST_IRONIC:
-			return "dustIronic";
-		case MaterialsMeta.DUST_LEADER:
-			return "dustLeader";
-		case MaterialsMeta.DUST_SILVERY:
-			return "dustSilvery";
-		case MaterialsMeta.DUST_TINNIC:
-			return "dustTinnic";
-		case MaterialsMeta.DYE_GREEN:
-			return "dyeGreen";
-		case MaterialsMeta.DYE_WHITE:
-			return "dyeWhite";
-		case MaterialsMeta.DYE_BLACK:
-			return "dyeBlack";
-		default:
-			return "dropletWater";
+			case MaterialsMeta.INGOT_ALUMINUM: 		return "ingotAluminum";
+			case MaterialsMeta.INGOT_MAGNESIUM: 	return "ingotMagnesium";
+			case MaterialsMeta.INGOT_TITANIUM: 		return "ingotTitanium";
+			case MaterialsMeta.INGOT_COPPER: 		return "ingotCopper";
+			case MaterialsMeta.FISH_MEAL: 			return "fishMeal";
+			case MaterialsMeta.DYE_YELLOW: 			return "dyeYellow";
+			case MaterialsMeta.DYE_RED: 			return "dyeRed";
+			case MaterialsMeta.DYE_BROWN: 			return "dyeBrown";
+			case MaterialsMeta.DROP_AQUA: 			return "dropletAqua";
+			case MaterialsMeta.DROP_ATTACK: 		return "dropletAttack";
+			case MaterialsMeta.DROP_ELECTRIC: 		return "dropletElectric";
+			case MaterialsMeta.DROP_ENDER: 			return "dropletEnder";
+			case MaterialsMeta.DROP_NETHER: 		return "dropletNether";
+			case MaterialsMeta.DROP_HEALTH: 		return "dropletHealth";
+			case MaterialsMeta.DROP_MAGIC: 			return "dropletMagic";
+			case MaterialsMeta.DROP_POISON: 		return "dropletPoison";
+			case MaterialsMeta.DROP_WATER: 			return "dropletWater";
+			case MaterialsMeta.DROP_EARTH: 			return "dropletEarth";
+			case MaterialsMeta.DROP_FROZEN: 		return "dropletFrozen";
+			case MaterialsMeta.DROP_PLANT: 			return "dropletPlant";
+			case MaterialsMeta.DUST_MAGNESITE: 		return "dustMagnesite";
+			case MaterialsMeta.DUST_SALT: 			return "foodSalt";
+			case MaterialsMeta.INGOT_RUTILE: 		return "ingotRutile";
+			case MaterialsMeta.DUST_COPPEROUS: 		return "dustCopperous";
+			case MaterialsMeta.DUST_GOLDEN: 		return "dustGolden";
+			case MaterialsMeta.DUST_IRONIC: 		return "dustIronic";
+			case MaterialsMeta.DUST_LEADER: 		return "dustLeader";
+			case MaterialsMeta.DUST_SILVERY:		return "dustSilvery";
+			case MaterialsMeta.DUST_TINNIC: 		return "dustTinnic";
+			case MaterialsMeta.DYE_GREEN: 			return "dyeGreen";
+			case MaterialsMeta.DYE_WHITE: 			return "dyeWhite";
+			case MaterialsMeta.DYE_BLUE: 			return "dyeBlue";
+			case MaterialsMeta.NUGGET_ALUMINUM:		return "nuggetAluminum";
+			case MaterialsMeta.NUGGET_COPPER:		return "nuggetCopper";
+			case MaterialsMeta.NUGGET_IRON:			return "nuggetIron";
+			case MaterialsMeta.NUGGET_MAGNESIUM:	return "nuggetMagnesium";
+			case MaterialsMeta.NUGGET_RUTILE:		return "nuggetRutile";
+			case MaterialsMeta.NUGGET_TITANIUM:		return "nuggetTitanium";
+			default: 								return "dropletWater";
 		}
 	}
 
@@ -95,33 +74,15 @@ public class ItemMaterial extends ItemMariculture {
 			return Modules.isActive(Modules.worldplus);
 		case MaterialsMeta.DYE_WHITE:
 			return Modules.isActive(Modules.worldplus);
-		case MaterialsMeta.DYE_BLACK:
-			return false;
 		case MaterialsMeta.UNUSED:
-			return false;
-		case MaterialsMeta.UNUSED2:
-			return false;
-		case MaterialsMeta.UNUSED3:
-			return false;
-		case MaterialsMeta.UNUSED4:
 			return false;
 		}
 
-		if (meta >= MaterialsMeta.DROP_WATER && meta <= MaterialsMeta.DROP_HEALTH) {
+		if (meta >= MaterialsMeta.DROP_EARTH && meta <= MaterialsMeta.DROP_HEALTH) {
 			return (Modules.isActive(Modules.fishery));
 		}
 
 		return true;
-	}
-	
-	@Override
-	public boolean isPotionIngredient(ItemStack stack) {
-		switch (stack.getItemDamage()) {
-		case MaterialsMeta.DROP_POISON:
-			return true;
-		default:
-			return false;
-		}
 	}
 	
 	@Override

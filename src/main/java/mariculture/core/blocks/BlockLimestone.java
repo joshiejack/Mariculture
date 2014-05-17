@@ -3,6 +3,7 @@ package mariculture.core.blocks;
 import mariculture.Mariculture;
 import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.LimestoneMeta;
+import mariculture.core.lib.Modules;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -102,7 +103,10 @@ public class BlockLimestone extends BlockDecorative {
 	
 	@Override
 	public boolean isActive(int meta) {
-		return !(meta == LimestoneMeta.PILLAR_2 || meta == LimestoneMeta.PILLAR_3 || meta > LimestoneMeta.PEDESTAL_1);
+		if(meta == LimestoneMeta.RAW) return true;
+		else if(Modules.isActive(Modules.aesthetics)) {
+			return !(meta == LimestoneMeta.PILLAR_2 || meta == LimestoneMeta.PILLAR_3 || meta > LimestoneMeta.PEDESTAL_1);
+		} else return false;
 	}
 	
 	@Override

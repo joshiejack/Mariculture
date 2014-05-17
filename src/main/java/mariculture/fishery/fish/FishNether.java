@@ -1,16 +1,13 @@
 package mariculture.fishery.fish;
 
-import java.util.Arrays;
-import java.util.List;
-
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.fish.EnumFishGroup;
-import mariculture.api.fishery.fish.EnumFishWorkEthic;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.ItemLib.dropletNether;
+import static mariculture.core.lib.ItemLib.netherWart;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -21,43 +18,49 @@ public class FishNether extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.NETHER;
+	public int[] setSuitableTemperature() {
+		return new int[] { 45, 100 };
 	}
 
 	@Override
-	public int getLifeSpan() {
-		return 25;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH };
 	}
 
 	@Override
-	public int getFertility() {
-		return 83;
+	public boolean isLavaFish() {
+		return true;
 	}
 
 	@Override
 	public boolean isDominant() {
-		return false;
-	}
-	
-	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), 5D);
-	}
-	
-	@Override
-	public int getFoodStat() {
-		return 1;
+		return true;
 	}
 
 	@Override
-	public float getFoodSaturation() {
-		return 0.0F;
+	public int getLifeSpan() {
+		return 6;
 	}
-	
+
 	@Override
-	public int getFoodDuration() {
-		return 8;
+	public int getFertility() {
+		return 666;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 55;
+	}
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletNether, 5D);
+		addProduct(netherWart, 1D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 0.666D;
 	}
 
 	@Override
@@ -66,42 +69,22 @@ public class FishNether extends FishSpecies {
 	}
 
 	@Override
-	public int getTankLevel() {
-		return 3;
+	public RodType getRodNeeded() {
+		return RodType.OLD;
 	}
-	
+
 	@Override
-	public boolean caughtAsRaw() {
-		return false;
-	}
-	
-	@Override
-	public List<EnumBiomeType> getCatchableBiomes() {
-		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.HELL });
+	public boolean isWorldCorrect(World world) {
+		return world.provider.isHellWorld;
 	}
 
 	@Override
 	public int getCatchChance() {
-		return 70;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 0.155;
+		return 45;
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return null;
-	}
-	
-	@Override
-	public int getBaseProductivity() {
-		return EnumFishWorkEthic.HARDWORKER.getMultiplier();
-	}
-	
-	@Override
-	public int getFishMealSize() {
-		return 1;
+	public double getCaughtAliveChance(int height, int time) {
+		return Height.isShallows(height) ? 55D : 5D;
 	}
 }

@@ -68,8 +68,8 @@ public class Diving extends RegistrationModule {
 	public void registerRecipes() {		
 		//Air Compressor Top
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, MachineRenderedMultiMeta.COMPRESSOR_TOP), new Object[] {
-			"  F", " PB", "III", 'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			'F', new ItemStack(Core.craftingItem, 1, CraftingMeta.COOLER),
+			"  F", " PB", "III", 'I', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
+			'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
 			'P', Blocks.piston
 		});
@@ -77,14 +77,14 @@ public class Diving extends RegistrationModule {
 		//Air Compressor Base
 		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
-			'I', new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET),
-			'W', new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL),
+			'I', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
+			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL),
 			'T', "ingotTitanium"
 		});
 		
 		//Snorkel
 		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
-			"  R", "LLR", 'R', Items.reeds, 'L', new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS_GLASS)
+			"  R", "LLR", 'R', Items.reeds, 'L', new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS)
 		});
 		
 		//Diving Helmet
@@ -110,7 +110,7 @@ public class Diving extends RegistrationModule {
 				.getRecipeList()
 				.add(new ShapedOreRecipe(Diving.scubaMask, true, new Object[] { "PD", "LL", 
 						Character.valueOf('P'), "dyeBlack", 
-						Character.valueOf('L'), new ItemStack(Core.craftingItem, 1, CraftingMeta.LENS), 
+						Character.valueOf('L'), new ItemStack(Core.crafting, 1, CraftingMeta.LENS), 
 						Character.valueOf('D'), "dyeYellow" }));
 		
 		ItemStack tank = new ItemStack(Diving.scubaTank);
@@ -120,15 +120,15 @@ public class Diving extends RegistrationModule {
 				.getInstance()
 				.getRecipeList()
 				.add(new ShapedOreRecipe(tank, true, new Object[] { "DSD", "S S", "DSD",
-					Character.valueOf('S'), new ItemStack(Core.craftingItem, 1, CraftingMeta.ALUMINUM_SHEET), 
+					Character.valueOf('S'), new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET), 
 					Character.valueOf('D'), "dyeYellow" }));
 
 		GameRegistry.addRecipe(new ItemStack(Diving.scubaSuit), new Object[] { "NNN", " N ", "NNN", 
-				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE) });
+				Character.valueOf('N'), new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE) });
 		
 		GameRegistry.addRecipe(new ItemStack(Diving.swimfin), new Object[] { "N N", "PDP", "PDP", 
-				Character.valueOf('N'), new ItemStack(Core.craftingItem, 1, CraftingMeta.NEOPRENE), 
-				Character.valueOf('P'), new ItemStack(Core.craftingItem, 1, CraftingMeta.PLASTIC), 
+				Character.valueOf('N'), new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE), 
+				Character.valueOf('P'), new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC), 
 				Character.valueOf('D'), new ItemStack(Items.dye, 1, Dye.INK) });
 	}
 }

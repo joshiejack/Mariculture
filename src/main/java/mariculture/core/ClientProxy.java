@@ -45,7 +45,7 @@ import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityHook;
 import mariculture.fishery.EntityItemFireImmune;
-import mariculture.fishery.Fishery;
+import mariculture.fishery.Fish;
 import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.ModelFeeder;
 import mariculture.fishery.render.ModelSift;
@@ -142,7 +142,7 @@ public class ClientProxy extends CommonProxy {
 		if(Modules.isActive(Modules.fishery)) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityItemFireImmune.class, new RenderItem());
 			RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
-			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fishery.bass.fishID));
+			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fish.bass.getID()));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSpecialHandler(new ModelFeeder(), FEEDER));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSpecialHandler(new ModelSift(), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());

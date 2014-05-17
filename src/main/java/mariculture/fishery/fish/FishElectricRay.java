@@ -1,16 +1,23 @@
 package mariculture.fishery.fish;
 
-import java.util.Random;
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.ItemLib.dropletFlux;
+import static mariculture.core.lib.ItemLib.dropletRegen;
+import static mariculture.core.lib.ItemLib.dropletWater;
 
-import mariculture.api.fishery.ILootHandler.LootQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import java.util.ArrayList;
+
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.CachedCoords;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.util.PowerHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
@@ -19,66 +26,68 @@ public class FishElectricRay extends FishSpecies {
 	public FishElectricRay(int id) {
 		super(id);
 	}
-
-	Random rand = new Random();
-
+	
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.FLATFISH;
+	public int[] setSuitableTemperature() {
+		return new int[] { 5, 21 };
 	}
-
+	
 	@Override
-	public int getLifeSpan() {
-		return 37;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { SALINE, BRACKISH, FRESH };
 	}
-
-	@Override
-	public int getFertility() {
-		return 185;
-	}
-
+	
 	@Override
 	public boolean isDominant() {
 		return true;
 	}
-	
+
+	@Override
+	public int getLifeSpan() {
+		return 20;
+	}
+
+	@Override
+	public int getFertility() {
+		return 4000;
+	}
+
+	@Override
+	public int getFoodConsumption() {
+		return 2;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 175;
+	}
+
 	@Override
 	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 5D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), 1D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC), 4D);
+		addProduct(dropletWater, 5D);
+		addProduct(dropletRegen, 1D);
+		addProduct(dropletFlux, 4D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 6.675D;
 	}
 	
+	@Override
+	public int getFishMealSize() {
+		return 5;
+	}
+
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
 		world.addWeatherEffect(new EntityLightningBolt(world, player.posX,player.posY, player.posZ));
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 5;
-	}
-	
-	@Override
-	public LootQuality getLootQuality() {
-		return LootQuality.RARE;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 0.450;
-	}
-	
-	@Override
-	public boolean canConnectEnergy(ForgeDirection from) {
-		return from == from.DOWN;
-	}
-
-	@Override
-	public void affectWorld(World world, int x, int y, int z, int tankType) {
-		if (rand.nextInt(30) == 0) {
-			world.addWeatherEffect(new EntityLightningBolt(world, x + (rand.nextInt(5) - rand.nextInt(10)), y, z
-					+ (rand.nextInt(5) - rand.nextInt(10))));
+	public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+		if (world.rand.nextInt(512) == 0) {
+			world.addWeatherEffect(new EntityLightningBolt(world, x + (world.rand.nextInt(5) - world.rand.nextInt(10)), y, z + (world.rand.nextInt(5) - world.rand.nextInt(10))));
 		}
 		
 		if(PowerHelper.isEnergyHandler(world, x, y - 1, z) != null) {
@@ -90,12 +99,17 @@ public class FishElectricRay extends FishSpecies {
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 3 };
+	public RodType getRodNeeded() {
+		return RodType.FLUX;
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 3;
+	public int getCatchChance() {
+		return 8;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return Time.isNoon(time) && Height.isUnderground(height)? 5D: 0D;
 	}
 }

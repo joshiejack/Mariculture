@@ -7,7 +7,7 @@ import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileTank;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
@@ -180,7 +180,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 			for(height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {
 			}
 			
-			tank.fill(FluidRegistry.getFluidStack(FluidDictionary.hp_water, height * 10), true);
+			tank.fill(FluidRegistry.getFluidStack(Fluids.hp_water, height * 10), true);
 		}
 	}
 	

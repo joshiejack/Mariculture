@@ -10,7 +10,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.Loader;
 
 public class ItemFood extends ItemMariculture {
 	private int getFoodLevel(int dmg) {

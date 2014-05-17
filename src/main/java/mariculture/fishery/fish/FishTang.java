@@ -1,13 +1,16 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.ILootHandler.LootQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.ItemLib.dropletAqua;
+import static mariculture.core.lib.ItemLib.dropletWater;
+import static mariculture.core.lib.ItemLib.lapis;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -19,45 +22,55 @@ public class FishTang extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.NEMO;
+	public int[] setSuitableTemperature() {
+		return new int[] { 24, 29 };
 	}
 
 	@Override
-	public int getLifeSpan() {
-		return 37;
-	}
-
-	@Override
-	public int getFertility() {
-		return 185;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { SALINE, BRACKISH };
 	}
 
 	@Override
 	public boolean isDominant() {
-		return true;
+		return false;
+	}
+
+	@Override
+	public int getLifeSpan() {
+		return 9;
+	}
+
+	@Override
+	public int getFertility() {
+		return 4000;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 25;
+	}
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletWater, 6.5D);
+		addProduct(dropletAqua, 4.5D);
+		addProduct(lapis, 2.0D);
 	}
 
 	@Override
 	public double getFishOilVolume() {
-		return 0.300;
+		return 0.725D;
 	}
 	
 	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 6.5D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_AQUA), 4.5D);
-		addProduct(new ItemStack(Items.dye, 1, Dye.LAPIS), 2.0D);
+	public ItemStack getLiquifiedProduct() {
+		return lapis;
 	}
 	
 	@Override
-	public int getFoodStat() {
-		return 2;
-	}
-
-	@Override
-	public float getFoodSaturation() {
-		return 0.8F;
+	public int getLiquifiedProductChance() {
+		return 8;
 	}
 
 	@Override
@@ -66,27 +79,22 @@ public class FishTang extends FishSpecies {
 	}
 
 	@Override
-	public int getTankLevel() {
-		return 3;
+	public boolean canWork(int time) {
+		return Time.isDay(time);
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 4;
-	}
-	
-	@Override
-	public LootQuality getLootQuality() {
-		return LootQuality.GOOD;
+	public RodType getRodNeeded() {
+		return RodType.GOOD;
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 1 };
+	public double getCatchChance(int height, int time) {
+		return Height.isShallows(height) ? 25D : 0D;
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 1;
+	public double getCaughtAliveChance(int height, int time) {
+		return Time.isDawn(time) ? 5D : 0D;
 	}
 }

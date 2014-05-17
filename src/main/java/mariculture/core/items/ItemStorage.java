@@ -144,10 +144,10 @@ public class ItemStorage extends Item implements IItemRegistry {
 	}
 
 	public Object getGUIContainer(EntityPlayer player) {
-		return new ContainerStorage(player.inventory, new InventoryStorage(player, size), player.worldObj);
+		return new ContainerStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, 0);
 	}
 
 	public Object getGUIElement(EntityPlayer player) {
-		return new GuiStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, gui);
+		return new GuiStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, gui, 0);
 	}
 }

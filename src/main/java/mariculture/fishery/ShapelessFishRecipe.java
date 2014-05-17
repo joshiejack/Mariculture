@@ -79,8 +79,8 @@ public class ShapelessFishRecipe implements IRecipe {
 	public ItemStack getRecipeOutput(ItemStack egg) {
 		if(egg.hasTagCompound()) {
 			if (egg.getTagCompound().getInteger("currentFertility") == -1) {
-				int[] lifes = egg.stackTagCompound.getIntArray(Fishery.lifespan.getEggString());
-				int eggLife = (AverageHelper.getMode(lifes)/20/60) * 10;
+				int[] lifes = egg.stackTagCompound.getIntArray(Fish.fertility.getEggString());
+				int eggLife = AverageHelper.getMode(lifes);
 				egg.getTagCompound().setInteger("currentFertility", eggLife);
 				egg.getTagCompound().setInteger("malesGenerated", 0);
 				egg.getTagCompound().setInteger("femalesGenerated", 0);

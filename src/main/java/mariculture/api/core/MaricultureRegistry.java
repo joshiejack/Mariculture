@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 
 public class MaricultureRegistry {
 	private static final Map<String, ItemStack> itemRegistry = new TreeMap<String, ItemStack>();
-
 	public static ItemStack get(String name) {
 
 		ItemStack result = itemRegistry.get(name);

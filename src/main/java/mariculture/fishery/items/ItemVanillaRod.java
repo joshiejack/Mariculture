@@ -1,6 +1,5 @@
 package mariculture.fishery.items;
 
-import mariculture.api.fishery.EnumRodQuality;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;

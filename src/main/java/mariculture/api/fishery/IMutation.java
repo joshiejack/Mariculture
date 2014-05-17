@@ -1,7 +1,6 @@
 package mariculture.api.fishery;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import mariculture.api.fishery.fish.FishSpecies;
 
@@ -10,13 +9,19 @@ public interface IMutation {
 	 * Add a mutation, specify the mother, father and baby and the chance of the
 	 * mutation **/
 	public void addMutation(FishSpecies father, FishSpecies mother, FishSpecies baby, double chance);
-
-	/** Retrieve any possible mutation for this combo **/
-	public FishSpecies getMutation(FishSpecies mother, FishSpecies father);
-
-	/** Retrieve mutation chance for this combo **/
-	public int getMutationChance(FishSpecies mother, FishSpecies father);
+	public ArrayList<Mutation> getMutations(FishSpecies mother, FishSpecies father);
+	public ArrayList<Mutation> getMutations();
 	
-	/** Returns a list of all mutations, the mutations are returned in the form of the 'species identifier' rather than the species data **/
-	public HashMap<List<String>, String> getMutations();
+	public static class Mutation {
+		public String father;
+		public String mother;
+		public String baby;
+		public double chance;
+		public Mutation(String father, String mother, String baby, double chance) {
+			this.father = father;
+			this.mother = mother;
+			this.baby = baby;
+			this.chance = chance;
+		}
+	}
 }

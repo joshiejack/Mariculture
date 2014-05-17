@@ -276,7 +276,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 					if(stack.getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
 						if(!sifter.hasInventory) {
 							sifter.hasInventory = true;
-							//TODO: Sifter Packet for updating the hasinventory
 							Packets.updateRender(sifter);
 							player.inventory.decrStackSize(player.inventory.currentItem, 1);
 							return false;
@@ -288,7 +287,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 				if(Fishing.sifter.getResult(stack) != null) {
 					if(!world.isRemote) {
 						ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(stack);
-						int stackSize = stack.stackSize;
+						int stackSize = player.isSneaking()? 1: stack.stackSize;
 						for (int j = 0; j <= stackSize; j++) {
 							if(stack.stackSize > 0) {
 								for(RecipeSifter bait: recipe) {

@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -85,7 +84,7 @@ public class BlockGround extends BlockDecorative {
             	if(world.rand.nextInt(64) <= fortune) ret.add(new ItemStack(Items.gold_nugget));
             	if(world.rand.nextInt(48) <= fortune) ret.add(new ItemStack(Blocks.chest));
             	if(world.rand.nextInt(52) <= fortune) ret.add(new ItemStack(Blocks.trapped_chest));
-            	if(world.rand.nextInt(32) <= fortune) ret.add(new ItemStack(Items.fish, 1, world.rand.nextInt(FishSpecies.speciesList.size())));
+            	if(world.rand.nextInt(32) <= fortune) ret.add(new ItemStack(Items.fish, 1, world.rand.nextInt(FishSpecies.species.size())));
             	if(ret.size() == 0) ret.add(new ItemStack(this, 1, GroundMeta.ANCIENT));
             } else {
             	Item item = getItemDropped(metadata, world.rand, fortune);

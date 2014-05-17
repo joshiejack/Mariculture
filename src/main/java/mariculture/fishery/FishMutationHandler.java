@@ -1,46 +1,36 @@
 package mariculture.fishery;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
-import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IMutation;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.lib.Extra;
 
 public class FishMutationHandler implements IMutation {
-	private final HashMap<List<String>, String> mutationList = new HashMap();
-	private final Map mutationChanceList = new HashMap();
+	private final ArrayList<Mutation> mutations = new ArrayList();
 
 	@Override
 	public void addMutation(FishSpecies father, FishSpecies mother, FishSpecies baby, double chance) {
-		mutationList.put(Arrays.asList(mother.getSpecies(), father.getSpecies()), baby.getSpecies());
-		mutationChanceList.put((Arrays.asList(mother.getSpecies(), father.getSpecies())), (int)(chance * 10));
+		chance *= Extra.BREEDING_MULTIPLIER;
+		mutations.add(new Mutation(father.getSpecies(), mother.getSpecies(), baby.getSpecies(), chance));
 	}
 
 	@Override
-	public FishSpecies getMutation(FishSpecies mother, FishSpecies father) {
-		String ret = mutationList.get(Arrays.asList(mother.getSpecies(), father.getSpecies()));
-		if(ret == null) ret = mutationList.get(Arrays.asList(father.getSpecies(), mother.getSpecies()));
-		return ret == null? null: Fishing.fishHelper.getSpecies(ret);
-	}
-
-	@Override
-	public int getMutationChance(FishSpecies mother, FishSpecies father) {
-		if (mutationChanceList.get((Arrays.asList(mother.getSpecies(), father.getSpecies()))) != null) {
-			return (Integer) mutationChanceList.get((Arrays.asList(mother.getSpecies(), father.getSpecies())));
-		}
-		
-		if (mutationChanceList.get((Arrays.asList(father.getSpecies(), mother.getSpecies()))) != null) {
-			return (Integer) mutationChanceList.get((Arrays.asList(father.getSpecies(), mother.getSpecies())));
+	public ArrayList<Mutation> getMutations(FishSpecies mother, FishSpecies father) {
+		ArrayList<Mutation> ret = new ArrayList();
+		for (Mutation mute : mutations) {
+			if (mother.getSpecies().equals(mute.mother) && father.getSpecies().equals(mute.father)) {
+				ret.add(mute);
+			} else if (father.getSpecies().equals(mute.mother) && mother.getSpecies().equals(mute.father)) {
+				ret.add(mute);
+			}
 		}
 
-		return -1;
+		return ret;
 	}
 
 	@Override
-	public HashMap<List<String>, String> getMutations() {
-		return mutationList;
+	public ArrayList<Mutation> getMutations() {
+		return mutations;
 	}
 }

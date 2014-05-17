@@ -55,7 +55,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (Fishing.rodHandler.getRodQuality(stack) != null) {
+				if (Fishing.fishing.getRodType(stack) != null) {
 					if (!this.mergeItemStack(stack, 4, 5, false)) { // Slot 4-4
 						return null;
 					}
@@ -67,7 +67,7 @@ public class ContainerAutofisher extends ContainerMachine {
 					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
 						return null;
 					}
-				} else if (Fishing.bait.getBaitQuality(stack) > 0) {
+				} else if (Fishing.fishing.getBaitQuality(stack) > 0) {
 					if (!this.mergeItemStack(stack, 5, 11, false)) { // Slot
 																		// 5-10
 						return null;
@@ -107,7 +107,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return Fishing.rodHandler.getRodQuality(stack) != null;
+			return Fishing.fishing.getRodType(stack) != null;
 		}
 	}
 
@@ -118,7 +118,7 @@ public class ContainerAutofisher extends ContainerMachine {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return Fishing.bait.getBaitQuality(stack) > 0;
+			return Fishing.fishing.getBaitQuality(stack) > 0;
 		}
 	}
 }

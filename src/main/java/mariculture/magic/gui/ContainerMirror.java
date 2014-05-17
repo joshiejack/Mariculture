@@ -23,7 +23,7 @@ public class ContainerMirror extends ContainerStorage {
 	ItemStack mirror;
 
 	public ContainerMirror(IInventory inventory, InventoryStorage storage, World world, ItemStack stack) {
-		super(inventory, storage, world);
+		super(inventory, storage, world, 0);
 		this.mirror = stack;
 	}
 

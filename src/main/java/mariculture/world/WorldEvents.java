@@ -13,7 +13,6 @@ import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class WorldEvents {

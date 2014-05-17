@@ -6,7 +6,6 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CraftingMeta;
@@ -42,9 +41,9 @@ public class PluginEnchiridion extends Plugin {
 		guides = new ItemGuide().setUnlocalizedName("guide");
 		RegistryHelper.registerItems(new Item[] { guides });
 		
-		RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.PROCESSING), new ItemStack(Core.craftingItem, 1, CraftingMeta.BURNT_BRICK));
+		RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.PROCESSING), new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK));
 		if(Modules.isActive(Modules.diving)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));
-		if(Modules.isActive(Modules.factory)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL));
+		if(Modules.isActive(Modules.factory)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL));
 		if(Modules.isActive(Modules.fishery)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
 		if(Modules.isActive(Modules.magic)) RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
 		

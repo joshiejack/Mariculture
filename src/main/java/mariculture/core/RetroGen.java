@@ -3,7 +3,7 @@ package mariculture.core;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.WorldGenHandler;
@@ -74,7 +74,7 @@ public class RetroGen {
 						WorldGenHandler.generateCopper(chunk.worldObj, Rand.rand, x, z);
 					if(WorldGeneration.OYSTER_ENABLED && doGen(data, "oyster", chunk))
 						WorldGenHandler.generateOyster(chunk.worldObj, Rand.rand, x, z);
-					if(Modules.isActive(Modules.worldplus) && MaricultureHandlers.biomeType.getBiomeType(chunk.worldObj.getBiomeGenForCoords(x, z)) == EnumBiomeType.OCEAN) {
+					if(Modules.isActive(Modules.worldplus) && MaricultureHandlers.environment.getSalinity(chunk.worldObj, x, z) == Salinity.SALINE) {
 						if(WorldGeneration.KELP_FOREST_ENABLED && doGen(data, "kelp", chunk))
 							BiomeGenSandyOcean.kelpGenerator.generate(chunk.worldObj, Rand.rand, x, 0, z);
 						if(WorldGeneration.CORAL_REEF_ENABLED && doGen(data, "coralreef", chunk))

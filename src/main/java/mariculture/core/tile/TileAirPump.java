@@ -14,7 +14,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketAirPump;
 import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileStorageTank;
-import mariculture.core.util.FluidDictionary;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.Tank;
 import mariculture.diving.Diving;
@@ -144,9 +144,9 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 				for (int y = yCoord; y < yCoord + 10; y++) {
 					if(rand.nextInt(1) == 0) {
 						if(isNaturalGas(x, y, z)) {
-							if(fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), false) >= 1000) {
+							if(fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.natural_gas, 1000), false) >= 1000) {
 								if(!worldObj.isRemote) {
-									fill(ForgeDirection.UP, FluidRegistry.getFluidStack(FluidDictionary.natural_gas, 1000), true);
+									fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.natural_gas, 1000), true);
 									worldObj.setBlockToAir(x, y, z);
 								}
 								

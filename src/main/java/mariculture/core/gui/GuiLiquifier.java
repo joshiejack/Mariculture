@@ -24,7 +24,7 @@ public class GuiLiquifier extends GuiMariculture {
 	private final TileCrucible tile;
 
 	public GuiLiquifier(InventoryPlayer player, TileCrucible tile) {
-		super(new ContainerLiquifier(tile, player), "liquifier", 10);
+		super(new ContainerCrucible(tile, player), "liquifier", 10);
 		this.tile = tile;
 		features.add(new FeatureUpgrades());
 		features.add(new FeatureTank(tile, 98, 19, TankSize.DOUBLE));
@@ -54,8 +54,8 @@ public class GuiLiquifier extends GuiMariculture {
 				currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + meltingPoint + "\u00B0" + "C");
 			}
 			
-			if (MaricultureHandlers.smelter.getResult(stack, -1) != null) {
-				RecipeSmelter result = MaricultureHandlers.smelter.getResult(stack, -1);
+			if (MaricultureHandlers.smelter.getResult(stack, null, -1) != null) {
+				RecipeSmelter result = MaricultureHandlers.smelter.getResult(stack, null, -1);
 				if(result.input2 == null) {
 					if (result.fluid.amount > 0) {
 						if(result.rands != null)

@@ -3,21 +3,19 @@ package mariculture.fishery;
 import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.EnumFishGroup;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.items.ItemFishy;
+import mariculture.magic.MirrorSavedData;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.world.WorldEvent.Load;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {
@@ -43,7 +41,7 @@ public class FisheryEventHandler {
 			if (item.hasTagCompound() && !Fishing.fishHelper.isEgg(item)) {
 				int fish = item.stackTagCompound.getInteger("SpeciesID");
 				FishSpecies species = Fishing.fishHelper.getSpecies(fish);
-				if(species.getGroup() != EnumFishGroup.NETHER) {
+				if(!species.isLavaFish()) {
 					if(event.entityItem.isInsideOfMaterial(Material.water)) {
 						event.setCanceled(true);
 						return;
@@ -64,7 +62,7 @@ public class FisheryEventHandler {
 	public void onKillSquid(LivingDropsEvent event) {
 		if (event.entity instanceof EntitySquid) {
 			EntitySquid entity = (EntitySquid) event.entity;
-			ItemStack squid = new ItemStack(Items.fish, 1, Fishery.squid.fishID);
+			ItemStack squid = new ItemStack(Items.fish, 1, Fish.squid.getID());
 			event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
 			if (event.lootingLevel > 0) {
 				for (int i = 0; i < event.lootingLevel; i++) {

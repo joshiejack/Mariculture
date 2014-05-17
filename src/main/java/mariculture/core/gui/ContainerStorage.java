@@ -14,7 +14,7 @@ public class ContainerStorage extends ContainerMariculture {
 	protected final InventoryStorage storage;
 	private final Random rand = new Random();
 
-	public ContainerStorage(IInventory inventory, InventoryStorage storage, World world) {
+	public ContainerStorage(IInventory inventory, InventoryStorage storage, World world, int offset) {
 		this.storage = storage;
 		
 		ItemStorage item = (ItemStorage) storage.player.getCurrentEquippedItem().getItem();
@@ -22,18 +22,18 @@ public class ContainerStorage extends ContainerMariculture {
 			this.addSlotToContainer(item.getSlot(storage, i));
 		}
 		
-		bindPlayerInventory(inventory);
+		bindPlayerInventory(inventory, offset);
 	}
 	
-	private void bindPlayerInventory(IInventory playerInventory) {
+	private void bindPlayerInventory(IInventory playerInventory, int yOffset) {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {
-				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, (84 + i * 18) + yOffset));
 			}
 		}
 
 		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+			addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142 + yOffset));
 		}
 	}
 	

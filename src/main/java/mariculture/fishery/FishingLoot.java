@@ -1,13 +1,15 @@
 package mariculture.fishery;
 
+import static mariculture.core.lib.ItemLib.*;
+
 import java.util.Arrays;
 import java.util.List;
 
-import mariculture.api.core.EnumBiomeType;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.ILootHandler.LootQuality;
+import mariculture.api.fishery.Loot;
+import mariculture.api.fishery.Loot.Rarity;
+import mariculture.api.fishery.RodType;
 import mariculture.core.Core;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.FluidContainerMeta;
 import mariculture.core.lib.Modules;
 import mariculture.factory.Factory;
@@ -21,44 +23,42 @@ public class FishingLoot {
 		addNetherLoot();
 		addEndLoot();
 		
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.experience_bottle), 1), null);
-		Fishing.loot.addLoot(LootQuality.BAD, new WeightedRandomFishable(new ItemStack(Core.craftingItem, 1, CraftingMeta.WHEEL), 4), null);
+		Fishing.fishing.addLoot(new Loot(new ItemStack(xpBottle), 35D, Rarity.GOOD));
+		Fishing.fishing.addLoot(new Loot(ironWheel, 25D, Rarity.JUNK));
 	}
 
 	private static void addEndLoot() {
-		List end = Arrays.asList(new EnumBiomeType[] { EnumBiomeType.ENDER });
-		Fishing.loot.addLoot(LootQuality.BAD, new WeightedRandomFishable(new ItemStack(Core.liquidContainers, 1, FluidContainerMeta.BOTTLE_VOID), 4), end);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.ender_pearl), 1), end);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.ender_eye), 4), end);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_11), 1), end);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_mellohi), 1), end);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_stal), 1), end);
+		Fishing.fishing.addLoot(new Loot(voidBottle, 25D, Rarity.JUNK, 1, RodType.DIRE));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(enderPearl), 15D, Rarity.JUNK, 1, RodType.OLD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(eyeOfEnder), 10D, Rarity.JUNK, 1, RodType.OLD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_11), 5D, Rarity.GOOD, 1, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_mellohi), 5D, Rarity.GOOD, 1, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_stal), 5D, Rarity.GOOD, 1, RodType.GOOD));
 	}
 
 	private static void addNetherLoot() {
-		List nether = Arrays.asList(new EnumBiomeType[] { EnumBiomeType.HELL });
-		Fishing.loot.addLoot(LootQuality.BAD, new WeightedRandomFishable(new ItemStack(Items.gold_nugget), 7), nether);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.ghast_tear), 2), nether);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_13), 1), nether);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_blocks), 1), nether);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_chirp), 1), nether);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.potionitem, 1, 8195), 1), nether);
-		Fishing.loot.addLoot(LootQuality.RARE, new WeightedRandomFishable(new ItemStack(Items.nether_star), 1), nether);
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.gold_nugget), 45D, Rarity.JUNK, -1, RodType.DIRE));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.ghast_tear), 15D, Rarity.JUNK, -1, RodType.OLD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_13), 5D, Rarity.GOOD, -1, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_blocks), 5D, Rarity.GOOD, -1, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_chirp), 5D, Rarity.GOOD, -1, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.potionitem, 1, 8195), 5D, Rarity.JUNK, -1, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.nether_star), 1D, Rarity.RARE, -1, RodType.SUPER));
 	}
 
-	private static void addOverworldLoot() {
-		List overworld = Arrays.asList(new EnumBiomeType[] { EnumBiomeType.ARID, EnumBiomeType.COLD, EnumBiomeType.FROZEN, EnumBiomeType.FROZEN_OCEAN,
-				EnumBiomeType.HOT, EnumBiomeType.MUSHROOM, EnumBiomeType.NORMAL, EnumBiomeType.OCEAN});
-		List ocean = Arrays.asList(new EnumBiomeType[] { EnumBiomeType.OCEAN, EnumBiomeType.FROZEN_OCEAN });
-		List mushroom = Arrays.asList(new EnumBiomeType[] { EnumBiomeType.MUSHROOM });
+	private static void addOverworldLoot() {		
 		for (int i = 0; i < 12; i++) {
-			Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Core.pearls, 1, i), 2), ocean);
+			Fishing.fishing.addLoot(new Loot(new ItemStack(Core.pearls, 1, i), 2.5D, Rarity.JUNK, 0, RodType.OLD));
+			Fishing.fishing.addLoot(new Loot(new ItemStack(Core.pearls, 1, i), 5D, Rarity.GOOD, 0, RodType.OLD));
+			Fishing.fishing.addLoot(new Loot(new ItemStack(Core.pearls, 1, i), 2.5D, Rarity.RARE, 0, RodType.OLD));
 		}
 		
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_far), 1), overworld);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_mall), 1), overworld);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_strad), 1), overworld);
-		Fishing.loot.addLoot(LootQuality.GOOD, new WeightedRandomFishable(new ItemStack(Items.record_cat), 1), overworld);
-		if(Modules.isActive(Modules.factory)) Fishing.loot.addLoot(LootQuality.RARE, new WeightedRandomFishable(new ItemStack(Factory.fludd), 1), mushroom);
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_far), 5D, Rarity.GOOD, 0, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_strad), 5D, Rarity.GOOD, 0, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_mall), 5D, Rarity.GOOD, 0, RodType.GOOD));
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_mall), 5D, Rarity.GOOD, 0, RodType.GOOD));
+		
+		if(Modules.isActive(Modules.factory))
+		Fishing.fishing.addLoot(new Loot(new ItemStack(Factory.fludd), 1D, Rarity.RARE, 0, RodType.SUPER));
 	}
 }

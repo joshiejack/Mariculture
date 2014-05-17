@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
@@ -34,15 +34,9 @@ public class MapGenMineshaftsDisabled extends MapGenMineshaft {
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-		try {
-			if(MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(chunkX * 16, chunkZ * 16)) == EnumBiomeType.OCEAN) {
-				return false;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return this.rand.nextDouble() < this.field_82673_e && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
+		if(this.rand.nextDouble() < this.field_82673_e && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ))) {
+			return MaricultureHandlers.environment.getSalinity(worldObj, chunkX * 16, chunkZ * 16) != Salinity.SALINE;
+		} else return false;
 	}
 
 	protected StructureStart getStructureStart(int par1, int par2) {

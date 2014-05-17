@@ -1,49 +1,81 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.ILootHandler.LootQuality;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.ItemLib.dropletPoison;
+import static mariculture.core.lib.ItemLib.dropletWater;
+import static mariculture.core.lib.ItemLib.slimeBall;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-
 public class FishJelly extends FishSpecies {
 	public FishJelly(int id) {
 		super(id);
 	}
-
+	
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.JELLY;
+	public int[] setSuitableTemperature() {
+		return new int[] { 12, 32 };
 	}
-
+	
 	@Override
-	public int getLifeSpan() {
-		return 25;
-	}
-
-	@Override
-	public int getFertility() {
-		return 63;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { SALINE };
 	}
 
 	@Override
 	public boolean isDominant() {
 		return false;
 	}
-	
+
+	@Override
+	public int getLifeSpan() {
+		return 1;
+	}
+
+	@Override
+	public int getFertility() {
+		return 1;
+	}
+
+	@Override
+	public int getFoodConsumption() {
+		return 0;
+	}
+
+	@Override
+	public boolean requiresFood() {
+		return false;
+	}
+
+	@Override
+	public int getWaterRequired() {
+		return 65;
+	}
+
 	@Override
 	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), 6D);
-		addProduct(new ItemStack(Items.slime_ball), 4D);
+		addProduct(dropletWater, 3D);
+		addProduct(dropletPoison, 6D);
+		addProduct(slimeBall, 4D);
 	}
-	
+
+	@Override
+	public double getFishOilVolume() {
+		return 0D;
+	}
+
+	@Override
+	public int getFishMealSize() {
+		return 0;
+	}
+
 	@Override
 	public int getFoodStat() {
 		return 1;
@@ -53,40 +85,30 @@ public class FishJelly extends FishSpecies {
 	public float getFoodSaturation() {
 		return 0.1F;
 	}
-	
-	@Override
-	public int getFoodDuration() {
-		return 8;
-	}
 
 	@Override
 	public void onConsumed(World world, EntityPlayer player) {
 		player.addPotionEffect(new PotionEffect(Potion.harm.id, 15, 0));
 		player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
 	}
-	
+
 	@Override
-	public int getCatchChance() {
-		return 15;
-	}
-	
-	@Override
-	public LootQuality getLootQuality() {
-		return LootQuality.GOOD;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 0;
+	public void affectLiving(EntityLivingBase entity) {
+		entity.addPotionEffect(new PotionEffect(Potion.poison.id, 1, 200));
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return new int[] { 1, 1, 3 };
+	public RodType getRodNeeded() {
+		return RodType.GOOD;
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 0;
+	public double getCatchChance(int height, int time) {
+		return Time.isDay(time)? 15D: 5D;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return Time.isNoon(time) && Height.isCave(height)? 5D: 0D;
 	}
 }

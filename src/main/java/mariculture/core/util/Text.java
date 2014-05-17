@@ -26,6 +26,7 @@ public class Text {
 	public static final String END = prfx + "r";
 	public static final String OBFUSCATED = prfx + "k";
 	public static final String STRIKETHROUGH = prfx + "m";
+	public static final String DEGREES = "\u00B0" + "C";
 	
 	public static String getColor(String color) {
 		if(color.equals("grey"))
@@ -44,5 +45,9 @@ public class Text {
 	public static String getShiftText(String string) {
 		String shift = "mariculture.string.shift";
 		return Text.INDIGO + localize(shift + ".hold") + " " + Text.WHITE + localize(shift + ".shift") + " " +  Text.INDIGO + localize(shift +"." + string);
+	}
+
+	public static String translate(String name) {
+		return localize("mariculture.string." + name);
 	}
 }

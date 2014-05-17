@@ -2,7 +2,7 @@ package mariculture.core.tile;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.EnumBiomeType;
+import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
@@ -32,7 +32,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	public static final int MAX_TEMP = 25000;
 	private int temp;
 	private boolean canFuel;
-	private EnumBiomeType biome;
+	private int cooling;
 
 	public TileCrucible() {
 		max = MachineSpeeds.getCrucibleSpeed();
@@ -93,7 +93,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	}
 
 	public boolean hasRoom() {
-		return canMelt(0, true) || canMelt(1, true) || canMelt(0, false) || canMelt(1, false);
+		return canMelt(0) || canMelt(1);
 	}
 
 	private boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {
@@ -110,11 +110,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 				processed += (speed * 50);
 				if (processed >= max) {
 					processed = 0;
-					if (canWork()) {
-						if(canMelt(0, true)) melt(0, true);
-						else if(canMelt(1, true)) melt(1, true);
-						if(canMelt(0, false)) melt(0, false);
-						if(canMelt(1, false)) melt(1, false);
+					if(canWork()) {
+						if(canMelt(0))
+							melt(0);
+						if(canMelt(1))
+							melt(1);
 					}
 
 					canWork = canWork();
@@ -235,11 +235,12 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	}
 
 	public void coolDown() {
-		if (biome == null)
-			biome = MaricultureHandlers.biomeType.getBiomeType(worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord));
+		if(cooling <= 0) {
+			cooling = Math.max(1, Temperature.getCoolingSpeed(MaricultureHandlers.environment.getBiomeTemperature(worldObj, xCoord, yCoord, zCoord)));
+		}
 
 		if (onTick(20)) {
-			temp -= biome.getCoolingSpeed();
+			temp -= cooling;
 			if (temp <= 0)
 				temp = 0;
 		}
@@ -261,51 +262,60 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		return info;
 	}
 
-	public boolean canMelt(int slot, boolean dual) {
-		int other = (slot == 0) ? 1 : 0;
-		RecipeSmelter recipe = null;
-		if(dual) recipe = MaricultureHandlers.smelter.getDualResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
-		else recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], getTemperatureScaled(2000));
-		if (recipe == null) return false;
+	public boolean canMelt(int slot) {
+		int other = (slot == 0)? 1: 0;
+		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		if(recipe == null) return false;
+		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
 		FluidStack fluid = recipe.fluid.copy();
-		fluid.amount = (recipe.input instanceof String)? getFluidAmount((String) recipe.input, recipe.fluid.amount): fluid.amount;
-		if (tank.fill(fluid, false) < fluid.amount)
+		fluid.amount = fluidAmount;
+		if(tank.fill(fluid, false) < fluid.amount)
 			return false;
-		if (recipe.output == null || recipe.chance <= 0)
+		if(recipe.output == null)
 			return true;
-		if (setting.canEject(EjectSetting.ITEM))
+		if(setting.canEject(EjectSetting.ITEM))
 			return true;
-		return inventory[out] == null || (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize < inventory[out].getMaxStackSize());
+		return inventory[out] == null ||  (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize <= inventory[out].getMaxStackSize());
 	}
 
-	public void melt(int slot, boolean dual) {
-		int other = (slot == 0) ? 1 : 0;
-		RecipeSmelter recipe = null;
-		if(dual) recipe = MaricultureHandlers.smelter.getDualResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
-		else recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], getTemperatureScaled(2000));
-		if (recipe == null) return;
-		if (recipe.input2 != null) {
-			decrStackSize(in[slot], 1);
-			if (slot == 0)
-				decrStackSize(in[1], 1);
+	public void melt(int slot) {
+		int other = (slot == 0)? 1: 0;
+		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		if(recipe == null)
+			return;
+		if(recipe.input2 != null) {
+			decrStackSize(in[slot], recipe.input.stackSize);
+			if(slot == 0)
+				decrStackSize(in[1], recipe.input2.stackSize);
 			else
-				decrStackSize(in[0], 1);
+				decrStackSize(in[0], recipe.input2.stackSize);
 			tank.fill(recipe.fluid.copy(), true);
-			if (recipe.output != null && recipe.chance > 0) {
-				if (Rand.nextInt(recipe.chance)) {
+			if(recipe.output != null && recipe.chance > 0) {
+				if(Rand.nextInt(recipe.chance))
 					helper.insertStack(recipe.output.copy(), new int[] { out });
-				}
 			}
 		} else {
-			decrStackSize(in[slot], 1);
+			decrStackSize(in[slot], recipe.input.stackSize);
+			int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
 			FluidStack fluid = recipe.fluid.copy();
-			fluid.amount = (recipe.input instanceof String)? getFluidAmount((String) recipe.input, recipe.fluid.amount): fluid.amount;
+			fluid.amount = fluidAmount;
 			tank.fill(fluid, true);
-			if (recipe.output != null) {
-				if (Rand.nextInt(recipe.chance))
+			if(recipe.output != null && recipe.chance > 0) {
+				if(Rand.nextInt(recipe.chance))
 					helper.insertStack(recipe.output.copy(), new int[] { out });
 			}
 		}
+	}
+	
+	public int getFluidAmount(ItemStack stack, int amount) {
+		if(OreDicHelper.isInDictionary(stack)) {
+			String name = OreDicHelper.getDictionaryName(stack);
+			if(name.startsWith("ore")){
+				amount+= (purity * ((MetalRates.NUGGET) * Extra.PURITY));
+			}
+		}
+		
+		return amount; 
 	}
 
 	// Gui Data
@@ -362,18 +372,17 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		canFuel = nbt.getBoolean("CanFuel");
 		fuelHandler = new FuelHandler();
 		fuelHandler.read(nbt);
-		biome = EnumBiomeType.values()[nbt.getInteger("BiomeType")];
+		cooling = nbt.getInteger("CoolingSpeed");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
+		nbt.setInteger("CoolingSpeed", cooling);
 		nbt.setInteger("Temperature", temp);
 		nbt.setBoolean("CanFuel", canFuel);
 		if (fuelHandler != null)
 			fuelHandler.write(nbt);
-		if (biome != null)
-			nbt.setInteger("BiomeType", biome.ordinal());
 	}
 
 	// Master stuff

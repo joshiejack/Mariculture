@@ -1,11 +1,11 @@
 package mariculture.fishery.fish;
 
-import mariculture.api.fishery.fish.EnumFishGroup;
-import mariculture.api.fishery.fish.EnumFishWorkEthic;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.ItemLib.dropletWater;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
-import net.minecraft.item.ItemStack;
 
 public class FishMinnow extends FishSpecies {
 	public FishMinnow(int id) {
@@ -13,8 +13,18 @@ public class FishMinnow extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.RIVER;
+	public int[] setSuitableTemperature() {
+		return new int[] { -1, 45 };
+	}
+
+	@Override
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH };
+	}
+
+	@Override
+	public boolean isDominant() {
+		return true;
 	}
 
 	@Override
@@ -24,46 +34,43 @@ public class FishMinnow extends FishSpecies {
 
 	@Override
 	public int getFertility() {
-		return 16;
+		return 1000;
 	}
 
-	@Override
-	public boolean isDominant() {
-		return true;
-	}
-	
-	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), 3D);
-	}
-
-	@Override
-	public boolean caughtAsRaw() {
-		return false;
-	}
-	
-	@Override
-	public int getCatchChance() {
-		return 45;
-	}
-	
-	@Override
-	public double getFishOilVolume() {
-		return 0.075;
-	}
-
-	@Override
-	public int[] getChestGenChance() {
-		return null;
-	}
-	
 	@Override
 	public int getBaseProductivity() {
-		return EnumFishWorkEthic.HARDWORKER.getMultiplier();
+		return 2;
 	}
-	
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletWater, 15D);
+	}
+
+	@Override
+	public double getFishOilVolume() {
+		return 0.240D;
+	}
+
 	@Override
 	public int getFishMealSize() {
 		return 1;
+	}
+
+	@Override
+	public RodType getRodNeeded() {
+		return RodType.OLD;
+	}
+
+	@Override
+	public double getCatchChance(int height, int time) {
+		if (Time.isDay(time)) {
+			return 33D;
+		} else return 5D;
+	}
+
+	@Override
+	public double getCaughtAliveChance(int height, int time) {
+		return !Time.isMidnight(time) && height > 70 ? 75D : 20D;
 	}
 }

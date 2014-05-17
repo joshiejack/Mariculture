@@ -1,13 +1,14 @@
 package mariculture.fishery.items;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.fishery.FishHelper;
-import mariculture.fishery.Fishery;
+import mariculture.fishery.Fish;
+import mariculture.fishery.FishyHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -93,21 +94,18 @@ public class ItemFishy extends Item {
 			
 			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID"));
 			if(fish != null) {
-				return fish.getIcon();
+				return fish.getIcon(Fish.gender.getDNA(stack));
 			}
 		}
 
-		return Fishery.cod.getIcon();
+		return Fish.cod.getIcon(0);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); i++) {
-			FishSpecies fish = FishSpecies.speciesList.get(i);
-			if(fish != null) {
-				fish.registerIcon(iconRegister);
-			}
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			species.getValue().registerIcon(iconRegister);
 		}
 
 		egg = iconRegister.registerIcon(Mariculture.modid + ":" + "fish/egg");
@@ -116,19 +114,19 @@ public class ItemFishy extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		for (int i = 0; i < FishSpecies.speciesList.size(); ++i) {
-			ItemStack fish = Fishing.fishHelper.makePureFish(FishSpecies.speciesList.get(i));
-
-			list.add(Fishery.gender.addDNA(fish, FishHelper.MALE));
-			list.add(Fishery.gender.addDNA(fish.copy(), FishHelper.FEMALE));
+		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+			FishSpecies fishy = species.getValue();
+			ItemStack fish = Fishing.fishHelper.makePureFish(fishy);
+			list.add(Fish.gender.addDNA(fish, FishyHelper.MALE));
+			list.add(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE));
 		}
 	}
 
 	private String convertToSymbol(int gender) {
-		if (gender == FishHelper.MALE) {
+		if (gender == FishyHelper.MALE) {
 			return "\u2642";
 		}
-		if (gender == FishHelper.FEMALE) {
+		if (gender == FishyHelper.FEMALE) {
 			return "\u2640";
 		}
 

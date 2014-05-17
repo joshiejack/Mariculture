@@ -2,15 +2,18 @@ package mariculture.api.fishery.fish;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.ILootHandler.LootQuality;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.fishery.CachedCoords;
+import mariculture.api.fishery.RodType;
+import mariculture.core.lib.ItemLib;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -18,77 +21,131 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class FishSpecies {
-	public static ArrayList<FishSpecies> speciesList = new ArrayList();
+	//Reference from names to number id, mappings + the List of Fish Species
+	private static HashMap<String, Integer> ids = new HashMap();
+	public static HashMap<Integer, FishSpecies> species = new HashMap();
+	
+	//The Products this species produces and the biomes they can live in
 	private static final HashMap<String, ArrayList<FishProduct>> products = new HashMap();
-	public final int fishID;
+	public int[] temperature;
+	public Salinity[] salinity;
+	
+	//The Fish Icon
 	private IIcon theIcon;
+	private IIcon altIcon;
 
+	//Initialising the FishSpecies
 	public FishSpecies(int id) {
-		fishID = id;
-		speciesList.add(this);
+		ids.put(getSpecies(), id);
+		species.put(id, this);
 	}
+	
+	//Should be ignored, just a helper method for getting the fish id
+	public final int getID() {
+		return ids.get(getSpecies());
+	}
+	
 	/* Group/Species */
 	// This just converts the class name to something to be used for the images. no need to touch it, unless you name your classes differently
 	public String getSpecies() {
-		return (this.getClass().getSimpleName().toLowerCase()).substring(4);
+		return (getClass().getSimpleName().toLowerCase()).substring(4);
 	}
 	
-	/** Fish Products list **/
-	public ArrayList<FishProduct> getProductList() {
-		return products.get(getSpecies());
+	//Helper method ignore
+	protected final boolean isAcceptedTemperature(int temp) {
+		return temp >= temperature[0] && temp <= temperature[1];
 	}
 	
-	/** The EnumFishGroup this species belongs to **/
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.OCEAN;
+	/** These are called to set the temperature, and salinity this fish type requires, temperature is two integers, minimum to maximum in degrees C **/
+	public abstract int[] setSuitableTemperature();
+	public abstract Salinity[] setSuitableSalinity();
+	
+	/** This determines whether a fish item entity will still die when it's in water **/
+	public boolean isLavaFish() {
+		return false;
 	}
 	
 	/** Whether or not this fish species is dominant **/
-	public boolean isDominant() {
-		return true;
+	public abstract boolean isDominant();
+	
+	/* Default DNA, Average Default is marked in brackets, All of these are the default values for specific DNA, they are overwritten by a fish's DNA */
+	/** (25) Lifespan in a tank defined in minutes (note DNA overwrites the fish species) **/
+	public abstract int getLifeSpan();
+	
+	/** (200) This is the number of fish eggs that this fish will generate, whole numbers, Suggested Maximum of 5000 **/
+	public abstract int getFertility();
+	
+	/** (1) This is how many attempts to create a product a fish has, defaults generally, 0 = fails everytime **/
+	public int getBaseProductivity() {
+		return 1;
 	}
 	
-	/* Default DNA */
-	/** This is the chance that the fish will generate extra copies of themselves 
-	 * in an incubator (Higher = Less Likely) (note DNA overwrites the fish species) **/
-	public int getFertility() {
-		return 50;
-	}
-	
-	/** This is how much food this species of fish will consume everytime it's
-	 * time to eat in the Fish Tank (note DNA overwrites the fish species)  **/
+	/** (1) This is how much food this species of fish will consume everytime it's
+	 * time to eat in the Fish Tank  **/
 	public int getFoodConsumption() {
 		return 1;
 	}
 	
-	/** Lifespan in a tank defined in minutes (note DNA overwrites the fish species) **/
-	public int getLifeSpan() {
-		return 25;
+	//NOT DNA, This will allow a fish to use 0 food when their dna says, only if their species lets them
+	public boolean requiresFood() {
+		return true;
 	}
 	
-	/** This the tank level that is required for the fish to 'work' Note:
-	* Returning numbers other than the listed will make the fish work with NO
-	* tanks (note DNA overwrites the fish species)
-	* 
-	* @return 1, 3, 5 : Basic, Intermediate, Advanced */
-	public int getTankLevel() {
-		return 1;
+	/** Return the amount of water blocks this fish needs **/
+	public int getWaterRequired() {
+		return 15;
 	}
 	
-	/** Return 0 for Lazy, 1 for Normal and 2 for Hardworker **/
-	public int getBaseProductivity() {
-		return EnumFishWorkEthic.NORMAL.getMultiplier();
-	}
-
-	/* Fish Products */
-	/** How much fish meal this species of fish produces **/
-	public int getFishMealSize() {
-		return 2;
+	/** (0) return a bonus for the area the fish can do it's world effects**/
+	public int getAreaOfEffectBonus(ForgeDirection dir) {
+		return 0;
 	}
 	
-	/** Number between 1 and 2000, for the melting point of this fish **/
-	public int getMeltingPoint() {
-		return 180;
+//Fish Products, these are always based on species
+	/* Fish Products list, should be ignored, just calls the products you added */
+	public final ArrayList<FishProduct> getProductList() {
+		return products.get(getSpecies());
+	}
+	
+	/** Called when fish are registered **/
+	public abstract void addFishProducts();
+	
+	/** Helper methods **/
+	public final void addProduct(Block block, double chance) {
+		addProduct(new ItemStack(block), chance);
+	}
+	
+	public final void addProduct(Item item, double chance) {
+		addProduct(new ItemStack(item), chance);
+	}
+	
+	/** Add Products, call this from the addFishProducts call, fish can have a maximum of 6 different products **/
+	public final void addProduct(ItemStack stack, double chance) {
+		String fish = this.getSpecies();
+		ArrayList<FishProduct> list = null;
+		if(products.containsKey(fish))
+			list = products.get(fish);
+		else list = new ArrayList();
+		if(list.size() < 6)
+		list.add(new FishProduct(stack, chance));
+		products.put(fish, list);
+	}
+	
+	/* The product the fish produces, called everytime the bubbles complete a cycle, can be ignored by you */
+	public final ItemStack getProduct(Random rand) {
+		for(FishProduct product: products.get(getSpecies())) {
+			int chance = (int) (product.chance * 10);
+			if(rand.nextInt(1000) < chance)
+				return product.product.copy();
+		}
+		
+		return null;
+	}
+	
+//Raw Fish Products, These are what you can do use/Raw Fish for
+	/** Return whether you can use this fish for a potion or not **/
+	public String getPotionEffect(ItemStack stack) {
+		return null;
 	}
 	
 	/** How much fish oil the fish will give you when liquified in the liquifier,
@@ -101,7 +158,7 @@ public abstract class FishSpecies {
 	/** Here you can define a custom product for your fish to return when it is
 	 * liquified. **/
 	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(Items.bone);
+		return new ItemStack(ItemLib.bone);
 	}
 	
 	/** Set the chance of getting the product, the lower the number the higher
@@ -111,77 +168,20 @@ public abstract class FishSpecies {
 		return 10;
 	}
 	
-	/** Called when fish are registered **/
-	public abstract void addFishProducts();
-	
-	/** Add Products **/
-	public void addProduct(ItemStack stack, double chance) {
-		String fish = this.getSpecies();
-		ArrayList<FishProduct> list = null;
-		if(products.containsKey(fish))
-			list = products.get(fish);
-		else
-			list = new ArrayList();
-		list.add(new FishProduct(stack, chance));
-		products.put(fish, list);
-	}
-
-	/** The product the fish produces, called everytime the bubbles complete a
-	 * cycle */
-	public ItemStack getProduct(Random rand) {
-		for(FishProduct product: products.get(getSpecies())) {
-			int chance = (int) (product.chance * 10);
-			if(rand.nextInt(1000) < chance)
-				return product.product.copy();
-		}
-		
-		return null;
+	/** How much fish meal this species of fish produces **/
+	public int getFishMealSize() {
+		return (int) Math.floor(getFishOilVolume());
 	}
 	
-	/* Called Methods */
-	
-	/** return a weighted number to be used to determine how often this fish is caught, Vanilla Raw Fish = 60, Higher = More Common **/
-	public int getCatchChance() {
-		return 20;
-	}
-	
-	/** Whether when this fish is caught it is ALWAYS dead, Defaults to true **/
-	public boolean caughtAsRaw() {
-		return true;
-	}
-	
-	/** Return a list of the biomes that this fish can be caught in, defaults to the biomes of their group **/
-	public List<EnumBiomeType> getCatchableBiomes() {
-		List<EnumBiomeType> biomes = new ArrayList();
-		for(EnumBiomeType biome: getGroup().getBiomes()) {
-			biomes.add(biome);
-		}
-		
-		return biomes;
-	}
-	
-	/** Return the Quality type this fish is considered, most fish should be under the 'fish' quality, use good and rare for rarer fish **/
-	public LootQuality getLootQuality() {
-		return LootQuality.FISH;
-	}
-
-	/** Whether this fish can live in the area that they are, defaults to calling their group biome preference
-	 * @param World Object
-	 * @param xCoordinate of FishFeeder
-	 * @param yCoordinate of FishFeeder
-	 * @param zCoordinate of FishFeeder **/
-	public boolean canLive(World world, int x, int y, int z) {
-		return getGroup().canLive(world, x, y, z);
-	}
-	
+	//Food Based Data
 	/** How much food eating this fish restores, return -1 if it's not edible **/
 	public int getFoodStat() {
-		return 1;
+		return (int) Math.ceil(getFishOilVolume());
 	}
 	
 	/** How much saturation this fish restores **/
 	public float getFoodSaturation() {
-		return 0.3F;
+		return (float) (getFishOilVolume() / 10F);
 	}
 	
 	/** How long in ticks, it takes to teat this fish **/
@@ -194,12 +194,7 @@ public abstract class FishSpecies {
 		return false;
 	}
 	
-	/** Add a potion effect for this fish to return **/
-	public String getPotionEffect(ItemStack stack) {
-		return null;
-	}
-
-	/** This is called after a player has eaten, and only if it can eat, which is define by the getFoodStat call
+	/** This is called after a player has eaten a raw fish
 	 * 
 	 * @param World object
 	 * @param The player eating */
@@ -207,6 +202,7 @@ public abstract class FishSpecies {
 		return;
 	}
 
+	//On Action, these are called when certain things happen to a fish	
 	/** Called when you right click a fish
 	 * 
 	 * @param World Object
@@ -215,11 +211,6 @@ public abstract class FishSpecies {
 	 * @param Random */
 	public ItemStack onRightClick(World world, EntityPlayer player, ItemStack stack, Random rand) {
 		return stack;
-	}
-	
-	/** Whether you can connect to this block or not **/
-	public boolean canConnectEnergy(ForgeDirection from) {
-		return false;
 	}
 
 	/** This is called every half a second, and lets you affect the world around
@@ -231,8 +222,8 @@ public abstract class FishSpecies {
 	 * @param xCoordinate of FishFeeder
 	 * @param yCoordinate of FishFeeder
 	 * @param zCoordinate of FishFeeder
-	 * @param Tank Size */
-	public void affectWorld(World world, int x, int y, int z, int tankType) {
+	 * @param Coordinates of all the water blocks this tank consists of */
+	public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
 		return;
 	}
 
@@ -246,27 +237,103 @@ public abstract class FishSpecies {
 		return;
 	}
 	
-	/* Other */
-	/** This is the chance that a fish will spawn in an ocean chest return null
-	 * if you do not want the species to spawn in chests (Make sure the int
-	 * array is three long) */
-	public int[] getChestGenChance() {
-		return new int[] { 1, 3, 5 };
+	/** Whether this fish allows RF connections to the fish feeder**/
+	public boolean canConnectEnergy(ForgeDirection from) {
+		return false;
 	}
 	
-	/* Language/IIcon */
+	/** Return the light level this fish gives off, same as normal blocks, from 0-15 **/
+	public int getLightValue() {
+		return 0;
+	}
+	
+	//Work Based things
+	/** Whether this fish can work at this time of day, entirely based on species **/
+	public boolean canWork(int time) {
+		return true;
+	}
+	
+	//Catching Based, When/Where/How the fish can be caught
+	/** Return the rod Quality needed to catch this fish **/
+	public abstract RodType getRodNeeded();
+
+	/** Return whether this type of world is suitable to catch these fish**/
+	public boolean isWorldCorrect(World world) {
+		return !world.provider.isHellWorld && world.provider.dimensionId != 1;
+	}
+	
+	/** Return the catch chance based on the variables, return 0 for no catch
+	 *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
+	public double getCatchChance(World world, Salinity salt, int temp, int time, int height) {
+		return isWorldCorrect(world) && MaricultureHandlers.environment.matches(salt, temp, salinity, temperature)? getCatchChance(world, height, time): 0D;
+	}
+	
+	/** Middle version **/
+	public double getCatchChance(World world, int height, int time) {
+		return isWorldCorrect(world)? getCatchChance(height, time): 0D;
+	}
+	
+	/** Lower version **/
+	public double getCatchChance(int height, int time) {
+		return getCatchChance();
+	}
+	
+	// Meant to be a double, will be changed to double in 1.7
+	/** Shortest version of catch chance **/
+	public int getCatchChance() {
+		return 5;
+	}
+	
+	/** Returns the chance for this fish to be caught alive
+	 * The world
+	 * The Salinity of the Water
+	 * The Temperature of the Water
+	 * The Time of Day of the World
+	 * The Y Height fishing At
+	 *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
+	public double getCaughtAliveChance(World world, Salinity salt, int temp, int time, int height) {
+		return isAcceptedTemperature(temp) && salt == salinity[0]? getCaughtAliveChance(world, height, time): 0D;
+	}
+	
+	/** Middle version **/
+	public double getCaughtAliveChance(World world, int height, int time) {
+		return getCaughtAliveChance(height, time);
+	}
+	
+	/** Lower version **/
+	public double getCaughtAliveChance(int height, int time) {
+		return getCaughtAliveChance();
+	}
+	
+	/** Shortest version of alive chance chance **/
+	public double getCaughtAliveChance() {
+		return 0D;
+	}
+	
+	/* Language/Icon */
 	/** Fish's name **/
 	public String getName() {
 		return StatCollector.translateToLocal("fish.data.species." + this.getSpecies());
 	}
 	
-	/** Returns your fish icon **/
-	public IIcon getIcon() {
-		return theIcon;
+	/** Gendered Icons?, return true if your fish has a different icon for male or female fish **/
+	public boolean hasGenderIcons() {
+		return false;
+	}
+	
+	/** Returns your fish icon 
+	 * @param gender **/
+	public IIcon getIcon(int gender) {
+		return hasGenderIcons() && gender == 0? altIcon: theIcon;
 	}
 	
 	/** Called to register your fish icon **/
 	public void registerIcon(IIconRegister iconRegister) {
-		theIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies());
+		if(hasGenderIcons()) {
+			theIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies() + "_female");
+			altIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies() + "_male");
+		} else {
+			theIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies());
+		}
 	}
 }

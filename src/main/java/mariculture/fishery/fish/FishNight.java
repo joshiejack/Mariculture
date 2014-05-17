@@ -1,16 +1,15 @@
 package mariculture.fishery.fish;
 
-import java.util.Arrays;
-import java.util.List;
-
-import mariculture.api.core.EnumBiomeType;
-import mariculture.api.fishery.fish.EnumFishGroup;
+import static mariculture.api.core.Environment.Salinity.BRACKISH;
+import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.ItemLib.dropletEnder;
+import static mariculture.core.lib.ItemLib.enderPearl;
+import mariculture.api.core.Environment.Height;
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.Environment.Time;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -21,18 +20,13 @@ public class FishNight extends FishSpecies {
 	}
 
 	@Override
-	public EnumFishGroup getGroup() {
-		return EnumFishGroup.ENDER;
+	public int[] setSuitableTemperature() {
+		return new int[] { -10, 66 };
 	}
 
 	@Override
-	public int getLifeSpan() {
-		return 25;
-	}
-
-	@Override
-	public int getFertility() {
-		return 83;
+	public Salinity[] setSuitableSalinity() {
+		return new Salinity[] { FRESH, BRACKISH };
 	}
 
 	@Override
@@ -41,34 +35,29 @@ public class FishNight extends FishSpecies {
 	}
 
 	@Override
-	public int getTankLevel() {
-		return 5;
-	}
-	
-	@Override
-	public void addFishProducts() {
-		addProduct(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER), 5D);
-		addProduct(new ItemStack(Items.ender_pearl), 1D);
-	}
-	
-	@Override
-	public boolean caughtAsRaw() {
-		return false;
-	}
-	
-	@Override
-	public List<EnumBiomeType> getCatchableBiomes() {
-		return Arrays.asList(new EnumBiomeType[] { EnumBiomeType.ENDER });
+	public int getLifeSpan() {
+		return 10;
 	}
 
 	@Override
-	public int getCatchChance() {
-		return 65;
+	public int getFertility() {
+		return 256;
 	}
-	
+
+	@Override
+	public int getWaterRequired() {
+		return 50;
+	}
+
+	@Override
+	public void addFishProducts() {
+		addProduct(dropletEnder, 5D);
+		addProduct(enderPearl, 1D);
+	}
+
 	@Override
 	public double getFishOilVolume() {
-		return 0.155;
+		return 0.333D;
 	}
 
 	@Override
@@ -79,12 +68,27 @@ public class FishNight extends FishSpecies {
 	}
 
 	@Override
-	public int[] getChestGenChance() {
-		return null;
+	public boolean canWork(int time) {
+		return !Time.isDay(time);
 	}
-	
+
 	@Override
-	public int getFishMealSize() {
-		return 1;
+	public RodType getRodNeeded() {
+		return RodType.OLD;
+	}
+
+	@Override
+	public boolean isWorldCorrect(World world) {
+		return !world.provider.isHellWorld;
+	}
+
+	@Override
+	public double getCatchChance(World world, int height, int time) {		
+		return world.provider.dimensionId == 1 ? 55D : Height.isCave(height) ? 5D : Time.isMidnight(time) ? 45D : Time.isDusk(time) ? 35D : 0D;
+	}
+
+	@Override
+	public double getCaughtAliveChance(World world, int height, int time) {
+		return world.provider.dimensionId == 1 ? 65D : !Time.isMidnight(time) ? 33D : 0D;
 	}
 }

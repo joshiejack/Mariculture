@@ -3,6 +3,7 @@ package mariculture.core;
 import java.io.File;
 
 import mariculture.Mariculture;
+import mariculture.aesthetics.Aesthetics;
 import mariculture.api.core.MaricultureTab;
 import mariculture.compatibility.Compat;
 import mariculture.core.handlers.LogHandler;
@@ -73,6 +74,8 @@ public class Config {
             Extra.VANILLA_POOR = config.get(Category.EXTRA, "Vanilla rods are not as good without bait", true).getBoolean(true);
             Extra.VANILLA_FORCE = config.get(Category.EXTRA, "Vanilla rods need bait to work", false).getBoolean(false);
             Extra.VANILLA_TEXTURES = config.get(Category.EXTRA, "Use Vanilla textures for Fish", false).getBoolean(false);
+            Extra.BREEDING_MULTIPLIER = config.get(Category.EXTRA, "Breeding Multiplier", 1.0D).getDouble(1.0D);
+            Extra.IGNORE_BIOMES = config.get(Category.EXTRA, "Ignore biomes when catching fish", false).getBoolean(false);
             if(!Modules.isActive(Modules.fishery)) {
             	Extra.VANILLA_STATS = true;
             	Extra.VANILLA_POOR = false;
@@ -174,6 +177,7 @@ public class Config {
         try {
             config.load();
             Mariculture.modules.setup(Core.class, true);
+            Mariculture.modules.setup(Aesthetics.class, config.get(Category.MODULES, "Aesthetics", true).getBoolean(true));
             Mariculture.modules.setup(Diving.class, config.get(Category.MODULES, "Diving", true).getBoolean(true));
             Mariculture.modules.setup(Factory.class, config.get(Category.MODULES, "Factory", true).getBoolean(true));
             Mariculture.modules.setup(Fishery.class, config.get(Category.MODULES, "Fishery", true).getBoolean(true));
@@ -205,7 +209,7 @@ public class Config {
             MachineSpeeds.feeder = config.get(Category.SPEED, "Fish Feeder", 200).getInt();
             MachineSpeeds.incubator = config.get(Category.SPEED, "Incubator", 400).getInt();
             MachineSpeeds.crucible = config.get(Category.SPEED, "Industrial Smelter", 40000).getInt();
-            MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 350).getInt();
+            MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 300).getInt();
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
 
             Extra.GEYSER_ANIM = config.get(Category.CLIENT, "Geyser - Enable Particles", true).getBoolean(true);

@@ -4,7 +4,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.items.ItemMariculture;
-import mariculture.fishery.Fishery;
+import mariculture.fishery.Fish;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySquid;
@@ -57,8 +57,7 @@ public class BlockItemNet extends ItemMariculture {
 		if(!entity.worldObj.isRemote) {
 			if(entity instanceof EntitySquid) {
 				player.inventory.decrStackSize(player.inventory.currentItem, 1);
-				SpawnItemHelper.spawnItem(entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
-						Fishing.fishHelper.makePureFish(Fishery.squid));
+				SpawnItemHelper.spawnItem(entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ, Fishing.fishHelper.makePureFish(Fish.squid));
 				entity.worldObj.spawnParticle("bubble", entity.posX, entity.posY, entity.posZ, 0, 0, 0);
 				entity.setDead();
 			}

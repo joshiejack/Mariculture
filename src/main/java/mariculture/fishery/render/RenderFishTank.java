@@ -1,6 +1,5 @@
 package mariculture.fishery.render;
 
-import mariculture.core.lib.TankMeta;
 import mariculture.core.render.RenderBase;
 import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
