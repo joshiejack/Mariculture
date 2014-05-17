@@ -461,57 +461,59 @@ public class TileFeeder extends TileMachineTank implements IHasNotification {
 			int currentLife = fish.stackTagCompound.getInteger("CurrentLife") / 20;
 			if (!MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
 				FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(fish));
-				if(!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isWorldCorrect(worldObj)) {
-					noBad = addToolTip(tooltip, Text.translate("badWorld"));
-				}
-				
-				int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
-				if(temperature < species.temperature[0]) {
-					int required = species.temperature[0] - temperature;
-					noBad = addToolTip(tooltip, Text.translate("tooCold"));
-					noBad = addToolTip(tooltip, "  +" + required + Text.DEGREES);
-				} else if (temperature > species.temperature[1]) {
-					int required = temperature - species.temperature[1];
-					noBad = addToolTip(tooltip, Text.translate("tooHot"));
-					noBad = addToolTip(tooltip, "  -" + required + Text.DEGREES);
-				}
-				
-				boolean match = false;
-				Salinity salt = getSalinity();
-				for(Salinity salinity: species.salinity) {
-					if(salt == salinity) {
-						match = true;
-						break;
+				if(species != null) {
+					if(!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isWorldCorrect(worldObj)) {
+						noBad = addToolTip(tooltip, Text.translate("badWorld"));
 					}
-				}
-								
-				if(!match) {
+					
+					int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
+					if(temperature < species.temperature[0]) {
+						int required = species.temperature[0] - temperature;
+						noBad = addToolTip(tooltip, Text.translate("tooCold"));
+						noBad = addToolTip(tooltip, "  +" + required + Text.DEGREES);
+					} else if (temperature > species.temperature[1]) {
+						int required = temperature - species.temperature[1];
+						noBad = addToolTip(tooltip, Text.translate("tooHot"));
+						noBad = addToolTip(tooltip, "  -" + required + Text.DEGREES);
+					}
+					
+					boolean match = false;
+					Salinity salt = getSalinity();
 					for(Salinity salinity: species.salinity) {
-						noBad = addToolTip(tooltip, Text.translate("salinity.prefers") + " " + Text.translate("salinity." + salinity.toString().toLowerCase()));
+						if(salt == salinity) {
+							match = true;
+							break;
+						}
 					}
-				}
-				
-				int size = Fish.tankSize.getDNA(fish);
-				if(tankSize < size) {
-					noBad = addToolTip(tooltip, Text.translate("notAdvanced"));
-					String text = worldObj.provider.isHellWorld? Text.translate("blocks.lava"): Text.translate("blocks.water");
-					noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
-				}
-				
-				if(!species.canWork(Time.getTime(worldObj))) {
-					noBad = addToolTip(tooltip, Text.translate("badTime"));
-				}
-				
-				if(!hasMale() || !hasFemale()) {
-					noBad = addToolTip(tooltip, Text.translate("missingMate"));
-				}
-				
-				if(tank.getFluidAmount() < 1 || tank.getFluid().fluidID != FluidDictionary.getFluid(FluidDictionary.fish_food).getID()){
-					noBad = addToolTip(tooltip, Text.translate("noFood"));
-				}
-				
-				if(noBad) {
-					tooltip.add(Text.DARK_GREEN + currentLife + " HP");
+									
+					if(!match) {
+						for(Salinity salinity: species.salinity) {
+							noBad = addToolTip(tooltip, Text.translate("salinity.prefers") + " " + Text.translate("salinity." + salinity.toString().toLowerCase()));
+						}
+					}
+					
+					int size = Fish.tankSize.getDNA(fish);
+					if(tankSize < size) {
+						noBad = addToolTip(tooltip, Text.translate("notAdvanced"));
+						String text = worldObj.provider.isHellWorld? Text.translate("blocks.lava"): Text.translate("blocks.water");
+						noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
+					}
+					
+					if(!species.canWork(Time.getTime(worldObj))) {
+						noBad = addToolTip(tooltip, Text.translate("badTime"));
+					}
+					
+					if(!hasMale() || !hasFemale()) {
+						noBad = addToolTip(tooltip, Text.translate("missingMate"));
+					}
+					
+					if(tank.getFluidAmount() < 1 || tank.getFluid().fluidID != FluidDictionary.getFluid(FluidDictionary.fish_food).getID()){
+						noBad = addToolTip(tooltip, Text.translate("noFood"));
+					}
+					
+					if(noBad) {
+						tooltip.add(Text.DARK_GREEN + currentLife + " HP");
+					}
 				}
 			} else if(hasMale() && hasFemale()) {
 				tooltip.add(Text.DARK_GREEN + currentLife + " HP");

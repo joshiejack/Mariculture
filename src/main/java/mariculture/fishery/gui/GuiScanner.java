@@ -36,7 +36,6 @@ public class GuiScanner extends GuiStorage {
 		return "";
 	}
 
-	@Override
 	public void drawText(String str, int x, int z) {
 		fontRenderer.drawString(str, x, z, 4210752);
 	}

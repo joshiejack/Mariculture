@@ -120,16 +120,6 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
 		} else if (dmg == CraftingMeta.THERMOMETER) {
 			displayTemperature(player.isSneaking(), world, x, y, z);
 		}
-		
-		if(Extra.DEBUG_ON && stack.getItemDamage() == CraftingMeta.ALUMINUM_SHEET) {
-			if(Modules.isActive(Modules.sealife)) {
-				if(!world.isRemote) {
-					EntityHammerhead shark = new EntityHammerhead(world);
-					shark.setPosition(x, y + 1, z);
-					world.spawnEntityInWorld(shark);
-				}
-			}
-		}
 
 		return true;
 	}

@@ -1,5 +1,6 @@
 == Mariculture 1.2.2c ==
-* Added in the missing code for fish area...
+* Added in the missing code for fish area... Area of Effect wasn't working as it should
+* Fixed a Potential Tooltip crash with the fish feeder
 
 == Mariculture 1.2.2b ==
 * Added a KirinDave proof check to the Crucible Furnace
