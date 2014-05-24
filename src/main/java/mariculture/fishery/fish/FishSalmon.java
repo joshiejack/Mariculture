@@ -14,10 +14,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class FishSalmon extends FishSpecies {
-	public FishSalmon(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 0, 23 };

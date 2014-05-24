@@ -3,9 +3,10 @@ package mariculture.core.items;
 import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.util.Text;
@@ -27,7 +28,11 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFluidContainer extends ItemMariculture {
+public class ItemBottle extends ItemMariculture {
+	public ItemBottle() {
+		setCreativeTab(MaricultureTab.tabFluids);
+	}
+	
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode) {
@@ -37,7 +42,7 @@ public class ItemFluidContainer extends ItemMariculture {
 		if (!world.isRemote) {
 			if (player.shouldHeal()) {
 				int meta = stack.getItemDamage();
-				player.heal(meta == FluidContainerMeta.BOTTLE_FISH_OIL? 7: 3);
+				player.heal(meta == BottleMeta.FISH_OIL? 7: 3);
 			}
 		}
 
@@ -52,7 +57,7 @@ public class ItemFluidContainer extends ItemMariculture {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		int meta = stack.getItemDamage();
-		if((meta == FluidContainerMeta.BOTTLE_FISH_OIL || meta == FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL) && player.shouldHeal()) {
+		if((meta == BottleMeta.FISH_OIL || meta == BottleMeta.FISH_OIL_BASIC) && player.shouldHeal()) {
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 		}
 
@@ -67,12 +72,12 @@ public class ItemFluidContainer extends ItemMariculture {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		int meta = stack.getItemDamage();
-		if(meta == FluidContainerMeta.BOTTLE_VOID) {
+		if(meta == BottleMeta.VOID) {
 			list.add(Text.PURPLE + StatCollector.translateToLocal("mariculture.string.blackhole"));
 			return;
 		}
 			
-		if(meta == FluidContainerMeta.BOTTLE_EMPTY) {
+		if(meta == BottleMeta.EMPTY) {
 			list.add(Text.YELLOW + StatCollector.translateToLocal("mariculture.string.doubleBottle"));
 			return;
 		}
@@ -84,7 +89,7 @@ public class ItemFluidContainer extends ItemMariculture {
 	}
 
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if(stack.getItemDamage() != FluidContainerMeta.BOTTLE_VOID)
+		if(stack.getItemDamage() != BottleMeta.VOID)
 			return false;
 		Block block = world.getBlock(x, y, z);
 		if(side == 1 && (block instanceof BlockFluidBase || block instanceof BlockLiquid)) {
@@ -144,75 +149,75 @@ public class ItemFluidContainer extends ItemMariculture {
 
 	@Override
 	public int getMetaCount() {
-		return FluidContainerMeta.COUNT;
+		return BottleMeta.COUNT;
 	}
 
 	@Override
 	public String getName(ItemStack stack) {
 		switch (stack.getItemDamage()) {
-		case FluidContainerMeta.BOTTLE_VOID:
+		case BottleMeta.VOID:
 			return "bottleVoid";
-		case FluidContainerMeta.BOTTLE_FISH_OIL:
+		case BottleMeta.FISH_OIL:
 			return "bottleFishOil";
-		case FluidContainerMeta.BOTTLE_IRON:
+		case BottleMeta.IRON:
 			return "bottleIron";
-		case FluidContainerMeta.BOTTLE_GOLD:
+		case BottleMeta.GOLD:
 			return "bottleGold";
-		case FluidContainerMeta.BOTTLE_COPPER:
+		case BottleMeta.COPPER:
 			return "bottleCopper";
-		case FluidContainerMeta.BOTTLE_TIN:
+		case BottleMeta.TIN:
 			return "bottleTin";
-		case FluidContainerMeta.BOTTLE_SILVER:
+		case BottleMeta.SILVER:
 			return "bottleSilver";
-		case FluidContainerMeta.BOTTLE_LEAD:
+		case BottleMeta.LEAD:
 			return "bottleLead";
-		case FluidContainerMeta.BOTTLE_BRONZE:
+		case BottleMeta.BRONZE:
 			return "bottleBronze";
-		case FluidContainerMeta.BOTTLE_STEEL:
+		case BottleMeta.STEEL:
 			return "bottleSteel";
-		case FluidContainerMeta.BOTTLE_ALUMINUM:
+		case BottleMeta.ALUMINUM:
 			return "bottleAluminum";
-		case FluidContainerMeta.BOTTLE_TITANIUM:
+		case BottleMeta.TITANIUM:
 			return "bottleTitanium";
-		case FluidContainerMeta.BOTTLE_MAGNESIUM:
+		case BottleMeta.MAGNESIUM:
 			return "bottleMagnesium";
-		case FluidContainerMeta.BOTTLE_NICKEL:
+		case BottleMeta.NICKEL:
 			return "bottleNickel";
-		case FluidContainerMeta.BOTTLE_GLASS:
+		case BottleMeta.GLASS:
 			return "bottleGlass";
-		case FluidContainerMeta.BOTTLE_GAS:
+		case BottleMeta.GAS:
 			return "bottleNaturalGas";
-		case FluidContainerMeta.BOTTLE_FISH_FOOD:
+		case BottleMeta.FISH_FOOD:
 			return "bottleFishFood";
-		case FluidContainerMeta.BOTTLE_RUTILE:
+		case BottleMeta.RUTILE:
 			return "bottleRutile";
-		case FluidContainerMeta.BOTTLE_QUICKLIME:
+		case BottleMeta.QUICKLIME:
 			return "bottleQuicklime";
-		case FluidContainerMeta.BOTTLE_SALT:
+		case BottleMeta.SALT:
 			return "bottleSalt";
-		case FluidContainerMeta.BOTTLE_EMPTY:
+		case BottleMeta.EMPTY:
 			return "bottleEmpty";
-		case FluidContainerMeta.BOTTLE_ELECTRUM:
+		case BottleMeta.ELECTRUM:
 			return "bottleElectrum";
-		case FluidContainerMeta.BOTTLE_WATER:
+		case BottleMeta.WATER:
 			return "bottleWater";
-		case FluidContainerMeta.BOTTLE_LAVA:
+		case BottleMeta.LAVA:
 			return "bottleLava";
-		case FluidContainerMeta.BOTTLE_MILK:
+		case BottleMeta.MILK:
 			return "bottleMilk";
-		case FluidContainerMeta.BOTTLE_CUSTARD:
+		case BottleMeta.CUSTARD:
 			return "bottleCustard";
-		case FluidContainerMeta.BOTTLE_NORMAL_CUSTARD:
+		case BottleMeta.CUSTARD_BASIC:
 			return "bottleNormalCustard";
-		case FluidContainerMeta.BOTTLE_NORMAL_FISH_FOOD:
+		case BottleMeta.FISH_FOOD_BASIC:
 			return "bottleNormalFishFood";
-		case FluidContainerMeta.BOTTLE_NORMAL_FISH_OIL:
+		case BottleMeta.FISH_OIL_BASIC:
 			return "bottleNormalFishOil";
-		case FluidContainerMeta.BOTTLE_NORMAL_GAS:
+		case BottleMeta.GAS_BASIC:
 			return "bottleNormalNaturalGas";
-		case FluidContainerMeta.BOTTLE_NORMAL_MILK:
+		case BottleMeta.MILK_BASIC:
 			return "bottleNormalMilk";
-		case FluidContainerMeta.BOTTLE_HP_WATER:
+		case BottleMeta.HP_WATER:
 			return "bottleHPWater";
 		default:
 			return "container";
@@ -222,36 +227,24 @@ public class ItemFluidContainer extends ItemMariculture {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case FluidContainerMeta.BOTTLE_BRONZE:
+		case BottleMeta.BRONZE:
 			return OreDictionary.getOres("ingotBronze").size() > 0;
-		case FluidContainerMeta.BOTTLE_LEAD:
+		case BottleMeta.LEAD:
 			return OreDictionary.getOres("ingotLead").size() > 0;
-		case FluidContainerMeta.BOTTLE_NICKEL:
+		case BottleMeta.NICKEL:
 			return OreDictionary.getOres("ingotNickel").size() > 0;
-		case FluidContainerMeta.BOTTLE_SILVER:
+		case BottleMeta.SILVER:
 			return OreDictionary.getOres("ingotSilver").size() > 0;
-		case FluidContainerMeta.BOTTLE_STEEL:
+		case BottleMeta.STEEL:
 			return OreDictionary.getOres("ingotSteel").size() > 0;
-		case FluidContainerMeta.BOTTLE_TIN:
+		case BottleMeta.TIN:
 			return OreDictionary.getOres("ingotTin").size() > 0;
-		case FluidContainerMeta.BOTTLE_FISH_OIL:
+		case BottleMeta.FISH_OIL:
 			return (Modules.isActive(Modules.fishery));
-		case FluidContainerMeta.BOTTLE_FISH_FOOD:
+		case BottleMeta.FISH_FOOD:
 			return (Modules.isActive(Modules.fishery));
-
 		default:
 			return true;
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
-		icons = new IIcon[getMetaCount()];
-		for (int i = 0; i < icons.length; i++) {
-			if (isActive(i)) {
-				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));
-			}
 		}
 	}
 }

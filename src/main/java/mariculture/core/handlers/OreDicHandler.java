@@ -36,10 +36,6 @@ public class OreDicHandler {
 		registerWildcard(new ItemStack(Blocks.sapling), new Integer[] { 0, 1, 2, 3, 4, 5 });
 		registerWildcard(new ItemStack(Blocks.leaves), new Integer[] { 0, 1, 2, 3 });
 		registerWildcard(new ItemStack(Blocks.leaves2), new Integer[] { 0, 1 });
-		
-		for(Plugin plugin: Plugins.plugins) {
-			plugin.registerWildcards();
-		}
 	}
 	
 	@SubscribeEvent
@@ -64,8 +60,16 @@ public class OreDicHandler {
 			}
 		}
 		
-		if(event.Ore.getItemDamage() == OreDictionary.WILDCARD_VALUE) addSpecial(event.Ore, event.Name);
-		else add(event.Ore, event.Name);
+		if(event.Ore != null && !event.Name.equals("")) {
+			if(event.Ore.getItemDamage() == OreDictionary.WILDCARD_VALUE) addSpecial(event.Ore, event.Name);
+			else add(event.Ore, event.Name);
+		} else if(event.Ore == null) {
+			LogHandler.log(Level.ERROR, "A modder has been very silly and attempted to register a null item to the ore dictionary");
+			new Exception().printStackTrace();
+		} else {
+			LogHandler.log(Level.ERROR, "A modder has been very silly and attempted to register an item with a blank name to the ore dictionary!");
+			new Exception().printStackTrace();
+		}
 	}
 	
 	public static void registerWildcard(ItemStack stack, Integer[] metas) {
@@ -73,7 +77,6 @@ public class OreDicHandler {
 	//Get the wildcard and add it
 		String name = Item.itemRegistry.getNameForObject(stack.getItem());
 		specials.put(name, metas);
-		
 		LogHandler.log(Level.INFO, "Successfully registered wildcard for " + name + "(" + stack.toString() + ")");
 	}
 	
@@ -145,6 +148,16 @@ public class OreDicHandler {
 		
 		return false;
 	}
+	
+	public static boolean areEqual(ItemStack stack, String item) {
+		if(!isInDictionary(stack)) return false;
+		ArrayList<String> names = entries.get(convert(stack)); 
+		for(String name: names) {
+			if(name.equals(item)) return true;
+		}
+		
+		return false;
+	}
 
 	public static boolean isWhitelisted(String name) {
 		if(Compatibility.ENABLE_WHITELIST) {
@@ -186,7 +199,7 @@ public class OreDicHandler {
 				ItemStack ret = item.copy();
 				if(!ret.hasTagCompound()) ret.setTagCompound(new NBTTagCompound());
 				if(!ret.stackTagCompound.hasKey("OreDictionaryDisplay")) ret.stackTagCompound.setTag("OreDictionaryDisplay", new NBTTagCompound());
-				ret.stackTagCompound.getCompoundTag("OreDictionaryDisplay").setTag("Lore", OreDicHandler.addAllTags(ret, new NBTTagList(), name));
+				ret.stackTagCompound.getCompoundTag("OreDictionaryDisplay").setTag("Lore", OreDicHandler.addAllTags(ret, name));
 				return ret;
 			}
 			
@@ -196,7 +209,7 @@ public class OreDicHandler {
 		ItemStack ret = stacks.get(0).copy();
 		if(!ret.hasTagCompound()) ret.setTagCompound(new NBTTagCompound());
 		if(!ret.stackTagCompound.hasKey("OreDictionaryDisplay")) ret.stackTagCompound.setTag("OreDictionaryDisplay", new NBTTagCompound());
-		ret.stackTagCompound.getCompoundTag("OreDictionaryDisplay").setTag("Lore", OreDicHandler.addAllTags(ret, new NBTTagList(), name));
+		ret.stackTagCompound.getCompoundTag("OreDictionaryDisplay").setTag("Lore", OreDicHandler.addAllTags(ret, name));
 		return ret;
 	}
 
@@ -212,7 +225,8 @@ public class OreDicHandler {
 		return names.get(0);
 	}
 
-	public static NBTTagList addAllTags(ItemStack stack, NBTTagList lore, String name) {
+	public static NBTTagList addAllTags(ItemStack stack, String name) {
+		NBTTagList lore = new NBTTagList();
 		lore.appendTag(new NBTTagString(name));
 		
 		String last = "";

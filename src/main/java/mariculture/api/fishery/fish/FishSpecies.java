@@ -3,6 +3,9 @@ package mariculture.api.fishery.fish;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
+
+import com.google.common.collect.Multimap;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
@@ -19,36 +22,44 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import scala.collection.mutable.MultiMap;
 
 public abstract class FishSpecies {
 	//Reference from names to number id, mappings + the List of Fish Species
-	private static HashMap<String, Integer> ids = new HashMap();
-	public static HashMap<Integer, FishSpecies> species = new HashMap();
+	public static final HashMap<Integer, FishSpecies> species = new HashMap();
+	public static final HashMap<String, Integer> ids = new HashMap();
 	
 	//The Products this species produces and the biomes they can live in
 	private static final HashMap<String, ArrayList<FishProduct>> products = new HashMap();
 	public int[] temperature;
 	public Salinity[] salinity;
+	public String modid;
 	
-	//The Fish Icon
+	//The Fish Icons
 	private IIcon theIcon;
 	private IIcon altIcon;
-
-	//Initialising the FishSpecies
-	public FishSpecies(int id) {
-		ids.put(getSpecies(), id);
-		species.put(id, this);
-	}
 	
 	//Should be ignored, just a helper method for getting the fish id
 	public final int getID() {
 		return ids.get(getSpecies());
 	}
 	
+	//This is called when creating a fish, it can be ignore by you
+	public final FishSpecies setup(String mod) {
+		temperature = setSuitableTemperature();
+		salinity = setSuitableSalinity();
+		modid = mod;
+		return this;
+	}
+	
 	/* Group/Species */
 	// This just converts the class name to something to be used for the images. no need to touch it, unless you name your classes differently
-	public String getSpecies() {
+	public String getSimpleName() {
 		return (getClass().getSimpleName().toLowerCase()).substring(4);
+	}
+	
+	public String getSpecies() {
+		return modid + ":" + getSimpleName();
 	}
 	
 	//Helper method ignore
@@ -121,13 +132,13 @@ public abstract class FishSpecies {
 	
 	/** Add Products, call this from the addFishProducts call, fish can have a maximum of 6 different products **/
 	public final void addProduct(ItemStack stack, double chance) {
-		String fish = this.getSpecies();
+		String fish = getSpecies();
 		ArrayList<FishProduct> list = null;
 		if(products.containsKey(fish))
 			list = products.get(fish);
 		else list = new ArrayList();
 		if(list.size() < 6)
-		list.add(new FishProduct(stack, chance));
+		list.add(new FishProduct(stack.copy(), chance));
 		products.put(fish, list);
 	}
 	
@@ -143,6 +154,16 @@ public abstract class FishSpecies {
 	}
 	
 //Raw Fish Products, These are what you can do use/Raw Fish for
+	/** Return true for this fish to get destroyed when you attack with it **/
+	public boolean destroyOnAttack() {
+		return false;
+	}
+	
+	/** Whether this fish has a damage boost when attacking things!**/
+	public Multimap getModifiers(UUID uuid, Multimap multimap) {
+		return multimap;
+	}
+	
 	/** Return whether you can use this fish for a potion or not **/
 	public String getPotionEffect(ItemStack stack) {
 		return null;
@@ -313,7 +334,7 @@ public abstract class FishSpecies {
 	/* Language/Icon */
 	/** Fish's name **/
 	public String getName() {
-		return StatCollector.translateToLocal("fish.data.species." + this.getSpecies());
+		return StatCollector.translateToLocal("fish.data.species." + getSimpleName());
 	}
 	
 	/** Gendered Icons?, return true if your fish has a different icon for male or female fish **/
@@ -330,10 +351,10 @@ public abstract class FishSpecies {
 	/** Called to register your fish icon **/
 	public void registerIcon(IIconRegister iconRegister) {
 		if(hasGenderIcons()) {
-			theIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies() + "_female");
-			altIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies() + "_male");
+			theIcon = iconRegister.registerIcon(modid + ":fish/" + getSimpleName() + "_female");
+			altIcon = iconRegister.registerIcon(modid + ":fish/" + getSimpleName() + "_male");
 		} else {
-			theIcon = iconRegister.registerIcon("mariculture:fish/" + getSpecies());
+			theIcon = iconRegister.registerIcon(modid + ":fish/" + getSimpleName());
 		}
 	}
 }

@@ -40,7 +40,7 @@ public class RenderCompressorTop extends RenderBase {
 			
 			setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 			renderBlock(0.4, 0, 0.25, 1.5, 0.15, 0.75);
-			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
+			setTexture(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 			renderBlock(0.2, 0, 0.45, 0.3, 0.3, 0.55);
 			renderBlock(0.55, 0.15, 0.35, 0.85, 0.4, 0.65);
 			renderBlock(0.6, 0.4, 0.4, 0.8, 0.45, 0.6);
@@ -50,7 +50,7 @@ public class RenderCompressorTop extends RenderBase {
 			renderBlock(1.05, 0.6, 0.45, 1.25, 0.7, 0.55);
 			renderBlock(1.1, 0.45, 0.6, 1.2, 0.55, 0.7);
 			renderBlock(1.7, 0, 0.35, 1.8, 0.2, 0.65);
-			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_TOP);
+			setTexture(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_TOP);
 			renderBlock(0.8, 0.15, 0.7, 1.5, 0.85, 0.75);
 		} else if (dir == ForgeDirection.NORTH || isItem()) {
 			if(!isItem()) {
@@ -67,7 +67,7 @@ public class RenderCompressorTop extends RenderBase {
 			
 			setTexture(Core.metals, MetalMeta.TITANIUM_BLOCK);
 			renderBlock(0.25, 0, 0.4, 0.75, 0.15, 1.5);
-			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE);
+			setTexture(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 			renderBlock(0.45, 0, 0.2, 0.55, 0.3, 0.3);
 			renderBlock(0.35, 0.15, 0.55, 0.65, 0.4, 0.85);
 			renderBlock(0.4, 0.4, 0.6, 0.6, 0.45, 0.8);
@@ -77,7 +77,7 @@ public class RenderCompressorTop extends RenderBase {
 			renderBlock(0.45, 0.6, 1.05, 0.55, 0.7, 1.25);
 			renderBlock(0.6, 0.45, 1.1, 0.7, 0.55, 1.2);
 			renderBlock(0.35, 0, 1.7, 0.65, 0.2, 1.8);
-			setTexture(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_TOP);
+			setTexture(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_TOP);
 			renderBlock(0.7, 0.15, 0.8, 0.75, 0.85, 1.5);
 		}
 	}

@@ -13,6 +13,6 @@ public class Compatibility {
 	public static final String[] BLACKLIST_DEFAULT = new String[] { "dyeBlue", "dyeBlack", "dyeWhite", "dyeGreen", "dyeBrown", "stickWood", "plankWood",
 		"logWood", "stairWood", "treeLeaves", "treeSapling", "glass", "slabWood"};
 	
-	public static final String[] BLACKLIST_PREFIX_DEFAULT = new String[] { "listAll" };
+	public static final String[] BLACKLIST_PREFIX_DEFAULT = new String[] { "listAll", "crop" };
 	public static final String[] BLACKLIST_ITEMS_DEFAULT = new String[] { "tconstruct.Materials 36", "dye 4", "dye 2", "dye 3", "dye 15", "dye 0"};
 }

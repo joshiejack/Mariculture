@@ -13,11 +13,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-public class FishEnder extends FishSpecies {
-	public FishEnder(int id) {
-		super(id);
-	}
-	
+public class FishEnder extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 0, 5 };

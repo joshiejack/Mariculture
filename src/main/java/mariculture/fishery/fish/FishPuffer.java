@@ -16,11 +16,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.world.World;
 
-public class FishPuffer extends FishSpecies {
-	public FishPuffer(int id) {
-		super(id);
-	}
-	
+public class FishPuffer extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 20, 45 };

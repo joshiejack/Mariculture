@@ -13,10 +13,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishNether extends FishSpecies {
-	public FishNether(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 45, 100 };

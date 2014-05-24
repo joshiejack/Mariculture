@@ -67,7 +67,7 @@ public class Diving extends RegistrationModule {
 	@Override
 	public void registerRecipes() {		
 		//Air Compressor Top
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 2, MachineRenderedMultiMeta.COMPRESSOR_TOP), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachinesMulti, 2, MachineRenderedMultiMeta.COMPRESSOR_TOP), new Object[] {
 			"  F", " PB", "III", 'I', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
 			'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
 			'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
@@ -75,7 +75,7 @@ public class Diving extends RegistrationModule {
 		});
 		
 		//Air Compressor Base
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE), new Object[] {
 			"ITT", "III", "W  ",
 			'I', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
 			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL),
@@ -83,12 +83,12 @@ public class Diving extends RegistrationModule {
 		});
 		
 		//Snorkel
-		RecipeHelper.addShapedRecipe(new ItemStack(snorkel), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(snorkel), new Object[] {
 			"  R", "LLR", 'R', Items.reeds, 'L', new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS)
 		});
 		
 		//Diving Helmet
-		RecipeHelper.addShapedRecipe(new ItemStack(divingHelmet), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(divingHelmet), new Object[] {
 			"CCC", "CGC", 'C', "ingotCopper", 'G', "glass"
 		});
 

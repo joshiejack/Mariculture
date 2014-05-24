@@ -18,6 +18,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ShapedJewelryRecipe implements IRecipe {
 	// Added in for future ease of change, but hard coded for now.
@@ -111,7 +112,7 @@ public class ShapedJewelryRecipe implements IRecipe {
 		}
 	}
 
-	ShapedJewelryRecipe(ShapedRecipes recipe, Map<ItemStack, String> replacements) {
+	 ShapedJewelryRecipe(ShapedRecipes recipe, Map<ItemStack, String> replacements) {
 		output = recipe.getRecipeOutput();
 		width = recipe.recipeWidth;
 		height = recipe.recipeHeight;

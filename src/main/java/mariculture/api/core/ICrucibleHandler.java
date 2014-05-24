@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import net.minecraft.item.ItemStack;
 
-public interface ISmelterHandler {	
+public interface ICrucibleHandler {	
 	/** Add a Melting Recipe
 	 * Take note that if you set the liquid output to the same as the ore rate, 
 	 * 	then your item will be affected by the purity upgrade */

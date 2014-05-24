@@ -18,10 +18,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishStingRay extends FishSpecies {
-	public FishStingRay(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 19, 29 };

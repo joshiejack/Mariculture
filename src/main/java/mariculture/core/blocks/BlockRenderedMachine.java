@@ -23,7 +23,10 @@ import mariculture.core.network.Packets;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAirPump.Type;
 import mariculture.core.tile.TileAnvil;
+import mariculture.core.tile.TileBlockCaster;
+import mariculture.core.tile.TileCooling;
 import mariculture.core.tile.TileIngotCaster;
+import mariculture.core.tile.TileNuggetCaster;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.items.ItemArmorFLUDD;
@@ -88,10 +91,13 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.FLUDD_STAND:	return 1F;
 			case MachineRenderedMeta.GEYSER: 		return 0.85F;
 			case MachineRenderedMeta.INGOT_CASTER: 	return 1.5F;
+			case MachineRenderedMeta.BLOCK_CASTER: 	return 1.5F;
+			case MachineRenderedMeta.NUGGET_CASTER: return 1.5F;
 			case MachineRenderedMeta.SIFTER:		return 1.5F;
 			case MachineRenderedMeta.TURBINE_GAS: 	return 10F;
 			case MachineRenderedMeta.TURBINE_HAND: 	return 2F;
 			case MachineRenderedMeta.TURBINE_WATER:	return 5F;
+			case MachineRenderedMeta.ANVIL:			return 25F;
 			default:								return 1.5F;
 		}
 	}
@@ -136,7 +142,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 				}
 
 				fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
-				fludd.tank.setFluidID(Core.highPressureWater.getID());
+				fludd.tank.setFluidID(Core.hpWater.getID());
 				fludd.tank.setFluidAmount(water);
 				Packets.updateRender(fludd);
 			}
@@ -248,9 +254,9 @@ public class BlockRenderedMachine extends BlockFunctional {
 		}
 		
 		//Update the ingot caster inventory
-		if(tile instanceof TileIngotCaster) {
+		if(tile instanceof TileCooling) {
 			if (!world.isRemote) {
-				TileIngotCaster caster = (TileIngotCaster) tile;
+				TileCooling caster = (TileCooling) tile;
 				for(int i = 0; i < caster.getSizeInventory(); i++) {
 					if(caster.getStackInSlot(i) != null) {
 						SpawnItemHelper.spawnItem(world, x, y + 1, z, caster.getStackInSlot(i));
@@ -507,6 +513,8 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.FLUDD_STAND:	return new TileFLUDDStand();
 			case MachineRenderedMeta.GEYSER: 		return new TileGeyser();
 			case MachineRenderedMeta.INGOT_CASTER: 	return new TileIngotCaster();
+			case MachineRenderedMeta.BLOCK_CASTER: 	return new TileBlockCaster();
+			case MachineRenderedMeta.NUGGET_CASTER: return new TileNuggetCaster();
 			case MachineRenderedMeta.SIFTER:		return new TileSift();
 			case MachineRenderedMeta.TURBINE_GAS: 	return new TileTurbineGas();
 			case MachineRenderedMeta.TURBINE_HAND: 	return new TileTurbineHand();
@@ -537,6 +545,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.TURBINE_HAND: 	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.TURBINE_WATER:	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.FLUDD_STAND:	return false;
+			case MachineRenderedMeta.NUGGET_CASTER: return false;
 			default:								return true;
 		}
 	}
@@ -550,7 +559,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		String name = prefix != null? prefix: "";
-		icons = new IIcon[getMetaCount()];
+		icons = new IIcon[getMetaCount() - 2];
 		for (int i = 0; i < icons.length; i++) {
 			if(i != MachineRenderedMeta.ANVIL) {
 				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));

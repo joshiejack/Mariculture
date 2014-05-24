@@ -3,19 +3,19 @@ package mariculture.fishery.items;
 import java.util.List;
 import java.util.Map.Entry;
 
-import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishDNA;
+import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.Text;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishyHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,72 +33,42 @@ public class ItemFishy extends Item {
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			return (getUnlocalizedName() + "." + stack.getTagCompound().getInteger("SpeciesID"));
+		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+		if(species != null) {
+			return getUnlocalizedName() + "." + species.getID();
 		}
 
 		return "fishy";
 	}
 
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		if (stack.hasTagCompound() && !Fishing.fishHelper.isEgg(stack)) {
-			int species1 = stack.stackTagCompound.getInteger("SpeciesID");
-			int species2 = stack.stackTagCompound.getInteger("lowerSpeciesID");
-
-			if (species1 != species2) {
-				return "\u00a7b" + Fishing.fishHelper.getSpecies(species1).getName() + "-"
-						+ Fishing.fishHelper.getSpecies(species2).getName() + " "
-						+ StatCollector.translateToLocal("fish.data.hybrid")
-						+ convertToSymbol(stack.stackTagCompound.getInteger("Gender"));
-			}
+	public String getItemStackDisplayName(ItemStack stack) {		
+		FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(stack));
+		FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(stack));
+		if(active == null || inactive == null) return Text.translate("anyFish");
+		if(active != inactive) {
+			return Text.AQUA + active.getName() + "-" + inactive.getName() + " " + Text.localize("fish.data.hybrid") + convertToSymbol(Fish.gender.getDNA(stack));
+		} else {
+			return Text.AQUA + active.getName() + convertToSymbol(Fish.gender.getDNA(stack));
 		}
-
-		if (stack.hasTagCompound()) {
-			if (Fishing.fishHelper.isEgg(stack)) {
-				return "\u00a7b" + StatCollector.translateToLocal("fish.data.species.egg");
-			}
-
-			return "\u00a7b" + Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID")).getName()
-					+ convertToSymbol(stack.stackTagCompound.getInteger("Gender"));
-		}
-
-		return "\u00a7b" + StatCollector.translateToLocal("mariculture.string.anyFish");
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if (stack.hasTagCompound()) {
-			if(!Fishing.fishHelper.isEgg(stack)) {
-				for (int i = 0; i < FishDNA.DNAParts.size(); i++) {
-					FishDNA.DNAParts.get(i).getInformationDisplay(stack, list);
-				}
-			} else {
-				if(stack.stackTagCompound.getInteger("currentFertility") > 0) {
-					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " 
-							+ StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
-				} else {
-					list.add(StatCollector.translateToLocal("mariculture.string.undetermined") + " " 
-							+ StatCollector.translateToLocal("mariculture.string.eggsRemaining"));
-				}
+		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+		if(species != null) {
+			for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+				FishDNABase.DNAParts.get(i).getInformationDisplay(stack, list);
 			}
 		}
 	}
 
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
-		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.hasKey("isEgg")) {
-				return egg;
-			}
-			
-			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID"));
-			if(fish != null) {
-				return fish.getIcon(Fish.gender.getDNA(stack));
-			}
-		}
-
-		return Fish.cod.getIcon(0);
+		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+		if(species != null) {
+			return species.getIcon(Fish.gender.getDNA(stack));
+		} else return new ItemStack(Items.fish, 1, 32000).getIconIndex();
 	}
 
 	@Override
@@ -107,8 +77,6 @@ public class ItemFishy extends Item {
 		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
 			species.getValue().registerIcon(iconRegister);
 		}
-
-		egg = iconRegister.registerIcon(Mariculture.modid + ":" + "fish/egg");
 	}
 
 	@Override
@@ -140,10 +108,6 @@ public class ItemFishy extends Item {
 
 	@Override
 	public int getEntityLifespan(ItemStack stack, World world) {
-		if(stack.hasTagCompound() && !Fishing.fishHelper.isEgg(stack)) {
-			return 10;
-		} else{
-			return 6000;
-		}
+		return 15;
 	}
 }

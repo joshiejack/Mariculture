@@ -1,6 +1,7 @@
 package mariculture.fishery.tile;
 
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RodType;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -150,14 +151,13 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private boolean hasRod() {
-		if(inventory[rod] != null && Fishing.fishing.getRodType(inventory[rod]) != null) {
-			if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
-				return ((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, true) >= 100;
+		if(inventory[rod] != null) {
+			RodType type = Fishing.fishing.getRodType(inventory[rod]);
+			if(type != null) {
+				return type.canFish(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
 			}
-			
-			return true;
 		}
-		
+
 		return false;
 	}
 	
@@ -204,21 +204,15 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		return 12 + (speed * 8);
 	}
 	
-	//Process
 	private void catchFish() {
-		ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord, zCoord, inventory[rod]);
+		RodType type = Fishing.fishing.getRodType(inventory[rod]);
+		inventory[rod] = type.damage(worldObj, null, inventory[rod], 0, Rand.rand);
+		ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, inventory[rod]);
 		if (lootResult != null) {
 			helper.insertStack(lootResult, out);
 		}
 		
-		if(inventory[rod].getItem() instanceof IEnergyContainerItem) {
-			((IEnergyContainerItem)inventory[rod].getItem()).extractEnergy(inventory[rod], 100, false);
-		} else {
-			inventory[rod].attemptDamageItem(1, Rand.rand);
-			if(inventory[rod].getItemDamage() > inventory[rod].getMaxDamage())
-				inventory[rod] = null;
-				canWork = canWork();
-		}
+		canWork = canWork();
 	}
 
 //Gui Feature Helpers

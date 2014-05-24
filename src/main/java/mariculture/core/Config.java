@@ -47,6 +47,7 @@ public class Config {
     
     private static void setupTabs() {
     	MaricultureTab.tabFish = (Modules.isActive(Modules.fishery))? new MaricultureTab("fishTab"): null;
+    	MaricultureTab.tabFluids = new MaricultureTab("maricultureFluidsTab");
 		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
 		MaricultureTab.tabJewelry = (Modules.isActive(Modules.magic))? new MaricultureTab("jewelryTab"): null;
     }
@@ -76,6 +77,10 @@ public class Config {
             Extra.VANILLA_TEXTURES = config.get(Category.EXTRA, "Use Vanilla textures for Fish", false).getBoolean(false);
             Extra.BREEDING_MULTIPLIER = config.get(Category.EXTRA, "Breeding Multiplier", 1.0D).getDouble(1.0D);
             Extra.IGNORE_BIOMES = config.get(Category.EXTRA, "Ignore biomes when catching fish", false).getBoolean(false);
+            Extra.WEAK_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Weak)", 8).getInt();
+			Extra.DEMON_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Demon)", 64).getInt();
+			Extra.DISABLE_DIRT_CRAFTING = config.get(Category.EXTRA, "Disable Dirt Crafting", false).getBoolean(false);
+			Extra.DISABLE_GRASS = config.get(Category.EXTRA, "Disable Grass Crafting", false).getBoolean(false);
             if(!Modules.isActive(Modules.fishery)) {
             	Extra.VANILLA_STATS = true;
             	Extra.VANILLA_POOR = false;
@@ -136,10 +141,11 @@ public class Config {
             WorldGeneration.ANCIENT_SAND_ENABLED = config.get(Category.WORLD, "Ancient Sand > Enabled", true).getBoolean(true);
             
             WorldGeneration.CORAL_REEF_ENABLED = config.get(Category.WORLD, "Coral Reef > Generation", true).getBoolean(true);
+            WorldGeneration.CORAL_EXTRA = config.get(Category.WORLD, "Coral Reef > Enable Harsher Generation", true).getBoolean(true);
             
             //TODO: Readd the coral biome forcing
-            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > Force in BOP Coral Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
-            WorldGeneration.CORAL_BIOMESOP_TYPES = config.get(Category.WORLD, "Coral > Force in Coral Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
+            WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral Reef > Force in BOP Coral Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
+            WorldGeneration.CORAL_BIOMESOP_TYPES = config.get(Category.WORLD, "Coral Reed > Force in Coral Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
             
             //Kelp Settins
             WorldGeneration.KELP_FOREST_ENABLED = config.get(Category.WORLD, "Kelp Forest > Enabled", true).getBoolean(true);

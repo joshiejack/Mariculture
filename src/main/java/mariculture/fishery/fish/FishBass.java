@@ -19,11 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FishBass extends FishSpecies {
-	public FishBass(int id) {
-		super(id);
-	}
-	
+public class FishBass extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 10, 15 };

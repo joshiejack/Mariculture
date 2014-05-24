@@ -56,7 +56,10 @@ public class Fluids {
 
 		return false;
 	}
-
+	
+	//Dirt
+	public static String dirt;
+	
 	//Metals and Glass
 	public static String aluminum;
 	public static String titanium;

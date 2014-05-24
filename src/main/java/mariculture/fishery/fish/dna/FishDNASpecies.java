@@ -31,8 +31,8 @@ public class FishDNASpecies extends FishDNABase {
 	public int[] getDominant(int option1, int option2, Random rand) {
 		int[] ret = new int[2];
 
-		boolean species1 = Fishing.fishHelper.getSpecies(option1).isDominant();
-		boolean species2 = Fishing.fishHelper.getSpecies(option2).isDominant();
+		boolean species1 = FishSpecies.species.get(option1).isDominant();
+		boolean species2 = FishSpecies.species.get(option2).isDominant();
 
 		if (species1 && !species2) {
 			ret[0] = option1;

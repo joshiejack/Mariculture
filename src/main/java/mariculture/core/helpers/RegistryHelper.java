@@ -50,7 +50,7 @@ public class RegistryHelper {
 			String name = item.getUnlocalizedName().substring(5);
 			name = name.replace('.', '_');
 			if(Extra.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the item " + item.getClass().getSimpleName() + " as Mariculture:" + name);
-			GameRegistry.registerItem(item, name, Mariculture.modid);
+			GameRegistry.registerItem(item, name);
 			
 			//Mariculture Item Registry
 			if(item instanceof IItemRegistry) ((IItemRegistry) item).register(item);
@@ -108,16 +108,14 @@ public class RegistryHelper {
 		}
 		return null;
 	}
-
-	public static String getName(ItemStack stack) {
-		if(stack == null) {
-			return " null stack ";
-		}
-		
-		if(stack.getItem() instanceof IItemRegistry) {
-			return ((IItemRegistry) (stack).getItem()).getName(stack);
-		}
-		
-		return " not iitem registered " + stack.getUnlocalizedName();
+	
+	public static String getName(Object o) {
+		if(o instanceof ItemStack) {
+			return Item.itemRegistry.getNameForObject((((ItemStack)o).getItem()));
+		} else if (o instanceof Item) {
+			return Item.itemRegistry.getNameForObject(((Item)o));
+		} else if (o instanceof Block) {
+			return Block.blockRegistry.getNameForObject((Block)o);
+		} else return null;
 	}
 }

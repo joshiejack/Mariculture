@@ -1,12 +1,17 @@
 package mariculture.core.helpers;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+
 import mariculture.core.Core;
-import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.FluidMari;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.Text;
 import mariculture.fishery.FishFoodHandler;
@@ -41,7 +46,7 @@ public class FluidHelper {
 	}
 
 	public static boolean isVoid(ItemStack stack) {
-		return (stack != null && stack.getItem() == Core.bottles && stack.getItemDamage() == FluidContainerMeta.BOTTLE_VOID);
+		return (stack != null && stack.getItem() == Core.bottles && stack.getItemDamage() == BottleMeta.VOID);
 	}
 	
 	public static boolean isIContainer(ItemStack stack) {
@@ -157,13 +162,13 @@ public class FluidHelper {
 	}
 
 	public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-		if (matches(top, bottom, new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY))) {
+		if (matches(top, bottom, new ItemStack(Core.bottles, 1, BottleMeta.EMPTY))) {
 			FluidStack fluid = tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, false);
 			if(fluid == null || fluid != null && fluid.amount <= 0)
 				return null;
 			
 			tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
-			return new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_EMPTY);
+			return new ItemStack(Core.bottles, 1, BottleMeta.EMPTY);
 		}
 		
 		return null;
@@ -334,5 +339,46 @@ public class FluidHelper {
 		}
 		
 		return tooltip;
+	}
+
+	public static Fluid addFluid(String field, String name, int volume, int bottleMeta) {
+		Fluid fluid = null;
+		if (!Fluids.instance.fluidExists(name)) {
+			fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name);
+			FluidRegistry.registerFluid(fluid);
+			Fluids.instance.addFluid(name, fluid);
+		} else {
+			fluid = Fluids.getFluid(name);
+		}
+
+		if(volume != -1) {
+			FluidHelper.registerHeatBottle(fluid, volume, bottleMeta);
+		}
+		
+		//Set the values of the field in Fluids
+		try {
+			Field f = Fluids.class.getField(field);
+			f.set(null, fluid.getName());
+		} catch (Exception e) {
+			LogHandler.log(Level.INFO, "Failed to set a Fluid in Fluids.java : " + field + " - " + name);
+		}
+		
+		return fluid;
+	}
+
+	public static void registerHeatBottle(Fluid fluid, int vol, int meta) {
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, vol), new ItemStack(Core.bottles, 1, meta), new ItemStack(Core.bottles, 1, BottleMeta.EMPTY));
+	}
+
+	public static void registerVanillaBottle(Fluid fluid, int vol, int meta) {
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, vol), new ItemStack(Core.bottles, 1, meta), new ItemStack(Items.glass_bottle));
+	}
+
+	public static Fluid addFluid(String name, int volume, int meta) {
+		return addFluid(name, name, volume, meta);
+	}
+
+	public static void registerBucket(Fluid fluid, int vol, int meta) {
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, vol), new ItemStack(Core.buckets, 1, meta), new ItemStack(Items.bucket));
 	}
 }

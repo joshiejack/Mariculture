@@ -29,7 +29,7 @@ public class BlockHelper {
 	}
 	
 	public static boolean isHPWater(World world, int x, int y, int z) {
-		return world.getBlock(x, y, z) == Core.highPressureWaterBlock;
+		return world.getBlock(x, y, z) == Core.hpWaterBlock;
 	}
 	
 	public static boolean isLava(World world, int x, int y, int z) {

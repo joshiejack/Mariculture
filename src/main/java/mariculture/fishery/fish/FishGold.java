@@ -8,11 +8,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 
-public class FishGold extends FishSpecies {
-	public FishGold(int id) {
-		super(id);
-	}
-	
+public class FishGold extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -5, 22 };

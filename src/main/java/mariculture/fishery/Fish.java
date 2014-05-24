@@ -1,5 +1,7 @@
 package mariculture.fishery;
 
+import static mariculture.Mariculture.modid;
+
 import java.util.Map.Entry;
 
 import mariculture.api.fishery.Fishing;
@@ -198,46 +200,46 @@ public class Fish {
 	}
 	
 	private static void addFish() {
-		cod = new FishCod(0);
-		salmon = new FishSalmon(1);
-		clown = new FishClown(2);
-		puffer = new FishPuffer(3);
-		glow = new FishGlow(4);
-		blaze = new FishBlaze(5);
-		night = new FishNight(6);
-		ender = new FishEnder(7);
-		dragon = new FishDragon(8);
-		minnow = new FishMinnow(9);
-		perch = new FishPerch(10);
-		bass = new FishBass(11);
-		tetra = new FishTetra(12);
-		catfish = new FishCatfish(13);
-		piranha = new FishPiranha(14);
-		stingRay = new FishStingRay(15);
-		mantaRay = new FishMantaRay(16);
-		electricRay = new FishElectricRay(17);
-		damsel = new FishDamsel(18);
-		angel = new FishAngel(19);
-		nether = new FishNether(20);
-		squid = new FishSquid(21);
-		jelly = new FishJelly(22);
-		manOWar = new FishManOWar(23);
-		gold = new FishGold(24);
-		siamese = new FishSiamese(25);
-		koi = new FishKoi(26);
-		butterfly = new FishButterfly(27);
-		tang = new FishTang(28);
-		tuna = new FishTuna(29);
-		blaasop = new FishBlaasop(30);
-		stargazer = new FishStargazer(31);
-		lamprey = new FishLamprey(32);
-		spider = new FishSpider(33);
-		undead = new FishUndead(34);
-		boneless = new FishBoneless(35);
-		angler = new FishAngler(36);
-		trout = new FishTrout(37);
-		herring = new FishHerring(38);
-		minecraft = new FishMinecraft(39);
+		cod = Fishing.fishHelper.registerFish(modid, FishCod.class, 0);
+		salmon = Fishing.fishHelper.registerFish(modid, FishSalmon.class, 1);
+		clown = Fishing.fishHelper.registerFish(modid, FishClown.class, 2);
+		puffer = Fishing.fishHelper.registerFish(modid, FishPuffer.class, 3);
+		glow = Fishing.fishHelper.registerFish(modid, FishGlow.class, 4);
+		blaze = Fishing.fishHelper.registerFish(modid, FishBlaze.class, 5);
+		night = Fishing.fishHelper.registerFish(modid, FishNight.class, 6);
+		ender = Fishing.fishHelper.registerFish(modid, FishEnder.class, 7);
+		dragon = Fishing.fishHelper.registerFish(modid, FishDragon.class, 8);
+		minnow = Fishing.fishHelper.registerFish(modid, FishMinnow.class, 9);
+		perch = Fishing.fishHelper.registerFish(modid, FishPerch.class, 10);
+		bass = Fishing.fishHelper.registerFish(modid, FishBass.class, 11);
+		tetra = Fishing.fishHelper.registerFish(modid, FishTetra.class, 12);
+		catfish = Fishing.fishHelper.registerFish(modid, FishCatfish.class, 13);
+		piranha = Fishing.fishHelper.registerFish(modid, FishPiranha.class, 14);
+		stingRay = Fishing.fishHelper.registerFish(modid, FishStingRay.class, 15);
+		mantaRay = Fishing.fishHelper.registerFish(modid, FishMantaRay.class, 16);
+		electricRay = Fishing.fishHelper.registerFish(modid, FishElectricRay.class, 17);
+		damsel = Fishing.fishHelper.registerFish(modid, FishDamsel.class, 18);
+		angel = Fishing.fishHelper.registerFish(modid, FishAngel.class, 19);
+		nether = Fishing.fishHelper.registerFish(modid, FishNether.class, 20);
+		squid = Fishing.fishHelper.registerFish(modid, FishSquid.class, 21);
+		jelly = Fishing.fishHelper.registerFish(modid, FishJelly.class, 22);
+		manOWar = Fishing.fishHelper.registerFish(modid, FishManOWar.class, 23);
+		gold = Fishing.fishHelper.registerFish(modid, FishGold.class, 24);
+		siamese = Fishing.fishHelper.registerFish(modid, FishSiamese.class, 25);
+		koi = Fishing.fishHelper.registerFish(modid, FishKoi.class, 26);
+		butterfly = Fishing.fishHelper.registerFish(modid, FishButterfly.class, 27);
+		tang = Fishing.fishHelper.registerFish(modid, FishTang.class, 28);
+		tuna = Fishing.fishHelper.registerFish(modid, FishTuna.class, 29);
+		blaasop = Fishing.fishHelper.registerFish(modid, FishBlaasop.class, 30);
+		stargazer = Fishing.fishHelper.registerFish(modid, FishStargazer.class, 31);
+		lamprey = Fishing.fishHelper.registerFish(modid, FishLamprey.class, 32);
+		spider = Fishing.fishHelper.registerFish(modid, FishSpider.class, 33);
+		undead = Fishing.fishHelper.registerFish(modid, FishUndead.class, 34);
+		boneless = Fishing.fishHelper.registerFish(modid, FishBoneless.class, 35);
+		angler = Fishing.fishHelper.registerFish(modid, FishAngler.class, 36);
+		trout = Fishing.fishHelper.registerFish(modid, FishTrout.class, 37);
+		herring = Fishing.fishHelper.registerFish(modid, FishHerring.class, 38);
+		minecraft = Fishing.fishHelper.registerFish(modid, FishMinecraft.class, 39);
 	}
 	
 	private static void addMutations() {
@@ -277,10 +279,6 @@ public class Fish {
 	}
 	
 	private static void addRecipe(FishSpecies species) {
-		species.temperature = species.setSuitableTemperature();
-		species.salinity = species.setSuitableSalinity();
-		
-		species.addFishProducts();
 		ItemStack raw = new ItemStack(Items.fish, 1, species.getID());
 		ItemStack kelp = Modules.isActive(Modules.worldplus)? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): ItemLib.cactusGreen;
 		if(species.getFishOilVolume() > 0 && species.getLiquifiedProduct() != null && species.getLiquifiedProductChance() > 0) {
@@ -294,9 +292,7 @@ public class Fish {
 			RecipeHelper.addFishMeal(raw, meal);
 		}
 		
-		
-		//Re-Register now that the biomes and salinity have been set
-		FishSpecies.species.put(species.getID(), species);
+		species.addFishProducts();
 	}
 	
 	public static void addRecipes() {

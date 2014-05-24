@@ -11,11 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FishGlow extends FishSpecies {
-	public FishGlow(int id) {
-		super(id);
-	}
-	
+public class FishGlow extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 35, 100 };

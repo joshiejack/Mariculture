@@ -52,7 +52,6 @@ public class MagicEventHandler {
 			} else {
 				if(EnchantHelper.exists(Magic.oneRing))	EnchantmentOneRing.activate(player);
 				if(EnchantHelper.exists(Magic.hungry))	EnchantmentNeverHungry.activate(player);
-				if(EnchantHelper.exists(Magic.health)) 	EnchantmentHealth.activate(player);
 			}
 			
 			if(!player.capabilities.isCreativeMode) {
@@ -101,6 +100,12 @@ public class MagicEventHandler {
 
 	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
+		if(EnchantHelper.exists(Magic.health)) {
+			if(event.entity instanceof EntityPlayer) {
+				EnchantmentHealth.activate(event, (EntityPlayer)event.entity);
+			}
+		}
+		
 		if(event.entity.worldObj.isRemote) return;
 		if(EnchantHelper.exists(Magic.elemental) && event.entity instanceof EntityPlayer) {
 			EnchantmentElemental.onHurt(event, (EntityPlayer)event.entity);
@@ -132,6 +137,10 @@ public class MagicEventHandler {
 	
 	@SubscribeEvent
 	public void onEntityDeath(LivingDeathEvent event) {
+		if(EnchantHelper.exists(Magic.resurrection)) {
+			EnchantmentResurrection.activate(event);
+		}
+		
 		if(event.source.getSourceOfDamage() != null && event.source.getSourceOfDamage() instanceof EntityPlayer) {
 			EntityLivingBase entity = event.entityLiving;
 			EntityPlayer player = (EntityPlayer) event.source.getSourceOfDamage();
@@ -150,13 +159,6 @@ public class MagicEventHandler {
 		if(event.entity.worldObj.isRemote) return;
 		if(EnchantHelper.exists(Magic.elemental) && event.source.getSourceOfDamage() instanceof EntityPlayer) {
 			EnchantmentElemental.onKillEntity(event, (EntityPlayer)event.source.getSourceOfDamage());
-		}
-	}
-
-	@SubscribeEvent
-	public void onPlayerDeath(LivingDeathEvent event) {
-		if(EnchantHelper.exists(Magic.resurrection)) {
-			EnchantmentResurrection.activate(event);
 		}
 	}
 }

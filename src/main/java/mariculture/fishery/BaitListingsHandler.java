@@ -26,9 +26,8 @@ public class BaitListingsHandler {
 			RodType quality = Fishing.fishing.getRodType(stack);
 			if(quality != null) {
 				list.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.bait"));
-				ArrayList<List> baits = Fishing.fishing.getCanUseList(quality);
-				for(List l: baits) {
-					ItemStack bait = new ItemStack((Item)l.get(0), 1, (Integer)l.get(1));
+				ArrayList<ItemStack> baits = Fishing.fishing.getCanUseList(quality);
+				for(ItemStack bait: baits) {
 					if(bait != null) {
 						list.add(bait.getItem().getItemStackDisplayName(bait));
 					}

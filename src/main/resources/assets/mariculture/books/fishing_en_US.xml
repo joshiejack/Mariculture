@@ -60,7 +60,7 @@
     </page>
     <page>
         <text x="92" y="-13" bold="true">Fishing Rods</text>
-        <text>There are four fishing rods introduced by Mariculture, you will need to use them instead of the vanilla if you want to catch any of the Mariculture Fish or Loot. Each fishing rod can use different types of bait, as well as having different durabilities.</text>
+        <text>There are four fishing rods introduced by Mariculture, they are all better at catching fish than the vanilla rod. Each fishing rod can use different types of bait, as well as having different durabilities and enchantability.</text>
         <crafting x="5" y="53">
             <craft1>||reeds</craft1>
             <craft2>|reeds|string</craft2>
@@ -92,74 +92,128 @@
         <stack item="rod.reed" size="1.8"></stack>
         <text x="32" y="45" bold="true" size="0.8">Reed Fishing Rod (96 Uses)</text>
         <stack item="ant" x="30" y="36"></stack>
-        <stack item="hopper" x="50" y="36"></stack>
-        <stack item="maggot" x="70" y="36"></stack>
+        <stack item="bread" x="50" y="36"></stack>
+        <stack item="hopper" x="70" y="36"></stack>
         <hr x="10" y="59" width="160"></hr>
         
         <stack item="rod.wood" y="21" size="1.8"></stack>
         <text x="32" y="93" bold="true" size="0.8">Wooden Fishing Rod (320 Uses)</text>
-        <stack item="worm" x="30" y="75"></stack>
+        <stack item="hopper" x="30" y="75"></stack>
         <stack item="maggot" x="50" y="75"></stack>
-        <stack item="bread" x="70" y="75"></stack>
+        <stack item="worm" x="70" y="75"></stack>
         <hr x="10" y="98" width="160"></hr>
         
         <stack item="rod.titanium" y="43" size="1.8"></stack>
         <text x="32" y="142" bold="true" size="0.8">Titanium Fishing Rod (640 Uses)</text>
         <stack item="worm" x="30" y="114"></stack>
-        <stack item="bread" x="50" y="114"></stack>
+        <stack item="bee" x="50" y="114"></stack>
         <stack item="fish 9" x="70" y="114"></stack>
         <hr x="10" y="137" width="160"></hr>
         
         <stack item="rod.flux" y="64" size="1.8"></stack>
         <text x="32" y="191" bold="true" size="0.8">RF Fishing Rod (Unlimited Uses)</text>
         <stack item="ant" x="30" y="154"></stack>
-        <stack item="worm" x="50" y="154"></stack>
+        <stack item="bread" x="50" y="154"></stack>
         <stack item="hopper" x="70" y="154"></stack>
         <stack item="maggot" x="90" y="154"></stack>
-        <stack item="bread" x="110" y="154"></stack>
-        <stack item="fish 9" x="130" y="154"></stack>
-        <stack item="bee" x="150" y="154"></stack>
+        <stack item="bee" x="110" y="154"></stack>
+        <stack item="worm" x="130" y="154"></stack>
+        <stack item="fish 9" x="150" y="154"></stack>
+    </page>
+    <page>
+        <text x="100" y="-13" bold="true">Environment</text>
+        <text>Mariculture introduces the Aquatic Environment. This is what determines which fish can live, or be caught where. The Environment consists of two entities: Water Salinity and Water Temperature. Water Salinity is static and is based upon the biome you are in. While the temperature is much more dynamic, the temperature will change based on many different factors, including world height, weather, sun position, biome defaults and lighting.</text>
+<hr y="90"></hr>
+<text y="100" bold="true">Aquatic Environment Analyser</text>
+<text y="172" wrap="150" size="0.7">This device, will be crucial when looking for good locations, right clicking on a block or in the air will give you the temperature and salinity of those coordinates. Helping you better understand the environment.</text>
+    <crafting x="105" y="117" size="0.95">
+        <craft1>||</craft1>
+        <craft2>|fish|</craft2>
+        <craft3>|compass|</craft3>
+        <craftResult>thermometer</craftResult>
+    </crafting>
+    </page>
+    <page>
+        <text x="18" y="-13" bold="true">Biome Defaults</text>
+        <text>This is just a list of the default temperatures for each biome, and their salinity to give you an estimate of where to look to fish or breed.</text>
+<hr y="30"></hr>
+<text y="30" size="1">
+Beach: Brackish, 25°C
+Desert: Fresh, 45°C
+Extreme Hills: Fresh, 5°C
+Forest: Fresh, 10°C
+Frozen Ocean: Saline, -1°C
+Frozen River: Fresh, -1°C
+Ice Plains: Fresh, -1°C
+Jungle: Fresh, 25°C
+Mushroom: Fresh, 15°C
+Nether: Fresh, 80°C
+Ocean: Saline, 4°C
+Plains: Fresh, 10°C
+River: Fresh, 10°C
+The End: Fresh, 3°C
+Swamp: Fresh, 8°C
+Taiga: Fresh, 1°C
+</text>
     </page>
     <page>
        <text x="102" y="-13" bold="true">Fishing</text>
        <text>Fishing is a piece of cake! Just make sure you have a rod and bait that can be used together. Then place the bait next to the fishing rod on your hotbar, and fish away like vanilla!</text>
        <img mod="mariculture" src="fishing/mariculture_fishing" x="20" y="100" size="0.53"></img>
     </page>
-     <page>
+    <page>
         <text x="38" y="-13" bold="true">Fish</text>
-        <text>Different species are found by fishing in different biomes. Only 8 species however can be caught alive in the wild. Here's a list of the biome types they can be found in.</text>
+        <text wrap="275" x="-1" y="9" size="0.7">Different species can be caught in different environments. Everyfish can be caught alive, but only under very special conditions. There are 10 base fish, that can be caught easily in the wild. Below is a list of these species, what temperature range you can find them in, as well as the Y Height and Salinity.</text>
 
         <stack item="fish 9" size="1.5" y="15"></stack>
         <text x="28" y="37" bold="true">Minnow</text>
-        <text x="28" y="78" size="0.7" wrap="100">Normal, Cold, Frozen</text>
+        <text x="28" y="78" size="0.7" wrap="100">Fresh Water, 70+
+-1°C to 45°C</text>
         
         <stack item="fish 0" x="88" size="1.5" y="15"></stack>
         <text x="116" y="37" bold="true">Cod</text>
-        <text x="116" y="78" size="0.7" wrap="100">(Frozen) Ocean, Cold, Frozen</text>
+        <text x="116" y="78" size="0.7" wrap="100">Saline Water, *
+-3°C to 20°C</text>
         
         <stack item="fish 15" size="1.5" y="35"></stack>
         <text x="28" y="70" bold="true">Sting Ray</text>
-        <text x="28" y="125" size="0.7" wrap="100">(Frozen) Ocean, Hot, Arid</text>
+        <text x="28" y="125" size="0.7" wrap="100">Brackish Water, *
+19°C to 29°C</text>
         
         <stack item="fish 21" x="88" size="1.5" y="35"></stack>
         <text x="116" y="70" bold="true">Squid</text>
-        <text x="116" y="125" size="0.7" wrap="100">(Frozen) Ocean</text>
+        <text x="116" y="125" size="0.7" wrap="100">Saline Water, *
+3°C to 20°C</text>
         
         <stack item="fish 18" size="1.5" y="55"></stack>
         <text x="28" y="100" bold="true">Damselfish</text>
-        <text x="28" y="168" size="0.7" wrap="100">Ocean, Hot</text>
+        <text x="28" y="168" size="0.7" wrap="90">Fresh Water, *
+22°C to 27°C</text>
         
         <stack item="fish 12" x="88" size="1.5" y="55"></stack>
         <text x="116" y="100" bold="true">Neon Tetra</text>
-        <text x="116" y="168" size="0.7" wrap="100">Hot</text>
+        <text x="116" y="168" size="0.7" wrap="100">Fresh Water, *
+20°C to 28°C</text>
         
-        <stack item="fish 3" size="1.5" y="75"></stack>
-        <text x="28" y="130" bold="true">Netherfish</text>
-        <text x="28" y="211" size="0.7" wrap="100">The Nether</text>
+        <stack item="fish 33" size="1.5" y="75"></stack>
+        <text x="28" y="130" bold="true">Spiderfish</text>
+        <text x="28" y="211" size="0.7" wrap="100">Fresh Water, -48
+-5°C to 20°C</text>
         
-        <stack item="fish 6" x="88" size="1.5" y="75"></stack>
-        <text x="116" y="130" bold="true">Nightfish</text>
-        <text x="116" y="211" size="0.7">The End</text>
+        <stack item="fish 30" x="88" size="1.5" y="75"></stack>
+        <text x="116" y="130" bold="true">Blaasop</text>
+        <text x="116" y="211" size="0.7" wrap="100">Saline Water, -16
+-3°C to 5°C</text>
+        
+        <stack item="fish 20" size="1.5" y="95"></stack>
+        <text x="28" y="160" bold="true">Netherfish</text>
+        <text x="28" y="254" size="0.7" wrap="100">The Nether
+45°C to 100°C</text>
+        
+        <stack item="fish 6" x="88" size="1.5" y="95"></stack>
+        <text x="116" y="160" bold="true">Nightfish</text>
+        <text x="116" y="254" size="0.7">The End or At Night
+-10°C to 66°C</text>
     </page>
     <page>
         <text x="86" y="-13" bold="true">Automatic Fisher</text>
@@ -202,7 +256,7 @@
     </page>
      <page>
         <text wrap="230" size="0.8">The Fish Feeder will accept most of the upgrades except for the Capacitor and the Hyperkinetic Upgrades. Storage upgrades will increase how much fish food you can store in a fish feeder, this does not increase the tank size. Heating and Cooling upgrades, will adjust the temperatures of the water, allowing for fish that wouldn't normally survive in the biome the feeder is in to stay alive.</text>
-        <text wrap="230" y="95" size="0.8">Salinator upgrades, will change the waters of the feeder to salt, while the Filtrator will change the waters to Fresh. Ethereal upgrades change the water to Magical waters. The Purity upgrades, will extend the life of your fish, causing them to live their lives in the feeder out for longer, while impurity will hurt the poor fish, causing them to die quicker (handy for speeding up breeding!). The last two upgrades are the Eternal Life upgrades, male and female versions. While these may not seem useful, they are. Fish will continue to produce their products and females will also produce eggs forever, without them having to die.</text>
+        <text wrap="230" y="95" size="0.8">Salinator upgrades increase water salinity, while filtrator decrease it. Ethereal upgrades allow fish to live in other dimensions. The Purity upgrades, will extend the life of your fish, causing them to live their lives in the feeder out for longer, while impurity will hurt the poor fish, causing them to die quicker (handy for speeding up breeding!). The last two upgrades are the Eternal Life upgrades, male and female versions. While these may not seem useful, they are. Fish will continue to produce their products and females will also produce eggs forever, without them having to die.</text>
     </page>
     <page>
         <text x="96" y="-13" bold="true">Incubator</text>
@@ -241,5 +295,7 @@
         <text y="55">This is the minimum tank size the fish will be happy in, aka how much water they need around the feeder to be happy</text>
         <text y="74" bold="true">Work Ethic</text>
         <text y="102">This is how much of a hardworker the fish is, Lazy fish will produce no products whatsoever, while hardworkers create twice as much as other fish.</text>
+        <text y="94" bold="true">Area - UDNESW</text>
+        <text y="122">This is the area that this fish will work in, it's pretty much how far any special effects fish produce will go.</text>
     </page>
 </book>

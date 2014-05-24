@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -23,6 +22,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
+import mariculture.core.util.RecipeItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 
 public class FishingHandler implements IFishing {
 	// Registering Fishing Rods
-	public static HashMap<Item, RodType> registry = new HashMap();
+	public static final HashMap<Item, RodType> registry = new HashMap();
 
 	@Override
 	public RodType getRodType(ItemStack stack) {
@@ -52,24 +52,22 @@ public class FishingHandler implements IFishing {
 	@Override
 	public ItemStack handleRightClick(ItemStack stack, World world, EntityPlayer player) {
 		RodType rodType = getRodType(stack);
-		if (!rodType.canFish(world, (int) player.posX, (int) player.posY, (int) player.posZ, player, stack))
+		if (!world.isRemote && !rodType.canFish(world, (int) player.posX, (int) player.posY, (int) player.posZ, player, stack))
 			return stack;
 		int baitQuality = getBait(player, stack)[0];
 		int baitSlot = getBait(player, stack)[1];
-
 		if (player.fishEntity != null) {
 			rodType.damage(world, player, stack, player.fishEntity.func_146034_e(), world.rand);
 			player.swingItem();
 		} else if (baitSlot != -1) {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (Rand.rand.nextFloat() * 0.4F + 0.8F));
-			EntityHook hook = new EntityHook(world, player, baitQuality);
+			EntityHook hook = new EntityHook(world, player, rodType.getDamage(), baitQuality);
 			if (!world.isRemote) {
 				world.spawnEntityInWorld(hook);
 			}
 
 			if (!player.capabilities.isCreativeMode) {
-				if (baitQuality > 0)
-					player.inventory.decrStackSize(baitSlot, 1);
+				if (baitQuality > 0) player.inventory.decrStackSize(baitSlot, 1);
 			}
 
 			player.swingItem();
@@ -87,7 +85,7 @@ public class FishingHandler implements IFishing {
 			int leftSlot = currentSlot - 1;
 
 			if (player.inventory.getStackInSlot(leftSlot) != null) {
-				if (canUseBait(player.inventory.getStackInSlot(leftSlot), rod)) {
+				if (canUseBait(rod, player.inventory.getStackInSlot(leftSlot))) {
 					baitQuality = getBaitQuality(player.inventory.getStackInSlot(leftSlot));
 					foundSlot = leftSlot;
 				}
@@ -96,9 +94,8 @@ public class FishingHandler implements IFishing {
 
 		if (foundSlot == -1 && currentSlot < 8) {
 			int rightSlot = currentSlot + 1;
-
 			if (player.inventory.getStackInSlot(rightSlot) != null) {
-				if (canUseBait(player.inventory.getStackInSlot(rightSlot), rod)) {
+				if (canUseBait(rod, player.inventory.getStackInSlot(rightSlot))) {
 					baitQuality = getBaitQuality(player.inventory.getStackInSlot(rightSlot));
 					foundSlot = rightSlot;
 				}
@@ -109,12 +106,12 @@ public class FishingHandler implements IFishing {
 	}
 
 	// Bait Related Handling
-	private final HashMap<RodType, ArrayList<List>> canUse = new HashMap();
-	private final HashMap<List, Integer> baits = new HashMap();
+	private static final HashMap<RodType, ArrayList<ItemStack>> canUse = new HashMap();
+	private static final HashMap<List, Integer> baits = new HashMap();
 
 	@Override
 	public void addBait(ItemStack bait, Integer catchRate) {
-		baits.put(convert(bait), catchRate);
+		baits.put(Arrays.asList(bait.getItem(), bait.getItemDamage()), catchRate);
 	}
 	
 	@Override
@@ -126,45 +123,36 @@ public class FishingHandler implements IFishing {
 
 	@Override
 	public void addBaitForQuality(ItemStack bait, RodType quality) {
-		ArrayList<List> baitList = canUse.get(quality);
-		if (baitList == null)
-			baitList = new ArrayList();
-		baitList.add(convert(bait));
+		ArrayList<ItemStack> baitList = canUse.get(quality);
+		if (baitList == null) baitList = new ArrayList();
+		baitList.add(bait);
 		canUse.put(quality, baitList);
 	}
 
 	@Override
 	public int getBaitQuality(ItemStack bait) {
-		List name = convert(bait);
-		return baits.containsKey(name) ? baits.get(name) : 0;
+		Integer i = baits.get(Arrays.asList(bait.getItem(), bait.getItemDamage()));
+		return i == null? 0: i;
 	}
 
 	@Override
 	public boolean canUseBait(ItemStack rod, ItemStack bait) {
 		RodType quality = getRodType(rod);
 		if (canUse.containsKey(quality)) {
-			ArrayList<List> baitList = canUse.get(quality);
+			ArrayList<ItemStack> baitList = canUse.get(quality);
 			if (baitList != null && baitList.size() > 0) {
-				List list = convert(bait);
-				for (List l : baitList) {
-					if (l.equals(list))
-						return true;
+				for (ItemStack l : baitList) {
+					if (RecipeItem.equals(bait, l)) return true;
 				}
 
 				return false;
-			} else
-				return false;
-		} else
-			return false;
+			} else return false;
+		} else return false;
 	}
 
 	@Override
-	public ArrayList<List> getCanUseList(RodType quality) {
+	public ArrayList<ItemStack> getCanUseList(RodType quality) {
 		return canUse.get(quality);
-	}
-
-	private List convert(ItemStack stack) {
-		return Arrays.asList(stack.getItem(), stack.getItemDamage());
 	}
 
 	// Loot Based Handling
@@ -311,7 +299,7 @@ public class FishingHandler implements IFishing {
 			}
 		}
 
-		return null;
+		return new ItemStack(Items.stick);
 	}
 	
 	private ItemStack catchFish(Random rand, FishSpecies fish, RodType quality, double chance) {

@@ -1,67 +1,104 @@
-== Mariculture 1.7.2. BETA 5 ==
-* Ported 1.2.2 changes (Excluding BM/Tinkers/Waila Plugins)
-* Fixed Iron Wheels giving the wrong book
+Mariculture 1.7.2 BETA 8
+• Fixed the Autofisher not damaging items with special damage conditions correctly
+
+Mariculture 1.7.2 BETA 7
+• Readded NEI + WAILA Support + Updated the Magic Book
+• Readded Block forms for Custard(slow down) and Fish Oil(regen)
+• Removed Fluid-Auto Dictionary, too exploitive
+• Hid Custom Blocks, Air Blocks and Ticking Blocks from NEI
+• Raw Rainbow Trout are now effective weapons!
+• Fishing Entities will no longer try to spawn if the loot result is null, but loot result should never be null now
+• Adjusted the Neon Lamp Recipe again
+• Added Anvil Recipes for the new flowers
+• Added Tooltips to Jewelry to display, the benefits of each type
+• Added Config option to disable 'half' of the coral reef generation. Reef generation is normally done in two steps, this just cancels the first.
+• Fish Eggs are now a seperate Item
+• Added a whole bunch of missing recipes... (Let me know if I missed any please!)
+• Fixed Calamari and Miso Soup localisation
+• Fixed not being able to remove blocks from the block caster + actually added it xD
+• If a mod adds rice, the sushi recipe requires it
+• Kelp Wrap is now enabled without WorldPlus, to craft it, it's 9 Cactus Green
+• Crucible Furnaces now have a default of 25000MB space, Storage Upgrades are now 5000MB per level instead of 1000MB
+• Pressurised Water can no longer break itself
+• Reworked how fish ids are assigned, they are now automatically assigned, a fish-mappings.cfg file will appear in your configs, but you do NOT need to touch it, id mappings are done automatically, and you'll never have to manually assign them. This is good, since I can't have conflicts now if someone was to add a fish, which was possible before.
+• Hammers can now get all vanilla pick enchantments, Effiency makes hammers use less XP, fortune takes the place of luck (I'm open for suggestions with what silk touch could do... regarding the anvil)
+
+== Mariculture 1.7.2 BETA 6 ==
+• The Ore Dictionary Converter should be more inline with the functionality of the 1.6.4 version
+• Ore Dictionary registrations for dyes moved from world to core
+• Manual fishing should work once again
+• Readded BiomesOPlenty Plugin
+• Readded BloodMagic Plugin
+• Readded Forestry Plugin
+• Readded Railcraft Plugin(Minus Sheets in Rolling Machine)
+• Readded TC4 Aspects to some of the items
+• Readded Tinkers Plugin
+• Compressed my textures, let me know if any look off!
+
+== Mariculture 1.7.2 BETA 5 ==
+• Ported 1.2.2 changes (Excluding BM/Tinkers/Waila Plugins)
+• Fixed Iron Wheels giving the wrong book
 
 == Mariculture 1.7.2 BETA 4==
-* Updated to 1.7 Redstone Flux API
-* Fixed fish feeder not accepting food/liquids
-* Fixed potential fluid crash on startup
-* Calamari now gives one bowl as it should
-* Speed Boat should be functional now! Whizz! Speed Boats also go straight to ur inventory, even more convenient!
-* Fixed Incubator Base Recipe
-* Removed BOP Block/Item Compatibility temporarily
+• Updated to 1.7 Redstone Flux API
+• Fixed fish feeder not accepting food/liquids
+• Fixed potential fluid crash on startup
+• Calamari now gives one bowl as it should
+• Speed Boat should be functional now! Whizz! Speed Boats also go straight to ur inventory, even more convenient!
+• Fixed Incubator Base Recipe
+• Removed BOP Block/Item Compatibility temporarily
 
 ==Mariculture 1.7.2 BETA 3==
-* Fixed ExU startup Crash, *Whistles, pretends he didn't blame it on ExU*, the GUILT.
-* When Disabling Fishery Module, even though it says rods are overriden, the rods/fish will act exactly like vanilla
-* Fixed recipes using sugar, when they should of been using sugar cane
-* Fixed book duplication exploit
-* Fixed Mirrors always giving pearls the elemental affinity enchantment
-* Fixed Sifters dropping two items
-* Fixed crash bug when eating certain foods
-* Fixed Auto-Dictionary not removing the correct tags
-* Fish Food no longer will be added to feeders if there isn't room for the amount they give.
-* Titanium Rods now have their proper quality(were accidentally the same as wood before!)
-* Merged up 1.2.1. b, c, d, e fixes for 1.6.4
+• Fixed ExU startup Crash, •Whistles, pretends he didn't blame it on ExU•, the GUILT.
+• When Disabling Fishery Module, even though it says rods are overriden, the rods/fish will act exactly like vanilla
+• Fixed recipes using sugar, when they should of been using sugar cane
+• Fixed book duplication exploit
+• Fixed Mirrors always giving pearls the elemental affinity enchantment
+• Fixed Sifters dropping two items
+• Fixed crash bug when eating certain foods
+• Fixed Auto-Dictionary not removing the correct tags
+• Fish Food no longer will be added to feeders if there isn't room for the amount they give.
+• Titanium Rods now have their proper quality(were accidentally the same as wood before!)
+• Merged up 1.2.1. b, c, d, e fixes for 1.6.4
 
 ==Mariculture 1.7.2 BETA 2==
-* Vanilla overriding should now work for biomes, fish and fishing rods
-* Access Transformers should behave for things like scuba masks and fishing rods
-* Fixed the Enchiridion Dependency, now an optional dependency
-* Removed Creepers avoiding players holding catfish
-* Scuba Gear will last longer
-* Natural Gas now only affects players
-* Removed random explosions from natural gas
-* Fixed Void Bottle rendering
-* Fixed pick block on void bottles, tank blocks also are now picked with their contents in tact
+• Vanilla overriding should now work for biomes, fish and fishing rods
+• Access Transformers should behave for things like scuba masks and fishing rods
+• Fixed the Enchiridion Dependency, now an optional dependency
+• Removed Creepers avoiding players holding catfish
+• Scuba Gear will last longer
+• Natural Gas now only affects players
+• Removed random explosions from natural gas
+• Fixed Void Bottle rendering
+• Fixed pick block on void bottles, tank blocks also are now picked with their contents in tact
 
 ==Mariculture 1.7.2 BETA 1==
 ==== BETA Notes ====
-* This is purely for helping me test, I would like to see as many bugs reported as possible except the ones listed here.
-* MAJOR: You need to install 'Enchiridion' if you want to keep my books, it's been split to a seperate mod for 'reasons'.
-* Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
-* Plugins for mods, like tinkers and BOP are not implemented yet
-* The screwed up rendering of void bottles is known, and is on the to do list
-* Currently disabling the Fishery module can have dire consequences due to the vanilla fishing override, will sort this out later
-* The Vanilla Overriding for fish and fishing rods isn't working correctly
-* Some of the biomes that I should be overwriting aren't being, due to not giving proper names
-* There is a crash when you wear scuba/diving gear underwater
-* There's a startup error in the console, about failing to extend enchantment maximum
-* Jewelry Enchanting has changed, the book has not yet been updated
-* Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
+• This is purely for helping me test, I would like to see as many bugs reported as possible except the ones listed here.
+• MAJOR: You need to install 'Enchiridion' if you want to keep my books, it's been split to a seperate mod for 'reasons'.
+• Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
+• Plugins for mods, like tinkers and BOP are not implemented yet
+• The screwed up rendering of void bottles is known, and is on the to do list
+• Currently disabling the Fishery module can have dire consequences due to the vanilla fishing override, will sort this out later
+• The Vanilla Overriding for fish and fishing rods isn't working correctly
+• Some of the biomes that I should be overwriting aren't being, due to not giving proper names
+• There is a crash when you wear scuba/diving gear underwater
+• There's a startup error in the console, about failing to extend enchantment maximum
+• Jewelry Enchanting has changed, the book has not yet been updated
+• Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
 
 ==== Other ====
-* Added Fluid Dictionary (Disabled by default, as it can be a bit exploitive xp wise, if not used correctly)
-* Damaging jewelry will now not apply the damage to every item, but split it out across the items(if it's doing more than one damage), otherwise rings will die first, then bracelets, then necklaces.
-* Mirrors are now required to take jewelry off, you don't need them to put them on, the controls to take off were fiddly anyways. (You can still swap existing pieces though).
-* Jewelry is no longer damaged when the player is in creative
-* Sonic the Hedgehog buffed to provide 1 minute per damage
-* Shift + Right Clicking Custom blocks, now copies the texture as with others, simply shift + right click the paintbrush on NO blocks to set it to air now
-* Removed Timelord, Focus Punch, Poison Ivy and Inferno Enchants
-* Added Elemental Affinity Enchantment - Each pearl colour has a different effect with this enchantment, has negative affects on stuff other than pearls
-* Ender Fish and Netherfish are no longer FORCED to live in the nether/end biomes. Now as long as the environment is correct, they will be happy.
-* Blink distance per level increased to 16 blocks, you no longer need to be above a certain level to use it any time
-* Air Pumps will now only 'work' when they receive power, they will only extract fluid at that point too
-* FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
-* Pressure Vessels will no longer tick/auto-output, you'll need to use pipes from other mods or the sluice to extract liquids in to your machines, it now instafills fludds
-* Kelp and Coral come in two forms, static and growable, what you find in the wild will always be static. In order to get ones that grow, kelp you craft with itself for seeds, and coral you soak in one tenth of a bucket of water in a vat.
+• Added Fluid Dictionary (Disabled by default, as it can be a bit exploitive xp wise, if not used correctly)
+• Damaging jewelry will now not apply the damage to every item, but split it out across the items(if it's doing more than one damage), otherwise rings will die first, then bracelets, then necklaces.
+• Mirrors are now required to take jewelry off, you don't need them to put them on, the controls to take off were fiddly anyways. (You can still swap existing pieces though).
+• Jewelry is no longer damaged when the player is in creative
+• Sonic the Hedgehog buffed to provide 1 minute per damage
+• Shift + Right Clicking Custom blocks, now copies the texture as with others, simply shift + right click the paintbrush on NO blocks to set it to air now
+• Removed Timelord, Focus Punch, Poison Ivy and Inferno Enchants
+• Added Elemental Affinity Enchantment - Each pearl colour has a different effect with this enchantment, has negative affects on stuff other than pearls
+• Ender Fish and Netherfish are no longer FORCED to live in the nether/end biomes. Now as long as the environment is correct, they will be happy.
+• Blink distance per level increased to 16 blocks, you no longer need to be above a certain level to use it any time
+• Air Pumps will now only 'work' when they receive power, they will only extract fluid at that point too
+• FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
+• Pressure Vessels will no longer tick/auto-output, you'll need to use pipes from other mods or the sluice to extract liquids in to your machines, it now instafills fludds
+• Kelp and Coral come in two forms, static and growable, what you find in the wild will always be static. In order to get ones that grow, kelp you craft with itself for seeds, and coral you soak in one tenth of a bucket of water in a vat.

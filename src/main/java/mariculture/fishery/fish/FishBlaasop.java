@@ -16,10 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishBlaasop extends FishSpecies {
-	public FishBlaasop(int id) {
-		super(id);
-	}
-	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -3, 20 };

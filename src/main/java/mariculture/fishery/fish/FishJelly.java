@@ -15,10 +15,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 public class FishJelly extends FishSpecies {
-	public FishJelly(int id) {
-		super(id);
-	}
-	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 12, 32 };

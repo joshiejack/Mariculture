@@ -187,12 +187,12 @@ public class Magic extends RegistrationModule {
 	@Override
 	public void registerRecipes() {		
 		//Basic Mirror
-		RecipeHelper.addShapedRecipe(new ItemStack(basicMirror), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(basicMirror), new Object[] {
 			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"
 		});
 		
 		//Magic Mirror
-		RecipeHelper.addShapedRecipe(new ItemStack(magicMirror), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(magicMirror), new Object[] {
 			"PMP", "BEB", "PBP", 
 			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 
 			'M', basicMirror, 
@@ -202,7 +202,7 @@ public class Magic extends RegistrationModule {
 			
 		//Celestial Mirror
 		ItemStack drop = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
-		RecipeHelper.addShapedRecipe(new ItemStack(celestialMirror), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(celestialMirror), new Object[] {
 			"TST", "BMB", "GBG", 
 			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 
 			'M', magicMirror, 
@@ -218,7 +218,7 @@ public class Magic extends RegistrationModule {
 		
 		//Mob Magnet Crafting
 		if(Extra.MOB_MAGNET) {
-			RecipeHelper.addShapedRecipe(new ItemStack(magnet), new Object[] {
+			RecipeHelper.addShaped(new ItemStack(magnet), new Object[] {
 				"III", "I I", "M M", 'I', "ingotIron", 'M', Items.ender_pearl
 			});
 		}

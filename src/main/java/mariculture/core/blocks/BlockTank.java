@@ -10,7 +10,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
@@ -180,7 +180,7 @@ public class BlockTank extends BlockConnected {
 	@Override
 	public int damageDropped(int meta) {
 		switch(meta) {
-			case TankMeta.BOTTLE: return FluidContainerMeta.BOTTLE_VOID;
+			case TankMeta.BOTTLE: return BottleMeta.VOID;
 			default: return meta;
 		}
 	}
@@ -255,7 +255,7 @@ public class BlockTank extends BlockConnected {
 				tank.getFluid().writeToNBT(drop.stackTagCompound);
 			}
 		} else if(meta == TankMeta.BOTTLE) {
-			drop = new ItemStack(Core.bottles, 1, FluidContainerMeta.BOTTLE_VOID);
+			drop = new ItemStack(Core.bottles, 1, BottleMeta.VOID);
 		}
 
 		return drop;
@@ -263,8 +263,8 @@ public class BlockTank extends BlockConnected {
 
 	@Override
 	public boolean isActive(int meta) {
-		if(meta == TankMeta.FISH)							return Modules.isActive(Modules.fishery);
-		if(meta == TankMeta.DIC && Extra.ENABLE_FLUIDIC)	return Modules.isActive(Modules.factory);
+		if(meta == TankMeta.FISH)		return Modules.isActive(Modules.fishery);
+		if(meta == TankMeta.DIC)		return false;
 		return meta != TankMeta.BOTTLE;
 	}
 	

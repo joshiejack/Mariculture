@@ -26,10 +26,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishAngel extends FishSpecies {
-	public FishAngel(int id) {
-		super(id);
-	}
-	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 19, 27 };

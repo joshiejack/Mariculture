@@ -53,8 +53,8 @@ public class GuiScanner extends GuiStorage {
 		GL11.glPushMatrix();
 		GL11.glScalef(0.675F, 0.675F, 0.675F);
 		GL11.glTranslatef(-5F, 5F, 0F);
-		FishSpecies active = Fishing.fishHelper.getSpecies(Fish.species.getDNA(fish));
-		FishSpecies inactive = Fishing.fishHelper.getSpecies(Fish.species.getLowerDNA(fish));
+		FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(fish));
+		FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(fish));
 		String activeSpecies = active.isDominant()? Text.ORANGE + active.getName(): Text.INDIGO + active.getName();
 		String inactiveSpecies = inactive.isDominant()? Text.ORANGE + inactive.getName(): Text.INDIGO + inactive.getName();
 		String[] lifespan = Fish.lifespan.getScannedDisplay(fish);

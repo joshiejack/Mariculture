@@ -17,10 +17,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishTang extends FishSpecies {
-	public FishTang(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 24, 29 };

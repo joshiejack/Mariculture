@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mariculture.api.core.FuelInfo;
-import mariculture.api.core.ISmelterHandler;
+import mariculture.api.core.ICrucibleHandler;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.util.Rand;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class LiquifierHandler implements ISmelterHandler {
+public class CrucibleHandler implements ICrucibleHandler {
 	private final Map fuels = new HashMap();
 	private final HashMap<String, RecipeSmelter> recipes = new HashMap();
 

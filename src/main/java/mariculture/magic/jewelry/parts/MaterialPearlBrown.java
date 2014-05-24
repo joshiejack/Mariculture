@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.util.Rand;
 import mariculture.core.util.Text;
@@ -23,15 +24,17 @@ public class MaterialPearlBrown extends JewelryMaterial {
 	@Override
 	public int onBlockBreak(HarvestDropsEvent event, EntityPlayer player) {
 		int dmg = 0;
-		if(event.block == Blocks.dirt || event.block == Blocks.grass) {
-			dmg = 64;
-			ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(new ItemStack(event.block));
-			for(RecipeSifter sifter: recipe) {
-				if(Rand.rand.nextInt(100) < sifter.chance) {
-					ItemStack cloned = sifter.bait.copy();
-					cloned.stackSize = sifter.minCount + Rand.rand.nextInt((sifter.maxCount + 1) - sifter.minCount);
-					event.drops.add(sifter.bait);
-					dmg--;
+		if(Modules.isActive(Modules.fishery)) {
+			if(event.block == Blocks.dirt || event.block == Blocks.grass) {
+				dmg = 64;
+				ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(new ItemStack(event.block));
+				for(RecipeSifter sifter: recipe) {
+					if(Rand.rand.nextInt(100) < sifter.chance) {
+						ItemStack cloned = sifter.bait.copy();
+						cloned.stackSize = sifter.minCount + Rand.rand.nextInt((sifter.maxCount + 1) - sifter.minCount);
+						event.drops.add(sifter.bait);
+						dmg--;
+					}
 				}
 			}
 		}

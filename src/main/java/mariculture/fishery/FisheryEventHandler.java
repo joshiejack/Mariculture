@@ -35,26 +35,20 @@ public class FisheryEventHandler {
 	public void onFishDeath(ItemExpireEvent event) {
 		Random rand = new Random();
 		ItemStack item = event.entityItem.getEntityItem();
-
-		if (item.getItem() instanceof ItemFishy) {
-
-			if (item.hasTagCompound() && !Fishing.fishHelper.isEgg(item)) {
-				int fish = item.stackTagCompound.getInteger("SpeciesID");
-				FishSpecies species = Fishing.fishHelper.getSpecies(fish);
-				if(!species.isLavaFish()) {
-					if(event.entityItem.isInsideOfMaterial(Material.water)) {
-						event.setCanceled(true);
-						return;
-					}
-				}
-				
-				ItemStack stack = new ItemStack(Items.fish, 1, fish);
-				if (stack != null) {
-					updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
+		FishSpecies species = Fishing.fishHelper.getSpecies(item);
+		if(species != null) {
+			if(!species.isLavaFish()) {
+				if(event.entityItem.isInsideOfMaterial(Material.water)) {
 					event.setCanceled(true);
+					return;
 				}
 			}
-
+			
+			ItemStack stack = new ItemStack(Items.fish, 1, species.getID());
+			if (stack != null) {
+				updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
+				event.setCanceled(true);
+			}
 		}
 	}
 

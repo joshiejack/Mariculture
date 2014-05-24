@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Level;
 import cpw.mods.fml.common.Loader;
 
 public class Plugins extends Module {
-	// Only used for loading
 	public static ArrayList<Plugin> plugins = new ArrayList<Plugin>();
+	public static final String after="after:Enchiridion;after:AWWayofTime@(v1.0.1,];after:BiomesOPlenty;after:TConstruct";
 
 	public abstract static class Plugin {
 		public static enum Stage {
@@ -40,23 +40,20 @@ public class Plugins extends Module {
 				}
 			} catch (Exception e) {
 				LogHandler.log(Level.WARN, "Something went wrong with " + name + " Plugin at " + stage.toString() + " Phase");
+				e.printStackTrace();
 			}
 		}
 
 		public abstract void preInit();
 		public abstract void init();
 		public abstract void postInit();
-		public void registerWildcards() {
-			return;
-		}
 	}
 	
 	public Plugins() {
+		add("AWWayofTime");
 		add("Railcraft");
 		add("TConstruct");
-		add("ExtrabiomesXL");
 		add("Forestry");
-		add("IC2");
 		add("Thaumcraft");
 		add("BiomesOPlenty");
 		add("HungerOverhaul");

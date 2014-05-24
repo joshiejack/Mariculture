@@ -12,10 +12,6 @@ import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 
 public class FishHerring extends FishSpecies {
-	public FishHerring(int id) {
-		super(id);
-	}
-	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 10, 18 };

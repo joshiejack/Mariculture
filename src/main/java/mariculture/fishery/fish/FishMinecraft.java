@@ -11,15 +11,12 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.helpers.RecipeHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FishMinecraft extends FishSpecies {
-	public FishMinecraft(int id) {
-		super(id);
-	}
-	
+public class FishMinecraft extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -1, 45 };
@@ -65,7 +62,7 @@ public class FishMinecraft extends FishSpecies {
 		addProduct(dropletWater, 50D);
 		addProduct(dropletAqua, 25D);
 		addProduct(dropletMagic, 0.5D);
-		addProduct(vanillaFish, 15D);
+		addProduct(new ItemStack(vanillaFish, 1, getID()), 15D);
 	}
 
 	@Override

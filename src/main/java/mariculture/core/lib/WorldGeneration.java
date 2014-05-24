@@ -1,6 +1,7 @@
 package mariculture.core.lib;
 
 public class WorldGeneration {
+	public static boolean CORAL_EXTRA;
 	public static boolean WATER_RAVINES;
 	public static boolean NO_MINESHAFTS;
 	public static boolean WATER_CAVES;

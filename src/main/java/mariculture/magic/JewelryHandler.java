@@ -3,6 +3,7 @@ package mariculture.magic;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.helpers.NBTHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import mariculture.magic.jewelry.parts.JewelryBinding;
@@ -142,5 +143,13 @@ public class JewelryHandler {
 		}
 		
 		return result;
+	}
+
+	public static boolean match(ItemStack result, ItemStack stack) {
+		if(result.stackTagCompound == null || stack.stackTagCompound == null) return false;
+		ItemStack check1 = NBTHelper.getItemStackFromNBT(result.stackTagCompound.getCompoundTag("WorkedItem"));
+		ItemStack check2 = NBTHelper.getItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
+		if(check1 == null || check1.getItem() == null || check2 == null || check2.getItem() == null) return false; 
+		return getBinding(check1) == getBinding(check2) && getMaterial(check1) == getMaterial(check2) && getType(check1) == getType(check2);
 	}
 }

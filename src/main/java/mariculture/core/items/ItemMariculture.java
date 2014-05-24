@@ -76,7 +76,6 @@ public class ItemMariculture extends Item implements IItemRegistry {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
 		icons = new IIcon[getMetaCount()];
-
 		for (int i = 0; i < icons.length; i++) {
 			if(isActive(i)) {
 				icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)));

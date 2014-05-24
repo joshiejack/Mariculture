@@ -142,7 +142,7 @@ public class Factory extends RegistrationModule {
 	public void registerRecipes() {
 	//Blocks
 		//Sawmill
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.SAWMILL), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.machines, 1, MachineMeta.SAWMILL), new Object[] {
 			" A ", "DWD", "IMI",
 			Character.valueOf('A'), Items.iron_axe, 
 			Character.valueOf('D'), "slabWood",
@@ -152,7 +152,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Autodictionary Converter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {
 			" B ", "FPF", "IMI",
 			Character.valueOf('F'), Items.feather, 
 			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 
@@ -162,7 +162,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		if(Extra.ENABLE_FLUIDIC) {
-			RecipeHelper.addShapedRecipe(new ItemStack(Core.tanks, 1, TankMeta.DIC), new Object[] {
+			RecipeHelper.addShaped(new ItemStack(Core.tanks, 1, TankMeta.DIC), new Object[] {
 				" B ", "FPF", "IMI",
 				Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
 				Character.valueOf('P'), new ItemStack(Core.tanks, 1, TankMeta.DIC), 
@@ -174,7 +174,7 @@ public class Factory extends RegistrationModule {
 		
 		if(Extra.ENDER_CONVERTER) {
 			//Alternative for Converter
-			RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {
+			RecipeHelper.addShaped(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {
 				" B ", "FPF", "IMI",
 				Character.valueOf('F'), Items.feather, 
 				Character.valueOf('P'), Items.ender_pearl, 
@@ -188,7 +188,7 @@ public class Factory extends RegistrationModule {
 		ItemStack sponge = (Modules.isActive(Modules.worldplus))? new ItemStack(Blocks.sponge): new ItemStack(Items.water_bucket);
 		ItemStack water = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
 		ItemStack fish = new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.SPONGE), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.machines, 1, MachineMeta.SPONGE), new Object[] {
 			" D ", "ATA", "SCS",
 			Character.valueOf('D'), fish, 
 			Character.valueOf('S'), sponge, 
@@ -198,7 +198,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Sluice
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 4, MachineMeta.SLUICE), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.machines, 4, MachineMeta.SLUICE), new Object[] {
 			" H ", "WBW", "IMI",
 			Character.valueOf('H'), Blocks.hopper, 
 			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL), 
@@ -208,7 +208,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Manual Turbine Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_HAND), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_HAND), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineCopper,
 			Character.valueOf('I'), "ingotCopper", 
@@ -218,7 +218,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Water Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_WATER), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_WATER), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineAluminum,
 			Character.valueOf('I'), "ingotAluminum", 
@@ -228,7 +228,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Gas Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_GAS), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_GAS), new Object[] {
 			" T ", "IBI", "SPS",
 			Character.valueOf('T'), turbineTitanium,
 			Character.valueOf('I'), "ingotTitanium", 
@@ -238,7 +238,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Pressure Vessel
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMultiMachines, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL), new Object[] {
 			"WLW", "PTP", "PSP",
 			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL),
 			Character.valueOf('L'), "blockLapis",
@@ -248,7 +248,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Sorter
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER), new Object[] {
 			"BPY", "GFA", "RCW",
 			Character.valueOf('B'), "dyeBlack",
 			Character.valueOf('P'), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE),
@@ -262,7 +262,7 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Geyser
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.renderedMachines, 16, MachineRenderedMeta.GEYSER), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 16, MachineRenderedMeta.GEYSER), new Object[] {
 			" W ", " G ", "RCR",
 			Character.valueOf('W'), Items.water_bucket,
 			Character.valueOf('G'), "glass",
@@ -274,7 +274,7 @@ public class Factory extends RegistrationModule {
 		//FLUDD
 		ItemStack fludd = ((ItemArmorFLUDD)Factory.fludd).build();
 		ItemStack tank = (Modules.isActive(Modules.diving))? new ItemStack(Diving.scubaTank, 1, 1): new ItemStack(Blocks.lever);
-		RecipeHelper.addShapedRecipe(fludd, new Object[] {
+		RecipeHelper.addShaped(fludd, new Object[] {
 			" E ", "PGP", "LUL",
 			Character.valueOf('E'), new ItemStack(Core.crafting, 1, CraftingMeta.LENS), 
 			Character.valueOf('P'), new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC_YELLOW), 
@@ -283,40 +283,33 @@ public class Factory extends RegistrationModule {
 			Character.valueOf('U'), new ItemStack(Core.crafting, 1, CraftingMeta.LIFE_CORE)
 		});
 		
-		//Crafting of Life Core
-		ItemStack bait = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): new ItemStack(Items.spider_eye);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.LIFE_CORE), new Object[] {
-			"DSR", "FHB", "PAC", 'D', Blocks.yellow_flower, 'S', "treeSapling", 'R', Blocks.red_flower,
-			'F', fish, 'H', new ItemStack(Items.potionitem, 1, 8229), 'B', bait, 'P', Items.potato, 'A', Items.diamond_boots, 'C', Items.carrot
-		});
-		
 		//Planning Chalk
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			"LLN", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
 		//Chalk Vertically x 3
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			"L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			" L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			" N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			"N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			"N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(chalk), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(chalk), new Object[] {
 			"L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite"
 		});
 		
@@ -324,20 +317,20 @@ public class Factory extends RegistrationModule {
 				FluidRegistry.getFluidStack(Fluids.quicklime, 2500));
 		
 		//Blank Plan
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.crafting, 1, CraftingMeta.BLANK_PLAN), new Object[] {
+		RecipeHelper.addShapeless(new ItemStack(Core.crafting, 1, CraftingMeta.BLANK_PLAN), new Object[] {
 			"dyeBlue", "dyeBlack", Items.paper, "dyeBlue"
 		});
 		
 		//Item Filter
 		ItemStack filterer = (Modules.isActive(Modules.fishery))? new ItemStack(Fishery.net): new ItemStack(Blocks.chest);
-		RecipeHelper.addShapedRecipe(new ItemStack(filter), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(filter), new Object[] {
 			"W W", "WNW", " W ",
 			Character.valueOf('W'), new ItemStack(Core.crafting, 1, CraftingMeta.WICKER),
 			Character.valueOf('N'), filterer
 		});
 		
 		//Paintbrush
-		RecipeHelper.addShapedRecipe(new ItemStack(paintbrush), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(paintbrush), new Object[] {
 			" WW", " IW", "S  ",
 			Character.valueOf('W'), new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE), 
 			Character.valueOf('I'), "blockAluminum", 
@@ -345,21 +338,21 @@ public class Factory extends RegistrationModule {
 		});
 		
 		//Copper Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(turbineCopper), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(turbineCopper), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotCopper",
 			Character.valueOf('S'), "slabWood"
 		});
 		
 		//Aluminum Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(turbineAluminum), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(turbineAluminum), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotAluminum",
 			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 0)
 		});	
 		
 		//Titanium Turbine
-		RecipeHelper.addShapedRecipe(new ItemStack(turbineTitanium), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(turbineTitanium), new Object[] {
 			" I ", "ISI", " I ",
 			Character.valueOf('I'), "ingotTitanium",
 			Character.valueOf('S'), new ItemStack(Blocks.stone_slab, 1, 7)

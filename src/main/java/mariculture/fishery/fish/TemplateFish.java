@@ -16,11 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TemplateFish extends FishSpecies {
-	public TemplateFish(int id) {
-		super(id);
-	}
-	
+public class TemplateFish extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 20, 30 };

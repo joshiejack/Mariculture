@@ -109,6 +109,11 @@ public class ContainerFeeder extends ContainerMachine {
 		public SlotFather(IInventory inventory, int id, int x, int y) {
 			super(inventory, id, x, y);
 		}
+		
+		@Override
+		public int getSlotStackLimit() {
+	        return 1;
+	    }
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
@@ -120,6 +125,11 @@ public class ContainerFeeder extends ContainerMachine {
 		public SlotMother(IInventory inventory, int id, int x, int y) {
 			super(inventory, id, x, y);
 		}
+		
+		@Override
+		public int getSlotStackLimit() {
+	        return 1;
+	    }
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {

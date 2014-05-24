@@ -41,7 +41,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	private IIcon filledIcon;
 	public ItemFluidStorage(int capacity) {
 		this.capacity = capacity;
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabFluids);
 		setMaxStackSize(1);
 	}
 	
@@ -201,7 +201,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
-		if(stack.getItem() == Core.bucket) {
+		if(stack.getItem() == Core.bucketTitanium) {
 			if(pass == 0) {
 				if(stack.hasTagCompound() && getFluid(stack) != null) {
 					FluidStack fake = getFluid(stack).copy();
@@ -229,7 +229,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 		if(aName.length >= 2) theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
 		else theName = name;
 		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
-		if(this == Core.bucket) filledIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName + "Filled");
+		if(this == Core.bucketTitanium) filledIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName + "Filled");
 	}
 
 	@Override

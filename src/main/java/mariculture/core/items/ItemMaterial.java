@@ -90,6 +90,12 @@ public class ItemMaterial extends ItemMariculture {
 		switch (stack.getItemDamage()) {
 		case MaterialsMeta.DROP_POISON:
 			return PotionHelper.spiderEyeEffect;
+		case MaterialsMeta.DROP_HEALTH:
+			return PotionHelper.ghastTearEffect;
+		case MaterialsMeta.DROP_NETHER:
+			return PotionHelper.magmaCreamEffect;
+		case MaterialsMeta.DROP_ATTACK:
+			return PotionHelper.gunpowderEffect;
 		default:
 	        return super.getPotionEffect(stack);
 		}

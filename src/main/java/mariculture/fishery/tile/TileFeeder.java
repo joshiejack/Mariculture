@@ -63,8 +63,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == male) 	return Fishing.fishHelper.isMale(stack);
-		if(slot == female)	return Fishing.fishHelper.isFemale(stack);
+		if(slot == male) 	return inventory[male] == null && Fishing.fishHelper.isMale(stack);
+		if(slot == female)	return inventory[female] == null && Fishing.fishHelper.isFemale(stack);
 		if(slot == fluid) 	return FluidHelper.isFluidOrEmpty(stack);
 		return false;
 	}
@@ -98,10 +98,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 				processed++;
 				if(onTick(Extra.EFFECT_TICK)) {
 					if(swap) {
-						doEffect(male);
+						doEffect(inventory[male]);
 						swap = false;
 					} else {
-						doEffect(female);
+						doEffect(inventory[female]);
 						swap = true;
 					}
 				}
@@ -109,22 +109,22 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 				//Fish will eat every 25 seconds by default
 				if(foodTick % Extra.FISH_FOOD_TICK == 0) {
 					if(swap) {
-						useFood(male);
+						useFood(inventory[male]);
 					} else {
-						useFood(female);
+						useFood(inventory[female]);
 					}
 				}
 				
 				if(processed >= max) {
 					processed = 0;
 					if(swap) {
-						makeProduct(female);
+						makeProduct(inventory[female]);
 					} else {
-						makeProduct(male);
+						makeProduct(inventory[male]);
 					}
 					
-					damageFish(female, true);
-					damageFish(male, true);
+					damageFish(inventory[female], true);
+					damageFish(inventory[male], true);
 					
 					canWork = canWork();
 				}
@@ -136,7 +136,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
 	@Override
 	public boolean canWork() {
-		return hasMale() && hasFemale() && RedstoneMode.canWork(this, mode) && outputHasRoom() && fishCanLive(male) && fishCanLive(female);
+		return hasMale() && hasFemale() && RedstoneMode.canWork(this, mode) && outputHasRoom() && fishCanLive(inventory[male]) && fishCanLive(inventory[female]);
 	}
 	
 	//Booleans
@@ -152,46 +152,32 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 	}
 	
 	private boolean hasMale() {
-		return inventory[male] != null && Fishing.fishHelper.isMale(inventory[male]);
+		return Fishing.fishHelper.isMale(inventory[male]);
 	}
 	
 	private boolean hasFemale() {
-		return inventory[female] != null && Fishing.fishHelper.isFemale(inventory[female]);
+		return Fishing.fishHelper.isFemale(inventory[female]);
 	}
 
-	private boolean fishCanLive(int slot) {
-		if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
-			return true;
-		} else if (tank.getFluid() == null || (tank.getFluid() != null && tank.getFluid().fluidID != FluidRegistry.getFluidID(Fluids.fish_food))) {
-			return false;
-		}
-		
-		ItemStack fish = inventory[slot];
-		if (fish != null && fish.hasTagCompound()) {
-			if (!Fishing.fishHelper.isEgg(fish)) {
-				if (Fish.tankSize.getDNA(fish) > tankSize) {
-					return false;
-				}
-				
-				return Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
+	private boolean fishCanLive(ItemStack fish) {
+		FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+		if(species != null) {
+			if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
+				return true;
+			} else if (tank.getFluid() == null || (tank.getFluid() != null && tank.getFluid().fluidID != FluidRegistry.getFluidID(Fluids.fish_food))) {
+				return false;
 			}
-		}
-
-		return false;
+			
+			return tankSize >= Fish.tankSize.getDNA(fish) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
+		} else return false;
 	}
 	
 	public int getLightValue() {
 		int lM = 0, lF = 0;
-		if(inventory[male] != null && inventory[male].hasTagCompound()) {
-			FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(inventory[male]));
-			if(species.getLightValue() > 0) lM = species.getLightValue();
-		}
-		
-		if(inventory[female] != null && inventory[female].hasTagCompound()) {
-			FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(inventory[female]));
-			if(species.getLightValue() > 0) lF = species.getLightValue();
-		}
-		
+		FishSpecies sMale = Fishing.fishHelper.getSpecies(inventory[male]);
+		FishSpecies sFemale = Fishing.fishHelper.getSpecies(inventory[female]);
+		if(sMale != null && sMale.getLightValue() > 0) lM = sMale.getLightValue();
+		if(sFemale != null && sFemale.getLightValue() > 0) lF = sFemale.getLightValue();
 		if(lM == 0) return lF;
 		else if(lF == 0) return lM;
 		else return (lM + lF) / 2;
@@ -224,7 +210,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
 			for (int i = 0; i < loop; i++) {
 				int fill = fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), false);
-				if(fill > 0) {
+				if(fill >= increase) {
 					fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), true);
 					stack.stackSize--;
 				}
@@ -277,141 +263,94 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 	public boolean canConnectEnergy(ForgeDirection from) {
 		for(int slot = 0; slot < 2; slot++) {
 			if(inventory[slot] == null) continue;
-			int species = Fish.species.getDNA(inventory[slot]);
-			return Fishing.fishHelper.getSpecies(species).canConnectEnergy(from);
+			FishSpecies species = Fishing.fishHelper.getSpecies(inventory[slot]);
+			if(species != null) return species.canConnectEnergy(from);
 		}
 
 		return false;
 	}
 	
-	private void doEffect(int slot) {
-		if(inventory[slot] == null)
-			return;
-		int species = Fish.species.getDNA(inventory[slot]);
-		if (!this.worldObj.isRemote) {
-			Fishing.fishHelper.getSpecies(species).affectWorld(this.worldObj, this.xCoord, this.yCoord, this.zCoord, coords);
-			
-			for(CachedCoords cord: coords) {
-				List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
-				if(!list.isEmpty()) {
-					for (Object i : list) {
-						EntityLivingBase entity = (EntityLivingBase) i;
-						Fishing.fishHelper.getSpecies(species).affectLiving(entity);
-					}
-				}
-			}
-		}
-	}
-	
-	private void useFood(int slot) {
-		int foodUsage = 0;
-		ItemStack fish = inventory[slot];
-		if (fish != null && fish.hasTagCompound()) {
-			foodUsage = Fish.foodUsage.getDNA(fish);
-			if(foodUsage == 0) {
-				FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(fish));
-				if(species.requiresFood()) foodUsage = 1;
-			}
-		}
-
-		drain(ForgeDirection.UNKNOWN, FluidRegistry.getFluidStack(Fluids.fish_food, foodUsage), true);
-	}
-	
-	private void makeProduct(int slot) {
-		//Be more productive!
-		if(inventory[slot] == null)
-			return;
-		for (int i = 0; i < Fish.production.getDNA(inventory[slot]); i++) {
-			ItemStack fish = inventory[slot];
-			if (fish != null && fish.hasTagCompound()) {
-				if (!Fishing.fishHelper.isEgg(fish)) {
-					int speciesID = Fish.species.getDNA(fish);
-					int gender = Fish.gender.getDNA(fish);
-					
-					ItemStack product = Fishing.fishHelper.getSpecies(speciesID).getProduct(Rand.rand);
-					if(product != null) helper.insertStack(product, out);
-
-					//If we have the eternal female upgrade, we need to force generate eggs if the fish is a girl
-					if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishyHelper.FEMALE) {
-						int fertility = 150 - Fishing.fishHelper.getSpecies(speciesID).getFertility();
-						fertility = (fertility <= 0) ? 1 : fertility;
-						if (Rand.nextInt((fertility * 10))) {
-							ItemStack fishMale = inventory[male];
-							if (fishMale != null && fishMale.hasTagCompound()) {
-								if (!Fishing.fishHelper.isEgg(fishMale)) {
-									ItemStack egg = Fishing.fishHelper.generateEgg(inventory[male], inventory[female]);
-									helper.insertStack(egg, out);
-								}
-							}
+	private void doEffect(ItemStack fish) {
+		FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+		if(species != null) {
+			if (!worldObj.isRemote) {
+				species.affectWorld(worldObj, xCoord, yCoord, zCoord, coords);
+				
+				for(CachedCoords cord: coords) {
+					List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+					if(!list.isEmpty()) {
+						for (Object i : list) {
+							species.affectLiving((EntityLivingBase) i);
 						}
 					}
-
-					//However if we have the eternal male, let's make an additional product!
-					if (MaricultureHandlers.upgrades.hasUpgrade("male", this) && gender == FishyHelper.MALE) {
-						product = Fishing.fishHelper.getSpecies(speciesID).getProduct(Rand.rand);
-						if(product != null) helper.insertStack(product, out);
-					}
 				}
 			}
 		}
 	}
 	
-	private void damageFish(int slot, boolean giveProduct) {
-		ItemStack fish = inventory[slot];
-		if (fish != null && fish.hasTagCompound()) {
-			if (!Fishing.fishHelper.isEgg(fish) && fish.stackTagCompound.hasKey("SpeciesID")) {
-				//
+	private void generateEgg() {
+		if(Fishing.fishHelper.getSpecies(inventory[male]) != null) {
+			helper.insertStack(Fishing.fishHelper.generateEgg(inventory[male], inventory[female]), out);
+		}
+	}
+	
+	private void useFood(ItemStack fish) {
+		int usage = 0;
+		FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+		if(species != null) {
+			usage = Fish.foodUsage.getDNA(fish);
+			usage = usage == 0 && species.requiresFood()? 1: usage;
+		}
+
+		drain(ForgeDirection.UNKNOWN, FluidRegistry.getFluidStack(Fluids.fish_food, usage), true);
+	}
+	
+	//Creates a Product for this fish
+	private void makeProduct(ItemStack fish) {
+		FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+		if(species != null) {
+			for(int i = 0; i < Fish.production.getDNA(fish); i++) {
+				ItemStack product = species.getProduct(Rand.rand);
+				if(product != null) helper.insertStack(product, out);
 				int gender = Fish.gender.getDNA(fish);
-				//If we have the eternal life upgrades, let's cancel damaging or killing our fishies
-				if (MaricultureHandlers.upgrades.hasUpgrade("female", this) && gender == FishyHelper.FEMALE) {
-					return;
+				
+				if(MaricultureHandlers.upgrades.hasUpgrade("female", this)) {
+					int fertility = (Math.max(1, 75 - (Fish.fertility.getDNA(fish)) / 75));
+					if(Rand.nextInt(fertility)) generateEgg();
 				}
-
-				if (MaricultureHandlers.upgrades.hasUpgrade("male", this) && gender == FishyHelper.MALE) {
-					return;
-				}
-
-				//Damage our little fishies
-				int reduce = max - (purity * 15);
-				fish.stackTagCompound.setInteger("CurrentLife", fish.stackTagCompound.getInteger("CurrentLife") - reduce);
-				if (fish.stackTagCompound.getInteger("CurrentLife") <= 0 || MaricultureHandlers.upgrades.hasUpgrade("debugKill", this)) {
-					killFish(slot, giveProduct);
+				
+				if(MaricultureHandlers.upgrades.hasUpgrade("male", this)) {
+					product = species.getProduct(Rand.rand);
+					if(product != null) helper.insertStack(product, out);
 				}
 			}
 		}
 	}
 	
-	private void killFish(int slot, boolean giveProduct) {
-		if (giveProduct) {
-			ItemStack fish = inventory[slot];
-			if (fish != null && fish.hasTagCompound()) {
-				if (!Fishing.fishHelper.isEgg(fish)) {
-					int gender = Fish.gender.getDNA(fish);
-					int species = Fish.species.getDNA(fish);
-
-					ItemStack rawFish = new ItemStack(Items.fish, 1, species);
-					rawFish.setItemDamage(species);
-
-					if (rawFish != null) {
-						helper.insertStack(rawFish, out);
-					}
-
-					if (gender == FishyHelper.FEMALE) {
-						ItemStack fishMale = inventory[male];
-						if (fishMale != null && fishMale.hasTagCompound()) {
-							if (!Fishing.fishHelper.isEgg(fishMale)) {
-								ItemStack egg = Fishing.fishHelper.generateEgg(inventory[male], inventory[female]);
-								helper.insertStack(egg, out);
-							}
-						}
-					} else if(gender == FishyHelper.MALE) {
-						updateTankSize();
-					}
-				}
+	private void damageFish(ItemStack fish, boolean giveProduct) {
+		FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+		if(species != null) {
+			int gender = Fish.gender.getDNA(fish);
+			if(gender == FishyHelper.FEMALE && MaricultureHandlers.upgrades.hasUpgrade("female", this)) return;
+			if(gender == FishyHelper.MALE && MaricultureHandlers.upgrades.hasUpgrade("male", this)) return;
+			int reduce = max - (purity * 15);
+			fish.stackTagCompound.setInteger("CurrentLife", fish.stackTagCompound.getInteger("CurrentLife") - reduce);
+			if (fish.stackTagCompound.getInteger("CurrentLife") <= 0 || MaricultureHandlers.upgrades.hasUpgrade("debugKill", this)) {
+				killFish(species, gender, giveProduct);
 			}
 		}
+	}
+	
+	private void killFish(FishSpecies species, int gender, boolean giveProduct) {
+		if (giveProduct) {
+			ItemStack raw = new ItemStack(Items.fish, 1, species.getID());
+			if(raw != null) helper.insertStack(raw, out);
+			if(gender == FishyHelper.FEMALE) generateEgg();
+			else if(gender == FishyHelper.MALE) updateTankSize();
+		}
 
-		decrStackSize(slot, 1);
+		if(gender == FishyHelper.FEMALE) decrStackSize(female, 1);
+		else if(gender == FishyHelper.MALE) decrStackSize(male, 1);
 	}
 
 	@Override
@@ -515,23 +454,16 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 		return tooltip;
 	}
 	
-	public int getFishLifeScaled(int slot, int scale) {
-		ItemStack fish = inventory[slot];
-		if (fish != null && fish.hasTagCompound()) {
-			if (!Fishing.fishHelper.isEgg(fish) && fish.stackTagCompound.hasKey("SpeciesID")) {
-				int maxLife = fish.stackTagCompound.getInteger("Lifespan");
-				int currentLife = fish.stackTagCompound.getInteger("CurrentLife");
-
-				if ((slot == male && !hasFemale()) || (slot == female && !hasMale()))
-					return -1;
-				
-				if(fishCanLive(slot)) return (currentLife * scale) / maxLife;
-
-				return -1;
-			}
-		}
-
-		return 0;
+	public int getFishLifeScaled(ItemStack fish, int scale) {
+		FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+		if(species != null && fish.hasTagCompound()) {
+			int gender = Fish.gender.getDNA(fish);
+			int maxLife = fish.stackTagCompound.getInteger("Lifespan");
+			int currentLife = fish.stackTagCompound.getInteger("CurrentLife");
+			if ((gender == FishyHelper.MALE && !hasFemale()) || (gender == FishyHelper.FEMALE && !hasMale()))	return -1;
+			if(fishCanLive(fish)) return (currentLife * scale) / maxLife;
+			else return -1;
+		} else return 0;
 	}
 	
 	@Override

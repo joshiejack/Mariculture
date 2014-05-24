@@ -9,6 +9,7 @@ import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IMachine;
+import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -92,8 +93,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return true;
+		return stack.getItem() instanceof ItemFishy;
 	}
 	
 	@Override

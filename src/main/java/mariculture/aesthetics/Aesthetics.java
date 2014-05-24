@@ -49,15 +49,15 @@ public class Aesthetics extends RegistrationModule {
 		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.SMALL_BRICK), Core.limestone, LimestoneMeta.BRICK);
 		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.CHISELED), Core.limestone, LimestoneMeta.BORDERED);
 		RecipeHelper.addSmelting(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 0.1F);
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 4, LimestoneMeta.THIN_BRICK), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.limestone, 4, LimestoneMeta.THIN_BRICK), new Object[] {
 			"XY", "YX", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.BRICK), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.SMALL_BRICK)
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
 			"X", "X", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH)
 		});
 		
-		RecipeHelper.addShapedRecipe(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
 			"X", "Y", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.BORDERED)
 		});
 	}

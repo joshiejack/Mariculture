@@ -56,14 +56,14 @@ public class GuiFeeder extends GuiMariculture {
 	
 	@Override
 	public void drawBackground(int x, int y) {
-		int fish1 = tile.getFishLifeScaled(tile.male, 17);
+		int fish1 = tile.getFishLifeScaled(tile.getStackInSlot(tile.male), 17);
 		if (fish1 > -1) {
 			this.drawTexturedModalRect(x + 95, y + 24 + 17 - fish1, 0, 208 + 17 - fish1, 4, fish1 + 2);
 		} else {
 			this.drawTexturedModalRect(x + 95, y + 24, 4, 208, 4, 18);
 		}
 
-		int fish2 = tile.getFishLifeScaled(tile.female, 17);
+		int fish2 = tile.getFishLifeScaled(tile.getStackInSlot(tile.female), 17);
 		if (fish2 > -1) {
 			this.drawTexturedModalRect(x + 95, y + 52 + 17 - fish2, 0, 208 + 17 - fish2, 4, fish2 + 2);
 		} else {

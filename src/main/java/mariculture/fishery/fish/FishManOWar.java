@@ -16,10 +16,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishManOWar extends FishSpecies {
-	public FishManOWar(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 24, 45 };

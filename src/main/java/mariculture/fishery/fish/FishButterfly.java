@@ -9,11 +9,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 
-public class FishButterfly extends FishSpecies {
-	public FishButterfly(int id) {
-		super(id);
-	}
-	
+public class FishButterfly extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 23, 30 };

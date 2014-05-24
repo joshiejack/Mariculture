@@ -12,11 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class FishMantaRay extends FishSpecies {
-	public FishMantaRay(int id) {
-		super(id);
-	}
-	
+public class FishMantaRay extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 18, 25 };

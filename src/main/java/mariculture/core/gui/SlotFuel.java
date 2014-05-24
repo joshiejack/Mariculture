@@ -16,7 +16,7 @@ public class SlotFuel extends Slot {
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return (MaricultureHandlers.smelter.getFuelInfo(stack) != null) ? true : false;
+		return (MaricultureHandlers.crucible.getFuelInfo(stack) != null) ? true : false;
 	}
 
 	@Override

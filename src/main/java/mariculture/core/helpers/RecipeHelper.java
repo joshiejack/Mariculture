@@ -10,14 +10,13 @@ import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.Core;
 import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.ItemLib;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.lib.Modules;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -28,11 +27,32 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RecipeHelper {
-	public static void addShapedRecipe(ItemStack result, Object[] input) {
+	public static ItemStack _(Block block) {
+		return new ItemStack(block);
+	}
+	
+	public static ItemStack _(Item item) {
+		return new ItemStack(item);
+	}
+	
+	public static ItemStack _(ItemStack stack, int amount) {
+		ItemStack ret = stack.copy();
+		ret.stackSize = amount;
+		return ret;
+	}
+	
+	public static ItemStack _(ItemStack stack, int dmg, int amount) {
+		ItemStack ret = stack.copy();
+		ret.setItemDamage(dmg);
+		ret.stackSize = amount;
+		return ret;
+	}
+	
+	public static void addShaped(ItemStack result, Object[] input) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(result, input));
 	}
 	
-	public static void addShapelessRecipe(ItemStack result, Object[] input) {
+	public static void addShapeless(ItemStack result, Object[] input) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(result, input));
 	}
 
@@ -86,19 +106,19 @@ public class RecipeHelper {
 	}
 	
 	public static void add4x4Recipe(ItemStack result, Block block, int meta) {
-		addShapedRecipe(result, new Object[] { "##", "##", '#', new ItemStack(block, 1, meta) });
+		addShaped(result, new Object[] { "##", "##", '#', new ItemStack(block, 1, meta) });
 	}
 	
 	public static void add4x4Recipe(ItemStack result, Object input) {
-		addShapedRecipe(result, new Object[] { "##", "##", '#', input });
+		addShaped(result, new Object[] { "##", "##", '#', input });
 	}
 
 	public static void add9x9Recipe(ItemStack result, Object input) {
-		addShapedRecipe(result, new Object[] { "###", "###", "###", '#', input });
+		addShaped(result, new Object[] { "###", "###", "###", '#', input });
 	}
 
 	public static void addUncraftingRecipe(ItemStack result, Object input) {
-		addShapelessRecipe(result, new Object[] { input });
+		addShapeless(result, new Object[] { input });
 	}
 
 	public static void addAnvilRecipe(ItemStack input, ItemStack output, int hits) {
@@ -106,33 +126,41 @@ public class RecipeHelper {
 	}
 
 	public static void addFishingRodRecipe(ItemStack output, Object mat) {
-		addShapedRecipe(output ,new Object[] { "  S", " SW", "S W", 'S', mat, 'W', Items.string });
+		addShaped(output ,new Object[] { "  S", " SW", "S W", 'S', mat, 'W', Items.string });
 	}
 
 	public static void addMelting(ItemStack stack, int temp, FluidStack fluid) {
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, null, temp, fluid, null, 0));
+		MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack, null, temp, fluid, null, 0));
 	}
 	
 	public static void addMelting(ItemStack stack, int temp, FluidStack fluid, ItemStack output, int chance) {
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack, null, temp, fluid, output, chance));
+		MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack, null, temp, fluid, output, chance));
 	}
 
 	public static void addMelting(ItemStack stack, int temp, String fluid, int vol) {
 		addMelting(stack, temp, FluidRegistry.getFluidStack(fluid, vol));
+	}
+	
+	public static void add2x2Recipe(ItemStack result, Object input) {
+		addShaped(result, new Object[] { "##", "##", '#', input });
+	}
+
+	public static void add3x3Recipe(ItemStack result, Object input) {
+		addShaped(result, new Object[] { "###", "###", "###", '#', input });
 	}
 
 	/** @param output - ItemStack
 	 * @param item1 - 5 x this
 	 * @param item2 - 4 x this */
 	public static void addCrossHatchRecipe(ItemStack output, Object item1, Object item2) {
-		addShapedRecipe(output, new Object[] { "CAC", "ACA", "CAC", 'C', item1, 'A', item2 });
+		addShaped(output, new Object[] { "CAC", "ACA", "CAC", 'C', item1, 'A', item2 });
 	}
 	
 	/** @param output - ItemStack
 	 * @param wheel - Outer Rim
 	 * @param spoke - Inner Piece */
 	public static void addWheelRecipe(ItemStack output, Object wheel, Object spoke) {
-		addShapedRecipe(output, new Object[] { " W ", "WSW", " W ", 'W', wheel, 'S', spoke });
+		addShaped(output, new Object[] { " W ", "WSW", " W ", 'W', wheel, 'S', spoke });
 	}
 
 	/** Adds a fuel to be used by the smelter
@@ -141,16 +169,15 @@ public class RecipeHelper {
 	 * @param fuelInfo
 	 */
 	public static void addFuel(Object obj, FuelInfo fuelInfo) {
-		MaricultureHandlers.smelter.addFuel(obj, fuelInfo);
+		MaricultureHandlers.crucible.addFuel(obj, fuelInfo);
 	}
 
 	public static void addMeltingAlloy(ItemStack stack1, ItemStack stack2, int temp, FluidStack fluid) {
-		MaricultureHandlers.smelter.addRecipe(new RecipeSmelter(stack1, stack2, temp, fluid, null, 0));
+		MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack1, stack2, temp, fluid, null, 0));
 	}
 
 	public static void addCrushRecipe(ItemStack stack, Object string, boolean needAnvil) {
-		if(!needAnvil)
-			addShapelessRecipe(stack, new Object[] { string });
+		if(!needAnvil) addShapeless(stack, new Object[] { string });
 		ItemStack result = null;
 		if(string instanceof String) {
 			if(OreDictionary.getOres((String)string).size() > 0) {
@@ -178,7 +205,7 @@ public class RecipeHelper {
 	}
 
 	public static void addBookRecipe(ItemStack output, ItemStack input) {
-		addShapelessRecipe(output, new Object[] { input, Items.book});
+		addShapeless(output, new Object[] { input, Items.book});
 	}
 
 	public static void addFishMelting(ItemStack stack, double volume, ItemStack product, int chance) {
@@ -186,22 +213,34 @@ public class RecipeHelper {
 	}
 
 	public static void addFishSushi(ItemStack raw, int meal) {
-		ItemStack kelp = (Modules.isActive(Modules.worldplus))? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): ItemLib.cactusGreen;
-		addShapedRecipe(new ItemStack(Core.food, (int)Math.ceil(meal/1.5), FoodMeta.SUSHI), new Object[] {
-			" K ", "KFK", " K ", 'K', kelp, 'F', raw
-		});
+		ItemStack kelp = new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP);
+		if(OreDictionary.getOres("cropRice").size() > 0) {
+			addShaped(new ItemStack(Core.food, (int)Math.ceil(meal/1.5), FoodMeta.SUSHI), new Object[] {
+				"RKR", "KFK", "RKR", 'R', kelp, 'F', raw, 'K', "cropRice"
+			});
+		} else {
+			addShaped(new ItemStack(Core.food, (int)Math.ceil(meal/1.5), FoodMeta.SUSHI), new Object[] {
+				" K ", "KFK", " K ", 'K', kelp, 'F', raw
+			});
+		}
 	}
 
 	public static void addFishSoup(ItemStack raw, int meal) {
-		ItemStack kelp = (Modules.isActive(Modules.worldplus))? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP): ItemLib.cactusGreen;
+		ItemStack kelp = new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP);
 		int number = (int)Math.ceil(meal/2);
 		int meta = (number == 2)? FoodMeta.MISO_SOUP_2: (number >= 3)? FoodMeta.MISO_SOUP_3: FoodMeta.MISO_SOUP_1;
-		RecipeHelper.addShapelessRecipe(new ItemStack(Core.food, 1, meta), new Object[] {
+		RecipeHelper.addShapeless(new ItemStack(Core.food, 1, meta), new Object[] {
 			Items.bowl, kelp, raw, Blocks.brown_mushroom, Blocks.red_mushroom
 		});
 	}
 
 	public static void addFishMeal(ItemStack raw, int meal) {
-		addShapelessRecipe(new ItemStack(Core.materials, meal, MaterialsMeta.FISH_MEAL), new Object[] { raw });
+		addShapeless(new ItemStack(Core.materials, meal, MaterialsMeta.FISH_MEAL), new Object[] { raw });
+	}
+
+	public static ItemStack addUpgrade(int meta, Object[] input) {
+		ItemStack result = new ItemStack(Core.upgrade, 1, meta);
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(result, input));
+		return result;
 	}
 }

@@ -1,10 +1,11 @@
 package mariculture.fishery;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Random;
-import java.util.logging.Level;
 
+import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.core.IUpgradable;
@@ -16,15 +17,109 @@ import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.AverageHelper;
+import mariculture.fishery.items.ItemEgg;
+import mariculture.fishery.items.ItemFishy;
+import mariculture.fishery.items.ItemVanillaFish;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.logging.log4j.Level;
 
 public class FishyHelper implements IFishHelper {
 	public static int MALE = 0;
 	public static int FEMALE = 1;
+	private static final String CATEGORY = "Fish-Mappings";
+	private static final String COMMENT = "Mariculture Fish all have IDs, this is required mostly for when they are dead. Fish IDs are assigned automatically by Mariculture, so you can just ignore this file, it's mostly being used to save them";
+	private static ArrayList<CachedFishData> cache = new ArrayList();
+	private static ArrayList<Integer> taken = new ArrayList();
+	private static class CachedFishData {
+		private String modid;
+		private FishSpecies species;
+		private int default_id;
+		public CachedFishData(String modid, FishSpecies species, int default_id) {
+			this.modid = modid;
+			this.species = species;
+			this.default_id = default_id;
+		}
+	}
+	
+	@Override
+	public FishSpecies registerFish(String modid, Class<? extends FishSpecies> fish) {
+		return registerFish(modid, fish, 50);
+	}
+	
+	@Override
+	public FishSpecies registerFish(String modid, Class<? extends FishSpecies> fish, int default_id) {
+		try {
+			FishSpecies species = ((FishSpecies)fish.newInstance()).setup(modid);
+			int fish_id = getID(modid, species.getSpecies());
+			if(fish_id >= 0) taken.add(fish_id);
+			cache.add(new CachedFishData(modid, species, default_id));
+			return species;
+		} catch (Exception e) {
+			LogHandler.log(Level.WARN, "Mariculture failed to the fish: " + fish + " , The fish returned null, you will have serious problems with fish!!!");
+			return null;
+		}
+	}
+	
+	@Override
+	public void registerFishies() {
+		for(CachedFishData data: cache) {
+			int fish_id = getID(data.modid, data.species.getSimpleName());
+			if(fish_id < 0) {
+				fish_id = setID(data.modid, data.species.getSimpleName(), getNextAvailableID(data.default_id));
+			}
+			
+			FishSpecies.ids.put(data.species.getSpecies(), fish_id);
+			FishSpecies.species.put(fish_id, data.species);
+		}
+		
+		//Clear out the data, since it's no longer needed to be kept in memory
+		taken = null;
+		cache = null;
+	}
+	
+	private int getNextAvailableID(int default_id) {
+		for(Integer taken: this.taken) {
+			if(default_id == taken) {
+				if(default_id >= 32000) return getNextAvailableID(0);
+				else return getNextAvailableID(default_id + 1);
+			}
+		}
+		
+		taken.add(default_id);
+		return default_id;
+	}
+
+	private int getID(String modid, String fish) {
+		Configuration config = new Configuration(new File(Mariculture.root + "/mariculture/", "fish-mappings.cfg"));
+		 try {
+	     	config.load();
+	     	return config.get(CATEGORY, modid + ":" + fish, -1).getInt();
+		 } catch (Exception e) {
+			 e.printStackTrace();
+	     }
+		 
+		 return -1;
+	}
+	
+	private int setID(String modid, String fish, int default_id) {
+		Configuration config = new Configuration(new File(Mariculture.root + "/mariculture/", "fish-mappings.cfg"));
+		try {
+			config.load();
+			config.addCustomCategoryComment(CATEGORY, COMMENT);
+			default_id = config.get(CATEGORY, modid + ":" + fish, default_id).getInt();
+		} catch (Exception e) {
+			e.printStackTrace();
+	    } finally {
+	    	config.save();
+	    }
+		 
+		 return default_id;
+	}
 
 	@Override
 	public ItemStack makePureFish(FishSpecies species) {
@@ -66,7 +161,7 @@ public class FishyHelper implements IFishHelper {
 		int species1 = Fish.species.getDNA(fish);
 		int species2 = Fish.species.getLowerDNA(fish);
 
-		ArrayList<Mutation> mutations = Fishing.mutation.getMutations(getSpecies(species1), getSpecies(species2));
+		ArrayList<Mutation> mutations = Fishing.mutation.getMutations(FishSpecies.species.get(species1), FishSpecies.species.get(species2));
 		if(species1 != species2 && mutations != null && mutations.size() > 0) {
 			for(Mutation mute: mutations) {
 				FishSpecies baby = Fishing.fishHelper.getSpecies(mute.baby);
@@ -105,7 +200,7 @@ public class FishyHelper implements IFishHelper {
 	
 	@Override
 	public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
-		FishSpecies fish = FishSpecies.species.get(Fish.species.getDNA(stack));
+		FishSpecies fish = Fishing.fishHelper.getSpecies(stack);
 		Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
 		int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
 		boolean worldCorrect = fish.isWorldCorrect(world);
@@ -129,6 +224,8 @@ public class FishyHelper implements IFishHelper {
 
 	@Override
 	public boolean isPure(ItemStack stack) {
+		FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(stack));
+		FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(stack));
 		if (stack.hasTagCompound()) {
 			if (stack.stackTagCompound.getInteger("SpeciesID") == stack.stackTagCompound.getInteger("lowerSpeciesID")) {
 				return true;
@@ -140,48 +237,22 @@ public class FishyHelper implements IFishHelper {
 
 	@Override
 	public boolean isMale(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (!stack.stackTagCompound.hasKey("Gender")) {
-				return false;
-			}
-
-			if (stack.stackTagCompound.getInteger("Gender") == MALE) {
-				return true;
-			}
-		}
-
-		return false;
+		return getSpecies(stack) != null && Fish.gender.getDNA(stack) == FishyHelper.MALE;
 	}
 
 	@Override
 	public boolean isFemale(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (!stack.stackTagCompound.hasKey("Gender")) {
-				return false;
-			}
-
-			if (Fish.gender.getDNA(stack) == FEMALE) {
-				return true;
-			}
-		}
-
-		return false;
+		return getSpecies(stack) != null && Fish.gender.getDNA(stack) == FishyHelper.FEMALE;
 	}
 
 	@Override
 	public boolean isEgg(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.hasKey("isEgg")) {
-				return true;
-			}
-		}
-
-		return false;
+		return stack.getItem() instanceof ItemEgg && stack.hasTagCompound();
 	}
 
 	@Override
 	public ItemStack generateEgg(ItemStack fish1, ItemStack fish2) {
-		ItemStack egg = new ItemStack(Fishery.fishy);
+		ItemStack egg = new ItemStack(Fishery.fishEggs);
 		egg.setTagCompound(new NBTTagCompound());
 
 		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
@@ -193,7 +264,6 @@ public class FishyHelper implements IFishHelper {
 			FishDNABase.DNAParts.get(i).addDNAList(egg, DNAlist);
 		}
 
-		egg.stackTagCompound.setBoolean("isEgg", true);
 		int[] fertility = egg.stackTagCompound.getIntArray(Fish.fertility.getEggString());
 		int eggLife = AverageHelper.getMode(fertility);
 		egg.stackTagCompound.setInteger("currentFertility", eggLife);
@@ -202,39 +272,26 @@ public class FishyHelper implements IFishHelper {
 
 		return egg;
 	}
-
-	@Override
-	public FishSpecies getSpecies(String species) {
-		for (Entry<Integer, FishSpecies> speciesList : FishSpecies.species.entrySet()) {
-			FishSpecies fish = speciesList.getValue();
-			if (fish.getSpecies().equals(species)) {
-				return fish;
-			}
-		}
-
-		return Fish.cod;
-	}
 	
 	@Override
 	public FishSpecies getSpecies(ItemStack stack) {
-		return getSpecies(Fish.species.getDNA(stack));
+		if(stack == null || stack.getItem() == null || !stack.hasTagCompound() || !(stack.getItem() instanceof ItemFishy)) return null;
+		return(getSpecies(Fish.species.getDNA(stack)));
+	}
+
+	@Override
+	public FishSpecies getSpecies(String species) {
+		try {
+			return getSpecies(FishSpecies.ids.get(species));
+		} catch (Exception e) {
+			LogHandler.log(Level.INFO, "Failed to find fish species: " + species);
+			return null;
+		}
 	}
 	
 	@Override
 	public FishSpecies getSpecies(int id) {
-		return FishSpecies.species.get((Integer)id);
-	}
-
-	@Override
-	public int getSpeciesID(String species) {
-		for (Entry<Integer, FishSpecies> speciesList : FishSpecies.species.entrySet()) {
-			FishSpecies fish = speciesList.getValue();
-			if (fish.getSpecies().equals(species)) {
-				return speciesList.getKey();
-			}
-		}
-
-		return 0;
+		return FishSpecies.species.get(id);
 	}
 
 	@Override

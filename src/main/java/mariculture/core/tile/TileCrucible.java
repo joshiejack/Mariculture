@@ -60,7 +60,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		if (slot == liquid_in)
 			return FluidHelper.isFluidOrEmpty(stack);
 		if (slot == fuel)
-			return MaricultureHandlers.smelter.getFuelInfo(stack) != null;
+			return MaricultureHandlers.crucible.getFuelInfo(stack) != null;
 		return slot == 5 || slot == 6;
 	}
 
@@ -202,13 +202,13 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 			return false;
 		if (!rsAllowsWork())
 			return false;
-		if (MaricultureHandlers.smelter.getFuelInfo(inventory[fuel]) != null)
+		if (MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]) != null)
 			return true;
 		if (worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler) {
 			IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] info = handler.getTankInfo(ForgeDirection.UP);
 			if (info != null && info[0].fluid != null && info[0].fluid.amount >= 10)
-				return MaricultureHandlers.smelter.getFuelInfo(info[0].fluid) != null;
+				return MaricultureHandlers.crucible.getFuelInfo(info[0].fluid) != null;
 		}
 
 		return false;
@@ -247,12 +247,12 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	}
 
 	public FuelInfo getInfo() {
-		FuelInfo info = MaricultureHandlers.smelter.getFuelInfo(inventory[fuel]);
+		FuelInfo info = MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]);
 		if (info == null) {
 			IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			FluidTankInfo[] tank = handler.getTankInfo(ForgeDirection.UP);
 			if (tank.length > 0 && tank[0] != null && tank[0].fluid != null) {
-				info = MaricultureHandlers.smelter.getFuelInfo(tank[0].fluid);
+				info = MaricultureHandlers.crucible.getFuelInfo(tank[0].fluid);
 				handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 10), true);
 			}
 		} else {
@@ -264,7 +264,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
 	public boolean canMelt(int slot) {
 		int other = (slot == 0)? 1: 0;
-		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
 		if(recipe == null) return false;
 		int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
 		FluidStack fluid = recipe.fluid.copy();
@@ -280,7 +280,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
 	public void melt(int slot) {
 		int other = (slot == 0)? 1: 0;
-		RecipeSmelter recipe = MaricultureHandlers.smelter.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+		RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
 		if(recipe == null)
 			return;
 		if(recipe.input2 != null) {

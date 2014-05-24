@@ -12,11 +12,7 @@ import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 
-public class FishCatfish extends FishSpecies {
-	public FishCatfish(int id) {
-		super(id);
-	}
-	
+public class FishCatfish extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 20, 45 };

@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class MaricultureTab extends CreativeTabs {
+	public static MaricultureTab tabFluids;
 	public static MaricultureTab tabMariculture;
 	public static MaricultureTab tabFish;
 	public static MaricultureTab tabJewelry;

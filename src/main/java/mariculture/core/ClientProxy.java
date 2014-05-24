@@ -10,10 +10,11 @@ import mariculture.core.lib.TickingMeta;
 import mariculture.core.lib.WaterMeta;
 import mariculture.core.render.AnvilSpecialRenderer;
 import mariculture.core.render.RenderAnvil;
-import mariculture.core.render.RenderCaster;
+import mariculture.core.render.RenderBlockCaster;
 import mariculture.core.render.RenderCopperTank;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderHandler;
+import mariculture.core.render.RenderIngotCaster;
 import mariculture.core.render.RenderOyster;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderSpecialHandler;
@@ -103,8 +104,9 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSpecialHandler(new ModelAirPump(), AIR_PUMP));
 		RenderHandler.register(Core.water, WaterMeta.OYSTER, RenderOyster.class);
 		RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.ANVIL, RenderAnvil.class);
-		RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.INGOT_CASTER, RenderCaster.class);
-		RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.VAT, RenderVat.class);
+		RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.INGOT_CASTER, RenderIngotCaster.class);
+		RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.BLOCK_CASTER, RenderBlockCaster.class);
+		RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.VAT, RenderVat.class);
 		RenderHandler.register(Core.tanks, TankMeta.TANK, RenderCopperTank.class);
 		RenderHandler.register(Core.tanks, TankMeta.BOTTLE, RenderVoidBottle.class);
 		
@@ -112,8 +114,8 @@ public class ClientProxy extends CommonProxy {
 			RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
 			RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
 			RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
-			RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_BASE, RenderCompressorBase.class);
-			RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.COMPRESSOR_TOP, RenderCompressorTop.class);
+			RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_BASE, RenderCompressorBase.class);
+			RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_TOP, RenderCompressorTop.class);
 		}
 		
 		if(Modules.isActive(Modules.factory)) {
@@ -135,7 +137,7 @@ public class ClientProxy extends CommonProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSpecialHandler(new ModelTurbineGas(), TURBINE_GAS));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
 			RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
-			RenderHandler.register(Core.renderedMultiMachines, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);
+			RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);
 			RenderHandler.register(Core.tanks, TankMeta.DIC, RenderFluidDictionary.class);
 		}
 		

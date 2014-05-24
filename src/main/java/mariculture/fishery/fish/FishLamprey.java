@@ -15,10 +15,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishLamprey extends FishSpecies {
-	public FishLamprey(int id) {
-		super(id);
-	}
-	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -3, 5 };

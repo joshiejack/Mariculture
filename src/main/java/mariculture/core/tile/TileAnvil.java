@@ -8,6 +8,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.IAnvilHandler;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.NBTHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.Modules;
@@ -110,9 +111,17 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
                 }
 			}
 			
-			float drop = ((1.0F / (player.xpBarCap() * 1)) /4) * modifier;
+			float effiency = 1.0F - EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, hammer) /25;
+			float drop = (((1.0F / (player.xpBarCap() * 1)) /4) * modifier) * effiency;
 			if((player.experience >= drop || player.experienceLevel > 0) && canBeRepaired(stack)) {
+				for(int i = 0; i < EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, hammer); i++) {
+					if(Rand.nextInt(3)) {
+						stack.setItemDamage(stack.getItemDamage() - 1);
+					}
+				}
+				
 				stack.setItemDamage(stack.getItemDamage() - 1);
+				if(stack.getItemDamage() < 0) stack.setItemDamage(0);
 				float experience = player.experience - drop;
 				if(experience <= 0.0F) {
 					player.experience = 1.0F;
@@ -143,14 +152,14 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 			int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
 			stack.stackTagCompound.setInteger("Worked", workedVal);
 			if(workedVal >= stack.stackTagCompound.getInteger("Required")) {
-				ItemStack result = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
+				ItemStack result = NBTHelper.getItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
 				if(Modules.isActive(Modules.magic)) {
 					result = JewelryHandler.finishJewelry(stack, result, Rand.rand);
 				}
 				
 				setInventorySlotContents(0, result);
 				
-				worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+				worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
 				worldObj.playSoundAtEntity(player, Mariculture.modid + ":bang", 1.0F, 1.0F);
 				return true;
 			}
@@ -168,7 +177,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		worked.setTagCompound(new NBTTagCompound());
 		worked.stackTagCompound.setInteger("Worked", 0);
 		worked.stackTagCompound.setInteger("Required", hits);
-		worked.stackTagCompound.setTag("WorkedItem", output.writeToNBT(new NBTTagCompound()));
+		worked.stackTagCompound.setTag("WorkedItem", NBTHelper.writeItemStackToNBT(new NBTTagCompound(), output));
 		return worked;
 	}
 	

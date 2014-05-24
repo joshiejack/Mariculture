@@ -24,6 +24,12 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class BlockTransferHelper {
 	public static List<Integer> sides;
+	static {
+		sides = new ArrayList<Integer>();
+		for(int i = 0; i < 6; i++) {
+			sides.add(i);
+		}
+	}
 	
 	public TileEntity thisTile;
 	public IFluidHandler handler;

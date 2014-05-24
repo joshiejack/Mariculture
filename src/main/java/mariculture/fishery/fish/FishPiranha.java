@@ -18,10 +18,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishPiranha extends FishSpecies {
-	public FishPiranha(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 21, 28 };

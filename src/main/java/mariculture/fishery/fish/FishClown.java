@@ -14,11 +14,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 
-public class FishClown extends FishSpecies {
-	public FishClown(int id) {
-		super(id);
-	}
-	
+public class FishClown extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 24, 27 };

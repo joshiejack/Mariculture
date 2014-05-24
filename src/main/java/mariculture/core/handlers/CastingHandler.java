@@ -15,7 +15,7 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class IngotCastingHandler implements ICastingHandler {
+public class CastingHandler implements ICastingHandler {
 	private final HashMap<String, RecipeCasting> nuggets = new HashMap();
 	private final HashMap<String, RecipeCasting> ingots = new HashMap();
 	private final HashMap<String, RecipeCasting> blocks = new HashMap();

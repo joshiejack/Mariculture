@@ -10,7 +10,7 @@ import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
 import mariculture.core.Core;
-import mariculture.core.lib.FluidContainerMeta;
+import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.factory.Factory;
 import net.minecraft.init.Items;

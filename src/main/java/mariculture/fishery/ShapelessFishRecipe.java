@@ -53,7 +53,6 @@ public class ShapelessFishRecipe implements IRecipe {
 
 	ShapelessFishRecipe(ShapelessRecipes recipe, Map<ItemStack, String> replacements) {
 		output = recipe.getRecipeOutput();
-
 		for (ItemStack ingred : ((List<ItemStack>) recipe.recipeItems)) {
 			Object finalObj = ingred;
 			for (Entry<ItemStack, String> replace : replacements.entrySet()) {
@@ -78,16 +77,8 @@ public class ShapelessFishRecipe implements IRecipe {
 
 	public ItemStack getRecipeOutput(ItemStack egg) {
 		if(egg.hasTagCompound()) {
-			if (egg.getTagCompound().getInteger("currentFertility") == -1) {
-				int[] lifes = egg.stackTagCompound.getIntArray(Fish.fertility.getEggString());
-				int eggLife = AverageHelper.getMode(lifes);
-				egg.getTagCompound().setInteger("currentFertility", eggLife);
-				egg.getTagCompound().setInteger("malesGenerated", 0);
-				egg.getTagCompound().setInteger("femalesGenerated", 0);
-			}
-				
 			int eggs = egg.stackTagCompound.getInteger("currentFertility");
-			output.stackSize = (int) (( Math.ceil(eggs/60) >= 1)? Math.ceil(eggs/60): 1);
+			output.stackSize = (int) Math.max(1, Math.ceil(eggs/650));
 		}
 			
 		return output.copy();

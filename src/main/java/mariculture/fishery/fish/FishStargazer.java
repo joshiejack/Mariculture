@@ -15,10 +15,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishStargazer extends FishSpecies {
-	public FishStargazer(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -1, 5 };

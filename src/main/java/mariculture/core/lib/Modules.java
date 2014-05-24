@@ -60,12 +60,16 @@ public class Modules {
 		public abstract void registerItems();
 		public abstract void registerOther();
 		public abstract void registerRecipes();
+		public void registerFluids() {
+			return;
+		}
 		
 		@Override
 		public void preInit() {
 			registerHandlers();
-			registerBlocks();
 			registerItems();
+			registerFluids();
+			registerBlocks();
 			registerOther();
 		}
 		

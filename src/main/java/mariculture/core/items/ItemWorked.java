@@ -3,6 +3,7 @@ package mariculture.core.items;
 import java.util.List;
 
 import mariculture.Mariculture;
+import mariculture.core.helpers.NBTHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +29,7 @@ public class ItemWorked extends ItemDamageable {
 			return StatCollector.translateToLocal("itemGroup.jewelryTab");
 		}
 		
-		ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
+		ItemStack worked = NBTHelper.getItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
 		return StatCollector.translateToLocal("mariculture.string.unworked") + " " + worked.getItem().getItemStackDisplayName(worked);
 	}
 	
@@ -87,9 +88,9 @@ public class ItemWorked extends ItemDamageable {
 	public IIcon getIcon(ItemStack stack, int pass) {
 		if(pass < 4) {
 			if (stack.hasTagCompound()) {
-				ItemStack worked = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-				if(worked.getItem() != this)
-					return worked.getItem().getIcon(worked, pass);
+				ItemStack worked = NBTHelper.getItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
+				if(worked == null || worked.getItem() == null) return crack;
+				if(worked.getItem() != this) return worked.getItem().getIcon(worked, pass);
 			}
 		}
 		

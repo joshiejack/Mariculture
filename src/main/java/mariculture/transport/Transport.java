@@ -38,7 +38,7 @@ public class Transport extends RegistrationModule {
 
 	@Override
 	public void registerRecipes() {
-		RecipeHelper.addShapedRecipe(new ItemStack(speedBoat), new Object[] {
+		RecipeHelper.addShaped(new ItemStack(speedBoat), new Object[] {
 			"G F", "AAA", 'G', Blocks.glass_pane, 'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
 		});
 	}

@@ -24,6 +24,7 @@ import net.minecraft.world.WorldServer;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawnData {
+	private float damage = 0.0F;
 	private int baitQuality;
 	public EntityHook(World world) {
 		super(world);
@@ -33,9 +34,10 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 		super(world, player);
 	}
 	
-	public EntityHook(World world, EntityPlayer player, int quality) {
+	public EntityHook(World world, EntityPlayer player, float damage, int quality) {
 		super(world, player);
 		
+		this.damage = damage;
 		this.baitQuality = quality;
 	}
 
@@ -59,7 +61,10 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 				if(this.field_146042_b != null && !this.field_146042_b.isDead) itemstack = this.field_146042_b.getCurrentEquippedItem();
 				if (field_146042_b == null || this.field_146042_b.isDead || !this.field_146042_b.isEntityAlive() || itemstack == null || !(itemstack.getItem() instanceof ItemFishingRod) || this.getDistanceSqToEntity(this.field_146042_b) > 1024.0D) {
 					this.setDead();
-					this.field_146042_b.fishEntity = null;
+					if(field_146042_b != null) {
+						this.field_146042_b.fishEntity = null;
+					}
+					
 					return;
 				}
 				
@@ -140,7 +145,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 
 			if (movingobjectposition != null) {
 				if (movingobjectposition.entityHit != null) {
-					if (movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.field_146042_b), 0.0F)) {
+					if (movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.field_146042_b), damage)) {
 						this.field_146043_c = movingobjectposition.entityHit;
 					}
 				} else {
@@ -316,18 +321,22 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 				b0 = 3;
 			} else if (this.field_146045_ax > 0) {
 				ItemStack result = Fishing.fishing.getCatch(worldObj, (int)posX, (int)posY, (int)posZ, field_146042_b.getHeldItem());
-				EntityItemFireImmune entityitem = new EntityItemFireImmune(this.worldObj, this.posX, this.posY, this.posZ, result);
-				double d1 = this.field_146042_b.posX - this.posX;
-				double d3 = this.field_146042_b.posY - this.posY;
-				double d5 = this.field_146042_b.posZ - this.posZ;
-				double d7 = (double) MathHelper.sqrt_double(d1 * d1 + d3 * d3 + d5 * d5);
-				double d9 = 0.1D;
-				entityitem.motionX = d1 * d9;
-				entityitem.motionY = d3 * d9 + (double) MathHelper.sqrt_double(d7) * 0.08D;
-				entityitem.motionZ = d5 * d9;
-				this.worldObj.spawnEntityInWorld(entityitem);
-				this.field_146042_b.worldObj.spawnEntityInWorld(new EntityXPOrb(this.field_146042_b.worldObj, this.field_146042_b.posX, this.field_146042_b.posY + 0.5D, this.field_146042_b.posZ + 0.5D, this.rand.nextInt(6) + 1));
-				b0 = 1;
+				if(result != null) {
+					EntityItemFireImmune entityitem = new EntityItemFireImmune(this.worldObj, this.posX, this.posY, this.posZ, result);
+					double d1 = this.field_146042_b.posX - this.posX;
+					double d3 = this.field_146042_b.posY - this.posY;
+					double d5 = this.field_146042_b.posZ - this.posZ;
+					double d7 = (double) MathHelper.sqrt_double(d1 * d1 + d3 * d3 + d5 * d5);
+					double d9 = 0.1D;
+					entityitem.motionX = d1 * d9;
+					entityitem.motionY = d3 * d9 + (double) MathHelper.sqrt_double(d7) * 0.08D;
+					entityitem.motionZ = d5 * d9;
+					this.worldObj.spawnEntityInWorld(entityitem);
+					this.field_146042_b.worldObj.spawnEntityInWorld(new EntityXPOrb(this.field_146042_b.worldObj, this.field_146042_b.posX, this.field_146042_b.posY + 0.5D, this.field_146042_b.posZ + 0.5D, this.rand.nextInt(6) + 1));
+					b0 = 1;
+				} else {
+					b0 = 0;
+				}
 			}
 
 			if (this.field_146051_au) {

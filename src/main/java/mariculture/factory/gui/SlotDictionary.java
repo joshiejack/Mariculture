@@ -50,13 +50,18 @@ public class SlotDictionary extends SlotFake {
 			tag.setTag("OreDictionaryDisplay", new NBTTagCompound());
 		}
 		
+		String old = "";
 		NBTTagCompound display = tag.getCompoundTag("OreDictionaryDisplay");
 		NBTTagList lore = display.getTagList("Lore", 8);
-		String old = lore.getStringTagAt(0) != null? lore.getStringTagAt(0): "";
-		lore = new NBTTagList();
-		String next = OreDicHandler.getNextString(stack, old);
-		display.setTag("Lore", OreDicHandler.addAllTags(stack, lore, next));
-		stack.stackTagCompound = tag;
+		if(lore != null && lore.tagCount() > 0) {
+			old = lore.getStringTagAt(0);
+		}
+
+		if(old != null) {
+			String next = OreDicHandler.getNextString(stack, old);
+			display.setTag("Lore", OreDicHandler.addAllTags(stack, next));
+			stack.stackTagCompound = tag;
+		}
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.DirectionHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.WaterMeta;
 import mariculture.core.render.RenderOyster;
@@ -108,7 +109,7 @@ public class BlockWater extends BlockFunctional {
 
 		if (tile instanceof TileOyster) {
 			TileOyster oyster = (TileOyster) tile;
-			if(Extra.SPAWN_BOOKS) {
+			if(Extra.SPAWN_BOOKS && Modules.isActive(Modules.magic)) {
                 if(oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
                 	BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
                 }

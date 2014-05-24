@@ -158,6 +158,7 @@ public class FishDNABase {
 
 	/** Automatically called when reading a fish **/
 	public Integer getDNA(ItemStack stack) {
+		if(stack == null || !stack.hasTagCompound()) return 0;
 		if(category == null) {
 			if(!stack.stackTagCompound.hasKey(getHigherString())) {
 				FishSpecies species = Fishing.fishHelper.getSpecies(stack);
@@ -174,6 +175,7 @@ public class FishDNABase {
 
 	/** Automatically called when reading a fish **/
 	public Integer getLowerDNA(ItemStack stack) {
+		if(stack == null || !stack.hasTagCompound()) return 0;
 		if(category == null) {
 			if(!stack.stackTagCompound.hasKey(getLowerString())) {
 				FishSpecies species = Fishing.fishHelper.getSpecies(stack);

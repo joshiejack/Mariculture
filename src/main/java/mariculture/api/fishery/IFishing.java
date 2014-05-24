@@ -13,7 +13,7 @@ public interface IFishing {
 	public RodType getRodType(ItemStack stack);
 	public void registerRod(Item item, RodType quality);
 	public boolean canUseBait(ItemStack rod, ItemStack bait);
-	public ArrayList<List> getCanUseList(RodType quality);
+	public ArrayList<ItemStack> getCanUseList(RodType quality);
 	public void addBaitForQuality(ItemStack bait, RodType quality);
 	public void addBaitForQuality(ItemStack bait, List<RodType> rods);
 	public void addBait(ItemStack bait, Integer catchRate);

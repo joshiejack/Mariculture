@@ -6,11 +6,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.ItemLib;
 
 //TODO: Temperature, Lifespan, Fertility + Survivability + Fish Oil + Fish Meal, of all Fish Based on Real Details
-public class TemplateRequired extends FishSpecies {
-	public TemplateRequired(int id) {
-		super(id);
-	}
-	
+public class TemplateRequired extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 20, 30 };

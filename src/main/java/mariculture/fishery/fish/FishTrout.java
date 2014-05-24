@@ -8,16 +8,19 @@ import static mariculture.core.lib.ItemLib.pinkDye;
 import static mariculture.core.lib.ItemLib.purpleDye;
 import static mariculture.core.lib.ItemLib.redDye;
 import static mariculture.core.lib.ItemLib.yellowDye;
+
+import java.util.UUID;
+
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
-public class FishTrout extends FishSpecies {
-	public FishTrout(int id) {
-		super(id);
-	}
+import com.google.common.collect.Multimap;
 
+public class FishTrout extends FishSpecies {
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -1, 35 };
@@ -56,6 +59,17 @@ public class FishTrout extends FishSpecies {
 		addProduct(greenDye, 3.5D);
 		addProduct(blueDye, 3.5D);
 		addProduct(purpleDye, 2.5D);
+	}
+	
+	@Override
+	public boolean destroyOnAttack() {
+		return true;
+	}
+	
+	@Override 
+	public Multimap getModifiers(UUID uuid, Multimap map) {
+		 map.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Weapon modifier", (double)10.0F, 0));
+		 return map;
 	}
 
 	@Override

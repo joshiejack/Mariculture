@@ -9,11 +9,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 
-public class FishCod extends FishSpecies {
-	public FishCod(int id) {
-		super(id);
-	}
-	
+public class FishCod extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { -3, 20 };

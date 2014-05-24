@@ -20,6 +20,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -71,6 +74,7 @@ public abstract class ItemJewelry extends ItemDamageable {
 	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.hasTagCompound()) {
 			JewelryMaterial material = JewelryHandler.getMaterial(stack);
+			if(material == Magic.dummyMaterial) return Text.translate("oneRing");
 			return material.getColor() + material.getCraftingItem(getType()).getDisplayName() + " " + Text.localize(getUnlocalizedName(stack) + ".name");
 		}
 
@@ -80,8 +84,19 @@ public abstract class ItemJewelry extends ItemDamageable {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if (stack.hasTagCompound()) {
+			JewelryType type = getType();
+			JewelryMaterial material = JewelryHandler.getMaterial(stack);
 			JewelryBinding binding = JewelryHandler.getBinding(stack);
 			list.add(binding.getColor() + StatCollector.translateToLocal("mariculture.string.with") + " " + binding.getCraftingItem(getType()).getDisplayName());
+			if(player.worldObj.isRemote && material != Magic.dummyMaterial) {
+				if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+					list.add(Text.INDIGO + Text.translate("stats.jewelry"));
+					list.add(Text.translate("elemental") + ": " + Text.translate("elemental." + material.getIdentifier().toLowerCase()));
+					list.add(Text.translate("max.enchants") + ": " + (type.getMaximumEnchantments() + material.getExtraEnchantments(type)));
+					list.add(Text.translate("max.level") + ": " + Math.min(binding.getMaxEnchantmentLevel(type), material.getMaximumEnchantmentLevel(type)));
+					list.add(Text.translate("max.damage") + ": " + getMaxDamage(stack));
+				} else list.add(Text.getShiftText("jewelry"));
+			}
 		}
 
 		//Add the one ring lore

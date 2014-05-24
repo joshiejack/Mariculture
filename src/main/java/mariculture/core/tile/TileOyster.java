@@ -28,12 +28,17 @@ public class TileOyster extends TileStorage implements ISidedInventory, IFaceabl
 
 	@Override
 	public boolean canInsertItem(int side, ItemStack stack, int slot) {
-		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) && inventory[0] == null;
+		return stack.getItem() == Item.getItemFromBlock(Blocks.sand) && stack.stackSize == 1 && inventory[0] == null;
 	}
 
 	@Override
 	public boolean canExtractItem(int side, ItemStack stack, int slot) {
 		return stack.getItem() != Item.getItemFromBlock(Blocks.sand);
+	}
+	
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
 	}
 	
 	@Override

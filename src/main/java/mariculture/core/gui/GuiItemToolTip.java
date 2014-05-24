@@ -33,11 +33,11 @@ public class GuiItemToolTip {
 			if (stack.stackTagCompound.hasKey("OreDictionaryDisplay"))  {
                 NBTTagCompound nbttagcompound = stack.stackTagCompound.getCompoundTag("OreDictionaryDisplay");
                 if (nbttagcompound.hasKey("Lore")) {
-                    NBTTagList nbttaglist1 = nbttagcompound.getTagList("Lore", 10);
+                    NBTTagList nbttaglist1 = nbttagcompound.getTagList("Lore", 8);
                     if (nbttaglist1.tagCount() > 0) {
                         for (int j = 0; j < nbttaglist1.tagCount(); ++j) {
                         	String color = j == 0? Text.ORANGE: Text.GREY;
-                            list.add(color + (nbttaglist1.getStringTagAt(j)));
+                            list.add(color + nbttaglist1.getStringTagAt(j));
                         }
                     }
                 }

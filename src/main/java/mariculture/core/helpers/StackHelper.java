@@ -43,7 +43,7 @@ public class StackHelper {
 				}
 
 				stack.setTagCompound((NBTTagCompound) nbtbase);
-			} catch (NBTException nbtexception) {
+			} catch (Exception nbtexception) {
 				return null;
 			}
 		}

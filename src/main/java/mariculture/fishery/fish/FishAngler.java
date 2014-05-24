@@ -11,10 +11,6 @@ import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishAngler extends FishSpecies {
-	public FishAngler(int id) {
-		super(id);
-	}
-
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 0, 12 };

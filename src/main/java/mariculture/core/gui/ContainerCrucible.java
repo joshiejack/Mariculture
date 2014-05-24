@@ -48,11 +48,11 @@ public class ContainerCrucible extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if (MaricultureHandlers.smelter.getFuelInfo(stack) != null) {
+				if (MaricultureHandlers.crucible.getFuelInfo(stack) != null) {
 					if (!this.mergeItemStack(stack, 7, 8, false)) { // Slot 7-7
 						return null;
 					}
-				} else if (MaricultureHandlers.smelter.getResult(stack, null, -1) != null) {
+				} else if (MaricultureHandlers.crucible.getResult(stack, null, -1) != null) {
 					if (!this.mergeItemStack(stack, 5, 7, false)) { // Slot 5-6
 						return null;
 					}

@@ -22,11 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
 
-public class FishElectricRay extends FishSpecies {
-	public FishElectricRay(int id) {
-		super(id);
-	}
-	
+public class FishElectricRay extends FishSpecies {	
 	@Override
 	public int[] setSuitableTemperature() {
 		return new int[] { 5, 21 };
