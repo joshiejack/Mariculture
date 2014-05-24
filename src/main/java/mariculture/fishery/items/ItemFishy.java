@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -37,8 +36,9 @@ public class ItemFishy extends Item {
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			return (getUnlocalizedName() + "." + stack.getTagCompound().getInteger("SpeciesID"));
+		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+		if(species != null) {
+			return getUnlocalizedName() + "." + species.getID();
 		}
 
 		return "fishy";
@@ -46,43 +46,30 @@ public class ItemFishy extends Item {
 
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
-		if (stack.hasTagCompound() && !Fishing.fishHelper.isEgg(stack)) {
-			int species1 = stack.stackTagCompound.getInteger("SpeciesID");
-			int species2 = stack.stackTagCompound.getInteger("lowerSpeciesID");
-
-			if (species1 != species2) {
-				return "\u00a7b" + Fishing.fishHelper.getSpecies(species1).getName() + "-"
-						+ Fishing.fishHelper.getSpecies(species2).getName() + " "
-						+ StatCollector.translateToLocal("fish.data.hybrid")
-						+ convertToSymbol(stack.stackTagCompound.getInteger("Gender"));
-			}
+		if(Fishing.fishHelper.isEgg(stack)) return Text.localize("fish.data.species.egg");
+		FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(stack));
+		FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(stack));
+		if(active == null || inactive == null) return Text.translate("anyFish");
+		if(active != inactive) {
+			return Text.AQUA + active.getName() + "-" + inactive.getName() + " " + Text.localize("fish.data.hybrid") + convertToSymbol(Fish.gender.getDNA(stack));
+		} else {
+			return Text.AQUA + active.getName() + convertToSymbol(Fish.gender.getDNA(stack));
 		}
-
-		if (stack.hasTagCompound()) {
-			if (Fishing.fishHelper.isEgg(stack)) {
-				return "\u00a7b" + StatCollector.translateToLocal("fish.data.species.egg");
-			}
-
-			return "\u00a7b" + Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID")).getName()
-					+ convertToSymbol(stack.stackTagCompound.getInteger("Gender"));
-		}
-
-		return "\u00a7b" + StatCollector.translateToLocal("mariculture.string.anyFish");
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if (stack.hasTagCompound()) {
-			if(!Fishing.fishHelper.isEgg(stack)) {
+		if(Fishing.fishHelper.isEgg(stack)) {
+			if(stack.stackTagCompound.getInteger("currentFertility") > 0) {
+				list.add(stack.stackTagCompound.getInteger("currentFertility") + " " + Text.translate("eggsRemaining"));
+			} else {
+				list.add(Text.translate("undetermined") + " " + Text.translate("eggsRemaining"));
+			}
+		} else {
+			FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+			if(species != null) {
 				for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
 					FishDNABase.DNAParts.get(i).getInformationDisplay(stack, list);
-				}
-			} else {
-				String eggs = Text.translate("eggsRemaining");
-				if(stack.stackTagCompound.getInteger("currentFertility") > 0) {
-					list.add(stack.stackTagCompound.getInteger("currentFertility") + " " + eggs);
-				} else {
-					list.add(Text.translate("undetermined") + " " + eggs);
 				}
 			}
 		}
@@ -90,18 +77,13 @@ public class ItemFishy extends Item {
 
 	@Override
 	public Icon getIcon(ItemStack stack, int pass) {
-		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.hasKey("isEgg")) {
-				return egg;
-			}
-			
-			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.stackTagCompound.getInteger("SpeciesID"));
-			if(fish != null) {
-				return fish.getIcon(Fish.gender.getDNA(stack));
-			}
+		if(Fishing.fishHelper.isEgg(stack)) return egg;
+		else {
+			FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+			if(species != null) {
+				return species.getIcon(Fish.gender.getDNA(stack));
+			} else return Fish.cod.getIcon(0);
 		}
-
-		return Fish.cod.getIcon(0);
 	}
 
 	@Override
@@ -126,14 +108,7 @@ public class ItemFishy extends Item {
 	}
 
 	private String convertToSymbol(int gender) {
-		if (gender == FishHelper.MALE) {
-			return "\u2642";
-		}
-		if (gender == FishHelper.FEMALE) {
-			return "\u2640";
-		}
-
-		return "";
+		return gender == FishHelper.MALE? "\u2642": "\u2640";
 	}
 
 	@Override
@@ -143,10 +118,7 @@ public class ItemFishy extends Item {
 
 	@Override
 	public int getEntityLifespan(ItemStack stack, World world) {
-		if(stack.hasTagCompound() && !Fishing.fishHelper.isEgg(stack)) {
-			return 10;
-		} else{
-			return 6000;
-		}
+		if(Fishing.fishHelper.isEgg(stack)) return 6000;
+		else return 15;
 	}
 }

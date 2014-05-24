@@ -1,7 +1,6 @@
 package mariculture.fishery.fish;
 
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Items;

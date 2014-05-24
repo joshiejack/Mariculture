@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import static mariculture.core.lib.Items.dustMagnesium;
-import static mariculture.core.lib.Items.plastic;
 import static mariculture.core.lib.Items.salt;
 
 import java.util.ArrayList;

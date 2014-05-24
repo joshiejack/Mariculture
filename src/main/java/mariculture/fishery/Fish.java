@@ -14,7 +14,7 @@ import mariculture.core.lib.Modules;
 import mariculture.fishery.fish.FishAngel;
 import mariculture.fishery.fish.FishAngler;
 import mariculture.fishery.fish.FishBass;
-import mariculture.fishery.fish.FishLamprey;
+import mariculture.fishery.fish.FishBlaasop;
 import mariculture.fishery.fish.FishBlaze;
 import mariculture.fishery.fish.FishBoneless;
 import mariculture.fishery.fish.FishButterfly;
@@ -30,7 +30,7 @@ import mariculture.fishery.fish.FishGold;
 import mariculture.fishery.fish.FishHerring;
 import mariculture.fishery.fish.FishJelly;
 import mariculture.fishery.fish.FishKoi;
-import mariculture.fishery.fish.FishBlaasop;
+import mariculture.fishery.fish.FishLamprey;
 import mariculture.fishery.fish.FishManOWar;
 import mariculture.fishery.fish.FishMantaRay;
 import mariculture.fishery.fish.FishMinecraft;
@@ -197,7 +197,7 @@ public class Fish {
 		}
 	}
 	
-	private static void addFish() {
+	public static void addFish() {
 		cod = new FishCod(0);
 		perch = new FishPerch(1);
 		tuna = new FishTuna(2);

@@ -6,12 +6,9 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Text;
-import mariculture.fishery.blocks.TileFeeder;
-import mariculture.sealife.EntityHammerhead;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
 

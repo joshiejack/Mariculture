@@ -201,7 +201,7 @@ Taiga: Fresh, 1°C
 -5°C to 20°C</text>
         
         <stack item="fishyFood 30" x="88" size="1.5" y="75"></stack>
-        <text x="116" y="130" bold="true">Lamprey</text>
+        <text x="116" y="130" bold="true">Blaasop</text>
         <text x="116" y="211" size="0.7" wrap="100">Saline Water, -16
 -3°C to 5°C</text>
         
@@ -211,9 +211,9 @@ Taiga: Fresh, 1°C
 45°C to 100°C</text>
         
         <stack item="fishyFood 6" x="88" size="1.5" y="95"></stack>
-        <text x="116" y="160" bold="true">Nightfish
+        <text x="116" y="160" bold="true">Nightfish</text>
+        <text x="116" y="254" size="0.7">The End or At Night
 -10°C to 66°C</text>
-        <text x="116" y="254" size="0.7">The End or At Night</text>
     </page>
     <page>
         <text x="86" y="-13" bold="true">Automatic Fisher</text>
@@ -256,7 +256,7 @@ Taiga: Fresh, 1°C
     </page>
      <page>
         <text wrap="230" size="0.8">The Fish Feeder will accept most of the upgrades except for the Capacitor and the Hyperkinetic Upgrades. Storage upgrades will increase how much fish food you can store in a fish feeder, this does not increase the tank size. Heating and Cooling upgrades, will adjust the temperatures of the water, allowing for fish that wouldn't normally survive in the biome the feeder is in to stay alive.</text>
-        <text wrap="230" y="95" size="0.8">Salinator upgrades, will change the waters of the feeder to salt, while the Filtrator will change the waters to Fresh. Ethereal upgrades change the water to Magical waters. The Purity upgrades, will extend the life of your fish, causing them to live their lives in the feeder out for longer, while impurity will hurt the poor fish, causing them to die quicker (handy for speeding up breeding!). The last two upgrades are the Eternal Life upgrades, male and female versions. While these may not seem useful, they are. Fish will continue to produce their products and females will also produce eggs forever, without them having to die.</text>
+        <text wrap="230" y="95" size="0.8">Salinator upgrades increase water salinity, while filtrator decrese it. Ethereal upgrades allow fish to live in other dimensions. The Purity upgrades, will extend the life of your fish, causing them to live their lives in the feeder out for longer, while impurity will hurt the poor fish, causing them to die quicker (handy for speeding up breeding!). The last two upgrades are the Eternal Life upgrades, male and female versions. While these may not seem useful, they are. Fish will continue to produce their products and females will also produce eggs forever, without them having to die.</text>
     </page>
     <page>
         <text x="96" y="-13" bold="true">Incubator</text>

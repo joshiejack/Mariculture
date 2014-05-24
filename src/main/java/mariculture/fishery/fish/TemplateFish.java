@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.CachedCoords;
 import mariculture.api.fishery.RodQuality;

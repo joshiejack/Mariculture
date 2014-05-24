@@ -200,6 +200,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 			inventory[rod].attemptDamageItem(1, Rand.rand);
 		} else {
 			RodQuality quality = ((ItemBaseRod) inventory[rod].getItem()).getQuality();
+			if(quality == null) quality = RodQuality.OLD;
 			lootResult = Fishing.loot.getLoot(Rand.rand, quality, worldObj, xCoord, yCoord - 1, zCoord);
 			inventory[rod] = ((ItemBaseRod)inventory[rod].getItem()).damage(worldObj, null, inventory[rod], 0);
 		}

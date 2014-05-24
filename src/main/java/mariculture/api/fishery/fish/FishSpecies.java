@@ -3,14 +3,15 @@ package mariculture.api.fishery.fish;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.logging.Level;
 
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.CachedCoords;
 import mariculture.api.fishery.EnumRodQuality;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RodQuality;
+import mariculture.core.handlers.LogHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,9 +39,13 @@ public abstract class FishSpecies {
 
 	//Initialising the FishSpecies
 	public FishSpecies(int id) {
-		fishID = id;
-		ids.put(getSpecies(), id);
-		species.put(id, this);
+		if(!species.containsKey(id)) {
+			fishID = id;
+			ids.put(getSpecies(), id);
+			species.put(id, this);
+		} else {
+			LogHandler.log(Level.INFO, "A Mod Attempted to register a Mariculture Fish with the ID of " + id + " but it was already taken");
+		}
 	}
 	
 	//Should be ignored, just a helper method for getting the fish id
@@ -331,7 +336,7 @@ public abstract class FishSpecies {
 	
 	/* Deprecated Methods */
 	@Deprecated
-	public final int fishID;
+	public int fishID;
 	
 	@Deprecated
 	public EnumFishGroup getGroup() {

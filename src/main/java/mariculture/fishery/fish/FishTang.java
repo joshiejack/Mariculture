@@ -5,7 +5,6 @@ import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.Items.dropletAqua;
 import static mariculture.core.lib.Items.dropletWater;
 import static mariculture.core.lib.Items.lapis;
-import static mariculture.core.lib.Items.redstone;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;

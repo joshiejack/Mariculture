@@ -91,7 +91,7 @@ public class FishSalmon extends FishSpecies {
 
 	@Override
 	public int getCatchChance() {
-		return 25;
+		return 20;
 	}
 
 	@Override

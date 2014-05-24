@@ -6,7 +6,6 @@ import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.TileMultiBlock;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.OresMeta;

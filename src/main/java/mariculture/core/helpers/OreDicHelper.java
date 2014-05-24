@@ -36,7 +36,7 @@ public class OreDicHelper {
 			stack = new ItemStack((Item)object);
 		if(object instanceof ItemStack)
 			stack = (ItemStack) object;
-		if(stack != null) {
+		if(stack != null && stack.getItem() != null) {
 			if(isInDictionary(stack))
 				name = getDictionaryName(stack);
 			else if(stack.isItemStackDamageable())

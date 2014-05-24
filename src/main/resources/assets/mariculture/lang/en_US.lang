@@ -439,7 +439,7 @@ fish.data.species.tang=Blue Tang
 fish.data.species.clown=Clownfish
 fish.data.species.lamprey=Lamprey
 fish.data.species.stargazer=Whitemargin Stargazer
-fish.data.species.blaasop=Silver-Striped Blaasop
+fish.data.species.blaasop=Silver-Stripe Blaasop
 fish.data.species.spider=Spiderfish
 fish.data.species.undead=Undead Fish
 fish.data.species.boneless=Boneless Fish
@@ -625,7 +625,6 @@ mariculture.string.temperature.precise=Precise Water Temperature
 mariculture.string.input=Input
 mariculture.string.output=Output
 mariculture.string.maxCapacity=Max Capacity
-mariculture.string.ritual=[Mariculture]Ritual of the Blood River
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled
@@ -699,3 +698,4 @@ item.titanium.tough.rod.name=Titanium Tough Rod
 
 ### Blood Magic ###
 item.rodBlood.name=Bound Fishing Rod
+mariculture.string.ritual=[Mariculture]Ritual of the Blood River

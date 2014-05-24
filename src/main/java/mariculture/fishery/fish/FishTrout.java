@@ -8,12 +8,10 @@ import static mariculture.core.lib.Items.pinkDye;
 import static mariculture.core.lib.Items.purpleDye;
 import static mariculture.core.lib.Items.redDye;
 import static mariculture.core.lib.Items.yellowDye;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.item.ItemStack;
 
 public class FishTrout extends FishSpecies {
 	public FishTrout(int id) {

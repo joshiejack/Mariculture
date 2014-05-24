@@ -25,4 +25,6 @@ public class WorldGeneration {
 	public static int OYSTER_PEARL_CHANCE;
 	public static String[] CORAL_BIOMESOP_TYPES;
 	public static String[] KELP_BIOMESOP_TYPES;
+	public static boolean CORAL_EXPERIMENTAL;
+	public static boolean CORAL_EXPERIMENTAL_EXTRA;
 }

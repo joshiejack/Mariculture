@@ -27,6 +27,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public abstract class NEIBase extends TemplateRecipeHandler {
 	protected void drawFluidRect(int j, int k, FluidStack fluid, TankSize size) {
+		if(fluid == null || fluid.getFluid() == null) return;
 		int scale = fluid.amount * 58 / 5000;
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

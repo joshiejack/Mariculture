@@ -26,7 +26,7 @@ public class RodRightClickHandler implements IFishingRod {
 	@Override
 	public ItemStack handleRightClick(ItemStack stack, World world, EntityPlayer player, RodQuality quality, Random rand) {
 		ItemBaseRod rod = (ItemBaseRod) stack.getItem();
-		if(!rod.canFish(world, (int)player.posX, (int)player.posY, (int)player.posZ, player, stack)) return stack;
+		if(!world.isRemote && !rod.canFish(world, (int)player.posX, (int)player.posY, (int)player.posZ, player, stack)) return stack;
 		
 		int baitQuality = getBait(player, quality)[0];
 		int baitSlot = getBait(player, quality)[1];

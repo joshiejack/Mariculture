@@ -44,16 +44,18 @@ public class LootHandler implements ILootHandler {
 		} else return dimension == id;
 	}
 	
-	//Determines whether this rod is calid
+	//Determines whether this rod is valid
 	private boolean rodIsAccepted(boolean exact, RodQuality quality, RodQuality rod) {
-		if(exact) {
+		if(rod == null) return true;
+		else if(quality == null) return false;
+		else if(exact) {
 			 return quality == rod;
 		} else return rod.getRank() >= quality.getRank();
 	}
 	
 	//Returns an item from the loot list, attempts to fetch one ten times
 	public ItemStack getOtherLoot(Random rand, RodQuality quality, World world) {
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 25; i++) {
 			ArrayList<Loot> list = (rand.nextInt(100) <= quality.getRatio())? goodies: junk;
 			Collections.shuffle(list);
 			Iterator it = list.iterator();
@@ -85,17 +87,24 @@ public class LootHandler implements ILootHandler {
 		
 		return null;
 	}
+	
+	public ItemStack getReturn(World world, ItemStack ret) {
+		if(ret != null) return ret;
+		else if(world.provider.isHellWorld) return new ItemStack(Item.fishCooked);
+		else if(world.provider.dimensionId == 1) return new ItemStack(Item.enderPearl);
+		else return new ItemStack(Item.fishRaw);
+	}
 
 	@Override
 	public ItemStack getLoot(Random rand, RodQuality quality, World world, int x, int y, int z) {
-		ItemStack fish = getFishForLocation(rand, quality, world, x, y, z);
-		if(fish == null) {
+		//Return Junk
+		if(rand.nextInt(100) > Math.min(95, (quality.getRatio() + 45))) {
 			ItemStack ret = getOtherLoot(rand, quality, world);
-			if(ret != null) return ret;
-			else if(world.provider.isHellWorld) return new ItemStack(Item.fishCooked);
-			else if(world.provider.dimensionId == 1) return new ItemStack(Item.enderPearl);
-			else return new ItemStack(Item.fishRaw);
-		} else return fish;
+			return getReturn(world, getOtherLoot(rand, quality, world));
+		} else {
+			ItemStack ret = getFishForLocation(rand, quality, world, x, y, z);
+			return getReturn(world, getFishForLocation(rand, quality, world, x, y, z));
+		}
 	}
 	
 	public static ArrayList<FishSpecies> catchables;
@@ -111,11 +120,10 @@ public class LootHandler implements ILootHandler {
 		Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
 		int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
 		int time = Time.getTime(world);
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < 25; i++) {
 			Collections.shuffle(catchables);
 			for(FishSpecies fish: catchables) {
-				double multiplier = Extra.IGNORE_BIOMES? 1.0D: 5D;
-				double catchChance = (Extra.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y)) * multiplier;
+				double catchChance = (Extra.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y));
 				if(quality.getEnum() != null && fish.canCatch(rand, world, x, y, z, quality.getEnum())) {
 					if(Extra.IGNORE_BIOMES) {
 						return catchFish(rand, fish, quality, fish.getCaughtAliveChance(world, y, time) * 10D);
@@ -135,7 +143,7 @@ public class LootHandler implements ILootHandler {
 	
 	private ItemStack catchFish(Random rand, FishSpecies fish, RodQuality quality, double chance) {
 		boolean alive = false;
-		if(rand.nextInt(1000) < chance) alive = true;
+		if(rand.nextInt(1000) < ((chance * Extra.ALIVE_MODIFIER)) + quality.getRatio()) alive = true;
 		boolean catchAlive = quality.caughtAlive(fish.getSpecies());
 		if(!catchAlive && !alive) return new ItemStack(Fishery.fishyFood, 1, fish.getID());
 		return Fishing.fishHelper.makePureFish(fish);

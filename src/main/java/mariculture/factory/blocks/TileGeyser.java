@@ -106,6 +106,7 @@ public class TileGeyser extends TileTank {
 			for(Object i: list) {
 				Entity entity = (Entity) i;
 				entity.fallDistance = 0F;
+				entity.extinguish();
 				if(orientation != ForgeDirection.UP) {
 					entity.addVelocity(orientation.offsetX * 0.1, orientation.offsetY * 0.1, orientation.offsetZ * 0.1);
 				} else {

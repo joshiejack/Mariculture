@@ -44,6 +44,9 @@ public interface IFishHelper {
 	/** Retrieves a species from a string **/
 	public FishSpecies getSpecies(String species);
 	
+	/** Returns the fish species from the stack **/
+	public FishSpecies getSpecies(ItemStack stack);
+	
 	/** Retrieves the dna you wish to retrieve **/
 	public Integer getDNA(String dna, ItemStack stack);
 	public Integer getLowerDNA(String dna, ItemStack stack);

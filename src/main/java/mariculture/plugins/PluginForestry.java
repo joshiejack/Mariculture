@@ -27,7 +27,6 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Optional;
@@ -113,7 +112,7 @@ public class PluginForestry extends Plugin {
 				Integer fishID = species.getKey();
 				FishSpecies fish = species.getValue();
 				RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(Fishery.fishyFood, 1, fishID) }, 
-						new FluidStack(Fishery.fishOil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
+						FluidDictionary.getFluidStack(FluidDictionary.fish_oil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
 			}
 		}
 	}

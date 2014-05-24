@@ -1,6 +1,29 @@
+== Mariculture 1.2.2d ==
+* Fixed potential startup crash with Forestry
+* Fixed some potential crashes with Blood Magic goodies
+* Fixed a potential, very rare nei crash
+* Fixed potential Multi-Tank crash
+* Fixed some errors in the fishing book
+* Fixed various other errors thanks to OpenEye
+* Fixed potential DNA loop when it comes to missing species
+* Food shouldn't use up the whole stack
+* Made Fish eggs have a metadata of 1, For easier automation
+* Fish outside of water lifespan increased by 5 ticks
+* Ported the 1.7.2 Coral Generation method, can be disabled to use the old method in the config
+* Because of the above change, coral can now be placed on dirt, sand, gravel and limestone, they won't spread though
+* Eternal Life Upgrade for Fish Eggs formula adjusted to better fit new fertility
+* Oysters will now correctly accept 1 sand only
+* Adjusted the method for deciding whether to catch a fish or loot, Higher tier = Better chance for catching fish over loot (Makes cheaper rods better for junk!)
+* Added a config option to allow you to change the caught alive chance
+
 == Mariculture 1.2.2c ==
 * Added in the missing code for fish area... Area of Effect wasn't working as it should
 * Fixed a Potential Tooltip crash with the fish feeder
+* Fixed Potential Breeding crashes
+* Fixed Potential Bound Rod Crash when using Demon Shards
+* Fixed Potential Null Pointer when checking rod quality with autofishers
+* Fish Tanks should now only accept fish from automated systems
+* Added code that prevents mariculture fish ids from being overridden (preventing older versions of aliquo from crashing on fishing)
 
 == Mariculture 1.2.2b ==
 * Added a KirinDave proof check to the Crucible Furnace

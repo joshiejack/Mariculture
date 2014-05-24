@@ -10,6 +10,7 @@ import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import mariculture.world.decorate.WorldGenKelp;
 import mariculture.world.decorate.WorldGenKelpForest;
 import mariculture.world.decorate.WorldGenReef;
+import mariculture.world.decorate.WorldGenReef172;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import cpw.mods.fml.common.IWorldGenerator;
@@ -67,7 +68,11 @@ public class WorldGen implements IWorldGenerator {
 			if (random.nextInt(chance) == 0) {
 				int x2 = x + random.nextInt(16) + 8;
 				int z2 = z + random.nextInt(16) + 8;
-				(new WorldGenReef(128)).generate(world, random, x2, z2);
+				if(WorldGeneration.CORAL_EXPERIMENTAL) {
+					new WorldGenReef172().generate(world, random, x, 0, z2);
+				} else {
+					(new WorldGenReef(128)).generate(world, random, x2, z2);
+				}
 			}
 		}
 	}

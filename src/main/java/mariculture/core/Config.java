@@ -72,9 +72,10 @@ public class Config {
             Extra.BREEDING_MULTIPLIER = config.get(Category.EXTRA, "Breeding Multiplier", 1.0D, Comment.BREEDING).getDouble(1.0D);
             Extra.IGNORE_BIOMES = config.get(Category.EXTRA, "Enable Catching of all fish in all biomes", false).getBoolean(false);
             Extra.WEAK_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Weak)", 8).getInt();
-			Extra.WEAK_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Demon)", 64).getInt();
+			Extra.DEMON_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Demon)", 64).getInt();
             Extra.DISABLE_DIRT_CRAFTING = config.get(Category.EXTRA, "Disable Crafting of Dirt from Molten Dirt", false).getBoolean(false);
-            Extra.DISABLE_GRASS = config.get(Category.EXTRA, "Disable Crafting of Grass from Fish Droplets", false).getBoolean(false);            
+            Extra.DISABLE_GRASS = config.get(Category.EXTRA, "Disable Crafting of Grass from Fish Droplets", false).getBoolean(false);   
+            Extra.ALIVE_MODIFIER = config.get(Category.EXTRA, "Fish Caught Alive Modifier", 1.15D).getDouble(1.15D);
             Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
             Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
             Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
@@ -120,6 +121,8 @@ public class Config {
             OreGeneration.NATURAL_GAS_MIN = config.get(Category.ORE, "Natural Gas > Minimum Y Height", 16).getInt();
             OreGeneration.NATURAL_GAS_MAX = config.get(Category.ORE, "Natural Gas > Maximum Y Height", 26).getInt();
 
+            WorldGeneration.CORAL_EXPERIMENTAL = config.get(Category.WORLD, "Coral > 1.7.2 Gen > Enable Experimental", true, Comment.CORAL_EXP).getBoolean(true);
+            WorldGeneration.CORAL_EXPERIMENTAL_EXTRA = config.get(Category.WORLD, "Coral > 1.7.2 Gen > Enable Harsher Generation", true, Comment.CORAL_EXP_EXTRA).getBoolean(true);
             WorldGeneration.CORAL_BIOMESOP = config.get(Category.WORLD, "Coral > Force in BOP Coral Biome", false, Comment.BIOMESOP_CORAL).getBoolean(false);
             WorldGeneration.CORAL_BIOMESOP_TYPES = config.get(Category.WORLD, "Coral > Force in Coral Biome Level Types", new String[] { "BIOMESOP" }).getStringList();
             WorldGeneration.CORAL_ENABLED = config.get(Category.WORLD, "Coral > Generation", true).getBoolean(true);

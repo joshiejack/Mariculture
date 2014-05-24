@@ -36,6 +36,11 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 	}
 	
 	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
+	
+	@Override
 	public Packet getDescriptionPacket() {		
 		NBTTagCompound nbt = new NBTTagCompound();
 		this.writeToNBT(nbt);
@@ -70,7 +75,7 @@ public class TileOyster extends TileStorage implements ISidedInventory {
 
 	@Override
 	public boolean canInsertItem(int i, ItemStack stack, int j) {
-		return stack.itemID == Block.sand.blockID && inventory[0] == null;
+		return stack.itemID == Block.sand.blockID && stack.stackSize == 1 && inventory[0] == null;
 	}
 
 	@Override

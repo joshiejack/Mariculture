@@ -2,11 +2,9 @@ package mariculture.plugins.waila;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import mariculture.core.blocks.BlockDouble;
 import mariculture.core.blocks.TileVat;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import mcp.mobius.waila.api.IWailaConfigHandler;

@@ -2,7 +2,6 @@ package mariculture.fishery.gui;
 
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.InventoryStorage;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 

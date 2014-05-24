@@ -184,7 +184,7 @@ public class BlockOyster extends BlockMachine {
 			TileOyster oyster = (TileOyster) tile_entity;
 			
 			//Spawn in the Jewelry Book on first collection of a pearl
-            if(Extra.SPAWN_BOOKS) {
+            if(Extra.SPAWN_BOOKS && Modules.isActive(Modules.magic)) {
             	EventHandler.spawnBook(player, GuideMeta.ENCHANTS);
             }
 
@@ -248,16 +248,25 @@ public class BlockOyster extends BlockMachine {
 			}
 		} else {
 			if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
-				ItemStack loot = Fishing.loot.getLoot(rand, RodQuality.OLD, world, x, y, z);
+				ItemStack loot = getFish(world, x, y, z);
 				if (loot != null) {
 					if(loot.getItem() instanceof ItemFishy) {
 						SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
 					} else {
-						SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Item.fishRaw), true, OreDictionary.WILDCARD_VALUE);
+						SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
 					}
 				}
 			}
 		}
+	}
+	
+	private ItemStack getFish(World world, int x, int y, int z) {
+		ItemStack loot = Fishing.loot.getLoot(rand, RodQuality.OLD, world, x, y, z);
+		for(int i = 0; i < 20; i++) {
+			if(loot != null && loot.getItem() instanceof ItemFishy) return loot;
+			else loot = Fishing.loot.getLoot(rand, RodQuality.OLD, world, x, y, z);
+		}
+		return new ItemStack(Item.fishRaw);
 	}
 	
 	@Override

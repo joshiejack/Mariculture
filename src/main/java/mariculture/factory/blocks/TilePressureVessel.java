@@ -24,7 +24,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
 	@Override
 	public int getTankCapacity(int storage) {
 		int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
-		return ((100 * tankRate) + (storage * 5 * tankRate)) * (slaves.size() + 1);
+		return ((140 * tankRate) + (storage * 8 * tankRate)) * (slaves.size() + 1);
 	}
 	
 	public static final int in = 3;

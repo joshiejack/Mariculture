@@ -134,10 +134,11 @@ public class FishDNABase {
 
 	/** Automatically called when reading a fish **/
 	public Integer getDNA(ItemStack stack) {
+		if(stack == null || stack.getItem() == null || !stack.hasTagCompound()) return 0;
 		if(category == null) {
-			if(!stack.stackTagCompound.hasKey(getHigherString())) {
+			if(!stack.stackTagCompound.hasKey(getHigherString()) && stack.stackTagCompound.hasKey(Fish.species.getHigherString())) {
 				FishSpecies species = Fishing.fishHelper.getSpecies(Fish.species.getDNA(stack));
-				addDNA(stack, getDNAFromSpecies(Fishing.fishHelper.getSpecies(Fish.species.getDNA(stack))));
+				addDNA(stack, getDNAFromSpecies(species));
 			}
 			
 			return stack.stackTagCompound.getInteger(getHigherString());
@@ -150,10 +151,11 @@ public class FishDNABase {
 
 	/** Automatically called when reading a fish **/
 	public Integer getLowerDNA(ItemStack stack) {
+		if(stack == null || stack.getItem() == null || !stack.hasTagCompound()) return 0;
 		if(category == null) {
-			if(!stack.stackTagCompound.hasKey(getLowerString())) {
+			if(!stack.stackTagCompound.hasKey(getLowerString()) && stack.stackTagCompound.hasKey(Fish.species.getLowerString())) {
 				FishSpecies species = Fishing.fishHelper.getSpecies(Fish.species.getLowerDNA(stack));
-				addLowerDNA(stack, getDNAFromSpecies(Fishing.fishHelper.getSpecies(Fish.species.getLowerDNA(stack))));
+				addLowerDNA(stack, getDNAFromSpecies(species));
 			}
 			
 			return stack.stackTagCompound.getInteger(getLowerString());

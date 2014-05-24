@@ -4,7 +4,6 @@ import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.Items.dropletEarth;
 import static mariculture.core.lib.Items.dropletPoison;
 import static mariculture.core.lib.Items.dropletWater;
-import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
@@ -13,7 +12,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 

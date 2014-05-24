@@ -1,7 +1,5 @@
 package mariculture.fishery.fish.dna;
 
-import java.util.Random;
-
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 

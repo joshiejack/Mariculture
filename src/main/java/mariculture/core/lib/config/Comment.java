@@ -35,4 +35,6 @@ public class Comment {
 	public static final String PREFIX = "Add a list of prefixes you want to blacklist from the auto-dictionary";
 	public static final String ITEMS = "This is a list of items to blacklist from being able to converted, format is either (itemid meta) or (unlocalizedname meta) (without the brackets)";
 	public static final String BREEDING = "Breeding multiplier, set this to a higher double, to make breeding easier, setting to 2, will double the mutation chances for example";
+	public static final String CORAL_EXP = "Coral will use the generator from 1.7.2";
+	public static final String CORAL_EXP_EXTRA = "If Coral generation is too heavy, disable this and it will generate less";
 }

@@ -19,17 +19,17 @@ public class ItemFood extends ItemMariculture {
 	private int getFoodLevel(int dmg) {
 		switch (dmg) {
 			case FoodMeta.FISH_FINGER: 		return 2;
-			case FoodMeta.CALAMARI: 		return 5;
-			case FoodMeta.CALAMARI_HALF: 	return 4;
+			case FoodMeta.CALAMARI: 		return 4;
+			case FoodMeta.CALAMARI_HALF: 	return 3;
 			case FoodMeta.SMOKED_SALMON: 	return 10;
 			case FoodMeta.CAVIAR:			return 5;
 			case FoodMeta.CUSTARD: 			return 1;
 			case FoodMeta.FISH_N_CUSTARD: 	return 4;
 			case FoodMeta.KELP_WRAP: 		return 1;
 			case FoodMeta.SUSHI: 			return 6;
-			case FoodMeta.MISO_SOUP_1: 		return 5;
-			case FoodMeta.MISO_SOUP_2: 		return 6;
-			case FoodMeta.MISO_SOUP_3: 		return 7;
+			case FoodMeta.MISO_SOUP_1: 		return 4;
+			case FoodMeta.MISO_SOUP_2: 		return 5;
+			case FoodMeta.MISO_SOUP_3: 		return 6;
 			case FoodMeta.OYSTER: 			return 20;
 			default: 						return 1;
 		}
@@ -92,7 +92,7 @@ public class ItemFood extends ItemMariculture {
 			if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP)
 				player.heal(2);
 			
-			return bowl != null? bowl: stack;
+			return bowl != null && stack.stackSize == 0? bowl: stack;
 		}
 	}
 

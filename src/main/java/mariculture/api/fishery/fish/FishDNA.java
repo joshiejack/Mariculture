@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.core.helpers.cofh.StringHelper;
 import mariculture.core.lib.Text;
 import mariculture.fishery.FishHelper;
 import net.minecraft.item.ItemStack;

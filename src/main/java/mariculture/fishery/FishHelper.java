@@ -18,6 +18,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.AverageHelper;
 import mariculture.fishery.FishMutationHandler.Mutation;
+import mariculture.fishery.items.ItemFishy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -207,59 +208,33 @@ public class FishHelper implements IFishHelper {
 
 	@Override
 	public boolean isPure(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.getInteger("SpeciesID") == stack.stackTagCompound.getInteger("lowerSpeciesID")) {
-				return true;
-			}
-		}
-
-		return false;
+		return Fish.species.getDNA(stack) == Fish.species.getLowerDNA(stack);
 	}
 
 	@Override
 	public boolean isMale(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (!stack.stackTagCompound.hasKey("Gender")) {
-				return false;
-			}
-
-			if (stack.stackTagCompound.getInteger("Gender") == MALE) {
-				return true;
-			}
-		}
-
-		return false;
+		return Fish.gender.getDNA(stack) == MALE;
 	}
 
 	@Override
 	public boolean isFemale(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (!stack.stackTagCompound.hasKey("Gender")) {
-				return false;
-			}
-
-			if (Fish.gender.getDNA(stack) == FEMALE) {
-				return true;
-			}
-		}
-
-		return false;
+		return Fish.gender.getDNA(stack) == FEMALE;
 	}
 
 	@Override
 	public boolean isEgg(ItemStack stack) {
-		if (stack.hasTagCompound()) {
-			if (stack.stackTagCompound.hasKey("isEgg")) {
-				return true;
-			}
-		}
-
-		return false;
+		return isFishItem(stack) && stack.getItemDamage() == 1;
+	}
+	
+	private boolean isFishItem(ItemStack stack) {
+		if(stack == null || stack.getItem() == null || stack.stackSize < 1 || !stack.hasTagCompound()) return false;
+		else if (stack.getItem() instanceof ItemFishy) return true;
+		else return false;
 	}
 
 	@Override
 	public ItemStack generateEgg(ItemStack fish1, ItemStack fish2) {
-		ItemStack egg = new ItemStack(Fishery.fishy);
+		ItemStack egg = new ItemStack(Fishery.fishy, 1, 1);
 		egg.setTagCompound(new NBTTagCompound());
 
 		for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
@@ -271,7 +246,6 @@ public class FishHelper implements IFishHelper {
 			FishDNABase.DNAParts.get(i).addDNAList(egg, DNAlist);
 		}
 
-		egg.stackTagCompound.setBoolean("isEgg", true);
 		int[] fertility = egg.stackTagCompound.getIntArray(Fish.fertility.getEggString());
 		int eggLife = AverageHelper.getMode(fertility);
 		egg.stackTagCompound.setInteger("currentFertility", eggLife);
@@ -296,6 +270,12 @@ public class FishHelper implements IFishHelper {
 	@Override
 	public FishSpecies getSpecies(int id) {
 		return FishSpecies.species.get((Integer)id);
+	}
+	
+	@Override
+	public FishSpecies getSpecies(ItemStack stack) {
+		if(stack == null || !stack.hasTagCompound() || stack.getItemDamage() == 1 || stack.stackSize < 1) return null;
+		return FishSpecies.species.get(Fish.species.getDNA(stack));
 	}
 
 	@Override

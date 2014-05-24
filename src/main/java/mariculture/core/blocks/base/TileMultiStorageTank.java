@@ -59,7 +59,7 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		return master != null? ((TileMultiStorageTank)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.fill(resource, doFill): 0;
+		return getMaster() != null? ((TileMultiStorageTank)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.fill(resource, doFill): 0;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		return master != null? ((TileMultiStorageTank)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.drain(maxDrain, doDrain): null;
+		return getMaster() != null? ((TileMultiStorageTank)worldObj.getBlockTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.drain(maxDrain, doDrain): null;
 	}
 
 	@Override

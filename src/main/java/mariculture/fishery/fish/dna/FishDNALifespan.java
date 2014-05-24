@@ -2,10 +2,7 @@ package mariculture.fishery.fish.dna;
 
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.lib.Text;
-import mariculture.fishery.Fish;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class FishDNALifespan extends FishDNA {
 	@Override

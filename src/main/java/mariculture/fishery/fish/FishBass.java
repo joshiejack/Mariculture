@@ -7,13 +7,11 @@ import static mariculture.core.lib.Items.dropletDestroy;
 import static mariculture.core.lib.Items.dropletPlant;
 import static mariculture.core.lib.Items.dropletWater;
 import static mariculture.core.lib.Items.gunpowder;
-import static mariculture.core.lib.Items.redstone;
 
 import java.util.Random;
 
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.EntityBass;

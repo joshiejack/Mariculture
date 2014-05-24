@@ -3,15 +3,13 @@ import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.Items.dropletFrozen;
 import static mariculture.core.lib.Items.dropletRegen;
 import static mariculture.core.lib.Items.dropletWater;
-import static mariculture.core.lib.Items.redDye;
 import static mariculture.core.lib.Items.redstone;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodQuality;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.item.ItemStack;
 
 public class FishHerring extends FishSpecies {
 	public FishHerring(int id) {

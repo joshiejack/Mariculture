@@ -20,7 +20,6 @@ import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishHelper;
-import mariculture.fishery.items.ItemFishy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -164,7 +163,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	private boolean openEgg(int slot) {
 		if(inventory[slot] == null) return false;
 		Random rand = new Random();
-		if (inventory[slot].getItem() instanceof ItemFishy) {
+		if (Fishing.fishHelper.isEgg(inventory[slot])) {
 			int[] fertility = inventory[slot].stackTagCompound.getIntArray(Fish.fertility.getEggString());
 			int[] lifes = inventory[slot].stackTagCompound.getIntArray(Fish.lifespan.getEggString());
 

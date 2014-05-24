@@ -2,8 +2,8 @@ package mariculture.magic.enchantments;
 
 import java.util.Random;
 
-import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.ClientHelper;
+import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;

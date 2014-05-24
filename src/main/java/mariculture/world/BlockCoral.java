@@ -14,6 +14,7 @@ import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.OresMeta;
 import mariculture.core.util.IItemRegistry;
+import mariculture.world.decorate.WorldGenReef172;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -82,8 +83,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 	private void updateMoss(World world, int x, int y, int z, Random rand) {
 		if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID ||
 				(world.getBlockId(x, y - 1, z) == Block.stoneBrick.blockID
-						&& world.getBlockMetadata(x, y - 1, z) == 1))
-		{
+						&& world.getBlockMetadata(x, y - 1, z) == 1)) {
 			if(rand.nextInt(Extra.KELP_SPREAD_CHANCE) == 0) {
 				int x2 = x + rand.nextInt(4) - 2;
 				int z2 = z + rand.nextInt(4) - 2;
@@ -189,8 +189,7 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6) {
-		if (world.getBlockId(x, y - 1, z) == WorldPlus.coral.blockID
-				&& world.getBlockMetadata(x, y - 1, z) == CoralMeta.KELP_MIDDLE) {
+		if (world.getBlockId(x, y - 1, z) == WorldPlus.coral.blockID && world.getBlockMetadata(x, y - 1, z) == CoralMeta.KELP_MIDDLE) {
 			world.setBlockMetadataWithNotify(x, y - 1, z, CoralMeta.KELP, 2);
 		}
 	}
@@ -200,40 +199,44 @@ public class BlockCoral extends Block implements IPlantable, IItemRegistry {
 		if (world.getBlockMaterial(x, y, z) != Material.water) {
 			return false;
 		}
+		
+		int blockID = world.getBlockId(x, y - 1, z);
+		int meta = world.getBlockMetadata(x, y - 1, z);
 
 		if (world.getBlockId(x, y, z) == WorldPlus.coral.blockID) {
 			if (world.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
-				if (world.getBlockId(x, y - 1, z) == WorldPlus.coral.blockID
-						&& world.getBlockMetadata(x, y - 1, z) <= CoralMeta.KELP_MIDDLE) {
+				if (blockID == WorldPlus.coral.blockID && meta <= CoralMeta.KELP_MIDDLE) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Block.gravel.blockID) {
+				if (blockID == Block.gravel.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Block.cobblestone.blockID) {
+				if (blockID == Block.cobblestone.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
+				if (blockID == Block.cobblestoneMossy.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Core.ores.blockID
-						&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
+				if (blockID == Core.ores.blockID && meta == OresMeta.CORAL_ROCK) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Block.sand.blockID) {
+				if (blockID == Block.sand.blockID) {
 					return true;
 				}
 			} else if (world.getBlockMetadata(x, y, z) > CoralMeta.KELP_MIDDLE) {
-				if (world.getBlockId(x, y - 1, z) == Block.cobblestone.blockID) {
+				if (blockID == Block.cobblestone.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Block.cobblestoneMossy.blockID) {
+				
+				if (blockID == Block.cobblestoneMossy.blockID) {
 					return true;
 				}
-				if (world.getBlockId(x, y - 1, z) == Core.ores.blockID
-						&& world.getBlockMetadata(x, y - 1, z) == OresMeta.CORAL_ROCK) {
+				
+				if (blockID == Core.ores.blockID && meta == OresMeta.CORAL_ROCK) {
 					return true;
 				}
+				
+				return WorldGenReef172.coralCanReplace(world, x, y - 1, z);
 			}
 
 		}

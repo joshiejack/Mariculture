@@ -61,4 +61,5 @@ public class Extra {
 	public static int DEMON_FISH_LIMIT;
 	public static boolean DISABLE_DIRT_CRAFTING;
 	public static boolean DISABLE_GRASS;
+	public static double ALIVE_MODIFIER;
 }
