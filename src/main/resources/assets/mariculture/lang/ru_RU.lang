@@ -8,6 +8,7 @@ death.attack.turbine=%1$s перетрудился, пока вращал тур
 ### Core ###
 # blocks
 itemGroup.maricultureTab=Mariculture
+itemGroup.maricultureFluidsTab=Mariculture: Жидкости
 tile.rocks.bauxiteOre.name=Бокситовая руда
 tile.rocks.copperOre.name=Медная руда
 tile.rocks.rutileOre.name=Рутиловая руда
@@ -65,6 +66,8 @@ tile.sands.gas.name=Утечка газа
 tile.sands.ancientSand.name=Древний песок
 tile.machines.single.rendered.anvil.name=Наковальня кузнеца
 tile.machines.single.rendered.ingotCaster.name=Формовщик слитков
+tile.machines.single.rendered.blockCaster.name=Формовщик блоков
+tile.machines.single.rendered.nuggetCaster.name=Формовщик самородков
 tile.machines.multi.rendered.vat.name=Чан
 #fluids
 fluid.fastwater=Сжатая вода
@@ -85,7 +88,7 @@ fluid.nickel.molten=Расплавленный никель
 fluid.glass.molten=Расплавленное стекло
 fluid.salt.molten=Расплавленная соль
 fluid.gas.natural=Природный газ
-fluid.quicklime=Негашеная известь
+fluid.quicklime=Негашёная известь
 fluid.electrum.molten=Расплавленный электрум
 fluid.invar.molten=Расплавленный инвар
 fluid.platinum.molten=Расплавленная платина
@@ -114,6 +117,9 @@ item.materials.foodSalt.name=Соль
 item.materials.dyeGreen.name=Зёленый краситель
 item.materials.dyeWhite.name=Белый краситель
 item.materials.dyeBlue.name=Синий краситель
+item.materials.dyeYellow.name=Жёлтый краситель
+item.materials.dyeRed.name=Красный краситель
+item.materials.dyeBrown.name=Коричневый краситель
 item.materials.nuggetIron.name=Железный самородок
 item.materials.nuggetAluminum.name=Алюминиевый самородок
 item.materials.nuggetMagnesium.name=Магниевый самородок
@@ -218,6 +224,8 @@ item.fluids.bottleLava.name=Бутылка лавы
 item.fluids.bottleEmpty.name=Пустая бутылка
 item.fluids.bottleNormalNaturalGas.name=Стеклянная бутылка природного газа
 item.fluids.bottleHPWater.name=Бутылка сжатой воды
+item.bucket.dirt.name=Ведро жидкой земли
+item.bucket.hpwater.name=Ведро сжатой воды
 
 ### Diving ###
 #blocks
@@ -324,10 +332,13 @@ item.net.name=Рыболовная сеть
 tile.woods.polishedPlank.name=Полированные доски
 tile.woods.polishedLog.name=Полированные брёвна
 #fluid
+fluid.dirt=Жидкая земля
 fluid.fishfood=Наживка
 fluid.fishoil=Рыбий жир
 fluid.milk=Молоко
 fluid.custard=Соус
+tile.custard.name=Соус
+tile.fish.oil.name=Рыбий жир
 #items
 item.guide.fishing.name=Рыболовство и разведение #42
 item.guide.fishing.author=П. Шерман
@@ -354,16 +365,25 @@ item.rod.wood.name=Деревянная удочка
 item.rod.titanium.name=Титановая удочка
 item.rod.reed.name=Тростниковая удочка
 item.food.fishFinger.name=Рыбные палочки
+item.food.misoSoup.name=1 порция супа Мисо
+item.food.misoSoup2.name=2 порции супа Мисо
+item.food.misoSoup3.name=3 порции супа Мисо
+item.food.kelpWrap.name=Обёртка из водорослей
+item.food.cactusWrap.name=Колючая обёртка
 item.food.calamari.name=Кальмары
+item.food.calamari2.name=Недоеденные кальмары
 item.food.smokedSalmon.name=Копчёный лосось
 item.food.custard.name=Соус
 item.food.fishNCustard.name=Рыбные палочки в соусе
 item.food.sushi.name=Суши
 item.food.caviar.name=Икра
+item.eggs.fish.name=Рыбья икра
 item.crafting.thermometer.name=Анализатор водной среды
 item.crafting.dragonEgg.name=Призвать дракона Края
 item.crafting.titaniumRod.name=Полированная титановая палочка
 item.crafting.polishedStick.name=Полированная палочка
+item.bucket.custardBucket.name=Ведро соуса
+item.bucket.fishoil.name=Ведро рыбьего жира
 item.fluids.bottleFishOil.name=Бутылка рыбьего жира
 item.fluids.bottleFishFood.name=Бутылка рыбьего корма
 item.fluids.bottleCustard.name=Бутылка соуса
@@ -402,7 +422,6 @@ fish.data.workethic.normal=Нормальная
 fish.data.workethic.hardworker=Усердная
 fish.data.workethic.overclocker=Сумасшедшая
 fish.data.species=Виды
-fish.data.species.egg=Рыбья икра
 fish.data.species.nether=Рыба Нижнего мира
 fish.data.species.glow=Светящаяся рыба
 fish.data.species.blaze=Пламенная рыба
@@ -499,7 +518,7 @@ item.guide.enchants.author=Урсула
 item.mirror.basic.name=Зеркало
 item.mirror.magic.name=Магическое зеркало
 item.mirror.celestial.name=Небесное зеркало
-item.mobmagnet.name=Магнит монстров
+item.mobmagnet.name=Магнит мобов
 #jewelry-parts
 item.ring.name=(Кольцо)
 item.bracelet.name=(Браслет)
@@ -507,7 +526,7 @@ item.necklace.name=(Ожерелье)
 
 ### Transport ###
 #items
-item.boat.speed.name=Скоростная лодка
+item.boat.speed.name=Моторная лодка
 
 ### World ###
 #blocks
@@ -527,11 +546,6 @@ item.coral.lightgrey.name=Наполовину хлорированный кор
 item.coral.grey.name=Частично хлорированный коралл
 #items
 item.crafting.kelpSeeds.name=Семена водорослей
-item.materials.dyeYellow.name=Жёлтая краска
-item.materials.dyeRed.name=Красная краска
-item.materials.dyeBrown.name=Коричневая краска
-item.food.misoSoup.name=Суп Мисо
-item.food.kelpWrap.name=Обёртка из водоросли
 
 ### Other Strings ###
 item.aquaBackpack.name=Рюкзак подводника
@@ -583,7 +597,7 @@ mariculture.string.shift.custom=чтобы увидеть информацию �
 mariculture.string.bait=Подходящая наживка
 mariculture.string.eggsRemaining=Икры осталось
 mariculture.string.undetermined=Неопределено
-mariculture.string.pieces=Кусочков
+mariculture.string.pieces=кусочков
 mariculture.string.ingots=Слитков
 mariculture.string.nuggets=Зубчиков
 mariculture.string.outof=Из примерно:
@@ -596,11 +610,14 @@ mariculture.string.noBound2=Убейте этим монстра
 mariculture.string.bound=Существо привязано к:
 mariculture.string.tooCold=Слишком холодно
 mariculture.string.tooHot=Слишком жарко
+mariculture.string.blocks.lava=Лавовые блоки
+mariculture.string.badWorld=Требуется эфирное улучшение
+mariculture.string.blocks.water=Водные блоки
 mariculture.string.salinity.prefers=Предпочитает
 mariculture.string.salinity.brackish=Солоноватую воду
 mariculture.string.salinity.saline=Солёную воду
 mariculture.string.salinity.fresh=Пресную воду
-mariculture.string.by=от
+mariculture.string.by=Автор
 mariculture.string.dried=Сушёный
 mariculture.string.environment.salinity=Солёность биома
 mariculture.string.temperature.generic=Общая температура биома
@@ -608,7 +625,25 @@ mariculture.string.temperature.precise=Точная температура во�
 mariculture.string.input=Ввод
 mariculture.string.output=Вывод
 mariculture.string.maxCapacity=Макс. ёмкость
-mariculture.string.ritual=[Mariculture]Ритуал кровавой реки
+mariculture.string.stats.jewelry=Статистика драгоценности
+mariculture.string.elemental=Стихийный эффект
+mariculture.string.elemental.pearlblack=Лунный взрыв
+mariculture.string.elemental.pearlwhite=Солнечный столп
+mariculture.string.elemental.pearlblue=Акваланг
+mariculture.string.elemental.pearlbrown=Червяк Джим
+mariculture.string.elemental.pearlgold=Прикосновение Мидаса
+mariculture.string.elemental.pearlgreen=Ядовитый плющ
+mariculture.string.elemental.pearlorange=Деление опытом
+mariculture.string.elemental.pearlpink=Жизнь пиявки
+mariculture.string.elemental.pearlpurple=Волшебный плащ
+mariculture.string.elemental.pearlred=Инферно
+mariculture.string.elemental.pearlsilver=Рыбалка на земле
+mariculture.string.elemental.pearlyellow=Земная защита
+mariculture.string.max.enchants=Макс. чар
+mariculture.string.max.level=Макс. уровень зачарования
+mariculture.string.max.damage=Макс. урон
+mariculture.string.shift.jewelry=чтобы показать статистику драгоценности
+mariculture.string.oneRing=Кольцо Всевластья
 
 ### Eject Modes ###
 ejectmode.none=Авто-выброс выключен
@@ -656,26 +691,30 @@ notification.no.egg=Отсутствует икра
 
 ### TiC Tools ###
 item.titanium.arrow.head.name=Титановый наконечник стрелы
-item.titanium.axe.head.name=Титановое топорище
+item.titanium.axe.head.name=Титановый обух топора
 item.titanium.battlesign.head.name=Титановая табличка
 item.titanium.binding.name=Титановое крепление
-item.titanium.chisel.head.name=Титановая насадка зубила
+item.titanium.chisel.head.name=Титановое лезвие стамески
 item.titanium.chunk.name=Титановый осколок
-item.titanium.crossbar.name=Титановый поперечный эфес
-item.titanium.excavator.head.name=Титановая головка землекопалки
+item.titanium.crossbar.name=Титановая поперечая гарда
+item.titanium.excavator.head.name=Титановая пластины копалки
 item.titanium.frypan.head.name=Титановая сковорода
-item.titanium.full.guard.name=Титановый полный эфес
-item.titanium.hammer.head.name=Титановая головка молота
+item.titanium.full.guard.name=Титановая полная гарда
+item.titanium.hammer.head.name=Титановый боёк молота
 item.titanium.knife.blade.name=Титановое лезвие ножа
-item.titanium.large.guard.name=Титановый широкий эфес
+item.titanium.large.guard.name=Титановая широкая гарда
 item.titanium.large.sword.blade.name=Большое титановое лезвие меча
 item.titanium.large.plate.name=Большая титановая пластина
-item.titanium.lumberaxe.head.name=Титановое широкое топорище
-item.titanium.medium.guard.name=Титановый малый эфес
-item.titanium.pickaxe.head.name=Титановый наконечник кирки
-item.titanium.scythe.head.name=Титановый наконечник косы
-item.titanium.shovel.head.name=Титановый наконечник лопаты
+item.titanium.lumberaxe.head.name=Титановый большой обух топора
+item.titanium.medium.guard.name=Титановая малая гарда
+item.titanium.pickaxe.head.name=Титановый обух кирки
+item.titanium.scythe.head.name=Титановое лезвие косы
+item.titanium.shovel.head.name=Титановый штык лопаты
 item.titanium.sword.blade.name=Титановое лезвие меча
 item.titanium.tool.rod.name=Титановый стержень
 item.titanium.tough.binding.name=Титановое прочное крепление
 item.titanium.tough.rod.name=Титановый прочный стержень
+
+### Blood Magic ###
+item.rodBlood.name=Связанная удочка
+mariculture.string.ritual=[Mariculture]Ритуал кровавой реки
