@@ -27,20 +27,24 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RecipeHelper {
+	/** Returns an itemstack using the block as input **/
 	public static ItemStack _(Block block) {
 		return new ItemStack(block);
 	}
 	
+	/** Returns and itemstack using the item as input **/
 	public static ItemStack _(Item item) {
 		return new ItemStack(item);
 	}
 	
+	/** Returns an itemstack of the type specified with the size specified **/
 	public static ItemStack _(ItemStack stack, int amount) {
 		ItemStack ret = stack.copy();
 		ret.stackSize = amount;
 		return ret;
 	}
 	
+	/** Returns and itemstack, changing the damage and amount **/
 	public static ItemStack _(ItemStack stack, int dmg, int amount) {
 		ItemStack ret = stack.copy();
 		ret.setItemDamage(dmg);

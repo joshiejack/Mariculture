@@ -84,7 +84,7 @@ public class PlansMeta {
 			return PlansMeta.WALL;
 		} else if(block instanceof BlockCarpet) {
 			return PlansMeta.FLOOR;
-		} else if(world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof IEnergyHandler) {
+		} else if(world.getTileEntity(x, y, z) instanceof IEnergyHandler) {
 			return PlansMeta.RF;
 		} else if(block.getLightValue(world, x, y, z) > 0F) {
 			return PlansMeta.LIGHT;

@@ -1,36 +1,35 @@
 package mariculture.core;
 
-import static mariculture.core.helpers.RecipeHelper.*;
+import static mariculture.core.helpers.RecipeHelper._;
+import static mariculture.core.helpers.RecipeHelper.add4x4Recipe;
+import static mariculture.core.helpers.RecipeHelper.add9x9Recipe;
+import static mariculture.core.helpers.RecipeHelper.addAnvilRecipe;
+import static mariculture.core.helpers.RecipeHelper.addCrossHatchRecipe;
+import static mariculture.core.helpers.RecipeHelper.addShaped;
+import static mariculture.core.helpers.RecipeHelper.addShapeless;
+import static mariculture.core.helpers.RecipeHelper.addSmelting;
+import static mariculture.core.helpers.RecipeHelper.addUncraftingRecipe;
+import static mariculture.core.helpers.RecipeHelper.addUpgrade;
+import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
+import static mariculture.core.helpers.RecipeHelper.addWheelRecipe;
 import static mariculture.core.lib.ItemLib.*;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.FoodMeta;
-import mariculture.core.lib.ItemLib;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
-import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.RockMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.Fluids;
-import mariculture.fishery.Fish;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class Recipes {
 	public static void add() {
 		RecipesSmelting.add();
+		addAnvilRecipes();
 		addCraftingItems();
 		addMetalRecipes();
 		addUpgradeRecipes();
-		addAnvilRecipes();
+		
 	//Items
 		addShaped(hammer, new Object[] {"PP ", " SP", "S  ", 'P', burntBrick, 'S', netherBrick});
 		addShaped(ladle, new Object[] {" C ", " C ", "C  ", 'C', "ingotCopper"});
@@ -45,8 +44,6 @@ public class Recipes {
 		addShaped(baseBrick, new Object[] {"IGI", "G G", "IGI", 'I', burntBrick, 'G', ironBars});
 		addShaped(baseIron, new Object[] {"IGI", "G G", "IGI", 'I', "ingotIron", 'G', glassPane});
 		addShaped(baseWood, new Object[] {"IGI", "G G", "IGI", 'I', "logWood", 'G', fence});
-
-	//Machines
 		addShaped(airPump, new Object[] {"WGW", "PRP", "PMP", 'G', "glass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel});
 		addShaped(_(tank, 2), new Object[] {"CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "glass"});
 		addShaped(storageBookshelf, new Object[] {"SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest});
@@ -58,8 +55,8 @@ public class Recipes {
 		addShaped(nuggetCaster, new Object[] {" B ", "B B", " B ", 'B', burntBrick});
 		
 		for (int i = 0; i < 12; i++) {
-			RecipeHelper.add4x4Recipe(_(pearlBlock, i, 1), _(pearls, i, 1));
-			RecipeHelper.addUncraftingRecipe(_(pearls, i, 4), _(pearlBlock, i, 1));
+			add4x4Recipe(_(pearlBlock, i, 1), _(pearls, i, 1));
+			addUncraftingRecipe(_(pearls, i, 4), _(pearlBlock, i, 1));
 		}
 
 		addShaped(_(piston), new Object[] {"TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood"});
@@ -72,7 +69,7 @@ public class Recipes {
 		addShaped(neoprene,  new Object[] {"IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas });
 		addShaped(_(neoprene, 2),  new Object[] {"IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas2 });
 		addVatItemRecipe(_(limestone, 4), Fluids.natural_gas, 5000, plastic, 45);
-		if(FluidRegistry.getFluid("bioethanol") != null) addVatItemRecipe(_(limestone, 4), "bioethanol", 10000, plastic, 60);
+		if(Fluids.exists("bioethanol")) addVatItemRecipe(_(limestone, 4), "bioethanol", 10000, plastic, 60);
 		addShaped(plasticLens, new Object[] {" N ", "NGN", " N ", 'N', neoprene, 'G', transparent});
 		addShaped(glassLens, new Object[] {" P ", "PGP", " P ", 'P', "plankWood", 'G', "glass"});
 		
@@ -93,7 +90,7 @@ public class Recipes {
 		}
 		
 		if(!Modules.isActive(Modules.worldplus)) {
-			add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), ItemLib.cactusGreen);
+			add9x9Recipe(kelpWrap, cactusGreen);
 		}
  	}
 	
@@ -168,49 +165,30 @@ public class Recipes {
 		previous = addUpgrade(UpgradeMeta.ADVANCED_SPEED, new Object[] {"ASA", "TUT", "SNS", 'A', "ingotAluminum", 'S', sugar, 'T', "ingotTitanium", 'N', ice, 'U', previous});
 		addUpgrade(UpgradeMeta.ULTIMATE_SPEED, new Object[] {"TRT", "SUS", "ARA", 'A', aluminumSheet, 'S', sugar, 'T', "ingotTitanium", 'R', goldRail, 'U', previous});
 		
-		//Basic Capacitor
-		RecipeHelper.addShaped(new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_RF), new Object[] {
-			" T ", "CRC", 'T', Blocks.redstone_torch, 'C', "ingotCopper", 'R', "dustRedstone"
-		});
-		
-		//Standard Capacitor
-		RecipeHelper.addShaped(new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_RF), new Object[] {
-			"CTC", "QUQ", "RCR", 'C', "ingotCopper", 'T', Blocks.redstone_torch, 'Q', Items.quartz, 'R', Items.repeater,
-			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_RF)
-		});
-		
-		//Advanced Capacitor
-		RecipeHelper.addShaped(new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_RF), new Object[] {
-			" D ", "RUR", "QCQ", 'D', "dustRedstone", 'Q', Items.quartz, 'R', Items.repeater,
-			'C', new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
-			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.STANDARD_RF)
-		});
-		
-		//Ultimate Capacitor
-		RecipeHelper.addShaped(new ItemStack(Core.upgrade, 1, UpgradeMeta.ULTIMATE_RF), new Object[] {
-			" C ", "RUR", "QBQ", 'Q', Items.comparator, 'R', "dustRedstone", 'B', "blockRedstone",
-			'C', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
-			'U', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_RF)
-		});
+		//Capacitor
+		previous = addUpgrade(UpgradeMeta.BASIC_RF, new Object[] {" T ", "CRC", 'T', redstoneTorch, 'C', "ingotCopper", 'R', "dustRedstone"});
+		previous = addUpgrade(UpgradeMeta.STANDARD_RF, new Object[] {"CTC", "QUQ", "RCR", 'C', "ingotCopper", 'T', redstoneTorch, 'Q', quartz, 'R', repeater, 'U', previous});
+		previous = addUpgrade(UpgradeMeta.ADVANCED_RF, new Object[] {" D ", "RUR", "QCQ", 'D', "dustRedstone", 'Q', quartz, 'R', repeater, 'C', copperBattery, 'U', previous});		
+		addUpgrade(UpgradeMeta.ULTIMATE_RF, new Object[] {" C ", "RUR", "QBQ", 'Q', comparator, 'R', "dustRedstone", 'B', "blockRedstone", 'C', titaniumBattery, 'U', previous});
 	}
 	
 	public static void addAnvilRecipes() {
 		addAnvilRecipe(blockAluminum, _(aluminumSheet, 8), 50);
 		addAnvilRecipe(blockTitanium, _(titaniumSheet, 8), 150);
 		addAnvilRecipe(_(bone), _(bonemeal, 5), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 0), new ItemStack(Items.dye, 2, Dye.RED), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 1), new ItemStack(Items.dye, 2, Dye.LIGHT_BLUE), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 2), new ItemStack(Items.dye, 2, Dye.MAGENTA), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 3), new ItemStack(Items.dye, 2, Dye.LIGHT_GREY), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 4), new ItemStack(Items.dye, 2, Dye.RED), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 5), new ItemStack(Items.dye, 2, Dye.ORANGE), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 6), new ItemStack(Items.dye, 2, Dye.LIGHT_GREY), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 7), new ItemStack(Items.dye, 2, Dye.PINK), 10);
-		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 8), new ItemStack(Items.dye, 2, Dye.LIGHT_GREY), 10);
-		addAnvilRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Items.dye, 3, Dye.YELLOW), 10);
-		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 0), new ItemStack(Items.dye, 4, Dye.YELLOW), 10);
-		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 1), new ItemStack(Items.dye, 4, Dye.MAGENTA), 10);
-		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 4), new ItemStack(Items.dye, 4, Dye.RED), 10);
-		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 5), new ItemStack(Items.dye, 4, Dye.PINK), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 0), _(roseDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 1), _(lightBlueDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 2), _(magentaDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 3), _(lightGreyDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 4), _(roseDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 5), _(orangeDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 6), _(lightGreyDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 7), _(pinkDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 8), _(lightGreyDye, 2), 10);
+		addAnvilRecipe(new ItemStack(Blocks.yellow_flower), _(dandelionDye, 3), 10);
+		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 0), _(dandelionDye, 4), 10);
+		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 1), _(magentaDye, 4), 10);
+		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 4), _(roseDye, 4), 10);
+		addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 5), _(pinkDye, 4), 10);
 	}
 }

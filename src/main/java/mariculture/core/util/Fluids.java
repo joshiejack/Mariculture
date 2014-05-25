@@ -28,6 +28,10 @@ public class Fluids {
 
 		return FluidRegistry.WATER;
 	}
+	
+	public static boolean exists(String string) {
+		return FluidRegistry.getFluid(string) != null;
+	}
 
 	public boolean fluidExists(String name) {
 		for (Map.Entry<String, Fluid> entry : fluids.entrySet()) {
