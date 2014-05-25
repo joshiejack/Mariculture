@@ -12,7 +12,7 @@ import cpw.mods.fml.common.Loader;
 
 public class Plugins extends Module {
 	public static ArrayList<Plugin> plugins = new ArrayList<Plugin>();
-	public static final String after="after:Enchiridion;after:AWWayofTime@(v1.0.1,];after:BiomesOPlenty;after:TConstruct";
+	public static final String after="required-after:Enchiridion@(1.1,];after:AWWayofTime@(v1.0.1,];after:BiomesOPlenty;after:TConstruct";
 
 	public abstract static class Plugin {
 		public static enum Stage {
