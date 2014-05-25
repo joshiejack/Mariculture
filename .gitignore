@@ -13,4 +13,4 @@
 .project
 .settings/*
 src/api/*
-lib/
+/lib/
