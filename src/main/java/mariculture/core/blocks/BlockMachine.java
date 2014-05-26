@@ -24,6 +24,8 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -178,6 +180,16 @@ public class BlockMachine extends BlockFunctional {
 			default:							return null;
 		}
 	}
+	
+	public boolean hasComparatorInputOverride() {
+        return true;
+    }
+
+    public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+    	if(world.getBlockMetadata(x, y, z) == MachineMeta.BOOKSHELF) {
+    		return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(x, y, z));
+    	} else return super.getComparatorInputOverride(world, x, y, z, side);
+    }
 	
 	@Override
 	public boolean isActive(int meta) {

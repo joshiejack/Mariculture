@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.util.IItemRegistry;
+import mariculture.core.util.Text;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -67,8 +68,8 @@ public class ItemBattery extends ItemEnergyContainer implements IItemRegistry {
 			return;
 		}
 		
-		list.add("Charge: " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " RF");
-		list.add("Transfer: " + this.maxExtract + " RF/t");
+		list.add(Text.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " " + Text.translate("rf"));
+		list.add(Text.translate("transfer") + ": " + this.maxExtract + " " + Text.translate("rft"));
 	}
 	
 	@Override

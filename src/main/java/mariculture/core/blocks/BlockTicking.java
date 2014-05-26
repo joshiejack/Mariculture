@@ -110,7 +110,7 @@ public class BlockTicking extends BlockFunctional {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {		
 		if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
-			ItemStack loot = Fishing.fishing.getCatch(world, x, y, z, null);
+			ItemStack loot = Fishing.fishing.getCatch(world, x, y, z, null, null);
 			if (loot != null && loot.getItem() instanceof ItemFishy) {
 				SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
 			} else SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Items.fish, 1, Fish.cod.getID()), true, OreDictionary.WILDCARD_VALUE);

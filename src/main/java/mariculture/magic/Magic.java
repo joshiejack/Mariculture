@@ -129,7 +129,6 @@ public class Magic extends RegistrationModule {
 		bracelet = new ItemBracelet().setUnlocalizedName("bracelet");
 		necklace = new ItemNecklace().setUnlocalizedName("necklace");
 		magnet = new ItemMobMagnet(100).setUnlocalizedName("mobmagnet");
-
 		RegistryHelper.registerItems(new Item[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
 	}
 

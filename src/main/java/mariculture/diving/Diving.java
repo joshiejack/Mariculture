@@ -1,25 +1,27 @@
 package mariculture.diving;
-
-import mariculture.core.Core;
-import mariculture.core.helpers.RecipeHelper;
+import static mariculture.core.helpers.RecipeHelper._;
+import static mariculture.core.helpers.RecipeHelper.addShaped;
+import static mariculture.core.lib.ItemLib.aluminumSheet;
+import static mariculture.core.lib.ItemLib.compressorBase;
+import static mariculture.core.lib.ItemLib.compressorTop;
+import static mariculture.core.lib.ItemLib.cooling;
+import static mariculture.core.lib.ItemLib.glassLens;
+import static mariculture.core.lib.ItemLib.ink;
+import static mariculture.core.lib.ItemLib.ironWheel;
+import static mariculture.core.lib.ItemLib.leather;
+import static mariculture.core.lib.ItemLib.neoprene;
+import static mariculture.core.lib.ItemLib.piston;
+import static mariculture.core.lib.ItemLib.plastic;
+import static mariculture.core.lib.ItemLib.plasticLens;
+import static mariculture.core.lib.ItemLib.reeds;
+import static mariculture.core.lib.ItemLib.titaniumBattery;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Dye;
-import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import cpw.mods.fml.common.registry.GameRegistry;
-
 public class Diving extends RegistrationModule {	
 	public static Item divingHelmet;
 	public static Item divingTop;
@@ -66,69 +68,16 @@ public class Diving extends RegistrationModule {
 	
 	@Override
 	public void registerRecipes() {		
-		//Air Compressor Top
-		RecipeHelper.addShaped(new ItemStack(Core.renderedMachinesMulti, 2, MachineRenderedMultiMeta.COMPRESSOR_TOP), new Object[] {
-			"  F", " PB", "III", 'I', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
-			'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER),
-			'B', new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE),
-			'P', Blocks.piston
-		});
-		
-		//Air Compressor Base
-		RecipeHelper.addShaped(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE), new Object[] {
-			"ITT", "III", "W  ",
-			'I', new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET),
-			'W', new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL),
-			'T', "ingotTitanium"
-		});
-		
-		//Snorkel
-		RecipeHelper.addShaped(new ItemStack(snorkel), new Object[] {
-			"  R", "LLR", 'R', Items.reeds, 'L', new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS)
-		});
-		
-		//Diving Helmet
-		RecipeHelper.addShaped(new ItemStack(divingHelmet), new Object[] {
-			"CCC", "CGC", 'C', "ingotCopper", 'G', "glass"
-		});
-
-		GameRegistry.addRecipe(new ItemStack(Diving.divingTop), new Object[] { " C ", "C C", " C ", 
-			Character.valueOf('C'), new ItemStack(Items.leather) });
-		
-		GameRegistry.addRecipe(new ItemStack(Diving.divingPants), new Object[] { "CCC", " C ", "CCC", 
-				Character.valueOf('C'), new ItemStack(Items.leather) });
-		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Diving.divingBoots), true, new Object[] { "C C", "L L",
-					'C', new ItemStack(Items.leather),
-					'L', new ItemStack(Items.iron_ingot) }));
-		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(Diving.scubaMask, true, new Object[] { "PD", "LL", 
-						Character.valueOf('P'), "dyeBlack", 
-						Character.valueOf('L'), new ItemStack(Core.crafting, 1, CraftingMeta.LENS), 
-						Character.valueOf('D'), "dyeYellow" }));
-		
-		ItemStack tank = new ItemStack(Diving.scubaTank);
-		tank.setItemDamage(tank.getMaxDamage() - 1);
-		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(tank, true, new Object[] { "DSD", "S S", "DSD",
-					Character.valueOf('S'), new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET), 
-					Character.valueOf('D'), "dyeYellow" }));
-
-		GameRegistry.addRecipe(new ItemStack(Diving.scubaSuit), new Object[] { "NNN", " N ", "NNN", 
-				Character.valueOf('N'), new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE) });
-		
-		GameRegistry.addRecipe(new ItemStack(Diving.swimfin), new Object[] { "N N", "PDP", "PDP", 
-				Character.valueOf('N'), new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE), 
-				Character.valueOf('P'), new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC), 
-				Character.valueOf('D'), new ItemStack(Items.dye, 1, Dye.INK) });
+		addShaped(_(compressorTop, 2), new Object[] {"  F", " PB", "III", 'I', aluminumSheet, 'F', cooling, 'B', titaniumBattery, 'P', piston});
+		addShaped(compressorBase, new Object[] {"ITT", "III", "W  ", 'I', aluminumSheet, 'W', ironWheel, 'T', "ingotTitanium"});
+		addShaped(_(snorkel), new Object[] {"  R", "LLR", 'R', reeds, 'L', glassLens});
+		addShaped(_(divingHelmet), new Object[] {"CCC", "CGC", 'C', "ingotCopper", 'G', "glass"});
+		addShaped(_(divingTop), new Object[] { " C ", "C C", " C ", 'C', leather });
+		addShaped(_(divingPants), new Object[] { "CCC", " C ", "CCC", 'C', leather });
+		addShaped(_(divingBoots), new Object[] { "C C", "L L", 'C', leather, 'L', "ingotIron" });
+		addShaped(_(scubaMask), new Object[] { "PD", "LL", 'P', "dyeBlack", 'L', plasticLens, 'D', "dyeYellow" });
+		addShaped(_(_(scubaTank), scubaTank.getMaxDamage() - 1, 1), new Object[] { "DSD", "S S", "DSD", 'S', aluminumSheet, 'D', "dyeYellow" });
+		addShaped(_(scubaSuit), new Object[] { "NNN", " N ", "NNN", 'N', neoprene });
+		addShaped(_(swimfin), new Object[] { "N N", "PDP", "PDP", 'N', neoprene, 'P', plastic, 'D', ink });
 	}
 }

@@ -73,7 +73,7 @@ public class FishCod extends FishSpecies {
 
 	@Override
 	public int getCatchChance() {
-		return 20;
+		return 25;
 	}
 
 	@Override

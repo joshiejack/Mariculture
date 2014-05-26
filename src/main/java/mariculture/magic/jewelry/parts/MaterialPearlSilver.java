@@ -25,7 +25,7 @@ public class MaterialPearlSilver extends JewelryMaterial {
 		if(event.entity instanceof EntitySilverfish && Rand.nextInt(8)) {
 			ItemStack stack = null;
 			if(Modules.isActive(Modules.fishery)) {
-				stack = Fishing.fishing.getCatch(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, null);
+				stack = Fishing.fishing.getCatch(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, null, null);
 			} else stack = new ItemStack(Items.cooked_fished);
 			
 			SpawnItemHelper.spawnItem(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, stack);

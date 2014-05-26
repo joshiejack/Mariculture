@@ -63,8 +63,8 @@ public class PluginBiomesOPlenty extends Plugin {
 	public void init() {
 		boolean found = true;
 		try {
-			 Class.forName( "biomesoplenty.api.content.BOPCBiomes" );
-		} catch( ClassNotFoundException e ) {
+			 Class.forName("biomesoplenty.api.content.BOPCBiomes");
+		} catch(ClassNotFoundException e) {
 			found = false;
 		}
 		

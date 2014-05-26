@@ -83,7 +83,7 @@ public class ItemBoundRod extends ItemRod {
 					}
 
 					if (BlockHelper.isWater(world, x2, y2, z2) && Rand.nextInt(5)) {
-						ItemStack loot = Fishing.fishing.getCatch(world, x2, y2, z2, player.getCurrentEquippedItem());
+						ItemStack loot = Fishing.fishing.getCatch(world, x2, y2, z2, player, player.getCurrentEquippedItem());
 						if (!world.isRemote && loot != null) {
 							float f = 0.7F;
 							double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;

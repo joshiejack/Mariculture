@@ -48,9 +48,9 @@ public class WorldGenKelp extends WorldGenerator {
     				if(BlockHelper.isWater(world, i1, j1 + 2, k1)) world.setBlock(i1, j1 + 1, k1, block, meta, 2);
     				else break;
     			}
+    			
+    			if(world.getBlock(i1, j1, k1) == block) world.setBlock(i1, j1, k1, block, meta - 1, 1);
     		}
-    		
-    		if(world.getBlock(i1, j1, k1) == block) world.setBlock(i1, j1, k1, block, meta - 1, 2);
     	}
 
         return true;

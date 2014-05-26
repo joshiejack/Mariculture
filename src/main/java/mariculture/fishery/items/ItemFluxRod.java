@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.items.ItemBattery;
+import mariculture.core.util.Text;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -46,9 +47,9 @@ public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
 			return;
 		}
 		
-		list.add("Charge: " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " RF");
-		list.add("Transfer: " + this.maxReceive + " RF/t");
-		list.add("RF Per Use: " + this.maxExtract + " RF");
+		list.add(Text.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " " + Text.translate("rf"));
+		list.add(Text.translate("transfer") + ": " + this.maxReceive + " " + Text.translate("rft"));
+		list.add(Text.translate("peruse") + ": " + this.maxExtract + " " + Text.translate("rf"));
 	}
 
 	@Override

@@ -122,7 +122,7 @@ public class ItemVanillaFish extends ItemFishFood {
 			}
 			
 			if(stack.stackSize == 0) {
-				player.setCurrentItemOrArmor(player.inventory.currentItem, null);
+				player.setCurrentItemOrArmor(0, null);
 			}
 		}
 

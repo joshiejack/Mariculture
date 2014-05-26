@@ -73,6 +73,7 @@ public class Config {
             Extra.JEWELRY_OFFLINE = config.get(Category.EXTRA, "Enable Singleplayer Jewelry Offline Mode", false).getBoolean(false);
             Extra.VANILLA_STATS = config.get(Category.EXTRA, "Use Vanilla stats for fish", false).getBoolean(false);
             Extra.VANILLA_POOR = config.get(Category.EXTRA, "Vanilla rods are not as good without bait", true).getBoolean(true);
+            Extra.VANILLA_LOOT = config.get(Category.EXTRA, "Vanilla rods catch vanilla loot", true).getBoolean(true);
             Extra.VANILLA_FORCE = config.get(Category.EXTRA, "Vanilla rods need bait to work", false).getBoolean(false);
             Extra.VANILLA_TEXTURES = config.get(Category.EXTRA, "Use Vanilla textures for Fish", false).getBoolean(false);
             Extra.BREEDING_MULTIPLIER = config.get(Category.EXTRA, "Breeding Multiplier", 1.0D).getDouble(1.0D);
@@ -81,6 +82,7 @@ public class Config {
 			Extra.DEMON_FISH_LIMIT = config.get(Category.EXTRA, "Bound Fishing Rod - Fish Limit Per Use (Demon)", 64).getInt();
 			Extra.DISABLE_DIRT_CRAFTING = config.get(Category.EXTRA, "Disable Dirt Crafting", false).getBoolean(false);
 			Extra.DISABLE_GRASS = config.get(Category.EXTRA, "Disable Grass Crafting", false).getBoolean(false);
+			Extra.ALIVE_MODIFIER = config.get(Category.EXTRA, "Fish Caught Alive Modifier", 1.15D).getDouble(1.15D);
             if(!Modules.isActive(Modules.fishery)) {
             	Extra.VANILLA_STATS = true;
             	Extra.VANILLA_POOR = false;

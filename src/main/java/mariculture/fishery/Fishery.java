@@ -195,62 +195,14 @@ public class Fishery extends RegistrationModule {
 		}
 		
 		addMelting(new ItemStack(dirt), 333, new FluidStack(moltenDirt, 1000));
-		
-		/* Fishing Net, Autofisher and Sift */
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(net, 4, 0), new Object[] { "SWS", "WWW", "SWS",
-					Character.valueOf('S'), "stickWood", 
-					Character.valueOf('W'), Items.string }));
-		
-		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.SIFTER), new Object[] {
-			"PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net
-		});
-		
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.machines, 1, MachineMeta.AUTOFISHER), new Object[] { " F ", "RPR", "WBW", 
-					Character.valueOf('W'), "logWood", 
-					Character.valueOf('R'), new ItemStack(rodWood), 
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-					Character.valueOf('B'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD),
-					Character.valueOf('P'), "plankWood"}));
-		
-		/* Fish Feeder and Incubator Blocks */
-		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.FISH_FEEDER), new Object[] { 
-			"WFW", "WCW", "WFW",  'F', new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-				'W', new ItemStack(Core.crafting, 1, CraftingMeta.WICKER), 'C', Blocks.chest });
-
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_TOP), new Object[] {"DFD", "CHC", 
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-					Character.valueOf('D'), "dyeBrown", 
-					Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 0), 
-					Character.valueOf('H'), new ItemStack(Core.crafting, 1, CraftingMeta.HEATER) }));
-
-		//Incubator Base
-		RecipeHelper.addShaped(new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_BASE), new Object[] {
-			"DBD", "CHC",
-			Character.valueOf('C'), new ItemStack(Blocks.stained_hardened_clay, 1, 3),
-			Character.valueOf('B'), new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE),
-			Character.valueOf('D'), "dyeLightBlue",
-			Character.valueOf('H'), new ItemStack(Core.crafting, 1, CraftingMeta.HEATER)
-		});
-		
-		//FishTank
-		RecipeHelper.addShaped(new ItemStack(Core.tanks, 1, TankMeta.FISH), new Object[] {
-			"AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "glass",
-			'F', new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE)
-		});
-		
-		//Milk + 2 Sugar = Custard
-		RecipeHelper.addVatItemRecipeResultFluid(new ItemStack(Items.sugar, 2, 0), FluidRegistry.getFluidStack(Fluids.milk, 1000),
-				FluidRegistry.getFluidStack(Fluids.custard, 1000), 15);
-		
+		addShaped(_(fishingNet, 4), new Object[] {"SWS", "WWW", "SWS", 'S', "stickWood", 'W', string});
+		addShaped(sifter, new Object[] {"PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net});
+		addShaped(autofisher, new Object[] {" F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', fish, 'B', baseWood, 'P', "plankWood"});
+		addShaped(fishFeeder, new Object[] {"WFW", "WCW", "WFW",  'F', fish, 'W', wicker, 'C', chest });
+		addShaped(incubatorTop, new Object[] {"DFD", "CHC", 'F', fish, 'D', "dyeBrown", 'C', greyClay, 'H', heating });
+		addShaped(incubatorBase, new Object[] {"DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating});
+		addShaped(fishTank, new Object[] {"AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "glass", 'F', fish});
+		addVatItemRecipeResultFluid(_(_(sugar), 2), Fluids.getStack(Fluids.milk, 1000), Fluids.getStack(Fluids.custard, 1000), 15);
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
 	}
 
@@ -310,7 +262,7 @@ public class Fishery extends RegistrationModule {
 		addShaped(_(tnt), new Object[] {"DS ", "SD ", 'D', dropletDestroy, 'S', sand });
 
 		if(FluidRegistry.getFluid("life essence") != null) {
-			RecipeHelper.addMelting(dropletRegen, 100, FluidRegistry.getFluidStack("life essence", 250));
+			addMelting(dropletRegen, 100, FluidRegistry.getFluidStack("life essence", 250));
 		}
 	}
 	
@@ -329,51 +281,39 @@ public class Fishery extends RegistrationModule {
 		Fishing.food.addFishFood(new ItemStack(bait, 1, BaitMeta.WORM), 3);
 		Fishing.food.addFishFood(new ItemStack(bait, 1, BaitMeta.BEE), 3);
 		Fishing.food.addFishFood(new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL), 12);
-		
-		// Squid > Calamari
-		GameRegistry.addShapelessRecipe(new ItemStack(Core.food, 1, FoodMeta.CALAMARI), new Object[] {
-				new ItemStack(Items.fish, 1, Fish.squid.getID()),
-				new ItemStack(Items.bowl) });
-		
-		//Smoked Salmon
-		RecipeHelper.addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), new ItemStack(Items.fish, 1, Fish.salmon.getID()), 0.1F);
+		addShapeless(calamari, new Object[] { _(fish, Fish.squid.getID(), 1), bowl });
+		addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), _(fish, Fish.salmon.getID(), 1), 0.1F);
 
 		// Cod > Fish Finger
-		GameRegistry.addRecipe(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
+		addShaped(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ",
 				Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.cod.getID()),
 				Character.valueOf('B'), Items.bread });
 		
-		RecipeHelper.addShapeless(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { 
+		addShapeless(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { 
 			 new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER),
 			 new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER)
 		});
 		
 		// Tetra > Neon Lamp
 		for (int i = 0; i < 12; i++) {
-			RecipeHelper.addShaped(new ItemStack(lampsOn, 8, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "glass", 'F', new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
-			RecipeHelper.addShaped(new ItemStack(lampsOn, 4, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "glass", 'F', dropletFlux });
+			addShaped(new ItemStack(lampsOn, 8, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "glass", 'F', new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
+			addShaped(new ItemStack(lampsOn, 4, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "glass", 'F', dropletFlux });
 		}
 		
 		//Dragonfish to Eternal Upgrades
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ETERNAL_MALE), new Object[] {"WEW", "FRF", "DWD", 
+		addUpgrade(UpgradeMeta.ETERNAL_MALE, new Object[] {"WEW", "FRF", "DWD", 
 					Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 11),
 					Character.valueOf('E'), Blocks.emerald_block, 
 					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.dragon.getID()),
 					Character.valueOf('R'), Blocks.dragon_egg, 
-					Character.valueOf('D'), Items.diamond }));
+					Character.valueOf('D'), Items.diamond });
 
-		CraftingManager
-				.getInstance()
-				.getRecipeList()
-				.add(new ShapedOreRecipe(new ItemStack(Core.upgrade, 1, UpgradeMeta.ETERNAL_FEMALE), new Object[] {"WEW", "FRF", "DWD", 
+		addUpgrade(UpgradeMeta.ETERNAL_FEMALE, new Object[] {"WEW", "FRF", "DWD", 
 					Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 6),
 					Character.valueOf('E'), Blocks.emerald_block, 
 					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.dragon.getID()),
 					Character.valueOf('R'), Blocks.dragon_egg, 
-					Character.valueOf('D'), Items.diamond }));
+					Character.valueOf('D'), Items.diamond});
 		
 		//Netherfish as Liquifier fuel		
 		MaricultureHandlers.crucible.addFuel(new ItemStack(Items.fish, 1, Fish.nether.getID()), new FuelInfo(2000, 16, 2400));

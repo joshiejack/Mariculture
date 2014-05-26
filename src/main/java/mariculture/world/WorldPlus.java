@@ -1,5 +1,6 @@
 package mariculture.world;
 
+import static mariculture.core.helpers.RecipeHelper.*;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
@@ -79,41 +80,41 @@ public class WorldPlus extends RegistrationModule {
 	@Override
 	public void registerRecipes() {
 		// Coral > Dye Recipes
-		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN), "coralBrown", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED), "coralRed", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW), "coralYellow", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.LIGHT_BLUE), "coralLightBlue", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.MAGENTA), "coralMagenta", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.ORANGE), "coralOrange", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.PINK), "coralPink", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.PURPLE), "coralPurple", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.GREY), "coralGray", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Items.dye, 1, Dye.LIGHT_GREY), "coralLightGray", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE), "coralWhite", false);
-		RecipeHelper.addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN), "plantKelp", true);
+		addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN), "coralBrown", false);
+		addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED), "coralRed", false);
+		addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW), "coralYellow", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.LIGHT_BLUE), "coralLightBlue", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.MAGENTA), "coralMagenta", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.ORANGE), "coralOrange", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.PINK), "coralPink", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.PURPLE), "coralPurple", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.GREY), "coralGray", false);
+		addCrushRecipe(new ItemStack(Items.dye, 1, Dye.LIGHT_GREY), "coralLightGray", false);
+		addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE), "coralWhite", false);
+		addCrushRecipe(new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN), "plantKelp", true);
 		
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.BROWN), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.PINK), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.RED), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.GREY), new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), 5);
-		RecipeHelper.addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), new ItemStack(plantStatic, 1, CoralMeta.WHITE), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.BROWN), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.PINK), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.RED), new ItemStack(plantStatic, 1, CoralMeta.GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.GREY), new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), 5);
+		addBleachRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), new ItemStack(plantStatic, 1, CoralMeta.WHITE), 5);
 		
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), new ItemStack(plantGrowable, 1, CoralMeta.LIGHT_BLUE), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), new ItemStack(plantGrowable, 1, CoralMeta.YELLOW), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), new ItemStack(plantGrowable, 1, CoralMeta.MAGENTA), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.BROWN), new ItemStack(plantGrowable, 1, CoralMeta.BROWN), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), new ItemStack(plantGrowable, 1, CoralMeta.ORANGE),1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.PINK), new ItemStack(plantGrowable, 1, CoralMeta.PINK), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), new ItemStack(plantGrowable, 1, CoralMeta.PURPLE), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.RED), new ItemStack(plantGrowable, 1, CoralMeta.RED), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.GREY), new ItemStack(plantGrowable, 1, CoralMeta.GREY), 5);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), new ItemStack(plantGrowable, 1, CoralMeta.LIGHT_GREY), 1);
-		RecipeHelper.addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.WHITE), new ItemStack(plantGrowable, 1, CoralMeta.WHITE), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), new ItemStack(plantGrowable, 1, CoralMeta.LIGHT_BLUE), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), new ItemStack(plantGrowable, 1, CoralMeta.YELLOW), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), new ItemStack(plantGrowable, 1, CoralMeta.MAGENTA), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.BROWN), new ItemStack(plantGrowable, 1, CoralMeta.BROWN), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), new ItemStack(plantGrowable, 1, CoralMeta.ORANGE),1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.PINK), new ItemStack(plantGrowable, 1, CoralMeta.PINK), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), new ItemStack(plantGrowable, 1, CoralMeta.PURPLE), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.RED), new ItemStack(plantGrowable, 1, CoralMeta.RED), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.GREY), new ItemStack(plantGrowable, 1, CoralMeta.GREY), 5);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY), new ItemStack(plantGrowable, 1, CoralMeta.LIGHT_GREY), 1);
+		addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.WHITE), new ItemStack(plantGrowable, 1, CoralMeta.WHITE), 1);
 		
 		//Kelp Wrap Recipe
 		RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");

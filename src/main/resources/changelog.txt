@@ -2,6 +2,9 @@ Mariculture 1.7.2 BETA 8
 • Made Enchiridion a requirement, books are too important to the mod
 • Fixed the Autofisher not damaging items with special damage conditions correctly
 • Fixed crash with 'cropRice' recipe
+• keepInventory GameRule should affect jewelry
+• Re-Enabled Vanilla Fishing rod not requiring bait
+• Vanilla rods will catch Vanilla loot by default
 
 Mariculture 1.7.2 BETA 7
 • Readded NEI + WAILA Support + Updated the Magic Book

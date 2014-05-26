@@ -320,7 +320,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 				this.field_146043_c.motionZ += d4 * d8;
 				b0 = 3;
 			} else if (this.field_146045_ax > 0) {
-				ItemStack result = Fishing.fishing.getCatch(worldObj, (int)posX, (int)posY, (int)posZ, field_146042_b.getHeldItem());
+				ItemStack result = Fishing.fishing.getCatch(worldObj, (int)posX, (int)posY, (int)posZ, field_146042_b, field_146042_b.getHeldItem());
 				if(result != null) {
 					EntityItemFireImmune entityitem = new EntityItemFireImmune(this.worldObj, this.posX, this.posY, this.posZ, result);
 					double d1 = this.field_146042_b.posX - this.posX;

@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.GameRules;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class EnchantmentResurrection extends EnchantmentJewelry {
@@ -35,14 +36,12 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 
-			if (EnchantHelper.hasEnchantment(Magic.resurrection, player)
-					&& !player.worldObj.isRemote) {
+			if (EnchantHelper.hasEnchantment(Magic.resurrection, player) && !player.worldObj.isRemote) {
 				if (!player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
 					player.getEntityData().setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 				}
 
-				if (!event.source.isFireDamage() && !event.source.canHarmInCreative()
-						&& EnchantHelper.getEnchantStrength(Magic.resurrection, player) > 1) {
+				if (!event.source.isFireDamage() && !event.source.canHarmInCreative() && EnchantHelper.getEnchantStrength(Magic.resurrection, player) > 1) {
 					player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setInteger(spawnX, (int) player.posX);
 					player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setInteger(spawnY, (int) player.posY);
 					player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setInteger(spawnZ, (int) player.posZ);
@@ -82,9 +81,7 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 				player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setTag(armor, armorList);
 
 				event.setCanceled(true);
-			}
-
-			else if(Extra.DROP_JEWELRY) {
+			} else if(Extra.DROP_JEWELRY && player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory") == false) {
 				MaricultureHandlers.mirror.dropItems(player, player.worldObj, player.posX, player.posY, player.posZ);
 			}
 		}

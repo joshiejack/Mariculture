@@ -644,6 +644,12 @@ mariculture.string.max.level=Max Enchant Level
 mariculture.string.max.damage=Max Damage
 mariculture.string.shift.jewelry=to display Jewelry Stats
 mariculture.string.oneRing=The One Ring
+mariculture.string.charge=Charge
+mariculture.string.transfer=Transfer
+mariculture.string.peruse=RF Per Use
+mariculture.string.rf=RF
+mariculture.string.rft=RF/t
+mariculture.string.mb=mB
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

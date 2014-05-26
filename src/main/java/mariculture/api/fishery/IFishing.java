@@ -20,6 +20,6 @@ public interface IFishing {
 	public int getBaitQuality(ItemStack bait);
 	public void addLoot(Loot loot);
 	
-	/** Returns a catch for the location, You need to pass in the RodQuality **/
-	public ItemStack getCatch(World world, int x, int y, int z, ItemStack stack);
+	/** Returns a catch for the location, You need to pass in the RodQuality, player and stack can be null **/
+	public ItemStack getCatch(World world, int x, int y, int z, EntityPlayer player, ItemStack stack);
 }

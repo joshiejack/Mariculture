@@ -23,6 +23,7 @@ import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
 import mariculture.core.util.RecipeItem;
+import mariculture.fishery.items.ItemVanillaRod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,6 +31,8 @@ import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
@@ -47,6 +50,10 @@ public class FishingHandler implements IFishing {
 	public void registerRod(Item item, RodType type) {
 		registry.put(item, type);
 	}
+	
+	private boolean isVanillaRod(ItemStack stack) {
+		return stack.getItem() instanceof ItemVanillaRod;
+	}
 
 	// Handling Fishing Rods
 	@Override
@@ -59,14 +66,15 @@ public class FishingHandler implements IFishing {
 		if (player.fishEntity != null) {
 			rodType.damage(world, player, stack, player.fishEntity.func_146034_e(), world.rand);
 			player.swingItem();
-		} else if (baitSlot != -1) {
+		} else if (baitSlot != -1 || (!Extra.VANILLA_FORCE && stack.getItem() instanceof ItemVanillaRod)) {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (Rand.rand.nextFloat() * 0.4F + 0.8F));
+			if(!Extra.VANILLA_POOR && isVanillaRod(stack)) baitQuality = 35;
 			EntityHook hook = new EntityHook(world, player, rodType.getDamage(), baitQuality);
 			if (!world.isRemote) {
 				world.spawnEntityInWorld(hook);
 			}
 
-			if (!player.capabilities.isCreativeMode) {
+			if (!player.capabilities.isCreativeMode && baitSlot != -1) {
 				if (baitQuality > 0) player.inventory.decrStackSize(baitSlot, 1);
 			}
 
@@ -83,7 +91,6 @@ public class FishingHandler implements IFishing {
 
 		if (currentSlot > 0) {
 			int leftSlot = currentSlot - 1;
-
 			if (player.inventory.getStackInSlot(leftSlot) != null) {
 				if (canUseBait(rod, player.inventory.getStackInSlot(leftSlot))) {
 					baitQuality = getBaitQuality(player.inventory.getStackInSlot(leftSlot));
@@ -234,13 +241,40 @@ public class FishingHandler implements IFishing {
 		if(rarity == rarity.JUNK) list = EntityFishHook.field_146039_d;
 		return ((WeightedRandomFishable)WeightedRandom.getRandomItem(world.rand, list)).func_150708_a(world.rand);
 	}
+	
+	private ItemStack getVanillaLoot(World world, EntityPlayer player, ItemStack stack) {
+		float f = world.rand.nextFloat();
+        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, stack);
+        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151369_A.effectId, stack);
+        float f1 = 0.1F - (float)i * 0.025F - (float)j * 0.01F;
+        float f2 = 0.05F + (float)i * 0.01F - (float)j * 0.01F;
+        f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
+        f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
+
+        if (f < f1) {
+            if(player != null)player.addStat(StatList.field_151183_A, 1);
+            return ((WeightedRandomFishable)WeightedRandom.getRandomItem(world.rand, EntityFishHook.field_146039_d)).func_150708_a(world.rand);
+        } else {
+            f -= f1;
+
+            if (f < f2) {
+            	if(player != null)player.addStat(StatList.field_151184_B, 1);
+                return ((WeightedRandomFishable)WeightedRandom.getRandomItem(world.rand, EntityFishHook.field_146041_e)).func_150708_a(world.rand);
+            } else {
+                float f3 = f - f2;
+                if(player != null)player.addStat(StatList.fishCaughtStat, 1);
+                return ((WeightedRandomFishable)WeightedRandom.getRandomItem(world.rand, EntityFishHook.field_146036_f)).func_150708_a(world.rand);
+            }
+        }
+	}
 
 	@Override
-	public ItemStack getCatch(World world, int x, int y, int z, ItemStack stack) {
+	public ItemStack getCatch(World world, int x, int y, int z, EntityPlayer player, ItemStack stack) {
 		if (stack == null) {
 			return getFishForLocation(world, x, y, z, RodType.NET);
 		} else {
 			RodType type = getRodType(stack);
+			if(Extra.VANILLA_LOOT && type == type.DIRE) return getVanillaLoot(world, player, stack);
 			if (type != null) {
 				ItemStack loot = null;
 				int lootBonus = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, stack);
@@ -286,11 +320,10 @@ public class FishingHandler implements IFishing {
 		Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
 		int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
 		int time = Time.getTime(world);
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < 20; i++) {
 			Collections.shuffle(catchables);
 			for(FishSpecies fish: catchables) {
-				double multiplier = Extra.IGNORE_BIOMES? 1.0D: 5D;
-				double catchChance = (Extra.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y)) * multiplier;					
+				double catchChance = (Extra.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y));					
 				if(catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) {
 					if(Extra.IGNORE_BIOMES) {
 							return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y, time) * 15D);
@@ -304,7 +337,7 @@ public class FishingHandler implements IFishing {
 	
 	private ItemStack catchFish(Random rand, FishSpecies fish, RodType quality, double chance) {
 		boolean alive = false;
-		if(rand.nextInt(1000) < chance) alive = true;
+		if(rand.nextInt(1000) < (chance * Extra.ALIVE_MODIFIER)) alive = true;
 		boolean catchAlive = quality.caughtAlive(fish.getSpecies());
 		if(!catchAlive && !alive) return new ItemStack(Items.fish, 1, fish.getID());
 		return Fishing.fishHelper.makePureFish(fish);

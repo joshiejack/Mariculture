@@ -1,11 +1,16 @@
 package mariculture.core.handlers;
 
+
+
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.FMLLog;
 
 public class LogHandler {
+	public static final Logger logger = LogManager.getLogger("Mariculture");
 	public static void log(Level level, String message) {
-		FMLLog.getLogger().log(level, "[Mariculture] " + message);
+		logger.log(level, "[Mariculture] " + message);
 	}
 }

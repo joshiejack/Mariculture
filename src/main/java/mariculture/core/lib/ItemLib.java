@@ -48,6 +48,8 @@ public class ItemLib {
 	public static final ItemStack waterBottle = new ItemStack(Items.potionitem, 1, 0);
 	public static final ItemStack dandelionDye = new ItemStack(Items.dye, 1, Dye.YELLOW);
 	public static final ItemStack roseDye = new ItemStack(Items.dye, 1, Dye.RED);
+	public static final ItemStack greyClay = new ItemStack(Blocks.stained_hardened_clay, 1, 3);
+	public static final ItemStack whiteClay = new ItemStack(Blocks.stained_hardened_clay, 1, 0);
 	
 	
 	/** Vanilla shortcuts for blocks **/
@@ -178,6 +180,9 @@ public class ItemLib {
 	public static final ItemStack ingotCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.INGOT_CASTER);
 	public static final ItemStack blockCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.BLOCK_CASTER);
 	public static final ItemStack nuggetCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.NUGGET_CASTER);
+	public static final ItemStack sifter = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.SIFTER);
+	public static final ItemStack compressorBase = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE);
+	public static final ItemStack compressorTop = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP);
 	
 	/** ItemStack always based items **/
 	public static final ItemStack kelpWrap = new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP);
@@ -254,6 +259,7 @@ public class ItemLib {
 	public static final ItemStack fish = new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE);
 	public static final ItemStack oysterPie = new ItemStack(Core.food, 1, FoodMeta.OYSTER);
 	public static final ItemStack polishedTitanium = new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_TITANIUM);
+	public static final ItemStack fishingNet = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.net): null;
 	
 	/** Module based stuff **/
 	public static final ItemStack attack = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Items.potionitem, 1, 8204);

@@ -309,11 +309,11 @@ public class FluidHelper {
 
 	public static List getFluidQty(List tooltip, FluidStack fluid, int max) {	
 		if(fluid == null || fluid.getFluid() == null) {
-			tooltip.add(Text.GREY + "" + 0 + ((max > 0)? "/" + max + "mB": "mB"));
+			tooltip.add(Text.GREY + "" + 0 + ((max > 0)? "/" + max + Text.translate("mb"): Text.translate("mb")));
 		} else if(Modules.isActive(Modules.fishery) && fluid.fluidID == FluidRegistry.getFluidID(Fluids.fish_food))
 			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0) ?"/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces"): " " + StatCollector.translateToLocal("mariculture.string.pieces")));
 		else if(fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt"))
-			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + Text.translate("mb"): Text.translate("mb")));
 		else if(fluid.getFluid().getName().contains("molten")) {
 			int ingots = fluid.amount / MetalRates.INGOT;
 	        if (ingots > 0)
@@ -325,17 +325,17 @@ public class FluidHelper {
 	            if (nuggets > 0)
 	                tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.nuggets") + ": " + nuggets);
 	            if (junk > 0)
-	                tooltip.add(Text.GREY + "mB: " + junk);
+	                tooltip.add(Text.GREY + Text.translate("mb") + ": " + junk);
 	        }
 	        
 	        if(max > 0) {
 	            tooltip.add("");
 	            tooltip.add(Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
 	            tooltip.add(Text.GREY + (int)max/MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " 
-	            			+ max%MetalRates.INGOT + "mB");
+	            			+ max%MetalRates.INGOT + Text.translate("mb"));
 	        }
 		} else {
-			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + "mB": "mB"));
+			tooltip.add(Text.GREY + "" + fluid.amount + ((max > 0)? "/" + max + Text.translate("mb"): Text.translate("mb")));
 		}
 		
 		return tooltip;
