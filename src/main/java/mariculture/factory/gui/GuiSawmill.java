@@ -18,9 +18,7 @@ public class GuiSawmill extends GuiMariculture {
 		this.tile = tile;
 		features.add(new FeatureUpgrades());
 		features.add(new FeatureArrow(tile, 119, 39));
-		features.add(new FeatureNotifications(tile, new NotificationType[] { 
-				NotificationType.NO_PLAN, NotificationType.MISSING_SIDE 
-		}));
+		features.add(new FeatureNotifications(tile, new NotificationType[] {  NotificationType.NO_PLAN, NotificationType.MISSING_SIDE }));
 		features.add(new FeatureRedstone(tile));
 		features.add(new FeatureEject(tile));
 	}

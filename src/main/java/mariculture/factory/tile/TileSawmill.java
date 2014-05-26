@@ -25,13 +25,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TileSawmill extends TileMachine implements IHasNotification, IProgressable {
-	
-	//Vars	
 	public int selected = 3;
-	
 	public TileSawmill() {
 		max = MachineSpeeds.getSawmillSpeed();
 		inventory = new ItemStack[13];
+		setting = EjectSetting.ITEM;
+		output = new int[] { OUT };
 	}
 
 	public static final int[] PLANS = new int[] { 3, 4, 5 };
@@ -91,7 +90,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	public void updateMachine() {
 		if(canWork) {
 			processed+=speed;
-			if(processed >= max && canWork()) {
+			if(processed >= max && canMachineWork()) {
 				processed = 0;
 				saw();
 			}
@@ -101,7 +100,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 	
 	@Override
-	public boolean canWork() {
+	public boolean canMachineWork() {
 		return hasPlanSelected() && allSidesFilled() && RedstoneMode.canWork(this, mode) && outputHasRoom();
 	}
 	
@@ -127,14 +126,13 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 		if(setting.canEject(EjectSetting.ITEM))
 			return true;
 		ItemStack result = getResult();
-		return inventory[OUT] == null ||  (areStacksEqual(inventory[OUT], result) 
-						&& inventory[OUT].stackSize + result.stackSize < inventory[OUT].getMaxStackSize());
+		return inventory[OUT] == null ||  (areStacksEqual(inventory[OUT], result) && inventory[OUT].stackSize + result.stackSize < inventory[OUT].getMaxStackSize());
 	}
 	
 	//Process the stuffs!
 	public void saw() {
 		ItemStack result = getResult();
-		helper.insertStack(result, new int[] { OUT });
+		helper.insertStack(result, output);
 
 		for (int i = TOP; i < TOP + 6; i++) {
 			--this.inventory[i].stackSize;
@@ -150,7 +148,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 			this.inventory[selected] = null;
 		}
 		
-		canWork = canWork();
+		updateCanWork();
 	}
 	
 	public ItemStack getResult() {
@@ -179,25 +177,20 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 	
 	private String getBlock(int slot) {
-		if(isFeather(slot))
-			return Block.blockRegistry.getNameForObject(Core.air);
-		else
-			return Block.blockRegistry.getNameForObject(Block.getBlockFromItem(inventory[slot].getItem()));
+		if(isFeather(slot)) return Block.blockRegistry.getNameForObject(Core.air);
+		else return Block.blockRegistry.getNameForObject(Block.getBlockFromItem(inventory[slot].getItem()));
 	}
 
 	private int getMeta(int slot) {
-		if(isFeather(slot))
-			return AirMeta.FAKE_AIR;
-		else
-			return inventory[slot].getItemDamage();
+		if(isFeather(slot)) return AirMeta.FAKE_AIR;
+		else return inventory[slot].getItemDamage();
 	}
 
 //Gui Stuff
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		super.getGUINetworkData(id, value);
-		if(id - offset == 0)
-			selected = value;
+		if(id - offset == 0) selected = value;
 	}
 	
 	@Override

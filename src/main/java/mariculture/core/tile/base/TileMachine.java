@@ -7,6 +7,8 @@ import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
+import mariculture.core.items.ItemUpgrade;
+import mariculture.core.lib.Extra;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
@@ -36,11 +38,13 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	protected int max;
 	protected boolean canWork;
 	protected int processed = 0;
+	protected int[] output;
 	
 	public TileMachine() {
 		inventory = new ItemStack[3];
 		mode = RedstoneMode.LOW;
 		setting = EjectSetting.NONE;
+		output = new int[0];
 	}
 	
 	public ItemStack[] getInventory() {
@@ -50,6 +54,20 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
 		super.setInventorySlotContents(slot, stack);
+		if(stack != null) {
+			if(stack.getItem() instanceof ItemUpgrade) {
+				updateUpgrades();
+			}
+		}
+		
+		updateCanWork();
+	}
+	
+	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+		ItemStack stack = super.decrStackSize(slot, amount);
+		updateCanWork();
+		return stack;
 	}
 	
 	@Override
@@ -63,11 +81,9 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	
 	@Override
 	public ItemStack[] getUpgrades() {
-		return new ItemStack[] {
-				inventory[0], inventory[1], inventory[2]
-		};
+		return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
 	}
-	
+		
 	@Override
 	public void updateUpgrades() {
 		purity = MaricultureHandlers.upgrades.getData("purity", this);
@@ -76,26 +92,39 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		speed = MaricultureHandlers.upgrades.getData("speed", this);
 		rf = MaricultureHandlers.upgrades.getData("rf", this);
 	}
+	
+	protected void updateCanWork() {
+		canWork = canMachineWork();
+	}
 
-	public void updateEntity() {
-		super.updateEntity();
-		
-		if(helper == null)
+	@Override
+	public void updateEntity() {		
+		if(helper == null) {
 			helper = new BlockTransferHelper(this);
+		}
 		
 		machineTick++;
-		if(onTick(20)) {
-			updateUpgrades();
-		}
-		
-		if(onTick(20)) {
-			canWork = canWork();
-		}
-		
+		autoeject();
 		updateMachine();
 	}
 	
-	public abstract boolean canWork();
+	public void autoeject() {
+		if(output.length > 0 && onTick(Extra.ITEM_EJECT_TICK)) {
+			if(setting.canEject(EjectSetting.ITEM)) {
+				for(int i: output) {
+					if(inventory[i] != null) {
+						ItemStack ejecting = inventory[i].copy();
+						inventory[i] = null;
+						if (ejecting != null) {
+							helper.insertStack(ejecting, output);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public abstract boolean canMachineWork();
 	public abstract void updateMachine();
 
 	@Override

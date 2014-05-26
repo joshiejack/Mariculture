@@ -39,14 +39,12 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public FluidStack getFluid() {
-		return master != null? ((TileMultiStorageTank)worldObj
-									.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.getFluid(): null;
+		return getMaster() != null? ((TileMultiStorageTank)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.getFluid(): null;
 	}
 	
 	@Override
 	public void setFluid(FluidStack fluid) {
-		if(master != null)
-			((TileMultiStorageTank)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.setFluid(fluid);
+		if(getMaster() != null) ((TileMultiStorageTank)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.setFluid(fluid);
 	}
 
 	@Override
@@ -61,7 +59,7 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		return master != null? ((TileMultiStorageTank)worldObj
+		return getMaster() != null? ((TileMultiStorageTank)worldObj
 									.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.fill(resource, doFill): 0;
 	}
 
@@ -72,8 +70,7 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		return master != null? ((TileMultiStorageTank)worldObj
-									.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.drain(maxDrain, doDrain): null;
+		return getMaster() != null? ((TileMultiStorageTank)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.drain(maxDrain, doDrain): null;
 	}
 
 	@Override
@@ -88,8 +85,7 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
 	@Override
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		return master != null? new FluidTankInfo[] { ((TileMultiStorageTank)worldObj
-												.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.getInfo() }: null;
+		return getMaster() != null? new FluidTankInfo[] { ((TileMultiStorageTank)worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord)).tank.getInfo() }: null;
 	}
 	
 	@Override

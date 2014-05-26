@@ -18,13 +18,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class TileAutofisher extends TileMachinePowered implements IHasNotification {
-	//Data, Vars	
 	private int baitQuality = -1;
-	
 	public TileAutofisher() {
 		max = MachineSpeeds.getAutofisherSpeed();
 		inventory = new ItemStack[20];
 		setting = EjectSetting.ITEM;
+		output = new int [] { 11, 12, 13, 14, 15, 16, 17, 18, 19 };
 	}
 	
 	@Override
@@ -35,13 +34,13 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	//Slot Var Helpers
 	public static final int rod = 4;
 	public static final int[] bait = new int[] { 5, 6, 7, 8, 9, 10 };
-	public static final int[] out = new int [] { 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+	public static final int[] all = new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
 	
 	//Sided Inventory
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		if(side <= 1) return new int[] { rod };
-		return new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+		return all;
 	}
 
 	@Override
@@ -55,7 +54,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return slot >= 11;
+		return slot >= 11 || slot == rod;
 	}
 
 	@Override
@@ -63,58 +62,40 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		if(!worldObj.isRemote) {
 			if(canWork) {
 				energyStorage.extractEnergy(getRFUsage(), false);
-				if(baitQuality == -1 && canWork()) {
+				if(baitQuality == -1 && canMachineWork()) {
 					baitQuality = getBaitQualityAndDelete();
 				} else {
 					
 					processed+=speed;
 					if(processed >= max) {
 						processed = 0;
-						//For looping catches with the speed enchantment
 						int speed = 1 + EnchantHelper.getLevel(Enchantment.field_151369_A, inventory[rod]);
-						//Bonus for Catching fish with the vanilla luck enchantment
 						for(int i = 0; i < speed && canWork; i++) {
 							int bonusQuality = baitQuality + (EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4);
-							if (Rand.rand.nextInt(100) < bonusQuality && canWork())
+							if (Rand.rand.nextInt(100) < bonusQuality && canMachineWork())
 								catchFish();
 							baitQuality = -1;
 						}
 					}
 					
-					if(processed <= 0)
-						processed = 0;
+					if(processed <= 0) processed = 0;
 				}
 			} else {
 				baitQuality = -1;
 				processed = 0;
 			}
-			
-			//Auto-Eject Item Stacks that are already in the system
-			if(onTick(30)) {
-				if(setting.canEject(EjectSetting.ITEM)) {
-					for(int i: out) {
-						if(inventory[i] != null) {
-							ItemStack ejecting = inventory[i].copy();
-							inventory[i] = null;
-							if (ejecting != null) {
-								helper.insertStack(ejecting, out);
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 	
-	//Can do stuff / has it
-	public boolean canWork() {
+	@Override
+	public boolean canMachineWork() {
 		return  (hasRod() && isFishable() && hasPower() && RedstoneMode.canWork(this, mode) && hasRoom() && (baitQuality != -1 || (hasBait() && canUseRod())));
 	}
 	
 	public boolean hasRoom() {
 		if(setting.canEject(EjectSetting.ITEM))
 			return true;
-		for(Integer i: out) {
+		for(Integer i: output) {
 			if(inventory[i] == null);
 				return true;
 		}
@@ -176,7 +157,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	private int getSuitableSlot(ItemStack item) {
-		for(int i: out) {
+		for(int i: output) {
 			if(inventory[i] == null)
 				return i;
 			if(ItemStack.areItemStacksEqual(inventory[i], item))
@@ -204,31 +185,24 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		return 12 + (speed * 8);
 	}
 	
+	/* Grabs the rod type, and then grabs a fishing result and then does what it needs to with ejecting/inserting **/
 	private void catchFish() {
 		RodType type = Fishing.fishing.getRodType(inventory[rod]);
-		inventory[rod] = type.damage(worldObj, null, inventory[rod], 0, Rand.rand);
+		setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, Rand.rand));
 		ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
 		if (lootResult != null) {
-			helper.insertStack(lootResult, out);
+			helper.insertStack(lootResult, output);
 		}
-		
-		canWork = canWork();
 	}
 
-//Gui Feature Helpers
 	@Override
 	public boolean isNotificationVisible(NotificationType type) {
 		switch(type) {
-			case NO_ROD:
-				return !hasRod();
-			case NO_BAIT:
-				return !(hasBait() && hasRod() && canUseRod());
-			case NOT_FISHABLE:
-				return !isFishable();
-			case NO_RF:
-				return !hasPower();
-			default:
-				return false;
+			case NO_ROD: 		return !hasRod();
+			case NO_BAIT: 		return !(hasBait() && hasRod() && canUseRod());
+			case NOT_FISHABLE: 	return !isFishable();
+			case NO_RF: 		return !hasPower();
+			default: 			return false;
 		}
 	}
 

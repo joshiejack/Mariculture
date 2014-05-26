@@ -161,17 +161,6 @@ public class Factory extends RegistrationModule {
 			Character.valueOf('I'), "ingotCopper"
 		});
 		
-		if(Extra.ENABLE_FLUIDIC) {
-			RecipeHelper.addShaped(new ItemStack(Core.tanks, 1, TankMeta.DIC), new Object[] {
-				" B ", "FPF", "IMI",
-				Character.valueOf('F'), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE), 
-				Character.valueOf('P'), new ItemStack(Core.tanks, 1, TankMeta.DIC), 
-				Character.valueOf('M'), new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD), 
-				Character.valueOf('B'), Items.water_bucket,
-				Character.valueOf('I'), "ingotCopper"
-			});
-		}
-		
 		if(Extra.ENDER_CONVERTER) {
 			//Alternative for Converter
 			RecipeHelper.addShaped(new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM), new Object[] {

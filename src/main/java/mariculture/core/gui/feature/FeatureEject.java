@@ -38,45 +38,35 @@ public class FeatureEject extends Feature {
 		//Mode = The mode that the machine is currently in, the TYPE is always ITEM or FLUID(the type of transfer ocurring)
 		public static boolean canEject(EjectSetting mode, EjectSetting type) {
 			switch(mode) {
-			case NONE: 
-				return false;
-			case ITEM:
-				return type.equals(ITEM);
-			case FLUID:
-				return type.equals(FLUID);
-			case ITEMNFLUID:
-				return true;
-			default:
-				return false;
+				case NONE:  		return false;
+				case ITEM: 			return type.equals(ITEM);
+				case FLUID: 		return type.equals(FLUID);
+				case ITEMNFLUID: 	return true;
+				default: 			return false;
 			}
 		}
 		
 		public boolean canEject(EjectSetting type) {
-			if(this == ITEM)
-				return type == ITEM;
-			if(this == FLUID)
-				return type == FLUID;
-			if(this == ITEMNFLUID)
-				return true;
+			if(this == NONE)  		return false;
+			if(this == ITEM)  		return type == ITEM;
+			if(this == FLUID) 		return type == FLUID;
+			if(this == ITEMNFLUID)  return true;
 			return false;
 		}
 		
 		public static EjectSetting toggle(EjectSetting block, EjectSetting setting) {
 			switch(block) {
-				case ITEM:
-					return setting == ITEM? NONE: ITEM;
-				case FLUID:
-					return setting == FLUID? NONE: FLUID;
+				case ITEM:  return setting == ITEM? NONE: ITEM;
+				case FLUID: return setting == FLUID? NONE: FLUID;
 				case ITEMNFLUID: {
 					int i = setting.ordinal() + 1;
 					if(i < EjectSetting.values().length) {
 						return EjectSetting.values()[i];
 					}
 					
-					return NONE;
+							return NONE;
 				}
-				default:
-					return NONE;
+				default: 	return NONE;
 			}
 		}
 	}

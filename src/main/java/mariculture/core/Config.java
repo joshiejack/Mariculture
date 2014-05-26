@@ -220,12 +220,12 @@ public class Config {
             MachineSpeeds.net = config.get(Category.SPEED, "Fishing Net", 300).getInt();
             MachineSpeeds.sawmill = config.get(Category.SPEED, "Sawmill", 650).getInt();
 
+            Extra.ITEM_EJECT_TICK = config.get(Category.EXTRA, "Item Eject Tick", 20).getInt();
+            Extra.FLUID_EJECT_TICK = config.get(Category.EXTRA, "Fluid Eject Tick", 100).getInt();
             Extra.GEYSER_ANIM = config.get(Category.CLIENT, "Geyser - Enable Particles", true).getBoolean(true);
             Extra.FLUDD_BLOCK_ANIM = config.get(Category.CLIENT, "FLUDD - Enable Particles", true).getBoolean(true);
             Extra.TURBINE_ANIM = config.get(Category.CLIENT, "Turbines - Enable Rotation", true).getBoolean(true);
             Extra.PUMP_ANIMATE = config.get(Category.CLIENT, "Air Pump - Enable Animation", true).getBoolean(true);
-            
-            Extra.ENABLE_FLUIDIC = config.get(Category.EXTRA, "Fluid Auto-Dictionary Enabled", false).getBoolean(false);
             Extra.TURBINE_RATE = config.get(Category.EXTRA, "Turbines - Ticks between Packet Updates", 20).getInt();
             Extra.PURITY = config.get(Category.EXTRA, "Crucible Furnace > Nuggets Per Purity Upgrade Level", 2).getInt();
             Extra.ENDER_CONVERTER = config.get(Category.EXTRA, "Autodictionary > Enable Ender Pearl for Recipe", false).getBoolean(false);

@@ -8,6 +8,9 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.items.ItemUpgrade;
+import mariculture.core.lib.Extra;
+import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
@@ -18,7 +21,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public abstract class TileMachineTank extends TileStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
 	protected BlockTransferHelper helper;
@@ -39,16 +44,63 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	protected int max;
 	protected boolean canWork;
 	protected int processed = 0;
+	protected int[] output;
+	protected int[] rate;
 	
 	public TileMachineTank() {
 		inventory = new ItemStack[5];
 		tank = new Tank(getTankCapacity(0));
 		mode = RedstoneMode.LOW;
 		setting = EjectSetting.NONE;
+		output = new int[0];
+		rate = new int[0];
 	}
 	
 	public ItemStack[] getInventory() {
 		return inventory;
+	}
+	
+	private int[] getOutputSlots() {
+		return null;
+	}
+	
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		super.setInventorySlotContents(slot, stack);
+		if(stack != null) {
+			if(stack.getItem() instanceof ItemUpgrade) {
+				updateUpgrades();
+			}
+		}
+		
+		canWork = canWork();
+	}
+	
+	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+		ItemStack stack = super.decrStackSize(slot, amount);
+		canWork = canWork();
+		return stack;
+	}
+	
+	@Override
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		int fill = super.fill(from, resource, doFill);
+		if(doFill) {
+			canWork = canWork();
+		}
+		
+		return fill;
+	}
+
+	@Override
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		FluidStack stack = super.drain(from, maxDrain, doDrain);
+		if(doDrain) {
+			canWork = canWork();
+		}
+		
+		return stack;
 	}
 	
 	@Override
@@ -62,9 +114,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	
 	@Override
 	public ItemStack[] getUpgrades() {
-		return new ItemStack[] {
-				inventory[0], inventory[1], inventory[2]
-		};
+		return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
 	}
 	
 	@Override
@@ -85,27 +135,44 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		return (tankRate * 20) + (storage * tankRate);
 	}
 
-	public void updateEntity() {
-		super.updateEntity();
-		
-		if(helper == null)
+	@Override
+	public void updateEntity() {		
+		if(helper == null) {
 			helper = new BlockTransferHelper(this);
+		}
 		
 		machineTick++;
-		if(onTick(20)) {
-			FluidHelper.process(this, 3, 4);
-			updateUpgrades();
-		}
-		
-		if(onTick(20)) {
-			canWork = canWork();
-		}
-		
+		autoeject();
+		emptyContainers();
 		updateMachine();
 	}
 	
 	public abstract boolean canWork();
 	public abstract void updateMachine();
+	
+	public void autoeject() {
+		if(output.length > 0 && onTick(Extra.ITEM_EJECT_TICK)) {
+			if(setting.canEject(EjectSetting.ITEM)) {
+				for(int i: output) {
+					if(inventory[i] != null) {
+						ItemStack ejecting = inventory[i].copy();
+						inventory[i] = null;
+						if (ejecting != null) {
+							helper.insertStack(ejecting, output);
+						}
+					}
+				}
+			}
+		}
+		
+		if(rate.length > 0 && onTick(Extra.FLUID_EJECT_TICK)) {
+			helper.ejectFluid(rate);
+		}
+	}
+	
+	public void emptyContainers() {
+		FluidHelper.process(this, 3, 4);
+	}
 	
 	@Override
 	public void getGUINetworkData(int id, int value) {
