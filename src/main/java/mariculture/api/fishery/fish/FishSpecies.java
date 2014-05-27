@@ -172,7 +172,7 @@ public abstract class FishSpecies {
 	
 	/** How much fish meal this species of fish produces **/
 	public int getFishMealSize() {
-		return (int) Math.floor(getFishOilVolume());
+		return (int) Math.max(Math.floor(getFishOilVolume()), 1);
 	}
 	
 	//Food Based Data

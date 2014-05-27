@@ -233,7 +233,7 @@ public class BlockOyster extends BlockMachine {
 	public void updateTick(World world, int x, int y, int z, Random rand) {		
 		if(world.getBlockMetadata(x, y, z) != NET) {
 			TileOyster oyster = (TileOyster) world.getBlockTileEntity(x, y, z);
-			if(!world.isRemote) {
+			if(!world.isRemote && oyster != null) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
 					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
 						if(world.provider.dimensionId == 1) {

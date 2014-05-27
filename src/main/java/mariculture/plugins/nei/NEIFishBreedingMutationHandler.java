@@ -68,7 +68,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 		ArrayList<Mutation> mutations = Fishing.mutation.getMutations();
 		for(Mutation mute: mutations) {
 			FishSpecies species = Fishing.fishHelper.getSpecies(mute.baby);
-			if(isAFish(result, species)) {
+			if(isSpecies(result, species, true)) {
 				ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
 				ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishHelper.MALE);
 				ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishHelper.FEMALE);
@@ -77,12 +77,13 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 		}
 	}
 	
-	public static boolean isAFish(ItemStack stack, FishSpecies fish) {
-		if(stack.getItem() instanceof ItemFishy && stack.hasTagCompound() && TileFishSorter.hasSameFishDNA(stack, Fishing.fishHelper.makePureFish(fish))) {
-			return true;
+	public static boolean isSpecies(ItemStack stack, FishSpecies fish, boolean checkSecondary) {
+		FishSpecies active = Fishing.fishHelper.getSpecies(Fish.species.getDNA(stack));
+		if(!checkSecondary) return fish == active;
+		else {
+			FishSpecies inactive = Fishing.fishHelper.getSpecies(Fish.species.getLowerDNA(stack));
+			return active == fish || inactive == fish;
 		}
-		
-		return false;
 	}
 
 	@Override
@@ -95,7 +96,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 		for(Mutation mute: mutations) {
 			FishSpecies fSpecies = Fishing.fishHelper.getSpecies(mute.father);
 			FishSpecies mSpecies = Fishing.fishHelper.getSpecies(mute.mother);
-			if(isAFish(ingredient, fSpecies) || isAFish(ingredient, mSpecies)) {
+			if(isSpecies(ingredient, fSpecies, true) || isSpecies(ingredient, mSpecies, true)) {
 				ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
 				ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishHelper.MALE);
 				ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishHelper.FEMALE);

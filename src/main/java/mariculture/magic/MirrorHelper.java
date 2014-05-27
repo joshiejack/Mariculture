@@ -28,7 +28,7 @@ public class MirrorHelper {
 	}
 	
 	public ItemStack[] get(EntityPlayer player) {
-		if (!player.worldObj.isRemote) {
+		if (!player.worldObj.isRemote && player != null) {
 			MirrorData data = getData(player);
 			if(data.getJewelry() == null) {
 				NBTTagCompound loader = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
@@ -53,7 +53,7 @@ public class MirrorHelper {
 	}
 
 	public void save(EntityPlayer player, ItemStack[] mirrorContents) {
-		if (!player.worldObj.isRemote) {
+		if (!player.worldObj.isRemote && player != null) {
 			try {
 				getData(player).setJewelry(mirrorContents);
 			} catch (Exception e) {

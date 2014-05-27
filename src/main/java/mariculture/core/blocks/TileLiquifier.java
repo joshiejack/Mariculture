@@ -53,14 +53,14 @@ public class TileLiquifier extends TileMultiMachineTank implements IHasNotificat
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == liquid_in) return FluidHelper.isFluidOrEmpty(stack);
-		if(slot == fuel) return MaricultureHandlers.smelter.getFuelInfo(stack) != null;
-		return (slot == 5 || slot == 6)? MaricultureHandlers.smelter.getFuelInfo(stack) == null && !FluidHelper.isFluidOrEmpty(stack): false;
+		if(FluidHelper.isFluidOrEmpty(stack)) return slot == liquid_in;
+		if(MaricultureHandlers.smelter.getFuelInfo(stack) != null) return slot == fuel;
+		return slot == 5 || slot == 6;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return true;
+		return slot == out || slot == liquid_out;
 	}
 
 	@Override

@@ -476,10 +476,12 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		super.readFromNBT(nbt);
 		NBTTagList tagList = nbt.getTagList("Tanks");
 		if(tagList != null) {
-			for (int i = 0; i < 3; i++) {
-				NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-				byte tank = tag.getByte("Tank");
-				getTank(i).readFromNBT(tag);
+			if(tagList.tagCount() >= 3) {
+				for (int i = 0; i < 3; i++) {
+					NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+					byte tank = tag.getByte("Tank");
+					getTank(i).readFromNBT(tag);
+				}
 			}
 		}
 		

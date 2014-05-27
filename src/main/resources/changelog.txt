@@ -1,457 +1,468 @@
+== Mariculture 1.2.2e ==
+• Enchiridion is now required (Books are too important!)
+• Added crash prevention when loading corrupted vats
+• Fixed potential crash with buildcraft pipes
+• Possibly fixed potential mirror saving crash?
+• Fixed potential nullpointer with oyster
+• Fixed further potential fluid crashes with crucible furnace
+• Fish should give a minimum of 1 fish meal now (Some fish were giving none before)
+• Crucible furnace should now only accept items in to the correct slots and you can only pull out of the output slots
+• Hybrids will now show breeding in NEI, based on their two species, they will not show the inactive's products though
+
 == Mariculture 1.2.2d ==
-* Fixed potential startup crash with Forestry
-* Fixed some potential crashes with Blood Magic goodies
-* Fixed a potential, very rare nei crash
-* Fixed potential Multi-Tank crash
-* Fixed some errors in the fishing book
-* Fixed various other errors thanks to OpenEye
-* Fixed potential DNA loop when it comes to missing species
-* Food shouldn't use up the whole stack
-* Made Fish eggs have a metadata of 1, For easier automation
-* Fish outside of water lifespan increased by 5 ticks
-* Ported the 1.7.2 Coral Generation method, can be disabled to use the old method in the config
-* Because of the above change, coral can now be placed on dirt, sand, gravel and limestone, they won't spread though
-* Eternal Life Upgrade for Fish Eggs formula adjusted to better fit new fertility
-* Oysters will now correctly accept 1 sand only
-* Adjusted the method for deciding whether to catch a fish or loot, Higher tier = Better chance for catching fish over loot (Makes cheaper rods better for junk!)
-* Added a config option to allow you to change the caught alive chance
+• Fixed potential startup crash with Forestry
+• Fixed some potential crashes with Blood Magic goodies
+• Fixed a potential, very rare nei crash
+• Fixed potential Multi-Tank crash
+• Fixed some errors in the fishing book
+• Fixed various other errors thanks to OpenEye
+• Fixed potential DNA loop when it comes to missing species
+• Food shouldn't use up the whole stack
+• Made Fish eggs have a metadata of 1, For easier automation
+• Fish outside of water lifespan increased by 5 ticks
+• Ported the 1.7.2 Coral Generation method, can be disabled to use the old method in the config
+• Because of the above change, coral can now be placed on dirt, sand, gravel and limestone, they won't spread though
+• Eternal Life Upgrade for Fish Eggs formula adjusted to better fit new fertility
+• Oysters will now correctly accept 1 sand only
+• Adjusted the method for deciding whether to catch a fish or loot, Higher tier = Better chance for catching fish over loot (Makes cheaper rods better for junk!)
+• Added a config option to allow you to change the caught alive chance
 
 == Mariculture 1.2.2c ==
-* Added in the missing code for fish area... Area of Effect wasn't working as it should
-* Fixed a Potential Tooltip crash with the fish feeder
-* Fixed Potential Breeding crashes
-* Fixed Potential Bound Rod Crash when using Demon Shards
-* Fixed Potential Null Pointer when checking rod quality with autofishers
-* Fish Tanks should now only accept fish from automated systems
-* Added code that prevents mariculture fish ids from being overridden (preventing older versions of aliquo from crashing on fishing)
+• Added in the missing code for fish area... Area of Effect wasn't working as it should
+• Fixed a Potential Tooltip crash with the fish feeder
+• Fixed Potential Breeding crashes
+• Fixed Potential Bound Rod Crash when using Demon Shards
+• Fixed Potential Null Pointer when checking rod quality with autofishers
+• Fish Tanks should now only accept fish from automated systems
+• Added code that prevents mariculture fish ids from being overridden (preventing older versions of aliquo from crashing on fishing)
 
 == Mariculture 1.2.2b ==
-* Added a KirinDave proof check to the Crucible Furnace
-* Added a FTB DW20 Pack check to ravines...
-* Added silly mods with null fluid checks to vat handler
-* Fixed fishing crash again?
-* Coral Spreading should error less
-* Retro-Gen will only spam the console in debug mode
+• Added a KirinDave proof check to the Crucible Furnace
+• Added a FTB DW20 Pack check to ravines...
+• Added silly mods with null fluid checks to vat handler
+• Fixed fishing crash again?
+• Coral Spreading should error less
+• Retro-Gen will only spam the console in debug mode
 
 == Mariculture 1.2.2a ==
-* Added localisation + tag to the Blood Magic Ritual
-* Fixed using the wrong ethanol name for the plastic recipes
-* Fixed potential fishing/environment related crashes
-* Fixed Casting Blocks messing up when fluids/items change sometimes
+• Added localisation + tag to the Blood Magic Ritual
+• Fixed using the wrong ethanol name for the plastic recipes
+• Fixed potential fishing/environment related crashes
+• Fixed Casting Blocks messing up when fluids/items change sometimes
 
 == Mariculture 1.2.2 ==
 ==== Last 1.6.4 ====
-* This should be the last of the 1.6.4 content updates, there will no doubt still be bugfix and balance updates
+• This should be the last of the 1.6.4 content updates, there will no doubt still be bugfix and balance updates
 ==== New ====
-* Config added for Fish Breeding chance, increase the breeding multiplier to make breeding easier, or decrease it to make it harder
-* Bound Fishing Rod when Blood Magic is installed, + Ritual to double mutation chance in the incubator (Requires Blood Magic 1.0.1+)
-* Fish Scanner, and Biome Analyser lets you peer in to the crazy depths that is Fish DNA and See what the temperature of the current location is
-* Male DNA affects the area that is affected, they have six stats for this dna, for all six coordinates, representing + or minus to the radius, only opening a feeder, or placing a male in will now update the tank area
-* Ten new Fish Species, bringing the total up to 40!
-* Angelfish when working will now teleport items up to 16 blocks in each direction in to chests underneath fish feeders
-* All fish can be caught alive in the wild, but anything other than the base fish, have special catch conditions, such as time of day, height in world, temperature, salinity
-* Added WAILA Support to Vats
-* Can disable the requirements for catching fish in different biomes, allowing you to catch all fish in each biome(world related still applies)
+• Config added for Fish Breeding chance, increase the breeding multiplier to make breeding easier, or decrease it to make it harder
+• Bound Fishing Rod when Blood Magic is installed, + Ritual to double mutation chance in the incubator (Requires Blood Magic 1.0.1+)
+• Fish Scanner, and Biome Analyser lets you peer in to the crazy depths that is Fish DNA and See what the temperature of the current location is
+• Male DNA affects the area that is affected, they have six stats for this dna, for all six coordinates, representing + or minus to the radius, only opening a feeder, or placing a male in will now update the tank area
+• Ten new Fish Species, bringing the total up to 40!
+• Angelfish when working will now teleport items up to 16 blocks in each direction in to chests underneath fish feeders
+• All fish can be caught alive in the wild, but anything other than the base fish, have special catch conditions, such as time of day, height in world, temperature, salinity
+• Added WAILA Support to Vats
+• Can disable the requirements for catching fish in different biomes, allowing you to catch all fish in each biome(world related still applies)
 ==== Changes ====
-* Limestone Variants and Pearl Bricks split in to a new 'Aesthetics' module.
-* Fish 'Groups' removed, doesn't affect anything, since they were just arbritary descriptors anyways, Allows for addition of 1 off fish, rather than having to install three new fish at a time
-* Fertility is now the number of eggs that are produced, The hatch chance of eggs is now a fixed 0.1%, so a fish that lays 3000 eggs will on average produce 3 extra fish, but can be improved with the use of purity upgrades in an incubator
-* Magnesium Dust now has 100% chance of Magnesium, Magnesium Dust reduced to 5000MB Quicklime and 3000MB Water. You can also make the dust now with 1000MB of water and a Flux Droplet
-* Burnt Bricks, now use half as much lava for both recipe variants
-* You can now melt Limestone in a Tinkers Smeltery as well as the Magnesium Dust
-* Obsidian time reduced to 10 seconds from 15
-* Mob Magnet requires LP to be used if you have Blood Magic installed
-* Breeding combinations completely revamped
-* Fish Stat defaults all changed, Due to this, any existing fish eggs will NOT work after upgrading. Make sure to hatch fish before updating.
-* Nightfish can now be caught rarely in the overworld but only when fishing at night.
-* Concept of 'Ethereal Waters' removed, Salinity now consists of Fresh, Brackish and Saline Water. The Salinator Upgrade increases the salinity of the biome by one, while the Purifier reduces it by one, so a fresh water biome would need two salinator upgrades to become salt water. Ethereal upgrade now nullifies the world requirement for fish instead. E.G. It lets you breed netherfish in overworld, endfish in nether or overworld fish in the end etc.
-* Fishing loot now split in to two lists, goodies and junk. Higher tier fishing rods have better chance of getting good stuff.
-* Food tick in the config is now how many ticks before a fish will eat, Fish are less greedy.
-* Fishing Net default speed, slightly faster
-* Reduced cost of Hard plastic, can also make it with ethanol now instead
-* Changed Transparent Plastic recipe to be glass + natural gas/ethanol
-* Can automatically extract fishing rods from autofisher, allowing automated charging of the RF rod
-* Can now use vanilla fishing rods in an autofisher, they will only generate vanilla fish, and require no bait
-* Luck of the Irish now can be put on Hammers, You have a chance to restore more than one damage point in an anvil when using the hammer
-* Changed around how much bait you get and from what you get it from
-* Shift clicking a sifter will cause it to sift one item at a time instead of the whole stack
-* Fish Tank size, while as before is determined by water, it's no longer based on 'various sizes'. Each fish now has it's own individual number of water block requirements. Ranging from 15 blocks of water up to 400. To see how much space a fish needs, you can use the scanner. Fish Food amount is also determined by water blocks.
+• Limestone Variants and Pearl Bricks split in to a new 'Aesthetics' module.
+• Fish 'Groups' removed, doesn't affect anything, since they were just arbritary descriptors anyways, Allows for addition of 1 off fish, rather than having to install three new fish at a time
+• Fertility is now the number of eggs that are produced, The hatch chance of eggs is now a fixed 0.1%, so a fish that lays 3000 eggs will on average produce 3 extra fish, but can be improved with the use of purity upgrades in an incubator
+• Magnesium Dust now has 100% chance of Magnesium, Magnesium Dust reduced to 5000MB Quicklime and 3000MB Water. You can also make the dust now with 1000MB of water and a Flux Droplet
+• Burnt Bricks, now use half as much lava for both recipe variants
+• You can now melt Limestone in a Tinkers Smeltery as well as the Magnesium Dust
+• Obsidian time reduced to 10 seconds from 15
+• Mob Magnet requires LP to be used if you have Blood Magic installed
+• Breeding combinations completely revamped
+• Fish Stat defaults all changed, Due to this, any existing fish eggs will NOT work after upgrading. Make sure to hatch fish before updating.
+• Nightfish can now be caught rarely in the overworld but only when fishing at night.
+• Concept of 'Ethereal Waters' removed, Salinity now consists of Fresh, Brackish and Saline Water. The Salinator Upgrade increases the salinity of the biome by one, while the Purifier reduces it by one, so a fresh water biome would need two salinator upgrades to become salt water. Ethereal upgrade now nullifies the world requirement for fish instead. E.G. It lets you breed netherfish in overworld, endfish in nether or overworld fish in the end etc.
+• Fishing loot now split in to two lists, goodies and junk. Higher tier fishing rods have better chance of getting good stuff.
+• Food tick in the config is now how many ticks before a fish will eat, Fish are less greedy.
+• Fishing Net default speed, slightly faster
+• Reduced cost of Hard plastic, can also make it with ethanol now instead
+• Changed Transparent Plastic recipe to be glass + natural gas/ethanol
+• Can automatically extract fishing rods from autofisher, allowing automated charging of the RF rod
+• Can now use vanilla fishing rods in an autofisher, they will only generate vanilla fish, and require no bait
+• Luck of the Irish now can be put on Hammers, You have a chance to restore more than one damage point in an anvil when using the hammer
+• Changed around how much bait you get and from what you get it from
+• Shift clicking a sifter will cause it to sift one item at a time instead of the whole stack
+• Fish Tank size, while as before is determined by water, it's no longer based on 'various sizes'. Each fish now has it's own individual number of water block requirements. Ranging from 15 blocks of water up to 400. To see how much space a fish needs, you can use the scanner. Fish Food amount is also determined by water blocks.
 ==== Bugfixes ====
-* Fixed AutoDictionary not correctly removing the extra tags when converting items
-* Fixed dupe glitch with books
-* Fixed Oyster dupe bug, with block updates
-* Fixed crash with enchanted basic mirrors
-* Fixed crash when fishing on tile entities that aren't instances of IUpgradable
-* Fixed crash when eating the last item in a stack of food
-* Fixed potential crash when reloading a Vat
-* When producing the last two fish from an egg if none are generated, they will no longer be 'twins', their dna is now generated seperately.
+• Fixed AutoDictionary not correctly removing the extra tags when converting items
+• Fixed dupe glitch with books
+• Fixed Oyster dupe bug, with block updates
+• Fixed crash with enchanted basic mirrors
+• Fixed crash when fishing on tile entities that aren't instances of IUpgradable
+• Fixed crash when eating the last item in a stack of food
+• Fixed potential crash when reloading a Vat
+• When producing the last two fish from an egg if none are generated, they will no longer be 'twins', their dna is now generated seperately.
 
 == Mariculture 1.2.1e ==
-* Fixed internal server error from eating bait
-* Nets will now 'break' if there is no water under them
-* Natural Gas is no longer impenetrable
-* Fixed potential limestone crash on startup
-* Fixed Miso Soup using wrong textures for the larger portions
+• Fixed internal server error from eating bait
+• Nets will now 'break' if there is no water under them
+• Natural Gas is no longer impenetrable
+• Fixed potential limestone crash on startup
+• Fixed Miso Soup using wrong textures for the larger portions
 
 == Mariculture 1.2.1d ==
-* MAJOR: Fixed the jewelry saving... somehow i'd messed up the new saving method -_-
+• MAJOR: Fixed the jewelry saving... somehow i'd messed up the new saving method -_-
 
 == Mariculture 1.2.1c ==
-* NOTE: I have added the vanilla dyes to the item blacklist! So feel free to remove dyeBlue, dyeBlack etc. from the name blacklist
-* The whitelisting check is now handled on load rather than live
-* Added blacklisting for prefixes for autodictionary, by default adds listAll, to stop the exploit with harvestcraft
-* Added blacklisting for items individually uses the format of 'id meta' or 'unlocalizedname meta', by default adds tconstruct glue to stop exploit between slimeballs and rubber, as well as vanilla dyes
+• NOTE: I have added the vanilla dyes to the item blacklist! So feel free to remove dyeBlue, dyeBlack etc. from the name blacklist
+• The whitelisting check is now handled on load rather than live
+• Added blacklisting for prefixes for autodictionary, by default adds listAll, to stop the exploit with harvestcraft
+• Added blacklisting for items individually uses the format of 'id meta' or 'unlocalizedname meta', by default adds tconstruct glue to stop exploit between slimeballs and rubber, as well as vanilla dyes
 
 == Mariculture 1.2.1b ==
-* Limestone shouldn't crash loading on some instances
-* Reduced chance for the one ring to generate in dungeon chests
-* Pressurised water should now only break blocks on the side, fixed y coordinate bug with it too
-* Fish egg generation has been reduced 10 fold when producing with an eternal life upgrade
-* Nerfed Fish finger output to 16. Still more than the raw ingredients, in terms of 'nutrition'. 25 food vs 32, 3 Saturation vs 8(nerfed with hunger overhaul as always)
-* Water Geysers will now also pull from the tanks behind them to fill themselves up
-* More fish have special effects on consumption
-* Removed the custard, bowl + bottle recipe. You need to manually fill bowls with custard directly from a vat.
-* Bowl exploits should be fixed :p, you now get half-eaten calamari once you eat one
-* Rather than failing to catch anything when it generates loot instead of fish, fishing nets will generate vanilla raw fish instead
-* Jewelry is no longer stored on the players nbt, this appears to be 'unreliable' due to a forge bug, the data is now saved to the map. You shouldn't lose jewelry on upgrade, but i'd recommend you take it off beforehand just in case. Take note this new method, uses your username, so you will need to be logged in. There is a config option to enable SinglePlayer offline mode. (Uses the same username always)
-* Removed accidental debug text from the dictionary slots
-* Fixed Texture flipping on limestone
+• Limestone shouldn't crash loading on some instances
+• Reduced chance for the one ring to generate in dungeon chests
+• Pressurised water should now only break blocks on the side, fixed y coordinate bug with it too
+• Fish egg generation has been reduced 10 fold when producing with an eternal life upgrade
+• Nerfed Fish finger output to 16. Still more than the raw ingredients, in terms of 'nutrition'. 25 food vs 32, 3 Saturation vs 8(nerfed with hunger overhaul as always)
+• Water Geysers will now also pull from the tanks behind them to fill themselves up
+• More fish have special effects on consumption
+• Removed the custard, bowl + bottle recipe. You need to manually fill bowls with custard directly from a vat.
+• Bowl exploits should be fixed :p, you now get half-eaten calamari once you eat one
+• Rather than failing to catch anything when it generates loot instead of fish, fishing nets will generate vanilla raw fish instead
+• Jewelry is no longer stored on the players nbt, this appears to be 'unreliable' due to a forge bug, the data is now saved to the map. You shouldn't lose jewelry on upgrade, but i'd recommend you take it off beforehand just in case. Take note this new method, uses your username, so you will need to be logged in. There is a config option to enable SinglePlayer offline mode. (Uses the same username always)
+• Removed accidental debug text from the dictionary slots
+• Fixed Texture flipping on limestone
 
 == Mariculture 1.2.1a ==
-* Fixed Server startup crash (Need to update Enchiridion too)
-* Fixed my stuff breaking bedrock, namely pressurised water
-* Fixed a crash with Ex Aliquo, could of been prevented on their end but, works better with my fix ;)
-* Fixed Auto-Dictionary issue
-* Sand Renders smaller than pearls again
-* Ported 1.7.2 Fuel changes to 1.6.4
-* Ported 1.7.2 Paintbrush changes to 1.6.4
-* Reduced Transparent plastic glass costs, now 8000mB of molten glass and hard plastic for 16 Transparent
-* Oysters in the end always produce ender pearls
+• Fixed Server startup crash (Need to update Enchiridion too)
+• Fixed my stuff breaking bedrock, namely pressurised water
+• Fixed a crash with Ex Aliquo, could of been prevented on their end but, works better with my fix ;)
+• Fixed Auto-Dictionary issue
+• Sand Renders smaller than pearls again
+• Ported 1.7.2 Fuel changes to 1.6.4
+• Ported 1.7.2 Paintbrush changes to 1.6.4
+• Reduced Transparent plastic glass costs, now 8000mB of molten glass and hard plastic for 16 Transparent
+• Oysters in the end always produce ender pearls
 
 == Mariculture 1.2.1 ==
 ====IMPORTANT NOTES====
-* I have Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.
-* This update uses 1 New Item ID and 2 new Block IDs
+• I have Split my books/custom books code from Mariculture itself, Mariculture now (optionally) requires 'Enchiridion', without it you won't have my books.
+• This update uses 1 New Item ID and 2 new Block IDs
 ====New====
-* Limestone Variants
-* Pearl Bricks are back
+• Limestone Variants
+• Pearl Bricks are back
 ====Changes====
-* You can no longer put liquids in one of the vats tanks if the other tank already has some of that liquid
-* Once again fixed obsidian taking 2 seconds instead of 15 seconds to make in a vat
-* AutoDictionary no longer ticks, therefore no longer has redstone control settings. It however works faster, and you can now specify upto 216 exceptions, and middle clicking will now switch the ore dictionary reference you are 'linked' to on an item, (this ONLY, affects cycling, as in, you will cycle to the next ore dictionary equivalent with that tag also).
-* Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
-* Fish Sorter no longer has redstone controls, but will now auto-eject to chests
-* Increased Max damage of plans, chalk is now damageable
-* Redone the oyster rendering
+• You can no longer put liquids in one of the vats tanks if the other tank already has some of that liquid
+• Once again fixed obsidian taking 2 seconds instead of 15 seconds to make in a vat
+• AutoDictionary no longer ticks, therefore no longer has redstone control settings. It however works faster, and you can now specify upto 216 exceptions, and middle clicking will now switch the ore dictionary reference you are 'linked' to on an item, (this ONLY, affects cycling, as in, you will cycle to the next ore dictionary equivalent with that tag also).
+• Fake slots should be less finicky, however item filters are no longer 'fake' you must place each one in the convert, you can't place filters inside filters.
+• Fish Sorter no longer has redstone controls, but will now auto-eject to chests
+• Increased Max damage of plans, chalk is now damageable
+• Redone the oyster rendering
 ====Bugfixes====
-* Fixed Fish Sorter not telling difference between eggs and fish
-* The slots for crucible furnace recipes no longer matter(with duel melting).
-* Fixed sluice crashing with sided tanks
-* Crucible Furnace no longer crashes when a tesseract is placed under it
-* Fixed Molten dirt NEI Crash
-* Fixed Machines trying to eject to wrong side
-* Fixed Turbines accepting RF
-* Removed Electric Droplet Exploit(will think of another way to use them in the future)
-* Fixed hammer rotation
+• Fixed Fish Sorter not telling difference between eggs and fish
+• The slots for crucible furnace recipes no longer matter(with duel melting).
+• Fixed sluice crashing with sided tanks
+• Crucible Furnace no longer crashes when a tesseract is placed under it
+• Fixed Molten dirt NEI Crash
+• Fixed Machines trying to eject to wrong side
+• Fixed Turbines accepting RF
+• Removed Electric Droplet Exploit(will think of another way to use them in the future)
+• Fixed hammer rotation
 
 == Mariculture 1.2.0i==
-* More fish breeding derp... fixed wrong cross-breeding of enderfish
-* Retro-Gen should no longer attempt in the nether/end and should be ever so slightly less laggy, but will still be laggy...
-* Vats should be more in sync
-* The End is now Magic water(no need for ethereal upgrade)
-* Manpowered Turbines no longer can accept items in to their 'inventory' since they don't actually have one :p
+• More fish breeding derp... fixed wrong cross-breeding of enderfish
+• Retro-Gen should no longer attempt in the nether/end and should be ever so slightly less laggy, but will still be laggy...
+• Vats should be more in sync
+• The End is now Magic water(no need for ethereal upgrade)
+• Manpowered Turbines no longer can accept items in to their 'inventory' since they don't actually have one :p
 
 == Mariculture 1.2.0h ==
-* Fixed derp with not being able to cross-breed piranha and butterflyfish (River fish now happy in ethereal waters)
-* Fixed localisation mishap with Limestone Thin Brick
-* Disabled fish dying when they can't work in a biome(since it removed the point of impurity upgrades...)
-* Basic Mirror now has 100 Uses
+• Fixed derp with not being able to cross-breed piranha and butterflyfish (River fish now happy in ethereal waters)
+• Fixed localisation mishap with Limestone Thin Brick
+• Disabled fish dying when they can't work in a biome(since it removed the point of impurity upgrades...)
+• Basic Mirror now has 100 Uses
 
 == Mariculture 1.2.0g ==
-* Fixed Mutation with Hunger Overhaul installed
+• Fixed Mutation with Hunger Overhaul installed
 
 == Mariculture 1.2.0f ==
-* Fixed Retro-Gen
+• Fixed Retro-Gen
 
 == Mariculture 1.2.0e ==
-* Fixed Unlocalized Names with CompatBooks
-* Fixed Magic Mirror crashing when upgrading from older versions
-* Fixed Tooltip crash with the NEILiquifierRecipeHandler
-* Fixed Golden Silk being cheaper than it was meant to be...
-* Rotors now last 10 x as long in a Water Turbine and 2 x as long in a Gas Turbine
-* Reduced chance of nickel when melting magnesium dust
-* So as to not screw people over, Jewelry will now no longer break, but it will not function when it's fully damaged, to counter this XP cost for repair is now much higher.
-* Diamond and Iron Jewelry recipes are now disabled by default, in order to force the cultivating of pearls(those jewelry are too easy) Config to turn them on added.
+• Fixed Unlocalized Names with CompatBooks
+• Fixed Magic Mirror crashing when upgrading from older versions
+• Fixed Tooltip crash with the NEILiquifierRecipeHandler
+• Fixed Golden Silk being cheaper than it was meant to be...
+• Rotors now last 10 x as long in a Water Turbine and 2 x as long in a Gas Turbine
+• Reduced chance of nickel when melting magnesium dust
+• So as to not screw people over, Jewelry will now no longer break, but it will not function when it's fully damaged, to counter this XP cost for repair is now much higher.
+• Diamond and Iron Jewelry recipes are now disabled by default, in order to force the cultivating of pearls(those jewelry are too easy) Config to turn them on added.
 
 == Mariculture 1.2.0d ==
-* Gas is a little more dangerous
-* Fixed Blocks > Ingots Recipes
-* Fixed NEIBase crash
-* Oysters should no longer be royally screwed if you right click them with sand
-* Manta Ray is now Sting Ray + Pufferfish (This is to fix Dragonfish being tier 6 instead of 7)
-* Glowfish is now Netherfish + Koi, in order to keep it at the same tier with the manta ray change
-* Manpowered turbines can only be activated for 60 Second bursts, or you'll start taking damage, you need to wait 1.5 seconds for it to cool off
+• Gas is a little more dangerous
+• Fixed Blocks > Ingots Recipes
+• Fixed NEIBase crash
+• Oysters should no longer be royally screwed if you right click them with sand
+• Manta Ray is now Sting Ray + Pufferfish (This is to fix Dragonfish being tier 6 instead of 7)
+• Glowfish is now Netherfish + Koi, in order to keep it at the same tier with the manta ray change
+• Manpowered turbines can only be activated for 60 Second bursts, or you'll start taking damage, you need to wait 1.5 seconds for it to cool off
 
 == Mariculture 1.2.0c ==
-* Fixed Autonomous Activator Being able to activate anvil/manpowered turbine
-* Now only registering NEI Handlers if the relevant module is enabled
-* Added config option(in other.cfg), that hides my living mariculture fish
-* Added stupidity check for fluids in NEI Handler
-* Turbines will now transfer their energy without a rotor, they only need it to generate power
+• Fixed Autonomous Activator Being able to activate anvil/manpowered turbine
+• Now only registering NEI Handlers if the relevant module is enabled
+• Added config option(in other.cfg), that hides my living mariculture fish
+• Added stupidity check for fluids in NEI Handler
+• Turbines will now transfer their energy without a rotor, they only need it to generate power
 
 == Mariculture 1.2.0b ==
-* Should have fixed the NEI Fuels for the the Crucible Furnace messing up every now and then
-* Fixed right clicking entities crash
-* Fixed right click + ctrl on enchants
-* Obsidian takes 15 seconds to make in a Vat now
-* Mariculture will now crash like other mods do with an ID Conflict, rather than the obscure crash it had before
+• Should have fixed the NEI Fuels for the the Crucible Furnace messing up every now and then
+• Fixed right clicking entities crash
+• Fixed right click + ctrl on enchants
+• Obsidian takes 15 seconds to make in a Vat now
+• Mariculture will now crash like other mods do with an ID Conflict, rather than the obscure crash it had before
 
 == Mariculture 1.2.0a for Minecraft v1.6.X==
-* Added Config option that allows you to force kelp/coral in other world types
-* Limestone will no longer replace a block if a water material such as kelp/coral is above it (unless it is actually water).
+• Added Config option that allows you to force kelp/coral in other world types
+• Limestone will no longer replace a block if a water material such as kelp/coral is above it (unless it is actually water).
 
 == Mariculture 1.2.0 for Minecraft v1.6.X==
 ====New====
-* Manual Turbines, right click them to provide RF
-* Redstone Flux Fishing Rod
-* Added Snorkel, cheap early game diving assistance, allows you to breathe slightly longer underwater
-* Fish Sorter added
-* Melting System, completely redone ;)
-* Void Bottles are now placeable(work like a Void Tank)
-* Fish Tank(read chest) Added
-* Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
-* New GUIs, with Notifications for missing items, and redstone/auto-eject controls
-* New Speed, Capacitor, Salinator and Filter Upgrades
-* Retro-Gen
-* Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way), The materials used now also have more of an effect, they change enchantability, durability and the time needed to make
-* NEI Integration for a lot of things
-* Bunch of New Foods
-* Guide Books (With Custom book support, so you can write your own guides(xml based out of game).
-* Right clicking a squid with a fishing net will use up the net and drop a live raw squid
-* New Jewelry Enchantment, Step Up, lets you walk up blocks
-* New Enchantment 'Luck of the Irish', Goes on Mirrors and Fishing Rods, gives bonus to enchantibility, or better catch rates
+• Manual Turbines, right click them to provide RF
+• Redstone Flux Fishing Rod
+• Added Snorkel, cheap early game diving assistance, allows you to breathe slightly longer underwater
+• Fish Sorter added
+• Melting System, completely redone ;)
+• Void Bottles are now placeable(work like a Void Tank)
+• Fish Tank(read chest) Added
+• Custom Block textures, are now 'side' based, so the side of the block you click gets the texture(e.g. select top of crafting table with paintbrush, and you'll paint all sides with that texture)
+• New GUIs, with Notifications for missing items, and redstone/auto-eject controls
+• New Speed, Capacitor, Salinator and Filter Upgrades
+• Retro-Gen
+• Jewelry is now repairable via the Blacksmith's Anvil, it requires XP per each hit, which will repair one damage point(can also repair all other repairable items this way), The materials used now also have more of an effect, they change enchantability, durability and the time needed to make
+• NEI Integration for a lot of things
+• Bunch of New Foods
+• Guide Books (With Custom book support, so you can write your own guides(xml based out of game).
+• Right clicking a squid with a fishing net will use up the net and drop a live raw squid
+• New Jewelry Enchantment, Step Up, lets you walk up blocks
+• New Enchantment 'Luck of the Irish', Goes on Mirrors and Fishing Rods, gives bonus to enchantibility, or better catch rates
 ====Changes====
-* Rewote 95% of things, should a lot less laggy
-* Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
-* Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block form, was it really neccessary?
-* Full Dropped BC Power Support, now you can only use RF to Power my machines, and turbines will only provide RF
-* Removed ConfigCopier/LegacyLoader > If upgrading from previous version, make sure to load Mariculture on 1.1.4 FIRST
-* Oysters are more special ;)
-* Scalable melting of damaged items.
-* Air Pumps, are now 'tanks'. Instead of passing directly any gas they get to tanks, they now have an internal tank buffer of 8 buckets, which they will then attempt to transfer to the side.
-* Right clicking an air pump with an item that rotates blocks such as a wrench will cause it to display, where you need air blocks
-* Air Pumps now need larger areas in order to pump, however, Up to 6 Blocks in that area do not have to be air (So you can have ur engines on any side now)
-* Air Pumps radius changed: Engine - 40 XZ, 50Y; Manual - 64 XZ: 64Y; Redstone - 25 XZ, 36Y
-* No longer auto-outputting to any pipes, use itemducts
-* Autofisher now uses more power to work
-* Turbine Recipes changed
-* Turbines (except manual) now need to be kept supplied with a Rotor, in order to operate
-* Sluice no longer has a gui, no longer needs wheels, can no longer take upgrades and no longer moves blocks(still picks up and places with tanks). They generate 10mB of Pressurised Water per Height every 10 seconds. They will only transfer their liquid automatically if they have a redstone signal.
-* Pressure Vesels, can now store a LOT more per block, however they are much more expensive, but they can also be quite large sizes!
-* Feeder Fish Tanks no longer need you to have a certain shape... You just need to have the correct amount of water blocks for the tank size
-* Jewelry no longer drops on death(configurable)
-* Pressurised Water's range increased from 5 to 16
-* Mariculture Enchants will now ONLY work on Jewelry (Removed Magic feather)
-* Nerf to Never Hungry ;)
-* Story Bookshelves now count as 5 Bookshelves for an Enchantment Table
-* Can now right click on the sifter to throw bait in :) (as well as being able to throw it)
-* Buffed Neon Lamp Recipe
-* Can Repair Scuba Gear(Not Tank in an anvil) with Neoprene.
-* Buffed Fish Oil Drinking
-* Air Compressor will now take RF directly, instead of needing to use batteries 
-* Due to the new processing system for various things, the recipes for transparent plastic and hard plastic have been reduced to 30 buckets per
-* Aluminum and Titanium sheets, are no longer made in rolling machine or with flint and steel, but are now made in the blacksmith's anvil by crushing down their relevant blocks
-* Leapfrog changed to an addition instead of a multiplier
-* Different fuels, now have a tick time for how long they last in a smelter. Heating upgades no longer speed smelters up, but they will, help machines heat up faster, hyperkinetic upgrades are for speed, ethereal is no longer needed for certain biomes but instead it will make fuels, burn past using up their temperature per piece(but not generate heat, aka it will do what no redstone signal used to do).
-* Smelters now will take either solid, or liquid, liquid fuel is pulled from tanks below them
-* Bottles now required Heat Resistant Glass(1000mB Quicklime, 16mB Molten Aluminum, 1 Glass Block in a VAT), And they now hold two ingots worth(for ingots)
-* Limestone will now generate in any WATER tagged biome, so instead of just rivers, will now also generates in oceans. (But up to a max depth of 45Y)
-* Changed Electricray Chance to 4%, and Dragonfish and Clownfish to 2%
-* Buffed all Droplet Chances
-* Bait, can now vary a lot more, with 'quality' ranging from 0-100% instead of the few tiers that there were before
-* You are now able to catch every single fish in the wild, however, all fish except for the starter fish will be forced dead!
-* Raw Kelp is no longer edible
-* Be careful with Pressurised Water, as well as being fast, it will damage blocks that are stone hardness or less
-* The chances with Fish Breeding are changed to make fish breeding easier
-* Timelord now has a configurable percentage required, defaults to 5% of a server
-* Salinity is now split in to three types, Salt, Water and Magic. You convert to these different types by using Salinator, Purifier or Ethereal Upgrades
-* Water Turbines now produce a base of 3 RF/T, but they can be upgraded to a max of 75RF/T with Hyperkinetic Upgrades
-* Gas Turbines now produce a base of 60 RF/T, but can be upgraded to a maximum of 300RF/T
-* Changed FLUDD Recipe, now needs a Life Core
-* A lot of other stuff, too much to list!
+• Rewote 95% of things, should a lot less laggy
+• Nerfed Calamari(Less Saturation(still more than steak), gives 2 instead of 3 on crafting) and Buffed Fish Fingers (Gives 64).
+• Completely removed Limestone Stairs/Slabs, as not needed. Also removed all the molten metals in block form, was it really neccessary?
+• Full Dropped BC Power Support, now you can only use RF to Power my machines, and turbines will only provide RF
+• Removed ConfigCopier/LegacyLoader > If upgrading from previous version, make sure to load Mariculture on 1.1.4 FIRST
+• Oysters are more special ;)
+• Scalable melting of damaged items.
+• Air Pumps, are now 'tanks'. Instead of passing directly any gas they get to tanks, they now have an internal tank buffer of 8 buckets, which they will then attempt to transfer to the side.
+• Right clicking an air pump with an item that rotates blocks such as a wrench will cause it to display, where you need air blocks
+• Air Pumps now need larger areas in order to pump, however, Up to 6 Blocks in that area do not have to be air (So you can have ur engines on any side now)
+• Air Pumps radius changed: Engine - 40 XZ, 50Y; Manual - 64 XZ: 64Y; Redstone - 25 XZ, 36Y
+• No longer auto-outputting to any pipes, use itemducts
+• Autofisher now uses more power to work
+• Turbine Recipes changed
+• Turbines (except manual) now need to be kept supplied with a Rotor, in order to operate
+• Sluice no longer has a gui, no longer needs wheels, can no longer take upgrades and no longer moves blocks(still picks up and places with tanks). They generate 10mB of Pressurised Water per Height every 10 seconds. They will only transfer their liquid automatically if they have a redstone signal.
+• Pressure Vesels, can now store a LOT more per block, however they are much more expensive, but they can also be quite large sizes!
+• Feeder Fish Tanks no longer need you to have a certain shape... You just need to have the correct amount of water blocks for the tank size
+• Jewelry no longer drops on death(configurable)
+• Pressurised Water's range increased from 5 to 16
+• Mariculture Enchants will now ONLY work on Jewelry (Removed Magic feather)
+• Nerf to Never Hungry ;)
+• Story Bookshelves now count as 5 Bookshelves for an Enchantment Table
+• Can now right click on the sifter to throw bait in :) (as well as being able to throw it)
+• Buffed Neon Lamp Recipe
+• Can Repair Scuba Gear(Not Tank in an anvil) with Neoprene.
+• Buffed Fish Oil Drinking
+• Air Compressor will now take RF directly, instead of needing to use batteries 
+• Due to the new processing system for various things, the recipes for transparent plastic and hard plastic have been reduced to 30 buckets per
+• Aluminum and Titanium sheets, are no longer made in rolling machine or with flint and steel, but are now made in the blacksmith's anvil by crushing down their relevant blocks
+• Leapfrog changed to an addition instead of a multiplier
+• Different fuels, now have a tick time for how long they last in a smelter. Heating upgades no longer speed smelters up, but they will, help machines heat up faster, hyperkinetic upgrades are for speed, ethereal is no longer needed for certain biomes but instead it will make fuels, burn past using up their temperature per piece(but not generate heat, aka it will do what no redstone signal used to do).
+• Smelters now will take either solid, or liquid, liquid fuel is pulled from tanks below them
+• Bottles now required Heat Resistant Glass(1000mB Quicklime, 16mB Molten Aluminum, 1 Glass Block in a VAT), And they now hold two ingots worth(for ingots)
+• Limestone will now generate in any WATER tagged biome, so instead of just rivers, will now also generates in oceans. (But up to a max depth of 45Y)
+• Changed Electricray Chance to 4%, and Dragonfish and Clownfish to 2%
+• Buffed all Droplet Chances
+• Bait, can now vary a lot more, with 'quality' ranging from 0-100% instead of the few tiers that there were before
+• You are now able to catch every single fish in the wild, however, all fish except for the starter fish will be forced dead!
+• Raw Kelp is no longer edible
+• Be careful with Pressurised Water, as well as being fast, it will damage blocks that are stone hardness or less
+• The chances with Fish Breeding are changed to make fish breeding easier
+• Timelord now has a configurable percentage required, defaults to 5% of a server
+• Salinity is now split in to three types, Salt, Water and Magic. You convert to these different types by using Salinator, Purifier or Ethereal Upgrades
+• Water Turbines now produce a base of 3 RF/T, but they can be upgraded to a max of 75RF/T with Hyperkinetic Upgrades
+• Gas Turbines now produce a base of 60 RF/T, but can be upgraded to a maximum of 300RF/T
+• Changed FLUDD Recipe, now needs a Life Core
+• A lot of other stuff, too much to list!
 ====Bugfixes====
-* Fixed fishing rods using bait when pulling in
-* Fixed Speed Boat dropping twice when broken with a TiC pick
-* Fixed Incorrect Recipe for Titanium Pickaxe Head
+• Fixed fishing rods using bait when pulling in
+• Fixed Speed Boat dropping twice when broken with a TiC pick
+• Fixed Incorrect Recipe for Titanium Pickaxe Head
 ====Config Changes====
-* Added Retro-Generation Options
-* Removed Unused Block Ids for Molten Metals and Limestone Stairs
-* Rennamed Autofisher Speed Entry (To force use of new SLOWER speed (since they now accept upgrades))
-* Options to Disable the forcing of KelpForests/CoralReefs to only gen in those biomes with BOP
-* Limestone chance mechanisms changed, instead of only ever having a possiblity to generate once per chunk, you now define how many times it will try to find a place it can generate
-* Rennamed bait.xml to sifter.xml (to force the changes, otherwise some of the existing items would have terrible values)
-* Autodictionary config options to use whitelist instead of blacklist(blacklist is default)
-* Water Ravines, Water Caves and Disabling mineshafts will no longer work if you have ATG Installed
+• Added Retro-Generation Options
+• Removed Unused Block Ids for Molten Metals and Limestone Stairs
+• Rennamed Autofisher Speed Entry (To force use of new SLOWER speed (since they now accept upgrades))
+• Options to Disable the forcing of KelpForests/CoralReefs to only gen in those biomes with BOP
+• Limestone chance mechanisms changed, instead of only ever having a possiblity to generate once per chunk, you now define how many times it will try to find a place it can generate
+• Rennamed bait.xml to sifter.xml (to force the changes, otherwise some of the existing items would have terrible values)
+• Autodictionary config options to use whitelist instead of blacklist(blacklist is default)
+• Water Ravines, Water Caves and Disabling mineshafts will no longer work if you have ATG Installed
 
 == Mariculture 1.1.4e ==
-* Fixed NPE when player becomes null when fishing
-* Can melt Raw Fish for Fish Oil ;)
+• Fixed NPE when player becomes null when fishing
+• Can melt Raw Fish for Fish Oil ;)
 
 == Mariculture 1.1.4d for Minecraft v1.6.X==
-* Fixed insane tick handler usage for 'render updates' that weren't even doing anything
-* Disabled Smoked Salmon for now
+• Fixed insane tick handler usage for 'render updates' that weren't even doing anything
+• Disabled Smoked Salmon for now
 
 == Mariculture 1.1.4c for Minecraft v1.6.X==
-* Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)
-* Pressure Vessel Base Storage increased to be the same as two BC tanks, aka 32 buckets
+• Hopefully fixed the last of the TE Fluiduct Crashes (Quick fix so may have issues in some cases: Proper fix will come with 1.2)
+• Pressure Vessel Base Storage increased to be the same as two BC tanks, aka 32 buckets
 
 == Mariculture 1.1.4b for Minecraft v1.6.X==
-* Fixed Iron Wheel Recipe for those without certain mods
-* Added in the textures that I forgot for some tools that can have the Pearl Modifier
+• Fixed Iron Wheel Recipe for those without certain mods
+• Added in the textures that I forgot for some tools that can have the Pearl Modifier
 
 == Mariculture 1.1.4a for Minecraft v1.6.X==
-* Fixed TE Fluiduct Interaction, in places, may still be crashes somewhere
-* Iron Wheels are used at twice the speed in a sluice as before
-* lampsOn/Rutile/water ravine config fixes
+• Fixed TE Fluiduct Interaction, in places, may still be crashes somewhere
+• Iron Wheels are used at twice the speed in a sluice as before
+• lampsOn/Rutile/water ravine config fixes
 
 == Mariculture 1.1.4 for Minecraft v1.6.X==
-* Added Pearl Modifier for Tinkers tools > Adds Aqua Affinity (Pearl Brick recipe now only gives one... but you can uncraft them).
-* Reconfigured Configs (now have a folder for my configs), adding fluids and bait should now be more user friendly too
-* Changed Mechanized Sponge recipe to use Water Droplets instead of Aquatic
-* Mechanized Sponge, now only requires 5 Sponge to perform it's job, BUT it requires RF to do the work(40 RF per Block) and will use all 5 Sponges. It also has it's range increased from 32 to 48 blocks either side. (Right click a sponge to see how much energy it needs/has used).
-* Should now be able to craft Polished Titanium Rods with Tinkers Construct installed(woops!)
-* Removed Limestone Stairs/Slabs (existing ones will still exist, if you had kept the old Mariculture config).
-* Autodictionary changes > Left click an item to place it in a slot, when an item is in the slot, left click it to cycle between the different versions of that item, right/middle click to clear the item.
-* Fixed NPE with the Sluice
-* Changed Ore Dictionary registrations to ingotAluminum to coiincide with Tinkers Construct changes :p
-* Melting Titanium should now give titanium as it should have done before...
-* 1.7 Preperation
+• Added Pearl Modifier for Tinkers tools > Adds Aqua Affinity (Pearl Brick recipe now only gives one... but you can uncraft them).
+• Reconfigured Configs (now have a folder for my configs), adding fluids and bait should now be more user friendly too
+• Changed Mechanized Sponge recipe to use Water Droplets instead of Aquatic
+• Mechanized Sponge, now only requires 5 Sponge to perform it's job, BUT it requires RF to do the work(40 RF per Block) and will use all 5 Sponges. It also has it's range increased from 32 to 48 blocks either side. (Right click a sponge to see how much energy it needs/has used).
+• Should now be able to craft Polished Titanium Rods with Tinkers Construct installed(woops!)
+• Removed Limestone Stairs/Slabs (existing ones will still exist, if you had kept the old Mariculture config).
+• Autodictionary changes > Left click an item to place it in a slot, when an item is in the slot, left click it to cycle between the different versions of that item, right/middle click to clear the item.
+• Fixed NPE with the Sluice
+• Changed Ore Dictionary registrations to ingotAluminum to coiincide with Tinkers Construct changes :p
+• Melting Titanium should now give titanium as it should have done before...
+• 1.7 Preperation
 
 ==Mariculture 1.1.3a for Minecraft v1.6.X==
-* Fixed crash when placing a hopper under/above an oyster
+• Fixed crash when placing a hopper under/above an oyster
 
 ==Mariculture 1.1.3 for Minecraft v1.6.X==
-* Sluice and Pressure Vessel will now transfer liquids four times as often on it's sides
-* Turbines can now provide RF or MJ (Provides RF first, only provides MJ if machine doesn't accept RF)
-* Air Pump and Autofisher now primarily accept RF (will still accept MJ, but it's not as efficient).
-* Powered air pump can now only be activated every 5 seconds, Uses slightly more power
-* Fixed custom blocks becoming corrupted when broken by a hammer
-* RF Custom Blocks(Transfer RF, pretty inefficiently though).
-* Removed the Recipes for plans. You now need to craft Chalk and a Blank Plan. Then with a blank plan in your inventory right click on the block type you want the plan of. So if you want fence, right click on a fence, this will create a plan of the type fence for you. Halved a plans max uses.
-* Added glass to the default dictionary blacklist(would advise you to add it to existing configs, unless you want cheaty clear glass :P)
-* Fixed AutoDictionary dropping the ghost items :p
-* Custom Blocks now work with Pick Block
-* OreDictionary Sheet Plastic + 5 Ingots worth of Molten Magnesium = Hard Plastic
-* Electric Rays will now Provide 20 RF a second when they are living out their lives in a Feeder
-* Dropped IC2 for batteries, now using RF > 100RF = 1 Air Compressor Power, Buffed Electric Droplets to provide more power than the raw version of electric rays
-* Blocks that auto-output to pipes will now also output to conduits(conduits take preference over pipes).
-* Melting Rutile no longer gives Molten Titanium, but gives the impure form instead. (To stop you just sending molten titanium to a basin :P) Combining this with Magnesium will give you the ingot. (Melting down Titanium will give molten titanium).
-* Titanium Tools can be made in a Smeltery, You can also make Titanium as a Magnesium and Impure Titanium Alloy in the Smeltery
-* Titanium Rod rennamed to Polished Titanium Rod, If you have Tinkers Construct, you need to use a Titanium Tough Rod and 6500mB of Fish Oil instead of two Polished Sticks and 12 Nuggets of Titanium.
+• Sluice and Pressure Vessel will now transfer liquids four times as often on it's sides
+• Turbines can now provide RF or MJ (Provides RF first, only provides MJ if machine doesn't accept RF)
+• Air Pump and Autofisher now primarily accept RF (will still accept MJ, but it's not as efficient).
+• Powered air pump can now only be activated every 5 seconds, Uses slightly more power
+• Fixed custom blocks becoming corrupted when broken by a hammer
+• RF Custom Blocks(Transfer RF, pretty inefficiently though).
+• Removed the Recipes for plans. You now need to craft Chalk and a Blank Plan. Then with a blank plan in your inventory right click on the block type you want the plan of. So if you want fence, right click on a fence, this will create a plan of the type fence for you. Halved a plans max uses.
+• Added glass to the default dictionary blacklist(would advise you to add it to existing configs, unless you want cheaty clear glass :P)
+• Fixed AutoDictionary dropping the ghost items :p
+• Custom Blocks now work with Pick Block
+• OreDictionary Sheet Plastic + 5 Ingots worth of Molten Magnesium = Hard Plastic
+• Electric Rays will now Provide 20 RF a second when they are living out their lives in a Feeder
+• Dropped IC2 for batteries, now using RF > 100RF = 1 Air Compressor Power, Buffed Electric Droplets to provide more power than the raw version of electric rays
+• Blocks that auto-output to pipes will now also output to conduits(conduits take preference over pipes).
+• Melting Rutile no longer gives Molten Titanium, but gives the impure form instead. (To stop you just sending molten titanium to a basin :P) Combining this with Magnesium will give you the ingot. (Melting down Titanium will give molten titanium).
+• Titanium Tools can be made in a Smeltery, You can also make Titanium as a Magnesium and Impure Titanium Alloy in the Smeltery
+• Titanium Rod rennamed to Polished Titanium Rod, If you have Tinkers Construct, you need to use a Titanium Tough Rod and 6500mB of Fish Oil instead of two Polished Sticks and 12 Nuggets of Titanium.
 
 ==Mariculture 1.1.2 for Minecraft v1.6.X==
-* Paintbrushes(new item id) now take damage(maximum 512 uses) (Your old paintbrushes, will still exist but they will no longer work, you need to craft it with itself to get the newer ones)
-* Adding bait to the sifter will now work (but has been moved to compatiblity section)
-* Can now add items to the ore dictionary with my config (helpful for adding things to be converted by the auto dictionary)
-* Fixed 'Double Blocks' Class Cast exception when placing incorrectly
-* Electric Rays should now actually provide power to air compressor like they should
-* Sped up heating of the smelter a little bit more, Should take 15 minutes when in normal biome with full lava to heat up from 0c to 2000c
-* Fuel will no longer get used up quicker, but it will still heat up a smelter quicker and continue to 'burn' even when it has reached it's maximum output.
-* Applying a redstone signal to a smelter will cause it to 'chew' through it's fuel(to heat up faster) (coal will last 20 seconds), instead of continuing to burn. But with no redstone signal each piece of coal will last 2 minutes, so a stack will last you just over 2 hours. How much 'temperature' each piece of coal gives you does not change. You will still only get 48 degrees per coal.
-* Biomes no longer have such a huge impact on the smelter/freezer, but will still affect it
-* Purity upgrades now give a full nugget, however, damselfish no longer produce regeneration droplets, therefore you must breed to obtain them.
-* Properly changed Silicon Carbide recipe rather than copout :p, it now gives three per recipe, but the heating component recipe now only gives one!
-* Removed Magnesium from recipes (except for creating titanium)
-* Changed a couple recipes
-* Can now user Freezers in the nether if you have two ultimate cooling and an ethereal upgrade (no longer blocking freezers in deserts)
-* Switched from Finite Fluids to normal Fluids for Molten forms, so that mystcraft ages no lag... 
+• Paintbrushes(new item id) now take damage(maximum 512 uses) (Your old paintbrushes, will still exist but they will no longer work, you need to craft it with itself to get the newer ones)
+• Adding bait to the sifter will now work (but has been moved to compatiblity section)
+• Can now add items to the ore dictionary with my config (helpful for adding things to be converted by the auto dictionary)
+• Fixed 'Double Blocks' Class Cast exception when placing incorrectly
+• Electric Rays should now actually provide power to air compressor like they should
+• Sped up heating of the smelter a little bit more, Should take 15 minutes when in normal biome with full lava to heat up from 0c to 2000c
+• Fuel will no longer get used up quicker, but it will still heat up a smelter quicker and continue to 'burn' even when it has reached it's maximum output.
+• Applying a redstone signal to a smelter will cause it to 'chew' through it's fuel(to heat up faster) (coal will last 20 seconds), instead of continuing to burn. But with no redstone signal each piece of coal will last 2 minutes, so a stack will last you just over 2 hours. How much 'temperature' each piece of coal gives you does not change. You will still only get 48 degrees per coal.
+• Biomes no longer have such a huge impact on the smelter/freezer, but will still affect it
+• Purity upgrades now give a full nugget, however, damselfish no longer produce regeneration droplets, therefore you must breed to obtain them.
+• Properly changed Silicon Carbide recipe rather than copout :p, it now gives three per recipe, but the heating component recipe now only gives one!
+• Removed Magnesium from recipes (except for creating titanium)
+• Changed a couple recipes
+• Can now user Freezers in the nether if you have two ultimate cooling and an ethereal upgrade (no longer blocking freezers in deserts)
+• Switched from Finite Fluids to normal Fluids for Molten forms, so that mystcraft ages no lag... 
 
 ==Mariculture 1.1.1 for Minecraft v1.6.X==
-* Readjusted Tanks, WARNING You should lose existing fluids in my machines (Things may not work! let me know!)
-* Attempted fix in some instances where the sifter would not destroy the item thrown on it. (Please inform me if this is still not fixed)
-* Silicon Carbide Recipe now only gives 1 again
-* Instead of checking how hard a block is, tanks can now be built out of anything that's material type is glass, iron, wood or stone (as long as they don't have a tile entity)
-* Added special case for Aluminum ingots in dictionary converter that will convert ingotAluminum ingots to ingotNaturalAluminum. (Can add your own exceptions in the config)
-* Hardcore Diving mode is now off by default
-* Auto Dictionary now converts 1 thing per tick by default(changed config name to force people on to this setting).
-* Can now use any brown dye for incubator tops
-* Coral, Kelp Growth and Kelp Moss spread rate should be a bit faster, there is now config for their speed as well as kelp growth(higher = slower, do not make the number lower than 1).
-* Placing coral will now actually place coral instead of kelp.
-* Coral and Kelp Forests should generate in overworld if BOP is installed and the gamesetting is vanilla biomes
-* Smelter will now pass it's fluid to any tank not just freezers
-* Smelters should now heat up quicker! I had accidentally removed the lava bonus woops!
-* Purity upgrades in a smelter now give half a nugget worth per purity level(more than before), allowing for up to 2.6* your ores with full max purity upgrades
-* Added Compatibility fluid support - Be Careful with Custom Fluids
-* Potentially fixed crashing and Bugginess of Scuba Mask/Helmet in SMP (still not restoring proper brightness though)
+• Readjusted Tanks, WARNING You should lose existing fluids in my machines (Things may not work! let me know!)
+• Attempted fix in some instances where the sifter would not destroy the item thrown on it. (Please inform me if this is still not fixed)
+• Silicon Carbide Recipe now only gives 1 again
+• Instead of checking how hard a block is, tanks can now be built out of anything that's material type is glass, iron, wood or stone (as long as they don't have a tile entity)
+• Added special case for Aluminum ingots in dictionary converter that will convert ingotAluminum ingots to ingotNaturalAluminum. (Can add your own exceptions in the config)
+• Hardcore Diving mode is now off by default
+• Auto Dictionary now converts 1 thing per tick by default(changed config name to force people on to this setting).
+• Can now use any brown dye for incubator tops
+• Coral, Kelp Growth and Kelp Moss spread rate should be a bit faster, there is now config for their speed as well as kelp growth(higher = slower, do not make the number lower than 1).
+• Placing coral will now actually place coral instead of kelp.
+• Coral and Kelp Forests should generate in overworld if BOP is installed and the gamesetting is vanilla biomes
+• Smelter will now pass it's fluid to any tank not just freezers
+• Smelters should now heat up quicker! I had accidentally removed the lava bonus woops!
+• Purity upgrades in a smelter now give half a nugget worth per purity level(more than before), allowing for up to 2.6• your ores with full max purity upgrades
+• Added Compatibility fluid support - Be Careful with Custom Fluids
+• Potentially fixed crashing and Bugginess of Scuba Mask/Helmet in SMP (still not restoring proper brightness though)
 
 ==Mariculture 1.1.0 for Minecraft v1.6.X==
 ====New====
-* Hardcore Diving Mode Set to 1 by default(turn off with 0) > Air Drops quicker. Higher numbers = faster drop rate.
-* Added Machine cycles to the config (Moved+Rennamed Dictionary config entry)
-* Added Ore Generation Vein Size/Chance to config
-* Chinese translation by crafteverywhere and sunny
-* Shift Clicking on a custom block will no longer paint it, but it will set a paintbrush to fake air (doesn't apply to gates)
-* Titanium Rods, Crafted with 12 Nuggets worth of Molten Titanium and 2 Polished Sticks (36 Total Nuggets or 4 Ingots total to make a rod)
-* Gascraft Natural Gas and Hydrogen should now work in the Gas Turbine(Hydrogen providers more power)
-* Water filled Caves under oceans(off by default)
-* Water filled DEEP Ravines akin to Deep Sea Trenches in Oceans(on by default)
-* Deeper Oceans + No Mineshafts under the ocean(both can be turned off, deeper oceans won't work with some mods).
-* WorldPlus module with deeper oceans activated will make most of the ocean floor sand
+• Hardcore Diving Mode Set to 1 by default(turn off with 0) > Air Drops quicker. Higher numbers = faster drop rate.
+• Added Machine cycles to the config (Moved+Rennamed Dictionary config entry)
+• Added Ore Generation Vein Size/Chance to config
+• Chinese translation by crafteverywhere and sunny
+• Shift Clicking on a custom block will no longer paint it, but it will set a paintbrush to fake air (doesn't apply to gates)
+• Titanium Rods, Crafted with 12 Nuggets worth of Molten Titanium and 2 Polished Sticks (36 Total Nuggets or 4 Ingots total to make a rod)
+• Gascraft Natural Gas and Hydrogen should now work in the Gas Turbine(Hydrogen providers more power)
+• Water filled Caves under oceans(off by default)
+• Water filled DEEP Ravines akin to Deep Sea Trenches in Oceans(on by default)
+• Deeper Oceans + No Mineshafts under the ocean(both can be turned off, deeper oceans won't work with some mods).
+• WorldPlus module with deeper oceans activated will make most of the ocean floor sand
 ====Changes====
-* Changed how the chance calculation for autofisher is now, you can also now set the chance for each bait level
-* Ore Generation seperated from WorldPlus in the configs, make sure to redo ur settings!
-* Readded fixed ID's for fish
-* Copper spawn rate reduced
-* Reduced default Autofisher cycle to 500 ticks
-* Increased blast resistance of 'util blocks'
-* Natural Gas Pocket Size Reduced, Frequency Increased, Gas now Spawns from y16 to y25
-* Default Coral Max Depth changed to 30
-* Reenabled Vanilla crafting for Vanilla Fishing Rod
-* Limestone won't try to generate outside of rivers
-* Limestone will now replace dirt and sand in rivers, because of this vein size default is reduced from 128 to 48
-* Rutile Spawn rate slightly increased to coiincide with smaller limestone veins
-* Kelp now has slight changes in colour based on surroundings
-* Speed Enchantment now damages every 30 seconds, allowing two hours of running with a ring
-* Reduced Sponge cost
-* Rebalanced Mining speed of wetsuit/diving suit
-* Changed Titanium Fishing Rod recipe, now requires Titanium Rods and String
-* Sponge should generate less in coral reefs
-* Changed the default Kelp forest chance from 512 to 450(more common)
-* Swapped Silicon Carbide recipe around to avoid conflict with Tubes mod
-* Smelters should cool a bit faster...
+• Changed how the chance calculation for autofisher is now, you can also now set the chance for each bait level
+• Ore Generation seperated from WorldPlus in the configs, make sure to redo ur settings!
+• Readded fixed ID's for fish
+• Copper spawn rate reduced
+• Reduced default Autofisher cycle to 500 ticks
+• Increased blast resistance of 'util blocks'
+• Natural Gas Pocket Size Reduced, Frequency Increased, Gas now Spawns from y16 to y25
+• Default Coral Max Depth changed to 30
+• Reenabled Vanilla crafting for Vanilla Fishing Rod
+• Limestone won't try to generate outside of rivers
+• Limestone will now replace dirt and sand in rivers, because of this vein size default is reduced from 128 to 48
+• Rutile Spawn rate slightly increased to coiincide with smaller limestone veins
+• Kelp now has slight changes in colour based on surroundings
+• Speed Enchantment now damages every 30 seconds, allowing two hours of running with a ring
+• Reduced Sponge cost
+• Rebalanced Mining speed of wetsuit/diving suit
+• Changed Titanium Fishing Rod recipe, now requires Titanium Rods and String
+• Sponge should generate less in coral reefs
+• Changed the default Kelp forest chance from 512 to 450(more common)
+• Swapped Silicon Carbide recipe around to avoid conflict with Tubes mod
+• Smelters should cool a bit faster...
 ====Bugfixes====
-* Potentially fixed world gen errors?
-* Fixed crashes when some enchantments were disabled
-* Blink reenabled... Woops
-* Restoration no longer adds air to the scuba tank...
-* Potentially fixed derpy kelp generation
-* Natural Gas will no longer replace water
+• Potentially fixed world gen errors?
+• Fixed crashes when some enchantments were disabled
+• Blink reenabled... Woops
+• Restoration no longer adds air to the scuba tank...
+• Potentially fixed derpy kelp generation
+• Natural Gas will no longer replace water
 
 ==Mariculture 1.0.1b for Minecraft v1.6.X==
 ====Changes====
-* Readded Names of Blocks to the GUI
-* No Longer Packaging APIs (Thanks sadris).
-* Limestone generation will no longer be called when not starting in a river biome
+• Readded Names of Blocks to the GUI
+• No Longer Packaging APIs (Thanks sadris).
+• Limestone generation will no longer be called when not starting in a river biome
 ====Bugfixes====
-* Added Fish DNA names to language file
-* Fixed Enabling/Disabling Modules breaking...
-* Removed double rutile generation woops
+• Added Fish DNA names to language file
+• Fixed Enabling/Disabling Modules breaking...
+• Removed double rutile generation woops
 
 ==Mariculture 1.0.1a for Minecraft v1.6.X==
-* Fixed Potential Startup crash... that shouldn't have happened
-* Packaged Thaumcraft api properly...
+• Fixed Potential Startup crash... that shouldn't have happened
+• Packaged Thaumcraft api properly...
 
 ==Mariculture 1.0.1 for Minecraft v1.6.X== 
-* Setting enchantment ids to 0 will now disable them
-* Fixed Smelter melting items at too low a temperature
-* Fixed Ctrl + Right click with fire enchantment
-* Gave Natural Gas a texture when in fluid form, so it's visible in tanks
+• Setting enchantment ids to 0 will now disable them
+• Fixed Smelter melting items at too low a temperature
+• Fixed Ctrl + Right click with fire enchantment
+• Gave Natural Gas a texture when in fluid form, so it's visible in tanks
 
 ==Mariculture 1.0.0b for Minecraft v1.6.X== 
-* Added check for custom item rendering as items
+• Added check for custom item rendering as items
 
 ==Mariculture 1.0.0a for Minecraft v1.6.X== 
-* Fixed random client crash with rendering custom blocks
+• Fixed random client crash with rendering custom blocks
 
 ==Mariculture 1.0.0 for Minecraft v1.6.X== 
-* Initial Release
+• Initial Release
