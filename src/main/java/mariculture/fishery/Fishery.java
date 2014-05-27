@@ -1,7 +1,68 @@
 package mariculture.fishery;
 
-import static mariculture.core.lib.ItemLib.*;
-import static mariculture.core.helpers.RecipeHelper.*;
+import static mariculture.core.helpers.RecipeHelper._;
+import static mariculture.core.helpers.RecipeHelper.add2x2Recipe;
+import static mariculture.core.helpers.RecipeHelper.add3x3Recipe;
+import static mariculture.core.helpers.RecipeHelper.addBlockCasting;
+import static mariculture.core.helpers.RecipeHelper.addFishingRodRecipe;
+import static mariculture.core.helpers.RecipeHelper.addMelting;
+import static mariculture.core.helpers.RecipeHelper.addShaped;
+import static mariculture.core.helpers.RecipeHelper.addShapeless;
+import static mariculture.core.helpers.RecipeHelper.addSmelting;
+import static mariculture.core.helpers.RecipeHelper.addUpgrade;
+import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
+import static mariculture.core.helpers.RecipeHelper.addVatItemRecipeResultFluid;
+import static mariculture.core.lib.ItemLib.autofisher;
+import static mariculture.core.lib.ItemLib.baseWood;
+import static mariculture.core.lib.ItemLib.bowl;
+import static mariculture.core.lib.ItemLib.bread;
+import static mariculture.core.lib.ItemLib.calamari;
+import static mariculture.core.lib.ItemLib.chest;
+import static mariculture.core.lib.ItemLib.compass;
+import static mariculture.core.lib.ItemLib.copperBattery;
+import static mariculture.core.lib.ItemLib.dirt;
+import static mariculture.core.lib.ItemLib.dropletAqua;
+import static mariculture.core.lib.ItemLib.dropletDestroy;
+import static mariculture.core.lib.ItemLib.dropletEarth;
+import static mariculture.core.lib.ItemLib.dropletEnder;
+import static mariculture.core.lib.ItemLib.dropletFlux;
+import static mariculture.core.lib.ItemLib.dropletFrozen;
+import static mariculture.core.lib.ItemLib.dropletNether;
+import static mariculture.core.lib.ItemLib.dropletPlant;
+import static mariculture.core.lib.ItemLib.dropletPoison;
+import static mariculture.core.lib.ItemLib.dropletRegen;
+import static mariculture.core.lib.ItemLib.dropletWater;
+import static mariculture.core.lib.ItemLib.enderPearl;
+import static mariculture.core.lib.ItemLib.fish;
+import static mariculture.core.lib.ItemLib.fishFeeder;
+import static mariculture.core.lib.ItemLib.fishTank;
+import static mariculture.core.lib.ItemLib.fishingNet;
+import static mariculture.core.lib.ItemLib.grass;
+import static mariculture.core.lib.ItemLib.greyClay;
+import static mariculture.core.lib.ItemLib.heating;
+import static mariculture.core.lib.ItemLib.ice;
+import static mariculture.core.lib.ItemLib.incubatorBase;
+import static mariculture.core.lib.ItemLib.incubatorTop;
+import static mariculture.core.lib.ItemLib.log;
+import static mariculture.core.lib.ItemLib.pearls;
+import static mariculture.core.lib.ItemLib.planks;
+import static mariculture.core.lib.ItemLib.polishedLog;
+import static mariculture.core.lib.ItemLib.polishedPlank;
+import static mariculture.core.lib.ItemLib.polishedStick;
+import static mariculture.core.lib.ItemLib.polishedTitanium;
+import static mariculture.core.lib.ItemLib.reeds;
+import static mariculture.core.lib.ItemLib.sand;
+import static mariculture.core.lib.ItemLib.sifter;
+import static mariculture.core.lib.ItemLib.snowball;
+import static mariculture.core.lib.ItemLib.stick;
+import static mariculture.core.lib.ItemLib.string;
+import static mariculture.core.lib.ItemLib.sugar;
+import static mariculture.core.lib.ItemLib.thermometer;
+import static mariculture.core.lib.ItemLib.titaniumBattery;
+import static mariculture.core.lib.ItemLib.titaniumRod;
+import static mariculture.core.lib.ItemLib.tnt;
+import static mariculture.core.lib.ItemLib.whiteClay;
+import static mariculture.core.lib.ItemLib.wicker;
 
 import java.util.Arrays;
 
@@ -14,25 +75,18 @@ import mariculture.api.fishery.RecipeSifter;
 import mariculture.api.fishery.RodType;
 import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemLib;
-import mariculture.core.lib.MachineMeta;
-import mariculture.core.lib.MachineMultiMeta;
-import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
-import mariculture.core.lib.TankMeta;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.lib.WoodMeta;
 import mariculture.core.util.Fluids;
 import mariculture.fishery.blocks.BlockCustard;
 import mariculture.fishery.blocks.BlockFishOil;
@@ -61,12 +115,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Fishery extends RegistrationModule {	
 	public static Block lampsOff;
@@ -201,7 +252,7 @@ public class Fishery extends RegistrationModule {
 		addShaped(fishFeeder, new Object[] {"WFW", "WCW", "WFW",  'F', fish, 'W', wicker, 'C', chest });
 		addShaped(incubatorTop, new Object[] {"DFD", "CHC", 'F', fish, 'D', "dyeBrown", 'C', greyClay, 'H', heating });
 		addShaped(incubatorBase, new Object[] {"DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating});
-		addShaped(fishTank, new Object[] {"AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "glass", 'F', fish});
+		addShaped(fishTank, new Object[] {"AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "blockGlass", 'F', fish});
 		addVatItemRecipeResultFluid(_(_(sugar), 2), Fluids.getStack(Fluids.milk, 1000), Fluids.getStack(Fluids.custard, 1000), 15);
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
 	}
@@ -296,8 +347,8 @@ public class Fishery extends RegistrationModule {
 		
 		// Tetra > Neon Lamp
 		for (int i = 0; i < 12; i++) {
-			addShaped(new ItemStack(lampsOn, 8, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "glass", 'F', new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
-			addShaped(new ItemStack(lampsOn, 4, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "glass", 'F', dropletFlux });
+			addShaped(new ItemStack(lampsOn, 8, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "blockGlass", 'F', new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
+			addShaped(new ItemStack(lampsOn, 4, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "blockGlass", 'F', dropletFlux });
 		}
 		
 		//Dragonfish to Eternal Upgrades

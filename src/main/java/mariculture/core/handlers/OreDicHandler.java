@@ -6,8 +6,6 @@ import java.util.HashMap;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.StackHelper;
 import mariculture.core.lib.Compatibility;
-import mariculture.plugins.Plugins;
-import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,8 +25,12 @@ public class OreDicHandler {
 	public static HashMap<String, ArrayList<String>> entries;
 	public static HashMap<String, Integer[]> specials = new HashMap();
 	public static HashMap<String, ArrayList<ItemStack>> items;
+	public static HashMap<String, String> remappings = new HashMap();
 	
-	public static void registerWildCards() {
+	public static void init() {
+		remappings.put("limestone", "blockLimestone");
+		remappings.put("glass", "blockGlass");
+		
 		registerWildcard(new ItemStack(Blocks.planks), new Integer[] { 0, 1, 2, 3, 4, 5 });
 		registerWildcard(new ItemStack(Blocks.wooden_slab), new Integer[] { 0, 1, 2, 3, 4, 5 });
 		registerWildcard(new ItemStack(Blocks.log), new Integer[] { 0, 1, 2, 3 });
@@ -69,6 +71,13 @@ public class OreDicHandler {
 		} else {
 			LogHandler.log(Level.ERROR, "A modder has been very silly and attempted to register an item with a blank name to the ore dictionary!");
 			new Exception().printStackTrace();
+		}
+	}
+	
+	//Re-Register blocks as blockLimestone and blockGlass
+	public static void syncOreDictionary(ItemStack stack, String string) {
+		if(remappings.containsKey(string)) {
+			OreDictionary.registerOre(remappings.get(string), stack);
 		}
 	}
 	
@@ -116,6 +125,9 @@ public class OreDicHandler {
 		ArrayList<ItemStack> stacks = items.get(name) != null? items.get(name): new ArrayList();
 		stacks.add(stack);
 		items.put(name, stacks);
+		
+		//After adding to the ore dictionary list, add entries for similar things
+		syncOreDictionary(stack, name);
 	}
 	
 	public static String convert(ItemStack stack) {

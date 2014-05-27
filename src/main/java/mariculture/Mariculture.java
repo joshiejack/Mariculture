@@ -7,8 +7,8 @@ import mariculture.core.CommonProxy;
 import mariculture.core.Config;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
+import mariculture.core.lib.Required;
 import mariculture.core.network.PacketPipeline;
-import mariculture.plugins.Plugins;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -18,7 +18,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = "Mariculture", name = "Mariculture", dependencies = Plugins.after)
+@Mod(modid = "Mariculture", name = "Mariculture", dependencies = Required.after)
 public class Mariculture {
 	public static final PacketPipeline packets = new PacketPipeline();
 	public static final String modid = "mariculture";
@@ -30,7 +30,6 @@ public class Mariculture {
 	public static Mariculture instance = new Mariculture();
 	public static Modules modules = new Modules();
 	public static File root;
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		root = event.getModConfigurationDirectory();

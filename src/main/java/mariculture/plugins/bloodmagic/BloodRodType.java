@@ -2,15 +2,15 @@ package mariculture.plugins.bloodmagic;
 
 import java.util.Random;
 
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import mariculture.api.fishery.RodType;
+import mariculture.fishery.Fish;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import mariculture.api.fishery.RodType;
-import mariculture.fishery.Fish;
+import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 
 public class BloodRodType extends RodType {
 	public BloodRodType(int quality, double junk, double good, double rare, int enchantment) {

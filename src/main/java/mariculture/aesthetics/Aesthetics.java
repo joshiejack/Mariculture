@@ -1,18 +1,13 @@
 package mariculture.aesthetics;
 
 import mariculture.core.Core;
-import mariculture.core.blocks.BlockLimestone;
-import mariculture.core.blocks.BlockLimestoneItem;
 import mariculture.core.blocks.BlockPearlBlock;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class Aesthetics extends RegistrationModule {
 	public static Block pearlBrick;

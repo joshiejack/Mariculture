@@ -88,10 +88,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 		if(!worldObj.isRemote) {
 			if(onTick(30) || worldObj.provider.isHellWorld)
 				addFishFood();
-			
-			if(onTick(30)) {
-				FluidHelper.process(this, 3, 4);
-			}
 
 			if(canWork) {
 				foodTick++;

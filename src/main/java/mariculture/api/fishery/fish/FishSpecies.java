@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
-import com.google.common.collect.Multimap;
-
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.CachedCoords;
@@ -22,7 +20,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import scala.collection.mutable.MultiMap;
+
+import com.google.common.collect.Multimap;
 
 public abstract class FishSpecies {
 	//Reference from names to number id, mappings + the List of Fish Species

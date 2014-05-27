@@ -2,8 +2,6 @@ package mariculture.core.gui;
 
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import mariculture.Mariculture;
 import mariculture.core.util.Text;
 import net.minecraft.client.gui.Gui;
@@ -13,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 

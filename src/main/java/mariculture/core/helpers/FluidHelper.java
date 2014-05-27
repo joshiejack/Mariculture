@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.BottleMeta;
@@ -31,6 +29,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
 
 public class FluidHelper {
 	public static boolean isFluidOrEmpty(ItemStack stack) {

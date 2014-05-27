@@ -57,16 +57,14 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if (slot == liquid_in)
-			return FluidHelper.isFluidOrEmpty(stack);
-		if (slot == fuel)
-			return MaricultureHandlers.crucible.getFuelInfo(stack) != null;
+		if(FluidHelper.isFluidOrEmpty(stack)) return slot == liquid_in;
+		if(MaricultureHandlers.crucible.getFuelInfo(stack) != null) return slot == fuel;
 		return slot == 5 || slot == 6;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return true;
+		return slot == out || slot == liquid_out;
 	}
 
 	@Override

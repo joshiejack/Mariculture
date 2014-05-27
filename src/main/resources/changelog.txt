@@ -3,9 +3,13 @@ Mariculture 1.7.2 BETA 8
 • Fixed the Autofisher not damaging items with special damage conditions correctly
 • Fixed crash with 'cropRice' recipe
 • Fixed potential crash with custom blocks
+• Fixed shift clicking eggs in to an incubator
+• Fixed potential dna loop with fish species
+• Salinity upgrades not working
+• Crucible furnace should now only accept items in to the correct slots and you can only pull out of the output slots
 • keepInventory GameRule should affect jewelry
-• Re-Enabled Vanilla Fishing rod not requiring bait
-• Vanilla rods will catch Vanilla loot by default
+• Re-Enabled Vanilla Fishing rod not requiring bait (accidental oversight when rewriting some stuff)
+• Vanilla rods will catch Vanilla loot by default (config)
 
 Mariculture 1.7.2 BETA 7
 • Readded NEI + WAILA Support + Updated the Magic Book

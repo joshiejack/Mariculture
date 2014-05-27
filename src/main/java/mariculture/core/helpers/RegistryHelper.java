@@ -2,7 +2,6 @@ package mariculture.core.helpers;
 
 import java.lang.reflect.Field;
 
-import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Extra;

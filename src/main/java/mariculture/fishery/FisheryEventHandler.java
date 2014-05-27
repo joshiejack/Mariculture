@@ -4,8 +4,6 @@ import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.fishery.items.ItemFishy;
-import mariculture.magic.MirrorSavedData;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySquid;
@@ -15,7 +13,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.world.WorldEvent.Load;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {

@@ -1,7 +1,6 @@
 package mariculture.api.fishery;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomFishable;
 
 public class Loot {
 	public enum Rarity {

@@ -127,15 +127,14 @@ public class WorldGenHandler implements IWorldGenerator {
 	// Generates Oysters in the Ocean
 	public static void generateOyster(World world, Random random, int x, int z) {
 		if(WorldGeneration.OYSTER_ENABLED) {
-			if (MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
-				for(int j = 0; j < WorldGeneration.OYSTER_PER_CHUNK; j++) {
-					int chance = (PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL))? WorldGeneration.OYSTER_CHANCE: WorldGeneration.OYSTER_CHANCE * 2;
-					if(random.nextInt(chance) == 0) {
-						int randMeta = random.nextInt(4);
-						int randX = x - 8 + random.nextInt(4);
-						int randZ = z - 8 + random.nextInt(4);
-						int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
-	
+			for(int j = 0; j < WorldGeneration.OYSTER_PER_CHUNK; j++) {
+				int chance = (PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL))? WorldGeneration.OYSTER_CHANCE: WorldGeneration.OYSTER_CHANCE * 2;
+				if(random.nextInt(chance) == 0) {
+					int randMeta = random.nextInt(4);
+					int randX = x - 8 + random.nextInt(4);
+					int randZ = z - 8 + random.nextInt(4);
+					int blockY = world.getTopSolidOrLiquidBlock(randX, randZ);
+					if (MaricultureHandlers.environment.getSalinity(world, randX, randZ) == Salinity.SALINE) {
 						if (Core.water.canBlockStay(world, randX, blockY, randZ)) {
 							if(BlockHelper.isWater(world, randX, blockY + 1, randZ)) {
 								world.setBlock(randX, blockY, randZ, Core.water);

@@ -2,7 +2,6 @@ package mariculture.fishery;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import mariculture.Mariculture;
@@ -19,7 +18,6 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.AverageHelper;
 import mariculture.fishery.items.ItemEgg;
 import mariculture.fishery.items.ItemFishy;
-import mariculture.fishery.items.ItemVanillaFish;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

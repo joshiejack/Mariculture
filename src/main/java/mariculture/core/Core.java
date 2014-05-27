@@ -41,7 +41,6 @@ import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemBottle;
@@ -160,7 +159,7 @@ public class Core extends RegistrationModule {
 		upgrades = new UpgradeHandler();
 		vat = new VatHandler();
 
-		OreDicHandler.registerWildCards();
+		OreDicHandler.init();
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenHandler(), 1);
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
@@ -327,18 +326,6 @@ public class Core extends RegistrationModule {
 	}
 
 	private void addToOreDictionary() {
-		OreDicHelper.add("glass", new ItemStack(Blocks.glass));
-		OreDicHelper.add("ingotIron", new ItemStack(Items.iron_ingot));
-		OreDicHelper.add("ingotGold", new ItemStack(Items.gold_ingot));
-		OreDicHelper.add("nuggetGold", new ItemStack(Items.gold_nugget));
-		OreDicHelper.add("blockIron", new ItemStack(Blocks.iron_block));
-		OreDicHelper.add("blockGold", new ItemStack(Blocks.gold_block));
-		OreDicHelper.add("blockLapis", new ItemStack(Blocks.lapis_block));
-		OreDicHelper.add("blockCoal", new ItemStack(Blocks.coal_block));
-		OreDicHelper.add("blockRedstone", new ItemStack(Blocks.redstone_block));
-		OreDicHelper.add("dustGlowstone", new ItemStack(Items.glowstone_dust));
-		OreDicHelper.add("dustRedstone", new ItemStack(Items.redstone));
-
 		OreDictionary.registerOre("blockLimestone", new ItemStack(limestone, 1, LimestoneMeta.RAW));
 		OreDictionary.registerOre("limestone", new ItemStack(limestone, 1, LimestoneMeta.RAW));
 		OreDictionary.registerOre("oreCopper", new ItemStack(rocks, 1, RockMeta.COPPER));

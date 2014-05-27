@@ -106,7 +106,7 @@ public class NEIFishProductHandler extends NEIBase {
     public void loadUsageRecipes(ItemStack ingredient)  {
 		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
 			FishSpecies fish = species.getValue();
-			if(NEIFishBreedingMutationHandler.isAFish(ingredient, fish)) {
+			if(NEIFishBreedingMutationHandler.isSpecies(ingredient, fish, false)) {
 				arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
 			}
 		}

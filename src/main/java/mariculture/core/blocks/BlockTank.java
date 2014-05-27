@@ -9,7 +9,6 @@ import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;

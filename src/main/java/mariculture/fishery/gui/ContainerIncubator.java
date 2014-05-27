@@ -4,7 +4,6 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
-import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.tile.TileIncubator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -57,8 +56,7 @@ public class ContainerIncubator extends ContainerMachine {
 
 				slot.onSlotChange(stack, itemstack);
 			} else if (slotID >= size) {
-				if ((stack.getItem() instanceof ItemFishy && Fishing.fishHelper.isEgg(stack))
-						|| stack.getItem() == Items.egg || stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
+				if ((Fishing.fishHelper.isEgg(stack)) || stack.getItem() == Items.egg || stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
 					if (!this.mergeItemStack(stack, 4, 13, false)) { // Slot 4-12
 						return null;
 					}

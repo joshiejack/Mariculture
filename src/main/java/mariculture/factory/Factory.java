@@ -254,7 +254,7 @@ public class Factory extends RegistrationModule {
 		RecipeHelper.addShaped(new ItemStack(Core.renderedMachines, 16, MachineRenderedMeta.GEYSER), new Object[] {
 			" W ", " G ", "RCR",
 			Character.valueOf('W'), Items.water_bucket,
-			Character.valueOf('G'), "glass",
+			Character.valueOf('G'), "blockGlass",
 			Character.valueOf('R'), Items.redstone,
 			Character.valueOf('C'), new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON),
 		});

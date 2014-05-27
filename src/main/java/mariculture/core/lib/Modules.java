@@ -3,7 +3,6 @@ package mariculture.core.lib;
 import java.util.ArrayList;
 
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.lib.Modules.Module;
 
 import org.apache.logging.log4j.Level;
 

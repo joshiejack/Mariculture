@@ -44,8 +44,8 @@ public class Recipes {
 		addShaped(baseBrick, new Object[] {"IGI", "G G", "IGI", 'I', burntBrick, 'G', ironBars});
 		addShaped(baseIron, new Object[] {"IGI", "G G", "IGI", 'I', "ingotIron", 'G', glassPane});
 		addShaped(baseWood, new Object[] {"IGI", "G G", "IGI", 'I', "logWood", 'G', fence});
-		addShaped(airPump, new Object[] {"WGW", "PRP", "PMP", 'G', "glass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel});
-		addShaped(_(tank, 2), new Object[] {"CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "glass"});
+		addShaped(airPump, new Object[] {"WGW", "PRP", "PMP", 'G', "blockGlass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel});
+		addShaped(_(tank, 2), new Object[] {"CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "blockGlass"});
 		addShaped(storageBookshelf, new Object[] {"SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest});
 		addShaped(crucible, new Object[] {" L ", "BGB", "HCH", 'B', burntBrick, 'L', lava, 'G', tank, 'H', heating, 'C', baseBrick});
 		addShaped(anvil, new Object[] {"CCC", " N ", "BBB", 'C', baseBrick, 'B', burntBrick, 'N', netherBrick});
@@ -71,7 +71,7 @@ public class Recipes {
 		addVatItemRecipe(_(limestone, 4), Fluids.natural_gas, 5000, plastic, 45);
 		if(Fluids.exists("bioethanol")) addVatItemRecipe(_(limestone, 4), "bioethanol", 10000, plastic, 60);
 		addShaped(plasticLens, new Object[] {" N ", "NGN", " N ", 'N', neoprene, 'G', transparent});
-		addShaped(glassLens, new Object[] {" P ", "PGP", " P ", 'P', "plankWood", 'G', "glass"});
+		addShaped(glassLens, new Object[] {" P ", "PGP", " P ", 'P', "plankWood", 'G', "blockGlass"});
 		
 		addShaped(heating, new Object[] {"CCC", "CCC", 'C', carbide});
 		addShaped(cooling, new Object[] {"  P", "PI ", "  P", 'P', "plankWood", 'I', "ingotIron"});

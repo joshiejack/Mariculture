@@ -5,7 +5,6 @@ import java.util.List;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
 import mariculture.core.lib.Modules;
 import mariculture.fishery.Fishery;

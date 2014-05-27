@@ -10,7 +10,6 @@ import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.MetalRates;
 import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;

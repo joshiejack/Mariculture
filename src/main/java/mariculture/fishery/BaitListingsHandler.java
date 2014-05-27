@@ -6,7 +6,6 @@ import java.util.List;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RodType;
 import mariculture.core.util.Text;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;

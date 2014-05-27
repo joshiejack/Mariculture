@@ -71,7 +71,7 @@ public class Diving extends RegistrationModule {
 		addShaped(_(compressorTop, 2), new Object[] {"  F", " PB", "III", 'I', aluminumSheet, 'F', cooling, 'B', titaniumBattery, 'P', piston});
 		addShaped(compressorBase, new Object[] {"ITT", "III", "W  ", 'I', aluminumSheet, 'W', ironWheel, 'T', "ingotTitanium"});
 		addShaped(_(snorkel), new Object[] {"  R", "LLR", 'R', reeds, 'L', glassLens});
-		addShaped(_(divingHelmet), new Object[] {"CCC", "CGC", 'C', "ingotCopper", 'G', "glass"});
+		addShaped(_(divingHelmet), new Object[] {"CCC", "CGC", 'C', "ingotCopper", 'G', "blockGlass"});
 		addShaped(_(divingTop), new Object[] { " C ", "C C", " C ", 'C', leather });
 		addShaped(_(divingPants), new Object[] { "CCC", " C ", "CCC", 'C', leather });
 		addShaped(_(divingBoots), new Object[] { "C C", "L L", 'C', leather, 'L', "ingotIron" });

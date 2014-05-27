@@ -1,21 +1,19 @@
 package mariculture.fishery;
 
-import static mariculture.core.lib.ItemLib.*;
-
-import java.util.Arrays;
-import java.util.List;
-
+import static mariculture.core.lib.ItemLib.enderPearl;
+import static mariculture.core.lib.ItemLib.eyeOfEnder;
+import static mariculture.core.lib.ItemLib.ironWheel;
+import static mariculture.core.lib.ItemLib.voidBottle;
+import static mariculture.core.lib.ItemLib.xpBottle;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
 import mariculture.core.Core;
-import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.factory.Factory;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomFishable;
 
 public class FishingLoot {
 	public static void add() {

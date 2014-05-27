@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemEgg extends Item implements IItemRegistry {
 	public ItemEgg() {
-		super();
+		setMaxStackSize(1);
 	}
 	
 	@Override

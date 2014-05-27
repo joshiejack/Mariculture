@@ -2,8 +2,6 @@ package mariculture.plugins.bloodmagic;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.core.handlers.LogHandler;
 import mariculture.magic.ItemMobMagnet;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,6 +9,9 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import org.apache.logging.log4j.Level;
+
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 
 public class ItemMobMagnetBloodEdition extends ItemMobMagnet {

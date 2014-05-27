@@ -8,8 +8,6 @@ import mariculture.magic.ShapedJewelryRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import codechicken.core.ReflectionManager;
 import codechicken.nei.recipe.ShapedRecipeHandler;
 

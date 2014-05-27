@@ -1,6 +1,5 @@
 package mariculture.plugins.tconstruct;
 
-import cpw.mods.fml.common.Loader;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.util.Fluids;
@@ -13,6 +12,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolCore;
+import cpw.mods.fml.common.Loader;
 
 public class TitaniumTools {
 	public static final int titanium_id = 200;

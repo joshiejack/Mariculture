@@ -1,11 +1,8 @@
 package mariculture.fishery.blocks;
 
-import java.util.Random;
-
 import mariculture.core.blocks.base.BlockFluid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
