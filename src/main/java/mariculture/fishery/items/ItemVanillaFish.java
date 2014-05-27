@@ -9,6 +9,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Text;
 import mariculture.fishery.FishyHelper;
+import mariculture.plugins.PluginHungerOverhaul;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -97,6 +98,20 @@ public class ItemVanillaFish extends ItemFishFood {
 			} else return super.onEaten(stack, world, player);
 		}
     }
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		if(Extra.NERF_FOOD) {
+			FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
+			if(fish != null) {
+				int level = fish.getFoodStat();
+				float sat = fish.getFoodSaturation();
+				level = Math.max(1, level/2);
+				sat = Math.max(0.0F, sat/10);
+				PluginHungerOverhaul.addInformation(level, sat, list);
+			}
+		}
+	}
 	
 	@Override
 	public String getPotionEffect(ItemStack stack) {

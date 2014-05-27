@@ -33,7 +33,6 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 		output = new int[] { OUT };
 	}
 
-	public static final int[] PLANS = new int[] { 3, 4, 5 };
 	public static final int TOP = 6;
 	public static final int NORTH = 7;
 	public static final int SOUTH = 8;

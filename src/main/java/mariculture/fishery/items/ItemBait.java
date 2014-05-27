@@ -1,10 +1,14 @@
 package mariculture.fishery.items;
 
+import java.util.List;
+
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
+import mariculture.plugins.PluginHungerOverhaul;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -48,6 +52,13 @@ public class ItemBait extends ItemMariculture {
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		return stack;
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		if(Extra.NERF_FOOD) {
+			PluginHungerOverhaul.addInformation(1, -100F, list);
+		}
 	}
 	
 	@Override

@@ -1,21 +1,25 @@
 package mariculture.magic;
 
+import static mariculture.core.helpers.RecipeHelper._;
+import static mariculture.core.helpers.RecipeHelper.addShaped;
+import static mariculture.core.lib.ItemLib.enchant;
+import static mariculture.core.lib.ItemLib.enderPearl;
+import static mariculture.core.lib.ItemLib.goldThread;
+import static mariculture.core.lib.ItemLib.magicDrop;
+import static mariculture.core.lib.ItemLib.netherStar;
+import static mariculture.core.lib.ItemLib.pearls;
+import static mariculture.core.lib.ItemLib.storageBookshelf;
+
 import java.util.Map.Entry;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.Core;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.MachineMeta;
-import mariculture.core.lib.MaterialsMeta;
-import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
@@ -58,13 +62,11 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
@@ -134,13 +136,11 @@ public class Magic extends RegistrationModule {
 
 	@Override
 	public void registerOther() {
-		//Jewelry Recipes
 		RecipeSorter.INSTANCE.register("mariculture:jewelryshaped", ShapedJewelryRecipe.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
 		RecipeSorter.INSTANCE.register("mariculture:jewelryshapeless", ShapelessJewelryRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		
 		registerJewelry();
 		registerEnchants();
-		// Setup IIcon
 		MaricultureTab.tabJewelry.icon = new ItemStack(basicMirror);
 	}
 	
@@ -185,31 +185,9 @@ public class Magic extends RegistrationModule {
 
 	@Override
 	public void registerRecipes() {		
-		//Basic Mirror
-		RecipeHelper.addShaped(new ItemStack(basicMirror), new Object[] {
-			" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"
-		});
-		
-		//Magic Mirror
-		RecipeHelper.addShaped(new ItemStack(magicMirror), new Object[] {
-			"PMP", "BEB", "PBP", 
-			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 
-			'M', basicMirror, 
-			'E', Blocks.enchanting_table, 
-			'P', new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE)
-		});
-			
-		//Celestial Mirror
-		ItemStack drop = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
-		RecipeHelper.addShaped(new ItemStack(celestialMirror), new Object[] {
-			"TST", "BMB", "GBG", 
-			'B', new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF), 
-			'M', magicMirror, 
-			'S', Items.nether_star,
-			'T', drop,
-			'G', new ItemStack(Core.crafting, 1, CraftingMeta.GOLDEN_THREAD)
-		});
-		
+		addShaped(_(basicMirror), new Object[] {" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"});
+		addShaped(_(magicMirror), new Object[] {"PMP", "BEB", "PBP", 'B', storageBookshelf, 'M', basicMirror, 'E', enchant, 'P', pearls});
+		addShaped(_(celestialMirror), new Object[] {"TST", "BMB", "GBG", 'B', storageBookshelf, 'M', magicMirror, 'S', netherStar, 'T', magicDrop, 'G', goldThread});
 		addJewelry((ItemJewelry)ring);
 		addJewelry((ItemJewelry)bracelet);
 		addJewelry((ItemJewelry)necklace);
@@ -217,9 +195,7 @@ public class Magic extends RegistrationModule {
 		
 		//Mob Magnet Crafting
 		if(Extra.MOB_MAGNET) {
-			RecipeHelper.addShaped(new ItemStack(magnet), new Object[] {
-				"III", "I I", "M M", 'I', "ingotIron", 'M', Items.ender_pearl
-			});
+			addShaped(_(magnet), new Object[] {"III", "I I", "M M", 'I', "ingotIron", 'M', enderPearl});
 		}
 	}
 

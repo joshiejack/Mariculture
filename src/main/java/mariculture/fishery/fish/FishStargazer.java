@@ -55,7 +55,7 @@ public class FishStargazer extends FishSpecies {
 		addProduct(dropletWater, 2D);
 		addProduct(dropletPoison, 7.5D);
 		addProduct(dropletEarth, 1.5D);
-		addProduct(fishMeal, 3D);
+		addProduct(fishMeal, 15D);
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class RenderSingleItem implements IItemRenderer {
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
 		if(item.getItem() == Item.getItemFromBlock(Core.renderedMachines)) {
 			int meta = item.getItemDamage();
-			if(meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL || meta == MachineRenderedMeta.INGOT_CASTER)
+			if(meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL || meta == MachineRenderedMeta.INGOT_CASTER || meta == MachineRenderedMeta.BLOCK_CASTER)
 				return false;
 		}
 

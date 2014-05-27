@@ -66,19 +66,14 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
 		super.setInventorySlotContents(slot, stack);
-		if(stack != null) {
-			if(stack.getItem() instanceof ItemUpgrade) {
-				updateUpgrades();
-			}
-		}
-		
-		canWork = canWork();
+		updateUpgrades();
+		updateCanWork();
 	}
 	
 	@Override
 	public ItemStack decrStackSize(int slot, int amount) {
 		ItemStack stack = super.decrStackSize(slot, amount);
-		canWork = canWork();
+		updateCanWork();
 		return stack;
 	}
 	
@@ -86,7 +81,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int fill = super.fill(from, resource, doFill);
 		if(doFill) {
-			canWork = canWork();
+			updateCanWork();
 		}
 		
 		return fill;
@@ -96,7 +91,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		FluidStack stack = super.drain(from, maxDrain, doDrain);
 		if(doDrain) {
-			canWork = canWork();
+			updateCanWork();
 		}
 		
 		return stack;
@@ -129,6 +124,10 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 			tank.setFluidAmount(tank.getCapacity());
 	}
 	
+	protected void updateCanWork() {
+		canWork = canMachineWork();
+	}
+	
 	public int getTankCapacity(int storage) {
 		int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
 		return (tankRate * 20) + (storage * tankRate);
@@ -146,7 +145,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 		updateMachine();
 	}
 	
-	public abstract boolean canWork();
+	public abstract boolean canMachineWork();
 	public abstract void updateMachine();
 	
 	public void autoeject() {

@@ -12,16 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemLib {
-	/** Dye Shortcuts **/
-	public static final String black = "dyeBlack";
-	public static final String blue = "dyeBlue";
-	public static final String cyan = "dyeCyan";
-	public static final String green = "dyeGreen";
-	public static final String red = "dyeRed";
-	public static final String white = "dyeWhite";
-	public static final String yellow = "dyeYellow";
-	
+public class ItemLib {	
 	/** Vanilla shortcuts for stacks **/
 	public static final ItemStack ink = new ItemStack(Items.dye, 1, Dye.INK);
 	public static final ItemStack bonemeal = new ItemStack(Items.dye, 1, Dye.BONE);
@@ -53,6 +44,7 @@ public class ItemLib {
 	
 	
 	/** Vanilla shortcuts for blocks **/
+	public static final Block enchant = Blocks.enchanting_table;
 	public static final Block tnt = Blocks.tnt;
 	public static final Block bookshelf = Blocks.bookshelf;
 	public static final Block snow = Blocks.snow;
@@ -183,6 +175,7 @@ public class ItemLib {
 	public static final ItemStack sifter = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.SIFTER);
 	public static final ItemStack compressorBase = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 	public static final ItemStack compressorTop = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP);
+	public static final ItemStack geyser = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.GEYSER);
 	
 	/** ItemStack always based items **/
 	public static final ItemStack kelpWrap = new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP);
@@ -271,6 +264,7 @@ public class ItemLib {
 	public static final Object bait = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): Items.spider_eye;
 	public static final Object scubaTank = Modules.isActive(Modules.diving)? new ItemStack(Diving.scubaTank, 1, 1): Blocks.lever;
 	public static final Object sponge = Modules.isActive(Modules.worldplus)? Blocks.sponge: Items.water_bucket;
+	public static final ItemStack magicDrop = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC): new ItemStack(Items.ghast_tear);
 	public static final Object waterDrop = Modules.isActive(Modules.fishery)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER): new ItemStack(Items.potionitem, 1, 0);
 	public static final Object rubber = (OreDictionary.getOres("itemRubber").size() > 0)? "itemRubber": new ItemStack(Items.dye, 1, Dye.INK);
 	public static final ItemStack polishedStick = (Modules.isActive(Modules.fishery))? new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK): new ItemStack(Items.blaze_rod);

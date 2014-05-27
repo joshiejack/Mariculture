@@ -122,7 +122,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 					damageFish(inventory[female], true);
 					damageFish(inventory[male], true);
 					
-					canWork = canWork();
+					canWork = canMachineWork();
 				}
 			} else {
 				processed = 0;
@@ -131,7 +131,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 	}
 
 	@Override
-	public boolean canWork() {
+	public boolean canMachineWork() {
 		return hasMale() && hasFemale() && RedstoneMode.canWork(this, mode) && outputHasRoom() && fishCanLive(inventory[male]) && fishCanLive(inventory[female]);
 	}
 	

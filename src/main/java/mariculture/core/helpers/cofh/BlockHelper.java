@@ -164,11 +164,6 @@ public final class BlockHelper {
 		return refTile == null ? null : getAdjacentTileEntity(refTile.getWorldObj(), refTile.xCoord, refTile.yCoord, refTile.zCoord, ForgeDirection.values()[side]);
 	}
 
-	public static int determineAdjacentSide(TileEntity refTile, int x, int y, int z) {
-
-		return y > refTile.yCoord ? 1 : y < refTile.yCoord ? 0 : z > refTile.zCoord ? 3 : z < refTile.zCoord ? 2 : x > refTile.xCoord ? 5 : 4;
-	}
-
 	/* COORDINATE TRANSFORM */
 	public static int[] getAdjacentCoordinatesForSide(int x, int y, int z, int side) {
 

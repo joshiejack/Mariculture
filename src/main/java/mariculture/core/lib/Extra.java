@@ -45,7 +45,7 @@ public class Extra {
 	public static int DRAGON_EGG_ETHEREAL;
 	public static boolean DROP_JEWELRY;
 	public static boolean GEN_ENDER_PEARLS;
-	public static boolean NERF_FOOD;
+	public static boolean NERF_FOOD = false;
 	public static int JEWELRY_TICK_RATE;
 	
 	public static int SONIC_MOD;

@@ -12,7 +12,7 @@ import static mariculture.core.helpers.RecipeHelper.addSmelting;
 import static mariculture.core.helpers.RecipeHelper.addUpgrade;
 import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static mariculture.core.helpers.RecipeHelper.addVatItemRecipeResultFluid;
-import static mariculture.core.lib.ItemLib.autofisher;
+import static mariculture.core.lib.ItemLib.*;
 import static mariculture.core.lib.ItemLib.baseWood;
 import static mariculture.core.lib.ItemLib.bowl;
 import static mariculture.core.lib.ItemLib.bread;
@@ -345,28 +345,13 @@ public class Fishery extends RegistrationModule {
 			 new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER)
 		});
 		
-		// Tetra > Neon Lamp
 		for (int i = 0; i < 12; i++) {
 			addShaped(new ItemStack(lampsOn, 8, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "blockGlass", 'F', new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
 			addShaped(new ItemStack(lampsOn, 4, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "blockGlass", 'F', dropletFlux });
 		}
 		
-		//Dragonfish to Eternal Upgrades
-		addUpgrade(UpgradeMeta.ETERNAL_MALE, new Object[] {"WEW", "FRF", "DWD", 
-					Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 11),
-					Character.valueOf('E'), Blocks.emerald_block, 
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.dragon.getID()),
-					Character.valueOf('R'), Blocks.dragon_egg, 
-					Character.valueOf('D'), Items.diamond });
-
-		addUpgrade(UpgradeMeta.ETERNAL_FEMALE, new Object[] {"WEW", "FRF", "DWD", 
-					Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 6),
-					Character.valueOf('E'), Blocks.emerald_block, 
-					Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.dragon.getID()),
-					Character.valueOf('R'), Blocks.dragon_egg, 
-					Character.valueOf('D'), Items.diamond});
-		
-		//Netherfish as Liquifier fuel		
+		addUpgrade(UpgradeMeta.ETERNAL_MALE, new Object[] {"WEW", "FRF", "DWD", 'W', blueWool, 'E', "blockEmerald", 'F', new ItemStack(Items.fish, 1, Fish.dragon.getID()), 'R', dragonEgg, 'D', diamond });
+		addUpgrade(UpgradeMeta.ETERNAL_FEMALE, new Object[] {"WEW", "FRF", "DWD", 'W', new ItemStack(Blocks.wool, 1, 6), 'E', "blockEmerald", 'F', new ItemStack(Items.fish, 1, Fish.dragon.getID()), 'R', dragonEgg, 'D', diamond});
 		MaricultureHandlers.crucible.addFuel(new ItemStack(Items.fish, 1, Fish.nether.getID()), new FuelInfo(2000, 16, 2400));
 	}
 }

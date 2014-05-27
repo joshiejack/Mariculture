@@ -84,7 +84,7 @@ public class FishingHandler implements IFishing {
 		return stack;
 	}
 
-	public int[] getBait(EntityPlayer player, ItemStack rod) {
+	private int[] getBait(EntityPlayer player, ItemStack rod) {
 		int baitQuality = 0;
 		int currentSlot = player.inventory.currentItem;
 		int foundSlot = -1;
@@ -162,18 +162,7 @@ public class FishingHandler implements IFishing {
 		return canUse.get(quality);
 	}
 
-	// Loot Based Handling
-	public static class LootingList {
-		private int dimension;
-		private RodType type;
-
-		public LootingList(int dimension, RodType type) {
-			this.dimension = dimension;
-			this.type = type;
-		}
-	}
-	
-	public static final HashMap<Rarity, ArrayList<Loot>> fishing_loot = new HashMap();
+	private static final HashMap<Rarity, ArrayList<Loot>> fishing_loot = new HashMap();
 	@Override
 	public void addLoot(Loot loot) {
 		ArrayList<Loot> lootList = fishing_loot.get(loot.rarity);

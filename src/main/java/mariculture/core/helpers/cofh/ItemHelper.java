@@ -15,14 +15,6 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  */
 public final class ItemHelper {
-
-	public static final String BLOCK = "block";
-	public static final String ORE = "ore";
-	public static final String DUST = "dust";
-	public static final String INGOT = "ingot";
-	public static final String NUGGET = "nugget";
-	public static final String LOG = "log";
-
 	private ItemHelper() {
 
 	}

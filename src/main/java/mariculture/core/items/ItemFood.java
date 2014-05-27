@@ -1,10 +1,15 @@
 package mariculture.core.items;
 
+import java.util.List;
+
+import cpw.mods.fml.common.Loader;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
+import mariculture.plugins.PluginHungerOverhaul;
+import mariculture.plugins.Plugins;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -112,6 +117,18 @@ public class ItemFood extends ItemMariculture {
 		}
 
 		return stack;
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		if(Extra.NERF_FOOD) {
+			int level = getFoodLevel(stack.getItemDamage());
+			float sat = getFoodSaturation(stack.getItemDamage());
+			//Decrease food if hunger overhaul is installed
+			level = (int) Math.max(1, level/2.5);
+			sat = Math.max(0.0F, sat/10);
+			PluginHungerOverhaul.addInformation(level, sat, par3List);
+		}
 	}
 
 	@Override

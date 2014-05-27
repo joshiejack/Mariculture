@@ -1,5 +1,7 @@
 package mariculture.aesthetics;
 
+import static mariculture.core.lib.ItemLib.*;
+import static mariculture.core.helpers.RecipeHelper.*;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockPearlBlock;
 import mariculture.core.helpers.RecipeHelper;
@@ -36,23 +38,23 @@ public class Aesthetics extends RegistrationModule {
 	@Override
 	public void registerRecipes() {
 		for (int i = 0; i < 12; i++) {
-			RecipeHelper.add4x4Recipe(new ItemStack(pearlBrick, 4, i), new ItemStack(Core.pearlBlock, 1, i));
+			add4x4Recipe(new ItemStack(pearlBrick, 4, i), new ItemStack(Core.pearlBlock, 1, i));
 		}
 		
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BRICK), Core.limestone, LimestoneMeta.RAW);
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BORDERED), Core.limestone, LimestoneMeta.SMOOTH);
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.SMALL_BRICK), Core.limestone, LimestoneMeta.BRICK);
-		RecipeHelper.add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.CHISELED), Core.limestone, LimestoneMeta.BORDERED);
-		RecipeHelper.addSmelting(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 0.1F);
-		RecipeHelper.addShaped(new ItemStack(Core.limestone, 4, LimestoneMeta.THIN_BRICK), new Object[] {
+		add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BRICK), Core.limestone, LimestoneMeta.RAW);
+		add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.BORDERED), Core.limestone, LimestoneMeta.SMOOTH);
+		add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.SMALL_BRICK), Core.limestone, LimestoneMeta.BRICK);
+		add4x4Recipe(new ItemStack(Core.limestone, 4, LimestoneMeta.CHISELED), Core.limestone, LimestoneMeta.BORDERED);
+		addSmelting(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 0.1F);
+		addShaped(new ItemStack(Core.limestone, 4, LimestoneMeta.THIN_BRICK), new Object[] {
 			"XY", "YX", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.BRICK), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.SMALL_BRICK)
 		});
 		
-		RecipeHelper.addShaped(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
+		addShaped(new ItemStack(Core.limestone, 2, LimestoneMeta.PILLAR_1), new Object[] {
 			"X", "X", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH)
 		});
 		
-		RecipeHelper.addShaped(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
+		addShaped(new ItemStack(Core.limestone, 2, LimestoneMeta.PEDESTAL_1), new Object[] {
 			"X", "Y", 'X', new ItemStack(Core.limestone, 1, LimestoneMeta.PILLAR_1), 'Y', new ItemStack(Core.limestone, 1, LimestoneMeta.BORDERED)
 		});
 	}

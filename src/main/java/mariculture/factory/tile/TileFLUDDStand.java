@@ -176,7 +176,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification,
 	}
 	
 	@Override
-	public boolean canWork() {
+	public boolean canMachineWork() {
 		return tank.getFluidAmount() > 0 && tank.getFluidID() == FluidRegistry.getFluidID(Fluids.hp_water) && RedstoneMode.canWork(this, mode);
 	}
 	

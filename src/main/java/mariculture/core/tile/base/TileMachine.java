@@ -54,12 +54,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
 		super.setInventorySlotContents(slot, stack);
-		if(stack != null) {
-			if(stack.getItem() instanceof ItemUpgrade) {
-				updateUpgrades();
-			}
-		}
-		
+		updateUpgrades();
 		updateCanWork();
 	}
 	

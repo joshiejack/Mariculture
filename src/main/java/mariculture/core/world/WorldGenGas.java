@@ -21,9 +21,6 @@ public class WorldGenGas extends WorldGenerator
     /** The number of blocks to generate. */
     private int numberOfBlocks;
 
-    /** The block ID of the block to be replaced with the ore (usually stone) */
-    Block blockToReplace;
-
     public WorldGenGas(Block par1, int par2)
     {
         this(par1, par2, Blocks.stone);
@@ -33,7 +30,6 @@ public class WorldGenGas extends WorldGenerator
     {
         this.mineableBlock = par1;
         this.numberOfBlocks = par2;
-        this.blockToReplace = block;
     }
 
     public WorldGenGas(Block block, int meta, int number, Block target)
