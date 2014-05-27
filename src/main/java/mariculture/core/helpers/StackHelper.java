@@ -1,5 +1,8 @@
 package mariculture.core.helpers;
 
+import java.util.logging.Level;
+
+import mariculture.core.handlers.LogHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -36,10 +39,16 @@ public class StackHelper {
 		} catch (NumberFormatException numberformatexception) {
             for(Item item: Item.itemsList) {
                 if(item != null) {
-                	String text = item.getUnlocalizedName();
-                    if(text.length() > 5 && text.substring(5).equals(str)) {
-                        return item;
-                    }
+                	try {
+	                	String text = item.getUnlocalizedName();
+	                    if(text.length() > 5 && text.substring(5).equals(str)) {
+	                        return item;
+	                    }
+                	} catch (Exception e) {
+                		LogHandler.log(Level.SEVERE, "A Mod has incorrectly registered an item block, go and complain to the author about this!");
+                		LogHandler.log(Level.SEVERE, item.toString());
+                		e.printStackTrace();
+                	}
                 }
             }
 		}

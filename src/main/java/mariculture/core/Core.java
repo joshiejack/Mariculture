@@ -154,7 +154,6 @@ public class Core extends RegistrationModule {
 	public static Item hammer;
 	public static Item worked;
 	public static Item ladle;
-	public static Item can;
 	public static Item bucket;
 	
 	@Override

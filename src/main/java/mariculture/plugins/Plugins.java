@@ -68,6 +68,7 @@ public class Plugins extends Module {
         add("Enchiridion");
         add("AWWayofTime");
         add("Waila");
+        add("Highlands");
 	}
 	
 	public void add(String str) {

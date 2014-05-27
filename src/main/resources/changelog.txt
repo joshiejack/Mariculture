@@ -2,12 +2,15 @@
 • Enchiridion is now required (Books are too important!)
 • Added crash prevention when loading corrupted vats
 • Fixed potential crash with buildcraft pipes
+• Supressed a crash with mods that add itemblocks without blocks attached (bad modders!)
 • Possibly fixed potential mirror saving crash?
 • Fixed potential nullpointer with oyster
 • Fixed further potential fluid crashes with crucible furnace
 • Fish should give a minimum of 1 fish meal now (Some fish were giving none before)
 • Crucible furnace should now only accept items in to the correct slots and you can only pull out of the output slots
 • Hybrids will now show breeding in NEI, based on their two species, they will not show the inactive's products though
+• Temperature variant formula was changed
+• Highlands Biomes support cos hey why not?
 
 == Mariculture 1.2.2d ==
 • Fixed potential startup crash with Forestry

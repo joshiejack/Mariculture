@@ -19,14 +19,11 @@ public class Comment {
 	public static final String PUMP_MANUAL = "Whether or not the Air Pump can be activated by right clicking on it";
 	public static final String PUMP_REDSTONE = "Whether or not giving the Air Pump a Redstone Signal will cause it to provide air";
 	public static final String PUMP_RF = "Whether an Air Pump can be powered by Redstone Flux";
-	public static final String EXCEPTIONS = "Place names that are practically equivalent and should be converted between each other by dictionary, format - item1: item2";
 	public static final String WHITELIST = "Place Ore Dictionary Prefixes here, that are acceptable to be converted";
 	public static final String EFFECT_TICK = "This is how many ticks for an effect to occur in a fish tank, such as poison or regen";
-	public static final String DEATH_TICK = "This is the number of ticks, before 'damaging' a fish that can't stay alive in the current feeder, set to 0 to disable";
 	public static final String DRAGON_EGG_BASE = "This is a 1 in this many chance for the chance to get a Spawn Ender Dragon from a Dragon Egg";
 	public static final String DRAGON_EGG_ETHEREAL = "Same as the normal chance but this is the chance when you have an ethereal upgrade in the incubator";
 	public static final String BIOMESOP_CORAL = "If enabled this will force Coral to only generate in Coral Reef Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
-	public static final String BIOMESOP_KELP = "If enabled this will force Kelp Forests to only generate in Kelp Forest Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
 	public static final String RETRO_KEY = "This key is what stops, retro gen from generating in chunks over and over, if you want to retro gen again, change the key to any other integer";
 	public static final String RETRO = "Retro-Generation allows you to generate ores/other features in your existing worlds, without you having to go off and explore new areas. If you set all to true, it will override the individual settings for retro-gen";
 	public static final String JEWELRY_TICK_RATE = "This is how many ticks before the server will send an update to a player about what level enchant they have in their mirror inventory";

@@ -41,7 +41,7 @@ public class EnvironmentHandler implements IEnvironmentHandler {
 			else if (BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) temperature = 50;
 			else if (BiomeDictionary.isBiomeOfType(biome, Type.FROZEN)) temperature = -30;
 			else if (BiomeDictionary.isBiomeOfType(biome, Type.SWAMP)) temperature = 8;
-			else if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE)) temperature = 35;
+			else if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE)) temperature = 25;
 			else if (BiomeDictionary.isBiomeOfType(biome, Type.FOREST)) temperature = 10;
 			else if (BiomeDictionary.isBiomeOfType(biome, Type.PLAINS)) temperature = 10;
 			else if (BiomeDictionary.isBiomeOfType(biome, Type.WASTELAND)) temperature = 45;
@@ -58,23 +58,15 @@ public class EnvironmentHandler implements IEnvironmentHandler {
 
 	@Override
 	public int getTemperature(World world, int x, int y, int z) {
-		// Biome temperature increased by 4 degrees
-		int temperature = getBiomeTemperature(world, x, y + 1, z) + 4;
-		boolean isWater = world.getBlockMaterial(x, y + 1, z) == Material.water;
-		if (!isWater) {
-			temperature -= ((y + 1) * 0.1125F);
-		} else {
-			temperature -= ((115 - y) * 0.175F);
+		int temperature = getBiomeTemperature(world, x, y, z) - 3;
+		temperature += ((getSunBrightness(world, 1F) * 9) - 2);
+		if(y > 60) {
+			temperature = (int)((60 - (y)) * 0.11255) + temperature;
+		} else if (y < 68) {
+			temperature = (int) (temperature - ((68 - (y)) * 0.11255));
 		}
-
-		if (!isWater) {
-			temperature += (getLightBrightnessForSkyBlocks(world, x, y + 1, z, 0) % 15) / 4;
-		}
-
-		if (y > 32 || world.canBlockSeeTheSky(x, y + 1, z)) {
-			temperature += ((getSunBrightness(world, 1F) * 10) - 5);
-		}
-
+		
+		temperature -= ((int)((float)world.getRainStrength(1) * 0.15D));
 		return temperature;
 	}
 

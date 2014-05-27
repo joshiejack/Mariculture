@@ -23,7 +23,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Diving extends RegistrationModule {
-	public static final HashMap facingList = new HashMap();
 	public static Item divingHelmet;
 	public static Item divingTop;
 	public static Item divingPants;
