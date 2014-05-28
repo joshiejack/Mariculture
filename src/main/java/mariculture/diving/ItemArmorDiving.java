@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisablesHardcoreDiving {
 	public ItemArmorDiving(ArmorMaterial material, int j, int k) {
 		super(material, j, k);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabWorld);
 	}
 
 	@Override

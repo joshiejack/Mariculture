@@ -1,8 +1,10 @@
-package mariculture.core.items;
+package mariculture.factory.items;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.SpawnItemHelper;
+import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.Rand;
@@ -15,6 +17,7 @@ import net.minecraft.world.World;
 public class ItemChalk extends ItemDamageable {
 	public ItemChalk(int dmg) {
 		super(dmg);
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 	
 	@Override

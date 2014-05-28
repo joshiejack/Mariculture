@@ -41,7 +41,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
 	private IIcon filledIcon;
 	public ItemFluidStorage(int capacity) {
 		this.capacity = capacity;
-		setCreativeTab(MaricultureTab.tabFluids);
+		setCreativeTab(MaricultureTab.tabFactory);
 		setMaxStackSize(1);
 	}
 	

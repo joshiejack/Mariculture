@@ -31,7 +31,7 @@ public class ItemHammer extends ItemPickaxe implements IItemRegistry {
 	public ItemHammer(ToolMaterial brick) {
 		super(brick);
 		setHarvestLevel("pickaxe", 0);
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 
 	@Override

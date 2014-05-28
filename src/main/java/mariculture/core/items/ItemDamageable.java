@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemDamageable extends Item implements IItemRegistry {
 	public ItemDamageable(int dmg) {
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabCore);
 		setMaxStackSize(1);
 		setMaxDamage(dmg);
 	}

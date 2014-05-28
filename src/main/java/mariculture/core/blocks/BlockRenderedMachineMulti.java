@@ -1,10 +1,12 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.base.BlockFunctionalMulti;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
@@ -16,6 +18,7 @@ import mariculture.diving.TileAirCompressor;
 import mariculture.factory.tile.TilePressureVessel;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -213,11 +216,16 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 	@Override
 	public boolean isActive(int meta) {
 		switch (meta) {
-		case MachineRenderedMultiMeta.COMPRESSOR_BASE: 	return (Modules.isActive(Modules.diving));
-		case MachineRenderedMultiMeta.COMPRESSOR_TOP: 	return (Modules.isActive(Modules.diving));
-		case MachineRenderedMultiMeta.PRESSURE_VESSEL: 	return (Modules.isActive(Modules.factory));
-		default: 										return true;
+			case MachineRenderedMultiMeta.COMPRESSOR_BASE: 	return (Modules.isActive(Modules.diving));
+			case MachineRenderedMultiMeta.COMPRESSOR_TOP: 	return (Modules.isActive(Modules.diving));
+			case MachineRenderedMultiMeta.PRESSURE_VESSEL: 	return (Modules.isActive(Modules.factory));
+			default: 										return true;
 		}
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		return tab == MaricultureTab.tabFactory;
 	}
 	
 	@Override

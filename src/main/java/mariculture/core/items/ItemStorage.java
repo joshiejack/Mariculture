@@ -37,7 +37,7 @@ public class ItemStorage extends Item implements IItemRegistry {
 		maxStackSize = 1;
 		this.size = storage;
 		this.gui = gui;
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		this.setCreativeTab(MaricultureTab.tabCore);
 	}
 
 	@Override

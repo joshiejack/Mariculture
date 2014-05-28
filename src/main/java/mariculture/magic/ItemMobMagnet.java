@@ -2,6 +2,7 @@ package mariculture.magic;
 
 import java.util.List;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.util.Rand;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.Level;
 public class ItemMobMagnet extends ItemDamageable {
 	public ItemMobMagnet(int dmg) {
 		super(dmg);
+		setCreativeTab(MaricultureTab.tabMagic);
 	}
 	
 	@Override

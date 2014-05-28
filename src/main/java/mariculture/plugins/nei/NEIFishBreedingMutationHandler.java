@@ -8,10 +8,10 @@ import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IMutation.Mutation;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.items.ItemWorked;
 import mariculture.core.util.Text;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishyHelper;
+import mariculture.fishery.items.ItemFishy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -86,7 +86,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if(ingredient.getItem() instanceof ItemWorked) {
+		if(!(ingredient.getItem() instanceof ItemFishy)) {
 			return;
 		}
 		

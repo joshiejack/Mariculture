@@ -45,7 +45,7 @@ public abstract class ItemJewelry extends ItemDamageable {
 	public ItemJewelry() {
 		super(100);
 		setNoRepair();
-		setCreativeTab(MaricultureTab.tabJewelry);
+		setCreativeTab(MaricultureTab.tabMagic);
 	}
 
 	//The 'code' 0, 1, 2 for the item types

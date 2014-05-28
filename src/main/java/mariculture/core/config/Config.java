@@ -1,13 +1,15 @@
-package mariculture.core;
+package mariculture.core.config;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
 import mariculture.Mariculture;
 import mariculture.aesthetics.Aesthetics;
 import mariculture.api.core.MaricultureTab;
 import mariculture.compatibility.Compat;
+import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.lib.Compatibility;
+import mariculture.core.handlers.OreDicHandler;
 import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.EnchantSetting;
 import mariculture.core.lib.Extra;
@@ -34,8 +36,32 @@ import org.apache.logging.log4j.Level;
 import cpw.mods.fml.common.Loader;
 
 public class Config {
-    public static void setup(String dir) {
-    	initModules(new Configuration(new File(dir, "modules.cfg")));
+	private static final String dir = Mariculture.root + "/mariculture/";
+	private static boolean setup(String name) {
+		Configuration config = new Configuration(new File(dir, name.replaceAll("(.)([A-Z])", "$1-$2").toLowerCase() + ".cfg"));
+		try {
+			try {
+	            config.load();
+				Class clazz = Class.forName("mariculture.core.config." + name);
+				Method method = clazz.getMethod("init", Configuration.class);
+				method.invoke(null, config);
+			} catch (Exception e) {
+	        	LogHandler.log(Level.ERROR, "There was a problem loading the " + name + " config settings");
+	        	e.printStackTrace();
+	        } finally {
+	            config.save();
+	        }
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+    public static void setup() {
+    	setup("Modules");
+    	setup("AutoDictionary");
     	initEnchantments(new Configuration(new File(dir, "enchantments.cfg")));
         initOther(new Configuration(new File(dir, "other.cfg")));
         initMachines(new Configuration(new File(dir, "mechanics.cfg"))); 
@@ -46,10 +72,9 @@ public class Config {
     }
     
     private static void setupTabs() {
-    	MaricultureTab.tabFish = (Modules.isActive(Modules.fishery))? new MaricultureTab("fishTab"): null;
-    	MaricultureTab.tabFluids = new MaricultureTab("maricultureFluidsTab");
-		MaricultureTab.tabMariculture = new MaricultureTab("maricultureTab");
-		MaricultureTab.tabJewelry = (Modules.isActive(Modules.magic))? new MaricultureTab("jewelryTab"): null;
+    	if(!Modules.isActive(Modules.magic)) {
+    		MaricultureTab.tabMagic = null;
+    	}
     }
 
     private static void initOther(Configuration config) {
@@ -89,12 +114,6 @@ public class Config {
             	Extra.VANILLA_FORCE = false;
             	Extra.VANILLA_TEXTURES = true;
             }
-            
-            Compatibility.ENABLE_WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Use Whitelist", false).getBoolean(false);
-            Compatibility.BLACKLIST = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist", Compatibility.BLACKLIST_DEFAULT, Comment.BLACKLIST).getStringList();
-            Compatibility.WHITELIST = config.get(Category.DICTIONARY, "AutoDictionary > Whitelist", Compatibility.WHITELIST_DEFAULT, Comment.WHITELIST).getStringList();
-            Compatibility.BLACKLIST_PREFIX = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist Prefixes", Compatibility.BLACKLIST_PREFIX_DEFAULT, Comment.PREFIX).getStringList();
-            Compatibility.BLACKLIST_ITEMS = config.get(Category.DICTIONARY, "AutoDictionary > Blacklist Items", Compatibility.BLACKLIST_ITEMS_DEFAULT, Comment.ITEMS).getStringList();
         } catch (Exception e) {
         	LogHandler.log(Level.ERROR, "There was a problem loading the other config settings");
         	e.printStackTrace();
@@ -175,35 +194,6 @@ public class Config {
             RetroGeneration.ANCIENT = config.get(Category.RETRO, "Ancient Sand", false).getBoolean(false);
         } catch (Exception e) {
         	LogHandler.log(Level.ERROR, "Oh dear, there was a problem with loading the world configuration file");
-        	e.printStackTrace();
-        } finally {
-            config.save();
-        }
-    }
-
-    private static void initModules(Configuration config) {
-        try {
-            config.load();
-            Mariculture.modules.setup(Core.class, true);
-            Mariculture.modules.setup(Aesthetics.class, config.get(Category.MODULES, "Aesthetics", true).getBoolean(true));
-            Mariculture.modules.setup(Diving.class, config.get(Category.MODULES, "Diving", true).getBoolean(true));
-            Mariculture.modules.setup(Factory.class, config.get(Category.MODULES, "Factory", true).getBoolean(true));
-            Mariculture.modules.setup(Fishery.class, config.get(Category.MODULES, "Fishery", true).getBoolean(true));
-            Mariculture.modules.setup(Magic.class, config.get(Category.MODULES, "Magic", true).getBoolean(true));
-            Mariculture.modules.setup(Sealife.class, false);
-            Mariculture.modules.setup(Transport.class, config.get(Category.MODULES, "Transport", true).getBoolean(true));
-            Mariculture.modules.setup(WorldPlus.class, config.get(Category.MODULES, "World Plus", true).getBoolean(true));
-            Mariculture.modules.setup(Compat.class, false);
-            Mariculture.modules.setup(Plugins.class, true);
-            Extra.HAS_BOP = Loader.isModLoaded("BiomesOPlenty");
-            for(int i = 0; i < Plugins.plugins.size(); i++) {
-            	Plugin plugin = Plugins.plugins.get(i);
-            	if(config.get(Category.PLUGINS, plugin.name, true).getBoolean(true) == false) {
-            		Plugins.plugins.remove(i);
-            	}
-            }
-        } catch (Exception e) {
-            LogHandler.log(Level.ERROR, "Problem when reading which modules are activated");
         	e.printStackTrace();
         } finally {
             config.save();

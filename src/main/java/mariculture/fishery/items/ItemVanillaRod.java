@@ -1,7 +1,7 @@
 package mariculture.fishery.items;
 
+import mariculture.api.core.MaricultureTab;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,7 +12,7 @@ public class ItemVanillaRod extends ItemRod {
 	
 	public ItemVanillaRod() {
 		super(64, 1);
-		setCreativeTab(CreativeTabs.tabTools);
+		setCreativeTab(MaricultureTab.tabFishery);
 		setUnlocalizedName("fishingRod");
 		setTextureName("fishing_rod");
 	}

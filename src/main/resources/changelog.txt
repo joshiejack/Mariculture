@@ -1,5 +1,11 @@
 Mariculture 1.7.2 BETA 9
+• Broke all the configs as promised!
+• Improved autodictionary blacklisting defaults
+• Added Highlands Support
+• Adjusted various upgrade recipes
 • Fixed direction for fluid handlers
+• Fixed usage on any item bringing up usage for cod...
+• NEI will now only display one of each live fish + raw fish, So you can still see them for recipes, but you'll need to go to creative to cheat male/female
 
 Mariculture 1.7.2 BETA 8
 • Made Enchiridion a requirement, books are too important to the mod

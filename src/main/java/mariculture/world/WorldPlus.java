@@ -3,6 +3,7 @@ package mariculture.world;
 import static mariculture.core.helpers.RecipeHelper.addBleachRecipe;
 import static mariculture.core.helpers.RecipeHelper.addCrushRecipe;
 import static mariculture.core.helpers.RecipeHelper.addSoakRecipe;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.ReflectionHelper;
@@ -57,6 +58,7 @@ public class WorldPlus extends RegistrationModule {
 	
 	@Override
 	public void registerOther() {
+		MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 7), false);
 		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");
 		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), "Yellow");
 		RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), "Magenta");

@@ -1,5 +1,6 @@
 package mariculture.fishery.items;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemStorage;
 import mariculture.fishery.gui.ContainerScanner;
@@ -11,6 +12,7 @@ public class ItemScanner extends ItemStorage {
 	public static final int SIZE = 1;
 	public ItemScanner() {
 		super(SIZE, "scanner");
+		setCreativeTab(MaricultureTab.tabFishery);
 	}
 	
 	@Override

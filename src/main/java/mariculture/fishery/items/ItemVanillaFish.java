@@ -3,6 +3,7 @@ package mariculture.fishery.items;
 import java.util.List;
 import java.util.Map.Entry;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Extra;
@@ -30,6 +31,7 @@ public class ItemVanillaFish extends ItemFishFood {
 	
 	public ItemVanillaFish(boolean bool) {
 		super(false);
+		setCreativeTab(MaricultureTab.tabFishery);
 	}
 	
 	@Override

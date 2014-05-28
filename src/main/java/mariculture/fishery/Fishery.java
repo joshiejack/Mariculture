@@ -160,7 +160,7 @@ public class Fishery extends RegistrationModule {
 		rodWood = new ItemRod(320, 10).setUnlocalizedName("rod.wood");
 		rodTitanium = new ItemRod(640, 16).setUnlocalizedName("rod.titanium");
 		rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
-		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFish);
+		fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFishery);
 		net = new BlockItemNet().setUnlocalizedName("net");
 		scanner = new ItemScanner().setUnlocalizedName("scanner");
 		fishEggs = new ItemEgg().setUnlocalizedName("eggs.fish");
@@ -204,7 +204,7 @@ public class Fishery extends RegistrationModule {
 		registerEntities();
 		Fish.init();
 		registerRods();
-		MaricultureTab.tabFish.icon = new ItemStack(Items.fish);
+		MaricultureTab.tabFishery.setIcon(new ItemStack(rodWood), true);
 	}
 	
 	private void registerEntities() {

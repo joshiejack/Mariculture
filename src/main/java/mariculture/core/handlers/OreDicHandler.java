@@ -3,9 +3,10 @@ package mariculture.core.handlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mariculture.core.config.AutoDictionary;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.StackHelper;
-import mariculture.core.lib.Compatibility;
+import mariculture.plugins.PluginMFR;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 //This handles all the OreDictionaryRelated things to do with the Automatic Dictionary Converter
 public class OreDicHandler {
+	public static boolean has_unifier = false;
 	public static HashMap<String, ArrayList<String>> all;
 	public static HashMap<String, ArrayList<String>> entries;
 	public static HashMap<String, Integer[]> specials = new HashMap();
@@ -105,12 +107,18 @@ public class OreDicHandler {
 		alls.add(name);
 		all.put(id, alls);
 		
-		if(!isWhitelisted(name)) return;
-		for(String str: Compatibility.BLACKLIST_PREFIX_DEFAULT) {
+		if(!isWhitelisted(name)) {
+			if(has_unifier) {
+				PluginMFR.blacklist(name);
+			}
+			
+			return;
+		}
+		for(String str: AutoDictionary.BLACKLIST_PREFIX_DEFAULT) {
 			if(name.startsWith(str)) return;
 		}
 		
-		for(String str: Compatibility.BLACKLIST_ITEMS) {
+		for(String str: AutoDictionary.BLACKLIST_ITEMS) {
 			ItemStack check = StackHelper.getStackFromString(str);
 			if(check != null) {
 				if(check.getItem() == stack.getItem() && check.getItemDamage() == stack.getItemDamage()) return;
@@ -172,14 +180,14 @@ public class OreDicHandler {
 	}
 
 	public static boolean isWhitelisted(String name) {
-		if(Compatibility.ENABLE_WHITELIST) {
-			for(String whitelist: Compatibility.WHITELIST) {
+		if(AutoDictionary.ENABLE_WHITELIST) {
+			for(String whitelist: AutoDictionary.WHITELIST) {
 				if(name.startsWith(whitelist)) return true;
 			}
 				
 			return false;
 		} else {
-			for(String blacklist: Compatibility.BLACKLIST) {
+			for(String blacklist: AutoDictionary.BLACKLIST) {
 				if(name.equals(blacklist)) return false;
 			}
 				
@@ -188,6 +196,13 @@ public class OreDicHandler {
 	}
 
 	public static ItemStack getNextValidEntry(ItemStack stack) {
+		for(String str: AutoDictionary.BLACKLIST_ITEMS) {
+			ItemStack check = StackHelper.getStackFromString(str);
+			if(check != null) {
+				if(check.getItem() == stack.getItem() && check.getItemDamage() == stack.getItemDamage()) return stack;
+			}
+		}
+		
 		NBTTagCompound tag = stack.stackTagCompound;
 		if(tag != null && tag.hasKey("OreDictionaryDisplay")) {
 			NBTTagCompound display = tag.getCompoundTag("OreDictionaryDisplay");

@@ -2,11 +2,13 @@ package mariculture.factory.blocks;
 
 import java.util.List;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.Text;
 import mariculture.factory.Factory;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -185,7 +187,7 @@ public class BlockItemCustom extends ItemBlockMariculture {
 		list.add(getName(num) + ": " + block.getItemStackDisplayName(new ItemStack(block, 1, stack.stackTagCompound.getIntArray("BlockMetas")[num])));
 	}
 
-	public static String getName(final int i) {
+	public static String getName(int i) {
 		switch (i) {
 		case 0:
 			return StatCollector.translateToLocal("mariculture.string.bottom");
@@ -208,4 +210,10 @@ public class BlockItemCustom extends ItemBlockMariculture {
 	public String getName(ItemStack stack) {
 		return this.getUnlocalizedName().substring(5);
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[]{ null };
+    }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
@@ -41,6 +42,7 @@ import mariculture.fishery.tile.TileSift;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -547,6 +549,15 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.FLUDD_STAND:	return false;
 			case MachineRenderedMeta.NUGGET_CASTER: return false;
 			default:								return true;
+		}
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		switch (meta) {
+			case MachineRenderedMeta.FISH_FEEDER: 	return tab == MaricultureTab.tabFishery;
+			case MachineRenderedMeta.SIFTER:		return tab == MaricultureTab.tabFishery;
+			default:								return tab == MaricultureTab.tabFactory;
 		}
 	}
 

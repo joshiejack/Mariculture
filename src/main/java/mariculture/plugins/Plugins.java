@@ -49,7 +49,7 @@ public class Plugins extends Module {
 	}
 	
 	public Plugins() {
-		add("AWWayofTime");
+		
 		add("Railcraft");
 		add("TConstruct");
 		add("Forestry");
@@ -58,14 +58,21 @@ public class Plugins extends Module {
 		add("HungerOverhaul");
 		add("ThermalExpansion");
 		add("Enchiridion");
+		add("Highlands");
+		add("BloodMagic", "AWWayofTime");
+		add("MineFactoryReloaded", "MFR");
 	}
 	
 	public void add(String str) {
-		if(Loader.isModLoaded(str)) {
+		add(str, str);
+	}
+	
+	public void add(String clazz, String mod) {
+		if(Loader.isModLoaded(mod)) {
 			try {
-				Class.forName("mariculture.plugins.Plugin" + str).newInstance();
+				Class.forName("mariculture.plugins.Plugin" + clazz).newInstance();
 			} catch (Exception e) {
-				LogHandler.log(Level.WARN, "Something went wrong when initializing " + str + " Plugin");
+				LogHandler.log(Level.WARN, "Something went wrong when initializing " + clazz + " Plugin");
 			}
 		}
 	}

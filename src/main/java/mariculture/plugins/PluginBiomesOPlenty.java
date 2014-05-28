@@ -7,6 +7,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.OreDicHandler;
 import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.lib.Extra;
 import mariculture.core.lib.ItemLib;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.plugins.Plugins.Plugin;
@@ -17,6 +18,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import org.apache.logging.log4j.Level;
 
+import cpw.mods.fml.common.Loader;
 import biomesoplenty.api.BOPBlockHelper;
 import biomesoplenty.api.BOPItemHelper;
 import biomesoplenty.api.content.BOPCBiomes;
@@ -34,6 +36,7 @@ public class PluginBiomesOPlenty extends Plugin {
 
 	@Override
 	public void preInit() {
+		Extra.HAS_BOP = Loader.isModLoaded("BiomesOPlenty");
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("planks")), new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("saplings")), new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
 		OreDicHandler.registerWildcard(new ItemStack(BOPBlockHelper.get("colorizedSaplings")), new Integer[] { 0, 1, 2, 3, 4, 5, 6 });

@@ -1,11 +1,13 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.lib.GlassMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 

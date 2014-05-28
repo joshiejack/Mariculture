@@ -15,11 +15,15 @@ import static mariculture.core.lib.ItemLib.plastic;
 import static mariculture.core.lib.ItemLib.plasticLens;
 import static mariculture.core.lib.ItemLib.reeds;
 import static mariculture.core.lib.ItemLib.titaniumBattery;
+import mariculture.api.core.MaricultureTab;
+import mariculture.core.Core;
 import mariculture.core.helpers.RegistryHelper;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 public class Diving extends RegistrationModule {	
@@ -63,7 +67,7 @@ public class Diving extends RegistrationModule {
 	
 	@Override
 	public void registerOther() {
-		return;
+		MaricultureTab.tabFactory.setIcon(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP), true);
 	}
 	
 	@Override

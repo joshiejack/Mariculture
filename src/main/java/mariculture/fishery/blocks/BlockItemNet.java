@@ -1,5 +1,6 @@
 package mariculture.fishery.blocks;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 public class BlockItemNet extends ItemMariculture {
 	public BlockItemNet() {
 		setHasSubtypes(false);
+		setCreativeTab(MaricultureTab.tabFishery);
 	}
 
 	@Override

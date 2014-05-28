@@ -19,7 +19,7 @@ public class ItemMariculture extends Item implements IItemRegistry {
 	public IIcon[] icons;
 
 	public ItemMariculture() {
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabCore);
 		setHasSubtypes(true);
 	}
 

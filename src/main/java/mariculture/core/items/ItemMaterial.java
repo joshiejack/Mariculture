@@ -1,8 +1,15 @@
 package mariculture.core.items;
 
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
@@ -124,4 +131,27 @@ public class ItemMaterial extends ItemMariculture {
 			return false;
 		}
 	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
+		for (int meta = 0; meta < getMetaCount(); ++meta) {
+			if (isActive(meta) && isValidTab(creative, meta)) {
+				list.add(new ItemStack(item, 1, meta));
+			} 
+		}
+		
+		return;
+	}
+	
+	private boolean isValidTab(CreativeTabs creative, int meta) {
+		if(meta >= MaterialsMeta.FISH_MEAL && meta <= MaterialsMeta.DROP_HEALTH) {
+			return creative == MaricultureTab.tabFishery;
+		} else return creative == MaricultureTab.tabCore;
+	}
+
+	@Override
+	public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[]{ MaricultureTab.tabCore, MaricultureTab.tabFishery };
+    }
 }

@@ -40,8 +40,8 @@ public class ItemArmorFLUDD extends ItemArmor implements IItemRegistry {
 
 	public ItemArmorFLUDD(ArmorMaterial material, int j, int k) {
 		super(material, j, k);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
-		this.setMaxStackSize(1);
+		setMaxStackSize(1);
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 
 	@Override

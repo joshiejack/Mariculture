@@ -19,7 +19,6 @@ public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
 		super(0, 0);
 		setNoRepair();
 		setMaxStackSize(1);
-		setCreativeTab(MaricultureTab.tabMariculture);
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package mariculture.transport;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
@@ -33,6 +34,7 @@ public class Transport extends RegistrationModule {
 	
 	@Override
 	public void registerOther() {
+		MaricultureTab.tabWorld.setIcon(new ItemStack(speedBoat), true);
 		EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 80, 3, false);
 	}
 

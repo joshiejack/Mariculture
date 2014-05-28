@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 public class ItemSpeedBoat extends Item {
 	public ItemSpeedBoat() {
 		this.maxStackSize = 1;
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		this.setCreativeTab(MaricultureTab.tabWorld);
 	}
 
 	@Override

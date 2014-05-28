@@ -2,10 +2,13 @@ package mariculture.factory.blocks;
 
 import java.util.Random;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.base.BlockFunctional;
+import mariculture.core.lib.MachineMultiMeta;
 import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -137,6 +140,11 @@ public class BlockCustomBase extends BlockFunctional {
 	@Override
 	public boolean isActive(int meta) {
 		return true;
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		return false;
 	}
 	
 	@Override

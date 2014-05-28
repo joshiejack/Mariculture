@@ -33,6 +33,7 @@ public class PluginHungerOverhaul extends Plugin {
 		});
 	}
 
+	//Called to add the tooltip about hunger
 	public static void addInformation(int fill, float saturation, List list) {
 		if (IguanaConfig.addFoodTooltips) {
 			int hungerFill = fill;

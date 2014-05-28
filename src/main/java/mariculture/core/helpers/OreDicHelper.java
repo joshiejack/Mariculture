@@ -2,7 +2,6 @@ package mariculture.core.helpers;
 
 import java.util.ArrayList;
 
-import mariculture.core.lib.Compatibility;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -16,17 +15,17 @@ public class OreDicHelper {
 	public static boolean isWhitelisted(ItemStack stack) {
 		if(isInDictionary(stack)) {
 			String ore = getDictionaryName(stack);
-			if(Compatibility.ENABLE_WHITELIST) {
-				for (int j = 0; j < Compatibility.WHITELIST.length; j++) {
-					if(ore.startsWith(Compatibility.WHITELIST[j])) {
+			if(mariculture.core.config.AutoDictionary.ENABLE_WHITELIST) {
+				for (int j = 0; j < mariculture.core.config.AutoDictionary.WHITELIST.length; j++) {
+					if(ore.startsWith(mariculture.core.config.AutoDictionary.WHITELIST[j])) {
 						return true;
 					}
 				}
 				
 				return false;
 			} else {
-				for(int j = 0; j < Compatibility.BLACKLIST.length; j++) {
-					if(ore.equals(Compatibility.BLACKLIST[j])) {
+				for(int j = 0; j < mariculture.core.config.AutoDictionary.BLACKLIST.length; j++) {
+					if(ore.equals(mariculture.core.config.AutoDictionary.BLACKLIST[j])) {
 						return false;
 					}
 				}

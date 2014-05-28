@@ -1,18 +1,25 @@
 package mariculture.core.items;
 
+import java.util.List;
+
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Text;
 import mariculture.world.WorldPlus;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCrafting extends ItemMariculture implements IEnergyContainerItem {
 	@Override
@@ -138,6 +145,30 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
 			return true;
 		}
 	}
+	
+	private boolean isValidTab(CreativeTabs creative, int meta) {
+		if(meta == CraftingMeta.BLANK_PLAN) return creative == MaricultureTab.tabFactory;
+		if(meta == CraftingMeta.SEEDS_KELP) return creative == MaricultureTab.tabWorld;
+		if(meta == CraftingMeta.THERMOMETER) return creative == MaricultureTab.tabFishery;
+		return creative == MaricultureTab.tabCore;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs creative, List list) {
+		for (int meta = 0; meta < getMetaCount(); ++meta) {
+			if (isActive(meta) && isValidTab(creative, meta)) {
+				list.add(new ItemStack(item, 1, meta));
+			} 
+		}
+		
+		return;
+	}
+
+	@Override
+	public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[]{ MaricultureTab.tabCore, MaricultureTab.tabFactory, MaricultureTab.tabFishery, MaricultureTab.tabWorld };
+    }
 	
 	//Used for the creative battery ;D//
 	@Override

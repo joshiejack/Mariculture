@@ -3,6 +3,7 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.handlers.PearlGenHandler;
@@ -19,6 +20,7 @@ import mariculture.plugins.enchiridion.BookSpawnHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -174,6 +176,11 @@ public class BlockWater extends BlockFunctional {
 	@Override
 	public int getMetaCount() {
 		return WaterMeta.COUNT;
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		return tab == MaricultureTab.tabWorld;
 	}
 	
 	public int getMixedBrightnessForBlock(IBlockAccess world, int x, int y, int z) {

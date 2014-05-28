@@ -3,6 +3,7 @@ package mariculture.fishery.items;
 import java.util.List;
 import java.util.Map.Entry;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -23,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemFishy extends Item {
 	private static IIcon egg;
 	public ItemFishy() {
+		setCreativeTab(MaricultureTab.tabFishery);
 		setHasSubtypes(true);
 	}
 

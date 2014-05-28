@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.PearlColor;
 import mariculture.fishery.Fishery;
@@ -140,10 +141,12 @@ public class BlockNeonLamp extends BlockDecorative {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-		if (item == Item.getItemFromBlock(Fishery.lampsOn)) {
-			for (int meta = 0; meta < PearlColor.COUNT; ++meta) {
-				if (!list.contains(new ItemStack(item, 1, meta))) {
-					list.add(new ItemStack(item, 1, meta));
+		if(creativeTabs == MaricultureTab.tabCore) {
+			if (item == Item.getItemFromBlock(Fishery.lampsOn)) {
+				for (int meta = 0; meta < PearlColor.COUNT; ++meta) {
+					if (!list.contains(new ItemStack(item, 1, meta))) {
+						list.add(new ItemStack(item, 1, meta));
+					}
 				}
 			}
 		}

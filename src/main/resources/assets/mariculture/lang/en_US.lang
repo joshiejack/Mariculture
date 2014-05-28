@@ -5,10 +5,14 @@ death.attack.scald=%1$s was scalded to death by very hot water.
 death.attack.fludd=%1$s was scalded to death by %2$s
 death.attack.turbine=%1$s overworked themselves and died while spinning their turbine!
 
+itemGroup.mariculture.core=Mariculture
+itemGroup.mariculture.machines=Mariculture Machines
+itemGroup.mariculture.world=Mariculture Exploration
+itemGroup.mariculture.fishing=Mariculture Fishing
+itemGroup.mariculture.magic=Mariculture Sea Witchery
+
 ### Core ###
 # blocks
-itemGroup.maricultureTab=Mariculture
-itemGroup.maricultureFluidsTab=Mariculture Fluids
 tile.rocks.bauxiteOre.name=Bauxite Ore
 tile.rocks.copperOre.name=Copper Ore
 tile.rocks.rutileOre.name=Rutile Ore
@@ -296,7 +300,6 @@ item.turbine.titanium.name=Titanium Rotor
 
 ### Fishery ###
 #blocks
-itemGroup.fishTab=Mariculture Fish
 tile.machines.multi.incubator.name=Incubator
 tile.machines.multi.incubatorBase.name=Incubator Base
 tile.machines.multi.incubatorTop.name=Incubator Top
@@ -489,8 +492,6 @@ fish.data.areaofeffectsouth=Area: South
 fish.data.areaofeffectwest=Area: West
 
 ### Magic ###
-itemGroup.jewelryTab=Mariculture Jewelry
-
 #enchantments
 enchantment.elemental=Elemental Affinity
 enchantment.hungry=Never Hungry
@@ -651,6 +652,7 @@ mariculture.string.peruse=RF Per Use
 mariculture.string.rf=RF
 mariculture.string.rft=RF/t
 mariculture.string.mb=mB
+mariculture.string.blacklisted=BLACKLISTED
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

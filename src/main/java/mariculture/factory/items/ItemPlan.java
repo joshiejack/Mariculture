@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.PlansMeta;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,6 +20,7 @@ public class ItemPlan extends ItemMariculture {
 		setMaxDamage(64);
 		setMaxStackSize(1);
 		setHasSubtypes(false);
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 
 	public int getStackSize(ItemStack stack) {

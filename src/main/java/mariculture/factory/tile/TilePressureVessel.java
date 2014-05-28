@@ -107,6 +107,8 @@ public class TilePressureVessel extends TileMultiMachineTank {
 				int water = 0;
 				if (stack.hasTagCompound()) {
 					water = stack.stackTagCompound.getInteger("water");
+				} else {
+					stack.setTagCompound(new NBTTagCompound());
 				}
 				
 				int drain = ItemArmorFLUDD.STORAGE - water;

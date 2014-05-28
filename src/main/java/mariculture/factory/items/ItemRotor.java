@@ -1,5 +1,6 @@
 package mariculture.factory.items;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.items.ItemDamageable;
 
 public class ItemRotor extends ItemDamageable {
@@ -8,6 +9,7 @@ public class ItemRotor extends ItemDamageable {
 	public ItemRotor(int dmg, int tier) {
 		super(dmg);
 		this.tier = tier;
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 	
 	public boolean isTier(int which) {

@@ -64,6 +64,7 @@ import mariculture.fishery.fish.dna.FishDNAWorkEthic;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class Fish {
 	public static FishDNABase species;
@@ -240,6 +241,7 @@ public class Fish {
 		trout = Fishing.fishHelper.registerFish(modid, FishTrout.class, 37);
 		herring = Fishing.fishHelper.registerFish(modid, FishHerring.class, 38);
 		minecraft = Fishing.fishHelper.registerFish(modid, FishMinecraft.class, 39);
+		OreDictionary.registerOre("listAllFishRaw", new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE));
 	}
 	
 	private static void addMutations() {

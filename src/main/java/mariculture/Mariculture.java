@@ -4,7 +4,7 @@ import java.io.File;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.core.CommonProxy;
-import mariculture.core.Config;
+import mariculture.core.config.Config;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.Required;
@@ -33,7 +33,7 @@ public class Mariculture {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		root = event.getModConfigurationDirectory();
-		Config.setup(root + "/mariculture/");
+		Config.setup();
 		for (Module module : Modules.modules) {
 			module.preInit();
 		}

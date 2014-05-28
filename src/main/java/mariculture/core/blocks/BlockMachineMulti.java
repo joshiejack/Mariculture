@@ -1,8 +1,10 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctionalMulti;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RockMeta;
@@ -10,6 +12,7 @@ import mariculture.core.tile.TileCrucible;
 import mariculture.fishery.tile.TileIncubator;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -92,6 +95,15 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
 			case MachineMultiMeta.INCUBATOR_BASE: return Modules.isActive(Modules.fishery);
 			case MachineMultiMeta.INCUBATOR_TOP: return Modules.isActive(Modules.fishery);
 			default:							return true;
+		}
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		switch (meta) {
+			case MachineMultiMeta.INCUBATOR_BASE: return tab == MaricultureTab.tabFishery;
+			case MachineMultiMeta.INCUBATOR_TOP:  return tab == MaricultureTab.tabFishery;
+			default:							  return tab == MaricultureTab.tabFactory;
 		}
 	}
 

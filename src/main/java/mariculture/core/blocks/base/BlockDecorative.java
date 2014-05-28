@@ -25,7 +25,7 @@ public abstract class BlockDecorative extends Block implements IHasMeta {
 	
 	public BlockDecorative(Material material) {
 		super(material);
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabCore);
 		for(int i = 0; i < getMetaCount(); i++) {
 			setHarvestLevel(getToolType(i), getToolLevel(i), i);
 		}
@@ -39,6 +39,10 @@ public abstract class BlockDecorative extends Block implements IHasMeta {
 		return true;
 	}
 	
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		return tab == MaricultureTab.tabCore;
+	}
+	
 	@Override
 	public int damageDropped(int i) {
 		return i;
@@ -48,7 +52,7 @@ public abstract class BlockDecorative extends Block implements IHasMeta {
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs creative, List list) {
 		for (int meta = 0; meta < getMetaCount(); ++meta) {
-			if (isActive(meta)) {
+			if (isActive(meta) && isValidTab(creative, meta)) {
 				list.add(new ItemStack(item, 1, meta));
 			}
 		}

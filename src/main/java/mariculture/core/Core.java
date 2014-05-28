@@ -55,9 +55,11 @@ import mariculture.core.items.ItemUpgrade;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.LimestoneMeta;
+import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
@@ -254,8 +256,11 @@ public class Core extends RegistrationModule {
 		registerBiomes();
 		registerEntities();
 		registerPearls();
-		MaricultureTab.tabFluids.icon = new ItemStack(bottles, 1, BottleMeta.COPPER);
-		MaricultureTab.tabMariculture.icon = new ItemStack(pearls, 1, PearlColor.WHITE);
+		
+		MaricultureTab.tabCore.setIcon(new ItemStack(pearls, 1, PearlColor.WHITE), true);
+		MaricultureTab.tabFactory.setIcon(new ItemStack(crafting, 1, CraftingMeta.WHEEL), true);
+		MaricultureTab.tabFishery.setIcon(new ItemStack(Items.fish), true);
+		MaricultureTab.tabWorld.setIcon(new ItemStack(limestone, 1, 0), true);
 	}
 
 	private void registerEntities() {
@@ -351,6 +356,7 @@ public class Core extends RegistrationModule {
 		OreDictionary.registerOre("dyeBrown", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN));
 		OreDictionary.registerOre("dyeGreen", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN));
 		OreDictionary.registerOre("dyeWhite", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_WHITE));
+		OreDictionary.registerOre("dyeBlue", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BLUE));
 		
 		OreDictionary.registerOre("nuggetAluminum", new ItemStack(materials, 1, MaterialsMeta.NUGGET_ALUMINUM));
 		OreDictionary.registerOre("nuggetCopper", new ItemStack(materials, 1, MaterialsMeta.NUGGET_COPPER));

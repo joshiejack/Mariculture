@@ -16,9 +16,14 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import enchiridion.CreativeTab;
 import enchiridion.Enchiridion;
 
 public class ItemGuide extends ItemMariculture {	
+	public ItemGuide() {
+		setCreativeTab(CreativeTab.books);
+	}
+	
 	public String getName(ItemStack stack) {
 		switch (stack.getItemDamage()) {
 			case GuideMeta.FISHING: 	return "fishing";

@@ -24,7 +24,7 @@ import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 
-public class PluginAWWayofTime extends Plugin {
+public class PluginBloodMagic extends Plugin {
 	public static final RodType BLOOD = new BloodRodType(95, 15D, 20D, 5D, 45);
 	public static Item rodBlood;
 

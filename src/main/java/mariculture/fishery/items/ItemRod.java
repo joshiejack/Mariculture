@@ -7,6 +7,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
@@ -19,14 +20,30 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
 	private int enchant;
 	public ItemRod() {
 		this(127, 1);
+		setCreativeTab(MaricultureTab.tabFishery);
 	}
 	
 	public ItemRod(int max, int enchant) {
 		this.enchant = enchant;
 		setMaxStackSize(1);
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabFishery);
 		if(max > 0) this.setMaxDamage(max);
 	}
+	
+	@Override
+	public Item setCreativeTab(CreativeTabs tab)  {
+        if(tab == null) {
+        	MaricultureTab.tabCore = new MaricultureTab("mariculture.core");
+        	MaricultureTab.tabFactory = new MaricultureTab("mariculture.machines");
+        	MaricultureTab.tabFishery = new MaricultureTab("mariculture.fishing");
+    		MaricultureTab.tabWorld = new MaricultureTab("mariculture.world");
+    		MaricultureTab.tabMagic = new MaricultureTab("mariculture.magic");
+    		tab = MaricultureTab.tabFishery;
+        }
+
+        super.setCreativeTab(tab);
+        return this;
+    }
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {

@@ -30,7 +30,7 @@ public class ItemMirror extends ItemStorage {
 		super(4, "mirror");
 		setMaxDamage(100);
 		name = img;
-		setCreativeTab(MaricultureTab.tabJewelry);
+		setCreativeTab(MaricultureTab.tabMagic);
 	}
 	
 	@Override

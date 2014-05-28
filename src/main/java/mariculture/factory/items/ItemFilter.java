@@ -2,6 +2,7 @@ package mariculture.factory.items;
 
 import java.util.List;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.util.Text;
@@ -17,6 +18,7 @@ public class ItemFilter extends ItemStorage {
 	
 	public ItemFilter() {
 		super(SIZE, "filter");
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 	
 	@Override

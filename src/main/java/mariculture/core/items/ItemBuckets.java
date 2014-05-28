@@ -22,7 +22,6 @@ import net.minecraftforge.fluids.FluidStack;
 public class ItemBuckets extends ItemMariculture {
 	public ItemBuckets() {
 		maxStackSize = 1;
-		setCreativeTab(MaricultureTab.tabFluids);
 	}
 	
 	@Override

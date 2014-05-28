@@ -5,12 +5,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class MaricultureTab extends CreativeTabs {
-	public static MaricultureTab tabFluids;
-	public static MaricultureTab tabMariculture;
-	public static MaricultureTab tabFish;
-	public static MaricultureTab tabJewelry;
+	public static MaricultureTab tabCore;
+	public static MaricultureTab tabFactory;
+	public static MaricultureTab tabFishery;
+	public static MaricultureTab tabMagic;
+	public static MaricultureTab tabWorld;
 
-	public ItemStack icon;
+	private ItemStack icon;
 
 	public MaricultureTab(String label) {
 		super(label);
@@ -24,5 +25,14 @@ public class MaricultureTab extends CreativeTabs {
 	@Override
 	public Item getTabIconItem() {
 		return icon.getItem();
+	}
+
+	public void setIcon(ItemStack stack, boolean forced) {
+		if(forced) icon = stack;
+		else {
+			if(icon == null) {
+				icon = stack;
+			}
+		}
 	}
 }

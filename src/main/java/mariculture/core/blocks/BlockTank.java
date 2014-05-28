@@ -3,6 +3,7 @@ package mariculture.core.blocks;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.handlers.FluidDicHandler;
@@ -10,6 +11,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.BottleMeta;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
@@ -22,6 +24,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -265,6 +268,14 @@ public class BlockTank extends BlockConnected {
 		if(meta == TankMeta.FISH)		return Modules.isActive(Modules.fishery);
 		if(meta == TankMeta.DIC)		return false;
 		return meta != TankMeta.BOTTLE;
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		switch (meta) {
+			case TankMeta.FISH: 		return tab == MaricultureTab.tabFishery;
+			default:					return tab == MaricultureTab.tabFactory;
+		}
 	}
 	
 	@Override

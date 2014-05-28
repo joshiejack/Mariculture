@@ -38,7 +38,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 		float f = 0.375F;
 		setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
 		setTickRandomly(tick);
-		setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabCore);
 		this.prefix = prefix;
 	}
 	
@@ -298,9 +298,11 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-		for (int meta = 0; meta < CoralMeta.COUNT; ++meta) {
-			if (meta != CoralMeta.KELP_MIDDLE) {
-				list.add(new ItemStack(item, 1, meta));
+		if(creativeTabs == MaricultureTab.tabWorld) {
+			for (int meta = 0; meta < CoralMeta.COUNT; ++meta) {
+				if (meta != CoralMeta.KELP_MIDDLE) {
+					list.add(new ItemStack(item, 1, meta));
+				}
 			}
 		}
 	}

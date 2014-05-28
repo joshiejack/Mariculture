@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.helpers.BlockHelper;
@@ -12,6 +13,7 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.GroundMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -95,6 +97,11 @@ public class BlockGround extends BlockDecorative {
         }
         return ret;
     }
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		return tab == MaricultureTab.tabWorld;
+	}
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {

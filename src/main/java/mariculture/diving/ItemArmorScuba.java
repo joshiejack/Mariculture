@@ -25,7 +25,7 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 
 	public ItemArmorScuba(ArmorMaterial material, int j, int k) {
 		super(material, j, k);
-		this.setCreativeTab(MaricultureTab.tabMariculture);
+		setCreativeTab(MaricultureTab.tabWorld);
 	}
 
 	@Override

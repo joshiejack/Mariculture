@@ -2,6 +2,7 @@ package mariculture.fishery.items;
 
 import java.util.List;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.items.ItemMariculture;
@@ -17,6 +18,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class ItemBait extends ItemMariculture {	
+	public ItemBait() {
+		setCreativeTab(MaricultureTab.tabFishery);
+	}
+	
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
 		return 8;

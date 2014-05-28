@@ -24,10 +24,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemBottle extends ItemMariculture {
-	public ItemBottle() {
-		setCreativeTab(MaricultureTab.tabFluids);
-	}
-	
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode) {

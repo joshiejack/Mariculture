@@ -1,5 +1,6 @@
 package mariculture.factory.items;
 
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.AirMeta;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 public class ItemPaintbrush extends ItemDamageable {
 	public ItemPaintbrush(int dmg) {
 		super(dmg);
+		setCreativeTab(MaricultureTab.tabFactory);
 	}
 	
 	@Override

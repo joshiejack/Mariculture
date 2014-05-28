@@ -1,6 +1,7 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.lib.MachineMeta;
@@ -21,6 +22,7 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -202,6 +204,15 @@ public class BlockMachine extends BlockFunctional {
 			case MachineMeta.AUTOFISHER: 		return Modules.isActive(Modules.fishery);
 			case MachineMeta.FISH_SORTER: 		return Modules.isActive(Modules.fishery);
 			default:							return true;
+		}
+	}
+	
+	@Override
+	public boolean isValidTab(CreativeTabs tab, int meta) {
+		switch (meta) {
+			case MachineMeta.AUTOFISHER: 		return tab == MaricultureTab.tabFishery;
+			case MachineMeta.FISH_SORTER: 		return tab == MaricultureTab.tabFishery;
+			default:							return tab == MaricultureTab.tabFactory;
 		}
 	}
 
