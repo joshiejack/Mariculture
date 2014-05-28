@@ -22,7 +22,9 @@ public class ItemPaintbrush extends ItemDamageable {
 	public String getItemStackDisplayName(ItemStack stack) {
 		if(stack.hasTagCompound()) {
 			Item item = Item.getItemFromBlock(((Block)Block.blockRegistry.getObject(stack.stackTagCompound.getString("Block"))));
-			return super.getItemStackDisplayName(stack) + " - " + item.getItemStackDisplayName(new ItemStack(item, 1, stack.stackTagCompound.getInteger("Meta")));
+			if(item != null) {
+				return super.getItemStackDisplayName(stack) + " - " + item.getItemStackDisplayName(new ItemStack(item, 1, stack.stackTagCompound.getInteger("Meta")));
+			}
 		}
 		
 		return super.getItemStackDisplayName(stack);
