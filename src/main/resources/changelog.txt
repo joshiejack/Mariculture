@@ -1,3 +1,6 @@
+Mariculture 1.7.2 BETA 9
+• Fixed direction for fluid handlers
+
 Mariculture 1.7.2 BETA 8
 • Made Enchiridion a requirement, books are too important to the mod
 • Fixed the Autofisher not damaging items with special damage conditions correctly
