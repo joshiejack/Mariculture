@@ -608,6 +608,7 @@ mariculture.string.doubleBottle=Содержит в два раза больше
 mariculture.string.noBound1=Не привязан к существу!
 mariculture.string.noBound2=Убейте этим монстра
 mariculture.string.bound=Существо привязано к:
+mariculture.string.badTime=Неправильное время
 mariculture.string.tooCold=Слишком холодно
 mariculture.string.tooHot=Слишком жарко
 mariculture.string.blocks.lava=Лавовые блоки
@@ -644,6 +645,12 @@ mariculture.string.max.level=Макс. уровень зачарования
 mariculture.string.max.damage=Макс. урон
 mariculture.string.shift.jewelry=чтобы показать статистику драгоценности
 mariculture.string.oneRing=Кольцо Всевластья
+mariculture.string.charge=Заряд
+mariculture.string.transfer=Передача
+mariculture.string.peruse=РФ за использование
+mariculture.string.rf=РФ
+mariculture.string.rft=РФ/т
+mariculture.string.mb=мВ
 
 ### Eject Modes ###
 ejectmode.none=Авто-выброс выключен
