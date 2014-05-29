@@ -9,6 +9,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
+import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -39,6 +40,14 @@ public class NEIConfig implements IConfigureNEI {
 	
 	@Override
 	public void loadConfig() {		
+		for (int i = 0; i < CraftingMeta.COUNT; i++) {
+			API.addItemListEntry(new ItemStack(Core.crafting, 1, i));
+		}
+		
+		for (int i = 0; i < MaterialsMeta.COUNT; i++) {
+			API.addItemListEntry(new ItemStack(Core.materials, 1, i));
+		}
+		
 		//HOLY HIDE IN NEI!
 		for(int i = 0; i < 16; i++) {
 			if(i > 0) {

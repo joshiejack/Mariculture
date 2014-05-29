@@ -311,6 +311,7 @@ public class Fishery extends RegistrationModule {
 		addMelting(dropletNether, 1000, new FluidStack(FluidRegistry.LAVA, FluidContainerRegistry.BUCKET_VOLUME / 10));
 		addShaped(new ItemStack(enderPearl), new Object[] {"DDD", "DDD", "DDD", 'D', dropletEnder});
 		addShaped(_(tnt), new Object[] {"DS ", "SD ", 'D', dropletDestroy, 'S', sand });
+		addShapeless(_(clay), new Object[] { dropletEarth, dropletWater, dropletWater, dropletEarth });
 
 		if(FluidRegistry.getFluid("life essence") != null) {
 			addMelting(dropletRegen, 100, FluidRegistry.getFluidStack("life essence", 250));

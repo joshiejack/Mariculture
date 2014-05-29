@@ -15,10 +15,9 @@ import java.util.Map.Entry;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.config.Enchantments.EnchantIds;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.EnchantIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.magic.enchantments.EnchantmentBlink;
@@ -59,7 +58,6 @@ import mariculture.magic.jewelry.parts.MaterialPearlSilver;
 import mariculture.magic.jewelry.parts.MaterialPearlWhite;
 import mariculture.magic.jewelry.parts.MaterialPearlYellow;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -179,8 +177,6 @@ public class Magic extends RegistrationModule {
 		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 6, EnumEnchantmentType.all); }
 		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all); }
 		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all); }
-		
-		ReflectionHelper.setFinalStatic(EnchantmentProtection.class, ("thresholdEnchantability"), "field_77358_D", new int[] {40, 24, 20, 24, 30});
 	}
 
 	@Override

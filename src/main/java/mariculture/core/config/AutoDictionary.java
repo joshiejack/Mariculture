@@ -13,7 +13,7 @@ public class AutoDictionary {
 	public static final String[] BLACKLIST_PREFIX_DEFAULT = new String[] { "listAll", "crop" };
 	public static final String[] BLACKLIST_ITEMS_DEFAULT = new String[] { "TConstruct:materials 36", "dye 4", "dye 2", "dye 3", "dye 15", "dye 0"};
 	public static final String[] BLACKLIST_DEFAULT = new String[] { "dye", "stickWood", "plankWood", "logWood", "stairWood", "treeLeaves", "treeSapling", "slabWood",
-		"blockGlass", "paneGlass", "stone", "cobblestone", "sandstone", "record", "listAllFishRaw"};
+		"blockGlass", "paneGlass", "stone", "cobblestone", "sandstone", "record"};
 	
 	public static String[] WHITELIST;
 	public static String[] BLACKLIST;

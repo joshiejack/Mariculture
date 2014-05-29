@@ -4,14 +4,8 @@ import java.io.File;
 import java.lang.reflect.Method;
 
 import mariculture.Mariculture;
-import mariculture.aesthetics.Aesthetics;
 import mariculture.api.core.MaricultureTab;
-import mariculture.compatibility.Compat;
-import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.handlers.OreDicHandler;
-import mariculture.core.lib.EnchantIds;
-import mariculture.core.lib.EnchantSetting;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
@@ -20,15 +14,6 @@ import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.WorldGeneration;
 import mariculture.core.lib.config.Category;
 import mariculture.core.lib.config.Comment;
-import mariculture.diving.Diving;
-import mariculture.factory.Factory;
-import mariculture.fishery.Fishery;
-import mariculture.magic.Magic;
-import mariculture.plugins.Plugins;
-import mariculture.plugins.Plugins.Plugin;
-import mariculture.sealife.Sealife;
-import mariculture.transport.Transport;
-import mariculture.world.WorldPlus;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.Level;
@@ -62,7 +47,8 @@ public class Config {
     public static void setup() {
     	setup("Modules");
     	setup("AutoDictionary");
-    	initEnchantments(new Configuration(new File(dir, "enchantments.cfg")));
+    	setup("Enchantments");
+    	setup("WorldGeneration");
         initOther(new Configuration(new File(dir, "other.cfg")));
         initMachines(new Configuration(new File(dir, "mechanics.cfg"))); 
         initWorld(new Configuration(new File(dir, "worldgen.cfg")));
@@ -242,38 +228,6 @@ public class Config {
             Extra.PEARL_GEN_CHANCE = config.get(Category.PROD, "Pearl Oyster > Pearl Generation Chance", 32, Comment.PEARL_CHANCE).getInt();
         } catch (Exception e) {
             LogHandler.log(Level.ERROR, "There was an issue with when adjusting machine settings");
-        	e.printStackTrace();
-        } finally {
-            config.save();
-        }
-    }
-
-    private static void initEnchantments(Configuration config) {
-        try {
-            config.load();
-            EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 70).getInt();
-            EnchantIds.elemental = config.get(Category.ENCHANT, "Elemental Affinity", 71).getInt();
-            EnchantIds.fall = config.get(Category.ENCHANT, "Fall Resistance", 72).getInt();
-            EnchantIds.flight = config.get(Category.ENCHANT, "Superman", 74).getInt();
-            EnchantIds.glide = config.get(Category.ENCHANT, "Paraglide", 75).getInt();
-            EnchantIds.health = config.get(Category.ENCHANT, "1 Up", 76).getInt();
-            EnchantIds.jump = config.get(Category.ENCHANT, "Leapfrog", 77).getInt();
-            EnchantIds.hungry = config.get(Category.ENCHANT, "Never Hungry", 78).getInt();
-            EnchantIds.oneRing = config.get(Category.ENCHANT, "The One Ring", 79).getInt();
-            EnchantIds.repair = config.get(Category.ENCHANT, "Restoration", 82).getInt();
-            EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 83).getInt();
-            EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 84).getInt();
-            EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 85).getInt();
-            EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 86).getInt();
-            
-            EnchantSetting.JUMPS_PER = config.get(Category.EXTRA, "Leapfrog > Jumps per Damage", 10).getInt();
-            EnchantSetting.JUMP_FACTOR = config.get(Category.EXTRA, "Leapfrog > Jump Factor", 0.15).getDouble(0.15);
-            EnchantSetting.SPEED_TICKS = config.get(Category.EXTRA, "Sonic the Hedgehog > Ticks per Damage", 1200).getInt();
-            EnchantSetting.SPEED_FACTOR = config.get(Category.EXTRA, "Sonic the Hedgehog > Speed Factor", 0.025).getDouble(0.025);
-            EnchantSetting.TICK_REPAIR = config.get(Category.EXTRA, "Restoration - Ticks between Repair", 100).getInt();
-            EnchantSetting.RED_PEARL_DMG_CHANCE = config.get(Category.EXTRA, "Red Pearl - Damage Chance", 10).getInt();
-        } catch (Exception e) {
-            LogHandler.log(Level.ERROR, "Failed to assign Enchantment config settings correctly");
         	e.printStackTrace();
         } finally {
             config.save();

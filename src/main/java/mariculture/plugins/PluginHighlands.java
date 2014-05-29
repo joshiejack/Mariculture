@@ -24,7 +24,7 @@ public class PluginHighlands extends Plugin {
 			Field field = HighlandsBiomes.class.getField(str);
 			return (BiomeGenBase)field.get(null);
 		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture couldn't find the Highland Biome " + str + " : This is NOT an issue, do not report!");
+			LogHandler.log(Level.INFO, "Couldn't find the Highlands Biome " + str + " : This is NOT an issue, do not report!");
 			return null;
 		}
 	}

@@ -6,6 +6,10 @@ Mariculture 1.7.2 BETA 9
 • Fixed direction for fluid handlers
 • Fixed usage on any item bringing up usage for cod...
 • NEI will now only display one of each live fish + raw fish, So you can still see them for recipes, but you'll need to go to creative to cheat male/female
+• Wildcard Registration now only shows up in debug mode
+• Mirrors now ignore the Max Enchantability for Non-Jewelry Enchantments
+• Mirrors give a better chance for more enchantments than vanilla enchanting table
+• Level 31 and greater enchanting, has a chance of getting higher levels on enchantments than you could otherwise(Even better over level 55)(excluding protection, enchantments with max level 1, and jewelry enchants)
 
 Mariculture 1.7.2 BETA 8
 • Made Enchiridion a requirement, books are too important to the mod

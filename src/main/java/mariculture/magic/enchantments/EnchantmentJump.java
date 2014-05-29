@@ -1,8 +1,8 @@
 package mariculture.magic.enchantments;
 
+import mariculture.core.config.Enchantments;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.EnchantSetting;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ public class EnchantmentJump extends EnchantmentJewelry {
 			
 			if(!player.handleWaterMovement()) {
 				damageTicker++;
-				if(damageTicker % EnchantSetting.JUMPS_PER == 0) {
+				if(damageTicker % Enchantments.JUMPS_PER == 0) {
 					EnchantHelper.damageItems(Magic.jump, player, 1);
 				}
 			}
@@ -38,7 +38,7 @@ public class EnchantmentJump extends EnchantmentJewelry {
 
 	public static void set(int jump) {
 		if(jump > 0)
-			jumpHeight = (float) (jump * EnchantSetting.JUMP_FACTOR);
+			jumpHeight = (float) (jump * Enchantments.JUMP_FACTOR);
 		else
 			jumpHeight = 0;
 	}

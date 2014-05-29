@@ -6,6 +6,7 @@ import java.util.HashMap;
 import mariculture.core.config.AutoDictionary;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.StackHelper;
+import mariculture.core.lib.Extra;
 import mariculture.plugins.PluginMFR;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -88,7 +89,7 @@ public class OreDicHandler {
 	//Get the wildcard and add it
 		String name = Item.itemRegistry.getNameForObject(stack.getItem());
 		specials.put(name, metas);
-		LogHandler.log(Level.INFO, "Successfully registered wildcard for " + name + "(" + stack.toString() + ")");
+		if(Extra.DEBUG_ON) LogHandler.log(Level.INFO, "Successfully registered wildcard for " + name + "(" + stack.toString() + ")");
 	}
 	
 	private void addSpecial(ItemStack stack, String ore) {

@@ -57,7 +57,7 @@ public class PluginBiomesOPlenty extends Plugin {
 			Field field = BOPCBiomes.class.getField(str);
 			return (BiomeGenBase)field.get(null);
 		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture couldn't find the BOP Biome " + str + " : This is NOT an issue, do not report!");
+			LogHandler.log(Level.INFO, "Couldn't find the BiomesOPlenty Biome " + str + " : This is NOT an issue, do not report!");
 			return null;
 		}
 	}

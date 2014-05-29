@@ -3,8 +3,10 @@ package mariculture.fishery;
 import java.util.Arrays;
 import java.util.Map;
 
+import mariculture.core.handlers.LogHandler;
 import net.minecraft.launchwrapper.IClassTransformer;
 
+import org.apache.logging.log4j.Level;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -76,22 +78,22 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 		byte[] newData = data;
 		
 		if(className.equals("abn")) {
-			System.out.println("[Mariculture] Patching the vanilla class: " + className);
+			LogHandler.log(Level.INFO, "Patching the vanilla class: " + className);
 			newData = patchFishingStuff(data, true);
 			if(newData != data) {
-				System.out.println("[Mariculture] Succesfully replaced Vanilla Fishing Rod and Fish");
+				LogHandler.log(Level.INFO, "Succesfully replaced Vanilla Fishing Rod and Fish");
 			} else {
-				System.out.println("[Mariculture] Failed to replace Vanilla Fishing Rod and Fish");
+				LogHandler.log(Level.ERROR, "Failed to replace Vanilla Fishing Rod and Fish");
 			}
 		}
 
 		if(className.equals("net.minecraft.item.Item")) {
-			System.out.println("[Mariculture] Patching the vanilla class: " + className);
+			LogHandler.log(Level.INFO, "Patching the vanilla class: " + className);
 			newData = patchFishingStuff(data, false);
 			if(newData != data) {
-				System.out.println("[Mariculture] Succesfully replaced Vanilla Fishing Rod and Fish");
+				LogHandler.log(Level.INFO, "Succesfully replaced Vanilla Fishing Rod and Fish");
 			} else {
-				System.out.println("[Mariculture] Failed to replace Vanilla Fishing Rod and Fish");
+				LogHandler.log(Level.ERROR, "Failed to replace Vanilla Fishing Rod and Fish");
 			}
 		}
 		

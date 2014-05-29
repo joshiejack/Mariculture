@@ -1,7 +1,7 @@
 package mariculture.magic.enchantments;
 
+import mariculture.core.config.Enchantments;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.EnchantSetting;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +24,7 @@ public class EnchantmentRestore extends EnchantmentJewelry {
 
 	public static void activate(EntityPlayer player) {
 		ticker++;
-		if(ticker % EnchantSetting.TICK_REPAIR != 0)
+		if(ticker % Enchantments.TICK_REPAIR != 0)
 			return;
 		//Repair Handheld
 		World world = player.worldObj;

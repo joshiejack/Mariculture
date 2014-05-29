@@ -257,8 +257,12 @@ public class ItemLib {
 	/** Module based stuff **/
 	public static final ItemStack attack = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK): new ItemStack(Items.potionitem, 1, 8204);
 	public static final ItemStack poison = (Modules.isActive(Modules.fishery))? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON): new ItemStack(Items.potionitem, 1, 8228);
+	public static final ItemStack boneless = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.boneless.getID()): new ItemStack(Items.skull, 1, 1);
+	public static final ItemStack undead = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.undead.getID()): new ItemStack(Items.rotten_flesh);
+	public static final ItemStack spider = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.spider.getID()): new ItemStack(Items.spider_eye);
 	public static final ItemStack night = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.night.getID()): new ItemStack(Items.ender_pearl);
 	public static final ItemStack ender = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.ender.getID()): new ItemStack(Items.ender_eye);
+	public static final ItemStack blaasop = (Modules.isActive(Modules.fishery))? new ItemStack(Items.fish, 1, Fish.blaasop.getID()): new ItemStack(Items.potionitem, 1, 8196);
 	public static final ItemStack filterer = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.net): new ItemStack(Blocks.chest);
 	public static final ItemStack regen = Modules.isActive(Modules.fishery)? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH): new ItemStack(Items.potionitem, 1, 8229);
 	public static final Object bait = Modules.isActive(Modules.fishery)? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE): Items.spider_eye;

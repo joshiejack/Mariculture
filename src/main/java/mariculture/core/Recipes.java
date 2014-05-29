@@ -20,6 +20,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.Fluids;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class Recipes {
@@ -149,12 +150,12 @@ public class Recipes {
 		addUpgrade(UpgradeMeta.ULTIMATE_PURITY, new Object[] {"PSP", "TUT", "PAP", 'A', heart, 'T', "ingotTitanium", 'P', whitePearl, 'U', previous, 'S', goldThread});
 
 		//Impurity and salinator
-		previous = RecipeHelper.addUpgrade(UpgradeMeta.BASIC_IMPURITY, new Object[] {"NWN", "ESE", "NGN", 'N', netherrack, 'W', netherWart, 'E', fermentedEye, 'S', bone, 'G', "ingotGold"});
+		previous = RecipeHelper.addUpgrade(UpgradeMeta.BASIC_IMPURITY, new Object[] {" B ", "ENE", " B ", 'N', netherWart, 'E', fermentedEye, 'B', bone});
 		previous2 = RecipeHelper.addUpgrade(UpgradeMeta.SALINATOR, new Object[] {"ASA", "SUS", "MAM", 'A', "ingotAluminum", 'S', "foodSalt", 'M', "ingotMagnesium", 'U', previous});
 		addUpgrade(UpgradeMeta.SALINATOR_2, new Object[] {"UAU", 'A', "ingotAluminum", 'U', previous2});
-		previous = RecipeHelper.addUpgrade(UpgradeMeta.STANDARD_IMPURITY, new Object[] {"TGT", "SUS", "PFP", 'T', ghastTear, 'F', fermentedEye, 'P', poison, 'S', attack, 'G', goldSilk, 'U', previous});
-		previous = RecipeHelper.addUpgrade(UpgradeMeta.ADVANCED_IMPURITY, new Object[] {"HGH", "FUF", "SPS", 'F', night, 'P', poison, 'H', attack, 'S', fermentedEye, 'G', "blockGold", 'U', previous});
-		RecipeHelper.addUpgrade(UpgradeMeta.ULTIMATE_IMPURITY, new Object[] {"SGS", "PUP", "FSF", 'F', ender, 'P', poison, 'S', attack, 'G', goldThread, 'U', previous});
+		previous = RecipeHelper.addUpgrade(UpgradeMeta.STANDARD_IMPURITY, new Object[] {" B ", "PUP", " B ", 'B', spider, 'P', poison, 'U', previous});
+		previous = RecipeHelper.addUpgrade(UpgradeMeta.ADVANCED_IMPURITY, new Object[] {"PDP", "SUS", "HPH", 'D', undead, 'P', poison, 'H', attack, 'S', blaasop, 'U', previous});
+		RecipeHelper.addUpgrade(UpgradeMeta.ULTIMATE_IMPURITY, new Object[] {"PDP", "DUD", "HLH", 'P', poison, 'L', boneless, 'D', attack, 'B', bone, 'U', previous, 'H', new ItemStack(Items.potionitem, 1, 8268)});
 		
 		//Ethereal
 		addUpgrade(UpgradeMeta.ETHEREAL, new Object[] {"PUP", "GEG", "PDP", 'P', enderPearl, 'G', "ingotGold", 'E', eyeOfEnder, 'D', diamond, 'U', redstoneTorch});

@@ -7,11 +7,11 @@ import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemPearl;
 import mariculture.core.util.Rand;
+import mariculture.magic.MirrorEnchantHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -32,7 +32,7 @@ public class ContainerMirror extends ContainerStorage {
 		ItemStack stack = storage.getStackInSlot(3);
 		if (levelToEnchant > 0 && stack != null && (player.experienceLevel >= levelToEnchant || player.capabilities.isCreativeMode)) {
 			if (!player.worldObj.isRemote) {
-				List list = EnchantmentHelper.buildEnchantmentList(player.worldObj.rand, stack, levelToEnchant);
+				List list = MirrorEnchantHelper.buildEnchantmentList(player.worldObj.rand, stack, levelToEnchant);
 				boolean flag = stack.getItem() == Items.book;
 
 				if (list != null) {

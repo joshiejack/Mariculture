@@ -1,8 +1,8 @@
 package mariculture.magic.enchantments;
 
+import mariculture.core.config.Enchantments;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.EnchantSetting;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,14 +28,14 @@ public class EnchantmentSpeed extends EnchantmentJewelry {
 			player.moveFlying(0F, 1.0F, runSpeed);
 			
 			damageTicker++;
-			if(damageTicker % EnchantSetting.SPEED_TICKS == 0) {
+			if(damageTicker % Enchantments.SPEED_TICKS == 0) {
 				EnchantHelper.damageItems(Magic.speed, player, 1);
 			}
 		}
 	}
 
 	public static void set(int speed) {	
-		if(speed > 0) runSpeed = (float)(EnchantSetting.SPEED_FACTOR * speed);
+		if(speed > 0) runSpeed = (float)(Enchantments.SPEED_FACTOR * speed);
 		else runSpeed = 0;
 	}
 }

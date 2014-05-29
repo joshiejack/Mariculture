@@ -12,14 +12,17 @@ public class ReflectionHelper {
 		field.set(null, newValue);
 	}
 	
-	public static void setFinalStatic(Class clazz, String field1, String field2, Object newValue) {
+	public static boolean setFinalStatic(Class clazz, String field1, String field2, Object newValue) {
 		try {
 			setFinalStatic(clazz.getDeclaredField(field1), newValue);
+			return true;
 		} catch(Exception e) {
 			try {
 				if(!field2.equals(""))setFinalStatic(clazz.getDeclaredField(field2), newValue);
+				return true;
 			} catch (Exception e2) {
 				e2.printStackTrace();
+				return false;
 			}
 		}
 	}
