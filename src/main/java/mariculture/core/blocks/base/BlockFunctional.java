@@ -3,7 +3,6 @@ package mariculture.core.blocks.base;
 import mariculture.Mariculture;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.network.PacketHandler;
-import mariculture.core.network.PacketRenderRefresh;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IHasGUI;

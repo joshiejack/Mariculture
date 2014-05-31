@@ -2,7 +2,6 @@ package mariculture.core.gui.feature;
 
 import java.util.List;
 
-import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.network.PacketClick;
 import mariculture.core.network.PacketHandler;

@@ -1,7 +1,6 @@
 package mariculture.core.network;
 
 import mariculture.core.helpers.ClientHelper;
-import mariculture.core.helpers.NBTHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

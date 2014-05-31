@@ -7,7 +7,6 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.network.PacketHandler;
-import mariculture.core.network.PacketMultiInit;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.tile.base.TileMultiStorage;
 import mariculture.core.util.ITank;
