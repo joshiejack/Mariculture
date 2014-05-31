@@ -40,7 +40,7 @@ public class PacketInventorySync extends PacketNBT {
 			if (tag.getBoolean("NULLItemStack") == true) {
 				block.setInventorySlotContents(slot, null);
 			} else if (slot >= 0 && slot < inventory.length) {
-				block.setInventorySlotContents(slot, NBTHelper.getItemStackFromNBT(tag));
+				block.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tag));
 			}
 		}
 
