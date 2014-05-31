@@ -1,10 +1,8 @@
 package mariculture.core.blocks;
 
-import mariculture.api.core.MaricultureTab;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.MachineMeta;
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
 public class BlockMachineItem extends ItemBlockMariculture {

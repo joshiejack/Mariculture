@@ -12,7 +12,7 @@ import mariculture.core.helpers.NBTHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.Modules;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.Rand;
@@ -51,7 +51,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 		super.markDirty();
 		
 		if(!worldObj.isRemote) {
-			Packets.syncInventory(this, inventory);
+			PacketHandler.syncInventory(this, inventory);
 		}
 	}
 	
@@ -196,7 +196,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 

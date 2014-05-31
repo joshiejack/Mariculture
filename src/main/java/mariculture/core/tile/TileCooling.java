@@ -3,7 +3,7 @@ package mariculture.core.tile;
 import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeCasting;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileStorageTank;
 import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
@@ -90,7 +90,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		
 		if(!worldObj.isRemote) {
 			canWork = canWork();
-			Packets.syncInventory(this, inventory);
+			PacketHandler.syncInventory(this, inventory);
 		}
 	}
 	
@@ -111,7 +111,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		int amount =  tank.fill(resource, doFill);
 		if(doFill) {
 			if(amount > 0) {
-				Packets.syncFluids(this, getFluid());
+				PacketHandler.syncFluids(this, getFluid());
 	        	freezeTick = 0;
 			}
 			
@@ -126,7 +126,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		FluidStack amount = tank.drain(maxDrain, doDrain);
 		if(doDrain) {
 	        if (amount != null) {
-	        	Packets.syncFluids(this, getFluid());
+	        	PacketHandler.syncFluids(this, getFluid());
 	        }
 	        
 	        canWork = canWork();

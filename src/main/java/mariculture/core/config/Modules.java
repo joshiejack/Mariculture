@@ -1,12 +1,9 @@
 package mariculture.core.config;
 
-import cpw.mods.fml.common.Loader;
 import mariculture.Mariculture;
 import mariculture.aesthetics.Aesthetics;
 import mariculture.compatibility.Compat;
 import mariculture.core.Core;
-import mariculture.core.handlers.OreDicHandler;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.config.Category;
 import mariculture.diving.Diving;
 import mariculture.factory.Factory;

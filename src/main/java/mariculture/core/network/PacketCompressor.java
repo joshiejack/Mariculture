@@ -1,14 +1,14 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.diving.TileAirCompressor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketCompressor extends PacketCoords {
+public class PacketCompressor extends PacketCoords implements IMessageHandler<PacketCompressor, IMessage> {
 	public int air, power;
 	public PacketCompressor(){}
 	public PacketCompressor(int x, int y, int z, int air, int power) {
@@ -18,26 +18,28 @@ public class PacketCompressor extends PacketCoords {
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.encodeInto(ctx, buffer);
+	public void toBytes(ByteBuf buffer) {
+		super.toBytes(buffer);
 		buffer.writeInt(air);
 		buffer.writeInt(power);
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.decodeInto(ctx, buffer);
+	public void fromBytes(ByteBuf buffer) {
+		super.fromBytes(buffer);
 		air = buffer.readInt();
 		power = buffer.readInt();
 	}
-	
+
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+	public IMessage onMessage(PacketCompressor message, MessageContext ctx) {
+		TileEntity tile = ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z);
 		if(tile != null && tile instanceof TileAirCompressor) {
-			((TileAirCompressor)tile).storedAir = air;
-			((TileAirCompressor)tile).energyStorage.setEnergyStored(power);
-			ClientHelper.updateRender(x, y, z);
+			((TileAirCompressor)tile).storedAir = message.air;
+			((TileAirCompressor)tile).energyStorage.setEnergyStored(message.power);
+			ClientHelper.updateRender(message.x, message.y, message.z);
 		}
+		
+		return null;
 	}
 }

@@ -16,11 +16,11 @@ import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiMachineTank;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -336,14 +336,14 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	}
 
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 0 + offset, temp);
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		super.sendGUINetworkData(container, crafting);
+		crafting.sendProgressBarUpdate(container, 0 + offset, temp);
 		if (fuelHandler.info != null) {
 			burnHeight = 11 - (fuelHandler.tick * 12) / fuelHandler.info.ticksPer;
-			Packets.updateGUI(player, container, 1 + offset, burnHeight);
+			crafting.sendProgressBarUpdate(container, 1 + offset, burnHeight);
 		} else {
-			Packets.updateGUI(player, container, 1 + offset, 0);
+			crafting.sendProgressBarUpdate(container, 1 + offset, 0);
 		}
 	}
 
@@ -387,7 +387,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	@Override
 	public void onBlockPlaced() {
 		onBlockPlaced(xCoord, yCoord, zCoord);
-		Packets.updateRender(this);
+		PacketHandler.updateRender(this);
 	}
 
 	public void onBlockPlaced(int x, int y, int z) {

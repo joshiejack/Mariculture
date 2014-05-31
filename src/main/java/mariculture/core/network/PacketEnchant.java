@@ -1,12 +1,13 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import mariculture.magic.gui.ContainerMirror;
 import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketEnchant extends AbstractPacket {
+public class PacketEnchant implements IMessage, IMessageHandler<PacketEnchant, IMessage> {
 	public int windowID;
 	public int level;
 
@@ -15,26 +16,29 @@ public class PacketEnchant extends AbstractPacket {
 		this.windowID = windowID;
 		this.level = level;
 	}
-
+	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void toBytes(ByteBuf buffer) {
 		buffer.writeInt(windowID);
 		buffer.writeInt(level);
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		windowID = buffer.readInt();
 		level = buffer.readInt();
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		if (player.openContainer.windowId == windowID && player.openContainer.isPlayerNotUsingContainer(player)) {
+	public IMessage onMessage(PacketEnchant message, MessageContext ctx) {
+		EntityPlayer player = ctx.getServerHandler().playerEntity;
+		if (player.openContainer.windowId == message.windowID && player.openContainer.isPlayerNotUsingContainer(player)) {
 			ContainerMirror mirror = (ContainerMirror) player.openContainer;
-			mirror.windowId = windowID;
-			mirror.enchantItem(player, level);
+			mirror.windowId = message.windowID;
+			mirror.enchantItem(player, message.level);
 			mirror.detectAndSendChanges();
 		}
+		
+		return null;
 	}
 }

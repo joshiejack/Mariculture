@@ -9,7 +9,6 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.PlansMeta;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileMachine;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
@@ -17,8 +16,8 @@ import mariculture.core.util.Rand;
 import mariculture.factory.blocks.BlockItemCustom;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -193,9 +192,9 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
 	}
 	
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 0 + offset, selected);
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		super.sendGUINetworkData(container, crafting);
+		crafting.sendProgressBarUpdate(container, 0 + offset, selected);
 	}
 
 	@Override

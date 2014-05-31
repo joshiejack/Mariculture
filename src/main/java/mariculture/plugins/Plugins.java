@@ -1,7 +1,6 @@
 package mariculture.plugins;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Modules.Module;

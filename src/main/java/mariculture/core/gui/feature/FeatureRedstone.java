@@ -2,9 +2,9 @@ package mariculture.core.gui.feature;
 
 import java.util.List;
 
-import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.network.PacketClick;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.util.IRedstoneControlled;
 import mariculture.core.util.Text;
 import net.minecraft.nbt.NBTTagCompound;
@@ -75,7 +75,7 @@ public class FeatureRedstone extends Feature {
 	@Override
 	public void mouseClicked(int mouseX, int mouseY) {
 		if(mouseX >= 177 && mouseX <= 192 && mouseY >= 76 && mouseY <= 92) {
-			Mariculture.packets.sendToServer(new PacketClick(x, y, z, Feature.REDSTONE));
+			PacketHandler.sendToServer(new PacketClick(x, y, z, Feature.REDSTONE));
 		}
 	}
 	

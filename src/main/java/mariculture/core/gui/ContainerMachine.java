@@ -2,6 +2,7 @@ package mariculture.core.gui;
 
 import mariculture.core.util.IMachine;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 
@@ -27,7 +28,7 @@ public class ContainerMachine extends ContainerMariculture {
 		super.detectAndSendChanges();
 
 		for (int i = 0; i < crafters.size(); i++) {
-			tile.sendGUINetworkData(this, (EntityPlayer) crafters.get(i));
+			tile.sendGUINetworkData(this, (ICrafting) crafters.get(i));
 		}
 	}
 

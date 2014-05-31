@@ -4,7 +4,6 @@ import java.util.List;
 
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.Extra;

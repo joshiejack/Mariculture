@@ -1,12 +1,12 @@
 package mariculture.core.handlers;
 
-import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketFLUDD;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketJewelrySwap;
 import mariculture.factory.Factory;
 import mariculture.factory.FactoryEvents;
@@ -30,7 +30,7 @@ public class ClientFMLEvents {
 		EntityPlayer player = ClientHelper.getPlayer();
 		ItemStack selected = ClientHelper.getHeldItem();
 		if(selected != null && selected.getItem() instanceof ItemJewelry && ClientHelper.isActivateKeyPressed()) {
-			Mariculture.packets.sendToServer(new PacketJewelrySwap(ClientHelper.getPlayer().inventory.currentItem));
+			PacketHandler.sendToServer(new PacketJewelrySwap(ClientHelper.getPlayer().inventory.currentItem));
 		}
 		
 		if(Modules.isActive(Modules.factory)) {
@@ -50,7 +50,7 @@ public class ClientFMLEvents {
 						stack.setTagCompound(new NBTTagCompound());
 					}
 				} else {
-					if(FactoryEvents.getArmorMode(player) == Mode.SQUIRT) Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemArmorFLUDD.SQUIRT));
+					if(FactoryEvents.getArmorMode(player) == Mode.SQUIRT) PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemArmorFLUDD.SQUIRT));
 				}
 			}
 		}

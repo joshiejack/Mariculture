@@ -6,8 +6,8 @@ import java.util.List;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketMultiInit;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.tile.base.TileMultiStorage;
 import mariculture.core.util.ITank;
@@ -73,11 +73,11 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		machineTick++;
 		if(!isInit() && !worldObj.isRemote) {
 			//Init Master
-			Packets.updateAround(this, new PacketMultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing));
+			PacketHandler.syncMultiBlock(getMaster(), this, facing);
 			for(MultiPart slave: slaves) {
 				TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 				if(te != null && te instanceof TileVat) {
-					Packets.updateAround(this, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
+					PacketHandler.syncMultiBlock(getMaster(), te, ((TileMultiBlock)te).facing);
 				}
 			}
 
@@ -199,9 +199,9 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 			setInventorySlotContents(1, output);
 		}
 		
-		Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
-		Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);
-		Packets.syncFluidTank(this, getFluid((byte)3), (byte)3);
+		PacketHandler.syncFluidTank(this, getFluid((byte)1), (byte)1);
+		PacketHandler.syncFluidTank(this, getFluid((byte)2), (byte)2);
+		PacketHandler.syncFluidTank(this, getFluid((byte)3), (byte)3);
 	}
 
 	public boolean canWork() {
@@ -330,7 +330,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		super.markDirty();
 		
 		if(!worldObj.isRemote) {
-			Packets.syncInventory(this, inventory);
+			PacketHandler.syncInventory(this, inventory);
 		}
 	}
 	
@@ -394,19 +394,19 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		FluidStack ret = vat.tank3.drain(maxDrain, doDrain);
 		if(ret != null) {
 			if(doDrain) {
-				Packets.syncFluidTank(this, getFluid((byte)3), (byte)3);
+				PacketHandler.syncFluidTank(this, getFluid((byte)3), (byte)3);
 			}
 		} else {
 			ret = vat.tank2.drain(maxDrain, doDrain);
 			if(ret != null) {
 				if(doDrain) {
-					Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);
+					PacketHandler.syncFluidTank(this, getFluid((byte)2), (byte)2);
 				}
 			} else {
 				ret = vat.tank.drain(maxDrain, doDrain);
 				if(ret != null) {
 					if(doDrain) {
-						Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
+						PacketHandler.syncFluidTank(this, getFluid((byte)1), (byte)1);
 					}
 				}
 			}
@@ -423,13 +423,13 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 		int ret = vat.tank.fill(resource, doFill, vat.tank2);
 		if(ret > 0) {
 			if(doFill) {
-				Packets.syncFluidTank(this, getFluid((byte)1), (byte)1);
+				PacketHandler.syncFluidTank(this, getFluid((byte)1), (byte)1);
 			}
 		} else {
 			ret = vat.tank2.fill(resource, doFill, vat.tank);
 			if(ret > 0) {
 				if(doFill) {
-					Packets.syncFluidTank(this, getFluid((byte)2), (byte)2);
+					PacketHandler.syncFluidTank(this, getFluid((byte)2), (byte)2);
 				}
 			}
 		}

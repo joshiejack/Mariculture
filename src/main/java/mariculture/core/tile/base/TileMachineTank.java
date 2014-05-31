@@ -8,15 +8,13 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.Extra;
-import mariculture.core.network.Packets;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.IRedstoneControlled;
 import mariculture.core.util.Tank;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -197,13 +195,14 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	}
 	
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, mode.ordinal());
-		Packets.updateGUI(player, container, 1, setting.ordinal());
-		Packets.updateGUI(player, container, 2, processed);
-		Packets.updateGUI(player, container, 3, tank.getFluidID());
-		Packets.updateGUI(player, container, 4, tank.getFluidAmount());
-		Packets.updateGUI(player, container, 5, tank.getCapacity());
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
+		crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
+		crafting.sendProgressBarUpdate(container, 1, setting.ordinal());
+		crafting.sendProgressBarUpdate(container, 2, processed);
+		crafting.sendProgressBarUpdate(container, 3, tank.getFluidID());
+		crafting.sendProgressBarUpdate(container, 4, tank.getFluidAmount());
+		crafting.sendProgressBarUpdate(container, 5, tank.getCapacity());
 	}
 	
 	@Override

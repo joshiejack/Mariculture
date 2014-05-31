@@ -2,8 +2,6 @@ package mariculture.core.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -14,6 +12,8 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMaterial extends ItemMariculture {
 	@Override

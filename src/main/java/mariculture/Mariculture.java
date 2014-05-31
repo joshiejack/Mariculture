@@ -8,7 +8,7 @@ import mariculture.core.config.Config;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.Required;
-import mariculture.core.network.PacketPipeline;
+import mariculture.core.network.PacketHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -20,7 +20,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = "Mariculture", name = "Mariculture", dependencies = Required.after)
 public class Mariculture {
-	public static final PacketPipeline packets = new PacketPipeline();
 	public static final String modid = "mariculture";
 
 	@SidedProxy(clientSide = "mariculture.core.ClientProxy", serverSide = "mariculture.core.CommonProxy")
@@ -43,12 +42,12 @@ public class Mariculture {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		PacketHandler.init();
 		//Fish need to be registered before, the recipes that use them are called
 		if (Modules.isActive(Modules.fishery)) {
 			Fishing.fishHelper.registerFishies();
 		}
 
-		packets.init();
 		for (Module module : Modules.modules) {
 			module.init();
 		}
@@ -56,7 +55,6 @@ public class Mariculture {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		packets.postInit();
 		for (Module module : Modules.modules) {
 			module.postInit();
 		}

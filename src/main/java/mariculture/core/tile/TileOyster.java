@@ -1,7 +1,7 @@
 package mariculture.core.tile;
 
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IFaceable;
 import net.minecraft.init.Blocks;
@@ -46,7 +46,7 @@ public class TileOyster extends TileStorage implements ISidedInventory, IFaceabl
 		super.markDirty();
 		
 		if(!worldObj.isRemote) {
-			Packets.syncInventory(this, inventory);
+			PacketHandler.syncInventory(this, inventory);
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class TileOyster extends TileStorage implements ISidedInventory, IFaceabl
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 	

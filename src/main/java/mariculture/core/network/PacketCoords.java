@@ -1,12 +1,12 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
-public abstract class PacketCoords extends AbstractPacket {
+public class PacketCoords implements IMessage {
 	int x, y, z;
 	
-	public PacketCoords(){}
+	public PacketCoords() {}
 	public PacketCoords(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
@@ -14,16 +14,16 @@ public abstract class PacketCoords extends AbstractPacket {
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeInt(x);
-		buffer.writeInt(y);
-		buffer.writeInt(z);
+	public void toBytes(ByteBuf buf) {
+		buf.writeInt(x);
+		buf.writeInt(y);
+		buf.writeInt(z);
 	}
-
+	
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		x = buffer.readInt();
-		y = buffer.readInt();
-		z = buffer.readInt();
+	public void fromBytes(ByteBuf buf) {
+		this.x = buf.readInt();
+		this.y = buf.readInt();
+		this.z = buf.readInt();
 	}
 }

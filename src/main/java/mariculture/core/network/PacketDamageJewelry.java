@@ -1,12 +1,12 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import mariculture.magic.MirrorHandler;
-import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketDamageJewelry extends AbstractPacket {
+public class PacketDamageJewelry implements IMessage, IMessageHandler<PacketDamageJewelry, IMessage> {
 	public int enchant, damage;
 	public PacketDamageJewelry() {}
 	public PacketDamageJewelry(int enchant, int damage) {
@@ -15,19 +15,20 @@ public class PacketDamageJewelry extends AbstractPacket {
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void toBytes(ByteBuf buffer) {
 		buffer.writeInt(enchant);
 		buffer.writeInt(damage);
 	}
-
+	
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		this.enchant = buffer.readInt();
-		this.damage = buffer.readInt();
+	public void fromBytes(ByteBuf buffer) {
+		enchant = buffer.readInt();
+		damage = buffer.readInt();
 	}
-
+	
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		MirrorHandler.handleDamage(player, enchant, damage);
+	public IMessage onMessage(PacketDamageJewelry message, MessageContext ctx) {
+		MirrorHandler.handleDamage(ctx.getServerHandler().playerEntity, message.enchant, message.damage);
+		return null;
 	}
 }

@@ -1,5 +1,6 @@
 Mariculture 1.7.2 BETA 9
 • Broke all the configs as promised!
+• Rewrote Packet Handling
 • Improved autodictionary blacklisting defaults
 • Added Highlands Support
 • Adjusted various upgrade recipes

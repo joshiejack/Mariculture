@@ -20,7 +20,7 @@ import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAirPump.Type;
 import mariculture.core.tile.TileAnvil;
@@ -146,7 +146,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 				fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
 				fludd.tank.setFluidID(Core.hpWater.getID());
 				fludd.tank.setFluidAmount(water);
-				Packets.updateRender(fludd);
+				PacketHandler.updateRender(fludd);
 			}
 			
 			if(tile instanceof TileGeyser) ((TileGeyser) tile).setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
@@ -237,7 +237,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 			TileAnvil anvil = (TileAnvil) tile;
 			if(anvil.getStackInSlot(0) != null) {
 				if(!world.isRemote) {
-					Packets.syncInventory(anvil, anvil.getInventory());
+					PacketHandler.syncInventory(anvil, anvil.getInventory());
 				}
 				
 				SpawnItemHelper.addToPlayerInventory(player, world, x, y + 1, z, anvil.getStackInSlot(0));
@@ -284,7 +284,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 					if(stack.getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
 						if(!sifter.hasInventory) {
 							sifter.hasInventory = true;
-							Packets.updateRender(sifter);
+							PacketHandler.updateRender(sifter);
 							player.inventory.decrStackSize(player.inventory.currentItem, 1);
 							return false;
 						}

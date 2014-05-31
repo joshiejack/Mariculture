@@ -1,9 +1,8 @@
 package mariculture.core.tile.base;
 
 import mariculture.core.gui.ContainerMariculture;
-import mariculture.core.network.Packets;
 import mariculture.core.util.IPowered;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -106,9 +105,9 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	}
 	
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		super.sendGUINetworkData(container, player);
-		Packets.updateGUI(player, container, 3, energyStorage.getEnergyStored());
-		Packets.updateGUI(player, container, 4, energyStorage.getMaxEnergyStored());
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		super.sendGUINetworkData(container, crafting);
+		crafting.sendProgressBarUpdate(container, 3, energyStorage.getEnergyStored());
+		crafting.sendProgressBarUpdate(container, 4, energyStorage.getMaxEnergyStored());
 	}
 }

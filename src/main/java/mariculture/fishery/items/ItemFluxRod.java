@@ -2,7 +2,6 @@ package mariculture.fishery.items;
 
 import java.util.List;
 
-import mariculture.api.core.MaricultureTab;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.util.Text;
 import net.minecraft.creativetab.CreativeTabs;

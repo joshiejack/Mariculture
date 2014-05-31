@@ -7,7 +7,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.Extra;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileTank;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
@@ -82,7 +82,7 @@ public class TileGeyser extends TileTank implements IFaceable {
 				
 			if(onTick(100)) {
 				drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 1), true);
-				if(tank.getFluidAmount() <= 0) Packets.syncFluids(this, this.getFluid());
+				if(tank.getFluidAmount() <= 0) PacketHandler.syncFluids(this, this.getFluid());
 				pullFromInventory();
 			}
 		}
@@ -165,7 +165,7 @@ public class TileGeyser extends TileTank implements IFaceable {
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 	

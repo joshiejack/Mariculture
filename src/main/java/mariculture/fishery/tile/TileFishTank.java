@@ -6,11 +6,11 @@ import java.util.Map;
 
 import mariculture.Mariculture;
 import mariculture.core.gui.ContainerMariculture;
-import mariculture.core.network.Packets;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IMachine;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -142,8 +142,8 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
     }
 	
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, thePage);
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		crafting.sendProgressBarUpdate(container, 0, thePage);
 	}
 
 	@Override

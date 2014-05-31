@@ -11,7 +11,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMachineTank;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
@@ -230,7 +230,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification,
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 	

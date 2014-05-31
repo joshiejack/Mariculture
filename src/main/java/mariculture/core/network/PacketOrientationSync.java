@@ -1,14 +1,15 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.util.IFaceable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketOrientationSync extends PacketCoords {
+public class PacketOrientationSync extends PacketCoords implements IMessageHandler<PacketOrientationSync, IMessage> {
 	ForgeDirection dir;
 	public PacketOrientationSync() {}
 	public PacketOrientationSync(int x, int y, int z, ForgeDirection dir) {
@@ -17,22 +18,25 @@ public class PacketOrientationSync extends PacketCoords {
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.encodeInto(ctx, buffer);
+	public void toBytes(ByteBuf buffer) {
+		super.toBytes(buffer);
 		buffer.writeInt(dir.ordinal());
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.decodeInto(ctx, buffer);
-		this.dir = ForgeDirection.getOrientation(buffer.readInt());
+	public void fromBytes(ByteBuf buffer) {
+		super.fromBytes(buffer);
+		dir = ForgeDirection.getOrientation(buffer.readInt());
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		if(player.worldObj.getTileEntity(x, y, z) instanceof IFaceable) {
-			((IFaceable)player.worldObj.getTileEntity(x, y, z)).setFacing(dir);
-			ClientHelper.updateRender(x, y, z);
+	public IMessage onMessage(PacketOrientationSync message, MessageContext ctx) {
+		EntityPlayer player = ClientHelper.getPlayer();
+		if(player.worldObj.getTileEntity(message.x, message.y, message.z) instanceof IFaceable) {
+			((IFaceable)player.worldObj.getTileEntity(message.x, message.y, message.z)).setFacing(message.dir);
+			ClientHelper.updateRender(message.x, message.y, message.z);
 		}
+
+		return null;
 	}
 }

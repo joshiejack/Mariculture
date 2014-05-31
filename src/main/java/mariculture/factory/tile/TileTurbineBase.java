@@ -9,15 +9,15 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.Extra;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketTurbine;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileStorageTank;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IPowered;
 import mariculture.core.util.IRedstoneControlled;
 import mariculture.core.util.Tank;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -207,7 +207,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		if(Extra.TURBINE_ANIM) {
 			if(!worldObj.isRemote && onTick(Extra.TURBINE_RATE)) {
 				isAnimating = isCreatingPower || isTransferringPower;
-				Packets.updateAround(this, new PacketTurbine(xCoord, yCoord, zCoord, isAnimating));
+				PacketHandler.sendAround(new PacketTurbine(xCoord, yCoord, zCoord, isAnimating), this);
 			} else if(worldObj.isRemote) {
 				if(isAnimating) {
 					angle = angle + 0.1;
@@ -275,7 +275,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 	
@@ -354,13 +354,13 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	}
 	
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, mode.ordinal());
-		Packets.updateGUI(player, container, 1, tank.getFluidID());
-		Packets.updateGUI(player, container, 2, tank.getFluidAmount());
-		Packets.updateGUI(player, container, 3, tank.getCapacity());
-		Packets.updateGUI(player, container, 4, energyStorage.getEnergyStored());
-		Packets.updateGUI(player, container, 5, energyStorage.getMaxEnergyStored());
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
+		crafting.sendProgressBarUpdate(container, 1, tank.getFluidID());
+		crafting.sendProgressBarUpdate(container, 2, tank.getFluidAmount());
+		crafting.sendProgressBarUpdate(container, 3, tank.getCapacity());
+		crafting.sendProgressBarUpdate(container, 4, energyStorage.getEnergyStored());
+		crafting.sendProgressBarUpdate(container, 5, energyStorage.getMaxEnergyStored());
 	}
 	
 	@Override

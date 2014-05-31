@@ -1,9 +1,9 @@
 package mariculture.magic;
 
-import mariculture.Mariculture;
 import mariculture.api.core.IMirrorHandler;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketDamageJewelry;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSyncMirror;
 import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -77,7 +77,7 @@ public class MirrorHandler implements IMirrorHandler {
 	@Override
 	public void damageItemsWithEnchantment(EntityPlayer player, int enchant, int amount) {
 		if (player.worldObj.isRemote && player instanceof EntityClientPlayerMP) {
-			Mariculture.packets.sendToServer(new PacketDamageJewelry(enchant, amount));
+			PacketHandler.sendToServer(new PacketDamageJewelry(enchant, amount));
 		} else {
 			handleDamage(player, enchant, amount);
 		}
@@ -97,12 +97,12 @@ public class MirrorHandler implements IMirrorHandler {
 							JewelryMaterial material = JewelryHandler.getMaterial(mirror[i]);
 							if(material.id == matId) {
 								if(mirror[i].attemptDamageItem(1, Rand.rand)) {
-									Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+									PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 								}
 							}
 						} else {
 	 						if(mirror[i].attemptDamageItem(1, Rand.rand)) {
-								Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+								PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 							}
 						}
 					}

@@ -1,6 +1,6 @@
 package mariculture.factory.tile;
 
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -166,7 +166,7 @@ public class TileCustom extends TileEntity {
 	public void updateRender() {
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		if (!worldObj.isRemote) {
-			Packets.updateRender(this);
+			PacketHandler.updateRender(this);
 		}
 	}
 }

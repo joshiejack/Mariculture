@@ -1,67 +1,50 @@
 package mariculture.core.network;
 
 import mariculture.core.helpers.ClientHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import mariculture.core.helpers.NBTHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketInventorySync extends PacketNBT {
-	public PacketInventorySync(){}
+	public PacketInventorySync() {}
 	public PacketInventorySync(int x, int y, int z, ItemStack[] inventory) {
-		nbt = new NBTTagCompound();
+		super(inventory);
 		nbt.setInteger("x", x);
 		nbt.setInteger("y", y);
 		nbt.setInteger("z", z);
-		nbt.setInteger("length", inventory.length);
-		
-		NBTTagList itemList = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			ItemStack stack = inventory[i];
-			if (stack != null) {
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setByte("Slot", (byte) i);
-				tag.setBoolean("NULLItemStack", false);
-				stack.writeToNBT(tag);
-				itemList.appendTag(tag);
-			} else {
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setByte("Slot", (byte) i);
-				tag.setBoolean("NULLItemStack", true);
-				itemList.appendTag(tag);
-			}
-		}
-		
-		nbt.setTag("Inventory", itemList);
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		World world = player.worldObj;
-		int x = nbt.getInteger("x");
-		int y = nbt.getInteger("y");
-		int z = nbt.getInteger("z");
-		int length = nbt.getInteger("length");
-		
+	public IMessage onMessage(PacketNBT message, MessageContext ctx) {
+		World world = ClientHelper.getPlayer().worldObj;
+		int x = message.nbt.getInteger("x");
+		int y = message.nbt.getInteger("y");
+		int z = message.nbt.getInteger("z");
+		int length = message.nbt.getInteger("length");
+
 		TileEntity tile = world.getTileEntity(x, y, z);
 		ItemStack[] inventory = new ItemStack[length];
 		IInventory block = (IInventory) world.getTileEntity(x, y, z);
-		if(block == null || tile == null) return;
-		NBTTagList tagList = nbt.getTagList("Inventory", 10);
+		if (block == null || tile == null)
+			return null;
+		NBTTagList tagList = message.nbt.getTagList("Inventory", 10);
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
 			byte slot = tag.getByte("Slot");
-			if(tag.getBoolean("NULLItemStack") == true) {
+			if (tag.getBoolean("NULLItemStack") == true) {
 				block.setInventorySlotContents(slot, null);
 			} else if (slot >= 0 && slot < inventory.length) {
-				block.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tag));
+				block.setInventorySlotContents(slot, NBTHelper.getItemStackFromNBT(tag));
 			}
 		}
-		
+
 		ClientHelper.updateRender(x, y, z);
+		return null;
 	}
 }

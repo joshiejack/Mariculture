@@ -1,8 +1,8 @@
 package mariculture.plugins;
 
-import java.lang.reflect.Field;
-
 import highlands.api.HighlandsBiomes;
+
+import java.lang.reflect.Field;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;

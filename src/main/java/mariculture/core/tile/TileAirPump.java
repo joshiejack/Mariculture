@@ -12,7 +12,7 @@ import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketAirPump;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileStorageTank;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
@@ -128,7 +128,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 				
 			animate = true;
 				
-			if(canUpdate()) Packets.updateAround(this, new PacketAirPump(xCoord, yCoord, zCoord));
+			if(canUpdate()) PacketHandler.sendAround(new PacketAirPump(xCoord, yCoord, zCoord), this);
 		}
 			
 		suckUpGas(4096);
@@ -215,7 +215,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 

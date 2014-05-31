@@ -1,8 +1,8 @@
 package mariculture.plugins;
 
-import powercrystals.minefactoryreloaded.MFRRegistry;
 import mariculture.core.handlers.OreDicHandler;
 import mariculture.plugins.Plugins.Plugin;
+import powercrystals.minefactoryreloaded.MFRRegistry;
 
 public class PluginMFR extends Plugin {
 	@Override

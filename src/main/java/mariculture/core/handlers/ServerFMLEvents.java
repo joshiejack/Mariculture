@@ -1,8 +1,8 @@
 package mariculture.core.handlers;
 
-import mariculture.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Modules;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSyncMirror;
 import mariculture.magic.Magic;
 import mariculture.magic.MirrorHelper;
@@ -18,7 +18,7 @@ public class ServerFMLEvents {
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
 		if(Modules.isActive(Modules.magic) && player instanceof EntityPlayerMP) {
-			Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+			PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 		}
 	}
 	

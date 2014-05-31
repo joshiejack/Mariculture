@@ -1,7 +1,5 @@
 package mariculture.core.config;
 
-import mariculture.core.lib.config.Category;
-import mariculture.core.lib.config.Comment;
 import net.minecraftforge.common.config.Configuration;
 
 public class AutoDictionary {

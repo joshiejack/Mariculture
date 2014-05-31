@@ -1,17 +1,19 @@
 package mariculture.core.network;
 
 import mariculture.core.helpers.ClientHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketRenderRefresh extends PacketCoords {
+public class PacketRenderRefresh extends PacketCoords implements IMessageHandler<PacketCoords, IMessage> {
 	public PacketRenderRefresh(){}
 	public PacketRenderRefresh(int x, int y, int z) {
 		super(x, y, z);
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		ClientHelper.updateRender(x, y, z);
+	public IMessage onMessage(PacketCoords message, MessageContext ctx) {
+		ClientHelper.updateRender(message.x, message.y, message.z);
+		return null;
 	}
 }

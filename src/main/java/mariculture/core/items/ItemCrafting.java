@@ -7,7 +7,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Text;
 import mariculture.world.WorldPlus;

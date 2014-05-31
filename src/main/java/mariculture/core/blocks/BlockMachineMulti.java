@@ -4,7 +4,6 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctionalMulti;
-import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RockMeta;

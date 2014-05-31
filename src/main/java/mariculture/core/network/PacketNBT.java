@@ -1,32 +1,54 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.PacketBuffer;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 
-public abstract class PacketNBT extends AbstractPacket {
+public abstract class PacketNBT implements IMessage, IMessageHandler<PacketNBT, IMessage> {
 	public NBTTagCompound nbt;
-	public PacketNBT(){}
-	public PacketNBT(NBTTagCompound nbt) {
-		this.nbt = nbt;
+	
+	public PacketNBT() {}
+	public PacketNBT(ItemStack[] inventory) {
+		nbt = new NBTTagCompound();
+		nbt.setInteger("length", inventory.length);
+
+		NBTTagList itemList = new NBTTagList();
+		for (int i = 0; i < inventory.length; i++) {
+			ItemStack stack = inventory[i];
+			if (stack != null) {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setByte("Slot", (byte) i);
+				tag.setBoolean("NULLItemStack", false);
+				stack.writeToNBT(tag);
+				itemList.appendTag(tag);
+			} else {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setByte("Slot", (byte) i);
+				tag.setBoolean("NULLItemStack", true);
+				itemList.appendTag(tag);
+			}
+		}
+
+		nbt.setTag("Inventory", itemList);
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void toBytes(ByteBuf buffer) {	
 		try {
-			PacketBuffer packetbuffer = new PacketBuffer(buffer);
-			packetbuffer.writeNBTTagCompoundToBuffer(nbt);
+			new PacketBuffer(buffer).writeNBTTagCompoundToBuffer(nbt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		try {
-			PacketBuffer packetbuffer = new PacketBuffer(buffer);
-			nbt = packetbuffer.readNBTTagCompoundFromBuffer();
+			nbt = new PacketBuffer(buffer).readNBTTagCompoundFromBuffer();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

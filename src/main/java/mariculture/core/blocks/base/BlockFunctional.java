@@ -2,8 +2,8 @@ package mariculture.core.blocks.base;
 
 import mariculture.Mariculture;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketRenderRefresh;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IHasGUI;
@@ -39,7 +39,7 @@ public abstract class BlockFunctional extends BlockDecorative {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof IFaceable) {
 			((IFaceable) tile).setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
-			Packets.updateAround(tile, new PacketRenderRefresh(x, y, z));
+			PacketHandler.updateRender(tile);
 		}
 	}
 	

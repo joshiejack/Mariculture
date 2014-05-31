@@ -1,44 +1,46 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import mariculture.Mariculture;
 import mariculture.magic.MirrorHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketJewelrySwap extends AbstractPacket {
+public class PacketJewelrySwap implements IMessage, IMessageHandler<PacketJewelrySwap, IMessage> {
 	int slot;
 	public PacketJewelrySwap(){}
 	public PacketJewelrySwap(int slot) {
 		this.slot = slot;
 	}
-
+	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void toBytes(ByteBuf buffer) {
 		buffer.writeInt(slot);
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		this.slot = buffer.readInt();
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
+	public IMessage onMessage(PacketJewelrySwap message, MessageContext ctx) {
+		EntityPlayer player = ctx.getServerHandler().playerEntity;
 		ItemStack[] mirror = MirrorHelper.getInventoryForPlayer(player);
-		ItemStack stack = player.inventory.mainInventory[slot];
+		ItemStack stack = player.inventory.mainInventory[message.slot];
 		if(stack != null) {
 			int type = ((ItemJewelry)stack.getItem()).getType().ordinal();
 			ItemStack inMirror = mirror[type];
 			mirror[type] = stack;
 			player.setCurrentItemOrArmor(0, inMirror);
 			MirrorHelper.save(player, mirror);
-			Mariculture.packets.sendTo(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+			PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
 		}
+		
+		return null;
 	}
-
 }

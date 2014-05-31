@@ -4,22 +4,26 @@ import mariculture.Mariculture;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.magic.Magic;
 import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketTeleport extends PacketCoords {
-	public PacketTeleport() {
-	}
-
+public class PacketTeleport extends PacketCoords implements IMessageHandler<PacketCoords, IMessage> {
+	public PacketTeleport() {}
 	public PacketTeleport(int x, int y, int z) {
 		super(x, y, z);
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
+	public IMessage onMessage(PacketCoords message, MessageContext ctx) {
+		EntityPlayer player = ctx.getServerHandler().playerEntity;
+		x = message.x;
+		y = message.y;
+		z = message.z;
+
 		if (EnchantHelper.hasEnchantment(Magic.blink, player)) {
 			if (player.worldObj.isAirBlock(x, y + 1, z) && player.worldObj.isAirBlock(x, y + 2, z)) {
 				int distanceX, distanceZ, distanceY;
-
 				if (y + 1 > player.posY) {
 					distanceY = (int) (y + 1 - player.posY);
 				} else {
@@ -56,5 +60,6 @@ public class PacketTeleport extends PacketCoords {
 				}
 			}
 		}
+		return null;
 	}
 }

@@ -59,7 +59,6 @@ import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.LimestoneMeta;
-import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;

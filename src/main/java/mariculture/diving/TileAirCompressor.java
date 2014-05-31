@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.network.PacketCompressor;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -83,7 +83,7 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
 				energyStorage.extractEnergy(1000, false);
 				if(storedAir < max) {
 					storedAir++;
-					Packets.updateAround(this, new PacketCompressor(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)));
+					PacketHandler.sendAround(new PacketCompressor(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)), this);
 				}
 			}
 		}

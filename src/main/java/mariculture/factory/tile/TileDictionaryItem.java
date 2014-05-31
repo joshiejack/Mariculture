@@ -6,13 +6,12 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.handlers.OreDicHandler;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
 import mariculture.factory.items.ItemFilter;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -156,8 +155,8 @@ public class TileDictionaryItem extends TileStorage implements IItemDropBlacklis
 	}
 
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
-		Packets.updateGUI(player, container, 0, setting.ordinal());
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+		crafting.sendProgressBarUpdate(container, 0, setting.ordinal());
 	}
 
 	@Override

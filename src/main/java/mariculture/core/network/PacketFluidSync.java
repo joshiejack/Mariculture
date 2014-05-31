@@ -1,29 +1,30 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.util.ITank;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketFluidSync extends PacketCoords {
+public class PacketFluidSync extends PacketCoords implements IMessageHandler<PacketFluidSync, IMessage> {
 	byte tank;
 	FluidStack fluid;
-	public PacketFluidSync(){}
+
+	public PacketFluidSync() { }
 	public PacketFluidSync(int x, int y, int z, FluidStack fluid, byte tank) {
 		super(x, y, z);
 		this.fluid = fluid;
 		this.tank = tank;
 	}
-	
+
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.encodeInto(ctx, buffer);
+	public void toBytes(ByteBuf buffer) {
+		super.toBytes(buffer);
 		buffer.writeByte(tank);
-		if(fluid == null) {
+		if (fluid == null) {
 			buffer.writeInt(0);
 		} else {
 			buffer.writeInt(fluid.fluidID);
@@ -32,24 +33,26 @@ public class PacketFluidSync extends PacketCoords {
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.decodeInto(ctx, buffer);
+	public void fromBytes(ByteBuf buffer) {
+		super.fromBytes(buffer);
 		tank = buffer.readByte();
 		int id = buffer.readInt();
-		if(id == 0) {
+		if (id == 0) {
 			fluid = null;
 		} else {
 			fluid = new FluidStack(id, buffer.readInt());
 		}
 	}
-	
+
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		TileEntity te = player.worldObj.getTileEntity(x, y, z);
-		if(te instanceof ITank) {
-			((ITank)te).setFluid(fluid, tank);
+	public IMessage onMessage(PacketFluidSync message, MessageContext ctx) {
+		TileEntity te = ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z);
+		if (te instanceof ITank) {
+			((ITank) te).setFluid(message.fluid, message.tank);
 		}
+
+		ClientHelper.updateRender(message.x, message.y, message.z);
 		
-		ClientHelper.updateRender(x, y, z);
+		return null;
 	}
 }

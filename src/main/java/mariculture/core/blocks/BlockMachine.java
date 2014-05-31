@@ -8,8 +8,8 @@ import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSponge;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.TileBookshelf;
 import mariculture.factory.tile.TileDictionaryItem;
 import mariculture.factory.tile.TileFishSorter;
@@ -120,7 +120,7 @@ public class BlockMachine extends BlockFunctional {
 			if(tile instanceof TileSluice) {
 				TileSluice sluice = (TileSluice) tile;
 				sluice.orientation = ForgeDirection.getOrientation(facing);
-				Packets.updateOrientation(sluice);
+				PacketHandler.updateOrientation(sluice);
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class BlockMachine extends BlockFunctional {
 		
 		if (tile instanceof TileSponge) {
 			if(world.isRemote && player instanceof EntityClientPlayerMP) {
-				Mariculture.packets.sendToServer(new PacketSponge(x, y, z, true));
+				PacketHandler.sendToServer(new PacketSponge(x, y, z, true));
 			} else if(player.getCurrentEquippedItem() != null && !world.isRemote) {
 				Item currentItem = player.getCurrentEquippedItem().getItem();
 				if (currentItem instanceof IEnergyContainerItem && !world.isRemote) {

@@ -2,18 +2,13 @@ package mariculture.core.items;
 
 import java.util.List;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
-import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.Modules;
 import mariculture.plugins.PluginHungerOverhaul;
-import mariculture.plugins.Plugins;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -21,6 +16,8 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFood extends ItemMariculture {
 	private int getFoodLevel(int dmg) {

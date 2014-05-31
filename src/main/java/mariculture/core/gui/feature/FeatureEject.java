@@ -5,6 +5,7 @@ import java.util.List;
 import mariculture.Mariculture;
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.network.PacketClick;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.Text;
 import net.minecraft.nbt.NBTTagCompound;
@@ -81,7 +82,7 @@ public class FeatureEject extends Feature {
 	@Override
 	public void mouseClicked(int mouseX, int mouseY) {
 		if(mouseX >= 177 && mouseX <= 192 && mouseY >= 99 && mouseY <= 114) {
-			Mariculture.packets.sendToServer(new PacketClick(x, y, z, Feature.EJECT));
+			PacketHandler.sendToServer(new PacketClick(x, y, z, Feature.EJECT));
 		}
 	}
 	

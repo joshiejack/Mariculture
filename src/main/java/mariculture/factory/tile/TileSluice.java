@@ -5,7 +5,7 @@ import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileTank;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
@@ -199,7 +199,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 	public void setFacing(ForgeDirection dir) {
 		this.orientation = dir;
 		if(!worldObj.isRemote) {
-			Packets.updateOrientation(this);
+			PacketHandler.updateOrientation(this);
 		}
 	}
 	

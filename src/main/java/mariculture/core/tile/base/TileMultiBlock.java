@@ -2,8 +2,8 @@ package mariculture.core.tile.base;
 
 import java.util.ArrayList;
 
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketMultiInit;
-import mariculture.core.network.Packets;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -78,8 +78,7 @@ public class TileMultiBlock extends TileEntity {
 	}
 	
 	public TileMultiBlock getMaster() {
-		if(master == null)
-			return null;
+		if(master == null) return null;
 		TileEntity tile = worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord);
 		return tile != null && tile instanceof TileMultiBlock? (TileMultiBlock)tile: null;
 	}
@@ -141,7 +140,7 @@ public class TileMultiBlock extends TileEntity {
 							te.setMaster(null);
 							te.setInit(false);
 							((TileMultiBlock) te).setFacing(ForgeDirection.UNKNOWN);
-							Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN));
+							PacketHandler.breakMultiBlock(te);
 						}
 					}
 				}
@@ -151,7 +150,7 @@ public class TileMultiBlock extends TileEntity {
 				mstr.setMaster(null);
 				mstr.setInit(false);
 				((TileMultiBlock) mstr).setFacing(ForgeDirection.UNKNOWN);
-				Packets.updateAround(mstr, new PacketMultiInit(mstr.xCoord, mstr.yCoord, mstr.zCoord,  0, -1, 0, ForgeDirection.UNKNOWN));
+				PacketHandler.breakMultiBlock(mstr);
 			}
 		}
 	}
@@ -181,11 +180,12 @@ public class TileMultiBlock extends TileEntity {
 	//Initialize
 	public void init() {
 		//Init Master
-		Packets.updateAround(this, new PacketMultiInit(xCoord, yCoord, zCoord, master.xCoord, master.yCoord, master.zCoord, facing));
+		TileMultiBlock master = getMaster();
+		PacketHandler.syncMultiBlock(master, this, facing);
 		for(MultiPart slave: slaves) {
 			TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
 			if(te != null && te.getClass().equals(getTEClass())) {
-				Packets.updateAround(te, new PacketMultiInit(te.xCoord, te.yCoord, te.zCoord, master.xCoord, master.yCoord, master.zCoord, ((TileMultiBlock)te).facing));
+				PacketHandler.syncMultiBlock(master, te, ((TileMultiBlock)te).facing);
 			}
 		}
 			

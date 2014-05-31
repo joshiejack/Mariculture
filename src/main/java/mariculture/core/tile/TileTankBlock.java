@@ -3,7 +3,7 @@ package mariculture.core.tile;
 import java.util.List;
 
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.util.ITank;
 import mariculture.core.util.Tank;
 import net.minecraft.nbt.NBTTagCompound;
@@ -47,14 +47,14 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int amount =  tank.fill(resource, doFill);
-		if(amount > 0 && doFill) Packets.syncFluids(this, getFluid());
+		if(amount > 0 && doFill) PacketHandler.syncFluids(this, getFluid());
         return amount;
 	}
 	
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 		FluidStack amount = tank.drain(maxDrain, doDrain);
-		if(amount != null && doDrain) Packets.syncFluids(this, getFluid());
+		if(amount != null && doDrain) PacketHandler.syncFluids(this, getFluid());
         return amount;
 	}
 

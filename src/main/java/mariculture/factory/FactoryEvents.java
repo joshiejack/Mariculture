@@ -1,11 +1,11 @@
 package mariculture.factory;
 
-import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.Extra;
 import mariculture.core.network.PacketFLUDD;
+import mariculture.core.network.PacketHandler;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.items.ItemArmorFLUDD.Mode;
 import mariculture.fishery.items.ItemFishy;
@@ -67,7 +67,7 @@ public class FactoryEvents {
 							player.moveFlying(0.0F, 1.0F, 0.1F);
 						}
 							
-						Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemArmorFLUDD.TURBO));
+						PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemArmorFLUDD.TURBO));
 						playSmoke(ItemArmorFLUDD.TURBO, player, true);
 					}
 	
@@ -76,7 +76,7 @@ public class FactoryEvents {
 						if (jumpTick < 10) {
 							player.addVelocity(0, 0.35, 0);
 							player.fallDistance = 0F;
-							Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemArmorFLUDD.ROCKET));
+							PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemArmorFLUDD.ROCKET));
 							playSmoke(ItemArmorFLUDD.ROCKET, player, true);
 						}
 					}
@@ -96,7 +96,7 @@ public class FactoryEvents {
 							if(player.onGround) player.motionY = 10;
 							if (jumpTick < 10) {
 								player.addVelocity(0, 0.01, 0);
-								Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemArmorFLUDD.HOVER));
+								PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemArmorFLUDD.HOVER));
 							}
 	
 							player.fallDistance = 0F;
@@ -143,7 +143,7 @@ public class FactoryEvents {
 
 	private static boolean playHover(EntityPlayer player, boolean isSender) {
 		if (Extra.FLUDD_WATER_ON) {
-			if(isSender) Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemArmorFLUDD.HOVER));
+			if(isSender) PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemArmorFLUDD.HOVER));
 			for (float j = -0.1F; j < 0.15F; j = j + 0.05F) {
 				double i = 0.2D;
 				while (player.worldObj.isAirBlock((int) player.posX, (int) (player.posY - i), (int) player.posZ)) {
@@ -163,7 +163,7 @@ public class FactoryEvents {
 	private static boolean playRocket(EntityPlayer player, boolean isSender) {
 		if (Extra.FLUDD_WATER_ON) {
 			boolean send = false;
-			if(isSender) Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemArmorFLUDD.ROCKET));
+			if(isSender) PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemArmorFLUDD.ROCKET));
 			for (float k = -1F; k < 1.05F; k = k + 0.15F) {
 				for (float j = -1F; j < 1.05F; j = j + 0.15F) {
 					int i = 0;
@@ -188,7 +188,7 @@ public class FactoryEvents {
 
 	private static boolean playTurbo(EntityPlayer player, boolean isSender) {
 		if (Extra.FLUDD_WATER_ON) {
-			if(isSender) Mariculture.packets.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemArmorFLUDD.TURBO));
+			if(isSender) PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemArmorFLUDD.TURBO));
 			player.worldObj.spawnParticle("cloud", player.posX, player.posY + 0.8F, player.posZ, 0, -1D, 0);
 			player.worldObj.spawnParticle("cloud", player.posX, player.posY + 0.8F, player.posZ, 0, -1D, 0);
 			player.worldObj.spawnParticle("cloud", player.posX, player.posY + 0.8F, player.posZ, 0, -1D, 0);

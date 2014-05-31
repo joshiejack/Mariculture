@@ -2,7 +2,6 @@ package mariculture.core.items;
 
 import java.util.List;
 
-import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.BottleMeta;

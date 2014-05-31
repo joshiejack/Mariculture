@@ -11,11 +11,10 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.BottleMeta;
-import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileTankBlock;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.factory.tile.TileDictionaryFluid;
@@ -115,7 +114,7 @@ public class BlockTank extends BlockConnected {
 				Fluid fluid = FluidRegistry.getFluid(next);
 				if(fluid != null) {
 					dic.tank.setFluid(new FluidStack(fluid, 1));
-					Packets.syncFluids(dic, dic.tank.getFluid());
+					PacketHandler.syncFluids(dic, dic.tank.getFluid());
 				}
 			}
 		}
@@ -202,7 +201,7 @@ public class BlockTank extends BlockConnected {
 				if (tile instanceof TileTankBlock) {
 					TileTankBlock tank = (TileTankBlock) tile;
 					tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
-					Packets.syncFluids(tank, tank.getFluid());
+					PacketHandler.syncFluids(tank, tank.getFluid());
 				}
 			}
 		}

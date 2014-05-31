@@ -1,12 +1,14 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
+import mariculture.core.helpers.ClientHelper;
 import mariculture.factory.tile.TileTurbineBase;
 import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketTurbine extends PacketCoords {
+public class PacketTurbine extends PacketCoords implements IMessageHandler<PacketTurbine, IMessage> {
 	boolean isAnimating;
 	public PacketTurbine(){}
 	public PacketTurbine(int x, int y, int z, boolean isAnimating) {
@@ -15,22 +17,24 @@ public class PacketTurbine extends PacketCoords {
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.encodeInto(ctx, buffer);
+	public void toBytes(ByteBuf buffer) {
+		super.toBytes(buffer);
 		buffer.writeBoolean(isAnimating);
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.decodeInto(ctx, buffer);
+	public void fromBytes(ByteBuf buffer) {
+		super.fromBytes(buffer);
 		isAnimating = buffer.readBoolean();
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		if(player.worldObj.getTileEntity(x, y, z) instanceof TileTurbineBase) {
-			((TileTurbineBase)player.worldObj.getTileEntity(x, y, z)).isAnimating = isAnimating;
+	public IMessage onMessage(PacketTurbine message, MessageContext ctx) {
+		EntityPlayer player = ClientHelper.getPlayer();
+		if(player.worldObj.getTileEntity(message.x, message.y, message.z) instanceof TileTurbineBase) {
+			((TileTurbineBase)player.worldObj.getTileEntity(message.x, message.y, message.z)).isAnimating = isAnimating;
 		}
+		
+		return null;
 	}
-
 }

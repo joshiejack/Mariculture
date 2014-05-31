@@ -9,7 +9,6 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
-import mariculture.core.network.Packets;
 import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IHasClickableButton;
@@ -17,7 +16,7 @@ import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
 import mariculture.fishery.Fish;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -154,13 +153,13 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 	}
 	
 	@Override
-	public void sendGUINetworkData(ContainerMariculture container, EntityPlayer player) {
+	public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
 		for(int i = 0; i < input; i++) {
-			Packets.updateGUI(player, container, i, (sorting.containsKey(i))? sorting.get(i): 0);
+			crafting.sendProgressBarUpdate(container, i, (sorting.containsKey(i))? sorting.get(i): 0);
 		}
 		
-		Packets.updateGUI(player, container, 21, setting.ordinal());
-		Packets.updateGUI(player, container, 22, dft_side);
+		crafting.sendProgressBarUpdate(container, 21, setting.ordinal());
+		crafting.sendProgressBarUpdate(container, 22, dft_side);
 	}
 
 	@Override

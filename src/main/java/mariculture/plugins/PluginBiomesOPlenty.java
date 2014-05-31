@@ -18,10 +18,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.common.Loader;
 import biomesoplenty.api.BOPBlockHelper;
 import biomesoplenty.api.BOPItemHelper;
 import biomesoplenty.api.content.BOPCBiomes;
+import cpw.mods.fml.common.Loader;
 
 public class PluginBiomesOPlenty extends Plugin {
 	public static enum Biome {

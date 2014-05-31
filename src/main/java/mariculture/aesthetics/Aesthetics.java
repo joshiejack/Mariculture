@@ -1,10 +1,10 @@
 package mariculture.aesthetics;
 
-import static mariculture.core.lib.ItemLib.*;
-import static mariculture.core.helpers.RecipeHelper.*;
+import static mariculture.core.helpers.RecipeHelper.add4x4Recipe;
+import static mariculture.core.helpers.RecipeHelper.addShaped;
+import static mariculture.core.helpers.RecipeHelper.addSmelting;
 import mariculture.core.Core;
 import mariculture.core.blocks.BlockPearlBlock;
-import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.Modules.RegistrationModule;

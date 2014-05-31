@@ -1,39 +1,40 @@
 package mariculture.core.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import mariculture.core.util.IHasClickableButton;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketClick extends PacketCoords {	
+public class PacketClick extends PacketCoords implements IMessageHandler<PacketClick, IMessage> {
 	int id;
-	
-	public PacketClick() { }
+
+	public PacketClick() {}
 	public PacketClick(int x, int y, int z, int id) {
 		super(x, y, z);
 		this.id = id;
 	}
-	
+
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.encodeInto(ctx, buffer);
+	public void toBytes(ByteBuf buffer) {
+		super.toBytes(buffer);
 		buffer.writeInt(id);
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		super.decodeInto(ctx, buffer);
+	public void fromBytes(ByteBuf buffer) {
+		super.fromBytes(buffer);
 		id = buffer.readInt();
 	}
 
 	@Override
-	public void handle(Side side, EntityPlayer player) {
-		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
-		if(tile != null && tile instanceof IHasClickableButton) {
-			((IHasClickableButton)tile).handleButtonClick(id);
+	public IMessage onMessage(PacketClick message, MessageContext ctx) {
+		TileEntity tile = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
+		if (tile != null && tile instanceof IHasClickableButton) {
+			((IHasClickableButton) tile).handleButtonClick(message.id);
 		}
-	}
 
+		return null;
+	}
 }

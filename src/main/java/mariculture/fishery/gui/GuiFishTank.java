@@ -5,6 +5,7 @@ import mariculture.core.gui.GuiMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.network.PacketClick;
+import mariculture.core.network.PacketHandler;
 import mariculture.fishery.tile.TileFishTank;
 import net.minecraft.entity.player.InventoryPlayer;
 
@@ -25,14 +26,14 @@ public class GuiFishTank extends GuiMariculture {
 	@Override
 	protected void onMouseClick(int x, int y)  {
 		if(mouseX >= -18 && mouseX <= 2 && mouseY >= 104 && mouseY <= 124) {
-			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous));
-			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
+			PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous));
+			PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
 			ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 		}
 		
 		if(mouseX >= 172 && mouseX <= 192 && mouseY >= 104 && mouseY <= 124) {
-			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next));
-			Mariculture.packets.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
+			PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next));
+			PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
 			ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 		}
     }

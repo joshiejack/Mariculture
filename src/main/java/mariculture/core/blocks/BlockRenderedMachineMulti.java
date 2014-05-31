@@ -6,12 +6,11 @@ import mariculture.core.blocks.base.BlockFunctionalMulti;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.network.PacketCompressor;
-import mariculture.core.network.Packets;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileVat;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
@@ -88,7 +87,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 						heldItem.setItemDamage(heldItem.getItemDamage() - 1);
 						if(!world.isRemote) {
 							te.storedAir--;
-							Packets.updateAround(te, new PacketCompressor(te.xCoord, te.yCoord, te.zCoord,  te.storedAir, te.getEnergyStored(ForgeDirection.UP)));
+							PacketHandler.sendAround(new PacketCompressor(te.xCoord, te.yCoord, te.zCoord,  te.storedAir, te.getEnergyStored(ForgeDirection.UP)), te);
 						}
 						return true;
 					}

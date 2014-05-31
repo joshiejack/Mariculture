@@ -1,7 +1,7 @@
 package mariculture.magic.enchantments;
 
-import mariculture.Mariculture;
 import mariculture.core.helpers.ClientHelper;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketTeleport;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -24,7 +24,7 @@ public class EnchantmentBlink extends EnchantmentJewelry {
 	public static void sendPacket(EntityClientPlayerMP player) {
 		MovingObjectPosition lookAt = player.rayTrace(2000, 1);
 		if (lookAt != null && lookAt.typeOfHit == MovingObjectType.BLOCK && ClientHelper.isActivateKeyPressed()) {
-			Mariculture.packets.sendToServer(new PacketTeleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ));
+			PacketHandler.sendToServer(new PacketTeleport(lookAt.blockX, lookAt.blockY + 1, lookAt.blockZ));
 		}
 	}
 }
