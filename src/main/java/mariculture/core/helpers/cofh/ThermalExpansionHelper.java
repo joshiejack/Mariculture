@@ -40,12 +40,16 @@ public class ThermalExpansionHelper {
 		toSend.setInteger("energy", energy);
 		toSend.setCompoundTag("input", new NBTTagCompound());
 		toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
-		toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
 
 		input.writeToNBT(toSend.getCompoundTag("input"));
 		primaryOutput.writeToNBT(toSend.getCompoundTag("primaryOutput"));
-		secondaryOutput.writeToNBT(toSend.getCompoundTag("secondaryOutput"));
-		toSend.setInteger("secondaryChance", secondaryChance);
+
+        if (secondaryOutput != null) {
+            toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+
+            secondaryOutput.writeToNBT(toSend.getCompoundTag("secondaryOutput"));
+            toSend.setInteger("secondaryChance", secondaryChance);
+        }
 
 		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
 	}
