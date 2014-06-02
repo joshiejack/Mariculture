@@ -96,9 +96,9 @@ public class BlockTransferHelper {
 			}
 			
 			if(machine.getFluid(transfer) != null) {
-				if(tank.fill(from.getOpposite(), machine.getFluid(transfer), false) >= transfer) {
-					tank.fill(from.getOpposite(), machine.getFluid(transfer), true);
-					((IFluidHandler)machine).drain(from, machine.getFluid(transfer), true);
+				if(tank.fill(from, machine.getFluid(transfer), false) >= transfer) {
+					tank.fill(from, machine.getFluid(transfer), true);
+					((IFluidHandler)machine).drain(from.getOpposite(), machine.getFluid(transfer), true);
 					return true;
 				}
 			}

@@ -47,7 +47,7 @@ public class BlockFluidMari extends BlockFluidClassic {
 		for (int i = 0; i < flowing.length; i++) {			
 			ItemStack bottle = new ItemStack(Core.bottles, 1, i);
 			FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(bottle);
-			if(fluid != null) {
+			if(fluid != null && fluid.getFluid() != null) {
 				String name = (fluid.getFluid()).getName().replaceAll("\\.","");
 				
 				if(name.contains("molten")) {

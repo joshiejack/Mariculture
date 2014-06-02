@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public abstract class TileMultiMachineTank extends TileMultiStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
@@ -138,12 +139,15 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 			if(mode == RedstoneMode.DISABLED)
 				return true;
 			for(MultiPart block: mstr.slaves) {
-				if(mode.equals(RedstoneMode.LOW)) {
-					if(!RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
-						return false;
-				} else if(mode.equals(RedstoneMode.HIGH)) {
-					if(RedstoneMode.canWork(worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord), mode))
-						return true;
+				TileEntity tank = worldObj.getBlockTileEntity(block.xCoord, block.yCoord, block.zCoord);
+				if(tank != null) {
+					if(mode.equals(RedstoneMode.LOW)) {
+						if(!RedstoneMode.canWork(tank, mode))
+							return false;
+					} else if(mode.equals(RedstoneMode.HIGH)) {
+						if(RedstoneMode.canWork(tank, mode))
+							return true;
+					}
 				}
 			}
 			

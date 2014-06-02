@@ -7,9 +7,7 @@ import java.util.List;
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.items.ItemWorked;
 import mariculture.core.lib.Text;
-import mariculture.factory.blocks.TileFishSorter;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishHelper;
 import mariculture.fishery.FishMutationHandler.Mutation;
@@ -88,7 +86,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if(ingredient.getItem() instanceof ItemWorked) {
+		if(!(ingredient.getItem() instanceof ItemFishy)) {
 			return;
 		}
 		

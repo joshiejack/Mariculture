@@ -1,7 +1,5 @@
 package mariculture.diving;
 
-import java.util.HashMap;
-
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.RegistryHelper;

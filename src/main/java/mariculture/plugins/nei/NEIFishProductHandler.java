@@ -13,6 +13,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishProduct;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.Text;
+import mariculture.fishery.items.ItemFishy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -106,6 +107,10 @@ public class NEIFishProductHandler extends NEIBase {
 	
 	@Override
     public void loadUsageRecipes(ItemStack ingredient)  {
+		if(!(ingredient.getItem() instanceof ItemFishy)) {
+			return;
+		}
+		
 		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
 			FishSpecies fish = species.getValue();
 			if(NEIFishBreedingMutationHandler.isSpecies(ingredient, fish, false)) {

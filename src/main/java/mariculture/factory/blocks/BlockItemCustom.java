@@ -51,13 +51,12 @@ public class BlockItemCustom extends ItemBlockMariculture {
 	}
 
 	public static void addToList(List list, int num, ItemStack stack) {
-		list.add(getName(num)
-				+ ": "
-				+ new ItemStack(stack.stackTagCompound.getIntArray("BlockIDs")[num], 1, stack.stackTagCompound
-						.getIntArray("BlockMetas")[num]).getDisplayName());
+		ItemStack listed = new ItemStack(stack.stackTagCompound.getIntArray("BlockIDs")[num], 1, stack.stackTagCompound.getIntArray("BlockMetas")[num]);
+		if(list == null) return;
+		list.add(getName(num) + ": " + listed.getDisplayName());
 	}
 
-	public static String getName(final int i) {
+	public static String getName(int i) {
 		switch (i) {
 		case 0:
 			return StatCollector.translateToLocal("mariculture.string.bottom");

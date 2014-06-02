@@ -47,7 +47,7 @@ public class StackHelper {
                 	} catch (Exception e) {
                 		LogHandler.log(Level.SEVERE, "A Mod has incorrectly registered an item block, go and complain to the author about this!");
                 		LogHandler.log(Level.SEVERE, item.toString());
-                		e.printStackTrace();
+                		LogHandler.log(Level.SEVERE, "ID: " + item.itemID);
                 	}
                 }
             }

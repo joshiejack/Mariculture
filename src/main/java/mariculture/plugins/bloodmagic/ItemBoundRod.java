@@ -198,6 +198,7 @@ public class ItemBoundRod extends ItemRod {
 	@Override
 	public boolean canFish(World world, int x, int y, int z, EntityPlayer player, ItemStack stack) {
 		if(stack.hasTagCompound()) {
+			if(MinecraftServer.getServer() == null || MinecraftServer.getServer().getConfigurationManager() == null) return false;
 			EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
 			return entityOwner != null;
 		} else return false;

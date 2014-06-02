@@ -5,7 +5,6 @@ import java.util.HashMap;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.IEnvironmentHandler;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;

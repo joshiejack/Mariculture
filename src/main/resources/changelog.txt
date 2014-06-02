@@ -1,3 +1,11 @@
+== Mariculture 1.2.2f==
+• Fixed Auto-Eject fluids using the wrong direction
+• Fixed annoying Cod NEI bug
+• Fixed potential crash with mariculture fluids
+• Fixed potential crash when adding pressurised water block
+• Fixed potential crash checking redstone mode with multiblock tanks
+• Removed the stack trace crash, with null items, changed it to a smaller message
+
 == Mariculture 1.2.2e ==
 • Enchiridion is now required (Books are too important!)
 • Added crash prevention when loading corrupted vats
