@@ -1,7 +1,9 @@
 package mariculture.core.lib;
 
+import mariculture.core.config.GeneralStuff;
+
 public class MetalRates {
-	public static int NUGGET = Extra.METAL_RATE;
+	public static int NUGGET = GeneralStuff.METAL_RATE;
 	public static int INGOT = NUGGET * 9;
 	public static int BLOCK = INGOT * 9;
 	public static int ORE = INGOT * 2;

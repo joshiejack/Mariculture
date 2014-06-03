@@ -85,7 +85,6 @@ import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
 import mariculture.core.lib.EntityIds;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemLib;
 import mariculture.core.lib.MaterialsMeta;
@@ -244,11 +243,7 @@ public class Fishery extends RegistrationModule {
 		addVatItemRecipe(titaniumRod, Fluids.fish_oil, 6500, polishedTitanium, 30);
 		addShapeless(thermometer, new Object[] { fish, compass });
 		addShaped(_(scanner), new Object[] {"WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', fish, 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison});
-		
-		if(!Extra.DISABLE_DIRT_CRAFTING) {
-			addBlockCasting(new FluidStack(moltenDirt, 1000), new ItemStack(dirt));
-		}
-		
+		addBlockCasting(new FluidStack(moltenDirt, 1000), new ItemStack(dirt));
 		addMelting(new ItemStack(dirt), 333, new FluidStack(moltenDirt, 1000));
 		addShaped(_(fishingNet, 4), new Object[] {"SWS", "WWW", "SWS", 'S', "stickWood", 'W', string});
 		addShaped(sifter, new Object[] {"PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net});
@@ -306,7 +301,7 @@ public class Fishery extends RegistrationModule {
 	}
 	
 	private void addDropletRecipes() {
-		if(!Extra.DISABLE_GRASS) addShaped(_(grass), new Object[] {"HHH", "EEE", "EEE", 'H', dropletPlant, 'E', dropletEarth});
+		addShaped(_(grass), new Object[] {"HHH", "EEE", "EEE", 'H', dropletPlant, 'E', dropletEarth});
 		add2x2Recipe(_(snowball), dropletFrozen);
 		add3x3Recipe(_(ice), dropletFrozen);
 		addMelting(dropletEarth, 333, new FluidStack(moltenDirt, 100));

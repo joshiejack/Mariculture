@@ -1,9 +1,9 @@
 package mariculture.diving;
 
 import mariculture.core.Core;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.WaterMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +26,7 @@ public class ArmorEventHandler {
 				if(tick % 5 == 0) {
 					ScubaTank.init(player);
 					ScubaMask.damage(player);
-					if(Extra.HARDCORE_DIVING > 0) HardcoreDiving.init(player);
+					if(GeneralStuff.HARDCORE_DIVING > 0) HardcoreDiving.init(player);
 				}
 			} else {
 				vision = (vision == null)? new UnderwaterVision(): vision.onUpdate(player);

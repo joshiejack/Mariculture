@@ -1,9 +1,12 @@
 package mariculture.core.config;
 
+import static mariculture.core.helpers.ConfigHelper.getBoolean;
+import static mariculture.core.helpers.ConfigHelper.getStringList;
+import static mariculture.core.helpers.ConfigHelper.setCategory;
+import static mariculture.core.helpers.ConfigHelper.setConfig;
 import net.minecraftforge.common.config.Configuration;
 
 public class AutoDictionary {
-	private static final String CATEGORY = "Auto-Dictionary";
 	//Defaults
 	public static final String[] WHITELIST_DEFAULT = new String[] { "ore", "ingot", "block", "nugget", "dust", "gem", 
 		"dyeRed", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange" };
@@ -20,10 +23,12 @@ public class AutoDictionary {
 	public static boolean ENABLE_WHITELIST;
 	
 	public static void init(Configuration config) {
-		ENABLE_WHITELIST = config.get(CATEGORY, "Use Whitelist", false, "Whether to use Whitelisting or Blacklisting Mode").getBoolean(false);
-        BLACKLIST = config.get(CATEGORY, "Blacklist", BLACKLIST_DEFAULT, "Place Ore Dictionary names, to blacklist here").getStringList();
-        WHITELIST = config.get(CATEGORY, "Whitelist", WHITELIST_DEFAULT, "Place Ore Dictionary Prefixes here, that are acceptable to be converted").getStringList();
-        BLACKLIST_PREFIX = config.get(CATEGORY, "Blacklist Prefixes", BLACKLIST_PREFIX_DEFAULT, "Add a list of prefixes you want to blacklist from the auto-dictionary").getStringList();
-        BLACKLIST_ITEMS = config.get(CATEGORY, "Blacklist Items", BLACKLIST_ITEMS_DEFAULT, "List of items to blacklist from being able to converted, format is 'modid:itemname meta'").getStringList();
+		setConfig(config);
+		setCategory("Auto-Dictionary");
+		ENABLE_WHITELIST = getBoolean("Use Whitelist", false, "Whether to use Whitelisting or Blacklisting Mode");
+        BLACKLIST = getStringList("Blacklist", BLACKLIST_DEFAULT, "Place Ore Dictionary names, to blacklist here");
+        WHITELIST = getStringList("Whitelist", WHITELIST_DEFAULT, "Place Ore Dictionary Prefixes here, that are acceptable to be converted");
+        BLACKLIST_PREFIX = getStringList("Blacklist Prefixes", BLACKLIST_PREFIX_DEFAULT, "Add a list of prefixes you want to blacklist from the auto-dictionary");
+        BLACKLIST_ITEMS = getStringList("Blacklist Items", BLACKLIST_ITEMS_DEFAULT, "List of items to blacklist from being able to converted, format is 'modid:itemname meta'");
 	}
 }

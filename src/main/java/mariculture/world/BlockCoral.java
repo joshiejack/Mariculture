@@ -8,9 +8,9 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockDecorative;
+import mariculture.core.config.Gardening;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.Rand;
@@ -206,13 +206,13 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if(Extra.CORAL_SPREAD_ENABLED && meta == CoralMeta.KELP) updateKelp(world, x, y, z, rand);
-		else if(Extra.KELP_GROWTH_ENABLED && meta > CoralMeta.KELP_MIDDLE) updateCoral(world, x, y, z, rand);
-		else if(Extra.MOSS_SPREAD_ENABLED && meta == CoralMeta.KELP_MIDDLE) updateMoss(world, x, y, z, rand);
+		if(Gardening.CORAL_SPREAD_ENABLED && meta == CoralMeta.KELP) updateKelp(world, x, y, z, rand);
+		else if(Gardening.KELP_GROWTH_ENABLED && meta > CoralMeta.KELP_MIDDLE) updateCoral(world, x, y, z, rand);
+		else if(Gardening.MOSS_SPREAD_ENABLED && meta == CoralMeta.KELP_MIDDLE) updateMoss(world, x, y, z, rand);
 	}
 	
 	private void updateKelp(World world, int x, int y, int z, Random rand) {
-		if(Rand.nextInt(Extra.KELP_GROWTH_CHANCE)) {
+		if(Rand.nextInt(Gardening.KELP_GROWTH_CHANCE)) {
 			if(BlockHelper.isWater(world, x, y + 2, z)) {
 				world.setBlock(x, y + 1, z, this);
 				onBlockPlacedBy(world, x, y, z, null, null);
@@ -221,7 +221,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 	}
 	
 	private void updateMoss(World world, int x, int y, int z, Random rand) {
-		if(Rand.nextInt(Extra.KELP_SPREAD_CHANCE)) {
+		if(Rand.nextInt(Gardening.KELP_SPREAD_CHANCE)) {
 			Block block = world.getBlock(x, y - 1, z);
 			if(block == Blocks.mossy_cobblestone || (block == Blocks.stonebrick && world.getBlockMetadata(x, y - 1, z) == 1)) {
 				int randX = rand.nextInt(8) - 4;
@@ -236,7 +236,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
 	}
 	
 	private void updateCoral(World world, int x, int y, int z, Random rand) {
-		if(Rand.nextInt(Extra.CORAL_SPREAD_CHANCE)) {
+		if(Rand.nextInt(Gardening.CORAL_SPREAD_CHANCE)) {
 			Block block = world.getBlock(x, y - 1, z);
 			if(block == Core.rocks && world.getBlockMetadata(x, y - 1, z) == RockMeta.CORAL_ROCK) {
 				int randX = ((1 + rand.nextInt(4)) - 2) - rand.nextInt(2);

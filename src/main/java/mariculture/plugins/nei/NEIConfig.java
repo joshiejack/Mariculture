@@ -9,8 +9,8 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
@@ -137,7 +137,7 @@ public class NEIConfig implements IConfigureNEI {
 			API.registerUsageHandler(new NEIFishBreedingMutationHandler());
 			API.registerRecipeHandler(new NEIFishProductHandler());
 			API.registerUsageHandler(new NEIFishProductHandler());
-			if(Extra.DISABLE_FISH) {
+			if(FishMechanics.DISABLE_FISH) {
 				API.hideItem(new ItemStack(Fishery.fishy));
 			} else {
 				for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {

@@ -2,7 +2,7 @@ package mariculture.world.terrain;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.lib.WorldGeneration;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -12,7 +12,7 @@ import net.minecraft.world.gen.MapGenRavine;
 public class MapGenRavineWater extends MapGenRavine {
 	protected void recursiveGenerate(World world, int par2, int par3, int chunkX, int chunkZ, Block[] data) {
 		if (MaricultureHandlers.environment.getSalinity(world, chunkX * 16, chunkZ * 16) == Salinity.SALINE) {
-			if (this.rand.nextInt(WorldGeneration.RAVINE_CHANCE) == 0) {
+			if (this.rand.nextInt(WorldGen.RAVINE_CHANCE) == 0) {
 				double d0 = (double) (par2 * 16 + this.rand.nextInt(16));
 				double d1 = (double) (this.rand.nextInt(this.rand.nextInt(40) + 8) + 20);
 				double d2 = (double) (par3 * 16 + this.rand.nextInt(16));

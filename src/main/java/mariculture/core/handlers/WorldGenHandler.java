@@ -5,22 +5,17 @@ import java.util.Random;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
+import mariculture.core.config.WorldGeneration.OreGen;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.AirMeta;
-import mariculture.core.lib.Extra;
-import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.RockMeta;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.core.tile.TileOyster;
 import mariculture.core.world.WorldGenGas;
 import mariculture.core.world.WorldGenOre;
-import mariculture.plugins.PluginBiomesOPlenty;
-import mariculture.plugins.PluginBiomesOPlenty.Biome;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -51,12 +46,12 @@ public class WorldGenHandler implements IWorldGenerator {
 	public static void generateBauxite(World world, Random random, int x, int z) {
 		int posX, posY, posZ;
 		// Layers 60-256 for Bauxite
-		if (OreGeneration.BAUXITE_ON) {
-			for (int i = 0; i < OreGeneration.BAUXITE_TOTAL; i++) {
+		if (OreGen.BAUXITE_ON) {
+			for (int i = 0; i < OreGen.BAUXITE_TOTAL; i++) {
 				posX = x + random.nextInt(16);
-				posY = OreGeneration.BAUXITE_MIN + random.nextInt(OreGeneration.BAUXITE_MAX - OreGeneration.BAUXITE_MIN);
+				posY = OreGen.BAUXITE_MIN + random.nextInt(OreGen.BAUXITE_MAX - OreGen.BAUXITE_MIN);
 		        posZ = z + random.nextInt(16);
-			    new WorldGenOre(Core.rocks, RockMeta.BAUXITE, OreGeneration.BAUXITE_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
+			    new WorldGenOre(Core.rocks, RockMeta.BAUXITE, OreGen.BAUXITE_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 		    }
 		}
 	}
@@ -64,12 +59,12 @@ public class WorldGenHandler implements IWorldGenerator {
 	public static void generateGas(World world, Random random, int x, int z) {
 		int posX, posY, posZ;
 		//Layers 16-25 for Gas
-		if(OreGeneration.NATURAL_GAS_ON && random.nextInt(OreGeneration.NATURAL_GAS_CHANCE) == 0) {
-			if(isOceanBiome(world, x, z)) {
+		if(OreGen.NATURAL_GAS_ON && random.nextInt(OreGen.NATURAL_GAS_CHANCE) == 0) {
+			if(MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
 				posX = x + random.nextInt(16);
-				posY = OreGeneration.NATURAL_GAS_MIN + random.nextInt(OreGeneration.NATURAL_GAS_MAX - OreGeneration.NATURAL_GAS_MIN);
+				posY = OreGen.NATURAL_GAS_MIN + random.nextInt(OreGen.NATURAL_GAS_MAX - OreGen.NATURAL_GAS_MIN);
 				posZ = z + random.nextInt(16);
-				new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGeneration.NATURAL_GAS_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
+				new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGen.NATURAL_GAS_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 			}
 		}
 	}
@@ -77,59 +72,22 @@ public class WorldGenHandler implements IWorldGenerator {
 	public static void generateCopper(World world, Random random, int x, int z) {
 		int posX, posY, posZ;
 		// Layers 1-64 for Copper
-		if (OreGeneration.COPPER_ON) {
-			for (int i = 0; i < OreGeneration.COPPER_TOTAL; i++) {
+		if (OreGen.COPPER_ON) {
+			for (int i = 0; i < OreGen.COPPER_TOTAL; i++) {
 				posX = x + random.nextInt(16);
-				posY = OreGeneration.COPPER_MIN + random.nextInt(OreGeneration.COPPER_MAX - OreGeneration.COPPER_MIN);
+				posY = OreGen.COPPER_MIN + random.nextInt(OreGen.COPPER_MAX - OreGen.COPPER_MIN);
 		     	posZ = z + random.nextInt(16);
-		     	new WorldGenOre(Core.rocks, RockMeta.COPPER,  OreGeneration.COPPER_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
+		     	new WorldGenOre(Core.rocks, RockMeta.COPPER,  OreGen.COPPER_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
 			}
 		}		
-	}
-	
-	public static boolean isRiverBiome(World world, int posX, int posZ) {
-		if(!Extra.RIVER_FORCE) {
-			if(BiomeDictionary.isBiomeOfType(world.getWorldChunkManager().getBiomeGenAt(posX, posZ), Type.WATER))
-				return true;
-		}
-		
-		int id = world.getWorldChunkManager().getBiomeGenAt(posX, posZ).biomeID;
-		for(int i = 0; i < Extra.RIVER_BIOMES.length; i++) {
-			if(Extra.RIVER_BIOMES[i] > -1) {
-				if(id == Extra.RIVER_BIOMES[i]) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
-	}
-	
-	public static boolean isOceanBiome(World world, int x, int z) {
-		if(!Extra.OCEAN_FORCE) {
-			if(MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
-				return true;
-			}
-		}
-		
-		int id = world.getWorldChunkManager().getBiomeGenAt(x, z).biomeID;
-		for(int i = 0; i < Extra.OCEAN_BIOMES.length; i++) {
-			if(Extra.OCEAN_BIOMES[i] > -1) {
-				if(id == Extra.OCEAN_BIOMES[i]) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
 	}
 
 	// Generates Oysters in the Ocean
 	public static void generateOyster(World world, Random random, int x, int z) {
-		if(WorldGeneration.OYSTER_ENABLED) {
-			for(int j = 0; j < WorldGeneration.OYSTER_PER_CHUNK; j++) {
-				int chance = (PluginBiomesOPlenty.isBiome(world, x, z, Biome.CORAL))? WorldGeneration.OYSTER_CHANCE: WorldGeneration.OYSTER_CHANCE * 2;
-				if(random.nextInt(chance) == 0) {
+		if(WorldGen.OYSTER_ENABLED) {
+			for(int j = 0; j < WorldGen.OYSTER_PER_CHUNK; j++) {
+				int chance = WorldGen.OYSTER_CHANCE;
+				if(random.nextInt(Math.max(1, chance)) == 0) {
 					int randMeta = random.nextInt(4);
 					int randX = x - 8 + random.nextInt(4);
 					int randZ = z - 8 + random.nextInt(4);
@@ -141,7 +99,7 @@ public class WorldGenHandler implements IWorldGenerator {
 								TileOyster oyster = (TileOyster) world.getTileEntity(randX, blockY, randZ);
 								if (oyster != null) {
 									oyster.orientation = ForgeDirection.values()[2 + random.nextInt(4)];
-									if (random.nextInt(WorldGeneration.OYSTER_PEARL_CHANCE) == 0) {
+									if (random.nextInt(WorldGen.OYSTER_PEARL_CHANCE) == 0) {
 										oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(random));
 									}
 								}

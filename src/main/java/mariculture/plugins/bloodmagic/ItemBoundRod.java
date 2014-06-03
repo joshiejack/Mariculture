@@ -4,8 +4,8 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemRod;
@@ -62,7 +62,7 @@ public class ItemBoundRod extends ItemRod {
 	public int hasDemonShard(EntityPlayer player, int slot) {
 		ItemStack stack = player.inventory.getStackInSlot(slot);
 		if(stack != null) {
-			return stack.getItem() == ModItems.weakBloodShard ? Extra.WEAK_FISH_LIMIT: stack.getItem() == ModItems.demonBloodShard? Extra.DEMON_FISH_LIMIT: -1;
+			return stack.getItem() == ModItems.weakBloodShard ? FishMechanics.WEAK_FISH_LIMIT: stack.getItem() == ModItems.demonBloodShard? FishMechanics.DEMON_FISH_LIMIT: -1;
 		} else return -1;
 	}
 

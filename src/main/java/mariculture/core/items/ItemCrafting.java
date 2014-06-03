@@ -4,9 +4,9 @@ import java.util.List;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Text;
 import mariculture.world.WorldPlus;
@@ -116,7 +116,7 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
 		int dmg = stack.getItemDamage();
-		if(dmg == CraftingMeta.DRAGON_EGG && Extra.ENABLE_ENDER_SPAWN) {
+		if(dmg == CraftingMeta.DRAGON_EGG && GeneralStuff.ENABLE_ENDER_SPAWN) {
 			return spawnEnderDragon(stack, player, world, x, y, z);
 		} else if (dmg == CraftingMeta.THERMOMETER) {
 			displayTemperature(player.isSneaking(), world, x, y, z);

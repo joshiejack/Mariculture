@@ -3,8 +3,8 @@ package mariculture.plugins.enchiridion;
 import java.util.ArrayList;
 
 import mariculture.core.Core;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
 import mariculture.diving.ItemArmorScuba;
@@ -21,12 +21,12 @@ public class EventHandler {
 	public static boolean isLoaded = false;
 	@SubscribeEvent
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
-		if(Extra.SPAWN_BOOKS) BookSpawnHelper.spawn(event.player, GuideMeta.PROCESSING);
+		if(GeneralStuff.SPAWN_BOOKS) BookSpawnHelper.spawn(event.player, GuideMeta.PROCESSING);
 	}
 	
 	@SubscribeEvent
 	public void onCrafting(ItemCraftedEvent event) {
-		if(Extra.SPAWN_BOOKS) {
+		if(GeneralStuff.SPAWN_BOOKS) {
 			ItemStack stack = event.crafting;
 			if(Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) 	BookSpawnHelper.spawn(event.player, GuideMeta.DIVING);
 			if(Modules.isActive(Modules.fishery) && stack.getItem() == Fishery.rodReed) 		BookSpawnHelper.spawn(event.player, GuideMeta.FISHING);

@@ -57,7 +57,7 @@ public class PluginThaumcraft extends Plugin {
 		ThaumcraftApi.registerObjectTag("oreAluminum", new AspectList().add(METAL, 1).add(AIR, 2));
 		ThaumcraftApi.registerObjectTag("oreRutile", new AspectList().add(METAL, 4).add(ENTROPY, 1));
 		ThaumcraftApi.registerObjectTag("blockLimestone", new AspectList().add(WATER, 1).add(EARTH, 1));
-		ThaumcraftApi.registerObjectTag(new ItemStack(Core.water, 1, WaterMeta.OYSTER), new AspectList().add(WATER, 2).add(LIFE, 1));
+		ThaumcraftApi.registerObjectTag(new ItemStack(Core.water, 1, WaterMeta.OYSTER), new AspectList().add(WATER, 5).add(LIFE, 3));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(Core.pearls, 1, PearlColor.WHITE), new AspectList().add(WATER, 1).add(CRYSTAL, 1));
 		ThaumcraftApi.registerObjectTag(new ItemStack(Core.pearls, 1, PearlColor.GREEN), new AspectList().add(WATER, 1).add(TREE, 1));

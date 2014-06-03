@@ -2,13 +2,14 @@ package mariculture.factory.tile;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.config.Machines.Client;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketTurbine;
 import mariculture.core.tile.base.TileStorageTank;
@@ -204,28 +205,26 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 	}
 	
 	public void animate() {
-		if(Extra.TURBINE_ANIM) {
-			if(!worldObj.isRemote && onTick(Extra.TURBINE_RATE)) {
-				isAnimating = isCreatingPower || isTransferringPower;
-				PacketHandler.sendAround(new PacketTurbine(xCoord, yCoord, zCoord, isAnimating), this);
-			} else if(worldObj.isRemote) {
-				if(isAnimating) {
+		if(!worldObj.isRemote && onTick(Ticks.TURBINE_PACKET_TICKS)) {
+			isAnimating = isCreatingPower || isTransferringPower;
+			PacketHandler.sendAround(new PacketTurbine(xCoord, yCoord, zCoord, isAnimating), this);
+		} else if(worldObj.isRemote && Client.TURBINE_ANIM) {
+			if(isAnimating) {
+				angle = angle + 0.1;
+				angle_external = angle_external + 0.01;
+				if (energyStage == EnergyStage.GREEN) {
 					angle = angle + 0.1;
-					angle_external = angle_external + 0.01;
-					if (energyStage == EnergyStage.GREEN) {
-						angle = angle + 0.1;
-					}
-		
-					if (energyStage == EnergyStage.YELLOW) {
-						angle = angle + 0.15;
-					}
-		
-					if (energyStage == EnergyStage.RED) {
-						angle = angle + 0.15;
-					}
-		
-					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
+		
+				if (energyStage == EnergyStage.YELLOW) {
+					angle = angle + 0.15;
+				}
+		
+				if (energyStage == EnergyStage.RED) {
+					angle = angle + 0.15;
+				}
+		
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 		}
 	}

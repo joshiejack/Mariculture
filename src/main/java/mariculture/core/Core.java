@@ -27,6 +27,7 @@ import mariculture.core.blocks.BlockTicking;
 import mariculture.core.blocks.BlockTransparent;
 import mariculture.core.blocks.BlockWater;
 import mariculture.core.blocks.BlockWood;
+import mariculture.core.config.Gardening;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BucketHandler;
 import mariculture.core.handlers.CastingHandler;
@@ -57,14 +58,12 @@ import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.EntityIds;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.lib.RetroGeneration;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAnvil;
@@ -168,7 +167,7 @@ public class Core extends RegistrationModule {
 		MinecraftForge.EVENT_BUS.register(new OreDicHandler());
 		FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
 		FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
-		if (RetroGeneration.ENABLED) MinecraftForge.EVENT_BUS.register(new RetroGen());
+		if (mariculture.core.config.WorldGeneration.RetroGen.ENABLED) MinecraftForge.EVENT_BUS.register(new RetroGen());
 	}
 
 	ToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
@@ -324,7 +323,7 @@ public class Core extends RegistrationModule {
 		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 7);
 		PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
 		PearlGenHandler.addPearl(new ItemStack(Blocks.sand), 15);
-		if (Extra.GEN_ENDER_PEARLS) {
+		if (Gardening.GEN_ENDER_PEARLS) {
 			PearlGenHandler.addPearl(new ItemStack(Items.ender_pearl), 1);
 		}
 	}

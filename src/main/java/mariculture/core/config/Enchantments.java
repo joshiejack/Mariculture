@@ -1,6 +1,10 @@
 package mariculture.core.config;
 
-import mariculture.core.lib.config.Category;
+import static mariculture.core.helpers.ConfigHelper.getBoolean;
+import static mariculture.core.helpers.ConfigHelper.getDouble;
+import static mariculture.core.helpers.ConfigHelper.getInt;
+import static mariculture.core.helpers.ConfigHelper.setCategory;
+import static mariculture.core.helpers.ConfigHelper.setConfig;
 import net.minecraftforge.common.config.Configuration;
 
 public class Enchantments {
@@ -28,25 +32,37 @@ public class Enchantments {
 	public static int TICK_REPAIR;
 
 	public static void init(Configuration config) {
-		EnchantIds.blink = config.get(Category.ENCHANT, "Blink", 70).getInt();
-		EnchantIds.elemental = config.get(Category.ENCHANT, "Elemental Affinity", 71).getInt();
-		EnchantIds.fall = config.get(Category.ENCHANT, "Fall Resistance", 72).getInt();
-		EnchantIds.flight = config.get(Category.ENCHANT, "Superman", 74).getInt();
-		EnchantIds.glide = config.get(Category.ENCHANT, "Paraglide", 75).getInt();
-		EnchantIds.health = config.get(Category.ENCHANT, "1 Up", 76).getInt();
-		EnchantIds.jump = config.get(Category.ENCHANT, "Leapfrog", 77).getInt();
-		EnchantIds.hungry = config.get(Category.ENCHANT, "Never Hungry", 78).getInt();
-		EnchantIds.oneRing = config.get(Category.ENCHANT, "The One Ring", 79).getInt();
-		EnchantIds.repair = config.get(Category.ENCHANT, "Restoration", 82).getInt();
-		EnchantIds.resurrection = config.get(Category.ENCHANT, "Reaper", 83).getInt();
-		EnchantIds.speed = config.get(Category.ENCHANT, "Sonic the Hedgehog", 84).getInt();
-		EnchantIds.spider = config.get(Category.ENCHANT, "Spiderman", 85).getInt();
-		EnchantIds.stepUp = config.get(Category.ENCHANT, "Step Up", 86).getInt();
+		setConfig(config);
+		setCategory("IDs");
+		EnchantIds.blink = getInt("Blink", 70);
+		EnchantIds.elemental = getInt("Elemental Affinity", 71);
+		EnchantIds.fall = getInt("Fall Resistance", 72);
+		EnchantIds.flight = getInt("Superman", 74);
+		EnchantIds.glide = getInt("Paraglide", 75);
+		EnchantIds.health = getInt("1 Up", 76);
+		EnchantIds.jump = getInt("Leapfrog", 77);
+		EnchantIds.hungry = getInt("Never Hungry", 78);
+		EnchantIds.oneRing = getInt("The One Ring", 79);
+		EnchantIds.repair = getInt("Restoration", 82);
+		EnchantIds.resurrection = getInt("Reaper", 83);
+		EnchantIds.speed = getInt("Sonic the Hedgehog", 84);
+		EnchantIds.spider = getInt("Spiderman", 85);
+		EnchantIds.stepUp = getInt("Step Up", 86);
 
-		JUMPS_PER = config.get(Category.EXTRA, "Leapfrog > Jumps per Damage", 10).getInt();
-		JUMP_FACTOR = config.get(Category.EXTRA, "Leapfrog > Jump Factor", 0.15).getDouble(0.15);
-		SPEED_TICKS = config.get(Category.EXTRA, "Sonic the Hedgehog > Ticks per Damage", 1200).getInt();
-		SPEED_FACTOR = config.get(Category.EXTRA, "Sonic the Hedgehog > Speed Factor", 0.025).getDouble(0.025);
-		TICK_REPAIR = config.get(Category.EXTRA, "Restoration - Ticks between Repair", 100).getInt();
+		setCategory("Jewelry");
+		Jewelry.JEWELRY_OFFLINE = getBoolean("Enable Singleplayer Jewelry Offline Mode", false);
+		Jewelry.DROP_JEWELRY = getBoolean("Jewelry Drops on Death", false);
+
+		setCategory("Tweaks");
+		JUMPS_PER = getInt("Leapfrog > Jumps per Damage", 10);
+		JUMP_FACTOR = getDouble("Leapfrog > Jump Factor", 0.15);
+		SPEED_TICKS = getInt("Sonic the Hedgehog > Ticks per Damage", 1200);
+		SPEED_FACTOR = getDouble("Sonic the Hedgehog > Speed Factor", 0.025);
+		TICK_REPAIR = getInt("Restoration - Ticks between Repair", 100);
+	}
+
+	public static class Jewelry {
+		public static boolean JEWELRY_OFFLINE;
+		public static boolean DROP_JEWELRY;
 	}
 }

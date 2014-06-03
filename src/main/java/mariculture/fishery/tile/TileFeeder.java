@@ -9,12 +9,12 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.CachedCoords;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMachineTank;
 import mariculture.core.util.Fluids;
@@ -92,7 +92,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 			if(canWork) {
 				foodTick++;
 				processed++;
-				if(onTick(Extra.EFFECT_TICK)) {
+				if(onTick(Ticks.EFFECT_TICK)) {
 					if(swap) {
 						doEffect(inventory[male]);
 						swap = false;
@@ -103,7 +103,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 				}
 				
 				//Fish will eat every 25 seconds by default
-				if(foodTick % Extra.FISH_FOOD_TICK == 0) {
+				if(foodTick % Ticks.FISH_FOOD_TICK == 0) {
 					if(swap) {
 						useFood(inventory[male]);
 					} else {

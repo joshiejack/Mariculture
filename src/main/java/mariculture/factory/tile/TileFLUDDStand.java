@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
+import mariculture.core.config.Machines.Client;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -164,7 +165,7 @@ public class TileFLUDDStand extends TileMachineTank implements IHasNotification,
 				}
 			}
 			
-			if(worldObj.isRemote) {
+			if(Client.FLUDD_BLOCK_ANIM && worldObj.isRemote) {
 				if(onTick(4)) {
 					for(float i = dist > 0? -0.45F: 0.3F; i <= 0.35F; i+=0.05F) {
 						worldObj.spawnParticle("cloud", x + 0.5F + (i * orientation.offsetX), 

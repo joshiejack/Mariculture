@@ -18,7 +18,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.config.Enchantments.EnchantIds;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.RegistryHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
@@ -181,6 +180,7 @@ public class Magic extends RegistrationModule {
 
 	@Override
 	public void registerRecipes() {		
+		addShaped(_(magnet), new Object[] {"III", "I I", "M M", 'I', "ingotIron", 'M', enderPearl});
 		addShaped(_(basicMirror), new Object[] {" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"});
 		addShaped(_(magicMirror), new Object[] {"PMP", "BEB", "PBP", 'B', storageBookshelf, 'M', basicMirror, 'E', enchant, 'P', pearls});
 		addShaped(_(celestialMirror), new Object[] {"TST", "BMB", "GBG", 'B', storageBookshelf, 'M', magicMirror, 'S', netherStar, 'T', magicDrop, 'G', goldThread});
@@ -188,11 +188,6 @@ public class Magic extends RegistrationModule {
 		addJewelry((ItemJewelry)bracelet);
 		addJewelry((ItemJewelry)necklace);
 		addDungeonChestLoot();
-		
-		//Mob Magnet Crafting
-		if(Extra.MOB_MAGNET) {
-			addShaped(_(magnet), new Object[] {"III", "I I", "M M", 'I', "ingotIron", 'M', enderPearl});
-		}
 	}
 
 	private void addJewelry(ItemJewelry item) {

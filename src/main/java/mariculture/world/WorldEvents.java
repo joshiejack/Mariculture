@@ -1,8 +1,8 @@
 package mariculture.world;
 
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.Extra;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.world.terrain.MapGenCavesWater;
 import mariculture.world.terrain.MapGenMineshaftsDisabled;
 import mariculture.world.terrain.MapGenRavineWater;
@@ -18,7 +18,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class WorldEvents {
 	@SubscribeEvent
 	public void onWorldGen(InitMapGenEvent event) {
-		if(WorldGeneration.NO_MINESHAFTS) {
+		if(WorldGen.NO_MINESHAFTS) {
 			if(event.type == EventType.MINESHAFT) {
 				try {
 					event.newGen = new MapGenMineshaftsDisabled();
@@ -28,7 +28,7 @@ public class WorldEvents {
 			}
 		}
 			
-		if(WorldGeneration.WATER_CAVES) {
+		if(WorldGen.WATER_CAVES) {
 			if(event.type == EventType.CAVE) {
 				try {
 					event.newGen = new MapGenCavesWater();
@@ -38,7 +38,7 @@ public class WorldEvents {
 			}
 		}
 			
-		if(WorldGeneration.WATER_RAVINES) {
+		if(WorldGen.WATER_RAVINES) {
 			if(event.type == EventType.RAVINE) {
 				try {
 					if(Extra.HAS_BOP) {

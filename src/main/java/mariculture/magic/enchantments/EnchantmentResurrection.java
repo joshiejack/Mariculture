@@ -1,8 +1,8 @@
 package mariculture.magic.enchantments;
 
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.config.Enchantments.Jewelry;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.Extra;
 import mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,7 +80,7 @@ public class EnchantmentResurrection extends EnchantmentJewelry {
 				player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setTag(armor, armorList);
 
 				event.setCanceled(true);
-			} else if(Extra.DROP_JEWELRY && player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory") == false) {
+			} else if(Jewelry.DROP_JEWELRY && player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory") == false) {
 				MaricultureHandlers.mirror.dropItems(player, player.worldObj, player.posX, player.posY, player.posZ);
 			}
 		}

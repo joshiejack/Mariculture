@@ -25,9 +25,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import org.lwjgl.opengl.GL11;
-
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.ItemList;
 import codechicken.nei.NEIClientUtils;
@@ -389,12 +386,13 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		return new ResourceLocation(Mariculture.modid, "textures/gui/nei/liquifier.png").toString();
 	}
 	
+	/*
 	@Override
 	public void drawBackground(int recipe) {
 		GL11.glColor4f(1, 1, 1, 1);
 		GuiDraw.changeTexture(getGuiTexture());
 		GuiDraw.drawTexturedModalRect(0, 0, 5, 15, 166, 73);
-	}
+	} */
 	
 	 @Override
 	 public String getOverlayIdentifier() {

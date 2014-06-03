@@ -3,11 +3,11 @@ package mariculture.world.terrain;
 import java.util.Random;
 
 import mariculture.core.Core;
+import mariculture.core.config.WorldGeneration.OreGen;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.GroundMeta;
-import mariculture.core.lib.OreGeneration;
 import mariculture.core.lib.RockMeta;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.core.util.Rand;
 import mariculture.world.WorldPlus;
 import mariculture.world.decorate.WorldGenAncientSand;
@@ -28,7 +28,7 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
 		theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.lapis_ore, 8);
 	}
 
-	public static WorldGenAncientSand sandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, 4);
+	public static WorldGenAncientSand sandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, WorldGen.ANCIENT_SAND_SIZE);
 	public static WorldGenReef coralGenerator = new WorldGenReef();
 	public static WorldGenKelp kelpGenerator = new WorldGenKelp(WorldPlus.plantStatic, CoralMeta.KELP_MIDDLE);
 
@@ -47,8 +47,8 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
 	}
 	
 	public static void generateSand(World world, Random rand, int x, int z) {
-		if (WorldGeneration.ANCIENT_SAND_ENABLED) {
-			if (rand.nextInt(2) == 0) {
+		if (WorldGen.ANCIENT_SAND_ENABLED) {
+			if (rand.nextInt(Math.max(1, WorldGen.ANCIENT_SAND_CHANCE)) == 0) {
 				int j = x + rand.nextInt(16) + 8;
 				int k = z + rand.nextInt(16) + 8;
 				sandGen.generate(world, rand, j, world.getTopSolidOrLiquidBlock(j, k), k);
@@ -57,8 +57,8 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
 	}
 	
 	public static void generateCoral(World world, Random rand, int x, int z) {
-		if (WorldGeneration.CORAL_REEF_ENABLED) {
-			if (!isCoralReef && Rand.nextInt(256))
+		if (WorldGen.CORAL_REEF_ENABLED) {
+			if (!isCoralReef && Rand.nextInt(Math.max(1, WorldGen.CORAL_REEF_START_CHANCE)))
 				isCoralReef = true;
 			if (isCoralReef && Rand.nextInt(40))
 				isCoralReef = false;
@@ -129,7 +129,7 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
 							--k;
 
 							blocks[i2] = block1;
-							if (Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
+							if (Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
 								blocks[i2] = Core.rocks;
 								metas[i2] = RockMeta.RUTILE;
 							}

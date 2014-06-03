@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import mariculture.api.fishery.IMutation;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.lib.Extra;
+import mariculture.core.config.FishMechanics;
 
 public class FishMutationHandler implements IMutation {
 	private final ArrayList<Mutation> mutations = new ArrayList();
 
 	@Override
 	public void addMutation(FishSpecies father, FishSpecies mother, FishSpecies baby, double chance) {
-		chance *= Extra.BREEDING_MULTIPLIER;
+		chance *= FishMechanics.BREEDING_MULTIPLIER;
 		mutations.add(new Mutation(father.getSpecies(), mother.getSpecies(), baby.getSpecies(), chance));
 	}
 

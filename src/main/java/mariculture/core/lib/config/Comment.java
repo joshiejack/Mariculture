@@ -15,18 +15,10 @@ public class Comment {
 	public static final String ENDERDRAGON = "This is whether players can Spawn the Ender Dragon with the Dragon Spawn Egg";
 	public static final String RIVER = "This is a list of biome ids, that Mariculture considers to be 'river' biomes (affects where limestone/rutile can spawn)";
 	public static final String OCEAN = "This is a list of biome ids, that Mariculture considers to be 'ocean' biomes; (affects where natural gas/coral/kelp can spawn) Take note that Mariculture automatically asumes that BiomesOPlenty ocean types are indeed oceans";
-	public static final String ORE = "This section let's you adjust where your ores will spawn and how much. Please note when it comes to 'chance', that LOWER = more common, as it's a x in this many chance.";
-	public static final String TANK_UPDATE = "This is how many seconds must pass before the feeder will 'tick' to check for the tank size, If set to 0, the size will only be set when you open the interface";
-	public static final String FISH_FOOD_TICK = "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable";
-	public static final String EFFECT_TICK = "This is how many ticks for an effect to occur in a fish tank, such as poison or regen";
-	public static final String DRAGON_EGG_BASE = "This is a 1 in this many chance for the chance to get a Spawn Ender Dragon from a Dragon Egg";
-	public static final String DRAGON_EGG_ETHEREAL = "Same as the normal chance but this is the chance when you have an ethereal upgrade in the incubator";
 	public static final String BIOMESOP_CORAL = "If enabled this will force this to only generate in the corresponding BOP Biomes if they exist in a world, If disabled, will generate in all ocean biomes";
 	public static final String RETRO_KEY = "This key is what stops, retro gen from generating in chunks over and over, if you want to retro gen again, change the key to any other integer";
-	public static final String RETRO = "Retro-Generation allows you to generate ores/other features in your existing worlds, without you having to go off and explore new areas. If you set all to true, it will override the individual settings for retro-gen";
-	public static final String JEWELRY_TICK_RATE = "This is how many ticks before the server will send an update to a player about what level enchant they have in their mirror inventory";
 	
 	public static final String KELP_FOREST_CHEST_CHANCE = "The higher the number the less common a chest will be, this roughly works out to this 1 chest per this many blocks of a forest.";
-	public static final String KELP_FOREST_START = "The higher the number, the rarer kelp forests will be, this number defines the chance of them spawning";
-	public static final String KELP_FOREST_END = "The higher the number, the larger kelp forests will be, this number defines the chance of them no longer spawning";
+	public static final String GEN_START = "The higher the number, the rarer the generation will be, this number defines the chance of this gen spawning";
+	public static final String GEN_END = "The higher the number, the larger the generation will be, this number defines the chance of this gen no longer spawning";
 }

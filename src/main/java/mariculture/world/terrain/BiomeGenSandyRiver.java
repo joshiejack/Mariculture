@@ -3,7 +3,7 @@ package mariculture.world.terrain;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.lib.OreGeneration;
+import mariculture.core.config.WorldGeneration.OreGen;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
@@ -79,7 +79,7 @@ public class BiomeGenSandyRiver extends BiomeGenRiver {
 							--k;
 
 							blocks[i2] = block1;
-							if (Rand.nextInt(OreGeneration.RUTILE_SPAWN_CHANCE)) {
+							if (Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
 								blocks[i2] = Core.rocks;
 								metas[i2] = RockMeta.RUTILE;
 							}

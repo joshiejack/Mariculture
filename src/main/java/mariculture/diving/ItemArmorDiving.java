@@ -4,8 +4,8 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -48,7 +48,7 @@ public class ItemArmorDiving extends ItemArmor implements IItemRegistry, IDisabl
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (Extra.DEBUG_ON) {
+		if (GeneralStuff.DEBUG_ON) {
 			int size = 32;
 			if (!world.isRemote) {
 				for (int x = (int) (player.posX - size); x < player.posX + size; x++) {

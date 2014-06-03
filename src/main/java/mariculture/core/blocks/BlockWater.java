@@ -6,10 +6,11 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctional;
+import mariculture.core.config.Gardening;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.DirectionHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
@@ -111,7 +112,7 @@ public class BlockWater extends BlockFunctional {
 
 		if (tile instanceof TileOyster) {
 			TileOyster oyster = (TileOyster) tile;
-			if(Extra.SPAWN_BOOKS && Modules.isActive(Modules.magic)) {
+			if(GeneralStuff.SPAWN_BOOKS && Modules.isActive(Modules.magic)) {
                 if(oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
                 	BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
                 }
@@ -158,7 +159,7 @@ public class BlockWater extends BlockFunctional {
 			TileOyster oyster = (TileOyster) world.getTileEntity(x, y, z);
 			if(!world.isRemote) {
 				if(oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
-					if(rand.nextInt(Extra.PEARL_GEN_CHANCE) == 0) {
+					if(rand.nextInt(Math.max(1, Gardening.PEARL_GEN_CHANCE)) == 0) {
 						Block block = world.getBlock(x, y - 1, z);
 						if(world.provider.dimensionId == 1) {
 							oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));

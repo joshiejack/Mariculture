@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
@@ -127,13 +126,6 @@ public class NEIFishProductHandler extends NEIBase {
 			GL11.glPopMatrix();
 		}
 	}
-	
-	@Override
-	public void drawBackground(int recipe) {
-        GL11.glColor4f(1, 1, 1, 1);
-        GuiDraw.changeTexture(getGuiTexture());
-        GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 65);
-    }
 	
 	@Override
 	public void loadTransferRects() {

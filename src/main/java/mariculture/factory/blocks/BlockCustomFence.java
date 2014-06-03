@@ -27,7 +27,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockCustomFence extends BlockFence implements IHasMeta {
 
 	public BlockCustomFence() {
-		super("customFence", Material.water);
+		super("customFence", Material.rock);
 		setCreativeTab(null);
 	}
 	

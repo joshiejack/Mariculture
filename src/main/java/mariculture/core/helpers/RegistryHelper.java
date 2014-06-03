@@ -3,8 +3,8 @@ package mariculture.core.helpers;
 import java.lang.reflect.Field;
 
 import mariculture.api.core.CoralRegistry;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.lib.Extra;
 import mariculture.core.util.IHasMeta;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
@@ -48,7 +48,7 @@ public class RegistryHelper {
 		try {
 			String name = item.getUnlocalizedName().substring(5);
 			name = name.replace('.', '_');
-			if(Extra.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the item " + item.getClass().getSimpleName() + " as Mariculture:" + name);
+			if(GeneralStuff.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the item " + item.getClass().getSimpleName() + " as Mariculture:" + name);
 			GameRegistry.registerItem(item, name);
 			
 			//Mariculture Item Registry
@@ -67,7 +67,7 @@ public class RegistryHelper {
 			}
 			
 			name = name.replace('.', '_');
-			if(Extra.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the block " + block.getClass().getSimpleName() + " with the item " + clazz.getSimpleName() + " as Mariculture:" + name);
+			if(GeneralStuff.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the block " + block.getClass().getSimpleName() + " with the item " + clazz.getSimpleName() + " as Mariculture:" + name);
 			GameRegistry.registerBlock(block, clazz, name);
 			
 			//Mariculture Item Registry
@@ -81,7 +81,7 @@ public class RegistryHelper {
 	private static void registerBlock(Block block) {
 		String name = block.getUnlocalizedName().substring(5);
 		name = name.replace('.', '_');
-		if(Extra.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the block " + block.getClass().getSimpleName() + " as Mariculture:" + name);
+		if(GeneralStuff.DEBUG_ON) LogHandler.log(Level.DEBUG, "Mariculture successfully registered the block " + block.getClass().getSimpleName() + " as Mariculture:" + name);
 		GameRegistry.registerBlock(block, name);
 		
 		//Mariculture Item Registry

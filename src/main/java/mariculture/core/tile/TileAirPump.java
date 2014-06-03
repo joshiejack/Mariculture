@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.core.Core;
+import mariculture.core.config.Machines.Client;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.ArmorSlot;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketAirPump;
 import mariculture.core.network.PacketHandler;
@@ -171,12 +172,12 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 	
 	@Override
 	public boolean canUpdate() {
-		return Extra.PUMP_ANIMATE;
+		return Ticks.PUMP_ENABLE_TICKS;
 	}
 
 	@Override
 	public void updateEntity() {
-		if (animate) {
+		if (Client.PUMP_ANIM && animate) {
 			wheelAngle1 = wheelAngle1 + 0.1;
 			wheelAngle2 = wheelAngle2 + 0.1;
 

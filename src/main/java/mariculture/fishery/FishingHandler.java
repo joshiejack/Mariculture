@@ -19,8 +19,9 @@ import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.config.FishMechanics;
+import mariculture.core.config.Vanilla;
 import mariculture.core.helpers.ReflectionHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.util.Rand;
 import mariculture.core.util.RecipeItem;
 import mariculture.fishery.items.ItemVanillaRod;
@@ -66,9 +67,9 @@ public class FishingHandler implements IFishing {
 		if (player.fishEntity != null) {
 			rodType.damage(world, player, stack, player.fishEntity.func_146034_e(), world.rand);
 			player.swingItem();
-		} else if (baitSlot != -1 || (!Extra.VANILLA_FORCE && stack.getItem() instanceof ItemVanillaRod)) {
+		} else if (baitSlot != -1 || (!Vanilla.VANILLA_FORCE && stack.getItem() instanceof ItemVanillaRod)) {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (Rand.rand.nextFloat() * 0.4F + 0.8F));
-			if(!Extra.VANILLA_POOR && isVanillaRod(stack)) baitQuality = 35;
+			if(!Vanilla.VANILLA_POOR && isVanillaRod(stack)) baitQuality = 35;
 			EntityHook hook = new EntityHook(world, player, rodType.getDamage(), baitQuality);
 			if (!world.isRemote) {
 				world.spawnEntityInWorld(hook);
@@ -263,7 +264,7 @@ public class FishingHandler implements IFishing {
 			return getFishForLocation(world, x, y, z, RodType.NET);
 		} else {
 			RodType type = getRodType(stack);
-			if(Extra.VANILLA_LOOT && type == type.DIRE) return getVanillaLoot(world, player, stack);
+			if(Vanilla.VANILLA_LOOT && type == type.DIRE) return getVanillaLoot(world, player, stack);
 			if (type != null) {
 				ItemStack loot = null;
 				int lootBonus = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, stack);
@@ -312,9 +313,9 @@ public class FishingHandler implements IFishing {
 		for(int i = 0; i < 20; i++) {
 			Collections.shuffle(catchables);
 			for(FishSpecies fish: catchables) {
-				double catchChance = (Extra.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y));					
+				double catchChance = (FishMechanics.IGNORE_BIOMES? fish.getCatchChance(world, y, time): fish.getCatchChance(world, salt, temperature, time, y));					
 				if(catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) {
-					if(Extra.IGNORE_BIOMES) {
+					if(FishMechanics.IGNORE_BIOMES) {
 							return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y, time) * 15D);
 					} else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, salt, temperature, time, y) * 10D);
 				}
@@ -326,7 +327,7 @@ public class FishingHandler implements IFishing {
 	
 	private ItemStack catchFish(Random rand, FishSpecies fish, RodType quality, double chance) {
 		boolean alive = false;
-		if(rand.nextInt(1000) < (chance * Extra.ALIVE_MODIFIER)) alive = true;
+		if(rand.nextInt(1000) < (chance * FishMechanics.ALIVE_MODIFIER)) alive = true;
 		boolean catchAlive = quality.caughtAlive(fish.getSpecies());
 		if(!catchAlive && !alive) return new ItemStack(Items.fish, 1, fish.getID());
 		return Fishing.fishHelper.makePureFish(fish);

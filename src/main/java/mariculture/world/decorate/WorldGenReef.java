@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.core.Core;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.WorldGeneration;
 import mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -28,7 +28,7 @@ public class WorldGenReef extends WorldGenerator {
 	public boolean generate(World world, Random rand, int x, int y, int z) {
 		ArrayList<String>cache = new ArrayList();
 		y = world.getTopSolidOrLiquidBlock(x, z);
-		if(WorldGeneration.CORAL_EXTRA) {
+		if(WorldGen.CORAL_EXTRA) {
 			for (int i = -rand.nextInt(16) - rand.nextInt(4); i < rand.nextInt(16) + rand.nextInt(4); i++) {
 				int xPos = x + i;
 				for (int j = -rand.nextInt(12) - rand.nextInt(i < 3 || i > 3 ? 1 : 5); j < rand.nextInt(14) + rand.nextInt(i < 5 || i > 3 ? 1 : 3); j++) {

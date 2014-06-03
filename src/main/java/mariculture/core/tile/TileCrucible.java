@@ -6,13 +6,13 @@ import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
@@ -309,7 +309,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		if(OreDicHelper.isInDictionary(stack)) {
 			String name = OreDicHelper.getDictionaryName(stack);
 			if(name.startsWith("ore")){
-				amount+= (purity * ((MetalRates.NUGGET) * Extra.PURITY));
+				amount+= (purity * ((MetalRates.NUGGET) * MachineSettings.PURITY));
 			}
 		}
 		
@@ -357,7 +357,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
 	public int getFluidAmount(String name, int amount) {
 		if (name.startsWith("ore")) {
-			amount += (purity * ((MetalRates.NUGGET) * Extra.PURITY));
+			amount += (purity * ((MetalRates.NUGGET) * MachineSettings.PURITY));
 		}
 
 		return amount;

@@ -3,10 +3,10 @@ package mariculture.factory.tile;
 import java.util.List;
 
 import mariculture.core.Core;
+import mariculture.core.config.Machines.Client;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileTank;
 import mariculture.core.util.Fluids;
@@ -121,7 +121,7 @@ public class TileGeyser extends TileTank implements IFaceable {
 				}
 			}
 			
-			if(Extra.GEYSER_ANIM && worldObj.isRemote) {
+			if(Client.GEYSER_ANIM && worldObj.isRemote) {
 				if(onTick(4)) {
 					for(float i = dist > 0? -0.45F: -0.1F; i <= 0.35F; i+=0.05F) {
 						worldObj.spawnParticle("cloud", x + 0.5F + (i * orientation.offsetX), 

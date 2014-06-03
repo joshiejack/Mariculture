@@ -3,7 +3,7 @@ package mariculture.core.world;
 import java.util.Random;
 
 import mariculture.core.Core;
-import mariculture.core.lib.Extra;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.lib.GroundMeta;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -104,7 +104,7 @@ public class WorldGenGas extends WorldGenerator
         }
         
         world.setBlock(xLast, world.getTopSolidOrLiquidBlock(xLast, zLast) - 1, zLast, Core.sands, GroundMeta.BUBBLES, 2);
-        if(Extra.DEBUG_ON)
+        if(GeneralStuff.DEBUG_ON)
         	world.setBlock(xLast, 65, zLast, Blocks.obsidian, 1, 2);
 
         return true;

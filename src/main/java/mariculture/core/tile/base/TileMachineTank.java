@@ -2,13 +2,13 @@ package mariculture.core.tile.base;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IProgressable;
@@ -147,7 +147,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 	public abstract void updateMachine();
 	
 	public void autoeject() {
-		if(output.length > 0 && onTick(Extra.ITEM_EJECT_TICK)) {
+		if(output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) {
 			if(setting.canEject(EjectSetting.ITEM)) {
 				for(int i: output) {
 					if(inventory[i] != null) {
@@ -161,7 +161,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
 			}
 		}
 		
-		if(rate.length > 0 && onTick(Extra.FLUID_EJECT_TICK)) {
+		if(rate.length > 0 && onTick(Ticks.FLUID_EJECT_TICK)) {
 			helper.ejectFluid(rate);
 		}
 	}

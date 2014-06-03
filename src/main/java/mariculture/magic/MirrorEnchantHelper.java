@@ -17,9 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
 public class MirrorEnchantHelper {
-	public static List buildEnchantmentList(Random rand, ItemStack stack, int level) {
-		System.out.println(level);
-		
+	public static List buildEnchantmentList(Random rand, ItemStack stack, int level) {		
 		int chance = 75 - level;
 		if(chance <= 1) chance = 1;
 		Item item = stack.getItem();

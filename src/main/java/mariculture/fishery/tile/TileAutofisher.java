@@ -7,7 +7,6 @@ import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMachinePowered;
 import mariculture.core.util.IHasNotification;
@@ -141,20 +140,6 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 		return false;
 	}
 	
-	//Get Stuff
-	private int getChance(int quality) {
-		switch(quality) {
-			case 5: return Extra.bait5;
-			case 4: return Extra.bait4;
-			case 3: return Extra.bait3;
-			case 2: return Extra.bait2;
-			case 1: return Extra.bait1;
-			case 0: return Extra.bait0;
-		}
-		
-		return 0;
-	}
-	
 	private int getSuitableSlot(ItemStack item) {
 		for(int i: output) {
 			if(inventory[i] == null)
@@ -181,7 +166,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 	}
 	
 	public int getRFUsage() {
-		return 12 + (speed * 8);
+		return 20 + (speed * 20);
 	}
 	
 	/* Grabs the rod type, and then grabs a fishing result and then does what it needs to with ejecting/inserting **/

@@ -8,7 +8,6 @@ import static mariculture.core.lib.ItemLib.autodictionary;
 import static mariculture.core.lib.ItemLib.baseIron;
 import static mariculture.core.lib.ItemLib.baseWood;
 import static mariculture.core.lib.ItemLib.bookAndQuill;
-import static mariculture.core.lib.ItemLib.enderPearl;
 import static mariculture.core.lib.ItemLib.feather;
 import static mariculture.core.lib.ItemLib.filterer;
 import static mariculture.core.lib.ItemLib.fish;
@@ -46,7 +45,6 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.EntityIds;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.util.Fluids;
@@ -182,9 +180,5 @@ public class Factory extends RegistrationModule {
 		addShaped(_(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });
 		MaricultureHandlers.turbine.add(Fluids.natural_gas);
 		MaricultureHandlers.turbine.add("gascraft_naturalgas");
-
-		if (Extra.ENDER_CONVERTER) {
-			addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', enderPearl, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
-		}
 	}
 }

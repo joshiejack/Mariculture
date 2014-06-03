@@ -1,7 +1,7 @@
 package mariculture.core.network;
 
 import mariculture.Mariculture;
-import mariculture.core.lib.Extra;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.util.IFaceable;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -50,7 +50,7 @@ public class PacketHandler {
 	}
 	
 	public static void sendAround(IMessage packet, int dim, double x, double y, double z) {
-		INSTANCE.sendToAllAround(packet, new TargetPoint(dim, x, y, z, Extra.PACKET_DISTANCE));
+		INSTANCE.sendToAllAround(packet, new TargetPoint(dim, x, y, z, MachineSettings.PACKET_DISTANCE));
 	}
 	
 	public static void sendToServer(IMessage packet) {

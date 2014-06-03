@@ -3,9 +3,9 @@ package mariculture.magic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mariculture.core.config.Enchantments.Jewelry;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.EnchantHelper;
-import mariculture.core.lib.Extra;
 import mariculture.magic.enchantments.EnchantmentFlight;
 import mariculture.magic.enchantments.EnchantmentGlide;
 import mariculture.magic.enchantments.EnchantmentJump;
@@ -35,7 +35,7 @@ public class MirrorHelper {
 	}
 	
 	public static MirrorSavedData getData(World world, String name) {
-		String check = MirrorSavedData.name + "-" + (Extra.JEWELRY_OFFLINE? "PlayerOffline": name);
+		String check = MirrorSavedData.name + "-" + (Jewelry.JEWELRY_OFFLINE? "PlayerOffline": name);
 		MirrorSavedData data = (MirrorSavedData) world.loadItemData(MirrorSavedData.class, check);
         if (data == null) {
             data = new MirrorSavedData(check);

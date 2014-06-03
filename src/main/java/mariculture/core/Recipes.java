@@ -14,7 +14,6 @@ import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static mariculture.core.helpers.RecipeHelper.addWheelRecipe;
 import static mariculture.core.lib.ItemLib.*;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.lib.Extra;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
@@ -85,10 +84,7 @@ public class Recipes {
 		addVatItemRecipe(_(plastic, 4), Fluids.gold, MetalRates.BLOCK, goldPlastic, 60 * 5);
 		addVatItemRecipe(_(stick),  Fluids.titanium, MetalRates.INGOT * 3, titaniumRod, 60);
 		addVatItemRecipe(_(netherBrick), "lava", 250, burntBrick, 8);
-		
-		if(Extra.OVERWORLD) {
-			addVatItemRecipe(_(brick), "lava", 500, burntBrick, 16);
-		}
+		addVatItemRecipe(_(brick), "lava", 500, burntBrick, 16);
 		
 		if(!Modules.isActive(Modules.worldplus)) {
 			add9x9Recipe(kelpWrap, cactusGreen);
