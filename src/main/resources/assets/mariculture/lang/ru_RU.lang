@@ -527,6 +527,7 @@ item.necklace.name=(Ожерелье)
 ### Transport ###
 #items
 item.boat.speed.name=Моторная лодка
+entity.Mariculture.speedBoat.name=Моторная лодка
 
 ### World ###
 #blocks
