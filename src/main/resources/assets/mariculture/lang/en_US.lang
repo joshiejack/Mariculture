@@ -528,6 +528,7 @@ item.necklace.name=Necklace
 ### Transport ###
 #items
 item.boat.speed.name=Speed Boat
+entity.Mariculture.speedBoat.name=Speed Boat
 
 ### World ###
 #blocks
