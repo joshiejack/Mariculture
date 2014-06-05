@@ -2,6 +2,7 @@ package mariculture.core.items;
 
 import java.util.List;
 
+import mariculture.api.core.Environment.Time;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.config.GeneralStuff;
@@ -108,6 +109,7 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
 				temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
 			}
 				
+			ClientHelper.addToChat(Text.translate("time") + " " + Text.translate("time." + Time.getTimeString(Time.getTime(world))));
 			ClientHelper.addToChat(prefix + ": " + temperature + Text.DEGREES);
 			ClientHelper.addToChat(Text.translate("environment.salinity") + ": " + Text.translate("salinity." + MaricultureHandlers.environment.getSalinity(world, x, z).name().toLowerCase()));
 		}

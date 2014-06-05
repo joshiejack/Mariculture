@@ -1,3 +1,8 @@
+Mariculture 1.7.2 BETA 10
+• Fixed BOP Compatibility with newest versions
+• Ethereal upgrades give a 1.25x modifier to mutation in the incubator(DOES NOT STACK)
+
+
 Mariculture 1.7.2 BETA 9
 • Broke all the configs as promised!
 • Reorganised Creative Tabs

@@ -6,6 +6,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.RockMeta;
@@ -68,6 +69,7 @@ public class PluginTConstruct extends Plugin {
 
 	public static void addMelting() {
 		// Melt Down Titanium
+		PluginTConstruct.addMelting(Core.limestone, LimestoneMeta.RAW, "blockLimestone", Fluids.getStack(Fluids.quicklime, 900), 250);
 		PluginTConstruct.addMelting(Core.rocks, RockMeta.RUTILE, "oreRutile", Fluids.getStack(Fluids.rutile, MetalRates.ORE), 800);
 		PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "dustRutile", Fluids.getStack(Fluids.rutile, MetalRates.INGOT), 800);
 		PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "ingotRutile", Fluids.getStack(Fluids.rutile, MetalRates.INGOT), 800);

@@ -17,11 +17,11 @@ import cpw.mods.fml.relauncher.Side;
 public class PacketHandler {
 	private static int id;
 	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Mariculture.modid);
-	private static void registerPacket(Class clazz, Side side) {
-		INSTANCE.registerMessage(clazz, clazz, id++, side);
+	private static void registerPacket(Class clazz, Side side) throws ClassNotFoundException {
+		INSTANCE.registerMessage((Class)Class.forName(clazz.getCanonicalName() + ".Handler"), clazz, id++, side);
 	}
 	
-	public static void init() {
+	public static void init() throws ClassNotFoundException {
 		registerPacket(PacketAirPump.class, Side.CLIENT);
 		registerPacket(PacketCompressor.class, Side.CLIENT);
 		registerPacket(PacketFluidSync.class, Side.CLIENT);

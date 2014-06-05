@@ -33,6 +33,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	private int temp;
 	private boolean canFuel;
 	private int cooling;
+	private double melting_modifier = 1.0D;
 
 	public TileCrucible() {
 		max = MachineSpeeds.getCrucibleSpeed();
@@ -105,7 +106,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 			coolDown();
 
 			if (canWork) {
-				processed += (speed * 50);
+				processed += ((speed * 50) * melting_modifier);
 				if (processed >= max) {
 					processed = 0;
 					if(canWork()) {

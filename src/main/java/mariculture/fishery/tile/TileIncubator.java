@@ -163,6 +163,10 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 	}
 	
 	private boolean openEgg(int slot) {
+		if(MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
+			setMutationModifier(1.25D);
+		}
+		
 		if(inventory[slot] == null) return false;
 		Random rand = new Random();
 		if (inventory[slot].getItem() instanceof ItemEgg) {

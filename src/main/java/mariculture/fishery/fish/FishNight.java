@@ -48,7 +48,6 @@ public class FishNight extends FishSpecies {
 	@Override
 	public void addFishProducts() {
 		addProduct(dropletEnder, 5D);
-		addProduct(enderPearl, 1D);
 	}
 
 	@Override

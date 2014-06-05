@@ -10,6 +10,7 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.Extra;
 import mariculture.core.lib.ItemLib;
 import mariculture.plugins.Plugins.Plugin;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -153,19 +154,23 @@ public class PluginBiomesOPlenty extends Plugin {
 			addBiome(getBiome("dryRiver"), 37, Salinity.FRESH);
 		}
 
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.cyanDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 1), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.purpleDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 8), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.purpleDye, 2), new ItemStack(BOPItemHelper.get("flowers2"), 1, 3), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.lightGreyDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 15), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.pinkDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 6), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.pinkDye, 2), new ItemStack(BOPItemHelper.get("flowers2"), 1, 0), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.limeDye, 2), new ItemStack(BOPItemHelper.get("mushrooms"), 1, 3), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.dandelionDye, 2), new ItemStack(BOPItemHelper.get("flowers2"), 1, 4), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.lightBlueDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 4), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.lightBlueDye, 2), new ItemStack(BOPItemHelper.get("flowers2"), 1, 7), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.magentaDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 7), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.orangeDye, 2), new ItemStack(BOPItemHelper.get("flowers"), 1, 5), true);
-		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.orangeDye, 2), new ItemStack(BOPItemHelper.get("flowers2"), 1, 2), true);
+		Item flowers = GameRegistry.findItem("BiomesOPlenty", "flowers");
+		Item flower2 = GameRegistry.findItem("BiomesOPlenty", "flowers2");
+		Item mushroom = GameRegistry.findItem("BiomesOPlenty", "mushrooms");
+		
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.cyanDye, 2), new ItemStack(flowers, 1, 1), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.purpleDye, 2), new ItemStack(flowers, 1, 8), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.purpleDye, 2), new ItemStack(flower2, 1, 3), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.lightGreyDye, 2), new ItemStack(flowers, 1, 15), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.pinkDye, 2), new ItemStack(flowers, 1, 6), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.pinkDye, 2), new ItemStack(flower2, 1, 0), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.limeDye, 2), new ItemStack(mushroom, 1, 3), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.dandelionDye, 2), new ItemStack(flower2, 1, 4), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.lightBlueDye, 2), new ItemStack(flowers, 1, 4), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.lightBlueDye, 2), new ItemStack(flower2, 1, 7), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.magentaDye, 2), new ItemStack(flowers, 1, 7), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.orangeDye, 2), new ItemStack(flowers, 1, 5), true);
+		RecipeHelper.addCrushRecipe(RecipeHelper._(ItemLib.orangeDye, 2), new ItemStack(flower2, 1, 2), true);
 	}
 
 	@Override

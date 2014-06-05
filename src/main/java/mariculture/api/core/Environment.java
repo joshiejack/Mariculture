@@ -70,5 +70,13 @@ public class Environment {
 		public static boolean isMidnight(int time) {
 			return time >= 18000;
 		}
+
+		public static String getTimeString(int time) {
+			if(isDawn(time))     return "dawn";
+			if(isDusk(time))     return "dusk";
+			if(isNoon(time)) 	 return "day";
+			if(isMidnight(time)) return "night";
+			return isDay(time)? "day": "night";
+		}
 	}
 }

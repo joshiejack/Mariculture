@@ -6,18 +6,20 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketAirPump extends PacketCoords implements IMessageHandler<PacketCoords, IMessage> {
+public class PacketAirPump extends PacketCoords {
 	public PacketAirPump() {}
 	public PacketAirPump(int x, int y, int z) {
 		super(x, y, z);
 	}
-	
-	@Override
-	public IMessage onMessage(PacketCoords message, MessageContext ctx) {
-		if(ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z) instanceof TileAirPump) {
-			((TileAirPump) ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z)).animate = true;
+
+	public static class Handler implements IMessageHandler<PacketCoords, IMessage> {
+		@Override
+		public IMessage onMessage(PacketCoords message, MessageContext ctx) {
+			if(ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z) instanceof TileAirPump) {
+				((TileAirPump) ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z)).animate = true;
+			}
+			
+			return null;
 		}
-		
-		return null;
 	}
 }
