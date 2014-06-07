@@ -17,6 +17,7 @@ public class BlockRenderedMachineMultiItem extends ItemBlockMariculture {
 			case MachineRenderedMultiMeta.COMPRESSOR_TOP: 	return "airCompressorPower";
 			case MachineRenderedMultiMeta.PRESSURE_VESSEL: 	return "pressureVessel";
 			case MachineRenderedMultiMeta.VAT: 				return "vat";
+			case MachineRenderedMultiMeta.SIFTER: 				return "sifter";
 			default: 										return "doubleBlocks";
 		}
 	}

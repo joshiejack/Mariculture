@@ -43,6 +43,9 @@ public class PacketHandler {
 		registerPacket(PacketFLUDD.class, Side.SERVER);
 		registerPacket(PacketSponge.class, Side.CLIENT);
 		registerPacket(PacketSponge.class, Side.SERVER);
+		
+		//New Packets
+		registerPacket(PacketSifterSync.class, Side.CLIENT);
 	}
 
 	public static void sendToClient(IMessage packet, EntityPlayerMP player) {

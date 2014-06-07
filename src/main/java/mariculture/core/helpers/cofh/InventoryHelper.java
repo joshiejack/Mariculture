@@ -101,6 +101,7 @@ public class InventoryHelper {
 		if (stack == null) {
 			return true;
 		}
+		
 		int openSlot = -1;
 		for (int i : slots) {
 			if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
@@ -109,14 +110,12 @@ public class InventoryHelper {
 				openSlot = i;
 			}
 		}
-		if (stack != null) {
-			if (openSlot > -1) {
-				return true;
-			} else {
-				return false;
-			}
+		
+		if (openSlot > -1) {
+			return true;
+		} else {
+			return false;
 		}
-		return true;
 	}
 
 	/**

@@ -252,7 +252,7 @@ public class Fishery extends RegistrationModule {
 		addBlockCasting(new FluidStack(moltenDirt, 1000), new ItemStack(dirt));
 		addMelting(new ItemStack(dirt), 333, new FluidStack(moltenDirt, 1000));
 		addShaped(_(fishingNet, 4), new Object[] {"SWS", "WWW", "SWS", 'S', "stickWood", 'W', string});
-		addShaped(sifter, new Object[] {"PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net});
+		addShaped(_(sifter, 2), new Object[] {"PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net});
 		addShaped(autofisher, new Object[] {" F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', fish, 'B', baseWood, 'P', "plankWood"});
 		addShaped(fishFeeder, new Object[] {"WFW", "WCW", "WFW",  'F', fish, 'W', wicker, 'C', chest });
 		addShaped(incubatorTop, new Object[] {"DFD", "CHC", 'F', fish, 'D', "dyeBrown", 'C', greyClay, 'H', heating });

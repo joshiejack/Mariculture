@@ -199,25 +199,25 @@ public class FishyHelper implements IFishHelper {
 	@Override
 	public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
 		FishSpecies fish = Fishing.fishHelper.getSpecies(stack);
-		Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
-		int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
-		boolean worldCorrect = fish.isWorldCorrect(world);
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null && tile instanceof IUpgradable) {
-			IUpgradable upgradable = (IUpgradable) tile;
-			temperature += MaricultureHandlers.upgrades.getData("temp", upgradable);
-			int salinity = salt.ordinal() + MaricultureHandlers.upgrades.getData("salinity", upgradable);
-			if(salinity <= 0) salinity = 0; if(salinity > 2) salinity = 2;
-			salt = Salinity.values()[salinity];
-			if(!worldCorrect) worldCorrect = MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable);
-		}
-		
-		if(!worldCorrect) return false;
-		
-		if(fish != null) {
+		if(fish == null) return false;
+		else {
+			Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
+			int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
+			boolean worldCorrect = fish.isWorldCorrect(world);
+			TileEntity tile = world.getTileEntity(x, y, z);
+			if(tile != null && tile instanceof IUpgradable) {
+				IUpgradable upgradable = (IUpgradable) tile;
+				temperature += MaricultureHandlers.upgrades.getData("temp", upgradable);
+				int salinity = salt.ordinal() + MaricultureHandlers.upgrades.getData("salinity", upgradable);
+				if(salinity <= 0) salinity = 0; if(salinity > 2) salinity = 2;
+				salt = Salinity.values()[salinity];
+				if(!worldCorrect) worldCorrect = MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable);
+			}
+			
+			if(!worldCorrect) return false;
 			if(!fish.canWork(Time.getTime(world))) return false;
 			else return MaricultureHandlers.environment.matches(salt, temperature, fish.salinity, fish.temperature);
-		} else return false;
+		}
 	}
 
 	@Override

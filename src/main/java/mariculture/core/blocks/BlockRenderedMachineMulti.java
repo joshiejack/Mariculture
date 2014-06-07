@@ -164,125 +164,26 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 					return false;
 				}
 			}
-			
-			if(tile instanceof TileSifter) {
-				TileSifter sifter = ((TileSifter) tile).getMaster();
-				if(sifter != null) {
-					if (player.getCurrentEquippedItem() != null) {
-						ItemStack stack = player.getCurrentEquippedItem();
-						if(stack.getItem() == Core.upgrade) {
-							if(stack.getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
-								if(!sifter.hasInventory) {
-									sifter.hasInventory = true;
-									PacketHandler.updateRender(sifter);
-									player.inventory.decrStackSize(player.inventory.currentItem, 1);
-									return false;
-								}
-							}
-						}
-						
-						boolean played = false;
-						if(Fishing.sifter.getResult(stack) != null) {
-							if(!world.isRemote) {
-								ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(stack);
-								int stackSize = player.isSneaking()? 1: stack.stackSize;
-								for (int j = 0; j <= stackSize; j++) {
-									if(stack.stackSize > 0) {
-										for(RecipeSifter bait: recipe) {
-											int chance = Rand.rand.nextInt(100);
-											if(chance < bait.chance) {
-												ItemStack result = bait.bait.copy();
-												result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
-												spawnItem(result, world, x, y, z);
-											}
-										}
-										
-										if(!played) {
-											world.playSoundAtEntity(player, Mariculture.modid + ":sift", 1.5F, 1.0F);
-											played = true;
-										}
-									}
-									
-									if(!player.capabilities.isCreativeMode)
-										player.inventory.decrStackSize(player.inventory.currentItem, 1);
-								}
-							}
-							
-							return true;
-						}
-					}	
-	
-					if (sifter.hasInventory) {
-						player.openGui(Mariculture.instance, GuiIds.SIFT, world, x, y, z);
-						return true;
-					}
-				}
-			}
 		}
 		
-		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
-	}
-	
-	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if(world.getBlockMetadata(x, y, z) == MachineRenderedMultiMeta.SIFTER) {
-			if (entity instanceof EntityItem && !world.isRemote) {
-				Random random = new Random();
-				EntityItem entityitem = (EntityItem) entity;
-				ItemStack item = entityitem.getEntityItem();
-				boolean played = false;
-				
-				if(!world.isRemote && Fishing.sifter.getResult(item) != null) {
-					ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(item);
-					for (int j = 0; j < item.stackSize; j++) {
-						for(RecipeSifter bait: recipe) {
-							int chance = Rand.rand.nextInt(100);
-							if(chance < bait.chance) {
-								ItemStack result = bait.bait.copy();
-								result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
-								spawnItem(result, world, x, y, z);
-							}
-						}
-						
-						if(!played) {
-							world.playSoundAtEntity(entity, Mariculture.modid + ":sift", 1.5F, 1.0F);
-							played = true;
-						}
-						
-						entityitem.setDead();
+		if(tile instanceof TileSifter) {
+			System.out.println("SIFTER");
+			TileSifter sifter = ((TileSifter) tile).getMaster();
+			if(sifter != null) {
+				if(heldItem != null) {
+					ItemStack addition = heldItem.copy();
+					addition.stackSize = 1;
+					sifter.addItem(addition);
+					if(!player.capabilities.isCreativeMode) {
+						player.inventory.decrStackSize(player.inventory.currentItem, 1);
 					}
+				} else {
+					sifter.process(Rand.rand);
 				}
-			}
-		}
-	}
-	
-	/** Called by Sifter **/
-	private void spawnItem(ItemStack item, World world, int x, int y, int z) {
-		boolean done = false;
-		TileSifter sift = (TileSifter) world.getTileEntity(x, y, z);
-		if (sift.hasInventory) {
-			if (sift.getSuitableSlot(item) != 10) {
-				int slot = sift.getSuitableSlot(item);
-				ItemStack newStack = item;
-				if (sift.getStackInSlot(slot) != null) {
-					newStack.stackSize = newStack.stackSize + sift.getStackInSlot(slot).stackSize;
-				}
-
-				sift.setInventorySlotContents(slot, newStack);
-
-				done = true;
-			}
-		}
-
-		if (done == false) {
-			Random rand = new Random();
-			float rx = rand.nextFloat() * 0.6F + 0.1F;
-			float ry = rand.nextFloat() * 0.6F + 0.1F;
-			float rz = rand.nextFloat() * 0.6F + 0.1F;
-
-			EntityItem dropped = new EntityItem(world, x + rx, y + ry + 0.5F, z + rz, item);
-			world.spawnEntityInWorld(dropped);
-		}
+			} 
+		} 
+		
+		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 	
 	@Override

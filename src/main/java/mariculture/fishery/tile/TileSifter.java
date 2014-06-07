@@ -1,26 +1,35 @@
 package mariculture.fishery.tile;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
 
+import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RecipeSifter;
+import mariculture.core.Core;
+import mariculture.core.helpers.SpawnItemHelper;
+import mariculture.core.helpers.cofh.InventoryHelper;
+import mariculture.core.network.PacketHandler;
+import mariculture.core.network.PacketSifterSync;
+import mariculture.core.tile.base.TileMultiStorage;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import mariculture.core.Core;
-import mariculture.core.network.PacketHandler;
-import mariculture.core.tile.base.TileMultiBlock;
-import mariculture.core.tile.base.TileMultiStorage;
-import mariculture.core.tile.base.TileMultiBlock.MultiPart;
 
 public class TileSifter extends TileMultiStorage implements ISidedInventory {
-	public boolean hasInventory;
+	public ItemStack display = null;
 	public ItemStack texture = new ItemStack(Blocks.planks);
-	public ItemStack sifting = new ItemStack(Core.air);
+	public LinkedList<ItemStack> toSift = new LinkedList();
+	public boolean hasInventory;
+	private int[] slots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	
 	public TileSifter() {
 		inventory = new ItemStack[10];
 	}
@@ -32,7 +41,7 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		return slots;
 	}
 
 	@Override
@@ -43,6 +52,47 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
 		return this.hasInventory;
+	}
+	
+	public void updateRender() {
+		ItemStack stack = toSift != null && toSift.size() > 0 && toSift.getFirst() != null? toSift.getFirst(): new ItemStack(Core.air);
+		PacketHandler.sendAround(new PacketSifterSync(xCoord, yCoord, zCoord, stack), this);
+	}
+	
+	public void addItem(ItemStack stack) {
+		if(toSift == null) {
+			toSift = new LinkedList();
+		}
+		
+		toSift.add(stack);
+		updateRender();
+	}
+	
+	public void process(Random rand) {
+		if(toSift != null && toSift.size() > 0) {
+			ItemStack stack = toSift.getFirst();
+			ArrayList<RecipeSifter> result = Fishing.sifter.getResult(stack);
+			if(result != null) {
+				for(RecipeSifter bait: result) {
+					int chance = rand.nextInt(100);
+					if(chance < bait.chance) {
+						ItemStack ret = bait.bait.copy();
+						ret.stackSize = bait.minCount + rand.nextInt((bait.maxCount + 1) - bait.minCount);
+						if(hasInventory) {
+							InventoryHelper.addItemStackToInventory(inventory, ret, slots);
+						} else {
+							SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret);
+						}
+					}
+				}
+			} else {
+				SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack);
+			}
+			
+			toSift.removeFirst();
+		}
+		
+		updateRender();
 	}
 	
 	public int getSuitableSlot(ItemStack item) {
@@ -71,6 +121,42 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.func_148857_g());
     }
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		hasInventory = nbt.getBoolean("HasInventory");
+		if(nbt.hasKey("Display")) display = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("Display"));
+		texture = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("Texture"));
+		toSift = new LinkedList();
+		NBTTagList list = nbt.getTagList("Memory", 10);
+		for (int i = 0; i < list.tagCount(); i++) {
+			NBTTagCompound tag = (NBTTagCompound) list.getCompoundTagAt(i);
+			toSift.add(ItemStack.loadItemStackFromNBT(tag));
+		}
+		
+		if(toSift.size() > 0) {
+			display = toSift.getFirst();
+		}
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setBoolean("HasInventory", hasInventory);
+		if(display != null) nbt.setTag("Display", display.writeToNBT(new NBTTagCompound()));
+		nbt.setTag("Texture", texture.writeToNBT(new NBTTagCompound()));
+		NBTTagList list = new NBTTagList();
+		if(toSift.size() > 0) {
+			for(ItemStack stack: toSift) {
+				NBTTagCompound tag = new NBTTagCompound();
+				stack.writeToNBT(tag);
+				list.appendTag(tag);
+			}
+		}
+		
+		nbt.setTag("Memory", list);
+	}
 	
 	public boolean isSifter(int x, int y, int z) {
 		return worldObj.getTileEntity(x, y, z) instanceof TileSifter && !isPartnered(x, y, z);
@@ -127,21 +213,5 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public void onBlockBreak() {
-		if(master != null) {
-			//Get the Master Tile Entity
-			TileMultiBlock mstr = (TileMultiBlock) worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord);
-			if(mstr != null) {
-				//Clear out the slaves
-				if(mstr.slaves != null) {
-					for(MultiPart part: mstr.slaves) {
-						worldObj.setBlockToAir(part.xCoord, part.yCoord, part.zCoord);
-					}
-				}
-			}
-		}
 	}
 }
