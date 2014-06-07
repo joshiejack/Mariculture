@@ -32,12 +32,12 @@ public class UpgradeHandler implements IUpgradeHandler {
 			ItemStack upgradeStack = upgrades[i];
 			if (upgradeStack != null && upgradeStack.getItem() instanceof IItemUpgrade) {
 				IItemUpgrade upgrade = (IItemUpgrade) upgradeStack.getItem();
-				storage += (upgrade.getStorageCount(upgradeStack.getItemDamage()));
-				purity += (upgrade.getPurity(upgradeStack.getItemDamage()));
-				temp += (upgrade.getTemperature(upgradeStack.getItemDamage()));
-				speed += (upgrade.getSpeed(upgradeStack.getItemDamage()));
-				rf += (upgrade.getRFBoost(upgradeStack.getItemDamage()));
-				salinity += (upgrade.getSalinity(upgradeStack.getItemDamage()));
+				storage += (upgrade.getStorageCount(upgradeStack));
+				purity += (upgrade.getPurity(upgradeStack));
+				temp += (upgrade.getTemperature(upgradeStack));
+				speed += (upgrade.getSpeed(upgradeStack));
+				rf += (upgrade.getRFBoost(upgradeStack));
+				salinity += (upgrade.getSalinity(upgradeStack));
 			}
 		}
 
@@ -52,7 +52,7 @@ public class UpgradeHandler implements IUpgradeHandler {
 			ItemStack upgradeStack = upgrades[i];
 			if (upgradeStack != null && upgradeStack.getItem() instanceof IItemUpgrade) {
 				IItemUpgrade upgrade = (IItemUpgrade) upgradeStack.getItem();
-				if(upgrade.getType(upgradeStack.getItemDamage()).equalsIgnoreCase(type)) {
+				if(upgrade.getType(upgradeStack).equalsIgnoreCase(type)) {
 					return true;
 				}
 			}

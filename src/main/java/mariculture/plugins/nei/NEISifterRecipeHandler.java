@@ -2,6 +2,7 @@ package mariculture.plugins.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -9,15 +10,18 @@ import java.util.Map.Entry;
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.util.Text;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.ItemList;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 
@@ -44,17 +48,38 @@ public class NEISifterRecipeHandler extends NEIBase {
     }
 	
 	public class CachedSifterRecipe extends CachedRecipe {
-		PositionedStack input;
+		List<PositionedStack> inputs;
+		//PositionedStack input;
 		List<SifterResult> outputs;
 
 		public CachedSifterRecipe(ItemStack input, ArrayList<RecipeSifter> output) {
-			this.input = new PositionedStack(input, 12, 16);
+			inputs = new ArrayList();
+			if(input == null) inputs = generateList(output);
+			else inputs.add(new PositionedStack(input, 12, 16));
 			outputs = new ArrayList<SifterResult>();
 			int x = 0;
 			for(RecipeSifter recipe: output) {
 				outputs.add(new SifterResult(recipe, x));
 				x++;
 			}
+		}
+
+		private List<PositionedStack> generateList(ArrayList<RecipeSifter> output) {
+			List<PositionedStack> list = new ArrayList();
+			ItemStack stack = output.get(0).block;
+			if(stack.getItemDamage() == Short.MAX_VALUE) {
+                List<ItemStack> permutations = ItemList.itemMap.get(stack.getItem());
+                if(!permutations.isEmpty()) {
+                    for(ItemStack stack2 : permutations)
+                        list.add(new PositionedStack(stack2.copy(), 12, 16));
+                } else  {
+                    ItemStack base = new ItemStack(stack.getItem(), stack.stackSize);
+                    base.stackTagCompound = stack.stackTagCompound;
+                    list.add(new PositionedStack(base, 12, 16));
+                }
+            } else list.add(new PositionedStack(stack, 12, 16));
+
+			return list;
 		}
 
 		@Override
@@ -74,16 +99,17 @@ public class NEISifterRecipeHandler extends NEIBase {
 
 		@Override
 		public PositionedStack getIngredient() {
-			return input;
+			if(inputs == null || inputs.size() < 1) return null;
+			return inputs.get((cycleticks/48) % inputs.size());
 		}
 	}
 	
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals("sifter") && getClass() == NEISifterRecipeHandler.class) {
-			HashMap<String, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
-			for (Entry<String, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
-				arecipes.add(new CachedSifterRecipe(recipe.getValue().get(0).block, recipe.getValue()));
+			HashMap<List<? extends Object>, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
+			for (Entry<List<? extends Object>, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
+				arecipes.add(new CachedSifterRecipe(null, recipe.getValue()));
 			}
 		} else {
 			super.loadCraftingRecipes(outputId, results);
@@ -92,11 +118,11 @@ public class NEISifterRecipeHandler extends NEIBase {
 	
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		HashMap<String, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
-		for (Entry<String, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
+		HashMap<List<? extends Object>, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
+		for (Entry<List<? extends Object>, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
 			for(RecipeSifter sifter: recipe.getValue()) {
 				if(OreDicHelper.convert(sifter.bait).equals(OreDicHelper.convert(result))) {
-					arecipes.add(new CachedSifterRecipe(sifter.block, recipe.getValue()));
+					arecipes.add(new CachedSifterRecipe(null, recipe.getValue()));
 				}
 			}
 		}
@@ -104,11 +130,9 @@ public class NEISifterRecipeHandler extends NEIBase {
 	
 	@Override
     public void loadUsageRecipes(ItemStack ingredient)  {
-		HashMap<String, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
-		for (Entry<String, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
-			if(recipe.getKey().equals(OreDicHelper.convert(ingredient))) {
-				arecipes.add(new CachedSifterRecipe(recipe.getValue().get(0).block, recipe.getValue()));
-			}
+		ArrayList<RecipeSifter> recipes = Fishing.sifter.getResult(ingredient);
+		if(recipes != null) {
+			arecipes.add(new CachedSifterRecipe(ingredient, recipes));
 		}
     }
 	

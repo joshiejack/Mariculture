@@ -162,6 +162,7 @@ item.crafting.titaniumSheet.name=Sheet of Titanium
 item.crafting.snorkelLens.name=Glass Lens
 item.crafting.burntBrick.name=Burnt Brick
 item.crafting.titaniumRodBasic.name=Titanium Rod
+item.temperature.control.name=Temperature Control Unit
 item.upgrade.storage.name=Basic Storage Upgrade
 item.upgrade.storageStd.name=Standard Storage Upgrade
 item.upgrade.storageAdv.name=Advanced Storage Upgrade
@@ -654,6 +655,7 @@ mariculture.string.rf=RF
 mariculture.string.rft=RF/t
 mariculture.string.mb=mB
 mariculture.string.blacklisted=BLACKLISTED
+mariculture.string.temp.control=Stores Temperature Upgrades
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

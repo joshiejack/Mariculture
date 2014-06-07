@@ -1,5 +1,6 @@
 package mariculture.api.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface IVatHandler {
 	/** get the result of the following items, take note all of them can be null **/
 	public RecipeVat getResult(FluidStack fluid1, FluidStack fluid2, ItemStack item);
 	/** returns the list of recipes **/
-	public HashMap<List<? extends Object>, RecipeVat> getRecipes();
+	public ArrayList<RecipeVat> getRecipes();
 }

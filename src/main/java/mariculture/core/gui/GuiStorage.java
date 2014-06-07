@@ -25,7 +25,7 @@ public class GuiStorage extends GuiMariculture {
 	public String getName() {
 		if(storage != null) {
 			ItemStack stack = storage.player.getCurrentEquippedItem();
-			if(stack != null & stack.getItem() instanceof ItemStorage) {
+			if(stack != null && stack.getItem() instanceof ItemStorage) {
 				ItemStorage item = (ItemStorage)stack.getItem();
 				return StatCollector.translateToLocal("item." + item.getName(stack) + ".name");
 			}
@@ -38,7 +38,7 @@ public class GuiStorage extends GuiMariculture {
 	public int getX() {
 		if(storage != null) {
 			ItemStack stack = storage.player.getCurrentEquippedItem();
-			if(stack != null & stack.getItem() instanceof ItemStorage) {
+			if(stack != null && stack.getItem() instanceof ItemStorage) {
 				ItemStorage item = (ItemStorage)stack.getItem();
 				return item.getX(stack);
 			}

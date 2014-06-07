@@ -130,6 +130,7 @@ public class ItemLib {
 	public static final Item sugar = Items.sugar;
 	public static final Item ingotIron = Items.iron_ingot;
 	public static final Item compass = Items.compass;
+	public static final Item nettherackBrick = Items.netherbrick;
 	
 	/** ItemStack always based blocks **/
 	public static final ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);
@@ -172,7 +173,7 @@ public class ItemLib {
 	public static final ItemStack ingotCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.INGOT_CASTER);
 	public static final ItemStack blockCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.BLOCK_CASTER);
 	public static final ItemStack nuggetCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.NUGGET_CASTER);
-	public static final ItemStack sifter = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.SIFTER);
+	public static final ItemStack sifter = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.SIFTER);
 	public static final ItemStack compressorBase = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE);
 	public static final ItemStack compressorTop = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP);
 	public static final ItemStack geyser = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.GEYSER);

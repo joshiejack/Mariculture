@@ -15,7 +15,7 @@ import codechicken.nei.recipe.ShapedRecipeHandler;
 public class NEIJewelryShapedHandler extends ShapedRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals("crafting") && getClass() == NEIJewelryShapedHandler.class) {
+		if (outputId.equals("jewelryCrafting") && getClass() == NEIJewelryShapedHandler.class) {
 			for (IRecipe irecipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList()) {
 				if (irecipe instanceof ShapedJewelryRecipe) {
 					CachedShapedRecipe recipe = forgeShapedRecipe((ShapedJewelryRecipe) irecipe);
@@ -48,13 +48,31 @@ public class NEIJewelryShapedHandler extends ShapedRecipeHandler {
 			}
 		}
 	}
+	
+	@Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+        for (IRecipe irecipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList()) {
+            CachedShapedRecipe recipe = null;
+            if (irecipe instanceof ShapedJewelryRecipe)
+                recipe = forgeShapedRecipe((ShapedJewelryRecipe) irecipe);
+
+            if (recipe == null || !recipe.contains(recipe.ingredients, ingredient.getItem()))
+                continue;
+
+            recipe.computeVisuals();
+            if (recipe.contains(recipe.ingredients, ingredient)) {
+                recipe.setIngredientPermutation(recipe.ingredients, ingredient);
+                arecipes.add(recipe);
+            }
+        }
+    }
 
 	private CachedShapedRecipe forgeShapedRecipe(ShapedJewelryRecipe recipe) {
 		int width;
 		int height;
 		try {
 			width = ReflectionManager.getField(ShapedJewelryRecipe.class, Integer.class, recipe, 4);
-			height = ReflectionManager.getField(ShapedJewelryRecipe.class, Integer.class, recipe, 5);
+            height = ReflectionManager.getField(ShapedJewelryRecipe.class, Integer.class, recipe, 5);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -68,5 +86,15 @@ public class NEIJewelryShapedHandler extends ShapedRecipeHandler {
 				return null;
 
 		return new CachedShapedRecipe(width, height, items, recipe.getRecipeOutput());
+	}
+	
+	@Override
+	public String getOverlayIdentifier() {
+		return "jewelryCrafting";
+	}
+
+	@Override
+	public String getRecipeName() {
+		return "Shaped Jewelry Crafting";
 	}
 }

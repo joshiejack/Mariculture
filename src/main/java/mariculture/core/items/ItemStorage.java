@@ -127,6 +127,7 @@ public class ItemStorage extends Item implements IItemRegistry {
 					nbttaglist.appendTag(nbttagcompound1);
 				}
 			}
+			
 			if (!player.getCurrentEquippedItem().hasTagCompound()) {
 				player.getCurrentEquippedItem().setTagCompound(new NBTTagCompound());
 			}

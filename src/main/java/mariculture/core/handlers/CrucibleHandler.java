@@ -1,42 +1,37 @@
 package mariculture.core.handlers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ICrucibleHandler;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.util.Rand;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CrucibleHandler implements ICrucibleHandler {
-	private final Map fuels = new HashMap();
-	private final HashMap<String, RecipeSmelter> recipes = new HashMap();
+	public static Map fuels = new HashMap();
+	public static ArrayList<RecipeSmelter> recipes = new ArrayList();
 
 	@Override
 	public void addRecipe(RecipeSmelter recipe) {
-		if(recipe.input2 != null) recipes.put(OreDicHelper.convert(recipe.input) + "|" + OreDicHelper.convert(recipe.input2), recipe);
-		else recipes.put(OreDicHelper.convert(recipe.input), recipe);
+		recipes.add(recipe);
 	}
 
 	@Override
 	public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
-		RecipeSmelter recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input) + "|" + OreDicHelper.convert(input2));
-		if(recipe == null) recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input2) + "|" + OreDicHelper.convert(input));
-		if(recipe == null) recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(input));
-		if(recipe != null) {
-			FluidStack fluid = recipe.fluid.copy();
-			if(temp < recipe.temp && temp != -1)
-				return null;
-			if(recipe.input2 != null) {
-				if(input2.stackSize < recipe.input.stackSize)
-					return null;
-			} else {
-				if(input.stackSize < recipe.input.stackSize)
-					return null;
+		for(RecipeSmelter recipe: recipes) {
+			if(temp >= 0 && temp < recipe.temp) continue;
+			if(ItemHelper.areEqual(recipe.input, input) && input.stackSize >= recipe.input.stackSize) {
+				if((recipe.input2 != null && !(ItemHelper.areEqual(recipe.input2, input2) && input2.stackSize >= recipe.input2.stackSize))) {
+					continue;
+				}
 				
+				FluidStack fluid = recipe.fluid.copy();
 				if(recipe.random != null) {
 					for(int i = 0; i < recipe.random.length; i++) {
 						if(Rand.nextInt(recipe.rands[i])) {
@@ -47,17 +42,17 @@ public class CrucibleHandler implements ICrucibleHandler {
 					}
 					
 					return new RecipeSmelter(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new Integer[] { 0 });
+				} else {
+					if(input.isItemStackDamageable()) {
+						double mod = (double)(input.getMaxDamage() - input.getItemDamage()) / input.getMaxDamage();
+						fluid.amount = (int) (fluid.amount * mod);
+					}
+					
+					return recipe;
 				}
-				
-				if(input.isItemStackDamageable()) {
-					double mod = (double)(input.getMaxDamage() - input.getItemDamage()) / input.getMaxDamage();
-					fluid.amount = (int) (fluid.amount * mod);
-				}
-			}
-			
-			return new RecipeSmelter(recipe.input, recipe.input2, recipe.temp, fluid, recipe.output, recipe.chance);
+			} else continue;
 		}
-
+		
 		return null;
 	}
 	
@@ -89,17 +84,17 @@ public class CrucibleHandler implements ICrucibleHandler {
 	}
 
 	public int getMeltingPoint(ItemStack stack) {
-		RecipeSmelter recipe = (RecipeSmelter) recipes.get(OreDicHelper.convert(stack));
-		
-		if (recipe != null) {
-			return recipe.temp;
+		for(RecipeSmelter recipe: recipes) {
+			if(ItemHelper.areEqual(stack, recipe.input)) {
+				return recipe.temp;
+			}
 		}
 
 		return -1;
 	}
 
 	@Override
-	public HashMap<String, RecipeSmelter> getRecipes() {
-		return (HashMap<String, RecipeSmelter>) recipes;
+	public ArrayList<RecipeSmelter> getRecipes() {
+		return recipes;
 	}
 }

@@ -49,13 +49,12 @@ import mariculture.fishery.EntityItemFireImmune;
 import mariculture.fishery.Fish;
 import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.ModelFeeder;
-import mariculture.fishery.render.ModelSift;
 import mariculture.fishery.render.RenderFishTank;
 import mariculture.fishery.render.RenderNet;
 import mariculture.fishery.render.RenderProjectileFish;
+import mariculture.fishery.render.RenderSifter;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
-import mariculture.fishery.tile.TileSift;
 import mariculture.transport.EntitySpeedBoat;
 import mariculture.transport.Transport;
 import mariculture.transport.render.RenderSpeedBoat;
@@ -146,8 +145,8 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
 			RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fish.bass.getID()));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSpecialHandler(new ModelFeeder(), FEEDER));
-			ClientRegistry.bindTileEntitySpecialRenderer(TileSift.class, new RenderSpecialHandler(new ModelSift(), SIFT));
 			ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
+			RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.SIFTER, RenderSifter.class);
 			RenderHandler.register(Core.ticking, TickingMeta.NET, RenderNet.class);
 			RenderHandler.register(Core.tanks, TankMeta.FISH, RenderFishTank.class);
 		}

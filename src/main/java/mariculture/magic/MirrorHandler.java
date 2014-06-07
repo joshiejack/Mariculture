@@ -41,6 +41,8 @@ public class MirrorHandler implements IMirrorHandler {
 				mirror[i] = null;
 			}
 		}
+		
+		MirrorHelper.save(player, mirror);
 	}
 
 	@Override
@@ -72,6 +74,11 @@ public class MirrorHandler implements IMirrorHandler {
 	@Override
 	public ItemStack[] getMirrorContents(EntityPlayer player) {
 		return MirrorHelper.getInventory(player);
+	}
+	
+	@Override
+	public void setMirrorContents(EntityPlayer player, ItemStack[] inventory) {
+		MirrorHelper.save(player, inventory);
 	}
 
 	@Override

@@ -55,6 +55,12 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 	public int[] getAccessibleSlotsFromSide(int side) {
 		return new int[] { 3, 4, 5, 6, 7, 8 };
 	}
+	
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		super.setInventorySlotContents(slot, stack);
+		canWork = canWork();
+	}
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
@@ -227,7 +233,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		}
 
 		if (fuelHandler.info != null) {
-			temp = fuelHandler.tick(temp, MaricultureHandlers.upgrades.hasUpgrade("ethereal", this));
+			temp = Math.min(MAX_TEMP, fuelHandler.tick(temp, MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)));
 			if (temp >= max)
 				temp = max;
 		}
@@ -270,11 +276,17 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		fluid.amount = fluidAmount;
 		if(tank.fill(fluid, false) < fluid.amount)
 			return false;
-		if(recipe.output == null)
+		boolean ret = recipe.output == null || setting.canEject(EjectSetting.ITEM);
+		if(ret == false ) {
+			ret = inventory[out] == null ||  (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize <= inventory[out].getMaxStackSize());
+		}
+
+		if(ret == true) {
+			int realTemp = (temp * 2000) / MAX_TEMP;
+			int max_temp = 2000 - recipe.temp;
+			melting_modifier = 1.0D + (Math.min(realTemp, max_temp) * 3.333333D) / 2000;
 			return true;
-		if(setting.canEject(EjectSetting.ITEM))
-			return true;
-		return inventory[out] == null ||  (areStacksEqual(inventory[out], recipe.output) && inventory[out].stackSize + recipe.output.stackSize <= inventory[out].getMaxStackSize());
+		} else return false;
 	}
 
 	public void melt(int slot) {
@@ -372,6 +384,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		fuelHandler = new FuelHandler();
 		fuelHandler.read(nbt);
 		cooling = nbt.getInteger("CoolingSpeed");
+		melting_modifier = nbt.getDouble("MeltingModifier");
 	}
 
 	@Override
@@ -379,9 +392,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 		super.writeToNBT(nbt);
 		nbt.setInteger("CoolingSpeed", cooling);
 		nbt.setInteger("Temperature", temp);
+		nbt.setDouble("MeltingModifier", melting_modifier);
 		nbt.setBoolean("CanFuel", canFuel);
-		if (fuelHandler != null)
+		if (fuelHandler != null) {
 			fuelHandler.write(nbt);
+		}
 	}
 
 	// Master stuff

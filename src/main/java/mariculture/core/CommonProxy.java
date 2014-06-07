@@ -40,7 +40,7 @@ import mariculture.fishery.tile.TileAutofisher;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileIncubator;
-import mariculture.fishery.tile.TileSift;
+import mariculture.fishery.tile.TileSifter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -68,8 +68,8 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerIncubator((TileIncubator) tile, player.inventory);
 			}
 			
-			if(tile instanceof TileSift) {
-				return new ContainerSift((TileSift) tile, player.inventory);
+			if(tile instanceof TileSifter) {
+				return new ContainerSift((TileSifter) tile, player.inventory);
 			}
 			
 			if(tile instanceof TileFeeder) {
@@ -133,8 +133,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiIncubator(player.inventory, (TileIncubator) tile);
 			}
 			
-			if(tile instanceof TileSift) {
-				return new GuiSift(player.inventory, (TileSift) tile);
+			if(tile instanceof TileSifter) {
+				return new GuiSift(player.inventory, (TileSifter) tile);
 			}
 			
 			if(tile instanceof TileFeeder) {

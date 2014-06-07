@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileMultiBlock extends TileEntity {
 	protected boolean needsInit = false;
-	private boolean init = false;
+	protected boolean init = false;
 	public ForgeDirection facing = ForgeDirection.UNKNOWN;
 	public ArrayList<MultiPart> slaves = new ArrayList<MultiPart>();
 	public MultiPart master;
@@ -98,7 +98,7 @@ public class TileMultiBlock extends TileEntity {
 		this.facing = dir;
 	}
 	
-	protected void setInit(boolean bool) {
+	public void setInit(boolean bool) {
 		this.init = bool;
 	}
 	

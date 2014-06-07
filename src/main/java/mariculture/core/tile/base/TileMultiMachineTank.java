@@ -100,7 +100,7 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 	
 	public int getTankCapacity(int storage) {
 		int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
-		return (tankRate * 25) + (storage * (tankRate * 5000));
+		return (tankRate * 25) + (storage * (tankRate * 5));
 	}
 	
 	@Override

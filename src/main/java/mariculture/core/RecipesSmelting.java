@@ -7,8 +7,6 @@ import static mariculture.core.lib.ItemLib.dustSalt;
 import static mariculture.core.lib.ItemLib.glass;
 import static mariculture.core.lib.ItemLib.glassPane;
 import static mariculture.core.lib.ItemLib.ice;
-import static mariculture.core.lib.ItemLib.ingotMagnesium;
-import static mariculture.core.lib.ItemLib.ingotRutile;
 import static mariculture.core.lib.ItemLib.limestone;
 import static mariculture.core.lib.ItemLib.limestoneSmooth;
 import static mariculture.core.lib.ItemLib.obsidian;
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -31,9 +30,8 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -53,30 +51,31 @@ public class RecipesSmelting {
 	public static int titanium = 1662;
 	public static int electrum = 1000;
 		
-	public static void addRecipe(String fluid, int[] volume, Object[] items, int temperature, ItemStack output, int chance) {
-		String origFluid = fluid;
-		for(int i = 0; i < items.length; i++) {
-			if(items[i] != null && volume[i] > 0) {
-				Object item = items[i];
-				ItemStack stack = null;
-				if(item instanceof String) {
-					if(OreDictionary.getOres((String)item).size() > 0) {
-						stack = OreDictionary.getOres((String) item).get(0);
-					}
-				} else if(item instanceof ItemStack) {
-					stack = (ItemStack) item;
-				} else if (item instanceof Item) {
-					stack = new ItemStack((Item)item);
-				} else if(item instanceof Block) {
-					stack = new ItemStack((Block)item);
-				}
-				
-				if(stack != null && FluidRegistry.getFluid(fluid) != null) {
-					if(i == 0 || stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemHoe) {
-	 					RecipeHelper.addMelting(stack, temperature, FluidRegistry.getFluidStack(fluid, volume[i]), output, chance);
-					} else {
-						RecipeHelper.addMelting(stack, temperature, FluidRegistry.getFluidStack(fluid, volume[i]));
-					}
+	public static void addRecipe(String fluidName, Object[] item, int[] volume, int temperature) {
+		addRecipe(fluidName, item, volume, temperature, null, 0);
+	}
+	
+	public static void addRecipe(String fluidName, Object[] item, int[] volume, int temperature, ItemStack bonus, int chance) {
+		Fluid fluid = FluidRegistry.getFluid(fluidName);
+		if(fluid == null) return;
+		for(int i = 0; i < item.length; i++) {
+			Object o = item[i];
+			ArrayList<ItemStack> stacks = new ArrayList();
+			if(o instanceof String) {
+				stacks = OreDictionary.getOres((String)o);
+			} else if (o instanceof ItemStack) {
+				stacks.add((ItemStack)o);
+			} else if (o instanceof Block) {
+				stacks.add(new ItemStack((Block)o));
+			} else if (o instanceof Item) {
+				stacks.add(new ItemStack((Item)o));
+			}
+			
+			for(ItemStack stack: stacks) {
+				if(bonus == null || chance <= 0) {
+					RecipeHelper.addMelting(stack, temperature, new FluidStack(fluid, volume[i]));
+				} else {
+					RecipeHelper.addMelting(stack, temperature, new FluidStack(fluid, volume[i]), bonus, chance);
 				}
 			}
 		}
@@ -216,25 +215,20 @@ public class RecipesSmelting {
 	}
 	
 	public static void addFullSet(String fluid, Object[] items, int temp, ItemStack output, int chance) {
-		addRecipe(fluid, MetalRates.MATERIALS, new Object[] { 
-				items[0], items[1], items[2], items[3], items[4] }, temp, output, chance);
-		
-		addRecipe(fluid, MetalRates.TOOLS, new Object[] { 
-				items[5], items[6], items[7], items[8], items[9] }, temp, new ItemStack(Items.stick), 1);
-		
-		addRecipe(fluid, MetalRates.ARMOR, new Object[] { 
-				items[10], items[11], items[12], items[13] }, temp, null, 0);
+		addRecipe(fluid, new Object[] { items[0] }, MetalRates.ORES, temp, output, chance);
+		addRecipe(fluid, new Object[] { items[1], items[2], items[3], items[4] }, MetalRates.METALS, temp);
+		addRecipe(fluid, new Object[] { items[5], items[6], items[7], items[8], items[9] }, MetalRates.TOOLS, temp, new ItemStack(Items.stick), 1);
+		addRecipe(fluid, new Object[] { items[10], items[11], items[12], items[13] }, MetalRates.ARMOR, temp);
 	}
 	
 	public static void addMetal(String fluid, String metal, int temp, ItemStack bonus, int chance) {
-		addRecipe(fluid, MetalRates.MATERIALS, new Object[] { 
-				"ore" + metal, "nugget" + metal, "ingot" + metal, "block" + metal, "dust" + metal }, temp, bonus, chance);
+		addRecipe(fluid, new Object[] { "ore" + metal }, MetalRates.ORES, temp, bonus, chance);
+		addRecipe(fluid, new Object[] { "nugget" + metal, "ingot" + metal, "block" + metal, "dust" + metal }, MetalRates.METALS, temp);
 		
 		if(OreDictionary.getOres("ingot" + metal).size() > 0) {
 			RecipeHelper.addMetalCasting(fluid, metal);
 		}
 	}
-
 	
 	public static void addMetalRecipes() {
 		addFullSet(Fluids.iron, new Object[] {
@@ -255,13 +249,11 @@ public class RecipesSmelting {
 		addMetal(Fluids.rutile, "Rutile", titanium, limestone, 2);
 		addMetal(Fluids.titanium, "Titanium", titanium, limestone, 2);
 		addMetal(Fluids.magnesium, "Magnesium", magnesium, new ItemStack(stone), 2);
-		addMetal(Fluids.aluminum, "Aluminum", aluminum, new ItemStack(clay), 5);
 		
 		FluidStack moltenRutile = FluidRegistry.getFluidStack(Fluids.rutile, MetalRates.INGOT);
 		FluidStack moltenMagnesium = FluidRegistry.getFluidStack(Fluids.magnesium, MetalRates.INGOT);
 		FluidStack moltenTitanium = FluidRegistry.getFluidStack(Fluids.titanium, MetalRates.INGOT);
 		RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 6);
-		RecipeHelper.addMeltingAlloy(ingotRutile, ingotMagnesium, titanium, get(Fluids.titanium));
 		RecipeHelper.addMelting(dustMagnesium, magnesium, get(Fluids.magnesium), salt, 1);
 		
 		//Gold Back
@@ -284,27 +276,46 @@ public class RecipesSmelting {
 		RecipeHelper.addMelting(new ItemStack(Items.iron_horse_armor), iron, iron(MetalRates.INGOT * 6), new ItemStack(Items.saddle), 4);
 		
 		//Glass, Ice, Snow, Plastic, Obisidian
-				RecipeHelper.addBlockCasting(get(Fluids.glass, 1000), new ItemStack(glass));
-				RecipeHelper.addMelting(new ItemStack(sand), 1000, Fluids.glass, 1000);
-				RecipeHelper.addMelting(new ItemStack(glass), 900, Fluids.glass, 1000);
-				RecipeHelper.addMelting(new ItemStack(glassPane), 500, Fluids.glass, 375);
-				RecipeHelper.addMelting(new ItemStack(ice), 1, "water", 1000);
-				RecipeHelper.addMelting(new ItemStack(blockSnow), 1, "water", 1000);
+		RecipeHelper.addBlockCasting(get(Fluids.glass, 1000), new ItemStack(glass));
+		RecipeHelper.addMelting(new ItemStack(sand), 1000, Fluids.glass, 1000);
+		RecipeHelper.addMelting(new ItemStack(glass), 900, Fluids.glass, 1000);
+		RecipeHelper.addMelting(new ItemStack(glassPane), 500, Fluids.glass, 375);
+		RecipeHelper.addMelting(new ItemStack(ice), 1, "water", 1000);
+		RecipeHelper.addMelting(new ItemStack(blockSnow), 1, "water", 1000);
 				
-				RecipeHelper.addVatItemRecipe(new ItemStack(glass), Fluids.natural_gas, 1000, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 5);
-				if(FluidRegistry.getFluid("bioethanol") != null) {
-					RecipeHelper.addVatItemRecipe(new ItemStack(glass), "bioethanol", 2500, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 10);
-				}
+		RecipeHelper.addVatItemRecipe(new ItemStack(glass, 32), Fluids.natural_gas, 25000, new ItemStack(Core.transparent, 32, TransparentMeta.PLASTIC), 60);
+		RecipeHelper.addVatItemRecipe(new ItemStack(glass), Fluids.natural_gas, 1000, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 5);
+		if(FluidRegistry.getFluid("bioethanol") != null) {
+			RecipeHelper.addVatItemRecipe(new ItemStack(glass, 32), "bioethanol", 30000, new ItemStack(Core.transparent, 32, TransparentMeta.PLASTIC), 100);
+			RecipeHelper.addVatItemRecipe(new ItemStack(glass), "bioethanol", 1500, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 10);
+		}
 				
-				RecipeHelper.addFluidAlloyResultItem(get("water", 1000), get("lava", 1000), new ItemStack(obsidian), 10);
+		RecipeHelper.addFluidAlloyResultItem(get("water", 1000), get("lava", 1000), new ItemStack(obsidian), 10);
 				
-				//8 Parts Quicklime + 5 Parts Water = Unknown Metal Dust + 3 Parts Water (Takes 10 seconds)
-				RecipeHelper.addFluidAlloyResultItemNFluid(get("water", 3000), get(Fluids.quicklime, 4000),get("water", 2000), dustMagnesium, 10);
-				RecipeHelper.addMelting(limestone, 825, get(Fluids.quicklime, 900));
-				RecipeHelper.addMelting(limestoneSmooth, 825, get(Fluids.quicklime, 1000));
-				RecipeHelper.addMelting(dustSalt, 801, get(Fluids.salt, 20));
-				RecipeHelper.addMelting(ingotRutile, titanium, get(Fluids.rutile));
-				RecipeHelper.addFluidAlloyNItemResultItem(get(Fluids.aluminum, MetalRates.NUGGET), get(Fluids.quicklime, 900), new ItemStack(glass), new ItemStack(Core.glass, 1, GlassMeta.HEAT), 15);
+		//8 Parts Quicklime + 5 Parts Water = Unknown Metal Dust + 3 Parts Water (Takes 10 seconds)
+		RecipeHelper.addFluidAlloyResultItemNFluid(get("water", 3000), get(Fluids.quicklime, 4000),get("water", 2000), dustMagnesium, 10);
+		
+		ArrayList<ItemStack> added = new ArrayList();
+		for(ItemStack stack: OreDictionary.getOres("blockLimestone")) {
+			if(stack == null || stack.getItem() == null) continue;
+			RecipeHelper.addMelting(stack, 825, get(Fluids.quicklime, 900));
+			added.add(stack);
+		}
+		
+		for(ItemStack stack: OreDictionary.getOres("limestone")) {
+			boolean exists = false;
+			if(stack == null || stack.getItem() == null) continue;
+			for(ItemStack check: added) {
+				if(ItemHelper.areEqual(stack, check)) exists = true;
+			}
+			
+			if(!exists) RecipeHelper.addMelting(stack, 825, get(Fluids.quicklime, 900));
+		}
+		
+		RecipeHelper.addMelting(limestoneSmooth, 825, get(Fluids.quicklime, 1000));
+		RecipeHelper.addMelting(dustSalt, 801, get(Fluids.salt, 20));
+		RecipeHelper.addFluidAlloyNItemResultItem(get(Fluids.aluminum, MetalRates.NUGGET * 64), get(Fluids.quicklime, 20000), new ItemStack(glass, 64), new ItemStack(Core.glass, 64, GlassMeta.HEAT), 90);
+		RecipeHelper.addFluidAlloyNItemResultItem(get(Fluids.aluminum, MetalRates.NUGGET), get(Fluids.quicklime, 450), new ItemStack(glass), new ItemStack(Core.glass, 1, GlassMeta.HEAT), 5);
 	}
 	
 	public static FluidStack gold(int vol) {

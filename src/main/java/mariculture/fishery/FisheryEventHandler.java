@@ -41,7 +41,7 @@ public class FisheryEventHandler {
 				}
 			}
 			
-			ItemStack stack = new ItemStack(Items.fish, 1, species.getID());
+			ItemStack stack = new ItemStack(Items.fish, item.stackSize, species.getID());
 			if (stack != null) {
 				updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
 				event.setCanceled(true);

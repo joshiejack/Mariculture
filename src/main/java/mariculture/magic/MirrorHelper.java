@@ -31,7 +31,7 @@ public class MirrorHelper {
 	private static int updateTick;
 	
 	public static MirrorSavedData getData(EntityPlayer player) {
-		return getData(player.worldObj, player.getDisplayName());
+		return getData(player.worldObj, player.getCommandSenderName());
 	}
 	
 	public static MirrorSavedData getData(World world, String name) {
@@ -61,7 +61,7 @@ public class MirrorHelper {
 	}
 	
 	public static JewelryMaterial[] getColorsForPlayer(EntityPlayer player) {
-		String key = player.getDisplayName();
+		String key = player.getCommandSenderName();
 		if(materialList.get(key) != null && isSameWorld(player)) {
 			return materialList.get(key);
 		} else {
@@ -99,8 +99,8 @@ public class MirrorHelper {
 	}
 	
 	public static ItemStack[] getInventoryForPlayer(EntityPlayer player) {
-		if(inventories.get(player.getDisplayName()) != null && isSameWorld(player)) {
-			return inventories.get(player.getDisplayName());
+		if(inventories.get(player.getCommandSenderName()) != null && isSameWorld(player)) {
+			return inventories.get(player.getCommandSenderName());
 		}
 		
 		ItemStack[] contents = null;
@@ -109,7 +109,7 @@ public class MirrorHelper {
 			contents = data.setJewelry(new ItemStack[4]);
 		} else contents = data.getJewelry();
 		
-		inventories.put(player.getDisplayName(), contents);
+		inventories.put(player.getCommandSenderName(), contents);
 		return contents;
 	}
 	
@@ -147,7 +147,7 @@ public class MirrorHelper {
 	}
 	
 	public static boolean saveServer(EntityPlayer player, ItemStack[] invent) {
-		String key = player.getDisplayName();
+		String key = player.getCommandSenderName();
 		inventories.put(key, getData(player).setJewelry(invent));
 		//Reset the color
 		if(materialList.containsKey(key)) {

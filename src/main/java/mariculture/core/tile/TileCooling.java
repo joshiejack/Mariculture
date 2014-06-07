@@ -153,6 +153,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		super.readFromNBT(nbt);
 		freezeTick = nbt.getInteger("FreezeTick");
 		cooling = nbt.getInteger("CoolingSpeed");
+		canWork = nbt.getBoolean("CanWork");
 	}
 
 	@Override
@@ -160,5 +161,6 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
 		super.writeToNBT(nbt);
 		nbt.setInteger("FreezeTick", freezeTick);
 		nbt.setInteger("CoolingSpeed", cooling);
+		nbt.setBoolean("CanWork", canWork);
 	}
 }

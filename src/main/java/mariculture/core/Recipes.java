@@ -83,7 +83,7 @@ public class Recipes {
 		addCrossHatchRecipe(wicker, "stickWood", reeds);
 		addVatItemRecipe(_(plastic, 4), Fluids.gold, MetalRates.BLOCK, goldPlastic, 60 * 5);
 		addVatItemRecipe(_(stick),  Fluids.titanium, MetalRates.INGOT * 3, titaniumRod, 60);
-		addVatItemRecipe(_(netherBrick), "lava", 250, burntBrick, 8);
+		addVatItemRecipe(_(nettherackBrick), "lava", 250, burntBrick, 8);
 		addVatItemRecipe(_(brick), "lava", 500, burntBrick, 16);
 		
 		if(!Modules.isActive(Modules.worldplus)) {

@@ -381,4 +381,9 @@ public class FluidHelper {
 	public static void registerBucket(Fluid fluid, int vol, int meta) {
 		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, vol), new ItemStack(Core.buckets, 1, meta), new ItemStack(Items.bucket));
 	}
+
+	public static boolean areEqual(FluidStack fluid1, FluidStack fluid2) {
+		if(fluid1 == null || fluid2 == null || fluid1.getFluid() == null || fluid2.getFluid() == null) return false;
+		return fluid1.getFluid().getName().equals(fluid2.getFluid().getName());
+	}
 }

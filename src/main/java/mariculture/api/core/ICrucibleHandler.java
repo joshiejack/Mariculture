@@ -1,5 +1,6 @@
 package mariculture.api.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.item.ItemStack;
@@ -19,5 +20,5 @@ public interface ICrucibleHandler {
 	public int getMeltingPoint(ItemStack stack);
 	
 	/** returns all the recipes **/
-	public HashMap<String, RecipeSmelter> getRecipes();
+	public ArrayList<RecipeSmelter> getRecipes();
 }

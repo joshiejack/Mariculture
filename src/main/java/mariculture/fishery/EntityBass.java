@@ -23,7 +23,7 @@ public class EntityBass extends EntityThrowable {
 	@Override
 	protected void onImpact(MovingObjectPosition movingObject) {
 		if (movingObject.entityHit != null) {
-			movingObject.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0);
+			movingObject.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 2);
 		}
 
 		if (!this.worldObj.isRemote) {

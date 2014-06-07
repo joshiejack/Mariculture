@@ -23,6 +23,9 @@ public interface IMirrorHandler {
 	/**Will return array of all three items in the players mirror inventory */
 	public ItemStack[] getMirrorContents(EntityPlayer player);
 	
+	/** Saves the mirror contents that you specify to the player, ensure the array is 3 long **/
+	public void setMirrorContents(EntityPlayer player, ItemStack[] inventory);
+	
 	/** Will return true if the itemstack is a piece of jewelry **/
 	public boolean isJewelry(ItemStack stack);
 }

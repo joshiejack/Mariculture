@@ -113,7 +113,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 		}
 	}
 	
-	public void doPoweredPump(boolean rf, int value, double x, double y, double z) {
+	public void doPoweredPump(boolean rf) {
 		if(rf) {
 			if (storage.extractEnergy(100, true) < 100) {
 				return;
@@ -124,7 +124,11 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 			
 		if(updateAirArea(Type.CHECK)) {
 			if(Modules.isActive(Modules.diving)) {
-				supplyWithAir(300, 40.0D, 64.0D, 40.0D);
+				if(rf) {
+					supplyWithAir(300, 40.0D, 64.0D, 40.0D);
+				} else {
+					supplyWithAir(300, 64.0D, 128.0D, 64.0D);
+				}
 			}
 				
 			animate = true;
@@ -226,7 +230,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 		if(!simulate && (getEnergyStored(from) > 0)) {
 			tick++;
 			if(onTick(300)) {
-				doPoweredPump(true, 300, 40.0D, 64.0D, 40.0D);		
+				doPoweredPump(true);		
 			}
 		}
 		

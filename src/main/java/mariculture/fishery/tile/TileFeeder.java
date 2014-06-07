@@ -103,7 +103,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 				}
 				
 				//Fish will eat every 25 seconds by default
-				if(foodTick % Ticks.FISH_FOOD_TICK == 0) {
+				if(foodTick % (Ticks.FISH_FOOD_TICK * 20) == 0) {
 					if(swap) {
 						useFood(inventory[male]);
 					} else {
@@ -311,7 +311,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 				int gender = Fish.gender.getDNA(fish);
 				
 				if(MaricultureHandlers.upgrades.hasUpgrade("female", this)) {
-					int fertility = (Math.max(1, 75 - (Fish.fertility.getDNA(fish)) / 75));
+					int fertility = Math.max(1, ((5500 - (Fish.fertility.getDNA(fish))) / 50));
 					if(Rand.nextInt(fertility)) generateEgg();
 				}
 				

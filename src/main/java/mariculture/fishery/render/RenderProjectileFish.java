@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,15 +17,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderProjectileFish extends Render {
-	private final int fishID;
+	private final ItemStack fish;
 
 	public RenderProjectileFish(final int id) {
-		this.fishID = id;
+		this.fish = new ItemStack(Items.fish, 1, id);
 	}
 
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float par8, float par9) {
-		IIcon icon = Items.fish.getIconFromDamage(fishID);
+		IIcon icon = Items.fish.getIcon(fish, 0);
 		if (icon != null) {
 			GL11.glPushMatrix();
 			GL11.glTranslatef((float) x, (float) y, (float) z);

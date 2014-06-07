@@ -1,12 +1,7 @@
 package mariculture.core.blocks;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.helpers.DirectionHelper;
@@ -19,7 +14,6 @@ import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
-import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAirPump.Type;
@@ -38,14 +32,11 @@ import mariculture.factory.tile.TileTurbineGas;
 import mariculture.factory.tile.TileTurbineHand;
 import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.tile.TileFeeder;
-import mariculture.fishery.tile.TileSift;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -53,7 +44,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -69,7 +59,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 	
 	@Override
 	public String getToolType(int meta) {
-		if(meta == MachineRenderedMeta.SIFTER) return "axe";
 		if(meta == MachineRenderedMeta.TURBINE_HAND) return "axe";
 		return (meta == MachineRenderedMeta.FISH_FEEDER)? null: "pickaxe";
 	}
@@ -95,7 +84,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.INGOT_CASTER: 	return 1.5F;
 			case MachineRenderedMeta.BLOCK_CASTER: 	return 1.5F;
 			case MachineRenderedMeta.NUGGET_CASTER: return 1.5F;
-			case MachineRenderedMeta.SIFTER:		return 1.5F;
 			case MachineRenderedMeta.TURBINE_GAS: 	return 10F;
 			case MachineRenderedMeta.TURBINE_HAND: 	return 2F;
 			case MachineRenderedMeta.TURBINE_WATER:	return 5F;
@@ -152,13 +140,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 			if(tile instanceof TileGeyser) ((TileGeyser) tile).setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
 			if(tile instanceof TileAirPump) ((TileAirPump) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
 			if(tile instanceof TileAnvil) ((TileAnvil) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
-			if (tile instanceof TileSift) {
-				int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-				if (facing == 1 || facing == 3)
-					((TileSift)tile).setFacing(ForgeDirection.EAST);
-				else if (facing == 0 || facing == 2)
-					((TileSift)tile).setFacing(ForgeDirection.NORTH);
-			}
 		}
 	}
 	
@@ -188,7 +169,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 				if(Modules.isActive(Modules.diving)) {
 					if(pump.updateAirArea(Type.CHECK)) {
 						if(!world.isRemote) { 
-							pump.doPoweredPump(false, 300, 64.0D, 128.0D, 64.0D);
+							pump.doPoweredPump(false);
 						}
 						pump.animate = true;
 					}
@@ -275,90 +256,9 @@ public class BlockRenderedMachine extends BlockFunctional {
 		if(tile instanceof TileGeyser) {
 			return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
 		}
-		
-		if(tile instanceof TileSift) {
-			TileSift sifter = (TileSift) tile;
-			if (player.getCurrentEquippedItem() != null) {
-				ItemStack stack = player.getCurrentEquippedItem();
-				if(stack.getItem() == Core.upgrade) {
-					if(stack.getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
-						if(!sifter.hasInventory) {
-							sifter.hasInventory = true;
-							PacketHandler.updateRender(sifter);
-							player.inventory.decrStackSize(player.inventory.currentItem, 1);
-							return false;
-						}
-					}
-				}
-				
-				boolean played = false;
-				if(Fishing.sifter.getResult(stack) != null) {
-					if(!world.isRemote) {
-						ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(stack);
-						int stackSize = player.isSneaking()? 1: stack.stackSize;
-						for (int j = 0; j <= stackSize; j++) {
-							if(stack.stackSize > 0) {
-								for(RecipeSifter bait: recipe) {
-									int chance = Rand.rand.nextInt(100);
-									if(chance < bait.chance) {
-										ItemStack result = bait.bait.copy();
-										result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
-										spawnItem(result, world, x, y, z);
-									}
-								}
-								
-								if(!played) {
-									world.playSoundAtEntity(player, Mariculture.modid + ":sift", 1.5F, 1.0F);
-									played = true;
-								}
-							}
-							
-							if(!player.capabilities.isCreativeMode)
-								player.inventory.decrStackSize(player.inventory.currentItem, 1);
-						}
-					}
-					
-					return true;
-				}
-			}	
-
-			if (((TileSift)tile).hasInventory) {
-				player.openGui(Mariculture.instance, GuiIds.SIFT, world, x, y, z);
-				return true;
-			}
-		}
 
 		//Return to doing the rest
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
-	}
-	
-	//Called by the sifter
-	private void spawnItem(ItemStack item, World world, int x, int y, int z) {
-		boolean done = false;
-		TileSift sift = (TileSift) world.getTileEntity(x, y, z);
-		if (sift.hasInventory) {
-			if (sift.getSuitableSlot(item) != 10) {
-				int slot = sift.getSuitableSlot(item);
-				ItemStack newStack = item;
-				if (sift.getStackInSlot(slot) != null) {
-					newStack.stackSize = newStack.stackSize + sift.getStackInSlot(slot).stackSize;
-				}
-
-				sift.setInventorySlotContents(slot, newStack);
-
-				done = true;
-			}
-		}
-
-		if (done == false) {
-			Random rand = new Random();
-			float rx = rand.nextFloat() * 0.6F + 0.1F;
-			float ry = rand.nextFloat() * 0.6F + 0.1F;
-			float rz = rand.nextFloat() * 0.6F + 0.1F;
-
-			EntityItem dropped = new EntityItem(world, x + rx, y + ry + 0.5F, z + rz, item);
-			world.spawnEntityInWorld(dropped);
-		}
 	}
 	
 	@Override
@@ -412,13 +312,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 			if(anvil.getFacing() == ForgeDirection.SOUTH)
 				setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
 			break;
-		case MachineRenderedMeta.SIFTER:
-			TileSift sift = (TileSift)block.getTileEntity(x, y, z);
-			if(sift.getFacing() == ForgeDirection.EAST)
-				setBlockBounds(-0.3F, 0F, -0.085F, 1.3F, 0.8F, 1.085F);
-			else
-				setBlockBounds(-0.05F, 0F, -0.15F, 1.15F, 0.8F, 1.45F);
-			break;
 		default:
 			setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
 		}
@@ -429,71 +322,20 @@ public class BlockRenderedMachine extends BlockFunctional {
 		if (meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL) {
 			return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,
 					(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
-		} else if (meta == MachineRenderedMeta.SIFTER) {
-			float dif = 0.0625F;
-			return AxisAlignedBB.getAABBPool().getAABB(x + dif, y, z + dif, x + 1 - dif, y + 1 - dif, z + 1 - dif);
 		}
 
 		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 	
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if(world.getBlockMetadata(x, y, z) == MachineRenderedMeta.SIFTER) {
-			if (entity instanceof EntityItem && !world.isRemote) {
-				Random random = new Random();
-				EntityItem entityitem = (EntityItem) entity;
-				ItemStack item = entityitem.getEntityItem();
-				boolean played = false;
-				
-				if(!world.isRemote && Fishing.sifter.getResult(item) != null) {
-					ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(item);
-					for (int j = 0; j < item.stackSize; j++) {
-						for(RecipeSifter bait: recipe) {
-							int chance = Rand.rand.nextInt(100);
-							if(chance < bait.chance) {
-								ItemStack result = bait.bait.copy();
-								result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
-								spawnItem(result, world, x, y, z);
-							}
-						}
-						
-						if(!played) {
-							world.playSoundAtEntity(entity, Mariculture.modid + ":sift", 1.5F, 1.0F);
-							played = true;
-						}
-						
-						entityitem.setDead();
-					}
-				}
-			}
-		}
-	}
-	
-	@Override
-	public boolean getBlocksMovement(IBlockAccess block, int x, int y, int z) {
-		return block.getBlockMetadata(x, y, z) != MachineRenderedMeta.SIFTER;
-	}
-	
-	@Override
 	public boolean doesDrop(int meta) {
-		if(meta == MachineRenderedMeta.SIFTER) return false;
 		if(meta == MachineRenderedMeta.FLUDD_STAND) return false;
-				
 		return true;
 	}
 
 	@Override
 	public boolean onBlockDropped(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof TileSift) {
-			if(((TileSift)tile).hasInventory) {
-				SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE));
-			}
-			
-			return world.setBlockToAir(x, y, z);
-		}
-		
+		TileEntity tile = world.getTileEntity(x, y, z);		
 		if(tile instanceof TileFLUDDStand) {
 			TileFLUDDStand stand = (TileFLUDDStand) tile;
 			ItemStack fludd = new ItemStack(Factory.fludd);
@@ -517,7 +359,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 			case MachineRenderedMeta.INGOT_CASTER: 	return new TileIngotCaster();
 			case MachineRenderedMeta.BLOCK_CASTER: 	return new TileBlockCaster();
 			case MachineRenderedMeta.NUGGET_CASTER: return new TileNuggetCaster();
-			case MachineRenderedMeta.SIFTER:		return new TileSift();
 			case MachineRenderedMeta.TURBINE_GAS: 	return new TileTurbineGas();
 			case MachineRenderedMeta.TURBINE_HAND: 	return new TileTurbineHand();
 			case MachineRenderedMeta.TURBINE_WATER:	return new TileTurbineWater();
@@ -542,12 +383,12 @@ public class BlockRenderedMachine extends BlockFunctional {
 		switch (meta) {
 			case MachineRenderedMeta.FISH_FEEDER: 	return Modules.isActive(Modules.fishery);
 			case MachineRenderedMeta.GEYSER: 		return Modules.isActive(Modules.factory);
-			case MachineRenderedMeta.SIFTER:		return Modules.isActive(Modules.fishery);
 			case MachineRenderedMeta.TURBINE_GAS: 	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.TURBINE_HAND: 	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.TURBINE_WATER:	return Modules.isActive(Modules.factory);
 			case MachineRenderedMeta.FLUDD_STAND:	return false;
 			case MachineRenderedMeta.NUGGET_CASTER: return false;
+			case MachineRenderedMeta.UNUSED:		return false;
 			default:								return true;
 		}
 	}
@@ -556,7 +397,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 	public boolean isValidTab(CreativeTabs tab, int meta) {
 		switch (meta) {
 			case MachineRenderedMeta.FISH_FEEDER: 	return tab == MaricultureTab.tabFishery;
-			case MachineRenderedMeta.SIFTER:		return tab == MaricultureTab.tabFishery;
 			default:								return tab == MaricultureTab.tabFactory;
 		}
 	}

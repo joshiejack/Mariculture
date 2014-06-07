@@ -23,8 +23,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public int getTemperature(int meta) {
-		switch (meta) {
+	public int getTemperature(ItemStack stack) {
+		switch (stack.getItemDamage()) {
 		case UpgradeMeta.BASIC_HEATING:
 			return 1;
 		case UpgradeMeta.BASIC_COOLING:
@@ -51,8 +51,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public int getStorageCount(int meta) {
-		switch (meta) {
+	public int getStorageCount(ItemStack stack) {
+		switch (stack.getItemDamage()) {
 		case UpgradeMeta.BASIC_STORAGE:
 			return 1;
 		case UpgradeMeta.STANDARD_STORAGE:
@@ -71,8 +71,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public int getPurity(int meta) {
-		switch (meta) {
+	public int getPurity(ItemStack stack) {
+		switch (stack.getItemDamage()) {
 		case UpgradeMeta.BASIC_PURITY:
 			return 1;
 		case UpgradeMeta.BASIC_IMPURITY:
@@ -97,8 +97,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 	
 	@Override
-	public int getSpeed(int meta) {
-		switch(meta) {
+	public int getSpeed(ItemStack stack) {
+		switch(stack.getItemDamage()) {
 		case UpgradeMeta.BASIC_SPEED:
 			return 1;
 		case UpgradeMeta.STANDARD_SPEED:
@@ -117,8 +117,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public int getRFBoost(int meta) {
-		switch(meta) {
+	public int getRFBoost(ItemStack stack) {
+		switch(stack.getItemDamage()) {
 		case UpgradeMeta.BASIC_RF:
 			return 5000;
 		case UpgradeMeta.STANDARD_RF:
@@ -137,8 +137,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 	
 	@Override
-	public int getSalinity(int meta) {
-		switch(meta) {
+	public int getSalinity(ItemStack stack) {
+		switch(stack.getItemDamage()) {
 		case UpgradeMeta.SALINATOR:
 			return 1;
 		case UpgradeMeta.FILTER:
@@ -252,7 +252,7 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		int temp = getTemperature(stack.getItemDamage());
+		int temp = getTemperature(stack);
 		if(temp != 0) {
 			if(temp > 0) list.add(Text.ORANGE + "+" + temp + Text.DEGREES);
 			if(temp < 0) list.add(Text.INDIGO + temp + Text.DEGREES);
@@ -304,8 +304,8 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 	}
 
 	@Override
-	public String getType(int meta) {
-		switch (meta) {
+	public String getType(ItemStack stack) {
+		switch (stack.getItemDamage()) {
 		case UpgradeMeta.BASIC_STORAGE:
 			return "storage";
 		case UpgradeMeta.BASIC_HEATING:

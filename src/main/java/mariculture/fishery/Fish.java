@@ -277,6 +277,8 @@ public class Fish {
 		Fishing.mutation.addMutation(ender, boneless, dragon, 6D);
 		Fishing.mutation.addMutation(ender, koi, clown, 5.5D);
 		Fishing.mutation.addMutation(clown, dragon, minecraft, 5D);
+		Fishing.mutation.addMutation(stingRay, cod, damsel, 5D);
+		Fishing.mutation.addMutation(stingRay, minnow, tetra, 5D);
 	}
 	
 	private static void addRecipe(FishSpecies species) {

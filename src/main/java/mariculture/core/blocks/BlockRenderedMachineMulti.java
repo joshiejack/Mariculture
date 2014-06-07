@@ -1,23 +1,35 @@
 package mariculture.core.blocks;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RecipeSifter;
+import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctionalMulti;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.network.PacketCompressor;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileVat;
+import mariculture.core.util.Rand;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.tile.TilePressureVessel;
+import mariculture.fishery.tile.TileSifter;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -40,7 +52,8 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 	
 	@Override
 	public String getToolType(int meta) {
-		return "pickaxe";
+		if(meta == MachineRenderedMultiMeta.SIFTER) return "axe";
+		else return "pickaxe";
 	}
 
 	@Override
@@ -55,6 +68,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 			case MachineRenderedMultiMeta.COMPRESSOR_TOP: 	return 4F;
 			case MachineRenderedMultiMeta.PRESSURE_VESSEL: 	return 15F;
 			case MachineRenderedMultiMeta.VAT: 				return 2.5F;
+			case MachineRenderedMultiMeta.SIFTER:			return 1.5F;
 			default:										return 5F;
 		}
 	}
@@ -150,9 +164,125 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 					return false;
 				}
 			}
+			
+			if(tile instanceof TileSifter) {
+				TileSifter sifter = ((TileSifter) tile).getMaster();
+				if(sifter != null) {
+					if (player.getCurrentEquippedItem() != null) {
+						ItemStack stack = player.getCurrentEquippedItem();
+						if(stack.getItem() == Core.upgrade) {
+							if(stack.getItemDamage() == UpgradeMeta.BASIC_STORAGE) {
+								if(!sifter.hasInventory) {
+									sifter.hasInventory = true;
+									PacketHandler.updateRender(sifter);
+									player.inventory.decrStackSize(player.inventory.currentItem, 1);
+									return false;
+								}
+							}
+						}
+						
+						boolean played = false;
+						if(Fishing.sifter.getResult(stack) != null) {
+							if(!world.isRemote) {
+								ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(stack);
+								int stackSize = player.isSneaking()? 1: stack.stackSize;
+								for (int j = 0; j <= stackSize; j++) {
+									if(stack.stackSize > 0) {
+										for(RecipeSifter bait: recipe) {
+											int chance = Rand.rand.nextInt(100);
+											if(chance < bait.chance) {
+												ItemStack result = bait.bait.copy();
+												result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
+												spawnItem(result, world, x, y, z);
+											}
+										}
+										
+										if(!played) {
+											world.playSoundAtEntity(player, Mariculture.modid + ":sift", 1.5F, 1.0F);
+											played = true;
+										}
+									}
+									
+									if(!player.capabilities.isCreativeMode)
+										player.inventory.decrStackSize(player.inventory.currentItem, 1);
+								}
+							}
+							
+							return true;
+						}
+					}	
+	
+					if (sifter.hasInventory) {
+						player.openGui(Mariculture.instance, GuiIds.SIFT, world, x, y, z);
+						return true;
+					}
+				}
+			}
 		}
 		
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		if(world.getBlockMetadata(x, y, z) == MachineRenderedMultiMeta.SIFTER) {
+			if (entity instanceof EntityItem && !world.isRemote) {
+				Random random = new Random();
+				EntityItem entityitem = (EntityItem) entity;
+				ItemStack item = entityitem.getEntityItem();
+				boolean played = false;
+				
+				if(!world.isRemote && Fishing.sifter.getResult(item) != null) {
+					ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(item);
+					for (int j = 0; j < item.stackSize; j++) {
+						for(RecipeSifter bait: recipe) {
+							int chance = Rand.rand.nextInt(100);
+							if(chance < bait.chance) {
+								ItemStack result = bait.bait.copy();
+								result.stackSize = bait.minCount + Rand.rand.nextInt((bait.maxCount + 1) - bait.minCount);
+								spawnItem(result, world, x, y, z);
+							}
+						}
+						
+						if(!played) {
+							world.playSoundAtEntity(entity, Mariculture.modid + ":sift", 1.5F, 1.0F);
+							played = true;
+						}
+						
+						entityitem.setDead();
+					}
+				}
+			}
+		}
+	}
+	
+	/** Called by Sifter **/
+	private void spawnItem(ItemStack item, World world, int x, int y, int z) {
+		boolean done = false;
+		TileSifter sift = (TileSifter) world.getTileEntity(x, y, z);
+		if (sift.hasInventory) {
+			if (sift.getSuitableSlot(item) != 10) {
+				int slot = sift.getSuitableSlot(item);
+				ItemStack newStack = item;
+				if (sift.getStackInSlot(slot) != null) {
+					newStack.stackSize = newStack.stackSize + sift.getStackInSlot(slot).stackSize;
+				}
+
+				sift.setInventorySlotContents(slot, newStack);
+
+				done = true;
+			}
+		}
+
+		if (done == false) {
+			Random rand = new Random();
+			float rx = rand.nextFloat() * 0.6F + 0.1F;
+			float ry = rand.nextFloat() * 0.6F + 0.1F;
+			float rz = rand.nextFloat() * 0.6F + 0.1F;
+
+			EntityItem dropped = new EntityItem(world, x + rx, y + ry + 0.5F, z + rz, item);
+			world.spawnEntityInWorld(dropped);
+		}
 	}
 	
 	@Override
@@ -208,6 +338,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 			case MachineRenderedMultiMeta.COMPRESSOR_TOP: 	return new TileAirCompressor();
 			case MachineRenderedMultiMeta.PRESSURE_VESSEL: 	return new TilePressureVessel();
 			case MachineRenderedMultiMeta.VAT: 				return new TileVat();
+			case MachineRenderedMultiMeta.SIFTER:			return new TileSifter();
 			default:										return null;
 		}
 	}
@@ -218,12 +349,14 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 			case MachineRenderedMultiMeta.COMPRESSOR_BASE: 	return (Modules.isActive(Modules.diving));
 			case MachineRenderedMultiMeta.COMPRESSOR_TOP: 	return (Modules.isActive(Modules.diving));
 			case MachineRenderedMultiMeta.PRESSURE_VESSEL: 	return (Modules.isActive(Modules.factory));
+			case MachineRenderedMultiMeta.SIFTER: 			return (Modules.isActive(Modules.fishery));
 			default: 										return true;
 		}
 	}
 	
 	@Override
 	public boolean isValidTab(CreativeTabs tab, int meta) {
+		if(meta == MachineRenderedMultiMeta.SIFTER) return MaricultureTab.tabFishery == tab;
 		return tab == MaricultureTab.tabFactory;
 	}
 	

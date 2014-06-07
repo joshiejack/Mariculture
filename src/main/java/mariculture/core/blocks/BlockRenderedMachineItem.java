@@ -24,7 +24,6 @@ public class BlockRenderedMachineItem extends ItemBlockMariculture {
 			case MachineRenderedMeta.INGOT_CASTER:  return "ingotCaster";
 			case MachineRenderedMeta.BLOCK_CASTER:  return "blockCaster";
 			case MachineRenderedMeta.NUGGET_CASTER: return "nuggetCaster";
-			case MachineRenderedMeta.SIFTER:		return "sifter";
 			default: 						return "renderedBlocks";
 		}
 	}

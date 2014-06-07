@@ -1,7 +1,21 @@
 Mariculture 1.7.2 BETA 10
 • Fixed BOP Compatibility with newest versions
 • Ethereal upgrades give a 1.25x modifier to mutation in the incubator(DOES NOT STACK)
-
+• Hotter temperatures in a Crucible Furnace will make things melt faster, the lower the melting point of something, that faster it can be processed at max temp!
+• Fixed Crucible Furnaces having 1000x more storage than they should with upgrades
+• Damselfish and Neon Tetra, are now breedable, but with a low chance, so it's still better to catch them if you can!
+• Added a temperature control unit(available with fishery module). Allows you to store heating/cooling upgrades, and for them to act as one upgrade.
+• Changed fertility calculation with eternal life upgrade
+• Block/Ingot Casters should now work across load/save
+• Removed recipe for making titanium in the crucible, one it causes confusion, two vat is easier anyways
+• Rewrote Handlers
+• Added Config to Enable/Disable Ingot/Block Caster NEIS, Disabled by default.
+• Transparent Plastic and Heat Resistant glass got 'larger version recipes', Allowing you to do more items at once.
+• Extreme Hatching Upgrade, now has 1000x mutation chance modifier
+• Fixed mutation multiplier only allowing for non full bred
+• Dropping stacked live fish, will now return the correct amount of raw fish
+• Fixed Bass Bomb Texture, Bass Bomb now does damage (not much).
+• You now need to 'construct' the sifters, just place two blocks next to each other, the recipe for a sifter now gives two :)
 
 Mariculture 1.7.2 BETA 9
 • Broke all the configs as promised!

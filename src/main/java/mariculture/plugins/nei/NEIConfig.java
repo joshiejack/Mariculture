@@ -10,6 +10,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.config.FishMechanics;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -105,12 +106,15 @@ public class NEIConfig implements IConfigureNEI {
 		API.registerUsageHandler(new NEILiquifierRecipeHandler());
 		API.registerRecipeHandler(new NEIVatRecipeHandler());
 		API.registerUsageHandler(new NEIVatRecipeHandler());
-		API.registerRecipeHandler(new NEIIngotCasterRecipeHandler());
-		API.registerUsageHandler(new NEIIngotCasterRecipeHandler());
-		API.registerRecipeHandler(new NEIBlockCasterRecipeHandler());
-		API.registerUsageHandler(new NEIBlockCasterRecipeHandler());
 		API.registerRecipeHandler(new NEIAnvilRecipeHandler());
 		API.registerUsageHandler(new NEIAnvilRecipeHandler());
+		if(GeneralStuff.SHOW_CASTER_RECIPES) {
+			API.registerRecipeHandler(new NEIIngotCasterRecipeHandler());
+			API.registerUsageHandler(new NEIIngotCasterRecipeHandler());
+			API.registerRecipeHandler(new NEIBlockCasterRecipeHandler());
+			API.registerUsageHandler(new NEIBlockCasterRecipeHandler());
+		}
+		
 		API.hideItem(new ItemStack(Core.air, 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(Core.ticking, 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(Core.worked, 1, OreDictionary.WILDCARD_VALUE));

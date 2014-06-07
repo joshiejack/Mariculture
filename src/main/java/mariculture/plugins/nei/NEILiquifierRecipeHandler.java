@@ -3,9 +3,7 @@ package mariculture.plugins.nei;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.core.FuelInfo;
@@ -13,7 +11,6 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.util.Rand;
 import mariculture.core.util.Text;
@@ -25,9 +22,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
+import org.lwjgl.opengl.GL11;
+
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.ItemList;
 import codechicken.nei.NEIClientUtils;
+import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
@@ -160,10 +161,9 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		boolean isSecondSearch = isSecondSearch(outputId, results);
 		if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEILiquifierRecipeHandler.class) {
-			HashMap<String, RecipeSmelter> recipes = MaricultureHandlers.crucible.getRecipes();
-			for (Entry<String, RecipeSmelter> recipe : recipes.entrySet()) {
-				if(!isSecondSearch || (isSecondSearch && recipe.getValue().fluid.getFluid().getName().equals(results[1])))
-				arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
+			for(RecipeSmelter recipe: MaricultureHandlers.crucible.getRecipes()) {
+				if(!isSecondSearch || (isSecondSearch && recipe.fluid.getFluid().getName().equals(results[1])))
+				arecipes.add(new CachedLiquifierRecipe(recipe));
 			}
 		} else {
 			super.loadCraftingRecipes(outputId, results);
@@ -172,40 +172,38 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 	
 	@Override
     public void loadCraftingRecipes(ItemStack result) {
-		HashMap<String, RecipeSmelter> recipes = MaricultureHandlers.crucible.getRecipes();
-        for(Entry<String, RecipeSmelter> recipe : recipes.entrySet()) {
-            ItemStack item = recipe.getValue().output;            
-            if(OreDicHelper.convert(result).equals(OreDicHelper.convert(item))) {
-                arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
+		for(RecipeSmelter recipe: MaricultureHandlers.crucible.getRecipes()) {
+			ItemStack item = recipe.output;            
+            if(NEIServerUtils.areStacksSameTypeCrafting(result, item)) {
+                arecipes.add(new CachedLiquifierRecipe(recipe));
             }
             
             FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
-            if(fluid == null || fluid.getFluid() == null || recipe.getValue().fluid == null) {
+            if(fluid == null || fluid.getFluid() == null || recipe.fluid == null) {
             	continue;
             }
                         
-            if(fluid.getFluid().getName().equals(recipe.getValue().fluid.getFluid().getName())) {
-            	arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
+            if(fluid.getFluid().getName().equals(recipe.fluid.getFluid().getName())) {
+            	arecipes.add(new CachedLiquifierRecipe(recipe));
             }
-        }
+		}
     }
 	
 	@Override
     public void loadUsageRecipes(ItemStack ingredient)  {
-        HashMap<String, RecipeSmelter> recipes = MaricultureHandlers.crucible.getRecipes();
-        for(Entry<String, RecipeSmelter> recipe : recipes.entrySet()) {
-        	ItemStack item = recipe.getValue().input;
-        	if(OreDicHelper.convert(ingredient).equals(OreDicHelper.convert(item))) {
-        		arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
+		for(RecipeSmelter recipe: MaricultureHandlers.crucible.getRecipes()) {
+			ItemStack item = recipe.input;
+        	if(NEIServerUtils.areStacksSameTypeCrafting(ingredient, item)) {
+        		arecipes.add(new CachedLiquifierRecipe(recipe));
         	}
         	
-        	item = recipe.getValue().input2;
+        	item = recipe.input2;
         	if(item != null) {
-        		if(OreDicHelper.convert(ingredient).equals(OreDicHelper.convert(item))) {
-            		arecipes.add(new CachedLiquifierRecipe(recipe.getValue()));
+        		if(NEIServerUtils.areStacksSameTypeCrafting(ingredient, item)) {
+            		arecipes.add(new CachedLiquifierRecipe(recipe));
             	}
         	}
-        }
+		}
     }
 	
 	public int aFluid = -1;
@@ -386,13 +384,12 @@ public class NEILiquifierRecipeHandler extends NEIBase {
 		return new ResourceLocation(Mariculture.modid, "textures/gui/nei/liquifier.png").toString();
 	}
 	
-	/*
 	@Override
 	public void drawBackground(int recipe) {
 		GL11.glColor4f(1, 1, 1, 1);
 		GuiDraw.changeTexture(getGuiTexture());
 		GuiDraw.drawTexturedModalRect(0, 0, 5, 15, 166, 73);
-	} */
+	}
 	
 	 @Override
 	 public String getOverlayIdentifier() {

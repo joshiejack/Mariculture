@@ -173,7 +173,7 @@ public class FishyHelper implements IFishHelper {
 					//Second attempt for a mutation
 					if(rand.nextInt(1000) < ((mute.chance * 10)) * modifier) {
 						for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
-							FishDNABase.DNAParts.get(i).addDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+							FishDNABase.DNAParts.get(i).addLowerDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
 						}
 					}
 				}
