@@ -74,16 +74,14 @@ public class MagicEventHandler {
 
 	@SubscribeEvent
 	public void onEntityFall(LivingFallEvent event) {
-		if(EnchantHelper.exists(Magic.glide) || EnchantHelper.exists(Magic.fall) || EnchantHelper.exists(Magic.flight)) {
-			if (event.entity instanceof EntityPlayer) {
+		if(!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
+			if(EnchantHelper.exists(Magic.glide) || EnchantHelper.exists(Magic.fall) || EnchantHelper.exists(Magic.flight)) {
 				EntityPlayer player = (EntityPlayer) event.entity;
-				if (!player.worldObj.isRemote) {
-					EnchantmentGlide.damage(player, rand);
-					EnchantmentFallDamage.activate(event);
-	
-					if (EnchantHelper.hasEnchantment(Magic.flight, player)) {
-						event.setCanceled(true);
-					}
+				EnchantmentGlide.damage(player, rand);
+				EnchantmentFallDamage.activate(event, player);
+		
+				if (EnchantHelper.hasEnchantment(Magic.flight, player)) {
+					event.setCanceled(true);
 				}
 			}
 		}

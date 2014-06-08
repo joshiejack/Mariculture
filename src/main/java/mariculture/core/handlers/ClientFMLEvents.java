@@ -28,48 +28,56 @@ public class ClientFMLEvents {
 	@SubscribeEvent
 	public void onKeyPress(KeyInputEvent event) {
 		EntityPlayer player = ClientHelper.getPlayer();
-		ItemStack selected = ClientHelper.getHeldItem();
-		if(selected != null && selected.getItem() instanceof ItemJewelry && ClientHelper.isActivateKeyPressed()) {
-			PacketHandler.sendToServer(new PacketJewelrySwap(ClientHelper.getPlayer().inventory.currentItem));
-		}
+		if(ClientHelper.isActivateKeyPressed()) {
+			ItemStack selected = ClientHelper.getHeldItem();
+			if(selected != null && selected.getItem() instanceof ItemJewelry) {
+				PacketHandler.sendToServer(new PacketJewelrySwap(ClientHelper.getPlayer().inventory.currentItem));
+			}
+			
+			if(Modules.isActive(Modules.factory)) {
+				if(PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) {
+					if(player.isSneaking()) {
+						ItemStack stack = PlayerHelper.getArmorStack(player, ArmorSlot.TOP);
+						if(stack.hasTagCompound()) {
+							int mode = stack.stackTagCompound.getInteger("mode");
+							mode++;
+							if (mode > 3) {
+								mode = 0;
+							}
 		
-		if(Modules.isActive(Modules.factory)) {
-			if(ClientHelper.isActivateKeyPressed() && PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) {
-				if(player.isSneaking()) {
-					ItemStack stack = PlayerHelper.getArmorStack(player, ArmorSlot.TOP);
-					if(stack.hasTagCompound()) {
-						int mode = stack.stackTagCompound.getInteger("mode");
-						mode++;
-						if (mode > 3) {
-							mode = 0;
+							ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
+							stack.stackTagCompound.setInteger("mode", mode);
+						} else {
+							stack.setTagCompound(new NBTTagCompound());
 						}
-	
-						ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
-						stack.stackTagCompound.setInteger("mode", mode);
 					} else {
-						stack.setTagCompound(new NBTTagCompound());
+						if(FactoryEvents.getArmorMode(player) == Mode.SQUIRT) PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemArmorFLUDD.SQUIRT));
 					}
-				} else {
-					if(FactoryEvents.getArmorMode(player) == Mode.SQUIRT) PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemArmorFLUDD.SQUIRT));
+				}
+			}
+			
+			if(Modules.isActive(Modules.magic)) {
+				if(ClientHelper.isToggleKeyPressed() && player.capabilities.isFlying && EnchantHelper.hasEnchantment(Magic.flight, player)) {
+					if(EnchantmentFlight.mode < EnchantmentFlight.maxMode) {
+						EnchantmentFlight.mode++;
+					} else {
+						EnchantmentFlight.mode = 0;
+					}
+					
+					ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.flight") + (EnchantmentFlight.mode + 1));
+					EnchantmentFlight.set(EnchantHelper.getEnchantStrength(Magic.flight, player), player);
 				}
 			}
 		}
 		
-		if(Modules.isActive(Modules.magic)) {
-			if(ClientHelper.isActivateKeyPressed() && ClientHelper.isToggleKeyPressed() && player.capabilities.isFlying && EnchantHelper.hasEnchantment(Magic.flight, player)) {
-				if(EnchantmentFlight.mode < EnchantmentFlight.maxMode) {
-					EnchantmentFlight.mode++;
-				} else {
-					EnchantmentFlight.mode = 0;
+		if(ClientHelper.isToggleKeyPressed()) {
+			if(Modules.isActive(Modules.magic)) {
+				if(ClientHelper.isToggleKeyPressed() && player.isSneaking() && EnchantHelper.hasEnchantment(Magic.spider, player)) {
+					EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
+					ClientHelper.addToChat(EnchantmentSpider.getChat());
+				} else if(ClientHelper.isToggleKeyPressed() && EnchantHelper.hasEnchantment(Magic.glide, player)) {
+					EnchantmentGlide.toggle();
 				}
-				
-				ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.flight") + (EnchantmentFlight.mode + 1));
-				EnchantmentFlight.set(EnchantHelper.getEnchantStrength(Magic.flight, player), player);
-			} else if(ClientHelper.isToggleKeyPressed() && player.isSneaking() && EnchantHelper.hasEnchantment(Magic.spider, player)) {
-				EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
-				ClientHelper.addToChat(EnchantmentSpider.getChat());
-			} else if(ClientHelper.isToggleKeyPressed() && EnchantHelper.hasEnchantment(Magic.glide, player)) {
-				EnchantmentGlide.toggle();
 			}
 		}
 	}

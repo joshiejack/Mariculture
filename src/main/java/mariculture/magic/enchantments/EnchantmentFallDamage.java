@@ -19,28 +19,25 @@ public class EnchantmentFallDamage extends EnchantmentJewelry {
 		return 4;
 	}
 
-	public static void activate(LivingFallEvent event) {		
-		if (event.entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entity;
-			int damage = (int) (event.distance - 3);
+	public static void activate(LivingFallEvent event, EntityPlayer player) {		
+		int damage = (int) (event.distance - 3);
 
-			if (EnchantHelper.hasEnchantment(Magic.fall, player)) {
-				int strength = EnchantHelper.getEnchantStrength(Magic.fall, player);
+		if (EnchantHelper.hasEnchantment(Magic.fall, player)) {
+			int strength = EnchantHelper.getEnchantStrength(Magic.fall, player);
 
-				int maxDistanceAbsorbed = (strength * 10);
+			int maxDistanceAbsorbed = (strength * 10);
 
-				if (damage < maxDistanceAbsorbed) {
-					if (damage > 0) {
-						EnchantHelper.damageItems(Magic.fall, player, damage / 5);
-					}
+			if (damage < maxDistanceAbsorbed) {
+				if (damage > 0) {
+					EnchantHelper.damageItems(Magic.fall, player, damage / 5);
+				}
 
-					event.setCanceled(true);
-				} else {
-					event.distance = event.distance - maxDistanceAbsorbed;
+				event.setCanceled(true);
+			} else {
+				event.distance = event.distance - maxDistanceAbsorbed;
 
-					if (damage > 0) {
-						EnchantHelper.damageItems(Magic.fall, player, (int) (event.distance / 5));
-					}
+				if (damage > 0) {
+					EnchantHelper.damageItems(Magic.fall, player, (int) (event.distance / 5));
 				}
 			}
 		}

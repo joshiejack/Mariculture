@@ -17,9 +17,10 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class TileMachine extends TileStorage implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
-	//Transfer Helper
+public abstract class TileMachineOld extends TileStorage implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
 	protected BlockTransferHelper helper;
+	//General Tick
+	private int machineTick = 0;
 	//Upgrade Stats
 	protected int purity = 0;
 	protected int heat = 0;
@@ -37,32 +38,46 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	protected int processed = 0;
 	protected int[] output;
 	
-	public TileMachine() {
+	public TileMachineOld() {
 		inventory = new ItemStack[3];
 		mode = RedstoneMode.LOW;
 		setting = EjectSetting.NONE;
 		output = new int[0];
 	}
 	
-	//Returns true if a valid tick to operate
-	public boolean onTick(int i) {
-		return worldObj.getWorldTime() % i == 0;
-	}
-	
-	@Override
 	public ItemStack[] getInventory() {
 		return inventory;
 	}
 	
 	@Override
-	public void onInventoryChange(int slot) {
-		canWork = canWork();
-		if(slot < 3) {
-			updateUpgrades();
-		}
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		super.setInventorySlotContents(slot, stack);
+		updateUpgrades();
+		updateCanWork();
 	}
 	
 	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+		ItemStack stack = super.decrStackSize(slot, amount);
+		updateCanWork();
+		return stack;
+	}
+	
+	@Override
+	public boolean canUpdate() {
+		return true;
+	}
+	
+	public boolean onTick(int i) {
+		return machineTick % i == 0;
+	}
+	
+	@Override
+	public ItemStack[] getUpgrades() {
+		return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
+	}
+		
+
 	public void updateUpgrades() {
 		purity = MaricultureHandlers.upgrades.getData("purity", this);
 		heat = MaricultureHandlers.upgrades.getData("temp", this);
@@ -71,35 +86,21 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		rf = MaricultureHandlers.upgrades.getData("rf", this);
 	}
 	
-	@Override
-	public ItemStack[] getUpgrades() {
-		return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
+	protected void updateCanWork() {
+		canWork = canMachineWork();
 	}
-	
-	//Whether this machine canWork or not, gets called everytime there is a change to an inventory slot
-	public boolean canWork() {
-		return false;
-	}
-	
-	@Override
-	public void updateEntity() {	
-		if(canWork) {
-			if(helper == null) helper = new BlockTransferHelper(this);
-		} 
 
-		update();
+	@Override
+	public void updateEntity() {		
+		if(helper == null) {
+			helper = new BlockTransferHelper(this);
+		}
+		
+		machineTick++;
+		autoeject();
 		updateMachine();
 	}
 	
-	//Called whenever the machine is active
-	public abstract void updateMachine();
-	
-	//Called at all times
-	public void update() {
-		autoeject();
-	}
-	
-	//Called by the update method, to autoeject any items that are install inside the machine
 	public void autoeject() {
 		if(output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) {
 			if(setting.canEject(EjectSetting.ITEM)) {
@@ -116,6 +117,9 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		}
 	}
 	
+	public abstract boolean canMachineWork();
+	public abstract void updateMachine();
+
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		switch (id) {

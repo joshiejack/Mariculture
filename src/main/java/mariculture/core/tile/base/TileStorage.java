@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileStorage extends TileEntity implements IInventory {
-
 	protected ItemStack[] inventory;
 	@Override
 	public boolean canUpdate() {
@@ -33,6 +32,10 @@ public class TileStorage extends TileEntity implements IInventory {
             if (this.inventory[slot].stackSize <= amount) {
                 stack = this.inventory[slot];
                 this.inventory[slot] = null;
+                if(!this.worldObj.isRemote) {
+                	this.onInventoryChange(slot);
+                }
+                
                 this.markDirty();
                 return stack;
             } else {
@@ -42,6 +45,10 @@ public class TileStorage extends TileEntity implements IInventory {
                     this.inventory[slot] = null;
                 }
 
+                if(!this.worldObj.isRemote) {
+                	this.onInventoryChange(slot);
+                }
+                
                 this.markDirty();
                 return stack;
             }
@@ -69,7 +76,15 @@ public class TileStorage extends TileEntity implements IInventory {
         	stack.stackSize = this.getInventoryStackLimit();
         }
 
+        if(!this.worldObj.isRemote) {
+        	this.onInventoryChange(slot);
+        }
+        
         this.markDirty();
+	}
+	
+	public void onInventoryChange(int slot) {
+		return;
 	}
 	
 	@Override

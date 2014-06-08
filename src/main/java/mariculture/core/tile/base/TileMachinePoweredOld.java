@@ -10,10 +10,10 @@ import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
-public abstract class TileMachinePowered extends TileMachine implements IEnergyHandler, IPowered {
+public abstract class TileMachinePoweredOld extends TileMachineOld implements IEnergyHandler, IPowered {
 	protected EnergyStorage energyStorage;
 	
-	public TileMachinePowered() {
+	public TileMachinePoweredOld() {
 		energyStorage = new EnergyStorage(getRFCapacity());
 		inventory = new ItemStack[4];
 		offset = 4;
@@ -21,6 +21,12 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	
 	public abstract int getRFCapacity();
 	
+	@Override
+	public void updateUpgrades() {
+		super.updateUpgrades();
+		energyStorage.setCapacity(getRFCapacity() + rf);
+	}
+
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
 		return energyStorage.receiveEnergy(maxReceive, simulate);
@@ -47,16 +53,34 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	}
 	
 	@Override
-	public void updateUpgrades() {
-		super.updateUpgrades();
-		energyStorage.setCapacity(getRFCapacity() + rf);
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		energyStorage.readFromNBT(nbt);
 	}
 	
 	@Override
-	public void update() {
-		super.update();
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		energyStorage.writeToNBT(nbt);
+	}
+	
+	@Override
+	public String getPowerText() {
+		return getEnergyStored(ForgeDirection.UNKNOWN) + " / " + getMaxEnergyStored(ForgeDirection.UNKNOWN) + " RF";
+	}
+
+	@Override
+	public int getPowerScaled(int i) {
+		return (energyStorage.getEnergyStored() * i) / energyStorage.getMaxEnergyStored();
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		
 		if(inventory[3] != null) {
-			int rf = (inventory[3] != null && inventory[3].getItem() instanceof IEnergyContainerItem)? ((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 1000, true): 0;
+			int rf = (inventory[3] != null && inventory[3].getItem() instanceof IEnergyContainerItem)? 
+					((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 1000, true): 0;
 			if(rf > 0) {
 				int drain = receiveEnergy(ForgeDirection.UP, rf, true);
 				if(drain > 0) {
@@ -85,27 +109,5 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 		super.sendGUINetworkData(container, crafting);
 		crafting.sendProgressBarUpdate(container, 3, energyStorage.getEnergyStored());
 		crafting.sendProgressBarUpdate(container, 4, energyStorage.getMaxEnergyStored());
-	}
-	
-	@Override
-	public String getPowerText() {
-		return getEnergyStored(ForgeDirection.UNKNOWN) + " / " + getMaxEnergyStored(ForgeDirection.UNKNOWN) + " RF";
-	}
-
-	@Override
-	public int getPowerScaled(int i) {
-		return (energyStorage.getEnergyStored() * i) / energyStorage.getMaxEnergyStored();
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		energyStorage.readFromNBT(nbt);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		energyStorage.writeToNBT(nbt);
 	}
 }

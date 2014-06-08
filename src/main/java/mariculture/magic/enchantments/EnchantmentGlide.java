@@ -27,7 +27,7 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 	public static int keyCoolDown = 0;
 
 	public static void damage(EntityPlayer player, Random rand) {
-		if (EnchantHelper.hasEnchantment(Magic.glide, player) && toggleOn > 0) {
+		if (toggleOn > 0 && EnchantHelper.hasEnchantment(Magic.glide, player)) {
 			EnchantHelper.damageItems(Magic.glide, player, 1);
 		}
 	}

@@ -16,7 +16,7 @@ import mariculture.factory.tile.TileFishSorter;
 import mariculture.factory.tile.TileSawmill;
 import mariculture.factory.tile.TileSluice;
 import mariculture.factory.tile.TileSponge;
-import mariculture.fishery.tile.TileAutofisher;
+import mariculture.fishery.tile.TileAutofisherOld;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -177,7 +177,7 @@ public class BlockMachine extends BlockFunctional {
 			case MachineMeta.SAWMILL:			return new TileSawmill();
 			case MachineMeta.SLUICE: 			return new TileSluice();
 			case MachineMeta.SPONGE: 			return new TileSponge();
-			case MachineMeta.AUTOFISHER: 		return new TileAutofisher();
+			case MachineMeta.AUTOFISHER: 		return new TileAutofisherOld();
 			case MachineMeta.FISH_SORTER: 		return new TileFishSorter();
 			default:							return null;
 		}

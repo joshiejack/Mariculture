@@ -9,7 +9,7 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.PlansMeta;
-import mariculture.core.tile.base.TileMachine;
+import mariculture.core.tile.base.TileMachineOld;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.Rand;
@@ -23,7 +23,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileSawmill extends TileMachine implements IHasNotification, IProgressable {
+public class TileSawmill extends TileMachineOld implements IHasNotification, IProgressable {
 	public int selected = 3;
 	public TileSawmill() {
 		max = MachineSpeeds.getSawmillSpeed();

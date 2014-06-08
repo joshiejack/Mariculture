@@ -88,7 +88,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
 		return machineTick % i == 0;
 	}
 
-	@Override
+
 	public void updateUpgrades() {
 		purity = MaricultureHandlers.upgrades.getData("purity", this);
 		heat = MaricultureHandlers.upgrades.getData("temp", this);
