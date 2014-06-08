@@ -67,7 +67,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 		purity = MaricultureHandlers.upgrades.getData("purity", this);
 		heat = MaricultureHandlers.upgrades.getData("temp", this);
 		storage = MaricultureHandlers.upgrades.getData("storage", this);
-		speed = MaricultureHandlers.upgrades.getData("speed", this);
+		speed = MaricultureHandlers.upgrades.getData("speed", this) + 1;
 		rf = MaricultureHandlers.upgrades.getData("rf", this);
 	}
 	
@@ -82,17 +82,35 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	}
 	
 	@Override
-	public void updateEntity() {	
-		if(canWork) {
-			if(helper == null) helper = new BlockTransferHelper(this);
-		} 
-
-		update();
-		updateMachine();
+	public boolean canUpdate() {
+		return true;
 	}
 	
+	@Override
+	public void updateEntity() {	
+		if(!worldObj.isRemote) {
+			if(helper == null) 
+			helper = new BlockTransferHelper(this);
+			update();
+			updateMachine();
+		}
+	}
+	
+	public abstract void process();
+	
 	//Called whenever the machine is active
-	public abstract void updateMachine();
+	public void updateMachine() {
+		if(canWork) {
+			processed+=speed;
+			if(processed >= max) {
+				process();
+				canWork = canWork();
+				processed = 0;
+			}
+		} else {
+			processed = 0;
+		}
+	}
 	
 	//Called at all times
 	public void update() {
@@ -114,6 +132,18 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 				}
 			}
 		}
+	}
+	
+	//Whether there is room to eject from this machine or not
+	public boolean hasRoom(ItemStack stack) {
+		if(setting.canEject(EjectSetting.ITEM))
+			return true;
+		for(Integer i: output) {
+			if(inventory[i] == null);
+				return true;
+		}
+			
+		return false;
 	}
 	
 	@Override
@@ -165,7 +195,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
 	}
 	
 	@Override
-	public int getProgressScaled(int scale) {
+	public int getProgressScaled(int scale) {		
 		return (processed * scale) / max;
 	}
 		

@@ -60,9 +60,9 @@ public class NEIConfig implements IConfigureNEI {
 						API.hideItem(new ItemStack(Core.woods, 1, i));
 						API.hideItem(new ItemStack(Core.machinesMulti, 1, i));
 						if(i > 3) {
-							API.hideItem(new ItemStack(Core.renderedMachinesMulti, 1, i));
 							API.hideItem(new ItemStack(Core.tanks, 1, i));
 							if(i > 4) {
+								API.hideItem(new ItemStack(Core.renderedMachinesMulti, 1, i));
 								API.hideItem(new ItemStack(Core.rocks, 1, i));
 								if(i > 5) {
 									API.hideItem(new ItemStack(Core.metals, 1, i));
@@ -118,6 +118,7 @@ public class NEIConfig implements IConfigureNEI {
 		API.hideItem(new ItemStack(Core.air, 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(Core.ticking, 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(Core.worked, 1, OreDictionary.WILDCARD_VALUE));
+		API.hideItem(new ItemStack(Core.renderedMachines, 1, 1));
 		
 		if(Modules.isActive(Modules.factory)) {
 			API.hideItem(new ItemStack(Factory.customBlock, 1, OreDictionary.WILDCARD_VALUE));

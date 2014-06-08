@@ -4,6 +4,7 @@ import mariculture.core.Core;
 import mariculture.core.lib.TickingMeta;
 import mariculture.core.render.RenderBase;
 import mariculture.fishery.tile.TileSifter;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -43,7 +44,7 @@ public class RenderSifter extends RenderBase {
 			renderBlock(0.1, 0.65, 0, 0.9, 0.66, 0.75);
 			if(tile.display != null && tile.display.getItem() instanceof ItemBlock) {
 				setTexture(tile.display);
-				renderBlock(0.1, 0.66, 0, 0.9, 0.76, 0.75);
+				renderColoredBlock(0.1, 0.66, 0, 0.9, 0.76, 0.75, Block.getBlockFromItem(tile.display.getItem()));
 			}
 		} else if (dir == ForgeDirection.NORTH) {
 			setTexture(tile.texture);
@@ -60,7 +61,7 @@ public class RenderSifter extends RenderBase {
 			renderBlock(0.1, 0.65, 0.25, 0.9, 0.66, 1);
 			if(tile.display != null && tile.display.getItem() instanceof ItemBlock) {
 				setTexture(tile.display);
-				renderBlock(0.1, 0.66, 0.25, 0.9, 0.76, 1);
+				renderColoredBlock(0.1, 0.66, 0.25, 0.9, 0.76, 1, Block.getBlockFromItem(tile.display.getItem()));
 			}
 		} else if(dir == ForgeDirection.EAST) {
 			setTexture(tile.texture);
@@ -77,7 +78,7 @@ public class RenderSifter extends RenderBase {
 			renderBlock(0.25, 0.65, 0.1, 1, 0.66, 0.9);
 			if(tile.display != null && tile.display.getItem() instanceof ItemBlock) {
 				setTexture(tile.display);
-				renderBlock(0.25, 0.66, 0.1, 1, 0.76, 0.9);
+				renderColoredBlock(0.25, 0.66, 0.1, 1, 0.76, 0.9, Block.getBlockFromItem(tile.display.getItem()));
 			}
 		} else if(dir == ForgeDirection.WEST) {
 			setTexture(tile.texture);
@@ -94,7 +95,7 @@ public class RenderSifter extends RenderBase {
 			renderBlock(0, 0.65, 0.1, 0.75, 0.66, 0.9);
 			if(tile.display != null && tile.display.getItem() instanceof ItemBlock) {
 				setTexture(tile.display);
-				renderBlock(0, 0.66, 0.1, 0.75, 0.76, 0.9);
+				renderColoredBlock(0, 0.66, 0.1, 0.75, 0.76, 0.9, Block.getBlockFromItem(tile.display.getItem()));
 			}
 		}
 	}

@@ -4,7 +4,7 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
-import mariculture.fishery.tile.TileAutofisherOld;
+import mariculture.fishery.tile.TileAutofisher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class ContainerAutofisher extends ContainerMachine {
-	public ContainerAutofisher(TileAutofisherOld tile, InventoryPlayer playerInventory) {
+	public ContainerAutofisher(TileAutofisher tile, InventoryPlayer playerInventory) {
 		super(tile);
 
 		addUpgradeSlots(tile);

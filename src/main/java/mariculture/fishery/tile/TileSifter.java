@@ -12,6 +12,7 @@ import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSifterSync;
 import mariculture.core.tile.base.TileMultiStorage;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 		updateRender();
 	}
 	
-	public void process(Random rand) {
+	public void process(EntityPlayer player, Random rand) {
 		if(toSift != null && toSift.size() > 0) {
 			ItemStack stack = toSift.getFirst();
 			ArrayList<RecipeSifter> result = Fishing.sifter.getResult(stack);
@@ -81,12 +82,20 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 						if(hasInventory) {
 							InventoryHelper.addItemStackToInventory(inventory, ret, slots);
 						} else {
-							SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret);
+							if (!player.inventory.addItemStackToInventory(ret)) {
+								if(!worldObj.isRemote) {
+									SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret);
+								}
+							}
 						}
 					}
 				}
 			} else {
-				SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack);
+				if (!player.inventory.addItemStackToInventory(stack)) {
+					if(!worldObj.isRemote) {
+						SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, stack);
+					}
+				}
 			}
 			
 			toSift.removeFirst();
@@ -213,5 +222,16 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void onBlockBreak() {
+		if(!worldObj.isRemote && isMaster()) {
+			for(ItemStack stack: toSift) {
+				SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, stack);
+			}
+		}
+		
+		super.onBlockBreak();
 	}
 }

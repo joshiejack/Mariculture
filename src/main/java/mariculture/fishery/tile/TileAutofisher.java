@@ -1,13 +1,21 @@
 package mariculture.fishery.tile;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RodType;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
+import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
+import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
+import mariculture.core.helpers.BlockHelper;
+import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMachinePowered;
+import mariculture.core.util.IHasNotification;
+import mariculture.core.util.Rand;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
-public class TileAutofisher extends TileMachinePowered {
+public class TileAutofisher extends TileMachinePowered implements IHasNotification {
 	//Slot Helper variables
 	public static final int rod = 4;
 	public static final int[] rod_slot = new int[] { 4 };
@@ -49,19 +57,74 @@ public class TileAutofisher extends TileMachinePowered {
 	public EjectSetting getEjectType() {
 		return EjectSetting.ITEM;
 	}
-
+	
 	@Override
-	public void updateMachine() {
-		if(canWork) {
-			//Since the machine can work, let's take off some lovely energy :)
-			energyStorage.extractEnergy(20 + (speed * 20), false);
-			processed+=speed;
-			
-			if(processed >= max) {
-				processed = 0;
+	public void process() {
+		int speed = 1 + EnchantHelper.getLevel(Enchantment.field_151369_A, inventory[rod]);
+		for(int i = 0; i < speed && canWork; i++) {
+			int bonusQuality = getBait() + (EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4);
+			if (Rand.rand.nextInt(100) < bonusQuality) {
+				RodType type = Fishing.fishing.getRodType(inventory[rod]);
+				setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, Rand.rand));
+				ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
+				if (lootResult != null) {
+					helper.insertStack(lootResult, output);
+				}
 			}
-		} else {
-			processed = 0;
+		}
+	}
+	
+	//Returns how much RF this machine uses
+	@Override
+	public int getRFUsage() {
+		return 20 + (speed * 20);
+	}
+	
+	@Override
+	public boolean canWork() {
+		return RedstoneMode.canWork(this, mode) && hasRod() && getBait() > 0 && hasPower() && isFishable() && hasRoom(null);
+	}
+	
+	//Checks whether the item in the rod slot is a fishing rod, and if so, whether it can fish at the coordinates
+	private boolean hasRod() {
+		if(inventory[rod] != null) {
+			RodType type = Fishing.fishing.getRodType(inventory[rod]);
+			return type != null? type.canFish(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]): false;
+		} else return false;
+	}
+	
+	//Return whether the autofisher has bait available to be used
+	private int getBait() {
+		for(int i: bait) {
+			if(inventory[i] != null) {
+				int quality = Fishing.fishing.getBaitQuality(inventory[i]);
+				if(i > 0 && Fishing.fishing.canUseBait(inventory[rod], inventory[i])) {
+					return quality;
+				}
+			}
+		}
+		
+		return 0;
+	}
+	
+	//Returns whether the rod can operate or not, depends on the bait and the rod
+	private boolean hasPower() {
+		return energyStorage.extractEnergy(getRFUsage(), true) >= getRFUsage();
+	}
+	
+	//Returns whether the block below can be fished in or not
+	private boolean isFishable() {
+		return BlockHelper.isFishable(worldObj, xCoord, yCoord - 1, zCoord);
+	}
+	
+	@Override
+	public boolean isNotificationVisible(NotificationType type) {
+		switch(type) {
+			case NO_ROD: 		return !hasRod();
+			case NO_BAIT: 		return hasRod() && getBait() <= 0;
+			case NOT_FISHABLE: 	return !isFishable();
+			case NO_RF: 		return !hasPower();
+			default: 			return false;
 		}
 	}
 	

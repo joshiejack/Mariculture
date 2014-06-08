@@ -36,7 +36,7 @@ import mariculture.fishery.gui.GuiFeeder;
 import mariculture.fishery.gui.GuiFishTank;
 import mariculture.fishery.gui.GuiIncubator;
 import mariculture.fishery.gui.GuiSift;
-import mariculture.fishery.tile.TileAutofisherOld;
+import mariculture.fishery.tile.TileAutofisher;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileIncubator;
@@ -56,8 +56,8 @@ public class CommonProxy implements IGuiHandler {
 		
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null) {			
-			if(tile instanceof TileAutofisherOld) {
-				return new ContainerAutofisher((TileAutofisherOld) tile, player.inventory);
+			if(tile instanceof TileAutofisher) {
+				return new ContainerAutofisher((TileAutofisher) tile, player.inventory);
 			}
 			
 			if(tile instanceof TileCrucible) {
@@ -121,8 +121,8 @@ public class CommonProxy implements IGuiHandler {
 		
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null) {			
-			if(tile instanceof TileAutofisherOld) {
-				return new GuiAutofisher(player.inventory, (TileAutofisherOld) tile);
+			if(tile instanceof TileAutofisher) {
+				return new GuiAutofisher(player.inventory, (TileAutofisher) tile);
 			}
 			
 			if(tile instanceof TileCrucible) {

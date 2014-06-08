@@ -104,7 +104,7 @@ import mariculture.fishery.items.ItemFluxRod;
 import mariculture.fishery.items.ItemRod;
 import mariculture.fishery.items.ItemScanner;
 import mariculture.fishery.items.ItemTemperatureControl;
-import mariculture.fishery.tile.TileAutofisherOld;
+import mariculture.fishery.tile.TileAutofisher;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileIncubator;
@@ -202,7 +202,7 @@ public class Fishery extends RegistrationModule {
 		lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lamps.off");
 		lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lamps.on");
 		RegistryHelper.registerBlocks(new Block[] { lampsOff, lampsOn, fishOilBlock, custardBlock });
-		RegistryHelper.registerTiles(new Class[] { TileAutofisherOld.class, TileIncubator.class, TileFeeder.class, TileFishTank.class, TileSifter.class });
+		RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileIncubator.class, TileFeeder.class, TileFishTank.class, TileSifter.class });
 		
 		fishOil.setBlock(fishOilBlock);
 		custard.setBlock(custardBlock);

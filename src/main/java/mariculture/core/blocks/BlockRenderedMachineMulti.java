@@ -167,7 +167,6 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 		}
 		
 		if(tile instanceof TileSifter) {
-			System.out.println("SIFTER");
 			TileSifter sifter = ((TileSifter) tile).getMaster();
 			if(sifter != null) {
 				if(heldItem != null) {
@@ -178,7 +177,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 						player.inventory.decrStackSize(player.inventory.currentItem, 1);
 					}
 				} else {
-					sifter.process(Rand.rand);
+					sifter.process(player, Rand.rand);
 				}
 			} 
 		} 

@@ -1,6 +1,7 @@
 package mariculture.core.tile.base;
 
 import mariculture.core.gui.ContainerMariculture;
+import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.util.IPowered;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -23,12 +24,24 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-		return energyStorage.receiveEnergy(maxReceive, simulate);
+		int ret = energyStorage.receiveEnergy(maxReceive, simulate);
+		if(!canWork) {
+			if(energyStorage.getEnergyStored() >= getRFUsage() * 2) {
+				canWork = canWork();
+			}
+		}
+		
+		return ret;
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return energyStorage.extractEnergy(maxExtract, simulate);
+		int ret = energyStorage.extractEnergy(maxExtract, simulate);		
+		if(ret <= 0) {
+			canWork = canWork();
+		}
+		
+		return ret;
 	}
 
 	@Override
@@ -52,8 +65,25 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 		energyStorage.setCapacity(getRFCapacity() + rf);
 	}
 	
+	public abstract int getRFUsage();
+	
 	@Override
-	public void update() {
+	public void updateMachine() {	
+		if(canWork) {
+			extractEnergy(ForgeDirection.DOWN, getRFUsage(), false);
+			processed+=speed;
+			if(processed >= max) {
+				process();
+				canWork = canWork();
+				processed = 0;
+			}
+		} else {
+			processed = 0;
+		}
+	}
+	
+	@Override
+	public void update() {			
 		super.update();
 		if(inventory[3] != null) {
 			int rf = (inventory[3] != null && inventory[3].getItem() instanceof IEnergyContainerItem)? ((IEnergyContainerItem)inventory[3].getItem()).extractEnergy(inventory[3], 1000, true): 0;
@@ -68,7 +98,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 	}
 	
 	@Override
-	public void getGUINetworkData(int id, int value) {
+	public void getGUINetworkData(int id, int value) {		
 		super.getGUINetworkData(id, value);
 		switch (id) {
 		case 3:

@@ -109,6 +109,14 @@ public abstract class RenderBase {
 		setTexture(block, 0);
 	}
 	
+	//Can only be called by the in world renderer
+	protected void renderColoredBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, Block block) {
+		render.renderAllFaces = true;
+		render.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
+		render.renderStandardBlock(block, this.x, this.y, this.z);
+		render.renderAllFaces = false;
+	}
+	
 	protected void renderBlock(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		if(isItem())
 			renderItemBlock(minX, minY, minZ, maxX, maxY, maxZ);
