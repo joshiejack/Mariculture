@@ -9,7 +9,7 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.lib.AirMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.PlansMeta;
-import mariculture.core.tile.base.TileMachineOld;
+import mariculture.core.tile.base.TileMachine;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.Rand;
@@ -23,15 +23,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileSawmill extends TileMachineOld implements IHasNotification, IProgressable {
-	public int selected = 3;
-	public TileSawmill() {
-		max = MachineSpeeds.getSawmillSpeed();
-		inventory = new ItemStack[13];
-		setting = EjectSetting.ITEM;
-		output = new int[] { OUT };
-	}
-
+public class TileSawmill extends TileMachine implements IHasNotification, IProgressable {
 	public static final int TOP = 6;
 	public static final int NORTH = 7;
 	public static final int SOUTH = 8;
@@ -40,33 +32,32 @@ public class TileSawmill extends TileMachineOld implements IHasNotification, IPr
 	public static final int BOTTOM = 11;
 	public static final int OUT = 12;
 	
-	//Sided Inventory
+	public int selected = 3;
+	public TileSawmill() {
+		max = MachineSpeeds.getSawmillSpeed();
+		inventory = new ItemStack[13];
+		setting = EjectSetting.ITEM;
+		output = new int[] { OUT };
+	}
+	
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		switch (side) {
-		case 0:
-			return new int[] { BOTTOM, OUT };
-		case 1:
-			return new int[] { TOP, OUT };
-		case 2:
-			return new int[] { NORTH, OUT };
-		case 3:
-			return new int[] { SOUTH, OUT };
-		case 4:
-			return new int[] { WEST, OUT };
-		case 5:
-			return new int[] { EAST, OUT };
+			case 0: 	return new int[] { BOTTOM, OUT };
+			case 1: 	return new int[] { TOP, OUT };
+			case 2: 	return new int[] { NORTH, OUT };
+			case 3: 	return new int[] { SOUTH, OUT };
+			case 4: 	return new int[] { WEST, OUT };
+			case 5: 	return new int[] { EAST, OUT };
 		}
 
-		return null;
+		return new int[] { };
 	}
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		if(slot == OUT)
-			return false;
-		if(slot < TOP)
-			return stack.getItem() instanceof ItemPlan;
+		if(slot == OUT) return false;
+		if(slot < TOP)  return stack.getItem() instanceof ItemPlan;
 		if (stack.getItem() instanceof BlockItemCustom) {
 			return false;
 		}
@@ -83,70 +74,53 @@ public class TileSawmill extends TileMachineOld implements IHasNotification, IPr
 	public EjectSetting getEjectType() {
 		return EjectSetting.ITEM;
 	}
-
-	@Override
-	public void updateMachine() {
-		if(canWork) {
-			processed+=speed;
-			if(processed >= max && canMachineWork()) {
-				processed = 0;
-				saw();
-			}
-		} else {
-			processed = 0;
-		}
-	}
 	
 	@Override
-	public boolean canMachineWork() {
-		return hasPlanSelected() && allSidesFilled() && RedstoneMode.canWork(this, mode) && outputHasRoom();
+	public boolean canWork() {
+		return RedstoneMode.canWork(this, mode) && hasPlanSelected() && allSidesFilled() && hasRoom(getResult());
 	}
 	
-	//Boolean checkers
+	//Whether a plan is selected or not
 	private boolean hasPlanSelected() {
 		return inventory[selected] != null && inventory[selected].getItem() instanceof ItemPlan;
 	}
 	
+	//Whether all sides of the sawmill are filled or not
 	private boolean allSidesFilled() {
-		return inventory[TOP] != null && inventory[BOTTOM] != null && inventory[NORTH] != null &&
-				inventory[SOUTH] != null && inventory[EAST] != null && inventory[WEST] != null;
+		return inventory[TOP] != null && inventory[BOTTOM] != null && inventory[NORTH] != null && inventory[SOUTH] != null && inventory[EAST] != null && inventory[WEST] != null;
 	}
 	
+	//Whether the plan type and data matches or not
 	private boolean areStacksEqual(ItemStack stack1, ItemStack stack2) {
-		if(!stack1.isItemEqual(stack2))
-			return false;
+		if(!stack1.isItemEqual(stack2)) return false;
 		if(stack1.hasTagCompound() && stack2.hasTagCompound())
 			return PlansMeta.matches(stack1.stackTagCompound, stack2.stackTagCompound);
 		return stack1.stackTagCompound == null && stack2.stackTagCompound == null;
 	}
 	
-	private boolean outputHasRoom()  {
-		if(setting.canEject(EjectSetting.ITEM))
-			return true;
-		ItemStack result = getResult();
-		return inventory[OUT] == null ||  (areStacksEqual(inventory[OUT], result) && inventory[OUT].stackSize + result.stackSize < inventory[OUT].getMaxStackSize());
+	@Override
+	public boolean hasRoom(ItemStack stack) {
+		if(super.hasRoom(stack)) return true;
+		else {
+			return areStacksEqual(inventory[OUT], stack) && inventory[OUT].stackSize + stack.stackSize < inventory[OUT].getMaxStackSize();
+		}
 	}
 	
-	//Process the stuffs!
-	public void saw() {
-		ItemStack result = getResult();
-		helper.insertStack(result, output);
+	//Whether the item is a feather
+	private boolean isFeather(int slot) {
+		return inventory[slot].getItem() == Items.feather;
+	}
+	
+	//Get the block data for the block
+	private String getBlock(int slot) {
+		if(isFeather(slot)) return Block.blockRegistry.getNameForObject(Core.air);
+		else return Block.blockRegistry.getNameForObject(Block.getBlockFromItem(inventory[slot].getItem()));
+	}
 
-		for (int i = TOP; i < TOP + 6; i++) {
-			--this.inventory[i].stackSize;
-
-			if (this.inventory[i].stackSize == 0) {
-				Item var2 = this.inventory[i].getItem().getContainerItem();
-				this.inventory[i] = var2 == null ? null : new ItemStack(var2);
-			}
-		}
-		
-		this.inventory[selected].attemptDamageItem(1, Rand.rand);
-		if (this.inventory[selected].getItemDamage() > this.inventory[selected].getMaxDamage()) {
-			this.inventory[selected] = null;
-		}
-		
-		updateCanWork();
+	//Get the meta data
+	private int getMeta(int slot) {
+		if(isFeather(slot)) return AirMeta.FAKE_AIR;
+		else return inventory[slot].getItemDamage();
 	}
 	
 	public ItemStack getResult() {
@@ -169,22 +143,27 @@ public class TileSawmill extends TileMachineOld implements IHasNotification, IPr
 			stack.stackSize*=2;
 		return stack;
 	}
-	
-	private boolean isFeather(int slot) {
-		return inventory[slot].getItem() == Items.feather;
-	}
-	
-	private String getBlock(int slot) {
-		if(isFeather(slot)) return Block.blockRegistry.getNameForObject(Core.air);
-		else return Block.blockRegistry.getNameForObject(Block.getBlockFromItem(inventory[slot].getItem()));
+
+	@Override
+	public void process() {
+		ItemStack result = getResult();
+		helper.insertStack(result, output);
+
+		for (int i = TOP; i < TOP + 6; i++) {
+			--this.inventory[i].stackSize;
+
+			if (this.inventory[i].stackSize == 0) {
+				Item var2 = this.inventory[i].getItem().getContainerItem();
+				this.inventory[i] = var2 == null ? null : new ItemStack(var2);
+			}
+		}
+		
+		this.inventory[selected].attemptDamageItem(1, Rand.rand);
+		if (this.inventory[selected].getItemDamage() > this.inventory[selected].getMaxDamage()) {
+			this.inventory[selected] = null;
+		}
 	}
 
-	private int getMeta(int slot) {
-		if(isFeather(slot)) return AirMeta.FAKE_AIR;
-		else return inventory[slot].getItemDamage();
-	}
-
-//Gui Stuff
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		super.getGUINetworkData(id, value);
@@ -200,12 +179,9 @@ public class TileSawmill extends TileMachineOld implements IHasNotification, IPr
 	@Override
 	public boolean isNotificationVisible(NotificationType type) {
 		switch(type) {
-			case NO_PLAN:
-				return !hasPlanSelected();
-			case MISSING_SIDE:
-				return !allSidesFilled();
-			default:
-				return false;
+			case NO_PLAN:      return !hasPlanSelected();
+			case MISSING_SIDE: return !allSidesFilled();
+			default:           return false;
 		}
 	}
 	
