@@ -1,4 +1,5 @@
 package mariculture.fishery.fish;
+
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.goldNugget;
@@ -8,74 +9,74 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 
-public class FishGold extends FishSpecies {	
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { -5, 22 };
-	}
-	
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH };
-	}
+public class FishGold extends FishSpecies {
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { -5, 22 };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return true;
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH };
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 6;
-	}
+    @Override
+    public boolean isDominant() {
+        return true;
+    }
 
-	@Override
-	public int getFertility() {
-		return 500;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 6;
+    }
 
-	@Override
-	public int getBaseProductivity() {
-		return 2;
-	}
-	
-	@Override
-	public int getWaterRequired() {
-		return 25;
-	}
+    @Override
+    public int getFertility() {
+        return 500;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletWater, 4D);
-	}
+    @Override
+    public int getBaseProductivity() {
+        return 2;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 1.125D;
-	}
+    @Override
+    public int getWaterRequired() {
+        return 25;
+    }
 
-	@Override
-	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(goldNugget);
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletWater, 4D);
+    }
 
-	@Override
-	public int getLiquifiedProductChance() {
-		return 20;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 1.125D;
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.OLD;
-	}
+    @Override
+    public ItemStack getLiquifiedProduct() {
+        return new ItemStack(goldNugget);
+    }
 
-	@Override
-	public int getCatchChance() {
-		return 15;
-	}
+    @Override
+    public int getLiquifiedProductChance() {
+        return 20;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return Time.isNoon(time)? 5D: 0D;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.OLD;
+    }
+
+    @Override
+    public int getCatchChance() {
+        return 15;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return Time.isNoon(time) ? 5D : 0D;
+    }
 }

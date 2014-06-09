@@ -14,34 +14,32 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class Transport extends RegistrationModule {
-	public static Item speedBoat;
+    public static Item speedBoat;
 
-	@Override
-	public void registerHandlers() {
-		return;
-	}
-	
-	@Override
-	public void registerBlocks() {
-		return;
-	}
-	
-	@Override
-	public void registerItems() {
-		speedBoat = new ItemSpeedBoat().setUnlocalizedName("boat.speed");
-		RegistryHelper.registerItems(new Item[] { speedBoat });
-	}
-	
-	@Override
-	public void registerOther() {
-		MaricultureTab.tabWorld.setIcon(new ItemStack(speedBoat), true);
-		EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 80, 3, false);
-	}
+    @Override
+    public void registerHandlers() {
+        return;
+    }
 
-	@Override
-	public void registerRecipes() {
-		RecipeHelper.addShaped(new ItemStack(speedBoat), new Object[] {
-			"G F", "AAA", 'G', Blocks.glass_pane, 'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), 'A', "ingotAluminum"
-		});
-	}
+    @Override
+    public void registerBlocks() {
+        return;
+    }
+
+    @Override
+    public void registerItems() {
+        speedBoat = new ItemSpeedBoat().setUnlocalizedName("boat.speed");
+        RegistryHelper.registerItems(new Item[] { speedBoat });
+    }
+
+    @Override
+    public void registerOther() {
+        MaricultureTab.tabWorld.setIcon(new ItemStack(speedBoat), true);
+        EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 80, 3, false);
+    }
+
+    @Override
+    public void registerRecipes() {
+        RecipeHelper.addShaped(new ItemStack(speedBoat), new Object[] { "G F", "AAA", 'G', Blocks.glass_pane, 'F', new ItemStack(Core.crafting, 1, CraftingMeta.COOLER), 'A', "ingotAluminum" });
+    }
 }

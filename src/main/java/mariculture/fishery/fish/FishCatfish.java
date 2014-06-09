@@ -12,81 +12,81 @@ import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 
-public class FishCatfish extends FishSpecies {	
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 20, 45 };
-	}
-	
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH, BRACKISH, SALINE };
-	}
+public class FishCatfish extends FishSpecies {
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 20, 45 };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return true;
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH, BRACKISH, SALINE };
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 22;
-	}
+    @Override
+    public boolean isDominant() {
+        return true;
+    }
 
-	@Override
-	public int getFertility() {
-		return 4000;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 22;
+    }
 
-	@Override
-	public int getFoodConsumption() {
-		return 2;
-	}
+    @Override
+    public int getFertility() {
+        return 4000;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 100;
-	}
+    @Override
+    public int getFoodConsumption() {
+        return 2;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletWater, 8.0D);
-		addProduct(dropletAqua, 2.0D);
-		addProduct(dropletEarth, 5.0D);
-	}
+    @Override
+    public int getWaterRequired() {
+        return 100;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 1.950D;
-	}
-	
-	@Override
-	public int getFishMealSize() {
-		return 7;
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletWater, 8.0D);
+        addProduct(dropletAqua, 2.0D);
+        addProduct(dropletEarth, 5.0D);
+    }
 
-	@Override
-	public float getFoodSaturation() {
-		return 0.8F;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 1.950D;
+    }
 
-	@Override
-	public int getFoodDuration() {
-		return 48;
-	}
+    @Override
+    public int getFishMealSize() {
+        return 7;
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.GOOD;
-	}
+    @Override
+    public float getFoodSaturation() {
+        return 0.8F;
+    }
 
-	@Override
-	public double getCatchChance(int height, int time) {
-		return Height.isShallows(height)? 25D: 0D;
-	}
+    @Override
+    public int getFoodDuration() {
+        return 48;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return Height.isShallows(height) && !Time.isMidnight(time)? 5D: 0D;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.GOOD;
+    }
+
+    @Override
+    public double getCatchChance(int height, int time) {
+        return Height.isShallows(height) ? 25D : 0D;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return Height.isShallows(height) && !Time.isMidnight(time) ? 5D : 0D;
+    }
 }

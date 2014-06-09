@@ -12,46 +12,46 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class MaterialPearlGold extends JewelryMaterial {
-	@Override
-	public String getColor() {
-		return Text.YELLOW;
-	}
-	
-	@Override
-	public int onKill(LivingDeathEvent event, EntityPlayer player) {
-		if(Rand.nextInt(50)) {
-			SpawnItemHelper.spawnItem(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, new ItemStack(Items.gold_nugget));
-			return 2;
-		} else return 0;
-	}
-	
-	@Override
-	public int getExtraEnchantments(JewelryType type) {
-		return type == JewelryType.BRACELET?2 : type == JewelryType.RING? 0: 1;
-	}
+    @Override
+    public String getColor() {
+        return Text.YELLOW;
+    }
 
-	@Override
-	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return type == JewelryType.BRACELET? 5: 4;
-	}
+    @Override
+    public int onKill(LivingDeathEvent event, EntityPlayer player) {
+        if (Rand.nextInt(50)) {
+            SpawnItemHelper.spawnItem(event.entity.worldObj, (int) event.entity.posX, (int) event.entity.posY, (int) event.entity.posZ, new ItemStack(Items.gold_nugget));
+            return 2;
+        } else return 0;
+    }
 
-	@Override
-	public float getRepairModifier(JewelryType type) {
-		return 2.0F;
-	}
+    @Override
+    public int getExtraEnchantments(JewelryType type) {
+        return type == JewelryType.BRACELET ? 2 : type == JewelryType.RING ? 0 : 1;
+    }
 
-	@Override
-	public float getHitsModifier(JewelryType type) {
-		return 1.0F;
-	}
-	
-	@Override
-	public float getDurabilityModifier(JewelryType type) {
-		return 0.8F;
-	}
-	
-	@Override
-	public ItemStack getCraftingItem(JewelryType type) {
-		return new ItemStack(Core.pearls, 1, PearlColor.GOLD);
-	}
+    @Override
+    public int getMaximumEnchantmentLevel(JewelryType type) {
+        return type == JewelryType.BRACELET ? 5 : 4;
+    }
+
+    @Override
+    public float getRepairModifier(JewelryType type) {
+        return 2.0F;
+    }
+
+    @Override
+    public float getHitsModifier(JewelryType type) {
+        return 1.0F;
+    }
+
+    @Override
+    public float getDurabilityModifier(JewelryType type) {
+        return 0.8F;
+    }
+
+    @Override
+    public ItemStack getCraftingItem(JewelryType type) {
+        return new ItemStack(Core.pearls, 1, PearlColor.GOLD);
+    }
 }

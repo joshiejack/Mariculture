@@ -18,41 +18,47 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import enchiridion.api.DisplayRegistry;
 
 public class EventHandler {
-	public static boolean isLoaded = false;
-	@SubscribeEvent
-	public void onPlayerLogin(PlayerLoggedInEvent event) {
-		if(GeneralStuff.SPAWN_BOOKS) BookSpawnHelper.spawn(event.player, GuideMeta.PROCESSING);
-	}
-	
-	@SubscribeEvent
-	public void onCrafting(ItemCraftedEvent event) {
-		if(GeneralStuff.SPAWN_BOOKS) {
-			ItemStack stack = event.crafting;
-			if(Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) 	BookSpawnHelper.spawn(event.player, GuideMeta.DIVING);
-			if(Modules.isActive(Modules.fishery) && stack.getItem() == Fishery.rodReed) 		BookSpawnHelper.spawn(event.player, GuideMeta.FISHING);
-			if(Modules.isActive(Modules.factory) && stack.getItem() == Core.crafting && stack.getItemDamage() == CraftingMeta.WHEEL) {
-				BookSpawnHelper.spawn(event.player, GuideMeta.MACHINES);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onOreDictionaryRegistration(OreRegisterEvent event) {
-		//Initialize all existing Entries
-		if(!isLoaded) {
-			String[] ores = OreDictionary.getOreNames();
-			for(String ore: ores) {
-				ArrayList<ItemStack> stacks = OreDictionary.getOres(ore);
-				for(ItemStack stack: stacks) {
-					if(stack != null && ore != null && !ore.equals("")) {
-						DisplayRegistry.registerOreDictionaryCycling(ore);
-					}
-				}
-			}
-			
-			isLoaded = true;
-		}
-		
-		DisplayRegistry.registerOreDictionaryCycling(event.Name);
-	}
+    public static boolean isLoaded = false;
+
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerLoggedInEvent event) {
+        if (GeneralStuff.SPAWN_BOOKS) {
+            BookSpawnHelper.spawn(event.player, GuideMeta.PROCESSING);
+        }
+    }
+
+    @SubscribeEvent
+    public void onCrafting(ItemCraftedEvent event) {
+        if (GeneralStuff.SPAWN_BOOKS) {
+            ItemStack stack = event.crafting;
+            if (Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) {
+                BookSpawnHelper.spawn(event.player, GuideMeta.DIVING);
+            }
+            if (Modules.isActive(Modules.fishery) && stack.getItem() == Fishery.rodReed) {
+                BookSpawnHelper.spawn(event.player, GuideMeta.FISHING);
+            }
+            if (Modules.isActive(Modules.factory) && stack.getItem() == Core.crafting && stack.getItemDamage() == CraftingMeta.WHEEL) {
+                BookSpawnHelper.spawn(event.player, GuideMeta.MACHINES);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onOreDictionaryRegistration(OreRegisterEvent event) {
+        //Initialize all existing Entries
+        if (!isLoaded) {
+            String[] ores = OreDictionary.getOreNames();
+            for (String ore : ores) {
+                ArrayList<ItemStack> stacks = OreDictionary.getOres(ore);
+                for (ItemStack stack : stacks)
+                    if (stack != null && ore != null && !ore.equals("")) {
+                        DisplayRegistry.registerOreDictionaryCycling(ore);
+                    }
+            }
+
+            isLoaded = true;
+        }
+
+        DisplayRegistry.registerOreDictionaryCycling(event.Name);
+    }
 }

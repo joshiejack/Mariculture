@@ -19,107 +19,107 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FishBass extends FishSpecies {	
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 10, 15 };
-	}
-	
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH, BRACKISH, SALINE };
-	}
+public class FishBass extends FishSpecies {
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 10, 15 };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return true;
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH, BRACKISH, SALINE };
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 16;
-	}
+    @Override
+    public boolean isDominant() {
+        return true;
+    }
 
-	@Override
-	public int getFertility() {
-		return 2000;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 16;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 45;
-	}
+    @Override
+    public int getFertility() {
+        return 2000;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletWater, 4D);
-		addProduct(dropletDestroy, 5.0D);
-		addProduct(dropletPlant, 3.0D);
-		addProduct(gunpowder, 7.5D);
-	}
+    @Override
+    public int getWaterRequired() {
+        return 45;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 4.325D;
-	}
-	
-	@Override
-	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(gunpowder);
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletWater, 4D);
+        addProduct(dropletDestroy, 5.0D);
+        addProduct(dropletPlant, 3.0D);
+        addProduct(gunpowder, 7.5D);
+    }
 
-	@Override
-	public int getFishMealSize() {
-		return 5;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 4.325D;
+    }
 
-	@Override
-	public int getFoodStat() {
-		return 1;
-	}
+    @Override
+    public ItemStack getLiquifiedProduct() {
+        return new ItemStack(gunpowder);
+    }
 
-	@Override
-	public float getFoodSaturation() {
-		return 0.1F;
-	}
+    @Override
+    public int getFishMealSize() {
+        return 5;
+    }
 
-	@Override
-	public int getFoodDuration() {
-		return 1;
-	}
+    @Override
+    public int getFoodStat() {
+        return 1;
+    }
 
-	@Override
-	public boolean canAlwaysEat() {
-		return true;
-	}
+    @Override
+    public float getFoodSaturation() {
+        return 0.1F;
+    }
 
-	@Override
-	public ItemStack onRightClick(World world, EntityPlayer player, ItemStack stack, Random rand) {
-		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
-		}
+    @Override
+    public int getFoodDuration() {
+        return 1;
+    }
 
-		world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
+    @Override
+    public boolean canAlwaysEat() {
+        return true;
+    }
 
-		if (!world.isRemote) {
-			world.spawnEntityInWorld(new EntityBass(world, player));
-		}
+    @Override
+    public ItemStack onRightClick(World world, EntityPlayer player, ItemStack stack, Random rand) {
+        if (!player.capabilities.isCreativeMode) {
+            --stack.stackSize;
+        }
 
-		return stack;
-	}
-	
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.GOOD;
-	}
+        world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
 
-	@Override
-	public double getCatchChance(int height, int time) {
-		return Height.isOverground(height) ? 15D : 5D;
-	}
+        if (!world.isRemote) {
+            world.spawnEntityInWorld(new EntityBass(world, player));
+        }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return Height.isOverground(height) ? 10D : 0D;
-	}
+        return stack;
+    }
+
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.GOOD;
+    }
+
+    @Override
+    public double getCatchChance(int height, int time) {
+        return Height.isOverground(height) ? 15D : 5D;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return Height.isOverground(height) ? 10D : 0D;
+    }
 }

@@ -49,123 +49,120 @@ import forestry.api.storage.EnumBackpackType;
 import forestry.api.storage.IBackpackDefinition;
 
 public class PluginForestry extends Plugin {
-	public static AquaBackpack backpack;
-	public static Item aquaBackpackT1;
-	public static Item aquaBackpackT2;
+    public static AquaBackpack backpack;
+    public static Item aquaBackpackT1;
+    public static Item aquaBackpackT2;
 
-	@Override
-	public void preInit() {
-		backpack = new AquaBackpack();
-		aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T1);
-		aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T2);
-		GameRegistry.registerItem(aquaBackpackT1, "aquaBackpackT1");
-		GameRegistry.registerItem(aquaBackpackT2, "aquaBackpackT2");
-	}
+    @Override
+    public void preInit() {
+        backpack = new AquaBackpack();
+        aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T1);
+        aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T2);
+        GameRegistry.registerItem(aquaBackpackT1, "aquaBackpackT1");
+        GameRegistry.registerItem(aquaBackpackT2, "aquaBackpackT2");
+    }
 
-	public void addBee(String str, int num) {
-		try {
-			ItemStack bee = new ItemStack(GameRegistry.findItem("Forestry", str));
-			if (bee != null) {
-				RecipeHelper.addShapeless(new ItemStack(Fishery.bait, num, BaitMeta.BEE), new Object[] { bee });
-			}
-		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture failed to add forestry bees, as convertible to bee bait");
-		}
-	}
+    public void addBee(String str, int num) {
+        try {
+            ItemStack bee = new ItemStack(GameRegistry.findItem("Forestry", str));
+            if (bee != null) {
+                RecipeHelper.addShapeless(new ItemStack(Fishery.bait, num, BaitMeta.BEE), new Object[] { bee });
+            }
+        } catch (Exception e) {
+            LogHandler.log(Level.INFO, "Mariculture failed to add forestry bees, as convertible to bee bait");
+        }
+    }
 
-	@Override
-	public void init() {
-		backpack.addValidItem(oyster);
-		backpack.addValidItem(ink);
-		backpack.addValidItem(pearls);
-		backpack.addValidItem(fish);
-		backpack.addValidItem(new ItemStack(lily));
-		if (Modules.isActive(Modules.fishery)) {
-			addBee("beeDroneGE", 1);
-			addBee("beePrincessGE", 5);
-			addBee("beeQueenGE", 7);
-			backpack.addValidItem(fishMeal);
-			backpack.addValidItem(new ItemStack(Fishery.net));
-			backpack.addValidItem(new ItemStack(Fishery.fishy));
-			backpack.addValidItem(new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE));
-			for (int i = MaterialsMeta.DROP_EARTH; i <= MaterialsMeta.DROP_HEALTH; i++) {
-				backpack.addValidItem(new ItemStack(Core.materials, 1, i));
-			}
+    @Override
+    public void init() {
+        backpack.addValidItem(oyster);
+        backpack.addValidItem(ink);
+        backpack.addValidItem(pearls);
+        backpack.addValidItem(fish);
+        backpack.addValidItem(new ItemStack(lily));
+        if (Modules.isActive(Modules.fishery)) {
+            addBee("beeDroneGE", 1);
+            addBee("beePrincessGE", 5);
+            addBee("beeQueenGE", 7);
+            backpack.addValidItem(fishMeal);
+            backpack.addValidItem(new ItemStack(Fishery.net));
+            backpack.addValidItem(new ItemStack(Fishery.fishy));
+            backpack.addValidItem(new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE));
+            for (int i = MaterialsMeta.DROP_EARTH; i <= MaterialsMeta.DROP_HEALTH; i++) {
+                backpack.addValidItem(new ItemStack(Core.materials, 1, i));
+            }
 
-			FuelManager.bronzeEngineFuel.put(Fluids.getFluid(Fluids.fish_oil), new EngineBronzeFuel(Fluids.getFluid(Fluids.fish_oil), 1, 7500, 1));
-			for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
-				FishSpecies fish = species.getValue();
-				if (fish.getFishOilVolume() > 0 && fish.getLiquifiedProduct() != null && fish.getLiquifiedProductChance() > 0) {
-					RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(vanillaFish, 1, fish.getID()) }, Fluids.getStack(Fluids.fish_oil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(),
-							fish.getLiquifiedProductChance());
-				}
-			}
-		}
+            FuelManager.bronzeEngineFuel.put(Fluids.getFluid(Fluids.fish_oil), new EngineBronzeFuel(Fluids.getFluid(Fluids.fish_oil), 1, 7500, 1));
+            for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+                FishSpecies fish = species.getValue();
+                if (fish.getFishOilVolume() > 0 && fish.getLiquifiedProduct() != null && fish.getLiquifiedProductChance() > 0) {
+                    RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(vanillaFish, 1, fish.getID()) }, Fluids.getStack(Fluids.fish_oil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
+                }
+            }
+        }
 
-		RecipeHelper.addShaped(new ItemStack(aquaBackpackT1), new Object[] { "SWS", "FCF", "SWS", 'S', string, 'W', wool, 'F', fish, 'C', chest });
-		if (Modules.isActive(Modules.worldplus)) {
-			backpack.addValidItem(new ItemStack(WorldPlus.plantGrowable, 1, OreDictionary.WILDCARD_VALUE));
-			backpack.addValidItem(new ItemStack(WorldPlus.plantStatic, 1, OreDictionary.WILDCARD_VALUE));
-			FuelManager.fermenterFuel.put(new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP), new FermenterFuel(new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP), 150, 1));
-		}
+        RecipeHelper.addShaped(new ItemStack(aquaBackpackT1), new Object[] { "SWS", "FCF", "SWS", 'S', string, 'W', wool, 'F', fish, 'C', chest });
+        if (Modules.isActive(Modules.worldplus)) {
+            backpack.addValidItem(new ItemStack(WorldPlus.plantGrowable, 1, OreDictionary.WILDCARD_VALUE));
+            backpack.addValidItem(new ItemStack(WorldPlus.plantStatic, 1, OreDictionary.WILDCARD_VALUE));
+            FuelManager.fermenterFuel.put(new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP), new FermenterFuel(new ItemStack(WorldPlus.plantStatic, 1, CoralMeta.KELP), 150, 1));
+        }
 
-		try {
-			ItemStack crafting = new ItemStack(GameRegistry.findItem("Forestry", "craftingMaterial"), 1, 3);
-			RecipeManagers.carpenterManager.addRecipe(200, FluidRegistry.getFluidStack("water", 1000), null, new ItemStack(aquaBackpackT2), new Object[] { "WDW", "WTW", "WWW", 'D', diamond, 'W', crafting, 'T', aquaBackpackT1 });
-		} catch (Exception e) {
-			LogHandler.log(Level.INFO, "Mariculture was unsuccesful at adding the recipe for the woven aquatic backpack");
-		}
+        try {
+            ItemStack crafting = new ItemStack(GameRegistry.findItem("Forestry", "craftingMaterial"), 1, 3);
+            RecipeManagers.carpenterManager.addRecipe(200, FluidRegistry.getFluidStack("water", 1000), null, new ItemStack(aquaBackpackT2), new Object[] { "WDW", "WTW", "WWW", 'D', diamond, 'W', crafting, 'T', aquaBackpackT1 });
+        } catch (Exception e) {
+            LogHandler.log(Level.INFO, "Mariculture was unsuccesful at adding the recipe for the woven aquatic backpack");
+        }
 
-	}
+    }
 
-	@Override
-	public void postInit() {
+    @Override
+    public void postInit() {
 
-	}
+    }
 
-	public class AquaBackpack implements IBackpackDefinition {
-		private ArrayList<ItemStack> items = new ArrayList();
+    public class AquaBackpack implements IBackpackDefinition {
+        private ArrayList<ItemStack> items = new ArrayList();
 
-		@Override
-		public String getKey() {
-			return "AQUA";
-		}
+        @Override
+        public String getKey() {
+            return "AQUA";
+        }
 
-		@Override
-		public String getName() {
-			return Text.localize("item.aquaBackpack.name");
-		}
+        @Override
+        public String getName() {
+            return Text.localize("item.aquaBackpack.name");
+        }
 
-		@Override
-		public int getPrimaryColour() {
-			return 4301985;
-		}
+        @Override
+        public int getPrimaryColour() {
+            return 4301985;
+        }
 
-		@Override
-		public int getSecondaryColour() {
-			return 1736058;
-		}
+        @Override
+        public int getSecondaryColour() {
+            return 1736058;
+        }
 
-		@Override
-		public void addValidItem(ItemStack validItem) {
-			if (!items.contains(validItem)) {
-				items.add(validItem);
-			}
-		}
+        @Override
+        public void addValidItem(ItemStack validItem) {
+            if (!items.contains(validItem)) {
+                items.add(validItem);
+            }
+        }
 
-		@Override
-		public Collection<ItemStack> getValidItems(EntityPlayer player) {
-			return items;
-		}
+        @Override
+        public Collection<ItemStack> getValidItems(EntityPlayer player) {
+            return items;
+        }
 
-		@Override
-		public boolean isValidItem(EntityPlayer player, ItemStack itemstack) {
-			for (ItemStack stack : items) {
-				if (RecipeItem.equals(itemstack, stack))
-					return true;
-			}
+        @Override
+        public boolean isValidItem(EntityPlayer player, ItemStack itemstack) {
+            for (ItemStack stack : items)
+                if (RecipeItem.equals(itemstack, stack)) return true;
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }

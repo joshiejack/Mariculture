@@ -10,19 +10,21 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TitaniumPart extends Item implements IToolPart {
-	public TitaniumPart() {
-		setCreativeTab(TConstructRegistry.materialTab);
-		setMaxStackSize(64);
-		setMaxDamage(0);
-		setHasSubtypes(true);
-	}
+    public TitaniumPart() {
+        setCreativeTab(TConstructRegistry.materialTab);
+        setMaxStackSize(64);
+        setMaxDamage(0);
+        setHasSubtypes(true);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister icon) {
-		this.itemIcon = icon.registerIcon(Mariculture.modid + ":parts/" + ((this.getUnlocalizedName()).replace(".", "_")).substring(5));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister icon) {
+        itemIcon = icon.registerIcon(Mariculture.modid + ":parts/" + this.getUnlocalizedName().replace(".", "_").substring(5));
+    }
 
-	public int getMaterialID(ItemStack stack) {
-		return TitaniumTools.titanium_id;
-	}
+    @Override
+    public int getMaterialID(ItemStack stack) {
+        return TitaniumTools.titanium_id;
+    }
 }

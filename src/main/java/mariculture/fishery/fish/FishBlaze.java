@@ -11,95 +11,95 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FishBlaze extends FishSpecies {	
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 50, 100 };
-	}
-	
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH };
-	}
-	
-	@Override
-	public boolean isLavaFish() {
-		return true;
-	}
+public class FishBlaze extends FishSpecies {
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 50, 100 };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return false;
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH };
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 15;
-	}
+    @Override
+    public boolean isLavaFish() {
+        return true;
+    }
 
-	@Override
-	public int getFertility() {
-		return 350;
-	}
+    @Override
+    public boolean isDominant() {
+        return false;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 125;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 15;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletNether, 10D);
-		addProduct(blazePowder, 5.0D);
-	}
+    @Override
+    public int getFertility() {
+        return 350;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 1.0D;
-	}
+    @Override
+    public int getWaterRequired() {
+        return 125;
+    }
 
-	@Override
-	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(blazeRod);
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletNether, 10D);
+        addProduct(blazePowder, 5.0D);
+    }
 
-	@Override
-	public int getLiquifiedProductChance() {
-		return 20;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 1.0D;
+    }
 
-	@Override
-	public int getFishMealSize() {
-		return 2;
-	}
+    @Override
+    public ItemStack getLiquifiedProduct() {
+        return new ItemStack(blazeRod);
+    }
 
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		player.setFire(7);
-	}
+    @Override
+    public int getLiquifiedProductChance() {
+        return 20;
+    }
 
-	@Override
-	public int getLightValue() {
-		return 1;
-	}
+    @Override
+    public int getFishMealSize() {
+        return 2;
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.SUPER;
-	}
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        player.setFire(7);
+    }
 
-	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.isHellWorld;
-	}
+    @Override
+    public int getLightValue() {
+        return 1;
+    }
 
-	@Override
-	public int getCatchChance() {
-		return 20;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.SUPER;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return height >= 98 && height <= 102? 5.0D: 0D;
-	}
+    @Override
+    public boolean isWorldCorrect(World world) {
+        return world.provider.isHellWorld;
+    }
+
+    @Override
+    public int getCatchChance() {
+        return 20;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return height >= 98 && height <= 102 ? 5.0D : 0D;
+    }
 }

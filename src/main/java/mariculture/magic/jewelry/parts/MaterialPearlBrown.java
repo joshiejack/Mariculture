@@ -16,59 +16,56 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public class MaterialPearlBrown extends JewelryMaterial {
-	@Override
-	public String getColor() {
-		return Text.ORANGE;
-	}
-	
-	@Override
-	public int onBlockBreak(HarvestDropsEvent event, EntityPlayer player) {
-		int dmg = 0;
-		if(Modules.isActive(Modules.fishery)) {
-			if(event.block == Blocks.dirt || event.block == Blocks.grass) {
-				dmg = 64;
-				ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(new ItemStack(event.block));
-				for(RecipeSifter sifter: recipe) {
-					if(Rand.rand.nextInt(100) < sifter.chance) {
-						ItemStack cloned = sifter.bait.copy();
-						cloned.stackSize = sifter.minCount + Rand.rand.nextInt((sifter.maxCount + 1) - sifter.minCount);
-						event.drops.add(sifter.bait);
-						dmg--;
-					}
-				}
-			}
-		}
-		
-		return dmg > 0? dmg: 1;
-	}
+    @Override
+    public String getColor() {
+        return Text.ORANGE;
+    }
 
-	@Override
-	public int getExtraEnchantments(JewelryType type) {
-		return 1;
-	}
+    @Override
+    public int onBlockBreak(HarvestDropsEvent event, EntityPlayer player) {
+        int dmg = 0;
+        if (Modules.isActive(Modules.fishery)) if (event.block == Blocks.dirt || event.block == Blocks.grass) {
+            dmg = 64;
+            ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(new ItemStack(event.block));
+            for (RecipeSifter sifter : recipe)
+                if (Rand.rand.nextInt(100) < sifter.chance) {
+                    ItemStack cloned = sifter.bait.copy();
+                    cloned.stackSize = sifter.minCount + Rand.rand.nextInt(sifter.maxCount + 1 - sifter.minCount);
+                    event.drops.add(sifter.bait);
+                    dmg--;
+                }
+        }
 
-	@Override
-	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return 5;
-	}
+        return dmg > 0 ? dmg : 1;
+    }
 
-	@Override
-	public float getRepairModifier(JewelryType type) {
-		return 1.0F;
-	}
+    @Override
+    public int getExtraEnchantments(JewelryType type) {
+        return 1;
+    }
 
-	@Override
-	public float getHitsModifier(JewelryType type) {
-		return 0.75F;
-	}
-	
-	@Override
-	public float getDurabilityModifier(JewelryType type) {
-		return 1.25F;
-	}
-	
-	@Override
-	public ItemStack getCraftingItem(JewelryType type) {
-		return new ItemStack(Core.pearls, 1, PearlColor.BROWN);
-	}
+    @Override
+    public int getMaximumEnchantmentLevel(JewelryType type) {
+        return 5;
+    }
+
+    @Override
+    public float getRepairModifier(JewelryType type) {
+        return 1.0F;
+    }
+
+    @Override
+    public float getHitsModifier(JewelryType type) {
+        return 0.75F;
+    }
+
+    @Override
+    public float getDurabilityModifier(JewelryType type) {
+        return 1.25F;
+    }
+
+    @Override
+    public ItemStack getCraftingItem(JewelryType type) {
+        return new ItemStack(Core.pearls, 1, PearlColor.BROWN);
+    }
 }

@@ -5,7 +5,7 @@ import mariculture.core.util.IHasGUI;
 import net.minecraft.item.ItemStack;
 
 public class TileBookshelf extends TileStorage implements IHasGUI {
-	public TileBookshelf() {
-		this.inventory = new ItemStack[9];
-	}
+    public TileBookshelf() {
+        inventory = new ItemStack[9];
+    }
 }

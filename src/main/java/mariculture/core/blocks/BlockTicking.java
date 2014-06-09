@@ -30,111 +30,112 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockTicking extends BlockFunctional {	
-	public BlockTicking() {
-		super(Material.cloth);
-		setTickRandomly(true);
-	}
-
-	@Override
-	public String getToolType(int meta) {
-		return null;
-	}
-
-	@Override
-	public int getToolLevel(int meta) {
-		return 0;
-	}
-	
-	@Override
-	public float getBlockHardness(World world, int x, int y, int z) {
-		return 0.05F;
-	}
-	
-	@Override
-	public int getRenderType() {
-		return RenderIds.RENDER_ALL;
-	}
-	
-	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
-	
-	@Override
-	public boolean isOpaqueCube() {
-		return false;
-	}
-	
-	@Override
-	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
-		return false;
-	}
-	
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.015625F, 1.0F);
-	}
-	
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-		return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY,		
-			(double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
-	}
-
-	@Override
-	public TileEntity createTileEntity(World world, int meta) {
-		return null;
-	}
-	
-	@Override
-	public boolean doesDrop(int meta) {
-		return false;
-	}
-	
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		if(!BlockHelper.isFishable(world, x, y - 1, z)) {
-			SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
-			world.setBlockToAir(x, y, z);
-		}
-	}
-	
-	@Override
-	public boolean onBlockDropped(World world, int x, int y, int z) { 
-		SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
-		world.setBlockToAir(x, y, z);
-		return false;
-	}
-	
-	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {		
-		if(Rand.nextInt(MachineSpeeds.getNetSpeed())) {
-			ItemStack loot = Fishing.fishing.getCatch(world, x, y, z, null, null);
-			if (loot != null && loot.getItem() instanceof ItemFishy) {
-				SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
-			} else SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Items.fish, 1, Fish.cod.getID()), true, OreDictionary.WILDCARD_VALUE);
-		}
-	}
-	
-	@Override
-	public int getMetaCount() {
-		return WaterMeta.COUNT;
-	}
-	
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		return new ItemStack(Fishery.net, 1, 0);
+public class BlockTicking extends BlockFunctional {
+    public BlockTicking() {
+        super(Material.cloth);
+        setTickRandomly(true);
     }
 
-	@Override
-	public boolean isActive(int meta) {
-		return Modules.isActive(Modules.fishery);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creative, List list) {
-		return;
-	}
+    @Override
+    public String getToolType(int meta) {
+        return null;
+    }
+
+    @Override
+    public int getToolLevel(int meta) {
+        return 0;
+    }
+
+    @Override
+    public float getBlockHardness(World world, int x, int y, int z) {
+        return 0.05F;
+    }
+
+    @Override
+    public int getRenderType() {
+        return RenderIds.RENDER_ALL;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    @Override
+    public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
+        return false;
+    }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.015625F, 1.0F);
+    }
+
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        return AxisAlignedBB.getAABBPool().getAABB(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, int meta) {
+        return null;
+    }
+
+    @Override
+    public boolean doesDrop(int meta) {
+        return false;
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if (!BlockHelper.isFishable(world, x, y - 1, z)) {
+            SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
+            world.setBlockToAir(x, y, z);
+        }
+    }
+
+    @Override
+    public boolean onBlockDropped(World world, int x, int y, int z) {
+        SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
+        world.setBlockToAir(x, y, z);
+        return false;
+    }
+
+    @Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        if (Rand.nextInt(MachineSpeeds.getNetSpeed())) {
+            ItemStack loot = Fishing.fishing.getCatch(world, x, y, z, null, null);
+            if (loot != null && loot.getItem() instanceof ItemFishy) {
+                SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);
+            } else {
+                SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Items.fish, 1, Fish.cod.getID()), true, OreDictionary.WILDCARD_VALUE);
+            }
+        }
+    }
+
+    @Override
+    public int getMetaCount() {
+        return WaterMeta.COUNT;
+    }
+
+    @Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+        return new ItemStack(Fishery.net, 1, 0);
+    }
+
+    @Override
+    public boolean isActive(int meta) {
+        return Modules.isActive(Modules.fishery);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item item, CreativeTabs creative, List list) {
+        return;
+    }
 }

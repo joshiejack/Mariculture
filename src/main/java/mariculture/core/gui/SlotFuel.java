@@ -7,24 +7,24 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SlotFuel extends Slot {
-	private EntityPlayer thePlayer;
-	private int field_75228_b;
+    private EntityPlayer thePlayer;
+    private int field_75228_b;
 
-	public SlotFuel(IInventory inventory, int par2, int par3, int par4) {
-		super(inventory, par2, par3, par4);
-	}
+    public SlotFuel(IInventory inventory, int par2, int par3, int par4) {
+        super(inventory, par2, par3, par4);
+    }
 
-	@Override
-	public boolean isItemValid(ItemStack stack) {
-		return (MaricultureHandlers.crucible.getFuelInfo(stack) != null) ? true : false;
-	}
+    @Override
+    public boolean isItemValid(ItemStack stack) {
+        return MaricultureHandlers.crucible.getFuelInfo(stack) != null ? true : false;
+    }
 
-	@Override
-	public ItemStack decrStackSize(final int par1) {
-		if (this.getHasStack()) {
-			this.field_75228_b += Math.min(par1, this.getStack().stackSize);
-		}
+    @Override
+    public ItemStack decrStackSize(final int par1) {
+        if (getHasStack()) {
+            field_75228_b += Math.min(par1, getStack().stackSize);
+        }
 
-		return super.decrStackSize(par1);
-	}
+        return super.decrStackSize(par1);
+    }
 }

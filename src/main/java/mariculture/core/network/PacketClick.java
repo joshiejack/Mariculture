@@ -8,33 +8,34 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketClick extends PacketCoords implements IMessageHandler<PacketClick, IMessage> {
-	int id;
+    int id;
 
-	public PacketClick() {}
-	public PacketClick(int x, int y, int z, int id) {
-		super(x, y, z);
-		this.id = id;
-	}
+    public PacketClick() {}
 
-	@Override
-	public void toBytes(ByteBuf buffer) {
-		super.toBytes(buffer);
-		buffer.writeInt(id);
-	}
+    public PacketClick(int x, int y, int z, int id) {
+        super(x, y, z);
+        this.id = id;
+    }
 
-	@Override
-	public void fromBytes(ByteBuf buffer) {
-		super.fromBytes(buffer);
-		id = buffer.readInt();
-	}
+    @Override
+    public void toBytes(ByteBuf buffer) {
+        super.toBytes(buffer);
+        buffer.writeInt(id);
+    }
 
-	@Override
-	public IMessage onMessage(PacketClick message, MessageContext ctx) {
-		TileEntity tile = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
-		if (tile != null && tile instanceof IHasClickableButton) {
-			((IHasClickableButton) tile).handleButtonClick(message.id);
-		}
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        super.fromBytes(buffer);
+        id = buffer.readInt();
+    }
 
-		return null;
-	}
+    @Override
+    public IMessage onMessage(PacketClick message, MessageContext ctx) {
+        TileEntity tile = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
+        if (tile != null && tile instanceof IHasClickableButton) {
+            ((IHasClickableButton) tile).handleButtonClick(message.id);
+        }
+
+        return null;
+    }
 }

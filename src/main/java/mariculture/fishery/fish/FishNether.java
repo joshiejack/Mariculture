@@ -13,74 +13,74 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishNether extends FishSpecies {
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 45, 100 };
-	}
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 45, 100 };
+    }
 
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH };
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH };
+    }
 
-	@Override
-	public boolean isLavaFish() {
-		return true;
-	}
+    @Override
+    public boolean isLavaFish() {
+        return true;
+    }
 
-	@Override
-	public boolean isDominant() {
-		return true;
-	}
+    @Override
+    public boolean isDominant() {
+        return true;
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 6;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 6;
+    }
 
-	@Override
-	public int getFertility() {
-		return 666;
-	}
+    @Override
+    public int getFertility() {
+        return 666;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 55;
-	}
+    @Override
+    public int getWaterRequired() {
+        return 55;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletNether, 5D);
-		addProduct(netherWart, 1D);
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletNether, 5D);
+        addProduct(netherWart, 1D);
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 0.666D;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 0.666D;
+    }
 
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 120, 0));
-	}
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 120, 0));
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.OLD;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.OLD;
+    }
 
-	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.isHellWorld;
-	}
+    @Override
+    public boolean isWorldCorrect(World world) {
+        return world.provider.isHellWorld;
+    }
 
-	@Override
-	public int getCatchChance() {
-		return 45;
-	}
+    @Override
+    public int getCatchChance() {
+        return 45;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return Height.isShallows(height) ? 55D : 5D;
-	}
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return Height.isShallows(height) ? 55D : 5D;
+    }
 }

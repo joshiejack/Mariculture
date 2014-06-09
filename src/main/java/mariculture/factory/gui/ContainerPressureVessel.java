@@ -14,72 +14,56 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerPressureVessel extends ContainerMachine {
-	public ContainerPressureVessel(TilePressureVessel tile, InventoryPlayer playerInventory) {
-		super(tile);
-		
-		addUpgradeSlots(tile);
-		addSlotToContainer(new SlotFluidContainer(tile, 3, 128, 25));
-		addSlotToContainer(new SlotOutput(tile, 4, 128, 56));
-		addSlotToContainer(new Slot(tile, 5, 37, 40));
+    public ContainerPressureVessel(TilePressureVessel tile, InventoryPlayer playerInventory) {
+        super(tile);
 
-		bindPlayerInventory(playerInventory, 10);
-	}
+        addUpgradeSlots(tile);
+        addSlotToContainer(new SlotFluidContainer(tile, 3, 128, 25));
+        addSlotToContainer(new SlotOutput(tile, 4, 128, 56));
+        addSlotToContainer(new Slot(tile, 5, 37, 40));
 
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = ((IInventory)tile).getSizeInventory();
-		int low = size + 27;
-		int high = low + 9;
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(slotID);
+        bindPlayerInventory(playerInventory, 10);
+    }
 
-		if (slot != null && slot.getHasStack()) {
-			ItemStack stack = slot.getStack();
-			itemstack = stack.copy();
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+        int size = ((IInventory) tile).getSizeInventory();
+        int low = size + 27;
+        int high = low + 9;
+        ItemStack itemstack = null;
+        Slot slot = (Slot) inventorySlots.get(slotID);
 
-			if (slotID < size) {
-				if (!this.mergeItemStack(stack, size, high, true)) {
-					return null;
-				}
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            itemstack = stack.copy();
 
-				slot.onSlotChange(stack, itemstack);
-			} else if (slotID >= size) {
-				if (itemstack.getItem() == Factory.fludd) {
-					if (!this.mergeItemStack(stack, 5, 6, false)) { // Slot 0-0
-						return null;
-					}
-				} else if (stack.getItem() instanceof IItemUpgrade) {
-					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 1-3
-						return null;
-					}
-				} else if (FluidHelper.isFluidOrEmpty(stack)) {
-					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
-						return null;
-					}
-				} else if (slotID >= size && slotID < low) {
-					if (!this.mergeItemStack(stack, low, high, false)) {
-						return null;
-					}
-				} else if (slotID >= low && slotID < high && !this.mergeItemStack(stack, high, low, false)) {
-					return null;
-				}
-			} else if (!this.mergeItemStack(stack, size, high, false)) {
-				return null;
-			}
+            if (slotID < size) {
+                if (!mergeItemStack(stack, size, high, true)) return null;
 
-			if (stack.stackSize == 0) {
-				slot.putStack((ItemStack) null);
-			} else {
-				slot.onSlotChanged();
-			}
+                slot.onSlotChange(stack, itemstack);
+            } else if (slotID >= size) {
+                if (itemstack.getItem() == Factory.fludd) {
+                    if (!mergeItemStack(stack, 5, 6, false)) return null;
+                } else if (stack.getItem() instanceof IItemUpgrade) {
+                    if (!mergeItemStack(stack, 0, 3, false)) return null;
+                } else if (FluidHelper.isFluidOrEmpty(stack)) {
+                    if (!mergeItemStack(stack, 3, 4, false)) return null;
+                } else if (slotID >= size && slotID < low) {
+                    if (!mergeItemStack(stack, low, high, false)) return null;
+                } else if (slotID >= low && slotID < high && !mergeItemStack(stack, high, low, false)) return null;
+            } else if (!mergeItemStack(stack, size, high, false)) return null;
 
-			if (stack.stackSize == itemstack.stackSize) {
-				return null;
-			}
+            if (stack.stackSize == 0) {
+                slot.putStack((ItemStack) null);
+            } else {
+                slot.onSlotChanged();
+            }
 
-			slot.onPickupFromSlot(player, stack);
-		}
+            if (stack.stackSize == itemstack.stackSize) return null;
 
-		return itemstack;
-	}
+            slot.onPickupFromSlot(player, stack);
+        }
+
+        return itemstack;
+    }
 }

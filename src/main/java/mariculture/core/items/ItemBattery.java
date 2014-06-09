@@ -18,80 +18,76 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBattery extends ItemEnergyContainer implements IItemRegistry {
-	public ItemBattery(int capacity, int maxReceive, int maxExtract) {
-		super(capacity, maxReceive, maxExtract);
-		this.setCreativeTab(MaricultureTab.tabCore);
-		this.setHasSubtypes(true);
-		this.setMaxStackSize(1);
-	}
-	
-	public static ItemStack make(ItemStack stack, int power) {
-		if(stack.stackTagCompound == null) {
-			stack.setTagCompound(new NBTTagCompound());
-		}
-		
-		stack.stackTagCompound.setInteger("Energy", power);
-		
-		return stack.copy();
-	}
+    public ItemBattery(int capacity, int maxReceive, int maxExtract) {
+        super(capacity, maxReceive, maxExtract);
+        setCreativeTab(MaricultureTab.tabCore);
+        setHasSubtypes(true);
+        setMaxStackSize(1);
+    }
 
-	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		String theName, name = getUnlocalizedName().substring(5);
-		String[] aName = name.split("\\.");
-		theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
-	}
-	
-	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		if(stack.stackTagCompound == null) {
-			return 1 + this.capacity;
-		}
-		
-		return 1 + this.capacity - stack.stackTagCompound.getInteger("Energy");
-	}
-	
-	@Override
-	public int getMaxDamage(ItemStack stack) {
-		return 1 + this.capacity;
-	}
-	
-	@Override
-	public boolean isDamaged(ItemStack stack) {
-		return true;
-	}
-	
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if(stack.stackTagCompound == null) {
-			return;
-		}
-		
-		list.add(Text.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " " + Text.translate("rf"));
-		list.add(Text.translate("transfer") + ": " + this.maxExtract + " " + Text.translate("rft"));
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		ItemStack battery = new ItemStack(item, 1, 0);
-		list.add(this.make(battery, 0));
-		list.add(this.make(battery, this.capacity));
-	}
+    public static ItemStack make(ItemStack stack, int power) {
+        if (stack.stackTagCompound == null) {
+            stack.setTagCompound(new NBTTagCompound());
+        }
 
-	@Override
-	public void register(Item item) {
-		MaricultureRegistry.register(getName(new ItemStack(item)), new ItemStack(item));
-	}
+        stack.stackTagCompound.setInteger("Energy", power);
 
-	@Override
-	public int getMetaCount() {
-		return 1;
-	}
+        return stack.copy();
+    }
 
-	@Override
-	public String getName(ItemStack stack) {
-		return getUnlocalizedName().substring(5);
-	}
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        String theName, name = getUnlocalizedName().substring(5);
+        String[] aName = name.split("\\.");
+        theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
+    }
+
+    @Override
+    public int getDisplayDamage(ItemStack stack) {
+        if (stack.stackTagCompound == null) return 1 + capacity;
+
+        return 1 + capacity - stack.stackTagCompound.getInteger("Energy");
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return 1 + capacity;
+    }
+
+    @Override
+    public boolean isDamaged(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        if (stack.stackTagCompound == null) return;
+
+        list.add(Text.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + capacity + " " + Text.translate("rf"));
+        list.add(Text.translate("transfer") + ": " + maxExtract + " " + Text.translate("rft"));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creative, List list) {
+        ItemStack battery = new ItemStack(item, 1, 0);
+        list.add(make(battery, 0));
+        list.add(make(battery, capacity));
+    }
+
+    @Override
+    public void register(Item item) {
+        MaricultureRegistry.register(getName(new ItemStack(item)), new ItemStack(item));
+    }
+
+    @Override
+    public int getMetaCount() {
+        return 1;
+    }
+
+    @Override
+    public String getName(ItemStack stack) {
+        return getUnlocalizedName().substring(5);
+    }
 }

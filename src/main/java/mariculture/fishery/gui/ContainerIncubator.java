@@ -16,105 +16,84 @@ import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class ContainerIncubator extends ContainerMachine {
-	public ContainerIncubator(TileIncubator tile, InventoryPlayer playerInventory) {
-		super(tile);
-		
-		addUpgradeSlots(tile);
-		addPowerSlot(tile);
-				
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				addSlotToContainer(new SlotFishEgg(tile, 4 + i + (j * 3), 31 + ((i) * 18), 23 + (j * 18)));
-			}
-		}
+    public ContainerIncubator(TileIncubator tile, InventoryPlayer playerInventory) {
+        super(tile);
 
-		for (int i = 9; i < 12; i++) {
-			for (int j = 0; j < 3; j++) {
-				addSlotToContainer(new SlotOutput(tile, 4 + i + (j * 3), 115 + ((i - 9) * 18), 23 + (j * 18)));
-			}
-		}
+        addUpgradeSlots(tile);
+        addPowerSlot(tile);
 
-		bindPlayerInventory(playerInventory, 10);
-	}
-	
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = getSizeInventory();
-		int low = size + 27;
-		int high = low + 9;
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(slotID);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                addSlotToContainer(new SlotFishEgg(tile, 4 + i + j * 3, 31 + i * 18, 23 + j * 18));
+            }
+        }
 
-		if (slot != null && slot.getHasStack()) {
-			ItemStack stack = slot.getStack();
-			itemstack = stack.copy();
+        for (int i = 9; i < 12; i++) {
+            for (int j = 0; j < 3; j++) {
+                addSlotToContainer(new SlotOutput(tile, 4 + i + j * 3, 115 + (i - 9) * 18, 23 + j * 18));
+            }
+        }
 
-			if (slotID < size) {
-				if (!this.mergeItemStack(stack, size, high, true)) {
-					return null;
-				}
+        bindPlayerInventory(playerInventory, 10);
+    }
 
-				slot.onSlotChange(stack, itemstack);
-			} else if (slotID >= size) {
-				if ((Fishing.fishHelper.isEgg(stack)) || stack.getItem() == Items.egg || stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
-					if (!this.mergeItemStack(stack, 4, 13, false)) { // Slot 4-12
-						return null;
-					}
-				} else if (stack.getItem() instanceof IItemUpgrade) {
-					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 0-2
-						return null;
-					}
-				} else if (stack.getItem() instanceof IEnergyContainerItem) {
-					if (!this.mergeItemStack(stack, 3, 4, false)) { // Slot 3-3
-						return null;
-					}
-				} else if (slotID >= size && slotID < low) {
-					if (!this.mergeItemStack(stack, low, high, false)) {
-						return null;
-					}
-				} else if (slotID >= low && slotID < high && !this.mergeItemStack(stack, high, low, false)) {
-					return null;
-				}
-			} else if (!this.mergeItemStack(stack, size, high, false)) {
-				return null;
-			}
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+        int size = getSizeInventory();
+        int low = size + 27;
+        int high = low + 9;
+        ItemStack itemstack = null;
+        Slot slot = (Slot) inventorySlots.get(slotID);
 
-			if (stack.stackSize == 0) {
-				slot.putStack((ItemStack) null);
-			} else {
-				slot.onSlotChanged();
-			}
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            itemstack = stack.copy();
 
-			if (stack.stackSize == itemstack.stackSize) {
-				return null;
-			}
+            if (slotID < size) {
+                if (!mergeItemStack(stack, size, high, true)) return null;
 
-			slot.onPickupFromSlot(player, stack);
-		}
+                slot.onSlotChange(stack, itemstack);
+            } else if (slotID >= size) {
+                if (Fishing.fishHelper.isEgg(stack) || stack.getItem() == Items.egg || stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
+                    if (!mergeItemStack(stack, 4, 13, false)) return null;
+                } else if (stack.getItem() instanceof IItemUpgrade) {
+                    if (!mergeItemStack(stack, 0, 3, false)) return null;
+                } else if (stack.getItem() instanceof IEnergyContainerItem) {
+                    if (!mergeItemStack(stack, 3, 4, false)) return null;
+                } else if (slotID >= size && slotID < low) {
+                    if (!mergeItemStack(stack, low, high, false)) return null;
+                } else if (slotID >= low && slotID < high && !mergeItemStack(stack, high, low, false)) return null;
+            } else if (!mergeItemStack(stack, size, high, false)) return null;
 
-		return itemstack;
-	}
-	
-	public class SlotFishEgg extends Slot {
-		private EntityPlayer thePlayer;
+            if (stack.stackSize == 0) {
+                slot.putStack((ItemStack) null);
+            } else {
+                slot.onSlotChanged();
+            }
 
-		public SlotFishEgg(IInventory inventory, int par2, int par3, int par4) {
-			super(inventory, par2, par3, par4);
-		}
+            if (stack.stackSize == itemstack.stackSize) return null;
 
-		@Override
-		public boolean isItemValid(ItemStack stack) {
-			if (stack.hasTagCompound()) {
-				if (Fishing.fishHelper.isEgg(stack)) {
-					return true;
-				}
-			} else if (stack.getItem() == Items.egg) {
-				return true;
-			} else if (stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
-				return true;
-			}
+            slot.onPickupFromSlot(player, stack);
+        }
 
-			return false;
-		}
-	}
+        return itemstack;
+    }
+
+    public class SlotFishEgg extends Slot {
+        private EntityPlayer thePlayer;
+
+        public SlotFishEgg(IInventory inventory, int par2, int par3, int par4) {
+            super(inventory, par2, par3, par4);
+        }
+
+        @Override
+        public boolean isItemValid(ItemStack stack) {
+            if (stack.hasTagCompound()) {
+                if (Fishing.fishHelper.isEgg(stack)) return true;
+            } else if (stack.getItem() == Items.egg) return true;
+            else if (stack.getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) return true;
+
+            return false;
+        }
+    }
 }

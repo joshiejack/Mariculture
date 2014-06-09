@@ -15,51 +15,53 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
 public class BlockTankItem extends ItemBlockMariculture {
-	public BlockTankItem(Block block) {
-		super(block);
-	}
-
-	@Override
-	public String getName(ItemStack itemstack) {
-		String name = "";
-		switch (itemstack.getItemDamage()) {
-			case TankMeta.FISH:   return "fish";
-			case TankMeta.TANK:	  return "normal";
-			case TankMeta.BOTTLE: return "bottle";
-			case TankMeta.DIC: 	  return "fluidtionary";
-			default: 			  return "tank";
-		}
-	}
-	
-	@Override
-	public void register(Item item) {
-		for (int j = 0; j < this.getMetaCount(); j++) {
-			MaricultureRegistry.register(getName(new ItemStack(item, 1, j)) + "Tank", new ItemStack(item, 1, j));
-		}
-	}
-	
-	public FluidStack getFluid(ItemStack stack) {
-		if(!stack.hasTagCompound()) {
-			return null;
-		}
-		
-		return FluidStack.loadFluidStackFromNBT(stack.stackTagCompound);
-	}
-	
-	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		if(stack.getItemDamage() == TankMeta.TANK)
-			return Text.ORANGE + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
-		return super.getItemStackDisplayName(stack);
+    public BlockTankItem(Block block) {
+        super(block);
     }
-	
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if(stack.getItemDamage() == TankMeta.TANK) {
-			FluidStack fluid = getFluid(stack);
-			int amount = fluid == null? 0: fluid.amount;
-			list.add(FluidHelper.getFluidName(fluid));
-			list.add(""+ amount + "/16000mB");
-		}
-	}
+
+    @Override
+    public String getName(ItemStack itemstack) {
+        String name = "";
+        switch (itemstack.getItemDamage()) {
+            case TankMeta.FISH:
+                return "fish";
+            case TankMeta.TANK:
+                return "normal";
+            case TankMeta.BOTTLE:
+                return "bottle";
+            case TankMeta.DIC:
+                return "fluidtionary";
+            default:
+                return "tank";
+        }
+    }
+
+    @Override
+    public void register(Item item) {
+        for (int j = 0; j < getMetaCount(); j++) {
+            MaricultureRegistry.register(getName(new ItemStack(item, 1, j)) + "Tank", new ItemStack(item, 1, j));
+        }
+    }
+
+    public FluidStack getFluid(ItemStack stack) {
+        if (!stack.hasTagCompound()) return null;
+
+        return FluidStack.loadFluidStackFromNBT(stack.stackTagCompound);
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (stack.getItemDamage() == TankMeta.TANK) return Text.ORANGE + ("" + StatCollector.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+        return super.getItemStackDisplayName(stack);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        if (stack.getItemDamage() == TankMeta.TANK) {
+            FluidStack fluid = getFluid(stack);
+            int amount = fluid == null ? 0 : fluid.amount;
+            list.add(FluidHelper.getFluidName(fluid));
+            list.add("" + amount + "/16000mB");
+        }
+    }
 }

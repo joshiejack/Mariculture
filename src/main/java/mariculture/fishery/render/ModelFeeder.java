@@ -10,65 +10,65 @@ import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import org.lwjgl.opengl.GL11;
 
 public class ModelFeeder extends ModelBase implements IModelMariculture {
-	// fields
-	private static final float scale = (float) (1.0 / 20.0);
-	private ModelRenderer basket;
+    // fields
+    private static final float scale = (float) (1.0 / 20.0);
+    private ModelRenderer basket;
 
-	public ModelFeeder() {
-		textureWidth = 64;
-		textureHeight = 32;
+    public ModelFeeder() {
+        textureWidth = 64;
+        textureHeight = 32;
 
-		basket = new ModelRenderer(this, 0, 0);
-		basket.addBox(-8F, 0F, -8F, 16, 16, 16);
-		basket.setRotationPoint(0F, 0F, 0F);
-		basket.setTextureSize(64, 32);
-		basket.mirror = true;
-	}
-	
-	@Override
-	public void render(TileEntity tile, double x, double y, double z) {
-		render(((TileFeeder)tile), x, y, z);
-	}
+        basket = new ModelRenderer(this, 0, 0);
+        basket.addBox(-8F, 0F, -8F, 16, 16, 16);
+        basket.setRotationPoint(0F, 0F, 0F);
+        basket.setTextureSize(64, 32);
+        basket.mirror = true;
+    }
 
-	private void render(TileFeeder tile, double x, double y, double z) {
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_LIGHTING);
+    @Override
+    public void render(TileEntity tile, double x, double y, double z) {
+        render((TileFeeder) tile, x, y, z);
+    }
 
-		GL11.glTranslated(x + 0.5F, y + 1F, z + 0.5F);
-		GL11.glRotatef(180, 0F, 0F, 1F);
+    private void render(TileFeeder tile, double x, double y, double z) {
+        GL11.glPushMatrix();
+        GL11.glDisable(GL11.GL_LIGHTING);
 
-		basket.render((float) (1.0 / 16.0));
+        GL11.glTranslated(x + 0.5F, y + 1F, z + 0.5F);
+        GL11.glRotatef(180, 0F, 0F, 1F);
 
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glPopMatrix();
-	}
+        basket.render((float) (1.0 / 16.0));
 
-	public void renderInventory(ItemRenderType type) {
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		switch (type) {
-		case INVENTORY:
-			GL11.glRotatef(35, 1, 0, 0);
-			GL11.glRotatef(45, 0, -5, 0);
-			GL11.glScalef(12F, 12F, 12F);
-			GL11.glTranslatef(0F, -0.05F, -0.9F);
-			break;
-		case ENTITY:
-			GL11.glRotatef(180, 0, 0, 1);
-			GL11.glTranslatef(0F, -0.5F, 0F);
-			break;
-		default:
-			GL11.glRotatef(35, 1, 0, 0);
-			GL11.glRotatef(45, 0, -5, 0);
-			GL11.glRotatef(180, 1, 0, 0);
-			GL11.glTranslatef(0.4F, 0F, -0.1F);
-			break;
-		}
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glPopMatrix();
+    }
 
-		basket.render(scale);
+    public void renderInventory(ItemRenderType type) {
+        GL11.glPushMatrix();
+        GL11.glDisable(GL11.GL_LIGHTING);
+        switch (type) {
+            case INVENTORY:
+                GL11.glRotatef(35, 1, 0, 0);
+                GL11.glRotatef(45, 0, -5, 0);
+                GL11.glScalef(12F, 12F, 12F);
+                GL11.glTranslatef(0F, -0.05F, -0.9F);
+                break;
+            case ENTITY:
+                GL11.glRotatef(180, 0, 0, 1);
+                GL11.glTranslatef(0F, -0.5F, 0F);
+                break;
+            default:
+                GL11.glRotatef(35, 1, 0, 0);
+                GL11.glRotatef(45, 0, -5, 0);
+                GL11.glRotatef(180, 1, 0, 0);
+                GL11.glTranslatef(0.4F, 0F, -0.1F);
+                break;
+        }
 
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glPopMatrix();
-	}
+        basket.render(scale);
+
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glPopMatrix();
+    }
 
 }

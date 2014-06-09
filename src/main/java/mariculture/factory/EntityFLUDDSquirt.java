@@ -10,62 +10,65 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityFLUDDSquirt extends EntityThrowable {
-	private boolean damage = false;
-	public float size = 1F;
+    private boolean damage = false;
+    public float size = 1F;
 
-	public EntityFLUDDSquirt(World world) {
-		super(world);
-	}
+    public EntityFLUDDSquirt(World world) {
+        super(world);
+    }
 
-	public EntityFLUDDSquirt(World world, EntityPlayer entity, boolean damage) {
-		super(world, entity);
-		this.damage = damage;
-	}
+    public EntityFLUDDSquirt(World world, EntityPlayer entity, boolean damage) {
+        super(world, entity);
+        this.damage = damage;
+    }
 
-	public EntityFLUDDSquirt(World world, double x, double y, double z) {
-		super(world, x, y, z);
-	}
+    public EntityFLUDDSquirt(World world, double x, double y, double z) {
+        super(world, x, y, z);
+    }
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
 
-		for (int l = 0; l < 90; ++l) {
-			this.worldObj.spawnParticle("cloud", this.posX + (this.motionX * l), this.posY, this.posZ + (this.motionZ * l), 0, 0, 0);
-		}
-	}
+        for (int l = 0; l < 90; ++l) {
+            worldObj.spawnParticle("cloud", posX + motionX * l, posY, posZ + motionZ * l, 0, 0, 0);
+        }
+    }
 
-	@Override
-	protected void onImpact(MovingObjectPosition thingHit) {
-		if (thingHit.entityHit != null && damage) {
-			DamageSource source = null;
-			if(thingHit.entityHit instanceof EntityPlayer) source = (new EntityDamageSourceIndirect("fludd", this, this.getThrower())).setProjectile();
-			else source = (new EntityDamageSource("fludd", this)).setProjectile();
-			thingHit.entityHit.attackEntityFrom(source, 10);
-		}
+    @Override
+    protected void onImpact(MovingObjectPosition thingHit) {
+        if (thingHit.entityHit != null && damage) {
+            DamageSource source = null;
+            if (thingHit.entityHit instanceof EntityPlayer) {
+                source = new EntityDamageSourceIndirect("fludd", this, getThrower()).setProjectile();
+            } else {
+                source = new EntityDamageSource("fludd", this).setProjectile();
+            }
+            thingHit.entityHit.attackEntityFrom(source, 10);
+        }
 
-		for (int var5 = 0; var5 < 8; ++var5) {
-			this.worldObj.spawnParticle("splash", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-		}
+        for (int var5 = 0; var5 < 8; ++var5) {
+            worldObj.spawnParticle("splash", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+        }
 
-		if (!this.worldObj.isRemote) {
-			this.setDead();
-		}
-	}
+        if (!worldObj.isRemote) {
+            setDead();
+        }
+    }
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound tagCompound) {
-		tagCompound.setBoolean("damage", this.damage);
-		tagCompound.setFloat("size", this.size);
-	}
+    @Override
+    public void writeEntityToNBT(NBTTagCompound tagCompound) {
+        tagCompound.setBoolean("damage", damage);
+        tagCompound.setFloat("size", size);
+    }
 
-	@Override
-	public void readEntityFromNBT(NBTTagCompound tagCompound) {
-		this.damage = tagCompound.getBoolean("damage");
-		this.size = tagCompound.getFloat("size");
-	}
+    @Override
+    public void readEntityFromNBT(NBTTagCompound tagCompound) {
+        damage = tagCompound.getBoolean("damage");
+        size = tagCompound.getFloat("size");
+    }
 
-	public void setSize(final float size) {
-		this.size = size;
-	}
+    public void setSize(final float size) {
+        this.size = size;
+    }
 }

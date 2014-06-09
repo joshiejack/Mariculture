@@ -9,28 +9,28 @@ import net.minecraftforge.fluids.FluidRegistry;
 import org.apache.logging.log4j.Level;
 
 public class Compat extends Module {
-	@Override
-	public void preInit() {		
-		if(FluidRegistry.getFluid("milk") != null) {
-			Fluids.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
-		}
-	}
-	
-	@Override
-	public void init() {
-		if(Modules.isActive(Modules.fishery)) {
-			try {
-				//CompatBait.init();
-			} catch (Exception e) {
-				LogHandler.log(Level.WARN, "Something went wrong when loading the Bait Compatibility Config");
-			}
-		}
-		
-		CompatFluids.init();
-	}
-	
-	@Override
-	public void postInit() {
-		setLoaded(null);
-	}
+    @Override
+    public void preInit() {
+        if (FluidRegistry.getFluid("milk") != null) {
+            Fluids.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
+        }
+    }
+
+    @Override
+    public void init() {
+        if (Modules.isActive(Modules.fishery)) {
+            try {
+                //CompatBait.init();
+            } catch (Exception e) {
+                LogHandler.log(Level.WARN, "Something went wrong when loading the Bait Compatibility Config");
+            }
+        }
+
+        CompatFluids.init();
+    }
+
+    @Override
+    public void postInit() {
+        setLoaded(null);
+    }
 }

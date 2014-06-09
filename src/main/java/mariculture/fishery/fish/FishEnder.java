@@ -13,98 +13,98 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-public class FishEnder extends FishSpecies {	
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 0, 5 };
-	}
-	
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH };
-	}
+public class FishEnder extends FishSpecies {
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 0, 5 };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return true;
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH };
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 25;
-	}
+    @Override
+    public boolean isDominant() {
+        return true;
+    }
 
-	@Override
-	public int getFertility() {
-		return 75;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 25;
+    }
 
-	@Override
-	public int getFoodConsumption() {
-		return 2;
-	}
+    @Override
+    public int getFertility() {
+        return 75;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 140;
-	}
+    @Override
+    public int getFoodConsumption() {
+        return 2;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletEnder, 7.5D);
-		addProduct(enderPearl, 5D);
-	}
+    @Override
+    public int getWaterRequired() {
+        return 140;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 0.450D;
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletEnder, 7.5D);
+        addProduct(enderPearl, 5D);
+    }
 
-	@Override
-	public int getFishMealSize() {
-		return 2;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 0.450D;
+    }
 
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		if(!world.isRemote) {
-			world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
-			int x = (int) ((player.posX) + Rand.rand.nextInt(64) - 32);
-			int z = (int) ((player.posZ) + Rand.rand.nextInt(64) - 32);
-			if(BlockHelper.chunkExists(world, x, z)) {
-				int y = world.getTopSolidOrLiquidBlock(x, z);
-				
-				if(world.getBlock(x, y, z).getMaterial() != Material.lava) {
-					world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
-					player.setPositionAndUpdate(x, y, z);
-					world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
-				}
-			}
-		}
-	}
+    @Override
+    public int getFishMealSize() {
+        return 2;
+    }
 
-	@Override
-	public boolean canWork(int time) {
-		return !Time.isNoon(time);
-	}
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        if (!world.isRemote) {
+            world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
+            int x = (int) (player.posX + Rand.rand.nextInt(64) - 32);
+            int z = (int) (player.posZ + Rand.rand.nextInt(64) - 32);
+            if (BlockHelper.chunkExists(world, x, z)) {
+                int y = world.getTopSolidOrLiquidBlock(x, z);
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.SUPER;
-	}
+                if (world.getBlock(x, y, z).getMaterial() != Material.lava) {
+                    world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
+                    player.setPositionAndUpdate(x, y, z);
+                    world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
+                }
+            }
+        }
+    }
 
-	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.dimensionId == 1;
-	}
+    @Override
+    public boolean canWork(int time) {
+        return !Time.isNoon(time);
+    }
 
-	@Override
-	public int getCatchChance() {
-		return 66;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.SUPER;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return height < 16D? 10D: 0D;
-	}
+    @Override
+    public boolean isWorldCorrect(World world) {
+        return world.provider.dimensionId == 1;
+    }
+
+    @Override
+    public int getCatchChance() {
+        return 66;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return height < 16D ? 10D : 0D;
+    }
 }

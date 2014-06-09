@@ -10,11 +10,11 @@ import mariculture.factory.tile.TileTurbineBase;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiTurbine extends GuiMariculture {
-	public GuiTurbine(InventoryPlayer player, TileTurbineBase tile) {
-		super(new ContainerTurbine(tile, player), "turbine", 10);
-		features.add(new FeatureTank(tile, 108, 19, TankSize.DOUBLE));
-		features.add(new FeatureRedstone(tile));
-		features.add(new FeatureUpgrades());
-		features.add(new FeaturePower(tile, 9, 17));
-	}
+    public GuiTurbine(InventoryPlayer player, TileTurbineBase tile) {
+        super(new ContainerTurbine(tile, player), "turbine", 10);
+        features.add(new FeatureTank(tile, 108, 19, TankSize.DOUBLE));
+        features.add(new FeatureRedstone(tile));
+        features.add(new FeatureUpgrades());
+        features.add(new FeaturePower(tile, 9, 17));
+    }
 }

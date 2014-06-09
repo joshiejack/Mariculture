@@ -16,53 +16,49 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {
-	Random rand = new Random();
+    Random rand = new Random();
 
-	public static void updateStack(World world, EntityItem entity, int lifespan, ItemStack stack, Random rand) {
-		float var2 = MathHelper.floor_double(entity.boundingBox.minY);
-		float var4 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
-		float var5 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
-		entity.worldObj.spawnParticle("splash", entity.posX + var4, var2 + 1.0F, entity.posZ + var5, entity.motionX,
-				entity.motionY, entity.motionZ);
-		entity.lifespan = lifespan;
-		entity.setEntityItemStack(stack);
-	}
+    public static void updateStack(World world, EntityItem entity, int lifespan, ItemStack stack, Random rand) {
+        float var2 = MathHelper.floor_double(entity.boundingBox.minY);
+        float var4 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
+        float var5 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
+        entity.worldObj.spawnParticle("splash", entity.posX + var4, var2 + 1.0F, entity.posZ + var5, entity.motionX, entity.motionY, entity.motionZ);
+        entity.lifespan = lifespan;
+        entity.setEntityItemStack(stack);
+    }
 
-	@SubscribeEvent
-	public void onFishDeath(ItemExpireEvent event) {
-		Random rand = new Random();
-		ItemStack item = event.entityItem.getEntityItem();
-		FishSpecies species = Fishing.fishHelper.getSpecies(item);
-		if(species != null) {
-			if(!species.isLavaFish()) {
-				if(event.entityItem.isInsideOfMaterial(Material.water)) {
-					event.setCanceled(true);
-					return;
-				}
-			}
-			
-			ItemStack stack = new ItemStack(Items.fish, item.stackSize, species.getID());
-			if (stack != null) {
-				updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
-				event.setCanceled(true);
-			}
-		}
-	}
+    @SubscribeEvent
+    public void onFishDeath(ItemExpireEvent event) {
+        Random rand = new Random();
+        ItemStack item = event.entityItem.getEntityItem();
+        FishSpecies species = Fishing.fishHelper.getSpecies(item);
+        if (species != null) {
+            if (!species.isLavaFish()) if (event.entityItem.isInsideOfMaterial(Material.water)) {
+                event.setCanceled(true);
+                return;
+            }
 
-	@SubscribeEvent
-	public void onKillSquid(LivingDropsEvent event) {
-		if (event.entity instanceof EntitySquid) {
-			EntitySquid entity = (EntitySquid) event.entity;
-			ItemStack squid = new ItemStack(Items.fish, 1, Fish.squid.getID());
-			event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
-			if (event.lootingLevel > 0) {
-				for (int i = 0; i < event.lootingLevel; i++) {
-					if (rand.nextInt(3) == 0) {
-						event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
-					}
-				}
-			}
+            ItemStack stack = new ItemStack(Items.fish, item.stackSize, species.getID());
+            if (stack != null) {
+                updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
+                event.setCanceled(true);
+            }
+        }
+    }
 
-		}
-	}
+    @SubscribeEvent
+    public void onKillSquid(LivingDropsEvent event) {
+        if (event.entity instanceof EntitySquid) {
+            EntitySquid entity = (EntitySquid) event.entity;
+            ItemStack squid = new ItemStack(Items.fish, 1, Fish.squid.getID());
+            event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
+            if (event.lootingLevel > 0) {
+                for (int i = 0; i < event.lootingLevel; i++)
+                    if (rand.nextInt(3) == 0) {
+                        event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
+                    }
+            }
+
+        }
+    }
 }

@@ -12,30 +12,31 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSyncMirror extends PacketNBT {
-	public PacketSyncMirror() {}
-	public PacketSyncMirror(ItemStack[] inventory) {
-		super(inventory);
-	}
+    public PacketSyncMirror() {}
 
-	@Override
-	public IMessage onMessage(PacketNBT message, MessageContext ctx) {
-		EntityPlayer player = ClientHelper.getPlayer();
-		World world = player.worldObj;
-		int length = message.nbt.getInteger("length");
-		ItemStack[] inventory = MaricultureHandlers.mirror.getMirrorContents(player);
-		NBTTagList tagList = message.nbt.getTagList("Inventory", 10);
-		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
-			byte slot = tag.getByte("Slot");
-			if (tag.getBoolean("NULLItemStack") == true) {
-				inventory[slot] = null;
-			} else if (slot >= 0 && slot < inventory.length) {
-				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
-			}
-		}
+    public PacketSyncMirror(ItemStack[] inventory) {
+        super(inventory);
+    }
 
-		MirrorHelper.saveClient(player, inventory);
-		return null;
-	}
+    @Override
+    public IMessage onMessage(PacketNBT message, MessageContext ctx) {
+        EntityPlayer player = ClientHelper.getPlayer();
+        World world = player.worldObj;
+        int length = message.nbt.getInteger("length");
+        ItemStack[] inventory = MaricultureHandlers.mirror.getMirrorContents(player);
+        NBTTagList tagList = message.nbt.getTagList("Inventory", 10);
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
+            byte slot = tag.getByte("Slot");
+            if (tag.getBoolean("NULLItemStack") == true) {
+                inventory[slot] = null;
+            } else if (slot >= 0 && slot < inventory.length) {
+                inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
+            }
+        }
+
+        MirrorHelper.saveClient(player, inventory);
+        return null;
+    }
 
 }

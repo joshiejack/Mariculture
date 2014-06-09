@@ -6,42 +6,42 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class MaterialDummy extends JewelryMaterial {
-	public MaterialDummy() {
-		ignore = true;
-	}
-	
-	@Override
-	public String getColor() {
-		return Text.WHITE;
-	}
+    public MaterialDummy() {
+        ignore = true;
+    }
 
-	@Override
-	public int getExtraEnchantments(JewelryType type) {
-		return 0;
-	}
+    @Override
+    public String getColor() {
+        return Text.WHITE;
+    }
 
-	@Override
-	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return 0;
-	}
+    @Override
+    public int getExtraEnchantments(JewelryType type) {
+        return 0;
+    }
 
-	@Override
-	public float getRepairModifier(JewelryType type) {
-		return 1.0F;
-	}
+    @Override
+    public int getMaximumEnchantmentLevel(JewelryType type) {
+        return 0;
+    }
 
-	@Override
-	public float getHitsModifier(JewelryType type) {
-		return 1.0F;
-	}
-	
-	@Override
-	public float getDurabilityModifier(JewelryType type) {
-		return 1.0F;
-	}
+    @Override
+    public float getRepairModifier(JewelryType type) {
+        return 1.0F;
+    }
 
-	@Override
-	public ItemStack getCraftingItem(JewelryType type) {
-		return new ItemStack(Blocks.fire);
-	}
+    @Override
+    public float getHitsModifier(JewelryType type) {
+        return 1.0F;
+    }
+
+    @Override
+    public float getDurabilityModifier(JewelryType type) {
+        return 1.0F;
+    }
+
+    @Override
+    public ItemStack getCraftingItem(JewelryType type) {
+        return new ItemStack(Blocks.fire);
+    }
 }

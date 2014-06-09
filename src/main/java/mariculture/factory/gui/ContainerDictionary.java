@@ -8,64 +8,56 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDictionary extends ContainerMachine {
-	public ContainerDictionary(TileDictionaryItem tile, InventoryPlayer playerInventory) {
-		super(tile);
-		
-		for(int j = 0; j < 4; j++) {
-			for(int i = 0; i < 6; i++) {
-				addSlotToContainer(new SlotDictionary(tile, (i + (j * 6)), 12 + (i * 18), 15 + (j * 18)));
-			}
-		}
-		
-		addSlotToContainer(new Slot(tile, 24, 139, 20));
-		
-		for(int i = 0; i < 2; i ++) {
-			for(int j = 0; j < 2; j++) {
-				addSlotToContainer(new Slot(tile, 25 + i + (j * 2), 130 + (i * 18), 46 + (j * 18)));
-			}
-		}
+    public ContainerDictionary(TileDictionaryItem tile, InventoryPlayer playerInventory) {
+        super(tile);
 
-		bindPlayerInventory(playerInventory, 14);
-	}
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 6; i++) {
+                addSlotToContainer(new SlotDictionary(tile, i + j * 6, 12 + i * 18, 15 + j * 18));
+            }
+        }
 
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = getSizeInventory();
-		int low = size + 27;
-		int high = low + 9;
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(slotID);
+        addSlotToContainer(new Slot(tile, 24, 139, 20));
 
-		if (slot != null && slot.getHasStack()) {
-			ItemStack stack = slot.getStack();
-			itemstack = stack.copy();
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                addSlotToContainer(new Slot(tile, 25 + i + j * 2, 130 + i * 18, 46 + j * 18));
+            }
+        }
 
-			if (slotID < size) {
-				if (!this.mergeItemStack(stack, size, high, true)) {
-					return null;
-				}
-				slot.onSlotChange(stack, itemstack);
-			} else if (slotID >= size) {
-				if (!this.mergeItemStack(stack, 24, 25, false)) { // Slot 7-7
-					return null;
-				}
-			} else if (!this.mergeItemStack(stack, size, high, false)) {
-				return null;
-			}
+        bindPlayerInventory(playerInventory, 14);
+    }
 
-			if (stack.stackSize == 0) {
-				slot.putStack((ItemStack) null);
-			} else {
-				slot.onSlotChanged();
-			}
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+        int size = getSizeInventory();
+        int low = size + 27;
+        int high = low + 9;
+        ItemStack itemstack = null;
+        Slot slot = (Slot) inventorySlots.get(slotID);
 
-			if (stack.stackSize == itemstack.stackSize) {
-				return null;
-			}
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            itemstack = stack.copy();
 
-			slot.onPickupFromSlot(player, stack);
-		}
+            if (slotID < size) {
+                if (!mergeItemStack(stack, size, high, true)) return null;
+                slot.onSlotChange(stack, itemstack);
+            } else if (slotID >= size) {
+                if (!mergeItemStack(stack, 24, 25, false)) return null;
+            } else if (!mergeItemStack(stack, size, high, false)) return null;
 
-		return itemstack;
-	}
+            if (stack.stackSize == 0) {
+                slot.putStack((ItemStack) null);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if (stack.stackSize == itemstack.stackSize) return null;
+
+            slot.onPickupFromSlot(player, stack);
+        }
+
+        return itemstack;
+    }
 }

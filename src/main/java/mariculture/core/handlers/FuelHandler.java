@@ -7,17 +7,13 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.IFuelHandler;
 
 public class FuelHandler implements IFuelHandler {
-	@Override
-	public int getBurnTime(ItemStack fuel) {
-		if (Modules.isActive(Modules.fishery)) {
-			if (fuel.getItem() == Items.fish) {
-				int speciesID = fuel.getItemDamage();
-				if (fuel.getItemDamage() == Fish.nether.getID()) {
-					return 2500;
-				}
-			}
-		}
+    @Override
+    public int getBurnTime(ItemStack fuel) {
+        if (Modules.isActive(Modules.fishery)) if (fuel.getItem() == Items.fish) {
+            int speciesID = fuel.getItemDamage();
+            if (fuel.getItemDamage() == Fish.nether.getID()) return 2500;
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 }

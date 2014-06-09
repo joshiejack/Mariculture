@@ -7,23 +7,25 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemVanillaRod extends ItemRod {
-	@SideOnly(Side.CLIENT)
-	private IIcon theIcon;
-	
-	public ItemVanillaRod() {
-		super(64, 1);
-		setCreativeTab(MaricultureTab.tabFishery);
-		setUnlocalizedName("fishingRod");
-		setTextureName("fishing_rod");
-	}
-	
-	@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
+    private IIcon theIcon;
+
+    public ItemVanillaRod() {
+        super(64, 1);
+        setCreativeTab(MaricultureTab.tabFishery);
+        setUnlocalizedName("fishingRod");
+        setTextureName("fishing_rod");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         itemIcon = iconRegister.registerIcon(getIconString() + "_uncast");
         theIcon = iconRegister.registerIcon(getIconString() + "_cast");
     }
-	
-	@SideOnly(Side.CLIENT)
+
+    @Override
+    @SideOnly(Side.CLIENT)
     public IIcon func_94597_g() {
         return theIcon;
     }

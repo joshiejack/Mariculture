@@ -17,80 +17,80 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishTang extends FishSpecies {
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 24, 29 };
-	}
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 24, 29 };
+    }
 
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { SALINE, BRACKISH };
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { SALINE, BRACKISH };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return false;
-	}
+    @Override
+    public boolean isDominant() {
+        return false;
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 9;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 9;
+    }
 
-	@Override
-	public int getFertility() {
-		return 4000;
-	}
+    @Override
+    public int getFertility() {
+        return 4000;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 25;
-	}
+    @Override
+    public int getWaterRequired() {
+        return 25;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletWater, 6.5D);
-		addProduct(dropletAqua, 4.5D);
-		addProduct(lapis, 2.0D);
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletWater, 6.5D);
+        addProduct(dropletAqua, 4.5D);
+        addProduct(lapis, 2.0D);
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 0.725D;
-	}
-	
-	@Override
-	public ItemStack getLiquifiedProduct() {
-		return lapis;
-	}
-	
-	@Override
-	public int getLiquifiedProductChance() {
-		return 8;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 0.725D;
+    }
 
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		player.addPotionEffect(new PotionEffect(Potion.jump.id, 80, 0));
-	}
+    @Override
+    public ItemStack getLiquifiedProduct() {
+        return lapis;
+    }
 
-	@Override
-	public boolean canWork(int time) {
-		return Time.isDay(time);
-	}
+    @Override
+    public int getLiquifiedProductChance() {
+        return 8;
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.GOOD;
-	}
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        player.addPotionEffect(new PotionEffect(Potion.jump.id, 80, 0));
+    }
 
-	@Override
-	public double getCatchChance(int height, int time) {
-		return Height.isShallows(height) ? 25D : 0D;
-	}
+    @Override
+    public boolean canWork(int time) {
+        return Time.isDay(time);
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return Time.isDawn(time) ? 5D : 0D;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.GOOD;
+    }
+
+    @Override
+    public double getCatchChance(int height, int time) {
+        return Height.isShallows(height) ? 25D : 0D;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return Time.isDawn(time) ? 5D : 0D;
+    }
 }

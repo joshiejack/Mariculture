@@ -14,18 +14,18 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 
 public class ServerFMLEvents {
-	@SubscribeEvent
-	public void onPlayerLogin(PlayerLoggedInEvent event) {
-		EntityPlayer player = event.player;
-		if(Modules.isActive(Modules.magic) && player instanceof EntityPlayerMP) {
-			PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
-		}
-	}
-	
-	@SubscribeEvent
-	public void onPlayerRespawn(PlayerRespawnEvent event) {
-		if(Modules.isActive(Modules.magic) && EnchantHelper.exists(Magic.resurrection)) {
-			ResurrectionTracker.onPlayerRespawn(event.player);
-		}
-	}
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerLoggedInEvent event) {
+        EntityPlayer player = event.player;
+        if (Modules.isActive(Modules.magic) && player instanceof EntityPlayerMP) {
+            PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if (Modules.isActive(Modules.magic) && EnchantHelper.exists(Magic.resurrection)) {
+            ResurrectionTracker.onPlayerRespawn(event.player);
+        }
+    }
 }

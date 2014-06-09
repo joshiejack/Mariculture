@@ -1,9 +1,9 @@
 package mariculture.core.lib;
 
 public class RenderIds {
-	public static int DIVING;
-	public static int SCUBA;
-	public static int SNORKEL;
-	public static int FLUDD;
-	public static int RENDER_ALL;
+    public static int DIVING;
+    public static int SCUBA;
+    public static int SNORKEL;
+    public static int FLUDD;
+    public static int RENDER_ALL;
 }

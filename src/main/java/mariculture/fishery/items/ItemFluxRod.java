@@ -14,115 +14,105 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
-	public ItemFluxRod() {
-		super(0, 0);
-		setNoRepair();
-		setMaxStackSize(1);
-	}
-	
-	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		if(stack.stackTagCompound == null) {
-			return 1 + this.capacity;
-		}
-		
-		return 1 + this.capacity - stack.stackTagCompound.getInteger("Energy");
-	}
-	
-	@Override
-	public int getMaxDamage(ItemStack stack) {
-		return 1 + this.capacity;
-	}
-	
-	@Override
-	public boolean isDamaged(ItemStack stack) {
-		return true;
-	}
-	
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		if(stack.stackTagCompound == null) {
-			return;
-		}
-		
-		list.add(Text.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity + " " + Text.translate("rf"));
-		list.add(Text.translate("transfer") + ": " + this.maxReceive + " " + Text.translate("rft"));
-		list.add(Text.translate("peruse") + ": " + this.maxExtract + " " + Text.translate("rf"));
-	}
+    public ItemFluxRod() {
+        super(0, 0);
+        setNoRepair();
+        setMaxStackSize(1);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean isFull3D() {
-		return true;
-	}
+    @Override
+    public int getDisplayDamage(ItemStack stack) {
+        if (stack.stackTagCompound == null) return 1 + capacity;
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean shouldRotateAroundWhenRendering() {
-		return true;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		ItemStack battery = new ItemStack(item, 1, 0);
-		list.add(ItemBattery.make(battery, 0));
-		list.add(ItemBattery.make(battery, this.capacity));
-	}
-	
-	protected int capacity = 250000;
-	protected int maxReceive = 250;
-	protected int maxExtract = 100;
+        return 1 + capacity - stack.stackTagCompound.getInteger("Energy");
+    }
 
-	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		if (container.stackTagCompound == null) {
-			container.stackTagCompound = new NBTTagCompound();
-		}
-		
-		int energy = container.stackTagCompound.getInteger("Energy");
-		int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return 1 + capacity;
+    }
 
-		if (!simulate) {
-			energy += energyReceived;
-			container.stackTagCompound.setInteger("Energy", energy);
-		}
-		
-		return energyReceived;
-	}
+    @Override
+    public boolean isDamaged(ItemStack stack) {
+        return true;
+    }
 
-	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) {
-			return 0;
-		}
-		
-		if(container.stackTagCompound.getInteger("Energy") <= 0) {
-			return 0;
-		}
-		
-		int energy = container.stackTagCompound.getInteger("Energy");
-		int energyExtracted = Math.min(energy, this.maxExtract);
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        if (stack.stackTagCompound == null) return;
 
-		if (!simulate) {
-			energy -= energyExtracted;
-			container.stackTagCompound.setInteger("Energy", energy);
-		}
-		
-		return energyExtracted;
-	}
+        list.add(Text.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + capacity + " " + Text.translate("rf"));
+        list.add(Text.translate("transfer") + ": " + maxReceive + " " + Text.translate("rft"));
+        list.add(Text.translate("peruse") + ": " + maxExtract + " " + Text.translate("rf"));
+    }
 
-	@Override
-	public int getEnergyStored(ItemStack container) {
-		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) {
-			return 0;
-		}
-		
-		return container.stackTagCompound.getInteger("Energy");
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isFull3D() {
+        return true;
+    }
 
-	@Override
-	public int getMaxEnergyStored(ItemStack container) {
-		return capacity;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldRotateAroundWhenRendering() {
+        return true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creative, List list) {
+        ItemStack battery = new ItemStack(item, 1, 0);
+        list.add(ItemBattery.make(battery, 0));
+        list.add(ItemBattery.make(battery, capacity));
+    }
+
+    protected int capacity = 250000;
+    protected int maxReceive = 250;
+    protected int maxExtract = 100;
+
+    @Override
+    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+        if (container.stackTagCompound == null) {
+            container.stackTagCompound = new NBTTagCompound();
+        }
+
+        int energy = container.stackTagCompound.getInteger("Energy");
+        int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+
+        if (!simulate) {
+            energy += energyReceived;
+            container.stackTagCompound.setInteger("Energy", energy);
+        }
+
+        return energyReceived;
+    }
+
+    @Override
+    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+        if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
+
+        if (container.stackTagCompound.getInteger("Energy") <= 0) return 0;
+
+        int energy = container.stackTagCompound.getInteger("Energy");
+        int energyExtracted = Math.min(energy, this.maxExtract);
+
+        if (!simulate) {
+            energy -= energyExtracted;
+            container.stackTagCompound.setInteger("Energy", energy);
+        }
+
+        return energyExtracted;
+    }
+
+    @Override
+    public int getEnergyStored(ItemStack container) {
+        if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
+
+        return container.stackTagCompound.getInteger("Energy");
+    }
+
+    @Override
+    public int getMaxEnergyStored(ItemStack container) {
+        return capacity;
+    }
 }

@@ -7,33 +7,33 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 
 public class ContainerMachine extends ContainerMariculture {
-	protected IMachine tile;
+    protected IMachine tile;
 
-	public ContainerMachine(IMachine machine) {
-		super((TileEntity) machine);
-		this.tile = machine;
-	}
-	
-	public int getSizeInventory() {
-		return ((IInventory) tile).getSizeInventory();
-	}
-	
-	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		return ((IInventory)tile).isUseableByPlayer(player);
-	}
+    public ContainerMachine(IMachine machine) {
+        super((TileEntity) machine);
+        tile = machine;
+    }
 
-	@Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
+    public int getSizeInventory() {
+        return ((IInventory) tile).getSizeInventory();
+    }
 
-		for (int i = 0; i < crafters.size(); i++) {
-			tile.sendGUINetworkData(this, (ICrafting) crafters.get(i));
-		}
-	}
+    @Override
+    public boolean canInteractWith(EntityPlayer player) {
+        return ((IInventory) tile).isUseableByPlayer(player);
+    }
 
-	@Override
-	public void updateProgressBar(int par1, int par2) {
-		tile.getGUINetworkData(par1, par2);
-	}
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+
+        for (int i = 0; i < crafters.size(); i++) {
+            tile.sendGUINetworkData(this, (ICrafting) crafters.get(i));
+        }
+    }
+
+    @Override
+    public void updateProgressBar(int par1, int par2) {
+        tile.getGUINetworkData(par1, par2);
+    }
 }

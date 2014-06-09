@@ -15,51 +15,53 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class MaterialPearlSilver extends JewelryMaterial {
-	@Override
-	public String getColor() {
-		return Text.WHITE;
-	}
-	
-	@Override
-	public int onKill(LivingDeathEvent event, EntityPlayer player) {
-		if(event.entity instanceof EntitySilverfish && Rand.nextInt(8)) {
-			ItemStack stack = null;
-			if(Modules.isActive(Modules.fishery)) {
-				stack = Fishing.fishing.getCatch(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, null, null);
-			} else stack = new ItemStack(Items.cooked_fished);
-			
-			SpawnItemHelper.spawnItem(event.entity.worldObj, (int)event.entity.posX, (int)event.entity.posY, (int)event.entity.posZ, stack);
-			return 3;
-		} else return 0;
-	}
+    @Override
+    public String getColor() {
+        return Text.WHITE;
+    }
 
-	@Override
-	public int getExtraEnchantments(JewelryType type) {
-		return type == JewelryType.NECKLACE? 1: 0;
-	}
+    @Override
+    public int onKill(LivingDeathEvent event, EntityPlayer player) {
+        if (event.entity instanceof EntitySilverfish && Rand.nextInt(8)) {
+            ItemStack stack = null;
+            if (Modules.isActive(Modules.fishery)) {
+                stack = Fishing.fishing.getCatch(event.entity.worldObj, (int) event.entity.posX, (int) event.entity.posY, (int) event.entity.posZ, null, null);
+            } else {
+                stack = new ItemStack(Items.cooked_fished);
+            }
 
-	@Override
-	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return type == JewelryType.NECKLACE? 5: 4;
-	}
+            SpawnItemHelper.spawnItem(event.entity.worldObj, (int) event.entity.posX, (int) event.entity.posY, (int) event.entity.posZ, stack);
+            return 3;
+        } else return 0;
+    }
 
-	@Override
-	public float getRepairModifier(JewelryType type) {
-		return 1.75F;
-	}
+    @Override
+    public int getExtraEnchantments(JewelryType type) {
+        return type == JewelryType.NECKLACE ? 1 : 0;
+    }
 
-	@Override
-	public float getHitsModifier(JewelryType type) {
-		return 2.0F;
-	}
-	
-	@Override
-	public float getDurabilityModifier(JewelryType type) {
-		return 0.9F;
-	}
-	
-	@Override
-	public ItemStack getCraftingItem(JewelryType type) {
-		return new ItemStack(Core.pearls, 1, PearlColor.SILVER);
-	}
+    @Override
+    public int getMaximumEnchantmentLevel(JewelryType type) {
+        return type == JewelryType.NECKLACE ? 5 : 4;
+    }
+
+    @Override
+    public float getRepairModifier(JewelryType type) {
+        return 1.75F;
+    }
+
+    @Override
+    public float getHitsModifier(JewelryType type) {
+        return 2.0F;
+    }
+
+    @Override
+    public float getDurabilityModifier(JewelryType type) {
+        return 0.9F;
+    }
+
+    @Override
+    public ItemStack getCraftingItem(JewelryType type) {
+        return new ItemStack(Core.pearls, 1, PearlColor.SILVER);
+    }
 }

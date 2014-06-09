@@ -85,100 +85,100 @@ import net.minecraftforge.common.util.EnumHelper;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class Factory extends RegistrationModule {
-	public static Block customFlooring;
-	public static Block customBlock;
-	public static Block customStairs;
-	public static Block customSlabs;
-	public static Block customSlabsDouble;
-	public static Block customFence;
-	public static Block customGate;
-	public static Block customWall;
-	public static Block customLight;
-	public static Block customRFBlock;
+    public static Block customFlooring;
+    public static Block customBlock;
+    public static Block customStairs;
+    public static Block customSlabs;
+    public static Block customSlabsDouble;
+    public static Block customFence;
+    public static Block customGate;
+    public static Block customWall;
+    public static Block customLight;
+    public static Block customRFBlock;
 
-	public static Item chalk;
-	public static Item plans;
-	public static Item fludd;
-	public static Item paintbrush;
-	public static Item filter;
-	public static Item turbineAluminum;
-	public static Item turbineTitanium;
-	public static Item turbineCopper;
+    public static Item chalk;
+    public static Item plans;
+    public static Item fludd;
+    public static Item paintbrush;
+    public static Item filter;
+    public static Item turbineAluminum;
+    public static Item turbineTitanium;
+    public static Item turbineCopper;
 
-	private static ArmorMaterial armorFLUDD = EnumHelper.addArmorMaterial("FLUDD", 0, new int[] { 0, 0, 0, 0 }, 0);
+    private static ArmorMaterial armorFLUDD = EnumHelper.addArmorMaterial("FLUDD", 0, new int[] { 0, 0, 0, 0 }, 0);
 
-	@Override
-	public void registerHandlers() {
-		MaricultureHandlers.turbine = new TileTurbineGas();
-		MinecraftForge.EVENT_BUS.register(new FactoryEvents());
-	}
+    @Override
+    public void registerHandlers() {
+        MaricultureHandlers.turbine = new TileTurbineGas();
+        MinecraftForge.EVENT_BUS.register(new FactoryEvents());
+    }
 
-	@Override
-	public void registerBlocks() {
-		customFlooring = new BlockCustomFlooring().setStepSound(Block.soundTypePiston).setBlockName("customFlooring");
-		customBlock = new BlockCustomBlock().setStepSound(Block.soundTypePiston).setBlockName("customBlock");
-		customStairs = new BlockCustomStairs(0).setStepSound(Block.soundTypePiston).setBlockName("customStairs");
-		customSlabs = new BlockCustomSlab(false).setStepSound(Block.soundTypePiston).setBlockName("customSlabs");
-		customSlabsDouble = new BlockCustomSlab(true).setStepSound(Block.soundTypePiston).setBlockName("customSlabsDouble");
-		customFence = new BlockCustomFence().setStepSound(Block.soundTypePiston).setBlockName("customFence");
-		customGate = new BlockCustomGate().setStepSound(Block.soundTypePiston).setBlockName("customGate");
-		customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
-		customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
-		customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
-		RegistryHelper.registerBlocks(new Block[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
-		RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, TileFLUDDStand.class, TilePressureVessel.class, TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class });
-	}
+    @Override
+    public void registerBlocks() {
+        customFlooring = new BlockCustomFlooring().setStepSound(Block.soundTypePiston).setBlockName("customFlooring");
+        customBlock = new BlockCustomBlock().setStepSound(Block.soundTypePiston).setBlockName("customBlock");
+        customStairs = new BlockCustomStairs(0).setStepSound(Block.soundTypePiston).setBlockName("customStairs");
+        customSlabs = new BlockCustomSlab(false).setStepSound(Block.soundTypePiston).setBlockName("customSlabs");
+        customSlabsDouble = new BlockCustomSlab(true).setStepSound(Block.soundTypePiston).setBlockName("customSlabsDouble");
+        customFence = new BlockCustomFence().setStepSound(Block.soundTypePiston).setBlockName("customFence");
+        customGate = new BlockCustomGate().setStepSound(Block.soundTypePiston).setBlockName("customGate");
+        customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
+        customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
+        customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
+        RegistryHelper.registerBlocks(new Block[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
+        RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, TileFLUDDStand.class, TilePressureVessel.class, TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class });
+    }
 
-	@Override
-	public void registerItems() {
-		chalk = new ItemChalk(64).setUnlocalizedName("chalk");
-		plans = new ItemPlan().setUnlocalizedName("plans");
-		fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
-		paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
-		filter = new ItemFilter().setUnlocalizedName("filter");
-		turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
-		turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
-		turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
-		RegistryHelper.registerItems(new Item[] { chalk, plans, paintbrush, fludd, filter, turbineCopper, turbineAluminum, turbineTitanium });
-	}
+    @Override
+    public void registerItems() {
+        chalk = new ItemChalk(64).setUnlocalizedName("chalk");
+        plans = new ItemPlan().setUnlocalizedName("plans");
+        fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
+        paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
+        filter = new ItemFilter().setUnlocalizedName("filter");
+        turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
+        turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
+        turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
+        RegistryHelper.registerItems(new Item[] { chalk, plans, paintbrush, fludd, filter, turbineCopper, turbineAluminum, turbineTitanium });
+    }
 
-	@Override
-	public void registerOther() {
-		EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
-		FluidDicHandler.register("water", "water", 2000);
-		FluidDicHandler.register("xp", "xpjuice", 200);
-		FluidDicHandler.register("xp", "immibis.liquidxp", 1000);
-		FluidDicHandler.register("xp", "mobessence", 666);
-	}
+    @Override
+    public void registerOther() {
+        EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
+        FluidDicHandler.register("water", "water", 2000);
+        FluidDicHandler.register("xp", "xpjuice", 200);
+        FluidDicHandler.register("xp", "immibis.liquidxp", 1000);
+        FluidDicHandler.register("xp", "mobessence", 666);
+    }
 
-	@Override
-	public void registerRecipes() {
-		addShaped(sawmill, new Object[] { " A ", "DWD", "IMI", 'A', ironAxe, 'D', "slabWood", 'M', baseWood, 'W', "logWood", 'I', "ingotCopper" });
-		addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
-		addShaped(mechSponge, new Object[] { " D ", "ATA", "SCS", 'D', fish, 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum" });
-		addShaped(_(sluice, 4), new Object[] { " H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum" });
-		addShaped(handTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineCopper, 'I', "ingotCopper", 'B', baseWood, 'S', "slabWood", 'P', piston });
-		addShaped(waterTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineAluminum, 'I', "ingotAluminum", 'B', baseIron, 'S', stoneSlab, 'P', piston });
-		addShaped(gasTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineTitanium, 'I', "ingotTitanium", 'B', baseIron, 'S', quartzSlab, 'P', piston });
-		addShaped(pressureVessel, new Object[] { "WLW", "PTP", "PSP", 'W', ironWheel, 'L', "blockLapis", 'P', titaniumSheet, 'T', tank, 'S', sluice });
-		addShaped(fishSorter, new Object[] { "BPY", "GFA", "RCW", 'B', "dyeBlack", 'P', pearls, 'Y', "dyeYellow", 'G', "dyeGreen", 'F', fish, 'A', "dyeCyan", 'R', "dyeRed", 'C', baseWood, 'W', "dyeWhite" });
-		addShaped(_(geyser, 16), new Object[] { " W ", " G ", "RCR", 'W', water, 'G', "blockGlass", 'R', "dustRedstone", 'C', baseIron, });
-		addShaped(((ItemArmorFLUDD) Factory.fludd).build(), new Object[] { " E ", "PGP", "LUL", 'E', plasticLens, 'P', goldPlastic, 'G', transparent, 'L', tank, 'U', life });
-		addShaped(_(chalk), new Object[] { "LLN", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addShaped(_(chalk), new Object[] { "L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addShaped(_(chalk), new Object[] { " L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addShaped(_(chalk), new Object[] { " N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addShaped(_(chalk), new Object[] { "N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addShaped(_(chalk), new Object[] { "N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addShaped(_(chalk), new Object[] { "L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite" });
-		addMelting(_(chalk), 825, Fluids.getStack(Fluids.quicklime, 2500));
-		addShapeless(plan, new Object[] { "dyeBlue", "dyeBlack", paper, "dyeBlue" });
-		addShaped(_(filter), new Object[] { "W W", "WNW", " W ", 'W', wicker, 'N', filterer });
-		addShaped(_(paintbrush), new Object[] { " WW", " IW", "S  ", 'W', wool, 'I', "blockAluminum", 'S', sawmill });
-		addShaped(_(turbineCopper), new Object[] { " I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood" });
-		addShaped(_(turbineAluminum), new Object[] { " I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab });
-		addShaped(_(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });
-		MaricultureHandlers.turbine.add(Fluids.natural_gas);
-		MaricultureHandlers.turbine.add("gascraft_naturalgas");
-	}
+    @Override
+    public void registerRecipes() {
+        addShaped(sawmill, new Object[] { " A ", "DWD", "IMI", 'A', ironAxe, 'D', "slabWood", 'M', baseWood, 'W', "logWood", 'I', "ingotCopper" });
+        addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
+        addShaped(mechSponge, new Object[] { " D ", "ATA", "SCS", 'D', fish, 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum" });
+        addShaped(_(sluice, 4), new Object[] { " H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum" });
+        addShaped(handTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineCopper, 'I', "ingotCopper", 'B', baseWood, 'S', "slabWood", 'P', piston });
+        addShaped(waterTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineAluminum, 'I', "ingotAluminum", 'B', baseIron, 'S', stoneSlab, 'P', piston });
+        addShaped(gasTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineTitanium, 'I', "ingotTitanium", 'B', baseIron, 'S', quartzSlab, 'P', piston });
+        addShaped(pressureVessel, new Object[] { "WLW", "PTP", "PSP", 'W', ironWheel, 'L', "blockLapis", 'P', titaniumSheet, 'T', tank, 'S', sluice });
+        addShaped(fishSorter, new Object[] { "BPY", "GFA", "RCW", 'B', "dyeBlack", 'P', pearls, 'Y', "dyeYellow", 'G', "dyeGreen", 'F', fish, 'A', "dyeCyan", 'R', "dyeRed", 'C', baseWood, 'W', "dyeWhite" });
+        addShaped(_(geyser, 16), new Object[] { " W ", " G ", "RCR", 'W', water, 'G', "blockGlass", 'R', "dustRedstone", 'C', baseIron, });
+        addShaped(((ItemArmorFLUDD) Factory.fludd).build(), new Object[] { " E ", "PGP", "LUL", 'E', plasticLens, 'P', goldPlastic, 'G', transparent, 'L', tank, 'U', life });
+        addShaped(_(chalk), new Object[] { "LLN", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addShaped(_(chalk), new Object[] { "L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addShaped(_(chalk), new Object[] { " L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addShaped(_(chalk), new Object[] { " N ", " L ", " L ", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addShaped(_(chalk), new Object[] { "N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addShaped(_(chalk), new Object[] { "N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addShaped(_(chalk), new Object[] { "L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite" });
+        addMelting(_(chalk), 825, Fluids.getStack(Fluids.quicklime, 2500));
+        addShapeless(plan, new Object[] { "dyeBlue", "dyeBlack", paper, "dyeBlue" });
+        addShaped(_(filter), new Object[] { "W W", "WNW", " W ", 'W', wicker, 'N', filterer });
+        addShaped(_(paintbrush), new Object[] { " WW", " IW", "S  ", 'W', wool, 'I', "blockAluminum", 'S', sawmill });
+        addShaped(_(turbineCopper), new Object[] { " I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood" });
+        addShaped(_(turbineAluminum), new Object[] { " I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab });
+        addShaped(_(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });
+        MaricultureHandlers.turbine.add(Fluids.natural_gas);
+        MaricultureHandlers.turbine.add("gascraft_naturalgas");
+    }
 }

@@ -15,137 +15,116 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSawmill extends ContainerMachine {
-	public TileSawmill tile;
-	
-	public ContainerSawmill(TileSawmill tile, InventoryPlayer playerInventory) {
-		super(tile);
-		this.tile = tile;
+    public TileSawmill tile;
 
-		addUpgradeSlots(tile);
-		
-		for (int i = 0; i < 3; i++) {
-			addSlotToContainer(new SlotPlan(tile, i + 3, 11, 20 + (i * 20)));
-		}
-		
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.TOP, 61, 22));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.NORTH, 43, 40));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.EAST, 61, 40));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.SOUTH, 79, 40));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.WEST, 97, 40));
-		addSlotToContainer(new SlotBlock(tile, TileSawmill.BOTTOM, 61, 58));
-		addSlotToContainer(new SlotOutput(tile, TileSawmill.OUT, 149, 40));
+    public ContainerSawmill(TileSawmill tile, InventoryPlayer playerInventory) {
+        super(tile);
+        this.tile = tile;
 
-		bindPlayerInventory(playerInventory, 10);
-	}
+        addUpgradeSlots(tile);
 
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		int size = getSizeInventory();
-		int low = size + 27;
-		int high = low + 9;
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(slotID);
+        for (int i = 0; i < 3; i++) {
+            addSlotToContainer(new SlotPlan(tile, i + 3, 11, 20 + i * 20));
+        }
 
-		if (slot != null && slot.getHasStack()) {
-			ItemStack stack = slot.getStack();
-			itemstack = stack.copy();
+        addSlotToContainer(new SlotBlock(tile, TileSawmill.TOP, 61, 22));
+        addSlotToContainer(new SlotBlock(tile, TileSawmill.NORTH, 43, 40));
+        addSlotToContainer(new SlotBlock(tile, TileSawmill.EAST, 61, 40));
+        addSlotToContainer(new SlotBlock(tile, TileSawmill.SOUTH, 79, 40));
+        addSlotToContainer(new SlotBlock(tile, TileSawmill.WEST, 97, 40));
+        addSlotToContainer(new SlotBlock(tile, TileSawmill.BOTTOM, 61, 58));
+        addSlotToContainer(new SlotOutput(tile, TileSawmill.OUT, 149, 40));
 
-			if (slotID < size) {
-				if (!this.mergeItemStack(stack, size, high, true)) {
-					return null;
-				}
+        bindPlayerInventory(playerInventory, 10);
+    }
 
-				slot.onSlotChange(stack, itemstack);
-			} else if (slotID >= size) {
-				if (stack.getItem() instanceof ItemPlan) {
-					if (!this.mergeItemStack(stack, 3, 6, false)) { // Slot 3-5
-						return null;
-					}
-				} else if (stack.getItem() instanceof IItemUpgrade) {
-					if (!this.mergeItemStack(stack, 0, 3, false)) { // Slot 0-2
-						return null;
-					}
-				} else if ((stack.getItem() instanceof ItemBlock
-						&& !(stack.getItem() instanceof BlockItemCustom))
-						|| stack.getItem() == Items.feather) {
-					if (!this.mergeItemStack(stack, 6, 12, false)) { // Slot
-																		// 6-11
-						return null;
-					}
-				} else if (slotID >= size && slotID < low) {
-					if (!this.mergeItemStack(stack, low, high, false)) {
-						return null;
-					}
-				} else if (slotID >= low && slotID < high && !this.mergeItemStack(stack, high, low, false)) {
-					return null;
-				}
-			} else if (!this.mergeItemStack(stack, size, high, false)) {
-				return null;
-			}
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
+        int size = getSizeInventory();
+        int low = size + 27;
+        int high = low + 9;
+        ItemStack itemstack = null;
+        Slot slot = (Slot) inventorySlots.get(slotID);
 
-			if (stack.stackSize == 0) {
-				slot.putStack((ItemStack) null);
-			} else {
-				slot.onSlotChanged();
-			}
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            itemstack = stack.copy();
 
-			if (stack.stackSize == itemstack.stackSize) {
-				return null;
-			}
+            if (slotID < size) {
+                if (!mergeItemStack(stack, size, high, true)) return null;
 
-			slot.onPickupFromSlot(player, stack);
-		}
+                slot.onSlotChange(stack, itemstack);
+            } else if (slotID >= size) {
+                if (stack.getItem() instanceof ItemPlan) {
+                    if (!mergeItemStack(stack, 3, 6, false)) return null;
+                } else if (stack.getItem() instanceof IItemUpgrade) {
+                    if (!mergeItemStack(stack, 0, 3, false)) return null;
+                } else if (stack.getItem() instanceof ItemBlock && !(stack.getItem() instanceof BlockItemCustom) || stack.getItem() == Items.feather) {
+                    if (!mergeItemStack(stack, 6, 12, false)) // 6-11
+                    return null;
+                } else if (slotID >= size && slotID < low) {
+                    if (!mergeItemStack(stack, low, high, false)) return null;
+                } else if (slotID >= low && slotID < high && !mergeItemStack(stack, high, low, false)) return null;
+            } else if (!mergeItemStack(stack, size, high, false)) return null;
 
-		return itemstack;
-	}
-	
-	@Override
+            if (stack.stackSize == 0) {
+                slot.putStack((ItemStack) null);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if (stack.stackSize == itemstack.stackSize) return null;
+
+            slot.onPickupFromSlot(player, stack);
+        }
+
+        return itemstack;
+    }
+
+    @Override
     public ItemStack slotClick(int slotID, int mouseButton, int modifier, EntityPlayer player) {
-		Slot slot = (slotID < 0 || slotID > this.inventorySlots.size())? null: (Slot)this.inventorySlots.get(slotID);
-		if(mouseButton == 1 && modifier == 0 && slot instanceof SlotPlan) {
-			tile.selected = slot.slotNumber;
-			if(slot.getStack() != null)
-				return null;
-		}
-		
-		return super.slotClick(slotID, mouseButton, modifier, player);
-	}
+        Slot slot = slotID < 0 || slotID > inventorySlots.size() ? null : (Slot) inventorySlots.get(slotID);
+        if (mouseButton == 1 && modifier == 0 && slot instanceof SlotPlan) {
+            tile.selected = slot.slotNumber;
+            if (slot.getStack() != null) return null;
+        }
 
-	public class SlotBlock extends Slot {
-		private EntityPlayer thePlayer;
-		private int field_75228_b;
+        return super.slotClick(slotID, mouseButton, modifier, player);
+    }
 
-		public SlotBlock(IInventory inv, int id, int x, int y) {
-			super(inv, id, x, y);
-		}
+    public class SlotBlock extends Slot {
+        private EntityPlayer thePlayer;
+        private int field_75228_b;
 
-		@Override
-		public boolean isItemValid(ItemStack stack) {
-			if (stack.getItem() instanceof BlockItemCustom) {
-				return false;
-			}
+        public SlotBlock(IInventory inv, int id, int x, int y) {
+            super(inv, id, x, y);
+        }
 
-			return stack.getItem() instanceof ItemBlock || stack.getItem() == Items.feather;
-		}
+        @Override
+        public boolean isItemValid(ItemStack stack) {
+            if (stack.getItem() instanceof BlockItemCustom) return false;
 
-		@Override
-		public ItemStack decrStackSize(final int par1) {
-			if (this.getHasStack()) {
-				this.field_75228_b += Math.min(par1, this.getStack().stackSize);
-			}
+            return stack.getItem() instanceof ItemBlock || stack.getItem() == Items.feather;
+        }
 
-			return super.decrStackSize(par1);
-		}
-	}
+        @Override
+        public ItemStack decrStackSize(final int par1) {
+            if (getHasStack()) {
+                field_75228_b += Math.min(par1, getStack().stackSize);
+            }
 
-	private class SlotPlan extends Slot {
-		public SlotPlan(IInventory inv, int id, int x, int y) {
-			super(inv, id, x, y);
-		}
+            return super.decrStackSize(par1);
+        }
+    }
 
-		@Override
-		public boolean isItemValid(ItemStack stack) {
-			return stack.getItem() instanceof ItemPlan;
-		}
-	}
+    private class SlotPlan extends Slot {
+        public SlotPlan(IInventory inv, int id, int x, int y) {
+            super(inv, id, x, y);
+        }
+
+        @Override
+        public boolean isItemValid(ItemStack stack) {
+            return stack.getItem() instanceof ItemPlan;
+        }
+    }
 }

@@ -68,148 +68,180 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
 public class Magic extends RegistrationModule {
-	public static JewelryMaterial dummyMaterial;
-	public static JewelryMaterial pearlBlack;
-	public static JewelryMaterial pearlBlue;
-	public static JewelryMaterial pearlBrown;
-	public static JewelryMaterial pearlGold;
-	public static JewelryMaterial pearlGreen;
-	public static JewelryMaterial pearlOrange;
-	public static JewelryMaterial pearlPink;
-	public static JewelryMaterial pearlPurple;
-	public static JewelryMaterial pearlRed;
-	public static JewelryMaterial pearlSilver;
-	public static JewelryMaterial pearlWhite;
-	public static JewelryMaterial pearlYellow;
-	public static JewelryBinding bindingGold;
-	public static JewelryBinding bindingBasic;
-	public static JewelryBinding dummyBinding;
-	
-	public static Enchantment elemental;
-	public static Enchantment spider;
-	public static Enchantment blink;
-	public static Enchantment fall;
-	public static Enchantment flight;
-	public static Enchantment glide;
-	public static Enchantment health;
-	public static Enchantment jump;
-	public static Enchantment hungry;
-	public static Enchantment oneRing;
-	public static Enchantment repair;
-	public static Enchantment resurrection;
-	public static Enchantment speed;
-	public static Enchantment stepUp;
-	
-	public static Item basicMirror;
-	public static Item magicMirror;
-	public static Item celestialMirror;
-	public static Item ring;
-	public static Item bracelet;
-	public static Item necklace;
-	public static Item magnet;
+    public static JewelryMaterial dummyMaterial;
+    public static JewelryMaterial pearlBlack;
+    public static JewelryMaterial pearlBlue;
+    public static JewelryMaterial pearlBrown;
+    public static JewelryMaterial pearlGold;
+    public static JewelryMaterial pearlGreen;
+    public static JewelryMaterial pearlOrange;
+    public static JewelryMaterial pearlPink;
+    public static JewelryMaterial pearlPurple;
+    public static JewelryMaterial pearlRed;
+    public static JewelryMaterial pearlSilver;
+    public static JewelryMaterial pearlWhite;
+    public static JewelryMaterial pearlYellow;
+    public static JewelryBinding bindingGold;
+    public static JewelryBinding bindingBasic;
+    public static JewelryBinding dummyBinding;
 
-	@Override
-	public void registerHandlers() {
-		MaricultureHandlers.mirror = new MirrorHandler();
-		MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
-	}
-	
-	@Override
-	public void registerBlocks() {
-		return;
-	}
+    public static Enchantment elemental;
+    public static Enchantment spider;
+    public static Enchantment blink;
+    public static Enchantment fall;
+    public static Enchantment flight;
+    public static Enchantment glide;
+    public static Enchantment health;
+    public static Enchantment jump;
+    public static Enchantment hungry;
+    public static Enchantment oneRing;
+    public static Enchantment repair;
+    public static Enchantment resurrection;
+    public static Enchantment speed;
+    public static Enchantment stepUp;
 
-	@Override
-	public void registerItems() {
-		basicMirror = new ItemMirror("mirror").setUnlocalizedName("mirror.basic");
-		magicMirror = new ItemMagicMirror(1, 30, "magicMirror", 15, 1000).setUnlocalizedName("mirror.magic");
-		celestialMirror = new ItemMagicMirror(31, 60, "celestialMirror",20, 10000).setUnlocalizedName("mirror.celestial");
-		ring = new ItemRing().setUnlocalizedName("ring");
-		bracelet = new ItemBracelet().setUnlocalizedName("bracelet");
-		necklace = new ItemNecklace().setUnlocalizedName("necklace");
-		magnet = new ItemMobMagnet(100).setUnlocalizedName("mobmagnet");
-		RegistryHelper.registerItems(new Item[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
-	}
+    public static Item basicMirror;
+    public static Item magicMirror;
+    public static Item celestialMirror;
+    public static Item ring;
+    public static Item bracelet;
+    public static Item necklace;
+    public static Item magnet;
 
-	@Override
-	public void registerOther() {
-		RecipeSorter.INSTANCE.register("mariculture:jewelryshaped", ShapedJewelryRecipe.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
-		RecipeSorter.INSTANCE.register("mariculture:jewelryshapeless", ShapelessJewelryRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
-		
-		registerJewelry();
-		registerEnchants();
-		MaricultureTab.tabMagic.setIcon(new ItemStack(basicMirror), false);
-	}
-	
-	private void registerJewelry() {
-		dummyBinding = new BindingDummy();
-		dummyMaterial = new MaterialDummy();
-		//Real parts
-		pearlBlack = new MaterialPearlBlack();
-		pearlBlue = new MaterialPearlBlue();
-		pearlBrown = new MaterialPearlBrown();
-		pearlGold = new MaterialPearlGold();
-		pearlGreen = new MaterialPearlGreen();
-		pearlOrange = new MaterialPearlOrange();
-		pearlPink = new MaterialPearlPink();
-		pearlPurple = new MaterialPearlPurple();
-		pearlRed = new MaterialPearlRed();
-		pearlSilver = new MaterialPearlSilver();
-		pearlWhite = new MaterialPearlWhite();
-		pearlYellow = new MaterialPearlYellow();
-		bindingBasic = new BindingBasic();
-		bindingGold = new BindingGold();
-	}
-	
-	private void registerEnchants() {
-		if(EnchantIds.spider > 0) { spider = new EnchantmentSpider(EnchantIds.spider, 3, EnumEnchantmentType.all); }
-		if(EnchantIds.blink > 0) { blink = new EnchantmentBlink(EnchantIds.blink, 5, EnumEnchantmentType.all); }
-		if(EnchantIds.fall > 0) { fall = new EnchantmentFallDamage(EnchantIds.fall, 5, EnumEnchantmentType.all); }
-		if(EnchantIds.flight > 0) { flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.glide > 0) { glide = new EnchantmentGlide(EnchantIds.glide, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.health > 0) { health = new EnchantmentHealth(EnchantIds.health, 4, EnumEnchantmentType.all); }
-		if(EnchantIds.jump > 0) { jump = new EnchantmentJump(EnchantIds.jump, 6, EnumEnchantmentType.all); }
-		if(EnchantIds.hungry > 0) { hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 2, EnumEnchantmentType.all); }
-		if(EnchantIds.oneRing > 0) { oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all); }
-		if(EnchantIds.repair > 0) { repair = new EnchantmentRestore(EnchantIds.repair, 3, EnumEnchantmentType.all); }
-		if(EnchantIds.resurrection > 0) { resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all); }
-		if(EnchantIds.speed > 0) { speed = new EnchantmentSpeed(EnchantIds.speed, 6, EnumEnchantmentType.all); }
-		if(EnchantIds.stepUp > 0) { stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all); }
-		if(EnchantIds.elemental > 0) { elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all); }
-	}
+    @Override
+    public void registerHandlers() {
+        MaricultureHandlers.mirror = new MirrorHandler();
+        MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
+    }
 
-	@Override
-	public void registerRecipes() {		
-		addShaped(_(magnet), new Object[] {"III", "I I", "M M", 'I', "ingotIron", 'M', enderPearl});
-		addShaped(_(basicMirror), new Object[] {" AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron"});
-		addShaped(_(magicMirror), new Object[] {"PMP", "BEB", "PBP", 'B', storageBookshelf, 'M', basicMirror, 'E', enchant, 'P', pearls});
-		addShaped(_(celestialMirror), new Object[] {"TST", "BMB", "GBG", 'B', storageBookshelf, 'M', magicMirror, 'S', netherStar, 'T', magicDrop, 'G', goldThread});
-		addJewelry((ItemJewelry)ring);
-		addJewelry((ItemJewelry)bracelet);
-		addJewelry((ItemJewelry)necklace);
-		addDungeonChestLoot();
-	}
+    @Override
+    public void registerBlocks() {
+        return;
+    }
 
-	private void addJewelry(ItemJewelry item) {
-		JewelryType type = item.getType();
-		for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
-			if(binding.getValue().ignore) continue;
-			for (Entry<String, JewelryMaterial> material : JewelryMaterial.list.entrySet()) {
-				if(material.getValue().ignore) continue;
-				JewelryBinding bind = binding.getValue();
-				JewelryMaterial mat = material.getValue();
-				ItemStack worked = JewelryHandler.createJewelry(item, bind, mat);
-				JewelryHandler.addJewelry(type, worked, bind.getCraftingItem(type), mat.getCraftingItem(type), (int)(bind.getHitsBase(type) * mat.getHitsModifier(type)));
-			}
-		}
-	}
+    @Override
+    public void registerItems() {
+        basicMirror = new ItemMirror("mirror").setUnlocalizedName("mirror.basic");
+        magicMirror = new ItemMagicMirror(1, 30, "magicMirror", 15, 1000).setUnlocalizedName("mirror.magic");
+        celestialMirror = new ItemMagicMirror(31, 60, "celestialMirror", 20, 10000).setUnlocalizedName("mirror.celestial");
+        ring = new ItemRing().setUnlocalizedName("ring");
+        bracelet = new ItemBracelet().setUnlocalizedName("bracelet");
+        necklace = new ItemNecklace().setUnlocalizedName("necklace");
+        magnet = new ItemMobMagnet(100).setUnlocalizedName("mobmagnet");
+        RegistryHelper.registerItems(new Item[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
+    }
 
-	private void addDungeonChestLoot() {
-		if(EnchantHelper.exists(oneRing)) {
-			ItemStack oneRing = MaricultureRegistry.get("ring.oneRing");
-			if (oneRing != null) {
-				ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(oneRing, 1, 1, 1));
-			}
-		}
-	}
+    @Override
+    public void registerOther() {
+        RecipeSorter.register("mariculture:jewelryshaped", ShapedJewelryRecipe.class, Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
+        RecipeSorter.register("mariculture:jewelryshapeless", ShapelessJewelryRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+
+        registerJewelry();
+        registerEnchants();
+        MaricultureTab.tabMagic.setIcon(new ItemStack(basicMirror), false);
+    }
+
+    private void registerJewelry() {
+        dummyBinding = new BindingDummy();
+        dummyMaterial = new MaterialDummy();
+        //Real parts
+        pearlBlack = new MaterialPearlBlack();
+        pearlBlue = new MaterialPearlBlue();
+        pearlBrown = new MaterialPearlBrown();
+        pearlGold = new MaterialPearlGold();
+        pearlGreen = new MaterialPearlGreen();
+        pearlOrange = new MaterialPearlOrange();
+        pearlPink = new MaterialPearlPink();
+        pearlPurple = new MaterialPearlPurple();
+        pearlRed = new MaterialPearlRed();
+        pearlSilver = new MaterialPearlSilver();
+        pearlWhite = new MaterialPearlWhite();
+        pearlYellow = new MaterialPearlYellow();
+        bindingBasic = new BindingBasic();
+        bindingGold = new BindingGold();
+    }
+
+    private void registerEnchants() {
+        if (EnchantIds.spider > 0) {
+            spider = new EnchantmentSpider(EnchantIds.spider, 3, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.blink > 0) {
+            blink = new EnchantmentBlink(EnchantIds.blink, 5, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.fall > 0) {
+            fall = new EnchantmentFallDamage(EnchantIds.fall, 5, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.flight > 0) {
+            flight = new EnchantmentFlight(EnchantIds.flight, 1, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.glide > 0) {
+            glide = new EnchantmentGlide(EnchantIds.glide, 1, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.health > 0) {
+            health = new EnchantmentHealth(EnchantIds.health, 4, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.jump > 0) {
+            jump = new EnchantmentJump(EnchantIds.jump, 6, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.hungry > 0) {
+            hungry = new EnchantmentNeverHungry(EnchantIds.hungry, 2, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.oneRing > 0) {
+            oneRing = new EnchantmentOneRing(EnchantIds.oneRing, 0, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.repair > 0) {
+            repair = new EnchantmentRestore(EnchantIds.repair, 3, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.resurrection > 0) {
+            resurrection = new EnchantmentResurrection(EnchantIds.resurrection, 1, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.speed > 0) {
+            speed = new EnchantmentSpeed(EnchantIds.speed, 6, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.stepUp > 0) {
+            stepUp = new EnchantmentStepUp(EnchantIds.stepUp, 5, EnumEnchantmentType.all);
+        }
+        if (EnchantIds.elemental > 0) {
+            elemental = new EnchantmentElemental(EnchantIds.elemental, 4, EnumEnchantmentType.all);
+        }
+    }
+
+    @Override
+    public void registerRecipes() {
+        addShaped(_(magnet), new Object[] { "III", "I I", "M M", 'I', "ingotIron", 'M', enderPearl });
+        addShaped(_(basicMirror), new Object[] { " AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron" });
+        addShaped(_(magicMirror), new Object[] { "PMP", "BEB", "PBP", 'B', storageBookshelf, 'M', basicMirror, 'E', enchant, 'P', pearls });
+        addShaped(_(celestialMirror), new Object[] { "TST", "BMB", "GBG", 'B', storageBookshelf, 'M', magicMirror, 'S', netherStar, 'T', magicDrop, 'G', goldThread });
+        addJewelry((ItemJewelry) ring);
+        addJewelry((ItemJewelry) bracelet);
+        addJewelry((ItemJewelry) necklace);
+        addDungeonChestLoot();
+    }
+
+    private void addJewelry(ItemJewelry item) {
+        JewelryType type = item.getType();
+        for (Entry<String, JewelryBinding> binding : JewelryBinding.list.entrySet()) {
+            if (binding.getValue().ignore) {
+                continue;
+            }
+            for (Entry<String, JewelryMaterial> material : JewelryMaterial.list.entrySet()) {
+                if (material.getValue().ignore) {
+                    continue;
+                }
+                JewelryBinding bind = binding.getValue();
+                JewelryMaterial mat = material.getValue();
+                ItemStack worked = JewelryHandler.createJewelry(item, bind, mat);
+                JewelryHandler.addJewelry(type, worked, bind.getCraftingItem(type), mat.getCraftingItem(type), (int) (bind.getHitsBase(type) * mat.getHitsModifier(type)));
+            }
+        }
+    }
+
+    private void addDungeonChestLoot() {
+        if (EnchantHelper.exists(oneRing)) {
+            ItemStack oneRing = MaricultureRegistry.get("ring.oneRing");
+            if (oneRing != null) {
+                ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(oneRing, 1, 1, 1));
+            }
+        }
+    }
 }

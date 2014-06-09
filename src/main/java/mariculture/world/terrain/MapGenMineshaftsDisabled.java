@@ -12,34 +12,35 @@ import net.minecraft.world.gen.structure.StructureMineshaftStart;
 import net.minecraft.world.gen.structure.StructureStart;
 
 public class MapGenMineshaftsDisabled extends MapGenMineshaft {
-	private double field_82673_e = 0.01D;
+    private double field_82673_e = 0.01D;
 
-	public MapGenMineshaftsDisabled() {
-	}
+    public MapGenMineshaftsDisabled() {}
 
-	public String func_143025_a() {
-		return "Mineshaft";
-	}
+    @Override
+    public String func_143025_a() {
+        return "Mineshaft";
+    }
 
-	public MapGenMineshaftsDisabled(Map map) {
-		Iterator iterator = map.entrySet().iterator();
+    public MapGenMineshaftsDisabled(Map map) {
+        Iterator iterator = map.entrySet().iterator();
 
-		while (iterator.hasNext()) {
-			Entry entry = (Entry) iterator.next();
+        while (iterator.hasNext()) {
+            Entry entry = (Entry) iterator.next();
 
-			if (((String) entry.getKey()).equals("chance")) {
-				this.field_82673_e = MathHelper.parseDoubleWithDefault((String) entry.getValue(), this.field_82673_e);
-			}
-		}
-	}
+            if (((String) entry.getKey()).equals("chance")) {
+                field_82673_e = MathHelper.parseDoubleWithDefault((String) entry.getValue(), field_82673_e);
+            }
+        }
+    }
 
-	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-		if(this.rand.nextDouble() < this.field_82673_e && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ))) {
-			return MaricultureHandlers.environment.getSalinity(worldObj, chunkX * 16, chunkZ * 16) != Salinity.SALINE;
-		} else return false;
-	}
+    @Override
+    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
+        if (rand.nextDouble() < field_82673_e && rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ))) return MaricultureHandlers.environment.getSalinity(worldObj, chunkX * 16, chunkZ * 16) != Salinity.SALINE;
+        else return false;
+    }
 
-	protected StructureStart getStructureStart(int par1, int par2) {
-		return new StructureMineshaftStart(this.worldObj, this.rand, par1, par2);
-	}
+    @Override
+    protected StructureStart getStructureStart(int par1, int par2) {
+        return new StructureMineshaftStart(worldObj, rand, par1, par2);
+    }
 }

@@ -14,84 +14,84 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishTetra extends FishSpecies {
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 20, 28 };
-	}
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 20, 28 };
+    }
 
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH };
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return false;
-	}
+    @Override
+    public boolean isDominant() {
+        return false;
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 5;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 5;
+    }
 
-	@Override
-	public int getFertility() {
-		return 130;
-	}
+    @Override
+    public int getFertility() {
+        return 130;
+    }
 
-	@Override
-	public int getBaseProductivity() {
-		return 2;
-	}
-	
-	@Override
-	public int getAreaOfEffectBonus(ForgeDirection dir) {
-		return -1;
-	}
+    @Override
+    public int getBaseProductivity() {
+        return 2;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletWater, 3.5D);
-		addProduct(dropletFlux, 0.5D);
-	}
+    @Override
+    public int getAreaOfEffectBonus(ForgeDirection dir) {
+        return -1;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 0.025D;
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletWater, 3.5D);
+        addProduct(dropletFlux, 0.5D);
+    }
 
-	@Override
-	public int getFishMealSize() {
-		return 1;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 0.025D;
+    }
 
-	@Override
-	public float getFoodSaturation() {
-		return 0.05F;
-	}
+    @Override
+    public int getFishMealSize() {
+        return 1;
+    }
 
-	@Override
-	public int getFoodDuration() {
-		return 8;
-	}
+    @Override
+    public float getFoodSaturation() {
+        return 0.05F;
+    }
 
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 160, 0));
-	}
+    @Override
+    public int getFoodDuration() {
+        return 8;
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.OLD;
-	}
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 160, 0));
+    }
 
-	@Override
-	public int getCatchChance() {
-		return 45;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.OLD;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return Time.isDay(time) ? 55D : 25D;
-	}
+    @Override
+    public int getCatchChance() {
+        return 45;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return Time.isDay(time) ? 55D : 25D;
+    }
 }

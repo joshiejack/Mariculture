@@ -12,60 +12,58 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class MaterialPearlPurple extends JewelryMaterial {
-	@Override
-	public String getColor() {
-		return Text.PURPLE;
-	}
-	
-	@Override
-	public int onAttacked(LivingAttackEvent event, EntityPlayer player) {
-		if(event.source == DamageSource.magic) {
-			if(!player.isPotionActive(Potion.poison)) {
-				event.setCanceled(true);
-			}
-		} 
-		
-		return 0;
-	}
-	
-	@Override
-	public int onHurt(LivingHurtEvent event, EntityPlayer player) {
-		if(event.source == DamageSource.magic) {
-			if(!player.isPotionActive(Potion.poison)) {
-				event.setCanceled(true);
-			}
-			
-			return 80;
-		} else return 0;
-	}
+    @Override
+    public String getColor() {
+        return Text.PURPLE;
+    }
 
-	@Override
-	public int getExtraEnchantments(JewelryType type) {
-		return type == JewelryType.RING? 1: 0;
-	}
+    @Override
+    public int onAttacked(LivingAttackEvent event, EntityPlayer player) {
+        if (event.source == DamageSource.magic) if (!player.isPotionActive(Potion.poison)) {
+            event.setCanceled(true);
+        }
 
-	@Override
-	public int getMaximumEnchantmentLevel (JewelryType type) {
-		return type == JewelryType.RING? 5: 3;
-	}
+        return 0;
+    }
 
-	@Override
-	public float getRepairModifier(JewelryType type) {
-		return 1.5F;
-	}
+    @Override
+    public int onHurt(LivingHurtEvent event, EntityPlayer player) {
+        if (event.source == DamageSource.magic) {
+            if (!player.isPotionActive(Potion.poison)) {
+                event.setCanceled(true);
+            }
 
-	@Override
-	public float getHitsModifier(JewelryType type) {
-		return 0.75F;
-	}
-	
-	@Override
-	public float getDurabilityModifier(JewelryType type) {
-		return 1.0F;
-	}
-	
-	@Override
-	public ItemStack getCraftingItem(JewelryType type) {
-		return new ItemStack(Core.pearls, 1, PearlColor.PURPLE);
-	}
+            return 80;
+        } else return 0;
+    }
+
+    @Override
+    public int getExtraEnchantments(JewelryType type) {
+        return type == JewelryType.RING ? 1 : 0;
+    }
+
+    @Override
+    public int getMaximumEnchantmentLevel(JewelryType type) {
+        return type == JewelryType.RING ? 5 : 3;
+    }
+
+    @Override
+    public float getRepairModifier(JewelryType type) {
+        return 1.5F;
+    }
+
+    @Override
+    public float getHitsModifier(JewelryType type) {
+        return 0.75F;
+    }
+
+    @Override
+    public float getDurabilityModifier(JewelryType type) {
+        return 1.0F;
+    }
+
+    @Override
+    public ItemStack getCraftingItem(JewelryType type) {
+        return new ItemStack(Core.pearls, 1, PearlColor.PURPLE);
+    }
 }

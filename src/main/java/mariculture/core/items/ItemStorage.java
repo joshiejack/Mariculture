@@ -30,125 +30,125 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemStorage extends Item implements IItemRegistry {
 
-	public int size;
-	public String gui;
+    public int size;
+    public String gui;
 
-	public ItemStorage(int storage, String gui) {
-		maxStackSize = 1;
-		this.size = storage;
-		this.gui = gui;
-		this.setCreativeTab(MaricultureTab.tabCore);
-	}
+    public ItemStorage(int storage, String gui) {
+        maxStackSize = 1;
+        size = storage;
+        this.gui = gui;
+        setCreativeTab(MaricultureTab.tabCore);
+    }
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (stack != null) {
-			if (!player.isSneaking()) {
-				player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
-			}
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if (stack != null) {
+            if (!player.isSneaking()) {
+                player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
+            }
 
-			return stack;
-		}
+            return stack;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, 0)));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister) {
+        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, 0)));
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		list.add(new ItemStack(item, 1, 0));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creative, List list) {
+        list.add(new ItemStack(item, 1, 0));
+    }
 
-	@Override
-	public void register(Item item) {
-		MaricultureRegistry.register(getName(new ItemStack(item, 1, 0)), new ItemStack(item, 1, 0));
-	}
+    @Override
+    public void register(Item item) {
+        MaricultureRegistry.register(getName(new ItemStack(item, 1, 0)), new ItemStack(item, 1, 0));
+    }
 
-	@Override
-	public int getMetaCount() {
-		return 1;
-	}
+    @Override
+    public int getMetaCount() {
+        return 1;
+    }
 
-	@Override
-	public String getName(ItemStack stack) {
-		return getUnlocalizedName().substring(5);
-	}
+    @Override
+    public String getName(ItemStack stack) {
+        return getUnlocalizedName().substring(5);
+    }
 
-	public Slot getSlot(InventoryStorage storage, int i) {
-		switch(i) {
-			case 0: return new Slot(storage, i, 43, 25);
-		}
-		
-		return new Slot(storage, i, 100, 100);
-	}
-	
-	public int getX(ItemStack stack) {
-		return 66;
-	}
+    public Slot getSlot(InventoryStorage storage, int i) {
+        switch (i) {
+            case 0:
+                return new Slot(storage, i, 43, 25);
+        }
 
-	public boolean isItemValid(ItemStack stack) {
-		return true;
-	}
+        return new Slot(storage, i, 100, 100);
+    }
 
-	public ItemStack[] load(EntityPlayer player, ItemStack stack, int size) {
-		NBTTagCompound loader = stack.hasTagCompound() ? stack.stackTagCompound: new NBTTagCompound();
-		NBTTagList nbttaglist = loader.getTagList("Inventory", 10);
+    public int getX(ItemStack stack) {
+        return 66;
+    }
 
-		if (nbttaglist != null) {
-			ItemStack[] inventory = new ItemStack[size];
-			for (int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
-				byte byte0 = nbttagcompound1.getByte("Slot");
-				if (byte0 >= 0 && byte0 < inventory.length) {
-					inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-				}
-			}
+    public boolean isItemValid(ItemStack stack) {
+        return true;
+    }
 
-			return inventory;
-		}
-		
-		return new ItemStack[size];
-	}
+    public ItemStack[] load(EntityPlayer player, ItemStack stack, int size) {
+        NBTTagCompound loader = stack.hasTagCompound() ? stack.stackTagCompound : new NBTTagCompound();
+        NBTTagList nbttaglist = loader.getTagList("Inventory", 10);
 
-	public void save(EntityPlayer player, ItemStack[] inventory) {
-		try {
-			NBTTagList nbttaglist = new NBTTagList();
-			for (int i = 0; i < inventory.length; i++) {
-				if (inventory[i] != null) {
-					NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-					nbttagcompound1.setByte("Slot", (byte) i);
-					inventory[i].writeToNBT(nbttagcompound1);
-					nbttaglist.appendTag(nbttagcompound1);
-				}
-			}
-			
-			if (!player.getCurrentEquippedItem().hasTagCompound()) {
-				player.getCurrentEquippedItem().setTagCompound(new NBTTagCompound());
-			}
-			
-			player.getCurrentEquippedItem().stackTagCompound.setTag("Inventory", nbttaglist);
+        if (nbttaglist != null) {
+            ItemStack[] inventory = new ItemStack[size];
+            for (int i = 0; i < nbttaglist.tagCount(); i++) {
+                NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+                byte byte0 = nbttagcompound1.getByte("Slot");
+                if (byte0 >= 0 && byte0 < inventory.length) {
+                    inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+                }
+            }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			LogHandler.log(Level.WARN, "Trouble saving an items inventory");
-		}
-	}
+            return inventory;
+        }
 
-	public void addFeatures(ArrayList<Feature> list) {
-		
-	}
+        return new ItemStack[size];
+    }
 
-	public Object getGUIContainer(EntityPlayer player) {
-		return new ContainerStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, 0);
-	}
+    public void save(EntityPlayer player, ItemStack[] inventory) {
+        try {
+            NBTTagList nbttaglist = new NBTTagList();
+            for (int i = 0; i < inventory.length; i++)
+                if (inventory[i] != null) {
+                    NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                    nbttagcompound1.setByte("Slot", (byte) i);
+                    inventory[i].writeToNBT(nbttagcompound1);
+                    nbttaglist.appendTag(nbttagcompound1);
+                }
 
-	public Object getGUIElement(EntityPlayer player) {
-		return new GuiStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, gui, 0);
-	}
+            if (!player.getCurrentEquippedItem().hasTagCompound()) {
+                player.getCurrentEquippedItem().setTagCompound(new NBTTagCompound());
+            }
+
+            player.getCurrentEquippedItem().stackTagCompound.setTag("Inventory", nbttaglist);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogHandler.log(Level.WARN, "Trouble saving an items inventory");
+        }
+    }
+
+    public void addFeatures(ArrayList<Feature> list) {
+
+    }
+
+    public Object getGUIContainer(EntityPlayer player) {
+        return new ContainerStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, 0);
+    }
+
+    public Object getGUIElement(EntityPlayer player) {
+        return new GuiStorage(player.inventory, new InventoryStorage(player, size), player.worldObj, gui, 0);
+    }
 }

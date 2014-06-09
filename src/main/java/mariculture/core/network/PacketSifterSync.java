@@ -10,29 +10,30 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSifterSync extends PacketNBT {
-	public PacketSifterSync() {}
-	public PacketSifterSync(int x, int y, int z, ItemStack stack) {
-		nbt = new NBTTagCompound();
-		nbt.setInteger("x", x);
-		nbt.setInteger("y", y);
-		nbt.setInteger("z", z);
-		stack.writeToNBT(nbt);
-	}
+    public PacketSifterSync() {}
 
-	@Override
-	public IMessage onMessage(PacketNBT message, MessageContext ctx) {
-		World world = ClientHelper.getPlayer().worldObj;
-		int x = message.nbt.getInteger("x");
-		int y = message.nbt.getInteger("y");
-		int z = message.nbt.getInteger("z");
-		
-		ItemStack stack = ItemStack.loadItemStackFromNBT(message.nbt);
-		if(stack.getItem() instanceof BlockAirItem) {
-			stack = null;
-		}
+    public PacketSifterSync(int x, int y, int z, ItemStack stack) {
+        nbt = new NBTTagCompound();
+        nbt.setInteger("x", x);
+        nbt.setInteger("y", y);
+        nbt.setInteger("z", z);
+        stack.writeToNBT(nbt);
+    }
 
-		((TileSifter)world.getTileEntity(x, y, z)).display = stack;
-		ClientHelper.updateRender(x, y, z);
-		return null;
-	}
+    @Override
+    public IMessage onMessage(PacketNBT message, MessageContext ctx) {
+        World world = ClientHelper.getPlayer().worldObj;
+        int x = message.nbt.getInteger("x");
+        int y = message.nbt.getInteger("y");
+        int z = message.nbt.getInteger("z");
+
+        ItemStack stack = ItemStack.loadItemStackFromNBT(message.nbt);
+        if (stack.getItem() instanceof BlockAirItem) {
+            stack = null;
+        }
+
+        ((TileSifter) world.getTileEntity(x, y, z)).display = stack;
+        ClientHelper.updateRender(x, y, z);
+        return null;
+    }
 }

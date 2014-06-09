@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 
 public abstract class SlotFake extends Slot {
 
-	public SlotFake(IInventory inv, int id, int x, int y) {
-		super(inv, id, x, y);
-	}
-	
-	public abstract ItemStack handle(EntityPlayer player, int mouseButton, Slot slot);
+    public SlotFake(IInventory inv, int id, int x, int y) {
+        super(inv, id, x, y);
+    }
+
+    public abstract ItemStack handle(EntityPlayer player, int mouseButton, Slot slot);
 }

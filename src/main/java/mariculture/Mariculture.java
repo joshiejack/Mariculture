@@ -20,45 +20,46 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = "Mariculture", name = "Mariculture", dependencies = Required.after)
 public class Mariculture {
-	public static final String modid = "mariculture";
+    public static final String modid = "mariculture";
 
-	@SidedProxy(clientSide = "mariculture.core.ClientProxy", serverSide = "mariculture.core.CommonProxy")
-	public static CommonProxy proxy;
+    @SidedProxy(clientSide = "mariculture.core.ClientProxy", serverSide = "mariculture.core.CommonProxy")
+    public static CommonProxy proxy;
 
-	@Instance("Mariculture")
-	public static Mariculture instance = new Mariculture();
-	public static Modules modules = new Modules();
-	public static File root;
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		root = event.getModConfigurationDirectory();
-		Config.setup();
-		for (Module module : Modules.modules) {
-			module.preInit();
-		}
+    @Instance("Mariculture")
+    public static Mariculture instance = new Mariculture();
+    public static Modules modules = new Modules();
+    public static File root;
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-	}
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        root = event.getModConfigurationDirectory();
+        Config.setup();
+        for (Module module : Modules.modules) {
+            module.preInit();
+        }
 
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		PacketHandler.init();
-		//Fish need to be registered before, the recipes that use them are called
-		if (Modules.isActive(Modules.fishery)) {
-			Fishing.fishHelper.registerFishies();
-		}
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+    }
 
-		for (Module module : Modules.modules) {
-			module.init();
-		}
-	}
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        PacketHandler.init();
+        //Fish need to be registered before, the recipes that use them are called
+        if (Modules.isActive(Modules.fishery)) {
+            Fishing.fishHelper.registerFishies();
+        }
 
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		for (Module module : Modules.modules) {
-			module.postInit();
-		}
+        for (Module module : Modules.modules) {
+            module.init();
+        }
+    }
 
-		proxy.setupClient();
-	}
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        for (Module module : Modules.modules) {
+            module.postInit();
+        }
+
+        proxy.setupClient();
+    }
 }

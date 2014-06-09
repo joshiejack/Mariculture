@@ -27,79 +27,82 @@ import com.google.common.collect.Multimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemHammer extends ItemPickaxe implements IItemRegistry {	
-	public ItemHammer(ToolMaterial brick) {
-		super(brick);
-		setHarvestLevel("pickaxe", 0);
-		setCreativeTab(MaricultureTab.tabFactory);
-	}
+public class ItemHammer extends ItemPickaxe implements IItemRegistry {
+    public ItemHammer(ToolMaterial brick) {
+        super(brick);
+        setHarvestLevel("pickaxe", 0);
+        setCreativeTab(MaricultureTab.tabFactory);
+    }
 
-	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		Block block = world.getBlock(x, y, z);
-		if(block == Blocks.bed) return false;
-		if(BlockHelper.canRotate(block)) {
-			int meta = world.getBlockMetadata(x, y, z);
-			if(player.isSneaking()) {
-				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
-			} else {
-				world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
-			}
-		}
-		
-		if(block != null) {
-			if(block == Core.renderedMachines && world.getBlockMetadata(x, y, z) == MachineRenderedMeta.ANVIL && !player.isSneaking()) return false;
-			if(world.getTileEntity(x, y, z) instanceof IHasGUI && !player.isSneaking()) return false;
-			if(block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
-				return !world.isRemote;
-		}
-		
-		return false;
-	}
-	
-	public int getItemEnchantability() {
-		return 10;
-	}
+    @Override
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        Block block = world.getBlock(x, y, z);
+        if (block == Blocks.bed) return false;
+        if (BlockHelper.canRotate(block)) {
+            int meta = world.getBlockMetadata(x, y, z);
+            if (player.isSneaking()) {
+                world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
+            } else {
+                world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, Block.getIdFromBlock(block), meta, x, y, z), 3);
+            }
+        }
 
-	@Override
-	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
-		return !(world.getTileEntity(x, y, z) instanceof TileAnvil);
-	}
-	
-	@Override
-	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-		return stack2.getItem() == Core.crafting && stack2.getItemDamage() == CraftingMeta.BURNT_BRICK;
-	}
-	
-	@Override
-	public Multimap getAttributeModifiers(ItemStack stack) {
+        if (block != null) {
+            if (block == Core.renderedMachines && world.getBlockMetadata(x, y, z) == MachineRenderedMeta.ANVIL && !player.isSneaking()) return false;
+            if (world.getTileEntity(x, y, z) instanceof IHasGUI && !player.isSneaking()) return false;
+            if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) return !world.isRemote;
+        }
+
+        return false;
+    }
+
+    @Override
+    public int getItemEnchantability() {
+        return 10;
+    }
+
+    @Override
+    public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
+        return !(world.getTileEntity(x, y, z) instanceof TileAnvil);
+    }
+
+    @Override
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
+        return stack2.getItem() == Core.crafting && stack2.getItemDamage() == CraftingMeta.BURNT_BRICK;
+    }
+
+    @Override
+    public Multimap getAttributeModifiers(ItemStack stack) {
         Multimap multimap = super.getAttributeModifiers(stack);
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", (double)5.0F, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", 5.0F, 0));
         return multimap;
     }
-	
-	@Override
-	public void register(Item item) {
-		MaricultureRegistry.register(getName(new ItemStack(item, 1, 0)), new ItemStack(item, 1, 0));
-	}
-	
-	@Override
-	public int getMetaCount() {
-		return 1;
-	}
 
-	@Override
-	public String getName(ItemStack stack) {
-		return this.getUnlocalizedName().substring(5);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
-		String theName, name = getName(new ItemStack(this));
-		String[] aName = name.split("\\.");
-		if(aName.length == 2) theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-		else theName = name;
-		itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
-	}
+    @Override
+    public void register(Item item) {
+        MaricultureRegistry.register(getName(new ItemStack(item, 1, 0)), new ItemStack(item, 1, 0));
+    }
+
+    @Override
+    public int getMetaCount() {
+        return 1;
+    }
+
+    @Override
+    public String getName(ItemStack stack) {
+        return this.getUnlocalizedName().substring(5);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister) {
+        String theName, name = getName(new ItemStack(this));
+        String[] aName = name.split("\\.");
+        if (aName.length == 2) {
+            theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+        } else {
+            theName = name;
+        }
+        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
+    }
 }

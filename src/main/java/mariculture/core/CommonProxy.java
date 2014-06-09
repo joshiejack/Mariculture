@@ -47,136 +47,83 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IGuiHandler {
-	@Override
-	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if(id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-			return storage.getGUIContainer(player);
-		}
-		
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null) {			
-			if(tile instanceof TileAutofisher) {
-				return new ContainerAutofisher((TileAutofisher) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileCrucible) {
-				return new ContainerCrucible((TileCrucible) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileIncubator) {
-				return new ContainerIncubator((TileIncubator) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileSifter) {
-				return new ContainerSift((TileSifter) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileFeeder) {
-				return new ContainerFeeder((TileFeeder) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileBookshelf) {
-				return new ContainerBookshelf((TileBookshelf) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileSawmill) {
-				return new ContainerSawmill((TileSawmill) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileTurbineBase) {
-				return new ContainerTurbine((TileTurbineBase) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileFLUDDStand) {
-				return new ContainerFLUDDStand((TileFLUDDStand) tile, player.inventory);
-			}
-			
-			if(tile instanceof TilePressureVessel) {
-				return new ContainerPressureVessel((TilePressureVessel) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileDictionaryItem) {
-				return new ContainerDictionary((TileDictionaryItem) tile, player.inventory);
-			}
-			
-			if(tile instanceof TileFishSorter) {
-				return new ContainerFishSorter((TileFishSorter)tile, player.inventory);
-			}
-			
-			if(tile instanceof TileFishTank) {
-				return new ContainerFishTank((TileFishTank)tile, player.inventory);
-			}
-		}
+    @Override
+    public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+        if (id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+            ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
+            return storage.getGUIContainer(player);
+        }
 
-		return null;
-	}
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile != null) {
+            if (tile instanceof TileAutofisher) return new ContainerAutofisher((TileAutofisher) tile, player.inventory);
 
-	@Override
-	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if(id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-			ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
-			return storage.getGUIElement(player);
-		}
-		
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null) {			
-			if(tile instanceof TileAutofisher) {
-				return new GuiAutofisher(player.inventory, (TileAutofisher) tile);
-			}
-			
-			if(tile instanceof TileCrucible) {
-				return new GuiLiquifier(player.inventory, (TileCrucible) tile);
-			}
-			
-			if(tile instanceof TileIncubator) {
-				return new GuiIncubator(player.inventory, (TileIncubator) tile);
-			}
-			
-			if(tile instanceof TileSifter) {
-				return new GuiSift(player.inventory, (TileSifter) tile);
-			}
-			
-			if(tile instanceof TileFeeder) {
-				return new GuiFeeder(player.inventory, (TileFeeder) tile);
-			}
-			
-			if(tile instanceof TileBookshelf) {
-				return new GuiBookshelf(player.inventory, (TileBookshelf) tile);
-			}
-			
-			if(tile instanceof TileSawmill) {
-				return new GuiSawmill(player.inventory, (TileSawmill) tile);
-			}
-			
-			if(tile instanceof TileTurbineBase) {
-				return new GuiTurbine(player.inventory, (TileTurbineBase) tile);
-			}
-			
-			if(tile instanceof TileFLUDDStand) {
-				return new GuiFLUDDStand(player.inventory, (TileFLUDDStand) tile);
-			}
-			
-			if(tile instanceof TilePressureVessel) {
-				return new GuiPressureVessel(player.inventory, (TilePressureVessel) tile);
-			}
-			
-			if(tile instanceof TileDictionaryItem) {
-				return new GuiDictionary(player.inventory, (TileDictionaryItem) tile);
-			}
-			
-			if(tile instanceof TileFishSorter) {
-				return new GuiFishSorter(player.inventory, (TileFishSorter) tile);
-			}
-			
-			if(tile instanceof TileFishTank) {
-				return new GuiFishTank(player.inventory, (TileFishTank) tile);
-			}
-		}
+            if (tile instanceof TileCrucible) return new ContainerCrucible((TileCrucible) tile, player.inventory);
 
-		return null;
-	}
+            if (tile instanceof TileIncubator) return new ContainerIncubator((TileIncubator) tile, player.inventory);
 
-	public void setupClient() {
-	}
+            if (tile instanceof TileSifter) return new ContainerSift((TileSifter) tile, player.inventory);
+
+            if (tile instanceof TileFeeder) return new ContainerFeeder((TileFeeder) tile, player.inventory);
+
+            if (tile instanceof TileBookshelf) return new ContainerBookshelf((TileBookshelf) tile, player.inventory);
+
+            if (tile instanceof TileSawmill) return new ContainerSawmill((TileSawmill) tile, player.inventory);
+
+            if (tile instanceof TileTurbineBase) return new ContainerTurbine((TileTurbineBase) tile, player.inventory);
+
+            if (tile instanceof TileFLUDDStand) return new ContainerFLUDDStand((TileFLUDDStand) tile, player.inventory);
+
+            if (tile instanceof TilePressureVessel) return new ContainerPressureVessel((TilePressureVessel) tile, player.inventory);
+
+            if (tile instanceof TileDictionaryItem) return new ContainerDictionary((TileDictionaryItem) tile, player.inventory);
+
+            if (tile instanceof TileFishSorter) return new ContainerFishSorter((TileFishSorter) tile, player.inventory);
+
+            if (tile instanceof TileFishTank) return new ContainerFishTank((TileFishTank) tile, player.inventory);
+        }
+
+        return null;
+    }
+
+    @Override
+    public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+        if (id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+            ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
+            return storage.getGUIElement(player);
+        }
+
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile != null) {
+            if (tile instanceof TileAutofisher) return new GuiAutofisher(player.inventory, (TileAutofisher) tile);
+
+            if (tile instanceof TileCrucible) return new GuiLiquifier(player.inventory, (TileCrucible) tile);
+
+            if (tile instanceof TileIncubator) return new GuiIncubator(player.inventory, (TileIncubator) tile);
+
+            if (tile instanceof TileSifter) return new GuiSift(player.inventory, (TileSifter) tile);
+
+            if (tile instanceof TileFeeder) return new GuiFeeder(player.inventory, (TileFeeder) tile);
+
+            if (tile instanceof TileBookshelf) return new GuiBookshelf(player.inventory, (TileBookshelf) tile);
+
+            if (tile instanceof TileSawmill) return new GuiSawmill(player.inventory, (TileSawmill) tile);
+
+            if (tile instanceof TileTurbineBase) return new GuiTurbine(player.inventory, (TileTurbineBase) tile);
+
+            if (tile instanceof TileFLUDDStand) return new GuiFLUDDStand(player.inventory, (TileFLUDDStand) tile);
+
+            if (tile instanceof TilePressureVessel) return new GuiPressureVessel(player.inventory, (TilePressureVessel) tile);
+
+            if (tile instanceof TileDictionaryItem) return new GuiDictionary(player.inventory, (TileDictionaryItem) tile);
+
+            if (tile instanceof TileFishSorter) return new GuiFishSorter(player.inventory, (TileFishSorter) tile);
+
+            if (tile instanceof TileFishTank) return new GuiFishTank(player.inventory, (TileFishTank) tile);
+        }
+
+        return null;
+    }
+
+    public void setupClient() {}
 }

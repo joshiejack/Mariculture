@@ -3,7 +3,6 @@ package mariculture.core.network;
 import io.netty.buffer.ByteBuf;
 import mariculture.core.helpers.ClientHelper;
 import mariculture.factory.tile.TileSponge;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -11,55 +10,57 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSponge extends PacketCoords implements IMessageHandler<PacketSponge, IMessage> {
-	int stored, max;
-	boolean isClient;
-	
-	public PacketSponge(){}
-	public PacketSponge(int x, int y, int z, boolean isClient) {
-		super(x, y, z);
-		this.isClient = isClient;
-	}
-	
-	public PacketSponge(int stored, int max, boolean isClient) {
-		this.stored = stored;
-		this.max = max;
-		this.isClient = isClient;
-	}
-	
-	@Override
-	public void toBytes(ByteBuf buffer) {
-		buffer.writeBoolean(isClient);
-		if(isClient) {
-			super.toBytes(buffer);
-		} else {
-			buffer.writeInt(stored);
-			buffer.writeInt(max);
-		}
-	}
+    int stored, max;
+    boolean isClient;
 
-	@Override
-	public void fromBytes(ByteBuf buffer) {
-		isClient = buffer.readBoolean();
-		if(isClient) {
-			super.fromBytes(buffer);
-		} else {
-			stored = buffer.readInt();
-			max = buffer.readInt();
-		}
-	}
+    public PacketSponge() {}
 
-	@Override
-	public IMessage onMessage(PacketSponge message, MessageContext ctx) {
-		if(!message.isClient) ClientHelper.addToChat(message.stored + " / " + message.max + " RF");
-		else {
-			TileEntity tile = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
-			if(tile != null && tile instanceof TileSponge) {
-				TileSponge sponge = (TileSponge) tile;
-				stored = sponge.getEnergyStored(ForgeDirection.UNKNOWN);
-				max = sponge.getMaxEnergyStored(ForgeDirection.UNKNOWN);
-				PacketHandler.sendToClient(new PacketSponge(stored, max, false), (EntityPlayerMP) ctx.getServerHandler().playerEntity);
-			}
-		}
-		return null;
-	}
+    public PacketSponge(int x, int y, int z, boolean isClient) {
+        super(x, y, z);
+        this.isClient = isClient;
+    }
+
+    public PacketSponge(int stored, int max, boolean isClient) {
+        this.stored = stored;
+        this.max = max;
+        this.isClient = isClient;
+    }
+
+    @Override
+    public void toBytes(ByteBuf buffer) {
+        buffer.writeBoolean(isClient);
+        if (isClient) {
+            super.toBytes(buffer);
+        } else {
+            buffer.writeInt(stored);
+            buffer.writeInt(max);
+        }
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        isClient = buffer.readBoolean();
+        if (isClient) {
+            super.fromBytes(buffer);
+        } else {
+            stored = buffer.readInt();
+            max = buffer.readInt();
+        }
+    }
+
+    @Override
+    public IMessage onMessage(PacketSponge message, MessageContext ctx) {
+        if (!message.isClient) {
+            ClientHelper.addToChat(message.stored + " / " + message.max + " RF");
+        } else {
+            TileEntity tile = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
+            if (tile != null && tile instanceof TileSponge) {
+                TileSponge sponge = (TileSponge) tile;
+                stored = sponge.getEnergyStored(ForgeDirection.UNKNOWN);
+                max = sponge.getMaxEnergyStored(ForgeDirection.UNKNOWN);
+                PacketHandler.sendToClient(new PacketSponge(stored, max, false), ctx.getServerHandler().playerEntity);
+            }
+        }
+        return null;
+    }
 }

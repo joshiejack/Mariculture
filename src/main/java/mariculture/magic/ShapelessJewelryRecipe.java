@@ -23,155 +23,150 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ShapelessJewelryRecipe implements IRecipe {
-	private ItemStack output = null;
-	private ArrayList<Object> input = new ArrayList<Object>();
+    private ItemStack output = null;
+    private ArrayList<Object> input = new ArrayList<Object>();
 
-	public ShapelessJewelryRecipe(Block result, Object... recipe) {
-		this(new ItemStack(result), recipe);
-	}
+    public ShapelessJewelryRecipe(Block result, Object... recipe) {
+        this(new ItemStack(result), recipe);
+    }
 
-	public ShapelessJewelryRecipe(Item result, Object... recipe) {
-		this(new ItemStack(result), recipe);
-	}
+    public ShapelessJewelryRecipe(Item result, Object... recipe) {
+        this(new ItemStack(result), recipe);
+    }
 
-	public ShapelessJewelryRecipe(ItemStack result, Object... recipe) {
-		output = result.copy();
-		for (Object in : recipe) {
-			if (in instanceof ItemStack) {
-				input.add(((ItemStack) in).copy());
-			} else if (in instanceof Item) {
-				input.add(new ItemStack((Item) in));
-			} else if (in instanceof Block) {
-				input.add(new ItemStack((Block) in));
-			} else if (in instanceof String) {
-				input.add(OreDictionary.getOres((String) in));
-			} else {
-				String ret = "Invalid shapeless ore recipe: ";
-				for (Object tmp : recipe) {
-					ret += tmp + ", ";
-				}
-				ret += output;
-				throw new RuntimeException(ret);
-			}
-		}
-	}
+    public ShapelessJewelryRecipe(ItemStack result, Object... recipe) {
+        output = result.copy();
+        for (Object in : recipe)
+            if (in instanceof ItemStack) {
+                input.add(((ItemStack) in).copy());
+            } else if (in instanceof Item) {
+                input.add(new ItemStack((Item) in));
+            } else if (in instanceof Block) {
+                input.add(new ItemStack((Block) in));
+            } else if (in instanceof String) {
+                input.add(OreDictionary.getOres((String) in));
+            } else {
+                String ret = "Invalid shapeless ore recipe: ";
+                for (Object tmp : recipe) {
+                    ret += tmp + ", ";
+                }
+                ret += output;
+                throw new RuntimeException(ret);
+            }
+    }
 
-	@SuppressWarnings("unchecked")
-	ShapelessJewelryRecipe(ShapelessRecipes recipe, Map<ItemStack, String> replacements) {
-		output = recipe.getRecipeOutput();
+    @SuppressWarnings("unchecked")
+    ShapelessJewelryRecipe(ShapelessRecipes recipe, Map<ItemStack, String> replacements) {
+        output = recipe.getRecipeOutput();
 
-		for (ItemStack ingred : ((List<ItemStack>) recipe.recipeItems)) {
-			Object finalObj = ingred;
-			for (Entry<ItemStack, String> replace : replacements.entrySet()) {
-				if (OreDictionary.itemMatches(replace.getKey(), ingred, false)) {
-					finalObj = OreDictionary.getOres(replace.getValue());
-					break;
-				}
-			}
-			input.add(finalObj);
-		}
-	}
+        for (ItemStack ingred : (List<ItemStack>) recipe.recipeItems) {
+            Object finalObj = ingred;
+            for (Entry<ItemStack, String> replace : replacements.entrySet())
+                if (OreDictionary.itemMatches(replace.getKey(), ingred, false)) {
+                    finalObj = OreDictionary.getOres(replace.getValue());
+                    break;
+                }
+            input.add(finalObj);
+        }
+    }
 
-	@Override
-	public int getRecipeSize() {
-		return input.size();
-	}
+    @Override
+    public int getRecipeSize() {
+        return input.size();
+    }
 
-	@Override
-	public ItemStack getRecipeOutput() {
-		return output;
-	}
+    @Override
+    public ItemStack getRecipeOutput() {
+        return output;
+    }
 
-	@Override
-	public ItemStack getCraftingResult(InventoryCrafting craft) {
-		ItemStack ret = output.copy();
-		if(!ret.hasTagCompound()) {
-			ret.setTagCompound(new NBTTagCompound());
-		}
-		
-		ArrayList<LinkedInteger> cache = new ArrayList();
-		for(int j = 0; j < craft.getSizeInventory(); j++) {
-			ItemStack stack = craft.getStackInSlot(j);
-			if(stack != null) {
-				LinkedHashMap<Integer, Integer> maps = (LinkedHashMap<Integer, Integer>) EnchantmentHelper.getEnchantments(stack);
-				for(Entry<Integer, Integer> i: maps.entrySet()) {
-					Enchantment enchant = Enchantment.enchantmentsList[i.getKey()];
-					cache.add(new LinkedInteger(enchant.effectId, EnchantmentHelper.getEnchantmentLevel(enchant.effectId, stack)));
-				}
-			}
-		}
-		
-		if(cache.size() > 0) {
-			Collections.shuffle(cache);
-			int[] level = new int[cache.size()];
-			int[] enchant = new int[cache.size()];
-			for(int i = 0; i < cache.size(); i++) {
-				enchant[i] = cache.get(i).enchant;
-				level[i] = cache.get(i).level;
-			}
-			
-			ret.stackTagCompound.setIntArray("EnchantmentList", enchant);
-			ret.stackTagCompound.setIntArray("EnchantmentLevels", level);
-		}
-		
-		return ret;
-	}
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting craft) {
+        ItemStack ret = output.copy();
+        if (!ret.hasTagCompound()) {
+            ret.setTagCompound(new NBTTagCompound());
+        }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean matches(InventoryCrafting var1, World world) {
-		ArrayList<Object> required = new ArrayList<Object>(input);
+        ArrayList<LinkedInteger> cache = new ArrayList();
+        for (int j = 0; j < craft.getSizeInventory(); j++) {
+            ItemStack stack = craft.getStackInSlot(j);
+            if (stack != null) {
+                LinkedHashMap<Integer, Integer> maps = (LinkedHashMap<Integer, Integer>) EnchantmentHelper.getEnchantments(stack);
+                for (Entry<Integer, Integer> i : maps.entrySet()) {
+                    Enchantment enchant = Enchantment.enchantmentsList[i.getKey()];
+                    cache.add(new LinkedInteger(enchant.effectId, EnchantmentHelper.getEnchantmentLevel(enchant.effectId, stack)));
+                }
+            }
+        }
 
-		for (int x = 0; x < var1.getSizeInventory(); x++) {
-			ItemStack slot = var1.getStackInSlot(x);
+        if (cache.size() > 0) {
+            Collections.shuffle(cache);
+            int[] level = new int[cache.size()];
+            int[] enchant = new int[cache.size()];
+            for (int i = 0; i < cache.size(); i++) {
+                enchant[i] = cache.get(i).enchant;
+                level[i] = cache.get(i).level;
+            }
 
-			if (slot != null) {
-				boolean inRecipe = false;
-				Iterator<Object> req = required.iterator();
+            ret.stackTagCompound.setIntArray("EnchantmentList", enchant);
+            ret.stackTagCompound.setIntArray("EnchantmentLevels", level);
+        }
 
-				while (req.hasNext()) {
-					boolean match = false;
+        return ret;
+    }
 
-					Object next = req.next();
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean matches(InventoryCrafting var1, World world) {
+        ArrayList<Object> required = new ArrayList<Object>(input);
 
-					if (next instanceof ItemStack) {
-						match = checkItemEquals((ItemStack) next, slot);
-					} else if (next instanceof ArrayList) {
-						for (ItemStack item : (ArrayList<ItemStack>) next) {
-							match = match || checkItemEquals(item, slot);
-						}
-					}
+        for (int x = 0; x < var1.getSizeInventory(); x++) {
+            ItemStack slot = var1.getStackInSlot(x);
 
-					if (match) {
-						inRecipe = true;
-						required.remove(next);
-						break;
-					}
-				}
+            if (slot != null) {
+                boolean inRecipe = false;
+                Iterator<Object> req = required.iterator();
 
-				if (!inRecipe) {
-					return false;
-				}
-			}
-		}
+                while (req.hasNext()) {
+                    boolean match = false;
 
-		return required.isEmpty();
-	}
+                    Object next = req.next();
 
-	private boolean checkItemEquals(ItemStack target, ItemStack input) {
-		if(target.getItem() instanceof ItemJewelry) {
-			return JewelryHandler.getBinding(target) == JewelryHandler.getBinding(input) &&  JewelryHandler.getMaterial(target) ==  JewelryHandler.getMaterial(input) && JewelryHandler.getType(target) == JewelryHandler.getType(input);
-		} else return (target.getItem() == input.getItem() && (target.getItemDamage() == OreDictionary.WILDCARD_VALUE || target.getItemDamage() == input.getItemDamage()));
-	}
+                    if (next instanceof ItemStack) {
+                        match = checkItemEquals((ItemStack) next, slot);
+                    } else if (next instanceof ArrayList) {
+                        for (ItemStack item : (ArrayList<ItemStack>) next) {
+                            match = match || checkItemEquals(item, slot);
+                        }
+                    }
 
-	/**
-	 * Returns the input for this recipe, any mod accessing this value should
-	 * never manipulate the values in this array as it will effect the recipe
-	 * itself.
-	 * 
-	 * @return The recipes input vales.
-	 */
-	public ArrayList<Object> getInput() {
-		return this.input;
-	}
+                    if (match) {
+                        inRecipe = true;
+                        required.remove(next);
+                        break;
+                    }
+                }
+
+                if (!inRecipe) return false;
+            }
+        }
+
+        return required.isEmpty();
+    }
+
+    private boolean checkItemEquals(ItemStack target, ItemStack input) {
+        if (target.getItem() instanceof ItemJewelry) return JewelryHandler.getBinding(target) == JewelryHandler.getBinding(input) && JewelryHandler.getMaterial(target) == JewelryHandler.getMaterial(input) && JewelryHandler.getType(target) == JewelryHandler.getType(input);
+        else return target.getItem() == input.getItem() && (target.getItemDamage() == OreDictionary.WILDCARD_VALUE || target.getItemDamage() == input.getItemDamage());
+    }
+
+    /**
+     * Returns the input for this recipe, any mod accessing this value should
+     * never manipulate the values in this array as it will effect the recipe
+     * itself.
+     * 
+     * @return The recipes input vales.
+     */
+    public ArrayList<Object> getInput() {
+        return input;
+    }
 }

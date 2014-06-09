@@ -4,8 +4,8 @@ import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
 
 public class FishDNAFoodUsage extends FishDNA {
-	@Override
-	public Integer getDNAFromSpecies(FishSpecies species) {
-		return species.getFoodConsumption();
-	}
+    @Override
+    public Integer getDNAFromSpecies(FishSpecies species) {
+        return species.getFoodConsumption();
+    }
 }

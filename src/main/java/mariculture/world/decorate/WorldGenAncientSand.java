@@ -9,20 +9,19 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenAncientSand extends WorldGenerator {
-	Block block;
-	private int radius, meta;
-	
-	public WorldGenAncientSand(Block block, int meta, int radius) {
-		this.block = block;
-		this.meta = meta;
-		this.radius = radius;
-	}
+    Block block;
+    private int radius, meta;
 
-	@Override
-	public boolean generate(World world, Random par2Random, int par3, int par4, int par5) {
-        if (world.getBlock(par3, par4, par5).getMaterial() != Material.water) {
-            return false;
-        } else {
+    public WorldGenAncientSand(Block block, int meta, int radius) {
+        this.block = block;
+        this.meta = meta;
+        this.radius = radius;
+    }
+
+    @Override
+    public boolean generate(World world, Random par2Random, int par3, int par4, int par5) {
+        if (world.getBlock(par3, par4, par5).getMaterial() != Material.water) return false;
+        else {
             int l = par2Random.nextInt(radius - 2) + 2;
             byte b0 = 2;
 
@@ -36,7 +35,7 @@ public class WorldGenAncientSand extends WorldGenerator {
                             Block block = world.getBlock(i1, i2, j1);
 
                             if (block == Blocks.dirt || block == Blocks.grass || block == Blocks.sand || block == Blocks.gravel) {
-                                world.setBlock(i1, i2, j1, this.block, this.meta, 2);
+                                world.setBlock(i1, i2, j1, this.block, meta, 2);
                             }
                         }
                     }

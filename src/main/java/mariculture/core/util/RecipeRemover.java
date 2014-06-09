@@ -12,50 +12,50 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeRemover {
-	public static void remove(ItemStack resultItem) {
-		ItemStack recipeResult = null;
-		ArrayList recipes = (ArrayList) CraftingManager.getInstance().getRecipeList();
+    public static void remove(ItemStack resultItem) {
+        ItemStack recipeResult = null;
+        ArrayList recipes = (ArrayList) CraftingManager.getInstance().getRecipeList();
 
-		for (int scan = 0; scan < recipes.size(); scan++) {
-			IRecipe tmpRecipe = (IRecipe) recipes.get(scan);
-			if (tmpRecipe instanceof ShapedRecipes) {
-				ShapedRecipes recipe = (ShapedRecipes) tmpRecipe;
-				recipeResult = recipe.getRecipeOutput();
-			}
+        for (int scan = 0; scan < recipes.size(); scan++) {
+            IRecipe tmpRecipe = (IRecipe) recipes.get(scan);
+            if (tmpRecipe instanceof ShapedRecipes) {
+                ShapedRecipes recipe = (ShapedRecipes) tmpRecipe;
+                recipeResult = recipe.getRecipeOutput();
+            }
 
-			if (tmpRecipe instanceof ShapedOreRecipe) {
-				ShapedOreRecipe recipe = (ShapedOreRecipe) tmpRecipe;
-				recipeResult = recipe.getRecipeOutput();
-			}
+            if (tmpRecipe instanceof ShapedOreRecipe) {
+                ShapedOreRecipe recipe = (ShapedOreRecipe) tmpRecipe;
+                recipeResult = recipe.getRecipeOutput();
+            }
 
-			if (tmpRecipe instanceof ShapelessRecipes) {
-				ShapelessRecipes recipe = (ShapelessRecipes) tmpRecipe;
-				recipeResult = recipe.getRecipeOutput();
-			}
+            if (tmpRecipe instanceof ShapelessRecipes) {
+                ShapelessRecipes recipe = (ShapelessRecipes) tmpRecipe;
+                recipeResult = recipe.getRecipeOutput();
+            }
 
-			if (tmpRecipe instanceof ShapelessOreRecipe) {
-				ShapelessOreRecipe recipe = (ShapelessOreRecipe) tmpRecipe;
-				recipeResult = recipe.getRecipeOutput();
-			}
+            if (tmpRecipe instanceof ShapelessOreRecipe) {
+                ShapelessOreRecipe recipe = (ShapelessOreRecipe) tmpRecipe;
+                recipeResult = recipe.getRecipeOutput();
+            }
 
-			if (ItemStack.areItemStacksEqual(resultItem, recipeResult)) {
-				recipes.remove(scan);
-			}
-		}
-	}
+            if (ItemStack.areItemStacksEqual(resultItem, recipeResult)) {
+                recipes.remove(scan);
+            }
+        }
+    }
 
-	public static void removeList(ArrayList recipes, int scan, List list, ItemStack[] input) {
-		int match = 0;
+    public static void removeList(ArrayList recipes, int scan, List list, ItemStack[] input) {
+        int match = 0;
 
-		for (int i = 0; i < list.size(); i++) {
-			ItemStack expected = (ItemStack) list.get(i);
-			if (ItemStack.areItemStacksEqual(expected, input[i])) {
-				match++;
-			}
-		}
+        for (int i = 0; i < list.size(); i++) {
+            ItemStack expected = (ItemStack) list.get(i);
+            if (ItemStack.areItemStacksEqual(expected, input[i])) {
+                match++;
+            }
+        }
 
-		if (match == list.size()) {
-			recipes.remove(scan);
-		}
-	}
+        if (match == list.size()) {
+            recipes.remove(scan);
+        }
+    }
 }

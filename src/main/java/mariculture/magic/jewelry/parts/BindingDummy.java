@@ -6,37 +6,37 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class BindingDummy extends JewelryBinding {
-	public BindingDummy() {
-		ignore = true;
-	}
-	
-	@Override
-	public String getColor() {
-		return Text.WHITE;
-	}
+    public BindingDummy() {
+        ignore = true;
+    }
 
-	@Override
-	public int getHitsBase(JewelryType type) {
-		return 100;
-	}
+    @Override
+    public String getColor() {
+        return Text.WHITE;
+    }
 
-	@Override
-	public int getDurabilityBase(JewelryType type) {
-		return 250;
-	}
+    @Override
+    public int getHitsBase(JewelryType type) {
+        return 100;
+    }
 
-	@Override
-	public ItemStack getCraftingItem(JewelryType type) {
-		return new ItemStack(Blocks.fire);
-	}
+    @Override
+    public int getDurabilityBase(JewelryType type) {
+        return 250;
+    }
 
-	@Override
-	public int getKeepEnchantmentChance(JewelryType type) {
-		return 0;
-	}
+    @Override
+    public ItemStack getCraftingItem(JewelryType type) {
+        return new ItemStack(Blocks.fire);
+    }
 
-	@Override
-	public int getMaxEnchantmentLevel(JewelryType type) {
-		return 0;
-	}
+    @Override
+    public int getKeepEnchantmentChance(JewelryType type) {
+        return 0;
+    }
+
+    @Override
+    public int getMaxEnchantmentLevel(JewelryType type) {
+        return 0;
+    }
 }

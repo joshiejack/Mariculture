@@ -9,24 +9,24 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockFluid extends BlockFluidClassic {
-	protected Fluid fluid;
-	public BlockFluid(Fluid fluid, Material material) {
-		super(fluid, material);
-		this.fluid = fluid;
-	}
+    protected Fluid fluid;
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		if (side == 0 || side == 1)
-			return fluid.getStillIcon();
-		return fluid.getFlowingIcon();
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister iconRegister) {
-		//Do nothing
-		return;
-	}
+    public BlockFluid(Fluid fluid, Material material) {
+        super(fluid, material);
+        this.fluid = fluid;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        if (side == 0 || side == 1) return fluid.getStillIcon();
+        return fluid.getFlowingIcon();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        //Do nothing
+        return;
+    }
 }

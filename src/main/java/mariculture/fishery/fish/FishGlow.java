@@ -1,4 +1,5 @@
 package mariculture.fishery.fish;
+
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.dropletNether;
 import static mariculture.core.lib.ItemLib.glowstone;
@@ -11,110 +12,110 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FishGlow extends FishSpecies {	
-	@Override
-	public int[] setSuitableTemperature() {
-		return new int[] { 35, 100 };
-	}
-	
-	@Override
-	public Salinity[] setSuitableSalinity() {
-		return new Salinity[] { FRESH };
-	}
-	
-	@Override
-	public boolean isLavaFish() {
-		return true;
-	}
+public class FishGlow extends FishSpecies {
+    @Override
+    public int[] setSuitableTemperature() {
+        return new int[] { 35, 100 };
+    }
 
-	@Override
-	public boolean isDominant() {
-		return false;
-	}
+    @Override
+    public Salinity[] setSuitableSalinity() {
+        return new Salinity[] { FRESH };
+    }
 
-	@Override
-	public int getLifeSpan() {
-		return 20;
-	}
+    @Override
+    public boolean isLavaFish() {
+        return true;
+    }
 
-	@Override
-	public int getFertility() {
-		return 450;
-	}
+    @Override
+    public boolean isDominant() {
+        return false;
+    }
 
-	@Override
-	public int getFoodConsumption() {
-		return 3;
-	}
+    @Override
+    public int getLifeSpan() {
+        return 20;
+    }
 
-	@Override
-	public int getWaterRequired() {
-		return 120;
-	}
+    @Override
+    public int getFertility() {
+        return 450;
+    }
 
-	@Override
-	public void addFishProducts() {
-		addProduct(dropletNether, 7.5D);
-		addProduct(glowstone, 7.5D);
-	}
+    @Override
+    public int getFoodConsumption() {
+        return 3;
+    }
 
-	@Override
-	public double getFishOilVolume() {
-		return 2.725D;
-	}
+    @Override
+    public int getWaterRequired() {
+        return 120;
+    }
 
-	@Override
-	public ItemStack getLiquifiedProduct() {
-		return new ItemStack(glowstone);
-	}
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletNether, 7.5D);
+        addProduct(glowstone, 7.5D);
+    }
 
-	@Override
-	public int getLiquifiedProductChance() {
-		return 1;
-	}
+    @Override
+    public double getFishOilVolume() {
+        return 2.725D;
+    }
 
-	@Override
-	public int getFishMealSize() {
-		return 5;
-	}
+    @Override
+    public ItemStack getLiquifiedProduct() {
+        return new ItemStack(glowstone);
+    }
 
-	@Override
-	public int getFoodStat() {
-		return 3;
-	}
+    @Override
+    public int getLiquifiedProductChance() {
+        return 1;
+    }
 
-	@Override
-	public float getFoodSaturation() {
-		return 0.4F;
-	}
+    @Override
+    public int getFishMealSize() {
+        return 5;
+    }
 
-	@Override
-	public void onConsumed(World world, EntityPlayer player) {
-		SpawnItemHelper.addToPlayerInventory(player, new ItemStack(glowstone));
-	}
+    @Override
+    public int getFoodStat() {
+        return 3;
+    }
 
-	@Override
-	public int getLightValue() {
-		return 15;
-	}
+    @Override
+    public float getFoodSaturation() {
+        return 0.4F;
+    }
 
-	@Override
-	public RodType getRodNeeded() {
-		return RodType.GOOD;
-	}
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        SpawnItemHelper.addToPlayerInventory(player, new ItemStack(glowstone));
+    }
 
-	@Override
-	public boolean isWorldCorrect(World world) {
-		return world.provider.isHellWorld;
-	}
+    @Override
+    public int getLightValue() {
+        return 15;
+    }
 
-	@Override
-	public double getCatchChance(int height, int time) {
-		return Height.isHigh(height)? 50D: 25D;
-	}
+    @Override
+    public RodType getRodNeeded() {
+        return RodType.GOOD;
+    }
 
-	@Override
-	public double getCaughtAliveChance(int height, int time) {
-		return height > 110? 5D: 0D;
-	}
+    @Override
+    public boolean isWorldCorrect(World world) {
+        return world.provider.isHellWorld;
+    }
+
+    @Override
+    public double getCatchChance(int height, int time) {
+        return Height.isHigh(height) ? 50D : 25D;
+    }
+
+    @Override
+    public double getCaughtAliveChance(int height, int time) {
+        return height > 110 ? 5D : 0D;
+    }
 }

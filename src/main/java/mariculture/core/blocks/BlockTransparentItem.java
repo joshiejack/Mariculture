@@ -6,17 +6,17 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class BlockTransparentItem extends ItemBlockMariculture {
-	public BlockTransparentItem(Block block) {
-		super(block);
-	}
+    public BlockTransparentItem(Block block) {
+        super(block);
+    }
 
-	@Override
-	public String getName(ItemStack itemstack) {
-		switch (itemstack.getItemDamage()) {
-		case TransparentMeta.PLASTIC:
-			return "plastic";
-		default:
-			return "plastic";
-		}
-	}
+    @Override
+    public String getName(ItemStack itemstack) {
+        switch (itemstack.getItemDamage()) {
+            case TransparentMeta.PLASTIC:
+                return "plastic";
+            default:
+                return "plastic";
+        }
+    }
 }

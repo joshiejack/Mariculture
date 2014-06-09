@@ -22,94 +22,85 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFishy extends Item {
-	private static IIcon egg;
-	public ItemFishy() {
-		setCreativeTab(MaricultureTab.tabFishery);
-		setHasSubtypes(true);
-	}
+    private static IIcon egg;
 
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
+    public ItemFishy() {
+        setCreativeTab(MaricultureTab.tabFishery);
+        setHasSubtypes(true);
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
-		if(species != null) {
-			return getUnlocalizedName() + "." + species.getID();
-		}
+    @Override
+    public boolean requiresMultipleRenderPasses() {
+        return true;
+    }
 
-		return "fishy";
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+        if (species != null) return getUnlocalizedName() + "." + species.getID();
 
-	@Override
-	public String getItemStackDisplayName(ItemStack stack) {		
-		FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(stack));
-		FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(stack));
-		if(active == null || inactive == null) return Text.translate("anyFish");
-		if(active != inactive) {
-			return Text.AQUA + active.getName() + "-" + inactive.getName() + " " + Text.localize("fish.data.hybrid") + convertToSymbol(Fish.gender.getDNA(stack));
-		} else {
-			return Text.AQUA + active.getName() + convertToSymbol(Fish.gender.getDNA(stack));
-		}
-	}
+        return "fishy";
+    }
 
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
-		if(species != null) {
-			for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
-				FishDNABase.DNAParts.get(i).getInformationDisplay(stack, list);
-			}
-		}
-	}
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(stack));
+        FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(stack));
+        if (active == null || inactive == null) return Text.translate("anyFish");
+        if (active != inactive) return Text.AQUA + active.getName() + "-" + inactive.getName() + " " + Text.localize("fish.data.hybrid") + convertToSymbol(Fish.gender.getDNA(stack));
+        else return Text.AQUA + active.getName() + convertToSymbol(Fish.gender.getDNA(stack));
+    }
 
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		FishSpecies species = Fishing.fishHelper.getSpecies(stack);
-		if(species != null) {
-			return species.getIcon(Fish.gender.getDNA(stack));
-		} else return new ItemStack(Items.fish, 1, 32000).getIconIndex();
-	}
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+        if (species != null) {
+            for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+                FishDNABase.DNAParts.get(i).getInformationDisplay(stack, list);
+            }
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
-		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
-			species.getValue().registerIcon(iconRegister);
-		}
-	}
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        FishSpecies species = Fishing.fishHelper.getSpecies(stack);
+        if (species != null) return species.getIcon(Fish.gender.getDNA(stack));
+        else return new ItemStack(Items.fish, 1, 32000).getIconIndex();
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creative, List list) {
-		for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
-			FishSpecies fishy = species.getValue();
-			ItemStack fish = Fishing.fishHelper.makePureFish(fishy);
-			list.add(Fish.gender.addDNA(fish, FishyHelper.MALE));
-			list.add(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE));
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister) {
+        for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+            species.getValue().registerIcon(iconRegister);
+        }
+    }
 
-	private String convertToSymbol(int gender) {
-		if (gender == FishyHelper.MALE) {
-			return "\u2642";
-		}
-		if (gender == FishyHelper.FEMALE) {
-			return "\u2640";
-		}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creative, List list) {
+        for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+            FishSpecies fishy = species.getValue();
+            ItemStack fish = Fishing.fishHelper.makePureFish(fishy);
+            list.add(Fish.gender.addDNA(fish, FishyHelper.MALE));
+            list.add(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE));
+        }
+    }
 
-		return "";
-	}
+    private String convertToSymbol(int gender) {
+        if (gender == FishyHelper.MALE) return "\u2642";
+        if (gender == FishyHelper.FEMALE) return "\u2640";
 
-	@Override
-	public boolean getShareTag() {
-		return true;
-	}
+        return "";
+    }
 
-	@Override
-	public int getEntityLifespan(ItemStack stack, World world) {
-		return 15;
-	}
+    @Override
+    public boolean getShareTag() {
+        return true;
+    }
+
+    @Override
+    public int getEntityLifespan(ItemStack stack, World world) {
+        return 15;
+    }
 }
