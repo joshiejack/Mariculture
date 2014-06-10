@@ -193,13 +193,15 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
     /** End Block Data, Begin Functional Methods **/
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (Gardening.CORAL_SPREAD_ENABLED && meta == CoralMeta.KELP) {
-            updateKelp(world, x, y, z, rand);
-        } else if (Gardening.KELP_GROWTH_ENABLED && meta > CoralMeta.KELP_MIDDLE) {
-            updateCoral(world, x, y, z, rand);
-        } else if (Gardening.MOSS_SPREAD_ENABLED && meta == CoralMeta.KELP_MIDDLE) {
-            updateMoss(world, x, y, z, rand);
+        if(!world.isRemote) {
+            int meta = world.getBlockMetadata(x, y, z);
+            if (Gardening.KELP_GROWTH_ENABLED && meta == CoralMeta.KELP) {
+                updateKelp(world, x, y, z, rand);
+            } else if (Gardening.CORAL_SPREAD_ENABLED && meta > CoralMeta.KELP_MIDDLE) {
+                updateCoral(world, x, y, z, rand);
+            } else if (Gardening.MOSS_SPREAD_ENABLED && meta == CoralMeta.KELP_MIDDLE) {
+                updateMoss(world, x, y, z, rand);
+            }
         }
     }
 
@@ -232,17 +234,21 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
         if (Rand.nextInt(Gardening.CORAL_SPREAD_CHANCE)) {
             Block block = world.getBlock(x, y - 1, z);
             if (block == Core.rocks && world.getBlockMetadata(x, y - 1, z) == RockMeta.CORAL_ROCK) {
-                int randX = 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
-                int randY = rand.nextInt(3) - 1;
-                int randZ = 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
+                int randX = x + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
+                int randY = y + rand.nextInt(3) - 1;
+                int randZ = z + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
                 if (world.getBlock(randX, randY, randZ) == WorldPlus.plantGrowable) {
+                    System.out.println("GROWABLE");
+                    
                     int thisMeta = world.getBlockMetadata(x, y, z);
                     int thatMeta = world.getBlockMetadata(randX, randY, randZ);
                     int newMeta = getNewColor(thisMeta, thatMeta);
+                    
+                    System.out.println(newMeta);
 
-                    randX = 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
-                    randY = rand.nextInt(3) - 1;
-                    randZ = 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
+                    randX = x + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
+                    randY = y + rand.nextInt(3) - 1;
+                    randZ = z + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
                     if (world.getBlock(randX, randY, randZ) == Blocks.water && world.getBlock(randX, randY + 1, randZ) == Blocks.water && canSustainCoral(world.getBlock(randX, randY - 1, randZ), world.getBlockMetadata(randX, randY - 1, randZ))) {
                         world.setBlock(randX, randY, randZ, WorldPlus.plantGrowable, newMeta, 2);
                     }
@@ -272,6 +278,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
         if (values == null) {
             values = outcomes.get("" + thatMeta + "|" + thisMeta);
         }
+        
         if (Rand.nextInt(2)) return thisMeta;
         if (Rand.nextInt(2)) return thatMeta;
         if (values != null) return values[Rand.rand.nextInt(values.length)];

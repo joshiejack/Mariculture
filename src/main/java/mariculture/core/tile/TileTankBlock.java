@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
+    private int difference = 0;
     public Tank tank;
 
     public TileTankBlock() {
@@ -48,9 +49,12 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         int amount = tank.fill(resource, doFill);
-        if (amount > 0 && doFill) {
+        difference += amount;
+        if (amount > 0 && doFill && difference >= 144) {
+            difference = 0;
             PacketHandler.syncFluids(this, getFluid());
         }
+        
         return amount;
     }
 
@@ -60,6 +64,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
         if (amount != null && doDrain) {
             PacketHandler.syncFluids(this, getFluid());
         }
+        
         return amount;
     }
 

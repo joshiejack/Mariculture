@@ -42,6 +42,14 @@ public class ConfigHelper {
     public static int getInt(String name, int dft) {
         return config.get(category, name, dft).getInt(dft);
     }
+    
+    public static int getRand(String name, int dft, String comment) {
+        return Math.max(1, config.get(category, name, dft, comment).getInt(dft));
+    }
+
+    public static int getRand(String name, int dft) {
+        return Math.max(1, config.get(category, name, dft).getInt(dft));
+    }
 
     public static String[] getStringList(String name, String[] dft, String comment) {
         return config.get(category, name, dft, comment).getStringList();

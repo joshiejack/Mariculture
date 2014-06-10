@@ -138,7 +138,6 @@ public class BlockCoralItem extends ItemBlockMariculture {
         Block block = world.getBlock(x, y - 1, z);
         int meta = world.getBlockMetadata(x, y - 1, z);
         if (stack.getItemDamage() == CoralMeta.KELP) return BlockCoral.canSustainKelp(block, meta);
-
         if (stack.getItemDamage() > CoralMeta.KELP_MIDDLE) return BlockCoral.canSustainCoral(block, meta);
 
         return false;

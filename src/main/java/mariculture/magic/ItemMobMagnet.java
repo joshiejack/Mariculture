@@ -6,6 +6,8 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.util.Rand;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,10 +42,8 @@ public class ItemMobMagnet extends ItemDamageable {
         if (!stack.hasTagCompound()) return stack;
 
         try {
-            String entity = stack.stackTagCompound.getString("MobClass").trim();
-            Class clazz = Class.forName(stack.stackTagCompound.getString("MobClass").trim());
-
-            List<EntityMob> enemies = world.getEntitiesWithinAABB(clazz, player.boundingBox.expand(32D, 32D, 32D));
+            Entity entity = EntityList.createEntityByName(stack.stackTagCompound.getString("MobName"), world);
+            List<EntityMob> enemies = world.getEntitiesWithinAABB(entity.getClass(), player.boundingBox.expand(32D, 32D, 32D));
             int x = (int) player.posX;
             int y = (int) (player.posY + 1);
             int z = (int) player.posZ;

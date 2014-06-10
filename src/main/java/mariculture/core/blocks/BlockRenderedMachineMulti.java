@@ -6,9 +6,11 @@ import mariculture.core.blocks.base.BlockFunctionalMulti;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
+import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.network.PacketCompressor;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileVat;
@@ -17,6 +19,7 @@ import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.tile.TilePressureVessel;
 import mariculture.fishery.tile.TileSifter;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -148,19 +151,44 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 
         if (tile instanceof TileSifter) {
             TileSifter sifter = ((TileSifter) tile).getMaster();
-            if (sifter != null) if (heldItem != null) {
-                ItemStack addition = heldItem.copy();
-                addition.stackSize = 1;
-                sifter.addItem(addition);
-                if (!player.capabilities.isCreativeMode) {
-                    player.inventory.decrStackSize(player.inventory.currentItem, 1);
+            if (sifter != null) {
+                if (player.isSneaking()) {
+                    player.openGui(Mariculture.instance, 0, world, sifter.xCoord, sifter.yCoord, sifter.zCoord);
+                } else {
+                    if (heldItem != null) {
+                        if (heldItem.getItem() instanceof ItemUpgrade && heldItem.getItemDamage() == UpgradeMeta.BASIC_STORAGE && sifter.hasInventory == false) {
+                            sifter.hasInventory = true;
+                            if (!player.capabilities.isCreativeMode) {
+                                player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                            }
+
+                            sifter.updateRender();
+                        } else {
+                            ItemStack addition = heldItem.copy();
+                            addition.stackSize = 1;
+                            sifter.addItem(addition);
+                            if (!player.capabilities.isCreativeMode) {
+                                player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                            }
+                        }
+                    } else {
+                        sifter.process(player, Rand.rand);
+                    }
                 }
-            } else {
-                sifter.process(player, Rand.rand);
             }
         }
 
         return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+    }
+
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileSifter) {
+            TileSifter master = ((TileSifter) tile).getMaster();
+            if (master != null && master.toSift != null && master.toSift.size() > 0) {
+                master.process(null, Rand.rand);
+            }
+        }
     }
 
     @Override
@@ -195,9 +223,9 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        if (world.getBlockMetadata(x, y, z) == MachineRenderedMultiMeta.VAT) return AxisAlignedBB.getAABBPool().getAABB(x + minX, y + minY, z + minZ, x + maxX, (double) y + 0.50001F, z + maxZ);
+        if (world.getBlockMetadata(x, y, z) == MachineRenderedMultiMeta.VAT) return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, (double) y + 0.50001F, z + maxZ);
 
-        return AxisAlignedBB.getAABBPool().getAABB(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+        return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
     }
 
     @Override

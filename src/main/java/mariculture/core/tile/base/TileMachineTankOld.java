@@ -22,9 +22,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public abstract class TileMachineTank extends TileStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
-    //Transfer Helper
+public abstract class TileMachineTankOld extends TileStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
     protected BlockTransferHelper helper;
+    //General Tick
+    private int machineTick = 0;
     //Upgrade Stats
     protected int purity = 0;
     protected int heat = 0;
@@ -35,27 +36,21 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     protected EjectSetting setting;
     protected RedstoneMode mode;
     //GUI INT offset
-    protected int offset = 3;
+    protected int offset = 6;
     //Machine vars
     protected int max;
     protected boolean canWork;
     protected int processed = 0;
     protected int[] output;
-    //The rate at which tis tank tries to drain liquid
     protected int[] rate;
 
-    public TileMachineTank() {
-        inventory = new ItemStack[3];
+    public TileMachineTankOld() {
+        inventory = new ItemStack[5];
+        tank = new Tank(getTankCapacity(0));
         mode = RedstoneMode.LOW;
         setting = EjectSetting.NONE;
         output = new int[0];
         rate = new int[0];
-        tank = new Tank(getTankCapacity(0));
-    }
-
-    //Returns true if a valid tick to operate
-    public boolean onTick(int i) {
-        return worldObj.getWorldTime() % i == 0;
     }
 
     @Override
@@ -63,114 +58,22 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
         return inventory;
     }
 
+    private int[] getOutputSlots() {
+        return null;
+    }
+
     @Override
-    public void onInventoryChange(int slot) {
+    public void setInventorySlotContents(int slot, ItemStack stack) {
+        super.setInventorySlotContents(slot, stack);
+        updateUpgrades();
         updateCanWork();
-        if (slot < 3) {
-            updateUpgrades();
-        }
     }
 
     @Override
-    public void updateUpgrades() {
-        purity = MaricultureHandlers.upgrades.getData("purity", this);
-        heat = MaricultureHandlers.upgrades.getData("temp", this);
-        storage = MaricultureHandlers.upgrades.getData("storage", this);
-        speed = MaricultureHandlers.upgrades.getData("speed", this) + 1;
-        rf = MaricultureHandlers.upgrades.getData("rf", this);
-        tank.setCapacity(getTankCapacity(storage));
-        if (tank.getFluidAmount() > tank.getCapacity()) {
-            tank.setFluidAmount(tank.getCapacity());
-        }
-    }
-
-    public int getTankCapacity(int storage) {
-        int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
-        return tankRate * 20 + storage * tankRate;
-    }
-
-    @Override
-    public ItemStack[] getUpgrades() {
-        return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
-    }
-
-    //Whether this machine canWork or not, gets called everytime there is a change to an inventory slot
-    public boolean canWork() {
-        return false;
-    }
-
-    @Override
-    public boolean canUpdate() {
-        return true;
-    }
-
-    @Override
-    public void updateEntity() {
-        if (!worldObj.isRemote) {
-            if (helper == null) {
-                helper = new BlockTransferHelper(this);
-                updateCanWork();
-                updateUpgrades();
-            }
-
-            update();
-            updateMachine();
-        }
-    }
-
-    public abstract void process();
-
-    //Called whenever the machine is active
-    public void updateMachine() {
-        if (canWork) {
-            processed += speed;
-            if (processed >= max) {
-                process();
-                updateCanWork();
-                processed = 0;
-            }
-        } else {
-            processed = 0;
-        }
-    }
-
-    //Called at all times
-    public void update() {
-        FluidHelper.process(this, 3, 4);
-        autoeject();
-    }
-
-    //Called by the update method, to autoeject any items that are install inside the machine
-    public void autoeject() {
-        if (output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) if (setting.canEject(EjectSetting.ITEM)) {
-            for (int i : output)
-                if (inventory[i] != null) {
-                    ItemStack ejecting = inventory[i].copy();
-                    inventory[i] = null;
-                    if (ejecting != null) {
-                        helper.insertStack(ejecting, output);
-                        updateCanWork();
-                    }
-                }
-        }
-    }
-
-    //Updates the canWork system, called whenever something changes
-    public final void updateCanWork() {
-        canWork = canWork();
-    }
-
-    //Whether there is room to eject from this machine or not
-    public boolean hasRoom(ItemStack stack) {
-        if (setting.canEject(EjectSetting.ITEM)) return true;
-        for (Integer i : output) {
-            if (inventory[i] == null) {
-                ;
-            }
-            return true;
-        }
-
-        return false;
+    public ItemStack decrStackSize(int slot, int amount) {
+        ItemStack stack = super.decrStackSize(slot, amount);
+        updateCanWork();
+        return stack;
     }
 
     @Override
@@ -191,6 +94,80 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
         }
 
         return stack;
+    }
+
+    @Override
+    public boolean canUpdate() {
+        return true;
+    }
+
+    public boolean onTick(int i) {
+        return machineTick % i == 0;
+    }
+
+    @Override
+    public ItemStack[] getUpgrades() {
+        return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
+    }
+
+    @Override
+    public void updateUpgrades() {
+        purity = MaricultureHandlers.upgrades.getData("purity", this);
+        heat = MaricultureHandlers.upgrades.getData("temp", this);
+        storage = MaricultureHandlers.upgrades.getData("storage", this);
+        speed = MaricultureHandlers.upgrades.getData("speed", this);
+        rf = MaricultureHandlers.upgrades.getData("rf", this);
+
+        tank.setCapacity(getTankCapacity(storage));
+        if (tank.getFluidAmount() > tank.getCapacity()) {
+            tank.setFluidAmount(tank.getCapacity());
+        }
+    }
+
+    protected void updateCanWork() {
+        canWork = canMachineWork();
+    }
+
+    public int getTankCapacity(int storage) {
+        int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
+        return tankRate * 20 + storage * tankRate;
+    }
+
+    @Override
+    public void updateEntity() {
+        if (helper == null) {
+            helper = new BlockTransferHelper(this);
+        }
+
+        machineTick++;
+        autoeject();
+        emptyContainers();
+        updateMachine();
+    }
+
+    public abstract boolean canMachineWork();
+
+    public abstract void updateMachine();
+
+    public void autoeject() {
+        if (output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) if (setting.canEject(EjectSetting.ITEM)) {
+            for (int i : output)
+                if (inventory[i] != null) {
+                    ItemStack ejecting = inventory[i].copy();
+                    inventory[i] = null;
+                    if (ejecting != null) {
+                        helper.insertStack(ejecting, output);
+                    }
+                }
+        }
+
+        if (rate.length > 0 && onTick(Ticks.FLUID_EJECT_TICK)) {
+            helper.ejectFluid(rate);
+        }
+    }
+
+    public void emptyContainers() {
+        FluidHelper.process(this, 3, 4);
     }
 
     @Override
@@ -220,6 +197,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     @Override
     public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
         crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
+        crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
         crafting.sendProgressBarUpdate(container, 1, setting.ordinal());
         crafting.sendProgressBarUpdate(container, 2, processed);
         crafting.sendProgressBarUpdate(container, 3, tank.getFluidID());
@@ -245,7 +223,6 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     @Override
     public void setRSMode(RedstoneMode mode) {
         this.mode = mode;
-        updateCanWork();
     }
 
     @Override
@@ -256,7 +233,6 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     @Override
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
-        updateCanWork();
     }
 
     @Override

@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
+import mariculture.core.lib.UpgradeMeta;
+import mariculture.core.network.PacketCrack;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSifterSync;
 import mariculture.core.tile.base.TileMultiStorage;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
@@ -25,6 +29,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileSifter extends TileMultiStorage implements ISidedInventory {
+    public float progress = 0.0F;
     public ItemStack display = null;
     public ItemStack texture = new ItemStack(Blocks.planks);
     public LinkedList<ItemStack> toSift = new LinkedList();
@@ -47,7 +52,46 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 
     @Override
     public boolean canInsertItem(int slot, ItemStack stack, int side) {
-        return false;
+        TileSifter master = getMaster();
+        if (master != null) return master.hasInventory && Fishing.sifter.getResult(stack) != null;
+        else return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        TileSifter master = getMaster();
+        if (master != null) return master.hasInventory ? super.getInventoryStackLimit() : 0;
+        else return 0;
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return inventory.length + 1;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        TileSifter master = getMaster();
+        if (master != null) return slot < 10 ? master.inventory[slot] : null;
+        else return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack stack) {
+        TileMultiStorage mstr = getMaster() != null ? (TileMultiStorage) getMaster() : null;
+        if (mstr == null || stack == null) super.setInventorySlotContents(slot, stack);
+        else if (Fishing.sifter.getResult(stack) != null) {
+            if(toSift == null) toSift = new LinkedList();
+            int stackSize = stack.stackSize;
+            ItemStack clone = stack.copy();
+            clone.stackSize = 1;
+            for (int i = 0; i < stackSize; i++) {
+                toSift.add(clone);
+            }
+            mstr.markDirty();
+        } else super.setInventorySlotContents(slot, stack);
+
+        updateRender();
     }
 
     @Override
@@ -71,29 +115,51 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 
     public void process(EntityPlayer player, Random rand) {
         if (toSift != null && toSift.size() > 0) {
-            ItemStack stack = toSift.getFirst();
-            ArrayList<RecipeSifter> result = Fishing.sifter.getResult(stack);
-            if (result != null) {
-                for (RecipeSifter bait : result) {
-                    int chance = rand.nextInt(100);
-                    if (chance < bait.chance) {
-                        ItemStack ret = bait.bait.copy();
-                        ret.stackSize = bait.minCount + rand.nextInt(bait.maxCount + 1 - bait.minCount);
-                        if (hasInventory) {
-                            InventoryHelper.addItemStackToInventory(inventory, ret, slots);
-                        } else if (!player.inventory.addItemStackToInventory(ret)) if (!worldObj.isRemote) {
-                            SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret);
-                        }
-                    }
-                }
-            } else if (!player.inventory.addItemStackToInventory(stack)) if (!worldObj.isRemote) {
-                SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, stack);
+            if (!worldObj.isRemote && display != null) {
+                PacketHandler.sendAround(new PacketCrack(Block.getIdFromBlock(Block.getBlockFromItem(display.getItem())), display.getItemDamage(), xCoord, yCoord, zCoord), this);
+                PacketHandler.sendAround(new PacketCrack(Block.getIdFromBlock(Block.getBlockFromItem(display.getItem())), display.getItemDamage(), slaves.get(0).xCoord, slaves.get(0).yCoord, slaves.get(0).zCoord), this);
             }
-
-            toSift.removeFirst();
+            
+            worldObj.playSoundEffect(xCoord, yCoord, zCoord, "minecraft" + ":step.grass", 1.0F, 1.0F);
         }
 
-        updateRender();
+        if (progress < 1F) {
+            progress += 0.125F;
+        } else {
+            progress = 0.0F;
+            if (toSift != null && toSift.size() > 0) {
+                ItemStack stack = toSift.getFirst();
+                ArrayList<RecipeSifter> result = Fishing.sifter.getResult(stack);
+                if (result != null) {
+                    for (RecipeSifter bait : result) {
+                        int chance = rand.nextInt(100);
+                        if (chance < bait.chance) {
+                            ItemStack ret = bait.bait.copy();
+                            ret.stackSize = bait.minCount + rand.nextInt(bait.maxCount + 1 - bait.minCount);
+                            if (hasInventory) {
+                                InventoryHelper.addItemStackToInventory(inventory, ret, slots);
+                            } else if (!worldObj.isRemote) {
+                                if (rand.nextInt(2) == 0 && slaves.size() > 0) {
+                                    SpawnItemHelper.spawnItem(worldObj, slaves.get(0).xCoord, slaves.get(0).yCoord + 1, slaves.get(0).zCoord, ret, true, 0, 10, 0.25F);
+                                } else {
+                                    SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret, true, 0, 10, 0.25F);
+                                }
+                            }
+                        }
+                    }
+                } else if (!worldObj.isRemote) {
+                    if (rand.nextInt(2) == 0 && slaves.size() > 0) {
+                        SpawnItemHelper.spawnItem(worldObj, slaves.get(0).xCoord, slaves.get(0).yCoord + 1, slaves.get(0).zCoord, stack, true, 0, 10, 0.25F);
+                    } else {
+                        SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, stack, true, 0, 10, 0.25F);
+                    }
+                }
+
+                toSift.removeFirst();
+            }
+
+            updateRender();
+        }
     }
 
     public int getSuitableSlot(ItemStack item) {
@@ -122,21 +188,26 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         hasInventory = nbt.getBoolean("HasInventory");
-        if (nbt.hasKey("Display")) {
-            display = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("Display"));
-        }
-        texture = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("Texture"));
-        toSift = new LinkedList();
-        NBTTagList list = nbt.getTagList("Memory", 10);
-        for (int i = 0; i < list.tagCount(); i++) {
-            NBTTagCompound tag = list.getCompoundTagAt(i);
-            toSift.add(ItemStack.loadItemStackFromNBT(tag));
+        progress = nbt.getFloat("Progress");
+
+        if (nbt.hasKey("Texture")) {
+            texture = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("Texture"));
         }
 
-        if (toSift.size() > 0) {
-            display = toSift.getFirst();
-        } else {
-            display = null;
+        toSift = new LinkedList();
+
+        if (nbt.hasKey("Memory")) {
+            NBTTagList list = nbt.getTagList("Memory", 10);
+            for (int i = 0; i < list.tagCount(); i++) {
+                NBTTagCompound tag = list.getCompoundTagAt(i);
+                toSift.add(ItemStack.loadItemStackFromNBT(tag));
+            }
+
+            if (toSift.size() > 0) {
+                display = toSift.getFirst();
+            } else {
+                display = null;
+            }
         }
     }
 
@@ -144,9 +215,7 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("HasInventory", hasInventory);
-        if (display != null) {
-            nbt.setTag("Display", display.writeToNBT(new NBTTagCompound()));
-        }
+        nbt.setFloat("Progress", progress);
         nbt.setTag("Texture", texture.writeToNBT(new NBTTagCompound()));
         NBTTagList list = new NBTTagList();
         if (toSift.size() > 0) {
@@ -219,9 +288,22 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
 
     @Override
     public void onBlockBreak() {
-        if (!worldObj.isRemote && isMaster()) {
-            for (ItemStack stack : toSift) {
-                SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, stack);
+        if (!worldObj.isRemote) {
+            TileSifter master = getMaster();
+            if (master != null) {
+                for (ItemStack stack : master.toSift) {
+                    SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, stack);
+                }
+
+                if (master.hasInventory) {
+                    SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, new ItemStack(Core.upgrade, 1, UpgradeMeta.BASIC_STORAGE));
+                }
+
+                master.hasInventory = false;
+                master.toSift = null;
+                for (ItemStack stack : master.inventory) {
+                    stack = null;
+                }
             }
         }
 

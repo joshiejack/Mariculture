@@ -311,11 +311,19 @@ public class FluidHelper {
 
         return tooltip;
     }
-
+    
+    public static Fluid addGas(String field, String name, int volume, int bottleMeta) {
+        return addFluid(field, name, volume, bottleMeta, true);
+    }
+    
     public static Fluid addFluid(String field, String name, int volume, int bottleMeta) {
+        return addFluid(field, name, volume, bottleMeta, false);
+    }
+
+    public static Fluid addFluid(String field, String name, int volume, int bottleMeta, boolean isGas) {
         Fluid fluid = null;
         if (!Fluids.instance.fluidExists(name)) {
-            fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name);
+            fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
             FluidRegistry.registerFluid(fluid);
             Fluids.instance.addFluid(name, fluid);
         } else {

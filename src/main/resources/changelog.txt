@@ -16,6 +16,9 @@ Mariculture 1.7.2 BETA 10
 • Dropping stacked live fish, will now return the correct amount of raw fish
 • Fixed Bass Bomb Texture, Bass Bomb now does damage (not much).
 • You now need to 'construct' the sifters, just place two blocks next to each other, the recipe for a sifter now gives two :)
+• Block updates will cause the sifter to 'sift' out items. You can pipe items in to the top of a sifter.
+• Fixed missing sounds
+• Removed chucking fish food in water to feed the fish
 
 Mariculture 1.7.2 BETA 9
 • Broke all the configs as promised!

@@ -195,7 +195,7 @@ public class Core extends RegistrationModule {
     @Override
     public void registerFluids() {
         // Normal Fluids
-        naturalGas = FluidHelper.addFluid("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
+        naturalGas = FluidHelper.addGas("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
         hpWater = FluidHelper.addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER);
 
         // Molten Mariculture Metals + Vanilla Fluids

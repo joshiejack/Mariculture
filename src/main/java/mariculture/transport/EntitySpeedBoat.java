@@ -180,7 +180,7 @@ public class EntitySpeedBoat extends Entity {
         for (int i = 0; i < b0; ++i) {
             double d1 = boundingBox.minY + (boundingBox.maxY - boundingBox.minY) * (i + 0) / b0 - 0.125D;
             double d3 = boundingBox.minY + (boundingBox.maxY - boundingBox.minY) * (i + 1) / b0 - 0.125D;
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB(boundingBox.minX, d1, boundingBox.minZ, boundingBox.maxX, d3, boundingBox.maxZ);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(boundingBox.minX, d1, boundingBox.minZ, boundingBox.maxX, d3, boundingBox.maxZ);
 
             if (worldObj.isAABBInMaterial(axisalignedbb, Material.water)) {
                 d0 += 1.0D / b0;

@@ -336,7 +336,7 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL) return AxisAlignedBB.getAABBPool().getAABB(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+        if (meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL) return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
 
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }

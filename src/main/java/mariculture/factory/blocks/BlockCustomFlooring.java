@@ -20,7 +20,7 @@ public class BlockCustomFlooring extends BlockCustomBase {
     public AxisAlignedBB getCollisionBoundingBoxFromPool(final World par1World, final int par2, final int par3, final int par4) {
         final byte b0 = 0;
         final float f = 0.0625F;
-        return AxisAlignedBB.getAABBPool().getAABB(par2 + minX, par3 + minY, par4 + minZ, par2 + maxX, par3 + b0 * f, par4 + maxZ);
+        return AxisAlignedBB.getBoundingBox(par2 + minX, par3 + minY, par4 + minZ, par2 + maxX, par3 + b0 * f, par4 + maxZ);
     }
 
     @Override

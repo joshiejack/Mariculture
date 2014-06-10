@@ -8,7 +8,9 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.network.PacketHandler;
 import mariculture.core.util.IItemRegistry;
+import mariculture.core.util.ITank;
 import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -153,6 +155,10 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
                     if (stack.amount > 0) {
                         container.drain(item, stack.amount, true);
                         tank.fill(dir, stack, true);
+                        if(tank instanceof ITank) {
+                            PacketHandler.syncFluids(world.getTileEntity(x, y, z), ((ITank)tank).getFluid());
+                        }
+                        
                         return true;
                     }
                 }

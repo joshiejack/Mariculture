@@ -47,6 +47,7 @@ public class PacketHandler {
 
         //New Packets
         registerPacket(PacketSifterSync.class, Side.CLIENT);
+        registerPacket(PacketCrack.class, Side.CLIENT);
     }
 
     public static void sendToClient(IMessage packet, EntityPlayerMP player) {

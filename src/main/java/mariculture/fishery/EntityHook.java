@@ -189,7 +189,7 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
                 for (int j = 0; j < b0; ++j) {
                     double d3 = boundingBox.minY + (boundingBox.maxY - boundingBox.minY) * (j + 0) / b0 - 0.125D + 0.125D;
                     double d4 = boundingBox.minY + (boundingBox.maxY - boundingBox.minY) * (j + 1) / b0 - 0.125D + 0.125D;
-                    AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getAABBPool().getAABB(boundingBox.minX, d3, boundingBox.minZ, boundingBox.maxX, d4, boundingBox.maxZ);
+                    AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getBoundingBox(boundingBox.minX, d3, boundingBox.minZ, boundingBox.maxX, d4, boundingBox.maxZ);
 
                     if (worldObj.isAABBInMaterial(axisalignedbb1, Material.water) || worldObj.provider.isHellWorld && worldObj.isAABBInMaterial(axisalignedbb1, Material.lava)) {
                         d10 += 0.65D / b0;

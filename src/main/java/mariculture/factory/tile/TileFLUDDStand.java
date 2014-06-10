@@ -13,7 +13,7 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.network.PacketHandler;
-import mariculture.core.tile.base.TileMachineTank;
+import mariculture.core.tile.base.TileMachineTankOld;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IHasNotification;
@@ -40,7 +40,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileFLUDDStand extends TileMachineTank implements IHasNotification, IFaceable {
+public class TileFLUDDStand extends TileMachineTankOld implements IHasNotification, IFaceable {
 
     public ForgeDirection orientation = ForgeDirection.UP;
     public static final int input = 3;

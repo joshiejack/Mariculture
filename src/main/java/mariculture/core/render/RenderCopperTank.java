@@ -15,7 +15,11 @@ public class RenderCopperTank extends RenderBase {
                 if (fluid != null) {
                     double height = fluid.amount * 1D / tank.getCapacity();
                     setTexture(fluid.getFluid().getIcon());
-                    renderFluidBlock(0, 0, 0, 1, height, 1);
+                    if(fluid.getFluid().isGaseous()) {
+                        renderFluidBlock(0, 1 - height, 0, 1, 1, 1);
+                    } else {
+                        renderFluidBlock(0, 0, 0, 1, height, 1);
+                    }
                 }
             }
         }

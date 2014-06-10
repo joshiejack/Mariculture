@@ -146,12 +146,13 @@ public class MagicEventHandler {
         if (event.source.getSourceOfDamage() != null && event.source.getSourceOfDamage() instanceof EntityPlayer) {
             EntityLivingBase entity = event.entityLiving;
             EntityPlayer player = (EntityPlayer) event.source.getSourceOfDamage();
-            if (!(entity instanceof EntityPlayer)) if (ItemHelper.isPlayerHoldingItem(Magic.magnet, player)) {
-                ItemStack magnet = player.getCurrentEquippedItem();
-                if (!magnet.hasTagCompound()) {
-                    magnet.setTagCompound(new NBTTagCompound());
-                    magnet.stackTagCompound.setString("MobClass", entity.getClass().toString().substring(6));
-                    magnet.stackTagCompound.setString("MobName", EntityList.getEntityString(entity));
+            if (!(entity instanceof EntityPlayer)) {
+                if (ItemHelper.isPlayerHoldingItem(Magic.magnet, player)) {
+                    ItemStack magnet = player.getCurrentEquippedItem();
+                    if (!magnet.hasTagCompound()) {
+                        magnet.setTagCompound(new NBTTagCompound());
+                        magnet.stackTagCompound.setString("MobName", EntityList.getEntityString(entity));
+                    }
                 }
             }
         }
