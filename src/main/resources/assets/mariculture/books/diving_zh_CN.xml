@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<book>
+    <page>
+        <text x="92" y="-13" bold="true">导言</text>
+        <text>毛伊物语提供了多种不同的方式让玩家得以更好地适应水下作业.从简单地提供简陋的换气管辅助水下换气到可用于海洋探索的全套潜水装备,包罗甚广.</text>
+        <hr y="46"></hr>
+        <text y="53" bold="true">换气管</text>
+        <text y="78">换气管乃是最基础的潜水装备,它能够延长你在水下滞留的时间,不时为你提供少了的空气.</text>
+        <crafting x="0" y="90" size="1.1">
+            <craft1>||reeds</craft1>
+            <craft2>snorkelLens|snorkelLens|reeds</craft2>
+            <craft3>||</craft3>
+            <craftResult>snorkel</craftResult>
+        </crafting>
+        <crafting x="100" y="90" size="1.1">
+            <craft1>wheel|glass|wheel</craft1>
+            <craft2>plankWood|redstone|plankWood</craft2>
+            <craft3>plankWood|piston|plankWood</craft3>
+            <craftResult>airpump</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <img mod="mariculture" src="diving/airPump" x="130" y="5" size="0.7" stretch="0.3"></img>
+        <text x="38" y="-13" bold="true">空气泵</text>
+        <text size="0.8" wrap="160">空气泵是保障你能够使用潜水设备进行水下呼吸会用到的设备.制造出它以后将其放置于接近你潜水为之的某处,手动充能后它们拥有64格的有效范围.正如刚才说到的,既可以手动右击为其充能,也可以消耗RF为其充能.激活后，空气炮能够为任何范围内的潜水头盔和供气设备提供空气.</text>
+        <text y="158" size="0.8" wrap="160">放置空气泵时需要注意周围应保留足够多的空气方块.空手按住shift键右击可以检查空气泵是否已经被正确放置.假如已经正确放置的话,将会显示绿色的粒子效果.</text>
+    </page>
+     <page>
+        <text x="92" y="-13" bold="true">潜水装备</text>
+        <text>潜水装备也相当基础,它包括四件套:头盔,供氧设备,裤子和鞋.要充分发挥其潜泳辅助效果你还需要一台空气泵.</text>
+        <crafting x="5" y="43">
+            <craft1>ingotCopper|ingotCopper|ingotCopper</craft1>
+            <craft2>ingotCopper|glass|ingotCopper</craft2>
+            <craft3>||</craft3>
+            <craftResult>diving.helmet</craftResult>
+        </crafting>
+        <crafting x="100" y="43">
+            <craft1>|leather|</craft1>
+            <craft2>leather||leather</craft2>
+            <craft3>|leather|</craft3>
+            <craftResult>diving.top</craftResult>
+        </crafting>
+        <crafting x="5" y="113">
+            <craft1>leather|leather|leather</craft1>
+            <craft2>|leather|</craft2>
+            <craft3>leather|leather|leather</craft3>
+            <craftResult>diving.pants</craftResult>
+        </crafting>
+        <crafting x="100" y="113">
+            <craft1>leather||leather</craft1>
+            <craft2>ingotIron||ingotIron</craft2>
+            <craft3>||</craft3>
+            <craftResult>diving.boots</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="32" y="-13" bold="true">四件套</text>
+        <text>下面介绍潜水装备四件套的功能.</text>
+        <stack item="diving.helmet" y="-5" size="1.8"></stack>
+        <text x="30" y="26" bold="true" size="0.8">潜水头盔</text>
+        <text x="30" y="44" size="0.7" wrap="220">配合空气泵和潜水服供氧设备使用能够辅助进行水下呼吸.同时还能提供水下的可见度.</text>
+        <hr x="10" y="53" width="160"></hr>
+        
+        <stack item="diving.top" y="18" size="1.8"></stack>
+        <text x="30" y="80" bold="true" size="0.8">潜水服供氧设备</text>
+        <text x="30" y="106" size="0.7" wrap="220">配合空气泵和潜水头盔辅助进行水下呼吸.</text>
+        <hr x="10" y="88" width="160"></hr>
+        
+        <stack item="diving.pants" y="38" size="1.8"></stack>
+        <text x="30" y="127" bold="true" size="0.8">潜水服裤子</text>
+        <text x="30" y="160" size="0.7" wrap="220">具有水亲和性的潜水服裤子能够让你在潜水时挖掘得更快.</text>
+        <hr x="10" y="127" width="160"></hr>
+        
+        <stack item="diving.boots" y="61" size="1.8"></stack>
+        <text x="30" y="174" bold="true" size="0.8">潜水服鞋子</text>
+        <text x="30" y="215" size="0.7" wrap="220">潜水服鞋子能够加快水下移动力,几乎达到陆地上的速度.</text>
+    </page>
+    <page>
+        <text x="92" y="-13" bold="true">潜泳装备</text>
+        <text>潜泳装备相对高级一些,为了让它能够辅助你进行水下呼吸你还需要一台空气压缩机.</text>
+        <crafting x="5" y="43">
+            <craft1>dyeBlack|dyeYellow|</craft1>
+            <craft2>scubaLens|scubaLens|</craft2>
+            <craft3>||</craft3>
+            <craftResult>scuba.mask</craftResult>
+        </crafting>
+        <crafting x="100" y="43">
+            <craft1>dyeYellow|aluminumSheet|dyeYellow</craft1>
+            <craft2>aluminumSheet||aluminumSheet</craft2>
+            <craft3>dyeYellow|aluminumSheet|dyeYellow</craft3>
+            <craftResult>scuba.tank</craftResult>
+        </crafting>
+        <crafting x="5" y="113">
+            <craft1>neoprene|neoprene|neoprene</craft1>
+            <craft2>|neoprene|</craft2>
+            <craft3>neoprene|neoprene|neoprene</craft3>
+            <craftResult>scuba.suit</craftResult>
+        </crafting>
+        <crafting x="100" y="113">
+            <craft1>neoprene||neoprene</craft1>
+            <craft2>plastic|dyeBlack|plastic</craft2>
+            <craft3>plastic|dyeBlack|plastic</craft3>
+            <craftResult>swimfin</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <text x="32" y="-13" bold="true">四件套</text>
+        <text>下面介绍潜泳装备四件套的功能.</text>
+        <stack item="scuba.mask" y="-5" size="1.8"></stack>
+        <text x="30" y="26" bold="true" size="0.8">潜泳面具</text>
+        <text x="30" y="44" size="0.7" wrap="220">潜泳面具,配合潜泳氧气罐可以让你能够水下呼吸.同时它还显著提供了你在水下的可见度. (手持它按住shift右击能够让视野宛如处于陆地!)</text>
+        <hr x="10" y="53" width="160"></hr>
+        
+        <stack item="scuba.tank" y="18" size="1.8"></stack>
+        <text x="30" y="80" bold="true" size="0.8">潜泳氧气罐</text>
+        <text x="30" y="106" size="0.7" wrap="230">使用空气压缩机充满后,能够在水下为戴上潜泳面具的玩家提供氧气.</text>
+        <hr x="10" y="88" width="160"></hr>
+        
+        <stack item="scuba.suit" y="38" size="1.8"></stack>
+        <text x="30" y="127" bold="true" size="0.8">泳裤</text>
+        <text x="30" y="160" size="0.7" wrap="220">泳裤提高水下挖掘速度.</text>
+        <hr x="10" y="127" width="160"></hr>
+        
+        <stack item="swimfin" y="61" size="1.8"></stack>
+        <text x="30" y="174" bold="true" size="0.8">脚蹼</text>
+        <text x="30" y="215" size="0.7" wrap="220">脚蹼能够让你游得非常快,在深水中还能够让你感觉像在飞一样(可设置成深水飞行模式).</text>
+    </page>
+    <page>
+        <text x="82" y="-13" bold="true">空气压缩机</text>
+        <text>空气压缩机用于为潜泳氧气罐注入氧气.压缩机消耗RF能量生产压缩空气,因此必须提供能量,你可以手持电池右击为其补充能量.将两个压缩机顶部放置在2个压缩机底部,然后在每一边顶部放置2个大箱子即可造出空气压缩机.</text>
+        <crafting x="10" y="65">
+            <craft1>aluminumSheet|ingotTitanium|ingotTitanium</craft1>
+            <craft2>aluminumSheet|aluminumSheet|aluminumSheet</craft2>
+            <craft3>wheel||</craft3>
+            <craftResult>airCompressor</craftResult>
+        </crafting>
+        <crafting x="100" y="65">
+            <craft1>||cooler</craft1>
+            <craft2>|piston|battery.titanium</craft2>
+            <craft3>aluminumSheet|aluminumSheet|aluminumSheet</craft3>
+            <craftResult num="2">airCompressorPower</craftResult>
+        </crafting>
+        <text y="156">随着时间推移压缩机会消耗RF能量压缩出空气,你将看到进度条指示内部含有多少空气.当内部含有足够空气时,手持潜泳氧气罐右击便能补充氧气.其容量足以补充两次氧气.</text>
+    </page>
+    <page>
+        <img mod="mariculture" src="diving/airCompressor" x="10" y="5" size="0.7" stretch="0.9"></img>
+    </page>
+</book>
