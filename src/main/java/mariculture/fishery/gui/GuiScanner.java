@@ -7,7 +7,6 @@ import mariculture.core.gui.InventoryStorage;
 import mariculture.core.gui.feature.FeatureScanner;
 import mariculture.core.util.Text;
 import mariculture.fishery.Fish;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

@@ -1,7 +1,5 @@
 package mariculture.core.render;
 
-import java.util.HashMap;
-
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.IFaceable;
 import net.minecraft.block.Block;

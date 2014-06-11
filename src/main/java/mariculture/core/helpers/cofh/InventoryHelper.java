@@ -3,7 +3,6 @@ package mariculture.core.helpers.cofh;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class InventoryHelper {
 

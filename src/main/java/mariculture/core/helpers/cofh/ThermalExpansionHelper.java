@@ -24,7 +24,6 @@ public class ThermalExpansionHelper {
     }
 
     public static void addPulverizerRecipe(int energy, ItemStack input, ItemStack primaryOutput) {
-
         addPulverizerRecipe(energy, input, primaryOutput, null, 0);
     }
 

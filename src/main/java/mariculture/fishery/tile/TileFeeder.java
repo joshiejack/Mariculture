@@ -24,7 +24,6 @@ import mariculture.core.util.Rand;
 import mariculture.core.util.Text;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishyHelper;
-import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
