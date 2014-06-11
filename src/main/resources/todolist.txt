@@ -1,7 +1,3 @@
-TODO List - Before BETA 10
-• Update book info on sifter
-• Waila support for the Copper Tank
-
 TODO List - Before Release of 1.2.3
 • Re-think catching system
 • New rendering for Turbines

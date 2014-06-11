@@ -1,6 +1,7 @@
 package mariculture.plugins;
 
 import mariculture.plugins.Plugins.Plugin;
+import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class PluginWaila extends Plugin {
     @Override
@@ -11,8 +12,8 @@ public class PluginWaila extends Plugin {
 
     @Override
     public void init() {
-        // TODO Auto-generated method stub
-
+        FMLInterModComms.sendMessage("Waila", "register", "mariculture.plugins.waila.VatDataProvider.register");
+        FMLInterModComms.sendMessage("Waila", "register", "mariculture.plugins.waila.CopperTankDataProvider.register");
     }
 
     @Override
