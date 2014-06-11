@@ -19,6 +19,7 @@ Mariculture 1.7.2 BETA 10
 • Block updates will cause the sifter to 'sift' out items. You can pipe items in to the top of a sifter.
 • Fixed missing sounds
 • Removed chucking fish food in water to feed the fish
+• Fixed Coral Spreading, reduced the default spread chance to 12, so you may want to adjust this in your configs to match up
 
 Mariculture 1.7.2 BETA 9
 • Broke all the configs as promised!

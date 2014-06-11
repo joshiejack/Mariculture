@@ -237,15 +237,11 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
                 int randX = x + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
                 int randY = y + rand.nextInt(3) - 1;
                 int randZ = z + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
-                if (world.getBlock(randX, randY, randZ) == WorldPlus.plantGrowable) {
-                    System.out.println("GROWABLE");
-                    
+                if (world.getBlock(randX, randY, randZ) == WorldPlus.plantGrowable) {                    
                     int thisMeta = world.getBlockMetadata(x, y, z);
                     int thatMeta = world.getBlockMetadata(randX, randY, randZ);
                     int newMeta = getNewColor(thisMeta, thatMeta);
                     
-                    System.out.println(newMeta);
-
                     randX = x + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
                     randY = y + rand.nextInt(3) - 1;
                     randZ = z + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);

@@ -45,7 +45,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
     }
 
     //Returns true if a valid tick to operate
-    public boolean onTick(int i) {
+    public boolean onTick(int i) {        
         return worldObj.getWorldTime() % i == 0;
     }
 
