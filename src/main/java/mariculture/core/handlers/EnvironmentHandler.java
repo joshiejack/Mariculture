@@ -98,11 +98,11 @@ public class EnvironmentHandler implements IEnvironmentHandler {
         return f2 * 0.8F + 0.2F;
     }
 
-    public static class BiomeData {
-        int temperature;
-        Salinity salinity;
+    private static class BiomeData {
+        private int temperature;
+        private Salinity salinity;
 
-        public BiomeData(int temperature, Salinity salinity) {
+        private BiomeData(int temperature, Salinity salinity) {
             this.temperature = temperature;
             this.salinity = salinity;
         }

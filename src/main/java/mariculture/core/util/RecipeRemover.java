@@ -43,19 +43,4 @@ public class RecipeRemover {
             }
         }
     }
-
-    public static void removeList(ArrayList recipes, int scan, List list, ItemStack[] input) {
-        int match = 0;
-
-        for (int i = 0; i < list.size(); i++) {
-            ItemStack expected = (ItemStack) list.get(i);
-            if (ItemStack.areItemStacksEqual(expected, input[i])) {
-                match++;
-            }
-        }
-
-        if (match == list.size()) {
-            recipes.remove(scan);
-        }
-    }
 }

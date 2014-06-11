@@ -57,6 +57,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
+        exclude '**/todolist.txt'
     }
 }
 

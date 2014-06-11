@@ -43,8 +43,8 @@ import net.minecraftforge.fluids.FluidStack;
 public class TileFLUDDStand extends TileMachineTankOld implements IHasNotification, IFaceable {
 
     public ForgeDirection orientation = ForgeDirection.UP;
-    public static final int input = 3;
-    public static final int output = 4;
+    private static final int input = 3;
+    private static final int output = 4;
 
     public TileFLUDDStand() {
         mode = RedstoneMode.HIGH;

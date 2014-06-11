@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 public class TileDictionaryItem extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
-    protected BlockTransferHelper helper;
+    private BlockTransferHelper helper;
     private EjectSetting setting;
 
     public TileDictionaryItem() {
@@ -31,9 +31,9 @@ public class TileDictionaryItem extends TileStorage implements IItemDropBlacklis
         return i < 9 ? false : true;
     }
 
-    public static final int[] filter = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
-    public static final int[] in = new int[] { 24 };
-    public static final int[] out = new int[] { 25, 26, 27, 28 };
+    private static final int[] filter = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+    private static final int[] in = new int[] { 24 };
+    private static final int[] out = new int[] { 25, 26, 27, 28 };
 
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {

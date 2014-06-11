@@ -8,7 +8,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ScubaFin {
-    public static final float SPEED = 0.025F;
+    private static final float SPEED = 0.025F;
 
     public static void init(EntityPlayer player) {
         if (!player.capabilities.isCreativeMode) if (PlayerHelper.hasArmor(player, ArmorSlot.FEET, Diving.swimfin)) {

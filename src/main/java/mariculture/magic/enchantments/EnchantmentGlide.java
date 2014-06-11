@@ -22,9 +22,9 @@ public class EnchantmentGlide extends EnchantmentJewelry {
         return 2;
     }
 
-    public static int hasGlide = 0;
-    public static int toggleOn;
-    public static int keyCoolDown = 0;
+    private static int hasGlide = 0;
+    private static int toggleOn;
+    private static int keyCoolDown = 0;
 
     public static void damage(EntityPlayer player, Random rand) {
         if (toggleOn > 0 && EnchantHelper.hasEnchantment(Magic.glide, player)) {

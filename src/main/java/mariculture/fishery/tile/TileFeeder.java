@@ -36,12 +36,12 @@ import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.IEnergyConnection;
 
 public class TileFeeder extends TileMachineTank implements IHasNotification, IEnergyConnection {
-    public static final int fluid = 3;
+    private static final int fluid = 3;
     public static final int male = 5;
     public static final int female = 6;
-    public static final int[] out = new int[] { 7, 8, 9, 10, 11, 12 };
+    private static final int[] out = new int[] { 7, 8, 9, 10, 11, 12 };
 
-    public ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
+    private ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
     private boolean swap = false;
     private int foodTick;
     private int tankSize;
@@ -316,7 +316,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     //Gui Stuffs
-    public boolean addToolTip(ArrayList<String> tooltip, String text) {
+    private boolean addToolTip(ArrayList<String> tooltip, String text) {
         tooltip.add(Text.RED + text);
         return false;
     }

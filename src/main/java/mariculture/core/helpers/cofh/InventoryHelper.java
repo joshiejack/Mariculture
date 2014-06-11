@@ -7,21 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class InventoryHelper {
 
-    private InventoryHelper() {
-
-    }
-
-    /**
-     * Copy an entire inventory. Best to avoid doing this often.
-     */
-    public static ItemStack[] cloneInventory(ItemStack[] inventory) {
-
-        ItemStack[] inventoryCopy = new ItemStack[inventory.length];
-        for (int i = 0; i < inventory.length; i++) {
-            inventoryCopy[i] = inventory[i] == null ? null : inventory[i].copy();
-        }
-        return inventoryCopy;
-    }
+    private InventoryHelper() {}
 
     /**
      * Add an ItemStack to an inventory. Return true if the entire stack was added.
@@ -33,8 +19,7 @@ public class InventoryHelper {
      * @param startIndex
      *            First slot to attempt to add into. Does not loop around fully.
      */
-    public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack, int startIndex) {
-
+    private static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack, int startIndex) {
         if (stack == null) return true;
         int openSlot = -1;
         for (int i = startIndex; i < inventory.length; i++)
@@ -59,7 +44,6 @@ public class InventoryHelper {
 
     //Copy of the above, but instead of a start index, able to specify WHICH slots
     public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack, int[] slots) {
-
         if (stack == null) return true;
         int openSlot = -1;
         for (int i : slots)
@@ -85,7 +69,6 @@ public class InventoryHelper {
     //Copy of the above but simulates
     public static boolean canAddItemStackToInventory(ItemStack[] inventory, ItemStack stack, int[] slots) {
         if (stack == null) return true;
-
         int openSlot = -1;
         for (int i : slots)
             if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) return true;
@@ -97,19 +80,10 @@ public class InventoryHelper {
         else return false;
     }
 
-    /**
-     * Shortcut method for above, assumes starting slot is 0.
-     */
-    public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack) {
-
-        return addItemStackToInventory(inventory, stack, 0);
-    }
-
     /* IInventoryHandler Interaction */
 
     /* IIInventory Interaction */
     public static ItemStack extractItemStackFromInventory(IInventory theInventory, int side) {
-
         ItemStack retStack = null;
 
         if (theInventory instanceof ISidedInventory) {
@@ -134,7 +108,6 @@ public class InventoryHelper {
     }
 
     public static ItemStack insertItemStackIntoInventory(IInventory theInventory, ItemStack stack, int side) {
-
         if (stack == null) return null;
 
         int stackSize = stack.stackSize;
@@ -172,46 +145,15 @@ public class InventoryHelper {
         return stack;
     }
 
-    public static ItemStack simulateInsertItemStackIntoInventory(IInventory theInventory, ItemStack stack, int side) {
-
-        if (stack == null) return null;
-        if (theInventory instanceof ISidedInventory) {
-            ISidedInventory sidedInv = (ISidedInventory) theInventory;
-            int slots[] = sidedInv.getAccessibleSlotsFromSide(side);
-
-            if (slots == null) return stack;
-            for (int i = 0; i < slots.length && stack != null; i++)
-                if (sidedInv.canInsertItem(slots[i], stack, side) && ItemHelper.itemsEqualWithMetadata(stack, theInventory.getStackInSlot(slots[i]), true)) {
-                    stack = simulateAddToOccupiedInventorySlot(sidedInv, slots[i], stack);
-                }
-            for (int i = 0; i < slots.length && stack != null; i++)
-                if (sidedInv.canInsertItem(slots[i], stack, side) && theInventory.getStackInSlot(slots[i]) == null) {
-                    stack = simulateAddToEmptyInventorySlot(sidedInv, slots[i], stack);
-                }
-        } else {
-            int invSize = theInventory.getSizeInventory();
-            for (int i = 0; i < invSize && stack != null; i++)
-                if (ItemHelper.itemsEqualWithMetadata(stack, theInventory.getStackInSlot(i), true)) {
-                    stack = simulateAddToOccupiedInventorySlot(theInventory, i, stack);
-                }
-            for (int i = 0; i < invSize && stack != null; i++)
-                if (theInventory.getStackInSlot(i) == null) {
-                    stack = simulateAddToEmptyInventorySlot(theInventory, i, stack);
-                }
-        }
-        return stack;
-    }
-
     /* Slot Interaction */
-    public static ItemStack addToEmptyInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
-
+    private static ItemStack addToEmptyInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
         if (!theInventory.isItemValidForSlot(slot, stack)) return stack;
         int stackLimit = theInventory.getInventoryStackLimit();
         theInventory.setInventorySlotContents(slot, ItemHelper.cloneStack(stack, Math.min(stack.stackSize, stackLimit)));
         return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
     }
 
-    public static ItemStack addToOccupiedInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
+    private static ItemStack addToOccupiedInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
 
         ItemStack stackInSlot = theInventory.getStackInSlot(slot);
         int stackLimit = Math.min(theInventory.getInventoryStackLimit(), stackInSlot.getMaxStackSize());
@@ -228,15 +170,13 @@ public class InventoryHelper {
         return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
     }
 
-    public static ItemStack simulateAddToEmptyInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
-
+    private static ItemStack simulateAddToEmptyInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
         if (!theInventory.isItemValidForSlot(slot, stack)) return stack;
         int stackLimit = theInventory.getInventoryStackLimit();
         return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
     }
 
-    public static ItemStack simulateAddToOccupiedInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
-
+    private static ItemStack simulateAddToOccupiedInventorySlot(IInventory theInventory, int slot, ItemStack stack) {
         ItemStack stackInSlot = theInventory.getStackInSlot(slot);
         int stackLimit = Math.min(theInventory.getInventoryStackLimit(), stackInSlot.getMaxStackSize());
 
@@ -247,19 +187,4 @@ public class InventoryHelper {
         return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
     }
 
-    /* HELPERS */
-    public static ItemStack addToInsertion(Object theTile, int side, ItemStack stack) {
-
-        if (stack == null) return null;
-        if (theTile instanceof IInventory) {
-            stack = insertItemStackIntoInventory((IInventory) theTile, stack, BlockHelper.SIDE_OPPOSITE[side]);
-        }
-
-        return stack;
-    }
-
-    public static boolean isInventory(TileEntity theTile) {
-
-        return theTile instanceof IInventory;
-    }
 }

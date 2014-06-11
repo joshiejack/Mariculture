@@ -5,7 +5,6 @@ import mariculture.core.gui.ContainerCrucible;
 import mariculture.core.gui.GuiBookshelf;
 import mariculture.core.gui.GuiLiquifier;
 import mariculture.core.items.ItemStorage;
-import mariculture.core.lib.GuiIds;
 import mariculture.core.tile.TileBookshelf;
 import mariculture.core.tile.TileCrucible;
 import mariculture.factory.gui.ContainerDictionary;
@@ -49,7 +48,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 public class CommonProxy implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-        if (id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+        if (id == ItemStorage.GUI_ID && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
             ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
             return storage.getGUIContainer(player);
         }
@@ -88,7 +87,7 @@ public class CommonProxy implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-        if (id == GuiIds.STORAGE && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
+        if (id == ItemStorage.GUI_ID && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
             ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
             return storage.getGUIElement(player);
         }

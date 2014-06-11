@@ -7,7 +7,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 public class RenderCustomItem implements IItemRenderer {
-    public static final RenderBlocksCustom renderBlocks = new RenderBlocksCustom();
+    private static final RenderBlocksCustom renderBlocks = new RenderBlocksCustom();
 
     @Override
     public boolean handleRenderType(ItemStack stack, ItemRenderType type) {

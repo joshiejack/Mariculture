@@ -9,6 +9,7 @@ import java.util.Random;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.Core;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.lib.CraftingMeta;
@@ -219,7 +220,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             decrStackSize(slot, 1);
             return true;
         } else if (inventory[slot].getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
-            int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) ? 48000 : 64000;
+            int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) ? MachineSettings.DRAGON_EGG_ETHEREAL : MachineSettings.DRAGON_EGG_BASE;
             if (Rand.nextInt(chance)) {
                 helper.insertStack(new ItemStack(Core.crafting, 1, CraftingMeta.DRAGON_EGG), out);
             }

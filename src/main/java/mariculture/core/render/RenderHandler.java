@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderHandler implements ISimpleBlockRenderingHandler {
-    public static final HashMap<String, RenderBase> renders = new HashMap();
+    private static final HashMap<String, RenderBase> renders = new HashMap();
 
     public static void register(Block block, int meta, Class clazz) {
         try {

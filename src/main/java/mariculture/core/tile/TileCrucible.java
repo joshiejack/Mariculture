@@ -29,7 +29,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileCrucible extends TileMultiMachineTank implements IHasNotification {
-    public static final int MAX_TEMP = 25000;
+    private static final int MAX_TEMP = 25000;
     private int temp;
     private boolean canFuel;
     private int cooling;
@@ -41,11 +41,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         needsInit = true;
     }
 
-    public static final int liquid_in = 3;
-    public static final int liquid_out = 4;
-    public static final int[] in = new int[] { 5, 6 };
-    public static final int fuel = 7;
-    public static final int out = 8;
+    private static final int liquid_in = 3;
+    private static final int liquid_out = 4;
+    private static final int[] in = new int[] { 5, 6 };
+    private static final int fuel = 7;
+    private static final int out = 8;
 
     @Override
     public int[] getInputSlots() {
@@ -90,15 +90,15 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         return hasTemperature() && hasItem() && rsAllowsWork() && hasRoom();
     }
 
-    public boolean hasTemperature() {
+    private boolean hasTemperature() {
         return temp > 0;
     }
 
-    public boolean hasItem() {
+    private boolean hasItem() {
         return inventory[in[0]] != null || inventory[in[1]] != null;
     }
 
-    public boolean hasRoom() {
+    private boolean hasRoom() {
         return canMelt(0) || canMelt(1);
     }
 
@@ -151,32 +151,32 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
     }
 
-    public class FuelHandler {
-        public int usedHeat;
-        public int tick;
-        public FuelInfo info;
+    private class FuelHandler {
+        private int usedHeat;
+        private int tick;
+        private FuelInfo info;
 
-        public void read(NBTTagCompound nbt) {
+        private void read(NBTTagCompound nbt) {
             if (nbt.getBoolean("HasHandler")) {
                 info = new FuelInfo();
                 info.read(nbt);
             }
         }
 
-        public void write(NBTTagCompound nbt) {
+        private void write(NBTTagCompound nbt) {
             if (info != null) {
                 nbt.setBoolean("HasHandler", true);
                 info.write(nbt);
             }
         }
 
-        public void set(FuelInfo info) {
+        private void set(FuelInfo info) {
             this.info = info;
             tick = 0;
             usedHeat = 0;
         }
 
-        public int tick(int temp, boolean ethereal) {
+        private int tick(int temp, boolean ethereal) {
             int realUsed = usedHeat * 2000 / MAX_TEMP;
             int realTemp = temp * 2000 / MAX_TEMP;
 
@@ -207,9 +207,9 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
     }
 
-    public FuelHandler fuelHandler;
+    private FuelHandler fuelHandler;
 
-    public boolean canFuel() {
+    private boolean canFuel() {
         if (fuelHandler.info != null) return false;
         if (!rsAllowsWork()) return false;
         if (MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]) != null) return true;
@@ -222,7 +222,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         return false;
     }
 
-    public void heatUp() {
+    private void heatUp() {
         if (fuelHandler == null) {
             fuelHandler = new FuelHandler();
         }
@@ -244,7 +244,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
     }
 
-    public void coolDown() {
+    private void coolDown() {
         if (cooling <= 0) {
             cooling = Math.max(1, Temperature.getCoolingSpeed(MaricultureHandlers.environment.getBiomeTemperature(worldObj, xCoord, yCoord, zCoord)));
         }
@@ -273,7 +273,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         return info;
     }
 
-    public boolean canMelt(int slot) {
+    private boolean canMelt(int slot) {
         int other = slot == 0 ? 1 : 0;
         RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return false;
@@ -294,7 +294,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         } else return false;
     }
 
-    public void melt(int slot) {
+    private void melt(int slot) {
         int other = slot == 0 ? 1 : 0;
         RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return;
@@ -321,7 +321,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
     }
 
-    public int getFluidAmount(ItemStack stack, int amount) {
+    private int getFluidAmount(ItemStack stack, int amount) {
         if (OreDicHelper.isInDictionary(stack)) {
             String name = OreDicHelper.getDictionaryName(stack);
             if (name.startsWith("ore")) {
@@ -409,7 +409,8 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         PacketHandler.updateRender(this);
     }
 
-    public void onBlockPlaced(int x, int y, int z) {
+    
+    private void onBlockPlaced(int x, int y, int z) {
         if (isPart(xCoord, yCoord + 1, zCoord) && !isPart(xCoord, yCoord - 1, zCoord) && !isPart(xCoord, yCoord + 2, zCoord)) {
             MultiPart mstr = new MultiPart(xCoord, yCoord, zCoord);
             ArrayList<MultiPart> parts = new ArrayList<MultiPart>();

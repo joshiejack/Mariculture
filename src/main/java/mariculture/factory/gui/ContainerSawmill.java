@@ -92,11 +92,11 @@ public class ContainerSawmill extends ContainerMachine {
         return super.slotClick(slotID, mouseButton, modifier, player);
     }
 
-    public class SlotBlock extends Slot {
+    private class SlotBlock extends Slot {
         private EntityPlayer thePlayer;
         private int field_75228_b;
 
-        public SlotBlock(IInventory inv, int id, int x, int y) {
+        private SlotBlock(IInventory inv, int id, int x, int y) {
             super(inv, id, x, y);
         }
 

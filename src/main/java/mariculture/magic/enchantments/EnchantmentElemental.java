@@ -81,15 +81,4 @@ public class EnchantmentElemental extends EnchantmentJewelry {
             }
         }
     }
-
-    public static boolean hasElement(int enchant, int type, ItemStack stack) {
-        if (!EnchantHelper.exists(Magic.elemental)) return false;
-        if (enchant == Magic.elemental.effectId) {
-            if (stack.hasTagCompound()) if (stack.stackTagCompound.getInteger("Part1") == type) return false;
-
-            return true;
-        }
-
-        return false;
-    }
 }

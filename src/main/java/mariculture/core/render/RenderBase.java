@@ -17,13 +17,8 @@ import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
 public abstract class RenderBase {
-    public static HashMap<String, RenderBase> renderers = new HashMap();
-
-    static final double RENDER_OFFSET = 0.0010000000474974513D;
-    static final float LIGHT_Y_NEG = 0.5F;
+    private static final double RENDER_OFFSET = 0.0010000000474974513D;
     static final float LIGHT_Y_POS = 1.0F;
-    static final float LIGHT_XZ_NEG = 0.8F;
-    static final float LIGHT_XZ_POS = 0.6F;
 
     public RenderBlocks render;
     public ForgeDirection dir = ForgeDirection.UNKNOWN;
@@ -130,7 +125,7 @@ public abstract class RenderBase {
         }
     }
 
-    protected void renderFace(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4) {
+    private void renderFace(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4) {
         //Diagonal Guessing
         Tessellator tessellator = Tessellator.instance;
         IIcon iicon = icon;

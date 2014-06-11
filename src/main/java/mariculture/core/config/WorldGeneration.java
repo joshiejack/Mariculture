@@ -2,9 +2,9 @@ package mariculture.core.config;
 
 import static mariculture.core.helpers.ConfigHelper.getBoolean;
 import static mariculture.core.helpers.ConfigHelper.getInt;
+import static mariculture.core.helpers.ConfigHelper.getRand;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
-import mariculture.core.lib.config.Comment;
 import net.minecraftforge.common.config.Configuration;
 
 public class WorldGeneration {
@@ -45,19 +45,19 @@ public class WorldGeneration {
 
         WorldGen.CORAL_REEF_ENABLED = getBoolean("Coral Reef > Generation", true);
         WorldGen.CORAL_EXTRA = getBoolean("Coral Reef > Enable Harsher Generation", true);
-        WorldGen.CORAL_REEF_START_CHANCE = getInt("Coral Reef > Start Chance", 256, Comment.GEN_START);
-        WorldGen.CORAL_REEF_END_CHANCE = getInt("Coral Reef > End Chance", 40, Comment.GEN_END);
+        WorldGen.CORAL_REEF_START_CHANCE = getRand("Coral Reef > Start Chance", 256, "The higher the number, the rarer the generation will be, this number defines the chance of this gen spawning");
+        WorldGen.CORAL_REEF_END_CHANCE = getRand("Coral Reef > End Chance", 40, "The higher the number, the larger the generation will be, this number defines the chance of this gen no longer spawning");
 
         WorldGen.KELP_FOREST_ENABLED = getBoolean("Kelp Forest > Enabled", true);
-        WorldGen.KELP_FOREST_START_CHANCE = getInt("Kelp Forest > Start Chance", 640, Comment.GEN_START);
-        WorldGen.KELP_FOREST_END_CHANCE = getInt("Kelp Forest > End Chance", 96, Comment.GEN_END);
+        WorldGen.KELP_FOREST_START_CHANCE = getRand("Kelp Forest > Start Chance", 640, "The higher the number, the rarer the generation will be, this number defines the chance of this gen spawning");
+        WorldGen.KELP_FOREST_END_CHANCE = getRand("Kelp Forest > End Chance", 96, "The higher the number, the larger the generation will be, this number defines the chance of this gen no longer spawning");
         WorldGen.KELP_FOREST_CHEST_MAX_ITEMS = getInt("Kelp Forest > Maximum Items", 10);
         WorldGen.KELP_FOREST_CHEST_MIN_ITEMS = getInt("Kelp Forest > Minimum Items", 2);
-        WorldGen.KELP_FOREST_CHEST_CHANCE = getInt("Kelp Forest > Chest Chance", 640, Comment.KELP_FOREST_CHEST_CHANCE);
+        WorldGen.KELP_FOREST_CHEST_CHANCE = getInt("Kelp Forest > Chest Chance", 640, "The higher the number the less common a chest will be, this roughly works out to this 1 chest per this many blocks of a forest.");
 
         setCategory("Retro-Generation", "Retro-Generation allows you to generate ores/other features in your existing worlds, without you having to go off and explore new areas. If you set all to true, it will override the individual settings for retro-gen, Make sure you disable retro-gen after you have regenned your world");
         RetroGen.ENABLED = getBoolean("Enable Retro-Gen", false);
-        RetroGen.KEY = getInt("Key", 555, Comment.RETRO_KEY);
+        RetroGen.KEY = getInt("Key", 555, "This key is what stops, retro gen from generating in chunks over and over, if you want to retro gen again, change the key to any other integer");
         RetroGen.ALL = getBoolean("All", true);
         RetroGen.BAUXITE = getBoolean("Bauxite", false);
         RetroGen.COPPER = getBoolean("Copper", false);

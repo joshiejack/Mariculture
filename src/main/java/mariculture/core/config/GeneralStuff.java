@@ -4,7 +4,6 @@ import static mariculture.core.helpers.ConfigHelper.getBoolean;
 import static mariculture.core.helpers.ConfigHelper.getInt;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
-import mariculture.core.lib.config.Comment;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.Loader;
 
@@ -24,11 +23,12 @@ public class GeneralStuff {
         if (!Loader.isModLoaded("Enchiridion")) {
             GeneralStuff.SPAWN_BOOKS = false;
         }
-        HARDCORE_DIVING = getInt("Hardcore Diving Setting", 0, Comment.HARDCORE);
+        
+        HARDCORE_DIVING = getInt("Hardcore Diving Setting", 0, "This causes your air to drop quicker, the higher the faster it will drop, set to 0 to turn off");
         DEBUG_ON = getBoolean("Debug Mode Enabled", false);
-        METAL_RATE = getInt("Molten Metal Nugget mB Value", 16, Comment.METAL);
-        FLUDD_WATER_ON = getBoolean("Enable FLUDD Animations", true, Comment.FLUDD);
-        ENABLE_ENDER_SPAWN = getBoolean("Enable Ender Dragon Spawning", true, Comment.ENDERDRAGON);
+        METAL_RATE = getInt("Molten Metal Nugget mB Value", 16, "This is how many mB a Nugget is worth, the default value is the same as Tinker's Construct");
+        FLUDD_WATER_ON = getBoolean("Enable FLUDD Animations", true, "Whether a server will tell the client to display the fludd animations");
+        ENABLE_ENDER_SPAWN = getBoolean("Enable Ender Dragon Spawning", true, "This is whether players can Spawn the Ender Dragon with the Dragon Spawn Egg");
         SHOW_CASTER_RECIPES = getBoolean("Enable Casting Recipes in NEI", false);
     }
 }

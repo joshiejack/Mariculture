@@ -16,24 +16,12 @@ public class TileCustom extends TileEntity {
     private int[] theSides = new int[6];
     private String name = "CustomTile";
 
-    public int size() {
+    private int size() {
         return theBlocks.length;
     }
 
     public String name() {
         return name;
-    }
-
-    public Block[] theBlocks() {
-        return theBlocks;
-    }
-
-    public int[] theBlockMetas() {
-        return theBlockMetas;
-    }
-
-    public int[] theBlockSides() {
-        return theSides;
     }
 
     public Block theBlocks(int i) {
@@ -107,15 +95,6 @@ public class TileCustom extends TileEntity {
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         readFromNBT(pkt.func_148857_g());
-    }
-
-    public void set(String[] blockNames, int[] metas, int[] sides, String name) {
-        Block[] blocks = new Block[6];
-        for (int i = 0; i < 6; i++) {
-            blocks[i] = (Block) Block.blockRegistry.getObject(blockNames[i]);
-        }
-
-        set(blocks, metas, sides, name);
     }
 
     public void updateHardness() {

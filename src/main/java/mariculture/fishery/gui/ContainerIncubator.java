@@ -79,10 +79,10 @@ public class ContainerIncubator extends ContainerMachine {
         return itemstack;
     }
 
-    public class SlotFishEgg extends Slot {
+    private class SlotFishEgg extends Slot {
         private EntityPlayer thePlayer;
 
-        public SlotFishEgg(IInventory inventory, int par2, int par3, int par4) {
+        private SlotFishEgg(IInventory inventory, int par2, int par3, int par4) {
             super(inventory, par2, par3, par4);
         }
 

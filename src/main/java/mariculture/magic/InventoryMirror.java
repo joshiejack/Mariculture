@@ -10,13 +10,10 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class InventoryMirror extends InventoryStorage {
-    public World world;
-    public ItemStack[] inventory;
-    public long seed;
+    private ItemStack[] inventory;
 
     public InventoryMirror(EntityPlayer player) {
         this.player = player;
-        world = player.worldObj;
         inventory = MirrorHelper.getInventory(player);
     }
 

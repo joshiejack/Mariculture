@@ -13,7 +13,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ItemTemperatureControl extends ItemStorage implements IItemUpgrade {
-    public static final int SIZE = 5;
+    private static final int SIZE = 5;
 
     public ItemTemperatureControl() {
         super(SIZE, "tempControl");
@@ -107,8 +107,8 @@ public class ItemTemperatureControl extends ItemStorage implements IItemUpgrade 
         return "control";
     }
 
-    public static class SlotHeating extends Slot {
-        public SlotHeating(IInventory inv, int id, int x, int y) {
+    private static class SlotHeating extends Slot {
+        private SlotHeating(IInventory inv, int id, int x, int y) {
             super(inv, id, x, y);
         }
 

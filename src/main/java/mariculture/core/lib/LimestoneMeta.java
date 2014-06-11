@@ -2,9 +2,9 @@ package mariculture.core.lib;
 
 public class LimestoneMeta {
     public static final int COUNT = 16;
-    public static final int RAW = 0;//
-    public static final int SMOOTH = 1;//
-    public static final int BRICK = 2;//
+    public static final int RAW = 0;
+    public static final int SMOOTH = 1;
+    public static final int BRICK = 2;
     public static final int SMALL_BRICK = 3;
     public static final int THIN_BRICK = 4;
     public static final int BORDERED = 5;//

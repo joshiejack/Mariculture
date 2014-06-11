@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class GuiScanner extends GuiStorage {
-    public static FontRenderer font;
     private ItemStack drop;
     private ItemStack fish;
 
@@ -35,7 +34,7 @@ public class GuiScanner extends GuiStorage {
         return "";
     }
 
-    public void drawText(String str, int x, int z) {
+    private void drawText(String str, int x, int z) {
         fontRendererObj.drawString(str, x, z, 4210752);
     }
 

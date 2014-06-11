@@ -27,9 +27,9 @@ public class TilePressureVessel extends TileMultiMachineTank {
         return (140 * tankRate + storage * 8 * tankRate) * (slaves.size() + 1);
     }
 
-    public static final int in = 3;
-    public static final int out = 4;
-    public static final int fludd = 5;
+    private static final int in = 3;
+    private static final int out = 4;
+    private static final int fludd = 5;
 
     @Override
     public void updateMasterMachine() {
@@ -124,12 +124,12 @@ public class TilePressureVessel extends TileMultiMachineTank {
     }
 
     //MultiBlock Stuffs	
-    public TilePressureVessel isSameBlock(int x, int y, int z) {
+    private TilePressureVessel isSameBlock(int x, int y, int z) {
         TileEntity tile = worldObj.getTileEntity(x, y, z);
         return tile != null && tile instanceof TilePressureVessel ? (TilePressureVessel) tile : null;
     }
 
-    public boolean tryToAdd(int x, int y, int z) {
+    private boolean tryToAdd(int x, int y, int z) {
         TilePressureVessel neighbour = isSameBlock(x, y, z);
         if (neighbour != null) {
             master = neighbour.master;

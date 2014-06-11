@@ -5,7 +5,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemStorage;
-import mariculture.core.lib.GuiIds;
 import mariculture.core.util.Rand;
 import mariculture.magic.gui.ContainerMirror;
 import mariculture.magic.gui.GuiMirror;
@@ -57,7 +56,7 @@ public class ItemMirror extends ItemStorage {
                 if (!player.capabilities.isCreativeMode && stack.attemptDamageItem(1, Rand.rand)) {
                     stack.stackSize--;
                 } else {
-                    player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
+                    player.openGui(Mariculture.instance, ItemStorage.GUI_ID, world, 0, 0, 0);
                 }
             }
 

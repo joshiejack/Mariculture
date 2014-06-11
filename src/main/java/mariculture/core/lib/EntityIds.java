@@ -6,7 +6,6 @@ public class EntityIds {
     public static final int FAKE_SQUIRT = 43;
     public static final int FAKE_ITEM = 44;
     public static final int SPEED_BOAT = 187;
-    public static final int HAMMERHEAD = 200;
     public static final int FISHING = 45;
     public static final int ITEM = 46;
 }

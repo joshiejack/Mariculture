@@ -10,8 +10,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSponge extends PacketCoords implements IMessageHandler<PacketSponge, IMessage> {
-    int stored, max;
-    boolean isClient;
+    private int stored, max;
+    private boolean isClient;
 
     public PacketSponge() {}
 
@@ -20,7 +20,7 @@ public class PacketSponge extends PacketCoords implements IMessageHandler<Packet
         this.isClient = isClient;
     }
 
-    public PacketSponge(int stored, int max, boolean isClient) {
+    private PacketSponge(int stored, int max, boolean isClient) {
         this.stored = stored;
         this.max = max;
         this.isClient = isClient;

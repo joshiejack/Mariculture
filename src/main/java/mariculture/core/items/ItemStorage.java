@@ -11,7 +11,6 @@ import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.handlers.LogHandler;
-import mariculture.core.lib.GuiIds;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,6 +31,7 @@ public class ItemStorage extends Item implements IItemRegistry {
 
     public int size;
     public String gui;
+    public static final int GUI_ID = 16;
 
     public ItemStorage(int storage, String gui) {
         maxStackSize = 1;
@@ -44,7 +44,7 @@ public class ItemStorage extends Item implements IItemRegistry {
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (stack != null) {
             if (!player.isSneaking()) {
-                player.openGui(Mariculture.instance, GuiIds.STORAGE, world, 0, 0, 0);
+                player.openGui(Mariculture.instance, ItemStorage.GUI_ID, world, 0, 0, 0);
             }
 
             return stack;

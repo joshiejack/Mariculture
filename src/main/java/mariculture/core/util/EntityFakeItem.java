@@ -10,7 +10,7 @@ public class EntityFakeItem extends EntityItem {
     }
 
     public EntityFakeItem(World world, double x, double y, double z, ItemStack stack) {
-        this(world, x, y, z);
+        super(world, x, y, z);
         setEntityItemStack(stack);
         lifespan = stack.getItem() == null ? 6000 : stack.getItem().getEntityLifespan(stack, world);
     }

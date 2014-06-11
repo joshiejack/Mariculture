@@ -57,10 +57,10 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
 
     public static void generateCoral(World world, Random rand, int x, int z) {
         if (WorldGen.CORAL_REEF_ENABLED) {
-            if (!isCoralReef && Rand.nextInt(Math.max(1, WorldGen.CORAL_REEF_START_CHANCE))) {
+            if (!isCoralReef && Rand.nextInt(WorldGen.CORAL_REEF_START_CHANCE)) {
                 isCoralReef = true;
             }
-            if (isCoralReef && Rand.nextInt(40)) {
+            if (isCoralReef && Rand.nextInt(WorldGen.CORAL_REEF_END_CHANCE)) {
                 isCoralReef = false;
             }
             if (isCoralReef) {

@@ -7,7 +7,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidDicHandler {
-    public static final HashMap<String, FluidDicEntry> entries = new HashMap();
+    private static final HashMap<String, FluidDicEntry> entries = new HashMap();
 
     public static void register(String dictionaryName, String fluid, int ratio) {
         entries.put(fluid, new FluidDicEntry(dictionaryName, ratio));
@@ -25,11 +25,11 @@ public class FluidDicHandler {
         return entries.get(fluid) != null ? entries.get(fluid).ratio : 0;
     }
 
-    public static class FluidDicEntry {
-        public String name;
-        public int ratio;
+    private static class FluidDicEntry {
+        private String name;
+        private int ratio;
 
-        public FluidDicEntry(String name, int ratio) {
+        private FluidDicEntry(String name, int ratio) {
             this.name = name;
             this.ratio = ratio;
         }

@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 
 public class PacketHandler {
     private static int id;
-    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Mariculture.modid);
+    private static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Mariculture.modid);
 
     private static void registerPacket(Class clazz, Side side) {
         INSTANCE.registerMessage(clazz, clazz, id++, side);

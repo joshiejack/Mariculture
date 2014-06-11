@@ -9,7 +9,6 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.lib.GuiIds;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
@@ -221,7 +220,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         //Update the tank size of the feeder then open the gui
         if (tile instanceof TileFeeder) {
             ((TileFeeder) tile).updateTankSize();
-            player.openGui(Mariculture.instance, GuiIds.FEEDER, world, x, y, z);
+            player.openGui(Mariculture.instance, -1, world, x, y, z);
             return true;
         }
 

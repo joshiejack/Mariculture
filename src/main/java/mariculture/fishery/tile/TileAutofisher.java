@@ -18,9 +18,9 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TileAutofisher extends TileMachinePowered implements IHasNotification {
     //Slot Helper variables
     public static final int rod = 4;
-    public static final int[] rod_slot = new int[] { 4 };
-    public static final int[] bait = new int[] { 5, 6, 7, 8, 9, 10 };
-    public static final int[] all = new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+    private static final int[] rod_slot = new int[] { 4 };
+    private static final int[] bait = new int[] { 5, 6, 7, 8, 9, 10 };
+    private static final int[] all = new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
 
     private int baitChance;
 

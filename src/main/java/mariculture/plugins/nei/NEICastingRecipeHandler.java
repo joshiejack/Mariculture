@@ -81,7 +81,7 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
         HashMap<String, RecipeCasting> recipes = getRecipes();
         for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
             FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(ingredient);
-            if (fluid == null) {
+            if (fluid == null || fluid.getFluid() == null) {
                 continue;
             }
             if (fluid.getFluid().getName().equals(recipe.getValue().fluid)) {

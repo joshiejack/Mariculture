@@ -184,8 +184,13 @@ public class OreDicHandler {
 
             return false;
         } else {
-            for (String blacklist : AutoDictionary.BLACKLIST)
+            for (String blacklist : AutoDictionary.BLACKLIST) {
                 if (name.equals(blacklist)) return false;
+            }
+            
+            for(String start: AutoDictionary.BLACKLIST_PREFIX) {
+                if(name.startsWith(start)) return false;
+            }
 
             return true;
         }
