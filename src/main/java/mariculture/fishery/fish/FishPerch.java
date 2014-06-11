@@ -10,6 +10,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class FishPerch extends FishSpecies {
     @Override
@@ -74,12 +75,7 @@ public class FishPerch extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Time.isDay(time) ? 25D : 0D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Height.isHigh(height) ? 15D : 0D;
     }
 }

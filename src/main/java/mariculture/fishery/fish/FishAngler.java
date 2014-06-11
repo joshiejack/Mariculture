@@ -8,6 +8,7 @@ import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishAngler extends FishSpecies {
@@ -89,13 +90,8 @@ public class FishAngler extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Height.isDeep(height) ? 15D : Height.isCave(height) ? 10D : 0D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Height.isDeep(height) ? 4D : 0D;
     }
 
     @Override

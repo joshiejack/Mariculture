@@ -100,12 +100,12 @@ public class FishSpider extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Height.isCave(height) || Time.isMidnight(time) ? 25D : 0D;
     }
 
     @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Height.isCave(height) ? 65D : 0D;
+    public double getCaughtAliveChance(World world, int height, int time) {
+        return Height.isCave(height) ? 75D : 0D;
     }
 }

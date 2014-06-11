@@ -1,6 +1,7 @@
 package mariculture.core;
 
 import mariculture.Mariculture;
+import mariculture.core.config.Machines.Client;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
@@ -39,6 +40,9 @@ import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.factory.render.RenderFluidDictionary;
 import mariculture.factory.render.RenderGeyser;
 import mariculture.factory.render.RenderPressureVessel;
+import mariculture.factory.render.RenderTurbineGas;
+import mariculture.factory.render.RenderTurbineHand;
+import mariculture.factory.render.RenderTurbineWater;
 import mariculture.factory.tile.TileFLUDDStand;
 import mariculture.factory.tile.TileTurbineGas;
 import mariculture.factory.tile.TileTurbineHand;
@@ -132,9 +136,16 @@ public class ClientProxy extends CommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
-            ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSpecialHandler(new ModelTurbineHand(), TURBINE_HAND));
-            ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSpecialHandler(new ModelTurbineWater(), TURBINE));
-            ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSpecialHandler(new ModelTurbineGas(), TURBINE_GAS));
+            if(Client.OLD_TURBINES) {
+                ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSpecialHandler(new ModelTurbineHand(), TURBINE_HAND));
+                ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSpecialHandler(new ModelTurbineWater(), TURBINE));
+                ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSpecialHandler(new ModelTurbineGas(), TURBINE_GAS));
+            } else {
+                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.TURBINE_HAND, RenderTurbineHand.class);
+                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.TURBINE_WATER, RenderTurbineWater.class);
+                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.TURBINE_GAS, RenderTurbineGas.class);
+            }
+                
             ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
             RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);

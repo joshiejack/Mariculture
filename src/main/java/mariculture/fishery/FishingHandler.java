@@ -316,9 +316,9 @@ public class FishingHandler implements IFishing {
         for (int i = 0; i < 20; i++) {
             Collections.shuffle(catchables);
             for (FishSpecies fish : catchables) {
-                double catchChance = FishMechanics.IGNORE_BIOMES ? fish.getCatchChance(world, y, time) : fish.getCatchChance(world, salt, temperature, time, y);
+                double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature, time);
                 if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) if (FishMechanics.IGNORE_BIOMES) return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y, time) * 15D);
-                else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, salt, temperature, time, y) * 10D);
+                else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature, time) * 10D);
             }
         }
 

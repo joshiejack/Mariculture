@@ -1,3 +1,7 @@
+Mariculture 1.7.2 BETA 11
+• Only the base fish can be caught alive once again in the wild, they also all have an increased chance of being caught alive by default, Just wasn't a fan of skipping everything. I have better plans for this in 1.2.4 ;)
+• Improved Scuba Mask and Diving Helmet vision, Snorkel now has the old diving helmet vision
+
 Mariculture 1.7.2 BETA 10
 • Fixed BOP Compatibility with newest versions
 • Ethereal upgrades give a 1.25x modifier to mutation in the incubator(DOES NOT STACK)

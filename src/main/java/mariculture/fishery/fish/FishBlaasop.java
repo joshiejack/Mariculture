@@ -93,12 +93,12 @@ public class FishBlaasop extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return height < 32 ? 40D : 0D;
     }
 
     @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return 65D;
+    public double getCaughtAliveChance(World world, int height, int time) {
+        return 75D;
     }
 }

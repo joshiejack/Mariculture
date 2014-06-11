@@ -96,12 +96,7 @@ public class FishMantaRay extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 10;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDawn(time) ? 5D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 10D;
     }
 }

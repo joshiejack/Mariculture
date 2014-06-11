@@ -99,12 +99,7 @@ public class FishEnder extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 66;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return height < 16D ? 10D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 66D;
     }
 }

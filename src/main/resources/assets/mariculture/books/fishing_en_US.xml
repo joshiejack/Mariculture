@@ -163,7 +163,7 @@ Taiga: Fresh, 1°C
     </page>
     <page>
         <text x="38" y="-13" bold="true">Fish</text>
-        <text wrap="275" x="-1" y="9" size="0.7">Different species can be caught in different environments. Everyfish can be caught alive, but only under very special conditions. There are 10 base fish, that can be caught easily in the wild. Below is a list of these species, what temperature range you can find them in, as well as the Y Height and Salinity.</text>
+        <text wrap="275" x="-1" y="9" size="0.7">Different species can be caught in different environments. Only the base fish can be caught alive in the wild. There are 10 base fish. Below is a list of these species, what temperature range you can find them in, as well as the Y Height and Salinity.</text>
 
         <stack item="fish 9" size="1.5" y="15"></stack>
         <text x="28" y="37" bold="true">Minnow</text>

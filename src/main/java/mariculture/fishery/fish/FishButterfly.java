@@ -4,10 +4,10 @@ import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.feather;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class FishButterfly extends FishSpecies {
     @Override
@@ -72,12 +72,7 @@ public class FishButterfly extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 20;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDawn(time) ? 5D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 20D;
     }
 }

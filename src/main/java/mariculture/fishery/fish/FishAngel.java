@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.CachedCoords;
@@ -117,12 +116,7 @@ public class FishAngel extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Time.isDawn(time) ? 45D : Time.isNoon(time) ? 15D : 0D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDawn(time) && Height.isShallows(height) ? 5D : 0D;
     }
 }

@@ -98,9 +98,4 @@ public class FishManOWar extends FishSpecies {
     public RodType getRodNeeded() {
         return RodType.SUPER;
     }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Height.isOverground(height) ? 5D : 0D;
-    }
 }

@@ -11,6 +11,7 @@ import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class FishHerring extends FishSpecies {
     @Override
@@ -77,12 +78,7 @@ public class FishHerring extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 7;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDusk(time) && Height.isShallows(height) ? 5D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 7D;
     }
 }

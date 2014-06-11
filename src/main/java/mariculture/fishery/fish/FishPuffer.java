@@ -83,12 +83,7 @@ public class FishPuffer extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 17;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDawn(time) && Height.isShallows(height) ? 5D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 17D;
     }
 }

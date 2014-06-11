@@ -106,17 +106,7 @@ public class FishMinecraft extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 5;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isNoon(time) && height >= 110 && height <= 120 ? 5D : 0D;
-    }
-
-    @Override
-    public double getCaughtAliveChance() {
-        return 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 5D;
     }
 }

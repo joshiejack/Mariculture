@@ -8,9 +8,9 @@ import static mariculture.core.lib.ItemLib.dropletEarth;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.world.World;
 
 public class FishCatfish extends FishSpecies {
     @Override
@@ -81,12 +81,7 @@ public class FishCatfish extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Height.isShallows(height) ? 25D : 0D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Height.isShallows(height) && !Time.isMidnight(time) ? 5D : 0D;
     }
 }

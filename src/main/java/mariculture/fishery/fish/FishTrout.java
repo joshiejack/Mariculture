@@ -17,6 +17,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
 
@@ -88,12 +89,7 @@ public class FishTrout extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 25;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return height > 100 && height < 110 ? 5D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 25D;
     }
 }

@@ -13,6 +13,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishStargazer extends FishSpecies {
@@ -82,12 +83,7 @@ public class FishStargazer extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Height.isDeep(height) ? 10D : 0D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return height < 8 && Time.isMidnight(time) ? 5D : 0D;
     }
 }

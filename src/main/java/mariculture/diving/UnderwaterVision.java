@@ -41,9 +41,8 @@ public class UnderwaterVision {
 
     private float getGamma(Item item) {
         if (item == null) return 0F;
-        if (item instanceof ItemArmorDiving) return 3.5F;
         if (item instanceof ItemArmorScuba) return 10F;
-        if (item instanceof ItemArmorSnorkel) return 1.5F;
+        if (item instanceof ItemArmorSnorkel) return 3.5F;
 
         return 0F;
     }

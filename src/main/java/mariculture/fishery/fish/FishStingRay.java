@@ -89,12 +89,12 @@ public class FishStingRay extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 35;
+    public double getCatchChance(World world, int height, int time) {
+        return 35D;
     }
 
     @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDay(time) ? 50D : 25D;
+    public double getCaughtAliveChance(World world, int height, int time) {
+        return Time.isDay(time) ? 60D : 35D;
     }
 }

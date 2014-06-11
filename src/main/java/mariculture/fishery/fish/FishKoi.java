@@ -104,12 +104,7 @@ public class FishKoi extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Time.isDawn(time) ? 10D : Time.isDusk(time) ? 8D : 2D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDusk(time) && height > 48 && height < 58 ? 5D : 0D;
     }
 }

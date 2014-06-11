@@ -8,6 +8,7 @@ import static mariculture.core.lib.ItemLib.dropletFrozen;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.world.World;
 
 public class FishCod extends FishSpecies {
     @Override
@@ -72,12 +73,12 @@ public class FishCod extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 25;
+    public double getCatchChance(World world, int height, int time) {
+        return 25D;
     }
 
     @Override
-    public double getCaughtAliveChance() {
-        return 55D;
+    public double getCaughtAliveChance(World world, int height, int time) {
+        return 65D;
     }
 }

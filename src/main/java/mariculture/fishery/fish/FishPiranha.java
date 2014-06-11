@@ -95,12 +95,7 @@ public class FishPiranha extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Time.isDusk(time) ? 35D : 3D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return height > 70 && height < 80 && Time.isDusk(time) ? 5D : 0D;
     }
 }

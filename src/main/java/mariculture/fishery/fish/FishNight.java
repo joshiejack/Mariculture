@@ -83,6 +83,6 @@ public class FishNight extends FishSpecies {
 
     @Override
     public double getCaughtAliveChance(World world, int height, int time) {
-        return world.provider.dimensionId == 1 ? 65D : !Time.isMidnight(time) ? 33D : 0D;
+        return world.provider.dimensionId == 1 ? 65D : !Time.isMidnight(time) ? 44D : 0D;
     }
 }

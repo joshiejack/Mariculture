@@ -110,12 +110,7 @@ public class FishGlow extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(int height, int time) {
+    public double getCatchChance(World world, int height, int time) {
         return Height.isHigh(height) ? 50D : 25D;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return height > 110 ? 5D : 0D;
     }
 }

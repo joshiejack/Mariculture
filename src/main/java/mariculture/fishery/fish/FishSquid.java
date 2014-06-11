@@ -8,6 +8,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.world.World;
 
 public class FishSquid extends FishSpecies {
     @Override
@@ -67,12 +68,12 @@ public class FishSquid extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 10;
+    public double getCatchChance(World world, int height, int time) {
+        return 10D;
     }
 
     @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDay(time) ? 75D : 45D;
+    public double getCaughtAliveChance(World world, int height, int time) {
+        return Time.isDay(time) ? 85D : 55D;
     }
 }

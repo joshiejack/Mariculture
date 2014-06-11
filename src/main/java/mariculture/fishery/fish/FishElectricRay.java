@@ -100,12 +100,7 @@ public class FishElectricRay extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 8;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isNoon(time) && Height.isUnderground(height) ? 5D : 0D;
+    public double getCatchChance(World world, int height, int time) {
+        return 8D;
     }
 }

@@ -86,12 +86,12 @@ public class FishTetra extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 45;
+    public double getCatchChance(World world, int height, int time) {
+        return 45D;
     }
 
     @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return Time.isDay(time) ? 55D : 25D;
+    public double getCaughtAliveChance(World world, int height, int time) {
+        return Time.isDay(time) ? 65D : 35D;
     }
 }

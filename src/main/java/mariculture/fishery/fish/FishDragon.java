@@ -110,12 +110,7 @@ public class FishDragon extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
-        return 10;
-    }
-
-    @Override
-    public double getCaughtAliveChance() {
-        return 0.1D;
+    public double getCatchChance(World world, int height, int time) {
+        return 10D;
     }
 }

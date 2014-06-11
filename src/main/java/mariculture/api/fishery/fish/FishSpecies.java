@@ -24,6 +24,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.google.common.collect.Multimap;
 
 public abstract class FishSpecies {
+    //This is set by the fish-mechanics config, and determines whether to bypass biome requirements when catching fish
+    public static boolean DISABLE_BIOME_CATCHING;
     //Reference from names to number id, mappings + the List of Fish Species
     public static final HashMap<Integer, FishSpecies> species = new HashMap();
     public static final HashMap<String, Integer> ids = new HashMap();
@@ -285,51 +287,48 @@ public abstract class FishSpecies {
         return !world.provider.isHellWorld && world.provider.dimensionId != 1;
     }
 
+    /** Called by the Fishing Handler **/
+    public double getCatchChance(World world, int x, int y, int z, Salinity salt, int temp, int time) {
+        if (DISABLE_BIOME_CATCHING) {
+            return getCatchChance(world, y, time);
+        } else {
+            return getCatchChance(world, salt, temp, y, time);
+        }
+    }
+
     /** Return the catch chance based on the variables, return 0 for no catch
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
-    public double getCatchChance(World world, Salinity salt, int temp, int time, int height) {
+    public double getCatchChance(World world, Salinity salt, int temp, int height, int time) {
         return isWorldCorrect(world) && MaricultureHandlers.environment.matches(salt, temp, salinity, temperature) ? getCatchChance(world, height, time) : 0D;
     }
 
-    /** Middle version **/
+    /** This is called when disable biome catching is active or from the above method **/
     public double getCatchChance(World world, int height, int time) {
-        return isWorldCorrect(world) ? getCatchChance(height, time) : 0D;
+        return 5D;
     }
 
-    /** Lower version **/
-    public double getCatchChance(int height, int time) {
-        return getCatchChance();
+    /** Called by the Fishing Handler **/
+    public double getCaughtAliveChance(World world, int x, int y, int z, Salinity salt, int temp, int time) {
+        if (DISABLE_BIOME_CATCHING) {
+            return getCaughtAliveChance(world, y, time);
+        } else {
+            return getCaughtAliveChance(world, salt, temp, y, time);
+        }
     }
 
-    // Meant to be a double, will be changed to double in 1.7
-    /** Shortest version of catch chance **/
-    public int getCatchChance() {
-        return 5;
-    }
-
-    /** Returns the chance for this fish to be caught alive
+    /** Returns the chance for this fish to be caught alive, Called when biome catching is enabled
      * The world
      * The Salinity of the Water
      * The Temperature of the Water
      * The Time of Day of the World
      * The Y Height fishing At
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
-    public double getCaughtAliveChance(World world, Salinity salt, int temp, int time, int height) {
+    public double getCaughtAliveChance(World world, Salinity salt, int temp, int height, int time) {
         return isAcceptedTemperature(temp) && salt == salinity[0] ? getCaughtAliveChance(world, height, time) : 0D;
     }
 
-    /** Middle version **/
+    /** Called when biome catching is disabled or from the above method **/
     public double getCaughtAliveChance(World world, int height, int time) {
-        return getCaughtAliveChance(height, time);
-    }
-
-    /** Lower version **/
-    public double getCaughtAliveChance(int height, int time) {
-        return getCaughtAliveChance();
-    }
-
-    /** Shortest version of alive chance chance **/
-    public double getCaughtAliveChance() {
         return 0D;
     }
 

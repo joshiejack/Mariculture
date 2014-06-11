@@ -94,12 +94,7 @@ public class FishBlaze extends FishSpecies {
     }
 
     @Override
-    public int getCatchChance() {
+    public double getCatchChance(World world, int height, int time) {
         return 20;
-    }
-
-    @Override
-    public double getCaughtAliveChance(int height, int time) {
-        return height >= 98 && height <= 102 ? 5.0D : 0D;
     }
 }

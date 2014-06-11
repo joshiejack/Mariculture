@@ -656,10 +656,11 @@ mariculture.string.rft=RF/t
 mariculture.string.mb=mB
 mariculture.string.blacklisted=BLACKLISTED
 mariculture.string.temp.control=Stores Temperature Upgrades
-mariculture.string.timeofday.dawn=Dawn
-mariculture.string.timeofday.day=Day
-mariculture.string.timeofday.dusk=Dusk
-mariculture.string.timeofday.night=Night
+mariculture.string.time=Time:
+mariculture.string.time.dawn=Dawn
+mariculture.string.time.day=Day
+mariculture.string.time.dusk=Dusk
+mariculture.string.time.night=Night
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled
