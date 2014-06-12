@@ -79,7 +79,7 @@ public class ArmorEventHandler {
 
     @SubscribeEvent
     public void onFogRender(FogDensity event) {
-        if (event.block instanceof BlockStaticLiquid || event.block instanceof BlockFluidBase) {
+        if (event.block.getMaterial() == Material.water) {
             if (event.entity instanceof EntityPlayer && event.entity == ClientHelper.getPlayer()) {
                 EntityPlayer player = ClientHelper.getPlayer();
                 if (player.inventory.armorInventory[3] != null) {

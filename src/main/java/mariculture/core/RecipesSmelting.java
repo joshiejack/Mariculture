@@ -185,6 +185,10 @@ public class RecipesSmelting {
         RecipeHelper.addFuel("lava", new FuelInfo(1500, 20, 360));
         RecipeHelper.addFuel("biomass", new FuelInfo(1500, 10, 1800));
         RecipeHelper.addFuel("bioethanol", new FuelInfo(1500, 10, 1800));
+        //Ender IO
+        RecipeHelper.addFuel("hootch", new FuelInfo(1800, 35, 250));
+        RecipeHelper.addFuel("fire_water", new FuelInfo(1900, 40, 500));
+        RecipeHelper.addFuel("rocket_fuel", new FuelInfo(2000, 45, 750));
     }
 
     public static void addFullSet(String fluid, Object[] items, int temp, ItemStack output, int chance) {

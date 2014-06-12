@@ -77,7 +77,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     //Returns how much RF this machine uses
     @Override
     public int getRFUsage() {
-        return 20 + speed * 20;
+        return 20 + (speed * 20);
     }
 
     @Override

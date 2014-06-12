@@ -141,7 +141,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     }
 
     public int getRFUsage() {
-        return 35 + (speed - 1) * 40 + heat * 80;
+        return 35 + ((speed - 1) * 40) + (heat * 80);
     }
 
     public boolean hatchEgg() {
