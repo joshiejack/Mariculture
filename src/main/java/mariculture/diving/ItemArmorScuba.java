@@ -9,8 +9,11 @@ import mariculture.core.Core;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.util.IItemRegistry;
 import mariculture.core.util.Text;
+import mariculture.diving.render.ModelFlippers;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -30,9 +33,16 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+        if(stack.getItem() == Diving.swimfin) return "mariculture:textures/armor/flippers.png";
         if (stack.getItem() == Diving.scubaSuit) return "mariculture:" + "textures/armor/scuba" + "_2.png";
 
         return "mariculture:" + "textures/armor/scuba" + "_1.png";
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armorSlot) {
+        return stack.getItem() == Diving.swimfin? new ModelFlippers(): null;
     }
 
     @Override

@@ -101,6 +101,10 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
                 int drain = receiveEnergy(ForgeDirection.UP, rf, true);
                 if (drain > 0) {
                     ((IEnergyContainerItem) inventory[3].getItem()).extractEnergy(inventory[3], drain, false);
+                    if(inventory[3] == null || inventory[3].stackSize <= 0) {
+                        decrStackSize(3, 1);
+                    }
+                    
                     receiveEnergy(ForgeDirection.UP, drain, false);
                 }
             }
