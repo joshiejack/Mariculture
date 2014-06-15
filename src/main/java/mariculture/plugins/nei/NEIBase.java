@@ -74,7 +74,7 @@ public abstract class NEIBase extends TemplateRecipeHandler {
             return (Integer) f.get(gui);
         } catch (NoSuchFieldException e) {
             try {
-                Field f = gui.getClass().getField("field_73880_f");
+                Field f = gui.getClass().getField("field_146294_l");
                 return (Integer) f.get(gui);
             } catch (Exception e2) {
                 return 0;
@@ -91,7 +91,7 @@ public abstract class NEIBase extends TemplateRecipeHandler {
             return (Integer) f.get(gui);
         } catch (NoSuchFieldException e) {
             try {
-                Field f = gui.getClass().getField("field_73881_g");
+                Field f = gui.getClass().getField("field_146295_m");
                 return (Integer) f.get(gui);
             } catch (Exception e2) {
                 return 0;

@@ -14,6 +14,7 @@ Mariculture 1.7.2 BETA 11
 • Diving Boots will now make you sink faster when holding shift
 • Added lifejacket, will cause to stay afloat on top of water.
 • Wetsuit now makes Flippers twice as fast, You need to take flippers on and off if you put wetsuit on first, as speed is only updated when flippers are put on, or you can enter/leave water
+• Fix NEI Tooltips in normal minecraft
 
 Mariculture 1.7.2 BETA 10
 • Fixed BOP Compatibility with newest versions

@@ -26,6 +26,6 @@ public class FishMechanics {
         FishMechanics.WEAK_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Weak)", 8);
         FishMechanics.DEMON_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Demon)", 64);
         FishMechanics.ALIVE_MODIFIER = getDouble("Fish Caught Alive Modifier", 1.15D);
-        FishMechanics.EASY_SCANNER = getBoolean("Easier Fish Scanner Recipe Recipe", true);
+        FishMechanics.EASY_SCANNER = getBoolean("Easier Fish Scanner Recipe", true);
     }
 }
