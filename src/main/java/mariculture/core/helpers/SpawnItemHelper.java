@@ -1,11 +1,17 @@
 package mariculture.core.helpers;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class SpawnItemHelper {
+    public static void spawnXP(World world, int x, int y, int z, int amount) {
+        EntityXPOrb orb = new EntityXPOrb(world, x, y, z, amount);
+        world.spawnEntityInWorld(orb);
+    }
+    
     public static void spawnItem(World world, int x, int y, int z, ItemStack stack) {
         spawnItem(world, x, y, z, stack, true);
     }

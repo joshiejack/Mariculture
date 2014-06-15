@@ -46,7 +46,6 @@ public class PacketHandler {
         registerPacket(PacketSponge.class, Side.SERVER);
 
         //New Packets
-        registerPacket(PacketSifterSync.class, Side.CLIENT);
         registerPacket(PacketCrack.class, Side.CLIENT);
     }
 

@@ -14,15 +14,15 @@ import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.network.PacketCompressor;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileVat;
-import mariculture.core.util.Rand;
 import mariculture.diving.Diving;
 import mariculture.diving.TileAirCompressor;
 import mariculture.factory.tile.TilePressureVessel;
 import mariculture.fishery.tile.TileSifter;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -152,7 +152,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
         if (tile instanceof TileSifter) {
             TileSifter sifter = ((TileSifter) tile).getMaster();
             if (sifter != null) {
-                if (player.isSneaking()) {
+                if (sifter.hasInventory) {
                     player.openGui(Mariculture.instance, 0, world, sifter.xCoord, sifter.yCoord, sifter.zCoord);
                 } else {
                     if (heldItem != null) {
@@ -162,17 +162,18 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
                                 player.inventory.decrStackSize(player.inventory.currentItem, 1);
                             }
 
-                            sifter.updateRender();
+                            if (!world.isRemote) {
+                                PacketHandler.updateRender(sifter);
+                            }
                         } else {
                             ItemStack addition = heldItem.copy();
                             addition.stackSize = 1;
-                            sifter.addItem(addition);
                             if (!player.capabilities.isCreativeMode) {
                                 player.inventory.decrStackSize(player.inventory.currentItem, 1);
                             }
+
+                            sifter.process(addition, world.rand);
                         }
-                    } else {
-                        sifter.process(player, Rand.rand, (byte) 48);
                     }
                 }
             }
@@ -181,12 +182,19 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
         return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
     }
 
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+    @Override
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileSifter) {
-            TileSifter master = ((TileSifter) tile).getMaster();
-            if (master != null && master.toSift != null && master.toSift.size() > 0) {
-                master.process(null, Rand.rand, (byte) 16);
+        if (entity instanceof EntityItem && !world.isRemote) {
+            if (tile instanceof TileSifter) {
+                TileSifter sifter = ((TileSifter) tile).getMaster();
+                if (sifter != null) {
+                    EntityItem item = (EntityItem) entity;
+                    ItemStack stack = item.getEntityItem();
+                    if(sifter.process(stack, world.rand)) {
+                        item.setDead();
+                    }
+                }
             }
         }
     }
