@@ -172,7 +172,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
                             }
                         }
                     } else {
-                        sifter.process(player, Rand.rand);
+                        sifter.process(player, Rand.rand, (byte) 48);
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
         if (tile instanceof TileSifter) {
             TileSifter master = ((TileSifter) tile).getMaster();
             if (master != null && master.toSift != null && master.toSift.size() > 0) {
-                master.process(null, Rand.rand);
+                master.process(null, Rand.rand, (byte) 16);
             }
         }
     }

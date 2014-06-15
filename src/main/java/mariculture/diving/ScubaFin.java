@@ -8,17 +8,20 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ScubaFin {
-    private static final float SPEED = 0.025F;
+    private static final float SPEED_STANDARD = 0.025F;
+    private static final float SPEED_WETSUIT = 0.05F;
 
     public static void init(EntityPlayer player) {
-        if (!player.capabilities.isCreativeMode) if (PlayerHelper.hasArmor(player, ArmorSlot.FEET, Diving.swimfin)) {
-            if (EntityHelper.isInWater(player)) {
-                activate(player);
+        if (!player.capabilities.isCreativeMode) {
+            if (PlayerHelper.hasArmor(player, ArmorSlot.FEET, Diving.swimfin)) {
+                if (EntityHelper.isInWater(player)) {
+                    activate(player);
+                } else {
+                    deactivate(player);
+                }
             } else {
                 deactivate(player);
             }
-        } else {
-            deactivate(player);
         }
     }
 
@@ -28,11 +31,17 @@ public class ScubaFin {
             player.capabilities.isFlying = true;
             player.getEntityData().setBoolean("scubaFinIsFlying", true);
 
-            if (player.capabilities.getFlySpeed() != SPEED) {
+            if (player.capabilities.getFlySpeed() != SPEED_STANDARD && player.capabilities.getFlySpeed() != SPEED_WETSUIT) {
                 player.getEntityData().setFloat("speedBeforeScubaSpin", player.capabilities.getFlySpeed());
             }
 
-            player.capabilities.setFlySpeed(SPEED);
+            System.out.println("fly");
+
+            if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.scubaSuit)) {
+                player.capabilities.setFlySpeed(SPEED_WETSUIT);
+            } else {
+                player.capabilities.setFlySpeed(SPEED_STANDARD);
+            }
         }
     }
 
@@ -44,12 +53,16 @@ public class ScubaFin {
             player.capabilities.setFlySpeed(player.getEntityData().getFloat("speedBeforeScubaSpin"));
         }
 
-        if (GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward)) if (PlayerHelper.hasArmor(player, ArmorSlot.FEET, Diving.swimfin)) if (!player.isInWater()) {
-            player.motionX *= 0.25D;
-            player.motionZ *= 0.25D;
-        } else {
-            player.motionX *= 1.18D;
-            player.motionZ *= 1.18D;
+        if (GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward)) {
+            if (PlayerHelper.hasArmor(player, ArmorSlot.FEET, Diving.swimfin)) {
+                if (!player.isInWater()) {
+                    player.motionX *= 0.25D;
+                    player.motionZ *= 0.25D;
+                } else {
+                    player.motionX *= 1.18D;
+                    player.motionZ *= 1.18D;
+                }
+            }
         }
     }
 }

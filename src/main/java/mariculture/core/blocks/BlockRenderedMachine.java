@@ -217,9 +217,7 @@ public class BlockRenderedMachine extends BlockFunctional {
             return true;
         }
 
-        //Update the tank size of the feeder then open the gui
         if (tile instanceof TileFeeder) {
-            ((TileFeeder) tile).updateTankSize();
             player.openGui(Mariculture.instance, -1, world, x, y, z);
             return true;
         }
@@ -327,6 +325,9 @@ public class BlockRenderedMachine extends BlockFunctional {
                     setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
                 }
                 break;
+            case MachineRenderedMeta.NUGGET_CASTER:
+                setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
+                break;
             default:
                 setBlockBounds(0F, 0F, 0F, 1F, 0.95F, 1F);
         }
@@ -335,7 +336,9 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL) return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+        if (meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL || meta == MachineRenderedMeta.NUGGET_CASTER) {
+            return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+        }
 
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
@@ -413,8 +416,6 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.TURBINE_WATER:
                 return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.FLUDD_STAND:
-                return false;
-            case MachineRenderedMeta.NUGGET_CASTER:
                 return false;
             case MachineRenderedMeta.UNUSED:
                 return false;

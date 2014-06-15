@@ -62,21 +62,35 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     public void process() {
         int speed = 1 + EnchantHelper.getLevel(Enchantment.field_151369_A, inventory[rod]);
         for (int i = 0; i < speed && canWork; i++) {
+            int baitSlot = destroyBait();
             int bonusQuality = getBait() + EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4;
-            if (Rand.rand.nextInt(100) < bonusQuality) {
+            if (Rand.rand.nextInt(100) < bonusQuality && baitSlot >= 0) {
                 RodType type = Fishing.fishing.getRodType(inventory[rod]);
                 setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, Rand.rand));
                 ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
                 if (lootResult != null) {
+                    decrStackSize(destroyBait(), 1);
                     helper.insertStack(lootResult, output);
                 }
             }
         }
     }
+    
+    private int destroyBait() {
+        for (int i : bait)
+            if (inventory[i] != null) {
+                int quality = Fishing.fishing.getBaitQuality(inventory[i]);
+                if (i > 0 && Fishing.fishing.canUseBait(inventory[rod], inventory[i])) {
+                    return i;
+                }
+            }
+
+        return -1;
+    }
 
     //Returns how much RF this machine uses
     @Override
-    public int getRFUsage() {
+    public int getRFUsage() {      
         return 20 + (speed * 20);
     }
 

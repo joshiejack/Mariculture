@@ -16,6 +16,7 @@ import mariculture.core.render.RenderCopperTank;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderHandler;
 import mariculture.core.render.RenderIngotCaster;
+import mariculture.core.render.RenderNuggetCaster;
 import mariculture.core.render.RenderOyster;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderSpecialHandler;
@@ -108,6 +109,7 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileAirPump.class, new RenderSpecialHandler(new ModelAirPump(), AIR_PUMP));
         RenderHandler.register(Core.water, WaterMeta.OYSTER, RenderOyster.class);
         RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.ANVIL, RenderAnvil.class);
+        RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.NUGGET_CASTER, RenderNuggetCaster.class);
         RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.INGOT_CASTER, RenderIngotCaster.class);
         RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.BLOCK_CASTER, RenderBlockCaster.class);
         RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.VAT, RenderVat.class);

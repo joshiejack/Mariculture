@@ -67,7 +67,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
         purity = MaricultureHandlers.upgrades.getData("purity", this);
         heat = MaricultureHandlers.upgrades.getData("temp", this);
         storage = MaricultureHandlers.upgrades.getData("storage", this);
-        speed = MaricultureHandlers.upgrades.getData("speed", this) + 1;
+        speed = MaricultureHandlers.upgrades.getData("speed", this);
         rf = MaricultureHandlers.upgrades.getData("rf", this);
     }
 

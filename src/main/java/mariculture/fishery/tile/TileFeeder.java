@@ -76,51 +76,37 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
         super.setInventorySlotContents(slot, stack);
-        if (slot == male) {
+        if (slot == male && Fishing.fishHelper.isMale(stack)) {
             updateTankSize();
         }
-    }
-    
-    @Override
-    public ItemStack decrStackSize(int slot, int amount) {
-        ItemStack stack = super.decrStackSize(slot, amount);
-        if (slot == male) {
-            updateTankSize();
-        }
-        
-        return stack;
     }
 
     //Updates the size of the tank
     public void updateTankSize() {
-        if (inventory[this.male] == null) {
-            tankSize = 0;
-            updateUpgrades();
-        } else {
-            int xP = 0, xN = 0, yP = 0, yN = 0, zP = 0, zN = 0;
-            ItemStack male = inventory[this.male];
+        int xP = 0, xN = 0, yP = 0, yN = 0, zP = 0, zN = 0;
+        ItemStack male = inventory[this.male];
+        if (male != null) {
             xP = Fish.east.getDNA(male);
             xN = Fish.west.getDNA(male);
             yP = Fish.up.getDNA(male);
             yN = Fish.down.getDNA(male);
             zP = Fish.south.getDNA(male);
             zN = Fish.north.getDNA(male);
+        }
 
-            coords = new ArrayList<CachedCoords>();
-            for (int x = -5 - xN; x <= 5 + xP; x++) {
-                for (int z = -5 - zN; z <= 5 + zP; z++) {
-                    for (int y = -5 - yN; y <= 5 + yP; y++) {
-                        if (BlockHelper.isFishLiveable(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
-                            coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
-                        }
+        coords = new ArrayList<CachedCoords>();
+        for (int x = -5 - xN; x <= 5 + xP; x++) {
+            for (int z = -5 - zN; z <= 5 + zP; z++) {
+                for (int y = -5 - yN; y <= 5 + yP; y++) {
+                    if (BlockHelper.isFishLiveable(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
+                        coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
                     }
                 }
             }
-
-            tankSize = coords.size();
-            updateUpgrades();
         }
 
+        tankSize = coords.size();
+        updateUpgrades();
     }
 
     //Processes fish
@@ -188,8 +174,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
             if (gender == FishyHelper.FEMALE) {
                 generateEgg();
-            } else if (gender == FishyHelper.MALE) {
-                updateTankSize();
             }
         }
 
@@ -210,22 +194,26 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void update() {
         super.update();
-        if (onTick(Ticks.EFFECT_TICK)) {
-            if (swap) {
-                doEffect(inventory[male]);
-                swap = false;
-            } else {
-                doEffect(inventory[female]);
-                swap = true;
-            }
-        }
+        if (canWork) {
+            foodTick++;
 
-        //Fish will eat every 25 seconds by default
-        if (foodTick % (Ticks.FISH_FOOD_TICK * 20) == 0) {
-            if (swap) {
-                useFood(inventory[male]);
-            } else {
-                useFood(inventory[female]);
+            if (onTick(Ticks.EFFECT_TICK)) {
+                if (swap) {
+                    doEffect(inventory[male]);
+                    swap = false;
+                } else {
+                    doEffect(inventory[female]);
+                    swap = true;
+                }
+            }
+
+            //Fish will eat every 25 seconds by default
+            if (foodTick % (Ticks.FISH_FOOD_TICK * 20) == 0) {
+                if (swap) {
+                    useFood(inventory[male]);
+                } else {
+                    useFood(inventory[female]);
+                }
             }
         }
     }

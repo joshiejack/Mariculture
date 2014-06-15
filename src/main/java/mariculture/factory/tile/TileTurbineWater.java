@@ -22,7 +22,7 @@ public class TileTurbineWater extends TileTurbineBase {
 
     @Override
     public int getEnergyGenerated() {
-        return 3 + speed * 3;
+        return (int) (5 + (speed * 4.625));
     }
 
     @Override

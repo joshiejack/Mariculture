@@ -35,8 +35,16 @@ public class RenderSingleItem implements IItemRenderer {
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines)) {
-            int meta = item.getItemDamage();
-            if (meta == MachineRenderedMeta.GEYSER || meta == MachineRenderedMeta.ANVIL || meta == MachineRenderedMeta.INGOT_CASTER || meta == MachineRenderedMeta.BLOCK_CASTER) return false;
+            switch (item.getItemDamage()) {
+                case MachineRenderedMeta.GEYSER:
+                case MachineRenderedMeta.ANVIL:
+                case MachineRenderedMeta.INGOT_CASTER:
+                case MachineRenderedMeta.BLOCK_CASTER:
+                case MachineRenderedMeta.NUGGET_CASTER:
+                    return false;
+                default:
+                    return true;
+            }
         }
 
         return true;

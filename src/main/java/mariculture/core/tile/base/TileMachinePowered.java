@@ -12,6 +12,7 @@ import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileMachinePowered extends TileMachine implements IEnergyHandler, IPowered {
     protected EnergyStorage energyStorage;
+    protected int usage;
 
     public TileMachinePowered() {
         energyStorage = new EnergyStorage(getRFCapacity());
@@ -21,14 +22,18 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 
     public abstract int getRFCapacity();
 
+    public abstract int getRFUsage();
+
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-        int ret = energyStorage.receiveEnergy(maxReceive, simulate);
-        if (!canWork) if (energyStorage.getEnergyStored() >= getRFUsage() * 2) {
-            updateCanWork();
-        }
-
-        return ret;
+        if(!worldObj.isRemote) {
+            int ret = energyStorage.receiveEnergy(maxReceive, simulate);
+            if (!canWork) if (energyStorage.getEnergyStored() >= getRFUsage() * 2) {
+                updateCanWork();
+            }
+    
+            return ret;
+        } else return 0;
     }
 
     @Override
@@ -57,12 +62,20 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
     }
 
     @Override
+    public int getPowerPerTick() {
+        return usage;
+    }
+
+    @Override
+    public boolean isConsumer() {
+        return true;
+    }
+
+    @Override
     public void updateUpgrades() {
         super.updateUpgrades();
         energyStorage.setCapacity(getRFCapacity() + rf);
     }
-
-    public abstract int getRFUsage();
 
     @Override
     public void updateMachine() {
@@ -104,6 +117,8 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
             case 4:
                 energyStorage.setCapacity(value);
                 break;
+            case 5:
+                usage = value;
         }
     }
 
@@ -112,6 +127,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
         super.sendGUINetworkData(container, crafting);
         crafting.sendProgressBarUpdate(container, 3, energyStorage.getEnergyStored());
         crafting.sendProgressBarUpdate(container, 4, energyStorage.getMaxEnergyStored());
+        crafting.sendProgressBarUpdate(container, 5, canWork ? getRFUsage() : 0);
     }
 
     @Override

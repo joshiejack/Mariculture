@@ -76,7 +76,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
         purity = MaricultureHandlers.upgrades.getData("purity", this);
         heat = MaricultureHandlers.upgrades.getData("temp", this);
         storage = MaricultureHandlers.upgrades.getData("storage", this);
-        speed = MaricultureHandlers.upgrades.getData("speed", this) + 1;
+        speed = MaricultureHandlers.upgrades.getData("speed", this);
         rf = MaricultureHandlers.upgrades.getData("rf", this);
         tank.setCapacity(getTankCapacity(storage));
         if (tank.getFluidAmount() > tank.getCapacity()) {

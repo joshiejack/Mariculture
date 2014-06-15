@@ -15,6 +15,7 @@ import static mariculture.core.lib.ItemLib.piston;
 import static mariculture.core.lib.ItemLib.plastic;
 import static mariculture.core.lib.ItemLib.plasticLens;
 import static mariculture.core.lib.ItemLib.reeds;
+import static mariculture.core.lib.ItemLib.string;
 import static mariculture.core.lib.ItemLib.titaniumBattery;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
@@ -38,6 +39,7 @@ public class Diving extends RegistrationModule {
     public static Item scubaSuit;
     public static Item swimfin;
     public static Item snorkel;
+    public static Item lifejacket;
 
     private static ArmorMaterial armorSCUBA = EnumHelper.addArmorMaterial("SCUBA", 15, new int[] { 0, 0, 1, 0 }, 0);
     private static ArmorMaterial armorDIVING = EnumHelper.addArmorMaterial("DIVING", 20, new int[] { 1, 0, 2, 1 }, 0);
@@ -64,7 +66,8 @@ public class Diving extends RegistrationModule {
         scubaSuit = new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 2).setUnlocalizedName("scuba.suit");
         swimfin = new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 3).setUnlocalizedName("swimfin");
         snorkel = new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 0).setUnlocalizedName("snorkel");
-        RegistryHelper.registerItems(new Item[] { divingHelmet, divingTop, divingPants, divingBoots, scubaMask, scubaTank, scubaSuit, swimfin, snorkel });
+        lifejacket = new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 1).setUnlocalizedName("lifejacket");
+        RegistryHelper.registerItems(new Item[] { divingHelmet, divingTop, divingPants, divingBoots, scubaMask, scubaTank, scubaSuit, swimfin, snorkel, lifejacket });
     }
 
     @Override
@@ -76,7 +79,6 @@ public class Diving extends RegistrationModule {
     public void registerRecipes() {
         addShaped(_(compressorTop, 2), new Object[] { "  F", " PB", "III", 'I', aluminumSheet, 'F', cooling, 'B', titaniumBattery, 'P', piston });
         addShaped(compressorBase, new Object[] { "ITT", "III", "W  ", 'I', aluminumSheet, 'W', ironWheel, 'T', "ingotTitanium" });
-        addShaped(_(snorkel), new Object[] { "  R", "LLR", 'R', reeds, 'L', glassLens });
         addShaped(_(divingHelmet), new Object[] { "CCC", "CGC", 'C', "ingotCopper", 'G', "blockGlass" });
         addShaped(_(divingTop), new Object[] { " C ", "C C", " C ", 'C', leather });
         addShaped(_(divingPants), new Object[] { "CCC", " C ", "CCC", 'C', leather });
@@ -85,5 +87,7 @@ public class Diving extends RegistrationModule {
         addShaped(_(_(scubaTank), scubaTank.getMaxDamage() - 1, 1), new Object[] { "DSD", "S S", "DSD", 'S', aluminumSheet, 'D', "dyeYellow" });
         addShaped(_(scubaSuit), new Object[] { "NNN", " N ", "NNN", 'N', neoprene });
         addShaped(_(swimfin), new Object[] { "N N", "PDP", "PDP", 'N', neoprene, 'P', plastic, 'D', ink });
+        addShaped(_(snorkel), new Object[] { "  R", "LLR", 'R', reeds, 'L', glassLens });
+        addShaped(_(lifejacket), new Object[] { "WSW", "WWW", "WWW", 'S', string, 'W', "logWood" });
     }
 }

@@ -9,6 +9,7 @@ import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraftforge.common.config.Configuration;
 
 public class FishMechanics {
+    public static boolean EASY_SCANNER;
     public static boolean DISABLE_FISH;
     public static double BREEDING_MULTIPLIER;
     public static int DEMON_FISH_LIMIT;
@@ -25,5 +26,6 @@ public class FishMechanics {
         FishMechanics.WEAK_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Weak)", 8);
         FishMechanics.DEMON_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Demon)", 64);
         FishMechanics.ALIVE_MODIFIER = getDouble("Fish Caught Alive Modifier", 1.15D);
+        FishMechanics.EASY_SCANNER = getBoolean("Easier Fish Scanner Recipe Recipe", true);
     }
 }

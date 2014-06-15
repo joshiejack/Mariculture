@@ -6,15 +6,12 @@ import mariculture.core.helpers.ClientHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.WaterMeta;
-import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.EntityViewRenderEvent.FogColors;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.fluids.BlockFluidBase;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorEventHandler {
@@ -38,6 +35,7 @@ public class ArmorEventHandler {
             } else {
                 vision = vision == null ? new UnderwaterVision() : vision.onUpdate(player);
                 DivingBoots.init(player);
+                LifeJacket.init(player);
                 ScubaFin.init(player);
             }
         }
@@ -71,12 +69,7 @@ public class ArmorEventHandler {
             }
         }
     }
-
-    @SubscribeEvent
-    public void onFogColor(FogColors event) {        
-        
-    }
-
+    
     @SubscribeEvent
     public void onFogRender(FogDensity event) {
         if (event.block.getMaterial() == Material.water) {

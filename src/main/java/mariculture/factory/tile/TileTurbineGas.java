@@ -31,7 +31,7 @@ public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 
     @Override
     public int getEnergyGenerated() {
-        return 60 + speed * 10;
+        return (int) (60 + (speed * 9.633));
     }
 
     @Override

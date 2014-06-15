@@ -20,6 +20,9 @@ public class FeaturePower extends Feature {
     public void addTooltip(List tooltip, int mouseX, int mouseY) {
         if (mouseX >= xPoz && mouseX <= xPoz + 13 && mouseY >= yPoz && mouseY <= yPoz + 41) {
             tooltip.add(machine.getPowerText());
+            tooltip.add("");
+            if (machine.isConsumer()) tooltip.add("Consuming: " + machine.getPowerPerTick() + " RF/t");
+            else tooltip.add("Producing: " + machine.getPowerPerTick() + " RF/t");
         }
     }
 

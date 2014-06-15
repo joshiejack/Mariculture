@@ -16,10 +16,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
 public class VatDataProvider implements IWailaDataProvider {
-    public static void register(IWailaRegistrar registrar) {
-        registrar.registerBodyProvider(new VatDataProvider(), BlockRenderedMachineMulti.class);
-    }
-
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return null;

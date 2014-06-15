@@ -1,6 +1,3 @@
 TODO List - Before Release of 1.2.3
 • New rendering for Turbines
-• Nugget Caster
-• Add RF/T to RF Machines
-• Waila for Casters
 • Wait for Minecraft 1.7.10

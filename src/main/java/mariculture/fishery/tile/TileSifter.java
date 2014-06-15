@@ -28,7 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileSifter extends TileMultiStorage implements ISidedInventory {
-    public float progress = 0.0F;
+    public byte progress = 0;
     public ItemStack display = null;
     public ItemStack texture = new ItemStack(Blocks.planks);
     public LinkedList<ItemStack> toSift = new LinkedList();
@@ -112,7 +112,7 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
         updateRender();
     }
 
-    public void process(EntityPlayer player, Random rand) {
+    public void process(EntityPlayer player, Random rand, byte plus) {
         if (toSift != null && toSift.size() > 0) {
             if (!worldObj.isRemote && display != null) {
                 PacketHandler.sendAround(new PacketCrack(Block.getIdFromBlock(Block.getBlockFromItem(display.getItem())), display.getItemDamage(), xCoord, yCoord, zCoord), this);
@@ -122,10 +122,10 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
             worldObj.playSoundEffect(xCoord, yCoord, zCoord, "minecraft" + ":step.grass", 1.0F, 1.0F);
         }
 
-        if (progress < 1F) {
-            progress += 0.125F;
+        if (progress < 128) {
+            progress += plus;
         } else {
-            progress = 0.0F;
+            progress = 0;
             if (toSift != null && toSift.size() > 0) {
                 ItemStack stack = toSift.getFirst();
                 ArrayList<RecipeSifter> result = Fishing.sifter.getResult(stack);
@@ -187,7 +187,7 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         hasInventory = nbt.getBoolean("HasInventory");
-        progress = nbt.getFloat("Progress");
+        progress = nbt.getByte("Progress");
 
         if (nbt.hasKey("Texture")) {
             texture = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("Texture"));
@@ -214,7 +214,7 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("HasInventory", hasInventory);
-        nbt.setFloat("Progress", progress);
+        nbt.setByte("Progress", progress);
         nbt.setTag("Texture", texture.writeToNBT(new NBTTagCompound()));
         NBTTagList list = new NBTTagList();
         if (toSift.size() > 0) {

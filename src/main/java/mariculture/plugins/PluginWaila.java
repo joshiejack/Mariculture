@@ -5,20 +5,13 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class PluginWaila extends Plugin {
     @Override
-    public void preInit() {
-        // TODO Auto-generated method stub
-
-    }
+    public void preInit() {}
 
     @Override
     public void init() {
-        FMLInterModComms.sendMessage("Waila", "register", "mariculture.plugins.waila.VatDataProvider.register");
-        FMLInterModComms.sendMessage("Waila", "register", "mariculture.plugins.waila.CopperTankDataProvider.register");
+        FMLInterModComms.sendMessage("Waila", "register", "mariculture.plugins.waila.WailaRegistrar.register");
     }
 
     @Override
-    public void postInit() {
-        // TODO Auto-generated method stub
-
-    }
+    public void postInit() {}
 }

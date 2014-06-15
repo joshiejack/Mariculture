@@ -103,10 +103,11 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
                 if (onTick(70)) {
                     processed -= heat;
                 }
+                
                 if (processed >= max) {
                     processed = 0;
                     if (canWork()) {
-                        int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this) ? 1024 : heat + 1;
+                        int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this) ? 1024 : (heat * 4) + 1;
                         for (int o = 0; o < loop; o++) {
                             hatchEgg();
                         }
@@ -140,6 +141,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         return energyStorage.extractEnergy(getRFUsage() * 2, true) >= getRFUsage() * 2;
     }
 
+    @Override
     public int getRFUsage() {
         return 35 + ((speed - 1) * 40) + (heat * 80);
     }

@@ -26,6 +26,7 @@ import static mariculture.core.lib.ItemLib.copperBattery;
 import static mariculture.core.lib.ItemLib.diamond;
 import static mariculture.core.lib.ItemLib.dirt;
 import static mariculture.core.lib.ItemLib.dragonEgg;
+import static mariculture.core.lib.ItemLib.dropletAny;
 import static mariculture.core.lib.ItemLib.dropletAqua;
 import static mariculture.core.lib.ItemLib.dropletDestroy;
 import static mariculture.core.lib.ItemLib.dropletEarth;
@@ -80,6 +81,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.api.fishery.RodType;
 import mariculture.core.Core;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
@@ -98,6 +100,7 @@ import mariculture.fishery.blocks.BlockFishOil;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
 import mariculture.fishery.items.ItemBait;
+import mariculture.fishery.items.ItemDroplet;
 import mariculture.fishery.items.ItemEgg;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemFluxRod;
@@ -140,6 +143,7 @@ public class Fishery extends RegistrationModule {
     public static Item net;
     public static Item scanner;
     public static Item tempControl;
+    public static Item droplet;
 
     public static Fluid fishFood;
     public static Fluid fishOil;
@@ -177,8 +181,9 @@ public class Fishery extends RegistrationModule {
         scanner = new ItemScanner().setUnlocalizedName("scanner");
         fishEggs = new ItemEgg().setUnlocalizedName("eggs.fish");
         tempControl = new ItemTemperatureControl().setUnlocalizedName("temperature.control");
+        droplet = new ItemDroplet().setUnlocalizedName("droplet");
 
-        RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux, scanner, fishEggs, tempControl });
+        RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux, scanner, fishEggs, tempControl, droplet });
     }
 
     @Override
@@ -253,7 +258,6 @@ public class Fishery extends RegistrationModule {
         addShaped(_(polishedStick, 4), new Object[] { "S", "S", 'S', polishedPlank });
         addVatItemRecipe(titaniumRod, Fluids.fish_oil, 6500, polishedTitanium, 30);
         addShapeless(thermometer, new Object[] { fish, compass });
-        addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', fish, 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
         addBlockCasting(new FluidStack(moltenDirt, 1000), new ItemStack(dirt));
         addMelting(new ItemStack(dirt), 333, new FluidStack(moltenDirt, 1000));
         addShaped(_(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
@@ -266,6 +270,12 @@ public class Fishery extends RegistrationModule {
         addShaped(_(tempControl), new Object[] { " H ", "CTC", " H ", 'H', heating, 'C', cooling, 'T', titaniumSheet });
         addVatItemRecipeResultFluid(_(_(sugar), 2), Fluids.getStack(Fluids.milk, 1000), Fluids.getStack(Fluids.custard, 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
+        
+        if(FishMechanics.EASY_SCANNER) {
+            addShaped(_(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', fish, 'B', copperBattery });
+        } else {
+            addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', fish, 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
+        }
     }
 
     private void addBait() {

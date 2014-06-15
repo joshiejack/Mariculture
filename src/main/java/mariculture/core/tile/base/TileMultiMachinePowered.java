@@ -12,6 +12,7 @@ import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileMultiMachinePowered extends TileMultiMachine implements IEnergyHandler, IPowered {
     protected EnergyStorage energyStorage;
+    protected int usage;
 
     public TileMultiMachinePowered() {
         energyStorage = new EnergyStorage(getRFCapacity());
@@ -20,6 +21,8 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
     }
 
     public abstract int getRFCapacity();
+
+    public abstract int getRFUsage();
 
     @Override
     public void updateUpgrades() {
@@ -50,6 +53,16 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
     @Override
     public int getMaxEnergyStored(ForgeDirection from) {
         return getMaster() != null ? ((TileMultiMachinePowered) getMaster()).energyStorage.getMaxEnergyStored() : 0;
+    }
+
+    @Override
+    public int getPowerPerTick() {
+        return usage;
+    }
+
+    @Override
+    public boolean isConsumer() {
+        return true;
     }
 
     @Override
@@ -100,6 +113,9 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
             case 7:
                 energyStorage.setCapacity(value);
                 break;
+            case 8:
+                usage = value;
+                break;
         }
     }
 
@@ -108,5 +124,6 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
         super.sendGUINetworkData(container, crafting);
         crafting.sendProgressBarUpdate(container, 6, energyStorage.getEnergyStored());
         crafting.sendProgressBarUpdate(container, 7, energyStorage.getMaxEnergyStored());
+        crafting.sendProgressBarUpdate(container, 8, canWork ? getRFUsage() : 0);
     }
 }

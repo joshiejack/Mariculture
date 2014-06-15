@@ -2,6 +2,18 @@ Mariculture 1.7.2 BETA 11
 • Only the base fish can be caught alive once again in the wild, they also all have an increased chance of being caught alive by default, Just wasn't a fan of skipping everything. I have better plans for this in 1.2.4 ;)
 • Improved Scuba Mask and Diving Helmet vision, Snorkel now has the old diving helmet vision
 • Added EnderIO fuels as usable with the crucible
+• Fixed HYPER Hungry Fish
+• Fixed Autofisher not consuming bait
+• Tank Size is now ONLY updated when a male fish enters the fish feeder
+• Added Waila Support for Casters
+• Added Nugget Caster
+• Heating upgrades now process 4 x as many eggs at once in the incubator.
+• Added RF/t to the tooltip when hovering over the power indicator for rf using/making machines
+• Droplets are now their own item, craft old droplets with themselves to make new (will be removed at some point). This is to make it easier to specify any droplet in a recipe.
+• Water Turbines output slightly more
+• Diving Boots will now make you sink faster when holding shift
+• Added lifejacket, will cause to stay afloat on top of water.
+• Wetsuit now makes Flippers twice as fast, You need to take flippers on and off if you put wetsuit on first, as speed is only updated when flippers are put on, or you can enter/leave water
 
 Mariculture 1.7.2 BETA 10
 • Fixed BOP Compatibility with newest versions

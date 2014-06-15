@@ -40,6 +40,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
     protected int storage = 0;
     protected int speed = 0;
     protected int rf = 0;
+    protected int producing;
     //RS Config
     protected RedstoneMode mode;
     //Facing
@@ -308,6 +309,16 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
         return energyStorage.getEnergyStored() * i / energyStorage.getMaxEnergyStored();
     }
 
+    @Override
+    public int getPowerPerTick() {
+        return producing;
+    }
+
+    @Override
+    public boolean isConsumer() {
+        return false;
+    }
+
     //Packets
     @Override
     public Packet getDescriptionPacket() {
@@ -330,20 +341,21 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
                 break;
             case 1:
                 tank.setFluidID(value);
-                ;
                 break;
             case 2:
                 tank.setFluidAmount(value);
                 break;
             case 3:
                 tank.setCapacity(value);
-                ;
                 break;
             case 4:
                 energyStorage.setEnergyStored(value);
                 break;
             case 5:
                 energyStorage.setCapacity(value);
+                break;
+            case 6:
+                producing = value;
                 break;
         }
     }
@@ -356,6 +368,7 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
         crafting.sendProgressBarUpdate(container, 3, tank.getCapacity());
         crafting.sendProgressBarUpdate(container, 4, energyStorage.getEnergyStored());
         crafting.sendProgressBarUpdate(container, 5, energyStorage.getMaxEnergyStored());
+        crafting.sendProgressBarUpdate(container, 6, isCreatingPower? getEnergyGenerated(): 0);
     }
 
     @Override

@@ -3,18 +3,15 @@ package mariculture.plugins.waila;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.core.blocks.BlockTank;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.tile.TileTankBlock;
-import mariculture.core.tile.TileVoidBottle;
+import mariculture.core.tile.TileCooling;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class CopperTankDataProvider implements IWailaDataProvider {
+public class CasterDataProvider implements IWailaDataProvider {
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return null;
@@ -27,11 +24,11 @@ public class CopperTankDataProvider implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof TileTankBlock && !(accessor.getTileEntity() instanceof TileVoidBottle)) {
-            TileTankBlock vat = (TileTankBlock) accessor.getTileEntity();
-            FluidStack tank1 = vat.getFluid();
-            String fluid1 = FluidHelper.getFluidName(tank1) + " - " + FluidHelper.getFluidQty(new ArrayList(), tank1, 0).get(0);
-            currenttip.add(fluid1 + " / 16000mB");
+        if (accessor.getTileEntity() instanceof TileCooling) {
+            TileCooling cooling = (TileCooling) accessor.getTileEntity();
+            FluidStack tank1 = cooling.getFluid();
+            currenttip.add(cooling.getFluidName());
+            currenttip = cooling.getFluidQty(currenttip);
         }
 
         return currenttip;

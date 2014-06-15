@@ -60,7 +60,12 @@ public class CastingHandler implements ICastingHandler {
     //Attempt to fetch the texture, using the ore dictionary
     public static IIcon getTexture(ItemStack stack) {
         String name = OreDicHelper.getDictionaryName(stack);
-        name = name.substring(5);
+        if(name.startsWith("nugget")) {
+            name = name.substring(6);
+        } else {
+            name = name.substring(5);
+        }
+                
         name = "block" + name;
 
         if (OreDictionary.getOres(name).size() > 0) {
