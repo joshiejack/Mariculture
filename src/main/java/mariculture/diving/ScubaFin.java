@@ -35,8 +35,6 @@ public class ScubaFin {
                 player.getEntityData().setFloat("speedBeforeScubaSpin", player.capabilities.getFlySpeed());
             }
 
-            System.out.println("fly");
-
             if (PlayerHelper.hasArmor(player, ArmorSlot.LEG, Diving.scubaSuit)) {
                 player.capabilities.setFlySpeed(SPEED_WETSUIT);
             } else {

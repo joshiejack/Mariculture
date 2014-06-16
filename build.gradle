@@ -15,6 +15,17 @@ buildscript {
     }
 }
 
+repositories {
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+}
+
 apply plugin: 'forge'
 
 // define the properties file
@@ -32,7 +43,8 @@ group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/min
 archivesBaseName = "Mariculture"
 
 dependencies {
-    compile files("lib/CodeChickenCore-1.7.2-1.0.0-dev.jar", "lib/NotEnoughItems-1.7.2-1.0.1-dev.jar")
+    compile "codechicken:CodeChickenCore:1.7.2-1.0.0:dev"
+    compile "codechicken:NotEnoughItems:1.7.2-1.0.1:dev"
 }
 
 minecraft {

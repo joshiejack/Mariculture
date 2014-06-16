@@ -1,3 +1,5 @@
 TODO List - Before Release of 1.2.3
 • New rendering for Turbines
+• Redesign Sluice System
+• Adjust FishVSLoot Rate
 • Wait for Minecraft 1.7.10

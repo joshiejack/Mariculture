@@ -1,3 +1,8 @@
+Mariculture 1.7.2 BETA 11.wtfbbq
+• Fixed ... Not even going to mention the stupidity.
+• Adjusted the loot to > fish ratio for all rod tiers
+• Removed debug code when adding flippers
+
 Mariculture 1.7.2 BETA 11
 • NOTE: I started work on Turbine Re-Renders, I'll finish them when we have Forge for 1.7.10, If the model bothers you, change the config in machines.cfg to enable the old models
 • Only the base fish can be caught alive once again in the wild, they also all have an increased chance of being caught alive by default, Just wasn't a fan of skipping everything. I have better plans for this in 1.2.4 ;)

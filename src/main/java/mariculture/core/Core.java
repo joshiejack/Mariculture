@@ -93,6 +93,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class Core extends RegistrationModule {
     public static Block air;
@@ -166,7 +167,10 @@ public class Core extends RegistrationModule {
         MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
         MinecraftForge.EVENT_BUS.register(new OreDicHandler());
         FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
-        FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
+        }
+
         if (mariculture.core.config.WorldGeneration.RetroGen.ENABLED) {
             MinecraftForge.EVENT_BUS.register(new RetroGen());
         }

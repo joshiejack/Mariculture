@@ -10,7 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 
 public class BloodRodType extends RodType {
     public BloodRodType(int quality, double junk, double good, double rare, int enchantment) {
@@ -44,11 +44,13 @@ public class BloodRodType extends RodType {
     @Override
     public ItemStack damage(World world, EntityPlayer player, ItemStack stack, int fish, Random rand) {
         if (player != null) {
-            EnergyItems.syphonBatteries(stack, player, fish * 250);
-        } else if (!EnergyItems.syphonWhileInContainer(stack, fish * 250)) if (!world.isRemote) {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
-            if (entityOwner != null) {
-                entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 500));
+            SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, fish * 250);
+        } else if (SoulNetworkHandler.syphonFromNetwork(stack, fish * 250) == 0) {
+            if (!world.isRemote) {
+                EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
+                if (entityOwner != null) {
+                    entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 500));
+                }
             }
         }
 

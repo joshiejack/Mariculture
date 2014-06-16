@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Level;
 
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 
 public class ItemMobMagnetBloodEdition extends ItemMobMagnet {
     public ItemMobMagnetBloodEdition(int dmg) {
@@ -47,7 +47,7 @@ public class ItemMobMagnetBloodEdition extends ItemMobMagnet {
         if (!stack.hasTagCompound()) return stack;
 
         try {
-            EnergyItems.checkAndSetItemOwner(stack, player);
+            SoulNetworkHandler.checkAndSetItemOwner(stack, player);
             boolean teleported = false;
             Entity entity = EntityList.createEntityByName(stack.stackTagCompound.getString("MobName"), world);
             List<EntityMob> enemies = world.getEntitiesWithinAABB(entity.getClass(), player.boundingBox.expand(32D, 32D, 32D));
@@ -59,7 +59,7 @@ public class ItemMobMagnetBloodEdition extends ItemMobMagnet {
                     EntityLivingBase living = (EntityLivingBase) i;
                     living.setPositionAndUpdate(x, y, z);
                     teleported = true;
-                    EnergyItems.syphonBatteries(stack, player, (int) (100 * living.getHealth()));
+                    SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, (int) (100 * living.getHealth()));
                 }
 
             if (teleported) {

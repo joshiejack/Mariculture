@@ -28,6 +28,8 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class Diving extends RegistrationModule {
     public static Item divingHelmet;
@@ -48,6 +50,9 @@ public class Diving extends RegistrationModule {
     @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new ArmorEventHandler());
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            MinecraftForge.EVENT_BUS.register(new ArmorClientHandler());
+        }
     }
 
     @Override

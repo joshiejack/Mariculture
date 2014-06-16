@@ -9,6 +9,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemRod;
+import mariculture.plugins.PluginBloodMagic;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -23,6 +24,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 
 import com.google.common.collect.Multimap;
@@ -60,7 +62,7 @@ public class ItemBoundRod extends ItemRod {
 
     public int hasDemonShard(EntityPlayer player, int slot) {
         ItemStack stack = player.inventory.getStackInSlot(slot);
-        if (stack != null) return stack.getItem() == ModItems.weakBloodShard ? FishMechanics.WEAK_FISH_LIMIT : stack.getItem() == ModItems.demonBloodShard ? FishMechanics.DEMON_FISH_LIMIT : -1;
+        if (stack != null) return stack.getItem() == PluginBloodMagic.weakBloodShard.getItem() ? FishMechanics.WEAK_FISH_LIMIT : stack.getItem() == PluginBloodMagic.demonBloodShard.getItem() ? FishMechanics.DEMON_FISH_LIMIT : -1;
         else return -1;
     }
 
@@ -114,8 +116,7 @@ public class ItemBoundRod extends ItemRod {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        EnergyItems.checkAndSetItemOwner(stack, player);
-
+        SoulNetworkHandler.checkAndSetItemOwner(stack, player);
         if (player.isPotionActive(AlchemicalWizardry.customPotionInhibit)) return stack;
 
         if (player.isSneaking()) {
@@ -132,7 +133,7 @@ public class ItemBoundRod extends ItemRod {
                     player.inventory.decrStackSize(slot, 1);
                 }
 
-                EnergyItems.syphonBatteries(stack, player, 500 * catches);
+                SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, 500 * catches);
             }
         }
 

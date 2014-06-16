@@ -12,5 +12,5 @@
 .classpath
 .project
 .settings/*
-src/api/*
 /lib/
+src/api/resources/*

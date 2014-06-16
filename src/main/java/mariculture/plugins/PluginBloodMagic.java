@@ -20,13 +20,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import WayofTime.alchemicalWizardry.ModItems;
+import net.minecraftforge.oredict.OreDictionary;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginBloodMagic extends Plugin {
     public static final RodType BLOOD = new BloodRodType(95, 15D, 20D, 5D, 45);
     public static Item rodBlood;
+    
+    public static ItemStack demonBloodShard;
+    public static ItemStack weakBloodShard;
 
     @Override
     public void preInit() {
@@ -34,41 +38,52 @@ public class PluginBloodMagic extends Plugin {
         RegistryHelper.registerItems(new Item[] { rodBlood });
         Fishing.fishing.registerRod(rodBlood, BLOOD);
     }
+    
+    private ItemStack getItem(String str, int meta) {
+        return new ItemStack(GameRegistry.findItem("AWWayofTime", str), 1, meta);
+    }
+    
+    private ItemStack getItem(String str) {
+        return getItem(str, OreDictionary.WILDCARD_VALUE);
+    }
 
     @Override
     public void init() {
         if (Modules.isActive(Modules.fishery)) {
+            demonBloodShard = getItem("demonBloodShard");
+            weakBloodShard = getItem("weakBloodShard");
+            
             // Fishing
             Fishing.fishing.addBait(new ItemStack(Items.rotten_flesh), 35);
-            Fishing.fishing.addBait(new ItemStack(ModItems.weakBloodShard), 75);
-            Fishing.fishing.addBait(new ItemStack(ModItems.demonBloodShard), 100);
+            Fishing.fishing.addBait(weakBloodShard, 75);
+            Fishing.fishing.addBait(demonBloodShard, 100);
             Fishing.fishing.addBaitForQuality(new ItemStack(Items.rotten_flesh), BLOOD);
-            Fishing.fishing.addBaitForQuality(new ItemStack(ModItems.weakBloodShard), BLOOD);
-            Fishing.fishing.addBaitForQuality(new ItemStack(ModItems.demonBloodShard), BLOOD);
+            Fishing.fishing.addBaitForQuality(weakBloodShard, BLOOD);
+            Fishing.fishing.addBaitForQuality(demonBloodShard, BLOOD);
 
-            addLoot(new ItemStack(ModItems.blankSlate), JUNK, 10);
+            addLoot(getItem("blankSlate"), JUNK, 10);
             addLoot(new ItemStack(Blocks.web), JUNK, 10);
-            addLoot(new ItemStack(ModItems.baseItems, 1, 3), GOOD, 10);
-            addLoot(new ItemStack(ModItems.baseAlchemyItems, 1, 5), GOOD, 10);
+            addLoot(getItem("baseItems", 3), GOOD, 10);
+            addLoot(getItem("baseAlchemyItems", 5), GOOD, 10);
 
-            addLoot(new ItemStack(ModItems.simpleCatalyst), GOOD, 7);
-            addLoot(new ItemStack(ModItems.baseItems, 1, 0), GOOD, 7);
+            addLoot(getItem("simpleCatalyst"), GOOD, 7);
+            addLoot(getItem("baseItems", 0), GOOD, 7);
 
-            addLoot(new ItemStack(ModItems.weakFillingAgent), JUNK, 15);
-            addLoot(new ItemStack(ModItems.baseAlchemyItems, 1, 3), JUNK, 15);
-            addLoot(new ItemStack(ModItems.baseItems, 1, 1), GOOD, 15);
-            addLoot(new ItemStack(ModItems.reinforcedSlate), JUNK, 20);
-            addLoot(new ItemStack(ModItems.alchemyFlask), GOOD, 40);
+            addLoot(getItem("weakFillingAgent"), JUNK, 15);
+            addLoot(getItem("baseAlchemyItems", 3), JUNK, 15);
+            addLoot(getItem("baseItems", 1), GOOD, 15);
+            addLoot(getItem("reinforcedSlate"), JUNK, 20);
+            addLoot(getItem("alchemyFlask"), GOOD, 40);
 
-            addLoot(new ItemStack(ModItems.standardFillingAgent), JUNK, 50);
-            addLoot(new ItemStack(ModItems.aether), GOOD, 50);
-            addLoot(new ItemStack(ModItems.baseAlchemyItems, 1, 4), GOOD, 45);
-            addLoot(new ItemStack(ModItems.baseItems, 1, 4), GOOD, 45);
+            addLoot(getItem("standardFillingAgent"), JUNK, 50);
+            addLoot(getItem("aether"), GOOD, 50);
+            addLoot(getItem("baseAlchemyItems", 4), GOOD, 45);
+            addLoot(getItem("baseItems", 4), GOOD, 45);
 
-            addLoot(new ItemStack(ModItems.imbuedSlate), JUNK, 75);
-            addLoot(new ItemStack(ModItems.enhancedFillingAgent), GOOD, 75);
-            addLoot(new ItemStack(ModItems.itemKeyOfDiablo), GOOD, 75);
-            addLoot(new ItemStack(ModItems.boundBoots), GOOD, 200);
+            addLoot(getItem("imbuedSlate"), JUNK, 75);
+            addLoot(getItem("enhancedFillingAgent"), GOOD, 75);
+            addLoot(getItem("itemKeyOfDiablo"), GOOD, 75);
+            addLoot(getItem("boundBoots"), GOOD, 200);
 
             // Rituals
             Rituals.ritualList.add(new Rituals(1, 50000, new RitualOfTheBloodRiver(), Text.translate("ritual")));
