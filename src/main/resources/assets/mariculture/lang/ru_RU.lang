@@ -5,10 +5,14 @@ death.attack.scald=%1$s был насмерть ошпарен кипятком.
 death.attack.fludd=%2$s насмерть ошпарил кипятком %1$s
 death.attack.turbine=%1$s перетрудился, пока вращал турбину и умер!
 
+itemGroup.mariculture.core=Mariculture
+itemGroup.mariculture.machines=Mariculture: Механизмы
+itemGroup.mariculture.world=Mariculture: Исследование
+itemGroup.mariculture.fishing=Mariculture: Рыболовство
+itemGroup.mariculture.magic=Mariculture: Морское колдовство
+
 ### Core ###
 # blocks
-itemGroup.maricultureTab=Mariculture
-itemGroup.maricultureFluidsTab=Mariculture: Жидкости
 tile.rocks.bauxiteOre.name=Бокситовая руда
 tile.rocks.copperOre.name=Медная руда
 tile.rocks.rutileOre.name=Рутиловая руда
@@ -21,9 +25,9 @@ tile.metals.rutileBlock.name=Блок неочищенного титана
 tile.metals.baseIron.name=Железный конструктивный блок
 tile.limestone.raw.name=Известняк
 tile.limestone.smooth.name=Гладкий известняк
-tile.limestone.brick.name=Кирпич из известняка
-tile.limestone.brickSmall.name=Маленький известняк
-tile.limestone.brickThin.name=Тонкий известняковый блок
+tile.limestone.brick.name=Известняковый кирпич
+tile.limestone.brickSmall.name=Маленький известняковый кирпич
+tile.limestone.brickThin.name=Тонкий известняковый кирпич
 tile.limestone.bordered.name=Обработанный известняк
 tile.limestone.chiseled.name=Резной известняк
 tile.limestone.pillar.name=Колонна известняка
@@ -158,6 +162,7 @@ item.crafting.titaniumSheet.name=Титановая пластина
 item.crafting.snorkelLens.name=Стеклянная линза
 item.crafting.burntBrick.name=Обожжённый кирпич
 item.crafting.titaniumRodBasic.name=Титановая палка
+item.temperature.control.name=Блок управления температурой
 item.upgrade.storage.name=Основное улучшение хранилища
 item.upgrade.storageStd.name=Стандартное улучшение хранилища
 item.upgrade.storageAdv.name=Продвинутое улучшение хранилища
@@ -238,6 +243,7 @@ tile.machines.multi.rendered.pressureVessel.name=Сосуд высокого д�
 item.guide.diving.name=Как нырять (Подводное дыхание)
 item.guide.diving.author=Томас Дейли
 item.snorkel.name=Маска с трубкой
+item.lifejacket.name=Спасательный жилет
 item.diving.helmet.name=Водолазный шлем
 item.diving.top.name=Водолазный воздушный шланг
 item.diving.pants.name=Водолазный комбинезон
@@ -296,7 +302,6 @@ item.turbine.titanium.name=Титановый ротор
 
 ### Fishery ###
 #blocks
-itemGroup.fishTab=Mariculture: Рыба
 tile.machines.multi.incubator.name=Инкубатор
 tile.machines.multi.incubatorBase.name=Основа инкубатора
 tile.machines.multi.incubatorTop.name=Верх инкубатора
@@ -344,18 +349,30 @@ item.guide.fishing.name=Рыболовство и разведение #42
 item.guide.fishing.author=П. Шерман
 item.guide.breeding.name=Разведение 101
 item.materials.fishMeal.name=Рыбий корм
-item.materials.dropletEarth.name=Земляная капля
-item.materials.dropletPlant.name=Травяная капля
-item.materials.dropletFrozen.name=Замороженная капля
-item.materials.dropletWater.name=Водяная капля
-item.materials.dropletNether.name=Капля Нижнего мира
-item.materials.dropletEnder.name=Капля Края
-item.materials.dropletAttack.name=Капля разрушения
-item.materials.dropletAqua.name=Капля моря
-item.materials.dropletPoison.name=Капля яда
-item.materials.dropletMagic.name=Капля магии
-item.materials.dropletElectric.name=Капля флакса
-item.materials.dropletHealth.name=Капля регенерации
+item.materials.dropletEarth.name=Земляная капля (УСТАРЕВШАЯ)
+item.materials.dropletPlant.name=Травяная капля (УСТАРЕВШАЯ)
+item.materials.dropletFrozen.name=Замороженная капля (УСТАРЕВШАЯ)
+item.materials.dropletWater.name=Водяная капля (УСТАРЕВШАЯ)
+item.materials.dropletNether.name=Капля Нижнего мира (УСТАРЕВШАЯ)
+item.materials.dropletEnder.name=Капля Края (УСТАРЕВШАЯ)
+item.materials.dropletAttack.name=Капля разрушения (УСТАРЕВШАЯ)
+item.materials.dropletAqua.name=Капля моря (УСТАРЕВШАЯ)
+item.materials.dropletPoison.name=Капля яда (УСТАРЕВШАЯ)
+item.materials.dropletMagic.name=Капля магии (УСТАРЕВШАЯ)
+item.materials.dropletElectric.name=Капля флакса (УСТАРЕВШАЯ)
+item.materials.dropletHealth.name=Капля регенерации (УСТАРЕВШАЯ)
+item.droplet.earth.name=Земляная капля
+item.droplet.plant.name=Травяная капля
+item.droplet.frozen.name=Замороженная капля
+item.droplet.water.name=Водяная капля
+item.droplet.nether.name=Капля Нижнего мира
+item.droplet.ender.name=Капля Края
+item.droplet.attack.name=Капля разрушения
+item.droplet.aqua.name=Капля моря
+item.droplet.poison.name=Капля яда
+item.droplet.magic.name=Капля магии
+item.droplet.electric.name=Капля флакса
+item.droplet.health.name=Капля регенерации 
 item.bait.worm.name=Дождевой червяк
 item.bait.ant.name=Муравей
 item.bait.maggot.name=Личинка
@@ -489,8 +506,6 @@ fish.data.areaofeffectsouth=Зона: Юг
 fish.data.areaofeffectwest=Зона: Запад
 
 ### Magic ###
-itemGroup.jewelryTab=Mariculture: Драгоценности
-
 #enchantments
 enchantment.elemental=Стихийное родство
 enchantment.hungry=Никого голода
@@ -652,6 +667,13 @@ mariculture.string.peruse=РФ за использование
 mariculture.string.rf=РФ
 mariculture.string.rft=РФ/т
 mariculture.string.mb=мВ
+mariculture.string.blacklisted=ЗАПРЕЩЁН
+mariculture.string.temp.control=Содержит улучшения температуры
+mariculture.string.time=Время:
+mariculture.string.time.dawn=Рассвет
+mariculture.string.time.day=День
+mariculture.string.time.dusk=Закат
+mariculture.string.time.night=Ночь
 
 ### Eject Modes ###
 ejectmode.none=Авто-выброс выключен
