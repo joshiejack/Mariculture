@@ -20,10 +20,6 @@ repositories {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
     }
-    maven {
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
-    }
 }
 
 apply plugin: 'forge'
