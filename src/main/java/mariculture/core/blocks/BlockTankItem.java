@@ -3,10 +3,10 @@ package mariculture.core.blocks;
 import java.util.List;
 
 import mariculture.api.core.MaricultureRegistry;
+import mariculture.api.util.Text;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.TankMeta;
-import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

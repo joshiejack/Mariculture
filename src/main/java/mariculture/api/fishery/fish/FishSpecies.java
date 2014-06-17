@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.fishery.CachedCoords;
 import mariculture.api.fishery.RodType;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.lib.ItemLib;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;

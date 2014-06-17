@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Map.Entry;
 
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
@@ -26,7 +27,6 @@ import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.RecipeItem;
-import mariculture.core.util.Text;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;

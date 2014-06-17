@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
+import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.BottleMeta;
@@ -11,7 +12,6 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidMari;
 import mariculture.core.util.Fluids;
-import mariculture.core.util.Text;
 import mariculture.fishery.FishFoodHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

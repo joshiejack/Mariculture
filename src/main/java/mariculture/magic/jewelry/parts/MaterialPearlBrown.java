@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
+import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.util.Rand;
-import mariculture.core.util.Text;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

@@ -7,7 +7,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Text;
+import mariculture.api.util.Text;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishyHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;

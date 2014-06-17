@@ -75,11 +75,32 @@ processResources {
     }
 }
 
-project.version += '.' + project.buildnumber
+project.version += '-' + project.buildnumber
 
 jar {
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    manifest {
+        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+task apiJar(type: Jar) {
+    from(sourceSets.main.java) {
+        include "mariculture/api/**"
+    }
+    classifier = 'api'
+}
+
+artifacts {
+    archives deobfJar
+    archives apiJar
 }

@@ -9,7 +9,7 @@ import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishProduct;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Text;
+import mariculture.api.util.Text;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

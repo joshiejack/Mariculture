@@ -3,7 +3,7 @@ package mariculture.core.gui;
 import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.core.util.Text;
+import mariculture.api.util.Text;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

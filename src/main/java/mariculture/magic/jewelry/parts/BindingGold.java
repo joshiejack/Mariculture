@@ -1,8 +1,8 @@
 package mariculture.magic.jewelry.parts;
 
+import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.lib.CraftingMeta;
-import mariculture.core.util.Text;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

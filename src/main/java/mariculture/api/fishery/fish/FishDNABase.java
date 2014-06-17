@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.core.util.Text;
+import mariculture.api.util.Text;
 import mariculture.fishery.Fish;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

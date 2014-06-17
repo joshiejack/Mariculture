@@ -1,4 +1,4 @@
-package mariculture.api.fishery;
+package mariculture.api.util;
 
 public class CachedCoords {
     public int x;

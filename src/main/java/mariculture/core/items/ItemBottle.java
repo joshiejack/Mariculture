@@ -2,12 +2,12 @@ package mariculture.core.items;
 
 import java.util.List;
 
+import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.TankMeta;
-import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.player.EntityPlayer;

@@ -2,7 +2,7 @@ package mariculture.fishery.fish.dna;
 
 import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Text;
+import mariculture.api.util.Text;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 

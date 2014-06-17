@@ -1,9 +1,9 @@
 package mariculture.world;
 
 import mariculture.Mariculture;
+import mariculture.api.util.Text;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.util.Text;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

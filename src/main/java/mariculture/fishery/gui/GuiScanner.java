@@ -2,10 +2,10 @@ package mariculture.fishery.gui;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.Text;
 import mariculture.core.gui.GuiStorage;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.gui.feature.FeatureScanner;
-import mariculture.core.util.Text;
 import mariculture.fishery.Fish;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

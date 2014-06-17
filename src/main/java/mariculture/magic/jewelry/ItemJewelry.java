@@ -6,9 +6,9 @@ import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.util.Text;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.items.ItemDamageable;
-import mariculture.core.util.Text;
 import mariculture.magic.JewelryHandler;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryBinding;

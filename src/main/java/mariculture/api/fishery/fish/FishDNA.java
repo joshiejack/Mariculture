@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.core.util.Text;
+import mariculture.api.util.Text;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;

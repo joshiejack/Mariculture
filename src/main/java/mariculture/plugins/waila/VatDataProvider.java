@@ -3,10 +3,10 @@ package mariculture.plugins.waila;
 import java.util.ArrayList;
 import java.util.List;
 
+import mariculture.api.util.Text;
 import mariculture.core.blocks.BlockRenderedMachineMulti;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.tile.TileVat;
-import mariculture.core.util.Text;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;

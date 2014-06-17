@@ -1,4 +1,4 @@
-package mariculture.core.util;
+package mariculture.api.util;
 
 import net.minecraft.util.StatCollector;
 

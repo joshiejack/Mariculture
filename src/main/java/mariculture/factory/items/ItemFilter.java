@@ -3,9 +3,9 @@ package mariculture.factory.items;
 import java.util.List;
 
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.util.Text;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemStorage;
-import mariculture.core.util.Text;
 import mariculture.factory.gui.SlotDictionary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;

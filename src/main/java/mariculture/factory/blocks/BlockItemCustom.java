@@ -2,9 +2,9 @@ package mariculture.factory.blocks;
 
 import java.util.List;
 
+import mariculture.api.util.Text;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.lib.PlansMeta;
-import mariculture.core.util.Text;
 import mariculture.factory.Factory;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
