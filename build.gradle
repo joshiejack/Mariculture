@@ -24,6 +24,12 @@ repositories {
 
 apply plugin: 'forge'
 
+ext.buildnumber = 0
+if (System.getenv().BUILD_NUMBER)
+    project.buildnumber = System.getenv().BUILD_NUMBER
+else
+    logger.lifecycle "SETTING BUILDNUMBER TO 0"
+
 // define the properties file
 ext.configFile = file "build.properties"
 
@@ -68,6 +74,8 @@ processResources {
         exclude '**/todolist.txt'
     }
 }
+
+project.version += '.' + project.buildnumber
 
 jar {
     manifest {
