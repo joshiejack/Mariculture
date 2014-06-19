@@ -66,7 +66,7 @@ public class NEIConfig implements IConfigureNEI {
                                 API.hideItem(new ItemStack(Core.rocks, 1, i));
                                 if (i > 5) {
                                     API.hideItem(new ItemStack(Core.metals, 1, i));
-                                    if (i > 6) {
+                                    if (i > 7) {
                                         API.hideItem(new ItemStack(Core.machines, 1, i));
                                         if (i > 10) {
                                             API.hideItem(new ItemStack(Core.renderedMachines, 1, i));

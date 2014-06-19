@@ -46,6 +46,7 @@ public class BlockMachine extends BlockFunctional {
     private IIcon sluiceBack;
     private IIcon sluiceUp;
     private IIcon sluiceDown;
+    private IIcon unpacker;
 
     public BlockMachine() {
         super(Material.piston);
@@ -111,6 +112,7 @@ public class BlockMachine extends BlockFunctional {
         if (side < 2) {
             if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
             if (meta == MachineMeta.SPONGE) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+            if (meta == MachineMeta.UNPACKER) return unpacker;
             return Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
         }
 
@@ -272,5 +274,6 @@ public class BlockMachine extends BlockFunctional {
         sluiceBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceBack");
         sluiceUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceUp");
         sluiceDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceDown");
+        unpacker = iconRegister.registerIcon(Mariculture.modid + ":unpackerTop");
     }
 }
