@@ -96,7 +96,7 @@ public class RecipesSmelting {
         addDust(MaterialsMeta.DUST_COPPEROUS, copper, sulfur, 10, coppers);
 
         //Golden Dust
-        LinkedMetal[] golds = new LinkedMetal[] { new LinkedMetal("ingotElectrum", Fluids.electrum, 3), new LinkedMetal("ingotSilver", Fluids.silver, 7) };
+        LinkedMetal[] golds = new LinkedMetal[] { new LinkedMetal("ingotElectrum", Fluids.electrum, 3), new LinkedMetal("ingotSilver", Fluids.silver, 7), new LinkedMetal("ingotGold", Fluids.gold, 25) };
         addDust(MaterialsMeta.DUST_GOLDEN, gold, null, 0, golds);
 
         //Ironic Dust

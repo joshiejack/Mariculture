@@ -95,10 +95,10 @@ public class TileSifter extends TileMultiStorage implements ISidedInventory {
                             InventoryHelper.addItemStackToInventory(inventory, ret, slots);
                         } else if (!worldObj.isRemote) {
                             if (rand.nextInt(2) == 0 && slaves.size() > 0) {
-                                SpawnItemHelper.spawnItem(worldObj, slaves.get(0).xCoord, slaves.get(0).yCoord + 1, slaves.get(0).zCoord, ret, true, 0, 10, 0.25F);
+                                SpawnItemHelper.spawnItem(worldObj, slaves.get(0).xCoord, slaves.get(0).yCoord + 1, slaves.get(0).zCoord, ret.copy(), true, 0, 10, 0.25F);
                                 SpawnItemHelper.spawnXP(worldObj, slaves.get(0).xCoord, slaves.get(0).yCoord + 1, slaves.get(0).zCoord, Math.max(1, bait.chance/20));
                             } else {
-                                SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret, true, 0, 10, 0.25F);
+                                SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, ret.copy(), true, 0, 10, 0.25F);
                                 SpawnItemHelper.spawnXP(worldObj, xCoord, yCoord + 1, zCoord, Math.max(1, bait.chance/20));
                             }
                         }

@@ -16,7 +16,7 @@ public class WorldGeneration {
         OreGen.BAUXITE_VEIN = getInt("Bauxite > Maximum Vein Size", 8);
         OreGen.BAUXITE_MIN = getInt("Bauxite > Minimum Y Height", 60);
         OreGen.BAUXITE_MAX = getInt("Bauxite > Maximum Y Height", 256);
-        OreGen.COPPER_ON = getBoolean("Copper > Generation", false);
+        OreGen.COPPER_ON = getBoolean("Copper > Generation", true);
         OreGen.COPPER_TOTAL = getInt("Copper > Number of Veins", 12);
         OreGen.COPPER_VEIN = getInt("Copper > Maximum Vein Size", 5);
         OreGen.COPPER_MIN = getInt("Copper > Minimum Y Height", 1);

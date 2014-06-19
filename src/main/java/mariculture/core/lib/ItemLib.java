@@ -221,19 +221,19 @@ public class ItemLib {
     public static final ItemStack fishNCustard = new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD);
     public static final ItemStack fishMeal = new ItemStack(Core.materials, 1, MaterialsMeta.FISH_MEAL);
     public static final ItemStack calamari = new ItemStack(Core.food, 1, FoodMeta.CALAMARI);
-    public static final ItemStack dropletAny = new ItemStack(Fishery.droplet, 1, OreDictionary.WILDCARD_VALUE);
-    public static final ItemStack dropletAqua = new ItemStack(Fishery.droplet, 1, DropletMeta.AQUA);
-    public static final ItemStack dropletDestroy = new ItemStack(Fishery.droplet, 1, DropletMeta.ATTACK);
-    public static final ItemStack dropletEarth = new ItemStack(Fishery.droplet, 1, DropletMeta.EARTH);
-    public static final ItemStack dropletEnder = new ItemStack(Fishery.droplet, 1, DropletMeta.ENDER);
-    public static final ItemStack dropletFlux = new ItemStack(Fishery.droplet, 1, DropletMeta.ELECTRIC);
-    public static final ItemStack dropletFrozen = new ItemStack(Fishery.droplet, 1, DropletMeta.FROZEN);
-    public static final ItemStack dropletMagic = new ItemStack(Fishery.droplet, 1, DropletMeta.MAGIC);
-    public static final ItemStack dropletNether = new ItemStack(Fishery.droplet, 1, DropletMeta.NETHER);
-    public static final ItemStack dropletPlant = new ItemStack(Fishery.droplet, 1, DropletMeta.PLANT);
-    public static final ItemStack dropletPoison = new ItemStack(Fishery.droplet, 1, DropletMeta.POISON);
-    public static final ItemStack dropletRegen = new ItemStack(Fishery.droplet, 1, DropletMeta.HEALTH);
-    public static final ItemStack dropletWater = new ItemStack(Fishery.droplet, 1, DropletMeta.WATER);
+    public static final ItemStack dropletAny = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, OreDictionary.WILDCARD_VALUE) : null;
+    public static final ItemStack dropletAqua = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.AQUA) : null;
+    public static final ItemStack dropletDestroy = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ATTACK) : null;
+    public static final ItemStack dropletEarth = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.EARTH) : null;
+    public static final ItemStack dropletEnder = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ENDER) : null;
+    public static final ItemStack dropletFlux = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ELECTRIC) : null;
+    public static final ItemStack dropletFrozen = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.FROZEN) : null;
+    public static final ItemStack dropletMagic = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.MAGIC) : null;
+    public static final ItemStack dropletNether = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.NETHER) : null;
+    public static final ItemStack dropletPlant = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.PLANT) : null;
+    public static final ItemStack dropletPoison = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.POISON) : null;
+    public static final ItemStack dropletRegen = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.HEALTH) : null;
+    public static final ItemStack dropletWater = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.WATER) : null;
     public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
     public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
     public static final ItemStack copperBattery = ItemBattery.make(new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE), 0);
@@ -258,8 +258,8 @@ public class ItemLib {
     public static final ItemStack fishingNet = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.net) : null;
 
     /** Module based stuff **/
-    public static final ItemStack attack = Modules.isActive(Modules.fishery) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK) : new ItemStack(Items.potionitem, 1, 8204);
-    public static final ItemStack poison = Modules.isActive(Modules.fishery) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON) : new ItemStack(Items.potionitem, 1, 8228);
+    public static final ItemStack attack = Modules.isActive(Modules.fishery) ? dropletDestroy : new ItemStack(Items.potionitem, 1, 8204);
+    public static final ItemStack poison = Modules.isActive(Modules.fishery) ? dropletPoison : new ItemStack(Items.potionitem, 1, 8228);
     public static final ItemStack boneless = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.boneless.getID()) : new ItemStack(Items.skull, 1, 1);
     public static final ItemStack undead = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.undead.getID()) : new ItemStack(Items.rotten_flesh);
     public static final ItemStack spider = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.spider.getID()) : new ItemStack(Items.spider_eye);
@@ -267,13 +267,13 @@ public class ItemLib {
     public static final ItemStack ender = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.ender.getID()) : new ItemStack(Items.ender_eye);
     public static final ItemStack blaasop = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.blaasop.getID()) : new ItemStack(Items.potionitem, 1, 8196);
     public static final ItemStack filterer = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.net) : new ItemStack(Blocks.chest);
-    public static final ItemStack regen = Modules.isActive(Modules.fishery) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH) : new ItemStack(Items.potionitem, 1, 8229);
+    public static final ItemStack regen = Modules.isActive(Modules.fishery) ? dropletRegen : new ItemStack(Items.potionitem, 1, 8229);
     public static final Object bait = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE) : Items.spider_eye;
     public static final Object scubaTank = Modules.isActive(Modules.diving) ? new ItemStack(Diving.scubaTank, 1, 1) : Blocks.lever;
     public static final Object sponge = Modules.isActive(Modules.worldplus) ? Blocks.sponge : Items.water_bucket;
-    public static final ItemStack magicDrop = Modules.isActive(Modules.fishery) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC) : new ItemStack(Items.ghast_tear);
-    public static final Object waterDrop = Modules.isActive(Modules.fishery) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER) : new ItemStack(Items.potionitem, 1, 0);
+    public static final ItemStack magicDrop = Modules.isActive(Modules.fishery) ? dropletMagic : new ItemStack(Items.ghast_tear);
+    public static final Object waterDrop = Modules.isActive(Modules.fishery) ? dropletWater : new ItemStack(Items.potionitem, 1, 0);
     public static final Object rubber = OreDictionary.getOres("itemRubber").size() > 0 ? "itemRubber" : new ItemStack(Items.dye, 1, Dye.INK);
     public static final ItemStack polishedStick = Modules.isActive(Modules.fishery) ? new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK) : new ItemStack(Items.blaze_rod);
-    public static final ItemStack heart = Modules.isActive(Modules.fishery) ? new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH) : new ItemStack(Items.potionitem, 1, 8197);
+    public static final ItemStack heart = Modules.isActive(Modules.fishery) ? dropletRegen : new ItemStack(Items.potionitem, 1, 8197);
 }

@@ -88,6 +88,7 @@ import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
+import mariculture.core.lib.DropletMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemLib;
@@ -270,11 +271,16 @@ public class Fishery extends RegistrationModule {
         addShaped(_(tempControl), new Object[] { " H ", "CTC", " H ", 'H', heating, 'C', cooling, 'T', titaniumSheet });
         addVatItemRecipeResultFluid(_(_(sugar), 2), Fluids.getStack(Fluids.milk, 1000), Fluids.getStack(Fluids.custard, 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
-        
-        if(FishMechanics.EASY_SCANNER) {
+
+        if (FishMechanics.EASY_SCANNER) {
             addShaped(_(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', fish, 'B', copperBattery });
         } else {
             addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', fish, 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
+        }
+
+        for (int oldMeta = MaterialsMeta.DROP_EARTH; oldMeta <= MaterialsMeta.DROP_HEALTH; oldMeta++) {
+            int newMeta = oldMeta - MaterialsMeta.DROP_EARTH;
+            addShapeless(new ItemStack(droplet, 1, newMeta), new Object[] { new ItemStack(Core.materials, 1, oldMeta) });
         }
     }
 

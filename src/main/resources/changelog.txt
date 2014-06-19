@@ -1,5 +1,7 @@
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!
+• Fixed FLUDD
+• Switched Copper default to on
 
 Mariculture 1.7.2 BETA 11.wtfbbq
 • Fixed ... Not even going to mention the stupidity.
