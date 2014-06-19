@@ -167,10 +167,8 @@ public class Core extends RegistrationModule {
         MinecraftForge.EVENT_BUS.register(new GuiItemToolTip());
         MinecraftForge.EVENT_BUS.register(new OreDicHandler());
         FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
-        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-            FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
-        }
-
+        FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
+ 
         if (mariculture.core.config.WorldGeneration.RetroGen.ENABLED) {
             MinecraftForge.EVENT_BUS.register(new RetroGen());
         }

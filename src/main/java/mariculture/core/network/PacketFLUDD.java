@@ -40,23 +40,23 @@ public class PacketFLUDD implements IMessage, IMessageHandler<PacketFLUDD, IMess
     }
 
     @Override
-    public IMessage onMessage(PacketFLUDD message, MessageContext ctx) {
+    public IMessage onMessage(PacketFLUDD message, MessageContext ctx) {        
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         EntityPlayer player = side == Side.CLIENT ? ClientHelper.getPlayer() : ctx.getServerHandler().playerEntity;
         World world = player.worldObj;
-        if (type == SQUIRT) {
+        if (message.type == SQUIRT) {
             world.playSoundAtEntity(player, Mariculture.modid + ":fludd", 1.0F, 1.0F);
             EntityFLUDDSquirt rocket = new EntityFLUDDSquirt(world, player, true);
             rocket.posY += 0.35F;
             world.spawnEntityInWorld(rocket);
         }
 
-        if (type != ANIMATE) {
-            FactoryEvents.damageFLUDD(player, mode);
+        if (message.type != ANIMATE) {
+            FactoryEvents.damageFLUDD(player, message.mode);
         } else if (side == Side.SERVER) {
-            PacketHandler.sendAround(new PacketFLUDD(player.getEntityId(), mode), world.provider.dimensionId, player.posX, player.posY, player.posZ);
+            PacketHandler.sendAround(new PacketFLUDD(player.getEntityId(), message.mode), world.provider.dimensionId, player.posX, player.posY, player.posZ);
         } else {
-            FactoryEvents.playSmoke(mode, (EntityPlayer) world.getEntityByID(type), false);
+            FactoryEvents.playSmoke(mode, (EntityPlayer) world.getEntityByID(message.type), false);
         }
 
         return null;
