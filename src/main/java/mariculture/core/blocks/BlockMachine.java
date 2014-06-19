@@ -16,6 +16,7 @@ import mariculture.factory.tile.TileFishSorter;
 import mariculture.factory.tile.TileSawmill;
 import mariculture.factory.tile.TileSluice;
 import mariculture.factory.tile.TileSponge;
+import mariculture.factory.tile.TileUnpacker;
 import mariculture.fishery.tile.TileAutofisher;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -90,6 +91,8 @@ public class BlockMachine extends BlockFunctional {
             case MachineMeta.AUTOFISHER:
                 return 2F;
             case MachineMeta.FISH_SORTER:
+                return 1.5F;
+            case MachineMeta.UNPACKER:
                 return 1.5F;
             default:
                 return 1F;
@@ -196,6 +199,8 @@ public class BlockMachine extends BlockFunctional {
                 return new TileAutofisher();
             case MachineMeta.FISH_SORTER:
                 return new TileFishSorter();
+            case MachineMeta.UNPACKER:
+                return new TileUnpacker();
             default:
                 return null;
         }
@@ -229,6 +234,8 @@ public class BlockMachine extends BlockFunctional {
                 return Modules.isActive(Modules.fishery);
             case MachineMeta.FISH_SORTER:
                 return Modules.isActive(Modules.fishery);
+            case MachineMeta.UNPACKER:
+                return Modules.isActive(Modules.factory);
             default:
                 return true;
         }

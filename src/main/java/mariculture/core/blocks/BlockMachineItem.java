@@ -27,6 +27,8 @@ public class BlockMachineItem extends ItemBlockMariculture {
                 return "autofisher";
             case MachineMeta.FISH_SORTER:
                 return "fishSorter";
+            case MachineMeta.UNPACKER:
+                return "unpacker";
             default:
                 return null;
         }

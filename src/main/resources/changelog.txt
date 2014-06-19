@@ -1,3 +1,6 @@
+Mariculture 1.7.2 BETA 12
+• Added Unpacker
+
 Mariculture 1.7.2 BETA 11.wtfbbq
 • Fixed ... Not even going to mention the stupidity.
 • Adjusted the loot to > fish ratio for all rod tiers

@@ -144,7 +144,12 @@ public class BlockTransferHelper {
             }
         }
 
-        if (!InventoryHelper.addItemStackToInventory(((IMachine) inventory).getInventory(), stack, slots)) return SpawnItemHelper.spawnItem(this, stack);
+        if(stack != null) {
+            if(!(inventory instanceof IMachine)) return SpawnItemHelper.spawnItem(this, stack);
+            if (!InventoryHelper.addItemStackToInventory(((IMachine) inventory).getInventory(), stack, slots)) {
+                return SpawnItemHelper.spawnItem(this, stack);
+            }
+        }
 
         return null;
     }

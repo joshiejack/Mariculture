@@ -34,20 +34,20 @@ public class Enchantments {
     public static void init(Configuration config) {
         setConfig(config);
         setCategory("IDs");
-        EnchantIds.blink = getInt("Blink", 70);
-        EnchantIds.elemental = getInt("Elemental Affinity", 71);
-        EnchantIds.fall = getInt("Fall Resistance", 72);
-        EnchantIds.flight = getInt("Superman", 74);
-        EnchantIds.glide = getInt("Paraglide", 75);
-        EnchantIds.health = getInt("1 Up", 76);
-        EnchantIds.jump = getInt("Leapfrog", 77);
-        EnchantIds.hungry = getInt("Never Hungry", 78);
-        EnchantIds.oneRing = getInt("The One Ring", 79);
-        EnchantIds.repair = getInt("Restoration", 82);
-        EnchantIds.resurrection = getInt("Reaper", 83);
-        EnchantIds.speed = getInt("Sonic the Hedgehog", 84);
-        EnchantIds.spider = getInt("Spiderman", 85);
-        EnchantIds.stepUp = getInt("Step Up", 86);
+        EnchantIds.blink = getInt("Blink", 75);
+        EnchantIds.elemental = getInt("Elemental Affinity", 76);
+        EnchantIds.fall = getInt("Fall Resistance", 77);
+        EnchantIds.flight = getInt("Superman", 78);
+        EnchantIds.glide = getInt("Paraglide", 79);
+        EnchantIds.health = getInt("1 Up", 80);
+        EnchantIds.jump = getInt("Leapfrog", 81);
+        EnchantIds.hungry = getInt("Never Hungry", 82);
+        EnchantIds.oneRing = getInt("The One Ring", 83);
+        EnchantIds.repair = getInt("Restoration", 84);
+        EnchantIds.resurrection = getInt("Reaper", 85);
+        EnchantIds.speed = getInt("Sonic the Hedgehog", 86);
+        EnchantIds.spider = getInt("Spiderman", 87);
+        EnchantIds.stepUp = getInt("Step Up", 88);
 
         setCategory("Jewelry");
         Jewelry.JEWELRY_OFFLINE = getBoolean("Enable Singleplayer Jewelry Offline Mode", false);

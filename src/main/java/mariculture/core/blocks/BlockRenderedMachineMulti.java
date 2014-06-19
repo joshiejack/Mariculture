@@ -168,11 +168,11 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
                         } else {
                             ItemStack addition = heldItem.copy();
                             addition.stackSize = 1;
-                            if (!player.capabilities.isCreativeMode) {
-                                player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                            if(sifter.process(addition, world.rand)) {
+                                if (!player.capabilities.isCreativeMode) {
+                                    player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                                }
                             }
-
-                            sifter.process(addition, world.rand);
                         }
                     }
                 }

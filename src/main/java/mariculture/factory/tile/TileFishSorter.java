@@ -11,7 +11,6 @@ import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IEjectable;
-import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
 import mariculture.fishery.Fish;
@@ -25,7 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileFishSorter extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable, IHasClickableButton {
+public class TileFishSorter extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
     private int dft_side;
     private HashMap<Integer, Integer> sorting = new HashMap();
     private EjectSetting setting;
@@ -89,6 +88,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
         } else {
             side = dft_side;
         }
+        
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
         if (tile instanceof IInventory && !(tile instanceof TileEntityHopper)) {

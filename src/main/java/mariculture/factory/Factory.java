@@ -8,6 +8,7 @@ import static mariculture.core.lib.ItemLib.autodictionary;
 import static mariculture.core.lib.ItemLib.baseIron;
 import static mariculture.core.lib.ItemLib.baseWood;
 import static mariculture.core.lib.ItemLib.bookAndQuill;
+import static mariculture.core.lib.ItemLib.craftingTable;
 import static mariculture.core.lib.ItemLib.feather;
 import static mariculture.core.lib.ItemLib.filterer;
 import static mariculture.core.lib.ItemLib.fish;
@@ -36,6 +37,7 @@ import static mariculture.core.lib.ItemLib.stoneSlab;
 import static mariculture.core.lib.ItemLib.tank;
 import static mariculture.core.lib.ItemLib.titaniumSheet;
 import static mariculture.core.lib.ItemLib.transparent;
+import static mariculture.core.lib.ItemLib.unpacker;
 import static mariculture.core.lib.ItemLib.water;
 import static mariculture.core.lib.ItemLib.waterTurbine;
 import static mariculture.core.lib.ItemLib.wicker;
@@ -77,6 +79,7 @@ import mariculture.factory.tile.TileSponge;
 import mariculture.factory.tile.TileTurbineGas;
 import mariculture.factory.tile.TileTurbineHand;
 import mariculture.factory.tile.TileTurbineWater;
+import mariculture.factory.tile.TileUnpacker;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -126,7 +129,8 @@ public class Factory extends RegistrationModule {
         customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
         customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
         RegistryHelper.registerBlocks(new Block[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
-        RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, TileFLUDDStand.class, TilePressureVessel.class, TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class });
+        RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, TileFLUDDStand.class, TilePressureVessel.class, 
+                TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class });
     }
 
     @Override
@@ -153,6 +157,7 @@ public class Factory extends RegistrationModule {
 
     @Override
     public void registerRecipes() {
+        addShaped(unpacker, new Object[] { "LLL", "LCL", "LBL", 'L', "logWood", 'B', baseWood, 'C', craftingTable });
         addShaped(sawmill, new Object[] { " A ", "DWD", "IMI", 'A', ironAxe, 'D', "slabWood", 'M', baseWood, 'W', "logWood", 'I', "ingotCopper" });
         addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
         addShaped(mechSponge, new Object[] { " D ", "ATA", "SCS", 'D', fish, 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum" });

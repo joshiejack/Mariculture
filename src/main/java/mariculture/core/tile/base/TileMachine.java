@@ -181,6 +181,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
         if (id == Feature.REDSTONE) {
             setRSMode(RedstoneMode.toggle(getRSMode()));
         }
+        
         if (id == Feature.EJECT) {
             setEjectSetting(EjectSetting.toggle(getEjectType(), getEjectSetting()));
         }

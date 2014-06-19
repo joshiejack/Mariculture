@@ -44,6 +44,7 @@ public class InventoryHelper {
     //Copy of the above, but instead of a start index, able to specify WHICH slots
     public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack, int[] slots) {
         if (stack == null) return true;
+        if(slots == null) return false;
         int openSlot = -1;
         for (int i : slots)
             if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {

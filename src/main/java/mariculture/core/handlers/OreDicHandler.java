@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import mariculture.core.config.AutoDictionary;
 import mariculture.core.config.GeneralStuff;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.helpers.StackHelper;
 import mariculture.plugins.PluginMFR;
@@ -104,7 +105,7 @@ public class OreDicHandler {
     }
 
     public static void add(ItemStack stack, String name) {
-        String id = convert(stack);
+        String id = ItemHelper.getName(stack);
         //All
         ArrayList<String> alls = all.containsKey(id) ? all.get(id) : new ArrayList();
         alls.add(name);
@@ -138,26 +139,14 @@ public class OreDicHandler {
         syncOreDictionary(stack, name);
     }
 
-    public static String convert(ItemStack stack) {
-        try {
-            return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage();
-        } catch (Exception e) {
-            try {
-                return Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + OreDictionary.WILDCARD_VALUE;
-            } catch (Exception e2) {
-                return "";
-            }
-        }
-    }
-
     public static boolean isInDictionary(ItemStack stack) {
         return OreDictionary.getOreID(stack) > 0;
     }
 
     public static boolean areEqual(ItemStack stack1, ItemStack stack2) {
         if (!isInDictionary(stack1) || !isInDictionary(stack2)) return false;
-        ArrayList<String> oreNames1 = entries.get(convert(stack1));
-        ArrayList<String> oreNames2 = entries.get(convert(stack2));
+        ArrayList<String> oreNames1 = entries.get(ItemHelper.getName(stack1));
+        ArrayList<String> oreNames2 = entries.get(ItemHelper.getName(stack2));
         if (oreNames1 == null || oreNames2 == null) return false;
 
         for (String ores1 : oreNames1) {
@@ -170,7 +159,7 @@ public class OreDicHandler {
 
     public static boolean areEqual(ItemStack stack, String item) {
         if (!isInDictionary(stack)) return false;
-        ArrayList<String> names = entries.get(convert(stack));
+        ArrayList<String> names = entries.get(ItemHelper.getName(stack));
         for (String name : names)
             if (name.equals(item)) return true;
 
@@ -214,12 +203,12 @@ public class OreDicHandler {
     }
 
     private static ItemStack getNextValidEntry(ItemStack stack, String name) {
-        String converted = convert(stack);
+        String converted = ItemHelper.getName(stack);
         boolean found = false;
         ArrayList<ItemStack> stacks = items.get(name);
         if (stacks == null || stacks.size() < 1) return stack;
         for (ItemStack item : stacks) {
-            if (found && item != null && !convert(item).equals(converted)) {
+            if (found && item != null && !ItemHelper.getName(item).equals(converted)) {
                 ItemStack ret = item.copy();
                 if (!ret.hasTagCompound()) {
                     ret.setTagCompound(new NBTTagCompound());
@@ -231,7 +220,7 @@ public class OreDicHandler {
                 return ret;
             }
 
-            found = convert(item).equals(converted);
+            found = ItemHelper.getName(item).equals(converted);
         }
 
         ItemStack ret = stacks.get(0).copy();
@@ -247,7 +236,7 @@ public class OreDicHandler {
 
     public static String getNextString(ItemStack stack, String name) {
         boolean found = false;
-        ArrayList<String> names = entries.get(convert(stack));
+        ArrayList<String> names = entries.get(ItemHelper.getName(stack));
         if (names == null) return name;
         for (String entry : names) {
             if (found && !entry.equals(name)) return entry;
@@ -262,7 +251,7 @@ public class OreDicHandler {
         lore.appendTag(new NBTTagString(name));
 
         String last = "";
-        ArrayList<String> names = entries.get(convert(stack));
+        ArrayList<String> names = entries.get(ItemHelper.getName(stack));
         if (names == null) return lore;
         for (String entry : names)
             if (!entry.equals(name) && !last.equals(entry)) {

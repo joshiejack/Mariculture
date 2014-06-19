@@ -75,6 +75,7 @@ public class ItemLib {
     public static final Block brownMushroom = Blocks.brown_mushroom;
     public static final Block log = Blocks.log;
     public static final Block planks = Blocks.planks;
+    public static final Block craftingTable = Blocks.crafting_table;
 
     /** Vanilla shortcuts for items **/
     public static final Item repeater = Items.repeater;
@@ -157,6 +158,7 @@ public class ItemLib {
     public static final ItemStack autodictionary = new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM);
     public static final ItemStack fishSorter = new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER);
     public static final ItemStack sawmill = new ItemStack(Core.machines, 1, MachineMeta.SAWMILL);
+    public static final ItemStack unpacker = new ItemStack(Core.machines, 1, MachineMeta.UNPACKER);
     public static final ItemStack incubatorBase = new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_BASE);
     public static final ItemStack incubatorTop = new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_TOP);
     public static final ItemStack fishFeeder = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.FISH_FEEDER);
