@@ -3,7 +3,6 @@ package mariculture.diving;
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
-import mariculture.core.lib.ArmorSlot;
 import mariculture.core.util.IItemRegistry;
 import mariculture.diving.render.ModelLifejacket;
 import net.minecraft.client.model.ModelBiped;

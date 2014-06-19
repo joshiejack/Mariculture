@@ -9,7 +9,6 @@ import static mariculture.core.lib.ItemLib.dropletMagic;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.vanillaFish;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;

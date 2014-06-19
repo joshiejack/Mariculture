@@ -5,7 +5,6 @@ import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.ItemLib.dropletDestroy;
 import static mariculture.core.lib.ItemLib.dropletPoison;
 import static mariculture.core.lib.ItemLib.dropletWater;
-import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;

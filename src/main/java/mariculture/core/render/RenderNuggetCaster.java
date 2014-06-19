@@ -6,7 +6,6 @@ import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.tile.TileNuggetCaster;
-import net.minecraft.init.Blocks;
 
 public class RenderNuggetCaster extends RenderBase {
     public RenderNuggetCaster() {}

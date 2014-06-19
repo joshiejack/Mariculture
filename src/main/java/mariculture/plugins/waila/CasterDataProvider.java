@@ -1,9 +1,7 @@
 package mariculture.plugins.waila;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.core.helpers.FluidHelper;
 import mariculture.core.tile.TileCooling;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;

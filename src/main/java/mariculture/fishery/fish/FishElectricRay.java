@@ -9,9 +9,7 @@ import static mariculture.core.lib.ItemLib.dropletWater;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;

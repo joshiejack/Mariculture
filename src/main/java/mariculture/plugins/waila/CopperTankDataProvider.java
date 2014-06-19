@@ -3,14 +3,12 @@ package mariculture.plugins.waila;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.core.blocks.BlockTank;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.tile.TileTankBlock;
 import mariculture.core.tile.TileVoidBottle;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
