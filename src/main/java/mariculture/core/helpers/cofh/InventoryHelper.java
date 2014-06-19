@@ -144,6 +144,45 @@ public class InventoryHelper {
 
         return stack;
     }
+    
+    //Copy of the above but simulates
+    public static boolean canInsertItemStackIntoInventory(IInventory theInventory, ItemStack stack, int side) {
+        if (stack == null) return false;
+        ItemStack original = stack.copy();
+        int stackSize = stack.stackSize;
+
+        if (theInventory instanceof ISidedInventory) {
+            ISidedInventory sidedInv = (ISidedInventory) theInventory;
+            int slots[] = sidedInv.getAccessibleSlotsFromSide(side);
+
+            if (slots == null) return false;
+            for (int i = 0; i < slots.length && stack != null; i++)
+                if (sidedInv.canInsertItem(slots[i], stack, side) && ItemHelper.itemsEqualWithMetadata(stack, theInventory.getStackInSlot(slots[i]), true)) {
+                    stack = simulateAddToOccupiedInventorySlot(sidedInv, slots[i], stack);
+                }
+            for (int i = 0; i < slots.length && stack != null; i++)
+                if (sidedInv.canInsertItem(slots[i], stack, side) && theInventory.getStackInSlot(slots[i]) == null) {
+                    stack = simulateAddToEmptyInventorySlot(sidedInv, slots[i], stack);
+                }
+        } else {
+            int invSize = theInventory.getSizeInventory();
+            for (int i = 0; i < invSize && stack != null; i++)
+                if (ItemHelper.itemsEqualWithMetadata(stack, theInventory.getStackInSlot(i), true)) {
+                    stack = simulateAddToOccupiedInventorySlot(theInventory, i, stack);
+                }
+
+            for (int i = 0; i < invSize && stack != null; i++)
+                if (theInventory.getStackInSlot(i) == null) {
+                    stack = simulateAddToEmptyInventorySlot(theInventory, i, stack);
+                }
+        }
+                
+        if (stack == null || stack.stackSize == 0) {
+            return true;
+        }
+        
+        return false;
+    }
 
     /* Slot Interaction */
     private static ItemStack addToEmptyInventorySlot(IInventory theInventory, int slot, ItemStack stack) {

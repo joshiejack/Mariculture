@@ -94,7 +94,7 @@ public class UnpackerHelper {
     public static ItemStack unpack(World world, ItemStack stack) {
         String key = ItemHelper.getName(stack);
         if (cache.containsKey(key)) {
-            return cache.get(key);
+            return cache.get(key).copy();
         }
 
         DummyCrafting crafting = new DummyCrafting(1, 1);
@@ -102,7 +102,7 @@ public class UnpackerHelper {
         for (IRecipe irecipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList()) {
             try {
                 if (irecipe.matches(crafting, world)) {
-                    return irecipe.getCraftingResult(crafting);
+                    return irecipe.getCraftingResult(crafting).copy();
                 }
             } catch (Exception e) {}
         }

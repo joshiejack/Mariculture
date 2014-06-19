@@ -1,15 +1,15 @@
 package mariculture.factory.tile;
 
-import mariculture.core.gui.feature.FeatureEject.EjectSetting;
-import mariculture.core.helpers.BlockTransferHelper;
+import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.tile.base.TileStorage;
-import mariculture.core.util.IEjectable;
 import mariculture.factory.UnpackerHelper;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileUnpacker extends TileStorage implements ISidedInventory, IEjectable {
-    public BlockTransferHelper helper;
+public class TileUnpacker extends TileStorage implements ISidedInventory {
     public static final int INPUT = 0;
     public static final int[] SLOTS = new int[] { INPUT };
 
@@ -19,10 +19,9 @@ public class TileUnpacker extends TileStorage implements ISidedInventory, IEject
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
-        ItemStack ejecting = stack.copy();
-        if (ejecting != null) {
-            if (helper == null) helper = new BlockTransferHelper(this);
-            helper.insertStack(UnpackerHelper.unpack(worldObj, stack), null);
+        TileEntity tile = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+        if (tile instanceof IInventory) {
+            InventoryHelper.insertItemStackIntoInventory((IInventory) tile, UnpackerHelper.unpack(worldObj, stack), ForgeDirection.UP.ordinal());
         }
     }
 
@@ -33,31 +32,20 @@ public class TileUnpacker extends TileStorage implements ISidedInventory, IEject
 
     @Override
     public boolean canInsertItem(int slot, ItemStack stack, int side) {
-        return slot == INPUT && inventory[INPUT] == null && UnpackerHelper.canUnpack(worldObj, stack);
+        if (slot == INPUT && side == ForgeDirection.UP.ordinal()) {
+            ItemStack ret = UnpackerHelper.unpack(worldObj, stack);
+            if (ret == null) return false;
+            else {
+                TileEntity tile = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+                if (tile instanceof IInventory) {
+                    return InventoryHelper.canInsertItemStackIntoInventory((IInventory) tile, ret, ForgeDirection.UP.ordinal());
+                } else return false;
+            }
+        } else return false;
     }
 
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side) {
         return false;
-    }
-
-    @Override
-    public EjectSetting getEjectType() {
-        return EjectSetting.ITEM;
-    }
-
-    @Override
-    public EjectSetting getEjectSetting() {
-        return EjectSetting.ITEM;
-    }
-
-    @Override
-    public void setEjectSetting(EjectSetting setting) {
-        return;
-    }
-
-    @Override
-    public void handleButtonClick(int id) {
-        return;
     }
 }
