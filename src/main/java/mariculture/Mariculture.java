@@ -9,7 +9,6 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.lib.Required;
 import mariculture.core.network.PacketHandler;
-import mariculture.factory.UnpackerHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -17,7 +16,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = "Mariculture", name = "Mariculture", dependencies = Required.after)
@@ -63,12 +61,5 @@ public class Mariculture {
         }
 
         proxy.setupClient();
-    }
-    
-    @EventHandler
-    public void onServerStarting(FMLServerStartingEvent event) {
-        if(Modules.isActive(Modules.factory)) {
-            UnpackerHelper.load();
-        }
     }
 }

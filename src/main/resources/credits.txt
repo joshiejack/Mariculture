@@ -11,4 +11,3 @@ Hammer Sound - http://www.freesound.org/people/Dvideoguy/sounds/207782/
 COFH Team - RF Energy System & Some Helpers
 SlimeKnights - For open sourcing, making parts of the guides and rendering more understandable
 Poppycocks - Limestone Smooth & Brick Textures & Pearl Bricks
-Chickenbones - Unpacker item list
