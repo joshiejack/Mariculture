@@ -88,7 +88,6 @@ import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
-import mariculture.core.lib.DropletMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemLib;

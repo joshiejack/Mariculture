@@ -1,22 +1,13 @@
 package mariculture.factory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import mariculture.core.helpers.ItemHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import codechicken.nei.ItemList.TimeoutException;
-import codechicken.nei.guihook.GuiContainerManager;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
 
 public class UnpackerHelper {
     public static HashMap<String, ItemStack> cache = new HashMap();

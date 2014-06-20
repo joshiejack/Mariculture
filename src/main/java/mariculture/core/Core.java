@@ -93,7 +93,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 public class Core extends RegistrationModule {
     public static Block air;
