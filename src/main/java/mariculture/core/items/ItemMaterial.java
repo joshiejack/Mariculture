@@ -32,6 +32,8 @@ public class ItemMaterial extends ItemMariculture {
                 return "ingotTitanium";
             case MaterialsMeta.INGOT_COPPER:
                 return "ingotCopper";
+            case MaterialsMeta.INGOT_ALLOY:
+                return "ingotAlloy";
             case MaterialsMeta.FISH_MEAL:
                 return "fishMeal";
             case MaterialsMeta.DYE_YELLOW:
@@ -100,6 +102,8 @@ public class ItemMaterial extends ItemMariculture {
                 return "nuggetRutile";
             case MaterialsMeta.NUGGET_TITANIUM:
                 return "nuggetTitanium";
+            case MaterialsMeta.NUGGET_ALLOY:
+                return "nuggetAlloy";
             default:
                 return "dropletWater";
         }
@@ -120,8 +124,6 @@ public class ItemMaterial extends ItemMariculture {
                 return Modules.isActive(Modules.worldplus);
             case MaterialsMeta.DYE_WHITE:
                 return Modules.isActive(Modules.worldplus);
-            case MaterialsMeta.UNUSED:
-                return false;
         }
 
         if (meta >= MaterialsMeta.DROP_EARTH && meta <= MaterialsMeta.DROP_HEALTH) return Modules.isActive(Modules.fishery);

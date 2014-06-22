@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -364,7 +363,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
                 }
 
-                if (!species.canWork(Time.getTime(worldObj))) {
+                if (!species.canWork(worldObj)) {
                     noBad = addToolTip(tooltip, Text.translate("badTime"));
                 }
 

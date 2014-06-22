@@ -75,12 +75,12 @@ public class FishNether extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return 45D;
     }
 
     @Override
-    public double getCaughtAliveChance(World world, int height, int time) {
+    public double getCaughtAliveChance(World world, int height) {
         return Height.isShallows(height) ? 65D : 25D;
     }
 }

@@ -71,7 +71,7 @@ public class FishGold extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return 15D;
     }
 }

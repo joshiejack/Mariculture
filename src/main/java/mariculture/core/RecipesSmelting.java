@@ -50,6 +50,7 @@ public class RecipesSmelting {
     public static int aluminum = 660;
     public static int titanium = 1662;
     public static int electrum = 1000;
+    public static int alloy = 1725;
 
     public static void addRecipe(String fluidName, Object[] item, int[] volume, int temperature) {
         addRecipe(fluidName, item, volume, temperature, null, 0);
@@ -218,12 +219,19 @@ public class RecipesSmelting {
         addMetal(Fluids.rutile, "Rutile", titanium, limestone, 2);
         addMetal(Fluids.titanium, "Titanium", titanium, limestone, 2);
         addMetal(Fluids.magnesium, "Magnesium", magnesium, new ItemStack(stone), 2);
+        addMetal(Fluids.titaniumAlloy, "TitaniumAlloy", alloy, limestone, 2);
 
         FluidStack moltenRutile = FluidRegistry.getFluidStack(Fluids.rutile, MetalRates.INGOT);
         FluidStack moltenMagnesium = FluidRegistry.getFluidStack(Fluids.magnesium, MetalRates.INGOT);
         FluidStack moltenTitanium = FluidRegistry.getFluidStack(Fluids.titanium, MetalRates.INGOT);
         RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 6);
         RecipeHelper.addMelting(dustMagnesium, magnesium, get(Fluids.magnesium), salt, 1);
+        
+        //Alloy Recipe
+        FluidStack mTitanium = FluidRegistry.getFluidStack(Fluids.titanium, MetalRates.INGOT * 3);
+        FluidStack mAluminum = FluidRegistry.getFluidStack(Fluids.aluminum, MetalRates.NUGGET * 3);
+        FluidStack mAlloy = FluidRegistry.getFluidStack(Fluids.titaniumAlloy, MetalRates.INGOT);
+        RecipeHelper.addFluidAlloy(mTitanium, mAluminum, mAlloy, 18);
 
         //Gold Back
         RecipeHelper.addMelting(new ItemStack(Blocks.light_weighted_pressure_plate), gold, gold(MetalRates.INGOT * 2));

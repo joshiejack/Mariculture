@@ -3,8 +3,10 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.dropletEarth;
 import static mariculture.core.lib.ItemLib.dropletWater;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.init.Items;
@@ -74,7 +76,7 @@ public class FishPerch extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return Time.isDay(time) ? 25D : 0D;
+    public double getCatchChance(World world, int height) {
+        return world.isDaytime() ? 25D : 0D;
     }
 }

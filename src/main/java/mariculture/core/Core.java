@@ -113,6 +113,7 @@ public class Core extends RegistrationModule {
     public static Block tanks;
     public static Block ticking;
 
+    public static Fluid moltenAlloy;
     public static Fluid moltenAluminum;
     public static Fluid moltenTitanium;
     public static Fluid moltenIron;
@@ -210,6 +211,7 @@ public class Core extends RegistrationModule {
         moltenRutile = FluidHelper.addFluid("rutile", "rutile.molten", MetalRates.ORE, BottleMeta.RUTILE);
         moltenIron = FluidHelper.addFluid("iron", "iron.molten", MetalRates.ORE, BottleMeta.IRON);
         moltenGold = FluidHelper.addFluid("gold", "gold.molten", MetalRates.ORE, BottleMeta.GOLD);
+        moltenAlloy = FluidHelper.addFluid("titaniumAlloy", "titanium.alloy.molten", MetalRates.ORE, BottleMeta.ALLOY);
 
         // Modded Fluids
         moltenTin = FluidHelper.addFluid("tin", "tin.molten", MetalRates.ORE, BottleMeta.TIN);
@@ -344,6 +346,7 @@ public class Core extends RegistrationModule {
         OreDictionary.registerOre("blockMagnesium", new ItemStack(metals, 1, MetalMeta.MAGNESIUM_BLOCK));
         OreDictionary.registerOre("blockRutile", new ItemStack(metals, 1, MetalMeta.RUTILE_BLOCK));
         OreDictionary.registerOre("blockTitanium", new ItemStack(metals, 1, MetalMeta.TITANIUM_BLOCK));
+        OreDictionary.registerOre("blockTitaniumAlloy", new ItemStack(metals, 1, MetalMeta.ALLOY_BLOCK));
 
         OreDictionary.registerOre("dustMagnesium", new ItemStack(materials, 1, MaterialsMeta.DUST_MAGNESITE));
         OreDictionary.registerOre("foodSalt", new ItemStack(materials, 1, MaterialsMeta.DUST_SALT));
@@ -352,6 +355,7 @@ public class Core extends RegistrationModule {
         OreDictionary.registerOre("ingotMagnesium", new ItemStack(materials, 1, MaterialsMeta.INGOT_MAGNESIUM));
         OreDictionary.registerOre("ingotRutile", new ItemStack(materials, 1, MaterialsMeta.INGOT_RUTILE));
         OreDictionary.registerOre("ingotTitanium", new ItemStack(materials, 1, MaterialsMeta.INGOT_TITANIUM));
+        OreDictionary.registerOre("ingotTitaniumAlloy", new ItemStack(materials, 1, MaterialsMeta.INGOT_ALLOY));
 
         OreDictionary.registerOre("dyeYellow", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW));
         OreDictionary.registerOre("dyeRed", new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED));
@@ -366,6 +370,7 @@ public class Core extends RegistrationModule {
         OreDictionary.registerOre("nuggetRutile", new ItemStack(materials, 1, MaterialsMeta.NUGGET_RUTILE));
         OreDictionary.registerOre("nuggetTitanium", new ItemStack(materials, 1, MaterialsMeta.NUGGET_TITANIUM));
         OreDictionary.registerOre("nuggetIron", new ItemStack(materials, 1, MaterialsMeta.NUGGET_IRON));
+        OreDictionary.registerOre("nuggetTitaniumAlloy", new ItemStack(materials, 1, MaterialsMeta.NUGGET_ALLOY));
     }
 
     @Override

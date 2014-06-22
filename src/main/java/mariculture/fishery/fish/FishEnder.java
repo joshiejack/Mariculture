@@ -3,8 +3,10 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.dropletEnder;
 import static mariculture.core.lib.ItemLib.enderPearl;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.helpers.BlockHelper;
@@ -84,8 +86,8 @@ public class FishEnder extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isNoon(time);
+    public boolean canWork(World world) {
+        return !world.isDaytime();
     }
 
     @Override
@@ -99,7 +101,7 @@ public class FishEnder extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return 66D;
     }
 }

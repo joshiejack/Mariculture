@@ -6,9 +6,11 @@ import static mariculture.core.lib.ItemLib.dropletEarth;
 import static mariculture.core.lib.ItemLib.dropletPoison;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.fishMeal;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.EntityLivingBase;
@@ -73,8 +75,8 @@ public class FishStargazer extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isNoon(time);
+    public boolean canWork(World world) {
+        return !world.isDaytime();
     }
 
     @Override
@@ -83,7 +85,7 @@ public class FishStargazer extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return Height.isDeep(height) ? 10D : 0D;
     }
 }

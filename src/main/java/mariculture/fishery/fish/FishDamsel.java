@@ -3,8 +3,10 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.dropletRegen;
 import static mariculture.core.lib.ItemLib.dropletWater;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
@@ -75,8 +77,8 @@ public class FishDamsel extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isMidnight(time);
+    public boolean canWork(World world) {
+        return world.isDaytime();
     }
 
     @Override
@@ -85,12 +87,12 @@ public class FishDamsel extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return Time.isDawn(time) ? 45D : Time.isNoon(time) ? 25D : 0D;
+    public double getCatchChance(World world, int height) {
+        return world.isDaytime()? 35D : 0D;
     }
 
     @Override
-    public double getCaughtAliveChance(World world, int height, int time) {
-        return Time.isDawn(time) ? 65D : Time.isNoon(time) ? 85D : 0D;
+    public double getCaughtAliveChance(World world, int height) {
+        return world.isDaytime()? 75D : 0D;
     }
 }

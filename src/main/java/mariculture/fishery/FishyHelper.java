@@ -6,7 +6,6 @@ import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
@@ -220,7 +219,7 @@ public class FishyHelper implements IFishHelper {
             }
 
             if (!worldCorrect) return false;
-            if (!fish.canWork(Time.getTime(world))) return false;
+            if (!fish.canWork(world)) return false;
             else return MaricultureHandlers.environment.matches(salt, temperature, fish.salinity, fish.temperature);
         }
     }

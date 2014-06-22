@@ -82,7 +82,7 @@ public class FishLamprey extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return Height.isDeep(height) ? 15D : 0D;
     }
 }

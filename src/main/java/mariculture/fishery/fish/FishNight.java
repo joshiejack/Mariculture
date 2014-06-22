@@ -3,9 +3,11 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.BRACKISH;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.dropletEnder;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,8 +64,8 @@ public class FishNight extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isDay(time);
+    public boolean canWork(World world) {
+        return !world.isDaytime();
     }
 
     @Override
@@ -77,12 +79,12 @@ public class FishNight extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return world.provider.dimensionId == 1 ? 55D : Height.isCave(height) ? 5D : Time.isMidnight(time) ? 45D : Time.isDusk(time) ? 35D : 0D;
+    public double getCatchChance(World world, int height) {
+        return world.provider.dimensionId == 1 ? 55D : Height.isCave(height) ? 5D : !world.isDaytime() ? 35D : 0D;
     }
 
     @Override
-    public double getCaughtAliveChance(World world, int height, int time) {
-        return world.provider.dimensionId == 1 ? 65D : !Time.isMidnight(time) ? 44D : 0D;
+    public double getCaughtAliveChance(World world, int height) {
+        return world.provider.dimensionId == 1 ? 65D : !world.isDaytime() ? 44D : 0D;
     }
 }

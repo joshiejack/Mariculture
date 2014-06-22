@@ -44,39 +44,4 @@ public class Environment {
     public static enum Salinity {
         FRESH, BRACKISH, SALINE
     }
-
-    public static class Time {
-        // Get the time in 24000 blocks from the world
-        public static int getTime(World world) {
-            return (int) (world.getWorldTime() % 24000);
-        }
-
-        public static boolean isDay(int time) {
-            return time < 12000;
-        }
-
-        public static boolean isDawn(int time) {
-            return time < 6000;
-        }
-
-        public static boolean isNoon(int time) {
-            return time >= 6000 && time < 12000;
-        }
-
-        public static boolean isDusk(int time) {
-            return time >= 12000 && time < 18000;
-        }
-
-        public static boolean isMidnight(int time) {
-            return time >= 18000;
-        }
-
-        public static String getTimeString(int time) {
-            if (isDawn(time)) return "dawn";
-            if (isDusk(time)) return "dusk";
-            if (isNoon(time)) return "day";
-            if (isMidnight(time)) return "night";
-            return isDay(time) ? "day" : "night";
-        }
-    }
 }

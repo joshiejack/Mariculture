@@ -81,7 +81,7 @@ public class FishCatfish extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return Height.isShallows(height) ? 25D : 0D;
     }
 }

@@ -142,6 +142,7 @@ public class ItemLib {
     public static final ItemStack blockMagnesium = new ItemStack(Core.metals, 1, MetalMeta.MAGNESIUM_BLOCK);
     public static final ItemStack blockCopper = new ItemStack(Core.metals, 1, MetalMeta.COPPER_BLOCK);
     public static final ItemStack blockRutile = new ItemStack(Core.metals, 1, MetalMeta.RUTILE_BLOCK);
+    public static final ItemStack blockAlloy = new ItemStack(Core.metals, 1, MetalMeta.ALLOY_BLOCK);
     public static final ItemStack oreCopper = new ItemStack(Core.rocks, 1, RockMeta.COPPER);
     public static final ItemStack transparent = new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC);
     public static final ItemStack tank = new ItemStack(Core.tanks, 1, TankMeta.TANK);
@@ -149,8 +150,10 @@ public class ItemLib {
     public static final ItemStack baseBrick = new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK);
     public static final ItemStack baseIron = new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON);
     public static final ItemStack baseWood = new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD);
+    public static final ItemStack baseAlloy = new ItemStack(Core.metals, 1, MetalMeta.BASE_ALLOY);
     public static final ItemStack mechSponge = new ItemStack(Core.machines, 1, MachineMeta.SPONGE);
     public static final ItemStack sluice = new ItemStack(Core.machines, 1, MachineMeta.SLUICE);
+    public static final ItemStack sluiceAdvanced = new ItemStack(Core.machines, 1, MachineMeta.SLUICE_ADVANCED);
     public static final ItemStack handTurbine = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_HAND);
     public static final ItemStack waterTurbine = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_WATER);
     public static final ItemStack gasTurbine = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_GAS);
@@ -184,12 +187,15 @@ public class ItemLib {
     public static final ItemStack hammer = new ItemStack(Core.hammer);
     public static final ItemStack ladle = new ItemStack(Core.ladle);
     public static final ItemStack titaniumBucket = new ItemStack(Core.bucketTitanium);
+    public static final ItemStack pressurisedBucket = new ItemStack(Core.buckets, 1, BucketMeta.PRESSURE);
     public static final ItemStack dustSalt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
     public static final ItemStack ingotTitanium = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM);
     public static final ItemStack ingotMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM);
     public static final ItemStack ingotRutile = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE);
     public static final ItemStack ingotCopper = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER);
     public static final ItemStack ingotAluminum = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM);
+    public static final ItemStack ingotAlloy = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALLOY);
+    public static final ItemStack nuggetAlloy = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_ALLOY);
     public static final ItemStack nuggetIron = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_IRON);
     public static final ItemStack nuggetCopper = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_COPPER);
     public static final ItemStack nuggetRutile = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_RUTILE);

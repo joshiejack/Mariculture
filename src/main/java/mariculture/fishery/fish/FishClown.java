@@ -7,9 +7,11 @@ import static mariculture.core.lib.ItemLib.dropletMagic;
 import static mariculture.core.lib.ItemLib.dropletRegen;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.orangeDye;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
@@ -80,8 +82,8 @@ public class FishClown extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isMidnight(time);
+    public boolean canWork(World world) {
+        return world.isDaytime();
     }
 
     @Override
@@ -90,7 +92,7 @@ public class FishClown extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return Height.isShallows(height) ? 20D : 0D;
     }
 }

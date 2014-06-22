@@ -44,6 +44,7 @@ public class Recipes {
         addShaped(baseBrick, new Object[] { "IGI", "G G", "IGI", 'I', burntBrick, 'G', ironBars });
         addShaped(baseIron, new Object[] { "IGI", "G G", "IGI", 'I', "ingotIron", 'G', glassPane });
         addShaped(baseWood, new Object[] { "IGI", "G G", "IGI", 'I', "logWood", 'G', fence });
+        addShaped(baseAlloy, new Object[] { "IGI", "G G", "IGI", 'I', "ingotTitaniumAlloy", 'G', new ItemStack(Blocks.stained_glass_pane, 1, 7) });
         addShaped(airPump, new Object[] { "WGW", "PRP", "PMP", 'G', "blockGlass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel });
         addShaped(_(tank, 2), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "blockGlass" });
         addShaped(storageBookshelf, new Object[] { "SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest });
@@ -94,6 +95,8 @@ public class Recipes {
     }
 
     private static void addMetalRecipes() {
+        add9x9Recipe(ingotAlloy, "nuggetTitaniumAlloy");
+        addUncraftingRecipe(_(nuggetAlloy, 9), "ingotTitaniumAlloy");
         add9x9Recipe(ingotRutile, "nuggetRutile");
         addUncraftingRecipe(_(nuggetRutile, 9), "ingotRutile");
         add9x9Recipe(ingotMagnesium, "nuggetMagnesium");
@@ -107,6 +110,8 @@ public class Recipes {
         add9x9Recipe(_(ingotIron), "nuggetIron");
         addUncraftingRecipe(_(nuggetIron, 9), "ingotIron");
 
+        add9x9Recipe(blockAlloy, "ingotTitaniumAlloy");
+        addUncraftingRecipe(_(ingotAlloy, 9), "blockTitaniumAlloy");
         add9x9Recipe(blockRutile, "ingotRutile");
         addUncraftingRecipe(_(ingotRutile, 9), "blockRutile");
         add9x9Recipe(blockMagnesium, "ingotMagnesium");

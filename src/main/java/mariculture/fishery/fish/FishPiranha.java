@@ -6,8 +6,10 @@ import static mariculture.core.lib.ItemLib.dropletDestroy;
 import static mariculture.core.lib.ItemLib.dropletEarth;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.rottenFlesh;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.lib.MaricultureDamage;
@@ -95,7 +97,7 @@ public class FishPiranha extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return Time.isDusk(time) ? 35D : 3D;
+    public double getCatchChance(World world, int height) {
+        return !world.isDaytime() ? 35D : 3D;
     }
 }

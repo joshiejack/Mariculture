@@ -6,11 +6,11 @@ import static mariculture.core.lib.ItemLib.dropletEarth;
 import static mariculture.core.lib.ItemLib.rottenFlesh;
 import static mariculture.core.lib.ItemLib.zombie;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
@@ -106,8 +106,8 @@ public class FishUndead extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isNoon(time);
+    public boolean canWork(World world) {
+        return !world.isDaytime();
     }
 
     @Override
@@ -116,7 +116,7 @@ public class FishUndead extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return Height.isDeep(height) || Time.isMidnight(time) ? 15D : 0D;
+    public double getCatchChance(World world, int height) {
+        return Height.isDeep(height) || !world.isDaytime() ? 15D : 0D;
     }
 }

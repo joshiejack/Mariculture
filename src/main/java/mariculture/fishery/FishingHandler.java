@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishing;
@@ -312,13 +311,12 @@ public class FishingHandler implements IFishing {
 
         Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
         int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
-        int time = Time.getTime(world);
         for (int i = 0; i < 20; i++) {
             Collections.shuffle(catchables);
             for (FishSpecies fish : catchables) {
-                double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature, time);
-                if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) if (FishMechanics.IGNORE_BIOMES) return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y, time) * 15D);
-                else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature, time) * 10D);
+                double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature);
+                if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) if (FishMechanics.IGNORE_BIOMES) return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * 15D);
+                else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * 10D);
             }
         }
 

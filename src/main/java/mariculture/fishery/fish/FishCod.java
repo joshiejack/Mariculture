@@ -73,12 +73,12 @@ public class FishCod extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return 25D;
     }
 
     @Override
-    public double getCaughtAliveChance(World world, int height, int time) {
+    public double getCaughtAliveChance(World world, int height) {
         return 65D;
     }
 }

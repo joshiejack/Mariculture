@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
@@ -106,8 +105,8 @@ public class FishAngel extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isMidnight(time);
+    public boolean canWork(World world) {
+        return world.isDaytime();
     }
 
     @Override
@@ -116,7 +115,7 @@ public class FishAngel extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return Time.isDawn(time) ? 45D : Time.isNoon(time) ? 15D : 0D;
+    public double getCatchChance(World world, int height) {
+        return world.isDaytime() ? 25D : 0D;
     }
 }

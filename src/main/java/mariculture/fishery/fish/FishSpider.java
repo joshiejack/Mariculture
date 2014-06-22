@@ -6,9 +6,11 @@ import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.fermentedEye;
 import static mariculture.core.lib.ItemLib.spiderEye;
 import static mariculture.core.lib.ItemLib.string;
+
+import java.sql.Time;
+
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.Environment.Time;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.EntityLivingBase;
@@ -90,8 +92,8 @@ public class FishSpider extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(int time) {
-        return !Time.isNoon(time);
+    public boolean canWork(World world) {
+        return !world.isDaytime();
     }
 
     @Override
@@ -100,12 +102,12 @@ public class FishSpider extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
-        return Height.isCave(height) || Time.isMidnight(time) ? 25D : 0D;
+    public double getCatchChance(World world, int height) {
+        return Height.isCave(height) || world.isDaytime() ? 25D : 0D;
     }
 
     @Override
-    public double getCaughtAliveChance(World world, int height, int time) {
+    public double getCaughtAliveChance(World world, int height) {
         return Height.isCave(height) ? 75D : 0D;
     }
 }

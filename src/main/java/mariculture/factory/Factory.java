@@ -5,6 +5,7 @@ import static mariculture.core.helpers.RecipeHelper.addMelting;
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
 import static mariculture.core.lib.ItemLib.autodictionary;
+import static mariculture.core.lib.ItemLib.baseAlloy;
 import static mariculture.core.lib.ItemLib.baseIron;
 import static mariculture.core.lib.ItemLib.baseWood;
 import static mariculture.core.lib.ItemLib.bookAndQuill;
@@ -29,9 +30,11 @@ import static mariculture.core.lib.ItemLib.piston;
 import static mariculture.core.lib.ItemLib.plan;
 import static mariculture.core.lib.ItemLib.plasticLens;
 import static mariculture.core.lib.ItemLib.pressureVessel;
+import static mariculture.core.lib.ItemLib.pressurisedBucket;
 import static mariculture.core.lib.ItemLib.quartzSlab;
 import static mariculture.core.lib.ItemLib.sawmill;
 import static mariculture.core.lib.ItemLib.sluice;
+import static mariculture.core.lib.ItemLib.sluiceAdvanced;
 import static mariculture.core.lib.ItemLib.sponge;
 import static mariculture.core.lib.ItemLib.stoneSlab;
 import static mariculture.core.lib.ItemLib.tank;
@@ -75,6 +78,7 @@ import mariculture.factory.tile.TileGeyser;
 import mariculture.factory.tile.TilePressureVessel;
 import mariculture.factory.tile.TileSawmill;
 import mariculture.factory.tile.TileSluice;
+import mariculture.factory.tile.TileSluiceAdvanced;
 import mariculture.factory.tile.TileSponge;
 import mariculture.factory.tile.TileTurbineGas;
 import mariculture.factory.tile.TileTurbineHand;
@@ -130,7 +134,7 @@ public class Factory extends RegistrationModule {
         customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
         RegistryHelper.registerBlocks(new Block[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
         RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, TileFLUDDStand.class, TilePressureVessel.class, 
-                TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class });
+                TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class, TileSluiceAdvanced.class });
     }
 
     @Override
@@ -162,6 +166,7 @@ public class Factory extends RegistrationModule {
         addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
         addShaped(mechSponge, new Object[] { " D ", "ATA", "SCS", 'D', fish, 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum" });
         addShaped(_(sluice, 4), new Object[] { " H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum" });
+        addShaped(sluiceAdvanced, new Object[] { "TPT", "TST", "TBT", 'T', tank, 'P', pressurisedBucket, 'S', sluice, 'B', baseAlloy });
         addShaped(handTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineCopper, 'I', "ingotCopper", 'B', baseWood, 'S', "slabWood", 'P', piston });
         addShaped(waterTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineAluminum, 'I', "ingotAluminum", 'B', baseIron, 'S', stoneSlab, 'P', piston });
         addShaped(gasTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineTitanium, 'I', "ingotTitanium", 'B', baseIron, 'S', quartzSlab, 'P', piston });

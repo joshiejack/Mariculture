@@ -39,6 +39,10 @@ public class BlockMetal extends BlockDecorative {
                 return 3;
             case MetalMeta.BASE_IRON:
                 return 1;
+            case MetalMeta.BASE_ALLOY:
+                return 3;
+            case MetalMeta.ALLOY_BLOCK:
+                return 3;
             default:
                 return 1;
         }
@@ -59,6 +63,10 @@ public class BlockMetal extends BlockDecorative {
                 return 15F;
             case MetalMeta.BASE_IRON:
                 return 3F;
+            case MetalMeta.BASE_ALLOY:
+                return 25F;
+            case MetalMeta.ALLOY_BLOCK:
+                return 20F;
             default:
                 return 4F;
         }
@@ -79,6 +87,10 @@ public class BlockMetal extends BlockDecorative {
                 return 45F;
             case MetalMeta.BASE_IRON:
                 return 10F;
+            case MetalMeta.BASE_ALLOY:
+                return 50F;
+            case MetalMeta.ALLOY_BLOCK:
+                return 75F;
             default:
                 return 10F;
         }

@@ -15,6 +15,7 @@ import mariculture.factory.tile.TileDictionaryItem;
 import mariculture.factory.tile.TileFishSorter;
 import mariculture.factory.tile.TileSawmill;
 import mariculture.factory.tile.TileSluice;
+import mariculture.factory.tile.TileSluiceAdvanced;
 import mariculture.factory.tile.TileSponge;
 import mariculture.factory.tile.TileUnpacker;
 import mariculture.fishery.tile.TileAutofisher;
@@ -43,6 +44,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMachine extends BlockFunctional {
     private IIcon[] fishSorter;
+    private IIcon sluiceAdvancedBack;
+    private IIcon sluiceAdvancedUp;
+    private IIcon sluiceAdvancedDown;
     private IIcon sluiceBack;
     private IIcon sluiceUp;
     private IIcon sluiceDown;
@@ -59,6 +63,8 @@ public class BlockMachine extends BlockFunctional {
                 return "pickaxe";
             case MachineMeta.SPONGE:
                 return "pickaxe";
+            case MachineMeta.SLUICE_ADVANCED:
+                return "pickaxe";
             default:
                 return "axe";
         }
@@ -71,6 +77,8 @@ public class BlockMachine extends BlockFunctional {
                 return 1;
             case MachineMeta.SPONGE:
                 return 1;
+            case MachineMeta.SLUICE_ADVANCED:
+                return 2;
             default:
                 return 0;
         }
@@ -95,6 +103,8 @@ public class BlockMachine extends BlockFunctional {
                 return 1.5F;
             case MachineMeta.UNPACKER:
                 return 1.5F;
+            case MachineMeta.SLUICE_ADVANCED:
+                return 7.5F;
             default:
                 return 1F;
         }
@@ -109,6 +119,7 @@ public class BlockMachine extends BlockFunctional {
     public IIcon getIcon(int side, int meta) {
         if (meta == MachineMeta.FISH_SORTER) return fishSorter[side];
         if (meta == MachineMeta.SLUICE) return side == 3 ? icons[MachineMeta.SLUICE] : Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+        if (meta == MachineMeta.SLUICE_ADVANCED) return side == 3 ? icons[MachineMeta.SLUICE_ADVANCED] : Core.metals.getIcon(side, MetalMeta.BASE_ALLOY);
         if (side < 2) {
             if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
             if (meta == MachineMeta.SPONGE) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
@@ -125,9 +136,15 @@ public class BlockMachine extends BlockFunctional {
         if (tile instanceof TileBookshelf) return Blocks.bookshelf.getIcon(side, 0);
         else if (tile instanceof TileSluice) {
             TileSluice sluice = (TileSluice) tile;
-            if (sluice.orientation.ordinal() == side) return side > 1 ? icons[MachineMeta.SLUICE] : sluiceUp;
-            else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceBack : sluiceDown;
-            else return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+            if(tile instanceof TileSluiceAdvanced) {
+                if (sluice.orientation.ordinal() == side) return side > 1 ? icons[MachineMeta.SLUICE_ADVANCED] : sluiceAdvancedUp;
+                else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceAdvancedBack : sluiceAdvancedDown;
+                else return Core.metals.getIcon(side, MetalMeta.BASE_ALLOY);
+            } else {
+                if (sluice.orientation.ordinal() == side) return side > 1 ? icons[MachineMeta.SLUICE] : sluiceUp;
+                else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceBack : sluiceDown;
+                else return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+            }
         } else return super.getIcon(block, x, y, z, side);
     }
 
@@ -203,6 +220,8 @@ public class BlockMachine extends BlockFunctional {
                 return new TileFishSorter();
             case MachineMeta.UNPACKER:
                 return new TileUnpacker();
+            case MachineMeta.SLUICE_ADVANCED:
+                return new TileSluiceAdvanced();
             default:
                 return null;
         }
@@ -237,6 +256,8 @@ public class BlockMachine extends BlockFunctional {
             case MachineMeta.FISH_SORTER:
                 return Modules.isActive(Modules.fishery);
             case MachineMeta.UNPACKER:
+                return Modules.isActive(Modules.factory);
+            case MachineMeta.SLUICE_ADVANCED:
                 return Modules.isActive(Modules.factory);
             default:
                 return true;
@@ -274,6 +295,9 @@ public class BlockMachine extends BlockFunctional {
         sluiceBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceBack");
         sluiceUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceUp");
         sluiceDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceDown");
+        sluiceAdvancedBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedBack");
+        sluiceAdvancedUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedUp");
+        sluiceAdvancedDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedDown");
         unpacker = iconRegister.registerIcon(Mariculture.modid + ":unpackerTop");
     }
 }

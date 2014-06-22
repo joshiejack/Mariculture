@@ -3,6 +3,7 @@ Mariculture 1.7.2 BETA 12
 • Fixed FLUDD
 • Books can no longer be applied to jewelry (Configurable).
 • Switched Copper default to on
+• Sluice no longer has an internal tank. In order to collect pressurised water you must pick it up from the world.
 
 Mariculture 1.7.2 BETA 11.wtfbbq
 • Fixed ... Not even going to mention the stupidity.

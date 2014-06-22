@@ -25,6 +25,10 @@ public class BlockMetalItem extends ItemBlockMariculture {
                 return "titaniumBlock";
             case MetalMeta.BASE_IRON:
                 return "baseIron";
+            case MetalMeta.BASE_ALLOY:
+                return "baseAlloy";
+            case MetalMeta.ALLOY_BLOCK:
+                return "alloyBlock";
             default:
                 return null;
         }

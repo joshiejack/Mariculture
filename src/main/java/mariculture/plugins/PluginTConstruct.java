@@ -115,6 +115,12 @@ public class PluginTConstruct extends Plugin {
         FluidStack magnesium = new FluidStack(FluidRegistry.getFluid(Fluids.magnesium), 8);
 
         Smeltery.addAlloyMixing(titanium, new FluidStack[] { rutile, magnesium });
+        
+        FluidStack tit = new FluidStack(FluidRegistry.getFluid(Fluids.titanium), 27);
+        FluidStack alu = new FluidStack(FluidRegistry.getFluid(Fluids.aluminum), 3);
+        FluidStack alloy = new FluidStack(FluidRegistry.getFluid(Fluids.titaniumAlloy), 9);
+
+        Smeltery.addAlloyMixing(titanium, new FluidStack[] { rutile, magnesium });
     }
 
     private static void addModifiers() {

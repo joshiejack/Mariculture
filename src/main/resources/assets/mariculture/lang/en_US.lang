@@ -22,7 +22,9 @@ tile.metals.titaniumBlock.name=Block of Titanium
 tile.metals.magnesiumBlock.name=Block of Magnesium
 tile.metals.copperBlock.name=Block of Copper
 tile.metals.rutileBlock.name=Block of Impure Titanium
+tile.metals.alloyBlock.name=Block of Titanium Alloy
 tile.metals.baseIron.name=Iron Construction Block
+tile.metals.baseAlloy.name=Titanium Alloy Construction Block
 tile.limestone.raw.name=Limestone
 tile.limestone.smooth.name=Smooth Limestone
 tile.limestone.brick.name=Limestone Brick
@@ -96,6 +98,7 @@ fluid.quicklime=Quicklime
 fluid.electrum.molten=Molten Electrum
 fluid.invar.molten=Molten Invar
 fluid.platinum.molten=Molten Platinum
+fluid.titanium.alloy.molten=Molten Titanium Alloy
 
 #items
 item.hammer.name=Blacksmith's Hammer
@@ -109,6 +112,7 @@ item.materials.ingotMagnesium.name=Magnesium Ingot
 item.materials.ingotTitanium.name=Titanium Ingot
 item.materials.ingotCopper.name=Copper Ingot
 item.materials.ingotRutile.name=Impure Titanium Ingot
+item.materials.ingotAlloy.name=Titanium Alloy Ingot
 item.materials.ingotMob.name=Concentrated Mob Ingot
 item.materials.dustMagnesite.name=Magnesium Dust
 item.materials.dustCopperous.name=Unknown Copperous Dust
@@ -130,6 +134,7 @@ item.materials.nuggetMagnesium.name=Magnesium Nugget
 item.materials.nuggetTitanium.name=Titanium Nugget
 item.materials.nuggetCopper.name=Copper Nugget
 item.materials.nuggetRutile.name=Impure Titanium Nugget
+item.materials.nuggetAlloy.name=Titanium Alloy Nugget
 item.pearls.pearlWhite.name=White Pearl
 item.pearls.pearlGreen.name=Green Pearl
 item.pearls.pearlYellow.name=Yellow Pearl
@@ -229,6 +234,7 @@ item.fluids.bottleLava.name=Bottle of Lava
 item.fluids.bottleEmpty.name=Empty Bottle
 item.fluids.bottleNormalNaturalGas.name=Glass Bottle of Natural Gas
 item.fluids.bottleHPWater.name=Bottle of Pressurised Water
+item.fluids.bottleAlloy.name=Bottle of Molten Titanium Alloy
 item.bucket.dirt.name=Bucket of Molten Dirt
 item.bucket.hpwater.name=Bucket of Pressurised Water
 
@@ -257,6 +263,7 @@ item.swimfin.name=Flippers
 #blocks
 tile.machines.single.sawmill.name=Sawmill
 tile.machines.single.sluice.name=Sluice
+tile.machines.single.sluiceAdvanced.name=Advanced Sluice
 tile.machines.single.fishSorter.name=Fish Sorter
 tile.machines.single.sponge.name=Mechanized Sponge
 tile.machines.single.dictionary.name=Auto-Dictionary
@@ -670,9 +677,7 @@ mariculture.string.mb=mB
 mariculture.string.blacklisted=BLACKLISTED
 mariculture.string.temp.control=Stores Temperature Upgrades
 mariculture.string.time=Time:
-mariculture.string.time.dawn=Dawn
 mariculture.string.time.day=Day
-mariculture.string.time.dusk=Dusk
 mariculture.string.time.night=Night
 
 ### Eject Modes ###

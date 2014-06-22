@@ -90,7 +90,7 @@ public class FishAngler extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return Height.isDeep(height) ? 15D : Height.isCave(height) ? 10D : 0D;
     }
 

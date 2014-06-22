@@ -274,7 +274,7 @@ public abstract class FishSpecies {
 
     //Work Based things
     /** Whether this fish can work at this time of day, entirely based on species **/
-    public boolean canWork(int time) {
+    public boolean canWork(World world) {
         return true;
     }
 
@@ -288,31 +288,31 @@ public abstract class FishSpecies {
     }
 
     /** Called by the Fishing Handler **/
-    public double getCatchChance(World world, int x, int y, int z, Salinity salt, int temp, int time) {
+    public double getCatchChance(World world, int x, int y, int z, Salinity salt, int temp) {
         if (DISABLE_BIOME_CATCHING) {
-            return getCatchChance(world, y, time);
+            return getCatchChance(world, y);
         } else {
-            return getCatchChance(world, salt, temp, y, time);
+            return getCatchChance(world, salt, temp, y);
         }
     }
 
     /** Return the catch chance based on the variables, return 0 for no catch
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
-    public double getCatchChance(World world, Salinity salt, int temp, int height, int time) {
-        return isWorldCorrect(world) && MaricultureHandlers.environment.matches(salt, temp, salinity, temperature) ? getCatchChance(world, height, time) : 0D;
+    public double getCatchChance(World world, Salinity salt, int temp, int height) {
+        return isWorldCorrect(world) && MaricultureHandlers.environment.matches(salt, temp, salinity, temperature) ? getCatchChance(world, height) : 0D;
     }
 
     /** This is called when disable biome catching is active or from the above method **/
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return 5D;
     }
 
     /** Called by the Fishing Handler **/
-    public double getCaughtAliveChance(World world, int x, int y, int z, Salinity salt, int temp, int time) {
+    public double getCaughtAliveChance(World world, int x, int y, int z, Salinity salt, int temp) {
         if (DISABLE_BIOME_CATCHING) {
-            return getCaughtAliveChance(world, y, time);
+            return getCaughtAliveChance(world, y);
         } else {
-            return getCaughtAliveChance(world, salt, temp, y, time);
+            return getCaughtAliveChance(world, salt, temp, y);
         }
     }
 
@@ -323,12 +323,12 @@ public abstract class FishSpecies {
      * The Time of Day of the World
      * The Y Height fishing At
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
-    public double getCaughtAliveChance(World world, Salinity salt, int temp, int height, int time) {
-        return isAcceptedTemperature(temp) && salt == salinity[0] ? getCaughtAliveChance(world, height, time) : 0D;
+    public double getCaughtAliveChance(World world, Salinity salt, int temp, int height) {
+        return isAcceptedTemperature(temp) && salt == salinity[0] ? getCaughtAliveChance(world, height) : 0D;
     }
 
     /** Called when biome catching is disabled or from the above method **/
-    public double getCaughtAliveChance(World world, int height, int time) {
+    public double getCaughtAliveChance(World world, int height) {
         return 0D;
     }
 

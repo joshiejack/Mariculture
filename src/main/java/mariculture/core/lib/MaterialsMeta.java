@@ -1,14 +1,14 @@
 package mariculture.core.lib;
 
 public class MaterialsMeta {
-    public static final int COUNT = 39;
+    public static final int COUNT = 40;
 
     public static final int INGOT_ALUMINUM = 0;
     public static final int INGOT_MAGNESIUM = 1;
     public static final int INGOT_TITANIUM = 2;
     public static final int INGOT_RUTILE = 3;
     public static final int INGOT_COPPER = 4;
-    public static final int UNUSED = 5;
+    public static final int INGOT_ALLOY = 5;
     public static final int DUST_SILVERY = 6;
     public static final int DUST_LEADER = 7;
     public static final int DUST_TINNIC = 8;
@@ -42,4 +42,5 @@ public class MaterialsMeta {
     public static final int NUGGET_TITANIUM = 36;
     public static final int NUGGET_RUTILE = 37;
     public static final int NUGGET_COPPER = 38;
+    public static final int NUGGET_ALLOY = 39;
 }

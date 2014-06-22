@@ -114,7 +114,7 @@ public class FishBass extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return Height.isOverground(height) ? 15D : 5D;
     }
 }

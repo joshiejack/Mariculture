@@ -98,7 +98,7 @@ public class FishElectricRay extends FishSpecies {
     }
 
     @Override
-    public double getCatchChance(World world, int height, int time) {
+    public double getCatchChance(World world, int height) {
         return 8D;
     }
 }
