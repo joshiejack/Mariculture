@@ -31,7 +31,7 @@ public class ItemSpeedBoat extends Item {
         double x = player.prevPosX + (player.posX - player.prevPosX) * var4;
         double y = player.prevPosY + (player.posY - player.prevPosY) * var4 + 1.62D - player.yOffset;
         double z = player.prevPosZ + (player.posZ - player.prevPosZ) * var4;
-        Vec3 var13 = world.getWorldVec3Pool().getVecFromPool(x, y, z);
+        Vec3 var13 = Vec3.createVectorHelper(x, y, z);
         float var14 = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
         float var15 = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
         float var16 = -MathHelper.cos(-pitch * 0.017453292F);

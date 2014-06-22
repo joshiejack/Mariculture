@@ -35,6 +35,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -147,7 +148,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
                 if (block != null) {
                     float blockHardness = block.getBlockHardness(worldObj, x2, y2, z2);
                     if (worldObj.isRemote) {
-                        block.addHitEffects(worldObj, new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), worldObj.getWorldVec3Pool().getVecFromPool(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
+                        block.addHitEffects(worldObj, new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), Vec3.createVectorHelper(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
                     }
                     int chance = (int) (blockHardness * 10 > 0 ? blockHardness * 10 : 10);
                     if (Rand.nextInt(chance)) if (blockHardness <= hardnessMax) {
