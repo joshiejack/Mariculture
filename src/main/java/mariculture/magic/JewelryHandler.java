@@ -3,6 +3,7 @@ package mariculture.magic;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.config.Enchantments;
 import mariculture.core.helpers.NBTHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
@@ -88,6 +89,18 @@ public class JewelryHandler {
 
     public static int getLevel(JewelryType type, JewelryMaterial mat, JewelryBinding bind, int start) {
         return Math.min(start, Math.min(bind.getMaxEnchantmentLevel(type), mat.getMaximumEnchantmentLevel(type)));
+    }
+
+    public static boolean canApply(ItemStack stack) {
+        if (stack.getItem() instanceof ItemJewelry && stack.hasTagCompound()) {
+            if(Enchantments.ALLOW_MC_ANVIL) {
+                JewelryType type = getType(stack);
+                JewelryMaterial material = getMaterial(stack);
+                int current = EnchantmentHelper.getEnchantments(stack).size();
+                int max = type.getMaximumEnchantments() + material.getExtraEnchantments(type);            
+                return current < max;
+            } else return false;
+        } else return true;
     }
 
     public static ItemStack finishJewelry(ItemStack stack, ItemStack result, Random rand) {

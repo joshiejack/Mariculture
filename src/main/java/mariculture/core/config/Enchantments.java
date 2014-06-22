@@ -30,6 +30,7 @@ public class Enchantments {
     public static int SPEED_TICKS;
     public static double SPEED_FACTOR;
     public static int TICK_REPAIR;
+    public static boolean ALLOW_MC_ANVIL;
 
     public static void init(Configuration config) {
         setConfig(config);
@@ -59,6 +60,7 @@ public class Enchantments {
         SPEED_TICKS = getInt("Sonic the Hedgehog > Ticks per Damage", 1200);
         SPEED_FACTOR = getDouble("Sonic the Hedgehog > Speed Factor", 0.025);
         TICK_REPAIR = getInt("Restoration - Ticks between Repair", 100);
+        ALLOW_MC_ANVIL = getBoolean("Enable Books being applied to Jewelry", false);
     }
 
     public static class Jewelry {

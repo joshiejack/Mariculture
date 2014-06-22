@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
@@ -38,6 +39,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MagicEventHandler {
     private Random rand = new Random();
+    
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        ItemStack left = event.left;
+        ItemStack right = event.right;
+        if(!JewelryHandler.canApply(left) || !JewelryHandler.canApply(right)) {
+            event.setCanceled(true);
+        }
+    }
 
     @SubscribeEvent
     public void onLivingUpdate(LivingUpdateEvent event) {

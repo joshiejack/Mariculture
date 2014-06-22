@@ -1,6 +1,7 @@
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!
 • Fixed FLUDD
+• Books can no longer be applied to jewelry (Configurable).
 • Switched Copper default to on
 
 Mariculture 1.7.2 BETA 11.wtfbbq
