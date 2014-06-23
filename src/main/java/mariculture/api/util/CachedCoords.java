@@ -12,11 +12,6 @@ public class CachedCoords {
     }
     
     @Override
-    public int hashCode() {
-        return new StringBuilder().append(x).append("~").append(y).append("~").append("z").toString().hashCode();
-    }
-    
-    @Override
     public boolean equals(Object o) {
         if(o instanceof CachedCoords) {
             CachedCoords cache = (CachedCoords) o;
