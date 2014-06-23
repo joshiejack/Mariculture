@@ -6,9 +6,6 @@ import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.fermentedEye;
 import static mariculture.core.lib.ItemLib.spiderEye;
 import static mariculture.core.lib.ItemLib.string;
-
-import java.sql.Time;
-
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;

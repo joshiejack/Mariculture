@@ -94,8 +94,6 @@ public class Recipes {
     }
 
     private static void addMetalRecipes() {
-        add9x9Recipe(ingotAlloy, "nuggetTitaniumAlloy");
-        addUncraftingRecipe(_(nuggetAlloy, 9), "ingotTitaniumAlloy");
         add9x9Recipe(ingotRutile, "nuggetRutile");
         addUncraftingRecipe(_(nuggetRutile, 9), "ingotRutile");
         add9x9Recipe(ingotMagnesium, "nuggetMagnesium");
@@ -109,8 +107,6 @@ public class Recipes {
         add9x9Recipe(_(ingotIron), "nuggetIron");
         addUncraftingRecipe(_(nuggetIron, 9), "ingotIron");
 
-        add9x9Recipe(blockAlloy, "ingotTitaniumAlloy");
-        addUncraftingRecipe(_(ingotAlloy, 9), "blockTitaniumAlloy");
         add9x9Recipe(blockRutile, "ingotRutile");
         addUncraftingRecipe(_(ingotRutile, 9), "blockRutile");
         add9x9Recipe(blockMagnesium, "ingotMagnesium");

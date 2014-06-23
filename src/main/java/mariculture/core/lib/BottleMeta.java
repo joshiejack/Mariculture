@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class BottleMeta {
-    public static final int COUNT = 33;
+    public static final int COUNT = 32;
 
     public static final int VOID = 0;
     public static final int FISH_OIL = 1;
@@ -35,5 +35,4 @@ public class BottleMeta {
     public static final int FISH_OIL_BASIC = 29;
     public static final int MILK_BASIC = 30;
     public static final int CUSTARD_BASIC = 31;
-    public static final int ALLOY = 32;
 }

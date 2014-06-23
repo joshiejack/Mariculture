@@ -142,7 +142,6 @@ public class ItemLib {
     public static final ItemStack blockMagnesium = new ItemStack(Core.metals, 1, MetalMeta.MAGNESIUM_BLOCK);
     public static final ItemStack blockCopper = new ItemStack(Core.metals, 1, MetalMeta.COPPER_BLOCK);
     public static final ItemStack blockRutile = new ItemStack(Core.metals, 1, MetalMeta.RUTILE_BLOCK);
-    public static final ItemStack blockAlloy = new ItemStack(Core.metals, 1, MetalMeta.ALLOY_BLOCK);
     public static final ItemStack oreCopper = new ItemStack(Core.rocks, 1, RockMeta.COPPER);
     public static final ItemStack transparent = new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC);
     public static final ItemStack tank = new ItemStack(Core.tanks, 1, TankMeta.TANK);
@@ -193,8 +192,6 @@ public class ItemLib {
     public static final ItemStack ingotRutile = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE);
     public static final ItemStack ingotCopper = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER);
     public static final ItemStack ingotAluminum = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM);
-    public static final ItemStack ingotAlloy = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALLOY);
-    public static final ItemStack nuggetAlloy = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_ALLOY);
     public static final ItemStack nuggetIron = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_IRON);
     public static final ItemStack nuggetCopper = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_COPPER);
     public static final ItemStack nuggetRutile = new ItemStack(Core.materials, 1, MaterialsMeta.NUGGET_RUTILE);

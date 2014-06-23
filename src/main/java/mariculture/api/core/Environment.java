@@ -1,6 +1,5 @@
 package mariculture.api.core;
 
-import net.minecraft.world.World;
 
 public class Environment {
     public static class Temperature {

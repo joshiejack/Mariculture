@@ -168,7 +168,7 @@ public class Factory extends RegistrationModule {
         addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
         addShaped(mechSponge, new Object[] { " D ", "ATA", "SCS", 'D', fish, 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum" });
         addShaped(_(sluice, 4), new Object[] { " H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum" });
-        addShaped(sluiceAdvanced, new Object[] { "TPT", "TST", "TBT", 'T', "ingotTitaniumAlloy", 'P', pressurisedBucket, 'S', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE), 'B', sluice });
+        addShaped(sluiceAdvanced, new Object[] { "TPT", "TST", "TBT", 'T', "ingotTitanium", 'P', pressurisedBucket, 'S', new ItemStack(Core.upgrade, 1, UpgradeMeta.ADVANCED_STORAGE), 'B', sluice });
         addShaped(handTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineCopper, 'I', "ingotCopper", 'B', baseWood, 'S', "slabWood", 'P', piston });
         addShaped(waterTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineAluminum, 'I', "ingotAluminum", 'B', baseIron, 'S', stoneSlab, 'P', piston });
         addShaped(gasTurbine, new Object[] { " T ", "IBI", "SPS", 'T', turbineTitanium, 'I', "ingotTitanium", 'B', baseIron, 'S', quartzSlab, 'P', piston });

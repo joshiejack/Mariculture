@@ -44,6 +44,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMachine extends BlockFunctional {
     private IIcon[] fishSorter;
+    private IIcon sluiceAdvanced;
     private IIcon sluiceAdvancedBack;
     private IIcon sluiceAdvancedUp;
     private IIcon sluiceAdvancedDown;
@@ -119,7 +120,7 @@ public class BlockMachine extends BlockFunctional {
     public IIcon getIcon(int side, int meta) {
         if (meta == MachineMeta.FISH_SORTER) return fishSorter[side];
         if (meta == MachineMeta.SLUICE) return side == 3 ? icons[MachineMeta.SLUICE] : Core.metals.getIcon(side, MetalMeta.BASE_IRON);
-        if (meta == MachineMeta.SLUICE_ADVANCED) return side == 3 ? icons[MachineMeta.SLUICE_ADVANCED] : Core.metals.getIcon(side, MetalMeta.ALLOY_BLOCK);
+        if (meta == MachineMeta.SLUICE_ADVANCED) return side == 3 ? icons[MachineMeta.SLUICE_ADVANCED] : sluiceAdvanced;
         if (side < 2) {
             if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
             if (meta == MachineMeta.SPONGE) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
@@ -139,7 +140,7 @@ public class BlockMachine extends BlockFunctional {
             if(tile instanceof TileSluiceAdvanced) {
                 if (sluice.orientation.ordinal() == side) return side > 1 ? icons[MachineMeta.SLUICE_ADVANCED] : sluiceAdvancedUp;
                 else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceAdvancedBack : sluiceAdvancedDown;
-                else return Core.metals.getIcon(side, MetalMeta.ALLOY_BLOCK);
+                else return sluiceAdvanced;
             } else {
                 if (sluice.orientation.ordinal() == side) return side > 1 ? icons[MachineMeta.SLUICE] : sluiceUp;
                 else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceBack : sluiceDown;
