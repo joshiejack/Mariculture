@@ -10,4 +10,17 @@ public class CachedCoords {
         this.y = y;
         this.z = z;
     }
-}
+    
+    @Override
+    public int hashCode() {
+        return new StringBuilder().append(x).append("~").append(y).append("~").append("z").toString().hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof CachedCoords) {
+            CachedCoords cache = (CachedCoords) o;
+            return cache.x == x && cache.y == y && cache.z == z;
+        } else return false;
+    }
+} 

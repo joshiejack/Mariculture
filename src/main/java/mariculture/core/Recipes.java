@@ -44,7 +44,6 @@ public class Recipes {
         addShaped(baseBrick, new Object[] { "IGI", "G G", "IGI", 'I', burntBrick, 'G', ironBars });
         addShaped(baseIron, new Object[] { "IGI", "G G", "IGI", 'I', "ingotIron", 'G', glassPane });
         addShaped(baseWood, new Object[] { "IGI", "G G", "IGI", 'I', "logWood", 'G', fence });
-        addShaped(baseAlloy, new Object[] { "IGI", "G G", "IGI", 'I', "ingotTitaniumAlloy", 'G', new ItemStack(Blocks.stained_glass_pane, 1, 7) });
         addShaped(airPump, new Object[] { "WGW", "PRP", "PMP", 'G', "blockGlass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel });
         addShaped(_(tank, 2), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "blockGlass" });
         addShaped(storageBookshelf, new Object[] { "SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest });

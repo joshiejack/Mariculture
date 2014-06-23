@@ -150,7 +150,6 @@ public class ItemLib {
     public static final ItemStack baseBrick = new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK);
     public static final ItemStack baseIron = new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON);
     public static final ItemStack baseWood = new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD);
-    public static final ItemStack baseAlloy = new ItemStack(Core.metals, 1, MetalMeta.BASE_ALLOY);
     public static final ItemStack mechSponge = new ItemStack(Core.machines, 1, MachineMeta.SPONGE);
     public static final ItemStack sluice = new ItemStack(Core.machines, 1, MachineMeta.SLUICE);
     public static final ItemStack sluiceAdvanced = new ItemStack(Core.machines, 1, MachineMeta.SLUICE_ADVANCED);

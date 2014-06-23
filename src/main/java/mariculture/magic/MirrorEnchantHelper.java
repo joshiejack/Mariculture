@@ -102,7 +102,7 @@ public class MirrorEnchantHelper {
                             hashmap = new HashMap();
                         }
 
-                        if (orig > 30) if (enchantment != Enchantment.protection && enchantment.getMaxLevel() != 1 && !(enchantment instanceof EnchantmentJewelry)) {
+                        if (orig > 30) if (enchantment != Enchantment.protection && enchantment != Enchantment.fortune && enchantment.getMaxLevel() != 1 && !(enchantment instanceof EnchantmentJewelry)) {
                             int chanceDoubled = orig > 55 ? 2 : 1;
                             for (int i = 0; i < chanceDoubled; i++)
                                 if (Rand.rand.nextInt() < orig) {

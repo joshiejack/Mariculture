@@ -1,8 +1,11 @@
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!
+• Added Advanced Sluice
 • Fixed FLUDD
 • Books can no longer be applied to jewelry (Configurable).
 • Switched Copper default to on
+• Removed Sifter XP
+• Mirrors can no longer let you get Fortune 5
 • Sluice no longer has an internal tank. In order to collect pressurised water you must pick it up from the world.
 
 Mariculture 1.7.2 BETA 11.wtfbbq
