@@ -1,6 +1,8 @@
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!
 • Added Advanced Sluice
+• Fish Products NEI now shows the percentage under a tooltip
+• Fish Products now capped at 15 instead of 6
 • Fixed FLUDD
 • Fixed Fish Feeder being entirely unoperational
 • Fixed Fish Feeder not syncing CanWork

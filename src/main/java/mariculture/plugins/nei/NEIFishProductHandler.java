@@ -31,8 +31,8 @@ public class NEIFishProductHandler extends NEIBase {
             bump = x;
             bump2 = y;
             this.chance = chance;
-            this.x = 93 + x * 18;
-            this.y = 1 + y * 32;
+            this.x = 72 + x * 18;
+            this.y = 2 + y * 18;
             this.stack = new PositionedStack(stack, this.x, this.y);
         }
     }
@@ -43,14 +43,14 @@ public class NEIFishProductHandler extends NEIBase {
 
         public CachedProductRecipe(ItemStack input, ArrayList<FishProduct> outputs) {
             this.outputs = new ArrayList();
-            this.input = new PositionedStack(input, 20, 18);
+            this.input = new PositionedStack(input, 11, 21);
             int x = 0;
             int y = 0;
             for (FishProduct fish : outputs) {
                 this.outputs.add(new ProductResult(fish.product.copy(), x, y, fish.chance));
-                if (x == 2) {
+                if (x == 4) {
                     x = 0;
-                    y = 1;
+                    y++;
                 } else {
                     x++;
                 }
@@ -115,19 +115,24 @@ public class NEIFishProductHandler extends NEIBase {
     }
 
     @Override
-    public void drawExtras(int id) {
-        CachedProductRecipe cache = (CachedProductRecipe) arecipes.get(id);
-        for (ProductResult recipe : cache.outputs) {
-            GL11.glPushMatrix();
-            GL11.glScalef(0.6F, 0.6F, 0.6F);
-            Minecraft.getMinecraft().fontRenderer.drawString(Text.GREY + recipe.chance + "%", recipe.x + 59 + recipe.bump * 15, recipe.y + 34 + recipe.bump2 * 20, 0);
-            GL11.glPopMatrix();
+    public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int id) {
+        if (stack != null) {
+            CachedProductRecipe cache = (CachedProductRecipe) arecipes.get(id);
+            if(cache != null) {
+                for(ProductResult r: cache.outputs) {
+                    if(gui.isMouseOver(r.stack, id)) {
+                        currenttip.add(Text.ORANGE + r.chance + "% " + Text.translate("chance"));
+                    }
+                }
+            }
         }
+        
+        return currenttip;
     }
 
     @Override
     public void loadTransferRects() {
-        transferRects.add(new RecipeTransferRect(new Rectangle(54, 16, 22, 16), "fishproducts"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(41, 19, 22, 16), "fishproducts"));
     }
 
     @Override

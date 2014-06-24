@@ -132,7 +132,7 @@ public abstract class FishSpecies {
         addProduct(new ItemStack(item), chance);
     }
 
-    /** Add Products, call this from the addFishProducts call, fish can have a maximum of 6 different products **/
+    /** Add Products, call this from the addFishProducts call, fish can have a maximum of 15 different products **/
     public final void addProduct(ItemStack stack, double chance) {
         String fish = getSpecies();
         ArrayList<FishProduct> list = null;
@@ -141,7 +141,7 @@ public abstract class FishSpecies {
         } else {
             list = new ArrayList();
         }
-        if (list.size() < 6) {
+        if (list.size() < 15) {
             list.add(new FishProduct(stack.copy(), chance));
         }
         products.put(fish, list);

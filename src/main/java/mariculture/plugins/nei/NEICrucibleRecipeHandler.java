@@ -33,7 +33,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 
-public class NEILiquifierRecipeHandler extends NEIBase {
+public class NEICrucibleRecipeHandler extends NEIBase {
     public class CachedLiquifierRecipe extends CachedRecipe {
         RecipeSmelter recipe;
         PositionedStack input1;
@@ -161,7 +161,7 @@ public class NEILiquifierRecipeHandler extends NEIBase {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         boolean isSecondSearch = isSecondSearch(outputId, results);
-        if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEILiquifierRecipeHandler.class) {
+        if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEICrucibleRecipeHandler.class) {
             for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes())
                 if (!isSecondSearch || isSecondSearch && recipe.fluid.getFluid().getName().equals(results[1])) {
                     arecipes.add(new CachedLiquifierRecipe(recipe));
@@ -239,17 +239,25 @@ public class NEILiquifierRecipeHandler extends NEIBase {
         if (stack != null) {
             CachedLiquifierRecipe cache = (CachedLiquifierRecipe) arecipes.get(id);
             RecipeSmelter recipe = cache.recipe;
-            if (cache.output != null) if (gui.isMouseOver(cache.output, id)) if (recipe.output != null && ItemHelper.areItemStacksEqualNoNBT(stack, recipe.output)) {
-                int chance = (int) ((float) 1 / recipe.chance * 100);
-                currenttip.add(Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + stack.getDisplayName());
+            if (cache.output != null) {
+                if (gui.isMouseOver(cache.output, id)) {
+                    if (recipe.output != null && ItemHelper.areItemStacksEqualNoNBT(stack, recipe.output)) {
+                        int chance = (int) ((float) 1 / recipe.chance * 100);
+                        currenttip.add(Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + stack.getDisplayName());
+                    }
+                }
             }
 
-            if (cache.recipe.input != null) if (gui.isMouseOver(cache.input1, id)) {
-                currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + cache.recipe.temp + "\u00B0" + "C");
+            if (cache.recipe.input != null) {
+                if (gui.isMouseOver(cache.input1, id)) {
+                    currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + cache.recipe.temp + "\u00B0" + "C");
+                }
             }
 
-            if (cache.recipe.input2 != null) if (gui.isMouseOver(cache.input2, id)) {
-                currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + cache.recipe.temp + "\u00B0" + "C");
+            if (cache.recipe.input2 != null) {
+                if (gui.isMouseOver(cache.input2, id)) {
+                    currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + cache.recipe.temp + "\u00B0" + "C");
+                }
             }
 
             if (id % 2 == 0) {

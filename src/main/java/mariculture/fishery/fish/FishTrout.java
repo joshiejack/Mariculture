@@ -3,7 +3,7 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.blueDye;
 import static mariculture.core.lib.ItemLib.greenDye;
-import static mariculture.core.lib.ItemLib.orangeDye;
+import static mariculture.core.lib.ItemLib.*;
 import static mariculture.core.lib.ItemLib.pinkDye;
 import static mariculture.core.lib.ItemLib.purpleDye;
 import static mariculture.core.lib.ItemLib.redDye;
@@ -54,12 +54,18 @@ public class FishTrout extends FishSpecies {
 
     @Override
     public void addFishProducts() {
+        addProduct(brownDye, 1.75D);
         addProduct(redDye, 5D);
         addProduct(orangeDye, 4D);
         addProduct(yellowDye, 5D);
+        addProduct(limeDye, 1.75D);
         addProduct(greenDye, 3.5D);
+        addProduct(cyanDye, 1.5D);
         addProduct(blueDye, 3.5D);
+        addProduct(lightBlueDye, 1.75D);
+        addProduct(magentaDye, 1.5D);
         addProduct(purpleDye, 2.5D);
+        addProduct(pinkDye, 1D);
     }
 
     @Override

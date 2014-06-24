@@ -252,6 +252,7 @@ public class ItemLib {
     public static final ItemStack redDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_RED);
     public static final ItemStack yellowDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_YELLOW);
     public static final ItemStack greenDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_GREEN);
+    public static final ItemStack brownDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BROWN);
     public static final ItemStack blueDye = new ItemStack(Core.materials, 1, MaterialsMeta.DYE_BLUE);
     public static final ItemStack thermometer = new ItemStack(Core.crafting, 1, CraftingMeta.THERMOMETER);
     public static final ItemStack fish = new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE);

@@ -673,6 +673,7 @@ mariculture.string.temp.control=Stores Temperature Upgrades
 mariculture.string.time=Time:
 mariculture.string.time.day=Day
 mariculture.string.time.night=Night
+mariculture.string.chance=Chance
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

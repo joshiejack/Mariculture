@@ -104,8 +104,8 @@ public class NEIConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_5));
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_6));
 
-        API.registerRecipeHandler(new NEILiquifierRecipeHandler());
-        API.registerUsageHandler(new NEILiquifierRecipeHandler());
+        API.registerRecipeHandler(new NEICrucibleRecipeHandler());
+        API.registerUsageHandler(new NEICrucibleRecipeHandler());
         API.registerRecipeHandler(new NEIVatRecipeHandler());
         API.registerUsageHandler(new NEIVatRecipeHandler());
         API.registerRecipeHandler(new NEIAnvilRecipeHandler());
