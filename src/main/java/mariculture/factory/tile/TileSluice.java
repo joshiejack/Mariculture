@@ -3,11 +3,9 @@ package mariculture.factory.tile;
 import mariculture.api.core.IBlacklisted;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileTank;
-import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
@@ -28,7 +26,6 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
-    protected BlockTransferHelper helper;
     public ForgeDirection orientation = ForgeDirection.UP;
     private int height = 0;
 
@@ -52,8 +49,6 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 
     @Override
     public void updateEntity() {
-        if (helper == null) helper = new BlockTransferHelper(this);
-
         if (onTick(200) && orientation.ordinal() > 1) {
             generateHPWater();
         }
@@ -62,10 +57,6 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
             placeInTank();
             pullFromTank();
             switchTanks();
-        }
-
-        if (onTick(30) && tank.getFluidAmount() > 0 && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-            helper.ejectFluid(new int[] { 1000, 500, 100, 20, 10, 1 });
         }
     }
 
@@ -180,7 +171,6 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 
         if (BlockHelper.isHPWater(worldObj, x, yCoord, z)) {
             for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
-            tank.fill(FluidRegistry.getFluidStack(Fluids.hp_water, height * 10), true);
         }
     }
 

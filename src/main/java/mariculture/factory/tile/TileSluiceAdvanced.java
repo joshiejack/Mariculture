@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import mariculture.api.util.CachedCoords;
 import mariculture.core.config.Machines.MachineSettings;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import net.minecraft.block.Block;
@@ -25,11 +26,11 @@ public class TileSluiceAdvanced extends TileSluice {
 
     @Override
     public void updateEntity() {
-        if (onTick(200) && orientation.ordinal() > 1) {
+        if (onTick(150) && orientation.ordinal() > 1) {
             generateHPWater();
         }
 
-        if (onTick(60)) {
+        if (onTick(Ticks.ADVANCED_SLUICE_TICK)) {
             if (!worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) placeInTank();
             else pullFromTank();
 

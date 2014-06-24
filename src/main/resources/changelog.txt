@@ -1,3 +1,7 @@
+Mariculture 1.7.2 BETA 13
+• Added config for advanced sluice tick rate
+• Advanced Sluice will generate Pressurised Water faster than the normal sluice now
+
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!
 • Added Advanced Sluice
@@ -11,7 +15,7 @@ Mariculture 1.7.2 BETA 12
 • Removed Sifter XP
 • Mirrors can no longer let you get Fortune 5
 • Added config option to re-enable picking up fish food from throwing in the water
-• Sluice no longer has an internal tank. In order to collect pressurised water you must pick it up from the world.
+• Made the old models the default config, while I work on Turbine System
 
 Mariculture 1.7.2 BETA 11.wtfbbq
 • Fixed ... Not even going to mention the stupidity.
