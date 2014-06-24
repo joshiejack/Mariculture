@@ -2,6 +2,7 @@ Mariculture 1.7.2 BETA 12
 • Added Unpacker!
 • Added Advanced Sluice
 • Fixed FLUDD
+• Fixed Fish Feeder being entirely unoperational
 • Fixed Fish Feeder not syncing CanWork
 • Books can no longer be applied to jewelry (Configurable).
 • Switched Copper default to on

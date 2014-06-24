@@ -39,7 +39,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     private static final int fluid = 3;
     public static final int male = 5;
     public static final int female = 6;
-    private static final int[] out = new int[] { 7, 8, 9, 10, 11, 12 };
 
     private ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
     private boolean swap = false;
@@ -49,6 +48,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public TileFeeder() {
         max = MachineSpeeds.getFeederSpeed();
         inventory = new ItemStack[13];
+        output = new int[] { 7, 8, 9, 10, 11, 12 };
     }
 
     @Override
@@ -144,7 +144,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             for (int i = 0; i < Fish.production.getDNA(fish); i++) {
                 ItemStack product = species.getProduct(Rand.rand);
                 if (product != null) {
-                    helper.insertStack(product, out);
+                    helper.insertStack(product, output);
                 }
                 int gender = Fish.gender.getDNA(fish);
 
@@ -158,7 +158,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 if (MaricultureHandlers.upgrades.hasUpgrade("male", this)) {
                     product = species.getProduct(Rand.rand);
                     if (product != null) {
-                        helper.insertStack(product, out);
+                        helper.insertStack(product, output);
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         if (giveProduct) {
             ItemStack raw = new ItemStack(Items.fish, 1, species.getID());
             if (raw != null) {
-                helper.insertStack(raw, out);
+                helper.insertStack(raw, output);
             }
 
             if (gender == FishyHelper.FEMALE) {
@@ -188,13 +188,15 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     //Generates an egg
     private void generateEgg() {
         if (Fishing.fishHelper.getSpecies(inventory[male]) != null) {
-            helper.insertStack(Fishing.fishHelper.generateEgg(inventory[male], inventory[female]), out);
+            helper.insertStack(Fishing.fishHelper.generateEgg(inventory[male], inventory[female]), output);
         }
     }
 
     @Override
     public void update() {
         super.update();
+        canWork();
+        
         if (canWork) {
             foodTick++;
 

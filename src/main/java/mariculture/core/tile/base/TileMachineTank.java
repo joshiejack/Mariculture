@@ -165,9 +165,8 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
         if (setting.canEject(EjectSetting.ITEM)) return true;
         for (Integer i : output) {
             if (inventory[i] == null) {
-                ;
+                return true;
             }
-            return true;
         }
 
         return false;
