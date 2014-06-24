@@ -72,7 +72,8 @@ public class TileSluiceAdvanced extends TileSluice {
 
         if (isValid(worldObj, x, y, z, drain)) {
             addToList(x, y, z);
-            for (int j = 0; j < MachineSettings.ADVANCED_SLUICE_RADIUS; j++) {
+            int loop = !drain? MachineSettings.ADVANCED_SLUICE_RADIUS/2: MachineSettings.ADVANCED_SLUICE_RADIUS;
+            for (int j = 0; j < loop; j++) {
                 LinkedList<CachedCoords> temp = (LinkedList<CachedCoords>) todo.clone();
                 for (CachedCoords coord : temp) {
                     if (isValid(worldObj, coord.x + 1, coord.y, coord.z, drain)) {

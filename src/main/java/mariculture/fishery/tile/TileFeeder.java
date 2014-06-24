@@ -22,8 +22,10 @@ import mariculture.core.util.Fluids;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
 import mariculture.fishery.Fish;
+import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishyHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ICrafting;
@@ -214,6 +216,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     useFood(inventory[female]);
                 }
             }
+
+            if (Ticks.PICKUP_TICK >= 0 && onTick(Ticks.PICKUP_TICK)) {
+                pickupFood();
+            }
         }
     }
 
@@ -246,6 +252,46 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         }
 
         drain(ForgeDirection.DOWN, FluidRegistry.getFluidStack(Fluids.fish_food, usage), true);
+    }
+
+    private void pickupFood() {
+        for (CachedCoords coord : coords) {
+            List list = worldObj.getEntitiesWithinAABB(EntityItem.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, coord.x, coord.y, coord.z));
+            if (!list.isEmpty()) {
+                for (Object i : list) {
+                    EntityItem entity = (EntityItem) i;
+                    ItemStack item = entity.getEntityItem();
+                    if (((entity.handleWaterMovement()) || entity.worldObj.provider.isHellWorld && entity.handleLavaMovement())) {
+                        item = addFishFood(item);
+
+                        if (item == null) {
+                            entity.setDead();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private ItemStack addFishFood(ItemStack stack) {
+        if (FishFoodHandler.isFishFood(stack)) {
+            int increase = FishFoodHandler.getValue(stack);
+            int loop = stack.stackSize;
+
+            for (int i = 0; i < loop; i++) {
+                int fill = fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), false);
+                if (fill > 0) {
+                    fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), true);
+                    stack.stackSize--;
+                }
+            }
+        }
+
+        if (stack.stackSize <= 0) {
+            return null;
+        }
+
+        return stack;
     }
 
     @Override
@@ -401,6 +447,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void getGUINetworkData(int id, int value) {
         if (id == 6) tankSize = value;
+        else if (id == 7) canWork = value == 1;
         else super.getGUINetworkData(id, value);
     }
 
@@ -408,6 +455,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
         super.sendGUINetworkData(container, crafting);
         crafting.sendProgressBarUpdate(container, 6, tankSize);
+        crafting.sendProgressBarUpdate(container, 7, canWork ? 1 : 0);
     }
 
     @Override

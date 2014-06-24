@@ -32,6 +32,7 @@ public class Machines {
         Ticks.PUMP_ENABLE_TICKS = getBoolean("Air Pump - Enable Ticking", true);
         Ticks.TURBINE_PACKET_TICKS = getInt("Turbines - Ticks between Packet Updates", 20);
         Ticks.FISH_FOOD_TICK = getInt("Fish Feeder > Fish Food Tick Rate", 25, "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable");
+        Ticks.PICKUP_TICK = getInt("Fish Feeder > Fish Food Pickup Tick Rate", -1, "How often it tries to pick up fish food, set to less than 0 to disable");
 
         setCategory("Machine Settings");
         MachineSettings.PACKET_DISTANCE = getInt("How many blocks away to send rendering packet updates to players", 176);
@@ -65,5 +66,6 @@ public class Machines {
         public static int TURBINE_PACKET_TICKS;
         public static int FISH_FOOD_TICK;
         public static int TANK_UPDATE;
+        public static int PICKUP_TICK;
     }
 }
