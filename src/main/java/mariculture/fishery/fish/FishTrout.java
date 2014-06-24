@@ -85,11 +85,6 @@ public class FishTrout extends FishSpecies {
     }
 
     @Override
-    public ItemStack getLiquifiedProduct() {
-        return pinkDye;
-    }
-
-    @Override
     public RodType getRodNeeded() {
         return RodType.OLD;
     }

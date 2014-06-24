@@ -23,7 +23,7 @@ public class Machines {
         Client.FLUDD_BLOCK_ANIM = getBoolean("FLUDD - Enable Particles", true);
         Client.PUMP_ANIM = getBoolean("Air Pump - Enable Rotation", true, "This will not work if Enable Ticking is set to false under Tick Settings");
         Client.TURBINE_ANIM = getBoolean("Turbines - Enable Rotation", true);
-        Client.OLD_TURBINES = getBoolean("Turbines - Use Old Renderer", false);
+        Client.OLD_TURBINES = getBoolean("Turbines - Use Old Renderer", true);
 
         setCategory("Tick Settings");
         Ticks.ITEM_EJECT_TICK = getInt("Item Eject Tick", 20);
