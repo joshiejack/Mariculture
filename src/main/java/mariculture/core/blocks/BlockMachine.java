@@ -299,6 +299,7 @@ public class BlockMachine extends BlockFunctional {
         sluiceAdvancedBack = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedBack");
         sluiceAdvancedUp = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedUp");
         sluiceAdvancedDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedDown");
+        sluiceAdvanced = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedSide");
         unpacker = iconRegister.registerIcon(Mariculture.modid + ":unpackerTop");
     }
 }
