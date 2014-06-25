@@ -218,16 +218,20 @@ public class FishingHandler implements IFishing {
     private ItemStack getLoot(World world, RodType rod, Rarity rarity) {
         ArrayList<Loot> loots = fishing_loot.get(rarity);
         Collections.shuffle(loots);
-        for (Loot loot : loots)
-            if (isDimensionValid(world, loot.dimension) && isFishingRodValid(rod, loot.quality, loot.exact)) {
-                double chance = loot.chance * 10;
-                if (world.rand.nextInt(1000) < chance) return loot.loot.copy();
+        for (Loot loot : loots) {
+            if (loot.loot.getItem() != null) {
+                if (isDimensionValid(world, loot.dimension) && isFishingRodValid(rod, loot.quality, loot.exact)) {
+                    double chance = loot.chance * 10;
+                    if (world.rand.nextInt(1000) < chance) return loot.loot.copy();
+                }
             }
+        }
 
         List list = EntityFishHook.field_146041_e;
         if (rarity == Rarity.JUNK) {
             list = EntityFishHook.field_146039_d;
         }
+        
         return ((WeightedRandomFishable) WeightedRandom.getRandomItem(world.rand, list)).func_150708_a(world.rand);
     }
 

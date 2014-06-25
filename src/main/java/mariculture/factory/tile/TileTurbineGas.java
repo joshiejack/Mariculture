@@ -21,7 +21,7 @@ public class TileTurbineGas extends TileTurbineBase implements IGasTurbine {
 
     @Override
     public int getTankCapacity() {
-        return FluidContainerRegistry.BUCKET_VOLUME * 10 + storage * FluidContainerRegistry.BUCKET_VOLUME * 5;
+        return (FluidContainerRegistry.BUCKET_VOLUME * 10) + (storage * FluidContainerRegistry.BUCKET_VOLUME * 5);
     }
 
     @Override

@@ -146,15 +146,18 @@ public class BlockWater extends BlockFunctional {
     public void updateTick(World world, int x, int y, int z, Random rand) {
         if (world.getBlockMetadata(x, y, z) == WaterMeta.OYSTER) {
             TileOyster oyster = (TileOyster) world.getTileEntity(x, y, z);
-            if (!world.isRemote) if (oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) if (rand.nextInt(Math.max(1, Gardening.PEARL_GEN_CHANCE)) == 0) {
-                Block block = world.getBlock(x, y - 1, z);
-                if (world.provider.dimensionId == 1) {
-                    oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));
-                }
-                if (block instanceof BlockPearlBlock) {
-                    oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
-                } else {
-                    oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));
+            if (!world.isRemote) if (oyster.hasSand() && BlockHelper.isWater(world, x, y + 1, z)) {
+                if (rand.nextInt(Math.max(1, Gardening.PEARL_GEN_CHANCE)) == 0) {
+                    Block block = world.getBlock(x, y - 1, z);
+                    if (world.provider.dimensionId == 1) {
+                        oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));
+                    }
+                    
+                    if (block instanceof BlockPearlBlock) {
+                        oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
+                    } else {
+                        oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));
+                    }
                 }
             }
         }

@@ -12,6 +12,8 @@ import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
 import mariculture.core.lib.FoodMeta;
+import mariculture.core.lib.GlassMeta;
+import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
@@ -122,6 +124,7 @@ public class WorldPlus extends RegistrationModule {
         //Kelp Wrap Recipe
         RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
         RecipeHelper.addShapeless(new ItemStack(Core.crafting, 1, CraftingMeta.SEEDS_KELP), new Object[] { new ItemStack(plantStatic, 1, CoralMeta.KELP) });
+        RecipeHelper.addSmelting(new ItemStack(Core.glass, 1, GlassMeta.HEAT), new ItemStack(Core.sands, 1, GroundMeta.ANCIENT), 0.025F);
 
         addOceanChestLoot();
     }

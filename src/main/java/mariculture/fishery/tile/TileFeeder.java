@@ -195,7 +195,6 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void update() {
         super.update();
-        canWork();
         
         if (canWork) {
             foodTick++;

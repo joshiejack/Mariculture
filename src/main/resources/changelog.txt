@@ -1,6 +1,8 @@
 Mariculture 1.7.2 BETA 13
 • Added config for advanced sluice tick rate
 • Advanced Sluice will generate Pressurised Water faster than the normal sluice now
+• Can now smelt Ancient Sand to Heat-Resistant Glass
+• Potentially fixed potential null pointer with fish loot
 
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!

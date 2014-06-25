@@ -1,5 +1,8 @@
 TODO List - Before Release of 1.2.3
 • New rendering for Turbines
 • Redesign Sluice System
-• Advanced Sluice (Works like a pump, draining water that is at the same height or above it). Will also fill up areas with liquid.
+• Make RF Upgrades reduce RF Usage
+• Add Unpacker and Advanced Sluice to Factory Book
+• Fix Fishing Book
+• Fix Nightfish
 • Wait for Minecraft 1.7.10
