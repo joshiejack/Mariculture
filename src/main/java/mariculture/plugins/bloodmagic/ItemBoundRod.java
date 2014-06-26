@@ -120,14 +120,15 @@ public class ItemBoundRod extends ItemRod {
         if (player.isSneaking()) {
             setActivated(stack, !getActivated(stack));
             stack.stackTagCompound.setInteger("worldTimeDelay", (int) (world.getWorldTime() - 1) % 200);
-        } else if (!getActivated(stack)) return Fishing.fishing.handleRightClick(stack, world, player);
-        else {
+        } else if (!getActivated(stack)) {
+            return Fishing.fishing.handleRightClick(stack, world, player);
+        } else {
             int[] nums = getShard(player);
             if (nums != null) {
                 int slot = nums[0];
                 int count = nums[1];
                 int catches = catchFish(world, player, count);
-                if (!world.isRemote) if (!player.capabilities.isCreativeMode) {
+                if (!player.capabilities.isCreativeMode) {
                     player.inventory.decrStackSize(slot, 1);
                 }
 

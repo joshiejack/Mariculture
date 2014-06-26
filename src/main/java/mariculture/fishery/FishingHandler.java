@@ -36,6 +36,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class FishingHandler implements IFishing {
     // Registering Fishing Rods
@@ -70,13 +71,16 @@ public class FishingHandler implements IFishing {
             if (!Vanilla.VANILLA_POOR && isVanillaRod(stack)) {
                 baitQuality = 35;
             }
+
             EntityHook hook = new EntityHook(world, player, rodType.getDamage(), baitQuality);
             if (!world.isRemote) {
                 world.spawnEntityInWorld(hook);
             }
 
-            if (!player.capabilities.isCreativeMode && baitSlot != -1) if (baitQuality > 0) {
-                player.inventory.decrStackSize(baitSlot, 1);
+            if (!player.capabilities.isCreativeMode && baitSlot != -1) {
+                if (baitQuality > 0) {
+                    player.inventory.decrStackSize(baitSlot, 1);
+                }
             }
 
             player.swingItem();
@@ -131,6 +135,7 @@ public class FishingHandler implements IFishing {
         if (baitList == null) {
             baitList = new ArrayList();
         }
+        
         baitList.add(bait);
         canUse.put(quality, baitList);
     }
@@ -138,6 +143,7 @@ public class FishingHandler implements IFishing {
     @Override
     public int getBaitQuality(ItemStack bait) {
         Integer i = baits.get(Arrays.asList(bait.getItem(), bait.getItemDamage()));
+        if(i == null) i = baits.get(Arrays.asList(bait.getItem(), OreDictionary.WILDCARD_VALUE));
         return i == null ? 0 : i;
     }
 
@@ -231,7 +237,7 @@ public class FishingHandler implements IFishing {
         if (rarity == Rarity.JUNK) {
             list = EntityFishHook.field_146039_d;
         }
-        
+
         return ((WeightedRandomFishable) WeightedRandom.getRandomItem(world.rand, list)).func_150708_a(world.rand);
     }
 
