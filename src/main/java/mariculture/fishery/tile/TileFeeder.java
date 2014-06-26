@@ -41,6 +41,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public static final int female = 6;
 
     private ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
+    private boolean isDay;
     private boolean swap = false;
     private int foodTick;
     private int tankSize;
@@ -374,7 +375,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             int currentLife = fish.stackTagCompound.getInteger("CurrentLife") / 20;
             if (!MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
                 FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(fish));
-                if (!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isWorldCorrect(worldObj)) {
+                if (!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isValidDimensionForWork(worldObj)) {
                     noBad = addToolTip(tooltip, Text.translate("badWorld"));
                 }
 
@@ -410,7 +411,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
                 }
 
-                if (!species.canWork(worldObj)) {
+                if (!species.canWorkAtThisTime(isDay)) {
                     noBad = addToolTip(tooltip, Text.translate("badTime"));
                 }
 
@@ -449,6 +450,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public void getGUINetworkData(int id, int value) {
         if (id == 6) tankSize = value;
         else if (id == 7) canWork = value == 1;
+        else if (id == 8) isDay = value == 1;
         else super.getGUINetworkData(id, value);
     }
 
@@ -457,6 +459,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         super.sendGUINetworkData(container, crafting);
         crafting.sendProgressBarUpdate(container, 6, tankSize);
         crafting.sendProgressBarUpdate(container, 7, canWork ? 1 : 0);
+        crafting.sendProgressBarUpdate(container, 8, worldObj.isDaytime() ? 1 : 0);
     }
 
     @Override

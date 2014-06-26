@@ -219,7 +219,7 @@ public class FishyHelper implements IFishHelper {
             }
 
             if (!worldCorrect) return false;
-            if (!fish.canWork(world)) return false;
+            if (!fish.isValidDimensionForWork(world) || !fish.canWorkAtThisTime(world.isDaytime())) return false;
             else return MaricultureHandlers.environment.matches(salt, temperature, fish.salinity, fish.temperature);
         }
     }

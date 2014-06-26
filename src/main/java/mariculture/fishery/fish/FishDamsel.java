@@ -74,8 +74,8 @@ public class FishDamsel extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(World world) {
-        return world.isDaytime();
+    public boolean canWorkAtThisTime(boolean isDay) {
+        return isDay;
     }
 
     @Override

@@ -273,8 +273,13 @@ public abstract class FishSpecies {
     }
 
     //Work Based things
-    /** Whether this fish can work at this time of day, entirely based on species **/
-    public boolean canWork(World world) {
+    /** Whether this fish can work int this dimension **/
+    public boolean isValidDimensionForWork(World world) {
+        return true;
+    }
+    
+    /** Whether the fish can work at this time of day **/
+    public boolean canWorkAtThisTime(boolean isDay) {
         return true;
     }
 

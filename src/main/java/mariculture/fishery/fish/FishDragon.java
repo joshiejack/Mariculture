@@ -94,11 +94,6 @@ public class FishDragon extends FishSpecies {
     }
 
     @Override
-    public boolean canWork(World world) {
-        return !world.isDaytime();
-    }
-
-    @Override
     public RodType getRodNeeded() {
         return RodType.FLUX;
     }
