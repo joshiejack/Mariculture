@@ -56,7 +56,7 @@ public class ItemBait extends ItemMariculture {
         }
 
         player.getFoodStats().addExhaustion(1.5F);
-        player.getFoodStats().addStats(fill >= 1 ? fill : 1, -100F);
+        player.getFoodStats().addStats(fill >= 1 ? fill : 1, -1F);
         world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
         return stack;
@@ -65,7 +65,7 @@ public class ItemBait extends ItemMariculture {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (Extra.NERF_FOOD) {
-            PluginHungerOverhaul.addInformation(1, -100F, list);
+            PluginHungerOverhaul.addInformation(1, -1F, list);
         }
     }
 
