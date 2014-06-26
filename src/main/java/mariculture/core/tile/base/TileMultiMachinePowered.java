@@ -5,6 +5,7 @@ import mariculture.core.util.IPowered;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
@@ -12,7 +13,7 @@ import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileMultiMachinePowered extends TileMultiMachine implements IEnergyHandler, IPowered {
     protected EnergyStorage energyStorage;
-    protected int usage;
+    protected int usage = -1;
 
     public TileMultiMachinePowered() {
         energyStorage = new EnergyStorage(getRFCapacity());
@@ -22,22 +23,46 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
 
     public abstract int getRFCapacity();
 
-    public abstract int getRFUsage();
-
     @Override
     public void updateUpgrades() {
         super.updateUpgrades();
         energyStorage.setCapacity(getRFCapacity() + rf);
+        updatePowerPerTick();
     }
 
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-        return getMaster() != null ? ((TileMultiMachinePowered) getMaster()).energyStorage.receiveEnergy(maxReceive, simulate) : 0;
+        if (!worldObj.isRemote) {
+            TileEntity mstr = getMaster();
+            if (mstr instanceof TileMultiMachinePowered) {
+                TileMultiMachinePowered master = (TileMultiMachinePowered) mstr;
+                if (master.usage == -1) updatePowerPerTick();
+                int ret = master.energyStorage.receiveEnergy(maxReceive, simulate);
+                if (!master.canWork) {
+                    if (master.energyStorage.getEnergyStored() >= getPowerPerTick() * 2) {
+                        master.updateCanWork();
+                    }
+                }
+
+                return ret;
+            } else return 0;
+        } else return 0;
     }
 
     @Override
     public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        return getMaster() != null ? ((TileMultiMachinePowered) getMaster()).energyStorage.extractEnergy(maxExtract, simulate) : 0;
+        if (!worldObj.isRemote) {
+            TileEntity mstr = getMaster();
+            if (mstr instanceof TileMultiMachinePowered) {
+                TileMultiMachinePowered master = (TileMultiMachinePowered) mstr;
+                int ret = master.energyStorage.extractEnergy(maxExtract, simulate);
+                if (ret <= 0) {
+                    master.updateCanWork();
+                }
+                
+                return ret;
+            } else return 0;
+        } else return 0;
     }
 
     @Override
@@ -58,6 +83,11 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
     @Override
     public int getPowerPerTick() {
         return usage;
+    }
+
+    @Override
+    public void updatePowerPerTick() {
+        usage = (int) (1.05D - (rf / 300000 * 0.75D));
     }
 
     @Override
@@ -97,10 +127,10 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
                 int drain = receiveEnergy(ForgeDirection.UP, rf, true);
                 if (drain > 0) {
                     ((IEnergyContainerItem) inventory[3].getItem()).extractEnergy(inventory[3], drain, false);
-                    if(inventory[3] == null || inventory[3].stackSize <= 0) {
+                    if (inventory[3] == null || inventory[3].stackSize <= 0) {
                         decrStackSize(3, 1);
                     }
-                    
+
                     receiveEnergy(ForgeDirection.UP, drain, false);
                 }
             }
@@ -128,6 +158,6 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
         super.sendGUINetworkData(container, crafting);
         crafting.sendProgressBarUpdate(container, 6, energyStorage.getEnergyStored());
         crafting.sendProgressBarUpdate(container, 7, energyStorage.getMaxEnergyStored());
-        crafting.sendProgressBarUpdate(container, 8, canWork ? getRFUsage() : 0);
+        crafting.sendProgressBarUpdate(container, 8, canWork ? getPowerPerTick() : 0);
     }
 }

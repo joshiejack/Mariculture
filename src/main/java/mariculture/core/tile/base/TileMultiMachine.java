@@ -2,6 +2,7 @@ package mariculture.core.tile.base;
 
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -35,11 +36,17 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     protected int max;
     protected boolean canWork;
     protected int processed = 0;
+    protected int[] output;
 
     public TileMultiMachine() {
         inventory = new ItemStack[5];
         mode = RedstoneMode.LOW;
         setting = EjectSetting.NONE;
+        output = new int[0];
+    }
+
+    public boolean onTick(int i) {
+        return worldObj.getWorldTime() % i == 0;
     }
 
     @Override
@@ -47,13 +54,12 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
         return getMasterInventory();
     }
 
-    public boolean onTick(int i) {
-        return machineTick % i == 0;
-    }
-
     @Override
-    public ItemStack[] getUpgrades() {
-        return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
+    public void onInventoryChange(int slot) {
+        updateCanWork();
+        if (slot < 3) {
+            updateUpgrades();
+        }
     }
 
     @Override
@@ -66,8 +72,22 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     }
 
     @Override
+    public ItemStack[] getUpgrades() {
+        return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
+    }
+    
+    public boolean canWork() {
+        return false;
+    }
+
+    @Override
     public boolean canUpdate() {
         return true;
+    }
+
+    //Call to update canWork
+    public final void updateCanWork() {
+        canWork = canWork();
     }
 
     public boolean rsAllowsWork() {
@@ -88,39 +108,51 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
 
     @Override
     public void updateMaster() {
-        super.updateMaster();
-        if (helper == null) {
-            helper = new BlockTransferHelper(this);
+        if (!worldObj.isRemote) {
+            if (helper == null) {
+                helper = new BlockTransferHelper(this);
+                updateCanWork();
+                updateUpgrades();
+            }
+
+            updateTheMaster();
+            updateMasterMachine();
         }
-
-        machineTick++;
-
-        if (onTick(20)) {
-            updateUpgrades();
+    }
+    
+    public abstract void process();
+    
+    public void updateMasterMachine() {
+        if (canWork) {
+            processed += speed;
+            if (processed >= max) {
+                process();
+                updateCanWork();
+                processed = 0;
+            }
+        } else {
+            processed = 0;
         }
-
-        if (onTick(20)) {
-            canWork = canWork();
-        }
-
-        updateMasterMachine();
     }
 
-    @Override
-    public void updateSlaves() {
-        if (helper == null) {
-            helper = new BlockTransferHelper(this);
-        }
-
-        machineTick++;
-        updateSlaveMachine();
+    //Called at all times
+    public void updateTheMaster() {
+        autoeject();
     }
-
-    public abstract void updateMasterMachine();
-
-    public abstract void updateSlaveMachine();
-
-    public abstract boolean canWork();
+    
+    public void autoeject() {
+        if (output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) if (setting.canEject(EjectSetting.ITEM)) {
+            for (int i : output)
+                if (inventory[i] != null) {
+                    ItemStack ejecting = inventory[i].copy();
+                    inventory[i] = null;
+                    if (ejecting != null) {
+                        helper.insertStack(ejecting, output);
+                        updateCanWork();
+                    }
+                }
+        }
+    }
 
     @Override
     public void getGUINetworkData(int id, int value) {
@@ -184,6 +216,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     @Override
     public void setRSMode(RedstoneMode mode) {
         this.mode = mode;
+        updateCanWork();
     }
 
     @Override
@@ -194,6 +227,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     @Override
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
+        updateCanWork();
     }
 
     @Override

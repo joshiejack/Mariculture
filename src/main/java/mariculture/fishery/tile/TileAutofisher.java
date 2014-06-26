@@ -90,8 +90,9 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
     //Returns how much RF this machine uses
     @Override
-    public int getRFUsage() {      
-        return 20 + (speed * 20);
+    public void updatePowerPerTick() {   
+        double modifier = 1.0D;
+        usage = (int) (modifier * (20 + (speed * 20)));
     }
 
     @Override
@@ -120,7 +121,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
     //Returns whether the rod can operate or not, depends on the bait and the rod
     private boolean hasPower() {
-        return energyStorage.extractEnergy(getRFUsage(), true) >= getRFUsage();
+        return energyStorage.extractEnergy(getPowerPerTick(), true) >= getPowerPerTick();
     }
 
     //Returns whether the block below can be fished in or not

@@ -12,7 +12,7 @@ import cofh.api.energy.IEnergyHandler;
 
 public abstract class TileMachinePowered extends TileMachine implements IEnergyHandler, IPowered {
     protected EnergyStorage energyStorage;
-    protected int usage;
+    protected int usage = -1;
 
     public TileMachinePowered() {
         energyStorage = new EnergyStorage(getRFCapacity());
@@ -22,16 +22,17 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
 
     public abstract int getRFCapacity();
 
-    public abstract int getRFUsage();
-
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-        if(!worldObj.isRemote) {
+        if (!worldObj.isRemote) {
+            if (usage == -1) updatePowerPerTick();
             int ret = energyStorage.receiveEnergy(maxReceive, simulate);
-            if (!canWork) if (energyStorage.getEnergyStored() >= getRFUsage() * 2) {
-                updateCanWork();
+            if (!canWork) {
+                if (energyStorage.getEnergyStored() >= getPowerPerTick() * 2) {
+                    updateCanWork();
+                }
             }
-    
+
             return ret;
         } else return 0;
     }
@@ -67,6 +68,11 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
     }
 
     @Override
+    public void updatePowerPerTick() {
+        usage = (int) (1.05D - (rf / 300000 * 0.75D));
+    }
+
+    @Override
     public boolean isConsumer() {
         return true;
     }
@@ -75,12 +81,13 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
     public void updateUpgrades() {
         super.updateUpgrades();
         energyStorage.setCapacity(getRFCapacity() + rf);
+        updatePowerPerTick();
     }
 
     @Override
     public void updateMachine() {
         if (canWork) {
-            extractEnergy(ForgeDirection.DOWN, getRFUsage(), false);
+            extractEnergy(ForgeDirection.DOWN, getPowerPerTick(), false);
             processed += speed;
             if (processed >= max) {
                 process();
@@ -101,10 +108,10 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
                 int drain = receiveEnergy(ForgeDirection.UP, rf, true);
                 if (drain > 0) {
                     ((IEnergyContainerItem) inventory[3].getItem()).extractEnergy(inventory[3], drain, false);
-                    if(inventory[3] == null || inventory[3].stackSize <= 0) {
+                    if (inventory[3] == null || inventory[3].stackSize <= 0) {
                         decrStackSize(3, 1);
                     }
-                    
+
                     receiveEnergy(ForgeDirection.UP, drain, false);
                 }
             }
@@ -123,6 +130,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
                 break;
             case 5:
                 usage = value;
+                break;
         }
     }
 
@@ -131,7 +139,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyH
         super.sendGUINetworkData(container, crafting);
         crafting.sendProgressBarUpdate(container, 3, energyStorage.getEnergyStored());
         crafting.sendProgressBarUpdate(container, 4, energyStorage.getMaxEnergyStored());
-        crafting.sendProgressBarUpdate(container, 5, canWork ? getRFUsage() : 0);
+        crafting.sendProgressBarUpdate(container, 5, canWork ? getPowerPerTick() : 0);
     }
 
     @Override

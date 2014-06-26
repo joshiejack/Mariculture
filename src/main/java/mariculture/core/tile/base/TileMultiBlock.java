@@ -160,14 +160,18 @@ public class TileMultiBlock extends TileEntity {
 
     @Override
     public void updateEntity() {
-        if (master != null) if (isMaster()) {
-            if (!worldObj.isRemote) if (needsInit && !init) {
-                init();
-            }
+        if (master != null) {
+            if (isMaster()) {
+                if (!worldObj.isRemote) {
+                    if (needsInit && !init) {
+                        init();
+                    }
+                }
 
-            updateMaster();
-        } else {
-            updateSlaves();
+                updateMaster();
+            } else {
+                updateSlaves();
+            }
         }
     }
 

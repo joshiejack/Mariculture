@@ -115,6 +115,11 @@ public abstract class TileTurbineBase extends TileStorageTank implements IUpgrad
         int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
         return tankRate * 20 + storage * tankRate;
     }
+    
+    @Override
+    public void updatePowerPerTick() {
+        return;
+    }
 
     //Energy GENERATED Per Tick
     public abstract int getEnergyGenerated();

@@ -45,7 +45,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
     }
 
     //Returns true if a valid tick to operate
-    public boolean onTick(int i) {        
+    public boolean onTick(int i) {
         return worldObj.getWorldTime() % i == 0;
     }
 
@@ -146,9 +146,8 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
         if (setting.canEject(EjectSetting.ITEM)) return true;
         for (Integer i : output) {
             if (inventory[i] == null) {
-                ;
+                return true;
             }
-            return true;
         }
 
         return false;
@@ -181,7 +180,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
         if (id == Feature.REDSTONE) {
             setRSMode(RedstoneMode.toggle(getRSMode()));
         }
-        
+
         if (id == Feature.EJECT) {
             setEjectSetting(EjectSetting.toggle(getEjectType(), getEjectSetting()));
         }

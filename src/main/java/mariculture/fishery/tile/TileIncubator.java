@@ -36,6 +36,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         needsInit = true;
         max = MachineSpeeds.getIncubatorSpeed();
         inventory = new ItemStack[22];
+        output = new int[] { 13, 14, 15, 16, 17, 18, 19, 20, 21 };
     }
 
     //Sets the mutation modifier for this incubator
@@ -53,7 +54,6 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     }
 
     public int[] in = new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-    public int[] out = new int[] { 13, 14, 15, 16, 17, 18, 19, 20, 21 };
 
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
@@ -77,11 +77,10 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
     private boolean outputHasRoom() {
         if (setting.canEject(EjectSetting.ITEM)) return true;
-        for (Integer i : out) {
+        for (Integer i : output) {
             if (inventory[i] == null) {
-                ;
+                return true;
             }
-            return true;
         }
 
         return false;
@@ -97,23 +96,16 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             }
 
             if (canWork) {
-                energyStorage.extractEnergy(getRFUsage(), false);
+                energyStorage.extractEnergy(getPowerPerTick(), false);
                 processed += speed;
 
                 if (onTick(70)) {
                     processed -= heat;
                 }
-                
+
                 if (processed >= max) {
                     processed = 0;
-                    if (canWork()) {
-                        int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this) ? 1024 : (heat * 4) + 1;
-                        for (int o = 0; o < loop; o++) {
-                            hatchEgg();
-                        }
-                    }
-
-                    canWork = canWork();
+                    process();
                 }
             } else {
                 processed = 0;
@@ -124,10 +116,17 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             }
         }
     }
-
+    
     @Override
-    public void updateSlaveMachine() {
-        return;
+    public void process() {
+        if (canWork()) {
+            int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this) ? 1024 : (heat * 4) + 1;
+            for (int o = 0; o < loop; o++) {
+                hatchEgg();
+            }
+        }
+
+        updateCanWork();
     }
 
     private boolean hasEgg() {
@@ -138,12 +137,13 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     }
 
     private boolean hasPower() {
-        return energyStorage.extractEnergy(getRFUsage() * 2, true) >= getRFUsage() * 2;
+        return energyStorage.extractEnergy(getPowerPerTick() * 2, true) >= getPowerPerTick() * 2;
     }
 
     @Override
-    public int getRFUsage() {
-        return 35 + ((speed - 1) * 40) + (heat * 80);
+    public void updatePowerPerTick() {
+        double modifier = 1.0D;
+        usage = (int) (modifier * (36 + ((speed - 1) * 40) + (heat * 80)));
     }
 
     public boolean hatchEgg() {
@@ -181,7 +181,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
                     ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
                     if (fish != null) {
                         int dna = Fish.gender.getDNA(fish);
-                        helper.insertStack(fish, out);
+                        helper.insertStack(fish, output);
 
                         if (dna == FishyHelper.MALE) {
                             inventory[slot].getTagCompound().setInteger("malesGenerated", inventory[slot].getTagCompound().getInteger("malesGenerated") + 1);
@@ -189,7 +189,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
                             inventory[slot].getTagCompound().setInteger("femalesGenerated", inventory[slot].getTagCompound().getInteger("femalesGenerated") + 1);
                         }
                     } else {
-                        helper.insertStack(new ItemStack(Items.fish, 2, 0), out);
+                        helper.insertStack(new ItemStack(Items.fish, 2, 0), output);
                     }
                 }
 
@@ -198,16 +198,16 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
                     if (fish != null) {
                         // If no males were generated create one
                         if (inventory[slot].getTagCompound().getInteger("malesGenerated") <= 0) {
-                            helper.insertStack(Fish.gender.addDNA(fish.copy(), FishyHelper.MALE), out);
+                            helper.insertStack(Fish.gender.addDNA(fish.copy(), FishyHelper.MALE), output);
                         }
 
                         fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
                         if (fish != null) // If no females were generated create one
                         if (inventory[slot].getTagCompound().getInteger("femalesGenerated") <= 0) {
-                            helper.insertStack(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE), out);
+                            helper.insertStack(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE), output);
                         }
                     } else {
-                        helper.insertStack(new ItemStack(Items.fish), out);
+                        helper.insertStack(new ItemStack(Items.fish), output);
                     }
 
                     decrStackSize(slot, 1);
@@ -216,7 +216,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             }
         } else if (inventory[slot].getItem() == Items.egg) {
             if (Rand.nextInt(8)) {
-                helper.insertStack(new ItemStack(Items.spawn_egg, 1, 93), out);
+                helper.insertStack(new ItemStack(Items.spawn_egg, 1, 93), output);
             }
 
             decrStackSize(slot, 1);
@@ -224,7 +224,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         } else if (inventory[slot].getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
             int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) ? MachineSettings.DRAGON_EGG_ETHEREAL : MachineSettings.DRAGON_EGG_BASE;
             if (Rand.nextInt(chance)) {
-                helper.insertStack(new ItemStack(Core.crafting, 1, CraftingMeta.DRAGON_EGG), out);
+                helper.insertStack(new ItemStack(Core.crafting, 1, CraftingMeta.DRAGON_EGG), output);
             }
 
             if (Rand.nextInt(10)) {

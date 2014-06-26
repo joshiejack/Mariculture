@@ -7,5 +7,7 @@ public interface IPowered {
 
     int getPowerPerTick();
     
+    void updatePowerPerTick();
+    
     boolean isConsumer();
 }
