@@ -101,6 +101,7 @@ fluid.platinum.molten=Molten Platinum
 item.hammer.name=Blacksmith's Hammer
 item.ladle.name=Ladle
 item.bucket.titanium.name=Titanium Bucket
+item.food.debug.name=!Hunger Food (Debug)
 item.food.oyster.name=Beef and Oyster Pie
 item.guide.processing.name=Basic Materials & Processing
 item.guide.processing.author=Anonymous

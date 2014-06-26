@@ -110,29 +110,28 @@ public class ItemFood extends ItemMariculture {
     @Override
     public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
         int meta = stack.getItemDamage();
+        if (meta == FoodMeta.DEBUG_FOOD) {
+            player.getFoodStats().addExhaustion(100);
+            player.getFoodStats().addStats(-10, 0F);
+            return stack;
+        } else {
+            if (!player.capabilities.isCreativeMode) --stack.stackSize;
+            ItemStack bowl = getLeftovers(meta);
+            if (bowl != null && stack.stackSize > 0) SpawnItemHelper.addToPlayerInventory(player, bowl);
+            int level = getFoodLevel(stack.getItemDamage());
+            float sat = getFoodSaturation(stack.getItemDamage());
+            //Decrease food if hunger overhaul is installed
+            if (Extra.NERF_FOOD) {
+                level = (int) Math.max(1, level / 2.5);
+                sat = Math.max(0.0F, sat / 10);
+            }
 
-        if (!player.capabilities.isCreativeMode) {
-            --stack.stackSize;
-        }
-        ItemStack bowl = getLeftovers(meta);
-        if (bowl != null && stack.stackSize > 0) {
-            SpawnItemHelper.addToPlayerInventory(player, bowl);
-        }
-        int level = getFoodLevel(stack.getItemDamage());
-        float sat = getFoodSaturation(stack.getItemDamage());
-        //Decrease food if hunger overhaul is installed
-        if (Extra.NERF_FOOD) {
-            level = (int) Math.max(1, level / 2.5);
-            sat = Math.max(0.0F, sat / 10);
-        }
+            player.getFoodStats().addStats(level, sat);
+            world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+            if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP) player.heal(2);
 
-        player.getFoodStats().addStats(level, sat);
-        world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-        if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP) {
-            player.heal(2);
+            return bowl != null && stack.stackSize == 0 ? bowl : stack;
         }
-
-        return bowl != null && stack.stackSize == 0 ? bowl : stack;
     }
 
     @Override
@@ -150,6 +149,8 @@ public class ItemFood extends ItemMariculture {
                 return 64;
             case FoodMeta.OYSTER:
                 return 128;
+            case FoodMeta.DEBUG_FOOD:
+                return 4;
             default:
                 return 32;
         }
@@ -162,8 +163,8 @@ public class ItemFood extends ItemMariculture {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (player.canEat(false)) {
-            player.setItemInUse(stack, getMaxItemUseDuration(stack));
+        if (player.canEat(false) || stack.getItemDamage() == FoodMeta.DEBUG_FOOD) {
+            player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         }
 
         return stack;
@@ -215,6 +216,8 @@ public class ItemFood extends ItemMariculture {
                 return "misoSoup3";
             case FoodMeta.OYSTER:
                 return "oyster";
+            case FoodMeta.DEBUG_FOOD:
+                return "debug";
             default:
                 return "food";
         }

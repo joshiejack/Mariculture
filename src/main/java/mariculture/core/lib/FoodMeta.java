@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class FoodMeta {
-    public static final int COUNT = 13;
+    public static final int COUNT = 14;
 
     public static final int FISH_FINGER = 0;
     public static final int CALAMARI = 1;
@@ -16,4 +16,5 @@ public class FoodMeta {
     public static final int CALAMARI_HALF = 10;
     public static final int MISO_SOUP_2 = 11;
     public static final int MISO_SOUP_3 = 12;
+    public static final int DEBUG_FOOD = 13;
 }
