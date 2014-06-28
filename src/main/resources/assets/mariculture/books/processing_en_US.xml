@@ -30,7 +30,7 @@
     </page>
     <page>
         <text x="32" y="-13" bold="true">Titanium</text>
-        <text>Titanium is made by combining Magnesium and Rutile, you can either combine them in a vat, or dual melt them in a Crucible Furnace. 1 Magnesium and 1 Rutile will give you 1 Titanium.</text>
+        <text>Titanium is made by combining Magnesium and Rutile, you must combine them in a vat. 1 Magnesium and 1 Rutile will give you 1 Titanium.</text>
         <vat x="20" y="45" size="1.1">
             <fluid1 type=" ingot" vol="1">magnesium.molten</fluid1>
             <fluid2 type=" ingot" vol="1">rutile.molten</fluid2>
