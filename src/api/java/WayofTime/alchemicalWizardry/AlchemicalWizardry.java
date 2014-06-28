@@ -1,8 +1,12 @@
 package WayofTime.alchemicalWizardry;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import joshie.alchemicalWizardy.ShapedBloodOrbRecipe;
 import joshie.alchemicalWizardy.ShapelessBloodOrbRecipe;
@@ -105,12 +109,15 @@ import WayofTime.alchemicalWizardry.common.summoning.SummoningHelperAW;
 import WayofTime.alchemicalWizardry.common.summoning.meteor.MeteorRegistry;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEConduit;
+import WayofTime.alchemicalWizardry.common.tileEntity.TEDemonPortal;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEHomHeart;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEMasterStone;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEOrientable;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEPedestal;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEPlinth;
+import WayofTime.alchemicalWizardry.common.tileEntity.TESchematicSaver;
 import WayofTime.alchemicalWizardry.common.tileEntity.TESocket;
+import WayofTime.alchemicalWizardry.common.tileEntity.TESpectralContainer;
 import WayofTime.alchemicalWizardry.common.tileEntity.TESpellEffectBlock;
 import WayofTime.alchemicalWizardry.common.tileEntity.TESpellEnhancementBlock;
 import WayofTime.alchemicalWizardry.common.tileEntity.TESpellModifierBlock;
@@ -130,7 +137,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "AWWayofTime", name = "AlchemicalWizardry", version = "v1.0.2")
+@Mod(modid = "AWWayofTime", name = "AlchemicalWizardry", version = "v1.0.1g")
 //@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"BloodAltar", "particle", "SetLifeEssence", "GetLifeEssence", "Ritual", "GetAltarEssence", "TESocket", "TEWritingTable", "CustomParticle", "SetPlayerVel", "SetPlayerPos", "TEPedestal", "TEPlinth", "TETeleposer", "InfiniteLPPath", "TEOrientor"}, packetHandler = PacketHandler.class)
 
 public class AlchemicalWizardry
@@ -233,6 +240,51 @@ public class AlchemicalWizardry
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+    	File bmDirectory = new File("config/BloodMagic/schematics");
+    	
+    	if(!bmDirectory.exists() && bmDirectory.mkdirs())
+    	{
+    		try
+    		{
+    			InputStream in = AlchemicalWizardry.class.getResourceAsStream("/assets/alchemicalwizardry/schematics/building/buildings.zip");
+    			System.out.println("none yet!");
+    			if(in != null)
+    			{
+    				System.out.println("I have found a zip!");
+    				ZipInputStream zipStream = new ZipInputStream(in);
+    				ZipEntry entry = null;
+    				
+    				int extractCount = 0;
+    				
+    				while((entry = zipStream.getNextEntry()) != null)
+    				{
+    					File file = new File(bmDirectory, entry.getName());
+    					if(file.exists() && file.length() > 3L)
+    					{
+    						continue;
+    					}
+    					FileOutputStream out = new FileOutputStream(file);
+    					
+    					byte[] buffer = new byte[8192];
+    					int len;
+    					while((len = zipStream.read(buffer)) != -1)
+    					{
+    						out.write(buffer, 0, len);
+    					}
+    					out.close();
+    					
+    					extractCount++;
+    				}
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			
+    		}
+    	}
+
+        TEDemonPortal.loadBuildingList();
+    	
         MinecraftForge.EVENT_BUS.register(new LifeBucketHandler());
         BloodMagicConfiguration.init(new File(event.getModConfigurationDirectory(), "AWWayofTime.cfg"));
 
@@ -505,7 +557,9 @@ public class AlchemicalWizardry
         GameRegistry.registerTileEntity(TESpellEffectBlock.class, "containerSpellEffectBlock");
         GameRegistry.registerTileEntity(TESpellModifierBlock.class, "containerSpellModifierBlock");
         GameRegistry.registerTileEntity(TESpellEnhancementBlock.class, "containerSpellEnhancementBlock");
-            
+        GameRegistry.registerTileEntity(TESpectralContainer.class,"spectralContainerTileEntity");
+        GameRegistry.registerTileEntity(TEDemonPortal.class, "containerDemonPortal");
+        GameRegistry.registerTileEntity(TESchematicSaver.class, "containerSchematicSaver");
         //GameRegistry.registerBlock(ModBlocks.blockSpellEffect,"blockSpellEffect");
         ModBlocks.bloodRune.setHarvestLevel("pickaxe", 2);
         ModBlocks.speedRune.setHarvestLevel("pickaxe", 2);

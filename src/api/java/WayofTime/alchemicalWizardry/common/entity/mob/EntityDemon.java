@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.common.IDemon;
 import WayofTime.alchemicalWizardry.common.items.DemonPlacer;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 
 public class EntityDemon extends EntityTameable implements IDemon
 {
@@ -48,8 +49,12 @@ public class EntityDemon extends EntityTameable implements IDemon
 
     protected void dropFewItems(boolean par1, int par2)
     {
+    	if(!(this.getOwner() instanceof EntityPlayer))
+    	{
+    		return;
+    	}
         ItemStack drop = new ItemStack(ModItems.demonPlacer, 1, this.getDemonID());
-        DemonPlacer.setOwnerName(drop, this.getOwnerName());
+        DemonPlacer.setOwnerName(drop, SpellHelper.getUsername((EntityPlayer)this.getOwner()));
 
         if (this.hasCustomNameTag())
         {

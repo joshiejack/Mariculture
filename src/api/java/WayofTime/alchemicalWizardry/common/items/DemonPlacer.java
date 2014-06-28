@@ -185,7 +185,7 @@ public class DemonPlacer extends Item
                     //entityliving.onSpawnWithEgg((EntityLivingData)null);
                     if (entityliving instanceof EntityDemon)
                     {
-                        ((EntityDemon) entityliving).setOwner(DemonPlacer.getOwnerName(itemStack));
+                        ((EntityDemon) entityliving).func_152115_b(DemonPlacer.getOwnerName(itemStack));
 
                         if (!DemonPlacer.getOwnerName(itemStack).equals(""))
                         {

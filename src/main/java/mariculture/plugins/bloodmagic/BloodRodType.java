@@ -11,6 +11,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 
 public class BloodRodType extends RodType {
     public BloodRodType(int quality, double junk, double good, double rare, int enchantment) {
@@ -36,7 +37,7 @@ public class BloodRodType extends RodType {
     @Override
     public boolean canFish(World world, int x, int y, int z, EntityPlayer player, ItemStack stack) {
         if (stack.hasTagCompound()) {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
             return entityOwner != null;
         } else return false;
     }
@@ -47,7 +48,7 @@ public class BloodRodType extends RodType {
             SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, fish * 250);
         } else if (SoulNetworkHandler.syphonFromNetwork(stack, fish * 250) == 0) {
             if (!world.isRemote) {
-                EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
+                EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
                 if (entityOwner != null) {
                     entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 500));
                 }

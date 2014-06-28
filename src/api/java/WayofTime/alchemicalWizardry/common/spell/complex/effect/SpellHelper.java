@@ -14,6 +14,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -132,6 +134,15 @@ public class SpellHelper
 	public static String getUsername(EntityPlayer player)
 	{
 		return SoulNetworkHandler.getUsername(player);
+	}
+	
+	public static EntityPlayer getPlayerForUsername(String str)
+	{
+		if(MinecraftServer.getServer() == null)
+		{
+			return null;
+		}
+		return MinecraftServer.getServer().getConfigurationManager().func_152612_a(str);
 	}
 	
 	public static void sendParticleToPlayer(EntityPlayer player, String str, double xCoord, double yCoord, double zCoord, double xVel, double yVel, double zVel)
@@ -345,7 +356,7 @@ public class SpellHelper
         if (!world.isRemote && player instanceof EntityPlayer)
             d1 += 1.62D;
         double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) f;
-        Vec3 vec3 = world.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
+        Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
         float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
         float f5 = -MathHelper.cos(-f1 * 0.017453292F);

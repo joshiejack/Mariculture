@@ -32,6 +32,7 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.common.EntityAITargetAggro;
 import WayofTime.alchemicalWizardry.common.entity.projectile.MudProjectile;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 
 public class EntitySmallEarthGolem extends EntityDemon implements IRangedAttackMob
 {
@@ -312,7 +313,7 @@ public class EntitySmallEarthGolem extends EntityDemon implements IRangedAttackM
                 }
             }
 
-            if (par1EntityPlayer.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && !this.isBreedingItem(itemstack))
+            if (this.getOwner() instanceof EntityPlayer && SpellHelper.getUsername(par1EntityPlayer).equalsIgnoreCase(SpellHelper.getUsername((EntityPlayer)this.getOwner())) && !this.isBreedingItem(itemstack))
             {
                 if (!this.worldObj.isRemote)
                 {
@@ -346,7 +347,7 @@ public class EntitySmallEarthGolem extends EntityDemon implements IRangedAttackM
                     this.setAttackTarget((EntityLivingBase) null);
                     this.aiSit.setSitting(true);
                     this.setHealth(this.maxTamedHealth);
-                    this.setOwner(par1EntityPlayer.getCommandSenderName());
+                    this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
                     this.playTameEffect(true);
                     this.worldObj.setEntityState(this, (byte) 7);
                 } else

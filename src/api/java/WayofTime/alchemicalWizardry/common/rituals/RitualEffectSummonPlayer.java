@@ -16,6 +16,7 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 
 public class RitualEffectSummonPlayer extends RitualEffect //Summons a player via the bound item
 {
@@ -45,7 +46,7 @@ public class RitualEffectSummonPlayer extends RitualEffect //Summons a player vi
 
         if (currentEssence < this.getCostPerRefresh())
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {
@@ -68,7 +69,7 @@ public class RitualEffectSummonPlayer extends RitualEffect //Summons a player vi
                 {
                     String str = EnergyItems.getOwnerName(entityItem.getEntityItem());
                     
-                    EntityPlayer entityPlayer = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(str);
+                    EntityPlayer entityPlayer = SpellHelper.getPlayerForUsername(str);
                     if(entityPlayer!=null)
                     {
                     	entityPlayer.posX = x;

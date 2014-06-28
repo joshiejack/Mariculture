@@ -3,6 +3,7 @@ package WayofTime.alchemicalWizardry.common.entity.mob;
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.common.EntityAITargetAggro;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.BlockColored;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -321,7 +322,7 @@ public class EntityLowerGuardian extends EntityDemon
                 }
             }
 
-            if (par1EntityPlayer.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && !this.isBreedingItem(itemstack))
+            if (this.getOwner() instanceof EntityPlayer && SpellHelper.getUsername(par1EntityPlayer).equalsIgnoreCase(SpellHelper.getUsername((EntityPlayer)this.getOwner())) && !this.isBreedingItem(itemstack))
             {
                 if (!this.worldObj.isRemote)
                 {
@@ -355,7 +356,7 @@ public class EntityLowerGuardian extends EntityDemon
                     this.setAttackTarget((EntityLivingBase) null);
                     this.aiSit.setSitting(true);
                     this.setHealth(this.maxTamedHealth);
-                    this.setOwner(par1EntityPlayer.getCommandSenderName());
+                    this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
                     this.playTameEffect(true);
                     this.worldObj.setEntityState(this, (byte) 7);
                 } else

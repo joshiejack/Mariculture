@@ -49,7 +49,7 @@ public class RitualEffectExpulsion extends RitualEffect
 
         if (currentEssence < this.getCostPerRefresh())
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {
@@ -60,7 +60,7 @@ public class RitualEffectExpulsion extends RitualEffect
         } else
         {
             int d0 = 25;
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, d0, d0);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, d0, d0);
             axisalignedbb.maxY = Math.min((double) world.getHeight(), (double) (y + 1 + d0));
             List list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
             Iterator iterator = list.iterator();

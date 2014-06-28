@@ -86,7 +86,7 @@ public class RitualOfTheBloodRiver extends RitualEffect {
             int z = ritual.getZCoord();
 
             if (currentEssence < getCostPerRefresh()) {
-                EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+                EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
                 if (entityOwner == null) return;
 
                 setIncubatorMutationModifier(world, x, y, z, 1.0D);

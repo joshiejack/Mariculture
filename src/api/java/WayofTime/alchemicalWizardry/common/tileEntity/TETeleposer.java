@@ -219,7 +219,7 @@ public class TETeleposer extends TileEntity implements IInventory
                 {
                     //Prime the teleportation
                     int d0 = focusLevel - 1;
-                    AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getAABBPool().getAABB((double) this.xCoord, (double) this.yCoord + d0 + 1, (double) this.zCoord, (double) (this.xCoord + 1), (double) (this.yCoord + 2 + d0), (double) (this.zCoord + 1)).expand(d0, d0, d0);
+                    AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getBoundingBox((double) this.xCoord, (double) this.yCoord + d0 + 1, (double) this.zCoord, (double) (this.xCoord + 1), (double) (this.yCoord + 2 + d0), (double) (this.zCoord + 1)).expand(d0, d0, d0);
                     axisalignedbb1.maxY = Math.min((double) this.worldObj.getHeight(), this.yCoord + 2 + d0 + d0);
                     List list1 = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb1);
                     Iterator iterator1 = list1.iterator();
@@ -232,7 +232,7 @@ public class TETeleposer extends TileEntity implements IInventory
                     }
 
                     //int d0 = focusLevel-1;
-                    AxisAlignedBB axisalignedbb2 = AxisAlignedBB.getAABBPool().getAABB(xf, yf + d0 + 1, zf, xf + 1, yf + 2 + d0, zf).expand(d0, d0, d0);
+                    AxisAlignedBB axisalignedbb2 = AxisAlignedBB.getBoundingBox(xf, yf + d0 + 1, zf, xf + 1, yf + 2 + d0, zf).expand(d0, d0, d0);
                     //axisalignedbb2.maxY = Math.min((double)worldF.getHeight(),yf+1+d0+d0);
                     List list2 = worldF.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb2);
                     Iterator iterator2 = list2.iterator();

@@ -15,6 +15,7 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.common.entity.projectile.EntityMeteor;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.summoning.meteor.MeteorRegistry;
 
 public class RitualEffectSummonMeteor extends RitualEffect
@@ -45,7 +46,7 @@ public class RitualEffectSummonMeteor extends RitualEffect
 
         if (currentEssence < this.getCostPerRefresh())
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {

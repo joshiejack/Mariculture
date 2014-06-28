@@ -64,7 +64,7 @@ public class GuiMirror extends GuiStorage {
             GL11.glMatrixMode(GL11.GL_PROJECTION);
             GL11.glPushMatrix();
             GL11.glLoadIdentity();
-            ScaledResolution var7 = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+            ScaledResolution var7 = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
             GL11.glViewport((var7.getScaledWidth() - 320) / 2 * var7.getScaleFactor(), (var7.getScaledHeight() - 240) / 2 * var7.getScaleFactor(), 320 * var7.getScaleFactor(), 240 * var7.getScaleFactor());
             GL11.glTranslatef(-0.34F, 0.23F, 0.0F);
             GLU.gluPerspective(90.0F, 1.3333334F, 9.0F, 80.0F);

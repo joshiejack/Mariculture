@@ -44,7 +44,7 @@ public class RitualEffectSoulBound extends RitualEffect
 
         if (currentEssence < this.getCostPerRefresh())
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {
@@ -57,7 +57,7 @@ public class RitualEffectSoulBound extends RitualEffect
             if (ritualStone.getVar1() == 0)
             {
                 int d0 = 0;
-                AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) x, (double) y + 1, (double) z, (double) (x + 1), (double) (y + 2), (double) (z + 1)).expand(d0, d0, d0);
+                AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y + 1, (double) z, (double) (x + 1), (double) (y + 2), (double) (z + 1)).expand(d0, d0, d0);
                 List list = world.getEntitiesWithinAABB(EntityItem.class, axisalignedbb);
                 Iterator iterator = list.iterator();
                 EntityItem item;

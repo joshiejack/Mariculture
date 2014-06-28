@@ -182,7 +182,7 @@ public class EntityEnergyBazookaSecondaryProjectile extends EnergyBlastProjectil
             var16.setBlockBoundsBasedOnState(worldObj, xTile, yTile, zTile);
             AxisAlignedBB var2 = var16.getCollisionBoundingBoxFromPool(worldObj, xTile, yTile, zTile);
 
-            if (var2 != null && var2.isVecInside(worldObj.getWorldVec3Pool().getVecFromPool(posX, posY, posZ)))
+            if (var2 != null && var2.isVecInside(Vec3.createVectorHelper(posX, posY, posZ)))
             {
                 inGround = true;
             }
@@ -211,15 +211,15 @@ public class EntityEnergyBazookaSecondaryProjectile extends EnergyBlastProjectil
                 }
             }
 
-            Vec3 var17 = worldObj.getWorldVec3Pool().getVecFromPool(posX, posY, posZ);
-            Vec3 var3 = worldObj.getWorldVec3Pool().getVecFromPool(posX + motionX, posY + motionY, posZ + motionZ);
+            Vec3 var17 = Vec3.createVectorHelper(posX, posY, posZ);
+            Vec3 var3 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
             MovingObjectPosition var4 = worldObj.func_147447_a(var17, var3, true, false, false);
-            var17 = worldObj.getWorldVec3Pool().getVecFromPool(posX, posY, posZ);
-            var3 = worldObj.getWorldVec3Pool().getVecFromPool(posX + motionX, posY + motionY, posZ + motionZ);
+            var17 = Vec3.createVectorHelper(posX, posY, posZ);
+            var3 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
 
             if (var4 != null)
             {
-                var3 = worldObj.getWorldVec3Pool().getVecFromPool(var4.hitVec.xCoord, var4.hitVec.yCoord, var4.hitVec.zCoord);
+                var3 = Vec3.createVectorHelper(var4.hitVec.xCoord, var4.hitVec.yCoord, var4.hitVec.zCoord);
             }
 
             Entity var5 = null;

@@ -15,6 +15,7 @@ import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 
 public class RitualEffectFeatheredKnife extends RitualEffect
@@ -76,7 +77,7 @@ public class RitualEffectFeatheredKnife extends RitualEffect
         //tileAltar = (TEAltar)world.getBlockTileEntity(x,y-1,z);
         int d0 = 15;
         int vertRange = 20;
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, vertRange, d0);
+        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, vertRange, d0);
         List list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
         Iterator iterator1 = list.iterator();
         EntityPlayer entity;
@@ -95,7 +96,7 @@ public class RitualEffectFeatheredKnife extends RitualEffect
 
         if (currentEssence < this.getCostPerRefresh() * entityCount)
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {

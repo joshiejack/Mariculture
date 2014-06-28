@@ -119,7 +119,7 @@ public class SpellTeleport extends HomSpell
         if (!par2World.isRemote)
         {
             int d0 = 3;
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) par3EntityPlayer.posX, (double) par3EntityPlayer.posY, (double) par3EntityPlayer.posZ, (double) (par3EntityPlayer.posX + 1), (double) (par3EntityPlayer.posY + 2), (double) (par3EntityPlayer.posZ + 1)).expand(d0, d0, d0);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) par3EntityPlayer.posX, (double) par3EntityPlayer.posY, (double) par3EntityPlayer.posZ, (double) (par3EntityPlayer.posX + 1), (double) (par3EntityPlayer.posY + 2), (double) (par3EntityPlayer.posZ + 1)).expand(d0, d0, d0);
             //axisalignedbb.maxY = (double)this.worldObj.getHeight();
             List list = par3EntityPlayer.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
             Iterator iterator = list.iterator();

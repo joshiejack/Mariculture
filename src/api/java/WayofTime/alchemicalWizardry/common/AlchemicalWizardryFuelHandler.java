@@ -9,6 +9,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.common.items.LavaCrystal;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.common.IFuelHandler;
 
 public class AlchemicalWizardryFuelHandler implements IFuelHandler
@@ -54,7 +55,7 @@ public class AlchemicalWizardryFuelHandler implements IFuelHandler
                     return 0;
                 }
 
-                EntityPlayer owner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(tag.getString("ownerName"));
+                EntityPlayer owner = SpellHelper.getPlayerForUsername(tag.getString("ownerName"));
 
                 if (owner == null)
                 {

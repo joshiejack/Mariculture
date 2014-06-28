@@ -40,7 +40,7 @@ public class RitualEffectLeap extends RitualEffect
 
         if (currentEssence < this.getCostPerRefresh())
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {
@@ -52,7 +52,7 @@ public class RitualEffectLeap extends RitualEffect
         {
             int direction = ritualStone.getDirection();
             int d0 = 2;
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) x, (double) y - 1, (double) z, (double) (x + 1), (double) (y + 2), (double) (z + 1)).expand(d0, 0, d0);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y - 1, (double) z, (double) (x + 1), (double) (y + 2), (double) (z + 1)).expand(d0, 0, d0);
             List list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
             Iterator iterator = list.iterator();
             EntityLivingBase entityplayer;

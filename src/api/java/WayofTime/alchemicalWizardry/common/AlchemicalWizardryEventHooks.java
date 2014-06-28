@@ -180,7 +180,7 @@ public class AlchemicalWizardryEventHooks
             int posY = (int) Math.round(entity.posY);
             int posZ = (int) Math.round(entity.posZ - 0.5f);
             int d0 = i;
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5).expand(d0, d0, d0);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5).expand(d0, d0, d0);
             List list = event.entityLiving.worldObj.getEntitiesWithinAABB(Entity.class, axisalignedbb);
             Iterator iterator = list.iterator();
             EntityLivingBase livingEntity;

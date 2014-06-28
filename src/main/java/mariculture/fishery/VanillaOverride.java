@@ -77,7 +77,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
         remapper = FMLDeobfuscatingRemapper.INSTANCE;
         byte[] newData = data;
 
-        if (className.equals("abn")) {
+        if (className.equals("adb")) {
             LogHandler.log(Level.INFO, "Patching the vanilla class: " + className);
             newData = patchFishingStuff(data, true);
             if (newData != data) {

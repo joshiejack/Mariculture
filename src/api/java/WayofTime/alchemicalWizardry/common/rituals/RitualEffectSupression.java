@@ -56,7 +56,7 @@ public class RitualEffectSupression extends RitualEffect
         
         if (currentEssence < this.getCostPerRefresh()*costMod)
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {

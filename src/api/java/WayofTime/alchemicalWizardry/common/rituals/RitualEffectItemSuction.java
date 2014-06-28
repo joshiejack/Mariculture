@@ -60,7 +60,7 @@ public class RitualEffectItemSuction extends RitualEffect
         
         if (currentEssence < this.getCostPerRefresh()*100)
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {
@@ -97,7 +97,7 @@ public class RitualEffectItemSuction extends RitualEffect
                                 copyStack.stackSize = 0;
                             } else
                             {
-                                if (itemStack.getItem().equals(copyStack.getItem()))
+                                if (itemStack.getItem().equals(copyStack.getItem()) && itemStack.getItemDamage() == copyStack.getItemDamage())
                                 {
                                     int itemSize = itemStack.stackSize;
                                     int copySize = copyStack.stackSize;
@@ -125,8 +125,7 @@ public class RitualEffectItemSuction extends RitualEffect
                     
                     if (copyStack.stackSize > 0)
                     {
-                        world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, copyStack));
-                        //flag=true;
+                        itemEntity.getEntityItem().stackSize = copyStack.stackSize;
                     }
                 }
             }

@@ -15,6 +15,7 @@ import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 
 public class RitualEffectAnimalGrowth extends RitualEffect
 {
@@ -43,7 +44,7 @@ public class RitualEffectAnimalGrowth extends RitualEffect
         }
 
         int d0 = 2;
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) x, (double) y + 1, (double) z, (double) (x + 1), (double) (y + 3), (double) (z + 1)).expand(d0, 0, d0);
+        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y + 1, (double) z, (double) (x + 1), (double) (y + 3), (double) (z + 1)).expand(d0, 0, d0);
         List list = world.getEntitiesWithinAABB(EntityAgeable.class, axisalignedbb);
         Iterator iterator1 = list.iterator();
         EntityAgeable entity;
@@ -58,7 +59,7 @@ public class RitualEffectAnimalGrowth extends RitualEffect
 
         if (currentEssence < this.getCostPerRefresh() * entityCount)
         {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null)
             {
