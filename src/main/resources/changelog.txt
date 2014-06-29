@@ -6,6 +6,7 @@ Mariculture 1.7.2 BETA 12.5
 • Changed bait saturation from -100 to -1
 • Readded Debug Food
 • Fixed Blood Rod not using up blood shards as normal bait
+• Fixed potential tooltip crash
 
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!
