@@ -6,7 +6,6 @@ import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.util.Text;
-import mariculture.fishery.Fish;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -167,7 +166,7 @@ public class FishDNABase {
     public Integer getDNA(ItemStack stack) {
         if (stack == null || !stack.hasTagCompound()) return 0;
         if (category == null) {
-            if (!stack.stackTagCompound.hasKey(getHigherString()) && stack.stackTagCompound.hasKey(Fish.species.getHigherString())) {
+            if (!stack.stackTagCompound.hasKey(getHigherString()) && stack.stackTagCompound.hasKey("SpeciesID")) {
                 FishSpecies species = Fishing.fishHelper.getSpecies(stack);
                 addDNA(stack, getDNAFromSpecies(species));
             }
@@ -186,7 +185,7 @@ public class FishDNABase {
     public Integer getLowerDNA(ItemStack stack) {
         if (stack == null || !stack.hasTagCompound()) return 0;
         if (category == null) {
-            if (!stack.stackTagCompound.hasKey(getLowerString()) && stack.stackTagCompound.hasKey(Fish.species.getLowerString())) {
+            if (!stack.stackTagCompound.hasKey(getLowerString()) && stack.stackTagCompound.hasKey("lowerSpeciesID")) {
                 FishSpecies species = Fishing.fishHelper.getSpecies(stack);
                 addLowerDNA(stack, getDNAFromSpecies(species));
             }
