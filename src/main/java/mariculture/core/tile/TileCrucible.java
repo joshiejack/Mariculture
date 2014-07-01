@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeCrucible;
 import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -275,7 +275,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     private boolean canMelt(int slot) {
         int other = slot == 0 ? 1 : 0;
-        RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+        RecipeCrucible recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return false;
         int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
         FluidStack fluid = recipe.fluid.copy();
@@ -296,29 +296,17 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     private void melt(int slot) {
         int other = slot == 0 ? 1 : 0;
-        RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+        RecipeCrucible recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return;
-        if (recipe.input2 != null) {
-            decrStackSize(in[slot], recipe.input.stackSize);
-            if (slot == 0) {
-                decrStackSize(in[1], recipe.input2.stackSize);
-            } else {
-                decrStackSize(in[0], recipe.input2.stackSize);
-            }
-            tank.fill(recipe.fluid.copy(), true);
-            if (recipe.output != null && recipe.chance > 0) if (Rand.nextInt(recipe.chance)) {
-                helper.insertStack(recipe.output.copy(), new int[] { out });
-            }
-        } else {
-            decrStackSize(in[slot], recipe.input.stackSize);
-            int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
-            FluidStack fluid = recipe.fluid.copy();
-            fluid.amount = fluidAmount;
-            tank.fill(fluid, true);
-            if (recipe.output != null && recipe.chance > 0) if (Rand.nextInt(recipe.chance)) {
-                helper.insertStack(recipe.output.copy(), new int[] { out });
-            }
+        decrStackSize(in[slot], recipe.input.stackSize);
+        int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
+        FluidStack fluid = recipe.fluid.copy();
+        fluid.amount = fluidAmount;
+        tank.fill(fluid, true);
+        if (recipe.output != null && recipe.chance > 0) if (Rand.nextInt(recipe.chance)) {
+            helper.insertStack(recipe.output.copy(), new int[] { out });
         }
+
     }
 
     private int getFluidAmount(ItemStack stack, int amount) {
@@ -409,7 +397,6 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         PacketHandler.updateRender(this);
     }
 
-    
     private void onBlockPlaced(int x, int y, int z) {
         if (isPart(xCoord, yCoord + 1, zCoord) && !isPart(xCoord, yCoord - 1, zCoord) && !isPart(xCoord, yCoord + 2, zCoord)) {
             MultiPart mstr = new MultiPart(xCoord, yCoord, zCoord);

@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeCrucible;
 import mariculture.api.util.Text;
 import mariculture.core.gui.feature.FeatureArrow;
 import mariculture.core.gui.feature.FeatureEject;
@@ -55,19 +55,18 @@ public class GuiLiquifier extends GuiMariculture {
             }
 
             if (MaricultureHandlers.crucible.getResult(stack, null, -1) != null) {
-                RecipeSmelter result = MaricultureHandlers.crucible.getResult(stack, null, -1);
-                if (result.input2 == null) {
-                    if (result.fluid.amount > 0) if (result.rands != null) {
-                        currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
-                    } else {
-                        currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
-                    }
-
-                    if (result.output != null && result.chance > 0) {
-                        int chance = (int) ((float) 1 / result.chance * 100);
-                        currenttip.add(Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + result.output.getDisplayName());
-                    }
+                RecipeCrucible result = MaricultureHandlers.crucible.getResult(stack, null, -1);
+                if (result.fluid.amount > 0) if (result.rands != null) {
+                    currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
+                } else {
+                    currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
                 }
+
+                if (result.output != null && result.chance > 0) {
+                    int chance = (int) ((float) 1 / result.chance * 100);
+                    currenttip.add(Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + result.output.getDisplayName());
+                }
+
             }
 
             if (info != null) {

@@ -6,7 +6,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeCasting.RecipeBlockCasting;
 import mariculture.api.core.RecipeCasting.RecipeIngotCasting;
 import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
-import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeCrucible;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.Core;
 import mariculture.core.lib.FoodMeta;
@@ -140,11 +140,11 @@ public class RecipeHelper {
     }
 
     public static void addMelting(ItemStack stack, int temp, FluidStack fluid) {
-        MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack, null, temp, fluid, null, 0));
+        MaricultureHandlers.crucible.addRecipe(new RecipeCrucible(stack, temp, fluid, null, 0));
     }
 
     public static void addMelting(ItemStack stack, int temp, FluidStack fluid, ItemStack output, int chance) {
-        MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack, null, temp, fluid, output, chance));
+        MaricultureHandlers.crucible.addRecipe(new RecipeCrucible(stack, temp, fluid, output, chance));
     }
 
     public static void addMelting(ItemStack stack, int temp, String fluid, int vol) {
@@ -180,10 +180,6 @@ public class RecipeHelper {
      */
     public static void addFuel(Object obj, FuelInfo fuelInfo) {
         MaricultureHandlers.crucible.addFuel(obj, fuelInfo);
-    }
-
-    public static void addMeltingAlloy(ItemStack stack1, ItemStack stack2, int temp, FluidStack fluid) {
-        MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack1, stack2, temp, fluid, null, 0));
     }
 
     public static void addCrushRecipe(ItemStack stack, Object string, boolean needAnvil) {

@@ -3,7 +3,7 @@ package mariculture.plugins;
 import java.util.ArrayList;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeCrucible;
 import mariculture.core.Core;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.LimestoneMeta;
@@ -105,7 +105,7 @@ public class PluginTConstruct extends Plugin {
                 j++;
             }
 
-            MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(xpberry, 1000, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), null, 0));
+            MaricultureHandlers.crucible.addRecipe(new RecipeCrucible(xpberry, 1000, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), null, 0));
         }
     }
 

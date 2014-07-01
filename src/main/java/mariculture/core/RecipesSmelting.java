@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeCrucible;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.GlassMeta;
@@ -131,7 +131,6 @@ public class RecipesSmelting {
             FluidStack moltenGold = FluidRegistry.getFluidStack(Fluids.gold, MetalRates.NUGGET);
             FluidStack moltenElectrum = FluidRegistry.getFluidStack(Fluids.electrum, MetalRates.NUGGET * 2);
             RecipeHelper.addFluidAlloy(moltenSilver, moltenGold, moltenElectrum, 1);
-            RecipeHelper.addMeltingAlloy(OreDictionary.getOres("ingotSilver").get(0), new ItemStack(Items.gold_ingot), electrum, get(Fluids.electrum, MetalRates.INGOT * 2));
         }
     }
 
@@ -158,7 +157,7 @@ public class RecipesSmelting {
             }
 
         if (fluids.size() > 0) {
-            MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, meta), temp, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), bonus, chance));
+            MaricultureHandlers.crucible.addRecipe(new RecipeCrucible(new ItemStack(Core.materials, 1, meta), temp, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), bonus, chance));
         }
     }
 

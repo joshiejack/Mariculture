@@ -6,7 +6,7 @@ import java.util.Map;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ICrucibleHandler;
-import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeCrucible;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.util.Rand;
@@ -15,33 +15,29 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class CrucibleHandler implements ICrucibleHandler {
     public static Map fuels = new HashMap();
-    public static ArrayList<RecipeSmelter> recipes = new ArrayList();
+    public static ArrayList<RecipeCrucible> recipes = new ArrayList();
 
     @Override
-    public void addRecipe(RecipeSmelter recipe) {
+    public void addRecipe(RecipeCrucible recipe) {
         recipes.add(recipe);
     }
 
     @Override
-    public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
-        for (RecipeSmelter recipe : recipes) {
+    public RecipeCrucible getResult(ItemStack input, ItemStack input2, int temp) {
+        for (RecipeCrucible recipe : recipes) {
             if (temp >= 0 && temp < recipe.temp) {
                 continue;
             }
             if (ItemHelper.areEqual(recipe.input, input) && input.stackSize >= recipe.input.stackSize) {
-                if (recipe.input2 != null && !(ItemHelper.areEqual(recipe.input2, input2) && input2.stackSize >= recipe.input2.stackSize)) {
-                    continue;
-                }
-
                 FluidStack fluid = recipe.fluid.copy();
                 if (recipe.random != null) {
                     for (int i = 0; i < recipe.random.length; i++)
                         if (Rand.nextInt(recipe.rands[i])) {
                             fluid = recipe.random[i];
-                            if (fluid != null) return new RecipeSmelter(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new Integer[] { 0 });
+                            if (fluid != null) return new RecipeCrucible(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new Integer[] { 0 });
                         }
 
-                    return new RecipeSmelter(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new Integer[] { 0 });
+                    return new RecipeCrucible(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new Integer[] { 0 });
                 } else {
                     if (input.isItemStackDamageable()) {
                         double mod = (double) (input.getMaxDamage() - input.getItemDamage()) / input.getMaxDamage();
@@ -85,14 +81,14 @@ public class CrucibleHandler implements ICrucibleHandler {
 
     @Override
     public int getMeltingPoint(ItemStack stack) {
-        for (RecipeSmelter recipe : recipes)
+        for (RecipeCrucible recipe : recipes)
             if (ItemHelper.areEqual(stack, recipe.input)) return recipe.temp;
 
         return -1;
     }
 
     @Override
-    public ArrayList<RecipeSmelter> getRecipes() {
+    public ArrayList<RecipeCrucible> getRecipes() {
         return recipes;
     }
 }
