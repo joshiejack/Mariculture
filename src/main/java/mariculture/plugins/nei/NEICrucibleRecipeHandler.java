@@ -8,7 +8,7 @@ import java.util.List;
 import mariculture.Mariculture;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeCrucible;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.api.util.Text;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
@@ -35,11 +35,11 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class NEICrucibleRecipeHandler extends NEIBase {
     public class CachedLiquifierRecipe extends CachedRecipe {
-        RecipeCrucible recipe;
+        RecipeSmelter recipe;
         PositionedStack input1;
         PositionedStack output;
 
-        public CachedLiquifierRecipe(RecipeCrucible recipe) {
+        public CachedLiquifierRecipe(RecipeSmelter recipe) {
             input1 = new PositionedStack(recipe.input.copy(), 24, 6);
             if (recipe.output != null) {
                 output = new PositionedStack(recipe.output.copy(), 140, 25);
@@ -138,7 +138,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
     public void loadCraftingRecipes(String outputId, Object... results) {
         boolean isSecondSearch = isSecondSearch(outputId, results);
         if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEICrucibleRecipeHandler.class) {
-            for (RecipeCrucible recipe : MaricultureHandlers.crucible.getRecipes())
+            for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes())
                 if (!isSecondSearch || isSecondSearch && recipe.fluid.getFluid().getName().equals(results[1])) {
                     arecipes.add(new CachedLiquifierRecipe(recipe));
                 }
@@ -149,7 +149,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipeCrucible recipe : MaricultureHandlers.crucible.getRecipes()) {
+        for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
             ItemStack item = recipe.output;
             if (NEIServerUtils.areStacksSameTypeCrafting(result, item)) {
                 arecipes.add(new CachedLiquifierRecipe(recipe));
@@ -168,7 +168,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeCrucible recipe : MaricultureHandlers.crucible.getRecipes()) {
+        for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
             ItemStack item = recipe.input;
             if (NEIServerUtils.areStacksSameTypeCrafting(ingredient, item)) {
                 arecipes.add(new CachedLiquifierRecipe(recipe));
@@ -209,7 +209,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
     public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int id) {
         if (stack != null) {
             CachedLiquifierRecipe cache = (CachedLiquifierRecipe) arecipes.get(id);
-            RecipeCrucible recipe = cache.recipe;
+            RecipeSmelter recipe = cache.recipe;
             if (cache.output != null) {
                 if (gui.isMouseOver(cache.output, id)) {
                     if (recipe.output != null && ItemHelper.areItemStacksEqualNoNBT(stack, recipe.output)) {
@@ -256,7 +256,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
         Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
         if (isOverItem(gui, id)) return currenttip;
 
-        RecipeCrucible recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
+        RecipeSmelter recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
         int yLow = id % 2 == 0 ? 19 : 84;
         int yHigh = id % 2 == 0 ? 79 : 144;
 
@@ -290,7 +290,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
         Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
         if (isOverItem(gui, id)) return false;
 
-        RecipeCrucible recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
+        RecipeSmelter recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
         int yLow = id % 2 == 0 ? 19 : 84;
         int yHigh = id % 2 == 0 ? 79 : 144;
 
@@ -307,7 +307,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
         Point mouse = getMouse(getGuiWidth(gui), getGuiHeight(gui));
         if (isOverItem(gui, id)) return false;
 
-        RecipeCrucible recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
+        RecipeSmelter recipe = ((CachedLiquifierRecipe) arecipes.get(id)).recipe;
         int yLow = id % 2 == 0 ? 19 : 84;
         int yHigh = id % 2 == 0 ? 79 : 144;
 

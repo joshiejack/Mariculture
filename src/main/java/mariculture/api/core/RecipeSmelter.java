@@ -3,7 +3,7 @@ package mariculture.api.core;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class RecipeCrucible {
+public class RecipeSmelter {
     public int temp;
     public ItemStack input;
     public FluidStack fluid;
@@ -12,7 +12,12 @@ public class RecipeCrucible {
     public FluidStack[] random;
     public Integer[] rands;
 
-    public RecipeCrucible(ItemStack input, int temp, FluidStack fluid, ItemStack output, int chance) {
+    @Deprecated
+    public RecipeSmelter(ItemStack input, ItemStack input2, FluidStack fluid, ItemStack output, int chance) {
+        return;
+    }
+    
+    public RecipeSmelter(ItemStack input, int temp, FluidStack fluid, ItemStack output, int chance) {
         this.input = input;
         this.temp = temp;
         this.fluid = fluid;
@@ -20,7 +25,7 @@ public class RecipeCrucible {
         this.chance = chance;
     }
 
-    public RecipeCrucible(ItemStack input, int temp, FluidStack[] fluids, Integer rands[], ItemStack output, int chance) {
+    public RecipeSmelter(ItemStack input, int temp, FluidStack[] fluids, Integer rands[], ItemStack output, int chance) {
         fluid = fluids[0];
         this.input = input;
         this.temp = temp;
@@ -30,7 +35,7 @@ public class RecipeCrucible {
         this.chance = chance;
     }
 
-    public RecipeCrucible(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance, Integer[] rands) {
+    public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance, Integer[] rands) {
         this(input, temp, fluid, output, chance);
         this.rands = rands;
     }

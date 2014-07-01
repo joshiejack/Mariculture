@@ -4,7 +4,7 @@ import java.util.List;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeCrucible;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.api.util.Text;
 import mariculture.core.gui.feature.FeatureArrow;
 import mariculture.core.gui.feature.FeatureEject;
@@ -55,7 +55,7 @@ public class GuiLiquifier extends GuiMariculture {
             }
 
             if (MaricultureHandlers.crucible.getResult(stack, null, -1) != null) {
-                RecipeCrucible result = MaricultureHandlers.crucible.getResult(stack, null, -1);
+                RecipeSmelter result = MaricultureHandlers.crucible.getResult(stack, null, -1);
                 if (result.fluid.amount > 0) if (result.rands != null) {
                     currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
                 } else {

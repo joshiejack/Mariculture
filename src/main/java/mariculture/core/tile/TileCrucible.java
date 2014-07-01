@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeCrucible;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -275,7 +275,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     private boolean canMelt(int slot) {
         int other = slot == 0 ? 1 : 0;
-        RecipeCrucible recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+        RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return false;
         int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
         FluidStack fluid = recipe.fluid.copy();
@@ -296,7 +296,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     private void melt(int slot) {
         int other = slot == 0 ? 1 : 0;
-        RecipeCrucible recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+        RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return;
         decrStackSize(in[slot], recipe.input.stackSize);
         int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);

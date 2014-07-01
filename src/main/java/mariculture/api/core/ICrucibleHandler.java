@@ -8,9 +8,9 @@ public interface ICrucibleHandler {
     /** Add a Melting Recipe
      * Take note that if you set the liquid output to the same as the ore rate, 
      * 	then your item will be affected by the purity upgrade */
-    public void addRecipe(RecipeCrucible recipe);
+    public void addRecipe(RecipeSmelter recipe);
 
-    public RecipeCrucible getResult(ItemStack input, ItemStack input2, int temp);
+    public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp);
 
     //Can be either a FluidStack, ItemStack, FluidName or Ore Dictionary Name
     public void addFuel(Object stack, FuelInfo info);
@@ -21,5 +21,5 @@ public interface ICrucibleHandler {
     public int getMeltingPoint(ItemStack stack);
 
     /** returns all the recipes **/
-    public ArrayList<RecipeCrucible> getRecipes();
+    public ArrayList<RecipeSmelter> getRecipes();
 }

@@ -6,7 +6,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeCasting.RecipeBlockCasting;
 import mariculture.api.core.RecipeCasting.RecipeIngotCasting;
 import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
-import mariculture.api.core.RecipeCrucible;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.Core;
 import mariculture.core.lib.FoodMeta;
@@ -140,11 +140,11 @@ public class RecipeHelper {
     }
 
     public static void addMelting(ItemStack stack, int temp, FluidStack fluid) {
-        MaricultureHandlers.crucible.addRecipe(new RecipeCrucible(stack, temp, fluid, null, 0));
+        MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack, temp, fluid, null, 0));
     }
 
     public static void addMelting(ItemStack stack, int temp, FluidStack fluid, ItemStack output, int chance) {
-        MaricultureHandlers.crucible.addRecipe(new RecipeCrucible(stack, temp, fluid, output, chance));
+        MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(stack, temp, fluid, output, chance));
     }
 
     public static void addMelting(ItemStack stack, int temp, String fluid, int vol) {
