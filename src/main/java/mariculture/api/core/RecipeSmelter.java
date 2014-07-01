@@ -13,8 +13,8 @@ public class RecipeSmelter {
     public Integer[] rands;
 
     @Deprecated
-    public RecipeSmelter(ItemStack input, ItemStack input2, FluidStack fluid, ItemStack output, int chance) {
-        return;
+    public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance) {
+        this(input, temp, fluid, output, chance);
     }
     
     public RecipeSmelter(ItemStack input, int temp, FluidStack fluid, ItemStack output, int chance) {
