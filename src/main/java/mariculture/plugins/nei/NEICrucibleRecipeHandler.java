@@ -3,6 +3,7 @@ package mariculture.plugins.nei;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import mariculture.Mariculture;
@@ -54,27 +55,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
         @Override
         public List<PositionedStack> getIngredients() {
-            ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
-            stacks.add(getIngredient());
-            return stacks;
-        }
-
-        @Override
-        public PositionedStack getIngredient() {
-            int cycle = cycleticks / 48;
-            if (input1.item.getItemDamage() == -1) {
-                PositionedStack stack = input1.copy();
-                int maxDamage = 0;
-                do {
-                    maxDamage++;
-                    stack.item.setItemDamage(maxDamage);
-                } while (NEIClientUtils.itemListContains(stack.item));
-
-                stack.item.setItemDamage(cycle % maxDamage);
-                return stack;
-            }
-
-            return input1;
+            return getCycledIngredients(cycleticks / 48, Arrays.asList(input1));
         }
 
         @Override

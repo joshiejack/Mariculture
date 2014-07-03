@@ -45,8 +45,8 @@ group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/min
 archivesBaseName = "Mariculture"
 
 dependencies {
-    compile "codechicken:CodeChickenCore:1.7.2-1.0.0:dev"
-    compile "codechicken:NotEnoughItems:1.7.2-1.0.1:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.1.8:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
 }
 
 minecraft {
@@ -75,7 +75,7 @@ processResources {
     }
 }
 
-project.version += '-' + project.buildnumber
+//project.version += '-' + project.buildnumber
 
 jar {
     manifest {
