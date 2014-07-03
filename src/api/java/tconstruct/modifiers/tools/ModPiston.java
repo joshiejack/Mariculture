@@ -3,12 +3,13 @@ package tconstruct.modifiers.tools;
 import java.util.Arrays;
 import java.util.List;
 
+import tconstruct.library.modifier.ItemModifier;
+import tconstruct.library.tools.ToolCore;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ToolCore;
-import net.minecraft.util.StatCollector;
 
-public class ModPiston extends ToolModTypeFilter
+public class ModPiston extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 10;
@@ -16,29 +17,31 @@ public class ModPiston extends ToolModTypeFilter
     public ModPiston(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Piston", items, values);
-        tooltipName = "\u00a77" + StatCollector.translateToLocal("modifier.tool.piston");
+        tooltipName = "\u00a77Knockback";
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof ToolCore)
+        {
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
-            return true;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= keyPair[1])
+                return true;
 
-        else if (keyPair[0] == keyPair[1])
-            return tags.getInteger("Modifiers") > 0;
+            else if (keyPair[0] == keyPair[1])
+                return tags.getInteger("Modifiers") > 0;
 
-        else
-            return false;
+        }
+        return false;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class ModPiston extends ToolModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.piston") + "(" + increase + "/" + max + ")";
+            String modName = "\u00a74Knockback (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -87,14 +90,13 @@ public class ModPiston extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a77" + StatCollector.translateToLocal("modifier.tool.piston") + "(" + keys[0] + "/" + keys[1] + ")";
+        String modName = "\u00a77Knockback (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
     }
 
-    @Override
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("weapon");
     }
 }

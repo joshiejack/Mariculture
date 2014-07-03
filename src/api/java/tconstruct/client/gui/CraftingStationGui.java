@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.logic.CraftingStationLogic;
 
 public class CraftingStationGui extends GuiContainer
 {
@@ -108,7 +108,7 @@ public class CraftingStationGui extends GuiContainer
 
     void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
     {
-        List categories = Arrays.asList(tool.toolCategories());
+        List categories = Arrays.asList(tool.getTraits());
         final int durability = tags.getInteger("Damage");
         final int maxDur = tags.getInteger("TotalDurability");
         int availableDurability = maxDur - durability;

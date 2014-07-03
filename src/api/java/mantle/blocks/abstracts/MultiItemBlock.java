@@ -1,7 +1,10 @@
 package mantle.blocks.abstracts;
 
+import static mantle.lib.CoreRepo.logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 
 /**
  * 
@@ -46,5 +49,23 @@ public class MultiItemBlock extends ItemBlock
         return meta;
     }
 
+    public String getUnlocalizedName (ItemStack itemstack)
+    {
+
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, (specialIndex[0] > -1) ? specialIndex[0] : (blockType.length - 1));
+        int sbIndex = (specialIndex[1] > -1) ? pos : (specialIndex[1] - pos);
+        if (sbIndex < 0)
+            sbIndex = -1 * sbIndex;
+        try
+        {
+            return (new StringBuilder()).append(unlocalizedName).append(".").append(blockType[sbIndex - 1]).append(append).toString();
+        }
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            logger.warn("[MultiItemBlock] Caught array index error in getUnlocalizedName: " + ex.getMessage());
+            logger.warn("[MultiItemBlock] Returning unlocalized name: " + getUnlocalizedName());
+            return getUnlocalizedName();
+        }
+    }
 
 }

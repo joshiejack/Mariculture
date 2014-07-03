@@ -5,33 +5,36 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import tconstruct.library.tools.ToolCore;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import tconstruct.library.tools.ToolCore;
-import net.minecraft.util.StatCollector;
 
 public class ModButtertouch extends ModBoolean
 {
 
     public ModButtertouch(ItemStack[] items, int effect)
     {
-        super(items, effect, StatCollector.translateToLocal("gui.modifier.silk"), "\u00a7e", StatCollector.translateToLocal("modifier.tool.silk"));
+        super(items, effect, "Silk Touch", "\u00a7e", "Silky");
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
-
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.getBoolean("Lava") && !tags.hasKey("Lapis"))
+        if (tool.getItem() instanceof ToolCore)
         {
-            return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key);
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
+
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.getBoolean("Lava") && !tags.hasKey("Lapis"))
+            {
+                return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key);
+            }
         }
         return false;
     }
@@ -71,7 +74,7 @@ public class ModButtertouch extends ModBoolean
         addToolTip(tool, color + tooltipName, color + key);
     }
 
-    public void addEnchantment (ItemStack tool, Enchantment enchant, int level)
+    public void addEnchantment (ItemStack tool, Enchantment enchant, int level) //TODO: Move this to ItemModifier
     {
         NBTTagList tags = new NBTTagList();
         Map enchantMap = EnchantmentHelper.getEnchantments(tool);
@@ -108,10 +111,9 @@ public class ModButtertouch extends ModBoolean
         tool.stackTagCompound.setTag("ench", tags);
     }
 
-    @Override
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("weapon") || list.contains("harvest");
     }
 }

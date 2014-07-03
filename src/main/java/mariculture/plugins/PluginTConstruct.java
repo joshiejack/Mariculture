@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Level;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.FluidType;
+import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.HarvestTool;
@@ -34,19 +35,19 @@ public class PluginTConstruct extends Plugin {
     @Override
     public void preInit() {
         try {
-            Fluids.instance.addFluid("aluminum.molten", FluidType.Aluminum.fluid);
-            Fluids.instance.addFluid("bronze.molten", FluidType.Bronze.fluid);
-            Fluids.instance.addFluid("copper.molten", FluidType.Copper.fluid);
-            Fluids.instance.addFluid("glass.molten", FluidType.Glass.fluid);
-            Fluids.instance.addFluid("gold.molten", FluidType.Gold.fluid);
-            Fluids.instance.addFluid("iron.molten", FluidType.Iron.fluid);
-            Fluids.instance.addFluid("lead.molten", FluidType.Lead.fluid);
-            Fluids.instance.addFluid("nickel.molten", FluidType.Nickel.fluid);
-            Fluids.instance.addFluid("silver.molten", FluidType.Silver.fluid);
-            Fluids.instance.addFluid("steel.molten", FluidType.Steel.fluid);
-            Fluids.instance.addFluid("tin.molten", FluidType.Tin.fluid);
-            Fluids.instance.addFluid("electrum.molten", FluidType.Electrum.fluid);
-            Fluids.instance.addFluid("cobalt.molten", FluidType.Cobalt.fluid);
+            Fluids.instance.addFluid("aluminum.molten", FluidType.getFluidType("Aluminum").fluid);
+            Fluids.instance.addFluid("bronze.molten", FluidType.getFluidType("Bronze").fluid);
+            Fluids.instance.addFluid("copper.molten", FluidType.getFluidType("Copper").fluid);
+            Fluids.instance.addFluid("glass.molten", FluidType.getFluidType("Glass").fluid);
+            Fluids.instance.addFluid("gold.molten", FluidType.getFluidType("Gold").fluid);
+            Fluids.instance.addFluid("iron.molten", FluidType.getFluidType("Iron").fluid);
+            Fluids.instance.addFluid("lead.molten", FluidType.getFluidType("Lead").fluid);
+            Fluids.instance.addFluid("nickel.molten", FluidType.getFluidType("Nickel").fluid);
+            Fluids.instance.addFluid("silver.molten", FluidType.getFluidType("Silver").fluid);
+            Fluids.instance.addFluid("steel.molten", FluidType.getFluidType("Steel").fluid);
+            Fluids.instance.addFluid("tin.molten", FluidType.getFluidType("Tin").fluid);
+            Fluids.instance.addFluid("electrum.molten", FluidType.getFluidType("Electrum").fluid);
+            Fluids.instance.addFluid("cobalt.molten", FluidType.getFluidType("Cobalt").fluid);
         } catch (Exception e) {
             LogHandler.log(Level.INFO, "Mariculture failed to sync up with TiC Fluids");
         }
@@ -121,11 +122,11 @@ public class PluginTConstruct extends Plugin {
         ToolBuilder tb = ToolBuilder.instance;
         ItemStack pearl = new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE);
         ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);
-        ToolBuilder.registerToolMod(new ModPearl(new ItemStack[] { pearl }, 20, 1));
-        ToolBuilder.registerToolMod(new ModPearl(new ItemStack[] { pearl, pearl }, 20, 2));
-        ToolBuilder.registerToolMod(new ModPearl(new ItemStack[] { pearlBlock }, 20, 4));
-        ToolBuilder.registerToolMod(new ModPearl(new ItemStack[] { pearl, pearlBlock }, 20, 5));
-        ToolBuilder.registerToolMod(new ModPearl(new ItemStack[] { pearlBlock, pearlBlock }, 20, 8));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl }, 20, 1));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearl }, 20, 2));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock }, 20, 4));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearlBlock }, 20, 5));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock, pearlBlock }, 20, 8));
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
             if (tool instanceof HarvestTool) {

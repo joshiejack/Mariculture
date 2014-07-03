@@ -2,14 +2,13 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 public class ModReinforced extends ModInteger
 {
 
     public ModReinforced(ItemStack[] items, int effect, int increase)
     {
-        super(items, effect, StatCollector.translateToLocal("modifier.tool.reinforced"), 1, "\u00a75", StatCollector.translateToLocal("modifier.tool.reinforced"));
+        super(items, effect, "Reinforced", 1, "\u00a75", "Reinforced");
     }
 
     @Override
@@ -38,7 +37,6 @@ public class ModReinforced extends ModInteger
         addToolTip(tool, color + tooltipName, color + key);
     }
 
-    @Override
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
@@ -49,7 +47,7 @@ public class ModReinforced extends ModInteger
             String tip = "Tooltip" + tipNum;
             if (!tags.hasKey(tip))
             {
-                // tags.setString(tip, tooltip);
+                //tags.setString(tip, tooltip);
                 String modTip = "ModifierTip" + tipNum;
                 String tag = tags.getString(modTip);
                 tags.setString(modTip, getProperName(modifierTip, tag));
@@ -61,7 +59,7 @@ public class ModReinforced extends ModInteger
                 String tag = tags.getString(modTip);
                 if (tag.contains(modifierTip))
                 {
-                    // tags.setString(tip, getProperName(tooltip, tag));
+                    //tags.setString(tip, getProperName(tooltip, tag));
                     tag = tags.getString(modTip);
                     tags.setString(modTip, getProperName(modifierTip, tag));
                     return tipNum;

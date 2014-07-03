@@ -1,10 +1,10 @@
 package tconstruct.modifiers.tools;
 
+import tconstruct.library.modifier.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
-public class ModAntiSpider extends ToolModTypeFilter
+public class ModAntiSpider extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 4;
@@ -13,7 +13,7 @@ public class ModAntiSpider extends ToolModTypeFilter
     public ModAntiSpider(String type, int effect, ItemStack[] items, int[] values)
     {
         super(effect, "ModAntiSpider", items, values);
-        tooltipName = "\u00a72" + StatCollector.translateToLocal("modifier.tool.spider");
+        tooltipName = "\u00a72Bane of Arthropods";
         guiType = type;
     }
 
@@ -22,7 +22,7 @@ public class ModAntiSpider extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0;
+            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
         int keyPair[] = tags.getIntArray(key);
         if (keyPair[0] + matchingAmount(input) <= keyPair[1])

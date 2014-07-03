@@ -2,8 +2,12 @@ package mantle.blocks.abstracts;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
+import mantle.debug.DebugHelper;
+import mantle.debug.IDebuggable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -11,10 +15,14 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -156,6 +164,7 @@ public abstract class InventoryBlock extends BlockContainer
         }
     }
 
+    @SuppressWarnings("unused")
     public static boolean isActive (IBlockAccess world, int x, int y, int z)
     {
         TileEntity logic = world.getTileEntity(x, y, z);
@@ -190,5 +199,19 @@ public abstract class InventoryBlock extends BlockContainer
         }
     }
 
+    /* IDebuggable */
+    @Override
+    public void onBlockClicked (World world, int x, int y, int z, EntityPlayer player)
+    {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER && player.getHeldItem() != null &&  player.getHeldItem().getItem() != null && player.getHeldItem().getItem() == Items.stick)
+        {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te instanceof IDebuggable)
+            {
+                DebugHelper.handleDebugData(((IDebuggable) te).getDebugInfo(player));
+            }
+        }
 
+        super.onBlockClicked(world, x, y, z, player);
+    }
 }

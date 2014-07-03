@@ -22,10 +22,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.entity.ArrowEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -64,7 +65,7 @@ public abstract class BowBase extends ToolCore
         time = event.charge;
 
         boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
-        int slotID = getInventorySlotContainItem(TRepo.arrow, player.inventory);
+        int slotID = getInventorySlotContainItem(TinkerTools.arrow, player.inventory);
         int arrowID = getInventorySlotContainItem(Items.arrow, player.inventory);
         int arrowState = 0;
         ItemStack tinkerArrow = null;
@@ -95,6 +96,7 @@ public abstract class BowBase extends ToolCore
             {
                 ItemStack arrowStack = tinkerArrow.copy();
                 arrowStack.stackSize = 1;
+                arrowEntity = new ArrowEntity(world, player, speedBase * 2.0F, arrowStack);
             }
             else
             {
@@ -116,6 +118,7 @@ public abstract class BowBase extends ToolCore
             int var10 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
 
             if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
+                ((ArrowEntity) arrowEntity).setKnockbackModStrength(toolTag.getFloat("Knockback"));
             // var10 += toolTag.getFloat("Knockback");
 
             if (var10 > 0)
@@ -148,7 +151,7 @@ public abstract class BowBase extends ToolCore
                 // if (tinkerArrow != null)
                 if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 {
-                    player.inventory.consumeInventoryItem(TRepo.arrow);
+                    player.inventory.consumeInventoryItem(TinkerTools.arrow);
                 }
                 else
                 {
@@ -219,7 +222,7 @@ public abstract class BowBase extends ToolCore
                     return event.result;
                 }
 
-                if (player.capabilities.isCreativeMode || player.inventory.hasItemStack(new ItemStack(Items.arrow)) || player.inventory.hasItemStack(new ItemStack(TRepo.arrow)))
+                if (player.capabilities.isCreativeMode || player.inventory.hasItemStack(new ItemStack(Items.arrow)) || player.inventory.hasItemStack(new ItemStack(TinkerTools.arrow)))
                 {
                     player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
                 }
@@ -770,7 +773,7 @@ public abstract class BowBase extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            if (!TRepo.supressMissingToolLogs)
+            if (!TinkerTools.supressMissingToolLogs)
             {
                 TConstruct.logger.warn("Creative builder failed tool for " + name + this.getToolName());
                 TConstruct.logger.warn("Make sure you do not have item ID conflicts");

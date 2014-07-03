@@ -11,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.util.player.ArmorExtended;
 
 public class ArmorExtendedGui extends InventoryEffectRenderer
@@ -48,7 +48,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         // tab.enabled = false;
         // this.buttonList.add(tab);
 
-        TabRegistry.updateTabValues(cornerX + 51, cornerY, InventoryTabArmorExtended.class);
+        TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabArmorExtended.class);
         TabRegistry.addTabsToList(this.buttonList);
     }
 

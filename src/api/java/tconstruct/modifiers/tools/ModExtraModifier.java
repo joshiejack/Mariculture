@@ -2,38 +2,41 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 
-public class ModExtraModifier extends ToolMod
+public class ModExtraModifier extends ItemModifier
 {
-
     public ModExtraModifier(ItemStack[] items, String dataKey)
     {
         super(items, 0, dataKey);
     }
 
     @Override
-    protected boolean canModify (ItemStack tool, ItemStack[] input)
+    protected boolean canModify (ItemStack tool, ItemStack[] recipe)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean(key))
+        if (tool != null && tool.getItem() instanceof IModifyable)
         {
-            return false;
+            NBTTagCompound tags = this.getModifierTag(tool);
+            if (tags.getBoolean(key))
+            {
+                return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
-    public void modify (ItemStack[] input, ItemStack tool)
+    public void modify (ItemStack[] recipe, ItemStack input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = this.getModifierTag(input);
         tags.setBoolean(key, true);
         int modifiers = tags.getInteger("Modifiers");
         modifiers += 1;
         tags.setInteger("Modifiers", modifiers);
     }
 
-    @Override
     public void addMatchingEffect (ItemStack tool)
     {
     }

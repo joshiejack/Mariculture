@@ -6,10 +6,11 @@ import java.util.List;
 import mariculture.api.util.Text;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
 
-public class ModPearl extends ToolMod {
+public class ModPearl extends ItemModifier {
     String tooltipName;
     int increase;
     int max;
@@ -73,8 +74,13 @@ public class ModPearl extends ToolMod {
     }
 
     @Override
-    public boolean validType(ToolCore tool) {
-        List list = Arrays.asList(tool.toolCategories());
-        return list.contains("harvest");
+    public boolean validType(IModifyable input) {
+        for(String str: input.getTraits()) {
+            if(str.equals("harvest")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

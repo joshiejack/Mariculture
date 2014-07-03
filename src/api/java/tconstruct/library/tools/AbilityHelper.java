@@ -300,7 +300,7 @@ public class AbilityHelper
             {
                 EntityWolf var3 = (EntityWolf) living;
 
-                if (var3.isTamed() && player.getDisplayName().equals(var3))
+                if (var3.isTamed() && player.getDisplayName().equals(var3.func_152113_b()))
                 {
                     return;
                 }
@@ -316,7 +316,7 @@ public class AbilityHelper
                 {
                     EntityWolf var5 = (EntityWolf) var4.next();
 
-                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.getDisplayName().equals(var5) && (!par2 || !var5.isSitting()))
+                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.getDisplayName().equals(var5.func_152113_b()) && (!par2 || !var5.isSitting()))
                     {
                         var5.setSitting(false);
                         var5.setTarget(living);

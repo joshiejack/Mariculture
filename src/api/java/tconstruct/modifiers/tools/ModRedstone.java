@@ -3,12 +3,12 @@ package tconstruct.modifiers.tools;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
-import net.minecraft.util.StatCollector;
 
-public class ModRedstone extends ToolModTypeFilter
+public class ModRedstone extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 50;
@@ -16,29 +16,31 @@ public class ModRedstone extends ToolModTypeFilter
     public ModRedstone(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Redstone", items, values);
-        tooltipName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.redstone");
+        tooltipName = "\u00a74Haste";
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof ToolCore)
+        {
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
-            return true;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= keyPair[1])
+                return true;
 
-        else if (keyPair[0] == keyPair[1])
-            return tags.getInteger("Modifiers") > 0;
+            else if (keyPair[0] == keyPair[1])
+                return tags.getInteger("Modifiers") > 0;
+        }
 
-        else
-            return false;
+        return false;
     }
 
     @Override
@@ -47,6 +49,7 @@ public class ModRedstone extends ToolModTypeFilter
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int[] keyPair;
         int increase = matchingAmount(input);
+        int current = 0;
         if (tags.hasKey(key))
         {
             keyPair = tags.getIntArray(key);
@@ -65,6 +68,7 @@ public class ModRedstone extends ToolModTypeFilter
                 keyPair[0] += increase;
                 tags.setIntArray(key, keyPair);
             }
+            current = keyPair[0];
             updateModTag(tool, keyPair);
         }
         else
@@ -72,14 +76,27 @@ public class ModRedstone extends ToolModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a74" + StatCollector.translateToLocal("gui.modifier.redstone") + "(" + increase + "/" + max + ")";
+            String modName = "\u00a74Redstone (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             keyPair = new int[] { increase, max, tooltipIndex };
+            current = keyPair[0];
             tags.setIntArray(key, keyPair);
         }
 
         int miningSpeed = tags.getInteger("MiningSpeed");
-        miningSpeed += (increase * 8);
+        int boost = 8 + ((current - 1) / 50 * 2);
+        Item temp = tool.getItem();
+        if (temp instanceof ToolCore)
+        {
+            ToolCore toolcore = (ToolCore) temp;
+            if (toolcore.durabilityTypeHandle() == 2)
+                boost += 2;
+            if (toolcore.durabilityTypeAccessory() == 2)
+                boost += 2;
+            if (toolcore.durabilityTypeExtra() == 2)
+                boost += 2;
+        }
+        miningSpeed += (increase * boost);
         tags.setInteger("MiningSpeed", miningSpeed);
 
         String[] type = { "MiningSpeed2", "MiningSpeedHandle", "MiningSpeedExtra" };
@@ -89,14 +106,13 @@ public class ModRedstone extends ToolModTypeFilter
             if (tags.hasKey(type[i]))
             {
                 int speed = tags.getInteger(type[i]);
-                speed += (increase * 8);
+                speed += (increase * boost);
                 tags.setInteger(type[i], speed);
             }
         }
 
         if (tags.hasKey("DrawSpeed"))
         {
-            // int drawSpeed = tags.getInteger("DrawSpeed");
             int baseDrawSpeed = tags.getInteger("BaseDrawSpeed");
             int drawSpeed = (int) (baseDrawSpeed - (0.1f * baseDrawSpeed * (keyPair[0] / 50f)));
             tags.setInteger("DrawSpeed", drawSpeed);
@@ -107,14 +123,13 @@ public class ModRedstone extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a74" + StatCollector.translateToLocal("gui.modifier.redstone") + "(" + keys[0] + "/" + keys[1] + ")";
+        String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
     }
 
-    @Override
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("harvest") || list.contains("utility") || list.contains("bow");
     }
 }

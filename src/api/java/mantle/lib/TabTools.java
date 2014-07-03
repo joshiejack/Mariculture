@@ -2,18 +2,29 @@ package mantle.lib;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
-public class TabTools extends CreativeTabs {
+public class TabTools extends CreativeTabs
+{
+    ItemStack display;
 
-	public TabTools(int par1, String par2Str) {
-		super(par1, par2Str);
-		// TODO Auto-generated constructor stub
-	}
+    public TabTools(String label)
+    {
+        super(label);
+    }
 
-	@Override
-	public Item getTabIconItem() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public void init (ItemStack stack)
+    {
+        display = stack;
+    }
 
+    public ItemStack getIconItemStack ()
+    {
+        return display;
+    }
+
+    public Item getTabIconItem ()
+    {
+        return display.getItem();
+    }
 }

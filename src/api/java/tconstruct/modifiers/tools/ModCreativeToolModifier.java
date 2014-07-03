@@ -2,10 +2,10 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
 
-public class ModCreativeToolModifier extends ToolMod
+public class ModCreativeToolModifier extends ItemModifier
 {
     public ModCreativeToolModifier(ItemStack[] items)
     {
@@ -15,17 +15,21 @@ public class ModCreativeToolModifier extends ToolMod
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        for (ItemStack stack : input)
+        if (tool.getItem() instanceof ToolCore)
         {
-            if (stack != null && stack.hasTagCompound())
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            for (ItemStack stack : input)
             {
-                String targetLock = stack.getTagCompound().getString("TargetLock");
-                if (!targetLock.equals("") && !targetLock.equals(toolItem.getToolName()))
-                    return false;
+                if (stack != null && stack.hasTagCompound())
+                {
+                    String targetLock = stack.getTagCompound().getString("TargetLock");
+                    if (!targetLock.equals("") && !targetLock.equals(toolItem.getToolName()))
+                        return false;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

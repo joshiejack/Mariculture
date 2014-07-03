@@ -12,6 +12,7 @@ public class BlockUtils
         return Block.getBlockFromItem(item);
     }
 
+    @SuppressWarnings("unused")
     public static Block getBlockFromItemStack (ItemStack itemStack)
     {
         return getBlockFromItem(itemStack.getItem());

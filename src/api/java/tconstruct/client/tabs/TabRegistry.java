@@ -26,13 +26,13 @@ public class TabRegistry
     {
         if (gui.getClass() == GuiInventory.class)
         {
-            /* // Values are public at runtime.
-            int cornerX = gui.xSize;
-            int cornerY = gui.guiTop;
-            gui.buttonList.clear();
+            // Values are public at runtime.
+           // int cornerX = gui.guiLeft;
+            //int cornerY = gui.guiTop;
+            //gui.buttonList.clear();
 
-            updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-            addTabsToList(gui.buttonList);*/
+           // updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
+            //addTabsToList(gui.buttonList);
         }
     }
 
