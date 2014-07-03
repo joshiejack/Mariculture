@@ -75,7 +75,7 @@ processResources {
     }
 }
 
-//project.version += '-' + project.buildnumber
+project.version += '-' + project.buildnumber
 
 jar {
     manifest {
