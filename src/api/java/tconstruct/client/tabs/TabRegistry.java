@@ -24,16 +24,16 @@ public class TabRegistry
 
     public static void addTabsToInventory (GuiContainer gui)
     {
-        if (gui.getClass() == GuiInventory.class)
+        /*if (gui.getClass() == GuiInventory.class)
         {
             // Values are public at runtime.
-           // int cornerX = gui.guiLeft;
-            //int cornerY = gui.guiTop;
-            //gui.buttonList.clear();
+            int cornerX = gui.guiLeft;
+            int cornerY = gui.guiTop;
+            gui.buttonList.clear();
 
-           // updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-            //addTabsToList(gui.buttonList);
-        }
+            updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
+            addTabsToList(gui.buttonList);
+        }*/
     }
 
     private static Minecraft mc = FMLClientHandler.instance().getClient();

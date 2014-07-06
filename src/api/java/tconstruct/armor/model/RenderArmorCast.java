@@ -49,7 +49,7 @@ public class RenderArmorCast implements IItemRenderer
     @Override
     public void renderItem (ItemRenderType type, ItemStack item, Object... data)
     {
-        RenderBlocks renderer = null;
+        /*RenderBlocks renderer = Minecraft.getMinecraft().renderGlobal.renderBlocksRg;
         Tessellator tessellator = Tessellator.instance;
         IIcon baseIcon = item.getItem() instanceof ArmorPattern ? ((ArmorPattern) item.getItem()).getBaseIcon() : item.getIconIndex();
         GL11.glPushMatrix();
@@ -83,7 +83,7 @@ public class RenderArmorCast implements IItemRenderer
         renderSelectedCube(tessellator, renderer, baseIcon, sides);
         renderCastTop(item, type);
 
-        GL11.glPopMatrix();
+        GL11.glPopMatrix();*/
     }
 
     public void renderCube (Tessellator tessellator, RenderBlocks renderer, IIcon icon)

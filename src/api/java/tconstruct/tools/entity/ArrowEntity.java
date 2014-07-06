@@ -79,7 +79,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 par1EntityPlayer.onItemPickup(this, 1);
                 this.setDead();
             }
-        }*/
+        } */
     }
 
     @Override

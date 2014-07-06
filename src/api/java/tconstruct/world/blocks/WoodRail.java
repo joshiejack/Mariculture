@@ -47,7 +47,7 @@ public class WoodRail extends BlockRailBase
        /* if (par7 != Blocks.air && par7.canProvidePower() && (new Rail(par1World, par2, par3, par4)).func_150650_a() == 3)
         {
             this.func_150052_a(par1World, par2, par3, par4, false);
-        }*/
+        } */
     }
 
     @Override
