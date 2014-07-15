@@ -75,6 +75,7 @@ import mariculture.factory.tile.TileDictionaryFluid;
 import mariculture.factory.tile.TileDictionaryItem;
 import mariculture.factory.tile.TileFLUDDStand;
 import mariculture.factory.tile.TileFishSorter;
+import mariculture.factory.tile.TileGenerator;
 import mariculture.factory.tile.TileGeyser;
 import mariculture.factory.tile.TilePressureVessel;
 import mariculture.factory.tile.TileSawmill;
@@ -136,7 +137,8 @@ public class Factory extends RegistrationModule {
         customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
         RegistryHelper.registerBlocks(new Block[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
         RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileTurbineWater.class, TileFLUDDStand.class, TilePressureVessel.class, 
-                TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class, TileSluiceAdvanced.class });
+                TileDictionaryItem.class, TileTurbineGas.class, TileSponge.class, TileTurbineHand.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class, 
+                TileSluiceAdvanced.class, TileGenerator.class });
     }
 
     @Override

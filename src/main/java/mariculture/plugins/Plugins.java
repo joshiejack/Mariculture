@@ -52,7 +52,6 @@ public class Plugins extends Module {
     }
 
     public Plugins() {
-
         add("Railcraft");
         add("TConstruct");
         add("Forestry");

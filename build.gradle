@@ -84,6 +84,11 @@ jar {
     }
 }
 
+task sourceJar(type: Jar) {
+    from sourceSets.main.java
+    classifier = 'src'
+}
+
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
@@ -97,10 +102,12 @@ task apiJar(type: Jar) {
     from(sourceSets.main.java) {
         include "mariculture/api/**"
     }
+    
     classifier = 'api'
 }
 
 artifacts {
     archives deobfJar
     archives apiJar
+    archives sourceJar
 }

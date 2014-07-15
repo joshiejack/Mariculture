@@ -13,6 +13,7 @@ import mariculture.core.network.PacketSponge;
 import mariculture.core.tile.TileBookshelf;
 import mariculture.factory.tile.TileDictionaryItem;
 import mariculture.factory.tile.TileFishSorter;
+import mariculture.factory.tile.TileGenerator;
 import mariculture.factory.tile.TileSawmill;
 import mariculture.factory.tile.TileSluice;
 import mariculture.factory.tile.TileSluiceAdvanced;
@@ -66,6 +67,8 @@ public class BlockMachine extends BlockFunctional {
                 return "pickaxe";
             case MachineMeta.SLUICE_ADVANCED:
                 return "pickaxe";
+            case MachineMeta.GENERATOR:
+                return "generator";
             default:
                 return "axe";
         }
@@ -80,6 +83,8 @@ public class BlockMachine extends BlockFunctional {
                 return 1;
             case MachineMeta.SLUICE_ADVANCED:
                 return 2;
+            case MachineMeta.GENERATOR:
+                return 1;
             default:
                 return 0;
         }
@@ -106,6 +111,8 @@ public class BlockMachine extends BlockFunctional {
                 return 1.5F;
             case MachineMeta.SLUICE_ADVANCED:
                 return 7.5F;
+            case MachineMeta.GENERATOR:
+                return 3.5F;
             default:
                 return 1F;
         }
@@ -223,6 +230,8 @@ public class BlockMachine extends BlockFunctional {
                 return new TileUnpacker();
             case MachineMeta.SLUICE_ADVANCED:
                 return new TileSluiceAdvanced();
+            case MachineMeta.GENERATOR:
+                return new TileGenerator();
             default:
                 return null;
         }
@@ -259,6 +268,8 @@ public class BlockMachine extends BlockFunctional {
             case MachineMeta.UNPACKER:
                 return Modules.isActive(Modules.factory);
             case MachineMeta.SLUICE_ADVANCED:
+                return Modules.isActive(Modules.factory);
+            case MachineMeta.GENERATOR:
                 return Modules.isActive(Modules.factory);
             default:
                 return true;

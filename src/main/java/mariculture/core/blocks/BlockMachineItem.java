@@ -31,6 +31,8 @@ public class BlockMachineItem extends ItemBlockMariculture {
                 return "unpacker";
             case MachineMeta.SLUICE_ADVANCED:
                 return "sluiceAdvanced";
+            case MachineMeta.GENERATOR:
+                return "generator";
             default:
                 return null;
         }
