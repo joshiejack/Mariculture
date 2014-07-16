@@ -17,6 +17,7 @@ public class BucketHandler {
         if (block instanceof BlockFluid) if (event.current.getItem() == Items.bucket) {
             ItemStack ret = ((ItemBuckets) Core.buckets).getBucket(block);
             if (ret != null) {
+                event.world.setBlockToAir(event.target.blockX, event.target.blockY, event.target.blockZ);
                 event.result = ret;
                 event.setResult(Result.ALLOW);
             }
