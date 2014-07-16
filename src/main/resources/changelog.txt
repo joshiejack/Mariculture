@@ -1,3 +1,6 @@
+Mariculture 1.2.3
+
+
 Mariculture 1.7.2 BETA 12.5
 • Added config for advanced sluice tick rate
 • Advanced Sluice will generate Pressurised Water faster than the normal sluice now
