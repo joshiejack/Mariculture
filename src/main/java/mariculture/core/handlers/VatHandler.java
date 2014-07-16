@@ -31,7 +31,7 @@ public class VatHandler implements IVatHandler {
         else {
             for (RecipeVat vat : recipes)
                 if (FluidHelper.areEqual(fluid1, vat.inputFluid1) && fluid1.amount >= vat.inputFluid1.amount) {
-                    if (vat.inputFluid2 != null && !(FluidHelper.areEqual(fluid2, vat.inputFluid2) && fluid1.amount >= vat.inputFluid2.amount)) {
+                    if (vat.inputFluid2 != null && !(FluidHelper.areEqual(fluid2, vat.inputFluid2) && fluid2.amount >= vat.inputFluid2.amount)) {
                         continue;
                     }
 
