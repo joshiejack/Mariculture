@@ -17,6 +17,7 @@ public class BucketHandler {
             ItemStack ret = ((ItemBuckets) Core.buckets).getBucket(block);
             if (ret != null) {
                 event.result = ret;
+                event.setResult(Result.ALLOW);
             }
         }
     }
