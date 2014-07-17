@@ -15,13 +15,6 @@ buildscript {
     }
 }
 
-repositories {
-    maven {
-        name 'CB Maven FS'
-        url "http://chickenbones.net/maven/"
-    }
-}
-
 apply plugin: 'forge'
 
 ext.buildnumber = 0
@@ -45,8 +38,7 @@ group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/min
 archivesBaseName = "Mariculture"
 
 dependencies {
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.1.8:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
+    compile fileTree(dir: 'lib', include: '*.jar')
 }
 
 minecraft {

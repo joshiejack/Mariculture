@@ -12,5 +12,4 @@
 .classpath
 .project
 .settings/*
-/lib/
 src/api/resources/*

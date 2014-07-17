@@ -134,7 +134,7 @@ public class ModelTurbineWater extends ModelBase implements IModelMariculture {
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_LIGHTING);
 
-        ForgeDirection facing = tile.orientation;
+        ForgeDirection facing = null;
         if (facing == ForgeDirection.DOWN) {
             GL11.glTranslated(x + 0.5F, y + 0.89F, z + 0.5F);
             GL11.glRotatef(180, 0F, 0F, 1F);
@@ -161,19 +161,19 @@ public class ModelTurbineWater extends ModelBase implements IModelMariculture {
         Base.render(scale);
         int xCoord = 48;
         int yCoord = 0;
-        if (tile.energyStage == EnergyStage.GREEN) {
+       // if (tile.energyStage == EnergyStage.GREEN) {
             xCoord = 32;
             yCoord = 0;
-        } else if (tile.energyStage == EnergyStage.YELLOW) {
+       // } else if (tile.energyStage == EnergyStage.YELLOW) {
             xCoord = 16;
             yCoord = 0;
-        } else if (tile.energyStage == EnergyStage.ORANGE) {
+        //} else if (tile.energyStage == EnergyStage.ORANGE) {
             xCoord = 0;
             yCoord = 45;
-        } else if (tile.energyStage == EnergyStage.RED) {
+       // } else if (tile.energyStage == EnergyStage.RED) {
             xCoord = 0;
             yCoord = 13;
-        }
+       // }
 
         Rod = new ModelRenderer(this, xCoord, yCoord);
         Rod.addBox(-2F, -14F, -2F, 4, 14, 4);
@@ -182,7 +182,7 @@ public class ModelTurbineWater extends ModelBase implements IModelMariculture {
         Rod.mirror = true;
         setRotation(Rod, 0F, 0F, 0F);
 
-        float angle = tile.getAngle();
+        float angle = 1;
 
         Rod.rotateAngleY = angle;
         Blade1.rotateAngleY = angle;
