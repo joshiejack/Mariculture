@@ -12,7 +12,7 @@ public class MaricultureTab extends CreativeTabs {
     public static MaricultureTab tabMagic;
     public static MaricultureTab tabWorld;
 
-    private ItemStack icon = new ItemStack(Items.fish);
+    private ItemStack icon;
 
     public MaricultureTab(String label) {
         super(label);
@@ -20,7 +20,7 @@ public class MaricultureTab extends CreativeTabs {
 
     @Override
     public ItemStack getIconItemStack() {
-        return icon;
+        return icon != null? icon: new ItemStack(Items.fish);
     }
 
     @Override

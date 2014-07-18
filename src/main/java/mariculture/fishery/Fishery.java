@@ -159,9 +159,11 @@ public class Fishery extends RegistrationModule {
         if (Fishing.fishing == null) {
             Fishing.fishing = new FishingHandler();
         }
+        
         if (Fishing.fishHelper == null) {
             Fishing.fishHelper = new FishyHelper();
         }
+        
         Fishing.mutation = new FishMutationHandler();
         Fishing.food = new FishFoodHandler();
         Fishing.sifter = new SifterHandler();
