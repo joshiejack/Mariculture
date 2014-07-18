@@ -223,7 +223,9 @@ public class Fishery extends RegistrationModule {
         registerEntities();
         Fish.init();
         registerRods();
-        MaricultureTab.tabFishery.setIcon(new ItemStack(rodWood), true);
+        if (MaricultureTab.tabFishery != null) {
+            MaricultureTab.tabFishery.setIcon(new ItemStack(rodWood), true);
+        }
     }
 
     private void registerEntities() {

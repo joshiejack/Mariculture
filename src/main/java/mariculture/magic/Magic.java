@@ -138,7 +138,9 @@ public class Magic extends RegistrationModule {
 
         registerJewelry();
         registerEnchants();
-        MaricultureTab.tabMagic.setIcon(new ItemStack(basicMirror), false);
+        if (MaricultureTab.tabMagic != null) {
+            MaricultureTab.tabMagic.setIcon(new ItemStack(basicMirror), false);
+        }
     }
 
     private void registerJewelry() {

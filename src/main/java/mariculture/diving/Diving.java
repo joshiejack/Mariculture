@@ -77,7 +77,9 @@ public class Diving extends RegistrationModule {
 
     @Override
     public void registerOther() {
-        MaricultureTab.tabFactory.setIcon(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP), true);
+        if(MaricultureTab.tabFactory != null) {
+            MaricultureTab.tabFactory.setIcon(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP), true);
+        }
     }
 
     @Override

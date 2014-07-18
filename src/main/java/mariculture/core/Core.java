@@ -259,10 +259,12 @@ public class Core extends RegistrationModule {
         registerEntities();
         registerPearls();
 
-        MaricultureTab.tabCore.setIcon(new ItemStack(pearls, 1, PearlColor.WHITE), true);
-        MaricultureTab.tabFactory.setIcon(new ItemStack(crafting, 1, CraftingMeta.WHEEL), true);
-        MaricultureTab.tabFishery.setIcon(new ItemStack(Items.fish), true);
-        MaricultureTab.tabWorld.setIcon(new ItemStack(limestone, 1, 0), true);
+        if(MaricultureTab.tabCore != null) {
+            MaricultureTab.tabCore.setIcon(new ItemStack(pearls, 1, PearlColor.WHITE), true);
+            MaricultureTab.tabFactory.setIcon(new ItemStack(crafting, 1, CraftingMeta.WHEEL), true);
+            MaricultureTab.tabFishery.setIcon(new ItemStack(Items.fish), true);
+            MaricultureTab.tabWorld.setIcon(new ItemStack(limestone, 1, 0), true);
+        }
     }
 
     private void registerEntities() {

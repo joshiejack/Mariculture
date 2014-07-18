@@ -37,7 +37,12 @@ public class VatDataProvider implements IWailaDataProvider {
             currenttip.add(Text.translate("input") + " 1: " + fluid1);
             currenttip.add(Text.translate("input") + " 2: " + fluid2);
             currenttip.add(Text.translate("output") + " : " + fluid3);
-            currenttip.add(Text.translate("maxCapacity") + ": " + (vat.facing == ForgeDirection.UNKNOWN ? "" + TileVat.max_sml : "" + TileVat.max_sml) + "mB");
+            currenttip.add(Text.translate("maxCapacity") + ": " + (vat.facing == ForgeDirection.UNKNOWN ? "" + TileVat.max_sml : "" + TileVat.max_lrg) + "mB");
+            TileVat master = (TileVat) (vat.getMaster() != null? vat.getMaster(): vat);
+            if(master.timeNeeded > 0) {
+                double percentage = (master.timeRemaining / master.timeNeeded) * 100;
+                currenttip.add(Text.translate("progress") + ": " + percentage + "%");
+            }
         }
 
         return currenttip;

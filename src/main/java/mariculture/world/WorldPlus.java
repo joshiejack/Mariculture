@@ -60,7 +60,10 @@ public class WorldPlus extends RegistrationModule {
 
     @Override
     public void registerOther() {
-        MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 7), false);
+        if (MaricultureTab.tabWorld != null) {
+            MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 7), false);
+        }
+        
         RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");
         RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), "Yellow");
         RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), "Magenta");

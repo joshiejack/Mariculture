@@ -1,6 +1,7 @@
 package mariculture.api.core;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -11,7 +12,7 @@ public class MaricultureTab extends CreativeTabs {
     public static MaricultureTab tabMagic;
     public static MaricultureTab tabWorld;
 
-    private ItemStack icon;
+    private ItemStack icon = new ItemStack(Items.fish);
 
     public MaricultureTab(String label) {
         super(label);

@@ -675,6 +675,7 @@ mariculture.string.time=Time:
 mariculture.string.time.day=Day
 mariculture.string.time.night=Night
 mariculture.string.chance=Chance
+mariculture.string.progress=Progress
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

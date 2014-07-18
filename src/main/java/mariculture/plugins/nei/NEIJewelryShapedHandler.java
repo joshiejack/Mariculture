@@ -8,7 +8,6 @@ import mariculture.magic.ShapedJewelryRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import codechicken.core.ReflectionManager;
 import codechicken.nei.recipe.ShapedRecipeHandler;
 
 /** Extended from the default recipe handler **/
@@ -69,8 +68,8 @@ public class NEIJewelryShapedHandler extends ShapedRecipeHandler {
         int width;
         int height;
         try {
-            width = ReflectionManager.getField(ShapedJewelryRecipe.class, Integer.class, recipe, 4);
-            height = ReflectionManager.getField(ShapedJewelryRecipe.class, Integer.class, recipe, 5);
+            width = recipe.width;
+            height = recipe.height;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
