@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
@@ -20,6 +22,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.config.Vanilla;
+import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.util.Rand;
 import mariculture.core.util.RecipeItem;
@@ -185,16 +188,16 @@ public class FishingHandler implements IFishing {
     private void addVanillaLoot(Rarity rarity, WeightedRandomFishable loot) {
         try {
             if (rarity == Rarity.GOOD || rarity == Rarity.RARE) {
-                List list = new ArrayList(getFinalStatic(EntityHook.class.getField("field_146041_e")));
+                List list = new ArrayList(getFinalStatic(EntityFishHook.class.getDeclaredField("field_146041_e")));
                 list.add(loot);
-                ReflectionHelper.setFinalStatic(EntityHook.class.getField("field_146041_e"), list);
+                ReflectionHelper.setFinalStatic(EntityFishHook.class.getDeclaredField("field_146041_e"), list);
             } else {
-                List list = new ArrayList(getFinalStatic(EntityHook.class.getField("field_146039_d")));
+                List list = new ArrayList(getFinalStatic(EntityFishHook.class.getDeclaredField("field_146039_d")));
                 list.add(loot);
-                ReflectionHelper.setFinalStatic(EntityHook.class.getField("field_146039_d"), list);
+                ReflectionHelper.setFinalStatic(EntityFishHook.class.getDeclaredField("field_146039_d"), list);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogHandler.log(Level.ERROR, "Mariculture failed to adjust vanilla fishing loot");
         }
     }
 
