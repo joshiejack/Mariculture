@@ -101,6 +101,7 @@ fluid.platinum.molten=Расплавленная платина
 item.hammer.name=Молот кузнеца
 item.ladle.name=Черпак
 item.bucket.titanium.name=Титановое ведро
+item.food.debug.name=!Еда «Голод» (Отладочная)
 item.food.oyster.name=Пирог из мяса и устриц
 item.guide.processing.name=Базовые материалы и обработка
 item.guide.processing.author=Аноним
@@ -129,7 +130,7 @@ item.materials.nuggetAluminum.name=Алюминиевый самородок
 item.materials.nuggetMagnesium.name=Магниевый самородок
 item.materials.nuggetTitanium.name=Титановый самородок
 item.materials.nuggetCopper.name=Медный самородок
-item.materials.nuggetRutile.name=Самородок неочищенного титана
+item.materials.nuggetRutile.name=Неочищенный титановый самородок
 item.pearls.pearlWhite.name=Белый жемчуг
 item.pearls.pearlGreen.name=Зелёный жемчуг
 item.pearls.pearlYellow.name=Жёлтый жемчуг
@@ -257,6 +258,7 @@ item.swimfin.name=Ласты
 #blocks
 tile.machines.single.sawmill.name=Лесопилка
 tile.machines.single.sluice.name=Промывочный механизм
+tile.machines.single.sluiceAdvanced.name=Продвинутый промывочный механизм
 tile.machines.single.fishSorter.name=Сортировщик рыб
 tile.machines.single.sponge.name=Механизированная губка
 tile.machines.single.dictionary.name=Предметный авто-словарь
@@ -670,10 +672,10 @@ mariculture.string.mb=мВ
 mariculture.string.blacklisted=ЗАПРЕЩЁН
 mariculture.string.temp.control=Содержит улучшения температуры
 mariculture.string.time=Время:
-mariculture.string.time.dawn=Рассвет
 mariculture.string.time.day=День
-mariculture.string.time.dusk=Закат
 mariculture.string.time.night=Ночь
+mariculture.string.chance=Шанс
+mariculture.string.progress=Прогресс
 
 ### Eject Modes ###
 ejectmode.none=Авто-выброс выключен
