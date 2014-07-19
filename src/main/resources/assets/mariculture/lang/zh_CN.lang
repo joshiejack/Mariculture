@@ -1,4 +1,4 @@
-#zh_CN @Author crafteverywhere, sunny
+#zh_CN @Author crafteverywhere, sunny, sb023612
 
 ### Death Messages ###
 death.attack.piranha=%1$s被食人鱼咬死了!
@@ -36,7 +36,7 @@ tile.limestone.pillar.name=石灰岩立柱
 tile.limestone.pedestal.name=石灰岩基座
 tile.machines.multi.crucible.name=坩埚炉
 tile.machines.single.bookshelf.name=储书架
-tile.oysterBlock.name=珍珠贝
+tile.water.oyster.name=珍珠贝
 tile.pearl.block.white.name=白色珍珠方块
 tile.pearl.block.green.name=绿色珍珠方块
 tile.pearl.block.yellow.name=黄色珍珠方块
@@ -61,10 +61,10 @@ tile.pearl.brick.blue.name=蓝色珍珠砖块
 tile.pearl.brick.black.name=黑色珍珠砖块
 tile.pearl.brick.pink.name=粉色珍珠砖块
 tile.pearl.brick.silver.name=银色珍珠砖块
-tile.glassBlocks.plastic.name=透明塑料
+tile.transparent.plastic.name=透明塑料
 tile.glass.heatglass.name=抗热玻璃
-tile.airBlocks.air.name=伪·空气方块
-tile.airBlocks.naturalGas.name=天然气
+tile.air.air.name=假空气块
+tile.air.naturalGas.name=天然气
 tile.woods.baseWood.name=木质建筑方块
 tile.tanks.normal.name=流体储罐
 tile.tanks.bottle.name=虚空瓶
@@ -76,24 +76,24 @@ tile.machines.single.rendered.blockCaster.name=方块铸形
 tile.machines.single.rendered.nuggetCaster.name=粒铸形
 tile.machines.multi.rendered.vat.name=大桶
 #fluids
-fluid.highPressureWater=加压水
+fluid.fastwater=加压水
 tile.highPressureWater.name=加压水
 fluid.rutile.molten=不纯熔融钛
-fluid.moltenTitanium=熔融钛
-fluid.moltenAluminum=熔融铝
-fluid.moltenIron=熔融铁
-fluid.moltenGold=熔融金
-fluid.moltenBronze=熔融青铜
-fluid.moltenCopper=熔融铜
-fluid.moltenTin=熔融锡
-fluid.moltenMagnesium=熔融镁
-fluid.moltenLead=熔融铅
-fluid.moltenSilver=熔融银
-fluid.moltenSteel=熔融钢
-fluid.moltenNickel=熔融镍
-fluid.moltenGlass=熔融玻璃
+fluid.titanium.molten=熔融钛
+fluid.aluminum.molten=熔融铝
+fluid.iron.molten=熔融铁
+fluid.gold.molten=熔融金
+fluid.bronze.molten=熔融青铜
+fluid.copper.molten=熔融铜
+fluid.tin.molten=熔融锡
+fluid.magnesium.molten=熔融镁
+fluid.lead.molten=熔融铅
+fluid.silver.molten=熔融银
+fluid.steel.molten=熔融钢
+fluid.nickel.molten=熔融镍
+fluid.glass.molten=熔融玻璃
 fluid.salt.molten=熔融盐
-fluid.naturalGas=天然气
+fluid.gas.natural=天然气
 fluid.quicklime=生石灰
 fluid.electrum.molten=熔融琥珀金
 fluid.invar.molten=熔融因瓦合金
@@ -237,22 +237,23 @@ item.bucket.hpwater.name=桶装加压水
 
 ### Diving ###
 #blocks
-tile.customBlocks.airpump.name=空气泵
-tile.customBlocks.feeder.name=养鱼机
-tile.doubleBlocks.airCompressor.name=空气压缩机底座
-tile.doubleBlocks.airCompressorPower.name=空气压缩机顶部
-tile.doubleBlocks.pressureVessel.name=压力瓮
+tile.machines.single.rendered.airpump.name=空气泵
+tile.machines.single.rendered.feeder.name=喂鱼机
+tile.machines.multi.rendered.airCompressor.name=空气压缩机底座
+tile.machines.multi.rendered.airCompressorPower.name=空气压缩机顶座
+tile.machines.multi.rendered.pressureVessel.name=压力容器
 #items
 item.guide.diving.name=如何潜水-人一生不能不知道的水下呼吸术
-item.guide.diving.author=Tom Daley
+item.guide.diving.author=汤姆·戴利
 item.snorkel.name=换气管
-item.divingHelmet.name=潜水头盔
-item.divingTop.name=潜水服供氧设备
-item.divingPants.name=潜水服裤子
-item.divingBoots.name=潜水服靴子
-item.scubaMask.name=潜泳面具
-item.scubaTank.name=潜泳氧气罐
-item.scubaSuit.name=泳裤
+item.lifejacket.name=浮力帮助
+item.divinghelmet.name=潜水头盔
+item.divingtop.name=潜水服供氧设备
+item.divingpants.name=潜水服裤子
+item.divingboots.name=潜水服靴子
+item.scubamask.name=潜泳面具
+item.scubatank.name=潜泳氧气罐
+item.scubasuit.name=泳裤
 item.swimfin.name=脚蹼
 
 ### Factory ###
@@ -278,16 +279,16 @@ tile.customLight.customLight=自定义灯具
 tile.customFlooring.customFlooring=自定义地板
 tile.customBlock.customBlock=自定义方块
 tile.customStairs.customStairs=自定义楼梯
-tile.customSlabs.stone=自定义台阶
+tile.customSlabs.customSlabs=自动义台阶
 tile.customRFBlock.customRFBlock=自定义RF方块
 
 #items
 item.guide.machines.name=厂长札记
-item.guide.machines.author=Ford
-item.craftingItems.paintbrush.name=颜料刷
-item.craftingItems.chalk.name=图纸粉笔
-item.craftingItems.plan_blank.name=图纸-空白
-item.craftingItems.paintbrush.name=残留的颜料刷 - 和架子一起合成来翻新
+item.guide.machines.author=浅滩
+item.paintbrush.name=画笔
+item.chalk.name=图纸粉笔
+item.crafting.plan_blank.name=图纸-空白
+item.crafting.lifeCore.name=生命核心
 item.plans.plan_floor.name=图纸-地板
 item.plans.plan_block.name=图纸-方块
 item.plans.plan_stairs.name=图纸-楼梯
@@ -349,7 +350,7 @@ tile.custard.name=奶油冻
 tile.fish.oil.name=鱼油
 #items
 item.guide.fishing.name=养鱼手册#42
-item.guide.fishing.author=P. Sherman
+item.guide.fishing.author=P. 谢尔曼
 item.guide.breeding.name=养鱼入门
 item.materials.fishMeal.name=鱼肉
 item.materials.dropletEarth.name=地之液滴(遗产)
@@ -381,7 +382,7 @@ item.bait.ant.name=蚂蚁饵
 item.bait.maggot.name=蛆虫饵
 item.bait.hopper.name=蚱蜢饵
 item.bait.bee.name=蜜蜂饵
-item.rodWood.name=木钓竿
+item.rodwood.name=木钓竿
 tem.rod.titanium.name=钛钓竿
 item.rod.reed.name=甘蔗钓竿
 item.food.fishFinger.name=炸鱼条
@@ -436,11 +437,11 @@ fish.data.fertility.low=低
 fish.data.fertility.verylow=相当低
 fish.data.fertility.extremelow=极低
 fish.data.fertility.pathetic=可怜巴巴
-fish.data.work=生产效率
-fish.data.work.lazy=懒惰
-fish.data.work.normal=正常
-fish.data.work.hardworker=勤奋
-fish.data.work.overclocker=超频
+fish.data.workethic=生产效率
+fish.data.workethic.lazy=懒惰
+fish.data.workethic.normal=正常
+fish.data.workethic.hardworker=勤奋
+fish.data.workethic.overclocker=超频
 fish.data.species.egg=鱼卵
 fish.data.species.nether=下界鱼
 fish.data.species.glow=光辉鱼
@@ -532,24 +533,24 @@ enchantment.luck=爱尔兰鸿运
 
 #items
 item.guide.enchants.name=海之魔法书
-item.guide.enchants.author=Ursula
+item.guide.enchants.author=乌苏拉
 item.mirror.normal.name=镜子
 item.mirror.magic.name=魔镜
 item.mirror.celestial.name=仙镜
 item.mobmagnet.name=食物磁铁
 #jewelry-parts
-part.jewelry.ring=指环
-part.jewelry.bracelet=手镯
-part.jewelry.necklace=项链
+item.ring.name=指环
+item.bracelet.name=手镯
+item.necklace.name=项链
 
 ### Transport ###
 #items
-item.speedBoat.name=快艇
+item.boat.speed.name=快艇
 entity.Mariculture.speedBoat.name=快艇
 
 ### World ###
 #blocks
-tile.oreBlocks.coralRock.name=珊瑚岩
+tile.rocks.coralRock.name=珊瑚岩
 item.coral.kelp.name=海藻
 item.coral.kelp_middle.name=海藻
 item.coral.pink.name=粉色珊瑚
@@ -570,11 +571,15 @@ item.crafting.kelpSeeds.name=海藻种子
 item.aquaBackpack.name=水产背包
 key.fludd=激活瞬时液化超级喷射器
 key.toggle=切换魔力效果
-key.boost=激活魔力效果
+key.activate=[毛伊物语]激活按键
 mariculture.string.empty=空
 mariculture.string.melting=熔点
 mariculture.string.percent=%几率实现
 mariculture.string.maxTemp=最高温度
+mariculture.string.perTempFluid=每10mB最高温度
+mariculture.string.perTempSolid=每块最高温度
+mariculture.string.asFluid=液体燃料
+mariculture.string.asSolid=固体燃料
 mariculture.string.fludd.mode.0=瞬时液化超级喷射器设为悬停模式
 mariculture.string.fludd.mode.1=瞬时液化超级喷射器设为火箭模式
 mariculture.string.fludd.mode.2=瞬时液化超级喷射器设为涡轮模式
@@ -672,6 +677,7 @@ mariculture.string.time=时间:
 mariculture.string.time.day=白昼
 mariculture.string.time.night=黑夜
 mariculture.string.chance=几率
+mariculture.string.progress=Progress
 
 ### Eject Modes ###
 ejectmode.none=禁止自动弹出
