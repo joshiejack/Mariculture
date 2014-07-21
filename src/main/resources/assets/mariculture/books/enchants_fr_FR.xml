@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<!-- Traduction par Linyor -->
+<book>
+    <page>
+        <text x="82" y="-13" bold="true">Introduction</text>
+        <text y="10">"Sea Magic" comprend, l'artisanat, l'exploitation et l'enchantement de bijoux. Il existe différents enchantements uniques aux bijoux. Vous pouvez trouver les instructions sur la façon de concevoir ces bijoux et comment les enchanter ainsi que les différents enchantements possible.
+
+Il y a deux façons de mettre ces bijoux, vous pouvez confectionner vous-même un miroir ou appuyer sur la touche d'enchantement. 
+(par défaut "V")
+
+Pour enlever le bijou vous aurez par contre besoin d'un miroir.</text>
+    </page>
+    <page>
+        <text x="22" y="-13" bold="true">Miroir de base</text>
+        <text y="4" size="0.8">Le miroir de base peut-être utilisé pour mettre/enlever vos bijoux. Il sert également d'enchanteur portable mais ne permet d'enchanter que les niveaux 1, 3 et 5. Il dispose de 100 utilisations. Faite un clique droit pour ouvrir l'interface. Les miroirs sont plus efficaces pour enchanter des perles qu'une table d'enchantement.</text>
+        <crafting x="15" y="15" size="2">
+            <craft1>|ingotAluminum|ingotAluminum</craft1>
+            <craft2>ingotAluminum|glass_pane|ingotAluminum</craft2>
+            <craft3>ingotIron|ingotAluminum|</craft3>
+            <craftResult>mirror.basic</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+    <page>
+        <text x="72" y="-6" bold="true">Miroir magique</text>
+        <text y="10">Le miroir magique est un peu mieux qu'un miroir de base. Comme vous utilisez une table d'enchantement ainsi que de 3 étagères de stockage pour le fabriquer vous pouvez l'utiliser comme enchanteur portable pour les 30 niveaux. Maj+clique droit avec le miroir magique pour augmenter de 3 niveaux à chaque fois, arriver au niveau 30 il revient au niveau 1-3.</text>
+        <text y="88" bold="true">Miroir céleste</text>
+        <text y="124">Toujours aussi magnifique le miroir céleste vous permet d'enchanter de niveau 30 à 60. Il fonctionne de la même manière qu'un miroir magique. Certains enchantements ont besoin d'autres enchantements supérieur afin qu'ils soient disponibles.</text>
+    </page>
+    <page>
+        <crafting x="5">
+            <craft1>minecraft:bookshelf|plankWood|minecraft:bookshelf</craft1>
+            <craft2>plankWood|chest|plankWood</craft2>
+            <craft3>minecraft:bookshelf|minecraft:bookshelf|minecraft:bookshelf</craft3>
+            <craftResult>bookshelf</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="100" size="1">
+            <craft1>pearl|mirror.basic|pearl</craft1>
+            <craft2>bookshelf|enchanting_table|bookshelf</craft2>
+            <craft3>pearl|bookshelf|pearl</craft3>
+            <craftResult>mirror.magic</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="15" y="15" size="2">
+            <craft1>dropletMagic|nether_star|dropletMagic</craft1>
+            <craft2>bookshelf|mirror.magic|bookshelf</craft2>
+            <craft3>goldenThread|bookshelf|goldenThread</craft3>
+            <craftResult>mirror.celestial</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+    <page>
+        <text x="102" y="-13" bold="true">Bijoux</text>
+        <text>Il existe trois types de bijoux que vous pouvez équiper, bagues, bracelets et colliers. Chaque type à sa durabilité augmentée afin de pouvoir tenir plus d'enchantements. Un bijou est constitué de deux perles et d'une reliure.
+        
+Des perles de couleurs différentes affectent diverses choses lors de la création de bijoux :
+
+• Durabilité
+• Le niveau maximum qu'un enchantement peut avoir
+• Enchantement maximum sur un morceau de bijou
+• Influence pour un enchantement dans un miroir
+• Effet spécial avec une affinité élémentaire
+• Coût de réparation
+• Coût de création</text>
+    </page>
+    <page>
+    <text>La reliure est différente en fonction de la pièce de bijou que vous faite :
+• Anneau - Fer ou Or
+• Bracelet - Chaîne ou Soie en or
+• Collier - Laine ou Fil d'or
+
+La reliure est ce qui maintient votre bijou. C'est ce qui détermine la "forte volonté". Lorsque vous tentez de placer une perle enchantée sur un morceau de bijou elle a un taux de réussite. Cette réussite est plus importante si vous utilisez une reliure de meilleure qualité.
+
+Les reliures ont également un effet sur :
+• Durabilité
+• Coût de création
+• Enchantement maximum sur un morceau de bijou</text>
+    </page>
+    <page>
+    <text x="82" y="-13" bold="true">Création</text>
+    <text x="0" y="78" bold="true">Réparation</text>
+    <text>Un bijou n'est pas simplement fabriqué, il doit être conçu et ensuite travaillé. Vous aurez besoin d'un marteau et d'une enclume de forgeron. D'abord, vous fabriquez l'article ensuite vous le placez sur une enclume de forgeron, travaillez le jusqu'à ce qu'il soit prêt à l'emploi. La perle et la reliure que vous utilisez auront une incidence sur le coût de la création.
+   
+   
+
+Comme à sa création, le seul moyen de réparer une pièce de joaillerie est l'enclume de forgeron. Comme toujours cela coûte de l'XP, mais il en coûte deux fois plus que la réparation de tout autre élément.</text>
+</page>
+    <page>
+        <text>Ci-dessous quleques exemples d'artisanat de bijoux. Remplacer les perles avec une autre couleur.</text>
+        <crafting x="15" y="40" size="0.8">
+            <craft1>ingotIron|pearlBlue|ingotIron</craft1>
+            <craft2>ingotIron||ingotIron</craft2>
+            <craft3>ingotIron|ingotIron|ingotIron</craft3>
+            <craftResult>Mariculture:ring 0 {binding:"basic",material:"pearlBlue",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="90" y="40" size="0.8">
+            <craft1>ingotGold|pearlRed|ingotGold</craft1>
+            <craft2>ingotGold||ingotGold</craft2>
+            <craft3>ingotGold|ingotGold|ingotGold</craft3>
+            <craftResult>Mariculture:ring 0 {binding:"gold",material:"pearlRed",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="15" y="110" size="0.8">
+            <craft1>string||string</craft1>
+            <craft2>pearlOrange||pearlOrange</craft2>
+            <craft3>|pearlOrange|</craft3>
+            <craftResult>Mariculture:bracelet 0 {binding:"basic",material:"pearlOrange",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="90" y="110" size="0.8">
+            <craft1>goldenSilk||goldenSilk</craft1>
+            <craft2>pearlBlack||pearlBlack</craft2>
+            <craft3>|pearlBlack|</craft3>
+            <craftResult>Mariculture:bracelet 0 {binding:"gold",material:"pearlBlack",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="15" y="180" size="0.8">
+            <craft1>pearlPurple|wool|pearlPurple</craft1>
+            <craft2>pearlPurple||pearlPurple</craft2>
+            <craft3>pearlPurple|pearlPurple|pearlPurple</craft3>
+            <craftResult>Mariculture:necklace 0 {binding:"basic",material:"pearlPurple",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="90" y="180" size="0.8">
+            <craft1>pearlWhite|goldenThread|pearlWhite</craft1>
+            <craft2>pearlWhite||pearlWhite</craft2>
+            <craft3>pearlWhite|pearlWhite|pearlWhite</craft3>
+            <craftResult>Mariculture:necklace 0 {binding:"basic",material:"pearlWhite",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+     <page>
+        <text x="82" y="-13" bold="true">Enchanteur</text>
+        <text>Vous pouvez enchanter vos bijoux directement dans une table d'enchantement mais ce n'est pas la meilleure option, car vous obtiendrez généralement un seul enchantement. Préférez donc d'enchanter directement dans un miroir car ils auront un meilleur enchantement.
+        
+Avec vos perles enchantées vous pouvez les placer dans une grille d'artisanat avec votre bijou. (les couleurs doivent correspondre). Vous devez alors travailler ces bijoux à l'enclume. Une fois fait l'enchantement qui était sur la perle peut aller sur le bijou. N'oubliez pas que chaque type de bijoux et de perles de couleur ont des limites sur le nombre d'enchantement que vous pouvez avoir. Les reliures sont également importante, car elles augmentent les chances qu'un enchantement se "colle" au lieu d'être totalement perdu.</text>
+    </page>
+    <page>
+    <text x="22" y="-13" bold="true">Enchantements</text>
+    <text size="0.75" wrap="250">
+    
+Au cours des prochaines pages, vous trouverez des informations sur les différents enchantements de bijoux, leurs niveaux maximum ainsi que de leurs descriptions.</text>
+    <text bold="true" y="22" size="0.8">
+    
+    
+    
+Sonic le hérisson (MAX 5)
+    
+   
+   
+Saute-mouton (MAX 4)
+
+
+
+
+Intensification (MAX 3)
+
+
+
+
+Résistance à la chute (MAX 4)</text>
+    <text y="67" size="0.8">Augmente votre vitesse de sprint.</text>
+    <hr y="62"></hr>
+    <text y="103" size="0.8">Sauter 1 bloc supplémentaire par niveau en tenant enfoncée la touche d'enchantement.</text>
+    <hr y="97"></hr>
+    <text y="158" size="0.8">Monter 1 bloc supplémentaire par niveau</text>
+    <hr y="133"></hr>
+    <text y="195" size="0.8">Une plus grande protection contre les dégâts de chute en fonction du niveau enchanté.</text>
+    </page>
+    <page>
+    <text bold="true" y="-30" size="0.8">
+    
+    
+    
+Spiderman (MAX 1)
+    
+   
+
+Parapente (MAX 2)
+
+
+
+
+
+
+
+
+Superman (MAX 3)
+
+
+
+
+
+Faucheuse (MAX 3)</text>
+    <text y="15" size="0.8">Vous permet d'escalader les murs (Accroupi + touche à bascule).</text>
+    <hr y="23"></hr>
+    <text y="54" size="0.8">Parapente a deux modes, le second est débloqué au niveau 2. Le premier mode vous permet de planer ce qui ralentit votre chute. Le deuxième mode vous permet de chuter rapidement. Pour changer de mode utilisez la touche à bascule.</text>
+    <hr y="85"></hr>
+    <text y="135" size="0.8">Vous donne le pouvoir de voler. Le niveau augmente votre vitesse. Utilisez la touche de vol pour modifier votre vitesse.</text>
+    <hr y="128"></hr>
+    <text y="190" size="0.8">Niveau 1: Articles maintenus après la mort; Niveau 2: Réapparaître où vous êtes mort; Niveau 3: Immunité après la mort.</text>
+    </page>
+    <page>
+    <text bold="true" y="-30" size="0.8">
+    
+    
+    
+Téléportation (MAX 3)
+    
+   
+   
+   
+   
+Réparation (MAX 3)
+
+
+
+
+
+
+Dernière chance (MAX 3)
+
+
+
+
+
+Jamais faim (MAX 5)</text>
+    <text y="15" size="0.8">Vous pouvez vous téléporter. Touche d'enchantement + clique droit sur un bloc. Des niveaux plus élevés vous permet de vous téléporter plus loin.</text>
+    <hr y="38"></hr>
+    <text y="70" size="0.8" wrap="230">Réparation d'objets aux prix de la durabilité sur les bijoux. Niveau 1: Réparer objet en main; Niveau 2: Réparation barre de raccourcis; Niveau 3: Réparer armure.</text>
+    <hr y="85"></hr>
+    <text y="132" size="0.8">Si vous mourez, vous ne mourrez pas. Vous revivrez instantanément et votre santé sera restauré en fonction de votre niveau d'enchantement.</text>
+    <hr y="128"></hr>
+    <text y="190" size="0.8">Restaure votre barre de faim. Le niveau affecte le degré de saturation de votre faim, donc combien de temps entre chaque "point de faim".</text>
+    </page>
+    <page>
+    <text bold="true" y="-30" size="0.8">
+    
+    
+    
+Affinité élémentaire (MAX 1)</text>
+    <text>
+    
+Cette enchantement est unique. Son effet dépend de la perle qui a été mis sur le bijou. Ci-dessous les effets:
+
+• Noir ~ Bonus des dégâts d'attaque durant la nuit
+• Bleu ~ Insensible contre les dégâts dû à la noyade   
+• Marron ~ Miner de la terre vous donne des appâts
+• Or ~ Tuer des entités vous lâche des pépites d'or
+• Vert ~ Insensible au poison
+• Orange ~ Bonus d'XP en tuant
+• Rose ~ Tuer des entités vous redonne de la vie
+• Violet ~ Insensible contre les dégâts magique
+• Rouge ~ Insensible contre le feu et la lave</text>
+</page>
+<page>
+<text>
+• Argent ~ Les poisson d'argent vous donne du butin de pêche
+• Blanc ~ Bonus des dégâts d'attaque durant le jour
+• Jaune ~ Insensible aux dégâts terrestres</text>
+    </page>
+</book>
