@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import org.apache.logging.log4j.Level;
-
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
@@ -40,6 +38,8 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Level;
 
 public class FishingHandler implements IFishing {
     // Registering Fishing Rods
@@ -138,7 +138,7 @@ public class FishingHandler implements IFishing {
         if (baitList == null) {
             baitList = new ArrayList();
         }
-        
+
         baitList.add(bait);
         canUse.put(quality, baitList);
     }
@@ -146,7 +146,7 @@ public class FishingHandler implements IFishing {
     @Override
     public int getBaitQuality(ItemStack bait) {
         Integer i = baits.get(Arrays.asList(bait.getItem(), bait.getItemDamage()));
-        if(i == null) i = baits.get(Arrays.asList(bait.getItem(), OreDictionary.WILDCARD_VALUE));
+        if (i == null) i = baits.get(Arrays.asList(bait.getItem(), OreDictionary.WILDCARD_VALUE));
         return i == null ? 0 : i;
     }
 
@@ -328,8 +328,10 @@ public class FishingHandler implements IFishing {
             Collections.shuffle(catchables);
             for (FishSpecies fish : catchables) {
                 double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature);
-                if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) if (FishMechanics.IGNORE_BIOMES) return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * 15D);
-                else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * 10D);
+                if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) {
+                    if (FishMechanics.IGNORE_BIOMES) catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * 15D);
+                    else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * 10D);
+                }
             }
         }
 
