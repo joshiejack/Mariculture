@@ -1,15 +1,15 @@
 Mariculture 1.2.3
-
-
-Mariculture 1.7.2 BETA 12.5
 • Added config for advanced sluice tick rate
 • Advanced Sluice will generate Pressurised Water faster than the normal sluice now
 • Can now smelt Ancient Sand to Heat-Resistant Glass
 • Potentially fixed potential null pointer with fish loot
 • Changed bait saturation from -100 to -1
 • Readded Debug Food
+• Fixed Bucket Handling
 • Fixed Blood Rod not using up blood shards as normal bait
 • Fixed potential tooltip crash
+• Fixed Oyster Rendering
+• Fixed NEI Crucible Handler
 
 Mariculture 1.7.2 BETA 12
 • Added Unpacker!

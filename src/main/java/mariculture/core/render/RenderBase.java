@@ -134,13 +134,8 @@ public abstract class RenderBase {
             tessellator.setBrightness(brightness);
         }
 
-        if (!isItem()) {
-            iicon = render.getBlockIcon(block, render.blockAccess, x, y, z, 0);
-        }
-
-        //tessellator.setBrightness(240);
         tessellator.setColorOpaque_F(rgb_red, rgb_green, rgb_blue);
-        double d0 = iicon.getMinU();
+        double d0 = iicon.getMinU() ;
         double d1 = iicon.getMinV();
         double d2 = iicon.getMaxU();
         double d3 = iicon.getMaxV();

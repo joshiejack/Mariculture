@@ -91,7 +91,7 @@ public class BlockWater extends BlockFunctional {
 
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-        if (!BlockHelper.isWater(world, x, y, z) || !world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) return false;
+        if (!BlockHelper.isWater(world, x, y + 1, z) || !world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) return false;
         else return true;
     }
 
