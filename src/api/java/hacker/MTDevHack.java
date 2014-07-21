@@ -9,7 +9,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "aMTDevHack", name = "MTDevHack", dependencies = "required-after:MineTweaker3")
+@Mod(modid = "aMTDevHack", name = "MTDevHack")
 public class MTDevHack {
     public static final boolean REMOVE_FML_ANNOYANCE = true;
 

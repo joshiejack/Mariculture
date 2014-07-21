@@ -2,7 +2,6 @@ package mariculture.core.config;
 
 import mariculture.Mariculture;
 import mariculture.aesthetics.Aesthetics;
-import mariculture.compatibility.Compat;
 import mariculture.core.Core;
 import mariculture.diving.Diving;
 import mariculture.factory.Factory;
@@ -26,7 +25,6 @@ public class Modules {
         Mariculture.modules.setup(Sealife.class, false);
         Mariculture.modules.setup(Transport.class, config.get("Modules", "Transport", true).getBoolean(true));
         Mariculture.modules.setup(WorldPlus.class, config.get("Modules", "World Plus", true).getBoolean(true));
-        Mariculture.modules.setup(Compat.class, false);
         Mariculture.modules.setup(Plugins.class, true);
 
         for (int i = 0; i < Plugins.plugins.size(); i++) {

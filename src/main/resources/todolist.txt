@@ -5,3 +5,5 @@ TODO List - Before Release of 1.2.3
 • Add Unpacker and Advanced Sluice to Factory Book
 • Fix Fishing Book
 • Make Crucible only change canWork on inventory update
+• Ender Drops melt to 25mB of Ender
+• 250mB Molten Ender + Pearl = EnderPearl

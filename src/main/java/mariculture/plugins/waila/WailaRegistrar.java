@@ -10,5 +10,7 @@ public class WailaRegistrar {
         registrar.registerBodyProvider(new CasterDataProvider(), BlockRenderedMachine.class);
         registrar.registerBodyProvider(new CopperTankDataProvider(), BlockTank.class);
         registrar.registerBodyProvider(new VatDataProvider(), BlockRenderedMachineMulti.class);
+        registrar.registerSyncedNBTKey("TimeNeeded", BlockRenderedMachineMulti.class);
+        registrar.registerSyncedNBTKey("TimeRemaining", BlockRenderedMachineMulti.class);
     }
 }
