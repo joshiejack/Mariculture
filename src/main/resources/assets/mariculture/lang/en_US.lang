@@ -718,7 +718,7 @@ notification.no.male=Missing Male Fish
 notification.no.female=Missing Female Fish
 notification.bad.env=Unsuitable Environment
 notification.bad.env.text1=One of your fish is not
-notification.bad.env.text2=happy. Hover over it's
+notification.bad.env.text2=happy. Hover over its
 notification.bad.env.text3=indicator to see the issue
 notification.no.egg=Missing Fish Eggs
 
