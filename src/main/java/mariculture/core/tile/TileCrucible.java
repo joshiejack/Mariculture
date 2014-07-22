@@ -310,10 +310,12 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     }
 
     private int getFluidAmount(ItemStack stack, int amount) {
-        if (OreDicHelper.isInDictionary(stack)) {
-            String name = OreDicHelper.getDictionaryName(stack);
-            if (name.startsWith("ore")) {
-                amount += purity * MetalRates.NUGGET * MachineSettings.PURITY;
+        if(MachineSettings.ENABLE_PURITY_IN_CRUCIBLE) {
+            if (OreDicHelper.isInDictionary(stack)) {
+                String name = OreDicHelper.getDictionaryName(stack);
+                if (name.startsWith("ore")) {
+                    amount += purity * MetalRates.NUGGET * MachineSettings.PURITY;
+                }
             }
         }
 
