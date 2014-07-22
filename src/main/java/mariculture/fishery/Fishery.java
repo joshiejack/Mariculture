@@ -269,7 +269,7 @@ public class Fishery extends RegistrationModule {
         addShaped(_(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
         addShaped(_(sifter, 2), new Object[] { "PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net });
         addShaped(autofisher, new Object[] { " F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', fish, 'B', baseWood, 'P', "plankWood" });
-        addShaped(hatchery, new Object[] { "WWW", "WEW", "WWW", 'W', "wicker", 'E', _(_(fishEggs), OreDictionary.WILDCARD_VALUE, 1) });
+        addShaped(hatchery, new Object[] { "WWW", "WEW", "WWW", 'W', wicker, 'E', _(_(fishEggs), OreDictionary.WILDCARD_VALUE, 1) });
         addShaped(fishFeeder, new Object[] { "WFW", "WCW", "WFW", 'F', fish, 'W', wicker, 'C', chest });
         addShaped(incubatorTop, new Object[] { "DFD", "CHC", 'F', fish, 'D', "dyeBrown", 'C', greyClay, 'H', heating });
         addShaped(incubatorBase, new Object[] { "DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating });
