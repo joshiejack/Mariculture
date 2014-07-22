@@ -11,12 +11,8 @@ import mariculture.api.fishery.fish.FishProduct;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.Text;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;

@@ -20,6 +20,7 @@ import mariculture.factory.tile.TileSluiceAdvanced;
 import mariculture.factory.tile.TileSponge;
 import mariculture.factory.tile.TileUnpacker;
 import mariculture.fishery.tile.TileAutofisher;
+import mariculture.fishery.tile.TileHatchery;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -113,6 +114,8 @@ public class BlockMachine extends BlockFunctional {
                 return 7.5F;
             case MachineMeta.GENERATOR:
                 return 3.5F;
+            case MachineMeta.HATCHERY:
+                return 1.5F;
             default:
                 return 1F;
         }
@@ -144,7 +147,7 @@ public class BlockMachine extends BlockFunctional {
         if (tile instanceof TileBookshelf) return Blocks.bookshelf.getIcon(side, 0);
         else if (tile instanceof TileSluice) {
             TileSluice sluice = (TileSluice) tile;
-            if(tile instanceof TileSluiceAdvanced) {
+            if (tile instanceof TileSluiceAdvanced) {
                 if (sluice.orientation.ordinal() == side) return side > 1 ? icons[MachineMeta.SLUICE_ADVANCED] : sluiceAdvancedUp;
                 else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceAdvancedBack : sluiceAdvancedDown;
                 else return sluiceAdvanced;
@@ -232,6 +235,8 @@ public class BlockMachine extends BlockFunctional {
                 return new TileSluiceAdvanced();
             case MachineMeta.GENERATOR:
                 return new TileGenerator();
+            case MachineMeta.HATCHERY:
+                return new TileHatchery();
             default:
                 return null;
         }
@@ -271,6 +276,8 @@ public class BlockMachine extends BlockFunctional {
                 return Modules.isActive(Modules.factory);
             case MachineMeta.GENERATOR:
                 return Modules.isActive(Modules.factory);
+            case MachineMeta.HATCHERY:
+                return Modules.isActive(Modules.fishery);
             default:
                 return true;
         }
@@ -282,6 +289,8 @@ public class BlockMachine extends BlockFunctional {
             case MachineMeta.AUTOFISHER:
                 return tab == MaricultureTab.tabFishery;
             case MachineMeta.FISH_SORTER:
+                return tab == MaricultureTab.tabFishery;
+            case MachineMeta.HATCHERY:
                 return tab == MaricultureTab.tabFishery;
             default:
                 return tab == MaricultureTab.tabFactory;

@@ -10,6 +10,7 @@ import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
+import mariculture.api.fishery.IIncubator;
 import mariculture.api.fishery.IMutation.Mutation;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -17,6 +18,7 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.AverageHelper;
 import mariculture.fishery.items.ItemEgg;
 import mariculture.fishery.items.ItemFishy;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -267,6 +269,53 @@ public class FishyHelper implements IFishHelper {
         egg.stackTagCompound.setInteger("currentFertility", eggLife);
         egg.stackTagCompound.setInteger("malesGenerated", 0);
         egg.stackTagCompound.setInteger("femalesGenerated", 0);
+
+        return egg;
+    }
+
+    @Override
+    public ItemStack attemptToHatchEgg(ItemStack egg, Random rand, double mutation, IIncubator tile) {
+        int[] fertility = egg.stackTagCompound.getIntArray(Fish.fertility.getEggString());
+        int[] lifes = egg.stackTagCompound.getIntArray(Fish.lifespan.getEggString());
+
+        if (egg.getTagCompound().hasKey("SpeciesList")) {
+            int birthChance = 1 + tile.getBirthChanceBoost();
+            egg.getTagCompound().setInteger("currentFertility", egg.getTagCompound().getInteger("currentFertility") - 1);
+            if (rand.nextInt(1000) < birthChance) {
+                ItemStack fish = Fishing.fishHelper.makeBredFish(egg, rand, mutation);
+                if (fish != null) {
+                    int dna = Fish.gender.getDNA(fish);
+                    tile.eject(fish);
+                    if (dna == FishyHelper.MALE) {
+                        egg.getTagCompound().setInteger("malesGenerated", egg.getTagCompound().getInteger("malesGenerated") + 1);
+                    } else if (dna == FishyHelper.FEMALE) {
+                        egg.getTagCompound().setInteger("femalesGenerated", egg.getTagCompound().getInteger("femalesGenerated") + 1);
+                    }
+                } else {
+                    tile.eject(new ItemStack(Items.fish, 2, 0));
+                }
+            }
+
+            if (egg.getTagCompound().getInteger("currentFertility") == 0) {
+                ItemStack fish = Fishing.fishHelper.makeBredFish(egg, rand, mutation);
+                if (fish != null) {
+                    // If no males were generated create one
+                    if (egg.getTagCompound().getInteger("malesGenerated") <= 0) {
+                        tile.eject(Fish.gender.addDNA(fish.copy(), FishyHelper.MALE));
+                    }
+
+                    fish = Fishing.fishHelper.makeBredFish(egg, rand, mutation);
+                    if (fish != null) // If no females were generated create one
+                    if (egg.getTagCompound().getInteger("femalesGenerated") <= 0) {
+                        tile.eject(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE));
+                    }
+                } else {
+                    tile.eject(new ItemStack(Items.fish));
+                }
+
+                return null;
+            }
+        }
 
         return egg;
     }

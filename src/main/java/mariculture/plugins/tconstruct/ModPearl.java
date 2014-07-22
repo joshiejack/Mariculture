@@ -1,8 +1,5 @@
 package mariculture.plugins.tconstruct;
 
-import java.util.Arrays;
-import java.util.List;
-
 import mariculture.api.util.Text;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

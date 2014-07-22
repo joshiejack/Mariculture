@@ -1,4 +1,6 @@
 Mariculture 1.2.3
+• Added Hatchery, Low tech version of incubator, non upgradable 1 egg inserted at a time way of hatching eggs, no power required.
+• Increased Incubator defaults mutation modifier to 1.1x
 • Added config for advanced sluice tick rate
 • Advanced Sluice will generate Pressurised Water faster than the normal sluice now
 • Can now smelt Ancient Sand to Heat-Resistant Glass

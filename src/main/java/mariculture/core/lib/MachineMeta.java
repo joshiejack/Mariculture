@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class MachineMeta {
-    public static final int COUNT = 10;
+    public static final int COUNT = 11;
     public static final int BOOKSHELF = 0;
     public static final int DICTIONARY_ITEM = 1;
     public static final int SAWMILL = 2;
@@ -12,4 +12,5 @@ public class MachineMeta {
     public static final int UNPACKER = 7;
     public static final int SLUICE_ADVANCED = 8;
     public static final int GENERATOR = 9;
+    public static final int HATCHERY = 10;
 }

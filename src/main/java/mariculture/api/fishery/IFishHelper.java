@@ -23,6 +23,9 @@ public interface IFishHelper {
 
     /** Creates an egg from two fish passed in */
     public ItemStack generateEgg(ItemStack fish1, ItemStack fish2);
+    
+    /** Returns the egg, with 1 attempt at hatching it **/
+    public ItemStack attemptToHatchEgg(ItemStack egg, Random rand, double mutation, IIncubator tile);
 
     /** Whether this fish can live at the current coordinates or not **/
     public boolean canLive(World world, int x, int y, int z, ItemStack fish);

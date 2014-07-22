@@ -8,6 +8,7 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.IIncubator;
 import mariculture.core.Core;
 import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -18,8 +19,6 @@ import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMultiMachinePowered;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.Rand;
-import mariculture.fishery.Fish;
-import mariculture.fishery.FishyHelper;
 import mariculture.fishery.items.ItemEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -28,9 +27,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileIncubator extends TileMultiMachinePowered implements IHasNotification {
+public class TileIncubator extends TileMultiMachinePowered implements IHasNotification, IIncubator {
     private int cooldown = 0;
-    private double mutation = 1.0D;
+    private double mutation = 1.1D;
 
     public TileIncubator() {
         needsInit = true;
@@ -165,55 +164,13 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         if (MaricultureHandlers.upgrades.hasUpgrade("incubator", this)) {
             setMutationModifier(10000D);
         } else if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
-            setMutationModifier(1.25D);
+            setMutationModifier(1.35D);
         }
 
         if (inventory[slot] == null) return false;
         Random rand = new Random();
         if (inventory[slot].getItem() instanceof ItemEgg) {
-            int[] fertility = inventory[slot].stackTagCompound.getIntArray(Fish.fertility.getEggString());
-            int[] lifes = inventory[slot].stackTagCompound.getIntArray(Fish.lifespan.getEggString());
-
-            if (inventory[slot].getTagCompound().hasKey("SpeciesList")) {
-                int birthChance = 1 + MaricultureHandlers.upgrades.getData("purity", this);
-                inventory[slot].getTagCompound().setInteger("currentFertility", inventory[slot].getTagCompound().getInteger("currentFertility") - 1);
-                if (rand.nextInt(1000) < birthChance) {
-                    ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
-                    if (fish != null) {
-                        int dna = Fish.gender.getDNA(fish);
-                        helper.insertStack(fish, output);
-
-                        if (dna == FishyHelper.MALE) {
-                            inventory[slot].getTagCompound().setInteger("malesGenerated", inventory[slot].getTagCompound().getInteger("malesGenerated") + 1);
-                        } else if (dna == FishyHelper.FEMALE) {
-                            inventory[slot].getTagCompound().setInteger("femalesGenerated", inventory[slot].getTagCompound().getInteger("femalesGenerated") + 1);
-                        }
-                    } else {
-                        helper.insertStack(new ItemStack(Items.fish, 2, 0), output);
-                    }
-                }
-
-                if (inventory[slot].getTagCompound().getInteger("currentFertility") == 0) {
-                    ItemStack fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
-                    if (fish != null) {
-                        // If no males were generated create one
-                        if (inventory[slot].getTagCompound().getInteger("malesGenerated") <= 0) {
-                            helper.insertStack(Fish.gender.addDNA(fish.copy(), FishyHelper.MALE), output);
-                        }
-
-                        fish = Fishing.fishHelper.makeBredFish(inventory[slot], rand, mutation);
-                        if (fish != null) // If no females were generated create one
-                        if (inventory[slot].getTagCompound().getInteger("femalesGenerated") <= 0) {
-                            helper.insertStack(Fish.gender.addDNA(fish.copy(), FishyHelper.FEMALE), output);
-                        }
-                    } else {
-                        helper.insertStack(new ItemStack(Items.fish), output);
-                    }
-
-                    decrStackSize(slot, 1);
-                    return true;
-                }
-            }
+            inventory[slot] = Fishing.fishHelper.attemptToHatchEgg(inventory[slot], rand, mutation, this);
         } else if (inventory[slot].getItem() == Items.egg) {
             if (Rand.nextInt(8)) {
                 helper.insertStack(new ItemStack(Items.spawn_egg, 1, 93), output);
@@ -234,6 +191,16 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         }
 
         return false;
+    }
+    
+    @Override
+    public int getBirthChanceBoost() {
+        return MaricultureHandlers.upgrades.getData("purity", this);
+    }
+
+    @Override
+    public void eject(ItemStack fish) {
+        helper.insertStack(fish, output);
     }
 
     @Override

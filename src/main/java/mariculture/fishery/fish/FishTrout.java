@@ -2,8 +2,13 @@ package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.ItemLib.blueDye;
+import static mariculture.core.lib.ItemLib.brownDye;
+import static mariculture.core.lib.ItemLib.cyanDye;
 import static mariculture.core.lib.ItemLib.greenDye;
-import static mariculture.core.lib.ItemLib.*;
+import static mariculture.core.lib.ItemLib.lightBlueDye;
+import static mariculture.core.lib.ItemLib.limeDye;
+import static mariculture.core.lib.ItemLib.magentaDye;
+import static mariculture.core.lib.ItemLib.orangeDye;
 import static mariculture.core.lib.ItemLib.pinkDye;
 import static mariculture.core.lib.ItemLib.purpleDye;
 import static mariculture.core.lib.ItemLib.redDye;
@@ -16,7 +21,6 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;

@@ -1,9 +1,9 @@
 package mariculture.plugins;
 
-import net.minecraftforge.fluids.FluidRegistry;
 import mariculture.core.handlers.OreDicHandler;
 import mariculture.core.util.Fluids;
 import mariculture.plugins.Plugins.Plugin;
+import net.minecraftforge.fluids.FluidRegistry;
 import powercrystals.minefactoryreloaded.MFRRegistry;
 
 public class PluginMFR extends Plugin {

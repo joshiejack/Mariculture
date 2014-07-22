@@ -164,6 +164,7 @@ public class ItemLib {
     public static final ItemStack incubatorTop = new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_TOP);
     public static final ItemStack fishFeeder = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.FISH_FEEDER);
     public static final ItemStack autofisher = new ItemStack(Core.machines, 1, MachineMeta.AUTOFISHER);
+    public static final ItemStack hatchery = new ItemStack(Core.machines, 1, MachineMeta.HATCHERY);
     public static final ItemStack polishedLog = new ItemStack(Core.woods, 1, WoodMeta.POLISHED_LOG);
     public static final ItemStack polishedPlank = new ItemStack(Core.woods, 1, WoodMeta.POLISHED_PLANK);
     public static final ItemStack heatglass = new ItemStack(Core.glass, 1, GlassMeta.HEAT);

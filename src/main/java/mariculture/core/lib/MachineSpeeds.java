@@ -9,6 +9,7 @@ public class MachineSpeeds {
     public static int autofisher;
     public static int feeder;
     public static int net;
+    public static int hatchery;
 
     public static int getSawmillSpeed() {
         return GeneralStuff.DEBUG_ON ? 10 : sawmill;
@@ -32,5 +33,9 @@ public class MachineSpeeds {
 
     public static int getNetSpeed() {
         return GeneralStuff.DEBUG_ON ? 10 : net;
+    }
+
+    public static int getHatcherySpeed() {
+        return GeneralStuff.DEBUG_ON? 10: hatchery;
     }
 }

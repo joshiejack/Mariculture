@@ -45,6 +45,7 @@ import static mariculture.core.lib.ItemLib.fishTank;
 import static mariculture.core.lib.ItemLib.fishingNet;
 import static mariculture.core.lib.ItemLib.grass;
 import static mariculture.core.lib.ItemLib.greyClay;
+import static mariculture.core.lib.ItemLib.hatchery;
 import static mariculture.core.lib.ItemLib.heating;
 import static mariculture.core.lib.ItemLib.ice;
 import static mariculture.core.lib.ItemLib.incubatorBase;
@@ -110,6 +111,7 @@ import mariculture.fishery.items.ItemTemperatureControl;
 import mariculture.fishery.tile.TileAutofisher;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
+import mariculture.fishery.tile.TileHatchery;
 import mariculture.fishery.tile.TileIncubator;
 import mariculture.fishery.tile.TileSifter;
 import net.minecraft.block.Block;
@@ -159,11 +161,11 @@ public class Fishery extends RegistrationModule {
         if (Fishing.fishing == null) {
             Fishing.fishing = new FishingHandler();
         }
-        
+
         if (Fishing.fishHelper == null) {
             Fishing.fishHelper = new FishyHelper();
         }
-        
+
         Fishing.mutation = new FishMutationHandler();
         Fishing.food = new FishFoodHandler();
         Fishing.sifter = new SifterHandler();
@@ -213,7 +215,7 @@ public class Fishery extends RegistrationModule {
         lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lamps.off");
         lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lamps.on");
         RegistryHelper.registerBlocks(new Block[] { lampsOff, lampsOn, fishOilBlock, custardBlock });
-        RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileIncubator.class, TileFeeder.class, TileFishTank.class, TileSifter.class });
+        RegistryHelper.registerTiles(new Class[] { TileAutofisher.class, TileIncubator.class, TileFeeder.class, TileFishTank.class, TileSifter.class, TileHatchery.class });
 
         fishOil.setBlock(fishOilBlock);
         custard.setBlock(custardBlock);
@@ -267,6 +269,7 @@ public class Fishery extends RegistrationModule {
         addShaped(_(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
         addShaped(_(sifter, 2), new Object[] { "PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net });
         addShaped(autofisher, new Object[] { " F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', fish, 'B', baseWood, 'P', "plankWood" });
+        addShaped(hatchery, new Object[] { "WWW", "WEW", "WWW", 'W', "wicker", 'E', _(_(fishEggs), OreDictionary.WILDCARD_VALUE, 1) });
         addShaped(fishFeeder, new Object[] { "WFW", "WCW", "WFW", 'F', fish, 'W', wicker, 'C', chest });
         addShaped(incubatorTop, new Object[] { "DFD", "CHC", 'F', fish, 'D', "dyeBrown", 'C', greyClay, 'H', heating });
         addShaped(incubatorBase, new Object[] { "DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating });
