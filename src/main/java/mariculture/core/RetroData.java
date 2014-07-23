@@ -28,18 +28,18 @@ public class RetroData extends WorldSavedData {
 
     public boolean hasRetroGenned(String string, Chunk chunk) {
         String check = string + "~" + chunk.xPosition + "~" + chunk.zPosition;
-        if (!RetroGen.retro.contains(check)) return false;
+        if (!RetroGeneration.retro.contains(check)) return false;
 
         return true;
     }
 
     public boolean setHasRetroGenned(String string, Chunk chunk) {
         String check = string + "~" + chunk.xPosition + "~" + chunk.zPosition;
-        if (!RetroGen.retro.contains(check)) {
+        if (!RetroGeneration.retro.contains(check)) {
             if (GeneralStuff.DEBUG_ON) {
                 LogHandler.log(Level.TRACE, "Retro-Generating " + check);
             }
-            RetroGen.retro.add(check);
+            RetroGeneration.retro.add(check);
             lastData = mariculture.core.config.WorldGeneration.RetroGen.KEY;
         } else return false;
 
@@ -49,11 +49,11 @@ public class RetroData extends WorldSavedData {
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
-        RetroGen.retro = new ArrayList<String>();
+        RetroGeneration.retro = new ArrayList<String>();
         NBTTagList tagList = nbt.getTagList("RetroData", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound tag = tagList.getCompoundTagAt(i);
-            RetroGen.retro.add(tag.getString("RetroGen"));
+            RetroGeneration.retro.add(tag.getString("RetroGen"));
         }
 
         lastData = nbt.getInteger("LastRetroKey");
@@ -62,7 +62,7 @@ public class RetroData extends WorldSavedData {
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         NBTTagList itemList = new NBTTagList();
-        for (String str : RetroGen.retro) {
+        for (String str : RetroGeneration.retro) {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("RetroGen", str);
             itemList.appendTag(tag);

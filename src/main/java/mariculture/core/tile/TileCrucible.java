@@ -318,7 +318,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
                 }
             }
         }
-
+        
         return amount;
     }
 

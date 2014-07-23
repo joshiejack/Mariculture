@@ -7,3 +7,9 @@ TODO List - Before Release of 1.2.3
 • Make Crucible only change canWork on inventory update
 • Ender Drops melt to 25mB of Ender
 • 250mB Molten Ender + Pearl = EnderPearl
+• Remove Legacy Droplets
+• Finish Off Sluice System
+• Move Hatchery to Custom Renderer, Add Renderer + Make Adding Stuff Work
+• Fix Worldgen Stuffs
+• Move LimestoneGen > Core and Make it ReplaceBlockEvent
+• Make Ocean Depth a Config Option?

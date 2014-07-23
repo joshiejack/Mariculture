@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class RetroGen {
+public class RetroGeneration {
     public static ArrayList<String> retro;
 
     public boolean doGen(RetroData data, String ore, Chunk chunk) {

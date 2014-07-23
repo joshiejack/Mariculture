@@ -39,15 +39,18 @@ public class WorldGenKelp extends WorldGenerator {
         for (int l = 0; l < (genForest ? 128 : rand.nextInt(129)); l++) {
             int i1 = x + rand.nextInt(8) - rand.nextInt(8);
             int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+            if(!BlockHelper.chunkExists(world, x, z)) continue;
+            
             int j1 = 62;
 
             do {
                 j1--;
             } while (BlockHelper.isWater(world, i1, j1, k1));
 
-            if (!BlockCoral.canSustainKelp(world.getBlock(i1, j1, k1), world.getBlockMetadata(i1, j1, k1))) {
+            if (!BlockCoral.canSustainKelp(BlockHelper.getBlock(world, i1, j1, k1), world.getBlockMetadata(i1, j1, k1))) {
                 continue;
             }
+            
             if (genForest && rand.nextInt(WorldGen.KELP_FOREST_CHEST_CHANCE) == 0) {
                 generateChest(world, rand, i1, j1 + 1, k1);
             } else {

@@ -70,7 +70,7 @@ public class BlockHelper {
             } catch (Exception e) {}
         }
 
-        return null;
+        return Blocks.stone;
     }
 
     public static int getMeta(World world, int x, int y, int z) {

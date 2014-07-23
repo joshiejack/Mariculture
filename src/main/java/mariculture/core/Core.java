@@ -28,6 +28,8 @@ import mariculture.core.blocks.BlockTransparent;
 import mariculture.core.blocks.BlockWater;
 import mariculture.core.blocks.BlockWood;
 import mariculture.core.config.Gardening;
+import mariculture.core.config.WorldGeneration.RetroGen;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.gui.GuiItemToolTip;
 import mariculture.core.handlers.BucketHandler;
 import mariculture.core.handlers.CastingHandler;
@@ -40,8 +42,10 @@ import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.handlers.ServerFMLEvents;
 import mariculture.core.handlers.UpgradeHandler;
 import mariculture.core.handlers.VatHandler;
+import mariculture.core.handlers.WorldEventHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemBottle;
@@ -85,6 +89,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.Height;
+import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
@@ -149,6 +155,8 @@ public class Core extends RegistrationModule {
     public static Item bucketTitanium;
     public static Item hammer;
     public static Item ladle;
+    
+    public WorldEventHandler worldGen;
 
     @Override
     public void registerHandlers() {
@@ -167,9 +175,17 @@ public class Core extends RegistrationModule {
         MinecraftForge.EVENT_BUS.register(new OreDicHandler());
         FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
         FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
- 
-        if (mariculture.core.config.WorldGeneration.RetroGen.ENABLED) {
-            MinecraftForge.EVENT_BUS.register(new RetroGen());
+
+        if (WorldGen.EXPERIMENTAL_OCEANS) {
+            WorldEventHandler worldGen = new WorldEventHandler();
+            MinecraftForge.EVENT_BUS.register(worldGen);
+            MinecraftForge.TERRAIN_GEN_BUS.register(worldGen);
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "ocean", "field_76771_b", new BiomeGenOcean(0).setColor(112).setBiomeName("Ocean").setHeight(new Height((float) WorldGen.OCEAN_MIN, (float) WorldGen.OCEAN_MAX)));
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "deepOcean", "field_150575_M", new BiomeGenOcean(24).setColor(48).setBiomeName("Deep Ocean").setHeight(new Height((float) WorldGen.OCEAN_DEEP_MIN, (float) WorldGen.OCEAN_DEEP_MAX)));
+        }
+
+        if (RetroGen.ENABLED) {
+            MinecraftForge.EVENT_BUS.register(new RetroGeneration());
         }
     }
 
@@ -259,7 +275,7 @@ public class Core extends RegistrationModule {
         registerEntities();
         registerPearls();
 
-        if(MaricultureTab.tabCore != null) {
+        if (MaricultureTab.tabCore != null) {
             MaricultureTab.tabCore.setIcon(new ItemStack(pearls, 1, PearlColor.WHITE), true);
             MaricultureTab.tabFactory.setIcon(new ItemStack(crafting, 1, CraftingMeta.WHEEL), true);
             MaricultureTab.tabFishery.setIcon(new ItemStack(Items.fish), true);

@@ -1,6 +1,7 @@
 package mariculture.core.config;
 
 import static mariculture.core.helpers.ConfigHelper.getBoolean;
+import static mariculture.core.helpers.ConfigHelper.getDouble;
 import static mariculture.core.helpers.ConfigHelper.getInt;
 import static mariculture.core.helpers.ConfigHelper.getRand;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
@@ -22,7 +23,6 @@ public class WorldGeneration {
         OreGen.COPPER_MIN = getInt("Copper > Minimum Y Height", 1);
         OreGen.COPPER_MAX = getInt("Copper > Maximum Y Height", 64);
         OreGen.RUTILE_SPAWN_CHANCE = getInt("Rutile > 1 Vein Per This Many Limestone", 500);
-        OreGen.LIMESTONE_ON = getBoolean("Limestone > Generation", true);
         OreGen.NATURAL_GAS_ON = getBoolean("Natural Gas > Generation", true);
         OreGen.NATURAL_GAS_CHANCE = getInt("Natural Gas > 1 Pocket Per This Many Chunks", 20);
         OreGen.NATURAL_GAS_VEIN = getInt("Natural Gas > Maximum Vein Size", 48);
@@ -30,6 +30,15 @@ public class WorldGeneration {
         OreGen.NATURAL_GAS_MAX = getInt("Natural Gas > Maximum Y Height", 26);
 
         setCategory("Aquatic Generation");
+        WorldGen.EXPERIMENTAL_OCEANS = getBoolean("Ocean > Enable Experimental", false, "This must be enabled for any of Ocean/Limestone Heights to function");
+        WorldGen.OCEAN_MIN = getDouble("Ocean > Mininum Height", -1.3D);
+        WorldGen.OCEAN_MAX = getDouble("Ocean > Maximum Height", 0.25D);
+        WorldGen.OCEAN_DEEP_MIN = getDouble("Deep Ocean > Minimum Height", -1.95D);
+        WorldGen.OCEAN_DEEP_MAX = getDouble("Deep Ocean > Maximum Height", 0.0D);
+        WorldGen.OCEAN_LIMESTONE = getDouble("Ocean > Limestone Height", 7.5D);
+        WorldGen.OCEAN_DEEP_LIMESTONE = getDouble("Deep Ocean > Limestone Height", 3.5D);
+        WorldGen.RIVER_LIMESTONE = getDouble("River > Limestone Height", 2.5D);
+        WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 15D);
         WorldGen.WATER_CAVES = getBoolean("Water Filled Caves in Oceans", false);
         WorldGen.WATER_RAVINES = getBoolean("Water Filled Ravines in Oceans", true);
         WorldGen.RAVINE_CHANCE = getInt("Water Ravine Chance (Lower = More Common)", 25);
@@ -78,7 +87,6 @@ public class WorldGeneration {
         public static int COPPER_MAX;
         public static boolean RUTILE_ON;
         public static int RUTILE_SPAWN_CHANCE;
-        public static boolean LIMESTONE_ON;
         public static boolean BAUXITE_ON;
         public static int BAUXITE_TOTAL;
         public static int BAUXITE_VEIN;
@@ -92,6 +100,16 @@ public class WorldGeneration {
     }
 
     public static class WorldGen {
+        public static boolean EXPERIMENTAL_OCEANS;
+        public static double OCEAN_MIN;
+        public static double OCEAN_MAX;
+        public static double OCEAN_DEEP_MIN;
+        public static double OCEAN_DEEP_MAX;
+        public static double OCEAN_LIMESTONE;
+        public static double OCEAN_DEEP_LIMESTONE;
+        public static double RIVER_LIMESTONE;
+        public static double BEACH_LIMESTONE;
+        
         public static boolean WATER_RAVINES;
         public static boolean NO_MINESHAFTS;
         public static boolean WATER_CAVES;

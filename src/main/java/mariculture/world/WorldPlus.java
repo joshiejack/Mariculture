@@ -5,6 +5,7 @@ import static mariculture.core.helpers.RecipeHelper.addCrushRecipe;
 import static mariculture.core.helpers.RecipeHelper.addSoakRecipe;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
@@ -40,7 +41,7 @@ public class WorldPlus extends RegistrationModule {
     public static Block plantStatic;
 
     @Override
-    public void registerHandlers() {
+    public void registerHandlers() {        
         if (!Loader.isModLoaded("ATG")) {
             MinecraftForge.TERRAIN_GEN_BUS.register(new WorldEvents());
         }
@@ -63,7 +64,7 @@ public class WorldPlus extends RegistrationModule {
         if (MaricultureTab.tabWorld != null) {
             MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 7), false);
         }
-        
+
         RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");
         RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), "Yellow");
         RegistryHelper.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), "Magenta");
@@ -77,12 +78,14 @@ public class WorldPlus extends RegistrationModule {
         OreDictionary.registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
         OreDictionary.registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
 
-        ReflectionHelper.setFinalStatic(BiomeGenBase.class, "ocean", "field_76771_b", new BiomeGenSandyOcean(0).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.3F, 0.25F)));
-        ReflectionHelper.setFinalStatic(BiomeGenBase.class, "deepOcean", "field_150575_M", new BiomeGenSandyOcean(24).setColor(48).setBiomeName("Deep Ocean").setHeight(new Height(-1.95F, 0F)));
-        ReflectionHelper.setFinalStatic(BiomeGenBase.class, "beach", "field_76787_r", new BiomeGenSandyBeach(16).setColor(16440917).setBiomeName("Beach").setTemperatureRainfall(0.8F, 0.4F).setHeight(new Height(0.0F, 0.025F)));
-        ReflectionHelper.setFinalStatic(BiomeGenBase.class, "coldBeach", "field_150577_O", new BiomeGenSandyBeach(26).setColor(16445632).setBiomeName("Cold Beach").setTemperatureRainfall(0.05F, 0.3F).setHeight(new Height(0.0F, 0.025F)).setEnableSnow());
-        ReflectionHelper.setFinalStatic(BiomeGenBase.class, "frozenRiver", "field_76777_m", new BiomeGenSandyRiver(11).setColor(10526975).setBiomeName("FrozenRiver").setEnableSnow().setHeight(new Height(-1.0F, 0.0F)).setTemperatureRainfall(0.0F, 0.5F));
-        ReflectionHelper.setFinalStatic(BiomeGenBase.class, "river", "field_76781_i", new BiomeGenSandyRiver(7).setColor(255).setBiomeName("River").setHeight(new Height(-1.0F, 0.0F)));
+        if (!WorldGen.EXPERIMENTAL_OCEANS) {
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "ocean", "field_76771_b", new BiomeGenSandyOcean(0).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.3F, 0.25F)));
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "deepOcean", "field_150575_M", new BiomeGenSandyOcean(24).setColor(48).setBiomeName("Deep Ocean").setHeight(new Height(-1.95F, 0F)));
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "beach", "field_76787_r", new BiomeGenSandyBeach(16).setColor(16440917).setBiomeName("Beach").setTemperatureRainfall(0.8F, 0.4F).setHeight(new Height(0.0F, 0.025F)));
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "coldBeach", "field_150577_O", new BiomeGenSandyBeach(26).setColor(16445632).setBiomeName("Cold Beach").setTemperatureRainfall(0.05F, 0.3F).setHeight(new Height(0.0F, 0.025F)).setEnableSnow());
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "frozenRiver", "field_76777_m", new BiomeGenSandyRiver(11).setColor(10526975).setBiomeName("FrozenRiver").setEnableSnow().setHeight(new Height(-1.0F, 0.0F)).setTemperatureRainfall(0.0F, 0.5F));
+            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "river", "field_76781_i", new BiomeGenSandyRiver(7).setColor(255).setBiomeName("River").setHeight(new Height(-1.0F, 0.0F)));
+        }
     }
 
     @Override

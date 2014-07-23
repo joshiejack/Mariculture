@@ -29,6 +29,7 @@ public class WorldGenReef extends WorldGenerator {
     @Override
     public boolean generate(World world, Random rand, int x, int y, int z) {
         ArrayList<String> cache = new ArrayList();
+        if (!BlockHelper.chunkExists(world, x, z)) return false;
         y = world.getTopSolidOrLiquidBlock(x, z);
         if (WorldGen.CORAL_EXTRA) {
             for (int i = -rand.nextInt(16) - rand.nextInt(4); i < rand.nextInt(16) + rand.nextInt(4); i++) {
@@ -49,10 +50,11 @@ public class WorldGenReef extends WorldGenerator {
                 int l1 = j1 - z;
 
                 if (k1 * k1 + l1 * l1 <= l * l) {
-                    for (int i2 = y; i2 <= y; ++i2)
+                    for (int i2 = y; i2 <= y; ++i2) {
                         if (coralCanReplace(world.getBlock(i1, i2 - 1, j1)) && BlockHelper.isWater(world, i1, i2 + 1, j1) && BlockHelper.isWater(world, i1, i2 + 2, j1)) {
                             setBlock(cache, world, i1, i2 - 1, j1);
                         }
+                    }
                 }
             }
         }
