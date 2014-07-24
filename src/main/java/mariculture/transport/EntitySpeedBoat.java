@@ -2,6 +2,7 @@ package mariculture.transport;
 
 import java.util.List;
 
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.helpers.SpawnItemHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -264,8 +265,12 @@ public class EntitySpeedBoat extends Entity {
                 if (motionY < 0.0D) {
                     motionY /= 2.0D;
                 }
-
-                motionY += 0.007000000216066837D;
+                
+                if (d0 > 0.9D) {
+                    motionY += 0.007000000216066837D * GeneralStuff.SPEEDBOAT_VERTICAL_MODIFIER;
+                } else {
+                    motionY += 0.007000000216066837D;
+                }
             }
 
             if (riddenByEntity != null && riddenByEntity instanceof EntityLivingBase) {
