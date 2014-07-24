@@ -71,7 +71,7 @@ public class ItemVanillaFish extends ItemFishFood {
         else {
             FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
             if (fish != null) {
-                if (player.canEat(fish.canAlwaysEat())) {
+                if (player.canEat(fish.canAlwaysEat()) && fish.getFoodStat() >= 0) {
                     player.setItemInUse(stack, getMaxItemUseDuration(stack));
                 }
 

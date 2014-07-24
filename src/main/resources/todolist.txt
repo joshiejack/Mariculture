@@ -1,6 +1,7 @@
 TODO List - Before Release of 1.2.3
-• New rendering for Turbines
-• Redesign Sluice System
+• Create Generator + New Sluice and Water Turbine System
+• Turn Manpowered Turbine in to a hand crank
+• Turn Gas Turbine in to a Gas Dynamo
 • Make RF Upgrades reduce RF Usage
 • Add Unpacker and Advanced Sluice to Factory Book
 • Fix Fishing Book

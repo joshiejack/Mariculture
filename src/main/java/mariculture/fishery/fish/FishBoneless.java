@@ -95,7 +95,7 @@ public class FishBoneless extends FishSpecies {
 
     @Override
     public int getFoodStat() {
-        return 0;
+        return -1;
     }
 
     @Override
