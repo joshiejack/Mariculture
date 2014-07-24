@@ -33,8 +33,6 @@ public class BlockMachineItem extends ItemBlockMariculture {
                 return "sluiceAdvanced";
             case MachineMeta.GENERATOR:
                 return "generator";
-            case MachineMeta.HATCHERY:
-                return "hatchery";
             default:
                 return null;
         }

@@ -31,6 +31,7 @@ import mariculture.factory.tile.TileTurbineGas;
 import mariculture.factory.tile.TileTurbineHand;
 import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.tile.TileFeeder;
+import mariculture.fishery.tile.TileHatchery;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -59,7 +60,7 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public String getToolType(int meta) {
         if (meta == MachineRenderedMeta.TURBINE_HAND) return "axe";
-        return meta == MachineRenderedMeta.FISH_FEEDER ? null : "pickaxe";
+        return meta == MachineRenderedMeta.FISH_FEEDER || meta == MachineRenderedMeta.HATCHERY ? null : "pickaxe";
     }
 
     @Override
@@ -103,6 +104,8 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return 5F;
             case MachineRenderedMeta.ANVIL:
                 return 25F;
+            case MachineRenderedMeta.HATCHERY:
+                return 1.5F;
             default:
                 return 1.5F;
         }
@@ -388,6 +391,8 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return new TileTurbineHand();
             case MachineRenderedMeta.TURBINE_WATER:
                 return new TileTurbineWater();
+            case MachineRenderedMeta.HATCHERY:
+                return new TileHatchery();
             default:
                 return new TileAnvil();
         }
@@ -417,8 +422,8 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.FLUDD_STAND:
                 return false;
-            case MachineRenderedMeta.UNUSED:
-                return false;
+            case MachineRenderedMeta.HATCHERY:
+                return Modules.isActive(Modules.fishery);
             default:
                 return true;
         }
@@ -428,6 +433,8 @@ public class BlockRenderedMachine extends BlockFunctional {
     public boolean isValidTab(CreativeTabs tab, int meta) {
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
+                return tab == MaricultureTab.tabFishery;
+            case MachineRenderedMeta.HATCHERY:
                 return tab == MaricultureTab.tabFishery;
             default:
                 return tab == MaricultureTab.tabFactory;
@@ -444,9 +451,10 @@ public class BlockRenderedMachine extends BlockFunctional {
     public void registerBlockIcons(IIconRegister iconRegister) {
         String name = prefix != null ? prefix : "";
         icons = new IIcon[getMetaCount() - 2];
-        for (int i = 0; i < icons.length; i++)
-            if (i != MachineRenderedMeta.ANVIL && i != MachineRenderedMeta.UNUSED) {
+        for (int i = 0; i < icons.length; i++) {
+            if (i != MachineRenderedMeta.ANVIL) {
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
             }
+        }
     }
 }

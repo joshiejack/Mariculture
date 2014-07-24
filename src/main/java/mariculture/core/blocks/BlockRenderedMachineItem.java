@@ -1,6 +1,7 @@
 package mariculture.core.blocks;
 
 import mariculture.core.blocks.base.ItemBlockMariculture;
+import mariculture.core.lib.MachineMeta;
 import mariculture.core.lib.MachineRenderedMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -35,6 +36,8 @@ public class BlockRenderedMachineItem extends ItemBlockMariculture {
                 return "blockCaster";
             case MachineRenderedMeta.NUGGET_CASTER:
                 return "nuggetCaster";
+            case MachineRenderedMeta.HATCHERY:
+                return "hatchery";
             default:
                 return "renderedBlocks";
         }
