@@ -48,10 +48,12 @@ public class BiomeGenSandyOcean extends BiomeGenOcean {
     }
 
     public static void generateSand(World world, Random rand, int x, int z) {
-        if (WorldGen.ANCIENT_SAND_ENABLED) if (rand.nextInt(Math.max(1, WorldGen.ANCIENT_SAND_CHANCE)) == 0) {
-            int j = x + rand.nextInt(16) + 8;
-            int k = z + rand.nextInt(16) + 8;
-            sandGen.generate(world, rand, j, world.getTopSolidOrLiquidBlock(j, k), k);
+        if (WorldGen.ANCIENT_SAND_ENABLED) {
+            if (rand.nextInt(Math.max(1, WorldGen.ANCIENT_SAND_CHANCE)) == 0) {
+                int j = x + rand.nextInt(16) + 8;
+                int k = z + rand.nextInt(16) + 8;
+                sandGen.generate(world, rand, j, world.getTopSolidOrLiquidBlock(j, k), k);
+            }
         }
     }
 

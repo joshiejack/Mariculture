@@ -43,6 +43,14 @@ public class ConfigHelper {
         return config.get(category, name, dft).getInt(dft);
     }
     
+    public static int[] getIntList(String name, int[] dft, String comment) {
+        return config.get(category, name, dft, comment).getIntList();
+    }
+
+    public static int[] getIntList(String name, int[] dft) {
+        return config.get(category, name, dft).getIntList();
+    }
+    
     public static int getRand(String name, int dft, String comment) {
         return Math.max(1, config.get(category, name, dft, comment).getInt(dft));
     }

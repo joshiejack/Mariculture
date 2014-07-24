@@ -34,6 +34,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class WorldPlus extends RegistrationModule {
     public static final String OCEAN_CHEST = "oceanFloorChest";
@@ -41,7 +42,11 @@ public class WorldPlus extends RegistrationModule {
     public static Block plantStatic;
 
     @Override
-    public void registerHandlers() {        
+    public void registerHandlers() {    
+        if(WorldGen.EXPERIMENTAL_OCEANS) {
+            GameRegistry.registerWorldGenerator(new GenerationHandler(), 2);
+        }
+        
         if (!Loader.isModLoaded("ATG")) {
             MinecraftForge.TERRAIN_GEN_BUS.register(new WorldEvents());
         }

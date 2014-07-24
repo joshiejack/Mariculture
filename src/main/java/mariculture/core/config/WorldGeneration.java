@@ -3,6 +3,7 @@ package mariculture.core.config;
 import static mariculture.core.helpers.ConfigHelper.getBoolean;
 import static mariculture.core.helpers.ConfigHelper.getDouble;
 import static mariculture.core.helpers.ConfigHelper.getInt;
+import static mariculture.core.helpers.ConfigHelper.getIntList;
 import static mariculture.core.helpers.ConfigHelper.getRand;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
@@ -39,6 +40,8 @@ public class WorldGeneration {
         WorldGen.OCEAN_DEEP_LIMESTONE = getDouble("Deep Ocean > Limestone Height", 3.5D);
         WorldGen.RIVER_LIMESTONE = getDouble("River > Limestone Height", 2.5D);
         WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 15D);
+        WorldGen.VARYING_LIMESTONE = getBoolean("Limestone > Varying Height", true);
+        WorldGen.OCEAN_BLACKLIST = getIntList("Ocean Generation > Blacklisted Dimension IDs", new int[] { -1, 1 });
         WorldGen.WATER_CAVES = getBoolean("Water Filled Caves in Oceans", false);
         WorldGen.WATER_RAVINES = getBoolean("Water Filled Ravines in Oceans", true);
         WorldGen.RAVINE_CHANCE = getInt("Water Ravine Chance (Lower = More Common)", 25);
@@ -100,6 +103,8 @@ public class WorldGeneration {
     }
 
     public static class WorldGen {
+        public static int[] OCEAN_BLACKLIST;
+        public static boolean VARYING_LIMESTONE;
         public static boolean EXPERIMENTAL_OCEANS;
         public static double OCEAN_MIN;
         public static double OCEAN_MAX;
@@ -109,7 +114,7 @@ public class WorldGeneration {
         public static double OCEAN_DEEP_LIMESTONE;
         public static double RIVER_LIMESTONE;
         public static double BEACH_LIMESTONE;
-        
+
         public static boolean WATER_RAVINES;
         public static boolean NO_MINESHAFTS;
         public static boolean WATER_CAVES;
