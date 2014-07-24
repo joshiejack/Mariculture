@@ -308,6 +308,7 @@ tile.machines.multi.incubator.name=Инкубатор
 tile.machines.multi.incubatorBase.name=Основа инкубатора
 tile.machines.multi.incubatorTop.name=Верх инкубатора
 tile.machines.single.autofisher.name=Авто-рыбак
+tile.machines.single.hatchery.name=Инкубатор
 tile.machines.single.rendered.sifter.name=Сито
 tile.lamps.on.white.name=Белая неоновая лампа
 tile.lamps.on.green.name=Зелёная неоновая лампа
