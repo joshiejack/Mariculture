@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,30 +39,6 @@ public class ItemMaterial extends ItemMariculture {
                 return "dyeRed";
             case MaterialsMeta.DYE_BROWN:
                 return "dyeBrown";
-            case MaterialsMeta.DROP_AQUA:
-                return "dropletAqua";
-            case MaterialsMeta.DROP_ATTACK:
-                return "dropletAttack";
-            case MaterialsMeta.DROP_ELECTRIC:
-                return "dropletElectric";
-            case MaterialsMeta.DROP_ENDER:
-                return "dropletEnder";
-            case MaterialsMeta.DROP_NETHER:
-                return "dropletNether";
-            case MaterialsMeta.DROP_HEALTH:
-                return "dropletHealth";
-            case MaterialsMeta.DROP_MAGIC:
-                return "dropletMagic";
-            case MaterialsMeta.DROP_POISON:
-                return "dropletPoison";
-            case MaterialsMeta.DROP_WATER:
-                return "dropletWater";
-            case MaterialsMeta.DROP_EARTH:
-                return "dropletEarth";
-            case MaterialsMeta.DROP_FROZEN:
-                return "dropletFrozen";
-            case MaterialsMeta.DROP_PLANT:
-                return "dropletPlant";
             case MaterialsMeta.DUST_MAGNESITE:
                 return "dustMagnesite";
             case MaterialsMeta.DUST_SALT:
@@ -101,7 +76,7 @@ public class ItemMaterial extends ItemMariculture {
             case MaterialsMeta.NUGGET_TITANIUM:
                 return "nuggetTitanium";
             default:
-                return "dropletWater";
+                return "nuggetTitanium";
         }
     }
 
@@ -122,25 +97,9 @@ public class ItemMaterial extends ItemMariculture {
                 return Modules.isActive(Modules.worldplus);
         }
 
-        if (meta >= MaterialsMeta.DROP_EARTH && meta <= MaterialsMeta.DROP_HEALTH) return Modules.isActive(Modules.fishery);
+        if (meta >= MaterialsMeta.EMPTY_START && meta <= MaterialsMeta.EMPTY_END) return false;
 
         return true;
-    }
-
-    @Override
-    public String getPotionEffect(ItemStack stack) {
-        switch (stack.getItemDamage()) {
-            case MaterialsMeta.DROP_POISON:
-                return PotionHelper.spiderEyeEffect;
-            case MaterialsMeta.DROP_HEALTH:
-                return PotionHelper.ghastTearEffect;
-            case MaterialsMeta.DROP_NETHER:
-                return PotionHelper.magmaCreamEffect;
-            case MaterialsMeta.DROP_ATTACK:
-                return PotionHelper.gunpowderEffect;
-            default:
-                return super.getPotionEffect(stack);
-        }
     }
 
     @Override
@@ -151,12 +110,14 @@ public class ItemMaterial extends ItemMariculture {
             int var12;
             int var13;
 
-            if (stack.getItemDamage() == MaterialsMeta.FISH_MEAL) if (ItemDye.applyBonemeal(stack, world, x, y, z, player)) {
-                if (!world.isRemote) {
-                    world.playAuxSFX(2005, x, y, z, 0);
-                }
+            if (stack.getItemDamage() == MaterialsMeta.FISH_MEAL) {
+                if (ItemDye.applyBonemeal(stack, world, x, y, z, player)) {
+                    if (!world.isRemote) {
+                        world.playAuxSFX(2005, x, y, z, 0);
+                    }
 
-                return true;
+                    return true;
+                }
             }
 
             return false;
@@ -175,8 +136,7 @@ public class ItemMaterial extends ItemMariculture {
     }
 
     private boolean isValidTab(CreativeTabs creative, int meta) {
-        if (meta >= MaterialsMeta.FISH_MEAL && meta <= MaterialsMeta.DROP_HEALTH) return creative == MaricultureTab.tabFishery;
-        else return creative == MaricultureTab.tabCore;
+        return meta == MaterialsMeta.FISH_MEAL && creative == MaricultureTab.tabFishery ? true : creative == MaricultureTab.tabCore;
     }
 
     @Override

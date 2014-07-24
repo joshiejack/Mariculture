@@ -31,7 +31,7 @@ public class WorldGeneration {
         OreGen.NATURAL_GAS_MAX = getInt("Natural Gas > Maximum Y Height", 26);
 
         setCategory("Aquatic Generation");
-        WorldGen.EXPERIMENTAL_OCEANS = getBoolean("Ocean > Enable Experimental", false, "This must be enabled for any of Ocean/Limestone Heights to function");
+        WorldGen.EXPERIMENTAL_OCEANS = getBoolean("Ocean > Enable Experimental", true, "This must be enabled for any of Ocean/Limestone Heights to function");
         WorldGen.OCEAN_MIN = getDouble("Ocean > Mininum Height", -1.3D);
         WorldGen.OCEAN_MAX = getDouble("Ocean > Maximum Height", 0.25D);
         WorldGen.OCEAN_DEEP_MIN = getDouble("Deep Ocean > Minimum Height", -1.95D);
@@ -39,8 +39,9 @@ public class WorldGeneration {
         WorldGen.OCEAN_LIMESTONE = getDouble("Ocean > Limestone Height", 7.5D);
         WorldGen.OCEAN_DEEP_LIMESTONE = getDouble("Deep Ocean > Limestone Height", 3.5D);
         WorldGen.RIVER_LIMESTONE = getDouble("River > Limestone Height", 2.5D);
-        WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 15D);
+        WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 25D);
         WorldGen.VARYING_LIMESTONE = getBoolean("Limestone > Varying Height", true);
+        
         WorldGen.OCEAN_BLACKLIST = getIntList("Ocean Generation > Blacklisted Dimension IDs", new int[] { -1, 1 });
         WorldGen.WATER_CAVES = getBoolean("Water Filled Caves in Oceans", false);
         WorldGen.WATER_RAVINES = getBoolean("Water Filled Ravines in Oceans", true);

@@ -1,8 +1,11 @@
 package mariculture.magic;
 
 import mariculture.core.Core;
-import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.DropletMeta;
+import mariculture.core.lib.Modules;
+import mariculture.fishery.Fishery;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
@@ -72,7 +75,7 @@ public class ItemMagicMirror extends ItemMirror {
     @Override
     public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         if (stack1.getItem() == Magic.magicMirror) return stack2.getItem() == Core.pearls;
-        return stack2.getItem() == Core.materials && stack2.getItemDamage() == MaterialsMeta.DROP_MAGIC;
+        return Modules.isActive(Modules.fishery) ? stack2.getItem() == Fishery.droplet && stack2.getItemDamage() == DropletMeta.MAGIC : stack2.getItem() == Items.ghast_tear;
     }
 
     @Override

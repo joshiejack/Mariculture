@@ -23,7 +23,7 @@ import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.DropletMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.RecipeItem;
@@ -88,7 +88,7 @@ public class PluginForestry extends Plugin {
             backpack.addValidItem(new ItemStack(Fishery.net));
             backpack.addValidItem(new ItemStack(Fishery.fishy));
             backpack.addValidItem(new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE));
-            for (int i = MaterialsMeta.DROP_EARTH; i <= MaterialsMeta.DROP_HEALTH; i++) {
+            for (int i = 0; i < DropletMeta.COUNT; i++) {
                 backpack.addValidItem(new ItemStack(Core.materials, 1, i));
             }
 

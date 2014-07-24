@@ -27,7 +27,7 @@ import static thaumcraft.api.aspects.Aspect.TREE;
 import static thaumcraft.api.aspects.Aspect.WATER;
 import mariculture.core.Core;
 import mariculture.core.lib.BaitMeta;
-import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.DropletMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.WaterMeta;
@@ -79,18 +79,18 @@ public class PluginThaumcraft extends Plugin {
             ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.bait, 1, BaitMeta.WORM), new AspectList().add(BEAST, 1).add(EARTH, 2));
             ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.bait, 1, BaitMeta.BEE), new AspectList().add(BEAST, 1).add(AIR, 2));
 
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), new AspectList().add(WATER, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ATTACK), new AspectList().add(ENTROPY, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ELECTRIC), new AspectList().add(ENERGY, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_ENDER), new AspectList().add(ELDRITCH, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_HEALTH), new AspectList().add(HEAL, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_MAGIC), new AspectList().add(MAGIC, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_NETHER), new AspectList().add(FIRE, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_POISON), new AspectList().add(POISON, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_WATER), new AspectList().add(WATER, 1));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_EARTH), new AspectList().add(EARTH, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_FROZEN), new AspectList().add(COLD, 2));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Core.materials, 1, MaterialsMeta.DROP_PLANT), new AspectList().add(PLANT, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.WATER), new AspectList().add(WATER, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.ATTACK), new AspectList().add(ENTROPY, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.ELECTRIC), new AspectList().add(ENERGY, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.ENDER), new AspectList().add(ELDRITCH, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.HEALTH), new AspectList().add(HEAL, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.MAGIC), new AspectList().add(MAGIC, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.NETHER), new AspectList().add(FIRE, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.POISON), new AspectList().add(POISON, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.WATER), new AspectList().add(WATER, 1));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.EARTH), new AspectList().add(EARTH, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.FROZEN), new AspectList().add(COLD, 2));
+            ThaumcraftApi.registerObjectTag(new ItemStack(Fishery.droplet, 1, DropletMeta.PLANT), new AspectList().add(PLANT, 2));
         }
 
         if (Modules.isActive(Modules.worldplus)) {

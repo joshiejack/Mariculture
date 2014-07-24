@@ -283,11 +283,6 @@ public class Fishery extends RegistrationModule {
         } else {
             addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', fish, 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
         }
-
-        for (int oldMeta = MaterialsMeta.DROP_EARTH; oldMeta <= MaterialsMeta.DROP_HEALTH; oldMeta++) {
-            int newMeta = oldMeta - MaterialsMeta.DROP_EARTH;
-            addShapeless(new ItemStack(droplet, 1, newMeta), new Object[] { new ItemStack(Core.materials, 1, oldMeta) });
-        }
     }
 
     private void addBait() {

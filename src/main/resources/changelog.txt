@@ -7,6 +7,7 @@ Mariculture 1.2.3
 • Potentially fixed potential null pointer with fish loot
 • Changed bait saturation from -100 to -1
 • Readded Debug Food
+• Removed Legacy Droplets
 • Fixed Bucket Handling
 • Fixed Blood Rod not using up blood shards as normal bait
 • Fixed potential tooltip crash
