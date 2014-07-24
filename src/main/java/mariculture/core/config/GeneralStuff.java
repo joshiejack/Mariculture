@@ -1,6 +1,7 @@
 package mariculture.core.config;
 
 import static mariculture.core.helpers.ConfigHelper.getBoolean;
+import static mariculture.core.helpers.ConfigHelper.getDouble;
 import static mariculture.core.helpers.ConfigHelper.getInt;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
@@ -15,6 +16,7 @@ public class GeneralStuff {
     public static int METAL_RATE;
     public static boolean ENABLE_ENDER_SPAWN;
     public static boolean SHOW_CASTER_RECIPES;
+    public static double SPEEDBOAT_VERTICAL_MODIFIER;
 
     public static void init(Configuration config) {
         setConfig(config);
@@ -30,5 +32,6 @@ public class GeneralStuff {
         FLUDD_WATER_ON = getBoolean("Enable FLUDD Animations", true, "Whether a server will tell the client to display the fludd animations");
         ENABLE_ENDER_SPAWN = getBoolean("Enable Ender Dragon Spawning", true, "This is whether players can Spawn the Ender Dragon with the Dragon Spawn Egg");
         SHOW_CASTER_RECIPES = getBoolean("Enable Casting Recipes in NEI", false);
+        SPEEDBOAT_VERTICAL_MODIFIER = getDouble("Speedboat Vertical Modifier", 2.0D, "This changes the speed modifier of a speedboat moving upwards in water when the speedboat is at least 90% covered in water.");
     }
 }
