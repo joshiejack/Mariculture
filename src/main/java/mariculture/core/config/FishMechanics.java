@@ -26,7 +26,7 @@ public class FishMechanics {
         FishSpecies.DISABLE_DIMENSION_CATCHING = getBoolean("Ignore dimensions when catching fish", false);
         FishMechanics.WEAK_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Weak)", 8);
         FishMechanics.DEMON_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Demon)", 64);
-        FishMechanics.ALIVE_MODIFIER = getDouble("Fish Caught Alive Modifier", 1.15D);
+        FishMechanics.ALIVE_MODIFIER = getDouble("Fish Caught Alive Modifier", 1.25D);
         FishMechanics.EASY_SCANNER = getBoolean("Easier Fish Scanner Recipe", true);
     }
 }
