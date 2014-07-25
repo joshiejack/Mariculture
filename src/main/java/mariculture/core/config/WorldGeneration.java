@@ -41,12 +41,7 @@ public class WorldGeneration {
         WorldGen.RIVER_LIMESTONE = getDouble("River > Limestone Height", 2.5D);
         WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 25D);
         WorldGen.VARYING_LIMESTONE = getBoolean("Limestone > Varying Height", true);
-        
         WorldGen.OCEAN_BLACKLIST = getIntList("Ocean Generation > Blacklisted Dimension IDs", new int[] { -1, 1 });
-        WorldGen.WATER_CAVES = getBoolean("Water Filled Caves in Oceans", false);
-        WorldGen.WATER_RAVINES = getBoolean("Water Filled Ravines in Oceans", true);
-        WorldGen.RAVINE_CHANCE = getInt("Water Ravine Chance (Lower = More Common)", 25);
-        WorldGen.NO_MINESHAFTS = getBoolean("Remove Mineshafts in Oceans", true);
 
         WorldGen.OYSTER_ENABLED = getBoolean("Pearl Oyster > Generation", true);
         WorldGen.OYSTER_PER_CHUNK = getInt("Pearl Oyster > Number Chances to Gen Per Chunk", 3);
@@ -116,10 +111,6 @@ public class WorldGeneration {
         public static double RIVER_LIMESTONE;
         public static double BEACH_LIMESTONE;
 
-        public static boolean WATER_RAVINES;
-        public static boolean NO_MINESHAFTS;
-        public static boolean WATER_CAVES;
-        public static int RAVINE_CHANCE;
         public static boolean OYSTER_ENABLED;
         public static int OYSTER_PER_CHUNK;
         public static int OYSTER_CHANCE;

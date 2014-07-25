@@ -12,7 +12,7 @@ import mariculture.core.config.WorldGeneration.OreGen;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Rand;
-import mariculture.world.terrain.BiomeGenSandyOcean;
+import mariculture.world.GenerationHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -75,14 +75,13 @@ public class WorldEventHandler {
         genBiomeTerrain(event.world, event.world.rand, event.blockArray, event.metaArray, event.chunkX * 16 + k, event.chunkZ * 16 + l, chunk.stoneNoise[l + k * 16], biome, WorldGen.OCEAN_LIMESTONE);
     }
 
-    private Block topBlock = Blocks.grass;
-    private Block fillerBlock = Blocks.dirt;
-
-    public final void genBiomeTerrain(World p_150560_1_, Random p_150560_2_, Block[] blocksArray, byte[] metaArray, int p_150560_5_, int p_150560_6_, double p_150560_7_, BiomeGenBase biome, double depth) {
+    public static final void genBiomeTerrain(World p_150560_1_, Random p_150560_2_, Block[] blocksArray, byte[] metaArray, int p_150560_5_, int p_150560_6_, double p_150560_7_, BiomeGenBase biome, double depth) {
+        Block topBlock = Blocks.grass;
+        Block fillerBlock = Blocks.dirt;
         boolean flag = true;
-        Block block = this.topBlock;
+        Block block = topBlock;
         byte b0 = 0;
-        Block block1 = this.fillerBlock;
+        Block block1 = fillerBlock;
         int k = -1;
         int l = (int) (p_150560_7_ / depth + depth + p_150560_2_.nextDouble() * 0.25D);
         int i1 = p_150560_5_ & 15;
@@ -105,9 +104,9 @@ public class WorldEventHandler {
                                 b0 = 0;
                                 block1 = Blocks.stone;
                             } else if (l1 >= 59 && l1 <= 64) {
-                                block = this.topBlock;
+                                block = topBlock;
                                 b0 = (byte) 0;
-                                block1 = this.fillerBlock;
+                                block1 = fillerBlock;
                             }
 
                             if (l1 < 63 && (block == null || block.getMaterial() == Material.air)) {
@@ -162,7 +161,7 @@ public class WorldEventHandler {
             int l = event.chunkZ + event.world.rand.nextInt(16) + 8;
             if (MaricultureHandlers.environment.getSalinity(event.world, k, l) == Salinity.SALINE) {
                 int i1 = event.world.rand.nextInt(event.world.getHeightValue(k, l) * 2);
-                BiomeGenSandyOcean.kelpGenerator.generate(event.world, event.world.rand, k, i1, l);
+                GenerationHandler.kelpGenerator.generate(event.world, event.world.rand, k, i1, l);
                 event.setResult(Result.DENY);
             }
         }
