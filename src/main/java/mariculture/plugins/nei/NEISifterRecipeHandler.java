@@ -124,10 +124,11 @@ public class NEISifterRecipeHandler extends NEIBase {
     public void loadCraftingRecipes(ItemStack result) {
         HashMap<List<? extends Object>, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
         for (Entry<List<? extends Object>, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
-            for (RecipeSifter sifter : recipe.getValue())
+            for (RecipeSifter sifter : recipe.getValue()) {
                 if (OreDicHelper.convert(sifter.bait).equals(OreDicHelper.convert(result))) {
                     arecipes.add(new CachedSifterRecipe(null, recipe.getValue()));
                 }
+            }
         }
     }
 

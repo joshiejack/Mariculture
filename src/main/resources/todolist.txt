@@ -8,4 +8,4 @@ TODO List - Before Release of 1.2.3
 • Ender Drops melt to 25mB of Ender
 • 250mB Molten Ender + Pearl = EnderPearl
 • Finish Off Sluice System
-• Move Hatchery to Custom Renderer, Add Renderer + Make Adding Stuff Work
+• Add Making Salt with Nether Droplet and Magnesium with Flux Droplet

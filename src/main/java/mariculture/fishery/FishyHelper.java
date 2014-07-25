@@ -202,7 +202,7 @@ public class FishyHelper implements IFishHelper {
         else {
             Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
             int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
-            boolean worldCorrect = fish.isWorldCorrect(world);
+            boolean worldCorrect = fish.isValidDimensionForWork(world);
             TileEntity tile = world.getTileEntity(x, y, z);
             if (tile != null && tile instanceof IUpgradable) {
                 IUpgradable upgradable = (IUpgradable) tile;
@@ -220,8 +220,7 @@ public class FishyHelper implements IFishHelper {
                 }
             }
 
-            if (!worldCorrect) return false;
-            if (!fish.isValidDimensionForWork(world) || !fish.canWorkAtThisTime(world.isDaytime())) return false;
+            if (!worldCorrect || !fish.canWorkAtThisTime(world.isDaytime())) return false;
             else return MaricultureHandlers.environment.matches(salt, temperature, fish.salinity, fish.temperature);
         }
     }

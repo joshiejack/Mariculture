@@ -26,6 +26,8 @@ import com.google.common.collect.Multimap;
 public abstract class FishSpecies {
     //This is set by the fish-mechanics config, and determines whether to bypass biome requirements when catching fish
     public static boolean DISABLE_BIOME_CATCHING;
+    //This is set by the fish-mechanics config, and determines whether to bypass dimension requirements when catching fish
+    public static boolean DISABLE_DIMENSION_CATCHING;
     //Reference from names to number id, mappings + the List of Fish Species
     public static final HashMap<Integer, FishSpecies> species = new HashMap();
     public static final HashMap<String, Integer> ids = new HashMap();
@@ -277,7 +279,7 @@ public abstract class FishSpecies {
     public boolean isValidDimensionForWork(World world) {
         return true;
     }
-    
+
     /** Whether the fish can work at this time of day **/
     public boolean canWorkAtThisTime(boolean isDay) {
         return true;
@@ -288,13 +290,14 @@ public abstract class FishSpecies {
     public abstract RodType getRodNeeded();
 
     /** Return whether this type of world is suitable to catch these fish**/
-    public boolean isWorldCorrect(World world) {
+    protected boolean isWorldCorrect(World world) {
         return !world.provider.isHellWorld && world.provider.dimensionId != 1;
     }
 
     /** Called by the Fishing Handler **/
     public double getCatchChance(World world, int x, int y, int z, Salinity salt, int temp) {
-        if (DISABLE_BIOME_CATCHING) {
+        if (!DISABLE_DIMENSION_CATCHING && !isWorldCorrect(world)) return 0.0D;
+        else if (DISABLE_BIOME_CATCHING) {
             return getCatchChance(world, y);
         } else {
             return getCatchChance(world, salt, temp, y);
@@ -304,7 +307,7 @@ public abstract class FishSpecies {
     /** Return the catch chance based on the variables, return 0 for no catch
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
     public double getCatchChance(World world, Salinity salt, int temp, int height) {
-        return isWorldCorrect(world) && MaricultureHandlers.environment.matches(salt, temp, salinity, temperature) ? getCatchChance(world, height) : 0D;
+        return MaricultureHandlers.environment.matches(salt, temp, salinity, temperature) ? getCatchChance(world, height) : 0D;
     }
 
     /** This is called when disable biome catching is active or from the above method **/
@@ -314,7 +317,8 @@ public abstract class FishSpecies {
 
     /** Called by the Fishing Handler **/
     public double getCaughtAliveChance(World world, int x, int y, int z, Salinity salt, int temp) {
-        if (DISABLE_BIOME_CATCHING) {
+        if (!DISABLE_DIMENSION_CATCHING && !isWorldCorrect(world)) return 0.0D;
+        else if (DISABLE_BIOME_CATCHING) {
             return getCaughtAliveChance(world, y);
         } else {
             return getCaughtAliveChance(world, salt, temp, y);
