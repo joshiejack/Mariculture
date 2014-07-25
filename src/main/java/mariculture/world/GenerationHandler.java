@@ -2,6 +2,8 @@ package mariculture.world;
 
 import java.util.Random;
 
+import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.CoralMeta;
@@ -31,9 +33,15 @@ public class GenerationHandler implements IWorldGenerator {
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
         if (!isBlacklisted(world.provider.dimensionId)) {
             try {
-                generateAncientSand(world, random, chunkX * 16, chunkZ * 16);
-                generateCoralReef(world, random, chunkX * 16, chunkZ * 16);
-                generateKelpPlants(world, random, chunkX * 16, chunkZ * 16);
+                Salinity salinity = MaricultureHandlers.environment.getSalinity(world, chunkX * 16, chunkZ * 16);
+                if(salinity == Salinity.SALINE) {
+                    generateAncientSand(world, random, chunkX * 16, chunkZ * 16);
+                    generateCoralReef(world, random, chunkX * 16, chunkZ * 16);
+                }
+                
+                if(salinity != Salinity.FRESH) {
+                    generateKelpPlants(world, random, chunkX * 16, chunkZ * 16);
+                }
             } catch (Exception e) {}
         }
     }
