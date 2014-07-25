@@ -153,20 +153,6 @@ public class WorldEventHandler {
         }
     }
 
-    /* World Plus, Replacing Grass Gen with Kelp Gen */
-    @SubscribeEvent
-    public void onDecorate(Decorate event) {
-        if (event.type == EventType.GRASS) {
-            int k = event.chunkX + event.world.rand.nextInt(16) + 8;
-            int l = event.chunkZ + event.world.rand.nextInt(16) + 8;
-            if (MaricultureHandlers.environment.getSalinity(event.world, k, l) == Salinity.SALINE) {
-                int i1 = event.world.rand.nextInt(event.world.getHeightValue(k, l) * 2);
-                GenerationHandler.kelpGenerator.generate(event.world, event.world.rand, k, i1, l);
-                event.setResult(Result.DENY);
-            }
-        }
-    }
-
     @SubscribeEvent
     public void start(DecorateBiomeEvent.Pre event) {
         if (GeneralStuff.DEBUG_ON) TimeMeasurement.start("Decorate");
