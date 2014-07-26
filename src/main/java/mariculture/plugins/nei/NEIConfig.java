@@ -103,6 +103,9 @@ public class NEIConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_4));
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_5));
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_6));
+        for(int i = MaterialsMeta.EMPTY_START; i <= MaterialsMeta.EMPTY_END; i++) {
+            API.hideItem(new ItemStack(Core.materials, 1, i));
+        }
 
         API.registerRecipeHandler(new NEICrucibleRecipeHandler());
         API.registerUsageHandler(new NEICrucibleRecipeHandler());
