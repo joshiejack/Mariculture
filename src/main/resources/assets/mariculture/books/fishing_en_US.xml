@@ -295,7 +295,7 @@ Taiga: Fresh, 1°C
         <text y="55">This is the minimum tank size the fish will be happy in, aka how much water they need around the feeder to be happy</text>
         <text y="74" bold="true">Work Ethic</text>
         <text y="102">This is how much of a hardworker the fish is, Lazy fish will produce no products whatsoever, while hardworkers create twice as much as other fish.</text>
-        <text y="94" bold="true">Area - UDNESW</text>
-        <text y="122">This is the area that this fish will work in, it's pretty much how far any special effects fish produce will go.</text>
+        <text y="120" bold="true">Area - UDNESW</text>
+        <text y="156">This is the area that this fish will work in, it's pretty much how far any special effects fish produce will go.</text>
     </page>
 </book>
