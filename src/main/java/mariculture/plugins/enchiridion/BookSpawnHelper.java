@@ -12,8 +12,10 @@ public class BookSpawnHelper {
         if (!NBTHelper.getPlayerData(player).hasKey("BookCollected" + meta)) {
             NBTHelper.getPlayerData(player).setBoolean("BookCollected" + meta, true);
             ItemStack book = new ItemStack(PluginEnchiridion.guides, 1, meta);
-            if (!player.worldObj.isRemote) {
-                SpawnItemHelper.spawnItem(player.worldObj, (int) player.posX, (int) player.posY + 1, (int) player.posZ, book);
+            if (!player.inventory.addItemStackToInventory(book)) {
+                if (!player.worldObj.isRemote) {
+                    SpawnItemHelper.spawnItem(player.worldObj, (int) player.posX, (int) player.posY + 1, (int) player.posZ, book);
+                }
             }
         }
     }
