@@ -4,10 +4,13 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.DropletMeta;
+import mariculture.core.util.Fluids;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -15,7 +18,7 @@ public class ItemDroplet extends ItemMariculture {
     public ItemDroplet() {
         setCreativeTab(MaricultureTab.tabFishery);
     }
-    
+
     @Override
     public int getMetaCount() {
         return DropletMeta.COUNT;
@@ -68,7 +71,38 @@ public class ItemDroplet extends ItemMariculture {
                 return super.getPotionEffect(stack);
         }
     }
-    
+
+    public FluidStack getFluidStack(int dmg) {
+        switch (dmg) {
+            case DropletMeta.AQUA:
+                return Fluids.getStack(Fluids.hp_water, 250);
+            case DropletMeta.ATTACK:
+                return null; // Add Destroying Liquid
+            case DropletMeta.ELECTRIC:
+                return null; // Add Electric Liquid
+            case DropletMeta.ENDER:
+                return null; // Add Ender Liquid
+            case DropletMeta.NETHER:
+                return new FluidStack(FluidRegistry.LAVA, 100);
+            case DropletMeta.HEALTH:
+                return null; // Add Blood Liquid
+            case DropletMeta.MAGIC:
+                return null; // Add Magical Liquid
+            case DropletMeta.POISON:
+                return null; // Add Poison Liquid
+            case DropletMeta.WATER:
+                return new FluidStack(FluidRegistry.WATER, 1000);
+            case DropletMeta.EARTH:
+                return Fluids.getStack(Fluids.dirt, 100);
+            case DropletMeta.FROZEN:
+                return null; //Add Molten Ice Liquid
+            case DropletMeta.PLANT:
+                return null; //Add Chlorophyll Liquid    
+            default:
+                return null;
+        }
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {

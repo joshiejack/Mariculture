@@ -89,6 +89,7 @@ import mariculture.core.items.ItemBattery;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
+import mariculture.core.lib.DropletMeta;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemLib;
@@ -331,11 +332,16 @@ public class Fishery extends RegistrationModule {
     }
 
     private void addDropletRecipes() {
+        for (int i = 0; i < DropletMeta.COUNT; i++) {
+            FluidStack stack = ((ItemDroplet) droplet).getFluidStack(i);
+            if (stack != null) FluidContainerRegistry.registerFluidContainer(stack, new ItemStack(droplet, 1, i));
+        }
+
         addShaped(_(grass), new Object[] { "HHH", "EEE", "EEE", 'H', dropletPlant, 'E', dropletEarth });
         add2x2Recipe(_(snowball), dropletFrozen);
         add3x3Recipe(_(ice), dropletFrozen);
         addMelting(dropletEarth, 333, new FluidStack(moltenDirt, 100));
-        addMelting(dropletWater, 1, new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME));
+        //addMelting(dropletWater, 1, new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME));
         addMelting(dropletAqua, 1, new FluidStack(Core.hpWater, FluidContainerRegistry.BUCKET_VOLUME / 4));
         addMelting(dropletNether, 1000, new FluidStack(FluidRegistry.LAVA, FluidContainerRegistry.BUCKET_VOLUME / 10));
         addShaped(new ItemStack(enderPearl), new Object[] { "DDD", "DDD", "DDD", 'D', dropletEnder });

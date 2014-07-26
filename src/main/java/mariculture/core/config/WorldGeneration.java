@@ -7,6 +7,7 @@ import static mariculture.core.helpers.ConfigHelper.getIntList;
 import static mariculture.core.helpers.ConfigHelper.getRand;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
+import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 
 public class WorldGeneration {

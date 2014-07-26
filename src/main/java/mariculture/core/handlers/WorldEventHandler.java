@@ -4,15 +4,12 @@ import hacker.TimeMeasurement;
 
 import java.util.Random;
 
-import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.config.GeneralStuff;
 import mariculture.core.config.WorldGeneration.OreGen;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Rand;
-import mariculture.world.GenerationHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -25,8 +22,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent.ReplaceBiomeBlocks;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -37,7 +32,7 @@ public class WorldEventHandler {
     public void onReplaceBiomeBlocks(ReplaceBiomeBlocks event) {
         if (event.metaArray == null || event.world == null) return;
         else {
-            IChunkProvider chunkProvider = event.world.provider.terrainType.getChunkGenerator(event.world, event.world.provider.field_82913_c);
+            IChunkProvider chunkProvider = event.world.getChunkProvider();
             if (chunkProvider instanceof ChunkProviderGenerate) {
                 ChunkProviderGenerate chunk = (ChunkProviderGenerate) chunkProvider;
                 double d0 = 0.03125D;
