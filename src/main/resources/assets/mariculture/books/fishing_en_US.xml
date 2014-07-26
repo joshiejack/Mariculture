@@ -6,12 +6,12 @@
     </page>
     <page>
         <text x="42" y="-13" bold="true">Sifter</text>
-        <text>Sifters are how you will obtain most of your bait, that is needed for fishing. Right click items on to the sifter and then right click them again to sift. (Installing a Basic Storage Upgrade on a Sifter will give it an inventory)</text>
+        <text>Sifters are how you will obtain most of your bait, that is needed for fishing. Place the two blocks next to each other like a double chest. Right click items on to the sifter and then right click them again to sift. (Installing a Basic Storage Upgrade on a Sifter will give it an inventory)</text>
         <crafting x="10" y="55">
             <craft1>plankWood|net|plankWood</craft1>
             <craft2>stickWood||stickWood</craft2>
             <craft3>||</craft3>
-            <craftResult>sifter</craftResult>
+            <craftResult num="2">sifter</craftResult>
         </crafting>
         <crafting x="100" y="55">
             <craft1>stickWood|string|stickWood</craft1>
