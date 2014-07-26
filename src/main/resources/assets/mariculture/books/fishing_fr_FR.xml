@@ -12,7 +12,7 @@
             <craft1>plankWood|net|plankWood</craft1>
             <craft2>stickWood||stickWood</craft2>
             <craft3>||</craft3>
-            <craftResult>sifter</craftResult>
+            <craftResult num="2">sifter</craftResult>
         </crafting>
         <crafting x="100" y="55">
             <craft1>stickWood|string|stickWood</craft1>
