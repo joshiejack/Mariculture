@@ -43,6 +43,7 @@ public class Machines {
         MachineSettings.DRAGON_EGG_BASE = getInt("Incubator > Dragon Egg Chance", 64000, "This is a 1 in this many chance for the chance to get a Spawn Ender Dragon from a Dragon Egg");
         MachineSettings.ADVANCED_SLUICE_RADIUS = getInt("Advanced Sluice > Radius to Drain Fluids", 66);
         MachineSettings.ENABLE_PURITY_IN_CRUCIBLE = getBoolean("Crucible Furnace > Enable Purity Bonus", false);
+        MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN = getBoolean("Advanced Sluice > Enable Overpowered, Laggy Draining", false);
     }
 
     public static class Client {
@@ -60,6 +61,7 @@ public class Machines {
         public static int DRAGON_EGG_BASE;
         public static int ADVANCED_SLUICE_RADIUS;
         public static boolean ENABLE_PURITY_IN_CRUCIBLE;
+        public static boolean ENABLE_ADVANCED_SLUICE_DRAIN;
     }
 
     public static class Ticks {

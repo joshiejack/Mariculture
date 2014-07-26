@@ -123,6 +123,11 @@ public class TileSluiceAdvanced extends TileSluice {
 
     @Override
     public void placeInTank() {
+        if(!MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN) {
+            super.placeInTank();
+            return;
+        }
+        
         TileEntity tile = mariculture.core.helpers.cofh.BlockHelper.getAdjacentTileEntity(this, orientation);
         if (tile != null && tile instanceof IFluidHandler) {
             CachedCoords cord = getNextCoordinates(true);
