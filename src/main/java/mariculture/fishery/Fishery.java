@@ -361,7 +361,7 @@ public class Fishery extends RegistrationModule {
         addVatItemRecipe(_(_(sand), 0, 2), getTheName("gunpowder"), 250, _(tnt), 5);
         addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), _(clay), 15);
         addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 300), _(grass), 15);
-        addFluidAlloy(getFluidStack("flux", 100), getFluidStack("water", 1000), getFluidStack("magnesium", 72), 10);
+        addFluidAlloy(getFluidStack("flux", 100), new FluidStack(FluidRegistry.WATER, 1000), getFluidStack("magnesium", 72), 10);
     }
 
     @Override
