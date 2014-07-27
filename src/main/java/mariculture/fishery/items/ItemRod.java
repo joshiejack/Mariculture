@@ -4,28 +4,33 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.Fishing;
+import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRod extends ItemFishingRod implements IItemRegistry {
+    public ItemStack repair;
     private int enchant;
 
     public ItemRod() {
-        this(127, 1);
+        this(null, 127, 1);
         setCreativeTab(MaricultureTab.tabFishery);
     }
 
-    public ItemRod(int max, int enchant) {
+    public ItemRod(ItemStack repair, int max, int enchant) {
         this.enchant = enchant;
+        this.repair = repair;
         setMaxStackSize(1);
         setCreativeTab(MaricultureTab.tabFishery);
         if (max > 0) {
@@ -46,6 +51,13 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
 
         super.setCreativeTab(tab);
         return this;
+    }
+    
+    @Override
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
+        if(stack1.getItem() instanceof IEnergyContainerItem) return false;
+        ItemStack toRepairWith = repair != null? repair: new ItemStack(Items.stick);
+        return OreDicHelper.getDictionaryName(stack2).equals(OreDicHelper.getDictionaryName(toRepairWith));
     }
 
     @Override

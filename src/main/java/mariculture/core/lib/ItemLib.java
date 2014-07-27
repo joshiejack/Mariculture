@@ -77,6 +77,7 @@ public class ItemLib {
     public static final Block planks = Blocks.planks;
     public static final Block craftingTable = Blocks.crafting_table;
     public static final Block endstone = Blocks.end_stone;
+    public static final Block cobblestone = Blocks.cobblestone;
 
     /** Vanilla shortcuts for items **/
     public static final Item repeater = Items.repeater;
@@ -132,6 +133,7 @@ public class ItemLib {
     public static final Item ingotIron = Items.iron_ingot;
     public static final Item compass = Items.compass;
     public static final Item nettherackBrick = Items.netherbrick;
+    public static final Item poisonPotato = Items.poisonous_potato;
 
     /** ItemStack always based blocks **/
     public static final ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);

@@ -20,6 +20,7 @@ import static mariculture.core.lib.ItemLib.bread;
 import static mariculture.core.lib.ItemLib.calamari;
 import static mariculture.core.lib.ItemLib.chest;
 import static mariculture.core.lib.ItemLib.clay;
+import static mariculture.core.lib.ItemLib.cobblestone;
 import static mariculture.core.lib.ItemLib.compass;
 import static mariculture.core.lib.ItemLib.cooling;
 import static mariculture.core.lib.ItemLib.copperBattery;
@@ -50,16 +51,17 @@ import static mariculture.core.lib.ItemLib.incubatorTop;
 import static mariculture.core.lib.ItemLib.log;
 import static mariculture.core.lib.ItemLib.pearls;
 import static mariculture.core.lib.ItemLib.planks;
+import static mariculture.core.lib.ItemLib.poisonPotato;
 import static mariculture.core.lib.ItemLib.polishedLog;
 import static mariculture.core.lib.ItemLib.polishedPlank;
 import static mariculture.core.lib.ItemLib.polishedStick;
 import static mariculture.core.lib.ItemLib.polishedTitanium;
+import static mariculture.core.lib.ItemLib.potato;
 import static mariculture.core.lib.ItemLib.reeds;
 import static mariculture.core.lib.ItemLib.sand;
 import static mariculture.core.lib.ItemLib.sifter;
 import static mariculture.core.lib.ItemLib.snowball;
 import static mariculture.core.lib.ItemLib.stick;
-import static mariculture.core.lib.ItemLib.stone;
 import static mariculture.core.lib.ItemLib.string;
 import static mariculture.core.lib.ItemLib.sugar;
 import static mariculture.core.lib.ItemLib.thermometer;
@@ -174,9 +176,9 @@ public class Fishery extends RegistrationModule {
     @Override
     public void registerItems() {
         bait = new ItemBait().setUnlocalizedName("bait");
-        rodReed = new ItemRod(96, 24).setUnlocalizedName("rod.reed");
-        rodWood = new ItemRod(320, 10).setUnlocalizedName("rod.wood");
-        rodTitanium = new ItemRod(640, 16).setUnlocalizedName("rod.titanium");
+        rodReed = new ItemRod(_(reeds), 96, 24).setUnlocalizedName("rod.reed");
+        rodWood = new ItemRod(polishedStick, 320, 10).setUnlocalizedName("rod.wood");
+        rodTitanium = new ItemRod(polishedTitanium, 640, 16).setUnlocalizedName("rod.titanium");
         rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
         fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFishery);
         net = new BlockItemNet().setUnlocalizedName("net");
@@ -353,12 +355,13 @@ public class Fishery extends RegistrationModule {
             FluidStack stack = ((ItemDroplet) droplet).getFluidStack(i);
             if (stack != null) FluidContainerRegistry.registerFluidContainer(stack, new ItemStack(droplet, 1, i));
         }
-        
+
         addNuggetCasting(getFluidStack("ice", 250), _(snowball));
         addBlockCasting(getFluidStack("ice", 1000), _(ice));
-        addVatItemRecipe(pearls, getTheName("ender"), 250, _(enderPearl), 5);
-        addVatItemRecipe(_(_(stone), 0, 8), getTheName("ender"), 1000, _(endstone), 5);
-        addVatItemRecipe(_(_(sand), 0, 2), getTheName("gunpowder"), 250, _(tnt), 5);
+        addVatItemRecipe(_(potato), getTheName("poison"), 1000, _(poisonPotato), 15);
+        addVatItemRecipe(pearls, getTheName("ender"), 250, _(enderPearl), 25);
+        addVatItemRecipe(_(_(cobblestone), 0, 3), getTheName("ender"), 250, _(endstone), 8);
+        addVatItemRecipe(_(_(sand), 0, 2), getTheName("gunpowder"), 250, _(tnt), 10);
         addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), _(clay), 15);
         addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 300), _(grass), 15);
         addFluidAlloy(getFluidStack("flux", 100), new FluidStack(FluidRegistry.WATER, 1000), getFluidStack("magnesium", 72), 10);

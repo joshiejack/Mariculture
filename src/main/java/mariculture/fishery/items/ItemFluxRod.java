@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
     public ItemFluxRod() {
-        super(0, 0);
+        super(null, 0, 0);
         setNoRepair();
         setMaxStackSize(1);
     }
