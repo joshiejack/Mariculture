@@ -17,7 +17,7 @@ public class BlockGunpowder extends BlockFluid {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (rand.nextInt(32) == 0) {
+        if (rand.nextInt(8) == 0) {
             world.createExplosion(PlayerHelper.getFakePlayer(world), x, y, z, 1.5F, false);
         }
         

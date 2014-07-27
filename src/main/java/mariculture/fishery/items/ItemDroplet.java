@@ -1,14 +1,20 @@
 package mariculture.fishery.items;
 
+import java.util.List;
+
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.util.Text;
+import mariculture.core.helpers.FluidHelper;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.DropletMeta;
 import mariculture.core.util.Fluids;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
@@ -22,6 +28,13 @@ public class ItemDroplet extends ItemMariculture {
     @Override
     public int getMetaCount() {
         return DropletMeta.COUNT;
+    }
+    
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
+        int amount = fluid == null ? 0 : fluid.amount;
+        list.add(Text.translate("contains") + amount + "mB" + Text.translate("of") + FluidHelper.getFluidName(fluid));
     }
 
     @Override
