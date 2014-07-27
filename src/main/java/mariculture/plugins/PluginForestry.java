@@ -93,7 +93,7 @@ public class PluginForestry extends Plugin {
                 backpack.addValidItem(new ItemStack(Core.materials, 1, i));
             }
 
-            FuelManager.bronzeEngineFuel.put(Fluids.getTheFluid("fish_oil"), new EngineBronzeFuel(Fluids.getTheFluid("fish_oil"), 1, 7500, 1));
+            FuelManager.bronzeEngineFuel.put(Fluids.getFluid("fish_oil"), new EngineBronzeFuel(Fluids.getFluid("fish_oil"), 1, 7500, 1));
             for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
                 FishSpecies fish = species.getValue();
                 if (fish.getFishOilVolume() > 0 && fish.getLiquifiedProduct() != null && fish.getLiquifiedProductChance() > 0) {

@@ -37,7 +37,7 @@ public class Fluids {
         if (!fluids.containsKey(fluid)) {
             return false;
         } else {
-            Fluid f = getTheFluid(fluid);
+            Fluid f = getFluid(fluid);
             f.setBlock(block);
             fluids.put(fluid, new BalancedFluid(f, getBalancedVolume(fluid)));
             return true;
@@ -45,27 +45,27 @@ public class Fluids {
     }
 
     public static FluidStack getFluidStack(String fluid, int volume) {
-        return new FluidStack(getTheFluid(fluid), volume);
+        return new FluidStack(getFluid(fluid), volume);
     }
 
-    public static Fluid getTheFluid(String fluid) {
+    public static Fluid getFluid(String fluid) {
         return fluids.get(fluid) != null? fluids.get(fluid).fluid: null;
     }
 
-    public static int getTheID(String fluid) {
-        return getTheFluid(fluid).getID();
+    public static int getFluidID(String fluid) {
+        return getFluid(fluid).getID();
     }
 
-    public static String getTheName(String fluid) {
-        return getTheFluid(fluid).getName();
+    public static String getFluidName(String fluid) {
+        return getFluid(fluid).getName();
     }
 
     public static boolean isRegistered(String fluid) {
-        return getTheFluid(fluid) != null;
+        return getFluid(fluid) != null;
     }
 
-    public static Block getTheBlock(String fluid) {
-        return getTheFluid(fluid).getBlock();
+    public static Block getFluidBlock(String fluid) {
+        return getFluid(fluid).getBlock();
     }
 
     public static int getBalancedVolume(String fluid) {
@@ -73,6 +73,6 @@ public class Fluids {
     }
 
     public static FluidStack getBalancedStack(String fluid) {
-        return new FluidStack(getTheFluid(fluid), getBalancedVolume(fluid));
+        return new FluidStack(getFluid(fluid), getBalancedVolume(fluid));
     }
 }

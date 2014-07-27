@@ -171,7 +171,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
 
     @Override
     public boolean canMachineWork() {
-        return tank.getFluidAmount() > 0 && tank.getFluidID() == Fluids.getTheID("hp_water") && RedstoneMode.canWork(this, mode);
+        return tank.getFluidAmount() > 0 && tank.getFluidID() == Fluids.getFluidID("hp_water") && RedstoneMode.canWork(this, mode);
     }
 
     private boolean isNet(int x, int y, int z) {

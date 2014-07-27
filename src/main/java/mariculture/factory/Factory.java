@@ -192,7 +192,7 @@ public class Factory extends RegistrationModule {
         addShaped(_(turbineCopper), new Object[] { " I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood" });
         addShaped(_(turbineAluminum), new Object[] { " I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab });
         addShaped(_(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });
-        MaricultureHandlers.turbine.add(Fluids.getTheName("natural_gas"));
+        MaricultureHandlers.turbine.add(Fluids.getFluidName("natural_gas"));
         MaricultureHandlers.turbine.add("gascraft_naturalgas");
     }
 }

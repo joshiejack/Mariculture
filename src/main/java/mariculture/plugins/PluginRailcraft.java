@@ -32,8 +32,8 @@ public class PluginRailcraft extends Plugin {
             ItemStack steelAxe = new ItemStack(GameRegistry.findItem("Railcraft", "tool.steel.axe"));
             ItemStack steelSword = new ItemStack(GameRegistry.findItem("Railcraft", "tool.steel.sword"));
             ItemStack steelHoe = new ItemStack(GameRegistry.findItem("Railcraft", "tool.steel.hoe"));
-            RecipesSmelting.addRecipe(Fluids.getTheName("steel"), new Object[] { steelPick, steelShovel, steelAxe, steelSword, steelHoe }, MetalRates.TOOLS, RecipesSmelting.steel, new ItemStack(stick), 1);
-            RecipesSmelting.addRecipe(Fluids.getTheName("steel"), new Object[] { steelHelm, steelChest, steelPants, steelBoots }, MetalRates.ARMOR, RecipesSmelting.steel, null, 0);
+            RecipesSmelting.addRecipe(Fluids.getFluidName("steel"), new Object[] { steelPick, steelShovel, steelAxe, steelSword, steelHoe }, MetalRates.TOOLS, RecipesSmelting.steel, new ItemStack(stick), 1);
+            RecipesSmelting.addRecipe(Fluids.getFluidName("steel"), new Object[] { steelHelm, steelChest, steelPants, steelBoots }, MetalRates.ARMOR, RecipesSmelting.steel, null, 0);
         } catch (Exception e) {
             LogHandler.log(Level.INFO, "Failed to add railcraft steel items to the melting list");
         }

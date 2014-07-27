@@ -148,7 +148,7 @@ public class BlockRenderedMachine extends BlockFunctional {
                 }
 
                 fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
-                fludd.tank.setFluidID(Fluids.getTheID("hp_water"));
+                fludd.tank.setFluidID(Fluids.getFluidID("hp_water"));
                 fludd.tank.setFluidAmount(water);
                 PacketHandler.updateRender(fludd);
             }

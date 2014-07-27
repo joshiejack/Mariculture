@@ -99,7 +99,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
     }
 
     private void fillFLUDD() {
-        if (inventory[fludd] != null && inventory[fludd].getItem() instanceof ItemArmorFLUDD) if (tank.getFluidID() == Fluids.getTheID("hp_water") && tank.getFluidAmount() > 0) {
+        if (inventory[fludd] != null && inventory[fludd].getItem() instanceof ItemArmorFLUDD) if (tank.getFluidID() == Fluids.getFluidID("hp_water") && tank.getFluidAmount() > 0) {
             ItemStack stack = inventory[fludd].copy();
             int water = 0;
             if (stack.hasTagCompound()) {

@@ -11,7 +11,7 @@ import static mariculture.core.helpers.FluidHelper.addGas;
 import static mariculture.core.helpers.FluidHelper.registerBucket;
 import static mariculture.core.helpers.FluidHelper.registerHeatBottle;
 import static mariculture.core.helpers.FluidHelper.registerVanillaBottle;
-import static mariculture.core.util.Fluids.getTheFluid;
+import static mariculture.core.util.Fluids.getFluid;
 import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
@@ -222,10 +222,10 @@ public class Core extends RegistrationModule {
         addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144);
         addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144);
 
-        registerVanillaBottle(getTheFluid("natural_gas"), 1000, BottleMeta.GAS_BASIC);
+        registerVanillaBottle(getFluid("natural_gas"), 1000, BottleMeta.GAS_BASIC);
         registerHeatBottle(FluidRegistry.WATER, 2000, BottleMeta.WATER);
         registerHeatBottle(FluidRegistry.LAVA, 2000, BottleMeta.LAVA);
-        registerBucket(getTheFluid("hp_water"), 1000, BucketMeta.PRESSURE);
+        registerBucket(getFluid("hp_water"), 1000, BucketMeta.PRESSURE);
     }
 
     @Override

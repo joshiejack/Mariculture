@@ -164,7 +164,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         int z = zCoord + orientation.offsetZ;
         if (BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord, zCoord - orientation.offsetZ)) {
             if (BlockHelper.isAir(worldObj, x, yCoord, z)) {
-                worldObj.setBlock(x, yCoord, z, Fluids.getTheBlock("hp_water"));
+                worldObj.setBlock(x, yCoord, z, Fluids.getFluidBlock("hp_water"));
             }
         } else if (BlockHelper.isHPWater(worldObj, x, yCoord, z)) {
             worldObj.setBlockToAir(x, yCoord, z);

@@ -204,7 +204,7 @@ public class RecipeHelper {
     }
 
     public static void addBleachRecipe(ItemStack input, ItemStack output, int time) {
-        addVatItemRecipe(input, Fluids.getTheName("quicklime"), 50, output, time);
+        addVatItemRecipe(input, Fluids.getFluidName("quicklime"), 50, output, time);
     }
 
     public static void addSoakRecipe(ItemStack input, ItemStack output, int time) {

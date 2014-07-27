@@ -14,8 +14,8 @@ import static mariculture.core.lib.ItemLib.salt;
 import static mariculture.core.lib.ItemLib.sand;
 import static mariculture.core.lib.ItemLib.stone;
 import static mariculture.core.util.Fluids.getFluidStack;
-import static mariculture.core.util.Fluids.getTheFluid;
-import static mariculture.core.util.Fluids.getTheName;
+import static mariculture.core.util.Fluids.getFluid;
+import static mariculture.core.util.Fluids.getFluidName;
 
 import java.util.ArrayList;
 
@@ -95,37 +95,37 @@ public class RecipesSmelting {
         ItemStack platinum = fetchItem(new String[] { "dustPlatinum", "ingotPlatinum" });
 
         //Copperous Dust
-        LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("ingotIron", getTheName("iron"), 4), new LinkedMetal("ingotSilver", getTheName("silver"), 7), new LinkedMetal("ingotGold", getTheName("gold"), 10), new LinkedMetal("ingotCobalt", getTheName("cobalt"), 15), new LinkedMetal("ingotNickel", getTheName("nickel"), 8), new LinkedMetal("ingotLead", getTheName("lead"), 7), new LinkedMetal("ingotTin", getTheName("tin"), 6) };
+        LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("ingotIron", getFluidName("iron"), 4), new LinkedMetal("ingotSilver", getFluidName("silver"), 7), new LinkedMetal("ingotGold", getFluidName("gold"), 10), new LinkedMetal("ingotCobalt", getFluidName("cobalt"), 15), new LinkedMetal("ingotNickel", getFluidName("nickel"), 8), new LinkedMetal("ingotLead", getFluidName("lead"), 7), new LinkedMetal("ingotTin", getFluidName("tin"), 6) };
         addDust(MaterialsMeta.DUST_COPPEROUS, copper, sulfur, 10, coppers);
 
         //Golden Dust
-        LinkedMetal[] golds = new LinkedMetal[] { new LinkedMetal("ingotElectrum", getTheName("electrum"), 3), new LinkedMetal("ingotSilver", getTheName("silver"), 7), new LinkedMetal("ingotGold", getTheName("gold"), 25) };
+        LinkedMetal[] golds = new LinkedMetal[] { new LinkedMetal("ingotElectrum", getFluidName("electrum"), 3), new LinkedMetal("ingotSilver", getFluidName("silver"), 7), new LinkedMetal("ingotGold", getFluidName("gold"), 25) };
         addDust(MaterialsMeta.DUST_GOLDEN, gold, null, 0, golds);
 
         //Ironic Dust
-        LinkedMetal[] irons = new LinkedMetal[] { new LinkedMetal("ingotAluminum", getTheName("aluminum"), 3), new LinkedMetal("ingotTin", getTheName("iron"), 8), new LinkedMetal("ingotCopper", getTheName("copper"), 6) };
+        LinkedMetal[] irons = new LinkedMetal[] { new LinkedMetal("ingotAluminum", getFluidName("aluminum"), 3), new LinkedMetal("ingotTin", getFluidName("iron"), 8), new LinkedMetal("ingotCopper", getFluidName("copper"), 6) };
         addDust(MaterialsMeta.DUST_IRONIC, iron, silicon, 6, irons);
 
         //Leader Dust
-        LinkedMetal[] leads = new LinkedMetal[] { new LinkedMetal("ingotSilver", getTheName("silver"), 3), new LinkedMetal("ingotIron", getTheName("iron"), 6), new LinkedMetal("ingotCopper", getTheName("copper"), 8), new LinkedMetal("ingotTin", getTheName("tin"), 10) };
+        LinkedMetal[] leads = new LinkedMetal[] { new LinkedMetal("ingotSilver", getFluidName("silver"), 3), new LinkedMetal("ingotIron", getFluidName("iron"), 6), new LinkedMetal("ingotCopper", getFluidName("copper"), 8), new LinkedMetal("ingotTin", getFluidName("tin"), 10) };
         addDust(MaterialsMeta.DUST_LEADER, lead, null, 0, leads);
 
         //Silvery Dust
-        LinkedMetal[] silvers = new LinkedMetal[] { new LinkedMetal("ingotLead", getTheName("lead"), 2), new LinkedMetal("ingotElectrum", getTheName("electrum"), 4) };
+        LinkedMetal[] silvers = new LinkedMetal[] { new LinkedMetal("ingotLead", getFluidName("lead"), 2), new LinkedMetal("ingotElectrum", getFluidName("electrum"), 4) };
         addDust(MaterialsMeta.DUST_SILVERY, silver, sulfur, 5, silvers);
 
         //Tinnic Dust
-        LinkedMetal[] tins = new LinkedMetal[] { new LinkedMetal("ingotCopper", getTheName("copper"), 3), new LinkedMetal("ingotIron", getTheName("iron"), 6), new LinkedMetal("ingotLead", getTheName("lead"), 8) };
+        LinkedMetal[] tins = new LinkedMetal[] { new LinkedMetal("ingotCopper", getFluidName("copper"), 3), new LinkedMetal("ingotIron", getFluidName("iron"), 6), new LinkedMetal("ingotLead", getFluidName("lead"), 8) };
         addDust(MaterialsMeta.DUST_TINNIC, tin, sulfur, 7, tins);
 
-        addMetal(getTheName("tin"), "Tin", tin, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_TINNIC), 10);
-        addMetal(getTheName("copper"), "Copper", copper, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_COPPEROUS), 10);
-        addMetal(getTheName("silver"), "Silver", silver, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SILVERY), 10);
-        addMetal(getTheName("lead"), "Lead", lead, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_LEADER), 10);
-        addMetal(getTheName("nickel"), "Nickel", nickel, platinum, 10);
-        addMetal(getTheName("bronze"), "Bronze", bronze, null, 0);
-        addMetal(getTheName("steel"), "Steel", steel, null, 0);
-        addMetal(getTheName("electrum"), "Electrum", electrum, null, 0);
+        addMetal(getFluidName("tin"), "Tin", tin, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_TINNIC), 10);
+        addMetal(getFluidName("copper"), "Copper", copper, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_COPPEROUS), 10);
+        addMetal(getFluidName("silver"), "Silver", silver, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SILVERY), 10);
+        addMetal(getFluidName("lead"), "Lead", lead, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_LEADER), 10);
+        addMetal(getFluidName("nickel"), "Nickel", nickel, platinum, 10);
+        addMetal(getFluidName("bronze"), "Bronze", bronze, null, 0);
+        addMetal(getFluidName("steel"), "Steel", steel, null, 0);
+        addMetal(getFluidName("electrum"), "Electrum", electrum, null, 0);
 
         //Gold + Silver = Electrum
         if (OreDictionary.getOres("ingotElectrum").size() > 0 && OreDictionary.getOres("ingotSilver").size() > 0) {
@@ -177,7 +177,7 @@ public class RecipesSmelting {
         RecipeHelper.addFuel("logWood", new FuelInfo(480, 12, 300));
         RecipeHelper.addFuel("plankWood", new FuelInfo(320, 8, 200));
         RecipeHelper.addFuel("stickWood", new FuelInfo(160, 4, 100));
-        RecipeHelper.addFuel(getTheName("natural_gas"), new FuelInfo(2000, 35, 1200));
+        RecipeHelper.addFuel(getFluidName("natural_gas"), new FuelInfo(2000, 35, 1200));
         RecipeHelper.addFuel("gascraft_naturalgas", new FuelInfo(2000, 35, 1000));
         RecipeHelper.addFuel("fuel", new FuelInfo(2000, 35, 1000));
         RecipeHelper.addFuel("pyrotheum", new FuelInfo(2000, 100, 100));
@@ -210,22 +210,22 @@ public class RecipesSmelting {
     }
 
     public static void addMetalRecipes() {
-        addFullSet(getTheName("iron"), new Object[] { "oreIron", "nuggetIron", "ingotIron", "blockIron", "dustIron", Items.iron_pickaxe, Items.iron_shovel, Items.iron_axe, Items.iron_sword, Items.iron_hoe, Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots }, iron, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_IRONIC), 10);
+        addFullSet(getFluidName("iron"), new Object[] { "oreIron", "nuggetIron", "ingotIron", "blockIron", "dustIron", Items.iron_pickaxe, Items.iron_shovel, Items.iron_axe, Items.iron_sword, Items.iron_hoe, Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots }, iron, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_IRONIC), 10);
         RecipeHelper.addMetalCasting("Iron");
 
-        addFullSet(getTheName("gold"), new Object[] { "oreGold", "nugetGold", "ingotGold", "blockGold", "dustGold", Items.golden_pickaxe, Items.golden_shovel, Items.golden_axe, Items.golden_sword, Items.golden_hoe, Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots }, gold, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_GOLDEN), 10);
+        addFullSet(getFluidName("gold"), new Object[] { "oreGold", "nugetGold", "ingotGold", "blockGold", "dustGold", Items.golden_pickaxe, Items.golden_shovel, Items.golden_axe, Items.golden_sword, Items.golden_hoe, Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots }, gold, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_GOLDEN), 10);
         RecipeHelper.addMetalCasting("Gold");
 
-        addMetal(getTheName("aluminum"), "Aluminum", aluminum, new ItemStack(clay), 5);
-        addMetal(getTheName("rutile"), "Rutile", titanium, limestone, 2);
-        addMetal(getTheName("titanium"), "Titanium", titanium, limestone, 2);
-        addMetal(getTheName("magnesium"), "Magnesium", magnesium, new ItemStack(stone), 2);
+        addMetal(getFluidName("aluminum"), "Aluminum", aluminum, new ItemStack(clay), 5);
+        addMetal(getFluidName("rutile"), "Rutile", titanium, limestone, 2);
+        addMetal(getFluidName("titanium"), "Titanium", titanium, limestone, 2);
+        addMetal(getFluidName("magnesium"), "Magnesium", magnesium, new ItemStack(stone), 2);
 
         FluidStack moltenRutile = getFluidStack("rutile", MetalRates.INGOT);
         FluidStack moltenMagnesium = getFluidStack("magnesium", MetalRates.INGOT);
         FluidStack moltenTitanium = getFluidStack("titanium", MetalRates.INGOT);
         RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 6);
-        RecipeHelper.addMelting(dustMagnesium, magnesium, get(getTheName("magnesium")), salt, 1);
+        RecipeHelper.addMelting(dustMagnesium, magnesium, get(getFluidName("magnesium")), salt, 1);
 
         //Gold Back
         RecipeHelper.addMelting(new ItemStack(Blocks.light_weighted_pressure_plate), gold, gold(MetalRates.INGOT * 2));
@@ -233,45 +233,45 @@ public class RecipesSmelting {
         RecipeHelper.addMelting(new ItemStack(Items.golden_horse_armor), gold, gold(MetalRates.INGOT * 6), new ItemStack(Items.saddle), 4);
 
         //Iron Back
-        RecipeHelper.addMelting(new ItemStack(Items.bucket), iron, getTheName("iron"), MetalRates.INGOT * 3);
-        RecipeHelper.addMelting(new ItemStack(Items.iron_door), iron, getTheName("iron"), MetalRates.INGOT * 6);
-        RecipeHelper.addMelting(new ItemStack(Blocks.iron_bars), iron, getTheName("iron"), (int) (MetalRates.INGOT * 0.25));
-        RecipeHelper.addMelting(new ItemStack(Items.shears), iron, getTheName("iron"), MetalRates.INGOT * 2);
-        RecipeHelper.addMelting(new ItemStack(Blocks.anvil, 1, 0), iron, getTheName("iron"), MetalRates.INGOT * 31);
-        RecipeHelper.addMelting(new ItemStack(Blocks.anvil, 1, 1), iron, getTheName("iron"), MetalRates.INGOT * 22);
-        RecipeHelper.addMelting(new ItemStack(Blocks.anvil, 1, 2), iron, getTheName("iron"), MetalRates.INGOT * 13);
-        RecipeHelper.addMelting(new ItemStack(Blocks.heavy_weighted_pressure_plate), iron, getTheName("iron"), MetalRates.INGOT * 2);
+        RecipeHelper.addMelting(new ItemStack(Items.bucket), iron, getFluidName("iron"), MetalRates.INGOT * 3);
+        RecipeHelper.addMelting(new ItemStack(Items.iron_door), iron, getFluidName("iron"), MetalRates.INGOT * 6);
+        RecipeHelper.addMelting(new ItemStack(Blocks.iron_bars), iron, getFluidName("iron"), (int) (MetalRates.INGOT * 0.25));
+        RecipeHelper.addMelting(new ItemStack(Items.shears), iron, getFluidName("iron"), MetalRates.INGOT * 2);
+        RecipeHelper.addMelting(new ItemStack(Blocks.anvil, 1, 0), iron, getFluidName("iron"), MetalRates.INGOT * 31);
+        RecipeHelper.addMelting(new ItemStack(Blocks.anvil, 1, 1), iron, getFluidName("iron"), MetalRates.INGOT * 22);
+        RecipeHelper.addMelting(new ItemStack(Blocks.anvil, 1, 2), iron, getFluidName("iron"), MetalRates.INGOT * 13);
+        RecipeHelper.addMelting(new ItemStack(Blocks.heavy_weighted_pressure_plate), iron, getFluidName("iron"), MetalRates.INGOT * 2);
         RecipeHelper.addMelting(new ItemStack(Items.compass), iron, iron(MetalRates.INGOT * 4), new ItemStack(Items.redstone), 2);
         RecipeHelper.addMelting(new ItemStack(Blocks.hopper), iron, iron(MetalRates.INGOT * 5), new ItemStack(Blocks.chest), 2);
         RecipeHelper.addMelting(new ItemStack(Items.flint_and_steel), iron, iron(MetalRates.INGOT));
         RecipeHelper.addMelting(new ItemStack(Items.iron_horse_armor), iron, iron(MetalRates.INGOT * 6), new ItemStack(Items.saddle), 4);
 
         //Glass, Ice, Snow, Plastic, Obisidian
-        RecipeHelper.addBlockCasting(get(getTheName("glass"), 1000), new ItemStack(glass));
-        RecipeHelper.addMelting(new ItemStack(sand), 1000, getTheName("glass"), 1000);
-        RecipeHelper.addMelting(new ItemStack(glass), 900, getTheName("glass"), 1000);
-        RecipeHelper.addMelting(new ItemStack(glassPane), 500, getTheName("glass"), 375);
+        RecipeHelper.addBlockCasting(get(getFluidName("glass"), 1000), new ItemStack(glass));
+        RecipeHelper.addMelting(new ItemStack(sand), 1000, getFluidName("glass"), 1000);
+        RecipeHelper.addMelting(new ItemStack(glass), 900, getFluidName("glass"), 1000);
+        RecipeHelper.addMelting(new ItemStack(glassPane), 500, getFluidName("glass"), 375);
         RecipeHelper.addMelting(new ItemStack(ice), 1, "water", 1000);
         RecipeHelper.addMelting(new ItemStack(blockSnow), 1, "water", 1000);
 
-        RecipeHelper.addVatItemRecipe(new ItemStack(glass, 32), getTheName("natural_gas"), 25000, new ItemStack(Core.transparent, 32, TransparentMeta.PLASTIC), 60);
-        RecipeHelper.addVatItemRecipe(new ItemStack(glass), getTheName("natural_gas"), 1000, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 5);
-        if (getTheFluid("bioethanol") != null) {
-            RecipeHelper.addVatItemRecipe(new ItemStack(glass, 32), getTheName("bioethanol"), 30000, new ItemStack(Core.transparent, 32, TransparentMeta.PLASTIC), 100);
-            RecipeHelper.addVatItemRecipe(new ItemStack(glass), getTheName("bioethanol"), 1500, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 10);
+        RecipeHelper.addVatItemRecipe(new ItemStack(glass, 32), getFluidName("natural_gas"), 25000, new ItemStack(Core.transparent, 32, TransparentMeta.PLASTIC), 60);
+        RecipeHelper.addVatItemRecipe(new ItemStack(glass), getFluidName("natural_gas"), 1000, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 5);
+        if (getFluid("bioethanol") != null) {
+            RecipeHelper.addVatItemRecipe(new ItemStack(glass, 32), getFluidName("bioethanol"), 30000, new ItemStack(Core.transparent, 32, TransparentMeta.PLASTIC), 100);
+            RecipeHelper.addVatItemRecipe(new ItemStack(glass), getFluidName("bioethanol"), 1500, new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC), 10);
         }
 
         RecipeHelper.addFluidAlloyResultItem(get("water", 1000), get("lava", 1000), new ItemStack(obsidian), 10);
 
         //8 Parts Quicklime + 5 Parts Water = Unknown Metal Dust + 3 Parts Water (Takes 10 seconds)
-        RecipeHelper.addFluidAlloyResultItemNFluid(get("water", 3000), get(getTheName("quicklime"), 4000), get("water", 2000), dustMagnesium, 10);
+        RecipeHelper.addFluidAlloyResultItemNFluid(get("water", 3000), get(getFluidName("quicklime"), 4000), get("water", 2000), dustMagnesium, 10);
 
         ArrayList<ItemStack> added = new ArrayList();
         for (ItemStack stack : OreDictionary.getOres("blockLimestone")) {
             if (stack == null || stack.getItem() == null) {
                 continue;
             }
-            RecipeHelper.addMelting(stack, 825, get(getTheName("quicklime"), 900));
+            RecipeHelper.addMelting(stack, 825, get(getFluidName("quicklime"), 900));
             added.add(stack);
         }
 
@@ -286,14 +286,14 @@ public class RecipesSmelting {
                 }
 
             if (!exists) {
-                RecipeHelper.addMelting(stack, 825, get(getTheName("quicklime"), 900));
+                RecipeHelper.addMelting(stack, 825, get(getFluidName("quicklime"), 900));
             }
         }
 
-        RecipeHelper.addMelting(limestoneSmooth, 825, get(getTheName("quicklime"), 1000));
-        RecipeHelper.addMelting(dustSalt, 801, get(getTheName("salt"), 20));
-        RecipeHelper.addFluidAlloyNItemResultItem(get(getTheName("aluminum"), MetalRates.NUGGET * 64), get(getTheName("quicklime"), 20000), new ItemStack(glass, 64), new ItemStack(Core.glass, 64, GlassMeta.HEAT), 90);
-        RecipeHelper.addFluidAlloyNItemResultItem(get(getTheName("aluminum"), MetalRates.NUGGET), get(getTheName("quicklime"), 450), new ItemStack(glass), new ItemStack(Core.glass, 1, GlassMeta.HEAT), 5);
+        RecipeHelper.addMelting(limestoneSmooth, 825, get(getFluidName("quicklime"), 1000));
+        RecipeHelper.addMelting(dustSalt, 801, get(getFluidName("salt"), 20));
+        RecipeHelper.addFluidAlloyNItemResultItem(get(getFluidName("aluminum"), MetalRates.NUGGET * 64), get(getFluidName("quicklime"), 20000), new ItemStack(glass, 64), new ItemStack(Core.glass, 64, GlassMeta.HEAT), 90);
+        RecipeHelper.addFluidAlloyNItemResultItem(get(getFluidName("aluminum"), MetalRates.NUGGET), get(getFluidName("quicklime"), 450), new ItemStack(glass), new ItemStack(Core.glass, 1, GlassMeta.HEAT), 5);
     }
 
     public static FluidStack gold(int vol) {
