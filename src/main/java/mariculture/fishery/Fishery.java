@@ -284,7 +284,6 @@ public class Fishery extends RegistrationModule {
         addVatItemRecipe(titaniumRod, getTheName("fish_oil"), 6500, polishedTitanium, 30);
         addShapeless(thermometer, new Object[] { fish, compass });
         addBlockCasting(getFluidStack("dirt", 1000), new ItemStack(dirt));
-        addMelting(new ItemStack(dirt), 333, getFluidStack("dirt", 1000));
         addShaped(_(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
         addShaped(_(sifter, 2), new Object[] { "PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net });
         addShaped(autofisher, new Object[] { " F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', fish, 'B', baseWood, 'P', "plankWood" });

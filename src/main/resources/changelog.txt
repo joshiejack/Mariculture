@@ -6,6 +6,10 @@ Mariculture 1.2.3
 • Can now smelt Ancient Sand to Heat-Resistant Glass
 • Potentially fixed potential null pointer with fish loot
 • Changed bait saturation from -100 to -1
+• Droplets are now fluid containers, right click them in to tanks instead of melting them
+• All droplets will now produce some sort of liquid, all these liquids can be placed in the world with various effects.
+• Crafting recipes involving droplets for the most part are removed. Some remained, where I don't mind them being :P (Most of these are now vat recipes)
+• Removed Melting of dirt blocks to Molten Dirt. Makes making clay too easy.
 • Readded Debug Food
 • Removed Legacy Droplets#
 • Removed deep sea ravines, water caves and no mineshafts (due to missing forge feature)
