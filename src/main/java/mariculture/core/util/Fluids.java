@@ -45,7 +45,7 @@ public class Fluids {
     }
 
     public static Fluid getTheFluid(String fluid) {
-        return fluids.get(fluid).fluid;
+        return fluids.get(fluid) != null? fluids.get(fluid).fluid: null;
     }
 
     public static int getTheID(String fluid) {

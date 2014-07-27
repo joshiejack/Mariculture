@@ -101,7 +101,8 @@ public class FluidHelper {
 
     public static ItemStack getEmptyContainerForFilledItem(ItemStack stack) {
         if (stack == null) return null;
-        return empties.get(Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage());
+        ItemStack result = empties.get(Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage());
+        return result.stackSize > 0? result: null;
     }
 
     private static ItemStack doEmpty(IFluidHandler tile, ItemStack top, ItemStack bottom) {

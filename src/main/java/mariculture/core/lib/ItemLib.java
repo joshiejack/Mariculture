@@ -76,6 +76,7 @@ public class ItemLib {
     public static final Block log = Blocks.log;
     public static final Block planks = Blocks.planks;
     public static final Block craftingTable = Blocks.crafting_table;
+    public static final Block endstone = Blocks.end_stone;
 
     /** Vanilla shortcuts for items **/
     public static final Item repeater = Items.repeater;
