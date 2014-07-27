@@ -10,6 +10,7 @@ import mariculture.api.core.RecipeVat;
 import mariculture.api.util.Text;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -107,7 +108,7 @@ public class NEIVatRecipeHandler extends NEIBase {
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
         for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
-            if (vat.inputItem != null) if (OreDicHelper.convert(ingredient).equals(OreDicHelper.convert(vat.inputItem))) {
+            if (vat.inputItem != null && ItemHelper.areEqual(ingredient, vat.inputItem)) {
                 arecipes.add(new CachedVatRecipe(vat));
             }
 
