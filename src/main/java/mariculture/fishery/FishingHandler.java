@@ -47,7 +47,7 @@ public class FishingHandler implements IFishing {
 
     @Override
     public RodType getRodType(ItemStack stack) {
-        return registry.get(stack.getItem());
+        return stack != null? registry.get(stack.getItem()): null;
     }
 
     @Override

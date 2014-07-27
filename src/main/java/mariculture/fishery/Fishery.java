@@ -176,9 +176,9 @@ public class Fishery extends RegistrationModule {
     @Override
     public void registerItems() {
         bait = new ItemBait().setUnlocalizedName("bait");
-        rodReed = new ItemRod(_(reeds), 96, 24).setUnlocalizedName("rod.reed");
-        rodWood = new ItemRod(polishedStick, 320, 10).setUnlocalizedName("rod.wood");
-        rodTitanium = new ItemRod(polishedTitanium, 640, 16).setUnlocalizedName("rod.titanium");
+        rodReed = new ItemRod(96, 24).setUnlocalizedName("rod.reed");
+        rodWood = new ItemRod(320, 10).setUnlocalizedName("rod.wood");
+        rodTitanium = new ItemRod(640, 16).setUnlocalizedName("rod.titanium");
         rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
         fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFishery);
         net = new BlockItemNet().setUnlocalizedName("net");
@@ -274,6 +274,9 @@ public class Fishery extends RegistrationModule {
         addFishRecipes();
         FishingLoot.add();
 
+        ((ItemRod)rodReed).setRepairMaterial(_(reeds));
+        ((ItemRod)rodWood).setRepairMaterial(polishedStick);
+        ((ItemRod)rodTitanium).setRepairMaterial(polishedTitanium);
         addFishingRodRecipe(_(rodReed), reeds);
         addFishingRodRecipe(_(rodWood), polishedStick);
         addFishingRodRecipe(_(rodTitanium), polishedTitanium);

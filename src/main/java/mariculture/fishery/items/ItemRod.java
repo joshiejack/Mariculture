@@ -24,11 +24,11 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
     private int enchant;
 
     public ItemRod() {
-        this(null, 127, 1);
+        this(127, 1);
         setCreativeTab(MaricultureTab.tabFishery);
     }
 
-    public ItemRod(ItemStack repair, int max, int enchant) {
+    public ItemRod(int max, int enchant) {
         this.enchant = enchant;
         this.repair = repair;
         setMaxStackSize(1);
@@ -51,6 +51,10 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
 
         super.setCreativeTab(tab);
         return this;
+    }
+    
+    public void setRepairMaterial(ItemStack stack) {
+        this.repair = stack;
     }
     
     @Override
