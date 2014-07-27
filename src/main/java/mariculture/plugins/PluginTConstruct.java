@@ -37,21 +37,21 @@ public class PluginTConstruct extends Plugin {
     @Override
     public void preInit() {
         try {
-            Fluids.add("aluminum", getFluidType("Aluminum").fluid, 144);
-            Fluids.add("bronze", getFluidType("Bronze").fluid, 144);
-            Fluids.add("copper", getFluidType("Copper").fluid, 144);
-            Fluids.add("glass", getFluidType("Glass").fluid, 144);
-            Fluids.add("gold", getFluidType("Gold").fluid, 144);
-            Fluids.add("iron", getFluidType("Iron").fluid, 144);
-            Fluids.add("lead", getFluidType("Lead").fluid, 144);
-            Fluids.add("nickel", getFluidType("Nickel").fluid, 144);
-            Fluids.add("silver", getFluidType("Silver").fluid, 144);
-            Fluids.add("steel", getFluidType("Steel").fluid, 144);
-            Fluids.add("tin", getFluidType("Tin").fluid, 144);
-            Fluids.add("electrum", getFluidType("Electrum").fluid, 144);
-            Fluids.add("cobalt", getFluidType("Cobalt").fluid, 144);
-            Fluids.add("ender", getFluidType("Ender").fluid, 25);
-            Fluids.add("blood", FluidRegistry.getFluid("blood"), 10);
+            Fluids.add("aluminum", getFluidType("Aluminum").fluid, 144, true);
+            Fluids.add("bronze", getFluidType("Bronze").fluid, 144, true);
+            Fluids.add("copper", getFluidType("Copper").fluid, 144, true);
+            Fluids.add("glass", getFluidType("Glass").fluid, 144, true);
+            Fluids.add("gold", getFluidType("Gold").fluid, 144, true);
+            Fluids.add("iron", getFluidType("Iron").fluid, 144, true);
+            Fluids.add("lead", getFluidType("Lead").fluid, 144, true);
+            Fluids.add("nickel", getFluidType("Nickel").fluid, 144, true);
+            Fluids.add("silver", getFluidType("Silver").fluid, 144, true);
+            Fluids.add("steel", getFluidType("Steel").fluid, 144, true);
+            Fluids.add("tin", getFluidType("Tin").fluid, 144, true);
+            Fluids.add("electrum", getFluidType("Electrum").fluid, 144, true);
+            Fluids.add("cobalt", getFluidType("Cobalt").fluid, 144, true);
+            Fluids.add("ender", getFluidType("Ender").fluid, 25, true);
+            Fluids.add("blood", FluidRegistry.getFluid("blood"), 10, true);
         } catch (Exception e) {
             e.printStackTrace();
             LogHandler.log(Level.INFO, "Mariculture failed to sync up with TiC Fluids");

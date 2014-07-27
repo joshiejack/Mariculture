@@ -55,7 +55,7 @@ public class PluginForestry extends Plugin {
 
     @Override
     public void preInit() {
-        Fluids.add("bioethanol", FluidRegistry.getFluid("bioethanol"), 1000);
+        Fluids.add("bioethanol", FluidRegistry.getFluid("bioethanol"), 1000, true);
         backpack = new AquaBackpack();
         aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T1);
         aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T2);

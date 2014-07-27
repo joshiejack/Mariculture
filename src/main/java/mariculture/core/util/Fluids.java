@@ -19,9 +19,13 @@ public class Fluids {
             this.volume = volume;
         }
     }
-
+    
     public static boolean add(String name, Fluid fluid, int volume) {
-        if (!fluids.containsKey(name) && fluid != null) {
+        return add(name, fluid, volume, false);
+    }
+
+    public static boolean add(String name, Fluid fluid, int volume, boolean override) {
+        if ((!fluids.containsKey(name) && fluid != null) || override) {
             fluids.put(name, new BalancedFluid(fluid, volume));
             return true;
         }

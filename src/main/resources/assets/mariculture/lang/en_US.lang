@@ -702,7 +702,7 @@ mariculture.string.time.night=Night
 mariculture.string.chance=Chance
 mariculture.string.progress=Progress
 mariculture.string.contains=Contains
-mariculture.string.of=Of
+mariculture.string.of=of
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled

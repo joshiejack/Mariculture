@@ -34,7 +34,7 @@ public class ItemDroplet extends ItemMariculture {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
         int amount = fluid == null ? 0 : fluid.amount;
-        list.add(Text.translate("contains") + " " + amount + Text.translate("mb") + " " + Text.translate("of") + FluidHelper.getFluidName(fluid));
+        list.add(Text.translate("contains") + " " + amount + Text.translate("mb") + " " + Text.translate("of") + " " + FluidHelper.getFluidName(fluid));
     }
 
     @Override
