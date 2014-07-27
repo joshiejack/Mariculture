@@ -1,11 +1,11 @@
 package mariculture.fishery;
 
 import static mariculture.core.helpers.RecipeHelper._;
-import static mariculture.core.helpers.RecipeHelper.add2x2Recipe;
-import static mariculture.core.helpers.RecipeHelper.add3x3Recipe;
 import static mariculture.core.helpers.RecipeHelper.addBlockCasting;
 import static mariculture.core.helpers.RecipeHelper.addFishingRodRecipe;
+import static mariculture.core.helpers.RecipeHelper.addFluidAlloyResultItem;
 import static mariculture.core.helpers.RecipeHelper.addMelting;
+import static mariculture.core.helpers.RecipeHelper.addNuggetCasting;
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
 import static mariculture.core.helpers.RecipeHelper.addSmelting;
@@ -27,15 +27,12 @@ import static mariculture.core.lib.ItemLib.diamond;
 import static mariculture.core.lib.ItemLib.dirt;
 import static mariculture.core.lib.ItemLib.dragonEgg;
 import static mariculture.core.lib.ItemLib.dropletAny;
-import static mariculture.core.lib.ItemLib.dropletDestroy;
 import static mariculture.core.lib.ItemLib.dropletEarth;
 import static mariculture.core.lib.ItemLib.dropletEnder;
 import static mariculture.core.lib.ItemLib.dropletFlux;
 import static mariculture.core.lib.ItemLib.dropletFrozen;
 import static mariculture.core.lib.ItemLib.dropletNether;
-import static mariculture.core.lib.ItemLib.dropletPlant;
 import static mariculture.core.lib.ItemLib.dropletPoison;
-import static mariculture.core.lib.ItemLib.dropletRegen;
 import static mariculture.core.lib.ItemLib.dropletWater;
 import static mariculture.core.lib.ItemLib.enderPearl;
 import static mariculture.core.lib.ItemLib.fish;
@@ -70,7 +67,9 @@ import static mariculture.core.lib.ItemLib.titaniumSheet;
 import static mariculture.core.lib.ItemLib.tnt;
 import static mariculture.core.lib.ItemLib.whiteClay;
 import static mariculture.core.lib.ItemLib.wicker;
-import static mariculture.core.util.Fluids.*;
+import static mariculture.core.util.Fluids.getFluidStack;
+import static mariculture.core.util.Fluids.getTheFluid;
+import static mariculture.core.util.Fluids.getTheName;
 
 import java.util.Arrays;
 
@@ -96,7 +95,6 @@ import mariculture.core.lib.ItemLib;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.util.Fluids;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
 import mariculture.fishery.blocks.fluids.BlockBlood;
@@ -354,17 +352,13 @@ public class Fishery extends RegistrationModule {
             FluidStack stack = ((ItemDroplet) droplet).getFluidStack(i);
             if (stack != null) FluidContainerRegistry.registerFluidContainer(stack, new ItemStack(droplet, 1, i));
         }
-
-        addShaped(_(grass), new Object[] { "HHH", "EEE", "EEE", 'H', dropletPlant, 'E', dropletEarth });
-        add2x2Recipe(_(snowball), dropletFrozen);
-        add3x3Recipe(_(ice), dropletFrozen);
-        addShaped(new ItemStack(enderPearl), new Object[] { "DDD", "DDD", "DDD", 'D', dropletEnder });
-        addShaped(_(tnt), new Object[] { "DS ", "SD ", 'D', dropletDestroy, 'S', sand });
-        addShapeless(_(clay), new Object[] { dropletEarth, dropletWater, dropletWater, dropletEarth });
-
-        if (FluidRegistry.getFluid("life essence") != null) {
-            addMelting(dropletRegen, 100, FluidRegistry.getFluidStack("life essence", 250));
-        }
+        
+        addNuggetCasting(getFluidStack("ice", 250), _(snowball));
+        addBlockCasting(getFluidStack("ice", 1000), _(ice));
+        addVatItemRecipe(pearls, getTheName("ender"), 250, _(enderPearl), 5);
+        addVatItemRecipe(_(_(sand), 0, 2), getTheName("gunpowder"), 250, _(tnt), 5);
+        addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), _(clay), 15);
+        addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 300), _(grass), 15);
     }
 
     @Override
