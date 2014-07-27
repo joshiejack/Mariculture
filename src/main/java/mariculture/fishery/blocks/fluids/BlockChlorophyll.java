@@ -16,9 +16,9 @@ public class BlockChlorophyll extends BlockFluid {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (rand.nextInt(32) == 0) {
-            int x2 = x + world.rand.nextInt(16);
-            int z2 = z + world.rand.nextInt(16);
+        if (rand.nextInt(8) == 0) {
+            int x2 = x + world.rand.nextInt(16) - 8;
+            int z2 = z + world.rand.nextInt(16) - 8;
             int y2 = world.getTopSolidOrLiquidBlock(x2, z2);
             world.getBiomeGenForCoords(x2, z2).plantFlower(world, world.rand, x2, y2, z2);
         }

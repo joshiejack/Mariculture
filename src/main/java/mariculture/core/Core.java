@@ -87,6 +87,7 @@ import mariculture.core.tile.TileTankBlock;
 import mariculture.core.tile.TileVat;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.core.util.EntityFakeItem;
+import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -193,6 +194,9 @@ public class Core extends RegistrationModule {
 
     @Override
     public void registerFluids() {
+        Fluids.add("water", FluidRegistry.WATER, 1000);
+        Fluids.add("lava", FluidRegistry.LAVA, 100);
+        
         // Normal Fluids
         addGas("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
         addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER, 250);
