@@ -453,7 +453,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         String name = prefix != null ? prefix : "";
         icons = new IIcon[getMetaCount() - 2];
         for (int i = 0; i < icons.length; i++) {
-            if (i != MachineRenderedMeta.ANVIL) {
+            if (i != MachineRenderedMeta.ANVIL && i != MachineRenderedMeta.BLOCK_CASTER) {
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
             }
         }
