@@ -3,8 +3,8 @@ package mariculture.fishery;
 import static mariculture.core.helpers.RecipeHelper._;
 import static mariculture.core.helpers.RecipeHelper.addBlockCasting;
 import static mariculture.core.helpers.RecipeHelper.addFishingRodRecipe;
+import static mariculture.core.helpers.RecipeHelper.addFluidAlloy;
 import static mariculture.core.helpers.RecipeHelper.addFluidAlloyResultItem;
-import static mariculture.core.helpers.RecipeHelper.addMelting;
 import static mariculture.core.helpers.RecipeHelper.addNuggetCasting;
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
@@ -361,6 +361,7 @@ public class Fishery extends RegistrationModule {
         addVatItemRecipe(_(_(sand), 0, 2), getTheName("gunpowder"), 250, _(tnt), 5);
         addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), _(clay), 15);
         addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 300), _(grass), 15);
+        addFluidAlloy(getFluidStack("flux", 100), getFluidStack("water", 1000), getFluidStack("magnesium", 72), 10);
     }
 
     @Override

@@ -5,7 +5,4 @@ TODO List - Before Release of 1.2.3
 • Make RF Upgrades reduce RF Usage
 • Add Unpacker and Advanced Sluice to Factory Book
 • Add Hatchery to the Fishing Book
-• Ender Drops melt to 25mB of Ender
-• 250mB Molten Ender + Pearl = EnderPearl
 • Finish Off Sluice System
-• Add Making Salt with Nether Droplet and Magnesium with Flux Droplet
