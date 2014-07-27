@@ -30,14 +30,20 @@ public class NEIVatRecipeHandler extends NEIBase {
         PositionedStack input;
         PositionedStack output;
 
-        public CachedVatRecipe(RecipeVat recipe) {
+        public CachedVatRecipe(RecipeVat recipe, ItemStack ingredient) {
             if (recipe.inputItem != null) {
-                input = new PositionedStack(recipe.inputItem.copy(), 28, 17);
+                if(ingredient != null) input = new PositionedStack(ingredient.copy(), 28, 17);
+                else input = new PositionedStack(recipe.inputItem.copy(), 28, 17);
             }
+            
             if (recipe.outputItem != null) {
                 output = new PositionedStack(recipe.outputItem.copy(), 121, 17);
             }
             this.recipe = recipe;
+        }
+
+        public CachedVatRecipe(RecipeVat vat) {
+            this(vat, null);
         }
 
         @Override
@@ -109,7 +115,7 @@ public class NEIVatRecipeHandler extends NEIBase {
     public void loadUsageRecipes(ItemStack ingredient) {
         for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
             if (vat.inputItem != null && ItemHelper.areEqual(ingredient, vat.inputItem)) {
-                arecipes.add(new CachedVatRecipe(vat));
+                arecipes.add(new CachedVatRecipe(vat, ingredient));
             }
 
             FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(ingredient);
