@@ -7,6 +7,7 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.tile.base.TileMultiBlock;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.Rand;
 import mariculture.fishery.tile.TileFishTank;
@@ -29,7 +30,7 @@ public class BlockHelper {
     }
 
     public static boolean isHPWater(World world, int x, int y, int z) {
-        return world.getBlock(x, y, z) == Core.hpWaterBlock;
+        return world.getBlock(x, y, z) == Fluids.getTheBlock("hp_water");
     }
 
     public static boolean isLava(World world, int x, int y, int z) {

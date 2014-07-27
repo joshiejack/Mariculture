@@ -9,6 +9,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.util.Text;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.Fluids;
 import mariculture.fishery.Fishery;
 import mariculture.magic.Magic;
 import mariculture.plugins.Plugins.Plugin;
@@ -20,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
@@ -34,6 +36,7 @@ public class PluginBloodMagic extends Plugin {
 
     @Override
     public void preInit() {
+        Fluids.add("blood", FluidRegistry.getFluid("life essence"), 250);
         rodBlood = new ItemBoundRod().setUnlocalizedName("rodBlood");
         RegistryHelper.registerItems(new Item[] { rodBlood });
         Fishing.fishing.registerRod(rodBlood, BLOOD);

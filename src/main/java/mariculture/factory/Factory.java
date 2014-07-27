@@ -185,14 +185,14 @@ public class Factory extends RegistrationModule {
         addShaped(_(chalk), new Object[] { "N  ", "L  ", "L  ", 'L', "blockLimestone", 'N', "dyeWhite" });
         addShaped(_(chalk), new Object[] { "N  ", " L ", "  L", 'L', "blockLimestone", 'N', "dyeWhite" });
         addShaped(_(chalk), new Object[] { "L  ", " L ", "  N", 'L', "blockLimestone", 'N', "dyeWhite" });
-        addMelting(_(chalk), 825, Fluids.getStack(Fluids.quicklime, 2500));
+        addMelting(_(chalk), 825, Fluids.getFluidStack("quicklime", 2500));
         addShapeless(plan, new Object[] { "dyeBlue", "dyeBlack", paper, "dyeBlue" });
         addShaped(_(filter), new Object[] { "W W", "WNW", " W ", 'W', wicker, 'N', filterer });
         addShaped(_(paintbrush), new Object[] { " WW", " IW", "S  ", 'W', wool, 'I', "blockAluminum", 'S', sawmill });
         addShaped(_(turbineCopper), new Object[] { " I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood" });
         addShaped(_(turbineAluminum), new Object[] { " I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab });
         addShaped(_(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });
-        MaricultureHandlers.turbine.add(Fluids.natural_gas);
+        MaricultureHandlers.turbine.add(Fluids.getTheName("natural_gas"));
         MaricultureHandlers.turbine.add("gascraft_naturalgas");
     }
 }

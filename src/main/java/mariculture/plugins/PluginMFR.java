@@ -10,9 +10,7 @@ public class PluginMFR extends Plugin {
     @Override
     public void preInit() {
         OreDicHandler.has_unifier = true;
-        if (FluidRegistry.getFluid("milk") != null) {
-            Fluids.instance.addFluid("milk", FluidRegistry.getFluid("milk"));
-        }
+        Fluids.add("milk", FluidRegistry.getFluid("milk"), 1000);
     }
 
     @Override

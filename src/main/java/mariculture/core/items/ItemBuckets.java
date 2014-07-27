@@ -6,6 +6,7 @@ import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.BucketMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.Fluids;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -93,21 +94,37 @@ public class ItemBuckets extends ItemMariculture {
     }
 
     public Block getFluid(int meta) {
-        if (meta == BucketMeta.PRESSURE) return Core.hpWaterBlock;
+        if (meta == BucketMeta.PRESSURE) return Fluids.getTheBlock("hp_water");
         else if (meta == BucketMeta.DIRT) return Blocks.dirt;
         if (Modules.isActive(Modules.fishery)) {
-            if (meta == BucketMeta.FISH_OIL) return Fishery.fishOilBlock;
-            if (meta == BucketMeta.CUSTARD) return Fishery.custardBlock;
+            if (meta == BucketMeta.FISH_OIL) return Fluids.getTheBlock("fish_oil");
+            if (meta == BucketMeta.CUSTARD) return Fluids.getTheBlock("custard");
+            if (meta == BucketMeta.BLOOD) return Fluids.getTheBlock("blood");
+            if (meta == BucketMeta.CHLOROPHYLL) return Fluids.getTheBlock("chlorophyll");
+            if (meta == BucketMeta.ENDER) return Fluids.getTheBlock("ender");
+            if (meta == BucketMeta.FLUX) return Fluids.getTheBlock("flux");
+            if (meta == BucketMeta.GUNPOWDER) return Fluids.getTheBlock("gunpowder");
+            if (meta == BucketMeta.ICE) return Fluids.getTheBlock("ice");
+            if (meta == BucketMeta.MANA) return Fluids.getTheBlock("mana");
+            if (meta == BucketMeta.POISON) return Fluids.getTheBlock("poison");
         }
 
         return Blocks.water;
     }
 
     public ItemStack getBucket(Block block) {
-        if (block == Core.hpWaterBlock) return new ItemStack(this, 1, BucketMeta.PRESSURE);
+        if (block == Fluids.getTheBlock("hp_water")) return new ItemStack(this, 1, BucketMeta.PRESSURE);
         else if (Modules.isActive(Modules.fishery)) {
-            if (block == Fishery.fishOilBlock) return new ItemStack(this, 1, BucketMeta.FISH_OIL);
-            else if (block == Fishery.custardBlock) return new ItemStack(this, 1, BucketMeta.CUSTARD);
+            if (block == Fluids.getTheBlock("fish_oil")) return new ItemStack(this, 1, BucketMeta.FISH_OIL);
+            else if (block == Fluids.getTheBlock("custard")) return new ItemStack(this, 1, BucketMeta.CUSTARD);
+            else if (block == Fluids.getTheBlock("blood")) return new ItemStack(this, 1, BucketMeta.BLOOD);
+            else if (block == Fluids.getTheBlock("chlorophyll")) return new ItemStack(this, 1, BucketMeta.CHLOROPHYLL);
+            else if (block == Fluids.getTheBlock("ender")) return new ItemStack(this, 1, BucketMeta.ENDER);
+            else if (block == Fluids.getTheBlock("flux")) return new ItemStack(this, 1, BucketMeta.FLUX);
+            else if (block == Fluids.getTheBlock("gunpowder")) return new ItemStack(this, 1, BucketMeta.GUNPOWDER);
+            else if (block == Fluids.getTheBlock("ice")) return new ItemStack(this, 1, BucketMeta.ICE);
+            else if (block == Fluids.getTheBlock("mana")) return new ItemStack(this, 1, BucketMeta.MANA);
+            else if (block == Fluids.getTheBlock("poison")) return new ItemStack(this, 1, BucketMeta.POISON);
             else return null;
         } else return null;
     }

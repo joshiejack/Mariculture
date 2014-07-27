@@ -6,6 +6,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileTank;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
@@ -163,7 +164,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         int z = zCoord + orientation.offsetZ;
         if (BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord, zCoord - orientation.offsetZ)) {
             if (BlockHelper.isAir(worldObj, x, yCoord, z)) {
-                worldObj.setBlock(x, yCoord, z, Core.hpWaterBlock);
+                worldObj.setBlock(x, yCoord, z, Fluids.getTheBlock("hp_water"));
             }
         } else if (BlockHelper.isHPWater(worldObj, x, yCoord, z)) {
             worldObj.setBlockToAir(x, yCoord, z);

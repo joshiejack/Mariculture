@@ -1,5 +1,6 @@
 package mariculture.core.blocks.base;
 
+import mariculture.Mariculture;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
@@ -9,6 +10,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockFluid extends BlockFluidClassic {
+    public IIcon still, flowing;
     protected Fluid fluid;
 
     public BlockFluid(Fluid fluid, Material material) {
@@ -26,7 +28,7 @@ public class BlockFluid extends BlockFluidClassic {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        //Do nothing
-        return;
+        still = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + fluid.getName() + "_still");
+        flowing = iconRegister.registerIcon(Mariculture.modid + ":liquids/" + fluid.getName() + "_flow");
     }
 }

@@ -75,29 +75,29 @@ public class ItemDroplet extends ItemMariculture {
     public FluidStack getFluidStack(int dmg) {
         switch (dmg) {
             case DropletMeta.AQUA:
-                return Fluids.getStack(Fluids.hp_water, 250);
+                return Fluids.getBalancedStack("hp_water");
             case DropletMeta.ATTACK:
-                return null; // Add Destroying Liquid
+                return Fluids.getBalancedStack("gunpowder"); // Add Destroying Liquid (Exploding Concentrate)
             case DropletMeta.ELECTRIC:
-                return null; // Add Electric Liquid
+                return Fluids.getBalancedStack("flux"); // Add Electric Liquid (Electrified Goo)
             case DropletMeta.ENDER:
-                return null; // Add Ender Liquid
+                return Fluids.getBalancedStack("ender"); // Add Ender Liquid (TE Ender/TiC Ender)
             case DropletMeta.NETHER:
                 return new FluidStack(FluidRegistry.LAVA, 100);
             case DropletMeta.HEALTH:
-                return null; // Add Blood Liquid
+                return Fluids.getBalancedStack("blood"); // Add Blood Liquid (BM Life Essence)
             case DropletMeta.MAGIC:
-                return null; // Add Magical Liquid
+                return Fluids.getBalancedStack("mana"); // Add Magical Liquid (TE Mana)
             case DropletMeta.POISON:
-                return null; // Add Poison Liquid
+                return Fluids.getBalancedStack("poison"); // Add Poison Liquid (BOP Poison)
             case DropletMeta.WATER:
                 return new FluidStack(FluidRegistry.WATER, 1000);
             case DropletMeta.EARTH:
-                return Fluids.getStack(Fluids.dirt, 100);
+                return Fluids.getBalancedStack("dirt");
             case DropletMeta.FROZEN:
-                return null; //Add Molten Ice Liquid
+                return Fluids.getBalancedStack("ice"); //Add Molten Ice Liquid (TE Cryotheum)
             case DropletMeta.PLANT:
-                return null; //Add Chlorophyll Liquid    
+                return Fluids.getBalancedStack("chlorophyll"); //Add Chlorophyll Liquid
             default:
                 return null;
         }

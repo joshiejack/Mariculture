@@ -3,6 +3,7 @@ package mariculture.fishery.tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import static mariculture.core.util.Fluids.*;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
@@ -253,7 +254,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             usage = usage == 0 && species.requiresFood() ? 1 : usage;
         }
 
-        drain(ForgeDirection.DOWN, FluidRegistry.getFluidStack(Fluids.fish_food, usage), true);
+        drain(ForgeDirection.DOWN, getFluidStack("fish_food", usage), true);
     }
 
     private void pickupFood() {
@@ -281,9 +282,9 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             int loop = stack.stackSize;
 
             for (int i = 0; i < loop; i++) {
-                int fill = fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), false);
+                int fill = fill(ForgeDirection.UP, getFluidStack("fish_food", increase), false);
                 if (fill > 0) {
-                    fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), true);
+                    fill(ForgeDirection.UP, getFluidStack("fish_food", increase), true);
                     stack.stackSize--;
                 }
             }
@@ -315,7 +316,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         FishSpecies species = Fishing.fishHelper.getSpecies(fish);
         if (species != null) {
             if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) return true;
-            else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != FluidRegistry.getFluidID(Fluids.fish_food)) return false;
+            else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getTheID("fish_food")) return false;
 
             return tankSize >= Fish.tankSize.getDNA(fish) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
         } else return false;
@@ -419,7 +420,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     noBad = addToolTip(tooltip, Text.translate("missingMate"));
                 }
 
-                if (tank.getFluidAmount() < 1 || tank.getFluid().fluidID != Fluids.getFluid(Fluids.fish_food).getID()) {
+                if (tank.getFluidAmount() < 1 || tank.getFluid().fluidID != getTheID("fish_food")) {
                     noBad = addToolTip(tooltip, Text.translate("noFood"));
                 }
 
@@ -466,7 +467,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public boolean isNotificationVisible(NotificationType type) {
         switch (type) {
             case NO_FOOD:
-                return tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != FluidRegistry.getFluidID(Fluids.fish_food);
+                return tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getTheID("fish_food");
             case NO_MALE:
                 return !hasMale();
             case NO_FEMALE:

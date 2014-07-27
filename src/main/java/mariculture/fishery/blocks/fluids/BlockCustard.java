@@ -1,4 +1,4 @@
-package mariculture.fishery.blocks;
+package mariculture.fishery.blocks.fluids;
 
 import mariculture.core.blocks.base.BlockFluid;
 import net.minecraft.block.material.Material;

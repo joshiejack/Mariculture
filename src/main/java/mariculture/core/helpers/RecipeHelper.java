@@ -84,18 +84,18 @@ public class RecipeHelper {
         MaricultureHandlers.casting.addRecipe(new RecipeBlockCasting(fluid, stack));
     }
 
-    public static void addMetalCasting(String fluid, String metal) {
+    public static void addMetalCasting(String metal) {
         String nugget = "nugget" + metal;
         String ingot = "ingot" + metal;
         String block = "block" + metal;
         if (OreDictionary.getOres(nugget).size() > 0) {
-            RecipeHelper.addNuggetCasting(Fluids.getStack(fluid, MetalRates.NUGGET), OreDictionary.getOres(nugget).get(0));
+            RecipeHelper.addNuggetCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.NUGGET), OreDictionary.getOres(nugget).get(0));
         }
         if (OreDictionary.getOres(ingot).size() > 0) {
-            RecipeHelper.addIngotCasting(Fluids.getStack(fluid, MetalRates.INGOT), OreDictionary.getOres(ingot).get(0));
+            RecipeHelper.addIngotCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.INGOT), OreDictionary.getOres(ingot).get(0));
         }
         if (OreDictionary.getOres(block).size() > 0) {
-            RecipeHelper.addBlockCasting(Fluids.getStack(fluid, MetalRates.BLOCK), OreDictionary.getOres(block).get(0));
+            RecipeHelper.addBlockCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.BLOCK), OreDictionary.getOres(block).get(0));
         }
     }
 
@@ -204,7 +204,7 @@ public class RecipeHelper {
     }
 
     public static void addBleachRecipe(ItemStack input, ItemStack output, int time) {
-        addVatItemRecipe(input, Fluids.quicklime, 50, output, time);
+        addVatItemRecipe(input, Fluids.getTheName("quicklime"), 50, output, time);
     }
 
     public static void addSoakRecipe(ItemStack input, ItemStack output, int time) {
@@ -216,7 +216,7 @@ public class RecipeHelper {
     }
 
     public static void addFishMelting(ItemStack stack, double volume, ItemStack product, int chance) {
-        addMelting(stack, 180, FluidRegistry.getFluidStack(Fluids.fish_oil, (int) (volume * 1000)), product, chance);
+        addMelting(stack, 180, Fluids.getFluidStack("fish_oil", (int) (volume * 1000)), product, chance);
     }
 
     public static void addFishSushi(ItemStack raw, int meal) {

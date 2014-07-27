@@ -55,6 +55,7 @@ public class PluginForestry extends Plugin {
 
     @Override
     public void preInit() {
+        Fluids.add("bioethanol", FluidRegistry.getFluid("bioethanol"), 1000);
         backpack = new AquaBackpack();
         aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T1);
         aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T2);
@@ -92,11 +93,11 @@ public class PluginForestry extends Plugin {
                 backpack.addValidItem(new ItemStack(Core.materials, 1, i));
             }
 
-            FuelManager.bronzeEngineFuel.put(Fluids.getFluid(Fluids.fish_oil), new EngineBronzeFuel(Fluids.getFluid(Fluids.fish_oil), 1, 7500, 1));
+            FuelManager.bronzeEngineFuel.put(Fluids.getTheFluid("fish_oil"), new EngineBronzeFuel(Fluids.getTheFluid("fish_oil"), 1, 7500, 1));
             for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
                 FishSpecies fish = species.getValue();
                 if (fish.getFishOilVolume() > 0 && fish.getLiquifiedProduct() != null && fish.getLiquifiedProductChance() > 0) {
-                    RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(vanillaFish, 1, fish.getID()) }, Fluids.getStack(Fluids.fish_oil, (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
+                    RecipeManagers.squeezerManager.addRecipe(fish.getLifeSpan(), new ItemStack[] { new ItemStack(vanillaFish, 1, fish.getID()) }, Fluids.getFluidStack("fish_oil", (int) fish.getFishOilVolume() * FluidContainerRegistry.BUCKET_VOLUME), fish.getLiquifiedProduct(), fish.getLiquifiedProductChance());
                 }
             }
         }

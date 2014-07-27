@@ -139,9 +139,9 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
         for (int x = xCoord - 6; x < xCoord + 7; x++) {
             for (int z = zCoord - 6; z < zCoord + 7; z++) {
                 for (int y = yCoord; y < yCoord + 10; y++)
-                    if (rand.nextInt(1) == 0) if (isNaturalGas(x, y, z)) if (fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.natural_gas, 1000), false) >= 1000) {
+                    if (rand.nextInt(1) == 0) if (isNaturalGas(x, y, z)) if (fill(ForgeDirection.UP, Fluids.getFluidStack("natural_gas", 1000), false) >= 1000) {
                         if (!worldObj.isRemote) {
-                            fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.natural_gas, 1000), true);
+                            fill(ForgeDirection.UP, Fluids.getFluidStack("natural_gas", 1000), true);
                             worldObj.setBlockToAir(x, y, z);
                         }
 

@@ -1,11 +1,13 @@
 package mariculture.core.helpers;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 
 import mariculture.api.util.Text;
 import mariculture.core.Core;
+import mariculture.core.blocks.base.BlockFluid;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.MetalRates;
@@ -13,7 +15,11 @@ import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidMari;
 import mariculture.core.util.Fluids;
 import mariculture.fishery.FishFoodHandler;
+import mariculture.fishery.blocks.fluids.BlockFishOil;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumRarity;
@@ -71,9 +77,9 @@ public class FluidHelper {
 
     private static ItemStack addFishFood(IFluidHandler tile, ItemStack stack) {
         int increase = FishFoodHandler.getValue(stack);
-        int fill = tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), false);
+        int fill = tile.fill(ForgeDirection.UP, Fluids.getFluidStack("fish_food", increase), false);
         if (fill >= increase) {
-            tile.fill(ForgeDirection.UP, FluidRegistry.getFluidStack(Fluids.fish_food, increase), true);
+            tile.fill(ForgeDirection.UP, Fluids.getFluidStack("fish_food", increase), true);
             return new ItemStack(Core.air);
         }
 
@@ -279,7 +285,7 @@ public class FluidHelper {
     public static List getFluidQty(List tooltip, FluidStack fluid, int max) {
         if (fluid == null || fluid.getFluid() == null) {
             tooltip.add(Text.GREY + "" + 0 + (max > 0 ? "/" + max + Text.translate("mb") : Text.translate("mb")));
-        } else if (Modules.isActive(Modules.fishery) && fluid.fluidID == FluidRegistry.getFluidID(Fluids.fish_food)) {
+        } else if (Modules.isActive(Modules.fishery) && fluid.fluidID == Fluids.getTheID("fish_food")) {
             tooltip.add(Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces") : " " + StatCollector.translateToLocal("mariculture.string.pieces")));
         } else if (fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt")) {
             tooltip.add(Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + Text.translate("mb") : Text.translate("mb")));
@@ -311,38 +317,26 @@ public class FluidHelper {
 
         return tooltip;
     }
-    
-    public static Fluid addGas(String field, String name, int volume, int bottleMeta) {
-        return addFluid(field, name, volume, bottleMeta, true);
-    }
-    
-    public static Fluid addFluid(String field, String name, int volume, int bottleMeta) {
-        return addFluid(field, name, volume, bottleMeta, false);
+
+    public static void addGas(String field, String name, int volume, int bottleMeta) {
+        addFluid(field, name, volume, bottleMeta, true, 1000);
     }
 
-    public static Fluid addFluid(String field, String name, int volume, int bottleMeta, boolean isGas) {
-        Fluid fluid = null;
-        if (!Fluids.instance.fluidExists(name)) {
-            fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
-            FluidRegistry.registerFluid(fluid);
-            Fluids.instance.addFluid(name, fluid);
+    public static void addFluid(String field, String name, int volume, int bottleMeta, int balance) {
+        addFluid(field, name, volume, bottleMeta, false, balance);
+    }
+
+    public static void addFluid(String field, String name, int volume, int bottleMeta, boolean isGas, int balance) {
+        Fluid fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
+        if (Fluids.add(field, fluid, balance)) {
+            FluidRegistry.registerFluid(Fluids.getTheFluid(field));
         } else {
-            fluid = Fluids.getFluid(name);
+            fluid = Fluids.getTheFluid(field);
         }
 
         if (volume != -1) {
             FluidHelper.registerHeatBottle(fluid, volume, bottleMeta);
         }
-
-        //Set the values of the field in Fluids
-        try {
-            Field f = Fluids.class.getField(field);
-            f.set(null, fluid.getName());
-        } catch (Exception e) {
-            LogHandler.log(Level.INFO, "Failed to set a Fluid in Fluids.java : " + field + " - " + name);
-        }
-
-        return fluid;
     }
 
     public static void registerHeatBottle(Fluid fluid, int vol, int meta) {
@@ -353,8 +347,8 @@ public class FluidHelper {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, vol), new ItemStack(Core.bottles, 1, meta), new ItemStack(Items.glass_bottle));
     }
 
-    public static Fluid addFluid(String name, int volume, int meta) {
-        return addFluid(name, name, volume, meta);
+    public static void addFluid(String name, int volume, int meta, int balance) {
+        addFluid(name, name, volume, meta, balance);
     }
 
     public static void registerBucket(Fluid fluid, int vol, int meta) {
@@ -364,5 +358,33 @@ public class FluidHelper {
     public static boolean areEqual(FluidStack fluid1, FluidStack fluid2) {
         if (fluid1 == null || fluid2 == null || fluid1.getFluid() == null || fluid2.getFluid() == null) return false;
         return fluid1.getFluid().getName().equals(fluid2.getFluid().getName());
+    }
+
+    public static void setBlock(Fluid fluid, Block block) {
+        if (fluid.getBlock() == null) fluid.setBlock(block);
+    }
+
+    public static void addFluid(String string, int balance) {
+        addFluid(string, -1, -1, balance);
+    }
+
+    public static boolean setBlock(Class<? extends BlockFluid> clazz, String fluid) {
+        return setBlock(clazz, fluid, fluid);
+    }
+
+    public static boolean setBlock(Class<? extends BlockFluid> clazz, String fName, String name) {
+        Fluid fluid = FluidRegistry.getFluid(Fluids.getTheName(fName));
+        if (fluid.getBlock() != null) {
+            return Fluids.setBlock(fName, fluid.getBlock());
+        } else {
+            try {
+                Block block = ((Block) clazz.getDeclaredConstructor(Fluid.class, Material.class).newInstance(fluid, Material.water)).setBlockName(name);
+                RegistryHelper.registerBlocks(new Block[] { block });
+                return Fluids.setBlock(fName, block);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
     }
 }

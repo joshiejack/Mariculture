@@ -6,6 +6,12 @@ import static mariculture.api.core.MaricultureHandlers.crucible;
 import static mariculture.api.core.MaricultureHandlers.environment;
 import static mariculture.api.core.MaricultureHandlers.upgrades;
 import static mariculture.api.core.MaricultureHandlers.vat;
+import static mariculture.core.helpers.FluidHelper.addFluid;
+import static mariculture.core.helpers.FluidHelper.addGas;
+import static mariculture.core.helpers.FluidHelper.registerBucket;
+import static mariculture.core.helpers.FluidHelper.registerHeatBottle;
+import static mariculture.core.helpers.FluidHelper.registerVanillaBottle;
+import static mariculture.core.util.Fluids.getTheFluid;
 import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
@@ -82,7 +88,6 @@ import mariculture.core.tile.TileVat;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.core.util.EntityFakeItem;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -93,7 +98,6 @@ import net.minecraft.world.biome.BiomeGenBase.Height;
 import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -119,28 +123,6 @@ public class Core extends RegistrationModule {
     public static Block tanks;
     public static Block ticking;
 
-    public static Fluid moltenAluminum;
-    public static Fluid moltenTitanium;
-    public static Fluid moltenIron;
-    public static Fluid moltenGold;
-    public static Fluid moltenCopper;
-    public static Fluid moltenTin;
-    public static Fluid moltenMagnesium;
-    public static Fluid moltenBronze;
-    public static Fluid moltenLead;
-    public static Fluid moltenSilver;
-    public static Fluid moltenSteel;
-    public static Fluid moltenNickel;
-    public static Fluid moltenRutile;
-    public static Fluid moltenGlass;
-    public static Fluid moltenSalt;
-    public static Fluid moltenElectrum;
-    public static Fluid naturalGas;
-    public static Fluid quicklime;
-
-    public static Fluid hpWater;
-    public static Block hpWaterBlock;
-
     public static Item buckets;
     public static Item bottles;
     public static Item crafting;
@@ -155,7 +137,7 @@ public class Core extends RegistrationModule {
     public static Item bucketTitanium;
     public static Item hammer;
     public static Item ladle;
-    
+
     public WorldEventHandler worldGen;
 
     @Override
@@ -212,39 +194,39 @@ public class Core extends RegistrationModule {
     @Override
     public void registerFluids() {
         // Normal Fluids
-        naturalGas = FluidHelper.addGas("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
-        hpWater = FluidHelper.addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER);
+        addGas("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
+        addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER, 250);
 
         // Molten Mariculture Metals + Vanilla Fluids
-        quicklime = FluidHelper.addFluid("quicklime", 1000, BottleMeta.QUICKLIME);
-        moltenSalt = FluidHelper.addFluid("salt", "salt.molten", 1000, BottleMeta.SALT);
-        moltenGlass = FluidHelper.addFluid("glass", "glass.molten", 1000, BottleMeta.GLASS);
-        moltenAluminum = FluidHelper.addFluid("aluminum", "aluminum.molten", MetalRates.ORE, BottleMeta.ALUMINUM);
-        moltenMagnesium = FluidHelper.addFluid("magnesium", "magnesium.molten", MetalRates.ORE, BottleMeta.MAGNESIUM);
-        moltenTitanium = FluidHelper.addFluid("titanium", "titanium.molten", MetalRates.ORE, BottleMeta.TITANIUM);
-        moltenCopper = FluidHelper.addFluid("copper", "copper.molten", MetalRates.ORE, BottleMeta.COPPER);
-        moltenRutile = FluidHelper.addFluid("rutile", "rutile.molten", MetalRates.ORE, BottleMeta.RUTILE);
-        moltenIron = FluidHelper.addFluid("iron", "iron.molten", MetalRates.ORE, BottleMeta.IRON);
-        moltenGold = FluidHelper.addFluid("gold", "gold.molten", MetalRates.ORE, BottleMeta.GOLD);
+        addFluid("quicklime", 1000, BottleMeta.QUICKLIME, 900);
+        addFluid("salt", "salt.molten", 1000, BottleMeta.SALT, 20);
+        addFluid("glass", "glass.molten", 1000, BottleMeta.GLASS, 1000);
+        addFluid("aluminum", "aluminum.molten", MetalRates.ORE, BottleMeta.ALUMINUM, 144);
+        addFluid("magnesium", "magnesium.molten", MetalRates.ORE, BottleMeta.MAGNESIUM, 144);
+        addFluid("titanium", "titanium.molten", MetalRates.ORE, BottleMeta.TITANIUM, 144);
+        addFluid("copper", "copper.molten", MetalRates.ORE, BottleMeta.COPPER, 144);
+        addFluid("rutile", "rutile.molten", MetalRates.ORE, BottleMeta.RUTILE, 144);
+        addFluid("iron", "iron.molten", MetalRates.ORE, BottleMeta.IRON, 144);
+        addFluid("gold", "gold.molten", MetalRates.ORE, BottleMeta.GOLD, 144);
 
         // Modded Fluids
-        moltenTin = FluidHelper.addFluid("tin", "tin.molten", MetalRates.ORE, BottleMeta.TIN);
-        moltenLead = FluidHelper.addFluid("lead", "lead.molten", MetalRates.ORE, BottleMeta.LEAD);
-        moltenSilver = FluidHelper.addFluid("silver", "silver.molten", MetalRates.ORE, BottleMeta.SILVER);
-        moltenNickel = FluidHelper.addFluid("nickel", "nickel.molten", MetalRates.ORE, BottleMeta.NICKEL);
-        moltenBronze = FluidHelper.addFluid("bronze", "bronze.molten", MetalRates.ORE, BottleMeta.BRONZE);
-        moltenSteel = FluidHelper.addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL);
-        moltenElectrum = FluidHelper.addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM);
+        addFluid("tin", "tin.molten", MetalRates.ORE, BottleMeta.TIN, 144);
+        addFluid("lead", "lead.molten", MetalRates.ORE, BottleMeta.LEAD, 144);
+        addFluid("silver", "silver.molten", MetalRates.ORE, BottleMeta.SILVER, 144);
+        addFluid("nickel", "nickel.molten", MetalRates.ORE, BottleMeta.NICKEL, 144);
+        addFluid("bronze", "bronze.molten", MetalRates.ORE, BottleMeta.BRONZE, 144);
+        addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144);
+        addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144);
 
-        FluidHelper.registerVanillaBottle(naturalGas, 1000, BottleMeta.GAS_BASIC);
-        FluidHelper.registerHeatBottle(FluidRegistry.WATER, 2000, BottleMeta.WATER);
-        FluidHelper.registerHeatBottle(FluidRegistry.LAVA, 2000, BottleMeta.LAVA);
-        FluidHelper.registerBucket(hpWater, 1000, BucketMeta.PRESSURE);
+        registerVanillaBottle(getTheFluid("natural_gas"), 1000, BottleMeta.GAS_BASIC);
+        registerHeatBottle(FluidRegistry.WATER, 2000, BottleMeta.WATER);
+        registerHeatBottle(FluidRegistry.LAVA, 2000, BottleMeta.LAVA);
+        registerBucket(getTheFluid("hp_water"), 1000, BucketMeta.PRESSURE);
     }
 
     @Override
     public void registerBlocks() {
-        hpWaterBlock = new BlockPressurisedWater(hpWater, Material.water).setBlockName("highPressureWater");
+        FluidHelper.setBlock(BlockPressurisedWater.class, "hp_water", "highPressureWater");
         rocks = new BlockRock().setStepSound(Block.soundTypeStone).setResistance(2F).setBlockName("rocks");
         limestone = new BlockLimestone().setStepSound(Block.soundTypeStone).setResistance(1F).setBlockName("limestone");
         metals = new BlockMetal().setStepSound(Block.soundTypeMetal).setResistance(5F).setBlockName("metals");
@@ -261,11 +243,8 @@ public class Core extends RegistrationModule {
         transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
         ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
         water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
-        RegistryHelper.registerBlocks(new Block[] { rocks, limestone, water, metals, sands, woods, glass, transparent, pearlBlock, hpWaterBlock, machines, machinesMulti, renderedMachinesMulti, renderedMachines, ticking, tanks, air });
+        RegistryHelper.registerBlocks(new Block[] { rocks, limestone, water, metals, sands, woods, glass, transparent, pearlBlock, machines, machinesMulti, renderedMachinesMulti, renderedMachines, ticking, tanks, air });
         RegistryHelper.registerTiles(new Class[] { TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class, TileBlockCaster.class, TileNuggetCaster.class });
-
-        // Assigning the Pressurised Water Block to Pressurised Water
-        hpWater.setBlock(hpWaterBlock);
     }
 
     @Override

@@ -70,7 +70,7 @@ public class TitaniumTools {
     }
 
     public static void postInit() {
-        addCastings(titanium_id, Fluids.getStack(Fluids.titanium, MetalRates.INGOT), 80);
+        addCastings(titanium_id, Fluids.getFluidStack("titanium", MetalRates.INGOT), 80);
 
         //Register Titanium with Patterns
         if (OreDictionary.getOres("ingotTitanium").size() > 0) {

@@ -1,5 +1,6 @@
 package mariculture.core;
 
+import static mariculture.core.util.Fluids.*;
 import static mariculture.core.helpers.RecipeHelper._;
 import static mariculture.core.helpers.RecipeHelper.add4x4Recipe;
 import static mariculture.core.helpers.RecipeHelper.add9x9Recipe;
@@ -64,13 +65,13 @@ public class Recipes {
 
     private static void addCraftingItems() {
         addShaped(life, new Object[] { "DSR", "FHB", "PAC", 'D', dandelion, 'S', "treeSapling", 'R', rose, 'F', fish, 'H', regen, 'B', bait, 'P', potato, 'A', lily, 'C', carrot });
-        addVatItemRecipe(_(string), Fluids.gold, MetalRates.INGOT * 4, goldSilk, 5);
+        addVatItemRecipe(_(string), getTheName("gold"), MetalRates.INGOT * 4, goldSilk, 5);
         addShaped(goldThread, new Object[] { "ABA", "ABA", 'B', polishedStick, 'A', goldSilk });
         addShaped(neoprene, new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas });
         addShaped(_(neoprene, 2), new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas2 });
-        addVatItemRecipe(_(limestone, 4), Fluids.natural_gas, 5000, plastic, 45);
-        if (Fluids.exists("bioethanol")) {
-            addVatItemRecipe(_(limestone, 4), "bioethanol", 10000, plastic, 60);
+        addVatItemRecipe(_(limestone, 4), getTheName("natural_gas"), 5000, plastic, 45);
+        if (isRegistered("bioethanol")) {
+            addVatItemRecipe(_(limestone, 4), getTheName("bioethanol"), 10000, plastic, 60);
         }
         addShaped(plasticLens, new Object[] { " N ", "NGN", " N ", 'N', neoprene, 'G', transparent });
         addShaped(glassLens, new Object[] { " P ", "PGP", " P ", 'P', "plankWood", 'G', "blockGlass" });
@@ -83,8 +84,8 @@ public class Recipes {
         addShaped(carbide, new Object[] { " S ", "FBF", " S ", 'F', coal, 'S', sand, 'B', blockClay });
         addWheelRecipe(_(ironWheel, 3), "ingotIron", "slabWood");
         addCrossHatchRecipe(wicker, "stickWood", reeds);
-        addVatItemRecipe(_(plastic, 4), Fluids.gold, MetalRates.BLOCK, goldPlastic, 60 * 5);
-        addVatItemRecipe(_(stick), Fluids.titanium, MetalRates.INGOT * 3, titaniumRod, 60);
+        addVatItemRecipe(_(plastic, 4), getTheName("gold"), MetalRates.BLOCK, goldPlastic, 60 * 5);
+        addVatItemRecipe(_(stick), getTheName("titanium"), MetalRates.INGOT * 3, titaniumRod, 60);
         addVatItemRecipe(_(nettherackBrick), "lava", 250, burntBrick, 8);
         addVatItemRecipe(_(brick), "lava", 500, burntBrick, 16);
 

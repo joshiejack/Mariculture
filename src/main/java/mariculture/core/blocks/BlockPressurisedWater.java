@@ -26,8 +26,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPressurisedWater extends BlockFluid {
-    public IIcon[] still;
-    public IIcon[] flowing;
+    public static IIcon[] still;
+    public static IIcon[] flowing;
 
     public BlockPressurisedWater(Fluid fluid, Material material) {
         super(fluid, material);

@@ -1,5 +1,7 @@
 package mariculture.fishery;
 
+import static mariculture.core.util.Fluids.getFluidStack;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +18,7 @@ public class FishFoodHandler implements IFishFoodHandler {
     @Override
     public void addFishFood(ItemStack food, int value) {
         foodList.put(Arrays.asList(food.getItem(), food.getItemDamage()), value);
-        RecipeHelper.addMelting(food, 150, FluidRegistry.getFluidStack(Fluids.fish_food, value));
+        RecipeHelper.addMelting(food, 150, getFluidStack("fish_food", value));
     }
 
     public static boolean isFishFood(ItemStack stack) {

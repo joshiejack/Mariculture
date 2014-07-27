@@ -1,90 +1,74 @@
 package mariculture.core.util;
 
 import java.util.HashMap;
-import java.util.Map;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class Fluids {
-    public static Fluids instance = new Fluids();
+    private static HashMap<String, BalancedFluid> fluids = new HashMap();
 
-    static HashMap<String, Fluid> fluids = new HashMap();
+    private static class BalancedFluid {
+        Fluid fluid;
+        int volume;
 
-    public void addFluid(String name, Fluid fluid) {
-        fluids.put(name, fluid);
+        public BalancedFluid(Fluid fluid, int volume) {
+            this.fluid = fluid;
+            this.volume = volume;
+        }
     }
 
-    public static FluidStack getStack(String name, int amount) {
-        return FluidRegistry.getFluidStack(name, amount);
-    }
-
-    public static Fluid getFluid(String name) {
-        for (Map.Entry<String, Fluid> entry : fluids.entrySet())
-            if (entry.getKey().equalsIgnoreCase(name)) return entry.getValue();
-
-        return FluidRegistry.WATER;
-    }
-
-    public static boolean exists(String string) {
-        return FluidRegistry.getFluid(string) != null;
-    }
-
-    public boolean fluidExists(String name) {
-        for (Map.Entry<String, Fluid> entry : fluids.entrySet())
-            if (entry.getKey().equalsIgnoreCase(name)) return true;
-
-        if (name.equals("aluminum")) if (checkInFluidRegistry("aluminum")) return true;
-
-        return checkInFluidRegistry(name);
-    }
-
-    public boolean checkInFluidRegistry(String name) {
-        if (FluidRegistry.isFluidRegistered("molten" + name)) {
-            addFluid(name, FluidRegistry.getFluid("molten" + name));
-            return true;
-        } else if (FluidRegistry.isFluidRegistered("molten " + name)) {
-            addFluid(name, FluidRegistry.getFluid("molten " + name));
+    public static boolean add(String name, Fluid fluid, int volume) {
+        if (!fluids.containsKey(name) && fluid != null) {
+            fluids.put(name, new BalancedFluid(fluid, volume));
             return true;
         }
 
         return false;
     }
 
-    //Dirt
-    public static String dirt;
+    public static boolean setBlock(String fluid, Block block) {
+        if (!fluids.containsKey(fluid)) {
+            return false;
+        } else {
+            Fluid f = getTheFluid(fluid);
+            f.setBlock(block);
+            fluids.put(fluid, new BalancedFluid(f, getBalancedVolume(fluid)));
+            return true;
+        }
+    }
 
-    //Metals and Glass
-    public static String aluminum;
-    public static String titanium;
-    public static String iron;
-    public static String gold;
-    public static String copper;
-    public static String tin;
-    public static String magnesium;
-    public static String bronze;
-    public static String lead;
-    public static String silver;
-    public static String steel;
-    public static String nickel;
-    public static String glass;
-    public static String rutile;
-    //Other Metals
-    public static String electrum;
+    public static FluidStack getFluidStack(String fluid, int volume) {
+        return new FluidStack(getTheFluid(fluid), volume);
+    }
 
-    //Can end up being left as null if not registered by TiC
-    public static String cobalt;
+    public static Fluid getTheFluid(String fluid) {
+        return fluids.get(fluid).fluid;
+    }
 
-    //Other
-    public static String fish_food;
-    public static String fish_oil;
-    public static String natural_gas;
-    public static String quicklime;
-    public static String salt;
-    public static String milk;
-    public static String custard;
+    public static int getTheID(String fluid) {
+        return getTheFluid(fluid).getID();
+    }
 
-    //Block forms
-    public static String hp_water = "fastwater";
+    public static String getTheName(String fluid) {
+        return getTheFluid(fluid).getName();
+    }
+
+    public static boolean isRegistered(String fluid) {
+        return getTheFluid(fluid) != null;
+    }
+
+    public static Block getTheBlock(String fluid) {
+        return getTheFluid(fluid).getBlock();
+    }
+
+    public static int getBalancedVolume(String fluid) {
+        return fluids.get(fluid).volume;
+    }
+
+    public static FluidStack getBalancedStack(String fluid) {
+        return new FluidStack(getTheFluid(fluid), getBalancedVolume(fluid));
+    }
 }

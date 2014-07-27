@@ -57,7 +57,7 @@ public class TileGeyser extends TileTank implements IFaceable {
         if (id == FluidRegistry.getFluidID("water")) {
             size = 8;
             return true;
-        } else if (id == FluidRegistry.getFluidID(Fluids.hp_water)) {
+        } else if (id == Fluids.getTheID("hp_water")) {
             size = 16;
             return true;
         } else return false;

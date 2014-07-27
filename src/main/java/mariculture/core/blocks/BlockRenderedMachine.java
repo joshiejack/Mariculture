@@ -21,6 +21,7 @@ import mariculture.core.tile.TileBlockCaster;
 import mariculture.core.tile.TileCooling;
 import mariculture.core.tile.TileIngotCaster;
 import mariculture.core.tile.TileNuggetCaster;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.items.ItemArmorFLUDD;
@@ -147,7 +148,7 @@ public class BlockRenderedMachine extends BlockFunctional {
                 }
 
                 fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
-                fludd.tank.setFluidID(Core.hpWater.getID());
+                fludd.tank.setFluidID(Fluids.getTheID("hp_water"));
                 fludd.tank.setFluidAmount(water);
                 PacketHandler.updateRender(fludd);
             }

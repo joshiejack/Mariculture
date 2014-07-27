@@ -1,5 +1,8 @@
 package mariculture.plugins;
 
+import static mariculture.core.util.Fluids.getFluidStack;
+import static tconstruct.library.crafting.FluidType.getFluidType;
+
 import java.util.ArrayList;
 
 import mariculture.api.core.MaricultureHandlers;
@@ -24,7 +27,6 @@ import org.apache.logging.log4j.Level;
 
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.ToolBuilder;
@@ -35,20 +37,23 @@ public class PluginTConstruct extends Plugin {
     @Override
     public void preInit() {
         try {
-            Fluids.instance.addFluid("aluminum.molten", FluidType.getFluidType("Aluminum").fluid);
-            Fluids.instance.addFluid("bronze.molten", FluidType.getFluidType("Bronze").fluid);
-            Fluids.instance.addFluid("copper.molten", FluidType.getFluidType("Copper").fluid);
-            Fluids.instance.addFluid("glass.molten", FluidType.getFluidType("Glass").fluid);
-            Fluids.instance.addFluid("gold.molten", FluidType.getFluidType("Gold").fluid);
-            Fluids.instance.addFluid("iron.molten", FluidType.getFluidType("Iron").fluid);
-            Fluids.instance.addFluid("lead.molten", FluidType.getFluidType("Lead").fluid);
-            Fluids.instance.addFluid("nickel.molten", FluidType.getFluidType("Nickel").fluid);
-            Fluids.instance.addFluid("silver.molten", FluidType.getFluidType("Silver").fluid);
-            Fluids.instance.addFluid("steel.molten", FluidType.getFluidType("Steel").fluid);
-            Fluids.instance.addFluid("tin.molten", FluidType.getFluidType("Tin").fluid);
-            Fluids.instance.addFluid("electrum.molten", FluidType.getFluidType("Electrum").fluid);
-            Fluids.instance.addFluid("cobalt.molten", FluidType.getFluidType("Cobalt").fluid);
+            Fluids.add("aluminum", getFluidType("Aluminum").fluid, 144);
+            Fluids.add("bronze", getFluidType("Bronze").fluid, 144);
+            Fluids.add("copper", getFluidType("Copper").fluid, 144);
+            Fluids.add("glass", getFluidType("Glass").fluid, 144);
+            Fluids.add("gold", getFluidType("Gold").fluid, 144);
+            Fluids.add("iron", getFluidType("Iron").fluid, 144);
+            Fluids.add("lead", getFluidType("Lead").fluid, 144);
+            Fluids.add("nickel", getFluidType("Nickel").fluid, 144);
+            Fluids.add("silver", getFluidType("Silver").fluid, 144);
+            Fluids.add("steel", getFluidType("Steel").fluid, 144);
+            Fluids.add("tin", getFluidType("Tin").fluid, 144);
+            Fluids.add("electrum", getFluidType("Electrum").fluid, 144);
+            Fluids.add("cobalt", getFluidType("Cobalt").fluid, 144);
+            Fluids.add("ender", getFluidType("Ender").fluid, 25);
+            Fluids.add("blood", FluidRegistry.getFluid("blood"), 10);
         } catch (Exception e) {
+            e.printStackTrace();
             LogHandler.log(Level.INFO, "Mariculture failed to sync up with TiC Fluids");
         }
 
@@ -70,29 +75,29 @@ public class PluginTConstruct extends Plugin {
 
     public static void addMelting() {
         // Melt Down Titanium
-        PluginTConstruct.addMelting(Core.limestone, LimestoneMeta.RAW, "blockLimestone", Fluids.getStack(Fluids.quicklime, 900), 250);
-        PluginTConstruct.addMelting(Core.rocks, RockMeta.RUTILE, "oreRutile", Fluids.getStack(Fluids.rutile, MetalRates.ORE), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "dustRutile", Fluids.getStack(Fluids.rutile, MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "ingotRutile", Fluids.getStack(Fluids.rutile, MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "blockRutile", Fluids.getStack(Fluids.rutile, MetalRates.BLOCK), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "nuggetRutile", Fluids.getStack(Fluids.rutile, MetalRates.NUGGET), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "dustTitanium", Fluids.getStack(Fluids.titanium, MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "ingotTitanium", Fluids.getStack(Fluids.titanium, MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "blockTitanium", Fluids.getStack(Fluids.titanium, MetalRates.BLOCK), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "nuggetTitanium", Fluids.getStack(Fluids.titanium, MetalRates.NUGGET), 800);
+        PluginTConstruct.addMelting(Core.limestone, LimestoneMeta.RAW, "blockLimestone", getFluidStack("quicklime", 900), 250);
+        PluginTConstruct.addMelting(Core.rocks, RockMeta.RUTILE, "oreRutile", getFluidStack("rutile", MetalRates.ORE), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "dustRutile", getFluidStack("rutile", MetalRates.INGOT), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "ingotRutile", getFluidStack("rutile", MetalRates.INGOT), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "blockRutile", getFluidStack("rutile", MetalRates.BLOCK), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "nuggetRutile", getFluidStack("rutile", MetalRates.NUGGET), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "dustTitanium", getFluidStack("titanium", MetalRates.INGOT), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "ingotTitanium", getFluidStack("titanium", MetalRates.INGOT), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "blockTitanium", getFluidStack("titanium", MetalRates.BLOCK), 800);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "nuggetTitanium", getFluidStack("titanium", MetalRates.NUGGET), 800);
         // >> Form Ingot and Block
-        PluginTConstruct.addCasting("ingotRutile", Fluids.getStack(Fluids.rutile, MetalRates.INGOT), 100);
-        PluginTConstruct.addCasting("ingotTitanium", Fluids.getStack(Fluids.titanium, MetalRates.INGOT), 100);
-        PluginTConstruct.addBlockCasting("blockTitanium", Fluids.getStack(Fluids.titanium, MetalRates.BLOCK), 100);
+        PluginTConstruct.addCasting("ingotRutile", getFluidStack("rutile", MetalRates.INGOT), 100);
+        PluginTConstruct.addCasting("ingotTitanium", getFluidStack("titanium", MetalRates.INGOT), 100);
+        PluginTConstruct.addBlockCasting("blockTitanium", getFluidStack("titanium", MetalRates.BLOCK), 100);
         // Melt Down Magnesium
-        PluginTConstruct.addMelting(Core.rocks, RockMeta.BAUXITE, "oreMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.ORE), 300);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "dustMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.INGOT), 300);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "ingotMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.INGOT), 300);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "blockMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.BLOCK), 300);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "nuggetMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.NUGGET), 300);
+        PluginTConstruct.addMelting(Core.rocks, RockMeta.BAUXITE, "oreMagnesium", getFluidStack("magnesium", MetalRates.ORE), 300);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "dustMagnesium", getFluidStack("magnesium", MetalRates.INGOT), 300);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "ingotMagnesium", getFluidStack("magnesium", MetalRates.INGOT), 300);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "blockMagnesium", getFluidStack("magnesium", MetalRates.BLOCK), 300);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.MAGNESIUM_BLOCK, "nuggetMagnesium", getFluidStack("magnesium", MetalRates.NUGGET), 300);
         // >> Form Ingot and Block
-        PluginTConstruct.addCasting("ingotMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.INGOT), 100);
-        PluginTConstruct.addBlockCasting("blockMagnesium", Fluids.getStack(Fluids.magnesium, MetalRates.BLOCK), 100);
+        PluginTConstruct.addCasting("ingotMagnesium", getFluidStack("magnesium", MetalRates.INGOT), 100);
+        PluginTConstruct.addBlockCasting("blockMagnesium", getFluidStack("magnesium", MetalRates.BLOCK), 100);
 
         if (FluidRegistry.getFluid("xpjuice") != null) {
             ItemStack xpberry = TConstructRegistry.getItemStack("oreberryEssence");
@@ -111,9 +116,9 @@ public class PluginTConstruct extends Plugin {
     }
 
     private static void addAlloy() {
-        FluidStack titanium = new FluidStack(FluidRegistry.getFluid(Fluids.titanium), 8);
-        FluidStack rutile = new FluidStack(FluidRegistry.getFluid(Fluids.rutile), 8);
-        FluidStack magnesium = new FluidStack(FluidRegistry.getFluid(Fluids.magnesium), 8);
+        FluidStack titanium = getFluidStack("titanium", 8);
+        FluidStack rutile = getFluidStack("rutile", 8);
+        FluidStack magnesium = getFluidStack("magnesium", 8);
 
         Smeltery.addAlloyMixing(titanium, new FluidStack[] { rutile, magnesium });
     }
