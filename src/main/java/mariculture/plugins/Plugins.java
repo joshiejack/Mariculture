@@ -52,6 +52,7 @@ public class Plugins extends Module {
     }
 
     public Plugins() {
+        add("HEE", "HardcoreEnderExpansion");
         add("Railcraft");
         add("TConstruct");
         add("Forestry");
