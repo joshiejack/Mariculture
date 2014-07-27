@@ -2,12 +2,10 @@ package mariculture.core.items;
 
 import java.util.List;
 
-import mariculture.core.Core;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.BucketMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Fluids;
-import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -145,6 +143,22 @@ public class ItemBuckets extends ItemMariculture {
                 return "fishoil";
             case BucketMeta.PRESSURE:
                 return "hpwater";
+            case BucketMeta.BLOOD:
+                return "blood";
+            case BucketMeta.CHLOROPHYLL:
+                return "chlorophyll";
+            case BucketMeta.ENDER:
+                return "ender";
+            case BucketMeta.FLUX:
+                return "flux";
+            case BucketMeta.GUNPOWDER:
+                return "gunpowder";
+            case BucketMeta.ICE:
+                return "ice";
+            case BucketMeta.MANA:
+                return "mana";
+            case BucketMeta.POISON:
+                return "poison";
             default:
                 return "container";
         }

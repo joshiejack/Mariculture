@@ -230,7 +230,6 @@ item.fluids.bottleLava.name=Bottle of Lava
 item.fluids.bottleEmpty.name=Empty Bottle
 item.fluids.bottleNormalNaturalGas.name=Glass Bottle of Natural Gas
 item.fluids.bottleHPWater.name=Bottle of Pressurised Water
-item.bucket.dirt.name=Bucket of Molten Dirt
 item.bucket.hpwater.name=Bucket of Pressurised Water
 
 ### Diving ###
@@ -402,8 +401,19 @@ item.crafting.thermometer.name=Aquatic Environment Analyser
 item.crafting.dragonEgg.name=Spawn Ender Dragon
 item.crafting.titaniumRod.name=Polished Titanium Rod
 item.crafting.polishedStick.name=Polished Stick
+item.bucket.dirt.name=Bucket of Molten Dirt
 item.bucket.custardBucket.name=Bucket of Custard
 item.bucket.fishoil.name=Bucket of Fish Oil
+item.bucket.dirt.name=Bucket of Molten Dirt
+item.bucket.blood.name=Bucket of Blood
+item.bucket.chlorophyll.name=Bucket of Molten Dirt
+item.bucket.dirt.name=Bucket of Chlorophyll
+item.bucket.ender.name=Bucket of Molten Ender
+item.bucket.flux.name=Bucket of Electrified Goo
+item.bucket.gunpowder.name=Bucket of Exploding Concentrate
+item.bucket.ice.name=Bucket of Ice
+item.bucket.mana.name=Bucket of Magical Matter
+item.bucket.poison.name=Bucket of Poison
 item.fluids.bottleFishOil.name=Bottle of Fish Oil
 item.fluids.bottleFishFood.name=Bottle of Fish Food
 item.fluids.bottleCustard.name=Bottle of Custard
