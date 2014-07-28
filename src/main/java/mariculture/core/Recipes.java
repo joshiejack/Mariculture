@@ -1,6 +1,5 @@
 package mariculture.core;
 
-import static mariculture.core.util.Fluids.*;
 import static mariculture.core.helpers.RecipeHelper._;
 import static mariculture.core.helpers.RecipeHelper.add4x4Recipe;
 import static mariculture.core.helpers.RecipeHelper.add9x9Recipe;
@@ -14,11 +13,12 @@ import static mariculture.core.helpers.RecipeHelper.addUpgrade;
 import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static mariculture.core.helpers.RecipeHelper.addWheelRecipe;
 import static mariculture.core.lib.ItemLib.*;
+import static mariculture.core.util.Fluids.getFluidName;
+import static mariculture.core.util.Fluids.isRegistered;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
-import mariculture.core.util.Fluids;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -137,16 +137,16 @@ public class Recipes {
         //Heating
         previous = addUpgrade(UpgradeMeta.BASIC_HEATING, new Object[] { "HIH", 'I', "ingotIron", 'H', heating });
         previous = addUpgrade(UpgradeMeta.STANDARD_HEATING, new Object[] { "A A", "HUH", " A ", 'A', "ingotAluminum", 'H', heating, 'U', previous });
-        previous = addUpgrade(UpgradeMeta.ADVANCED_HEATING, new Object[] { "IHI", "TUT", "IHI", 'T', "ingotTitanium", 'I', "ingotIron", 'H', heating, 'U', previous });
+        previous = addUpgrade(UpgradeMeta.ADVANCED_HEATING, new Object[] { "IHI", "TUT", "IHI", 'T', "ingotAluminum", 'I', "ingotIron", 'H', heating, 'U', previous });
         addUpgrade(UpgradeMeta.ULTIMATE_HEATING, new Object[] { "TDT", "HUH", "GTG", 'G', "ingotGold", 'T', "ingotTitanium", 'D', blazeRod, 'H', heating, 'U', previous });
 
         //Purity and Filtrator
-        previous = RecipeHelper.addUpgrade(UpgradeMeta.BASIC_PURITY, new Object[] { "MPM", "PIP", "MPM", 'I', "dyeRed", 'M', "ingotAluminum", 'P', whitePearl });
+        previous = RecipeHelper.addUpgrade(UpgradeMeta.BASIC_PURITY, new Object[] { " A ", "PDP", " A ", 'D', "dyeRed", 'A', "ingotAluminum", 'P', whitePearl });
         ItemStack previous2 = RecipeHelper.addUpgrade(UpgradeMeta.FILTER, new Object[] { "MPM", "CUC", "AMA", 'A', "ingotAluminum", 'M', "ingotMagnesium", 'P', bluePearl, 'C', cooling, 'U', previous });
         addUpgrade(UpgradeMeta.FILTER_2, new Object[] { "UAU", 'A', "ingotAluminum", 'U', previous2 });
-        previous = addUpgrade(UpgradeMeta.STANDARD_PURITY, new Object[] { "PHP", "NUN", "MHM", 'H', heart, 'N', "ingotTitanium", 'M', "ingotAluminum", 'P', whitePearl, 'U', previous });
-        previous = addUpgrade(UpgradeMeta.ADVANCED_PURITY, new Object[] { "PSP", "AUA", "TPT", 'A', heart, 'T', "ingotTitanium", 'P', whitePearl, 'U', previous, 'S', goldSilk });
-        addUpgrade(UpgradeMeta.ULTIMATE_PURITY, new Object[] { "PSP", "TUT", "PAP", 'A', heart, 'T', "ingotTitanium", 'P', whitePearl, 'U', previous, 'S', goldThread });
+        previous = addUpgrade(UpgradeMeta.STANDARD_PURITY, new Object[] { "APA", "DUD", "APA", 'D', heart, 'A', "ingotAluminum", 'P', whitePearl, 'U', previous });
+        previous = addUpgrade(UpgradeMeta.ADVANCED_PURITY, new Object[] { "RFR", "PUP", "ARA", 'R', heart, 'F', angelfish, 'P', whitePearl, 'U', previous, 'A', aquatic });
+        addUpgrade(UpgradeMeta.ULTIMATE_PURITY, new Object[] { "RWR", "AUA", "PFP", 'R', heart, 'A', aquatic, 'P', healthPotion, 'U', previous, 'F', koi, 'W', whitePearl });
 
         //Impurity and salinator
         previous = RecipeHelper.addUpgrade(UpgradeMeta.BASIC_IMPURITY, new Object[] { " B ", "ENE", " B ", 'N', netherWart, 'E', fermentedEye, 'B', bone });

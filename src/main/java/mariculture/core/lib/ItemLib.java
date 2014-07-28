@@ -41,6 +41,7 @@ public class ItemLib {
     public static final ItemStack roseDye = new ItemStack(Items.dye, 1, Dye.RED);
     public static final ItemStack greyClay = new ItemStack(Blocks.stained_hardened_clay, 1, 3);
     public static final ItemStack whiteClay = new ItemStack(Blocks.stained_hardened_clay, 1, 0);
+    public static final ItemStack healthPotion = new ItemStack(Items.potionitem, 1, 8197);
 
     /** Vanilla shortcuts for blocks **/
     public static final Block enchant = Blocks.enchanting_table;
@@ -283,4 +284,7 @@ public class ItemLib {
     public static final Object rubber = OreDictionary.getOres("itemRubber").size() > 0 ? "itemRubber" : new ItemStack(Items.dye, 1, Dye.INK);
     public static final ItemStack polishedStick = Modules.isActive(Modules.fishery) ? new ItemStack(Core.crafting, 1, CraftingMeta.POLISHED_STICK) : new ItemStack(Items.blaze_rod);
     public static final ItemStack heart = Modules.isActive(Modules.fishery) ? dropletRegen : new ItemStack(Items.potionitem, 1, 8197);
+    public static final ItemStack angelfish = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.angel.getID()) : new ItemStack(Items.golden_apple);
+    public static final ItemStack aquatic = Modules.isActive(Modules.fishery) ? dropletAqua : new ItemStack(Items.potionitem, 1, 8269);
+    public static final ItemStack koi = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.koi.getID()) : new ItemStack(Items.potionitem, 1, 8225);
 }
