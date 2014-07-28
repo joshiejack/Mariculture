@@ -6,9 +6,6 @@ import mariculture.core.lib.Modules;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.Factory;
 import mariculture.factory.render.ModelFLUDD;
-import mariculture.factory.render.ModelTurbineGas;
-import mariculture.factory.render.ModelTurbineHand;
-import mariculture.factory.render.ModelTurbineWater;
 import mariculture.fishery.render.ModelFeeder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -28,10 +25,7 @@ public class RenderSingleItem implements IItemRenderer {
     private final ModelAirPump pump = new ModelAirPump();
     private final ModelFeeder feeder = new ModelFeeder();
     private final ModelFLUDD fludd = new ModelFLUDD();
-    private final ModelTurbineGas turbineGas = new ModelTurbineGas();
-    private final ModelTurbineWater turbine = new ModelTurbineWater();
-    private final ModelTurbineHand turbineHand = new ModelTurbineHand();
-
+    
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines)) {
@@ -63,21 +57,6 @@ public class RenderSingleItem implements IItemRenderer {
         }
 
         if (Modules.isActive(Modules.factory)) {
-            if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == MachineRenderedMeta.TURBINE_WATER) {
-                Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE);
-                turbine.renderInventory(type);
-            }
-
-            if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == MachineRenderedMeta.TURBINE_GAS) {
-                Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_GAS);
-                turbineGas.renderInventory(type);
-            }
-
-            if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == MachineRenderedMeta.TURBINE_HAND) {
-                Minecraft.getMinecraft().getTextureManager().bindTexture(TURBINE_HAND);
-                turbineHand.renderInventory(type);
-            }
-
             if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == MachineRenderedMeta.FLUDD_STAND || item.getItem() == Factory.fludd) {
                 Minecraft.getMinecraft().getTextureManager().bindTexture(FLUDD);
                 fludd.renderInventory(type);

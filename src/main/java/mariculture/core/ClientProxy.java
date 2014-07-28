@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import mariculture.Mariculture;
-import mariculture.core.config.Machines.Client;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
@@ -33,21 +32,12 @@ import mariculture.diving.render.RenderCompressorTop;
 import mariculture.factory.EntityFLUDDSquirt;
 import mariculture.factory.Factory;
 import mariculture.factory.render.ModelFLUDD;
-import mariculture.factory.render.ModelTurbineGas;
-import mariculture.factory.render.ModelTurbineHand;
-import mariculture.factory.render.ModelTurbineWater;
 import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.factory.render.RenderFluidDictionary;
 import mariculture.factory.render.RenderGeyser;
 import mariculture.factory.render.RenderPressureVessel;
-import mariculture.factory.render.RenderTurbineGas;
-import mariculture.factory.render.RenderTurbineHand;
-import mariculture.factory.render.RenderTurbineWater;
 import mariculture.factory.tile.TileFLUDDStand;
-import mariculture.factory.tile.TileTurbineGas;
-import mariculture.factory.tile.TileTurbineHand;
-import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityHook;
 import mariculture.fishery.EntityItemFireImmune;
@@ -80,9 +70,6 @@ public class ClientProxy extends CommonProxy {
     private static final ResourceLocation AIR_PUMP = new ResourceLocation(Mariculture.modid, "textures/blocks/air_pump_texture.png");
     private static final ResourceLocation SIFT = new ResourceLocation(Mariculture.modid, "textures/blocks/sift_texture.png");
     private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");
-    private static final ResourceLocation TURBINE = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_texture.png");
-    private static final ResourceLocation TURBINE_GAS = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_gas_texture.png");
-    private static final ResourceLocation TURBINE_HAND = new ResourceLocation(Mariculture.modid, "textures/blocks/turbine_hand_texture.png");
     private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
     private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
 
@@ -136,15 +123,6 @@ public class ClientProxy extends CommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
-            if(Client.OLD_TURBINES) {
-                ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineHand.class, new RenderSpecialHandler(new ModelTurbineHand(), TURBINE_HAND));
-                ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineWater.class, new RenderSpecialHandler(new ModelTurbineWater(), TURBINE));
-                ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineGas.class, new RenderSpecialHandler(new ModelTurbineGas(), TURBINE_GAS));
-            } else {
-                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.TURBINE_HAND, RenderTurbineHand.class);
-                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.TURBINE_WATER, RenderTurbineWater.class);
-                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.TURBINE_GAS, RenderTurbineGas.class);
-            }
                 
             ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
             RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);

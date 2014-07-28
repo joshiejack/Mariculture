@@ -31,7 +31,6 @@ public class PacketHandler {
         registerPacket(PacketOrientationSync.class, Side.CLIENT);
         registerPacket(PacketRenderRefresh.class, Side.CLIENT);
         registerPacket(PacketSyncMirror.class, Side.CLIENT);
-        registerPacket(PacketTurbine.class, Side.CLIENT);
 
         registerPacket(PacketClick.class, Side.SERVER);
         registerPacket(PacketDamageJewelry.class, Side.SERVER);

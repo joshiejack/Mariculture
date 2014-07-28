@@ -156,9 +156,6 @@ public class ItemLib {
     public static final ItemStack mechSponge = new ItemStack(Core.machines, 1, MachineMeta.SPONGE);
     public static final ItemStack sluice = new ItemStack(Core.machines, 1, MachineMeta.SLUICE);
     public static final ItemStack sluiceAdvanced = new ItemStack(Core.machines, 1, MachineMeta.SLUICE_ADVANCED);
-    public static final ItemStack handTurbine = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_HAND);
-    public static final ItemStack waterTurbine = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_WATER);
-    public static final ItemStack gasTurbine = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.TURBINE_GAS);
     public static final ItemStack pressureVessel = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL);
     public static final ItemStack autodictionary = new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM);
     public static final ItemStack fishSorter = new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER);

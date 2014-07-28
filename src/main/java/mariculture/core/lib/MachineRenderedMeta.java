@@ -7,9 +7,9 @@ public class MachineRenderedMeta {
     public static final int FISH_FEEDER = 2;
     public static final int GEYSER = 3;
     public static final int FLUDD_STAND = 4;
-    public static final int TURBINE_HAND = 5;
-    public static final int TURBINE_WATER = 6;
-    public static final int TURBINE_GAS = 7;
+    public static final int REMOVED_1 = 5;
+    public static final int REMOVED_2 = 6;
+    public static final int REMOVED_3 = 7;
     public static final int ANVIL = 8;
     public static final int INGOT_CASTER = 9;
     public static final int BLOCK_CASTER = 10;

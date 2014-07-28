@@ -10,7 +10,6 @@ import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.lib.MachineRenderedMeta;
-import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.network.PacketHandler;
@@ -27,10 +26,6 @@ import mariculture.factory.Factory;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.tile.TileFLUDDStand;
 import mariculture.factory.tile.TileGeyser;
-import mariculture.factory.tile.TileTurbineBase;
-import mariculture.factory.tile.TileTurbineGas;
-import mariculture.factory.tile.TileTurbineHand;
-import mariculture.factory.tile.TileTurbineWater;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileHatchery;
 import net.minecraft.block.BlockPistonBase;
@@ -60,7 +55,6 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public String getToolType(int meta) {
-        if (meta == MachineRenderedMeta.TURBINE_HAND) return "axe";
         return meta == MachineRenderedMeta.FISH_FEEDER || meta == MachineRenderedMeta.HATCHERY ? null : "pickaxe";
     }
 
@@ -70,10 +64,6 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.AIR_PUMP:
                 return 1;
             case MachineRenderedMeta.GEYSER:
-                return 1;
-            case MachineRenderedMeta.TURBINE_GAS:
-                return 2;
-            case MachineRenderedMeta.TURBINE_WATER:
                 return 1;
             default:
                 return 0;
@@ -97,12 +87,6 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return 1.5F;
             case MachineRenderedMeta.NUGGET_CASTER:
                 return 1.5F;
-            case MachineRenderedMeta.TURBINE_GAS:
-                return 10F;
-            case MachineRenderedMeta.TURBINE_HAND:
-                return 2F;
-            case MachineRenderedMeta.TURBINE_WATER:
-                return 5F;
             case MachineRenderedMeta.ANVIL:
                 return 25F;
             case MachineRenderedMeta.HATCHERY:
@@ -125,13 +109,6 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public int getRenderType() {
         return RenderIds.RENDER_ALL;
-    }
-
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile != null) if (tile instanceof TileTurbineBase) return ((TileTurbineBase) tile).orientation.getOpposite() == side;
-        return false;
     }
 
     @Override
@@ -166,16 +143,6 @@ public class BlockRenderedMachine extends BlockFunctional {
     }
 
     @Override
-    public void onPostBlockPlaced(World world, int x, int y, int z, int side) {
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile != null) if (tile instanceof TileTurbineBase) {
-            TileTurbineBase turbine = (TileTurbineBase) tile;
-            turbine.orientation = ForgeDirection.UP;
-            turbine.rotate();
-        }
-    }
-
-    @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile == null || player.isSneaking() && !world.isRemote) return false;
@@ -203,24 +170,6 @@ public class BlockRenderedMachine extends BlockFunctional {
         }
 
         if (player.isSneaking()) return false;
-
-        //Activate the Manual Turbine, taking off food as you go
-        if (tile instanceof TileTurbineHand) {
-            if (PlayerHelper.isFake(player)) return false;
-            TileTurbineHand turbine = (TileTurbineHand) tile;
-            turbine.energyStorage.modifyEnergyStored(((TileTurbineHand) tile).getEnergyGenerated());
-            turbine.isCreatingPower = true;
-            turbine.cooldown = 5;
-
-            player.getFoodStats().addStats(0, -world.difficultySetting.getDifficultyId() * 1.5F);
-
-            if (turbine.produced >= 1200) {
-                player.attackEntityFrom(MaricultureDamage.turbine, world.difficultySetting.getDifficultyId());
-            }
-
-            return true;
-        }
-
         if (tile instanceof TileFeeder) {
             player.openGui(Mariculture.instance, -1, world, x, y, z);
             return true;
@@ -386,12 +335,6 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return new TileBlockCaster();
             case MachineRenderedMeta.NUGGET_CASTER:
                 return new TileNuggetCaster();
-            case MachineRenderedMeta.TURBINE_GAS:
-                return new TileTurbineGas();
-            case MachineRenderedMeta.TURBINE_HAND:
-                return new TileTurbineHand();
-            case MachineRenderedMeta.TURBINE_WATER:
-                return new TileTurbineWater();
             case MachineRenderedMeta.HATCHERY:
                 return new TileHatchery();
             default:
@@ -414,12 +357,6 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.FISH_FEEDER:
                 return Modules.isActive(Modules.fishery);
             case MachineRenderedMeta.GEYSER:
-                return Modules.isActive(Modules.factory);
-            case MachineRenderedMeta.TURBINE_GAS:
-                return Modules.isActive(Modules.factory);
-            case MachineRenderedMeta.TURBINE_HAND:
-                return Modules.isActive(Modules.factory);
-            case MachineRenderedMeta.TURBINE_WATER:
                 return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.FLUDD_STAND:
                 return false;
@@ -453,7 +390,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         String name = prefix != null ? prefix : "";
         icons = new IIcon[getMetaCount() - 2];
         for (int i = 0; i < icons.length; i++) {
-            if (i != MachineRenderedMeta.ANVIL && i != MachineRenderedMeta.BLOCK_CASTER) {
+            if (i != MachineRenderedMeta.ANVIL && i != MachineRenderedMeta.BLOCK_CASTER && i < MachineRenderedMeta.REMOVED_1 && i > MachineRenderedMeta.REMOVED_3) {
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
             }
         }

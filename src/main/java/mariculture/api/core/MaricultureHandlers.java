@@ -9,5 +9,4 @@ public class MaricultureHandlers {
     public static IVatHandler vat;
 
     public static IMirrorHandler mirror;
-    public static IGasTurbine turbine;
 }
