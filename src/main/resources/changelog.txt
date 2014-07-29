@@ -11,7 +11,8 @@ Mariculture 1.2.3
 • Crafting recipes involving droplets for the most part are removed. Some remained, where I don't mind them being :P (Most of these are now vat recipes)
 • Removed Melting of dirt blocks to Molten Dirt. Makes making clay too easy.
 • Readded Debug Food
-• Removed Legacy Droplets#
+• Removed Legacy Droplets
+• Re-Enabled Casting recipes as default on
 • Removed deep sea ravines, water caves and no mineshafts (due to missing forge feature)
 • Fixed Bucket Handling
 • Fixed Blood Rod not using up blood shards as normal bait

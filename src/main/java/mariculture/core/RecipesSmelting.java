@@ -95,27 +95,27 @@ public class RecipesSmelting {
         ItemStack platinum = fetchItem(new String[] { "dustPlatinum", "ingotPlatinum" });
 
         //Copperous Dust
-        LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("ingotIron", getFluidName("iron"), 4), new LinkedMetal("ingotSilver", getFluidName("silver"), 7), new LinkedMetal("ingotGold", getFluidName("gold"), 10), new LinkedMetal("ingotCobalt", getFluidName("cobalt"), 15), new LinkedMetal("ingotNickel", getFluidName("nickel"), 8), new LinkedMetal("ingotLead", getFluidName("lead"), 7), new LinkedMetal("ingotTin", getFluidName("tin"), 6) };
+        LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("iron", 4), new LinkedMetal("silver", 7), new LinkedMetal("gold", 10), new LinkedMetal("cobalt", 15), new LinkedMetal("nickel", 8), new LinkedMetal("lead", 7), new LinkedMetal("tin", 6) };
         addDust(MaterialsMeta.DUST_COPPEROUS, copper, sulfur, 10, coppers);
 
         //Golden Dust
-        LinkedMetal[] golds = new LinkedMetal[] { new LinkedMetal("ingotElectrum", getFluidName("electrum"), 3), new LinkedMetal("ingotSilver", getFluidName("silver"), 7), new LinkedMetal("ingotGold", getFluidName("gold"), 25) };
+        LinkedMetal[] golds = new LinkedMetal[] { new LinkedMetal("electrum", 3), new LinkedMetal("silver", 7), new LinkedMetal("gold", 25) };
         addDust(MaterialsMeta.DUST_GOLDEN, gold, null, 0, golds);
 
         //Ironic Dust
-        LinkedMetal[] irons = new LinkedMetal[] { new LinkedMetal("ingotAluminum", getFluidName("aluminum"), 3), new LinkedMetal("ingotTin", getFluidName("iron"), 8), new LinkedMetal("ingotCopper", getFluidName("copper"), 6) };
+        LinkedMetal[] irons = new LinkedMetal[] { new LinkedMetal("aluminum", 3), new LinkedMetal("tin", 8), new LinkedMetal("copper", 6) };
         addDust(MaterialsMeta.DUST_IRONIC, iron, silicon, 6, irons);
 
         //Leader Dust
-        LinkedMetal[] leads = new LinkedMetal[] { new LinkedMetal("ingotSilver", getFluidName("silver"), 3), new LinkedMetal("ingotIron", getFluidName("iron"), 6), new LinkedMetal("ingotCopper", getFluidName("copper"), 8), new LinkedMetal("ingotTin", getFluidName("tin"), 10) };
+        LinkedMetal[] leads = new LinkedMetal[] { new LinkedMetal("silver", 3), new LinkedMetal("iron", 6), new LinkedMetal("copper", 8), new LinkedMetal("tin", 10) };
         addDust(MaterialsMeta.DUST_LEADER, lead, null, 0, leads);
 
         //Silvery Dust
-        LinkedMetal[] silvers = new LinkedMetal[] { new LinkedMetal("ingotLead", getFluidName("lead"), 2), new LinkedMetal("ingotElectrum", getFluidName("electrum"), 4) };
+        LinkedMetal[] silvers = new LinkedMetal[] { new LinkedMetal("lead", 2), new LinkedMetal("electrum", 4) };
         addDust(MaterialsMeta.DUST_SILVERY, silver, sulfur, 5, silvers);
 
         //Tinnic Dust
-        LinkedMetal[] tins = new LinkedMetal[] { new LinkedMetal("ingotCopper", getFluidName("copper"), 3), new LinkedMetal("ingotIron", getFluidName("iron"), 6), new LinkedMetal("ingotLead", getFluidName("lead"), 8) };
+        LinkedMetal[] tins = new LinkedMetal[] { new LinkedMetal("copper", 3), new LinkedMetal("iron", 6), new LinkedMetal("lead", 8) };
         addDust(MaterialsMeta.DUST_TINNIC, tin, sulfur, 7, tins);
 
         addMetal(getFluidName("tin"), "Tin", tin, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_TINNIC), 10);
@@ -129,7 +129,7 @@ public class RecipesSmelting {
 
         //Gold + Silver = Electrum
         if (OreDictionary.getOres("ingotElectrum").size() > 0 && OreDictionary.getOres("ingotSilver").size() > 0) {
-            FluidStack moltenSilver =getFluidStack("silver", MetalRates.NUGGET);
+            FluidStack moltenSilver = getFluidStack("silver", MetalRates.NUGGET);
             FluidStack moltenGold = getFluidStack("gold", MetalRates.NUGGET);
             FluidStack moltenElectrum = getFluidStack("electrum", MetalRates.NUGGET * 2);
             RecipeHelper.addFluidAlloy(moltenSilver, moltenGold, moltenElectrum, 1);
@@ -137,13 +137,10 @@ public class RecipesSmelting {
     }
 
     private static class LinkedMetal {
-        public String ingot;
-        public String fluid;
+        public String metal;
         public Integer chance;
 
-        public LinkedMetal(String ingot, String fluid, Integer chance) {
-            this.ingot = ingot;
-            this.fluid = fluid;
+        public LinkedMetal(String metal, Integer chance) {
             this.chance = chance;
         }
     }
@@ -152,11 +149,12 @@ public class RecipesSmelting {
         ArrayList<FluidStack> fluids = new ArrayList<FluidStack>();
         ArrayList<Integer> chances = new ArrayList<Integer>();
 
-        for (LinkedMetal metal : metals)
-            if (OreDictionary.getOres(metal.ingot).size() > 0 && get(metal.fluid) != null) {
-                fluids.add(get(metal.fluid));
+        for (LinkedMetal metal : metals) {
+            if (getFluid(metal.metal) != null) {
+                fluids.add(getFluidStack(metal.metal, MetalRates.INGOT));
                 chances.add(metal.chance);
             }
+        }
 
         if (fluids.size() > 0) {
             MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(new ItemStack(Core.materials, 1, meta), temp, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), bonus, chance));
@@ -211,7 +209,7 @@ public class RecipesSmelting {
 
     public static void addMetalRecipes() {
         addFullSet(getFluidName("iron"), new Object[] { "oreIron", "nuggetIron", "ingotIron", "blockIron", "dustIron", Items.iron_pickaxe, Items.iron_shovel, Items.iron_axe, Items.iron_sword, Items.iron_hoe, Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots }, iron, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_IRONIC), 10);
-        RecipeHelper.addMetalCasting("Iron");
+        RecipeHelper.addMetalCasting("silver");
 
         addFullSet(getFluidName("gold"), new Object[] { "oreGold", "nugetGold", "ingotGold", "blockGold", "dustGold", Items.golden_pickaxe, Items.golden_shovel, Items.golden_axe, Items.golden_sword, Items.golden_hoe, Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots }, gold, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_GOLDEN), 10);
         RecipeHelper.addMetalCasting("Gold");

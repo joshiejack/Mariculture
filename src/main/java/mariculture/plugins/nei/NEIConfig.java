@@ -106,6 +106,26 @@ public class NEIConfig implements IConfigureNEI {
         for(int i = MaterialsMeta.EMPTY_START; i <= MaterialsMeta.EMPTY_END; i++) {
             API.hideItem(new ItemStack(Core.materials, 1, i));
         }
+        
+        if (Modules.isActive(Modules.fishery)) {
+            API.registerRecipeHandler(new NEIFishProductHandler());
+            API.registerUsageHandler(new NEIFishProductHandler());
+            API.hideItem(new ItemStack(Fishery.lampsOff, 1, OreDictionary.WILDCARD_VALUE));
+            API.hideItem(new ItemStack(Fishery.fishEggs, 1, OreDictionary.WILDCARD_VALUE));
+            API.registerRecipeHandler(new NEISifterRecipeHandler());
+            API.registerUsageHandler(new NEISifterRecipeHandler());
+            API.registerRecipeHandler(new NEIFishBreedingMutationHandler());
+            API.registerUsageHandler(new NEIFishBreedingMutationHandler());
+            if (FishMechanics.DISABLE_FISH) {
+                API.hideItem(new ItemStack(Fishery.fishy));
+            } else {
+                for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
+                    FishSpecies fishy = species.getValue();
+                    ItemStack fish = Fishing.fishHelper.makePureFish(fishy);
+                    API.addItemListEntry(fish);
+                }
+            }
+        }
 
         API.registerRecipeHandler(new NEICrucibleRecipeHandler());
         API.registerUsageHandler(new NEICrucibleRecipeHandler());
@@ -118,6 +138,8 @@ public class NEIConfig implements IConfigureNEI {
             API.registerUsageHandler(new NEIIngotCasterRecipeHandler());
             API.registerRecipeHandler(new NEIBlockCasterRecipeHandler());
             API.registerUsageHandler(new NEIBlockCasterRecipeHandler());
+            API.registerRecipeHandler(new NEINuggetCasterRecipeHandler());
+            API.registerUsageHandler(new NEINuggetCasterRecipeHandler());
         }
 
         API.hideItem(new ItemStack(Core.air, 1, OreDictionary.WILDCARD_VALUE));
@@ -136,26 +158,6 @@ public class NEIConfig implements IConfigureNEI {
             API.hideItem(new ItemStack(Factory.customSlabsDouble, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(Factory.customStairs, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(Factory.customWall, 1, OreDictionary.WILDCARD_VALUE));
-        }
-
-        if (Modules.isActive(Modules.fishery)) {
-            API.hideItem(new ItemStack(Fishery.lampsOff, 1, OreDictionary.WILDCARD_VALUE));
-            API.hideItem(new ItemStack(Fishery.fishEggs, 1, OreDictionary.WILDCARD_VALUE));
-            API.registerRecipeHandler(new NEISifterRecipeHandler());
-            API.registerUsageHandler(new NEISifterRecipeHandler());
-            API.registerRecipeHandler(new NEIFishBreedingMutationHandler());
-            API.registerUsageHandler(new NEIFishBreedingMutationHandler());
-            API.registerRecipeHandler(new NEIFishProductHandler());
-            API.registerUsageHandler(new NEIFishProductHandler());
-            if (FishMechanics.DISABLE_FISH) {
-                API.hideItem(new ItemStack(Fishery.fishy));
-            } else {
-                for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
-                    FishSpecies fishy = species.getValue();
-                    ItemStack fish = Fishing.fishHelper.makePureFish(fishy);
-                    API.addItemListEntry(fish);
-                }
-            }
         }
 
         FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData().clone();

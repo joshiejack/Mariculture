@@ -197,10 +197,10 @@ public class Fishery extends RegistrationModule {
         FluidHelper.addFluid("milk", 2000, BottleMeta.MILK, 100);
         FluidHelper.addFluid("custard", 2000, BottleMeta.CUSTARD, 100);
         FluidHelper.addFluid("dirt", 100);
-        FluidHelper.addFluid("gunpowder", 500);
+        FluidHelper.addFluid("gunpowder", 125);
         FluidHelper.addFluid("flux", 100);
         FluidHelper.addFluid("ender", 25);
-        FluidHelper.addFluid("ice", 100);
+        FluidHelper.addFluid("ice", 125);
         FluidHelper.addFluid("blood", 100);
         FluidHelper.addFluid("mana", 100);
         FluidHelper.addFluid("poison", 250);
@@ -363,10 +363,10 @@ public class Fishery extends RegistrationModule {
         addBlockCasting(getFluidStack("ice", 1000), _(ice));
         addVatItemRecipe(_(potato), getFluidName("poison"), 1000, _(poisonPotato), 15);
         addVatItemRecipe(pearls, getFluidName("ender"), 250, _(enderPearl), 25);
-        addVatItemRecipe(_(_(cobblestone), 0, 3), getFluidName("ender"), 250, _(endstone), 8);
+        addVatItemRecipe(_(_(cobblestone), 0, 8), getFluidName("ender"), 250, _(endstone), 8);
         addVatItemRecipe(_(_(sand), 0, 2), getFluidName("gunpowder"), 250, _(tnt), 10);
         addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), _(clay), 15);
-        addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 300), _(grass), 15);
+        addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 1000), _(grass), 15);
         addFluidAlloy(getFluidStack("flux", 100), new FluidStack(FluidRegistry.WATER, 1000), getFluidStack("magnesium", 72), 10);
     }
 
@@ -389,8 +389,7 @@ public class Fishery extends RegistrationModule {
         addSmelting(new ItemStack(Core.food, 1, FoodMeta.SMOKED_SALMON), _(fish, Fish.salmon.getID(), 1), 0.1F);
 
         // Cod > Fish Finger
-        addShaped(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ", Character.valueOf('F'), new ItemStack(Items.fish, 1, Fish.cod.getID()), Character.valueOf('B'), Items.bread });
-
+        addShaped(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ", 'F', new ItemStack(Items.fish, 1, Fish.cod.getID()), 'B', Items.bread });
         addShapeless(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER) });
 
         for (int i = 0; i < 12; i++) {

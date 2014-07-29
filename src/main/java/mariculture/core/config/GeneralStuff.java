@@ -31,7 +31,7 @@ public class GeneralStuff {
         METAL_RATE = getInt("Molten Metal Nugget mB Value", 16, "This is how many mB a Nugget is worth, the default value is the same as Tinker's Construct");
         FLUDD_WATER_ON = getBoolean("Enable FLUDD Animations", true, "Whether a server will tell the client to display the fludd animations");
         ENABLE_ENDER_SPAWN = getBoolean("Enable Ender Dragon Spawning", true, "This is whether players can Spawn the Ender Dragon with the Dragon Spawn Egg");
-        SHOW_CASTER_RECIPES = getBoolean("Enable Casting Recipes in NEI", false);
+        SHOW_CASTER_RECIPES = getBoolean("Enable Casting Recipes in NEI", true);
         SPEEDBOAT_VERTICAL_MODIFIER = getDouble("Speedboat Vertical Modifier", 2.0D, "This changes the speed modifier of a speedboat moving upwards in water when the speedboat is at least 90% covered in water.");
     }
 }

@@ -56,6 +56,28 @@ public abstract class NEIBase extends TemplateRecipeHandler {
             drawScaledTexturedModelRectFromIcon(j + 12, k + 25, fluid.getFluid().getIcon(), 13, 12);
             drawScaledTexturedModelRectFromIcon(j, k + 25, fluid.getFluid().getIcon(), 12, 12);
         }
+        
+        if(size.equals(TankSize.NUGGET_CASTER)) {
+            drawScaledTexturedModelRectFromIcon(j, k, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j, k + 10, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j, k + 21, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j, k + 31, fluid.getFluid().getIcon(), 6, 6);
+            
+            drawScaledTexturedModelRectFromIcon(j + 10, k, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 10, k + 10, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 10, k + 21, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 10, k + 31, fluid.getFluid().getIcon(), 6, 6);
+            
+            drawScaledTexturedModelRectFromIcon(j + 21, k, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 21, k + 10, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 21, k + 21, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 21, k + 31, fluid.getFluid().getIcon(), 6, 6);
+            
+            drawScaledTexturedModelRectFromIcon(j + 31, k, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 31, k + 10, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 31, k + 21, fluid.getFluid().getIcon(), 6, 6);
+            drawScaledTexturedModelRectFromIcon(j + 31, k + 31, fluid.getFluid().getIcon(), 6, 6);
+        }
 
         if (size.equals(TankSize.DOUBLE)) {
             drawScaledTexturedModelRectFromIcon(j, k, fluid.getFluid().getIcon(), 16, 16);
