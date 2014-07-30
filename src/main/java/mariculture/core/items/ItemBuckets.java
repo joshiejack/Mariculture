@@ -23,6 +23,11 @@ public class ItemBuckets extends ItemMariculture {
     }
 
     @Override
+    public ItemStack getContainerItem(ItemStack stack) {
+        return new ItemStack(Items.bucket);
+    }
+
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
         int amount = fluid == null ? 0 : fluid.amount;

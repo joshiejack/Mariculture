@@ -376,7 +376,6 @@ public class Core extends RegistrationModule {
 
     @Override
     public void postInit() {
-        FluidHelper.setup();
         RecipesSmelting.postAdd();
         super.postInit();
     }

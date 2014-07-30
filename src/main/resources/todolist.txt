@@ -6,5 +6,4 @@ TODO List - Before Release of 1.2.3
 • Fix Droplets giving back buckets (Change Emptying Algorithm to be based on container, and REGISTER Exceptions to this rule)
 • Fix Missing Texture for Casters
 • Fix rendering of ice and snowballs in the casters
-• Fix fluid crash without tinkers installed adding the extra fluids
 • Fix config to disable limestone/rutile generation

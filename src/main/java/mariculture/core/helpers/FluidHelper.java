@@ -1,25 +1,20 @@
 package mariculture.core.helpers;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 
 import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFluid;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidMari;
 import mariculture.core.util.Fluids;
 import mariculture.fishery.FishFoodHandler;
-import mariculture.fishery.blocks.fluids.BlockFishOil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumRarity;
@@ -35,8 +30,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
-
-import org.apache.logging.log4j.Level;
 
 public class FluidHelper {
     public static boolean isFluidOrEmpty(ItemStack stack) {
@@ -88,21 +81,13 @@ public class FluidHelper {
 
     public static HashMap<String, ItemStack> empties = new HashMap();
 
-    public static void setup() {
-        FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
-        for (FluidContainerData container : data) {
-            ItemStack filled = container.filledContainer;
-            ItemStack empty = container.emptyContainer;
-            if (filled != null && empty != null) {
-                empties.put(Item.itemRegistry.getNameForObject(filled.getItem()) + ":" + filled.getItemDamage(), empty);
-            }
-        }
+    public static void registerException(ItemStack filled, ItemStack empty) {
+        empties.put(Item.itemRegistry.getNameForObject(filled.getItem()) + ":" + filled.getItemDamage(), empty);
     }
 
     public static ItemStack getEmptyContainerForFilledItem(ItemStack stack) {
-        if (stack == null || empties == null) return null;
         ItemStack result = empties.get(Item.itemRegistry.getNameForObject(stack.getItem()) + ":" + stack.getItemDamage());
-        return result != null && result.stackSize > 0? result.copy(): null;
+        return result != null ? result : stack != null ? stack.getItem().getContainerItem(stack) : null;
     }
 
     private static ItemStack doEmpty(IFluidHandler tile, ItemStack top, ItemStack bottom) {
