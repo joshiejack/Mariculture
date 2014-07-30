@@ -141,8 +141,10 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
     @Override
     public void updatePowerPerTick() {
-        double modifier = ((rf - 0) / (300000 - 0)) * (0.25 - 1.0) + 1.0;
-        usage = (int) (modifier * (36 + ((speed - 1) * 40) + (heat * 80)));
+        if (rf <= 300000) {
+            double modifier = (rf / 300000) * -0.75 + 1.0;
+            usage = (int) (modifier * (36 + ((speed - 1) * 40) + (heat * 80)));
+        } else usage = 1;
     }
 
     public boolean hatchEgg() {

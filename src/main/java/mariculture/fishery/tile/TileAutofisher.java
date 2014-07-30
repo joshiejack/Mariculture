@@ -75,7 +75,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
             }
         }
     }
-    
+
     private int destroyBait() {
         for (int i : bait)
             if (inventory[i] != null) {
@@ -90,9 +90,11 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
 
     //Returns how much RF this machine uses
     @Override
-    public void updatePowerPerTick() {   
-        double modifier = ((rf - 0) / (300000 - 0)) * (0.25 - 1.0) + 1.0;
-        usage = (int) (modifier * (20 + (speed * 20)));
+    public void updatePowerPerTick() {
+        if (rf <= 300000) {
+            double modifier = (rf / 300000) * (-0.75) + 1.0;
+            usage = (int) (modifier * (20 + (speed * 20)));
+        } else usage = 1;
     }
 
     @Override
