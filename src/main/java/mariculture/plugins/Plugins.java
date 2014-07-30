@@ -65,6 +65,7 @@ public class Plugins extends Module {
         add("BloodMagic", "AWWayofTime");
         add("MineFactoryReloaded", "MFR");
         add("Waila");
+        add("ThermalFoundation");
     }
 
     public void add(String str) {
