@@ -71,6 +71,7 @@ public class WorldEventHandler {
     }
 
     public static final void genBiomeTerrain(World p_150560_1_, Random p_150560_2_, Block[] blocksArray, byte[] metaArray, int p_150560_5_, int p_150560_6_, double p_150560_7_, BiomeGenBase biome, double depth) {
+        Block seabed = WorldGen.LIMESTONE_FLOOR? Core.limestone: Blocks.sandstone;
         Block topBlock = Blocks.grass;
         Block fillerBlock = Blocks.dirt;
         boolean flag = true;
@@ -121,7 +122,7 @@ public class WorldEventHandler {
                                 metaArray[i2] = b0;
                             } else if (l1 < 61 - l) {
                                 block = null;
-                                block1 = Core.limestone;
+                                block1 = seabed;
                                 blocksArray[i2] = Blocks.sand;
                             } else {
                                 blocksArray[i2] = block1;
@@ -130,7 +131,7 @@ public class WorldEventHandler {
                             --k;
                             blocksArray[i2] = block1;
 
-                            if (block1 == Core.limestone && OreGen.RUTILE_ON && Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
+                            if (block1 == seabed && OreGen.RUTILE_ON && Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
                                 blocksArray[i2] = Core.rocks;
                                 metaArray[i2] = RockMeta.RUTILE;
                             }

@@ -42,6 +42,7 @@ public class WorldGeneration {
         WorldGen.RIVER_LIMESTONE = getDouble("River > Limestone Height", 2.5D);
         WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 25D);
         WorldGen.VARYING_LIMESTONE = getBoolean("Limestone > Varying Height", true);
+        WorldGen.LIMESTONE_FLOOR = getBoolean("Limestone > Sea Bed", true, "If this is false, you will get a sandstone seabed instead.");
         WorldGen.OCEAN_BLACKLIST = getIntList("Ocean Generation > Blacklisted Dimension IDs", new int[] { -1, 1 });
 
         WorldGen.OYSTER_ENABLED = getBoolean("Pearl Oyster > Generation", true);
@@ -100,6 +101,7 @@ public class WorldGeneration {
     }
 
     public static class WorldGen {
+        public static boolean LIMESTONE_FLOOR;
         public static int[] OCEAN_BLACKLIST;
         public static boolean VARYING_LIMESTONE;
         public static boolean EXPERIMENTAL_OCEANS;

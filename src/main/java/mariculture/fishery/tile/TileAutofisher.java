@@ -92,7 +92,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     @Override
     public void updatePowerPerTick() {
         if (rf <= 300000) {
-            double modifier = (rf / 300000) * (-0.75) + 1.0;
+            double modifier = 1D - (rf / 300000D) * 0.75D;
             usage = (int) (modifier * (20 + (speed * 20)));
         } else usage = 1;
     }
