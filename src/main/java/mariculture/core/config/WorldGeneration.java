@@ -24,6 +24,7 @@ public class WorldGeneration {
         OreGen.COPPER_VEIN = getInt("Copper > Maximum Vein Size", 5);
         OreGen.COPPER_MIN = getInt("Copper > Minimum Y Height", 1);
         OreGen.COPPER_MAX = getInt("Copper > Maximum Y Height", 64);
+        OreGen.RUTILE_ON = getBoolean("Rutile > Generation", true);
         OreGen.RUTILE_SPAWN_CHANCE = getInt("Rutile > 1 Vein Per This Many Limestone", 500);
         OreGen.NATURAL_GAS_ON = getBoolean("Natural Gas > Generation", true);
         OreGen.NATURAL_GAS_CHANCE = getInt("Natural Gas > 1 Pocket Per This Many Chunks", 20);
@@ -33,10 +34,10 @@ public class WorldGeneration {
 
         setCategory("Aquatic Generation");
         WorldGen.EXPERIMENTAL_OCEANS = getBoolean("Ocean > Enable Experimental", true, "This must be enabled for any of Ocean/Limestone Heights to function");
-        WorldGen.OCEAN_MIN = getDouble("Ocean > Mininum Height", -1.3D);
-        WorldGen.OCEAN_MAX = getDouble("Ocean > Maximum Height", 0.25D);
-        WorldGen.OCEAN_DEEP_MIN = getDouble("Deep Ocean > Minimum Height", -1.95D);
-        WorldGen.OCEAN_DEEP_MAX = getDouble("Deep Ocean > Maximum Height", 0.0D);
+        WorldGen.OCEAN_ROOT = getDouble("Ocean > Base Height", -1.4D);
+        WorldGen.OCEAN_VARIATION = getDouble("Ocean > Height Variation", 0.35D);
+        WorldGen.OCEAN_DEEP_ROOT = getDouble("Deep Ocean > Base Height", -1.995D);
+        WorldGen.OCEAN_DEEP_VARIATION = getDouble("Deep Ocean >  Height Variation", 0.05D);
         WorldGen.OCEAN_LIMESTONE = getDouble("Ocean > Limestone Height", 7.5D);
         WorldGen.OCEAN_DEEP_LIMESTONE = getDouble("Deep Ocean > Limestone Height", 3.5D);
         WorldGen.RIVER_LIMESTONE = getDouble("River > Limestone Height", 2.5D);
@@ -105,10 +106,10 @@ public class WorldGeneration {
         public static int[] OCEAN_BLACKLIST;
         public static boolean VARYING_LIMESTONE;
         public static boolean EXPERIMENTAL_OCEANS;
-        public static double OCEAN_MIN;
-        public static double OCEAN_MAX;
-        public static double OCEAN_DEEP_MIN;
-        public static double OCEAN_DEEP_MAX;
+        public static double OCEAN_ROOT;
+        public static double OCEAN_VARIATION;
+        public static double OCEAN_DEEP_ROOT;
+        public static double OCEAN_DEEP_VARIATION;
         public static double OCEAN_LIMESTONE;
         public static double OCEAN_DEEP_LIMESTONE;
         public static double RIVER_LIMESTONE;

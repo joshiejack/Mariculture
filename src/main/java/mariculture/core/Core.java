@@ -163,8 +163,8 @@ public class Core extends RegistrationModule {
             WorldEventHandler worldGen = new WorldEventHandler();
             MinecraftForge.EVENT_BUS.register(worldGen);
             MinecraftForge.TERRAIN_GEN_BUS.register(worldGen);
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "ocean", "field_76771_b", new BiomeGenOcean(0).setColor(112).setBiomeName("Ocean").setHeight(new Height((float) WorldGen.OCEAN_MIN, (float) WorldGen.OCEAN_MAX)));
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "deepOcean", "field_150575_M", new BiomeGenOcean(24).setColor(48).setBiomeName("Deep Ocean").setHeight(new Height((float) WorldGen.OCEAN_DEEP_MIN, (float) WorldGen.OCEAN_DEEP_MAX)));
+            BiomeGenBase.getBiomeGenArray()[BiomeGenBase.ocean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_ROOT, (float) WorldGen.OCEAN_VARIATION));
+            BiomeGenBase.getBiomeGenArray()[BiomeGenBase.deepOcean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_DEEP_ROOT, (float) WorldGen.OCEAN_DEEP_VARIATION));
         }
 
         if (RetroGen.ENABLED) {
