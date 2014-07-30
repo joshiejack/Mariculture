@@ -4,6 +4,5 @@ TODO List - Before Release of 1.2.3
 • Add Unpacker and Advanced Sluice to Factory Book
 • Add Hatchery to the Fishing Book
 • Make Hatchery operational + Renderer + Texture
-• Fix Missing Texture for Casters
-• Fix rendering of ice and snowballs in the casters
 • Fix config to disable limestone/rutile generation
+• Completely cleanup RecipesSmelting and Tinkers Related Stuff and Fix The Dust recipes

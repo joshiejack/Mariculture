@@ -28,14 +28,16 @@ public class CrucibleHandler implements ICrucibleHandler {
             if (temp >= 0 && temp < recipe.temp) {
                 continue;
             }
+
             if (ItemHelper.areEqual(recipe.input, input) && input.stackSize >= recipe.input.stackSize) {
                 FluidStack fluid = recipe.fluid.copy();
                 if (recipe.random != null) {
-                    for (int i = 0; i < recipe.random.length; i++)
+                    for (int i = 0; i < recipe.random.length; i++) {
                         if (Rand.nextInt(recipe.rands[i])) {
                             fluid = recipe.random[i];
                             if (fluid != null) return new RecipeSmelter(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new Integer[] { 0 });
                         }
+                    }
 
                     return new RecipeSmelter(recipe.input, null, recipe.temp, recipe.random[0], recipe.output, recipe.chance, new Integer[] { 0 });
                 } else {

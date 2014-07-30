@@ -131,6 +131,9 @@ public class NEIConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_1));
         API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_2));
         API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_3));
+        
+        //Hide Unused Item
+        API.hideItem(new ItemStack(Core.materials, 1, MaterialsMeta.UNUSED));
 
         API.registerRecipeHandler(new NEICrucibleRecipeHandler());
         API.registerUsageHandler(new NEICrucibleRecipeHandler());

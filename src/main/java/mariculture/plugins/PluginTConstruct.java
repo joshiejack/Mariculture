@@ -1,13 +1,20 @@
 package mariculture.plugins;
 
+import static mariculture.core.lib.ItemLib.clay;
+import static mariculture.core.lib.ItemLib.limestone;
+import static mariculture.core.lib.ItemLib.stone;
+import static mariculture.core.util.Fluids.getFluidName;
 import static mariculture.core.util.Fluids.getFluidStack;
 import static tconstruct.library.crafting.FluidType.getFluidType;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
+import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MetalMeta;
@@ -18,6 +25,7 @@ import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.tconstruct.ModPearl;
 import mariculture.plugins.tconstruct.TitaniumTools;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -27,6 +35,7 @@ import org.apache.logging.log4j.Level;
 
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.ToolBuilder;
@@ -37,19 +46,10 @@ public class PluginTConstruct extends Plugin {
     @Override
     public void preInit() {
         try {
-            Fluids.add("aluminum", getFluidType("Aluminum").fluid, 144, true);
-            Fluids.add("bronze", getFluidType("Bronze").fluid, 144, true);
-            Fluids.add("copper", getFluidType("Copper").fluid, 144, true);
-            Fluids.add("glass", getFluidType("Glass").fluid, 144, true);
-            Fluids.add("gold", getFluidType("Gold").fluid, 144, true);
-            Fluids.add("iron", getFluidType("Iron").fluid, 144, true);
-            Fluids.add("lead", getFluidType("Lead").fluid, 144, true);
-            Fluids.add("nickel", getFluidType("Nickel").fluid, 144, true);
-            Fluids.add("silver", getFluidType("Silver").fluid, 144, true);
-            Fluids.add("steel", getFluidType("Steel").fluid, 144, true);
-            Fluids.add("tin", getFluidType("Tin").fluid, 144, true);
-            Fluids.add("electrum", getFluidType("Electrum").fluid, 144, true);
-            Fluids.add("cobalt", getFluidType("Cobalt").fluid, 144, true);
+            for (Map.Entry<String, FluidType> entry : FluidType.fluidTypes.entrySet()) {
+                Fluids.add(entry.getKey().toLowerCase(), entry.getValue().fluid, 144);
+            }
+
             Fluids.add("ender", getFluidType("Ender").fluid, 25, true);
             Fluids.add("blood", FluidRegistry.getFluid("blood"), 10, true);
         } catch (Exception e) {
@@ -62,7 +62,16 @@ public class PluginTConstruct extends Plugin {
 
     @Override
     public void init() {
-        return;
+        ItemStack stack = new ItemStack(stone);
+        ItemStack rack = new ItemStack(Blocks.netherrack);
+        RecipesSmelting.addMetal(getFluidName("aluminumbrass"), "AluminumBrass", 940, stack, 2);
+        RecipesSmelting.addMetal(getFluidName("obsidian"), "Obsidian", 1000, stack, 2);
+        RecipesSmelting.addMetal(getFluidName("cobalt"), "Cobalt", 1495, rack, 2);
+        RecipesSmelting.addMetal(getFluidName("ardite"), "Ardite", 1750, rack, 2);
+        RecipesSmelting.addMetal(getFluidName("manyullyn"), "Manyullyn", 1950, rack, 2);
+        RecipesSmelting.addMetal(getFluidName("alumite"), "Alumite", 387, stack, 2);
+        RecipesSmelting.addMetal(getFluidName("platinum"), "Platinum", 1768, stack, 2);
+        RecipesSmelting.addMetal(getFluidName("invar"), "Invar", 1427, stack, 2);
     }
 
     @Override

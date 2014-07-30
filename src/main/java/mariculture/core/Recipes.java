@@ -15,6 +15,12 @@ import static mariculture.core.helpers.RecipeHelper.addWheelRecipe;
 import static mariculture.core.lib.ItemLib.*;
 import static mariculture.core.util.Fluids.getFluidName;
 import static mariculture.core.util.Fluids.isRegistered;
+
+import java.util.ArrayList;
+
+import tconstruct.library.TConstructRegistry;
+import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
@@ -22,6 +28,8 @@ import mariculture.core.lib.UpgradeMeta;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class Recipes {
     public static void add() {

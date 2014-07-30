@@ -141,6 +141,7 @@ public class RecipesSmelting {
         public Integer chance;
 
         public LinkedMetal(String metal, Integer chance) {
+            this.metal = metal;
             this.chance = chance;
         }
     }
