@@ -35,22 +35,22 @@ public class RenderNuggetCaster extends RenderBase {
             renderNugget(2, 0.53, 0.68, 0.1, 0.26);
             renderNugget(3, 0.74, 0.9, 0.1, 0.26);
             //Slots 4-7
-            renderNugget(0, 0.1, 0.26, 0.32, 0.47);
-            renderNugget(1, 0.32, 0.47, 0.32, 0.47);
-            renderNugget(2, 0.53, 0.68, 0.32, 0.47);
-            renderNugget(3, 0.74, 0.9, 0.32, 0.47);
+            renderNugget(4, 0.1, 0.26, 0.32, 0.47);
+            renderNugget(5, 0.32, 0.47, 0.32, 0.47);
+            renderNugget(6, 0.53, 0.68, 0.32, 0.47);
+            renderNugget(7, 0.74, 0.9, 0.32, 0.47);
 
             //Slots 8-11
-            renderNugget(0, 0.1, 0.26, 0.53, 0.68);
-            renderNugget(1, 0.32, 0.47, 0.53, 0.68);
-            renderNugget(2, 0.53, 0.68, 0.53, 0.68);
-            renderNugget(3, 0.74, 0.9, 0.53, 0.68);
+            renderNugget(8, 0.1, 0.26, 0.53, 0.68);
+            renderNugget(9, 0.32, 0.47, 0.53, 0.68);
+            renderNugget(10, 0.53, 0.68, 0.53, 0.68);
+            renderNugget(11, 0.74, 0.9, 0.53, 0.68);
 
             //Slots 12-15
-            renderNugget(0, 0.1, 0.26, 0.74, 0.9);
-            renderNugget(1, 0.32, 0.47, 0.74, 0.9);
-            renderNugget(2, 0.53, 0.68, 0.74, 0.9);
-            renderNugget(3, 0.74, 0.9, 0.74, 0.9);
+            renderNugget(12, 0.1, 0.26, 0.74, 0.9);
+            renderNugget(13, 0.32, 0.47, 0.74, 0.9);
+            renderNugget(14, 0.53, 0.68, 0.74, 0.9);
+            renderNugget(15, 0.74, 0.9, 0.74, 0.9);
 
             if (tile.getFluid() != null) {
                 renderFluid(tile.getFluid(), MetalRates.NUGGET * 16, 0.055D, 0, 0, 0);
