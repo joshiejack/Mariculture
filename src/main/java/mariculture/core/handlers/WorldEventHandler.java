@@ -134,7 +134,8 @@ public class WorldEventHandler {
                         } else if (k > 0) {
                             --k;
 
-                            if (block1 == seabed && OreGen.RUTILE_ON && Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
+                            int chance = biome instanceof BiomeGenRiver? OreGen.RUTILE_SPAWN_CHANCE / 2: OreGen.RUTILE_SPAWN_CHANCE;
+                            if (block1 == seabed && OreGen.RUTILE_ON && Rand.nextInt(chance)) {
                                 blocksArray[i2] = Core.rocks;
                                 metaArray[i2] = RockMeta.RUTILE;
                             } else blocksArray[i2] = block1;

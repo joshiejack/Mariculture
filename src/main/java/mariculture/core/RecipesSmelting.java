@@ -13,9 +13,9 @@ import static mariculture.core.lib.ItemLib.obsidian;
 import static mariculture.core.lib.ItemLib.salt;
 import static mariculture.core.lib.ItemLib.sand;
 import static mariculture.core.lib.ItemLib.stone;
-import static mariculture.core.util.Fluids.getFluidStack;
 import static mariculture.core.util.Fluids.getFluid;
 import static mariculture.core.util.Fluids.getFluidName;
+import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
 
@@ -93,6 +93,10 @@ public class RecipesSmelting {
         ItemStack salt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
         ItemStack silicon = fetchItem(new String[] { "itemSilicon", "dustSiliconDioxide" });
         ItemStack platinum = fetchItem(new String[] { "dustPlatinum", "ingotPlatinum" });
+
+        //Alumumumium Dust
+        LinkedMetal[] alums = new LinkedMetal[] { new LinkedMetal("tin", 7), new LinkedMetal("iron", 5), new LinkedMetal("rutile", 35) };
+        addDust(MaterialsMeta.DUST_ALUMINUM, aluminum, null, 0, alums);
 
         //Copperous Dust
         LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("iron", 4), new LinkedMetal("silver", 7), new LinkedMetal("gold", 10), new LinkedMetal("cobalt", 15), new LinkedMetal("nickel", 8), new LinkedMetal("lead", 7), new LinkedMetal("tin", 6) };
@@ -215,7 +219,7 @@ public class RecipesSmelting {
         addFullSet(getFluidName("gold"), new Object[] { "oreGold", "nuggetGold", "ingotGold", "blockGold", "dustGold", Items.golden_pickaxe, Items.golden_shovel, Items.golden_axe, Items.golden_sword, Items.golden_hoe, Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots }, gold, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_GOLDEN), 10);
         RecipeHelper.addMetalCasting("Gold");
 
-        addMetal(getFluidName("aluminum"), "Aluminum", aluminum, new ItemStack(clay), 5);
+        addMetal(getFluidName("aluminum"), "Aluminum", aluminum, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_ALUMINUM), 10);
         addMetal(getFluidName("rutile"), "Rutile", titanium, limestone, 2);
         addMetal(getFluidName("titanium"), "Titanium", titanium, limestone, 2);
         addMetal(getFluidName("magnesium"), "Magnesium", magnesium, new ItemStack(stone), 2);

@@ -8,7 +8,7 @@ public class MaterialsMeta {
     public static final int INGOT_TITANIUM = 2;
     public static final int INGOT_RUTILE = 3;
     public static final int INGOT_COPPER = 4;
-    public static final int UNUSED = 5;
+    public static final int DUST_ALUMINUM = 5;
     public static final int DUST_SILVERY = 6;
     public static final int DUST_LEADER = 7;
     public static final int DUST_TINNIC = 8;

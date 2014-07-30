@@ -39,6 +39,8 @@ public class ItemMaterial extends ItemMariculture {
                 return "dyeRed";
             case MaterialsMeta.DYE_BROWN:
                 return "dyeBrown";
+            case MaterialsMeta.DUST_ALUMINUM:
+                return "dustAluminum";
             case MaterialsMeta.DUST_MAGNESITE:
                 return "dustMagnesite";
             case MaterialsMeta.DUST_SALT:
