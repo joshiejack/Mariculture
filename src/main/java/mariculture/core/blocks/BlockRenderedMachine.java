@@ -362,6 +362,10 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return false;
             case MachineRenderedMeta.HATCHERY:
                 return Modules.isActive(Modules.fishery);
+            case MachineRenderedMeta.REMOVED_1:
+            case MachineRenderedMeta.REMOVED_2:
+            case MachineRenderedMeta.REMOVED_3:
+                return false;
             default:
                 return true;
         }

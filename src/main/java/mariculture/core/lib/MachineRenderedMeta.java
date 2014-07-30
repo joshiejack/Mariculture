@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class MachineRenderedMeta {
-    public static final int COUNT = 13;
+    public static final int COUNT = 12;
     public static final int AIR_PUMP = 0;
     public static final int HATCHERY = 1;
     public static final int FISH_FEEDER = 2;
