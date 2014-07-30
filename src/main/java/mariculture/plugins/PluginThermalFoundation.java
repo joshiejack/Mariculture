@@ -14,7 +14,7 @@ public class PluginThermalFoundation extends Plugin {
     @Override
     public void preInit() {
         Fluids.add("ender", FluidRegistry.getFluid("ender"), 25, true);
-        Fluids.add("ice", FluidRegistry.getFluid("cryotheum"), 50, true);
+        Fluids.add("ice", FluidRegistry.getFluid("cryotheum"), 125, true);
         Fluids.add("redstone", FluidRegistry.getFluid("redstone"), 100);
         Fluids.add("glowstone", FluidRegistry.getFluid("glowstone"), 100);
     }

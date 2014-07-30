@@ -10,6 +10,7 @@ import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
 import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidStack;
@@ -67,13 +68,20 @@ public class CastingHandler implements ICastingHandler {
         }
                 
         name = "block" + name;
-
+        
+        Block block;
+        int damage = stack.getItemDamage();
         if (OreDictionary.getOres(name).size() > 0) {
             ItemStack item = OreDictionary.getOres(name).get(0);
-            if (Block.getBlockFromItem(stack.getItem()) != null) return Block.getBlockFromItem(item.getItem()).getIcon(0, item.getItemDamage());
+            block = Block.getBlockFromItem(item.getItem());
+            damage = item.getItemDamage();
+        } else if (stack.getItem() == Items.snowball) {
+            block = Blocks.snow;
+        } else {
+            block = Block.getBlockFromItem(stack.getItem());
         }
 
-        return Blocks.iron_block.getIcon(0, 0);
+        return block != null? block.getIcon(0, damage): Blocks.iron_block.getIcon(0, 0);
     }
 
     @Override

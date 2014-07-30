@@ -211,7 +211,7 @@ public class RecipesSmelting {
         addFullSet(getFluidName("iron"), new Object[] { "oreIron", "nuggetIron", "ingotIron", "blockIron", "dustIron", Items.iron_pickaxe, Items.iron_shovel, Items.iron_axe, Items.iron_sword, Items.iron_hoe, Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots }, iron, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_IRONIC), 10);
         RecipeHelper.addMetalCasting("silver");
 
-        addFullSet(getFluidName("gold"), new Object[] { "oreGold", "nugetGold", "ingotGold", "blockGold", "dustGold", Items.golden_pickaxe, Items.golden_shovel, Items.golden_axe, Items.golden_sword, Items.golden_hoe, Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots }, gold, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_GOLDEN), 10);
+        addFullSet(getFluidName("gold"), new Object[] { "oreGold", "nuggetGold", "ingotGold", "blockGold", "dustGold", Items.golden_pickaxe, Items.golden_shovel, Items.golden_axe, Items.golden_sword, Items.golden_hoe, Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots }, gold, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_GOLDEN), 10);
         RecipeHelper.addMetalCasting("Gold");
 
         addMetal(getFluidName("aluminum"), "Aluminum", aluminum, new ItemStack(clay), 5);
