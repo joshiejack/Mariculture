@@ -126,6 +126,11 @@ public class NEIConfig implements IConfigureNEI {
                 }
             }
         }
+        
+        //Hide Unusued Turbine Entries
+        API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_1));
+        API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_2));
+        API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_3));
 
         API.registerRecipeHandler(new NEICrucibleRecipeHandler());
         API.registerUsageHandler(new NEICrucibleRecipeHandler());
