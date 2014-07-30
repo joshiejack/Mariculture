@@ -1,8 +1,5 @@
 TODO List - Before Release of 1.2.3
 • Create Generator + New Rotor for Power System
-• Make RF Upgrades reduce RF Usage
 • Add Unpacker and Advanced Sluice to Factory Book
 • Add Hatchery to the Fishing Book
 • Make Hatchery operational + Renderer + Texture
-• Fix config to disable limestone/rutile generation
-• Completely cleanup RecipesSmelting and Tinkers Related Stuff and Fix The Dust recipes

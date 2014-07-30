@@ -130,7 +130,7 @@ public class WorldEventHandler {
                             --k;
                             blocksArray[i2] = block1;
 
-                            if (block1 == Core.limestone && Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
+                            if (block1 == Core.limestone && OreGen.RUTILE_ON && Rand.nextInt(OreGen.RUTILE_SPAWN_CHANCE)) {
                                 blocksArray[i2] = Core.rocks;
                                 metaArray[i2] = RockMeta.RUTILE;
                             }

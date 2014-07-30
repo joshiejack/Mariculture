@@ -91,7 +91,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     //Returns how much RF this machine uses
     @Override
     public void updatePowerPerTick() {   
-        double modifier = 1.0D;
+        double modifier = ((rf - 0) / (300000 - 0)) * (0.25 - 1.0) + 1.0;
         usage = (int) (modifier * (20 + (speed * 20)));
     }
 
