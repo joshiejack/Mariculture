@@ -5,7 +5,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.items.ItemStorage;
-import mariculture.core.util.Rand;
 import mariculture.magic.gui.ContainerMirror;
 import mariculture.magic.gui.GuiMirror;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -53,7 +52,7 @@ public class ItemMirror extends ItemStorage {
         if (stack != null) {
             if (!player.isSneaking()) {
                 world.playSoundAtEntity(player, Mariculture.modid + ":mirror", 1.0F, 1.0F);
-                if (!player.capabilities.isCreativeMode && stack.attemptDamageItem(1, Rand.rand)) {
+                if (!player.capabilities.isCreativeMode && stack.attemptDamageItem(1, world.rand)) {
                     stack.stackSize--;
                 } else {
                     player.openGui(Mariculture.instance, ItemStorage.GUI_ID, world, 0, 0, 0);

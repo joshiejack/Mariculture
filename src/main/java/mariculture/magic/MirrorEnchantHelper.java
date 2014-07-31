@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import mariculture.core.util.Rand;
 import mariculture.magic.enchantments.EnchantmentJewelry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -17,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
 public class MirrorEnchantHelper {
+    private static Random rand = new Random();
+    
     public static List buildEnchantmentList(Random rand, ItemStack stack, int level) {
         int chance = 75 - level;
         if (chance <= 1) {
@@ -105,7 +106,7 @@ public class MirrorEnchantHelper {
                         if (orig > 30) if (enchantment != Enchantment.protection && enchantment != Enchantment.fortune && enchantment.getMaxLevel() != 1 && !(enchantment instanceof EnchantmentJewelry)) {
                             int chanceDoubled = orig > 55 ? 2 : 1;
                             for (int i = 0; i < chanceDoubled; i++)
-                                if (Rand.rand.nextInt() < orig) {
+                                if (rand.nextInt() < orig) {
                                     l += 1;
                                 }
                         }

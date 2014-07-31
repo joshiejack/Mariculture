@@ -5,7 +5,6 @@ import java.util.List;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.items.ItemDamageable;
-import mariculture.core.util.Rand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -51,7 +50,7 @@ public class ItemMobMagnet extends ItemDamageable {
             for (Object i : enemies)
                 if (i instanceof EntityLivingBase) {
                     ((EntityLivingBase) i).setPositionAndUpdate(x, y, z);
-                    if (stack.attemptDamageItem(1, Rand.rand)) {
+                    if (stack.attemptDamageItem(1, world.rand)) {
                         stack.stackSize--;
                     }
                 }

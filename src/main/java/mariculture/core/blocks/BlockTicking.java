@@ -11,7 +11,6 @@ import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.WaterMeta;
-import mariculture.core.util.Rand;
 import mariculture.fishery.Fish;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemFishy;
@@ -108,7 +107,7 @@ public class BlockTicking extends BlockFunctional {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (Rand.nextInt(MachineSpeeds.getNetSpeed())) {
+        if (world.rand.nextInt(MachineSpeeds.getNetSpeed()) == 0) {
             ItemStack loot = Fishing.fishing.getCatch(world, x, y, z, null, null);
             if (loot != null && loot.getItem() instanceof ItemFishy) {
                 SpawnItemHelper.spawnItem(world, x, y, z, loot, true, OreDictionary.WILDCARD_VALUE);

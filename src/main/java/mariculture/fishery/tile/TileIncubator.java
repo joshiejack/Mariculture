@@ -18,7 +18,6 @@ import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMultiMachinePowered;
 import mariculture.core.util.IHasNotification;
-import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -174,7 +173,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         if (inventory[slot].getItem() instanceof ItemEgg) {
             inventory[slot] = Fishing.fishHelper.attemptToHatchEgg(inventory[slot], rand, mutation, this);
         } else if (inventory[slot].getItem() == Items.egg) {
-            if (Rand.nextInt(8)) {
+            if (worldObj.rand.nextInt(8) == 0) {
                 helper.insertStack(new ItemStack(Items.spawn_egg, 1, 93), output);
             }
 
@@ -182,11 +181,11 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             return true;
         } else if (inventory[slot].getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
             int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) ? MachineSettings.DRAGON_EGG_ETHEREAL : MachineSettings.DRAGON_EGG_BASE;
-            if (Rand.nextInt(chance)) {
+            if (worldObj.rand.nextInt(chance) == 0) {
                 helper.insertStack(new ItemStack(Core.crafting, 1, CraftingMeta.DRAGON_EGG), output);
             }
 
-            if (Rand.nextInt(10)) {
+            if (worldObj.rand.nextInt(10) == 0) {
                 decrStackSize(slot, 1);
                 return true;
             }

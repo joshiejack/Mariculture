@@ -10,7 +10,6 @@ import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.tile.base.TileMultiStorage;
 import mariculture.core.util.ITank;
-import mariculture.core.util.Rand;
 import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -92,7 +91,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
         }
 
         if (worldObj.isRemote && canWork) {
-            worldObj.spawnParticle("smoke", xCoord + 0.5D + +Rand.rand.nextFloat() - Rand.rand.nextFloat() / 2, yCoord + 0.8D + Rand.rand.nextFloat() - Rand.rand.nextFloat() / 2, zCoord + 0.5D + +Rand.rand.nextFloat() - Rand.rand.nextFloat() / 2, 0, 0, 0);
+            worldObj.spawnParticle("smoke", xCoord + 0.5D + +worldObj.rand.nextFloat() - worldObj.rand.nextFloat() / 2, yCoord + 0.8D + worldObj.rand.nextFloat() - worldObj.rand.nextFloat() / 2, zCoord + 0.5D + +worldObj.rand.nextFloat() - worldObj.rand.nextFloat() / 2, 0, 0, 0);
         }
 
         updateAll();
@@ -108,7 +107,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
         updateAll();
 
         if (worldObj.isRemote && canWork) {
-            worldObj.spawnParticle("smoke", xCoord + 0.5D + +Rand.rand.nextFloat() - Rand.rand.nextFloat() / 2, yCoord + 0.8D + Rand.rand.nextFloat() - Rand.rand.nextFloat() / 2, zCoord + 0.5D + +Rand.rand.nextFloat() - Rand.rand.nextFloat() / 2, 0, 0, 0);
+            worldObj.spawnParticle("smoke", xCoord + 0.5D + +worldObj.rand.nextFloat() - worldObj.rand.nextFloat() / 2, yCoord + 0.8D + worldObj.rand.nextFloat() - worldObj.rand.nextFloat() / 2, zCoord + 0.5D + +worldObj.rand.nextFloat() - worldObj.rand.nextFloat() / 2, 0, 0, 0);
         }
     }
 

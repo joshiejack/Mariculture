@@ -6,7 +6,6 @@ import mariculture.core.Core;
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemPearl;
-import mariculture.core.util.Rand;
 import mariculture.magic.MirrorEnchantHelper;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
@@ -49,9 +48,9 @@ public class ContainerMirror extends ContainerStorage {
                             Items.enchanted_book.addEnchantment(stack, enchantmentdata);
                         } else if (stack.getItem() == Core.pearls) {
                             ItemPearl pearl = (ItemPearl) stack.getItem();
-                            Enchantment enchant = pearl.getBiasedEnchantment(Rand.rand, levelToEnchant, stack.getItemDamage());
+                            Enchantment enchant = pearl.getBiasedEnchantment(player.worldObj.rand, levelToEnchant, stack.getItemDamage());
                             if (enchant != null) {
-                                stack.addEnchantment(enchant, Rand.rand.nextInt(enchant.getMaxLevel()) + 1);
+                                stack.addEnchantment(enchant, player.worldObj.rand.nextInt(enchant.getMaxLevel()) + 1);
                                 break;
                             } else {
                                 stack.addEnchantment(enchantmentdata.enchantmentobj, enchantmentdata.enchantmentLevel);

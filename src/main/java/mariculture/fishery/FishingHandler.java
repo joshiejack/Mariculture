@@ -22,7 +22,6 @@ import mariculture.core.config.FishMechanics;
 import mariculture.core.config.Vanilla;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.ReflectionHelper;
-import mariculture.core.util.Rand;
 import mariculture.core.util.RecipeItem;
 import mariculture.fishery.items.ItemVanillaRod;
 import net.minecraft.enchantment.Enchantment;
@@ -70,7 +69,7 @@ public class FishingHandler implements IFishing {
             rodType.damage(world, player, stack, player.fishEntity.func_146034_e(), world.rand);
             player.swingItem();
         } else if (baitSlot != -1 || !Vanilla.VANILLA_FORCE && stack.getItem() instanceof ItemVanillaRod) {
-            world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (Rand.rand.nextFloat() * 0.4F + 0.8F));
+            world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
             if (!Vanilla.VANILLA_POOR && isVanillaRod(stack)) {
                 baitQuality = 35;
             }

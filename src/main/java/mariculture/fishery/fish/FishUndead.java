@@ -14,7 +14,6 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
 import mariculture.core.lib.BaitMeta;
-import mariculture.core.util.Rand;
 import mariculture.fishery.Fishery;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
@@ -90,7 +89,7 @@ public class FishUndead extends FishSpecies {
 
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
-        if (Rand.nextInt(500)) {
+        if (world.rand.nextInt(500) == 0) {
             EntityZombie zombie = new EntityZombie(world);
             zombie.setPosition(x, y, z);
             world.spawnEntityInWorld(zombie);

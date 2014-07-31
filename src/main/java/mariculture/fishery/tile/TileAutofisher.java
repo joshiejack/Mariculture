@@ -10,7 +10,6 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMachinePowered;
 import mariculture.core.util.IHasNotification;
-import mariculture.core.util.Rand;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -64,9 +63,9 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
         for (int i = 0; i < speed && canWork; i++) {
             int baitSlot = destroyBait();
             int bonusQuality = getBait() + EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4;
-            if (Rand.rand.nextInt(100) < bonusQuality && baitSlot >= 0) {
+            if (worldObj.rand.nextInt(100) < bonusQuality && baitSlot >= 0) {
                 RodType type = Fishing.fishing.getRodType(inventory[rod]);
-                setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, Rand.rand));
+                setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, worldObj.rand));
                 ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
                 if (lootResult != null) {
                     decrStackSize(destroyBait(), 1);

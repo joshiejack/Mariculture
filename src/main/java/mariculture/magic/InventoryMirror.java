@@ -2,7 +2,6 @@ package mariculture.magic;
 
 import mariculture.core.gui.ContainerStorage;
 import mariculture.core.gui.InventoryStorage;
-import mariculture.core.util.Rand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -77,7 +76,7 @@ public class InventoryMirror extends InventoryStorage {
 
     @Override
     public void markDirty() {
-        seed = Rand.rand.nextLong();
+        seed = player != null? player.worldObj.rand.nextLong(): 0;
         MirrorHelper.save(player, inventory);
     }
 

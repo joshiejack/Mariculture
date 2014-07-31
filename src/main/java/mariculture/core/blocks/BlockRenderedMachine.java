@@ -21,7 +21,6 @@ import mariculture.core.tile.TileCooling;
 import mariculture.core.tile.TileIngotCaster;
 import mariculture.core.tile.TileNuggetCaster;
 import mariculture.core.util.Fluids;
-import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.tile.TileFLUDDStand;
@@ -224,7 +223,7 @@ public class BlockRenderedMachine extends BlockFunctional {
             if (player.getDisplayName().equals("[CoFH]")) return;
             if (player instanceof FakePlayer) return;
             ItemStack hammer = player.getCurrentEquippedItem();
-            if (((TileAnvil) tile).workItem(player, hammer)) if (hammer.attemptDamageItem(1, Rand.rand)) {
+            if (((TileAnvil) tile).workItem(player, hammer)) if (hammer.attemptDamageItem(1, world.rand)) {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
         }

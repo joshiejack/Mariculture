@@ -8,7 +8,6 @@ import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -28,9 +27,9 @@ public class MaterialPearlBrown extends JewelryMaterial {
             dmg = 64;
             ArrayList<RecipeSifter> recipe = Fishing.sifter.getResult(new ItemStack(event.block));
             for (RecipeSifter sifter : recipe)
-                if (Rand.rand.nextInt(100) < sifter.chance) {
+                if (player.worldObj.rand.nextInt(100) < sifter.chance) {
                     ItemStack cloned = sifter.bait.copy();
-                    cloned.stackSize = sifter.minCount + Rand.rand.nextInt(sifter.maxCount + 1 - sifter.minCount);
+                    cloned.stackSize = sifter.minCount + player.worldObj.rand.nextInt(sifter.maxCount + 1 - sifter.minCount);
                     event.drops.add(sifter.bait);
                     dmg--;
                 }

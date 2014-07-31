@@ -3,17 +3,18 @@ package mariculture.core.handlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ICrucibleHandler;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
-import mariculture.core.util.Rand;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CrucibleHandler implements ICrucibleHandler {
+    private static final Random rand = new Random();
     public static Map fuels = new HashMap();
     public static ArrayList<RecipeSmelter> recipes = new ArrayList();
 
@@ -33,7 +34,7 @@ public class CrucibleHandler implements ICrucibleHandler {
                 FluidStack fluid = recipe.fluid.copy();
                 if (recipe.random != null) {
                     for (int i = 0; i < recipe.random.length; i++) {
-                        if (Rand.nextInt(recipe.rands[i])) {
+                        if (rand.nextInt(recipe.rands[i]) == 0) {
                             fluid = recipe.random[i];
                             if (fluid != null) return new RecipeSmelter(recipe.input, null, recipe.temp, fluid, recipe.output, recipe.chance, new Integer[] { 0 });
                         }

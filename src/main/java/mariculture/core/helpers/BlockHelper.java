@@ -5,11 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
-import mariculture.core.Core;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IItemDropBlacklist;
-import mariculture.core.util.Rand;
 import mariculture.fishery.tile.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -110,7 +108,7 @@ public class BlockHelper {
     }
 
     public static void dropItems(World world, int x, int y, int z) {
-        Random rand = Rand.rand;
+        Random rand = world.rand;
         TileEntity tile = world.getTileEntity(x, y, z);
 
         if (!(tile instanceof IInventory)) return;
@@ -155,7 +153,7 @@ public class BlockHelper {
     }
 
     public static void dropFish(World world, int x, int y, int z) {
-        Random rand = Rand.rand;
+        Random rand = world.rand;
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TileFishTank) {
             HashMap fish = ((TileFishTank) tile).fish;

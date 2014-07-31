@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.api.core.FuelInfo;
@@ -14,7 +15,6 @@ import mariculture.api.util.Text;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
-import mariculture.core.util.Rand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
@@ -34,6 +34,8 @@ import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class NEICrucibleRecipeHandler extends NEIBase {
+    private static Random rand = new Random();
+
     public class CachedLiquifierRecipe extends CachedRecipe {
         RecipeSmelter recipe;
         PositionedStack input1;
@@ -166,7 +168,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
         if (recipe.recipe.fluid != null) if (recipe.recipe.random != null) {
             if (cycleticks % 64 == 0 || aFluid == -1) {
-                aFluid = Rand.rand.nextInt(recipe.recipe.random.length);
+                aFluid = rand.nextInt(recipe.recipe.random.length);
             }
 
             if (aFluid >= recipe.recipe.random.length) {

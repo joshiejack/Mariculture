@@ -17,7 +17,6 @@ import mariculture.core.tile.base.TileMachineTankOld;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IHasNotification;
-import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
@@ -38,7 +37,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class TileFLUDDStand extends TileMachineTankOld implements IHasNotification, IFaceable {
@@ -151,7 +149,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
                         block.addHitEffects(worldObj, new MovingObjectPosition(x2, y2, z2, orientation.getOpposite().ordinal(), Vec3.createVectorHelper(x2, y2, z2)), Minecraft.getMinecraft().effectRenderer);
                     }
                     int chance = (int) (blockHardness * 10 > 0 ? blockHardness * 10 : 10);
-                    if (Rand.nextInt(chance)) if (blockHardness <= hardnessMax) {
+                    if (worldObj.rand.nextInt(chance) == 0) if (blockHardness <= hardnessMax) {
                         int meta = worldObj.getBlockMetadata(x2, y2, z2);
                         if (worldObj.isRemote) {
                             block.addDestroyEffects(worldObj, x2, y2, z2, meta, Minecraft.getMinecraft().effectRenderer);

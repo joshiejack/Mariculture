@@ -1,9 +1,11 @@
 package mariculture.fishery.tile;
 
+import static mariculture.core.util.Fluids.getFluidID;
+import static mariculture.core.util.Fluids.getFluidStack;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static mariculture.core.util.Fluids.*;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
@@ -19,9 +21,7 @@ import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.tile.base.TileMachineTank;
-import mariculture.core.util.Fluids;
 import mariculture.core.util.IHasNotification;
-import mariculture.core.util.Rand;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.FishyHelper;
@@ -33,7 +33,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidRegistry;
 import cofh.api.energy.IEnergyConnection;
 
 public class TileFeeder extends TileMachineTank implements IHasNotification, IEnergyConnection {
@@ -144,7 +143,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         FishSpecies species = Fishing.fishHelper.getSpecies(fish);
         if (species != null) {
             for (int i = 0; i < Fish.production.getDNA(fish); i++) {
-                ItemStack product = species.getProduct(Rand.rand);
+                ItemStack product = species.getProduct(worldObj.rand);
                 if (product != null) {
                     helper.insertStack(product, output);
                 }
@@ -152,13 +151,13 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
                 if (MaricultureHandlers.upgrades.hasUpgrade("female", this)) {
                     int fertility = Math.max(1, (5500 - Fish.fertility.getDNA(fish)) / 50);
-                    if (Rand.nextInt(fertility)) {
+                    if (worldObj.rand.nextInt(fertility) == 0) {
                         generateEgg();
                     }
                 }
 
                 if (MaricultureHandlers.upgrades.hasUpgrade("male", this)) {
-                    product = species.getProduct(Rand.rand);
+                    product = species.getProduct(worldObj.rand);
                     if (product != null) {
                         helper.insertStack(product, output);
                     }

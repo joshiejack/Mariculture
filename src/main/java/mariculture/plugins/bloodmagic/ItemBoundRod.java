@@ -6,7 +6,6 @@ import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.util.Rand;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemRod;
 import mariculture.plugins.PluginBloodMagic;
@@ -75,12 +74,12 @@ public class ItemBoundRod extends ItemRod {
                     int y2 = (int) (y + player.posY);
                     int z2 = (int) (z + player.posZ);
 
-                    if (!lightning && Rand.nextInt(2048)) {
+                    if (!lightning && world.rand.nextInt(2048) == 0) {
                         lightning = true;
                         world.addWeatherEffect(new EntityLightningBolt(world, x2, y2, z2));
                     }
 
-                    if (BlockHelper.isWater(world, x2, y2, z2) && Rand.nextInt(5)) {
+                    if (BlockHelper.isWater(world, x2, y2, z2) && world.rand.nextInt(5) == 0) {
                         ItemStack loot = Fishing.fishing.getCatch(world, x2, y2, z2, player, player.getCurrentEquippedItem());
                         if (!world.isRemote && loot != null) {
                             float f = 0.7F;

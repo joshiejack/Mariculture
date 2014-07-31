@@ -4,7 +4,6 @@ import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -19,7 +18,7 @@ public class MaterialPearlGold extends JewelryMaterial {
 
     @Override
     public int onKill(LivingDeathEvent event, EntityPlayer player) {
-        if (Rand.nextInt(50)) {
+        if (player.worldObj.rand.nextInt(50) == 0) {
             SpawnItemHelper.spawnItem(event.entity.worldObj, (int) event.entity.posX, (int) event.entity.posY, (int) event.entity.posZ, new ItemStack(Items.gold_nugget));
             return 2;
         } else return 0;

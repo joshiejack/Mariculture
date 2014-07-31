@@ -1,7 +1,6 @@
 package mariculture.core.gui;
 
 import mariculture.core.items.ItemStorage;
-import mariculture.core.util.Rand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
@@ -81,7 +80,7 @@ public class InventoryStorage implements IInventory {
 
     @Override
     public void markDirty() {
-        seed = Rand.rand.nextLong();
+        seed = player.worldObj.rand.nextLong();
         save(player, inventory);
     }
 

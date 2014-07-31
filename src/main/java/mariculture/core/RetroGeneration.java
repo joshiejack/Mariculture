@@ -10,7 +10,6 @@ import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.Modules;
-import mariculture.core.util.Rand;
 import mariculture.world.GenerationHandler;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkEvent;
@@ -58,32 +57,32 @@ public class RetroGeneration {
                     int x = chunk.xPosition * 16;
                     int z = chunk.zPosition * 16;
                     if (OreGen.NATURAL_GAS_ON && doGen(data, "gas", chunk)) {
-                        WorldGenHandler.generateGas(chunk.worldObj, Rand.rand, x, z);
+                        WorldGenHandler.generateGas(chunk.worldObj, chunk.worldObj.rand, x, z);
                     }
 
                     if (OreGen.BAUXITE_ON && doGen(data, "bauxite", chunk)) {
-                        WorldGenHandler.generateBauxite(chunk.worldObj, Rand.rand, x, z);
+                        WorldGenHandler.generateBauxite(chunk.worldObj, chunk.worldObj.rand, x, z);
                     }
 
                     if (OreGen.COPPER_ON && doGen(data, "copper", chunk)) {
-                        WorldGenHandler.generateCopper(chunk.worldObj, Rand.rand, x, z);
+                        WorldGenHandler.generateCopper(chunk.worldObj, chunk.worldObj.rand, x, z);
                     }
 
                     if (WorldGen.OYSTER_ENABLED && doGen(data, "oyster", chunk)) {
-                        WorldGenHandler.generateOyster(chunk.worldObj, Rand.rand, x, z);
+                        WorldGenHandler.generateOyster(chunk.worldObj, chunk.worldObj.rand, x, z);
                     }
 
                     if (Modules.isActive(Modules.worldplus) && MaricultureHandlers.environment.getSalinity(chunk.worldObj, x, z) == Salinity.SALINE) {
                         if (WorldGen.KELP_FOREST_ENABLED && doGen(data, "kelp", chunk)) {
-                            GenerationHandler.kelpGenerator.generate(chunk.worldObj, Rand.rand, x, 0, z);
+                            GenerationHandler.kelpGenerator.generate(chunk.worldObj, chunk.worldObj.rand, x, 0, z);
                         }
 
                         if (WorldGen.CORAL_REEF_ENABLED && doGen(data, "coralreef", chunk)) {
-                            GenerationHandler.generateCoralReef(chunk.worldObj, Rand.rand, chunk.xPosition, chunk.zPosition);
+                            GenerationHandler.generateCoralReef(chunk.worldObj, chunk.worldObj.rand, chunk.xPosition, chunk.zPosition);
                         }
 
                         if (WorldGen.ANCIENT_SAND_ENABLED && doGen(data, "ancient", chunk)) {
-                            GenerationHandler.generateAncientSand(chunk.worldObj, Rand.rand, chunk.xPosition, chunk.zPosition);
+                            GenerationHandler.generateAncientSand(chunk.worldObj, chunk.worldObj.rand, chunk.xPosition, chunk.zPosition);
                         }
                     }
                 } catch (Exception e) {

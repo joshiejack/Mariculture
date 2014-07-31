@@ -12,7 +12,6 @@ import mariculture.core.lib.PlansMeta;
 import mariculture.core.tile.base.TileMachine;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.IProgressable;
-import mariculture.core.util.Rand;
 import mariculture.factory.blocks.BlockItemCustom;
 import mariculture.factory.items.ItemPlan;
 import net.minecraft.block.Block;
@@ -162,7 +161,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
             }
         }
 
-        inventory[selected].attemptDamageItem(1, Rand.rand);
+        inventory[selected].attemptDamageItem(1, worldObj.rand);
         if (inventory[selected].getItemDamage() > inventory[selected].getMaxDamage()) {
             inventory[selected] = null;
         }

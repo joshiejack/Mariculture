@@ -4,7 +4,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.AirMeta;
-import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import mariculture.factory.tile.TileCustom;
 import net.minecraft.block.Block;
@@ -73,7 +72,7 @@ public class ItemPaintbrush extends ItemDamageable {
             int meta = stack.stackTagCompound.getInteger("Meta");
             int texSide = stack.stackTagCompound.getInteger("Side");
             TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
-            if (tile.setSide(side, block, meta, texSide)) if (stack.attemptDamageItem(1, Rand.rand)) {
+            if (tile.setSide(side, block, meta, texSide)) if (stack.attemptDamageItem(1, world.rand)) {
                 stack.stackSize--;
             }
         }

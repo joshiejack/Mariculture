@@ -8,7 +8,6 @@ import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.AirMeta;
-import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -133,10 +132,10 @@ public class BlockAir extends BlockDecorative {
             EntityPlayer player = (EntityPlayer) entity;
             player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 5, 2, true));
             player.addPotionEffect(new PotionEffect(Potion.weakness.id, 5, 0, true));
-            if (Rand.nextInt(500)) {
+            if (world.rand.nextInt(500) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.confusion.id, 60, 0, true));
                 player.addPotionEffect(new PotionEffect(Potion.weakness.id, 40, 1, true));
-            } else if (Rand.nextInt(1000)) {
+            } else if (world.rand.nextInt(1000) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.poison.id, 30, 0, true));
             }
         }

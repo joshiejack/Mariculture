@@ -4,11 +4,7 @@ import java.util.Random;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Core;
 import mariculture.core.config.WorldGeneration.WorldGen;
-import mariculture.core.lib.CoralMeta;
-import mariculture.core.lib.GroundMeta;
-import mariculture.core.util.Rand;
 import mariculture.world.decorate.WorldGenAncientSand;
 import mariculture.world.decorate.WorldGenKelp;
 import mariculture.world.decorate.WorldGenReef;
@@ -60,10 +56,10 @@ public class GenerationHandler implements IWorldGenerator {
 
     public static void generateCoralReef(World world, Random rand, int x, int z) {
         if (WorldGen.CORAL_REEF_ENABLED) {
-            if (!isCoralReef && Rand.nextInt(WorldGen.CORAL_REEF_START_CHANCE)) {
+            if (!isCoralReef && rand.nextInt(WorldGen.CORAL_REEF_START_CHANCE) == 0) {
                 isCoralReef = true;
             }
-            if (isCoralReef && Rand.nextInt(WorldGen.CORAL_REEF_END_CHANCE)) {
+            if (isCoralReef && rand.nextInt(WorldGen.CORAL_REEF_END_CHANCE) == 0) {
                 isCoralReef = false;
             }
             if (isCoralReef) {

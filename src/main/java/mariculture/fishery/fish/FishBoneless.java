@@ -15,7 +15,6 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
-import mariculture.core.util.Rand;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.init.Items;
@@ -100,10 +99,10 @@ public class FishBoneless extends FishSpecies {
 
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
-        if (Rand.nextInt(500)) {
+        if (world.rand.nextInt(500) == 0) {
             EntitySkeleton skeleton = new EntitySkeleton(world);
             skeleton.setPosition(x, y, z);
-            if (Rand.nextInt(5000)) {
+            if (world.rand.nextInt(5000) == 0) {
                 skeleton.setSkeletonType(1);
                 skeleton.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
                 skeleton.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);

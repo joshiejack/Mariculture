@@ -7,7 +7,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.items.ItemMariculture;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.Extra;
-import mariculture.core.util.Rand;
 import mariculture.plugins.PluginHungerOverhaul;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -47,10 +46,10 @@ public class ItemBait extends ItemMariculture {
         if (Extra.NERF_FOOD) {
             fill = 1;
             player.addPotionEffect(new PotionEffect(Potion.hunger.id, 30, 0));
-            if (Rand.nextInt(64)) {
+            if (world.rand.nextInt(64) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0));
             }
-            if (Rand.nextInt(8)) {
+            if (world.rand.nextInt(8) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.confusion.id, 50, 0));
             }
         }

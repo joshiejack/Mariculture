@@ -3,7 +3,6 @@ package mariculture.magic.jewelry.parts;
 import mariculture.api.util.Text;
 import mariculture.core.Core;
 import mariculture.core.lib.PearlColor;
-import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +17,7 @@ public class MaterialPearlOrange extends JewelryMaterial {
 
     @Override
     public int onKill(LivingDeathEvent event, EntityPlayer player) {
-        EntityXPOrb orb = new EntityXPOrb(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ, Rand.rand.nextInt(10));
+        EntityXPOrb orb = new EntityXPOrb(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ, player.worldObj.rand.nextInt(10));
         player.worldObj.spawnEntityInWorld(orb);
         return 10;
     }

@@ -9,7 +9,6 @@ import mariculture.core.config.GeneralStuff;
 import mariculture.core.config.WorldGeneration.OreGen;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.RockMeta;
-import mariculture.core.util.Rand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -135,7 +134,7 @@ public class WorldEventHandler {
                             --k;
 
                             int chance = biome instanceof BiomeGenRiver? OreGen.RUTILE_SPAWN_CHANCE / 2: OreGen.RUTILE_SPAWN_CHANCE;
-                            if (block1 == seabed && OreGen.RUTILE_ON && Rand.nextInt(chance)) {
+                            if (block1 == seabed && OreGen.RUTILE_ON && world.rand.nextInt(chance) == 0) {
                                 blocksArray[i2] = Core.rocks;
                                 metaArray[i2] = RockMeta.RUTILE;
                             } else blocksArray[i2] = block1;

@@ -5,7 +5,6 @@ import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketDamageJewelry;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSyncMirror;
-import mariculture.core.util.Rand;
 import mariculture.magic.jewelry.ItemJewelry;
 import mariculture.magic.jewelry.parts.JewelryMaterial;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -89,10 +88,10 @@ public class MirrorHandler implements IMirrorHandler {
             for (int i = 0; i < 3; i++)
                 if (mirror[i] != null) if (EnchantHelper.hasEnchantment(enchant, mirror[i])) if (EnchantHelper.exists(Magic.elemental) && enchant == Magic.elemental.effectId) {
                     JewelryMaterial material = JewelryHandler.getMaterial(mirror[i]);
-                    if (material.id == matId) if (mirror[i].attemptDamageItem(1, Rand.rand)) {
+                    if (material.id == matId) if (mirror[i].attemptDamageItem(1, player.worldObj.rand)) {
                         PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
                     }
-                } else if (mirror[i].attemptDamageItem(1, Rand.rand)) {
+                } else if (mirror[i].attemptDamageItem(1, player.worldObj.rand)) {
                     PacketHandler.sendToClient(new PacketSyncMirror(MirrorHelper.getInventoryForPlayer(player)), (EntityPlayerMP) player);
                 }
         }

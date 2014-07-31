@@ -7,7 +7,6 @@ import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.items.ItemDamageable;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.PlansMeta;
-import mariculture.core.util.Rand;
 import mariculture.factory.Factory;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,7 +33,7 @@ public class ItemChalk extends ItemDamageable {
                     }
 
                     world.spawnParticle("largeexplode", x, y + 1, z, 0.0D, 0.0D, 0.0D);
-                    if (stack.attemptDamageItem(1, Rand.rand) || stack.getItemDamage() >= stack.getMaxDamage()) {
+                    if (stack.attemptDamageItem(1, world.rand) || stack.getItemDamage() >= stack.getMaxDamage()) {
                         player.setCurrentItemOrArmor(0, null);
                     }
                 }

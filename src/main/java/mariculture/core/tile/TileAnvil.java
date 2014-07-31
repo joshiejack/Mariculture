@@ -15,7 +15,6 @@ import mariculture.core.lib.Modules;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IFaceable;
-import mariculture.core.util.Rand;
 import mariculture.magic.JewelryHandler;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.enchantment.Enchantment;
@@ -109,7 +108,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
             float drop = 1.0F / (player.xpBarCap() * 1) / 4 * modifier * effiency;
             if ((player.experience >= drop || player.experienceLevel > 0) && canBeRepaired(stack)) {
                 for (int i = 0; i < EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, hammer); i++)
-                    if (Rand.nextInt(3)) {
+                    if (worldObj.rand.nextInt(3) == 0) {
                         stack.setItemDamage(stack.getItemDamage() - 1);
                     }
 
@@ -151,7 +150,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
             if (workedVal >= stack.stackTagCompound.getInteger("Required")) {
                 ItemStack result = NBTHelper.getItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
                 if (Modules.isActive(Modules.magic)) {
-                    result = JewelryHandler.finishJewelry(stack, result, Rand.rand);
+                    result = JewelryHandler.finishJewelry(stack, result, worldObj.rand);
                 }
 
                 setInventorySlotContents(0, result);

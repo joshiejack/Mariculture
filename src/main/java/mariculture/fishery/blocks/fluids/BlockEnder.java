@@ -2,11 +2,8 @@ package mariculture.fishery.blocks.fluids;
 
 import mariculture.core.blocks.base.BlockFluid;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.util.Rand;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
@@ -21,8 +18,8 @@ public class BlockEnder extends BlockFluid {
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (!world.isRemote) {
             world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "mob.endermen.portal", 1.0F, 1.0F);
-            int x2 = (int) (entity.posX + Rand.rand.nextInt(64) - 32);
-            int z2 = (int) (entity.posZ + Rand.rand.nextInt(64) - 32);
+            int x2 = (int) (entity.posX + world.rand.nextInt(64) - 32);
+            int z2 = (int) (entity.posZ + world.rand.nextInt(64) - 32);
             if (BlockHelper.chunkExists(world, x2, z2)) {
                 int y2 = world.getTopSolidOrLiquidBlock(x2, z2);
 
