@@ -17,7 +17,7 @@ public class Machines {
         MachineSpeeds.crucible = getInt("Industrial Smelter", 40000);
         MachineSpeeds.net = getInt("Fishing Net", 300);
         MachineSpeeds.sawmill = getInt("Sawmill", 650);
-        MachineSpeeds.incubator = getInt("Hatchery", 100);
+        MachineSpeeds.hatchery = getInt("Hatchery", 100);
 
         setCategory("Client Settings", "The settings only affect clientside");
         Client.GEYSER_ANIM = getBoolean("Geyser - Enable Particles", true);

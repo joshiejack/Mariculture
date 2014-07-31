@@ -22,7 +22,6 @@ public class ArmorClientHandler {
                         event.density = 0.0F;
                         event.setCanceled(true);
                     }
-
                 }
             }
         }
