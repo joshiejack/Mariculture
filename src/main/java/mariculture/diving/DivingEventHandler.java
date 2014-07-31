@@ -73,7 +73,7 @@ public class DivingEventHandler {
 
     private boolean isAllowed(ItemStack stack, ItemStack stack2) {
         if (stack != null && stack.getItem() == Diving.snorkel) {
-            return stack2 == null || stack.getItem() != Items.enchanted_book;
+            return stack2 == null || stack2.getItem() != Items.enchanted_book;
         }
 
         return true;
