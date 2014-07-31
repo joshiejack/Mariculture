@@ -5,9 +5,7 @@ import static mariculture.core.helpers.RecipeHelper.addCrushRecipe;
 import static mariculture.core.helpers.RecipeHelper.addSoakRecipe;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
@@ -20,16 +18,11 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
-import mariculture.world.terrain.BiomeGenSandyBeach;
-import mariculture.world.terrain.BiomeGenSandyOcean;
-import mariculture.world.terrain.BiomeGenSandyRiver;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.Height;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -40,10 +33,8 @@ public class WorldPlus extends RegistrationModule {
     public static Block plantStatic;
 
     @Override
-    public void registerHandlers() {    
-        if(WorldGen.EXPERIMENTAL_OCEANS) {
-            GameRegistry.registerWorldGenerator(new GenerationHandler(), 2);
-        }
+    public void registerHandlers() {
+        GameRegistry.registerWorldGenerator(new GenerationHandler(), 2);
     }
 
     @Override
@@ -76,15 +67,6 @@ public class WorldPlus extends RegistrationModule {
         OreDictionary.registerOre("coralGray", new ItemStack(plantStatic, 1, CoralMeta.GREY));
         OreDictionary.registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
         OreDictionary.registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
-
-        if (!WorldGen.EXPERIMENTAL_OCEANS) {
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "ocean", "field_76771_b", new BiomeGenSandyOcean(0).setColor(112).setBiomeName("Ocean").setHeight(new Height(-1.3F, 0.25F)));
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "deepOcean", "field_150575_M", new BiomeGenSandyOcean(24).setColor(48).setBiomeName("Deep Ocean").setHeight(new Height(-1.95F, 0F)));
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "beach", "field_76787_r", new BiomeGenSandyBeach(16).setColor(16440917).setBiomeName("Beach").setTemperatureRainfall(0.8F, 0.4F).setHeight(new Height(0.0F, 0.025F)));
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "coldBeach", "field_150577_O", new BiomeGenSandyBeach(26).setColor(16445632).setBiomeName("Cold Beach").setTemperatureRainfall(0.05F, 0.3F).setHeight(new Height(0.0F, 0.025F)).setEnableSnow());
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "frozenRiver", "field_76777_m", new BiomeGenSandyRiver(11).setColor(10526975).setBiomeName("FrozenRiver").setEnableSnow().setHeight(new Height(-1.0F, 0.0F)).setTemperatureRainfall(0.0F, 0.5F));
-            ReflectionHelper.setFinalStatic(BiomeGenBase.class, "river", "field_76781_i", new BiomeGenSandyRiver(7).setColor(255).setBiomeName("River").setHeight(new Height(-1.0F, 0.0F)));
-        }
     }
 
     @Override

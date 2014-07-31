@@ -33,7 +33,6 @@ public class WorldGeneration {
         OreGen.NATURAL_GAS_MAX = getInt("Natural Gas > Maximum Y Height", 26);
 
         setCategory("Aquatic Generation");
-        WorldGen.EXPERIMENTAL_OCEANS = getBoolean("Ocean > Enable Experimental", true, "This must be enabled for any of Ocean/Limestone Heights to function");
         WorldGen.OCEAN_ROOT = getDouble("Ocean > Base Height", -1.4D);
         WorldGen.OCEAN_VARIATION = getDouble("Ocean > Height Variation", 0.35D);
         WorldGen.OCEAN_DEEP_ROOT = getDouble("Deep Ocean > Base Height", -1.995D);
@@ -105,7 +104,6 @@ public class WorldGeneration {
         public static boolean LIMESTONE_FLOOR;
         public static int[] OCEAN_BLACKLIST;
         public static boolean VARYING_LIMESTONE;
-        public static boolean EXPERIMENTAL_OCEANS;
         public static double OCEAN_ROOT;
         public static double OCEAN_VARIATION;
         public static double OCEAN_DEEP_ROOT;

@@ -51,7 +51,6 @@ import mariculture.core.handlers.VatHandler;
 import mariculture.core.handlers.WorldEventHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.items.ItemBattery;
 import mariculture.core.items.ItemBottle;
@@ -96,7 +95,6 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBase.Height;
-import net.minecraft.world.biome.BiomeGenOcean;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -159,13 +157,11 @@ public class Core extends RegistrationModule {
         FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
         FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
 
-        if (WorldGen.EXPERIMENTAL_OCEANS) {
-            WorldEventHandler worldGen = new WorldEventHandler();
-            MinecraftForge.EVENT_BUS.register(worldGen);
-            MinecraftForge.TERRAIN_GEN_BUS.register(worldGen);
-            BiomeGenBase.getBiomeGenArray()[BiomeGenBase.ocean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_ROOT, (float) WorldGen.OCEAN_VARIATION));
-            BiomeGenBase.getBiomeGenArray()[BiomeGenBase.deepOcean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_DEEP_ROOT, (float) WorldGen.OCEAN_DEEP_VARIATION));
-        }
+        WorldEventHandler worldGen = new WorldEventHandler();
+        MinecraftForge.EVENT_BUS.register(worldGen);
+        MinecraftForge.TERRAIN_GEN_BUS.register(worldGen);
+        BiomeGenBase.getBiomeGenArray()[BiomeGenBase.ocean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_ROOT, (float) WorldGen.OCEAN_VARIATION));
+        BiomeGenBase.getBiomeGenArray()[BiomeGenBase.deepOcean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_DEEP_ROOT, (float) WorldGen.OCEAN_DEEP_VARIATION));
 
         if (RetroGen.ENABLED) {
             MinecraftForge.EVENT_BUS.register(new RetroGeneration());
@@ -196,7 +192,7 @@ public class Core extends RegistrationModule {
     public void registerFluids() {
         Fluids.add("water", FluidRegistry.WATER, 1000);
         Fluids.add("lava", FluidRegistry.LAVA, 100);
-        
+
         // Normal Fluids
         addGas("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
         addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER, 250);
