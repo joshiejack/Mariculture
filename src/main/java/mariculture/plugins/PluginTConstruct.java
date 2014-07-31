@@ -1,20 +1,18 @@
 package mariculture.plugins;
 
-import static mariculture.core.lib.ItemLib.clay;
-import static mariculture.core.lib.ItemLib.limestone;
 import static mariculture.core.lib.ItemLib.stone;
 import static mariculture.core.util.Fluids.getFluidName;
 import static mariculture.core.util.Fluids.getFluidStack;
 import static tconstruct.library.crafting.FluidType.getFluidType;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
+import mariculture.core.blocks.BlockAir;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MetalMeta;
@@ -41,6 +39,7 @@ import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginTConstruct extends Plugin {
     @Override
@@ -72,6 +71,8 @@ public class PluginTConstruct extends Plugin {
         RecipesSmelting.addMetal(getFluidName("alumite"), "Alumite", 387, stack, 2);
         RecipesSmelting.addMetal(getFluidName("platinum"), "Platinum", 1768, stack, 2);
         RecipesSmelting.addMetal(getFluidName("invar"), "Invar", 1427, stack, 2);
+        Block torch = GameRegistry.findBlock("TConstruct", "decoration.stonetorch");
+        if (torch != null) BlockAir.flammables.add(torch);
     }
 
     @Override
