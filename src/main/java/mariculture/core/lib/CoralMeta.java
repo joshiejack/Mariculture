@@ -2,8 +2,8 @@ package mariculture.core.lib;
 
 public class CoralMeta {
     public static final int COUNT = 13;
-    public static final int KELP = 0;
-    public static final int KELP_MIDDLE = 1;
+    public static final int KELP_MIDDLE = 0;
+    public static final int KELP = 1;
     public static final int PINK = 2; // Pink Dye
     public static final int RED = 3; // Red Dye
     public static final int LIGHT_BLUE = 4; // Light Blue Dye
