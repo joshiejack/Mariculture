@@ -96,33 +96,6 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int colorMultiplier(IBlockAccess block, int x, int y, int z) {
-        if (block.getBlockMetadata(x, y, z) <= CoralMeta.KELP_MIDDLE) {
-            Block check = block.getBlock(x, 0, z);
-            int number = 3 * x * z;
-
-            number = number <= 0 ? -number : number;
-
-            if (number % 13 == 0) return 1900371;
-            else if (number % 12 == 0) return 1887059;
-            else if (number % 11 == 0) return 1860179;
-            else if (number % 10 == 0) return 2970947;
-            else if (number % 9 == 0) return 2986563;
-            else if (number % 8 == 0) return 2986594;
-            else if (number % 7 == 0) return 16777215;
-            else if (number % 6 == 0) return 6396257;
-            else if (number % 5 == 0) return 8431445;
-            else if (number % 4 == 0) return 4764952;
-            else if (number % 3 == 0) return 16777215;
-            else if (number % 2 == 0) return 7719028;
-            else return 5411426;
-        }
-
-        return 16777215;
-    }
-
     @Override
     public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
         return false;
