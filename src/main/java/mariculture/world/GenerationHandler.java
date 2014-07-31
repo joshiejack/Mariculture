@@ -34,12 +34,12 @@ public class GenerationHandler implements IWorldGenerator {
         if (!isBlacklisted(world.provider.dimensionId)) {
             try {
                 Salinity salinity = MaricultureHandlers.environment.getSalinity(world, chunkX * 16, chunkZ * 16);
-                if(salinity == Salinity.SALINE) {
+                if (salinity == Salinity.SALINE) {
                     generateAncientSand(world, random, chunkX * 16, chunkZ * 16);
                     generateCoralReef(world, random, chunkX * 16, chunkZ * 16);
                 }
-                                
-                if(salinity != Salinity.FRESH) {
+
+                if (salinity != Salinity.FRESH) {
                     generateKelpPlants(world, random, chunkX * 16, chunkZ * 16);
                 }
             } catch (Exception e) {}
@@ -74,11 +74,11 @@ public class GenerationHandler implements IWorldGenerator {
         }
     }
 
-    public static void generateKelpPlants(World world, Random rand, int x, int z) {        
+    public static void generateKelpPlants(World world, Random rand, int x, int z) {
         int k = x + rand.nextInt(16) + 8;
         int l = z + rand.nextInt(16) + 8;
         int i1 = rand.nextInt(world.getHeightValue(k, l) * 2);
-                
+
         GenerationHandler.kelpGenerator.generate(world, rand, k, i1, l);
     }
 }

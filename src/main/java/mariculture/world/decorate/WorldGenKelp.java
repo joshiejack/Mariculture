@@ -50,7 +50,7 @@ public class WorldGenKelp extends WorldGenerator {
                 boolean set = false;
                 for (int i = 0; j1 + i < j1 + rand.nextInt(genForest ? 5 : 2); j1++) {
                     if (BlockHelper.isWater(world, i1, j1 + 2, k1)) {
-                        if(set == false) set =  world.setBlock(i1, j1 + 1, k1, WorldPlus.plantStatic);
+                        if (set == false) set = world.setBlock(i1, j1 + 1, k1, WorldPlus.plantStatic);
                         else world.setBlock(i1, j1 + 1, k1, WorldPlus.plantStatic);
                     } else {
                         break;

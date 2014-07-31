@@ -166,7 +166,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
     /** End Block Data, Begin Functional Methods **/
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             int meta = world.getBlockMetadata(x, y, z);
             if (Gardening.KELP_GROWTH_ENABLED && meta == CoralMeta.KELP) {
                 updateKelp(world, x, y, z, rand);
@@ -210,11 +210,11 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
                 int randX = x + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
                 int randY = y + rand.nextInt(3) - 1;
                 int randZ = z + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
-                if (world.getBlock(randX, randY, randZ) == WorldPlus.plantGrowable) {                    
+                if (world.getBlock(randX, randY, randZ) == WorldPlus.plantGrowable) {
                     int thisMeta = world.getBlockMetadata(x, y, z);
                     int thatMeta = world.getBlockMetadata(randX, randY, randZ);
                     int newMeta = getNewColor(thisMeta, thatMeta);
-                    
+
                     randX = x + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
                     randY = y + rand.nextInt(3) - 1;
                     randZ = z + 1 + rand.nextInt(4) - 2 - rand.nextInt(2);
@@ -247,7 +247,7 @@ public class BlockCoral extends BlockDecorative implements IPlantable, IHasMeta 
         if (values == null) {
             values = outcomes.get("" + thatMeta + "|" + thisMeta);
         }
-        
+
         if (Rand.nextInt(2)) return thisMeta;
         if (Rand.nextInt(2)) return thatMeta;
         if (values != null) return values[Rand.rand.nextInt(values.length)];
