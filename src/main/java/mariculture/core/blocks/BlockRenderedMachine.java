@@ -27,7 +27,6 @@ import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.tile.TileFLUDDStand;
 import mariculture.factory.tile.TileGeyser;
 import mariculture.fishery.tile.TileFeeder;
-import mariculture.fishery.tile.TileHatchery;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -55,7 +54,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public String getToolType(int meta) {
-        return meta == MachineRenderedMeta.FISH_FEEDER || meta == MachineRenderedMeta.HATCHERY ? null : "pickaxe";
+        return meta == MachineRenderedMeta.FISH_FEEDER ? null : "pickaxe";
     }
 
     @Override
@@ -89,8 +88,6 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return 1.5F;
             case MachineRenderedMeta.ANVIL:
                 return 25F;
-            case MachineRenderedMeta.HATCHERY:
-                return 1.5F;
             default:
                 return 1.5F;
         }
@@ -335,8 +332,6 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return new TileBlockCaster();
             case MachineRenderedMeta.NUGGET_CASTER:
                 return new TileNuggetCaster();
-            case MachineRenderedMeta.HATCHERY:
-                return new TileHatchery();
             default:
                 return new TileAnvil();
         }
@@ -360,11 +355,10 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.FLUDD_STAND:
                 return false;
-            case MachineRenderedMeta.HATCHERY:
-                return Modules.isActive(Modules.fishery);
             case MachineRenderedMeta.REMOVED_1:
             case MachineRenderedMeta.REMOVED_2:
             case MachineRenderedMeta.REMOVED_3:
+            case MachineRenderedMeta.REMOVED_4:
                 return false;
             default:
                 return true;
@@ -375,8 +369,6 @@ public class BlockRenderedMachine extends BlockFunctional {
     public boolean isValidTab(CreativeTabs tab, int meta) {
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
-                return tab == MaricultureTab.tabFishery;
-            case MachineRenderedMeta.HATCHERY:
                 return tab == MaricultureTab.tabFishery;
             default:
                 return tab == MaricultureTab.tabFactory;

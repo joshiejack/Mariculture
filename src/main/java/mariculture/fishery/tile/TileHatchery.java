@@ -2,29 +2,34 @@ package mariculture.fishery.tile;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IIncubator;
+import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.MachineSpeeds;
+import mariculture.core.network.PacketHandler;
+import mariculture.core.network.PacketSplash;
 import mariculture.core.tile.base.TileStorage;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileHatchery extends TileStorage implements ISidedInventory, IIncubator {
     protected static final int MAX = MachineSpeeds.getHatcherySpeed();
 
     public static final int[] IN = new int[] { 0 };
-    public static final int[] OUT = new int[] { 1 };
+    public static final int[] OUT = new int[] { 1, 2 };
 
     private boolean isInit = false;
     private boolean canWork;
     private int processed;
 
     public TileHatchery() {
-        inventory = new ItemStack[2];
+        inventory = new ItemStack[3];
     }
 
     @Override
     public void onInventoryChange(int slot) {
         updateCanWork();
+        PacketHandler.syncInventory(this, getInventory());
     }
 
     @Override
@@ -39,7 +44,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
 
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side) {
-        return side == ForgeDirection.DOWN.ordinal();
+        return side == ForgeDirection.DOWN.ordinal() && slot > 0;
     }
 
     @Override
@@ -52,7 +57,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     }
 
     private void updateCanWork() {
-        canWork = Fishing.fishHelper.isEgg(inventory[0]) && inventory[1] == null;
+        canWork = inventory[0] != null && Fishing.fishHelper.isEgg(inventory[0]) && (inventory[1] == null || inventory[2] == null);
     }
 
     @Override
@@ -64,6 +69,9 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
             }
 
             if (canWork) {
+                if(onTick(20)) {
+                    PacketHandler.sendAround(new PacketSplash(xCoord, yCoord - 0.05, zCoord), this);
+                }
                 processed++;
                 if (processed >= MAX) {
                     inventory[0] = Fishing.fishHelper.attemptToHatchEgg(inventory[0], worldObj.rand, 1.0D, this);
@@ -76,6 +84,10 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
         }
     }
 
+    public ItemStack[] getInventory() {
+        return inventory;
+    }
+
     @Override
     public int getBirthChanceBoost() {
         return 0;
@@ -83,6 +95,20 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
 
     @Override
     public void eject(ItemStack fish) {
-        setInventorySlotContents(1, fish);
+        if (inventory[1] == null) setInventorySlotContents(1, fish);
+        else if (inventory[2] == null) setInventorySlotContents(2, fish);
+        else SpawnItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, fish);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        canWork = nbt.getBoolean("CanWork");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setBoolean("CanWork", canWork);
     }
 }

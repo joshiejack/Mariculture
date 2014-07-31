@@ -19,6 +19,7 @@ import mariculture.core.tile.TileTankBlock;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.factory.tile.TileDictionaryFluid;
 import mariculture.fishery.tile.TileFishTank;
+import mariculture.fishery.tile.TileHatchery;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -70,6 +71,7 @@ public class BlockTank extends BlockConnected {
             case TankMeta.FISH:
                 return 1.0F;
             case TankMeta.DIC:
+            case TankMeta.HATCHERY:
                 return 1.5F;
             default:
                 return 1.0F;
@@ -118,6 +120,38 @@ public class BlockTank extends BlockConnected {
             }
         }
 
+        if (tile instanceof TileHatchery) {
+            TileHatchery hatchery = (TileHatchery) tile;
+            if (hatchery.getStackInSlot(0) != null && player.isSneaking()) {
+                if (!world.isRemote) {
+                    PacketHandler.syncInventory(hatchery, hatchery.getInventory());
+                }
+
+                SpawnItemHelper.addToPlayerInventory(player, world, x, y + 1, z, hatchery.getStackInSlot(0));
+                hatchery.setInventorySlotContents(0, null);
+            } else if (player.getCurrentEquippedItem() != null && hatchery.getStackInSlot(0) == null) {
+                ItemStack stack = player.getCurrentEquippedItem().copy();
+                stack.stackSize = 1;
+                hatchery.setInventorySlotContents(0, stack);
+                if (!player.capabilities.isCreativeMode) {
+                    player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                }
+            } else {
+                for (int i = 1; i < hatchery.getInventory().length; i++) {
+                    if (hatchery.getStackInSlot(i) != null) {
+                        if (!world.isRemote) {
+                            PacketHandler.syncInventory(hatchery, hatchery.getInventory());
+                        }
+
+                        SpawnItemHelper.addToPlayerInventory(player, world, x, y + 1, z, hatchery.getStackInSlot(i));
+                        hatchery.setInventorySlotContents(i, null);
+                    }
+                }
+            }
+
+            return true;
+        }
+
         return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
     }
 
@@ -137,6 +171,8 @@ public class BlockTank extends BlockConnected {
                 return new TileFishTank();
             case TankMeta.DIC:
                 return new TileDictionaryFluid();
+            case TankMeta.HATCHERY:
+                return new TileHatchery();
             default:
                 return null;
         }
@@ -266,14 +302,23 @@ public class BlockTank extends BlockConnected {
 
     @Override
     public boolean isActive(int meta) {
-        if (meta == TankMeta.FISH) return Modules.isActive(Modules.fishery);
-        if (meta == TankMeta.DIC) return false;
-        return meta != TankMeta.BOTTLE;
+        switch (meta) {
+            case TankMeta.BOTTLE:
+                return false;
+            case TankMeta.FISH:
+            case TankMeta.HATCHERY:
+                return Modules.isActive(Modules.fishery);
+            case TankMeta.DIC:
+                return false;
+            default:
+                return true;
+        }
     }
 
     @Override
     public boolean isValidTab(CreativeTabs tab, int meta) {
         switch (meta) {
+            case TankMeta.HATCHERY:
             case TankMeta.FISH:
                 return tab == MaricultureTab.tabFishery;
             default:

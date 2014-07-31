@@ -31,6 +31,8 @@ public class BlockTankItem extends ItemBlockMariculture {
                 return "bottle";
             case TankMeta.DIC:
                 return "fluidtionary";
+            case TankMeta.HATCHERY:
+                return "hatchery";
             default:
                 return "tank";
         }

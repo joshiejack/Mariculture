@@ -3,7 +3,7 @@ package mariculture.core.lib;
 public class MachineRenderedMeta {
     public static final int COUNT = 12;
     public static final int AIR_PUMP = 0;
-    public static final int HATCHERY = 1;
+    public static final int REMOVED_4 = 1;
     public static final int FISH_FEEDER = 2;
     public static final int GEYSER = 3;
     public static final int FLUDD_STAND = 4;
