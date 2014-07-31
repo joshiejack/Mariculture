@@ -15,8 +15,8 @@ public class BiomeGenSandyBeach extends BiomeGenBeach {
     public BiomeGenSandyBeach(int id) {
         super(id);
 
-        theBiomeDecorator.sandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, 7);
-        theBiomeDecorator.gravelAsSandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, 6);
+        theBiomeDecorator.sandGen = new WorldGenAncientSand();
+        theBiomeDecorator.gravelAsSandGen = new WorldGenAncientSand();
         theBiomeDecorator.deadBushPerChunk = 1;
         theBiomeDecorator.reedsPerChunk = 1;
     }

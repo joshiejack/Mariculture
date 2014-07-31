@@ -18,8 +18,8 @@ import cpw.mods.fml.common.IWorldGenerator;
 
 public class GenerationHandler implements IWorldGenerator {
     public static WorldGenReef coralGenerator = new WorldGenReef();
-    public static WorldGenKelp kelpGenerator = new WorldGenKelp(WorldPlus.plantStatic, CoralMeta.KELP_MIDDLE);
-    public static WorldGenAncientSand sandGen = new WorldGenAncientSand(Core.sands, GroundMeta.ANCIENT, WorldGen.ANCIENT_SAND_SIZE);
+    public static WorldGenKelp kelpGenerator = new WorldGenKelp();
+    public static WorldGenAncientSand sandGen = new WorldGenAncientSand();
 
     public static boolean isBlacklisted(int i) {
         for (int j : WorldGen.OCEAN_BLACKLIST) {
@@ -38,7 +38,7 @@ public class GenerationHandler implements IWorldGenerator {
                     generateAncientSand(world, random, chunkX * 16, chunkZ * 16);
                     generateCoralReef(world, random, chunkX * 16, chunkZ * 16);
                 }
-                
+                                
                 if(salinity != Salinity.FRESH) {
                     generateKelpPlants(world, random, chunkX * 16, chunkZ * 16);
                 }
@@ -74,10 +74,11 @@ public class GenerationHandler implements IWorldGenerator {
         }
     }
 
-    public static void generateKelpPlants(World world, Random rand, int x, int z) {
+    public static void generateKelpPlants(World world, Random rand, int x, int z) {        
         int k = x + rand.nextInt(16) + 8;
         int l = z + rand.nextInt(16) + 8;
         int i1 = rand.nextInt(world.getHeightValue(k, l) * 2);
+                
         GenerationHandler.kelpGenerator.generate(world, rand, k, i1, l);
     }
 }
