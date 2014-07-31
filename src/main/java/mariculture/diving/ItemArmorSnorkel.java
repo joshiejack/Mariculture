@@ -32,6 +32,11 @@ public class ItemArmorSnorkel extends ItemArmor implements IItemRegistry, IDisab
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armorSlot) {
         return stack.getItem() == Diving.lifejacket? new ModelLifejacket(): null;
     }
+    
+    @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
 
     @Override
     public int getMetaCount() {

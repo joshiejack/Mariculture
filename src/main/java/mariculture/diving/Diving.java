@@ -49,7 +49,7 @@ public class Diving extends RegistrationModule {
 
     @Override
     public void registerHandlers() {
-        MinecraftForge.EVENT_BUS.register(new ArmorEventHandler());
+        MinecraftForge.EVENT_BUS.register(new DivingEventHandler());
         if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             MinecraftForge.EVENT_BUS.register(new ArmorClientHandler());
         }

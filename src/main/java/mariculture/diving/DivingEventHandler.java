@@ -7,12 +7,15 @@ import mariculture.core.lib.ArmorSlot;
 import mariculture.core.lib.WaterMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class ArmorEventHandler {
+public class DivingEventHandler {
     private int tick;
     private static UnderwaterVision vision;
 
@@ -65,6 +68,21 @@ public class ArmorEventHandler {
                     event.newSpeed = event.originalSpeed * 64;
                 }
             }
+        }
+    }
+
+    private boolean isAllowed(ItemStack stack, ItemStack stack2) {
+        if (stack != null && stack.getItem() == Diving.snorkel) {
+            return stack2 == null || stack.getItem() != Items.enchanted_book;
+        }
+
+        return true;
+    }
+
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        if (!isAllowed(event.left, event.right) || !isAllowed(event.right, event.left)) {
+            event.setCanceled(true);
         }
     }
 }
