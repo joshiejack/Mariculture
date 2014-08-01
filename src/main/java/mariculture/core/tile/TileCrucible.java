@@ -313,7 +313,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
             if (OreDicHelper.isInDictionary(stack)) {
                 String name = OreDicHelper.getDictionaryName(stack);
                 if (name.startsWith("ore")) {
-                    amount += purity * MetalRates.NUGGET * MachineSettings.PURITY;
+                    amount += (purity * MachineSettings.PURITY);
                 }
             }
         }
@@ -362,7 +362,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     public int getFluidAmount(String name, int amount) {
         if (name.startsWith("ore")) {
-            amount += purity * MetalRates.NUGGET * MachineSettings.PURITY;
+            amount += (purity * MachineSettings.PURITY);
         }
 
         return amount;
