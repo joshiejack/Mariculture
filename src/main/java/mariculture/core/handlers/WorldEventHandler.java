@@ -30,10 +30,18 @@ public class WorldEventHandler {
     private static double[] noiseValue = new double[256];
     private static NoiseGeneratorPerlin noiseGenerator = null;
 
+    public static boolean isBlacklisted(int i) {
+        for (int j : WorldGen.OCEAN_BLACKLIST) {
+            if (i == j) return true;
+        }
+
+        return false;
+    }
+
     //Core, Replacing Gravel with Sand and Limestone in Oceans
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onReplaceBiomeBlocks(ReplaceBiomeBlocks event) {
-        if (event.metaArray == null || event.world == null) return;
+        if (event.metaArray == null || event.world == null || isBlacklisted(event.world.provider.dimensionId)) return;
         else {
             if (noiseGenerator == null) noiseGenerator = new NoiseGeneratorPerlin(event.world.rand, 4);
             IChunkProvider chunkProvider = event.world.getChunkProvider();
@@ -133,7 +141,7 @@ public class WorldEventHandler {
                         } else if (k > 0) {
                             --k;
 
-                            int chance = biome instanceof BiomeGenRiver? OreGen.RUTILE_SPAWN_CHANCE / 2: OreGen.RUTILE_SPAWN_CHANCE;
+                            int chance = biome instanceof BiomeGenRiver ? OreGen.RUTILE_SPAWN_CHANCE / 2 : OreGen.RUTILE_SPAWN_CHANCE;
                             if (block1 == seabed && OreGen.RUTILE_ON && world.rand.nextInt(chance) == 0) {
                                 blocksArray[i2] = Core.rocks;
                                 metaArray[i2] = RockMeta.RUTILE;

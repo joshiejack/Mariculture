@@ -8,6 +8,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.config.WorldGeneration.OreGen;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.handlers.WorldEventHandler;
 import mariculture.core.handlers.WorldGenHandler;
 import mariculture.core.lib.Modules;
 import mariculture.world.GenerationHandler;
@@ -37,7 +38,7 @@ public class RetroGeneration {
 
     @SubscribeEvent
     public void onChunk(ChunkEvent.Load event) {
-        if (GenerationHandler.isBlacklisted(event.world.provider.dimensionId)) return;
+        if (WorldEventHandler.isBlacklisted(event.world.provider.dimensionId)) return;
 
         if (!event.world.isRemote) {
             Chunk chunk = event.getChunk();
