@@ -74,9 +74,7 @@ public class WorldGeneration {
         RetroGen.CORALREEF = getBoolean("Coral Reef", false);
         RetroGen.GAS = getBoolean("Natural Gas", false);
         RetroGen.KELP = getBoolean("Kelp Forest", false);
-        RetroGen.LIMESTONE = getBoolean("Limestone", false);
         RetroGen.OYSTER = getBoolean("Oysters", false);
-        RetroGen.RUTILE = getBoolean("Rutile", false);
         RetroGen.ANCIENT = getBoolean("Ancient Sand", false);
     }
 
@@ -140,8 +138,6 @@ public class WorldGeneration {
         public static int KEY;
         public static boolean ALL;
         public static boolean BAUXITE;
-        public static boolean LIMESTONE;
-        public static boolean RUTILE;
         public static boolean COPPER;
         public static boolean OYSTER;
         public static boolean GAS;
