@@ -9,13 +9,23 @@ public class TileRotor extends TileEntity {
     private boolean isBuilt = false;
     private boolean northSouth;
     public int energyStored;
-    public double tier;
     public CachedCoords master;
+    
+    //Set by the Rotor
+    public final String block;
+    public final double tier;
 
-    public TileRotor() {}
-
-    public TileRotor(double d) {
-        this.tier = (byte) d;
+    public TileRotor() {
+        block = getBlock();
+        tier = getTier();
+    }
+    
+    protected String getBlock() {
+        return "plankWood";
+    }
+    
+    protected double getTier() {
+        return 0.5D;
     }
 
     public void setMaster(CachedCoords master) {
@@ -49,6 +59,10 @@ public class TileRotor extends TileEntity {
         }
     }
 
+    public void updateIsBuilt() {
+
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
@@ -61,7 +75,6 @@ public class TileRotor extends TileEntity {
 
         northSouth = nbt.getBoolean("Orientation");
         energyStored = nbt.getInteger("Stored");
-        tier = nbt.getDouble("Tier");
     }
 
     @Override
@@ -76,6 +89,5 @@ public class TileRotor extends TileEntity {
 
         nbt.setBoolean("Orientation", northSouth);
         nbt.setInteger("Stored", energyStored);
-        nbt.setDouble("Tier", tier);
     }
 }

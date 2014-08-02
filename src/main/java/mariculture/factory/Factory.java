@@ -74,6 +74,9 @@ import mariculture.factory.tile.TileGenerator;
 import mariculture.factory.tile.TileGeyser;
 import mariculture.factory.tile.TilePressureVessel;
 import mariculture.factory.tile.TileRotor;
+import mariculture.factory.tile.TileRotorAluminum;
+import mariculture.factory.tile.TileRotorCopper;
+import mariculture.factory.tile.TileRotorTitanium;
 import mariculture.factory.tile.TileSawmill;
 import mariculture.factory.tile.TileSluice;
 import mariculture.factory.tile.TileSluiceAdvanced;
@@ -130,7 +133,7 @@ public class Factory extends RegistrationModule {
         RegistryHelper.registerBlocks(new Block[] { customFlooring, customBlock, customStairs, customSlabs, customFence, customGate, customWall, customLight, customRFBlock, customSlabsDouble });
         RegistryHelper.registerTiles(new Class[] { TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileFLUDDStand.class, TilePressureVessel.class, 
                 TileDictionaryItem.class, TileSponge.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class, 
-                TileSluiceAdvanced.class, TileGenerator.class, TileRotor.class });
+                TileSluiceAdvanced.class, TileGenerator.class, TileRotor.class, TileRotorCopper.class, TileRotorAluminum.class, TileRotorTitanium.class });
     }
 
     @Override

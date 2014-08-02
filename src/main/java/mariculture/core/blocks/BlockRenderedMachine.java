@@ -28,6 +28,9 @@ import mariculture.factory.tile.TileFLUDDStand;
 import mariculture.factory.tile.TileGenerator;
 import mariculture.factory.tile.TileGeyser;
 import mariculture.factory.tile.TileRotor;
+import mariculture.factory.tile.TileRotorAluminum;
+import mariculture.factory.tile.TileRotorCopper;
+import mariculture.factory.tile.TileRotorTitanium;
 import mariculture.fishery.tile.TileFeeder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -366,13 +369,13 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.NUGGET_CASTER:
                 return new TileNuggetCaster();
             case MachineRenderedMeta.ROTOR_WOOD:
-                return new TileRotor(0.5D);
+                return new TileRotor();
             case MachineRenderedMeta.ROTOR_COPPER:
-                return new TileRotor(1D);
+                return new TileRotorCopper();
             case MachineRenderedMeta.ROTOR_ALUMINUM:
-                return new TileRotor(2D);
+                return new TileRotorAluminum();
             case MachineRenderedMeta.ROTOR_TITANIUM:
-                return new TileRotor(4D);
+                return new TileRotorTitanium();
             default:
                 return new TileAnvil();
         }
