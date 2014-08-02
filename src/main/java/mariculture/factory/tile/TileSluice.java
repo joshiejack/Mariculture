@@ -158,8 +158,10 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         }
     }
 
-    public boolean isRotor(World world, int x, int y, int z) {
-        return world.getTileEntity(x, y, z) instanceof TileRotor;
+    public boolean isValid(World world, int x, int y, int z) {
+        if(world.getBlock(x, y, z) == Fluids.getFluidBlock("hp_water")) {
+            return true;
+        } else return false;
     }
 
     public int getEnergyGenerated(int distance) {
@@ -183,8 +185,8 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 
         if (height > 0) {
             int distance;
-            for (distance = 0; !isRotor(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
-            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));
+            for (distance = 0; isValid(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
+            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * (distance + 1)), yCoord, zCoord + (orientation.offsetZ * (distance + 1)));
             if (tile instanceof TileRotor) {
                 ((TileRotor) tile).addEnergy(getEnergyGenerated(distance));
             }
