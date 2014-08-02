@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 
 /* This block does nothing, except animation */
 public class TileRotor extends TileEntity {
+    private boolean isBuilt = false;
     private boolean northSouth;
     public int energyStored;
     public double tier;
@@ -29,6 +30,10 @@ public class TileRotor extends TileEntity {
         int ret = energyStored;
         energyStored = 0;
         return ret;
+    }
+
+    public boolean isBuilt() {
+        return isBuilt;
     }
 
     public TileEntity getMasterFromCoords(CachedCoords cord) {

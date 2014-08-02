@@ -263,12 +263,13 @@ tile.machines.single.fishSorter.name=Fish Sorter
 tile.machines.single.sponge.name=Mechanized Sponge
 tile.machines.single.dictionary.name=Auto-Dictionary
 tile.machines.single.unpacker.name=Unpacker
+tile.machines.single.generator.name=Generator
 tile.machines.single.rendered.fludd.name=F.L.U.D.D.
 tile.machines.single.rendered.geyser.name=Water Geyser
 tile.machines.single.rendered.rotorWood.name=Wooden Wheel
 tile.machines.single.rendered.rotorCopper.name=Copper Rotor
 tile.machines.single.rendered.rotorAluminum.name=Aluminum Rotor
-tile.machines.single.rendered.rotorTitanium.name=TitaniumRotor
+tile.machines.single.rendered.rotorTitanium.name=Titanium Rotor
 tile.tanks.fluidtionary.name=Fluid Auto-Dictionary
 #customblocks
 tile.customFence.customFence=Custom Fence
