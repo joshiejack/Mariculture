@@ -29,6 +29,14 @@ public class BlockRenderedMachineItem extends ItemBlockMariculture {
                 return "blockCaster";
             case MachineRenderedMeta.NUGGET_CASTER:
                 return "nuggetCaster";
+            case MachineRenderedMeta.ROTOR_WOOD:
+                return "rotorWood";
+            case MachineRenderedMeta.ROTOR_COPPER:
+                return "rotorCopper";
+            case MachineRenderedMeta.ROTOR_ALUMINUM:
+                return "rotorAluminum";
+            case MachineRenderedMeta.ROTOR_TITANIUM:
+                return "rotorTitanium";
             default:
                 return "renderedBlocks";
         }
