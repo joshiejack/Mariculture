@@ -18,7 +18,7 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
     private static final int MAX_TRANSFER = 5000;
     private static final int MAX_STORED = 500000;
 
-    private boolean isInit;
+    private boolean isInit = false;
     private int energyStored;
     public ForgeDirection orientation = ForgeDirection.NORTH;
 
@@ -70,26 +70,25 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
             }
         }
 
-        if (onTick(1)) {
-            if (energyStored >= 0) {
-                //Take the power inside of me and pass it to all 'sides'
-                for (Integer i : BlockTransferHelper.getSides()) {
-                    ForgeDirection dir = ForgeDirection.values()[i];
-                    //Don't output the front or back of the generator, any other side is valid
-                    if (orientation != null) {
-                        if (dir != orientation && dir != orientation.getOpposite()) {
-                            TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
-                            if (tile instanceof IEnergyHandler && energyStored > 0) {
-                                if (((IEnergyHandler) tile).canConnectEnergy(dir.getOpposite())) {
-                                    int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energyStored, MAX_TRANSFER), false);
-                                    energyStored -= (Math.min(energyStored, MAX_TRANSFER));
-                                }
+        if (energyStored >= 0) {
+            //Take the power inside of me and pass it to all 'sides'
+            for (Integer i : BlockTransferHelper.getSides()) {
+                ForgeDirection dir = ForgeDirection.values()[i];
+                //Don't output the front or back of the generator, any other side is valid
+                if (orientation != null) {
+                    if (dir != orientation && dir != orientation.getOpposite()) {
+                        TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
+                        if (tile instanceof IEnergyHandler && energyStored > 0) {
+                            if (((IEnergyHandler) tile).canConnectEnergy(dir.getOpposite())) {
+                                int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energyStored, MAX_TRANSFER), false);
+                                energyStored -= (Math.min(energyStored, MAX_TRANSFER));
                             }
                         }
                     }
                 }
-            } else energyStored = 0;
-        }
+            }
+        } else energyStored = 0;
+
     }
 
     @Override

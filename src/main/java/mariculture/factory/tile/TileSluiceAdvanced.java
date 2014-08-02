@@ -41,7 +41,7 @@ public class TileSluiceAdvanced extends TileSluice {
 
     @Override
     public int getEnergyGenerated(int distance) {
-        return (int) (super.getEnergyGenerated(distance) * 2.5);
+        return (int) (super.getEnergyGenerated(distance) * 4);
     }
 
     private void addToList(int x, int y, int z) {

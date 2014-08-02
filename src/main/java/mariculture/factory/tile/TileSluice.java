@@ -163,7 +163,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     }
 
     public int getEnergyGenerated(int distance) {
-        return height * distance;
+        return height * distance * 2;
     }
 
     public void generateHPWater() {
