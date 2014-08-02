@@ -11,6 +11,7 @@ import mariculture.core.lib.WoodMeta;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSponge;
 import mariculture.core.tile.TileBookshelf;
+import mariculture.core.util.IFaceable;
 import mariculture.factory.tile.TileDictionaryItem;
 import mariculture.factory.tile.TileFishSorter;
 import mariculture.factory.tile.TileGenerator;
@@ -160,10 +161,10 @@ public class BlockMachine extends BlockFunctional {
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
         TileEntity tile = world.getTileEntity(x, y, z);
         int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
-        if (tile != null) if (tile instanceof TileSluice) {
-            TileSluice sluice = (TileSluice) tile;
-            sluice.orientation = ForgeDirection.getOrientation(facing);
-            PacketHandler.updateOrientation(sluice);
+        if (tile instanceof IFaceable) {
+            IFaceable face = (IFaceable) tile;
+            face.setFacing(ForgeDirection.getOrientation(facing));
+            PacketHandler.updateOrientation(face, x, y, z, world.provider.dimensionId);
         }
     }
 

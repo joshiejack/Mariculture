@@ -1,7 +1,6 @@
 package mariculture.factory.tile;
 
 import mariculture.api.core.IBlacklisted;
-import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
@@ -159,6 +158,10 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         }
     }
 
+    public boolean isRotor(World world, int x, int y, int z) {
+        return world.getTileEntity(x, y, z) instanceof TileRotor;
+    }
+
     public void generateHPWater() {
         int x = xCoord + orientation.offsetX;
         int z = zCoord + orientation.offsetZ;
@@ -172,6 +175,13 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 
         if (BlockHelper.isHPWater(worldObj, x, yCoord, z)) {
             for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
+        }
+
+        int i;
+        for (i = 0; !isRotor(worldObj, xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i)) && i < 16; i++) {}
+        TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i));
+        if (tile instanceof TileRotor) {
+            ((TileRotor) tile).energyStored += height;
         }
     }
 

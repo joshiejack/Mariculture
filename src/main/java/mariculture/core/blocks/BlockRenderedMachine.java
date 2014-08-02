@@ -2,6 +2,7 @@ package mariculture.core.blocks;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.helpers.DirectionHelper;
@@ -24,8 +25,11 @@ import mariculture.core.util.Fluids;
 import mariculture.factory.Factory;
 import mariculture.factory.items.ItemArmorFLUDD;
 import mariculture.factory.tile.TileFLUDDStand;
+import mariculture.factory.tile.TileGenerator;
 import mariculture.factory.tile.TileGeyser;
+import mariculture.factory.tile.TileRotor;
 import mariculture.fishery.tile.TileFeeder;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -59,10 +63,15 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public int getToolLevel(int meta) {
         switch (meta) {
+            case MachineRenderedMeta.ROTOR_WOOD:
+                return 0;
             case MachineRenderedMeta.AIR_PUMP:
-                return 1;
             case MachineRenderedMeta.GEYSER:
+            case MachineRenderedMeta.ROTOR_COPPER:
+            case MachineRenderedMeta.ROTOR_ALUMINUM:
                 return 1;
+            case MachineRenderedMeta.ROTOR_TITANIUM:
+                return 2;
             default:
                 return 0;
         }
@@ -80,13 +89,19 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.GEYSER:
                 return 0.85F;
             case MachineRenderedMeta.INGOT_CASTER:
-                return 1.5F;
             case MachineRenderedMeta.BLOCK_CASTER:
-                return 1.5F;
             case MachineRenderedMeta.NUGGET_CASTER:
                 return 1.5F;
             case MachineRenderedMeta.ANVIL:
                 return 25F;
+            case MachineRenderedMeta.ROTOR_WOOD:
+                return 1.75F;
+            case MachineRenderedMeta.ROTOR_COPPER:
+                return 5F;
+            case MachineRenderedMeta.ROTOR_ALUMINUM:
+                return 6.5F;
+            case MachineRenderedMeta.ROTOR_TITANIUM:
+                return 15F;
             default:
                 return 1.5F;
         }
@@ -129,9 +144,11 @@ public class BlockRenderedMachine extends BlockFunctional {
             if (tile instanceof TileGeyser) {
                 ((TileGeyser) tile).setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
             }
+
             if (tile instanceof TileAirPump) {
                 ((TileAirPump) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
+
             if (tile instanceof TileAnvil) {
                 ((TileAnvil) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
@@ -294,8 +311,9 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public boolean doesDrop(int meta) {
-        if (meta == MachineRenderedMeta.FLUDD_STAND) return false;
-        return true;
+        if (meta == MachineRenderedMeta.FLUDD_STAND || meta == MachineRenderedMeta.ROTOR_WOOD) return false;
+        else if (meta >= MachineRenderedMeta.ROTOR_ALUMINUM && meta <= MachineRenderedMeta.ROTOR_TITANIUM) return false;
+        else return true;
     }
 
     @Override
@@ -309,9 +327,25 @@ public class BlockRenderedMachine extends BlockFunctional {
             SpawnItemHelper.spawnItem(world, x, y, z, fludd);
 
             return world.setBlockToAir(x, y, z);
+        } else if (tile instanceof TileRotor) {
+            CachedCoords cord = ((TileRotor) tile).master;
+            if (cord != null) {
+                world.setBlockToAir(x, y, z);
+                TileEntity gen = world.getTileEntity(cord.x, cord.y, cord.z);
+                if (gen instanceof TileGenerator) {
+                    ((TileGenerator) tile).reset();
+                }
+            } else return world.setBlockToAir(x, y, z);
         }
 
         return super.onBlockDropped(world, x, y, z);
+    }
+
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileRotor) {
+            ((TileRotor) tile).recheck();
+        }
     }
 
     @Override
@@ -331,6 +365,14 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return new TileBlockCaster();
             case MachineRenderedMeta.NUGGET_CASTER:
                 return new TileNuggetCaster();
+            case MachineRenderedMeta.ROTOR_WOOD:
+                return new TileRotor(0);
+            case MachineRenderedMeta.ROTOR_COPPER:
+                return new TileRotor(1);
+            case MachineRenderedMeta.ROTOR_ALUMINUM:
+                return new TileRotor(2);
+            case MachineRenderedMeta.ROTOR_TITANIUM:
+                return new TileRotor(3);
             default:
                 return new TileAnvil();
         }
@@ -350,14 +392,13 @@ public class BlockRenderedMachine extends BlockFunctional {
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
                 return Modules.isActive(Modules.fishery);
+            case MachineRenderedMeta.ROTOR_WOOD:
+            case MachineRenderedMeta.ROTOR_COPPER:
+            case MachineRenderedMeta.ROTOR_ALUMINUM:
+            case MachineRenderedMeta.ROTOR_TITANIUM:
             case MachineRenderedMeta.GEYSER:
                 return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.FLUDD_STAND:
-                return false;
-            case MachineRenderedMeta.REMOVED_1:
-            case MachineRenderedMeta.REMOVED_2:
-            case MachineRenderedMeta.REMOVED_3:
-            case MachineRenderedMeta.REMOVED_4:
                 return false;
             default:
                 return true;
@@ -385,7 +426,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         String name = prefix != null ? prefix : "";
         icons = new IIcon[getMetaCount() - 2];
         for (int i = 0; i < icons.length; i++) {
-            if ((i < MachineRenderedMeta.REMOVED_1 || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.REMOVED_4) {
+            if ((i < MachineRenderedMeta.ROTOR_TITANIUM || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.ROTOR_WOOD) {
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
             }
         }

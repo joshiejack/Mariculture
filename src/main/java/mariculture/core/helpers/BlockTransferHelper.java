@@ -23,12 +23,17 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class BlockTransferHelper {
-    public static List<Integer> sides;
+    private static List<Integer> sides;
     static {
         sides = new ArrayList<Integer>();
         for (int i = 0; i < 6; i++) {
             sides.add(i);
         }
+    }
+
+    public static List<Integer> getSides() {
+        Collections.shuffle(sides);
+        return sides;
     }
 
     public TileEntity thisTile;
@@ -68,8 +73,7 @@ public class BlockTransferHelper {
         }
 
         if (canEject) {
-            Collections.shuffle(sides);
-            for (Integer side : sides) {
+            for (Integer side : getSides()) {
                 ForgeDirection dir = ForgeDirection.getOrientation(side);
                 TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 
@@ -144,8 +148,8 @@ public class BlockTransferHelper {
             }
         }
 
-        if(stack != null) {
-            if(!(inventory instanceof IMachine)) return SpawnItemHelper.spawnItem(this, stack);
+        if (stack != null) {
+            if (!(inventory instanceof IMachine)) return SpawnItemHelper.spawnItem(this, stack);
             if (!InventoryHelper.addItemStackToInventory(((IMachine) inventory).getInventory(), stack, slots)) {
                 return SpawnItemHelper.spawnItem(this, stack);
             }

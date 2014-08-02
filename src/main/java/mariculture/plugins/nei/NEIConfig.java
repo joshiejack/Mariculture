@@ -103,10 +103,10 @@ public class NEIConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_4));
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_5));
         API.hideItem(new ItemStack(Core.limestone, 1, LimestoneMeta.PEDESTAL_6));
-        for(int i = MaterialsMeta.EMPTY_START; i <= MaterialsMeta.EMPTY_END; i++) {
+        for (int i = MaterialsMeta.EMPTY_START; i <= MaterialsMeta.EMPTY_END; i++) {
             API.hideItem(new ItemStack(Core.materials, 1, i));
         }
-        
+
         if (Modules.isActive(Modules.fishery)) {
             API.registerRecipeHandler(new NEIFishProductHandler());
             API.registerUsageHandler(new NEIFishProductHandler());
@@ -126,11 +126,6 @@ public class NEIConfig implements IConfigureNEI {
                 }
             }
         }
-        
-        //Hide Unusued Turbine Entries
-        API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_1));
-        API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_2));
-        API.hideItem(new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.REMOVED_3));
 
         API.registerRecipeHandler(new NEICrucibleRecipeHandler());
         API.registerUsageHandler(new NEICrucibleRecipeHandler());
