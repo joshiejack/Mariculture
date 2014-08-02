@@ -366,13 +366,13 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.NUGGET_CASTER:
                 return new TileNuggetCaster();
             case MachineRenderedMeta.ROTOR_WOOD:
-                return new TileRotor(0);
+                return new TileRotor(0.5D);
             case MachineRenderedMeta.ROTOR_COPPER:
-                return new TileRotor(1);
+                return new TileRotor(1D);
             case MachineRenderedMeta.ROTOR_ALUMINUM:
-                return new TileRotor(2);
+                return new TileRotor(2D);
             case MachineRenderedMeta.ROTOR_TITANIUM:
-                return new TileRotor(3);
+                return new TileRotor(4D);
             default:
                 return new TileAnvil();
         }

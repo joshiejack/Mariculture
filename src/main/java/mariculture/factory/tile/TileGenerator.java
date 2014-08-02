@@ -20,7 +20,7 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
 
     private boolean isInit;
     private int energyStored;
-    public ForgeDirection orientation;
+    public ForgeDirection orientation = ForgeDirection.NORTH;
 
     public static LinkedList<CachedCoords> cords;
 
@@ -34,10 +34,12 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
 
     public void reset() {
         cords = new LinkedList();
-        for (int i = 0; isRotor(worldObj, xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i)); i++) {
-            CachedCoords inates = new CachedCoords(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i));
-            cords.add(inates);
-            getRotorFromCoords(inates).setMaster(new CachedCoords(xCoord, yCoord, zCoord));
+        if (orientation != null) {
+            for (int i = 1; isRotor(worldObj, xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i)); i++) {
+                CachedCoords inates = new CachedCoords(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i));
+                cords.add(inates);
+                getRotorFromCoords(inates).setMaster(new CachedCoords(xCoord, yCoord, zCoord));
+            }
         }
     }
 
@@ -68,18 +70,20 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
             }
         }
 
-        if (onTick(5)) {
+        if (onTick(1)) {
             if (energyStored >= 0) {
                 //Take the power inside of me and pass it to all 'sides'
                 for (Integer i : BlockTransferHelper.getSides()) {
                     ForgeDirection dir = ForgeDirection.values()[i];
                     //Don't output the front or back of the generator, any other side is valid
-                    if (dir != orientation && dir != orientation.getOpposite()) {
-                        TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
-                        if (tile instanceof IEnergyHandler && energyStored > 0) {
-                            if (((IEnergyHandler) tile).canConnectEnergy(dir.getOpposite())) {
-                                int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energyStored, MAX_TRANSFER), false);
-                                energyStored -= (Math.min(energyStored, MAX_TRANSFER));
+                    if (orientation != null) {
+                        if (dir != orientation && dir != orientation.getOpposite()) {
+                            TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
+                            if (tile instanceof IEnergyHandler && energyStored > 0) {
+                                if (((IEnergyHandler) tile).canConnectEnergy(dir.getOpposite())) {
+                                    int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energyStored, MAX_TRANSFER), false);
+                                    energyStored -= (Math.min(energyStored, MAX_TRANSFER));
+                                }
                             }
                         }
                     }
@@ -101,7 +105,7 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
 
     @Override
     public void setFacing(ForgeDirection dir) {
-        orientation = dir;
+        orientation = dir.getOpposite();
         if (!worldObj.isRemote) {
             PacketHandler.updateOrientation(this);
         }

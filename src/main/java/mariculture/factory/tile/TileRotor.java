@@ -8,15 +8,21 @@ import net.minecraft.tileentity.TileEntity;
 public class TileRotor extends TileEntity {
     private boolean northSouth;
     public int energyStored;
-    private byte tier;
+    public double tier;
     public CachedCoords master;
 
-    public TileRotor(int tier) {
-        this.tier = (byte) tier;
+    public TileRotor() {}
+
+    public TileRotor(double d) {
+        this.tier = (byte) d;
     }
 
     public void setMaster(CachedCoords master) {
         this.master = master;
+    }
+
+    public void addEnergy(int i) {
+        this.energyStored += ((double) i * tier);
     }
 
     public int steal() {
@@ -50,7 +56,7 @@ public class TileRotor extends TileEntity {
 
         northSouth = nbt.getBoolean("Orientation");
         energyStored = nbt.getInteger("Stored");
-        tier = nbt.getByte("Tier");
+        tier = nbt.getDouble("Tier");
     }
 
     @Override
@@ -65,6 +71,6 @@ public class TileRotor extends TileEntity {
 
         nbt.setBoolean("Orientation", northSouth);
         nbt.setInteger("Stored", energyStored);
-        nbt.setByte("Tier", tier);
+        nbt.setDouble("Tier", tier);
     }
 }

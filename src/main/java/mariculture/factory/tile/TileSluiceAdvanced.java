@@ -39,6 +39,11 @@ public class TileSluiceAdvanced extends TileSluice {
         }
     }
 
+    @Override
+    public int getEnergyGenerated(int distance) {
+        return (int) (super.getEnergyGenerated(distance) * 2.5);
+    }
+
     private void addToList(int x, int y, int z) {
         CachedCoords coord = new CachedCoords(x, y, z);
         if (!todo.contains(coord)) todo.add(coord);
@@ -73,7 +78,7 @@ public class TileSluiceAdvanced extends TileSluice {
 
         if (isValid(worldObj, x, y, z, drain)) {
             addToList(x, y, z);
-            int loop = !drain? MachineSettings.ADVANCED_SLUICE_RADIUS/2: MachineSettings.ADVANCED_SLUICE_RADIUS;
+            int loop = !drain ? MachineSettings.ADVANCED_SLUICE_RADIUS / 2 : MachineSettings.ADVANCED_SLUICE_RADIUS;
             for (int j = 0; j < loop; j++) {
                 LinkedList<CachedCoords> temp = (LinkedList<CachedCoords>) todo.clone();
                 for (CachedCoords coord : temp) {
@@ -123,11 +128,11 @@ public class TileSluiceAdvanced extends TileSluice {
 
     @Override
     public void placeInTank() {
-        if(!MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN) {
+        if (!MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN) {
             super.placeInTank();
             return;
         }
-        
+
         TileEntity tile = mariculture.core.helpers.cofh.BlockHelper.getAdjacentTileEntity(this, orientation);
         if (tile != null && tile instanceof IFluidHandler) {
             CachedCoords cord = getNextCoordinates(true);

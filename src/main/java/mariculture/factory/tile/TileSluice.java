@@ -27,7 +27,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     public ForgeDirection orientation = ForgeDirection.UP;
-    private int height = 0;
+    protected int height = 0;
 
     public TileSluice() {
         tank = new Tank(10000);
@@ -162,6 +162,10 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         return world.getTileEntity(x, y, z) instanceof TileRotor;
     }
 
+    public int getEnergyGenerated(int distance) {
+        return height * distance;
+    }
+
     public void generateHPWater() {
         int x = xCoord + orientation.offsetX;
         int z = zCoord + orientation.offsetZ;
@@ -177,11 +181,13 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
             for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
         }
 
-        int i;
-        for (i = 0; !isRotor(worldObj, xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i)) && i < 16; i++) {}
-        TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i));
-        if (tile instanceof TileRotor) {
-            ((TileRotor) tile).energyStored += height;
+        if (height > 0) {
+            int distance;
+            for (distance = 0; !isRotor(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
+            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));
+            if (tile instanceof TileRotor) {
+                ((TileRotor) tile).addEnergy(getEnergyGenerated(distance));
+            }
         }
     }
 
