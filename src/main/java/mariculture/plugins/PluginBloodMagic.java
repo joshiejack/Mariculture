@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
+import WayofTime.alchemicalWizardry.common.items.BoundArmour;
 
 public class PluginBloodMagic extends Plugin {
     public PluginBloodMagic(String name) {
@@ -84,7 +85,11 @@ public class PluginBloodMagic extends Plugin {
             addLoot(getUndamaged("imbuedSlate"), JUNK, 75);
             addLoot(getUndamaged("enhancedFillingAgent"), GOOD, 75);
             addLoot(getUndamaged("itemKeyOfDiablo"), GOOD, 75);
-            addLoot(getUndamaged("boundBoots"), GOOD, 200);
+
+            ItemStack loot = getUndamaged("boundBoots");
+            BoundArmour boots = (BoundArmour) loot.getItem();
+            boots.saveInternalInventory(loot, new ItemStack[9]);
+            addLoot(loot, GOOD, 200);
 
             // Rituals
             Rituals.ritualList.add(new Rituals(1, 50000, new RitualOfTheBloodRiver(), Text.translate("ritual")));

@@ -1,5 +1,7 @@
 package mariculture.plugins;
 
+import java.util.Random;
+
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.RodType.RodTypeFlux;
@@ -7,7 +9,9 @@ import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.Modules;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class PluginRedstoneArsenal extends Plugin {
     public static RodType INFUSED;
@@ -47,6 +51,20 @@ public class PluginRedstoneArsenal extends Plugin {
         @Override
         public boolean canUseBaitManually() {
             return false;
+        }
+        
+        @Override
+        public ItemStack damage(World world, EntityPlayer player, ItemStack stack, int fish, Random rand) {
+            if (stack.stackTagCompound == null || !stack.stackTagCompound.hasKey("Energy")) return stack;
+
+            if (stack.stackTagCompound.getInteger("Energy") <= 0) return stack;
+
+            int energy = stack.stackTagCompound.getInteger("Energy");
+            int energyExtracted = Math.min(energy, stack.stackTagCompound.getByte("Empowered") == 1? 500: 200);
+            energy -= energyExtracted;
+            stack.stackTagCompound.setInteger("Energy", energy);
+
+            return stack;
         }
     }
 }
