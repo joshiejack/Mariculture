@@ -11,6 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class PluginThermalFoundation extends Plugin {
+    public PluginThermalFoundation(String name) {
+        super(name);
+    }
+
     @Override
     public void preInit() {
         Fluids.add("ender", FluidRegistry.getFluid("ender"), 25, true);

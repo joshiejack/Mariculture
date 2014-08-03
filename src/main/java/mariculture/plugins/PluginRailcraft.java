@@ -15,10 +15,13 @@ import org.apache.logging.log4j.Level;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginRailcraft extends Plugin {
+    public PluginRailcraft(String name) {
+        super(name);
+    }
 
     @Override
     public void preInit() {
-
+        return;
     }
 
     private void addSteelMelting() {

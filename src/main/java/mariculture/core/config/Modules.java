@@ -29,7 +29,7 @@ public class Modules {
 
         for (int i = 0; i < Plugins.plugins.size(); i++) {
             Plugin plugin = Plugins.plugins.get(i);
-            if (config.get("Plugins", plugin.name, true).getBoolean(true) == false) {
+            if (config.get("Plugins", plugin.getName(), true).getBoolean(true) == false) {
                 Plugins.plugins.remove(i);
             }
         }

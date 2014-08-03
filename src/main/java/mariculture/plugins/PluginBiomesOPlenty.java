@@ -21,6 +21,10 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginBiomesOPlenty extends Plugin {
+    public PluginBiomesOPlenty(String name) {
+        super(name);
+    }
+
     public static enum Biome {
         KELP, CORAL
     }

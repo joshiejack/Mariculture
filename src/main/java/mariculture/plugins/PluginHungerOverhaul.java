@@ -15,6 +15,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class PluginHungerOverhaul extends Plugin {
+    public PluginHungerOverhaul(String name) {
+        super(name);
+    }
 
     @Override
     public void preInit() {

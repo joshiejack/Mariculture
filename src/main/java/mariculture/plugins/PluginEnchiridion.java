@@ -32,6 +32,10 @@ import enchiridion.api.DisplayRegistry;
 import enchiridion.api.GuideHandler;
 
 public class PluginEnchiridion extends Plugin {
+    public PluginEnchiridion(String name) {
+        super(name);
+    }
+
     public static Item guides;
     public static EventHandler handler;
 

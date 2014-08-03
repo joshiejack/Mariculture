@@ -7,7 +7,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RodType;
 import mariculture.api.util.Text;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import org.lwjgl.input.Keyboard;
@@ -21,18 +20,29 @@ public class BaitListingsHandler {
         ItemStack stack = event.itemStack;
         List list = event.toolTip;
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            RodType quality = Fishing.fishing.getRodType(stack);
-            if (quality != null) {
-                list.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.bait"));
-                ArrayList<ItemStack> baits = Fishing.fishing.getCanUseList(quality);
-                for (ItemStack bait : baits)
-                    if (bait != null) {
-                        list.add(bait.getItem().getItemStackDisplayName(bait));
+        RodType quality = Fishing.fishing.getRodType(stack);
+        if (quality != null) {
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+                if (quality.canDisplay(stack)) {
+                    if (quality.canUseBaitManually()) {
+                        list.add(Text.INDIGO + Text.translate("bait"));
+                    } else {
+                        list.add(Text.INDIGO + Text.translate("bait2"));
                     }
+
+                    ArrayList<ItemStack> baits = Fishing.fishing.getCanUseList(quality);
+                    for (ItemStack bait : baits)
+                        if (bait != null) {
+                            list.add(bait.getItem().getItemStackDisplayName(bait));
+                        }
+                }
+            } else {
+                if (quality.canUseBaitManually()) {
+                    list.add(Text.getShiftText("rod"));
+                } else {
+                    list.add(Text.getShiftText("rod2"));
+                }
             }
-        } else if (Fishing.fishing.getRodType(stack) != null) {
-            list.add(Text.getShiftText("rod"));
         }
     }
 }

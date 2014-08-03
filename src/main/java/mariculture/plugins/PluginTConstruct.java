@@ -42,6 +42,10 @@ import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginTConstruct extends Plugin {
+    public PluginTConstruct(String name) {
+        super(name);
+    }
+
     @Override
     public void preInit() {
         try {

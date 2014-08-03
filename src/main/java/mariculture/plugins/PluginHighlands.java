@@ -13,6 +13,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import org.apache.logging.log4j.Level;
 
 public class PluginHighlands extends Plugin {
+    public PluginHighlands(String name) {
+        super(name);
+    }
+
     private void addBiome(BiomeGenBase biome, int temp, Salinity salt) {
         if (biome != null) {
             MaricultureHandlers.environment.addEnvironment(biome, salt, temp);

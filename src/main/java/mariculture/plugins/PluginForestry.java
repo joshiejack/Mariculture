@@ -49,6 +49,10 @@ import forestry.api.storage.EnumBackpackType;
 import forestry.api.storage.IBackpackDefinition;
 
 public class PluginForestry extends Plugin {
+    public PluginForestry(String name) {
+        super(name);
+    }
+
     public static AquaBackpack backpack;
     public static Item aquaBackpackT1;
     public static Item aquaBackpackT2;

@@ -4,6 +4,10 @@ import mariculture.plugins.Plugins.Plugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class PluginWaila extends Plugin {
+    public PluginWaila(String name) {
+        super(name);
+    }
+
     @Override
     public void preInit() {}
 

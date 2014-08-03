@@ -13,15 +13,13 @@ import cpw.mods.fml.common.Loader;
 public class Plugins extends Module {
     public static ArrayList<Plugin> plugins = new ArrayList<Plugin>();
 
-    public abstract static class Plugin {
+    public abstract static class Plugin extends PluginHelper {
         public static enum Stage {
             PRE, INIT, POST;
         }
 
-        public String name;
-
-        public Plugin() {
-            name = this.getClass().getSimpleName().toString().substring(6);
+        public Plugin(String name) {
+            super(name);
             plugins.add(this);
         }
 
@@ -66,6 +64,7 @@ public class Plugins extends Module {
         add("MineFactoryReloaded", "MFR");
         add("Waila");
         add("ThermalFoundation");
+        add("RedstoneArsenal");
     }
 
     public void add(String str) {
@@ -75,7 +74,7 @@ public class Plugins extends Module {
     public void add(String clazz, String mod) {
         if (Loader.isModLoaded(mod)) {
             try {
-                Class.forName("mariculture.plugins.Plugin" + clazz).newInstance();
+                Class.forName("mariculture.plugins.Plugin" + clazz).getConstructor(String.class).newInstance(mod);
             } catch (Exception e) {
                 LogHandler.log(Level.WARN, "Something went wrong when initializing " + clazz + " Plugin");
             }

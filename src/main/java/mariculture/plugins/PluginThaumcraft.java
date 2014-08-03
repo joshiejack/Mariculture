@@ -38,6 +38,9 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 
 public class PluginThaumcraft extends Plugin {
+    public PluginThaumcraft(String name) {
+        super(name);
+    }
 
     @Override
     public void preInit() {

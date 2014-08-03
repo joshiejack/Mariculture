@@ -7,6 +7,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import powercrystals.minefactoryreloaded.MFRRegistry;
 
 public class PluginMFR extends Plugin {
+    public PluginMFR(String name) {
+        super(name);
+    }
+
     @Override
     public void preInit() {
         OreDicHandler.has_unifier = true;
