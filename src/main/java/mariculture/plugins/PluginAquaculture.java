@@ -34,7 +34,7 @@ public class PluginAquaculture extends Plugin {
     @Override
     public void init() {
         if (Modules.isActive(Modules.fishery)) {
-            Fishing.fishing.addBait(new ItemStack(AquacultureItems.fish, 1, 19), 75);
+            Fishing.fishing.addBait(new ItemStack(AquacultureItems.fish, 1, 19), 25);
             Fishing.fishing.addBaitForQuality(new ItemStack(AquacultureItems.fish, 1, 19), Arrays.asList(RodType.DIRE, RodType.FLUX));
         }
     }
