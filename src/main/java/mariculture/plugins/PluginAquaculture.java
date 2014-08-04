@@ -61,7 +61,7 @@ public class PluginAquaculture extends Plugin {
                     ItemStack raw = new ItemStack(AquacultureItems.fish, 1, i);
                     addShapeless(AquacultureItems.fishFillet.getItemStack(amount), new Object[] { raw, "foodSalt" });
                     addShapeless(new ItemStack(Core.materials, amount, MaterialsMeta.FISH_MEAL), new Object[] { raw });
-                    OreDictionary.registerOre("fish", new ItemStack(AquacultureItems.fish, 1, i));
+                    OreDictionary.registerOre("fish", raw);
                     RecipeHelper.addFishSushi(raw, amount);
                     RecipeHelper.addFishSoup(raw, amount);
                     RecipeHelper.addFishMeal(raw, amount);

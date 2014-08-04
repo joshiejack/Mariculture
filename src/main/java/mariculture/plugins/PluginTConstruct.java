@@ -141,15 +141,15 @@ public class PluginTConstruct extends Plugin {
         ToolBuilder tb = ToolBuilder.instance;
         ItemStack pearl = new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE);
         ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl }, 20, 1));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearl }, 20, 2));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock }, 20, 4));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearlBlock }, 20, 5));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock, pearlBlock }, 20, 8));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl }, 200, 1));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearl }, 200, 2));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock }, 200, 4));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearlBlock }, 200, 5));
+        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock, pearlBlock }, 200, 8));
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
             if (tool instanceof HarvestTool) {
-                TConstructClientRegistry.addEffectRenderMapping(tool, 20, "mariculture", "pearl", true);
+                TConstructClientRegistry.addEffectRenderMapping(tool, 200, "mariculture", "pearl", true);
             }
     }
 
