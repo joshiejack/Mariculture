@@ -2,10 +2,8 @@ package mariculture.plugins;
 
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map.Entry;
 
 import mariculture.api.fishery.Fishing;
@@ -20,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import rebelkeithy.mods.aquaculture.items.AquacultureItems;
+import rebelkeithy.mods.aquaculture.items.ItemFish.Fish;
 
 public class PluginAquaculture extends Plugin {
     public PluginAquaculture(String name) {
@@ -52,25 +51,23 @@ public class PluginAquaculture extends Plugin {
                 }
             }
         }
+
+        for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
+            Fish f = AquacultureItems.fish.fish.get(i);
+            if (f.filletAmount != 0) {
+                addShapeless(AquacultureItems.fishFillet.getItemStack(f.filletAmount), new Object[] { new ItemStack(AquacultureItems.fish, 1, i), "foodSalt" });
+                addShapeless(new ItemStack(Core.materials, f.filletAmount, MaterialsMeta.FISH_MEAL), new Object[] { new ItemStack(AquacultureItems.fish, 1, i) });
+            }
+        }
     }
 
     public void remove(Item item, int meta) {
-        List<ItemStack> list = new ArrayList();
         for (Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator(); iterator.hasNext();) {
             IRecipe recipe = iterator.next();
             if (recipe.getRecipeOutput() != null) {
                 if (recipe.getRecipeOutput().getItem() == item && recipe.getRecipeOutput().getItemDamage() == meta) {
-                    list.add(recipe.getRecipeOutput().copy());
                     iterator.remove();
                 }
-            }
-        }
-
-        for (ItemStack output : list) {
-            for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
-                if ((i >= 14 && i <= 19) || i == 38) continue;
-                addShapeless(output, new Object[] { new ItemStack(AquacultureItems.fish, 1, i), "foodSalt" });
-                addShapeless(new ItemStack(Core.materials, output.stackSize, MaterialsMeta.FISH_MEAL), new Object[] { new ItemStack(AquacultureItems.fish, 1, i) });
             }
         }
     }
