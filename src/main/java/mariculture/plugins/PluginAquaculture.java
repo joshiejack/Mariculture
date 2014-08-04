@@ -2,41 +2,41 @@ package mariculture.plugins;
 
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
-import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.Core;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.plugins.aquaculture.FishBluegill;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import rebelkeithy.mods.aquaculture.items.AquacultureItems;
 
 public class PluginAquaculture extends Plugin {
-    public static FishSpecies bluegill;
-    
     public PluginAquaculture(String name) {
         super(name);
     }
 
     @Override
     public void preInit() {
-        System.out.println(name);
-        
-        bluegill = Fishing.fishHelper.registerFish(name, FishBluegill.class);
+        return;
     }
 
     @Override
     public void init() {
-        //Remove Fish Fillet Recipes, We readd them later with a new recipe
-        remove(getItem("item.loot"), 3);
+        return;
     }
 
     @Override
     public void postInit() {
+        //Remove Fish Fillet Recipes, We readd them later with a new recipe
+        remove(getItem("item.loot"), 3);
+
         for (Entry<Integer, FishSpecies> list : FishSpecies.species.entrySet()) {
             FishSpecies species = list.getValue();
             if (species.getFishMealSize() > 0) {
@@ -46,12 +46,22 @@ public class PluginAquaculture extends Plugin {
     }
 
     public void remove(Item item, int meta) {
+        List<ItemStack> list = new ArrayList();
         for (Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator(); iterator.hasNext();) {
             IRecipe recipe = iterator.next();
-            if (recipe instanceof ShapelessOreRecipe && recipe.getRecipeOutput() != null) {
+            if (recipe.getRecipeOutput() != null) {
                 if (recipe.getRecipeOutput().getItem() == item && recipe.getRecipeOutput().getItemDamage() == meta) {
+                    list.add(recipe.getRecipeOutput().copy());
                     iterator.remove();
                 }
+            }
+        }
+
+        for (ItemStack output : list) {
+            for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
+                if ((i >= 14 && i <= 19) || i == 38) continue;
+                addShapeless(output, new Object[] { new ItemStack(AquacultureItems.fish, 1, i), "foodSalt" });
+                addShapeless(new ItemStack(Core.materials, output.stackSize, MaterialsMeta.FISH_MEAL), new Object[] { new ItemStack(AquacultureItems.fish, 1, i) });
             }
         }
     }

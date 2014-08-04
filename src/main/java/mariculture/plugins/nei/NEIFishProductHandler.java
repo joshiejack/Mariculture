@@ -80,7 +80,9 @@ public class NEIFishProductHandler extends NEIBase {
             for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
                 Integer fishID = species.getKey();
                 FishSpecies fish = species.getValue();
-                arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
+                if (fish.getProductList() != null) {
+                    arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
+                }
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -91,10 +93,13 @@ public class NEIFishProductHandler extends NEIBase {
     public void loadCraftingRecipes(ItemStack result) {
         for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
             FishSpecies fish = species.getValue();
-            for (FishProduct product : fish.getProductList())
-                if (NEIServerUtils.areStacksSameTypeCrafting(product.product, result)) {
-                    arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
+            if (fish.getProductList() != null) {
+                for (FishProduct product : fish.getProductList()) {
+                    if (NEIServerUtils.areStacksSameTypeCrafting(product.product, result)) {
+                        arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
+                    }
                 }
+            }
         }
     }
 
@@ -104,7 +109,7 @@ public class NEIFishProductHandler extends NEIBase {
 
         for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
             FishSpecies fish = species.getValue();
-            if (NEIFishBreedingMutationHandler.isSpecies(ingredient, fish, false)) {
+            if (NEIFishBreedingMutationHandler.isSpecies(ingredient, fish, false) && fish.getProductList() != null) {
                 arecipes.add(new CachedProductRecipe(Fishing.fishHelper.makePureFish(fish), fish.getProductList()));
             }
         }
@@ -114,15 +119,15 @@ public class NEIFishProductHandler extends NEIBase {
     public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int id) {
         if (stack != null) {
             CachedProductRecipe cache = (CachedProductRecipe) arecipes.get(id);
-            if(cache != null) {
-                for(ProductResult r: cache.outputs) {
-                    if(gui.isMouseOver(r.stack, id)) {
+            if (cache != null) {
+                for (ProductResult r : cache.outputs) {
+                    if (gui.isMouseOver(r.stack, id)) {
                         currenttip.add(Text.ORANGE + r.chance + "% " + Text.translate("chance"));
                     }
                 }
             }
         }
-        
+
         return currenttip;
     }
 

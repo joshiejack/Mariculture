@@ -293,6 +293,7 @@ public class RecipesSmelting {
             }
         }
 
+        RecipeHelper.addNuggetCasting(new FluidStack(FluidRegistry.WATER, 250), salt);
         RecipeHelper.addMelting(limestoneSmooth, 825, get(getFluidName("quicklime"), 1000));
         RecipeHelper.addMelting(dustSalt, 801, get(getFluidName("salt"), 20));
         RecipeHelper.addFluidAlloyNItemResultItem(get(getFluidName("aluminum"), MetalRates.NUGGET * 64), get(getFluidName("quicklime"), 20000), new ItemStack(glass, 64), new ItemStack(Core.glass, 64, GlassMeta.HEAT), 90);

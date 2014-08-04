@@ -61,15 +61,15 @@ public class CastingHandler implements ICastingHandler {
     //Attempt to fetch the texture, using the ore dictionary
     public static IIcon getTexture(ItemStack stack) {
         String name = OreDicHelper.getDictionaryName(stack);
-        if(name.startsWith("nugget")) {
+        if (name.startsWith("nugget")) {
             name = name.substring(6);
         } else {
             name = name.substring(5);
         }
-                
+
         name = "block" + name;
-        
-        Block block;
+
+        Block block = null;
         int damage = stack.getItemDamage();
         if (OreDictionary.getOres(name).size() > 0) {
             ItemStack item = OreDictionary.getOres(name).get(0);
@@ -77,11 +77,14 @@ public class CastingHandler implements ICastingHandler {
             damage = item.getItemDamage();
         } else if (stack.getItem() == Items.snowball) {
             block = Blocks.snow;
+        } else if (OreDicHelper.getDictionaryName(stack).equals("foodSalt")) {
+            block = Blocks.wool;
+            damage = 0;
         } else {
             block = Block.getBlockFromItem(stack.getItem());
         }
 
-        return block != null? block.getIcon(0, damage): Blocks.iron_block.getIcon(0, 0);
+        return block != null ? block.getIcon(0, damage) : Blocks.iron_block.getIcon(0, 0);
     }
 
     @Override

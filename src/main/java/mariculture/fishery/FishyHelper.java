@@ -60,6 +60,7 @@ public class FishyHelper implements IFishHelper {
             if (fish_id >= 0) {
                 taken.add(fish_id);
             }
+            
             cache.add(new CachedFishData(modid, species, default_id));
             return species;
         } catch (Exception e) {
