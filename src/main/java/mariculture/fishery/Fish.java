@@ -61,7 +61,6 @@ import mariculture.fishery.fish.dna.FishDNALifespan;
 import mariculture.fishery.fish.dna.FishDNASpecies;
 import mariculture.fishery.fish.dna.FishDNAWaterRequired;
 import mariculture.fishery.fish.dna.FishDNAWorkEthic;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
@@ -282,7 +281,7 @@ public class Fish {
     }
 
     private static void addRecipe(FishSpecies species) {
-        ItemStack raw = new ItemStack(Items.fish, 1, species.getID());
+        ItemStack raw = species.getRawForm(1);
         ItemStack kelp = Modules.isActive(Modules.worldplus) ? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP) : ItemLib.cactusGreen;
         if (species.getFishOilVolume() > 0 && species.getLiquifiedProduct() != null && species.getLiquifiedProductChance() > 0) {
             RecipeHelper.addFishMelting(raw, species.getFishOilVolume(), species.getLiquifiedProduct(), species.getLiquifiedProductChance());
@@ -296,7 +295,7 @@ public class Fish {
         }
 
         species.addFishProducts();
-        OreDictionary.registerOre("listAllfishraw", raw);
+        OreDictionary.registerOre("fish", raw);
     }
 
     public static void addRecipes() {

@@ -35,12 +35,14 @@ public class FisheryEventHandler {
         ItemStack item = event.entityItem.getEntityItem();
         FishSpecies species = Fishing.fishHelper.getSpecies(item);
         if (species != null) {
-            if (!species.isLavaFish()) if (event.entityItem.isInsideOfMaterial(Material.water)) {
-                event.setCanceled(true);
-                return;
+            if (!species.isLavaFish()) {
+                if (event.entityItem.isInsideOfMaterial(Material.water)) {
+                    event.setCanceled(true);
+                    return;
+                }
             }
 
-            ItemStack stack = new ItemStack(Items.fish, item.stackSize, species.getID());
+            ItemStack stack = species.getRawForm(item.stackSize);
             if (stack != null) {
                 updateStack(event.entityItem.worldObj, event.entityItem, 6000, stack, rand);
                 event.setCanceled(true);
@@ -55,12 +57,12 @@ public class FisheryEventHandler {
             ItemStack squid = new ItemStack(Items.fish, 1, Fish.squid.getID());
             event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
             if (event.lootingLevel > 0) {
-                for (int i = 0; i < event.lootingLevel; i++)
+                for (int i = 0; i < event.lootingLevel; i++) {
                     if (rand.nextInt(3) == 0) {
                         event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
                     }
+                }
             }
-
         }
     }
 }

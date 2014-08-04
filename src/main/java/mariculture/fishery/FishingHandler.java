@@ -344,7 +344,7 @@ public class FishingHandler implements IFishing {
             alive = true;
         }
         boolean catchAlive = quality.caughtAlive(fish.getSpecies());
-        if (!catchAlive && !alive) return new ItemStack(Items.fish, 1, fish.getID());
+        if (!catchAlive && !alive) return fish.getRawForm(1);
         return Fishing.fishHelper.makePureFish(fish);
     }
 }

@@ -106,7 +106,7 @@ public class PluginForestry extends Plugin {
             }
         }
 
-        RecipeHelper.addShaped(new ItemStack(aquaBackpackT1), new Object[] { "SWS", "FCF", "SWS", 'S', string, 'W', wool, 'F', fish, 'C', chest });
+        RecipeHelper.addShaped(new ItemStack(aquaBackpackT1), new Object[] { "SWS", "FCF", "SWS", 'S', string, 'W', wool, 'F', "fish", 'C', chest });
         if (Modules.isActive(Modules.worldplus)) {
             backpack.addValidItem(new ItemStack(WorldPlus.plantGrowable, 1, OreDictionary.WILDCARD_VALUE));
             backpack.addValidItem(new ItemStack(WorldPlus.plantStatic, 1, OreDictionary.WILDCARD_VALUE));

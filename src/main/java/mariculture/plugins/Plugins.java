@@ -65,6 +65,8 @@ public class Plugins extends Module {
         add("Waila");
         add("ThermalFoundation");
         add("RedstoneArsenal");
+        add("Aquaculture");
+        add("HarvestCraft", "harvestcraft");
     }
 
     public void add(String str) {

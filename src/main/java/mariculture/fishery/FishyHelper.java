@@ -63,7 +63,7 @@ public class FishyHelper implements IFishHelper {
             cache.add(new CachedFishData(modid, species, default_id));
             return species;
         } catch (Exception e) {
-            LogHandler.log(Level.WARN, "Mariculture failed to the fish: " + fish + " , The fish returned null, you will have serious problems with fish!!!");
+            LogHandler.log(Level.WARN, "Mariculture failed to add the fish: " + fish + " , The fish returned null, you will have serious problems with fish!!!");
             return null;
         }
     }

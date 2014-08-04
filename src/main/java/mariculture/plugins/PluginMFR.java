@@ -24,7 +24,7 @@ public class PluginMFR extends Plugin {
 
     @Override
     public void postInit() {
-        return;
+        MFRRegistry.registerUnifierBlacklist("fish");
     }
 
     public static void blacklist(String name) {

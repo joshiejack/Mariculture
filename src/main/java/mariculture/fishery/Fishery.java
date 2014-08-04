@@ -287,24 +287,24 @@ public class Fishery extends RegistrationModule {
         addShapeless(_(polishedPlank, 4), new Object[] { polishedLog });
         addShaped(_(polishedStick, 4), new Object[] { "S", "S", 'S', polishedPlank });
         addVatItemRecipe(titaniumRod, getFluidName("fish_oil"), 6500, polishedTitanium, 30);
-        addShapeless(thermometer, new Object[] { fish, compass });
+        addShapeless(thermometer, new Object[] { "fish", compass });
         addBlockCasting(getFluidStack("dirt", 1000), new ItemStack(dirt));
         addShaped(_(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
         addShaped(_(sifter, 2), new Object[] { "PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net });
-        addShaped(autofisher, new Object[] { " F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', fish, 'B', baseWood, 'P', "plankWood" });
+        addShaped(autofisher, new Object[] { " F ", "RPR", "WBW", 'W', "logWood", 'R', _(rodWood), 'F', "fish", 'B', baseWood, 'P', "plankWood" });
         addShaped(hatchery, new Object[] { "WWW", "WEW", "WWW", 'W', wicker, 'E', _(_(fishEggs), OreDictionary.WILDCARD_VALUE, 1) });
-        addShaped(fishFeeder, new Object[] { "WFW", "WCW", "WFW", 'F', fish, 'W', wicker, 'C', chest });
-        addShaped(incubatorTop, new Object[] { "DFD", "CHC", 'F', fish, 'D', "dyeBrown", 'C', greyClay, 'H', heating });
+        addShaped(fishFeeder, new Object[] { "WFW", "WCW", "WFW", 'F', "fish", 'W', wicker, 'C', chest });
+        addShaped(incubatorTop, new Object[] { "DFD", "CHC", 'F', "fish", 'D', "dyeBrown", 'C', greyClay, 'H', heating });
         addShaped(incubatorBase, new Object[] { "DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating });
-        addShaped(fishTank, new Object[] { "AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "blockGlass", 'F', fish });
+        addShaped(fishTank, new Object[] { "AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "blockGlass", 'F', "fish" });
         addShaped(_(tempControl), new Object[] { " H ", "CTC", " H ", 'H', heating, 'C', cooling, 'T', titaniumSheet });
         addVatItemRecipeResultFluid(_(_(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
 
         if (FishMechanics.EASY_SCANNER) {
-            addShaped(_(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', fish, 'B', copperBattery });
+            addShaped(_(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', "fish", 'B', copperBattery });
         } else {
-            addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', fish, 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
+            addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
         }
     }
 

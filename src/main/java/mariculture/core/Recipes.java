@@ -72,7 +72,7 @@ public class Recipes {
     }
 
     private static void addCraftingItems() {
-        addShaped(life, new Object[] { "DSR", "FHB", "PAC", 'D', dandelion, 'S', "treeSapling", 'R', rose, 'F', fish, 'H', regen, 'B', bait, 'P', potato, 'A', lily, 'C', carrot });
+        addShaped(life, new Object[] { "DSR", "FHB", "PAC", 'D', dandelion, 'S', "treeSapling", 'R', rose, 'F', "fish", 'H', regen, 'B', bait, 'P', potato, 'A', lily, 'C', carrot });
         addVatItemRecipe(_(string), getFluidName("gold"), MetalRates.INGOT * 4, goldSilk, 5);
         addShaped(goldThread, new Object[] { "ABA", "ABA", 'B', polishedStick, 'A', goldSilk });
         addShaped(neoprene, new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas });

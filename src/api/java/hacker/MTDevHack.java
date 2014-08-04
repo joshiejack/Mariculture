@@ -26,7 +26,7 @@ public class MTDevHack {
 
     @EventHandler
     public void init(FMLPreInitializationEvent event) {
-        //setLogger(TextureMap.class);
+        setLogger(TextureMap.class);
 
         if (REMOVE_FML_ANNOYANCE) {
             setLogger(TileEntity.class);

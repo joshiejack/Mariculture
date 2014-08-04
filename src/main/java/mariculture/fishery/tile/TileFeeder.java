@@ -169,7 +169,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     //Kills a Fish
     private void killFish(FishSpecies species, int gender, boolean giveProduct) {
         if (giveProduct) {
-            ItemStack raw = new ItemStack(Items.fish, 1, species.getID());
+            ItemStack raw = species.getRawForm(1);
             if (raw != null) {
                 helper.insertStack(raw, output);
             }

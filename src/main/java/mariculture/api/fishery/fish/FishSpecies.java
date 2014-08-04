@@ -79,6 +79,11 @@ public abstract class FishSpecies {
     public boolean isLavaFish() {
         return false;
     }
+    
+    /** Return the itemstack this fish turns in to when it dies **/
+    public ItemStack getRawForm(int stackSize) {
+        return new ItemStack(Items.fish, stackSize, getID());
+    }
 
     /** Whether or not this fish species is dominant **/
     public abstract boolean isDominant();
