@@ -50,13 +50,14 @@ public class PluginAquaculture extends Plugin {
                     addShapeless(new ItemStack(getItem("item.loot"), species.getFishMealSize(), 3), new Object[] { species.getRawForm(1), "foodSalt" });
                 }
             }
-        }
+            
 
-        for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
-            Fish f = AquacultureItems.fish.fish.get(i);
-            if (f.filletAmount != 0) {
-                addShapeless(AquacultureItems.fishFillet.getItemStack(f.filletAmount), new Object[] { new ItemStack(AquacultureItems.fish, 1, i), "foodSalt" });
-                addShapeless(new ItemStack(Core.materials, f.filletAmount, MaterialsMeta.FISH_MEAL), new Object[] { new ItemStack(AquacultureItems.fish, 1, i) });
+            for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
+                Fish f = AquacultureItems.fish.fish.get(i);
+                if (f.filletAmount != 0) {
+                    addShapeless(AquacultureItems.fishFillet.getItemStack(f.filletAmount), new Object[] { new ItemStack(AquacultureItems.fish, 1, i), "foodSalt" });
+                    addShapeless(new ItemStack(Core.materials, f.filletAmount, MaterialsMeta.FISH_MEAL), new Object[] { new ItemStack(AquacultureItems.fish, 1, i) });
+                }
             }
         }
     }
