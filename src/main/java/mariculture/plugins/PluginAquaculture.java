@@ -10,13 +10,16 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.plugins.Plugins.Plugin;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 import rebelkeithy.mods.aquaculture.items.AquacultureItems;
 import rebelkeithy.mods.aquaculture.items.ItemFish.Fish;
 
@@ -50,13 +53,19 @@ public class PluginAquaculture extends Plugin {
                     addShapeless(new ItemStack(getItem("item.loot"), species.getFishMealSize(), 3), new Object[] { species.getRawForm(1), "foodSalt" });
                 }
             }
-            
 
             for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
                 Fish f = AquacultureItems.fish.fish.get(i);
                 if (f.filletAmount != 0) {
-                    addShapeless(AquacultureItems.fishFillet.getItemStack(f.filletAmount), new Object[] { new ItemStack(AquacultureItems.fish, 1, i), "foodSalt" });
-                    addShapeless(new ItemStack(Core.materials, f.filletAmount, MaterialsMeta.FISH_MEAL), new Object[] { new ItemStack(AquacultureItems.fish, 1, i) });
+                    int amount = f.filletAmount;
+                    ItemStack raw = new ItemStack(AquacultureItems.fish, 1, i);
+                    addShapeless(AquacultureItems.fishFillet.getItemStack(amount), new Object[] { raw, "foodSalt" });
+                    addShapeless(new ItemStack(Core.materials, amount, MaterialsMeta.FISH_MEAL), new Object[] { raw });
+                    OreDictionary.registerOre("fish", new ItemStack(AquacultureItems.fish, 1, i));
+                    RecipeHelper.addFishSushi(raw, amount);
+                    RecipeHelper.addFishSoup(raw, amount);
+                    RecipeHelper.addFishMeal(raw, amount);
+                    RecipeHelper.addFishMelting(raw, amount * 500, new ItemStack(Items.bone), 10);
                 }
             }
         }
