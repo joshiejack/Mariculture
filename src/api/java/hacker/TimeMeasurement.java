@@ -21,7 +21,7 @@ public final class TimeMeasurement {
         if (time == null) return 0;
 
         long dur = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - time);
-        System.out.println("Finished process '" + identifier + "' in " + dur + " ms.");
+        if (dur > 0) System.out.println("Finished process '" + identifier + "' in " + dur + " ms.");
         return dur;
     }
 }

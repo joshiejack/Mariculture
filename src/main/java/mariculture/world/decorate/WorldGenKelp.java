@@ -1,7 +1,10 @@
 package mariculture.world.decorate;
 
+import hacker.TimeMeasurement;
+
 import java.util.Random;
 
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
@@ -19,6 +22,7 @@ public class WorldGenKelp extends WorldGenerator {
 
     @Override
     public boolean generate(World world, Random rand, int x, int y, int z) {
+        if (GeneralStuff.DEBUG_ON) TimeMeasurement.start("Kelp");
         if (!WorldGen.KELP_FOREST_ENABLED) return true;
         //If forests enabled, turn them on/off
         if (rand.nextInt(Math.max(1, WorldGen.KELP_FOREST_START_CHANCE)) == 0) {
@@ -62,6 +66,8 @@ public class WorldGenKelp extends WorldGenerator {
                 }
             }
         }
+        
+        if (GeneralStuff.DEBUG_ON) TimeMeasurement.finish("Kelp");
 
         return true;
     }

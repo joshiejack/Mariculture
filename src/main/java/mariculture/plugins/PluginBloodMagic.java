@@ -87,8 +87,7 @@ public class PluginBloodMagic extends Plugin {
             addLoot(getUndamaged("itemKeyOfDiablo"), GOOD, 75);
 
             ItemStack loot = getUndamaged("boundBoots");
-            BoundArmour boots = (BoundArmour) loot.getItem();
-            boots.saveInternalInventory(loot, new ItemStack[9]);
+            ((BoundArmour) loot.getItem()).saveInternalInventory(loot, new ItemStack[9]);
             addLoot(loot, GOOD, 200);
 
             // Rituals

@@ -1,9 +1,12 @@
 package mariculture.world.decorate;
 
+import hacker.TimeMeasurement;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.core.Core;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.CoralMeta;
@@ -28,6 +31,7 @@ public class WorldGenReef extends WorldGenerator {
 
     @Override
     public boolean generate(World world, Random rand, int x, int y, int z) {
+        if (GeneralStuff.DEBUG_ON) TimeMeasurement.start("CoralReef");
         ArrayList<String> cache = new ArrayList();
         if (!BlockHelper.chunkExists(world, x, z)) return false;
         y = world.getTopSolidOrLiquidBlock(x, z);
@@ -70,6 +74,8 @@ public class WorldGenReef extends WorldGenerator {
                 world.setBlock(x2, y2, z2, Blocks.sponge);
             }
         }
+        
+        if (GeneralStuff.DEBUG_ON) TimeMeasurement.finish("CoralReef");
 
         return true;
     }

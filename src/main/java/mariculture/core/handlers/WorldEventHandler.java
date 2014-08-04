@@ -159,14 +159,4 @@ public class WorldEventHandler {
             }
         }
     }
-
-    @SubscribeEvent
-    public void start(DecorateBiomeEvent.Pre event) {
-        if (GeneralStuff.DEBUG_ON) TimeMeasurement.start("Decorate");
-    }
-
-    @SubscribeEvent
-    public void start(DecorateBiomeEvent.Post event) {
-        if (GeneralStuff.DEBUG_ON) TimeMeasurement.finish("Decorate");
-    }
 }

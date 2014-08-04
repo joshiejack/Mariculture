@@ -176,6 +176,7 @@ public class FishingHandler implements IFishing {
         if (lootList == null) {
             lootList = new ArrayList();
         }
+        
         lootList.add(loot);
         fishing_loot.put(loot.rarity, lootList);
         if (loot.quality == null) {
