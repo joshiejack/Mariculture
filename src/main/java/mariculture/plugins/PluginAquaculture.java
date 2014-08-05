@@ -15,7 +15,6 @@ import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -44,8 +43,15 @@ public class PluginAquaculture extends Plugin {
     @Override
     public void postInit() {
         if (Modules.isActive(Modules.fishery)) {
-            //Remove Fish Fillet Recipes, We readd them later with a new recipe
-            remove(getItem("item.loot"), 3);
+            //Remove Fish Fillet Recipes, We readd them later with a new recipe            
+            for (Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator(); iterator.hasNext();) {
+                IRecipe recipe = iterator.next();
+                if (recipe.getRecipeOutput() != null) {
+                    if (recipe.getRecipeOutput().getItem() == AquacultureItems.metaLootItem && recipe.getRecipeOutput().getItemDamage() == 3) {
+                        iterator.remove();
+                    }
+                }
+            }
 
             for (Entry<Integer, FishSpecies> list : FishSpecies.species.entrySet()) {
                 FishSpecies species = list.getValue();
@@ -54,6 +60,7 @@ public class PluginAquaculture extends Plugin {
                 }
             }
 
+            //Add all the recipes back, melting, fish, registrations and all included
             for (int i = 0; i < AquacultureItems.fish.fish.size(); i++) {
                 Fish f = AquacultureItems.fish.fish.get(i);
                 if (f.filletAmount != 0) {
@@ -66,17 +73,6 @@ public class PluginAquaculture extends Plugin {
                     RecipeHelper.addFishSoup(raw, amount);
                     RecipeHelper.addFishMeal(raw, amount);
                     RecipeHelper.addFishMelting(raw, amount * 500, new ItemStack(Items.bone), 10);
-                }
-            }
-        }
-    }
-
-    public void remove(Item item, int meta) {
-        for (Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator(); iterator.hasNext();) {
-            IRecipe recipe = iterator.next();
-            if (recipe.getRecipeOutput() != null) {
-                if (recipe.getRecipeOutput().getItem() == item && recipe.getRecipeOutput().getItemDamage() == meta) {
-                    iterator.remove();
                 }
             }
         }
