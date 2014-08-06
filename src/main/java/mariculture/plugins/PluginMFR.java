@@ -2,6 +2,7 @@ package mariculture.plugins;
 
 import mariculture.core.handlers.OreDicHandler;
 import mariculture.core.util.Fluids;
+import mariculture.core.util.XPRegistry;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraftforge.fluids.FluidRegistry;
 import powercrystals.minefactoryreloaded.MFRRegistry;
@@ -14,12 +15,13 @@ public class PluginMFR extends Plugin {
     @Override
     public void preInit() {
         OreDicHandler.has_unifier = true;
-        Fluids.add("milk", FluidRegistry.getFluid("milk"), 1000, true);
     }
 
     @Override
     public void init() {
-        return;
+        Fluids.add("milk", FluidRegistry.getFluid("milk"), 1000, true);
+        Fluids.add("xp", FluidRegistry.getFluid("mobEssence"), 66, true);
+        XPRegistry.register("mobEssence", 66.66666667f);
     }
 
     @Override

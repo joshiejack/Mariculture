@@ -88,6 +88,7 @@ import mariculture.core.tile.TileVat;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.Fluids;
+import mariculture.core.util.XPRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -219,6 +220,7 @@ public class Core extends RegistrationModule {
         addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144);
         addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144);
         addFluid("xp", 100);
+        XPRegistry.register("xp", 100);
 
         registerVanillaBottle(getFluid("natural_gas"), 1000, BottleMeta.GAS_BASIC);
         registerHeatBottle(FluidRegistry.WATER, 2000, BottleMeta.WATER);

@@ -60,7 +60,9 @@ public class Plugins extends Module {
         add("Enchiridion");
         add("Highlands");
         add("BloodMagic", "AWWayofTime");
+        add("LiquidXP");
         add("MineFactoryReloaded", "MFR");
+        add("OpenBlocks");
         add("Waila");
         add("ThermalFoundation");
         add("RedstoneArsenal");

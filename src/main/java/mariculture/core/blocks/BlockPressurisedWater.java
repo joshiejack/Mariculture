@@ -28,6 +28,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockPressurisedWater extends BlockFluid {
     public static IIcon[] still;
     public static IIcon[] flowing;
+    public static IIcon xp_still;
+    public static IIcon xp_flow;
 
     public BlockPressurisedWater(Fluid fluid, Material material) {
         super(fluid, material);
@@ -109,5 +111,8 @@ public class BlockPressurisedWater extends BlockFluid {
                 }
             }
         }
+        
+        xp_still = iconRegister.registerIcon(Mariculture.modid + ":liquids/xp_flow");
+        xp_flow = iconRegister.registerIcon(Mariculture.modid + ":liquids/xp_still");
     }
 }
