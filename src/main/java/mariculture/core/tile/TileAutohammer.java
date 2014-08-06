@@ -1,6 +1,7 @@
 package mariculture.core.tile;
 
 import mariculture.Mariculture;
+import mariculture.core.config.Machines.Client;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketParticle;
@@ -17,7 +18,6 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAutohammer extends TileStorage {
-    public static final boolean HAMMER_ANIM = true;
     private int offset = -1;
     private int[] ticker;
     public boolean[] up;
@@ -46,7 +46,7 @@ public class TileAutohammer extends TileStorage {
 
     @Override
     public void updateEntity() {
-        if (HAMMER_ANIM && worldObj.isRemote) {
+        if (Client.HAMMER_ANIM && worldObj.isRemote) {
             for (int i = 0; i < angle.length; i++) {
                 if (up[i]) {
                     if (angle[i] <= 5F) {
