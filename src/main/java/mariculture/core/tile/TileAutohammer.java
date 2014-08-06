@@ -61,7 +61,7 @@ public class TileAutohammer extends TileStorage {
                 } else {
                     if (angle[i] >= 56F) {
                         up[i] = true;
-                    } else angle[i] += 2F;
+                    } else angle[i] += 5F;
                 }
             }
         }
