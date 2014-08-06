@@ -109,7 +109,6 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         if (!worldObj.isRemote) {
             heatUp();
             coolDown();
-
             if (canWork) {
                 processed += speed * 50 * melting_modifier;
                 if (processed >= max) {
@@ -184,7 +183,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
             tick++;
 
-            if (realUsed < info.maxTempPer && realTemp < info.maxTemp) {
+            if (realUsed < getMaxTempPer(purity) && realTemp < info.maxTemp) {
                 temp += heat / 3 + 1;
                 usedHeat += heat / 3 + 1;
             }
@@ -233,8 +232,8 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
         if (fuelHandler.info != null) {
             temp = Math.min(MAX_TEMP, fuelHandler.tick(temp, purity));
-            if (temp >= max) {
-                temp = max;
+            if (temp >= MAX_TEMP) {
+                temp = MAX_TEMP;
             }
         }
     }
@@ -246,6 +245,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
         if (onTick(20)) {
             temp -= cooling;
+
             if (temp <= 0) {
                 temp = 0;
             }

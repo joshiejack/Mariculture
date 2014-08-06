@@ -3,7 +3,7 @@ package mariculture.core;
 import mariculture.core.gui.ContainerBookshelf;
 import mariculture.core.gui.ContainerCrucible;
 import mariculture.core.gui.GuiBookshelf;
-import mariculture.core.gui.GuiLiquifier;
+import mariculture.core.gui.GuiCrucible;
 import mariculture.core.items.ItemStorage;
 import mariculture.core.tile.TileBookshelf;
 import mariculture.core.tile.TileCrucible;
@@ -79,7 +79,7 @@ public class CommonProxy implements IGuiHandler {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile != null) {
             if (tile instanceof TileAutofisher) return new GuiAutofisher(player.inventory, (TileAutofisher) tile);
-            else if (tile instanceof TileCrucible) return new GuiLiquifier(player.inventory, (TileCrucible) tile);
+            else if (tile instanceof TileCrucible) return new GuiCrucible(player.inventory, (TileCrucible) tile);
             else if (tile instanceof TileIncubator) return new GuiIncubator(player.inventory, (TileIncubator) tile);
             else if (tile instanceof TileSifter) return new GuiSift(player.inventory, (TileSifter) tile);
             else if (tile instanceof TileFeeder) return new GuiFeeder(player.inventory, (TileFeeder) tile);

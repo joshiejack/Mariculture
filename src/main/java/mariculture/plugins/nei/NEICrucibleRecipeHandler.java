@@ -80,7 +80,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
-        return mariculture.core.gui.GuiLiquifier.class;
+        return mariculture.core.gui.GuiCrucible.class;
     }
 
     @Override

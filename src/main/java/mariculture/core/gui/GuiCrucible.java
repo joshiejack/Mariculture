@@ -20,10 +20,10 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class GuiLiquifier extends GuiMariculture {
+public class GuiCrucible extends GuiMariculture {
     private final TileCrucible tile;
 
-    public GuiLiquifier(InventoryPlayer player, TileCrucible tile) {
+    public GuiCrucible(InventoryPlayer player, TileCrucible tile) {
         super(new ContainerCrucible(tile, player), "liquifier", 10);
         this.tile = tile;
         features.add(new FeatureUpgrades());
