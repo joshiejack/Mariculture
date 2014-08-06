@@ -159,9 +159,10 @@ public class Core extends RegistrationModule {
         FMLCommonHandler.instance().bus().register(new ServerFMLEvents());
         FMLCommonHandler.instance().bus().register(new ClientFMLEvents());
 
-        WorldEventHandler worldGen = new WorldEventHandler();
-        MinecraftForge.EVENT_BUS.register(worldGen);
-        MinecraftForge.TERRAIN_GEN_BUS.register(worldGen);
+        if (WorldGen.ENABLE_REPLACEMENTS) {
+            MinecraftForge.EVENT_BUS.register(new WorldEventHandler());
+        }
+
         BiomeGenBase.getBiomeGenArray()[BiomeGenBase.ocean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_ROOT, (float) WorldGen.OCEAN_VARIATION));
         BiomeGenBase.getBiomeGenArray()[BiomeGenBase.deepOcean.biomeID].setHeight(new Height((float) WorldGen.OCEAN_DEEP_ROOT, (float) WorldGen.OCEAN_DEEP_VARIATION));
 

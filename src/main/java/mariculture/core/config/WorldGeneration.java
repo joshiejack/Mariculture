@@ -7,7 +7,6 @@ import static mariculture.core.helpers.ConfigHelper.getIntList;
 import static mariculture.core.helpers.ConfigHelper.getRand;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
-import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 
 public class WorldGeneration {
@@ -43,6 +42,7 @@ public class WorldGeneration {
         WorldGen.BEACH_LIMESTONE = getDouble("Beach > Limestone Height", 25D);
         WorldGen.VARYING_LIMESTONE = getBoolean("Limestone > Varying Height", true);
         WorldGen.LIMESTONE_FLOOR = getBoolean("Limestone > Sea Bed", true, "If this is false, you will get a sandstone seabed instead.");
+        WorldGen.ENABLE_REPLACEMENTS = getBoolean("Biome Top Block Replacements > Enable", true, "Disabling this will stop the generation of limestone, rutile and sand on ocean floors");
         WorldGen.OCEAN_BLACKLIST = getIntList("Ocean Generation > Blacklisted Dimension IDs", new int[] { -1, 1 });
 
         WorldGen.OYSTER_ENABLED = getBoolean("Pearl Oyster > Generation", true);
@@ -99,6 +99,7 @@ public class WorldGeneration {
     }
 
     public static class WorldGen {
+        public static boolean ENABLE_REPLACEMENTS;
         public static boolean LIMESTONE_FLOOR;
         public static int[] OCEAN_BLACKLIST;
         public static boolean VARYING_LIMESTONE;

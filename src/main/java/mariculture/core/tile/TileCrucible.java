@@ -12,6 +12,7 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
@@ -21,9 +22,9 @@ import mariculture.core.util.IHasNotification;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileCrucible extends TileMultiMachineTank implements IHasNotification {
@@ -207,10 +208,10 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         if (fuelHandler.info != null) return false;
         if (!rsAllowsWork()) return false;
         if (MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]) != null) return true;
-        if (worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler) {
-            IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
-            FluidTankInfo[] info = handler.getTankInfo(ForgeDirection.UP);
-            if (info != null && info[0].fluid != null && info[0].fluid.amount >= 10) return MaricultureHandlers.crucible.getFuelInfo(info[0].fluid) != null;
+        TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
+        if (tile instanceof IFluidHandler) {
+            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 10, false);
+            if (fluid != null && fluid.getFluid() != null) return MaricultureHandlers.crucible.getFuelInfo(fluid) != null;
         }
 
         return false;
@@ -255,11 +256,12 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     public FuelInfo getInfo() {
         FuelInfo info = MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]);
         if (info == null) {
-            IFluidHandler handler = (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
-            FluidTankInfo[] tank = handler.getTankInfo(ForgeDirection.UP);
-            if (tank.length > 0 && tank[0] != null && tank[0].fluid != null) {
-                info = MaricultureHandlers.crucible.getFuelInfo(tank[0].fluid);
-                handler.drain(ForgeDirection.UP, new FluidStack(tank[0].fluid.fluidID, 10), true);
+            TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
+            if (tile instanceof IFluidHandler) {
+                FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 10, true);
+                if (fluid != null) {
+                    return MaricultureHandlers.crucible.getFuelInfo(fluid);
+                }
             }
         } else {
             decrStackSize(fuel, 1);
