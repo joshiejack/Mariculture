@@ -12,7 +12,6 @@ import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
-import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.MachineMultiMeta;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.lib.MetalRates;
@@ -175,7 +174,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
             usedHeat = 0;
         }
 
-        private int tick(int temp, boolean ethereal) {
+        private int getMaxTempPer(int purity) {
+            return info.maxTempPer * (purity + 1);
+        }
+
+        private int tick(int temp, int purity) {
             int realUsed = usedHeat * 2000 / MAX_TEMP;
             int realTemp = temp * 2000 / MAX_TEMP;
 
@@ -186,14 +189,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
                 usedHeat += heat / 3 + 1;
             }
 
-            if (realUsed >= info.maxTempPer && !ethereal) {
-                info = null;
-                if (canFuel()) {
-                    fuelHandler.set(getInfo());
-                } else {
-                    fuelHandler.set(null);
-                }
-            } else if (tick >= info.ticksPer) {
+            if (realUsed >= getMaxTempPer(purity) || tick >= info.ticksPer) {
                 info = null;
                 if (canFuel()) {
                     fuelHandler.set(getInfo());
@@ -236,7 +232,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
 
         if (fuelHandler.info != null) {
-            temp = Math.min(MAX_TEMP, fuelHandler.tick(temp, MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)));
+            temp = Math.min(MAX_TEMP, fuelHandler.tick(temp, purity));
             if (temp >= max) {
                 temp = max;
             }
@@ -276,7 +272,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         int other = slot == 0 ? 1 : 0;
         RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return false;
-        int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
+        int fluidAmount = recipe.fluid.amount;
         FluidStack fluid = recipe.fluid.copy();
         fluid.amount = fluidAmount;
         if (tank.fill(fluid, false) < fluid.amount) return false;
@@ -298,7 +294,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
         if (recipe == null) return;
         decrStackSize(in[slot], recipe.input.stackSize);
-        int fluidAmount = getFluidAmount(recipe.input, recipe.fluid.amount);
+        int fluidAmount = recipe.fluid.amount;
         FluidStack fluid = recipe.fluid.copy();
         fluid.amount = fluidAmount;
         tank.fill(fluid, true);
@@ -306,19 +302,6 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
             helper.insertStack(recipe.output.copy(), new int[] { out });
         }
 
-    }
-
-    private int getFluidAmount(ItemStack stack, int amount) {
-        if(MachineSettings.ENABLE_PURITY_IN_CRUCIBLE) {
-            if (OreDicHelper.isInDictionary(stack)) {
-                String name = OreDicHelper.getDictionaryName(stack);
-                if (name.startsWith("ore")) {
-                    amount += (purity * MachineSettings.PURITY);
-                }
-            }
-        }
-        
-        return amount;
     }
 
     // Gui Data
