@@ -119,14 +119,15 @@ public class TileAutohammer extends TileStorage {
     private void drainExperience(int xp) {
         TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
         if (tile instanceof IFluidHandler) {
-            ((IFluidHandler) tile).drain(ForgeDirection.UP, xp, true);
+            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 1000, false);
+            ((IFluidHandler) tile).drain(ForgeDirection.UP, XPRegistry.getFluidValueOfXP(fluid, xp), true);
         }
     }
 
     private int getExperience() {
         TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
         if (tile instanceof IFluidHandler) {
-            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 1, false);
+            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 1000, false);
             if (XPRegistry.isXP(fluid)) {
                 return XPRegistry.getXPValueOfFluid(fluid);
             }

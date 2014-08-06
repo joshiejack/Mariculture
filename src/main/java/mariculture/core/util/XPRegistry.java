@@ -16,6 +16,13 @@ public class XPRegistry {
     }
 
     public static int getXPValueOfFluid(FluidStack fluid) {
-        return (int) Math.floor(fluid.amount / map.get(fluid.getFluid().getName()));
+        float value = map.get(fluid.getFluid().getName());
+        float ret = (float) fluid.amount / value;
+        return (int) ret;
+    }
+
+    public static FluidStack getFluidValueOfXP(FluidStack fluid, int xp) {
+        float value = map.get(fluid.getFluid().getName());
+        return new FluidStack(fluid.getFluid(), (int) (value * xp));
     }
 }
