@@ -8,8 +8,10 @@ import java.util.Random;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ICrucibleHandler;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.util.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -25,6 +27,21 @@ public class CrucibleHandler implements ICrucibleHandler {
 
     @Override
     public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp) {
+        return getResult(input, input2, temp, false);
+    }
+
+    @Override
+    public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp, boolean ethereal) {
+        if (temp < 0 || temp >= 1500) {
+            if (ethereal && input2 == null && input != null && input.isItemEnchanted()) {
+                FluidStack stack = Fluids.getBalancedStack("xp");
+                stack.amount *= EnchantHelper.getEnchantmentValue(input);
+                ItemStack ret = input.copy();
+                ret.stackTagCompound.removeTag("ench");
+                return new RecipeSmelter(input, 1500, stack, ret, 1);
+            }
+        }
+
         for (RecipeSmelter recipe : recipes) {
             if (temp >= 0 && temp < recipe.temp) {
                 continue;
@@ -81,11 +98,21 @@ public class CrucibleHandler implements ICrucibleHandler {
         if (obj instanceof FluidStack) return (FuelInfo) fuels.get(getName((FluidStack) obj));
         return null;
     }
-
+    
     @Override
     public int getMeltingPoint(ItemStack stack) {
-        for (RecipeSmelter recipe : recipes)
+        return getMeltingPoint(stack, false);
+    }
+
+    @Override
+    public int getMeltingPoint(ItemStack stack, boolean ethereal) {
+        if (ethereal && stack != null && stack.isItemEnchanted()) {
+            return 1500;
+        }
+
+        for (RecipeSmelter recipe : recipes) {
             if (ItemHelper.areEqual(stack, recipe.input)) return recipe.temp;
+        }
 
         return -1;
     }

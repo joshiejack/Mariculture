@@ -1,5 +1,8 @@
 package mariculture.core.helpers;
 
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+
 import mariculture.api.core.MaricultureHandlers;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -60,5 +63,32 @@ public class EnchantHelper {
     //Whether the item is broken
     public static boolean isBroken(ItemStack stack) {
         return stack != null && stack.getItemDamage() >= stack.getMaxDamage();
+    }
+
+    public static int getEnchantmentValue(ItemStack stack) {
+        //Setup the Maximum Weight
+        if (MAX_WEIGHT == 0) setMax();
+        int volume = 0;
+        LinkedHashMap<Integer, Integer> maps = (LinkedHashMap<Integer, Integer>) EnchantmentHelper.getEnchantments(stack);
+        for (Entry<Integer, Integer> i : maps.entrySet()) {
+            Enchantment enchant = Enchantment.enchantmentsList[i.getKey()];
+            volume += ((i.getValue() * ((MAX_WEIGHT + 1) - (enchant.getWeight()))));
+        }
+
+        System.out.println(volume);
+
+        return (int) Math.max(1, (((double) volume / (double) MAX_WEIGHT)) * 5);
+    }
+
+    public static int MAX_WEIGHT = 0;
+
+    public static void setMax() {
+        for (Enchantment enchant : Enchantment.enchantmentsList) {
+            if (enchant != null) {
+                if (enchant.getWeight() > MAX_WEIGHT) {
+                    MAX_WEIGHT = enchant.getWeight();
+                }
+            }
+        }
     }
 }

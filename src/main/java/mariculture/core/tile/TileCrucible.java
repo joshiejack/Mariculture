@@ -270,7 +270,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     private boolean canMelt(int slot) {
         int other = slot == 0 ? 1 : 0;
-        RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000));
+        RecipeSmelter recipe = MaricultureHandlers.crucible.getResult(inventory[in[slot]], inventory[in[other]], getTemperatureScaled(2000), MaricultureHandlers.upgrades.hasUpgrade("ethereal", this));
         if (recipe == null) return false;
         int fluidAmount = recipe.fluid.amount;
         FluidStack fluid = recipe.fluid.copy();

@@ -42,8 +42,9 @@ public class GuiLiquifier extends GuiMariculture {
 
     @Override
     public void addItemToolTip(ItemStack stack, List<String> currenttip) {
+        boolean ethereal = MaricultureHandlers.upgrades.hasUpgrade("ethereal", tile);
         if (stack != null) {
-            int meltingPoint = MaricultureHandlers.crucible.getMeltingPoint(stack);
+            int meltingPoint = MaricultureHandlers.crucible.getMeltingPoint(stack, ethereal);
             FuelInfo info = MaricultureHandlers.crucible.getFuelInfo(stack);
             if (FluidContainerRegistry.isFilledContainer(stack)) {
                 FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
@@ -54,8 +55,8 @@ public class GuiLiquifier extends GuiMariculture {
                 currenttip.add(Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + meltingPoint + "\u00B0" + "C");
             }
 
-            if (MaricultureHandlers.crucible.getResult(stack, null, -1) != null) {
-                RecipeSmelter result = MaricultureHandlers.crucible.getResult(stack, null, -1);
+            if (MaricultureHandlers.crucible.getResult(stack, null, -1, ethereal) != null) {
+                RecipeSmelter result = MaricultureHandlers.crucible.getResult(stack, null, -1, ethereal);
                 if (result.fluid.amount > 0) if (result.rands != null) {
                     currenttip.add(Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
                 } else {
