@@ -99,7 +99,7 @@ public class BlockTicking extends BlockFunctional {
     }
 
     @Override
-    public boolean onBlockDropped(World world, int x, int y, int z) {
+    public boolean destroyBlock(World world, int x, int y, int z) {
         SpawnItemHelper.spawnItem(world, x, y, z, new ItemStack(Fishery.net));
         world.setBlockToAir(x, y, z);
         return false;

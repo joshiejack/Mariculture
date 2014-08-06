@@ -336,13 +336,11 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public boolean doesDrop(int meta) {
-        if (meta == MachineRenderedMeta.FLUDD_STAND) return false;
-        else if (meta >= MachineRenderedMeta.ROTOR_ALUMINUM && meta <= MachineRenderedMeta.ROTOR_TITANIUM) return false;
-        else return true;
+        return meta != MachineRenderedMeta.FLUDD_STAND;
     }
 
     @Override
-    public boolean onBlockDropped(World world, int x, int y, int z) {
+    public boolean destroyBlock(World world, int x, int y, int z) {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TileFLUDDStand) {
             TileFLUDDStand stand = (TileFLUDDStand) tile;
@@ -363,7 +361,7 @@ public class BlockRenderedMachine extends BlockFunctional {
             } else return world.setBlockToAir(x, y, z);
         }
 
-        return super.onBlockDropped(world, x, y, z);
+        return super.destroyBlock(world, x, y, z);
     }
 
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {

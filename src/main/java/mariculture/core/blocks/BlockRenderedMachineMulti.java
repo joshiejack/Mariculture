@@ -237,7 +237,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
     }
 
     @Override
-    public boolean onBlockDropped(World world, int x, int y, int z) {
+    public boolean destroyBlock(World world, int x, int y, int z) {
         return false;
     }
 

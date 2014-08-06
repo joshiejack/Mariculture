@@ -1,6 +1,7 @@
 package mariculture.core.blocks.base;
 
 import java.util.List;
+import java.util.Random;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
@@ -49,6 +50,16 @@ public abstract class BlockDecorative extends Block implements IHasMeta {
     @Override
     public int damageDropped(int i) {
         return i;
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random rand, int side) {
+        return !doesDrop(meta) ? null : super.getItemDropped(meta, rand, side);
+    }
+
+    //Whether this meta should drop or not
+    public boolean doesDrop(int meta) {
+        return true;
     }
 
     @Override

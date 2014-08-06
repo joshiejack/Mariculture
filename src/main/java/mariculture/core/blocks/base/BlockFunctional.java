@@ -1,7 +1,10 @@
 package mariculture.core.blocks.base;
 
+import java.util.Random;
+
 import mariculture.Mariculture;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.IFaceable;
@@ -12,6 +15,7 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -23,10 +27,10 @@ public abstract class BlockFunctional extends BlockDecorative {
     }
 
     @Override
-    public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+    public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
         if (player.capabilities.isCreativeMode) return world.setBlockToAir(x, y, z);
-        if (doesDrop(world.getBlockMetadata(x, y, z))) return super.removedByPlayer(world, player, x, y, z);
-        else return onBlockDropped(world, x, y, z);
+        if (doesDrop(world.getBlockMetadata(x, y, z))) return super.removedByPlayer(world, player, x, y, z, willHarvest);
+        else return destroyBlock(world, x, y, z);
     }
 
     @Override
@@ -71,13 +75,8 @@ public abstract class BlockFunctional extends BlockDecorative {
         return true;
     }
 
-    //Whether this meta should drop or not
-    public boolean doesDrop(int meta) {
-        return true;
-    }
-
     //Called when the block is trying to be destroyed
-    public boolean onBlockDropped(World world, int x, int y, int z) {
+    public boolean destroyBlock(World world, int x, int y, int z) {
         return world.setBlockToAir(x, y, z);
     }
 
