@@ -35,6 +35,7 @@ public class RenderSingleItem implements IItemRenderer {
                 case MachineRenderedMeta.INGOT_CASTER:
                 case MachineRenderedMeta.BLOCK_CASTER:
                 case MachineRenderedMeta.NUGGET_CASTER:
+                case MachineRenderedMeta.AUTO_HAMMER:
                     return false;
                 default:
                     return true;

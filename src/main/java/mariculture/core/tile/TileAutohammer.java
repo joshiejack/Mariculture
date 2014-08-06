@@ -19,13 +19,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAutohammer extends TileStorage {
     private int offset = -1;
-    private int[] ticker;
     public boolean[] up;
     public float[] angle;
 
     public TileAutohammer() {
         inventory = new ItemStack[4];
-        ticker = new int[4];
         up = new boolean[4];
         angle = new float[4];
     }
@@ -47,6 +45,14 @@ public class TileAutohammer extends TileStorage {
     @Override
     public void updateEntity() {
         if (Client.HAMMER_ANIM && worldObj.isRemote) {
+            if (offset < 0) {
+                for(int i = 0; i < angle.length; i++) {
+                    angle[i] = 5F + worldObj.rand.nextInt(4);
+                }
+                
+                offset = 1;
+            }
+            
             for (int i = 0; i < angle.length; i++) {
                 if (up[i]) {
                     if (angle[i] <= 5F) {
