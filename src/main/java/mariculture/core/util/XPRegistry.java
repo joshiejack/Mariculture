@@ -12,7 +12,7 @@ public class XPRegistry {
     }
 
     public static boolean isXP(FluidStack fluid) {
-        return fluid != null && fluid.getFluid() != null && map.containsKey(fluid.getFluid().getName());
+        return fluid != null && fluid.getFluid() != null && fluid.amount > 0 && map.containsKey(fluid.getFluid().getName());
     }
 
     public static int getXPValueOfFluid(FluidStack fluid) {
@@ -21,8 +21,8 @@ public class XPRegistry {
         return (int) ret;
     }
 
-    public static FluidStack getFluidValueOfXP(FluidStack fluid, int xp) {
+    public static int getFluidValueOfXP(FluidStack fluid, int xp) {
         float value = map.get(fluid.getFluid().getName());
-        return new FluidStack(fluid.getFluid(), (int) (value * xp));
+        return (int) (value * xp);
     }
 }

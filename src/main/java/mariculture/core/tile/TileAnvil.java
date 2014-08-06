@@ -80,7 +80,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
         return false;
     }
-    
+
     private boolean hasXP(EntityPlayer player, float xp) {
         return player.experience >= xp || player.experienceLevel > 0;
     }
@@ -120,7 +120,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
                 if (stack.getItemDamage() < 0) {
                     stack.setItemDamage(0);
                 }
-                
+
                 float experience = player.experience - drop;
                 if (experience <= 0.0F) {
                     player.experience = 1.0F;
@@ -134,15 +134,17 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
                 } else {
                     worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
                 }
-                
+
                 if (worldObj.isRemote) {
                     worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
                 }
-                
-                if(stack.getItemDamage() == 0) {
-                    return (int) (5000 + drop);
+
+                if (stack.getItemDamage() != 0) {
+                    int ret = (int) ((drop / 0.05882353F) * 1);
+                    return Math.max(1, ret);
                 } else {
-                    return (int) drop;
+                    int ret = (int) ((drop / 0.05882353F) * 1);
+                    return Math.max(1, ret) + 5000;
                 }
             }
 
@@ -154,7 +156,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
             setInventorySlotContents(0, createWorkedItem(recipe.output.copy(), recipe.hits));
             worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
             return 1;
-        } else if(hasXP(player, 2)) {
+        } else if (hasXP(player, 2)) {
             int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
             stack.stackTagCompound.setInteger("Worked", workedVal);
             if (workedVal >= stack.stackTagCompound.getInteger("Required")) {
@@ -175,7 +177,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
             return -1;
         }
-        
+
         return 0;
     }
 

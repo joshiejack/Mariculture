@@ -82,8 +82,10 @@ public class TileAutohammer extends TileStorage {
                             TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord - 1, zCoord + dir.offsetZ);
                             if (tile instanceof TileAnvil) {
                                 TileAnvil anvil = (TileAnvil) tile;
+                                //Created a fake player and add the levels that are stored in to the tank in to their experience
                                 FakePlayer player = PlayerHelper.getFakePlayer(worldObj);
                                 player.addExperience(getExperience());
+
                                 int ret = ((TileAnvil) tile).workItem(player, inventory[i]);
                                 if (ret >= 5000) {
                                     drainExperience(ret - 5000);
@@ -92,6 +94,7 @@ public class TileAutohammer extends TileStorage {
                                     PacketHandler.sendAround(new PacketParticle(Particle.EXPLODE_LRG, 1, anvil.xCoord, anvil.yCoord + 0.5, anvil.zCoord), worldObj.provider.dimensionId, anvil.xCoord, tile.yCoord + 1, anvil.zCoord);
                                 } else if (ret < 0) {
                                     //Perform small explosion effect
+                                    drainExperience(1);
                                     worldObj.playSoundEffect(anvil.xCoord, anvil.yCoord, anvil.zCoord, Mariculture.modid + ":hammer", 1.0F, 1.0F);
                                     PacketHandler.sendAround(new PacketParticle(Particle.EXPLODE_SML, 1, anvil.xCoord, anvil.yCoord + 0.5, anvil.zCoord), worldObj.provider.dimensionId, anvil.xCoord, tile.yCoord + 1, anvil.zCoord);
                                 } else if (ret != 0) {
@@ -119,16 +122,19 @@ public class TileAutohammer extends TileStorage {
     private void drainExperience(int xp) {
         TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
         if (tile instanceof IFluidHandler) {
-            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 1000, false);
-            ((IFluidHandler) tile).drain(ForgeDirection.UP, XPRegistry.getFluidValueOfXP(fluid, xp), true);
+            ((IFluidHandler) tile).drain(ForgeDirection.UP, XPRegistry.getFluidValueOfXP(((IFluidHandler) tile).drain(ForgeDirection.UP, Integer.MAX_VALUE, false), xp), true);
         }
     }
 
     private int getExperience() {
         TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
         if (tile instanceof IFluidHandler) {
-            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 1000, false);
+            //Get the entire volume of fluid in the tank
+            FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, Integer.MAX_VALUE, false);
+            System.out.println(fluid);
+            
             if (XPRegistry.isXP(fluid)) {
+                //Convert this volume in to raw experience
                 return XPRegistry.getXPValueOfFluid(fluid);
             }
         }
