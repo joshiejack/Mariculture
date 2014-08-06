@@ -21,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
@@ -87,6 +88,7 @@ public class PluginBloodMagic extends Plugin {
             addLoot(getUndamaged("itemKeyOfDiablo"), GOOD, 75);
 
             ItemStack loot = getUndamaged("boundBoots");
+            loot.setTagCompound(new NBTTagCompound());
             ((BoundArmour) loot.getItem()).saveInternalInventory(loot, new ItemStack[9]);
             addLoot(loot, GOOD, 200);
 

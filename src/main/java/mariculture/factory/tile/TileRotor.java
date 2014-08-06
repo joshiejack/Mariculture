@@ -6,7 +6,6 @@ import net.minecraft.tileentity.TileEntity;
 
 /* This block does nothing, except animation */
 public class TileRotor extends TileEntity {
-    private boolean isBuilt = false;
     private boolean northSouth;
     public int energyStored;
     public CachedCoords master;
@@ -43,7 +42,7 @@ public class TileRotor extends TileEntity {
     }
 
     public boolean isBuilt() {
-        return isBuilt;
+        return true;
     }
 
     public TileEntity getMasterFromCoords(CachedCoords cord) {
@@ -57,10 +56,6 @@ public class TileRotor extends TileEntity {
             master = null; //Set the master to null, as this block may have been removed from the net
             ((TileGenerator) tile).reset();
         }
-    }
-
-    public void updateIsBuilt() {
-
     }
 
     @Override
