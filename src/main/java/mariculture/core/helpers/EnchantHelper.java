@@ -75,8 +75,6 @@ public class EnchantHelper {
             volume += ((i.getValue() * ((MAX_WEIGHT + 1) - (enchant.getWeight()))));
         }
 
-        System.out.println(volume);
-
         return (int) Math.max(1, (((double) volume / (double) MAX_WEIGHT)) * 5);
     }
 

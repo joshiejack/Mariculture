@@ -112,7 +112,9 @@ public class ItemEnchiridion extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	 public IIcon getIcon(ItemStack stack, int pass) {
-        if(pass == 0) {
+		if(stack.getItemDamage() == GUIDE && stack.hasTagCompound()) {
+			return CustomBooks.getIcon(stack);
+		} else if(pass == 0) {
         	return icons[stack.getItemDamage()];
         } else return pages;
 	}

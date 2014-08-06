@@ -131,9 +131,12 @@ public class ContainerBinder extends Container {
 	public static boolean isBook(ItemStack stack) {
 		String name = Item.itemRegistry.getNameForObject(stack.getItem());
 		if(name != null) {
-			for (String check : Config.prefixes) {
-				if (name.contains(check))
-					return true;
+			for(String bad: Config.removals) {
+				if(name.equals(bad)) return false;
+			}
+			
+			for(String good: Config.additions) {
+				if(name.contains(good)) return true;
 			}
 		}
 

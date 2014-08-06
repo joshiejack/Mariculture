@@ -21,7 +21,7 @@ import enchiridion.api.GuideHandler;
 import enchiridion.api.XMLHelper;
 
 public class PageImage extends PageParser {
-	private static final HashMap<String, LinkedTexture> imageCache = new HashMap();
+	public static final HashMap<String, LinkedTexture> imageCache = new HashMap();
 	
 	float stretch;
 	private ResourceLocation resource;
@@ -100,8 +100,8 @@ public class PageImage extends PageParser {
 	
 	public static class LinkedTexture {
 		int height, width;
-		DynamicTexture texture;
-		ResourceLocation resource;
+		public DynamicTexture texture;
+		public ResourceLocation resource;
 		
 		public LinkedTexture(int height, int width, DynamicTexture texture, ResourceLocation resource) {
 			this.height = height;

@@ -16,6 +16,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -24,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import enchiridion.CustomBooks.BookInfo;
 import enchiridion.api.GuideHandler;
 
-@Mod(modid = "Enchiridion", name = "Enchiridion", version="1.1")
+@Mod(modid = "Enchiridion", name = "Enchiridion", dependencies="required-after:Forge@[10.12.1.1082,)")
 public class Enchiridion {
 	public static final String modid = "books";
 	public static Item items;
@@ -51,14 +52,20 @@ public class Enchiridion {
 		MinecraftForge.EVENT_BUS.register(handler);
 		FMLCommonHandler.instance().bus().register(handler);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-		if(FMLCommonHandler.instance().getSide() == Side.CLIENT && GuideHandler.DEBUG_ENABLED) {
-			MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			if(GuideHandler.DEBUG_ENABLED) {
+				MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+			}
 		}
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init();
+		
+		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			MinecraftForge.EVENT_BUS.register(new TextureHandler());
+		}
 		
 		if(Config.binder_recipe) {
 			CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(items, 1, ItemEnchiridion.BINDER), new Object[] {
@@ -67,7 +74,7 @@ public class Enchiridion {
 		}
 	}
 
-	@Mod.EventHandler
+	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit();
 		
@@ -80,4 +87,15 @@ public class Enchiridion {
 			}
 		}
 	}
+	
+	@EventHandler
+    public void onReceivedBookAddition(FMLInterModComms.IMCEvent event) {
+        for (FMLInterModComms.IMCMessage message : event.getMessages()) {
+            if (message.key.equalsIgnoreCase("addBook")) {
+                if (message.isStringMessage()) {
+                	Config.additions.add(message.getStringValue());
+                }
+            }
+        }
+    }
 }
