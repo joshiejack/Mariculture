@@ -76,6 +76,7 @@ import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAnvil;
+import mariculture.core.tile.TileAutohammer;
 import mariculture.core.tile.TileBlockCaster;
 import mariculture.core.tile.TileBookshelf;
 import mariculture.core.tile.TileCrucible;
@@ -217,6 +218,7 @@ public class Core extends RegistrationModule {
         addFluid("bronze", "bronze.molten", MetalRates.ORE, BottleMeta.BRONZE, 144);
         addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144);
         addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144);
+        addFluid("xp", 100);
 
         registerVanillaBottle(getFluid("natural_gas"), 1000, BottleMeta.GAS_BASIC);
         registerHeatBottle(FluidRegistry.WATER, 2000, BottleMeta.WATER);
@@ -244,7 +246,7 @@ public class Core extends RegistrationModule {
         ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
         water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
         RegistryHelper.registerBlocks(new Block[] { rocks, limestone, water, metals, sands, woods, glass, transparent, pearlBlock, machines, machinesMulti, renderedMachinesMulti, renderedMachines, ticking, tanks, air });
-        RegistryHelper.registerTiles(new Class[] { TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class, TileBlockCaster.class, TileNuggetCaster.class });
+        RegistryHelper.registerTiles(new Class[] { TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class, TileBlockCaster.class, TileNuggetCaster.class, TileAutohammer.class });
     }
 
     @Override

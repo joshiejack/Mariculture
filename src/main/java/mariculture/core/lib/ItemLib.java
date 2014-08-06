@@ -173,6 +173,7 @@ public class ItemLib {
     public static final ItemStack storageBookshelf = new ItemStack(Core.machines, 1, MachineMeta.BOOKSHELF);
     public static final ItemStack crucible = new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.CRUCIBLE);
     public static final ItemStack anvil = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.ANVIL);
+    public static final ItemStack autohammer = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.AUTO_HAMMER);
     public static final ItemStack vat = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.VAT);
     public static final ItemStack ingotCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.INGOT_CASTER);
     public static final ItemStack blockCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.BLOCK_CASTER);

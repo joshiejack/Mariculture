@@ -58,6 +58,7 @@ public class Recipes {
         addShaped(storageBookshelf, new Object[] { "SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest });
         addShaped(crucible, new Object[] { " L ", "BGB", "HCH", 'B', burntBrick, 'L', lava, 'G', tank, 'H', heating, 'C', baseBrick });
         addShaped(anvil, new Object[] { "CCC", " N ", "BBB", 'C', baseBrick, 'B', burntBrick, 'N', netherBrick });
+        addShaped(autohammer, new Object[] { " N ", "NCN", " N ", 'C', baseBrick, 'N', netherBrick });
         addShaped(vat, new Object[] { "C C", "C C", "CCC", 'C', "ingotCopper" });
         addShaped(blockCaster, new Object[] { "BBB", "B B", "BBB", 'B', burntBrick });
         addShaped(ingotCaster, new Object[] { " B ", "BBB", " B ", 'B', burntBrick });

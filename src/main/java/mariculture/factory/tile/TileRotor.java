@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 /* This block does nothing, except animation */
-public class TileRotor extends TileEntity {
+public abstract class TileRotor extends TileEntity {
     private boolean northSouth;
     public int energyStored;
     public CachedCoords master;

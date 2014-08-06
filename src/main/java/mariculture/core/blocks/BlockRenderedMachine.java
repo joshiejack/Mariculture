@@ -17,6 +17,7 @@ import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAirPump.Type;
 import mariculture.core.tile.TileAnvil;
+import mariculture.core.tile.TileAutohammer;
 import mariculture.core.tile.TileBlockCaster;
 import mariculture.core.tile.TileCooling;
 import mariculture.core.tile.TileIngotCaster;
@@ -66,8 +67,6 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public int getToolLevel(int meta) {
         switch (meta) {
-            case MachineRenderedMeta.ROTOR_WOOD:
-                return 0;
             case MachineRenderedMeta.AIR_PUMP:
             case MachineRenderedMeta.GEYSER:
             case MachineRenderedMeta.ROTOR_COPPER:
@@ -91,14 +90,13 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return 1F;
             case MachineRenderedMeta.GEYSER:
                 return 0.85F;
+            case MachineRenderedMeta.AUTO_HAMMER:
             case MachineRenderedMeta.INGOT_CASTER:
             case MachineRenderedMeta.BLOCK_CASTER:
             case MachineRenderedMeta.NUGGET_CASTER:
                 return 1.5F;
             case MachineRenderedMeta.ANVIL:
                 return 25F;
-            case MachineRenderedMeta.ROTOR_WOOD:
-                return 1.75F;
             case MachineRenderedMeta.ROTOR_COPPER:
                 return 5F;
             case MachineRenderedMeta.ROTOR_ALUMINUM:
@@ -314,7 +312,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public boolean doesDrop(int meta) {
-        if (meta == MachineRenderedMeta.FLUDD_STAND || meta == MachineRenderedMeta.ROTOR_WOOD) return false;
+        if (meta == MachineRenderedMeta.FLUDD_STAND) return false;
         else if (meta >= MachineRenderedMeta.ROTOR_ALUMINUM && meta <= MachineRenderedMeta.ROTOR_TITANIUM) return false;
         else return true;
     }
@@ -368,8 +366,8 @@ public class BlockRenderedMachine extends BlockFunctional {
                 return new TileBlockCaster();
             case MachineRenderedMeta.NUGGET_CASTER:
                 return new TileNuggetCaster();
-            case MachineRenderedMeta.ROTOR_WOOD:
-                return new TileRotor();
+            case MachineRenderedMeta.AUTO_HAMMER:
+                return new TileAutohammer();
             case MachineRenderedMeta.ROTOR_COPPER:
                 return new TileRotorCopper();
             case MachineRenderedMeta.ROTOR_ALUMINUM:
@@ -395,7 +393,6 @@ public class BlockRenderedMachine extends BlockFunctional {
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
                 return Modules.isActive(Modules.fishery);
-            case MachineRenderedMeta.ROTOR_WOOD:
             case MachineRenderedMeta.ROTOR_COPPER:
             case MachineRenderedMeta.ROTOR_ALUMINUM:
             case MachineRenderedMeta.ROTOR_TITANIUM:
@@ -429,7 +426,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         String name = prefix != null ? prefix : "";
         icons = new IIcon[getMetaCount() - 2];
         for (int i = 0; i < icons.length; i++) {
-            if ((i < MachineRenderedMeta.ROTOR_TITANIUM || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.ROTOR_WOOD) {
+            if ((i < MachineRenderedMeta.ROTOR_TITANIUM || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.AUTO_HAMMER) {
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
             }
         }
