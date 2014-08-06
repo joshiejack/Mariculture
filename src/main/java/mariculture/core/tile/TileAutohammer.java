@@ -17,10 +17,17 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAutohammer extends TileStorage {
+    public static final boolean HAMMER_ANIM = true;
     private int offset = -1;
+    private int[] ticker;
+    public boolean[] up;
+    public float[] angle;
 
     public TileAutohammer() {
         inventory = new ItemStack[4];
+        ticker = new int[4];
+        up = new boolean[4];
+        angle = new float[4];
     }
 
     @Override
@@ -39,6 +46,20 @@ public class TileAutohammer extends TileStorage {
 
     @Override
     public void updateEntity() {
+        if (HAMMER_ANIM && worldObj.isRemote) {
+            for (int i = 0; i < angle.length; i++) {
+                if (up[i]) {
+                    if (angle[i] <= 5F) {
+                        up[i] = false;
+                    } else angle[i] -= 2F;
+                } else {
+                    if (angle[i] >= 56F) {
+                        up[i] = true;
+                    } else angle[i] += 2F;
+                }
+            }
+        }
+
         if (!worldObj.isRemote) {
             if (offset < 0) {
                 offset = worldObj.rand.nextInt(80);
