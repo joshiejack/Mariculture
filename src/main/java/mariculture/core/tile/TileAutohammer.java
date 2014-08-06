@@ -131,8 +131,6 @@ public class TileAutohammer extends TileStorage {
         if (tile instanceof IFluidHandler) {
             //Get the entire volume of fluid in the tank
             FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, Integer.MAX_VALUE, false);
-            System.out.println(fluid);
-            
             if (XPRegistry.isXP(fluid)) {
                 //Convert this volume in to raw experience
                 return XPRegistry.getXPValueOfFluid(fluid);

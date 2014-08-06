@@ -82,7 +82,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
     }
 
     private boolean hasXP(EntityPlayer player, float xp) {
-        return player.experience >= xp || player.experienceLevel > 0;
+        return player.experience >= (xp * 0.05882353F) || player.experienceLevel > 0;
     }
 
     public int workItem(EntityPlayer player, ItemStack hammer) {
