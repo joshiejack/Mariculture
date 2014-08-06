@@ -92,74 +92,128 @@
         <stack item="rod.reed" size="1.8"></stack>
         <text x="32" y="45" bold="true" size="0.8">Тростниковая удочка (96 использований)</text>
         <stack item="ant" x="30" y="36"></stack>
-        <stack item="hopper" x="50" y="36"></stack>
-        <stack item="maggot" x="70" y="36"></stack>
+        <stack item="bread" x="50" y="36"></stack>
+        <stack item="hopper" x="70" y="36"></stack>
         <hr x="10" y="59" width="160"></hr>
         
         <stack item="rod.wood" y="21" size="1.8"></stack>
         <text x="32" y="93" bold="true" size="0.8">Деревянная удочка (320 использований)</text>
-        <stack item="worm" x="30" y="75"></stack>
+        <stack item="hopper" x="30" y="75"></stack>
         <stack item="maggot" x="50" y="75"></stack>
-        <stack item="bread" x="70" y="75"></stack>
+        <stack item="worm" x="70" y="75"></stack>
         <hr x="10" y="98" width="160"></hr>
         
         <stack item="rod.titanium" y="43" size="1.8"></stack>
         <text x="32" y="142" bold="true" size="0.8">Титановая удочка (640 использований)</text>
         <stack item="worm" x="30" y="114"></stack>
-        <stack item="bread" x="50" y="114"></stack>
+        <stack item="bee" x="50" y="114"></stack>
         <stack item="fish 9" x="70" y="114"></stack>
         <hr x="10" y="137" width="160"></hr>
         
         <stack item="rod.flux" y="64" size="1.8"></stack>
         <text x="32" y="191" bold="true" size="0.8">Флаксовая удочка (Неограниченное использование)</text>
         <stack item="ant" x="30" y="154"></stack>
-        <stack item="worm" x="50" y="154"></stack>
+        <stack item="bread" x="50" y="154"></stack>
         <stack item="hopper" x="70" y="154"></stack>
         <stack item="maggot" x="90" y="154"></stack>
-        <stack item="bread" x="110" y="154"></stack>
-        <stack item="fish 9" x="130" y="154"></stack>
-        <stack item="bee" x="150" y="154"></stack>
+        <stack item="bee" x="110" y="154"></stack>
+        <stack item="worm" x="130" y="154"></stack>
+        <stack item="fish 9" x="150" y="154"></stack>
     </page>
     <page>
+	<text x="100" y="-13" bold="true">Среда</text>
+        <text>Mariculture вводит водную среду. Она определяет, какая рыба может жить, а какая может быть поймана. Водная среда состоит из двух частей: Солёность воды и температура воды. Солёность воды статична и основана на биоме, в котором Вы находитесь. В то время как температура гораздо более динамична, она будет меняться в зависимости от многих факторов. Включая: высоту мира, погоду, положение солнца, постоянство бимов и освещение.</text>
+<hr y="90"></hr>
+<text y="100" bold="true">Анализатор водной среды</text>
+<text y="172" wrap="150" size="0.7">Это устройство, будет иметь решающее значение при поиске хороших места, щелкните ПКМ по блоку или в воздухе - это даст Вам данные о температуре и солёности этих координат. Это поможет Вам лучше понять окружающую среду.</text>
+    <crafting x="105" y="117" size="0.95">
+        <craft1>||</craft1>
+        <craft2>|fish|</craft2>
+        <craft3>|compass|</craft3>
+        <craftResult>thermometer</craftResult>
+    </crafting>
+    </page>
+    <page>
+        <text x="18" y="-13" bold="true">Постоянства биомов</text>
+        <text>Это просто список температур по умолчанию для каждого биома и их солёность, чтобы дать Вам данные, где искать рыбу или разводить животных.</text>
+<hr y="30"></hr>
+<text y="30" size="1">
+Beach: Солоноватая, 25°C
+Desert: Пресная, 45°C
+Extreme Hills: Пресная, 5°C
+Forest: Пресная, 10°C
+Frozen Ocean: Солёная, -1°C
+Frozen River: Пресная, -1°C
+Ice Plains: Пресная, -1°C
+Jungle: Пресная, 25°C
+Mushroom: Пресная, 15°C
+Nether: Пресная, 80°C
+Ocean: Солёная, 4°C
+Plains: Пресная, 10°C
+River: Пресная, 10°C
+The End: Пресная, 3°C
+Swamp: Пресная, 8°C
+Taiga: Пресная, 1°C
+</text>
+    </page>
+	<page>
        <text x="102" y="-13" bold="true">Рыбалка</text>
        <text>Рыбачить легко! Просто возьмите удочку и нужную наживку и поместите их рядом на панель быстро доступа. Дальше - рыбачьте как обычно.</text>
        <img mod="mariculture" src="fishing/mariculture_fishing" x="20" y="100" size="0.53"></img>
     </page>
-     <page>
+    <page>
         <text x="38" y="-13" bold="true">Рыба</text>
-        <text>Различные виды рыб обитают в разных биомах. Только 8 видов могут быть выловлены. Ниже приведен список биомов и типы рыб, которые в них обитают.</text>
+        <text wrap="275" x="-1" y="9" size="0.7">Различные виды рыб обитают в разных биомах. Только 8 видов могут быть выловлены. Ниже приведен список биомов и типы рыб, которые в них обитают.</text>
 
         <stack item="fish 9" size="1.5" y="15"></stack>
         <text x="28" y="37" bold="true">Пескарь</text>
-        <text x="28" y="78" size="0.7" wrap="100">Нормальный, Холодный, Замёрзший</text>
+        <text x="28" y="78" size="0.7" wrap="100">Пресная вода, 70+
+от -1°C до 45°C</text>
         
         <stack item="fish 0" x="88" size="1.5" y="15"></stack>
         <text x="116" y="37" bold="true">Треска</text>
-        <text x="116" y="78" size="0.7" wrap="100">(Замёрзший) Океан, Холодный, Замёрзший</text>
+        <text x="116" y="78" size="0.7" wrap="100">Солёная вода, *
+от -3°C до 20°C</text>
         
         <stack item="fish 15" size="1.5" y="35"></stack>
         <text x="28" y="70" bold="true">Скат</text>
-        <text x="28" y="125" size="0.7" wrap="100">(Замёрзший) Океан, Жаркий, Засушливый</text>
+        <text x="28" y="125" size="0.7" wrap="100">Солоноватая вода, *
+от 19°C до 29°C</text>
         
         <stack item="fish 21" x="88" size="1.5" y="35"></stack>
         <text x="116" y="70" bold="true">Спрут</text>
-        <text x="116" y="125" size="0.7" wrap="100">(Замёрзший) Океан</text>
+        <text x="116" y="125" size="0.7" wrap="100">Солёная вода, *
+от 3°C до 20°C</text>
         
         <stack item="fish 18" size="1.5" y="55"></stack>
         <text x="28" y="100" bold="true">Абудефдуф</text>
-        <text x="28" y="168" size="0.7" wrap="100">Океан, Жаркий</text>
+        <text x="28" y="168" size="0.7" wrap="90">Пресная вода, *
+от 22°C до 27°C</text>
         
         <stack item="fish 12" x="88" size="1.5" y="55"></stack>
         <text x="116" y="100" bold="true">Голубой неон</text>
-        <text x="116" y="168" size="0.7" wrap="100">Жаркий</text>
+        <text x="116" y="168" size="0.7" wrap="100">Пресная вода, *
+от 20°C до 28°C</text>
+
+        <stack item="fish 33" size="1.5" y="75"></stack>
+        <text x="28" y="130" bold="true">Spiderfish</text>
+        <text x="28" y="211" size="0.7" wrap="100">Пресная вода, -48
+от -5°C до 20°C</text>
         
-        <stack item="fish 3" size="1.5" y="75"></stack>
-        <text x="28" y="130" bold="true">Рыба Нижнего мира</text>
-        <text x="28" y="211" size="0.7" wrap="100">Нижний мир</text>
+        <stack item="fish 30" x="88" size="1.5" y="75"></stack>
+        <text x="116" y="130" bold="true">Blaasop</text>
+        <text x="116" y="211" size="0.7" wrap="100">Солёная вода, -16
+от -3°C до 5°C</text>
+        
+        <stack item="fish 20" size="1.5" y="95"></stack>
+        <text x="28" y="160" bold="true">Рыба Нижнего мира</text>
+        <text x="28" y="254" size="0.7" wrap="100">Нижний мир
+от 45°C до 100°C</text>
         
         <stack item="fish 6" x="88" size="1.5" y="75"></stack>
-        <text x="116" y="130" bold="true">Ночная рыба</text>
-        <text x="116" y="211" size="0.7">Край</text>
+        <text x="116" y="160" bold="true">Ночная рыба</text>
+        <text x="116" y="254" size="0.7">Край или ночью
+от -10°C до 66°C</text>
     </page>
     <page>
         <text x="86" y="-13" bold="true">Авто-рыбак</text>
@@ -241,5 +295,7 @@
         <text y="55">Это минимальный необходимый размер аквариума для того, чтобы рыба могла себя чувствовать себя комфортно.</text>
         <text y="74" bold="true">Производительность</text>
         <text y="102">Свойство определяет, насколько усердно рыба будет производить продукцию. Ленивые рыбы не производят почти ничего, однако усердные - завалят Вас продуктами достаточно быстро.</text>
+		<text y="120" bold="true">Область - UDNESW</text>
+        <text y="156">Эта область, в которой рыба будет работать, в основном она определяет, как далеко специальные продукты рыб идут.</text>
     </page>
 </book>
