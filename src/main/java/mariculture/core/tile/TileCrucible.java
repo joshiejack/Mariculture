@@ -298,8 +298,10 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         FluidStack fluid = recipe.fluid.copy();
         fluid.amount = fluidAmount;
         tank.fill(fluid, true);
-        if (recipe.output != null && recipe.chance > 0) if (worldObj.rand.nextInt(recipe.chance) == 0) {
-            helper.insertStack(recipe.output.copy(), new int[] { out });
+        if (recipe.output != null && recipe.chance > 0) {
+            if (worldObj.rand.nextInt(recipe.chance) == 0) {
+                helper.insertStack(recipe.output.copy(), new int[] { out });
+            }
         }
 
     }

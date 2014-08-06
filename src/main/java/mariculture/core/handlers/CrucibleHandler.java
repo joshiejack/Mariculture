@@ -33,12 +33,15 @@ public class CrucibleHandler implements ICrucibleHandler {
     @Override
     public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp, boolean ethereal) {
         if (temp < 0 || temp >= 1500) {
-            if (ethereal && input2 == null && input != null && input.isItemEnchanted()) {
+            if (ethereal && input != null && input.isItemEnchanted()) {
                 FluidStack stack = Fluids.getBalancedStack("xp");
                 stack.amount *= EnchantHelper.getEnchantmentValue(input);
+                ItemStack in = input.copy();
+                in.stackSize = 1;
                 ItemStack ret = input.copy();
+                ret.stackSize = 1;
                 ret.stackTagCompound.removeTag("ench");
-                return new RecipeSmelter(input, 1500, stack, ret, 1);
+                return new RecipeSmelter(in, 1500, stack, ret, 1);
             }
         }
 

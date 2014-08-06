@@ -47,7 +47,7 @@ public class ContainerCrucible extends ContainerMachine {
             } else if (slotID >= size) {
                 if (MaricultureHandlers.crucible.getFuelInfo(stack) != null) {
                     if (!mergeItemStack(stack, 7, 8, false)) return null;
-                } else if (MaricultureHandlers.crucible.getResult(stack, null, -1) != null) {
+                } else if (MaricultureHandlers.crucible.getResult(stack, null, -1, true) != null) {
                     if (!mergeItemStack(stack, 5, 7, false)) return null;
                 } else if (FluidHelper.isFluidOrEmpty(stack)) {
                     if (!mergeItemStack(stack, 3, 4, false)) return null;

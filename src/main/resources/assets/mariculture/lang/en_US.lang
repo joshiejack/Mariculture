@@ -76,6 +76,7 @@ tile.machines.single.rendered.nuggetCaster.name=Nugget Caster
 tile.machines.multi.rendered.vat.name=Vat
 #fluids
 fluid.fastwater=Pressurised Water
+fluid.xp=Molten Experience
 tile.highPressureWater.name=Pressurised Water
 fluid.rutile.molten=Impure Molten Titanium
 fluid.titanium.molten=Molten Titanium
