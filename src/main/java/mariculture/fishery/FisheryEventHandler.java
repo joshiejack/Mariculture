@@ -5,7 +5,8 @@ import java.util.Random;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.network.PacketHandler;
-import mariculture.core.network.PacketSplash;
+import mariculture.core.network.PacketParticle;
+import mariculture.core.network.PacketParticle.Particle;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySquid;
@@ -24,7 +25,7 @@ public class FisheryEventHandler {
         float var2 = MathHelper.floor_double(entity.boundingBox.minY);
         float var4 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
         float var5 = (rand.nextFloat() * 2.0F - 1.0F) * entity.width;
-        PacketHandler.sendAround(new PacketSplash(entity.posX - 0.5, entity.posY - 0.5, entity.posZ - 0.5), world.provider.dimensionId, entity.posX, entity.posY, entity.posZ);
+        PacketHandler.sendAround(new PacketParticle(Particle.SPLASH, 8, entity.posX - 0.5, entity.posY - 0.5, entity.posZ - 0.5), world.provider.dimensionId, entity.posX, entity.posY, entity.posZ);
         entity.lifespan = lifespan;
         entity.setEntityItemStack(stack);
     }

@@ -134,21 +134,26 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
                 } else {
                     worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
                 }
+                
                 if (worldObj.isRemote) {
                     worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
                 }
-
-                return (int) drop;
+                
+                if(stack.getItemDamage() == 0) {
+                    return (int) (5000 + drop);
+                } else {
+                    return (int) drop;
+                }
             }
 
             return 0;
         }
 
-        if (!(stack.getItem() instanceof ItemWorked) && hasXP(player, 2)) {
+        if (!(stack.getItem() instanceof ItemWorked) && hasXP(player, 1)) {
             RecipeAnvil recipe = recipes.get(OreDicHelper.convert(stack));
             setInventorySlotContents(0, createWorkedItem(recipe.output.copy(), recipe.hits));
             worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
-            return 2;
+            return 1;
         } else if(hasXP(player, 2)) {
             int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
             stack.stackTagCompound.setInteger("Worked", workedVal);
@@ -160,15 +165,15 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
                 setInventorySlotContents(0, result);
 
-                worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
+                worldObj.spawnParticle("hugeexplosion", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
                 worldObj.playSoundAtEntity(player, Mariculture.modid + ":bang", 1.0F, 1.0F);
-                return 1;
+                return 5000;
             }
 
             worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
             worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
 
-            return 1;
+            return -1;
         }
         
         return 0;

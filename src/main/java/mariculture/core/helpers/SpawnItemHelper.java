@@ -11,7 +11,7 @@ public class SpawnItemHelper {
         EntityXPOrb orb = new EntityXPOrb(world, x, y, z, amount);
         world.spawnEntityInWorld(orb);
     }
-    
+
     public static void spawnItem(World world, int x, int y, int z, ItemStack stack) {
         spawnItem(world, x, y, z, stack, true);
     }
@@ -57,8 +57,10 @@ public class SpawnItemHelper {
     }
 
     public static void addToPlayerInventory(EntityPlayer player, World world, int x, int y, int z, ItemStack stack) {
-        if (!player.inventory.addItemStackToInventory(stack)) if (!world.isRemote) {
-            spawnItem(world, x, y + 1, z, stack);
+        if (!player.inventory.addItemStackToInventory(stack)) {
+            if (!world.isRemote) {
+                spawnItem(world, x, y + 1, z, stack);
+            }
         }
     }
 }

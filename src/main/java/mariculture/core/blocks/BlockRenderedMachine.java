@@ -10,6 +10,7 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
+import mariculture.core.items.ItemHammer;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
@@ -204,6 +205,27 @@ public class BlockRenderedMachine extends BlockFunctional {
                 ItemStack stack = player.getCurrentEquippedItem().copy();
                 stack.stackSize = 1;
                 anvil.setInventorySlotContents(0, stack);
+                if (!player.capabilities.isCreativeMode) {
+                    player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                }
+            }
+
+            return true;
+        }
+
+        if (tile instanceof TileAutohammer && side > 1) {
+            int slot = side - 2;
+            TileAutohammer hammer = (TileAutohammer) tile;
+            if (hammer.getStackInSlot(slot) != null) {
+                if (!world.isRemote) {
+                    PacketHandler.syncInventory(hammer, hammer.getInventory());
+                }
+
+                SpawnItemHelper.addToPlayerInventory(player, world, x, y + 1, z, hammer.getStackInSlot(slot));
+                hammer.setInventorySlotContents(slot, null);
+            } else if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemHammer) {
+                ItemStack stack = player.getCurrentEquippedItem().copy();
+                hammer.setInventorySlotContents(slot, stack);
                 if (!player.capabilities.isCreativeMode) {
                     player.inventory.decrStackSize(player.inventory.currentItem, 1);
                 }

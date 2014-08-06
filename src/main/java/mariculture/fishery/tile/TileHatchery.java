@@ -5,7 +5,8 @@ import mariculture.api.fishery.IIncubator;
 import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.PacketHandler;
-import mariculture.core.network.PacketSplash;
+import mariculture.core.network.PacketParticle;
+import mariculture.core.network.PacketParticle.Particle;
 import mariculture.core.tile.base.TileStorage;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -75,7 +76,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
 
             if (canWork) {
                 if(onTick(20)) {
-                    PacketHandler.sendAround(new PacketSplash(xCoord, yCoord - 0.05, zCoord), this);
+                    PacketHandler.sendAround(new PacketParticle(Particle.SPLASH, 8, xCoord, yCoord - 0.05, zCoord), this);
                 }
                 
                 processed++;

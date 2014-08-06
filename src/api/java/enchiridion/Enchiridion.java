@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import enchiridion.CustomBooks.BookInfo;
 import enchiridion.api.GuideHandler;
 
-@Mod(modid = "Enchiridion", name = "Enchiridion", dependencies="required-after:Forge@[10.12.1.1082,)")
+@Mod(modid = "Enchiridion", name = "Enchiridion", dependencies="required-after:Forge@[10.12.1.1082,)", version="1.1")
 public class Enchiridion {
 	public static final String modid = "books";
 	public static Item items;
