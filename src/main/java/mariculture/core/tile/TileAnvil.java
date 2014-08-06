@@ -80,11 +80,15 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
         return false;
     }
+    
+    private boolean hasXP(EntityPlayer player, float xp) {
+        return player.experience >= xp || player.experienceLevel > 0;
+    }
 
-    public boolean workItem(EntityPlayer player, ItemStack hammer) {
-        if (hammer == null) return false;
+    public int workItem(EntityPlayer player, ItemStack hammer) {
+        if (hammer == null) return 0;
         ItemStack stack = getStackInSlot(0);
-        if (stack == null) return false;
+        if (stack == null) return 0;
         if (!canBeWorked(stack)) {
             int modifier = 1;
             if (stack.isItemEnchanted()) {
@@ -106,7 +110,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
             float effiency = 1.0F - EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, hammer) / 25;
             float drop = 1.0F / (player.xpBarCap() * 1) / 4 * modifier * effiency;
-            if ((player.experience >= drop || player.experienceLevel > 0) && canBeRepaired(stack)) {
+            if (hasXP(player, drop) && canBeRepaired(stack)) {
                 for (int i = 0; i < EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, hammer); i++)
                     if (worldObj.rand.nextInt(3) == 0) {
                         stack.setItemDamage(stack.getItemDamage() - 1);
@@ -116,6 +120,7 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
                 if (stack.getItemDamage() < 0) {
                     stack.setItemDamage(0);
                 }
+                
                 float experience = player.experience - drop;
                 if (experience <= 0.0F) {
                     player.experience = 1.0F;
@@ -133,18 +138,18 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
                     worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
                 }
 
-                return true;
+                return (int) drop;
             }
 
-            return false;
+            return 0;
         }
 
-        if (!(stack.getItem() instanceof ItemWorked)) {
+        if (!(stack.getItem() instanceof ItemWorked) && hasXP(player, 2)) {
             RecipeAnvil recipe = recipes.get(OreDicHelper.convert(stack));
             setInventorySlotContents(0, createWorkedItem(recipe.output.copy(), recipe.hits));
             worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
-            return true;
-        } else {
+            return 2;
+        } else if(hasXP(player, 2)) {
             int workedVal = stack.stackTagCompound.getInteger("Worked") + 1;
             stack.stackTagCompound.setInteger("Worked", workedVal);
             if (workedVal >= stack.stackTagCompound.getInteger("Required")) {
@@ -157,14 +162,16 @@ public class TileAnvil extends TileStorage implements ISidedInventory, IAnvilHan
 
                 worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
                 worldObj.playSoundAtEntity(player, Mariculture.modid + ":bang", 1.0F, 1.0F);
-                return true;
+                return 1;
             }
 
             worldObj.spawnParticle("explode", xCoord + 0.5, yCoord + 1, zCoord + 0.5, 0, 0, 0);
             worldObj.playSoundAtEntity(player, Mariculture.modid + ":hammer", 1.0F, 1.0F);
 
-            return true;
+            return 1;
         }
+        
+        return 0;
     }
 
     @Override

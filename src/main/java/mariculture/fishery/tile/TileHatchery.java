@@ -25,6 +25,11 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     public TileHatchery() {
         inventory = new ItemStack[3];
     }
+    
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
 
     @Override
     public void onInventoryChange(int slot) {

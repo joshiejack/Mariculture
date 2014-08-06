@@ -1,5 +1,7 @@
 package mariculture.core.helpers;
 
+import java.util.UUID;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,7 +46,7 @@ public class PlayerHelper {
     }
 
     public static FakePlayer getFakePlayer(World world) {
-        return new FakePlayer((WorldServer) world, new GameProfile(null, "Mariculture"));
+        return new FakePlayer((WorldServer) world, new GameProfile(UUID.fromString("A932BC89-AA6D-3B61-5A76-9823A5D89C4B"), "Mariculture"));
     }
 
     public static boolean isFake(EntityPlayer player) {

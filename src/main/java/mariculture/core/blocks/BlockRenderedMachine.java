@@ -241,8 +241,10 @@ public class BlockRenderedMachine extends BlockFunctional {
             if (player.getDisplayName().equals("[CoFH]")) return;
             if (player instanceof FakePlayer) return;
             ItemStack hammer = player.getCurrentEquippedItem();
-            if (((TileAnvil) tile).workItem(player, hammer)) if (hammer.attemptDamageItem(1, world.rand)) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+            if (((TileAnvil) tile).workItem(player, hammer) > 0) {
+                if (hammer.attemptDamageItem(1, world.rand)) {
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                }
             }
         }
     }
