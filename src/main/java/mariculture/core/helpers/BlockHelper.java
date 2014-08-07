@@ -11,6 +11,7 @@ import mariculture.core.util.IItemDropBlacklist;
 import mariculture.fishery.tile.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -188,18 +189,37 @@ public class BlockHelper {
         dropItems(world, x, y, z);
     }
 
-    public static void destroyBlock(World world, int x, int y, int z) {
-        if (!(world instanceof WorldServer)) return;
+    private static boolean removeBlock(World world, EntityPlayerMP player, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        if (block.getBlockHardness(world, x, y, z) < 0.0F) return;
-        FakePlayer player = PlayerHelper.getFakePlayer(world);
-        int meta = world.getBlockMetadata(x, y, z);
-        if (block.removedByPlayer(world, player, x, y, z)) {
-            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+        int l = world.getBlockMetadata(x, y, z);
+        block.onBlockHarvested(world, x, y, z, l, player);
+        boolean flag = block.removedByPlayer(world, player, x, y, z, true);
+
+        if (flag) {
+            block.onBlockDestroyedByPlayer(world, x, y, z, l);
         }
 
-        block.harvestBlock(world, player, x, y, z, meta);
-        block.onBlockHarvested(world, x, y, z, meta, player);
-        world.func_147479_m(x, y, z);
+        return flag;
+    }
+    
+    public static void destroyBlock(World world, int x, int y, int z) {
+        destroyBlock(world, x, y, z, null, null);
+    }
+
+    public static void destroyBlock(World world, int x, int y, int z, Block required, ItemStack held) {
+        if (!(world instanceof WorldServer)) return;
+        Block block = world.getBlock(x, y, z);
+        if(required != null && block != required) return;
+        if (block.getBlockHardness(world, x, y, z) < 0.0F) return;
+        FakePlayer player = PlayerHelper.getFakePlayer(world);
+        player.setCurrentItemOrArmor(0, held.copy());
+        int l = world.getBlockMetadata(x, y, z);
+        world.playAuxSFXAtEntity(player, 2001, x, y, z, Block.getIdFromBlock(block) + (world.getBlockMetadata(x, y, z) << 12));
+        boolean flag = removeBlock(world, player, x, y, z);
+        if (flag) {
+            block.harvestBlock(world, player, x, y, z, l);
+        }
+
+        return;
     }
 }

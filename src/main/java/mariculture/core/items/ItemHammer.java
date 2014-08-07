@@ -4,6 +4,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
+import mariculture.core.helpers.DirectionHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.MachineRenderedMeta;
@@ -12,6 +13,7 @@ import mariculture.core.util.IHasGUI;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.google.common.collect.Multimap;
@@ -32,6 +35,44 @@ public class ItemHammer extends ItemPickaxe implements IItemRegistry {
         super(brick);
         setHarvestLevel("pickaxe", 0);
         setCreativeTab(MaricultureTab.tabFactory);
+    }
+
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
+        if ((double) block.getBlockHardness(world, x, y, z) != 0.0D) {
+            stack.damageItem(1, entity);
+        }
+
+        int meta = world.getBlockMetadata(x, y, z);
+        if (ForgeHooks.isToolEffective(stack, block, meta) && !isAnvil(block, meta)) {
+            ForgeDirection dir = DirectionHelper.getFacingFromEntity(entity).getOpposite();
+            mariculture.core.helpers.BlockHelper.destroyBlock(world, x, y - 1, z, block, stack);
+            for (int i = 1; i <= 2; i++) {
+                mariculture.core.helpers.BlockHelper.destroyBlock(world, x + (i * dir.offsetX), y, z + (i * dir.offsetZ), block, stack);
+                mariculture.core.helpers.BlockHelper.destroyBlock(world, x + (i * dir.offsetX), y - 1, z + (i * dir.offsetZ), block, stack);
+
+                mariculture.core.helpers.BlockHelper.destroyBlock(world, x - 1 + (i * dir.offsetX), y, z + (i * dir.offsetZ), block, stack);
+                mariculture.core.helpers.BlockHelper.destroyBlock(world, x + 1 + (i * dir.offsetX), y - 1, z + (i * dir.offsetZ), block, stack);
+
+                mariculture.core.helpers.BlockHelper.destroyBlock(world, x + (i * dir.offsetX), y, z - 1 + (i * dir.offsetZ), block, stack);
+                mariculture.core.helpers.BlockHelper.destroyBlock(world, x + (i * dir.offsetX), y - 1, z + 1 + (i * dir.offsetZ), block, stack);
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public float getDigSpeed(ItemStack stack, Block block, int meta) {
+        if (ForgeHooks.isToolEffective(stack, block, meta) && !isAnvil(block, meta)) {
+            return efficiencyOnProperMaterial;
+        }
+
+        return super.getDigSpeed(stack, block, meta);
+    }
+
+    private boolean isAnvil(Block block, int meta) {
+        return block == Core.renderedMachines && meta == MachineRenderedMeta.ANVIL;
     }
 
     @Override
