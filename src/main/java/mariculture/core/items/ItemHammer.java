@@ -12,6 +12,7 @@ import mariculture.core.tile.TileAnvil;
 import mariculture.core.util.IHasGUI;
 import mariculture.core.util.IItemRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStone;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -65,7 +66,9 @@ public class ItemHammer extends ItemPickaxe implements IItemRegistry {
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
         if (ForgeHooks.isToolEffective(stack, block, meta) && !isAnvil(block, meta)) {
-            return efficiencyOnProperMaterial;
+            if(block instanceof BlockStone) {
+                return efficiencyOnProperMaterial * 3;
+            } else return efficiencyOnProperMaterial;
         }
 
         return super.getDigSpeed(stack, block, meta);
