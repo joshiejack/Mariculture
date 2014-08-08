@@ -8,9 +8,7 @@ import java.util.Map;
 
 import mariculture.api.fishery.IFishFoodHandler;
 import mariculture.core.helpers.RecipeHelper;
-import mariculture.core.util.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
 
 public class FishFoodHandler implements IFishFoodHandler {
     private static Map foodList = new HashMap();

@@ -29,7 +29,7 @@ public class ItemDroplet extends ItemMariculture {
     public int getMetaCount() {
         return DropletMeta.COUNT;
     }
-    
+
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);

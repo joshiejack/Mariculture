@@ -1,7 +1,5 @@
 package mariculture.core.handlers;
 
-import hacker.TimeMeasurement;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
@@ -179,9 +176,9 @@ public class OreDicHandler {
             for (String blacklist : AutoDictionary.BLACKLIST) {
                 if (name.equals(blacklist)) return false;
             }
-            
-            for(String start: AutoDictionary.BLACKLIST_PREFIX) {
-                if(name.startsWith(start)) return false;
+
+            for (String start : AutoDictionary.BLACKLIST_PREFIX) {
+                if (name.startsWith(start)) return false;
             }
 
             return true;

@@ -26,7 +26,7 @@ public class HatcherySpecialRenderer extends TileEntitySpecialRenderer {
         float offsetZ = (float) (z + 0.2F);
         GL11.glTranslatef(offsetX, offsetY, offsetZ);
         GL11.glScalef(0.8F, 0.8F, 0.8F);
-        
+
         renderItem(world, hatchery.getStackInSlot(0), -0.65F, -0.25F, -0.65F);
         renderItem(world, hatchery.getStackInSlot(1), -0.4F, -0.3F, -0.4F);
         renderItem(world, hatchery.getStackInSlot(2), -0.8F, 0F, -0.9F);

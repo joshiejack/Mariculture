@@ -85,11 +85,11 @@ public class FishDamsel extends FishSpecies {
 
     @Override
     public double getCatchChance(World world, int height) {
-        return world.isDaytime()? 35D : 0D;
+        return world.isDaytime() ? 35D : 0D;
     }
 
     @Override
     public double getCaughtAliveChance(World world, int height) {
-        return world.isDaytime()? 75D : 0D;
+        return world.isDaytime() ? 75D : 0D;
     }
 }

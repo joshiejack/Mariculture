@@ -159,7 +159,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     }
 
     public boolean isValid(World world, int x, int y, int z) {
-        if(world.getBlock(x, y, z) == Fluids.getFluidBlock("hp_water")) {
+        if (world.getBlock(x, y, z) == Fluids.getFluidBlock("hp_water")) {
             return true;
         } else return false;
     }

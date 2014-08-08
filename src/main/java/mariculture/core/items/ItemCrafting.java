@@ -107,7 +107,7 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
                 temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
             }
 
-            if(world.isDaytime()) ClientHelper.addToChat(Text.translate("time") + " " + Text.translate("time.day"));
+            if (world.isDaytime()) ClientHelper.addToChat(Text.translate("time") + " " + Text.translate("time.day"));
             else ClientHelper.addToChat(Text.translate("time") + " " + Text.translate("time.night"));
             ClientHelper.addToChat(prefix + ": " + temperature + Text.DEGREES);
             ClientHelper.addToChat(Text.translate("environment.salinity") + ": " + Text.translate("salinity." + MaricultureHandlers.environment.getSalinity(world, x, z).name().toLowerCase()));

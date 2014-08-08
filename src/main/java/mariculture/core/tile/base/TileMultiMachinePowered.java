@@ -59,7 +59,7 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
                 if (ret <= 0) {
                     master.updateCanWork();
                 }
-                
+
                 return ret;
             } else return 0;
         } else return 0;

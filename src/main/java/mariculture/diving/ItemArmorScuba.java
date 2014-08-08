@@ -33,16 +33,16 @@ public class ItemArmorScuba extends ItemArmor implements IItemRegistry, IDisable
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        if(stack.getItem() == Diving.swimfin) return "mariculture:textures/armor/flippers.png";
+        if (stack.getItem() == Diving.swimfin) return "mariculture:textures/armor/flippers.png";
         if (stack.getItem() == Diving.scubaSuit) return "mariculture:" + "textures/armor/scuba" + "_2.png";
 
         return "mariculture:" + "textures/armor/scuba" + "_1.png";
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armorSlot) {
-        return stack.getItem() == Diving.swimfin? new ModelFlippers(): null;
+        return stack.getItem() == Diving.swimfin ? new ModelFlippers() : null;
     }
 
     @Override

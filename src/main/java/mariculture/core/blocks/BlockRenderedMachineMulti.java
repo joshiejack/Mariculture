@@ -168,7 +168,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
                         } else {
                             ItemStack addition = heldItem.copy();
                             addition.stackSize = 1;
-                            if(sifter.process(addition, world.rand)) {
+                            if (sifter.process(addition, world.rand)) {
                                 if (!player.capabilities.isCreativeMode) {
                                     player.inventory.decrStackSize(player.inventory.currentItem, 1);
                                 }
@@ -191,7 +191,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
                 if (sifter != null) {
                     EntityItem item = (EntityItem) entity;
                     ItemStack stack = item.getEntityItem();
-                    if(sifter.process(stack, world.rand)) {
+                    if (sifter.process(stack, world.rand)) {
                         item.setDead();
                     }
                 }

@@ -66,7 +66,7 @@ public class WorldGenKelp extends WorldGenerator {
                 }
             }
         }
-        
+
         if (GeneralStuff.DEBUG_ON) TimeMeasurement.finish("Kelp");
 
         return true;

@@ -1,6 +1,5 @@
 package mariculture.core.util;
 
-import mariculture.core.Core;
 import mariculture.core.blocks.BlockPressurisedWater;
 import mariculture.core.blocks.base.BlockFluid;
 import net.minecraft.block.BlockLiquid;
@@ -22,17 +21,17 @@ public class FluidMari extends Fluid {
     public IIcon getStillIcon() {
         if (name.contains("dirt")) return Blocks.dirt.getIcon(0, 0);
         if (name.contains("xp")) return BlockPressurisedWater.xp_still;
-        if (bottle < 0 && block != null && block instanceof BlockFluid) return ((BlockFluid)block).still;
+        if (bottle < 0 && block != null && block instanceof BlockFluid) return ((BlockFluid) block).still;
         else if (bottle < 0) return BlockLiquid.getLiquidIcon("water_still");
-        return BlockPressurisedWater.still != null? BlockPressurisedWater.still[bottle]: Blocks.water.getIcon(0, 0);
+        return BlockPressurisedWater.still != null ? BlockPressurisedWater.still[bottle] : Blocks.water.getIcon(0, 0);
     }
 
     @Override
     public IIcon getFlowingIcon() {
         if (name.contains("dirt")) return Blocks.dirt.getIcon(0, 0);
         if (name.contains("xp")) return BlockPressurisedWater.xp_flow;
-        if (bottle < 0 && block != null && block instanceof BlockFluid) return ((BlockFluid)block).flowing;
+        if (bottle < 0 && block != null && block instanceof BlockFluid) return ((BlockFluid) block).flowing;
         else if (bottle < 0) return BlockLiquid.getLiquidIcon("water_flow");
-        return BlockPressurisedWater.flowing != null? BlockPressurisedWater.flowing[bottle]: Blocks.water.getIcon(0, 0);
+        return BlockPressurisedWater.flowing != null ? BlockPressurisedWater.flowing[bottle] : Blocks.water.getIcon(0, 0);
     }
 }

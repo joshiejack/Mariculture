@@ -50,7 +50,7 @@ public class Diving extends RegistrationModule {
     @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new DivingEventHandler());
-        if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             MinecraftForge.EVENT_BUS.register(new ArmorClientHandler());
         }
     }
@@ -77,7 +77,7 @@ public class Diving extends RegistrationModule {
 
     @Override
     public void registerOther() {
-        if(MaricultureTab.tabFactory != null) {
+        if (MaricultureTab.tabFactory != null) {
             MaricultureTab.tabFactory.setIcon(new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP), true);
         }
     }

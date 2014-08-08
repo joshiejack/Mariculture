@@ -1,6 +1,5 @@
 package mariculture.api.core;
 
-
 public class Environment {
     public static class Temperature {
         public static int getCoolingSpeed(int temp) {

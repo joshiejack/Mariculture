@@ -111,9 +111,7 @@ public class Plugins extends Module {
             plug.load(Stage.POST);
 
             //Display that the plugin finished loading
-            String name = plug.name;
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            setLoaded(name);
+            setLoaded(plug.getClass().getSimpleName().substring(6));
         }
     }
 }

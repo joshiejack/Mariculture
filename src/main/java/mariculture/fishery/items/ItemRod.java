@@ -52,15 +52,15 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
         super.setCreativeTab(tab);
         return this;
     }
-    
+
     public void setRepairMaterial(ItemStack stack) {
         this.repair = stack;
     }
-    
+
     @Override
     public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
-        if(stack1.getItem() instanceof IEnergyContainerItem) return false;
-        ItemStack toRepairWith = repair != null? repair: new ItemStack(Items.stick);
+        if (stack1.getItem() instanceof IEnergyContainerItem) return false;
+        ItemStack toRepairWith = repair != null ? repair : new ItemStack(Items.stick);
         return OreDicHelper.getDictionaryName(stack2).equals(OreDicHelper.getDictionaryName(toRepairWith));
     }
 

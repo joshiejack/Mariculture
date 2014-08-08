@@ -54,7 +54,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
             difference = 0;
             PacketHandler.syncFluids(this, getFluid());
         }
-        
+
         return amount;
     }
 
@@ -64,7 +64,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
         if (amount != null && doDrain) {
             PacketHandler.syncFluids(this, getFluid());
         }
-        
+
         return amount;
     }
 

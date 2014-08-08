@@ -20,7 +20,7 @@ public class BlockMana extends BlockFluid {
         if (entity instanceof EntityPlayer && !world.isRemote) {
             EntityPlayer player = (EntityPlayer) entity;
             ChunkCoordinates cord = player.getBedLocation(world.provider.dimensionId);
-            if(cord != null && player.getDistance(cord.posX, cord.posY, cord.posZ) >= 8) {
+            if (cord != null && player.getDistance(cord.posX, cord.posY, cord.posZ) >= 8) {
                 world.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
                 player.setPositionAndUpdate(cord.posX, cord.posY, cord.posZ);
                 world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);

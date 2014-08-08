@@ -3,7 +3,6 @@ package mariculture.core.util;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -19,7 +18,7 @@ public class Fluids {
             this.volume = volume;
         }
     }
-    
+
     public static boolean add(String name, Fluid fluid, int volume) {
         return add(name, fluid, volume, false);
     }
@@ -49,7 +48,7 @@ public class Fluids {
     }
 
     public static Fluid getFluid(String fluid) {
-        return fluids.get(fluid) != null? fluids.get(fluid).fluid: null;
+        return fluids.get(fluid) != null ? fluids.get(fluid).fluid : null;
     }
 
     public static int getFluidID(String fluid) {

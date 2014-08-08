@@ -158,7 +158,7 @@ public class ItemVanillaFish extends ItemFishFood {
         if (Modules.isActive(Modules.fishery)) {
             for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
                 FishSpecies fishy = species.getValue();
-                if(fishy.getRawForm(1).getItem() instanceof ItemVanillaFish) {
+                if (fishy.getRawForm(1).getItem() instanceof ItemVanillaFish) {
                     list.add(fishy.getRawForm(1));
                 }
             }

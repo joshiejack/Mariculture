@@ -40,7 +40,7 @@ public class PacketFLUDD implements IMessage, IMessageHandler<PacketFLUDD, IMess
     }
 
     @Override
-    public IMessage onMessage(PacketFLUDD message, MessageContext ctx) {        
+    public IMessage onMessage(PacketFLUDD message, MessageContext ctx) {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         EntityPlayer player = side == Side.CLIENT ? ClientHelper.getPlayer() : ctx.getServerHandler().playerEntity;
         World world = player.worldObj;

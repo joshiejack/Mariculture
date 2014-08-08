@@ -25,7 +25,7 @@ public class GeneralStuff {
         if (!Loader.isModLoaded("Enchiridion")) {
             GeneralStuff.SPAWN_BOOKS = false;
         }
-        
+
         HARDCORE_DIVING = getInt("Hardcore Diving Setting", 0, "This causes your air to drop quicker, the higher the faster it will drop, set to 0 to turn off");
         DEBUG_ON = getBoolean("Debug Mode Enabled", false);
         METAL_RATE = getInt("Molten Metal Nugget mB Value", 16, "This is how many mB a Nugget is worth, the default value is the same as Tinker's Construct");

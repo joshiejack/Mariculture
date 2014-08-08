@@ -75,7 +75,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     public ItemStack[] getUpgrades() {
         return new ItemStack[] { inventory[0], inventory[1], inventory[2] };
     }
-    
+
     public boolean canWork() {
         return false;
     }
@@ -119,9 +119,9 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
             updateMasterMachine();
         }
     }
-    
+
     public abstract void process();
-    
+
     public void updateMasterMachine() {
         if (canWork) {
             processed += speed;
@@ -139,7 +139,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     public void updateTheMaster() {
         autoeject();
     }
-    
+
     public void autoeject() {
         if (output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) if (setting.canEject(EjectSetting.ITEM)) {
             for (int i : output)

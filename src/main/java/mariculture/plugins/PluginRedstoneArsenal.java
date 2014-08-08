@@ -52,7 +52,7 @@ public class PluginRedstoneArsenal extends Plugin {
         public boolean canUseBaitManually() {
             return false;
         }
-        
+
         @Override
         public ItemStack damage(World world, EntityPlayer player, ItemStack stack, int fish, Random rand) {
             if (stack.stackTagCompound == null || !stack.stackTagCompound.hasKey("Energy")) return stack;
@@ -60,7 +60,7 @@ public class PluginRedstoneArsenal extends Plugin {
             if (stack.stackTagCompound.getInteger("Energy") <= 0) return stack;
 
             int energy = stack.stackTagCompound.getInteger("Energy");
-            int energyExtracted = Math.min(energy, stack.stackTagCompound.getByte("Empowered") == 1? 500: 200);
+            int energyExtracted = Math.min(energy, stack.stackTagCompound.getByte("Empowered") == 1 ? 500 : 200);
             energy -= energyExtracted;
             stack.stackTagCompound.setInteger("Energy", energy);
 

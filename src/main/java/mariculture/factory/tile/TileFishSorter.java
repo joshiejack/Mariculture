@@ -88,7 +88,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
         } else {
             side = dft_side;
         }
-        
+
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
         if (tile instanceof IInventory && !(tile instanceof TileEntityHopper)) {

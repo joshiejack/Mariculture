@@ -66,14 +66,14 @@ public class FeatureTank extends Feature {
                 }
 
                 gui.drawTexturedModelRectFromIcon(x + xPoz, y + yPoz + 58 - i - start, liquidIcon, 16, 16 - (16 - i));
-                
+
                 if (size.equals(TankSize.DOUBLE)) {
                     gui.drawTexturedModelRectFromIcon(x + xPoz + 10, y + yPoz + 58 - i - start, liquidIcon, 16, 16 - (16 - i));
                     gui.drawTexturedModelRectFromIcon(x + xPoz + 18, y + yPoz + 58 - i - start, liquidIcon, 16, 16 - (16 - i));
                 }
-                
+
                 start = start + 16;
-                
+
                 if (i == 0 || height == 0) {
                     break;
                 }

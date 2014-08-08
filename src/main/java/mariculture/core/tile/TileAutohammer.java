@@ -47,11 +47,11 @@ public class TileAutohammer extends TileStorage {
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
-        if(worldObj.isRemote && inventory[slot] == null) {
+        if (worldObj.isRemote && inventory[slot] == null) {
             angle[slot] = 0.0F;
             up[slot] = false;
         }
-        
+
         super.setInventorySlotContents(slot, stack);
     }
 

@@ -74,7 +74,7 @@ public class WorldGenReef extends WorldGenerator {
                 world.setBlock(x2, y2, z2, Blocks.sponge);
             }
         }
-        
+
         if (GeneralStuff.DEBUG_ON) TimeMeasurement.finish("CoralReef");
 
         return true;

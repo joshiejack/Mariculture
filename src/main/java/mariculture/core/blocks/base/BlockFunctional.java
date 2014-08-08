@@ -1,10 +1,7 @@
 package mariculture.core.blocks.base;
 
-import java.util.Random;
-
 import mariculture.Mariculture;
 import mariculture.core.helpers.BlockHelper;
-import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiBlock;
 import mariculture.core.util.IFaceable;
@@ -15,7 +12,6 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

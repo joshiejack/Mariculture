@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import static mariculture.core.lib.ItemLib.blockSnow;
-import static mariculture.core.lib.ItemLib.clay;
 import static mariculture.core.lib.ItemLib.dustMagnesium;
 import static mariculture.core.lib.ItemLib.dustSalt;
 import static mariculture.core.lib.ItemLib.glass;

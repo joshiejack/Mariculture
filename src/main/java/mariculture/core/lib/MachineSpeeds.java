@@ -36,6 +36,6 @@ public class MachineSpeeds {
     }
 
     public static int getHatcherySpeed() {
-        return GeneralStuff.DEBUG_ON? 10: hatchery;
+        return GeneralStuff.DEBUG_ON ? 10 : hatchery;
     }
 }

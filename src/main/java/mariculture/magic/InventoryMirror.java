@@ -76,7 +76,7 @@ public class InventoryMirror extends InventoryStorage {
 
     @Override
     public void markDirty() {
-        seed = player != null? player.worldObj.rand.nextLong(): 0;
+        seed = player != null ? player.worldObj.rand.nextLong() : 0;
         MirrorHelper.save(player, inventory);
     }
 

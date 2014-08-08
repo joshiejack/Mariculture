@@ -23,7 +23,7 @@ public interface IFishHelper {
 
     /** Creates an egg from two fish passed in */
     public ItemStack generateEgg(ItemStack fish1, ItemStack fish2);
-    
+
     /** Returns the egg, with 1 attempt at hatching it **/
     public ItemStack attemptToHatchEgg(ItemStack egg, Random rand, double mutation, IIncubator tile);
 

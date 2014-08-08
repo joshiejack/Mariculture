@@ -41,7 +41,7 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
 
     public boolean isRotor(World world, int x, int y, int z) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        return tile instanceof TileRotor && ((TileRotor)tile).isBuilt();
+        return tile instanceof TileRotor && ((TileRotor) tile).isBuilt();
     }
 
     public TileRotor getRotorFromCoords(CachedCoords cord) {

@@ -9,7 +9,7 @@ public abstract class TileRotor extends TileEntity {
     private boolean northSouth;
     public int energyStored;
     public CachedCoords master;
-    
+
     //Set by the Rotor
     public final String block;
     public final double tier;
@@ -18,11 +18,11 @@ public abstract class TileRotor extends TileEntity {
         block = getBlock();
         tier = getTier();
     }
-    
+
     protected String getBlock() {
         return "plankWood";
     }
-    
+
     protected double getTier() {
         return 0.5D;
     }

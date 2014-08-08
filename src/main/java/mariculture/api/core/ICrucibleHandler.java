@@ -26,7 +26,7 @@ public interface ICrucibleHandler {
 
     @Deprecated
     public RecipeSmelter getResult(ItemStack input, ItemStack input2, int temp);
-    
+
     @Deprecated
     public int getMeltingPoint(ItemStack stack);
 }

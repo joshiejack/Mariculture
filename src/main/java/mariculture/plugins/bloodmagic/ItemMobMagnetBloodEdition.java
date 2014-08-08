@@ -21,14 +21,14 @@ public class ItemMobMagnetBloodEdition extends ItemMobMagnet {
     public ItemMobMagnetBloodEdition(int dmg) {
         super(dmg);
     }
-    
+
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (!stack.hasTagCompound()) {
             if (!stack.stackTagCompound.getString("ownerName").equals("")) {
                 list.add("Current owner: " + stack.stackTagCompound.getString("ownerName"));
             }
-            
+
             list.add(StatCollector.translateToLocal("mariculture.string.noBound1"));
             list.add(StatCollector.translateToLocal("mariculture.string.noBound2"));
             return;
@@ -36,7 +36,7 @@ public class ItemMobMagnetBloodEdition extends ItemMobMagnet {
             if (!stack.stackTagCompound.getString("ownerName").equals("")) {
                 list.add("Current owner: " + stack.stackTagCompound.getString("ownerName"));
             }
-            
+
             list.add(StatCollector.translateToLocal("mariculture.string.bound"));
             list.add(stack.stackTagCompound.getString("MobName"));
         }

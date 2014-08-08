@@ -1,6 +1,7 @@
 package mariculture.core;
 
 import mariculture.Mariculture;
+import mariculture.core.config.Machines.Client;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MachineRenderedMultiMeta;
 import mariculture.core.lib.Modules;
@@ -45,9 +46,10 @@ import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityHook;
 import mariculture.fishery.EntityItemFireImmune;
 import mariculture.fishery.Fish;
+import mariculture.fishery.render.FishFeederSpecialRenderer;
 import mariculture.fishery.render.FishTankSpecialRenderer;
 import mariculture.fishery.render.HatcherySpecialRenderer;
-import mariculture.fishery.render.ModelFeeder;
+import mariculture.fishery.render.RenderFeeder;
 import mariculture.fishery.render.RenderFishTank;
 import mariculture.fishery.render.RenderHatchery;
 import mariculture.fishery.render.RenderNet;
@@ -131,7 +133,7 @@ public class ClientProxy extends CommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
-                
+
             ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
             RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);
@@ -142,13 +144,16 @@ public class ClientProxy extends CommonProxy {
             RenderingRegistry.registerEntityRenderingHandler(EntityItemFireImmune.class, new RenderItem());
             RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
             RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fish.bass.getID()));
-            ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new RenderSpecialHandler(new ModelFeeder(), FEEDER));
+            ClientRegistry.bindTileEntitySpecialRenderer(TileFeeder.class, new FishFeederSpecialRenderer());
             ClientRegistry.bindTileEntitySpecialRenderer(TileFishTank.class, new FishTankSpecialRenderer());
             ClientRegistry.bindTileEntitySpecialRenderer(TileHatchery.class, new HatcherySpecialRenderer());
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.SIFTER, RenderSifter.class);
             RenderHandler.register(Core.tanks, TankMeta.HATCHERY, RenderHatchery.class);
             RenderHandler.register(Core.ticking, TickingMeta.NET, RenderNet.class);
             RenderHandler.register(Core.tanks, TankMeta.FISH, RenderFishTank.class);
+            if (Client.SHOW_FISH) {
+                RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.FISH_FEEDER, RenderFeeder.class);
+            }
         }
 
         if (Modules.isActive(Modules.transport)) {

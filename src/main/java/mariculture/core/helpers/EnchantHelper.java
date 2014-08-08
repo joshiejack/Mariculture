@@ -64,7 +64,7 @@ public class EnchantHelper {
     public static boolean isBroken(ItemStack stack) {
         return stack != null && stack.getItemDamage() >= stack.getMaxDamage();
     }
-    
+
     public static int getEnchantmentValue(ItemStack stack) {
         //Setup the Maximum Weight
         if (MAX_WEIGHT == 0) setMax();

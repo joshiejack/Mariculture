@@ -37,7 +37,7 @@ public class Transport extends RegistrationModule {
         if (MaricultureTab.tabWorld != null) {
             MaricultureTab.tabWorld.setIcon(new ItemStack(speedBoat), true);
         }
-        
+
         EntityRegistry.registerModEntity(EntitySpeedBoat.class, "speedBoat", EntityIds.SPEED_BOAT, Mariculture.instance, 80, 3, false);
     }
 

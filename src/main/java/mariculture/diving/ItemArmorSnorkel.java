@@ -23,16 +23,16 @@ public class ItemArmorSnorkel extends ItemArmor implements IItemRegistry, IDisab
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        if(stack.getItem() == Diving.lifejacket) return "mariculture:" + "textures/armor/lifejacket.png";
+        if (stack.getItem() == Diving.lifejacket) return "mariculture:" + "textures/armor/lifejacket.png";
         else return "mariculture:" + "textures/armor/snorkel.png";
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armorSlot) {
-        return stack.getItem() == Diving.lifejacket? new ModelLifejacket(): null;
+        return stack.getItem() == Diving.lifejacket ? new ModelLifejacket() : null;
     }
-    
+
     @Override
     public int getItemEnchantability() {
         return 0;

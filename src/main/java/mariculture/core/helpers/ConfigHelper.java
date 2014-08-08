@@ -42,7 +42,7 @@ public class ConfigHelper {
     public static int getInt(String name, int dft) {
         return config.get(category, name, dft).getInt(dft);
     }
-    
+
     public static int[] getIntList(String name, int[] dft, String comment) {
         return config.get(category, name, dft, comment).getIntList();
     }
@@ -50,7 +50,7 @@ public class ConfigHelper {
     public static int[] getIntList(String name, int[] dft) {
         return config.get(category, name, dft).getIntList();
     }
-    
+
     public static int getRand(String name, int dft, String comment) {
         return Math.max(1, config.get(category, name, dft, comment).getInt(dft));
     }

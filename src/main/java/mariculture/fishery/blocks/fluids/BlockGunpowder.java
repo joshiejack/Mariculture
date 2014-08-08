@@ -20,7 +20,7 @@ public class BlockGunpowder extends BlockFluid {
         if (rand.nextInt(8) == 0) {
             world.createExplosion(PlayerHelper.getFakePlayer(world), x, y, z, 1.5F, false);
         }
-        
+
         super.updateTick(world, x, y, z, rand);
     }
 }

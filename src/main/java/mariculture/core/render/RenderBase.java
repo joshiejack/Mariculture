@@ -135,7 +135,7 @@ public abstract class RenderBase {
         }
 
         tessellator.setColorOpaque_F(rgb_red, rgb_green, rgb_blue);
-        double d0 = iicon.getMinU() ;
+        double d0 = iicon.getMinU();
         double d1 = iicon.getMinV();
         double d2 = iicon.getMaxU();
         double d3 = iicon.getMaxV();

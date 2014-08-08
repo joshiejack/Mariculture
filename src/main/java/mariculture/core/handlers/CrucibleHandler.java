@@ -101,7 +101,7 @@ public class CrucibleHandler implements ICrucibleHandler {
         if (obj instanceof FluidStack) return (FuelInfo) fuels.get(getName((FluidStack) obj));
         return null;
     }
-    
+
     @Override
     public int getMeltingPoint(ItemStack stack) {
         return getMeltingPoint(stack, false);

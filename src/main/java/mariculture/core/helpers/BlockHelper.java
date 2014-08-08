@@ -201,7 +201,7 @@ public class BlockHelper {
 
         return flag;
     }
-    
+
     public static void destroyBlock(World world, int x, int y, int z) {
         destroyBlock(world, x, y, z, null, null);
     }
@@ -209,7 +209,7 @@ public class BlockHelper {
     public static void destroyBlock(World world, int x, int y, int z, Block required, ItemStack held) {
         if (!(world instanceof WorldServer)) return;
         Block block = world.getBlock(x, y, z);
-        if(required != null && block != required) return;
+        if (required != null && block != required) return;
         if (block.getBlockHardness(world, x, y, z) < 0.0F) return;
         FakePlayer player = PlayerHelper.getFakePlayer(world);
         player.setCurrentItemOrArmor(0, held.copy());

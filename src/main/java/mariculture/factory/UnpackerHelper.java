@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 public class UnpackerHelper {
     public static HashMap<String, ItemStack> cache = new HashMap();
+
     public static boolean canUnpack(World world, ItemStack stack) {
         return unpack(world, stack) != null;
     }

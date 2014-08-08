@@ -84,7 +84,7 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
             if (fluid == null || fluid.getFluid() == null) {
                 continue;
             }
-            
+
             if (fluid.getFluid().getName().equals(recipe.getValue().fluid.getFluid().getName())) {
                 arecipes.add(new CachedCasterRecipe(recipe.getValue().fluid, recipe.getValue().output));
             }

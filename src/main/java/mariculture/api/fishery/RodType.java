@@ -79,12 +79,12 @@ public class RodType {
 
         return stack;
     }
-    
+
     /** This is whether this fishing rod can use bait manually **/
     public boolean canUseBaitManually() {
         return true;
     }
-    
+
     /** This is whether this ItemStack will be listed in the bait listing handler, good for hidden bait **/
     public boolean canDisplay(ItemStack stack) {
         return true;

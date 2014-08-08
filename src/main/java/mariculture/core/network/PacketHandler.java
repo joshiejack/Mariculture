@@ -47,6 +47,7 @@ public class PacketHandler {
         //New Packets
         registerPacket(PacketCrack.class, Side.CLIENT);
         registerPacket(PacketParticle.class, Side.CLIENT);
+        registerPacket(PacketSyncFeeder.class, Side.CLIENT);
     }
 
     public static void sendToClient(IMessage packet, EntityPlayerMP player) {
@@ -84,7 +85,7 @@ public class PacketHandler {
     public static void breakMultiBlock(TileEntity slave) {
         sendAround(new PacketMultiInit(slave.xCoord, slave.yCoord, slave.zCoord, 0, -1, 0, ForgeDirection.UNKNOWN), slave);
     }
-    
+
     public static void updateOrientation(IFaceable faceable, int x, int y, int z, int dim) {
         INSTANCE.sendToAllAround(new PacketOrientationSync(x, y, z, faceable.getFacing()), new TargetPoint(dim, x, y, z, MachineSettings.PACKET_DISTANCE));
     }

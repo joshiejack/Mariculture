@@ -26,7 +26,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     public TileHatchery() {
         inventory = new ItemStack[3];
     }
-    
+
     @Override
     public int getInventoryStackLimit() {
         return 1;
@@ -75,10 +75,10 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
             }
 
             if (canWork) {
-                if(onTick(20)) {
+                if (onTick(20)) {
                     PacketHandler.sendAround(new PacketParticle(Particle.SPLASH, 8, xCoord, yCoord - 0.05, zCoord), this);
                 }
-                
+
                 processed++;
                 if (processed >= MAX) {
                     inventory[0] = Fishing.fishHelper.attemptToHatchEgg(inventory[0], worldObj.rand, 1.0D, this);

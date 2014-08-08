@@ -20,7 +20,7 @@ public class MaricultureTab extends CreativeTabs {
 
     @Override
     public ItemStack getIconItemStack() {
-        return icon != null? icon: new ItemStack(Items.fish);
+        return icon != null ? icon : new ItemStack(Items.fish);
     }
 
     @Override

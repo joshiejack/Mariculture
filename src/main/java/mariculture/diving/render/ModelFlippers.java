@@ -66,7 +66,6 @@ public class ModelFlippers extends ModelBiped {
         this.LFlipper.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
         this.LBase.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
 
-
         if (this.isRiding) {
             this.RFlipper.rotateAngleX = -((float) Math.PI * 2F / 5F);
             this.LFlipper.rotateAngleX = -((float) Math.PI * 2F / 5F);
@@ -82,7 +81,6 @@ public class ModelFlippers extends ModelBiped {
         float f6;
         float f7;
 
-        
         if (entity.isSneaking()) {
             this.RFlipper.rotationPointZ = 4.0F;
             this.LFlipper.rotationPointZ = 4.0F;
@@ -101,7 +99,7 @@ public class ModelFlippers extends ModelBiped {
             this.LBase.rotationPointZ = 0.1F;
             this.RBase.rotationPointY = 12.0F;
             this.LBase.rotationPointY = 12.0F;
-        } 
+        }
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {

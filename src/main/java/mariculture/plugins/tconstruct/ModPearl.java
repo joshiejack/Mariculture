@@ -72,8 +72,8 @@ public class ModPearl extends ItemModifier {
 
     @Override
     public boolean validType(IModifyable input) {
-        for(String str: input.getTraits()) {
-            if(str.equals("harvest")) {
+        for (String str : input.getTraits()) {
+            if (str.equals("harvest")) {
                 return true;
             }
         }

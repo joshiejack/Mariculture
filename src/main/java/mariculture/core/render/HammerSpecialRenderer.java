@@ -36,7 +36,7 @@ public class HammerSpecialRenderer extends TileEntitySpecialRenderer {
 
     }
 
-    void renderItem(World world, ItemStack stack, float x, float y, float z, float angle, float dir) {
+    private void renderItem(World world, ItemStack stack, float x, float y, float z, float angle, float dir) {
         if (stack != null) {
             EntityFakeItem item = new EntityFakeItem(world, 0.0D, 0.0D, 0.0D, stack);
             GL11.glPushMatrix();

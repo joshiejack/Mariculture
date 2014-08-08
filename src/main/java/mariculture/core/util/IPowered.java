@@ -6,8 +6,8 @@ public interface IPowered {
     int getPowerScaled(int i);
 
     int getPowerPerTick();
-    
+
     void updatePowerPerTick();
-    
+
     boolean isConsumer();
 }

@@ -39,7 +39,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
                 if (!worldObj.isRemote) {
                     mstr.onInventoryChange(slot);
                 }
-                
+
                 mstr.markDirty();
                 return stack;
             } else {
@@ -48,7 +48,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
                 if (mstr.inventory[slot].stackSize == 0) {
                     mstr.inventory[slot] = null;
                 }
-                
+
                 if (!worldObj.isRemote) {
                     mstr.onInventoryChange(slot);
                 }
@@ -83,7 +83,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
         if (stack != null && stack.stackSize > mstr.getInventoryStackLimit()) {
             stack.stackSize = mstr.getInventoryStackLimit();
         }
-        
+
         if (!worldObj.isRemote) {
             mstr.onInventoryChange(slot);
         }
@@ -121,7 +121,7 @@ public class TileMultiStorage extends TileMultiBlock implements IInventory {
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return true;
     }
-    
+
     public void onInventoryChange(int slot) {
         return;
     }

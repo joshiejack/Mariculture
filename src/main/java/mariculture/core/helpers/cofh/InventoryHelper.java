@@ -44,7 +44,7 @@ public class InventoryHelper {
     //Copy of the above, but instead of a start index, able to specify WHICH slots
     public static boolean addItemStackToInventory(ItemStack[] inventory, ItemStack stack, int[] slots) {
         if (stack == null) return true;
-        if(slots == null) return false;
+        if (slots == null) return false;
         int openSlot = -1;
         for (int i : slots)
             if (ItemHelper.areItemStacksEqualWithNBT(stack, inventory[i]) && inventory[i].getMaxStackSize() > inventory[i].stackSize) {
@@ -144,7 +144,7 @@ public class InventoryHelper {
 
         return stack;
     }
-    
+
     //Copy of the above but simulates
     public static boolean canInsertItemStackIntoInventory(IInventory theInventory, ItemStack stack, int side) {
         if (stack == null) return false;
@@ -176,11 +176,11 @@ public class InventoryHelper {
                     stack = simulateAddToEmptyInventorySlot(theInventory, i, stack);
                 }
         }
-                
+
         if (stack == null || stack.stackSize == 0) {
             return true;
         }
-        
+
         return false;
     }
 

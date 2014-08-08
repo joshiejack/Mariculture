@@ -20,6 +20,8 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.MachineSpeeds;
+import mariculture.core.network.PacketHandler;
+import mariculture.core.network.PacketSyncFeeder;
 import mariculture.core.tile.base.TileMachineTank;
 import mariculture.core.util.IHasNotification;
 import mariculture.fishery.Fish;
@@ -28,28 +30,44 @@ import mariculture.fishery.FishyHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyConnection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileFeeder extends TileMachineTank implements IHasNotification, IEnergyConnection {
     private static final int fluid = 3;
     public static final int male = 5;
     public static final int female = 6;
 
-    private ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
+    public ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
+    private int isInit = 20;
     private boolean isDay;
     private boolean swap = false;
     private int foodTick;
     private int tankSize;
 
+    //Fish Locations and animations
+    public int mPos = 0;
+    public int fPos = 0;
+    public int mTicker = 0;
+    public int fTicker = 0;
+    public double mRot = 0F;
+    public double fRot = 0F;
+
     public TileFeeder() {
         max = MachineSpeeds.getFeederSpeed();
         inventory = new ItemStack[13];
         output = new int[] { 7, 8, 9, 10, 11, 12 };
+    }
+
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
+        return super.getRenderBoundingBox().expand(5D, 5D, 5D);
     }
 
     @Override
@@ -78,13 +96,18 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
         super.setInventorySlotContents(slot, stack);
-        if (slot == male && Fishing.fishHelper.isMale(stack)) {
-            updateTankSize();
+
+        if (!worldObj.isRemote) {
+            if (slot == male && Fishing.fishHelper.isMale(stack)) {
+                updateTankSize();
+            } else if (slot == female) {
+                PacketHandler.syncInventory(this, inventory);
+            }
         }
     }
 
     //Updates the size of the tank
-    public void updateTankSize() {
+    private void updateTankSize() {
         int xP = 0, xN = 0, yP = 0, yN = 0, zP = 0, zN = 0;
         ItemStack male = inventory[this.male];
         if (male != null) {
@@ -109,6 +132,11 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
         tankSize = coords.size();
         updateUpgrades();
+
+        if (!worldObj.isRemote) {
+            PacketHandler.syncInventory(this, inventory);
+            PacketHandler.sendAround(new PacketSyncFeeder(xCoord, yCoord, zCoord, coords), this);
+        }
     }
 
     //Processes fish
@@ -194,9 +222,21 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     @Override
+    public void updateEntity() {
+        if (!worldObj.isRemote) {
+            if (isInit == 0) {
+                isInit--;
+                updateTankSize();
+            } else isInit--;
+        }
+
+        super.updateEntity();
+    }
+
+    @Override
     public void update() {
         super.update();
-        
+
         if (canWork) {
             foodTick++;
 

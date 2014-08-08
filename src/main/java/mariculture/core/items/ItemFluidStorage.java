@@ -155,10 +155,10 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem, IItem
                     if (stack.amount > 0) {
                         container.drain(item, stack.amount, true);
                         tank.fill(dir, stack, true);
-                        if(tank instanceof ITank) {
-                            PacketHandler.syncFluids(world.getTileEntity(x, y, z), ((ITank)tank).getFluid());
+                        if (tank instanceof ITank) {
+                            PacketHandler.syncFluids(world.getTileEntity(x, y, z), ((ITank) tank).getFluid());
                         }
-                        
+
                         return true;
                     }
                 }

@@ -66,7 +66,7 @@ public class ItemHammer extends ItemPickaxe implements IItemRegistry {
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
         if (ForgeHooks.isToolEffective(stack, block, meta) && !isAnvil(block, meta)) {
-            if(block instanceof BlockStone) {
+            if (block instanceof BlockStone) {
                 return efficiencyOnProperMaterial * 3;
             } else return efficiencyOnProperMaterial;
         }

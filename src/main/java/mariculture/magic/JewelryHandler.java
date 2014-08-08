@@ -93,11 +93,11 @@ public class JewelryHandler {
 
     public static boolean canApply(ItemStack stack) {
         if (stack.getItem() instanceof ItemJewelry && stack.hasTagCompound()) {
-            if(Enchantments.ALLOW_MC_ANVIL) {
+            if (Enchantments.ALLOW_MC_ANVIL) {
                 JewelryType type = getType(stack);
                 JewelryMaterial material = getMaterial(stack);
                 int current = EnchantmentHelper.getEnchantments(stack).size();
-                int max = type.getMaximumEnchantments() + material.getExtraEnchantments(type);            
+                int max = type.getMaximumEnchantments() + material.getExtraEnchantments(type);
                 return current < max;
             } else return false;
         } else return true;

@@ -24,6 +24,7 @@ public class Machines {
         Client.FLUDD_BLOCK_ANIM = getBoolean("FLUDD - Enable Particles", true);
         Client.PUMP_ANIM = getBoolean("Air Pump - Enable Rotation", true, "This will not work if Enable Ticking is set to false under Tick Settings");
         Client.HAMMER_ANIM = getBoolean("Autohammer - Enabled Animation", true);
+        Client.SHOW_FISH = getBoolean("Fish Feeder > Show Fish", true);
 
         setCategory("Tick Settings");
         Ticks.ITEM_EJECT_TICK = getInt("Item Eject Tick", 20);
@@ -45,6 +46,7 @@ public class Machines {
     }
 
     public static class Client {
+        public static boolean SHOW_FISH;
         public static boolean PUMP_ANIM;
         public static boolean GEYSER_ANIM;
         public static boolean FLUDD_BLOCK_ANIM;

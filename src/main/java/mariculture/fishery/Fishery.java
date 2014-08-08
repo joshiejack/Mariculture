@@ -71,9 +71,9 @@ import static mariculture.core.lib.ItemLib.titaniumSheet;
 import static mariculture.core.lib.ItemLib.tnt;
 import static mariculture.core.lib.ItemLib.whiteClay;
 import static mariculture.core.lib.ItemLib.wicker;
-import static mariculture.core.util.Fluids.getFluidStack;
 import static mariculture.core.util.Fluids.getFluid;
 import static mariculture.core.util.Fluids.getFluidName;
+import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.Arrays;
 
@@ -274,9 +274,9 @@ public class Fishery extends RegistrationModule {
         addFishRecipes();
         FishingLoot.add();
 
-        ((ItemRod)rodReed).setRepairMaterial(_(reeds));
-        ((ItemRod)rodWood).setRepairMaterial(polishedStick);
-        ((ItemRod)rodTitanium).setRepairMaterial(polishedTitanium);
+        ((ItemRod) rodReed).setRepairMaterial(_(reeds));
+        ((ItemRod) rodWood).setRepairMaterial(polishedStick);
+        ((ItemRod) rodTitanium).setRepairMaterial(polishedTitanium);
         addFishingRodRecipe(_(rodReed), reeds);
         addFishingRodRecipe(_(rodWood), polishedStick);
         addFishingRodRecipe(_(rodTitanium), polishedTitanium);

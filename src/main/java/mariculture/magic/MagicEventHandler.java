@@ -39,12 +39,12 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MagicEventHandler {
     private Random rand = new Random();
-    
+
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.left;
         ItemStack right = event.right;
-        if(!JewelryHandler.canApply(left) || !JewelryHandler.canApply(right)) {
+        if (!JewelryHandler.canApply(left) || !JewelryHandler.canApply(right)) {
             event.setCanceled(true);
         }
     }
