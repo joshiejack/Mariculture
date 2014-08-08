@@ -145,7 +145,6 @@ public class NEIConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(Core.air, 1, OreDictionary.WILDCARD_VALUE));
         API.hideItem(new ItemStack(Core.ticking, 1, OreDictionary.WILDCARD_VALUE));
         API.hideItem(new ItemStack(Core.worked, 1, OreDictionary.WILDCARD_VALUE));
-        API.hideItem(new ItemStack(Core.renderedMachines, 1, 1));
 
         if (Modules.isActive(Modules.factory)) {
             API.hideItem(new ItemStack(Factory.customBlock, 1, OreDictionary.WILDCARD_VALUE));

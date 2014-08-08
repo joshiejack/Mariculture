@@ -17,8 +17,8 @@ public class PluginOpenBlocks extends Plugin {
 
     @Override
     public void init() {
-        Fluids.add("xp", FluidRegistry.getFluid("xpjuice"), 200, true);
-        XPRegistry.register("xpjuice", 200);
+        Fluids.add("xp", FluidRegistry.getFluid("xpjuice"), 20, true);
+        XPRegistry.register("xpjuice", 20);
     }
 
     @Override
