@@ -68,6 +68,8 @@ public class Plugins extends Module {
         add("RedstoneArsenal");
         add("Aquaculture");
         add("HarvestCraft", "harvestcraft");
+        //Always add theByeByeSmelting Plugin
+        add("ModdedTweaks", "Enchiridion");
     }
 
     public void add(String str) {
