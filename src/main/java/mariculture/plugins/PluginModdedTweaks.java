@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ModdedTweaks extends Plugin {
-    public ModdedTweaks(String name) {
+public class PluginModdedTweaks extends Plugin {
+    public PluginModdedTweaks(String name) {
         super(name);
     }
 
