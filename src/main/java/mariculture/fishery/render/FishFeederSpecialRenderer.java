@@ -87,7 +87,7 @@ public class FishFeederSpecialRenderer extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         GL11.glRotated(angle, 0F, 1F, 0F);
         GL11.glScalef(1.8F, 1.8F, 1.8F);
-        GL11.glTranslatef(0F, 0.1F, 0.1F);
+        GL11.glTranslatef(0F, 0.1F, 0.15F);
         RenderManager.instance.renderEntityWithPosYaw(item, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
         GL11.glPopMatrix();
     }

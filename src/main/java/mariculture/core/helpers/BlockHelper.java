@@ -212,7 +212,10 @@ public class BlockHelper {
         if (required != null && block != required) return;
         if (block.getBlockHardness(world, x, y, z) < 0.0F) return;
         FakePlayer player = PlayerHelper.getFakePlayer(world);
-        player.setCurrentItemOrArmor(0, held.copy());
+        if (player != null && held != null) {
+            player.setCurrentItemOrArmor(0, held.copy());
+        }
+
         int l = world.getBlockMetadata(x, y, z);
         world.playAuxSFXAtEntity(player, 2001, x, y, z, Block.getIdFromBlock(block) + (world.getBlockMetadata(x, y, z) << 12));
         boolean flag = removeBlock(world, player, x, y, z);

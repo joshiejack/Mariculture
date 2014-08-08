@@ -45,7 +45,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public static final int female = 6;
 
     public ArrayList<CachedCoords> coords = new ArrayList<CachedCoords>();
-    private int isInit = 20;
+    private int isInit = 50;
     private boolean isDay;
     private boolean swap = false;
     private int foodTick;
@@ -224,8 +224,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            if (isInit == 0) {
-                isInit--;
+            if (isInit <= 0 && isInit > -1000) {
+                isInit = -1000;
                 updateTankSize();
             } else isInit--;
         }
