@@ -22,4 +22,10 @@ public class ItemHelper {
             }
         }
     }
+
+    public static boolean areEqual(ItemStack ingredient, Object input) {
+        if (input instanceof ItemStack) return areEqual(ingredient, (ItemStack) input);
+        else if (input instanceof String) return OreDicHelper.matches((String) input, ingredient);
+        else return false;
+    }
 }

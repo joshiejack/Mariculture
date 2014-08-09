@@ -64,7 +64,7 @@ public class RecipeHelper {
         GameRegistry.addSmelting(input, output, xp);
     }
 
-    public static void addVatItemRecipe(ItemStack input, String fluid, int vol, ItemStack output, int time) {
+    public static void addVatItemRecipe(Object input, String fluid, int vol, ItemStack output, int time) {
         MaricultureHandlers.vat.addRecipe(new RecipeVat(input, FluidRegistry.getFluidStack(fluid, vol), output, time));
     }
 

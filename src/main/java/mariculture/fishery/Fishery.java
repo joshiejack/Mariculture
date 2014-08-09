@@ -281,9 +281,9 @@ public class Fishery extends RegistrationModule {
         addFishingRodRecipe(_(rodWood), polishedStick);
         addFishingRodRecipe(_(rodTitanium), polishedTitanium);
         addShaped(ItemBattery.make(_(rodFlux), 0), new Object[] { "  R", " RS", "B S", 'R', rodTitanium, 'S', string, 'B', titaniumBattery });
-        addVatItemRecipe(_(log), getFluidName("fish_oil"), 30000, polishedLog, 45);
-        addVatItemRecipe(_(planks), getFluidName("fish_oil"), 10000, polishedPlank, 30);
-        addVatItemRecipe(_(stick), getFluidName("fish_oil"), 5000, polishedStick, 15);
+        addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 45);
+        addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 30);
+        addVatItemRecipe("stickWood", getFluidName("fish_oil"), 5000, polishedStick, 15);
         addShapeless(_(polishedPlank, 4), new Object[] { polishedLog });
         addShaped(_(polishedStick, 4), new Object[] { "S", "S", 'S', polishedPlank });
         addVatItemRecipe(titaniumRod, getFluidName("fish_oil"), 6500, polishedTitanium, 30);
@@ -307,6 +307,8 @@ public class Fishery extends RegistrationModule {
             addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
         }
     }
+
+ 
 
     private void addBait() {
         Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.ANT), 10);
