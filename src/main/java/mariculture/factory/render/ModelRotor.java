@@ -151,7 +151,7 @@ public class ModelRotor extends ModelBase implements IModelMariculture {
         Blade14.mirror = true;
         setRotation(Blade14, -4.014257F, 0F, 0.0610865F);
         Centre = new ModelRenderer(this, 0, 28);
-        Centre.addBox(-8F, -6F, -6F, 16, 12, 12);
+        Centre.addBox(-9F, -6F, -6F, 18, 12, 12);
         Centre.setRotationPoint(0F, 0F, 0F);
         Centre.setTextureSize(64, 64);
         Centre.mirror = true;

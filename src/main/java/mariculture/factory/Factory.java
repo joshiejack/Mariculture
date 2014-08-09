@@ -44,6 +44,7 @@ import mariculture.core.Core;
 import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.RegistryHelper;
 import mariculture.core.lib.EntityIds;
+import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
@@ -140,9 +141,9 @@ public class Factory extends RegistrationModule {
         fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
         paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
         filter = new ItemFilter().setUnlocalizedName("filter");
-        turbineCopper = new ItemRotor(900, 1).setUnlocalizedName("turbine.copper");
-        turbineAluminum = new ItemRotor(3600, 2).setUnlocalizedName("turbine.aluminum");
-        turbineTitanium = new ItemRotor(28800, 3).setUnlocalizedName("turbine.titanium");
+        turbineCopper = new ItemRotor(900, MachineRenderedMeta.ROTOR_COPPER).setUnlocalizedName("turbine.copper");
+        turbineAluminum = new ItemRotor(3600, MachineRenderedMeta.ROTOR_ALUMINUM).setUnlocalizedName("turbine.aluminum");
+        turbineTitanium = new ItemRotor(28800, MachineRenderedMeta.ROTOR_TITANIUM).setUnlocalizedName("turbine.titanium");
         RegistryHelper.registerItems(new Item[] { chalk, plans, paintbrush, fludd, filter, turbineCopper, turbineAluminum, turbineTitanium });
     }
 

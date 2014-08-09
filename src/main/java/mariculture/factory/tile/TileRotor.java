@@ -6,6 +6,7 @@ import mariculture.core.lib.MetalMeta;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketRotorSpin;
 import mariculture.core.util.IFaceable;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -19,7 +20,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
     public CachedCoords master;
 
     //Client Sided animation stuff
-    public int damage;
+    public int damage = 0;
     public int isAnimating;
     public ForgeDirection dir;
     public float angle;
@@ -67,17 +68,13 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
         }
     }
 
-    protected String getBlock() {
-        return "plankWood";
-    }
+    protected abstract String getBlock();
 
-    protected double getTier() {
-        return 0.5D;
-    }
-    
-    protected int getMaxDamage() {
-        return 100;
-    }
+    protected abstract double getTier();
+
+    protected abstract int getMaxDamage();
+
+    public abstract ItemStack getDrop();
 
     public void setMaster(CachedCoords master) {
         this.master = master;
@@ -112,6 +109,10 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
             master = null; //Set the master to null, as this block may have been removed from the net
             ((TileGenerator) tile).reset();
         }
+    }
+
+    public void setDamage(int damage) {
+        this.damage = (int) Math.floor(damage * 200);
     }
 
     @Override

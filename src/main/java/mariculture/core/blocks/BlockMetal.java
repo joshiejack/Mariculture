@@ -3,12 +3,16 @@ package mariculture.core.blocks;
 import mariculture.Mariculture;
 import mariculture.core.blocks.base.BlockDecorative;
 import mariculture.core.lib.MetalMeta;
+import mariculture.factory.items.ItemRotor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -87,6 +91,21 @@ public class BlockMetal extends BlockDecorative {
     //Checks whether the block is the same type or not
     private boolean isSameBlock(IBlockAccess world, int[] coords1, int[] coords2) {
         return world.getBlock(coords1[0], coords1[1], coords1[2]) == world.getBlock(coords2[0], coords2[1], coords2[2]) && world.getBlockMetadata(coords1[1], coords1[0], coords1[2]) == world.getBlockMetadata(coords2[1], coords2[0], coords2[2]);
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        ItemStack held = player.getCurrentEquippedItem();
+        if (!player.isSneaking() && held != null && world.getBlockMetadata(x, y, z) == MetalMeta.BASE_IRON) {
+            if (held.getItem() instanceof ItemRotor) {
+                if (((ItemRotor) held.getItem()).setBlock(held, world, x, y, z, ForgeDirection.getOrientation(side))) {
+                    player.setCurrentItemOrArmor(0, null);
+                    return true;
+                } else return false;
+            }
+        }
+
+        return false;
     }
 
     @Override

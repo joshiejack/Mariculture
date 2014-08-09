@@ -12,6 +12,7 @@ import mariculture.core.helpers.SpawnItemHelper;
 import mariculture.core.helpers.cofh.ItemHelper;
 import mariculture.core.items.ItemHammer;
 import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.network.PacketHandler;
@@ -154,7 +155,7 @@ public class BlockRenderedMachine extends BlockFunctional {
             if (tile instanceof TileAnvil) {
                 ((TileAnvil) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
-            
+
             if (tile instanceof TileRotor) {
                 ((TileRotor) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
@@ -164,7 +165,7 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile == null || player.isSneaking() && !world.isRemote) return false;
+        if (tile == null || tile instanceof TileRotor || player.isSneaking() && !world.isRemote) return false;
 
         //Activate the air pump on right click
         if (tile instanceof TileAirPump) {
@@ -340,6 +341,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public boolean doesDrop(int meta) {
+        if (meta >= MachineRenderedMeta.ROTOR_COPPER && meta <= MachineRenderedMeta.ROTOR_TITANIUM) return false;
         return meta != MachineRenderedMeta.FLUDD_STAND;
     }
 
@@ -357,12 +359,19 @@ public class BlockRenderedMachine extends BlockFunctional {
         } else if (tile instanceof TileRotor) {
             CachedCoords cord = ((TileRotor) tile).master;
             if (cord != null) {
-                world.setBlockToAir(x, y, z);
+                world.setBlock(x, y, z, Core.metals, MetalMeta.BASE_IRON, 2);
                 TileEntity gen = world.getTileEntity(cord.x, cord.y, cord.z);
                 if (gen instanceof TileGenerator) {
                     ((TileGenerator) tile).reset();
                 }
-            } else return world.setBlockToAir(x, y, z);
+
+                SpawnItemHelper.spawnItem(world, x, y + 1, z, ((TileRotor) tile).getDrop());
+                return true;
+            } else {
+                world.setBlock(x, y, z, Core.metals, MetalMeta.BASE_IRON, 2);
+                SpawnItemHelper.spawnItem(world, x, y + 1, z, ((TileRotor) tile).getDrop());
+                return true;
+            }
         }
 
         return super.destroyBlock(world, x, y, z);
@@ -419,11 +428,11 @@ public class BlockRenderedMachine extends BlockFunctional {
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
                 return Modules.isActive(Modules.fishery);
+            case MachineRenderedMeta.GEYSER:
+                return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.ROTOR_COPPER:
             case MachineRenderedMeta.ROTOR_ALUMINUM:
             case MachineRenderedMeta.ROTOR_TITANIUM:
-            case MachineRenderedMeta.GEYSER:
-                return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.FLUDD_STAND:
                 return false;
             default:
