@@ -9,10 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 
 public class ItemScanner extends ItemStorage {
-    public static final int SIZE = 1;
-
     public ItemScanner() {
-        super(SIZE, "scanner");
+        super(1, "scanner");
         setCreativeTab(MaricultureTab.tabFishery);
     }
 

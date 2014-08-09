@@ -42,7 +42,7 @@ import org.apache.logging.log4j.Level;
 
 public class FishingHandler implements IFishing {
     // Registering Fishing Rods
-    public static final HashMap<Item, RodType> registry = new HashMap();
+    private static final HashMap<Item, RodType> registry = new HashMap();
 
     @Override
     public RodType getRodType(ItemStack stack) {

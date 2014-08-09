@@ -42,7 +42,7 @@ public class ContainerFishTank extends ContainerMachine {
 
     }
 
-    public class SlotFishTank extends Slot {
+    private class SlotFishTank extends Slot {
         public SlotFishTank(TileFishTank invent, int slot, int x, int y) {
             super(invent, slot, x, y);
         }

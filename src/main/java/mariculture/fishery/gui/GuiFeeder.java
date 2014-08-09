@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 public class GuiFeeder extends GuiMariculture {
-    public TileFeeder tile;
+    private TileFeeder tile;
 
     public GuiFeeder(InventoryPlayer player, TileFeeder tile) {
         super(new ContainerFeeder(tile, player), "feeder", 10);

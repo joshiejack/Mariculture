@@ -20,7 +20,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRod extends ItemFishingRod implements IItemRegistry {
-    public ItemStack repair;
+    private ItemStack repair;
     private int enchant;
 
     public ItemRod() {
@@ -30,7 +30,6 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
 
     public ItemRod(int max, int enchant) {
         this.enchant = enchant;
-        this.repair = repair;
         setMaxStackSize(1);
         setCreativeTab(MaricultureTab.tabFishery);
         if (max > 0) {

@@ -37,7 +37,7 @@ public class PluginEnchiridion extends Plugin {
     }
 
     public static Item guides;
-    public static EventHandler handler;
+    private static EventHandler handler;
 
     @Override
     public void preInit() {

@@ -66,9 +66,9 @@ public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
         list.add(ItemBattery.make(battery, capacity));
     }
 
-    protected int capacity = 250000;
-    protected int maxReceive = 250;
-    protected int maxExtract = 100;
+    private int capacity = 250000;
+    private int maxReceive = 250;
+    private int maxExtract = 100;
 
     @Override
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
