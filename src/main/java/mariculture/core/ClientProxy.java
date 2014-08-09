@@ -36,12 +36,16 @@ import mariculture.diving.render.RenderCompressorTop;
 import mariculture.factory.EntityFLUDDSquirt;
 import mariculture.factory.Factory;
 import mariculture.factory.render.ModelFLUDD;
+import mariculture.factory.render.ModelRotor;
 import mariculture.factory.render.RenderCustomItem;
 import mariculture.factory.render.RenderFLUDDSquirt;
 import mariculture.factory.render.RenderFluidDictionary;
 import mariculture.factory.render.RenderGeyser;
 import mariculture.factory.render.RenderPressureVessel;
 import mariculture.factory.tile.TileFLUDDStand;
+import mariculture.factory.tile.TileRotorAluminum;
+import mariculture.factory.tile.TileRotorCopper;
+import mariculture.factory.tile.TileRotorTitanium;
 import mariculture.fishery.EntityBass;
 import mariculture.fishery.EntityHook;
 import mariculture.fishery.EntityItemFireImmune;
@@ -80,6 +84,9 @@ public class ClientProxy extends CommonProxy {
     private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");
     private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
     private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
+    private static final ResourceLocation COPPER = new ResourceLocation(Mariculture.modid, "textures/blocks/copperRotor.png");
+    private static final ResourceLocation ALUMINUM = new ResourceLocation(Mariculture.modid, "textures/blocks/aluminumRotor.png");
+    private static final ResourceLocation TITANIUM = new ResourceLocation(Mariculture.modid, "textures/blocks/titaniumRotor.png");
 
     public static KeyBinding key_activate;
     public static KeyBinding key_toggle;
@@ -134,6 +141,9 @@ public class ClientProxy extends CommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
 
+            ClientRegistry.bindTileEntitySpecialRenderer(TileRotorCopper.class, new RenderSpecialHandler(new ModelRotor(), COPPER));
+            ClientRegistry.bindTileEntitySpecialRenderer(TileRotorAluminum.class, new RenderSpecialHandler(new ModelRotor(), ALUMINUM));
+            ClientRegistry.bindTileEntitySpecialRenderer(TileRotorTitanium.class, new RenderSpecialHandler(new ModelRotor(), TITANIUM));
             ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
             RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);

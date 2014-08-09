@@ -55,7 +55,7 @@ public class BlockPressurisedWater extends BlockFluid {
             int y2 = y - rand.nextInt(2);
             int z2 = z + dir.offsetZ;
             Block block = world.getBlock(x2, y2, z2);
-            if (block != null && !(block instanceof BlockPressurisedWater)) {
+            if (block != null && !(block instanceof BlockPressurisedWater) && !block.hasTileEntity(world.getBlockMetadata(x2, y2, z2))) {
                 float resistanceMax = Blocks.stone.getExplosionResistance(PlayerHelper.getFakePlayer(world), world, x2, y2, z2, 0, 0, 0);
                 float resistance = block.getExplosionResistance(PlayerHelper.getFakePlayer(world), world, x2, y2, z2, 0, 0, 0);
                 if (resistance <= resistanceMax) {

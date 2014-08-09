@@ -1,11 +1,13 @@
 package mariculture.core.render;
 
+import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.Modules;
 import mariculture.diving.render.ModelAirPump;
 import mariculture.factory.Factory;
 import mariculture.factory.render.ModelFLUDD;
+import mariculture.factory.render.ModelRotor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,9 +21,13 @@ public class RenderSingleItem implements IItemRenderer {
     private static final ResourceLocation TURBINE = new ResourceLocation("mariculture", "textures/blocks/turbine_texture.png");
     private static final ResourceLocation TURBINE_GAS = new ResourceLocation("mariculture", "textures/blocks/turbine_gas_texture.png");
     private static final ResourceLocation TURBINE_HAND = new ResourceLocation("mariculture", "textures/blocks/turbine_hand_texture.png");
+    private static final ResourceLocation COPPER = new ResourceLocation(Mariculture.modid, "textures/blocks/copperRotor.png");
+    private static final ResourceLocation ALUMINUM = new ResourceLocation(Mariculture.modid, "textures/blocks/aluminumRotor.png");
+    private static final ResourceLocation TITANIUM = new ResourceLocation(Mariculture.modid, "textures/blocks/titaniumRotor.png");
 
     private final ModelAirPump pump = new ModelAirPump();
     private final ModelFLUDD fludd = new ModelFLUDD();
+    private final ModelRotor rotor = new ModelRotor();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -46,6 +52,10 @@ public class RenderSingleItem implements IItemRenderer {
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
         return false;
+    }
+
+    private void bindTexture(ResourceLocation resource) {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(resource);
     }
 
     @Override

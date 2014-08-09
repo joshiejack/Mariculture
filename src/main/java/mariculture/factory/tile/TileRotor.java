@@ -1,14 +1,22 @@
 package mariculture.factory.tile;
 
 import mariculture.api.util.CachedCoords;
+import mariculture.core.util.IFaceable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /* This block does nothing, except animation */
-public abstract class TileRotor extends TileEntity {
-    private boolean northSouth;
+public abstract class TileRotor extends TileEntity implements IFaceable {
+    public boolean northSouth;
     public int energyStored;
     public CachedCoords master;
+    public float angle;
+    public boolean doAnim;
+    public int animTicker;
 
     //Set by the Rotor
     public final String block;
@@ -17,6 +25,36 @@ public abstract class TileRotor extends TileEntity {
     public TileRotor() {
         block = getBlock();
         tier = getTier();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
+        return super.getRenderBoundingBox().expand(1D, 1D, 1D);
+    }
+
+    private void animate(ForgeDirection dir) {
+        if (dir == ForgeDirection.NORTH) {
+            angle -= 3F;
+        } else if (dir == ForgeDirection.SOUTH) {
+            angle += 3F;
+        } else if (dir == ForgeDirection.WEST) {
+            angle -= 3F;
+        } else if (dir == ForgeDirection.EAST) {
+            angle += 3F;
+        }
+    }
+
+    @Override
+    public void updateEntity() {
+        //if (doAnim) {
+        if (animTicker < 360) {
+            animate(getFacing());
+            animTicker += 1;
+        } else {
+            doAnim = false;
+            animTicker = 0;
+        }
+        // }
     }
 
     protected String getBlock() {
@@ -32,7 +70,10 @@ public abstract class TileRotor extends TileEntity {
     }
 
     public void addEnergy(int i) {
-        this.energyStored += ((double) i * tier);
+        System.out.println("energy added");
+        
+        energyStored += ((double) i * tier);
+        doAnim = true;
     }
 
     public int steal() {
@@ -56,6 +97,22 @@ public abstract class TileRotor extends TileEntity {
             master = null; //Set the master to null, as this block may have been removed from the net
             ((TileGenerator) tile).reset();
         }
+    }
+
+    @Override
+    public boolean rotate() {
+        northSouth = !northSouth;
+        return true;
+    }
+
+    @Override
+    public ForgeDirection getFacing() {
+        return northSouth ? ForgeDirection.NORTH : ForgeDirection.WEST;
+    }
+
+    @Override
+    public void setFacing(ForgeDirection dir) {
+        northSouth = (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH);
     }
 
     @Override

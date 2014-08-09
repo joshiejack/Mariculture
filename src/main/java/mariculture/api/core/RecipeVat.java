@@ -9,7 +9,7 @@ public class RecipeVat {
     /** The second fluid in the recipe, can be null **/
     public FluidStack inputFluid2;
     /** The input item, can be null **/
-    public ItemStack inputItem;
+    public Object inputItem;
     /** Output Fluid: Either this or the item can be null but not both **/
     public FluidStack outputFluid;
     /** Output Item: Either this or the fluid can be null but not both **/

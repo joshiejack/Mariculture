@@ -180,7 +180,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 
         //Decrease the StackSize of the input, by this much if it's valid
         if (recipe.inputItem != null) {
-            decrStackSize(0, recipe.inputItem.stackSize);
+            decrStackSize(0, recipe.inputItem instanceof ItemStack ? (((ItemStack) recipe.inputItem).stackSize) : 1);
         }
 
         //Add the new Fluid

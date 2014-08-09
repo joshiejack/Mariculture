@@ -154,6 +154,10 @@ public class BlockRenderedMachine extends BlockFunctional {
             if (tile instanceof TileAnvil) {
                 ((TileAnvil) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
+            
+            if (tile instanceof TileRotor) {
+                ((TileRotor) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
+            }
         }
     }
 

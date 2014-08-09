@@ -183,10 +183,10 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
             for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
         }
 
-        if (height > 0) {
+        if (height > 0) {            
             int distance;
-            for (distance = 0; isValid(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
-            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * (distance + 1)), yCoord, zCoord + (orientation.offsetZ * (distance + 1)));
+            for (distance = 1; isValid(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
+            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));            
             if (tile instanceof TileRotor) {
                 ((TileRotor) tile).addEnergy(getEnergyGenerated(distance));
             }

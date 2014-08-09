@@ -6,6 +6,7 @@ import mariculture.api.core.IVatHandler;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.ItemHelper;
+import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -35,8 +36,12 @@ public class VatHandler implements IVatHandler {
                         continue;
                     }
 
-                    if (vat.inputItem != null && !(ItemHelper.areEqual(input, vat.inputItem) && input.stackSize >= vat.inputItem.stackSize)) {
-                        continue;
+                    if (vat.inputItem != null) {
+                        if (vat.inputItem instanceof ItemStack && !(ItemHelper.areEqual(input, (ItemStack) vat.inputItem) && input.stackSize >= ((ItemStack) vat.inputItem).stackSize)) {
+                            continue;
+                        } else if (vat.inputItem instanceof String && !OreDicHelper.matches((String)vat.inputItem, input)) {
+                            continue;
+                        }
                     }
 
                     return vat;

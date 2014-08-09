@@ -49,4 +49,15 @@ public class OreDicHelper {
 
         return name;
     }
+
+    public static boolean matches(String entry, ItemStack input) {
+        int[] ids = OreDictionary.getOreIDs(input);
+        for(int i: ids) {
+            if(OreDictionary.getOreName(i).equals(entry)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }
