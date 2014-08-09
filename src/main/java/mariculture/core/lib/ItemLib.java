@@ -158,6 +158,7 @@ public class ItemLib {
     public static final ItemStack sluiceAdvanced = new ItemStack(Core.machines, 1, MachineMeta.SLUICE_ADVANCED);
     public static final ItemStack pressureVessel = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL);
     public static final ItemStack autodictionary = new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM);
+    public static final ItemStack generator = new ItemStack(Core.machines, 1, MachineMeta.GENERATOR);
     public static final ItemStack fishSorter = new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER);
     public static final ItemStack sawmill = new ItemStack(Core.machines, 1, MachineMeta.SAWMILL);
     public static final ItemStack unpacker = new ItemStack(Core.machines, 1, MachineMeta.UNPACKER);
