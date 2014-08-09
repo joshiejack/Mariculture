@@ -49,14 +49,16 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 
     @Override
     public void updateEntity() {
-        if (onTick(200) && orientation.ordinal() > 1) {
-            generateHPWater();
-        }
+        if (!worldObj.isRemote) {
+            if (onTick(200) && orientation.ordinal() > 1) {
+                generateHPWater();
+            }
 
-        if (onTick(60)) {
-            placeInTank();
-            pullFromTank();
-            switchTanks();
+            if (onTick(60)) {
+                placeInTank();
+                pullFromTank();
+                switchTanks();
+            }
         }
     }
 
@@ -165,7 +167,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     }
 
     public int getEnergyGenerated(int distance) {
-        return height * distance * 2;
+        return height * distance * 10;
     }
 
     public void generateHPWater() {
@@ -183,12 +185,12 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
             for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
         }
 
-        if (height > 0) {            
+        if (height > 0) {
             int distance;
             for (distance = 1; isValid(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
-            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));            
+            TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));
             if (tile instanceof TileRotor) {
-                ((TileRotor) tile).addEnergy(getEnergyGenerated(distance));
+                ((TileRotor) tile).addEnergy(orientation.getOpposite(), getEnergyGenerated(distance), 200);
             }
         }
     }

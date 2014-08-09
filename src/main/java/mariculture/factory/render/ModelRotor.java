@@ -5,6 +5,7 @@ import mariculture.factory.tile.TileRotor;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -167,7 +168,7 @@ public class ModelRotor extends ModelBase implements IModelMariculture {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         GL11.glScalef(1.2F, 1.2F, 1.2F);
-        if (rotor.northSouth) {
+        if (rotor.orientation == ForgeDirection.NORTH) {
             GL11.glRotatef(90, 0F, 1F, 0F);
         }
 

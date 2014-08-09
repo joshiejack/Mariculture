@@ -1,6 +1,10 @@
 package mariculture.factory.tile;
 
 import mariculture.api.util.CachedCoords;
+import mariculture.core.Core;
+import mariculture.core.lib.MetalMeta;
+import mariculture.core.network.PacketHandler;
+import mariculture.core.network.PacketRotorSpin;
 import mariculture.core.util.IFaceable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -11,20 +15,24 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /* This block does nothing, except animation */
 public abstract class TileRotor extends TileEntity implements IFaceable {
-    public boolean northSouth;
-    public int energyStored;
+    public ForgeDirection orientation;
     public CachedCoords master;
+
+    //Client Sided animation stuff
+    public int damage;
+    public int isAnimating;
+    public ForgeDirection dir;
     public float angle;
-    public boolean doAnim;
-    public int animTicker;
 
     //Set by the Rotor
-    public final String block;
-    public final double tier;
+    private final int maxDamage;
+    private final String block;
+    private final double tier;
 
     public TileRotor() {
         block = getBlock();
         tier = getTier();
+        maxDamage = getMaxDamage();
     }
 
     @SideOnly(Side.CLIENT)
@@ -32,29 +40,31 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
         return super.getRenderBoundingBox().expand(1D, 1D, 1D);
     }
 
-    private void animate(ForgeDirection dir) {
-        if (dir == ForgeDirection.NORTH) {
-            angle -= 3F;
-        } else if (dir == ForgeDirection.SOUTH) {
-            angle += 3F;
-        } else if (dir == ForgeDirection.WEST) {
-            angle -= 3F;
-        } else if (dir == ForgeDirection.EAST) {
-            angle += 3F;
-        }
+    public void setAnimating(ForgeDirection dir) {
+        this.dir = dir;
+        this.isAnimating = 1;
     }
 
     @Override
     public void updateEntity() {
-        //if (doAnim) {
-        if (animTicker < 360) {
-            animate(getFacing());
-            animTicker += 1;
-        } else {
-            doAnim = false;
-            animTicker = 0;
+        if (worldObj.isRemote) {
+            if (isAnimating > 0) {
+                if (dir == ForgeDirection.NORTH) {
+                    angle -= getTier();
+                } else if (dir == ForgeDirection.SOUTH) {
+                    angle += getTier();
+                } else if (dir == ForgeDirection.WEST) {
+                    angle -= getTier();
+                } else if (dir == ForgeDirection.EAST) {
+                    angle += getTier();
+                }
+
+                isAnimating++;
+                if (isAnimating > 360) {
+                    isAnimating = 0;
+                }
+            }
         }
-        // }
     }
 
     protected String getBlock() {
@@ -64,35 +74,40 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
     protected double getTier() {
         return 0.5D;
     }
+    
+    protected int getMaxDamage() {
+        return 100;
+    }
 
     public void setMaster(CachedCoords master) {
         this.master = master;
     }
 
-    public void addEnergy(int i) {
-        System.out.println("energy added");
-        
-        energyStored += ((double) i * tier);
-        doAnim = true;
+    //Adds Power from a certain direction
+    public void addEnergy(ForgeDirection dir, int energy, int dmg) {
+        TileGenerator generator = getMaster();
+        if (generator != null) {
+            generator.addEnergy((int) (energy * getTier()));
+        }
+
+        damage += dmg;
+        if (damage >= maxDamage) {
+            worldObj.setBlock(xCoord, yCoord, zCoord, Core.metals, MetalMeta.BASE_IRON, 2);
+        }
+
+        PacketHandler.sendAround(new PacketRotorSpin(xCoord, yCoord, zCoord, dir), this);
     }
 
-    public int steal() {
-        int ret = energyStored;
-        energyStored = 0;
-        return ret;
-    }
-
-    public boolean isBuilt() {
-        return true;
-    }
-
-    public TileEntity getMasterFromCoords(CachedCoords cord) {
-        return master != null ? worldObj.getTileEntity(cord.x, cord.y, cord.z) : null;
+    private TileGenerator getMaster() {
+        if (master != null) {
+            TileEntity tile = worldObj.getTileEntity(master.x, master.y, master.z);
+            return (TileGenerator) (tile instanceof TileGenerator ? tile : null);
+        } else return null;
     }
 
     //Called when this block is removed, or when it receives a block update, to reset the master
     public void recheck() {
-        TileEntity tile = getMasterFromCoords(master);
+        TileGenerator tile = getMaster();
         if (tile instanceof TileGenerator) {
             master = null; //Set the master to null, as this block may have been removed from the net
             ((TileGenerator) tile).reset();
@@ -101,18 +116,34 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
 
     @Override
     public boolean rotate() {
-        northSouth = !northSouth;
+        if (orientation == ForgeDirection.NORTH) {
+            orientation = ForgeDirection.WEST;
+        } else {
+            orientation = ForgeDirection.NORTH;
+        }
+
         return true;
     }
 
     @Override
     public ForgeDirection getFacing() {
-        return northSouth ? ForgeDirection.NORTH : ForgeDirection.WEST;
+        return orientation;
     }
 
     @Override
     public void setFacing(ForgeDirection dir) {
-        northSouth = (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH);
+        switch (dir) {
+            case NORTH:
+            case SOUTH:
+                orientation = ForgeDirection.NORTH;
+                break;
+            case EAST:
+            case WEST:
+                orientation = ForgeDirection.WEST;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -125,8 +156,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
             master = new CachedCoords(x, y, z);
         }
 
-        northSouth = nbt.getBoolean("Orientation");
-        energyStored = nbt.getInteger("Stored");
+        orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
     }
 
     @Override
@@ -139,7 +169,6 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
             nbt.setInteger("MasterZ", master.z);
         } else nbt.setBoolean("HasMaster", false);
 
-        nbt.setBoolean("Orientation", northSouth);
-        nbt.setInteger("Stored", energyStored);
+        nbt.setInteger("Orientation", orientation.ordinal());
     }
 }

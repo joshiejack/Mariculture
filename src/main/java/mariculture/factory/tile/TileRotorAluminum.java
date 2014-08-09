@@ -10,4 +10,9 @@ public class TileRotorAluminum extends TileRotor {
     protected double getTier() {
         return 2D;
     }
+    
+    @Override
+    protected int getMaxDamage() {
+        return 720000;
+    }
 }

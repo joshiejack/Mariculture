@@ -10,4 +10,9 @@ public class TileRotorCopper extends TileRotor {
     protected double getTier() {
         return 1D;
     }
+
+    @Override
+    protected int getMaxDamage() {
+        return 180000;
+    }
 }

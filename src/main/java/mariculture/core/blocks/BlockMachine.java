@@ -165,6 +165,10 @@ public class BlockMachine extends BlockFunctional {
             IFaceable face = (IFaceable) tile;
             face.setFacing(ForgeDirection.getOrientation(facing));
             PacketHandler.updateOrientation(face, x, y, z, world.provider.dimensionId);
+
+            if (tile instanceof TileGenerator) {
+                ((TileGenerator) tile).reset();
+            }
         }
     }
 

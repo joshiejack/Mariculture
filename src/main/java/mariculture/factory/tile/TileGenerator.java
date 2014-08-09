@@ -1,7 +1,5 @@
 package mariculture.factory.tile;
 
-import java.util.LinkedList;
-
 import mariculture.api.util.CachedCoords;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
@@ -16,35 +14,26 @@ import cofh.api.energy.IEnergyHandler;
 
 public class TileGenerator extends TileEntity implements IEnergyConnection, IFaceable {
     private static final int MAX_TRANSFER = 5000;
-    private static final int MAX_STORED = 500000;
 
-    private boolean isInit = false;
-    private int energyStored;
     public ForgeDirection orientation = ForgeDirection.NORTH;
-
-    public static LinkedList<CachedCoords> cords = new LinkedList();
 
     public boolean onTick(int i) {
         return worldObj.getWorldTime() % i == 0;
     }
 
     public void reset() {
-        cords = new LinkedList();
         if (orientation != null) {
             for (int i = 1; isRotor(worldObj, xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i)); i++) {
-                CachedCoords inates = new CachedCoords(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i));
-                cords.add(inates);
-                getRotorFromCoords(inates).setMaster(new CachedCoords(xCoord, yCoord, zCoord));
+                ((TileRotor) worldObj.getTileEntity(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i))).setMaster(new CachedCoords(xCoord, yCoord, zCoord));
             }
         }
     }
 
-    public boolean isRotor(World world, int x, int y, int z) {
-        TileEntity tile = world.getTileEntity(x, y, z);
-        return tile instanceof TileRotor && ((TileRotor) tile).isBuilt();
+    private boolean isRotor(World world, int x, int y, int z) {
+        return world.getTileEntity(x, y, z) instanceof TileRotor;
     }
 
-    public TileRotor getRotorFromCoords(CachedCoords cord) {
+    private TileRotor getRotorFromCoords(CachedCoords cord) {
         return (TileRotor) worldObj.getTileEntity(cord.x, cord.y, cord.z);
     }
 
@@ -54,20 +43,12 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
     }
 
     @Override
-    public void updateEntity() {
-        if (!isInit) {
-            isInit = true;
-            reset();
-        }
+    public boolean canUpdate() {
+        return false;
+    }
 
-        if (energyStored < MAX_STORED && onTick(20)) {
-            //Grab Power Stored in the Rotor and add to the generators buffer
-            for (CachedCoords cord : cords) {
-                energyStored += getRotorFromCoords(cord).steal();
-            }
-        }
-
-        if (energyStored >= 0) {
+    public void addEnergy(int energy) {
+        if (energy >= 0) {
             //Take the power inside of me and pass it to all 'sides'
             for (Integer i : BlockTransferHelper.getSides()) {
                 ForgeDirection dir = ForgeDirection.values()[i];
@@ -75,17 +56,15 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
                 if (orientation != null) {
                     if (dir != orientation && dir != orientation.getOpposite()) {
                         TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
-                        if (tile instanceof IEnergyHandler && energyStored > 0) {
+                        if (tile instanceof IEnergyHandler && energy > 0) {
                             if (((IEnergyHandler) tile).canConnectEnergy(dir.getOpposite())) {
-                                int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energyStored, MAX_TRANSFER), false);
-                                energyStored -= (Math.min(energyStored, MAX_TRANSFER));
+                                int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energy, MAX_TRANSFER), false);
                             }
                         }
                     }
                 }
             }
-        } else energyStored = 0;
-
+        }
     }
 
     @Override
@@ -111,25 +90,11 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
-        energyStored = nbt.getInteger("Stored");
-        if (nbt.getInteger("Length") > 0) {
-            cords = new LinkedList();
-            for (int i = 0; i < nbt.getInteger("Length"); i++) {
-                int[] arr = nbt.getIntArray("Element" + i);
-                cords.add(new CachedCoords(arr[0], arr[1], arr[2]));
-            }
-        }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("Orientation", orientation.ordinal());
-        nbt.setInteger("Stored", energyStored);
-        nbt.setInteger("Length", cords != null && cords.size() > 0 ? cords.size() : 0);
-        for (int i = 0; i < cords.size(); i++) {
-            CachedCoords c = cords.get(i);
-            nbt.setIntArray("Element" + i, new int[] { c.x, c.y, c.z });
-        }
     }
 }

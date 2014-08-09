@@ -8,6 +8,11 @@ public class TileRotorTitanium extends TileRotor {
 
     @Override
     protected double getTier() {
-        return 4D;
+        return 5D;
+    }
+    
+    @Override
+    protected int getMaxDamage() {
+        return 5760000;
     }
 }
