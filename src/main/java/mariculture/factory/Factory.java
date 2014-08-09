@@ -8,6 +8,7 @@ import static mariculture.core.lib.ItemLib.autodictionary;
 import static mariculture.core.lib.ItemLib.baseIron;
 import static mariculture.core.lib.ItemLib.baseWood;
 import static mariculture.core.lib.ItemLib.bookAndQuill;
+import static mariculture.core.lib.ItemLib.comparator;
 import static mariculture.core.lib.ItemLib.copperBattery;
 import static mariculture.core.lib.ItemLib.craftingTable;
 import static mariculture.core.lib.ItemLib.feather;
@@ -160,7 +161,7 @@ public class Factory extends RegistrationModule {
 
     @Override
     public void registerRecipes() {
-        addShaped(generator, new Object[] { " B ", "CMC", "RIR", 'B', copperBattery, 'M', "ingotMagnesium", 'R', "dustRedstone", 'I', baseIron });
+        addShaped(generator, new Object[] { " B ", "CMC", "RIR", 'B', copperBattery, 'C', comparator, 'M', "ingotMagnesium", 'R', "dustRedstone", 'I', baseIron });
         addShaped(unpacker, new Object[] { "LLL", "LCL", "LBL", 'L', "logWood", 'B', baseWood, 'C', craftingTable });
         addShaped(sawmill, new Object[] { " A ", "DWD", "IMI", 'A', ironAxe, 'D', "slabWood", 'M', baseWood, 'W', "logWood", 'I', "ingotCopper" });
         addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
