@@ -27,11 +27,9 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
 
     //Set by the Rotor
     private final int maxDamage;
-    private final String block;
     private final double tier;
 
     public TileRotor() {
-        block = getBlock();
         tier = getTier();
         maxDamage = getMaxDamage();
     }
@@ -67,8 +65,6 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
             }
         }
     }
-
-    protected abstract String getBlock();
 
     protected abstract double getTier();
 

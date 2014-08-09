@@ -5,11 +5,6 @@ import net.minecraft.item.ItemStack;
 
 public class TileRotorAluminum extends TileRotor {
     @Override
-    protected String getBlock() {
-        return "blockAluminum";
-    }
-
-    @Override
     protected double getTier() {
         return 2D;
     }
