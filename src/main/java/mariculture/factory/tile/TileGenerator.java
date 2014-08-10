@@ -6,6 +6,9 @@ import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.util.IFaceable;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -21,10 +24,11 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
         return worldObj.getWorldTime() % i == 0;
     }
 
+    //This needs to be called when this block is placed, and everytime something affects a rotor
     public void reset() {
         if (orientation != null) {
-            for (int i = 1; isRotor(worldObj, xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i)); i++) {
-                ((TileRotor) worldObj.getTileEntity(xCoord + (orientation.offsetX * i), yCoord, zCoord + (orientation.offsetZ * i))).setMaster(new CachedCoords(xCoord, yCoord, zCoord));
+            for (int i = 1; isRotor(worldObj, xCoord + (orientation.getOpposite().offsetX * i), yCoord, zCoord + (orientation.getOpposite().offsetZ * i)); i++) {
+                ((TileRotor) worldObj.getTileEntity(xCoord + (orientation.getOpposite().offsetX * i), yCoord, zCoord + (orientation.getOpposite().offsetZ * i))).setMaster(new CachedCoords(xCoord, yCoord, zCoord));
             }
         }
     }
@@ -79,11 +83,20 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
     }
 
     @Override
-    public void setFacing(ForgeDirection dir) {
-        orientation = dir.getOpposite();
-        if (!worldObj.isRemote) {
-            PacketHandler.updateOrientation(this);
-        }
+    public void setFacing(ForgeDirection dir) {        
+        orientation = dir;
+    }
+    
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        readFromNBT(pkt.func_148857_g());
     }
 
     @Override

@@ -14,4 +14,5 @@ public class MachineRenderedMeta {
     public static final int INGOT_CASTER = 9;
     public static final int BLOCK_CASTER = 10;
     public static final int NUGGET_CASTER = 11;
+    public static final int HAND_WHEEL = 12;
 }

@@ -48,6 +48,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -382,6 +383,14 @@ public class BlockRenderedMachine extends BlockFunctional {
         if (tile instanceof TileRotor) {
             ((TileRotor) tile).recheck();
         }
+    }
+
+    @Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileRotor) {
+            return ((TileRotor) tile).getDrop();
+        } else return super.getPickBlock(target, world, x, y, z);
     }
 
     @Override

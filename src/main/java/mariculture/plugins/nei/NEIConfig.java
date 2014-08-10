@@ -145,7 +145,7 @@ public class NEIConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(Core.air, 1, OreDictionary.WILDCARD_VALUE));
         API.hideItem(new ItemStack(Core.ticking, 1, OreDictionary.WILDCARD_VALUE));
         API.hideItem(new ItemStack(Core.worked, 1, OreDictionary.WILDCARD_VALUE));
-        for (int i = MachineRenderedMeta.ROTOR_ALUMINUM; i <= MachineRenderedMeta.ROTOR_TITANIUM; i++) {
+        for (int i = MachineRenderedMeta.ROTOR_COPPER; i <= MachineRenderedMeta.ROTOR_TITANIUM; i++) {
             API.hideItem(new ItemStack(Core.renderedMachines, 1, i));
         }
 

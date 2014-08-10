@@ -4,6 +4,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.items.ItemDamageable;
+import mariculture.factory.tile.TileGenerator;
 import mariculture.factory.tile.TileRotor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,6 +30,8 @@ public class ItemRotor extends ItemDamageable {
                 TileEntity other = BlockHelper.getAdjacentTileEntity(tile, dir);
                 if (other instanceof TileRotor) {
                     ((TileRotor) other).recheck();
+                } else if (other instanceof TileGenerator) {
+                    ((TileGenerator) other).reset();
                 }
             }
         }

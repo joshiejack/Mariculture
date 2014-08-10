@@ -129,12 +129,12 @@ public class BlockMachine extends BlockFunctional {
     public IIcon getIcon(int side, int meta) {
         if (meta == MachineMeta.FISH_SORTER) return fishSorter[side];
         if (meta == MachineMeta.SLUICE) return side == 3 ? icons[MachineMeta.SLUICE] : Core.metals.getIcon(side, MetalMeta.BASE_IRON);
+        if (meta == MachineMeta.GENERATOR) return side == 3 ? icons[MachineMeta.GENERATOR] : Core.metals.getIcon(side, MetalMeta.BASE_IRON);
         if (meta == MachineMeta.SLUICE_ADVANCED) return side == 3 ? icons[MachineMeta.SLUICE_ADVANCED] : sluiceAdvanced;
         if (side < 2) {
             if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
             if (meta == MachineMeta.SPONGE) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
             if (meta == MachineMeta.UNPACKER) return unpacker;
-            if (meta == MachineMeta.GENERATOR) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
             return Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
         }
 
@@ -169,8 +169,7 @@ public class BlockMachine extends BlockFunctional {
         if (tile instanceof IFaceable) {
             IFaceable face = (IFaceable) tile;
             face.setFacing(ForgeDirection.getOrientation(facing));
-            PacketHandler.updateOrientation(face, x, y, z, world.provider.dimensionId);
-
+            //Resets the generator after it has been placed
             if (tile instanceof TileGenerator) {
                 ((TileGenerator) tile).reset();
             }
@@ -180,7 +179,7 @@ public class BlockMachine extends BlockFunctional {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile == null || player.isSneaking() || tile instanceof TileSluice) return false;
+        if (tile == null || player.isSneaking() || tile instanceof TileSluice || tile instanceof TileGenerator) return false;
 
         if (tile instanceof TileSponge) {
             if (world.isRemote && player instanceof EntityClientPlayerMP) {

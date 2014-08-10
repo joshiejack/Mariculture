@@ -8,6 +8,9 @@ import mariculture.core.network.PacketRotorSpin;
 import mariculture.core.util.IFaceable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -86,6 +89,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
         damage += dmg;
         if (damage >= maxDamage) {
             worldObj.setBlock(xCoord, yCoord, zCoord, Core.metals, MetalMeta.BASE_IRON, 2);
+            recheck();
         }
 
         PacketHandler.sendAround(new PacketRotorSpin(xCoord, yCoord, zCoord, dir), this);
@@ -128,20 +132,34 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
     }
 
     @Override
-    public void setFacing(ForgeDirection dir) {
+    public void setFacing(ForgeDirection dir) {        
         switch (dir) {
             case NORTH:
             case SOUTH:
+            case UP:
                 orientation = ForgeDirection.NORTH;
                 break;
             case EAST:
             case WEST:
+            case DOWN:
                 orientation = ForgeDirection.WEST;
                 break;
             default:
                 orientation = ForgeDirection.NORTH;
                 break;
         }
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        readFromNBT(pkt.func_148857_g());
     }
 
     @Override
