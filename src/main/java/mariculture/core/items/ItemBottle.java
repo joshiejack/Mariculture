@@ -24,6 +24,11 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemBottle extends ItemMariculture {
     @Override
+    public boolean hasContainerItem(ItemStack stack) {
+        return stack.getItemDamage() != BottleMeta.EMPTY && stack.getItemDamage() != BottleMeta.VOID;
+    }
+
+    @Override
     public ItemStack getContainerItem(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case BottleMeta.EMPTY:
