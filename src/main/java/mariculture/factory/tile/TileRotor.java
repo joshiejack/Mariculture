@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /* This block does nothing, except animation */
 public abstract class TileRotor extends TileEntity implements IFaceable {
-    public ForgeDirection orientation;
+    public ForgeDirection orientation = ForgeDirection.NORTH;
     public CachedCoords master;
 
     //Client Sided animation stuff
@@ -139,6 +139,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable {
                 orientation = ForgeDirection.WEST;
                 break;
             default:
+                orientation = ForgeDirection.NORTH;
                 break;
         }
     }

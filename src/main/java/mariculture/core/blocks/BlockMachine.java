@@ -54,6 +54,7 @@ public class BlockMachine extends BlockFunctional {
     private IIcon sluiceUp;
     private IIcon sluiceDown;
     private IIcon unpacker;
+    private IIcon generatorBack;
 
     public BlockMachine() {
         super(Material.piston);
@@ -133,6 +134,7 @@ public class BlockMachine extends BlockFunctional {
             if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
             if (meta == MachineMeta.SPONGE) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
             if (meta == MachineMeta.UNPACKER) return unpacker;
+            if (meta == MachineMeta.GENERATOR) return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
             return Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
         }
 
@@ -154,6 +156,9 @@ public class BlockMachine extends BlockFunctional {
                 else if (sluice.orientation.getOpposite().ordinal() == side) return side > 1 ? sluiceBack : sluiceDown;
                 else return Core.metals.getIcon(side, MetalMeta.BASE_IRON);
             }
+        } else if (tile instanceof TileGenerator) {
+            TileGenerator generator = (TileGenerator) tile;
+            return (generator.orientation.ordinal() == side) ? icons[MachineMeta.GENERATOR] : generator.orientation.getOpposite().ordinal() == side ? generatorBack : Core.metals.getIcon(side, MetalMeta.BASE_IRON);
         } else return super.getIcon(block, x, y, z, side);
     }
 
@@ -317,5 +322,6 @@ public class BlockMachine extends BlockFunctional {
         sluiceAdvancedDown = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedDown");
         sluiceAdvanced = iconRegister.registerIcon(Mariculture.modid + ":sluiceAdvancedSide");
         unpacker = iconRegister.registerIcon(Mariculture.modid + ":unpackerTop");
+        generatorBack = iconRegister.registerIcon(Mariculture.modid + ":generatorBack");
     }
 }
