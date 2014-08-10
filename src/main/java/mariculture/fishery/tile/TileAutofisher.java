@@ -65,8 +65,8 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
             int bonusQuality = getBait() + EnchantHelper.getLevel(Enchantment.field_151370_z, inventory[rod]) * 4;
             if (worldObj.rand.nextInt(100) < bonusQuality && baitSlot >= 0) {
                 RodType type = Fishing.fishing.getRodType(inventory[rod]);
-                setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, worldObj.rand));
                 ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
+                setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, worldObj.rand));
                 if (lootResult != null) {
                     decrStackSize(destroyBait(), 1);
                     helper.insertStack(lootResult, output);
