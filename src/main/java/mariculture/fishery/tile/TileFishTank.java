@@ -1,9 +1,11 @@
 package mariculture.fishery.tile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import scala.actors.threadpool.Arrays;
 import mariculture.Mariculture;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.util.IHasClickableButton;
@@ -141,14 +143,14 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         readFromNBT(pkt.func_148857_g());
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        crafting.sendProgressBarUpdate(container, 0, thePage);
+    public ArrayList<Integer> getGUIData() {
+        return new ArrayList(Arrays.asList(new Integer[] { thePage }));
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         if (id == 0) {
             thePage = value;
         }

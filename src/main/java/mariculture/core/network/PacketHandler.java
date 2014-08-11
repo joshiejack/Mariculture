@@ -1,5 +1,7 @@
 package mariculture.core.network;
 
+import java.util.ArrayList;
+
 import mariculture.Mariculture;
 import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.util.IFaceable;
@@ -49,6 +51,7 @@ public class PacketHandler {
         registerPacket(PacketParticle.class, Side.CLIENT);
         registerPacket(PacketSyncFeeder.class, Side.CLIENT);
         registerPacket(PacketRotorSpin.class, Side.CLIENT);
+        registerPacket(PacketGUIUpdate.class, Side.CLIENT);
     }
 
     public static void sendToClient(IMessage packet, EntityPlayerMP player) {
@@ -98,5 +101,9 @@ public class PacketHandler {
 
     public static void updateRender(TileEntity tile) {
         sendAround(new PacketRenderRefresh(tile.xCoord, tile.yCoord, tile.zCoord), tile);
+    }
+
+    public static void sendGUIUpdate(EntityPlayerMP player, int id, ArrayList<Integer> list) {
+        INSTANCE.sendTo(new PacketGUIUpdate(id, list), player);
     }
 }

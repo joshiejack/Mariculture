@@ -1,5 +1,8 @@
 package mariculture.core.tile.base;
 
+import java.util.ArrayList;
+
+import scala.actors.threadpool.Arrays;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.config.Machines.Ticks;
@@ -155,7 +158,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         if (master == null) {
             master = new MultiPart(xCoord, yCoord, zCoord);
         }
@@ -189,13 +192,8 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     }
 
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
-        crafting.sendProgressBarUpdate(container, 1, setting.ordinal());
-        crafting.sendProgressBarUpdate(container, 2, processed);
-        crafting.sendProgressBarUpdate(container, 3, master != null ? master.xCoord : 0);
-        crafting.sendProgressBarUpdate(container, 4, master != null ? master.yCoord : 0);
-        crafting.sendProgressBarUpdate(container, 5, master != null ? master.zCoord : 0);
+    public ArrayList<Integer> getGUIData() {
+        return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed, master != null ? master.xCoord : 0, master != null ? master.yCoord : 0, master != null ? master.zCoord : 0 }));
     }
 
     @Override

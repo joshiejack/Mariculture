@@ -1,5 +1,8 @@
 package mariculture.core.tile.base;
 
+import java.util.ArrayList;
+
+import scala.actors.threadpool.Arrays;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.util.IPowered;
 import net.minecraft.inventory.ICrafting;
@@ -138,8 +141,8 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
-        super.getGUINetworkData(id, value);
+    public void setGUIData(int id, int value) {
+        super.setGUIData(id, value);
         switch (id) {
             case 6:
                 energyStorage.setEnergyStored(value);
@@ -152,12 +155,11 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
                 break;
         }
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        super.sendGUINetworkData(container, crafting);
-        crafting.sendProgressBarUpdate(container, 6, energyStorage.getEnergyStored());
-        crafting.sendProgressBarUpdate(container, 7, energyStorage.getMaxEnergyStored());
-        crafting.sendProgressBarUpdate(container, 8, canWork ? getPowerPerTick() : 0);
+    public ArrayList<Integer> getGUIData() {
+        ArrayList<Integer> list = super.getGUIData();
+        list.addAll(new ArrayList(Arrays.asList(new Integer[] { energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), canWork ? getPowerPerTick() : 0 })));
+        return list;
     }
 }

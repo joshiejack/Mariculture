@@ -1,5 +1,8 @@
 package mariculture.core.tile.base;
 
+import java.util.ArrayList;
+
+import scala.actors.threadpool.Arrays;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.config.Machines.Ticks;
@@ -193,7 +196,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         switch (id) {
             case 0:
                 mode = RedstoneMode.values()[value];
@@ -215,15 +218,10 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
                 break;
         }
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
-        crafting.sendProgressBarUpdate(container, 1, setting.ordinal());
-        crafting.sendProgressBarUpdate(container, 2, processed);
-        crafting.sendProgressBarUpdate(container, 3, tank.getFluidID());
-        crafting.sendProgressBarUpdate(container, 4, tank.getFluidAmount());
-        crafting.sendProgressBarUpdate(container, 5, tank.getCapacity());
+    public ArrayList<Integer> getGUIData() {
+        return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed, tank.getFluidID(), tank.getFluidAmount(), tank.getCapacity() }));
     }
 
     @Override

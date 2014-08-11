@@ -487,19 +487,20 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         if (id == 6) tankSize = value;
         else if (id == 7) canWork = value == 1;
         else if (id == 8) isDay = value == 1;
-        else super.getGUINetworkData(id, value);
+        else super.setGUIData(id, value);
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        super.sendGUINetworkData(container, crafting);
-        crafting.sendProgressBarUpdate(container, 6, tankSize);
-        crafting.sendProgressBarUpdate(container, 7, canWork ? 1 : 0);
-        crafting.sendProgressBarUpdate(container, 8, worldObj.isDaytime() ? 1 : 0);
+    public ArrayList<Integer> getGUIData() {
+        ArrayList<Integer> list = super.getGUIData();
+        list.add(tankSize);
+        list.add(canWork ? 1 : 0);
+        list.add(worldObj.isDaytime() ? 1 : 0);
+        return list;
     }
 
     @Override

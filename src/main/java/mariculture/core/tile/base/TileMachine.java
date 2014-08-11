@@ -1,9 +1,11 @@
 package mariculture.core.tile.base;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.config.Machines.Ticks;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -12,7 +14,6 @@ import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.IRedstoneControlled;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -154,7 +155,7 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         switch (id) {
             case 0:
                 mode = RedstoneMode.values()[value];
@@ -167,12 +168,10 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
                 break;
         }
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        crafting.sendProgressBarUpdate(container, 0, mode.ordinal());
-        crafting.sendProgressBarUpdate(container, 1, setting.ordinal());
-        crafting.sendProgressBarUpdate(container, 2, processed);
+    public ArrayList<Integer> getGUIData() {
+        return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed }));
     }
 
     @Override

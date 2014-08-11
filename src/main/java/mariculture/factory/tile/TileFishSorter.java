@@ -1,5 +1,6 @@
 package mariculture.factory.tile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import mariculture.api.fishery.Fishing;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
+import scala.actors.threadpool.Arrays;
 
 public class TileFishSorter extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
     private int dft_side;
@@ -126,7 +128,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         switch (id) {
             case 22:
                 dft_side = value;
@@ -139,15 +141,17 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
                 break;
         }
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
+    public ArrayList<Integer> getGUIData() {
+        ArrayList<Integer> list = new ArrayList();
         for (int i = 0; i < input; i++) {
-            crafting.sendProgressBarUpdate(container, i, sorting.containsKey(i) ? sorting.get(i) : 0);
+            list.add(sorting.containsKey(i) ? sorting.get(i) : 0);
         }
-
-        crafting.sendProgressBarUpdate(container, 21, setting.ordinal());
-        crafting.sendProgressBarUpdate(container, 22, dft_side);
+        
+        list.add(setting.ordinal());
+        list.add(dft_side);
+        return list;
     }
 
     @Override

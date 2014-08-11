@@ -1,5 +1,7 @@
 package mariculture.factory.tile;
 
+import java.util.ArrayList;
+
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.gui.ContainerMariculture;
@@ -168,17 +170,18 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
-        super.getGUINetworkData(id, value);
+    public void setGUIData(int id, int value) {
+        super.setGUIData(id, value);
         if (id - offset == 0) {
             selected = value;
         }
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        super.sendGUINetworkData(container, crafting);
-        crafting.sendProgressBarUpdate(container, 0 + offset, selected);
+    public ArrayList<Integer> getGUIData() {
+        ArrayList<Integer> list = super.getGUIData();
+        list.add(selected);
+        return list;
     }
 
     @Override

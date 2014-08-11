@@ -1,5 +1,8 @@
 package mariculture.factory.tile;
 
+import java.util.ArrayList;
+
+import scala.actors.threadpool.Arrays;
 import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -148,15 +151,15 @@ public class TileDictionaryItem extends TileStorage implements IItemDropBlacklis
     }
 
     @Override
-    public void getGUINetworkData(int id, int value) {
+    public void setGUIData(int id, int value) {
         if (id == 0) {
             setting = EjectSetting.values()[value];
         }
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        crafting.sendProgressBarUpdate(container, 0, setting.ordinal());
+    public ArrayList<Integer> getGUIData() {
+        return new ArrayList(Arrays.asList(new Integer[] { setting.ordinal() }));
     }
 
     @Override

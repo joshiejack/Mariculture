@@ -2,6 +2,7 @@ package mariculture.core.tile;
 
 import java.util.ArrayList;
 
+import scala.actors.threadpool.Arrays;
 import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
@@ -310,8 +311,8 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     // Gui Data
     @Override
-    public void getGUINetworkData(int id, int value) {
-        super.getGUINetworkData(id, value);
+    public void setGUIData(int id, int value) {
+        super.setGUIData(id, value);
         int realID = id - offset;
         switch (realID) {
             case 0:
@@ -326,17 +327,19 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     public int getBurnTimeRemainingScaled() {
         return burnHeight;
     }
-
+    
     @Override
-    public void sendGUINetworkData(ContainerMariculture container, ICrafting crafting) {
-        super.sendGUINetworkData(container, crafting);
-        crafting.sendProgressBarUpdate(container, 0 + offset, temp);
+    public ArrayList<Integer> getGUIData() {
+        ArrayList<Integer> list = super.getGUIData();
+        list.add(temp);
         if (fuelHandler.info != null) {
             burnHeight = 11 - fuelHandler.tick * 12 / fuelHandler.info.ticksPer;
-            crafting.sendProgressBarUpdate(container, 1 + offset, burnHeight);
+            list.add(burnHeight);
         } else {
-            crafting.sendProgressBarUpdate(container, 1 + offset, 0);
+            list.add(0);
         }
+        
+        return list;
     }
 
     public int getTemperatureScaled(int i) {
