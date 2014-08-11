@@ -3,7 +3,7 @@ package mariculture.diving.render;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
@@ -46,7 +46,7 @@ public class ModelFlippers extends ModelBiped {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        if (entity instanceof EntityPlayer) {
+        if (entity instanceof EntityLivingBase) {
             this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
             GL11.glPushMatrix();
             GL11.glDisable(GL11.GL_LIGHTING);

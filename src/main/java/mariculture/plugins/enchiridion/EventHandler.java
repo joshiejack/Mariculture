@@ -34,9 +34,11 @@ public class EventHandler {
             if (Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) {
                 BookSpawnHelper.spawn(event.player, GuideMeta.DIVING);
             }
+            
             if (Modules.isActive(Modules.fishery) && stack.getItem() == Fishery.rodReed) {
                 BookSpawnHelper.spawn(event.player, GuideMeta.FISHING);
             }
+            
             if (Modules.isActive(Modules.factory) && stack.getItem() == Core.crafting && stack.getItemDamage() == CraftingMeta.WHEEL) {
                 BookSpawnHelper.spawn(event.player, GuideMeta.MACHINES);
             }

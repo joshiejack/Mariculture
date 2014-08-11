@@ -151,6 +151,7 @@ public class ClientProxy extends CommonProxy {
         }
 
         if (Modules.isActive(Modules.fishery)) {
+            RenderIds.FISHING = RenderingRegistry.addNewArmourRendererPrefix("fishing");
             RenderingRegistry.registerEntityRenderingHandler(EntityItemFireImmune.class, new RenderItem());
             RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, new RenderFish());
             RenderingRegistry.registerEntityRenderingHandler(EntityBass.class, new RenderProjectileFish(Fish.bass.getID()));

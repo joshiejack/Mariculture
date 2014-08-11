@@ -13,6 +13,7 @@ import java.util.Random;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.ICaughtAliveModifier;
 import mariculture.api.fishery.IFishing;
 import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
@@ -278,7 +279,7 @@ public class FishingHandler implements IFishing {
 
     @Override
     public ItemStack getCatch(World world, int x, int y, int z, EntityPlayer player, ItemStack stack) {
-        if (stack == null) return getFishForLocation(world, x, y, z, RodType.NET);
+        if (stack == null) return getFishForLocation(player, world, x, y, z, RodType.NET);
         else {
             RodType type = getRodType(stack);
             if (Vanilla.VANILLA_LOOT && type == RodType.DIRE) return getVanillaLoot(world, player, stack);
@@ -296,7 +297,7 @@ public class FishingHandler implements IFishing {
                     }
                 }
 
-                if (loot == null) return getFishForLocation(world, x, y, z, type);
+                if (loot == null) return getFishForLocation(player, world, x, y, z, type);
                 else {
                     if (loot.isItemEnchantable()) if (world.rand.nextInt(100) < type.getQuality()) {
                         int chance = type.getLootEnchantmentChance();
@@ -313,7 +314,16 @@ public class FishingHandler implements IFishing {
 
     public static ArrayList<FishSpecies> catchables;
 
-    private ItemStack getFishForLocation(World world, int x, int y, int z, RodType type) {
+    private ItemStack getFishForLocation(EntityPlayer player, World world, int x, int y, int z, RodType type) {
+        double modifier = 10D;
+        if(player != null) {
+            for(ItemStack stack: player.inventory.armorInventory) {
+                if(stack != null && stack.getItem() != null && stack.getItem() instanceof ICaughtAliveModifier) {
+                    modifier += ((ICaughtAliveModifier)stack.getItem()).getModifier();
+                }
+            }
+        }
+        
         //Creates the catchable fish list if it doesn't exist
         if (catchables == null) {
             catchables = new ArrayList();
@@ -329,8 +339,8 @@ public class FishingHandler implements IFishing {
             for (FishSpecies fish : catchables) {
                 double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature);
                 if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) {
-                    if (FishMechanics.IGNORE_BIOMES) catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * 15D);
-                    else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * 10D);
+                    if (FishMechanics.IGNORE_BIOMES) catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * (modifier * 1.5D));
+                    else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * (modifier));
                 }
             }
         }
@@ -343,6 +353,7 @@ public class FishingHandler implements IFishing {
         if (rand.nextInt(1000) < chance * FishMechanics.ALIVE_MODIFIER) {
             alive = true;
         }
+        
         boolean catchAlive = quality.caughtAlive(fish.getSpecies());
         if (!catchAlive && !alive) return fish.getRawForm(1);
         return Fishing.fishHelper.makePureFish(fish);

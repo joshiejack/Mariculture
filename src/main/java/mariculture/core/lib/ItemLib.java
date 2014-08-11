@@ -135,6 +135,7 @@ public class ItemLib {
     public static final Item compass = Items.compass;
     public static final Item nettherackBrick = Items.netherbrick;
     public static final Item poisonPotato = Items.poisonous_potato;
+    public static final Item leatherCap = Items.leather_helmet;
 
     /** ItemStack always based blocks **/
     public static final ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);

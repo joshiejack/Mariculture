@@ -442,6 +442,7 @@ item.fluids.bottleNormalFishOil.name=Glass Bottle of Fish Oil
 item.fluids.bottleNormalMilk.name=Glass Bottle of Milk
 item.rod.flux.name=RF Fishing Rod
 item.scanner.name=Fish Scanner
+item.fishinghat.name=Bucket Hat
 #fish breeding
 item.fishy=Mariculture Fish
 fish.data.dead=Raw

@@ -86,7 +86,7 @@ public class Recipes {
         addWheelRecipe(_(ironWheel, 3), "ingotIron", "slabWood");
         addCrossHatchRecipe(wicker, "stickWood", reeds);
         addVatItemRecipe(_(plastic, 4), getFluidName("gold"), MetalRates.BLOCK, goldPlastic, 60 * 5);
-        addVatItemRecipe(_(stick), getFluidName("titanium"), MetalRates.INGOT * 3, titaniumRod, 60);
+        addVatItemRecipe("stickWood", getFluidName("titanium"), MetalRates.INGOT * 3, titaniumRod, 60);
         addVatItemRecipe(_(nettherackBrick), "lava", 250, burntBrick, 8);
         addVatItemRecipe(_(brick), "lava", 500, burntBrick, 16);
 

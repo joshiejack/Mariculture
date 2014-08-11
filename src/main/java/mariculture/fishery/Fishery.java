@@ -48,9 +48,8 @@ import static mariculture.core.lib.ItemLib.heating;
 import static mariculture.core.lib.ItemLib.ice;
 import static mariculture.core.lib.ItemLib.incubatorBase;
 import static mariculture.core.lib.ItemLib.incubatorTop;
-import static mariculture.core.lib.ItemLib.log;
+import static mariculture.core.lib.ItemLib.leatherCap;
 import static mariculture.core.lib.ItemLib.pearls;
-import static mariculture.core.lib.ItemLib.planks;
 import static mariculture.core.lib.ItemLib.poisonPotato;
 import static mariculture.core.lib.ItemLib.polishedLog;
 import static mariculture.core.lib.ItemLib.polishedPlank;
@@ -61,7 +60,6 @@ import static mariculture.core.lib.ItemLib.reeds;
 import static mariculture.core.lib.ItemLib.sand;
 import static mariculture.core.lib.ItemLib.sifter;
 import static mariculture.core.lib.ItemLib.snowball;
-import static mariculture.core.lib.ItemLib.stick;
 import static mariculture.core.lib.ItemLib.string;
 import static mariculture.core.lib.ItemLib.sugar;
 import static mariculture.core.lib.ItemLib.thermometer;
@@ -98,6 +96,7 @@ import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.ItemLib;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules.RegistrationModule;
+import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.fishery.blocks.BlockItemNet;
 import mariculture.fishery.blocks.BlockNeonLamp;
@@ -111,6 +110,7 @@ import mariculture.fishery.blocks.fluids.BlockGunpowder;
 import mariculture.fishery.blocks.fluids.BlockIce;
 import mariculture.fishery.blocks.fluids.BlockMana;
 import mariculture.fishery.blocks.fluids.BlockPoison;
+import mariculture.fishery.items.ItemArmorFishingHat;
 import mariculture.fishery.items.ItemBait;
 import mariculture.fishery.items.ItemDroplet;
 import mariculture.fishery.items.ItemEgg;
@@ -129,8 +129,10 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -155,6 +157,9 @@ public class Fishery extends RegistrationModule {
     public static Item scanner;
     public static Item tempControl;
     public static Item droplet;
+    public static Item fishinghat;
+
+    private static ArmorMaterial armorFishing = EnumHelper.addArmorMaterial("FISHING", 8, new int[] { 0, 0, 0, 0 }, 0);
 
     @Override
     public void registerHandlers() {
@@ -186,8 +191,9 @@ public class Fishery extends RegistrationModule {
         fishEggs = new ItemEgg().setUnlocalizedName("eggs.fish");
         tempControl = new ItemTemperatureControl().setUnlocalizedName("temperature.control");
         droplet = new ItemDroplet().setUnlocalizedName("droplet");
+        fishinghat = new ItemArmorFishingHat(armorFishing, RenderIds.FISHING, 0).setUnlocalizedName("fishinghat");
 
-        RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux, scanner, fishEggs, tempControl, droplet });
+        RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux, scanner, fishEggs, tempControl, droplet, fishinghat });
     }
 
     @Override
@@ -281,6 +287,7 @@ public class Fishery extends RegistrationModule {
         addFishingRodRecipe(_(rodWood), polishedStick);
         addFishingRodRecipe(_(rodTitanium), polishedTitanium);
         addShaped(ItemBattery.make(_(rodFlux), 0), new Object[] { "  R", " RS", "B S", 'R', rodTitanium, 'S', string, 'B', titaniumBattery });
+        addVatItemRecipe(_(leatherCap), getFluidName("fish_oil"), 25000, _(fishinghat), 25);
         addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 45);
         addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 30);
         addVatItemRecipe("stickWood", getFluidName("fish_oil"), 5000, polishedStick, 15);
@@ -307,8 +314,6 @@ public class Fishery extends RegistrationModule {
             addShaped(_(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
         }
     }
-
- 
 
     private void addBait() {
         Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.ANT), 10);
