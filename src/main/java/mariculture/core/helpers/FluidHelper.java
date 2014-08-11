@@ -255,7 +255,6 @@ public class FluidHelper {
     }
 
     public static String getFluidName(Fluid fluid) {
-
         String fluidName = "";
         if (fluid.getRarity() == EnumRarity.uncommon) {
             fluidName += Text.YELLOW;

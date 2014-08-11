@@ -1,7 +1,5 @@
 package mariculture.fishery;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,25 +19,18 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.config.Vanilla;
-import mariculture.core.handlers.LogHandler;
-import mariculture.core.helpers.ReflectionHelper;
 import mariculture.core.util.RecipeItem;
 import mariculture.fishery.items.ItemVanillaRod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
+import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.oredict.OreDictionary;
-
-import org.apache.logging.log4j.Level;
 
 public class FishingHandler implements IFishing {
     // Registering Fishing Rods
@@ -187,27 +178,11 @@ public class FishingHandler implements IFishing {
 
     // Add Vanilla Junk + Good Loot
     private void addVanillaLoot(Rarity rarity, WeightedRandomFishable loot) {
-        try {
-            if (rarity == Rarity.GOOD || rarity == Rarity.RARE) {
-                List list = new ArrayList(getFinalStatic(EntityFishHook.class.getDeclaredField("field_146041_e")));
-                list.add(loot);
-                ReflectionHelper.setFinalStatic(EntityFishHook.class.getDeclaredField("field_146041_e"), list);
-            } else {
-                List list = new ArrayList(getFinalStatic(EntityFishHook.class.getDeclaredField("field_146039_d")));
-                list.add(loot);
-                ReflectionHelper.setFinalStatic(EntityFishHook.class.getDeclaredField("field_146039_d"), list);
-            }
-        } catch (Exception e) {
-            LogHandler.log(Level.ERROR, "Mariculture failed to adjust vanilla fishing loot");
+        if (rarity == Rarity.GOOD || rarity == Rarity.RARE) {
+            FishingHooks.addTreasure(loot);
+        } else {
+            FishingHooks.addJunk(loot);
         }
-    }
-
-    private List getFinalStatic(Field field) throws Exception {
-        field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        return (List) field.get(field);
     }
 
     //Returns whether this dimension is valid or not
@@ -237,44 +212,15 @@ public class FishingHandler implements IFishing {
             }
         }
 
-        List list = EntityFishHook.field_146041_e;
-        if (rarity == Rarity.JUNK) {
-            list = EntityFishHook.field_146039_d;
-        }
-
-        return ((WeightedRandomFishable) WeightedRandom.getRandomItem(world.rand, list)).func_150708_a(world.rand);
+        return rarity == Rarity.JUNK ? FishingHooks.getRandomFishable(world.rand, 0.05F) : FishingHooks.getRandomFishable(world.rand, 0.1F);
     }
 
     private ItemStack getVanillaLoot(World world, EntityPlayer player, ItemStack stack) {
         float f = world.rand.nextFloat();
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, stack);
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151369_A.effectId, stack);
-        float f1 = 0.1F - i * 0.025F - j * 0.01F;
-        float f2 = 0.05F + i * 0.01F - j * 0.01F;
-        f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
-        f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
-
-        if (f < f1) {
-            if (player != null) {
-                player.addStat(StatList.field_151183_A, 1);
-            }
-            return ((WeightedRandomFishable) WeightedRandom.getRandomItem(world.rand, EntityFishHook.field_146039_d)).func_150708_a(world.rand);
-        } else {
-            f -= f1;
-
-            if (f < f2) {
-                if (player != null) {
-                    player.addStat(StatList.field_151184_B, 1);
-                }
-                return ((WeightedRandomFishable) WeightedRandom.getRandomItem(world.rand, EntityFishHook.field_146041_e)).func_150708_a(world.rand);
-            } else {
-                float f3 = f - f2;
-                if (player != null) {
-                    player.addStat(StatList.fishCaughtStat, 1);
-                }
-                return ((WeightedRandomFishable) WeightedRandom.getRandomItem(world.rand, EntityFishHook.field_146036_f)).func_150708_a(world.rand);
-            }
-        }
+        player.addStat(net.minecraftforge.common.FishingHooks.getFishableCategory(f, i, j).stat, 1);
+        return net.minecraftforge.common.FishingHooks.getRandomFishable(world.rand, f, i, j);
     }
 
     @Override
@@ -316,14 +262,14 @@ public class FishingHandler implements IFishing {
 
     private ItemStack getFishForLocation(EntityPlayer player, World world, int x, int y, int z, RodType type) {
         double modifier = 10D;
-        if(player != null) {
-            for(ItemStack stack: player.inventory.armorInventory) {
-                if(stack != null && stack.getItem() != null && stack.getItem() instanceof ICaughtAliveModifier) {
-                    modifier += ((ICaughtAliveModifier)stack.getItem()).getModifier();
+        if (player != null) {
+            for (ItemStack stack : player.inventory.armorInventory) {
+                if (stack != null && stack.getItem() != null && stack.getItem() instanceof ICaughtAliveModifier) {
+                    modifier += ((ICaughtAliveModifier) stack.getItem()).getModifier();
                 }
             }
         }
-        
+
         //Creates the catchable fish list if it doesn't exist
         if (catchables == null) {
             catchables = new ArrayList();
@@ -353,7 +299,7 @@ public class FishingHandler implements IFishing {
         if (rand.nextInt(1000) < chance * FishMechanics.ALIVE_MODIFIER) {
             alive = true;
         }
-        
+
         boolean catchAlive = quality.caughtAlive(fish.getSpecies());
         if (!catchAlive && !alive) return fish.getRawForm(1);
         return Fishing.fishHelper.makePureFish(fish);
