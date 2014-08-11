@@ -233,10 +233,10 @@ Taiga: Fresh, 1°C
         <text x="96" y="-13" bold="true">Fish Breeding</text>
         <text>Fish Breeding is the process in which you breed fish that will produce different products for you, from simple things like water droplets, that get melted down to water up to more complex things such as lapis lazuli or dragon eggs.</text>
         <text y="64">Fish live out their lives in a Fish Feeder, with random chances to produce a product every so often. You can obtain different fish, to produce these different products by cross-breeding fish that can be caught in the wild. You have a chance for these hybrids to mutate to a whole new species on hatching from Fish Eggs.</text>
-        <text y="144">When a fish has lived out it's life in a feeder, it will die, leaving a raw form of it's primary species behind. Female fish will also produce 'Fish Eggs' on death. These must be placed inside of an Incubator where they will be warmed, and start hatching.</text>
+        <text y="144">When a fish has lived out it's life in a feeder, it will die, leaving a raw form of it's primary species behind. Female fish will also produce 'Fish Eggs' on death. These must be placed inside of a Hatchery or an Incubator where they will be warmed, and start hatching.</text>
     </page>
     <page>
-        <text>In order to get started with Fish Breeding you are going to need to catch a Male and a Female Fish, obtain some Fish Food and make an Incubator and a Fish Feeder.</text>
+        <text>In order to get started with Fish Breeding you are going to need to catch a Male and a Female Fish, obtain some Fish Food and make a Hatchery and a Fish Feeder.</text>
         <text y="40" wrap="225">Different fish can live in different biomes, some like salt, some like fresh, some like the hot and some like the cold. You need to make sure that the environment you try to breed your fish in, is suitable to their needs.</text>
         <text y="90" wrap="225">As well as breeding different species, each fish has certain traits, such as how hard they work, how many eggs they produce etc. These can also be bred in to your fish, enabling you to create your superfish to do your deeds.</text>
         <hr y="129"></hr>
@@ -259,19 +259,28 @@ Taiga: Fresh, 1°C
         <text wrap="230" y="95" size="0.8">Salinator upgrades increase water salinity, while filtrator decrease it. Ethereal upgrades allow fish to live in other dimensions. The Purity upgrades, will extend the life of your fish, causing them to live their lives in the feeder out for longer, while impurity will hurt the poor fish, causing them to die quicker (handy for speeding up breeding!). The last two upgrades are the Eternal Life upgrades, male and female versions. While these may not seem useful, they are. Fish will continue to produce their products and females will also produce eggs forever, without them having to die.</text>
     </page>
     <page>
-        <text x="96" y="-13" bold="true">Incubator</text>
-        <text>An Incubator is a three block structure consisting of 1 Incubator Base, with 2 Incubator Tops stacked on top. The Incubator is what hatches Fish Eggs in to living Fish. If after trying to hatch all of the eggs within a Fish Eggs item, no male or female fish is produced it will create the relevant gender, so you are guaranteed to get at least one male and one female from each Fish Eggs. The Incubator needs to be supplied with RF in order to operate.</text>
-        <text y="114">Incubators will accept, capacitor, heating and hyperkinetic upgrades. The Capacitor upgrades give it a larger internal buffer, while heating will process more and more fish eggs at a time. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
+        <text x="96" y="-13" bold="true">Hatchery</text>
+        <text y="15" size="0.7" wrap="260">The Hatchery is the basic block for hatching fish, simply right click fish eggs in and overtime they will slowly hatch in to fish. If after trying to hatch all of the eggs within a Fish Eggs item, no male or female fish is produced it will create the relevant gender, so you are guaranteed to get at least one male and one female from each Fish Eggs.</text>
+        <hr y="57"></hr>
+        <text x="0" y="70" bold="true">Incubator</text>
+        <text y="130" size="0.7" wrap="260">An Incubator is a three block structure consisting of 1 Incubator Base, with 2 Incubator Tops stacked on top. The Incubator is a more advanced version of the Hatchery and requires RF.</text>
+        <text y="174" size="0.7" wrap="260">Incubators will accept, capacitor, heating and hyperkinetic upgrades. The Capacitor upgrades give it a larger internal buffer, while heating will process more and more fish eggs at a time. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
     </page>
     <page>
         <img mod="mariculture" src="fishing/incubator" x="0" y="0" size="0.75" stretch="0.5"></img>
-        <crafting x="100" y="10" size="1.05">
+        <crafting x="100" y="-8" size="1.05">
+            <craft1>wicker|wicker|wicker</craft1>
+            <craft2>wicker|Mariculture:eggs_fish|wicker</craft2>
+            <craft3>wicker|wicker|wicker</craft3>
+            <craftResult>Mariculture:tanks 4</craftResult>
+        </crafting>
+        <crafting x="100" y="51" size="1.05">
             <craft1>dyeBrown|fish|dyeBrown</craft1>
             <craft2>stained_hardened_clay 0|heater|stained_hardened_clay 0</craft2>
             <craft3>||</craft3>
             <craftResult>incubatorTop</craftResult>
         </crafting>
-        <crafting x="100" y="90" size="1.05">
+        <crafting x="100" y="110" size="1.05">
             <craft1>dyeLightBlue|battery.copper|dyeLightBlue</craft1>
             <craft2>stained_hardened_clay 3|heater|stained_hardened_clay 3</craft2>
             <craft3>||</craft3>

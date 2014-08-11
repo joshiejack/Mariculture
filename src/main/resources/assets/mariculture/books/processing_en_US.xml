@@ -146,4 +146,17 @@
             <craftResult>anvil</craftResult>
         </crafting>
     </page>
+    <page>
+        <text x="55" y="-13" bold="true">Blacksmith's Assistant</text>
+        <text wrap="221">The Blacksmith's Assistant is a way of automating the Blacksmith's Anvil. You need to place a tank full of some form of liquid xp underneath it. In Mariculture you can obtain some molten experience by melting down enchanted items in a crucible furnace (as long as that crucible furnace has an ethereal upgrade). You then must supply the appropriate side with a hammer, and it will get to work.</text>
+        <crafting x="32" y="32" size="1.7">
+            <craft1>|hammer|</craft1>
+            <craft2>hammer|anvil|hammer</craft2>
+            <craft3>|hammer|</craft3>
+            <craftResult num="1">autohammer</craftResult>
+        </crafting>
+    </page>
+    <page>
+        <img mod="mariculture" src="processing/autohammer" x="3" y="10" size="0.675" stretch="1.05"></img>
+    </page>
 </book>

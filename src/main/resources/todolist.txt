@@ -1,5 +1,0 @@
-TODO List - Before Release of 1.2.3
-• Add Unpacker and Advanced Sluice to Factory Book
-• Remove Turbines and Add Generator + Rotor System to Factory Book
-• Add Hatchery and Bucket Hat to the Fishing Book
-• Add Assistant to the Processing Book

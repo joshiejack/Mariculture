@@ -111,30 +111,46 @@ If you run out of room in the 24 slots, you can place item filters (right click 
     </page>
     <page>
         <text x="82" y="-13" bold="true">Power Generation</text>
-        <text y="2">There are a few machines in Mariculture that run off of Redstone Flux. This is a power system created by Team COFH, makers of Thermal Expansion. Mariculture also introduces a few new ways to create Redstone Flux. You can create power with the use of Mariculture Turbines, these turbines run off of a different source of power each
-
-With the exception of the Manpowered Turbine all of the turbines can be upgraded to produce more power by using Hyperkinetic Upgrades. Turbines will also accept the storage and capacitor upgrades, allowing for more fluid storage, and a larger rf buffer. Turbines will automatically stop running when they have filled up their internal redstone flux buffer. Turbines can also charge up RF powered item by sticking them in the charge slot on the left of their gui.
-(Electric Rays also produce RF!)</text>
+        <text y="2">There are a few machines in Mariculture that run off of Redstone Flux. This is a power system created by Team COFH, makers of Thermal Expansion. As of right now Mariculture introduces one new way to produce Redstone Flux. This is by the creation of a water turbine. To create this, you will need to create a rotor, a sluice, iron construction blocks and a generator.</text>
+        <crafting x="5" y="96" size="1">
+            <craft1>ingotIron|glass_pane|ingotIron</craft1>
+            <craft2>glass_pane||glass_pane</craft2>
+            <craft3>ingotIron|glass_pane|ingotIron</craft3>
+            <craftResult>baseIron</craftResult>
+        </crafting>
+        <crafting x="95" y="96" size="1">
+            <craft1>|battery.copper|</craft1>
+            <craft2>comparator|ingotMagnesium|comparator</craft2>
+            <craft3>dustRedstone|baseIron|dustRedstone</craft3>
+            <craftResult>generator</craftResult>
+        </crafting>
     </page>
     <page>
-        <text x="22" y="-13" bold="true">Manpowered Turbine</text>
-        <text y="2">The Manpowered Turbine is the most basic of the Turbines, it cannot be upgraded. In order for it to generate power, you simply hold down right click, and it will generate RF. Manpowered Turbines produce more RF than an Air Pump uses in the time you are clicking, so they are handy for charging up Air Pumps before you dive to keep you supplied with Air!</text>
-        <crafting x="10" y="28" size="1.8">
-            <craft1>|turbine.copper|</craft1>
-            <craft2>ingotCopper|baseWood|ingotCopper</craft2>
-            <craft3>slabWood|piston|slabWood</craft3>
-            <craftResult>turbineHand</craftResult>
+        <text x="22" y="-13" bold="true">Rotor Types</text>
+        <text y="2">There are three different kinds of rotor. Copper, Aluminium and Titanium. Each is better than the previous, able to produce more power. To install these rotors simply right click them on to an iron construction block, and it will turn in to a spinning rotor in world.</text>
+        <crafting x="5" y="55" size="1">
+            <craft1>|ingotCopper|</craft1>
+            <craft2>ingotCopper|slabWood|ingotCopper</craft2>
+            <craft3>|ingotCopper|</craft3>
+            <craftResult>turbine.copper</craftResult>
+        </crafting>
+        <crafting x="95" y="55" size="1">
+            <craft1>|ingotAluminum|</craft1>
+            <craft2>ingotAluminum|stone_slab|ingotAluminum</craft2>
+            <craft3>|ingotAluminum|</craft3>
+            <craftResult>turbine.aluminum</craftResult>
+        </crafting>
+        <crafting x="45" y="75" size="1.3">
+            <craft1>|ingotTitanium|</craft1>
+            <craft2>ingotTitanium|stone_slab 7|ingotTitanium</craft2>
+            <craft3>|ingotTitanium|</craft3>
+            <craftResult>turbine.titanium</craftResult>
         </crafting>
     </page>
     <page>
         <text x="82" y="-13" bold="true">Water Turbine</text>
-        <text y="2">Water Turbines are turbines that are powered by pressurised water. At a base rate they only produce 3RF per tick, but with full Hyperkinetic Upgrades can reach a maximum of 75RF per tick. They need to have a Copper or an Aluminum rotor in order to operate. They are not advanced enough to use the the Titanium Rotor.</text>
-        <crafting x="20" y="23" size="1.8">
-            <craft1>|turbine.aluminum|</craft1>
-            <craft2>ingotAluminum|baseIron|ingotAluminum</craft2>
-            <craft3>stone_slab|piston|stone_slab</craft3>
-            <craftResult>turbine</craftResult>
-        </crafting>
+        <text y="10" size="0.7" wrap="265">In order to construct a water turbine, you simply place a rotor next to pressurised water. Ensure your rotors are connected to a generator and it will produce power from that generator. See the image below.</text>
+        <img mod="mariculture" x="20" y="83" src="factory/water_turbine" size="0.55" stretch="0.9"></img>
     </page>
     <page>
         <text x="52" y="-13" bold="true">Sluice</text>
@@ -149,14 +165,22 @@ With the exception of the Manpowered Turbine all of the turbines can be upgraded
         </crafting>
     </page>
     <page>
-        <text x="82" y="-13" bold="true">Gas Turbine</text>
-        <text y="2">The Gas Turbine, runs off of Natural Gas. By default it produces 60RF per tick. But it can be seriously upgrade to produce a crazy 300RF per tick. As the Gas Turbine is more advanced than the Water, you will need to keep it supplied with Aluminum or Titanium Rotors, or it will fail to operate.</text>
-        <crafting x="20" y="20" size="1.8">
-            <craft1>|turbine.titanium|</craft1>
-            <craft2>ingotTitanium|baseIron|ingotTitanium</craft2>
-            <craft3>stone_slab 7|piston|stone_slab 7</craft3>
-            <craftResult>turbineGas</craftResult>
+        <text x="82" y="-13" bold="true">Advanced Sluice</text>
+        <text y="2">Works pretty much the same as the normal sluice but produces more water. It can also be used to fill in large areas with a fluid, instead of only placing one block.</text>
+        <crafting x="5" y="46" size="1">
+            <craft1>ingotTitanium|hpwater|ingotTitanium</craft1>
+            <craft2>ingotTitanium|Mariculture:upgrade 12|ingotTitanium</craft2>
+            <craft3>ingotTitanium|sluice|ingotTitanium</craft3>
+            <craftResult>sluiceAdvanced</craftResult>
         </crafting>
+        <crafting x="95" y="46" size="1">
+            <craft1>logWood|logWood|logWood</craft1>
+            <craft2>logWood|crafting_table|logWood</craft2>
+            <craft3>logWood|baseWood|logWood</craft3>
+            <craftResult>unpacker</craftResult>
+        </crafting>
+        <text x="0" y="120" bold="true">Unpacker</text>
+        <text y="160">This block performs 1x1 crafting recipes. Input an item to the top via a hopper, and the result can be pulled from the bottom of the block.</text>
     </page>
     <page>
         <text x="32" y="-13" bold="true">Fish Sorter</text>
