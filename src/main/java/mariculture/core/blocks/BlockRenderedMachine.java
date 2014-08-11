@@ -428,6 +428,9 @@ public class BlockRenderedMachine extends BlockFunctional {
         if (meta == MachineRenderedMeta.GEYSER) return Blocks.hopper.getIcon(0, 0);
         if (meta == MachineRenderedMeta.INGOT_CASTER) return super.getIcon(side, meta);
         if (meta >= MachineRenderedMeta.ANVIL) return super.getIcon(side, MachineRenderedMeta.INGOT_CASTER);
+        if (meta == MachineRenderedMeta.ROTOR_COPPER) return Core.metals.getIcon(0, MetalMeta.COPPER_BLOCK);
+        if (meta == MachineRenderedMeta.ROTOR_ALUMINUM) return Core.metals.getIcon(0, MetalMeta.ALUMINUM_BLOCK);
+        if (meta == MachineRenderedMeta.ROTOR_TITANIUM) return Core.metals.getIcon(0, MetalMeta.TITANIUM_BLOCK);
 
         return icons[meta];
     }
@@ -470,7 +473,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         String name = prefix != null ? prefix : "";
         icons = new IIcon[getMetaCount() - 2];
         for (int i = 0; i < icons.length; i++) {
-            if ((i < MachineRenderedMeta.ROTOR_TITANIUM || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.AUTO_HAMMER) {
+            if ((i < MachineRenderedMeta.ROTOR_COPPER || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.AUTO_HAMMER) {
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
             }
         }
