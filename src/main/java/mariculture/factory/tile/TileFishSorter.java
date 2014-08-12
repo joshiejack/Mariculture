@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.OreDicHelper;
@@ -16,7 +15,6 @@ import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
 import mariculture.fishery.Fish;
 import mariculture.fishery.items.ItemFishy;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -24,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
-import scala.actors.threadpool.Arrays;
 
 public class TileFishSorter extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
     private int dft_side;

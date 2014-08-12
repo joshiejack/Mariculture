@@ -2,13 +2,11 @@ package mariculture.core.tile;
 
 import java.util.ArrayList;
 
-import scala.actors.threadpool.Arrays;
 import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.config.Machines.MachineSettings;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -20,7 +18,6 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiMachineTank;
 import mariculture.core.util.IHasNotification;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

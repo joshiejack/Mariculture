@@ -1,9 +1,8 @@
 package mariculture.factory.tile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import scala.actors.threadpool.Arrays;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.handlers.OreDicHandler;
@@ -14,7 +13,6 @@ import mariculture.core.util.IEjectable;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
 import mariculture.factory.items.ItemFilter;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

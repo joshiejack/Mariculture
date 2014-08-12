@@ -1,8 +1,8 @@
 package mariculture.core.tile.base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import scala.actors.threadpool.Arrays;
 import mariculture.core.util.IPowered;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

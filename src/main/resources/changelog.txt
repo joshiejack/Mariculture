@@ -1,3 +1,6 @@
+Mariculture 1.2.3a
+• Fix accidentally importing scala instead of java in some places :P
+
 Mariculture 1.2.3
 • Added Blacksmith's Assistant, Autohammers the anvil for you, supply it with hammers and a tank with xp under it.
 • Added Fishing Hat, increases the chance of catching fish alive when worn

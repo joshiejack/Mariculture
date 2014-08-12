@@ -1,18 +1,16 @@
 package mariculture.fishery.tile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import scala.actors.threadpool.Arrays;
 import mariculture.Mariculture;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IMachine;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

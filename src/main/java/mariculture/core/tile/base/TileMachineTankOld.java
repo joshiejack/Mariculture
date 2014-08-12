@@ -1,12 +1,11 @@
 package mariculture.core.tile.base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import scala.actors.threadpool.Arrays;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.config.Machines.Ticks;
-import mariculture.core.gui.ContainerMariculture;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -17,7 +16,6 @@ import mariculture.core.util.IMachine;
 import mariculture.core.util.IProgressable;
 import mariculture.core.util.IRedstoneControlled;
 import mariculture.core.util.Tank;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
