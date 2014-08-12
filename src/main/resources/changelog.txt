@@ -1,3 +1,6 @@
+Mariculture 1.2.3b
+• Fix load order issue with HEE Plugin
+
 Mariculture 1.2.3a
 • Fix accidentally importing scala instead of java in some places :P
 
