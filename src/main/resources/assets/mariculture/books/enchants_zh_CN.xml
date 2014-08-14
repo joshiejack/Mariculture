@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<book>
+    <page>
+        <text x="92" y="-13" bold="false" size="1.0">导言</text>
+        <text size="1.0" wrap="190">海洋魔法包括合成,工作,以及珠宝的附魔.珠宝有各式独特的附魔.在此你能找到制作珠宝与给其附魔的说明,以及各种不同附魔的信息.
+
+有两种方法穿戴珠宝,使用镜子或是按下附魔按钮(默认为V键).
+        
+然而取下的方法只有一种,只能使用镜子.</text>
+    </page>
+    <page>
+        <text x="22" y="-13" bold="false" size="1.0">基础镜子</text>
+        <text size="1.0" wrap="190">基础镜子用于带上/取下珠宝.它也是个便携的附魔台,但只能附魔等级1,3或5.可使用100次.右击就能打开界面.镜子附魔珍珠的效果比附魔台更好..</text>
+        <crafting x="15" y="15" size="2">
+            <craft1>|ingotAluminum|ingotAluminum</craft1>
+            <craft2>ingotAluminum|glass_pane|ingotAluminum</craft2>
+            <craft3>ingotIron|ingotAluminum|</craft3>
+            <craftResult>mirror.basic</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+    <page>
+        <text x="82" y="-13" bold="false" size="1.0">魔镜</text>
+        <text size="1.0" wrap="190">魔镜是基础镜子的升级版.制作时用到了1个附魔台和3个储书架,让你能附魔30级.制作出来时,魔镜被设为可附魔1-3级.shift右击每次会提升3级.因此一次右击后就是4-6级.最高增长到30级.这时继续shift右击就会回到1-3级的设定..</text>
+        <text y="120" bold="false" size="1.0">仙镜</text>
+        <text y="134" size="1.0" wrap="190">奢华的仙镜让你能在30-60级之间附魔.使用方法和魔镜相同.这使得一些需要高等级的附魔也能获得了..</text>
+    </page>
+    <page>
+        <crafting x="5">
+            <craft1>minecraft:bookshelf|plankWood|minecraft:bookshelf</craft1>
+            <craft2>plankWood|chest|plankWood</craft2>
+            <craft3>minecraft:bookshelf|minecraft:bookshelf|minecraft:bookshelf</craft3>
+            <craftResult>bookshelf</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="100" size="1">
+            <craft1>pearl|mirror.basic|pearl</craft1>
+            <craft2>bookshelf|enchanting_table|bookshelf</craft2>
+            <craft3>pearl|bookshelf|pearl</craft3>
+            <craftResult>mirror.magic</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="15" y="15" size="2">
+            <craft1>dropletMagic|nether_star|dropletMagic</craft1>
+            <craft2>bookshelf|mirror.magic|bookshelf</craft2>
+            <craft3>goldenThread|bookshelf|goldenThread</craft3>
+            <craftResult>mirror.celestial</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+    <page>
+        <text x="102" y="-13" bold="false" size="1.0">珠宝</text>
+        <text size="1.0" wrap="190">有三种可装备的珠宝:指环,手链和项链.每种都增加了耐久且能接受更多的附魔.珠宝由珍珠和绑定物两种部件制成.
+        
+        
+        
+制作时不同颜色的珍珠会影响不同的东西,包括:
+
+• 耐久度
+• 最大附魔等级
+• 最多附魔数目
+• 镜中偏向附魔
+• 元素亲和特效
+• 修复时的消耗
+• 制作时的消耗</text>
+    </page>
+    <page>
+    <text size="1.0" wrap="190">我所说的绑定物由你制作的珠宝种类而决定:
+• 指环 - 铁或金
+• 手链 - 线或金丝
+• 项链 - 羊毛或金丝卷
+
+
+绑定物即固定珠宝的东西.它决定了珠宝的强度.在给珠宝加入一颗附魔珍珠时成功的机率.使用更优质的绑定物时会增加成功率减少丢失率.
+
+绑定物也会影响到:
+• 耐久度
+• 制作时的消耗
+• 最多附魔数目</text>
+    </page>
+    <page>
+    <text x="82" y="-13" bold="false" size="1.0">制作</text>
+    <text x="0" y="60" bold="false" size="1.0">修理</text>
+    <text size="1.0" wrap="190">珠宝不是做出来就能用的,它必须再加工.你需要一个铁匠锤和铁匠砧.首先制作物品,然后放上铁匠砧继续加工.直到它能够使用为止.使用的珍珠和绑定物都会影响到制作的消耗,该消耗与耐久度无直接关联..
+   
+
+
+一旦制作出来,修复珠宝的唯一途径就是放入铁匠砧敲打.这会消耗经验值,而且是修复其他物品时消耗的两倍.</text>
+</page>
+    <page>
+        <text size="1.0" wrap="190">下面列出了制作珠宝的例子.珍珠可用其他颜色代替.</text>
+        <crafting x="15" y="40" size="0.8">
+            <craft1>ingotIron|pearlBlue|ingotIron</craft1>
+            <craft2>ingotIron||ingotIron</craft2>
+            <craft3>ingotIron|ingotIron|ingotIron</craft3>
+            <craftResult>Mariculture:ring 0 {binding:"basic",material:"pearlBlue",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="90" y="40" size="0.8">
+            <craft1>ingotGold|pearlRed|ingotGold</craft1>
+            <craft2>ingotGold||ingotGold</craft2>
+            <craft3>ingotGold|ingotGold|ingotGold</craft3>
+            <craftResult>Mariculture:ring 0 {binding:"gold",material:"pearlRed",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="15" y="110" size="0.8">
+            <craft1>string||string</craft1>
+            <craft2>pearlOrange||pearlOrange</craft2>
+            <craft3>|pearlOrange|</craft3>
+            <craftResult>Mariculture:bracelet 0 {binding:"basic",material:"pearlOrange",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="90" y="110" size="0.8">
+            <craft1>goldenSilk||goldenSilk</craft1>
+            <craft2>pearlBlack||pearlBlack</craft2>
+            <craft3>|pearlBlack|</craft3>
+            <craftResult>Mariculture:bracelet 0 {binding:"gold",material:"pearlBlack",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="15" y="180" size="0.8">
+            <craft1>pearlPurple|wool|pearlPurple</craft1>
+            <craft2>pearlPurple||pearlPurple</craft2>
+            <craft3>pearlPurple|pearlPurple|pearlPurple</craft3>
+            <craftResult>Mariculture:necklace 0 {binding:"basic",material:"pearlPurple",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+        <crafting x="90" y="180" size="0.8">
+            <craft1>pearlWhite|goldenThread|pearlWhite</craft1>
+            <craft2>pearlWhite||pearlWhite</craft2>
+            <craft3>pearlWhite|pearlWhite|pearlWhite</craft3>
+            <craftResult>Mariculture:necklace 0 {binding:"basic",material:"pearlWhite",}</craftResult>
+            <craftNum>1</craftNum>
+        </crafting>
+    </page>
+     <page>
+        <text x="82" y="-13" bold="false" size="1.0">附魔过程</text>
+        <text size="1.0" wrap="190">尽管你可以直接在附魔台附魔珠宝,但因常常只得到一个附魔所以这不是最佳选项.你应该直接附魔珍珠.推荐在镜子中附魔,因为它们会偏向于特定的附魔,让你更易获得那些附魔..
+        
+附魔好了珍珠,就可以将其放入合成栏作为珠宝的一部分.(颜色必须匹配)之后将珠宝放入铁匠砧再加工一段时间.一旦完成,珍珠上的附魔就会转入珠宝了.记住一点,每种珠宝类型和珍珠颜色会限制你能得到的附魔数,以及这些附魔的最高等级.绑定物在此也很重要因其增加了一个附魔成功的几率而不是使其完全丢失.</text>
+    </page>
+    <page>
+    <text x="22" y="-13" bold="false" size="1.0">附魔类型</text>
+    <text size="1.0" wrap="190">之后的几页,你将能看到各种珠宝附魔的信息,它们的最高等级和实际作用的描述.</text>
+    <text bold="false" y="22" size="1.0">
+
+疾驰(最高等级5)
+    
+   
+   
+蛙跳(最高等级4)
+
+
+
+攀登(最高等级3)
+
+
+
+摔落防护(最高等级4)</text>
+    <text y="60" size="1.0" wrap="190">增加你疾跑的速度.</text>
+    <hr y="70"></hr>
+    <text y="94" size="1.0" wrap="190">按住附魔键时每级增加一格跳跃高度.</text>
+    <hr y="106"></hr>
+    <text y="125" size="1.0" wrap="190">每级增加1格登高.</text>
+    <hr y="140"></hr>
+    <text y="159" size="1.0" wrap="190">提供极好的摔落保护,附魔等级增强效果.</text>
+    </page>
+    <page>
+    <text bold="false" y="-30" size="1.0">
+    
+    
+蜘蛛侠(最高等级1)
+    
+   
+   
+滑翔(最高等级2)
+
+
+
+
+
+
+超人(最高等级3)
+
+
+
+
+收割者(最高等级3)</text>
+    <text y="13" size="1.0" wrap="190">让你能在能力开启时爬墙. (Shift+开关键)</text>
+    <hr y="26"></hr>
+    <text y="55" size="1.0" wrap="190">滑翔有两种模式,第二种只会在等级2解锁.第一个模式就是滑行,减缓了下落速度.第二个是急坠增加下落速度.使用开关键来切换模式.</text>
+    <hr y="85"></hr>
+    <text y="110" size="1.0" wrap="190">赋予你飞行的能力.等级增加速度.在空中使用附魔键来改变速度.</text>
+    <hr y="128"></hr>
+    <text y="155" size="1.0" wrap="190">等级1:死亡保留物品;等级2:死亡地点重生;等级3:死后获得免疫</text>
+    </page>
+    <page>
+    <text bold="false" y="-30" size="1.0">
+    
+    
+闪现(最高等级3)
+    
+   
+   
+   
+修复(最高等级3)
+
+
+
+
+
+不死(最高等级3)
+
+
+
+
+饱腹(最高等级5)</text>
+    <text y="13" size="1.0" wrap="190">启用空间传送.附魔键+右击传送.等级越高距离越远.</text>
+    <hr y="31"></hr>
+    <text y="65"  size="1.0" wrap="190">以珠宝的耐久修复物品.等级1:修复手中物品;等级2:修复热键栏物品;等级3:修复护甲栏.</text>
+    <hr y="85"></hr>
+    <text y="110" size="1.0" wrap="190">如果你被致死,你不会死.而是瞬间回复生命到该附魔的等级.</text>
+    <hr y="128"></hr>
+    <text y="155" size="1.0" wrap="190">回复你的饥饿条.等级影响提供的饱食度,即每次的补充的持续长度.</text>
+    </page>
+    <page>
+    <text bold="false" y="2" size="1.0">元素亲和(最高等级1)</text>
+    <text size="1.0" wrap="190">
+    
+这个附魔十分独特.效果由制作珠宝的珍珠决定.下面列出了各种效果:
+
+• 黑 ~ 夜晚额外攻击伤害
+• 蓝 ~ 免疫溺水伤害
+• 棕 ~ 挖泥土得到饵料
+• 金 ~ 击杀生物掉落金粒
+• 绿 ~ 免疫毒
+• 橙 ~ 击杀产生额外经验
+• 粉 ~ 击杀生物回复生命
+• 紫 ~ 免疫魔法伤害
+• 红 ~ 免疫火与岩浆
+• 银 ~ 蠹虫掉落钓鱼产物
+• 白 ~ 白天额外攻击伤害
+• 黄 ~ 免疫窒息伤害
+    </text>
+    </page>
+</book>
