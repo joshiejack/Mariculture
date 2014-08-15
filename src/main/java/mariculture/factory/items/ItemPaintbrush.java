@@ -69,11 +69,15 @@ public class ItemPaintbrush extends ItemDamageable {
             }
         } else if (world.getTileEntity(x, y, z) instanceof TileCustom) {
             Block block = Block.getBlockFromName(stack.stackTagCompound.getString("Block"));
-            int meta = stack.stackTagCompound.getInteger("Meta");
-            int texSide = stack.stackTagCompound.getInteger("Side");
-            TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
-            if (tile.setSide(side, block, meta, texSide)) if (stack.attemptDamageItem(1, world.rand)) {
-                stack.stackSize--;
+            if(block != null) {
+                int meta = stack.stackTagCompound.getInteger("Meta");
+                int texSide = stack.stackTagCompound.getInteger("Side");
+                TileCustom tile = (TileCustom) world.getTileEntity(x, y, z);
+                if (tile.setSide(side, block, meta, texSide)) {
+                    if (stack.attemptDamageItem(1, world.rand)) {
+                        stack.stackSize--;
+                    }
+                }
             }
         }
 

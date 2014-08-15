@@ -48,10 +48,11 @@ public class TileCustom extends TileEntity {
     public boolean canUpdate() {
         return false;
     }
-
+    
     public void readData(NBTTagCompound nbt) {
         for (int i = 0; i < 6; i++) {
-            theBlocks[i] = (Block) Block.blockRegistry.getObject(nbt.getString("BlockIdentifier" + i));
+            Block block = (Block) Block.blockRegistry.getObject(nbt.getString("BlockIdentifier" + i));
+            theBlocks[i] = block != null? block: Blocks.stone;
         }
 
         resist = nbt.getFloat("BlockResistance");
@@ -67,6 +68,10 @@ public class TileCustom extends TileEntity {
         readData(nbt);
     }
 
+    public boolean isNameNull() {
+        return name == null || name.equals("");
+    }
+    
     public void writeData(NBTTagCompound nbt) {
         for (int i = 0; i < 6; i++) {
             nbt.setString("BlockIdentifier" + i, Block.blockRegistry.getNameForObject(theBlocks[i]));
@@ -76,7 +81,7 @@ public class TileCustom extends TileEntity {
         nbt.setFloat("BlockHardness", hardness);
         nbt.setIntArray("BlockMetas", theBlockMetas);
         nbt.setIntArray("BlockSides", theSides);
-        nbt.setString("Name", name);
+        nbt.setString("Name", isNameNull()? "invalid": name);
     }
 
     @Override
@@ -100,7 +105,7 @@ public class TileCustom extends TileEntity {
     public void updateHardness() {
         hardness = 0F;
         for (int i = 0; i < 6; i++) {
-            hardness += theBlocks[i].getBlockHardness(worldObj, xCoord, yCoord, zCoord);
+            hardness += theBlocks(i).getBlockHardness(worldObj, xCoord, yCoord, zCoord);
         }
 
         hardness /= 6;
@@ -109,7 +114,7 @@ public class TileCustom extends TileEntity {
     public void updateResistance() {
         resist = 0F;
         for (int i = 0; i < 6; i++) {
-            resist += theBlocks[i].getExplosionResistance(null, worldObj, xCoord, yCoord, zCoord, 0, 0, 0);
+            resist += theBlocks(i).getExplosionResistance(null, worldObj, xCoord, yCoord, zCoord, 0, 0, 0);
         }
 
         resist /= 6;
