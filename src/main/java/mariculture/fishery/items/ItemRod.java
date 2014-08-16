@@ -16,6 +16,7 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -59,12 +60,12 @@ public class ItemRod extends ItemFishingRod implements IItemRegistry {
     @Override
     public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         if (stack1.getItem() instanceof IEnergyContainerItem) return false;
-        ItemStack toRepairWith = repair != null ? repair : new ItemStack(Items.stick);
-        return OreDicHelper.getDictionaryName(stack2).equals(OreDicHelper.getDictionaryName(toRepairWith));
+        ItemStack toRepairWith = repair != null ? repair : new ItemStack(Items.stick);        
+        return OreDicHelper.convert(stack2).equals(OreDicHelper.convert(toRepairWith));
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {        
         if (!Modules.isActive(Modules.fishery)) return super.onItemRightClick(stack, world, player);
         return Fishing.fishing.handleRightClick(stack, world, player);
     }
