@@ -17,7 +17,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class DivingEventHandler {
     private int tick;
-    private static UnderwaterVision vision;
 
     @SubscribeEvent
     public void onLivingUpdate(LivingUpdateEvent event) {
@@ -34,7 +33,6 @@ public class DivingEventHandler {
                     }
                 }
             } else {
-                vision = vision == null ? new UnderwaterVision() : vision.onUpdate(player);
                 DivingBoots.init(player);
                 LifeJacket.init(player);
                 ScubaFin.init(player);

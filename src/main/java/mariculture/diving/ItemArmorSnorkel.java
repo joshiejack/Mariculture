@@ -1,5 +1,7 @@
 package mariculture.diving;
 
+import java.util.List;
+
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureRegistry;
 import mariculture.api.core.MaricultureTab;
@@ -7,6 +9,8 @@ import mariculture.core.util.IItemRegistry;
 import mariculture.diving.render.ModelLifejacket;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
