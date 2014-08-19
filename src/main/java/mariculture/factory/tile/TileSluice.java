@@ -10,6 +10,7 @@ import mariculture.core.util.IFaceable;
 import mariculture.core.util.Tank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -22,7 +23,7 @@ import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
@@ -62,33 +63,77 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         }
     }
 
+    protected void removeFluid(IFluidHandler tank, int x2, int y2, int z2) {
+        Block block = worldObj.getBlock(x2, y2, z2);
+        if (block instanceof BlockFluidBase || block instanceof BlockLiquid) {
+            FluidStack fluid = null;
+            if (block instanceof BlockFluidBase) {
+                fluid = ((BlockFluidBase) block).drain(worldObj, x2, y2, z2, false);
+            }
+
+            if (BlockHelper.isWater(worldObj, x2, y2, z2)) {
+                fluid = FluidRegistry.getFluidStack("water", 1000);
+            }
+
+            if (BlockHelper.isLava(worldObj, x2, y2, z2)) {
+                fluid = FluidRegistry.getFluidStack("lava", 1000);
+            }
+
+            if (fluid != null) {
+                if (tank.fill(orientation, fluid, false) >= fluid.amount) {
+                    if (block instanceof BlockFluidBase) {
+                        ((BlockFluidBase) block).drain(worldObj, x2, y2, z2, true);
+                    } else {
+                        worldObj.setBlockToAir(x2, y2, z2);
+                    }
+
+                    tank.fill(orientation, fluid, true);
+                }
+            }
+        }
+    }
+
     public void placeInTank() {
         TileEntity tile = mariculture.core.helpers.cofh.BlockHelper.getAdjacentTileEntity(this, orientation);
         if (tile != null && tile instanceof IFluidHandler) {
-            int x2 = xCoord - orientation.offsetX;
-            int y2 = yCoord - orientation.offsetY;
-            int z2 = zCoord - orientation.offsetZ;
-            Block block = worldObj.getBlock(x2, y2, z2);
-            if (block instanceof BlockFluidBase || block instanceof BlockLiquid) {
-                FluidStack fluid = null;
-                if (block instanceof BlockFluidBase) {
-                    fluid = ((BlockFluidBase) block).drain(worldObj, x2, y2, z2, false);
-                }
-                if (BlockHelper.isWater(worldObj, x2, y2, z2)) {
-                    fluid = FluidRegistry.getFluidStack("water", 1000);
-                }
-                if (BlockHelper.isLava(worldObj, x2, y2, z2)) {
-                    fluid = FluidRegistry.getFluidStack("lava", 1000);
-                }
-                if (fluid != null) {
-                    IFluidHandler tank = (IFluidHandler) tile;
-                    if (tank.fill(orientation, fluid, false) >= fluid.amount) {
-                        if (block instanceof BlockFluidBase) {
-                            ((BlockFluidBase) block).drain(worldObj, x2, y2, z2, true);
-                        } else {
-                            worldObj.setBlockToAir(x2, y2, z2);
+            removeFluid((IFluidHandler) tile, xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
+        }
+    }
+
+    protected boolean canBeReplaced(int x, int y, int z) {
+        Block block = worldObj.getBlock(x, y, z);
+        if (block instanceof IFluidBlock || block instanceof BlockStaticLiquid) {
+            return worldObj.getBlockMetadata(x, y, z) != 0;
+        } else return worldObj.isAirBlock(x, y, z);
+    }
+
+    protected void placeFluid(IFluidHandler tank, int x, int y, int z) {
+        FluidStack stack = tank.drain(orientation.getOpposite(), 100000, false);
+        if (stack != null && stack.getFluid() != null) {
+            Fluid fluid = stack.getFluid();
+            if (fluid != null && fluid.canBePlacedInWorld()) {
+                int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
+                FluidStack drainStack = tank.drain(orientation.getOpposite(), drain, false);
+                if (drainStack != null && drainStack.amount == drain) {
+                    Block block = fluid.getBlock();
+                    if (block != null) {
+                        if (block instanceof BlockFluidFinite) {
+                            if (worldObj.isAirBlock(x, y, z)) {
+                                worldObj.setBlock(x, y, z, block, 0, 2);
+                            } else {
+                                BlockFluidFinite finite = (BlockFluidFinite) block;
+                                int maxMeta = finite.getMaxRenderHeightMeta();
+                                int meta = worldObj.getBlockMetadata(x, y, z) + 1;
+                                if (meta < maxMeta && worldObj.getBlock(x, y, z) == block) {
+                                    worldObj.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                                } else return;
+
+                                tank.drain(orientation.getOpposite(), drain, true);
+                            }
+                        } else if (canBeReplaced(x, y, z)) {
+                            worldObj.setBlock(x, y, z, block);
+                            tank.drain(orientation.getOpposite(), drain, true);
                         }
-                        tank.fill(orientation, fluid, true);
                     }
                 }
             }
@@ -98,44 +143,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     public void pullFromTank() {
         TileEntity tile = mariculture.core.helpers.cofh.BlockHelper.getAdjacentTileEntity(this, orientation.getOpposite());
         if (tile != null && tile instanceof IFluidHandler) {
-            int x2 = xCoord + orientation.offsetX;
-            int y2 = yCoord + orientation.offsetY;
-            int z2 = zCoord + orientation.offsetZ;
-            if (worldObj.isAirBlock(x2, y2, z2)) {
-                IFluidHandler tank = (IFluidHandler) tile;
-                FluidTankInfo[] info = tank.getTankInfo(orientation.getOpposite());
-                if (info == null || info.length < 1) return;
-                for (FluidTankInfo tanks : info)
-                    if (tanks.fluid != null) {
-                        Fluid fluid = tanks.fluid.getFluid();
-                        if (fluid != null && fluid.canBePlacedInWorld()) {
-                            int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
-                            FluidStack drainStack = tank.drain(orientation.getOpposite(), drain, false);
-                            if (drainStack != null && drainStack.amount == drain) {
-                                Block block = fluid.getBlock();
-                                if (block != null) {
-                                    FluidStack stack = tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), false);
-                                    if (stack == null) return;
-                                    if (block instanceof BlockFluidFinite) {
-                                        if (worldObj.isAirBlock(x2, y2, z2)) {
-                                            worldObj.setBlock(x2, y2, z2, block, 0, 2);
-                                        } else {
-                                            int meta = worldObj.getBlockMetadata(x2, y2, z2) + 1;
-                                            if (meta < 7 && worldObj.getBlock(x2, y2, z2) == block) {
-                                                worldObj.setBlockMetadataWithNotify(x2, y2, z2, meta, 2);
-                                            } else return;
-                                        }
-
-                                        tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), true);
-                                    } else if (worldObj.isAirBlock(x2, y2, z2)) {
-                                        worldObj.setBlock(x2, y2, z2, block);
-                                        tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), true);
-                                    }
-                                }
-                            }
-                        }
-                    }
-            }
+            placeFluid((IFluidHandler) tile, xCoord + orientation.offsetX, yCoord + orientation.offsetY, zCoord + orientation.offsetZ);
         }
     }
 

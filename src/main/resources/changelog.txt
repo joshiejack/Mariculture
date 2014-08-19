@@ -1,4 +1,5 @@
 Mariculture 1.2.3b
+• Fix Calculation of how much fluid to drain with sluices
 • Fixed a crash related to custom blocks
 • Fix fishing rods being repairable with antyhing not in the ore dictionary
 • Fix load order issue with HEE Plugin
