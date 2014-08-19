@@ -209,7 +209,9 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
         if (tile instanceof IFluidHandler) {
             FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 10, false);
-            if (fluid != null && fluid.getFluid() != null) return MaricultureHandlers.crucible.getFuelInfo(fluid) != null;
+            if (fluid != null && fluid.getFluid() != null) {
+                return MaricultureHandlers.crucible.getFuelInfo(fluid) != null;
+            }
         }
 
         return false;

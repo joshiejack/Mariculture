@@ -17,7 +17,6 @@ import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidHandler;
 
@@ -188,37 +187,32 @@ public class TileSluiceAdvanced extends TileSluice {
                 int x2 = cord.x;
                 int y2 = cord.y;
                 int z2 = cord.z;
-                if (canBeReplaced(x2, y2, z2)) {
-                    IFluidHandler tank = (IFluidHandler) tile;
-                    FluidTankInfo[] info = tank.getTankInfo(orientation.getOpposite());
-                    if (info == null || info.length < 1) return;
-                    for (FluidTankInfo tanks : info) {
-                        if (tanks.fluid != null) {
-                            Fluid fluid = tanks.fluid.getFluid();
-                            if (fluid != null && fluid.canBePlacedInWorld()) {
-                                int drain = FluidHelper.getRequiredVolumeForBlock(fluid);
-                                FluidStack drainStack = tank.drain(orientation.getOpposite(), drain, false);
-                                if (drainStack != null && drainStack.amount == drain) {
-                                    Block block = fluid.getBlock();
-                                    if (block != null) {
-                                        FluidStack stack = tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), false);
-                                        if (stack == null) return;
-                                        if (block instanceof BlockFluidFinite) {
-                                            if (worldObj.isAirBlock(x2, y2, z2)) {
-                                                worldObj.setBlock(x2, y2, z2, block, 0, 2);
-                                            } else {
-                                                int meta = worldObj.getBlockMetadata(x2, y2, z2) + 1;
-                                                if (meta < 7 && worldObj.getBlock(x2, y2, z2) == block) {
-                                                    worldObj.setBlockMetadataWithNotify(x2, y2, z2, meta, 2);
-                                                } else return;
-                                            }
 
-                                            tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), true);
-                                        } else if (canBeReplaced(x2, y2, z2)) {
-                                            worldObj.setBlock(x2, y2, z2, block);
-                                            tank.drain(orientation.getOpposite(), new FluidStack(fluid.getID(), drain), true);
-                                        }
+                FluidStack stack = ((IFluidHandler) tile).drain(orientation.getOpposite(), 100000, false);
+                if (stack != null && stack.getFluid() != null) {
+                    Fluid fluid = stack.getFluid();
+                    if (fluid != null && fluid.canBePlacedInWorld()) {
+                        int drain = FluidHelper.getRequiredVolumeForBlock(fluid);                        
+                        FluidStack drainStack = ((IFluidHandler) tile).drain(orientation.getOpposite(), drain, false);
+                        if (drainStack != null && drainStack.amount == drain) {
+                            Block block = fluid.getBlock();
+                            if (block != null) {
+                                if (block instanceof BlockFluidFinite) {
+                                    if (worldObj.isAirBlock(x2, y2, z2)) {
+                                        worldObj.setBlock(x2, y2, z2, block, 0, 2);
+                                    } else {
+                                        BlockFluidFinite finite = (BlockFluidFinite) block;
+                                        int maxMeta = finite.getMaxRenderHeightMeta();
+                                        int meta = worldObj.getBlockMetadata(x2, y2, z2) + 1;
+                                        if (meta < maxMeta && worldObj.getBlock(x2, y2, z2) == block) {
+                                            worldObj.setBlockMetadataWithNotify(x2, y2, z2, meta, 2);
+                                        } else return;
+
+                                        ((IFluidHandler) tile).drain(orientation.getOpposite(), drain, true);
                                     }
+                                } else if (canBeReplaced(x2, y2, z2)) {
+                                    worldObj.setBlock(x2, y2, z2, block);
+                                    ((IFluidHandler) tile).drain(orientation.getOpposite(), drain, true);
                                 }
                             }
                         }

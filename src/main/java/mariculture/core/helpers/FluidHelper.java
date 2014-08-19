@@ -12,6 +12,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.util.FluidMari;
 import mariculture.core.util.Fluids;
 import mariculture.fishery.FishFoodHandler;
+import mariculture.fishery.items.ItemDroplet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -169,13 +170,21 @@ public class FluidHelper {
         FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
         int highest = -1;
 
-        for (FluidContainerData element : data)
+        for (FluidContainerData element : data) {
             if (element.fluid.fluidID == fluid.getID()) {
                 if (element.fluid.amount > highest) {
                     highest = element.fluid.amount;
                 }
+
+                if(element.filledContainer.getItem() instanceof ItemDroplet) {
+                    continue;
+                }
+                
                 if (element.emptyContainer.getItem() == Items.bucket) return element.fluid.amount;
             }
+        }
+        
+        System.out.println("hi");
 
         return highest;
     }
