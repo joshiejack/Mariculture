@@ -4,7 +4,7 @@ Mariculture 1.2.3b
 • Fix fishing rods being repairable with antyhing not in the ore dictionary
 • Fix load order issue with HEE Plugin
 • Anvil will no longer allow free repairs if you have 0 xp
-• Snorkel will no longer reset brightness, and now comes with respiration 1
+• Snorkel will no longer reset brightness
 
 Mariculture 1.2.3a
 • Fix accidentally importing scala instead of java in some places :P
