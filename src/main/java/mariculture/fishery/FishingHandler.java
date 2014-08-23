@@ -219,7 +219,10 @@ public class FishingHandler implements IFishing {
         float f = world.rand.nextFloat();
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, stack);
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151369_A.effectId, stack);
-        player.addStat(net.minecraftforge.common.FishingHooks.getFishableCategory(f, i, j).stat, 1);
+        if(player != null) {
+            player.addStat(net.minecraftforge.common.FishingHooks.getFishableCategory(f, i, j).stat, 1);
+        }
+        
         return net.minecraftforge.common.FishingHooks.getRandomFishable(world.rand, f, i, j);
     }
 
