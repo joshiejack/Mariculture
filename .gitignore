@@ -13,3 +13,4 @@
 .project
 .settings/*
 src/api/resources/*
+src/api/java/hacker/

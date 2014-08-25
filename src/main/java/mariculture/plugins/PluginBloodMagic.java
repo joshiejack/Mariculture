@@ -93,7 +93,7 @@ public class PluginBloodMagic extends Plugin {
             addLoot(loot, GOOD, 200);
 
             // Rituals
-            Rituals.ritualList.add(new Rituals(1, 50000, new RitualOfTheBloodRiver(), Text.translate("ritual")));
+            Rituals.registerRitual("MARIBLOODRIVER", 1, 50000, new RitualOfTheBloodRiver(), Text.translate("ritual"));
             BindingRegistry.registerRecipe(new ItemStack(rodBlood), new ItemStack(Fishery.rodTitanium));
         }
 

@@ -1,3 +1,7 @@
+Mariculture 1.2.3c
+• Fix crash when catching vanilla loot with an autofisher
+• Fix crash with newer versions of blood magic
+
 Mariculture 1.2.3b
 • Fix Calculation of how much fluid to drain with sluices
 • Fixed a crash related to custom blocks
