@@ -65,12 +65,12 @@ public class Recipes {
         addShaped(_(piston), new Object[] { "TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood" });
         ItemStack titanium = titaniumBattery.copy();
         titanium.setTagCompound(new NBTTagCompound());
-        titanium.stackTagCompound.setInteger("100000", 250000);
+        titanium.stackTagCompound.setInteger("Energy", 100000);
         addShapeless(titanium, new Object[] { titaniumBattery, "blockRedstone" });
         
         ItemStack copper = copperBattery.copy();
         copper.setTagCompound(new NBTTagCompound());
-        copper.stackTagCompound.setInteger("10000", 250000);
+        copper.stackTagCompound.setInteger("Energy", 10000);
         addShapeless(copper, new Object[] { copperBattery, "blockRedstone" });
     }
 
