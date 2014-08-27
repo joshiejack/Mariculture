@@ -22,6 +22,7 @@ import mariculture.core.lib.UpgradeMeta;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Recipes {
     public static void add() {
@@ -62,6 +63,15 @@ public class Recipes {
         }
 
         addShaped(_(piston), new Object[] { "TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood" });
+        ItemStack titanium = titaniumBattery.copy();
+        titanium.setTagCompound(new NBTTagCompound());
+        titanium.stackTagCompound.setInteger("100000", 250000);
+        addShaped(titanium, new Object[] { titaniumBattery, "blockRedstone" });
+        
+        ItemStack copper = copperBattery.copy();
+        copper.setTagCompound(new NBTTagCompound());
+        copper.stackTagCompound.setInteger("10000", 250000);
+        addShaped(copper, new Object[] { copperBattery, "blockRedstone" });
     }
 
     private static void addCraftingItems() {

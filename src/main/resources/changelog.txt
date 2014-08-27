@@ -1,6 +1,8 @@
 Mariculture 1.2.3c
 • Fix crash when catching vanilla loot with an autofisher
 • Fix crash with newer versions of blood magic
+• Update TCon Support for newest builds
+• Temporarily added recipes to add power to batteries/rf rod using redstone (Until I readd a proper way to recharge)
 
 Mariculture 1.2.3b
 • Fix Calculation of how much fluid to drain with sluices

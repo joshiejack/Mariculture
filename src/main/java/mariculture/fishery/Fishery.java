@@ -131,6 +131,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -305,6 +306,12 @@ public class Fishery extends RegistrationModule {
         addShaped(incubatorBase, new Object[] { "DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating });
         addShaped(fishTank, new Object[] { "AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "blockGlass", 'F', "fish" });
         addShaped(_(tempControl), new Object[] { " H ", "CTC", " H ", 'H', heating, 'C', cooling, 'T', titaniumSheet });
+        ItemStack charged = new ItemStack(rodFlux);
+        charged.setTagCompound(new NBTTagCompound());
+        charged.stackTagCompound.setInteger("Energy", 250000);
+        addShaped(charged, new Object[] { _(rodFlux), "blockRedstone" });
+        addVatItemRecipe(charged, getFluidName("flux"), 1000, _(rodFlux), 15);
+        
         addVatItemRecipeResultFluid(_(_(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
 
