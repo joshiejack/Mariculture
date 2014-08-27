@@ -309,7 +309,7 @@ public class Fishery extends RegistrationModule {
         ItemStack charged = new ItemStack(rodFlux);
         charged.setTagCompound(new NBTTagCompound());
         charged.stackTagCompound.setInteger("Energy", 250000);
-        addShaped(charged, new Object[] { _(rodFlux), "blockRedstone" });
+        addShapeless(charged, new Object[] { _(rodFlux), "blockRedstone" });
         addVatItemRecipe(charged, getFluidName("flux"), 1000, _(rodFlux), 15);
         
         addVatItemRecipeResultFluid(_(_(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
