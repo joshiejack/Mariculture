@@ -68,7 +68,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
                 ItemStack lootResult = Fishing.fishing.getCatch(worldObj, xCoord, yCoord - 1, zCoord, null, inventory[rod]);
                 setInventorySlotContents(rod, type.damage(worldObj, null, inventory[rod], 0, worldObj.rand));
                 if (lootResult != null) {
-                    decrStackSize(destroyBait(), 1);
+                    decrStackSize(baitSlot, 1);
                     helper.insertStack(lootResult, output);
                 }
             }
