@@ -34,7 +34,7 @@ configFile.withReader {
 }
 
 version = config.minecraft_version + "-" + config.mod_version
-group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "com.github.joshie.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Mariculture"
 
 dependencies {
@@ -71,7 +71,7 @@ project.version += '-' + project.buildnumber
 
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
@@ -85,14 +85,14 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
     manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 
 task apiJar(type: Jar) {
     from(sourceSets.main.java) {
-        include "mariculture/api/**"
+        include "joshie/mariculture/api/**"
     }
     
     classifier = 'api'
