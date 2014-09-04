@@ -5,10 +5,10 @@ import java.util.List;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.helpers.FluidHelper;
-import joshie.mariculture.core.items.ItemMariculture;
+import joshie.mariculture.core.items.ItemMCMeta;
 import joshie.mariculture.core.lib.DropletMeta;
 import joshie.mariculture.core.util.Fluids;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemDroplet extends ItemMariculture {
+public class ItemDroplet extends ItemMCMeta {
     public ItemDroplet() {
         setCreativeTab(MaricultureTab.tabFishery);
     }
@@ -34,7 +34,7 @@ public class ItemDroplet extends ItemMariculture {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
         int amount = fluid == null ? 0 : fluid.amount;
-        list.add(Translate.translate("contains") + " " + amount + Translate.translate("mb") + " " + Translate.translate("of") + " " + FluidHelper.getFluidName(fluid));
+        list.add(MCTranslate.translate("contains") + " " + amount + MCTranslate.translate("mb") + " " + MCTranslate.translate("of") + " " + FluidHelper.getFluidName(fluid));
     }
 
     @Override

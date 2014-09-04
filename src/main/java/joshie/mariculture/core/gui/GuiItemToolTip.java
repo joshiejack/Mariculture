@@ -3,7 +3,7 @@ package joshie.mariculture.core.gui;
 import java.util.List;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -42,7 +42,7 @@ public class GuiItemToolTip {
                             if (name.equals("")) {
                                 if (!labeled) {
                                     labeled = true;
-                                    list.add(joshie.lib.util.Text.RED + Translate.translate("blacklisted"));
+                                    list.add(joshie.lib.util.Text.RED + MCTranslate.translate("blacklisted"));
                                 }
                             } else {
                                 list.add(color + name);

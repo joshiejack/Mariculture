@@ -2,7 +2,7 @@ package joshie.mariculture.fishery.gui;
 
 import joshie.mariculture.core.gui.ContainerStorage;
 import joshie.mariculture.core.gui.InventoryStorage;
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -28,7 +28,7 @@ public class ContainerScanner extends ContainerStorage {
 
             if (slotID < size) {
                 if (!mergeItemStack(stack, size, high, true)) return null;
-            } else if (!(stack.getItem() instanceof ItemStorage) && ((ItemStorage) player.getCurrentEquippedItem().getItem()).isItemValid(stack)) {
+            } else if (!(stack.getItem() instanceof ItemMCStorage) && ((ItemMCStorage) player.getCurrentEquippedItem().getItem()).isItemValid(stack)) {
                 if (!mergeItemStack(stack, 0, storage.getSizeInventory(), false)) return null;
             } else if (slotID >= size && slotID < low) {
                 if (!mergeItemStack(stack, low, high, false)) return null;

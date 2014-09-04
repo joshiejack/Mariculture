@@ -1,12 +1,13 @@
-package joshie.mariculture.fishery.blocks;
+package joshie.mariculture.fishery.blocks.items;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.PearlColor;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockNeonLampItem extends ItemBlockMariculture {
-    public BlockNeonLampItem(Block block) {
+public class ItemBlockNeonLamp extends ItemBlockMariculture {
+    public ItemBlockNeonLamp(Block block) {
         super(block);
     }
 
@@ -40,5 +41,11 @@ public class BlockNeonLampItem extends ItemBlockMariculture {
             default:
                 return "lamp";
         }
+    }
+    
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String name = getName(stack).replaceAll("(.)([A-Z])", "$1$2").toLowerCase();
+        return Text.localize(getUnlocalizedName().replace(".on", "").replace(".off", "") + "." + name);
     }
 }

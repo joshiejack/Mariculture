@@ -72,7 +72,6 @@ public class Diving extends RegistrationModule {
         swimfin = new ItemArmorScuba(armorSCUBA, RenderIds.SCUBA, 3).setUnlocalizedName("swimfin");
         snorkel = new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 0).setUnlocalizedName("snorkel");
         lifejacket = new ItemArmorSnorkel(armorSnorkel, RenderIds.SNORKEL, 1).setUnlocalizedName("lifejacket");
-        RegistryHelper.registerItems(new Item[] { divingHelmet, divingTop, divingPants, divingBoots, scubaMask, scubaTank, scubaSuit, swimfin, snorkel, lifejacket });
     }
 
     @Override

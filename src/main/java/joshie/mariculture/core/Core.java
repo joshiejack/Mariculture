@@ -104,6 +104,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+
 public class Core extends RegistrationModule {
     public static Block air;
     public static Block glass;
@@ -187,7 +188,6 @@ public class Core extends RegistrationModule {
         batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("battery.copper");
         batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("battery.titanium");
         worked = new ItemWorked().setUnlocalizedName("worked");
-        RegistryHelper.registerItems(new Item[] { materials, crafting, pearls, food, upgrade, bottles, buckets, hammer, ladle, bucketTitanium, batteryCopper, batteryTitanium, worked });
     }
 
     @Override
@@ -247,7 +247,6 @@ public class Core extends RegistrationModule {
         transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
         ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
         water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
-        RegistryHelper.registerBlocks(new Block[] { rocks, limestone, water, metals, sands, woods, glass, transparent, pearlBlock, machines, machinesMulti, renderedMachinesMulti, renderedMachines, ticking, tanks, air });
         RegistryHelper.registerTiles("Mariculture", new Class[] { TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class, TileBlockCaster.class, TileNuggetCaster.class, TileAutohammer.class });
     }
 

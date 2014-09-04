@@ -5,7 +5,7 @@ import java.util.Random;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.PearlColor;
 import joshie.mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockNeonLamp extends BlockDecorative {
+public class BlockNeonLamp extends BlockMCBaseMeta {
     private final boolean powered;
 
     public BlockNeonLamp(boolean powered, String prefix) {
@@ -121,16 +121,9 @@ public class BlockNeonLamp extends BlockDecorative {
     public void registerBlockIcons(IIconRegister register) {
         icons = new IIcon[PearlColor.COUNT];
 
+        boolean on = getUnlocalizedName().contains("on");
         for (int i = 0; i < icons.length; i++) {
-            String theName, name = getUnlocalizedName().substring(5) + i;
-            String[] aName = name.split("\\.");
-            if (aName.length == 2) {
-                theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-            } else {
-                theName = name;
-            }
-
-            icons[i] = register.registerIcon(Mariculture.modid + ":" + theName);
+            icons[i] = register.registerIcon(Mariculture.modid + ":lamps" + (on? "On": "Off") + i);
         }
     }
 

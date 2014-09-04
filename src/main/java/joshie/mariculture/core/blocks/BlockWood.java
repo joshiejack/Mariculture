@@ -1,7 +1,7 @@
 package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.helpers.cofh.BlockHelper;
 import joshie.mariculture.core.helpers.cofh.BlockHelper.RotationType;
 import joshie.mariculture.core.lib.Modules;
@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockWood extends BlockDecorative {
+public class BlockWood extends BlockMCBaseMeta {
     public IIcon top;
     public IIcon side;
 

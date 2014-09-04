@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFood extends ItemMariculture {
+public class ItemFood extends ItemMCMeta {
     private int getFoodLevel(int dmg) {
         switch (dmg) {
             case FoodMeta.FISH_FINGER:
@@ -229,25 +229,10 @@ public class ItemFood extends ItemMariculture {
         else return Modules.isActive(Modules.fishery);
     }
 
-    private boolean isValidTab(CreativeTabs creative, int meta) {
+    @Override
+    public boolean isValidTab(CreativeTabs creative, int meta) {
         if (meta == FoodMeta.OYSTER) return creative == MaricultureTab.tabCore;
         if (meta == FoodMeta.KELP_WRAP) return creative == MaricultureTab.tabWorld;
         return creative == MaricultureTab.tabFishery;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creative, List list) {
-        for (int meta = 0; meta < getMetaCount(); ++meta)
-            if (isActive(meta) && isValidTab(creative, meta)) {
-                list.add(new ItemStack(item, 1, meta));
-            }
-
-        return;
-    }
-
-    @Override
-    public CreativeTabs[] getCreativeTabs() {
-        return new CreativeTabs[] { MaricultureTab.tabCore, MaricultureTab.tabFishery, MaricultureTab.tabWorld };
     }
 }

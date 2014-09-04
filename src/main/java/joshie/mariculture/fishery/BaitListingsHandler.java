@@ -5,7 +5,7 @@ import java.util.List;
 
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.RodType;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
@@ -25,9 +25,9 @@ public class BaitListingsHandler {
             if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
                 if (quality.canDisplay(stack)) {
                     if (quality.canUseBaitManually()) {
-                        list.add(joshie.lib.util.Text.INDIGO + Translate.translate("bait"));
+                        list.add(joshie.lib.util.Text.INDIGO + MCTranslate.translate("bait"));
                     } else {
-                        list.add(joshie.lib.util.Text.INDIGO + Translate.translate("bait2"));
+                        list.add(joshie.lib.util.Text.INDIGO + MCTranslate.translate("bait2"));
                     }
 
                     ArrayList<ItemStack> baits = Fishing.fishing.getCanUseList(quality);
@@ -38,9 +38,9 @@ public class BaitListingsHandler {
                 }
             } else {
                 if (quality.canUseBaitManually()) {
-                    list.add(Translate.getShiftText("rod"));
+                    list.add(MCTranslate.getShiftText("rod"));
                 } else {
-                    list.add(Translate.getShiftText("rod2"));
+                    list.add(MCTranslate.getShiftText("rod2"));
                 }
             }
         }

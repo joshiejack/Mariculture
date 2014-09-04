@@ -66,7 +66,6 @@ public class TitaniumTools {
         tool_rod = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.tool.rod");
         tough_binding = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.tough.binding");
         tough_rod = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.tough.rod");
-        RegistryHelper.registerItems(new Item[] { arrowhead, axe_head, battle_sign_head, binding, broad_axe_head, chisel_head, chunk, crossbar, excavator_head, frypan_head, full_guard, hammer_head, hand_guard, knife_blade, large_guard, large_sword_blade, large_plate, pickaxe_head, scythe_head, shovel_head, sword_blade, tool_rod, tough_binding, tough_rod });
     }
 
     public static void postInit() {

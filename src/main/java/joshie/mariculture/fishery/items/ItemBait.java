@@ -4,7 +4,7 @@ import java.util.List;
 
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.core.items.ItemMariculture;
+import joshie.mariculture.core.items.ItemMCMeta;
 import joshie.mariculture.core.lib.BaitMeta;
 import joshie.mariculture.core.lib.Extra;
 import joshie.mariculture.plugins.PluginHungerOverhaul;
@@ -15,7 +15,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemBait extends ItemMariculture {
+public class ItemBait extends ItemMCMeta {
     public ItemBait() {
         setCreativeTab(MaricultureTab.tabFishery);
     }

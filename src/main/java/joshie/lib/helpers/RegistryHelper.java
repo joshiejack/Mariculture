@@ -13,29 +13,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RegistryHelper {
     //Shorthand for registering items
-    public static void registerItems(Item[] items) {
+    @Deprecated
+    public static void registerItems(Item... items) {
         for (Item item : items) {
             registerItem(item);
         }
     }
-
-    //Short hand for registering blocks
-    public static void registerBlocks(Block[] blocks) {
-        for (Block block : blocks)
-            if (block instanceof IHasMetaBlock) {
-                registerMetaBlock(((IHasMetaBlock) block).getItemClass(), block);
-            } else {
-                registerBlock(block);
-            }
-    }
-
-    //Short hand for registering tile entities
-    public static void registerTiles(String mod, Class<? extends TileEntity>[] tiles) {
-        for (Class<? extends TileEntity> tile : tiles) {
-            GameRegistry.registerTileEntity(tile, mod + ":" + tile.getSimpleName());
-        }
-    }
-
+    
     private static void registerItem(Item item) {
         try {
             String name = item.getUnlocalizedName().substring(5);
@@ -47,6 +31,24 @@ public class RegistryHelper {
             GameRegistry.registerItem(item, name);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    //Short hand for registering blocks
+    @Deprecated
+    public static void registerBlocks(Block... blocks) {
+        for (Block block : blocks)
+            if (block instanceof IHasMetaBlock) {
+                registerMetaBlock(((IHasMetaBlock) block).getItemClass(), block);
+            } else {
+                registerBlock(block);
+            }
+    }
+
+    //Short hand for registering tile entities
+    public static void registerTiles(String mod, Class<? extends TileEntity>... tiles) {
+        for (Class<? extends TileEntity> tile : tiles) {
+            GameRegistry.registerTileEntity(tile, mod + ":" + tile.getSimpleName());
         }
     }
 

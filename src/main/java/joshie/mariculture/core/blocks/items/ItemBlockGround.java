@@ -1,12 +1,12 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.GroundMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockGroundItem extends ItemBlockMariculture {
-    public BlockGroundItem(Block block) {
+public class ItemBlockGround extends ItemBlockMariculture {
+    public ItemBlockGround(Block block) {
         super(block);
     }
 

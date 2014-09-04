@@ -5,6 +5,7 @@ import java.util.List;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
+import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.factory.render.ModelFLUDD;
 import joshie.mariculture.factory.render.RenderFLUDDSquirt;
@@ -17,7 +18,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemArmorFLUDD extends ItemArmor {
+public class ItemArmorFLUDD extends ItemMCBaseArmor {
     public static final int HOVER = 0;
     public static final int ROCKET = 1;
     public static final int TURBO = 2;
@@ -38,7 +38,6 @@ public class ItemArmorFLUDD extends ItemArmor {
 
     public ItemArmorFLUDD(ArmorMaterial material, int j, int k) {
         super(material, j, k);
-        setMaxStackSize(1);
         setCreativeTab(MaricultureTab.tabFactory);
     }
 
@@ -101,11 +100,7 @@ public class ItemArmorFLUDD extends ItemArmor {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creative, List list) {
-        ItemStack stack = new ItemStack(item, 1, 0);
-        stack.setTagCompound(new NBTTagCompound());
-        stack.stackTagCompound.setInteger("mode", 0);
-        stack.stackTagCompound.setInteger("water", STORAGE);
-        list.add(stack);
+        list.add(build(STORAGE));
     }
 
     @Override
@@ -135,11 +130,12 @@ public class ItemArmorFLUDD extends ItemArmor {
         return "mariculture:" + "textures/blocks/fludd_texture.png";
     }
 
-    public ItemStack build() {
+    //Called by the Factory
+    public ItemStack build(int amount) {
         ItemStack fludd = new ItemStack(this);
         fludd.setTagCompound(new NBTTagCompound());
         fludd.stackTagCompound.setInteger("mode", 0);
-        fludd.stackTagCompound.setInteger("water", 0);
+        fludd.stackTagCompound.setInteger("water", amount);
         return fludd;
     }
 }

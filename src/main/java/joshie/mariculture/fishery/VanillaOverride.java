@@ -67,7 +67,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 
     @Override
     public String getAccessTransformerClass() {
-        return "mariculture.core.AccessTransformers";
+        return "joshie.mariculture.core.AccessTransformers";
     }
 
     private FMLDeobfuscatingRemapper remapper;
@@ -118,15 +118,15 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
                         LdcInsnNode ldcInstruction = (LdcInsnNode) instruction;
                         if (ldcInstruction.cst.equals("fishing_rod")) {
                             if (!rodFound) {
-                                ((TypeInsnNode) method.instructions.get(j + 1)).desc = "mariculture/fishery/items/ItemVanillaRod";
-                                ((MethodInsnNode) method.instructions.get(j + 3)).owner = "mariculture/fishery/items/ItemVanillaRod";
+                                ((TypeInsnNode) method.instructions.get(j + 1)).desc = "joshie/mariculture/fishery/items/ItemVanillaRod";
+                                ((MethodInsnNode) method.instructions.get(j + 3)).owner = "joshie/mariculture/fishery/items/ItemVanillaRod";
                             }
 
                             rodFound = true;
                         } else if (ldcInstruction.cst.equals("fish")) {
                             if (!fishFound) {
-                                ((TypeInsnNode) method.instructions.get(j + 1)).desc = "mariculture/fishery/items/ItemVanillaFish";
-                                ((MethodInsnNode) method.instructions.get(j + 4)).owner = "mariculture/fishery/items/ItemVanillaFish";
+                                ((TypeInsnNode) method.instructions.get(j + 1)).desc = "joshie/mariculture/fishery/items/ItemVanillaFish";
+                                ((MethodInsnNode) method.instructions.get(j + 4)).owner = "joshie/mariculture/fishery/items/ItemVanillaFish";
                             }
 
                             fishFound = true;

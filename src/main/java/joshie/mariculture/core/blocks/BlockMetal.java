@@ -1,7 +1,7 @@
 package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.MetalMeta;
 import joshie.mariculture.factory.items.ItemRotor;
 import net.minecraft.block.material.Material;
@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMetal extends BlockDecorative {
+public class BlockMetal extends BlockMCBaseMeta {
     private IIcon[] aluminum;
 
     public BlockMetal() {

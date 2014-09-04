@@ -9,13 +9,11 @@ import joshie.mariculture.api.fishery.Loot.Rarity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.Fluids;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.Fishery;
-import joshie.mariculture.magic.Magic;
 import joshie.mariculture.plugins.Plugins.Plugin;
 import joshie.mariculture.plugins.bloodmagic.BloodRodType;
 import joshie.mariculture.plugins.bloodmagic.ItemBoundRod;
-import joshie.mariculture.plugins.bloodmagic.ItemMobMagnetBloodEdition;
 import joshie.mariculture.plugins.bloodmagic.RitualOfTheBloodRiver;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -93,12 +91,8 @@ public class PluginBloodMagic extends Plugin {
             addLoot(loot, GOOD, 200);
 
             // Rituals
-            Rituals.registerRitual("MARIBLOODRIVER", 1, 50000, new RitualOfTheBloodRiver(), Translate.translate("ritual"));
+            Rituals.registerRitual("MARIBLOODRIVER", 1, 50000, new RitualOfTheBloodRiver(), MCTranslate.translate("ritual"));
             BindingRegistry.registerRecipe(new ItemStack(rodBlood), new ItemStack(Fishery.rodTitanium));
-        }
-
-        if (Modules.isActive(Modules.magic)) {
-            Magic.magnet = new ItemMobMagnetBloodEdition(0).setUnlocalizedName("mobMagnet");
         }
     }
 
@@ -108,6 +102,6 @@ public class PluginBloodMagic extends Plugin {
 
     @Override
     public void postInit() {
-
+        return;
     }
 }

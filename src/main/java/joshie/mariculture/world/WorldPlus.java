@@ -42,7 +42,6 @@ public class WorldPlus extends RegistrationModule {
     public void registerBlocks() {
         plantGrowable = new BlockCoral(true, "plant_growable_").setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("plant.growable");
         plantStatic = new BlockCoral(false, "plant_static_").setStepSound(Block.soundTypeGrass).setResistance(0.1F).setBlockName("plant.static");
-        RegistryHelper.registerBlocks(new Block[] { plantGrowable, plantStatic });
     }
 
     @Override

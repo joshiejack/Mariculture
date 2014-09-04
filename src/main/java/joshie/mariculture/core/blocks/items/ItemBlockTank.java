@@ -1,4 +1,4 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
-public class BlockTankItem extends ItemBlockMariculture {
-    public BlockTankItem(Block block) {
+public class ItemBlockTank extends ItemBlockMariculture {
+    public ItemBlockTank(Block block) {
         super(block);
     }
 

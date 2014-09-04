@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class ItemBuckets extends ItemMariculture {
+public class ItemBuckets extends ItemMCMeta {
     public ItemBuckets() {
         maxStackSize = 1;
     }

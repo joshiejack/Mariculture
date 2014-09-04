@@ -1,12 +1,12 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.TransparentMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockTransparentItem extends ItemBlockMariculture {
-    public BlockTransparentItem(Block block) {
+public class ItemBlockTransparent extends ItemBlockMariculture {
+    public ItemBlockTransparent(Block block) {
         super(block);
     }
 

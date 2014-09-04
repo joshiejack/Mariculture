@@ -4,7 +4,7 @@ import java.util.List;
 
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.gui.InventoryStorage;
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import joshie.mariculture.factory.gui.SlotDictionary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class ItemFilter extends ItemStorage {
+public class ItemFilter extends ItemMCStorage {
     public static final int SIZE = 9;
 
     public ItemFilter() {

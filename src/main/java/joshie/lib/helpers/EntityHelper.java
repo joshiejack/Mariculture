@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import cpw.mods.fml.server.FMLServerHandler;
-import joshie.harvestmoon.helpers.ServerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

@@ -1,12 +1,12 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.WoodMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockWoodItem extends ItemBlockMariculture {
-    public BlockWoodItem(Block block) {
+public class ItemBlockWood extends ItemBlockMariculture {
+    public ItemBlockWood(Block block) {
         super(block);
     }
 

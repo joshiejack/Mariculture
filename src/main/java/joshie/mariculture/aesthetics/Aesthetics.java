@@ -22,7 +22,6 @@ public class Aesthetics extends RegistrationModule {
     @Override
     public void registerBlocks() {
         pearlBrick = new BlockPearlBlock("pearlBrick_").setStepSound(Block.soundTypeStone).setResistance(2F).setBlockName("pearl.brick");
-        RegistryHelper.registerBlocks(new Block[] { pearlBrick });
     }
 
     @Override

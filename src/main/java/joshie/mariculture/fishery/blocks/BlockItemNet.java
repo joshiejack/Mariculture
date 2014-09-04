@@ -4,7 +4,7 @@ import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.items.ItemMariculture;
+import joshie.mariculture.core.items.ItemMCMeta;
 import joshie.mariculture.fishery.Fish;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,10 +15,15 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
-public class BlockItemNet extends ItemMariculture {
+public class BlockItemNet extends ItemMCMeta {
     public BlockItemNet() {
         setHasSubtypes(false);
         setCreativeTab(MaricultureTab.tabFishery);
+    }
+
+    @Override
+    public int getMetaCount() {
+        return 1;
     }
 
     @Override

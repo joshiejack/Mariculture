@@ -12,7 +12,6 @@ import static joshie.mariculture.core.lib.ItemLib.storageBookshelf;
 
 import java.util.Map.Entry;
 
-import joshie.lib.helpers.RegistryHelper;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.config.Enchantments.EnchantIds;
@@ -55,6 +54,7 @@ import joshie.mariculture.magic.jewelry.parts.MaterialPearlRed;
 import joshie.mariculture.magic.jewelry.parts.MaterialPearlSilver;
 import joshie.mariculture.magic.jewelry.parts.MaterialPearlWhite;
 import joshie.mariculture.magic.jewelry.parts.MaterialPearlYellow;
+import joshie.mariculture.plugins.bloodmagic.ItemMobMagnetBloodEdition;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Blocks;
@@ -65,6 +65,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import cpw.mods.fml.common.Loader;
 
 public class Magic extends RegistrationModule {
     public static JewelryMaterial dummyMaterial;
@@ -126,8 +127,11 @@ public class Magic extends RegistrationModule {
         ring = new ItemRing().setUnlocalizedName("ring");
         bracelet = new ItemBracelet().setUnlocalizedName("bracelet");
         necklace = new ItemNecklace().setUnlocalizedName("necklace");
-        magnet = new ItemMobMagnet(100).setUnlocalizedName("mobmagnet");
-        RegistryHelper.registerItems(new Item[] { basicMirror, magicMirror, celestialMirror, ring, bracelet, necklace, magnet });
+        if (Loader.isModLoaded("AWWayofTime")) {
+            magnet = new ItemMobMagnetBloodEdition(0).setUnlocalizedName("mobMagnet");
+        } else {
+            magnet = new ItemMobMagnet(0).setUnlocalizedName("mobMagnet");
+        }
     }
 
     @Override

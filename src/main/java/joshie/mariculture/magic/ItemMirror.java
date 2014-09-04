@@ -4,7 +4,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.gui.InventoryStorage;
 import joshie.mariculture.core.helpers.OreDicHelper;
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import joshie.mariculture.magic.gui.ContainerMirror;
 import joshie.mariculture.magic.gui.GuiMirror;
 import joshie.mariculture.magic.jewelry.ItemJewelry;
@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMirror extends ItemStorage {
+public class ItemMirror extends ItemMCStorage {
     public final String name;
 
     public ItemMirror(String img) {
@@ -55,7 +55,7 @@ public class ItemMirror extends ItemStorage {
                 if (!player.capabilities.isCreativeMode && stack.attemptDamageItem(1, world.rand)) {
                     stack.stackSize--;
                 } else {
-                    player.openGui(Mariculture.instance, ItemStorage.GUI_ID, world, 0, 0, 0);
+                    player.openGui(Mariculture.instance, ItemMCStorage.GUI_ID, world, 0, 0, 0);
                 }
             }
 

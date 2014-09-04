@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.core.items.ItemMCBaseSingle;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -17,9 +17,8 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class ItemSpeedBoat extends Item {
+public class ItemSpeedBoat extends ItemMCBaseSingle {
     public ItemSpeedBoat() {
-        maxStackSize = 1;
         setCreativeTab(MaricultureTab.tabWorld);
     }
 

@@ -3,7 +3,7 @@ package joshie.mariculture.fishery.items;
 import java.util.List;
 
 import joshie.mariculture.core.items.ItemBattery;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -41,9 +41,9 @@ public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (stack.stackTagCompound == null) return;
 
-        list.add(Translate.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + capacity + " " + Translate.translate("rf"));
-        list.add(Translate.translate("transfer") + ": " + maxReceive + " " + Translate.translate("rft"));
-        list.add(Translate.translate("peruse") + ": " + maxExtract + " " + Translate.translate("rf"));
+        list.add(MCTranslate.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + capacity + " " + MCTranslate.translate("rf"));
+        list.add(MCTranslate.translate("transfer") + ": " + maxReceive + " " + MCTranslate.translate("rft"));
+        list.add(MCTranslate.translate("peruse") + ": " + maxExtract + " " + MCTranslate.translate("rf"));
     }
 
     @Override

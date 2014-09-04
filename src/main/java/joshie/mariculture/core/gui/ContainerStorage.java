@@ -2,7 +2,7 @@ package joshie.mariculture.core.gui;
 
 import java.util.Random;
 
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
@@ -17,7 +17,7 @@ public class ContainerStorage extends ContainerMariculture {
     public ContainerStorage(IInventory inventory, InventoryStorage storage, World world, int offset) {
         this.storage = storage;
 
-        ItemStorage item = (ItemStorage) storage.player.getCurrentEquippedItem().getItem();
+        ItemMCStorage item = (ItemMCStorage) storage.player.getCurrentEquippedItem().getItem();
         for (int i = 0; i < item.size; i++) {
             addSlotToContainer(item.getSlot(storage, i));
         }
@@ -80,7 +80,7 @@ public class ContainerStorage extends ContainerMariculture {
 
             if (slotID < size) {
                 if (!mergeItemStack(stack, size, high, true)) return null;
-            } else if (!(stack.getItem() instanceof ItemStorage) && ((ItemStorage) player.getCurrentEquippedItem().getItem()).isItemValid(stack)) {
+            } else if (!(stack.getItem() instanceof ItemMCStorage) && ((ItemMCStorage) player.getCurrentEquippedItem().getItem()).isItemValid(stack)) {
                 if (!mergeItemStack(stack, 0, storage.getSizeInventory(), false)) return null;
             } else if (slotID >= size && slotID < low) {
                 if (!mergeItemStack(stack, low, high, false)) return null;

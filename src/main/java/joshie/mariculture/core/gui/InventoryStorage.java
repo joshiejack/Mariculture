@@ -1,6 +1,6 @@
 package joshie.mariculture.core.gui;
 
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
@@ -125,8 +125,8 @@ public class InventoryStorage implements IInventory {
     public ItemStack[] load(EntityPlayer player, int size) {
         if (!player.worldObj.isRemote) {
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() instanceof ItemStorage) {
-                ItemStorage storage = (ItemStorage) stack.getItem();
+            if (stack != null && stack.getItem() instanceof ItemMCStorage) {
+                ItemMCStorage storage = (ItemMCStorage) stack.getItem();
                 return storage.load(player, stack, size);
             }
         }
@@ -135,8 +135,8 @@ public class InventoryStorage implements IInventory {
     }
 
     public void save(EntityPlayer player, ItemStack[] mirrorContents) {
-        if (!player.worldObj.isRemote) if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemStorage) {
-            ItemStorage storage = (ItemStorage) player.getCurrentEquippedItem().getItem();
+        if (!player.worldObj.isRemote) if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemMCStorage) {
+            ItemMCStorage storage = (ItemMCStorage) player.getCurrentEquippedItem().getItem();
             storage.save(player, mirrorContents);
         }
     }

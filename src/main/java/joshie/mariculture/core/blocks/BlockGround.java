@@ -5,7 +5,7 @@ import java.util.Random;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.helpers.BlockHelper;
 import joshie.mariculture.core.lib.Dye;
 import joshie.mariculture.core.lib.Extra;
@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockGround extends BlockDecorative {
+public class BlockGround extends BlockMCBaseMeta {
     public BlockGround() {
         super(Material.sand);
     }

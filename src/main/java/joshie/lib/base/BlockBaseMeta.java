@@ -1,4 +1,4 @@
-package joshie.mariculture.core.blocks.base;
+package joshie.lib.base;
 
 import java.util.List;
 import java.util.Random;
@@ -6,8 +6,6 @@ import java.util.Random;
 import joshie.lib.util.IHasMetaBlock;
 import joshie.lib.util.IHasMetaItem;
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.MaricultureTab;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,70 +17,54 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BlockDecorative extends Block implements IHasMetaBlock {
+public abstract class BlockBaseMeta extends BlockBase implements IHasMetaBlock {
     @SideOnly(Side.CLIENT)
     protected IIcon[] icons;
     protected String prefix;
-
-    public BlockDecorative(Material material) {
-        super(material);
-        setCreativeTab(MaricultureTab.tabCore);
+    
+    protected BlockBaseMeta(Material material, String mod, CreativeTabs tab) {
+        super(material, mod, tab);
         for (int i = 0; i < getMetaCount(); i++) {
             setHarvestLevel(getToolType(i), getToolLevel(i), i);
         }
     }
-
+    
     public abstract String getToolType(int meta);
-
     public abstract int getToolLevel(int meta);
 
     @Override
-    public abstract int getMetaCount();
-
-    public boolean isActive(int meta) {
-        return true;
+    public Class<? extends ItemBlock> getItemClass() {
+        return null;
     }
-
-    public boolean isValidTab(CreativeTabs tab, int meta) {
-        return tab == MaricultureTab.tabCore;
-    }
-
-    @Override
-    public int damageDropped(int i) {
-        return i;
-    }
-
+    
     @Override
     public Item getItemDropped(int meta, Random rand, int side) {
         return !doesDrop(meta) ? null : super.getItemDropped(meta, rand, side);
     }
-
-    //Whether this meta should drop or not
+    
     public boolean doesDrop(int meta) {
         return true;
     }
-
+    
     @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs creative, List list) {
-        for (int meta = 0; meta < getMetaCount(); ++meta)
-            if (isActive(meta) && isValidTab(creative, meta)) {
-                list.add(new ItemStack(item, 1, meta));
-            }
+    public int damageDropped(int damage) {
+        return damage;
     }
-
+    
     @Override
     public IIcon getIcon(int side, int meta) {
-        if (blockIcon != null) return blockIcon;
-        if (icons == null) return Blocks.stone.getIcon(side, meta);
-        if (meta < getMetaCount()) return icons[meta];
-        else return icons[0];
+        if(blockIcon != null) return blockIcon;
+        else if (icons == null) return Blocks.stone.getIcon(side, meta);
+        else {
+            IIcon icon = icons[meta < icons.length ? meta : 0];
+            return icon != null? icon: Blocks.stone.getIcon(side, meta);
+        }
     }
-
+    
     protected String getName(int i) {
         return ((IHasMetaItem) Item.getItemFromBlock(this)).getName(new ItemStack(this, 1, i));
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
@@ -94,8 +76,21 @@ public abstract class BlockDecorative extends Block implements IHasMetaBlock {
         }
     }
 
+    public boolean isValidTab(CreativeTabs tab, int meta) {
+        return tab == getCreativeTabToDisplayOn();
+    }
+
+    public boolean isActive(int damage) {
+        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
     @Override
-    public Class<? extends ItemBlock> getItemClass() {
-        return null;
+    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+        for (int i = 0; i < getMetaCount(); i++) {
+            if (isActive(i) && isValidTab(tab, i)) {
+                list.add(new ItemStack(item, 1, i));
+            }
+        }
     }
 }

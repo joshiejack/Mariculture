@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemBottle extends ItemMariculture {
+public class ItemBottle extends ItemMCMeta {
     @Override
     public boolean hasContainerItem(ItemStack stack) {
         return stack.getItemDamage() != BottleMeta.EMPTY && stack.getItemDamage() != BottleMeta.VOID;

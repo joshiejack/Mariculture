@@ -1,14 +1,12 @@
 package joshie.mariculture.core.items;
 
-import java.util.List;
-
 import joshie.lib.helpers.ClientHelper;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.config.GeneralStuff;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.core.lib.Modules;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.world.WorldPlus;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.boss.EntityDragon;
@@ -17,10 +15,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCrafting extends ItemMariculture implements IEnergyContainerItem {
+public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
     @Override
     public int getMetaCount() {
         return CraftingMeta.COUNT;
@@ -100,17 +96,17 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
             String prefix = "";
             int temperature = 0;
             if (isSneaking) {
-                prefix = Translate.translate("temperature.generic");
+                prefix = MCTranslate.translate("temperature.generic");
                 temperature = MaricultureHandlers.environment.getBiomeTemperature(world, x, y, z);
             } else {
-                prefix = Translate.translate("temperature.precise");
+                prefix = MCTranslate.translate("temperature.precise");
                 temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
             }
 
-            if (world.isDaytime()) ClientHelper.addToChat(Translate.translate("time") + " " + Translate.translate("time.day"));
-            else ClientHelper.addToChat(Translate.translate("time") + " " + Translate.translate("time.night"));
+            if (world.isDaytime()) ClientHelper.addToChat(MCTranslate.translate("time") + " " + MCTranslate.translate("time.day"));
+            else ClientHelper.addToChat(MCTranslate.translate("time") + " " + MCTranslate.translate("time.night"));
             ClientHelper.addToChat(prefix + ": " + temperature + joshie.lib.util.Text.DEGREES);
-            ClientHelper.addToChat(Translate.translate("environment.salinity") + ": " + Translate.translate("salinity." + MaricultureHandlers.environment.getSalinity(world, x, z).name().toLowerCase()));
+            ClientHelper.addToChat(MCTranslate.translate("environment.salinity") + ": " + MCTranslate.translate("salinity." + MaricultureHandlers.environment.getSalinity(world, x, z).name().toLowerCase()));
         }
     }
 
@@ -143,27 +139,12 @@ public class ItemCrafting extends ItemMariculture implements IEnergyContainerIte
         }
     }
 
-    private boolean isValidTab(CreativeTabs creative, int meta) {
+    @Override
+    public boolean isValidTab(CreativeTabs creative, int meta) {
         if (meta == CraftingMeta.BLANK_PLAN) return creative == MaricultureTab.tabFactory;
         if (meta == CraftingMeta.SEEDS_KELP) return creative == MaricultureTab.tabWorld;
         if (meta == CraftingMeta.THERMOMETER) return creative == MaricultureTab.tabFishery;
         return creative == MaricultureTab.tabCore;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creative, List list) {
-        for (int meta = 0; meta < getMetaCount(); ++meta)
-            if (isActive(meta) && isValidTab(creative, meta)) {
-                list.add(new ItemStack(item, 1, meta));
-            }
-
-        return;
-    }
-
-    @Override
-    public CreativeTabs[] getCreativeTabs() {
-        return new CreativeTabs[] { MaricultureTab.tabCore, MaricultureTab.tabFactory, MaricultureTab.tabFishery, MaricultureTab.tabWorld };
     }
 
     //Used for the creative battery ;D//

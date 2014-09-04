@@ -2,26 +2,21 @@ package joshie.mariculture.core.items;
 
 import java.util.List;
 
-import joshie.lib.util.IHasMetaItem;
-import joshie.mariculture.Mariculture;
+import joshie.lib.base.ItemBaseEnergy;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.util.Translate;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import joshie.mariculture.core.lib.MCModInfo;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import cofh.api.energy.ItemEnergyContainer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBattery extends ItemEnergyContainer implements IHasMetaItem {
+public class ItemBattery extends ItemBaseEnergy {
     public ItemBattery(int capacity, int maxReceive, int maxExtract) {
-        super(capacity, maxReceive, maxExtract);
-        setCreativeTab(MaricultureTab.tabCore);
-        setHasSubtypes(true);
-        setMaxStackSize(1);
+        super(MCModInfo.MODPATH, MaricultureTab.tabCore, capacity, maxReceive, maxExtract);
     }
 
     public static ItemStack make(ItemStack stack, int power) {
@@ -32,14 +27,6 @@ public class ItemBattery extends ItemEnergyContainer implements IHasMetaItem {
         stack.stackTagCompound.setInteger("Energy", power);
 
         return stack.copy();
-    }
-
-    @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        String theName, name = getUnlocalizedName().substring(5);
-        String[] aName = name.split("\\.");
-        theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
     }
 
     @Override
@@ -62,9 +49,8 @@ public class ItemBattery extends ItemEnergyContainer implements IHasMetaItem {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (stack.stackTagCompound == null) return;
-
-        list.add(Translate.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + capacity + " " + Translate.translate("rf"));
-        list.add(Translate.translate("transfer") + ": " + maxExtract + " " + Translate.translate("rft"));
+        list.add(MCTranslate.translate("charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + capacity + " " + MCTranslate.translate("rf"));
+        list.add(MCTranslate.translate("transfer") + ": " + maxExtract + " " + MCTranslate.translate("rft"));
     }
 
     @Override
@@ -73,15 +59,5 @@ public class ItemBattery extends ItemEnergyContainer implements IHasMetaItem {
         ItemStack battery = new ItemStack(item, 1, 0);
         list.add(make(battery, 0));
         list.add(make(battery, capacity));
-    }
-
-    @Override
-    public int getMetaCount() {
-        return 1;
-    }
-
-    @Override
-    public String getName(ItemStack stack) {
-        return getUnlocalizedName().substring(5);
     }
 }

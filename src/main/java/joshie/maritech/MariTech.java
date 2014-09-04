@@ -9,7 +9,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = MODID, name = MODNAME, dependencies = "required-after:Mariculture@[1.2.4,);")
+@Mod(modid = MODID, name = MODNAME/*, dependencies = "required-after:Mariculture@[1.2.4,);"*/)
 public class MariTech {
     @Instance(MODID)
     public static MariTech instance;

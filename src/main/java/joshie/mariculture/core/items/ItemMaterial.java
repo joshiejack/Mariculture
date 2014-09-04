@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMaterial extends ItemMariculture {
+public class ItemMaterial extends ItemMCMeta {
     @Override
     public int getMetaCount() {
         return MaterialsMeta.COUNT;
@@ -127,22 +127,7 @@ public class ItemMaterial extends ItemMariculture {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creative, List list) {
-        for (int meta = 0; meta < getMetaCount(); ++meta)
-            if (isActive(meta) && isValidTab(creative, meta)) {
-                list.add(new ItemStack(item, 1, meta));
-            }
-
-        return;
-    }
-
-    private boolean isValidTab(CreativeTabs creative, int meta) {
+    public boolean isValidTab(CreativeTabs creative, int meta) {
         return meta == MaterialsMeta.FISH_MEAL && creative == MaricultureTab.tabFishery ? true : creative == MaricultureTab.tabCore;
-    }
-
-    @Override
-    public CreativeTabs[] getCreativeTabs() {
-        return new CreativeTabs[] { MaricultureTab.tabCore, MaricultureTab.tabFishery };
     }
 }

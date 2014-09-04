@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class BlockFunctional extends BlockDecorative {
+public abstract class BlockFunctional extends BlockMCBaseMeta {
     public BlockFunctional(Material material) {
         super(material);
     }

@@ -2,8 +2,8 @@ package joshie.mariculture.core.items;
 
 import java.util.List;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.BlockHelper;
 import joshie.mariculture.core.helpers.FluidHelper;
@@ -15,13 +15,11 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidBase;
@@ -35,20 +33,17 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFluidStorage extends Item implements IFluidContainerItem {
+public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContainerItem {
     public int capacity;
     private IIcon filledIcon;
 
     public ItemFluidStorage(int capacity) {
         this.capacity = capacity;
-        setCreativeTab(MaricultureTab.tabFactory);
-        setMaxStackSize(1);
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player) {
         MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
-
         if (movingobjectposition == null) return item;
         else if (movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
             IFluidContainerItem container = (IFluidContainerItem) item.getItem();
@@ -63,18 +58,22 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
                 if (block instanceof BlockFluidBase) {
                     fluid = ((BlockFluidBase) block).drain(world, x, y, z, false);
                 }
+
                 if (BlockHelper.isWater(world, x, y, z)) {
                     fluid = FluidRegistry.getFluidStack("water", 1000);
                 }
+
                 if (BlockHelper.isLava(world, x, y, z)) {
                     fluid = FluidRegistry.getFluidStack("lava", 1000);
                 }
+
                 if (fluid != null) if (container.fill(item, fluid, false) >= fluid.amount) {
                     if (block instanceof BlockFluidBase) {
                         ((BlockFluidBase) block).drain(world, x, y, z, true);
                     } else {
                         world.setBlockToAir(x, y, z);
                     }
+
                     container.fill(item, fluid, true);
                     return item;
                 }
@@ -99,18 +98,23 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
                     if (side == 0) {
                         --y;
                     }
+
                     if (side == 1) {
                         ++y;
                     }
+
                     if (side == 2) {
                         --z;
                     }
+
                     if (side == 3) {
                         ++z;
                     }
+
                     if (side == 4) {
                         --x;
                     }
+
                     if (side == 5) {
                         ++x;
                     }
@@ -179,7 +183,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return joshie.lib.util.Text.ORANGE + ("" + StatCollector.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+        return Text.ORANGE + super.getItemStackDisplayName(stack);
     }
 
     @Override
@@ -188,6 +192,7 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
         int amount = fluid == null ? 0 : fluid.amount;
         list.add(FluidHelper.getFluidName(fluid));
         list.add("" + amount + "/" + capacity + "mB");
+        System.out.println(filledIcon.getIconName());
     }
 
     @Override
@@ -197,16 +202,18 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
 
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
-        if (stack.getItem() == Core.bucketTitanium) if (pass == 0) {
-            if (stack.hasTagCompound() && getFluid(stack) != null) {
-                FluidStack fake = getFluid(stack).copy();
-                fake.amount = OreDictionary.WILDCARD_VALUE;
-                ItemStack bucket = FluidContainerRegistry.fillFluidContainer(fake, new ItemStack(Items.bucket));
-                if (bucket != null) return bucket.getIconIndex();
-            }
+        if (stack.getItem() == Core.bucketTitanium) {
+            if (pass == 0) {
+                if (stack.hasTagCompound() && getFluid(stack) != null) {
+                    FluidStack fake = getFluid(stack).copy();
+                    fake.amount = OreDictionary.WILDCARD_VALUE;
+                    ItemStack bucket = FluidContainerRegistry.fillFluidContainer(fake, new ItemStack(Items.bucket));
+                    if (bucket != null) return bucket.getIconIndex();
+                }
 
-            return itemIcon;
-        } else return filledIcon;
+                return itemIcon;
+            } else return filledIcon;
+        }
 
         return itemIcon;
     }
@@ -214,16 +221,10 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        String theName, name = this.getUnlocalizedName().substring(5);
-        String[] aName = name.split("\\.");
-        if (aName.length >= 2) {
-            theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-        } else {
-            theName = name;
-        }
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
+        super.registerIcons(iconRegister);
         if (this == Core.bucketTitanium) {
-            filledIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName + "Filled");
+            String name = super.getUnlocalizedName().replace("item.", "").toLowerCase();
+            filledIcon = iconRegister.registerIcon(Mariculture.modid + ":bucketTitaniumFilled");
         }
     }
 
@@ -235,7 +236,6 @@ public class ItemFluidStorage extends Item implements IFluidContainerItem {
     @Override
     public FluidStack getFluid(ItemStack container) {
         if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Fluid")) return null;
-
         return FluidStack.loadFluidStackFromNBT(container.stackTagCompound.getCompoundTag("Fluid"));
     }
 

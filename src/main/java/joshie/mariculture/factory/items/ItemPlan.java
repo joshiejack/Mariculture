@@ -2,9 +2,10 @@ package joshie.mariculture.factory.items;
 
 import java.util.List;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.items.ItemMariculture;
+import joshie.mariculture.core.items.ItemMCMeta;
 import joshie.mariculture.core.lib.PlansMeta;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,7 +15,7 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPlan extends ItemMariculture {
+public class ItemPlan extends ItemMCMeta {
     public ItemPlan() {
         setMaxDamage(64);
         setMaxStackSize(1);
@@ -95,6 +96,12 @@ public class ItemPlan extends ItemMariculture {
         if (stack.hasTagCompound()) return icons[PlansMeta.getType(stack)];
 
         return icons[0];
+    }
+    
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String name = getName(stack).replaceAll("(.)([A-Z])", "$1$2").toLowerCase();
+        return Text.localize(getUnlocalizedName() + "." + name.replace("plan_", ""));
     }
 
     @Override

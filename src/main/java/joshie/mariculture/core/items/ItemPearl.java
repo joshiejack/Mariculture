@@ -2,12 +2,13 @@ package joshie.mariculture.core.items;
 
 import java.util.Random;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.core.lib.PearlColor;
 import joshie.mariculture.magic.Magic;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 
-public class ItemPearl extends ItemMariculture {
+public class ItemPearl extends ItemMCMeta {
     @Override
     public int getMetaCount() {
         return PearlColor.COUNT;
@@ -21,6 +22,12 @@ public class ItemPearl extends ItemMariculture {
     @Override
     public boolean isItemTool(ItemStack stack) {
         return true;
+    }
+    
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String name = getName(stack).replace("pearl", "").replaceAll("(.)([A-Z])", "$1.$2").toLowerCase();
+        return Text.localize(getUnlocalizedName() + "." + name);
     }
 
     @Override

@@ -194,7 +194,7 @@ public class Fishery extends RegistrationModule {
         droplet = new ItemDroplet().setUnlocalizedName("droplet");
         fishinghat = new ItemArmorFishingHat(armorFishing, RenderIds.FISHING, 0).setUnlocalizedName("fishinghat");
 
-        RegistryHelper.registerItems(new Item[] { bait, rodWood, rodReed, rodTitanium, fishy, net, rodFlux, scanner, fishEggs, tempControl, droplet, fishinghat });
+        RegistryHelper.registerItems(new Item[] { rodWood, rodReed, rodTitanium, rodFlux });
     }
 
     @Override
@@ -245,7 +245,6 @@ public class Fishery extends RegistrationModule {
         FluidHelper.setBlock(BlockChlorophyll.class, "chlorophyll");
         lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lamps.off");
         lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lamps.on");
-        RegistryHelper.registerBlocks(new Block[] { lampsOff, lampsOn });
         RegistryHelper.registerTiles("Mariculture", new Class[] { TileAutofisher.class, TileIncubator.class, TileFeeder.class, TileFishTank.class, TileSifter.class, TileHatchery.class });
     }
 

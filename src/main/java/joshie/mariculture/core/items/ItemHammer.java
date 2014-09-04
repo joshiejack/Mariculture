@@ -1,11 +1,13 @@
 package joshie.mariculture.core.items;
 
+import joshie.lib.base.ItemBasePickaxe;
 import joshie.lib.helpers.DirectionHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.cofh.BlockHelper;
 import joshie.mariculture.core.lib.CraftingMeta;
+import joshie.mariculture.core.lib.MCModInfo;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.core.tile.TileAnvil;
 import joshie.mariculture.core.util.IHasGUI;
@@ -17,7 +19,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -28,11 +29,9 @@ import com.google.common.collect.Multimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemHammer extends ItemPickaxe {
-    public ItemHammer(ToolMaterial brick) {
-        super(brick);
-        setHarvestLevel("pickaxe", 0);
-        setCreativeTab(MaricultureTab.tabFactory);
+public class ItemHammer extends ItemBasePickaxe {
+    public ItemHammer(ToolMaterial material) {
+        super(MCModInfo.MODPATH, MaricultureTab.tabFactory, material);
     }
 
     @Override

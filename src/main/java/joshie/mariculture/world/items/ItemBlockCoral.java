@@ -1,8 +1,10 @@
-package joshie.mariculture.world;
+package joshie.mariculture.world.items;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.CoralMeta;
+import joshie.mariculture.world.BlockCoral;
+import joshie.mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,11 +16,11 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCoralItem extends ItemBlockMariculture {
+public class ItemBlockCoral extends ItemBlockMariculture {
     private IIcon[] icons;
     private Block spawnBlock;
 
-    public BlockCoralItem(Block block) {
+    public ItemBlockCoral(Block block) {
         super(block);
         spawnBlock = block;
     }

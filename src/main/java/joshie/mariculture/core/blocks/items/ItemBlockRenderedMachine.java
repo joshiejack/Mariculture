@@ -1,12 +1,12 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockRenderedMachineItem extends ItemBlockMariculture {
-    public BlockRenderedMachineItem(Block block) {
+public class ItemBlockRenderedMachine extends ItemBlockMariculture {
+    public ItemBlockRenderedMachine(Block block) {
         super(block);
     }
 

@@ -2,13 +2,13 @@ package joshie.mariculture.fishery.items;
 
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.gui.InventoryStorage;
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import joshie.mariculture.fishery.gui.ContainerScanner;
 import joshie.mariculture.fishery.gui.GuiScanner;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 
-public class ItemScanner extends ItemStorage {
+public class ItemScanner extends ItemMCStorage {
     public ItemScanner() {
         super(1, "scanner");
         setCreativeTab(MaricultureTab.tabFishery);

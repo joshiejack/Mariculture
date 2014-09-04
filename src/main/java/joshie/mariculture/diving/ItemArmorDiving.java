@@ -1,23 +1,19 @@
 package joshie.mariculture.diving;
 
 import joshie.lib.util.Library;
-import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.OreDicHelper;
+import joshie.mariculture.core.items.ItemMCBaseArmor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemArmorDiving extends ItemArmor implements IDisablesHardcoreDiving {
+public class ItemArmorDiving extends ItemMCBaseArmor {
     public ItemArmorDiving(ArmorMaterial material, int j, int k) {
         super(material, j, k);
         setCreativeTab(MaricultureTab.tabWorld);
@@ -26,7 +22,6 @@ public class ItemArmorDiving extends ItemArmor implements IDisablesHardcoreDivin
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
         if (stack.getItem() == Diving.divingPants) return "mariculture:" + "textures/armor/diving" + "_2.png";
-
         return "mariculture:" + "textures/armor/diving" + "_1.png";
     }
 
@@ -59,18 +54,5 @@ public class ItemArmorDiving extends ItemArmor implements IDisablesHardcoreDivin
         }
 
         return stack;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        String theName, name = getUnlocalizedName().substring(5);
-        String[] aName = name.split("\\.");
-        if (aName.length == 2) {
-            theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-        } else {
-            theName = name;
-        }
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
     }
 }

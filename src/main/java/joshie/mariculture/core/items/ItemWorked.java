@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemWorked extends ItemDamageable {
+public class ItemWorked extends ItemMCDamageable {
     public IIcon crack;
 
     public ItemWorked() {

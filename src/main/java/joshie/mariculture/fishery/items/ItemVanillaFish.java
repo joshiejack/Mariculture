@@ -9,7 +9,7 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.core.config.Vanilla;
 import joshie.mariculture.core.lib.Extra;
 import joshie.mariculture.core.lib.Modules;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.FishyHelper;
 import joshie.mariculture.plugins.PluginHungerOverhaul;
 import net.minecraft.creativetab.CreativeTabs;
@@ -40,7 +40,7 @@ public class ItemVanillaFish extends ItemFishFood {
         if (Fishing.fishHelper == null) return super.getItemStackDisplayName(stack);
         if (Vanilla.VANILLA_TEXTURES && stack.getItemDamage() < LAST_VANILLA) return super.getItemStackDisplayName(stack);
         FishSpecies species = Fishing.fishHelper.getSpecies(stack.getItemDamage());
-        if (species == null) return Translate.translate("anyFish");
+        if (species == null) return MCTranslate.translate("anyFish");
         return StatCollector.translateToLocal("fish.data.dead") + " " + Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
     }
 

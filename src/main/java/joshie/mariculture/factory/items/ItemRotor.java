@@ -3,7 +3,7 @@ package joshie.mariculture.factory.items;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.cofh.BlockHelper;
-import joshie.mariculture.core.items.ItemDamageable;
+import joshie.mariculture.core.items.ItemMCDamageable;
 import joshie.mariculture.factory.tile.TileGenerator;
 import joshie.mariculture.factory.tile.TileRotor;
 import net.minecraft.item.ItemStack;
@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ItemRotor extends ItemDamageable {
+public class ItemRotor extends ItemMCDamageable {
     private int meta;
 
     public ItemRotor(int dmg, int meta) {

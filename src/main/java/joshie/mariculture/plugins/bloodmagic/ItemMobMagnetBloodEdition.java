@@ -25,10 +25,6 @@ public class ItemMobMagnetBloodEdition extends ItemMobMagnet {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (!stack.hasTagCompound()) {
-            if (!stack.stackTagCompound.getString("ownerName").equals("")) {
-                list.add("Current owner: " + stack.stackTagCompound.getString("ownerName"));
-            }
-
             list.add(StatCollector.translateToLocal("mariculture.string.noBound1"));
             list.add(StatCollector.translateToLocal("mariculture.string.noBound2"));
             return;

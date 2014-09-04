@@ -6,7 +6,7 @@ import java.util.Random;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.AirMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,7 +26,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockAir extends BlockDecorative {
+public class BlockAir extends BlockMCBaseMeta {
     public static ArrayList<Block> flammables = new ArrayList();
     public IIcon theIcon;
 

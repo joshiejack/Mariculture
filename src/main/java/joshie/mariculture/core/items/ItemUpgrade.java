@@ -2,10 +2,12 @@ package joshie.mariculture.core.items;
 
 import java.util.List;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.IItemUpgrade;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.UpgradeMeta;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +16,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
+public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public ItemUpgrade() {
         maxStackSize = 1;
     }
@@ -275,14 +277,15 @@ public class ItemUpgrade extends ItemMariculture implements IItemUpgrade {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        switch (stack.getItemDamage()) {
-            case UpgradeMeta.ETERNAL_MALE:
-                return StatCollector.translateToLocal("item.upgrade.eternal.life") + "\u2642" + " " + StatCollector.translateToLocal("item.upgrade.eternal.upgrade");
-            case UpgradeMeta.ETERNAL_FEMALE:
-                return StatCollector.translateToLocal("item.upgrade.eternal.life") + "\u2640" + " " + StatCollector.translateToLocal("item.upgrade.eternal.upgrade");
-            default:
-                return ("" + StatCollector.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name")).trim();
-        }
+        int damage = stack.getItemDamage();
+        if(damage == UpgradeMeta.ETERNAL_MALE || damage == UpgradeMeta.ETERNAL_FEMALE) {
+            String format = MCTranslate.translate("upgrade.format");
+            String eternal = MCTranslate.translate("upgrade.eternal");
+            String upgrade = MCTranslate.translate("upgrade.name");
+            format = format.replace("%E", eternal);
+            format = damage == UpgradeMeta.ETERNAL_MALE? format.replace("%S", "\u2642"): format.replace("%S", "\u2640");
+            return format.replace("%U", upgrade);
+        } else return super.getItemStackDisplayName(stack);
     }
 
     @Override

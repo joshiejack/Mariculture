@@ -1,7 +1,7 @@
 package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.LimestoneMeta;
 import joshie.mariculture.core.lib.Modules;
 import net.minecraft.block.Block;
@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockLimestone extends BlockDecorative {
+public class BlockLimestone extends BlockMCBaseMeta {
     public BlockLimestone() {
         super(Material.rock);
         prefix = "limestone";

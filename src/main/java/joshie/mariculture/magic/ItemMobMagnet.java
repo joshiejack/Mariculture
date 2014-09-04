@@ -4,7 +4,7 @@ import java.util.List;
 
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.handlers.LogHandler;
-import joshie.mariculture.core.items.ItemDamageable;
+import joshie.mariculture.core.items.ItemMCDamageable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Level;
 
 /** Mob Magnet, On Right Click, Teleports all mobs within 64 x 64 blocks around the player of the type to an area near you
  * You must first kill a mob of the type you want first, in order to teleport them all to you **/
-public class ItemMobMagnet extends ItemDamageable {
+public class ItemMobMagnet extends ItemMCDamageable {
     public ItemMobMagnet(int dmg) {
         super(dmg);
         setCreativeTab(MaricultureTab.tabMagic);

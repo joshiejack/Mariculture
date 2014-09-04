@@ -2,7 +2,7 @@ package joshie.mariculture.factory.items;
 
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.items.ItemDamageable;
+import joshie.mariculture.core.items.ItemMCDamageable;
 import joshie.mariculture.core.lib.AirMeta;
 import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.tile.TileCustom;
@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ItemPaintbrush extends ItemDamageable {
+public class ItemPaintbrush extends ItemMCDamageable {
     public ItemPaintbrush(int dmg) {
         super(dmg);
         setCreativeTab(MaricultureTab.tabFactory);

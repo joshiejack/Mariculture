@@ -4,7 +4,7 @@ import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.PlayerHelper;
-import joshie.mariculture.core.items.ItemDamageable;
+import joshie.mariculture.core.items.ItemMCDamageable;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.core.lib.PlansMeta;
 import joshie.mariculture.factory.Factory;
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemChalk extends ItemDamageable {
+public class ItemChalk extends ItemMCDamageable {
     public ItemChalk(int dmg) {
         super(dmg);
         setCreativeTab(MaricultureTab.tabFactory);

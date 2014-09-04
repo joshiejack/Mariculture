@@ -5,14 +5,14 @@ import java.util.List;
 import joshie.mariculture.api.core.IItemUpgrade;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.gui.InventoryStorage;
-import joshie.mariculture.core.items.ItemStorage;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.items.ItemMCStorage;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ItemTemperatureControl extends ItemStorage implements IItemUpgrade {
+public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrade {
     private static final int SIZE = 5;
 
     public ItemTemperatureControl() {
@@ -51,7 +51,7 @@ public class ItemTemperatureControl extends ItemStorage implements IItemUpgrade 
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        list.add(joshie.lib.util.Text.DARK_GREEN + Translate.translate("temp.control"));
+        list.add(joshie.lib.util.Text.DARK_GREEN + MCTranslate.translate("temp.control"));
         if (stack.hasTagCompound()) {
             int temp = getTemperature(stack);
             if (temp != 0) {

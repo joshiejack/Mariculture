@@ -3,8 +3,8 @@ package joshie.mariculture.diving;
 import java.util.List;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
+import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.diving.render.ModelFlippers;
 import net.minecraft.client.model.ModelBiped;
@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
@@ -20,11 +19,9 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemArmorScuba extends ItemArmor implements IDisablesHardcoreDiving {
-
+public class ItemArmorScuba extends ItemMCBaseArmor {
     public ItemArmorScuba(ArmorMaterial material, int j, int k) {
         super(material, j, k);
-        setCreativeTab(MaricultureTab.tabWorld);
     }
 
     @Override
@@ -77,18 +74,5 @@ public class ItemArmorScuba extends ItemArmor implements IDisablesHardcoreDiving
         }
 
         return stack;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        String theName, name = getUnlocalizedName().substring(5);
-        String[] aName = name.split("\\.");
-        if (aName.length == 2) {
-            theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-        } else {
-            theName = name;
-        }
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
     }
 }

@@ -29,7 +29,6 @@ public class Transport extends RegistrationModule {
     @Override
     public void registerItems() {
         speedBoat = new ItemSpeedBoat().setUnlocalizedName("boat.speed");
-        RegistryHelper.registerItems(new Item[] { speedBoat });
     }
 
     @Override

@@ -8,7 +8,7 @@ import joshie.lib.util.IHasMetaBlock;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.config.Gardening;
 import joshie.mariculture.core.helpers.BlockHelper;
 import joshie.mariculture.core.lib.CoralMeta;
@@ -31,7 +31,7 @@ import net.minecraftforge.common.IPlantable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCoral extends BlockDecorative implements IPlantable, IHasMetaBlock {
+public class BlockCoral extends BlockMCBaseMeta implements IPlantable, IHasMetaBlock {
     protected BlockCoral(boolean tick, String prefix) {
         super(Material.water);
         float f = 0.375F;

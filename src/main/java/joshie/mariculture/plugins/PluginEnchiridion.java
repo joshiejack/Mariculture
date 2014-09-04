@@ -35,8 +35,7 @@ public class PluginEnchiridion extends Plugin {
     public void preInit() {
         handler = new EventHandler();
         guides = new ItemGuide().setUnlocalizedName("guide");
-        RegistryHelper.registerItems(new Item[] { guides });
-
+        
         RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.PROCESSING), new ItemStack(Core.crafting, 1, CraftingMeta.BURNT_BRICK));
         if (Modules.isActive(Modules.diving)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));

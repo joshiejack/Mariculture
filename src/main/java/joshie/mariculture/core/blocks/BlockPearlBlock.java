@@ -1,10 +1,10 @@
 package joshie.mariculture.core.blocks;
 
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.PearlColor;
 import net.minecraft.block.material.Material;
 
-public class BlockPearlBlock extends BlockDecorative {
+public class BlockPearlBlock extends BlockMCBaseMeta {
     public BlockPearlBlock(String prefix) {
         super(Material.rock);
         setResistance(20F);

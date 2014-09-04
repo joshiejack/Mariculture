@@ -1,20 +1,15 @@
 package joshie.mariculture.core.items;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.gui.ContainerStorage;
 import joshie.mariculture.core.gui.GuiStorage;
 import joshie.mariculture.core.gui.InventoryStorage;
 import joshie.mariculture.core.gui.feature.Feature;
 import joshie.mariculture.core.handlers.LogHandler;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -22,45 +17,27 @@ import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-public class ItemStorage extends Item {
-
+public class ItemMCStorage extends ItemMCBaseSingle {
+    public static final int GUI_ID = 16;
     public int size;
     public String gui;
-    public static final int GUI_ID = 16;
 
-    public ItemStorage(int storage, String gui) {
-        maxStackSize = 1;
+    public ItemMCStorage(int storage, String gui) {
         size = storage;
         this.gui = gui;
-        setCreativeTab(MaricultureTab.tabCore);
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (stack != null) {
             if (!player.isSneaking()) {
-                player.openGui(Mariculture.instance, ItemStorage.GUI_ID, world, 0, 0, 0);
+                player.openGui(Mariculture.instance, ItemMCStorage.GUI_ID, world, 0, 0, 0);
             }
 
             return stack;
         }
 
         return null;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + getUnlocalizedName().substring(5));
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creative, List list) {
-        list.add(new ItemStack(item, 1, 0));
     }
 
     public Slot getSlot(InventoryStorage storage, int i) {

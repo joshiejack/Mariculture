@@ -1,12 +1,12 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.AirMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockAirItem extends ItemBlockMariculture {
-    public BlockAirItem(Block block) {
+public class ItemBlockAir extends ItemBlockMariculture {
+    public ItemBlockAir(Block block) {
         super(block);
     }
 

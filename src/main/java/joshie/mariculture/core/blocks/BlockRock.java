@@ -1,13 +1,13 @@
 package joshie.mariculture.core.blocks;
 
-import joshie.mariculture.core.blocks.base.BlockDecorative;
+import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.RockMeta;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-public class BlockRock extends BlockDecorative {
+public class BlockRock extends BlockMCBaseMeta {
     public BlockRock() {
         super(Material.rock);
     }

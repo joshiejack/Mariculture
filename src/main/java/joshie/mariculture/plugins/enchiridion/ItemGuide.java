@@ -3,7 +3,7 @@ package joshie.mariculture.plugins.enchiridion;
 import java.util.List;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.core.items.ItemMariculture;
+import joshie.mariculture.core.items.ItemMCMeta;
 import joshie.mariculture.core.lib.GuideMeta;
 import joshie.mariculture.core.lib.Modules;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import enchiridion.CreativeTab;
 import enchiridion.Enchiridion;
 
-public class ItemGuide extends ItemMariculture {
+public class ItemGuide extends ItemMCMeta {
     public ItemGuide() {
         setCreativeTab(CreativeTab.books);
     }

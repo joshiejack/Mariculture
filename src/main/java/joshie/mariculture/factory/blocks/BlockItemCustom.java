@@ -4,7 +4,7 @@ import java.util.List;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.PlansMeta;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.factory.Factory;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -157,7 +157,7 @@ public class BlockItemCustom extends ItemBlockMariculture {
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             addTextureInfo(stack, player, list, bool);
         } else {
-            list.add(Translate.getShiftText("custom"));
+            list.add(MCTranslate.getShiftText("custom"));
         }
     }
 

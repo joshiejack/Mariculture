@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.helpers.EnchantHelper;
-import joshie.mariculture.core.items.ItemDamageable;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.items.ItemMCDamageable;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.magic.JewelryHandler;
 import joshie.mariculture.magic.Magic;
 import joshie.mariculture.magic.jewelry.parts.JewelryBinding;
@@ -26,7 +26,7 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemJewelry extends ItemDamageable {
+public abstract class ItemJewelry extends ItemMCDamageable {
     public static final HashMap<String, IIcon> specials = new HashMap();
 
     public static enum JewelryType {
@@ -77,7 +77,7 @@ public abstract class ItemJewelry extends ItemDamageable {
     public String getItemStackDisplayName(ItemStack stack) {
         if (stack.hasTagCompound()) {
             JewelryMaterial material = JewelryHandler.getMaterial(stack);
-            if (material == Magic.dummyMaterial) return Translate.translate("oneRing");
+            if (material == Magic.dummyMaterial) return MCTranslate.translate("oneRing");
             return material.getColor() + material.getCraftingItem(getType()).getDisplayName() + " " + joshie.lib.util.Text.localize(getUnlocalizedName(stack) + ".name");
         }
 
@@ -92,13 +92,13 @@ public abstract class ItemJewelry extends ItemDamageable {
             JewelryBinding binding = JewelryHandler.getBinding(stack);
             list.add(binding.getColor() + StatCollector.translateToLocal("mariculture.string.with") + " " + binding.getCraftingItem(getType()).getDisplayName());
             if (player.worldObj.isRemote && material != Magic.dummyMaterial) if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-                list.add(joshie.lib.util.Text.INDIGO + Translate.translate("stats.jewelry"));
-                list.add(Translate.translate("elemental") + ": " + Translate.translate("elemental." + material.getIdentifier().toLowerCase()));
-                list.add(Translate.translate("max.enchants") + ": " + (type.getMaximumEnchantments() + material.getExtraEnchantments(type)));
-                list.add(Translate.translate("max.level") + ": " + Math.min(binding.getMaxEnchantmentLevel(type), material.getMaximumEnchantmentLevel(type)));
-                list.add(Translate.translate("max.damage") + ": " + getMaxDamage(stack));
+                list.add(joshie.lib.util.Text.INDIGO + MCTranslate.translate("stats.jewelry"));
+                list.add(MCTranslate.translate("elemental") + ": " + MCTranslate.translate("elemental." + material.getIdentifier().toLowerCase()));
+                list.add(MCTranslate.translate("max.enchants") + ": " + (type.getMaximumEnchantments() + material.getExtraEnchantments(type)));
+                list.add(MCTranslate.translate("max.level") + ": " + Math.min(binding.getMaxEnchantmentLevel(type), material.getMaximumEnchantmentLevel(type)));
+                list.add(MCTranslate.translate("max.damage") + ": " + getMaxDamage(stack));
             } else {
-                list.add(Translate.getShiftText("jewelry"));
+                list.add(MCTranslate.getShiftText("jewelry"));
             }
         }
 

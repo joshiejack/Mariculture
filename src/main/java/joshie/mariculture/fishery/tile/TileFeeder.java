@@ -22,7 +22,7 @@ import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.core.network.PacketSyncFeeder;
 import joshie.mariculture.core.tile.base.TileMachineTank;
 import joshie.mariculture.core.util.IHasNotification;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.Fish;
 import joshie.mariculture.fishery.FishFoodHandler;
 import joshie.mariculture.fishery.FishyHelper;
@@ -414,17 +414,17 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             if (!MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) {
                 FishSpecies species = FishSpecies.species.get(Fish.species.getDNA(fish));
                 if (!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isValidDimensionForWork(worldObj)) {
-                    noBad = addToolTip(tooltip, Translate.translate("badWorld"));
+                    noBad = addToolTip(tooltip, MCTranslate.translate("badWorld"));
                 }
 
                 int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
                 if (temperature < species.temperature[0]) {
                     int required = species.temperature[0] - temperature;
-                    noBad = addToolTip(tooltip, Translate.translate("tooCold"));
+                    noBad = addToolTip(tooltip, MCTranslate.translate("tooCold"));
                     noBad = addToolTip(tooltip, "  +" + required + joshie.lib.util.Text.DEGREES);
                 } else if (temperature > species.temperature[1]) {
                     int required = temperature - species.temperature[1];
-                    noBad = addToolTip(tooltip, Translate.translate("tooHot"));
+                    noBad = addToolTip(tooltip, MCTranslate.translate("tooHot"));
                     noBad = addToolTip(tooltip, "  -" + required + joshie.lib.util.Text.DEGREES);
                 }
 
@@ -438,27 +438,27 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
                 if (!match) {
                     for (Salinity salinity : species.salinity) {
-                        noBad = addToolTip(tooltip, Translate.translate("salinity.prefers") + " " + Translate.translate("salinity." + salinity.toString().toLowerCase()));
+                        noBad = addToolTip(tooltip, MCTranslate.translate("salinity.prefers") + " " + MCTranslate.translate("salinity." + salinity.toString().toLowerCase()));
                     }
                 }
 
                 int size = Fish.tankSize.getDNA(fish);
                 if (tankSize < size) {
-                    noBad = addToolTip(tooltip, Translate.translate("notAdvanced"));
-                    String text = worldObj.provider.isHellWorld ? Translate.translate("blocks.lava") : Translate.translate("blocks.water");
+                    noBad = addToolTip(tooltip, MCTranslate.translate("notAdvanced"));
+                    String text = worldObj.provider.isHellWorld ? MCTranslate.translate("blocks.lava") : MCTranslate.translate("blocks.water");
                     noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
                 }
 
                 if (!species.canWorkAtThisTime(isDay)) {
-                    noBad = addToolTip(tooltip, Translate.translate("badTime"));
+                    noBad = addToolTip(tooltip, MCTranslate.translate("badTime"));
                 }
 
                 if (!hasMale() || !hasFemale()) {
-                    noBad = addToolTip(tooltip, Translate.translate("missingMate"));
+                    noBad = addToolTip(tooltip, MCTranslate.translate("missingMate"));
                 }
 
                 if (tank.getFluidAmount() < 1 || tank.getFluid().fluidID != getFluidID("fish_food")) {
-                    noBad = addToolTip(tooltip, Translate.translate("noFood"));
+                    noBad = addToolTip(tooltip, MCTranslate.translate("noFood"));
                 }
 
                 if (noBad) {

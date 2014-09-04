@@ -31,4 +31,16 @@ public class Text {
     public static String localize(String key) {
         return StatCollector.translateToLocal(key);
     }
+
+    public static String removeDecimals(String name) {
+        String theName;
+        String[] aName = name.split("\\.");
+        if (aName.length == 2) {
+            theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
+        } else {
+            theName = name;
+        }
+        
+        return theName;
+    }
 }

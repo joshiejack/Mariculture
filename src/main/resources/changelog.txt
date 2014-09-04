@@ -1,5 +1,6 @@
 Mariculture 1.2.4
 • Split in to two mods.
+• Fixed a potential crash with Mob Magnet
 
 Mariculture 1.2.3d
 • Fix Autofisher out of bound crash when decreasing bait

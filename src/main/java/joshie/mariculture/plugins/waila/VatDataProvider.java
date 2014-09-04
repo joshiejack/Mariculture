@@ -5,7 +5,7 @@ import java.util.List;
 
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.tile.TileVat;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -34,14 +34,14 @@ public class VatDataProvider implements IWailaDataProvider {
             String fluid1 = FluidHelper.getFluidName(tank1) + " - " + FluidHelper.getFluidQty(new ArrayList(), tank1, 0).get(0);
             String fluid2 = FluidHelper.getFluidName(tank2) + " - " + FluidHelper.getFluidQty(new ArrayList(), tank2, 0).get(0);
             String fluid3 = FluidHelper.getFluidName(tank3) + " - " + FluidHelper.getFluidQty(new ArrayList(), tank3, 0).get(0);
-            currenttip.add(Translate.translate("input") + " 1: " + fluid1);
-            currenttip.add(Translate.translate("input") + " 2: " + fluid2);
-            currenttip.add(Translate.translate("output") + " : " + fluid3);
-            currenttip.add(Translate.translate("maxCapacity") + ": " + (vat.facing == ForgeDirection.UNKNOWN ? "" + TileVat.max_sml : "" + TileVat.max_lrg) + "mB");
+            currenttip.add(MCTranslate.translate("input") + " 1: " + fluid1);
+            currenttip.add(MCTranslate.translate("input") + " 2: " + fluid2);
+            currenttip.add(MCTranslate.translate("output") + " : " + fluid3);
+            currenttip.add(MCTranslate.translate("maxCapacity") + ": " + (vat.facing == ForgeDirection.UNKNOWN ? "" + TileVat.max_sml : "" + TileVat.max_lrg) + "mB");
             TileVat master = (TileVat) (vat.getMaster() != null ? vat.getMaster() : vat);
             if (master.timeNeeded > 0) {
                 double percentage = (master.timeRemaining / master.timeNeeded) * 100;
-                currenttip.add(Translate.translate("progress") + ": " + percentage + "%");
+                currenttip.add(MCTranslate.translate("progress") + ": " + percentage + "%");
             }
         }
 

@@ -1,12 +1,12 @@
-package joshie.mariculture.core.blocks;
+package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.GlassMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class BlockGlassItem extends ItemBlockMariculture {
-    public BlockGlassItem(Block block) {
+public class ItemBlockGlass extends ItemBlockMariculture {
+    public ItemBlockGlass(Block block) {
         super(block);
     }
 

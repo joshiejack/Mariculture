@@ -9,7 +9,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.fish.FishProduct;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
-import joshie.mariculture.core.util.Translate;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.items.ItemFishy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -122,7 +122,7 @@ public class NEIFishProductHandler extends NEIBase {
             if (cache != null) {
                 for (ProductResult r : cache.outputs) {
                     if (gui.isMouseOver(r.stack, id)) {
-                        currenttip.add(joshie.lib.util.Text.ORANGE + r.chance + "% " + Translate.translate("chance"));
+                        currenttip.add(joshie.lib.util.Text.ORANGE + r.chance + "% " + MCTranslate.translate("chance"));
                     }
                 }
             }

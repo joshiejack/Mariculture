@@ -1,6 +1,6 @@
 package joshie.mariculture.core.gui;
 
-import joshie.mariculture.core.items.ItemStorage;
+import joshie.mariculture.core.items.ItemMCStorage;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -12,21 +12,21 @@ public class GuiStorage extends GuiMariculture {
     public GuiStorage(ContainerStorage storage, String gui) {
         super(storage, gui);
         this.storage = storage.storage;
-        ((ItemStorage) storage.storage.player.getCurrentEquippedItem().getItem()).addFeatures(features);
+        ((ItemMCStorage) storage.storage.player.getCurrentEquippedItem().getItem()).addFeatures(features);
     }
 
     public GuiStorage(IInventory playerInv, InventoryStorage storage, World world, String gui, int offset) {
         super(new ContainerStorage(playerInv, storage, world, offset), gui, offset);
         this.storage = storage;
-        ((ItemStorage) storage.player.getCurrentEquippedItem().getItem()).addFeatures(features);
+        ((ItemMCStorage) storage.player.getCurrentEquippedItem().getItem()).addFeatures(features);
     }
 
     @Override
     public String getName() {
         if (storage != null) {
             ItemStack stack = storage.player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() instanceof ItemStorage) {
-                ItemStorage item = (ItemStorage) stack.getItem();
+            if (stack != null && stack.getItem() instanceof ItemMCStorage) {
+                ItemMCStorage item = (ItemMCStorage) stack.getItem();
                 return StatCollector.translateToLocal(item.getUnlocalizedName(stack) + ".name");
             }
         }
@@ -38,8 +38,8 @@ public class GuiStorage extends GuiMariculture {
     public int getX() {
         if (storage != null) {
             ItemStack stack = storage.player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() instanceof ItemStorage) {
-                ItemStorage item = (ItemStorage) stack.getItem();
+            if (stack != null && stack.getItem() instanceof ItemMCStorage) {
+                ItemMCStorage item = (ItemMCStorage) stack.getItem();
                 return item.getX(stack);
             }
         }
