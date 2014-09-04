@@ -61,7 +61,6 @@ import joshie.mariculture.factory.blocks.BlockCustomPower;
 import joshie.mariculture.factory.blocks.BlockCustomSlab;
 import joshie.mariculture.factory.blocks.BlockCustomStairs;
 import joshie.mariculture.factory.blocks.BlockCustomWall;
-import joshie.mariculture.factory.items.ItemArmorFLUDD;
 import joshie.mariculture.factory.items.ItemChalk;
 import joshie.mariculture.factory.items.ItemFilter;
 import joshie.mariculture.factory.items.ItemPaintbrush;
@@ -85,6 +84,7 @@ import joshie.mariculture.factory.tile.TileSluice;
 import joshie.mariculture.factory.tile.TileSluiceAdvanced;
 import joshie.mariculture.factory.tile.TileSponge;
 import joshie.mariculture.factory.tile.TileUnpacker;
+import joshie.maritech.items.ItemFLUDD;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -140,7 +140,7 @@ public class Factory extends RegistrationModule {
     public void registerItems() {
         chalk = new ItemChalk(64).setUnlocalizedName("chalk");
         plans = new ItemPlan().setUnlocalizedName("plans");
-        fludd = new ItemArmorFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
+        fludd = new ItemFLUDD(armorFLUDD, RenderIds.FLUDD, 1).setUnlocalizedName("fludd");
         paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
         filter = new ItemFilter().setUnlocalizedName("filter");
         turbineCopper = new ItemRotor(900, MachineRenderedMeta.ROTOR_COPPER).setUnlocalizedName("turbine.copper");
@@ -169,7 +169,7 @@ public class Factory extends RegistrationModule {
         addShaped(pressureVessel, new Object[] { "WLW", "PTP", "PSP", 'W', ironWheel, 'L', "blockLapis", 'P', titaniumSheet, 'T', tank, 'S', sluice });
         addShaped(fishSorter, new Object[] { "BPY", "GFA", "RCW", 'B', "dyeBlack", 'P', pearls, 'Y', "dyeYellow", 'G', "dyeGreen", 'F', "fish", 'A', "dyeCyan", 'R', "dyeRed", 'C', baseWood, 'W', "dyeWhite" });
         addShaped(asStack(geyser, 16), new Object[] { " W ", " G ", "RCR", 'W', water, 'G', "blockGlass", 'R', "dustRedstone", 'C', baseIron, });
-        addShaped(((ItemArmorFLUDD) Factory.fludd).build(0), new Object[] { " E ", "PGP", "LUL", 'E', plasticLens, 'P', goldPlastic, 'G', transparent, 'L', tank, 'U', life });
+        addShaped(((ItemFLUDD) Factory.fludd).build(0), new Object[] { " E ", "PGP", "LUL", 'E', plasticLens, 'P', goldPlastic, 'G', transparent, 'L', tank, 'U', life });
         addShaped(asStack(chalk), new Object[] { "LLN", 'L', "blockLimestone", 'N', "dyeWhite" });
         addShaped(asStack(chalk), new Object[] { "L  ", "L  ", "N  ", 'L', "blockLimestone", 'N', "dyeWhite" });
         addShaped(asStack(chalk), new Object[] { " L ", " L ", " N ", 'L', "blockLimestone", 'N', "dyeWhite" });

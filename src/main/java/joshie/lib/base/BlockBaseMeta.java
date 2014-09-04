@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockBaseMeta extends BlockBase implements IHasMetaBlock {
     @SideOnly(Side.CLIENT)
-    protected IIcon[] icons;
+    public IIcon[] icons;
     protected String prefix;
     
     protected BlockBaseMeta(Material material, String mod, CreativeTabs tab) {

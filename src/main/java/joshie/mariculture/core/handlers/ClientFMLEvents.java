@@ -11,13 +11,13 @@ import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.core.network.PacketJewelrySwap;
 import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.FactoryEvents;
-import joshie.mariculture.factory.items.ItemArmorFLUDD;
-import joshie.mariculture.factory.items.ItemArmorFLUDD.Mode;
 import joshie.mariculture.magic.Magic;
 import joshie.mariculture.magic.enchantments.EnchantmentFlight;
 import joshie.mariculture.magic.enchantments.EnchantmentGlide;
 import joshie.mariculture.magic.enchantments.EnchantmentSpider;
 import joshie.mariculture.magic.jewelry.ItemJewelry;
+import joshie.maritech.items.ItemFLUDD;
+import joshie.maritech.items.ItemFLUDD.Mode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,7 +52,7 @@ public class ClientFMLEvents {
                             stack.setTagCompound(new NBTTagCompound());
                         }
                     } else if (FactoryEvents.getArmorMode(player) == Mode.SQUIRT) {
-                        PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemArmorFLUDD.SQUIRT));
+                        PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.SQUIRT, ItemFLUDD.SQUIRT));
                     }
                 }
             }

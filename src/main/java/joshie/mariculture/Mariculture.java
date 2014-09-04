@@ -5,7 +5,6 @@ import static joshie.mariculture.core.lib.ModInfo.JAVAPATH;
 import java.io.File;
 
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.core.CommonProxy;
 import joshie.mariculture.core.config.Config;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.Modules.Module;
@@ -24,8 +23,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 public class Mariculture {
     public static final String modid = "mariculture";
 
-    @SidedProxy(clientSide = JAVAPATH + "core.ClientProxy", serverSide = JAVAPATH + "core.CommonProxy")
-    public static CommonProxy proxy;
+    @SidedProxy(clientSide = JAVAPATH + "MCClientProxy", serverSide = JAVAPATH + "MCCommonProxy")
+    public static MCCommonProxy proxy;
 
     @Instance("Mariculture")
     public static Mariculture instance;

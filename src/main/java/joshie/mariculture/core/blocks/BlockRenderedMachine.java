@@ -4,6 +4,7 @@ import joshie.lib.helpers.DirectionHelper;
 import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.api.util.CachedCoords;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctional;
@@ -26,7 +27,6 @@ import joshie.mariculture.core.tile.TileIngotCaster;
 import joshie.mariculture.core.tile.TileNuggetCaster;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.factory.Factory;
-import joshie.mariculture.factory.items.ItemArmorFLUDD;
 import joshie.mariculture.factory.tile.TileFLUDDStand;
 import joshie.mariculture.factory.tile.TileGenerator;
 import joshie.mariculture.factory.tile.TileGeyser;
@@ -35,6 +35,7 @@ import joshie.mariculture.factory.tile.TileRotorAluminum;
 import joshie.mariculture.factory.tile.TileRotorCopper;
 import joshie.mariculture.factory.tile.TileRotorTitanium;
 import joshie.mariculture.fishery.tile.TileFeeder;
+import joshie.maritech.items.ItemFLUDD;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -64,51 +65,66 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public String getToolType(int meta) {
-        return meta == MachineRenderedMeta.FISH_FEEDER ? null : "pickaxe";
+        String tooltype = meta == MachineRenderedMeta.FISH_FEEDER ? null : "pickaxe";
+        return MaricultureEvents.getToolType(this, meta, tooltype);
     }
 
     @Override
     public int getToolLevel(int meta) {
+        int level = 0;
         switch (meta) {
             case MachineRenderedMeta.AIR_PUMP:
             case MachineRenderedMeta.GEYSER:
             case MachineRenderedMeta.ROTOR_COPPER:
             case MachineRenderedMeta.ROTOR_ALUMINUM:
-                return 1;
+                level = 1;
+                break;
             case MachineRenderedMeta.ROTOR_TITANIUM:
-                return 2;
-            default:
-                return 0;
+                level = 2;
+                break;
         }
+
+        return MaricultureEvents.getToolLevel(this, meta, level);
     }
 
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
-        switch (world.getBlockMetadata(x, y, z)) {
+        float hardness = 5F;
+        int meta = world.getBlockMetadata(x, y, z);
+        switch (meta) {
             case MachineRenderedMeta.AIR_PUMP:
-                return 4F;
+                hardness = 4F;
+                break;
             case MachineRenderedMeta.FISH_FEEDER:
-                return 0.5F;
+                hardness = 0.5F;
+                break;
             case MachineRenderedMeta.FLUDD_STAND:
-                return 1F;
+                hardness = 1F;
+                break;
             case MachineRenderedMeta.GEYSER:
-                return 0.85F;
+                hardness = 0.85F;
+                break;
             case MachineRenderedMeta.AUTO_HAMMER:
             case MachineRenderedMeta.INGOT_CASTER:
             case MachineRenderedMeta.BLOCK_CASTER:
             case MachineRenderedMeta.NUGGET_CASTER:
-                return 1.5F;
+                hardness = 1.5F;
+                break;
             case MachineRenderedMeta.ANVIL:
-                return 25F;
+                hardness = 25F;
+                break;
             case MachineRenderedMeta.ROTOR_COPPER:
-                return 5F;
+                hardness = 5F;
+                break;
             case MachineRenderedMeta.ROTOR_ALUMINUM:
-                return 6.5F;
+                hardness = 6.5F;
+                break;
             case MachineRenderedMeta.ROTOR_TITANIUM:
-                return 15F;
-            default:
-                return 1.5F;
+                hardness = 15F;
+                break;
         }
+
+        return MaricultureEvents.getBlockHardness(this, meta, hardness);
     }
 
     @Override
@@ -139,7 +155,7 @@ public class BlockRenderedMachine extends BlockFunctional {
                     water = stack.stackTagCompound.getInteger("water");
                 }
 
-                fludd.tank.setCapacity(ItemArmorFLUDD.STORAGE);
+                fludd.tank.setCapacity(ItemFLUDD.STORAGE);
                 fludd.tank.setFluidID(Fluids.getFluidID("hp_water"));
                 fludd.tank.setFluidAmount(water);
                 PacketHandler.updateRender(fludd);
@@ -161,6 +177,14 @@ public class BlockRenderedMachine extends BlockFunctional {
                 ((TileRotor) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
         }
+        
+        MaricultureEvents.onBlockPlaced(this, world, x, y, z, entity, tile);
+    }
+    
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        super.breakBlock(world, x, y, z, block, meta);
+        MaricultureEvents.onBlockBroken(block, meta, world, x, y, z);
     }
 
     @Override

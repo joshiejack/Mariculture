@@ -7,6 +7,8 @@ import joshie.mariculture.core.handlers.LogHandler;
 import org.apache.logging.log4j.Level;
 
 public class Modules {
+    //Whether the high tech parts of the mod are activated
+    public static boolean ENABLE_HIGH_TECH;
     public static final ArrayList<Module> modules = new ArrayList();
     //Base Modules
     public static Module core;

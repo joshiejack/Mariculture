@@ -1,6 +1,6 @@
-package joshie.mariculture.core;
+package joshie.mariculture;
 
-import joshie.mariculture.Mariculture;
+import joshie.mariculture.core.Core;
 import joshie.mariculture.core.config.Machines.Client;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.core.lib.MachineRenderedMultiMeta;
@@ -78,7 +78,7 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class ClientProxy extends CommonProxy {
+public class MCClientProxy extends MCCommonProxy {
     private static final ResourceLocation AIR_PUMP = new ResourceLocation(Mariculture.modid, "textures/blocks/air_pump_texture.png");
     private static final ResourceLocation SIFT = new ResourceLocation(Mariculture.modid, "textures/blocks/sift_texture.png");
     private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");

@@ -2,6 +2,7 @@ package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctionalMulti;
 import joshie.mariculture.core.lib.MachineMultiMeta;
@@ -30,91 +31,101 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
 
     @Override
     public String getToolType(int meta) {
-        return "pickaxe";
+        return MaricultureEvents.getToolType(this, meta, "pickaxe");
     }
 
     @Override
     public int getToolLevel(int meta) {
-        return 2;
+        return MaricultureEvents.getToolLevel(this, meta, 2);
     }
 
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
-        switch (world.getBlockMetadata(x, y, z)) {
+        float hardness = 5F;
+        int meta = world.getBlockMetadata(x, y, z);
+        switch (meta) {
             case MachineMultiMeta.CRUCIBLE:
-                return 6F;
+                hardness = 6F;
             case MachineMultiMeta.INCUBATOR_BASE:
-                return 10F;
-            case MachineMultiMeta.INCUBATOR_TOP:
-                return 5F;
-            default:
-                return 5F;
+                hardness = 10F;
         }
+
+        return MaricultureEvents.getBlockHardness(this, meta, hardness);
     }
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        return side < 2 && meta == MachineMultiMeta.CRUCIBLE ? Core.rocks.getIcon(side, RockMeta.BASE_BRICK) : super.getIcon(side, meta);
+        IIcon icon = null;
+        icon = side < 2 && meta == MachineMultiMeta.CRUCIBLE ? Core.rocks.getIcon(side, RockMeta.BASE_BRICK) : super.getIcon(side, meta);
+        return MaricultureEvents.getInventoryIcon(this, meta, side, icon);
     }
 
     @Override
     public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
+        IIcon icon = null;
         if (side > 1) {
             TileEntity tile = block.getTileEntity(x, y, z);
             if (tile instanceof TileCrucible) {
                 TileCrucible crucible = (TileCrucible) tile;
-                if (crucible.master == null) return getIcon(side, MachineMultiMeta.CRUCIBLE);
-                else if (crucible.isMaster()) return crucibleIcons[1];
+                if (crucible.master == null) icon = getIcon(side, MachineMultiMeta.CRUCIBLE);
+                else if (crucible.isMaster()) icon = crucibleIcons[1];
                 else return crucibleIcons[0];
             } else if (tile instanceof TileIncubator && block.getBlockMetadata(x, y, z) != MachineMultiMeta.INCUBATOR_BASE) {
                 TileIncubator incubator = (TileIncubator) tile;
-                if (incubator.master == null) return getIcon(side, MachineMultiMeta.INCUBATOR_TOP);
-                else if (incubator.facing == ForgeDirection.DOWN) return incubatorIcons[0];
-                else return incubatorIcons[1];
+                if (incubator.master == null) icon = getIcon(side, MachineMultiMeta.INCUBATOR_TOP);
+                else if (incubator.facing == ForgeDirection.DOWN) icon = incubatorIcons[0];
+                else icon = incubatorIcons[1];
             }
         }
 
-        return super.getIcon(block, x, y, z, side);
+        if (icon == null) {
+            icon = super.getIcon(block, x, y, z, side);
+        }
+
+        return MaricultureEvents.getWorldIcon(this, side, icon, block, x, y, z);
     }
 
     @Override
     public TileEntity createTileEntity(World world, int meta) {
+        TileEntity tile = null;
         switch (meta) {
             case MachineMultiMeta.CRUCIBLE:
-                return new TileCrucible();
+                tile = new TileCrucible();
+                break;
             case MachineMultiMeta.INCUBATOR_BASE:
-                return new TileIncubator();
+                tile = new TileIncubator();
+                break;
             case MachineMultiMeta.INCUBATOR_TOP:
-                return new TileIncubator();
-            default:
-                return null;
+                tile = new TileIncubator();
+                break;
         }
+
+        return MaricultureEvents.getTileEntity(this, meta, tile);
     }
 
     @Override
     public boolean isActive(int meta) {
+        boolean isActive = false;
         switch (meta) {
             case MachineMultiMeta.CRUCIBLE:
-                return true;
+                isActive = true;
             case MachineMultiMeta.INCUBATOR_BASE:
-                return Modules.isActive(Modules.fishery);
+                isActive = Modules.isActive(Modules.fishery);
             case MachineMultiMeta.INCUBATOR_TOP:
-                return Modules.isActive(Modules.fishery);
-            default:
-                return true;
+                isActive = Modules.isActive(Modules.fishery);
         }
+
+        return MaricultureEvents.isActive(this, meta, isActive);
     }
 
     @Override
     public boolean isValidTab(CreativeTabs tab, int meta) {
-        switch (meta) {
-            case MachineMultiMeta.INCUBATOR_BASE:
-                return tab == MaricultureTab.tabFishery;
-            case MachineMultiMeta.INCUBATOR_TOP:
-                return tab == MaricultureTab.tabFishery;
-            default:
-                return tab == MaricultureTab.tabFactory;
+        boolean isValid = tab == MaricultureTab.tabFishery;
+        if (meta == MachineMultiMeta.CRUCIBLE) {
+            isValid = tab == MaricultureTab.tabFactory;
         }
+
+        return MaricultureEvents.isValidTab(this, tab, meta, isValid);
     }
 
     @Override

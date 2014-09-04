@@ -1,6 +1,6 @@
 package joshie.mariculture.core.helpers;
 
-import joshie.mariculture.core.ClientProxy;
+import joshie.mariculture.MCClientProxy;
 import net.minecraft.client.settings.GameSettings;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -9,11 +9,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class KeyHelper {
 
     public static boolean isToggleKeyPressed() {
-        return GameSettings.isKeyDown(ClientProxy.key_toggle);
+        return GameSettings.isKeyDown(MCClientProxy.key_toggle);
     }
 
     public static boolean isActivateKeyPressed() {
-        return GameSettings.isKeyDown(ClientProxy.key_activate);
+        return GameSettings.isKeyDown(MCClientProxy.key_activate);
     }
 
 }

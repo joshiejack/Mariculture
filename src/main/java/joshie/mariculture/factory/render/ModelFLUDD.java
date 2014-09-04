@@ -2,8 +2,8 @@ package joshie.mariculture.factory.render;
 
 import joshie.mariculture.core.lib.ArmorSlot;
 import joshie.mariculture.core.render.IModelMariculture;
-import joshie.mariculture.factory.items.ItemArmorFLUDD;
 import joshie.mariculture.factory.tile.TileFLUDDStand;
+import joshie.maritech.items.ItemFLUDD;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -360,7 +360,7 @@ public class ModelFLUDD extends ModelBiped implements IModelMariculture {
                 GL11.glScalef(1.5F, 1.5F, 1.5F);
                 GL11.glTranslatef(0F, 0.1F, 0.2F);
 
-                if (mode == ItemArmorFLUDD.HOVER) {
+                if (mode == ItemFLUDD.HOVER) {
                     Top1.render(scale);
                     Top2.render(scale);
                     Head1.render(scale);
@@ -370,7 +370,7 @@ public class ModelFLUDD extends ModelBiped implements IModelMariculture {
                     Mouth1.render(scale);
                     Mouth2.render(scale);
 
-                } else if (mode == ItemArmorFLUDD.ROCKET) {
+                } else if (mode == ItemFLUDD.ROCKET) {
                     TurboRocketHead.render(scale);
                     TurboRocketNose.render(scale);
                     RocketBody1.render(scale);
@@ -378,11 +378,11 @@ public class ModelFLUDD extends ModelBiped implements IModelMariculture {
                     RocketBody3.render(scale);
                     RocketBody4.render(scale);
                     RocketBody5.render(scale);
-                } else if (mode == ItemArmorFLUDD.TURBO) {
+                } else if (mode == ItemFLUDD.TURBO) {
                     TurboRocketHead.render(scale);
                     TurboRocketNose.render(scale);
                     TurboMouth.render(scale);
-                } else if (mode == ItemArmorFLUDD.SQUIRT) {
+                } else if (mode == ItemFLUDD.SQUIRT) {
                     Mouth.render(scale);
                     Head.render(scale);
                     Nose.render(scale);

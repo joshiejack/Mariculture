@@ -6,7 +6,7 @@ import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.tile.base.TileMultiBlock;
 import joshie.mariculture.core.tile.base.TileMultiMachineTank;
 import joshie.mariculture.core.util.Fluids;
-import joshie.mariculture.factory.items.ItemArmorFLUDD;
+import joshie.maritech.items.ItemFLUDD;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
@@ -98,7 +98,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
     }
 
     private void fillFLUDD() {
-        if (inventory[fludd] != null && inventory[fludd].getItem() instanceof ItemArmorFLUDD) if (tank.getFluidID() == Fluids.getFluidID("hp_water") && tank.getFluidAmount() > 0) {
+        if (inventory[fludd] != null && inventory[fludd].getItem() instanceof ItemFLUDD) if (tank.getFluidID() == Fluids.getFluidID("hp_water") && tank.getFluidAmount() > 0) {
             ItemStack stack = inventory[fludd].copy();
             int water = 0;
             if (stack.hasTagCompound()) {
@@ -107,10 +107,10 @@ public class TilePressureVessel extends TileMultiMachineTank {
                 stack.setTagCompound(new NBTTagCompound());
             }
 
-            int drain = ItemArmorFLUDD.STORAGE - water;
+            int drain = ItemFLUDD.STORAGE - water;
             if (drain > 0 && tank.getFluidAmount() == drain) {
                 tank.drain(drain, true);
-                stack.stackTagCompound.setInteger("water", ItemArmorFLUDD.STORAGE);
+                stack.stackTagCompound.setInteger("water", ItemFLUDD.STORAGE);
             }
 
             inventory[fludd] = stack;

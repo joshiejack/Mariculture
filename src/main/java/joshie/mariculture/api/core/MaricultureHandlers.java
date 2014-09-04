@@ -1,6 +1,8 @@
 package joshie.mariculture.api.core;
 
 public class MaricultureHandlers {
+    public static boolean HIGH_TECH_ENABLED = false;
+    
     public static IAnvilHandler anvil;
     public static ICastingHandler casting;
     public static IEnvironmentHandler environment;

@@ -1,4 +1,4 @@
-package joshie.mariculture.core;
+package joshie.mariculture;
 
 import joshie.mariculture.core.gui.ContainerBookshelf;
 import joshie.mariculture.core.gui.ContainerCrucible;
@@ -42,7 +42,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
-public class CommonProxy implements IGuiHandler {
+public class MCCommonProxy implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         if (id == ItemMCStorage.GUI_ID && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemMCStorage) {

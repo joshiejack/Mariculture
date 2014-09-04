@@ -1,4 +1,4 @@
-package joshie.mariculture.factory.items;
+package joshie.maritech.items;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.factory.render.ModelFLUDD;
 import joshie.mariculture.factory.render.RenderFLUDDSquirt;
+import joshie.maritech.lib.MTModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,7 +26,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemArmorFLUDD extends ItemMCBaseArmor {
+public class ItemFLUDD extends ItemMCBaseArmor {
     public static final int HOVER = 0;
     public static final int ROCKET = 1;
     public static final int TURBO = 2;
@@ -36,7 +37,7 @@ public class ItemArmorFLUDD extends ItemMCBaseArmor {
         HOVER, ROCKET, TURBO, SQUIRT, NONE
     }
 
-    public ItemArmorFLUDD(ArmorMaterial material, int j, int k) {
+    public ItemFLUDD(ArmorMaterial material, int j, int k) {
         super(material, j, k);
         setCreativeTab(MaricultureTab.tabFactory);
     }
@@ -92,9 +93,9 @@ public class ItemArmorFLUDD extends ItemMCBaseArmor {
     }
 
     @Override
-    public void registerIcons(IIconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + this.getUnlocalizedName().substring(5));
-        RenderFLUDDSquirt.icon = iconRegister.registerIcon(Mariculture.modid + ":" + "water");
+    public void registerIcons(IIconRegister register) {
+        itemIcon = register.registerIcon(MTModInfo.TEXPATH + ":" + this.getUnlocalizedName().substring(5));
+        RenderFLUDDSquirt.icon = register.registerIcon(MTModInfo.TEXPATH + ":" + "water");
     }
 
     @Override
@@ -127,7 +128,7 @@ public class ItemArmorFLUDD extends ItemMCBaseArmor {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String layer) {
-        return "mariculture:" + "textures/blocks/fludd_texture.png";
+        return "maritech:" + "textures/blocks/fludd_texture.png";
     }
 
     //Called by the Factory
