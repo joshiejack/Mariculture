@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.config.Machines.MachineSettings;
 import joshie.mariculture.core.util.IFaceable;
+import joshie.maritech.network.PacketFLUDD;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +21,7 @@ public class PacketHandler {
     private static int id;
     private static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Mariculture.modid);
 
-    private static void registerPacket(Class clazz, Side side) {
+    public static void registerPacket(Class clazz, Side side) {
         INSTANCE.registerMessage(clazz, clazz, id++, side);
     }
 
@@ -41,8 +42,6 @@ public class PacketHandler {
         registerPacket(PacketTeleport.class, Side.SERVER);
 
         //Dual Way Packets
-        registerPacket(PacketFLUDD.class, Side.CLIENT);
-        registerPacket(PacketFLUDD.class, Side.SERVER);
         registerPacket(PacketSponge.class, Side.CLIENT);
         registerPacket(PacketSponge.class, Side.SERVER);
 

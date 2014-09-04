@@ -5,8 +5,8 @@ import joshie.mariculture.core.gui.ContainerMachine;
 import joshie.mariculture.core.gui.SlotFluidContainer;
 import joshie.mariculture.core.gui.SlotOutput;
 import joshie.mariculture.core.helpers.FluidHelper;
-import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.tile.TilePressureVessel;
+import joshie.maritech.extensions.modules.ExtensionFactory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -42,7 +42,7 @@ public class ContainerPressureVessel extends ContainerMachine {
 
                 slot.onSlotChange(stack, itemstack);
             } else if (slotID >= size) {
-                if (itemstack.getItem() == Factory.fludd) {
+                if (itemstack.getItem() == ExtensionFactory.fludd) {
                     if (!mergeItemStack(stack, 5, 6, false)) return null;
                 } else if (stack.getItem() instanceof IItemUpgrade) {
                     if (!mergeItemStack(stack, 0, 3, false)) return null;

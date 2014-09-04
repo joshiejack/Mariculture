@@ -3,7 +3,6 @@ package joshie.mariculture.world;
 import static joshie.mariculture.core.helpers.RecipeHelper.addBleachRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.addCrushRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.addSoakRecipe;
-import joshie.lib.helpers.RegistryHelper;
 import joshie.mariculture.api.core.CoralRegistry;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
@@ -17,7 +16,6 @@ import joshie.mariculture.core.lib.GroundMeta;
 import joshie.mariculture.core.lib.MaterialsMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
-import joshie.mariculture.factory.Factory;
 import joshie.mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -129,10 +127,6 @@ public class WorldPlus extends RegistrationModule {
         ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.gold_ingot, 1, 0), 10, 20, 10));
         ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.diamond, 1, 0), 1, 2, 3));
         ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), 1, 3, 4));
-
-        if (Modules.isActive(Modules.factory)) {
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Factory.fludd), 1, 2, 1));
-        }
 
         if (Modules.isActive(Modules.fishery)) {
             ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodReed), 1, 2, 6));

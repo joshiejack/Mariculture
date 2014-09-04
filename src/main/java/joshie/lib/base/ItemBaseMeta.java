@@ -73,7 +73,7 @@ public abstract class ItemBaseMeta extends Item implements IHasMetaItem {
     }
     
     public boolean isValidTab(CreativeTabs tab, int meta) {
-        return true;
+        return tab == getCreativeTab();
     }
 
     public boolean isActive(int damage) {

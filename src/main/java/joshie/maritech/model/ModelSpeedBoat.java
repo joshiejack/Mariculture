@@ -1,6 +1,6 @@
-package joshie.mariculture.transport.render;
+package joshie.maritech.model;
 
-import joshie.mariculture.transport.EntitySpeedBoat;
+import joshie.maritech.entity.EntitySpeedBoat;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

@@ -1,8 +1,9 @@
-package joshie.mariculture.core.network;
+package joshie.maritech.network;
 
 import io.netty.buffer.ByteBuf;
 import joshie.lib.helpers.ClientHelper;
 import joshie.mariculture.Mariculture;
+import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.factory.EntityFLUDDSquirt;
 import joshie.mariculture.factory.FactoryEvents;
 import net.minecraft.entity.player.EntityPlayer;

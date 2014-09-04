@@ -1,4 +1,4 @@
-package joshie.mariculture.factory.gui;
+package joshie.maritech.gui;
 
 import joshie.mariculture.core.gui.GuiMariculture;
 import joshie.mariculture.core.gui.feature.FeatureRedstone;

@@ -1,10 +1,12 @@
-package joshie.mariculture.transport;
+package joshie.maritech.items;
 
 import java.util.Iterator;
 import java.util.List;
 
+import joshie.lib.base.ItemBaseSingle;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.items.ItemMCBaseSingle;
+import joshie.maritech.entity.EntitySpeedBoat;
+import joshie.maritech.lib.MTModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,9 +19,9 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class ItemSpeedBoat extends ItemMCBaseSingle {
+public class ItemSpeedBoat extends ItemBaseSingle {
     public ItemSpeedBoat() {
-        setCreativeTab(MaricultureTab.tabWorld);
+        super(MTModInfo.TEXPATH, MaricultureTab.tabWorld);
     }
 
     @Override

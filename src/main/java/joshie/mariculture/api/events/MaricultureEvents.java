@@ -10,6 +10,8 @@ import joshie.mariculture.api.events.BlockEvent.GetToolLevel;
 import joshie.mariculture.api.events.BlockEvent.GetToolType;
 import joshie.mariculture.api.events.BlockEvent.GetWorldIIcon;
 import joshie.mariculture.api.events.BlockEvent.TilePlaced;
+import joshie.mariculture.core.lib.Modules.RegistrationModule;
+import joshie.mariculture.plugins.Plugins.Plugin.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,6 +21,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -64,7 +67,7 @@ public class MaricultureEvents {
         TilePlaced event = new TilePlaced(block, entity, tile, direction);
         MinecraftForge.EVENT_BUS.post(event);
     }
-    
+
     public static void onBlockBroken(Block block, int meta, World world, int x, int y, int z) {
         BlockBroken event = new BlockBroken(block, world, x, y, z, meta);
         MinecraftForge.EVENT_BUS.post(event);
@@ -82,5 +85,15 @@ public class MaricultureEvents {
         GetWorldIIcon event = new GetWorldIIcon(block, side, icon, world, x, y, z);
         MinecraftForge.EVENT_BUS.post(event);
         return event.icon;
+    }
+
+    public static void onConfigure(String clazz, Configuration config) {
+        ConfigEvent event = new ConfigEvent(clazz, config);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static void onRegistration(RegistrationModule module, Stage stage) {
+        RegistryEvent event = new RegistryEvent(module, stage);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 }

@@ -192,7 +192,6 @@ public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContaine
         int amount = fluid == null ? 0 : fluid.amount;
         list.add(FluidHelper.getFluidName(fluid));
         list.add("" + amount + "/" + capacity + "mB");
-        System.out.println(filledIcon.getIconName());
     }
 
     @Override

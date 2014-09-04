@@ -1,4 +1,4 @@
-package joshie.mariculture.factory.render;
+package joshie.maritech.model;
 
 import joshie.mariculture.core.lib.ArmorSlot;
 import joshie.mariculture.core.render.IModelMariculture;

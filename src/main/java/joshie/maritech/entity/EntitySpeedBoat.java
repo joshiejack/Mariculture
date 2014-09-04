@@ -1,9 +1,10 @@
-package joshie.mariculture.transport;
+package joshie.maritech.entity;
 
 import java.util.List;
 
 import joshie.lib.helpers.ItemHelper;
-import joshie.mariculture.core.config.GeneralStuff;
+import joshie.maritech.extensions.config.ExtensionGeneralStuff;
+import joshie.maritech.extensions.modules.ExtensionTransport;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -94,7 +95,7 @@ public class EntitySpeedBoat extends Entity {
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (!isDead) {
-            ItemStack boat = new ItemStack(Transport.speedBoat);
+            ItemStack boat = new ItemStack(ExtensionTransport.speedBoat);
             boolean flag = source.getEntity() instanceof EntityPlayer;
             if (flag) {
                 EntityPlayer player = (EntityPlayer) source.getEntity();
@@ -267,7 +268,7 @@ public class EntitySpeedBoat extends Entity {
                 }
 
                 if (d0 > 0.9D) {
-                    motionY += 0.007000000216066837D * GeneralStuff.SPEEDBOAT_VERTICAL_MODIFIER;
+                    motionY += 0.007000000216066837D * ExtensionGeneralStuff.SPEEDBOAT_VERTICAL_MODIFIER;
                 } else {
                     motionY += 0.007000000216066837D;
                 }

@@ -7,9 +7,9 @@ import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
-import joshie.mariculture.factory.render.ModelFLUDD;
-import joshie.mariculture.factory.render.RenderFLUDDSquirt;
 import joshie.maritech.lib.MTModInfo;
+import joshie.maritech.model.ModelFLUDD;
+import joshie.maritech.render.RenderFLUDDSquirt;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -38,8 +38,7 @@ public class ItemFLUDD extends ItemMCBaseArmor {
     }
 
     public ItemFLUDD(ArmorMaterial material, int j, int k) {
-        super(material, j, k);
-        setCreativeTab(MaricultureTab.tabFactory);
+        super(MTModInfo.TEXPATH, MaricultureTab.tabFactory, material, j, k);
     }
 
     @Override

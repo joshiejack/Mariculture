@@ -4,7 +4,6 @@ import java.util.List;
 
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.config.Machines.Client;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import joshie.mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -17,6 +16,7 @@ import joshie.mariculture.core.tile.base.TileMachineTankOld;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.core.util.IFaceable;
 import joshie.mariculture.core.util.IHasNotification;
+import joshie.maritech.extensions.config.ExtensionMachines.ExtendedClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
@@ -159,7 +159,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
                 }
             }
 
-            if (Client.FLUDD_BLOCK_ANIM && worldObj.isRemote) if (onTick(4)) {
+            if (ExtendedClient.FLUDD_BLOCK_ANIM && worldObj.isRemote) if (onTick(4)) {
                 for (float i = dist > 0 ? -0.45F : 0.3F; i <= 0.35F; i += 0.05F) {
                     worldObj.spawnParticle("cloud", x + 0.5F + i * orientation.offsetX, y + 0.7F + i * orientation.offsetY, z + 0.5F + i * orientation.offsetZ, 0, 0, 0);
                 }

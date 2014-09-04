@@ -5,9 +5,9 @@ import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.diving.render.ModelAirPump;
-import joshie.mariculture.factory.Factory;
-import joshie.mariculture.factory.render.ModelFLUDD;
 import joshie.mariculture.factory.render.ModelRotor;
+import joshie.maritech.extensions.modules.ExtensionFactory;
+import joshie.maritech.model.ModelFLUDD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -66,7 +66,7 @@ public class RenderSingleItem implements IItemRenderer {
         }
 
         if (Modules.isActive(Modules.factory)) {
-            if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == MachineRenderedMeta.FLUDD_STAND || item.getItem() == Factory.fludd) {
+            if (item.getItem() == Item.getItemFromBlock(Core.renderedMachines) && item.getItemDamage() == MachineRenderedMeta.FLUDD_STAND || item.getItem() == ExtensionFactory.fludd) {
                 Minecraft.getMinecraft().getTextureManager().bindTexture(FLUDD);
                 fludd.renderInventory(type);
             }

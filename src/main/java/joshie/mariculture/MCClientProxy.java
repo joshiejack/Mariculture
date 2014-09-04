@@ -35,10 +35,8 @@ import joshie.mariculture.diving.render.RenderCompressorBase;
 import joshie.mariculture.diving.render.RenderCompressorTop;
 import joshie.mariculture.factory.EntityFLUDDSquirt;
 import joshie.mariculture.factory.Factory;
-import joshie.mariculture.factory.render.ModelFLUDD;
 import joshie.mariculture.factory.render.ModelRotor;
 import joshie.mariculture.factory.render.RenderCustomItem;
-import joshie.mariculture.factory.render.RenderFLUDDSquirt;
 import joshie.mariculture.factory.render.RenderFluidDictionary;
 import joshie.mariculture.factory.render.RenderGeyser;
 import joshie.mariculture.factory.render.RenderPressureVessel;
@@ -62,10 +60,9 @@ import joshie.mariculture.fishery.render.RenderSifter;
 import joshie.mariculture.fishery.tile.TileFeeder;
 import joshie.mariculture.fishery.tile.TileFishTank;
 import joshie.mariculture.fishery.tile.TileHatchery;
-import joshie.mariculture.transport.EntitySpeedBoat;
-import joshie.mariculture.transport.Transport;
-import joshie.mariculture.transport.render.RenderSpeedBoat;
-import joshie.mariculture.transport.render.RenderSpeedBoatItem;
+import joshie.maritech.extensions.modules.ExtensionFactory;
+import joshie.maritech.model.ModelFLUDD;
+import joshie.maritech.render.RenderFLUDDSquirt;
 import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
@@ -139,7 +136,7 @@ public class MCClientProxy extends MCCommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customLight), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
-            MinecraftForgeClient.registerItemRenderer(Factory.fludd, new RenderSingleItem());
+            MinecraftForgeClient.registerItemRenderer(ExtensionFactory.fludd, new RenderSingleItem());
 
             ClientRegistry.bindTileEntitySpecialRenderer(TileRotorCopper.class, new RenderSpecialHandler(new ModelRotor(), COPPER));
             ClientRegistry.bindTileEntitySpecialRenderer(TileRotorAluminum.class, new RenderSpecialHandler(new ModelRotor(), ALUMINUM));
@@ -165,11 +162,6 @@ public class MCClientProxy extends MCCommonProxy {
             if (Client.SHOW_FISH) {
                 RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.FISH_FEEDER, RenderFeeder.class);
             }
-        }
-
-        if (Modules.isActive(Modules.transport)) {
-            RenderingRegistry.registerEntityRenderingHandler(EntitySpeedBoat.class, new RenderSpeedBoat());
-            MinecraftForgeClient.registerItemRenderer(Transport.speedBoat, new RenderSpeedBoatItem());
         }
     }
 }

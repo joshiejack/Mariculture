@@ -1,15 +1,16 @@
 package joshie.mariculture.factory;
 
 import joshie.lib.helpers.ClientHelper;
-import joshie.mariculture.core.config.GeneralStuff;
 import joshie.mariculture.core.helpers.KeyHelper;
 import joshie.mariculture.core.helpers.PlayerHelper;
 import joshie.mariculture.core.lib.ArmorSlot;
-import joshie.mariculture.core.network.PacketFLUDD;
 import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.fishery.items.ItemFishy;
+import joshie.maritech.extensions.config.ExtensionGeneralStuff;
+import joshie.maritech.extensions.modules.ExtensionFactory;
 import joshie.maritech.items.ItemFLUDD;
 import joshie.maritech.items.ItemFLUDD.Mode;
+import joshie.maritech.network.PacketFLUDD;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
@@ -45,7 +46,7 @@ public class FactoryEvents {
     }
 
     public static Mode getArmorMode(EntityPlayer player) {
-        if (!PlayerHelper.hasArmor(player, ArmorSlot.TOP, Factory.fludd)) return Mode.NONE;
+        if (!PlayerHelper.hasArmor(player, ArmorSlot.TOP, ExtensionFactory.fludd)) return Mode.NONE;
         return ItemFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]);
     }
 
@@ -139,7 +140,7 @@ public class FactoryEvents {
     }
 
     private static boolean playHover(EntityPlayer player, boolean isSender) {
-        if (GeneralStuff.FLUDD_WATER_ON) {
+        if (ExtensionGeneralStuff.FLUDD_WATER_ON) {
             if (isSender) {
                 PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemFLUDD.HOVER));
             }
@@ -160,7 +161,7 @@ public class FactoryEvents {
     }
 
     private static boolean playRocket(EntityPlayer player, boolean isSender) {
-        if (GeneralStuff.FLUDD_WATER_ON) {
+        if (ExtensionGeneralStuff.FLUDD_WATER_ON) {
             boolean send = false;
             if (isSender) {
                 PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemFLUDD.ROCKET));
@@ -188,7 +189,7 @@ public class FactoryEvents {
     }
 
     private static boolean playTurbo(EntityPlayer player, boolean isSender) {
-        if (GeneralStuff.FLUDD_WATER_ON) {
+        if (ExtensionGeneralStuff.FLUDD_WATER_ON) {
             if (isSender) {
                 PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.ANIMATE, ItemFLUDD.TURBO));
             }

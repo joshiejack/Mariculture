@@ -10,8 +10,6 @@ import joshie.mariculture.api.fishery.Loot;
 import joshie.mariculture.api.fishery.Loot.Rarity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.lib.Modules;
-import joshie.mariculture.factory.Factory;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -55,9 +53,5 @@ public class FishingLoot {
         Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_strad), 5D, Rarity.GOOD, 0, RodType.GOOD));
         Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_mall), 5D, Rarity.GOOD, 0, RodType.GOOD));
         Fishing.fishing.addLoot(new Loot(new ItemStack(Items.record_mall), 5D, Rarity.GOOD, 0, RodType.GOOD));
-
-        if (Modules.isActive(Modules.factory)) {
-            Fishing.fishing.addLoot(new Loot(new ItemStack(Factory.fludd), 1D, Rarity.RARE, 0, RodType.SUPER));
-        }
     }
 }

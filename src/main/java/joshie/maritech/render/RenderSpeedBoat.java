@@ -1,6 +1,8 @@
-package joshie.mariculture.transport.render;
+package joshie.maritech.render;
 
-import joshie.mariculture.transport.EntitySpeedBoat;
+import joshie.maritech.entity.EntitySpeedBoat;
+import joshie.maritech.lib.MTModInfo;
+import joshie.maritech.model.ModelSpeedBoat;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderSpeedBoat extends Render {
-    private static final ResourceLocation resource = new ResourceLocation("mariculture:textures/entity/speedboat.png");
+    private static final ResourceLocation resource = new ResourceLocation(MTModInfo.TEXPATH + ":textures/entity/speedboat.png");
     private ModelSpeedBoat modelBoat;
 
     public RenderSpeedBoat() {

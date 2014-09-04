@@ -2,7 +2,9 @@ package joshie.mariculture.core.lib;
 
 import java.util.ArrayList;
 
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.handlers.LogHandler;
+import joshie.mariculture.plugins.Plugins.Plugin.Stage;
 
 import org.apache.logging.log4j.Level;
 
@@ -79,15 +81,18 @@ public class Modules {
             registerFluids();
             registerBlocks();
             registerOther();
+            MaricultureEvents.onRegistration(this, Stage.PRE);
         }
 
         @Override
         public void init() {
             registerRecipes();
+            MaricultureEvents.onRegistration(this, Stage.INIT);
         }
 
         @Override
         public void postInit() {
+            MaricultureEvents.onRegistration(this, Stage.POST);
             setLoaded(null);
         }
     }

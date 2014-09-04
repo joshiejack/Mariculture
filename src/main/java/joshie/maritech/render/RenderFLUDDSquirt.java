@@ -1,4 +1,4 @@
-package joshie.mariculture.factory.render;
+package joshie.maritech.render;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;

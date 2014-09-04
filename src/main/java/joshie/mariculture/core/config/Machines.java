@@ -4,7 +4,9 @@ import static joshie.mariculture.core.helpers.ConfigHelper.getBoolean;
 import static joshie.mariculture.core.helpers.ConfigHelper.getInt;
 import static joshie.mariculture.core.helpers.ConfigHelper.setCategory;
 import static joshie.mariculture.core.helpers.ConfigHelper.setConfig;
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineSpeeds;
+import joshie.maritech.extensions.config.ExtensionMachines.ExtendedClient;
 import net.minecraftforge.common.config.Configuration;
 
 public class Machines {
@@ -21,7 +23,6 @@ public class Machines {
 
         setCategory("Client Settings", "The settings only affect clientside");
         Client.GEYSER_ANIM = getBoolean("Geyser - Enable Particles", true);
-        Client.FLUDD_BLOCK_ANIM = getBoolean("FLUDD - Enable Particles", true);
         Client.PUMP_ANIM = getBoolean("Air Pump - Enable Rotation", true, "This will not work if Enable Ticking is set to false under Tick Settings");
         Client.HAMMER_ANIM = getBoolean("Autohammer - Enabled Animation", true);
         Client.SHOW_FISH = getBoolean("Fish Feeder > Show Fish", true);
@@ -43,13 +44,13 @@ public class Machines {
         MachineSettings.ADVANCED_SLUICE_RADIUS = getInt("Advanced Sluice > Radius to Drain Fluids", 66);
         MachineSettings.ENABLE_PURITY_IN_CRUCIBLE = getBoolean("Crucible Furnace > Enable Purity Bonus", false);
         MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN = getBoolean("Advanced Sluice > Enable Overpowered, Laggy Draining", false);
+        MaricultureEvents.onConfigure("Machines", config);
     }
 
     public static class Client {
         public static boolean SHOW_FISH;
         public static boolean PUMP_ANIM;
         public static boolean GEYSER_ANIM;
-        public static boolean FLUDD_BLOCK_ANIM;
         public static boolean HAMMER_ANIM;
     }
 

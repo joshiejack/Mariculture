@@ -26,7 +26,6 @@ import joshie.mariculture.core.tile.TileCooling;
 import joshie.mariculture.core.tile.TileIngotCaster;
 import joshie.mariculture.core.tile.TileNuggetCaster;
 import joshie.mariculture.core.util.Fluids;
-import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.tile.TileFLUDDStand;
 import joshie.mariculture.factory.tile.TileGenerator;
 import joshie.mariculture.factory.tile.TileGeyser;
@@ -35,6 +34,7 @@ import joshie.mariculture.factory.tile.TileRotorAluminum;
 import joshie.mariculture.factory.tile.TileRotorCopper;
 import joshie.mariculture.factory.tile.TileRotorTitanium;
 import joshie.mariculture.fishery.tile.TileFeeder;
+import joshie.maritech.extensions.modules.ExtensionFactory;
 import joshie.maritech.items.ItemFLUDD;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -375,7 +375,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TileFLUDDStand) {
             TileFLUDDStand stand = (TileFLUDDStand) tile;
-            ItemStack fludd = new ItemStack(Factory.fludd);
+            ItemStack fludd = new ItemStack(ExtensionFactory.fludd);
             fludd.setTagCompound(new NBTTagCompound());
             fludd.stackTagCompound.setInteger("water", stand.tank.getFluidAmount());
             ItemHelper.spawnItem(world, x, y, z, fludd);

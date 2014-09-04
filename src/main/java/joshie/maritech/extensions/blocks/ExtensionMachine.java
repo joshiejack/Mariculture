@@ -1,4 +1,4 @@
-package joshie.maritech.extensions;
+package joshie.maritech.extensions.blocks;
 
 import static joshie.maritech.lib.SpecialIcons.generatorBack;
 import static joshie.maritech.lib.SpecialIcons.sluiceAdvanced;

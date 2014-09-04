@@ -1,4 +1,4 @@
-package joshie.mariculture.factory.gui;
+package joshie.maritech.gui;
 
 import joshie.mariculture.api.core.IItemUpgrade;
 import joshie.mariculture.core.gui.ContainerMachine;
