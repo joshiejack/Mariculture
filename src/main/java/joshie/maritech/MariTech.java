@@ -2,6 +2,7 @@ package joshie.maritech;
 
 import static joshie.maritech.lib.MTModInfo.JAVAPATH;
 import static joshie.maritech.lib.MTModInfo.MODID;
+import static joshie.maritech.lib.MTModInfo.MODNAME;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.Modules;
@@ -27,6 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
@@ -36,7 +38,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-//@Mod(modid = MODID, name = MODNAME/*, dependencies = "required-after:Mariculture@[1.2.4,);"*/)
+@Mod(modid = MODID, name = MODNAME, dependencies = "required-after:Mariculture@[1.2.4,);")
 public class MariTech {
     @SidedProxy(clientSide = JAVAPATH + "MTClientProxy", serverSide = JAVAPATH + "MTCommonProxy")
     public static MTCommonProxy proxy;
