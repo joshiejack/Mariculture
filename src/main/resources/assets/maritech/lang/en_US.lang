@@ -1,3 +1,7 @@
+#Core Module Extensions
+mariculture.air.naturalgas=Natural Gas
+mariculture.sands.name=Gas Leak
+
 #Diving Module Extensions
 maritech.scuba.mask=Scuba Mask
 maritech.landlights.format=%L %O
