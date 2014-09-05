@@ -120,11 +120,12 @@ task sourceJar(type: Jar) {
 
 task deobfJar(type: Jar) {
     archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-deobf.jar"
-    classifier = 'deobf'
     manifest {
         attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
+    
+    from sourceSets.main.output
 }
 
 task apiJar(type: Jar) {
