@@ -148,22 +148,18 @@ public class BlockMachine extends BlockFunctional {
 
     @Override
     public boolean isActive(int meta) {
-        boolean isActive = false;
         switch (meta) {
             case MachineMeta.BOOKSHELF:
-                isActive = true;
-                break;
+                return true;
             case MachineMeta.DICTIONARY_ITEM:
             case MachineMeta.SAWMILL:
             case MachineMeta.UNPACKER:
-                isActive = Modules.isActive(Modules.factory);
-                break;
+                return Modules.isActive(Modules.factory);
             case MachineMeta.FISH_SORTER:
-                isActive = Modules.isActive(Modules.fishery);
-                break;
+                return Modules.isActive(Modules.fishery);
         }
 
-        return MaricultureEvents.isActive(this, meta, isActive);
+        return MaricultureEvents.isActive(this, meta, false);
     }
 
     @Override
