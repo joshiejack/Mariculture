@@ -1,7 +1,5 @@
 package joshie.mariculture.core.config;
 
-import static joshie.mariculture.core.lib.ModInfo.JAVAPATH;
-
 import java.io.File;
 import java.lang.reflect.Method;
 
@@ -9,6 +7,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.handlers.LogHandler;
 import joshie.mariculture.core.helpers.ConfigHelper;
+import joshie.mariculture.core.lib.MCModInfo;
 import joshie.mariculture.core.lib.Modules;
 import net.minecraftforge.common.config.Configuration;
 
@@ -22,7 +21,7 @@ public class Config {
         try {
             try {
                 config.load();
-                Class clazz = Class.forName(JAVAPATH + "core.config." + name);
+                Class clazz = Class.forName(MCModInfo.JAVAPATH + "core.config." + name);
                 Method method = clazz.getMethod("init", Configuration.class);
                 method.invoke(null, config);
             } catch (Exception e) {

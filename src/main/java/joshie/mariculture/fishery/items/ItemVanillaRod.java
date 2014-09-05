@@ -11,7 +11,7 @@ public class ItemVanillaRod extends ItemRod {
     private IIcon theIcon;
 
     public ItemVanillaRod() {
-        super(64, 1);
+        super("mariculture", 64, 1);
         setCreativeTab(MaricultureTab.tabFishery);
         setUnlocalizedName("fishingRod");
         setTextureName("fishing_rod");

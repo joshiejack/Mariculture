@@ -85,6 +85,7 @@ import joshie.mariculture.core.lib.DropletMeta;
 import joshie.mariculture.core.lib.EntityIds;
 import joshie.mariculture.core.lib.FoodMeta;
 import joshie.mariculture.core.lib.MCLib;
+import joshie.mariculture.core.lib.MCModInfo;
 import joshie.mariculture.core.lib.MaterialsMeta;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
 import joshie.mariculture.core.lib.RenderIds;
@@ -168,9 +169,9 @@ public class Fishery extends RegistrationModule {
     @Override
     public void registerItems() {
         bait = new ItemBait().setUnlocalizedName("bait");
-        rodReed = new ItemRod(96, 24).setUnlocalizedName("rod.reed");
-        rodWood = new ItemRod(320, 10).setUnlocalizedName("rod.wood");
-        rodTitanium = new ItemRod(640, 16).setUnlocalizedName("rod.titanium");
+        rodReed = new ItemRod(MCModInfo.MODPATH, 96, 24).setUnlocalizedName("rod.reed");
+        rodWood = new ItemRod(MCModInfo.MODPATH,320, 10).setUnlocalizedName("rod.wood");
+        rodTitanium = new ItemRod(MCModInfo.MODPATH,640, 16).setUnlocalizedName("rod.titanium");
         fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFishery);
         net = new BlockItemNet().setUnlocalizedName("net");
         scanner = new ItemScanner().setUnlocalizedName("scanner");

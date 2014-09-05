@@ -2,7 +2,6 @@ package joshie.mariculture.core.lib;
 
 import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.tile.TileCustom;
-import joshie.maritech.extensions.modules.ExtensionFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockFence;
@@ -63,14 +62,8 @@ public class PlansMeta {
                 return new ItemStack(Factory.customWall);
             case PlansMeta.LIGHT:
                 return new ItemStack(Factory.customLight);
-        }
-
-        if (Loader.isModLoaded("MariTech")) {
-            try {
-                if (type == PlansMeta.RF) {
-                    return new ItemStack(ExtensionFactory.customRFBlock);
-                }
-            } catch (Exception e) {}
+            case PlansMeta.RF:
+                return new ItemStack(Factory.customRFBlock);
         }
 
         return null;

@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 public class GuiIncubator extends GuiMariculture {
-    public static final ResourceLocation texture = new ResourceLocation(MTModInfo.TEXPATH, "textures/gui/incubator.png");
+    public static final ResourceLocation texture = new ResourceLocation(MTModInfo.MODPATH, "textures/gui/incubator.png");
     
     public GuiIncubator(InventoryPlayer player, TileIncubator tile) {
         super(new ContainerIncubator(tile, player), texture, 10);

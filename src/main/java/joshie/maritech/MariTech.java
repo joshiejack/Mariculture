@@ -1,5 +1,6 @@
 package joshie.maritech;
 
+import static joshie.maritech.lib.MTModInfo.AFTER;
 import static joshie.maritech.lib.MTModInfo.JAVAPATH;
 import static joshie.maritech.lib.MTModInfo.MODID;
 import static joshie.maritech.lib.MTModInfo.MODNAME;
@@ -40,7 +41,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = MODID, name = MODNAME/*,  dependencies = "required-after:Mariculture@[1.2.4,);" */)
+@Mod(modid = MODID, name = MODNAME, dependencies = AFTER)
 public class MariTech {
     @SidedProxy(clientSide = JAVAPATH + "MTClientProxy", serverSide = JAVAPATH + "MTCommonProxy")
     public static MTCommonProxy proxy;

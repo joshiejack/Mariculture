@@ -45,6 +45,8 @@ import joshie.mariculture.factory.tile.TileFishSorter;
 import joshie.mariculture.factory.tile.TileGeyser;
 import joshie.mariculture.factory.tile.TileSawmill;
 import joshie.mariculture.factory.tile.TileUnpacker;
+import joshie.maritech.blocks.BlockCustomPower;
+import joshie.maritech.tile.TileCustomPowered;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,12 +61,12 @@ public class Factory extends RegistrationModule {
     public static Block customGate;
     public static Block customWall;
     public static Block customLight;
+    public static Block customRFBlock;
 
     public static Item chalk;
     public static Item plans;
     public static Item paintbrush;
     public static Item filter;
-
     @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new FactoryEvents());
@@ -81,9 +83,10 @@ public class Factory extends RegistrationModule {
         customGate = new BlockCustomGate().setStepSound(Block.soundTypePiston).setBlockName("customGate");
         customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
         customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
+        customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
 
         RegistryHelper.registerBlocks(new Block[] { customStairs, customSlabs, customFence, customGate, customWall, customSlabsDouble });
-        RegistryHelper.registerTiles("Mariculture", TileCustom.class, TileSawmill.class, TileDictionaryItem.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class);
+        RegistryHelper.registerTiles("Mariculture", TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileDictionaryItem.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class);
     }
 
     @Override

@@ -6,6 +6,7 @@ import joshie.mariculture.core.lib.MachineRenderedMultiMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.render.RenderHandler;
 import joshie.mariculture.core.render.RenderSpecialHandler;
+import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.render.RenderCustomItem;
 import joshie.maritech.entity.EntityFLUDDSquirt;
 import joshie.maritech.entity.EntitySpeedBoat;
@@ -52,7 +53,7 @@ public class MTClientProxy extends MTCommonProxy {
         if (Modules.isActive(Modules.factory)) {
             MTRenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
             RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
-            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ExtensionFactory.customRFBlock), new RenderCustomItem());
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(ExtensionFactory.fludd, new RenderFLUDDItem());
             ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
             ClientRegistry.bindTileEntitySpecialRenderer(TileRotorCopper.class, new RenderSpecialHandler(new ModelRotor(), COPPER));

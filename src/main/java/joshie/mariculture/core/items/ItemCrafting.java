@@ -1,6 +1,7 @@
 package joshie.mariculture.core.items;
 
 import joshie.lib.helpers.ClientHelper;
+import joshie.lib.util.Text;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.config.GeneralStuff;
@@ -82,6 +83,13 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
         }
 
         return MaricultureEvents.getItemName(this, meta, "machines");
+    }
+    
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String unlocalized = getUnlocalizedName().replace("item", "").replace("_", ".");
+        String name = getName(stack).replaceAll("(.)([A-Z])", "$1$2").toLowerCase();
+        return Text.localize(unlocalized.replace("mariculture.", MaricultureEvents.getMod(stack.getItem(), stack.getItemDamage(), "mariculture") + ".") + "." + name);
     }
 
     public boolean spawnEnderDragon(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {

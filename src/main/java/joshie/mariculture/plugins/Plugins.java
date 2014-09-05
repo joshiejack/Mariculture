@@ -1,10 +1,9 @@
 package joshie.mariculture.plugins;
 
-import static joshie.mariculture.core.lib.ModInfo.JAVAPATH;
-
 import java.util.ArrayList;
 
 import joshie.mariculture.core.handlers.LogHandler;
+import joshie.mariculture.core.lib.MCModInfo;
 import joshie.mariculture.core.lib.Modules.Module;
 import joshie.mariculture.plugins.Plugins.Plugin.Stage;
 
@@ -81,7 +80,7 @@ public class Plugins extends Module {
     public void add(String clazz, String mod) {
         if (Loader.isModLoaded(mod)) {
             try {
-                Class.forName(JAVAPATH + "plugins.Plugin" + clazz).getConstructor(String.class).newInstance(mod);
+                Class.forName(MCModInfo.JAVAPATH + "plugins.Plugin" + clazz).getConstructor(String.class).newInstance(mod);
             } catch (Exception e) {
                 LogHandler.log(Level.WARN, "Something went wrong when initializing " + clazz + " Plugin");
             }

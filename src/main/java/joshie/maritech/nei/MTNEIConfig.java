@@ -1,7 +1,7 @@
 package joshie.maritech.nei;
 
 import joshie.mariculture.core.lib.Modules;
-import joshie.maritech.extensions.modules.ExtensionFactory;
+import joshie.mariculture.factory.Factory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import codechicken.nei.api.API;
@@ -11,7 +11,7 @@ public class MTNEIConfig implements IConfigureNEI {
     @Override
     public void loadConfig() {
         if (Modules.isActive(Modules.factory)) {
-            API.hideItem(new ItemStack(ExtensionFactory.customRFBlock, 1, OreDictionary.WILDCARD_VALUE));
+            API.hideItem(new ItemStack(Factory.customRFBlock, 1, OreDictionary.WILDCARD_VALUE));
         }
     }
 

@@ -14,7 +14,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiAutofisher extends GuiMariculture {
-    public static final ResourceLocation texture = new ResourceLocation(MTModInfo.TEXPATH, "textures/gui/autofisher.png");
+    public static final ResourceLocation texture = new ResourceLocation(MTModInfo.MODPATH, "textures/gui/autofisher.png");
     
     private TileAutofisher tile;
 

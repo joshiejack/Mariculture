@@ -13,7 +13,7 @@ public class ScubaMask {
     private static int tick = 0;
     private static final float LEVEL = 10F;
 
-    public static void damage(EntityPlayer player, ItemStack mask) {
+    public static void activate(EntityPlayer player, ItemStack mask) {
         if (mask != null) {
             if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, ExtensionDiving.scubaTank)) {
                 if (player.isInsideOfMaterial(Material.water)) {

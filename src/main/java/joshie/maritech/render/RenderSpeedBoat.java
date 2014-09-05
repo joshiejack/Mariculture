@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderSpeedBoat extends Render {
-    private static final ResourceLocation resource = new ResourceLocation(MTModInfo.TEXPATH + ":textures/entity/speedboat.png");
+    private static final ResourceLocation resource = new ResourceLocation(MTModInfo.MODPATH + ":textures/entity/speedboat.png");
     private ModelSpeedBoat modelBoat;
 
     public RenderSpeedBoat() {

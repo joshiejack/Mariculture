@@ -3,6 +3,7 @@ package joshie.mariculture.fishery.blocks.items;
 import joshie.lib.util.Text;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.PearlColor;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -45,7 +46,9 @@ public class ItemBlockNeonLamp extends ItemBlockMariculture {
     
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String name = getName(stack).replaceAll("(.)([A-Z])", "$1$2").toLowerCase();
-        return Text.localize(getUnlocalizedName().replace(".on", "").replace(".off", "") + "." + name);
+        String format = MCTranslate.translate("lamps.format");
+        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage())));
+        format = format.replace("%N", MCTranslate.translate("lamps.neon"));
+        return format.replace("%L", MCTranslate.translate("lamps.lamp"));
     }
 }

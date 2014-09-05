@@ -4,6 +4,7 @@ import java.util.List;
 
 import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.items.ItemRod;
+import joshie.maritech.lib.MTModInfo;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFluxRod extends ItemRod implements IEnergyContainerItem {
     public ItemFluxRod() {
-        super(0, 0);
+        super(MTModInfo.MODPATH, 0, 0);
         setNoRepair();
         setMaxStackSize(1);
     }

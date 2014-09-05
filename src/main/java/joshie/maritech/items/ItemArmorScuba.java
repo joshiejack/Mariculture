@@ -8,7 +8,6 @@ import joshie.mariculture.core.Core;
 import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.maritech.extensions.modules.ExtensionDiving;
-import joshie.maritech.handlers.ScubaFin;
 import joshie.maritech.handlers.ScubaMask;
 import joshie.maritech.lib.MTModInfo;
 import joshie.maritech.model.ModelFlippers;
@@ -25,15 +24,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemArmorScuba extends ItemMCBaseArmor {
     public ItemArmorScuba(ArmorMaterial material, int j, int k) {
-        super(MTModInfo.TEXPATH, MaricultureTab.tabWorld, material, j, k);
+        super(MTModInfo.MODPATH, MaricultureTab.tabWorld, material, j, k);
     }
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        if (stack.getItem() == ExtensionDiving.swimfin) return MTModInfo.TEXPATH + ":textures/armor/flippers.png";
-        if (stack.getItem() == ExtensionDiving.scubaSuit) return MTModInfo.TEXPATH + ":" + "textures/armor/scuba" + "_2.png";
+        if (stack.getItem() == ExtensionDiving.swimfin) return MTModInfo.MODPATH + ":textures/armor/flippers.png";
+        if (stack.getItem() == ExtensionDiving.scubaSuit) return MTModInfo.MODPATH + ":" + "textures/armor/scuba" + "_2.png";
 
-        return MTModInfo.TEXPATH + ":" + "textures/armor/scuba" + "_1.png";
+        return MTModInfo.MODPATH + ":" + "textures/armor/scuba" + "_1.png";
     }
 
     @Override
@@ -92,10 +91,8 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         if (!world.isRemote) {
             if (stack.getItem() == ExtensionDiving.scubaMask && world.getWorldTime() % 5 == 0) {
-                ScubaMask.damage(player, stack);
+                ScubaMask.activate(player, stack);
             }
-        } else if (stack.getItem() == ExtensionDiving.swimfin) {
-            ScubaFin.init(player);
         }
     }
 }

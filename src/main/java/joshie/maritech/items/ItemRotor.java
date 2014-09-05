@@ -5,6 +5,7 @@ import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.cofh.BlockHelper;
 import joshie.mariculture.core.items.ItemMCDamageable;
 import joshie.mariculture.core.lib.MetalMeta;
+import joshie.maritech.lib.MTModInfo;
 import joshie.maritech.tile.TileGenerator;
 import joshie.maritech.tile.TileRotor;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,9 +18,8 @@ public class ItemRotor extends ItemMCDamageable {
     private int meta;
 
     public ItemRotor(int dmg, int meta) {
-        super(dmg);
+        super(MTModInfo.MODPATH, MaricultureTab.tabFactory, dmg);
         this.meta = meta;
-        setCreativeTab(MaricultureTab.tabFactory);
     }
 
     @Override

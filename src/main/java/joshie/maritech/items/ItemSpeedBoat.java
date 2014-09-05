@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 public class ItemSpeedBoat extends ItemBaseSingle {
     public ItemSpeedBoat() {
-        super(MTModInfo.TEXPATH, MaricultureTab.tabWorld);
+        super(MTModInfo.MODPATH, MaricultureTab.tabWorld);
     }
 
     @Override

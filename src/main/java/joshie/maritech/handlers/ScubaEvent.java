@@ -29,6 +29,13 @@ public class ScubaEvent {
             }
         }
     }
+    
+    @SubscribeEvent
+    public void onLivingUpdate(LivingUpdateEvent event) {
+        if(event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
+            ScubaFin.init((EntityPlayer) event.entity);
+        }
+    }
 
     @SubscribeEvent
     public void onBreaking(BreakSpeed event) {

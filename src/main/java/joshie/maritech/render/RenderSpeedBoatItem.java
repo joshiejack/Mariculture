@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
 public class RenderSpeedBoatItem implements IItemRenderer {
-    private static final ResourceLocation resource = new ResourceLocation(MTModInfo.TEXPATH + ":textures/entity/speedboat.png");
+    private static final ResourceLocation resource = new ResourceLocation(MTModInfo.MODPATH + ":textures/entity/speedboat.png");
     private ModelSpeedBoat modelBoat;
     private static final float scale = (float) (1.0 / 20.0);
 

@@ -40,7 +40,7 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
     }
 
     public ItemFLUDD(ArmorMaterial material, int j, int k) {
-        super(MTModInfo.TEXPATH, MaricultureTab.tabFactory, material, j, k);
+        super(MTModInfo.MODPATH, MaricultureTab.tabFactory, material, j, k);
     }
 
     @Override
@@ -95,8 +95,8 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
 
     @Override
     public void registerIcons(IIconRegister register) {
-        itemIcon = register.registerIcon(MTModInfo.TEXPATH + ":" + this.getUnlocalizedName().substring(5));
-        RenderFLUDDSquirt.icon = register.registerIcon(MTModInfo.TEXPATH + ":" + "water");
+        itemIcon = register.registerIcon(MTModInfo.MODPATH + ":" + this.getUnlocalizedName().substring(5));
+        RenderFLUDDSquirt.icon = register.registerIcon(MTModInfo.MODPATH + ":" + "water");
     }
 
     @Override

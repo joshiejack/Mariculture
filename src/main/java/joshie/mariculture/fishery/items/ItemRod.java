@@ -1,5 +1,6 @@
 package joshie.mariculture.fishery.items;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.api.fishery.Fishing;
@@ -14,20 +15,24 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRod extends ItemFishingRod {
+    protected String mod;
+    protected String path;
     private ItemStack repair;
     private int enchant;
 
     public ItemRod() {
-        this(127, 1);
+        this("mariculture", 127, 1);
         setCreativeTab(MaricultureTab.tabFishery);
     }
 
-    public ItemRod(int max, int enchant) {
+    public ItemRod(String mod, int max, int enchant) {
         this.enchant = enchant;
+        this.mod = mod;
         setMaxStackSize(1);
         setCreativeTab(MaricultureTab.tabFishery);
         if (max > 0) {
@@ -85,15 +90,30 @@ public class ItemRod extends ItemFishingRod {
     }
 
     @Override
+    public Item setUnlocalizedName(String name) {
+        super.setUnlocalizedName(name);
+        if (!(this instanceof ItemVanillaRod)) {
+            GameRegistry.registerItem(this, name.replace(".", "_"));
+        }
+        
+        return this;
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return mod + "." + super.getUnlocalizedName().replace("item.", "").replace("_", ".");
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return Text.localize(getUnlocalizedName());
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        String theName, name = getUnlocalizedName().substring(5);
-        String[] aName = name.split("\\.");
-        if (aName.length == 2) {
-            theName = aName[0] + aName[1].substring(0, 1).toUpperCase() + aName[1].substring(1);
-        } else {
-            theName = name;
-        }
-        itemIcon = iconRegister.registerIcon(Mariculture.modid + ":" + theName);
+        String path = this.path != null ? this.path : mod + ":";
+        String name = super.getUnlocalizedName().replace("item.", "").toLowerCase();
+        itemIcon = iconRegister.registerIcon(path + Text.removeDecimals(name));
     }
 }

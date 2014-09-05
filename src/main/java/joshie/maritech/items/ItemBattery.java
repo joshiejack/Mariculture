@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBattery extends ItemBaseEnergy {
     public ItemBattery(int capacity, int maxReceive, int maxExtract) {
-        super(MTModInfo.TEXPATH, MaricultureTab.tabCore, capacity, maxReceive, maxExtract);
+        super(MTModInfo.MODPATH, MaricultureTab.tabCore, capacity, maxReceive, maxExtract);
     }
 
     public static ItemStack make(ItemStack stack, int power) {
