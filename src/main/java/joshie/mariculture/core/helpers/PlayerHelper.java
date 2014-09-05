@@ -14,9 +14,13 @@ import com.mojang.authlib.GameProfile;
 public class PlayerHelper {
     public static ItemStack getArmor(EntityPlayer player, int slot, Item item) {
         ItemStack[] armor = player.inventory.armorInventory;
-
-        if (slot > -1 && slot < 4) if (armor[slot] != null) if (armor[slot].getItem() == item) return armor[slot];
-
+        if (slot > -1 && slot < 4) {
+            if (armor[slot] != null) {
+                if (armor[slot].getItem() == item) {
+                    return armor[slot];
+                }
+            }
+        }
         return null;
     }
 

@@ -135,22 +135,15 @@ mariculture.pearls.pearlblue=Blue Pearl
 mariculture.pearls.pearlblack=Black Pearl
 mariculture.pearls.pearlpink=Pink Pearl
 mariculture.pearls.pearlsilver=Silver Pearl
-mariculture.battery.titanium=Titanium Battery
-mariculture.battery.copper=Copper Battery
-mariculture.crafting.batterycreative=Infinite RF
 mariculture.crafting.goldensilk=Golden Silk
 mariculture.crafting.goldenthread=Golden Thread
 mariculture.crafting.canvas=Canvas
-mariculture.crafting.neoprene=Neoprene
-mariculture.crafting.plastic=Hard Plastic
-mariculture.crafting.scubalens=Plastic Lens
 mariculture.crafting.aluminumsheet=Sheet of Aluminium
 mariculture.crafting.heater=Heating Component
 mariculture.crafting.cooler=Cooling Component
 mariculture.crafting.carbide=Silicon Carbide
 mariculture.crafting.wheel=Iron Wheel
 mariculture.crafting.wicker=Wicker
-mariculture.crafting.plasticyellow=Golden Plastic
 mariculture.crafting.titaniumsheet=Sheet of Titanium
 mariculture.crafting.snorkellens=Glass Lens
 mariculture.crafting.burntbrick=Burnt Brick
@@ -176,8 +169,8 @@ mariculture.upgrade.impurity=Basic Impurity Upgrade
 mariculture.upgrade.impuritystd=Standard Impurity Upgrade
 mariculture.upgrade.impurityadv=Advanced Impurity Upgrade
 mariculture.upgrade.impurityult=Ultimate Impurity Upgrade
-item.upgrade.eternal.life=Eternal Life
-item.upgrade.eternal.upgrade=Upgrade
+mariculture.upgrade.eternal.life=Eternal Life
+mariculture.upgrade.eternal.upgrade=Upgrade
 mariculture.upgrade.debugkiller=!FishKiller Upgrade (Debug)
 mariculture.upgrade.alwayslive=!FishLiveAnyCondition Upgrade (Debug)
 mariculture.upgrade.ethereal=Ethereal Upgrade
@@ -228,38 +221,23 @@ mariculture.bucket.hpwater=Bucket of Pressurised Water
 #blocks
 mariculture.machines.single.rendered.airpump=Air Pump
 mariculture.machines.single.rendered.feeder=Fish Feeder
-mariculture.machines.multi.rendered.aircompressor=Air Compressor Base
-mariculture.machines.multi.rendered.aircompressorpower=Air Compressor Top
-mariculture.machines.multi.rendered.pressurevessel=Pressure Vessel
 #items
 mariculture.guide.diving=How to Dive (Breathing Underwater)
-item.guide.diving.author=Tom Daley
+mariculture.guide.diving.author=Tom Daley
 mariculture.snorkel=Snorkel
 mariculture.lifejacket=Buoyancy Aid
 mariculture.diving.helmet=Diving Helmet
 mariculture.diving.top=Diving Air Supply
 mariculture.diving.pants=Diving Suit
 mariculture.diving.boots=Diving Boots
-mariculture.scuba.mask=Scuba Mask
-mariculture.scuba.tank=Scuba Tank
-mariculture.scuba.suit=Wetsuit
-mariculture.swimfin=Flippers
 
 ### Factory ###
 #blocks
 mariculture.machines.single.sawmill=Sawmill
-mariculture.machines.single.sluice=Sluice
-mariculture.machines.single.sluiceadvanced=Advanced Sluice
 mariculture.machines.single.fishsorter=Fish Sorter
-mariculture.machines.single.sponge=Mechanized Sponge
 mariculture.machines.single.dictionary=Auto-Dictionary
 mariculture.machines.single.unpacker=Unpacker
-mariculture.machines.single.generator=Generator
-mariculture.machines.single.rendered.fludd=F.L.U.D.D.
 mariculture.machines.single.rendered.geyser=Water Geyser
-mariculture.machines.single.rendered.rotorcopper=Copper Rotor
-mariculture.machines.single.rendered.rotoraluminum=Aluminum Rotor
-mariculture.machines.single.rendered.rotortitanium=Titanium Rotor
 mariculture.tanks.fluidtionary=Fluid Auto-Dictionary
 #customblocks
 tile.customFence.customfence=Custom Fence
@@ -274,32 +252,23 @@ tile.customRFBlock.customrfblock=Custom Redstone Flux Block
 
 #items
 mariculture.guide.machines=The Factory
-item.guide.machines.author=Ford
+mariculture.guide.machines.author=Ford
 mariculture.paintbrush=Paintbrush
 mariculture.chalk=Planning Chalk
 mariculture.crafting.plan_blank=Plan - Blank
 mariculture.crafting.lifecore=Life Core
-mariculture.plans.plan_floor=Plan - Flooring
-mariculture.plans.plan_block=Plan - Block
-mariculture.plans.plan_stairs=Plan - Stairs
-mariculture.plans.plan_slabs=Plan - Slabs
-mariculture.plans.plan_fence=Plan - Fence
-mariculture.plans.plan_gate=Plan - Gate
-mariculture.plans.plan_wall=Plan - Wall
-mariculture.plans.plan_light=Plan - Light
-mariculture.plans.plan_redstone=Plan - Redstone Flux Block
-mariculture.fludd=F.L.U.D.D.
+mariculture.plans.floor=Plan - Flooring
+mariculture.plans.block=Plan - Block
+mariculture.plans.stairs=Plan - Stairs
+mariculture.plans.slabs=Plan - Slabs
+mariculture.plans.fence=Plan - Fence
+mariculture.plans.gate=Plan - Gate
+mariculture.plans.wall=Plan - Wall
+mariculture.plans.light=Plan - Light
 mariculture.filter=Item Filter
-mariculture.turbine.copper=Copper Rotor
-mariculture.turbine.aluminum=Aluminum Rotor
-mariculture.turbine.titanium=Titanium Rotor
 
 ### Fishery ###
 #blocks
-mariculture.machines.multi.incubator=Incubator
-mariculture.machines.multi.incubatorbase=Incubator Base
-mariculture.machines.multi.incubatortop=Incubator Top
-mariculture.machines.single.autofisher=Automatic Fisher
 mariculture.tanks.hatchery=Hatchery
 mariculture.machines.multi.rendered.sifter=Sifter
 mariculture.lamps.on.white=White Neon Lamp
@@ -357,21 +326,9 @@ mariculture.mana=Magical Matter
 mariculture.poison=Poison
 #items
 mariculture.guide.fishing=Fishing and Breeding #42
-item.guide.fishing.author=P. Sherman
+mariculture.guide.fishing.author=P. Sherman
 mariculture.guide.breeding=Fish Breeding 101
 mariculture.materials.fishmeal=Fish Meal
-mariculture.materials.dropletearth=Earthen Droplet (LEGACY)
-mariculture.materials.dropletplant=Herbal Droplet (LEGACY)
-mariculture.materials.dropletfrozen=Frozen Droplet (LEGACY)
-mariculture.materials.dropletwater=Water Droplet (LEGACY)
-mariculture.materials.dropletnether=Nether Droplet (LEGACY)
-mariculture.materials.dropletender=Ender Droplet (LEGACY)
-mariculture.materials.dropletattack=Destruction Droplet (LEGACY)
-mariculture.materials.dropletaqua=Aquatic Droplet (LEGACY)
-mariculture.materials.dropletpoison=Poison Droplet (LEGACY)
-mariculture.materials.dropletmagic=Magic Droplet (LEGACY)
-mariculture.materials.dropletelectric=Flux Droplet (LEGACY)
-mariculture.materials.droplethealth=Regeneration Droplet (LEGACY)
 mariculture.droplet.earth=Earthen Droplet
 mariculture.droplet.plant=Herbal Droplet
 mariculture.droplet.frozen=Frozen Droplet
@@ -433,7 +390,7 @@ mariculture.rod.flux=RF Fishing Rod
 mariculture.scanner=Fish Scanner
 mariculture.fishinghat=Bucket Hat
 #fish breeding
-item.fishy=Mariculture Fish
+mariculture.fishy=Mariculture Fish
 fish.data.dead=Raw
 fish.data.hybrid=Hybrid
 fish.data.lifespan=Lifespan
@@ -550,7 +507,7 @@ enchantment.luck=Luck of the Irish
 
 #items
 mariculture.guide.enchants=A Seawitch's Guide
-item.guide.enchants.author=Ursula
+mariculture.guide.enchants.author=Ursula
 mariculture.mirror.basic=Mirror
 mariculture.mirror.magic=Magic Mirror
 mariculture.mirror.celestial=Celestial Mirror
@@ -559,11 +516,6 @@ mariculture.mobmagnet=Mob Magnet
 mariculture.ring=Ring
 mariculture.bracelet=Bracelet
 mariculture.necklace=Necklace
-
-### Transport ###
-#items
-mariculture.boat.speed=Speed Boat
-entity.Mariculture.speedBoat.name=Speed Boat
 
 ### World ###
 #blocks

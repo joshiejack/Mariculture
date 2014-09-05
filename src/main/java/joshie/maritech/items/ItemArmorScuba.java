@@ -8,6 +8,8 @@ import joshie.mariculture.core.Core;
 import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.maritech.extensions.modules.ExtensionDiving;
+import joshie.maritech.handlers.ScubaFin;
+import joshie.maritech.handlers.ScubaMask;
 import joshie.maritech.lib.MTModInfo;
 import joshie.maritech.model.ModelFlippers;
 import joshie.maritech.util.MTTranslate;
@@ -84,5 +86,16 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
         }
 
         return stack;
+    }
+
+    @Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        if (!world.isRemote) {
+            if (stack.getItem() == ExtensionDiving.scubaMask && world.getWorldTime() % 5 == 0) {
+                ScubaMask.damage(player, stack);
+            }
+        } else if (stack.getItem() == ExtensionDiving.swimfin) {
+            ScubaFin.init(player);
+        }
     }
 }

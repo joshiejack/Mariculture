@@ -25,7 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ExtensionRenderedMachine extends ExtensionBase {
+public class ExtensionRenderedMachine extends ExtensionBlocksBase {
     @Override
     public String getName(int meta, String name) {
         switch (meta) {
@@ -37,6 +37,19 @@ public class ExtensionRenderedMachine extends ExtensionBase {
                 return "rotorAluminum";
             case MachineRenderedMeta.ROTOR_TITANIUM:
                 return "rotorTitanium";
+        }
+
+        return name;
+    }
+
+    @Override
+    public String getMod(int meta, String name) {
+        switch (meta) {
+            case MachineRenderedMeta.FLUDD_STAND:
+            case MachineRenderedMeta.ROTOR_COPPER:
+            case MachineRenderedMeta.ROTOR_ALUMINUM:
+            case MachineRenderedMeta.ROTOR_TITANIUM:
+                return "maritech";
         }
 
         return name;

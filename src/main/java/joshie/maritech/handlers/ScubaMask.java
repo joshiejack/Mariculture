@@ -13,18 +13,26 @@ public class ScubaMask {
     private static int tick = 0;
     private static final float LEVEL = 10F;
 
-    public static void damage(EntityPlayer player) {
-        if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, ExtensionDiving.scubaMask)) {
-            ItemStack mask = PlayerHelper.getArmor(player, ArmorSlot.HAT, ExtensionDiving.scubaMask);
-            if (mask != null) if (mask.hasTagCompound()) if (mask.stackTagCompound.getBoolean("ScubaMaskOnOutOfWater") == true) if (!player.isInsideOfMaterial(Material.water)) {
-                tick++;
-                if (tick >= 60) {
-                    tick = 0;
-                    mask.damageItem(1, player);
+    public static void damage(EntityPlayer player, ItemStack mask) {
+        if (mask != null) {
+            if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, ExtensionDiving.scubaTank)) {
+                if (player.isInsideOfMaterial(Material.water)) {
+                    ScubaTank.activate(player);
+                    ScubaTank.damage(player.inventory.armorItemInSlot(ArmorSlot.TOP), player);
                 }
+            }
 
-                if (mask.stackSize <= 0) {
-                    player.inventory.armorInventory[ArmorSlot.HAT] = null;
+            if (mask.hasTagCompound()) {
+                if (mask.stackTagCompound.getBoolean("ScubaMaskOnOutOfWater") == true) if (!player.isInsideOfMaterial(Material.water)) {
+                    tick++;
+                    if (tick >= 60) {
+                        tick = 0;
+                        mask.damageItem(1, player);
+                    }
+
+                    if (mask.stackSize <= 0) {
+                        player.inventory.armorInventory[ArmorSlot.HAT] = null;
+                    }
                 }
             }
         }

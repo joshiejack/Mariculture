@@ -4,8 +4,8 @@ import java.util.List;
 
 import joshie.lib.base.ItemBaseEnergy;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.lib.MCModInfo;
 import joshie.mariculture.core.util.MCTranslate;
+import joshie.maritech.lib.MTModInfo;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBattery extends ItemBaseEnergy {
     public ItemBattery(int capacity, int maxReceive, int maxExtract) {
-        super(MCModInfo.MODPATH, MaricultureTab.tabCore, capacity, maxReceive, maxExtract);
+        super(MTModInfo.TEXPATH, MaricultureTab.tabCore, capacity, maxReceive, maxExtract);
     }
 
     public static ItemStack make(ItemStack stack, int power) {

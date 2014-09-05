@@ -4,17 +4,22 @@ import joshie.lib.helpers.ClientHelper;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.config.GeneralStuff;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.world.WorldPlus;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
     @Override
@@ -24,8 +29,8 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
 
     @Override
     public String getName(ItemStack stack) {
-        String name = "";
-        switch (stack.getItemDamage()) {
+        int meta = stack.getItemDamage();
+        switch (meta) {
             case CraftingMeta.GOLDEN_SILK:
                 return "goldenSilk";
             case CraftingMeta.GOLDEN_THREAD:
@@ -74,9 +79,9 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
                 return "batteryCreative";
             case CraftingMeta.THERMOMETER:
                 return "thermometer";
-            default:
-                return "unnamed";
         }
+
+        return MaricultureEvents.getItemName(this, meta, "machines");
     }
 
     public boolean spawnEnderDragon(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
@@ -137,6 +142,8 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
             case CraftingMeta.NEOPRENE:
             case CraftingMeta.PLASTIC:
             case CraftingMeta.LENS:
+            case CraftingMeta.LIFE_CORE:
+            case CraftingMeta.CREATIVE_BATTERY:
                 return MaricultureHandlers.HIGH_TECH_ENABLED;
             default:
                 return true;
@@ -149,6 +156,16 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
         if (meta == CraftingMeta.SEEDS_KELP) return creative == MaricultureTab.tabWorld;
         if (meta == CraftingMeta.THERMOMETER) return creative == MaricultureTab.tabFishery;
         return creative == MaricultureTab.tabCore;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IIconRegister register) {
+        String path = this.path != null ? this.path : mod + ":";
+        icons = new IIcon[getMetaCount()];
+        for (int i = 0; i < icons.length; i++) {
+            icons[i] = register.registerIcon(MaricultureEvents.getMod(this, i, "mariculture") + ":" + getName(new ItemStack(this, 1, i)));
+        }
     }
 
     //Used for the creative battery ;D//

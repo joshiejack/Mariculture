@@ -22,27 +22,10 @@ public class ScubaEvent {
     public void onFogRender(FogDensity event) {
         if (event.block.getMaterial() == Material.water) {
             if (event.entity instanceof EntityPlayer && event.entity == ClientHelper.getPlayer()) {
-                EntityPlayer player = ClientHelper.getPlayer();
-                if (player.inventory.armorInventory[3] != null) {
-                    if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, ExtensionDiving.scubaMask)) {
-                        event.density = 0.0F;
-                        event.setCanceled(true);
-                    }
+                if (PlayerHelper.hasArmor(ClientHelper.getPlayer(), ArmorSlot.HAT, ExtensionDiving.scubaMask)) {
+                    event.density = 0.0F;
+                    event.setCanceled(true);
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onLivingUpdate(LivingUpdateEvent event) {
-        if (event.entity instanceof EntityPlayer) {
-            if (!event.entity.worldObj.isRemote) {
-                if (event.entity.worldObj.getWorldTime() % 5 == 0) {
-                    ScubaTank.init((EntityPlayer) event.entity);
-                    ScubaMask.damage((EntityPlayer) event.entity);
-                }
-            } else {
-                ScubaFin.init((EntityPlayer) event.entity);
             }
         }
     }

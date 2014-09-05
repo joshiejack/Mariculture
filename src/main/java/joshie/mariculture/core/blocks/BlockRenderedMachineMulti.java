@@ -240,11 +240,17 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
     public int getMetaCount() {
         return MachineRenderedMultiMeta.COUNT;
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        String name = prefix != null ? prefix : "";
+        icons = new IIcon[getMetaCount()];
+
+        for (int i = 0; i < icons.length; i++) {
+            icons[i] = iconRegister.registerIcon(MaricultureEvents.getMod(this, i, "mariculture") + ":" + name + getName(i));
+        }
+        
         bar1 = iconRegister.registerIcon(Mariculture.modid + ":bar1");
-        super.registerBlockIcons(iconRegister);
     }
 }

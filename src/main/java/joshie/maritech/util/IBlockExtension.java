@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public interface IBlockExtension {
+public interface IBlockExtension extends IItemExtension {
     public String getName(int meta, String name);
     public boolean isActive(int meta, boolean isActive);
     boolean isValidTab(CreativeTabs tab, int meta, boolean isValid);

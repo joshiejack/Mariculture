@@ -411,7 +411,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         icons = new IIcon[getMetaCount() - 2];
         for (int i = 0; i < icons.length; i++) {
             if ((i < MachineRenderedMeta.ROTOR_COPPER || i == MachineRenderedMeta.INGOT_CASTER) && i != MachineRenderedMeta.AUTO_HAMMER) {
-                icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + name + getName(i));
+                icons[i] = iconRegister.registerIcon(MaricultureEvents.getMod(this, i, "mariculture") + ":" + name + getName(i));
             }
         }
     }

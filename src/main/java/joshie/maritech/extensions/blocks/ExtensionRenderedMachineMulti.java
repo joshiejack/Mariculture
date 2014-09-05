@@ -14,7 +14,33 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyContainerItem;
 
-public class ExtensionRenderedMachineMulti extends ExtensionBase {
+public class ExtensionRenderedMachineMulti extends ExtensionBlocksBase {
+    @Override
+    public String getName(int meta, String name) {
+        switch (meta) {
+            case MachineRenderedMultiMeta.COMPRESSOR_BASE:
+                return "airCompressor";
+            case MachineRenderedMultiMeta.COMPRESSOR_TOP:
+                return "airCompressorPower";
+            case MachineRenderedMultiMeta.PRESSURE_VESSEL:
+                return "pressureVessel";
+        }
+
+        return name;
+    }
+
+    @Override
+    public String getMod(int meta, String name) {
+        switch (meta) {
+            case MachineRenderedMultiMeta.COMPRESSOR_BASE:
+            case MachineRenderedMultiMeta.COMPRESSOR_TOP:
+            case MachineRenderedMultiMeta.PRESSURE_VESSEL:
+                return "maritech";
+        }
+
+        return name;
+    }
+
     @Override
     public boolean isActive(int meta, boolean isActive) {
         switch (meta) {
@@ -25,10 +51,10 @@ public class ExtensionRenderedMachineMulti extends ExtensionBase {
             case MachineRenderedMultiMeta.PRESSURE_VESSEL:
                 return Modules.isActive(Modules.factory);
         }
-        
+
         return isActive;
     }
-    
+
     @Override
     public float getHardness(int meta, float hardness) {
         switch (meta) {

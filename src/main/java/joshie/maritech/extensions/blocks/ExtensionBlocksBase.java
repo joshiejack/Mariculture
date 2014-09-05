@@ -1,5 +1,6 @@
 package joshie.maritech.extensions.blocks;
 
+import joshie.maritech.extensions.items.ExtensionItemsBase;
 import joshie.maritech.util.IBlockExtension;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,12 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class ExtensionBase implements IBlockExtension {
-    @Override
-    public String getName(int meta, String name) {
-        return name;
-    }
-
+public class ExtensionBlocksBase extends ExtensionItemsBase implements IBlockExtension {
     @Override
     public boolean isActive(int meta, boolean isActive) {
         return isActive;

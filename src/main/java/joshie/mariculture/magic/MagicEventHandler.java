@@ -58,12 +58,15 @@ public class MagicEventHandler {
                 if (EnchantHelper.exists(Magic.glide)) {
                     EnchantmentGlide.activate(player);
                 }
+
                 if (EnchantHelper.exists(Magic.speed)) {
                     EnchantmentSpeed.activate(player);
                 }
+
                 if (EnchantHelper.exists(Magic.spider)) {
                     EnchantmentSpider.activate(player);
                 }
+
                 if (EnchantHelper.exists(Magic.flight)) {
                     EnchantmentFlight.damage(player);
                 }
@@ -71,13 +74,16 @@ public class MagicEventHandler {
                 if (EnchantHelper.exists(Magic.oneRing)) {
                     EnchantmentOneRing.activate(player);
                 }
+
                 if (EnchantHelper.exists(Magic.hungry)) {
                     EnchantmentNeverHungry.activate(player);
                 }
             }
 
-            if (!player.capabilities.isCreativeMode) if (EnchantHelper.hasEnchantment(Magic.repair, player)) {
-                EnchantmentRestore.activate(player);
+            if (!player.capabilities.isCreativeMode) {
+                if (EnchantHelper.hasEnchantment(Magic.repair, player)) {
+                    EnchantmentRestore.activate(player);
+                }
             }
         }
     }

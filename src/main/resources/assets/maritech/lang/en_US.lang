@@ -1,6 +1,13 @@
 #Core Module Extensions
-mariculture.air.naturalgas=Natural Gas
-mariculture.sands.name=Gas Leak
+maritech.air.naturalgas=Natural Gas
+maritech.sands.name=Gas Leak
+maritech.battery.titanium=Titanium Battery
+maritech.battery.copper=Copper Battery
+maritech.crafting.batterycreative=Infinite RF
+maritech.crafting.neoprene=Neoprene
+maritech.crafting.plastic=Hard Plastic
+maritech.crafting.scubalens=Plastic Lens
+maritech.crafting.plasticyellow=Golden Plastic
 
 #Diving Module Extensions
 maritech.scuba.mask=Scuba Mask
@@ -9,6 +16,30 @@ maritech.landlights=Landlights
 maritech.scuba.tank=Scuba Tank
 maritech.scuba.suit=Wetsuit
 maritech.swimfin=Flippers
+
+#Factory Module Extensions
+maritech.machines.multi.rendered.aircompressor=Air Compressor Base
+maritech.machines.multi.rendered.aircompressorpower=Air Compressor Top
+maritech.machines.multi.rendered.pressurevessel=Pressure Vessel
+maritech.machines.single.sluice=Sluice
+maritech.machines.single.sluiceadvanced=Advanced Sluice
+maritech.machines.single.generator=Generator
+maritech.machines.single.sponge=Mechanized Sponge
+maritech.machines.single.rendered.fludd=F.L.U.D.D.
+maritech.machines.single.rendered.rotorcopper=Copper Rotor
+maritech.machines.single.rendered.rotoraluminum=Aluminum Rotor
+maritech.machines.single.rendered.rotortitanium=Titanium Rotor
+maritech.turbine.copper=Copper Rotor
+maritech.turbine.aluminum=Aluminum Rotor
+maritech.turbine.titanium=Titanium Rotor
+maritech.plans.redstone=Plan - Redstone Flux Block
+maritech.fludd=F.L.U.D.D.
+
+#Fishery Module Extensions
+maritech.machines.single.autofisher=Automatic Fisher
+maritech.machines.multi.incubator=Incubator
+maritech.machines.multi.incubatorbase=Incubator Base
+maritech.machines.multi.incubatortop=Incubator Top
 
 #Transport Module Extensions
 maritech.boat.speed=Speed Boat

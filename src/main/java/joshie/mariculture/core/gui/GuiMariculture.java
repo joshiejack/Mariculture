@@ -40,6 +40,14 @@ public abstract class GuiMariculture extends GuiContainer {
         xSize = 201;
         name = BlockHelper.getName(container.tile);
     }
+    
+    public GuiMariculture(ContainerMariculture container, ResourceLocation texture, int yOffset) {
+        super(container);
+        TEXTURE = texture;
+        ySize += yOffset;
+        xSize = 201;
+        name = BlockHelper.getName(container.tile);
+    }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {

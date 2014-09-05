@@ -4,6 +4,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctional;
+import joshie.mariculture.core.events.IconRegisterEvent;
 import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineMeta;
 import joshie.mariculture.core.lib.Modules;
@@ -26,6 +27,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -161,18 +163,27 @@ public class BlockMachine extends BlockFunctional {
     public int getMetaCount() {
         return MachineMeta.COUNT;
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        super.registerBlockIcons(iconRegister);
+        String name = prefix != null ? prefix : "";
+        icons = new IIcon[getMetaCount()];
 
-        //Register other icons
+        for (int i = 0; i < icons.length; i++) {
+            icons[i] = iconRegister.registerIcon(MaricultureEvents.getMod(this, i, "mariculture") + ":" + name + getName(i));
+        }
+        
+      //Register other icons
         fishSorter = new IIcon[6];
         for (int i = 0; i < 6; i++) {
             fishSorter[i] = iconRegister.registerIcon(Mariculture.modid + ":fishsorter" + (i + 1));
         }
 
         unpacker = iconRegister.registerIcon(Mariculture.modid + ":unpackerTop");
+        
+        //Register EXTRA ICONS
+        IconRegisterEvent event = new IconRegisterEvent(iconRegister);
+        MinecraftForge.EVENT_BUS.post(event);
     }
 }

@@ -9,6 +9,7 @@ import joshie.mariculture.core.events.BlockEvent.GetWorldIIcon;
 import joshie.mariculture.core.events.BlockEvent.TilePlaced;
 import joshie.maritech.util.IBlockExtension;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -17,13 +18,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockEvents {
     public static HashMap<Block, IBlockExtension> blocks = new HashMap();
-
-    @SubscribeEvent
-    public void getBlockName(BlockEvent.GetBlockName event) {
-        IBlockExtension extension = blocks.get(event.block);
-        if (extension != null) {
-            event.name = extension.getName(event.meta, event.name);
-        }
+    
+    public static void register(Block block, IBlockExtension extension) {
+        blocks.put(block, extension);
+        ItemEvents.register(Item.getItemFromBlock(block), extension);
     }
     
     @SubscribeEvent

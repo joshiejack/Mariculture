@@ -19,16 +19,6 @@ public class BlockEvent extends Event {
         this.block = block;
     }
     
-    public static class GetBlockName extends BlockEvent {
-        public final int meta;
-        public String name;
-        public GetBlockName(Block block, int meta, String name) {
-            super(block);
-            this.meta = meta;
-            this.name = name;
-        }
-    }
-    
     public static class GetIsActive extends BlockEvent {
         public final int meta;
         public boolean isActive;

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import joshie.lib.util.Text;
 import joshie.mariculture.core.lib.PearlColor;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.magic.Magic;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
@@ -26,8 +27,11 @@ public class ItemPearl extends ItemMCMeta {
     
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String name = getName(stack).replace("pearl", "").replaceAll("(.)([A-Z])", "$1.$2").toLowerCase();
-        return Text.localize(getUnlocalizedName() + "." + name);
+        String format = MCTranslate.translate("pearl.format");
+        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage())));
+        format = format.replace("%P", MCTranslate.translate("pearl"));
+        String unlocalized = getUnlocalizedName();
+        return format.replace("%B", "");
     }
 
     @Override

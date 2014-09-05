@@ -36,7 +36,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
-public class ExtensionMachine extends ExtensionBase {
+public class ExtensionMachine extends ExtensionBlocksBase {
     @Override
     public String getName(int meta, String name) {
         switch (meta) {
@@ -53,6 +53,20 @@ public class ExtensionMachine extends ExtensionBase {
         }
 
         return name;
+    }
+    
+    @Override
+    public String getMod(int meta, String mod) {
+        switch (meta) {
+            case MachineMeta.SLUICE:
+            case MachineMeta.SPONGE:
+            case MachineMeta.AUTOFISHER:
+            case MachineMeta.SLUICE_ADVANCED:
+            case MachineMeta.GENERATOR:
+                return "maritech";
+        }
+
+        return mod;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package joshie.mariculture.core.events;
 
 import joshie.mariculture.core.events.BlockEvent.BlockBroken;
-import joshie.mariculture.core.events.BlockEvent.GetBlockName;
 import joshie.mariculture.core.events.BlockEvent.GetHardness;
 import joshie.mariculture.core.events.BlockEvent.GetInventoryIIcon;
 import joshie.mariculture.core.events.BlockEvent.GetIsActive;
@@ -11,12 +10,15 @@ import joshie.mariculture.core.events.BlockEvent.GetToolLevel;
 import joshie.mariculture.core.events.BlockEvent.GetToolType;
 import joshie.mariculture.core.events.BlockEvent.GetWorldIIcon;
 import joshie.mariculture.core.events.BlockEvent.TilePlaced;
+import joshie.mariculture.core.events.ItemEvent.GetItemName;
+import joshie.mariculture.core.events.ItemEvent.GetModName;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
 import joshie.mariculture.plugins.Plugins.Plugin.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -29,12 +31,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class MaricultureEvents {
-    public static String getItemName(Block block, int meta, String name) {
-        GetBlockName event = new GetBlockName(block, meta, name);
-        MinecraftForge.EVENT_BUS.post(event);
-        return event.name;
-    }
-    
     public static boolean isActive(Block block, int meta, boolean isActive) {
         GetIsActive event = new GetIsActive(block, meta, isActive);
         MinecraftForge.EVENT_BUS.post(event);
@@ -110,5 +106,26 @@ public class MaricultureEvents {
     public static void render(ItemStack item, ItemRenderType type) {
         RenderEvent event = new RenderEvent(item, type);
         MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    /** Localisation based helpers **/
+    public static String getMod(Block block, int meta, String mod) {
+        return getMod(Item.getItemFromBlock(block), meta, mod);
+    }
+
+    public static String getMod(Item item, int meta, String mod) {
+        GetModName event = new GetModName(item, meta, mod);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.mod;
+    }
+    
+    public static String getItemName(Block block, int meta, String name) {
+        return getItemName(Item.getItemFromBlock(block), meta, name);
+    }
+    
+    public static String getItemName(Item item, int meta, String name) {
+        GetItemName event = new GetItemName(item, meta, name);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.name;
     }
 }
