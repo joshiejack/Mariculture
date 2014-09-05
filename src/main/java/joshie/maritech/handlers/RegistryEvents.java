@@ -2,7 +2,7 @@ package joshie.maritech.handlers;
 
 import java.util.HashMap;
 
-import joshie.mariculture.api.events.RegistryEvent;
+import joshie.mariculture.core.events.RegistryEvent;
 import joshie.mariculture.plugins.Plugins.Plugin.Stage;
 import joshie.maritech.util.IModuleExtension;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

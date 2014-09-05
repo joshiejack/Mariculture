@@ -5,7 +5,7 @@ import static joshie.mariculture.core.helpers.ConfigHelper.getInt;
 import static joshie.mariculture.core.helpers.ConfigHelper.setCategory;
 import static joshie.mariculture.core.helpers.ConfigHelper.setConfig;
 import joshie.lib.util.Library;
-import joshie.mariculture.api.events.MaricultureEvents;
+import joshie.mariculture.core.events.MaricultureEvents;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.Loader;
 

@@ -1,7 +1,7 @@
 package joshie.mariculture.core.blocks.items;
 
-import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineMeta;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

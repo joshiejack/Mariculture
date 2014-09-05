@@ -4,7 +4,7 @@ import static joshie.mariculture.core.helpers.ConfigHelper.getBoolean;
 import static joshie.mariculture.core.helpers.ConfigHelper.getInt;
 import static joshie.mariculture.core.helpers.ConfigHelper.setCategory;
 import static joshie.mariculture.core.helpers.ConfigHelper.setConfig;
-import joshie.mariculture.api.events.MaricultureEvents;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineSpeeds;
 import net.minecraftforge.common.config.Configuration;
 

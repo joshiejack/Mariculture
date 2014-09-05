@@ -2,7 +2,7 @@ package joshie.mariculture.core.lib;
 
 import java.util.ArrayList;
 
-import joshie.mariculture.api.events.MaricultureEvents;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.handlers.LogHandler;
 import joshie.mariculture.plugins.Plugins.Plugin.Stage;
 

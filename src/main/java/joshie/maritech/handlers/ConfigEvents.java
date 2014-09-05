@@ -2,7 +2,7 @@ package joshie.maritech.handlers;
 
 import java.util.HashMap;
 
-import joshie.mariculture.api.events.ConfigEvent;
+import joshie.mariculture.core.events.ConfigEvent;
 import joshie.maritech.util.IConfigExtension;
 
 import com.google.common.eventbus.Subscribe;

@@ -52,7 +52,7 @@ public class WorldPlus extends RegistrationModule {
     @Override
     public void registerOther() {
         if (MaricultureTab.tabWorld != null) {
-            MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 7), false);
+            MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 2), true);
         }
 
         registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");

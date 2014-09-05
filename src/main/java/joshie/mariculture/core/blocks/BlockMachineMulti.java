@@ -2,9 +2,9 @@ package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctionalMulti;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineMultiMeta;
 import joshie.mariculture.core.lib.RockMeta;
 import joshie.mariculture.core.tile.TileCrucible;

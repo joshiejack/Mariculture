@@ -2,9 +2,9 @@ package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctional;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.WoodMeta;
@@ -18,7 +18,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -86,16 +85,12 @@ public class BlockMachine extends BlockFunctional {
     @Override
     public IIcon getIcon(int side, int meta) {
         IIcon icon = null;
-        if (meta == MachineMeta.FISH_SORTER) icon = fishSorter[side];
+        if (meta == MachineMeta.FISH_SORTER) return fishSorter[side];
         else if (side < 2) {
-            if (meta == MachineMeta.BOOKSHELF) icon = Blocks.planks.getIcon(side, meta);
-            else if (meta == MachineMeta.UNPACKER) icon = unpacker;
+            if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
+            else if (meta == MachineMeta.UNPACKER) return unpacker;
             else icon = Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
-        }
-
-        if (icon == null) {
-            icon = super.getIcon(side, meta);
-        }
+        } else icon = super.getIcon(side, meta);
 
         return MaricultureEvents.getInventoryIcon(this, meta, side, icon);
     }
@@ -103,18 +98,9 @@ public class BlockMachine extends BlockFunctional {
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(IBlockAccess block, int x, int y, int z, int side) {
-        IIcon icon = null;
         TileEntity tile = block.getTileEntity(x, y, z);
-        if (tile instanceof TileBookshelf) icon = Blocks.bookshelf.getIcon(side, 0);
-        else icon = super.getIcon(block, x, y, z, side);
-        return MaricultureEvents.getWorldIcon(this, side, icon, block, x, y, z);
-    }
-
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile == null || player.isSneaking()) return false;
-        return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+        if (tile instanceof TileBookshelf) return Blocks.bookshelf.getIcon(side, 0);
+        return MaricultureEvents.getWorldIcon(this, side, super.getIcon(block, x, y, z, side), block, x, y, z);
     }
 
     @Override

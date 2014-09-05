@@ -1,7 +1,7 @@
 package joshie.mariculture.core.render;
 
-import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.Core;
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.diving.render.ModelAirPump;
 import net.minecraft.client.Minecraft;

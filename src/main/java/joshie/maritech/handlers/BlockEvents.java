@@ -2,11 +2,11 @@ package joshie.maritech.handlers;
 
 import java.util.HashMap;
 
-import joshie.mariculture.api.events.BlockEvent;
-import joshie.mariculture.api.events.BlockEvent.BlockBroken;
-import joshie.mariculture.api.events.BlockEvent.GetInventoryIIcon;
-import joshie.mariculture.api.events.BlockEvent.GetWorldIIcon;
-import joshie.mariculture.api.events.BlockEvent.TilePlaced;
+import joshie.mariculture.core.events.BlockEvent;
+import joshie.mariculture.core.events.BlockEvent.BlockBroken;
+import joshie.mariculture.core.events.BlockEvent.GetInventoryIIcon;
+import joshie.mariculture.core.events.BlockEvent.GetWorldIIcon;
+import joshie.mariculture.core.events.BlockEvent.TilePlaced;
 import joshie.maritech.util.IBlockExtension;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;

@@ -5,7 +5,7 @@ import java.util.List;
 import joshie.lib.util.Text;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.items.ItemMCMeta;
+import joshie.mariculture.core.items.ItemMCDamageable;
 import joshie.mariculture.core.lib.PlansMeta;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,11 +15,11 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPlan extends ItemMCMeta {
+public class ItemPlan extends ItemMCDamageable {
+    private IIcon[] icons;
+    
     public ItemPlan() {
-        setMaxDamage(64);
-        setMaxStackSize(1);
-        setHasSubtypes(false);
+        super(64);
         setCreativeTab(MaricultureTab.tabFactory);
     }
 
@@ -48,12 +48,6 @@ public class ItemPlan extends ItemMCMeta {
         }
     }
 
-    @Override
-    public int getMetaCount() {
-        return PlansMeta.COUNT;
-    }
-
-    @Override
     public String getName(ItemStack stack) {
         if (stack.hasTagCompound()) {
             switch (PlansMeta.getType(stack)) {
@@ -107,7 +101,7 @@ public class ItemPlan extends ItemMCMeta {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creative, List list) {
-        for (int i = 0; i < getMetaCount(); ++i) {
+        for (int i = 0; i < PlansMeta.COUNT; ++i) {
             list.add(PlansMeta.setType(new ItemStack(item, 1, 0), i));
         }
     }
@@ -115,8 +109,7 @@ public class ItemPlan extends ItemMCMeta {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        icons = new IIcon[getMetaCount()];
-
+        icons = new IIcon[PlansMeta.COUNT];
         for (int i = 0; i < icons.length; i++) {
             icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(PlansMeta.setType(new ItemStack(this, 1, 0), i)));
         }

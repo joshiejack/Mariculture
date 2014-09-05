@@ -127,13 +127,17 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
     public boolean isActive(int meta) {
         switch (meta) {
             case CraftingMeta.DRAGON_EGG:
-                return Modules.isActive(Modules.fishery);
+                return MaricultureHandlers.HIGH_TECH_ENABLED && Modules.isActive(Modules.fishery);
             case CraftingMeta.BLANK_PLAN:
                 return Modules.isActive(Modules.factory);
             case CraftingMeta.POLISHED_STICK:
                 return Modules.isActive(Modules.fishery);
             case CraftingMeta.POLISHED_TITANIUM:
                 return Modules.isActive(Modules.fishery);
+            case CraftingMeta.NEOPRENE:
+            case CraftingMeta.PLASTIC:
+            case CraftingMeta.LENS:
+                return MaricultureHandlers.HIGH_TECH_ENABLED;
             default:
                 return true;
         }
