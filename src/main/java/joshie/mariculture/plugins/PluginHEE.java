@@ -2,6 +2,7 @@ package joshie.mariculture.plugins;
 
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.plugins.Plugins.Plugin;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class PluginHEE extends Plugin {
@@ -11,7 +12,10 @@ public class PluginHEE extends Plugin {
 
     @Override
     public void preInit() {
-        Fluids.add("ender", FluidRegistry.getFluid("enderGoo"), 250, true);
+        Fluid fluid = FluidRegistry.getFluid("enderGoo");
+        if(fluid != null) {
+            Fluids.add("ender", FluidRegistry.getFluid("enderGoo"), 250, true);
+        }
     }
 
     @Override
