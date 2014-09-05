@@ -17,12 +17,6 @@ buildscript {
 
 apply plugin: 'forge'
 
-ext.buildnumber = 0
-if (System.getenv().BUILD_NUMBER)
-    project.buildnumber = System.getenv().BUILD_NUMBER
-else
-    logger.lifecycle "SETTING BUILDNUMBER TO 0"
-
 // define the properties file
 ext.configFile = file "build.properties"
 
@@ -33,9 +27,14 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = config.minecraft_version + "-" + config.mod_version
-group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Mariculture"
+buildnumber = ""
+if (System.getenv().BUILD_NUMBER) {
+    buildnumber = "-" + System.getenv().BUILD_NUMBER
+}
+
+version = config.minecraft_version + "-" + config.mc_version + buildnumber
+group= "com.github.joshie.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "Mariculture-Deluxe"
 
 dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
@@ -54,7 +53,7 @@ processResources {
 
         expand ([
             'modid': project.archivesBaseName,
-            'mod_version': project.config.mod_version,
+            'mod_version': project.config.mc_version,
             'minecraft_version': project.config.minecraft_version
         ])
     }
@@ -67,38 +66,82 @@ processResources {
     }
 }
 
-project.version += '-' + project.buildnumber
-
 jar {
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + ".jar"
     manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 
+task maricultureJar(type: Jar) {
+    baseName = 'Mariculture'
+    version = config.minecraft_version + "-" + config.mc_version + buildnumber
+    manifest {
+        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+    
+    from('etc/mariculture') {
+        include '*.txt'
+        include '*.info'
+        expand ([
+            'mod_version': project.config.mc_version,
+            'minecraft_version': project.config.minecraft_version
+        ])
+    }
+    
+    from zipTree(jar.archivePath).matching {
+        exclude 'joshie/maritech/**', 'assets/maritech/**'
+    }
+}
+
+task maritechJar(type: Jar) {
+    baseName = 'MariTech'
+    version = config.minecraft_version + "-" + config.mt_version + buildnumber
+    from('etc/maritech') {
+        include '*.txt'
+        include '*.info'
+        expand ([
+            'mod_version': project.config.mt_version,
+            'minecraft_version': project.config.minecraft_version
+        ])
+    }
+    
+    from zipTree(jar.archivePath).matching {
+        include 'joshie/maritech/**', 'assets/maritech/**'
+    }
+}
+
 task sourceJar(type: Jar) {
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-src.jar"
     from sourceSets.main.java
-    classifier = 'src'
 }
 
 task deobfJar(type: Jar) {
-    from sourceSets.main.output
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-deobf.jar"
     classifier = 'deobf'
     manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 
 task apiJar(type: Jar) {
+    archiveName="Mariculture-API-" + config.minecraft_version + buildnumber + ".jar"
     from(sourceSets.main.java) {
-        include "mariculture/api/**"
+        include "joshie/mariculture/api/**"
     }
     
     classifier = 'api'
 }
 
+maricultureJar.dependsOn('reobf')
+maritechJar.dependsOn('reobf')
+
 artifacts {
+    archives maricultureJar
+    archives maritechJar
     archives deobfJar
     archives apiJar
     archives sourceJar

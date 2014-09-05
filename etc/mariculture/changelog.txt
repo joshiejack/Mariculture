@@ -1,0 +1,247 @@
+Mariculture 1.2.4
+• Split in to two mods.
+• Fixed a potential crash with Mob Magnet
+
+Mariculture 1.2.3d
+• Fix Autofisher out of bound crash when decreasing bait
+
+Mariculture 1.2.3c
+• Fix crash when catching vanilla loot with an autofisher
+• Fix crash with newer versions of blood magic
+• Update TCon Support for newest builds
+• Temporarily added recipes to add power to batteries/rf rod using redstone (Until I readd a proper way to recharge)
+
+Mariculture 1.2.3b
+• Fix Calculation of how much fluid to drain with sluices
+• Fixed a crash related to custom blocks
+• Fix fishing rods being repairable with antyhing not in the ore dictionary
+• Fix load order issue with HEE Plugin
+• Anvil will no longer allow free repairs if you have 0 xp
+• Snorkel will no longer reset brightness
+
+Mariculture 1.2.3a
+• Fix accidentally importing scala instead of java in some places :P
+
+Mariculture 1.2.3
+• Added Blacksmith's Assistant, Autohammers the anvil for you, supply it with hammers and a tank with xp under it.
+• Added Fishing Hat, increases the chance of catching fish alive when worn
+• Removed Manpowered and Gas Turbines (Temporarily, will return in some in 1.2.4)
+• Added Generator, You now construct a row of rotors connected to this generator to generate power from water.
+• Purity upgrades now increase how long fuel lasts in the crucible furnace, ethereal upgrade instead now causes it to melt enchanted things to liquid xp instead
+• Added Hatchery, Low tech version of incubator, non upgradable 1 egg inserted at a time way of hatching eggs, no power required.
+• Increased Incubator defaults mutation modifier to 1.1x
+• Added config for advanced sluice tick rate
+• Advanced Sluice will generate Pressurised Water faster than the normal sluice now
+• Can now smelt Ancient Sand to Heat-Resistant Glass
+• Potentially fixed potential null pointer with fish loot
+• Changed bait saturation from -100 to -1
+• Droplets are now fluid containers, right click them in to tanks instead of melting them
+• All droplets will now produce some sort of liquid, all these liquids can be placed in the world with various effects.
+• Crafting recipes involving droplets for the most part are removed. Some remained, where I don't mind them being :P (Most of these are now vat recipes)
+• Removed Melting of dirt blocks to Molten Dirt. Makes making clay too easy.
+• Readded Debug Food
+• Removed Legacy Droplets
+• Re-Enabled Casting recipes as default on
+• Removed deep sea ravines, water caves and no mineshafts (due to missing forge feature)
+• Fixed Bucket Handling
+• Fixed Blood Rod not using up blood shards as normal bait
+• Fixed potential tooltip crash
+• Fixed Oyster Rendering
+• Fixed NEI Crucible Handler
+
+Mariculture 1.7.2 BETA 12
+• Added Unpacker!
+• Added Advanced Sluice
+• Fish Products NEI now shows the percentage under a tooltip
+• Fish Products now capped at 15 instead of 6
+• Fixed FLUDD
+• Fixed Fish Feeder being entirely unoperational
+• Fixed Fish Feeder not syncing CanWork
+• Books can no longer be applied to jewelry (Configurable).
+• Switched Copper default to on
+• Removed Sifter XP
+• Mirrors can no longer let you get Fortune 5
+• Added config option to re-enable picking up fish food from throwing in the water
+• Made the old models the default config, while I work on Turbine System
+
+Mariculture 1.7.2 BETA 11.wtfbbq
+• Fixed ... Not even going to mention the stupidity.
+• Adjusted the loot to > fish ratio for all rod tiers
+• Removed debug code when adding flippers
+
+Mariculture 1.7.2 BETA 11
+• NOTE: I started work on Turbine Re-Renders, I'll finish them when we have Forge for 1.7.10, If the model bothers you, change the config in machines.cfg to enable the old models
+• Only the base fish can be caught alive once again in the wild, they also all have an increased chance of being caught alive by default, Just wasn't a fan of skipping everything. I have better plans for this in 1.2.4 ;)
+• Improved Scuba Mask and Diving Helmet vision, Snorkel now has the old diving helmet vision
+• Added EnderIO fuels as usable with the crucible
+• Fixed HYPER Hungry Fish
+• Fixed Autofisher not consuming bait
+• Tank Size is now ONLY updated when a male fish enters the fish feeder
+• Added Waila Support for Casters
+• Added Nugget Caster
+• Heating upgrades now process 4 x as many eggs at once in the incubator.
+• Added RF/t to the tooltip when hovering over the power indicator for rf using/making machines
+• Droplets are now their own item, craft old droplets with themselves to make new (will be removed at some point). This is to make it easier to specify any droplet in a recipe.
+• Water Turbines output slightly more
+• Diving Boots will now make you sink faster when holding shift
+• Added lifejacket, will cause to stay afloat on top of water.
+• Wetsuit now makes Flippers twice as fast, You need to take flippers on and off if you put wetsuit on first, as speed is only updated when flippers are put on, or you can enter/leave water
+• Fix NEI Tooltips in normal minecraft
+• Didn't like my sifter changes... Sifter now pops items as before. ;D
+
+Mariculture 1.7.2 BETA 10
+• Fixed BOP Compatibility with newest versions
+• Ethereal upgrades give a 1.25x modifier to mutation in the incubator(DOES NOT STACK)
+• Hotter temperatures in a Crucible Furnace will make things melt faster, the lower the melting point of something, that faster it can be processed at max temp!
+• Fixed Crucible Furnaces having 1000x more storage than they should with upgrades
+• Damselfish and Neon Tetra, are now breedable, but with a low chance, so it's still better to catch them if you can!
+• Added a temperature control unit(available with fishery module). Allows you to store heating/cooling upgrades, and for them to act as one upgrade.
+• Changed fertility calculation with eternal life upgrade
+• Block/Ingot Casters should now work across load/save
+• Removed recipe for making titanium in the crucible, one it causes confusion, two vat is easier anyways
+• Rewrote Handlers
+• Added Config to Enable/Disable Ingot/Block Caster NEIS, Disabled by default.
+• Transparent Plastic and Heat Resistant glass got 'larger version recipes', Allowing you to do more items at once.
+• Extreme Hatching Upgrade, now has 1000x mutation chance modifier
+• Fixed mutation multiplier only allowing for non full bred
+• Dropping stacked live fish, will now return the correct amount of raw fish
+• Fixed Bass Bomb Texture, Bass Bomb now does damage (not much).
+• You now need to 'construct' the sifters, just place two blocks next to each other, the recipe for a sifter now gives two :)
+• Block updates will cause the sifter to 'sift' out items. You can pipe items in to the top of a sifter.
+• Fixed missing sounds
+• Removed chucking fish food in water to feed the fish
+• Fixed Coral Spreading, reduced the default spread chance to 12, so you may want to adjust this in your configs to match up
+
+Mariculture 1.7.2 BETA 9
+• Broke all the configs as promised!
+• Reorganised Creative Tabs
+• Rewrote Packet Handling
+• Improved autodictionary blacklisting defaults
+• Added Highlands Support
+• Adjusted various upgrade recipes
+• Fixed direction for fluid handlers
+• Fixed usage on any item bringing up usage for cod...
+• NEI will now only display one of each live fish + raw fish, So you can still see them for recipes, but you'll need to go to creative to cheat male/female
+• Wildcard Registration now only shows up in debug mode
+• Mirrors now ignore the Max Enchantability for Non-Jewelry Enchantments
+• Mirrors give a better chance for more enchantments than vanilla enchanting table
+• Level 31 and greater enchanting, has a chance of getting higher levels on enchantments than you could otherwise(Even better over level 55)(excluding protection, enchantments with max level 1, and jewelry enchants)
+• Autofishers are now twice as power hungry
+
+Mariculture 1.7.2 BETA 8
+• Made Enchiridion a requirement, books are too important to the mod
+• Fixed the Autofisher not damaging items with special damage conditions correctly
+• Fixed crash with 'cropRice' recipe
+• Fixed potential crash with custom blocks
+• Fixed shift clicking eggs in to an incubator
+• Fixed potential dna loop with fish species
+• Fixed Salinity upgrades not working
+• Fixed Jungle Biome Dictionary Temperature
+• Formula changed for water temperature
+• Crucible furnace should now only accept items in to the correct slots and you can only pull out of the output slots
+• keepInventory GameRule should affect jewelry
+• Re-Enabled Vanilla Fishing rod not requiring bait (accidental oversight when rewriting some stuff)
+• Vanilla rods will catch Vanilla loot by default (config)
+• Some BTS Cleanup
+
+Mariculture 1.7.2 BETA 7
+• Readded NEI + WAILA Support + Updated the Magic Book
+• Readded Block forms for Custard(slow down) and Fish Oil(regen)
+• Removed Fluid-Auto Dictionary, too exploitive
+• Hid Custom Blocks, Air Blocks and Ticking Blocks from NEI
+• Raw Rainbow Trout are now effective weapons!
+• Fishing Entities will no longer try to spawn if the loot result is null, but loot result should never be null now
+• Adjusted the Neon Lamp Recipe again
+• Added Anvil Recipes for the new flowers
+• Added Tooltips to Jewelry to display, the benefits of each type
+• Added Config option to disable 'half' of the coral reef generation. Reef generation is normally done in two steps, this just cancels the first.
+• Fish Eggs are now a seperate Item
+• Added a whole bunch of missing recipes... (Let me know if I missed any please!)
+• Fixed Calamari and Miso Soup localisation
+• Fixed not being able to remove blocks from the block caster + actually added it xD
+• If a mod adds rice, the sushi recipe requires it
+• Kelp Wrap is now enabled without WorldPlus, to craft it, it's 9 Cactus Green
+• Crucible Furnaces now have a default of 25000MB space, Storage Upgrades are now 5000MB per level instead of 1000MB
+• Pressurised Water can no longer break itself
+• Reworked how fish ids are assigned, they are now automatically assigned, a fish-mappings.cfg file will appear in your configs, but you do NOT need to touch it, id mappings are done automatically, and you'll never have to manually assign them. This is good, since I can't have conflicts now if someone was to add a fish, which was possible before.
+• Hammers can now get all vanilla pick enchantments, Effiency makes hammers use less XP, fortune takes the place of luck (I'm open for suggestions with what silk touch could do... regarding the anvil)
+
+== Mariculture 1.7.2 BETA 6 ==
+• The Ore Dictionary Converter should be more inline with the functionality of the 1.6.4 version
+• Ore Dictionary registrations for dyes moved from world to core
+• Manual fishing should work once again
+• Readded BiomesOPlenty Plugin
+• Readded BloodMagic Plugin
+• Readded Forestry Plugin
+• Readded Railcraft Plugin(Minus Sheets in Rolling Machine)
+• Readded TC4 Aspects to some of the items
+• Readded Tinkers Plugin
+• Compressed my textures, let me know if any look off!
+
+== Mariculture 1.7.2 BETA 5 ==
+• Ported 1.2.2 changes (Excluding BM/Tinkers/Waila Plugins)
+• Fixed Iron Wheels giving the wrong book
+
+== Mariculture 1.7.2 BETA 4==
+• Updated to 1.7 Redstone Flux API
+• Fixed fish feeder not accepting food/liquids
+• Fixed potential fluid crash on startup
+• Calamari now gives one bowl as it should
+• Speed Boat should be functional now! Whizz! Speed Boats also go straight to ur inventory, even more convenient!
+• Fixed Incubator Base Recipe
+• Removed BOP Block/Item Compatibility temporarily
+
+==Mariculture 1.7.2 BETA 3==
+• Fixed ExU startup Crash, •Whistles, pretends he didn't blame it on ExU•, the GUILT.
+• When Disabling Fishery Module, even though it says rods are overriden, the rods/fish will act exactly like vanilla
+• Fixed recipes using sugar, when they should of been using sugar cane
+• Fixed book duplication exploit
+• Fixed Mirrors always giving pearls the elemental affinity enchantment
+• Fixed Sifters dropping two items
+• Fixed crash bug when eating certain foods
+• Fixed Auto-Dictionary not removing the correct tags
+• Fish Food no longer will be added to feeders if there isn't room for the amount they give.
+• Titanium Rods now have their proper quality(were accidentally the same as wood before!)
+• Merged up 1.2.1. b, c, d, e fixes for 1.6.4
+
+==Mariculture 1.7.2 BETA 2==
+• Vanilla overriding should now work for biomes, fish and fishing rods
+• Access Transformers should behave for things like scuba masks and fishing rods
+• Fixed the Enchiridion Dependency, now an optional dependency
+• Removed Creepers avoiding players holding catfish
+• Scuba Gear will last longer
+• Natural Gas now only affects players
+• Removed random explosions from natural gas
+• Fixed Void Bottle rendering
+• Fixed pick block on void bottles, tank blocks also are now picked with their contents in tact
+
+==Mariculture 1.7.2 BETA 1==
+==== BETA Notes ====
+• This is purely for helping me test, I would like to see as many bugs reported as possible except the ones listed here.
+• MAJOR: You need to install 'Enchiridion' if you want to keep my books, it's been split to a seperate mod for 'reasons'.
+• Custom fluids/recipes for 1.7 with regards to crucible furnace aren't implemented yet, I plan to have all recipes for each machine to be customisable so that's off for now
+• Plugins for mods, like tinkers and BOP are not implemented yet
+• The screwed up rendering of void bottles is known, and is on the to do list
+• Currently disabling the Fishery module can have dire consequences due to the vanilla fishing override, will sort this out later
+• The Vanilla Overriding for fish and fishing rods isn't working correctly
+• Some of the biomes that I should be overwriting aren't being, due to not giving proper names
+• There is a crash when you wear scuba/diving gear underwater
+• There's a startup error in the console, about failing to extend enchantment maximum
+• Jewelry Enchanting has changed, the book has not yet been updated
+• Please do as much testing as possible and report all bugs/quirks etc. on my github at: https://github.com/joshiejack/Mariculture/issues?state=open
+
+==== Other ====
+• Added Fluid Dictionary (Disabled by default, as it can be a bit exploitive xp wise, if not used correctly)
+• Damaging jewelry will now not apply the damage to every item, but split it out across the items(if it's doing more than one damage), otherwise rings will die first, then bracelets, then necklaces.
+• Mirrors are now required to take jewelry off, you don't need them to put them on, the controls to take off were fiddly anyways. (You can still swap existing pieces though).
+• Jewelry is no longer damaged when the player is in creative
+• Sonic the Hedgehog buffed to provide 1 minute per damage
+• Shift + Right Clicking Custom blocks, now copies the texture as with others, simply shift + right click the paintbrush on NO blocks to set it to air now
+• Removed Timelord, Focus Punch, Poison Ivy and Inferno Enchants
+• Added Elemental Affinity Enchantment - Each pearl colour has a different effect with this enchantment, has negative affects on stuff other than pearls
+• Ender Fish and Netherfish are no longer FORCED to live in the nether/end biomes. Now as long as the environment is correct, they will be happy.
+• Blink distance per level increased to 16 blocks, you no longer need to be above a certain level to use it any time
+• Air Pumps will now only 'work' when they receive power, they will only extract fluid at that point too
+• FLUDD is now simply the activate key to activate, and shift + activate. Hover will 'hover' at the same height as long as you are pressing forward and activate, you will ascend normally, and holding space makes you ascend faster. Squirt mode no longer breaks blocks but does a lot more damage to entities, and you only occurs in short bursts.
+• Pressure Vessels will no longer tick/auto-output, you'll need to use pipes from other mods or the sluice to extract liquids in to your machines, it now instafills fludds
+• Kelp and Coral come in two forms, static and growable, what you find in the wild will always be static. In order to get ones that grow, kelp you craft with itself for seeds, and coral you soak in one tenth of a bucket of water in a vat.

@@ -1,0 +1,19 @@
+#Core Module Extensions
+mariculture.air.naturalgas=Natural Gas
+mariculture.sands.name=Gas Leak
+
+#Diving Module Extensions
+maritech.scuba.mask=Scuba Mask
+maritech.landlights.format=%L %O
+maritech.landlights=Landlights
+maritech.scuba.tank=Scuba Tank
+maritech.scuba.suit=Wetsuit
+maritech.swimfin=Flippers
+
+#Transport Module Extensions
+maritech.boat.speed=Speed Boat
+entity.Mariculture.speedBoat.name=Speed Boat
+
+#Generic Strings
+maritech.on=On
+maritech.off=Off
