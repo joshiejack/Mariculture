@@ -2,7 +2,6 @@ package joshie.mariculture.core.items;
 
 import java.util.List;
 
-import joshie.lib.util.Text;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.IItemUpgrade;
 import joshie.mariculture.core.lib.Modules;
@@ -12,7 +11,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

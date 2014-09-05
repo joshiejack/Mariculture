@@ -7,6 +7,7 @@ import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.lib.BottleMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.TankMeta;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -108,12 +108,12 @@ public class ItemBottle extends ItemMCMeta {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         int meta = stack.getItemDamage();
         if (meta == BottleMeta.VOID) {
-            list.add(joshie.lib.util.Text.PURPLE + StatCollector.translateToLocal("mariculture.string.blackhole"));
+            list.add(joshie.lib.util.Text.PURPLE + MCTranslate.translate("blackhole"));
             return;
         }
 
         if (meta == BottleMeta.EMPTY) {
-            list.add(joshie.lib.util.Text.YELLOW + StatCollector.translateToLocal("mariculture.string.doubleBottle"));
+            list.add(joshie.lib.util.Text.YELLOW + MCTranslate.translate("doubleBottle"));
             return;
         }
 

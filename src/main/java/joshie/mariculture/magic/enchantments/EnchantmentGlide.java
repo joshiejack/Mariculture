@@ -4,10 +4,10 @@ import java.util.Random;
 
 import joshie.lib.helpers.ClientHelper;
 import joshie.mariculture.core.helpers.EnchantHelper;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.StatCollector;
 
 public class EnchantmentGlide extends EnchantmentJewelry {
     public EnchantmentGlide(final int i, final int weight, final EnumEnchantmentType type) {
@@ -46,18 +46,18 @@ public class EnchantmentGlide extends EnchantmentJewelry {
 
     public static void toggle() {
         if (toggleOn == 0) {
-            ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledGlide"));
+            ClientHelper.addToChat(MCTranslate.translate("enabledGlide"));
             toggleOn = 1;
         } else if (EnchantmentGlide.toggleOn == 1) {
             if (EnchantmentGlide.hasGlide > 0) {
-                ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.enabledFastFall"));
+                ClientHelper.addToChat(MCTranslate.translate("enabledFastFall"));
                 toggleOn = 2;
             } else {
-                ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
+                ClientHelper.addToChat(MCTranslate.translate("disabledGlide"));
                 toggleOn = 0;
             }
         } else if (EnchantmentGlide.toggleOn == 2) {
-            ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.disabledGlide"));
+            ClientHelper.addToChat(MCTranslate.translate("disabledGlide"));
             toggleOn = 0;
         }
 

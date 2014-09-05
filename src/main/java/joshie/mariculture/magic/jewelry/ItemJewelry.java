@@ -90,7 +90,7 @@ public abstract class ItemJewelry extends ItemMCDamageable {
             JewelryType type = getType();
             JewelryMaterial material = JewelryHandler.getMaterial(stack);
             JewelryBinding binding = JewelryHandler.getBinding(stack);
-            list.add(binding.getColor() + StatCollector.translateToLocal("mariculture.string.with") + " " + binding.getCraftingItem(getType()).getDisplayName());
+            list.add(binding.getColor() + MCTranslate.translate("with") + " " + binding.getCraftingItem(getType()).getDisplayName());
             if (player.worldObj.isRemote && material != Magic.dummyMaterial) if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
                 list.add(joshie.lib.util.Text.INDIGO + MCTranslate.translate("stats.jewelry"));
                 list.add(MCTranslate.translate("elemental") + ": " + MCTranslate.translate("elemental." + material.getIdentifier().toLowerCase()));

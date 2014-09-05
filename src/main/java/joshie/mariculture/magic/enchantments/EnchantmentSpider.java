@@ -1,10 +1,10 @@
 package joshie.mariculture.magic.enchantments;
 
 import joshie.mariculture.core.helpers.EnchantHelper;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.magic.Magic;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.StatCollector;
 
 public class EnchantmentSpider extends EnchantmentJewelry {
     public static boolean activated = false;
@@ -64,7 +64,7 @@ public class EnchantmentSpider extends EnchantmentJewelry {
     }
 
     public static String getChat() {
-        if (toggledOn) return StatCollector.translateToLocal("mariculture.string.enabledSpider");
-        else return StatCollector.translateToLocal("mariculture.string.disabledSpider");
+        if (toggledOn) return MCTranslate.translate("enabledSpider");
+        else return MCTranslate.translate("disabledSpider");
     }
 }

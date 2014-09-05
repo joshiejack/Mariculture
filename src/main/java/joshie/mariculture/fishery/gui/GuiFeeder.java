@@ -11,11 +11,11 @@ import joshie.mariculture.core.gui.feature.FeatureRedstone;
 import joshie.mariculture.core.gui.feature.FeatureTank;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.gui.feature.FeatureUpgrades;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.FishFoodHandler;
 import joshie.mariculture.fishery.tile.TileFeeder;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 public class GuiFeeder extends GuiMariculture {
     private TileFeeder tile;
@@ -48,7 +48,7 @@ public class GuiFeeder extends GuiMariculture {
         if (stack != null) {
             int value = FishFoodHandler.getValue(stack);
             if (value > 0) {
-                list.add(StatCollector.translateToLocal("mariculture.string.provides") + " " + value + " " + StatCollector.translateToLocal("mariculture.string.fishFood"));
+                list.add(MCTranslate.translate("provides") + " " + value + " " + MCTranslate.translate("fishFood"));
             }
         }
     }

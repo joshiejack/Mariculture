@@ -14,12 +14,12 @@ import joshie.mariculture.api.core.RecipeSmelter;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.helpers.cofh.CoFhItemHelper;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -195,14 +195,14 @@ public class NEICrucibleRecipeHandler extends NEIBase {
                 if (gui.isMouseOver(cache.output, id)) {
                     if (recipe.output != null && CoFhItemHelper.areItemStacksEqualNoNBT(stack, recipe.output)) {
                         int chance = (int) ((float) 1 / recipe.chance * 100);
-                        currenttip.add(joshie.lib.util.Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + stack.getDisplayName());
+                        currenttip.add(joshie.lib.util.Text.GREY + chance + MCTranslate.translate("percent") + stack.getDisplayName());
                     }
                 }
             }
 
             if (cache.recipe.input != null) {
                 if (gui.isMouseOver(cache.input1, id)) {
-                    currenttip.add(joshie.lib.util.Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + cache.recipe.temp + "\u00B0" + "C");
+                    currenttip.add(joshie.lib.util.Text.ORANGE + MCTranslate.translate("melting") + ": " + cache.recipe.temp + "\u00B0" + "C");
                 }
             }
 
@@ -215,14 +215,14 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
                 if (info != null) {
                     if (FluidContainerRegistry.isFilledContainer(stack)) {
-                        currenttip.add(joshie.lib.util.Text.DARK_AQUA + StatCollector.translateToLocal("mariculture.string.asFluid"));
-                        currenttip.add(joshie.lib.util.Text.WHITE + StatCollector.translateToLocal("mariculture.string.perTempFluid") + ": " + info.maxTempPer + "\u00B0" + "C");
+                        currenttip.add(joshie.lib.util.Text.DARK_AQUA + MCTranslate.translate("asFluid"));
+                        currenttip.add(joshie.lib.util.Text.WHITE + MCTranslate.translate("perTempFluid") + ": " + info.maxTempPer + "\u00B0" + "C");
                     } else {
-                        currenttip.add(joshie.lib.util.Text.DARK_GREEN + StatCollector.translateToLocal("mariculture.string.asSolid"));
-                        currenttip.add(joshie.lib.util.Text.WHITE + StatCollector.translateToLocal("mariculture.string.perTempSolid") + ": " + info.maxTempPer + "\u00B0" + "C");
+                        currenttip.add(joshie.lib.util.Text.DARK_GREEN + MCTranslate.translate("asSolid"));
+                        currenttip.add(joshie.lib.util.Text.WHITE + MCTranslate.translate("perTempSolid") + ": " + info.maxTempPer + "\u00B0" + "C");
                     }
 
-                    currenttip.add(joshie.lib.util.Text.GREY + StatCollector.translateToLocal("mariculture.string.maxTemp") + ": " + info.maxTemp + "\u00B0" + "C");
+                    currenttip.add(joshie.lib.util.Text.GREY + MCTranslate.translate("maxTemp") + ": " + info.maxTemp + "\u00B0" + "C");
                 }
             }
         }

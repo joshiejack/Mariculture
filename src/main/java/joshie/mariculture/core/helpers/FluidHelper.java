@@ -22,7 +22,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -258,7 +257,7 @@ public class FluidHelper {
     }
 
     public static String getFluidName(FluidStack fluid) {
-        if (fluid == null || fluid.getFluid() == null || fluid.amount <= 0) return joshie.lib.util.Text.WHITE + StatCollector.translateToLocal("mariculture.string.empty");
+        if (fluid == null || fluid.getFluid() == null || fluid.amount <= 0) return joshie.lib.util.Text.WHITE + MCTranslate.translate("empty");
         return FluidHelper.getFluidName(fluid.getFluid());
     }
 
@@ -280,20 +279,20 @@ public class FluidHelper {
         if (fluid == null || fluid.getFluid() == null) {
             tooltip.add(joshie.lib.util.Text.GREY + "" + 0 + (max > 0 ? "/" + max + MCTranslate.translate("mb") : MCTranslate.translate("mb")));
         } else if (Modules.isActive(Modules.fishery) && fluid.fluidID == Fluids.getFluidID("fish_food")) {
-            tooltip.add(joshie.lib.util.Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + " " + StatCollector.translateToLocal("mariculture.string.pieces") : " " + StatCollector.translateToLocal("mariculture.string.pieces")));
+            tooltip.add(joshie.lib.util.Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + " " + MCTranslate.translate("pieces") : " " + MCTranslate.translate("pieces")));
         } else if (fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt")) {
             tooltip.add(joshie.lib.util.Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + MCTranslate.translate("mb") : MCTranslate.translate("mb")));
         } else if (fluid.getFluid().getName().contains("molten")) {
             int ingots = fluid.amount / MetalRates.INGOT;
             if (ingots > 0) {
-                tooltip.add(joshie.lib.util.Text.GREY + StatCollector.translateToLocal("mariculture.string.ingots") + ": " + ingots);
+                tooltip.add(joshie.lib.util.Text.GREY + MCTranslate.translate("ingots") + ": " + ingots);
             }
             int mB = fluid.amount % MetalRates.INGOT;
             if (mB > 0) {
                 int nuggets = mB / MetalRates.NUGGET;
                 int junk = mB % MetalRates.NUGGET;
                 if (nuggets > 0) {
-                    tooltip.add(joshie.lib.util.Text.GREY + StatCollector.translateToLocal("mariculture.string.nuggets") + ": " + nuggets);
+                    tooltip.add(joshie.lib.util.Text.GREY + MCTranslate.translate("nuggets") + ": " + nuggets);
                 }
                 if (junk > 0) {
                     tooltip.add(joshie.lib.util.Text.GREY + MCTranslate.translate("mb") + ": " + junk);
@@ -302,8 +301,8 @@ public class FluidHelper {
 
             if (max > 0) {
                 tooltip.add("");
-                tooltip.add(joshie.lib.util.Text.GREY + StatCollector.translateToLocal("mariculture.string.outof"));
-                tooltip.add(joshie.lib.util.Text.GREY + max / MetalRates.INGOT + " " + StatCollector.translateToLocal("mariculture.string.ingots") + " & " + max % MetalRates.INGOT + MCTranslate.translate("mb"));
+                tooltip.add(joshie.lib.util.Text.GREY + MCTranslate.translate("outof"));
+                tooltip.add(joshie.lib.util.Text.GREY + max / MetalRates.INGOT + " " + MCTranslate.translate("ingots") + " & " + max % MetalRates.INGOT + MCTranslate.translate("mb"));
             }
         } else {
             tooltip.add(joshie.lib.util.Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + MCTranslate.translate("mb") : MCTranslate.translate("mb")));

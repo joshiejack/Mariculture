@@ -2,7 +2,6 @@ package joshie.mariculture.core.blocks.items;
 
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.PearlColor;
-import joshie.mariculture.core.lib.UpgradeMeta;
 import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

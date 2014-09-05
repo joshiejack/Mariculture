@@ -1,6 +1,5 @@
 package joshie.mariculture.plugins;
 
-import joshie.lib.helpers.RegistryHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.RecipeHelper;

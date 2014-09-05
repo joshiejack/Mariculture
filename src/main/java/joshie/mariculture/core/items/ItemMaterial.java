@@ -1,18 +1,13 @@
 package joshie.mariculture.core.items;
 
-import java.util.List;
-
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.lib.MaterialsMeta;
 import joshie.mariculture.core.lib.Modules;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMaterial extends ItemMCMeta {
     @Override

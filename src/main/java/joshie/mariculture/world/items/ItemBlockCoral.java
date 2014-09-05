@@ -3,6 +3,8 @@ package joshie.mariculture.world.items;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.CoralMeta;
+import joshie.mariculture.core.lib.PearlColor;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.world.BlockCoral;
 import joshie.mariculture.world.WorldPlus;
 import net.minecraft.block.Block;
@@ -24,11 +26,12 @@ public class ItemBlockCoral extends ItemBlockMariculture {
         super(block);
         spawnBlock = block;
     }
-
+    
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (spawnBlock == WorldPlus.plantGrowable) return super.getItemStackDisplayName(stack);
-        else return joshie.lib.util.Text.localize("mariculture.string.dried") + " " + super.getItemStackDisplayName(stack);
+        String format = MCTranslate.translate("coral.format");
+        format = format.replace("%D ", spawnBlock == WorldPlus.plantGrowable? "" : MCTranslate.translate("coral.dried"));
+        return format.replace("%C", MCTranslate.translate("coral.") + getName(stack));
     }
 
     @Override

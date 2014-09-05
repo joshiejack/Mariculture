@@ -4,6 +4,7 @@ import java.util.List;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.helpers.NBTHelper;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +29,7 @@ public class ItemWorked extends ItemMCDamageable {
         if (stack.stackTagCompound == null) return StatCollector.translateToLocal("itemGroup.jewelryTab");
 
         ItemStack worked = NBTHelper.getItemStackFromNBT(stack.stackTagCompound.getCompoundTag("WorkedItem"));
-        return StatCollector.translateToLocal("mariculture.string.unworked") + " " + worked.getItem().getItemStackDisplayName(worked);
+        return MCTranslate.translate("unworked") + " " + worked.getItem().getItemStackDisplayName(worked);
     }
 
     @Override

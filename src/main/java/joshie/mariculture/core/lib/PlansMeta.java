@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.common.Loader;
 
 public class PlansMeta {
     public static final int COUNT = 9;

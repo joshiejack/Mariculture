@@ -6,6 +6,7 @@ import joshie.mariculture.core.helpers.KeyHelper;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.core.network.PacketJewelrySwap;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.magic.Magic;
 import joshie.mariculture.magic.enchantments.EnchantmentFlight;
 import joshie.mariculture.magic.enchantments.EnchantmentGlide;
@@ -13,7 +14,6 @@ import joshie.mariculture.magic.enchantments.EnchantmentSpider;
 import joshie.mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 
@@ -35,7 +35,7 @@ public class ClientFMLEvents {
                         EnchantmentFlight.mode = 0;
                     }
 
-                    ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.flight") + (EnchantmentFlight.mode + 1));
+                    ClientHelper.addToChat(MCTranslate.translate("flight") + (EnchantmentFlight.mode + 1));
                     EnchantmentFlight.set(EnchantHelper.getEnchantStrength(Magic.flight, player), player);
                 }
             }

@@ -497,6 +497,8 @@ mariculture.necklace=Necklace
 ### World ###
 #blocks
 mariculture.rocks.coralrock=Coral Rock
+mariculture.coral.format=%D %C
+mariculture.coral.dried=Dried
 mariculture.coral.kelp=Kelp
 mariculture.coral.kelp_middle=Kelp
 mariculture.coral.pink=Pink Coral
@@ -587,7 +589,6 @@ mariculture.salinity.brackish=Brackish Water
 mariculture.salinity.saline=Saline Water
 mariculture.salinity.fresh=Fresh Water
 mariculture.by=By
-mariculture.dried=Dried
 mariculture.environment.salinity=Biome Salinity
 mariculture.temperature.generic=Generic Biome Temperature
 mariculture.temperature.precise=Precise Water Temperature

@@ -2,7 +2,6 @@ package joshie.mariculture.core.items;
 
 import java.util.Random;
 
-import joshie.lib.util.Text;
 import joshie.mariculture.core.lib.PearlColor;
 import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.magic.Magic;

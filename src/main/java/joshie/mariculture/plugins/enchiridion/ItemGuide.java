@@ -6,6 +6,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.items.ItemMCMeta;
 import joshie.mariculture.core.lib.GuideMeta;
 import joshie.mariculture.core.lib.Modules;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -42,7 +43,7 @@ public class ItemGuide extends ItemMCMeta {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        list.add(StatCollector.translateToLocal("mariculture.string.by") + " " + StatCollector.translateToLocal("item.guide." + getName(stack) + ".author"));
+        list.add(MCTranslate.translate("by") + " " + StatCollector.translateToLocal("item.guide." + getName(stack) + ".author"));
     }
 
     @Override

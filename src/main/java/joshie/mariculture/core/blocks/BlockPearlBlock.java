@@ -2,10 +2,7 @@ package joshie.mariculture.core.blocks;
 
 import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.PearlColor;
-import joshie.mariculture.core.lib.UpgradeMeta;
-import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 
 public class BlockPearlBlock extends BlockMCBaseMeta {
     public BlockPearlBlock(String prefix) {

@@ -5,13 +5,13 @@ import java.util.List;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.handlers.LogHandler;
 import joshie.mariculture.core.items.ItemMCDamageable;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Level;
@@ -27,11 +27,11 @@ public class ItemMobMagnet extends ItemMCDamageable {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (!stack.hasTagCompound()) {
-            list.add(StatCollector.translateToLocal("mariculture.string.noBound1"));
-            list.add(StatCollector.translateToLocal("mariculture.string.noBound2"));
+            list.add(MCTranslate.translate("noBound1"));
+            list.add(MCTranslate.translate("noBound2"));
             return;
         } else {
-            list.add(StatCollector.translateToLocal("mariculture.string.bound"));
+            list.add(MCTranslate.translate("bound"));
             list.add(stack.stackTagCompound.getString("MobName"));
         }
     }

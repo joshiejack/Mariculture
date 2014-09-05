@@ -181,17 +181,17 @@ public class BlockItemCustom extends ItemBlockMariculture {
     public static String getName(int i) {
         switch (i) {
             case 0:
-                return StatCollector.translateToLocal("mariculture.string.bottom");
+                return MCTranslate.translate("bottom");
             case 1:
-                return StatCollector.translateToLocal("mariculture.string.top");
+                return MCTranslate.translate("top");
             case 2:
-                return StatCollector.translateToLocal("mariculture.string.north");
+                return MCTranslate.translate("north");
             case 3:
-                return StatCollector.translateToLocal("mariculture.string.south");
+                return MCTranslate.translate("south");
             case 4:
-                return StatCollector.translateToLocal("mariculture.string.west");
+                return MCTranslate.translate("west");
             case 5:
-                return StatCollector.translateToLocal("mariculture.string.east");
+                return MCTranslate.translate("east");
             default:
                 return "";
         }

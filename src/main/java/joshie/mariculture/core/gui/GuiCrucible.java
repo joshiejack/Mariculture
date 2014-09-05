@@ -2,6 +2,7 @@ package joshie.mariculture.core.gui;
 
 import java.util.List;
 
+import joshie.lib.util.Text;
 import joshie.mariculture.api.core.FuelInfo;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.core.RecipeSmelter;
@@ -13,9 +14,9 @@ import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.gui.feature.FeatureUpgrades;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.tile.TileCrucible;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -51,34 +52,34 @@ public class GuiCrucible extends GuiMariculture {
             }
 
             if (meltingPoint > 0) {
-                currenttip.add(joshie.lib.util.Text.ORANGE + StatCollector.translateToLocal("mariculture.string.melting") + ": " + meltingPoint + "\u00B0" + "C");
+                currenttip.add(Text.ORANGE + MCTranslate.translate("melting") + ": " + meltingPoint + "\u00B0" + "C");
             }
 
             if (MaricultureHandlers.crucible.getResult(stack, null, -1, ethereal) != null) {
                 RecipeSmelter result = MaricultureHandlers.crucible.getResult(stack, null, -1, ethereal);
                 if (result.fluid.amount > 0) if (result.rands != null) {
-                    currenttip.add(joshie.lib.util.Text.INDIGO + StatCollector.translateToLocal("mariculture.string.randomMetal"));
+                    currenttip.add(Text.INDIGO + MCTranslate.translate("randomMetal"));
                 } else {
-                    currenttip.add(joshie.lib.util.Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
+                    currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
                 }
 
                 if (result.output != null && result.chance > 0) {
                     int chance = (int) ((float) 1 / result.chance * 100);
-                    currenttip.add(joshie.lib.util.Text.GREY + chance + StatCollector.translateToLocal("mariculture.string.percent") + result.output.getDisplayName());
+                    currenttip.add(Text.GREY + chance + MCTranslate.translate("percent") + result.output.getDisplayName());
                 }
 
             }
 
             if (info != null) {
                 if (FluidContainerRegistry.isFilledContainer(stack)) {
-                    currenttip.add(joshie.lib.util.Text.DARK_AQUA + StatCollector.translateToLocal("mariculture.string.asFluid"));
-                    currenttip.add(joshie.lib.util.Text.WHITE + StatCollector.translateToLocal("mariculture.string.perTempFluid") + ": " + info.maxTempPer + "\u00B0" + "C");
+                    currenttip.add(Text.DARK_AQUA + MCTranslate.translate("asFluid"));
+                    currenttip.add(Text.WHITE + MCTranslate.translate("perTempFluid") + ": " + info.maxTempPer + "\u00B0" + "C");
                 } else {
-                    currenttip.add(joshie.lib.util.Text.DARK_GREEN + StatCollector.translateToLocal("mariculture.string.asSolid"));
-                    currenttip.add(joshie.lib.util.Text.WHITE + StatCollector.translateToLocal("mariculture.string.perTempSolid") + ": " + info.maxTempPer + "\u00B0" + "C");
+                    currenttip.add(Text.DARK_GREEN + MCTranslate.translate("asSolid"));
+                    currenttip.add(Text.WHITE + MCTranslate.translate("perTempSolid") + ": " + info.maxTempPer + "\u00B0" + "C");
                 }
 
-                currenttip.add(joshie.lib.util.Text.GREY + StatCollector.translateToLocal("mariculture.string.maxTemp") + ": " + info.maxTemp + "\u00B0" + "C");
+                currenttip.add(Text.GREY + MCTranslate.translate("maxTemp") + ": " + info.maxTemp + "\u00B0" + "C");
             }
         }
     }
