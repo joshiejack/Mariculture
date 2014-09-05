@@ -136,6 +136,9 @@ task apiJar(type: Jar) {
     classifier = 'api'
 }
 
+maricultureJar.dependsOn('reobf')
+maritechJar.dependsOn('reobf')
+
 artifacts {
     archives maricultureJar
     archives maritechJar
