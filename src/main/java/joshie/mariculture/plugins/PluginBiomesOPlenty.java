@@ -8,7 +8,7 @@ import joshie.mariculture.core.handlers.LogHandler;
 import joshie.mariculture.core.handlers.OreDicHandler;
 import joshie.mariculture.core.helpers.RecipeHelper;
 import joshie.mariculture.core.lib.Extra;
-import joshie.mariculture.core.lib.ItemLib;
+import joshie.mariculture.core.lib.MCLib;
 import joshie.mariculture.plugins.Plugins.Plugin;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -161,19 +161,19 @@ public class PluginBiomesOPlenty extends Plugin {
         Item flower2 = GameRegistry.findItem("BiomesOPlenty", "flowers2");
         Item mushroom = GameRegistry.findItem("BiomesOPlenty", "mushrooms");
 
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.cyanDye, 2), new ItemStack(flowers, 1, 1), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.purpleDye, 2), new ItemStack(flowers, 1, 8), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.purpleDye, 2), new ItemStack(flower2, 1, 3), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.lightGreyDye, 2), new ItemStack(flowers, 1, 15), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.pinkDye, 2), new ItemStack(flowers, 1, 6), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.pinkDye, 2), new ItemStack(flower2, 1, 0), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.limeDye, 2), new ItemStack(mushroom, 1, 3), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.dandelionDye, 2), new ItemStack(flower2, 1, 4), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.lightBlueDye, 2), new ItemStack(flowers, 1, 4), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.lightBlueDye, 2), new ItemStack(flower2, 1, 7), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.magentaDye, 2), new ItemStack(flowers, 1, 7), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.orangeDye, 2), new ItemStack(flowers, 1, 5), true);
-        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(ItemLib.orangeDye, 2), new ItemStack(flower2, 1, 2), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.cyanDye, 2), new ItemStack(flowers, 1, 1), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.purpleDye, 2), new ItemStack(flowers, 1, 8), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.purpleDye, 2), new ItemStack(flower2, 1, 3), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.lightGreyDye, 2), new ItemStack(flowers, 1, 15), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.pinkDye, 2), new ItemStack(flowers, 1, 6), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.pinkDye, 2), new ItemStack(flower2, 1, 0), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.limeDye, 2), new ItemStack(mushroom, 1, 3), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.dandelionDye, 2), new ItemStack(flower2, 1, 4), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.lightBlueDye, 2), new ItemStack(flowers, 1, 4), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.lightBlueDye, 2), new ItemStack(flower2, 1, 7), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.magentaDye, 2), new ItemStack(flowers, 1, 7), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.orangeDye, 2), new ItemStack(flowers, 1, 5), true);
+        RecipeHelper.addCrushRecipe(RecipeHelper.asStack(MCLib.orangeDye, 2), new ItemStack(flower2, 1, 2), true);
     }
 
     @Override

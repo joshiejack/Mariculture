@@ -12,9 +12,8 @@ import static joshie.mariculture.core.helpers.RecipeHelper.addUpgrade;
 import static joshie.mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.addWheelRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.asStack;
-import static joshie.mariculture.core.lib.ItemLib.*;
+import static joshie.mariculture.core.lib.MCLib.*;
 import static joshie.mariculture.core.util.Fluids.getFluidName;
-import static joshie.mariculture.core.util.Fluids.isRegistered;
 import joshie.mariculture.core.helpers.RecipeHelper;
 import joshie.mariculture.core.lib.MetalRates;
 import joshie.mariculture.core.lib.Modules;
@@ -22,7 +21,6 @@ import joshie.mariculture.core.lib.UpgradeMeta;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class Recipes {
     public static void add() {
@@ -36,8 +34,7 @@ public class Recipes {
         addShaped(hammer, new Object[] { "PP ", " SP", "S  ", 'P', burntBrick, 'S', netherBrick });
         addShaped(ladle, new Object[] { " C ", " C ", "C  ", 'C', "ingotCopper" });
         addShaped(titaniumBucket, new Object[] { "T T", " T ", 'T', "ingotTitanium" });
-        addShaped(copperBattery, new Object[] { " I ", "TRT", "TRT", 'I', "ingotIron", 'R', "dustRedstone", 'T', "ingotCopper" });
-        addShaped(titaniumBattery, new Object[] { " I ", "TRT", "TRT", 'I', "ingotIron", 'R', "dustRedstone", 'T', "ingotTitanium" });
+
         addShaped(asStack(emptyBottle, 3), new Object[] { "G G", " G ", 'G', heatglass });
         addShapeless(asStack(voidBottle, 8), new Object[] { emptyBottle, "dustRedstone", ink });
         addShaped(oysterPie, new Object[] { "SSS", "BOP", "WEW", 'S', "foodSalt", 'B', beef, 'O', oyster, 'P', pork, 'W', wheat, 'E', egg });
@@ -63,30 +60,13 @@ public class Recipes {
         }
 
         addShaped(asStack(piston), new Object[] { "TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood" });
-        ItemStack titanium = titaniumBattery.copy();
-        titanium.setTagCompound(new NBTTagCompound());
-        titanium.stackTagCompound.setInteger("Energy", 100000);
-        addShapeless(titanium, new Object[] { titaniumBattery, "blockRedstone" });
-        
-        ItemStack copper = copperBattery.copy();
-        copper.setTagCompound(new NBTTagCompound());
-        copper.stackTagCompound.setInteger("Energy", 10000);
-        addShapeless(copper, new Object[] { copperBattery, "blockRedstone" });
     }
 
     private static void addCraftingItems() {
         addShaped(life, new Object[] { "DSR", "FHB", "PAC", 'D', dandelion, 'S', "treeSapling", 'R', rose, 'F', "fish", 'H', regen, 'B', bait, 'P', potato, 'A', lily, 'C', carrot });
         addVatItemRecipe(asStack(string), getFluidName("gold"), MetalRates.INGOT * 4, goldSilk, 5);
         addShaped(goldThread, new Object[] { "ABA", "ABA", 'B', polishedStick, 'A', goldSilk });
-        addShaped(neoprene, new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas });
-        addShaped(asStack(neoprene, 2), new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', bottleGas2 });
-        addVatItemRecipe(asStack(limestone, 4), getFluidName("natural_gas"), 5000, plastic, 45);
-        if (isRegistered("bioethanol")) {
-            addVatItemRecipe(asStack(limestone, 4), getFluidName("bioethanol"), 10000, plastic, 60);
-        }
-        addShaped(plasticLens, new Object[] { " N ", "NGN", " N ", 'N', neoprene, 'G', transparent });
         addShaped(glassLens, new Object[] { " P ", "PGP", " P ", 'P', "plankWood", 'G', "blockGlass" });
-
         addShaped(heating, new Object[] { "CCC", "CCC", 'C', carbide });
         addShaped(cooling, new Object[] { "  P", "PI ", "  P", 'P', "plankWood", 'I', "ingotIron" });
         addShaped(cooling, new Object[] { " P ", " I ", "P P", 'P', "plankWood", 'I', "ingotIron" });
@@ -95,7 +75,6 @@ public class Recipes {
         addShaped(carbide, new Object[] { " S ", "FBF", " S ", 'F', coal, 'S', sand, 'B', blockClay });
         addWheelRecipe(asStack(ironWheel, 3), "ingotIron", "slabWood");
         addCrossHatchRecipe(wicker, "stickWood", reeds);
-        addVatItemRecipe(asStack(plastic, 4), getFluidName("gold"), MetalRates.BLOCK, goldPlastic, 60 * 5);
         addVatItemRecipe("stickWood", getFluidName("titanium"), MetalRates.INGOT * 3, titaniumRod, 60);
         addVatItemRecipe(asStack(nettherackBrick), "lava", 250, burntBrick, 8);
         addVatItemRecipe(asStack(brick), "lava", 500, burntBrick, 16);
@@ -175,12 +154,6 @@ public class Recipes {
         previous = addUpgrade(UpgradeMeta.STANDARD_SPEED, new Object[] { " S ", "AUA", " S ", 'A', "ingotAluminum", 'S', sugar, 'U', previous });
         previous = addUpgrade(UpgradeMeta.ADVANCED_SPEED, new Object[] { "ASA", "TUT", "SNS", 'A', "ingotAluminum", 'S', sugar, 'T', "ingotTitanium", 'N', ice, 'U', previous });
         addUpgrade(UpgradeMeta.ULTIMATE_SPEED, new Object[] { "TRT", "SUS", "ARA", 'A', aluminumSheet, 'S', sugar, 'T', "ingotTitanium", 'R', goldRail, 'U', previous });
-
-        //Capacitor
-        previous = addUpgrade(UpgradeMeta.BASIC_RF, new Object[] { " T ", "CRC", 'T', redstoneTorch, 'C', "ingotCopper", 'R', "dustRedstone" });
-        previous = addUpgrade(UpgradeMeta.STANDARD_RF, new Object[] { "CTC", "QUQ", "RCR", 'C', "ingotCopper", 'T', redstoneTorch, 'Q', quartz, 'R', repeater, 'U', previous });
-        previous = addUpgrade(UpgradeMeta.ADVANCED_RF, new Object[] { " D ", "RUR", "QCQ", 'D', "dustRedstone", 'Q', quartz, 'R', repeater, 'C', copperBattery, 'U', previous });
-        addUpgrade(UpgradeMeta.ULTIMATE_RF, new Object[] { " C ", "RUR", "QBQ", 'Q', comparator, 'R', "dustRedstone", 'B', "blockRedstone", 'C', titaniumBattery, 'U', previous });
     }
 
     public static void addAnvilRecipes() {

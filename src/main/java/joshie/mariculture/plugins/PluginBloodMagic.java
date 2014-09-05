@@ -9,12 +9,10 @@ import joshie.mariculture.api.fishery.Loot.Rarity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.Fluids;
-import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.Fishery;
 import joshie.mariculture.plugins.Plugins.Plugin;
 import joshie.mariculture.plugins.bloodmagic.BloodRodType;
 import joshie.mariculture.plugins.bloodmagic.ItemBoundRod;
-import joshie.mariculture.plugins.bloodmagic.RitualOfTheBloodRiver;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -22,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
-import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import WayofTime.alchemicalWizardry.common.items.BoundArmour;
 
 public class PluginBloodMagic extends Plugin {
@@ -30,6 +27,7 @@ public class PluginBloodMagic extends Plugin {
         super(name);
     }
 
+    public static boolean ACTIVE = false;
     public static final RodType BLOOD = new BloodRodType(95, 15D, 20D, 5D, 45);
     public static Item rodBlood;
 
@@ -38,6 +36,7 @@ public class PluginBloodMagic extends Plugin {
 
     @Override
     public void preInit() {
+        ACTIVE = true;
         Fluids.add("blood", FluidRegistry.getFluid("life essence"), 250, true);
         rodBlood = new ItemBoundRod().setUnlocalizedName("rodBlood");
         RegistryHelper.registerItems(new Item[] { rodBlood });
@@ -90,8 +89,6 @@ public class PluginBloodMagic extends Plugin {
             ((BoundArmour) loot.getItem()).saveInternalInventory(loot, new ItemStack[9]);
             addLoot(loot, GOOD, 200);
 
-            // Rituals
-            Rituals.registerRitual("MARIBLOODRIVER", 1, 50000, new RitualOfTheBloodRiver(), MCTranslate.translate("ritual"));
             BindingRegistry.registerRecipe(new ItemStack(rodBlood), new ItemStack(Fishery.rodTitanium));
         }
     }

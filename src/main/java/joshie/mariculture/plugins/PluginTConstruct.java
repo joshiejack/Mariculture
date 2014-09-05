@@ -1,6 +1,6 @@
 package joshie.mariculture.plugins;
 
-import static joshie.mariculture.core.lib.ItemLib.stone;
+import static joshie.mariculture.core.lib.MCLib.stone;
 import static joshie.mariculture.core.util.Fluids.getFluidName;
 import static joshie.mariculture.core.util.Fluids.getFluidStack;
 import static tconstruct.library.crafting.FluidType.getFluidType;

@@ -10,7 +10,6 @@ import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.IIncubator;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.config.Machines.MachineSettings;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import joshie.mariculture.core.lib.CraftingMeta;
@@ -18,6 +17,7 @@ import joshie.mariculture.core.lib.MachineMultiMeta;
 import joshie.mariculture.core.lib.MachineSpeeds;
 import joshie.mariculture.core.util.IHasNotification;
 import joshie.mariculture.fishery.items.ItemEgg;
+import joshie.maritech.extensions.config.ExtensionMachines.ExtendedSettings;
 import joshie.maritech.tile.base.TileMultiMachinePowered;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -180,7 +180,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             decrStackSize(slot, 1);
             return true;
         } else if (inventory[slot].getItem() == Item.getItemFromBlock(Blocks.dragon_egg)) {
-            int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) ? MachineSettings.DRAGON_EGG_ETHEREAL : MachineSettings.DRAGON_EGG_BASE;
+            int chance = MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) ? ExtendedSettings.DRAGON_EGG_ETHEREAL : ExtendedSettings.DRAGON_EGG_BASE;
             if (worldObj.rand.nextInt(chance) == 0) {
                 helper.insertStack(new ItemStack(Core.crafting, 1, CraftingMeta.DRAGON_EGG), output);
             }

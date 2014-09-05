@@ -11,7 +11,7 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.RecipeHelper;
 import joshie.mariculture.core.lib.FoodMeta;
-import joshie.mariculture.core.lib.ItemLib;
+import joshie.mariculture.core.lib.MCLib;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.fishery.fish.FishAngel;
 import joshie.mariculture.fishery.fish.FishAngler;
@@ -282,7 +282,7 @@ public class Fish {
 
     private static void addRecipe(FishSpecies species) {
         ItemStack raw = species.getRawForm(1);
-        ItemStack kelp = Modules.isActive(Modules.worldplus) ? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP) : ItemLib.cactusGreen;
+        ItemStack kelp = Modules.isActive(Modules.worldplus) ? new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP) : MCLib.cactusGreen;
         if (species.getFishOilVolume() > 0 && species.getLiquifiedProduct() != null && species.getLiquifiedProductChance() > 0) {
             RecipeHelper.addFishMelting(raw, species.getFishOilVolume(), species.getLiquifiedProduct(), species.getLiquifiedProductChance());
         }

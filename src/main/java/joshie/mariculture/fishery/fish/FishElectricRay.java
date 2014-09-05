@@ -3,17 +3,17 @@ package joshie.mariculture.fishery.fish;
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
-import static joshie.mariculture.core.lib.ItemLib.dropletFlux;
-import static joshie.mariculture.core.lib.ItemLib.dropletRegen;
-import static joshie.mariculture.core.lib.ItemLib.dropletWater;
+import static joshie.mariculture.core.lib.MCLib.dropletFlux;
+import static joshie.mariculture.core.lib.MCLib.dropletRegen;
+import static joshie.mariculture.core.lib.MCLib.dropletWater;
 
 import java.util.ArrayList;
 
+import joshie.lib.helpers.PowerHelper;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.api.util.CachedCoords;
-import joshie.mariculture.core.util.PowerHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

@@ -3,8 +3,6 @@ package joshie.mariculture.core.lib;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.fishery.Fish;
 import joshie.mariculture.fishery.Fishery;
-import joshie.maritech.extensions.modules.ExtensionDiving;
-import joshie.maritech.items.ItemBattery;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -12,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemLib {
+public class MCLib {
     /** Vanilla shortcuts for stacks **/
     public static final ItemStack ink = new ItemStack(Items.dye, 1, Dye.INK);
     public static final ItemStack bonemeal = new ItemStack(Items.dye, 1, Dye.BONE);
@@ -154,19 +152,11 @@ public class ItemLib {
     public static final ItemStack baseBrick = new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK);
     public static final ItemStack baseIron = new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON);
     public static final ItemStack baseWood = new ItemStack(Core.woods, 1, WoodMeta.BASE_WOOD);
-    public static final ItemStack mechSponge = new ItemStack(Core.machines, 1, MachineMeta.SPONGE);
-    public static final ItemStack sluice = new ItemStack(Core.machines, 1, MachineMeta.SLUICE);
-    public static final ItemStack sluiceAdvanced = new ItemStack(Core.machines, 1, MachineMeta.SLUICE_ADVANCED);
-    public static final ItemStack pressureVessel = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.PRESSURE_VESSEL);
     public static final ItemStack autodictionary = new ItemStack(Core.machines, 1, MachineMeta.DICTIONARY_ITEM);
-    public static final ItemStack generator = new ItemStack(Core.machines, 1, MachineMeta.GENERATOR);
     public static final ItemStack fishSorter = new ItemStack(Core.machines, 1, MachineMeta.FISH_SORTER);
     public static final ItemStack sawmill = new ItemStack(Core.machines, 1, MachineMeta.SAWMILL);
     public static final ItemStack unpacker = new ItemStack(Core.machines, 1, MachineMeta.UNPACKER);
-    public static final ItemStack incubatorBase = new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_BASE);
-    public static final ItemStack incubatorTop = new ItemStack(Core.machinesMulti, 1, MachineMultiMeta.INCUBATOR_TOP);
     public static final ItemStack fishFeeder = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.FISH_FEEDER);
-    public static final ItemStack autofisher = new ItemStack(Core.machines, 1, MachineMeta.AUTOFISHER);
     public static final ItemStack hatchery = new ItemStack(Core.tanks, 1, TankMeta.HATCHERY);
     public static final ItemStack polishedLog = new ItemStack(Core.woods, 1, WoodMeta.POLISHED_LOG);
     public static final ItemStack polishedPlank = new ItemStack(Core.woods, 1, WoodMeta.POLISHED_PLANK);
@@ -181,8 +171,6 @@ public class ItemLib {
     public static final ItemStack blockCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.BLOCK_CASTER);
     public static final ItemStack nuggetCaster = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.NUGGET_CASTER);
     public static final ItemStack sifter = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.SIFTER);
-    public static final ItemStack compressorBase = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_BASE);
-    public static final ItemStack compressorTop = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP);
     public static final ItemStack geyser = new ItemStack(Core.renderedMachines, 1, MachineRenderedMeta.GEYSER);
 
     /** ItemStack always based items **/
@@ -190,7 +178,6 @@ public class ItemLib {
     public static final ItemStack hammer = new ItemStack(Core.hammer);
     public static final ItemStack ladle = new ItemStack(Core.ladle);
     public static final ItemStack titaniumBucket = new ItemStack(Core.bucketTitanium);
-    public static final ItemStack pressurisedBucket = new ItemStack(Core.buckets, 1, BucketMeta.PRESSURE);
     public static final ItemStack dustSalt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
     public static final ItemStack ingotTitanium = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM);
     public static final ItemStack ingotMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM);
@@ -213,11 +200,7 @@ public class ItemLib {
     public static final ItemStack aluminumSheet = new ItemStack(Core.crafting, 1, CraftingMeta.ALUMINUM_SHEET);
     public static final ItemStack titaniumSheet = new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_SHEET);
     public static final ItemStack titaniumRod = new ItemStack(Core.crafting, 1, CraftingMeta.TITANIUM_ROD);
-    public static final ItemStack goldPlastic = new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC_YELLOW);
     public static final ItemStack glassLens = new ItemStack(Core.crafting, 1, CraftingMeta.LENS_GLASS);
-    public static final ItemStack plasticLens = new ItemStack(Core.crafting, 1, CraftingMeta.LENS);
-    public static final ItemStack neoprene = new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE);
-    public static final ItemStack plastic = new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC);
     public static final ItemStack life = new ItemStack(Core.crafting, 1, CraftingMeta.LIFE_CORE);
     public static final ItemStack plan = new ItemStack(Core.crafting, 1, CraftingMeta.BLANK_PLAN);
     public static final ItemStack wicker = new ItemStack(Core.crafting, 1, CraftingMeta.WICKER);
@@ -243,12 +226,8 @@ public class ItemLib {
     public static final ItemStack dropletWater = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.WATER) : null;
     public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
     public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
-    public static final ItemStack copperBattery = ItemBattery.make(new ItemStack(Core.batteryCopper, 1, OreDictionary.WILDCARD_VALUE), 0);
-    public static final ItemStack titaniumBattery = ItemBattery.make(new ItemStack(Core.batteryTitanium, 1, OreDictionary.WILDCARD_VALUE), 0);
     public static final ItemStack dustMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE);
     public static final ItemStack carbide = new ItemStack(Core.crafting, 1, CraftingMeta.CARBIDE);
-    public static final ItemStack bottleGas2 = new ItemStack(Core.bottles, 1, BottleMeta.GAS);
-    public static final ItemStack bottleGas = new ItemStack(Core.bottles, 1, BottleMeta.GAS_BASIC);
     public static final ItemStack salt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
     public static final ItemStack voidBottle = new ItemStack(Core.bottles, 1, BottleMeta.VOID);
     public static final ItemStack emptyBottle = new ItemStack(Core.bottles, 1, BottleMeta.EMPTY);

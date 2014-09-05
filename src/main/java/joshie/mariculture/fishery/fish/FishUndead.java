@@ -2,9 +2,9 @@ package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.dropletEarth;
-import static joshie.mariculture.core.lib.ItemLib.rottenFlesh;
-import static joshie.mariculture.core.lib.ItemLib.zombie;
+import static joshie.mariculture.core.lib.MCLib.dropletEarth;
+import static joshie.mariculture.core.lib.MCLib.rottenFlesh;
+import static joshie.mariculture.core.lib.MCLib.zombie;
 
 import java.util.ArrayList;
 

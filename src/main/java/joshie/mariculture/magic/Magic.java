@@ -2,13 +2,13 @@ package joshie.mariculture.magic;
 
 import static joshie.mariculture.core.helpers.RecipeHelper.addShaped;
 import static joshie.mariculture.core.helpers.RecipeHelper.asStack;
-import static joshie.mariculture.core.lib.ItemLib.enchant;
-import static joshie.mariculture.core.lib.ItemLib.enderPearl;
-import static joshie.mariculture.core.lib.ItemLib.goldThread;
-import static joshie.mariculture.core.lib.ItemLib.magicDrop;
-import static joshie.mariculture.core.lib.ItemLib.netherStar;
-import static joshie.mariculture.core.lib.ItemLib.pearls;
-import static joshie.mariculture.core.lib.ItemLib.storageBookshelf;
+import static joshie.mariculture.core.lib.MCLib.enchant;
+import static joshie.mariculture.core.lib.MCLib.enderPearl;
+import static joshie.mariculture.core.lib.MCLib.goldThread;
+import static joshie.mariculture.core.lib.MCLib.magicDrop;
+import static joshie.mariculture.core.lib.MCLib.netherStar;
+import static joshie.mariculture.core.lib.MCLib.pearls;
+import static joshie.mariculture.core.lib.MCLib.storageBookshelf;
 
 import java.util.Map.Entry;
 

@@ -12,11 +12,13 @@ import joshie.mariculture.core.handlers.WorldEventHandler;
 import joshie.mariculture.core.handlers.WorldGenHandler;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.world.GenerationHandler;
+import joshie.maritech.handlers.MTWorldGen;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkEvent;
 
 import org.apache.logging.log4j.Level;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RetroGeneration {
@@ -57,9 +59,14 @@ public class RetroGeneration {
                 try {
                     int x = chunk.xPosition * 16;
                     int z = chunk.zPosition * 16;
-                    if (OreGen.NATURAL_GAS_ON && doGen(data, "gas", chunk)) {
-                        WorldGenHandler.generateGas(chunk.worldObj, chunk.worldObj.rand, x, z);
-                    }
+                    
+                    try {
+                        if(Loader.isModLoaded("MariTech")) {
+                            if (OreGen.NATURAL_GAS_ON && doGen(data, "gas", chunk)) {
+                                MTWorldGen.generateGas(chunk.worldObj, chunk.worldObj.rand, x, z);
+                            }
+                        }
+                    } catch (Exception e) {}
 
                     if (OreGen.BAUXITE_ON && doGen(data, "bauxite", chunk)) {
                         WorldGenHandler.generateBauxite(chunk.worldObj, chunk.worldObj.rand, x, z);

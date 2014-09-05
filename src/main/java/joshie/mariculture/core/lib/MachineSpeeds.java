@@ -5,8 +5,8 @@ import joshie.lib.util.Library;
 public class MachineSpeeds {
     public static int sawmill;
     public static int crucible;
-    public static int incubator;
-    public static int autofisher;
+    public static int incubator; /** MT **/
+    public static int autofisher; /** MT **/
     public static int feeder;
     public static int net;
     public static int hatchery;

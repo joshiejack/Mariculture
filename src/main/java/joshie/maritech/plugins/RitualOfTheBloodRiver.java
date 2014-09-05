@@ -1,4 +1,4 @@
-package joshie.mariculture.plugins.bloodmagic;
+package joshie.maritech.plugins;
 
 import java.util.ArrayList;
 import java.util.List;

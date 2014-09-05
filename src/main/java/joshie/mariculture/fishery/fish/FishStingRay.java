@@ -3,7 +3,7 @@ package joshie.mariculture.fishery.fish;
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
-import static joshie.mariculture.core.lib.ItemLib.dropletPoison;
+import static joshie.mariculture.core.lib.MCLib.dropletPoison;
 
 import java.util.Random;
 

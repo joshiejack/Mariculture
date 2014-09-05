@@ -1,6 +1,6 @@
 package joshie.mariculture.plugins;
 
-import static joshie.mariculture.core.lib.ItemLib.stick;
+import static joshie.mariculture.core.lib.MCLib.stick;
 import joshie.mariculture.api.core.FuelInfo;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.core.RecipesSmelting;

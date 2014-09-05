@@ -3,8 +3,7 @@ package joshie.maritech.tile;
 import java.util.LinkedList;
 
 import joshie.mariculture.api.util.CachedCoords;
-import joshie.mariculture.core.config.Machines.MachineSettings;
-import joshie.mariculture.core.config.Machines.Ticks;
+import joshie.maritech.extensions.config.ExtensionMachines.ExtendedSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +20,7 @@ public class TileSluiceAdvanced extends TileSluice {
             generateHPWater();
         }
 
-        if (onTick(Ticks.ADVANCED_SLUICE_TICK)) {
+        if (onTick(ExtendedSettings.ADVANCED_SLUICE_TICK)) {
             if (!worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) placeInTank();
             else pullFromTank();
 
@@ -69,7 +68,7 @@ public class TileSluiceAdvanced extends TileSluice {
 
         if (isValid(worldObj, x, y, z, drain)) {
             addToList(x, y, z);
-            int loop = !drain ? MachineSettings.ADVANCED_SLUICE_RADIUS / 2 : MachineSettings.ADVANCED_SLUICE_RADIUS;
+            int loop = !drain ? ExtendedSettings.ADVANCED_SLUICE_RADIUS / 2 : ExtendedSettings.ADVANCED_SLUICE_RADIUS;
             for (int j = 0; j < loop; j++) {
                 LinkedList<CachedCoords> temp = (LinkedList<CachedCoords>) todo.clone();
                 for (CachedCoords coord : temp) {
@@ -119,7 +118,7 @@ public class TileSluiceAdvanced extends TileSluice {
 
     @Override
     public void placeInTank() {
-        if (!MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN) {
+        if (!ExtendedSettings.ENABLE_ADVANCED_SLUICE_DRAIN) {
             super.placeInTank();
             return;
         }

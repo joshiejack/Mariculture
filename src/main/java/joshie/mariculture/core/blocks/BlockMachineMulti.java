@@ -6,10 +6,8 @@ import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctionalMulti;
 import joshie.mariculture.core.lib.MachineMultiMeta;
-import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.RockMeta;
 import joshie.mariculture.core.tile.TileCrucible;
-import joshie.maritech.tile.TileIncubator;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,13 +15,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMachineMulti extends BlockFunctionalMulti {
     private IIcon[] crucibleIcons;
-    private IIcon[] incubatorIcons;
 
     public BlockMachineMulti() {
         super(Material.piston);
@@ -70,11 +66,6 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
                 if (crucible.master == null) icon = getIcon(side, MachineMultiMeta.CRUCIBLE);
                 else if (crucible.isMaster()) icon = crucibleIcons[1];
                 else return crucibleIcons[0];
-            } else if (tile instanceof TileIncubator && block.getBlockMetadata(x, y, z) != MachineMultiMeta.INCUBATOR_BASE) {
-                TileIncubator incubator = (TileIncubator) tile;
-                if (incubator.master == null) icon = getIcon(side, MachineMultiMeta.INCUBATOR_TOP);
-                else if (incubator.facing == ForgeDirection.DOWN) icon = incubatorIcons[0];
-                else icon = incubatorIcons[1];
             }
         }
 
@@ -87,35 +78,14 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
 
     @Override
     public TileEntity createTileEntity(World world, int meta) {
-        TileEntity tile = null;
-        switch (meta) {
-            case MachineMultiMeta.CRUCIBLE:
-                tile = new TileCrucible();
-                break;
-            case MachineMultiMeta.INCUBATOR_BASE:
-                tile = new TileIncubator();
-                break;
-            case MachineMultiMeta.INCUBATOR_TOP:
-                tile = new TileIncubator();
-                break;
-        }
-
-        return MaricultureEvents.getTileEntity(this, meta, tile);
+        if(meta == MachineMultiMeta.CRUCIBLE) return new TileCrucible();
+        else return MaricultureEvents.getTileEntity(this, meta, null);
     }
 
     @Override
     public boolean isActive(int meta) {
-        boolean isActive = false;
-        switch (meta) {
-            case MachineMultiMeta.CRUCIBLE:
-                isActive = true;
-            case MachineMultiMeta.INCUBATOR_BASE:
-                isActive = Modules.isActive(Modules.fishery);
-            case MachineMultiMeta.INCUBATOR_TOP:
-                isActive = Modules.isActive(Modules.fishery);
-        }
-
-        return MaricultureEvents.isActive(this, meta, isActive);
+        if(meta == MachineMultiMeta.CRUCIBLE) return true;
+        else return MaricultureEvents.isActive(this, meta, false);
     }
 
     @Override
@@ -137,11 +107,6 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         super.registerBlockIcons(iconRegister);
-
-        //Extra Icons for the blocks
-        incubatorIcons = new IIcon[2];
-        incubatorIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":incubatorBottom");
-        incubatorIcons[1] = iconRegister.registerIcon(Mariculture.modid + ":incubatorTopTop");
 
         crucibleIcons = new IIcon[2];
         crucibleIcons[0] = iconRegister.registerIcon(Mariculture.modid + ":crucibleTop");

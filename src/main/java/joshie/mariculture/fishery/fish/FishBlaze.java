@@ -1,9 +1,9 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.blazePowder;
-import static joshie.mariculture.core.lib.ItemLib.blazeRod;
-import static joshie.mariculture.core.lib.ItemLib.dropletNether;
+import static joshie.mariculture.core.lib.MCLib.blazePowder;
+import static joshie.mariculture.core.lib.MCLib.blazeRod;
+import static joshie.mariculture.core.lib.MCLib.dropletNether;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;

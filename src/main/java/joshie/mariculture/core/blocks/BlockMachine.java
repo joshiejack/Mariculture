@@ -13,8 +13,6 @@ import joshie.mariculture.factory.tile.TileDictionaryItem;
 import joshie.mariculture.factory.tile.TileFishSorter;
 import joshie.mariculture.factory.tile.TileSawmill;
 import joshie.mariculture.factory.tile.TileUnpacker;
-import joshie.maritech.tile.TileGenerator;
-import joshie.maritech.tile.TileSluice;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -53,35 +51,31 @@ public class BlockMachine extends BlockFunctional {
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        float hardness = 1F;
         switch (meta) {
             case MachineMeta.BOOKSHELF:
-                hardness = 1F;
-                break;
+                return 1F;
             case MachineMeta.FISH_SORTER:
             case MachineMeta.UNPACKER:
-                hardness = 1.5F;
-                break;
+                return 1.5F;
             case MachineMeta.SAWMILL:
             case MachineMeta.DICTIONARY_ITEM:
-                hardness = 2F;
-                break;
+                return 2F;
         }
 
-        return MaricultureEvents.getBlockHardness(this, meta, hardness);
+        return MaricultureEvents.getBlockHardness(this, meta, 1F);
     }
 
     @Override
     public float getEnchantPowerBonus(World world, int x, int y, int z) {
         return world.getBlockMetadata(x, y, z) == MachineMeta.BOOKSHELF ? 5 : 0;
     }
-    
+
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
         super.onBlockPlacedBy(world, x, y, z, entity, stack);
         MaricultureEvents.onBlockPlaced(stack, this, world, x, y, z, entity, world.getTileEntity(x, y, z));
     }
-    
+
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         super.breakBlock(world, x, y, z, block, meta);
@@ -119,32 +113,26 @@ public class BlockMachine extends BlockFunctional {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile == null || player.isSneaking() || tile instanceof TileSluice || tile instanceof TileGenerator) return false;
+        if (tile == null || player.isSneaking()) return false;
         return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
     }
 
     @Override
     public TileEntity createTileEntity(World world, int meta) {
-        TileEntity tile = null;
         switch (meta) {
             case MachineMeta.BOOKSHELF:
-                tile = new TileBookshelf();
-                break;
+                return new TileBookshelf();
             case MachineMeta.DICTIONARY_ITEM:
-                tile = new TileDictionaryItem();
-                break;
+                return new TileDictionaryItem();
             case MachineMeta.SAWMILL:
-                tile = new TileSawmill();
-                break;
+                return new TileSawmill();
             case MachineMeta.FISH_SORTER:
-                tile = new TileFishSorter();
-                break;
+                return new TileFishSorter();
             case MachineMeta.UNPACKER:
-                tile = new TileUnpacker();
-                break;
+                return new TileUnpacker();
         }
 
-        return MaricultureEvents.getTileEntity(this, meta, tile);
+        return MaricultureEvents.getTileEntity(this, meta, null);
     }
 
     @Override
@@ -180,12 +168,11 @@ public class BlockMachine extends BlockFunctional {
 
     @Override
     public boolean isValidTab(CreativeTabs tab, int meta) {
-        boolean isValid = tab == MaricultureTab.tabFactory;
         if (meta == MachineMeta.AUTOFISHER || meta == MachineMeta.AUTOFISHER) {
-            isValid = tab == MaricultureTab.tabFishery;
+            return tab == MaricultureTab.tabFishery;
         }
 
-        return MaricultureEvents.isValidTab(this, tab, meta, isValid);
+        return MaricultureEvents.isValidTab(this, tab, meta, tab == MaricultureTab.tabFactory);
     }
 
     @Override

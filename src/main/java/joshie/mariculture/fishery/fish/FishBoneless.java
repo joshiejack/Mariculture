@@ -2,11 +2,11 @@ package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.bone;
-import static joshie.mariculture.core.lib.ItemLib.bonemeal;
-import static joshie.mariculture.core.lib.ItemLib.dropletEarth;
-import static joshie.mariculture.core.lib.ItemLib.skull;
-import static joshie.mariculture.core.lib.ItemLib.witherSkull;
+import static joshie.mariculture.core.lib.MCLib.bone;
+import static joshie.mariculture.core.lib.MCLib.bonemeal;
+import static joshie.mariculture.core.lib.MCLib.dropletEarth;
+import static joshie.mariculture.core.lib.MCLib.skull;
+import static joshie.mariculture.core.lib.MCLib.witherSkull;
 
 import java.util.ArrayList;
 

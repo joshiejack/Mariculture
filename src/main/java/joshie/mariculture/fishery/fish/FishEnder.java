@@ -1,8 +1,8 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.dropletEnder;
-import static joshie.mariculture.core.lib.ItemLib.enderPearl;
+import static joshie.mariculture.core.lib.MCLib.dropletEnder;
+import static joshie.mariculture.core.lib.MCLib.enderPearl;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;

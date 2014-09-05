@@ -8,11 +8,9 @@ import joshie.mariculture.core.Core;
 import joshie.mariculture.core.config.WorldGeneration.OreGen;
 import joshie.mariculture.core.config.WorldGeneration.WorldGen;
 import joshie.mariculture.core.helpers.BlockHelper;
-import joshie.mariculture.core.lib.AirMeta;
 import joshie.mariculture.core.lib.RockMeta;
 import joshie.mariculture.core.tile.TileOyster;
 import joshie.mariculture.core.world.WorldGenOre;
-import joshie.maritech.world.WorldGenGas;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -35,9 +33,6 @@ public class WorldGenHandler implements IWorldGenerator {
     }
 
     private void generateSurface(World world, Random random, int x, int z) {
-        int posX, posY, posZ;
-
-        generateGas(world, random, x, z);
         generateBauxite(world, random, x, z);
         generateCopper(world, random, x, z);
         generateOyster(world, random, x, z);
@@ -53,17 +48,6 @@ public class WorldGenHandler implements IWorldGenerator {
                 posZ = z + random.nextInt(16);
                 new WorldGenOre(Core.rocks, RockMeta.BAUXITE, OreGen.BAUXITE_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
             }
-        }
-    }
-
-    public static void generateGas(World world, Random random, int x, int z) {
-        int posX, posY, posZ;
-        //Layers 16-25 for Gas
-        if (OreGen.NATURAL_GAS_ON && random.nextInt(OreGen.NATURAL_GAS_CHANCE) == 0) if (MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
-            posX = x + random.nextInt(16);
-            posY = OreGen.NATURAL_GAS_MIN + random.nextInt(OreGen.NATURAL_GAS_MAX - OreGen.NATURAL_GAS_MIN);
-            posZ = z + random.nextInt(16);
-            new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGen.NATURAL_GAS_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
         }
     }
 

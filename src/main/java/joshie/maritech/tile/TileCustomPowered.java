@@ -1,8 +1,6 @@
 package joshie.maritech.tile;
 
-import java.util.ArrayList;
-
-import joshie.mariculture.core.util.PowerHelper;
+import joshie.lib.helpers.PowerHelper;
 import joshie.mariculture.factory.tile.TileCustom;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -13,17 +11,6 @@ public class TileCustomPowered extends TileCustom implements IEnergyHandler {
     private int tick;
     private ForgeDirection cameFrom;
     private EnergyStorage storage = new EnergyStorage(6000);
-
-    public static ArrayList<Object[]> handlers = new ArrayList();
-
-    static {
-        handlers.add(new Object[] { -1, 0, 0, ForgeDirection.WEST });
-        handlers.add(new Object[] { 0, 0, 1, ForgeDirection.SOUTH });
-        handlers.add(new Object[] { 0, 1, 0, ForgeDirection.UP });
-        handlers.add(new Object[] { 0, 0, -1, ForgeDirection.NORTH });
-        handlers.add(new Object[] { 1, 0, 0, ForgeDirection.EAST });
-        handlers.add(new Object[] { 0, -1, 0, ForgeDirection.DOWN });
-    }
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {

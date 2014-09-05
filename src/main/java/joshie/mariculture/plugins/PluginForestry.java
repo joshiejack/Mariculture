@@ -1,16 +1,16 @@
 package joshie.mariculture.plugins;
 
-import static joshie.mariculture.core.lib.ItemLib.chest;
-import static joshie.mariculture.core.lib.ItemLib.diamond;
-import static joshie.mariculture.core.lib.ItemLib.fish;
-import static joshie.mariculture.core.lib.ItemLib.fishMeal;
-import static joshie.mariculture.core.lib.ItemLib.ink;
-import static joshie.mariculture.core.lib.ItemLib.lily;
-import static joshie.mariculture.core.lib.ItemLib.oyster;
-import static joshie.mariculture.core.lib.ItemLib.pearls;
-import static joshie.mariculture.core.lib.ItemLib.string;
-import static joshie.mariculture.core.lib.ItemLib.vanillaFish;
-import static joshie.mariculture.core.lib.ItemLib.wool;
+import static joshie.mariculture.core.lib.MCLib.chest;
+import static joshie.mariculture.core.lib.MCLib.diamond;
+import static joshie.mariculture.core.lib.MCLib.fish;
+import static joshie.mariculture.core.lib.MCLib.fishMeal;
+import static joshie.mariculture.core.lib.MCLib.ink;
+import static joshie.mariculture.core.lib.MCLib.lily;
+import static joshie.mariculture.core.lib.MCLib.oyster;
+import static joshie.mariculture.core.lib.MCLib.pearls;
+import static joshie.mariculture.core.lib.MCLib.string;
+import static joshie.mariculture.core.lib.MCLib.vanillaFish;
+import static joshie.mariculture.core.lib.MCLib.wool;
 
 import java.util.ArrayList;
 import java.util.Collection;

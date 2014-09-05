@@ -16,7 +16,7 @@ import joshie.mariculture.core.tile.base.TileMachineTankOld;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.core.util.IFaceable;
 import joshie.mariculture.core.util.IHasNotification;
-import joshie.maritech.extensions.config.ExtensionMachines.ExtendedClient;
+import joshie.maritech.extensions.config.ExtensionMachines.ExtendedSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
@@ -159,7 +159,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
                 }
             }
 
-            if (ExtendedClient.FLUDD_BLOCK_ANIM && worldObj.isRemote) if (onTick(4)) {
+            if (ExtendedSettings.FLUDD_BLOCK_ANIM && worldObj.isRemote) if (onTick(4)) {
                 for (float i = dist > 0 ? -0.45F : 0.3F; i <= 0.35F; i += 0.05F) {
                     worldObj.spawnParticle("cloud", x + 0.5F + i * orientation.offsetX, y + 0.7F + i * orientation.offsetY, z + 0.5F + i * orientation.offsetZ, 0, 0, 0);
                 }

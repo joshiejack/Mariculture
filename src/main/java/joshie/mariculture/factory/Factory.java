@@ -4,46 +4,27 @@ import static joshie.mariculture.core.helpers.RecipeHelper.addMelting;
 import static joshie.mariculture.core.helpers.RecipeHelper.addShaped;
 import static joshie.mariculture.core.helpers.RecipeHelper.addShapeless;
 import static joshie.mariculture.core.helpers.RecipeHelper.asStack;
-import static joshie.mariculture.core.lib.ItemLib.autodictionary;
-import static joshie.mariculture.core.lib.ItemLib.baseIron;
-import static joshie.mariculture.core.lib.ItemLib.baseWood;
-import static joshie.mariculture.core.lib.ItemLib.bookAndQuill;
-import static joshie.mariculture.core.lib.ItemLib.comparator;
-import static joshie.mariculture.core.lib.ItemLib.copperBattery;
-import static joshie.mariculture.core.lib.ItemLib.craftingTable;
-import static joshie.mariculture.core.lib.ItemLib.feather;
-import static joshie.mariculture.core.lib.ItemLib.filterer;
-import static joshie.mariculture.core.lib.ItemLib.fishSorter;
-import static joshie.mariculture.core.lib.ItemLib.generator;
-import static joshie.mariculture.core.lib.ItemLib.geyser;
-import static joshie.mariculture.core.lib.ItemLib.hopper;
-import static joshie.mariculture.core.lib.ItemLib.ironAxe;
-import static joshie.mariculture.core.lib.ItemLib.ironBars;
-import static joshie.mariculture.core.lib.ItemLib.ironWheel;
-import static joshie.mariculture.core.lib.ItemLib.mechSponge;
-import static joshie.mariculture.core.lib.ItemLib.paper;
-import static joshie.mariculture.core.lib.ItemLib.pearls;
-import static joshie.mariculture.core.lib.ItemLib.plan;
-import static joshie.mariculture.core.lib.ItemLib.pressureVessel;
-import static joshie.mariculture.core.lib.ItemLib.pressurisedBucket;
-import static joshie.mariculture.core.lib.ItemLib.quartzSlab;
-import static joshie.mariculture.core.lib.ItemLib.sawmill;
-import static joshie.mariculture.core.lib.ItemLib.sluice;
-import static joshie.mariculture.core.lib.ItemLib.sluiceAdvanced;
-import static joshie.mariculture.core.lib.ItemLib.sponge;
-import static joshie.mariculture.core.lib.ItemLib.stoneSlab;
-import static joshie.mariculture.core.lib.ItemLib.tank;
-import static joshie.mariculture.core.lib.ItemLib.titaniumSheet;
-import static joshie.mariculture.core.lib.ItemLib.unpacker;
-import static joshie.mariculture.core.lib.ItemLib.water;
-import static joshie.mariculture.core.lib.ItemLib.wicker;
-import static joshie.mariculture.core.lib.ItemLib.wool;
+import static joshie.mariculture.core.lib.MCLib.autodictionary;
+import static joshie.mariculture.core.lib.MCLib.baseIron;
+import static joshie.mariculture.core.lib.MCLib.baseWood;
+import static joshie.mariculture.core.lib.MCLib.bookAndQuill;
+import static joshie.mariculture.core.lib.MCLib.craftingTable;
+import static joshie.mariculture.core.lib.MCLib.feather;
+import static joshie.mariculture.core.lib.MCLib.filterer;
+import static joshie.mariculture.core.lib.MCLib.fishSorter;
+import static joshie.mariculture.core.lib.MCLib.geyser;
+import static joshie.mariculture.core.lib.MCLib.ironAxe;
+import static joshie.mariculture.core.lib.MCLib.paper;
+import static joshie.mariculture.core.lib.MCLib.pearls;
+import static joshie.mariculture.core.lib.MCLib.plan;
+import static joshie.mariculture.core.lib.MCLib.sawmill;
+import static joshie.mariculture.core.lib.MCLib.unpacker;
+import static joshie.mariculture.core.lib.MCLib.water;
+import static joshie.mariculture.core.lib.MCLib.wicker;
+import static joshie.mariculture.core.lib.MCLib.wool;
 import joshie.lib.helpers.RegistryHelper;
-import joshie.mariculture.core.Core;
 import joshie.mariculture.core.handlers.FluidDicHandler;
-import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
-import joshie.mariculture.core.lib.UpgradeMeta;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.factory.blocks.BlockCustomBlock;
 import joshie.mariculture.factory.blocks.BlockCustomFence;
@@ -64,7 +45,6 @@ import joshie.mariculture.factory.tile.TileFishSorter;
 import joshie.mariculture.factory.tile.TileGeyser;
 import joshie.mariculture.factory.tile.TileSawmill;
 import joshie.mariculture.factory.tile.TileUnpacker;
-import joshie.maritech.items.ItemRotor;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -84,9 +64,6 @@ public class Factory extends RegistrationModule {
     public static Item plans;
     public static Item paintbrush;
     public static Item filter;
-    public static Item turbineAluminum;
-    public static Item turbineTitanium;
-    public static Item turbineCopper;
 
     @Override
     public void registerHandlers() {
@@ -115,9 +92,6 @@ public class Factory extends RegistrationModule {
         plans = new ItemPlan().setUnlocalizedName("plans");
         paintbrush = new ItemPaintbrush(128).setUnlocalizedName("paintbrush");
         filter = new ItemFilter().setUnlocalizedName("filter");
-        turbineCopper = new ItemRotor(900, MachineRenderedMeta.ROTOR_COPPER).setUnlocalizedName("turbine.copper");
-        turbineAluminum = new ItemRotor(3600, MachineRenderedMeta.ROTOR_ALUMINUM).setUnlocalizedName("turbine.aluminum");
-        turbineTitanium = new ItemRotor(28800, MachineRenderedMeta.ROTOR_TITANIUM).setUnlocalizedName("turbine.titanium");
     }
 
     @Override
@@ -130,14 +104,9 @@ public class Factory extends RegistrationModule {
 
     @Override
     public void registerRecipes() {
-        addShaped(generator, new Object[] { " B ", "CMC", "RIR", 'B', copperBattery, 'C', comparator, 'M', "ingotMagnesium", 'R', "dustRedstone", 'I', baseIron });
         addShaped(unpacker, new Object[] { "LLL", "LCL", "LBL", 'L', "logWood", 'B', baseWood, 'C', craftingTable });
         addShaped(sawmill, new Object[] { " A ", "DWD", "IMI", 'A', ironAxe, 'D', "slabWood", 'M', baseWood, 'W', "logWood", 'I', "ingotCopper" });
         addShaped(autodictionary, new Object[] { " B ", "FPF", "IMI", 'F', feather, 'P', pearls, 'M', baseWood, 'B', bookAndQuill, 'I', "ingotCopper" });
-        addShaped(mechSponge, new Object[] { " D ", "ATA", "SCS", 'D', "fish", 'S', sponge, 'C', baseIron, 'A', water, 'T', "ingotAluminum" });
-        addShaped(asStack(sluice, 4), new Object[] { " H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum" });
-        addShaped(sluiceAdvanced, new Object[] { "TPT", "TST", "TBT", 'T', "ingotTitanium", 'P', pressurisedBucket, 'S', asStack(Core.upgrade, UpgradeMeta.ADVANCED_STORAGE), 'B', sluice });
-        addShaped(pressureVessel, new Object[] { "WLW", "PTP", "PSP", 'W', ironWheel, 'L', "blockLapis", 'P', titaniumSheet, 'T', tank, 'S', sluice });
         addShaped(fishSorter, new Object[] { "BPY", "GFA", "RCW", 'B', "dyeBlack", 'P', pearls, 'Y', "dyeYellow", 'G', "dyeGreen", 'F', "fish", 'A', "dyeCyan", 'R', "dyeRed", 'C', baseWood, 'W', "dyeWhite" });
         addShaped(asStack(geyser, 16), new Object[] { " W ", " G ", "RCR", 'W', water, 'G', "blockGlass", 'R', "dustRedstone", 'C', baseIron, });
         addShaped(asStack(chalk), new Object[] { "LLN", 'L', "blockLimestone", 'N', "dyeWhite" });
@@ -151,8 +120,5 @@ public class Factory extends RegistrationModule {
         addShapeless(plan, new Object[] { "dyeBlue", "dyeBlack", paper, "dyeBlue" });
         addShaped(asStack(filter), new Object[] { "W W", "WNW", " W ", 'W', wicker, 'N', filterer });
         addShaped(asStack(paintbrush), new Object[] { " WW", " IW", "S  ", 'W', wool, 'I', "blockAluminum", 'S', sawmill });
-        addShaped(asStack(turbineCopper), new Object[] { " I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood" });
-        addShaped(asStack(turbineAluminum), new Object[] { " I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab });
-        addShaped(asStack(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });
     }
 }

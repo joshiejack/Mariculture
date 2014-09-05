@@ -1,11 +1,9 @@
 package joshie.mariculture.core.render;
 
-import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.diving.render.ModelAirPump;
-import joshie.maritech.model.ModelRotor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,17 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
 public class RenderSingleItem implements IItemRenderer {
-    private static final float scale = (float) (1.0 / 20.0);
     private static final ResourceLocation AIR_PUMP = new ResourceLocation("mariculture", "textures/blocks/air_pump_texture.png");
-    private static final ResourceLocation TURBINE = new ResourceLocation("mariculture", "textures/blocks/turbine_texture.png");
-    private static final ResourceLocation TURBINE_GAS = new ResourceLocation("mariculture", "textures/blocks/turbine_gas_texture.png");
-    private static final ResourceLocation TURBINE_HAND = new ResourceLocation("mariculture", "textures/blocks/turbine_hand_texture.png");
-    private static final ResourceLocation COPPER = new ResourceLocation(Mariculture.modid, "textures/blocks/copperRotor.png");
-    private static final ResourceLocation ALUMINUM = new ResourceLocation(Mariculture.modid, "textures/blocks/aluminumRotor.png");
-    private static final ResourceLocation TITANIUM = new ResourceLocation(Mariculture.modid, "textures/blocks/titaniumRotor.png");
-
     private final ModelAirPump pump = new ModelAirPump();
-    private final ModelRotor rotor = new ModelRotor();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {

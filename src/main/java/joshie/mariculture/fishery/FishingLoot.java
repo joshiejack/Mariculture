@@ -1,10 +1,10 @@
 package joshie.mariculture.fishery;
 
-import static joshie.mariculture.core.lib.ItemLib.enderPearl;
-import static joshie.mariculture.core.lib.ItemLib.eyeOfEnder;
-import static joshie.mariculture.core.lib.ItemLib.ironWheel;
-import static joshie.mariculture.core.lib.ItemLib.voidBottle;
-import static joshie.mariculture.core.lib.ItemLib.xpBottle;
+import static joshie.mariculture.core.lib.MCLib.enderPearl;
+import static joshie.mariculture.core.lib.MCLib.eyeOfEnder;
+import static joshie.mariculture.core.lib.MCLib.ironWheel;
+import static joshie.mariculture.core.lib.MCLib.voidBottle;
+import static joshie.mariculture.core.lib.MCLib.xpBottle;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.Loot;
 import joshie.mariculture.api.fishery.Loot.Rarity;

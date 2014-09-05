@@ -1,8 +1,8 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.dropletNether;
-import static joshie.mariculture.core.lib.ItemLib.glowstone;
+import static joshie.mariculture.core.lib.MCLib.dropletNether;
+import static joshie.mariculture.core.lib.MCLib.glowstone;
 import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;

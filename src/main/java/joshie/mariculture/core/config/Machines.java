@@ -6,16 +6,13 @@ import static joshie.mariculture.core.helpers.ConfigHelper.setCategory;
 import static joshie.mariculture.core.helpers.ConfigHelper.setConfig;
 import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineSpeeds;
-import joshie.maritech.extensions.config.ExtensionMachines.ExtendedClient;
 import net.minecraftforge.common.config.Configuration;
 
 public class Machines {
     public static void init(Configuration config) {
         setConfig(config);
         setCategory("Speed Settings");
-        MachineSpeeds.autofisher = getInt("Automatic Fisher", 2500);
         MachineSpeeds.feeder = getInt("Fish Feeder", 200);
-        MachineSpeeds.incubator = getInt("Incubator", 400);
         MachineSpeeds.crucible = getInt("Crucible Furnace", 40000);
         MachineSpeeds.net = getInt("Fishing Net", 300);
         MachineSpeeds.sawmill = getInt("Sawmill", 650);
@@ -34,16 +31,11 @@ public class Machines {
         Ticks.PUMP_ENABLE_TICKS = getBoolean("Air Pump - Enable Ticking", true);
         Ticks.FISH_FOOD_TICK = getInt("Fish Feeder > Fish Food Tick Rate", 25, "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable");
         Ticks.PICKUP_TICK = getInt("Fish Feeder > Fish Food Pickup Tick Rate", -1, "How often it tries to pick up fish food, set to less than 0 to disable");
-        Ticks.ADVANCED_SLUICE_TICK = getInt("Advanced Sluice > Tick Rate", 60);
 
         setCategory("Machine Settings");
         MachineSettings.PACKET_DISTANCE = getInt("How many blocks away to send rendering packet updates to players", 176);
         MachineSettings.PURITY = getInt("Crucible Furnace > mB Per Purity Upgrade Level", 32);
-        MachineSettings.DRAGON_EGG_ETHEREAL = getInt("Incubator > Dragon Egg Chance - Ethereal", 48000, "Same as the normal chance but this is the chance when you have an ethereal upgrade in the incubator");
-        MachineSettings.DRAGON_EGG_BASE = getInt("Incubator > Dragon Egg Chance", 64000, "This is a 1 in this many chance for the chance to get a Spawn Ender Dragon from a Dragon Egg");
-        MachineSettings.ADVANCED_SLUICE_RADIUS = getInt("Advanced Sluice > Radius to Drain Fluids", 66);
         MachineSettings.ENABLE_PURITY_IN_CRUCIBLE = getBoolean("Crucible Furnace > Enable Purity Bonus", false);
-        MachineSettings.ENABLE_ADVANCED_SLUICE_DRAIN = getBoolean("Advanced Sluice > Enable Overpowered, Laggy Draining", false);
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -57,11 +49,7 @@ public class Machines {
     public static class MachineSettings {
         public static int PACKET_DISTANCE;
         public static int PURITY;
-        public static int DRAGON_EGG_ETHEREAL;
-        public static int DRAGON_EGG_BASE;
-        public static int ADVANCED_SLUICE_RADIUS;
         public static boolean ENABLE_PURITY_IN_CRUCIBLE;
-        public static boolean ENABLE_ADVANCED_SLUICE_DRAIN;
     }
 
     public static class Ticks {
@@ -72,6 +60,5 @@ public class Machines {
         public static int FISH_FOOD_TICK;
         public static int TANK_UPDATE;
         public static int PICKUP_TICK;
-        public static int ADVANCED_SLUICE_TICK;
     }
 }

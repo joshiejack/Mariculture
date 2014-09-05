@@ -4,8 +4,10 @@ import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.cofh.BlockHelper;
 import joshie.mariculture.core.items.ItemMCDamageable;
+import joshie.mariculture.core.lib.MetalMeta;
 import joshie.maritech.tile.TileGenerator;
 import joshie.maritech.tile.TileRotor;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -18,6 +20,20 @@ public class ItemRotor extends ItemMCDamageable {
         super(dmg);
         this.meta = meta;
         setCreativeTab(MaricultureTab.tabFactory);
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack held, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking() && held != null && world.getBlockMetadata(x, y, z) == MetalMeta.BASE_IRON) {
+            if (held.getItem() instanceof ItemRotor) {
+                if (setBlock(held, world, x, y, z, ForgeDirection.getOrientation(side))) {
+                    held.stackSize--;
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public boolean setBlock(ItemStack stack, World world, int x, int y, int z, ForgeDirection orientation) {

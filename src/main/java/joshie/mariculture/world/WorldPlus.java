@@ -1,12 +1,16 @@
 package joshie.mariculture.world;
 
+import static joshie.mariculture.core.helpers.RecipeHelper.add9x9Recipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.addBleachRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.addCrushRecipe;
+import static joshie.mariculture.core.helpers.RecipeHelper.addShapeless;
+import static joshie.mariculture.core.helpers.RecipeHelper.addSmelting;
 import static joshie.mariculture.core.helpers.RecipeHelper.addSoakRecipe;
+import static net.minecraftforge.common.ChestGenHooks.addItem;
+import static net.minecraftforge.oredict.OreDictionary.registerOre;
 import joshie.mariculture.api.core.CoralRegistry;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.helpers.RecipeHelper;
 import joshie.mariculture.core.lib.CoralMeta;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.core.lib.Dye;
@@ -22,8 +26,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class WorldPlus extends RegistrationModule {
@@ -53,18 +55,18 @@ public class WorldPlus extends RegistrationModule {
             MaricultureTab.tabWorld.setIcon(new ItemStack(plantStatic, 1, 7), false);
         }
 
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), "Yellow");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), "Magenta");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.BROWN), "Brown");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), "Orange");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.PINK), "Pink");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), "Purple");
-        WorldPlus.registerCoral(new ItemStack(plantStatic, 1, CoralMeta.RED), "Red");
-        OreDictionary.registerOre("coralWhite", new ItemStack(plantStatic, 1, CoralMeta.WHITE));
-        OreDictionary.registerOre("coralGray", new ItemStack(plantStatic, 1, CoralMeta.GREY));
-        OreDictionary.registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
-        OreDictionary.registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.LIGHT_BLUE), "LightBlue");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.YELLOW), "Yellow");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.MAGENTA), "Magenta");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.BROWN), "Brown");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.ORANGE), "Orange");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.PINK), "Pink");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.PURPLE), "Purple");
+        registerCoral(new ItemStack(plantStatic, 1, CoralMeta.RED), "Red");
+        registerOre("coralWhite", new ItemStack(plantStatic, 1, CoralMeta.WHITE));
+        registerOre("coralGray", new ItemStack(plantStatic, 1, CoralMeta.GREY));
+        registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
+        registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
     }
 
     @Override
@@ -107,41 +109,41 @@ public class WorldPlus extends RegistrationModule {
         addSoakRecipe(new ItemStack(plantStatic, 1, CoralMeta.WHITE), new ItemStack(plantGrowable, 1, CoralMeta.WHITE), 1);
 
         //Kelp Wrap Recipe
-        RecipeHelper.add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
-        RecipeHelper.addShapeless(new ItemStack(Core.crafting, 1, CraftingMeta.SEEDS_KELP), new Object[] { new ItemStack(plantStatic, 1, CoralMeta.KELP) });
-        RecipeHelper.addSmelting(new ItemStack(Core.glass, 1, GlassMeta.HEAT), new ItemStack(Core.sands, 1, GroundMeta.ANCIENT), 0.025F);
+        add9x9Recipe(new ItemStack(Core.food, 1, FoodMeta.KELP_WRAP), "plantKelp");
+        addShapeless(new ItemStack(Core.crafting, 1, CraftingMeta.SEEDS_KELP), new Object[] { new ItemStack(plantStatic, 1, CoralMeta.KELP) });
+        addSmelting(new ItemStack(Core.glass, 1, GlassMeta.HEAT), new ItemStack(Core.sands, 1, GroundMeta.ANCIENT), 0.025F);
 
         addOceanChestLoot();
     }
 
     private void addOceanChestLoot() {
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.bone, 7, 0), 5, 10, 25));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.skull, 1, 0), 5, 5, 5));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.skull, 1, 1), 2, 3, 3));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Blocks.tnt), 2, 4, 4));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.paper, 3, 0), 2, 3, 20));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.book, 1, 0), 2, 3, 15));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.experience_bottle, 1, 0), 5, 10, 20));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.writable_book, 1, 0), 1, 4, 4));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.map, 1, 0), 1, 1, 5));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.gold_ingot, 1, 0), 10, 20, 10));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.diamond, 1, 0), 1, 2, 3));
-        ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), 1, 3, 4));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.bone, 7, 0), 5, 10, 25));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.skull, 1, 0), 5, 5, 5));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.skull, 1, 1), 2, 3, 3));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Blocks.tnt), 2, 4, 4));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.paper, 3, 0), 2, 3, 20));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.book, 1, 0), 2, 3, 15));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.experience_bottle, 1, 0), 5, 10, 20));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.writable_book, 1, 0), 1, 4, 4));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.map, 1, 0), 1, 1, 5));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.gold_ingot, 1, 0), 10, 20, 10));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.diamond, 1, 0), 1, 2, 3));
+        addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), 1, 3, 4));
 
         if (Modules.isActive(Modules.fishery)) {
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodReed), 1, 2, 6));
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodWood), 1, 2, 4));
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodTitanium), 1, 1, 2));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodReed), 1, 2, 6));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodWood), 1, 2, 4));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Fishery.rodTitanium), 1, 1, 2));
         } else {
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 0), 5, 5, 5));
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 1), 5, 5, 5));
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 2), 5, 5, 5));
-            ChestGenHooks.addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 3), 5, 5, 5));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 0), 5, 5, 5));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 1), 5, 5, 5));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 2), 5, 5, 5));
+            addItem(WorldPlus.OCEAN_CHEST, new WeightedRandomChestContent(new ItemStack(Items.fish, 1, 3), 5, 5, 5));
         }
     }
 
     public static void registerCoral(ItemStack stack, String color) {
         CoralRegistry.register(stack);
-        OreDictionary.registerOre("coral" + color, stack);
+        registerOre("coral" + color, stack);
     }
 }

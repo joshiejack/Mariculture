@@ -76,7 +76,7 @@ public class ExtensionMachine extends ExtensionBase {
             clearWater(world, x, y, z + 1);
             clearWater(world, x, y, z - 1);
         }
-        
+
         return false;
     }
 
@@ -166,7 +166,8 @@ public class ExtensionMachine extends ExtensionBase {
     public boolean onRightClickBlock(World world, int x, int y, int z, EntityPlayer player) {
         if (!player.isSneaking()) {
             TileEntity tile = world.getTileEntity(x, y, z);
-            if (tile instanceof TileSponge) {
+            if (tile instanceof TileSluice || tile instanceof TileGenerator) return false;
+            else if (tile instanceof TileSponge) {
                 if (world.isRemote && player instanceof EntityClientPlayerMP) {
                     PacketHandler.sendToServer(new PacketSponge(x, y, z, true));
                 } else if (player.getCurrentEquippedItem() != null && !world.isRemote) {

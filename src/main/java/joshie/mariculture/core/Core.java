@@ -88,7 +88,6 @@ import joshie.mariculture.core.tile.TileVoidBottle;
 import joshie.mariculture.core.util.EntityFakeItem;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.core.util.XPRegistry;
-import joshie.maritech.items.ItemBattery;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -133,8 +132,6 @@ public class Core extends RegistrationModule {
     public static Item upgrade;
     public static Item worked;
 
-    public static Item batteryTitanium;
-    public static Item batteryCopper;
     public static Item bucketTitanium;
     public static Item hammer;
     public static Item ladle;
@@ -185,8 +182,6 @@ public class Core extends RegistrationModule {
         bucketTitanium = new ItemFluidStorage(8000).setUnlocalizedName("bucket.titanium");
         bottles = new ItemBottle().setUnlocalizedName("fluids");
         buckets = new ItemBuckets().setUnlocalizedName("bucket");
-        batteryCopper = new ItemBattery(10000, 100, 250).setUnlocalizedName("battery.copper");
-        batteryTitanium = new ItemBattery(100000, 1000, 2500).setUnlocalizedName("battery.titanium");
         worked = new ItemWorked().setUnlocalizedName("worked");
     }
 

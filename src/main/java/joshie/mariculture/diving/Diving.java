@@ -2,10 +2,10 @@ package joshie.mariculture.diving;
 
 import static joshie.mariculture.core.helpers.RecipeHelper.addShaped;
 import static joshie.mariculture.core.helpers.RecipeHelper.asStack;
-import static joshie.mariculture.core.lib.ItemLib.glassLens;
-import static joshie.mariculture.core.lib.ItemLib.leather;
-import static joshie.mariculture.core.lib.ItemLib.reeds;
-import static joshie.mariculture.core.lib.ItemLib.string;
+import static joshie.mariculture.core.lib.MCLib.glassLens;
+import static joshie.mariculture.core.lib.MCLib.leather;
+import static joshie.mariculture.core.lib.MCLib.reeds;
+import static joshie.mariculture.core.lib.MCLib.string;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
 import joshie.mariculture.core.lib.RenderIds;
 import net.minecraft.item.Item;

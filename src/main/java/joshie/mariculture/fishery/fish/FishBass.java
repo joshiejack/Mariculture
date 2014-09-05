@@ -3,10 +3,10 @@ package joshie.mariculture.fishery.fish;
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
-import static joshie.mariculture.core.lib.ItemLib.dropletDestroy;
-import static joshie.mariculture.core.lib.ItemLib.dropletPlant;
-import static joshie.mariculture.core.lib.ItemLib.dropletWater;
-import static joshie.mariculture.core.lib.ItemLib.gunpowder;
+import static joshie.mariculture.core.lib.MCLib.dropletDestroy;
+import static joshie.mariculture.core.lib.MCLib.dropletPlant;
+import static joshie.mariculture.core.lib.MCLib.dropletWater;
+import static joshie.mariculture.core.lib.MCLib.gunpowder;
 
 import java.util.Random;
 

@@ -1,8 +1,8 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
-import static joshie.mariculture.core.lib.ItemLib.dropletRegen;
-import static joshie.mariculture.core.lib.ItemLib.dropletWater;
+import static joshie.mariculture.core.lib.MCLib.dropletRegen;
+import static joshie.mariculture.core.lib.MCLib.dropletWater;
 
 import java.util.ArrayList;
 import java.util.List;

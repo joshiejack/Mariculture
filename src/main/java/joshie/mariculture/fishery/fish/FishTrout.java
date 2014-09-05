@@ -1,18 +1,18 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.blueDye;
-import static joshie.mariculture.core.lib.ItemLib.brownDye;
-import static joshie.mariculture.core.lib.ItemLib.cyanDye;
-import static joshie.mariculture.core.lib.ItemLib.greenDye;
-import static joshie.mariculture.core.lib.ItemLib.lightBlueDye;
-import static joshie.mariculture.core.lib.ItemLib.limeDye;
-import static joshie.mariculture.core.lib.ItemLib.magentaDye;
-import static joshie.mariculture.core.lib.ItemLib.orangeDye;
-import static joshie.mariculture.core.lib.ItemLib.pinkDye;
-import static joshie.mariculture.core.lib.ItemLib.purpleDye;
-import static joshie.mariculture.core.lib.ItemLib.redDye;
-import static joshie.mariculture.core.lib.ItemLib.yellowDye;
+import static joshie.mariculture.core.lib.MCLib.blueDye;
+import static joshie.mariculture.core.lib.MCLib.brownDye;
+import static joshie.mariculture.core.lib.MCLib.cyanDye;
+import static joshie.mariculture.core.lib.MCLib.greenDye;
+import static joshie.mariculture.core.lib.MCLib.lightBlueDye;
+import static joshie.mariculture.core.lib.MCLib.limeDye;
+import static joshie.mariculture.core.lib.MCLib.magentaDye;
+import static joshie.mariculture.core.lib.MCLib.orangeDye;
+import static joshie.mariculture.core.lib.MCLib.pinkDye;
+import static joshie.mariculture.core.lib.MCLib.purpleDye;
+import static joshie.mariculture.core.lib.MCLib.redDye;
+import static joshie.mariculture.core.lib.MCLib.yellowDye;
 
 import java.util.UUID;
 

@@ -12,63 +12,55 @@ import static joshie.mariculture.core.helpers.RecipeHelper.addUpgrade;
 import static joshie.mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.addVatItemRecipeResultFluid;
 import static joshie.mariculture.core.helpers.RecipeHelper.asStack;
-import static joshie.mariculture.core.lib.ItemLib.autofisher;
-import static joshie.mariculture.core.lib.ItemLib.baseWood;
-import static joshie.mariculture.core.lib.ItemLib.blueWool;
-import static joshie.mariculture.core.lib.ItemLib.bowl;
-import static joshie.mariculture.core.lib.ItemLib.bread;
-import static joshie.mariculture.core.lib.ItemLib.calamari;
-import static joshie.mariculture.core.lib.ItemLib.chest;
-import static joshie.mariculture.core.lib.ItemLib.clay;
-import static joshie.mariculture.core.lib.ItemLib.cobblestone;
-import static joshie.mariculture.core.lib.ItemLib.compass;
-import static joshie.mariculture.core.lib.ItemLib.cooling;
-import static joshie.mariculture.core.lib.ItemLib.copperBattery;
-import static joshie.mariculture.core.lib.ItemLib.diamond;
-import static joshie.mariculture.core.lib.ItemLib.dirt;
-import static joshie.mariculture.core.lib.ItemLib.dragonEgg;
-import static joshie.mariculture.core.lib.ItemLib.dropletAny;
-import static joshie.mariculture.core.lib.ItemLib.dropletEarth;
-import static joshie.mariculture.core.lib.ItemLib.dropletEnder;
-import static joshie.mariculture.core.lib.ItemLib.dropletFlux;
-import static joshie.mariculture.core.lib.ItemLib.dropletFrozen;
-import static joshie.mariculture.core.lib.ItemLib.dropletNether;
-import static joshie.mariculture.core.lib.ItemLib.dropletPoison;
-import static joshie.mariculture.core.lib.ItemLib.dropletWater;
-import static joshie.mariculture.core.lib.ItemLib.enderPearl;
-import static joshie.mariculture.core.lib.ItemLib.endstone;
-import static joshie.mariculture.core.lib.ItemLib.fish;
-import static joshie.mariculture.core.lib.ItemLib.fishFeeder;
-import static joshie.mariculture.core.lib.ItemLib.fishTank;
-import static joshie.mariculture.core.lib.ItemLib.fishingNet;
-import static joshie.mariculture.core.lib.ItemLib.grass;
-import static joshie.mariculture.core.lib.ItemLib.greyClay;
-import static joshie.mariculture.core.lib.ItemLib.hatchery;
-import static joshie.mariculture.core.lib.ItemLib.heating;
-import static joshie.mariculture.core.lib.ItemLib.ice;
-import static joshie.mariculture.core.lib.ItemLib.incubatorBase;
-import static joshie.mariculture.core.lib.ItemLib.incubatorTop;
-import static joshie.mariculture.core.lib.ItemLib.leatherCap;
-import static joshie.mariculture.core.lib.ItemLib.pearls;
-import static joshie.mariculture.core.lib.ItemLib.poisonPotato;
-import static joshie.mariculture.core.lib.ItemLib.polishedLog;
-import static joshie.mariculture.core.lib.ItemLib.polishedPlank;
-import static joshie.mariculture.core.lib.ItemLib.polishedStick;
-import static joshie.mariculture.core.lib.ItemLib.polishedTitanium;
-import static joshie.mariculture.core.lib.ItemLib.potato;
-import static joshie.mariculture.core.lib.ItemLib.reeds;
-import static joshie.mariculture.core.lib.ItemLib.sand;
-import static joshie.mariculture.core.lib.ItemLib.sifter;
-import static joshie.mariculture.core.lib.ItemLib.snowball;
-import static joshie.mariculture.core.lib.ItemLib.string;
-import static joshie.mariculture.core.lib.ItemLib.sugar;
-import static joshie.mariculture.core.lib.ItemLib.thermometer;
-import static joshie.mariculture.core.lib.ItemLib.titaniumBattery;
-import static joshie.mariculture.core.lib.ItemLib.titaniumRod;
-import static joshie.mariculture.core.lib.ItemLib.titaniumSheet;
-import static joshie.mariculture.core.lib.ItemLib.tnt;
-import static joshie.mariculture.core.lib.ItemLib.whiteClay;
-import static joshie.mariculture.core.lib.ItemLib.wicker;
+import static joshie.mariculture.core.lib.MCLib.blueWool;
+import static joshie.mariculture.core.lib.MCLib.bowl;
+import static joshie.mariculture.core.lib.MCLib.bread;
+import static joshie.mariculture.core.lib.MCLib.calamari;
+import static joshie.mariculture.core.lib.MCLib.chest;
+import static joshie.mariculture.core.lib.MCLib.clay;
+import static joshie.mariculture.core.lib.MCLib.cobblestone;
+import static joshie.mariculture.core.lib.MCLib.compass;
+import static joshie.mariculture.core.lib.MCLib.cooling;
+import static joshie.mariculture.core.lib.MCLib.diamond;
+import static joshie.mariculture.core.lib.MCLib.dirt;
+import static joshie.mariculture.core.lib.MCLib.dragonEgg;
+import static joshie.mariculture.core.lib.MCLib.dropletAny;
+import static joshie.mariculture.core.lib.MCLib.dropletEarth;
+import static joshie.mariculture.core.lib.MCLib.dropletEnder;
+import static joshie.mariculture.core.lib.MCLib.dropletFlux;
+import static joshie.mariculture.core.lib.MCLib.dropletFrozen;
+import static joshie.mariculture.core.lib.MCLib.dropletNether;
+import static joshie.mariculture.core.lib.MCLib.dropletPoison;
+import static joshie.mariculture.core.lib.MCLib.dropletWater;
+import static joshie.mariculture.core.lib.MCLib.enderPearl;
+import static joshie.mariculture.core.lib.MCLib.endstone;
+import static joshie.mariculture.core.lib.MCLib.fish;
+import static joshie.mariculture.core.lib.MCLib.fishFeeder;
+import static joshie.mariculture.core.lib.MCLib.fishTank;
+import static joshie.mariculture.core.lib.MCLib.fishingNet;
+import static joshie.mariculture.core.lib.MCLib.grass;
+import static joshie.mariculture.core.lib.MCLib.hatchery;
+import static joshie.mariculture.core.lib.MCLib.heating;
+import static joshie.mariculture.core.lib.MCLib.ice;
+import static joshie.mariculture.core.lib.MCLib.leatherCap;
+import static joshie.mariculture.core.lib.MCLib.pearls;
+import static joshie.mariculture.core.lib.MCLib.poisonPotato;
+import static joshie.mariculture.core.lib.MCLib.polishedLog;
+import static joshie.mariculture.core.lib.MCLib.polishedPlank;
+import static joshie.mariculture.core.lib.MCLib.polishedStick;
+import static joshie.mariculture.core.lib.MCLib.polishedTitanium;
+import static joshie.mariculture.core.lib.MCLib.potato;
+import static joshie.mariculture.core.lib.MCLib.reeds;
+import static joshie.mariculture.core.lib.MCLib.sand;
+import static joshie.mariculture.core.lib.MCLib.sifter;
+import static joshie.mariculture.core.lib.MCLib.snowball;
+import static joshie.mariculture.core.lib.MCLib.string;
+import static joshie.mariculture.core.lib.MCLib.sugar;
+import static joshie.mariculture.core.lib.MCLib.thermometer;
+import static joshie.mariculture.core.lib.MCLib.titaniumRod;
+import static joshie.mariculture.core.lib.MCLib.titaniumSheet;
+import static joshie.mariculture.core.lib.MCLib.tnt;
+import static joshie.mariculture.core.lib.MCLib.wicker;
 import static joshie.mariculture.core.util.Fluids.getFluid;
 import static joshie.mariculture.core.util.Fluids.getFluidName;
 import static joshie.mariculture.core.util.Fluids.getFluidStack;
@@ -92,7 +84,7 @@ import joshie.mariculture.core.lib.BucketMeta;
 import joshie.mariculture.core.lib.DropletMeta;
 import joshie.mariculture.core.lib.EntityIds;
 import joshie.mariculture.core.lib.FoodMeta;
-import joshie.mariculture.core.lib.ItemLib;
+import joshie.mariculture.core.lib.MCLib;
 import joshie.mariculture.core.lib.MaterialsMeta;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
 import joshie.mariculture.core.lib.RenderIds;
@@ -121,17 +113,12 @@ import joshie.mariculture.fishery.tile.TileFeeder;
 import joshie.mariculture.fishery.tile.TileFishTank;
 import joshie.mariculture.fishery.tile.TileHatchery;
 import joshie.mariculture.fishery.tile.TileSifter;
-import joshie.maritech.items.ItemBattery;
-import joshie.maritech.items.ItemFluxRod;
-import joshie.maritech.tile.TileAutofisher;
-import joshie.maritech.tile.TileIncubator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -152,7 +139,6 @@ public class Fishery extends RegistrationModule {
     public static Item rodWood;
     public static Item rodTitanium;
     public static Item rodReed;
-    public static Item rodFlux;
     public static Item fishy;
     public static Item net;
     public static Item scanner;
@@ -185,7 +171,6 @@ public class Fishery extends RegistrationModule {
         rodReed = new ItemRod(96, 24).setUnlocalizedName("rod.reed");
         rodWood = new ItemRod(320, 10).setUnlocalizedName("rod.wood");
         rodTitanium = new ItemRod(640, 16).setUnlocalizedName("rod.titanium");
-        rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
         fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFishery);
         net = new BlockItemNet().setUnlocalizedName("net");
         scanner = new ItemScanner().setUnlocalizedName("scanner");
@@ -194,7 +179,7 @@ public class Fishery extends RegistrationModule {
         droplet = new ItemDroplet().setUnlocalizedName("droplet");
         fishinghat = new ItemArmorFishingHat(armorFishing, RenderIds.FISHING, 0).setUnlocalizedName("fishinghat");
 
-        RegistryHelper.registerItems(new Item[] { rodWood, rodReed, rodTitanium, rodFlux });
+        RegistryHelper.registerItems(new Item[] { rodWood, rodReed, rodTitanium });
     }
 
     @Override
@@ -245,7 +230,7 @@ public class Fishery extends RegistrationModule {
         FluidHelper.setBlock(BlockChlorophyll.class, "chlorophyll");
         lampsOff = new BlockNeonLamp(true, "lamp_on_").setBlockName("lamps.off");
         lampsOn = new BlockNeonLamp(false, "lamp_off_").setBlockName("lamps.on");
-        RegistryHelper.registerTiles("Mariculture", new Class[] { TileAutofisher.class, TileIncubator.class, TileFeeder.class, TileFishTank.class, TileSifter.class, TileHatchery.class });
+        RegistryHelper.registerTiles("Mariculture", new Class[] { TileFeeder.class, TileFishTank.class, TileSifter.class, TileHatchery.class });
     }
 
     @Override
@@ -270,7 +255,6 @@ public class Fishery extends RegistrationModule {
         Fishing.fishing.registerRod(rodReed, RodType.OLD);
         Fishing.fishing.registerRod(rodWood, RodType.GOOD);
         Fishing.fishing.registerRod(rodTitanium, RodType.SUPER);
-        Fishing.fishing.registerRod(rodFlux, RodType.FLUX);
     }
 
     @Override
@@ -286,7 +270,6 @@ public class Fishery extends RegistrationModule {
         addFishingRodRecipe(asStack(rodReed), reeds);
         addFishingRodRecipe(asStack(rodWood), polishedStick);
         addFishingRodRecipe(asStack(rodTitanium), polishedTitanium);
-        addShaped(ItemBattery.make(asStack(rodFlux), 0), new Object[] { "  R", " RS", "B S", 'R', rodTitanium, 'S', string, 'B', titaniumBattery });
         addVatItemRecipe(asStack(leatherCap), getFluidName("fish_oil"), 25000, asStack(fishinghat), 25);
         addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 45);
         addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 30);
@@ -298,26 +281,18 @@ public class Fishery extends RegistrationModule {
         addBlockCasting(getFluidStack("dirt", 1000), new ItemStack(dirt));
         addShaped(asStack(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
         addShaped(asStack(sifter, 2), new Object[] { "PNP", "S S", 'S', "stickWood", 'P', "plankWood", 'N', net });
-        addShaped(autofisher, new Object[] { " F ", "RPR", "WBW", 'W', "logWood", 'R', asStack(rodWood), 'F', "fish", 'B', baseWood, 'P', "plankWood" });
         addShaped(hatchery, new Object[] { "WWW", "WEW", "WWW", 'W', wicker, 'E', asStack(asStack(fishEggs), OreDictionary.WILDCARD_VALUE, 1) });
         addShaped(fishFeeder, new Object[] { "WFW", "WCW", "WFW", 'F', "fish", 'W', wicker, 'C', chest });
-        addShaped(incubatorTop, new Object[] { "DFD", "CHC", 'F', "fish", 'D', "dyeBrown", 'C', greyClay, 'H', heating });
-        addShaped(incubatorBase, new Object[] { "DBD", "CHC", 'C', whiteClay, 'B', copperBattery, 'D', "dyeLightBlue", 'H', heating });
         addShaped(fishTank, new Object[] { "AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "blockGlass", 'F', "fish" });
         addShaped(asStack(tempControl), new Object[] { " H ", "CTC", " H ", 'H', heating, 'C', cooling, 'T', titaniumSheet });
-        ItemStack charged = new ItemStack(rodFlux);
-        charged.setTagCompound(new NBTTagCompound());
-        charged.stackTagCompound.setInteger("Energy", 250000);
-        addShapeless(charged, new Object[] { asStack(rodFlux), "blockRedstone" });
-        addVatItemRecipe(charged, getFluidName("flux"), 1000, asStack(rodFlux), 15);
-        
+
         addVatItemRecipeResultFluid(asStack(asStack(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
 
         if (FishMechanics.EASY_SCANNER) {
-            addShaped(asStack(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', "fish", 'B', copperBattery });
+            addShaped(asStack(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', "fish", 'B', "dustRestone" });
         } else {
-            addShaped(asStack(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', copperBattery, 'J', dropletPoison });
+            addShaped(asStack(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', "dustRestone", 'J', dropletPoison });
         }
     }
 
@@ -343,7 +318,7 @@ public class Fishery extends RegistrationModule {
         Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.beef), 14, 22, 20));
         Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.chicken), 6, 14, 30));
         Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), new ItemStack(Items.porkchop), 10, 18, 25));
-        Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), ItemLib.zombie, 8, 15, 80));
+        Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.MAGGOT), MCLib.zombie, 8, 15, 80));
 
         Fishing.fishing.addBait(new ItemStack(bait, 1, BaitMeta.BEE), 70);
         Fishing.sifter.addRecipe(new RecipeSifter(new ItemStack(bait, 1, BaitMeta.BEE), new ItemStack(Blocks.yellow_flower, 1, OreDictionary.WILDCARD_VALUE), 2, 3, 25));

@@ -1,7 +1,7 @@
 package joshie.mariculture.fishery.fish;
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.ItemLib.dropletEnder;
+import static joshie.mariculture.core.lib.MCLib.dropletEnder;
 import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;

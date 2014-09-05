@@ -1,6 +1,6 @@
 package joshie.maritech.tile;
 
-import joshie.mariculture.factory.Factory;
+import joshie.maritech.extensions.modules.ExtensionFactory;
 import net.minecraft.item.ItemStack;
 
 public class TileRotorAluminum extends TileRotor {
@@ -16,7 +16,7 @@ public class TileRotorAluminum extends TileRotor {
 
     @Override
     public ItemStack getDrop() {
-        ItemStack stack = new ItemStack(Factory.turbineAluminum);
+        ItemStack stack = new ItemStack(ExtensionFactory.turbineAluminum);
         stack.setItemDamage((int) Math.floor(damage / 200));
         return stack;
     }

@@ -2,11 +2,11 @@ package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
-import static joshie.mariculture.core.lib.ItemLib.dropletAqua;
-import static joshie.mariculture.core.lib.ItemLib.dropletMagic;
-import static joshie.mariculture.core.lib.ItemLib.dropletRegen;
-import static joshie.mariculture.core.lib.ItemLib.dropletWater;
-import static joshie.mariculture.core.lib.ItemLib.orangeDye;
+import static joshie.mariculture.core.lib.MCLib.dropletAqua;
+import static joshie.mariculture.core.lib.MCLib.dropletMagic;
+import static joshie.mariculture.core.lib.MCLib.dropletRegen;
+import static joshie.mariculture.core.lib.MCLib.dropletWater;
+import static joshie.mariculture.core.lib.MCLib.orangeDye;
 import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
