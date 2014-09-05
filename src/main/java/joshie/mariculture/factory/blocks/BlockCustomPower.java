@@ -1,8 +1,7 @@
-package joshie.maritech.blocks;
+package joshie.mariculture.factory.blocks;
 
 import joshie.mariculture.core.lib.PlansMeta;
-import joshie.mariculture.factory.blocks.BlockCustomBase;
-import joshie.maritech.tile.TileCustomPowered;
+import joshie.mariculture.factory.tile.TileCustomPowered;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;

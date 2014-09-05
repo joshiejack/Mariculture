@@ -1,7 +1,6 @@
-package joshie.maritech.tile;
+package joshie.mariculture.factory.tile;
 
 import joshie.lib.helpers.PowerHelper;
-import joshie.mariculture.factory.tile.TileCustom;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
