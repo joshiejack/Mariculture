@@ -1,5 +1,6 @@
 package joshie.mariculture.core.blocks.items;
 
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.MachineMultiMeta;
 import net.minecraft.block.Block;
@@ -12,15 +13,16 @@ public class ItemBlockMachineMulti extends ItemBlockMariculture {
 
     @Override
     public String getName(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+        int meta = stack.getItemDamage();
+        switch (meta) {
             case MachineMultiMeta.CRUCIBLE:
                 return "crucible";
             case MachineMultiMeta.INCUBATOR_BASE:
                 return "incubatorBase";
             case MachineMultiMeta.INCUBATOR_TOP:
                 return "incubatorTop";
-            default:
-                return null;
         }
+        
+        return MaricultureEvents.getItemName(field_150939_a, meta, "machinesDouble");
     }
 }

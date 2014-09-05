@@ -4,8 +4,8 @@ import io.netty.buffer.ByteBuf;
 import joshie.lib.helpers.ClientHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.network.PacketHandler;
-import joshie.mariculture.factory.EntityFLUDDSquirt;
-import joshie.mariculture.factory.FactoryEvents;
+import joshie.maritech.entity.EntityFLUDDSquirt;
+import joshie.maritech.handlers.FLUDDEvents;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -53,11 +53,11 @@ public class PacketFLUDD implements IMessage, IMessageHandler<PacketFLUDD, IMess
         }
 
         if (message.type != ANIMATE) {
-            FactoryEvents.damageFLUDD(player, message.mode);
+            FLUDDEvents.damageFLUDD(player, message.mode);
         } else if (side == Side.SERVER) {
             PacketHandler.sendAround(new PacketFLUDD(player.getEntityId(), message.mode), world.provider.dimensionId, player.posX, player.posY, player.posZ);
         } else {
-            FactoryEvents.playSmoke(mode, (EntityPlayer) world.getEntityByID(message.type), false);
+            FLUDDEvents.playSmoke(mode, (EntityPlayer) world.getEntityByID(message.type), false);
         }
 
         return null;

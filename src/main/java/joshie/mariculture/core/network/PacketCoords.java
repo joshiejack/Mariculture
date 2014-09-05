@@ -4,7 +4,9 @@ import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
 public class PacketCoords implements IMessage {
-    int x, y, z;
+    public int x;
+    public int y;
+    public int z;
 
     public PacketCoords() {}
 

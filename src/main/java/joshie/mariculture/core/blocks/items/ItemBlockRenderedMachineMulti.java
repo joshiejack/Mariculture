@@ -1,5 +1,6 @@
 package joshie.mariculture.core.blocks.items;
 
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.MachineRenderedMultiMeta;
 import net.minecraft.block.Block;
@@ -12,7 +13,8 @@ public class ItemBlockRenderedMachineMulti extends ItemBlockMariculture {
 
     @Override
     public String getName(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+        int meta = stack.getItemDamage();
+        switch (meta) {
             case MachineRenderedMultiMeta.COMPRESSOR_BASE:
                 return "airCompressor";
             case MachineRenderedMultiMeta.COMPRESSOR_TOP:
@@ -23,8 +25,8 @@ public class ItemBlockRenderedMachineMulti extends ItemBlockMariculture {
                 return "vat";
             case MachineRenderedMultiMeta.SIFTER:
                 return "sifter";
-            default:
-                return "doubleBlocks";
         }
+
+        return MaricultureEvents.getItemName(field_150939_a, meta, "doubleBlocks");
     }
 }

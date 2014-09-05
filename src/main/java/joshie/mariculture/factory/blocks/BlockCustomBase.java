@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCustomBase extends BlockFunctional {
-    BlockCustomBase(Material material) {
+    public BlockCustomBase(Material material) {
         super(material);
         setCreativeTab(null);
     }

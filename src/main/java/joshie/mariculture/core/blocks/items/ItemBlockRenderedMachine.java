@@ -1,5 +1,6 @@
 package joshie.mariculture.core.blocks.items;
 
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.blocks.base.ItemBlockMariculture;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import net.minecraft.block.Block;
@@ -12,13 +13,12 @@ public class ItemBlockRenderedMachine extends ItemBlockMariculture {
 
     @Override
     public String getName(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+        int meta = stack.getItemDamage();
+        switch (meta) {
             case MachineRenderedMeta.AIR_PUMP:
                 return "airpump";
             case MachineRenderedMeta.FISH_FEEDER:
                 return "feeder";
-            case MachineRenderedMeta.FLUDD_STAND:
-                return "fludd";
             case MachineRenderedMeta.GEYSER:
                 return "geyser";
             case MachineRenderedMeta.ANVIL:
@@ -31,14 +31,8 @@ public class ItemBlockRenderedMachine extends ItemBlockMariculture {
                 return "nuggetCaster";
             case MachineRenderedMeta.AUTO_HAMMER:
                 return "autohammer";
-            case MachineRenderedMeta.ROTOR_COPPER:
-                return "rotorCopper";
-            case MachineRenderedMeta.ROTOR_ALUMINUM:
-                return "rotorAluminum";
-            case MachineRenderedMeta.ROTOR_TITANIUM:
-                return "rotorTitanium";
-            default:
-                return "renderedBlocks";
         }
+
+        return MaricultureEvents.getItemName(field_150939_a, meta, "renderedBlocks");
     }
 }

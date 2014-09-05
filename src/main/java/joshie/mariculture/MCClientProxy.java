@@ -31,19 +31,10 @@ import joshie.mariculture.core.tile.TileAutohammer;
 import joshie.mariculture.core.tile.TileVat;
 import joshie.mariculture.core.util.EntityFakeItem;
 import joshie.mariculture.diving.render.ModelAirPump;
-import joshie.mariculture.diving.render.RenderCompressorBase;
-import joshie.mariculture.diving.render.RenderCompressorTop;
-import joshie.mariculture.factory.EntityFLUDDSquirt;
 import joshie.mariculture.factory.Factory;
-import joshie.mariculture.factory.render.ModelRotor;
 import joshie.mariculture.factory.render.RenderCustomItem;
 import joshie.mariculture.factory.render.RenderFluidDictionary;
 import joshie.mariculture.factory.render.RenderGeyser;
-import joshie.mariculture.factory.render.RenderPressureVessel;
-import joshie.mariculture.factory.tile.TileFLUDDStand;
-import joshie.mariculture.factory.tile.TileRotorAluminum;
-import joshie.mariculture.factory.tile.TileRotorCopper;
-import joshie.mariculture.factory.tile.TileRotorTitanium;
 import joshie.mariculture.fishery.EntityBass;
 import joshie.mariculture.fishery.EntityHook;
 import joshie.mariculture.fishery.EntityItemFireImmune;
@@ -60,9 +51,14 @@ import joshie.mariculture.fishery.render.RenderSifter;
 import joshie.mariculture.fishery.tile.TileFeeder;
 import joshie.mariculture.fishery.tile.TileFishTank;
 import joshie.mariculture.fishery.tile.TileHatchery;
-import joshie.maritech.extensions.modules.ExtensionFactory;
-import joshie.maritech.model.ModelFLUDD;
-import joshie.maritech.render.RenderFLUDDSquirt;
+import joshie.maritech.lib.MTRenderIds;
+import joshie.maritech.model.ModelRotor;
+import joshie.maritech.render.RenderCompressorBase;
+import joshie.maritech.render.RenderCompressorTop;
+import joshie.maritech.render.RenderPressureVessel;
+import joshie.maritech.tile.TileRotorAluminum;
+import joshie.maritech.tile.TileRotorCopper;
+import joshie.maritech.tile.TileRotorTitanium;
 import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
@@ -79,7 +75,6 @@ public class MCClientProxy extends MCCommonProxy {
     private static final ResourceLocation AIR_PUMP = new ResourceLocation(Mariculture.modid, "textures/blocks/air_pump_texture.png");
     private static final ResourceLocation SIFT = new ResourceLocation(Mariculture.modid, "textures/blocks/sift_texture.png");
     private static final ResourceLocation FEEDER = new ResourceLocation(Mariculture.modid, "textures/blocks/feeder_texture.png");
-    private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
     private static final ResourceLocation PRESSURE_VESSEL = new ResourceLocation(Mariculture.modid, "textures/blocks/pressure_vessel_texture.png");
     private static final ResourceLocation COPPER = new ResourceLocation(Mariculture.modid, "textures/blocks/copperRotor.png");
     private static final ResourceLocation ALUMINUM = new ResourceLocation(Mariculture.modid, "textures/blocks/aluminumRotor.png");
@@ -117,15 +112,12 @@ public class MCClientProxy extends MCCommonProxy {
 
         if (Modules.isActive(Modules.diving)) {
             RenderIds.DIVING = RenderingRegistry.addNewArmourRendererPrefix("diving");
-            RenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");
             RenderIds.SNORKEL = RenderingRegistry.addNewArmourRendererPrefix("snorkel");
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_BASE, RenderCompressorBase.class);
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.COMPRESSOR_TOP, RenderCompressorTop.class);
         }
 
         if (Modules.isActive(Modules.factory)) {
-            RenderingRegistry.registerEntityRenderingHandler(EntityFLUDDSquirt.class, new RenderFLUDDSquirt());
-            RenderIds.FLUDD = RenderingRegistry.addNewArmourRendererPrefix("fludd");
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customBlock), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customFlooring), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customSlabs), new RenderCustomItem());
@@ -135,13 +127,11 @@ public class MCClientProxy extends MCCommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customGate), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customLight), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
-            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFBlock), new RenderCustomItem());
-            MinecraftForgeClient.registerItemRenderer(ExtensionFactory.fludd, new RenderSingleItem());
 
             ClientRegistry.bindTileEntitySpecialRenderer(TileRotorCopper.class, new RenderSpecialHandler(new ModelRotor(), COPPER));
             ClientRegistry.bindTileEntitySpecialRenderer(TileRotorAluminum.class, new RenderSpecialHandler(new ModelRotor(), ALUMINUM));
             ClientRegistry.bindTileEntitySpecialRenderer(TileRotorTitanium.class, new RenderSpecialHandler(new ModelRotor(), TITANIUM));
-            ClientRegistry.bindTileEntitySpecialRenderer(TileFLUDDStand.class, new RenderSpecialHandler(new ModelFLUDD(), FLUDD));
+
             RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
             RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.PRESSURE_VESSEL, RenderPressureVessel.class);
             RenderHandler.register(Core.tanks, TankMeta.DIC, RenderFluidDictionary.class);

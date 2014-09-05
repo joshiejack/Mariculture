@@ -2,8 +2,8 @@ package joshie.mariculture.core.items;
 
 import joshie.lib.base.ItemBaseArmor;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.util.IDisablesHardcoreDiving;
 import joshie.mariculture.core.lib.MCModInfo;
-import joshie.mariculture.diving.IDisablesHardcoreDiving;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class ItemMCBaseArmor extends ItemBaseArmor implements IDisablesHardcoreDiving {

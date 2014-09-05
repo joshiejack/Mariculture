@@ -9,7 +9,7 @@ import joshie.mariculture.core.lib.MachineMultiMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.RockMeta;
 import joshie.mariculture.core.tile.TileCrucible;
-import joshie.mariculture.fishery.tile.TileIncubator;
+import joshie.maritech.tile.TileIncubator;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;

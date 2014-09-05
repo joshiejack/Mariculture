@@ -15,19 +15,19 @@ import joshie.mariculture.core.lib.MachineMeta;
 import joshie.mariculture.core.lib.MetalMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.network.PacketHandler;
-import joshie.mariculture.core.network.PacketSponge;
-import joshie.mariculture.factory.tile.TileGenerator;
-import joshie.mariculture.factory.tile.TileSluice;
-import joshie.mariculture.factory.tile.TileSluiceAdvanced;
-import joshie.mariculture.factory.tile.TileSponge;
-import joshie.mariculture.fishery.tile.TileAutofisher;
-import joshie.maritech.util.IBlockExtension;
+import joshie.maritech.network.PacketSponge;
+import joshie.maritech.tile.TileAutofisher;
+import joshie.maritech.tile.TileGenerator;
+import joshie.maritech.tile.TileSluice;
+import joshie.maritech.tile.TileSluiceAdvanced;
+import joshie.maritech.tile.TileSponge;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -36,9 +36,27 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
 
-public class ExtensionMachine implements IBlockExtension {
+public class ExtensionMachine extends ExtensionBase {
     @Override
-    public void onTilePlaced(TileEntity tile, EntityLivingBase entity, int direction) {
+    public String getName(int meta, String name) {
+        switch (meta) {
+            case MachineMeta.SLUICE:
+                return "sluice";
+            case MachineMeta.SPONGE:
+                return "sponge";
+            case MachineMeta.AUTOFISHER:
+                return "autofisher";
+            case MachineMeta.SLUICE_ADVANCED:
+                return "sluiceAdvanced";
+            case MachineMeta.GENERATOR:
+                return "generator";
+        }
+
+        return name;
+    }
+
+    @Override
+    public void onTilePlaced(ItemStack stack, TileEntity tile, EntityLivingBase entity, int direction) {
         if (tile instanceof TileGenerator) {
             ((TileGenerator) tile).reset();
         }
@@ -51,13 +69,15 @@ public class ExtensionMachine implements IBlockExtension {
     }
 
     @Override
-    public void onBlockBroken(int meta, World world, int x, int y, int z) {
+    public boolean onBlockBroken(int meta, World world, int x, int y, int z) {
         if (meta == MachineMeta.SLUICE) {
             clearWater(world, x + 1, y, z);
             clearWater(world, x - 1, y, z);
             clearWater(world, x, y, z + 1);
             clearWater(world, x, y, z - 1);
         }
+        
+        return false;
     }
 
     @Override

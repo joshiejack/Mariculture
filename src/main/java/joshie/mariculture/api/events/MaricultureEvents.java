@@ -5,6 +5,7 @@ import joshie.mariculture.api.events.BlockEvent.GetHardness;
 import joshie.mariculture.api.events.BlockEvent.GetInventoryIIcon;
 import joshie.mariculture.api.events.BlockEvent.GetIsActive;
 import joshie.mariculture.api.events.BlockEvent.GetIsValidTab;
+import joshie.mariculture.api.events.BlockEvent.GetBlockName;
 import joshie.mariculture.api.events.BlockEvent.GetTileEntity;
 import joshie.mariculture.api.events.BlockEvent.GetToolLevel;
 import joshie.mariculture.api.events.BlockEvent.GetToolType;
@@ -16,16 +17,24 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class MaricultureEvents {
+    public static String getItemName(Block block, int meta, String name) {
+        GetBlockName event = new GetBlockName(block, meta, name);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.name;
+    }
+    
     public static boolean isActive(Block block, int meta, boolean isActive) {
         GetIsActive event = new GetIsActive(block, meta, isActive);
         MinecraftForge.EVENT_BUS.post(event);
@@ -62,15 +71,15 @@ public class MaricultureEvents {
         return event.tile;
     }
 
-    public static void onBlockPlaced(Block block, World world, int x, int y, int z, EntityLivingBase entity, TileEntity tile) {
+    public static void onBlockPlaced(ItemStack stack, Block block, World world, int x, int y, int z, EntityLivingBase entity, TileEntity tile) {
         int direction = BlockPistonBase.determineOrientation(world, x, y, z, entity);
-        TilePlaced event = new TilePlaced(block, entity, tile, direction);
+        TilePlaced event = new TilePlaced(stack, block, entity, tile, direction);
         MinecraftForge.EVENT_BUS.post(event);
     }
 
-    public static void onBlockBroken(Block block, int meta, World world, int x, int y, int z) {
+    public static boolean onBlockBroken(Block block, int meta, World world, int x, int y, int z) {
         BlockBroken event = new BlockBroken(block, world, x, y, z, meta);
-        MinecraftForge.EVENT_BUS.post(event);
+        return MinecraftForge.EVENT_BUS.post(event);
     }
 
     @SideOnly(Side.CLIENT)
@@ -94,6 +103,12 @@ public class MaricultureEvents {
 
     public static void onRegistration(RegistrationModule module, Stage stage) {
         RegistryEvent event = new RegistryEvent(module, stage);
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void render(ItemStack item, ItemRenderType type) {
+        RenderEvent event = new RenderEvent(item, type);
         MinecraftForge.EVENT_BUS.post(event);
     }
 }

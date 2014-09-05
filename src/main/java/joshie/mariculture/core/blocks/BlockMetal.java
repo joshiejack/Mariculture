@@ -3,7 +3,7 @@ package joshie.mariculture.core.blocks;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.blocks.base.BlockMCBaseMeta;
 import joshie.mariculture.core.lib.MetalMeta;
-import joshie.mariculture.factory.items.ItemRotor;
+import joshie.maritech.items.ItemRotor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;

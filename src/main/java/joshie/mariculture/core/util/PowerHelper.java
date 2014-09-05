@@ -2,7 +2,7 @@ package joshie.mariculture.core.util;
 
 import java.util.Collections;
 
-import joshie.mariculture.factory.tile.TileCustomPowered;
+import joshie.maritech.tile.TileCustomPowered;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;

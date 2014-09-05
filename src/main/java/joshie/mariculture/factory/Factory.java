@@ -16,17 +16,14 @@ import static joshie.mariculture.core.lib.ItemLib.filterer;
 import static joshie.mariculture.core.lib.ItemLib.fishSorter;
 import static joshie.mariculture.core.lib.ItemLib.generator;
 import static joshie.mariculture.core.lib.ItemLib.geyser;
-import static joshie.mariculture.core.lib.ItemLib.goldPlastic;
 import static joshie.mariculture.core.lib.ItemLib.hopper;
 import static joshie.mariculture.core.lib.ItemLib.ironAxe;
 import static joshie.mariculture.core.lib.ItemLib.ironBars;
 import static joshie.mariculture.core.lib.ItemLib.ironWheel;
-import static joshie.mariculture.core.lib.ItemLib.life;
 import static joshie.mariculture.core.lib.ItemLib.mechSponge;
 import static joshie.mariculture.core.lib.ItemLib.paper;
 import static joshie.mariculture.core.lib.ItemLib.pearls;
 import static joshie.mariculture.core.lib.ItemLib.plan;
-import static joshie.mariculture.core.lib.ItemLib.plasticLens;
 import static joshie.mariculture.core.lib.ItemLib.pressureVessel;
 import static joshie.mariculture.core.lib.ItemLib.pressurisedBucket;
 import static joshie.mariculture.core.lib.ItemLib.quartzSlab;
@@ -37,19 +34,15 @@ import static joshie.mariculture.core.lib.ItemLib.sponge;
 import static joshie.mariculture.core.lib.ItemLib.stoneSlab;
 import static joshie.mariculture.core.lib.ItemLib.tank;
 import static joshie.mariculture.core.lib.ItemLib.titaniumSheet;
-import static joshie.mariculture.core.lib.ItemLib.transparent;
 import static joshie.mariculture.core.lib.ItemLib.unpacker;
 import static joshie.mariculture.core.lib.ItemLib.water;
 import static joshie.mariculture.core.lib.ItemLib.wicker;
 import static joshie.mariculture.core.lib.ItemLib.wool;
 import joshie.lib.helpers.RegistryHelper;
-import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.handlers.FluidDicHandler;
-import joshie.mariculture.core.lib.EntityIds;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;
-import joshie.mariculture.core.lib.RenderIds;
 import joshie.mariculture.core.lib.UpgradeMeta;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.factory.blocks.BlockCustomBlock;
@@ -57,7 +50,6 @@ import joshie.mariculture.factory.blocks.BlockCustomFence;
 import joshie.mariculture.factory.blocks.BlockCustomFlooring;
 import joshie.mariculture.factory.blocks.BlockCustomGate;
 import joshie.mariculture.factory.blocks.BlockCustomLight;
-import joshie.mariculture.factory.blocks.BlockCustomPower;
 import joshie.mariculture.factory.blocks.BlockCustomSlab;
 import joshie.mariculture.factory.blocks.BlockCustomStairs;
 import joshie.mariculture.factory.blocks.BlockCustomWall;
@@ -65,33 +57,17 @@ import joshie.mariculture.factory.items.ItemChalk;
 import joshie.mariculture.factory.items.ItemFilter;
 import joshie.mariculture.factory.items.ItemPaintbrush;
 import joshie.mariculture.factory.items.ItemPlan;
-import joshie.mariculture.factory.items.ItemRotor;
 import joshie.mariculture.factory.tile.TileCustom;
-import joshie.mariculture.factory.tile.TileCustomPowered;
 import joshie.mariculture.factory.tile.TileDictionaryFluid;
 import joshie.mariculture.factory.tile.TileDictionaryItem;
-import joshie.mariculture.factory.tile.TileFLUDDStand;
 import joshie.mariculture.factory.tile.TileFishSorter;
-import joshie.mariculture.factory.tile.TileGenerator;
 import joshie.mariculture.factory.tile.TileGeyser;
-import joshie.mariculture.factory.tile.TilePressureVessel;
-import joshie.mariculture.factory.tile.TileRotor;
-import joshie.mariculture.factory.tile.TileRotorAluminum;
-import joshie.mariculture.factory.tile.TileRotorCopper;
-import joshie.mariculture.factory.tile.TileRotorTitanium;
 import joshie.mariculture.factory.tile.TileSawmill;
-import joshie.mariculture.factory.tile.TileSluice;
-import joshie.mariculture.factory.tile.TileSluiceAdvanced;
-import joshie.mariculture.factory.tile.TileSponge;
 import joshie.mariculture.factory.tile.TileUnpacker;
-import joshie.maritech.extensions.modules.ExtensionFactory;
-import joshie.maritech.items.ItemFLUDD;
+import joshie.maritech.items.ItemRotor;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
-import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class Factory extends RegistrationModule {
     public static Block customFlooring;
@@ -103,7 +79,6 @@ public class Factory extends RegistrationModule {
     public static Block customGate;
     public static Block customWall;
     public static Block customLight;
-    public static Block customRFBlock;
 
     public static Item chalk;
     public static Item plans;
@@ -129,9 +104,9 @@ public class Factory extends RegistrationModule {
         customGate = new BlockCustomGate().setStepSound(Block.soundTypePiston).setBlockName("customGate");
         customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
         customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
-        customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
+
         RegistryHelper.registerBlocks(new Block[] { customStairs, customSlabs, customFence, customGate, customWall, customSlabsDouble });
-        RegistryHelper.registerTiles("Mariculture", TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileSluice.class, TileFLUDDStand.class, TilePressureVessel.class, TileDictionaryItem.class, TileSponge.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class, TileSluiceAdvanced.class, TileGenerator.class, TileRotor.class, TileRotorCopper.class, TileRotorAluminum.class, TileRotorTitanium.class);
+        RegistryHelper.registerTiles("Mariculture", TileCustom.class, TileSawmill.class, TileDictionaryItem.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class);
     }
 
     @Override
@@ -147,7 +122,6 @@ public class Factory extends RegistrationModule {
 
     @Override
     public void registerOther() {
-        EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
         FluidDicHandler.register("water", "water", 2000);
         FluidDicHandler.register("xp", "xpjuice", 200);
         FluidDicHandler.register("xp", "immibis.liquidxp", 1000);

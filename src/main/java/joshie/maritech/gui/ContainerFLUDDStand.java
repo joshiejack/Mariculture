@@ -5,7 +5,7 @@ import joshie.mariculture.core.gui.ContainerMachine;
 import joshie.mariculture.core.gui.SlotFluidContainer;
 import joshie.mariculture.core.gui.SlotOutput;
 import joshie.mariculture.core.helpers.FluidHelper;
-import joshie.mariculture.factory.tile.TileFLUDDStand;
+import joshie.maritech.tile.TileFLUDDStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;

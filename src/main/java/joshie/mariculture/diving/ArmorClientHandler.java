@@ -18,9 +18,6 @@ public class ArmorClientHandler {
                     if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.divingHelmet)) {
                         event.density = 0.0F;
                         event.setCanceled(true);
-                    } else if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.scubaMask)) {
-                        event.density = 0.0F;
-                        event.setCanceled(true);
                     }
                 }
             }

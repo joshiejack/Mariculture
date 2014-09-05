@@ -7,7 +7,7 @@ import joshie.mariculture.core.config.GeneralStuff;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.core.lib.GuideMeta;
 import joshie.mariculture.core.lib.Modules;
-import joshie.mariculture.diving.ItemArmorScuba;
+import joshie.mariculture.diving.ItemArmorSnorkel;
 import joshie.mariculture.fishery.Fishery;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -31,7 +31,7 @@ public class EventHandler {
     public void onCrafting(ItemCraftedEvent event) {
         if (GeneralStuff.SPAWN_BOOKS) {
             ItemStack stack = event.crafting;
-            if (Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorScuba) {
+            if (Modules.isActive(Modules.diving) && stack.getItem() instanceof ItemArmorSnorkel) {
                 BookSpawnHelper.spawn(event.player, GuideMeta.DIVING);
             }
             

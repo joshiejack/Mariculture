@@ -2,11 +2,12 @@ package joshie.maritech.items;
 
 import java.util.List;
 
-import joshie.mariculture.Mariculture;
+import joshie.mariculture.api.core.IPVChargeable;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
+import joshie.mariculture.core.util.Fluids;
 import joshie.maritech.lib.MTModInfo;
 import joshie.maritech.model.ModelFLUDD;
 import joshie.maritech.render.RenderFLUDDSquirt;
@@ -23,10 +24,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.IFluidTank;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFLUDD extends ItemMCBaseArmor {
+public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
     public static final int HOVER = 0;
     public static final int ROCKET = 1;
     public static final int TURBO = 2;
@@ -137,5 +139,28 @@ public class ItemFLUDD extends ItemMCBaseArmor {
         fludd.stackTagCompound.setInteger("mode", 0);
         fludd.stackTagCompound.setInteger("water", amount);
         return fludd;
+    }
+
+    @Override
+    public void fill(IFluidTank tank, ItemStack[] inventory, int special) {
+        if (tank.getFluid() != null) {
+            if (tank.getFluid().fluidID == Fluids.getFluidID("hp_water") && tank.getFluidAmount() > 0) {
+                ItemStack stack = inventory[special].copy();
+                int water = 0;
+                if (stack.hasTagCompound()) {
+                    water = stack.stackTagCompound.getInteger("water");
+                } else {
+                    stack.setTagCompound(new NBTTagCompound());
+                }
+
+                int drain = ItemFLUDD.STORAGE - water;
+                if (drain > 0 && tank.getFluidAmount() == drain) {
+                    tank.drain(drain, true);
+                    stack.stackTagCompound.setInteger("water", ItemFLUDD.STORAGE);
+                }
+
+                inventory[special] = stack;
+            }
+        }
     }
 }

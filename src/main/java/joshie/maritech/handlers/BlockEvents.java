@@ -19,6 +19,14 @@ public class BlockEvents {
     public static HashMap<Block, IBlockExtension> blocks = new HashMap();
 
     @SubscribeEvent
+    public void getBlockName(BlockEvent.GetBlockName event) {
+        IBlockExtension extension = blocks.get(event.block);
+        if (extension != null) {
+            event.name = extension.getName(event.meta, event.name);
+        }
+    }
+    
+    @SubscribeEvent
     public void getIsActive(BlockEvent.GetIsActive event) {
         IBlockExtension extension = blocks.get(event.block);
         if (extension != null) {
@@ -82,7 +90,7 @@ public class BlockEvents {
     public void onBlockPlaced(TilePlaced event) {
         IBlockExtension extension = blocks.get(event.block);
         if (extension != null) {
-            extension.onTilePlaced(event.tile, event.entity, event.direction);
+            extension.onTilePlaced(event.stack, event.tile, event.entity, event.direction);
         }
     }
 
@@ -90,7 +98,7 @@ public class BlockEvents {
     public void onBlockBroken(BlockBroken event) {
         IBlockExtension extension = blocks.get(event.block);
         if (extension != null) {
-            extension.onBlockBroken(event.meta, event.world, event.x, event.y, event.z);
+            event.setCanceled(extension.onBlockBroken(event.meta, event.world, event.x, event.y, event.z));
         }
     }
 

@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Mouse;
@@ -103,5 +104,10 @@ public class ClientHelper {
         int guiTop = (container.height - container.ySize) / 2;
         Point relMouse = new Point(mousepos.x - guiLeft, mousepos.y - guiTop);
         return relMouse;
+    }
+    
+    //Binds a texture
+    public static void bindTexture(ResourceLocation texture) {
+        getMinecraft().getTextureManager().bindTexture(texture);
     }
 }

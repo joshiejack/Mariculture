@@ -11,10 +11,10 @@ import joshie.mariculture.core.lib.WoodMeta;
 import joshie.mariculture.core.tile.TileBookshelf;
 import joshie.mariculture.factory.tile.TileDictionaryItem;
 import joshie.mariculture.factory.tile.TileFishSorter;
-import joshie.mariculture.factory.tile.TileGenerator;
 import joshie.mariculture.factory.tile.TileSawmill;
-import joshie.mariculture.factory.tile.TileSluice;
 import joshie.mariculture.factory.tile.TileUnpacker;
+import joshie.maritech.tile.TileGenerator;
+import joshie.maritech.tile.TileSluice;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -79,7 +79,7 @@ public class BlockMachine extends BlockFunctional {
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
         super.onBlockPlacedBy(world, x, y, z, entity, stack);
-        MaricultureEvents.onBlockPlaced(this, world, x, y, z, entity, world.getTileEntity(x, y, z));
+        MaricultureEvents.onBlockPlaced(stack, this, world, x, y, z, entity, world.getTileEntity(x, y, z));
     }
     
     @Override

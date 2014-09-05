@@ -2,8 +2,8 @@ package joshie.maritech.model;
 
 import joshie.mariculture.core.lib.ArmorSlot;
 import joshie.mariculture.core.render.IModelMariculture;
-import joshie.mariculture.factory.tile.TileFLUDDStand;
 import joshie.maritech.items.ItemFLUDD;
+import joshie.maritech.tile.TileFLUDDStand;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

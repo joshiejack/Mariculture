@@ -3,10 +3,12 @@ package joshie.mariculture.api.events;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,6 +17,16 @@ public class BlockEvent extends Event {
     public final Block block;
     public BlockEvent(Block block) {
         this.block = block;
+    }
+    
+    public static class GetBlockName extends BlockEvent {
+        public final int meta;
+        public String name;
+        public GetBlockName(Block block, int meta, String name) {
+            super(block);
+            this.meta = meta;
+            this.name = name;
+        }
     }
     
     public static class GetIsActive extends BlockEvent {
@@ -80,17 +92,20 @@ public class BlockEvent extends Event {
     }
     
     public static class TilePlaced extends BlockEvent {
+        public final ItemStack stack;
         public final EntityLivingBase entity;
         public final TileEntity tile;
         public int direction;
-        public TilePlaced(Block block, EntityLivingBase entity, TileEntity tile, int direction) {
+        public TilePlaced(ItemStack stack, Block block, EntityLivingBase entity, TileEntity tile, int direction) {
             super(block);
+            this.stack = stack;
             this.entity = entity;
             this.tile = tile;
             this.direction = direction;
         }
     }
     
+    @Cancelable
     public static class BlockBroken extends BlockEvent {
         public final World world;
         public final int x;

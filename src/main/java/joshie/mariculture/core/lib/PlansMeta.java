@@ -2,6 +2,7 @@ package joshie.mariculture.core.lib;
 
 import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.tile.TileCustom;
+import joshie.maritech.extensions.modules.ExtensionFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockFence;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Loader;
 
 public class PlansMeta {
     public static final int COUNT = 9;
@@ -61,8 +63,14 @@ public class PlansMeta {
                 return new ItemStack(Factory.customWall);
             case PlansMeta.LIGHT:
                 return new ItemStack(Factory.customLight);
-            case PlansMeta.RF:
-                return new ItemStack(Factory.customRFBlock);
+        }
+
+        if (Loader.isModLoaded("MariTech")) {
+            try {
+                if (type == PlansMeta.RF) {
+                    return new ItemStack(ExtensionFactory.customRFBlock);
+                }
+            } catch (Exception e) {}
         }
 
         return null;

@@ -3,6 +3,7 @@ package joshie.mariculture.core.blocks;
 import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.events.MaricultureEvents;
 import joshie.mariculture.core.blocks.base.BlockFunctionalMulti;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.helpers.cofh.CoFhItemHelper;
@@ -11,12 +12,8 @@ import joshie.mariculture.core.lib.MachineRenderedMultiMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.RenderIds;
 import joshie.mariculture.core.lib.UpgradeMeta;
-import joshie.mariculture.core.network.PacketCompressor;
 import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.core.tile.TileVat;
-import joshie.mariculture.diving.Diving;
-import joshie.mariculture.diving.TileAirCompressor;
-import joshie.mariculture.factory.tile.TilePressureVessel;
 import joshie.mariculture.fishery.tile.TileSifter;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,7 +29,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
-import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -46,8 +42,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 
     @Override
     public String getToolType(int meta) {
-        if (meta == MachineRenderedMultiMeta.SIFTER) return "axe";
-        else return "pickaxe";
+        return meta == MachineRenderedMultiMeta.SIFTER ? "axe" : "pickaxe";
     }
 
     @Override
@@ -57,20 +52,15 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
-        switch (world.getBlockMetadata(x, y, z)) {
-            case MachineRenderedMultiMeta.COMPRESSOR_BASE:
-                return 6F;
-            case MachineRenderedMultiMeta.COMPRESSOR_TOP:
-                return 4F;
-            case MachineRenderedMultiMeta.PRESSURE_VESSEL:
-                return 15F;
+        int meta = world.getBlockMetadata(x, y, z);
+        switch (meta) {
             case MachineRenderedMultiMeta.VAT:
                 return 2.5F;
             case MachineRenderedMultiMeta.SIFTER:
                 return 1.5F;
-            default:
-                return 5F;
         }
+
+        return MaricultureEvents.getBlockHardness(this, meta, 5F);
     }
 
     @Override
@@ -79,31 +69,6 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
         if (tile == null) return false;
 
         ItemStack heldItem = player.getCurrentEquippedItem();
-        if (heldItem != null && tile instanceof TileAirCompressor) {
-            TileAirCompressor te = (TileAirCompressor) ((TileAirCompressor) tile).getMaster();
-            if (te != null) {
-                int rf = heldItem.getItem() instanceof IEnergyContainerItem ? ((IEnergyContainerItem) heldItem.getItem()).extractEnergy(heldItem, 5000, true) : 0;
-                if (rf > 0) {
-                    int drain = te.receiveEnergy(ForgeDirection.UP, rf, true);
-                    if (drain > 0) {
-                        ((IEnergyContainerItem) heldItem.getItem()).extractEnergy(heldItem, drain, false);
-                        te.receiveEnergy(ForgeDirection.UP, drain, false);
-                    }
-
-                    return true;
-                }
-
-                if (heldItem.getItem() == Diving.scubaTank) if (heldItem.getItemDamage() > 1 && te.storedAir > 0) {
-                    heldItem.setItemDamage(heldItem.getItemDamage() - 1);
-                    if (!world.isRemote) {
-                        te.storedAir--;
-                        PacketHandler.sendAround(new PacketCompressor(te.xCoord, te.yCoord, te.zCoord, te.storedAir, te.getEnergyStored(ForgeDirection.UP)), te);
-                    }
-                    return true;
-                }
-            } else return false;
-        }
-
         if (tile instanceof TileVat) {
             TileVat vat = (TileVat) tile;
             ItemStack held = player.getCurrentEquippedItem();
@@ -244,35 +209,25 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
     @Override
     public TileEntity createTileEntity(World world, int meta) {
         switch (meta) {
-            case MachineRenderedMultiMeta.COMPRESSOR_BASE:
-                return new TileAirCompressor();
-            case MachineRenderedMultiMeta.COMPRESSOR_TOP:
-                return new TileAirCompressor();
-            case MachineRenderedMultiMeta.PRESSURE_VESSEL:
-                return new TilePressureVessel();
             case MachineRenderedMultiMeta.VAT:
                 return new TileVat();
             case MachineRenderedMultiMeta.SIFTER:
                 return new TileSifter();
-            default:
-                return null;
         }
+
+        return MaricultureEvents.getTileEntity(this, meta, null);
     }
 
     @Override
     public boolean isActive(int meta) {
         switch (meta) {
-            case MachineRenderedMultiMeta.COMPRESSOR_BASE:
-                return Modules.isActive(Modules.diving);
-            case MachineRenderedMultiMeta.COMPRESSOR_TOP:
-                return Modules.isActive(Modules.diving);
-            case MachineRenderedMultiMeta.PRESSURE_VESSEL:
-                return Modules.isActive(Modules.factory);
+            case MachineRenderedMultiMeta.VAT:
+                return true;
             case MachineRenderedMultiMeta.SIFTER:
                 return Modules.isActive(Modules.fishery);
-            default:
-                return true;
         }
+
+        return MaricultureEvents.isActive(this, meta, false);
     }
 
     @Override

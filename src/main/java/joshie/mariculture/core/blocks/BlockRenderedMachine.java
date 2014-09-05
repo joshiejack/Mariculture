@@ -5,7 +5,8 @@ import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.api.events.MaricultureEvents;
-import joshie.mariculture.api.util.CachedCoords;
+import joshie.mariculture.api.util.INeighborNotify;
+import joshie.mariculture.api.util.ISpecialPickblock;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctional;
 import joshie.mariculture.core.helpers.FluidHelper;
@@ -13,7 +14,6 @@ import joshie.mariculture.core.helpers.PlayerHelper;
 import joshie.mariculture.core.helpers.cofh.CoFhItemHelper;
 import joshie.mariculture.core.items.ItemHammer;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
-import joshie.mariculture.core.lib.MetalMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.RenderIds;
 import joshie.mariculture.core.network.PacketHandler;
@@ -25,17 +25,8 @@ import joshie.mariculture.core.tile.TileBlockCaster;
 import joshie.mariculture.core.tile.TileCooling;
 import joshie.mariculture.core.tile.TileIngotCaster;
 import joshie.mariculture.core.tile.TileNuggetCaster;
-import joshie.mariculture.core.util.Fluids;
-import joshie.mariculture.factory.tile.TileFLUDDStand;
-import joshie.mariculture.factory.tile.TileGenerator;
 import joshie.mariculture.factory.tile.TileGeyser;
-import joshie.mariculture.factory.tile.TileRotor;
-import joshie.mariculture.factory.tile.TileRotorAluminum;
-import joshie.mariculture.factory.tile.TileRotorCopper;
-import joshie.mariculture.factory.tile.TileRotorTitanium;
 import joshie.mariculture.fishery.tile.TileFeeder;
-import joshie.maritech.extensions.modules.ExtensionFactory;
-import joshie.maritech.items.ItemFLUDD;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -45,7 +36,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -75,12 +65,7 @@ public class BlockRenderedMachine extends BlockFunctional {
         switch (meta) {
             case MachineRenderedMeta.AIR_PUMP:
             case MachineRenderedMeta.GEYSER:
-            case MachineRenderedMeta.ROTOR_COPPER:
-            case MachineRenderedMeta.ROTOR_ALUMINUM:
                 level = 1;
-                break;
-            case MachineRenderedMeta.ROTOR_TITANIUM:
-                level = 2;
                 break;
         }
 
@@ -98,9 +83,6 @@ public class BlockRenderedMachine extends BlockFunctional {
             case MachineRenderedMeta.FISH_FEEDER:
                 hardness = 0.5F;
                 break;
-            case MachineRenderedMeta.FLUDD_STAND:
-                hardness = 1F;
-                break;
             case MachineRenderedMeta.GEYSER:
                 hardness = 0.85F;
                 break;
@@ -112,15 +94,6 @@ public class BlockRenderedMachine extends BlockFunctional {
                 break;
             case MachineRenderedMeta.ANVIL:
                 hardness = 25F;
-                break;
-            case MachineRenderedMeta.ROTOR_COPPER:
-                hardness = 5F;
-                break;
-            case MachineRenderedMeta.ROTOR_ALUMINUM:
-                hardness = 6.5F;
-                break;
-            case MachineRenderedMeta.ROTOR_TITANIUM:
-                hardness = 15F;
                 break;
         }
 
@@ -146,51 +119,22 @@ public class BlockRenderedMachine extends BlockFunctional {
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile != null) {
-            if (tile instanceof TileFLUDDStand) {
-                TileFLUDDStand fludd = (TileFLUDDStand) tile;
-                fludd.setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
-
-                int water = 0;
-                if (stack.hasTagCompound()) {
-                    water = stack.stackTagCompound.getInteger("water");
-                }
-
-                fludd.tank.setCapacity(ItemFLUDD.STORAGE);
-                fludd.tank.setFluidID(Fluids.getFluidID("hp_water"));
-                fludd.tank.setFluidAmount(water);
-                PacketHandler.updateRender(fludd);
-            }
-
             if (tile instanceof TileGeyser) {
                 ((TileGeyser) tile).setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
-            }
-
-            if (tile instanceof TileAirPump) {
+            } else if (tile instanceof TileAirPump) {
                 ((TileAirPump) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
-            }
-
-            if (tile instanceof TileAnvil) {
+            } else if (tile instanceof TileAnvil) {
                 ((TileAnvil) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
             }
-
-            if (tile instanceof TileRotor) {
-                ((TileRotor) tile).setFacing(DirectionHelper.getFacingFromEntity(entity));
-            }
         }
-        
-        MaricultureEvents.onBlockPlaced(this, world, x, y, z, entity, tile);
-    }
-    
-    @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        super.breakBlock(world, x, y, z, block, meta);
-        MaricultureEvents.onBlockBroken(block, meta, world, x, y, z);
+
+        MaricultureEvents.onBlockPlaced(stack, this, world, x, y, z, entity, tile);
     }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile == null || tile instanceof TileRotor || player.isSneaking() && !world.isRemote) return false;
+        if (tile == null || player.isSneaking() && !world.isRemote) return false;
 
         //Activate the air pump on right click
         if (tile instanceof TileAirPump) {
@@ -211,6 +155,7 @@ public class BlockRenderedMachine extends BlockFunctional {
             if (world.isRemote && player.isSneaking()) {
                 ((TileAirPump) tile).updateAirArea(Type.DISPLAY);
             }
+
             return true;
         }
 
@@ -372,118 +317,86 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public boolean destroyBlock(World world, int x, int y, int z) {
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileFLUDDStand) {
-            TileFLUDDStand stand = (TileFLUDDStand) tile;
-            ItemStack fludd = new ItemStack(ExtensionFactory.fludd);
-            fludd.setTagCompound(new NBTTagCompound());
-            fludd.stackTagCompound.setInteger("water", stand.tank.getFluidAmount());
-            ItemHelper.spawnItem(world, x, y, z, fludd);
-
-            return world.setBlockToAir(x, y, z);
-        } else if (tile instanceof TileRotor) {
-            CachedCoords cord = ((TileRotor) tile).master;
-            if (cord != null) {
-                world.setBlock(x, y, z, Core.metals, MetalMeta.BASE_IRON, 2);
-                TileEntity gen = world.getTileEntity(cord.x, cord.y, cord.z);
-                if (gen instanceof TileGenerator) {
-                    ((TileGenerator) tile).reset();
-                }
-
-                ItemHelper.spawnItem(world, x, y + 1, z, ((TileRotor) tile).getDrop());
-                return true;
-            } else {
-                world.setBlock(x, y, z, Core.metals, MetalMeta.BASE_IRON, 2);
-                ItemHelper.spawnItem(world, x, y + 1, z, ((TileRotor) tile).getDrop());
-                return true;
-            }
-        }
-
-        return super.destroyBlock(world, x, y, z);
+        if (MaricultureEvents.onBlockBroken(world.getBlock(x, y, z), world.getBlockMetadata(x, y, z), world, x, y, z)) {
+            return true;
+        } else return super.destroyBlock(world, x, y, z);
     }
 
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileRotor) {
-            ((TileRotor) tile).recheck();
+        if (tile instanceof INeighborNotify) {
+            ((INeighborNotify) tile).recheck();
         }
     }
 
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileRotor) {
-            return ((TileRotor) tile).getDrop();
+        if (tile instanceof ISpecialPickblock) {
+            return ((ISpecialPickblock) tile).getDrop();
         } else return super.getPickBlock(target, world, x, y, z);
     }
 
     @Override
     public TileEntity createTileEntity(World world, int meta) {
+        TileEntity tile = null;
         switch (meta) {
             case MachineRenderedMeta.AIR_PUMP:
-                return new TileAirPump();
+                tile = new TileAirPump();
             case MachineRenderedMeta.FISH_FEEDER:
-                return new TileFeeder();
-            case MachineRenderedMeta.FLUDD_STAND:
-                return new TileFLUDDStand();
+                tile = new TileFeeder();
             case MachineRenderedMeta.GEYSER:
-                return new TileGeyser();
+                tile = new TileGeyser();
             case MachineRenderedMeta.INGOT_CASTER:
-                return new TileIngotCaster();
+                tile = new TileIngotCaster();
             case MachineRenderedMeta.BLOCK_CASTER:
-                return new TileBlockCaster();
+                tile = new TileBlockCaster();
             case MachineRenderedMeta.NUGGET_CASTER:
-                return new TileNuggetCaster();
+                tile = new TileNuggetCaster();
             case MachineRenderedMeta.AUTO_HAMMER:
-                return new TileAutohammer();
-            case MachineRenderedMeta.ROTOR_COPPER:
-                return new TileRotorCopper();
-            case MachineRenderedMeta.ROTOR_ALUMINUM:
-                return new TileRotorAluminum();
-            case MachineRenderedMeta.ROTOR_TITANIUM:
-                return new TileRotorTitanium();
-            default:
+                tile = new TileAutohammer();
+            case MachineRenderedMeta.ANVIL:
                 return new TileAnvil();
         }
+
+        return MaricultureEvents.getTileEntity(this, meta, tile);
     }
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        if (meta == MachineRenderedMeta.GEYSER) return Blocks.hopper.getIcon(0, 0);
-        if (meta == MachineRenderedMeta.INGOT_CASTER) return super.getIcon(side, meta);
-        if (meta >= MachineRenderedMeta.ANVIL) return super.getIcon(side, MachineRenderedMeta.INGOT_CASTER);
-        if (meta == MachineRenderedMeta.ROTOR_COPPER) return Core.metals.getIcon(0, MetalMeta.COPPER_BLOCK);
-        if (meta == MachineRenderedMeta.ROTOR_ALUMINUM) return Core.metals.getIcon(0, MetalMeta.ALUMINUM_BLOCK);
-        if (meta == MachineRenderedMeta.ROTOR_TITANIUM) return Core.metals.getIcon(0, MetalMeta.TITANIUM_BLOCK);
+        IIcon icon = null;
+        if (meta == MachineRenderedMeta.GEYSER) icon = Blocks.hopper.getIcon(0, 0);
+        else if (meta == MachineRenderedMeta.INGOT_CASTER) icon = super.getIcon(side, meta);
+        else if (meta >= MachineRenderedMeta.ANVIL) icon = super.getIcon(side, MachineRenderedMeta.INGOT_CASTER);
+        else icon = icons[meta];
 
-        return icons[meta];
+        return MaricultureEvents.getInventoryIcon(this, meta, side, icon);
     }
 
     @Override
     public boolean isActive(int meta) {
+        boolean isActive = false;
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
-                return Modules.isActive(Modules.fishery);
+                isActive = Modules.isActive(Modules.fishery);
             case MachineRenderedMeta.GEYSER:
-                return Modules.isActive(Modules.factory);
-            case MachineRenderedMeta.ROTOR_COPPER:
-            case MachineRenderedMeta.ROTOR_ALUMINUM:
-            case MachineRenderedMeta.ROTOR_TITANIUM:
-            case MachineRenderedMeta.FLUDD_STAND:
-                return false;
-            default:
-                return true;
+                isActive = Modules.isActive(Modules.factory);
+            case MachineRenderedMeta.AIR_PUMP:
+            case MachineRenderedMeta.ANVIL:
+            case MachineRenderedMeta.AUTO_HAMMER:
+            case MachineRenderedMeta.BLOCK_CASTER:
+            case MachineRenderedMeta.INGOT_CASTER:
+            case MachineRenderedMeta.NUGGET_CASTER:
+                isActive = false;
         }
+
+        return MaricultureEvents.isActive(this, meta, isActive);
     }
 
     @Override
     public boolean isValidTab(CreativeTabs tab, int meta) {
-        switch (meta) {
-            case MachineRenderedMeta.FISH_FEEDER:
-                return tab == MaricultureTab.tabFishery;
-            default:
-                return tab == MaricultureTab.tabFactory;
-        }
+        boolean isValid = meta == MachineRenderedMeta.FISH_FEEDER? tab == MaricultureTab.tabFishery: tab == MaricultureTab.tabFactory;
+        return MaricultureEvents.isValidTab(this, tab, meta, isValid);
     }
 
     @Override

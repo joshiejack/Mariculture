@@ -1,10 +1,10 @@
 package joshie.mariculture.core.lib;
 
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.items.ItemBattery;
-import joshie.mariculture.diving.Diving;
 import joshie.mariculture.fishery.Fish;
 import joshie.mariculture.fishery.Fishery;
+import joshie.maritech.extensions.modules.ExtensionDiving;
+import joshie.maritech.items.ItemBattery;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -277,7 +277,6 @@ public class ItemLib {
     public static final ItemStack filterer = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.net) : new ItemStack(Blocks.chest);
     public static final ItemStack regen = Modules.isActive(Modules.fishery) ? dropletRegen : new ItemStack(Items.potionitem, 1, 8229);
     public static final Object bait = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE) : Items.spider_eye;
-    public static final Object scubaTank = Modules.isActive(Modules.diving) ? new ItemStack(Diving.scubaTank, 1, 1) : Blocks.lever;
     public static final Object sponge = Modules.isActive(Modules.worldplus) ? Blocks.sponge : Items.water_bucket;
     public static final ItemStack magicDrop = Modules.isActive(Modules.fishery) ? dropletMagic : new ItemStack(Items.ghast_tear);
     public static final Object waterDrop = Modules.isActive(Modules.fishery) ? dropletWater : new ItemStack(Items.potionitem, 1, 0);

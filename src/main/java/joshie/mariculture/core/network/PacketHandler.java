@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.config.Machines.MachineSettings;
 import joshie.mariculture.core.util.IFaceable;
-import joshie.maritech.network.PacketFLUDD;
+import joshie.maritech.network.PacketCompressor;
+import joshie.maritech.network.PacketRotorSpin;
+import joshie.maritech.network.PacketSponge;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -27,7 +29,6 @@ public class PacketHandler {
 
     public static void init() {
         registerPacket(PacketAirPump.class, Side.CLIENT);
-        registerPacket(PacketCompressor.class, Side.CLIENT);
         registerPacket(PacketFluidSync.class, Side.CLIENT);
         registerPacket(PacketInventorySync.class, Side.CLIENT);
         registerPacket(PacketMultiInit.class, Side.CLIENT);
@@ -41,15 +42,10 @@ public class PacketHandler {
         registerPacket(PacketJewelrySwap.class, Side.SERVER);
         registerPacket(PacketTeleport.class, Side.SERVER);
 
-        //Dual Way Packets
-        registerPacket(PacketSponge.class, Side.CLIENT);
-        registerPacket(PacketSponge.class, Side.SERVER);
-
         //New Packets
         registerPacket(PacketCrack.class, Side.CLIENT);
         registerPacket(PacketParticle.class, Side.CLIENT);
         registerPacket(PacketSyncFeeder.class, Side.CLIENT);
-        registerPacket(PacketRotorSpin.class, Side.CLIENT);
         registerPacket(PacketGUIUpdate.class, Side.CLIENT);
     }
 

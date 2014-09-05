@@ -5,7 +5,7 @@ import joshie.mariculture.core.gui.feature.FeatureRedstone;
 import joshie.mariculture.core.gui.feature.FeatureTank;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.gui.feature.FeatureUpgrades;
-import joshie.mariculture.factory.tile.TileFLUDDStand;
+import joshie.maritech.tile.TileFLUDDStand;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiFLUDDStand extends GuiMariculture {

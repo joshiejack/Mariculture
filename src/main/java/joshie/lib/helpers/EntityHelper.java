@@ -3,6 +3,7 @@ package joshie.lib.helpers;
 import java.util.List;
 import java.util.UUID;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.server.FMLServerHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -84,7 +85,7 @@ public class EntityHelper {
     /** Gets the player from the uuid **/
     public static EntityPlayerMP getPlayerFromUUID(UUID uuid) {
         //Loops through every single player
-        for (EntityPlayer player : (List<EntityPlayer>) FMLServerHandler.instance().getServer().getConfigurationManager().playerEntityList) {
+        for (EntityPlayer player : (List<EntityPlayer>) FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
             if (player.getPersistentID().equals(uuid)) {
                 return (EntityPlayerMP) player;
             }
