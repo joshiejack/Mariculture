@@ -2,14 +2,14 @@ package joshie.mariculture.core.events;
 
 import joshie.mariculture.core.events.BlockEvent.BlockBroken;
 import joshie.mariculture.core.events.BlockEvent.GetHardness;
-import joshie.mariculture.core.events.BlockEvent.GetInventoryIIcon;
 import joshie.mariculture.core.events.BlockEvent.GetIsActive;
 import joshie.mariculture.core.events.BlockEvent.GetIsValidTab;
 import joshie.mariculture.core.events.BlockEvent.GetTileEntity;
 import joshie.mariculture.core.events.BlockEvent.GetToolLevel;
 import joshie.mariculture.core.events.BlockEvent.GetToolType;
-import joshie.mariculture.core.events.BlockEvent.GetWorldIIcon;
 import joshie.mariculture.core.events.BlockEvent.TilePlaced;
+import joshie.mariculture.core.events.IconEvent.GetInventoryIIcon;
+import joshie.mariculture.core.events.IconEvent.GetWorldIIcon;
 import joshie.mariculture.core.events.ItemEvent.GetItemName;
 import joshie.mariculture.core.events.ItemEvent.GetModName;
 import joshie.mariculture.core.lib.Modules.RegistrationModule;

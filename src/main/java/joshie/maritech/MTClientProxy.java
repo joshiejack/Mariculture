@@ -10,8 +10,12 @@ import joshie.mariculture.factory.Factory;
 import joshie.mariculture.factory.render.RenderCustomItem;
 import joshie.maritech.entity.EntityFLUDDSquirt;
 import joshie.maritech.entity.EntitySpeedBoat;
+import joshie.maritech.extensions.blocks.icons.ExtensionIconMachine;
+import joshie.maritech.extensions.blocks.icons.ExtensionIconMachineMulti;
+import joshie.maritech.extensions.blocks.icons.ExtensionIconRenderedMachine;
 import joshie.maritech.extensions.modules.ExtensionFactory;
 import joshie.maritech.extensions.modules.ExtensionTransport;
+import joshie.maritech.handlers.IconEvents;
 import joshie.maritech.handlers.RenderEvents;
 import joshie.maritech.lib.MTRenderIds;
 import joshie.maritech.model.ModelFLUDD;
@@ -42,7 +46,11 @@ public class MTClientProxy extends MTCommonProxy {
 
     @Override
     public void setupClient() {
+        MinecraftForge.EVENT_BUS.register(new IconEvents());
         MinecraftForge.EVENT_BUS.register(new RenderEvents());
+        IconEvents.register(Core.machines, new ExtensionIconMachine());
+        IconEvents.register(Core.machinesMulti, new ExtensionIconMachineMulti());
+        IconEvents.register(Core.renderedMachines, new ExtensionIconRenderedMachine());
 
         if (Modules.isActive(Modules.diving)) {
             MTRenderIds.SCUBA = RenderingRegistry.addNewArmourRendererPrefix("scuba");

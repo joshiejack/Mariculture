@@ -2,7 +2,7 @@ package joshie.maritech.handlers;
 
 import static net.minecraftforge.client.IItemRenderer.ItemRenderType.INVENTORY;
 import joshie.mariculture.core.Core;
-import joshie.mariculture.core.events.IconRegisterEvent;
+import joshie.mariculture.core.events.IconEvent.IconRegisterEvent;
 import joshie.mariculture.core.events.RenderEvent;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.maritech.extensions.modules.ExtensionFactory;

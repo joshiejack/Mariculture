@@ -37,6 +37,7 @@ maritech.plans.redstone=Plan - Redstone Flux Block
 maritech.fludd=F.L.U.D.D.
 
 #Fishery Module Extensions
+maritech.rod.flux=RF Fishing Rod
 maritech.machines.single.autofisher=Automatic Fisher
 maritech.machines.multi.incubator=Incubator
 maritech.machines.multi.incubatorbase=Incubator Base

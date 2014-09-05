@@ -10,6 +10,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ExtensionBlocksBase extends ExtensionItemsBase implements IBlockExtension {
     @Override
@@ -55,15 +57,5 @@ public class ExtensionBlocksBase extends ExtensionItemsBase implements IBlockExt
     @Override
     public boolean onBlockBroken(int meta, World world, int x, int y, int z) {
         return false;
-    }
-
-    @Override
-    public IIcon getInventoryIcon(int meta, int side, IIcon icon) {
-        return icon;
-    }
-
-    @Override
-    public IIcon getWorldIcon(IBlockAccess block, int x, int y, int z, int side, IIcon icon) {
-        return icon;
     }
 }

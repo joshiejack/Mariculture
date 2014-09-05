@@ -8,6 +8,7 @@ import joshie.mariculture.core.lib.GuideMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -43,7 +44,7 @@ public class ItemGuide extends ItemMCMeta {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        list.add(MCTranslate.translate("by") + " " + StatCollector.translateToLocal("item.guide." + getName(stack) + ".author"));
+        list.add(MCTranslate.translate("by") + " " + MCTranslate.translate("guide." + getName(stack) + ".author"));
     }
 
     @Override
@@ -70,6 +71,11 @@ public class ItemGuide extends ItemMCMeta {
             default:
                 return false;
         }
+    }
+    
+    @Override
+    public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[] { CreativeTab.books } ;
     }
 
     @Override

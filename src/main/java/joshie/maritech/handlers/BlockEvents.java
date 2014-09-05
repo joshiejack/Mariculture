@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 import joshie.mariculture.core.events.BlockEvent;
 import joshie.mariculture.core.events.BlockEvent.BlockBroken;
-import joshie.mariculture.core.events.BlockEvent.GetInventoryIIcon;
-import joshie.mariculture.core.events.BlockEvent.GetWorldIIcon;
 import joshie.mariculture.core.events.BlockEvent.TilePlaced;
 import joshie.maritech.util.IBlockExtension;
 import net.minecraft.block.Block;
@@ -13,8 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockEvents {
     public static HashMap<Block, IBlockExtension> blocks = new HashMap();
@@ -97,24 +93,6 @@ public class BlockEvents {
         IBlockExtension extension = blocks.get(event.block);
         if (extension != null) {
             event.setCanceled(extension.onBlockBroken(event.meta, event.world, event.x, event.y, event.z));
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void getInventoryIcon(GetInventoryIIcon event) {
-        IBlockExtension extension = blocks.get(event.block);
-        if (extension != null) {
-            event.icon = extension.getInventoryIcon(event.meta, event.side, event.icon);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void getWorldIcon(GetWorldIIcon event) {
-        IBlockExtension extension = blocks.get(event.block);
-        if (extension != null) {
-            event.icon = extension.getWorldIcon(event.world, event.x, event.y, event.z, event.side, event.icon);
         }
     }
 }

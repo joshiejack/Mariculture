@@ -24,6 +24,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ExtensionRenderedMachine extends ExtensionBlocksBase {
     @Override
@@ -152,18 +154,5 @@ public class ExtensionRenderedMachine extends ExtensionBlocksBase {
         }
 
         return false;
-    }
-
-    @Override
-    public IIcon getInventoryIcon(int meta, int side, IIcon icon) {
-        if (meta == MachineRenderedMeta.ROTOR_COPPER) return Core.metals.getIcon(0, MetalMeta.COPPER_BLOCK);
-        else if (meta == MachineRenderedMeta.ROTOR_ALUMINUM) return Core.metals.getIcon(0, MetalMeta.ALUMINUM_BLOCK);
-        else if (meta == MachineRenderedMeta.ROTOR_TITANIUM) return Core.metals.getIcon(0, MetalMeta.TITANIUM_BLOCK);
-        return icon;
-    }
-
-    @Override
-    public IIcon getWorldIcon(IBlockAccess block, int x, int y, int z, int side, IIcon icon) {
-        return icon;
     }
 }

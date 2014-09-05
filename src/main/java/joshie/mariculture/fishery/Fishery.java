@@ -179,8 +179,6 @@ public class Fishery extends RegistrationModule {
         tempControl = new ItemTemperatureControl().setUnlocalizedName("temperature.control");
         droplet = new ItemDroplet().setUnlocalizedName("droplet");
         fishinghat = new ItemArmorFishingHat(armorFishing, RenderIds.FISHING, 0).setUnlocalizedName("fishinghat");
-
-        RegistryHelper.registerItems(new Item[] { rodWood, rodReed, rodTitanium });
     }
 
     @Override

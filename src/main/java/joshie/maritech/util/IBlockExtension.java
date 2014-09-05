@@ -23,9 +23,4 @@ public interface IBlockExtension extends IItemExtension {
     
     public void onTilePlaced(ItemStack stack, TileEntity tile, EntityLivingBase entity, int direction);
     public boolean onBlockBroken(int meta, World world, int x, int y, int z);
-    
-    @SideOnly(Side.CLIENT)
-    public IIcon getInventoryIcon(int meta, int side, IIcon icon);
-    @SideOnly(Side.CLIENT)
-    public IIcon getWorldIcon(IBlockAccess block, int x, int y, int z, int side, IIcon icon);
 }

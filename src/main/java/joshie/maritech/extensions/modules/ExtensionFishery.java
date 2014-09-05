@@ -33,7 +33,6 @@ public class ExtensionFishery implements IModuleExtension {
     @Override
     public void preInit() {
         rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
-        RegistryHelper.registerItems(new Item[] { rodFlux });
         RegistryHelper.registerTiles("Mariculture", new Class[] { TileAutofisher.class, TileIncubator.class });
     }
 

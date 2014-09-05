@@ -4,7 +4,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.blocks.base.BlockFunctional;
-import joshie.mariculture.core.events.IconRegisterEvent;
+import joshie.mariculture.core.events.IconEvent.IconRegisterEvent;
 import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.lib.MachineMeta;
 import joshie.mariculture.core.lib.Modules;

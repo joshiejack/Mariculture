@@ -39,7 +39,6 @@ public class PluginBloodMagic extends Plugin {
         ACTIVE = true;
         Fluids.add("blood", FluidRegistry.getFluid("life essence"), 250, true);
         rodBlood = new ItemBoundRod().setUnlocalizedName("rodBlood");
-        RegistryHelper.registerItems(new Item[] { rodBlood });
         Fishing.fishing.registerRod(rodBlood, BLOOD);
     }
 
