@@ -98,12 +98,12 @@ task maricultureJar(type: Jar) {
 
 task maritechJar(type: Jar) {
     baseName = 'MariTech'
-    version = config.minecraft_version + "-" + config.mt_version + buildnumber
+    version = config.minecraft_version + "-" + config.mc_version + buildnumber
     from('etc/maritech') {
         include '*.txt'
         include '*.info'
         expand ([
-            'mod_version': project.config.mt_version,
+            'mod_version': project.config.mc_version,
             'minecraft_version': project.config.minecraft_version
         ])
     }
