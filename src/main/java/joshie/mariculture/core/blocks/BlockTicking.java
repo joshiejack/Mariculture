@@ -129,7 +129,7 @@ public class BlockTicking extends BlockFunctional {
 
     @Override
     public boolean isActive(int meta) {
-        return Modules.isActive(Modules.fishery);
+        return false;
     }
 
     @Override
