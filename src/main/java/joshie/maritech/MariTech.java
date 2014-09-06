@@ -24,6 +24,7 @@ import joshie.maritech.extensions.modules.ExtensionWorldPlus;
 import joshie.maritech.handlers.BlockEvents;
 import joshie.maritech.handlers.ConfigEvents;
 import joshie.maritech.handlers.FLUDDEvents;
+import joshie.maritech.handlers.GuiEvents;
 import joshie.maritech.handlers.ItemEvents;
 import joshie.maritech.handlers.RegistryEvents;
 import joshie.maritech.plugins.RitualOfTheBloodRiver;
@@ -39,7 +40,6 @@ import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = MODID, name = MODNAME, dependencies = AFTER)
 public class MariTech {
@@ -79,7 +79,7 @@ public class MariTech {
             FMLCommonHandler.instance().bus().register(new FLUDDEvents());
         }
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+        MinecraftForge.EVENT_BUS.register(new GuiEvents());
     }
 
     @EventHandler

@@ -12,30 +12,30 @@ public class MachineSpeeds {
     public static int hatchery;
 
     public static int getSawmillSpeed() {
-        return Library.DEBUG_ON ? 10 : sawmill;
+        return Math.max(1, Library.DEBUG_ON ? 10 : sawmill);
     }
 
     public static int getCrucibleSpeed() {
-        return Library.DEBUG_ON ? 10 : crucible;
+        return Math.max(1, Library.DEBUG_ON ? 10 : crucible);
     }
 
     public static int getIncubatorSpeed() {
-        return Library.DEBUG_ON ? 10 : incubator;
+        return Math.max(1, Library.DEBUG_ON ? 10 : incubator);
     }
 
     public static int getAutofisherSpeed() {
-        return Library.DEBUG_ON ? 10 : autofisher;
+        return Math.max(1, Library.DEBUG_ON ? 10 : autofisher);
     }
 
     public static int getFeederSpeed() {
-        return Library.DEBUG_ON ? 10 : feeder;
+        return Math.max(1, Library.DEBUG_ON ? 10 : feeder);
     }
 
     public static int getNetSpeed() {
-        return Library.DEBUG_ON ? 10 : net;
+        return Math.max(1, Library.DEBUG_ON ? 10 : net);
     }
 
     public static int getHatcherySpeed() {
-        return Library.DEBUG_ON ? 10 : hatchery;
+        return Math.max(1, Library.DEBUG_ON ? 10 : hatchery);
     }
 }

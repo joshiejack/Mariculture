@@ -3,6 +3,7 @@ package joshie.maritech.extensions.config;
 import static joshie.mariculture.core.helpers.ConfigHelper.getBoolean;
 import static joshie.mariculture.core.helpers.ConfigHelper.getInt;
 import static joshie.mariculture.core.helpers.ConfigHelper.setCategory;
+import static joshie.mariculture.core.helpers.ConfigHelper.setConfig;
 import joshie.mariculture.core.config.Machines.MachineSettings;
 import joshie.mariculture.core.lib.MachineSpeeds;
 import joshie.maritech.util.IConfigExtension;
@@ -15,7 +16,8 @@ public class ExtensionMachines implements IConfigExtension {
     }
 
     @Override
-    public void init(Configuration config) {
+    public void init(Configuration config) {        
+        setConfig(config);
         setCategory("Speed Settings");
         MachineSpeeds.autofisher = getInt("Automatic Fisher", 2500);
         MachineSpeeds.incubator = getInt("Incubator", 400);

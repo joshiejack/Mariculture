@@ -4,8 +4,7 @@ import java.util.HashMap;
 
 import joshie.mariculture.core.events.ConfigEvent;
 import joshie.maritech.util.IConfigExtension;
-
-import com.google.common.eventbus.Subscribe;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ConfigEvents {
     private static HashMap<String, IConfigExtension> extensions = new HashMap();
@@ -14,7 +13,7 @@ public class ConfigEvents {
        extensions.put(extension.getName(), extension);
     }
 
-    @Subscribe
+    @SubscribeEvent
     public void onConfigure(ConfigEvent event) {
         IConfigExtension extension = extensions.get(event.clazz);
         if (extension != null) {

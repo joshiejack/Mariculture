@@ -11,6 +11,8 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.config.FishMechanics;
 import joshie.mariculture.core.config.GeneralStuff;
+import joshie.mariculture.core.items.ItemCrafting;
+import joshie.mariculture.core.lib.BaitMeta;
 import joshie.mariculture.core.lib.CoralMeta;
 import joshie.mariculture.core.lib.CraftingMeta;
 import joshie.mariculture.core.lib.FoodMeta;
@@ -84,6 +86,7 @@ public class NEIConfig implements IConfigureNEI {
             if (i >= MachineMeta.COUNT) API.hideItem(new ItemStack(Core.machines, 1, i));
             if (i >= MachineRenderedMeta.COUNT) API.hideItem(new ItemStack(Core.renderedMachines, 1, i));
             if (i >= PearlColor.COUNT) {
+                API.hideItem(new ItemStack(Core.pearls, 1, i));
                 API.hideItem(new ItemStack(Core.pearlBlock, 1, i));
                 if (Modules.isActive(Modules.aesthetics)) {
                     API.hideItem(new ItemStack(Aesthetics.pearlBrick, 1, i));
@@ -92,6 +95,10 @@ public class NEIConfig implements IConfigureNEI {
                 if (Modules.isActive(Modules.fishery)) {
                     API.hideItem(new ItemStack(Fishery.lampsOn, 1, i));
                 }
+            }
+
+            if (Modules.isActive(Modules.fishery)) {
+                if (i >= BaitMeta.COUNT) API.hideItem(new ItemStack(Fishery.bait, 1, i));
             }
         }
 
@@ -127,6 +134,12 @@ public class NEIConfig implements IConfigureNEI {
             }
         }
 
+        for (int i = 0; i < CraftingMeta.COUNT; i++) {
+            if (((ItemCrafting)Core.crafting).isActive(i)) {
+                API.addItemListEntry(new ItemStack(Core.crafting, 1, i));
+            }
+        }
+
         API.registerRecipeHandler(new NEICrucibleRecipeHandler());
         API.registerUsageHandler(new NEICrucibleRecipeHandler());
         API.registerRecipeHandler(new NEIVatRecipeHandler());
@@ -159,6 +172,7 @@ public class NEIConfig implements IConfigureNEI {
             API.hideItem(new ItemStack(Factory.customSlabsDouble, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(Factory.customStairs, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(Factory.customWall, 1, OreDictionary.WILDCARD_VALUE));
+            API.hideItem(new ItemStack(Factory.customRFBlock, 1, OreDictionary.WILDCARD_VALUE));
         }
 
         FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData().clone();

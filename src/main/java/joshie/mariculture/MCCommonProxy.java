@@ -1,5 +1,6 @@
 package joshie.mariculture;
 
+import joshie.mariculture.core.events.MaricultureEvents;
 import joshie.mariculture.core.gui.ContainerBookshelf;
 import joshie.mariculture.core.gui.ContainerCrucible;
 import joshie.mariculture.core.gui.GuiBookshelf;
@@ -50,7 +51,7 @@ public class MCCommonProxy implements IGuiHandler {
             else if (tile instanceof TileFishTank) return new ContainerFishTank((TileFishTank) tile, player.inventory);
         }
 
-        return null;
+        return MaricultureEvents.getContainer(player, tile);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class MCCommonProxy implements IGuiHandler {
             else if (tile instanceof TileFishTank) return new GuiFishTank(player.inventory, (TileFishTank) tile);
         }
 
-        return null;
+        return MaricultureEvents.getGui(player, tile);
     }
 
     public void setupClient() {}

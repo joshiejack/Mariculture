@@ -267,7 +267,6 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
                 return Modules.isActive(Modules.fishery);
             case UpgradeMeta.ETERNAL_FEMALE:
                 return Modules.isActive(Modules.fishery);
-
             default:
                 return true;
         }

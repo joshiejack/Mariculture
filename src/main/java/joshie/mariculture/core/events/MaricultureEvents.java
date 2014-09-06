@@ -18,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -127,5 +128,17 @@ public class MaricultureEvents {
         GetItemName event = new GetItemName(item, meta, name);
         MinecraftForge.EVENT_BUS.post(event);
         return event.name;
+    }
+
+    public static Object getContainer(EntityPlayer player, TileEntity tile) {
+        GetGuiEvent event = new GetGuiEvent(Side.SERVER, player, tile);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.ret;
+    }
+
+    public static Object getGui(EntityPlayer player, TileEntity tile) {
+        GetGuiEvent event = new GetGuiEvent(Side.CLIENT, player, tile);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.ret;
     }
 }

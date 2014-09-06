@@ -58,7 +58,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     }
 
     @Override
-    public void process() {
+    public void process() {        
         int speed = 1 + EnchantHelper.getLevel(Enchantment.field_151369_A, inventory[rod]);
         for (int i = 0; i < speed && canWork; i++) {
             int baitSlot = destroyBait();
@@ -97,7 +97,7 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     }
 
     @Override
-    public boolean canWork() {
+    public boolean canWork() {        
         return RedstoneMode.canWork(this, mode) && hasRod() && getBait() > 0 && hasPower() && isFishable() && hasRoom(null);
     }
 
