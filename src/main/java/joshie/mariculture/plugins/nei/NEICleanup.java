@@ -14,6 +14,7 @@ import joshie.mariculture.core.lib.BottleMeta;
 import joshie.mariculture.core.lib.BucketMeta;
 import joshie.mariculture.core.lib.CoralMeta;
 import joshie.mariculture.core.lib.CraftingMeta;
+import joshie.mariculture.core.lib.DropletMeta;
 import joshie.mariculture.core.lib.FoodMeta;
 import joshie.mariculture.core.lib.GlassMeta;
 import joshie.mariculture.core.lib.GroundMeta;
@@ -80,6 +81,7 @@ public class NEICleanup {
             hide(meta, 0, Core.worked);
             if (Modules.isActive(Modules.fishery)) {
                 hide(meta, BaitMeta.COUNT, Fishery.bait);
+                hide(meta, DropletMeta.COUNT, Fishery.droplet);
                 hide(meta, PearlColor.COUNT, Fishery.lampsOn);
             }
 
