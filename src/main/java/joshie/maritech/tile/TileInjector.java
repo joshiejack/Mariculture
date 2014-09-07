@@ -13,6 +13,7 @@ import joshie.mariculture.core.tile.TileVat;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.core.util.ITank;
 import joshie.mariculture.core.util.Tank;
+import joshie.mariculture.fishery.Fishery;
 import joshie.maritech.items.ItemFishDNA;
 import joshie.maritech.tile.base.TileMachinePowered;
 import net.minecraft.item.ItemStack;
@@ -39,16 +40,16 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
         tank = new Tank(getTankCapacity(0));
         tank2 = new Tank(getTankCapacity(0));
     }
-    
+
     @Override
     public int getRFCapacity() {
         return 250000;
     }
-    
+
     public int getTankCapacity(int size) {
         return (1 + size) * 5000;
     }
-    
+
     @Override
     public void updatePowerPerTick() {
         if (rf <= 300000) {
@@ -74,8 +75,8 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     @Override
     public void update() {
         super.update();
-        FluidHelper.process(tank, this, 4, 5);
-        FluidHelper.process(tank2, this, 6, 7);
+        FluidHelper.process(tank, this, 4, 6);
+        FluidHelper.process(tank2, this, 5, 7);
     }
 
     @Override
@@ -85,12 +86,16 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
 
     @Override
     public boolean canInsertItem(int slot, ItemStack stack, int side) {
-        return false;
+        if (slot == 4 || slot == 5) {
+            return FluidHelper.isFluidOrEmpty(stack);
+        } else if (slot == FISH) {
+            return stack.getItem() == Fishery.fishy;
+        } else return false;
     }
 
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side) {
-        return false;
+        return slot == 6 || slot == 7 || slot == 9;
     }
 
     @Override
@@ -134,10 +139,10 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
         if (dna != null && dna.hasTagCompound()) {
             ItemStack fish = ItemFishDNA.add(dna, inventory[FISH]);
             if (fish != null) {
-                if(dna.attemptDamageItem(1, worldObj.rand)) {
+                if (dna.attemptDamageItem(1, worldObj.rand)) {
                     inventory[slot] = null;
                 }
-                
+
                 inventory[FISH] = null;
                 helper.insertStack(fish, output);
                 tank.drain(5000, true);
@@ -243,7 +248,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
                 break;
         }
     }
-    
+
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
         return true;
@@ -280,7 +285,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         return drain(from, resource.amount, doDrain);
     }
-    
+
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);

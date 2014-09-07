@@ -24,8 +24,8 @@ public class ContainerInjector extends ContainerMachine {
         addUpgradeSlots(tile);
         addPowerSlot(tile);
         addSlotToContainer(new SlotFluidContainer(tile, 4, 28, 25));
-        addSlotToContainer(new SlotOutput(tile, 5, 28, 56));
-        addSlotToContainer(new SlotFluidContainer(tile, 6, 86, 25));
+        addSlotToContainer(new SlotFluidContainer(tile, 5, 86, 25));
+        addSlotToContainer(new SlotOutput(tile, 6, 28, 56));
         addSlotToContainer(new SlotOutput(tile, 7, 86, 56));
         addSlotToContainer(new SlotFish(tile, 8, 108, 39));
         addSlotToContainer(new SlotOutput(tile, 9, 152, 39));
@@ -53,14 +53,15 @@ public class ContainerInjector extends ContainerMachine {
                 slot.onSlotChange(stack, itemstack);
             } else if (slotID >= size) {
                 if (stack.getItem() instanceof ItemFishy) {
-                    if (!mergeItemStack(stack, 6, 7, false)) return null; //Slot 6 for the Fish
+                    if (!mergeItemStack(stack, 8, 9, false)) return null; //Slot 8 for the Fish
                 } else if (stack.getItem() instanceof IItemUpgrade) {
                     if (!mergeItemStack(stack, 0, 3, false)) return null; //Slot 0-2 for the Upgrades
                 } else if (stack.getItem() instanceof IEnergyContainerItem) {
-                    if (!mergeItemStack(stack, 5, 6, false)) return null; //Slot 5 for the Energy
+                    if (!mergeItemStack(stack, 3, 4, false)) return null; //Slot 3 for the Energy
                 } else if (FluidHelper.isFluidOrEmpty(stack) || FishFoodHandler.isFishFood(stack)) {
-                    if (!mergeItemStack(stack, 3, 4, false)) // Slot 3 for the Liquids
-                    return null;
+                    if (!mergeItemStack(stack, 4, 6, false)) return null; // Slot 4-5 for the Liquids
+                } else if (stack.getItem() == ExtensionFishery.dna) {
+                    if (!mergeItemStack(stack, 10, 13, false)) return null; // Slot 10-12 for the dna
                 } else if (slotID >= size && slotID < low) {
                     if (!mergeItemStack(stack, low, high, false)) return null;
                 } else if (slotID >= low && slotID < high && !mergeItemStack(stack, high, low, false)) return null;
@@ -90,7 +91,7 @@ public class ContainerInjector extends ContainerMachine {
             return stack.getItem() == Fishery.fishy;
         }
     }
-    
+
     private class SlotDNA extends Slot {
         public SlotDNA(IInventory inventory, int id, int x, int y) {
             super(inventory, id, x, y);

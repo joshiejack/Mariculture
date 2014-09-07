@@ -59,8 +59,7 @@ public class ContainerExtractor extends ContainerMachine {
                 } else if (stack.getItem() instanceof IEnergyContainerItem) {
                     if (!mergeItemStack(stack, 5, 6, false)) return null; //Slot 5 for the Energy
                 } else if (FluidHelper.isFluidOrEmpty(stack) || FishFoodHandler.isFishFood(stack)) {
-                    if (!mergeItemStack(stack, 3, 4, false)) // Slot 3 for the Liquids
-                    return null;
+                    if (!mergeItemStack(stack, 3, 4, false)) return null; // Slot 3 for the Liquids
                 } else if (slotID >= size && slotID < low) {
                     if (!mergeItemStack(stack, low, high, false)) return null;
                 } else if (slotID >= low && slotID < high && !mergeItemStack(stack, high, low, false)) return null;
