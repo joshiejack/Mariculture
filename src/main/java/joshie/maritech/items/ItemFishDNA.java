@@ -4,7 +4,11 @@ import java.util.List;
 
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.api.fishery.fish.FishDNABase;
+import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.core.items.ItemMCDamageable;
+import joshie.mariculture.core.util.MCTranslate;
+import joshie.mariculture.fishery.Fish;
+import joshie.mariculture.fishery.FishyHelper;
 import joshie.maritech.extensions.modules.ExtensionFishery;
 import joshie.maritech.lib.MTModInfo;
 import joshie.maritech.util.MTTranslate;
@@ -35,8 +39,20 @@ public class ItemFishDNA extends ItemMCDamageable {
         if(stack.hasTagCompound()) {
             for(FishDNABase dna: FishDNABase.DNAParts) {
                 if(dna.getHigherString().equals(stack.stackTagCompound.getString("DNAType"))) {
-                    list.add(MTTranslate.translate("dna.name") + ": " +dna.getScannedDisplay(stack)[1]);
-                    list.add(MTTranslate.translate("dna.value") + ": " + stack.stackTagCompound.getInteger("DNAValue"));
+                    int value = stack.stackTagCompound.getInteger("DNAValue");
+                    if(dna == Fish.species) {
+                        list.add(MTTranslate.translate("dna.name") + ": " + FishSpecies.species.get(value).getName());
+                    } else if (dna == Fish.gender) {
+                        if(value == 0) {
+                            list.add(MTTranslate.translate("dna.name") + ": " + MCTranslate.translate("fish.data.gender.male"));
+                        } else {
+                            list.add(MTTranslate.translate("dna.name") + ": " + MCTranslate.translate("fish.data.gender.female"));
+                        }
+                    } else {
+                        list.add(MTTranslate.translate("dna.name") + ": " + dna.getScannedDisplay(stack, false)[1]);
+                    }
+
+                    list.add(MTTranslate.translate("dna.value") + ": " + value);
                 }
             }
         }

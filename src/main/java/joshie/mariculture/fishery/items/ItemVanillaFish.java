@@ -19,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
@@ -41,7 +40,7 @@ public class ItemVanillaFish extends ItemFishFood {
         if (Vanilla.VANILLA_TEXTURES && stack.getItemDamage() < LAST_VANILLA) return super.getItemStackDisplayName(stack);
         FishSpecies species = Fishing.fishHelper.getSpecies(stack.getItemDamage());
         if (species == null) return MCTranslate.translate("anyFish");
-        return StatCollector.translateToLocal("fish.data.dead") + " " + Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
+        return MCTranslate.translate("fish.data.dead") + " " + Fishing.fishHelper.getSpecies(stack.getItemDamage()).getName();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class FishDNAAreaOfEffect extends FishDNA {
     public String getDNAName(ItemStack stack) {
         int type = stack.getTagCompound().getInteger(getHigherString());
         for (FishDNA dna : types)
-            if (type >= dna.minimum && type <= dna.maximum) return joshie.lib.util.Text.localize("fish.data.aoe." + dna.name);
+            if (type >= dna.minimum && type <= dna.maximum) return joshie.lib.util.Text.localize("mariculture.fish.data.aoe." + dna.name);
 
         return "";
     }
@@ -30,7 +30,7 @@ public class FishDNAAreaOfEffect extends FishDNA {
     public String getLowerDNAName(ItemStack stack) {
         int type = stack.getTagCompound().getInteger(getLowerString());
         for (FishDNA dna : types)
-            if (type >= dna.minimum && type <= dna.maximum) return joshie.lib.util.Text.localize("fish.data.aoe." + dna.name);
+            if (type >= dna.minimum && type <= dna.maximum) return joshie.lib.util.Text.localize("mariculture.fish.data.aoe." + dna.name);
 
         return "";
     }

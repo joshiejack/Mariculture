@@ -37,7 +37,7 @@ public class GuiScanner extends GuiStorage {
     }
 
     private String getBoolean(int i) {
-        return i == 0 ? joshie.lib.util.Text.localize("fish.data.false") : joshie.lib.util.Text.localize("fish.data.true");
+        return i == 0 ? joshie.lib.util.Text.localize("mariculture.fish.data.false") : joshie.lib.util.Text.localize("mariculture.fish.data.true");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class GuiScanner extends GuiStorage {
         String[] east = Fish.east.getScannedDisplay(fish);
         String[] south = Fish.south.getScannedDisplay(fish);
         String[] west = Fish.west.getScannedDisplay(fish);
-        drawText(joshie.lib.util.Text.localize("fish.data.species"), -75, 19);
+        drawText(joshie.lib.util.Text.localize("mariculture.fish.data.species"), -75, 19);
 
         drawText(lifespan[0], -75, 29);
         drawText(fertility[0], -75, 39);

@@ -9,6 +9,7 @@ import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.util.CachedCoords;
+import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -369,7 +370,7 @@ public abstract class FishSpecies {
     /* Language/Icon */
     /** Fish's name **/
     public String getName() {
-        return StatCollector.translateToLocal("fish.data.species." + getSimpleName());
+        return StatCollector.translateToLocal("mariculture.fish.data.species." + getSimpleName());
     }
 
     /** Gendered Icons?, return true if your fish has a different icon for male or female fish **/

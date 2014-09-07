@@ -48,7 +48,7 @@ public class ItemFishy extends ItemMCBaseSingle {
         FishSpecies active = FishSpecies.species.get(Fish.species.getDNA(stack));
         FishSpecies inactive = FishSpecies.species.get(Fish.species.getLowerDNA(stack));
         if (active == null || inactive == null) return MCTranslate.translate("anyFish");
-        if (active != inactive) return joshie.lib.util.Text.AQUA + active.getName() + "-" + inactive.getName() + " " + joshie.lib.util.Text.localize("fish.data.hybrid") + convertToSymbol(Fish.gender.getDNA(stack));
+        if (active != inactive) return joshie.lib.util.Text.AQUA + active.getName() + "-" + inactive.getName() + " " + joshie.lib.util.Text.localize("mariculture.fish.data.hybrid") + convertToSymbol(Fish.gender.getDNA(stack));
         else return joshie.lib.util.Text.AQUA + active.getName() + convertToSymbol(Fish.gender.getDNA(stack));
     }
 

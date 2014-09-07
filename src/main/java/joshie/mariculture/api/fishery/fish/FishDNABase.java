@@ -8,6 +8,7 @@ import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class FishDNABase {
     protected String category;
@@ -219,6 +220,10 @@ public class FishDNABase {
 
     /** Returns the display data for this dna type in the fish scanner, make sure you return a string with three length **/
     public String[] getScannedDisplay(ItemStack stack) {
-        return new String[] { MCTranslate.translate("" + getName()), "" + getDNA(stack), "" + getLowerDNA(stack) };
+        return getScannedDisplay(stack, true);
+    }
+
+    public String[] getScannedDisplay(ItemStack stack, boolean numbers) {
+        return new String[] { StatCollector.translateToLocal("mariculture.fish.data." + getName().toLowerCase()), "" + getDNA(stack), "" + getLowerDNA(stack) };
     }
 }
