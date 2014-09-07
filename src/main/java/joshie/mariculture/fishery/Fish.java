@@ -58,7 +58,9 @@ import joshie.mariculture.fishery.fish.dna.FishDNAFertility;
 import joshie.mariculture.fishery.fish.dna.FishDNAFoodUsage;
 import joshie.mariculture.fishery.fish.dna.FishDNAGender;
 import joshie.mariculture.fishery.fish.dna.FishDNALifespan;
+import joshie.mariculture.fishery.fish.dna.FishDNASalinityTolerance;
 import joshie.mariculture.fishery.fish.dna.FishDNASpecies;
+import joshie.mariculture.fishery.fish.dna.FishDNATemperatureTolerance;
 import joshie.mariculture.fishery.fish.dna.FishDNAWaterRequired;
 import joshie.mariculture.fishery.fish.dna.FishDNAWorkEthic;
 import net.minecraft.item.ItemStack;
@@ -80,6 +82,8 @@ public class Fish {
     public static FishDNA down;
     public static FishDNA south;
     public static FishDNA north;
+    public static FishDNA salinity;
+    public static FishDNA temperature;
 
     public static FishSpecies nether;
     public static FishSpecies glow;
@@ -189,6 +193,22 @@ public class Fish {
         south = new FishDNAAreaOfEffect(ForgeDirection.SOUTH).setHidden().register();
         west = new FishDNAAreaOfEffect(ForgeDirection.WEST).setHidden().register();
         addEffectNames(new FishDNA[] { up, down, north, east, south, west });
+        
+        //Salinity Tolerance
+        salinity = new FishDNASalinityTolerance().setHidden().register();
+        salinity.add("intolerant", 0, 0, true);
+        salinity.add("tolerant", 1, 1, false);
+        salinity.add("hightolerant", 2, 2, false);
+        
+        //Temperature Tolerance
+        temperature = new FishDNATemperatureTolerance().setHidden().register();
+        temperature.add("fussy", 0, 1, true);
+        temperature.add("normal", 2, 3, true);
+        temperature.add("sltolerant", 4, 5, false); //slightly
+        temperature.add("tolerant", 6, 8, false);
+        temperature.add("vtolerant", 9, 14, false); //very
+        temperature.add("itolerant", 15, 25, false); //incredibly
+        temperature.add("etolerant", 26, 100, false); //extremely
     }
 
     private static void addEffectNames(FishDNA[] dnas) {

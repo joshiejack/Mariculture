@@ -39,4 +39,9 @@ public class FishDNAAreaOfEffect extends FishDNA {
     public Integer getDNAFromSpecies(FishSpecies species) {
         return species.getAreaOfEffectBonus(dir);
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 25;
+    }
 }

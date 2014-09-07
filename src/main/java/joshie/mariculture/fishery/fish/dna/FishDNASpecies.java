@@ -49,4 +49,9 @@ public class FishDNASpecies extends FishDNABase {
 
         return ret;
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 10;
+    }
 }

@@ -1,6 +1,7 @@
 Mariculture 1.2.4
 • Split in to two mods.
 • Fixed a potential crash with Mob Magnet
+• Fish now have two new dna traits, Salinity Tolerance and Temperature Tolerance, they now all have a base salinity and temperature, rather than fixed values and ranges like before.
 
 Mariculture 1.2.3d
 • Fix Autofisher out of bound crash when decreasing bait

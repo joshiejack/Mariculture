@@ -36,7 +36,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     protected EjectSetting setting;
     protected RedstoneMode mode;
     //GUI INT offset
-    protected int offset = 3;
+    protected int offset = 6;
     //Machine vars
     protected int max;
     protected boolean canWork;
@@ -46,7 +46,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     protected int[] rate;
 
     public TileMachineTank() {
-        inventory = new ItemStack[3];
+        inventory = new ItemStack[5];
         mode = RedstoneMode.LOW;
         setting = EjectSetting.NONE;
         output = new int[0];
@@ -136,7 +136,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     }
 
     //Called at all times
-    public void update() {
+    public void update() {        
         FluidHelper.process(this, 3, 4);
         autoeject();
     }

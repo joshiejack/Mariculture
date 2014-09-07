@@ -1,2 +1,4 @@
 Marine Technlogy 1.0.0
 • Split from Mariculture
+• Adds a DNA Extractor for Extracting Fish DNA
+• Add an Injector for Injecting Fish DNA

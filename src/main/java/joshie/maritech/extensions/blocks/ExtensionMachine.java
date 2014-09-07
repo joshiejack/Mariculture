@@ -1,23 +1,14 @@
 package joshie.maritech.extensions.blocks;
 
-import static joshie.maritech.lib.SpecialIcons.generatorBack;
-import static joshie.maritech.lib.SpecialIcons.sluiceAdvanced;
-import static joshie.maritech.lib.SpecialIcons.sluiceAdvancedBack;
-import static joshie.maritech.lib.SpecialIcons.sluiceAdvancedDown;
-import static joshie.maritech.lib.SpecialIcons.sluiceAdvancedUp;
-import static joshie.maritech.lib.SpecialIcons.sluiceBack;
-import static joshie.maritech.lib.SpecialIcons.sluiceDown;
-import static joshie.maritech.lib.SpecialIcons.sluiceUp;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.core.Core;
-import joshie.mariculture.core.blocks.BlockMachine;
 import joshie.mariculture.core.lib.MachineMeta;
-import joshie.mariculture.core.lib.MetalMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.network.PacketHandler;
 import joshie.maritech.network.PacketSponge;
 import joshie.maritech.tile.TileAutofisher;
+import joshie.maritech.tile.TileExtractor;
 import joshie.maritech.tile.TileGenerator;
+import joshie.maritech.tile.TileInjector;
 import joshie.maritech.tile.TileSluice;
 import joshie.maritech.tile.TileSluiceAdvanced;
 import joshie.maritech.tile.TileSponge;
@@ -29,14 +20,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ExtensionMachine extends ExtensionBlocksBase {
     @Override
@@ -52,6 +39,10 @@ public class ExtensionMachine extends ExtensionBlocksBase {
                 return "sluiceAdvanced";
             case MachineMeta.GENERATOR:
                 return "generator";
+            case MachineMeta.EXTRACTOR:
+                return "extractor";
+            case MachineMeta.INJECTOR:
+                return "injector";
         }
 
         return name;
@@ -65,6 +56,8 @@ public class ExtensionMachine extends ExtensionBlocksBase {
             case MachineMeta.AUTOFISHER:
             case MachineMeta.SLUICE_ADVANCED:
             case MachineMeta.GENERATOR:
+            case MachineMeta.EXTRACTOR:
+            case MachineMeta.INJECTOR:
                 return "maritech";
         }
 
@@ -100,6 +93,8 @@ public class ExtensionMachine extends ExtensionBlocksBase {
     public boolean isActive(int meta, boolean isActive) {
         switch (meta) {
             case MachineMeta.AUTOFISHER:
+            case MachineMeta.EXTRACTOR:
+            case MachineMeta.INJECTOR:
                 return Modules.isActive(Modules.fishery);
             case MachineMeta.SLUICE:
             case MachineMeta.SPONGE:
@@ -123,6 +118,8 @@ public class ExtensionMachine extends ExtensionBlocksBase {
             case MachineMeta.SPONGE:
             case MachineMeta.SLUICE_ADVANCED:
             case MachineMeta.GENERATOR:
+            case MachineMeta.EXTRACTOR:
+            case MachineMeta.INJECTOR:
                 return "pickaxe";
         }
 
@@ -133,6 +130,8 @@ public class ExtensionMachine extends ExtensionBlocksBase {
     public int getToolLevel(int meta, int level) {
         switch (meta) {
             case MachineMeta.SLUICE_ADVANCED:
+            case MachineMeta.EXTRACTOR:
+            case MachineMeta.INJECTOR:
                 return 2;
             case MachineMeta.SLUICE:
             case MachineMeta.SPONGE:
@@ -146,6 +145,8 @@ public class ExtensionMachine extends ExtensionBlocksBase {
     @Override
     public float getHardness(int meta, float hardness) {
         switch (meta) {
+            case MachineMeta.EXTRACTOR:
+            case MachineMeta.INJECTOR:
             case MachineMeta.SLUICE:
                 return 5F;
             case MachineMeta.GENERATOR:
@@ -173,6 +174,10 @@ public class ExtensionMachine extends ExtensionBlocksBase {
                 return new TileSluiceAdvanced();
             case MachineMeta.GENERATOR:
                 return new TileGenerator();
+            case MachineMeta.EXTRACTOR:
+                return new TileExtractor();
+            case MachineMeta.INJECTOR:
+                return new TileInjector();
         }
 
         return tile;

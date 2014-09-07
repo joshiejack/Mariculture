@@ -8,4 +8,9 @@ public class FishDNAFoodUsage extends FishDNA {
     public Integer getDNAFromSpecies(FishSpecies species) {
         return species.getFoodConsumption();
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 20;
+    }
 }

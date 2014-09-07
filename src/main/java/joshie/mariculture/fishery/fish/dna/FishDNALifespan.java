@@ -16,4 +16,9 @@ public class FishDNALifespan extends FishDNA {
         stack.stackTagCompound.setInteger("CurrentLife", data);
         return stack;
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 12;
+    }
 }

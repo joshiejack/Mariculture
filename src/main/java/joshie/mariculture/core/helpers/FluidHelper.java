@@ -96,9 +96,11 @@ public class FluidHelper {
         ItemStack result = getEmptyContainerForFilledItem(top);
         FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(top);
 
-        if (result != null && tile.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount) if (matches(top, bottom, result)) {
-            tile.fill(ForgeDirection.UNKNOWN, fluid, true);
-            return result;
+        if (result != null && tile.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount) {
+            if (matches(top, bottom, result)) {
+                tile.fill(ForgeDirection.UNKNOWN, fluid, true);
+                return result;
+            }
         }
 
         return null;
@@ -106,10 +108,12 @@ public class FluidHelper {
 
     private static ItemStack doFill(IFluidHandler tile, ItemStack top, ItemStack bottom) {
         ItemStack result = FluidContainerRegistry.fillFluidContainer(tile.drain(ForgeDirection.UNKNOWN, 100000, false), top);
-        if (result != null) if (matches(top, bottom, result)) {
-            FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
-            tile.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
-            return result;
+        if (result != null) {
+            if (matches(top, bottom, result)) {
+                FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
+                tile.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+                return result;
+            }
         }
 
         return null;
@@ -176,20 +180,19 @@ public class FluidHelper {
                     highest = element.fluid.amount;
                 }
 
-                if(element.filledContainer.getItem() instanceof ItemDroplet) {
+                if (element.filledContainer.getItem() instanceof ItemDroplet) {
                     continue;
                 }
-                
+
                 if (element.emptyContainer.getItem() == Items.bucket) return element.fluid.amount;
             }
         }
-        
+
         return highest;
     }
 
     public static boolean matches(ItemStack top, ItemStack bottom, ItemStack result) {
         if (bottom == null) return true;
-
         return bottom.isItemEqual(result) && bottom.stackSize < 64 && bottom.stackSize < bottom.getMaxStackSize();
     }
 

@@ -74,6 +74,26 @@ public abstract class FishSpecies {
     public abstract int[] setSuitableTemperature();
 
     public abstract Salinity[] setSuitableSalinity();
+    
+    /** This is base temperature of the fish species **/ //TODO: MARK AS ABSTRACT
+    public int getTemperatureBase() {
+        return 10;
+    }
+    
+    /** This is the temperature tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
+    public int getTemperatureTolerance() {
+        return 5;
+    }
+    
+    /** This is base salinity of the fish species **/ //TODO: MARK AS ABSTRACT
+    public Salinity getSalinityBase() {
+        return null;
+    }
+    
+    /** This is the salinity tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
+    public int getSalinityTolerance() {
+        return 0;
+    }
 
     /** This determines whether a fish item entity will still die when it's in water **/
     public boolean isLavaFish() {

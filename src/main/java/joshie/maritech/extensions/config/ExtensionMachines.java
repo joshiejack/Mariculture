@@ -21,6 +21,7 @@ public class ExtensionMachines implements IConfigExtension {
         setCategory("Speed Settings");
         MachineSpeeds.autofisher = getInt("Automatic Fisher", 2500);
         MachineSpeeds.incubator = getInt("Incubator", 400);
+        MachineSpeeds.dna = getInt("DNA Machines", 1000);
         
         setCategory("Client Settings", "The settings only affect clientside");
         ExtendedSettings.FLUDD_BLOCK_ANIM = getBoolean("FLUDD - Enable Particles", true);

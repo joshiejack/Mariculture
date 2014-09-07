@@ -8,4 +8,9 @@ public class FishDNAWorkEthic extends FishDNA {
     public Integer getDNAFromSpecies(FishSpecies species) {
         return species.getBaseProductivity();
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 30;
+    }
 }

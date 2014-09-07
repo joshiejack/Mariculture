@@ -8,4 +8,9 @@ public class FishDNAWaterRequired extends FishDNA {
     public Integer getDNAFromSpecies(FishSpecies species) {
         return species.getWaterRequired();
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 35;
+    }
 }

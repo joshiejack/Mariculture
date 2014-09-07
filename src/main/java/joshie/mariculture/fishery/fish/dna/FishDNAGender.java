@@ -23,4 +23,9 @@ public class FishDNAGender extends FishDNABase {
     public Integer getDNAFromSpecies(FishSpecies species) {
         return rand.nextInt(2);
     }
+    
+    @Override
+    public int getCopyChance() {
+        return 50;
+    }
 }

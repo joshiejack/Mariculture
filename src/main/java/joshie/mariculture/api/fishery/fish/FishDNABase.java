@@ -21,6 +21,11 @@ public class FishDNABase {
     public String getName() {
         return this.getClass().getSimpleName().substring(7);
     }
+    
+    /** The chance that this DNA is extracted by an extractor, 1 in this many **/
+    public int getCopyChance() {
+        return 10;
+    }
 
     /** The name of the string the egg array saves this in **/
     public String getEggString() {

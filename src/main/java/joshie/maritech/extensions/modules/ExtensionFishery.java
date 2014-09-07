@@ -18,22 +18,27 @@ import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.fishery.Fishery;
 import joshie.maritech.items.ItemBattery;
+import joshie.maritech.items.ItemFishDNA;
 import joshie.maritech.items.ItemFluxRod;
 import joshie.maritech.lib.MTLib;
 import joshie.maritech.tile.TileAutofisher;
+import joshie.maritech.tile.TileExtractor;
 import joshie.maritech.tile.TileIncubator;
+import joshie.maritech.tile.TileInjector;
 import joshie.maritech.util.IModuleExtension;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ExtensionFishery implements IModuleExtension {
+    public static Item dna;
     public static Item rodFlux;
 
     @Override
     public void preInit() {
+        dna = new ItemFishDNA().setUnlocalizedName("dna");
         rodFlux = new ItemFluxRod().setUnlocalizedName("rod.flux");
-        RegistryHelper.registerTiles("Mariculture", new Class[] { TileAutofisher.class, TileIncubator.class });
+        RegistryHelper.registerTiles("Mariculture", new Class[] { TileAutofisher.class, TileIncubator.class, TileExtractor.class, TileInjector.class });
     }
 
     @Override

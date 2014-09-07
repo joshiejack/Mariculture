@@ -17,7 +17,7 @@ public class GuiScanner extends GuiStorage {
     private ItemStack fish;
 
     public GuiScanner(IInventory playerInv, InventoryStorage storage, World world, String gui) {
-        super(playerInv, storage, world, gui, 30);
+        super(playerInv, storage, world, gui, 44);
         features.add(new FeatureScanner());
         nameHeight = -9;
     }
@@ -57,6 +57,8 @@ public class GuiScanner extends GuiStorage {
         String[] production = Fish.production.getScannedDisplay(fish);
         String[] foodUsage = Fish.foodUsage.getScannedDisplay(fish);
         String[] tankSize = Fish.tankSize.getScannedDisplay(fish);
+        String[] salinity = Fish.salinity.getScannedDisplay(fish);
+        String[] temperature = Fish.temperature.getScannedDisplay(fish);
         String[] up = Fish.up.getScannedDisplay(fish);
         String[] down = Fish.down.getScannedDisplay(fish);
         String[] north = Fish.north.getScannedDisplay(fish);
@@ -70,12 +72,14 @@ public class GuiScanner extends GuiStorage {
         drawText(production[0], -75, 49);
         drawText(foodUsage[0], -75, 59);
         drawText(tankSize[0], -75, 69);
-        drawText(up[0], -75, 79);
-        drawText(down[0], -75, 89);
-        drawText(north[0], -75, 99);
-        drawText(east[0], -75, 109);
-        drawText(south[0], -75, 119);
-        drawText(west[0], -75, 129);
+        drawText(salinity[0], -75, 79);
+        drawText(temperature[0], -75, 89);
+        drawText(up[0], -75, 99);
+        drawText(down[0], -75, 109);
+        drawText(north[0], -75, 119);
+        drawText(east[0], -75, 129);
+        drawText(south[0], -75, 139);
+        drawText(west[0], -75, 149);
 
         // Column 'Dominant'
         drawText(joshie.lib.util.Text.BOLD + "Active", 20, 10);
@@ -85,12 +89,14 @@ public class GuiScanner extends GuiStorage {
         drawText(production[1], 20, 50);
         drawText(foodUsage[1], 20, 60);
         drawText(tankSize[1], 20, 70);
-        drawText(up[1], 20, 80);
-        drawText(down[1], 20, 90);
-        drawText(north[1], 20, 100);
-        drawText(east[1], 20, 110);
-        drawText(south[1], 20, 120);
-        drawText(west[1], 20, 130);
+        drawText(salinity[1], 20, 80);
+        drawText(temperature[1], 20, 90);
+        drawText(up[1], 20, 100);
+        drawText(down[1], 20, 110);
+        drawText(north[1], 20, 120);
+        drawText(east[1], 20, 130);
+        drawText(south[1], 20, 140);
+        drawText(west[1], 20, 150);
 
         // Column Recessive
         drawText(joshie.lib.util.Text.BOLD + "Inactive", 140, 10);
@@ -100,12 +106,14 @@ public class GuiScanner extends GuiStorage {
         drawText(production[2], 140, 50);
         drawText(foodUsage[2], 140, 60);
         drawText(tankSize[2], 140, 70);
-        drawText(up[2], 140, 80);
-        drawText(down[2], 140, 90);
-        drawText(north[2], 140, 100);
-        drawText(east[2], 140, 110);
-        drawText(south[2], 140, 120);
-        drawText(west[2], 140, 130);
+        drawText(salinity[2], 140, 80);
+        drawText(temperature[2], 140, 90);
+        drawText(up[2], 140, 100);
+        drawText(down[2], 140, 110);
+        drawText(north[2], 140, 120);
+        drawText(east[2], 140, 130);
+        drawText(south[2], 140, 140);
+        drawText(west[2], 140, 150);
         GL11.glPopMatrix();
     }
 }
