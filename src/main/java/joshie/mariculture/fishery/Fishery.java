@@ -123,6 +123,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -343,7 +344,9 @@ public class Fishery extends RegistrationModule {
     private void addDropletRecipes() {
         for (int i = 0; i < DropletMeta.COUNT; i++) {
             FluidStack stack = ((ItemDroplet) droplet).getFluidStack(i);
-            if (stack != null) FluidContainerRegistry.registerFluidContainer(stack, new ItemStack(droplet, 1, i));
+            if (stack != null) {
+                FluidContainerRegistry.registerFluidContainer(stack, new ItemStack(droplet, 1, i), new ItemStack(droplet, 1, DropletMeta.USELESS));
+            }
         }
 
         addNuggetCasting(getFluidStack("ice", 250), asStack(snowball));

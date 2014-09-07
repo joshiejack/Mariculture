@@ -136,23 +136,26 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     }
 
     //Called at all times
-    public void update() {        
-        FluidHelper.process(this, 3, 4);
+    public void update() {
+        FluidHelper.process(tank, this, 3, 4);
         autoeject();
     }
 
     //Called by the update method, to autoeject any items that are install inside the machine
     public void autoeject() {
-        if (output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) if (setting.canEject(EjectSetting.ITEM)) {
-            for (int i : output)
-                if (inventory[i] != null) {
-                    ItemStack ejecting = inventory[i].copy();
-                    inventory[i] = null;
-                    if (ejecting != null) {
-                        helper.insertStack(ejecting, output);
-                        updateCanWork();
+        if (output.length > 0 && onTick(Ticks.ITEM_EJECT_TICK)) {
+            if (setting.canEject(EjectSetting.ITEM)) {
+                for (int i : output) {
+                    if (inventory[i] != null) {
+                        ItemStack ejecting = inventory[i].copy();
+                        inventory[i] = null;
+                        if (ejecting != null) {
+                            helper.insertStack(ejecting, output);
+                            updateCanWork();
+                        }
                     }
                 }
+            }
         }
     }
 
@@ -216,7 +219,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
                 break;
         }
     }
-    
+
     @Override
     public ArrayList<Integer> getGUIData() {
         return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed, tank.getFluidID(), tank.getFluidAmount(), tank.getCapacity() }));

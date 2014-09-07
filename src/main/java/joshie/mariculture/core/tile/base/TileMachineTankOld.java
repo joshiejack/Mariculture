@@ -168,7 +168,7 @@ public abstract class TileMachineTankOld extends TileStorageTank implements IUpg
     }
 
     public void emptyContainers() {
-        FluidHelper.process(this, 3, 4);
+        FluidHelper.process(tank, this, 3, 4);
     }
 
     @Override

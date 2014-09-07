@@ -120,7 +120,7 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
         machineTick++;
 
         if (onTick(20)) {
-            FluidHelper.process(this, 3, 4);
+            FluidHelper.process(tank, this, 3, 4);
             updateUpgrades();
         }
 

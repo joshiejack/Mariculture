@@ -64,6 +64,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return "frozen";
             case DropletMeta.PLANT:
                 return "plant";
+            case DropletMeta.USELESS:
+                return "useless";
             default:
                 return "water";
         }
@@ -115,15 +117,21 @@ public class ItemDroplet extends ItemMCMeta {
                 return null;
         }
     }
+    
+    @Override
+    public boolean isActive(int meta) {
+        return meta != DropletMeta.USELESS;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         icons = new IIcon[getMetaCount()];
-        for (int i = 0; i < icons.length; i++)
+        for (int i = 0; i < icons.length; i++) {
             if (isActive(i)) {
                 String name = getName(new ItemStack(this, 1, i));
                 icons[i] = iconRegister.registerIcon(Mariculture.modid + ":droplet" + name.substring(0, 1).toUpperCase() + name.substring(1));
             }
+        }
     }
 }

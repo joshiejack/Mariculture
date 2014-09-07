@@ -22,7 +22,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
     @Override
     public int getTankCapacity(int storage) {
         int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
-        return (140 * tankRate + storage * 8 * tankRate) * (slaves.size() + 1);
+        return Math.max(1, (200 * tankRate + storage * 8 * tankRate) * (slaves.size() + 1));
     }
 
     private static final int in = 3;
@@ -76,7 +76,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
         }
 
         fillSpecial();
-        FluidHelper.process(this, 3, 4);
+        FluidHelper.process(tank, this, 3, 4);
         updateUpgrades();
 
         mstr.markDirty();
@@ -85,7 +85,7 @@ public class TilePressureVessel extends TileMultiMachineTank {
     @Override
     public Packet getDescriptionPacket() {
         fillSpecial();
-        FluidHelper.process(this, 3, 4);
+        FluidHelper.process(tank, this, 3, 4);
         updateUpgrades();
         return super.getDescriptionPacket();
     }

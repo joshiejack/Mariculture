@@ -20,4 +20,19 @@ public class ItemFishDNA extends ItemMCDamageable {
         stack.stackTagCompound.setInteger("DNAValue", value);
         return stack;
     }
+
+    public static ItemStack add(ItemStack dnaStack, ItemStack fish) {
+        ItemStack ret = fish.copy();
+        String type = dnaStack.stackTagCompound.getString("DNAType");
+        for (FishDNABase dna : FishDNABase.DNAParts) {
+            if (type.equals(dna.getHigherString())) {
+                //Found the matching dna
+                dna.addDNA(ret, dnaStack.stackTagCompound.getInteger("DNAValue"));
+                dna.addLowerDNA(ret, dnaStack.stackTagCompound.getInteger("DNAValue"));
+                return ret;
+            }
+        }
+
+        return ret;
+    }
 }

@@ -6,11 +6,14 @@ import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import joshie.mariculture.core.lib.MachineSpeeds;
 import joshie.mariculture.core.util.Fluids;
+import joshie.mariculture.core.util.Tank;
 import joshie.maritech.items.ItemFishDNA;
 import joshie.maritech.tile.base.TileTankPowered;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public class TileExtractor extends TileTankPowered {
+    public static final int FISH_OIL_REQUIRED = 10000;
     public static final int FISH = 6;
     
     public TileExtractor() {
@@ -36,7 +39,8 @@ public class TileExtractor extends TileTankPowered {
 
     @Override
     public int getTankCapacity(int size) {
-        return (1 + size) * 2500;
+        int tankRate = FluidContainerRegistry.BUCKET_VOLUME;
+        return (tankRate * 10) + (storage * tankRate * 10);
     }
 
     @Override
@@ -46,7 +50,15 @@ public class TileExtractor extends TileTankPowered {
 
     @Override
     public int getRFCapacity() {
-        return (1 + rf) * 100000;
+        return 100000;
+    }
+    
+    @Override
+    public void updatePowerPerTick() {
+        if (rf <= 300000) {
+            double modifier = 1D - (rf / 300000D) * 0.75D;
+            usage = (int) (modifier * (120 + ((speed - 1) * 60)));
+        } else usage = 1;
     }
 
     private boolean hasFish() {
@@ -54,7 +66,7 @@ public class TileExtractor extends TileTankPowered {
     }
 
     private boolean hasFishOil() {
-        return tank.getFluid() != null && tank.getFluid().getFluid() == Fluids.getFluid("fish_oil") && tank.getFluidAmount() >= 2500;
+        return tank.getFluid() != null && tank.getFluid().getFluid() == Fluids.getFluid("fish_oil") && tank.getFluidAmount() >= FISH_OIL_REQUIRED;
     }
 
     private boolean hasPower() {
@@ -68,7 +80,7 @@ public class TileExtractor extends TileTankPowered {
 
     @Override
     public void process() {
-        tank.drain(2500, true);
+        tank.drain(FISH_OIL_REQUIRED, true);
         //Loop through the fishies dna
         for (FishDNABase dna : FishDNABase.DNAParts) {
             int higher = dna.getDNA(inventory[FISH]);

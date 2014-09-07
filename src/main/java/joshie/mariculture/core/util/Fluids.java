@@ -74,4 +74,10 @@ public class Fluids {
     public static FluidStack getBalancedStack(String fluid) {
         return new FluidStack(getFluid(fluid), getBalancedVolume(fluid));
     }
+    
+    public static boolean isBlood(String blood) {
+        System.out.println(blood);
+        
+        return blood.equals("life essence") || blood.equals("blood");
+    }
 }

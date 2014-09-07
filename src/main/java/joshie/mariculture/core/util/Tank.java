@@ -1,5 +1,8 @@
 package joshie.mariculture.core.util;
 
+import java.util.List;
+
+import joshie.mariculture.core.helpers.FluidHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidEvent;
@@ -7,7 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
 
-public class Tank implements IFluidTank {
+public class Tank implements IFluidTank, ITank {
     protected FluidStack fluid;
     protected int capacity;
     protected TileEntity tile;
@@ -154,5 +157,40 @@ public class Tank implements IFluidTank {
     public int fill(FluidStack resource, boolean doFill, Tank tank) {
         if (resource.fluidID == tank.getFluidID()) return 0;
         return fill(resource, doFill);
+    }
+
+    @Override
+    public FluidStack getFluid(int transfer) {
+        if (getFluid() == null) return null;
+        if (getFluidAmount() - transfer < 0) return null;
+        return new FluidStack(getFluidID(), transfer);
+    }
+
+    @Override
+    public int getTankScaled(int i) {
+        int qty = getFluidAmount();
+        int max = getCapacity();
+
+        return max != 0 ? qty * i / max : 0;
+    }
+
+    @Override
+    public FluidStack getFluid(byte tank) {
+        return getFluid();
+    }
+
+    @Override
+    public String getFluidName() {
+        return FluidHelper.getFluidName(getFluid());
+    }
+
+    @Override
+    public List getFluidQty(List tooltip) {
+        return FluidHelper.getFluidQty(tooltip, getFluid(), getCapacity());
+    }
+
+    @Override
+    public void setFluid(FluidStack fluid, byte tank) {
+        setFluid(fluid);
     }
 }

@@ -12,7 +12,9 @@ import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.FluidMari;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.core.util.MCTranslate;
+import joshie.mariculture.core.util.Tank;
 import joshie.mariculture.fishery.FishFoodHandler;
+import joshie.mariculture.fishery.Fishery;
 import joshie.mariculture.fishery.items.ItemDroplet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -53,27 +55,23 @@ public class FluidHelper {
         return stack != null && stack.getItem() instanceof IFluidContainerItem;
     }
 
-    public static ItemStack getFluidResult(IFluidHandler tile, ItemStack top, ItemStack bottom) {
+    public static ItemStack getFluidResult(Tank tank, ItemStack top, ItemStack bottom) {
         if (top != null) {
-            if (isVoid(top)) return doVoid(tile, top, bottom);
-
-            if (isEmpty(top)) return doFill(tile, top, bottom);
-
-            if (isFilled(top)) return doEmpty(tile, top, bottom);
-
-            if (isIContainer(top)) return doIContainer(tile, top, bottom);
-
-            if (FishFoodHandler.isFishFood(top)) return addFishFood(tile, top);
+            if (isVoid(top)) return doVoid(tank, top, bottom);
+            if (isEmpty(top)) return doFill(tank, top, bottom);
+            if (isFilled(top)) return doEmpty(tank, top, bottom);
+            if (isIContainer(top)) return doIContainer(tank, top, bottom);
+            if (FishFoodHandler.isFishFood(top)) return addFishFood(tank, top);
         }
 
         return null;
     }
 
-    private static ItemStack addFishFood(IFluidHandler tile, ItemStack stack) {
+    private static ItemStack addFishFood(Tank tank, ItemStack stack) {
         int increase = FishFoodHandler.getValue(stack);
-        int fill = tile.fill(ForgeDirection.UP, Fluids.getFluidStack("fish_food", increase), false);
+        int fill = tank.fill(Fluids.getFluidStack("fish_food", increase), false);
         if (fill >= increase) {
-            tile.fill(ForgeDirection.UP, Fluids.getFluidStack("fish_food", increase), true);
+            tank.fill(Fluids.getFluidStack("fish_food", increase), true);
             return new ItemStack(Core.air);
         }
 
@@ -92,13 +90,16 @@ public class FluidHelper {
         return result != null ? result : stack.getItem().hasContainerItem(stack) ? stack.getItem().getContainerItem(stack) : null;
     }
 
-    private static ItemStack doEmpty(IFluidHandler tile, ItemStack top, ItemStack bottom) {
+    private static ItemStack doEmpty(Tank tank, ItemStack top, ItemStack bottom) {
         ItemStack result = getEmptyContainerForFilledItem(top);
         FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(top);
+        if (top.getItem() == Fishery.droplet) {
+            result = new ItemStack(Core.air);
+        }
 
-        if (result != null && tile.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount) {
+        if (result != null && tank.fill(fluid, false) == fluid.amount) {
             if (matches(top, bottom, result)) {
-                tile.fill(ForgeDirection.UNKNOWN, fluid, true);
+                tank.fill(fluid, true);
                 return result;
             }
         }
@@ -106,12 +107,12 @@ public class FluidHelper {
         return null;
     }
 
-    private static ItemStack doFill(IFluidHandler tile, ItemStack top, ItemStack bottom) {
-        ItemStack result = FluidContainerRegistry.fillFluidContainer(tile.drain(ForgeDirection.UNKNOWN, 100000, false), top);
+    private static ItemStack doFill(Tank tank, ItemStack top, ItemStack bottom) {
+        ItemStack result = FluidContainerRegistry.fillFluidContainer(tank.drain(100000, false), top);
         if (result != null) {
             if (matches(top, bottom, result)) {
                 FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(result);
-                tile.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+                tank.drain(fluid.amount, true);
                 return result;
             }
         }
@@ -119,21 +120,21 @@ public class FluidHelper {
         return null;
     }
 
-    private static ItemStack doIContainer(IFluidHandler tile, ItemStack top, ItemStack bottom) {
+    private static ItemStack doIContainer(Tank tank, ItemStack top, ItemStack bottom) {
         if (bottom != null) return null;
         IFluidContainerItem container = (IFluidContainerItem) top.getItem();
         FluidStack fluid = container.getFluid(top);
         if (fluid != null) {
             FluidStack stack = container.drain(top, 1000000, false);
             if (stack != null) {
-                stack.amount = tile.fill(ForgeDirection.UNKNOWN, stack, false);
+                stack.amount = tank.fill(stack, false);
                 if (stack.amount > 0) {
                     container.drain(top, stack.amount, true);
-                    tile.fill(ForgeDirection.UNKNOWN, stack, true);
+                    tank.fill(stack, true);
                 } else return null;
             }
         } else {
-            FluidStack stack = tile.drain(ForgeDirection.UNKNOWN, MetalRates.INGOT, true);
+            FluidStack stack = tank.drain(MetalRates.INGOT, true);
             if (stack != null && stack.amount > 0) {
                 container.fill(top, stack, true);
             } else return null;
@@ -142,20 +143,20 @@ public class FluidHelper {
         return top;
     }
 
-    public static ItemStack doVoid(IFluidHandler tile, ItemStack top, ItemStack bottom) {
+    public static ItemStack doVoid(Tank tank, ItemStack top, ItemStack bottom) {
         if (matches(top, bottom, new ItemStack(Core.bottles, 1, BottleMeta.EMPTY))) {
-            FluidStack fluid = tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, false);
+            FluidStack fluid = tank.drain(OreDictionary.WILDCARD_VALUE, false);
             if (fluid == null || fluid != null && fluid.amount <= 0) return null;
 
-            tile.drain(ForgeDirection.UNKNOWN, OreDictionary.WILDCARD_VALUE, true);
+            tank.drain(OreDictionary.WILDCARD_VALUE, true);
             return new ItemStack(Core.bottles, 1, BottleMeta.EMPTY);
         }
 
         return null;
     }
 
-    public static void process(IInventory invent, int in, int out) {
-        ItemStack result = getFluidResult((IFluidHandler) invent, invent.getStackInSlot(in), invent.getStackInSlot(out));
+    public static void process(Tank tank, IInventory invent, int in, int out) {
+        ItemStack result = getFluidResult(tank, invent.getStackInSlot(in), invent.getStackInSlot(out));
         if (result != null) {
             invent.decrStackSize(in, 1);
             if (result.getItem() != Item.getItemFromBlock(Core.air)) if (invent.getStackInSlot(out) == null) {
