@@ -5,9 +5,13 @@ import static joshie.mariculture.core.helpers.RecipeHelper.addShapeless;
 import static joshie.mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static joshie.mariculture.core.helpers.RecipeHelper.asStack;
 import static joshie.mariculture.core.lib.MCLib.baseWood;
+import static joshie.mariculture.core.lib.MCLib.goldSilk;
 import static joshie.mariculture.core.lib.MCLib.greyClay;
 import static joshie.mariculture.core.lib.MCLib.heating;
+import static joshie.mariculture.core.lib.MCLib.life;
 import static joshie.mariculture.core.lib.MCLib.string;
+import static joshie.mariculture.core.lib.MCLib.thermometer;
+import static joshie.mariculture.core.lib.MCLib.titaniumRod;
 import static joshie.mariculture.core.lib.MCLib.whiteClay;
 import static joshie.mariculture.core.util.Fluids.getFluidName;
 import joshie.lib.helpers.RegistryHelper;
@@ -15,6 +19,7 @@ import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.Loot;
 import joshie.mariculture.api.fishery.Loot.Rarity;
 import joshie.mariculture.api.fishery.RodType;
+import joshie.mariculture.core.lib.MCLib;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.fishery.Fishery;
 import joshie.maritech.items.ItemBattery;
@@ -52,6 +57,12 @@ public class ExtensionFishery implements IModuleExtension {
         charged.stackTagCompound.setInteger("Energy", 250000);
         addShapeless(charged, new Object[] { asStack(ExtensionFishery.rodFlux), "blockRedstone" });
         addVatItemRecipe(charged, getFluidName("flux"), 1000, asStack(ExtensionFishery.rodFlux), 15);
+        
+        ItemStack scuba = Modules.isActive(Modules.diving)? asStack(ExtensionDiving.scubaMask): MCLib.fishSorter;
+        ItemStack turbine = Modules.isActive(Modules.factory)? asStack(ExtensionFactory.turbineTitanium): MCLib.ironWheel;
+        ItemStack gold = Modules.isActive(Modules.factory)? MTLib.goldPlastic: goldSilk;
+        addShaped(MTLib.extractor, new Object[] { " H ", "PSP", "TBT", 'H', life, 'P', titaniumRod, 'S', Fishery.scanner, 'T', turbine, 'B', "blockTitanium" });
+        addShaped(MTLib.injector, new Object[] { " S ", "GTG", "BEB", 'S', scuba, 'G', gold, 'T', thermometer, 'B', ExtensionCore.batteryTitanium, 'E', MTLib.extractor });
         
         Fishing.fishing.registerRod(rodFlux, RodType.FLUX);
     }

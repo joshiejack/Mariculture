@@ -13,7 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MTLib {
-
+    public static final ItemStack extractor = new ItemStack(Core.machines, 1, MachineMeta.EXTRACTOR);
+    public static final ItemStack injector = new ItemStack(Core.machines, 1, MachineMeta.INJECTOR);
     public static final ItemStack generator = new ItemStack(Core.machines, 1, MachineMeta.GENERATOR);
     public static final ItemStack sluiceAdvanced = new ItemStack(Core.machines, 1, MachineMeta.SLUICE_ADVANCED);
     public static final ItemStack sluice = new ItemStack(Core.machines, 1, MachineMeta.SLUICE);
