@@ -34,7 +34,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
 
     public TileInjector() {
         inventory = new ItemStack[13];
-        max = MachineSpeeds.getDNAMachineSpeed();
+        max = MachineSpeeds.getDNAMachineSpeed() * 5;
         output = new int[] { 9 };
         rate = new int[0];
         tank = new Tank(getTankCapacity(0));
@@ -54,7 +54,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     public void updatePowerPerTick() {
         if (rf <= 300000) {
             double modifier = 1D - (rf / 300000D) * 0.75D;
-            usage = (int) (modifier * (400 + ((speed - 1) * 200)));
+            usage = (int) (modifier * (400 + ((speed - 1) * 400)));
         } else usage = 1;
     }
 
