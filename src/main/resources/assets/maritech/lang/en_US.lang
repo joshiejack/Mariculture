@@ -26,6 +26,8 @@ maritech.machines.single.sluice=Sluice
 maritech.machines.single.sluiceadvanced=Advanced Sluice
 maritech.machines.single.generator=Generator
 maritech.machines.single.sponge=Mechanized Sponge
+maritech.machines.single.extractor=DNA Extractor
+maritech.machines.single.injector=DNA Injector
 maritech.machines.single.rendered.fludd=F.L.U.D.D.
 maritech.machines.single.rendered.rotorcopper=Copper Rotor
 maritech.machines.single.rendered.rotoraluminum=Aluminum Rotor
@@ -42,7 +44,12 @@ maritech.machines.single.autofisher=Automatic Fisher
 maritech.machines.multi.incubator=Incubator
 maritech.machines.multi.incubatorbase=Incubator Base
 maritech.machines.multi.incubatortop=Incubator Top
-mariculture.crafting.dragonegg=Spawn Ender Dragon
+maritech.crafting.dragonegg=Spawn Ender Dragon
+maritech.dna.format=%N %D
+maritech.dna=DNA
+maritech.dna.corrupt=Corrupted DNA
+maritech.dna.name=DNA Name
+maritech.dna.value=DNA Value
 
 #Transport Module Extensions
 maritech.boat.speed=Speed Boat

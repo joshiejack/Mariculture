@@ -31,8 +31,8 @@ public class GuiExtractor extends GuiMariculture {
     }
 
     @Override
-    public void addToolTip() {
-        return;
+    public int getX() {
+        return 10;
     }
 
     @Override
@@ -43,6 +43,6 @@ public class GuiExtractor extends GuiMariculture {
     @Override
     public void drawBackground(int x, int y) {
         int progress = tile.getProgressScaled(47);
-        drawTexturedModalRect(x + 85, y + 7, 185, 7, progress, 81);
+        drawTexturedModalRect(x + 85, y + 7, 209, 7, progress, 81);
     }
 }

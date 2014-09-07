@@ -46,6 +46,6 @@ public class GuiInjector extends GuiMariculture {
     @Override
     public void drawBackground(int x, int y) {
         int progress = tile.getProgressScaled(53);
-        drawTexturedModalRect(x + 107, y + 25, 184, 25, progress, 44);
+        drawTexturedModalRect(x + 107, y + 25, 194, 25, progress, 44);
     }
 }
