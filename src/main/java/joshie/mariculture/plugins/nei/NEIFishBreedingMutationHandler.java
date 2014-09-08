@@ -6,8 +6,8 @@ import java.util.List;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.IMutation.Mutation;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.api.fishery.interfaces.IMutation.Mutation;
 import joshie.mariculture.fishery.Fish;
 import joshie.mariculture.fishery.FishyHelper;
 import joshie.mariculture.fishery.items.ItemFishy;

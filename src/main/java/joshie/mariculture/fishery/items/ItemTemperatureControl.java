@@ -2,8 +2,8 @@ package joshie.mariculture.fishery.items;
 
 import java.util.List;
 
-import joshie.mariculture.api.core.IItemUpgrade;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.core.interfaces.IItemUpgrade;
 import joshie.mariculture.core.gui.InventoryStorage;
 import joshie.mariculture.core.items.ItemMCStorage;
 import joshie.mariculture.core.util.MCTranslate;

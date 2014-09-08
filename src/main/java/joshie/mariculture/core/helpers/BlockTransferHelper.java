@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import joshie.lib.helpers.ItemHelper;
-import joshie.mariculture.api.core.IBlacklisted;
+import joshie.mariculture.api.core.interfaces.IBlacklisted;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.helpers.cofh.InventoryHelper;
 import joshie.mariculture.core.tile.base.TileMultiBlock;

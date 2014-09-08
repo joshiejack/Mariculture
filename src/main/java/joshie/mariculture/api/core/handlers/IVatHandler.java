@@ -1,7 +1,8 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
 
 import java.util.ArrayList;
 
+import joshie.mariculture.api.core.recipes.RecipeVat;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 

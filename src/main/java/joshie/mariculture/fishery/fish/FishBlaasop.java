@@ -1,6 +1,5 @@
 package joshie.mariculture.fishery.fish;
 
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletEarth;
 import static joshie.mariculture.core.lib.MCLib.dropletPoison;
@@ -14,15 +13,25 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-public class FishBlaasop extends FishSpecies {
+public class FishBlaasop extends FishSpecies {    
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -3, 20 };
+    public int getTemperatureBase() {
+        return 8;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 12;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

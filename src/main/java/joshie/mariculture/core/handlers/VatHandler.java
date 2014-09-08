@@ -2,8 +2,8 @@ package joshie.mariculture.core.handlers;
 
 import java.util.ArrayList;
 
-import joshie.mariculture.api.core.IVatHandler;
-import joshie.mariculture.api.core.RecipeVat;
+import joshie.mariculture.api.core.handlers.IVatHandler;
+import joshie.mariculture.api.core.recipes.RecipeVat;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.helpers.ItemHelper;
 import joshie.mariculture.core.helpers.OreDicHelper;

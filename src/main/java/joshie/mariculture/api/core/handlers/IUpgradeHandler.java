@@ -1,4 +1,6 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
+
+import joshie.mariculture.api.core.interfaces.IUpgradable;
 
 public interface IUpgradeHandler {
     /** Returns the Storage, Purity or Heat value total of the upgradable tile, 

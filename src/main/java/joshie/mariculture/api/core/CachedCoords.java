@@ -1,4 +1,4 @@
-package joshie.mariculture.api.util;
+package joshie.mariculture.api.core;
 
 public class CachedCoords {
     public int x;

@@ -1,8 +1,6 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
-import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletFlux;
 import static joshie.mariculture.core.lib.MCLib.dropletRegen;
 import static joshie.mariculture.core.lib.MCLib.dropletWater;
@@ -10,10 +8,10 @@ import static joshie.mariculture.core.lib.MCLib.dropletWater;
 import java.util.ArrayList;
 
 import joshie.lib.helpers.PowerHelper;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
-import joshie.mariculture.api.util.CachedCoords;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -21,13 +19,23 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
 public class FishElectricRay extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 5, 21 };
+    public int getTemperatureBase() {
+        return 13;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE, BRACKISH, FRESH };
+    public int getTemperatureTolerance() {
+        return 8;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return BRACKISH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

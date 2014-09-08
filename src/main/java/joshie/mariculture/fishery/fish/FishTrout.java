@@ -24,15 +24,26 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
+
 public class FishTrout extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -1, 35 };
+    public int getTemperatureBase() {
+        return 17;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 18;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

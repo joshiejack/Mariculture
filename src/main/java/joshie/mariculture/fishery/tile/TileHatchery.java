@@ -2,7 +2,7 @@ package joshie.mariculture.fishery.tile;
 
 import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.IIncubator;
+import joshie.mariculture.api.fishery.interfaces.IIncubator;
 import joshie.mariculture.core.lib.MachineSpeeds;
 import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.core.network.PacketParticle;

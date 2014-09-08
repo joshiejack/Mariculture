@@ -14,15 +14,26 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 public class FishLamprey extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -3, 5 };
+    public int getTemperatureBase() {
+        return 1;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

@@ -6,9 +6,9 @@ import java.util.Random;
 import java.util.UUID;
 
 import joshie.mariculture.api.core.Environment.Salinity;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.fishery.RodType;
-import joshie.mariculture.api.util.CachedCoords;
 import joshie.mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -35,8 +35,6 @@ public abstract class FishSpecies {
 
     //The Products this species produces and the biomes they can live in
     private static final HashMap<String, ArrayList<FishProduct>> products = new HashMap();
-    public int[] temperature;
-    public Salinity[] salinity;
     public String modid;
 
     //The Fish Icons
@@ -50,8 +48,6 @@ public abstract class FishSpecies {
 
     //This is called when creating a fish, it can be ignore by you
     public final FishSpecies setup(String mod) {
-        temperature = setSuitableTemperature();
-        salinity = setSuitableSalinity();
         modid = mod;
         return this;
     }
@@ -68,33 +64,20 @@ public abstract class FishSpecies {
 
     //Helper method ignore
     protected final boolean isAcceptedTemperature(int temp) {
-        return temp >= temperature[0] && temp <= temperature[1];
+        return temp >= (getTemperatureBase() - getTemperatureTolerance()) && temp <= (getTemperatureBase() + getTemperatureTolerance());
     }
-
-    /** These are called to set the temperature, and salinity this fish type requires, temperature is two integers, minimum to maximum in degrees C **/
-    public abstract int[] setSuitableTemperature();
-
-    public abstract Salinity[] setSuitableSalinity();
     
     /** This is base temperature of the fish species **/ //TODO: MARK AS ABSTRACT
-    public int getTemperatureBase() {
-        return 10;
-    }
+    public abstract int getTemperatureBase();
     
     /** This is the temperature tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
-    public int getTemperatureTolerance() {
-        return 5;
-    }
+    public abstract int getTemperatureTolerance();
     
     /** This is base salinity of the fish species **/ //TODO: MARK AS ABSTRACT
-    public Salinity getSalinityBase() {
-        return null;
-    }
+    public abstract Salinity getSalinityBase();
     
     /** This is the salinity tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
-    public int getSalinityTolerance() {
-        return 0;
-    }
+    public abstract int getSalinityTolerance();
 
     /** This determines whether a fish item entity will still die when it's in water **/
     public boolean isLavaFish() {
@@ -333,7 +316,7 @@ public abstract class FishSpecies {
     /** Return the catch chance based on the variables, return 0 for no catch
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
     public double getCatchChance(World world, Salinity salt, int temp, int height) {
-        return MaricultureHandlers.environment.matches(salt, temp, salinity, temperature) ? getCatchChance(world, height) : 0D;
+        return MaricultureHandlers.environment.matches(salt, temp, getSalinityBase(), getSalinityTolerance(), getTemperatureBase(), getTemperatureTolerance()) ? getCatchChance(world, height) : 0D;
     }
 
     /** This is called when disable biome catching is active or from the above method **/
@@ -359,7 +342,7 @@ public abstract class FishSpecies {
      * The Y Height fishing At
      *  -- This method is bypassed if ignore biome catch chance is enabled -- **/
     public double getCaughtAliveChance(World world, Salinity salt, int temp, int height) {
-        return isAcceptedTemperature(temp) && salt == salinity[0] ? getCaughtAliveChance(world, height) : 0D;
+        return isAcceptedTemperature(temp) && salt == getSalinityBase() ? getCaughtAliveChance(world, height) : 0D;
     }
 
     /** Called when biome catching is disabled or from the above method **/

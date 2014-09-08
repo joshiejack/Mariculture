@@ -1,6 +1,6 @@
 package joshie.maritech.tile;
 
-import joshie.mariculture.api.util.CachedCoords;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.core.helpers.BlockTransferHelper;
 import joshie.mariculture.core.helpers.cofh.BlockHelper;
 import joshie.mariculture.core.util.IFaceable;

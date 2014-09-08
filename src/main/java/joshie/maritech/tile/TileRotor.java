@@ -1,8 +1,8 @@
 package joshie.maritech.tile;
 
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.api.core.interfaces.INeighborNotify;
 import joshie.mariculture.api.core.interfaces.ISpecialPickblock;
-import joshie.mariculture.api.util.CachedCoords;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.MetalMeta;
 import joshie.mariculture.core.network.PacketHandler;

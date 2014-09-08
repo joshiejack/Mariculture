@@ -12,15 +12,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
 public class FishTuna extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -5, 15 };
+    public int getTemperatureBase() {
+        return 5;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE };
+    public int getTemperatureTolerance() {
+        return 10;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

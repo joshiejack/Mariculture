@@ -1,5 +1,5 @@
 package joshie.mariculture.fishery.fish;
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
+
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.core.lib.MCLib.dropletEnder;
 import joshie.mariculture.api.core.Environment.Height;
@@ -10,15 +10,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
 public class FishNight extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -10, 66 };
+    public int getTemperatureBase() {
+        return 28;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 38;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

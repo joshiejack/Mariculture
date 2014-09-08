@@ -1,5 +1,6 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
 
+import joshie.mariculture.api.core.Environment;
 import joshie.mariculture.api.core.Environment.Salinity;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -16,7 +17,7 @@ public interface IEnvironmentHandler {
 
     //Ignores the time of day
     public int getBiomeTemperature(World world, int x, int y, int z);
-
-    //Whether the variables match
-    public boolean matches(Salinity salt, int temp, Salinity[] salinity, int[] temperature);
+    
+    //Whether the salinity and temperature falls within the ranges
+    public boolean matches(Salinity biomeSalinity, int biomeTemp, Salinity checkSaltBase, int checkSaltVariation, int checkTempBase, int checkTempVariation);
 }

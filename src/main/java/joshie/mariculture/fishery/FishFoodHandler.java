@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import joshie.mariculture.api.fishery.IFishFoodHandler;
+import joshie.mariculture.api.fishery.handlers.IFishFoodHandler;
 import joshie.mariculture.core.helpers.RecipeHelper;
 import net.minecraft.item.ItemStack;
 

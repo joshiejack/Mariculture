@@ -1,7 +1,9 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
 
 import java.util.ArrayList;
 
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import net.minecraft.item.ItemStack;
 
 public interface ICrucibleHandler {

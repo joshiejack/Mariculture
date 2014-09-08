@@ -11,15 +11,26 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 public class FishTetra extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 20, 28 };
+    public int getTemperatureBase() {
+        return 24;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

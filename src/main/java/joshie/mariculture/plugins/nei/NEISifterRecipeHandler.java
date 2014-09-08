@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.RecipeSifter;
+import joshie.mariculture.api.fishery.recipes.RecipeSifter;
 import joshie.mariculture.core.helpers.OreDicHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

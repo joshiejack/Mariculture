@@ -1,6 +1,5 @@
 package joshie.mariculture.fishery.fish;
 
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.core.lib.MCLib.dropletWater;
 import static joshie.mariculture.core.lib.MCLib.fermentedEye;
@@ -17,15 +16,26 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 public class FishSpider extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -5, 20 };
+    public int getTemperatureBase() {
+        return 8;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 13;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

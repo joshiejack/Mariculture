@@ -1,20 +1,32 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
+import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletWater;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.world.World;
+
 public class FishMinnow extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -1, 45 };
+    public int getTemperatureBase() {
+        return 22;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 23;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

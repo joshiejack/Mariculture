@@ -1,6 +1,7 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
+import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletNether;
 import static joshie.mariculture.core.lib.MCLib.netherWart;
 import joshie.mariculture.api.core.Environment.Height;
@@ -11,15 +12,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
 public class FishNether extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 45, 100 };
+    public int getTemperatureBase() {
+        return 72;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 28;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

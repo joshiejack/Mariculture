@@ -10,15 +10,25 @@ import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-public class FishAngler extends FishSpecies {
+public class FishAngler extends FishSpecies {    
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 0, 12 };
+    public int getTemperatureBase() {
+        return 6;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE };
+    public int getTemperatureTolerance() {
+        return 6;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

@@ -1,5 +1,5 @@
 package joshie.mariculture.fishery.fish;
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
+
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.core.lib.MCLib.dropletDestroy;
 import static joshie.mariculture.core.lib.MCLib.dropletWater;
@@ -15,13 +15,23 @@ import net.minecraft.world.World;
 
 public class FishSiamese extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 20, 27 };
+    public int getTemperatureBase() {
+        return 24;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

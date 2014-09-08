@@ -1,4 +1,4 @@
-package joshie.mariculture.api.fishery;
+package joshie.mariculture.api.fishery.handlers;
 
 import net.minecraft.item.ItemStack;
 

@@ -3,7 +3,7 @@ package joshie.mariculture.fishery.render;
 import java.util.ArrayList;
 import java.util.Random;
 
-import joshie.mariculture.api.util.CachedCoords;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.core.util.EntityFakeItem;
 import joshie.mariculture.fishery.tile.TileFeeder;
 import net.minecraft.client.renderer.entity.RenderManager;

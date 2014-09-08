@@ -3,7 +3,7 @@ package joshie.mariculture.core.items;
 import java.util.List;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.IItemUpgrade;
+import joshie.mariculture.api.core.interfaces.IItemUpgrade;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.UpgradeMeta;
 import joshie.mariculture.core.util.MCTranslate;

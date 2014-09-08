@@ -1,7 +1,7 @@
 package joshie.mariculture.core.gui;
 
-import joshie.mariculture.api.core.IItemUpgrade;
 import joshie.mariculture.api.core.MaricultureHandlers;
+import joshie.mariculture.api.core.interfaces.IItemUpgrade;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.tile.TileCrucible;
 import net.minecraft.entity.player.EntityPlayer;

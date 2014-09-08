@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeSmelter;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.RecipesSmelting;
 import joshie.mariculture.core.blocks.BlockAir;

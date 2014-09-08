@@ -1,4 +1,5 @@
 package joshie.mariculture.fishery.fish;
+
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.core.lib.MCLib.dropletAqua;
 import static joshie.mariculture.core.lib.MCLib.dropletDestroy;
@@ -17,13 +18,23 @@ import net.minecraft.world.World;
 
 public class FishPiranha extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 21, 28 };
+    public int getTemperatureBase() {
+        return 25;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

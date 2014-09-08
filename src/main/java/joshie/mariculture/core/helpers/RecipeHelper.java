@@ -1,13 +1,13 @@
 package joshie.mariculture.core.helpers;
 
-import joshie.mariculture.api.core.FuelInfo;
-import joshie.mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeCasting.RecipeBlockCasting;
-import joshie.mariculture.api.core.RecipeCasting.RecipeIngotCasting;
-import joshie.mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
-import joshie.mariculture.api.core.RecipeSmelter;
-import joshie.mariculture.api.core.RecipeVat;
+import joshie.mariculture.api.core.handlers.IAnvilHandler.RecipeAnvil;
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
+import joshie.mariculture.api.core.recipes.RecipeVat;
+import joshie.mariculture.api.core.recipes.RecipeCasting.RecipeBlockCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting.RecipeIngotCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting.RecipeNuggetCasting;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.FoodMeta;
 import joshie.mariculture.core.lib.MaterialsMeta;

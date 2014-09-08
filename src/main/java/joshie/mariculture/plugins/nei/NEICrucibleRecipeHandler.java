@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.FuelInfo;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeSmelter;
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.helpers.cofh.CoFhItemHelper;

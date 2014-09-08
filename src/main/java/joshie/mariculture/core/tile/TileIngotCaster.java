@@ -1,7 +1,7 @@
 package joshie.mariculture.core.tile;
 
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting;
 import joshie.mariculture.core.lib.MetalRates;
 
 public class TileIngotCaster extends TileCooling {

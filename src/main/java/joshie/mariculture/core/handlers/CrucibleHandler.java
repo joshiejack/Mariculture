@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import joshie.mariculture.api.core.FuelInfo;
-import joshie.mariculture.api.core.ICrucibleHandler;
-import joshie.mariculture.api.core.RecipeSmelter;
+import joshie.mariculture.api.core.handlers.ICrucibleHandler;
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import joshie.mariculture.core.helpers.EnchantHelper;
 import joshie.mariculture.core.helpers.ItemHelper;
 import joshie.mariculture.core.helpers.OreDicHelper;

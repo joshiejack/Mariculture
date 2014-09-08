@@ -11,15 +11,26 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 public class FishMantaRay extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 18, 25 };
+    public int getTemperatureBase() {
+        return 22;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

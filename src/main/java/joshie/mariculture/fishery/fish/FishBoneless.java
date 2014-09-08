@@ -1,6 +1,5 @@
 package joshie.mariculture.fishery.fish;
 
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.core.lib.MCLib.bone;
 import static joshie.mariculture.core.lib.MCLib.bonemeal;
@@ -10,26 +9,37 @@ import static joshie.mariculture.core.lib.MCLib.witherSkull;
 
 import java.util.ArrayList;
 
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
-import joshie.mariculture.api.util.CachedCoords;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 public class FishBoneless extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -5, 20 };
+    public int getTemperatureBase() {
+        return 8;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 13;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

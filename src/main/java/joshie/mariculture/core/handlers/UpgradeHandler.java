@@ -1,8 +1,8 @@
 package joshie.mariculture.core.handlers;
 
-import joshie.mariculture.api.core.IItemUpgrade;
-import joshie.mariculture.api.core.IUpgradable;
-import joshie.mariculture.api.core.IUpgradeHandler;
+import joshie.mariculture.api.core.handlers.IUpgradeHandler;
+import joshie.mariculture.api.core.interfaces.IItemUpgrade;
+import joshie.mariculture.api.core.interfaces.IUpgradable;
 import joshie.mariculture.core.tile.base.TileMultiBlock;
 import net.minecraft.item.ItemStack;
 

@@ -1,9 +1,10 @@
-package joshie.mariculture.api.fishery;
+package joshie.mariculture.api.fishery.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import joshie.mariculture.api.fishery.recipes.RecipeSifter;
 import net.minecraft.item.ItemStack;
 
 public interface ISifterHandler {

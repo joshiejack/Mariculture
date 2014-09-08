@@ -1,4 +1,4 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
 
 import java.util.HashMap;
 

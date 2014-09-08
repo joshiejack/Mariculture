@@ -2,7 +2,7 @@ package joshie.maritech.extensions.blocks;
 
 import joshie.lib.helpers.DirectionHelper;
 import joshie.lib.helpers.ItemHelper;
-import joshie.mariculture.api.util.CachedCoords;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.MachineRenderedMeta;
 import joshie.mariculture.core.lib.MetalMeta;

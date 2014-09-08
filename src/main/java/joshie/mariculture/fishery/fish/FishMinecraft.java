@@ -16,13 +16,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 public class FishMinecraft extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { -1, 45 };
+    public int getTemperatureBase() {
+        return 22;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH, BRACKISH, SALINE };
+    public int getTemperatureTolerance() {
+        return 23;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 2;
     }
 
     @Override

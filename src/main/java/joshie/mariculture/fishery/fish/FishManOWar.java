@@ -13,15 +13,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
 public class FishManOWar extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 24, 45 };
+    public int getTemperatureBase() {
+        return 34;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE, BRACKISH };
+    public int getTemperatureTolerance() {
+        return 11;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 1;
     }
 
     @Override

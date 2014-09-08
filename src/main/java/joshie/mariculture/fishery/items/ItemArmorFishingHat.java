@@ -2,7 +2,7 @@ package joshie.mariculture.fishery.items;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.api.fishery.ICaughtAliveModifier;
+import joshie.mariculture.api.fishery.interfaces.ICaughtAliveModifier;
 import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.fishery.render.ModelFishingHat;
 import net.minecraft.client.model.ModelBiped;

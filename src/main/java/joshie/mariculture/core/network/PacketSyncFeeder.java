@@ -5,7 +5,7 @@ import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 
 import joshie.lib.helpers.ClientHelper;
-import joshie.mariculture.api.util.CachedCoords;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.fishery.tile.TileFeeder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

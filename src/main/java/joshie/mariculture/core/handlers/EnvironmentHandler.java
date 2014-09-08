@@ -3,7 +3,7 @@ package joshie.mariculture.core.handlers;
 import java.util.HashMap;
 
 import joshie.mariculture.api.core.Environment.Salinity;
-import joshie.mariculture.api.core.IEnvironmentHandler;
+import joshie.mariculture.api.core.handlers.IEnvironmentHandler;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -109,14 +109,18 @@ public class EnvironmentHandler implements IEnvironmentHandler {
     }
 
     @Override
-    public boolean matches(Salinity salt, int temp, Salinity[] salinity, int[] temperature) {
-        if (salinity == null || temperature == null) return false;
-        if (temperature.length != 2) return false;
-        if (temp >= temperature[0] && temp <= temperature[1]) {
-            for (Salinity s : salinity)
-                if (s == salt) return true;
+    public boolean matches(Salinity biomeSalinity, int biomeTemp, Salinity checkSaltBase, int checkSaltVariation, int checkTempBase, int checkTempVariation) {
+        int minSalt = Math.max(0, checkSaltBase.ordinal() - checkSaltVariation);
+        int maxSalt = Math.max(2, checkSaltBase.ordinal() + checkSaltVariation);
+        int minTemp = checkTempBase - checkTempVariation;
+        int maxTemp = checkTempBase + checkTempVariation;
+        
+        if(biomeTemp >= minTemp && biomeTemp <= maxTemp) {
+            if(biomeSalinity.ordinal() >= minSalt && biomeSalinity.ordinal()<= maxSalt) {
+                return true;
+            }
         }
-
+        
         return false;
     }
 }

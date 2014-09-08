@@ -7,14 +7,14 @@ import java.util.Random;
 import joshie.lib.helpers.AverageHelper;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.Environment.Salinity;
-import joshie.mariculture.api.core.IUpgradable;
+import joshie.mariculture.api.core.interfaces.IUpgradable;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.IFishHelper;
-import joshie.mariculture.api.fishery.IIncubator;
-import joshie.mariculture.api.fishery.IMutation.Mutation;
 import joshie.mariculture.api.fishery.fish.FishDNABase;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.api.fishery.interfaces.IFishHelper;
+import joshie.mariculture.api.fishery.interfaces.IIncubator;
+import joshie.mariculture.api.fishery.interfaces.IMutation.Mutation;
 import joshie.mariculture.core.handlers.LogHandler;
 import joshie.mariculture.fishery.items.ItemEgg;
 import joshie.mariculture.fishery.items.ItemFishy;
@@ -222,7 +222,7 @@ public class FishyHelper implements IFishHelper {
             }
 
             if (!worldCorrect || !fish.canWorkAtThisTime(world.isDaytime())) return false;
-            else return MaricultureHandlers.environment.matches(salt, temperature, fish.salinity, fish.temperature);
+            else return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), Fish.salinity.getDNA(stack), fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
         }
     }
 

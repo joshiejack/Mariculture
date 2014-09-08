@@ -5,7 +5,7 @@ import java.util.Random;
 
 import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.RecipeSifter;
+import joshie.mariculture.api.fishery.recipes.RecipeSifter;
 import joshie.mariculture.core.helpers.cofh.InventoryHelper;
 import joshie.mariculture.core.network.PacketCrack;
 import joshie.mariculture.core.network.PacketHandler;

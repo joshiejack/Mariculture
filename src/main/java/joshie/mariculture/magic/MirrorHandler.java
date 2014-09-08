@@ -1,6 +1,6 @@
 package joshie.mariculture.magic;
 
-import joshie.mariculture.api.core.IMirrorHandler;
+import joshie.mariculture.api.core.handlers.IMirrorHandler;
 import joshie.mariculture.core.helpers.EnchantHelper;
 import joshie.mariculture.core.network.PacketDamageJewelry;
 import joshie.mariculture.core.network.PacketHandler;

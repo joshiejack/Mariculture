@@ -1,6 +1,6 @@
 package joshie.maritech.gui;
 
-import joshie.mariculture.api.core.IItemUpgrade;
+import joshie.mariculture.api.core.interfaces.IItemUpgrade;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.core.gui.ContainerMachine;
 import joshie.mariculture.core.gui.SlotOutput;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import net.minecraft.util.ResourceLocation;
 

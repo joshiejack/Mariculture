@@ -1,8 +1,10 @@
-package joshie.mariculture.api.fishery;
+package joshie.mariculture.api.fishery.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import joshie.mariculture.api.fishery.Loot;
+import joshie.mariculture.api.fishery.RodType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

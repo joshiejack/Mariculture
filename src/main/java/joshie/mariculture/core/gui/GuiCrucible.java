@@ -3,9 +3,9 @@ package joshie.mariculture.core.gui;
 import java.util.List;
 
 import joshie.lib.util.Text;
-import joshie.mariculture.api.core.FuelInfo;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeSmelter;
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import joshie.mariculture.core.gui.feature.FeatureArrow;
 import joshie.mariculture.core.gui.feature.FeatureEject;
 import joshie.mariculture.core.gui.feature.FeatureRedstone;

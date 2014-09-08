@@ -8,7 +8,7 @@ import java.util.Random;
 
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.IIncubator;
+import joshie.mariculture.api.fishery.interfaces.IIncubator;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureNotifications.NotificationType;

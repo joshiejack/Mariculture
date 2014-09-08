@@ -6,7 +6,7 @@ import java.util.List;
 
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeVat;
+import joshie.mariculture.api.core.recipes.RecipeVat;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.helpers.ItemHelper;

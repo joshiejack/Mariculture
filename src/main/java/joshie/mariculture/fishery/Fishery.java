@@ -69,12 +69,12 @@ import java.util.Arrays;
 
 import joshie.lib.helpers.RegistryHelper;
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.FuelInfo;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.core.recipes.FuelInfo;
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.RecipeSifter;
 import joshie.mariculture.api.fishery.RodType;
+import joshie.mariculture.api.fishery.recipes.RecipeSifter;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.config.FishMechanics;
 import joshie.mariculture.core.helpers.FluidHelper;

@@ -1,7 +1,8 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.handlers;
 
 import java.util.HashMap;
 
+import joshie.mariculture.api.core.recipes.RecipeCasting;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface ICastingHandler {

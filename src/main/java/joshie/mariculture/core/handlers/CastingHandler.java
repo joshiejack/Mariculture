@@ -2,11 +2,11 @@ package joshie.mariculture.core.handlers;
 
 import java.util.HashMap;
 
-import joshie.mariculture.api.core.ICastingHandler;
-import joshie.mariculture.api.core.RecipeCasting;
-import joshie.mariculture.api.core.RecipeCasting.RecipeBlockCasting;
-import joshie.mariculture.api.core.RecipeCasting.RecipeIngotCasting;
-import joshie.mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
+import joshie.mariculture.api.core.handlers.ICastingHandler;
+import joshie.mariculture.api.core.recipes.RecipeCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting.RecipeBlockCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting.RecipeIngotCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting.RecipeNuggetCasting;
 import joshie.mariculture.core.helpers.OreDicHelper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

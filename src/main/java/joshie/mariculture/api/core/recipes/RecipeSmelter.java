@@ -1,4 +1,4 @@
-package joshie.mariculture.api.core;
+package joshie.mariculture.api.core.recipes;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

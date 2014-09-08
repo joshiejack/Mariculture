@@ -2,8 +2,8 @@ package joshie.mariculture.fishery;
 
 import java.util.ArrayList;
 
-import joshie.mariculture.api.fishery.IMutation;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.api.fishery.interfaces.IMutation;
 import joshie.mariculture.core.config.FishMechanics;
 
 public class FishMutationHandler implements IMutation {

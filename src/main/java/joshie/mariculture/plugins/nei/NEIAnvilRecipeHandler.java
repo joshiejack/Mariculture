@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.IAnvilHandler.RecipeAnvil;
+import joshie.mariculture.api.core.handlers.IAnvilHandler.RecipeAnvil;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.core.helpers.OreDicHelper;
 import joshie.mariculture.core.lib.Modules;

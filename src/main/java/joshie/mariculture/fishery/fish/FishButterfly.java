@@ -8,15 +8,24 @@ import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-public class FishButterfly extends FishSpecies {
-    @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 23, 30 };
+public class FishButterfly extends FishSpecies {@Override
+    public int getTemperatureBase() {
+        return 26;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

@@ -18,9 +18,9 @@ import static joshie.mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
 
-import joshie.mariculture.api.core.FuelInfo;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeSmelter;
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import joshie.mariculture.core.helpers.ItemHelper;
 import joshie.mariculture.core.helpers.RecipeHelper;
 import joshie.mariculture.core.lib.GlassMeta;

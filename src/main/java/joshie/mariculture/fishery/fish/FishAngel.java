@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
-import joshie.mariculture.api.util.CachedCoords;
 import joshie.mariculture.core.helpers.cofh.InventoryHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -25,13 +25,23 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class FishAngel extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 19, 27 };
+    public int getTemperatureBase() {
+        return 23;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { SALINE };
+    public int getTemperatureTolerance() {
+        return 4;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return SALINE;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

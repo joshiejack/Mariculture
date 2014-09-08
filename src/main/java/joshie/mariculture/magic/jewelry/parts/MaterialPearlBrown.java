@@ -3,7 +3,7 @@ package joshie.mariculture.magic.jewelry.parts;
 import java.util.ArrayList;
 
 import joshie.mariculture.api.fishery.Fishing;
-import joshie.mariculture.api.fishery.RecipeSifter;
+import joshie.mariculture.api.fishery.recipes.RecipeSifter;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.lib.PearlColor;

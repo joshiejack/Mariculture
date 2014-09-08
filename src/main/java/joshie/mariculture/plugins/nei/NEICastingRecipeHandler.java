@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import joshie.mariculture.api.core.RecipeCasting;
+import joshie.mariculture.api.core.recipes.RecipeCasting;
 import joshie.mariculture.core.gui.feature.FeatureTank.TankSize;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.helpers.OreDicHelper;

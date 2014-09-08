@@ -11,15 +11,25 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-public class FishGlow extends FishSpecies {
+public class FishGlow extends FishSpecies {    
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 35, 100 };
+    public int getTemperatureBase() {
+        return 67;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 33;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

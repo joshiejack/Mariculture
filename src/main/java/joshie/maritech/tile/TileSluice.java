@@ -1,6 +1,6 @@
 package joshie.maritech.tile;
 
-import joshie.mariculture.api.core.IBlacklisted;
+import joshie.mariculture.api.core.interfaces.IBlacklisted;
 import joshie.mariculture.core.helpers.BlockHelper;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.network.PacketHandler;

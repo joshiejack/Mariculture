@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.core.IAnvilHandler;
+import joshie.mariculture.api.core.handlers.IAnvilHandler;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.helpers.BlockHelper;
 import joshie.mariculture.core.helpers.NBTHelper;

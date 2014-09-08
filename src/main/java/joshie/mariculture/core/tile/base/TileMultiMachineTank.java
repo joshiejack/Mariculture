@@ -3,8 +3,8 @@ package joshie.mariculture.core.tile.base;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import joshie.mariculture.api.core.IUpgradable;
 import joshie.mariculture.api.core.MaricultureHandlers;
+import joshie.mariculture.api.core.interfaces.IUpgradable;
 import joshie.mariculture.core.gui.feature.Feature;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;

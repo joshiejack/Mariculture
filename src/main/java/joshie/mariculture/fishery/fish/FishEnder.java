@@ -12,13 +12,23 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 public class FishEnder extends FishSpecies {
     @Override
-    public int[] setSuitableTemperature() {
-        return new int[] { 0, 5 };
+    public int getTemperatureBase() {
+        return 3;
     }
 
     @Override
-    public Salinity[] setSuitableSalinity() {
-        return new Salinity[] { FRESH };
+    public int getTemperatureTolerance() {
+        return 3;
+    }
+
+    @Override
+    public Salinity getSalinityBase() {
+        return FRESH;
+    }
+
+    @Override
+    public int getSalinityTolerance() {
+        return 0;
     }
 
     @Override

@@ -3,9 +3,9 @@ package joshie.mariculture.core.tile;
 import java.util.ArrayList;
 
 import joshie.mariculture.api.core.Environment.Temperature;
-import joshie.mariculture.api.core.FuelInfo;
+import joshie.mariculture.api.core.recipes.FuelInfo;
+import joshie.mariculture.api.core.recipes.RecipeSmelter;
 import joshie.mariculture.api.core.MaricultureHandlers;
-import joshie.mariculture.api.core.RecipeSmelter;
 import joshie.mariculture.core.config.Machines.MachineSettings;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureNotifications.NotificationType;

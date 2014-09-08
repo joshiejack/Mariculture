@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import joshie.mariculture.api.core.Environment.Salinity;
+import joshie.mariculture.api.core.CachedCoords;
 import joshie.mariculture.api.core.MaricultureHandlers;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
-import joshie.mariculture.api.util.CachedCoords;
 import joshie.mariculture.core.config.Machines.Ticks;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -418,27 +418,29 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 }
 
                 int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
-                if (temperature < species.temperature[0]) {
-                    int required = species.temperature[0] - temperature;
+                int minTempAccepted = species.getTemperatureBase() - Fish.temperature.getDNA(fish);
+                int maxTempAccepted = species.getTemperatureBase() + Fish.temperature.getDNA(fish);
+                if (temperature < minTempAccepted) {
+                    int required = minTempAccepted - temperature;
                     noBad = addToolTip(tooltip, MCTranslate.translate("tooCold"));
                     noBad = addToolTip(tooltip, "  +" + required + joshie.lib.util.Text.DEGREES);
-                } else if (temperature > species.temperature[1]) {
-                    int required = temperature - species.temperature[1];
+                } else if (temperature > maxTempAccepted) {
+                    int required = temperature - maxTempAccepted;
                     noBad = addToolTip(tooltip, MCTranslate.translate("tooHot"));
                     noBad = addToolTip(tooltip, "  -" + required + joshie.lib.util.Text.DEGREES);
                 }
 
                 boolean match = false;
                 Salinity salt = getSalinity();
-                for (Salinity salinity : species.salinity)
-                    if (salt == salinity) {
-                        match = true;
-                        break;
-                    }
-
+                int minSaltAccepted = Math.max(0, species.getSalinityBase().ordinal() - Fish.salinity.getDNA(fish));
+                int maxSaltAccepted = Math.max(2, species.getSalinityBase().ordinal() + Fish.salinity.getDNA(fish));
+                if(salt.ordinal() >= minSaltAccepted && salt.ordinal() <= maxSaltAccepted) {
+                    match = true;
+                }
+                
                 if (!match) {
-                    for (Salinity salinity : species.salinity) {
-                        noBad = addToolTip(tooltip, MCTranslate.translate("salinity.prefers") + " " + MCTranslate.translate("salinity." + salinity.toString().toLowerCase()));
+                    for(int s = minSaltAccepted; s <= maxSaltAccepted; s++) {
+                        noBad = addToolTip(tooltip, MCTranslate.translate("salinity.prefers") + " " + MCTranslate.translate("salinity." + Salinity.values()[s].toString().toLowerCase()));
                     }
                 }
 

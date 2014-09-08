@@ -1,6 +1,6 @@
 package joshie.mariculture.core.gui;
 
-import joshie.mariculture.api.core.IUpgradable;
+import joshie.mariculture.api.core.interfaces.IUpgradable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
