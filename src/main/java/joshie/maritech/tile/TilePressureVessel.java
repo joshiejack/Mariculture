@@ -1,6 +1,6 @@
 package joshie.maritech.tile;
 
-import joshie.mariculture.api.core.IPVChargeable;
+import joshie.mariculture.api.core.interfaces.IPVChargeable;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import joshie.mariculture.core.helpers.FluidHelper;

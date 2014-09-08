@@ -2,8 +2,8 @@ package joshie.maritech.items;
 
 import java.util.List;
 
-import joshie.mariculture.api.core.IPVChargeable;
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.core.interfaces.IPVChargeable;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.items.ItemMCBaseArmor;
 import joshie.mariculture.core.lib.MachineRenderedMeta;

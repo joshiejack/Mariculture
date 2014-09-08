@@ -1,7 +1,7 @@
 package joshie.maritech.gui;
 
 import joshie.mariculture.api.core.IItemUpgrade;
-import joshie.mariculture.api.core.IPVChargeable;
+import joshie.mariculture.api.core.interfaces.IPVChargeable;
 import joshie.mariculture.core.gui.ContainerMachine;
 import joshie.mariculture.core.gui.SlotFluidContainer;
 import joshie.mariculture.core.gui.SlotOutput;

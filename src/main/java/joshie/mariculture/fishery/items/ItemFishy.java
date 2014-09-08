@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import joshie.mariculture.api.core.MaricultureTab;
+import joshie.mariculture.api.core.interfaces.ISpecialSorting;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.fish.FishDNABase;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
@@ -22,12 +23,22 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFishy extends ItemMCBaseSingle {
+public class ItemFishy extends ItemMCBaseSingle implements ISpecialSorting {
     private static IIcon egg;
 
     public ItemFishy() {
         setCreativeTab(MaricultureTab.tabFishery);
         setHasSubtypes(true);
+    }
+
+    @Override
+    public boolean isSame(ItemStack fish1, ItemStack fish2, boolean isPerfectMatch) {
+        if (fish2.getItem() instanceof ItemFishy) {
+            if (Fishing.fishHelper.isEgg(fish1)) return Fishing.fishHelper.isEgg(fish2);
+            if (Fish.species.getDNA(fish1).equals(Fish.species.getDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getLowerDNA(fish2));
+            if (Fish.species.getDNA(fish1).equals(Fish.species.getLowerDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getDNA(fish2));
+        }
+        return false;
     }
 
     @Override

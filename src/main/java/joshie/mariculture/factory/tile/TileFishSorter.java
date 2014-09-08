@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import joshie.lib.helpers.ItemHelper;
+import joshie.mariculture.api.core.interfaces.ISpecialSorting;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.core.gui.feature.Feature;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -14,7 +15,6 @@ import joshie.mariculture.core.util.IEjectable;
 import joshie.mariculture.core.util.IItemDropBlacklist;
 import joshie.mariculture.core.util.IMachine;
 import joshie.mariculture.fishery.Fish;
-import joshie.mariculture.fishery.items.ItemFishy;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileFishSorter extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
+    private boolean isPerfectMatch = false;
     private int dft_side;
     private HashMap<Integer, Integer> sorting = new HashMap();
     private EjectSetting setting;
@@ -101,24 +102,16 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
         return null;
     }
 
-    public static boolean hasSameFishDNA(ItemStack fish1, ItemStack fish2) {
-        if (Fishing.fishHelper.isEgg(fish1)) return Fishing.fishHelper.isEgg(fish2);
-
-        if (Fish.species.getDNA(fish1).equals(Fish.species.getDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getLowerDNA(fish2));
-
-        if (Fish.species.getDNA(fish1).equals(Fish.species.getLowerDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getDNA(fish2));
-
-        return false;
-    }
-
     public int getSlotForStack(ItemStack stack) {
         if (stack == null) return -1;
         for (int i = 0; i < input; i++)
             if (getStackInSlot(i) != null) {
                 ItemStack item = getStackInSlot(i);
-                if (item != null) if (item.getItem() instanceof ItemFishy && stack.getItem() instanceof ItemFishy) {
-                    if (hasSameFishDNA(item, stack)) return i;
-                } else if (OreDicHelper.convert(stack).equals(OreDicHelper.convert(item))) return i;
+                if (item != null) {
+                    if (item.getItem() instanceof ISpecialSorting) {
+                        if(((ISpecialSorting)item.getItem()).isSame(item, stack, isPerfectMatch)) return i;
+                    } else if (OreDicHelper.convert(stack).equals(OreDicHelper.convert(item))) return i;
+                }
             }
 
         return -1;
@@ -138,14 +131,14 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
                 break;
         }
     }
-    
+
     @Override
     public ArrayList<Integer> getGUIData() {
         ArrayList<Integer> list = new ArrayList();
         for (int i = 0; i < input; i++) {
             list.add(sorting.containsKey(i) ? sorting.get(i) : 0);
         }
-        
+
         list.add(setting.ordinal());
         list.add(dft_side);
         return list;

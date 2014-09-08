@@ -2,7 +2,7 @@ package joshie.mariculture.core.items;
 
 import joshie.lib.base.ItemBaseArmor;
 import joshie.mariculture.api.core.MaricultureTab;
-import joshie.mariculture.api.util.IDisablesHardcoreDiving;
+import joshie.mariculture.api.core.interfaces.IDisablesHardcoreDiving;
 import joshie.mariculture.core.lib.MCModInfo;
 import net.minecraft.creativetab.CreativeTabs;
 

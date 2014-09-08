@@ -1,6 +1,6 @@
 package joshie.mariculture.diving;
 
-import joshie.mariculture.api.util.IDisablesHardcoreDiving;
+import joshie.mariculture.api.core.interfaces.IDisablesHardcoreDiving;
 import joshie.mariculture.core.config.GeneralStuff;
 import joshie.mariculture.core.helpers.PlayerHelper;
 import joshie.mariculture.core.lib.ArmorSlot;
