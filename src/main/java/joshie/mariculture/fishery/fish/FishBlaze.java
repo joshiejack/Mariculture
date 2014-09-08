@@ -10,6 +10,7 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 public class FishBlaze extends FishSpecies {
     @Override
     public int getTemperatureBase() {

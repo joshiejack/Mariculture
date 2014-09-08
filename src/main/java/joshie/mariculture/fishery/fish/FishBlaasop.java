@@ -13,7 +13,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-public class FishBlaasop extends FishSpecies {    
+
+public class FishBlaasop extends FishSpecies {
     @Override
     public int getTemperatureBase() {
         return 8;

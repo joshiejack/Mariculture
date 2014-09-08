@@ -1,7 +1,6 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletNether;
 import static joshie.mariculture.core.lib.MCLib.netherWart;
 import joshie.mariculture.api.core.Environment.Height;

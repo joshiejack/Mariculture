@@ -1,23 +1,22 @@
 package joshie.mariculture.fishery.fish;
 
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.core.lib.MCLib.dropletWater;
-import static joshie.mariculture.core.lib.MCLib.goldNugget;
+import static joshie.mariculture.core.lib.MCLib.dropletEarth;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
-public class FishGold extends FishSpecies {
+public class FishBrownshroom extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 8;
+        return 10;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 14;
+        return 10;
     }
 
     @Override
@@ -27,61 +26,52 @@ public class FishGold extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 1;
     }
 
     @Override
     public boolean isDominant() {
-        return true;
+        return false;
     }
 
     @Override
     public int getLifeSpan() {
-        return 6;
+        return 10;
     }
 
     @Override
     public int getFertility() {
-        return 500;
-    }
-
-    @Override
-    public int getBaseProductivity() {
-        return 2;
+        return 250;
     }
 
     @Override
     public int getWaterRequired() {
-        return 25;
-    }
-
-    @Override
-    public void addFishProducts() {
-        addProduct(dropletWater, 4D);
+        return 50;
     }
 
     @Override
     public double getFishOilVolume() {
-        return 1.125D;
+        return 1.355D;
     }
 
     @Override
     public ItemStack getLiquifiedProduct() {
-        return new ItemStack(goldNugget);
+        return new ItemStack(Blocks.brown_mushroom);
     }
 
     @Override
-    public int getLiquifiedProductChance() {
-        return 20;
+    public int getFishMealSize() {
+        return 3;
+    }
+
+    @Override
+    public void addFishProducts() {
+        addProduct(dropletEarth, 7.5D);
+        addProduct(Blocks.brown_mushroom, 10D);
     }
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.OLD;
-    }
-
-    @Override
-    public double getCatchChance(World world, int height) {
-        return 15D;
+        return RodType.GOOD;
     }
 }

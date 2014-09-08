@@ -10,7 +10,8 @@ import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-public class FishAngler extends FishSpecies {    
+
+public class FishAngler extends FishSpecies {
     @Override
     public int getTemperatureBase() {
         return 6;

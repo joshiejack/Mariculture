@@ -11,7 +11,8 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-public class FishGlow extends FishSpecies {    
+
+public class FishGlow extends FishSpecies {
     @Override
     public int getTemperatureBase() {
         return 67;

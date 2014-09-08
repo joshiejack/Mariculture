@@ -16,6 +16,7 @@ import joshie.mariculture.fishery.EntityBass;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 public class FishBass extends FishSpecies {
     @Override
     public int getTemperatureBase() {

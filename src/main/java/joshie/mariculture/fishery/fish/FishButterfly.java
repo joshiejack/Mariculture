@@ -8,7 +8,9 @@ import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-public class FishButterfly extends FishSpecies {@Override
+
+public class FishButterfly extends FishSpecies {
+    @Override
     public int getTemperatureBase() {
         return 26;
     }

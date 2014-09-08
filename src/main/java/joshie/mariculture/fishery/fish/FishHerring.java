@@ -1,6 +1,5 @@
 package joshie.mariculture.fishery.fish;
 
-import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletFrozen;
 import static joshie.mariculture.core.lib.MCLib.dropletRegen;
@@ -11,6 +10,7 @@ import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 public class FishHerring extends FishSpecies {
     @Override
     public int getTemperatureBase() {

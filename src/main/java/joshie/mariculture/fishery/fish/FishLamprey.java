@@ -1,6 +1,5 @@
 package joshie.mariculture.fishery.fish;
 
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.dropletAqua;
 import static joshie.mariculture.core.lib.MCLib.dropletDestroy;

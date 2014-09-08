@@ -1,8 +1,6 @@
 package joshie.mariculture.fishery.fish;
 
-import static joshie.mariculture.api.core.Environment.Salinity.BRACKISH;
 import static joshie.mariculture.api.core.Environment.Salinity.FRESH;
-import static joshie.mariculture.api.core.Environment.Salinity.SALINE;
 import static joshie.mariculture.core.lib.MCLib.cookedFish;
 import static joshie.mariculture.core.lib.MCLib.dropletAqua;
 import static joshie.mariculture.core.lib.MCLib.dropletMagic;
@@ -14,6 +12,7 @@ import joshie.mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 public class FishMinecraft extends FishSpecies {
     @Override
     public int getTemperatureBase() {
