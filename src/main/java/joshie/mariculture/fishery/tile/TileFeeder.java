@@ -26,6 +26,7 @@ import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.Fish;
 import joshie.mariculture.fishery.FishFoodHandler;
 import joshie.mariculture.fishery.FishyHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -48,6 +49,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     private boolean swap = false;
     private int foodTick;
     private int tankSize;
+    private Block tankBlock;
 
     //Fish Locations and animations
     public int mPos = 0;
@@ -108,6 +110,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     private void updateTankSize() {
         int xP = 0, xN = 0, yP = 0, yN = 0, zP = 0, zN = 0;
         ItemStack male = inventory[this.male];
+        ItemStack female = inventory[this.female];
         if (male != null) {
             xP = Fish.east.getDNA(male);
             xN = Fish.west.getDNA(male);
@@ -117,12 +120,17 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             zN = Fish.north.getDNA(male);
         }
 
+        FishSpecies m = Fishing.fishHelper.getSpecies(this.male);
+        FishSpecies f = Fishing.fishHelper.getSpecies(this.female);
         coords = new ArrayList<CachedCoords>();
-        for (int x = -5 - xN; x <= 5 + xP; x++) {
-            for (int z = -5 - zN; z <= 5 + zP; z++) {
-                for (int y = -5 - yN; y <= 5 + yP; y++) {
-                    if (BlockHelper.isFishLiveable(worldObj, xCoord + x, yCoord + y, zCoord + z)) {
-                        coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
+        if (m != null && f != null) {
+            for (int x = -5 - xN; x <= 5 + xP; x++) {
+                for (int z = -5 - zN; z <= 5 + zP; z++) {
+                    for (int y = -5 - yN; y <= 5 + yP; y++) {
+                        Block block = worldObj.getBlock(xCoord + x, yCoord + y, zCoord + z);
+                        if (m.isValidWater(block) && f.isValidWater(block)) {
+                            coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
+                        }
                     }
                 }
             }
@@ -354,8 +362,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         if (species != null) {
             if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) return true;
             else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getFluidID("fish_food")) return false;
-
-            return tankSize >= Fish.tankSize.getDNA(fish) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
+            return tankSize >= Fish.tankSize.getDNA(fish) && species.isValidWater(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
         } else return false;
     }
 
@@ -434,12 +441,12 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 Salinity salt = getSalinity();
                 int minSaltAccepted = Math.max(0, species.getSalinityBase().ordinal() - Fish.salinity.getDNA(fish));
                 int maxSaltAccepted = Math.max(2, species.getSalinityBase().ordinal() + Fish.salinity.getDNA(fish));
-                if(salt.ordinal() >= minSaltAccepted && salt.ordinal() <= maxSaltAccepted) {
+                if (salt.ordinal() >= minSaltAccepted && salt.ordinal() <= maxSaltAccepted) {
                     match = true;
                 }
-                
+
                 if (!match) {
-                    for(int s = minSaltAccepted; s <= maxSaltAccepted; s++) {
+                    for (int s = minSaltAccepted; s <= maxSaltAccepted; s++) {
                         noBad = addToolTip(tooltip, MCTranslate.translate("salinity.prefers") + " " + MCTranslate.translate("salinity." + Salinity.values()[s].toString().toLowerCase()));
                     }
                 }
@@ -493,7 +500,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         else if (id == 8) isDay = value == 1;
         else super.setGUIData(id, value);
     }
-    
+
     @Override
     public ArrayList<Integer> getGUIData() {
         ArrayList<Integer> list = super.getGUIData();
@@ -528,11 +535,18 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         tankSize = nbt.getInteger("TankSize");
+
+        if (nbt.hasKey("TankBlock")) {
+            tankBlock = (Block) Block.blockRegistry.getObject(nbt.getString("TankBlock"));
+        }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("TankSize", tankSize);
+        if (tankBlock != null) {
+            nbt.setString("TankBlock", Block.blockRegistry.getNameForObject(tankBlock));
+        }
     }
 }

@@ -8,7 +8,9 @@ import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -61,6 +63,11 @@ public class FishGlow extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 120;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return block == Blocks.lava;
     }
 
     @Override

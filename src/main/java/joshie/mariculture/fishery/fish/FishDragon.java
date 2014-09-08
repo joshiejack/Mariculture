@@ -7,6 +7,8 @@ import static joshie.mariculture.core.lib.MCLib.enderPearl;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -61,6 +63,11 @@ public class FishDragon extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 400;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return Fluids.isEnder(block);
     }
 
     @Override

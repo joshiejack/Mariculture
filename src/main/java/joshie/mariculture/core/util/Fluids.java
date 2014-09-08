@@ -78,4 +78,8 @@ public class Fluids {
     public static boolean isBlood(String blood) {        
         return blood.equals("life essence") || blood.equals("blood");
     }
+
+    public static boolean isEnder(Block block) {
+        return block == getFluidBlock("ender");
+    }
 }

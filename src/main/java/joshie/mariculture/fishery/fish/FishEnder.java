@@ -7,6 +7,8 @@ import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.core.helpers.BlockHelper;
+import joshie.mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -55,6 +57,11 @@ public class FishEnder extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 140;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return Fluids.isEnder(block);
     }
 
     @Override

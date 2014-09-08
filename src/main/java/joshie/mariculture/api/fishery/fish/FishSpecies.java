@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -118,6 +119,11 @@ public abstract class FishSpecies {
     /** Return the amount of water blocks this fish needs **/
     public int getWaterRequired() {
         return 15;
+    }
+    
+    /** Whether this block is valid for this fish species **/
+    public boolean isValidWater(Block block) {
+        return block == Blocks.water;
     }
 
     /** (0) return a bonus for the area the fish can do it's world effects**/
