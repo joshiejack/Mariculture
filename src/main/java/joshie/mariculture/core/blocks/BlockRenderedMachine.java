@@ -342,19 +342,19 @@ public class BlockRenderedMachine extends BlockFunctional {
         TileEntity tile = null;
         switch (meta) {
             case MachineRenderedMeta.AIR_PUMP:
-                tile = new TileAirPump();
+                return new TileAirPump();
             case MachineRenderedMeta.FISH_FEEDER:
-                tile = new TileFeeder();
+                return new TileFeeder();
             case MachineRenderedMeta.GEYSER:
-                tile = new TileGeyser();
+                return new TileGeyser();
             case MachineRenderedMeta.INGOT_CASTER:
-                tile = new TileIngotCaster();
+                return new TileIngotCaster();
             case MachineRenderedMeta.BLOCK_CASTER:
-                tile = new TileBlockCaster();
+                return new TileBlockCaster();
             case MachineRenderedMeta.NUGGET_CASTER:
-                tile = new TileNuggetCaster();
+                return new TileNuggetCaster();
             case MachineRenderedMeta.AUTO_HAMMER:
-                tile = new TileAutohammer();
+                return new TileAutohammer();
             case MachineRenderedMeta.ANVIL:
                 return new TileAnvil();
         }
@@ -365,9 +365,9 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public IIcon getIcon(int side, int meta) {
         IIcon icon = null;
-        if (meta == MachineRenderedMeta.GEYSER) icon = Blocks.hopper.getIcon(0, 0);
-        else if (meta == MachineRenderedMeta.INGOT_CASTER) icon = super.getIcon(side, meta);
-        else if (meta >= MachineRenderedMeta.ANVIL) icon = super.getIcon(side, MachineRenderedMeta.INGOT_CASTER);
+        if (meta == MachineRenderedMeta.GEYSER) return Blocks.hopper.getIcon(0, 0);
+        else if (meta == MachineRenderedMeta.INGOT_CASTER) return super.getIcon(side, meta);
+        else if (meta >= MachineRenderedMeta.ANVIL) return super.getIcon(side, MachineRenderedMeta.INGOT_CASTER);
         else icon = icons[meta];
 
         return MaricultureEvents.getInventoryIcon(this, meta, side, icon);
@@ -378,16 +378,16 @@ public class BlockRenderedMachine extends BlockFunctional {
         boolean isActive = false;
         switch (meta) {
             case MachineRenderedMeta.FISH_FEEDER:
-                isActive = Modules.isActive(Modules.fishery);
+                return Modules.isActive(Modules.fishery);
             case MachineRenderedMeta.GEYSER:
-                isActive = Modules.isActive(Modules.factory);
+                return Modules.isActive(Modules.factory);
             case MachineRenderedMeta.AIR_PUMP:
             case MachineRenderedMeta.ANVIL:
             case MachineRenderedMeta.AUTO_HAMMER:
             case MachineRenderedMeta.BLOCK_CASTER:
             case MachineRenderedMeta.INGOT_CASTER:
             case MachineRenderedMeta.NUGGET_CASTER:
-                isActive = false;
+                return true;
         }
 
         return MaricultureEvents.isActive(this, meta, isActive);
