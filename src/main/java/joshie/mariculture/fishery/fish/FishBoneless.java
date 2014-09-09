@@ -14,6 +14,8 @@ import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.init.Items;
@@ -70,6 +72,11 @@ public class FishBoneless extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 150;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return super.isValidWater(block) || Fluids.isEnder(block);
     }
 
     @Override

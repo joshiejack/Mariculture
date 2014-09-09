@@ -17,12 +17,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class FishStargazer extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 2;
+        return 12;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 3;
+        return 14;
     }
 
     @Override

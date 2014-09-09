@@ -16,12 +16,12 @@ import net.minecraft.world.World;
 public class FishManOWar extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 34;
+        return 32;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 11;
+        return 12;
     }
 
     @Override

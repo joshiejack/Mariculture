@@ -17,12 +17,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class FishLamprey extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 1;
+        return 3;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 4;
+        return 6;
     }
 
     @Override

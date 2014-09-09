@@ -6,7 +6,9 @@ import static joshie.mariculture.core.lib.MCLib.dropletWater;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -15,12 +17,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class FishMantaRay extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 22;
+        return 30;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 4;
+        return 15;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class FishMantaRay extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 2;
     }
 
     @Override
@@ -56,6 +58,11 @@ public class FishMantaRay extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 115;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return super.isValidWater(block) || block == Blocks.lava;
     }
 
     @Override

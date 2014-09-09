@@ -27,7 +27,7 @@ public class FishRedshroom extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 1;
+        return 2;
     }
 
     @Override

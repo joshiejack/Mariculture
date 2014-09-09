@@ -7,6 +7,7 @@ import static joshie.mariculture.core.lib.MCLib.dropletNether;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -21,7 +22,7 @@ public class FishBlaze extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 25;
+        return 35;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class FishBlaze extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class FishBlaze extends FishSpecies {
     
     @Override
     public boolean isValidWater(Block block) {
-        return block == Blocks.lava;
+        return block == Blocks.lava || Fluids.isHalfway(block);
     }
 
     @Override

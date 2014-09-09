@@ -21,12 +21,12 @@ import cofh.api.energy.IEnergyHandler;
 public class FishElectricRay extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 13;
+        return 14;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 8;
+        return 10;
     }
 
     @Override

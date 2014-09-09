@@ -17,12 +17,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class FishBlaasop extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 8;
+        return 12;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 12;
+        return 15;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FishBlaasop extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 1;
+        return 2;
     }
 
     @Override

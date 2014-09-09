@@ -6,7 +6,10 @@ import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -50,6 +53,11 @@ public class FishNight extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 50;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return block == Blocks.water || Fluids.isEnder(block);
     }
 
     @Override

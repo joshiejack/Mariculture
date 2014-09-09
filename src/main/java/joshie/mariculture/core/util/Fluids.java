@@ -82,4 +82,8 @@ public class Fluids {
     public static boolean isEnder(Block block) {
         return block == getFluidBlock("ender");
     }
+
+    public static boolean isHalfway(Block block) {
+        return block == getFluidBlock("custard");
+    }
 }

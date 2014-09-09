@@ -8,6 +8,7 @@ import joshie.mariculture.api.core.Environment.Height;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import joshie.mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 public class FishGlow extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 67;
+        return 57;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class FishGlow extends FishSpecies {
     
     @Override
     public boolean isValidWater(Block block) {
-        return block == Blocks.lava;
+        return block == Blocks.lava || Fluids.isHalfway(block);
     }
 
     @Override

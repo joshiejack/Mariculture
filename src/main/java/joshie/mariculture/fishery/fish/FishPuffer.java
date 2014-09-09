@@ -7,7 +7,9 @@ import static joshie.mariculture.core.lib.MCLib.dropletWater;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -58,6 +60,11 @@ public class FishPuffer extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 115;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return super.isValidWater(block) || block == Blocks.lava;
     }
 
     @Override
