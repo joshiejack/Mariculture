@@ -6,16 +6,16 @@ import static joshie.mariculture.core.util.Fluids.getFluidStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.core.CachedCoords;
+import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.core.MaricultureHandlers;
+import joshie.mariculture.api.fishery.FishTickEvent;
 import joshie.mariculture.api.fishery.Fishing;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
 import joshie.mariculture.core.config.Machines.Ticks;
 import joshie.mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import joshie.mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import joshie.mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
-import joshie.mariculture.core.helpers.BlockHelper;
 import joshie.mariculture.core.helpers.FluidHelper;
 import joshie.mariculture.core.lib.MachineSpeeds;
 import joshie.mariculture.core.network.PacketHandler;
@@ -33,6 +33,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyConnection;
 import cpw.mods.fml.relauncher.Side;
@@ -176,26 +177,30 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     private void makeProduct(ItemStack fish) {
         FishSpecies species = Fishing.fishHelper.getSpecies(fish);
         if (species != null) {
-            for (int i = 0; i < Fish.production.getDNA(fish); i++) {
-                ItemStack product = species.getProduct(worldObj.rand);
-                if (product != null) {
-                    helper.insertStack(product, output);
-                }
-                int gender = Fish.gender.getDNA(fish);
+            int gender = Fish.gender.getDNA(fish);
 
-                if (MaricultureHandlers.upgrades.hasUpgrade("female", this)) {
-                    int fertility = Math.max(1, (5500 - Fish.fertility.getDNA(fish)) / 50);
-                    if (worldObj.rand.nextInt(fertility) == 0) {
-                        generateEgg();
-                    }
-                }
-
-                if (MaricultureHandlers.upgrades.hasUpgrade("male", this)) {
-                    product = species.getProduct(worldObj.rand);
+            if (!MinecraftForge.EVENT_BUS.post(new FishTickEvent(this, species, gender == 1))) {
+                for (int i = 0; i < Fish.production.getDNA(fish); i++) {
+                    ItemStack product = species.getProduct(worldObj.rand);
                     if (product != null) {
                         helper.insertStack(product, output);
                     }
+
+                    if (MaricultureHandlers.upgrades.hasUpgrade("female", this)) {
+                        int fertility = Math.max(1, (5500 - Fish.fertility.getDNA(fish)) / 50);
+                        if (worldObj.rand.nextInt(fertility) == 0) {
+                            generateEgg();
+                        }
+                    }
+
+                    if (MaricultureHandlers.upgrades.hasUpgrade("male", this)) {
+                        product = species.getProduct(worldObj.rand);
+                        if (product != null) {
+                            helper.insertStack(product, output);
+                        }
+                    }
                 }
+
             }
         }
     }
