@@ -302,7 +302,7 @@ public class Fish {
         Fishing.mutation.addMutation(manOWar, electricRay, boneless, 6D);
         Fishing.mutation.addMutation(siamese, catfish, koi, 7D);
         Fishing.mutation.addMutation(lung, siamese, pike, 7.5D);
-        Fishing.mutation.addMutation(piranha, jelly, undead, 6.75D);
+        Fishing.mutation.addMutation(piranha, jelly, manOWar, 6.75D);
         Fishing.mutation.addMutation(nether, puffer, glow, 8.5D);
         Fishing.mutation.addMutation(stingRay, herring, electricRay, 8D);
         Fishing.mutation.addMutation(angler, pickerel, piranha, 7.75D);
