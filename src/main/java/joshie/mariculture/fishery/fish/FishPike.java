@@ -34,7 +34,7 @@ public class FishPike extends FishSpecies {
 
     @Override
     public boolean isDominant() {
-        return true;
+        return false;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FishPike extends FishSpecies {
 
     @Override
     public int getWaterRequired() {
-        return 95;
+        return 120;
     }
     
     @Override
@@ -69,22 +69,7 @@ public class FishPike extends FishSpecies {
 
     @Override
     public double getFishOilVolume() {
-        return 2.725D;
-    }
-
-    @Override
-    public ItemStack getLiquifiedProduct() {
-        return new ItemStack(glowstone);
-    }
-
-    @Override
-    public int getLiquifiedProductChance() {
-        return 1;
-    }
-
-    @Override
-    public int getFishMealSize() {
-        return 5;
+        return 5.125D;
     }
 
     @Override

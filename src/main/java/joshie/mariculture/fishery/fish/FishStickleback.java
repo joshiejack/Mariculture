@@ -5,18 +5,17 @@ import static joshie.mariculture.core.lib.MCLib.dropletEarth;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
-public class FishBrownshroom extends FishSpecies {
+public class FishStickleback extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 10;
+        return 3;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 10;
+        return 7;
     }
 
     @Override
@@ -26,7 +25,7 @@ public class FishBrownshroom extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -36,42 +35,41 @@ public class FishBrownshroom extends FishSpecies {
 
     @Override
     public int getLifeSpan() {
-        return 10;
+        return 3;
     }
 
     @Override
     public int getFertility() {
-        return 250;
+        return 500;
+    }
+
+    @Override
+    public int getFoodConsumption() {
+        return 1;
     }
 
     @Override
     public int getWaterRequired() {
-        return 50;
-    }
-
-    @Override
-    public double getFishOilVolume() {
-        return 1.355D;
-    }
-
-    @Override
-    public ItemStack getLiquifiedProduct() {
-        return new ItemStack(Blocks.brown_mushroom);
-    }
-
-    @Override
-    public int getFishMealSize() {
-        return 3;
+        return 20;
     }
 
     @Override
     public void addFishProducts() {
         addProduct(dropletEarth, 7.5D);
-        addProduct(Blocks.brown_mushroom, 10D);
+    }
+
+    @Override
+    public double getFishOilVolume() {
+        return 0.075D;
     }
 
     @Override
     public RodType getRodNeeded() {
         return RodType.DIRE;
+    }
+
+    @Override
+    public double getCatchChance(World world, int height) {
+        return 35D;
     }
 }

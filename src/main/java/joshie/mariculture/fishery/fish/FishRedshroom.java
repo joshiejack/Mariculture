@@ -47,7 +47,7 @@ public class FishRedshroom extends FishSpecies {
     
     @Override
     public int getWaterRequired() {
-        return 80;
+        return 55;
     }
     
     @Override
