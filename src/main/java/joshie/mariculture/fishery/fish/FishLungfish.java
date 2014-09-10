@@ -5,6 +5,9 @@ import static joshie.mariculture.core.lib.MCLib.dropletEarth;
 import joshie.mariculture.api.core.Environment.Salinity;
 import joshie.mariculture.api.fishery.RodType;
 import joshie.mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class FishLungfish extends FishSpecies {
@@ -61,6 +64,11 @@ public class FishLungfish extends FishSpecies {
     @Override
     public double getFishOilVolume() {
         return 4.3D;
+    }
+    
+    @Override
+    public void affectLiving(EntityLivingBase entity) {
+        entity.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 500));
     }
 
     @Override

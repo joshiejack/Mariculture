@@ -22,6 +22,7 @@ public class WorldGenReef extends WorldGenerator {
         if (!cache.contains(coords)) {
             cache.add(coords);
         }
+        
         world.setBlock(x, y, z, Core.rocks);
     }
 
