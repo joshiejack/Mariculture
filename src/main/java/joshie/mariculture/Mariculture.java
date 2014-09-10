@@ -35,13 +35,15 @@ public class Mariculture {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        root = event.getModConfigurationDirectory();
-        Config.setup();
-        for (Module module : Modules.modules) {
-            module.preInit();
+        if (EnchiridionManager.isPresent()) {
+            root = event.getModConfigurationDirectory();
+            Config.setup();
+            for (Module module : Modules.modules) {
+                module.preInit();
+            }
+    
+            NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         }
-
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 
     @EventHandler

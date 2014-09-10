@@ -704,3 +704,14 @@ mariculture.titanium.tough.rod=Titanium Tough Rod
 ### Blood Magic ###
 mariculture.rodblood=Bound Fishing Rod
 mariculture.ritual=[Mariculture]Ritual of the Blood River
+
+#Downloader
+enchiridion.downloader.missing=%s requires Enchiridion in order to function: You can download it here: %s
+enchiridion.downloader.0=Enchiridion is missing, you need it for %s to work. The mod is REQUIRED for the guide books!
+enchiridion.downloader.1=Would you like to automatically download Enchiridion? (Will require a game restart)
+enchiridion.downloader.downloading=Downloading Enchiridion... Please Hold! ...
+enchiridion.downloader.success=Enchiridion was succesfully download!
+enchiridion.downloader.restart=Please restart your game to finish
+enchiridion.downloader.failed.0=Oh noes! Enchiridion failed to download
+enchiridion.downloader.failed.1=Please download Enchiridion manually from CurseForge (%s)
+enchiridion.downloader.outofdate=Enchiridion is not the correct version, please update (%s)
