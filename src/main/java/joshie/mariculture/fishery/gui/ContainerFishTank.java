@@ -1,12 +1,9 @@
 package joshie.mariculture.fishery.gui;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-
 import joshie.mariculture.core.gui.ContainerMachine;
 import joshie.mariculture.fishery.items.ItemFishy;
+import joshie.mariculture.fishery.tile.FishTankData;
 import joshie.mariculture.fishery.tile.TileFishTank;
-import joshie.mariculture.fishery.tile.TileFishTank.FishTankData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
