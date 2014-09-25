@@ -62,13 +62,6 @@ public class ItemBait extends ItemMCMeta {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        if (Extra.NERF_FOOD) {
-            PluginHungerOverhaul.addInformation(1, -1F, list);
-        }
-    }
-
-    @Override
     public int getMetaCount() {
         return BaitMeta.COUNT;
     }

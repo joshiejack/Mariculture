@@ -1,5 +1,8 @@
 package joshie.lib.helpers;
 
+import java.util.List;
+
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
@@ -18,12 +21,27 @@ public class StackHelper {
         if (stack.getHasSubtypes()) {
             str = str + " " + stack.getItemDamage();
         }
+        
         if (stack.hasTagCompound()) {
             str = str + " " + stack.stackTagCompound.toString();
         }
 
         return str;
     }
+    
+    public static String getStringFromObject(Object object) {
+        if(object instanceof Item) {
+            return getStringFromStack(new ItemStack((Item)object));
+        } else if(object instanceof Block) {
+            return getStringFromStack(new ItemStack((Block)object));
+        } else if (object instanceof ItemStack) {
+            return getStringFromStack((ItemStack)object);
+        } else if (object instanceof String) {
+            return (String)object;
+        } else if (object instanceof List) {
+           return getStringFromStack((ItemStack) ((List)object).get(0));
+        } else return "";
+    } 
 
     public static boolean matches(String str, ItemStack stack) {
         return getStringFromStack(stack).equals(str);

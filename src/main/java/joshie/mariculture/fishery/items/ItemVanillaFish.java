@@ -102,20 +102,6 @@ public class ItemVanillaFish extends ItemFishFood {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        if (Extra.NERF_FOOD) {
-            FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
-            if (fish != null) {
-                int level = fish.getFoodStat();
-                float sat = fish.getFoodSaturation();
-                level = Math.max(1, level / 2);
-                sat = Math.max(0.0F, sat / 10);
-                PluginHungerOverhaul.addInformation(level, sat, list);
-            }
-        }
-    }
-
-    @Override
     public String getPotionEffect(ItemStack stack) {
         if (Vanilla.VANILLA_STATS && stack.getItemDamage() < LAST_VANILLA) return super.getPotionEffect(stack);
         else {

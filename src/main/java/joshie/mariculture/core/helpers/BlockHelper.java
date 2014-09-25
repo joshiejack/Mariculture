@@ -1,14 +1,10 @@
 package joshie.mariculture.core.helpers;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Random;
 
 import joshie.mariculture.core.tile.base.TileMultiBlock;
 import joshie.mariculture.core.util.Fluids;
 import joshie.mariculture.core.util.IItemDropBlacklist;
-import joshie.mariculture.fishery.tile.TileFishTank;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -120,7 +116,6 @@ public class BlockHelper {
         }
 
         IInventory inventory = (IInventory) tile;
-
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             boolean drop = true;
             if (tile instanceof IItemDropBlacklist) {
@@ -151,42 +146,6 @@ public class BlockHelper {
                 }
             }
         }
-    }
-
-    public static void dropFish(World world, int x, int y, int z) {
-        Random rand = world.rand;
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileFishTank) {
-            HashMap fish = ((TileFishTank) tile).fish;
-            Iterator it = fish.entrySet().iterator();
-
-            while (it.hasNext()) {
-                Map.Entry pairs = (Map.Entry) it.next();
-                ItemStack stack = (ItemStack) pairs.getValue();
-
-                if (stack != null && stack.stackSize > 0) {
-                    float rx = rand.nextFloat() * 0.6F + 0.1F;
-                    float ry = rand.nextFloat() * 0.6F + 0.1F;
-                    float rz = rand.nextFloat() * 0.6F + 0.1F;
-
-                    EntityItem entity_item = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(stack.getItem(), stack.stackSize, stack.getItemDamage()));
-
-                    if (stack.hasTagCompound()) {
-                        entity_item.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
-                    }
-
-                    float factor = 0.05F;
-
-                    entity_item.motionX = rand.nextGaussian() * factor;
-                    entity_item.motionY = rand.nextGaussian() * factor + 0.2F;
-                    entity_item.motionZ = rand.nextGaussian() * factor;
-                    world.spawnEntityInWorld(entity_item);
-                    stack.stackSize = 0;
-                }
-            }
-        }
-
-        dropItems(world, x, y, z);
     }
 
     private static boolean removeBlock(World world, EntityPlayerMP player, int x, int y, int z) {

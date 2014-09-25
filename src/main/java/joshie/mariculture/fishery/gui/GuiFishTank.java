@@ -26,12 +26,22 @@ public class GuiFishTank extends GuiMariculture {
     @Override
     protected void onMouseClick(int x, int y) {
         if (mouseX >= -18 && mouseX <= 2 && mouseY >= 104 && mouseY <= 124) {
+            tile.thePage -= 1;
+            if (tile.thePage < 0) {
+                tile.thePage = tile.MAX_PAGES - 1;
+            }
+            
             PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.previous));
             PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
             ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
         }
 
         if (mouseX >= 172 && mouseX <= 192 && mouseY >= 104 && mouseY <= 124) {
+            tile.thePage += 1;
+            if (tile.thePage >= tile.MAX_PAGES) {
+                tile.thePage = 0;
+            }
+            
             PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, tile.next));
             PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
             ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
@@ -58,6 +68,7 @@ public class GuiFishTank extends GuiMariculture {
         if (mouseX >= 172 && mouseX <= 192 && mouseY >= 104 && mouseY <= 124) {
             drawTexturedModalRect(x + 173, y + 103 + 2, 18, 220, 18, 18);
         }
+        
         mc.renderEngine.bindTexture(TEXTURE);
     }
 }

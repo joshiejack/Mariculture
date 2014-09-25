@@ -327,12 +327,6 @@ public class BlockTank extends BlockConnected {
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int j) {
-        BlockHelper.dropFish(world, x, y, z);
-        super.breakBlock(world, x, y, z, block, j);
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         icons = new IIcon[getMetaCount()];

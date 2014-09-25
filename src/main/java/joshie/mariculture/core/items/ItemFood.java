@@ -168,18 +168,6 @@ public class ItemFood extends ItemMCMeta {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        if (Extra.NERF_FOOD) {
-            int level = getFoodLevel(stack.getItemDamage());
-            float sat = getFoodSaturation(stack.getItemDamage());
-            //Decrease food if hunger overhaul is installed
-            level = (int) Math.max(1, level / 2.5);
-            sat = Math.max(0.0F, sat / 10);
-            PluginHungerOverhaul.addInformation(level, sat, par3List);
-        }
-    }
-
-    @Override
     public int getMetaCount() {
         return FoodMeta.COUNT;
     }

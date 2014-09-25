@@ -75,7 +75,7 @@ jar {
 }
 
 task maricultureJar(type: Jar) {
-    baseName = 'Mariculture'
+    baseName = 'Mariculture-Base'
     version = config.minecraft_version + "-" + config.mc_version + buildnumber
     manifest {
         attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
@@ -97,7 +97,7 @@ task maricultureJar(type: Jar) {
 }
 
 task maritechJar(type: Jar) {
-    baseName = 'MariTech'
+    baseName = 'Mariculture-Technology'
     version = config.minecraft_version + "-" + config.mc_version + buildnumber
     from('etc/maritech') {
         include '*.txt'

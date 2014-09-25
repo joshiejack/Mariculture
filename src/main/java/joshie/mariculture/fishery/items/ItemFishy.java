@@ -28,6 +28,7 @@ public class ItemFishy extends ItemMCBaseSingle implements ISpecialSorting {
 
     public ItemFishy() {
         setCreativeTab(MaricultureTab.tabFishery);
+        setMaxStackSize(64);
         setHasSubtypes(true);
     }
 

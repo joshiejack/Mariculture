@@ -14,6 +14,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -81,6 +82,10 @@ public class ClientHelper {
     }
 
     //Keybindings
+    public static boolean isSneakingPressed() {
+        return GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak);
+    }
+    
     public static boolean isSprintingPressed() {
         return GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSprint);
     }
@@ -91,6 +96,10 @@ public class ClientHelper {
 
     public static boolean isJumpPressed() {
         return GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindJump);
+    }
+    
+    public static boolean isShiftPressed() {
+        return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
     }
     
     //Mouse Helper
@@ -109,5 +118,10 @@ public class ClientHelper {
     //Binds a texture
     public static void bindTexture(ResourceLocation texture) {
         getMinecraft().getTextureManager().bindTexture(texture);
+    }
+
+    //returns the lang currently in use
+    public static String getLang() {
+        return FMLClientHandler.instance().getCurrentLanguage();
     }
 }
