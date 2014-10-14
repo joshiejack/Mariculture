@@ -11,8 +11,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class GeneratorFuel {
 
-	public static HashMap<Integer, GeneratorFuel> fuels = new HashMap<Integer, GeneratorFuel>();
-
 	/**
 	 * LiquidStack representing the fuel type and amount consumed per triggered cycle.
 	 */

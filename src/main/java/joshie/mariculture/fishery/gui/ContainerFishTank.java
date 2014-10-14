@@ -2,7 +2,6 @@ package joshie.mariculture.fishery.gui;
 
 import joshie.mariculture.core.gui.ContainerMachine;
 import joshie.mariculture.fishery.items.ItemFishy;
-import joshie.mariculture.fishery.tile.FishTankData;
 import joshie.mariculture.fishery.tile.TileFishTank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,16 +15,6 @@ public class ContainerFishTank extends ContainerMachine {
     public ContainerFishTank(TileFishTank tile, InventoryPlayer playerInventory) {
         super(tile);
         this.tile = tile;
-        int i = (6 - 4) * 18;
-        int j;
-        int k;
-
-        for (j = 0; j < 6; ++j) {
-            for (k = 0; k < 9; ++k) {
-                addSlotToContainer(new SlotFishTank(tile, k + j * 9, 8 + k * 18, 16 + j * 18));
-            }
-        }
-
         bindPlayerInventory(playerInventory, 52);
     }
 
@@ -45,14 +34,10 @@ public class ContainerFishTank extends ContainerMachine {
 
     }
 
-    @Override
+    /*@Override
     public ItemStack slotClick(int id, int button, int method, EntityPlayer player) {
         if (id >= 54 || id < 0) return super.slotClick(id, button, method, player);
-        ItemStack heldStack = player.inventory.getItemStack();
-        if(button == 2) {
-            tile.alphabetise();
-        }
-        
+        ItemStack heldStack = player.inventory.getItemStack();        
         if (id >= 0 && (player.capabilities.isCreativeMode || (!player.capabilities.isCreativeMode && button != 2))) {
             Slot slot = (Slot) this.inventorySlots.get(id);
             ItemStack slotStack = slot.getStack();
@@ -472,8 +457,8 @@ public class ContainerFishTank extends ContainerMachine {
             }
         } 
 
-        return itemstack;*/
-    }
+        return itemstack;
+    } */
 
     private class SlotFishTank extends Slot {
         public SlotFishTank(TileFishTank invent, int slot, int x, int y) {

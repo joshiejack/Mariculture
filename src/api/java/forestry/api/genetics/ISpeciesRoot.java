@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.mojang.authlib.GameProfile;
+
 /**
  * Describes a class of species (i.e. bees, trees, butterflies), provides helper functions and access to common functionality.
  */
@@ -63,7 +65,7 @@ public interface ISpeciesRoot {
 	ItemStack getMemberStack(IIndividual individual, int type);
 
 	/* BREEDING TRACKER */
-	IBreedingTracker getBreedingTracker(World world, String player);
+	IBreedingTracker getBreedingTracker(World world, GameProfile player);
 
 	/* GENOME MANIPULATION */
 	IIndividual templateAsIndividual(IAllele[] template);

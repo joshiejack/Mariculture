@@ -43,7 +43,7 @@ public interface IClimateHelper {
 	String toDisplay(EnumTemperature temperature);
 	/**
 	 * Gets a localized, human readable string for the given humidity.
-	 * @param temperature Humidity to generate the string for.
+	 * @param humidity Humidity to generate the string for.
 	 * @return A localized, human readable string for the given humidity.
 	 */
 	String toDisplay(EnumHumidity humidity);

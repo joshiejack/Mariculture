@@ -3,6 +3,10 @@ package joshie.lib.helpers;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
@@ -10,15 +14,40 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.client.ForgeHooksClient;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class StackHelper {
-    public static ItemStack getStackFromString(String str) {
+    public static void renderStack(Minecraft mc, RenderBlocks blockRenderer, RenderItem itemRenderer, ItemStack stack, int x, int y) {
+        if (stack != null && stack.getItem() != null) {
+            try {
+                GL11.glPushMatrix();
+                GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                RenderHelper.enableGUIStandardItemLighting();
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
+                if (!ForgeHooksClient.renderInventoryItem(blockRenderer, mc.getTextureManager(), stack, itemRenderer.renderWithColor, itemRenderer.zLevel, x, y)) {
+                    itemRenderer.renderItemIntoGUI(mc.fontRenderer, mc.getTextureManager(), stack, x, y, false);
+                }
+                
+                RenderHelper.disableStandardItemLighting();
+                GL11.glPopMatrix();
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            } catch (Exception e) {}
+        }
+    }
+    
+    public static ItemStack getStackFromString(String str) {        
         return getStackFromArray(str.trim().split(" "));
     }
 
     public static String getStringFromStack(ItemStack stack) {
         String str = Item.itemRegistry.getNameForObject(stack.getItem());
-        if (stack.getHasSubtypes()) {
+        if (stack.getHasSubtypes() || stack.hasTagCompound()) {
             str = str + " " + stack.getItemDamage();
         }
         
@@ -53,6 +82,7 @@ public class StackHelper {
         if (str.length > 1) {
             meta = parseInt(str[1]);
         }
+        
         ItemStack stack = new ItemStack(item, 1, meta);
         if (str.length > 2) {
             String s = formatNBT(str, 2).getUnformattedText();

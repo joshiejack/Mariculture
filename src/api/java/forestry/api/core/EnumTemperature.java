@@ -5,8 +5,6 @@
  ******************************************************************************/
 package forestry.api.core;
 
-import java.util.ArrayList;
-
 import net.minecraft.util.IIcon;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -24,43 +22,6 @@ public enum EnumTemperature {
 	NONE("None", "habitats/ocean"), ICY("Icy", "habitats/snow"), COLD("Cold", "habitats/taiga"),
 	NORMAL("Normal", "habitats/plains"), WARM("Warm", "habitats/jungle"), HOT("Hot", "habitats/desert"), HELLISH("Hellish", "habitats/nether");
 
-	/**
-	 * Populated by Forestry with vanilla biomes. Add additional icy/snow biomes here. (ex. snow plains)
-	 * @deprecated Biomes will be checked live rather than relying on cached values, so you don't have to register them.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> icyBiomeIds = new ArrayList<Integer>();
-	/**
-	 * Populated by Forestry with vanilla biomes. Add additional cold biomes here. (ex. taiga)
-	 * @deprecated Biomes will be checked live rather than relying on cached values, so you don't have to register them.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> coldBiomeIds = new ArrayList<Integer>();
-	/**
-	 * Populated by Forestry with vanilla biomes. Add additional normal biomes here. (ex. forest, plains)
-	 * @deprecated Biomes will be checked live rather than relying on cached values, so you don't have to register them.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> normalBiomeIds = new ArrayList<Integer>();
-	/**
-	 * Populated by Forestry with vanilla biomes. Add additional warm biomes here. (ex. jungle)
-	 * @deprecated Biomes will be checked live rather than relying on cached values, so you don't have to register them.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> warmBiomeIds = new ArrayList<Integer>();
-	/**
-	 * Populated by Forestry with vanilla biomes. Add additional hot biomes here. (ex. desert)
-	 * @deprecated Biomes will be checked live rather than relying on cached values, so you don't have to register them.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> hotBiomeIds = new ArrayList<Integer>();
-	/**
-	 * Populated by Forestry with vanilla biomes. Add additional hellish biomes here. (ex. nether)
-	 * @deprecated Biomes will be checked live rather than relying on cached values, so you don't have to register them.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> hellishBiomeIds = new ArrayList<Integer>();
-
 	public final String name;
 	public final String iconIndex;
 
@@ -76,29 +37,6 @@ public enum EnumTemperature {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon() {
 		return ForestryAPI.textureManager.getDefault(iconIndex);
-	}
-	/**
-	 * @deprecated Switching most internals to use getFromValue to not rely on cached values.
-	 */
-	@Deprecated
-	public static ArrayList<Integer> getBiomeIds(EnumTemperature temperature) {
-
-		switch (temperature) {
-		case ICY:
-			return icyBiomeIds;
-		case COLD:
-			return coldBiomeIds;
-		case WARM:
-			return warmBiomeIds;
-		case HOT:
-			return hotBiomeIds;
-		case HELLISH:
-			return hellishBiomeIds;
-		case NORMAL:
-		default:
-			return normalBiomeIds;
-		}
-
 	}
 
 	/**
@@ -131,7 +69,7 @@ public enum EnumTemperature {
 	public static EnumTemperature getFromValue(float rawTemp) {
 		EnumTemperature value = EnumTemperature.ICY;
 
-		if (rawTemp >= 2.0f) {
+		if (rawTemp >= 1.8f) {
 			value = EnumTemperature.HOT;
 		}
 		else if (rawTemp >= 0.95f) {

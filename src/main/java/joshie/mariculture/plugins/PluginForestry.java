@@ -13,7 +13,7 @@ import static joshie.mariculture.core.lib.MCLib.vanillaFish;
 import static joshie.mariculture.core.lib.MCLib.wool;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map.Entry;
 
 import joshie.mariculture.api.fishery.fish.FishSpecies;
@@ -25,6 +25,7 @@ import joshie.mariculture.core.lib.CoralMeta;
 import joshie.mariculture.core.lib.DropletMeta;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.Fluids;
+import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.core.util.RecipeItem;
 import joshie.mariculture.fishery.Fishery;
 import joshie.mariculture.plugins.Plugins.Plugin;
@@ -135,11 +136,6 @@ public class PluginForestry extends Plugin {
         }
 
         @Override
-        public String getName() {
-            return joshie.lib.util.Text.localize("item.aquaBackpack.name");
-        }
-
-        @Override
         public int getPrimaryColour() {
             return 4301985;
         }
@@ -157,16 +153,25 @@ public class PluginForestry extends Plugin {
         }
 
         @Override
-        public Collection<ItemStack> getValidItems(EntityPlayer player) {
-            return items;
-        }
-
-        @Override
         public boolean isValidItem(EntityPlayer player, ItemStack itemstack) {
             for (ItemStack stack : items)
                 if (RecipeItem.equals(itemstack, stack)) return true;
-
             return false;
+        }
+
+        @Override
+        public String getName() {
+            return MCTranslate.translate("aquabackpack");
+        }
+
+        @Override
+        public String getName(ItemStack backpack) {
+            return getName();
+        }
+
+        @Override
+        public void addValidItems(List<ItemStack> validItems) {
+            items.addAll(validItems);
         }
     }
 }

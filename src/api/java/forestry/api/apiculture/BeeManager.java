@@ -18,12 +18,6 @@ import forestry.api.genetics.IMutation;
  * @author SirSengir
  */
 public class BeeManager {
-
-	/**
-	 * Get your own reference to this via AlleleManager.alleleRegistry.getSpeciesRoot("rootBees") and save it somewhere.
-	 */
-	@Deprecated
-	public static IBeeRoot beeInterface;
 	
 	/**
 	 * Species templates for bees that can drop from hives.
@@ -32,6 +26,7 @@ public class BeeManager {
 	 * 
 	 * see {@link IMutation} for template format
 	 */
+	@Deprecated // Deprecated since 3.1. Use HiveManager instead
 	public static ArrayList<IHiveDrop>[] hiveDrops;
 
 	/**
