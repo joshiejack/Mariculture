@@ -37,7 +37,7 @@ group= "com.github.joshie.mariculture" // http://maven.apache.org/guides/mini/gu
 archivesBaseName = "Mariculture-Deluxe"
 
 dependencies {
-    compile fileTree(dir: 'lib', include: '*.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 minecraft {

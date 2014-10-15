@@ -11,7 +11,6 @@ import joshie.mariculture.core.lib.Extra;
 import joshie.mariculture.core.lib.Modules;
 import joshie.mariculture.core.util.MCTranslate;
 import joshie.mariculture.fishery.FishyHelper;
-import joshie.mariculture.plugins.PluginHungerOverhaul;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,18 +19,32 @@ import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import squeek.applecore.api.food.FoodValues;
+import squeek.applecore.api.food.IEdible;
+import squeek.applecore.api.food.ItemFoodProxy;
 
 import com.google.common.collect.Multimap;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemVanillaFish extends ItemFishFood {
+@Optional.Interface(iface = "squeek.applecore.api.food.IEdible", modid = "AppleCore")
+public class ItemVanillaFish extends ItemFishFood implements IEdible {
     public static final int LAST_VANILLA = ItemFishFood.FishType.PUFFERFISH.ordinal() + 1;
 
     public ItemVanillaFish(boolean bool) {
         super(false);
         setCreativeTab(MaricultureTab.tabFishery);
+    }
+
+    @Optional.Method(modid = "AppleCore")
+    @Override
+    public FoodValues getFoodValues(ItemStack stack) {
+        FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
+        if (fish != null) {
+            return new FoodValues(fish.getFoodStat(), fish.getFoodSaturation());
+        } else return new FoodValues(2, 1F);
     }
 
     @Override
@@ -86,14 +99,12 @@ public class ItemVanillaFish extends ItemFishFood {
             FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
             if (fish != null) {
                 --stack.stackSize;
-                int food = fish.getFoodStat();
-                float sat = fish.getFoodSaturation();
                 if (Extra.NERF_FOOD) {
-                    food = Math.max(1, food / 2);
-                    sat = Math.max(0.0F, sat / 10);
+                    player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+                } else {
+                    player.getFoodStats().addStats(fish.getFoodStat(), fish.getFoodSaturation());
                 }
 
-                player.getFoodStats().addStats(food, sat);
                 world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
                 fish.onConsumed(world, player);
                 return stack;

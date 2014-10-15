@@ -1,22 +1,32 @@
 package joshie.mariculture.core.items;
 
-import java.util.List;
-
 import joshie.lib.helpers.ItemHelper;
 import joshie.mariculture.api.core.MaricultureTab;
 import joshie.mariculture.core.Core;
 import joshie.mariculture.core.lib.Extra;
 import joshie.mariculture.core.lib.FoodMeta;
 import joshie.mariculture.core.lib.Modules;
-import joshie.mariculture.plugins.PluginHungerOverhaul;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import squeek.applecore.api.food.FoodValues;
+import squeek.applecore.api.food.IEdible;
+import squeek.applecore.api.food.ItemFoodProxy;
+import cpw.mods.fml.common.Optional;
 
-public class ItemFood extends ItemMCMeta {
+@Optional.Interface(iface = "squeek.applecore.api.food.IEdible", modid = "AppleCore")
+public class ItemFood extends ItemMCMeta implements IEdible {
+    @Optional.Method(modid = "AppleCore")
+    @Override
+    public FoodValues getFoodValues(ItemStack stack) {
+        int level = getFoodLevel(stack.getItemDamage());
+        float sat = getFoodSaturation(stack.getItemDamage());
+        return new FoodValues(level, sat);
+    }
+    
     private int getFoodLevel(int dmg) {
         switch (dmg) {
             case FoodMeta.FISH_FINGER:
@@ -115,15 +125,14 @@ public class ItemFood extends ItemMCMeta {
             if (!player.capabilities.isCreativeMode) --stack.stackSize;
             ItemStack bowl = getLeftovers(meta);
             if (bowl != null && stack.stackSize > 0) ItemHelper.addToPlayerInventory(player, bowl);
-            int level = getFoodLevel(stack.getItemDamage());
-            float sat = getFoodSaturation(stack.getItemDamage());
-            //Decrease food if hunger overhaul is installed
-            if (Extra.NERF_FOOD) {
-                level = (int) Math.max(1, level / 2.5);
-                sat = Math.max(0.0F, sat / 10);
+            if(Extra.NERF_FOOD) {
+                player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+            } else {
+                int level = getFoodLevel(stack.getItemDamage());
+                float sat = getFoodSaturation(stack.getItemDamage());
+                player.getFoodStats().addStats(level, sat);
             }
 
-            player.getFoodStats().addStats(level, sat);
             world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
             if (!world.isRemote && player.shouldHeal() && meta == FoodMeta.KELP_WRAP) player.heal(2);
 

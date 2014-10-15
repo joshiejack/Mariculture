@@ -57,7 +57,7 @@ public class Plugins extends Module {
         add("Forestry");
         add("Thaumcraft");
         add("BiomesOPlenty");
-        add("HungerOverhaul");
+        add("AppleCore");
         add("Enchiridion");
         add("Highlands");
         add("BloodMagic", "AWWayofTime");
