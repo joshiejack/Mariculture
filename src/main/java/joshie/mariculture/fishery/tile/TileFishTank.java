@@ -29,9 +29,14 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 
     public List<FishTankData> storage = new ArrayList();
     public List<FishTankData> visible = new ArrayList();
+    
+    //Visible Checkings
+    private boolean malesOnly;
+    private boolean femalesOnly;
+    private boolean pureOnly;
 
     public List<FishTankData> getVisible() {
-        return visible.size() > 0? visible: storage;
+        return visible.size() > 0 ? visible : storage;
     }
 
     public void addFish(ItemStack stack) {
@@ -43,6 +48,14 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
         }
 
         storage.add(new FishTankData(stack.stackTagCompound, stack.stackSize));
+        updateVisible();
+    }
+
+    public void updateVisible() {
+        visible = new ArrayList();
+        for (FishTankData fish : storage) {
+            visible.add(fish);
+        }
     }
 
     @Override
@@ -173,6 +186,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
         }
 
         orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+        updateVisible();
     }
 
     @Override

@@ -44,6 +44,7 @@ public class PacketHandler {
         registerPacket(PacketParticle.class, Side.CLIENT);
         registerPacket(PacketSyncFeeder.class, Side.CLIENT);
         registerPacket(PacketGUIUpdate.class, Side.CLIENT);
+        registerPacket(PacketFishTankAdd.class, Side.SERVER);
     }
 
     public static void sendToClient(IMessage packet, EntityPlayerMP player) {

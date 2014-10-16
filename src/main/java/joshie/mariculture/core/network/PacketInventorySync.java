@@ -12,7 +12,6 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketInventorySync extends PacketNBT {
     public PacketInventorySync() {}
-
     public PacketInventorySync(int x, int y, int z, ItemStack[] inventory) {
         super(inventory);
         nbt.setInteger("x", x);

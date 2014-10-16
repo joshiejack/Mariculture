@@ -14,7 +14,6 @@ public class PacketFluidSync extends PacketCoords implements IMessageHandler<Pac
     FluidStack fluid;
 
     public PacketFluidSync() {}
-
     public PacketFluidSync(int x, int y, int z, FluidStack fluid, byte tank) {
         super(x, y, z);
         this.fluid = fluid;

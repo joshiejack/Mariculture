@@ -5,6 +5,7 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.core.gui.GuiMariculture;
 import joshie.mariculture.core.gui.feature.Feature;
 import joshie.mariculture.core.network.PacketClick;
+import joshie.mariculture.core.network.PacketFishTankAdd;
 import joshie.mariculture.core.network.PacketHandler;
 import joshie.mariculture.fishery.items.ItemFishy;
 import joshie.mariculture.fishery.tile.TileFishTank;
@@ -56,10 +57,15 @@ public class GuiFishTank extends GuiMariculture {
             PacketHandler.sendToServer(new PacketClick(tile.xCoord, tile.yCoord, tile.zCoord, ClientHelper.getPlayer().getEntityId()));
             ClientHelper.getPlayer().openGui(Mariculture.instance, -1, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
         }
-
-        ItemStack held = ClientHelper.getPlayer().inventory.getItemStack();
-        if (held != null && held.getItem() instanceof ItemFishy) {
-            tile.addFish(held);
+        
+        if(mouseX >= 8 && mouseX <= 168 && mouseY >= 16 && mouseY <= 122) {
+            ItemStack held = ClientHelper.getPlayer().inventory.getItemStack();
+            if (held != null && held.getItem() instanceof ItemFishy) {
+                //tile.addFish(held);
+                System.out.println("SEND");
+                PacketHandler.sendToServer(new PacketFishTankAdd(tile.xCoord, tile.yCoord, tile.zCoord, held.stackTagCompound, held.stackSize));
+                ClientHelper.getPlayer().inventory.setItemStack(null);
+            }
         }
     }
 

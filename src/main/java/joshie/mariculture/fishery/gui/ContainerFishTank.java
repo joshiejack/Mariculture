@@ -31,7 +31,6 @@ public class ContainerFishTank extends ContainerMachine {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
         return null;
-
     }
 
     /*@Override
