@@ -31,6 +31,8 @@ public class WorldEventHandler {
             if (i == j) return true;
         }
 
+        if (i == 66) return true;
+
         return false;
     }
 
