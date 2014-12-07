@@ -26,7 +26,12 @@ public class ItemFood extends ItemMCMeta implements IEdible {
         float sat = getFoodSaturation(stack.getItemDamage());
         return new FoodValues(level, sat);
     }
-    
+
+    @Optional.Method(modid = "AppleCore")
+    public void onEatenCompatibility(ItemStack stack, EntityPlayer player) {
+        player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+    }
+
     private int getFoodLevel(int dmg) {
         switch (dmg) {
             case FoodMeta.FISH_FINGER:
@@ -126,7 +131,7 @@ public class ItemFood extends ItemMCMeta implements IEdible {
             ItemStack bowl = getLeftovers(meta);
             if (bowl != null && stack.stackSize > 0) ItemHelper.addToPlayerInventory(player, bowl);
             if(Extra.NERF_FOOD) {
-                player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+                onEatenCompatibility(stack, player);
             } else {
                 int level = getFoodLevel(stack.getItemDamage());
                 float sat = getFoodSaturation(stack.getItemDamage());
