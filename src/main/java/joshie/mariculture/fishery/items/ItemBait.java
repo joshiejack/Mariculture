@@ -30,6 +30,11 @@ public class ItemBait extends ItemMCMeta implements IEdible {
         return new FoodValues(fill >= 1 ? fill : 1, 1F);
     }
 
+    @Optional.Method(modid = "AppleCore")
+    public void onEatenCompatibility(ItemStack stack, EntityPlayer player) {
+        player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+    }
+
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 8;
@@ -53,7 +58,7 @@ public class ItemBait extends ItemMCMeta implements IEdible {
 
         player.getFoodStats().addExhaustion(1.5F);
         if (Extra.NERF_FOOD) {
-            player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+            onEatenCompatibility(stack, player);
             player.addPotionEffect(new PotionEffect(Potion.hunger.id, 30, 0));
             if (world.rand.nextInt(64) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0));

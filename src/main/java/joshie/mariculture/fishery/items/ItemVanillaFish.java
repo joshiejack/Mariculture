@@ -47,6 +47,11 @@ public class ItemVanillaFish extends ItemFishFood implements IEdible {
         } else return new FoodValues(2, 1F);
     }
 
+    @Optional.Method(modid = "AppleCore")
+    public void onEatenCompatibility(ItemStack stack, EntityPlayer player) {
+        player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+    }
+
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         if (Fishing.fishHelper == null) return super.getItemStackDisplayName(stack);
@@ -100,7 +105,7 @@ public class ItemVanillaFish extends ItemFishFood implements IEdible {
             if (fish != null) {
                 --stack.stackSize;
                 if (Extra.NERF_FOOD) {
-                    player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
+                    onEatenCompatibility(stack, player);
                 } else {
                     player.getFoodStats().addStats(fish.getFoodStat(), fish.getFoodSaturation());
                 }
