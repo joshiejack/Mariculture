@@ -6,6 +6,7 @@ import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

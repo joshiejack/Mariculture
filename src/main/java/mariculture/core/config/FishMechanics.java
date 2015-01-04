@@ -1,6 +1,6 @@
 package mariculture.core.config;
 
-import static mariculture.core.helpers.ConfigHelper.getBoolean;
+import static mariculture.core.helpers.ConfigHelper.*;
 import static mariculture.core.helpers.ConfigHelper.getDouble;
 import static mariculture.core.helpers.ConfigHelper.getInt;
 import static mariculture.core.helpers.ConfigHelper.setCategory;

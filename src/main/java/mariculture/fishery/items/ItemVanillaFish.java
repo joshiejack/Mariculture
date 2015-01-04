@@ -41,6 +41,7 @@ public class ItemVanillaFish extends ItemFishFood implements IEdible {
     @Optional.Method(modid = "AppleCore")
     @Override
     public FoodValues getFoodValues(ItemStack stack) {
+        if(!Modules.isActive(Modules.fishery)) return new FoodValues(2, 1F); //If fishery is disabled
         FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
         if (fish != null) {
             return new FoodValues(fish.getFoodStat(), fish.getFoodSaturation());
@@ -132,6 +133,8 @@ public class ItemVanillaFish extends ItemFishFood implements IEdible {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+        if(!Modules.isActive(Modules.fishery)) return super.onLeftClickEntity(stack, player, entity); //If fishery is disabled
+        
         if (!player.capabilities.isCreativeMode) {
             FishSpecies species = Fishing.fishHelper.getSpecies(stack.getItemDamage());
             if (species != null) if (species.destroyOnAttack()) {
@@ -148,6 +151,7 @@ public class ItemVanillaFish extends ItemFishFood implements IEdible {
 
     @Override
     public Multimap getAttributeModifiers(ItemStack stack) {
+        if(!Modules.isActive(Modules.fishery)) return super.getAttributeModifiers(stack); //If fishery is disabled
         FishSpecies species = Fishing.fishHelper.getSpecies(stack.getItemDamage());
         if (species != null) return species.getModifiers(field_111210_e, super.getAttributeModifiers(stack));
         else return super.getAttributeModifiers(stack);
