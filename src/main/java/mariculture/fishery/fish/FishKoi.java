@@ -7,6 +7,8 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -58,6 +60,11 @@ public class FishKoi extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 300;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return super.isValidWater(block) || Fluids.isHalfway(block);
     }
 
     @Override

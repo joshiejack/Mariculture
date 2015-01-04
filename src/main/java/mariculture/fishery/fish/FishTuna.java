@@ -8,7 +8,9 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -21,7 +23,7 @@ public class FishTuna extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 10;
+        return 20;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class FishTuna extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -57,6 +59,11 @@ public class FishTuna extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 60;
+    }
+    
+    @Override
+    public boolean isValidWater(Block block) {
+        return super.isValidWater( block) || block == Blocks.lava;
     }
 
     @Override

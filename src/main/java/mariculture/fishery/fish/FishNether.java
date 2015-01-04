@@ -22,7 +22,7 @@ public class FishNether extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 28;
+        return 48;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FishNether extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 1;
     }
 
     @Override

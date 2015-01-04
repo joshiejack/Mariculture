@@ -43,7 +43,7 @@ public class FishTrout extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 1;
     }
 
     @Override
