@@ -136,8 +136,9 @@ public class Fish {
     public static FishSpecies angler;
     public static FishSpecies trout;
     public static FishSpecies herring;
-    //1.2.4 Species
-    public static FishSpecies brown; //BrownShroom
+    
+    //1.2.4 CANCELLED Species
+    /*public static FishSpecies brown; //BrownShroom
     public static FishSpecies red; //RedShroom
     public static FishSpecies pup; //Wolves
     public static FishSpecies chub; //Food
@@ -146,7 +147,7 @@ public class Fish {
     public static FishSpecies walleye; //Eyesight
     public static FishSpecies pike; //Weapons
     public static FishSpecies stickleback; //Spikes
-    public static FishSpecies pickerel; //Picky Something
+    public static FishSpecies pickerel; //Picky Something */
 
     public static void init() {
         addDNA();
@@ -281,7 +282,9 @@ public class Fish {
         trout = Fishing.fishHelper.registerFish(modid, FishTrout.class, 37);
         herring = Fishing.fishHelper.registerFish(modid, FishHerring.class, 38);
         minecraft = Fishing.fishHelper.registerFish(modid, FishMinecraft.class, 39);
-        brown = Fishing.fishHelper.registerFish(modid, FishBrownshroom.class, 40);
+        
+        //Cancelled Species
+        /* brown = Fishing.fishHelper.registerFish(modid, FishBrownshroom.class, 40);
         red = Fishing.fishHelper.registerFish(modid, FishRedshroom.class, 41);
         pup = Fishing.fishHelper.registerFish(modid, FishPupfish.class, 42);
         chub = Fishing.fishHelper.registerFish(modid, FishChub.class, 43);
@@ -290,7 +293,7 @@ public class Fish {
         walleye = Fishing.fishHelper.registerFish(modid, FishWalleye.class, 46);
         pike = Fishing.fishHelper.registerFish(modid, FishPike.class, 47);
         stickleback = Fishing.fishHelper.registerFish(modid, FishStickleback.class, 48);
-        pickerel = Fishing.fishHelper.registerFish(modid, FishPickerel.class, 49);
+        pickerel = Fishing.fishHelper.registerFish(modid, FishPickerel.class, 49); */
     }
 
     private static void addMutations() {
@@ -298,37 +301,24 @@ public class Fish {
         Fishing.mutation.addMutation(boneless, ender, dragon, 6D);
         Fishing.mutation.addMutation(tang, blaze, clown, 5.5D);
         Fishing.mutation.addMutation(night, koi, ender, 6.5D);
-        Fishing.mutation.addMutation(glow, pike, blaze, 6.5D);
+        Fishing.mutation.addMutation(glow, koi, blaze, 6.5D);
         Fishing.mutation.addMutation(manOWar, electricRay, boneless, 6D);
         Fishing.mutation.addMutation(siamese, catfish, koi, 7D);
-        Fishing.mutation.addMutation(lung, siamese, pike, 7.5D);
         Fishing.mutation.addMutation(piranha, jelly, manOWar, 6.75D);
         Fishing.mutation.addMutation(nether, puffer, glow, 8.5D);
         Fishing.mutation.addMutation(stingRay, herring, electricRay, 8D);
-        Fishing.mutation.addMutation(angler, pickerel, piranha, 7.75D);
-        Fishing.mutation.addMutation(walleye, trout, catfish, 8.5D);
-        Fishing.mutation.addMutation(bowfin, salmon, lung, 8.5D);
-        Fishing.mutation.addMutation(bowfin, pickerel, siamese, 8.25D);
-        Fishing.mutation.addMutation(walleye, pickerel, siamese, 8.25D);
-        Fishing.mutation.addMutation(tang, bass, pickerel, 8.5);
-        Fishing.mutation.addMutation(perch, chub, walleye, 9D);
-        Fishing.mutation.addMutation(brown, stickleback, bowfin, 9D);
+        Fishing.mutation.addMutation(angler, puffer, piranha, 7.75D);
+        Fishing.mutation.addMutation(herring, trout, catfish, 8.5D);
+        Fishing.mutation.addMutation(bass, tang, siamese, 8.25D);
         Fishing.mutation.addMutation(lamprey, bass, angler, 8.5D);
-        Fishing.mutation.addMutation(stickleback, jelly, puffer, 9.5D);
-        Fishing.mutation.addMutation(red, tuna, herring, 9.25D);
+        Fishing.mutation.addMutation(lamprey, jelly, puffer, 9.5D);
+        Fishing.mutation.addMutation(nether, tuna, herring, 9.25D);
         Fishing.mutation.addMutation(stargazer, squid, jelly, 10D);
-        Fishing.mutation.addMutation(lamprey, tuna, stickleback, 9.5D);
-        Fishing.mutation.addMutation(nether, mantaRay, red, 8D);
-        Fishing.mutation.addMutation(night, mantaRay, brown, 8D);
-        Fishing.mutation.addMutation(spider, mantaRay, brown, 8D);
         Fishing.mutation.addMutation(mantaRay, butterfly, tang, 8D);
-        Fishing.mutation.addMutation(stargazer, pup, chub, 10.5D);
         Fishing.mutation.addMutation(perch, undead, bass, 11D);
         Fishing.mutation.addMutation(trout, undead, bass, 10D);
         Fishing.mutation.addMutation(salmon, undead, bass, 10D);
         Fishing.mutation.addMutation(undead, blaasop, lamprey, 12D);
-        Fishing.mutation.addMutation(blaasop, pup, stargazer, 12D);
-        Fishing.mutation.addMutation(minnow, pup, perch, 15D);
         Fishing.mutation.addMutation(stingRay, angel, mantaRay, 8D);
         Fishing.mutation.addMutation(angel, cod, tuna, 15D);
         Fishing.mutation.addMutation(angel, gold, butterfly, 12D);
@@ -337,7 +327,6 @@ public class Fish {
         Fishing.mutation.addMutation(gold, tetra, salmon, 12.5D);
         Fishing.mutation.addMutation(gold, damsel, salmon, 15D);
         Fishing.mutation.addMutation(night, spider, undead, 15D);
-        Fishing.mutation.addMutation(blaasop, tetra, pup, 17.5D);
         Fishing.mutation.addMutation(tetra, damsel, angel, 20D);
         Fishing.mutation.addMutation(cod, minnow, gold, 25D);
     }

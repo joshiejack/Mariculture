@@ -41,12 +41,6 @@ public class ItemBlockTank extends ItemBlockMariculture {
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        if (stack.getItemDamage() == TankMeta.TANK) return mariculture.lib.util.Text.ORANGE + ("" + StatCollector.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name")).trim();
-        return super.getItemStackDisplayName(stack);
-    }
-
-    @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (stack.getItemDamage() == TankMeta.TANK) {
             FluidStack fluid = getFluid(stack);

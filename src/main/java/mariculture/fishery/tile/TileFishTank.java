@@ -2,12 +2,13 @@ package mariculture.fishery.tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import mariculture.Mariculture;
 import mariculture.core.util.IHasClickableButton;
 import mariculture.core.util.IMachine;
-import mariculture.fishery.gui.FishTankData;
 import mariculture.fishery.items.ItemFishy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,61 +22,46 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileFishTank extends TileEntity implements IInventory, IHasClickableButton, IMachine {
+
     public ForgeDirection orientation = ForgeDirection.UNKNOWN;
-    public static final int MAX_PAGES = 10;
+    public HashMap<Integer, ItemStack> fish;
+    public static final int MAX_PAGES = 250;
+
     public int previous = -2;
     public int next = -1;
     public int thePage = 0;
 
-    public List<FishTankData> storage = new ArrayList();
-    public List<FishTankData> visible = new ArrayList();
-    
-    //Visible Checkings
-    private boolean malesOnly;
-    private boolean femalesOnly;
-    private boolean pureOnly;
-
-    public List<FishTankData> getVisible() {
-        return visible.size() > 0 ? visible : storage;
+    public TileFishTank() {
+        fish = new HashMap();
     }
 
-    public void addFish(ItemStack stack) {
-        for (FishTankData data : storage) {
-            if (data.matches(stack)) {
-                data.add(stack.stackSize);
-                return;
-            }
-        }
-
-        storage.add(new FishTankData(stack.stackTagCompound, stack.stackSize));
-        updateVisible();
-    }
-
-    public void updateVisible() {
-        visible = new ArrayList();
-        for (FishTankData fish : storage) {
-            visible.add(fish);
-        }
+    @Override
+    public boolean canUpdate() {
+        return false;
     }
 
     @Override
     public int getSizeInventory() {
-        return storage.size();
+        return fish.size();
     }
 
     @Override
     public ItemStack getStackInSlot(int slot) {
+        if (fish.containsKey(slot)) return fish.get(slot);
         return null;
     }
 
     @Override
     public ItemStack decrStackSize(int slot, int amount) {
-        return null;
-    }
+        if (fish.containsKey(slot)) {
+            ItemStack stack = fish.get(slot);
+            fish.put(slot, null);
+            markDirty();
 
-    @Override
-    public int getInventoryStackLimit() {
-        return 4096;
+            return stack;
+        }
+
+        return null;
     }
 
     @Override
@@ -85,7 +71,8 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
-        return;
+        fish.put(slot, stack);
+        markDirty();
     }
 
     @Override
@@ -99,8 +86,13 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer plaer) {
-        return true;
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
     }
 
     @Override
@@ -108,11 +100,6 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
 
     @Override
     public void closeInventory() {}
-
-    @Override
-    public boolean canUpdate() {
-        return false;
-    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -154,7 +141,7 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         readFromNBT(pkt.func_148857_g());
     }
-
+    
     @Override
     public ArrayList<Integer> getGUIData() {
         return new ArrayList(Arrays.asList(new Integer[] { thePage }));
@@ -176,30 +163,35 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
 
-        storage = new ArrayList();
-        NBTTagList list = nbt.getTagList("FishData", 10);
-        for (int i = 0; i < list.tagCount(); i++) {
-            NBTTagCompound tag = list.getCompoundTagAt(i);
-            FishTankData data = new FishTankData();
-            data.readFromNBT(tag);
-            storage.add(data);
+        NBTTagList tagList = nbt.getTagList("FishList", 10);
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
+            ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
+            fish.put(tag.getInteger("Key"), stack);
         }
 
         orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
-        updateVisible();
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        NBTTagList list = new NBTTagList();
-        for (FishTankData data : storage) {
+
+        NBTTagList itemList = new NBTTagList();
+        Iterator it = fish.entrySet().iterator();
+        while (it.hasNext()) {
             NBTTagCompound tag = new NBTTagCompound();
-            data.writeToNBT(tag);
-            list.appendTag(tag);
+            Map.Entry pairs = (Map.Entry) it.next();
+            tag.setInteger("Key", (Integer) pairs.getKey());
+            ItemStack stack = (ItemStack) pairs.getValue();
+            if (stack != null) {
+                stack.writeToNBT(tag);
+            }
+
+            itemList.appendTag(tag);
         }
 
-        nbt.setTag("FishData", list);
+        nbt.setTag("FishList", itemList);
         nbt.setInteger("Orientation", orientation.ordinal());
     }
 }
