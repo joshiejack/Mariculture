@@ -54,7 +54,7 @@ public class EnchiridionManager {
     public static final String downloadFallback = "http://minecraft.curseforge.com/mc-mods/76612-enchiridion/files";
     public static final Logger logger = LogManager.getLogger("Enchiridion Manager");
 
-    @SidedProxy(serverSide = "joshie.mariculture.EnchiridionManager$CommonProxy", clientSide = "joshie.mariculture.EnchiridionManager$ClientProxy")
+    @SidedProxy(serverSide = MCModInfo.JAVAPATH + "EnchiridionManager$CommonProxy", clientSide = MCModInfo.JAVAPATH + "EnchiridionManager$ClientProxy")
     public static CommonProxy proxy;
     long totalSize;
 
