@@ -69,7 +69,7 @@ processResources {
 jar {
     archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + ".jar"
     manifest {
-        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
@@ -78,7 +78,7 @@ task maricultureJar(type: Jar) {
     baseName = 'Mariculture-Base'
     version = config.minecraft_version + "-" + config.mc_version + buildnumber
     manifest {
-        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
     
@@ -92,7 +92,7 @@ task maricultureJar(type: Jar) {
     }
     
     from zipTree(jar.archivePath).matching {
-        exclude 'joshie/maritech/**', 'assets/maritech/**'
+        exclude 'maritech/**', 'assets/maritech/**'
     }
 }
 
@@ -109,7 +109,7 @@ task maritechJar(type: Jar) {
     }
     
     from zipTree(jar.archivePath).matching {
-        include 'joshie/maritech/**', 'assets/maritech/**'
+        include 'maritech/**', 'assets/maritech/**'
     }
 }
 
@@ -121,7 +121,7 @@ task sourceJar(type: Jar) {
 task deobfJar(type: Jar) {
     archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-deobf.jar"
     manifest {
-        attributes 'FMLCorePlugin': 'joshie.mariculture.fishery.VanillaOverride'
+        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
     
@@ -131,7 +131,7 @@ task deobfJar(type: Jar) {
 task apiJar(type: Jar) {
     archiveName="Mariculture-API-" + config.minecraft_version + buildnumber + ".jar"
     from(sourceSets.main.java) {
-        include "joshie/mariculture/api/**"
+        include "mariculture/api/**"
     }
     
     classifier = 'api'

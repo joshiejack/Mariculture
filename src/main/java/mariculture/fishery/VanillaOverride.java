@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.lib.MCModInfo;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 import org.apache.logging.log4j.Level;
@@ -67,7 +68,7 @@ public class VanillaOverride extends DummyModContainer implements IFMLLoadingPlu
 
     @Override
     public String getAccessTransformerClass() {
-        return "joshie.mariculture.core.AccessTransformers";
+        return MCModInfo.JAVAPATH + "core.AccessTransformers";
     }
 
     private FMLDeobfuscatingRemapper remapper;
