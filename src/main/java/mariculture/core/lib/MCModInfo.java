@@ -4,7 +4,7 @@ public class MCModInfo {
     public static final String MODID = "Mariculture";
     public static final String MODNAME = "Mariculture";
     public static final String MODPATH = "mariculture";
-    public static final String JAVAPATH = "joshie.mariculture.";
+    public static final String JAVAPATH = "mariculture.";
     
     private static final String forge = "10.13.0.1197";
     private static final String blood_magic = "v1.0.1";
