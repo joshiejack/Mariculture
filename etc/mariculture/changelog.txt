@@ -1,6 +1,8 @@
 Mariculture 1.2.4
 • Mariculture is split in to two mods. Base and Technology. Technology is the more advanced things like turbines and scuba gear. Base is everything else. Deluxe contains both.
 • Fish now have two new dna traits, Salinity Tolerance and Temperature Tolerance, they now all have a base salinity and temperature, rather than fixed values and ranges like before.
+• Added DNA Extractor and Injector. Can use DNA in a fish sorter.
+• Fixed a bunch of things that I have now entirely forgotten because It was ages since I worked on this and for some reason hadn't updated the changelog...
 • Fixed a potential crash with Mob Magnet
 
 Mariculture 1.2.3d
