@@ -83,7 +83,6 @@ public class PluginTConstruct extends Plugin {
     public void postInit() {
         TitaniumTools.postInit();
         addAlloy();
-        addModifiers();
         addMelting();
     }
 
@@ -135,22 +134,6 @@ public class PluginTConstruct extends Plugin {
         FluidStack magnesium = getFluidStack("magnesium", 8);
 
         Smeltery.addAlloyMixing(titanium, new FluidStack[] { rutile, magnesium });
-    }
-
-    private static void addModifiers() {
-        ToolBuilder tb = ToolBuilder.instance;
-        ItemStack pearl = new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE);
-        ItemStack pearlBlock = new ItemStack(Core.pearlBlock, 1, OreDictionary.WILDCARD_VALUE);
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl }, 200, 1));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearl }, 200, 2));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock }, 200, 4));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearl, pearlBlock }, 200, 5));
-        ModifyBuilder.registerModifier(new ModPearl(new ItemStack[] { pearlBlock, pearlBlock }, 200, 8));
-
-        for (ToolCore tool : TConstructRegistry.getToolMapping())
-            if (tool instanceof HarvestTool) {
-                TConstructClientRegistry.addEffectRenderMapping(tool, 200, "mariculture", "pearl", true);
-            }
     }
 
     //Helper Methods
