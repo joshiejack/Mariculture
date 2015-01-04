@@ -19,38 +19,19 @@ import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import squeek.applecore.api.food.FoodValues;
-import squeek.applecore.api.food.IEdible;
-import squeek.applecore.api.food.ItemFoodProxy;
 
 import com.google.common.collect.Multimap;
 
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Optional.Interface(iface = "squeek.applecore.api.food.IEdible", modid = "AppleCore")
-public class ItemVanillaFish extends ItemFishFood implements IEdible {
+
+public class ItemVanillaFish extends ItemFishFood {
     public static final int LAST_VANILLA = ItemFishFood.FishType.PUFFERFISH.ordinal() + 1;
 
     public ItemVanillaFish(boolean bool) {
         super(false);
         setCreativeTab(MaricultureTab.tabFishery);
-    }
-
-    @Optional.Method(modid = "AppleCore")
-    @Override
-    public FoodValues getFoodValues(ItemStack stack) {
-        if(!Modules.isActive(Modules.fishery)) return new FoodValues(2, 1F); //If fishery is disabled
-        FishSpecies fish = Fishing.fishHelper.getSpecies(stack.getItemDamage());
-        if (fish != null) {
-            return new FoodValues(fish.getFoodStat(), fish.getFoodSaturation());
-        } else return new FoodValues(2, 1F);
-    }
-
-    @Optional.Method(modid = "AppleCore")
-    public void onEatenCompatibility(ItemStack stack, EntityPlayer player) {
-        player.getFoodStats().func_151686_a(new ItemFoodProxy(this), stack);
     }
 
     @Override
@@ -106,7 +87,7 @@ public class ItemVanillaFish extends ItemFishFood implements IEdible {
             if (fish != null) {
                 --stack.stackSize;
                 if (Extra.NERF_FOOD) {
-                    onEatenCompatibility(stack, player);
+                    ItemVanillaFishEdible.INSTANCE.onEatenCompatibility(stack, player);
                 } else {
                     player.getFoodStats().addStats(fish.getFoodStat(), fish.getFoodSaturation());
                 }
