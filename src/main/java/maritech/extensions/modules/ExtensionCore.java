@@ -9,6 +9,7 @@ import static mariculture.core.lib.MCLib.comparator;
 import static mariculture.core.lib.MCLib.limestone;
 import static mariculture.core.lib.MCLib.pearls;
 import static mariculture.core.lib.MCLib.quartz;
+import static mariculture.core.lib.MCLib.redstone;
 import static mariculture.core.lib.MCLib.redstoneTorch;
 import static mariculture.core.lib.MCLib.repeater;
 import static mariculture.core.lib.MCLib.rubber;
@@ -23,6 +24,7 @@ import maritech.util.IModuleExtension;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ExtensionCore implements IModuleExtension {
     public static Item batteryTitanium;
@@ -42,6 +44,8 @@ public class ExtensionCore implements IModuleExtension {
         addShaped(asStack(MTLib.neoprene, 2), new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', MTLib.bottleGas2 });
         addShaped(MTLib.plasticLens, new Object[] { " N ", "NGN", " N ", 'N', MTLib.neoprene, 'G', transparent });
         addVatItemRecipe(asStack(MTLib.plastic, 4), getFluidName("gold"), MetalRates.BLOCK, MTLib.goldPlastic, 60 * 5);
+        addShapeless(ItemBattery.make(asStack(batteryCopper), 10000), new Object[] { redstone, asStack(batteryCopper, OreDictionary.WILDCARD_VALUE) });
+        addShapeless(ItemBattery.make(asStack(batteryTitanium), 10000), new Object[] { redstone, asStack(batteryTitanium, OreDictionary.WILDCARD_VALUE), redstone });
         
       //Capacitor
         ItemStack previous = addUpgrade(UpgradeMeta.BASIC_RF, new Object[] { " T ", "CRC", 'T', redstoneTorch, 'C', "ingotCopper", 'R', "dustRedstone" });
