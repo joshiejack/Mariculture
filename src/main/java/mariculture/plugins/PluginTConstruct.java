@@ -20,7 +20,6 @@ import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.RockMeta;
 import mariculture.core.util.Fluids;
 import mariculture.plugins.Plugins.Plugin;
-import mariculture.plugins.tconstruct.ModPearl;
 import mariculture.plugins.tconstruct.TitaniumTools;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -32,13 +31,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.FluidType;
-import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.HarvestTool;
-import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PluginTConstruct extends Plugin {
