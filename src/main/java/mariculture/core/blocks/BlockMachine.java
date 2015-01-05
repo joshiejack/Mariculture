@@ -7,6 +7,7 @@ import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.events.MaricultureEvents;
 import mariculture.core.events.IconEvent.IconRegisterEvent;
 import mariculture.core.lib.MachineMeta;
+import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.WoodMeta;
 import mariculture.core.tile.TileBookshelf;
@@ -91,6 +92,7 @@ public class BlockMachine extends BlockFunctional {
         else if (side < 2) {
             if (meta == MachineMeta.BOOKSHELF) return Blocks.planks.getIcon(side, meta);
             else if (meta == MachineMeta.UNPACKER) return unpacker;
+            else if (meta > 9) return Core.metals.getIcon(side, MetalMeta.TITANIUM_BLOCK);
             else icon = Core.woods.getIcon(side, WoodMeta.BASE_WOOD);
         } else icon = super.getIcon(side, meta);
 

@@ -40,7 +40,7 @@ public class HackedLogger extends Logger {
     }
 
     static {
-        list.add("Using missing texture");
+        //list.add("Using missing texture");
         list.add("Skipping BlockEntity");
         list.add("FileNotFoundException");
     }

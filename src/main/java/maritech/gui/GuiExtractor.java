@@ -7,8 +7,8 @@ import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.gui.feature.FeaturePower;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
-import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
+import mariculture.core.gui.feature.FeatureUpgrades;
 import maritech.lib.MTModInfo;
 import maritech.tile.TileExtractor;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,7 +23,6 @@ public class GuiExtractor extends GuiMariculture {
         super(new ContainerExtractor(tile, player), texture, 10);
         this.tile = tile;
         features.add(new FeatureUpgrades());
-        //features.add(new FeatureNotifications(tile, new NotificationType[] { NotificationType.NO_FOOD, NotificationType.NO_MALE, NotificationType.NO_FEMALE, NotificationType.BAD_ENV }));
         features.add(new FeatureRedstone(tile));
         features.add(new FeatureEject(tile));
         features.add(new FeaturePower(tile, 9, 17));

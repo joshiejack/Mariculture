@@ -1,9 +1,11 @@
 package maritech.gui;
 
 import mariculture.api.core.IItemUpgrade;
+import mariculture.api.core.IUpgradable;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
+import mariculture.core.gui.SlotUpgrade;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.Fishery;
@@ -16,6 +18,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
+import cofh.api.energy.IEnergyHandler;
 
 public class ContainerInjector extends ContainerMachine {
     public ContainerInjector(TileInjector tile, InventoryPlayer playerInventory) {
@@ -27,11 +30,11 @@ public class ContainerInjector extends ContainerMachine {
         addSlotToContainer(new SlotFluidContainer(tile, 5, 86, 25));
         addSlotToContainer(new SlotOutput(tile, 6, 28, 56));
         addSlotToContainer(new SlotOutput(tile, 7, 86, 56));
-        addSlotToContainer(new SlotFish(tile, 8, 108, 39));
-        addSlotToContainer(new SlotOutput(tile, 9, 152, 39));
-        addSlotToContainer(new SlotDNA(tile, 10, -19, 14));
-        addSlotToContainer(new SlotDNA(tile, 11, -19, 32));
-        addSlotToContainer(new SlotDNA(tile, 12, -19, 50));
+        addSlotToContainer(new SlotFish(tile, 8, 108, 58));
+        addSlotToContainer(new SlotOutput(tile, 9, 152, 58));
+        addSlotToContainer(new SlotDNA(tile, 10, 112, 18));
+        addSlotToContainer(new SlotDNA(tile, 11, 130, 18));
+        addSlotToContainer(new SlotDNA(tile, 12, 148, 18));
         bindPlayerInventory(playerInventory, 10);
     }
 

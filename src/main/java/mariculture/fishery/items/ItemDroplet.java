@@ -120,7 +120,7 @@ public class ItemDroplet extends ItemMCMeta {
     
     @Override
     public boolean isActive(int meta) {
-        return meta != DropletMeta.USELESS;
+        return true;
     }
 
     @Override

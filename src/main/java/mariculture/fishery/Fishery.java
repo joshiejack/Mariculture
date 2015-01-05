@@ -285,15 +285,15 @@ public class Fishery extends RegistrationModule {
         addShaped(fishFeeder, new Object[] { "WFW", "WCW", "WFW", 'F', "fish", 'W', wicker, 'C', chest });
         addShaped(fishTank, new Object[] { "AGA", "GFG", "AGA", 'A', "ingotAluminum", 'G', "blockGlass", 'F', "fish" });
         addShaped(asStack(tempControl), new Object[] { " H ", "CTC", " H ", 'H', heating, 'C', cooling, 'T', titaniumSheet });
+        if (FishMechanics.EASY_SCANNER) {
+            addShaped(asStack(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', "fish", 'B', "dustRedstone" });
+        } else {
+            addShaped(asStack(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', "dustRedstone", 'J', dropletPoison });
+        }
+        
 
         addVatItemRecipeResultFluid(asStack(asStack(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
-
-        if (FishMechanics.EASY_SCANNER) {
-            addShaped(asStack(scanner), new Object[] { "WPW", "WFW", "WBW", 'P', pearls, 'W', dropletAny, 'F', "fish", 'B', "dustRestone" });
-        } else {
-            addShaped(asStack(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', "dustRestone", 'J', dropletPoison });
-        }
     }
 
     private void addBait() {

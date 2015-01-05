@@ -134,7 +134,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
 
     @Override
     public void process() {
-        int slot = 10 + worldObj.rand.nextInt(2);
+        int slot = 10 + worldObj.rand.nextInt(3);
         ItemStack dna = inventory[slot];
         if (dna != null && dna.hasTagCompound()) {
             ItemStack fish = ItemFishDNA.add(dna, inventory[FISH]);
