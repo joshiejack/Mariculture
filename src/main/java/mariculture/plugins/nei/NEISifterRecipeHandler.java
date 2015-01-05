@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.recipes.RecipeSifter;
+import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

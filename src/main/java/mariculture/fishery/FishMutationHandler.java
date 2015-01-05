@@ -2,8 +2,8 @@ package mariculture.fishery;
 
 import java.util.ArrayList;
 
+import mariculture.api.fishery.IMutation;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.api.fishery.interfaces.IMutation;
 import mariculture.core.config.FishMechanics;
 
 public class FishMutationHandler implements IMutation {

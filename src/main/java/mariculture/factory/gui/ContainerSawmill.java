@@ -1,6 +1,6 @@
 package mariculture.factory.gui;
 
-import mariculture.api.core.interfaces.IItemUpgrade;
+import mariculture.api.core.IItemUpgrade;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotOutput;
 import mariculture.factory.blocks.BlockItemCustom;

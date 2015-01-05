@@ -1,6 +1,6 @@
 package mariculture.magic;
 
-import mariculture.api.core.handlers.IMirrorHandler;
+import mariculture.api.core.IMirrorHandler;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.network.PacketDamageJewelry;
 import mariculture.core.network.PacketHandler;

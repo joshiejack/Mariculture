@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import mariculture.api.fishery.handlers.ISifterHandler;
-import mariculture.api.fishery.recipes.RecipeSifter;
+import mariculture.api.fishery.ISifterHandler;
+import mariculture.api.fishery.RecipeSifter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

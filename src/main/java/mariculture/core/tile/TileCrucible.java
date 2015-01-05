@@ -2,10 +2,10 @@ package mariculture.core.tile;
 
 import java.util.ArrayList;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.Environment.Temperature;
-import mariculture.api.core.recipes.FuelInfo;
-import mariculture.api.core.recipes.RecipeSmelter;
 import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;

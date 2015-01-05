@@ -2,8 +2,8 @@ package maritech.items;
 
 import java.util.List;
 
+import mariculture.api.core.IPVChargeable;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.interfaces.IPVChargeable;
 import mariculture.core.Core;
 import mariculture.core.items.ItemMCBaseArmor;
 import mariculture.core.lib.MachineRenderedMeta;

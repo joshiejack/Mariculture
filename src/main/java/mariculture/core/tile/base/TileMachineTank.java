@@ -3,8 +3,8 @@ package mariculture.core.tile.base;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.interfaces.IUpgradable;
 import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;

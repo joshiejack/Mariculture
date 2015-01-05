@@ -1,8 +1,8 @@
 package maritech.tile;
 
-import mariculture.api.core.CachedCoords;
-import mariculture.api.core.interfaces.INeighborNotify;
-import mariculture.api.core.interfaces.ISpecialPickblock;
+import mariculture.api.core.INeighborNotify;
+import mariculture.api.core.ISpecialPickblock;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.Core;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.network.PacketHandler;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.RecipeCasting;
+import mariculture.api.core.RecipeCasting;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import net.minecraft.util.ResourceLocation;
 

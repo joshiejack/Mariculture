@@ -3,7 +3,7 @@ package mariculture.magic.jewelry.parts;
 import java.util.ArrayList;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.recipes.RecipeSifter;
+import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.Core;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;

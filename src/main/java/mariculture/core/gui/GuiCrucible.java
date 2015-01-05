@@ -2,9 +2,9 @@ package mariculture.core.gui;
 
 import java.util.List;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.FuelInfo;
-import mariculture.api.core.recipes.RecipeSmelter;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.gui.feature.FeatureArrow;
 import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.gui.feature.FeatureRedstone;

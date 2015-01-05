@@ -2,8 +2,8 @@ package mariculture.core.handlers;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.handlers.IVatHandler;
-import mariculture.api.core.recipes.RecipeVat;
+import mariculture.api.core.IVatHandler;
+import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;

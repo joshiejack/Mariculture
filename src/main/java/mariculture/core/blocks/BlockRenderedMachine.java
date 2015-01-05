@@ -1,9 +1,9 @@
 package mariculture.core.blocks;
 
 import mariculture.Mariculture;
+import mariculture.api.core.INeighborNotify;
+import mariculture.api.core.ISpecialPickblock;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.interfaces.INeighborNotify;
-import mariculture.api.core.interfaces.ISpecialPickblock;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.events.MaricultureEvents;

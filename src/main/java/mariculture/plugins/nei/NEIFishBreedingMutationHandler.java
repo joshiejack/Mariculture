@@ -6,8 +6,8 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.IMutation.Mutation;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.api.fishery.interfaces.IMutation.Mutation;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishyHelper;
 import mariculture.fishery.items.ItemFishy;

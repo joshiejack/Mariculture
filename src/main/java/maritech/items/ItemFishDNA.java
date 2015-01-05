@@ -2,8 +2,8 @@ package maritech.items;
 
 import java.util.List;
 
+import mariculture.api.core.ISpecialSorting;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.interfaces.ISpecialSorting;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.items.ItemMCDamageable;

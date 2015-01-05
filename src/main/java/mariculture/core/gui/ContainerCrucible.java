@@ -1,7 +1,7 @@
 package mariculture.core.gui;
 
+import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.interfaces.IItemUpgrade;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.tile.TileCrucible;
 import net.minecraft.entity.player.EntityPlayer;

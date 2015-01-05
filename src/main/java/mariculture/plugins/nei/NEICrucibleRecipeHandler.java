@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.FuelInfo;
-import mariculture.api.core.recipes.RecipeSmelter;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.cofh.CoFhItemHelper;

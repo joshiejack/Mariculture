@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.RecipeSmelter;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.blocks.BlockAir;

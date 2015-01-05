@@ -1,8 +1,8 @@
 package mariculture.plugins;
 
 import static mariculture.core.lib.MCLib.stick;
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.FuelInfo;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.handlers.LogHandler;
 import mariculture.core.lib.MetalRates;

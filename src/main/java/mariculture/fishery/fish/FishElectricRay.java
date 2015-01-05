@@ -7,10 +7,10 @@ import static mariculture.core.lib.MCLib.dropletWater;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.CachedCoords;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.lib.helpers.PowerHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;

@@ -7,11 +7,11 @@ import static mariculture.core.lib.MCLib.zombie;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.CachedCoords;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.lib.BaitMeta;
 import mariculture.fishery.Fishery;
 import net.minecraft.entity.EntityLivingBase;

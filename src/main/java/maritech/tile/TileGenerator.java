@@ -1,6 +1,6 @@
 package maritech.tile;
 
-import mariculture.api.core.CachedCoords;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.helpers.BlockTransferHelper;
 import mariculture.core.helpers.cofh.BlockHelper;
 import mariculture.core.util.IFaceable;

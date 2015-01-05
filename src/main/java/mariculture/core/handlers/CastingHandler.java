@@ -2,11 +2,11 @@ package mariculture.core.handlers;
 
 import java.util.HashMap;
 
-import mariculture.api.core.handlers.ICastingHandler;
-import mariculture.api.core.recipes.RecipeCasting;
-import mariculture.api.core.recipes.RecipeCasting.RecipeBlockCasting;
-import mariculture.api.core.recipes.RecipeCasting.RecipeIngotCasting;
-import mariculture.api.core.recipes.RecipeCasting.RecipeNuggetCasting;
+import mariculture.api.core.ICastingHandler;
+import mariculture.api.core.RecipeCasting;
+import mariculture.api.core.RecipeCasting.RecipeBlockCasting;
+import mariculture.api.core.RecipeCasting.RecipeIngotCasting;
+import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
 import mariculture.core.helpers.OreDicHelper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

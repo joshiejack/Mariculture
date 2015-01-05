@@ -1,6 +1,6 @@
 package maritech.tile;
 
-import mariculture.api.core.interfaces.IPVChargeable;
+import mariculture.api.core.IPVChargeable;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;

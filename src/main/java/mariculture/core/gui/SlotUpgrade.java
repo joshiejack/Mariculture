@@ -1,6 +1,6 @@
 package mariculture.core.gui;
 
-import mariculture.api.core.interfaces.IItemUpgrade;
+import mariculture.api.core.IItemUpgrade;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

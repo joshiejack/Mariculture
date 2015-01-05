@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.core.CachedCoords;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;

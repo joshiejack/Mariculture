@@ -1,6 +1,6 @@
 package mariculture.fishery.gui;
 
-import mariculture.api.core.interfaces.IItemUpgrade;
+import mariculture.api.core.IItemUpgrade;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;

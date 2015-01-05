@@ -3,7 +3,7 @@ package mariculture.core.items;
 import java.util.List;
 
 import mariculture.Mariculture;
-import mariculture.api.core.interfaces.IItemUpgrade;
+import mariculture.api.core.IItemUpgrade;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.MCTranslate;

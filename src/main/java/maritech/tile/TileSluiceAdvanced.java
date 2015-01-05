@@ -2,7 +2,7 @@ package maritech.tile;
 
 import java.util.LinkedList;
 
-import mariculture.api.core.CachedCoords;
+import mariculture.api.util.CachedCoords;
 import maritech.extensions.config.ExtensionMachines.ExtendedSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;

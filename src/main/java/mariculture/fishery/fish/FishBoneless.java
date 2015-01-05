@@ -9,11 +9,11 @@ import static mariculture.core.lib.MCLib.witherSkull;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.CachedCoords;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;

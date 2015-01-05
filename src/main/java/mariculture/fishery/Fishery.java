@@ -68,12 +68,12 @@ import static mariculture.core.util.Fluids.getFluidStack;
 import java.util.Arrays;
 
 import mariculture.Mariculture;
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.recipes.FuelInfo;
 import mariculture.api.fishery.Fishing;
+import mariculture.api.fishery.RecipeSifter;
 import mariculture.api.fishery.RodType;
-import mariculture.api.fishery.recipes.RecipeSifter;
 import mariculture.core.Core;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.helpers.FluidHelper;

@@ -1,6 +1,6 @@
 package mariculture.diving;
 
-import mariculture.api.core.interfaces.IDisablesHardcoreDiving;
+import mariculture.api.core.IDisablesHardcoreDiving;
 import mariculture.core.config.GeneralStuff;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.lib.ArmorSlot;

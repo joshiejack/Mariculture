@@ -2,8 +2,8 @@ package mariculture.fishery.items;
 
 import java.util.List;
 
+import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.interfaces.IItemUpgrade;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemMCStorage;
 import mariculture.core.util.MCTranslate;

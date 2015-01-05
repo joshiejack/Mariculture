@@ -3,7 +3,7 @@ package mariculture.factory.tile;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import mariculture.api.core.interfaces.ISpecialSorting;
+import mariculture.api.core.ISpecialSorting;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;

@@ -1,8 +1,8 @@
 package mariculture.core.handlers;
 
-import mariculture.api.core.handlers.IUpgradeHandler;
-import mariculture.api.core.interfaces.IItemUpgrade;
-import mariculture.api.core.interfaces.IUpgradable;
+import mariculture.api.core.IItemUpgrade;
+import mariculture.api.core.IUpgradable;
+import mariculture.api.core.IUpgradeHandler;
 import mariculture.core.tile.base.TileMultiBlock;
 import net.minecraft.item.ItemStack;
 

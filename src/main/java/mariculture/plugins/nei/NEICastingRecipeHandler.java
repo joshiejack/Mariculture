@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import mariculture.api.core.recipes.RecipeCasting;
+import mariculture.api.core.RecipeCasting;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.OreDicHelper;

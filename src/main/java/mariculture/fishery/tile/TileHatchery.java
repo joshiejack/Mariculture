@@ -1,7 +1,7 @@
 package mariculture.fishery.tile;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.interfaces.IIncubator;
+import mariculture.api.fishery.IIncubator;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketParticle;

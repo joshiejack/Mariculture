@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import mariculture.api.core.interfaces.IBlacklisted;
+import mariculture.api.core.IBlacklisted;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.tile.base.TileMultiBlock;

@@ -3,7 +3,7 @@ package mariculture.fishery.render;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mariculture.api.core.CachedCoords;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.fishery.tile.TileFeeder;
 import net.minecraft.client.renderer.entity.RenderManager;

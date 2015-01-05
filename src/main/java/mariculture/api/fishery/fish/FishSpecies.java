@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
-import mariculture.api.core.CachedCoords;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;

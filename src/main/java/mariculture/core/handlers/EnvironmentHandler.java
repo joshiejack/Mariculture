@@ -2,8 +2,8 @@ package mariculture.core.handlers;
 
 import java.util.HashMap;
 
+import mariculture.api.core.IEnvironmentHandler;
 import mariculture.api.core.Environment.Salinity;
-import mariculture.api.core.handlers.IEnvironmentHandler;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

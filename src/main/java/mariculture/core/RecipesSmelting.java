@@ -18,9 +18,9 @@ import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.FuelInfo;
-import mariculture.api.core.recipes.RecipeSmelter;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.GlassMeta;

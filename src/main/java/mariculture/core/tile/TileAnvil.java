@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import mariculture.Mariculture;
-import mariculture.api.core.handlers.IAnvilHandler;
+import mariculture.api.core.IAnvilHandler;
 import mariculture.core.Core;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.NBTHelper;

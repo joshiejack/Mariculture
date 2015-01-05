@@ -2,7 +2,7 @@ package mariculture.fishery.items;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.interfaces.ICaughtAliveModifier;
+import mariculture.api.fishery.ICaughtAliveModifier;
 import mariculture.core.items.ItemMCBaseArmor;
 import mariculture.fishery.render.ModelFishingHat;
 import net.minecraft.client.model.ModelBiped;

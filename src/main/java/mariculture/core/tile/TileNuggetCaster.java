@@ -1,7 +1,7 @@
 package mariculture.core.tile;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.RecipeCasting;
+import mariculture.api.core.RecipeCasting;
 import mariculture.core.lib.MetalRates;
 
 public class TileNuggetCaster extends TileCooling {

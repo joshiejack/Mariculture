@@ -1,7 +1,7 @@
 package maritech.gui;
 
-import mariculture.api.core.interfaces.IItemUpgrade;
-import mariculture.api.core.interfaces.IPVChargeable;
+import mariculture.api.core.IItemUpgrade;
+import mariculture.api.core.IPVChargeable;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.RecipeVat;
+import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.cofh.CoFhItemHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileMultiBlock;

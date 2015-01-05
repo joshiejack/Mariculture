@@ -1,7 +1,7 @@
 package mariculture.core.items;
 
+import mariculture.api.core.IDisablesHardcoreDiving;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.interfaces.IDisablesHardcoreDiving;
 import mariculture.core.lib.MCModInfo;
 import mariculture.lib.base.ItemBaseArmor;
 import net.minecraft.creativetab.CreativeTabs;

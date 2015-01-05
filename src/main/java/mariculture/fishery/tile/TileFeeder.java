@@ -6,12 +6,12 @@ import static mariculture.core.util.Fluids.getFluidStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.api.core.CachedCoords;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.FishTickEvent;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;

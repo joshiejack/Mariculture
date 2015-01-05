@@ -1,13 +1,13 @@
 package mariculture.core.helpers;
 
+import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.handlers.IAnvilHandler.RecipeAnvil;
-import mariculture.api.core.recipes.FuelInfo;
-import mariculture.api.core.recipes.RecipeSmelter;
-import mariculture.api.core.recipes.RecipeVat;
-import mariculture.api.core.recipes.RecipeCasting.RecipeBlockCasting;
-import mariculture.api.core.recipes.RecipeCasting.RecipeIngotCasting;
-import mariculture.api.core.recipes.RecipeCasting.RecipeNuggetCasting;
+import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeVat;
+import mariculture.api.core.IAnvilHandler.RecipeAnvil;
+import mariculture.api.core.RecipeCasting.RecipeBlockCasting;
+import mariculture.api.core.RecipeCasting.RecipeIngotCasting;
+import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
 import mariculture.core.Core;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MaterialsMeta;

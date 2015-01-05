@@ -1,6 +1,6 @@
 package maritech.extensions.blocks;
 
-import mariculture.api.core.CachedCoords;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.Core;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.MetalMeta;

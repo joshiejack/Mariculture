@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import mariculture.api.core.handlers.ICrucibleHandler;
-import mariculture.api.core.recipes.FuelInfo;
-import mariculture.api.core.recipes.RecipeSmelter;
+import mariculture.api.core.FuelInfo;
+import mariculture.api.core.ICrucibleHandler;
+import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;

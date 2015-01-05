@@ -6,7 +6,7 @@ import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.recipes.RecipeVat;
+import mariculture.api.core.RecipeVat;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.ItemHelper;

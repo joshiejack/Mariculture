@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.recipes.RecipeSifter;
+import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.network.PacketCrack;
 import mariculture.core.network.PacketHandler;

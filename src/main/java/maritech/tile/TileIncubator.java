@@ -8,7 +8,7 @@ import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
-import mariculture.api.fishery.interfaces.IIncubator;
+import mariculture.api.fishery.IIncubator;
 import mariculture.core.Core;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;

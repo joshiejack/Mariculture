@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.handlers.IAnvilHandler.RecipeAnvil;
+import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Modules;
 import mariculture.magic.JewelryHandler;

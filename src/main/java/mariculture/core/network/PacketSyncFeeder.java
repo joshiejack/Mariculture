@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 
 import java.util.ArrayList;
 
-import mariculture.api.core.CachedCoords;
+import mariculture.api.util.CachedCoords;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.lib.helpers.ClientHelper;
 import net.minecraft.nbt.NBTTagCompound;

@@ -1,6 +1,6 @@
 package maritech.tile;
 
-import mariculture.api.core.interfaces.IBlacklisted;
+import mariculture.api.core.IBlacklisted;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
