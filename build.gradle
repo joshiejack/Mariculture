@@ -67,7 +67,7 @@ processResources {
 }
 
 jar {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + ".jar"
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'

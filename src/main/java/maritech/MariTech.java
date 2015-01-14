@@ -7,7 +7,6 @@ import static maritech.lib.MTModInfo.MODNAME;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.lib.Modules;
-import mariculture.core.util.MCTranslate;
 import maritech.extensions.blocks.ExtensionMachine;
 import maritech.extensions.blocks.ExtensionMachineMulti;
 import maritech.extensions.blocks.ExtensionRenderedMachine;
@@ -27,9 +26,8 @@ import maritech.handlers.FLUDDEvents;
 import maritech.handlers.GuiEvents;
 import maritech.handlers.ItemEvents;
 import maritech.handlers.RegistryEvents;
-import maritech.plugins.RitualOfTheBloodRiver;
+import maritech.plugins.BloodMagic;
 import net.minecraftforge.common.MinecraftForge;
-import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -90,9 +88,7 @@ public class MariTech {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         if (Loader.isModLoaded("AWWayofTime")) {
-            try {
-                Rituals.registerRitual("MARIBLOODRIVER", 1, 50000, new RitualOfTheBloodRiver(), MCTranslate.translate("ritual"));
-            } catch (Exception e) {}
+            BloodMagic.init();
         }
     }
 }

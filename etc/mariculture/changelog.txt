@@ -1,3 +1,7 @@
+Mariculture 1.2.4b
+• Fix requiring blood magic (woops!)
+• Support for some language stuffs
+
 Mariculture 1.2.4a
 • Fix autofisher crash when opening gui (broken texture)
 
