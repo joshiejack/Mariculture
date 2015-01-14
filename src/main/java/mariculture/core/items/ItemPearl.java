@@ -24,18 +24,15 @@ public class ItemPearl extends ItemMCMeta {
         return true;
     }
     
-    public String getColor(ItemStack stack) {
-        String translate = "pearl.color." + PearlColor.get(stack.getItemDamage());
-        String str = MCTranslate.translate(translate + ".pearl");        
-        if(str.equals("mariculture." + translate + ".pearl")) {
-            return MCTranslate.translate(translate);
-        } else return str;
-    }
-    
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
+        String translate = MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage()) + ".pearl");
+        if(!translate.equals("mariculture.pearl.color." + PearlColor.get(stack.getItemDamage()) + ".pearl")) {
+            return translate;
+        }
+        
         String format = MCTranslate.translate("pearl.format");
-        format = format.replace("%C", getColor(stack));
+        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage())));
         format = format.replace("%P", MCTranslate.translate("pearl"));
         String unlocalized = getUnlocalizedName();
         return format.replace("%B", "");
