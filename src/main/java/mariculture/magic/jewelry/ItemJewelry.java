@@ -9,6 +9,7 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.items.ItemMCDamageable;
 import mariculture.core.util.MCTranslate;
+import mariculture.lib.util.Text;
 import mariculture.magic.JewelryHandler;
 import mariculture.magic.Magic;
 import mariculture.magic.jewelry.parts.JewelryBinding;
@@ -75,13 +76,16 @@ public abstract class ItemJewelry extends ItemMCDamageable {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (stack.hasTagCompound()) {
+        String format = MCTranslate.translate(getType().name().toLowerCase() + ".format");
+        if(stack.hasTagCompound()) {
             JewelryMaterial material = JewelryHandler.getMaterial(stack);
             if (material == Magic.dummyMaterial) return MCTranslate.translate("oneRing");
-            return material.getColor() + material.getCraftingItem(getType()).getDisplayName() + " " + mariculture.lib.util.Text.localize(getUnlocalizedName(stack) + ".name");
+            format = format.replace("%M", material.getCraftingItem(getType()).getDisplayName());
+            format = format.replace("%T", MCTranslate.translate(getType().name().toLowerCase()));
+            return material.getColor() + format;
         }
 
-        return mariculture.lib.util.Text.localize(getUnlocalizedName(stack));
+        return Text.localize(getUnlocalizedName(stack));
     }
 
     @Override

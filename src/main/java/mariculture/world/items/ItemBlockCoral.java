@@ -30,8 +30,8 @@ public class ItemBlockCoral extends ItemBlockMariculture {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String format = MCTranslate.translate("coral.format");
-        format = format.replace("%D ", spawnBlock == WorldPlus.plantGrowable? "" : MCTranslate.translate("coral.dried"));
-        return format.replace("%C", MCTranslate.translate("coral.") + getName(stack));
+        format = format.replace("%D ", spawnBlock == WorldPlus.plantGrowable? "" : MCTranslate.translate("coral.dried") + " ");
+        return format.replace("%C", MCTranslate.translate("coral." + getName(stack)));
     }
 
     @Override

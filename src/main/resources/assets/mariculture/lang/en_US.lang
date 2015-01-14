@@ -58,6 +58,7 @@ mariculture.woods.basewood=Wooden Construction Block
 mariculture.tanks.normal=Fluid Tank
 mariculture.tanks.bottle=Void Bottle
 mariculture.sands.ancientsand=Ancient Sand
+mariculture.sands.gas=Gas
 mariculture.machines.single.rendered.anvil=Blacksmith's Anvil
 mariculture.machines.single.rendered.autohammer=Blacksmith's Assistant
 mariculture.machines.single.rendered.ingotcaster=Ingot Caster
@@ -264,6 +265,7 @@ mariculture.plans.fence=Plan - Fence
 mariculture.plans.gate=Plan - Gate
 mariculture.plans.wall=Plan - Wall
 mariculture.plans.light=Plan - Light
+mariculture.plans.redstone=Plan - RF Block
 mariculture.filter=Item Filter
 
 ### Fishery ###
@@ -275,7 +277,7 @@ mariculture.lamps.neon=Neon
 mariculture.lamps.lamp=Lamp
 mariculture.tanks.fish=Fish Tank
 mariculture.ticking.net=Fishing Net
-mariculture.net=Fishing Net
+mariculture.net.net=Fishing Net
 mariculture.woods.polishedplank=Polished Planks
 mariculture.woods.polishedlog=Polished Logs
 #fluid
@@ -325,6 +327,7 @@ mariculture.bait.ant=Ant Bait
 mariculture.bait.maggot=Maggot Bait
 mariculture.bait.hopper=Grasshopper Bait
 mariculture.bait.bee=Bee Bait
+mariculture.fishingRod=Vanilla Fishing Rod
 mariculture.rod.wood=Wooden Fishing Rod
 mariculture.rod.titanium=Titanium Fishing Rod
 mariculture.rod.reed=Reed Fishing Rod
@@ -503,11 +506,14 @@ mariculture.guide.enchants.author=Ursula
 mariculture.mirror.basic=Mirror
 mariculture.mirror.magic=Magic Mirror
 mariculture.mirror.celestial=Celestial Mirror
-mariculture.mobmagnet=Mob Magnet
+mariculture.mobMagnet=Mob Magnet
 #jewelry-parts
 mariculture.ring=Ring
 mariculture.bracelet=Bracelet
 mariculture.necklace=Necklace
+mariculture.ring.format=%M%T
+mariculture.bracelet.format=%M%T
+mariculture.necklace.format=%M%T
 
 ### World ###
 #blocks
@@ -716,7 +722,7 @@ mariculture.titanium.tough.binding=Titanium Tough Binding
 mariculture.titanium.tough.rod=Titanium Tough Rod
 
 ### Blood Magic ###
-mariculture.rodblood=Bound Fishing Rod
+mariculture.rodBlood=Bound Fishing Rod
 mariculture.ritual=[Mariculture]Ritual of the Blood River
 
 #Downloader

@@ -108,7 +108,7 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (stack.hasTagCompound()) {
-            list.add(stack.stackTagCompound.getInteger("water") + " " + StatCollector.translateToLocal("mariculture.string.water"));
+            list.add(stack.stackTagCompound.getInteger("water") + " " + StatCollector.translateToLocal("mariculture.water"));
         }
     }
 
