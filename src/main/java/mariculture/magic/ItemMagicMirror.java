@@ -27,7 +27,7 @@ public class ItemMagicMirror extends ItemMirror {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         stack = get(stack);
-        return StatCollector.translateToLocal(getUnlocalizedName(stack) + ".name") + " (" + stack.getTagCompound().getIntArray("Levels")[2] + ")";
+        return StatCollector.translateToLocal(getUnlocalizedName(stack).replace("item.", "mariculture.")) + " (" + stack.getTagCompound().getIntArray("Levels")[2] + ")";
     }
 
     public ItemStack get(ItemStack stack) {
