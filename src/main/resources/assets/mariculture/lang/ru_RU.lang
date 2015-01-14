@@ -36,21 +36,21 @@ mariculture.machines.multi.crucible=Тигельная печь
 mariculture.machines.single.bookshelf=Книжная полка
 mariculture.water.oyster=Жемчужница
 mariculture.pearl.format=%C %P %B
-mariculture.pearl=жемчужный
+mariculture.pearl=жемчуг)
 mariculture.pearl.block=блок
 mariculture.pearl.brick=кирпич
-mariculture.pearl.color.white=Белый
-mariculture.pearl.color.green=Зелёный
-mariculture.pearl.color.yellow=Жёлтый
-mariculture.pearl.color.orange=Оранжевый
-mariculture.pearl.color.red=Красный
-mariculture.pearl.color.gold=Золотой
-mariculture.pearl.color.brown=Коричневый
-mariculture.pearl.color.purple=Фиолетовый
-mariculture.pearl.color.blue=Синий
-mariculture.pearl.color.black=Чёрный
-mariculture.pearl.color.pink=Розовый
-mariculture.pearl.color.silver=Серебрянный
+mariculture.pearl.color.white=(Белый
+mariculture.pearl.color.green=(Зелёный
+mariculture.pearl.color.yellow=(Жёлтый
+mariculture.pearl.color.orange=(Оранжевый
+mariculture.pearl.color.red=(Красный
+mariculture.pearl.color.gold=(Золотой
+mariculture.pearl.color.brown=(Коричневый
+mariculture.pearl.color.purple=(Фиолетовый
+mariculture.pearl.color.blue=(Синий
+mariculture.pearl.color.black=(Чёрный
+mariculture.pearl.color.pink=(Розовый
+mariculture.pearl.color.silver=(Серебряный
 mariculture.transparent.plastic=Прозрачный пластик
 mariculture.glass.heatglass=Теплостойкое стекло
 mariculture.air.air=Фальшивый воздух
@@ -58,6 +58,7 @@ mariculture.woods.basewood=Деревянный конструктивный б�
 mariculture.tanks.normal=Жидкостная цистерна
 mariculture.tanks.bottle=Пустотная бутылка
 mariculture.sands.ancientsand=Древний песок
+mariculture.sands.gas=Песок
 mariculture.machines.single.rendered.anvil=Наковальня кузнеца
 mariculture.machines.single.rendered.autohammer=Помошник кузнеца
 mariculture.machines.single.rendered.ingotcaster=Формовщик слитков
@@ -264,6 +265,7 @@ mariculture.plans.fence=План - Забор
 mariculture.plans.gate=План - Ворота
 mariculture.plans.wall=План - Стена
 mariculture.plans.light=План - Светильник
+mariculture.plans.redstone=План - RF-блок
 mariculture.filter=Предметный фильтр
 
 ### Fishery ###
@@ -275,7 +277,7 @@ mariculture.lamps.neon=неоновая
 mariculture.lamps.lamp=лампа
 mariculture.tanks.fish=Аквариум
 mariculture.ticking.net=Рыболовная сеть
-mariculture.net=Рыболовная сеть
+mariculture.net.net=Рыболовная сеть
 mariculture.woods.polishedplank=Полированные доски
 mariculture.woods.polishedlog=Полированные брёвна
 #fluid
@@ -325,6 +327,7 @@ mariculture.bait.ant=Муравей
 mariculture.bait.maggot=Личинка
 mariculture.bait.hopper=Кузнечик
 mariculture.bait.bee=Пчела
+mariculture.fishingRod=Удочка
 mariculture.rod.wood=Деревянная удочка
 mariculture.rod.titanium=Титановая удочка
 mariculture.rod.reed=Тростниковая удочка
@@ -461,6 +464,18 @@ mariculture.fish.data.areaofeffectsouth=Зона: Юг
 mariculture.fish.data.areaofeffectwest=Зона: Запад
 mariculture.fish.data.gender.male=Самец
 mariculture.fish.data.gender.female=Самка
+mariculture.fish.data.temperaturetolerance=Терпимость к температуре
+mariculture.fish.data.temperaturetolerance.fussy=Низкая
+mariculture.fish.data.temperaturetolerance.normal=Обычная
+mariculture.fish.data.temperaturetolerance.sltolerant=Слабая
+mariculture.fish.data.temperaturetolerance.tolerant=Основная
+mariculture.fish.data.temperaturetolerance.vtolerant=Очень высокая
+mariculture.fish.data.temperaturetolerance.itolerant=Невероятная
+mariculture.fish.data.temperaturetolerance.etolerant=Экстремальная
+mariculture.fish.data.salinitytolerance=Терпимость к солёности
+mariculture.fish.data.salinitytolerance.intolerant=Нет терпимости
+mariculture.fish.data.salinitytolerance.tolerant=Есть терпимость
+mariculture.fish.data.salinitytolerance.hightolerant=Высокая терпимость
 
 ### Magic ###
 #enchantments
@@ -476,7 +491,7 @@ enchantment.fall=Сопротивление падению
 enchantment.resurrection=Жнец
 enchantment.blink=Мигание
 enchantment.flight=Сверхчеловек
-enchantment.onering=Невидимость
+enchantment.oneRing=Невидимость
 enchantment.oneRing.line1=Одно кольцо, чтобы править всеми,
 enchantment.oneRing.line2=Одно кольцо, чтобы найти их,
 enchantment.oneRing.line3=Одно Кольцо, чтобы собрать их всех
@@ -490,11 +505,14 @@ mariculture.guide.enchants.author=Урсула
 mariculture.mirror.basic=Зеркало
 mariculture.mirror.magic=Магическое зеркало
 mariculture.mirror.celestial=Небесное зеркало
-mariculture.mobmagnet=Магнит мобов
+mariculture.mobMagnet=Магнит мобов
 #jewelry-parts
-mariculture.ring=(Кольцо)
-mariculture.bracelet=(Браслет)
-mariculture.necklace=(Ожерелье)
+mariculture.ring=Кольцо
+mariculture.bracelet=Браслет
+mariculture.necklace=Ожерелье
+mariculture.ring.format=%T %M
+mariculture.bracelet.format=%T %M
+mariculture.necklace.format=%T %M
 
 ### World ###
 #blocks
@@ -615,7 +633,7 @@ mariculture.max.enchants=Макс. чар
 mariculture.max.level=Макс. уровень зачарования
 mariculture.max.damage=Макс. урон
 mariculture.shift.jewelry=чтобы показать статистику драгоценности
-mariculture.onering=Кольцо Всевластья
+mariculture.oneRing=Кольцо Всевластья
 mariculture.charge=Заряд
 mariculture.transfer=Передача
 mariculture.peruse=RF за использование
@@ -703,7 +721,7 @@ mariculture.titanium.tough.binding=Титановое прочное крепл�
 mariculture.titanium.tough.rod=Титановый прочный стержень
 
 ### Blood Magic ###
-mariculture.rodblood=Связанная удочка
+mariculture.rodBlood=Связанная удочка
 mariculture.ritual=[Mariculture]Ритуал кровавой реки
 
 #Downloader
@@ -716,3 +734,56 @@ enchiridion.downloader.restart=Пожалуйста перезапустите �
 enchiridion.downloader.failed.0=О нет! Не удалось загрузить Enchiridion
 enchiridion.downloader.failed.1=Пожалуйста загрузите Enchiridion с CurseForge (%s)
 enchiridion.downloader.outofdate=Enchiridion устарел, пожалуйста, обновите его (%s)
+
+#Custom names
+mariculture.pearl.color.white.lamp=Белая неоновая лампа
+mariculture.pearl.color.green.lamp=Зелёная неоновая лампа
+mariculture.pearl.color.yellow.lamp=Жёлтая неоновая лампа
+mariculture.pearl.color.orange.lamp=Оранжевая неоновая лампа
+mariculture.pearl.color.red.lamp=Красная неоновая лампа
+mariculture.pearl.color.gold.lamp=Золотая неоновая лампа
+mariculture.pearl.color.brown.lamp=Коричневая неоновая лампа
+mariculture.pearl.color.purple.lamp=Фиолетовая неоновая лампа
+mariculture.pearl.color.blue.lamp=Синяя неоновая лампа
+mariculture.pearl.color.black.lamp=Чёрная неоновая лампа
+mariculture.pearl.color.pink.lamp=Розовая неоновая лампа
+mariculture.pearl.color.silver.lamp=Серебряная неоновая лампа
+
+mariculture.pearl.color.white.block=Белый жемчужный блок
+mariculture.pearl.color.green.block=Зелёный жемчужный блок
+mariculture.pearl.color.yellow.block=Жёлтый жемчужный блок
+mariculture.pearl.color.orange.block=Оранжевый жемчужный блок
+mariculture.pearl.color.red.block=Красный жемчужный блок
+mariculture.pearl.color.gold.block=Золотой жемчужный блок
+mariculture.pearl.color.brown.block=Коричневый жемчужный блок
+mariculture.pearl.color.purple.block=Фиолетовый жемчужный блок
+mariculture.pearl.color.blue.block=Синий жемчужный блок
+mariculture.pearl.color.black.block=Чёрный жемчужный блок
+mariculture.pearl.color.pink.block=Розовый жемчужный блок
+mariculture.pearl.color.silver.block=Серебряный жемчужный блок
+
+mariculture.pearl.color.white.pearl=Белый жемчуг
+mariculture.pearl.color.green.pearl=Зелёный жемчуг
+mariculture.pearl.color.yellow.pearl=Жёлтый жемчуг
+mariculture.pearl.color.orange.pearl=Оранжевый жемчуг
+mariculture.pearl.color.red.pearl=Красный жемчуг
+mariculture.pearl.color.gold.pearl=Золотой жемчуг
+mariculture.pearl.color.brown.pearl=Коричневый жемчуг
+mariculture.pearl.color.purple.pearl=Фиолетовый жемчуг
+mariculture.pearl.color.blue.pearl=Синий жемчуг
+mariculture.pearl.color.black.pearl=Чёрный жемчуг
+mariculture.pearl.color.pink.pearl=Розовый жемчуг
+mariculture.pearl.color.silver.pearl=Серебряный жемчуг
+
+mariculture.pearl.color.white.brick=Белый жемчужный кирпич
+mariculture.pearl.color.green.brick=Зелёный жемчужный кирпич
+mariculture.pearl.color.yellow.brick=Жёлтый жемчужный кирпич
+mariculture.pearl.color.orange.brick=Оранжевый жемчужный кирпич
+mariculture.pearl.color.red.brick=Красный жемчужный кирпич
+mariculture.pearl.color.gold.brick=Золотой жемчужный кирпич
+mariculture.pearl.color.brown.brick=Коричневый жемчужный кирпич
+mariculture.pearl.color.purple.brick=Фиолетовый жемчужный кирпич
+mariculture.pearl.color.blue.brick=Синий жемчужный кирпич
+mariculture.pearl.color.black.brick=Чёрный жемчужный кирпич
+mariculture.pearl.color.pink.brick=Розовый жемчужный кирпич
+mariculture.pearl.color.silver.brick=Серебряный жемчужный кирпич
