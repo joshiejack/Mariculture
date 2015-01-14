@@ -44,10 +44,18 @@ public class ItemBlockNeonLamp extends ItemBlockMariculture {
         }
     }
     
+    public String getColor(ItemStack stack) {
+        String translate = "pearl.color." + PearlColor.get(stack.getItemDamage());
+        String str = MCTranslate.translate(translate + ".lamp");        
+        if(str.equals("mariculture." + translate + ".lamp")) {
+            return MCTranslate.translate(translate);
+        } else return str;
+    }
+    
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String format = MCTranslate.translate("lamps.format");
-        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage())));
+        format = format.replace("%C", getColor(stack));
         format = format.replace("%N", MCTranslate.translate("lamps.neon"));
         return format.replace("%L", MCTranslate.translate("lamps.lamp"));
     }

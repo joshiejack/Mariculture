@@ -15,11 +15,19 @@ public class ItemBlockPearlBlock extends ItemBlockMariculture {
     public String getName(ItemStack stack) {
         return PearlColor.get(stack.getItemDamage());
     }
+
+    public String getColor(ItemStack stack) {
+        String translate = "pearl.color." + PearlColor.get(stack.getItemDamage());
+        String str = MCTranslate.translate(translate + "." + field_150939_a.getUnlocalizedName());        
+        if(str.equals("mariculture." + translate + "." + field_150939_a.getUnlocalizedName())) {
+            return MCTranslate.translate(translate);
+        } else return str;
+    }
     
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String format = MCTranslate.translate("pearl.format");
-        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage())));
+        format = format.replace("%C", getColor(stack));
         format = format.replace("%P", MCTranslate.translate("pearl"));
         String unlocalized = field_150939_a.getUnlocalizedName();
         if(unlocalized.contains("block")) {
