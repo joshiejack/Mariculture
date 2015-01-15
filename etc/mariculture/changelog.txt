@@ -1,5 +1,6 @@
 Mariculture 1.2.4b
 • Fix requiring blood magic (woops!)
+• Fix some missing lang
 • Support for some language stuffs
 
 Mariculture 1.2.4a
