@@ -57,10 +57,18 @@ processResources {
             'minecraft_version': project.config.minecraft_version
         ])
     }
+    
+    from('etc/mariculture') {
+        include '*.txt'
+        include '*.info'
+        expand ([
+            'mod_version': project.config.mc_version,
+            'minecraft_version': project.config.minecraft_version
+        ])
+    }
 
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
         exclude '**/*build.properties'
         exclude '**/todolist.txt'
     }
