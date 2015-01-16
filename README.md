@@ -1,11 +1,12 @@
-Mariculture
+Mariculture 2
 ===========
 
-This branch is the Mariculture development branch for Minecraft 1.7.10. As of now many things are broken, and are still in the process of being fixed. Trying to run this is not advised, but feel free to help fix any problems.
+This branch is the Mariculture 2 development branch for Minecraft 1.8.X.
+There is literally nothing in here except for the boilerplate.
 
-Mariculture is licensed under MIT
+Mariculture 2 is licensed under MIT
 
 ======
 
 ##Development
-Install Forge-Gradle as standard procedure. You may also need to install the [mariculture_dummy.jar](https://dl.dropboxusercontent.com/u/105284170/mariculture_dummy.jar) in to the mods folder when trying to run.
+Install Forge-Gradle as standard procedure. You may also need to install the NOT NEEDED in to the mods folder when trying to run.

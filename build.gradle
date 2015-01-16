@@ -17,141 +17,36 @@ buildscript {
 
 apply plugin: 'forge'
 
-// define the properties file
-ext.configFile = file "build.properties"
+version = "2.0"
+group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "Mariculture 2"
 
-configFile.withReader {
-    // read config.  it shall from now on be referenced as simply config or as project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+minecraft {
+    version = "1.8-11.14.0.1287-1.8"
+    runDir = "eclipse"
+    mappings = "snapshot_nodoc_20141130"
 }
-
-buildnumber = ""
-if (System.getenv().BUILD_NUMBER) {
-    buildnumber = "-" + System.getenv().BUILD_NUMBER
-}
-
-version = config.minecraft_version + "-" + config.mc_version + buildnumber
-group= "com.github.joshie.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Mariculture-Deluxe"
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
-    assetDir = "eclipse/assets"
-}
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        include '**/*.properties'
-
-        expand ([
-            'modid': project.archivesBaseName,
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-    
-    from('etc/mariculture') {
-        include '*.txt'
-        include '*.info'
-        expand ([
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
-    }
-
+        
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*build.properties'
-        exclude '**/todolist.txt'
+        exclude 'mcmod.info'
     }
-}
-
-jar {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
-    manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
-        attributes 'FMLCorePluginContainsFMLMod': 'true'
-    }
-}
-
-task maricultureJar(type: Jar) {
-    baseName = 'Mariculture-Base'
-    version = config.minecraft_version + "-" + config.mc_version + buildnumber
-    manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
-        attributes 'FMLCorePluginContainsFMLMod': 'true'
-    }
-    
-    from('etc/mariculture') {
-        include '*.txt'
-        include '*.info'
-        expand ([
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
-    }
-    
-    from zipTree(jar.archivePath).matching {
-        exclude 'maritech/**', 'assets/maritech/**'
-    }
-}
-
-task maritechJar(type: Jar) {
-    baseName = 'Mariculture-Technology'
-    version = config.minecraft_version + "-" + config.mc_version + buildnumber
-    from('etc/maritech') {
-        include '*.txt'
-        include '*.info'
-        expand ([
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
-    }
-    
-    from zipTree(jar.archivePath).matching {
-        include 'maritech/**', 'assets/maritech/**'
-    }
-}
-
-task sourceJar(type: Jar) {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-src.jar"
-    from sourceSets.main.java
-}
-
-task deobfJar(type: Jar) {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-deobf.jar"
-    manifest {
-        attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
-        attributes 'FMLCorePluginContainsFMLMod': 'true'
-    }
-    
-    from sourceSets.main.output
-}
-
-task apiJar(type: Jar) {
-    archiveName="Mariculture-API-" + config.minecraft_version + buildnumber + ".jar"
-    from(sourceSets.main.java) {
-        include "mariculture/api/**"
-    }
-    
-    classifier = 'api'
-}
-
-maricultureJar.dependsOn('reobf')
-maritechJar.dependsOn('reobf')
-
-artifacts {
-    archives maricultureJar
-    archives maritechJar
-    archives deobfJar
-    archives apiJar
-    archives sourceJar
 }
