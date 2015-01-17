@@ -31,7 +31,7 @@ minecraft {
     runDir = "eclipse"
     mappings = "snapshot_nodoc_20141130"
 
-    replace "@VERSION@", project.version
+    replace "@VERSION@", "${mod_version}"
     replaceIn "MaricultureInfo.java"
 }
 

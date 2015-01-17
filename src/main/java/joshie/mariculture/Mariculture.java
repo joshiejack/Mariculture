@@ -7,6 +7,7 @@ import static joshie.mariculture.lib.MaricultureInfo.JAVAPATH;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.lib.MaricultureInfo.MODNAME;
 import static joshie.mariculture.lib.MaricultureInfo.MODPATH;
+import static joshie.mariculture.lib.MaricultureInfo.VERSION;
 
 import java.io.File;
 
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = MODID, name = MODNAME, dependencies = DEPENDENCIES)
+@Mod(modid = MODID, name = MODNAME, version = VERSION, dependencies = DEPENDENCIES)
 public class Mariculture {
     @SidedProxy(clientSide = JAVAPATH + INITIALS + "ClientProxy", serverSide = JAVAPATH + INITIALS + "CommonProxy")
     public static MCommonProxy proxy;
