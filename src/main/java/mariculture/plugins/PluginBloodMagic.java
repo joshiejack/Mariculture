@@ -4,12 +4,11 @@ import static mariculture.api.fishery.Loot.Rarity.GOOD;
 import static mariculture.api.fishery.Loot.Rarity.JUNK;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.Loot;
-import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.Loot.Rarity;
+import mariculture.api.fishery.RodType;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Fluids;
 import mariculture.fishery.Fishery;
-import mariculture.lib.helpers.RegistryHelper;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.bloodmagic.BloodRodType;
 import mariculture.plugins.bloodmagic.ItemBoundRod;
@@ -18,9 +17,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidRegistry;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
-import WayofTime.alchemicalWizardry.common.items.BoundArmour;
 
 public class PluginBloodMagic extends Plugin {
     public PluginBloodMagic(String name) {
@@ -85,11 +84,35 @@ public class PluginBloodMagic extends Plugin {
 
             ItemStack loot = getUndamaged("boundBoots");
             loot.setTagCompound(new NBTTagCompound());
-            ((BoundArmour) loot.getItem()).saveInternalInventory(loot, new ItemStack[9]);
+            saveInternalInventory(loot, new ItemStack[9]);
             addLoot(loot, GOOD, 200);
 
             BindingRegistry.registerRecipe(new ItemStack(rodBlood), new ItemStack(Fishery.rodTitanium));
         }
+    }
+
+    /** Code stolen from BoundArmour :P **/
+    private void saveInternalInventory(ItemStack itemStack, ItemStack[] inventory) {
+        NBTTagCompound itemTag = itemStack.getTagCompound();
+
+        if (itemTag == null) {
+            itemStack.setTagCompound(new NBTTagCompound());
+        }
+
+        NBTTagList itemList = new NBTTagList();
+
+        for (int i = 0; i < 9; i++) {
+            ItemStack stack = inventory[i];
+
+            if (inventory[i] != null) {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setByte("Slot", (byte) i);
+                inventory[i].writeToNBT(tag);
+                itemList.appendTag(tag);
+            }
+        }
+
+        itemTag.setTag("Inventory", itemList);
     }
 
     private void addLoot(ItemStack stack, Rarity rarity, double chance) {
