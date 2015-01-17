@@ -9,6 +9,6 @@ public class MaricultureInfo {
     public static final String INITIALS = "M";
     
     public static final String[] MODULES = new String[] { 
-    	"core", "diving", "exploration", "fishery"
+    	"diving", "exploration", "fishery", "sealife"
     };
 }
