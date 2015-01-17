@@ -2,6 +2,8 @@ package joshie.mariculture.modules.core;
 
 import joshie.mariculture.modules.Module;
 
+/** The Core Module contains the basic ingredients for every other module to operate, 
+ * 	It cannot be disabled **/
 public class Core extends Module {
 	@Override
 	public void preInit() {
