@@ -1,4 +1,4 @@
-package joshie.mariculture.sealife;
+package joshie.mariculture.modules.sealife;
 
 import joshie.mariculture.modules.Module;
 
