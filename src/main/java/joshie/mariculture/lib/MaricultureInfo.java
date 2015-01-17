@@ -7,6 +7,7 @@ public class MaricultureInfo {
 	public static final String MODPATH = "mariculture";
 	public static final String DEPENDENCIES = "";
     public static final String INITIALS = "M";
+    public static final String VERSION = "@VERSION@";
     
     public static final String[] MODULES = new String[] { 
     	"diving", "exploration", "fishery", "sealife"

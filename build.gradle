@@ -17,36 +17,56 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "2.0"
-group= "com.github.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+ext.buildnumber=""
+if (System.getenv().BUILD_NUMBER) {
+    ext.buildnumber="-" + System.getenv().BUILD_NUMBER
+}
+
+version = "${minecraft_version}-${mod_version}${buildnumber}"
+group= "uk.co.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Mariculture 2"
 
 minecraft {
-    version = "1.8-11.14.0.1287-1.8"
+    version = "${minecraft_version}-${forge_version}" + "-1.8"
     runDir = "eclipse"
     mappings = "snapshot_nodoc_20141130"
+
+    replace "@VERSION@", project.version
+    replaceIn "MaricultureInfo.java"
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
+processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        include '**/*.info'
+        include '**/*.properties'
+
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
-    // copy everything else, thats not the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude '**/*.info'
+        exclude '**/*.properties'
     }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'src'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+
+artifacts {
+    archives deobfJar
+    archives sourceJar
 }
