@@ -67,7 +67,7 @@ processResources {
 }
 
 jar {
-    archiveName="Mariculture-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
@@ -75,7 +75,7 @@ jar {
 }
 
 task marinotechJar(type: Jar) {
-    baseName = 'Mariculture (Sans Hi-Tech)-'
+    baseName = 'Mariculture'
     version = config.minecraft_version + "-" + config.mc_version + buildnumber
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
@@ -97,12 +97,12 @@ task marinotechJar(type: Jar) {
 }
 
 task sourceJar(type: Jar) {
-    archiveName="Mariculture-" + config.minecraft_version + buildnumber + "-src.jar"
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + "-src.jar"
     from sourceSets.main.java
 }
 
 task deobfJar(type: Jar) {
-    archiveName="Mariculture-" + config.minecraft_version + buildnumber + "-deobf.jar"
+    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + "-deobf.jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
