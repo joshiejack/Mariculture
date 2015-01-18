@@ -271,7 +271,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     @Override
-    public void updateEntity() {
+    public void updateEntity() {        
         if (!worldObj.isRemote) {
             if (isInit <= 0 && isInit > -1000) {
                 isInit = -1000;
@@ -471,7 +471,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 if (!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isValidDimensionForWork(worldObj)) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("badWorld"));
                 }
-
+                
                 int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
                 int minTempAccepted = species.getTemperatureBase() - Fish.temperature.getDNA(fish);
                 int maxTempAccepted = species.getTemperatureBase() + Fish.temperature.getDNA(fish);
@@ -549,6 +549,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         if (id == 6) tankSize = value;
         else if (id == 7) canWork = value == 1;
         else if (id == 8) isDay = value == 1;
+        else if (id == 9) heat = value;
         else super.setGUIData(id, value);
     }
 
@@ -558,6 +559,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         list.add(tankSize);
         list.add(canWork ? 1 : 0);
         list.add(worldObj.isDaytime() ? 1 : 0);
+        list.add(heat);
         return list;
     }
 

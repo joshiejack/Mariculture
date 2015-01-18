@@ -73,7 +73,7 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
     }
 
     @Override
-    public void updateUpgrades() {
+    public void updateUpgrades() {        
         purity = MaricultureHandlers.upgrades.getData("purity", this);
         heat = MaricultureHandlers.upgrades.getData("temp", this);
         storage = MaricultureHandlers.upgrades.getData("storage", this);
