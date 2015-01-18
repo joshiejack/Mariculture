@@ -75,7 +75,7 @@ jar {
 }
 
 task marinotechJar(type: Jar) {
-    baseName = 'Mariculture'
+    baseName = 'Mariculture-Base'
     version = config.minecraft_version + "-" + config.mc_version + buildnumber
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
