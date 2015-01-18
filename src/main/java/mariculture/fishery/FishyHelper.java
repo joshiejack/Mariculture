@@ -197,9 +197,7 @@ public class FishyHelper implements IFishHelper {
     }
 
     @Override
-    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
-        System.out.println("CHECKIN");
-        
+    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {        
         FishSpecies fish = Fishing.fishHelper.getSpecies(stack);
         if (fish == null) return false;
         else {
