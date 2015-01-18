@@ -111,7 +111,7 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
 }
 
-maricultureJar.dependsOn('reobf')
+marinotechJar.dependsOn('reobf')
 
 artifacts {
     archives marinotechJar
