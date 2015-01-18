@@ -198,6 +198,8 @@ public class FishyHelper implements IFishHelper {
 
     @Override
     public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
+        System.out.println("CHECKIN");
+        
         FishSpecies fish = Fishing.fishHelper.getSpecies(stack);
         if (fish == null) return false;
         else {
@@ -321,7 +323,7 @@ public class FishyHelper implements IFishHelper {
     }
 
     @Override
-    public FishSpecies getSpecies(ItemStack stack) {
+    public FishSpecies getSpecies(ItemStack stack) {        
         if (stack == null || stack.getItem() == null || !stack.hasTagCompound() || !(stack.getItem() instanceof ItemFishy)) return null;
         return getSpecies(Fish.species.getDNA(stack));
     }

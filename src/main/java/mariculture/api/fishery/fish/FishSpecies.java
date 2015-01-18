@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.RodType;
 import mariculture.api.util.CachedCoords;
-import mariculture.core.util.MCTranslate;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -121,9 +120,18 @@ public abstract class FishSpecies {
         return 15;
     }
     
-    /** Whether this block is valid for this fish species **/
-    public boolean isValidWater(Block block) {
-        return block == Blocks.water;
+    public boolean isFluidValid(Block block) {
+        return block == getWater1() || block == getWater2();
+    }
+    
+    /** The water type 1 that is valid **/
+    public Block getWater1() {
+        return Blocks.water;
+    }
+    
+    /** The water type 1 that is valid **/
+    public Block getWater2() {
+        return Blocks.water;
     }
 
     /** (0) return a bonus for the area the fish can do it's world effects**/

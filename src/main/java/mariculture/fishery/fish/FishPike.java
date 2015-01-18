@@ -58,8 +58,8 @@ public class FishPike extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return super.isValidWater(block) || Fluids.isHalfway(block);
+    public Block getWater2() {
+        return Fluids.getFluidBlock("custard");
     }
 
     @Override

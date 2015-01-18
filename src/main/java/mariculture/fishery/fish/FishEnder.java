@@ -60,8 +60,13 @@ public class FishEnder extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return Fluids.isEnder(block);
+    public Block getWater1() {
+        return Fluids.getFluidBlock("ender");
+    }
+    
+    @Override
+    public Block getWater2() {
+        return Fluids.getFluidBlock("ender");
     }
 
     @Override

@@ -67,8 +67,13 @@ public class FishGlow extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return block == Blocks.lava || Fluids.isHalfway(block);
+    public Block getWater1() {
+        return Blocks.lava;
+    }
+    
+    @Override
+    public Block getWater2() {
+        return Fluids.getFluidBlock("custard");
     }
 
     @Override

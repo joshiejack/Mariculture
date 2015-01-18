@@ -67,8 +67,8 @@ public class FishDragon extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return block == Blocks.water || Fluids.isEnder(block);
+    public Block getWater2() {
+        return Fluids.getFluidBlock("ender");
     }
 
     @Override

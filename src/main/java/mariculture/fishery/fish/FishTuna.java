@@ -62,8 +62,8 @@ public class FishTuna extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return super.isValidWater( block) || block == Blocks.lava;
+    public Block getWater2() {
+        return Blocks.lava;
     }
 
     @Override

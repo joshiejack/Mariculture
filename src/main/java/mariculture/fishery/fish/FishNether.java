@@ -7,6 +7,7 @@ import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -61,8 +62,13 @@ public class FishNether extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return block == Blocks.lava;
+    public Block getWater1() {
+        return Blocks.lava;
+    }
+    
+    @Override
+    public Block getWater2() {
+        return Blocks.lava;
     }
 
     @Override

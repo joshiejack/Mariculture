@@ -6,6 +6,7 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -61,8 +62,8 @@ public class FishMantaRay extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return super.isValidWater(block) || block == Blocks.lava;
+    public Block getWater2() {
+        return Blocks.lava;
     }
 
     @Override

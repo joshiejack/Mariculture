@@ -4,7 +4,9 @@ import static mariculture.core.util.Fluids.getFluidID;
 import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
@@ -51,7 +53,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     private boolean swap = false;
     private int foodTick;
     private int tankSize;
-    private Block tankBlock;
+    public Block tankBlock;
 
     //Fish Locations and animations
     public int mPos = 0;
@@ -122,28 +124,44 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             zN = Fish.north.getDNA(male);
         }
 
-        FishSpecies m = Fishing.fishHelper.getSpecies(this.male);
-        FishSpecies f = Fishing.fishHelper.getSpecies(this.female);
+        FishSpecies m = Fishing.fishHelper.getSpecies(inventory[this.male]);
+        FishSpecies f = Fishing.fishHelper.getSpecies(inventory[this.female]);
+        HashMap<Integer, Integer> count = new HashMap();
         coords = new ArrayList<CachedCoords>();
         if (m != null && f != null) {
             for (int x = -5 - xN; x <= 5 + xP; x++) {
                 for (int z = -5 - zN; z <= 5 + zP; z++) {
                     for (int y = -5 - yN; y <= 5 + yP; y++) {
                         Block block = worldObj.getBlock(xCoord + x, yCoord + y, zCoord + z);
-                        if (m.isValidWater(block) && f.isValidWater(block)) {
+                        if (m.isFluidValid(block) && f.isFluidValid(block)) {
                             coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
+                            
+                            int id = Block.getIdFromBlock(block);
+                            int amount = count.get(id) + 1;
+                            count.put(id, amount);
                         }
                     }
                 }
             }
         }
-
+        
+        int highest_id = 0;
+        int highest_amount = 0;
+        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
+            int value = entry.getValue();
+            if(value >= highest_amount) {
+                highest_amount = value;
+                highest_id = entry.getKey();
+            }
+        }
+        
+        tankBlock = highest_id == 0? null: Block.getBlockById(highest_id);
         tankSize = coords.size();
         updateUpgrades();
 
         if (!worldObj.isRemote) {
             PacketHandler.syncInventory(this, inventory);
-            PacketHandler.sendAround(new PacketSyncFeeder(xCoord, yCoord, zCoord, coords), this);
+            PacketHandler.sendAround(new PacketSyncFeeder(xCoord, yCoord, zCoord, coords, tankBlock), this);
         }
     }
 
@@ -389,10 +407,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
     private boolean fishCanLive(ItemStack fish) {
         FishSpecies species = Fishing.fishHelper.getSpecies(fish);
-        if (species != null) {
+        if (species != null) {            
             if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) return true;
             else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getFluidID("fish_food")) return false;
-            return tankSize >= Fish.tankSize.getDNA(fish) && species.isValidWater(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
+            return tankSize >= Fish.tankSize.getDNA(fish) && species.isFluidValid(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
         } else return false;
     }
 
@@ -482,9 +500,12 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 }
 
                 int size = Fish.tankSize.getDNA(fish);
-                if (tankSize < size) {
+                if (tankSize < size || !species.isFluidValid(tankBlock)) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("notAdvanced"));
-                    String text = worldObj.provider.isHellWorld ? MCTranslate.translate("blocks.lava") : MCTranslate.translate("blocks.water");
+                    //Work out the block types accepted
+                    String block1 = species.getWater1().getLocalizedName();
+                    String block2 = species.getWater2().getLocalizedName();
+                    String text = block1.equals(block2)? block1: block1 + " / " + block2;
                     noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
                 }
 

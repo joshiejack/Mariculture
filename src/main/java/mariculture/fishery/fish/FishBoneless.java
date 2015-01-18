@@ -75,8 +75,8 @@ public class FishBoneless extends FishSpecies {
     }
     
     @Override
-    public boolean isValidWater(Block block) {
-        return super.isValidWater(block) || Fluids.isEnder(block);
+    public Block getWater2() {
+        return Fluids.getFluidBlock("ender");
     }
 
     @Override

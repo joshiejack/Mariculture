@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import mariculture.api.util.CachedCoords;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.lib.helpers.ClientHelper;
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.PacketBuffer;
@@ -21,7 +22,7 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
 
     public PacketSyncFeeder() {}
 
-    public PacketSyncFeeder(int x, int y, int z, ArrayList<CachedCoords> coord) {
+    public PacketSyncFeeder(int x, int y, int z, ArrayList<CachedCoords> coord, Block block) {
         nbt = new NBTTagCompound();
         nbt.setInteger("x", x);
         nbt.setInteger("y", y);
@@ -36,6 +37,7 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
         }
 
         nbt.setTag("Coordinates", list);
+        nbt.setInteger("BlockID", Block.getIdFromBlock(block));
     }
 
     @Override
@@ -62,6 +64,7 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
         int x = message.nbt.getInteger("x");
         int y = message.nbt.getInteger("y");
         int z = message.nbt.getInteger("z");
+        int id = message.nbt.getInteger("BlockID");
         ArrayList<CachedCoords> coords = new ArrayList();
         NBTTagList tagList = message.nbt.getTagList("Coordinates", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
@@ -72,6 +75,7 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TileFeeder) {
             ((TileFeeder) tile).coords = coords;
+            ((TileFeeder) tile).tankBlock = id == 0? null: Block.getBlockById(id);
         }
 
         return null;
