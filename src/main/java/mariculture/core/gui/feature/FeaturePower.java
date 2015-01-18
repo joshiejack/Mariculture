@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.util.IPowered;
+import mariculture.core.util.MCTranslate;
 
 public class FeaturePower extends Feature {
     private IPowered machine;
@@ -21,8 +22,8 @@ public class FeaturePower extends Feature {
         if (mouseX >= xPoz && mouseX <= xPoz + 13 && mouseY >= yPoz && mouseY <= yPoz + 41) {
             tooltip.add(machine.getPowerText());
             tooltip.add("");
-            if (machine.isConsumer()) tooltip.add("Consuming: " + machine.getPowerPerTick() + " RF/t");
-            else tooltip.add("Producing: " + machine.getPowerPerTick() + " RF/t");
+            if (machine.isConsumer()) tooltip.add(MCTranslate.translate("consuming") + ": " + machine.getPowerPerTick() + " RF/t");
+            else tooltip.add(MCTranslate.translate("producing") + ": " + machine.getPowerPerTick() + " RF/t");
         }
     }
 

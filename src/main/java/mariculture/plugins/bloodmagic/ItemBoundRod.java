@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.helpers.BlockHelper;
+import mariculture.core.util.MCTranslate;
 import mariculture.fishery.items.ItemFishy;
 import mariculture.fishery.items.ItemRod;
 import mariculture.plugins.PluginBloodMagic;
@@ -158,17 +159,17 @@ public class ItemBoundRod extends ItemRod {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        list.add("Let the rivers flow red with blood");
+        list.add(MCTranslate.translate("rodBlood.subtitle"));
 
         if (!(stack.stackTagCompound == null)) {
             if (stack.stackTagCompound.getBoolean("isActive")) {
-                list.add("Activated");
+                list.add(MCTranslate.translate("rodBlood.activated"));
             } else {
-                list.add("Deactivated");
+                list.add(MCTranslate.translate("rodBlood.deactivated"));
             }
 
             if (!stack.stackTagCompound.getString("ownerName").equals("")) {
-                list.add("Current owner: " + stack.stackTagCompound.getString("ownerName"));
+                list.add(MCTranslate.translate("rodBlood.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
             }
         }
 

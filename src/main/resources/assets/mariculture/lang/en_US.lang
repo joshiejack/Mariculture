@@ -615,7 +615,7 @@ mariculture.temperature.generic=Generic Biome Temperature
 mariculture.temperature.precise=Precise Water Temperature
 mariculture.input=Input
 mariculture.output=Output
-mariculture.maxcapacity=Max Capacity
+mariculture.maxCapacity=Max Capacity
 mariculture.stats.jewelry=Jewelry Stats
 mariculture.elemental=Elemental Effect
 mariculture.elemental.pearlblack=Lunar Blast
@@ -650,6 +650,8 @@ mariculture.chance=Chance
 mariculture.progress=Progress
 mariculture.contains=Contains
 mariculture.of=of
+mariculture.producing=Producing
+mariculture.consuming=Consuming
 
 ### Eject Modes ###
 ejectmode.none=Auto-Eject Disabled
@@ -723,6 +725,10 @@ mariculture.titanium.tough.rod=Titanium Tough Rod
 
 ### Blood Magic ###
 mariculture.rodBlood=Bound Fishing Rod
+mariculture.rodBlood.subtitle=Let the rivers flow red with blood
+mariculture.rodBlood.activated=Activated
+mariculture.rodBlood.deactivated=Deactivated
+mariculture.rodBlood.owner=Current Owner
 mariculture.ritual=[Mariculture]Ritual of the Blood River
 
 #Downloader
