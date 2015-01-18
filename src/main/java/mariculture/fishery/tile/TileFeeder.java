@@ -6,12 +6,13 @@ import static mariculture.core.util.Fluids.getFluidStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.FishTickEvent;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -147,7 +148,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     //Processes fish
-    public void process() {
+    public void process() {        
         if (swap) {
             makeProduct(inventory[female]);
         } else {
@@ -156,6 +157,25 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
         damageFish(inventory[female], true);
         damageFish(inventory[male], true);
+    }
+    
+    private void fixFish(int slot) {
+        ItemStack fish = inventory[slot];
+        if(fish != null && fish.hasTagCompound()) {
+            FishSpecies species = Fishing.fishHelper.getSpecies(fish);
+            FishSpecies secondary = Fishing.fishHelper.getSpecies(Fishing.fishHelper.getLowerDNA(Fish.species.getName(), fish));
+            if(!fish.stackTagCompound.hasKey(Fish.temperature.getName())) {
+                Fish.temperature.addDNA(fish, species.getTemperatureTolerance());
+                Fish.temperature.addLowerDNA(fish, secondary.getTemperatureTolerance());
+            }
+            
+            if(!fish.stackTagCompound.hasKey(Fish.temperature.getName())) {
+                Fish.temperature.addDNA(fish, species.getSalinityTolerance());
+                Fish.temperature.addDNA(fish, secondary.getSalinityTolerance());
+            }
+        }
+        
+        inventory[slot] = fish;
     }
 
     //Damages Fish
@@ -349,6 +369,11 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
     @Override
     public boolean canWork() {
+        if(FishMechanics.FIX_FISH) {
+            fixFish(female);
+            fixFish(male);
+        }
+        
         return RedstoneMode.canWork(this, mode) && hasMale() && hasFemale() && fishCanLive(inventory[male]) && fishCanLive(inventory[female]) && hasRoom(null);
     }
 

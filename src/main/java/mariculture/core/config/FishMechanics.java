@@ -16,6 +16,7 @@ public class FishMechanics {
     public static int WEAK_FISH_LIMIT;
     public static boolean IGNORE_BIOMES;
     public static double ALIVE_MODIFIER;
+    public static boolean FIX_FISH;
 
     public static void init(Configuration config) {
         setConfig(config);
@@ -28,5 +29,6 @@ public class FishMechanics {
         FishMechanics.DEMON_FISH_LIMIT = getInt("Bound Fishing Rod - Fish Limit Per Use (Demon)", 64);
         FishMechanics.ALIVE_MODIFIER = getDouble("Fish Caught Alive Modifier", 1.25D);
         FishMechanics.EASY_SCANNER = getBoolean("Easier Fish Scanner Recipe", true);
+        FishMechanics.FIX_FISH = getBoolean("Fix Fish", true, "Will automatically fix any broken fish in a fish feeder. Disable once your fish are fixed. As this can make the fish feeder laggier.");
     }
 }
