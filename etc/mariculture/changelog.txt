@@ -1,8 +1,10 @@
 Mariculture 1.2.4c
 • Fix crash with latest blood magic
-• Add a config (enabled by default). That will add the new dna to fish that are missing it.
+• Add a config (enabled by default). That will add the new dna to fish that are missing it. (Old fish would have no tolerance).
 • Fix the fish feeder not picking up the water around it correctly
 • Fix the fish feeder not displaying water types needed
+• Fix the fish feeder not updating the temperature required for fish
+• Fix some missing lang
 
 Mariculture 1.2.4b
 • Fix requiring blood magic (woops!)
