@@ -137,7 +137,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                             coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
                             
                             int id = Block.getIdFromBlock(block);
-                            int amount = count.get(id) + 1;
+                            int amount = count.get(id) != null? count.get(id) + 1: 1;
                             count.put(id, amount);
                         }
                     }
