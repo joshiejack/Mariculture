@@ -67,15 +67,15 @@ processResources {
 }
 
 jar {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
+    archiveName="Mariculture-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 
-task maricultureJar(type: Jar) {
-    baseName = 'Mariculture-Base'
+task marinotechJar(type: Jar) {
+    baseName = 'Mariculture (Sans Hi-Tech)-'
     version = config.minecraft_version + "-" + config.mc_version + buildnumber
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
@@ -96,30 +96,13 @@ task maricultureJar(type: Jar) {
     }
 }
 
-task maritechJar(type: Jar) {
-    baseName = 'Mariculture-Technology'
-    version = config.minecraft_version + "-" + config.mc_version + buildnumber
-    from('etc/maritech') {
-        include '*.txt'
-        include '*.info'
-        expand ([
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
-    }
-    
-    from zipTree(jar.archivePath).matching {
-        include 'maritech/**', 'assets/maritech/**'
-    }
-}
-
 task sourceJar(type: Jar) {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-src.jar"
+    archiveName="Mariculture-" + config.minecraft_version + buildnumber + "-src.jar"
     from sourceSets.main.java
 }
 
 task deobfJar(type: Jar) {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + buildnumber + "-deobf.jar"
+    archiveName="Mariculture-" + config.minecraft_version + buildnumber + "-deobf.jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
@@ -128,22 +111,10 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
 }
 
-task apiJar(type: Jar) {
-    archiveName="Mariculture-API-" + config.minecraft_version + buildnumber + ".jar"
-    from(sourceSets.main.java) {
-        include "mariculture/api/**"
-    }
-    
-    classifier = 'api'
-}
-
 maricultureJar.dependsOn('reobf')
-maritechJar.dependsOn('reobf')
 
 artifacts {
-    archives maricultureJar
-    archives maritechJar
+    archives marinotechJar
     archives deobfJar
-    archives apiJar
     archives sourceJar
 }
