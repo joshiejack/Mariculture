@@ -23,7 +23,7 @@ if (System.getenv().BUILD_NUMBER) {
 }
 
 version = "${minecraft_version}-${mod_version}${buildnumber}"
-group= "uk.co.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "uk.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Mariculture 2"
 
 minecraft {
