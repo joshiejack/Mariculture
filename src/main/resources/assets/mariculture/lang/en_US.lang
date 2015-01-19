@@ -472,7 +472,6 @@ mariculture.fish.data.temperaturetolerance.tolerant=Basic
 mariculture.fish.data.temperaturetolerance.vtolerant=Very
 mariculture.fish.data.temperaturetolerance.itolerant=Incredibly
 mariculture.fish.data.temperaturetolerance.etolerant=Extremely
-mariculture.fish.data.temperaturetolerance.fussy=Fussy
 mariculture.fish.data.salinitytolerance=Salt Tolerance
 mariculture.fish.data.salinitytolerance.intolerant=Intolerant
 mariculture.fish.data.salinitytolerance.tolerant=Tolerant
