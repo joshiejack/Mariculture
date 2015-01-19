@@ -17,57 +17,49 @@ buildscript {
 
 apply plugin: 'forge'
 
-// define the properties file
-ext.configFile = file "build.properties"
-
-configFile.withReader {
-    // read config.  it shall from now on be referenced as simply config or as project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
-
-buildnumber = ""
+ext.buildnumber=""
 if (System.getenv().BUILD_NUMBER) {
-    buildnumber = "-" + System.getenv().BUILD_NUMBER
+    ext.buildnumber="-" + System.getenv().BUILD_NUMBER
 }
 
-version = config.minecraft_version + "-" + config.mc_version + buildnumber
-group= "com.github.joshie.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "${minecraft_version}-${mod_version}${buildnumber}"
+group= "uk.joshiejack.mariculture" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Mariculture-Deluxe"
+
+minecraft {
+    version = "${minecraft_version}-${forge_version}"
+    runDir = "eclipse"
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
-    assetDir = "eclipse/assets"
-}
-
 processResources {
-    // replace stuff in mcmod.info, nothing else
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
         include '**/*.properties'
 
-        expand ([
-            'modid': project.archivesBaseName,
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+    
+    from('etc/mariculture') {
+        include '**/*.txt'
+        include '**/*.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
-    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
-        exclude '**/*build.properties'
-        exclude '**/todolist.txt'
+        exclude '**/*.properties'
+        exclude '**/*todolist.txt'
     }
 }
 
 jar {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + ".jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
@@ -76,19 +68,18 @@ jar {
 
 task marinotechJar(type: Jar) {
     baseName = 'Mariculture-Base'
-    version = config.minecraft_version + "-" + config.mc_version + buildnumber
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
     
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    
     from('etc/mariculture') {
-        include '*.txt'
-        include '*.info'
-        expand ([
-            'mod_version': project.config.mc_version,
-            'minecraft_version': project.config.minecraft_version
-        ])
+        include '**/*.txt'
+        include '**/*.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
     
     from zipTree(jar.archivePath).matching {
@@ -97,18 +88,17 @@ task marinotechJar(type: Jar) {
 }
 
 task sourceJar(type: Jar) {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + "-src.jar"
-    from sourceSets.main.java
+    from sourceSets.main.allSource
+    classifier = 'src'
 }
 
 task deobfJar(type: Jar) {
-    archiveName="Mariculture-Deluxe-" + config.minecraft_version + "-" + config.mc_version + buildnumber + "-deobf.jar"
     manifest {
         attributes 'FMLCorePlugin': 'mariculture.fishery.VanillaOverride'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
-    
     from sourceSets.main.output
+    classifier = 'dev'
 }
 
 marinotechJar.dependsOn('reobf')
