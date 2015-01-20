@@ -11,7 +11,8 @@ import static joshie.mariculture.lib.MaricultureInfo.VERSION;
 
 import java.io.File;
 
-import net.minecraftforge.common.config.Configuration;
+import joshie.mariculture.lib.MaricultureInfo;
+import joshie.mariculture.util.DependencyManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -31,9 +32,12 @@ public class Mariculture {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        root = new File(event.getModConfigurationDirectory() + separator + MODPATH);
-        MConfig.init();
-        proxy.preInit();
+    	MaricultureInfo.updateDev();
+    	if (DependencyManager.hasDependencies()) {
+	    	root = new File(event.getModConfigurationDirectory() + separator + MODPATH);
+			MConfig.init();
+			proxy.preInit();
+    	}
     }
 
     @EventHandler
