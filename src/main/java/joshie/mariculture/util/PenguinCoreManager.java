@@ -49,12 +49,11 @@ public class PenguinCoreManager {
 	private static final String JARNAME = "PenguinCore"; //the jarname of the mod dependency
 	private static final String JOBNAME = "PenguinCore"; //the jobname of the mod dependency
 	private static final String MC_VERSION = "1.8"; //the minecraft version of the mod dependency
-	private static final String DEV = MaricultureInfo.IS_DEV? "-dev": "";
 	
 	/** Everything else below can be pretty much ignored **/
 	
 	private static final String BASE_URL = "http://joshiejack.uk:8080/job/" + JOBNAME + "/lastSuccessfulBuild/artifact/build/libs/";
-	private static final String FILE_NAME = JARNAME + "-" + MC_VERSION + "-" + LATEST_VERSION + "-" + LATEST_BUILD + DEV + ".jar";
+	private static final String FILE_NAME = JARNAME + "-" + MC_VERSION + "-" + LATEST_VERSION + "-" + LATEST_BUILD + ".jar";
 	private static final String DOWNLOAD = BASE_URL + FILE_NAME;
 	private static final String FALLBACK = "http://joshiejack.uk:8080/job/" + JOBNAME + "/";
     public static final Logger logger = LogManager.getLogger(DEPNAME + " Manager");

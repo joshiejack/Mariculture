@@ -32,7 +32,6 @@ public class Mariculture {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-    	MaricultureInfo.updateDev();
     	if (DependencyManager.hasDependencies()) {
 	    	root = new File(event.getModConfigurationDirectory() + separator + MODPATH);
 			MConfig.init();
