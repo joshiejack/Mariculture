@@ -1,0 +1,10 @@
+#Downloader
+joshie.downloader.missing=%s requires %s in order to function: You can download it here: %s
+joshie.downloader.0=%s is missing, you need it for %s to work.
+joshie.downloader.1=Would you like to automatically download %s? (Will require a game restart)
+joshie.downloader.downloading=Downloading %s... Please Hold! ...
+joshie.downloader.success=%s was successfully downloaded!
+joshie.downloader.restart=Please restart your game to finish.
+joshie.downloader.failed.0=Oh noes! %s failed to download
+joshie.downloader.failed.1=Please download %s manually (%s)
+joshie.downloader.outofdate=%s is not the correct version, please update (%s)
