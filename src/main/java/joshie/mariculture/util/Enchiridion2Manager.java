@@ -45,8 +45,8 @@ public class Enchiridion2Manager {
 	
 	private static final String DEPNAME = "Enchiridion 2"; //The name of the mod dependency
 	private static final String MODID = "Enchiridion2"; //The modid of the mod dependency
-	private static final String JARNAME = "Enchiridion%202"; //the jarname of the mod dependency
-	private static final String JOBNAME = "Enchiridion%202"; //the jobname of the mod dependency
+	private static final String JARNAME = "Enchiridion 2"; //the jarname of the mod dependency
+	private static final String JOBNAME = "Enchiridion 2"; //the jobname of the mod dependency
 	private static final String MC_VERSION = "1.7.10"; //the minecraft version of the mod dependency
 	
 	/** Everything else below can be pretty much ignored **/
