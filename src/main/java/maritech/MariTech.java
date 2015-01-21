@@ -6,6 +6,15 @@ import static maritech.lib.MTModInfo.MODID;
 import static maritech.lib.MTModInfo.MODNAME;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
+import mariculture.core.blocks.BlockMachine;
+import mariculture.core.blocks.BlockMachineMulti;
+import mariculture.core.blocks.BlockRenderedMachine;
+import mariculture.core.blocks.BlockRenderedMachineMulti;
+import mariculture.core.blocks.items.ItemBlockMachine;
+import mariculture.core.blocks.items.ItemBlockMachineMulti;
+import mariculture.core.blocks.items.ItemBlockRenderedMachine;
+import mariculture.core.blocks.items.ItemBlockRenderedMachineMulti;
+import mariculture.core.items.ItemCrafting;
 import mariculture.core.lib.Modules;
 import maritech.extensions.blocks.ExtensionMachine;
 import maritech.extensions.blocks.ExtensionMachineMulti;
@@ -49,6 +58,7 @@ public class MariTech {
 
     @EventHandler
     public void onConstructing(FMLConstructionEvent event) {
+        MaricultureHandlers.HIGH_TECH_ENABLED = true;
         MinecraftForge.EVENT_BUS.register(new ConfigEvents());
         MinecraftForge.EVENT_BUS.register(new RegistryEvents());
         ConfigEvents.register(new ExtensionGeneralStuff());
@@ -59,19 +69,17 @@ public class MariTech {
         RegistryEvents.register(new ExtensionFishery());
         RegistryEvents.register(new ExtensionTransport());
         RegistryEvents.register(new ExtensionWorldPlus());
+        MinecraftForge.EVENT_BUS.register(new BlockEvents());
+        MinecraftForge.EVENT_BUS.register(new ItemEvents());
+        ItemEvents.register(ItemCrafting.class, new ExtensionCrafting());
+        BlockEvents.register(BlockMachine.class, ItemBlockMachine.class, new ExtensionMachine());
+        BlockEvents.register(BlockMachineMulti.class, ItemBlockMachineMulti.class, new ExtensionMachineMulti());
+        BlockEvents.register(BlockRenderedMachine.class, ItemBlockRenderedMachine.class, new ExtensionRenderedMachine());
+        BlockEvents.register(BlockRenderedMachineMulti.class, ItemBlockRenderedMachineMulti.class, new ExtensionRenderedMachineMulti());
     }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        MaricultureHandlers.HIGH_TECH_ENABLED = true;
-        MinecraftForge.EVENT_BUS.register(new BlockEvents());
-        MinecraftForge.EVENT_BUS.register(new ItemEvents());
-        BlockEvents.register(Core.machines, new ExtensionMachine());
-        BlockEvents.register(Core.machinesMulti, new ExtensionMachineMulti());
-        BlockEvents.register(Core.renderedMachines, new ExtensionRenderedMachine());
-        BlockEvents.register(Core.renderedMachinesMulti, new ExtensionRenderedMachineMulti());
-        ItemEvents.register(Core.crafting, new ExtensionCrafting());
-
         if (Modules.isActive(Modules.factory)) {
             MinecraftForge.EVENT_BUS.register(new FLUDDEvents());
             FMLCommonHandler.instance().bus().register(new FLUDDEvents());

@@ -45,7 +45,7 @@ processResources {
 
         expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-    
+
     from('etc/mariculture') {
         include '**/*.txt'
         include '**/*.info'
