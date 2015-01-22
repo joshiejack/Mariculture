@@ -488,7 +488,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 boolean match = false;
                 Salinity salt = getSalinity();
                 int minSaltAccepted = Math.max(0, species.getSalinityBase().ordinal() - Fish.salinity.getDNA(fish));
-                int maxSaltAccepted = Math.max(2, species.getSalinityBase().ordinal() + Fish.salinity.getDNA(fish));
+                int maxSaltAccepted = Math.min(2, species.getSalinityBase().ordinal() + Fish.salinity.getDNA(fish));
                 if (salt.ordinal() >= minSaltAccepted && salt.ordinal() <= maxSaltAccepted) {
                     match = true;
                 }
