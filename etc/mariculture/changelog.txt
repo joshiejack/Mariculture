@@ -6,6 +6,7 @@ Mariculture 1.2.4c
 • Fix the fish feeder not updating the temperature required for fish
 • Fix some missing lang
 • Fix some texture/other issues
+• Fix potential crash when checking salinity in fish feeder tooltips
 • Update RF API
 
 Mariculture 1.2.4b
