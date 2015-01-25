@@ -141,7 +141,7 @@ public class ExtensionRenderedMachine extends ExtensionBlocksBase {
                 world.setBlock(x, y, z, Core.metals, MetalMeta.BASE_IRON, 2);
                 TileEntity gen = world.getTileEntity(cord.x, cord.y, cord.z);
                 if (gen instanceof TileGenerator) {
-                    ((TileGenerator) tile).reset();
+                    ((TileGenerator) gen).reset();
                 }
 
                 ItemHelper.spawnItem(world, x, y + 1, z, ((TileRotor) tile).getDrop());
