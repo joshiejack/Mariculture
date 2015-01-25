@@ -131,6 +131,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
+            if(recipe == null) continue; //Somehow null recipes added?
             ItemStack item = recipe.output;
             if (NEIServerUtils.areStacksSameTypeCrafting(result, item)) {
                 arecipes.add(new CachedLiquifierRecipe(recipe));
