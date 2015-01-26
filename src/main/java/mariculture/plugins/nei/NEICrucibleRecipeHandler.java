@@ -119,10 +119,12 @@ public class NEICrucibleRecipeHandler extends NEIBase {
     public void loadCraftingRecipes(String outputId, Object... results) {
         boolean isSecondSearch = isSecondSearch(outputId, results);
         if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEICrucibleRecipeHandler.class) {
-            for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes())
+            for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
+                if (recipe == null) continue; //Somehow null recipes added?
                 if (!isSecondSearch || isSecondSearch && recipe.fluid.getFluid().getName().equals(results[1])) {
                     arecipes.add(new CachedLiquifierRecipe(recipe));
                 }
+            }
         } else {
             super.loadCraftingRecipes(outputId, results);
         }
@@ -131,7 +133,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
-            if(recipe == null) continue; //Somehow null recipes added?
+            if (recipe == null) continue; //Somehow null recipes added?
             ItemStack item = recipe.output;
             if (NEIServerUtils.areStacksSameTypeCrafting(result, item)) {
                 arecipes.add(new CachedLiquifierRecipe(recipe));
@@ -151,6 +153,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
         for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
+            if (recipe == null) continue; //Somehow null recipes added?
             ItemStack item = recipe.input;
             if (NEIServerUtils.areStacksSameTypeCrafting(ingredient, item)) {
                 arecipes.add(new CachedLiquifierRecipe(recipe));

@@ -70,10 +70,11 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         HashMap<String, RecipeCasting> recipes = getRecipes();
-        for (Entry<String, RecipeCasting> recipe : recipes.entrySet())
+        for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
             if (OreDicHelper.convert(result).equals(OreDicHelper.convert(recipe.getValue().output))) {
                 arecipes.add(new CachedCasterRecipe(recipe.getValue().fluid, recipe.getValue().output));
             }
+        }
     }
 
     @Override
