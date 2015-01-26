@@ -1,3 +1,7 @@
+Mariculture 1.2.4d
+• Fix Crash when breaking a rotor
+• Fix Random crashing with NEICrucibleHandler
+
 Mariculture 1.2.4c
 • Fix crash with latest blood magic
 • Add a config (enabled by default). That will add the new dna to fish that are missing it. (Old fish would have no tolerance).
