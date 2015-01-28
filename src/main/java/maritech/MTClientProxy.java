@@ -39,10 +39,10 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class MTClientProxy extends MTCommonProxy {
-    private static final ResourceLocation FLUDD = new ResourceLocation(Mariculture.modid, "textures/blocks/fludd_texture.png");
-    private static final ResourceLocation COPPER = new ResourceLocation(Mariculture.modid, "textures/blocks/copperRotor.png");
-    private static final ResourceLocation ALUMINUM = new ResourceLocation(Mariculture.modid, "textures/blocks/aluminumRotor.png");
-    private static final ResourceLocation TITANIUM = new ResourceLocation(Mariculture.modid, "textures/blocks/titaniumRotor.png");
+    private static final ResourceLocation FLUDD = new ResourceLocation("maritech", "textures/blocks/fludd_texture.png");
+    private static final ResourceLocation COPPER = new ResourceLocation("maritech", "textures/blocks/copperRotor.png");
+    private static final ResourceLocation ALUMINUM = new ResourceLocation("maritech", "textures/blocks/aluminumRotor.png");
+    private static final ResourceLocation TITANIUM = new ResourceLocation("maritech", "textures/blocks/titaniumRotor.png");
 
     @Override
     public void setupClient() {
