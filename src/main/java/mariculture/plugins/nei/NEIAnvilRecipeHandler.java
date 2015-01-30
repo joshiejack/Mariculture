@@ -9,6 +9,7 @@ import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
 import mariculture.core.helpers.OreDicHelper;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.MCTranslate;
 import mariculture.magic.JewelryHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -111,7 +112,7 @@ public class NEIAnvilRecipeHandler extends NEIBase {
 
     @Override
     public String getRecipeName() {
-        return "Blacksmith's Anvil";
+        return MCTranslate.translate("machines.single.rendered.anvil");
     }
 
     @Override

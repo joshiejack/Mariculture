@@ -740,3 +740,8 @@ enchiridion.downloader.restart=Please restart your game to finish
 enchiridion.downloader.failed.0=Oh noes! Enchiridion failed to download
 enchiridion.downloader.failed.1=Please download Enchiridion manually from CurseForge (%s)
 enchiridion.downloader.outofdate=Enchiridion is not the correct version, please update (%s)
+
+#NEI
+mariculture.fishbreeding=Fish Breeding
+mariculture.fishproducts=Fish Products
+mariculture.shapedjewelry=Shaped Jewelry Crafting

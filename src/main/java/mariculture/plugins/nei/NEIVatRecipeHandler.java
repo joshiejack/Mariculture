@@ -11,6 +11,7 @@ import mariculture.core.gui.feature.FeatureTank.TankSize;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.util.MCTranslate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -265,7 +266,7 @@ public class NEIVatRecipeHandler extends NEIBase {
 
     @Override
     public String getRecipeName() {
-        return "Vat";
+        return MCTranslate.translate("machines.multi.rendered.vat");
     }
 
     @Override

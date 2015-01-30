@@ -138,7 +138,7 @@ public class NEIFishProductHandler extends NEIBase {
 
     @Override
     public String getRecipeName() {
-        return "Fish Products";
+        return MCTranslate.translate("fishproducts");
     }
 
     @Override

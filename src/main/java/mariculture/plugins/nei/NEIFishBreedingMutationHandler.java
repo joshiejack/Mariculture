@@ -8,6 +8,7 @@ import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IMutation.Mutation;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.MCTranslate;
 import mariculture.fishery.Fish;
 import mariculture.fishery.FishyHelper;
 import mariculture.fishery.items.ItemFishy;
@@ -113,7 +114,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
 
     @Override
     public String getRecipeName() {
-        return "Fish Breeding";
+        return MCTranslate.translate("fishbreeding");
     }
 
     @Override

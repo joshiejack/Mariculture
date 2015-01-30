@@ -3,6 +3,7 @@ package mariculture.plugins.nei;
 import java.util.List;
 
 import mariculture.core.items.ItemWorked;
+import mariculture.core.util.MCTranslate;
 import mariculture.magic.JewelryHandler;
 import mariculture.magic.ShapedJewelryRecipe;
 import net.minecraft.item.ItemStack;
@@ -92,6 +93,6 @@ public class NEIJewelryShapedHandler extends ShapedRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return "Shaped Jewelry Crafting";
+        return MCTranslate.translate("shapedjewelry");
     }
 }

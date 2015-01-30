@@ -6,6 +6,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeCasting;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
+import mariculture.core.util.MCTranslate;
 import net.minecraft.util.ResourceLocation;
 
 public class NEIBlockCasterRecipeHandler extends NEICastingRecipeHandler {
@@ -26,7 +27,7 @@ public class NEIBlockCasterRecipeHandler extends NEICastingRecipeHandler {
 
     @Override
     public String getRecipeName() {
-        return "Block Caster";
+        return MCTranslate.translate("machines.single.rendered.blockcaster");
     }
 
     @Override
