@@ -310,7 +310,7 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
     @Override
     public String getRecipeName() {
-        return "Crucible Furnace";
+        return MCTranslate.translate("machines.multi.crucible");
     }
 
     @Override

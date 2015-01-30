@@ -10,6 +10,7 @@ import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.RecipeSifter;
 import mariculture.core.helpers.OreDicHelper;
+import mariculture.core.util.MCTranslate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -164,7 +165,7 @@ public class NEISifterRecipeHandler extends NEIBase {
 
     @Override
     public String getRecipeName() {
-        return "Sifter";
+        return MCTranslate.translate("machines.multi.rendered.sifter");
     }
 
     @Override

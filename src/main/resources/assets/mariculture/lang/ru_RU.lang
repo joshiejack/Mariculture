@@ -741,6 +741,11 @@ enchiridion.downloader.failed.0=О нет! Не удалось загрузит�
 enchiridion.downloader.failed.1=Пожалуйста загрузите Enchiridion с CurseForge (%s)
 enchiridion.downloader.outofdate=Enchiridion устарел, пожалуйста, обновите его (%s)
 
+#NEI
+mariculture.fishbreeding=Рыбоводство
+mariculture.fishproducts=Рыбные продукты
+mariculture.shapedjewelry=Форменное создание драгоценностей
+
 #Custom names
 mariculture.pearl.color.white.lamp=Белая неоновая лампа
 mariculture.pearl.color.green.lamp=Зелёная неоновая лампа
