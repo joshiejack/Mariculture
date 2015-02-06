@@ -5,6 +5,7 @@ import java.util.Random;
 
 import mariculture.core.Core;
 import mariculture.core.config.Machines.Client;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.config.Machines.Ticks;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.BlockTransferHelper;
@@ -183,6 +184,15 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
 
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
+
+        if (MachineSettings.PUMP_ACTIVATE_ON_TICK && !worldObj.isRemote) {
+            if (getEnergyStored(ForgeDirection.UP) > 0) {
+                tick++;
+                if (onTick(Ticks.PUMP_TICK_TIMER)) {
+                    doPoweredPump(true);
+                }
+            }
+        }
     }
 
     public boolean on = true;
@@ -213,10 +223,12 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         int receive = storage.receiveEnergy(maxReceive, simulate);
-        if (!simulate && getEnergyStored(from) > 0) {
-            tick++;
-            if (onTick(300)) {
-                doPoweredPump(true);
+        if (MachineSettings.PUMP_ACTIVATE_ON_RECEIVE) {
+            if (!simulate && getEnergyStored(from) > 0) {
+                tick++;
+                if (onTick(Ticks.PUMP_TICK_TIMER)) {
+                    doPoweredPump(true);
+                }
             }
         }
 

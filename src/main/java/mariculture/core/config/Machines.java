@@ -31,11 +31,14 @@ public class Machines {
         Ticks.PUMP_ENABLE_TICKS = getBoolean("Air Pump - Enable Ticking", true);
         Ticks.FISH_FOOD_TICK = getInt("Fish Feeder > Fish Food Tick Rate", 25, "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable");
         Ticks.PICKUP_TICK = getInt("Fish Feeder > Fish Food Pickup Tick Rate", -1, "How often it tries to pick up fish food, set to less than 0 to disable");
-
+        Ticks.PUMP_TICK_TIMER = getInt("Air Pump > Ticks Between Supplying Air", 300);
+        
         setCategory("Machine Settings");
         MachineSettings.PACKET_DISTANCE = getInt("How many blocks away to send rendering packet updates to players", 176);
         MachineSettings.PURITY = getInt("Crucible Furnace > mB Per Purity Upgrade Level", 32);
         MachineSettings.ENABLE_PURITY_IN_CRUCIBLE = getBoolean("Crucible Furnace > Enable Purity Bonus", false);
+        MachineSettings.PUMP_ACTIVATE_ON_TICK = getBoolean("Air Pump > Activate on Tick", false, "Whether the air pump should fill out air when ticking the block");
+        MachineSettings.PUMP_ACTIVATE_ON_RECEIVE = getBoolean("Air Pump > Activate on RF", true, "Whether the air pump should fill out air when it receives rf");
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -50,6 +53,8 @@ public class Machines {
         public static int PACKET_DISTANCE;
         public static int PURITY;
         public static boolean ENABLE_PURITY_IN_CRUCIBLE;
+        public static boolean PUMP_ACTIVATE_ON_TICK;
+        public static boolean PUMP_ACTIVATE_ON_RECEIVE;
     }
 
     public static class Ticks {
@@ -57,6 +62,7 @@ public class Machines {
         public static int FLUID_EJECT_TICK;
         public static int EFFECT_TICK;
         public static boolean PUMP_ENABLE_TICKS;
+        public static int PUMP_TICK_TIMER;
         public static int FISH_FOOD_TICK;
         public static int TANK_UPDATE;
         public static int PICKUP_TICK;
