@@ -46,6 +46,7 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
         if (outputId.equals(getOverlayIdentifier()) && getClass() == thisClass()) {
             HashMap<String, RecipeCasting> recipes = getRecipes();
             for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
+                if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
                 arecipes.add(new CachedCasterRecipe(recipe.getValue().fluid, recipe.getValue().output));
             }
         } else {
@@ -58,10 +59,12 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
         boolean isSecondSearch = isSecondSearch(inputId, ingredients);
         if ((inputId.equals(getOverlayIdentifier()) || isSecondSearch) && getClass() == thisClass()) {
             HashMap<String, RecipeCasting> recipes = getRecipes();
-            for (Entry<String, RecipeCasting> recipe : recipes.entrySet())
+            for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
+                if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
                 if (!isSecondSearch || isSecondSearch && recipe.getValue().fluid.getFluid().getName().equals(ingredients[1])) {
                     arecipes.add(new CachedCasterRecipe(recipe.getValue().fluid, recipe.getValue().output));
                 }
+            }
         } else {
             super.loadUsageRecipes(inputId, ingredients);
         }
@@ -71,6 +74,7 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
     public void loadCraftingRecipes(ItemStack result) {
         HashMap<String, RecipeCasting> recipes = getRecipes();
         for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
+            if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
             if (OreDicHelper.convert(result).equals(OreDicHelper.convert(recipe.getValue().output))) {
                 arecipes.add(new CachedCasterRecipe(recipe.getValue().fluid, recipe.getValue().output));
             }
@@ -81,6 +85,7 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
     public void loadUsageRecipes(ItemStack ingredient) {
         HashMap<String, RecipeCasting> recipes = getRecipes();
         for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
+            if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
             FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(ingredient);
             if (fluid == null || fluid.getFluid() == null) {
                 continue;

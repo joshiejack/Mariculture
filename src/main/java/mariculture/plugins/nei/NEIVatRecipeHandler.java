@@ -62,6 +62,7 @@ public class NEIVatRecipeHandler extends NEIBase {
         boolean isSecondSearch = isSecondSearch(outputId, results);
         if ((outputId.equals("vat") || isSecondSearch) && getClass() == NEIVatRecipeHandler.class) {
             for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
+                if (vat == null) continue; //Somehow null recipes added?
                 FluidStack fluid = vat.outputFluid;
                 if (!isSecondSearch || isSecondSearch && fluid != null && fluid.getFluid() != null && fluid.getFluid().getName().equals(results[1])) {
                     arecipes.add(new CachedVatRecipe(vat));
@@ -81,10 +82,12 @@ public class NEIVatRecipeHandler extends NEIBase {
     public void loadUsageRecipes(String inputId, Object... ingredients) {
         boolean isSecondSearch = isSecondSearch(inputId, ingredients);
         if ((inputId.equals("vat") || isSecondSearch) && getClass() == NEIVatRecipeHandler.class) {
-            for (RecipeVat vat : MaricultureHandlers.vat.getRecipes())
+            for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
+                if (vat == null) continue; //Somehow null recipes added?
                 if (!isSecondSearch || isSecondSearch && isEqual(vat.inputFluid1, vat.inputFluid2, (String) ingredients[1])) {
                     arecipes.add(new CachedVatRecipe(vat));
                 }
+            }
         } else {
             super.loadUsageRecipes(inputId, ingredients);
         }
@@ -93,6 +96,7 @@ public class NEIVatRecipeHandler extends NEIBase {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
+            if (vat == null) continue; //Somehow null recipes added?
             if (vat.outputItem != null) {
                 ItemStack item = vat.outputItem;
                 if (OreDicHelper.convert(result).equals(OreDicHelper.convert(item))) {
@@ -114,6 +118,7 @@ public class NEIVatRecipeHandler extends NEIBase {
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
         for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
+            if (vat == null) continue; //Somehow null recipes added?
             if (vat.inputItem != null && ItemHelper.areEqual(ingredient, vat.inputItem)) {
                 arecipes.add(new CachedVatRecipe(vat, ingredient));
             }

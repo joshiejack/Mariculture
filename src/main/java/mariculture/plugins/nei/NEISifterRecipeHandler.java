@@ -113,6 +113,7 @@ public class NEISifterRecipeHandler extends NEIBase {
         if (outputId.equals("sifter") && getClass() == NEISifterRecipeHandler.class) {
             HashMap<List<? extends Object>, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
             for (Entry<List<? extends Object>, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
+                if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
                 arecipes.add(new CachedSifterRecipe(null, recipe.getValue()));
             }
         } else {
@@ -125,6 +126,7 @@ public class NEISifterRecipeHandler extends NEIBase {
         HashMap<List<? extends Object>, ArrayList<RecipeSifter>> recipes = Fishing.sifter.getRecipes();
         for (Entry<List<? extends Object>, ArrayList<RecipeSifter>> recipe : recipes.entrySet()) {
             for (RecipeSifter sifter : recipe.getValue()) {
+                if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
                 if (OreDicHelper.convert(sifter.bait).equals(OreDicHelper.convert(result))) {
                     arecipes.add(new CachedSifterRecipe(null, recipe.getValue()));
                 }
