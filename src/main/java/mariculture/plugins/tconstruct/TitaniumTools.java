@@ -1,9 +1,7 @@
 package mariculture.plugins.tconstruct;
 
-import static mariculture.core.lib.MetalRates.*;
-import mariculture.core.lib.MetalRates;
+import static mariculture.core.lib.MetalRates.INGOT;
 import mariculture.core.util.Fluids;
-import mariculture.lib.helpers.RegistryHelper;
 import mariculture.plugins.PluginTConstruct;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,7 +15,6 @@ import cpw.mods.fml.common.Loader;
 
 public class TitaniumTools {
     public static final int titanium_id = 200;
-    public static TitaniumPart arrowhead;
     public static TitaniumPart axe_head;
     public static TitaniumPart battle_sign_head;
     public static TitaniumPart binding;
@@ -43,7 +40,6 @@ public class TitaniumTools {
     public static TitaniumPart tough_rod;
 
     public static void preInit() {
-        arrowhead = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.arrow.head");
         axe_head = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.axe.head");
         battle_sign_head = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.battlesign.head");
         binding = (TitaniumPart) new TitaniumPart().setUnlocalizedName("titanium.binding");
@@ -84,8 +80,6 @@ public class TitaniumTools {
         int level = Loader.isModLoaded("IguanaTweaks") ? 5 : 4;
         TConstructRegistry.addToolMaterial(titanium_id, "Titanium", level, 650, 1500, 2, 1.5F, 2, 0.0F, "", 0xFFFFFF);
         TConstructClientRegistry.addMaterialRenderMapping(titanium_id, "Mariculture", "titanium", true);
-        TConstructRegistry.addBowMaterial(titanium_id, 768, 40, 1.2F);
-        TConstructRegistry.addArrowMaterial(titanium_id, 5.0F, 0.25F, 100.0F);
     }
     
     private static FluidStack titanium(int value) {
@@ -115,11 +109,9 @@ public class TitaniumTools {
         PluginTConstruct.addPartCasting(new ItemStack(large_sword_blade, 1, id), TConstructRegistry.getItemStack("largeBladeCast"), titanium(INGOT*8), delay);
         PluginTConstruct.addPartCasting(new ItemStack(hammer_head, 1, id), TConstructRegistry.getItemStack("hammerHeadCast"), titanium(INGOT*8), delay);
         PluginTConstruct.addPartCasting(new ItemStack(full_guard, 1, id), TConstructRegistry.getItemStack("fullGuardCast"), titanium(INGOT*3), delay);
-        PluginTConstruct.addPartCasting(new ItemStack(arrowhead, 1, id), new ItemStack(TConstructRegistry.getItem("metalPattern"), 1, 25), titanium(INGOT), delay);
     }
 
     public static void addTools() {
-        TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("arrow"), new Item[] { arrowhead, tool_rod, TConstructRegistry.getItem("fletching") });
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("battleaxe"), new Item[] { broad_axe_head, tough_rod, broad_axe_head, tough_binding });
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("battlesign"), new Item[] { battle_sign_head, tool_rod });
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("broadsword"), new Item[] { sword_blade, tool_rod, large_guard });
@@ -137,9 +129,6 @@ public class TitaniumTools {
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("pickaxe"), new Item[] { pickaxe_head, tool_rod, binding });
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("rapier"), new Item[] { sword_blade, tool_rod, crossbar });
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("scythe"), new Item[] { scythe_head, tough_rod, tough_binding, tough_rod });
-        TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shortbow"), new Item[] { tool_rod, TConstructRegistry.getItem("bowstring"), tool_rod });
-        TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shortbow"), new Item[] { TConstructRegistry.getItem("toolRod"), TConstructRegistry.getItem("bowstring"), tool_rod });
-        TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shortbow"), new Item[] { tool_rod, TConstructRegistry.getItem("bowstring"), TConstructRegistry.getItem("toolRod") });
         TConstructRegistry.addToolRecipe((ToolCore) TConstructRegistry.getItem("shovel"), new Item[] { shovel_head, tool_rod });
     }
 }
