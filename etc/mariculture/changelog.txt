@@ -2,6 +2,7 @@ Mariculture 1.2.4d
 • Fix Crash when breaking a rotor
 • Fix Random crashing with NEICrucibleHandler
 • Fix some wrong locations and missing lang
+• Fix Scuba Tank not being able to be filled, and Batteries supplying infinite power to the compressor.
 • Hatcheries should now sync their contents to the client
 • Switch Fish Feeder syncing to use the name of the block, instead of it's ID incase of a mismatch.
 • Titanium tool parts will load again, however no Titanium bows!

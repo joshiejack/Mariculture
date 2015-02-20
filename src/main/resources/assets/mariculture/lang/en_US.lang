@@ -697,6 +697,7 @@ notification.bad.env.text3=indicator to see the issue
 notification.no.egg=Missing Fish Eggs
 
 ### TiC Tools ###
+material.titanium=Titanium
 mariculture.titanium.arrow.head=Titanium Arrowhead
 mariculture.titanium.axe.head=Titanium Axe Head
 mariculture.titanium.battlesign.head=Titanium Sign Head

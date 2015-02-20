@@ -74,9 +74,7 @@ public class BlockEvents {
         if (event.action == Action.RIGHT_CLICK_BLOCK) {
             IBlockExtension extension = blocks.get(event.world.getBlock(event.x, event.y, event.z).getClass());
             if (extension != null) {
-                if (extension.onRightClickBlock(event.world, event.x, event.y, event.z, event.entityPlayer)) {
-                    event.setCanceled(true);
-                }
+                extension.onRightClickBlock(event.world, event.x, event.y, event.z, event.entityPlayer);
             }
         }
     }
