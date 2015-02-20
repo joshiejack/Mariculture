@@ -1,6 +1,8 @@
 Mariculture 1.2.4d
 • Fix Crash when breaking a rotor
 • Fix Random crashing with NEICrucibleHandler
+• Fix some wrong locations and missing lang
+• Hatcheries should now sync their contents to the client
 
 Mariculture 1.2.4c
 • Fix crash with latest blood magic

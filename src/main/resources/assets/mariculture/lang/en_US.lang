@@ -58,7 +58,7 @@ mariculture.woods.basewood=Wooden Construction Block
 mariculture.tanks.normal=Fluid Tank
 mariculture.tanks.bottle=Void Bottle
 mariculture.sands.ancientsand=Ancient Sand
-mariculture.sands.gas=Sand
+mariculture.sands.gas=Gas Leak
 mariculture.machines.single.rendered.anvil=Blacksmith's Anvil
 mariculture.machines.single.rendered.autohammer=Blacksmith's Assistant
 mariculture.machines.single.rendered.ingotcaster=Ingot Caster
@@ -241,15 +241,15 @@ mariculture.machines.single.unpacker=Unpacker
 mariculture.machines.single.rendered.geyser=Water Geyser
 mariculture.tanks.fluidtionary=Fluid Auto-Dictionary
 #customblocks
-tile.customFence.customfence=Custom Fence
-tile.customGate.customgate=Custom Gate
-tile.customWall.customwall=Custom Wall
-tile.customLight.customlight=Custom Light
-tile.customFlooring.customflooring=Custom Flooring
-tile.customBlock.customblock=Custom Block
-tile.customStairs.customstairs=Custom Stairs
-tile.customSlabs.customslabs=Custom Slabs
-tile.customRFBlock.customrfblock=Custom Redstone Flux Block
+tile.customFence=Custom Fence
+tile.customGate=Custom Gate
+tile.customWall=Custom Wall
+tile.customLight=Custom Light
+tile.customFlooring=Custom Flooring
+tile.customBlock=Custom Block
+tile.customStairs=Custom Stairs
+tile.customSlabs=Custom Slabs
+tile.customRFBlock=Custom Redstone Flux Block
 
 #items
 mariculture.guide.machines=The Factory
