@@ -37,7 +37,10 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
         }
 
         nbt.setTag("Coordinates", list);
-        nbt.setInteger("BlockID", Block.getIdFromBlock(block));
+
+        if (block != null) {
+            nbt.setString("BlockID", Block.blockRegistry.getNameForObject(block));
+        }
     }
 
     @Override
@@ -64,7 +67,11 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
         int x = message.nbt.getInteger("x");
         int y = message.nbt.getInteger("y");
         int z = message.nbt.getInteger("z");
-        int id = message.nbt.getInteger("BlockID");
+        Block block = null;
+        if (message.nbt.hasKey("BlockID")) {
+            block = (Block) Block.blockRegistry.getObject(message.nbt.getString("BlockID"));
+        }
+
         ArrayList<CachedCoords> coords = new ArrayList();
         NBTTagList tagList = message.nbt.getTagList("Coordinates", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
@@ -75,7 +82,7 @@ public class PacketSyncFeeder implements IMessage, IMessageHandler<PacketSyncFee
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TileFeeder) {
             ((TileFeeder) tile).coords = coords;
-            ((TileFeeder) tile).tankBlock = id == 0? null: Block.getBlockById(id);
+            ((TileFeeder) tile).tankBlock = block;
         }
 
         return null;
