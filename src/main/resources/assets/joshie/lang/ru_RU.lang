@@ -1,0 +1,10 @@
+#Downloader
+joshie.downloader.missing=%s нуждается в %s, чтобы работать: Его можно скачать здесь: %s
+joshie.downloader.0=%s отсутствует, он нужен для работы %s.
+joshie.downloader.1=Хотите автоматически скачивать %s? (Необходим перезапуск игры)
+joshie.downloader.downloading=Скачиваем %s... Пожалуйста, подождите! ...
+joshie.downloader.success=%s был успешно скачан!
+joshie.downloader.restart=Пожалуйста, перезапустите игру.
+joshie.downloader.failed.0=О небо! %s не смог скачаться!
+joshie.downloader.failed.1=Пожалуйста, скачайте %s вручную (%s)
+joshie.downloader.outofdate=%s не той версии, пожалуйста, обновите (%s)
