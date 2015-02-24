@@ -46,6 +46,7 @@ public class CrucibleHandler implements ICrucibleHandler {
         }
 
         for (RecipeSmelter recipe : recipes) {
+            if (recipe == null) continue;
             if (temp >= 0 && temp < recipe.temp) {
                 continue;
             }

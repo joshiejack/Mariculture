@@ -30,7 +30,8 @@ public class VatHandler implements IVatHandler {
     public RecipeVat getResult(FluidStack fluid1, FluidStack fluid2, ItemStack input) {
         if (fluid1 == null) return null;
         else {
-            for (RecipeVat vat : recipes)
+            for (RecipeVat vat : recipes) {
+                if (vat == null) continue;
                 if (FluidHelper.areEqual(fluid1, vat.inputFluid1) && fluid1.amount >= vat.inputFluid1.amount) {
                     if (vat.inputFluid2 != null && !(FluidHelper.areEqual(fluid2, vat.inputFluid2) && fluid2.amount >= vat.inputFluid2.amount)) {
                         continue;
@@ -39,7 +40,7 @@ public class VatHandler implements IVatHandler {
                     if (vat.inputItem != null) {
                         if (vat.inputItem instanceof ItemStack && !(ItemHelper.areEqual(input, (ItemStack) vat.inputItem) && input.stackSize >= ((ItemStack) vat.inputItem).stackSize)) {
                             continue;
-                        } else if (vat.inputItem instanceof String && !OreDicHelper.matches((String)vat.inputItem, input)) {
+                        } else if (vat.inputItem instanceof String && !OreDicHelper.matches((String) vat.inputItem, input)) {
                             continue;
                         }
                     }
@@ -48,6 +49,7 @@ public class VatHandler implements IVatHandler {
                 } else {
                     continue;
                 }
+            }
         }
 
         return null;
