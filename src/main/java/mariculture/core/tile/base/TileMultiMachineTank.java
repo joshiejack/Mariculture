@@ -26,7 +26,7 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
     private int machineTick = 0;
     //Upgrade Stats
     protected int purity = 0;
-    protected int heat = 0;
+    public int heat = 0;
     protected int storage = 0;
     public int speed = 0;
     protected int rf = 0;

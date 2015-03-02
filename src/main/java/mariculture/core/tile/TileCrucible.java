@@ -2,10 +2,10 @@ package mariculture.core.tile;
 
 import java.util.ArrayList;
 
+import mariculture.api.core.Environment.Temperature;
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.Environment.Temperature;
 import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -26,7 +26,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileCrucible extends TileMultiMachineTank implements IHasNotification {
-    private static final int MAX_TEMP = 25000;
+    static final int MAX_TEMP = 25000;
     private int temp;
     private boolean canFuel;
     private int cooling;
@@ -147,62 +147,8 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
     }
 
-    private class FuelHandler {
-        private int usedHeat;
-        private int tick;
-        private FuelInfo info;
-
-        private void read(NBTTagCompound nbt) {
-            if (nbt.getBoolean("HasHandler")) {
-                info = new FuelInfo();
-                info.read(nbt);
-            }
-        }
-
-        private void write(NBTTagCompound nbt) {
-            if (info != null) {
-                nbt.setBoolean("HasHandler", true);
-                info.write(nbt);
-            }
-        }
-
-        private void set(FuelInfo info) {
-            this.info = info;
-            tick = 0;
-            usedHeat = 0;
-        }
-
-        private int getMaxTempPer(int purity) {
-            return info.maxTempPer * (purity + 1);
-        }
-
-        private int tick(int temp, int purity) {
-            int realUsed = usedHeat * 2000 / MAX_TEMP;
-            int realTemp = temp * 2000 / MAX_TEMP;
-
-            tick++;
-
-            if (realUsed < getMaxTempPer(purity) && realTemp < info.maxTemp) {
-                temp += heat / 3 + 1;
-                usedHeat += heat / 3 + 1;
-            }
-
-            if (realUsed >= getMaxTempPer(purity) || tick >= info.ticksPer) {
-                info = null;
-                if (canFuel()) {
-                    fuelHandler.set(getInfo());
-                } else {
-                    fuelHandler.set(null);
-                }
-            }
-
-            return temp;
-        }
-    }
-
-    private FuelHandler fuelHandler;
-
-    private boolean canFuel() {
+    public CrucibleFuelHandler fuelHandler;
+    boolean canFuel() {
         if (fuelHandler.info != null) return false;
         if (!rsAllowsWork()) return false;
         if (MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]) != null) return true;
@@ -219,7 +165,9 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     private void heatUp() {
         if (fuelHandler == null) {
-            fuelHandler = new FuelHandler();
+            fuelHandler = new CrucibleFuelHandler(this);
+        } else if (fuelHandler.crucible == null) {
+            fuelHandler.crucible = this;
         }
 
         if (onTick(20)) {
@@ -362,7 +310,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         super.readFromNBT(nbt);
         temp = nbt.getInteger("Temperature");
         canFuel = nbt.getBoolean("CanFuel");
-        fuelHandler = new FuelHandler();
+        fuelHandler = new CrucibleFuelHandler();
         fuelHandler.read(nbt);
         cooling = nbt.getInteger("CoolingSpeed");
         melting_modifier = nbt.getDouble("MeltingModifier");
