@@ -1,6 +1,7 @@
 package maritech.tile;
 
 import mariculture.api.core.IBlacklisted;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
@@ -175,7 +176,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     }
 
     public int getEnergyGenerated(int distance) {
-        return height * distance * 10;
+        return height * distance * MachineSettings.SLUICE_POWER_MULTIPLIER;
     }
 
     public void generateHPWater() {
