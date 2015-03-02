@@ -74,7 +74,9 @@ public class TileCustom extends TileEntity {
     
     public void writeData(NBTTagCompound nbt) {
         for (int i = 0; i < 6; i++) {
-            nbt.setString("BlockIdentifier" + i, Block.blockRegistry.getNameForObject(theBlocks[i]));
+            String name = Block.blockRegistry.getNameForObject(theBlocks[i]);
+            if (name == null || name.equals("")) name ="minecraft:stone";
+            nbt.setString("BlockIdentifier" + i, name);
         }
 
         nbt.setFloat("BlockResistance", resist);
