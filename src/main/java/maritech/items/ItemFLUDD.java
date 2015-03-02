@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -95,8 +96,7 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
 
     @Override
     public void registerIcons(IIconRegister register) {
-        itemIcon = register.registerIcon(MTModInfo.MODPATH + ":" + this.getUnlocalizedName().substring(5));
-        RenderFLUDDSquirt.icon = register.registerIcon(MTModInfo.MODPATH + ":" + "water");
+        itemIcon = Items.carrot.getIconFromDamage(0);
     }
 
     @Override

@@ -14,8 +14,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderFLUDDSquirt extends Render {
-    public static IIcon icon;
-
     /**
      * Actually renders the given argument. This is a synthetic bridge method,
      * always casting down its argument and then handing it off to a worker
@@ -25,9 +23,7 @@ public class RenderFLUDDSquirt extends Render {
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float par8, float par9) {
-
-    }
+    public void doRender(Entity entity, double x, double y, double z, float par8, float par9) {}
 
     private void func_77026_a(final Tessellator par1Tessellator, final IIcon par2Icon) {
         final float f = par2Icon.getMinU();

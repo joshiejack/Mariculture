@@ -1,7 +1,9 @@
 Mariculture 1.2.4e
 • Switch the fuel handling of the crucible, should hopefully make it not crash/dissappear anymore?
 • Make custom blocks check if string is null when saving
+• Boosted Sluice power output (configurable).
 • Fix more of the 5000 missing lang
+• Remove calls to registering textures that are never needed.
 
 Mariculture 1.2.4d
 • Fix Crash when breaking a rotor
