@@ -250,6 +250,15 @@ tile.customBlock=Custom Block
 tile.customStairs=Custom Stairs
 tile.customSlabs=Custom Slabs
 tile.customRFBlock=Custom Redstone Flux Block
+mariculture.tile.customFence=Custom Fence
+mariculture.tile.customGate=Custom Gate
+mariculture.tile.customWall=Custom Wall
+mariculture.tile.customLight=Custom Light
+mariculture.tile.customFlooring=Custom Flooring
+mariculture.tile.customBlock=Custom Block
+mariculture.tile.customStairs=Custom Stairs
+mariculture.tile.customSlabs=Custom Slabs
+mariculture.tile.customRFBlock=Custom Redstone Flux Block
 
 #items
 mariculture.guide.machines=The Factory

@@ -76,8 +76,8 @@ public class Recipes {
         addWheelRecipe(asStack(ironWheel, 3), "ingotIron", "slabWood");
         addCrossHatchRecipe(wicker, "stickWood", reeds);
         addVatItemRecipe("stickWood", getFluidName("titanium"), MetalRates.INGOT * 3, titaniumRod, 60);
-        addVatItemRecipe(asStack(nettherackBrick), "lava", 250, burntBrick, 8);
-        addVatItemRecipe(asStack(brick), "lava", 500, burntBrick, 16);
+        addVatItemRecipe(asStack(nettherackBrick), "lava", 250, burntBrick, 4);
+        addVatItemRecipe(asStack(brick), "lava", 500, burntBrick, 8);
 
         if (!Modules.isActive(Modules.worldplus)) {
             add9x9Recipe(kelpWrap, cactusGreen);
