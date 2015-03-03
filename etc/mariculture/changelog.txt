@@ -5,6 +5,7 @@ Mariculture 1.2.4e
 • Fix more of the 5000 missing lang
 • Fix fishing nets only ever catching raw cod
 • Remove calls to registering textures that are never needed.
+• Screw damage on plans... It's decorative. Also screw slooow processing. More blocks.
 
 Mariculture 1.2.4d
 • Fix Crash when breaking a rotor

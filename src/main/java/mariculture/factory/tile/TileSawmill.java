@@ -34,7 +34,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
     public int selected = 3;
 
     public TileSawmill() {
-        max = MachineSpeeds.getSawmillSpeed();
+        max = Math.max(1, MachineSpeeds.getSawmillSpeed() / 100);
         inventory = new ItemStack[13];
         setting = EjectSetting.ITEM;
         output = new int[] { OUT };
@@ -140,7 +140,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
         stack.stackTagCompound.setIntArray("BlockMetas", metas);
         stack.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 0, 0, 0, 0, 0 });
         stack.stackTagCompound.setString("Name", stack.getDisplayName());
-        stack.stackSize = ((ItemPlan) inventory[selected].getItem()).getStackSize(inventory[selected]);
+        stack.stackSize = (((ItemPlan) inventory[selected].getItem()).getStackSize(inventory[selected]) * 2);
         if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
             stack.stackSize *= 2;
         }
@@ -159,11 +159,6 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
                 Item var2 = inventory[i].getItem().getContainerItem();
                 inventory[i] = var2 == null ? null : new ItemStack(var2);
             }
-        }
-
-        inventory[selected].attemptDamageItem(1, worldObj.rand);
-        if (inventory[selected].getItemDamage() > inventory[selected].getMaxDamage()) {
-            inventory[selected] = null;
         }
     }
 
