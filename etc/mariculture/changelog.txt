@@ -1,3 +1,7 @@
+Mariculture 1.2.4f
+• Add config for updating tanks based on mB
+• Switch fishing nets to have same bounding as carpets
+
 Mariculture 1.2.4e
 • Switch the fuel handling of the crucible, should hopefully make it not crash/dissappear anymore?
 • Make custom blocks check if string is null when saving

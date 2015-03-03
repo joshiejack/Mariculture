@@ -7,7 +7,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.core.blocks.base.BlockFunctional;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.MachineSpeeds;
-import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.WaterMeta;
 import mariculture.fishery.Fish;
@@ -32,6 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockTicking extends BlockFunctional {
     public BlockTicking() {
         super(Material.cloth);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
         setTickRandomly(true);
     }
 
@@ -71,13 +71,17 @@ public class BlockTicking extends BlockFunctional {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.015625F, 1.0F);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        byte b0 = 0;
+        float f = 0.0625F;
+        return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) ((float) y + (float) b0 * f), (double) z + this.maxZ);
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+    public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
+        byte b0 = 0;
+        float f = (float) (1 * (1 + b0)) / 16.0F;
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
     @Override
