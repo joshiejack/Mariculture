@@ -525,6 +525,9 @@ mariculture.guide.enchants.author=Ursula
 mariculture.mirror.basic=Mirror
 mariculture.mirror.magic=Magic Mirror
 mariculture.mirror.celestial=Celestial Mirror
+item.mirror.basic.name=Mirror
+item.mirror.mirror.magic.name=Magic Mirror
+item.mirror.mirror.celestial.name=Celestial Mirror
 mariculture.mobMagnet=Mob Magnet
 #jewelry-parts
 mariculture.ring=Ring

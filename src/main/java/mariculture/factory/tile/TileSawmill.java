@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
 import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
@@ -140,7 +141,7 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
         stack.stackTagCompound.setIntArray("BlockMetas", metas);
         stack.stackTagCompound.setIntArray("BlockSides", new int[] { 0, 0, 0, 0, 0, 0 });
         stack.stackTagCompound.setString("Name", stack.getDisplayName());
-        stack.stackSize = (((ItemPlan) inventory[selected].getItem()).getStackSize(inventory[selected]) * 2);
+        stack.stackSize = (((ItemPlan) inventory[selected].getItem()).getStackSize(inventory[selected]) * MachineSettings.SAWMILL_STACK_MULTIPLIER);
         if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
             stack.stackSize *= 2;
         }

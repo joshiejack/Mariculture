@@ -5,9 +5,11 @@ Mariculture 1.2.4e
 • Fix more of the 5000 missing lang
 • Fix fishing nets only ever catching raw cod
 • Remove calls to registering textures that are never needed.
-• Screw damage on plans... It's decorative. Also screw slooow processing. More blocks.
+• Screw damage on plans... It's decorative. Also screw slooow processing. (More blocks Configurable).
 • Faster burnt bricks.
 • Fish Feeder will update tank size, whether you put or female in first, because reasons.
+• Faster fishing. It's boring come on? (Config option, Defaults to 50, set to 0 for no speed boost (old way))
+• Add Ray trace distance, and milliseconds between blink config options for blink enchantment
 
 Mariculture 1.2.4d
 • Fix Crash when breaking a rotor

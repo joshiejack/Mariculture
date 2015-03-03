@@ -1,6 +1,6 @@
 package mariculture.core.config;
 
-import static mariculture.core.helpers.ConfigHelper.*;
+import static mariculture.core.helpers.ConfigHelper.getBoolean;
 import static mariculture.core.helpers.ConfigHelper.getDouble;
 import static mariculture.core.helpers.ConfigHelper.getInt;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
@@ -17,6 +17,7 @@ public class FishMechanics {
     public static boolean IGNORE_BIOMES;
     public static double ALIVE_MODIFIER;
     public static boolean FIX_FISH;
+    public static double SPEED_MULTIPLIER;
 
     public static void init(Configuration config) {
         setConfig(config);
@@ -30,5 +31,6 @@ public class FishMechanics {
         FishMechanics.ALIVE_MODIFIER = getDouble("Fish Caught Alive Modifier", 1.25D);
         FishMechanics.EASY_SCANNER = getBoolean("Easier Fish Scanner Recipe", true);
         FishMechanics.FIX_FISH = getBoolean("Fix Fish", true, "Will automatically fix any broken fish in a fish feeder. Disable once your fish are fixed. As this can make the fish feeder laggier.");
+        FishMechanics.SPEED_MULTIPLIER = getInt("Give me fish NAOW", 50, "Increasing this gives you faster fishing overall, Set to 0 for normal speed");
     }
 }

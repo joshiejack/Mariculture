@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 
 import mariculture.api.fishery.Fishing;
+import mariculture.core.config.FishMechanics;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -210,7 +211,6 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 
                     if (field_146045_ax > 0) {
                         --field_146045_ax;
-
                         if (field_146045_ax <= 0) {
                             field_146040_ay = 0;
                             field_146038_az = 0;
@@ -225,7 +225,6 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
 
                         if (field_146038_az > 0) {
                             field_146038_az -= k;
-
                             if (field_146038_az <= 0) {
                                 motionY -= 0.20000000298023224D;
                                 playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
@@ -252,6 +251,10 @@ public class EntityHook extends EntityFishHook implements IEntityAdditionalSpawn
                                 worldserver.func_147487_a("wake", d11, d5, d6, 0, -f4, 0.01D, f3, 1.0D);
                             }
                         } else if (field_146040_ay > 0) {
+                            if (FishMechanics.SPEED_MULTIPLIER > 0) {
+                                field_146040_ay -= FishMechanics.SPEED_MULTIPLIER;
+                            }
+                            
                             field_146040_ay -= k;
                             f1 = 0.15F;
 

@@ -40,6 +40,7 @@ public class Machines {
         MachineSettings.PUMP_ACTIVATE_ON_TICK = getBoolean("Air Pump > Activate on Tick", false, "Whether the air pump should fill out air when ticking the block");
         MachineSettings.PUMP_ACTIVATE_ON_RECEIVE = getBoolean("Air Pump > Activate on RF", true, "Whether the air pump should fill out air when it receives rf");
         MachineSettings.SLUICE_POWER_MULTIPLIER = getInt("Sluice > Power Multiplier", 25, "Increase this to increase the power produced by the sluice, take note the old default was 10");
+        MachineSettings.SAWMILL_STACK_MULTIPLIER = getInt("Sawmill > Output Multiplier", 2, "Increase this to have more output for your sawmill blocks");
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -51,6 +52,7 @@ public class Machines {
     }
 
     public static class MachineSettings {
+        public static int SAWMILL_STACK_MULTIPLIER;
         public static int SLUICE_POWER_MULTIPLIER;
         public static int PACKET_DISTANCE;
         public static int PURITY;
