@@ -102,9 +102,9 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         super.setInventorySlotContents(slot, stack);
 
         if (!worldObj.isRemote) {
-            if (slot == male && Fishing.fishHelper.isMale(stack)) {
+            if ((slot == male && Fishing.fishHelper.isMale(stack)) || (slot == female && Fishing.fishHelper.isFemale(stack))) {
                 updateTankSize();
-            } else if (slot == female) {
+            } else if (slot == female || slot == male) {
                 PacketHandler.syncInventory(this, inventory);
             }
         }
