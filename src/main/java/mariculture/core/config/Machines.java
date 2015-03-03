@@ -41,6 +41,7 @@ public class Machines {
         MachineSettings.PUMP_ACTIVATE_ON_RECEIVE = getBoolean("Air Pump > Activate on RF", true, "Whether the air pump should fill out air when it receives rf");
         MachineSettings.SLUICE_POWER_MULTIPLIER = getInt("Sluice > Power Multiplier", 25, "Increase this to increase the power produced by the sluice, take note the old default was 10");
         MachineSettings.SAWMILL_STACK_MULTIPLIER = getInt("Sawmill > Output Multiplier", 2, "Increase this to have more output for your sawmill blocks");
+        MachineSettings.TANK_UPDATE_AMOUNT = getInt("Tanks > Send Update to Client on mB", 144, "When the difference in the tank has changed by this much, then it will send an update to the client. Make this number higher, to reduce lag");
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -59,6 +60,7 @@ public class Machines {
         public static boolean ENABLE_PURITY_IN_CRUCIBLE;
         public static boolean PUMP_ACTIVATE_ON_TICK;
         public static boolean PUMP_ACTIVATE_ON_RECEIVE;
+        public static int TANK_UPDATE_AMOUNT;
     }
 
     public static class Ticks {

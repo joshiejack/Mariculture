@@ -2,6 +2,7 @@ package mariculture.core.tile;
 
 import java.util.List;
 
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.util.ITank;
@@ -18,7 +19,8 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
-    private int difference = 0;
+    private int differenceFill = 0;
+    private int differenceDrain = 0;
     public Tank tank;
 
     public TileTankBlock() {
@@ -49,9 +51,9 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         int amount = tank.fill(resource, doFill);
-        difference += amount;
-        if (amount > 0 && doFill && difference >= 144) {
-            difference = 0;
+        differenceFill += amount;
+        if (amount > 0 && doFill && differenceFill >= MachineSettings.TANK_UPDATE_AMOUNT) {
+            differenceFill = 0;
             PacketHandler.syncFluids(this, getFluid());
         }
 
@@ -61,7 +63,11 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         FluidStack amount = tank.drain(maxDrain, doDrain);
-        if (amount != null && doDrain) {
+        if (amount == null) return amount;
+        
+        differenceDrain += amount.amount;
+        if (amount != null && doDrain && differenceDrain >= MachineSettings.TANK_UPDATE_AMOUNT) {
+            differenceDrain = 0;
             PacketHandler.syncFluids(this, getFluid());
         }
 
