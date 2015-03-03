@@ -3,6 +3,7 @@ package mariculture.magic;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.core.Core;
 import mariculture.core.config.Enchantments;
 import mariculture.core.helpers.NBTHelper;
 import mariculture.magic.jewelry.ItemJewelry;
@@ -92,6 +93,12 @@ public class JewelryHandler {
     }
 
     public static boolean canApply(ItemStack stack) {
+        if (Enchantments.DISABLE_BOOKS_ON_PEARLS) {
+            if (stack.getItem() == Core.pearls) {
+                return false;
+            }
+        }
+
         if (stack.getItem() instanceof ItemJewelry && stack.hasTagCompound()) {
             if (Enchantments.ALLOW_MC_ANVIL) {
                 JewelryType type = getType(stack);
