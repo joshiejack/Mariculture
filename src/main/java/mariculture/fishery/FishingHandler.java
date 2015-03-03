@@ -229,7 +229,7 @@ public class FishingHandler implements IFishing {
     @Override
     public ItemStack getCatch(World world, int x, int y, int z, EntityPlayer player, ItemStack stack) {
         if (stack == null) return getFishForLocation(player, world, x, y, z, RodType.NET);
-        else {
+        else {            
             RodType type = getRodType(stack);
             if (Vanilla.VANILLA_LOOT && type == RodType.DIRE) return getVanillaLoot(world, player, stack);
             if (type != null) {
@@ -279,14 +279,14 @@ public class FishingHandler implements IFishing {
             for (Entry<Integer, FishSpecies> species : FishSpecies.species.entrySet()) {
                 catchables.add(species.getValue());
             }
-        }
+        }       
 
         Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
         int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
         for (int i = 0; i < 20; i++) {
             Collections.shuffle(catchables);
             for (FishSpecies fish : catchables) {
-                double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature);
+                double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature);                
                 if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) {
                     if (FishMechanics.IGNORE_BIOMES) catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * (modifier * 1.5D));
                     else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * (modifier));
