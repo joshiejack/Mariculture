@@ -56,6 +56,7 @@ public class Enchantments {
         setCategory("Jewelry");
         Jewelry.JEWELRY_OFFLINE = getBoolean("Enable Singleplayer Jewelry Offline Mode", false);
         Jewelry.DROP_JEWELRY = getBoolean("Jewelry Drops on Death", false);
+        Jewelry.ALTERNATIVE_CELESTIAL_RECIPE = getBoolean("Enable Non-Fish Breeding Recipe for Celestial Mirror", true);
 
         setCategory("Tweaks");
         JUMPS_PER = getInt("Leapfrog > Jumps per Damage", 10);
@@ -72,5 +73,6 @@ public class Enchantments {
     public static class Jewelry {
         public static boolean JEWELRY_OFFLINE;
         public static boolean DROP_JEWELRY;
+        public static boolean ALTERNATIVE_CELESTIAL_RECIPE;
     }
 }

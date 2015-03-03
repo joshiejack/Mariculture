@@ -10,6 +10,7 @@ Mariculture 1.2.4e
 • Fish Feeder will update tank size, whether you put or female in first, because reasons.
 • Faster fishing. It's boring come on? (Config option, Defaults to 50, set to 0 for no speed boost (old way))
 • Add Ray trace distance, and milliseconds between blink config options for blink enchantment
+• Added an alternative recipe for the celestial mirror (fish breeding for it, is annoying, I want it sooner :D) (can turn off with config)
 
 Mariculture 1.2.4d
 • Fix Crash when breaking a rotor

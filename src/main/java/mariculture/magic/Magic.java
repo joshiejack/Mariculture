@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.config.Enchantments.EnchantIds;
+import mariculture.core.config.Enchantments.Jewelry;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.magic.enchantments.EnchantmentBlink;
@@ -220,6 +221,15 @@ public class Magic extends RegistrationModule {
         addJewelry((ItemJewelry) ring);
         addJewelry((ItemJewelry) bracelet);
         addJewelry((ItemJewelry) necklace);
+        
+        if (Jewelry.ALTERNATIVE_CELESTIAL_RECIPE) {
+            addShaped(asStack(celestialMirror), new Object[] { "RWN", "BMB", "GBG", 'B', storageBookshelf, 'M', magicMirror, 
+                'R', JewelryHandler.createJewelry((ItemJewelry)ring, bindingBasic, pearlRed), 
+                'W', JewelryHandler.createJewelry((ItemJewelry)bracelet, bindingBasic, pearlBlack), 
+                'N', JewelryHandler.createJewelry((ItemJewelry)necklace, bindingBasic, pearlGold), 
+                'G', goldThread });
+        }
+        
         addDungeonChestLoot();
     }
 
