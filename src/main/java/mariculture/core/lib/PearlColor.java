@@ -42,7 +42,7 @@ public class PearlColor {
             case SILVER:
                 return "silver";
             default:
-                return null;
+                return "unnamed";
         }
     }
 }
