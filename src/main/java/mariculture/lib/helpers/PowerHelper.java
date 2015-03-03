@@ -6,12 +6,12 @@ import java.util.Collections;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
 public class PowerHelper {
     public static Object[] getNextEnergyHandler(ForgeDirection from, World worldObj, int xCoord, int yCoord, int zCoord) {
         ForgeDirection facing = ForgeDirection.UNKNOWN;
-        IEnergyHandler handler = null;
+        IEnergyReceiver handler = null;
         Collections.shuffle(handlers);
         for (int i = 0; i < handlers.size(); i++) {
             Object[] obj = handlers.get(i);
@@ -31,9 +31,9 @@ public class PowerHelper {
         return new Object[] { handler, facing };
     }
 
-    public static IEnergyHandler isEnergyHandler(World world, int x, int y, int z) {
+    public static IEnergyReceiver isEnergyHandler(World world, int x, int y, int z) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile != null && tile instanceof IEnergyHandler) return (IEnergyHandler) tile;
+        if (tile != null && tile instanceof IEnergyReceiver) return (IEnergyReceiver) tile;
 
         return null;
     }

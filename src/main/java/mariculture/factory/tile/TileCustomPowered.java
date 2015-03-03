@@ -4,9 +4,9 @@ import mariculture.lib.helpers.PowerHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
-public class TileCustomPowered extends TileCustom implements IEnergyHandler {
+public class TileCustomPowered extends TileCustom implements IEnergyReceiver {
     private int tick;
     private ForgeDirection cameFrom;
     private EnergyStorage storage = new EnergyStorage(6000);
@@ -27,10 +27,10 @@ public class TileCustomPowered extends TileCustom implements IEnergyHandler {
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         cameFrom = from;
         if (storage.getEnergyStored() > 0) {
-            IEnergyHandler handler = null;
+            IEnergyReceiver handler = null;
             Object[] res = PowerHelper.getNextEnergyHandler(cameFrom, worldObj, xCoord, yCoord, zCoord);
             if (res[0] != null) {
-                handler = (IEnergyHandler) res[0];
+                handler = (IEnergyReceiver) res[0];
                 cameFrom = (ForgeDirection) res[1];
             }
 
@@ -40,11 +40,6 @@ public class TileCustomPowered extends TileCustom implements IEnergyHandler {
         }
 
         return storage.receiveEnergy(maxReceive, simulate);
-    }
-
-    @Override
-    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        return storage.extractEnergy(maxExtract, simulate);
     }
 
     @Override

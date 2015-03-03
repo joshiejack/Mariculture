@@ -16,7 +16,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
 public class FishElectricRay extends FishSpecies {
     @Override
@@ -93,7 +93,7 @@ public class FishElectricRay extends FishSpecies {
         }
 
         if (PowerHelper.isEnergyHandler(world, x, y - 1, z) != null) {
-            IEnergyHandler handler = PowerHelper.isEnergyHandler(world, x, y - 1, z);
+            IEnergyReceiver handler = PowerHelper.isEnergyHandler(world, x, y - 1, z);
             if (handler.canConnectEnergy(ForgeDirection.DOWN)) {
                 handler.receiveEnergy(ForgeDirection.UP, 200, false);
             }

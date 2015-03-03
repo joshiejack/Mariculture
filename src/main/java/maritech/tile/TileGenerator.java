@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyConnection;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
 public class TileGenerator extends TileEntity implements IEnergyConnection, IFaceable {
     private static final int MAX_TRANSFER = 5000;
@@ -59,9 +59,9 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
                 if (orientation != null) {
                     if (dir != orientation && dir != orientation.getOpposite()) {
                         TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
-                        if (tile instanceof IEnergyHandler && energy > 0) {
-                            if (((IEnergyHandler) tile).canConnectEnergy(dir.getOpposite())) {
-                                int extract = -((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), Math.min(energy, MAX_TRANSFER), false);
+                        if (tile instanceof IEnergyReceiver && energy > 0) {
+                            if (((IEnergyReceiver) tile).canConnectEnergy(dir.getOpposite())) {
+                                int extract = -((IEnergyReceiver) tile).receiveEnergy(dir.getOpposite(), Math.min(energy, MAX_TRANSFER), false);
                             }
                         }
                     }

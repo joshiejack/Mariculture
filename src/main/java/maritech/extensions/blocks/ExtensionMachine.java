@@ -23,7 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
 public class ExtensionMachine extends ExtensionBlocksBase {
     @Override
@@ -195,7 +195,7 @@ public class ExtensionMachine extends ExtensionBlocksBase {
                     Item currentItem = player.getCurrentEquippedItem().getItem();
                     if (currentItem instanceof IEnergyContainerItem && !world.isRemote) {
                         int powerAdd = ((IEnergyContainerItem) currentItem).extractEnergy(player.getCurrentEquippedItem(), 5000, true);
-                        int reduce = ((IEnergyHandler) tile).receiveEnergy(ForgeDirection.UNKNOWN, powerAdd, false);
+                        int reduce = ((IEnergyReceiver) tile).receiveEnergy(ForgeDirection.UNKNOWN, powerAdd, false);
                         ((IEnergyContainerItem) currentItem).extractEnergy(player.getCurrentEquippedItem(), reduce, false);
                     }
                 }

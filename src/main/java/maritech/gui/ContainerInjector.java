@@ -1,11 +1,9 @@
 package maritech.gui;
 
 import mariculture.api.core.IItemUpgrade;
-import mariculture.api.core.IUpgradable;
 import mariculture.core.gui.ContainerMachine;
 import mariculture.core.gui.SlotFluidContainer;
 import mariculture.core.gui.SlotOutput;
-import mariculture.core.gui.SlotUpgrade;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.fishery.FishFoodHandler;
 import mariculture.fishery.Fishery;
@@ -18,7 +16,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.api.energy.IEnergyHandler;
 
 public class ContainerInjector extends ContainerMachine {
     public ContainerInjector(TileInjector tile, InventoryPlayer playerInventory) {

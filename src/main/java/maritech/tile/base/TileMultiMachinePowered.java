@@ -11,9 +11,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
-public abstract class TileMultiMachinePowered extends TileMultiMachine implements IEnergyHandler, IPowered {
+public abstract class TileMultiMachinePowered extends TileMultiMachine implements IEnergyReceiver, IPowered {
     protected EnergyStorage energyStorage;
     protected int usage = -1;
 
@@ -44,22 +44,6 @@ public abstract class TileMultiMachinePowered extends TileMultiMachine implement
                     if (master.energyStorage.getEnergyStored() >= getPowerPerTick() * 2) {
                         master.updateCanWork();
                     }
-                }
-
-                return ret;
-            } else return 0;
-        } else return 0;
-    }
-
-    @Override
-    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        if (!worldObj.isRemote) {
-            TileEntity mstr = getMaster();
-            if (mstr instanceof TileMultiMachinePowered) {
-                TileMultiMachinePowered master = (TileMultiMachinePowered) mstr;
-                int ret = master.energyStorage.extractEnergy(maxExtract, simulate);
-                if (ret <= 0) {
-                    master.updateCanWork();
                 }
 
                 return ret;

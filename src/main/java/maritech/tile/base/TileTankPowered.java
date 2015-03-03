@@ -10,9 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
-public abstract class TileTankPowered extends TileMachineTank implements IEnergyHandler, IPowered {
+public abstract class TileTankPowered extends TileMachineTank implements IEnergyReceiver, IPowered {
     protected EnergyStorage energyStorage;
     protected int usage = -1;
 
@@ -37,16 +37,6 @@ public abstract class TileTankPowered extends TileMachineTank implements IEnergy
 
             return ret;
         } else return 0;
-    }
-
-    @Override
-    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        int ret = energyStorage.extractEnergy(maxExtract, simulate);
-        if (ret <= 0) {
-            updateCanWork();
-        }
-
-        return ret;
     }
 
     @Override
@@ -89,7 +79,11 @@ public abstract class TileTankPowered extends TileMachineTank implements IEnergy
     @Override
     public void updateMachine() {
         if (canWork) {
-            extractEnergy(ForgeDirection.DOWN, getPowerPerTick(), false);
+            int ret = energyStorage.extractEnergy(getPowerPerTick(), false);
+            if (ret <= 0) {
+                updateCanWork();
+            }
+            
             processed += speed;
             if (processed >= max) {
                 process();

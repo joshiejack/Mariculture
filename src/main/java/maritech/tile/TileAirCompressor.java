@@ -10,9 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
-public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler {
+public class TileAirCompressor extends TileMultiBlock implements IEnergyReceiver {
     private int machineTick;
     public static final int max = 480;
     public int storedAir = 0;
@@ -26,11 +26,6 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyHandler 
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         return getMaster() != null ? ((TileAirCompressor) getMaster()).energyStorage.receiveEnergy(maxReceive, simulate) : 0;
-    }
-
-    @Override
-    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        return getMaster() != null ? ((TileAirCompressor) getMaster()).energyStorage.extractEnergy(maxExtract, simulate) : 0;
     }
 
     @Override

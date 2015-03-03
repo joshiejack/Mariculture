@@ -29,9 +29,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
-public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFaceable {
+public class TileAirPump extends TileStorageTank implements IEnergyReceiver, IFaceable {
     protected BlockTransferHelper helper;
     protected EnergyStorage storage = new EnergyStorage(100);
     public ForgeDirection orientation = ForgeDirection.WEST;
@@ -233,11 +233,6 @@ public class TileAirPump extends TileStorageTank implements IEnergyHandler, IFac
         }
 
         return receive;
-    }
-
-    @Override
-    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        return storage.extractEnergy(maxExtract, simulate);
     }
 
     @Override

@@ -8,7 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
 public class ContainerMariculture extends Container {
     public TileEntity tile;
@@ -46,7 +46,7 @@ public class ContainerMariculture extends Container {
         }
     }
 
-    protected void addPowerSlot(IEnergyHandler tile) {
+    protected void addPowerSlot(IEnergyReceiver tile) {
         addSlotToContainer(new Slot((IInventory) tile, 3, 8, 62));
     }
 

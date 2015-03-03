@@ -12,7 +12,7 @@ import net.minecraft.block.BlockWall;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 
 public class PlansMeta {
     public static final int COUNT = 9;
@@ -75,7 +75,7 @@ public class PlansMeta {
         else if (block instanceof BlockStairs) return PlansMeta.STAIRS;
         else if (block instanceof BlockWall) return PlansMeta.WALL;
         else if (block instanceof BlockCarpet) return PlansMeta.FLOOR;
-        else if (world.getTileEntity(x, y, z) instanceof IEnergyHandler) return PlansMeta.RF;
+        else if (world.getTileEntity(x, y, z) instanceof IEnergyReceiver) return PlansMeta.RF;
         else if (block.getLightValue(world, x, y, z) > 0F) return PlansMeta.LIGHT;
         else if (world.getTileEntity(x, y, z) == null && !world.isAirBlock(x, y, z)) return PlansMeta.BLOCK;
 
