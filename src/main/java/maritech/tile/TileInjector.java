@@ -9,7 +9,6 @@ import mariculture.core.gui.feature.FeatureRedstone.RedstoneMode;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.PacketHandler;
-import mariculture.core.tile.TileVat;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.ITank;
 import mariculture.core.util.Tank;
@@ -258,11 +257,27 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
         return true;
     }
+    
+    private int lastFluidID;
+    private int lastFluidAmount;
+    private int lastFluidCapacity;
+    private int lastFluid2ID;
+    private int lastFluid2Amount;
+    private int lastFluid2Capacity;
+    
+    @Override
+    public boolean hasChanged() {
+        return super.hasChanged() || lastFluidID != tank.getFluidID() || lastFluidAmount != tank.getFluidAmount() || lastFluidCapacity != tank.getCapacity() || lastFluid2ID != tank2.getFluidID() || lastFluid2Amount != tank2.getFluidAmount() || lastFluidCapacity != tank2.getCapacity();
+    }
 
     @Override
     public ArrayList<Integer> getGUIData() {
+        lastFluidID = tank.getFluidID();
+        lastFluidAmount = tank.getFluidAmount();
+        lastFluidCapacity = tank.getCapacity();
+        
         ArrayList list = super.getGUIData();
-        list.addAll(Arrays.asList(new Integer[] { tank.getFluidID(), tank.getFluidAmount(), tank.getCapacity(), tank2.getFluidID(), tank2.getFluidAmount(), tank2.getCapacity() }));
+        list.addAll(Arrays.asList(new Integer[] { lastFluidID, lastFluidAmount, lastFluidCapacity, tank2.getFluidID(), tank2.getFluidAmount(), tank2.getCapacity() }));
         return list;
     }
 

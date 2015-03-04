@@ -155,9 +155,17 @@ public class TileDictionaryItem extends TileStorage implements IItemDropBlacklis
         }
     }
     
+    private int lastSetting;
+    
+    @Override
+    public boolean hasChanged() {
+        return lastSetting != setting.ordinal();
+    }
+    
     @Override
     public ArrayList<Integer> getGUIData() {
-        return new ArrayList(Arrays.asList(new Integer[] { setting.ordinal() }));
+        lastSetting = setting.ordinal();
+        return new ArrayList(Arrays.asList(new Integer[] { lastSetting }));
     }
 
     @Override

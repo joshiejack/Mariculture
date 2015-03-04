@@ -61,10 +61,6 @@ public class PluginForestry extends Plugin {
     public void preInit() {
         Fluids.add("bioethanol", FluidRegistry.getFluid("bioethanol"), 1000, true);
         backpack = new AquaBackpack();
-        aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T1);
-        aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T2);
-        GameRegistry.registerItem(aquaBackpackT1, "aquaBackpackT1");
-        GameRegistry.registerItem(aquaBackpackT2, "aquaBackpackT2");
     }
 
     public void addBee(String str, int num) {
@@ -80,6 +76,11 @@ public class PluginForestry extends Plugin {
 
     @Override
     public void init() {
+        aquaBackpackT1 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T1);
+        aquaBackpackT2 = BackpackManager.backpackInterface.addBackpack(backpack, EnumBackpackType.T2);
+        GameRegistry.registerItem(aquaBackpackT1, "aquaBackpackT1");
+        GameRegistry.registerItem(aquaBackpackT2, "aquaBackpackT2");
+        
         backpack.addValidItem(oyster);
         backpack.addValidItem(ink);
         backpack.addValidItem(pearls);

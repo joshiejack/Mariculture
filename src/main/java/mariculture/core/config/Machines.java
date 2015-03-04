@@ -42,6 +42,7 @@ public class Machines {
         MachineSettings.SLUICE_POWER_MULTIPLIER = getInt("Sluice > Power Multiplier", 25, "Increase this to increase the power produced by the sluice, take note the old default was 10");
         MachineSettings.SAWMILL_STACK_MULTIPLIER = getInt("Sawmill > Output Multiplier", 2, "Increase this to have more output for your sawmill blocks");
         MachineSettings.TANK_UPDATE_AMOUNT = getInt("Tanks > Send Update to Client on mB", 144, "When the difference in the tank has changed by this much, then it will send an update to the client. Make this number higher, to reduce lag");
+        MachineSettings.COOLING_KICK_UP_BUTT = getInt("Casters > Kick up the butt", 1000, "Every this amount of world ticks, the casters will get a kick up the butt, to try and make them work, Set to 0 to disable");
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -61,6 +62,7 @@ public class Machines {
         public static boolean PUMP_ACTIVATE_ON_TICK;
         public static boolean PUMP_ACTIVATE_ON_RECEIVE;
         public static int TANK_UPDATE_AMOUNT;
+        public static int COOLING_KICK_UP_BUTT;
     }
 
     public static class Ticks {

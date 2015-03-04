@@ -113,7 +113,7 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyR
             }
         }
     }
-
+    
     @Override
     public void setGUIData(int id, int value) {
         super.setGUIData(id, value);
@@ -129,11 +129,25 @@ public abstract class TileMachinePowered extends TileMachine implements IEnergyR
                 break;
         }
     }
+    
+    protected int lastEnergy;
+    protected int lastCapacity;
+    protected int lastUsage;
+    
+    @Override
+    public boolean hasChanged() {
+        return super.hasChanged() || energyStorage.getEnergyStored() != lastEnergy || energyStorage.getMaxEnergyStored() != lastCapacity || lastUsage != (canWork ? getPowerPerTick() : 0);
+    }
+
 
     @Override
     public ArrayList<Integer> getGUIData() {
+        lastEnergy = energyStorage.getEnergyStored();
+        lastCapacity = energyStorage.getMaxEnergyStored();
+        lastUsage = canWork ? getPowerPerTick() : 0;
+        
         ArrayList<Integer> list = super.getGUIData();
-        list.addAll(new ArrayList(Arrays.asList(new Integer[] { energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), canWork ? getPowerPerTick() : 0 })));
+        list.addAll(new ArrayList(Arrays.asList(new Integer[] { lastEnergy, lastCapacity, lastUsage })));
         return list;
     }
 

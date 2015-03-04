@@ -148,6 +148,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     }
 
     public CrucibleFuelHandler fuelHandler;
+
     boolean canFuel() {
         if (fuelHandler.info != null) return false;
         if (!rsAllowsWork()) return false;
@@ -264,29 +265,45 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         switch (realID) {
             case 0:
                 temp = value;
+                break;
             case 1:
                 burnHeight = value;
+                break;
         }
+    }
+
+    private int lastTemp;
+    private int lastBurnHeight;
+
+    @Override
+    public boolean hasChanged() {
+        return super.hasChanged() || lastTemp != temp || lastBurnHeight != getBurnHeightForGui();
+    }
+
+    private int getBurnHeightForGui() {
+        if (fuelHandler.info != null) {
+            burnHeight = 11 - fuelHandler.tick * 12 / fuelHandler.info.ticksPer;
+            return burnHeight;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public ArrayList<Integer> getGUIData() {
+        lastTemp = temp;
+        lastBurnHeight = getBurnHeightForGui();
+
+        ArrayList<Integer> list = super.getGUIData();
+        list.add(lastTemp);
+        list.add(lastBurnHeight);
+        return list;
     }
 
     private int burnHeight = 0;
 
     public int getBurnTimeRemainingScaled() {
         return burnHeight;
-    }
-    
-    @Override
-    public ArrayList<Integer> getGUIData() {
-        ArrayList<Integer> list = super.getGUIData();
-        list.add(temp);
-        if (fuelHandler.info != null) {
-            burnHeight = 11 - fuelHandler.tick * 12 / fuelHandler.info.ticksPer;
-            list.add(burnHeight);
-        } else {
-            list.add(0);
-        }
-        
-        return list;
     }
 
     public int getTemperatureScaled(int i) {

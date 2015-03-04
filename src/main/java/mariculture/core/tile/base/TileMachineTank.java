@@ -220,9 +220,27 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
         }
     }
 
+    protected int lastMode;
+    protected int lastSetting;
+    protected int lastProcessed;
+    protected int lastFluidID;
+    protected int lastFluidAmount;
+    protected int lastFluidCapacity;
+
+    @Override
+    public boolean hasChanged() {
+        return lastMode != mode.ordinal() || lastSetting != setting.ordinal() || lastProcessed != processed || lastFluidID != tank.getFluidID() || lastFluidAmount != tank.getFluidAmount() || lastFluidCapacity != tank.getCapacity();
+    }
+
     @Override
     public ArrayList<Integer> getGUIData() {
-        return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed, tank.getFluidID(), tank.getFluidAmount(), tank.getCapacity() }));
+        lastMode = mode.ordinal();
+        lastSetting = setting.ordinal();
+        lastProcessed = processed;
+        lastFluidID = tank.getFluidID();
+        lastFluidAmount = tank.getFluidAmount();
+        lastFluidCapacity = tank.getCapacity();
+        return new ArrayList(Arrays.asList(new Integer[] { lastMode, lastSetting, lastProcessed, lastFluidID, lastFluidAmount, lastFluidCapacity }));
     }
 
     @Override

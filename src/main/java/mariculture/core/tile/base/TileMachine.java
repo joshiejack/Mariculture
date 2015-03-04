@@ -169,9 +169,22 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
         }
     }
     
+    protected int lastMode;
+    protected int lastSetting;
+    protected int lastProcessed;
+    
+    @Override
+    public boolean hasChanged() {
+        return lastMode != mode.ordinal() || lastSetting != setting.ordinal() || lastProcessed != processed;
+    }
+    
     @Override
     public ArrayList<Integer> getGUIData() {
-        return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed }));
+        lastMode = mode.ordinal();
+        lastSetting = setting.ordinal();
+        lastProcessed = processed;
+        
+        return new ArrayList(Arrays.asList(new Integer[] { lastMode, lastSetting, lastProcessed }));
     }
 
     @Override

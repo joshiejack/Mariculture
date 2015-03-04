@@ -162,6 +162,13 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
             }
         }
     }
+    
+    private int lastSelected;
+    
+    @Override
+    public boolean hasChanged() {
+        return super.hasChanged() || lastSelected != selected;
+    }
 
     @Override
     public void setGUIData(int id, int value) {
@@ -173,8 +180,10 @@ public class TileSawmill extends TileMachine implements IHasNotification, IProgr
     
     @Override
     public ArrayList<Integer> getGUIData() {
+        lastSelected = selected;
+        
         ArrayList<Integer> list = super.getGUIData();
-        list.add(selected);
+        list.add(lastSelected);
         return list;
     }
 

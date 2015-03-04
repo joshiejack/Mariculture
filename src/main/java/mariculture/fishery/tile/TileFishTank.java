@@ -143,7 +143,16 @@ public class TileFishTank extends TileEntity implements IInventory, IHasClickabl
     }
     
     @Override
+    public boolean hasChanged() {
+        return lastPage != thePage;
+    }
+    
+    private int lastPage;
+    
+    @Override
     public ArrayList<Integer> getGUIData() {
+        lastPage = thePage;
+        
         return new ArrayList(Arrays.asList(new Integer[] { thePage }));
     }
 

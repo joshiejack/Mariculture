@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mariculture.api.core.ISpecialSorting;
-import mariculture.api.fishery.Fishing;
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.OreDicHelper;
@@ -13,7 +12,6 @@ import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
-import mariculture.fishery.Fish;
 import mariculture.lib.helpers.ItemHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -109,7 +107,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
                 ItemStack item = getStackInSlot(i);
                 if (item != null) {
                     if (item.getItem() instanceof ISpecialSorting) {
-                        if(((ISpecialSorting)item.getItem()).isSame(item, stack, isPerfectMatch)) return i;
+                        if (((ISpecialSorting) item.getItem()).isSame(item, stack, isPerfectMatch)) return i;
                     } else if (OreDicHelper.convert(stack).equals(OreDicHelper.convert(item))) return i;
                 }
             }
@@ -132,15 +130,45 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
         }
     }
 
+    private HashMap<Integer, Integer> lastSorting = new HashMap();
+    private int lastSetting;
+    private int lastDefault;
+
+    @Override
+    public boolean hasChanged() {
+        if (lastSetting != setting.ordinal() || lastDefault != dft_side) {
+            return true;
+        }
+
+        for (int i = 0; i < input; i++) {
+            if (sorting.containsKey(i)) {
+                if (lastSorting.get(i) != sorting.get(i)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public ArrayList<Integer> getGUIData() {
         ArrayList<Integer> list = new ArrayList();
         for (int i = 0; i < input; i++) {
-            list.add(sorting.containsKey(i) ? sorting.get(i) : 0);
+            if (sorting.containsKey(i)) {
+                lastSorting.put(i, sorting.get(i));
+                list.add(sorting.get(i));
+            } else {
+                lastSorting.put(i, 0);
+                list.add(0);
+            }
         }
 
-        list.add(setting.ordinal());
-        list.add(dft_side);
+        lastSetting = setting.ordinal();
+        lastDefault = dft_side;
+
+        list.add(lastSetting);
+        list.add(lastDefault);
         return list;
     }
 

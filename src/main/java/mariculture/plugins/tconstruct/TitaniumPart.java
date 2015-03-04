@@ -17,7 +17,7 @@ public class TitaniumPart extends Item implements IToolPart {
         setMaxDamage(0);
         setHasSubtypes(true);
     }
-    
+
     @Override
     public Item setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);

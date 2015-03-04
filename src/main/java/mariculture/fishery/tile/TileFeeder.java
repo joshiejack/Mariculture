@@ -552,14 +552,29 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         else if (id == 9) heat = value;
         else super.setGUIData(id, value);
     }
+    
+    private int lastTankSize;
+    private int lastWork;
+    private int lastTime;
+    private int lastHeat;
+    
+    @Override
+    public boolean hasChanged() {
+        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork? 1: 0) || lastTime != (worldObj.isDaytime()? 1: 0) || lastHeat != heat;
+    }
 
     @Override
     public ArrayList<Integer> getGUIData() {
+        lastTankSize = tankSize;
+        lastWork = canWork ? 1 : 0;
+        lastTime = worldObj.isDaytime() ? 1 : 0;
+        lastHeat = heat;
+        
         ArrayList<Integer> list = super.getGUIData();
-        list.add(tankSize);
-        list.add(canWork ? 1 : 0);
-        list.add(worldObj.isDaytime() ? 1 : 0);
-        list.add(heat);
+        list.add(lastTankSize);
+        list.add(lastWork);
+        list.add(lastTime);
+        list.add(lastHeat);
         return list;
     }
 

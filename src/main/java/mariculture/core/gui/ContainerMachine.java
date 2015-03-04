@@ -31,7 +31,9 @@ public class ContainerMachine extends ContainerMariculture {
         for (int i = 0; i < crafters.size(); i++) {
             Object crafter = crafters.get(i);
             if (crafter instanceof EntityPlayerMP) {
-                PacketHandler.sendGUIUpdate((EntityPlayerMP) crafter, windowId, tile.getGUIData());
+                if (tile.hasChanged()) {
+                    PacketHandler.sendGUIUpdate((EntityPlayerMP) crafter, windowId, tile.getGUIData());
+                }
             }
         }
     }

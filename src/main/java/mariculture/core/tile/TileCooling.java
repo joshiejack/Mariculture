@@ -3,6 +3,8 @@ package mariculture.core.tile;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeCasting;
 import mariculture.api.core.Environment.Temperature;
+import mariculture.core.config.Machines;
+import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.base.TileStorageTank;
 import mariculture.core.util.Tank;
@@ -51,6 +53,12 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
                 cooling = Math.max(1, Temperature.getCoolingSpeed(MaricultureHandlers.environment.getBiomeTemperature(worldObj, xCoord, yCoord, zCoord)));
             }
 
+            if (MachineSettings.COOLING_KICK_UP_BUTT > 0) {
+                if (worldObj.getWorldTime() % MachineSettings.COOLING_KICK_UP_BUTT == 1) {
+                    canWork = canWork();
+                }
+            }
+
             if (canWork) {
                 freezeTick += cooling;
                 if (freezeTick >= getTime()) {
@@ -81,8 +89,9 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
     }
 
     public boolean hasRoom() {
-        for (ItemStack element : inventory)
+        for (ItemStack element : inventory) {
             if (element == null) return true;
+        }
 
         return false;
     }

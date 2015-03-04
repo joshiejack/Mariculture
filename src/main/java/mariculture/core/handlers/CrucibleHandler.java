@@ -116,6 +116,7 @@ public class CrucibleHandler implements ICrucibleHandler {
         }
 
         for (RecipeSmelter recipe : recipes) {
+            if (recipe == null) continue;
             if (ItemHelper.areEqual(stack, recipe.input)) return recipe.temp;
         }
 

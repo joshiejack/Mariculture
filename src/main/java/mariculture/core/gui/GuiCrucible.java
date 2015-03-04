@@ -9,8 +9,8 @@ import mariculture.core.gui.feature.FeatureArrow;
 import mariculture.core.gui.feature.FeatureEject;
 import mariculture.core.gui.feature.FeatureRedstone;
 import mariculture.core.gui.feature.FeatureTank;
-import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
+import mariculture.core.gui.feature.FeatureUpgrades;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.tile.TileCrucible;
 import mariculture.core.util.MCTranslate;
@@ -41,7 +41,7 @@ public class GuiCrucible extends GuiMariculture {
     }
 
     @Override
-    public void addItemToolTip(ItemStack stack, List<String> currenttip) {
+    public void addItemToolTip(ItemStack stack, List<String> currenttip) {        
         boolean ethereal = MaricultureHandlers.upgrades.hasUpgrade("ethereal", tile);
         if (stack != null) {
             int meltingPoint = MaricultureHandlers.crucible.getMeltingPoint(stack, ethereal);
@@ -57,10 +57,12 @@ public class GuiCrucible extends GuiMariculture {
 
             if (MaricultureHandlers.crucible.getResult(stack, null, -1, ethereal) != null) {
                 RecipeSmelter result = MaricultureHandlers.crucible.getResult(stack, null, -1, ethereal);
-                if (result.fluid.amount > 0) if (result.rands != null) {
-                    currenttip.add(Text.INDIGO + MCTranslate.translate("randomMetal"));
-                } else {
-                    currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
+                if (result.fluid.amount > 0) {
+                    if (result.rands != null) {
+                        currenttip.add(Text.INDIGO + MCTranslate.translate("randomMetal"));
+                    } else {
+                        currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
+                    }
                 }
 
                 if (result.output != null && result.chance > 0) {

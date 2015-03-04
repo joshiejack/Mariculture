@@ -206,11 +206,47 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
                 break;
         }
     }
-    
+
+    protected int lastMode;
+    protected int lastSetting;
+    protected int lastProcessed;
+    protected int lastFluidID;
+    protected int lastFluidAmount;
+    protected int lastFluidCapacity;
+    protected int lastMasterX;
+    protected int lastMasterY;
+    protected int lastMasterZ;
+
+    @Override
+    public boolean hasChanged() {
+        return lastMode != mode.ordinal() || lastSetting != setting.ordinal() || lastProcessed != processed || lastFluidID != tank.getFluidID() || lastFluidAmount != tank.getFluidAmount() || lastFluidCapacity != tank.getCapacity() || lastMasterX != getGuiMasterX() || lastMasterY != getGuiMasterY() || lastMasterZ != getGuiMasterZ();
+    }
+
     @Override
     public ArrayList<Integer> getGUIData() {
-        return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed, tank.getFluidID(), tank.getFluidAmount(), tank.getCapacity(),
-                master != null ? master.xCoord : 0, master != null ? master.yCoord : 0, master != null ? master.zCoord : 0 }));
+        lastMode = mode.ordinal();
+        lastSetting = setting.ordinal();
+        lastProcessed = processed;
+        lastFluidID = tank.getFluidID();
+        lastFluidAmount = tank.getFluidAmount();
+        lastFluidCapacity = tank.getCapacity();
+        lastMasterX = getGuiMasterX();
+        lastMasterY = getGuiMasterY();
+        lastMasterZ = getGuiMasterZ();
+
+        return new ArrayList(Arrays.asList(new Integer[] { lastMode, lastSetting, lastProcessed, lastFluidID, lastFluidAmount, lastFluidCapacity, lastMasterX, lastMasterY, lastMasterZ }));
+    }
+
+    private int getGuiMasterX() {
+        return master != null ? master.xCoord : 0;
+    }
+
+    private int getGuiMasterY() {
+        return master != null ? master.yCoord : 0;
+    }
+
+    private int getGuiMasterZ() {
+        return master != null ? master.zCoord : 0;
     }
 
     @Override

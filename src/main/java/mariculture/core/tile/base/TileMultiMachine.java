@@ -188,10 +188,40 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
                 break;
         }
     }
+    
+    protected int lastMode;
+    protected int lastSetting;
+    protected int lastProcessed;
+    protected int lastMasterX;
+    protected int lastMasterY;
+    protected int lastMasterZ;
+
+    @Override
+    public boolean hasChanged() {
+        return lastMode != mode.ordinal() || lastSetting != setting.ordinal() || lastProcessed != processed || lastMasterX != getGuiMasterX() || lastMasterY != getGuiMasterY() || lastMasterZ != getGuiMasterZ();
+    }
 
     @Override
     public ArrayList<Integer> getGUIData() {
+        lastMode = mode.ordinal();
+        lastSetting = setting.ordinal();
+        lastProcessed = processed;
+        lastMasterX = getGuiMasterX();
+        lastMasterY = getGuiMasterY();
+        lastMasterZ = getGuiMasterZ();
+        
         return new ArrayList(Arrays.asList(new Integer[] { mode.ordinal(), setting.ordinal(), processed, master != null ? master.xCoord : 0, master != null ? master.yCoord : 0, master != null ? master.zCoord : 0 }));
+    }
+    private int getGuiMasterX() {
+        return master != null ? master.xCoord : 0;
+    }
+
+    private int getGuiMasterY() {
+        return master != null ? master.yCoord : 0;
+    }
+
+    private int getGuiMasterZ() {
+        return master != null ? master.zCoord : 0;
     }
 
     @Override
