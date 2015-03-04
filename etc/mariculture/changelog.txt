@@ -1,6 +1,7 @@
 Mariculture 1.2.4f
 • Add config for updating tanks based on mB
 • Switch fishing nets to have same bounding as carpets
+• Fix Oysters placing normal sand inside them (when you use red sand).
 
 Mariculture 1.2.4e
 • Switch the fuel handling of the crucible, should hopefully make it not crash/dissappear anymore?

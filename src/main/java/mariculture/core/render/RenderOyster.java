@@ -129,15 +129,17 @@ public class RenderOyster extends RenderBase {
         if (isItem) {
             setTexture(Core.pearlBlock, PearlColor.WHITE);
             renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
-        } else if (stack != null) if (stack.getItem() == Core.pearls) {
-            setTexture(Core.pearlBlock, stack.getItemDamage());
-            renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
-        } else if (stack.getItem() == Items.ender_pearl) {
-            setTexture(Blocks.wool, 13);
-            renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
-        } else {
-            setTexture(Blocks.sand);
-            renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
+        } else if (stack != null) {
+            if (stack.getItem() == Core.pearls) {
+                setTexture(Core.pearlBlock, stack.getItemDamage());
+                renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
+            } else if (stack.getItem() == Items.ender_pearl) {
+                setTexture(Blocks.wool, 13);
+                renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
+            } else {
+                setTexture(Blocks.sand, stack.getItemDamage());
+                renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
+            }
         }
     }
 }

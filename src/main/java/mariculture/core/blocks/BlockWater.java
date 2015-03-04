@@ -114,13 +114,17 @@ public class BlockWater extends BlockFunctional {
             }
 
             if (!player.isSneaking()) if (!world.isRemote) {
-                if (player.getCurrentEquippedItem() != null) if (player.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.sand)) if (oyster.getStackInSlot(0) == null) {
-                    oyster.setInventorySlotContents(0, new ItemStack(Blocks.sand));
-                    if (!player.capabilities.isCreativeMode) {
-                        player.inventory.decrStackSize(player.inventory.currentItem, 1);
-                    }
+                if (player.getCurrentEquippedItem() != null) {
+                    if (player.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.sand)) {
+                        if (oyster.getStackInSlot(0) == null) {
+                            oyster.setInventorySlotContents(0, player.getCurrentEquippedItem().copy());
+                            if (!player.capabilities.isCreativeMode) {
+                                player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                            }
 
-                    return true;
+                            return true;
+                        }
+                    }
                 }
 
                 BlockHelper.dropItems(world, x, y, z);
