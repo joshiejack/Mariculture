@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketParticle;
 import mariculture.core.network.PacketParticle.Particle;
@@ -53,14 +54,16 @@ public class FisheryEventHandler {
 
     @SubscribeEvent
     public void onKillSquid(LivingDropsEvent event) {
-        if (event.entity instanceof EntitySquid) {
-            EntitySquid entity = (EntitySquid) event.entity;
-            ItemStack squid = new ItemStack(Items.fish, 1, Fish.squid.getID());
-            event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
-            if (event.lootingLevel > 0) {
-                for (int i = 0; i < event.lootingLevel; i++) {
-                    if (rand.nextInt(3) == 0) {
-                        event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
+        if (FishMechanics.SQUID_DROP_CALAMARI) {
+            if (event.entity instanceof EntitySquid) {
+                EntitySquid entity = (EntitySquid) event.entity;
+                ItemStack squid = new ItemStack(Items.fish, 1, Fish.squid.getID());
+                event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
+                if (event.lootingLevel > 0) {
+                    for (int i = 0; i < event.lootingLevel; i++) {
+                        if (rand.nextInt(3) == 0) {
+                            event.drops.add(new EntityItem(entity.worldObj, entity.posX, entity.posY, entity.posZ, squid));
+                        }
                     }
                 }
             }
