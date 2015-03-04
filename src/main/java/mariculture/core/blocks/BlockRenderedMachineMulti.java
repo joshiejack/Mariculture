@@ -47,6 +47,7 @@ public class BlockRenderedMachineMulti extends BlockFunctionalMulti {
 
     @Override
     public int getToolLevel(int meta) {
+        if (meta == MachineRenderedMultiMeta.SIFTER) return 0;
         return meta == MachineRenderedMultiMeta.VAT ? 1 : 2;
     }
 
