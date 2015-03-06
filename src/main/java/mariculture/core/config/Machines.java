@@ -33,6 +33,7 @@ public class Machines {
         Ticks.FISH_FOOD_TICK = getInt("Fish Feeder > Fish Food Tick Rate", 25, "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable");
         Ticks.PICKUP_TICK = getInt("Fish Feeder > Fish Food Pickup Tick Rate", -1, "How often it tries to pick up fish food, set to less than 0 to disable");
         Ticks.PUMP_TICK_TIMER = getInt("Air Pump > Ticks Between Supplying Air", 300);
+        Ticks.SLUICE_TIMER = getInt("Sluice > Send Power every x Ticks", 5);
         
         setCategory("Upgrade Settings");
         ItemUpgrade.TEMPERATURE_BASIC = getInt("Temperature - Basic", 1);
@@ -97,5 +98,6 @@ public class Machines {
         public static int FISH_FOOD_TICK;
         public static int TANK_UPDATE;
         public static int PICKUP_TICK;
+        public static int SLUICE_TIMER;
     }
 }

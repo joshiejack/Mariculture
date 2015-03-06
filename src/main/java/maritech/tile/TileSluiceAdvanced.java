@@ -3,6 +3,7 @@ package maritech.tile;
 import java.util.LinkedList;
 
 import mariculture.api.util.CachedCoords;
+import mariculture.core.config.Machines.Ticks;
 import maritech.extensions.config.ExtensionMachines.ExtendedSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;
@@ -16,8 +17,14 @@ public class TileSluiceAdvanced extends TileSluice {
 
     @Override
     public void updateEntity() {
-        if (onTick(150) && orientation.ordinal() > 1) {
-            generateHPWater();
+        if (orientation.ordinal() > 1) {
+            if (onTick((Ticks.SLUICE_TIMER - 1))) {
+                pushToGenerator();
+            }
+
+            if (onTick(150)) {
+                generateHPWater();
+            }
         }
 
         if (onTick(ExtendedSettings.ADVANCED_SLUICE_TICK)) {

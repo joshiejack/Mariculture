@@ -170,6 +170,7 @@ mariculture.upgrade.impurity=Basic Impurity Upgrade
 mariculture.upgrade.impuritystd=Standard Impurity Upgrade
 mariculture.upgrade.impurityadv=Advanced Impurity Upgrade
 mariculture.upgrade.impurityult=Ultimate Impurity Upgrade
+mariculture.upgrade.eternal.format=%E%S %U
 mariculture.upgrade.eternal.life=Eternal Life
 mariculture.upgrade.eternal.upgrade=Upgrade
 mariculture.upgrade.debugkiller=!FishKiller Upgrade (Debug)

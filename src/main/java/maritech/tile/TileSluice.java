@@ -2,6 +2,7 @@ package maritech.tile;
 
 import mariculture.api.core.IBlacklisted;
 import mariculture.core.config.Machines.MachineSettings;
+import mariculture.core.config.Machines.Ticks;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
@@ -30,6 +31,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     public ForgeDirection orientation = ForgeDirection.UP;
     protected int height = 0;
+    protected int distance;
 
     public TileSluice() {
         tank = new Tank(10000);
@@ -52,8 +54,14 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            if (onTick(200) && orientation.ordinal() > 1) {
-                generateHPWater();
+            if (orientation.ordinal() > 1) {
+                if (onTick(Ticks.SLUICE_TIMER)) {
+                    pushToGenerator();
+                }
+
+                if (onTick(200)) {
+                    generateHPWater();
+                }
             }
 
             if (onTick(60)) {
@@ -176,7 +184,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     }
 
     public int getEnergyGenerated(int distance) {
-        return height * distance * MachineSettings.SLUICE_POWER_MULTIPLIER;
+        return (height * distance * MachineSettings.SLUICE_POWER_MULTIPLIER);
     }
 
     public void generateHPWater() {
@@ -195,11 +203,15 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         }
 
         if (height > 0) {
-            int distance;
             for (distance = 1; isValid(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
+        }
+    }
+
+    public void pushToGenerator() {
+        if (height > 0) {
             TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));
             if (tile instanceof TileRotor) {
-                ((TileRotor) tile).addEnergy(orientation.getOpposite(), getEnergyGenerated(distance), 200);
+                ((TileRotor) tile).addEnergy(orientation.getOpposite(), getEnergyGenerated(distance) >> 8, 200);
             }
         }
     }

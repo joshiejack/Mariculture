@@ -44,6 +44,7 @@ maritech.machines.single.autofisher=Automatic Fisher
 maritech.machines.multi.incubator=Incubator
 maritech.machines.multi.incubatorbase=Incubator Base
 maritech.machines.multi.incubatortop=Incubator Top
+tile.machines.multi.incubator.name=Incubator
 maritech.crafting.dragonegg=Spawn Ender Dragon
 maritech.dna.format=%N %D
 maritech.dna=DNA

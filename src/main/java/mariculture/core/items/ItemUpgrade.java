@@ -297,9 +297,9 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public String getItemStackDisplayName(ItemStack stack) {
         int damage = stack.getItemDamage();
         if(damage == UpgradeMeta.ETERNAL_MALE || damage == UpgradeMeta.ETERNAL_FEMALE) {
-            String format = MCTranslate.translate("upgrade.format");
-            String eternal = MCTranslate.translate("upgrade.eternal");
-            String upgrade = MCTranslate.translate("upgrade.name");
+            String format = MCTranslate.translate("upgrade.eternal.format");
+            String eternal = MCTranslate.translate("upgrade.eternal.life");
+            String upgrade = MCTranslate.translate("upgrade.eternal.upgrade");
             format = format.replace("%E", eternal);
             format = damage == UpgradeMeta.ETERNAL_MALE? format.replace("%S", "\u2642"): format.replace("%S", "\u2640");
             return format.replace("%U", upgrade);
