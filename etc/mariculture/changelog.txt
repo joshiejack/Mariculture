@@ -4,6 +4,9 @@ Mariculture 1.2.4f
 • Switch fishing nets to have same bounding as carpets
 • Fix Oysters placing normal sand inside them (when you use red sand).
 • Make sifters harvesting level wood, not iron -__-
+• Add config to disable squids from dropping calamari (see fish mechanics)
+• Add a whole bunch of configs to adjust different things when it comes to fish breeding (see fussy fish category in fish mechanics)
+• Add a bunch of configs for changing the upgrade values to Machines.cfg (under Upgrade Settings)
 
 Mariculture 1.2.4e
 • Switch the fuel handling of the crucible, should hopefully make it not crash/dissappear anymore?

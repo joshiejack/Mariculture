@@ -67,13 +67,13 @@ public abstract class FishSpecies {
         return temp >= (getTemperatureBase() - getTemperatureTolerance()) && temp <= (getTemperatureBase() + getTemperatureTolerance());
     }
     
-    /** This is base temperature of the fish species **/ //TODO: MARK AS ABSTRACT
+    /** This is base temperature of the fish species **/ 
     public abstract int getTemperatureBase();
     
     /** This is the temperature tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
     public abstract int getTemperatureTolerance();
     
-    /** This is base salinity of the fish species **/ //TODO: MARK AS ABSTRACT
+    /** This is base salinity of the fish species **/
     public abstract Salinity getSalinityBase();
     
     /** This is the salinity tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT

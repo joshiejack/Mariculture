@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mariculture.Mariculture;
+import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.IIncubator;
 import mariculture.api.fishery.IMutation.Mutation;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.config.FishMechanics.FussyFish;
 import mariculture.core.handlers.LogHandler;
 import mariculture.fishery.items.ItemEgg;
 import mariculture.fishery.items.ItemFishy;
@@ -197,7 +198,11 @@ public class FishyHelper implements IFishHelper {
     }
 
     @Override
-    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {        
+    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {       
+        if (FussyFish.IGNORE_ALL_REQUIREMENTS) {
+            return true;
+        }
+        
         FishSpecies fish = Fishing.fishHelper.getSpecies(stack);
         if (fish == null) return false;
         else {
@@ -215,13 +220,14 @@ public class FishyHelper implements IFishHelper {
                 if (salinity > 2) {
                     salinity = 2;
                 }
+                
                 salt = Salinity.values()[salinity];
                 if (!worldCorrect) {
                     worldCorrect = MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable);
                 }
             }
-
-            if (!worldCorrect || !fish.canWorkAtThisTime(world.isDaytime())) return false;
+            
+            if ((!FussyFish.IGNORE_DIMENSION_REQUIREMENTS && !worldCorrect) || (!FussyFish.IGNORE_DAY_REQUIREMENTS && !fish.canWorkAtThisTime(world.isDaytime()))) return false;
             else return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), Fish.salinity.getDNA(stack), fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
         }
     }

@@ -15,6 +15,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
 import mariculture.core.config.FishMechanics;
+import mariculture.core.config.FishMechanics.FussyFish;
 import mariculture.core.config.Machines.Ticks;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -38,6 +39,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.IFluidBlock;
 import cofh.api.energy.IEnergyConnection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -133,7 +135,15 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 for (int z = -5 - zN; z <= 5 + zP; z++) {
                     for (int y = -5 - yN; y <= 5 + yP; y++) {
                         Block block = worldObj.getBlock(xCoord + x, yCoord + y, zCoord + z);
-                        if (m.isFluidValid(block) && f.isFluidValid(block)) {
+                        boolean isValid = false;
+                        if (FussyFish.IGNORE_BLOCK_TYPE) {
+                            isValid = block == Blocks.water || block == Blocks.lava || block instanceof IFluidBlock;
+                        } else {
+                            isValid = m.isFluidValid(block) && f.isFluidValid(block);
+                        }
+                        
+                        
+                        if (isValid) {
                             coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
                             
                             int id = Block.getIdFromBlock(block);

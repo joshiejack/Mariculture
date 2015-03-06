@@ -2,9 +2,11 @@ package mariculture.magic;
 
 import java.util.Random;
 
+import mariculture.core.Core;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.cofh.CoFhItemHelper;
+import mariculture.core.lib.PearlColor;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.enchantments.EnchantmentFallDamage;
@@ -50,7 +52,7 @@ public class MagicEventHandler {
     }
 
     @SubscribeEvent
-    public void onLivingUpdate(LivingUpdateEvent event) {
+    public void onLivingUpdate(LivingUpdateEvent event) {        
         if (event.entity instanceof EntityPlayer && !PlayerHelper.isFake((EntityPlayer) event.entity)) {
             World world = event.entity.worldObj;
             EntityPlayer player = (EntityPlayer) event.entity;

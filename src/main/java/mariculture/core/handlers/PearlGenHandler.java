@@ -15,8 +15,9 @@ public class PearlGenHandler {
     }
 
     private static float addPearl(ItemStack item, int rarity, int minCount, int maxCount) {
-        for (GeneratedPearls loot : pearls)
+        for (GeneratedPearls loot : pearls) {
             if (loot.equals(item, minCount, maxCount)) return loot.itemWeight += rarity;
+        }
 
         pearls.add(new GeneratedPearls(rarity, item, minCount, maxCount));
         return rarity;

@@ -5,6 +5,7 @@ import static mariculture.core.helpers.ConfigHelper.getInt;
 import static mariculture.core.helpers.ConfigHelper.setCategory;
 import static mariculture.core.helpers.ConfigHelper.setConfig;
 import mariculture.core.events.MaricultureEvents;
+import mariculture.core.items.ItemUpgrade;
 import mariculture.core.lib.MachineSpeeds;
 import net.minecraftforge.common.config.Configuration;
 
@@ -32,6 +33,28 @@ public class Machines {
         Ticks.FISH_FOOD_TICK = getInt("Fish Feeder > Fish Food Tick Rate", 25, "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable");
         Ticks.PICKUP_TICK = getInt("Fish Feeder > Fish Food Pickup Tick Rate", -1, "How often it tries to pick up fish food, set to less than 0 to disable");
         Ticks.PUMP_TICK_TIMER = getInt("Air Pump > Ticks Between Supplying Air", 300);
+        
+        setCategory("Upgrade Settings");
+        ItemUpgrade.TEMPERATURE_BASIC = getInt("Temperature - Basic", 1);
+        ItemUpgrade.TEMPERATURE_STANDARD = getInt("Temperature - Standard", 2);
+        ItemUpgrade.TEMPERATURE_ADVANCED = getInt("Temperature - Advanced", 5);
+        ItemUpgrade.TEMPERATURE_ULTIMATE = getInt("Temperature - Ultimate", 14);
+        ItemUpgrade.STORAGE_BASIC = getInt("Storage - Basic", 1);
+        ItemUpgrade.STORAGE_STANDARD = getInt("Storage - Standard", 3);
+        ItemUpgrade.STORAGE_ADVANCED = getInt("Storage - Advanced", 7);
+        ItemUpgrade.STORAGE_ULTIMATE = getInt("Storage - Ultimate", 15);
+        ItemUpgrade.PURITY_BASIC = getInt("Purity - Basic", 1);
+        ItemUpgrade.PURITY_STANDARD = getInt("Purity - Standard", 2);
+        ItemUpgrade.PURITY_ADVANCED = getInt("Purity - Advanced", 3);
+        ItemUpgrade.PURITY_ULTIMATE = getInt("Purity - Ultimate", 4);
+        ItemUpgrade.SPEED_BASIC = getInt("Speed - Basic", 1);
+        ItemUpgrade.SPEED_STANDARD = getInt("Speed - Standard", 2);
+        ItemUpgrade.SPEED_ADVANCED = getInt("Speed - Advanced", 4);
+        ItemUpgrade.SPEED_ULTIMATE = getInt("Speed - Ultimate", 8);
+        ItemUpgrade.RF_BASIC = getInt("RF - Basic", 5000);
+        ItemUpgrade.RF_STANDARD = getInt("RF - Standard", 20000);
+        ItemUpgrade.RF_ADVANCED = getInt("RF - Advanced", 50000);
+        ItemUpgrade.RF_ULTIMATE = getInt("RF - Ultimate", 100000);
         
         setCategory("Machine Settings");
         MachineSettings.PACKET_DISTANCE = getInt("How many blocks away to send rendering packet updates to players", 176);

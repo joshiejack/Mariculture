@@ -15,6 +15,27 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
+    public static int TEMPERATURE_BASIC;
+    public static int TEMPERATURE_STANDARD;
+    public static int TEMPERATURE_ADVANCED;
+    public static int TEMPERATURE_ULTIMATE;
+    public static int STORAGE_BASIC;
+    public static int STORAGE_STANDARD;
+    public static int STORAGE_ADVANCED;
+    public static int STORAGE_ULTIMATE;
+    public static int PURITY_BASIC;
+    public static int PURITY_STANDARD;
+    public static int PURITY_ADVANCED;
+    public static int PURITY_ULTIMATE;
+    public static int SPEED_BASIC;
+    public static int SPEED_STANDARD;
+    public static int SPEED_ADVANCED;
+    public static int SPEED_ULTIMATE;
+    public static int RF_BASIC;
+    public static int RF_STANDARD;
+    public static int RF_ADVANCED;
+    public static int RF_ULTIMATE;
+    
     public ItemUpgrade() {
         maxStackSize = 1;
     }
@@ -23,21 +44,21 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public int getTemperature(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case UpgradeMeta.BASIC_HEATING:
-                return 1;
+                return TEMPERATURE_BASIC;
             case UpgradeMeta.BASIC_COOLING:
-                return -1;
+                return -TEMPERATURE_BASIC;
             case UpgradeMeta.STANDARD_HEATING:
-                return 2;
+                return TEMPERATURE_STANDARD;
             case UpgradeMeta.STANDARD_COOLING:
-                return -2;
+                return -TEMPERATURE_STANDARD;
             case UpgradeMeta.ADVANCED_HEATING:
-                return 5;
+                return TEMPERATURE_ADVANCED;
             case UpgradeMeta.ADVANCED_COOLING:
-                return -5;
+                return -TEMPERATURE_ADVANCED;
             case UpgradeMeta.ULTIMATE_HEATING:
-                return 14;
+                return TEMPERATURE_ULTIMATE;
             case UpgradeMeta.ULTIMATE_COOLING:
-                return -14;
+                return -TEMPERATURE_ULTIMATE;
             case UpgradeMeta.DEBUG_HEATING:
                 return 1000;
             case UpgradeMeta.DEBUG_ALL:
@@ -51,13 +72,13 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public int getStorageCount(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case UpgradeMeta.BASIC_STORAGE:
-                return 1;
+                return STORAGE_BASIC;
             case UpgradeMeta.STANDARD_STORAGE:
-                return 3;
+                return STORAGE_STANDARD;
             case UpgradeMeta.ADVANCED_STORAGE:
-                return 7;
+                return STORAGE_ADVANCED;
             case UpgradeMeta.ULTIMATE_STORAGE:
-                return 15;
+                return STORAGE_ULTIMATE;
             case UpgradeMeta.DEBUG_STORAGE:
                 return 1000;
             case UpgradeMeta.DEBUG_ALL:
@@ -71,21 +92,21 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public int getPurity(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case UpgradeMeta.BASIC_PURITY:
-                return 1;
+                return PURITY_BASIC;
             case UpgradeMeta.BASIC_IMPURITY:
-                return -1;
+                return -PURITY_BASIC;
             case UpgradeMeta.STANDARD_PURITY:
-                return 2;
+                return PURITY_STANDARD;
             case UpgradeMeta.STANDARD_IMPURITY:
-                return -2;
+                return -PURITY_STANDARD;
             case UpgradeMeta.ADVANCED_PURITY:
-                return 3;
+                return PURITY_ADVANCED;
             case UpgradeMeta.ADVANCED_IMPURITY:
-                return -3;
+                return -PURITY_ADVANCED;
             case UpgradeMeta.ULTIMATE_PURITY:
-                return 4;
+                return PURITY_ULTIMATE;
             case UpgradeMeta.ULTIMATE_IMPURITY:
-                return -4;
+                return -PURITY_ULTIMATE;
             case UpgradeMeta.DEBUG_KILL:
                 return -10000;
             default:
@@ -97,13 +118,13 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public int getSpeed(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case UpgradeMeta.BASIC_SPEED:
-                return 1;
+                return SPEED_BASIC;
             case UpgradeMeta.STANDARD_SPEED:
-                return 2;
+                return SPEED_STANDARD;
             case UpgradeMeta.ADVANCED_SPEED:
-                return 4;
+                return SPEED_ADVANCED;
             case UpgradeMeta.ULTIMATE_SPEED:
-                return 8;
+                return SPEED_ULTIMATE;
             case UpgradeMeta.DEBUG_SPEED:
                 return 1024;
             case UpgradeMeta.DEBUG_ALL:
@@ -117,13 +138,13 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     public int getRFBoost(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case UpgradeMeta.BASIC_RF:
-                return 5000;
+                return RF_BASIC;
             case UpgradeMeta.STANDARD_RF:
-                return 20000;
+                return RF_STANDARD;
             case UpgradeMeta.ADVANCED_RF:
-                return 50000;
+                return RF_ADVANCED;
             case UpgradeMeta.ULTIMATE_RF:
-                return 100000;
+                return RF_ULTIMATE;
             case UpgradeMeta.DEBUG_ALL:
                 return 25000000;
             case UpgradeMeta.DEBUG_STORAGE:
