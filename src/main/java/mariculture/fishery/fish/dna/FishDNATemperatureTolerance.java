@@ -22,11 +22,11 @@ public class FishDNATemperatureTolerance extends FishDNA {
 
     @Override
     public Integer getDNA(ItemStack stack) {
-        return sanitize(super.getDNA(stack) + FussyFish.SALINITY_TOLERANCE_BOOSTER);
+        return sanitize(super.getDNA(stack) + FussyFish.TEMP_TOLERANCE_BOOSTER);
     }
 
     @Override
     public Integer getLowerDNA(ItemStack stack) {
-        return sanitize(super.getLowerDNA(stack) + FussyFish.SALINITY_TOLERANCE_BOOSTER);
+        return sanitize(super.getLowerDNA(stack) + FussyFish.TEMP_TOLERANCE_BOOSTER);
     }
 }
