@@ -13,6 +13,7 @@ import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
+import mariculture.core.util.Fluids;
 import mariculture.plugins.Plugins.Plugin;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -72,7 +73,7 @@ public class PluginAquaculture extends Plugin {
                     RecipeHelper.addFishSushi(raw, amount);
                     RecipeHelper.addFishSoup(raw, amount);
                     RecipeHelper.addFishMeal(raw, amount);
-                    RecipeHelper.addFishMelting(raw, amount * 500, new ItemStack(Items.bone), 10);
+                    RecipeHelper.addMelting(raw, 180, Fluids.getFluidStack("fish_oil", (int) (amount * 250)), new ItemStack(Items.bone), 10);
                 }
             }
         }
