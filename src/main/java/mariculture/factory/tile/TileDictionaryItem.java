@@ -17,6 +17,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileDictionaryItem extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
     private BlockTransferHelper helper;
@@ -200,6 +201,11 @@ public class TileDictionaryItem extends TileStorage implements IItemDropBlacklis
         this.setting = setting;
     }
 
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+    	return true;
+    }
+    
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);

@@ -17,6 +17,7 @@ import mariculture.core.util.IRedstoneControlled;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class TileMachine extends TileStorage implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
     //Transfer Helper
@@ -218,6 +219,11 @@ public abstract class TileMachine extends TileStorage implements IUpgradable, IM
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
         updateCanWork();
+    }
+    
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+    	return true;
     }
 
     @Override

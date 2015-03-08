@@ -256,6 +256,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
 
     }
+    
+	@Override
+	public boolean canEject(ForgeDirection dir) {
+		return dir != ForgeDirection.DOWN;
+	}
 
     // Gui Data
     @Override

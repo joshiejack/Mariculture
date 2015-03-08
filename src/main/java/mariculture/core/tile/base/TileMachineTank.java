@@ -274,6 +274,11 @@ public abstract class TileMachineTank extends TileStorageTank implements IUpgrad
         this.setting = setting;
         updateCanWork();
     }
+    
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+    	return true;
+    }
 
     @Override
     public int getProgressScaled(int scale) {

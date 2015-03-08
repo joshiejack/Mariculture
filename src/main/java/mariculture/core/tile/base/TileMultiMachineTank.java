@@ -18,6 +18,7 @@ import mariculture.core.util.Tank;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
 public abstract class TileMultiMachineTank extends TileMultiStorageTank implements IUpgradable, IMachine, ISidedInventory, IRedstoneControlled, IEjectable, IProgressable {
@@ -277,6 +278,11 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
     @Override
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
+    }
+    
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+    	return true;
     }
 
     @Override

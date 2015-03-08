@@ -247,6 +247,11 @@ public abstract class TileMachineTankOld extends TileStorageTank implements IUpg
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
     }
+    
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+    	return true;
+    }
 
     @Override
     public int getProgressScaled(int scale) {

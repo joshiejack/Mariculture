@@ -83,14 +83,20 @@ public class BlockTransferHelper {
                 if (isSameBlock(tile)) {
                     continue;
                 }
+                
+                if (handler instanceof IEjectable) {
+                	if (!((IEjectable)handler).canEject(dir)) continue;
+                }
+                
                 if (tile instanceof IFluidHandler) {
                     IFluidHandler tank = (IFluidHandler) tile;
                     if (tank instanceof IBlacklisted) if (((IBlacklisted) tank).isBlacklisted(world, x, y, z)) {
                         continue;
                     }
 
-                    for (int drain : rate)
+                    for (int drain : rate) {
                         if (transfer(tank, dir.getOpposite(), drain)) return true;
+                    }
                 }
             }
         }
@@ -165,6 +171,11 @@ public class BlockTransferHelper {
         Collections.shuffle(sides);
         for (Integer side : sides) {
             ForgeDirection dir = ForgeDirection.getOrientation(side);
+            
+            if (thisTile instanceof IEjectable) {
+            	if (!((IEjectable)thisTile).canEject(dir)) continue;
+            }
+            
             TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
             if (tile instanceof IInventory && !(tile instanceof TileEntityHopper) && !isSameBlock(tile)) {
                 stack = InventoryHelper.insertItemStackIntoInventory((IInventory) tile, stack, dir.getOpposite().ordinal());

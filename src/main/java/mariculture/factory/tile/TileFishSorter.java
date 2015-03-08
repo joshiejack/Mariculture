@@ -196,6 +196,11 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
     }
+    
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+    	return true;
+    }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
