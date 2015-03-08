@@ -329,6 +329,8 @@ public class Fish {
         Fishing.mutation.addMutation(night, spider, undead, 15D);
         Fishing.mutation.addMutation(tetra, damsel, angel, 20D);
         Fishing.mutation.addMutation(cod, minnow, gold, 25D);
+        Fishing.mutation.addMutation(stingRay, cod, damsel, 10D);
+        Fishing.mutation.addMutation(stingRay, minnow, tetra, 10D);
     }
 
     private static void addRecipe(FishSpecies species) {
