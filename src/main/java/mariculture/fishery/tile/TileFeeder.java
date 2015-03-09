@@ -117,6 +117,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         int xP = 0, xN = 0, yP = 0, yN = 0, zP = 0, zN = 0;
         ItemStack male = inventory[this.male];
         ItemStack female = inventory[this.female];
+        
+        //Don't update the tank if either the male or female do not exist
+        if (male == null || female == null) return;
+        
         if (male != null) {
             xP = Fish.east.getDNA(male);
             xN = Fish.west.getDNA(male);
