@@ -8,14 +8,15 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.Environment.Salinity;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.ICaughtAliveModifier;
 import mariculture.api.fishery.IFishing;
+import mariculture.api.fishery.IGenderFixator;
 import mariculture.api.fishery.Loot;
-import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.Loot.Rarity;
+import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.config.Vanilla;
@@ -288,8 +289,8 @@ public class FishingHandler implements IFishing {
             for (FishSpecies fish : catchables) {
                 double catchChance = fish.getCatchChance(world, x, y, z, salt, temperature);                
                 if (catchChance > 0 && type.getQuality() >= fish.getRodNeeded().getQuality() && world.rand.nextInt(1000) < catchChance) {
-                    if (FishMechanics.IGNORE_BIOMES) catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, y) * (modifier * 1.5D));
-                    else return catchFish(world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * (modifier));
+                    if (FishMechanics.IGNORE_BIOMES) catchFish(player, world.rand, fish, type, fish.getCaughtAliveChance(world, y) * (modifier * 1.5D));
+                    else return catchFish(player, world.rand, fish, type, fish.getCaughtAliveChance(world, x, y, z, salt, temperature) * (modifier));
                 }
             }
         }
@@ -297,7 +298,7 @@ public class FishingHandler implements IFishing {
         return new ItemStack(Items.stick);
     }
 
-    private ItemStack catchFish(Random rand, FishSpecies fish, RodType quality, double chance) {
+    private ItemStack catchFish(EntityPlayer player, Random rand, FishSpecies fish, RodType quality, double chance) {
         boolean alive = false;
         if (rand.nextInt(1000) < chance * FishMechanics.ALIVE_MODIFIER) {
             alive = true;
@@ -305,6 +306,17 @@ public class FishingHandler implements IFishing {
 
         boolean catchAlive = quality.caughtAlive(fish.getSpecies());
         if (!catchAlive && !alive) return fish.getRawForm(1);
-        return Fishing.fishHelper.makePureFish(fish);
+        ItemStack ret = Fishing.fishHelper.makePureFish(fish);
+        
+        if (player != null) {
+            for (ItemStack stack : player.inventory.armorInventory) {
+            	if (stack != null && stack.getItem() instanceof IGenderFixator) {
+            		Fish.gender.addDNA(ret, ((IGenderFixator)stack.getItem()).getGender(stack));
+            		break;
+            	}
+            }
+        }
+        
+        return ret;
     }
 }
