@@ -31,8 +31,19 @@ minecraft {
     runDir = "eclipse"
 }
 
+repositories {
+    maven {
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven/"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.35:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.4.90:dev"
 }
 
 processResources {
