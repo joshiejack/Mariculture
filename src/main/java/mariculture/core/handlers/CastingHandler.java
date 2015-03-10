@@ -63,7 +63,7 @@ public class CastingHandler implements ICastingHandler {
         String name = OreDicHelper.getDictionaryName(stack);
         if (name.startsWith("nugget")) {
             name = name.substring(6);
-        } else {
+        } else if (name.startsWith("ingot") || name.startsWith("block")) {
             name = name.substring(5);
         }
 
