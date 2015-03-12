@@ -239,7 +239,7 @@ If you run out of room in the 24 slots, you can place item filters (right click 
         <crafting x="25" y="47" size="1.5">
             <craft1>|scubaLens|</craft1>
             <craft2>plasticYellow|transparent_plastic|plasticYellow</craft2>
-            <craft3>scubaTank|lifeCore|scubaTank</craft3>
+            <craft3>scuba.tank|lifeCore|scuba.tank</craft3>
             <craftResult>fludd</craftResult>
         </crafting>
     </page>

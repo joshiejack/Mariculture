@@ -5,7 +5,6 @@ import static maritech.lib.MTModInfo.JAVAPATH;
 import static maritech.lib.MTModInfo.MODID;
 import static maritech.lib.MTModInfo.MODNAME;
 import mariculture.api.core.MaricultureHandlers;
-import mariculture.core.Core;
 import mariculture.core.blocks.BlockMachine;
 import mariculture.core.blocks.BlockMachineMulti;
 import mariculture.core.blocks.BlockRenderedMachine;
@@ -36,6 +35,7 @@ import maritech.handlers.GuiEvents;
 import maritech.handlers.ItemEvents;
 import maritech.handlers.RegistryEvents;
 import maritech.plugins.BloodMagic;
+import maritech.plugins.Enchiridion;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -97,6 +97,10 @@ public class MariTech {
     public void postInit(FMLPostInitializationEvent event) {
         if (Loader.isModLoaded("AWWayofTime")) {
             BloodMagic.init();
+        }
+        
+        if (Loader.isModLoaded("Enchiridion")) {
+            Enchiridion.init();
         }
     }
 }

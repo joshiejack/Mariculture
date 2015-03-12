@@ -1,6 +1,8 @@
 Mariculture 1.2.4g
 • Only update tank size when both male and female fish are in the tank (Avoids resetting fish food).
 • Pink and Blue Fishing Hats. You will always catch female fish when wearing the pink hat. You will always catch male when wearing the blue.
+• Fix crash when dirt is registered to the ore dictionary
+• Fix books missing recipe icons.
 
 Mariculture 1.2.4f
 • Fixed crucible dissappearing/extreme lag in gui when editing recipes with modtweaker
