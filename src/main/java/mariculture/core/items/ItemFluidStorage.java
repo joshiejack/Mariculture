@@ -207,7 +207,7 @@ public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContaine
                     FluidStack fake = getFluid(stack).copy();
                     fake.amount = OreDictionary.WILDCARD_VALUE;
                     ItemStack bucket = FluidContainerRegistry.fillFluidContainer(fake, new ItemStack(Items.bucket));
-                    if (bucket != null) return bucket.getIconIndex();
+                    if (bucket != null && bucket.getIconIndex() != null) return bucket.getIconIndex();
                 }
 
                 return itemIcon;

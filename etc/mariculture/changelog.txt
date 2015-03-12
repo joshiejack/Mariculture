@@ -3,6 +3,7 @@ Mariculture 1.2.4g
 • Pink and Blue Fishing Hats. You will always catch female fish when wearing the pink hat. You will always catch male when wearing the blue.
 • Fix crash when dirt is registered to the ore dictionary
 • Fix books missing recipe icons.
+• Fix titanium bucket crashing when a fluid has a null icon
 
 Mariculture 1.2.4f
 • Fixed crucible dissappearing/extreme lag in gui when editing recipes with modtweaker
