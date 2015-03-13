@@ -261,9 +261,15 @@ public class FishingHandler implements IFishing {
 
                 if (!forceLoot && (loot == null || forceFish)) return getFishForLocation(player, world, x, y, z, type);
                 else {
-                    if (loot == null) loot = getVanillaLoot(world, player, stack, 5, 5);
-                    if (loot == null) loot = new ItemStack(Items.stick);
+                    if (loot == null) {
+                        if (world.rand.nextInt(100) < type.getQuality()) {
+                            loot = net.minecraftforge.common.FishingHooks.getRandomFishable(world.rand, 0.125F, 0, 0);
+                        } else {
+                            loot = net.minecraftforge.common.FishingHooks.getRandomFishable(world.rand, 0.025F, 0, 0);
+                        }
+                    }
 
+                    if (loot == null) loot = new ItemStack(Items.stick);
                     if (loot.isItemEnchantable()) {
                         if (world.rand.nextInt(100) < type.getQuality()) {
                             int chance = type.getLootEnchantmentChance();
@@ -272,7 +278,7 @@ public class FishingHandler implements IFishing {
                             }
                         }
                     }
-                    
+
                     if (helmet instanceof IHelmetFishManipulator) {
                         loot = ((IHelmetFishManipulator) helmet).getLoot(PlayerHelper.getArmorStack(player, ArmorSlot.HAT), loot);
                     }
