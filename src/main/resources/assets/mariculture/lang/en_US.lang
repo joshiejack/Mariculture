@@ -569,6 +569,9 @@ item.mirror.basic.name=Mirror
 item.mirror.mirror.magic.name=Magic Mirror
 item.mirror.mirror.celestial.name=Celestial Mirror
 mariculture.mobMagnet=Mob Magnet
+mariculture.placer=Hydrophobic Initiator
+mariculture.placer.description1=Keeping me within your inventory
+mariculture.placer.description2=allows you to place blocks on water.
 #jewelry-parts
 mariculture.ring=Ring
 mariculture.bracelet=Bracelet

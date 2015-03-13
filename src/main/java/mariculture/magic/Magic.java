@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
+import mariculture.core.Core;
 import mariculture.core.config.Enchantments.EnchantIds;
 import mariculture.core.config.Enchantments.Jewelry;
 import mariculture.core.helpers.EnchantHelper;
@@ -34,9 +35,9 @@ import mariculture.magic.enchantments.EnchantmentSpider;
 import mariculture.magic.enchantments.EnchantmentStepUp;
 import mariculture.magic.jewelry.ItemBracelet;
 import mariculture.magic.jewelry.ItemJewelry;
+import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import mariculture.magic.jewelry.ItemNecklace;
 import mariculture.magic.jewelry.ItemRing;
-import mariculture.magic.jewelry.ItemJewelry.JewelryType;
 import mariculture.magic.jewelry.parts.BindingBasic;
 import mariculture.magic.jewelry.parts.BindingDummy;
 import mariculture.magic.jewelry.parts.BindingGold;
@@ -64,6 +65,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import cpw.mods.fml.common.Loader;
@@ -108,6 +110,7 @@ public class Magic extends RegistrationModule {
     public static Item bracelet;
     public static Item necklace;
     public static Item magnet;
+    public static Item placer;
 
     @Override
     public void registerHandlers() {
@@ -133,6 +136,8 @@ public class Magic extends RegistrationModule {
         } else {
             magnet = new ItemMobMagnet(0).setUnlocalizedName("mobMagnet");
         }
+        
+        placer = new ItemWaterPlacer(0).setUnlocalizedName("placer");
     }
 
     @Override
@@ -218,6 +223,7 @@ public class Magic extends RegistrationModule {
         addShaped(asStack(basicMirror), new Object[] { " AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron" });
         addShaped(asStack(magicMirror), new Object[] { "PMP", "BEB", "PBP", 'B', storageBookshelf, 'M', basicMirror, 'E', enchant, 'P', pearls });
         addShaped(asStack(celestialMirror), new Object[] { "TST", "BMB", "GBG", 'B', storageBookshelf, 'M', magicMirror, 'S', netherStar, 'T', magicDrop, 'G', goldThread });
+        addShaped(asStack(placer), new Object[] { " L ", "LPL", " L ", 'L', Blocks.waterlily, 'P', asStack(Core.pearls, OreDictionary.WILDCARD_VALUE) });
         addJewelry((ItemJewelry) ring);
         addJewelry((ItemJewelry) bracelet);
         addJewelry((ItemJewelry) necklace);

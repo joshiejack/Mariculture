@@ -45,7 +45,9 @@ public class PlayerHelper {
     public static int hasItem(EntityPlayer player, ItemStack match, boolean damageable) {
         for (int i = 0; i < player.inventory.mainInventory.length; i++) {
             ItemStack stack = player.inventory.mainInventory[i];
-            if (stack != null) if (stack.getItem() == match.getItem() && (stack.getItemDamage() == match.getItemDamage() || damageable)) return i;
+            if (stack != null) {
+                if (stack.getItem() == match.getItem() && (stack.getItemDamage() == match.getItemDamage() || damageable)) return i;
+            }
         }
 
         return -1;
@@ -58,13 +60,13 @@ public class PlayerHelper {
     public static boolean isFake(EntityPlayer player) {
         return player instanceof FakePlayer || player.getDisplayName().equals("[CoFH]") ? true : false;
     }
-    
+
     //Player can be null, returns a stick otherwise
     public static Item getHelmet(EntityPlayer player) {
         if (player == null) return Items.stick;
         else {
             Item helmet = getArmor(player, ArmorSlot.HAT);
-            return helmet == null? Items.stick: helmet;
+            return helmet == null ? Items.stick : helmet;
         }
     }
 }

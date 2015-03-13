@@ -2,11 +2,9 @@ package mariculture.magic;
 
 import java.util.Random;
 
-import mariculture.core.Core;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.cofh.CoFhItemHelper;
-import mariculture.core.lib.PearlColor;
 import mariculture.magic.enchantments.EnchantmentBlink;
 import mariculture.magic.enchantments.EnchantmentElemental;
 import mariculture.magic.enchantments.EnchantmentFallDamage;
@@ -24,8 +22,14 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -52,7 +56,7 @@ public class MagicEventHandler {
     }
 
     @SubscribeEvent
-    public void onLivingUpdate(LivingUpdateEvent event) {        
+    public void onLivingUpdate(LivingUpdateEvent event) {
         if (event.entity instanceof EntityPlayer && !PlayerHelper.isFake((EntityPlayer) event.entity)) {
             World world = event.entity.worldObj;
             EntityPlayer player = (EntityPlayer) event.entity;
@@ -148,10 +152,56 @@ public class MagicEventHandler {
         }
     }
 
+    public MovingObjectPosition getMovingObjectPositionFromPlayer(World world, EntityPlayer player, boolean p_77621_3_) {
+        float f = 1.0F;
+        float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
+        float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
+        double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) f;
+        double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) f + (double) (world.isRemote ? player.getEyeHeight() - player.getDefaultEyeHeight() : player.getEyeHeight()); // isRemote check to revert changes to ray trace position due to adding the eye height clientside and player yOffset differences
+        double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) f;
+        Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
+        float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
+        float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
+        float f5 = -MathHelper.cos(-f1 * 0.017453292F);
+        float f6 = MathHelper.sin(-f1 * 0.017453292F);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        double d3 = 5.0D;
+        if (player instanceof EntityPlayerMP) {
+            d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
+        }
+        Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+        return world.func_147447_a(vec3, vec31, p_77621_3_, !p_77621_3_, false);
+    }
+
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (EnchantHelper.hasEnchantment(Magic.blink, event.entityPlayer)) if (event.entityPlayer.worldObj.isRemote && event.action == Action.RIGHT_CLICK_AIR) {
-            EnchantmentBlink.sendPacket((EntityClientPlayerMP) event.entityPlayer);
+        if (event.action == Action.RIGHT_CLICK_AIR) {
+            if (EnchantHelper.hasEnchantment(Magic.blink, event.entityPlayer)) {
+                if (event.entityPlayer.worldObj.isRemote) {
+                    EnchantmentBlink.sendPacket((EntityClientPlayerMP) event.entityPlayer);
+                }
+            }
+
+            if (event.entityPlayer instanceof EntityPlayerMP) {
+                EntityPlayerMP player = (EntityPlayerMP) event.entityPlayer;
+                ItemStack held = player.getCurrentEquippedItem();
+                if (held == null || held.getItem() == null || !(held.getItem() instanceof ItemBlock)) return;
+                if (PlayerHelper.hasItem(player, new ItemStack(Magic.placer), true) >= 0) {
+                    World world = event.world;
+                    MovingObjectPosition object = getMovingObjectPositionFromPlayer(world, player, true);
+                    if (object == null) return;
+                    else {
+                        if (object.typeOfHit == MovingObjectType.BLOCK) {
+                            int x = object.blockX;
+                            int y = object.blockY;
+                            int z = object.blockZ;
+                            ItemBlock item = (ItemBlock) held.getItem();
+                            item.onItemUse(held, player, world, x, y + 1, z, object.sideHit, 0.5F, 0.5F, 0.5F);
+                        }
+                    }
+                }
+            }
         }
     }
 
