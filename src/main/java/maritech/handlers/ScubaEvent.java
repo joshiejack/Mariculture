@@ -12,14 +12,17 @@ import net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ScubaEvent {
     @SideOnly(Side.CLIENT)
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onFogRender(FogDensity event) {
+        ScubaMask.init(ClientHelper.getPlayer());
+        
         if (event.block.getMaterial() == Material.water) {
             if (event.entity instanceof EntityPlayer && event.entity == ClientHelper.getPlayer()) {
                 if (PlayerHelper.hasArmor(ClientHelper.getPlayer(), ArmorSlot.HAT, ExtensionDiving.scubaMask)) {

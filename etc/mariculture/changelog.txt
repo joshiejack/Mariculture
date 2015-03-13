@@ -40,13 +40,13 @@ Mariculture 1.2.4.1
         • Collecting gas
     
 • Autofishers can be placed directly on top of water, like a lilypad
-• Switch Air Pump back to updating on tick, to enable buildcraft engines to work correctly with it.
 • Fix Resetting Fish food in the feeder: only update tank size when both male and female fish are in the tank.
 • Fix crash when dirt is registered to the ore dictionary
 • Fix books missing recipe icons
 • Fix titanium bucket crashing when a fluid has a null icon
 • Fix FLUDD Pick block, and fill it's contents with less than 20k pressurised
 • Fix FLUDD missing gui texture
+• Fix Scuba Mask not lighting up the area
 
 Mariculture 1.2.4f
 • Fixed crucible dissappearing/extreme lag in gui when editing recipes with modtweaker
