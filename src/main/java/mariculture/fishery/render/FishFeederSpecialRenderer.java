@@ -33,8 +33,10 @@ public class FishFeederSpecialRenderer extends TileEntitySpecialRenderer {
                 feeder.mPos = new Random().nextInt(coords.size());
                 feeder.mTicker = 2000;
                 feeder.mRot = new Random().nextInt(360);
-                for (int i = 0; i < 7; i++) {
-                    tile.getWorldObj().spawnParticle("splash", c.x + 0.5D, c.y + 0.85D, c.z + 0.5D, 0, 0, 0);
+                if (c != null) {
+                    for (int i = 0; i < 7; i++) {
+                        tile.getWorldObj().spawnParticle("splash", c.x + 0.5D, c.y + 0.85D, c.z + 0.5D, 0, 0, 0);
+                    }
                 }
             } else feeder.mTicker--;
 
