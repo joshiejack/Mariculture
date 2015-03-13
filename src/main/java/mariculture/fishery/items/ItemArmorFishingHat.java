@@ -55,7 +55,8 @@ public class ItemArmorFishingHat extends ItemMCBaseArmor implements ICaughtAlive
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        if (stack.hasTagCompound()) {
+        int color = getColor(stack);
+        if (color >= 0) {
             return "mariculture:" + "textures/armor/fishinghat_greyscale.png";
         }
 
@@ -74,11 +75,8 @@ public class ItemArmorFishingHat extends ItemMCBaseArmor implements ICaughtAlive
 
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
-        if (!stack.hasTagCompound()) {
-            return super.getIcon(stack, pass);
-        } else {
-            return greyscale;
-        }
+        int color = getColor(stack);
+        return color < 0? super.getIcon(stack, pass): greyscale;
     }
 
     @Override
