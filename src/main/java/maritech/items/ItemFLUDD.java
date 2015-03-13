@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -143,7 +144,7 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
 
     @Override
     public void fill(IFluidTank tank, ItemStack[] inventory, int special) {
-        if (tank.getFluid() != null) {
+        if (tank.getFluid() != null && tank.getFluid().getFluid() != null) {
             if (tank.getFluid().fluidID == Fluids.getFluidID("hp_water") && tank.getFluidAmount() > 0) {
                 ItemStack stack = inventory[special].copy();
                 int water = 0;
@@ -152,11 +153,14 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
                 } else {
                     stack.setTagCompound(new NBTTagCompound());
                 }
-
+                
                 int drain = ItemFLUDD.STORAGE - water;
-                if (drain > 0 && tank.getFluidAmount() == drain) {
-                    tank.drain(drain, true);
-                    stack.stackTagCompound.setInteger("water", ItemFLUDD.STORAGE);
+                FluidStack doDrain = tank.drain(drain, false);
+                if (doDrain != null) {
+                    int theDrain = doDrain.amount;
+                    int newWater = Math.min(ItemFLUDD.STORAGE, water + theDrain);
+                    tank.drain(theDrain, true);
+                    stack.stackTagCompound.setInteger("water", newWater);
                 }
 
                 inventory[special] = stack;

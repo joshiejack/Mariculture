@@ -2,6 +2,7 @@ package maritech.tile;
 
 import java.util.List;
 
+import mariculture.api.core.ISpecialPickblock;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -17,6 +18,7 @@ import mariculture.core.util.Fluids;
 import mariculture.core.util.IFaceable;
 import mariculture.core.util.IHasNotification;
 import maritech.extensions.config.ExtensionMachines.ExtendedSettings;
+import maritech.extensions.modules.ExtensionFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
@@ -39,7 +41,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileFLUDDStand extends TileMachineTankOld implements IHasNotification, IFaceable {
+public class TileFLUDDStand extends TileMachineTankOld implements IHasNotification, IFaceable, ISpecialPickblock {
 
     public ForgeDirection orientation = ForgeDirection.UP;
     private static final int input = 3;
@@ -248,5 +250,13 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("Orientation", orientation.ordinal());
+    }
+
+    @Override
+    public ItemStack getDrop() {
+        ItemStack fludd = new ItemStack(ExtensionFactory.fludd);
+        fludd.setTagCompound(new NBTTagCompound());
+        fludd.stackTagCompound.setInteger("water", this.tank.getFluidAmount());
+        return fludd;
     }
 }
