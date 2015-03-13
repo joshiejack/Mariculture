@@ -56,7 +56,6 @@ public class ItemArmorFishingHat extends ItemMCBaseArmor implements ICaughtAlive
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
         if (stack.hasTagCompound()) {
-            String texture = stack.getTagCompound().getString("Texture");
             return "mariculture:" + "textures/armor/fishinghat_greyscale.png";
         }
 
