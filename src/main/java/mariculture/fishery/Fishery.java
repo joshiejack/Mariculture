@@ -81,11 +81,13 @@ import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.BucketMeta;
 import mariculture.core.lib.DropletMeta;
+import mariculture.core.lib.Dye;
 import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MCLib;
 import mariculture.core.lib.MCModInfo;
 import mariculture.core.lib.MaterialsMeta;
+import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.UpgradeMeta;
@@ -270,8 +272,11 @@ public class Fishery extends RegistrationModule {
         addFishingRodRecipe(asStack(rodWood), polishedStick);
         addFishingRodRecipe(asStack(rodTitanium), polishedTitanium);
         addVatItemRecipe(asStack(leatherCap), getFluidName("fish_oil"), 16000, asStack(fishinghat), 25);
-        addShaped(ItemArmorFishingHat.getGirl(), new Object[] { "DDD", "DHD", "DDD", 'D', "dyePink", 'H', asStack(fishinghat, OreDictionary.WILDCARD_VALUE) });
-        addShaped(ItemArmorFishingHat.getBoy(), new Object[] { "DDD", "DHD", "DDD", 'D', "dyeBlue", 'H', asStack(fishinghat, OreDictionary.WILDCARD_VALUE) });
+        addShapeless(asStack(fishinghat), new Object[] { asStack(fishinghat, OreDictionary.WILDCARD_VALUE) });
+        for (int i = 0; i < PearlColor.COUNT; i++) {
+            addShaped(ItemArmorFishingHat.getDyed(i), new Object[] { "DDD", "DHD", "DDD", 'D', asStack(Core.pearls, i), 'H', asStack(fishinghat, OreDictionary.WILDCARD_VALUE) });
+        }
+                
         addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 45);
         addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 30);
         addVatItemRecipe("stickWood", getFluidName("fish_oil"), 5000, polishedStick, 15);

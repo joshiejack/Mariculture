@@ -31,7 +31,7 @@ public class ContainerMirror extends ContainerStorage {
         ItemStack stack = storage.getStackInSlot(3);
         if (levelToEnchant > 0 && stack != null && (player.experienceLevel >= levelToEnchant || player.capabilities.isCreativeMode)) {
             if (!player.worldObj.isRemote) {
-                List list = MirrorEnchantHelper.buildEnchantmentList(player.worldObj.rand, stack, levelToEnchant);
+                List list = MirrorEnchantHelper.buildEnchantmentList(player.worldObj.rand, stack, levelToEnchant, 0);
                 boolean flag = stack.getItem() == Items.book;
 
                 if (list != null) {

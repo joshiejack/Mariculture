@@ -18,13 +18,14 @@ import net.minecraft.util.WeightedRandom;
 public class MirrorEnchantHelper {
     private static Random rand = new Random();
 
-    public static List buildEnchantmentList(Random rand, ItemStack stack, int level) {
+    public static List buildEnchantmentList(Random rand, ItemStack stack, int level, int falseEnchantability) {
         int chance = 75 - level;
         if (chance <= 1) {
             chance = 1;
         }
+
         Item item = stack.getItem();
-        int j = item.getItemEnchantability();
+        int j = falseEnchantability > 0 ? falseEnchantability : item.getItemEnchantability();
 
         if (j <= 0) return null;
         else {
@@ -39,7 +40,7 @@ public class MirrorEnchantHelper {
             }
 
             ArrayList arraylist = null;
-            Map map = mapEnchantmentData(l, level, stack);
+            Map map = falseEnchantability > 0 ? mapAnyEnchantmentData(rand) : mapEnchantmentData(l, level, stack);
             if (map != null && !map.isEmpty()) {
                 EnchantmentData enchantmentdata = (EnchantmentData) WeightedRandom.getRandomItem(rand, map.values());
                 if (enchantmentdata != null) {
@@ -96,6 +97,7 @@ public class MirrorEnchantHelper {
             if (enchantment == null) {
                 continue;
             }
+
             if (enchantment.canApplyAtEnchantingTable(stack) || item == Items.book && enchantment.isAllowedOnBooks()) {
                 for (int l = enchantment.getMinLevel(); l <= enchantment.getMaxLevel(); ++l)
                     if (enchantment instanceof EnchantmentJewelry && enchantability <= enchantment.getMaxEnchantability(l) || !(enchantment instanceof EnchantmentJewelry)) if (enchantability >= enchantment.getMinEnchantability(l)) {
@@ -113,6 +115,21 @@ public class MirrorEnchantHelper {
 
                         hashmap.put(Integer.valueOf(enchantment.effectId), new EnchantmentData(enchantment, l));
                     }
+            }
+        }
+
+        return hashmap;
+    }
+
+    public static Map mapAnyEnchantmentData(Random rand) {
+        HashMap hashmap = new HashMap();
+        Enchantment[] aenchantment = Enchantment.enchantmentsList;
+        while (hashmap.size() < 1) {
+            for (Enchantment enchant : Enchantment.enchantmentsList) {
+                if (enchant == null) continue;
+                if (rand.nextInt(20) == 0) {
+                    hashmap.put(Integer.valueOf(enchant.effectId), new EnchantmentData(enchant, 1 + rand.nextInt(enchant.getMaxLevel())));
+                }
             }
         }
 

@@ -390,6 +390,45 @@ mariculture.fluids.bottlenormalfishoil=Glass Bottle of Fish Oil
 mariculture.fluids.bottlenormalmilk=Glass Bottle of Milk
 mariculture.scanner=Fish Scanner
 mariculture.fishinghat=Bucket Hat
+
+#buckethat
+mariculture.hat.white.title=Aquafresh
+mariculture.hat.white.description.abstract=Freshwaters are ahead.
+mariculture.hat.white.description.actual=Fish think this is freshwater.
+mariculture.hat.green.title=Upendi
+mariculture.hat.green.description.abstract=We're hanging out with George.
+mariculture.hat.green.description.actual=Fish think this is a jungle.
+mariculture.hat.yellow.title=Sunnyside
+mariculture.hat.yellow.description.abstract=Oh I do like to be beside the seaside.
+mariculture.hat.yellow.description.actual=Fish think this is brackish water.
+mariculture.hat.orange.title=Finding Nemo
+mariculture.hat.orange.description.abstract=That is literally all you'll find.
+mariculture.hat.orange.description.actual=You will only catch fish.
+mariculture.hat.red.title=Hellfire
+mariculture.hat.red.description.abstract=It's so hot, we're in hell.
+mariculture.hat.red.description.actual=Fish think this is the nether.
+mariculture.hat.gold.title=Treasure Island
+mariculture.hat.gold.description.abstract=Yohoho, A pirate's life for me.
+mariculture.hat.gold.description.actual=You will only catch loot (or vanilla fish).
+mariculture.hat.brown.title=Journey
+mariculture.hat.brown.description.abstract=Deep Underground.
+mariculture.hat.brown.description.actual=Fish think you are at y10.
+mariculture.hat.blue.title=Manhunter
+mariculture.hat.blue.description.abstract=Looking for a man, we can help.
+mariculture.hat.blue.description.actual=You will only catch male fish.
+mariculture.hat.black.title=Black Death
+mariculture.hat.black.description.abstract=You are killing everything.
+mariculture.hat.black.description.actual=You will only catch dead fish.
+mariculture.hat.pink.title=Babemagnet
+mariculture.hat.pink.description.abstract=The girls flock to you.
+mariculture.hat.pink.description.actual=You will only catch female fish.
+mariculture.hat.silver.title=It's Salty.
+mariculture.hat.silver.description.abstract=Here have a saltlick.
+mariculture.hat.silver.description.actual=Fish think this is saltwater.
+mariculture.hat.purple.title=Psybeam
+mariculture.hat.purple.description.abstract=You're a wizard, Harry.
+mariculture.hat.purple.description.actual=Everything loot or alive is enchanted.
+
 #fish breeding
 mariculture.fishy=Mariculture Fish
 mariculture.fish.data.dead=Raw

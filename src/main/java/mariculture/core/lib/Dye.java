@@ -17,4 +17,43 @@ public class Dye {
     public static final int BROWN = 3;
     public static final int CYAN = 6;
     public static final int LIME = 10;
+
+    public static String getName(int i) {
+        switch (i) {
+            case INK:
+                return "dyeBlack";
+            case RED:
+                return "dyeRed";
+            case GREEN:
+                return "dyeGreen";
+            case BROWN:
+                return "dyeBrown";
+            case LAPIS:
+                return "dyeBlue";
+            case PURPLE:
+                return "dyePurple";
+            case CYAN:
+                return "dyeCyan";
+            case LIGHT_GREY:
+                return "dyeLightGray";
+            case GREY:
+                return "dyeGray";
+            case PINK:
+                return "dyePink";
+            case LIME:
+                return "dyeLime";
+            case YELLOW:
+                return "dyeYellow";
+            case LIGHT_BLUE:
+                return "dyeLightBlue";
+            case MAGENTA:
+                return "dyeMagenta";
+            case ORANGE:
+                return "dyeOrange";
+            case BONE:
+                return "dyeWhite";
+            default:
+                return "dye";
+        }
+    }
 }

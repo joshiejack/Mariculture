@@ -1,9 +1,27 @@
-Mariculture 1.2.4g
-• Only update tank size when both male and female fish are in the tank (Avoids resetting fish food).
-• Pink and Blue Fishing Hats. You will always catch female fish when wearing the pink hat. You will always catch male when wearing the blue.
+Mariculture 1.2.4.1
+• Add an additional number to versioning... Now: MAJOR THEME UPDATE SUBUPDATE (Optional bugfix letter)
+• Surround a buckethat with 8 pearls for different effects when catching fish
+• Craft the hat with itself to gain the default again.
+• All of the hats have a boost to caught alive modifier, but the default has a higher boost
+    • Default   + 10 more boost to caught alive
+    • White     Fish think it's freshwater
+    • Green     Fish think it's a jungle (freshwater, 24c)
+    • Yellow    Fish think it's brackishwater
+    • Orange    Always catch fish, never loot
+    • Red       Fish think it's the nether
+    • Gold      Try to catch loot, otherwise vanilla
+    • Brown     Fish think you are at y10
+    • Blue      Only catch male fish
+    • Black     All fish are caught dead
+    • Pink      Only catch female fish
+    • Silver    Fish think it's saltwater
+    • Purple    Every live fish, and loot item is enchanted
+    
+• Fix Resetting Fish food in the feeder: only update tank size when both male and female fish are in the tank.
 • Fix crash when dirt is registered to the ore dictionary
 • Fix books missing recipe icons.
 • Fix titanium bucket crashing when a fluid has a null icon
+• Fix FLUDD Pick block, and fill it's contents with less than 20k pressurised
 
 Mariculture 1.2.4f
 • Fixed crucible dissappearing/extreme lag in gui when editing recipes with modtweaker

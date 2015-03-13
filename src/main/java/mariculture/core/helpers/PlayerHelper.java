@@ -2,7 +2,9 @@ package mariculture.core.helpers;
 
 import java.util.UUID;
 
+import mariculture.core.lib.ArmorSlot;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -55,5 +57,14 @@ public class PlayerHelper {
 
     public static boolean isFake(EntityPlayer player) {
         return player instanceof FakePlayer || player.getDisplayName().equals("[CoFH]") ? true : false;
+    }
+    
+    //Player can be null, returns a stick otherwise
+    public static Item getHelmet(EntityPlayer player) {
+        if (player == null) return Items.stick;
+        else {
+            Item helmet = getArmor(player, ArmorSlot.HAT);
+            return helmet == null? Items.stick: helmet;
+        }
     }
 }
