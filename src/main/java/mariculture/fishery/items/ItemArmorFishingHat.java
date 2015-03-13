@@ -15,6 +15,7 @@ import mariculture.fishery.Fishery;
 import mariculture.fishery.FishyHelper;
 import mariculture.fishery.render.ModelFishingHat;
 import mariculture.lib.helpers.ClientHelper;
+import mariculture.lib.util.Text;
 import mariculture.magic.MirrorEnchantHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -83,15 +84,18 @@ public class ItemArmorFishingHat extends ItemMCBaseArmor implements ICaughtAlive
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String translate = MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage()) + ".hat");
-        if (!translate.equals("mariculture.pearl.color." + PearlColor.get(stack.getItemDamage()) + ".hat")) {
+        int color = getColor(stack);
+        if (color < 0) return super.getItemStackDisplayName(stack);
+        
+        String translate = MCTranslate.translate("pearl.color." + PearlColor.get(color) + ".hat");
+        if (!translate.equals("mariculture.pearl.color." + PearlColor.get(color) + ".hat")) {
             return translate;
         }
 
         String format = MCTranslate.translate("pearl.format");
-        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(stack.getItemDamage())));
+        format = format.replace("%C", MCTranslate.translate("pearl.color." + PearlColor.get(color)));
         format = format.replace("%P", MCTranslate.translate("pearl"));
-        return format.replace("%B", super.getItemStackDisplayName(stack));
+        return PearlColor.getPrefix(color) + format.replace("%B", super.getItemStackDisplayName(stack));
     }
 
     @Override
@@ -157,7 +161,7 @@ public class ItemArmorFishingHat extends ItemMCBaseArmor implements ICaughtAlive
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         int color = getColor(stack);
         if (color >= 0) {
-            list.add(PearlColor.getPrefix(color) + MCTranslate.translate("hat." + PearlColor.get(color) + ".title"));
+            list.add(Text.WHITE + MCTranslate.translate("hat." + PearlColor.get(color) + ".title"));
             if (!ClientHelper.isShiftPressed()) {
                 list.add(MCTranslate.translate("hat." + PearlColor.get(color) + ".description.abstract"));
             } else list.add(MCTranslate.translate("hat." + PearlColor.get(color) + ".description.actual"));
