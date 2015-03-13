@@ -79,11 +79,10 @@ public class ModelAirPump extends ModelBase implements IModelMariculture {
         leg1.render(scale);
         leg2.render(scale);
 
-        float wheelAngle1 = (float) tile.getWheelAngle(1);
-        float wheelAngle2 = (float) tile.getWheelAngle(2);
+        float wheelAngle = (float) tile.getWheelAngle();
 
-        wheel1.rotateAngleX = wheelAngle1;
-        wheel2.rotateAngleX = wheelAngle2;
+        wheel1.rotateAngleX = wheelAngle;
+        wheel2.rotateAngleX = wheelAngle;
 
         wheel1.render(scale);
         wheel2.render(scale);

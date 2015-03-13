@@ -22,7 +22,6 @@ import mariculture.core.tile.TileBlockCaster;
 import mariculture.core.tile.TileCooling;
 import mariculture.core.tile.TileIngotCaster;
 import mariculture.core.tile.TileNuggetCaster;
-import mariculture.core.tile.TileAirPump.Type;
 import mariculture.factory.tile.TileGeyser;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.lib.helpers.DirectionHelper;
@@ -136,25 +135,16 @@ public class BlockRenderedMachine extends BlockFunctional {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile == null || player.isSneaking() && !world.isRemote) return false;
 
-        //Activate the air pump on right click
+        //Add 100RF to the air pump on right click
         if (tile instanceof TileAirPump) {
             TileAirPump pump = (TileAirPump) tile;
-            if (pump.animate == false) {
-                if (Modules.isActive(Modules.diving)) if (pump.updateAirArea(Type.CHECK)) {
-                    if (!world.isRemote) {
-                        pump.doPoweredPump(false);
-                    }
-                    pump.animate = true;
-                }
-
-                if (pump.suckUpGas(1024)) {
-                    pump.animate = true;
+            if (!world.isRemote) {
+                if (!pump.isAnimating) { //Only add energy if not animating
+                    pump.receiveEnergy(ForgeDirection.UP, 100, false); //Add 100 RF when right clicking
                 }
             }
 
-            if (world.isRemote && player.isSneaking()) {
-                ((TileAirPump) tile).updateAirArea(Type.DISPLAY);
-            }
+            pump.isAnimating = true;
 
             return true;
         }
@@ -395,7 +385,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 
     @Override
     public boolean isValidTab(CreativeTabs tab, int meta) {
-        boolean isValid = meta == MachineRenderedMeta.FISH_FEEDER? tab == MaricultureTab.tabFishery: tab == MaricultureTab.tabFactory;
+        boolean isValid = meta == MachineRenderedMeta.FISH_FEEDER ? tab == MaricultureTab.tabFishery : tab == MaricultureTab.tabFactory;
         return MaricultureEvents.isValidTab(this, tab, meta, isValid);
     }
 

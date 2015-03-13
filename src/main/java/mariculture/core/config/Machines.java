@@ -29,10 +29,11 @@ public class Machines {
         Ticks.ITEM_EJECT_TICK = getInt("Item Eject Tick", 20);
         Ticks.FLUID_EJECT_TICK = getInt("Fluid Eject Tick", 100);
         Ticks.EFFECT_TICK = getInt("Fish Feeder > Effect Tick", 20, "This is how many ticks for an effect to occur in a fish tank, such as poison or regen");
-        Ticks.PUMP_ENABLE_TICKS = getBoolean("Air Pump - Enable Ticking", true);
         Ticks.FISH_FOOD_TICK = getInt("Fish Feeder > Fish Food Tick Rate", 25, "This is how many minecraft ticks, before attempting to pick up fish food, set to 0 to disable");
         Ticks.PICKUP_TICK = getInt("Fish Feeder > Fish Food Pickup Tick Rate", -1, "How often it tries to pick up fish food, set to less than 0 to disable");
         Ticks.PUMP_TICK_TIMER = getInt("Air Pump > Ticks Between Supplying Air", 300);
+        Ticks.PUMP_GAS_TIMER = getInt("Air Pump > Ticks Between Sucking Up Gas", 20);
+        Ticks.PUMP_GAS_EJECT_TIMER = getInt("Air Pump > Ticks Between Ejecting Gas", 100);
         Ticks.SLUICE_TIMER = getInt("Sluice > Send Power every x Ticks", 5);
         
         setCategory("Upgrade Settings");
@@ -61,8 +62,6 @@ public class Machines {
         MachineSettings.PACKET_DISTANCE = getInt("How many blocks away to send rendering packet updates to players", 176);
         MachineSettings.PURITY = getInt("Crucible Furnace > mB Per Purity Upgrade Level", 32);
         MachineSettings.ENABLE_PURITY_IN_CRUCIBLE = getBoolean("Crucible Furnace > Enable Purity Bonus", false);
-        MachineSettings.PUMP_ACTIVATE_ON_TICK = getBoolean("Air Pump > Activate on Tick", false, "Whether the air pump should fill out air when ticking the block");
-        MachineSettings.PUMP_ACTIVATE_ON_RECEIVE = getBoolean("Air Pump > Activate on RF", true, "Whether the air pump should fill out air when it receives rf");
         MachineSettings.SLUICE_POWER_MULTIPLIER = getInt("Sluice > Power Multiplier", 25, "Increase this to increase the power produced by the sluice, take note the old default was 10");
         MachineSettings.SAWMILL_STACK_MULTIPLIER = getInt("Sawmill > Output Multiplier", 2, "Increase this to have more output for your sawmill blocks");
         MachineSettings.TANK_UPDATE_AMOUNT = getInt("Tanks > Send Update to Client on mB", 144, "When the difference in the tank has changed by this much, then it will send an update to the client. Make this number higher, to reduce lag");
@@ -83,8 +82,6 @@ public class Machines {
         public static int PACKET_DISTANCE;
         public static int PURITY;
         public static boolean ENABLE_PURITY_IN_CRUCIBLE;
-        public static boolean PUMP_ACTIVATE_ON_TICK;
-        public static boolean PUMP_ACTIVATE_ON_RECEIVE;
         public static int TANK_UPDATE_AMOUNT;
         public static int COOLING_KICK_UP_BUTT;
     }
@@ -93,8 +90,9 @@ public class Machines {
         public static int ITEM_EJECT_TICK;
         public static int FLUID_EJECT_TICK;
         public static int EFFECT_TICK;
-        public static boolean PUMP_ENABLE_TICKS;
         public static int PUMP_TICK_TIMER;
+        public static int PUMP_GAS_TIMER;
+        public static int PUMP_GAS_EJECT_TIMER;
         public static int FISH_FOOD_TICK;
         public static int TANK_UPDATE;
         public static int PICKUP_TICK;

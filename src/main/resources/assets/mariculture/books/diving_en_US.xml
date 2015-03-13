@@ -22,8 +22,8 @@
     <page>
         <img mod="mariculture" src="diving/airPump" x="130" y="5" size="0.7" stretch="0.3"></img>
         <text x="38" y="-13" bold="true">Air Pump</text>
-        <text size="0.8" wrap="160">Air Pumps are what you are going to need in order to be able to use the Diving Gear to Breathe Underwater. Once crafted you are going to place it down somewhere near where you want to Dive, they have a range of 64 blocks each way when powered by hand, or 40 when powered by a machine. As said, you can either activate Air Pumps by right clicking them or by powering with RF. On activation, the air pump will supply air to anyone wearing a Diving Helmet and Air Supply that is within range.</text>
-        <text y="158" size="0.8" wrap="160">Air Pumps require a fair amount of the space around them to be air blocks. You can check if your Air Pump is located in a decent spot by shift right clicking with an empty hand. This will cause particles to display, if they are green you are good to go!</text>
+        <text size="0.8" wrap="160">Air Pumps are what you are going to need in order to be able to use the Diving Gear to Breathe Underwater. Once crafted you are going to place it down somewhere near where you want to Dive, they have a range of 64 blocks each way. You can either activate Air Pumps by right clicking them which will add RF to their buffer, or power them directly. On activation, the air pump will supply air to anyone wearing a Diving Helmet and Air Supply that is within range.</text>
+        <text y="158" size="0.8" wrap="160">Air pumps have an internal buffer of energy, that will activate the pump periodically. Manually charging, can allow up to 5 minutes of underwater time.</text>
     </page>
      <page>
         <text x="92" y="-13" bold="true">Diving Gear</text>

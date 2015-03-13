@@ -15,10 +15,7 @@ public class PacketAirPump extends PacketCoords implements IMessageHandler<Packe
 
     @Override
     public IMessage onMessage(PacketCoords message, MessageContext ctx) {
-        if (ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z) instanceof TileAirPump) {
-            ((TileAirPump) ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z)).animate = true;
-        }
-
+        ((TileAirPump) ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z)).isAnimating = true;
         return null;
     }
 }

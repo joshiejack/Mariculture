@@ -22,7 +22,25 @@ Mariculture 1.2.4.1
     • Craft 4 lilypads around any pearl
     • When kept in your inventory, you can place blocks on top of fluids
     
+• Air Pump changes
+    • Remove surrounding air requirement (lag reduction)
+    • Increase internal buffer to 2000 RF
+    • This means manually spinning will supply 5 minutes worth of air
+    • Increase internal gas buffer to 16000mB
+    • Right clicking air pump now instead adds RF to it's buffer
+    • Every 300 ticks, it supplies air
+    • Every 20 ticks if it has a redstone signal applied, it will try to suck up one surrounding gas
+    • Every 100 ticks it will try to eject it's internal gas to neighbouring tanks (if it has a redstone signal), For if you placed a tank after you started pumping.
+    • Air pumps use 100RF in order to supply air
+    • Air pumps use 10RF to collect natural gas (one right click, supplies 10 buckets!)
+    • Air pump won't animate constantly/randomly.
+    • The Air pump will ONLY animate when:
+        • Right clicked
+        • Supplying air
+        • Collecting gas
+    
 • Autofishers can be placed directly on top of water, like a lilypad
+• Switch Air Pump back to updating on tick, to enable buildcraft engines to work correctly with it.
 • Fix Resetting Fish food in the feeder: only update tank size when both male and female fish are in the tank.
 • Fix crash when dirt is registered to the ore dictionary
 • Fix books missing recipe icons
