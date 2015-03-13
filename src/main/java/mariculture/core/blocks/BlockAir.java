@@ -7,6 +7,7 @@ import java.util.Random;
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockMCBaseMeta;
+import mariculture.core.config.GeneralStuff;
 import mariculture.core.lib.AirMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -66,7 +67,7 @@ public class BlockAir extends BlockMCBaseMeta {
     }
 
     public boolean trySetFire(World world, int x, int y, int z) {
-        if (world instanceof World) if (world.isAirBlock(x, y + 1, z)) {
+        if (world.isAirBlock(x, y + 1, z)) {
             world.setBlock(x, y + 1, z, Blocks.fire);
         } else if (world.isAirBlock(x, y - 1, z)) {
             world.setBlock(x, y - 1, z, Blocks.fire);
@@ -85,12 +86,14 @@ public class BlockAir extends BlockMCBaseMeta {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                for (int k = -1; k <= 1; k++) {
-                    Block aBlock = world.getBlock(x + i, y + j, z + k);
-                    if (flammables.contains(aBlock)) {
-                        trySetFire(world, x, y, z);
+        if (GeneralStuff.GAS_CAN_CATCH_ALIGHT) {
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    for (int k = -1; k <= 1; k++) {
+                        Block aBlock = world.getBlock(x + i, y + j, z + k);
+                        if (flammables.contains(aBlock)) {
+                            trySetFire(world, x, y, z);
+                        }
                     }
                 }
             }

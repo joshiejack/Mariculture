@@ -15,6 +15,7 @@ public class GeneralStuff {
     public static int METAL_RATE;
     public static boolean ENABLE_ENDER_SPAWN;
     public static boolean SHOW_CASTER_RECIPES;
+    public static boolean GAS_CAN_CATCH_ALIGHT;
 
     public static void init(Configuration config) {
         setConfig(config);
@@ -30,6 +31,7 @@ public class GeneralStuff {
         METAL_RATE = getInt("Molten Metal Nugget mB Value", 16, "This is how many mB a Nugget is worth, the default value is the same as Tinker's Construct");
         ENABLE_ENDER_SPAWN = getBoolean("Enable Ender Dragon Spawning", true, "This is whether players can Spawn the Ender Dragon with the Dragon Spawn Egg");
         SHOW_CASTER_RECIPES = getBoolean("Enable Casting Recipes in NEI", true);
+        GAS_CAN_CATCH_ALIGHT = getBoolean("Natural Gas Can Catch on Fire", true);
         MaricultureEvents.onConfigure("GeneralStuff", config);
     }
 }
