@@ -44,6 +44,7 @@ maritech.machines.single.autofisher=Авто-рыбак
 maritech.machines.multi.incubator=Инкубатор
 maritech.machines.multi.incubatorbase=Основа инкубатора
 maritech.machines.multi.incubatortop=Верх инкубатора
+tile.machines.multi.incubator.name=Инкубатор
 maritech.crafting.dragonegg=Призвать дракона Края
 maritech.dna.format=%N %D
 maritech.dna=ДНК
