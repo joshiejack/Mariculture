@@ -35,8 +35,10 @@ public class TileCustomPowered extends TileCustom implements IEnergyHandler {
                 cameFrom = (ForgeDirection) res[1];
             }
 
-            if (handler != null) if (handler.canConnectEnergy(cameFrom)) {
-                storage.modifyEnergyStored(-handler.receiveEnergy(cameFrom.getOpposite(), Math.min(storage.getMaxEnergyStored(), storage.getEnergyStored()), false));
+            if (handler != null) {
+                if (handler.canConnectEnergy(cameFrom)) {
+                    storage.modifyEnergyStored(-handler.receiveEnergy(cameFrom.getOpposite(), Math.min(storage.getMaxEnergyStored(), storage.getEnergyStored()), false));
+                }
             }
         }
 

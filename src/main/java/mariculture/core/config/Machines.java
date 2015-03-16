@@ -66,6 +66,7 @@ public class Machines {
         MachineSettings.SAWMILL_STACK_MULTIPLIER = getInt("Sawmill > Output Multiplier", 2, "Increase this to have more output for your sawmill blocks");
         MachineSettings.TANK_UPDATE_AMOUNT = getInt("Tanks > Send Update to Client on mB", 144, "When the difference in the tank has changed by this much, then it will send an update to the client. Make this number higher, to reduce lag");
         MachineSettings.COOLING_KICK_UP_BUTT = getInt("Casters > Kick up the butt", 1000, "Every this amount of world ticks, the casters will get a kick up the butt, to try and make them work, Set to 0 to disable");
+        MachineSettings.SLUICE_DAMAGE = getInt("Rotor > Damage per 5 Ticks", 50, "Setting this a higher number, means rotors will last less time. Set this to a lower number and they will last much longer. Setting to 0 disables damage. Below 0 just breaks the dang thing.");
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -84,6 +85,7 @@ public class Machines {
         public static boolean ENABLE_PURITY_IN_CRUCIBLE;
         public static int TANK_UPDATE_AMOUNT;
         public static int COOLING_KICK_UP_BUTT;
+        public static int SLUICE_DAMAGE;
     }
 
     public static class Ticks {
