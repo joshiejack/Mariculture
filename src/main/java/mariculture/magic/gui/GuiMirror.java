@@ -43,6 +43,12 @@ public class GuiMirror extends GuiStorage {
 
         return 0;
     }
+    
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        storage.setInventorySlotContents(3, null);
+    }
 
     @Override
     public void drawBackground(float f, int i, int j) {
