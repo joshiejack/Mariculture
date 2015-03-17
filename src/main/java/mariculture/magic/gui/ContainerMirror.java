@@ -78,6 +78,8 @@ public class ContainerMirror extends ContainerStorage {
             if (var2 != null) {
                 player.dropPlayerItemWithRandomChoice(var2, false);
             }
+            
+            storage.setInventorySlotContents(3, null);
         }
 
         storage.closeInventory();
