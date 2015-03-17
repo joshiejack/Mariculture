@@ -18,6 +18,8 @@ import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
@@ -155,8 +157,11 @@ public class RecipesSmelting {
 
         for (LinkedMetal metal : metals) {
             if (getFluid(metal.metal) != null) {
-                fluids.add(getFluidStack(metal.metal, MetalRates.INGOT));
-                chances.add(metal.chance);
+                String name = "ingot" + WordUtils.capitalize(metal.metal);
+                if (OreDictionary.getOres(name).size() > 0) {
+                    fluids.add(getFluidStack(metal.metal, MetalRates.INGOT));
+                    chances.add(metal.chance);
+                }
             }
         }
 

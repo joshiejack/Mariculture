@@ -1,6 +1,7 @@
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror
 • Reduce damage rotors take each tick, and make it configurable
+• Only add random chance to get metals if the ingot exists.
 
 Mariculture 1.2.4.1
 • Add an additional number to versioning... Now: MAJOR THEME UPDATE SUBUPDATE (Optional bugfix letter)
