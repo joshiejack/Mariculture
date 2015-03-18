@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class BucketMeta {
-    public static final int COUNT = 12;
+    public static final int COUNT = 13;
     public static final int PRESSURE = 0;
     public static final int FISH_OIL = 1;
     public static final int CUSTARD = 2;
@@ -14,4 +14,5 @@ public class BucketMeta {
     public static final int MANA = 9;
     public static final int POISON = 10;
     public static final int CHLOROPHYLL = 11;
+    public static final int WIND = 12;
 }

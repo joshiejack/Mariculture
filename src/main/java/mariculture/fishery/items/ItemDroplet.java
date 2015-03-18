@@ -66,6 +66,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return "plant";
             case DropletMeta.USELESS:
                 return "useless";
+            case DropletMeta.AIR:
+                return "air";
             default:
                 return "water";
         }
@@ -113,6 +115,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return Fluids.getBalancedStack("ice"); //Add Molten Ice Liquid (TE Cryotheum)
             case DropletMeta.PLANT:
                 return Fluids.getBalancedStack("chlorophyll"); //Add Chlorophyll Liquid
+            case DropletMeta.AIR:
+                return Fluids.getBalancedStack("wind");
             default:
                 return null;
         }

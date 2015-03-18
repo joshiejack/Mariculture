@@ -1,7 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
-import static mariculture.core.lib.MCLib.dropletWater;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.feather;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
@@ -52,7 +52,7 @@ public class FishButterfly extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 10D);
+        addProduct(dropletAir, 10D);
         addProduct(feather, 4D);
     }
 

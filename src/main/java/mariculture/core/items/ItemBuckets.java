@@ -115,6 +115,7 @@ public class ItemBuckets extends ItemMCMeta {
             if (meta == BucketMeta.ICE) return Fluids.getFluidBlock("ice");
             if (meta == BucketMeta.MANA) return Fluids.getFluidBlock("mana");
             if (meta == BucketMeta.POISON) return Fluids.getFluidBlock("poison");
+            if (meta == BucketMeta.WIND) return Fluids.getFluidBlock("wind");
         }
 
         return Blocks.water;
@@ -133,6 +134,7 @@ public class ItemBuckets extends ItemMCMeta {
             else if (block == Fluids.getFluidBlock("ice")) return new ItemStack(this, 1, BucketMeta.ICE);
             else if (block == Fluids.getFluidBlock("mana")) return new ItemStack(this, 1, BucketMeta.MANA);
             else if (block == Fluids.getFluidBlock("poison")) return new ItemStack(this, 1, BucketMeta.POISON);
+            else if (block == Fluids.getFluidBlock("wind")) return new ItemStack(this, 1, BucketMeta.WIND);
             else return null;
         } else return null;
     }
@@ -169,6 +171,8 @@ public class ItemBuckets extends ItemMCMeta {
                 return "mana";
             case BucketMeta.POISON:
                 return "poison";
+            case BucketMeta.WIND:
+                return "wind";
             default:
                 return "container";
         }

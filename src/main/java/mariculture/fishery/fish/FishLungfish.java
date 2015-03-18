@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
@@ -58,6 +59,7 @@ public class FishLungfish extends FishSpecies {
    
     @Override
     public void addFishProducts() {
+        addProduct(dropletAir, 15D);
         addProduct(dropletEarth, 7.5D);
     }
 
