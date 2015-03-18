@@ -35,11 +35,13 @@ public class MTWorldGen implements IWorldGenerator {
     public static void generateGas(World world, Random random, int x, int z) {
         int posX, posY, posZ;
         //Layers 16-25 for Gas
-        if (OreGen.NATURAL_GAS_ON && random.nextInt(OreGen.NATURAL_GAS_CHANCE) == 0) if (MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
-            posX = x + random.nextInt(16);
-            posY = OreGen.NATURAL_GAS_MIN + random.nextInt(OreGen.NATURAL_GAS_MAX - OreGen.NATURAL_GAS_MIN);
-            posZ = z + random.nextInt(16);
-            new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGen.NATURAL_GAS_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
+        if (OreGen.NATURAL_GAS_ON && random.nextInt(OreGen.NATURAL_GAS_CHANCE) == 0) {
+        	if (MaricultureHandlers.environment.getSalinity(world, x, z) == Salinity.SALINE) {
+	            posX = x + random.nextInt(16);
+	            posY = OreGen.NATURAL_GAS_MIN + random.nextInt(OreGen.NATURAL_GAS_MAX - OreGen.NATURAL_GAS_MIN);
+	            posZ = z + random.nextInt(16);
+	            new WorldGenGas(Core.air, AirMeta.NATURAL_GAS, OreGen.NATURAL_GAS_VEIN, Blocks.stone).generate(world, random, posX, posY, posZ);
+	        }
         }
     }
 }
