@@ -90,7 +90,7 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         if (!world.isRemote) {
-            if (stack.getItem() == ExtensionDiving.scubaMask && world.getWorldTime() % 5 == 0) {
+            if (stack.getItem() == ExtensionDiving.scubaMask && world.getTotalWorldTime() % 5 == 0) {
                 ScubaMask.activate(player, stack);
             }
         }
