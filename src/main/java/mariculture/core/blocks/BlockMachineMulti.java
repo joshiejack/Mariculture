@@ -11,6 +11,7 @@ import mariculture.core.tile.TileCrucible;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -47,6 +48,12 @@ public class BlockMachineMulti extends BlockFunctionalMulti {
         }
 
         return MaricultureEvents.getBlockHardness(this, meta, hardness);
+    }
+    
+    @Override
+    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+    	int meta = world.getBlockMetadata(x, y, z);
+    	return meta == MachineMultiMeta.CRUCIBLE? 50F: super.getExplosionResistance(entity, world, x, y, z, explosionX, explosionY, explosionZ);
     }
 
     @Override

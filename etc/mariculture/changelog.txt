@@ -1,11 +1,24 @@
 Mariculture 1.2.5.0
 • Add Air Droplet and Contained Wind
+• Crucible Furnace Changes
+    • All solid fuels will now last 4x as long except netherfish which has had a x16 buff
+    • Add gunpowder and tnt as fuel. Will heat the furnace up faster than normal fuels. But it will explode...
+• Config Options
+    • Set the default Ore mB volume (affects bottle volumes)
+    • Enable/Disable Bonus Dusts
+• Scuba gear can now be enchanted. If it's enchanted with fire resistance. It's effects will apply in lava. E.g.
+    • Scuba Mask will make your vision under lava clearer
+    • Swimfin will allow you to fly in lava
+    • Wetsuit increases mining speed under lava
+    • Scuba Tank, will use 'oxygen' to prevent fire damage.
+• Fix sand blocks sound type
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror
 • Reduce damage rotors take each tick, and make it configurable
 • Only add random chance to get metals if the ingot exists.
 • Chance for the DNA Extractor to extract no DNA is much lower.
+• Fix scuba tank not actually working
 
 Mariculture 1.2.4.1
 • Add an additional number to versioning... Now: MAJOR THEME UPDATE SUBUPDATE (Optional bugfix letter)

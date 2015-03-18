@@ -12,6 +12,12 @@ public interface ICrucibleHandler {
 
     //Can be either a FluidStack, ItemStack, FluidName or Ore Dictionary Name
     public void addFuel(Object stack, FuelInfo info);
+    
+    /** Adds a handler for this fuel, it's called whenever the fuel ticks **/
+    public void addFuelHandler(Object stack, IFuelTickHandler handler);
+    
+    /** Returns the fuel tick handler for this fuel **/
+    public IFuelTickHandler getFuelTickHandler(Object obj);
 
     /** Returns the result of this recipe, ethereal affects the type of the return **/
     public RecipeSmelter getResult(ItemStack input1, ItemStack input2, int temperature, boolean ethereal);

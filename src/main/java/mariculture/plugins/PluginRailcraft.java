@@ -47,8 +47,8 @@ public class PluginRailcraft extends Plugin {
         addSteelMelting();
         ItemStack coalCoke = GameRegistry.findItemStack("Railcraft", "fuel.coke", 1);
         ItemStack coalCokeBlock = GameRegistry.findItemStack("Railcraft", "cube.coke", 1);
-        MaricultureHandlers.crucible.addFuel(coalCokeBlock, new FuelInfo(2000, 576, 32400));
-        MaricultureHandlers.crucible.addFuel(coalCoke, new FuelInfo(2000, 64, 3600));
+        MaricultureHandlers.crucible.addFuel(coalCokeBlock, new FuelInfo(2000, 2560, 32400));
+        MaricultureHandlers.crucible.addFuel(coalCoke, new FuelInfo(2000, 256, 3600));
     }
 
     @Override

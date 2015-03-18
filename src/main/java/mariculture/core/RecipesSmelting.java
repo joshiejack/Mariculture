@@ -18,11 +18,11 @@ import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
+import mariculture.core.config.Machines.MachineSettings;
+import mariculture.core.handlers.CrucibleExplosionTickHandler;
 import mariculture.core.helpers.ItemHelper;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.GlassMeta;
@@ -38,6 +38,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.commons.lang3.text.WordUtils;
 
 public class RecipesSmelting {
     public static int iron = 1538;
@@ -178,17 +180,17 @@ public class RecipesSmelting {
     }
 
     private static void addFuels() {
-        RecipeHelper.addFuel("blockCoal", new FuelInfo(2000, 378, 10800));
-        RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 0), new FuelInfo(2000, 42, 1200));
-        RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 1), new FuelInfo(1600, 32, 900));
-        RecipeHelper.addFuel("logWood", new FuelInfo(480, 12, 300));
-        RecipeHelper.addFuel("plankWood", new FuelInfo(320, 8, 200));
-        RecipeHelper.addFuel("stickWood", new FuelInfo(160, 4, 100));
+        RecipeHelper.addFuel("blockCoal", new FuelInfo(2000, 1680, 10800));
+        RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 0), new FuelInfo(2000, 168, 1200));
+        RecipeHelper.addFuel(new ItemStack(Items.coal, 1, 1), new FuelInfo(1600, 128, 900));
+        RecipeHelper.addFuel("logWood", new FuelInfo(480, 48, 300));
+        RecipeHelper.addFuel("plankWood", new FuelInfo(320, 32, 200));
+        RecipeHelper.addFuel("stickWood", new FuelInfo(160, 16, 100));
         RecipeHelper.addFuel(getFluidName("natural_gas"), new FuelInfo(2000, 35, 1200));
         RecipeHelper.addFuel("gascraft_naturalgas", new FuelInfo(2000, 35, 1000));
         RecipeHelper.addFuel("fuel", new FuelInfo(2000, 35, 1000));
         RecipeHelper.addFuel("pyrotheum", new FuelInfo(2000, 100, 100));
-        RecipeHelper.addFuel("coal", new FuelInfo(2000, 40, 300));
+        RecipeHelper.addFuel("coal", new FuelInfo(2000, 168, 300));
         RecipeHelper.addFuel("biofuel", new FuelInfo(1800, 20, 2000));
         RecipeHelper.addFuel("oil", new FuelInfo(1750, 20, 400));
         RecipeHelper.addFuel("lava", new FuelInfo(1500, 20, 360));
@@ -198,6 +200,10 @@ public class RecipesSmelting {
         RecipeHelper.addFuel("hootch", new FuelInfo(1800, 35, 250));
         RecipeHelper.addFuel("fire_water", new FuelInfo(1900, 40, 500));
         RecipeHelper.addFuel("rocket_fuel", new FuelInfo(2000, 45, 750));
+        
+        //Gunpowder and TNT
+        RecipeHelper.addTickHandlingFuel(new ItemStack(Items.gunpowder), new FuelInfo(1600, 40, 50), new CrucibleExplosionTickHandler(1F, 32));
+        RecipeHelper.addTickHandlingFuel(new ItemStack(Blocks.tnt), new FuelInfo(2000, 250, 250), new CrucibleExplosionTickHandler(4F, 16));
     }
 
     public static void addFullSet(String fluid, Object[] items, int temp, ItemStack output, int chance) {
@@ -208,6 +214,11 @@ public class RecipesSmelting {
     }
 
     public static void addMetal(String fluid, String metal, int temp, ItemStack bonus, int chance) {
+    	if (!MachineSettings.CRUCIBLE_ENABLE_DUSTS) {
+    		bonus = null;
+    		chance = 0;
+    	}
+    	
         addRecipe(fluid, new Object[] { "ore" + metal }, MetalRates.ORES, temp, bonus, chance);
         addRecipe(fluid, new Object[] { "nugget" + metal, "ingot" + metal, "block" + metal, "dust" + metal }, MetalRates.METALS, temp);
 

@@ -1,13 +1,14 @@
 package mariculture.core.helpers;
 
 import mariculture.api.core.FuelInfo;
-import mariculture.api.core.MaricultureHandlers;
-import mariculture.api.core.RecipeSmelter;
-import mariculture.api.core.RecipeVat;
 import mariculture.api.core.IAnvilHandler.RecipeAnvil;
+import mariculture.api.core.IFuelTickHandler;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeCasting.RecipeBlockCasting;
 import mariculture.api.core.RecipeCasting.RecipeIngotCasting;
 import mariculture.api.core.RecipeCasting.RecipeNuggetCasting;
+import mariculture.api.core.RecipeSmelter;
+import mariculture.api.core.RecipeVat;
 import mariculture.core.Core;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MaterialsMeta;
@@ -187,6 +188,11 @@ public class RecipeHelper {
      */
     public static void addFuel(Object obj, FuelInfo fuelInfo) {
         MaricultureHandlers.crucible.addFuel(obj, fuelInfo);
+    }
+    
+    public static void addTickHandlingFuel(Object obj, FuelInfo fuelInfo, IFuelTickHandler handler) {
+    	MaricultureHandlers.crucible.addFuel(obj, fuelInfo);
+    	MaricultureHandlers.crucible.addFuelHandler(obj, handler);
     }
 
     public static void addCrushRecipe(ItemStack stack, Object string, boolean needAnvil) {

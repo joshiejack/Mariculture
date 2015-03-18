@@ -62,6 +62,8 @@ public class Machines {
         MachineSettings.PACKET_DISTANCE = getInt("How many blocks away to send rendering packet updates to players", 176);
         MachineSettings.PURITY = getInt("Crucible Furnace > mB Per Purity Upgrade Level", 32);
         MachineSettings.ENABLE_PURITY_IN_CRUCIBLE = getBoolean("Crucible Furnace > Enable Purity Bonus", false);
+        MachineSettings.DEFAULT_CRUCIBLE_MULTIPLIER= getInt("Crucible Furnace > mB per Ore", (GeneralStuff.METAL_RATE * 9) * 2);
+        MachineSettings.CRUCIBLE_ENABLE_DUSTS = getBoolean("Crucible Furnace > Enable Bonus Dusts", true);
         MachineSettings.SLUICE_POWER_MULTIPLIER = getInt("Sluice > Power Multiplier", 25, "Increase this to increase the power produced by the sluice, take note the old default was 10");
         MachineSettings.SAWMILL_STACK_MULTIPLIER = getInt("Sawmill > Output Multiplier", 2, "Increase this to have more output for your sawmill blocks");
         MachineSettings.TANK_UPDATE_AMOUNT = getInt("Tanks > Send Update to Client on mB", 144, "When the difference in the tank has changed by this much, then it will send an update to the client. Make this number higher, to reduce lag");
@@ -78,7 +80,9 @@ public class Machines {
     }
 
     public static class MachineSettings {
-        public static int SAWMILL_STACK_MULTIPLIER;
+        public static int DEFAULT_CRUCIBLE_MULTIPLIER;
+        public static boolean CRUCIBLE_ENABLE_DUSTS;
+		public static int SAWMILL_STACK_MULTIPLIER;
         public static int SLUICE_POWER_MULTIPLIER;
         public static int PACKET_DISTANCE;
         public static int PURITY;

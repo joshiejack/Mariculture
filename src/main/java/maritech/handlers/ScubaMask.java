@@ -24,7 +24,7 @@ public class ScubaMask {
 
             if (mask.hasTagCompound()) {
                 if (mask.stackTagCompound.getBoolean("ScubaMaskOnOutOfWater") == true) {
-                    if (!player.isInsideOfMaterial(Material.water)) {
+                    if (!player.isInsideOfMaterial(Material.water) && !player.isInsideOfMaterial(Material.lava)) {
                         tick++;
                         if (tick >= 60) {
                             tick = 0;
@@ -43,7 +43,7 @@ public class ScubaMask {
     public static boolean init(EntityPlayer player) {
         if (player.worldObj.isRemote) {
             if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, ExtensionDiving.scubaMask)) {
-                if (player.isInsideOfMaterial(Material.water)) {
+                if (ScubaEvent.canActivate(ScubaEvent.getPlayerInsideOfMaterial(player), player, ArmorSlot.HAT)) {
                     activate(player);
                 } else {
                     ItemStack mask = PlayerHelper.getArmor(player, ArmorSlot.HAT, ExtensionDiving.scubaMask);

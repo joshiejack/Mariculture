@@ -33,7 +33,7 @@ public class ExtensionDiving implements IModuleExtension {
     public static Item scubaTank;
     public static Item scubaSuit;
     public static Item swimfin;
-    public static ArmorMaterial armorSCUBA = EnumHelper.addArmorMaterial("SCUBA", 15, new int[] { 0, 0, 1, 0 }, 0);
+    public static ArmorMaterial armorSCUBA = EnumHelper.addArmorMaterial("SCUBA", 15, new int[] { 0, 0, 1, 0 }, 10);
 
     @Override
     public void preInit() {

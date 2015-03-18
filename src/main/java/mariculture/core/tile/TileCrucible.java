@@ -41,7 +41,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     private static final int liquid_in = 3;
     private static final int liquid_out = 4;
     private static final int[] in = new int[] { 5, 6 };
-    private static final int fuel = 7;
+    static final int fuel = 7;
     private static final int out = 8;
 
     @Override
@@ -176,7 +176,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
 
         if (canFuel) {
-            fuelHandler.set(getInfo());
+            fuelHandler.set(getNext(), getInfo());
             canFuel = false;
         }
 
@@ -202,6 +202,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
     }
 
+    /** Grabs the fuel info **/
     public FuelInfo getInfo() {
         FuelInfo info = MaricultureHandlers.crucible.getFuelInfo(inventory[fuel]);
         if (info == null) {
@@ -217,6 +218,22 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
 
         return info;
+    }
+    
+    /** Grabs the fuel tickHandler **/
+    public Object getNext() {    	
+        if (inventory[fuel] != null) return inventory[fuel];
+        else {
+            TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
+            if (tile instanceof IFluidHandler) {
+            	FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 10, false);
+                if (fluid != null) {
+                	return fluid;
+                }
+            }
+        }
+        
+        return null;
     }
 
     private boolean canMelt(int slot) {

@@ -67,7 +67,7 @@ public class Recipes {
         addVatItemRecipe(asStack(string), getFluidName("gold"), MetalRates.INGOT * 4, goldSilk, 5);
         addShaped(goldThread, new Object[] { "ABA", "ABA", 'B', polishedStick, 'A', goldSilk });
         addShaped(glassLens, new Object[] { " P ", "PGP", " P ", 'P', "plankWood", 'G', "blockGlass" });
-        addShaped(heating, new Object[] { "CCC", "CCC", 'C', carbide });
+        addShaped(asStack(heating, 2), new Object[] { "CCC", "CCC", 'C', carbide });
         addShaped(cooling, new Object[] { "  P", "PI ", "  P", 'P', "plankWood", 'I', "ingotIron" });
         addShaped(cooling, new Object[] { " P ", " I ", "P P", 'P', "plankWood", 'I', "ingotIron" });
         addShaped(cooling, new Object[] { "P  ", " IP", "P  ", 'P', "plankWood", 'I', "ingotIron" });

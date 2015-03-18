@@ -15,7 +15,7 @@ public class ScubaFin {
     public static void init(EntityPlayer player) {
         if (!player.capabilities.isCreativeMode) {
             if (PlayerHelper.hasArmor(player, ArmorSlot.FEET, ExtensionDiving.swimfin)) {
-                if (EntityHelper.isInWater(player)) {
+                if (EntityHelper.isInWaterOrLavaWithEnchantment(player, ArmorSlot.FEET)) {
                     activate(player);
                 } else {
                     deactivate(player);

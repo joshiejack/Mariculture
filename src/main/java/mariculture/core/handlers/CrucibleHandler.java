@@ -7,6 +7,7 @@ import java.util.Random;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ICrucibleHandler;
+import mariculture.api.core.IFuelTickHandler;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.helpers.EnchantHelper;
 import mariculture.core.helpers.ItemHelper;
@@ -18,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class CrucibleHandler implements ICrucibleHandler {
     private static final Random rand = new Random();
     public static Map fuels = new HashMap();
+    public static Map tickHandlers = new HashMap();
     public static ArrayList<RecipeSmelter> recipes = new ArrayList();
 
     @Override
@@ -88,8 +90,7 @@ public class CrucibleHandler implements ICrucibleHandler {
     public void addFuel(Object fuel, FuelInfo info) {
         if (fuel instanceof ItemStack) {
             fuels.put(OreDicHelper.convert(fuel), info);
-        }
-        if (fuel instanceof FluidStack) {
+        } else  if (fuel instanceof FluidStack) {
             fuels.put(getName((FluidStack) fuel), info);
         } else if (fuel instanceof String) {
             fuels.put(fuel, info);
@@ -103,6 +104,26 @@ public class CrucibleHandler implements ICrucibleHandler {
         if (obj instanceof FluidStack) return (FuelInfo) fuels.get(getName((FluidStack) obj));
         return null;
     }
+    
+	@Override
+	public void addFuelHandler(Object fuel, IFuelTickHandler handler) {
+		if (fuel instanceof ItemStack) {
+            tickHandlers.put(OreDicHelper.convert(fuel), handler);
+        } else  if (fuel instanceof FluidStack) {
+        	tickHandlers.put(getName((FluidStack) fuel), handler);
+        } else if (fuel instanceof String) {
+        	tickHandlers.put(fuel, handler);
+        }
+	}
+
+	@Override
+	public IFuelTickHandler getFuelTickHandler(Object obj) {
+		if (obj == null) return null;
+        if (obj instanceof ItemStack) return (IFuelTickHandler) tickHandlers.get(OreDicHelper.convert(obj));
+        if (obj instanceof FluidStack) return (IFuelTickHandler) tickHandlers.get(getName((FluidStack) obj));
+        if (obj instanceof String) return (IFuelTickHandler) tickHandlers.get((String)obj);
+        return null;
+	}
 
     @Override
     public int getMeltingPoint(ItemStack stack) {

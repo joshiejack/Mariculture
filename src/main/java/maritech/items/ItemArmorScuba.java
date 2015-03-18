@@ -26,6 +26,11 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
     public ItemArmorScuba(ArmorMaterial material, int j, int k) {
         super(MTModInfo.MODPATH, MaricultureTab.tabWorld, material, j, k);
     }
+    
+    @Override
+    public int getItemEnchantability() {
+        return 10;
+    }
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
@@ -90,7 +95,7 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         if (!world.isRemote) {
-            if (stack.getItem() == ExtensionDiving.scubaMask && world.getWorldTime() % 5 == 0) {
+            if (stack.getItem() == ExtensionDiving.scubaMask && world.getTotalWorldTime() % 5 == 0) {
                 ScubaMask.activate(player, stack);
             }
         }

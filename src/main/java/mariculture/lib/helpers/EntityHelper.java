@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.server.FMLServerHandler;
+import maritech.handlers.ScubaEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -32,6 +33,23 @@ public class EntityHelper {
                 filled *= -1;
                 return d0 > j + (1 - filled);
             } else return d0 < j + filled;
+        } else return false;
+    }
+    
+    public static boolean isInWaterOrLavaWithEnchantment(EntityPlayer player, int slot) {
+        double d0 = player.posY - 0.35F;
+        int i = MathHelper.floor_double(player.posX);
+        int j = MathHelper.floor_float(MathHelper.floor_double(d0));
+        int k = MathHelper.floor_double(player.posZ);
+        Block block = player.worldObj.getBlock(i, j, k);
+        if (block != null) {
+        	if (ScubaEvent.canActivate(block.getMaterial(), player, slot)) {
+	            double filled = 1;
+	            if (filled < 0) {
+	                filled *= -1;
+	                return d0 > j + (1 - filled);
+	            } else return d0 < j + filled;
+        	} else return false;
         } else return false;
     }
 

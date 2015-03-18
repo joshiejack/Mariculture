@@ -1,12 +1,13 @@
 package mariculture.core.lib;
 
 import mariculture.core.config.GeneralStuff;
+import mariculture.core.config.Machines.MachineSettings;
 
 public class MetalRates {
     public static int NUGGET = GeneralStuff.METAL_RATE;
     public static int INGOT = NUGGET * 9;
     public static int BLOCK = INGOT * 9;
-    public static int ORE = INGOT * 2;
+    public static int ORE = MachineSettings.DEFAULT_CRUCIBLE_MULTIPLIER;
 
     public static final int[] ORES = new int[] { ORE };
     public static final int[] METALS = new int[] { NUGGET, INGOT, BLOCK, INGOT };
