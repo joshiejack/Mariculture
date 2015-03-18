@@ -1,3 +1,6 @@
+Mariculture 1.2.5.0
+• Add Air Droplet and Contained Wind
+
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror
 • Reduce damage rotors take each tick, and make it configurable
