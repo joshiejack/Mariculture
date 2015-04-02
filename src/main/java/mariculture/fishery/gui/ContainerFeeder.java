@@ -16,6 +16,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class ContainerFeeder extends ContainerMachine {
 
@@ -61,9 +62,29 @@ public class ContainerFeeder extends ContainerMachine {
                 slot.onSlotChange(stack, itemstack);
             } else if (slotID >= size) {
                 if (stack.getItem() instanceof ItemFishy && Fish.gender.getDNA(stack) == FishyHelper.MALE) {
-                    if (!mergeItemStack(stack, 5, 6, false)) return null;
+                	if (((Slot) inventorySlots.get(5)).getHasStack()) return null;
+                    if (stack.stackSize == 1) {
+                        ((Slot) inventorySlots.get(5)).putStack(stack.copy());
+                        stack.stackSize = 0;
+                    } else if (stack.stackSize >= 1) {
+                    	ItemStack clone = new ItemStack(stack.getItem(), 1, stack.getItemDamage());
+                    	NBTTagCompound tag = (NBTTagCompound) stack.stackTagCompound.copy();
+                    	clone.setTagCompound(tag);
+                        ((Slot) inventorySlots.get(5)).putStack(clone);
+                        --stack.stackSize;
+                    }
                 } else if (stack.getItem() instanceof ItemFishy && Fish.gender.getDNA(stack) == FishyHelper.FEMALE) {
-                    if (!mergeItemStack(stack, 6, 7, false)) return null;
+                	if (((Slot) inventorySlots.get(6)).getHasStack()) return null;
+                    if (stack.stackSize == 1) {
+                        ((Slot) inventorySlots.get(6)).putStack(stack.copy());
+                        stack.stackSize = 0;
+                    } else if (stack.stackSize >= 1) {
+                    	ItemStack clone = new ItemStack(stack.getItem(), 1, stack.getItemDamage());
+                    	NBTTagCompound tag = (NBTTagCompound) stack.stackTagCompound.copy();
+                    	clone.setTagCompound(tag);
+                        ((Slot) inventorySlots.get(6)).putStack(clone);
+                        --stack.stackSize;
+                    }
                 } else if (stack.getItem() instanceof IItemUpgrade) {
                     if (!mergeItemStack(stack, 0, 3, false)) return null;
                 } else if (FluidHelper.isFluidOrEmpty(stack) || FishFoodHandler.isFishFood(stack)) {
