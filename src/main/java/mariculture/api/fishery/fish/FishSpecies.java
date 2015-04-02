@@ -79,6 +79,11 @@ public abstract class FishSpecies {
     /** This is the salinity tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
     public abstract int getSalinityTolerance();
 
+    /** If this fish can swim in anything other than water, they do not care about salinity **/
+	public boolean ignoresSalinity() {
+		return getWater1() != Blocks.water || getWater2() != Blocks.water;
+	}
+
     /** This determines whether a fish item entity will still die when it's in water **/
     public boolean isLavaFish() {
         return false;
