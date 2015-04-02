@@ -24,7 +24,7 @@ public class FishDNALifespan extends FishDNA {
     }
     
     public Integer sanitize(Integer i) {
-        return Math.min(300, Math.max(1, i));
+        return Math.min(360000, Math.max(1, i));
     }
 
     @Override
