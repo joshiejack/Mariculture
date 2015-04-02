@@ -1,4 +1,4 @@
-Mariculture 1.2.5.0
+Mariculture 1.2.5
 • Add Air Droplet and Contained Wind
 • Crucible Furnace Changes
     • All solid fuels will now last 4x as long except netherfish which has had a x16 buff
@@ -18,7 +18,11 @@ Mariculture 1.2.4.1a
 • Reduce damage rotors take each tick, and make it configurable
 • Only add random chance to get metals if the ingot exists.
 • Chance for the DNA Extractor to extract no DNA is much lower.
-• Fix scuba tank not actually working
+• Fix fish lifespan capping out at 300 ticks, instead of 300 minutes
+• Fix sand sound type
+• Shift clicking fish in to a feeder, only puts one in
+• Made fish that can swim in blocks other than water, ignore salinity
+• Sync the tank block to guis
 
 Mariculture 1.2.4.1
 • Add an additional number to versioning... Now: MAJOR THEME UPDATE SUBUPDATE (Optional bugfix letter)
