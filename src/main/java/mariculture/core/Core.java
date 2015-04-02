@@ -238,7 +238,7 @@ public class Core extends RegistrationModule {
         air = new BlockAir().setBlockName("air");
         woods = new BlockWood().setStepSound(Block.soundTypeWood).setBlockName("woods").setHardness(2.0F);
         tanks = new BlockTank().setStepSound(Block.soundTypeGlass).setBlockName("tanks").setHardness(1F);
-        sands = new BlockGround().setBlockName("sands").setHardness(1F);
+        sands = new BlockGround().setStepSound(Block.soundTypeSand).setBlockName("sands").setHardness(1F);
         transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
         ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
         water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
