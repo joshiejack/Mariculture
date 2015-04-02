@@ -513,7 +513,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     }
                 }
 
-                int size = Fish.tankSize.getDNA(fish);
+                int size = Fish.tankSize.getDNA(fish);                
                 if (tankSize < size || !species.isFluidValid(tankBlock)) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("notAdvanced"));
                     //Work out the block types accepted
@@ -564,6 +564,13 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         else if (id == 7) canWork = value == 1;
         else if (id == 8) isDay = value == 1;
         else if (id == 9) heat = value;
+        else if (id == 10) {
+        	if (value == 8 || value == 9) {
+        		tankBlock = Blocks.water;
+        	} else if (value == 10 || value == 11) {
+        		tankBlock = Blocks.lava;
+        	} else tankBlock = value == 0? null: Block.getBlockById(id);
+        }
         else super.setGUIData(id, value);
     }
     
@@ -571,10 +578,11 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     private int lastWork;
     private int lastTime;
     private int lastHeat;
+    private Block lastBlock;
     
     @Override
     public boolean hasChanged() {
-        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork? 1: 0) || lastTime != (worldObj.isDaytime()? 1: 0) || lastHeat != heat;
+        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork? 1: 0) || lastTime != (worldObj.isDaytime()? 1: 0) || lastHeat != heat || lastBlock != tankBlock;
     }
 
     @Override
@@ -583,12 +591,15 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         lastWork = canWork ? 1 : 0;
         lastTime = worldObj.isDaytime() ? 1 : 0;
         lastHeat = heat;
-        
+        lastBlock = tankBlock;
+        int id = Block.getIdFromBlock(lastBlock);     
+                
         ArrayList<Integer> list = super.getGUIData();
         list.add(lastTankSize);
         list.add(lastWork);
         list.add(lastTime);
         list.add(lastHeat);
+        list.add(id);
         return list;
     }
 
