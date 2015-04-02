@@ -217,6 +217,7 @@ public class FishyHelper implements IFishHelper {
                 if (salinity <= 0) {
                     salinity = 0;
                 }
+                
                 if (salinity > 2) {
                     salinity = 2;
                 }
@@ -227,8 +228,9 @@ public class FishyHelper implements IFishHelper {
                 }
             }
             
+            int salinityTolerance = fish.ignoresSalinity()? 2: Fish.salinity.getDNA(stack);
             if ((!FussyFish.IGNORE_DIMENSION_REQUIREMENTS && !worldCorrect) || (!FussyFish.IGNORE_DAY_REQUIREMENTS && !fish.canWorkAtThisTime(world.isDaytime()))) return false;
-            else return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), Fish.salinity.getDNA(stack), fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
+            else return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), salinityTolerance, fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
         }
     }
 
