@@ -24,37 +24,39 @@ public class EnchantmentSpider extends EnchantmentJewelry {
     }
 
     public static void activate(EntityPlayer player) {
-        if (activated) if (player.isCollidedHorizontally && toggledOn && !player.isOnLadder()) {
-            final float factor = 0.15F;
+        if (activated) {
+            if (player.isCollidedHorizontally && toggledOn && !player.isOnLadder()) {
+                final float factor = 0.15F;
 
-            if (player.motionX < -factor) {
-                player.motionX = -factor;
-            }
+                if (player.motionX < -factor) {
+                    player.motionX = -factor;
+                }
 
-            if (player.motionX > factor) {
-                player.motionX = factor;
-            }
+                if (player.motionX > factor) {
+                    player.motionX = factor;
+                }
 
-            if (player.motionZ < -factor) {
-                player.motionZ = -factor;
-            }
+                if (player.motionZ < -factor) {
+                    player.motionZ = -factor;
+                }
 
-            if (player.motionZ > factor) {
-                player.motionZ = factor;
-            }
+                if (player.motionZ > factor) {
+                    player.motionZ = factor;
+                }
 
-            player.fallDistance = 0.0F;
+                player.fallDistance = 0.0F;
 
-            if (player.motionY < -0.14999999999999999D) {
-                player.motionY = -0.14999999999999999D;
-            }
+                if (player.motionY < -0.14999999999999999D) {
+                    player.motionY = -0.14999999999999999D;
+                }
 
-            player.motionY = 0.20000000000000001D;
+                player.motionY = 0.20000000000000001D;
 
-            damageTicker++;
-            if (damageTicker == 1200) {
-                damageTicker = 0;
-                EnchantHelper.damageItems(Magic.spider, player, 1);
+                damageTicker++;
+                if (damageTicker == 1200) {
+                    damageTicker = 0;
+                    EnchantHelper.damageItems(Magic.spider, player, 1);
+                }
             }
         }
     }

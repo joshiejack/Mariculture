@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
+import mariculture.core.config.Enchantments;
 import mariculture.core.config.Enchantments.EnchantIds;
 import mariculture.core.config.Enchantments.Jewelry;
 import mariculture.core.helpers.EnchantHelper;
@@ -116,6 +117,10 @@ public class Magic extends RegistrationModule {
     public void registerHandlers() {
         MaricultureHandlers.mirror = new MirrorHandler();
         MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
+        if (Enchantments.ENTITY_JEWELRY) {
+            System.out.println("REGISTERD");
+            MinecraftForge.EVENT_BUS.register(new MagicEntityEvents());
+        }
     }
 
     @Override

@@ -57,6 +57,7 @@ public class MagicEventHandler {
 
     @SubscribeEvent
     public void onLivingUpdate(LivingUpdateEvent event) {
+
         if (event.entity instanceof EntityPlayer && !PlayerHelper.isFake((EntityPlayer) event.entity)) {
             World world = event.entity.worldObj;
             EntityPlayer player = (EntityPlayer) event.entity;
