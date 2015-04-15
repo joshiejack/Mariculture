@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import mariculture.api.core.IUpgradable;
+import mariculture.api.core.MaricultureHandlers;
 import maritech.tile.TileIncubator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -59,6 +61,10 @@ public class RitualOfTheBloodRiver extends RitualEffect {
     private void setIncubatorMutationModifier(World world, int x, int y, int z, double modifier) {
         TileEntity tile = world.getTileEntity(x, y + 1, z);
         if (tile instanceof TileIncubator) {
+            if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile)) {
+                modifier += 2D;
+            }
+            
             ((TileIncubator) tile).setMutationModifier(modifier);
         }
     }
@@ -92,7 +98,7 @@ public class RitualOfTheBloodRiver extends RitualEffect {
                 setIncubatorMutationModifier(world, x, y, z, 1.0D);
                 entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 80));
             } else {
-                setIncubatorMutationModifier(world, x, y, z, 2.0D);
+                setIncubatorMutationModifier(world, x, y, z, 3.0D);
                 for (int i = 0; i < 3; i++) {
                     int x2 = x + rand.nextInt(4) - 2;
                     int y2 = y + 1 + rand.nextInt(3);

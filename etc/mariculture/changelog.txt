@@ -19,6 +19,8 @@ Mariculture 1.2.5
         • An equal amount of Hatches and Water Blocks ensures fastest operation
         • At full speed speed, a Hatchery will process 350 x faster
     • Incubators are 10 x faster at all speed levels 
+    • Ethereal Upgrade, now gives 2 x modifier to mutation chance, vs the old 1.35x
+    • Ritual of The Blood river, now gives 3x, and will stack with ethereal for a 5x mutation chance modifier
     • Eggs are processed now processed 3 at a time by default
     • Eggs are much more likely to hatch by default
 • Air Pump Changes

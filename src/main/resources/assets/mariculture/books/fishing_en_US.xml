@@ -264,7 +264,7 @@ Taiga: Fresh, 1°C
         <hr y="57"></hr>
         <text x="0" y="70" bold="true">Incubator</text>
         <text y="130" size="0.7" wrap="260">An Incubator is a three block structure consisting of 1 Incubator Base, with 2 Incubator Tops stacked on top. The Incubator is a more advanced version of the Hatchery and requires RF.</text>
-        <text y="174" size="0.7" wrap="260">Incubators will accept, capacitor, heating, purity and hyperkinetic upgrades. The Capacitor upgrades give it a larger internal buffer and reduces rf consumption, while heating will process more and more fish eggs at a time. Purity increases the chance of fish hatching. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
+        <text y="174" size="0.7" wrap="260">Incubators will accept, capacitor, heating, purity, hyperkinetic and ethereal upgrades. The Capacitor upgrades give it a larger internal buffer and reduces rf consumption, while heating will process more and more fish eggs at a time. Purity increases the chance of fish hatching. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Ethereal increases the mutation change for fish. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
     </page>
     <page>
         <img mod="mariculture" src="fishing/incubator" x="0" y="0" size="0.75" stretch="0.5"></img>

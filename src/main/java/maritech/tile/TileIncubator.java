@@ -87,6 +87,12 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     @Override
     public void updateUpgrades() {
         super.updateUpgrades();
+        if (MaricultureHandlers.upgrades.hasUpgrade("incubator", this)) {
+            setMutationModifier(10000D);
+        } else if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
+            setMutationModifier(2D);
+        }
+        
         speed *= 10;
     }
 
@@ -168,12 +174,6 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     }
 
     private boolean openEgg(int slot) {
-        if (MaricultureHandlers.upgrades.hasUpgrade("incubator", this)) {
-            setMutationModifier(10000D);
-        } else if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
-            setMutationModifier(1.35D);
-        }
-
         if (inventory[slot] == null) return false;
         Random rand = new Random();
         if (inventory[slot].getItem() instanceof ItemEgg) {
