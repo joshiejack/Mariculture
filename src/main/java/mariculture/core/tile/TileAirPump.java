@@ -2,6 +2,7 @@ package mariculture.core.tile;
 
 import java.util.List;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.core.config.Machines.Client;
 import mariculture.core.config.Machines.Ticks;
@@ -125,21 +126,23 @@ public class TileAirPump extends TileStorageTank implements IEnergyReceiver, IFa
                     }
                 }
 
-                //If we have a redstone signal, and every second we should try to collect gas
-                if (onTick(Ticks.PUMP_GAS_TIMER) && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-                    if (storage.getEnergyStored() >= 10) {
-                        if (suckUpGas()) {
-                            ejectFluids();
+                if (MaricultureHandlers.HIGH_TECH_ENABLED) {
+                    //If we have a redstone signal, and every second we should try to collect gas
+                    if (onTick(Ticks.PUMP_GAS_TIMER) && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
+                        if (storage.getEnergyStored() >= 10) {
+                            if (suckUpGas()) {
+                                ejectFluids();
+                            }
+
+                            //Extract 10 RF everytime we extract gas from the air
+                            storage.extractEnergy(10, false);
+                            updateAnimation();
                         }
 
-                        //Extract 10 RF everytime we extract gas from the air
-                        storage.extractEnergy(10, false);
-                        updateAnimation();
-                    }
-
-                    //Attempt to eject gas every 5 seconds
-                    if (onTick(Ticks.PUMP_GAS_EJECT_TIMER)) {
-                        ejectFluids();
+                        //Attempt to eject gas every 5 seconds
+                        if (onTick(Ticks.PUMP_GAS_EJECT_TIMER)) {
+                            ejectFluids();
+                        }
                     }
                 }
             }

@@ -2,6 +2,7 @@ package mariculture.fishery.tile;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IIncubator;
+import mariculture.core.helpers.BlockHelper;
 import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketParticle;
@@ -25,6 +26,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     private boolean isInit = false;
     private boolean canWork;
     private int processed;
+    private int speed;
 
     public TileHatchery() {
         inventory = new ItemStack[3];
@@ -68,6 +70,36 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     private void updateCanWork() {
         canWork = inventory[0] != null && Fishing.fishHelper.isEgg(inventory[0]) && (inventory[1] == null || inventory[2] == null);
     }
+    
+    public int isWater(int x, int y, int z, int count) {
+        if (BlockHelper.isWater(worldObj, x, y, z)) {
+            return count + 1;
+        } else return count;
+    }
+    
+    public int isHatchery(int x, int y, int z, int count) {
+        if (worldObj.getTileEntity(x, y, z) == this) {
+            return count + 1;
+        } else return count;
+    }
+    
+    public void updateSurrounding() {
+        int hatcheryCount = 0;
+        int waterCount = 0;
+        
+        for (int x = - 1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
+                    hatcheryCount = isHatchery(xCoord + x, yCoord + y, zCoord + z, hatcheryCount);
+                    waterCount = isWater(xCoord + x, yCoord + y, zCoord + z, waterCount);
+                }
+            }
+        }
+        
+        int difference = hatcheryCount >= waterCount ? hatcheryCount - waterCount: waterCount - hatcheryCount;
+        int multiplier = 27 - difference;
+        speed = Math.max(1, (multiplier * hatcheryCount));
+    }
 
     @Override
     public void updateEntity() {
@@ -75,6 +107,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
             if (!isInit) {
                 isInit = true;
                 updateCanWork();
+                updateSurrounding();
             }
 
             if (canWork) {
@@ -82,7 +115,8 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
                     PacketHandler.sendAround(new PacketParticle(Particle.SPLASH, 8, xCoord, yCoord - 0.05, zCoord), this);
                 }
 
-                processed++;
+                processed += speed;
+                
                 if (processed >= MAX) {
                     inventory[0] = Fishing.fishHelper.attemptToHatchEgg(inventory[0], worldObj.rand, 1.0D, this);
                     updateCanWork();
@@ -100,7 +134,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
 
     @Override
     public int getBirthChanceBoost() {
-        return 0;
+        return 19;
     }
 
     @Override

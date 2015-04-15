@@ -13,6 +13,13 @@ Mariculture 1.2.5
     • Scuba Tank, will use 'oxygen' to prevent fire damage.
 • Fix oysters not always generating ender pearls in the end
 • Fix kelp seeds not being plantable
+• Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
+    • An equal amount of Hatches and Water Blocks ensures fastest operation
+    • At full speed speed, a Hatchery will process 350 x faster
+• Incubators are 10 x faster at all speed levels 
+• Eggs are processed now processed 3 at a time by default
+• Eggs are much more likely to hatch by default
+• Remove redstone signal requirement for pumping natural gas
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror

@@ -117,10 +117,6 @@ public class Magic extends RegistrationModule {
     public void registerHandlers() {
         MaricultureHandlers.mirror = new MirrorHandler();
         MinecraftForge.EVENT_BUS.register(new MagicEventHandler());
-        if (Enchantments.ENTITY_JEWELRY) {
-            System.out.println("REGISTERD");
-            MinecraftForge.EVENT_BUS.register(new MagicEntityEvents());
-        }
     }
 
     @Override

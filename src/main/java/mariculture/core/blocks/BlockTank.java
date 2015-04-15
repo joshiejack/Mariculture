@@ -7,7 +7,6 @@ import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.handlers.FluidDicHandler;
-import mariculture.core.helpers.BlockHelper;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
@@ -122,6 +121,8 @@ public class BlockTank extends BlockConnected {
 
         if (tile instanceof TileHatchery) {
             TileHatchery hatchery = (TileHatchery) tile;
+            hatchery.updateSurrounding(); //Update info when stuff is 
+            
             if (hatchery.getStackInSlot(0) != null && player.isSneaking()) {
                 if (!world.isRemote) {
                     PacketHandler.syncInventory(hatchery, hatchery.getInventory());
@@ -153,6 +154,15 @@ public class BlockTank extends BlockConnected {
         }
 
         return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
+    }
+    
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileHatchery) {
+            TileHatchery hatchery = (TileHatchery) tile;
+            hatchery.updateSurrounding(); //Update info when stuff is 
+        }
     }
 
     @Override
@@ -240,10 +250,14 @@ public class BlockTank extends BlockConnected {
             ((TileFishTank) tile).orientation = ForgeDirection.getOrientation(facing);
         }
 
-        if (stack.hasTagCompound()) if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) if (tile instanceof TileTankBlock) {
-            TileTankBlock tank = (TileTankBlock) tile;
-            tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
-            PacketHandler.syncFluids(tank, tank.getFluid());
+        if (stack.hasTagCompound()) {
+            if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
+                if (tile instanceof TileTankBlock) {
+                    TileTankBlock tank = (TileTankBlock) tile;
+                    tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
+                    PacketHandler.syncFluids(tank, tank.getFluid());
+                }
+            }
         }
     }
 

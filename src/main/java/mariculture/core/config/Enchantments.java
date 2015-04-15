@@ -34,7 +34,6 @@ public class Enchantments {
     public static boolean ALLOW_MC_ANVIL;
     public static int BLINK_MILLISECONDS;
     public static int RAY_TRACE_DISTANCE;
-    public static boolean ENTITY_JEWELRY;
 
     public static void init(Configuration config) {
         setConfig(config);
@@ -69,7 +68,6 @@ public class Enchantments {
         DISABLE_BOOKS_ON_PEARLS = getBoolean("Disable Pearls in Vanilla Anvil", false);
         BLINK_MILLISECONDS = getInt("Blink > Milliseconds between Blinks", 0);
         RAY_TRACE_DISTANCE = getInt("Blink > Ray Trace Distance", 2000);
-        ENTITY_JEWELRY = getBoolean("Entities can have Jewelry Effects", true);
     }
 
     public static class Jewelry {

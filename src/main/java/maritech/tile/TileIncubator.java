@@ -83,6 +83,12 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
         return false;
     }
+    
+    @Override
+    public void updateUpgrades() {
+        super.updateUpgrades();
+        speed *= 10;
+    }
 
     @Override
     public void updateMasterMachine() {
@@ -118,7 +124,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     @Override
     public void process() {
         if (canWork()) {
-            int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this) ? 1024 : (heat * 4) + 1;
+            int loop = MaricultureHandlers.upgrades.hasUpgrade("incubator", this) ? 1024 : (heat * 4) + 3;
             for (int o = 0; o < loop; o++) {
                 hatchEgg();
             }
@@ -142,7 +148,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     public void updatePowerPerTick() {
         if (rf <= 300000) {
             double modifier = 1D - (rf / 300000D) * 0.75D;
-            usage = (int) (modifier * (36 + ((speed - 1) * 40) + (heat * 80)));
+            usage = 4 + (int) (modifier * (36 + ((speed - 1) * 40) + (heat * 80)));
         } else usage = 1;
     }
 
@@ -196,7 +202,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
     @Override
     public int getBirthChanceBoost() {
-        return MaricultureHandlers.upgrades.getData("purity", this);
+        return 9 + (MaricultureHandlers.upgrades.getData("purity", this) * 8);
     }
 
     @Override
