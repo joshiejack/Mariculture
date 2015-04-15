@@ -11,15 +11,21 @@ Mariculture 1.2.5
     • Swimfin will allow you to fly in lava
     • Wetsuit increases mining speed under lava
     • Scuba Tank, will use 'oxygen' to prevent fire damage.
-• Fix oysters not always generating ender pearls in the end
-• Fix kelp seeds not being plantable
-• Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
-    • An equal amount of Hatches and Water Blocks ensures fastest operation
-    • At full speed speed, a Hatchery will process 350 x faster
-• Incubators are 10 x faster at all speed levels 
-• Eggs are processed now processed 3 at a time by default
-• Eggs are much more likely to hatch by default
-• Remove redstone signal requirement for pumping natural gas
+• Hatcheries/Incubators
+    • Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
+        • An equal amount of Hatches and Water Blocks ensures fastest operation
+        • At full speed speed, a Hatchery will process 350 x faster
+    • Incubators are 10 x faster at all speed levels 
+    • Eggs are processed now processed 3 at a time by default
+    • Eggs are much more likely to hatch by default
+• Air Pump Changes
+    • Remove redstone signal requirement for pumping natural gas
+    • Consume 100 RF each time you suck gas instead of 10RF
+    • Consume 50RF each time the air pump, supplies air instead of 100RF
+• Fixes and Numbers
+    • Reduce number of hits for all Blacksmith's Anvil recipes
+    • Fix oysters not always generating ender pearls in the end
+    • Fix kelp seeds not being plantable
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror

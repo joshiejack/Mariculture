@@ -212,7 +212,7 @@ public class RecipeHelper {
             if (!needAnvil) {
                 stack.stackSize *= 2;
             }
-            addAnvilRecipe(result, stack, 10);
+            addAnvilRecipe(result, stack, 5);
         }
     }
 

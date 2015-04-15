@@ -157,22 +157,22 @@ public class Recipes {
     }
 
     public static void addAnvilRecipes() {
-        addAnvilRecipe(blockAluminum, asStack(aluminumSheet, 8), 50);
-        addAnvilRecipe(blockTitanium, asStack(titaniumSheet, 8), 150);
-        addAnvilRecipe(asStack(bone), asStack(bonemeal, 5), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 0), asStack(roseDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 1), asStack(lightBlueDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 2), asStack(magentaDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 3), asStack(lightGreyDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 4), asStack(roseDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 5), asStack(orangeDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 6), asStack(lightGreyDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 7), asStack(pinkDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 8), asStack(lightGreyDye, 2), 10);
-        addAnvilRecipe(new ItemStack(Blocks.yellow_flower), asStack(dandelionDye, 3), 10);
-        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 0), asStack(dandelionDye, 4), 10);
-        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 1), asStack(magentaDye, 4), 10);
-        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 4), asStack(roseDye, 4), 10);
-        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 5), asStack(pinkDye, 4), 10);
+        addAnvilRecipe(blockAluminum, asStack(aluminumSheet, 8), 30);
+        addAnvilRecipe(blockTitanium, asStack(titaniumSheet, 8), 75);
+        addAnvilRecipe(asStack(bone), asStack(bonemeal, 7), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 0), asStack(roseDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 1), asStack(lightBlueDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 2), asStack(magentaDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 3), asStack(lightGreyDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 4), asStack(roseDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 5), asStack(orangeDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 6), asStack(lightGreyDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 7), asStack(pinkDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.red_flower, 1, 8), asStack(lightGreyDye, 2), 5);
+        addAnvilRecipe(new ItemStack(Blocks.yellow_flower), asStack(dandelionDye, 3), 5);
+        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 0), asStack(dandelionDye, 4), 5);
+        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 1), asStack(magentaDye, 4), 5);
+        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 4), asStack(roseDye, 4), 5);
+        addAnvilRecipe(new ItemStack(Blocks.double_plant, 1, 5), asStack(pinkDye, 4), 5);
     }
 }

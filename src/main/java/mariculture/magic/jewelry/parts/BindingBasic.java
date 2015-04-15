@@ -15,11 +15,11 @@ public class BindingBasic extends JewelryBinding {
     public int getHitsBase(JewelryType type) {
         switch (type) {
             case RING:
-                return 35;
+                return 25;
             case BRACELET:
-                return 65;
+                return 50;
             case NECKLACE:
-                return 100;
+                return 75;
             default:
                 return 50;
         }

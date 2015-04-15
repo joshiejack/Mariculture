@@ -221,7 +221,7 @@ Taiga: Fresh, 1°C
         <img mod="mariculture" src="fishing/autofisher" x="18" y="150" size="0.45" stretch="1.25"></img>
     </page>
     <page>
-        <text wrap="220">Only Capacitor and Hyperkinetic upgrades will work with the autofisher. With capacitor upgrades increasing how much of an internal buffer of RF the Autofisher has, and the Hyperkinetic increasing the speed.</text>
+        <text wrap="220">Only Capacitor and Hyperkinetic upgrades will work with the autofisher. With capacitor upgrades increasing how much of an internal buffer of RF the Autofisher has and how much RF it uses, and the Hyperkinetic increasing the speed.</text>
         <crafting x="18" y="8" size="2">
             <craft1>|fish|</craft1>
             <craft2>rod.wood|plankWood|rod.wood</craft2>
@@ -264,7 +264,7 @@ Taiga: Fresh, 1°C
         <hr y="57"></hr>
         <text x="0" y="70" bold="true">Incubator</text>
         <text y="130" size="0.7" wrap="260">An Incubator is a three block structure consisting of 1 Incubator Base, with 2 Incubator Tops stacked on top. The Incubator is a more advanced version of the Hatchery and requires RF.</text>
-        <text y="174" size="0.7" wrap="260">Incubators will accept, capacitor, heating and hyperkinetic upgrades. The Capacitor upgrades give it a larger internal buffer, while heating will process more and more fish eggs at a time. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
+        <text y="174" size="0.7" wrap="260">Incubators will accept, capacitor, heating, purity and hyperkinetic upgrades. The Capacitor upgrades give it a larger internal buffer and reduces rf consumption, while heating will process more and more fish eggs at a time. Purity increases the chance of fish hatching. The hyperkinetic upgrades as with most machines will cause the incubator to work faster. Both the hyperkinetic and the heating upgrades will significantly increase the power usage of the Incubator.</text>
     </page>
     <page>
         <img mod="mariculture" src="fishing/incubator" x="0" y="0" size="0.75" stretch="0.5"></img>

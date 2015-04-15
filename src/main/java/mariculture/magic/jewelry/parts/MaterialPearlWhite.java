@@ -41,7 +41,7 @@ public class MaterialPearlWhite extends JewelryMaterial {
 
     @Override
     public float getHitsModifier(JewelryType type) {
-        return 3.0F;
+        return 2.5F;
     }
 
     @Override

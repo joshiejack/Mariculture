@@ -128,14 +128,14 @@ public class TileAirPump extends TileStorageTank implements IEnergyReceiver, IFa
 
                 if (MaricultureHandlers.HIGH_TECH_ENABLED) {
                     //If we have a redstone signal, and every second we should try to collect gas
-                    if (onTick(Ticks.PUMP_GAS_TIMER) && worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-                        if (storage.getEnergyStored() >= 10) {
+                    if (onTick(Ticks.PUMP_GAS_TIMER)) {
+                        if (storage.getEnergyStored() >= 100) {
                             if (suckUpGas()) {
                                 ejectFluids();
                             }
 
                             //Extract 10 RF everytime we extract gas from the air
-                            storage.extractEnergy(10, false);
+                            storage.extractEnergy(100, false);
                             updateAnimation();
                         }
 
