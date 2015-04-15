@@ -101,12 +101,23 @@ public class ExtensionRenderedMachineMulti extends ExtensionBlocksBase {
                     return true;
                 }
 
-                if (heldItem.getItem() == ExtensionDiving.scubaTank) if (heldItem.getItemDamage() > 1 && te.storedAir > 0) {
-                    heldItem.setItemDamage(heldItem.getItemDamage() - 1);
-                    if (!world.isRemote) {
-                        te.storedAir--;
+                if (heldItem.getItem() == ExtensionDiving.scubaTank) {
+                    boolean changed = false;
+                    int loop = player.isSneaking() ? 1000 : 1;
+                    for (int i = 0; i < loop; i++) {
+                        if (heldItem.getItemDamage() > 1 && te.storedAir > 0) {
+                            heldItem.setItemDamage(heldItem.getItemDamage() - 1);
+                            if (!world.isRemote) {
+                                te.storedAir--;
+                                changed = true;
+                            }
+                        }
+                    }
+
+                    if (changed) {
                         PacketHandler.sendAround(new PacketCompressor(te.xCoord, te.yCoord, te.zCoord, te.storedAir, te.getEnergyStored(ForgeDirection.UP)), te);
                     }
+
                     return true;
                 }
             }
