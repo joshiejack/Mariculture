@@ -7,7 +7,8 @@ Mariculture 1.2.5
     • Set the default Ore mB volume (affects bottle volumes)
     • Enable/Disable Bonus Dusts
 • Scuba Gear
-    • Holding shift while filling scuba tanks, will fill all at once
+    • Scuba gear fills the whole tank on right click
+    • Hold shift to fill the tank, 1 air at a time, like before
     • Scuba gear can now be enchanted. If it's enchanted with fire resistance. It's effects will apply in lava. E.g.
         • Scuba Mask will make your vision under lava clearer
         • Swimfin will allow you to fly in lava
