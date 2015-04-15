@@ -33,13 +33,13 @@ public class RenderVat extends RenderBase {
             if (!isItem()) {
                 TileVat tile = (TileVat) world.getTileEntity(x, y, z);
                 if (tile.getFluid((byte) 1) != null) {
-                    renderFluid(tile.getFluid((byte) 1), TileVat.max_sml, 0.46D, 0, 0, 0);
+                    renderFluid(tile.getFluid((byte) 1), tile.max_sml, 0.46D, 0, 0, 0);
                 }
                 if (tile.getFluid((byte) 2) != null) {
-                    renderFluid(tile.getFluid((byte) 2), TileVat.max_sml, 0.461D, 0, 0, 0);
+                    renderFluid(tile.getFluid((byte) 2), tile.max_sml, 0.461D, 0, 0, 0);
                 }
                 if (tile.getFluid((byte) 3) != null) {
-                    renderFluid(tile.getFluid((byte) 3), TileVat.max_sml, 0.462D, 0, 0, 0);
+                    renderFluid(tile.getFluid((byte) 3), tile.max_sml, 0.462D, 0, 0, 0);
                 }
             }
 
@@ -77,24 +77,24 @@ public class RenderVat extends RenderBase {
             //Liquid
             TileVat tile = (TileVat) world.getTileEntity(x, y, z);
             if (tile.getFluid((byte) 1) != null) {
-                renderFluid(tile.getFluid((byte) 1), TileVat.max_lrg, 0.56D, 0, 0, 0);
-                renderFluid(tile.getFluid((byte) 1), TileVat.max_lrg, 0.56D, +1, 0, 0);
-                renderFluid(tile.getFluid((byte) 1), TileVat.max_lrg, 0.56D, +1, 0, +1);
-                renderFluid(tile.getFluid((byte) 1), TileVat.max_lrg, 0.56D, 0, 0, +1);
+                renderFluid(tile.getFluid((byte) 1), tile.max_lrg, 0.56D, 0, 0, 0);
+                renderFluid(tile.getFluid((byte) 1), tile.max_lrg, 0.56D, +1, 0, 0);
+                renderFluid(tile.getFluid((byte) 1), tile.max_lrg, 0.56D, +1, 0, +1);
+                renderFluid(tile.getFluid((byte) 1), tile.max_lrg, 0.56D, 0, 0, +1);
             }
 
             if (tile.getFluid((byte) 2) != null) {
-                renderFluid(tile.getFluid((byte) 2), TileVat.max_lrg, 0.56D, 0, 0, 0);
-                renderFluid(tile.getFluid((byte) 2), TileVat.max_lrg, 0.56D, +1, 0, 0);
-                renderFluid(tile.getFluid((byte) 2), TileVat.max_lrg, 0.56D, +1, 0, +1);
-                renderFluid(tile.getFluid((byte) 2), TileVat.max_lrg, 0.56D, 0, 0, +1);
+                renderFluid(tile.getFluid((byte) 2), tile.max_lrg, 0.56D, 0, 0, 0);
+                renderFluid(tile.getFluid((byte) 2), tile.max_lrg, 0.56D, +1, 0, 0);
+                renderFluid(tile.getFluid((byte) 2), tile.max_lrg, 0.56D, +1, 0, +1);
+                renderFluid(tile.getFluid((byte) 2), tile.max_lrg, 0.56D, 0, 0, +1);
             }
 
             if (tile.getFluid((byte) 3) != null) {
-                renderFluid(tile.getFluid((byte) 3), TileVat.max_lrg, 0.56D, 0, 0, 0);
-                renderFluid(tile.getFluid((byte) 3), TileVat.max_lrg, 0.56D, +1, 0, 0);
-                renderFluid(tile.getFluid((byte) 3), TileVat.max_lrg, 0.56D, +1, 0, +1);
-                renderFluid(tile.getFluid((byte) 3), TileVat.max_lrg, 0.56D, 0, 0, +1);
+                renderFluid(tile.getFluid((byte) 3), tile.max_lrg, 0.56D, 0, 0, 0);
+                renderFluid(tile.getFluid((byte) 3), tile.max_lrg, 0.56D, +1, 0, 0);
+                renderFluid(tile.getFluid((byte) 3), tile.max_lrg, 0.56D, +1, 0, +1);
+                renderFluid(tile.getFluid((byte) 3), tile.max_lrg, 0.56D, 0, 0, +1);
             }
         } else if (dir == ForgeDirection.WEST) {
             renderBlock(0.9, 0.3, 0, 1, 1, 1);

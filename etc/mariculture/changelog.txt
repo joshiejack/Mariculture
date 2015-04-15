@@ -1,5 +1,4 @@
 Mariculture 1.2.5
-• Add Air Droplet and Contained Wind
 • Crucible Furnace Changes
     • All solid fuels will now last 4x as long except netherfish which has had a x16 buff
     • Add gunpowder and tnt as fuel. Will heat the furnace up faster than normal fuels. But it will explode...
@@ -14,6 +13,9 @@ Mariculture 1.2.5
         • Swimfin will allow you to fly in lava
         • Wetsuit increases mining speed under lava
         • Scuba Tank, will use 'oxygen' to prevent fire damage.
+• Fishy Stuff
+    • Add Air Droplet and Contained Wind
+    • Add Experience Droplet
 • Hatcheries/Incubators
     • Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
         • An equal amount of Hatches and Water Blocks ensures fastest operation
@@ -31,6 +33,7 @@ Mariculture 1.2.5
     • Reduce number of hits for all Blacksmith's Anvil recipes
     • Fix oysters not always generating ender pearls in the end
     • Fix kelp seeds not being plantable
+    • Divide Sluice power output by 64 instead of 256
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror

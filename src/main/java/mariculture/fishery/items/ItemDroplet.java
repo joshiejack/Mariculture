@@ -68,6 +68,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return "useless";
             case DropletMeta.AIR:
                 return "air";
+            case DropletMeta.XP:
+                return "experience";
             default:
                 return "water";
         }
@@ -117,6 +119,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return Fluids.getBalancedStack("chlorophyll"); //Add Chlorophyll Liquid
             case DropletMeta.AIR:
                 return Fluids.getBalancedStack("wind");
+            case DropletMeta.XP:
+                return Fluids.getBalancedStack("xp");
             default:
                 return null;
         }

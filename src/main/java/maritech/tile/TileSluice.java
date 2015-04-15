@@ -211,7 +211,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
         if (height > 0) {
             TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));
             if (tile instanceof TileRotor) {
-                ((TileRotor) tile).addEnergy(orientation.getOpposite(), getEnergyGenerated(distance) >> 8, MachineSettings.SLUICE_DAMAGE);
+                ((TileRotor) tile).addEnergy(orientation.getOpposite(), getEnergyGenerated(distance) >> 6, MachineSettings.SLUICE_DAMAGE);
             }
         }
     }

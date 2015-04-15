@@ -361,8 +361,6 @@ public class Fishery extends RegistrationModule {
         addNuggetCasting(getFluidStack("ice", 250), asStack(snowball));
         addBlockCasting(getFluidStack("ice", 1000), asStack(ice));
         addVatItemRecipe(asStack(potato), getFluidName("poison"), 1000, asStack(poisonPotato), 15);
-        addVatItemRecipe(pearls, getFluidName("ender"), 250, asStack(enderPearl), 25);
-        addVatItemRecipe(asStack(asStack(cobblestone), 0, 8), getFluidName("ender"), 250, asStack(endstone), 8);
         addVatItemRecipe(asStack(asStack(sand), 0, 2), getFluidName("gunpowder"), 250, asStack(tnt), 10);
         addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), asStack(clay), 15);
         addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 1000), asStack(grass), 15);
