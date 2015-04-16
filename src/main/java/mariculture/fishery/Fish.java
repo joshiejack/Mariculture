@@ -13,6 +13,7 @@ import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MCLib;
 import mariculture.core.lib.Modules;
+import mariculture.fishery.fish.FishAluminum;
 import mariculture.fishery.fish.FishAngel;
 import mariculture.fishery.fish.FishAngler;
 import mariculture.fishery.fish.FishBass;
@@ -26,17 +27,21 @@ import mariculture.fishery.fish.FishCatfish;
 import mariculture.fishery.fish.FishChub;
 import mariculture.fishery.fish.FishClown;
 import mariculture.fishery.fish.FishCod;
+import mariculture.fishery.fish.FishCopper;
 import mariculture.fishery.fish.FishDamsel;
 import mariculture.fishery.fish.FishDragon;
 import mariculture.fishery.fish.FishElectricRay;
 import mariculture.fishery.fish.FishEnder;
 import mariculture.fishery.fish.FishGlow;
 import mariculture.fishery.fish.FishGold;
+import mariculture.fishery.fish.FishGoldMetal;
 import mariculture.fishery.fish.FishHerring;
+import mariculture.fishery.fish.FishIron;
 import mariculture.fishery.fish.FishJelly;
 import mariculture.fishery.fish.FishKoi;
 import mariculture.fishery.fish.FishLamprey;
 import mariculture.fishery.fish.FishLungfish;
+import mariculture.fishery.fish.FishMagnesium;
 import mariculture.fishery.fish.FishManOWar;
 import mariculture.fishery.fish.FishMantaRay;
 import mariculture.fishery.fish.FishMinecraft;
@@ -50,6 +55,7 @@ import mariculture.fishery.fish.FishPiranha;
 import mariculture.fishery.fish.FishPuffer;
 import mariculture.fishery.fish.FishPupfish;
 import mariculture.fishery.fish.FishRedshroom;
+import mariculture.fishery.fish.FishRutile;
 import mariculture.fishery.fish.FishSalmon;
 import mariculture.fishery.fish.FishSiamese;
 import mariculture.fishery.fish.FishSpider;
@@ -59,6 +65,7 @@ import mariculture.fishery.fish.FishStickleback;
 import mariculture.fishery.fish.FishStingRay;
 import mariculture.fishery.fish.FishTang;
 import mariculture.fishery.fish.FishTetra;
+import mariculture.fishery.fish.FishTitanium;
 import mariculture.fishery.fish.FishTrout;
 import mariculture.fishery.fish.FishTuna;
 import mariculture.fishery.fish.FishUndead;
@@ -119,7 +126,7 @@ public class Fish {
     public static FishSpecies squid;
     public static FishSpecies jelly;
     public static FishSpecies manOWar;
-    public static FishSpecies gold;
+    public static FishSpecies goldfish;
     public static FishSpecies siamese;
     public static FishSpecies koi;
     public static FishSpecies butterfly;
@@ -137,8 +144,8 @@ public class Fish {
     public static FishSpecies trout;
     public static FishSpecies herring;
     
-    //1.2.4 CANCELLED Species
-    /*public static FishSpecies brown; //BrownShroom
+    //1.2.5 new Species
+    public static FishSpecies brown; //BrownShroom
     public static FishSpecies red; //RedShroom
     public static FishSpecies pup; //Wolves
     public static FishSpecies chub; //Food
@@ -147,7 +154,16 @@ public class Fish {
     public static FishSpecies walleye; //Eyesight
     public static FishSpecies pike; //Weapons
     public static FishSpecies stickleback; //Spikes
-    public static FishSpecies pickerel; //Picky Something */
+    public static FishSpecies pickerel; //Picky Something
+    
+    //1.2.5 Metal Species
+    public static FishSpecies iron;
+    public static FishSpecies gold;
+    public static FishSpecies copper;
+    public static FishSpecies aluminum;
+    public static FishSpecies rutile;
+    public static FishSpecies magnesium;
+    public static FishSpecies titanium;
 
     public static void init() {
         addDNA();
@@ -266,7 +282,7 @@ public class Fish {
         squid = Fishing.fishHelper.registerFish(modid, FishSquid.class, 21);
         jelly = Fishing.fishHelper.registerFish(modid, FishJelly.class, 22);
         manOWar = Fishing.fishHelper.registerFish(modid, FishManOWar.class, 23);
-        gold = Fishing.fishHelper.registerFish(modid, FishGold.class, 24);
+        goldfish = Fishing.fishHelper.registerFish(modid, FishGold.class, 24);
         siamese = Fishing.fishHelper.registerFish(modid, FishSiamese.class, 25);
         koi = Fishing.fishHelper.registerFish(modid, FishKoi.class, 26);
         butterfly = Fishing.fishHelper.registerFish(modid, FishButterfly.class, 27);
@@ -283,8 +299,8 @@ public class Fish {
         herring = Fishing.fishHelper.registerFish(modid, FishHerring.class, 38);
         minecraft = Fishing.fishHelper.registerFish(modid, FishMinecraft.class, 39);
         
-        //Cancelled Species
-        /* brown = Fishing.fishHelper.registerFish(modid, FishBrownshroom.class, 40);
+        //New Species
+        brown = Fishing.fishHelper.registerFish(modid, FishBrownshroom.class, 40);
         red = Fishing.fishHelper.registerFish(modid, FishRedshroom.class, 41);
         pup = Fishing.fishHelper.registerFish(modid, FishPupfish.class, 42);
         chub = Fishing.fishHelper.registerFish(modid, FishChub.class, 43);
@@ -293,7 +309,18 @@ public class Fish {
         walleye = Fishing.fishHelper.registerFish(modid, FishWalleye.class, 46);
         pike = Fishing.fishHelper.registerFish(modid, FishPike.class, 47);
         stickleback = Fishing.fishHelper.registerFish(modid, FishStickleback.class, 48);
-        pickerel = Fishing.fishHelper.registerFish(modid, FishPickerel.class, 49); */
+        pickerel = Fishing.fishHelper.registerFish(modid, FishPickerel.class, 49);
+        
+        //Metal species
+        iron = Fishing.fishHelper.registerFish(modid, FishIron.class, 50);
+        gold = Fishing.fishHelper.registerFish(modid, FishGoldMetal.class, 51);
+        copper = Fishing.fishHelper.registerFish(modid, FishCopper.class, 52);
+        aluminum = Fishing.fishHelper.registerFish(modid, FishAluminum.class, 53);
+        rutile = Fishing.fishHelper.registerFish(modid, FishRutile.class, 54);
+        magnesium = Fishing.fishHelper.registerFish(modid, FishMagnesium.class, 55);
+        titanium = Fishing.fishHelper.registerFish(modid, FishTitanium.class, 56);
+        
+        //TODO: Silver, Lead, Tin, Platinum, Nickel, Diamond, Emerald, Mana, Cobalt, Ardite, Obsidian
     }
 
     private static void addMutations() {
@@ -321,14 +348,14 @@ public class Fish {
         Fishing.mutation.addMutation(undead, blaasop, lamprey, 12D);
         Fishing.mutation.addMutation(stingRay, angel, mantaRay, 8D);
         Fishing.mutation.addMutation(angel, cod, tuna, 15D);
-        Fishing.mutation.addMutation(angel, gold, butterfly, 12D);
-        Fishing.mutation.addMutation(gold, tetra, trout, 15D);
-        Fishing.mutation.addMutation(gold, damsel, trout, 12.5D);
-        Fishing.mutation.addMutation(gold, tetra, salmon, 12.5D);
-        Fishing.mutation.addMutation(gold, damsel, salmon, 15D);
+        Fishing.mutation.addMutation(angel, goldfish, butterfly, 12D);
+        Fishing.mutation.addMutation(goldfish, tetra, trout, 15D);
+        Fishing.mutation.addMutation(goldfish, damsel, trout, 12.5D);
+        Fishing.mutation.addMutation(goldfish, tetra, salmon, 12.5D);
+        Fishing.mutation.addMutation(goldfish, damsel, salmon, 15D);
         Fishing.mutation.addMutation(night, spider, undead, 15D);
         Fishing.mutation.addMutation(tetra, damsel, angel, 20D);
-        Fishing.mutation.addMutation(cod, minnow, gold, 25D);
+        Fishing.mutation.addMutation(cod, minnow, goldfish, 25D);
         Fishing.mutation.addMutation(stingRay, cod, damsel, 10D);
         Fishing.mutation.addMutation(stingRay, minnow, tetra, 10D);
     }

@@ -70,6 +70,20 @@ public class ItemDroplet extends ItemMCMeta {
                 return "air";
             case DropletMeta.XP:
                 return "experience";
+            case DropletMeta.IRON:
+                return "iron";
+            case DropletMeta.GOLD:
+                return "gold";
+            case DropletMeta.COPPER:
+                return "copper";
+            case DropletMeta.ALUMINUM:
+                return "aluminum";
+            case DropletMeta.RUTILE:
+                return "rutile";
+            case DropletMeta.MAGNESIUM:
+                return "magnesium";
+            case DropletMeta.TITANIUM:
+                return "titanium";
             default:
                 return "water";
         }
@@ -89,6 +103,12 @@ public class ItemDroplet extends ItemMCMeta {
             default:
                 return super.getPotionEffect(stack);
         }
+    }
+    
+    public FluidStack getNuggetStack(String name) {
+        FluidStack stack = Fluids.getBalancedStack(name);
+        stack.amount = stack.amount / 9;
+        return stack;
     }
 
     public FluidStack getFluidStack(int dmg) {
@@ -121,6 +141,20 @@ public class ItemDroplet extends ItemMCMeta {
                 return Fluids.getBalancedStack("wind");
             case DropletMeta.XP:
                 return Fluids.getBalancedStack("xp");
+            case DropletMeta.IRON:
+                return getNuggetStack("iron");
+            case DropletMeta.GOLD:
+                return getNuggetStack("gold");
+            case DropletMeta.COPPER:
+                return getNuggetStack("copper");
+            case DropletMeta.ALUMINUM:
+                return getNuggetStack("aluminum");
+            case DropletMeta.RUTILE:
+                return getNuggetStack("rutile");
+            case DropletMeta.MAGNESIUM:
+                return getNuggetStack("magnesium");
+            case DropletMeta.TITANIUM:
+                return getNuggetStack("titanium");
             default:
                 return null;
         }

@@ -119,6 +119,7 @@ public class MCClientProxy extends MCCommonProxy {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customGate), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customLight), new RenderCustomItem());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customWall), new RenderCustomItem());
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Factory.customRFWall), new RenderCustomItem());
             RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.GEYSER, RenderGeyser.class);
             RenderHandler.register(Core.tanks, TankMeta.DIC, RenderFluidDictionary.class);
         }

@@ -39,6 +39,7 @@ Mariculture 1.2.5
 • Power Generation
     • Sluice output divided by 64 instead of 256
     • Can create gas turbines again, check the book
+    • Added a RF version of the Custom Wall
 • Fixes and Numbers
     • Reduce number of hits for all Blacksmith's Anvil recipes
     • Rebalance all vat numbers

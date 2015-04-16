@@ -43,6 +43,8 @@ public class ItemPlan extends ItemMCDamageable {
                 return 6;
             case PlansMeta.RF:
                 return 1;
+            case PlansMeta.RF_WALL:
+                return 1;
             default:
                 return 1;
         }
@@ -69,6 +71,8 @@ public class ItemPlan extends ItemMCDamageable {
                     return "plan_light";
                 case PlansMeta.RF:
                     return "plan_redstone";
+                case PlansMeta.RF_WALL:
+                    return "plan_redstonewall";
                 default:
                     return "unnamed";
             }

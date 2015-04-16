@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import cofh.api.energy.IEnergyReceiver;
 
 public class PlansMeta {
-    public static final int COUNT = 9;
+    public static final int COUNT = 10;
     public static final int FLOOR = 0;
     public static final int BLOCK = 1;
     public static final int STAIRS = 2;
@@ -25,6 +25,7 @@ public class PlansMeta {
     public static final int WALL = 6;
     public static final int LIGHT = 7;
     public static final int RF = 8;
+    public static final int RF_WALL = 9;
 
     public static int getType(ItemStack stack) {
 
@@ -63,6 +64,8 @@ public class PlansMeta {
                 return new ItemStack(Factory.customLight);
             case PlansMeta.RF:
                 return new ItemStack(Factory.customRFBlock);
+            case PlansMeta.RF_WALL:
+                return new ItemStack(Factory.customRFWall);
         }
 
         return null;
@@ -73,8 +76,13 @@ public class PlansMeta {
         else if (block instanceof BlockFenceGate) return PlansMeta.GATE;
         else if (block instanceof BlockSlab) return PlansMeta.SLABS;
         else if (block instanceof BlockStairs) return PlansMeta.STAIRS;
-        else if (block instanceof BlockWall) return PlansMeta.WALL;
-        else if (block instanceof BlockCarpet) return PlansMeta.FLOOR;
+        else if (block instanceof BlockWall) {
+            if (world.getTileEntity(x, y - 1, z) instanceof IEnergyReceiver) {
+                return PlansMeta.RF_WALL;
+            }
+            
+            return PlansMeta.WALL;
+        } else if (block instanceof BlockCarpet) return PlansMeta.FLOOR;
         else if (world.getTileEntity(x, y, z) instanceof IEnergyReceiver) return PlansMeta.RF;
         else if (block.getLightValue(world, x, y, z) > 0F) return PlansMeta.LIGHT;
         else if (world.getTileEntity(x, y, z) == null && !world.isAirBlock(x, y, z)) return PlansMeta.BLOCK;

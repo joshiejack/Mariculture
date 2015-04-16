@@ -230,6 +230,14 @@ public class MCLib {
     public static final ItemStack dropletRegen = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.HEALTH) : null;
     public static final ItemStack dropletWater = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.WATER) : null;
     public static final ItemStack dropletAir = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.AIR) : null;
+    public static final ItemStack dropletExperience = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.XP) : null;
+    public static final ItemStack dropletIron = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.IRON) : null;
+    public static final ItemStack dropletGold = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.GOLD) : null;
+    public static final ItemStack dropletCopper = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.COPPER) : null;
+    public static final ItemStack dropletAluminum = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ALUMINUM) : null;
+    public static final ItemStack dropletRutile = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.RUTILE) : null;
+    public static final ItemStack dropletMagnesium = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.MAGNESIUM) : null;
+    public static final ItemStack dropletTitanium = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.TITANIUM) : null;
     public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
     public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
     public static final ItemStack dustMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE);

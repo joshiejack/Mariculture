@@ -10,7 +10,7 @@ import cofh.api.energy.IEnergyReceiver;
 public class TileCustomPowered extends TileCustom implements IEnergyHandler {
     private int tick;
     private ForgeDirection cameFrom;
-    private EnergyStorage storage = new EnergyStorage(6000);
+    private EnergyStorage storage = new EnergyStorage(25000);
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {

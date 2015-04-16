@@ -85,7 +85,7 @@ public class BlockCustomWall extends BlockWall implements IHasMetaBlock {
         return BlockCustomHelper.getPickBlock(target, world, x, y, z, getID());
     }
 
-    private int getID() {
+    public int getID() {
         return PlansMeta.WALL;
     }
 

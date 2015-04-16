@@ -41,6 +41,7 @@ public abstract class RenderBase {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.meta = world.getBlockMetadata(x, y, z);
         block = world.getBlock(x, y, z);
         init();
         render();

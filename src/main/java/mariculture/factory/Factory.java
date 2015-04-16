@@ -24,6 +24,7 @@ import static mariculture.core.lib.MCLib.wicker;
 import static mariculture.core.lib.MCLib.wool;
 import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.lib.Modules.RegistrationModule;
+import mariculture.core.lib.PlansMeta;
 import mariculture.core.util.Fluids;
 import mariculture.factory.blocks.BlockCustomBlock;
 import mariculture.factory.blocks.BlockCustomFence;
@@ -31,6 +32,7 @@ import mariculture.factory.blocks.BlockCustomFlooring;
 import mariculture.factory.blocks.BlockCustomGate;
 import mariculture.factory.blocks.BlockCustomLight;
 import mariculture.factory.blocks.BlockCustomPower;
+import mariculture.factory.blocks.BlockCustomRFWall;
 import mariculture.factory.blocks.BlockCustomSlab;
 import mariculture.factory.blocks.BlockCustomStairs;
 import mariculture.factory.blocks.BlockCustomWall;
@@ -49,6 +51,7 @@ import mariculture.factory.tile.TileUnpacker;
 import mariculture.lib.helpers.RegistryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Factory extends RegistrationModule {
@@ -62,11 +65,13 @@ public class Factory extends RegistrationModule {
     public static Block customWall;
     public static Block customLight;
     public static Block customRFBlock;
+    public static Block customRFWall;
 
     public static Item chalk;
     public static Item plans;
     public static Item paintbrush;
     public static Item filter;
+
     @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new FactoryEvents());
@@ -84,8 +89,9 @@ public class Factory extends RegistrationModule {
         customWall = new BlockCustomWall().setStepSound(Block.soundTypePiston).setBlockName("customWall");
         customLight = new BlockCustomLight().setStepSound(Block.soundTypePiston).setBlockName("customLight").setLightLevel(1.0F);
         customRFBlock = new BlockCustomPower().setStepSound(Block.soundTypePiston).setBlockName("customRFBlock");
+        customRFWall = new BlockCustomRFWall().setStepSound(Block.soundTypePiston).setBlockName("customRFWall");
 
-        RegistryHelper.registerBlocks(new Block[] { customStairs, customSlabs, customFence, customGate, customWall, customSlabsDouble });
+        RegistryHelper.registerBlocks(new Block[] { customStairs, customSlabs, customFence, customGate, customWall, customSlabsDouble, customRFWall });
         RegistryHelper.registerTiles("Mariculture", TileCustom.class, TileCustomPowered.class, TileSawmill.class, TileDictionaryItem.class, TileFishSorter.class, TileGeyser.class, TileDictionaryFluid.class, TileUnpacker.class);
     }
 
