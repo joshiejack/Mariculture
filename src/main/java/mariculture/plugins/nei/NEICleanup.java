@@ -81,7 +81,6 @@ public class NEICleanup {
             hide(meta, 0, Core.worked);
             if (Modules.isActive(Modules.fishery)) {
                 hide(meta, BaitMeta.COUNT, Fishery.bait);
-                hide(meta, DropletMeta.COUNT, Fishery.droplet);
                 hide(meta, PearlColor.COUNT, Fishery.lampsOn);
             }
 
@@ -111,6 +110,10 @@ public class NEICleanup {
 
         //Hide the fish or show one
         if (Modules.isActive(Modules.fishery)) { //Hide all off neon lamps
+            for (int i = 0; i < DropletMeta.COUNT; i++) {
+                API.addItemListEntry(new ItemStack(Fishery.droplet, 1, i));
+            }
+            
             API.hideItem(new ItemStack(Fishery.lampsOff, 1, OreDictionary.WILDCARD_VALUE));
 
             if (FishMechanics.DISABLE_FISH) {

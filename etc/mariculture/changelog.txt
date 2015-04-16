@@ -16,6 +16,13 @@ Mariculture 1.2.5
 • Fishy Stuff
     • Add Air Droplet and Contained Wind
     • Add Experience Droplet
+    • Add Metal Droplets
+    • Add 10 New Normal Fish
+    • Add Ore Fish
+    • Breeding Tree Rewrite, to incorporate new fish
+    • Fish products rebalanced
+    • More effects added to fish
+    • New book, listing all the info about each fish species, and it's special effects
 • Hatcheries/Incubators
     • Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
         • An equal amount of Hatches and Water Blocks ensures fastest operation
@@ -39,6 +46,7 @@ Mariculture 1.2.5
 • Power Generation
     • Sluice output divided by 64 instead of 256
     • Can create gas turbines again, check the book
+    • Can create manual energy again, this time from the handcrank
     • Added a RF version of the Custom Wall
 • Fixes and Numbers
     • Reduce number of hits for all Blacksmith's Anvil recipes
