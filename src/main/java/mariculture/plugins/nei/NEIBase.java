@@ -208,11 +208,11 @@ public abstract class NEIBase extends TemplateRecipeHandler {
     }
 
     public void loadFluidRecipes(FluidStack fluid) {
-        GuiCraftingRecipe.openRecipeGui("fluid", new Object[] { fluid });
+        GuiCraftingRecipe.openRecipeGui("liquid", new Object[] { fluid });
     }
 
     public void loadFluidUsages(FluidStack fluid) {
-        GuiUsageRecipe.openRecipeGui("fluid", new Object[] { fluid });
+        GuiUsageRecipe.openRecipeGui("liquid", new Object[] { fluid });
     }
 
     public abstract boolean isOverItem(GuiRecipe gui, int id);

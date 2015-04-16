@@ -3,7 +3,6 @@ package mariculture.core.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import mariculture.api.core.IVatHandler.VatType;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.helpers.cofh.CoFhItemHelper;

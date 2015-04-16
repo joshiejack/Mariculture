@@ -127,10 +127,12 @@ public class TileGeyser extends TileTank implements IFaceable {
 
     public void pullFromInventory() {
         TileEntity tile = worldObj.getTileEntity(xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
-        if (tile != null) if (tile instanceof IInventory) {
-            ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
-            if (stack != null) {
-                ItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+        if (tile != null) {
+            if (tile instanceof IInventory) {
+                ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
+                if (stack != null) {
+                    ItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+                }
             }
         } else if (tile instanceof IFluidHandler) {
             IFluidHandler handler = (IFluidHandler) tile;

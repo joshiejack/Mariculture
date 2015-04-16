@@ -8,7 +8,6 @@ import mariculture.core.lib.TankMeta;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
 public class ItemBlockTank extends ItemBlockMariculture {
@@ -29,6 +28,12 @@ public class ItemBlockTank extends ItemBlockMariculture {
                 return "fluidtionary";
             case TankMeta.HATCHERY:
                 return "hatchery";
+            case TankMeta.TANK_ALUMINUM:
+                return "aluminum";
+            case TankMeta.TANK_TITANIUM:
+                return "titanium";
+            case TankMeta.TANK_GAS:
+                return "gas";
             default:
                 return "tank";
         }
@@ -42,11 +47,13 @@ public class ItemBlockTank extends ItemBlockMariculture {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        if (stack.getItemDamage() == TankMeta.TANK) {
+        int dmg = stack.getItemDamage();
+        int total = dmg == TankMeta.TANK? 16000: dmg == TankMeta.TANK_ALUMINUM? 32000: dmg == TankMeta.TANK_TITANIUM? 64000: dmg == TankMeta.TANK_GAS? 512000: -1;
+        if (total >= 0) {
             FluidStack fluid = getFluid(stack);
             int amount = fluid == null ? 0 : fluid.amount;
             list.add(FluidHelper.getFluidName(fluid));
-            list.add("" + amount + "/16000mB");
+            list.add("" + amount + "/" + total + "mB");
         }
     }
 }

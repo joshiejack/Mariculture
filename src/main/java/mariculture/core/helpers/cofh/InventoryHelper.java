@@ -3,6 +3,7 @@ package mariculture.core.helpers.cofh;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 
 public class InventoryHelper {
 
@@ -85,7 +86,6 @@ public class InventoryHelper {
     /* IIInventory Interaction */
     public static ItemStack extractItemStackFromInventory(IInventory theInventory, int side) {
         ItemStack retStack = null;
-
         if (theInventory instanceof ISidedInventory) {
             ISidedInventory sidedInv = (ISidedInventory) theInventory;
             int slots[] = sidedInv.getAccessibleSlotsFromSide(side);
@@ -101,9 +101,40 @@ public class InventoryHelper {
                     theInventory.setInventorySlotContents(i, null);
                 }
         }
+
         if (retStack != null) {
             theInventory.markDirty();
         }
+
+        return retStack;
+    }
+
+    public static ItemStack extractFluidContainerFromInventory(IInventory theInventory, int side) {
+        ItemStack retStack = null;
+        if (theInventory instanceof ISidedInventory) {
+            ISidedInventory sidedInv = (ISidedInventory) theInventory;
+            int slots[] = sidedInv.getAccessibleSlotsFromSide(side);
+            for (int i = 0; i < slots.length && retStack == null; i++)
+                if (sidedInv.getStackInSlot(i) != null && sidedInv.canExtractItem(i, sidedInv.getStackInSlot(i), side)) {
+                    retStack = sidedInv.getStackInSlot(i).copy();
+                    if (retStack.getItem() instanceof IFluidContainerItem) {
+                        sidedInv.setInventorySlotContents(i, null);
+                    } else retStack = null;
+                }
+        } else {
+            for (int i = 0; i < theInventory.getSizeInventory() && retStack == null; i++)
+                if (theInventory.getStackInSlot(i) != null) {
+                    retStack = theInventory.getStackInSlot(i).copy();
+                    if (retStack.getItem() instanceof IFluidContainerItem) {
+                        theInventory.setInventorySlotContents(i, null);
+                    } else retStack = null;
+                }
+        }
+
+        if (retStack != null) {
+            theInventory.markDirty();
+        }
+
         return retStack;
     }
 

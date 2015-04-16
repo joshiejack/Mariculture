@@ -79,7 +79,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
     }
 
     //Adds Power from a certain direction
-    public void addEnergy(ForgeDirection dir, int energy, int dmg) {
+    public void addEnergy(ForgeDirection dir, int energy, int dmg) {        
         TileGenerator generator = getMaster();
         if (generator != null) {
             generator.addEnergy((int) (energy * getTier()));

@@ -1,8 +1,10 @@
 package mariculture.core.lib;
 
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.core.Core;
 import mariculture.fishery.Fish;
 import mariculture.fishery.Fishery;
+import maritech.extensions.modules.ExtensionFactory;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -148,6 +150,9 @@ public class MCLib {
     public static final ItemStack oreCopper = new ItemStack(Core.rocks, 1, RockMeta.COPPER);
     public static final ItemStack transparent = new ItemStack(Core.transparent, 1, TransparentMeta.PLASTIC);
     public static final ItemStack tank = new ItemStack(Core.tanks, 1, TankMeta.TANK);
+    public static final ItemStack tankAluminum = new ItemStack(Core.tanks, 1, TankMeta.TANK_ALUMINUM);
+    public static final ItemStack tankTitanium = new ItemStack(Core.tanks, 1, TankMeta.TANK_TITANIUM);
+    public static final ItemStack gasTank = new ItemStack(Core.tanks, 1, TankMeta.TANK_GAS);
     public static final ItemStack fishTank = new ItemStack(Core.tanks, 1, TankMeta.FISH);
     public static final ItemStack baseBrick = new ItemStack(Core.rocks, 1, RockMeta.BASE_BRICK);
     public static final ItemStack baseIron = new ItemStack(Core.metals, 1, MetalMeta.BASE_IRON);
@@ -266,4 +271,5 @@ public class MCLib {
     public static final ItemStack angelfish = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.angel.getID()) : new ItemStack(Items.golden_apple);
     public static final ItemStack aquatic = Modules.isActive(Modules.fishery) ? dropletAqua : new ItemStack(Items.potionitem, 1, 8269);
     public static final ItemStack koi = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.koi.getID()) : new ItemStack(Items.potionitem, 1, 8225);
+    public static final ItemStack rotor = MaricultureHandlers.HIGH_TECH_ENABLED? new ItemStack(ExtensionFactory.turbineTitanium): titaniumSheet;
 }

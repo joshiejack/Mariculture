@@ -151,7 +151,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
 
     public void pullFromTank() {
         TileEntity tile = mariculture.core.helpers.cofh.BlockHelper.getAdjacentTileEntity(this, orientation.getOpposite());
-        if (tile != null && tile instanceof IFluidHandler) {
+        if (tile instanceof IFluidHandler) {
             placeFluid((IFluidHandler) tile, xCoord + orientation.offsetX, yCoord + orientation.offsetY, zCoord + orientation.offsetZ);
         }
     }

@@ -13,12 +13,15 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
 import mariculture.core.network.PacketHandler;
+import mariculture.core.tile.TileTankAluminum;
 import mariculture.core.tile.TileTankBlock;
+import mariculture.core.tile.TileTankTitanium;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.factory.tile.TileDictionaryFluid;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileHatchery;
 import mariculture.lib.helpers.ItemHelper;
+import maritech.tile.TileGasTank;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -67,6 +70,12 @@ public class BlockTank extends BlockConnected {
                 return 0.1F;
             case TankMeta.TANK:
                 return 0.5F;
+            case TankMeta.TANK_ALUMINUM:
+                return 0.75F;
+            case TankMeta.TANK_TITANIUM:
+                return 1.5F;
+            case TankMeta.TANK_GAS:
+                return 3F;
             case TankMeta.FISH:
                 return 1.0F;
             case TankMeta.DIC:
@@ -122,7 +131,7 @@ public class BlockTank extends BlockConnected {
         if (tile instanceof TileHatchery) {
             TileHatchery hatchery = (TileHatchery) tile;
             hatchery.updateSurrounding(); //Update info when stuff is 
-            
+
             if (hatchery.getStackInSlot(0) != null && player.isSneaking()) {
                 if (!world.isRemote) {
                     PacketHandler.syncInventory(hatchery, hatchery.getInventory());
@@ -155,7 +164,7 @@ public class BlockTank extends BlockConnected {
 
         return FluidHelper.handleFillOrDrain((IFluidHandler) world.getTileEntity(x, y, z), player, ForgeDirection.UP);
     }
-    
+
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         TileEntity tile = world.getTileEntity(x, y, z);
@@ -183,6 +192,12 @@ public class BlockTank extends BlockConnected {
                 return new TileDictionaryFluid();
             case TankMeta.HATCHERY:
                 return new TileHatchery();
+            case TankMeta.TANK_ALUMINUM:
+                return new TileTankAluminum();
+            case TankMeta.TANK_TITANIUM:
+                return new TileTankTitanium();
+            case TankMeta.TANK_GAS:
+                return new TileGasTank();
             default:
                 return null;
         }
@@ -251,12 +266,10 @@ public class BlockTank extends BlockConnected {
         }
 
         if (stack.hasTagCompound()) {
-            if (world.getBlockMetadata(x, y, z) == TankMeta.TANK) {
-                if (tile instanceof TileTankBlock) {
-                    TileTankBlock tank = (TileTankBlock) tile;
-                    tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
-                    PacketHandler.syncFluids(tank, tank.getFluid());
-                }
+            if (tile instanceof TileTankBlock) {
+                TileTankBlock tank = (TileTankBlock) tile;
+                tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
+                PacketHandler.syncFluids(tank, tank.getFluid());
             }
         }
     }
@@ -264,9 +277,10 @@ public class BlockTank extends BlockConnected {
     //Change back to remove block block by player instead of getDrops for everything
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-        if (world.getBlockMetadata(x, y, z) == TankMeta.TANK && !player.capabilities.isCreativeMode) {
-            ItemStack drop = new ItemStack(Core.tanks, 1, TankMeta.TANK);
-            TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileTankBlock && !player.capabilities.isCreativeMode) {
+            ItemStack drop = new ItemStack(Core.tanks, 1, world.getBlockMetadata(x, y, z));
+            TileTankBlock tank = (TileTankBlock) tile;
             if (tank != null && tank.getFluid() != null) {
                 if (!drop.hasTagCompound()) {
                     drop.setTagCompound(new NBTTagCompound());
@@ -298,7 +312,7 @@ public class BlockTank extends BlockConnected {
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         ItemStack drop = new ItemStack(Core.tanks, 1, meta);
-        if (meta == TankMeta.TANK) {
+        if (meta == TankMeta.TANK || meta == TankMeta.TANK_ALUMINUM || meta == TankMeta.TANK_TITANIUM || meta == TankMeta.TANK_GAS) {
             TileTankBlock tank = (TileTankBlock) world.getTileEntity(x, y, z);
             if (tank != null && tank.getFluid() != null) {
                 if (!drop.hasTagCompound()) {

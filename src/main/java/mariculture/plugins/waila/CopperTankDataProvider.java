@@ -26,10 +26,10 @@ public class CopperTankDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if (accessor.getTileEntity() instanceof TileTankBlock && !(accessor.getTileEntity() instanceof TileVoidBottle)) {
-            TileTankBlock vat = (TileTankBlock) accessor.getTileEntity();
-            FluidStack tank1 = vat.getFluid();
+            TileTankBlock tank = (TileTankBlock) accessor.getTileEntity();
+            FluidStack tank1 = tank.getFluid();
             String fluid1 = FluidHelper.getFluidName(tank1) + " - " + FluidHelper.getFluidQty(new ArrayList(), tank1, 0).get(0);
-            currenttip.add(fluid1 + " / 16000mB");
+            currenttip.add(fluid1 + " / " + tank.getCapacity() + "mB");
         }
 
         return currenttip;

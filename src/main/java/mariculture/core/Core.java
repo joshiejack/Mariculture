@@ -13,9 +13,9 @@ import static mariculture.core.helpers.FluidHelper.registerHeatBottle;
 import static mariculture.core.helpers.FluidHelper.registerVanillaBottle;
 import static mariculture.core.util.Fluids.getFluid;
 import mariculture.Mariculture;
+import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.core.Environment.Salinity;
 import mariculture.core.blocks.BlockAir;
 import mariculture.core.blocks.BlockGlass;
 import mariculture.core.blocks.BlockGround;
@@ -69,9 +69,9 @@ import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
+import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.lib.RockMeta;
-import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.core.tile.TileAirPump;
 import mariculture.core.tile.TileAnvil;
 import mariculture.core.tile.TileAutohammer;
@@ -81,13 +81,16 @@ import mariculture.core.tile.TileCrucible;
 import mariculture.core.tile.TileIngotCaster;
 import mariculture.core.tile.TileNuggetCaster;
 import mariculture.core.tile.TileOyster;
+import mariculture.core.tile.TileTankAluminum;
 import mariculture.core.tile.TileTankBlock;
+import mariculture.core.tile.TileTankTitanium;
 import mariculture.core.tile.TileVat;
 import mariculture.core.tile.TileVoidBottle;
 import mariculture.core.util.EntityFakeItem;
 import mariculture.core.util.Fluids;
 import mariculture.core.util.XPRegistry;
 import mariculture.lib.helpers.RegistryHelper;
+import maritech.tile.TileGasTank;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -242,7 +245,9 @@ public class Core extends RegistrationModule {
         transparent = new BlockTransparent().setStepSound(Block.soundTypePiston).setBlockName("transparent").setHardness(1F);
         ticking = new BlockTicking().setStepSound(Block.soundTypeCloth).setHardness(0.05F).setBlockName("ticking");
         water = new BlockWater().setStepSound(Block.soundTypeSnow).setHardness(10F).setBlockName("water");
-        RegistryHelper.registerTiles("Mariculture", new Class[] { TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, TileAnvil.class, TileIngotCaster.class, TileVoidBottle.class, TileOyster.class, TileBlockCaster.class, TileNuggetCaster.class, TileAutohammer.class });
+        RegistryHelper.registerTiles("Mariculture", new Class[] { TileAirPump.class, TileCrucible.class, TileBookshelf.class, TileTankBlock.class, TileVat.class, TileAnvil.class, 
+                TileIngotCaster.class, TileVoidBottle.class, TileOyster.class, TileBlockCaster.class, TileNuggetCaster.class, TileAutohammer.class, TileTankAluminum.class, 
+                TileTankTitanium.class, TileGasTank.class });
     }
 
     @Override

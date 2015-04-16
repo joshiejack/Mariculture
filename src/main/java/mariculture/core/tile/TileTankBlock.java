@@ -7,6 +7,9 @@ import mariculture.core.helpers.FluidHelper;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.util.ITank;
 import mariculture.core.util.Tank;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -14,11 +17,12 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
+public class TileTankBlock extends TileEntity implements IFluidHandler, ITank, IInventory {
     private int differenceFill = 0;
     private int differenceDrain = 0;
     public Tank tank;
@@ -155,5 +159,74 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank {
 
     public double getCapacity() {
         return tank.getCapacity();
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 1;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        return null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int slot) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack stack) {
+        return;
+    }
+
+    @Override
+    public String getInventoryName() {
+        return "tank";
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return true;
+    }
+
+    @Override
+    public void openInventory() {
+        
+    }
+
+    @Override
+    public void closeInventory() {
+        
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
+        FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(stack);
+        if (liquid != null) {
+            int amount = fill(ForgeDirection.UNKNOWN, liquid, false);
+            if (amount >= liquid.amount) {
+                fill(ForgeDirection.UNKNOWN, liquid, true);
+                return true;
+            } else return false;
+        }
+
+        return false;
     }
 }

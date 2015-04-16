@@ -45,6 +45,9 @@ public class Recipes {
         addShaped(baseWood, new Object[] { "IGI", "G G", "IGI", 'I', "logWood", 'G', fence });
         addShaped(airPump, new Object[] { "WGW", "PRP", "PMP", 'G', "blockGlass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel });
         addShaped(asStack(tank, 2), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "blockGlass" });
+        addShaped(asStack(tankAluminum, 1), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotAluminum", 'W', "stone", 'G', heatglass});
+        addShaped(asStack(tankTitanium, 1), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotTitanium", 'W', "blockQuartz", 'G', heatglass});
+        addShaped(asStack(gasTank, 1), new Object[] { "ARA", "ATA", "ACA", 'A', "blockAluminum", 'R', rotor, 'T', tankTitanium, 'C', baseIron});
         addShaped(storageBookshelf, new Object[] { "SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest });
         addShaped(crucible, new Object[] { " L ", "BGB", "HCH", 'B', burntBrick, 'L', lava, 'G', tank, 'H', heating, 'C', baseBrick });
         addShaped(anvil, new Object[] { "CCC", " N ", "BBB", 'C', baseBrick, 'B', burntBrick, 'N', netherBrick });
@@ -75,9 +78,9 @@ public class Recipes {
         addShaped(carbide, new Object[] { " S ", "FBF", " S ", 'F', coal, 'S', sand, 'B', blockClay });
         addWheelRecipe(asStack(ironWheel, 3), "ingotIron", "slabWood");
         addCrossHatchRecipe(wicker, "stickWood", reeds);
-        addVatItemRecipe("stickWood", getFluidName("titanium"), MetalRates.INGOT * 3, titaniumRod, 60);
-        addVatItemRecipe(asStack(nettherackBrick), "lava", 250, burntBrick, 4);
-        addVatItemRecipe(asStack(brick), "lava", 500, burntBrick, 8);
+        addVatItemRecipe("stickWood", getFluidName("titanium"), MetalRates.INGOT * 3, titaniumRod, 30);
+        addVatItemRecipe(asStack(nettherackBrick), "lava", 100, burntBrick, 3);
+        addVatItemRecipe(asStack(brick), "lava", 250, burntBrick, 5);
 
         if (!Modules.isActive(Modules.worldplus)) {
             add9x9Recipe(kelpWrap, cactusGreen);

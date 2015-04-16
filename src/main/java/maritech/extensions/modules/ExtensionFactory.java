@@ -63,7 +63,8 @@ public class ExtensionFactory implements IModuleExtension {
         turbineAluminum = new ItemRotor(3600, MachineRenderedMeta.ROTOR_ALUMINUM).setUnlocalizedName("turbine.aluminum");
         turbineTitanium = new ItemRotor(28800, MachineRenderedMeta.ROTOR_TITANIUM).setUnlocalizedName("turbine.titanium");
         fludd = new ItemFLUDD(armorFLUDD, MTRenderIds.FLUDD, 1).setUnlocalizedName("fludd");
-        RegistryHelper.registerTiles("Mariculture", TileSluice.class, TileFLUDDStand.class, TilePressureVessel.class, TileSponge.class, TileSluiceAdvanced.class, TileGenerator.class, TileRotor.class, TileRotorCopper.class, TileRotorAluminum.class, TileRotorTitanium.class);
+        RegistryHelper.registerTiles("Mariculture", TileSluice.class, TileFLUDDStand.class, TilePressureVessel.class, TileSponge.class, TileSluiceAdvanced.class, TileGenerator.class, TileRotor.class, 
+                TileRotorCopper.class, TileRotorAluminum.class, TileRotorTitanium.class);
         EntityRegistry.registerModEntity(EntityFLUDDSquirt.class, "WaterSquirt", EntityIds.FAKE_SQUIRT, Mariculture.instance, 80, 3, true);
     }
 

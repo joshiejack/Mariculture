@@ -15,8 +15,6 @@ import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyReceiver;
 
 public class TileGenerator extends TileEntity implements IEnergyConnection, IFaceable {
-    private static final int MAX_TRANSFER = 5000;
-
     public ForgeDirection orientation = ForgeDirection.NORTH;
 
     public boolean onTick(int i) {
@@ -57,11 +55,11 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
                 ForgeDirection dir = ForgeDirection.values()[i];
                 //Don't output the front or back of the generator, any other side is valid
                 if (orientation != null) {
-                    if (dir != orientation && dir != orientation.getOpposite()) {
+                    if (dir != orientation.getOpposite()) {
                         TileEntity tile = BlockHelper.getAdjacentTileEntity(worldObj, xCoord, yCoord, zCoord, dir);
                         if (tile instanceof IEnergyReceiver && energy > 0) {
                             if (((IEnergyReceiver) tile).canConnectEnergy(dir.getOpposite())) {
-                                int extract = -((IEnergyReceiver) tile).receiveEnergy(dir.getOpposite(), Math.min(energy, MAX_TRANSFER), false);
+                                int extract = -((IEnergyReceiver) tile).receiveEnergy(dir.getOpposite(), energy, false);
                             }
                         }
                     }

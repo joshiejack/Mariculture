@@ -280,12 +280,12 @@ public class Fishery extends RegistrationModule {
             addShaped(ItemArmorFishingHat.getDyed(i), new Object[] { "DDD", "DHD", "DDD", 'D', asStack(Core.pearls, i), 'H', asStack(fishinghat, OreDictionary.WILDCARD_VALUE) });
         }
                 
-        addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 45);
-        addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 30);
-        addVatItemRecipe("stickWood", getFluidName("fish_oil"), 5000, polishedStick, 15);
+        addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 30);
+        addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 15);
+        addVatItemRecipe("stickWood", getFluidName("fish_oil"), 5000, polishedStick, 5);
         addShapeless(asStack(polishedPlank, 4), new Object[] { polishedLog });
         addShaped(asStack(polishedStick, 4), new Object[] { "S", "S", 'S', polishedPlank });
-        addVatItemRecipe(titaniumRod, getFluidName("fish_oil"), 6500, polishedTitanium, 30);
+        addVatItemRecipe(titaniumRod, getFluidName("fish_oil"), 6500, polishedTitanium, 20);
         addShapeless(thermometer, new Object[] { "fish", compass });
         addBlockCasting(getFluidStack("dirt", 1000), new ItemStack(dirt));
         addShaped(asStack(fishingNet, 4), new Object[] { "SWS", "WWW", "SWS", 'S', "stickWood", 'W', string });
@@ -360,7 +360,7 @@ public class Fishery extends RegistrationModule {
 
         addNuggetCasting(getFluidStack("ice", 250), asStack(snowball));
         addBlockCasting(getFluidStack("ice", 1000), asStack(ice));
-        addVatItemRecipe(asStack(potato), getFluidName("poison"), 1000, asStack(poisonPotato), 15);
+        addVatItemRecipe(asStack(potato), getFluidName("poison"), 1000, asStack(poisonPotato), 13);
         addVatItemRecipe(asStack(asStack(sand), 0, 2), getFluidName("gunpowder"), 250, asStack(tnt), 10);
         addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), asStack(clay), 15);
         addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 1000), asStack(grass), 15);

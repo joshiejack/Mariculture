@@ -13,7 +13,7 @@ import mariculture.core.render.AnvilSpecialRenderer;
 import mariculture.core.render.HammerSpecialRenderer;
 import mariculture.core.render.RenderAnvil;
 import mariculture.core.render.RenderBlockCaster;
-import mariculture.core.render.RenderCopperTank;
+import mariculture.core.render.RenderTankItem;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderHammer;
 import mariculture.core.render.RenderHandler;
@@ -22,6 +22,7 @@ import mariculture.core.render.RenderNuggetCaster;
 import mariculture.core.render.RenderOyster;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderSpecialHandler;
+import mariculture.core.render.RenderTank;
 import mariculture.core.render.RenderVat;
 import mariculture.core.render.RenderVoidBottle;
 import mariculture.core.render.VatSpecialRenderer;
@@ -83,6 +84,7 @@ public class MCClientProxy extends MCCommonProxy {
         RenderIds.RENDER_ALL = RenderingRegistry.getNextAvailableRenderId();
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.renderedMachines), new RenderSingleItem());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.tanks), new RenderTankItem());
         RenderingRegistry.registerBlockHandler(new RenderHandler());
         RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
         ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
@@ -96,7 +98,10 @@ public class MCClientProxy extends MCCommonProxy {
         RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.BLOCK_CASTER, RenderBlockCaster.class);
         RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.AUTO_HAMMER, RenderHammer.class);
         RenderHandler.register(Core.renderedMachinesMulti, MachineRenderedMultiMeta.VAT, RenderVat.class);
-        RenderHandler.register(Core.tanks, TankMeta.TANK, RenderCopperTank.class);
+        RenderHandler.register(Core.tanks, TankMeta.TANK, RenderTank.class);
+        RenderHandler.register(Core.tanks, TankMeta.TANK_ALUMINUM, RenderTank.class);
+        RenderHandler.register(Core.tanks, TankMeta.TANK_TITANIUM, RenderTank.class);
+        RenderHandler.register(Core.tanks, TankMeta.TANK_GAS, RenderTank.class);
         RenderHandler.register(Core.tanks, TankMeta.BOTTLE, RenderVoidBottle.class);
 
         if (Modules.isActive(Modules.diving)) {

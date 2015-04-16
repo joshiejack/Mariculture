@@ -69,6 +69,7 @@ public class PluginTConstruct extends Plugin {
         RecipesSmelting.addMetal(getFluidName("alumite"), "Alumite", 387, stack, 2);
         RecipesSmelting.addMetal(getFluidName("platinum"), "Platinum", 1768, stack, 2);
         RecipesSmelting.addMetal(getFluidName("invar"), "Invar", 1427, stack, 2);
+        Smeltery.instance.addSmelteryFuel(Fluids.getFluid("natural_gas"), 2000, 50);
         Block torch = GameRegistry.findBlock("TConstruct", "decoration.stonetorch");
         if (torch != null) BlockAir.flammables.add(torch);
     }

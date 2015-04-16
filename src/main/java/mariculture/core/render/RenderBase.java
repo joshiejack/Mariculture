@@ -24,6 +24,7 @@ public abstract class RenderBase {
     public int x, y, z;
     public IIcon icon;
     public Block block;
+    public int meta;
     public boolean isItem;
     public int brightness = -1;
     public float rgb_red = 1.0F;
@@ -47,10 +48,11 @@ public abstract class RenderBase {
     }
 
     //Item Based Rendering
-    public void render(RenderBlocks render, Block block) {
+    public void render(RenderBlocks render, Block block, int meta) {
         isItem = true;
         this.render = render;
         this.block = block;
+        this.meta = meta;
         render();
     }
 
