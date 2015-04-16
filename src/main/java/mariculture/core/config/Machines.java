@@ -69,6 +69,8 @@ public class Machines {
         MachineSettings.TANK_UPDATE_AMOUNT = getInt("Tanks > Send Update to Client on mB", 144, "When the difference in the tank has changed by this much, then it will send an update to the client. Make this number higher, to reduce lag");
         MachineSettings.COOLING_KICK_UP_BUTT = getInt("Casters > Kick up the butt", 1000, "Every this amount of world ticks, the casters will get a kick up the butt, to try and make them work, Set to 0 to disable");
         MachineSettings.SLUICE_DAMAGE = getInt("Rotor > Damage per 5 Ticks", 50, "Setting this a higher number, means rotors will last less time. Set this to a lower number and they will last much longer. Setting to 0 disables damage. Below 0 just breaks the dang thing.");
+        MachineSettings.GAS_TURBINE_POWER = getInt("Gas Turbine > RF per 5 Ticks", 5000);
+        MachineSettings.GAS_TURBINE_DAMAGE = getInt("Gas Turbine > Rotor > Damage per 5 Ticks", 50, "Setting this a higher number, means rotors will last less time. Set this to a lower number and they will last much longer. Setting to 0 disables damage. Below 0 just breaks the dang thing.");
         MaricultureEvents.onConfigure("Machines", config);
     }
 
@@ -80,6 +82,8 @@ public class Machines {
     }
 
     public static class MachineSettings {
+        public static int GAS_TURBINE_POWER;
+        public static int GAS_TURBINE_DAMAGE;
         public static int DEFAULT_CRUCIBLE_MULTIPLIER;
         public static boolean CRUCIBLE_ENABLE_DUSTS;
 		public static int SAWMILL_STACK_MULTIPLIER;
