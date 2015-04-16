@@ -324,7 +324,8 @@ public class FluidHelper {
     }
 
     public static void addFluid(String field, String name, int volume, int bottleMeta, boolean isGas, int balance) {
-        Fluid fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
+        Fluid fluid2 = FluidRegistry.getFluid(name);
+        Fluid fluid = fluid2 == null ? new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas) : fluid2;
         if (Fluids.add(field, fluid, balance)) {
             FluidRegistry.registerFluid(Fluids.getFluid(field));
         } else {
