@@ -23,5 +23,5 @@ public class DropletMeta {
     public static final int ALUMINUM = 18;
     public static final int RUTILE = 19;
     public static final int MAGNESIUM = 20;
-    public static final int TITANIUM = 21;
+    public static final int SILVER = 21;
 }

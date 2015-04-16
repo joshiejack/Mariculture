@@ -7,5 +7,5 @@ public class GuideMeta {
     public static final int MACHINES = 2;
     public static final int FISHING = 3;
     public static final int ENCHANTS = 4;
-    public static final int RECIPES = 5;
+    public static final int FISH_DATA = 5;
 }

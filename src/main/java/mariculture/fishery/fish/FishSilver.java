@@ -1,13 +1,13 @@
 package mariculture.fishery.fish;
 
-import static mariculture.core.lib.MCLib.dropletEarth;
-import static mariculture.core.lib.MCLib.dropletRutile;
-import static mariculture.core.lib.MCLib.dropletTitanium;
+import static mariculture.core.lib.MCLib.dropletAir;
+import static mariculture.core.lib.MCLib.dropletRegen;
+import static mariculture.core.lib.MCLib.dropletSilver;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 
-public class FishTitanium extends FishSpecies {
+public class FishSilver extends FishSpecies {
     @Override
     public int getTemperatureBase() {
         return 20;
@@ -15,12 +15,12 @@ public class FishTitanium extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 15;
+        return 5;
     }
 
     @Override
     public Salinity getSalinityBase() {
-        return Salinity.SALINE;
+        return Salinity.FRESH;
     }
 
     @Override
@@ -35,23 +35,23 @@ public class FishTitanium extends FishSpecies {
 
     @Override
     public int getLifeSpan() {
-        return 30;
+        return 6;
     }
 
     @Override
     public int getFertility() {
-        return 30;
+        return 500;
     }
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletRutile, 10D);
-        addProduct(dropletTitanium, 5D);
-        addProduct(dropletEarth, 7D);
+        addProduct(dropletSilver, 5D);
+        addProduct(dropletAir, 10D);
+        addProduct(dropletRegen, 1D);
     }
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.FLUX;
+        return RodType.SUPER;
     }
 }

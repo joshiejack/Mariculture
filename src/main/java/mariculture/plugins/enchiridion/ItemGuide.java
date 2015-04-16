@@ -37,6 +37,8 @@ public class ItemGuide extends ItemMCMeta {
                 return "machines";
             case GuideMeta.PROCESSING:
                 return "processing";
+            case GuideMeta.FISH_DATA:
+                return "fish";
             default:
                 return "guide";
         }
@@ -62,8 +64,8 @@ public class ItemGuide extends ItemMCMeta {
                 return Modules.isActive(Modules.fishery);
             case GuideMeta.MACHINES:
                 return Modules.isActive(Modules.factory);
-            case GuideMeta.RECIPES:
-                return false;
+            case GuideMeta.FISH_DATA:
+                return Modules.isActive(Modules.fishery);
             case GuideMeta.ENCHANTS:
                 return Modules.isActive(Modules.magic);
             case GuideMeta.DIVING:
@@ -72,10 +74,10 @@ public class ItemGuide extends ItemMCMeta {
                 return false;
         }
     }
-    
+
     @Override
     public CreativeTabs[] getCreativeTabs() {
-        return new CreativeTabs[] { CreativeTab.books } ;
+        return new CreativeTabs[] { CreativeTab.books };
     }
 
     @Override
@@ -93,9 +95,8 @@ public class ItemGuide extends ItemMCMeta {
     public void registerIcons(IIconRegister iconRegister) {
         icons = new IIcon[getMetaCount()];
 
-        for (int i = 0; i < icons.length; i++)
-            if (i != GuideMeta.RECIPES) {
-                icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)) + "Guide");
-            }
+        for (int i = 0; i < icons.length; i++) {
+            icons[i] = iconRegister.registerIcon(Mariculture.modid + ":" + getName(new ItemStack(this, 1, i)) + "Guide");
+        }
     }
 }

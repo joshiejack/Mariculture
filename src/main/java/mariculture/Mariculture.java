@@ -12,6 +12,7 @@ import mariculture.core.config.Config;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.Module;
 import mariculture.core.network.PacketHandler;
+import mariculture.fishery.Fish;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -51,6 +52,7 @@ public class Mariculture {
         PacketHandler.init();
         //Fish need to be registered before, the recipes that use them are called
         if (Modules.isActive(Modules.fishery)) {
+            Fish.addOptionalFish();
             Fishing.fishHelper.registerFishies();
         }
 

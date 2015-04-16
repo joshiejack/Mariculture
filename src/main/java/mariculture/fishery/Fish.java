@@ -58,6 +58,7 @@ import mariculture.fishery.fish.FishRedshroom;
 import mariculture.fishery.fish.FishRutile;
 import mariculture.fishery.fish.FishSalmon;
 import mariculture.fishery.fish.FishSiamese;
+import mariculture.fishery.fish.FishSilver;
 import mariculture.fishery.fish.FishSpider;
 import mariculture.fishery.fish.FishSquid;
 import mariculture.fishery.fish.FishStargazer;
@@ -65,7 +66,6 @@ import mariculture.fishery.fish.FishStickleback;
 import mariculture.fishery.fish.FishStingRay;
 import mariculture.fishery.fish.FishTang;
 import mariculture.fishery.fish.FishTetra;
-import mariculture.fishery.fish.FishTitanium;
 import mariculture.fishery.fish.FishTrout;
 import mariculture.fishery.fish.FishTuna;
 import mariculture.fishery.fish.FishUndead;
@@ -83,6 +83,8 @@ import mariculture.fishery.fish.dna.FishDNAWorkEthic;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class Fish {
     public static FishDNABase species;
@@ -163,7 +165,6 @@ public class Fish {
     public static FishSpecies aluminum;
     public static FishSpecies rutile;
     public static FishSpecies magnesium;
-    public static FishSpecies titanium;
 
     public static void init() {
         addDNA();
@@ -317,10 +318,34 @@ public class Fish {
         copper = Fishing.fishHelper.registerFish(modid, FishCopper.class, 52);
         aluminum = Fishing.fishHelper.registerFish(modid, FishAluminum.class, 53);
         rutile = Fishing.fishHelper.registerFish(modid, FishRutile.class, 54);
-        magnesium = Fishing.fishHelper.registerFish(modid, FishMagnesium.class, 55);
-        titanium = Fishing.fishHelper.registerFish(modid, FishTitanium.class, 56);
+        magnesium = Fishing.fishHelper.registerFish(modid, FishMagnesium.class, 55);        
+        //TODO: Silver, Lead, Tin, Platinum, Nickel, Cobalt, Ardite, Osmium, Zinc, Mana
+    }
+    
+    public static FishSpecies silver; //Iron + Magnesium
+    public static FishSpecies lead; //Angler + Copper
+    public static FishSpecies tin; //Squid + Stargazer
+    public static FishSpecies platinum; //Koi + Rutile
+    public static FishSpecies nickel; //Magnesium + Angler
+    public static FishSpecies cobalt; //Cat + Rutile
+    public static FishSpecies ardite; //Glow + Rutile
+    public static FishSpecies osmium; //Electric + Rutile
+    public static FishSpecies zinc; //Aluminum + Puffer
+    public static FishSpecies mana;//Mana = Koi + GoldenEye
+    
+    public static FishSpecies registerFish(String ingot, FishSpecies father, FishSpecies mother, double chance, Class clazz, int id) {
+        if (OreDictionary.getOres("ingot" + StringUtils.capitalize(ingot)).size() > 0) {
+            FishSpecies fish = Fishing.fishHelper.registerFish(modid, clazz);
+            Fishing.mutation.addMutation(father, mother, fish, chance);
+            return fish;
+        }
         
-        //TODO: Silver, Lead, Tin, Platinum, Nickel, Diamond, Emerald, Mana, Cobalt, Ardite, Obsidian
+        return null;
+    }
+    
+    public static void addOptionalFish() {
+        silver = registerFish("silver", iron, magnesium, 20D, FishSilver.class, 56);
+        
     }
 
     private static void addMutations() {

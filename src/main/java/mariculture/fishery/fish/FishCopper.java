@@ -14,7 +14,7 @@ public class FishCopper extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 5;
+        return 8;
     }
 
     @Override

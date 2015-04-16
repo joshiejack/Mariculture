@@ -237,7 +237,7 @@ public class MCLib {
     public static final ItemStack dropletAluminum = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ALUMINUM) : null;
     public static final ItemStack dropletRutile = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.RUTILE) : null;
     public static final ItemStack dropletMagnesium = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.MAGNESIUM) : null;
-    public static final ItemStack dropletTitanium = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.TITANIUM) : null;
+    public static final ItemStack dropletSilver = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.SILVER) : null;
     public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
     public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
     public static final ItemStack dustMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE);

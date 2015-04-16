@@ -82,8 +82,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return "rutile";
             case DropletMeta.MAGNESIUM:
                 return "magnesium";
-            case DropletMeta.TITANIUM:
-                return "titanium";
+            case DropletMeta.SILVER:
+                return "silver";
             default:
                 return "water";
         }
@@ -153,8 +153,8 @@ public class ItemDroplet extends ItemMCMeta {
                 return getNuggetStack("rutile");
             case DropletMeta.MAGNESIUM:
                 return getNuggetStack("magnesium");
-            case DropletMeta.TITANIUM:
-                return getNuggetStack("titanium");
+            case DropletMeta.SILVER:
+                return getNuggetStack("silver");
             default:
                 return null;
         }

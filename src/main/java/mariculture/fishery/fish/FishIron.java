@@ -19,7 +19,7 @@ public class FishIron extends FishSpecies {
 
     @Override
     public Salinity getSalinityBase() {
-        return Salinity.SALINE;
+        return Salinity.BRACKISH;
     }
 
     @Override

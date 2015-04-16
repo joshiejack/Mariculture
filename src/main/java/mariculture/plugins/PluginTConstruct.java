@@ -74,7 +74,7 @@ public class PluginTConstruct extends Plugin {
         if (Fluids.getFluid("invar") != null) {
             RecipesSmelting.addMetal(getFluidName("invar"), "Invar", 1427, stack, 2);
         }
-        
+
         Smeltery.instance.addSmelteryFuel(Fluids.getFluid("natural_gas"), 2000, 50);
         Block torch = GameRegistry.findBlock("TConstruct", "decoration.stonetorch");
         if (torch != null) BlockAir.flammables.add(torch);
@@ -113,20 +113,23 @@ public class PluginTConstruct extends Plugin {
         PluginTConstruct.addCasting("ingotMagnesium", getFluidStack("magnesium", MetalRates.INGOT), 100);
         PluginTConstruct.addBlockCasting("blockMagnesium", getFluidStack("magnesium", MetalRates.BLOCK), 100);
 
-        if (FluidRegistry.getFluid("xpjuice") != null) {
-            ItemStack xpberry = TConstructRegistry.getItemStack("oreberryEssence");
-            ArrayList<FluidStack> fluids = new ArrayList<FluidStack>();
-            ArrayList<Integer> chances = new ArrayList<Integer>();
+        ItemStack xpberry = TConstructRegistry.getItemStack("oreberryEssence");
+        ArrayList<FluidStack> fluids = new ArrayList<FluidStack>();
+        ArrayList<Integer> chances = new ArrayList<Integer>();
 
-            int j = 3;
-            for (int i = 80; i <= 120; i += 10) {
-                chances.add(j);
-                fluids.add(FluidRegistry.getFluidStack("xpjuice", i));
-                j++;
-            }
+        FluidStack xp = Fluids.getBalancedStack("xp");
 
-            MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(xpberry, 1000, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), null, 0));
+        int j = 3;
+        for (int i = 4; i <= 6; i++) {
+            int amount = xp.amount * i;
+            
+            chances.add(j);
+            fluids.add(new FluidStack(Fluids.getFluid("xp"), amount));
+            j++;
         }
+
+        MaricultureHandlers.crucible.addRecipe(new RecipeSmelter(xpberry, 1000, fluids.toArray(new FluidStack[fluids.size()]), chances.toArray(new Integer[chances.size()]), null, 0));
+
     }
 
     private static void addAlloy() {

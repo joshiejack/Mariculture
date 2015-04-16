@@ -23,6 +23,7 @@ Mariculture 1.2.5
     • Fish products rebalanced
     • More effects added to fish
     • New book, listing all the info about each fish species, and it's special effects
+    • More recipe usages for droplets
 • Hatcheries/Incubators
     • Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
         • An equal amount of Hatches and Water Blocks ensures fastest operation
@@ -43,6 +44,7 @@ Mariculture 1.2.5
     • Now render their contents in the inventory
 • Tinkers Construct Support
     • Added Natural Gas as a Smeltery Fuel, Much more efficient than lava
+    • Essence Berry melting will now work for other xp types other than xpjuice
 • Power Generation
     • Sluice output divided by 64 instead of 256
     • Can create gas turbines again, check the book

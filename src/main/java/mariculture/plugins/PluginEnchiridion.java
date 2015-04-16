@@ -77,6 +77,7 @@ public class PluginEnchiridion extends Plugin {
         }
         if (Modules.isActive(Modules.fishery)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
+            RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISH_DATA), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE));
         }
         if (Modules.isActive(Modules.magic)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
@@ -91,6 +92,7 @@ public class PluginEnchiridion extends Plugin {
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
+            GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISH_DATA), Mariculture.modid, "fish", 0xFF8000);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
         }
     }
