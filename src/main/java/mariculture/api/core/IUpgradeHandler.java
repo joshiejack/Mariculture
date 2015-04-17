@@ -13,7 +13,4 @@ public interface IUpgradeHandler {
 
     /** Whether this upgradable block has at least one of this type of upgrade or not **/
     public boolean hasUpgrade(String type, IUpgradable tile);
-
-    /** Returns mutation effects that this upgrade has **/
-    public List<IMutationEffect> getMutationEffects(IUpgradable tile);
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureTab;
 import mariculture.api.fishery.IMutationEffect;
+import mariculture.api.fishery.IMutationEffectProvider;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemMCStorage;
 import mariculture.core.util.MCTranslate;
@@ -14,7 +15,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade {
+public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade, IMutationEffectProvider {
     private static final int SIZE = 5;
 
     public ItemModifierStorage() {
@@ -68,7 +69,7 @@ public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade {
     }
 
     @Override
-    public List<IMutationEffect> getMutationEffects(ItemStack stack) {
+    public List<IMutationEffect> getEffects(ItemStack stack) {
         return new ArrayList();
     }
 
@@ -114,8 +115,8 @@ public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade {
 
         @Override
         public boolean isItemValid(ItemStack stack) {
-            if (stack.getItem() instanceof IItemUpgrade) {
-                List<IMutationEffect> effects = ((IItemUpgrade)stack.getItem()).getMutationEffects(stack);
+            if (stack.getItem() instanceof IMutationEffectProvider) {
+                List<IMutationEffect> effects = ((IMutationEffectProvider)stack.getItem()).getEffects(stack);
                 return effects.size() > 0;
             } else return false;
         }

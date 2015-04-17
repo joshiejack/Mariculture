@@ -1,8 +1,5 @@
 package mariculture.api.core;
 
-import java.util.List;
-
-import mariculture.api.fishery.IMutationEffect;
 import net.minecraft.item.ItemStack;
 
 public interface IItemUpgrade {
@@ -23,9 +20,6 @@ public interface IItemUpgrade {
 
     /** return salinity boost **/
     public int getSalinity(ItemStack stack);
-    
-    /** return the mutation effects **/
-    public List<IMutationEffect> getMutationEffects(ItemStack stack);
 
     /** The type of upgrade this is, used when checking if a machine has this type in it,
      * Currently used values are:

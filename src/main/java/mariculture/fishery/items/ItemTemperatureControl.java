@@ -109,11 +109,6 @@ public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrad
         return "control";
     }
 
-    @Override
-    public List<IMutationEffect> getMutationEffects(ItemStack stack) {
-        return new ArrayList();
-    }
-
     private static class SlotHeating extends Slot {
         private SlotHeating(IInventory inv, int id, int x, int y) {
             super(inv, id, x, y);

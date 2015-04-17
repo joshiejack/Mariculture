@@ -2,7 +2,6 @@ package mariculture.fishery;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
@@ -14,6 +13,7 @@ import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.IIncubator;
 import mariculture.api.fishery.IMutation.Mutation;
 import mariculture.api.fishery.IMutationEffect;
+import mariculture.api.fishery.IMutationEffectProvider;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics.FussyFish;
@@ -200,11 +200,11 @@ public class FishyHelper implements IFishHelper {
     }
 
     @Override
-    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {       
+    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
         if (FussyFish.IGNORE_ALL_REQUIREMENTS) {
             return true;
         }
-        
+
         FishSpecies fish = Fishing.fishHelper.getSpecies(stack);
         if (fish == null) return false;
         else {
@@ -220,27 +220,27 @@ public class FishyHelper implements IFishHelper {
                 if (salinity <= 0) {
                     salinity = 0;
                 }
-                
+
                 if (salinity > 2) {
                     salinity = 2;
                 }
-                
+
                 salt = Salinity.values()[salinity];
                 if (!worldCorrect) {
                     worldCorrect = MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable);
                 }
-                
+
                 hasAquascum = MaricultureHandlers.upgrades.hasUpgrade("aquascum", upgradable);
             }
-            
-            int salinityTolerance = fish.ignoresSalinity()? 2: Fish.salinity.getDNA(stack);
+
+            int salinityTolerance = fish.ignoresSalinity() ? 2 : Fish.salinity.getDNA(stack);
             if ((!FussyFish.IGNORE_DIMENSION_REQUIREMENTS && !worldCorrect) || (!FussyFish.IGNORE_DAY_REQUIREMENTS && !fish.canWorkAtThisTime(world.isDaytime()))) return false;
             else {
                 if (hasAquascum) {
                     salt = fish.getSalinityBase();
                     temperature = fish.getTemperatureBase();
                 }
-                
+
                 return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), salinityTolerance, fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
             }
         }
@@ -305,12 +305,21 @@ public class FishyHelper implements IFishHelper {
                 ItemStack fish = Fishing.fishHelper.makeBredFish(egg, rand, mutation);
                 if (fish != null) {
                     if (tile instanceof IUpgradable) {
-                        List<IMutationEffect> effects = MaricultureHandlers.upgrades.getMutationEffects((IUpgradable)tile);
+                        IUpgradable upgradable = ((IUpgradable) tile);
+                        ArrayList<IMutationEffect> effects = new ArrayList();
+                        ItemStack[] upgrades = upgradable.getUpgrades();
+                        for (ItemStack upgradeStack : upgrades) {
+                            if (upgradeStack != null && upgradeStack.getItem() instanceof IMutationEffectProvider) {
+                                IMutationEffectProvider upgrade = (IMutationEffectProvider) upgradeStack.getItem();
+                                effects.addAll(upgrade.getEffects(upgradeStack));
+                            }
+                        }
+
                         for (IMutationEffect effect : effects) {
                             fish = effect.adjustFishStack(egg, fish);
                         }
                     }
-                    
+
                     //Check it again, as the fish may have been adjusted to be null
                     if (fish != null) {
                         int gender = Fish.gender.getDNA(fish);
@@ -351,7 +360,7 @@ public class FishyHelper implements IFishHelper {
     }
 
     @Override
-    public FishSpecies getSpecies(ItemStack stack) {        
+    public FishSpecies getSpecies(ItemStack stack) {
         if (stack == null || stack.getItem() == null || !stack.hasTagCompound() || !(stack.getItem() instanceof ItemFishy)) return null;
         return getSpecies(Fish.species.getDNA(stack));
     }
