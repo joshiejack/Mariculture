@@ -124,6 +124,8 @@ public class RecipesSmelting {
         //Tinnic Dust
         LinkedMetal[] tins = new LinkedMetal[] { new LinkedMetal("copper", 3), new LinkedMetal("iron", 6), new LinkedMetal("lead", 8) };
         addDust(MaterialsMeta.DUST_TINNIC, tin, sulfur, 7, tins);
+        
+        //TODO: Add Osmium, Ardite, Platinum, Cobalt, Zinc Ores
 
         addMetal(getFluidName("tin"), "Tin", tin, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_TINNIC), 10);
         addMetal(getFluidName("copper"), "Copper", copper, new ItemStack(Core.materials, 1, MaterialsMeta.DUST_COPPEROUS), 10);

@@ -151,6 +151,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 
         if (player.isSneaking()) return false;
         if (tile instanceof TileFeeder) {
+            ((TileFeeder)tile).updateTankSize();
             player.openGui(Mariculture.instance, -1, world, x, y, z);
             return true;
         }

@@ -452,6 +452,7 @@ mariculture.hat.purple.description.actual=Everything loot or alive is enchanted.
 #fish breeding
 mariculture.fishy=Mariculture Fish
 mariculture.fish.data.dead=Raw
+mariculture.fish.data.gender=Gender
 mariculture.fish.data.hybrid=Hybrid
 mariculture.fish.data.lifespan=Lifespan
 mariculture.fish.data.lifespan.miniscule=Miniscule

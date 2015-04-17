@@ -133,20 +133,29 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
 
     @Override
     public void process() {
-        int slot = 10 + worldObj.rand.nextInt(3);
-        ItemStack dna = inventory[slot];
-        if (dna != null && dna.hasTagCompound()) {
-            ItemStack fish = ItemFishDNA.add(dna, inventory[FISH]);
-            if (fish != null) {
+        ItemStack fish = null;
+        ItemStack clone = inventory[FISH].copy();
+        clone.stackSize = 1;
+        
+        boolean used = false;
+        for (int slot = 10; slot <= 12; slot++) {
+            ItemStack dna = inventory[slot];
+            if (dna != null && dna.hasTagCompound()) {
                 if (dna.attemptDamageItem(1, worldObj.rand)) {
                     inventory[slot] = null;
                 }
-
-                inventory[FISH] = null;
-                helper.insertStack(fish, output);
-                tank.drain(5000, true);
-                tank2.drain(5000, true);
+                
+                if (fish == null) {
+                    fish = ItemFishDNA.add(dna, clone);
+                } else fish = ItemFishDNA.add(dna, fish);
             }
+        }
+
+        if (fish != null) {
+            decrStackSize(FISH, 1);
+            helper.insertStack(fish, output);
+            tank.drain(5000, true);
+            tank2.drain(5000, true);
         }
     }
 
@@ -257,14 +266,14 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
         return true;
     }
-    
+
     private int lastFluidID;
     private int lastFluidAmount;
     private int lastFluidCapacity;
     private int lastFluid2ID;
     private int lastFluid2Amount;
     private int lastFluid2Capacity;
-    
+
     @Override
     public boolean hasChanged() {
         return super.hasChanged() || lastFluidID != tank.getFluidID() || lastFluidAmount != tank.getFluidAmount() || lastFluidCapacity != tank.getCapacity() || lastFluid2ID != tank2.getFluidID() || lastFluid2Amount != tank2.getFluidAmount() || lastFluidCapacity != tank2.getCapacity();
@@ -275,7 +284,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
         lastFluidID = tank.getFluidID();
         lastFluidAmount = tank.getFluidAmount();
         lastFluidCapacity = tank.getCapacity();
-        
+
         ArrayList list = super.getGUIData();
         list.addAll(Arrays.asList(new Integer[] { lastFluidID, lastFluidAmount, lastFluidCapacity, tank2.getFluidID(), tank2.getFluidAmount(), tank2.getCapacity() }));
         return list;

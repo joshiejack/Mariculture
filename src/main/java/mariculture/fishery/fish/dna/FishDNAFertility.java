@@ -13,7 +13,7 @@ public class FishDNAFertility extends FishDNA {
     
     @Override
     public int getCopyChance() {
-        return 15;
+        return 20;
     }
     
     public Integer sanitize(Integer i) {

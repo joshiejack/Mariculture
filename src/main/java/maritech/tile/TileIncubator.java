@@ -3,12 +3,14 @@ package maritech.tile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IIncubator;
+import mariculture.api.fishery.IMutationModifier;
 import mariculture.core.Core;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.gui.feature.FeatureNotifications.NotificationType;
@@ -23,26 +25,25 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileIncubator extends TileMultiMachinePowered implements IHasNotification, IIncubator {
+public class TileIncubator extends TileMultiMachinePowered implements IHasNotification, IIncubator, IMutationModifier {
+    private HashSet<IMutationModifier> modifiers = new HashSet();
     private int cooldown = 0;
-    private double mutation = 1.1D;
 
     public TileIncubator() {
         needsInit = true;
         max = MachineSpeeds.getIncubatorSpeed();
         inventory = new ItemStack[22];
         output = new int[] { 13, 14, 15, 16, 17, 18, 19, 20, 21 };
+        modifiers.add(this);
     }
 
     //Sets the mutation modifier for this incubator
-    public void setMutationModifier(double d) {
+    public void addMutationModifier(IMutationModifier modifier) {
         TileIncubator tile = (TileIncubator) getMaster();
         if (tile != null) {
-            tile.cooldown = 25;
-            tile.mutation = d;
+            tile.modifiers.add(modifier);
         }
     }
 
@@ -86,13 +87,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
     
     @Override
     public void updateUpgrades() {
-        super.updateUpgrades();
-        if (MaricultureHandlers.upgrades.hasUpgrade("incubator", this)) {
-            setMutationModifier(10000D);
-        } else if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
-            setMutationModifier(2D);
-        }
-        
+        super.updateUpgrades();        
         speed *= 10;
     }
 
@@ -101,8 +96,6 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
         if (!worldObj.isRemote) {
             if (cooldown > 0) {
                 cooldown--;
-            } else {
-                mutation = 1.0D;
             }
 
             if (canWork) {
@@ -172,12 +165,30 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
         return false;
     }
+    
+    @Override
+    public double getValue() {
+        if (MaricultureHandlers.upgrades.hasUpgrade("incubator", this)) {
+            return 1000D;
+        } else if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", this)) {
+            return 2D;
+        } else return 0D;
+    }
+    
+    public double getMutationModifier() {
+        double value = 1D;
+        for (IMutationModifier modifier: modifiers) {
+            value += modifier.getValue();
+        }
+        
+        return value;
+    }
 
     private boolean openEgg(int slot) {
         if (inventory[slot] == null) return false;
         Random rand = new Random();
         if (inventory[slot].getItem() instanceof ItemEgg) {
-            inventory[slot] = Fishing.fishHelper.attemptToHatchEgg(inventory[slot], rand, mutation, this);
+            inventory[slot] = Fishing.fishHelper.attemptToHatchEgg(inventory[slot], rand, getMutationModifier(), this);
         } else if (inventory[slot].getItem() == Items.egg) {
             if (worldObj.rand.nextInt(8) == 0) {
                 helper.insertStack(new ItemStack(Items.spawn_egg, 1, 93), output);
@@ -267,17 +278,5 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
     public boolean isTop(int x, int y, int z) {
         return worldObj.getBlock(x, y, z) == getBlockType() && worldObj.getBlockMetadata(x, y, z) == MachineMultiMeta.INCUBATOR_TOP;
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        super.readFromNBT(nbt);
-        mutation = nbt.getDouble("MutationModifier");
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-        nbt.setDouble("MutationModifier", mutation);
     }
 }

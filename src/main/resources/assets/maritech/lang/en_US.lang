@@ -48,7 +48,7 @@ tile.machines.multi.incubator.name=Incubator
 maritech.crafting.dragonegg=Spawn Ender Dragon
 maritech.dna.format=%N %D
 maritech.dna=DNA
-maritech.dna.corrupt=Corrupted DNA
+maritech.dna.corrupt=Any DNA
 maritech.dna.name=DNA Name
 maritech.dna.value=DNA Value
 

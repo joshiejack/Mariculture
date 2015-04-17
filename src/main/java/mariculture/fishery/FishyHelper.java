@@ -209,6 +209,7 @@ public class FishyHelper implements IFishHelper {
             Salinity salt = MaricultureHandlers.environment.getSalinity(world, x, z);
             int temperature = MaricultureHandlers.environment.getTemperature(world, x, y, z);
             boolean worldCorrect = fish.isValidDimensionForWork(world);
+            boolean hasAquascum = false;
             TileEntity tile = world.getTileEntity(x, y, z);
             if (tile != null && tile instanceof IUpgradable) {
                 IUpgradable upgradable = (IUpgradable) tile;
@@ -226,11 +227,20 @@ public class FishyHelper implements IFishHelper {
                 if (!worldCorrect) {
                     worldCorrect = MaricultureHandlers.upgrades.hasUpgrade("ethereal", upgradable);
                 }
+                
+                hasAquascum = MaricultureHandlers.upgrades.hasUpgrade("aquascum", upgradable);
             }
             
             int salinityTolerance = fish.ignoresSalinity()? 2: Fish.salinity.getDNA(stack);
             if ((!FussyFish.IGNORE_DIMENSION_REQUIREMENTS && !worldCorrect) || (!FussyFish.IGNORE_DAY_REQUIREMENTS && !fish.canWorkAtThisTime(world.isDaytime()))) return false;
-            else return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), salinityTolerance, fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
+            else {
+                if (hasAquascum) {
+                    salt = fish.getSalinityBase();
+                    temperature = fish.getTemperatureBase();
+                }
+                
+                return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), salinityTolerance, fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
+            }
         }
     }
 

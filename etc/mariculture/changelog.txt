@@ -14,6 +14,7 @@ Mariculture 1.2.5
         • Wetsuit increases mining speed under lava
         • Scuba Tank, will use 'oxygen' to prevent fire damage.
 • Fishy Stuff
+    • Add AquaScum 2003 - Autoadjusts Tank temperature and salinity for fish
     • Add Air Droplet and Contained Wind
     • Add Experience Droplet
     • Add Metal Droplets
@@ -55,6 +56,7 @@ Mariculture 1.2.5
     • Rebalance all vat numbers
     • Fix oysters not always generating ender pearls in the end
     • Fix kelp seeds not being plantable
+    • Fix DNA name tooltips
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror

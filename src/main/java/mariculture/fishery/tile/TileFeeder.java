@@ -104,23 +104,29 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         super.setInventorySlotContents(slot, stack);
 
         if (!worldObj.isRemote) {
-            if ((slot == male && Fishing.fishHelper.isMale(stack)) || (slot == female && Fishing.fishHelper.isFemale(stack))) {
+            if (slot == male || slot == female) {
                 updateTankSize();
             } else if (slot == female || slot == male) {
                 PacketHandler.syncInventory(this, inventory);
             }
         }
     }
+    
+    public boolean canUpdateTankSize() {
+        return Fishing.fishHelper.isMale(inventory[male]) && Fishing.fishHelper.isFemale(inventory[female]);
+    }
 
     //Updates the size of the tank
-    private void updateTankSize() {
+    public void updateTankSize() {
+        if (!canUpdateTankSize()) return;
+
         int xP = 0, xN = 0, yP = 0, yN = 0, zP = 0, zN = 0;
         ItemStack male = inventory[this.male];
         ItemStack female = inventory[this.female];
-        
+
         //Don't update the tank if either the male or female do not exist
         if (male == null || female == null) return;
-        
+
         if (male != null) {
             xP = Fish.east.getDNA(male);
             xN = Fish.west.getDNA(male);
@@ -145,31 +151,30 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                         } else {
                             isValid = m.isFluidValid(block) && f.isFluidValid(block);
                         }
-                        
-                        
+
                         if (isValid) {
                             coords.add(new CachedCoords(xCoord + x, yCoord + y, zCoord + z));
-                            
+
                             int id = Block.getIdFromBlock(block);
-                            int amount = count.get(id) != null? count.get(id) + 1: 1;
+                            int amount = count.get(id) != null ? count.get(id) + 1 : 1;
                             count.put(id, amount);
                         }
                     }
                 }
             }
         }
-        
+
         int highest_id = 0;
         int highest_amount = 0;
         for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
             int value = entry.getValue();
-            if(value >= highest_amount) {
+            if (value >= highest_amount) {
                 highest_amount = value;
                 highest_id = entry.getKey();
             }
         }
-        
-        tankBlock = highest_id == 0? null: Block.getBlockById(highest_id);
+
+        tankBlock = highest_id == 0 ? null : Block.getBlockById(highest_id);
         tankSize = coords.size();
         updateUpgrades();
 
@@ -180,7 +185,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     //Processes fish
-    public void process() {        
+    public void process() {
         if (swap) {
             makeProduct(inventory[female]);
         } else {
@@ -190,23 +195,23 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         damageFish(inventory[female], true);
         damageFish(inventory[male], true);
     }
-    
+
     private void fixFish(int slot) {
         ItemStack fish = inventory[slot];
-        if(fish != null && fish.hasTagCompound()) {
+        if (fish != null && fish.hasTagCompound()) {
             FishSpecies species = Fishing.fishHelper.getSpecies(fish);
             FishSpecies secondary = Fishing.fishHelper.getSpecies(Fishing.fishHelper.getLowerDNA(Fish.species.getName(), fish));
-            if(!fish.stackTagCompound.hasKey(Fish.temperature.getName())) {
+            if (!fish.stackTagCompound.hasKey(Fish.temperature.getName())) {
                 Fish.temperature.addDNA(fish, species.getTemperatureTolerance());
                 Fish.temperature.addLowerDNA(fish, secondary.getTemperatureTolerance());
             }
-            
-            if(!fish.stackTagCompound.hasKey(Fish.temperature.getName())) {
+
+            if (!fish.stackTagCompound.hasKey(Fish.temperature.getName())) {
                 Fish.temperature.addDNA(fish, species.getSalinityTolerance());
                 Fish.temperature.addDNA(fish, secondary.getSalinityTolerance());
             }
         }
-        
+
         inventory[slot] = fish;
     }
 
@@ -285,7 +290,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     @Override
-    public void updateEntity() {        
+    public void updateEntity() {
         if (!worldObj.isRemote) {
             if (isInit <= 0 && isInit > -1000) {
                 isInit = -1000;
@@ -401,11 +406,11 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
     @Override
     public boolean canWork() {
-        if(FishMechanics.FIX_FISH) {
+        if (FishMechanics.FIX_FISH) {
             fixFish(female);
             fixFish(male);
         }
-        
+
         return RedstoneMode.canWork(this, mode) && hasMale() && hasFemale() && fishCanLive(inventory[male]) && fishCanLive(inventory[female]) && hasRoom(null);
     }
 
@@ -421,7 +426,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
     private boolean fishCanLive(ItemStack fish) {
         FishSpecies species = Fishing.fishHelper.getSpecies(fish);
-        if (species != null) {            
+        if (species != null) {
             if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) return true;
             else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getFluidID("fish_food")) return false;
             return tankSize >= Fish.tankSize.getDNA(fish) && species.isFluidValid(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
@@ -485,42 +490,35 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                 if (!MaricultureHandlers.upgrades.hasUpgrade("ethereal", this) && !species.isValidDimensionForWork(worldObj)) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("badWorld"));
                 }
-                
-                int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
-                int minTempAccepted = species.getTemperatureBase() - Fish.temperature.getDNA(fish);
-                int maxTempAccepted = species.getTemperatureBase() + Fish.temperature.getDNA(fish);
-                if (temperature < minTempAccepted) {
-                    int required = minTempAccepted - temperature;
-                    noBad = addToolTip(tooltip, MCTranslate.translate("tooCold"));
-                    noBad = addToolTip(tooltip, "  +" + required + mariculture.lib.util.Text.DEGREES);
-                } else if (temperature > maxTempAccepted) {
-                    int required = temperature - maxTempAccepted;
-                    noBad = addToolTip(tooltip, MCTranslate.translate("tooHot"));
-                    noBad = addToolTip(tooltip, "  -" + required + mariculture.lib.util.Text.DEGREES);
-                }
 
-                boolean match = false;
-                Salinity salt = getSalinity();
-                int minSaltAccepted = Math.min(2, Math.max(0, species.getSalinityBase().ordinal() - Fish.salinity.getDNA(fish)));
-                int maxSaltAccepted = Math.min(2, Math.max(0, species.getSalinityBase().ordinal() + Fish.salinity.getDNA(fish)));
-                if (salt.ordinal() >= minSaltAccepted && salt.ordinal() <= maxSaltAccepted) {
-                    match = true;
-                }
-
-                if (!match) {
-                    for (int s = minSaltAccepted; s <= maxSaltAccepted; s++) {
-                        noBad = addToolTip(tooltip, MCTranslate.translate("salinity.prefers") + " " + MCTranslate.translate("salinity." + Salinity.values()[s].toString().toLowerCase()));
+                boolean aquaScum = MaricultureHandlers.upgrades.hasUpgrade("aquascum", this);
+                if (!aquaScum) {
+                    int temperature = MaricultureHandlers.environment.getTemperature(worldObj, xCoord, yCoord, zCoord) + heat;
+                    int minTempAccepted = species.getTemperatureBase() - Fish.temperature.getDNA(fish);
+                    int maxTempAccepted = species.getTemperatureBase() + Fish.temperature.getDNA(fish);
+                    if (temperature < minTempAccepted) {
+                        int required = minTempAccepted - temperature;
+                        noBad = addToolTip(tooltip, MCTranslate.translate("tooCold"));
+                        noBad = addToolTip(tooltip, "  +" + required + mariculture.lib.util.Text.DEGREES);
+                    } else if (temperature > maxTempAccepted) {
+                        int required = temperature - maxTempAccepted;
+                        noBad = addToolTip(tooltip, MCTranslate.translate("tooHot"));
+                        noBad = addToolTip(tooltip, "  -" + required + mariculture.lib.util.Text.DEGREES);
                     }
-                }
 
-                int size = Fish.tankSize.getDNA(fish);                
-                if (tankSize < size || !species.isFluidValid(tankBlock)) {
-                    noBad = addToolTip(tooltip, MCTranslate.translate("notAdvanced"));
-                    //Work out the block types accepted
-                    String block1 = species.getWater1().getLocalizedName();
-                    String block2 = species.getWater2().getLocalizedName();
-                    String text = block1.equals(block2)? block1: block1 + " / " + block2;
-                    noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
+                    boolean match = false;
+                    Salinity salt = getSalinity();
+                    int minSaltAccepted = Math.min(2, Math.max(0, species.getSalinityBase().ordinal() - Fish.salinity.getDNA(fish)));
+                    int maxSaltAccepted = Math.min(2, Math.max(0, species.getSalinityBase().ordinal() + Fish.salinity.getDNA(fish)));
+                    if (salt.ordinal() >= minSaltAccepted && salt.ordinal() <= maxSaltAccepted) {
+                        match = true;
+                    }
+
+                    if (!match) {
+                        for (int s = minSaltAccepted; s <= maxSaltAccepted; s++) {
+                            noBad = addToolTip(tooltip, MCTranslate.translate("salinity.prefers") + " " + MCTranslate.translate("salinity." + Salinity.values()[s].toString().toLowerCase()));
+                        }
+                    }
                 }
 
                 if (!species.canWorkAtThisTime(isDay)) {
@@ -529,6 +527,16 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
                 if (!hasMale() || !hasFemale()) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("missingMate"));
+                } else {
+                    int size = Fish.tankSize.getDNA(fish);
+                    if (tankSize < size || !species.isFluidValid(tankBlock)) {
+                        noBad = addToolTip(tooltip, MCTranslate.translate("notAdvanced"));
+                        //Work out the block types accepted
+                        String block1 = species.getWater1().getLocalizedName();
+                        String block2 = species.getWater2().getLocalizedName();
+                        String text = block1.equals(block2) ? block1 : block1 + " / " + block2;
+                        noBad = addToolTip(tooltip, "  +" + (size - tankSize) + " " + text);
+                    }
                 }
 
                 if (tank.getFluidAmount() < 1 || tank.getFluid().fluidID != getFluidID("fish_food")) {
@@ -565,24 +573,23 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         else if (id == 8) isDay = value == 1;
         else if (id == 9) heat = value;
         else if (id == 10) {
-        	if (value == 8 || value == 9) {
-        		tankBlock = Blocks.water;
-        	} else if (value == 10 || value == 11) {
-        		tankBlock = Blocks.lava;
-        	} else tankBlock = value == 0? null: Block.getBlockById(id);
-        }
-        else super.setGUIData(id, value);
+            if (value == 8 || value == 9) {
+                tankBlock = Blocks.water;
+            } else if (value == 10 || value == 11) {
+                tankBlock = Blocks.lava;
+            } else tankBlock = value == 0 ? null : Block.getBlockById(id);
+        } else super.setGUIData(id, value);
     }
-    
+
     private int lastTankSize;
     private int lastWork;
     private int lastTime;
     private int lastHeat;
     private Block lastBlock;
-    
+
     @Override
     public boolean hasChanged() {
-        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork? 1: 0) || lastTime != (worldObj.isDaytime()? 1: 0) || lastHeat != heat || lastBlock != tankBlock;
+        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork ? 1 : 0) || lastTime != (worldObj.isDaytime() ? 1 : 0) || lastHeat != heat || lastBlock != tankBlock;
     }
 
     @Override
@@ -592,8 +599,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         lastTime = worldObj.isDaytime() ? 1 : 0;
         lastHeat = heat;
         lastBlock = tankBlock;
-        int id = Block.getIdFromBlock(lastBlock);     
-                
+        int id = Block.getIdFromBlock(lastBlock);
+
         ArrayList<Integer> list = super.getGUIData();
         list.add(lastTankSize);
         list.add(lastWork);

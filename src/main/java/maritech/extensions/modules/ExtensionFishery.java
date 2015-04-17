@@ -1,5 +1,6 @@
 package maritech.extensions.modules;
 
+import static mariculture.core.Core.upgrade;
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
 import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
@@ -13,11 +14,16 @@ import static mariculture.core.lib.MCLib.string;
 import static mariculture.core.lib.MCLib.thermometer;
 import static mariculture.core.lib.MCLib.titaniumRod;
 import static mariculture.core.lib.MCLib.whiteClay;
+import static mariculture.core.lib.UpgradeMeta.AQUASCUM;
+import static mariculture.core.lib.UpgradeMeta.FILTER_2;
+import static mariculture.core.lib.UpgradeMeta.SALINATOR_2;
+import static mariculture.core.lib.UpgradeMeta.ULTIMATE_COOLING;
+import static mariculture.core.lib.UpgradeMeta.ULTIMATE_HEATING;
 import static mariculture.core.util.Fluids.getFluidName;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.Loot;
-import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.Loot.Rarity;
+import mariculture.api.fishery.RodType;
 import mariculture.core.lib.MCLib;
 import mariculture.core.lib.Modules;
 import mariculture.fishery.Fishery;
@@ -34,6 +40,7 @@ import maritech.util.IModuleExtension;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ExtensionFishery implements IModuleExtension {
     public static Item dna;
@@ -57,13 +64,13 @@ public class ExtensionFishery implements IModuleExtension {
         charged.stackTagCompound.setInteger("Energy", 250000);
         addShapeless(charged, new Object[] { asStack(ExtensionFishery.rodFlux), "blockRedstone" });
         addVatItemRecipe(charged, getFluidName("flux"), 1000, asStack(ExtensionFishery.rodFlux), 15);
-        
-        ItemStack scuba = Modules.isActive(Modules.diving)? asStack(ExtensionDiving.scubaMask): MCLib.fishSorter;
-        ItemStack turbine = Modules.isActive(Modules.factory)? asStack(ExtensionFactory.turbineTitanium): MCLib.ironWheel;
-        ItemStack gold = Modules.isActive(Modules.factory)? MTLib.goldPlastic: goldSilk;
+
+        ItemStack scuba = Modules.isActive(Modules.diving) ? asStack(ExtensionDiving.scubaMask) : MCLib.fishSorter;
+        ItemStack turbine = Modules.isActive(Modules.factory) ? asStack(ExtensionFactory.turbineTitanium) : MCLib.ironWheel;
+        ItemStack gold = Modules.isActive(Modules.factory) ? MTLib.goldPlastic : goldSilk;
         addShaped(MTLib.extractor, new Object[] { " H ", "PSP", "TBT", 'H', life, 'P', titaniumRod, 'S', Fishery.scanner, 'T', turbine, 'B', "blockTitanium" });
         addShaped(MTLib.injector, new Object[] { " S ", "GTG", "BEB", 'S', scuba, 'G', gold, 'T', thermometer, 'B', ExtensionCore.batteryTitanium, 'E', MTLib.extractor });
-        
+        addShaped(asStack(upgrade, AQUASCUM), new Object[] { "DFD", "CTH", "DSD", 'D', asStack(dna, OreDictionary.WILDCARD_VALUE), 'F', asStack(upgrade, FILTER_2), 'C', asStack(upgrade, ULTIMATE_COOLING), 'T', asStack(Fishery.tempControl), 'H', asStack(upgrade, ULTIMATE_HEATING), 'S', asStack(upgrade, SALINATOR_2) });
         Fishing.fishing.registerRod(rodFlux, RodType.FLUX);
     }
 

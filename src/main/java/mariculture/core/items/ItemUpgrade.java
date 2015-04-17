@@ -263,6 +263,8 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
                 return "salinator2";
             case UpgradeMeta.FILTER_2:
                 return "filter2";
+            case UpgradeMeta.AQUASCUM:
+                return "aquascum";
             default:
                 return "upgrade";
         }
@@ -403,6 +405,8 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
                 return "salinator";
             case UpgradeMeta.FILTER_2:
                 return "filter";
+            case UpgradeMeta.AQUASCUM:
+                return "aquascum";
             default:
                 return "null";
         }

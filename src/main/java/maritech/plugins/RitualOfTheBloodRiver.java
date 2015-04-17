@@ -1,11 +1,11 @@
 package maritech.plugins;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import mariculture.api.core.IUpgradable;
-import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.fishery.IMutationModifier;
 import maritech.tile.TileIncubator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -57,24 +57,22 @@ public class RitualOfTheBloodRiver extends RitualEffect {
         ritual.add(new RitualComponent(-1, 3, 3, RitualComponent.WATER));
         return ritual;
     }
-
-    private void setIncubatorMutationModifier(World world, int x, int y, int z, double modifier) {
-        TileEntity tile = world.getTileEntity(x, y + 1, z);
-        if (tile instanceof TileIncubator) {
-            if (MaricultureHandlers.upgrades.hasUpgrade("ethereal", (IUpgradable) tile)) {
-                modifier += 2D;
-            }
-            
-            ((TileIncubator) tile).setMutationModifier(modifier);
+       
+    private static final HashMap<IMasterRitualStone, MasterStoneModifier> modifierMap = new HashMap();
+    
+    public MasterStoneModifier getModifierForStone(IMasterRitualStone stone) {
+        MasterStoneModifier modifier = modifierMap.get(stone);
+        if (modifier != null) return modifier;
+        else {
+            MasterStoneModifier mod = new MasterStoneModifier();
+            modifierMap.put(stone, mod);
+            return mod;
         }
     }
 
-    private int ticker;
-
     @Override
     public void performEffect(IMasterRitualStone ritual) {
-        ticker++;
-        if (ticker % 20 == 0) {
+        if (ritual.getWorld().getTotalWorldTime() % 20 == 0) {            
             String owner = ritual.getOwner();
             World worldSave = MinecraftServer.getServer().worldServers[0];
             LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
@@ -90,24 +88,58 @@ public class RitualOfTheBloodRiver extends RitualEffect {
             int x = ritual.getXCoord();
             int y = ritual.getYCoord();
             int z = ritual.getZCoord();
-
-            if (currentEssence < getCostPerRefresh()) {
-                EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
-                if (entityOwner == null) return;
-
-                setIncubatorMutationModifier(world, x, y, z, 1.0D);
-                entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 80));
-            } else {
-                setIncubatorMutationModifier(world, x, y, z, 3.0D);
-                for (int i = 0; i < 3; i++) {
-                    int x2 = x + rand.nextInt(4) - 2;
-                    int y2 = y + 1 + rand.nextInt(3);
-                    int z2 = z + rand.nextInt(4) - 2;
-                    SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 2, x, y, z);
-                }
-
+            
+            boolean changed = getModifierForStone(ritual).update(owner, world, x, y, z, currentEssence);
+            if (changed) {
                 data.currentEssence = currentEssence - getCostPerRefresh();
                 data.markDirty();
+            }
+        }
+    }
+    
+    
+    public class MasterStoneModifier implements IMutationModifier {
+        public boolean isActive = false;
+        private TileIncubator incubator;
+        
+        private TileIncubator getIncubator(World world, int x, int y, int z) {
+            if (incubator != null) return incubator;
+            
+            TileEntity tile = world.getTileEntity(x, y + 1, z);
+            if (tile instanceof TileIncubator) {
+                incubator = (TileIncubator) tile;
+                incubator.addMutationModifier(this);
+                return incubator;
+            }
+            
+            return null;
+        }
+        
+        @Override
+        public double getValue() {
+            return isActive ? 3D: 0D;
+        }
+        
+        public boolean update(String owner, World world, int x, int y, int z, int currentEssence) {
+            TileIncubator incubator = getIncubator(world, x, y, z);
+            if (incubator == null) return false;
+            
+            if (currentEssence < getCostPerRefresh()) {
+                EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
+                if (entityOwner == null) return false;
+                isActive = false;
+                entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 80));
+                return false;
+            } else {
+                isActive = true;
+                for (int i = 0; i < 3; i++) {
+                    int x2 = x + world.rand.nextInt(4) - 2;
+                    int y2 = y + 1 + world.rand.nextInt(3);
+                    int z2 = z + world.rand.nextInt(4) - 2;
+                    SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 2, x, y, z);
+                }
+                
+                return true;
             }
         }
     }

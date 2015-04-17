@@ -62,7 +62,7 @@ public class FishDNA extends FishDNABase {
     }
 
     public String getDNAName(ItemStack stack) {
-        int type = stack.getTagCompound().getInteger(getHigherString());
+        int type = stack.getTagCompound().getInteger(getHigherString());        
         for (FishDNA dna : types)
             if (type >= dna.minimum && type <= dna.maximum) return StatCollector.translateToLocal("mariculture.fish.data." + getHigherString().toLowerCase() + "." + dna.name);
 
@@ -110,7 +110,7 @@ public class FishDNA extends FishDNABase {
                 is2Dominant = dna.isDominant;
             }
         }
-
+        
         String display1 = (is1Dominant ? "\u00a76" : "\u00a79") + (numbers? getDNA(stack) + " ": "") + "(" + getDNAName(stack) + ")";
         String display2 = (is2Dominant ? "\u00a76" : "\u00a79") + (numbers? getLowerDNA(stack) + " ": "") + "(" + getLowerDNAName(stack) + ")";
         return new String[] { StatCollector.translateToLocal("mariculture.fish.data." + getName().toLowerCase()), display1, display2 };

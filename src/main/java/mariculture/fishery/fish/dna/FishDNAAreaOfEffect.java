@@ -43,7 +43,7 @@ public class FishDNAAreaOfEffect extends FishDNA {
     
     @Override
     public int getCopyChance() {
-        return 25;
+        return 40;
     }
     public Integer sanitize(Integer i) {
         return Math.min(32, Math.max(-4, i));

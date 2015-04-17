@@ -26,6 +26,6 @@ public class FishDNAGender extends FishDNABase {
     
     @Override
     public int getCopyChance() {
-        return 50;
+        return 30;
     }
 }

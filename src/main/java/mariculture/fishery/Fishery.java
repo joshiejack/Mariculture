@@ -18,7 +18,6 @@ import static mariculture.core.lib.MCLib.bread;
 import static mariculture.core.lib.MCLib.calamari;
 import static mariculture.core.lib.MCLib.chest;
 import static mariculture.core.lib.MCLib.clay;
-import static mariculture.core.lib.MCLib.cobblestone;
 import static mariculture.core.lib.MCLib.compass;
 import static mariculture.core.lib.MCLib.cooling;
 import static mariculture.core.lib.MCLib.diamond;
@@ -32,12 +31,11 @@ import static mariculture.core.lib.MCLib.dropletFrozen;
 import static mariculture.core.lib.MCLib.dropletNether;
 import static mariculture.core.lib.MCLib.dropletPoison;
 import static mariculture.core.lib.MCLib.dropletWater;
-import static mariculture.core.lib.MCLib.enderPearl;
-import static mariculture.core.lib.MCLib.endstone;
 import static mariculture.core.lib.MCLib.fish;
 import static mariculture.core.lib.MCLib.fishFeeder;
 import static mariculture.core.lib.MCLib.fishTank;
 import static mariculture.core.lib.MCLib.fishingNet;
+import static mariculture.core.lib.MCLib.goldThread;
 import static mariculture.core.lib.MCLib.grass;
 import static mariculture.core.lib.MCLib.hatchery;
 import static mariculture.core.lib.MCLib.heating;
@@ -61,6 +59,11 @@ import static mariculture.core.lib.MCLib.titaniumRod;
 import static mariculture.core.lib.MCLib.titaniumSheet;
 import static mariculture.core.lib.MCLib.tnt;
 import static mariculture.core.lib.MCLib.wicker;
+import static mariculture.core.lib.UpgradeMeta.AQUASCUM;
+import static mariculture.core.lib.UpgradeMeta.FILTER_2;
+import static mariculture.core.lib.UpgradeMeta.SALINATOR_2;
+import static mariculture.core.lib.UpgradeMeta.ULTIMATE_COOLING;
+import static mariculture.core.lib.UpgradeMeta.ULTIMATE_HEATING;
 import static mariculture.core.util.Fluids.getFluid;
 import static mariculture.core.util.Fluids.getFluidName;
 import static mariculture.core.util.Fluids.getFluidStack;
@@ -172,8 +175,8 @@ public class Fishery extends RegistrationModule {
     public void registerItems() {
         bait = new ItemBait().setUnlocalizedName("bait");
         rodReed = new ItemRod(MCModInfo.MODPATH, 96, 24).setUnlocalizedName("rod.reed");
-        rodWood = new ItemRod(MCModInfo.MODPATH,320, 10).setUnlocalizedName("rod.wood");
-        rodTitanium = new ItemRod(MCModInfo.MODPATH,640, 16).setUnlocalizedName("rod.titanium");
+        rodWood = new ItemRod(MCModInfo.MODPATH, 320, 10).setUnlocalizedName("rod.wood");
+        rodTitanium = new ItemRod(MCModInfo.MODPATH, 640, 16).setUnlocalizedName("rod.titanium");
         fishy = new ItemFishy().setUnlocalizedName("fishy").setCreativeTab(MaricultureTab.tabFishery);
         net = new BlockItemNet().setUnlocalizedName("net");
         scanner = new ItemScanner().setUnlocalizedName("scanner");
@@ -279,7 +282,7 @@ public class Fishery extends RegistrationModule {
         for (int i = 0; i < PearlColor.COUNT; i++) {
             addShaped(ItemArmorFishingHat.getDyed(i), new Object[] { "DDD", "DHD", "DDD", 'D', asStack(Core.pearls, i), 'H', asStack(fishinghat, OreDictionary.WILDCARD_VALUE) });
         }
-                
+
         addVatItemRecipe("logWood", getFluidName("fish_oil"), 30000, polishedLog, 30);
         addVatItemRecipe("plankWood", getFluidName("fish_oil"), 10000, polishedPlank, 15);
         addVatItemRecipe("stickWood", getFluidName("fish_oil"), 5000, polishedStick, 5);
@@ -299,7 +302,11 @@ public class Fishery extends RegistrationModule {
         } else {
             addShaped(asStack(scanner), new Object[] { "WPE", "NFR", "JBO", 'N', dropletNether, 'P', pearls, 'W', dropletWater, 'R', dropletEarth, 'F', "fish", 'O', dropletEnder, 'E', dropletFrozen, 'B', "dustRedstone", 'J', dropletPoison });
         }
-        
+
+        if (!MaricultureHandlers.HIGH_TECH_ENABLED) {
+            Item upgrade = Core.upgrade;
+            addShaped(asStack(upgrade, AQUASCUM), new Object[] { "DFD", "CTH", "DSD", 'D', goldThread, 'F', asStack(upgrade, FILTER_2), 'C', asStack(upgrade, ULTIMATE_COOLING), 'T', asStack(tempControl), 'H', asStack(upgrade, ULTIMATE_HEATING), 'S', asStack(upgrade, SALINATOR_2) });
+        }
 
         addVatItemRecipeResultFluid(asStack(asStack(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));

@@ -4,6 +4,7 @@ import java.util.List;
 
 import mariculture.api.core.ISpecialSorting;
 import mariculture.api.core.MaricultureTab;
+import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.items.ItemMCDamageable;
@@ -17,6 +18,7 @@ import maritech.util.MTTranslate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class ItemFishDNA extends ItemMCDamageable implements ISpecialSorting {
     public ItemFishDNA() {
@@ -76,8 +78,18 @@ public class ItemFishDNA extends ItemMCDamageable implements ISpecialSorting {
                         } else {
                             list.add(MTTranslate.translate("dna.name") + ": " + Text.PINK + "(" + MCTranslate.translate("fish.data.gender.female") + ")");
                         }
-                    } else {
-                        list.add(MTTranslate.translate("dna.name") + ": " + dna.getScannedDisplay(stack, false)[1]);
+                    } else if (dna instanceof FishDNA) {
+                        String name = "";
+                        for (FishDNA dnaType : ((FishDNA)dna).types) {
+                            if (value >= dnaType.minimum && value <= dnaType.maximum) {
+                                String prefix = dnaType.isDominant ? "\u00a76": "\u00a79";
+                                String middle = dna.getHigherString().toLowerCase().startsWith("area") ? "aoe": dna.getHigherString().toLowerCase();
+                                name = prefix + StatCollector.translateToLocal("mariculture.fish.data." + middle + "." + dnaType.name);
+                                break;
+                            }
+                        }
+                        
+                        list.add(MTTranslate.translate("dna.name") + ": " + name);
                     }
 
                     list.add(MTTranslate.translate("dna.value") + ": " + value);

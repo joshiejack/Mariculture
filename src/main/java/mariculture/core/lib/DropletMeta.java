@@ -24,4 +24,12 @@ public class DropletMeta {
     public static final int RUTILE = 19;
     public static final int MAGNESIUM = 20;
     public static final int SILVER = 21;
+    public static final int LEAD = 22;
+    public static final int TIN = 23;
+    public static final int PLATINUM = 24;
+    public static final int NICKEL = 25;
+    public static final int COBALT = 26;
+    public static final int ARDITE = 27;
+    public static final int OSMIUM = 28;
+    public static final int ZINC = 29;
 }

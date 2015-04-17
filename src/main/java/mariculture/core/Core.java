@@ -217,6 +217,11 @@ public class Core extends RegistrationModule {
         addFluid("bronze", "bronze.molten", MetalRates.ORE, BottleMeta.BRONZE, 144);
         addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144);
         addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144);
+        addFluid("cobalt", "cobalt.molten", MetalRates.ORE, BottleMeta.COBALT, 144);
+        addFluid("ardite", "ardite.molten", MetalRates.ORE, BottleMeta.ARDITE, 144);
+        addFluid("osmium", "osmium.molten", MetalRates.ORE, BottleMeta.OSMIUM, 144);
+        addFluid("platinum", "platinum.molten", MetalRates.ORE, BottleMeta.PLATINUM, 144);
+        addFluid("zinc", "zinc.molten", MetalRates.ORE, BottleMeta.ZINC, 144);
         addFluid("xp", 100);
         XPRegistry.register("xp", 100);
 
