@@ -1,8 +1,12 @@
 package mariculture.core.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.IUpgradable;
 import mariculture.api.core.IUpgradeHandler;
+import mariculture.api.fishery.IMutationEffect;
 import mariculture.core.tile.base.TileMultiBlock;
 import net.minecraft.item.ItemStack;
 
@@ -51,5 +55,19 @@ public class UpgradeHandler implements IUpgradeHandler {
         }
 
         return false;
+    }
+
+    @Override
+    public List<IMutationEffect> getMutationEffects(IUpgradable tile) {
+        ArrayList<IMutationEffect> effects = new ArrayList();
+        ItemStack[] upgrades = tile.getUpgrades();
+        for (ItemStack upgradeStack : upgrades) {
+            if (upgradeStack != null && upgradeStack.getItem() instanceof IItemUpgrade) {
+                IItemUpgrade upgrade = (IItemUpgrade) upgradeStack.getItem();
+                effects.addAll(upgrade.getMutationEffects(upgradeStack));
+            }
+        }
+        
+        return effects;
     }
 }

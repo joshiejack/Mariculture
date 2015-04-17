@@ -33,32 +33,6 @@ public class ItemBottle extends ItemMCMeta {
             case BottleMeta.EMPTY:
             case BottleMeta.VOID:
                 return null;
-            case BottleMeta.FISH_OIL:
-            case BottleMeta.IRON:
-            case BottleMeta.GOLD:
-            case BottleMeta.COPPER:
-            case BottleMeta.TIN:
-            case BottleMeta.SILVER:
-            case BottleMeta.LEAD:
-            case BottleMeta.BRONZE:
-            case BottleMeta.STEEL:
-            case BottleMeta.ALUMINUM:
-            case BottleMeta.TITANIUM:
-            case BottleMeta.MAGNESIUM:
-            case BottleMeta.NICKEL:
-            case BottleMeta.GLASS:
-            case BottleMeta.GAS:
-            case BottleMeta.FISH_FOOD:
-            case BottleMeta.RUTILE:
-            case BottleMeta.QUICKLIME:
-            case BottleMeta.SALT:
-            case BottleMeta.ELECTRUM:
-            case BottleMeta.WATER:
-            case BottleMeta.LAVA:
-            case BottleMeta.MILK:
-            case BottleMeta.CUSTARD:
-            case BottleMeta.HP_WATER:
-                return new ItemStack(Core.bottles, 1, BottleMeta.EMPTY);
             case BottleMeta.CUSTARD_BASIC:
             case BottleMeta.FISH_FOOD_BASIC:
             case BottleMeta.FISH_OIL_BASIC:
@@ -66,7 +40,7 @@ public class ItemBottle extends ItemMCMeta {
             case BottleMeta.MILK_BASIC:
                 return new ItemStack(Items.glass_bottle);
             default:
-                return null;
+                return new ItemStack(Core.bottles, 1, BottleMeta.EMPTY);
         }
     }
 

@@ -10,6 +10,7 @@ import java.util.Random;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IIncubator;
+import mariculture.api.fishery.IMutationEffect;
 import mariculture.api.fishery.IMutationModifier;
 import mariculture.core.Core;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
@@ -84,10 +85,10 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
         return false;
     }
-    
+
     @Override
     public void updateUpgrades() {
-        super.updateUpgrades();        
+        super.updateUpgrades();
         speed *= 10;
     }
 
@@ -165,7 +166,7 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
 
         return false;
     }
-    
+
     @Override
     public double getValue() {
         if (MaricultureHandlers.upgrades.hasUpgrade("incubator", this)) {
@@ -174,13 +175,13 @@ public class TileIncubator extends TileMultiMachinePowered implements IHasNotifi
             return 2D;
         } else return 0D;
     }
-    
+
     public double getMutationModifier() {
         double value = 1D;
-        for (IMutationModifier modifier: modifiers) {
+        for (IMutationModifier modifier : modifiers) {
             value += modifier.getValue();
         }
-        
+
         return value;
     }
 

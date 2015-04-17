@@ -2,6 +2,7 @@ package mariculture.fishery;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import mariculture.Mariculture;
@@ -12,6 +13,7 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.IIncubator;
 import mariculture.api.fishery.IMutation.Mutation;
+import mariculture.api.fishery.IMutationEffect;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics.FussyFish;
@@ -302,12 +304,22 @@ public class FishyHelper implements IFishHelper {
             if (rand.nextInt(1000) < birthChance) {
                 ItemStack fish = Fishing.fishHelper.makeBredFish(egg, rand, mutation);
                 if (fish != null) {
-                    int dna = Fish.gender.getDNA(fish);
-                    tile.eject(fish);
-                    if (dna == FishyHelper.MALE) {
-                        egg.getTagCompound().setInteger("malesGenerated", egg.getTagCompound().getInteger("malesGenerated") + 1);
-                    } else if (dna == FishyHelper.FEMALE) {
-                        egg.getTagCompound().setInteger("femalesGenerated", egg.getTagCompound().getInteger("femalesGenerated") + 1);
+                    if (tile instanceof IUpgradable) {
+                        List<IMutationEffect> effects = MaricultureHandlers.upgrades.getMutationEffects((IUpgradable)tile);
+                        for (IMutationEffect effect : effects) {
+                            fish = effect.adjustFishStack(egg, fish);
+                        }
+                    }
+                    
+                    //Check it again, as the fish may have been adjusted to be null
+                    if (fish != null) {
+                        int gender = Fish.gender.getDNA(fish);
+                        tile.eject(fish);
+                        if (gender == FishyHelper.MALE) {
+                            egg.getTagCompound().setInteger("malesGenerated", egg.getTagCompound().getInteger("malesGenerated") + 1);
+                        } else if (gender == FishyHelper.FEMALE) {
+                            egg.getTagCompound().setInteger("femalesGenerated", egg.getTagCompound().getInteger("femalesGenerated") + 1);
+                        }
                     }
                 } else {
                     tile.eject(new ItemStack(Items.fish, 2, 0));

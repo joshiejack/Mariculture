@@ -1,9 +1,11 @@
 package mariculture.core.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.Mariculture;
 import mariculture.api.core.IItemUpgrade;
+import mariculture.api.fishery.IMutationEffect;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.MCTranslate;
@@ -173,6 +175,11 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
     @Override
     public int getMetaCount() {
         return UpgradeMeta.COUNT;
+    }
+
+    @Override
+    public List<IMutationEffect> getMutationEffects(ItemStack stack) {
+        return new ArrayList();
     }
 
     @Override

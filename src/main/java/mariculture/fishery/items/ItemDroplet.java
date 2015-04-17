@@ -17,6 +17,7 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -84,6 +85,22 @@ public class ItemDroplet extends ItemMCMeta {
                 return "magnesium";
             case DropletMeta.SILVER:
                 return "silver";
+            case DropletMeta.LEAD:
+                return "lead";
+            case DropletMeta.TIN:
+                return "tin";
+            case DropletMeta.PLATINUM:
+                return "platinum";
+            case DropletMeta.NICKEL:
+                return "nickel";
+            case DropletMeta.COBALT:
+                return "cobalt";
+            case DropletMeta.ARDITE:
+                return "ardite";
+            case DropletMeta.OSMIUM:
+                return "osmium";
+            case DropletMeta.ZINC:
+                return "zinc";
             default:
                 return "water";
         }
@@ -155,14 +172,51 @@ public class ItemDroplet extends ItemMCMeta {
                 return getNuggetStack("magnesium");
             case DropletMeta.SILVER:
                 return getNuggetStack("silver");
+            case DropletMeta.LEAD:
+                return getNuggetStack("lead");
+            case DropletMeta.TIN:
+                return getNuggetStack("tin");
+            case DropletMeta.PLATINUM:
+                return getNuggetStack("platinum");
+            case DropletMeta.NICKEL:
+                return getNuggetStack("nickel");
+            case DropletMeta.COBALT:
+                return getNuggetStack("cobalt");
+            case DropletMeta.ARDITE:
+                return getNuggetStack("ardite");
+            case DropletMeta.OSMIUM:
+                return getNuggetStack("osmium");
+            case DropletMeta.ZINC:
+                return getNuggetStack("zinc");
             default:
                 return null;
         }
     }
     
     @Override
-    public boolean isActive(int meta) {
-        return true;
+    public boolean isActive(int dmg) {
+        switch (dmg) {
+            case DropletMeta.SILVER:
+                return OreDictionary.getOres("ingotSilver").size() > 0;
+            case DropletMeta.LEAD:
+                return OreDictionary.getOres("ingotLead").size() > 0;
+            case DropletMeta.TIN:
+                return OreDictionary.getOres("ingotTin").size() > 0;
+            case DropletMeta.PLATINUM:
+                return OreDictionary.getOres("ingotPlatinum").size() > 0;
+            case DropletMeta.NICKEL:
+                return OreDictionary.getOres("ingotNickel").size() > 0;
+            case DropletMeta.COBALT:
+                return OreDictionary.getOres("ingotCobalt").size() > 0;
+            case DropletMeta.ARDITE:
+                return OreDictionary.getOres("ingotArdite").size() > 0;
+            case DropletMeta.OSMIUM:
+                return OreDictionary.getOres("ingotOsmium").size() > 0;
+            case DropletMeta.ZINC:
+                return OreDictionary.getOres("ingotZinc").size() > 0;
+            default:
+                return true;
+        }
     }
 
     @Override

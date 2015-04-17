@@ -237,6 +237,9 @@ public class BlockTank extends BlockConnected {
     @Override
     public Item getItemDropped(int meta, Random random, int j) {
         switch (meta) {
+            case TankMeta.TANK_ALUMINUM:
+            case TankMeta.TANK_GAS:
+            case TankMeta.TANK_TITANIUM:
             case TankMeta.TANK:
                 return null;
             case TankMeta.BOTTLE:

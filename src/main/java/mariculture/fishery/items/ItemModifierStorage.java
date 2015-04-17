@@ -14,11 +14,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrade {
+public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade {
     private static final int SIZE = 5;
 
-    public ItemTemperatureControl() {
-        super(SIZE, "tempControl");
+    public ItemModifierStorage() {
+        super(SIZE, "modifierStorage");
         setCreativeTab(MaricultureTab.tabFishery);
     }
 
@@ -31,15 +31,15 @@ public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrad
     public Slot getSlot(InventoryStorage storage, int i) {
         switch (i) {
             case 0:
-                return new SlotHeating(storage, i, 62, 26);
+                return new SlotMutation(storage, i, 62, 26);
             case 1:
-                return new SlotHeating(storage, i, 80, 26);
+                return new SlotMutation(storage, i, 80, 26);
             case 2:
-                return new SlotHeating(storage, i, 98, 26);
+                return new SlotMutation(storage, i, 98, 26);
             case 3:
-                return new SlotHeating(storage, i, 71, 44);
+                return new SlotMutation(storage, i, 71, 44);
             case 4:
-                return new SlotHeating(storage, i, 89, 44);
+                return new SlotMutation(storage, i, 89, 44);
         }
 
         return new Slot(storage, i, 100, 100);
@@ -47,7 +47,7 @@ public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrad
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        if (stack.getItem() instanceof IItemUpgrade && !(stack.getItem() instanceof ItemTemperatureControl)) return getTemperature(stack) != 0;
+        if (stack.getItem() instanceof IItemUpgrade && !(stack.getItem() instanceof ItemModifierStorage)) return getTemperature(stack) != 0;
         else return false;
     }
 
@@ -68,15 +68,13 @@ public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrad
     }
 
     @Override
-    public int getTemperature(ItemStack stack) {
-        int temperature = 0;
-        ItemStack[] invent = load(null, stack, SIZE);
-        for (ItemStack item : invent)
-            if (item != null) if (item.getItem() instanceof IItemUpgrade) {
-                temperature += ((IItemUpgrade) item.getItem()).getTemperature(item);
-            }
+    public List<IMutationEffect> getMutationEffects(ItemStack stack) {
+        return new ArrayList();
+    }
 
-        return temperature;
+    @Override
+    public int getTemperature(ItemStack stack) {
+        return 0;
     }
 
     @Override
@@ -109,20 +107,17 @@ public class ItemTemperatureControl extends ItemMCStorage implements IItemUpgrad
         return "control";
     }
 
-    @Override
-    public List<IMutationEffect> getMutationEffects(ItemStack stack) {
-        return new ArrayList();
-    }
-
-    private static class SlotHeating extends Slot {
-        private SlotHeating(IInventory inv, int id, int x, int y) {
+    private static class SlotMutation extends Slot {
+        private SlotMutation(IInventory inv, int id, int x, int y) {
             super(inv, id, x, y);
         }
 
         @Override
         public boolean isItemValid(ItemStack stack) {
-            if (stack.getItem() instanceof IItemUpgrade && !(stack.getItem() instanceof ItemTemperatureControl)) return ((IItemUpgrade) stack.getItem()).getTemperature(stack) != 0;
-            else return false;
+            if (stack.getItem() instanceof IItemUpgrade) {
+                List<IMutationEffect> effects = ((IItemUpgrade)stack.getItem()).getMutationEffects(stack);
+                return effects.size() > 0;
+            } else return false;
         }
     }
 }
