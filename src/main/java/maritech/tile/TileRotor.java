@@ -73,6 +73,8 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
     protected abstract double getTier();
 
     protected abstract int getMaxDamage();
+    
+    public abstract void setDamage(int damage);
 
     public void setMaster(CachedCoords master) {
         this.master = master;
@@ -109,10 +111,6 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
             master = null; //Set the master to null, as this block may have been removed from the net
             ((TileGenerator) tile).reset();
         }
-    }
-
-    public void setDamage(int damage) {
-        this.damage = (int) Math.floor(damage * 200);
     }
 
     @Override
@@ -173,6 +171,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
         }
 
         orientation = ForgeDirection.getOrientation(nbt.getInteger("Orientation"));
+        damage = nbt.getInteger("Damage");
     }
 
     @Override
@@ -186,5 +185,6 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
         } else nbt.setBoolean("HasMaster", false);
 
         nbt.setInteger("Orientation", orientation.ordinal());
+        nbt.setInteger("Damage", damage);
     }
 }

@@ -15,6 +15,7 @@ Mariculture 1.2.5
         • Scuba Tank, will use 'oxygen' to prevent fire damage.
 • Fishy Stuff
     • Add AquaScum 2003 - Autoadjusts Tank temperature and salinity for fish
+    • Add Mutation Upgrade for Incubator
     • Add Air Droplet and Contained Wind
     • Add Experience Droplet
     • Add Metal Droplets
@@ -51,6 +52,9 @@ Mariculture 1.2.5
     • Can create gas turbines again, check the book
     • Can create manual energy again, this time from the handcrank
     • Added a RF version of the Custom Wall
+    • Copper Rotors now last 2 hours instead of 15 minutes
+    • Aluminum Rotors now last 12 hours instead of 1 hour
+    • Titanium Rotors now last 48 hours instead of 8 hours
 • Fixes and Numbers
     • Reduce number of hits for all Blacksmith's Anvil recipes
     • Rebalance all vat numbers

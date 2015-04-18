@@ -17,8 +17,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class ItemRotor extends ItemMCDamageable {
     private int meta;
 
-    public ItemRotor(int dmg, int meta) {
-        super(MTModInfo.MODPATH, MaricultureTab.tabFactory, dmg);
+    public ItemRotor(int meta) {
+        super(MTModInfo.MODPATH, MaricultureTab.tabFactory, 30000);
         this.meta = meta;
     }
 

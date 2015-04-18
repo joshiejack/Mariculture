@@ -1,6 +1,7 @@
 package mariculture.fishery.items;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import mariculture.api.core.IItemUpgrade;
@@ -13,6 +14,7 @@ import mariculture.core.util.MCTranslate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade, IMutationEffectProvider {
@@ -105,8 +107,10 @@ public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade, 
 
     @Override
     public String getType(ItemStack stack) {
-        return "control";
+        return "modifierStorage";
     }
+    
+    public static final HashMap<Item, IMutationEffectProvider> vanilla = new HashMap();
 
     private static class SlotMutation extends Slot {
         private SlotMutation(IInventory inv, int id, int x, int y) {
@@ -115,6 +119,7 @@ public class ItemModifierStorage extends ItemMCStorage implements IItemUpgrade, 
 
         @Override
         public boolean isItemValid(ItemStack stack) {
+            if (vanilla.get(stack.getItem()) != null) return true;
             if (stack.getItem() instanceof IMutationEffectProvider) {
                 List<IMutationEffect> effects = ((IMutationEffectProvider)stack.getItem()).getEffects(stack);
                 return effects.size() > 0;

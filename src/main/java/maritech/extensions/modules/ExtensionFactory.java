@@ -59,9 +59,9 @@ public class ExtensionFactory implements IModuleExtension {
     @Override
     public void preInit() {
         GameRegistry.registerWorldGenerator(new MTWorldGen(), 1);
-        turbineCopper = new ItemRotor(900, MachineRenderedMeta.ROTOR_COPPER).setUnlocalizedName("turbine.copper");
-        turbineAluminum = new ItemRotor(3600, MachineRenderedMeta.ROTOR_ALUMINUM).setUnlocalizedName("turbine.aluminum");
-        turbineTitanium = new ItemRotor(28800, MachineRenderedMeta.ROTOR_TITANIUM).setUnlocalizedName("turbine.titanium");
+        turbineCopper = new ItemRotor(MachineRenderedMeta.ROTOR_COPPER).setUnlocalizedName("turbine.copper");
+        turbineAluminum = new ItemRotor(MachineRenderedMeta.ROTOR_ALUMINUM).setUnlocalizedName("turbine.aluminum");
+        turbineTitanium = new ItemRotor(MachineRenderedMeta.ROTOR_TITANIUM).setUnlocalizedName("turbine.titanium");
         fludd = new ItemFLUDD(armorFLUDD, MTRenderIds.FLUDD, 1).setUnlocalizedName("fludd");
         RegistryHelper.registerTiles("Mariculture", TileSluice.class, TileFLUDDStand.class, TilePressureVessel.class, TileSponge.class, TileSluiceAdvanced.class, TileGenerator.class, TileRotor.class, 
                 TileRotorCopper.class, TileRotorAluminum.class, TileRotorTitanium.class);

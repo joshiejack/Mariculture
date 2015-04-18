@@ -521,7 +521,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     }
                 }
 
-                if (!species.canWorkAtThisTime(isDay)) {
+                if (!species.canWorkAtThisTime(worldObj.isDaytime())) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("badTime"));
                 }
 
