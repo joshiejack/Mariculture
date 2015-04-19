@@ -21,7 +21,6 @@ public class Modules {
     public static Module diving;
     public static Module factory;
     public static Module fishery;
-    public static Module lost;
     public static Module magic;
     public static Module sealife;
     public static Module transport;
