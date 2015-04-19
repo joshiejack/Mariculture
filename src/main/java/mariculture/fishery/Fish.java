@@ -125,7 +125,7 @@ public class Fish {
     public static FishSpecies tetra; //Neon lamps
     public static FishSpecies catfish; //Spawns ocelots, 
     public static FishSpecies piranha; //Atacks Entities and players
-    public static FishSpecies cod; //Leather
+    public static FishSpecies cod; //Leather (When melted)
     public static FishSpecies perch; //Spawns bats
     public static FishSpecies tuna; //Add Speed Potion
     public static FishSpecies stingRay; //Poisons those in water
@@ -137,7 +137,7 @@ public class Fish {
     public static FishSpecies squid; //Ink Sacks, Spawns Squid
     public static FishSpecies jelly; //Produce slimeballs
     public static FishSpecies manOWar; //Blinds Enemies
-    public static FishSpecies goldfish; //Produce gold nuggets
+    public static FishSpecies goldfish; //Produce gold nuggets when melted
     public static FishSpecies siamese; //Attack entities (not players)
     public static FishSpecies koi; //Regen 3, and Heals you when in water (non regen)
     public static FishSpecies butterfly; //Allows 10 second flight, shed feathers

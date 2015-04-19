@@ -57,7 +57,7 @@ public class FishGold extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 4D);
+        addProduct(dropletWater, 5D);
     }
 
     @Override

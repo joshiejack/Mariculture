@@ -65,9 +65,9 @@ public class FishPiranha extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 3D);
-        addProduct(dropletAqua, 2.5D);
-        addProduct(dropletDestroy, 5D);
-        addProduct(dropletEarth, 4.0D);
+        addProduct(dropletAqua, 5D);
+        addProduct(dropletDestroy, 15D);
+        addProduct(dropletEarth, 10D);
         addProduct(rottenFlesh, 15.0D);
     }
 

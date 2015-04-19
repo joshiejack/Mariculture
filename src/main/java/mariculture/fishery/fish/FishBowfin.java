@@ -10,6 +10,8 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class FishBowfin extends FishSpecies {
@@ -66,6 +68,7 @@ public class FishBowfin extends FishSpecies {
         addProduct(dropletDestroy, 8.5D);
         addProduct(dropletAqua, 3D);
         addProduct(dropletAir, 4D);
+        addProduct(new ItemStack(Items.arrow), 13D);
     }
 
     @Override

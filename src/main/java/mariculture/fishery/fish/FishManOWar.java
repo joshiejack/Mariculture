@@ -67,8 +67,8 @@ public class FishManOWar extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 5D);
-        addProduct(dropletPoison, 3D);
-        addProduct(dropletDestroy, 4.5D);
+        addProduct(dropletPoison, 11.5D);
+        addProduct(dropletDestroy, 17.5D);
     }
 
     @Override

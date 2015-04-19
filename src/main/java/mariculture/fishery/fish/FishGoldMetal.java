@@ -1,6 +1,6 @@
 package mariculture.fishery.fish;
 
-import static mariculture.core.lib.MCLib.dropletAqua;
+import static mariculture.core.lib.MCLib.dropletFlux;
 import static mariculture.core.lib.MCLib.dropletGold;
 import static mariculture.core.lib.MCLib.dropletRegen;
 import mariculture.api.core.Environment.Salinity;
@@ -45,9 +45,9 @@ public class FishGoldMetal extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletGold, 5D);
-        addProduct(dropletAqua, 10D);
-        addProduct(dropletRegen, 1D);
+        addProduct(dropletGold, 15D);
+        addProduct(dropletFlux, 10D);
+        addProduct(dropletRegen, 5D);
     }
 
     @Override

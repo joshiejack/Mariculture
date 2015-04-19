@@ -7,7 +7,6 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -70,9 +69,9 @@ public class FishPuffer extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3D);
-        addProduct(dropletPoison, 7.5D);
-        addProduct(dropletDestroy, 1.5D);
+        addProduct(dropletWater, 5D);
+        addProduct(dropletPoison, 13D);
+        addProduct(dropletDestroy, 5D);
     }
 
     @Override

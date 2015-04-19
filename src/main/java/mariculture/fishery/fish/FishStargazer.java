@@ -1,9 +1,9 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.MCLib.dropletDestroy;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletPoison;
-import static mariculture.core.lib.MCLib.dropletWater;
 import static mariculture.core.lib.MCLib.fishMeal;
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
@@ -62,9 +62,9 @@ public class FishStargazer extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 2D);
+        addProduct(dropletDestroy, 5.5D);
         addProduct(dropletPoison, 7.5D);
-        addProduct(dropletEarth, 1.5D);
+        addProduct(dropletEarth, 3.5D);
         addProduct(fishMeal, 15D);
     }
 

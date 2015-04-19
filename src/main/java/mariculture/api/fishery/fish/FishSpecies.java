@@ -312,6 +312,11 @@ public abstract class FishSpecies {
     public boolean canWorkAtThisTime(boolean isDay) {
         return true;
     }
+    
+    /** How long the fish lasts before it dies on land, in ticks **/
+    public int getOnLandLifespan(FishSpecies fishy) {
+        return 15;
+    }
 
     //Catching Based, When/Where/How the fish can be caught
     /** Return the rod Quality needed to catch this fish **/

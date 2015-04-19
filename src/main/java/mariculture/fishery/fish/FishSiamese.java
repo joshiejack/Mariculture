@@ -2,6 +2,7 @@ package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletDestroy;
+import static mariculture.core.lib.MCLib.dropletRegen;
 import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
@@ -56,8 +57,9 @@ public class FishSiamese extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 4D);
-        addProduct(dropletDestroy, 3D);
+        addProduct(dropletWater, 5D);
+        addProduct(dropletDestroy, 15D);
+        addProduct(dropletRegen, 10D);
     }
 
     @Override

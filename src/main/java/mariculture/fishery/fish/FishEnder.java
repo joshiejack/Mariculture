@@ -71,7 +71,7 @@ public class FishEnder extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletEnder, 7.5D);
+        addProduct(dropletEnder, 20D);
         addProduct(enderPearl, 5D);
     }
 

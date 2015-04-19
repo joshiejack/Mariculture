@@ -11,7 +11,6 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -65,8 +64,8 @@ public class FishTang extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 6.5D);
-        addProduct(dropletAqua, 4.5D);
+        addProduct(dropletWater, 7D);
+        addProduct(dropletAqua, 10D);
         addProduct(lapis, 2.0D);
     }
 

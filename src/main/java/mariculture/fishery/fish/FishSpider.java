@@ -65,7 +65,7 @@ public class FishSpider extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 2D);
+        addProduct(dropletWater, 2.5D);
         addProduct(string, 4D);
         addProduct(spiderEye, 2.5D);
     }

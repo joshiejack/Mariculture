@@ -1,5 +1,6 @@
 package mariculture.fishery.fish;
 
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletTin;
 import mariculture.api.core.Environment.Salinity;
@@ -44,8 +45,9 @@ public class FishTin extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletTin, 5D);
-        addProduct(dropletEarth, 10D);
+        addProduct(dropletTin, 10D);
+        addProduct(dropletEarth, 7D);
+        addProduct(dropletAir, 5D);
     }
 
     @Override

@@ -67,8 +67,8 @@ public class FishElectricRay extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 5D);
-        addProduct(dropletRegen, 1D);
-        addProduct(dropletFlux, 4D);
+        addProduct(dropletRegen, 10D);
+        addProduct(dropletFlux, 15D);
     }
 
     @Override

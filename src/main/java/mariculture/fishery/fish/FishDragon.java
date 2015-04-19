@@ -2,6 +2,7 @@ package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dragonEgg;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletEnder;
 import static mariculture.core.lib.MCLib.enderPearl;
 import mariculture.api.core.Environment.Salinity;
@@ -10,7 +11,6 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -73,7 +73,8 @@ public class FishDragon extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletEnder, 20D);
+        addProduct(dropletAir, 20D);
+        addProduct(dropletEnder, 22.5D);
         addProduct(enderPearl, 20D);
         addProduct(dragonEgg, 0.1D);
     }

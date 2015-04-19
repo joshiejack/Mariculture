@@ -51,8 +51,8 @@ public class FishCod extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletEarth, 3.5D);
-        addProduct(dropletFrozen, 2.5D);
+        addProduct(dropletEarth, 2.5D);
+        addProduct(dropletFrozen, 5D);
     }
 
     @Override

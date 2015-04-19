@@ -57,7 +57,7 @@ public class FishStingRay extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletPoison, 5D);
+        addProduct(dropletPoison, 10D);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.core.lib.MCLib.dropletAqua;
-import static mariculture.core.lib.MCLib.dropletWater;
+import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletZinc;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
@@ -52,9 +52,9 @@ public class FishZinc extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletZinc, 5D);
+        addProduct(dropletZinc, 17.5D);
         addProduct(dropletAqua, 7D);
-        addProduct(dropletWater, 10D);
+        addProduct(dropletEarth, 11.5D);
     }
 
     @Override

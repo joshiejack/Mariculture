@@ -60,7 +60,7 @@ public class FishDamsel extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 3.5D);
-        addProduct(dropletRegen, 0.5D);
+        addProduct(dropletRegen, 2.5D);
     }
 
     @Override

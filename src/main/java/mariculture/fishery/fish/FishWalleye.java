@@ -1,7 +1,9 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
-import static mariculture.core.lib.MCLib.dropletEarth;
+import static mariculture.core.lib.MCLib.dropletAqua;
+import static mariculture.core.lib.MCLib.dropletFrozen;
+import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -55,7 +57,9 @@ public class FishWalleye extends FishSpecies {
    
     @Override
     public void addFishProducts() {
-        addProduct(dropletEarth, 7.5D);
+        addProduct(dropletWater, 8.5D);
+        addProduct(dropletFrozen, 12.5D);
+        addProduct(dropletAqua, 7.5D);
     }
 
     @Override

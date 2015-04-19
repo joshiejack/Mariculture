@@ -66,8 +66,8 @@ public class FishJelly extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3D);
-        addProduct(dropletPoison, 6D);
+        addProduct(dropletWater, 7D);
+        addProduct(dropletPoison, 10D);
         addProduct(slimeBall, 4D);
     }
 

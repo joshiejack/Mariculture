@@ -1,8 +1,9 @@
 package mariculture.fishery.fish;
 
-import static mariculture.core.lib.MCLib.dropletAir;
+import static mariculture.core.lib.MCLib.dropletAqua;
+import static mariculture.core.lib.MCLib.dropletFlux;
 import static mariculture.core.lib.MCLib.dropletNickel;
-import static mariculture.core.lib.MCLib.dropletRegen;
+import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -45,9 +46,10 @@ public class FishNickel extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletNickel, 5D);
-        addProduct(dropletAir, 10D);
-        addProduct(dropletRegen, 1D);
+        addProduct(dropletNickel, 15D);
+        addProduct(dropletWater, 5D);
+        addProduct(dropletAqua, 8D);
+        addProduct(dropletFlux, 10D);
     }
 
     @Override

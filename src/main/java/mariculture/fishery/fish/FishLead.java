@@ -1,8 +1,8 @@
 package mariculture.fishery.fish;
 
-import static mariculture.core.lib.MCLib.dropletAir;
+import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletLead;
-import static mariculture.core.lib.MCLib.dropletRegen;
+import static mariculture.core.lib.MCLib.dropletPoison;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -45,9 +45,9 @@ public class FishLead extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletLead, 5D);
-        addProduct(dropletAir, 10D);
-        addProduct(dropletRegen, 1D);
+        addProduct(dropletLead, 15D);
+        addProduct(dropletEarth, 10D);
+        addProduct(dropletPoison, 10D);
     }
 
     @Override

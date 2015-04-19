@@ -53,8 +53,8 @@ public class FishPerch extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 8D);
-        addProduct(dropletEarth, 2.5D);
+        addProduct(dropletWater, 5.5D);
+        addProduct(dropletEarth, 7.5D);
     }
 
     @Override

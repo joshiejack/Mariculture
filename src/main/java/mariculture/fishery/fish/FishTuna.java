@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletAqua;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletFrozen;
@@ -68,10 +69,11 @@ public class FishTuna extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3.5D);
-        addProduct(dropletAqua, 4D);
+        addProduct(dropletWater, 4D);
+        addProduct(dropletAqua, 5D);
         addProduct(dropletEarth, 3D);
-        addProduct(dropletFrozen, 5D);
+        addProduct(dropletFrozen, 5.5D);
+        addProduct(dropletAir, 7.5D);
     }
 
     @Override

@@ -74,9 +74,9 @@ public class FishKoi extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 5D);
-        addProduct(dropletAqua, 3D);
-        addProduct(dropletRegen, 4D);
+        addProduct(dropletWater, 5.5D);
+        addProduct(dropletAqua, 11.5D);
+        addProduct(dropletRegen, 17.5D);
     }
 
     @Override

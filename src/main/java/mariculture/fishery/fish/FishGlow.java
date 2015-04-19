@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.MCLib.dropletFlux;
 import static mariculture.core.lib.MCLib.dropletNether;
 import static mariculture.core.lib.MCLib.glowstone;
 import mariculture.api.core.Environment.Height;
@@ -78,7 +79,8 @@ public class FishGlow extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletNether, 7.5D);
+        addProduct(dropletNether, 15D);
+        addProduct(dropletFlux, 10D);
         addProduct(glowstone, 7.5D);
     }
 

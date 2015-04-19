@@ -3,6 +3,7 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.cookedFish;
 import static mariculture.core.lib.MCLib.dropletAqua;
+import static mariculture.core.lib.MCLib.dropletExperience;
 import static mariculture.core.lib.MCLib.dropletMagic;
 import static mariculture.core.lib.MCLib.dropletWater;
 import static mariculture.core.lib.MCLib.vanillaFish;
@@ -66,9 +67,10 @@ public class FishMinecraft extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 50D);
-        addProduct(dropletAqua, 25D);
-        addProduct(dropletMagic, 0.5D);
+        addProduct(dropletExperience, 25D);
+        addProduct(dropletWater, 5D);
+        addProduct(dropletAqua, 8D);
+        addProduct(dropletMagic, 16D);
         addProduct(new ItemStack(vanillaFish, 1, getID()), 15D);
     }
 

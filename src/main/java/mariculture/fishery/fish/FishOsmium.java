@@ -1,8 +1,7 @@
 package mariculture.fishery.fish;
 
-import static mariculture.core.lib.MCLib.dropletNether;
+import static mariculture.core.lib.MCLib.dropletDestroy;
 import static mariculture.core.lib.MCLib.dropletOsmium;
-import static mariculture.core.lib.MCLib.dropletRegen;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -45,9 +44,8 @@ public class FishOsmium extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletOsmium, 5D);
-        addProduct(dropletNether, 5D);
-        addProduct(dropletRegen, 1D);
+        addProduct(dropletOsmium, 13D);
+        addProduct(dropletDestroy, 20D);
     }
 
     @Override

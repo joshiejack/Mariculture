@@ -1,12 +1,12 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletRegen;
 import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -73,8 +73,9 @@ public class FishMantaRay extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 5D);
-        addProduct(dropletRegen, 2D);
+        addProduct(dropletWater, 3.5D);
+        addProduct(dropletRegen, 7.5D);
+        addProduct(dropletAir, 5.5D);
     }
 
     @Override

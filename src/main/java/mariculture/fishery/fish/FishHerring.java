@@ -60,9 +60,9 @@ public class FishHerring extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 3D);
-        addProduct(dropletRegen, 0.5D);
-        addProduct(dropletFrozen, 3D);
-        addProduct(redstone, 1D);
+        addProduct(dropletRegen, 8.5D);
+        addProduct(dropletFrozen, 12.5D);
+        addProduct(redstone, 5D);
     }
 
     @Override

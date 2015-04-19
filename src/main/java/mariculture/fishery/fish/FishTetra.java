@@ -60,8 +60,8 @@ public class FishTetra extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3.5D);
-        addProduct(dropletFlux, 0.5D);
+        addProduct(dropletWater, 2.5D);
+        addProduct(dropletFlux, 5D);
     }
 
     @Override

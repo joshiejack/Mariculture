@@ -2,7 +2,6 @@ package mariculture.fishery.fish;
 
 import static mariculture.core.lib.MCLib.dropletCobalt;
 import static mariculture.core.lib.MCLib.dropletNether;
-import static mariculture.core.lib.MCLib.dropletRegen;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -62,9 +61,8 @@ public class FishCobalt extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletCobalt, 5D);
-        addProduct(dropletNether, 5D);
-        addProduct(dropletRegen, 1D);
+        addProduct(dropletCobalt, 13D);
+        addProduct(dropletNether, 20D);
     }
 
     @Override

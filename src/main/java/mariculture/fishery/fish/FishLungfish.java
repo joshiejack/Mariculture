@@ -3,6 +3,7 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletEarth;
+import static mariculture.core.lib.MCLib.dropletPlant;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -56,11 +57,17 @@ public class FishLungfish extends FishSpecies {
     public int getWaterRequired() {
         return 50;
     }
+    
+    @Override
+    public int getOnLandLifespan(FishSpecies fishy) {
+        return 1200;
+    }
    
     @Override
     public void addFishProducts() {
         addProduct(dropletAir, 15D);
-        addProduct(dropletEarth, 7.5D);
+        addProduct(dropletEarth, 10D);
+        addProduct(dropletPlant, 7.5D);
     }
 
     @Override

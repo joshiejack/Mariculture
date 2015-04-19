@@ -44,8 +44,8 @@ public class FishCopper extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletCopper, 5D);
-        addProduct(dropletEarth, 10D);
+        addProduct(dropletCopper, 10D);
+        addProduct(dropletEarth, 7D);
     }
 
     @Override

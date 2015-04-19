@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletAqua;
 import static mariculture.core.lib.MCLib.dropletMagic;
 import static mariculture.core.lib.MCLib.dropletRegen;
@@ -66,10 +67,11 @@ public class FishClown extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3D);
-        addProduct(dropletAqua, 2D);
-        addProduct(dropletRegen, 2.5D);
-        addProduct(dropletMagic, 1.0D);
+        addProduct(dropletWater, 3.5D);
+        addProduct(dropletAqua, 7D);
+        addProduct(dropletAir, 10D);
+        addProduct(dropletRegen, 14.5D);
+        addProduct(dropletMagic, 22.5D);
     }
 
     @Override

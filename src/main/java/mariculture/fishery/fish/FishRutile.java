@@ -3,11 +3,11 @@ package mariculture.fishery.fish;
 import static mariculture.core.lib.MCLib.dropletAqua;
 import static mariculture.core.lib.MCLib.dropletRutile;
 import static mariculture.core.lib.MCLib.dropletWater;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 
 public class FishRutile extends FishSpecies {
     @Override
@@ -52,9 +52,9 @@ public class FishRutile extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletRutile, 5D);
-        addProduct(dropletAqua, 7D);
-        addProduct(dropletWater, 10D);
+        addProduct(dropletRutile, 11.5D);
+        addProduct(dropletAqua, 18D);
+        addProduct(dropletWater, 9D);
     }
 
     @Override

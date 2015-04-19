@@ -54,7 +54,8 @@ public class FishSalmon extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 5D);
-        addProduct(dropletPlant, 5.0D);
+        addProduct(dropletPlant, 6D);
+        addProduct(new ItemStack(Items.leather), 7.5D);
     }
 
     @Override
