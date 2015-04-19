@@ -58,9 +58,9 @@ public class FishCatfish extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 8.0D);
-        addProduct(dropletAqua, 2.0D);
-        addProduct(dropletEarth, 5.0D);
+        addProduct(dropletWater, 5.0D);
+        addProduct(dropletAqua, 15.0D);
+        addProduct(dropletEarth, 10.0D);
     }
 
     @Override

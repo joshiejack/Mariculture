@@ -62,9 +62,9 @@ public class FishBlaasop extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3D);
+        addProduct(dropletWater, 2.5D);
         addProduct(dropletPoison, 0.5D);
-        addProduct(dropletEarth, 1D);
+        addProduct(dropletEarth, 2.5D);
     }
 
     @Override

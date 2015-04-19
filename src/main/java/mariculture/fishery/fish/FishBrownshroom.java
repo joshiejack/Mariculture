@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.MCLib.dropletAqua;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletPlant;
 import mariculture.api.core.Environment.Salinity;
@@ -67,8 +68,9 @@ public class FishBrownshroom extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletEarth, 10D);
-        addProduct(dropletPlant, 10D);
+        addProduct(dropletEarth, 7D);
+        addProduct(dropletPlant, 5D);
+        addProduct(dropletAqua, 6D);
         addProduct(Blocks.brown_mushroom, 10D);
     }
 

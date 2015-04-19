@@ -86,9 +86,9 @@ public class FishBoneless extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletEarth, 1D);
-        addProduct(bonemeal, 5D);
-        addProduct(bone, 1.5D);
+        addProduct(dropletEarth, 20D);
+        addProduct(bonemeal, 13D);
+        addProduct(bone, 5D);
         addProduct(skull, 1D);
         addProduct(witherSkull, 0.1D);
     }

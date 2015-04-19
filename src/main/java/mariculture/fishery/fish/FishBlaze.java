@@ -72,8 +72,9 @@ public class FishBlaze extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletNether, 10D);
-        addProduct(blazePowder, 5.0D);
+        addProduct(dropletNether, 130D);
+        addProduct(blazePowder, 20.0D);
+        addProduct(blazeRod, 5.0D);
     }
 
     @Override

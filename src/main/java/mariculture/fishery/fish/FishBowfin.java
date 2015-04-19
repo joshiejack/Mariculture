@@ -1,14 +1,15 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
+import static mariculture.core.lib.MCLib.dropletAir;
+import static mariculture.core.lib.MCLib.dropletAqua;
+import static mariculture.core.lib.MCLib.dropletDestroy;
+import static mariculture.core.lib.MCLib.dropletEarth;
+import static mariculture.core.lib.MCLib.dropletPlant;
 import static mariculture.core.lib.MCLib.dropletWater;
-import static mariculture.core.lib.MCLib.glowstone;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.util.Fluids;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class FishBowfin extends FishSpecies {
@@ -59,7 +60,12 @@ public class FishBowfin extends FishSpecies {
    
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 7.5D);
+        addProduct(dropletEarth, 7.5D);
+        addProduct(dropletPlant, 12.5D);
+        addProduct(dropletWater, 5D);
+        addProduct(dropletDestroy, 8.5D);
+        addProduct(dropletAqua, 3D);
+        addProduct(dropletAir, 4D);
     }
 
     @Override
