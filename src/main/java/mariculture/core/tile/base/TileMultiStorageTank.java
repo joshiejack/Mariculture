@@ -23,7 +23,7 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
         if (mstr.tank.getFluid() == null) return null;
         if (mstr.tank.getFluidAmount() - transfer < 0) return null;
 
-        return new FluidStack(mstr.tank.getFluidID(), transfer);
+        return new FluidStack(mstr.tank.getFluid(), transfer);
     }
 
     @Override

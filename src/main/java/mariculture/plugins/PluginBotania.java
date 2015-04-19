@@ -6,6 +6,7 @@ import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.Modules;
@@ -36,7 +37,12 @@ public class PluginBotania extends Plugin {
     public void preInit() {
         if (Modules.isActive(Modules.fishery)) {
             mana = Fishing.fishHelper.registerFish(modid, FishMana.class, 65);
-            Fishing.mutation.addMutation(Fish.koi, Fish.gold, mana, 33D);
+            if (FishMechanics.ENABLE_METAL_FISH) {
+                Fishing.mutation.addMutation(Fish.koi, Fish.gold, mana, 30D);
+            } else {
+                Fishing.mutation.addMutation(Fish.koi, Fish.glow, mana, 30D);
+            }
+            
             rodLiving = new ItemLivingRod().setUnlocalizedName("rodLiving");
             Fishing.fishing.registerRod(rodLiving, MANA);
         }

@@ -181,14 +181,12 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
                 break;
             case 3:
                 tank.setFluidID(value);
-                ;
                 break;
             case 4:
                 tank.setFluidAmount(value);
                 break;
             case 5:
                 tank.setCapacity(value);
-                ;
                 break;
             case 6:
                 if (master != null) {
@@ -279,10 +277,10 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
     public void setEjectSetting(EjectSetting setting) {
         this.setting = setting;
     }
-    
+
     @Override
     public boolean canEject(ForgeDirection dir) {
-    	return true;
+        return true;
     }
 
     @Override

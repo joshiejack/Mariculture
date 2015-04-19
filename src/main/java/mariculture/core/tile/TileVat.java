@@ -223,7 +223,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
     }
 
     private boolean hasRoom(ItemStack stack, FluidStack newFluid) {
-        if (tank3.getFluid() != null && newFluid != null) if (newFluid.fluidID != tank3.getFluidID() || newFluid.amount + tank3.getFluidAmount() > tank3.getCapacity()) return false;
+        if (tank3.getFluid() != null && newFluid != null) if (newFluid != tank3.getFluid() || newFluid.amount + tank3.getFluidAmount() > tank3.getCapacity()) return false;
 
         return stack == null || inventory[1] == null || CoFhItemHelper.areItemStackEqualNoNull(stack, inventory[1]) && inventory[1].stackSize + stack.stackSize <= inventory[1].getMaxStackSize();
     }
@@ -329,7 +329,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
         if (vat.tank.getFluid() == null) return null;
         if (vat.tank.getFluidAmount() - transfer < 0) return null;
 
-        return new FluidStack(vat.tank.getFluidID(), transfer);
+        return new FluidStack(vat.tank.getFluid(), transfer);
     }
 
     @Override
@@ -397,7 +397,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         TileVat vat = master != null ? (TileVat) worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord) : this;
         if (vat == null) return 0;
-
+        
         int ret = vat.tank.fill(resource, doFill, vat.tank2);
         if (ret > 0) {
             if (doFill) {

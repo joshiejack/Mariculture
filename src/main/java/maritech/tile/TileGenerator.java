@@ -11,10 +11,10 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyConnection;
+import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 
-public class TileGenerator extends TileEntity implements IEnergyConnection, IFaceable {
+public class TileGenerator extends TileEntity implements IEnergyProvider, IFaceable {
     public ForgeDirection orientation = ForgeDirection.NORTH;
 
     public boolean onTick(int i) {
@@ -106,5 +106,20 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("Orientation", orientation.ordinal());
+    }
+
+    @Override
+    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
+        return 0;
+    }
+
+    @Override
+    public int getEnergyStored(ForgeDirection from) {
+        return 0;
+    }
+
+    @Override
+    public int getMaxEnergyStored(ForgeDirection from) {
+        return 0;
     }
 }

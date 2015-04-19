@@ -164,7 +164,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
         if (tank.getFluid() == null) return null;
         if (tank.getFluidAmount() - transfer < 0) return null;
 
-        return new FluidStack(tank.getFluidID(), transfer);
+        return new FluidStack(tank.getFluid(), transfer);
     }
 
     @Override

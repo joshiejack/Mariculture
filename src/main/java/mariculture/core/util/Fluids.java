@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class Fluids {
@@ -24,9 +25,14 @@ public class Fluids {
     }
 
     public static boolean add(String name, Fluid fluid, int volume, boolean override) {
+        Fluid fluid2 = FluidRegistry.getFluid(fluid.getName()); //If there is already a fluid registered
+        if (fluid2 != null) {
+            fluid = fluid2; //Use the registered fluid no matter what
+        }
+        
         if ((!fluids.containsKey(name) && fluid != null) || override) {
             fluids.put(name, new BalancedFluid(fluid, volume));
-            return true;
+            return fluid != fluid2; //Return true if we should register our own fluid
         }
 
         return false;
@@ -49,10 +55,6 @@ public class Fluids {
 
     public static Fluid getFluid(String fluid) {
         return fluids.get(fluid) != null ? fluids.get(fluid).fluid : null;
-    }
-
-    public static int getFluidID(String fluid) {
-        return getFluid(fluid).getID();
     }
 
     public static String getFluidName(String fluid) {

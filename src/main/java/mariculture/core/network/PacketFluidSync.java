@@ -3,15 +3,17 @@ package mariculture.core.network;
 import io.netty.buffer.ByteBuf;
 import mariculture.core.util.ITank;
 import mariculture.lib.helpers.ClientHelper;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
+import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketFluidSync extends PacketCoords implements IMessageHandler<PacketFluidSync, IMessage> {
-    byte tank;
-    FluidStack fluid;
+    private byte tank;
+    private FluidStack fluid;
 
     public PacketFluidSync() {}
     public PacketFluidSync(int x, int y, int z, FluidStack fluid, byte tank) {
@@ -25,10 +27,12 @@ public class PacketFluidSync extends PacketCoords implements IMessageHandler<Pac
         super.toBytes(buffer);
         buffer.writeByte(tank);
         if (fluid == null) {
-            buffer.writeInt(0);
+            buffer.writeBoolean(false);
         } else {
-            buffer.writeInt(fluid.fluidID);
-            buffer.writeInt(fluid.amount);
+            buffer.writeBoolean(true);
+            NBTTagCompound tag = new NBTTagCompound();
+            fluid.writeToNBT(tag);
+            ByteBufUtils.writeTag(buffer, tag);
         }
     }
 
@@ -36,11 +40,9 @@ public class PacketFluidSync extends PacketCoords implements IMessageHandler<Pac
     public void fromBytes(ByteBuf buffer) {
         super.fromBytes(buffer);
         tank = buffer.readByte();
-        int id = buffer.readInt();
-        if (id == 0) {
-            fluid = null;
-        } else {
-            fluid = new FluidStack(id, buffer.readInt());
+        if (buffer.readBoolean()) {
+            NBTTagCompound tag = ByteBufUtils.readTag(buffer);
+            fluid = FluidStack.loadFluidStackFromNBT(tag);
         }
     }
 

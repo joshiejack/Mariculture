@@ -82,9 +82,7 @@ public class ItemBlockCoral extends ItemBlockMariculture {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
-        System.out.println("CALLED BY KELP SEEDS");
-    	
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {    	
     	Block block = world.getBlock(x, y, z);
         if (block == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1) {
             side = 1;
@@ -114,8 +112,6 @@ public class ItemBlockCoral extends ItemBlockMariculture {
             }
         }
         
-        System.out.println(stack.stackSize);
-
         if (!player.canPlayerEdit(x, y, z, side, stack)) return false;
         else if (stack.stackSize == 0) return false;
         else {
