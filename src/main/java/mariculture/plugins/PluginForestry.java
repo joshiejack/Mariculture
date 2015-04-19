@@ -174,5 +174,10 @@ public class PluginForestry extends Plugin {
         public void addValidItems(List<ItemStack> validItems) {
             items.addAll(validItems);
         }
+
+        @Override
+        public boolean isValidItem(ItemStack itemstack) {
+            return isValidItem(null, itemstack);
+        }
     }
 }
