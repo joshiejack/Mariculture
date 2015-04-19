@@ -7,6 +7,7 @@ import mariculture.api.core.IItemUpgrade;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.util.MCTranslate;
+import mariculture.lib.util.Text;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -280,6 +281,10 @@ public class ItemUpgrade extends ItemMCMeta implements IItemUpgrade {
             if (temp < 0) {
                 list.add(mariculture.lib.util.Text.INDIGO + temp + mariculture.lib.util.Text.DEGREES);
             }
+        }
+        
+        if (stack.getItemDamage() == UpgradeMeta.AQUASCUM) {
+            list.add(mariculture.lib.util.Text.INDIGO + Text.localize("mariculture.upgrade.aquascum.desc"));
         }
     }
 

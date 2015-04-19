@@ -67,9 +67,9 @@ public class FishAngel extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 1.5D);
-        addProduct(dropletRegen, 2.0D);
-        addProduct(dropletAir, 2.0D);
+        addProduct(dropletWater, 3D);
+        addProduct(dropletRegen, 4D);
+        addProduct(dropletAir, 5D);
     }
 
     @Override

@@ -2,6 +2,7 @@ package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
 import static mariculture.core.lib.MCLib.dropletDestroy;
+import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletFlux;
 import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Height;
@@ -64,9 +65,10 @@ public class FishAngler extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletWater, 3D);
-        addProduct(dropletDestroy, 0.5D);
-        addProduct(dropletFlux, 1.5D);
+        addProduct(dropletEarth, 5D);
+        addProduct(dropletWater, 8.5D);
+        addProduct(dropletDestroy, 7D);
+        addProduct(dropletFlux, 12.5D);
     }
 
     @Override

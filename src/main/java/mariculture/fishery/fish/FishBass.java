@@ -2,6 +2,7 @@ package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletDestroy;
+import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletPlant;
 import static mariculture.core.lib.MCLib.dropletWater;
 import static mariculture.core.lib.MCLib.gunpowder;
@@ -61,9 +62,10 @@ public class FishBass extends FishSpecies {
     @Override
     public void addFishProducts() {
         addProduct(dropletWater, 4D);
-        addProduct(dropletDestroy, 5.0D);
-        addProduct(dropletPlant, 3.0D);
-        addProduct(gunpowder, 7.5D);
+        addProduct(dropletEarth, 5.0D);
+        addProduct(dropletDestroy, 7D);
+        addProduct(dropletPlant, 6D);
+        addProduct(gunpowder, 10D);
     }
 
     @Override

@@ -14,9 +14,11 @@ import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.botania.FishMana;
 import mariculture.plugins.botania.ItemLivingRod;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -50,7 +52,7 @@ public class PluginBotania extends Plugin {
 
         if (Modules.isActive(Modules.fishery)) {
             GameRegistry.addShapedRecipe(new ItemStack(rodLiving), new Object[] { "  T", " TS", "T S", 'T', new ItemStack(ModItems.manaResource, 1, 3), 'S', new ItemStack(ModItems.manaResource, 1, 16) });
-            
+
             Fishing.fishing.addBait(new ItemStack(ModItems.petal, 1, OreDictionary.WILDCARD_VALUE), 60);
             Fishing.fishing.addBait(new ItemStack(ModItems.manaPetal, 1, OreDictionary.WILDCARD_VALUE), 75);
             Fishing.fishing.addBaitForQuality(new ItemStack(Fishery.bait, 1, BaitMeta.HOPPER), MANA);
@@ -72,5 +74,11 @@ public class PluginBotania extends Plugin {
     }
 
     @Override
-    public void postInit() {}
+    public void postInit() {
+        for (int id : FishSpecies.species.keySet()) {
+            if (id >= 4) {
+                BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Items.fish, 1, 0), new ItemStack(Items.fish, 1, id), 10);
+            }
+        }
+    }
 }

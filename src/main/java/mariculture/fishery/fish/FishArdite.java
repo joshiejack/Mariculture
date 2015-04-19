@@ -1,8 +1,8 @@
 package mariculture.fishery.fish;
 
 import static mariculture.core.lib.MCLib.dropletArdite;
+import static mariculture.core.lib.MCLib.dropletDestroy;
 import static mariculture.core.lib.MCLib.dropletNether;
-import static mariculture.core.lib.MCLib.dropletRegen;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -62,9 +62,9 @@ public class FishArdite extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletArdite, 5D);
-        addProduct(dropletNether, 5D);
-        addProduct(dropletRegen, 1D);
+        addProduct(dropletArdite, 13D);
+        addProduct(dropletNether, 20D);
+        addProduct(dropletDestroy, 10D);
     }
 
     @Override
