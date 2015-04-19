@@ -33,7 +33,7 @@ public class BaitListingsHandler {
                     ArrayList<ItemStack> baits = Fishing.fishing.getCanUseList(quality);
                     for (ItemStack bait : baits)
                         if (bait != null) {
-                            list.add(bait.getItem().getItemStackDisplayName(bait));
+                            list.add(bait.getDisplayName());
                         }
                 }
             } else {

@@ -844,3 +844,9 @@ enchiridion.downloader.outofdate=Enchiridion is not the correct version, please 
 mariculture.fishbreeding=Fish Breeding
 mariculture.fishproducts=Fish Products
 mariculture.shapedjewelry=Shaped Jewelry Crafting
+
+#Botania
+mariculture.rodLiving=Livingwood Fishing Rod
+mariculture.fish.data.species.mana=Manafish
+item.botania:petal32767.name=Mystical Petals
+item.botania:manaPetal32767.name=Mana Petals

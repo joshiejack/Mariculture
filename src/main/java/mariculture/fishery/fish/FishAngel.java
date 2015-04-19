@@ -1,6 +1,7 @@
 package mariculture.fishery.fish;
 
 import static mariculture.api.core.Environment.Salinity.SALINE;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletRegen;
 import static mariculture.core.lib.MCLib.dropletWater;
 
@@ -68,6 +69,7 @@ public class FishAngel extends FishSpecies {
     public void addFishProducts() {
         addProduct(dropletWater, 1.5D);
         addProduct(dropletRegen, 2.0D);
+        addProduct(dropletAir, 2.0D);
     }
 
     @Override

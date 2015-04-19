@@ -16,6 +16,7 @@ import mariculture.core.lib.Modules;
 import mariculture.fishery.fish.FishAluminum;
 import mariculture.fishery.fish.FishAngel;
 import mariculture.fishery.fish.FishAngler;
+import mariculture.fishery.fish.FishArdite;
 import mariculture.fishery.fish.FishBass;
 import mariculture.fishery.fish.FishBlaasop;
 import mariculture.fishery.fish.FishBlaze;
@@ -26,6 +27,7 @@ import mariculture.fishery.fish.FishButterfly;
 import mariculture.fishery.fish.FishCatfish;
 import mariculture.fishery.fish.FishChub;
 import mariculture.fishery.fish.FishClown;
+import mariculture.fishery.fish.FishCobalt;
 import mariculture.fishery.fish.FishCod;
 import mariculture.fishery.fish.FishCopper;
 import mariculture.fishery.fish.FishDamsel;
@@ -40,6 +42,7 @@ import mariculture.fishery.fish.FishIron;
 import mariculture.fishery.fish.FishJelly;
 import mariculture.fishery.fish.FishKoi;
 import mariculture.fishery.fish.FishLamprey;
+import mariculture.fishery.fish.FishLead;
 import mariculture.fishery.fish.FishLungfish;
 import mariculture.fishery.fish.FishMagnesium;
 import mariculture.fishery.fish.FishManOWar;
@@ -47,11 +50,14 @@ import mariculture.fishery.fish.FishMantaRay;
 import mariculture.fishery.fish.FishMinecraft;
 import mariculture.fishery.fish.FishMinnow;
 import mariculture.fishery.fish.FishNether;
+import mariculture.fishery.fish.FishNickel;
 import mariculture.fishery.fish.FishNight;
+import mariculture.fishery.fish.FishOsmium;
 import mariculture.fishery.fish.FishPerch;
 import mariculture.fishery.fish.FishPickerel;
 import mariculture.fishery.fish.FishPike;
 import mariculture.fishery.fish.FishPiranha;
+import mariculture.fishery.fish.FishPlatinum;
 import mariculture.fishery.fish.FishPuffer;
 import mariculture.fishery.fish.FishPupfish;
 import mariculture.fishery.fish.FishRedshroom;
@@ -66,10 +72,12 @@ import mariculture.fishery.fish.FishStickleback;
 import mariculture.fishery.fish.FishStingRay;
 import mariculture.fishery.fish.FishTang;
 import mariculture.fishery.fish.FishTetra;
+import mariculture.fishery.fish.FishTin;
 import mariculture.fishery.fish.FishTrout;
 import mariculture.fishery.fish.FishTuna;
 import mariculture.fishery.fish.FishUndead;
 import mariculture.fishery.fish.FishWalleye;
+import mariculture.fishery.fish.FishZinc;
 import mariculture.fishery.fish.dna.FishDNAAreaOfEffect;
 import mariculture.fishery.fish.dna.FishDNAFertility;
 import mariculture.fishery.fish.dna.FishDNAFoodUsage;
@@ -104,59 +112,60 @@ public class Fish {
     public static FishDNA salinity;
     public static FishDNA temperature;
 
-    public static FishSpecies nether;
-    public static FishSpecies glow;
-    public static FishSpecies blaze;
-    public static FishSpecies night;
-    public static FishSpecies ender;
-    public static FishSpecies dragon;
-    public static FishSpecies minnow;
-    public static FishSpecies salmon;
-    public static FishSpecies bass;
-    public static FishSpecies tetra;
-    public static FishSpecies catfish;
-    public static FishSpecies piranha;
-    public static FishSpecies cod;
-    public static FishSpecies perch;
-    public static FishSpecies tuna;
-    public static FishSpecies stingRay;
-    public static FishSpecies mantaRay;
-    public static FishSpecies electricRay;
-    public static FishSpecies damsel;
-    public static FishSpecies angel;
-    public static FishSpecies puffer;
-    public static FishSpecies squid;
-    public static FishSpecies jelly;
-    public static FishSpecies manOWar;
-    public static FishSpecies goldfish;
-    public static FishSpecies siamese;
-    public static FishSpecies koi;
-    public static FishSpecies butterfly;
-    public static FishSpecies tang;
-    public static FishSpecies clown;
+    public static FishSpecies nether; //Netherwart
+    public static FishSpecies glow; //Spawns glowstone, where there was stone
+    public static FishSpecies blaze; //Spawns fire and blazes
+    public static FishSpecies night; //Strength at Night
+    public static FishSpecies ender; //Ender Pearls
+    public static FishSpecies dragon; //Dragon eggs
+    public static FishSpecies minnow; //Great Bait
+    public static FishSpecies salmon; //Shed leather
+    public static FishSpecies bass; //Causes explosions
+    public static FishSpecies tetra; //Neon lamps
+    public static FishSpecies catfish; //Spawns ocelots, 
+    public static FishSpecies piranha; //Atacks Entities and players
+    public static FishSpecies cod; //Leather
+    public static FishSpecies perch; //Spawns bats
+    public static FishSpecies tuna; //Add Speed Potion
+    public static FishSpecies stingRay; //Poisons those in water
+    public static FishSpecies mantaRay; //Spawns dungeon loot
+    public static FishSpecies electricRay; //Produce lots of power
+    public static FishSpecies damsel; //Spawns flowers
+    public static FishSpecies angel; //Teleport stuff in to inventories
+    public static FishSpecies puffer; //Nothing
+    public static FishSpecies squid; //Ink Sacks, Spawns Squid
+    public static FishSpecies jelly; //Produce slimeballs
+    public static FishSpecies manOWar; //Blinds Enemies
+    public static FishSpecies goldfish; //Produce gold nuggets
+    public static FishSpecies siamese; //Attack entities (not players)
+    public static FishSpecies koi; //Regen 3, and Heals you when in water (non regen)
+    public static FishSpecies butterfly; //Allows 10 second flight, shed feathers
+    public static FishSpecies tang; //Produces lapis
+    public static FishSpecies clown; //Spawns random mobs
+    
     //1.2.2 Species
-    public static FishSpecies blaasop;
-    public static FishSpecies stargazer;
-    public static FishSpecies lamprey;
-    public static FishSpecies spider;
-    public static FishSpecies boneless;
-    public static FishSpecies undead;
-    public static FishSpecies minecraft;
-    public static FishSpecies angler;
-    public static FishSpecies trout;
-    public static FishSpecies herring;
+    public static FishSpecies blaasop; //Nothing
+    public static FishSpecies stargazer; //Prevent Mob Spawns
+    public static FishSpecies lamprey; //Withers players, Converts skeletons to wither skeletons
+    public static FishSpecies spider; //Spawns spiders
+    public static FishSpecies boneless; //Spawns skeletons/wither skeletons/Speeds up crops
+    public static FishSpecies undead; //Spawns zombies
+    public static FishSpecies minecraft; //Gives XP to player
+    public static FishSpecies angler; //Fish feeder light, places as 'spotlight lights'
+    public static FishSpecies trout; //Weapon, Dyes
+    public static FishSpecies herring; //Redstone
     
     //1.2.5 new Species
-    public static FishSpecies brown; //BrownShroom
+    public static FishSpecies brown; //BrownShroom, Spawns Mycelium
     public static FishSpecies red; //RedShroom
-    public static FishSpecies pup; //Wolves
-    public static FishSpecies chub; //Food
-    public static FishSpecies bowfin; //Bows
-    public static FishSpecies lung; //Breathing
-    public static FishSpecies walleye; //Eyesight
-    public static FishSpecies pike; //Weapons
-    public static FishSpecies stickleback; //Spikes
-    public static FishSpecies pickerel; //Picky Something
+    public static FishSpecies pup; //Spawns Wolves
+    public static FishSpecies chub; //Fills Hunger Bar
+    public static FishSpecies bowfin; //Generates Arrows, Bows
+    public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten
+    public static FishSpecies walleye; //Eyesight, Zooms in like bow
+    public static FishSpecies pike; //Weapons, Generates flint and pike 'heads'
+    public static FishSpecies stickleback; //Spikes, Causes spikes to randomly appear
+    public static FishSpecies pickerel; //Harvests Crops
     
     //1.2.5 Metal Species
     public static FishSpecies iron;
@@ -344,8 +353,15 @@ public class Fish {
     }
     
     public static void addOptionalFish() {
-        silver = registerFish("silver", iron, magnesium, 20D, FishSilver.class, 56);
-        
+        silver = registerFish("silver", iron, magnesium, 16D, FishSilver.class, 56);
+        lead = registerFish("lead", copper, angler, 16D, FishLead.class, 57);
+        tin = registerFish("tin", stargazer, squid, 20D, FishTin.class, 58);
+        platinum = registerFish("platinum", rutile, koi, 12D, FishPlatinum.class, 59);
+        nickel = registerFish("nickel", angler, magnesium, 15D, FishNickel.class, 60);
+        cobalt = registerFish("cobalt", rutile, catfish, 12D, FishCobalt.class, 61);
+        ardite = registerFish("ardite", rutile, glow, 12D, FishArdite.class, 62);
+        osmium = registerFish("osmium", rutile, electricRay, 12D, FishOsmium.class, 63);
+        zinc = registerFish("zinc", aluminum, puffer, 20D, FishZinc.class, 64);
     }
 
     private static void addMutations() {

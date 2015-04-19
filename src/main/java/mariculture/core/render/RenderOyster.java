@@ -1,10 +1,12 @@
 package mariculture.core.render;
 
 import mariculture.core.Core;
+import mariculture.core.handlers.PearlGenHandler;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.tile.TileOyster;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -130,14 +132,14 @@ public class RenderOyster extends RenderBase {
             setTexture(Core.pearlBlock, PearlColor.WHITE);
             renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
         } else if (stack != null) {
-            if (stack.getItem() == Core.pearls) {
-                setTexture(Core.pearlBlock, stack.getItemDamage());
-                renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
+            if (stack.getItem() == Item.getItemFromBlock(Blocks.sand)) {
+                setTexture(Blocks.sand, stack.getItemDamage());
+                renderBlock(0.45, 0.05, 0.45, 0.55, 0.2, 0.55);
             } else if (stack.getItem() == Items.ender_pearl) {
                 setTexture(Blocks.wool, 13);
                 renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
             } else {
-                setTexture(Blocks.sand, stack.getItemDamage());
+                setTexture(PearlGenHandler.getTexture(stack));
                 renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
             }
         }

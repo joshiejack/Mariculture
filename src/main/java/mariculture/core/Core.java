@@ -319,21 +319,22 @@ public class Core extends RegistrationModule {
     }
 
     private void registerPearls() {
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLACK), 7);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLUE), 9);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BROWN), 12);
+        /* PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLACK), 14);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLUE), 18);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BROWN), 25);
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.GOLD), 5);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.GREEN), 9);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.ORANGE), 11);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.PINK), 10);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.PURPLE), 9);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.RED), 9);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.GREEN), 18);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.ORANGE), 22);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.PINK), 20);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.PURPLE), 18);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.RED), 18);
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.SILVER), 6);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 7);
-        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 6);
-        PearlGenHandler.addPearl(new ItemStack(Blocks.sand), 15);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 8);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 7);
+        PearlGenHandler.addPearl(new ItemStack(Blocks.sand, 1, 0), 30);
+        PearlGenHandler.addPearl(new ItemStack(Blocks.sand, 1, 1), 15); */
         if (Gardening.GEN_ENDER_PEARLS) {
-            PearlGenHandler.addPearl(new ItemStack(Items.ender_pearl), 1);
+            PearlGenHandler.addPearl(new ItemStack(Items.ender_pearl), 2);
         }
     }
 

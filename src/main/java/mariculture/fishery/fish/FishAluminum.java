@@ -44,7 +44,7 @@ public class FishAluminum extends FishSpecies {
 
     @Override
     public void addFishProducts() {
-        addProduct(dropletAluminum, 5D);
+        addProduct(dropletAluminum, 15D);
         addProduct(dropletAir, 10D);
     }
 

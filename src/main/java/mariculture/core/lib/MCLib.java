@@ -238,6 +238,14 @@ public class MCLib {
     public static final ItemStack dropletRutile = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.RUTILE) : null;
     public static final ItemStack dropletMagnesium = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.MAGNESIUM) : null;
     public static final ItemStack dropletSilver = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.SILVER) : null;
+    public static final ItemStack dropletLead = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.LEAD) : null;
+    public static final ItemStack dropletTin = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.TIN) : null;
+    public static final ItemStack dropletPlatinum = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.PLATINUM) : null;
+    public static final ItemStack dropletNickel = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.NICKEL) : null;
+    public static final ItemStack dropletCobalt = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.COBALT) : null;
+    public static final ItemStack dropletArdite = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ARDITE) : null;
+    public static final ItemStack dropletOsmium = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.OSMIUM) : null;
+    public static final ItemStack dropletZinc = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ZINC) : null;
     public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
     public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
     public static final ItemStack dustMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE);

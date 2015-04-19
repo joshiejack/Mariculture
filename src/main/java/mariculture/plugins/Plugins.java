@@ -71,6 +71,7 @@ public class Plugins extends Module {
         add("HarvestCraft", "harvestcraft");
         //Always add theByeByeSmelting Plugin
         add("ModdedTweaks", "Enchiridion");
+        add("Botania");
     }
 
     public void add(String str) {
