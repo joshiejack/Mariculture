@@ -31,6 +31,7 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -100,6 +101,16 @@ public class BlockRenderedMachine extends BlockFunctional {
     }
 
     @Override
+    public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+        return world.getBlockMetadata(x, y, z) == MachineRenderedMeta.FISH_FEEDER ? 100F : super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
+    }
+
+    @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return world.getBlockMetadata(x, y, z) == MachineRenderedMeta.FISH_FEEDER ? false : super.canEntityDestroy(world, x, y, z, entity);
+    }
+
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
@@ -151,7 +162,7 @@ public class BlockRenderedMachine extends BlockFunctional {
 
         if (player.isSneaking()) return false;
         if (tile instanceof TileFeeder) {
-            ((TileFeeder)tile).updateTankSize();
+            ((TileFeeder) tile).updateTankSize();
             player.openGui(Mariculture.instance, -1, world, x, y, z);
             return true;
         }

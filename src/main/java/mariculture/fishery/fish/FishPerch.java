@@ -3,9 +3,14 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletWater;
+
+import java.util.ArrayList;
+
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
+import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -76,6 +81,20 @@ public class FishPerch extends FishSpecies {
     public int getFishMealSize() {
         return 3;
     }
+    
+    @Override
+    public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+        if (world.rand.nextInt(10) == 0) {
+            if (coords.size() > 0) {
+                int coordinate = world.rand.nextInt(coords.size());
+                CachedCoords pos = coords.get(coordinate);
+                EntityBat entity = new EntityBat(world);
+                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                world.spawnEntityInWorld(entity);
+            }
+        }
+    }
+
 
     @Override
     public RodType getRodNeeded() {

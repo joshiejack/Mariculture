@@ -4,10 +4,15 @@ import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletAqua;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletWater;
+
+import java.util.ArrayList;
+
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
+import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.world.World;
 
 public class FishCatfish extends FishSpecies {
@@ -81,6 +86,19 @@ public class FishCatfish extends FishSpecies {
     @Override
     public int getFoodDuration() {
         return 48;
+    }
+    
+    @Override
+    public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+        if (world.rand.nextInt(10) == 0) {
+            if (coords.size() > 0) {
+                int coordinate = world.rand.nextInt(coords.size());
+                CachedCoords pos = coords.get(coordinate);
+                EntityOcelot entity = new EntityOcelot(world);
+                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                world.spawnEntityInWorld(entity);
+            }
+        }
     }
 
     @Override

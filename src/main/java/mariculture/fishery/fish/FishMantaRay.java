@@ -8,6 +8,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
@@ -60,7 +61,7 @@ public class FishMantaRay extends FishSpecies {
     public int getWaterRequired() {
         return 115;
     }
-    
+
     @Override
     public Block getWater2() {
         return Blocks.lava;
@@ -106,6 +107,12 @@ public class FishMantaRay extends FishSpecies {
     @Override
     public void onConsumed(World world, EntityPlayer player) {
         player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 1));
+    }
+
+    @Override
+    public void affectLiving(EntityLivingBase entity) {
+        entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 33, 0, true));
+        entity.heal(5F);
     }
 
     @Override

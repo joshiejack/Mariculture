@@ -3,13 +3,19 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletEnder;
 import static mariculture.core.lib.MCLib.enderPearl;
+
+import java.util.ArrayList;
+
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.helpers.BlockHelper;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -99,6 +105,28 @@ public class FishEnder extends FishSpecies {
                     player.setPositionAndUpdate(x, y, z);
                     world.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
                 }
+            }
+        }
+    }
+    
+    @Override
+    public void affectLiving(EntityLivingBase entity) {
+        if (entity instanceof EntityPlayer) {
+            if (entity.worldObj.rand.nextInt(10) == 0) {
+                onConsumed(entity.worldObj, (EntityPlayer) entity);
+            }
+        }
+    }
+    
+    @Override
+    public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+        if (world.rand.nextInt(25) == 0) {
+            if (coords.size() > 0) {
+                int coordinate = world.rand.nextInt(coords.size());
+                CachedCoords pos = coords.get(coordinate);
+                EntityEnderman entity = new EntityEnderman(world);
+                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                world.spawnEntityInWorld(entity);
             }
         }
     }

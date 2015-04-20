@@ -97,6 +97,11 @@ public class BlockCustomBase extends BlockFunctional {
     }
 
     @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return false;
+    }
+
+    @Override
     public int quantityDropped(Random rand) {
         return 0;
     }

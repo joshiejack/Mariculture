@@ -22,7 +22,7 @@ public class DivingEventHandler {
             if (!event.entity.worldObj.isRemote) {
                 Snorkel.init((EntityPlayer) event.entity);
                 if (GeneralStuff.HARDCORE_DIVING > 0) {
-                    if (event.entity.worldObj.getWorldTime() % 5 == 0) {
+                    if (event.entity.worldObj.getTotalWorldTime() % 5 == 0) {
                         HardcoreDiving.init((EntityPlayer) event.entity);
                     }
                 }

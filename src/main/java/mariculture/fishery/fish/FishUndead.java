@@ -98,10 +98,14 @@ public class FishUndead extends FishSpecies {
 
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
-        if (world.rand.nextInt(500) == 0) {
-            EntityZombie zombie = new EntityZombie(world);
-            zombie.setPosition(x, y, z);
-            world.spawnEntityInWorld(zombie);
+        if (world.rand.nextInt(10) == 0) {
+            if (coords.size() > 0) {
+                int coordinate = world.rand.nextInt(coords.size());
+                CachedCoords pos = coords.get(coordinate);
+                EntityZombie entity = new EntityZombie(world);
+                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                world.spawnEntityInWorld(entity);
+            }
         }
     }
 

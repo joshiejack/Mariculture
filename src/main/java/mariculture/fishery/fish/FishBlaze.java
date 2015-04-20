@@ -4,11 +4,16 @@ import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.blazePowder;
 import static mariculture.core.lib.MCLib.blazeRod;
 import static mariculture.core.lib.MCLib.dropletNether;
+
+import java.util.ArrayList;
+
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -100,6 +105,19 @@ public class FishBlaze extends FishSpecies {
     @Override
     public void onConsumed(World world, EntityPlayer player) {
         player.setFire(7);
+    }
+    
+    @Override
+    public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+        if (world.rand.nextInt(25) == 0) {
+            if (coords.size() > 0) {
+                int coordinate = world.rand.nextInt(coords.size());
+                CachedCoords pos = coords.get(coordinate);
+                EntityBlaze entity = new EntityBlaze(world);
+                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                world.spawnEntityInWorld(entity);
+            }
+        }
     }
 
     @Override

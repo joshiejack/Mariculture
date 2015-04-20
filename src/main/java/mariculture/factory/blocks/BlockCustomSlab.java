@@ -46,6 +46,11 @@ public class BlockCustomSlab extends BlockSlab implements IHasMetaBlock {
     }
 
     @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return false;
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         return Blocks.stone.getIcon(side, meta);

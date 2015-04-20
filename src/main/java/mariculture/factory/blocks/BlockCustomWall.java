@@ -51,6 +51,11 @@ public class BlockCustomWall extends BlockWall implements IHasMetaBlock {
     }
 
     @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return false;
+    }
+
+    @Override
     public float getBlockHardness(World world, int x, int y, int z) {
         return BlockCustomHelper.getBlockHardness(world, x, y, z);
     }

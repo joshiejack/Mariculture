@@ -37,7 +37,7 @@ public class TileAutohammer extends TileStorage {
     }
 
     public boolean onTick(int i) {
-        return (worldObj.getWorldTime() + offset) % i == 0;
+        return (worldObj.getTotalWorldTime() + offset) % i == 0;
     }
 
     @Override

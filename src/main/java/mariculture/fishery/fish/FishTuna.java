@@ -10,6 +10,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
@@ -61,7 +62,7 @@ public class FishTuna extends FishSpecies {
     public int getWaterRequired() {
         return 60;
     }
-    
+
     @Override
     public Block getWater2() {
         return Blocks.lava;
@@ -98,7 +99,12 @@ public class FishTuna extends FishSpecies {
 
     @Override
     public void onConsumed(World world, EntityPlayer player) {
-        player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 160, 1));
+        player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 800, 1));
+    }
+
+    @Override
+    public void affectLiving(EntityLivingBase entity) {
+        entity.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 33, 5, true));
     }
 
     @Override

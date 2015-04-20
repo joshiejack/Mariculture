@@ -14,6 +14,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.fishery.EntityBass;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -116,6 +117,11 @@ public class FishBass extends FishSpecies {
         }
 
         return stack;
+    }
+    
+    @Override
+    public void affectLiving(EntityLivingBase entity) {
+        entity.worldObj.createExplosion(entity, entity.posX, entity.posY + 1D, entity.posZ, 1, true);
     }
 
     @Override

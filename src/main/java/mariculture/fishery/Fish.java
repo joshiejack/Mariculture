@@ -117,20 +117,20 @@ public class Fish {
     public static FishSpecies glow; //Spawns glowstone, where there was stone
     public static FishSpecies blaze; //Spawns fire and blazes
     public static FishSpecies night; //Strength at Night
-    public static FishSpecies ender; //Ender Pearls
+    public static FishSpecies ender; //Ender Pearls, Teleport randomly, Spawns Endermen
     public static FishSpecies dragon; //Dragon eggs
     public static FishSpecies minnow; //Great Bait
     public static FishSpecies salmon; //Shed leather
     public static FishSpecies bass; //Causes explosions
     public static FishSpecies tetra; //Neon lamps
-    public static FishSpecies catfish; //Spawns ocelots, 
+    public static FishSpecies catfish; //Spawns ocelot 
     public static FishSpecies piranha; //Atacks Entities and players
     public static FishSpecies cod; //Leather (When melted)
     public static FishSpecies perch; //Spawns bats
     public static FishSpecies tuna; //Add Speed Potion
     public static FishSpecies stingRay; //Poisons those in water
-    public static FishSpecies mantaRay; //Spawns dungeon loot
-    public static FishSpecies electricRay; //Produce lots of power
+    public static FishSpecies mantaRay; //Regen 2 when eaten, and Heals you when in water 
+    public static FishSpecies electricRay; //Produce 10RF/t per connection lots of power
     public static FishSpecies damsel; //Spawns flowers
     public static FishSpecies angel; //Teleport stuff in to inventories
     public static FishSpecies puffer; //Nothing
@@ -139,7 +139,7 @@ public class Fish {
     public static FishSpecies manOWar; //Blinds Enemies
     public static FishSpecies goldfish; //Produce gold nuggets when melted
     public static FishSpecies siamese; //Attack entities (not players)
-    public static FishSpecies koi; //Regen 3, and Heals you when in water (non regen)
+    public static FishSpecies koi; //Spawns ocean chest and vanilla chest loot in the water
     public static FishSpecies butterfly; //Allows 10 second flight, shed feathers
     public static FishSpecies tang; //Produces lapis
     public static FishSpecies clown; //Spawns random mobs

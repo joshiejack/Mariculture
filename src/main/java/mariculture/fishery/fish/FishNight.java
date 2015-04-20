@@ -8,6 +8,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -53,7 +54,7 @@ public class FishNight extends FishSpecies {
     public int getWaterRequired() {
         return 50;
     }
-    
+
     @Override
     public Block getWater2() {
         return Fluids.getFluidBlock("ender");
@@ -73,6 +74,13 @@ public class FishNight extends FishSpecies {
     public void onConsumed(World world, EntityPlayer player) {
         if (!world.isDaytime()) {
             player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 1800, 0));
+        }
+    }
+
+    @Override
+    public void affectLiving(EntityLivingBase entity) {
+        if (!entity.worldObj.isDaytime()) {
+            entity.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 33, 2, true));
         }
     }
 

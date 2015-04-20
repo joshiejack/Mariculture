@@ -91,9 +91,9 @@ public class FishElectricRay extends FishSpecies {
         if (world.rand.nextInt(512) == 0) {
             world.addWeatherEffect(new EntityLightningBolt(world, x + world.rand.nextInt(5) - world.rand.nextInt(10), y, z + world.rand.nextInt(5) - world.rand.nextInt(10)));
         }
-
-        if (PowerHelper.isEnergyHandler(world, x, y - 1, z) != null) {
-            IEnergyReceiver handler = PowerHelper.isEnergyHandler(world, x, y - 1, z);
+        
+        for (ForgeDirection dir: ForgeDirection.VALID_DIRECTIONS) {
+            IEnergyReceiver handler = PowerHelper.isEnergyHandler(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
             if (handler.canConnectEnergy(ForgeDirection.DOWN)) {
                 handler.receiveEnergy(ForgeDirection.UP, 200, false);
             }
