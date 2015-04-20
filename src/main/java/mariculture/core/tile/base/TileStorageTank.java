@@ -52,7 +52,7 @@ public class TileStorageTank extends TileStorage implements IFluidHandler, ITank
 
         if (tank.getFluidAmount() - transfer < 0) return null;
 
-        return new FluidStack(tank.getFluidID(), transfer);
+        return new FluidStack(tank.getFluid(), transfer);
     }
 
     @Override

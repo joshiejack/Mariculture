@@ -20,12 +20,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fluids.FluidStack;
 
 public class ExtensionRenderedMachine extends ExtensionBlocksBase {
     @Override
@@ -114,8 +111,7 @@ public class ExtensionRenderedMachine extends ExtensionBlocksBase {
             }
 
             fludd.tank.setCapacity(ItemFLUDD.STORAGE);
-            fludd.tank.setFluidID(Fluids.getFluidID("hp_water"));
-            fludd.tank.setFluidAmount(water);
+            fludd.tank.setFluid(new FluidStack(Fluids.getFluid("hp_water"), water));
             PacketHandler.updateRender(fludd);
         }
 

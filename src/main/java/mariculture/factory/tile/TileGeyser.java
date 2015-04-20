@@ -26,6 +26,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
@@ -50,14 +51,14 @@ public class TileGeyser extends TileTank implements IFaceable {
     }
 
     public boolean canWork() {
-        return tank.getFluidAmount() > 0 && canUseFluid(tank.getFluidID()) && !worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+        return tank.getFluidAmount() > 0 && canUseFluid(tank.getFluid().getFluid()) && !worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
     }
 
-    private boolean canUseFluid(int id) {
-        if (id == FluidRegistry.getFluidID("water")) {
+    private boolean canUseFluid(Fluid fluid) {
+        if (fluid == FluidRegistry.getFluid("water")) {
             size = 8;
             return true;
-        } else if (id == Fluids.getFluidID("hp_water")) {
+        } else if (fluid == Fluids.getFluid("hp_water")) {
             size = 16;
             return true;
         } else return false;
@@ -79,7 +80,7 @@ public class TileGeyser extends TileTank implements IFaceable {
             doSquirt();
 
             if (onTick(100)) {
-                drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), 1), true);
+                drain(ForgeDirection.UP, new FluidStack(tank.getFluid(), 1), true);
                 if (tank.getFluidAmount() <= 0) {
                     PacketHandler.syncFluids(this, this.getFluid());
                 }
@@ -127,10 +128,12 @@ public class TileGeyser extends TileTank implements IFaceable {
 
     public void pullFromInventory() {
         TileEntity tile = worldObj.getTileEntity(xCoord - orientation.offsetX, yCoord - orientation.offsetY, zCoord - orientation.offsetZ);
-        if (tile != null) if (tile instanceof IInventory) {
-            ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
-            if (stack != null) {
-                ItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+        if (tile != null) {
+            if (tile instanceof IInventory) {
+                ItemStack stack = InventoryHelper.extractItemStackFromInventory((IInventory) tile, orientation.getOpposite().ordinal());
+                if (stack != null) {
+                    ItemHelper.spawnItem(worldObj, xCoord, yCoord, zCoord, stack, false);
+                }
             }
         } else if (tile instanceof IFluidHandler) {
             IFluidHandler handler = (IFluidHandler) tile;

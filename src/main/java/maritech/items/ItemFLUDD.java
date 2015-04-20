@@ -10,7 +10,6 @@ import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.util.Fluids;
 import maritech.lib.MTModInfo;
 import maritech.model.ModelFLUDD;
-import maritech.render.RenderFLUDDSquirt;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -145,7 +144,7 @@ public class ItemFLUDD extends ItemMCBaseArmor implements IPVChargeable {
     @Override
     public void fill(IFluidTank tank, ItemStack[] inventory, int special) {
         if (tank.getFluid() != null && tank.getFluid().getFluid() != null) {
-            if (tank.getFluid().fluidID == Fluids.getFluidID("hp_water") && tank.getFluidAmount() > 0) {
+        	if (tank.getFluid().getFluid() == Fluids.getFluid("hp_water") && tank.getFluidAmount() > 0) {
                 ItemStack stack = inventory[special].copy();
                 int water = 0;
                 if (stack.hasTagCompound()) {

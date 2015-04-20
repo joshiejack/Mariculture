@@ -59,17 +59,21 @@ public class Tank implements IFluidTank, ITank {
     }
 
     public int getFluidID() {
-        if (fluid == null) return 0;
+        if (fluid == null) return -1;
 
         return fluid.fluidID;
     }
 
     public void setFluidID(int id) {
-        if (fluid == null) {
-            fluid = new FluidStack(id, 0);
-        }
+        if (id == -1) {
+            fluid = null;
+        } else {
+            if (fluid == null) {
+                fluid = new FluidStack(id, 0);
+            }
 
-        fluid.fluidID = id;
+            fluid = new FluidStack(id, fluid.amount);
+        }
     }
 
     /* IFluidTank */
@@ -97,7 +101,6 @@ public class Tank implements IFluidTank, ITank {
     @Override
     public int fill(FluidStack resource, boolean doFill) {
         if (resource == null) return 0;
-
         if (!doFill) {
             if (fluid == null) return Math.min(capacity, resource.amount);
 
@@ -155,7 +158,7 @@ public class Tank implements IFluidTank, ITank {
     }
 
     public int fill(FluidStack resource, boolean doFill, Tank tank) {
-        if (resource.fluidID == tank.getFluidID()) return 0;
+        if (tank.getFluid() != null && resource.getFluid() == tank.getFluid().getFluid()) return 0;
         return fill(resource, doFill);
     }
 
@@ -163,7 +166,7 @@ public class Tank implements IFluidTank, ITank {
     public FluidStack getFluid(int transfer) {
         if (getFluid() == null) return null;
         if (getFluidAmount() - transfer < 0) return null;
-        return new FluidStack(getFluidID(), transfer);
+        return new FluidStack(getFluid(), transfer);
     }
 
     @Override

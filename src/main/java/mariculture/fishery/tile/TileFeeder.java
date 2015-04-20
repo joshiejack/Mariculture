@@ -1,6 +1,5 @@
 package mariculture.fishery.tile;
 
-import static mariculture.core.util.Fluids.getFluidID;
 import static mariculture.core.util.Fluids.getFluidStack;
 
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ import mariculture.core.lib.MachineSpeeds;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketSyncFeeder;
 import mariculture.core.tile.base.TileMachineTank;
+import mariculture.core.util.Fluids;
 import mariculture.core.util.IHasNotification;
 import mariculture.core.util.MCTranslate;
 import mariculture.fishery.Fish;
@@ -423,7 +423,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         FishSpecies species = Fishing.fishHelper.getSpecies(fish);
         if (species != null) {            
             if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) return true;
-            else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getFluidID("fish_food")) return false;
+            else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().getFluid() != Fluids.getFluid("fish_food")) return false;
             return tankSize >= Fish.tankSize.getDNA(fish) && species.isFluidValid(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
         } else return false;
     }
@@ -531,7 +531,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     noBad = addToolTip(tooltip, MCTranslate.translate("missingMate"));
                 }
 
-                if (tank.getFluidAmount() < 1 || tank.getFluid().fluidID != getFluidID("fish_food")) {
+                if (tank.getFluidAmount() < 1 || (tank.getFluid() != null && tank.getFluid().getFluid() != Fluids.getFluid("fish_food"))) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("noFood"));
                 }
 
@@ -607,7 +607,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     public boolean isNotificationVisible(NotificationType type) {
         switch (type) {
             case NO_FOOD:
-                return tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().fluidID != getFluidID("fish_food");
+            	return tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().getFluid() != Fluids.getFluid("fish_food");
             case NO_MALE:
                 return !hasMale();
             case NO_FEMALE:

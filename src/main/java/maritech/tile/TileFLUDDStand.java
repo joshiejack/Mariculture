@@ -77,7 +77,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
             doSquirt();
 
             if (onTick(100)) {
-                drain(ForgeDirection.UP, new FluidStack(tank.getFluidID(), getWaterUsage()), true);
+                drain(ForgeDirection.UP, new FluidStack(tank.getFluid(), getWaterUsage()), true);
                 worldObj.func_147479_m(xCoord, yCoord, zCoord);
             }
         }
@@ -171,7 +171,7 @@ public class TileFLUDDStand extends TileMachineTankOld implements IHasNotificati
 
     @Override
     public boolean canMachineWork() {
-        return tank.getFluidAmount() > 0 && tank.getFluidID() == Fluids.getFluidID("hp_water") && RedstoneMode.canWork(this, mode);
+        return tank.getFluidAmount() > 0 && (tank.getFluid() != null && tank.getFluid().getFluid() == Fluids.getFluid("hp_water")) && RedstoneMode.canWork(this, mode);
     }
 
     private boolean isNet(int x, int y, int z) {

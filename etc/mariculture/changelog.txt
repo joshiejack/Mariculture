@@ -1,5 +1,6 @@
 Mariculture 1.2.4.2
-• Update Forestry Plugin
+• Fix Compatibility with Forge 1355+ and the new fluids
+• Fix/Update Forestry Plugin
 • Fix oysters not always generating ender pearls in the end
 • Fix kelp seeds not being plantable
 • Fix DNA name tooltips
