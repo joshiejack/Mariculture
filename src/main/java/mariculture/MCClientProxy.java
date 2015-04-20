@@ -22,6 +22,7 @@ import mariculture.core.render.RenderNuggetCaster;
 import mariculture.core.render.RenderOyster;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderSpecialHandler;
+import mariculture.core.render.RenderTankItem;
 import mariculture.core.render.RenderVat;
 import mariculture.core.render.RenderVoidBottle;
 import mariculture.core.render.VatSpecialRenderer;
@@ -83,6 +84,7 @@ public class MCClientProxy extends MCCommonProxy {
         RenderIds.RENDER_ALL = RenderingRegistry.getNextAvailableRenderId();
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.renderedMachines), new RenderSingleItem());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Core.tanks), new RenderTankItem());
         RenderingRegistry.registerBlockHandler(new RenderHandler());
         RenderingRegistry.registerEntityRenderingHandler(EntityFakeItem.class, new RenderFakeItem());
         ClientRegistry.bindTileEntitySpecialRenderer(TileVat.class, new VatSpecialRenderer());
