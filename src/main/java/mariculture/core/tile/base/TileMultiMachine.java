@@ -48,7 +48,7 @@ public abstract class TileMultiMachine extends TileMultiStorage implements IUpgr
     }
 
     public boolean onTick(int i) {
-        return worldObj.getWorldTime() % i == 0;
+        return worldObj.getTotalWorldTime() % i == 0;
     }
 
     @Override

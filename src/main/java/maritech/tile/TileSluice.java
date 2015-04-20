@@ -48,7 +48,7 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
     }
 
     public boolean onTick(int i) {
-        return worldObj.getWorldTime() % i == 0;
+        return worldObj.getTotalWorldTime() % i == 0;
     }
 
     @Override

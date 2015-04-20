@@ -119,7 +119,7 @@ public class ItemBoundRod extends ItemRod {
 
         if (player.isSneaking()) {
             setActivated(stack, !getActivated(stack));
-            stack.stackTagCompound.setInteger("worldTimeDelay", (int) (world.getWorldTime() - 1) % 200);
+            stack.stackTagCompound.setInteger("worldTimeDelay", (int) (world.getTotalWorldTime() - 1) % 200);
         } else if (!getActivated(stack)) {
             return Fishing.fishing.handleRightClick(stack, world, player);
         } else {

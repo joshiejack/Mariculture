@@ -10,7 +10,7 @@ public class Snorkel {
         if (!player.capabilities.isCreativeMode) {
             if (PlayerHelper.hasArmor(player, ArmorSlot.HAT, Diving.snorkel)) {
                 if (player.isInsideOfMaterial(Material.water)) {
-                    if (player.worldObj.getWorldTime() % 2 == 0) {
+                    if (player.worldObj.getTotalWorldTime() % 2 == 0) {
                         player.setAir(player.getAir() + 1);
                     }
                 }

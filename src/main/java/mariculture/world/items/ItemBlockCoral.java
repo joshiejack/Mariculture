@@ -82,8 +82,8 @@ public class ItemBlockCoral extends ItemBlockMariculture {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
-        Block block = world.getBlock(x, y, z);
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {    	
+    	Block block = world.getBlock(x, y, z);
         if (block == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1) {
             side = 1;
         } else if (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush) {
@@ -111,7 +111,7 @@ public class ItemBlockCoral extends ItemBlockMariculture {
                 ++x;
             }
         }
-
+        
         if (!player.canPlayerEdit(x, y, z, side, stack)) return false;
         else if (stack.stackSize == 0) return false;
         else {
@@ -138,7 +138,7 @@ public class ItemBlockCoral extends ItemBlockMariculture {
         if (side != 1) return false;
 
         if (world.getBlock(x, y + 1, z).getMaterial() != Material.water) return false;
-
+        
         Block block = world.getBlock(x, y - 1, z);
         int meta = world.getBlockMetadata(x, y - 1, z);
         if (stack.getItemDamage() == CoralMeta.KELP) return BlockCoral.canSustainKelp(block, meta);

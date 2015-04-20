@@ -176,7 +176,7 @@ public class FluidHelper {
         int highest = -1;
 
         for (FluidContainerData element : data) {
-            if (element.fluid.fluidID == fluid.getID()) {
+            if (element.fluid.getFluid() == fluid) {
                 if (element.fluid.amount > highest) {
                     highest = element.fluid.amount;
                 }
@@ -282,7 +282,7 @@ public class FluidHelper {
     public static List getFluidQty(List tooltip, FluidStack fluid, int max) {
         if (fluid == null || fluid.getFluid() == null) {
             tooltip.add(mariculture.lib.util.Text.GREY + "" + 0 + (max > 0 ? "/" + max + MCTranslate.translate("mb") : MCTranslate.translate("mb")));
-        } else if (Modules.isActive(Modules.fishery) && fluid.fluidID == Fluids.getFluidID("fish_food")) {
+        } else if (Modules.isActive(Modules.fishery) && fluid.getFluid() == Fluids.getFluid("fish_food")) {
             tooltip.add(mariculture.lib.util.Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + " " + MCTranslate.translate("pieces") : " " + MCTranslate.translate("pieces")));
         } else if (fluid.getFluid().getName().contains("glass") || fluid.getFluid().getName().contains("salt") || fluid.getFluid().getName().contains("dirt")) {
             tooltip.add(mariculture.lib.util.Text.GREY + "" + fluid.amount + (max > 0 ? "/" + max + MCTranslate.translate("mb") : MCTranslate.translate("mb")));
@@ -324,12 +324,12 @@ public class FluidHelper {
     }
 
     public static void addFluid(String field, String name, int volume, int bottleMeta, boolean isGas, int balance) {
-        Fluid fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
-        if (Fluids.add(field, fluid, balance)) {
+    	Fluid fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
+    	if (Fluids.add(field, fluid, balance)) {
             FluidRegistry.registerFluid(Fluids.getFluid(field));
-        } else {
-            fluid = Fluids.getFluid(field);
         }
+        
+        fluid = Fluids.getFluid(field);
 
         if (volume != -1) {
             FluidHelper.registerHeatBottle(fluid, volume, bottleMeta);

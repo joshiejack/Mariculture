@@ -129,7 +129,7 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
         if (dmg == CraftingMeta.DRAGON_EGG && GeneralStuff.ENABLE_ENDER_SPAWN) return spawnEnderDragon(stack, player, world, x, y, z);
         else if (dmg == CraftingMeta.THERMOMETER) {
             displayTemperature(player.isSneaking(), world, x, y, z);
-        } else if (Modules.isActive(Modules.worldplus) && dmg == CraftingMeta.SEEDS_KELP) if (Item.getItemFromBlock(WorldPlus.plantGrowable).onItemUse(new ItemStack(WorldPlus.plantGrowable), player, world, x, y, z, side, par8, par9, par10)) {
+        } else if (Modules.isActive(Modules.worldplus) && dmg == CraftingMeta.SEEDS_KELP) if (Item.getItemFromBlock(WorldPlus.plantGrowable).onItemUse(new ItemStack(WorldPlus.plantGrowable, 1, 1), player, world, x, y, z, side, par8, par9, par10)) {
             stack.stackSize--;
         }
 

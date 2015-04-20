@@ -277,7 +277,7 @@ public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContaine
         if (!stack.isFluidEqual(resource) && stack.amount > 0) return 0;
 
         if (!stack.isFluidEqual(resource)) {
-            stack.fluidID = resource.fluidID;
+        	stack = new FluidStack(resource.getFluid(), stack.amount);
         }
 
         int filled = capacity - stack.amount;

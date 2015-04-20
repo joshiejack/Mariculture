@@ -62,7 +62,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     }
 
     public boolean onTick(int i) {
-        return worldObj.getWorldTime() % i == 0;
+        return worldObj.getTotalWorldTime() % i == 0;
     }
 
     private void updateCanWork() {

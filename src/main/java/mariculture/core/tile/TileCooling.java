@@ -54,7 +54,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
             }
 
             if (MachineSettings.COOLING_KICK_UP_BUTT > 0) {
-                if (worldObj.getWorldTime() % MachineSettings.COOLING_KICK_UP_BUTT == 1) {
+                if (worldObj.getTotalWorldTime() % MachineSettings.COOLING_KICK_UP_BUTT == 1) {
                     canWork = canWork();
                 }
             }

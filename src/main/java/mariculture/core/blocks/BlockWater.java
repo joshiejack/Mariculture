@@ -155,9 +155,7 @@ public class BlockWater extends BlockFunctional {
                     Block block = world.getBlock(x, y - 1, z);
                     if (world.provider.dimensionId == 1) {
                         oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));
-                    }
-
-                    if (block instanceof BlockPearlBlock) {
+                    } else if (block instanceof BlockPearlBlock) {
                         oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
                     } else {
                         oyster.setInventorySlotContents(0, PearlGenHandler.getRandomPearl(rand));

@@ -20,7 +20,7 @@ public class TileGenerator extends TileEntity implements IEnergyConnection, IFac
     public ForgeDirection orientation = ForgeDirection.NORTH;
 
     public boolean onTick(int i) {
-        return worldObj.getWorldTime() % i == 0;
+        return worldObj.getTotalWorldTime() % i == 0;
     }
 
     //This needs to be called when this block is placed, and everytime something affects a rotor
