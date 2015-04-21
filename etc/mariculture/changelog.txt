@@ -1,3 +1,6 @@
+Mariculture 1.2.4.2a
+• Fix Pressurised water icon, causing crashes when in tanks in the inventory
+
 Mariculture 1.2.4.2
 • Fix Compatibility with Forge 1355+ and the new fluids
 • Fix/Update Forestry Plugin

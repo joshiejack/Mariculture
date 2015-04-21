@@ -19,6 +19,7 @@ public class FluidMari extends Fluid {
 
     @Override
     public IIcon getStillIcon() {
+    	if (name.equals("fastwater")) return Blocks.water.getIcon(0, 0);
         if (name.contains("dirt")) return Blocks.dirt.getIcon(0, 0);
         if (name.contains("xp")) return BlockPressurisedWater.xp_still;
         if (bottle < 0 && block != null && block instanceof BlockFluid) return ((BlockFluid) block).still;
@@ -28,6 +29,7 @@ public class FluidMari extends Fluid {
 
     @Override
     public IIcon getFlowingIcon() {
+    	if (name.equals("fastwater")) return Blocks.water.getIcon(0, 0);
         if (name.contains("dirt")) return Blocks.dirt.getIcon(0, 0);
         if (name.contains("xp")) return BlockPressurisedWater.xp_flow;
         if (bottle < 0 && block != null && block instanceof BlockFluid) return ((BlockFluid) block).flowing;
