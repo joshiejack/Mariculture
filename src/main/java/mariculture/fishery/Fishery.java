@@ -243,6 +243,7 @@ public class Fishery extends RegistrationModule {
     @Override
     public void registerOther() {
         RecipeSorter.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+        RecipeSorter.register("mariculture:dnaRest", ShapelessResetFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
         registerEntities();
         Fish.init();
         registerRods();
@@ -310,6 +311,7 @@ public class Fishery extends RegistrationModule {
 
         addVatItemRecipeResultFluid(asStack(asStack(sugar), 2), getFluidStack("milk", 1000), getFluidStack("custard", 1000), 15);
         GameRegistry.addRecipe(new ShapelessFishRecipe(new ItemStack(Core.food, 1, FoodMeta.CAVIAR), new ItemStack(fishEggs)));
+        GameRegistry.addRecipe(new ShapelessResetFishRecipe(new ItemStack(fishy), new ItemStack(fishy)));
     }
 
     private void addBait() {

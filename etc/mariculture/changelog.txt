@@ -1,5 +1,6 @@
 Mariculture 1.3.0
 • Crucible Furnace Changes
+    • Heating upgrades now speed up the furnace, hyperkinetic speed up auto-eject rate
     • All solid fuels will now last 4x as long except netherfish which has had a x16 buff
     • Add gunpowder and tnt as fuel. Will heat the furnace up faster than normal fuels. But it will explode...
 • Config Options
@@ -13,6 +14,10 @@ Mariculture 1.3.0
         • Swimfin will allow you to fly in lava
         • Wetsuit increases mining speed under lava
         • Scuba Tank, will use 'oxygen' to prevent fire damage.
+• Air Pump Changes
+    • Remove redstone signal requirement for pumping natural gas
+    • Consume 100 RF each time you suck gas instead of 10RF
+    • Consume 50RF each time the air pump, supplies air instead of 100RF
 • Fishy Stuff
     • Add AquaScum 2003 - Autoadjusts Tank temperature and salinity for fish
     • Add Mutation Upgrade for Incubator
@@ -21,6 +26,7 @@ Mariculture 1.3.0
     • Add Metal Droplets
     • Add 10 New Normal Fish
     • Add Ore Fish
+    • Crafting a live fish with itself, will reset it's DNA to the default values. Only works on pure bred fish.
     • Breeding Tree Rewrite, to incorporate new fish
     • Fish products rebalanced
     • More effects added to fish
@@ -35,10 +41,6 @@ Mariculture 1.3.0
     • Ritual of The Blood river, now gives 3x, and will stack with ethereal for a 5x mutation chance modifier
     • Eggs are now processed 3 at a time by default
     • Eggs are much more likely to hatch by default
-• Air Pump Changes
-    • Remove redstone signal requirement for pumping natural gas
-    • Consume 100 RF each time you suck gas instead of 10RF
-    • Consume 50RF each time the air pump, supplies air instead of 100RF
 • Fluid Tanks
     • Renamed Fluid Tank to Copper Fluid Tank
     • Added Aluminium and Titanium Fluid Tanks, and Gas Tank (Latter can only store natural gas)
@@ -63,12 +65,10 @@ Mariculture 1.3.0
         • Uses petals or grasshoppers as bait,
         • Can catch botania goodies
         • Charges from mana
-• Fixes and Numbers
+• Numbers
     • Reduce number of hits for all Blacksmith's Anvil recipes
     • Rebalance all vat numbers
-    • Fix oysters not always generating ender pearls in the end
-    • Fix kelp seeds not being plantable
-    • Fix DNA name tooltips
+• Fix Air Pump Packet sometimes crashing???
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror

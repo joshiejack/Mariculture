@@ -31,6 +31,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     private boolean canFuel;
     private int cooling;
     private double melting_modifier = 1.0D;
+    private int ejectRate = 100;
 
     public TileCrucible() {
         max = MachineSpeeds.getCrucibleSpeed();
@@ -104,12 +105,18 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     }
 
     @Override
+    public void updateUpgrades() {
+        super.updateUpgrades();
+        ejectRate = Math.max(0, 100 - speed * 5);
+    }
+
+    @Override
     public void updateMasterMachine() {
         if (!worldObj.isRemote) {
             heatUp();
             coolDown();
             if (canWork) {
-                processed += speed * 50 * melting_modifier;
+                processed += 100 + (heat * 25) * melting_modifier;
                 if (processed >= max) {
                     processed = 0;
                     if (canWork()) {
@@ -131,7 +138,7 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
                 processed = 0;
             }
 
-            if (onTick(100) && tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mode) && EjectSetting.canEject(setting, EjectSetting.FLUID)) {
+            if (onTick(ejectRate) && tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mode) && EjectSetting.canEject(setting, EjectSetting.FLUID)) {
                 helper.ejectFluid(new int[] { 5000, MetalRates.BLOCK, 1000, MetalRates.ORE, MetalRates.INGOT, MetalRates.NUGGET, 1 });
             }
         }
@@ -139,8 +146,8 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
     @Override
     public void updateSlaveMachine() {
-        if (onTick(100)) {
-            TileCrucible mstr = (TileCrucible) getMaster();
+        TileCrucible mstr = (TileCrucible) getMaster();
+        if (onTick(mstr.ejectRate)) {
             if (mstr != null && mstr.tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID)) {
                 helper.ejectFluid(new int[] { 5000, MetalRates.BLOCK, 1000, MetalRates.ORE, MetalRates.INGOT, MetalRates.NUGGET, 1 });
             }
@@ -219,20 +226,20 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
 
         return info;
     }
-    
+
     /** Grabs the fuel tickHandler **/
-    public Object getNext() {    	
+    public Object getNext() {
         if (inventory[fuel] != null) return inventory[fuel];
         else {
             TileEntity tile = BlockHelper.getAdjacentTileEntity(this, ForgeDirection.DOWN);
             if (tile instanceof IFluidHandler) {
-            	FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 10, false);
+                FluidStack fluid = ((IFluidHandler) tile).drain(ForgeDirection.UP, 10, false);
                 if (fluid != null) {
-                	return fluid;
+                    return fluid;
                 }
             }
         }
-        
+
         return null;
     }
 
@@ -273,11 +280,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
         }
 
     }
-    
-	@Override
-	public boolean canEject(ForgeDirection dir) {
-		return dir != ForgeDirection.DOWN;
-	}
+
+    @Override
+    public boolean canEject(ForgeDirection dir) {
+        return dir != ForgeDirection.DOWN;
+    }
 
     // Gui Data
     @Override

@@ -27,7 +27,7 @@ public class FishChub extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 2;
     }
 
     @Override

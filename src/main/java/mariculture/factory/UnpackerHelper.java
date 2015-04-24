@@ -10,7 +10,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
 public class UnpackerHelper {
-    public static HashMap<String, ItemStack> cache = new HashMap();
+    public static HashMap<String, IRecipe> cache = new HashMap();
 
     public static boolean canUnpack(World world, ItemStack stack) {
         return unpack(world, stack) != null;
@@ -18,15 +18,18 @@ public class UnpackerHelper {
 
     public static ItemStack unpack(World world, ItemStack stack) {
         String key = ItemHelper.getName(stack);
-        if (cache.containsKey(key)) {
-            return cache.get(key).copy();
-        }
-
+        
         DummyCrafting crafting = new DummyCrafting(1, 1);
         crafting.setInventorySlotContents(0, stack);
+        IRecipe recipe = cache.get(key);
+        if (recipe != null) {
+            return recipe.getCraftingResult(crafting).copy();
+        }
+
         for (IRecipe irecipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList()) {
             try {
                 if (irecipe.matches(crafting, world)) {
+                    cache.put(key, irecipe);
                     return irecipe.getCraftingResult(crafting).copy();
                 }
             } catch (Exception e) {}

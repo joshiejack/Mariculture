@@ -29,7 +29,7 @@ public class FishDamsel extends FishSpecies {
 
     @Override
     public int getSalinityTolerance() {
-        return 0;
+        return 1;
     }
 
     @Override

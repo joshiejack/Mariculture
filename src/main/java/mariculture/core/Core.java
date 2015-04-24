@@ -12,6 +12,10 @@ import static mariculture.core.helpers.FluidHelper.registerBucket;
 import static mariculture.core.helpers.FluidHelper.registerHeatBottle;
 import static mariculture.core.helpers.FluidHelper.registerVanillaBottle;
 import static mariculture.core.util.Fluids.getFluid;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
@@ -92,7 +96,6 @@ import mariculture.core.util.XPRegistry;
 import mariculture.factory.tile.TileGasTank;
 import mariculture.lib.helpers.RegistryHelper;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -168,7 +171,7 @@ public class Core extends RegistrationModule {
 
         if (RetroGen.ENABLED) {
             MinecraftForge.EVENT_BUS.register(new RetroGeneration());
-        }
+        }        
     }
 
     ToolMaterial brick = EnumHelper.addToolMaterial("BRICK", 1, 1000, 3.0F, 1.2F, 12);
