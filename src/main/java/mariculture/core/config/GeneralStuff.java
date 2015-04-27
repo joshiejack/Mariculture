@@ -37,7 +37,7 @@ public class GeneralStuff {
         ENABLE_ENDER_SPAWN = getBoolean("Enable Ender Dragon Spawning", true, "This is whether players can Spawn the Ender Dragon with the Dragon Spawn Egg");
         SHOW_CASTER_RECIPES = getBoolean("Enable Casting Recipes in NEI", true);
         GAS_CAN_CATCH_ALIGHT = getBoolean("Natural Gas Can Catch on Fire", true);
-        FISHING_GEAR_CHANCE = getFloat("Zombie > Spawn with Fishing Gear Chance > 0-1", 0.05F);
+        FISHING_GEAR_CHANCE = getFloat("Zombie > Spawn with Fishing Gear Chance > 0-1", 0.025F);
         FISHING_HAT_DROP_CHANCE = getFloat("Zombie > Drop Fishing Hat Chance > 0-1", 0.1F);
         FISHING_ROD_DROP_CHANCE = getFloat("Zombie > Drop Fishing Rod Chance > 0-1", 0.05F);
         MaricultureEvents.onConfigure("GeneralStuff", config);
