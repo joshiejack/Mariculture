@@ -34,6 +34,10 @@ public class ConfigHelper {
     public static double getDouble(String name, double dft) {
         return config.get(category, name, dft).getDouble(dft);
     }
+    
+    public static float getFloat(String name, float dft) {
+        return Float.parseFloat("" + config.get(category, name, dft).getDouble(dft));
+    }
 
     public static int getInt(String name, int dft, String comment) {
         return config.get(category, name, dft, comment).getInt(dft);

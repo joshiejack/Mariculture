@@ -147,9 +147,11 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     @Override
     public void updateSlaveMachine() {
         TileCrucible mstr = (TileCrucible) getMaster();
-        if (onTick(mstr.ejectRate)) {
-            if (mstr != null && mstr.tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID)) {
-                helper.ejectFluid(new int[] { 5000, MetalRates.BLOCK, 1000, MetalRates.ORE, MetalRates.INGOT, MetalRates.NUGGET, 1 });
+        if (mstr != null) {
+            if (onTick(mstr.ejectRate)) {
+                if (mstr != null && mstr.tank.getFluidAmount() > 0 && RedstoneMode.canWork(this, mstr.mode) && EjectSetting.canEject(mstr.setting, EjectSetting.FLUID)) {
+                    helper.ejectFluid(new int[] { 5000, MetalRates.BLOCK, 1000, MetalRates.ORE, MetalRates.INGOT, MetalRates.NUGGET, 1 });
+                }
             }
         }
     }
