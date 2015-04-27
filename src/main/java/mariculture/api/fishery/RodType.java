@@ -1,5 +1,6 @@
 package mariculture.api.fishery;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -11,12 +12,12 @@ import net.minecraft.world.World;
  *  You can extend the class, for special RodTypes, For different ways of handling
  *  damage, or whether you can fish, it's essentially the handler for your fishing rods */
 public class RodType {
-    public static final RodType NET = new RodType(25, 0D, 0D, 0D, 0);
-    public static final RodType DIRE = new RodType(10, 45D, 0D, 0D, 5);
-    public static final RodType OLD = new RodType(25, 27.5D, 5.5D, 0D, 10);
-    public static final RodType GOOD = new RodType(50, 10D, 17.5D, 1D, 20);
-    public static final RodType SUPER = new RodType(75, 1D, 15.5D, 5D, 30);
-    public static final RodType FLUX = new RodTypeFlux(90, 0D, 13D, 7.5D, 15);
+    public static final RodType NET = new RodType("NET", 25, 0D, 0D, 0D, 0);
+    public static final RodType DIRE = new RodType("DIRE", 10, 45D, 0D, 0D, 5);
+    public static final RodType OLD = new RodType("OLD", 25, 27.5D, 5.5D, 0D, 10);
+    public static final RodType GOOD = new RodType("GOOD", 50, 10D, 17.5D, 1D, 20);
+    public static final RodType SUPER = new RodType("SUPER", 75, 1D, 15.5D, 5D, 30);
+    public static final RodType FLUX = new RodTypeFlux("FLUX", 90, 0D, 13D, 7.5D, 15);
 
     /** The following are called in sequence, when attempting to catch loot, 
      * JUNK, GOOD, RARE, UNIQUE, If all of these fail, the rod will catch fish loot
@@ -31,8 +32,19 @@ public class RodType {
 
     /** This is the maximum level, that this quality of rod will attempt to enchant caught items to **/
     private final int enchantment;
+    
+    public static final ArrayList<RodType> rodTypes = new ArrayList();
+    
+    public String name;
+    
+    public RodType(String name, int quality, double junk, double good, double rare, int enchantment) {
+        this(quality, junk, good, rare, enchantment);
+        this.name = name;
+    }
 
+    @Deprecated
     public RodType(int quality, double junk, double good, double rare, int enchantment) {
+        this.name = "BROKEN";
         this.quality = quality;
         chances = new LinkedList();
         chances.add(junk);
@@ -97,6 +109,12 @@ public class RodType {
     }
 
     public static class RodTypeFlux extends RodType {
+        public RodTypeFlux(String name, int quality, double junk, double good, double rare, int enchantment) {
+            this(quality, junk, good, rare, enchantment);
+            this.name = name;
+        }
+        
+        @Deprecated
         public RodTypeFlux(int quality, double junk, double good, double rare, int enchantment) {
             super(quality, junk, good, rare, enchantment);
         }

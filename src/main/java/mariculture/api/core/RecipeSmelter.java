@@ -12,7 +12,6 @@ public class RecipeSmelter {
     public FluidStack[] random;
     public Integer[] rands;
 
-    @Deprecated
     public RecipeSmelter(ItemStack input, ItemStack input2, int temp, FluidStack fluid, ItemStack output, int chance) {
         this(input, temp, fluid, output, chance);
     }

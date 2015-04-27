@@ -35,6 +35,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.oredict.OreDictionary;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 public class FishingHandler implements IFishing {
     // Registering Fishing Rods
     private static final HashMap<Item, RodType> registry = new HashMap();
@@ -163,17 +166,11 @@ public class FishingHandler implements IFishing {
         return canUse.get(quality);
     }
 
-    private static final HashMap<Rarity, ArrayList<Loot>> fishing_loot = new HashMap();
+    public static final Multimap<Rarity, Loot> fishing_loot = HashMultimap.create();
 
     @Override
     public void addLoot(Loot loot) {
-        ArrayList<Loot> lootList = fishing_loot.get(loot.rarity);
-        if (lootList == null) {
-            lootList = new ArrayList();
-        }
-
-        lootList.add(loot);
-        fishing_loot.put(loot.rarity, lootList);
+        fishing_loot.get(loot.rarity).add(loot);
         if (loot.quality == null) {
             addVanillaLoot(loot.rarity, new WeightedRandomFishable(loot.loot, (int) Math.max(loot.chance / 10, 1)));
         }
@@ -204,7 +201,7 @@ public class FishingHandler implements IFishing {
 
     //Returns a fishing loot catch for this location
     private ItemStack getLoot(World world, RodType rod, Rarity rarity) {
-        ArrayList<Loot> loots = fishing_loot.get(rarity);
+        ArrayList<Loot> loots = new ArrayList(fishing_loot.get(rarity));
         Collections.shuffle(loots);
         for (Loot loot : loots) {
             if (loot.loot.getItem() != null) {

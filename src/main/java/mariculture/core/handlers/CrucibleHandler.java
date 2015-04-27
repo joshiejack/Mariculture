@@ -81,7 +81,7 @@ public class CrucibleHandler implements ICrucibleHandler {
         return null;
     }
 
-    public String getName(FluidStack fluid) {
+    public static String getName(FluidStack fluid) {
         if (fluid.getFluid() == null) return "null";
         return fluid.getFluid().getName();
     }

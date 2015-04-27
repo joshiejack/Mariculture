@@ -72,6 +72,7 @@ public class Plugins extends Module {
         //Always add theByeByeSmelting Plugin
         add("ModdedTweaks", "Enchiridion");
         add("Botania");
+        add("MineTweaker3");
     }
 
     public void add(String str) {
