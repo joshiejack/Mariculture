@@ -8,12 +8,14 @@ import static mariculture.core.helpers.RecipeHelper.addSmelting;
 import static mariculture.core.helpers.RecipeHelper.addSoakRecipe;
 import static net.minecraftforge.common.ChestGenHooks.addItem;
 import static net.minecraftforge.oredict.OreDictionary.registerOre;
+import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
+import mariculture.core.lib.EntityIds;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.GlassMeta;
 import mariculture.core.lib.GroundMeta;
@@ -22,10 +24,13 @@ import mariculture.core.lib.Modules;
 import mariculture.core.lib.Modules.RegistrationModule;
 import mariculture.fishery.Fishery;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.biome.BiomeGenBase;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class WorldPlus extends RegistrationModule {
@@ -67,6 +72,10 @@ public class WorldPlus extends RegistrationModule {
         registerOre("coralGray", new ItemStack(plantStatic, 1, CoralMeta.GREY));
         registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
         registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
+        
+        EntityRegistry.registerModEntity(EntityRockhopper.class, "Rockhopper", EntityIds.ROCKHOPPER, Mariculture.instance, 150, 3, true);
+        BiomeGenBase.beach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
+        BiomeGenBase.coldBeach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
     }
 
     @Override

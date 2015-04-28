@@ -9,6 +9,7 @@ import mariculture.core.lib.Modules;
 import mariculture.core.util.MCTranslate;
 import mariculture.lib.helpers.ClientHelper;
 import mariculture.lib.util.Text;
+import mariculture.world.EntityRockhopper;
 import mariculture.world.WorldPlus;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -80,11 +81,13 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
                 return "batteryCreative";
             case CraftingMeta.THERMOMETER:
                 return "thermometer";
+            case CraftingMeta.ROCKHOPPER_EGG:
+                return "rockhopperEgg";
         }
 
         return MaricultureEvents.getItemName(this, meta, "machines");
     }
-    
+
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String unlocalized = getUnlocalizedName().replace("item", "").replace("_", ".");
@@ -129,8 +132,17 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
         if (dmg == CraftingMeta.DRAGON_EGG && GeneralStuff.ENABLE_ENDER_SPAWN) return spawnEnderDragon(stack, player, world, x, y, z);
         else if (dmg == CraftingMeta.THERMOMETER) {
             displayTemperature(player.isSneaking(), world, x, y, z);
-        } else if (Modules.isActive(Modules.worldplus) && dmg == CraftingMeta.SEEDS_KELP) if (Item.getItemFromBlock(WorldPlus.plantGrowable).onItemUse(new ItemStack(WorldPlus.plantGrowable, 1, 1), player, world, x, y, z, side, par8, par9, par10)) {
-            stack.stackSize--;
+        } else if (Modules.isActive(Modules.worldplus) && dmg == CraftingMeta.SEEDS_KELP) {
+            if (Item.getItemFromBlock(WorldPlus.plantGrowable).onItemUse(new ItemStack(WorldPlus.plantGrowable, 1, 1), player, world, x, y, z, side, par8, par9, par10)) {
+                stack.stackSize--;
+            }
+        } else if (Modules.isActive(Modules.worldplus) && dmg == CraftingMeta.ROCKHOPPER_EGG) {
+            if (!world.isRemote) {
+                EntityRockhopper rockhopper = new EntityRockhopper(world);
+                rockhopper.setPosition(x + 0.5D, y + 1D, z + 0.5D);
+                world.spawnEntityInWorld(rockhopper);
+            }
+
         }
 
         return true;
@@ -144,7 +156,6 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
             case CraftingMeta.BLANK_PLAN:
                 return Modules.isActive(Modules.factory);
             case CraftingMeta.POLISHED_STICK:
-                return Modules.isActive(Modules.fishery);
             case CraftingMeta.POLISHED_TITANIUM:
                 return Modules.isActive(Modules.fishery);
             case CraftingMeta.NEOPRENE:
@@ -153,6 +164,9 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
             case CraftingMeta.LIFE_CORE:
             case CraftingMeta.CREATIVE_BATTERY:
                 return MaricultureHandlers.HIGH_TECH_ENABLED;
+            case CraftingMeta.SEEDS_KELP:
+            case CraftingMeta.ROCKHOPPER_EGG:
+                return Modules.isActive(Modules.worldplus);
             default:
                 return true;
         }
@@ -161,7 +175,7 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
     @Override
     public boolean isValidTab(CreativeTabs creative, int meta) {
         if (meta == CraftingMeta.BLANK_PLAN) return creative == MaricultureTab.tabFactory;
-        if (meta == CraftingMeta.SEEDS_KELP) return creative == MaricultureTab.tabWorld;
+        if (meta == CraftingMeta.SEEDS_KELP || meta == CraftingMeta.ROCKHOPPER_EGG) return creative == MaricultureTab.tabWorld;
         if (meta == CraftingMeta.THERMOMETER) return creative == MaricultureTab.tabFishery;
         return creative == MaricultureTab.tabCore;
     }

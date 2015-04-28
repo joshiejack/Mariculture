@@ -13,7 +13,6 @@ import mariculture.core.render.AnvilSpecialRenderer;
 import mariculture.core.render.HammerSpecialRenderer;
 import mariculture.core.render.RenderAnvil;
 import mariculture.core.render.RenderBlockCaster;
-import mariculture.core.render.RenderTankItem;
 import mariculture.core.render.RenderFakeItem;
 import mariculture.core.render.RenderHammer;
 import mariculture.core.render.RenderHandler;
@@ -23,6 +22,7 @@ import mariculture.core.render.RenderOyster;
 import mariculture.core.render.RenderSingleItem;
 import mariculture.core.render.RenderSpecialHandler;
 import mariculture.core.render.RenderTank;
+import mariculture.core.render.RenderTankItem;
 import mariculture.core.render.RenderVat;
 import mariculture.core.render.RenderVoidBottle;
 import mariculture.core.render.VatSpecialRenderer;
@@ -52,6 +52,9 @@ import mariculture.fishery.render.RenderSifter;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.fishery.tile.TileFishTank;
 import mariculture.fishery.tile.TileHatchery;
+import mariculture.world.EntityRockhopper;
+import mariculture.world.render.ModelRockhopper;
+import mariculture.world.render.RenderRockhopper;
 import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
@@ -139,6 +142,10 @@ public class MCClientProxy extends MCCommonProxy {
             if (Client.SHOW_FISH) {
                 RenderHandler.register(Core.renderedMachines, MachineRenderedMeta.FISH_FEEDER, RenderFeeder.class);
             }
+        }
+        
+        if (Modules.isActive(Modules.worldplus)) {
+            RenderingRegistry.registerEntityRenderingHandler(EntityRockhopper.class, new RenderRockhopper(new ModelRockhopper(), 1F));
         }
     }
 }
