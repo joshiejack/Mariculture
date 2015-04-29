@@ -1,5 +1,6 @@
 package maritech.extensions.modules;
 
+import static mariculture.core.helpers.RecipeHelper.addAnvilRecipe;
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
 import static mariculture.core.helpers.RecipeHelper.addUpgrade;
@@ -16,11 +17,11 @@ import static mariculture.core.lib.MCLib.rubber;
 import static mariculture.core.lib.MCLib.transparent;
 import static mariculture.core.util.Fluids.getFluidName;
 import static mariculture.core.util.Fluids.isRegistered;
-import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.UpgradeMeta;
 import maritech.items.ItemBattery;
 import maritech.lib.MTLib;
 import maritech.util.IModuleExtension;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,10 +41,9 @@ public class ExtensionCore implements IModuleExtension {
     public void init() {
         addShaped(MTLib.copperBattery, new Object[] { " I ", "TRT", "TRT", 'I', "ingotIron", 'R', "dustRedstone", 'T', "ingotCopper" });
         addShaped(MTLib.titaniumBattery, new Object[] { " I ", "TRT", "TRT", 'I', "ingotIron", 'R', "dustRedstone", 'T', "ingotTitanium" });
-        addShaped(MTLib.neoprene, new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', MTLib.bottleGas });
-        addShaped(asStack(MTLib.neoprene, 2), new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', MTLib.bottleGas2 });
+        addShaped(asStack(MTLib.neoprene, 2), new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', MTLib.bottleGas });
+        addShaped(asStack(MTLib.neoprene, 4), new Object[] { "IPI", "PEP", "IPI", 'I', rubber, 'P', pearls, 'E', MTLib.bottleGas2 });
         addShaped(MTLib.plasticLens, new Object[] { " N ", "NGN", " N ", 'N', MTLib.neoprene, 'G', transparent });
-        addVatItemRecipe(asStack(MTLib.plastic, 4), getFluidName("gold"), MetalRates.BLOCK, MTLib.goldPlastic, 100);
         addShapeless(ItemBattery.make(asStack(batteryCopper), 10000), new Object[] { redstone, asStack(batteryCopper, OreDictionary.WILDCARD_VALUE) });
         addShapeless(ItemBattery.make(asStack(batteryTitanium), 10000), new Object[] { redstone, asStack(batteryTitanium, OreDictionary.WILDCARD_VALUE), redstone });
         
@@ -62,9 +62,9 @@ public class ExtensionCore implements IModuleExtension {
         copper.setTagCompound(new NBTTagCompound());
         copper.stackTagCompound.setInteger("Energy", 10000);
         addShapeless(copper, new Object[] { MTLib.copperBattery, "blockRedstone" });
-        addVatItemRecipe(asStack(limestone, 4), getFluidName("natural_gas"), 5000, MTLib.plastic, 20);
+        addVatItemRecipe(asStack(limestone, 4), getFluidName("natural_gas"), 5000, asStack(MTLib.plastic, 4), 20);
         if (isRegistered("bioethanol")) {
-            addVatItemRecipe(asStack(limestone, 4), getFluidName("bioethanol"), 10000, MTLib.plastic, 60);
+            addVatItemRecipe(asStack(limestone, 4), getFluidName("bioethanol"), 10000, asStack(MTLib.plastic, 3), 60);
         }
     }
 

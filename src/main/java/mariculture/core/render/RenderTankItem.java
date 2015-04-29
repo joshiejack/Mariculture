@@ -2,6 +2,7 @@ package mariculture.core.render;
 
 import mariculture.core.Core;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.tile.TileTankBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
@@ -42,7 +43,7 @@ public class RenderTankItem implements IItemRenderer {
         if (fluid != null) {
             render.setOverrideBlockTexture(fluid.getFluid().getStillIcon());
             int dmg = stack.getItemDamage();
-            int total = dmg == TankMeta.TANK ? 16000 : dmg == TankMeta.TANK_ALUMINUM ? 32000 : dmg == TankMeta.TANK_TITANIUM ? 64000 : dmg == TankMeta.TANK_GAS? 512000: 0;
+            int total = dmg == TankMeta.TANK ? TileTankBlock.COPPER_CAPACITY : dmg == TankMeta.TANK_ALUMINUM ? TileTankBlock.ALUMINUM_CAPACITY : dmg == TankMeta.TANK_TITANIUM ? TileTankBlock.TITANIUM_CAPACITY : dmg == TankMeta.TANK_GAS? TileTankBlock.GAS_CAPACITY: 0;
             if (total > 0) {
                 double height = fluid.amount * 1D / total;
                 render.renderMinX = 0;

@@ -16,7 +16,7 @@ public class CraftingMeta {
     public static final int CARBIDE = 10;
     public static final int WHEEL = 11;
     public static final int WICKER = 12;
-    public static final int PLASTIC_YELLOW = 13;
+    public static final int GOLD_SHEET = 13;
     public static final int BURNT_BRICK = 14;
     public static final int DRAGON_EGG = 15;
     public static final int BLANK_PLAN = 16;

@@ -6,7 +6,6 @@ import static mariculture.core.helpers.RecipeHelper.addShapeless;
 import static mariculture.core.helpers.RecipeHelper.addVatItemRecipe;
 import static mariculture.core.helpers.RecipeHelper.asStack;
 import static mariculture.core.lib.MCLib.baseWood;
-import static mariculture.core.lib.MCLib.goldSilk;
 import static mariculture.core.lib.MCLib.greyClay;
 import static mariculture.core.lib.MCLib.heating;
 import static mariculture.core.lib.MCLib.life;
@@ -67,9 +66,8 @@ public class ExtensionFishery implements IModuleExtension {
 
         ItemStack scuba = Modules.isActive(Modules.diving) ? asStack(ExtensionDiving.scubaMask) : MCLib.fishSorter;
         ItemStack turbine = Modules.isActive(Modules.factory) ? asStack(ExtensionFactory.turbineTitanium) : MCLib.ironWheel;
-        ItemStack gold = Modules.isActive(Modules.factory) ? MTLib.goldPlastic : goldSilk;
         addShaped(MTLib.extractor, new Object[] { " H ", "PSP", "TBT", 'H', life, 'P', titaniumRod, 'S', Fishery.scanner, 'T', turbine, 'B', "blockTitanium" });
-        addShaped(MTLib.injector, new Object[] { " S ", "GTG", "BEB", 'S', scuba, 'G', gold, 'T', thermometer, 'B', ExtensionCore.batteryTitanium, 'E', MTLib.extractor });
+        addShaped(MTLib.injector, new Object[] { " S ", "GTG", "BEB", 'S', scuba, 'G', MCLib.goldSheet, 'T', thermometer, 'B', ExtensionCore.batteryTitanium, 'E', MTLib.extractor });
         addShaped(asStack(upgrade, AQUASCUM), new Object[] { "DFD", "CTH", "DSD", 'D', asStack(dna, OreDictionary.WILDCARD_VALUE), 'F', asStack(upgrade, FILTER_2), 'C', asStack(upgrade, ULTIMATE_COOLING), 'T', asStack(Fishery.tempControl), 'H', asStack(upgrade, ULTIMATE_HEATING), 'S', asStack(upgrade, SALINATOR_2) });
         Fishing.fishing.registerRod(rodFlux, RodType.FLUX);
     }

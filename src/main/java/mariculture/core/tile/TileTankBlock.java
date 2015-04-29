@@ -23,12 +23,17 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileTankBlock extends TileEntity implements IFluidHandler, ITank, IInventory {
+    public static final int COPPER_CAPACITY = 32000;
+    public static final int ALUMINUM_CAPACITY = 64000;
+    public static final int TITANIUM_CAPACITY = 128000;
+    public static final int GAS_CAPACITY = 512000;
+    
     private int differenceFill = 0;
     private int differenceDrain = 0;
     public Tank tank;
 
     public TileTankBlock() {
-        tank = new Tank(16000);
+        tank = new Tank(COPPER_CAPACITY);
     }
 
     public float getFluidAmountScaled() {

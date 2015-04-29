@@ -57,8 +57,8 @@ public class ItemCrafting extends ItemMCMeta implements IEnergyContainerItem {
                 return "wheel";
             case CraftingMeta.WICKER:
                 return "wicker";
-            case CraftingMeta.PLASTIC_YELLOW:
-                return "plasticYellow";
+            case CraftingMeta.GOLD_SHEET:
+                return "goldSheet";
             case CraftingMeta.DRAGON_EGG:
                 return "dragonEgg";
             case CraftingMeta.POLISHED_TITANIUM:

@@ -5,6 +5,7 @@ import java.util.List;
 import mariculture.core.blocks.base.ItemBlockMariculture;
 import mariculture.core.helpers.FluidHelper;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.tile.TileTankBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -48,7 +49,7 @@ public class ItemBlockTank extends ItemBlockMariculture {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         int dmg = stack.getItemDamage();
-        int total = dmg == TankMeta.TANK? 16000: dmg == TankMeta.TANK_ALUMINUM? 32000: dmg == TankMeta.TANK_TITANIUM? 64000: dmg == TankMeta.TANK_GAS? 512000: -1;
+        int total = dmg == TankMeta.TANK ? TileTankBlock.COPPER_CAPACITY : dmg == TankMeta.TANK_ALUMINUM ? TileTankBlock.ALUMINUM_CAPACITY : dmg == TankMeta.TANK_TITANIUM ? TileTankBlock.TITANIUM_CAPACITY : dmg == TankMeta.TANK_GAS ? TileTankBlock.GAS_CAPACITY : -1;
         if (total >= 0) {
             FluidStack fluid = getFluid(stack);
             int amount = fluid == null ? 0 : fluid.amount;

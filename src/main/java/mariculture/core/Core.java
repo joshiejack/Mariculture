@@ -184,8 +184,8 @@ public class Core extends RegistrationModule {
         food = new ItemFood().setUnlocalizedName("food");
         upgrade = new ItemUpgrade().setUnlocalizedName("upgrade");
         hammer = new ItemHammer(brick).setUnlocalizedName("hammer");
-        ladle = new ItemFluidStorage(MetalRates.INGOT).setUnlocalizedName("ladle");
-        bucketTitanium = new ItemFluidStorage(8000).setUnlocalizedName("bucket.titanium");
+        ladle = new ItemFluidStorage(MetalRates.ORE).setUnlocalizedName("ladle");
+        bucketTitanium = new ItemFluidStorage(16000).setUnlocalizedName("bucket.titanium");
         bottles = new ItemBottle().setUnlocalizedName("fluids");
         buckets = new ItemBuckets().setUnlocalizedName("bucket");
         worked = new ItemWorked().setUnlocalizedName("worked");

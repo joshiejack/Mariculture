@@ -288,4 +288,5 @@ public class MCLib {
     public static final ItemStack aquatic = Modules.isActive(Modules.fishery) ? dropletAqua : new ItemStack(Items.potionitem, 1, 8269);
     public static final ItemStack koi = Modules.isActive(Modules.fishery) ? new ItemStack(Items.fish, 1, Fish.koi.getID()) : new ItemStack(Items.potionitem, 1, 8225);
     public static final ItemStack rotor = MaricultureHandlers.HIGH_TECH_ENABLED? new ItemStack(ExtensionFactory.turbineTitanium): titaniumSheet;
+    public static final ItemStack goldSheet = new ItemStack(Core.crafting, 1, CraftingMeta.GOLD_SHEET);
 }

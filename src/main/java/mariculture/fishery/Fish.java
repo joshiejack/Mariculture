@@ -348,7 +348,7 @@ public class Fish {
         if (OreDictionary.getOres("ingot" + StringUtils.capitalize(ingot)).size() > 0) {
             FishSpecies fish = Fishing.fishHelper.registerFish(modid, clazz);
             if (FishMechanics.ENABLE_METAL_FISH) {
-                Fishing.mutation.addMutation(father, mother, fish, chance);
+                Fishing.mutation.addMutation(father, mother, fish, chance, new RequirementHasTag("block" + StringUtils.capitalize(ingot)));
             }
 
             return fish;
@@ -422,13 +422,12 @@ public class Fish {
         Fishing.mutation.addMutation(stingRay, minnow, tetra, 25D);
 
         if (FishMechanics.ENABLE_METAL_FISH) {
-            Fishing.mutation.addMutation(lamprey, squid, copper, 100D);
-            Fishing.mutation.addMutation(lamprey, chub, copper, 100D, new RequirementHasTag("blockCopper"));
-            Fishing.mutation.addMutation(copper, chub, iron, 17.5D);
-            Fishing.mutation.addMutation(copper, brown, magnesium, 17.5D);
-            Fishing.mutation.addMutation(iron, herring, aluminum, 15D);
-            Fishing.mutation.addMutation(iron, walleye, gold, 15D);
-            Fishing.mutation.addMutation(magnesium, lung, rutile, 13D);
+            Fishing.mutation.addMutation(lamprey, chub, copper, 20D, new RequirementHasTag("blockCopper"));
+            Fishing.mutation.addMutation(copper, chub, iron, 17.5D, new RequirementHasTag("blockIron"));
+            Fishing.mutation.addMutation(copper, brown, magnesium, 17.5D, new RequirementHasTag("blockMagnesium"));
+            Fishing.mutation.addMutation(iron, herring, aluminum, 15D, new RequirementHasTag("blockAluminum"));
+            Fishing.mutation.addMutation(iron, walleye, gold, 15D, new RequirementHasTag("blockGold"));
+            Fishing.mutation.addMutation(magnesium, lung, rutile, 13D, new RequirementHasTag("blockRutile"));
             MinecraftForge.EVENT_BUS.register(new MetalFishEventHandler());
         }
     }

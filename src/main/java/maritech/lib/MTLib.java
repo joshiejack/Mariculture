@@ -26,7 +26,6 @@ public class MTLib {
     public static final ItemStack compressorTop = new ItemStack(Core.renderedMachinesMulti, 1, MachineRenderedMultiMeta.COMPRESSOR_TOP);
     public static final ItemStack mechSponge = new ItemStack(Core.machines, 1, MachineMeta.SPONGE);
     public static final ItemStack pressurisedBucket = new ItemStack(Core.buckets, 1, BucketMeta.PRESSURE);
-    public static final ItemStack goldPlastic = new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC_YELLOW);
     public static final ItemStack plastic = new ItemStack(Core.crafting, 1, CraftingMeta.PLASTIC);
     public static final ItemStack neoprene = new ItemStack(Core.crafting, 1, CraftingMeta.NEOPRENE);
     public static final ItemStack plasticLens = new ItemStack(Core.crafting, 1, CraftingMeta.LENS);

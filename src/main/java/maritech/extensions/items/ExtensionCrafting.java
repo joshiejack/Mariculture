@@ -12,8 +12,6 @@ public class ExtensionCrafting extends ExtensionItemsBase {
                 return "plastic";
             case CraftingMeta.LENS:
                 return "scubaLens";
-            case CraftingMeta.PLASTIC_YELLOW:
-                return "plasticYellow";
             case CraftingMeta.DRAGON_EGG:
                 return "dragonEgg";
             case CraftingMeta.LIFE_CORE:
@@ -31,7 +29,6 @@ public class ExtensionCrafting extends ExtensionItemsBase {
             case CraftingMeta.NEOPRENE:
             case CraftingMeta.PLASTIC:
             case CraftingMeta.LENS:
-            case CraftingMeta.PLASTIC_YELLOW:
             case CraftingMeta.DRAGON_EGG:
             case CraftingMeta.LIFE_CORE:
             case CraftingMeta.CREATIVE_BATTERY:

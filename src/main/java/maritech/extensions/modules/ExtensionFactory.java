@@ -18,6 +18,7 @@ import static mariculture.core.lib.MCLib.water;
 import mariculture.Mariculture;
 import mariculture.core.Core;
 import mariculture.core.lib.EntityIds;
+import mariculture.core.lib.MCLib;
 import mariculture.core.lib.MachineRenderedMeta;
 import mariculture.core.lib.UpgradeMeta;
 import mariculture.core.network.PacketHandler;
@@ -75,7 +76,7 @@ public class ExtensionFactory implements IModuleExtension {
         addShaped(asStack(MTLib.sluice, 4), new Object[] { " H ", "WBW", "IMI", 'H', hopper, 'W', ironWheel, 'M', baseIron, 'B', ironBars, 'I', "ingotAluminum" });
         addShaped(MTLib.sluiceAdvanced, new Object[] { "TPT", "TST", "TBT", 'T', "ingotTitanium", 'P', MTLib.pressurisedBucket, 'S', asStack(Core.upgrade, UpgradeMeta.ADVANCED_STORAGE), 'B', MTLib.sluice });
         addShaped(MTLib.pressureVessel, new Object[] { "WLW", "PTP", "PSP", 'W', ironWheel, 'L', "blockLapis", 'P', titaniumSheet, 'T', tank, 'S', MTLib.sluice });
-        addShaped(((ItemFLUDD) fludd).build(0), new Object[] { " E ", "PGP", "LUL", 'E', MTLib.plasticLens, 'P', MTLib.goldPlastic, 'G', transparent, 'L', tank, 'U', life });
+        addShaped(((ItemFLUDD) fludd).build(0), new Object[] { " E ", "PGP", "LUL", 'E', MTLib.plasticLens, 'P', MCLib.goldSheet, 'G', transparent, 'L', tank, 'U', life });
         addShaped(asStack(turbineCopper), new Object[] { " I ", "ISI", " I ", 'I', "ingotCopper", 'S', "slabWood" });
         addShaped(asStack(turbineAluminum), new Object[] { " I ", "ISI", " I ", 'I', "ingotAluminum", 'S', stoneSlab });
         addShaped(asStack(turbineTitanium), new Object[] { " I ", "ISI", " I ", 'I', "ingotTitanium", 'S', quartzSlab });

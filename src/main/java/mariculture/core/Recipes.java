@@ -15,6 +15,7 @@ import static mariculture.core.helpers.RecipeHelper.asStack;
 import static mariculture.core.lib.MCLib.*;
 import static mariculture.core.util.Fluids.getFluidName;
 import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.lib.MCLib;
 import mariculture.core.lib.MetalRates;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.UpgradeMeta;
@@ -44,12 +45,12 @@ public class Recipes {
         addShaped(baseIron, new Object[] { "IGI", "G G", "IGI", 'I', "ingotIron", 'G', glassPane });
         addShaped(baseWood, new Object[] { "IGI", "G G", "IGI", 'I', "logWood", 'G', fence });
         addShaped(airPump, new Object[] { "WGW", "PRP", "PMP", 'G', "blockGlass", 'R', "dustRedstone", 'P', "plankWood", 'M', piston, 'W', ironWheel });
-        addShaped(asStack(tank, 2), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "blockGlass" });
+        addShaped(asStack(tank, 1), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotCopper", 'W', "plankWood", 'G', "blockGlass" });
         addShaped(asStack(tankAluminum, 1), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotAluminum", 'W', "stone", 'G', heatglass});
         addShaped(asStack(tankTitanium, 1), new Object[] { "CWC", "WGW", "CWC", 'C', "ingotTitanium", 'W', "blockQuartz", 'G', heatglass});
         addShaped(asStack(gasTank, 1), new Object[] { "ARA", "ATA", "ACA", 'A', "blockAluminum", 'R', rotor, 'T', tankTitanium, 'C', baseIron});
         addShaped(storageBookshelf, new Object[] { "SPS", "PCP", "SSS", 'P', "plankWood", 'S', bookshelf, 'C', chest });
-        addShaped(crucible, new Object[] { " L ", "BGB", "HCH", 'B', burntBrick, 'L', lava, 'G', tank, 'H', heating, 'C', baseBrick });
+        addShaped(asStack(crucible, 2), new Object[] { " L ", "BGB", "HCH", 'B', burntBrick, 'L', lava, 'G', tank, 'H', heating, 'C', baseBrick });
         addShaped(anvil, new Object[] { "CCC", " N ", "BBB", 'C', baseBrick, 'B', burntBrick, 'N', netherBrick });
         addShaped(autohammer, new Object[] { " N ", "NCN", " N ", 'C', anvil, 'N', hammer });
         addShaped(vat, new Object[] { "C C", "C C", "CCC", 'C', "ingotCopper" });
@@ -70,7 +71,7 @@ public class Recipes {
         addVatItemRecipe(asStack(string), getFluidName("gold"), MetalRates.INGOT * 4, goldSilk, 5);
         addShaped(goldThread, new Object[] { "ABA", "ABA", 'B', polishedStick, 'A', goldSilk });
         addShaped(glassLens, new Object[] { " P ", "PGP", " P ", 'P', "plankWood", 'G', "blockGlass" });
-        addShaped(asStack(heating, 2), new Object[] { "CCC", "CCC", 'C', carbide });
+        addShaped(asStack(heating, 2), new Object[] { "CC", 'C', carbide });
         addShaped(cooling, new Object[] { "  P", "PI ", "  P", 'P', "plankWood", 'I', "ingotIron" });
         addShaped(cooling, new Object[] { " P ", " I ", "P P", 'P', "plankWood", 'I', "ingotIron" });
         addShaped(cooling, new Object[] { "P  ", " IP", "P  ", 'P', "plankWood", 'I', "ingotIron" });
@@ -160,6 +161,7 @@ public class Recipes {
     }
 
     public static void addAnvilRecipes() {
+        addAnvilRecipe(new ItemStack(Blocks.gold_block), asStack(MCLib.goldSheet, 8), 50);
         addAnvilRecipe(blockAluminum, asStack(aluminumSheet, 8), 30);
         addAnvilRecipe(blockTitanium, asStack(titaniumSheet, 8), 75);
         addAnvilRecipe(asStack(bone), asStack(bonemeal, 7), 5);
