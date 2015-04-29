@@ -1,7 +1,7 @@
 package mariculture.core.lib;
 
 public class BucketMeta {
-    public static final int COUNT = 13;
+    public static final int COUNT = 36;
     public static final int PRESSURE = 0;
     public static final int FISH_OIL = 1;
     public static final int CUSTARD = 2;
@@ -15,4 +15,27 @@ public class BucketMeta {
     public static final int POISON = 10;
     public static final int CHLOROPHYLL = 11;
     public static final int WIND = 12;
+    public static final int IRON = 13;
+    public static final int GOLD = 14;
+    public static final int COPPER = 15;
+    public static final int TIN = 16;
+    public static final int SILVER = 17;
+    public static final int LEAD = 18;
+    public static final int BRONZE = 19;
+    public static final int STEEL = 20;
+    public static final int ALUMINUM = 21;
+    public static final int TITANIUM = 22;
+    public static final int MAGNESIUM = 23;
+    public static final int NICKEL = 24;
+    public static final int GLASS = 25;
+    public static final int FISH_FOOD = 26;
+    public static final int RUTILE = 27;
+    public static final int QUICKLIME = 28;
+    public static final int SALT = 29;
+    public static final int ELECTRUM = 30;
+    public static final int COBALT = 31;
+    public static final int ARDITE = 32;
+    public static final int OSMIUM = 33;
+    public static final int PLATINUM = 34;
+    public static final int ZINC = 35;
 }

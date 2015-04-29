@@ -89,7 +89,9 @@ import mariculture.fishery.fish.dna.FishDNASpecies;
 import mariculture.fishery.fish.dna.FishDNATemperatureTolerance;
 import mariculture.fishery.fish.dna.FishDNAWaterRequired;
 import mariculture.fishery.fish.dna.FishDNAWorkEthic;
+import mariculture.fishery.fish.requirements.RequirementHasTag;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -420,12 +422,14 @@ public class Fish {
         Fishing.mutation.addMutation(stingRay, minnow, tetra, 25D);
 
         if (FishMechanics.ENABLE_METAL_FISH) {
-            Fishing.mutation.addMutation(lamprey, squid, copper, 20D);
+            Fishing.mutation.addMutation(lamprey, squid, copper, 100D);
+            Fishing.mutation.addMutation(lamprey, chub, copper, 100D, new RequirementHasTag("blockCopper"));
             Fishing.mutation.addMutation(copper, chub, iron, 17.5D);
             Fishing.mutation.addMutation(copper, brown, magnesium, 17.5D);
             Fishing.mutation.addMutation(iron, herring, aluminum, 15D);
             Fishing.mutation.addMutation(iron, walleye, gold, 15D);
             Fishing.mutation.addMutation(magnesium, lung, rutile, 13D);
+            MinecraftForge.EVENT_BUS.register(new MetalFishEventHandler());
         }
     }
 

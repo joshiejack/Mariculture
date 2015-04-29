@@ -16,6 +16,28 @@ public class OreDicHelper {
         return false;
     }
 
+    public static ItemStack getStackFromBlockData(Block block, int meta) {
+        Item item = Item.getItemFromBlock(block);
+        return item == null ? null : new ItemStack(item, 1, meta);
+    }
+
+    public static boolean matchesString(Block block, int meta, String name) {
+        ItemStack stack = getStackFromBlockData(block, meta);
+        if (stack == null) {
+            return false;
+        } else {
+            int[] ids = OreDictionary.getOreIDs(stack);
+            for (int i : ids) {
+                String oreName = OreDictionary.getOreName(i);
+                if (oreName.equals(name)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
     public static String getDictionaryName(ItemStack stack) {
         return OreDictionary.getOreName(OreDictionary.getOreID(stack));
     }
@@ -52,12 +74,12 @@ public class OreDicHelper {
 
     public static boolean matches(String entry, ItemStack input) {
         int[] ids = OreDictionary.getOreIDs(input);
-        for(int i: ids) {
-            if(OreDictionary.getOreName(i).equals(entry)) {
+        for (int i : ids) {
+            if (OreDictionary.getOreName(i).equals(entry)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 }

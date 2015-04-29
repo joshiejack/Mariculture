@@ -122,16 +122,20 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
                 if (recipe != null) {
                     timeNeeded = recipe.processTime;
                 }
+                
                 timeRemaining = 0;
             }
 
             if (timeRemaining >= timeNeeded) {
-                Object[] result = getResult();
-                RecipeVat recipe = (RecipeVat) result[0];
-                byte tankNum = (Byte) result[1];
-                if (recipe != null) {
-                    createResult(recipe, tankNum);
+                for (int i = 0; i < 64; i++) {
+                    Object[] result = getResult();
+                    RecipeVat recipe = (RecipeVat) result[0];
+                    byte tankNum = (Byte) result[1];
+                    if (recipe != null) {
+                        createResult(recipe, tankNum);
+                    } else break;
                 }
+                
                 timeRemaining = 0;
                 timeNeeded = 0;
                 canWork = canWork();

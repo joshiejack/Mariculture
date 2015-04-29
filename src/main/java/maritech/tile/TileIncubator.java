@@ -10,7 +10,6 @@ import java.util.Random;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IIncubator;
-import mariculture.api.fishery.IMutationEffect;
 import mariculture.api.fishery.IMutationModifier;
 import mariculture.core.Core;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;

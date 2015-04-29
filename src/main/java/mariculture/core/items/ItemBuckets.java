@@ -88,6 +88,7 @@ public class ItemBuckets extends ItemMCMeta {
 
     public boolean tryPlaceContainedLiquid(ItemStack stack, World world, int x, int y, int z) {
         Block block = getFluid(stack.getItemDamage());
+        if (block == null) return false;
         Material material = world.getBlock(x, y, z).getMaterial();
         boolean flag = !material.isSolid();
         if (!world.isAirBlock(x, y, z) && !flag) return false;
@@ -118,7 +119,7 @@ public class ItemBuckets extends ItemMCMeta {
             if (meta == BucketMeta.WIND) return Fluids.getFluidBlock("wind");
         }
 
-        return Blocks.water;
+        return null;
     }
 
     public ItemStack getBucket(Block block) {

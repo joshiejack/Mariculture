@@ -9,6 +9,7 @@ import java.util.Map;
 
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
+import mariculture.api.fishery.FishHatchEggEvent;
 import mariculture.api.fishery.FishTickEvent;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -285,7 +286,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     //Generates an egg
     private void generateEgg() {
         if (Fishing.fishHelper.getSpecies(inventory[male]) != null) {
-            helper.insertStack(Fishing.fishHelper.generateEgg(inventory[male], inventory[female]), output);
+            ItemStack egg = Fishing.fishHelper.generateEgg(inventory[male], inventory[female]);
+            if (!MinecraftForge.EVENT_BUS.post(new FishHatchEggEvent(inventory[male], inventory[female], egg, worldObj, xCoord, yCoord, zCoord, coords))) {
+                helper.insertStack(egg, output);
+            }
         }
     }
 

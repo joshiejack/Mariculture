@@ -291,7 +291,7 @@ public abstract class FishSpecies {
     public void affectLiving(EntityLivingBase entity) {
         return;
     }
-
+    
     /** Whether this fish allows RF connections to the fish feeder**/
     public boolean canConnectEnergy(ForgeDirection from) {
         return false;

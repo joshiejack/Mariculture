@@ -3,8 +3,10 @@ package mariculture.fishery;
 import java.util.ArrayList;
 
 import mariculture.api.fishery.IMutation;
+import mariculture.api.fishery.IMutationRequirement;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics;
+import mariculture.fishery.fish.requirements.RequirementDefault;
 
 public class FishMutationHandler implements IMutation {
     private final ArrayList<Mutation> mutations = new ArrayList();
@@ -12,7 +14,13 @@ public class FishMutationHandler implements IMutation {
     @Override
     public void addMutation(FishSpecies father, FishSpecies mother, FishSpecies baby, double chance) {
         chance *= FishMechanics.BREEDING_MULTIPLIER;
-        mutations.add(new Mutation(father.getSpecies(), mother.getSpecies(), baby.getSpecies(), chance));
+        mutations.add(new Mutation(father.getSpecies(), mother.getSpecies(), baby.getSpecies(), chance, RequirementDefault.INSTANCE));
+    }
+
+    @Override
+    public void addMutation(FishSpecies father, FishSpecies mother, FishSpecies baby, double chance, IMutationRequirement requirement) {
+        chance *= FishMechanics.BREEDING_MULTIPLIER;
+        mutations.add(new Mutation(father.getSpecies(), mother.getSpecies(), baby.getSpecies(), chance, requirement));
     }
 
     @Override

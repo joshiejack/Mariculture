@@ -50,13 +50,19 @@ Mariculture 1.3.0
     • Added Natural Gas as a Smeltery Fuel, Much more efficient than lava
     • Essence Berry melting will now work for other xp types other than xpjuice
 • Power Generation
-    • Sluice output divided by 64 instead of 256
     • Can create gas turbines again, check the book
     • Can create manual energy again, this time from the handcrank
     • Added a RF version of the Custom Wall
     • Copper Rotors now last 2 hours instead of 15 minutes
     • Aluminum Rotors now last 12 hours instead of 1 hour
     • Titanium Rotors now last 48 hours instead of 8 hours
+• Sluice
+    • Now fills tanks with pressurised water, when tower behind it is greater than 1 high
+    • Output increased by 4x
+• FLUDD
+    • Fix mode change localisation
+    • Double FLUDD Hover Time
+    • New Recipe for FLUDD
 • Added Botania Integration
     • Added Mana Fish
         • Place a mana spreader on top of the fish feeder and the fish will push mana to it
@@ -68,7 +74,10 @@ Mariculture 1.3.0
 • Numbers
     • Reduce number of hits for all Blacksmith's Anvil recipes
     • Rebalance all vat numbers
+    
 • Fix Air Pump Packet sometimes crashing???
+• Vats will process as many items they can after their timer has ticked down
+• Add buckets for all the molten metals
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror

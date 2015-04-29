@@ -12,8 +12,6 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IFishHelper;
 import mariculture.api.fishery.IIncubator;
 import mariculture.api.fishery.IMutation.Mutation;
-import mariculture.api.fishery.IMutationEffect;
-import mariculture.api.fishery.IMutationEffectProvider;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics.FussyFish;
@@ -165,18 +163,20 @@ public class FishyHelper implements IFishHelper {
         ArrayList<Mutation> mutations = Fishing.mutation.getMutations(FishSpecies.species.get(species1), FishSpecies.species.get(species2));
         if (species1 != species2 && mutations != null && mutations.size() > 0) {
             for (Mutation mute : mutations) {
-                FishSpecies baby = Fishing.fishHelper.getSpecies(mute.baby);
-                if (baby != null) {
-                    if (rand.nextInt(1000) < mute.chance * 10 * modifier) {
-                        for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
-                            FishDNABase.DNAParts.get(i).addDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+                if (mute.requirement.canMutationOccur(egg)) {
+                    FishSpecies baby = Fishing.fishHelper.getSpecies(mute.baby);
+                    if (baby != null) {
+                        if (rand.nextInt(1000) < mute.chance * 10 * modifier) {
+                            for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+                                FishDNABase.DNAParts.get(i).addDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+                            }
                         }
-                    }
 
-                    //Second attempt for a mutation
-                    if (rand.nextInt(1000) < mute.chance * 10 * modifier) {
-                        for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
-                            FishDNABase.DNAParts.get(i).addLowerDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+                        //Second attempt for a mutation
+                        if (rand.nextInt(1000) < mute.chance * 10 * modifier) {
+                            for (int i = 0; i < FishDNABase.DNAParts.size(); i++) {
+                                FishDNABase.DNAParts.get(i).addLowerDNA(fish, FishDNABase.DNAParts.get(i).getDNAFromSpecies(baby));
+                            }
                         }
                     }
                 }
@@ -289,7 +289,6 @@ public class FishyHelper implements IFishHelper {
         egg.stackTagCompound.setInteger("currentFertility", eggLife);
         egg.stackTagCompound.setInteger("malesGenerated", 0);
         egg.stackTagCompound.setInteger("femalesGenerated", 0);
-
         return egg;
     }
 
@@ -304,22 +303,6 @@ public class FishyHelper implements IFishHelper {
             if (rand.nextInt(1000) < birthChance) {
                 ItemStack fish = Fishing.fishHelper.makeBredFish(egg, rand, mutation);
                 if (fish != null) {
-                    if (tile instanceof IUpgradable) {
-                        IUpgradable upgradable = ((IUpgradable) tile);
-                        ArrayList<IMutationEffect> effects = new ArrayList();
-                        ItemStack[] upgrades = upgradable.getUpgrades();
-                        for (ItemStack upgradeStack : upgrades) {
-                            if (upgradeStack != null && upgradeStack.getItem() instanceof IMutationEffectProvider) {
-                                IMutationEffectProvider upgrade = (IMutationEffectProvider) upgradeStack.getItem();
-                                effects.addAll(upgrade.getEffects(upgradeStack));
-                            }
-                        }
-
-                        for (IMutationEffect effect : effects) {
-                            fish = effect.adjustFishStack(egg, fish);
-                        }
-                    }
-
                     //Check it again, as the fish may have been adjusted to be null
                     if (fish != null) {
                         int gender = Fish.gender.getDNA(fish);

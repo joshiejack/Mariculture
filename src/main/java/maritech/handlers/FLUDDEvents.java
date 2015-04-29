@@ -97,12 +97,13 @@ public class FLUDDEvents {
 
                     //Hover Mode
                     if (mode == Mode.HOVER) {
-                        if (hoverTick >= 64) {
+                        if (hoverTick >= 128) {
                             disableHover(player);
                         } else {
                             if (player.onGround) {
                                 player.motionY = 10;
                             }
+                            
                             if (jumpTick < 10) {
                                 player.addVelocity(0, 0.01, 0);
                                 PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemFLUDD.HOVER));

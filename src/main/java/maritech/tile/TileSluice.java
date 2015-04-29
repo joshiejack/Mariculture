@@ -81,7 +81,9 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
             }
 
             if (BlockHelper.isWater(worldObj, x2, y2, z2)) {
-                fluid = FluidRegistry.getFluidStack("water", 1000);
+                if (height > 1) {
+                    fluid = new FluidStack(Fluids.getFluid("hp_water"), height * 100);
+                } else fluid = FluidRegistry.getFluidStack("water", 1000);
             }
 
             if (BlockHelper.isLava(worldObj, x2, y2, z2)) {
@@ -198,17 +200,14 @@ public class TileSluice extends TileTank implements IBlacklisted, IFaceable {
             worldObj.setBlockToAir(x, yCoord, z);
         }
 
-        if (BlockHelper.isHPWater(worldObj, x, yCoord, z)) {
-            for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
-        }
-
-        if (height > 0) {
+        for (height = 0; BlockHelper.isWater(worldObj, xCoord - orientation.offsetX, yCoord + height, zCoord - orientation.offsetZ); height++) {}
+        if ((BlockHelper.isHPWater(worldObj, x, yCoord, z)) && height > 0) {
             for (distance = 1; isValid(worldObj, xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance)) && distance < 16; distance++) {}
-        }
+        } else distance = 0;
     }
 
     public void pushToGenerator() {
-        if (height > 0) {
+        if (distance > 0) {
             TileEntity tile = worldObj.getTileEntity(xCoord + (orientation.offsetX * distance), yCoord, zCoord + (orientation.offsetZ * distance));
             if (tile instanceof TileRotor) {
                 ((TileRotor) tile).addEnergy(orientation.getOpposite(), getEnergyGenerated(distance) >> 6, MachineSettings.SLUICE_DAMAGE);

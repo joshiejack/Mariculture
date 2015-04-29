@@ -1,8 +1,5 @@
 package mariculture.api.core;
 
-import java.util.List;
-
-import mariculture.api.fishery.IMutationEffect;
 
 
 public interface IUpgradeHandler {

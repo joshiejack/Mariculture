@@ -1,11 +1,9 @@
 package mariculture.fishery.items;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mariculture.api.core.IItemUpgrade;
 import mariculture.api.core.MaricultureTab;
-import mariculture.api.fishery.IMutationEffect;
 import mariculture.core.gui.InventoryStorage;
 import mariculture.core.items.ItemMCStorage;
 import mariculture.core.util.MCTranslate;
