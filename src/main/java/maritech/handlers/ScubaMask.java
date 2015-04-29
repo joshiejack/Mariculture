@@ -26,7 +26,7 @@ public class ScubaMask {
                 if (mask.stackTagCompound.getBoolean("ScubaMaskOnOutOfWater") == true) {
                     if (!player.isInsideOfMaterial(Material.water) && !player.isInsideOfMaterial(Material.lava)) {
                         tick++;
-                        if (tick >= 60) {
+                        if (tick >= 150) {
                             tick = 0;
                             mask.damageItem(1, player);
                         }

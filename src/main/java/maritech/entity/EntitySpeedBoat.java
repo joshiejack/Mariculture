@@ -43,7 +43,7 @@ public class EntitySpeedBoat extends Entity {
     public EntitySpeedBoat(World par1World) {
         super(par1World);
         isBoatEmpty = true;
-        speedMultiplier = 0.15D;
+        speedMultiplier = 0.3D;
         preventEntitySpawning = true;
         setSize(1.5F, 0.6F);
         yOffset = height / 2.0F;

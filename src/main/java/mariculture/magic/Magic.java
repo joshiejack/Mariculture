@@ -15,7 +15,6 @@ import java.util.Map.Entry;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
-import mariculture.core.config.Enchantments;
 import mariculture.core.config.Enchantments.EnchantIds;
 import mariculture.core.config.Enchantments.Jewelry;
 import mariculture.core.helpers.EnchantHelper;
@@ -112,6 +111,7 @@ public class Magic extends RegistrationModule {
     public static Item necklace;
     public static Item magnet;
     public static Item placer;
+    public static Item water;
 
     @Override
     public void registerHandlers() {
@@ -139,6 +139,7 @@ public class Magic extends RegistrationModule {
         }
         
         placer = new ItemWaterPlacer(0).setUnlocalizedName("placer");
+        water = new ItemInfiwater().setUnlocalizedName("infiwater");
     }
 
     @Override

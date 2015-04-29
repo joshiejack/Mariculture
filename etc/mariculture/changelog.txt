@@ -75,6 +75,7 @@ Mariculture 1.3.0
     • Rebalance all vat numbers
     
 • Fix Air Pump Packet sometimes crashing???
+• Fix Titanium Buckets sometimes replacing blocks they shouldn't with fluids
 • Vats will process as many items they can after their timer has ticked down
 • Add buckets for all the molten metals
 • Switched gold plastic to gold sheet

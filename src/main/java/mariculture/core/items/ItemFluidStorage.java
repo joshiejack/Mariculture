@@ -67,18 +67,26 @@ public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContaine
                     fluid = FluidRegistry.getFluidStack("lava", 1000);
                 }
 
-                if (fluid != null) if (container.fill(item, fluid, false) >= fluid.amount) {
-                    if (block instanceof BlockFluidBase) {
-                        ((BlockFluidBase) block).drain(world, x, y, z, true);
-                    } else {
-                        world.setBlockToAir(x, y, z);
-                    }
+                if (fluid != null) {
+                    if (container.fill(item, fluid, false) >= fluid.amount) {
+                        if (block instanceof BlockFluidBase) {
+                            ((BlockFluidBase) block).drain(world, x, y, z, true);
+                        } else {
+                            world.setBlockToAir(x, y, z);
+                        }
 
-                    container.fill(item, fluid, true);
-                    return item;
+                        container.fill(item, fluid, true);
+                        return item;
+                    }
                 }
             }
 
+            movingobjectposition = getMovingObjectPositionFromPlayer(world, player, false);
+            x = movingobjectposition.blockX;
+            y = movingobjectposition.blockY;
+            z = movingobjectposition.blockZ;
+            side = movingobjectposition.sideHit;
+            
             if (((IFluidContainerItem) item.getItem()).getFluid(item) != null) {
                 FluidStack stack = ((IFluidContainerItem) item.getItem()).getFluid(item);
                 Fluid fluid = stack.getFluid();

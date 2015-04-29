@@ -13,20 +13,24 @@ import maritech.lib.MTModInfo;
 import maritech.model.ModelFlippers;
 import maritech.util.MTTranslate;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemArmorScuba extends ItemMCBaseArmor {
+    private IIcon scubaOn;
+
     public ItemArmorScuba(ArmorMaterial material, int j, int k) {
         super(MTModInfo.MODPATH, MaricultureTab.tabWorld, material, j, k);
     }
-    
+
     @Override
     public int getItemEnchantability() {
         return 10;
@@ -77,15 +81,15 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (!world.isRemote) if (stack.getItem() == ExtensionDiving.scubaMask) {
-            if (!stack.hasTagCompound()) {
-                stack.setTagCompound(new NBTTagCompound());
-            }
+        if (!world.isRemote) {
+            if (stack.getItem() == ExtensionDiving.scubaMask) {
+                if (!stack.hasTagCompound()) {
+                    stack.setTagCompound(new NBTTagCompound());
+                }
 
-            if (player.isSneaking()) {
-                stack.stackTagCompound.setBoolean("ScubaMaskOnOutOfWater", true);
-            } else {
-                stack.stackTagCompound.setBoolean("ScubaMaskOnOutOfWater", false);
+                if (player.isSneaking()) {
+                    stack.stackTagCompound.setBoolean("ScubaMaskOnOutOfWater", !stack.stackTagCompound.getBoolean("ScubaMaskOnOutOfWater"));
+                }
             }
         }
 
@@ -98,6 +102,31 @@ public class ItemArmorScuba extends ItemMCBaseArmor {
             if (stack.getItem() == ExtensionDiving.scubaMask && world.getTotalWorldTime() % 5 == 0) {
                 ScubaMask.activate(player, stack);
             }
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconIndex(ItemStack stack) {
+        if (stack.getItem() == ExtensionDiving.scubaMask) {
+            if (stack.hasTagCompound()) {
+                if (stack.getTagCompound().getBoolean("ScubaMaskOnOutOfWater")) {
+                    return scubaOn;
+                }
+            }
+        }
+
+        return super.getIconIndex(stack);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister) {
+        super.registerIcons(iconRegister);
+
+        String path = this.path != null ? this.path : mod + ":";
+        if (this == ExtensionDiving.scubaMask) {
+            scubaOn = iconRegister.registerIcon(path + "scubaMaskOn");
         }
     }
 }
