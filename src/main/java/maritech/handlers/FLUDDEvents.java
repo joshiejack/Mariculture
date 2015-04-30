@@ -37,7 +37,7 @@ public class FLUDDEvents {
                             mode = 0;
                         }
 
-                        ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.string.fludd.mode." + mode));
+                        ClientHelper.addToChat(StatCollector.translateToLocal("mariculture.fludd.mode." + mode));
                         stack.stackTagCompound.setInteger("mode", mode);
                     } else {
                         stack.setTagCompound(new NBTTagCompound());
@@ -57,13 +57,24 @@ public class FLUDDEvents {
         return ItemFLUDD.getMode(player.inventory.armorInventory[ArmorSlot.TOP]);
     }
 
+    public static boolean V_HELD = false;
+    public static float STEP_HEIGHT = 0.5F;
+    public static boolean FIRST = true;
+
     @SubscribeEvent
     public void LivingUpdateEvent(LivingUpdateEvent event) {
         World world = event.entity.worldObj;
-        if (world.isRemote) {
-            if (event.entity instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) event.entity;
+        if (event.entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.entity;
+            if (world.isRemote) {
                 if (KeyHelper.isActivateKeyPressed() && !player.isSneaking()) {
+                    V_HELD = true;
+                    if (FIRST) {
+                        STEP_HEIGHT = player.stepHeight;
+                        FIRST = false;
+                    }
+
+                    player.stepHeight = 1F;
                     Mode mode = getArmorMode(player);
                     if (mode == Mode.TURBO) {
                         if (player.isInWater()) {
@@ -97,13 +108,13 @@ public class FLUDDEvents {
 
                     //Hover Mode
                     if (mode == Mode.HOVER) {
-                        if (hoverTick >= 128) {
+                        if (hoverTick >= 300) {
                             disableHover(player);
                         } else {
                             if (player.onGround) {
                                 player.motionY = 10;
                             }
-                            
+
                             if (jumpTick < 10) {
                                 player.addVelocity(0, 0.01, 0);
                                 PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGE, ItemFLUDD.HOVER));
@@ -113,9 +124,15 @@ public class FLUDDEvents {
                             player.getEntityData().setBoolean("UsingFLUDDHover", true);
                             player.capabilities.isFlying = true;
                             player.capabilities.setFlySpeed(0.005F);
-                            player.motionY = ClientHelper.isForwardPressed() ? 0F : ClientHelper.isJumpPressed() ? 0.08F : 0.05F;
+                            player.motionY = ClientHelper.isForwardPressed() ? 0F : 0.05F;
                             if (!player.onGround && ClientHelper.isForwardPressed()) {
-                                player.moveFlying(0.0F, 1.0F, 0.03F);
+                                player.moveFlying(0.0F, 1F, 0.02F);
+                            }
+
+                            if (ClientHelper.isForwardPressed()) {
+                                player.motionY = ClientHelper.isJumpPressed() ? -0.15F : player.motionY;
+                            } else {
+                                player.motionY = ClientHelper.isJumpPressed() ? -0.05F : player.motionY;
                             }
 
                             playSmoke(ItemFLUDD.HOVER, player, true);
@@ -133,6 +150,16 @@ public class FLUDDEvents {
                     }
 
                     disableHover(player);
+                    if (V_HELD) {
+                        Mode mode = getArmorMode(player);
+                        V_HELD = false;
+                        if (mode == Mode.HOVER) {
+                            PacketHandler.sendToServer(new PacketFLUDD(PacketFLUDD.DAMAGEPREVENT, Mode.HOVER.ordinal()));
+                        } else if (mode == Mode.TURBO) {
+                            player.stepHeight = STEP_HEIGHT;
+                            FIRST = true;
+                        }
+                    }
                 }
             }
         }

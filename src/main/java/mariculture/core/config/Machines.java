@@ -35,6 +35,7 @@ public class Machines {
         Ticks.PUMP_GAS_TIMER = getInt("Air Pump > Ticks Between Sucking Up Gas", 20);
         Ticks.PUMP_GAS_EJECT_TIMER = getInt("Air Pump > Ticks Between Ejecting Gas", 100);
         Ticks.SLUICE_TIMER = getInt("Sluice > Send Power every x Ticks", 5);
+        Ticks.FLUDD_CUTTOFF = getInt("FLUDD > Cutoff Hover Timer, every x Ticks", 300);
         
         setCategory("Upgrade Settings");
         ItemUpgrade.TEMPERATURE_BASIC = getInt("Temperature - Basic", 1);
@@ -97,6 +98,7 @@ public class Machines {
     }
 
     public static class Ticks {
+        public static int FLUDD_CUTTOFF;
         public static int ITEM_EJECT_TICK;
         public static int FLUID_EJECT_TICK;
         public static int EFFECT_TICK;

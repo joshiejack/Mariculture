@@ -44,6 +44,7 @@ public class EntityFLUDDSquirt extends EntityThrowable {
             } else {
                 source = new EntityDamageSource("fludd", this).setProjectile();
             }
+            
             thingHit.entityHit.attackEntityFrom(source, 10);
         }
 

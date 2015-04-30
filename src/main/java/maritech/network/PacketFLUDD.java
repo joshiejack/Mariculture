@@ -15,6 +15,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 
 public class PacketFLUDD implements IMessage, IMessageHandler<PacketFLUDD, IMessage> {
+    public static final int DAMAGEPREVENT = -44;
     public static final int SQUIRT = -33;
     public static final int DAMAGE = -22;
     public static final int ANIMATE = -11;
@@ -52,7 +53,9 @@ public class PacketFLUDD implements IMessage, IMessageHandler<PacketFLUDD, IMess
             world.spawnEntityInWorld(rocket);
         }
 
-        if (message.type != ANIMATE) {
+        if (message.type == DAMAGEPREVENT) {
+            ctx.getServerHandler().playerEntity.fallDistance = 0F;
+        } else if (message.type != ANIMATE) {
             FLUDDEvents.damageFLUDD(player, message.mode);
         } else if (side == Side.SERVER) {
             PacketHandler.sendAround(new PacketFLUDD(player.getEntityId(), message.mode), world.provider.dimensionId, player.posX, player.posY, player.posZ);

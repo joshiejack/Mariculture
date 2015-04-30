@@ -20,7 +20,6 @@ Mariculture 1.3.0
     • Consume 50RF each time the air pump, supplies air instead of 100RF
 • Fishy Stuff
     • Add AquaScum 2003 - Autoadjusts Tank temperature and salinity for fish
-    • Add Mutation Upgrade for Incubator
     • Add Air Droplet and Contained Wind
     • Add Experience Droplet
     • Add Metal Droplets
@@ -42,7 +41,7 @@ Mariculture 1.3.0
     • Eggs are now processed 3 at a time by default
     • Eggs are much more likely to hatch by default
 • Fluid Tanks
-    • Renamed Fluid Tank to Copper Fluid Tank
+    • Renamed Fluid Tank to Copper Fluid Tank, Now holds 32000mB
     • Added Aluminium and Titanium Fluid Tanks, and Gas Tank (Latter can only store natural gas)
     • Hoppers will place fluids in the mariculture tank (destroying containers, easy way to convert droplets to fluid)
     • Now render their contents in the inventory
@@ -61,7 +60,11 @@ Mariculture 1.3.0
     • Output increased by 4x
 • FLUDD
     • Fix mode change localisation
-    • Double FLUDD Hover Time
+    • Reduce Squirt Mode sound volume
+    • FLUDD Hover mode default cut off switched from 128 ticks to 600 (30 seconds)
+    • FLUDD Hover mode cut off time configurable, so you can revert back to default
+    • Hover mode will now prevent fall damage, if used
+    • Turbo Mode now comes equipped with step assist (when activated)
 • Added Botania Integration
     • Added Mana Fish
         • Place a mana spreader on top of the fish feeder and the fish will push mana to it
@@ -72,13 +75,22 @@ Mariculture 1.3.0
         • Charges from mana
 • Numbers
     • Reduce number of hits for all Blacksmith's Anvil recipes
-    • Rebalance all vat numbers
+    • Rebalance all vat timing numbers
+• Recipe Changes
+    • One Copper fluid tank from the recipe
+    • Two Crucible instead of one
+    • Heating components now require two silicon carbide instead of 6
+    • Removed gold plastic, replaced with Sheet of Gold
+    • Plastic now yields 4 per craft
+    • Neoprene now yields 2/4 per craft
+• Fluid Containers
+    • Fix Titanium Buckets sometimes replacing blocks they shouldn't with fluids
+    • Ladle now holds 2 ingots worth
+    • Titanium bucket now holds 16000mB
+    • Add buckets for all the molten metals
     
 • Fix Air Pump Packet sometimes crashing???
-• Fix Titanium Buckets sometimes replacing blocks they shouldn't with fluids
 • Vats will process as many items they can after their timer has ticked down
-• Add buckets for all the molten metals
-• Switched gold plastic to gold sheet
 
 Mariculture 1.2.4.1a
 • Fix dupe glitch with mirror
