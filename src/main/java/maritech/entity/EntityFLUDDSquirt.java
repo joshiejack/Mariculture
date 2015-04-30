@@ -31,7 +31,7 @@ public class EntityFLUDDSquirt extends EntityThrowable {
         super.onUpdate();
 
         for (int l = 0; l < 90; ++l) {
-            worldObj.spawnParticle("cloud", posX + motionX * l, posY, posZ + motionZ * l, 0, 0, 0);
+            worldObj.spawnParticle("cloud", posX + motionX * l, posY - 0.5D, posZ + motionZ * l, 0, 0, 0);
         }
     }
 

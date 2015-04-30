@@ -1,5 +1,6 @@
 package mariculture.world.render;
 
+import mariculture.world.EntityRockhopper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -75,9 +76,17 @@ public class ModelRockhopper extends ModelBase {
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
-        GL11.glScalef(0.5F, 0.5F, 0.5F);
-        GL11.glTranslatef(0F, 1.5F, 0F);
-        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        EntityRockhopper rockhopper = (EntityRockhopper) entity;
+        if (rockhopper.isChild()) {
+            GL11.glScalef(0.2F, 0.2F, 0.2F);
+            GL11.glTranslatef(0F, 6F, 0F);
+        } else {
+            GL11.glScalef(0.5F, 0.5F, 0.5F);
+            GL11.glTranslatef(0F, 1.5F, 0F);
+        }
+        
+        GL11.glRotated(rockhopper.rotationBody, 1D, 0F, 1D);
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, rockhopper);
         this.rightFootFoot.render(f5);
         this.hair.render(f5);
         this.head.render(f5);
@@ -100,10 +109,9 @@ public class ModelRockhopper extends ModelBase {
         modelRenderer.rotateAngleZ = z;
     }
 
-    @Override
-    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_) {
+    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, EntityRockhopper entity) {
         this.hair.rotateAngleX = p_78087_5_ / (180F / (float) Math.PI);
-        this.hair.rotateAngleY = p_78087_4_ / (180F / (float) Math.PI);        
+        this.hair.rotateAngleY = p_78087_4_ / (180F / (float) Math.PI);
         this.head.rotateAngleX = this.hair.rotateAngleX;
         this.head.rotateAngleY = this.hair.rotateAngleY;
         this.beak.rotateAngleX = this.hair.rotateAngleX;
@@ -112,12 +120,7 @@ public class ModelRockhopper extends ModelBase {
         this.rightFootFoot.rotateAngleX = this.rightFootAnkle.rotateAngleX * 2;
         this.leftFootAnkle.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662F + (float) Math.PI) * 1.4F * p_78087_2_;
         this.leftFootFoot.rotateAngleX = this.leftFootAnkle.rotateAngleX * 2;
-        float leftMax = 57.75F;
-        float leftMin = 57F;
-        float left = Math.min(leftMax, Math.max(leftMin, this.leftFootAnkle.rotateAngleX - 55F));
-        float rightMax = -57F;
-        float rightMin = -57.75F;
-        this.rightFlipper.rotateAngleZ = -57.75F; //Math.min(50F, leftFootAnkle.rotateAngleX + 50F);
-        this.leftFlipper.rotateAngleZ = left;//Math.min(50F, rightFootAnkle.rotateAngleX -50F);
+        this.rightFlipper.rotateAngleZ = (float) -entity.rotationWing / 10;
+        this.leftFlipper.rotateAngleZ = (float) entity.rotationWing / 10;
     }
 }

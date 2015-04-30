@@ -17,7 +17,6 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -35,6 +34,11 @@ import net.minecraft.world.World;
 import rebelkeithy.mods.aquaculture.items.ItemFish;
 
 public class EntityRockhopper extends EntityTameable {
+    public short rotationBody = 0;
+    public short rotationWing = 570;
+    public boolean upWing = false;
+    public boolean upBody = false;
+
     public EntityRockhopper(World world) {
         super(world);
         setSize(0.3F, 0.7F);
@@ -51,6 +55,7 @@ public class EntityRockhopper extends EntityTameable {
         tasks.addTask(7, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySquid.class, 750, false));
         setTamed(false);
+        stepHeight = 0.25F;
     }
 
     @Override
@@ -63,6 +68,48 @@ public class EntityRockhopper extends EntityTameable {
     @Override
     public boolean attackEntityAsMob(Entity entity) {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+    }
+
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+
+        if (worldObj.isRemote) {
+            if (this.posX != this.prevPosX || this.posZ != this.prevPosZ) {
+                if (upWing) {
+                    if (rotationWing < 575) rotationWing++;
+                    else upWing = false;
+                } else {
+                    if (rotationWing > 570) rotationWing--;
+                    else upWing = true;
+                }
+
+                if (upBody) {
+                    if (rotationBody < 6) rotationBody += 2;
+                    else upBody = false;
+                } else {
+                    if (rotationBody > -6) rotationBody -= 2;
+                    else upBody = true;
+                }
+            } else {
+                if (rotationWing > 578D) {
+                    rotationWing--;
+                } else if (rotationWing < 578D) {
+                    rotationWing++;
+                }
+
+                if (rotationBody > 0) {
+                    rotationBody--;
+                } else if (rotationBody < 0) {
+                    rotationBody++;
+                }
+            }
+        }
     }
 
     @Override
@@ -122,7 +169,7 @@ public class EntityRockhopper extends EntityTameable {
 
     @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
-        return null;
+        return new EntityRockhopper(worldObj);
     }
 
     @Override
@@ -156,7 +203,7 @@ public class EntityRockhopper extends EntityTameable {
             } else {
                 this.entityDropItem(new ItemStack(Items.fish, j, rand.nextInt(4)), 1F);
             }
-        }
+        } else this.entityDropItem(new ItemStack(Items.fish, j, rand.nextInt(4)), 1F);
 
         if (playerKill && j > 1) {
             if (j > 2) {
