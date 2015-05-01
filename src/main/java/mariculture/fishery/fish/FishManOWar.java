@@ -100,6 +100,7 @@ public class FishManOWar extends FishSpecies {
     @Override
     public void affectLiving(EntityLivingBase entity) {
         entity.addPotionEffect(new PotionEffect(Potion.confusion.id, 250, 1));
+        entity.addPotionEffect(new PotionEffect(Potion.blindness.id, 500, 0));
     }
 
     @Override

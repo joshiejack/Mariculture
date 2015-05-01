@@ -64,7 +64,8 @@ public class WorldGeneration {
         WorldGen.KELP_FOREST_CHEST_MAX_ITEMS = getInt("Kelp Forest > Maximum Items", 10);
         WorldGen.KELP_FOREST_CHEST_MIN_ITEMS = getInt("Kelp Forest > Minimum Items", 2);
         WorldGen.KELP_FOREST_CHEST_CHANCE = getInt("Kelp Forest > Chest Chance", 640, "The higher the number the less common a chest will be, this roughly works out to this 1 chest per this many blocks of a forest.");
-
+        WorldGen.PENGUIN_SPAWN_ENABLED = getBoolean("Penguin Spawning > Enabled", true);
+        
         setCategory("Retro-Generation", "Retro-Generation allows you to generate ores/other features in your existing worlds, without you having to go off and explore new areas. If you set all to true, it will override the individual settings for retro-gen, Make sure you disable retro-gen after you have regenned your world");
         RetroGen.ENABLED = getBoolean("Enable Retro-Gen", false);
         RetroGen.KEY = getInt("Key", 555, "This key is what stops, retro gen from generating in chunks over and over, if you want to retro gen again, change the key to any other integer");
@@ -132,6 +133,7 @@ public class WorldGeneration {
         public static int KELP_FOREST_CHEST_CHANCE;
         public static int KELP_FOREST_CHEST_MIN_ITEMS;
         public static int KELP_FOREST_CHEST_MAX_ITEMS;
+        public static boolean PENGUIN_SPAWN_ENABLED;
     }
 
     public static class RetroGen {

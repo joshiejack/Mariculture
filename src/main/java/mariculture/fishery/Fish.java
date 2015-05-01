@@ -133,42 +133,42 @@ public class Fish {
     public static FishSpecies stingRay; //Poisons those in water
     public static FishSpecies mantaRay; //Regen 2 when eaten, and Heals you when in water 
     public static FishSpecies electricRay; //Produce 10RF/t per connection lots of power
-    public static FishSpecies damsel; //Breeds animals, Attracts mobs
+    public static FishSpecies damsel; //Breeds animals, Attracts mobs //TODO
     public static FishSpecies angel; //Teleport stuff in to inventories
     public static FishSpecies puffer; //Nothing
-    public static FishSpecies squid; //Ink Sacks, Spawns Squid
+    public static FishSpecies squid; //Ink Sacks
     public static FishSpecies jelly; //Produce slimeballs
     public static FishSpecies manOWar; //Blinds Enemies
     public static FishSpecies goldfish; //Produce gold nuggets when melted
     public static FishSpecies siamese; //Attack entities (not players)
     public static FishSpecies koi; //Spawns ocean chest and vanilla chest loot in the water
-    public static FishSpecies butterfly; //Allows 10 second flight, shed feathers
+    public static FishSpecies butterfly; //Shed feathers
     public static FishSpecies tang; //Produces lapis
-    public static FishSpecies clown; //Spawns random mobs
+    public static FishSpecies clown; //Spawns Passive random mobs //TODO
 
     //1.2.2 Species
     public static FishSpecies blaasop; //Nothing
-    public static FishSpecies stargazer; //Prevent Mob Spawns
-    public static FishSpecies lamprey; //Withers players, Converts skeletons to wither skeletons
-    public static FishSpecies spider; //Spawns spiders
-    public static FishSpecies boneless; //Spawns skeletons/wither skeletons/Speeds up crops
+    public static FishSpecies stargazer; //Prevent Mob Spawns //TODO:
+    public static FishSpecies lamprey; //Withers players, Converts skeletons to wither skeletons //TODO:
+    public static FishSpecies spider; //Spawns spiders //TODO:
+    public static FishSpecies boneless; //Spawns skeletons/wither skeletons/Speeds up crops /TODO:
     public static FishSpecies undead; //Spawns zombies
-    public static FishSpecies minecraft; //Gives XP to player
-    public static FishSpecies angler; //Fish feeder light, places as 'spotlight lights'
+    public static FishSpecies minecraft; //Gives XP to player /TODO:
+    public static FishSpecies angler; //Fish feeder light, places as 'spotlight lights' /TODO:
     public static FishSpecies trout; //Weapon, Dyes
     public static FishSpecies herring; //Redstone
 
     //1.2.5 new Species
-    public static FishSpecies brown; //BrownShroom, Spawns Mycelium
-    public static FishSpecies red; //RedShroom
+    public static FishSpecies brown; //BrownShroom, Spawns Mycelium /TODO:
+    public static FishSpecies red; //RedShroom, Spawns Mycelium /TODO:
     public static FishSpecies pup; //Spawns Wolves
-    public static FishSpecies chub; //Fills Hunger Bar
+    public static FishSpecies chub; //Fills Hunger Bar /TODO:
     public static FishSpecies bowfin; //Generates Arrows, Bows
-    public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten
-    public static FishSpecies walleye; //Eyesight, Zooms in like bow
-    public static FishSpecies pike; //Weapons, Generates flint and pike 'heads'
-    public static FishSpecies stickleback; //Spikes, Causes spikes to randomly appear
-    public static FishSpecies pickerel; //Harvests Crops
+    public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten /TODO:
+    public static FishSpecies walleye; //Eyesight, Zooms in like bow /TODO:
+    public static FishSpecies pike; //Weapons, Generates flint and pike 'heads' /TODO:
+    public static FishSpecies stickleback; //Spikes, Causes spikes to randomly appear /TODO:
+    public static FishSpecies pickerel; //Harvests Crops /TODO:
 
     //1.2.5 Metal Species
     public static FishSpecies iron;

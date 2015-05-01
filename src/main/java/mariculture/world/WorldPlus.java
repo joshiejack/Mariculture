@@ -12,6 +12,7 @@ import mariculture.Mariculture;
 import mariculture.api.core.CoralRegistry;
 import mariculture.api.core.MaricultureTab;
 import mariculture.core.Core;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.CoralMeta;
 import mariculture.core.lib.CraftingMeta;
 import mariculture.core.lib.Dye;
@@ -72,10 +73,12 @@ public class WorldPlus extends RegistrationModule {
         registerOre("coralGray", new ItemStack(plantStatic, 1, CoralMeta.GREY));
         registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
         registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
-        
+
         EntityRegistry.registerModEntity(EntityRockhopper.class, "Rockhopper", EntityIds.ROCKHOPPER, Mariculture.instance, 150, 3, true);
-        BiomeGenBase.beach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
-        BiomeGenBase.coldBeach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
+        if (WorldGen.PENGUIN_SPAWN_ENABLED) {
+            BiomeGenBase.beach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
+            BiomeGenBase.coldBeach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
+        }
     }
 
     @Override
