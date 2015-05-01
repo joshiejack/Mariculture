@@ -15,6 +15,7 @@ Mariculture 1.3.0
         • Wetsuit increases mining speed under lava
         • Scuba Tank, will use 'oxygen' to prevent fire damage.
 • Air Pump Changes
+    • Fix Air Pump Packet sometimes crashing???
     • Remove redstone signal requirement for pumping natural gas
     • Consume 100 RF each time you suck gas instead of 10RF
     • Consume 50RF each time the air pump, supplies air instead of 100RF
@@ -31,6 +32,7 @@ Mariculture 1.3.0
     • More effects added to fish
     • New book, listing all the info about each fish species, and it's special effects
     • More recipe usages for droplets
+    • Fix Fish Feeder not restarting when the temperature/day/night starts/ends
 • Hatcheries/Incubators
     • Hatcheries will now speed up based on the surrounding number of hatcheries and water blocks
         • An equal amount of Hatches and Water Blocks ensures fastest operation
@@ -89,7 +91,6 @@ Mariculture 1.3.0
     • Titanium bucket now holds 16000mB
     • Add buckets for all the molten metals
     
-• Fix Air Pump Packet sometimes crashing???
 • Vats will process as many items they can after their timer has ticked down
 
 Mariculture 1.2.4.1a

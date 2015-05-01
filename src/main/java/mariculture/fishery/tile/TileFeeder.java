@@ -334,6 +334,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             if (Ticks.PICKUP_TICK >= 0 && onTick(Ticks.PICKUP_TICK)) {
                 pickupFood();
             }
+        } else {
+            if (onTick(200)) {
+                updateCanWork();
+            }
         }
     }
 
