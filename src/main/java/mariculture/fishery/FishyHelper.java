@@ -2,7 +2,12 @@ package mariculture.fishery;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
@@ -33,8 +38,6 @@ public class FishyHelper implements IFishHelper {
     public static int FEMALE = 1;
     private static final String CATEGORY = "Fish-Mappings";
     private static final String COMMENT = "Mariculture Fish all have IDs, this is required mostly for when they are dead. Fish IDs are assigned automatically by Mariculture, so you can just ignore this file, it's mostly being used to save them";
-    private static ArrayList<CachedFishData> cache = new ArrayList();
-    private static ArrayList<Integer> taken = new ArrayList();
 
     private static class CachedFishData {
         private String modid;
@@ -53,76 +56,85 @@ public class FishyHelper implements IFishHelper {
         return registerFish(modid, fish, 50);
     }
 
+    private static class FishSort {
+        public FishSpecies species;
+        public int default_id;
+        
+        public FishSort(FishSpecies species, int default_id) {
+            this.species = species;
+            this.default_id = default_id;
+        }
+    }
+    
+    private List<FishSort> toSort = new ArrayList();
+
     @Override
     public FishSpecies registerFish(String modid, Class<? extends FishSpecies> fish, int default_id) {
         try {
             FishSpecies species = ((FishSpecies) fish.newInstance()).setup(modid);
-            int fish_id = getID(modid, species.getSpecies());
-            if (fish_id >= 0) {
-                taken.add(fish_id);
-            }
-
-            cache.add(new CachedFishData(modid, species, default_id));
+            /** Mark this fish to be sorted later **/
+            toSort.add(new FishSort(species, default_id));
             return species;
         } catch (Exception e) {
             LogHandler.log(Level.WARN, "Mariculture failed to add the fish: " + fish + " , The fish returned null, you will have serious problems with fish!!!");
             return null;
         }
     }
-
+    
+    public boolean contains (int value, Set<Integer> array) {
+        for (Integer check: array) {
+            if (check == value) return true;
+        }
+        
+        return false;
+    }
+    
     @Override
     public void registerFishies() {
-        for (CachedFishData data : cache) {
-            int fish_id = getID(data.modid, data.species.getSimpleName());
-            if (fish_id < 0) {
-                fish_id = setID(data.modid, data.species.getSimpleName(), getNextAvailableID(data.default_id));
-            }
-
-            FishSpecies.ids.put(data.species.getSpecies(), fish_id);
-            FishSpecies.species.put(fish_id, data.species);
-        }
-
-        //Clear out the data, since it's no longer needed to be kept in memory
-        taken = null;
-        cache = null;
-    }
-
-    private int getNextAvailableID(int default_id) {
-        for (Integer taken : FishyHelper.taken)
-            if (default_id == taken) if (default_id >= 32000) return getNextAvailableID(0);
-            else return getNextAvailableID(default_id + 1);
-
-        taken.add(default_id);
-        return default_id;
-    }
-
-    private int getID(String modid, String fish) {
-        Configuration config = new Configuration(new File(Mariculture.root + "/mariculture/", "fish-mappings.cfg"));
-        try {
-            config.load();
-            return config.get(CATEGORY, modid + ":" + fish, -1).getInt();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return -1;
-    }
-
-    private int setID(String modid, String fish, int default_id) {
-        Configuration config = new Configuration(new File(Mariculture.root + "/mariculture/", "fish-mappings.cfg"));
-        try {
+        //First step we need go through and grab all the 'stored' ids
+        //Aka the ones that are in the config file
+        Map<FishSpecies, Integer> speciesToStoredInteger = new HashMap();
+        for (FishSort fish: toSort) {
+            Configuration config = new Configuration(new File(Mariculture.root + "/mariculture/", "fish-mappings.cfg"));
             config.load();
             config.addCustomCategoryComment(CATEGORY, COMMENT);
-            default_id = config.get(CATEGORY, modid + ":" + fish, default_id).getInt();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+            int id = config.get(CATEGORY, fish.species.modid + ":" + fish.species.getSimpleName(), fish.default_id).getInt();
+            speciesToStoredInteger.put(fish.species, id);
+        }
+        
+        Set<Integer> used_ids = new HashSet();
+        Set<FishSort> mappings = new HashSet();
+        
+        for (FishSort fish: toSort) {
+            int attemptID = speciesToStoredInteger.get(fish.species);
+            if (contains(attemptID, used_ids)) {
+                //The ID was found in the mappings, so we need to use a different one
+                for (int i = 0; i < 32000; i++) {
+                    if (!contains(i, used_ids)) { //If the id wasn't found, this is the fish's new id
+                        mappings.add(new FishSort(fish.species, i));
+                        used_ids.add(i);
+                        break;
+                    }
+                }
+            } else {
+                //This id was not found in used_ids already, so we can use it
+                mappings.add(new FishSort(fish.species, attemptID));
+                used_ids.add(attemptID);
+            }
+        }
+        
+        //Now that we have the fish mapped with all their ids let's actually add them properly
+        for (FishSort fish: mappings) {
+            FishSpecies.ids.put(fish.species.getSpecies(), fish.default_id);
+            FishSpecies.species.put(fish.default_id, fish.species);
+            Configuration config = new Configuration(new File(Mariculture.root + "/mariculture/", "fish-mappings.cfg"));
+            config.load();
+            config.addCustomCategoryComment(CATEGORY, COMMENT);
+            config.get(CATEGORY, fish.species.modid + ":" + fish.species.getSimpleName(), fish.default_id).getInt();
             config.save();
         }
-
-        return default_id;
     }
-
+    
     @Override
     public ItemStack makePureFish(FishSpecies species) {
         ItemStack fishStack = new ItemStack(Fishery.fishy);

@@ -346,7 +346,7 @@ public class Fish {
 
     public static FishSpecies registerFish(String ingot, FishSpecies father, FishSpecies mother, double chance, Class clazz, int id) {
         if (OreDictionary.getOres("ingot" + StringUtils.capitalize(ingot)).size() > 0) {
-            FishSpecies fish = Fishing.fishHelper.registerFish(modid, clazz);
+            FishSpecies fish = Fishing.fishHelper.registerFish(modid, clazz, id);
             if (FishMechanics.ENABLE_METAL_FISH) {
                 Fishing.mutation.addMutation(father, mother, fish, chance, new RequirementHasTag("block" + StringUtils.capitalize(ingot)));
             }
