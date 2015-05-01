@@ -523,6 +523,7 @@ mariculture.fish.data.species.trout=Rainbow Trout
 mariculture.fish.data.species.minecraft=Minecraft Fish
 mariculture.fish.data.species.pupfish=Pupfish
 mariculture.fish.data.species.chub=Chub
+mariculture.fish.data.species.bowfin=Bowfin
 mariculture.fish.data.species.brownshroom=Brown Shroom Fish
 mariculture.fish.data.species.redshroom=Red Shroom Fish
 mariculture.fish.data.species.walleye=Walleye
@@ -648,6 +649,7 @@ mariculture.coral.lightgrey=Semi-Bleached Coral
 mariculture.coral.grey=Partially Bleached Coral
 #items
 mariculture.crafting.kelpseeds=Kelp Seeds
+mariculture.crafting.rockhoppergg=Spawn Rockhopper Penguin
 
 ### Other Strings ###
 mariculture.aquabackpack=Aquatic Backpack
