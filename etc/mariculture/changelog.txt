@@ -44,6 +44,7 @@ Mariculture 1.3.0
     • Eggs are now processed 3 at a time by default
     • Eggs are much more likely to hatch by default
 • Fish Tanks
+    • Fixed their render
     • Keep their inventory when broken
     • No longer have pages, their data is stored differently so old ones will be broken
     • Have 54 slots, but each slot can store up to Integer.MAX unique fish.

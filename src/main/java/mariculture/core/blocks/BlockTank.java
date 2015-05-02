@@ -408,6 +408,13 @@ public class BlockTank extends BlockConnected {
                 return tab == MaricultureTab.tabFactory;
         }
     }
+    
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+        Block block = world.getBlock(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+        return block == this && meta == TankMeta.FISH ? false : super.shouldSideBeRendered(world, x, y, z, side);
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
