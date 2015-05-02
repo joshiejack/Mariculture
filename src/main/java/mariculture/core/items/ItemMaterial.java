@@ -92,6 +92,8 @@ public class ItemMaterial extends ItemMCMeta {
                 return Modules.isActive(Modules.worldplus);
             case MaterialsMeta.DYE_WHITE:
                 return Modules.isActive(Modules.worldplus);
+            case MaterialsMeta.DUST_MAGNESITE:
+                return false;
         }
 
         if (meta >= MaterialsMeta.EMPTY_START && meta <= MaterialsMeta.EMPTY_END) return false;

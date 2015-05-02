@@ -68,6 +68,15 @@ public class NEIVatRecipeHandler extends NEIBase {
                     arecipes.add(new CachedVatRecipe(vat));
                 }
             }
+        } else if (outputId.equals("liquid") && getClass() == NEIVatRecipeHandler.class) {
+            FluidStack passedFluid = (FluidStack) results[0];
+            for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
+                if (vat == null) continue; //Somehow null recipes added?
+                FluidStack fluid = vat.outputFluid;
+                if (fluid != null && fluid.getFluid() != null && fluid.getFluid().getName().equals(passedFluid.getFluid().getName())) {
+                    arecipes.add(new CachedVatRecipe(vat));
+                }
+            }
         } else {
             super.loadCraftingRecipes(outputId, results);
         }

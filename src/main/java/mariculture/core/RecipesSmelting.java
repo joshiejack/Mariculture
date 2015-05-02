@@ -1,7 +1,6 @@
 package mariculture.core;
 
 import static mariculture.core.lib.MCLib.blockSnow;
-import static mariculture.core.lib.MCLib.dustMagnesium;
 import static mariculture.core.lib.MCLib.dustSalt;
 import static mariculture.core.lib.MCLib.glass;
 import static mariculture.core.lib.MCLib.glassPane;
@@ -245,7 +244,11 @@ public class RecipesSmelting {
         FluidStack moltenMagnesium = getFluidStack("magnesium", MetalRates.INGOT);
         FluidStack moltenTitanium = getFluidStack("titanium", MetalRates.INGOT);
         RecipeHelper.addFluidAlloy(moltenRutile, moltenMagnesium, moltenTitanium, 1);
-        RecipeHelper.addMelting(dustMagnesium, magnesium, get(getFluidName("magnesium")), salt, 1);
+        
+        FluidStack quicklime = getFluidStack("quicklime", 3000);
+        FluidStack water = getFluidStack("water", 1000);
+        FluidStack magnesium = getFluidStack("magnesium", MetalRates.INGOT);
+        RecipeHelper.addFluidAlloy(quicklime, water, magnesium, 1);
 
         //Gold Back
         RecipeHelper.addMelting(new ItemStack(Blocks.light_weighted_pressure_plate), gold, gold(MetalRates.INGOT * 2));

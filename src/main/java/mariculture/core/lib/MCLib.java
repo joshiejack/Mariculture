@@ -248,7 +248,6 @@ public class MCLib {
     public static final ItemStack dropletZinc = Modules.isActive(Modules.fishery) ? new ItemStack(Fishery.droplet, 1, DropletMeta.ZINC) : null;
     public static final ItemStack heating = new ItemStack(Core.crafting, 1, CraftingMeta.HEATER);
     public static final ItemStack cooling = new ItemStack(Core.crafting, 1, CraftingMeta.COOLER);
-    public static final ItemStack dustMagnesium = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_MAGNESITE);
     public static final ItemStack carbide = new ItemStack(Core.crafting, 1, CraftingMeta.CARBIDE);
     public static final ItemStack salt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
     public static final ItemStack voidBottle = new ItemStack(Core.bottles, 1, BottleMeta.VOID);
