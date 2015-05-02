@@ -14,6 +14,8 @@ import mariculture.world.WorldPlus;
 import net.minecraftforge.common.config.Configuration;
 
 public class Modules {
+    public static boolean TCON_RECIPES = true;
+    
     public static void init(Configuration config) {
         Mariculture.modules.setup(Core.class, true);
         Mariculture.modules.setup(Aesthetics.class, config.get("Modules", "Aesthetics", true).getBoolean(true));
@@ -31,5 +33,7 @@ public class Modules {
                 Plugins.plugins.remove(i);
             }
         }
+        
+        TCON_RECIPES = config.get("Experimental TConstruct Recipes", "Extra", true, "Enabling this, automatically adds all tconstruct melting and casting recipes to the mariculture crucible furnace").getBoolean(true);
     }
 }

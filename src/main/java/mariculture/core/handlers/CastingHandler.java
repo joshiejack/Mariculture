@@ -23,14 +23,23 @@ public class CastingHandler implements ICastingHandler {
 
     @Override
     public void addRecipe(RecipeCasting recipe) {
+        String name = recipe.fluid.getFluid().getName();
         if (recipe instanceof RecipeNuggetCasting) {
-            nuggets.put(recipe.fluid.getFluid().getName(), recipe);
+            if (!nuggets.containsKey(name)) {
+                nuggets.put(name, recipe);
+            }
         }
+
         if (recipe instanceof RecipeIngotCasting) {
-            ingots.put(recipe.fluid.getFluid().getName(), recipe);
+            if (!ingots.containsKey(name)) {
+                ingots.put(name, recipe);
+            }
         }
+
         if (recipe instanceof RecipeBlockCasting) {
-            blocks.put(recipe.fluid.getFluid().getName(), recipe);
+            if (!blocks.containsKey(name)) {
+                blocks.put(name, recipe);
+            }
         }
     }
 

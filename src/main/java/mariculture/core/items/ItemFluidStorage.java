@@ -82,6 +82,7 @@ public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContaine
             }
 
             movingobjectposition = getMovingObjectPositionFromPlayer(world, player, false);
+            if (movingobjectposition == null) return item;
             x = movingobjectposition.blockX;
             y = movingobjectposition.blockY;
             z = movingobjectposition.blockZ;

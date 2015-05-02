@@ -193,7 +193,7 @@ public class ItemBuckets extends ItemMCMeta {
             case BucketMeta.ALUMINUM:
                 return "bucketAluminum";
             case BucketMeta.TITANIUM:
-                return "bucketTitanium";
+                return "bucketTitaniumBucket";
             case BucketMeta.MAGNESIUM:
                 return "bucketMagnesium";
             case BucketMeta.NICKEL:

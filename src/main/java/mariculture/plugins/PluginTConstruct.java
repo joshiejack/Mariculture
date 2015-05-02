@@ -8,12 +8,15 @@ import static tconstruct.library.crafting.FluidType.getFluidType;
 import java.util.ArrayList;
 import java.util.Map;
 
+import mantle.utils.ItemMetaWrapper;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
 import mariculture.core.Core;
 import mariculture.core.RecipesSmelting;
 import mariculture.core.blocks.BlockAir;
+import mariculture.core.config.Modules;
 import mariculture.core.handlers.LogHandler;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.LimestoneMeta;
 import mariculture.core.lib.MetalMeta;
 import mariculture.core.lib.MetalRates;
@@ -31,6 +34,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.Smeltery;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -85,6 +89,38 @@ public class PluginTConstruct extends Plugin {
         TitaniumTools.postInit();
         addAlloy();
         addMelting();
+
+        if (Modules.TCON_RECIPES) {
+            /** Experimental add T-Construct Recipes **/
+            for (ItemMetaWrapper wrapper : Smeltery.instance.getSmeltingList().keySet()) {
+                int temperature = (int) (Smeltery.instance.getTemperatureList().get(wrapper) * 2.085D);
+                FluidStack output = Smeltery.instance.getSmeltingList().get(wrapper);
+                RecipeHelper.addMelting(new ItemStack(wrapper.item, 1, wrapper.meta), temperature, output);
+            }
+
+            /** Experimental casting **/
+            for (CastingRecipe casting : TConstructRegistry.getTableCasting().getCastingRecipes()) {
+                if (casting.cast != null) {
+                    FluidStack input = casting.castingMetal;
+                    ItemStack output = casting.output;
+
+                    if (casting.cast.getItemDamage() == 0) {
+                        RecipeHelper.addIngotCasting(input, output);
+                    } else if (casting.cast.getItemDamage() == 27) {
+                        RecipeHelper.addNuggetCasting(input, output);
+                    }
+                }
+            }
+
+            /**Experimental block casting **/
+            for (CastingRecipe casting : TConstructRegistry.getBasinCasting().getCastingRecipes()) {
+                if (casting.cast != null) {
+                    FluidStack input = casting.castingMetal;
+                    ItemStack output = casting.output;
+                    RecipeHelper.addBlockCasting(input, output);
+                }
+            }
+        }
     }
 
     public static void addMelting() {
@@ -122,7 +158,7 @@ public class PluginTConstruct extends Plugin {
         int j = 3;
         for (int i = 4; i <= 6; i++) {
             int amount = xp.amount * i;
-            
+
             chances.add(j);
             fluids.add(new FluidStack(Fluids.getFluid("xp"), amount));
             j++;

@@ -1,6 +1,7 @@
 package mariculture.api.core;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import net.minecraft.item.ItemStack;
 
@@ -26,8 +27,12 @@ public interface ICrucibleHandler {
 
     /** Get the melting point of an item */
     public int getMeltingPoint(ItemStack stack, boolean ethereal);
+    
+    /** Returns a set of all the recipes **/
+    public Set<RecipeSmelter> getRecipeList();
 
     /** returns all the recipes **/
+    @Deprecated
     public ArrayList<RecipeSmelter> getRecipes();
 
     @Deprecated

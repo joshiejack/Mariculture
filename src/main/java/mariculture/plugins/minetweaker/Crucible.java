@@ -29,7 +29,7 @@ public class Crucible {
 
     private static class AddRecipe extends CollectionAddAction {
         public AddRecipe(RecipeSmelter recipe) {
-            super("Mariculture Crucible", MaricultureHandlers.crucible.getRecipes(), recipe);
+            super("Mariculture Crucible", MaricultureHandlers.crucible.getRecipeList(), recipe);
         }
 
         @Override
@@ -45,7 +45,7 @@ public class Crucible {
 
     private static class RemoveRecipe extends CollectionRemoveAction {
         public RemoveRecipe(ItemStack stack) {
-            super("Mariculture Crucible", MaricultureHandlers.crucible.getRecipes(), stack);
+            super("Mariculture Crucible", MaricultureHandlers.crucible.getRecipeList(), stack);
         }
 
         @Override

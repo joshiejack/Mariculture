@@ -2,8 +2,10 @@ package mariculture.core.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.ICrucibleHandler;
@@ -20,7 +22,7 @@ public class CrucibleHandler implements ICrucibleHandler {
     private static final Random rand = new Random();
     public static Map fuels = new HashMap();
     public static Map tickHandlers = new HashMap();
-    public static ArrayList<RecipeSmelter> recipes = new ArrayList();
+    public static Set<RecipeSmelter> recipes = new HashSet();
 
     @Override
     public void addRecipe(RecipeSmelter recipe) {
@@ -146,6 +148,11 @@ public class CrucibleHandler implements ICrucibleHandler {
 
     @Override
     public ArrayList<RecipeSmelter> getRecipes() {
+        return new ArrayList(recipes);
+    }
+    
+    @Override
+    public Set<RecipeSmelter> getRecipeList() {
         return recipes;
     }
 }
