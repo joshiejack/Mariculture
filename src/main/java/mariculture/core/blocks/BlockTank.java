@@ -307,7 +307,7 @@ public class BlockTank extends BlockConnected {
 
             ItemHelper.spawnItem(world, x, y, z, drop);
             return world.setBlockToAir(x, y, z);
-        } else if (tile instanceof TileFishTank) {
+        } else if (tile instanceof TileFishTank && !player.capabilities.isCreativeMode) {
             ItemStack drop = new ItemStack(Core.tanks, 1, world.getBlockMetadata(x, y, z));
             if (!drop.hasTagCompound()) {
                 drop.setTagCompound(new NBTTagCompound());
