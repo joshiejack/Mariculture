@@ -35,10 +35,26 @@ public class ItemFishy extends ItemMCBaseSingle implements ISpecialSorting {
     @Override
     public boolean isSame(ItemStack fish1, ItemStack fish2, boolean isPerfectMatch) {
         if (fish2.getItem() instanceof ItemFishy) {
-            if (Fishing.fishHelper.isEgg(fish1)) return Fishing.fishHelper.isEgg(fish2);
-            if (Fish.species.getDNA(fish1).equals(Fish.species.getDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getLowerDNA(fish2));
-            if (Fish.species.getDNA(fish1).equals(Fish.species.getLowerDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getDNA(fish2));
+            if (!isPerfectMatch) {
+                if (Fishing.fishHelper.isEgg(fish1)) return Fishing.fishHelper.isEgg(fish2);
+                if (Fish.species.getDNA(fish1).equals(Fish.species.getDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getLowerDNA(fish2));
+                if (Fish.species.getDNA(fish1).equals(Fish.species.getLowerDNA(fish2))) return Fish.species.getLowerDNA(fish1).equals(Fish.species.getDNA(fish2));
+                return false;
+            }
+
+            //Check all the fish dna matches
+            for (FishDNABase dna : FishDNABase.DNAParts) {
+                int dna1Upper = dna.getDNA(fish1);
+                int dna2Upper = dna.getDNA(fish2);
+                int dna1Lower = dna.getLowerDNA(fish1);
+                int dna2Lower = dna.getLowerDNA(fish2);
+                if (dna1Upper != dna2Upper) return false;
+                if (dna1Lower != dna2Lower) return false;
+            }
+
+            return true;
         }
+
         return false;
     }
 

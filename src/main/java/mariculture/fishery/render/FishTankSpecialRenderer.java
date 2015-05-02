@@ -31,16 +31,22 @@ public class FishTankSpecialRenderer extends TileEntitySpecialRenderer {
 
         ItemStack stack = tank.getStackInSlot(0);
         if (stack != null) {
+            stack = stack.copy();
+            stack.stackSize = 1;
             renderItem(world, stack, 1F, 0.55F, 0.5F, tank.orientation);
         }
 
         stack = tank.getStackInSlot(1);
         if (stack != null) {
+            stack = stack.copy();
+            stack.stackSize = 1;
             renderItem(world, stack, 1.9F, 0.675F, 1.3F, tank.orientation);
         }
 
         stack = tank.getStackInSlot(2);
         if (stack != null) {
+            stack = stack.copy();
+            stack.stackSize = 1;
             renderItem(world, stack, 0.9F, 0.9F, 1.75F, tank.orientation);
         }
 

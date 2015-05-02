@@ -8,12 +8,14 @@ import mariculture.api.core.IBlacklisted;
 import mariculture.core.gui.feature.FeatureEject.EjectSetting;
 import mariculture.core.helpers.cofh.InventoryHelper;
 import mariculture.core.tile.base.TileMultiBlock;
+import mariculture.core.tile.base.TileMultiBlock.MultiPart;
 import mariculture.core.tile.base.TileMultiStorage;
 import mariculture.core.tile.base.TileMultiStorageTank;
-import mariculture.core.tile.base.TileMultiBlock.MultiPart;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IMachine;
 import mariculture.core.util.ITank;
+import mariculture.fishery.gui.ContainerFishTank;
+import mariculture.fishery.tile.TileFishTank;
 import mariculture.lib.helpers.ItemHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -83,11 +85,11 @@ public class BlockTransferHelper {
                 if (isSameBlock(tile)) {
                     continue;
                 }
-                
+
                 if (handler instanceof IEjectable) {
-                	if (!((IEjectable)handler).canEject(dir)) continue;
+                    if (!((IEjectable) handler).canEject(dir)) continue;
                 }
-                
+
                 if (tile instanceof IFluidHandler) {
                     IFluidHandler tank = (IFluidHandler) tile;
                     if (tank instanceof IBlacklisted) if (((IBlacklisted) tank).isBlacklisted(world, x, y, z)) {
@@ -171,12 +173,26 @@ public class BlockTransferHelper {
         Collections.shuffle(sides);
         for (Integer side : sides) {
             ForgeDirection dir = ForgeDirection.getOrientation(side);
-            
+
             if (thisTile instanceof IEjectable) {
-            	if (!((IEjectable)thisTile).canEject(dir)) continue;
+                if (!((IEjectable) thisTile).canEject(dir)) continue;
             }
+
+            TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);    
+            //Attempt to place the fish in matching slots in a fish tank block
+            if (tile instanceof TileFishTank) {
+                TileFishTank tank = (TileFishTank) tile;
+                for (int i = 0; i < 54; i++) {
+                    if (tank.getStackInSlot(i) == null) continue;
+                    if (ContainerFishTank.isFishEqual(tank.getStackInSlot(i), stack)) {
+                        ItemStack newStack = tank.getStackInSlot(i).copy();
+                        newStack.stackSize += stack.stackSize;
+                        tank.setInventorySlotContents(i, newStack);
+                        return null;
+                    }
+                }
+            } 
             
-            TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
             if (tile instanceof IInventory && !(tile instanceof TileEntityHopper) && !isSameBlock(tile)) {
                 stack = InventoryHelper.insertItemStackIntoInventory((IInventory) tile, stack, dir.getOpposite().ordinal());
             }

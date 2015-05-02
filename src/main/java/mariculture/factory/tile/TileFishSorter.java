@@ -12,6 +12,8 @@ import mariculture.core.tile.base.TileStorage;
 import mariculture.core.util.IEjectable;
 import mariculture.core.util.IItemDropBlacklist;
 import mariculture.core.util.IMachine;
+import mariculture.fishery.gui.ContainerFishTank;
+import mariculture.fishery.tile.TileFishTank;
 import mariculture.lib.helpers.ItemHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -22,7 +24,6 @@ import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileFishSorter extends TileStorage implements IItemDropBlacklist, IMachine, ISidedInventory, IEjectable {
-    private boolean isPerfectMatch = false;
     private int dft_side;
     private HashMap<Integer, Integer> sorting = new HashMap();
     private EjectSetting setting;
@@ -77,6 +78,8 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
     }
 
     private ItemStack ejectToSides(ItemStack stack) {
+        if (stack == null) return null;
+        
         int side = 0;
         int stored = getSlotForStack(stack);
         if (stored == -1) {
@@ -89,6 +92,21 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
 
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+        
+        //Attempt to place the fish in matching slots in a fish tank block
+        if (tile instanceof TileFishTank) {
+            TileFishTank tank = (TileFishTank) tile;
+            for (int i = 0; i < 54; i++) {
+                if (tank.getStackInSlot(i) == null) continue;
+                if (ContainerFishTank.isFishEqual(tank.getStackInSlot(i), stack)) {
+                    ItemStack newStack = tank.getStackInSlot(i).copy();
+                    newStack.stackSize += stack.stackSize;
+                    tank.setInventorySlotContents(i, newStack);
+                    return null;
+                }
+            }
+        } 
+        
         if (tile instanceof IInventory && !(tile instanceof TileEntityHopper)) {
             stack = InventoryHelper.insertItemStackIntoInventory((IInventory) tile, stack, dir.getOpposite().ordinal());
         }
@@ -107,7 +125,7 @@ public class TileFishSorter extends TileStorage implements IItemDropBlacklist, I
                 ItemStack item = getStackInSlot(i);
                 if (item != null) {
                     if (item.getItem() instanceof ISpecialSorting) {
-                        if (((ISpecialSorting) item.getItem()).isSame(item, stack, isPerfectMatch)) return i;
+                        if (((ISpecialSorting) item.getItem()).isSame(item, stack, false)) return i;
                     } else if (OreDicHelper.convert(stack).equals(OreDicHelper.convert(item))) return i;
                 }
             }

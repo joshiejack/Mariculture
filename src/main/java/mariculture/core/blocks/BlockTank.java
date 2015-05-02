@@ -8,10 +8,12 @@ import mariculture.core.Core;
 import mariculture.core.blocks.base.BlockConnected;
 import mariculture.core.handlers.FluidDicHandler;
 import mariculture.core.helpers.FluidHelper;
+import mariculture.core.helpers.NBTHelper;
 import mariculture.core.lib.BottleMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.lib.TankMeta;
+import mariculture.core.network.PacketFishTankSync;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.tile.TileTankAluminum;
 import mariculture.core.tile.TileTankBlock;
@@ -32,6 +34,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -241,6 +244,7 @@ public class BlockTank extends BlockConnected {
             case TankMeta.TANK_GAS:
             case TankMeta.TANK_TITANIUM:
             case TankMeta.TANK:
+            case TankMeta.FISH:
                 return null;
             case TankMeta.BOTTLE:
                 return Core.bottles;
@@ -264,15 +268,24 @@ public class BlockTank extends BlockConnected {
         int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile == null) return;
-        if (tile instanceof TileFishTank) {
-            ((TileFishTank) tile).orientation = ForgeDirection.getOrientation(facing);
-        }
-
         if (stack.hasTagCompound()) {
             if (tile instanceof TileTankBlock) {
                 TileTankBlock tank = (TileTankBlock) tile;
                 tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
                 PacketHandler.syncFluids(tank, tank.getFluid());
+            } else if (tile instanceof TileFishTank) {
+                TileFishTank tank = (TileFishTank) tile;
+                tank.orientation = ForgeDirection.getOrientation(facing);
+                NBTTagList tagList = stack.getTagCompound().getTagList("Inventory", 10);
+                for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound tag = tagList.getCompoundTagAt(i);
+                    byte slot = tag.getByte("Slot");
+                    if (slot >= 0 && slot < tank.getInventory().length) {
+                        tank.getInventory()[slot] = NBTHelper.getItemStackFromNBT(tag);
+                    }
+                }
+                
+                PacketHandler.sendAround(new PacketFishTankSync(tank.getStackInSlot(0), tank.getStackInSlot(1), tank.getStackInSlot(2), tank.xCoord, tank.yCoord, tank.zCoord, tank.orientation), tile);
             }
         }
     }
@@ -292,6 +305,27 @@ public class BlockTank extends BlockConnected {
                 tank.getFluid().writeToNBT(drop.stackTagCompound);
             }
 
+            ItemHelper.spawnItem(world, x, y, z, drop);
+            return world.setBlockToAir(x, y, z);
+        } else if (tile instanceof TileFishTank) {
+            ItemStack drop = new ItemStack(Core.tanks, 1, world.getBlockMetadata(x, y, z));
+            if (!drop.hasTagCompound()) {
+                drop.setTagCompound(new NBTTagCompound());
+            }
+
+            TileFishTank tank = (TileFishTank) tile;
+            NBTTagList itemList = new NBTTagList();
+            for (int i = 0; i < tank.getInventory().length; i++) {
+                ItemStack stack = tank.getInventory()[i];
+                if (stack != null) {
+                    NBTTagCompound tag = new NBTTagCompound();
+                    tag.setByte("Slot", (byte) i);
+                    NBTHelper.writeItemStackToNBT(tag, stack);
+                    itemList.appendTag(tag);
+                }
+            }
+
+            drop.getTagCompound().setTag("Inventory", itemList);
             ItemHelper.spawnItem(world, x, y, z, drop);
             return world.setBlockToAir(x, y, z);
         } else return world.setBlockToAir(x, y, z);
@@ -326,6 +360,24 @@ public class BlockTank extends BlockConnected {
             }
         } else if (meta == TankMeta.BOTTLE) {
             drop = new ItemStack(Core.bottles, 1, BottleMeta.VOID);
+        } else if (meta == TankMeta.FISH) {
+            if (!drop.hasTagCompound()) {
+                drop.setTagCompound(new NBTTagCompound());
+            }
+
+            TileFishTank tank = (TileFishTank) world.getTileEntity(x, y, z);
+            NBTTagList itemList = new NBTTagList();
+            for (int i = 0; i < tank.getInventory().length; i++) {
+                ItemStack stack = tank.getInventory()[i];
+                if (stack != null) {
+                    NBTTagCompound tag = new NBTTagCompound();
+                    tag.setByte("Slot", (byte) i);
+                    NBTHelper.writeItemStackToNBT(tag, stack);
+                    itemList.appendTag(tag);
+                }
+            }
+
+            drop.getTagCompound().setTag("Inventory", itemList);
         }
 
         return drop;

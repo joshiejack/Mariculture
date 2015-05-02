@@ -7,6 +7,7 @@ import mariculture.core.config.Machines.MachineSettings;
 import mariculture.core.util.IFaceable;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -44,6 +45,7 @@ public class PacketHandler {
         registerPacket(PacketParticle.class, Side.CLIENT);
         registerPacket(PacketSyncFeeder.class, Side.CLIENT);
         registerPacket(PacketGUIUpdate.class, Side.CLIENT);
+        registerPacket(PacketFishTankSync.class, Side.CLIENT);
     }
 
     public static void sendToClient(IMessage packet, EntityPlayerMP player) {
@@ -97,5 +99,9 @@ public class PacketHandler {
 
     public static void sendGUIUpdate(EntityPlayerMP player, int id, ArrayList<Integer> list) {
         INSTANCE.sendTo(new PacketGUIUpdate(id, list), player);
+    }
+    
+    public static Packet getPacket(IMessage packet) {
+        return INSTANCE.getPacketFrom(packet);
     }
 }
