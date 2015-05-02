@@ -47,8 +47,9 @@ public class ItemFishy extends ItemMCBaseSingle implements ISpecialSorting {
                 int dna1Upper = dna.getDNA(fish1);
                 int dna2Upper = dna.getDNA(fish2);
                 int dna1Lower = dna.getLowerDNA(fish1);
-                int dna2Lower = dna.getLowerDNA(fish2);
+                int dna2Lower = dna.getLowerDNA(fish2);               
                 if (dna1Upper != dna2Upper) return false;
+                if (dna == Fish.gender) continue;
                 if (dna1Lower != dna2Lower) return false;
             }
 
