@@ -48,7 +48,7 @@ tile.machines.multi.incubator.name=Инкубатор
 maritech.crafting.dragonegg=Призвать дракона Края
 maritech.dna.format=%N %D
 maritech.dna=ДНК
-maritech.dna.corrupt=Повреждённое ДНК
+maritech.dna.corrupt=Любая ДНК
 maritech.dna.name=Название ДНК
 maritech.dna.value=Значение ДНК
 
