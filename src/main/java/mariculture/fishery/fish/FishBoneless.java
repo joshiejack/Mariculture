@@ -31,7 +31,7 @@ public class FishBoneless extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 13;
+        return 50;
     }
 
     @Override

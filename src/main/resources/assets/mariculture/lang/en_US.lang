@@ -224,7 +224,36 @@ mariculture.fluids.bottlelava=Bottle of Lava
 mariculture.fluids.bottleempty=Empty Bottle
 mariculture.fluids.bottlenormalnaturalgas=Glass Bottle of Natural Gas
 mariculture.fluids.bottlehpwater=Bottle of Pressurised Water
+mariculture.fluids.bottlecobalt=Bottle of Molten Cobalt
+mariculture.fluids.bottleardite=Bottle of Molten Ardite
+mariculture.fluids.bottleosmium=Bottle of Molten Osmium
+mariculture.fluids.bottleplatinum=Bottle of Molten Platinum
+mariculture.fluids.bottlezinc=Bottle of Molten Zinc
 mariculture.bucket.hpwater=Bucket of Pressurised Water
+mariculture.bucket.bucketiron=Bucket of Molten Iron
+mariculture.bucket.bucketgold=Bucket of Molten Gold
+mariculture.bucket.bucketcopper=Bucket of Molten Copper
+mariculture.bucket.buckettin=Bucket of Molten Tin
+mariculture.bucket.bucketsilver=Bucket of Molten Silver
+mariculture.bucket.bucketlead=Bucket of Molten Lead
+mariculture.bucket.bucketbronze=Bucket of Molten Bronze
+mariculture.bucket.bucketsteel=Bucket of Molten Steel
+mariculture.bucket.bucketaluminum=Bucket of Molten Aluminium
+mariculture.bucket.buckettitanium=Bucket of Molten Titanium
+mariculture.bucket.bucketmagnesium=Bucket of Molten Magnesium
+mariculture.bucket.bucketnickel=Bucket of Molten Nickel
+mariculture.bucket.bucketglass=Bucket of Molten Glass
+mariculture.bucket.bucketfishfood=Bucket of Fish Food
+mariculture.bucket.bucketrutile=Bucket of Impure Titanium
+mariculture.bucket.quicklime=Bucket of Quicklime
+mariculture.bucket.bucketsalt=Bucket of Molten Salt
+mariculture.bucket.bucketelectrum=Bucket of Molten Electrum
+mariculture.bucket.bucketcobalt=Bucket of Molten Cobalt
+mariculture.bucket.bucketardite=Bucket of Molten Ardite
+mariculture.bucket.bucketosmium=Bucket of Molten Osmium
+mariculture.bucket.bucketplatinium=Bucket of Molten Platinum
+mariculture.bucket.bucketzinc=Bucket of Molten Zinc
+
 
 ### Diving ###
 #blocks
@@ -365,6 +394,15 @@ mariculture.droplet.aluminum=Aluminium Droplet
 mariculture.droplet.rutile=Rutile Droplet
 mariculture.droplet.magnesium=Magnesium Droplet
 mariculture.droplet.titanium=Titanium Droplet
+mariculture.droplet.ardite=Ardite Droplet
+mariculture.droplet.cobalt=Cobalt Droplet
+mariculture.droplet.tin=Tin Droplet
+mariculture.droplet.zinc=Zinc Droplet
+mariculture.droplet.osmium=Osmium Droplet
+mariculture.droplet.nickel=Nickel Droplet
+mariculture.droplet.platinium=Platinum Droplet
+mariculture.droplet.lead=Lead Droplet
+mariculture.droplet.silver=Silver Droplet
 mariculture.bait.worm=Bait Worm
 mariculture.bait.ant=Ant Bait
 mariculture.bait.maggot=Maggot Bait
@@ -619,6 +657,7 @@ item.mirror.magic.name=Magic Mirror
 item.mirror.celestial.name=Celestial Mirror
 mariculture.mobMagnet=Mob Magnet
 mariculture.placer=Hydrophobic Initiator
+mariculture.infiwater=Infinity Water
 mariculture.placer.description1=Keeping me within your inventory
 mariculture.placer.description2=allows you to place blocks on water.
 #jewelry-parts
@@ -649,7 +688,7 @@ mariculture.coral.lightgrey=Semi-Bleached Coral
 mariculture.coral.grey=Partially Bleached Coral
 #items
 mariculture.crafting.kelpseeds=Kelp Seeds
-mariculture.crafting.rockhoppergg=Spawn Rockhopper Penguin
+mariculture.crafting.rockhopperegg=Spawn Rockhopper Penguin
 
 ### Other Strings ###
 mariculture.aquabackpack=Aquatic Backpack

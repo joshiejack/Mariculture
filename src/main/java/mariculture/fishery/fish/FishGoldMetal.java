@@ -15,7 +15,7 @@ public class FishGoldMetal extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 5;
+        return 20;
     }
 
     @Override

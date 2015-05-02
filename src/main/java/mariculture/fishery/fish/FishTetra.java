@@ -20,7 +20,7 @@ public class FishTetra extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 4;
+        return 5;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class FishAluminum extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 12;
+        return 8;
     }
 
     @Override

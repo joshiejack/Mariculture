@@ -22,7 +22,7 @@ public class FishBlaasop extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 15;
+        return 3;
     }
 
     @Override

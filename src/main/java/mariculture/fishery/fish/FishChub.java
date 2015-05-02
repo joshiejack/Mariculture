@@ -17,7 +17,7 @@ public class FishChub extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 15;
+        return 20;
     }
 
     @Override

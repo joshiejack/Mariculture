@@ -17,7 +17,7 @@ public class FishStickleback extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 7;
+        return 5;
     }
 
     @Override

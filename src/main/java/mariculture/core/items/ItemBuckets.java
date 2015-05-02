@@ -174,6 +174,52 @@ public class ItemBuckets extends ItemMCMeta {
                 return "poison";
             case BucketMeta.WIND:
                 return "wind";
+            case BucketMeta.IRON:
+                return "bucketIron";
+            case BucketMeta.GOLD:
+                return "bucketGold";
+            case BucketMeta.COPPER:
+                return "bucketCopper";
+            case BucketMeta.TIN:
+                return "bucketTin";
+            case BucketMeta.SILVER:
+                return "bucketSilver";
+            case BucketMeta.LEAD:
+                return "bucketLead";
+            case BucketMeta.BRONZE:
+                return "bucketBronze";
+            case BucketMeta.STEEL:
+                return "bucketSteel";
+            case BucketMeta.ALUMINUM:
+                return "bucketAluminum";
+            case BucketMeta.TITANIUM:
+                return "bucketTitanium";
+            case BucketMeta.MAGNESIUM:
+                return "bucketMagnesium";
+            case BucketMeta.NICKEL:
+                return "bucketNickel";
+            case BucketMeta.GLASS:
+                return "bucketGlass";
+            case BucketMeta.FISH_FOOD:
+                return "bucketFishFood";
+            case BucketMeta.RUTILE:
+                return "bucketRutile";
+            case BucketMeta.QUICKLIME:
+                return "bucketQuicklime";
+            case BucketMeta.SALT:
+                return "bucketSalt";
+            case BucketMeta.ELECTRUM:
+                return "bucketElectrum";
+            case BucketMeta.COBALT:
+                return "bucketCobalt";
+            case BucketMeta.ARDITE:
+                return "bucketArdite";
+            case BucketMeta.OSMIUM:
+                return "bucketOsmium";
+            case BucketMeta.PLATINUM:
+                return "bucketPlatinum";
+            case BucketMeta.ZINC:
+                return "bucketZinc";
             default:
                 return "container";
         }

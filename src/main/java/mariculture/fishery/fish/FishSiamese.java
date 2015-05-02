@@ -22,7 +22,7 @@ public class FishSiamese extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 4;
+        return 14;
     }
 
     @Override

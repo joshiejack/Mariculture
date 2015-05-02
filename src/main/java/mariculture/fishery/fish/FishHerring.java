@@ -19,7 +19,7 @@ public class FishHerring extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 6;
+        return 11;
     }
 
     @Override

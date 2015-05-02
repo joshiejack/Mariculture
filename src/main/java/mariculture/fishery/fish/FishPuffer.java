@@ -24,7 +24,7 @@ public class FishPuffer extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 16;
+        return 21;
     }
 
     @Override

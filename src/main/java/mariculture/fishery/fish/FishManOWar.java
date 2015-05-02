@@ -21,7 +21,7 @@ public class FishManOWar extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 12;
+        return 25;
     }
 
     @Override

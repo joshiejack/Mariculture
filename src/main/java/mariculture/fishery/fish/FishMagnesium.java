@@ -15,7 +15,7 @@ public class FishMagnesium extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 10;
+        return 3;
     }
 
     @Override

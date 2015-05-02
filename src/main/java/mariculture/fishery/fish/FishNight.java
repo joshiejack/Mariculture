@@ -17,12 +17,12 @@ import net.minecraft.world.World;
 public class FishNight extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 28;
+        return 3;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 38;
+        return 9;
     }
 
     @Override

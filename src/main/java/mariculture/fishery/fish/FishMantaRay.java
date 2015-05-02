@@ -24,7 +24,7 @@ public class FishMantaRay extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 15;
+        return 21;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class FishBlaze extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 35;
+        return 45;
     }
 
     @Override

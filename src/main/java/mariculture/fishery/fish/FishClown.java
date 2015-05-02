@@ -22,7 +22,7 @@ public class FishClown extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 2;
+        return 18;
     }
 
     @Override

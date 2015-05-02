@@ -20,7 +20,7 @@ public class FishAngler extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 12;
+        return 3;
     }
 
     @Override

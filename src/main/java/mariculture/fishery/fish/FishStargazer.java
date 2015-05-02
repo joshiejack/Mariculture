@@ -22,7 +22,7 @@ public class FishStargazer extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 14;
+        return 2;
     }
 
     @Override

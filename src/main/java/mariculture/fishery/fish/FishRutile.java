@@ -22,7 +22,7 @@ public class FishRutile extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 20;
+        return 10;
     }
 
     @Override

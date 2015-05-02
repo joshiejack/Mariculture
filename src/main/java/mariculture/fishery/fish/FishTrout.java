@@ -33,7 +33,7 @@ public class FishTrout extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 18;
+        return 5;
     }
 
     @Override

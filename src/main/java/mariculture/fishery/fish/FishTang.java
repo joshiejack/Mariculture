@@ -24,7 +24,7 @@ public class FishTang extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 11;
+        return 10;
     }
 
     @Override

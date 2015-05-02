@@ -22,7 +22,7 @@ public class FishMinecraft extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 23;
+        return 22;
     }
 
     @Override

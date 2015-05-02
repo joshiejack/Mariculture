@@ -11,12 +11,12 @@ import mariculture.api.fishery.fish.FishSpecies;
 public class FishIron extends FishSpecies {
     @Override
     public int getTemperatureBase() {
-        return 25;
+        return 18;
     }
 
     @Override
     public int getTemperatureTolerance() {
-        return 15;
+        return 5;
     }
 
     @Override

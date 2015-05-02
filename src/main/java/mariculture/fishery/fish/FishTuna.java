@@ -25,7 +25,7 @@ public class FishTuna extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 20;
+        return 4;
     }
 
     @Override

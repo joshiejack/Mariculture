@@ -17,7 +17,7 @@ public class FishPickerel extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 9;
+        return 11;
     }
 
     @Override

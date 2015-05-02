@@ -21,7 +21,7 @@ public class FishJelly extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 13;
+        return 3;
     }
 
     @Override

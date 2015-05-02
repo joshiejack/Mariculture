@@ -29,7 +29,7 @@ public class FishGlow extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 33;
+        return 37;
     }
 
     @Override

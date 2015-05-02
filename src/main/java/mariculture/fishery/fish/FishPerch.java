@@ -23,7 +23,7 @@ public class FishPerch extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 8;
+        return 7;
     }
 
     @Override

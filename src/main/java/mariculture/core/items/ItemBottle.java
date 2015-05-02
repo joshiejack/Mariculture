@@ -226,6 +226,16 @@ public class ItemBottle extends ItemMCMeta {
                 return "bottleNormalMilk";
             case BottleMeta.HP_WATER:
                 return "bottleHPWater";
+            case BottleMeta.COBALT:
+                return "bottleCobalt";
+            case BottleMeta.ARDITE:
+                return "bottleArdite";
+            case BottleMeta.OSMIUM:
+                return "bottleOsmium";
+            case BottleMeta.ZINC:
+                return "bottleZinc";
+            case BottleMeta.PLATINUM:
+                return "bottlePlatinum";
             default:
                 return "container";
         }

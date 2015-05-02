@@ -26,7 +26,7 @@ public class FishElectricRay extends FishSpecies {
 
     @Override
     public int getTemperatureTolerance() {
-        return 10;
+        return 19;
     }
 
     @Override
