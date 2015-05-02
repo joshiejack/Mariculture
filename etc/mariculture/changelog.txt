@@ -1,5 +1,5 @@
 Mariculture 1.3.0
-• WARNING, IF YOU ARE USING FISH TANKS (THE STORAGE), REMOVE ALL CONTENTS BEFORE UPDATING, THEY CHANGED IMMENSELY
+• WARNING, IF YOU ARE USING FISH TANKS (THE STORAGE), REMOVE ALL CONTENTS BEFORE UPDATING
 • Crucible Furnace Changes
     • Heating upgrades now speed up the furnace, hyperkinetic speed up auto-eject rate
     • All solid fuels will now last 4x as long except netherfish which has had a x16 buff
@@ -58,7 +58,7 @@ Mariculture 1.3.0
 • Tinkers Construct Support
     • Added Natural Gas as a Smeltery Fuel, Much more efficient than lava
     • Essence Berry melting will now work for other xp types other than xpjuice
-    • Added a config option (on by default) that will add all tinkers melting/casting recipes (where applicable) to the Crucible Furnace
+    • Added a config option (on by default) that will add all tinkers melting/casting recipes (where applicable) to the Crucible Furnace/Casters
 • Power Generation
     • Can create gas turbines again, check the book
     • Can create manual energy again, this time from the handcrank
@@ -96,6 +96,7 @@ Mariculture 1.3.0
     • Ladle now holds 2 ingots worth
     • Titanium bucket now holds 16000mB
     • Add buckets for all the molten metals
+    • Add Infinity Water Bucket, Never runs out of water
 • Vat Changes
     • Rebalance all numbers
     • Removed Quicklime + Water > Dust Recipe. Now produce molten magnesium directly for the cost of 3000mB quicklime and 1000mB Water.
