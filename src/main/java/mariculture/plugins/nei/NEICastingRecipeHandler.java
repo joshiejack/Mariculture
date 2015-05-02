@@ -56,12 +56,12 @@ public abstract class NEICastingRecipeHandler extends NEIBase {
 
     @Override
     public void loadUsageRecipes(String inputId, Object... ingredients) {
-        boolean isSecondSearch = isSecondSearch(inputId, ingredients);
-        if ((inputId.equals(getOverlayIdentifier()) || isSecondSearch) && getClass() == thisClass()) {
+        boolean isFluidSearch = isFluidSearch(inputId, ingredients);
+        if ((inputId.equals(getOverlayIdentifier()) || isFluidSearch) && getClass() == thisClass()) {
             HashMap<String, RecipeCasting> recipes = getRecipes();
             for (Entry<String, RecipeCasting> recipe : recipes.entrySet()) {
                 if (recipe == null || recipe.getValue() == null) continue; //Somehow null recipes added?
-                if (!isSecondSearch || isSecondSearch && recipe.getValue().fluid.getFluid().getName().equals(ingredients[1])) {
+                if (!isFluidSearch || isFluidSearch && areFluidsEqual(recipe.getValue().fluid, (FluidStack) ingredients[0])) {
                     arecipes.add(new CachedCasterRecipe(recipe.getValue().fluid, recipe.getValue().output));
                 }
             }

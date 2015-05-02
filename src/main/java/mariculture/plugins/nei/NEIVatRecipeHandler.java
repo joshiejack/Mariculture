@@ -59,21 +59,12 @@ public class NEIVatRecipeHandler extends NEIBase {
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
-        boolean isSecondSearch = isSecondSearch(outputId, results);
-        if ((outputId.equals("vat") || isSecondSearch) && getClass() == NEIVatRecipeHandler.class) {
+        boolean isFluidSearch = isFluidSearch(outputId, results);
+        if ((outputId.equals("vat") || isFluidSearch) && getClass() == NEIVatRecipeHandler.class) {
             for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
                 if (vat == null) continue; //Somehow null recipes added?
                 FluidStack fluid = vat.outputFluid;
-                if (!isSecondSearch || isSecondSearch && fluid != null && fluid.getFluid() != null && fluid.getFluid().getName().equals(results[1])) {
-                    arecipes.add(new CachedVatRecipe(vat));
-                }
-            }
-        } else if (outputId.equals("liquid") && getClass() == NEIVatRecipeHandler.class) {
-            FluidStack passedFluid = (FluidStack) results[0];
-            for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
-                if (vat == null) continue; //Somehow null recipes added?
-                FluidStack fluid = vat.outputFluid;
-                if (fluid != null && fluid.getFluid() != null && fluid.getFluid().getName().equals(passedFluid.getFluid().getName())) {
+                if (!isFluidSearch || isFluidSearch && areFluidsEqual(fluid, (FluidStack)results[0])) {
                     arecipes.add(new CachedVatRecipe(vat));
                 }
             }
@@ -81,19 +72,18 @@ public class NEIVatRecipeHandler extends NEIBase {
             super.loadCraftingRecipes(outputId, results);
         }
     }
-
-    public boolean isEqual(FluidStack fluid1, FluidStack fluid2, String fluid) {
-        if (fluid1 != null && fluid1.getFluid() != null && fluid1.getFluid().getName().equals(fluid)) return true;
-        return fluid2 != null && fluid2.getFluid() != null && fluid2.getFluid().getName().equals(fluid);
+    
+    public boolean isEqual(FluidStack fluid1, FluidStack fluid2, FluidStack fluid3) {
+        return areFluidsEqual(fluid1, fluid3) || areFluidsEqual(fluid2, fluid3);
     }
 
     @Override
     public void loadUsageRecipes(String inputId, Object... ingredients) {
-        boolean isSecondSearch = isSecondSearch(inputId, ingredients);
-        if ((inputId.equals("vat") || isSecondSearch) && getClass() == NEIVatRecipeHandler.class) {
+        boolean isFluidSearch = isFluidSearch(inputId, ingredients);
+        if ((inputId.equals("vat") || isFluidSearch) && getClass() == NEIVatRecipeHandler.class) {
             for (RecipeVat vat : MaricultureHandlers.vat.getRecipes()) {
                 if (vat == null) continue; //Somehow null recipes added?
-                if (!isSecondSearch || isSecondSearch && isEqual(vat.inputFluid1, vat.inputFluid2, (String) ingredients[1])) {
+                if (!isFluidSearch || isFluidSearch && isEqual(vat.inputFluid1, vat.inputFluid2, (FluidStack) ingredients[0])) {
                     arecipes.add(new CachedVatRecipe(vat));
                 }
             }

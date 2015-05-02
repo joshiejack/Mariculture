@@ -117,11 +117,11 @@ public class NEICrucibleRecipeHandler extends NEIBase {
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
-        boolean isSecondSearch = isSecondSearch(outputId, results);
-        if ((outputId.equals("liquifier") || isSecondSearch) && getClass() == NEICrucibleRecipeHandler.class) {
+        boolean isFluidSearch = isFluidSearch(outputId, results);
+        if ((outputId.equals("liquifier") || isFluidSearch) && getClass() == NEICrucibleRecipeHandler.class) {
             for (RecipeSmelter recipe : MaricultureHandlers.crucible.getRecipes()) {
                 if (recipe == null) continue; //Somehow null recipes added?
-                if (!isSecondSearch || isSecondSearch && recipe.fluid.getFluid().getName().equals(results[1])) {
+                if (!isFluidSearch || isFluidSearch && areFluidsEqual(recipe.fluid, (FluidStack) results[0])) {
                     arecipes.add(new CachedLiquifierRecipe(recipe));
                 }
             }

@@ -2,16 +2,13 @@ package mariculture.plugins.nei;
 
 import java.awt.Point;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 import mariculture.core.gui.feature.Feature;
 import mariculture.core.gui.feature.FeatureTank.TankSize;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -141,46 +138,13 @@ public abstract class NEIBase extends TemplateRecipeHandler {
         tessellator.draw();
     }
 
-    public boolean isSecondSearch(String outputId, Object... results) {
-        return outputId.equals("fluid") && results.length == 2 && results[0] instanceof String && results[0].equals("fluid");
+    public boolean isFluidSearch(String outputId, Object... results) {
+        return outputId.equals("liquid") && results[0] instanceof FluidStack;
     }
 
-    @Override
-    public void loadCraftingRecipes(String outputId, Object... results) {
-        if (outputId.equals("fluid") && results.length == 1 && results[0] instanceof FluidStack) {
-            FluidStack fluidStack = (FluidStack) results[0];
-            if (fluidStack == null || fluidStack.getFluid() == null) return;
-            String fluid = ((FluidStack) results[0]).getFluid().getName();
-            ArrayList<ItemStack> stacks = NEIConfig.containers.get(fluid);
-            if (stacks != null) {
-                for (ItemStack stack : stacks) {
-                    GuiCraftingRecipe.openRecipeGui("item", stack);
-                }
-            }
-
-            GuiCraftingRecipe.openRecipeGui("fluid", new Object[] { "fluid", fluid });
-        } else {
-            super.loadCraftingRecipes(outputId, results);
-        }
-    }
-
-    @Override
-    public void loadUsageRecipes(String inputId, Object... ingredients) {
-        if (inputId.equals("fluid") && ingredients.length == 1) {
-            Fluid fluidz = ((FluidStack) ingredients[0]).getFluid();
-            if (fluidz == null) return;
-            String fluid = fluidz.getName();
-            ArrayList<ItemStack> stacks = NEIConfig.containers.get(fluid);
-            if (stacks != null) {
-                for (ItemStack stack : stacks) {
-                    GuiUsageRecipe.openRecipeGui("item", stack);
-                }
-            }
-
-            GuiUsageRecipe.openRecipeGui("fluid", new Object[] { "fluid", fluid });
-        } else {
-            super.loadUsageRecipes(inputId, ingredients);
-        }
+    public boolean areFluidsEqual(FluidStack fluid1, FluidStack fluid2) {
+        if (fluid1 == null || fluid2 == null || fluid1.getFluid() == null || fluid2.getFluid() == null) return false;
+        return fluid1.getFluid() == fluid2.getFluid();
     }
 
     public Point getMouse(int width, int height) {

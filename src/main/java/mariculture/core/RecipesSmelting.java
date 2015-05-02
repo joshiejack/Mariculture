@@ -248,7 +248,7 @@ public class RecipesSmelting {
         FluidStack quicklime = getFluidStack("quicklime", 3000);
         FluidStack water = getFluidStack("water", 1000);
         FluidStack magnesium = getFluidStack("magnesium", MetalRates.INGOT);
-        RecipeHelper.addFluidAlloy(quicklime, water, magnesium, 1);
+        RecipeHelper.addFluidAlloy(quicklime, water, magnesium, 5);
 
         //Gold Back
         RecipeHelper.addMelting(new ItemStack(Blocks.light_weighted_pressure_plate), gold, gold(MetalRates.INGOT * 2));
