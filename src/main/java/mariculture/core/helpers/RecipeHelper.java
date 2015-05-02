@@ -97,11 +97,18 @@ public class RecipeHelper {
         String ingot = "ingot" + metal;
         String block = "block" + metal;
         if (OreDictionary.getOres(nugget).size() > 0) {
-            RecipeHelper.addNuggetCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.NUGGET), OreDictionary.getOres(nugget).get(0));
+            ItemStack nuggetItem = OreDictionary.getOres(nugget).get(0);
+            if (nuggetItem.getUnlocalizedName().contains("oreberry") && OreDictionary.getOres(nugget).size() > 1) {
+                nuggetItem = OreDictionary.getOres(nugget).get(1);
+            }
+            
+            RecipeHelper.addNuggetCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.NUGGET), nuggetItem);
         }
+        
         if (OreDictionary.getOres(ingot).size() > 0) {
             RecipeHelper.addIngotCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.INGOT), OreDictionary.getOres(ingot).get(0));
         }
+        
         if (OreDictionary.getOres(block).size() > 0) {
             RecipeHelper.addBlockCasting(Fluids.getFluidStack(metal.toLowerCase(), MetalRates.BLOCK), OreDictionary.getOres(block).get(0));
         }

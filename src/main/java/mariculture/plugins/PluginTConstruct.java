@@ -26,7 +26,9 @@ import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.tconstruct.TitaniumTools;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -103,6 +105,8 @@ public class PluginTConstruct extends Plugin {
                 if (casting.cast != null) {
                     FluidStack input = casting.castingMetal;
                     ItemStack output = casting.output;
+                    ItemStack bucket = FluidContainerRegistry.drainFluidContainer(output);
+                    if (bucket != null && bucket.getItem() == Items.bucket) continue;
 
                     if (casting.cast.getItemDamage() == 0) {
                         RecipeHelper.addIngotCasting(input, output);
