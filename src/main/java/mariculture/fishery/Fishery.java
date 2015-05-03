@@ -368,8 +368,8 @@ public class Fishery extends RegistrationModule {
         addVatItemRecipe(asStack(ice), getFluidName("ice"), 1000, asStack(packedIce), 10);
         addVatItemRecipe("blockLeaves", getFluidName("dirt"), 800, asStack(dirt, 2), 10);
         addVatItemRecipe("sand", getFluidName("water"), 800, asStack(clay), 10);
-        addVatItemRecipe("cobblestone", getFluidName("cholorophyll"), 4000, asStack(mossyCobble), 10);
-        addVatItemRecipe(asStack(stonebrick), getFluidName("cholorophyll"), 4000, asStack(stonebrick, 1), 10);
+        addVatItemRecipe("cobblestone", getFluidName("chlorophyll"), 4000, asStack(mossyCobble), 10);
+        addVatItemRecipe(asStack(stonebrick), getFluidName("chlorophyll"), 4000, asStack(stonebrick, 1), 10);
         addVatItemRecipe(asStack(stonebrick), getFluidName("lava"), 800, asStack(stonebrick, 2), 10);
         addFluidAlloy(getFluidStack("flux", 100), new FluidStack(FluidRegistry.WATER, 1000), getFluidStack("magnesium", 72), 10);
         addBlockCasting(getFluidStack("lava", 100), asStack(netherrack));
