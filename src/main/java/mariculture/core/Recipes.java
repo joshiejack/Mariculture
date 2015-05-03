@@ -64,6 +64,7 @@ public class Recipes {
         }
 
         addShaped(asStack(piston), new Object[] { "TTT", "#X#", "#R#", '#', "cobblestone", 'X', "ingotAluminum", 'R', "dustRedstone", 'T', "plankWood" });
+        addShaped(asStack(book), new Object[] { "PP", "PW", 'P', paper, 'W', wicker });
     }
 
     private static void addCraftingItems() {

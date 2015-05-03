@@ -135,6 +135,9 @@ public class RenderOyster extends RenderBase {
             if (stack.getItem() == Item.getItemFromBlock(Blocks.sand)) {
                 setTexture(Blocks.sand, stack.getItemDamage());
                 renderBlock(0.45, 0.05, 0.45, 0.55, 0.2, 0.55);
+            } else if (stack.getItem() == Item.getItemFromBlock(Blocks.soul_sand)) {
+                setTexture(Blocks.soul_sand);
+                renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);
             } else if (stack.getItem() == Items.ender_pearl) {
                 setTexture(Blocks.wool, 13);
                 renderBlock(0.4, 0.05, 0.4, 0.6, 0.25, 0.6);

@@ -15,6 +15,7 @@ import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.botania.FishMana;
 import mariculture.plugins.botania.ItemLivingRod;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -77,6 +78,27 @@ public class PluginBotania extends Plugin {
                 addLoot(new ItemStack(ModItems.cosmetic, 1, i), Rarity.JUNK, 10);
             }
         }
+        
+        //Flower Cycling with botania
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Blocks.red_flower, 1, 0), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 0), new ItemStack(Blocks.red_flower, 1, 1), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 1), new ItemStack(Blocks.red_flower, 1, 2), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 2), new ItemStack(Blocks.red_flower, 1, 3), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 3), new ItemStack(Blocks.red_flower, 1, 4), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 4), new ItemStack(Blocks.red_flower, 1, 5), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 5), new ItemStack(Blocks.red_flower, 1, 6), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 6), new ItemStack(Blocks.red_flower, 1, 7), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 7), new ItemStack(Blocks.red_flower, 1, 8), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 8), new ItemStack(Blocks.yellow_flower), 10);
+        
+        //Mushroom cycling with botania
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_mushroom), new ItemStack(Blocks.brown_mushroom), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.brown_mushroom), new ItemStack(Blocks.red_mushroom), 10);
+        
+        //Tall Plant cycling with botania
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.double_plant, 1, 0), new ItemStack(Blocks.double_plant, 1, 4), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.double_plant, 1, 4), new ItemStack(Blocks.double_plant, 1, 5), 10);
+        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.double_plant, 1, 5), new ItemStack(Blocks.double_plant, 1, 0), 10);
     }
 
     @Override

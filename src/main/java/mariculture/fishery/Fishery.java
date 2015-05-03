@@ -1,9 +1,10 @@
 package mariculture.fishery;
 
+import static mariculture.core.helpers.RecipeHelper.addAlchemy2x2Alternating;
+import static mariculture.core.helpers.RecipeHelper.addAlchemy2x2TopBottom;
 import static mariculture.core.helpers.RecipeHelper.addBlockCasting;
 import static mariculture.core.helpers.RecipeHelper.addFishingRodRecipe;
 import static mariculture.core.helpers.RecipeHelper.addFluidAlloy;
-import static mariculture.core.helpers.RecipeHelper.addFluidAlloyResultItem;
 import static mariculture.core.helpers.RecipeHelper.addNuggetCasting;
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.addShapeless;
@@ -18,17 +19,20 @@ import static mariculture.core.lib.MCLib.bread;
 import static mariculture.core.lib.MCLib.calamari;
 import static mariculture.core.lib.MCLib.chest;
 import static mariculture.core.lib.MCLib.clay;
+import static mariculture.core.lib.MCLib.cobblestone;
 import static mariculture.core.lib.MCLib.compass;
 import static mariculture.core.lib.MCLib.cooling;
 import static mariculture.core.lib.MCLib.diamond;
 import static mariculture.core.lib.MCLib.dirt;
 import static mariculture.core.lib.MCLib.dragonEgg;
+import static mariculture.core.lib.MCLib.*;
 import static mariculture.core.lib.MCLib.dropletAny;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletEnder;
 import static mariculture.core.lib.MCLib.dropletFlux;
 import static mariculture.core.lib.MCLib.dropletFrozen;
 import static mariculture.core.lib.MCLib.dropletNether;
+import static mariculture.core.lib.MCLib.dropletPlant;
 import static mariculture.core.lib.MCLib.dropletPoison;
 import static mariculture.core.lib.MCLib.dropletWater;
 import static mariculture.core.lib.MCLib.fish;
@@ -41,6 +45,7 @@ import static mariculture.core.lib.MCLib.hatchery;
 import static mariculture.core.lib.MCLib.heating;
 import static mariculture.core.lib.MCLib.ice;
 import static mariculture.core.lib.MCLib.leatherCap;
+import static mariculture.core.lib.MCLib.packedIce;
 import static mariculture.core.lib.MCLib.pearls;
 import static mariculture.core.lib.MCLib.poisonPotato;
 import static mariculture.core.lib.MCLib.polishedLog;
@@ -52,6 +57,7 @@ import static mariculture.core.lib.MCLib.reeds;
 import static mariculture.core.lib.MCLib.sand;
 import static mariculture.core.lib.MCLib.sifter;
 import static mariculture.core.lib.MCLib.snowball;
+import static mariculture.core.lib.MCLib.stone;
 import static mariculture.core.lib.MCLib.string;
 import static mariculture.core.lib.MCLib.sugar;
 import static mariculture.core.lib.MCLib.thermometer;
@@ -357,11 +363,24 @@ public class Fishery extends RegistrationModule {
 
         addNuggetCasting(getFluidStack("ice", 250), asStack(snowball));
         addBlockCasting(getFluidStack("ice", 1000), asStack(ice));
-        addVatItemRecipe(asStack(potato), getFluidName("poison"), 1000, asStack(poisonPotato), 13);
+        addVatItemRecipe(asStack(potato), getFluidName("poison"), 1000, asStack(poisonPotato), 10);
         addVatItemRecipe(asStack(asStack(sand), 0, 2), getFluidName("gunpowder"), 250, asStack(tnt), 10);
-        addFluidAlloyResultItem(getFluidStack("dirt", 200), new FluidStack(FluidRegistry.WATER, 1000), asStack(clay), 15);
-        addFluidAlloyResultItem(getFluidStack("dirt", 600), getFluidStack("chlorophyll", 1000), asStack(grass), 15);
+        addVatItemRecipe(asStack(ice), getFluidName("ice"), 1000, asStack(packedIce), 10);
+        addVatItemRecipe("blockLeaves", getFluidName("dirt"), 800, asStack(dirt, 2), 10);
+        addVatItemRecipe("sand", getFluidName("water"), 800, asStack(clay), 10);
+        addVatItemRecipe("cobblestone", getFluidName("cholorophyll"), 4000, asStack(mossyCobble), 10);
+        addVatItemRecipe(asStack(stonebrick), getFluidName("cholorophyll"), 4000, asStack(stonebrick, 1), 10);
+        addVatItemRecipe(asStack(stonebrick), getFluidName("lava"), 800, asStack(stonebrick, 2), 10);
         addFluidAlloy(getFluidStack("flux", 100), new FluidStack(FluidRegistry.WATER, 1000), getFluidStack("magnesium", 72), 10);
+        addBlockCasting(getFluidStack("lava", 100), asStack(netherrack));
+        addBlockCasting(getFluidStack("lava", 100), asStack(netherrack));
+        
+        if (FishMechanics.ADD_ALCHEMY_RECIPES) {
+            addAlchemy2x2Alternating(asStack(stone), dropletNether, dropletEarth);
+            addAlchemy2x2Alternating(asStack(cobblestone), dropletEarth, dropletAir);
+            addAlchemy2x2Alternating(asStack(sand), dropletEarth, dropletWater);
+            addAlchemy2x2TopBottom(asStack(grass), dropletPlant, dropletEarth);
+        }
     }
 
     @Override

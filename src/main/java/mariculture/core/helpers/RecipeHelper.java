@@ -67,6 +67,14 @@ public class RecipeHelper {
     public static void addShapeless(ItemStack result, Object[] input) {
         CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(result, input));
     }
+    
+    public static void addAlchemy2x2Alternating(ItemStack result, ItemStack left, ItemStack right) {
+        addShaped(result, new Object[] { "CX", "XC", 'C', left, 'X', right});
+    }
+    
+    public static void addAlchemy2x2TopBottom(ItemStack result, ItemStack top, ItemStack bottom) {
+        addShaped(result, new Object[] { "CC", "XX", 'C', top, 'X', bottom});
+    }
 
     public static void addSmelting(ItemStack output, ItemStack input, float xp) {
         GameRegistry.addSmelting(input, output, xp);

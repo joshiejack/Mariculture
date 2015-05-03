@@ -79,6 +79,11 @@ public class MCLib {
     public static final Block craftingTable = Blocks.crafting_table;
     public static final Block endstone = Blocks.end_stone;
     public static final Block cobblestone = Blocks.cobblestone;
+    public static final Block packedIce = Blocks.packed_ice;
+    public static final Block leaves = Blocks.leaves;
+    public static final Block mossyCobble = Blocks.mossy_cobblestone;
+    public static final Block cactus = Blocks.cactus;
+    public static final Block stonebrick = Blocks.stonebrick;
 
     /** Vanilla shortcuts for items **/
     public static final Item repeater = Items.repeater;
