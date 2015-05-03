@@ -256,6 +256,16 @@ public class ItemBottle extends ItemMCMeta {
                 return OreDictionary.getOres("ingotSteel").size() > 0;
             case BottleMeta.TIN:
                 return OreDictionary.getOres("ingotTin").size() > 0;
+            case BottleMeta.ZINC:
+                return OreDictionary.getOres("ingotZinc").size() > 0;
+            case BottleMeta.ARDITE:
+                return OreDictionary.getOres("ingotArdite").size() > 0;
+            case BottleMeta.COBALT:
+                return OreDictionary.getOres("ingotCobalt").size() > 0;
+            case BottleMeta.PLATINUM:
+                return OreDictionary.getOres("ingotPlatinum").size() > 0;
+            case BottleMeta.OSMIUM:
+                return OreDictionary.getOres("ingotOsmium").size() > 0;
             case BottleMeta.FISH_OIL:
                 return Modules.isActive(Modules.fishery);
             case BottleMeta.FISH_FOOD:

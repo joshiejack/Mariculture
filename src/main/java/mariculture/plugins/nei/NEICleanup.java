@@ -35,6 +35,7 @@ import mariculture.core.lib.WaterMeta;
 import mariculture.core.lib.WoodMeta;
 import mariculture.factory.Factory;
 import mariculture.fishery.Fishery;
+import mariculture.fishery.items.ItemDroplet;
 import mariculture.lib.base.BlockBaseMeta;
 import mariculture.lib.base.ItemBaseMeta;
 import mariculture.magic.JewelryHandler;
@@ -111,9 +112,11 @@ public class NEICleanup {
         //Hide the fish or show one
         if (Modules.isActive(Modules.fishery)) { //Hide all off neon lamps
             for (int i = 0; i < DropletMeta.COUNT; i++) {
-                API.addItemListEntry(new ItemStack(Fishery.droplet, 1, i));
+                if (((ItemDroplet) Fishery.droplet).isActive(i)) {
+                    API.addItemListEntry(new ItemStack(Fishery.droplet, 1, i));
+                }
             }
-            
+
             API.hideItem(new ItemStack(Fishery.lampsOff, 1, OreDictionary.WILDCARD_VALUE));
 
             if (FishMechanics.DISABLE_FISH) {

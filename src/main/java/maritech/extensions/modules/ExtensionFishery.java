@@ -62,7 +62,7 @@ public class ExtensionFishery implements IModuleExtension {
         charged.setTagCompound(new NBTTagCompound());
         charged.stackTagCompound.setInteger("Energy", 250000);
         addShapeless(charged, new Object[] { asStack(ExtensionFishery.rodFlux), "blockRedstone" });
-        addVatItemRecipe(charged, getFluidName("flux"), 1000, asStack(ExtensionFishery.rodFlux), 15);
+        addVatItemRecipe(asStack(ExtensionFishery.rodFlux), getFluidName("flux"), 1000, charged, 15);
 
         ItemStack scuba = Modules.isActive(Modules.diving) ? asStack(ExtensionDiving.scubaMask) : MCLib.fishSorter;
         ItemStack turbine = Modules.isActive(Modules.factory) ? asStack(ExtensionFactory.turbineTitanium) : MCLib.ironWheel;

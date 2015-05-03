@@ -316,14 +316,14 @@ public class FluidHelper {
     }
 
     public static void addGas(String field, String name, int volume, int bottleMeta) {
-        addFluid(field, name, volume, bottleMeta, true, 1000);
+        addFluid(field, name, volume, bottleMeta, true, 1000, -1);
     }
 
-    public static void addFluid(String field, String name, int volume, int bottleMeta, int balance) {
-        addFluid(field, name, volume, bottleMeta, false, balance);
+    public static void addFluid(String field, String name, int volume, int bottleMeta, int balance, int bucketMeta) {
+        addFluid(field, name, volume, bottleMeta, false, balance, bucketMeta);
     }
 
-    public static void addFluid(String field, String name, int volume, int bottleMeta, boolean isGas, int balance) {
+    public static void addFluid(String field, String name, int volume, int bottleMeta, boolean isGas, int balance, int bucketMeta) {
         Fluid fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
         if (Fluids.add(field, fluid, balance)) { //If it's not registered, register it
             FluidRegistry.registerFluid(Fluids.getFluid(field));
@@ -333,6 +333,10 @@ public class FluidHelper {
 
         if (volume != -1) {
             FluidHelper.registerHeatBottle(fluid, volume, bottleMeta);
+        }
+        
+        if (bucketMeta != -1) {
+            FluidHelper.registerBucket(fluid, 1000, bucketMeta);
         }
     }
 
@@ -344,8 +348,8 @@ public class FluidHelper {
         FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, vol), new ItemStack(Core.bottles, 1, meta), new ItemStack(Items.glass_bottle));
     }
 
-    public static void addFluid(String name, int volume, int meta, int balance) {
-        addFluid(name, name, volume, meta, balance);
+    public static void addFluid(String name, int volume, int bottleMeta, int balance, int bucketMeta) {
+        addFluid(name, name, volume, bottleMeta, balance, bucketMeta);
     }
 
     public static void registerBucket(Fluid fluid, int vol, int meta) {
@@ -361,8 +365,8 @@ public class FluidHelper {
         if (fluid.getBlock() == null) fluid.setBlock(block);
     }
 
-    public static void addFluid(String string, int balance) {
-        addFluid(string, -1, -1, balance);
+    public static void addFluid(String string, int balance, int bucketMeta) {
+        addFluid(string, -1, -1, balance, bucketMeta);
     }
 
     public static boolean setBlock(Class<? extends BlockFluid> clazz, String fluid) {

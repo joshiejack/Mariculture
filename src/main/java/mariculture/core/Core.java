@@ -198,40 +198,39 @@ public class Core extends RegistrationModule {
 
         // Normal Fluids
         addGas("natural_gas", "gas.natural", 2000, BottleMeta.GAS);
-        addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER, 250);
+        addFluid("hp_water", "fastwater", 1000, BottleMeta.HP_WATER, 250, BucketMeta.PRESSURE);
 
         // Molten Mariculture Metals + Vanilla Fluids
-        addFluid("quicklime", 1000, BottleMeta.QUICKLIME, 900);
-        addFluid("salt", "salt.molten", 1000, BottleMeta.SALT, 20);
-        addFluid("glass", "glass.molten", 1000, BottleMeta.GLASS, 1000);
-        addFluid("aluminum", "aluminum.molten", MetalRates.ORE, BottleMeta.ALUMINUM, 144);
-        addFluid("magnesium", "magnesium.molten", MetalRates.ORE, BottleMeta.MAGNESIUM, 144);
-        addFluid("titanium", "titanium.molten", MetalRates.ORE, BottleMeta.TITANIUM, 144);
-        addFluid("copper", "copper.molten", MetalRates.ORE, BottleMeta.COPPER, 144);
-        addFluid("rutile", "rutile.molten", MetalRates.ORE, BottleMeta.RUTILE, 144);
-        addFluid("iron", "iron.molten", MetalRates.ORE, BottleMeta.IRON, 144);
-        addFluid("gold", "gold.molten", MetalRates.ORE, BottleMeta.GOLD, 144);
+        addFluid("quicklime", 1000, BottleMeta.QUICKLIME, 900, BucketMeta.QUICKLIME);
+        addFluid("salt", "salt.molten", 1000, BottleMeta.SALT, 20, BucketMeta.SALT);
+        addFluid("glass", "glass.molten", 1000, BottleMeta.GLASS, 1000, BucketMeta.GLASS);
+        addFluid("aluminum", "aluminum.molten", MetalRates.ORE, BottleMeta.ALUMINUM, 144, BucketMeta.ALUMINUM);
+        addFluid("magnesium", "magnesium.molten", MetalRates.ORE, BottleMeta.MAGNESIUM, 144, BucketMeta.MAGNESIUM);
+        addFluid("titanium", "titanium.molten", MetalRates.ORE, BottleMeta.TITANIUM, 144, BucketMeta.TITANIUM);
+        addFluid("copper", "copper.molten", MetalRates.ORE, BottleMeta.COPPER, 144, BucketMeta.COPPER);
+        addFluid("rutile", "rutile.molten", MetalRates.ORE, BottleMeta.RUTILE, 144, BucketMeta.RUTILE);
+        addFluid("iron", "iron.molten", MetalRates.ORE, BottleMeta.IRON, 144, BucketMeta.IRON);
+        addFluid("gold", "gold.molten", MetalRates.ORE, BottleMeta.GOLD, 144, BucketMeta.GOLD);
 
         // Modded Fluids
-        addFluid("tin", "tin.molten", MetalRates.ORE, BottleMeta.TIN, 144);
-        addFluid("lead", "lead.molten", MetalRates.ORE, BottleMeta.LEAD, 144);
-        addFluid("silver", "silver.molten", MetalRates.ORE, BottleMeta.SILVER, 144);
-        addFluid("nickel", "nickel.molten", MetalRates.ORE, BottleMeta.NICKEL, 144);
-        addFluid("bronze", "bronze.molten", MetalRates.ORE, BottleMeta.BRONZE, 144);
-        addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144);
-        addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144);
-        addFluid("cobalt", "cobalt.molten", MetalRates.ORE, BottleMeta.COBALT, 144);
-        addFluid("ardite", "ardite.molten", MetalRates.ORE, BottleMeta.ARDITE, 144);
-        addFluid("osmium", "osmium.molten", MetalRates.ORE, BottleMeta.OSMIUM, 144);
-        addFluid("platinum", "platinum.molten", MetalRates.ORE, BottleMeta.PLATINUM, 144);
-        addFluid("zinc", "zinc.molten", MetalRates.ORE, BottleMeta.ZINC, 144);
-        addFluid("xp", 100);
+        addFluid("tin", "tin.molten", MetalRates.ORE, BottleMeta.TIN, 144, BucketMeta.TIN);
+        addFluid("lead", "lead.molten", MetalRates.ORE, BottleMeta.LEAD, 144, BucketMeta.LEAD);
+        addFluid("silver", "silver.molten", MetalRates.ORE, BottleMeta.SILVER, 144, BucketMeta.SILVER);
+        addFluid("nickel", "nickel.molten", MetalRates.ORE, BottleMeta.NICKEL, 144, BucketMeta.NICKEL);
+        addFluid("bronze", "bronze.molten", MetalRates.ORE, BottleMeta.BRONZE, 144, BucketMeta.BRONZE);
+        addFluid("steel", "steel.molten", MetalRates.ORE, BottleMeta.STEEL, 144, BucketMeta.STEEL);
+        addFluid("electrum", "electrum.molten", MetalRates.ORE, BottleMeta.ELECTRUM, 144, BucketMeta.ELECTRUM);
+        addFluid("cobalt", "cobalt.molten", MetalRates.ORE, BottleMeta.COBALT, 144, BucketMeta.COBALT);
+        addFluid("ardite", "ardite.molten", MetalRates.ORE, BottleMeta.ARDITE, 144, BucketMeta.ARDITE);
+        addFluid("osmium", "osmium.molten", MetalRates.ORE, BottleMeta.OSMIUM, 144, BucketMeta.OSMIUM);
+        addFluid("platinum", "platinum.molten", MetalRates.ORE, BottleMeta.PLATINUM, 144, BucketMeta.PLATINUM);
+        addFluid("zinc", "zinc.molten", MetalRates.ORE, BottleMeta.ZINC, 144, BucketMeta.ZINC);
+        addFluid("xp", 100, -1);
         XPRegistry.register("xp", 100);
 
         registerVanillaBottle(getFluid("natural_gas"), 1000, BottleMeta.GAS_BASIC);
         registerHeatBottle(FluidRegistry.WATER, 2000, BottleMeta.WATER);
         registerHeatBottle(FluidRegistry.LAVA, 2000, BottleMeta.LAVA);
-        registerBucket(getFluid("hp_water"), 1000, BucketMeta.PRESSURE);
     }
 
     @Override

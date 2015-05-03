@@ -188,32 +188,20 @@ public class Fishery extends RegistrationModule {
 
     @Override
     public void registerFluids() {
-        FluidHelper.addFluid("fish_food", "fishfood", 512, BottleMeta.FISH_FOOD, 12);
-        FluidHelper.addFluid("fish_oil", "fishoil", 2000, BottleMeta.FISH_OIL, 100);
-        FluidHelper.addFluid("milk", 2000, BottleMeta.MILK, 100);
-        FluidHelper.addFluid("custard", 2000, BottleMeta.CUSTARD, 100);
-        FluidHelper.addFluid("dirt", 100);
-        FluidHelper.addFluid("gunpowder", 125);
-        FluidHelper.addFluid("flux", 100);
-        FluidHelper.addFluid("ender", 25);
-        FluidHelper.addFluid("ice", 125);
-        FluidHelper.addFluid("blood", 100);
-        FluidHelper.addFluid("mana", 100);
-        FluidHelper.addFluid("poison", 250);
-        FluidHelper.addFluid("chlorophyll", 500);
-        FluidHelper.addFluid("wind", 100);
-        FluidHelper.registerBucket(getFluid("dirt"), 1000, BucketMeta.DIRT);
-        FluidHelper.registerBucket(getFluid("custard"), 1000, BucketMeta.CUSTARD);
-        FluidHelper.registerBucket(getFluid("fish_oil"), 1000, BucketMeta.FISH_OIL);
-        FluidHelper.registerBucket(getFluid("gunpowder"), 1000, BucketMeta.GUNPOWDER);
-        FluidHelper.registerBucket(getFluid("flux"), 1000, BucketMeta.FLUX);
-        FluidHelper.registerBucket(getFluid("ender"), 1000, BucketMeta.ENDER);
-        FluidHelper.registerBucket(getFluid("ice"), 1000, BucketMeta.ICE);
-        FluidHelper.registerBucket(getFluid("blood"), 1000, BucketMeta.BLOOD);
-        FluidHelper.registerBucket(getFluid("mana"), 1000, BucketMeta.MANA);
-        FluidHelper.registerBucket(getFluid("poison"), 1000, BucketMeta.POISON);
-        FluidHelper.registerBucket(getFluid("chlorophyll"), 1000, BucketMeta.CHLOROPHYLL);
-        FluidHelper.registerBucket(getFluid("wind"), 1000, BucketMeta.WIND);
+        FluidHelper.addFluid("fish_food", "fishfood", 512, BottleMeta.FISH_FOOD, 12, BucketMeta.FISH_FOOD);
+        FluidHelper.addFluid("fish_oil", "fishoil", 2000, BottleMeta.FISH_OIL, 100, BucketMeta.FISH_OIL);
+        FluidHelper.addFluid("milk", 2000, BottleMeta.MILK, 100, -1);
+        FluidHelper.addFluid("custard", 2000, BottleMeta.CUSTARD, 100, BucketMeta.CUSTARD);
+        FluidHelper.addFluid("dirt", 100, BucketMeta.DIRT);
+        FluidHelper.addFluid("gunpowder", 125, BucketMeta.GUNPOWDER);
+        FluidHelper.addFluid("flux", 100, BucketMeta.FLUX);
+        FluidHelper.addFluid("ender", 25, BucketMeta.ENDER);
+        FluidHelper.addFluid("ice", 125, BucketMeta.ICE);
+        FluidHelper.addFluid("blood", 100, BucketMeta.BLOOD);
+        FluidHelper.addFluid("mana", 100, BucketMeta.MANA);
+        FluidHelper.addFluid("poison", 250, BucketMeta.POISON);
+        FluidHelper.addFluid("chlorophyll", 500, BucketMeta.CHLOROPHYLL);
+        FluidHelper.addFluid("wind", 100, BucketMeta.WIND);
         FluidHelper.registerVanillaBottle(getFluid("fish_food"), 256, BottleMeta.FISH_FOOD_BASIC);
         FluidHelper.registerVanillaBottle(getFluid("fish_oil"), 1000, BottleMeta.FISH_OIL_BASIC);
         FluidHelper.registerVanillaBottle(getFluid("milk"), 1000, BottleMeta.MILK_BASIC);

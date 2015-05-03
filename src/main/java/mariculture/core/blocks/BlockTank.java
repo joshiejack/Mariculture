@@ -268,6 +268,11 @@ public class BlockTank extends BlockConnected {
         int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile == null) return;
+        
+        if (tile instanceof TileFishTank) {
+            ((TileFishTank) tile).orientation = ForgeDirection.getOrientation(facing);
+        }
+        
         if (stack.hasTagCompound()) {
             if (tile instanceof TileTankBlock) {
                 TileTankBlock tank = (TileTankBlock) tile;
