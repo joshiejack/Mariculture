@@ -77,6 +77,11 @@ public class FishLamprey extends FishSpecies {
     public double getFishOilVolume() {
         return 2.250D;
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

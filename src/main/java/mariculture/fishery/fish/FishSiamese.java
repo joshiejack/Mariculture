@@ -83,6 +83,11 @@ public class FishSiamese extends FishSpecies {
     public RodType getRodNeeded() {
         return RodType.FLUX;
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

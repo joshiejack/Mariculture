@@ -3,10 +3,18 @@ package mariculture.fishery.fish;
 import static mariculture.api.core.Environment.Salinity.FRESH;
 import static mariculture.core.lib.MCLib.dropletRegen;
 import static mariculture.core.lib.MCLib.dropletWater;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
+import mariculture.core.helpers.PlayerHelper;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -101,5 +109,27 @@ public class FishDamsel extends FishSpecies {
     @Override
     public double getCaughtAliveChance(World world, int height) {
         return world.isDaytime() ? 75D : 0D;
+    }
+
+    @Override
+    public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+        if (world.rand.nextInt(10) == 0) {
+            ArrayList<EntityAnimal> entities = new ArrayList();
+            for (CachedCoords coord : coords) {
+                List list = world.getEntitiesWithinAABB(EntityAnimal.class, Blocks.stone.getCollisionBoundingBoxFromPool(world, coord.x, coord.y, coord.z));
+                if (!list.isEmpty()) {
+                    entities.addAll(list);
+                }
+            }
+
+            /** Breed animals if there are less than 10 entities **/
+            if (entities.size() < 10) {
+                for (EntityAnimal animal : entities) {
+                    if (!animal.isChild() && !animal.isInLove()) {
+                        animal.func_146082_f(PlayerHelper.getFakePlayer(world));
+                    }
+                }
+            }
+        }
     }
 }

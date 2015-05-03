@@ -83,6 +83,11 @@ public class FishBlaasop extends FishSpecies {
         player.addPotionEffect(new PotionEffect(Potion.poison.id, 200, 5));
         player.addPotionEffect(new PotionEffect(Potion.confusion.id, 500, 0));
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

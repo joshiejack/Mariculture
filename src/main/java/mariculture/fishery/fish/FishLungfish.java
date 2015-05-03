@@ -76,6 +76,11 @@ public class FishLungfish extends FishSpecies {
     }
     
     @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
+    
+    @Override
     public void affectLiving(EntityLivingBase entity) {
         entity.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 500));
     }

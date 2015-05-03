@@ -76,6 +76,11 @@ public class FishNight extends FishSpecies {
             player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 1800, 0));
         }
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

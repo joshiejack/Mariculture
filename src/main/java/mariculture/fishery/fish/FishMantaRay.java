@@ -108,6 +108,11 @@ public class FishMantaRay extends FishSpecies {
     public void onConsumed(World world, EntityPlayer player) {
         player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 1));
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

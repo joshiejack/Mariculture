@@ -58,17 +58,17 @@ public class FishFeederSpecialRenderer extends TileEntitySpecialRenderer {
 
         if (female != null) {
             CachedCoords c = feeder.fPos < coords.size() ? coords.get(feeder.fPos) : null;
-            //Setup Random coordinate for female
-            if (feeder.fTicker <= 0) {
-                feeder.fPos = new Random().nextInt(coords.size());
-                feeder.fTicker = 2000;
-                feeder.fRot = new Random().nextInt(360);
-                for (int i = 0; i < 7; i++) {
-                    tile.getWorldObj().spawnParticle("splash", c.x + 0.5D, c.y + 0.85D, c.z + 0.5D, 0, 0, 0);
-                }
-            } else feeder.fTicker--;
-
             if (c != null) {
+                //Setup Random coordinate for female
+                if (feeder.fTicker <= 0) {
+                    feeder.fPos = new Random().nextInt(coords.size());
+                    feeder.fTicker = 2000;
+                    feeder.fRot = new Random().nextInt(360);
+                    for (int i = 0; i < 7; i++) {
+                        tile.getWorldObj().spawnParticle("splash", c.x + 0.5D, c.y + 0.85D, c.z + 0.5D, 0, 0, 0);
+                    }
+                } else feeder.fTicker--;
+                
                 GL11.glPushMatrix();
                 double x2 = getPos(tile.xCoord, c.x);
                 double y2 = getPos(tile.yCoord, c.y);

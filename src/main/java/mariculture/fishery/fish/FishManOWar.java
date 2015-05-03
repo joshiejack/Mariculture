@@ -96,6 +96,11 @@ public class FishManOWar extends FishSpecies {
         player.addPotionEffect(new PotionEffect(Potion.harm.id, 5, 1));
         player.addPotionEffect(new PotionEffect(Potion.confusion.id, 1000, 1));
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

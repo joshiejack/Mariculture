@@ -2,6 +2,7 @@ package mariculture.fishery;
 
 import static mariculture.core.helpers.RecipeHelper.addAlchemy2x2Alternating;
 import static mariculture.core.helpers.RecipeHelper.addAlchemy2x2TopBottom;
+import static mariculture.core.helpers.RecipeHelper.addAlchemyLoop;
 import static mariculture.core.helpers.RecipeHelper.addBlockCasting;
 import static mariculture.core.helpers.RecipeHelper.addFishingRodRecipe;
 import static mariculture.core.helpers.RecipeHelper.addFluidAlloy;
@@ -25,7 +26,7 @@ import static mariculture.core.lib.MCLib.cooling;
 import static mariculture.core.lib.MCLib.diamond;
 import static mariculture.core.lib.MCLib.dirt;
 import static mariculture.core.lib.MCLib.dragonEgg;
-import static mariculture.core.lib.MCLib.*;
+import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletAny;
 import static mariculture.core.lib.MCLib.dropletEarth;
 import static mariculture.core.lib.MCLib.dropletEnder;
@@ -35,6 +36,7 @@ import static mariculture.core.lib.MCLib.dropletNether;
 import static mariculture.core.lib.MCLib.dropletPlant;
 import static mariculture.core.lib.MCLib.dropletPoison;
 import static mariculture.core.lib.MCLib.dropletWater;
+import static mariculture.core.lib.MCLib.enderPearl;
 import static mariculture.core.lib.MCLib.fish;
 import static mariculture.core.lib.MCLib.fishFeeder;
 import static mariculture.core.lib.MCLib.fishTank;
@@ -45,6 +47,8 @@ import static mariculture.core.lib.MCLib.hatchery;
 import static mariculture.core.lib.MCLib.heating;
 import static mariculture.core.lib.MCLib.ice;
 import static mariculture.core.lib.MCLib.leatherCap;
+import static mariculture.core.lib.MCLib.mossyCobble;
+import static mariculture.core.lib.MCLib.netherrack;
 import static mariculture.core.lib.MCLib.packedIce;
 import static mariculture.core.lib.MCLib.pearls;
 import static mariculture.core.lib.MCLib.poisonPotato;
@@ -58,6 +62,7 @@ import static mariculture.core.lib.MCLib.sand;
 import static mariculture.core.lib.MCLib.sifter;
 import static mariculture.core.lib.MCLib.snowball;
 import static mariculture.core.lib.MCLib.stone;
+import static mariculture.core.lib.MCLib.stonebrick;
 import static mariculture.core.lib.MCLib.string;
 import static mariculture.core.lib.MCLib.sugar;
 import static mariculture.core.lib.MCLib.thermometer;
@@ -380,6 +385,7 @@ public class Fishery extends RegistrationModule {
             addAlchemy2x2Alternating(asStack(cobblestone), dropletEarth, dropletAir);
             addAlchemy2x2Alternating(asStack(sand), dropletEarth, dropletWater);
             addAlchemy2x2TopBottom(asStack(grass), dropletPlant, dropletEarth);
+            addAlchemyLoop(asStack(enderPearl), dropletEnder);
         }
     }
 

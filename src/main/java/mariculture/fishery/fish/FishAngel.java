@@ -108,6 +108,11 @@ public class FishAngel extends FishSpecies {
             }
         }
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

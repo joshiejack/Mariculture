@@ -72,6 +72,10 @@ public class RecipeHelper {
         addShaped(result, new Object[] { "CX", "XC", 'C', left, 'X', right});
     }
     
+    public static void addAlchemyLoop(ItemStack result, ItemStack item) {
+        addShaped(result, new Object[] { "CCC", "C C", "CCC", 'C', item});
+    }
+    
     public static void addAlchemy2x2TopBottom(ItemStack result, ItemStack top, ItemStack bottom) {
         addShaped(result, new Object[] { "CC", "XX", 'C', top, 'X', bottom});
     }

@@ -72,6 +72,11 @@ public class FishStargazer extends FishSpecies {
     public double getFishOilVolume() {
         return 4.725D;
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

@@ -281,9 +281,14 @@ public abstract class FishSpecies {
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         return;
     }
+    
+    /** Whether the below method should be called for this fish **/
+    public boolean hasLivingEffect() {
+        return false;
+    }
 
-    /** This is called whenever a living entity is in the water of the tank, you can
-     * have your fish species do something special to them if you like It is
+    /** This is called whenever a living entity is in the water of the tank as long has hasLivingEffect returns true.
+     * You can have your fish species do something special to them if you like It is
      * called every half a second, so if a player is in for less than that, the
      * effect won't apply. This is only called if your fish are active
      * 

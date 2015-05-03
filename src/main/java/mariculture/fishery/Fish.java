@@ -133,7 +133,7 @@ public class Fish {
     public static FishSpecies stingRay; //Poisons those in water
     public static FishSpecies mantaRay; //Regen 2 when eaten, and Heals you when in water 
     public static FishSpecies electricRay; //Produce 10RF/t per connection lots of power
-    public static FishSpecies damsel; //Breeds animals, Attracts mobs //TODO
+    public static FishSpecies damsel; //Breeds animals
     public static FishSpecies angel; //Teleport stuff in to inventories
     public static FishSpecies puffer; //Nothing
     public static FishSpecies squid; //Ink Sacks
@@ -144,7 +144,7 @@ public class Fish {
     public static FishSpecies koi; //Spawns ocean chest and vanilla chest loot in the water
     public static FishSpecies butterfly; //Shed feathers
     public static FishSpecies tang; //Produces lapis
-    public static FishSpecies clown; //Spawns Passive random mobs //TODO
+    public static FishSpecies clown; //Spawns Cows, Chickens, Sheep, Pig
 
     //1.2.2 Species
     public static FishSpecies blaasop; //Nothing

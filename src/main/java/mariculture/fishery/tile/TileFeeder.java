@@ -112,7 +112,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             }
         }
     }
-    
+
     public boolean canUpdateTankSize() {
         return Fishing.fishHelper.isMale(inventory[male]) && Fishing.fishHelper.isFemale(inventory[female]);
     }
@@ -348,11 +348,13 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             if (!worldObj.isRemote) {
                 species.affectWorld(worldObj, xCoord, yCoord, zCoord, coords);
 
-                for (CachedCoords cord : coords) {
-                    List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
-                    if (!list.isEmpty()) {
-                        for (Object i : list) {
-                            species.affectLiving((EntityLivingBase) i);
+                if (species.hasLivingEffect()) {
+                    for (CachedCoords cord : coords) {
+                        List list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, Blocks.stone.getCollisionBoundingBoxFromPool(worldObj, cord.x, cord.y, cord.z));
+                        if (!list.isEmpty()) {
+                            for (Object i : list) {
+                                species.affectLiving((EntityLivingBase) i);
+                            }
                         }
                     }
                 }

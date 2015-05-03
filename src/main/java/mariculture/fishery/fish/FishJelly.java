@@ -96,6 +96,11 @@ public class FishJelly extends FishSpecies {
         player.addPotionEffect(new PotionEffect(Potion.harm.id, 15, 0));
         player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
     }
+    
+    @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
 
     @Override
     public void affectLiving(EntityLivingBase entity) {

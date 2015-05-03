@@ -120,6 +120,11 @@ public class FishBass extends FishSpecies {
     }
     
     @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
+    
+    @Override
     public void affectLiving(EntityLivingBase entity) {
         entity.worldObj.createExplosion(entity, entity.posX, entity.posY + 1D, entity.posZ, 1, true);
     }

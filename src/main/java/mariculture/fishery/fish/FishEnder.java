@@ -110,6 +110,11 @@ public class FishEnder extends FishSpecies {
     }
     
     @Override
+    public boolean hasLivingEffect() {
+        return true;
+    }
+    
+    @Override
     public void affectLiving(EntityLivingBase entity) {
         if (entity instanceof EntityPlayer) {
             if (entity.worldObj.rand.nextInt(10) == 0) {
