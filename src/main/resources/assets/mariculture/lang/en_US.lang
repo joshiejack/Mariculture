@@ -92,6 +92,10 @@ fluid.quicklime=Quicklime
 fluid.electrum.molten=Molten Electrum
 fluid.invar.molten=Molten Invar
 fluid.platinum.molten=Molten Platinum
+fluid.osmium.molten=Molten Osmium
+fluid.zinc.molten=Molten Zinc
+fluid.cobalt.molten=Molten Cobalt
+fluid.ardite.molten=Molten Ardite
 
 #items
 mariculture.hammer=Blacksmith's Hammer
@@ -251,7 +255,7 @@ mariculture.bucket.bucketelectrum=Bucket of Molten Electrum
 mariculture.bucket.bucketcobalt=Bucket of Molten Cobalt
 mariculture.bucket.bucketardite=Bucket of Molten Ardite
 mariculture.bucket.bucketosmium=Bucket of Molten Osmium
-mariculture.bucket.bucketplatinium=Bucket of Molten Platinum
+mariculture.bucket.bucketplatinum=Bucket of Molten Platinum
 mariculture.bucket.bucketzinc=Bucket of Molten Zinc
 
 

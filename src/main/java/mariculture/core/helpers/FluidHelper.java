@@ -219,7 +219,7 @@ public class FluidHelper {
         ItemStack heldItem = player.inventory.getCurrentItem();
         FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(heldItem);
         ItemStack newHeld = FluidHelper.getEmptyContainerForFilledItem(heldItem);
-        
+
         if (newHeld != null) if (newHeld.stackSize == 0) {
             newHeld.stackSize = 1;
         }
@@ -327,16 +327,19 @@ public class FluidHelper {
         Fluid fluid = new FluidMari(name, bottleMeta).setUnlocalizedName(name).setGaseous(isGas);
         if (Fluids.add(field, fluid, balance)) { //If it's not registered, register it
             FluidRegistry.registerFluid(Fluids.getFluid(field));
-        } 
-            
+        }
+
         fluid = Fluids.getFluid(field);
 
         if (volume != -1) {
             FluidHelper.registerHeatBottle(fluid, volume, bottleMeta);
         }
-        
+
         if (bucketMeta != -1) {
-            FluidHelper.registerBucket(fluid, 1000, bucketMeta);
+            ItemStack filled = FluidContainerRegistry.fillFluidContainer(new FluidStack(fluid, 1000), new ItemStack(Items.bucket));
+            if (filled == null) {
+                FluidHelper.registerBucket(fluid, 1000, bucketMeta);
+            }
         }
     }
 

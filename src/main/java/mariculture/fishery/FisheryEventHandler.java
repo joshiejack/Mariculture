@@ -6,14 +6,18 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.config.GeneralStuff;
+import mariculture.core.config.WorldGeneration.WorldGen;
 import mariculture.core.lib.ArmorSlot;
+import mariculture.core.lib.Modules;
 import mariculture.core.lib.PearlColor;
 import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketParticle;
 import mariculture.core.network.PacketParticle.Particle;
 import mariculture.fishery.items.ItemArmorFishingHat;
+import mariculture.world.EntityRockhopper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Items;
@@ -98,6 +102,15 @@ public class FisheryEventHandler {
                         zombie.addPotionEffect(new PotionEffect(Potion.resistance.id, 18000, 2));
                         zombie.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 18000, 2));
                     }
+                }
+            }
+        } else if (WorldGen.PENGUIN_SPAWN_ENABLED && event.entity instanceof EntitySpider && Modules.isActive(Modules.worldplus)) {
+            if (!event.entity.worldObj.isRemote) {
+                if (event.world.rand.nextInt(100) == 0) {
+                    EntityRockhopper penguin = new EntityRockhopper(event.entity.worldObj);
+                    penguin.setPosition(event.entity.posX, event.entity.posY, event.entity.posZ);
+                    penguin.mountEntity(event.entity);
+                    event.entity.worldObj.spawnEntityInWorld(penguin);
                 }
             }
         }

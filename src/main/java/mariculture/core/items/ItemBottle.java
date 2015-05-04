@@ -266,6 +266,8 @@ public class ItemBottle extends ItemMCMeta {
                 return OreDictionary.getOres("ingotPlatinum").size() > 0;
             case BottleMeta.OSMIUM:
                 return OreDictionary.getOres("ingotOsmium").size() > 0;
+            case BottleMeta.ELECTRUM:
+                return OreDictionary.getOres("ingotElectrum").size() > 0;
             case BottleMeta.FISH_OIL:
                 return Modules.isActive(Modules.fishery);
             case BottleMeta.FISH_FOOD:

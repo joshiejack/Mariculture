@@ -16,6 +16,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemBuckets extends ItemMCMeta {
     public ItemBuckets() {
@@ -222,6 +223,46 @@ public class ItemBuckets extends ItemMCMeta {
                 return "bucketZinc";
             default:
                 return "container";
+        }
+    }
+    
+    @Override
+    public boolean isActive(int meta) {
+       if (FluidContainerRegistry.getFluidForFilledItem(new ItemStack(this, 1, meta)) == null) {
+           return false;
+       }
+        
+        switch (meta) {
+            case BucketMeta.BRONZE:
+                return OreDictionary.getOres("ingotBronze").size() > 0;
+            case BucketMeta.LEAD:
+                return OreDictionary.getOres("ingotLead").size() > 0;
+            case BucketMeta.NICKEL:
+                return OreDictionary.getOres("ingotNickel").size() > 0;
+            case BucketMeta.SILVER:
+                return OreDictionary.getOres("ingotSilver").size() > 0;
+            case BucketMeta.STEEL:
+                return OreDictionary.getOres("ingotSteel").size() > 0;
+            case BucketMeta.TIN:
+                return OreDictionary.getOres("ingotTin").size() > 0;
+            case BucketMeta.ZINC:
+                return OreDictionary.getOres("ingotZinc").size() > 0;
+            case BucketMeta.ARDITE:
+                return OreDictionary.getOres("ingotArdite").size() > 0;
+            case BucketMeta.COBALT:
+                return OreDictionary.getOres("ingotCobalt").size() > 0;
+            case BucketMeta.PLATINUM:
+                return OreDictionary.getOres("ingotPlatinum").size() > 0;
+            case BucketMeta.OSMIUM:
+                return OreDictionary.getOres("ingotOsmium").size() > 0;
+            case BucketMeta.ELECTRUM:
+                return OreDictionary.getOres("ingotElectrum").size() > 0;
+            case BucketMeta.FISH_OIL:
+                return Modules.isActive(Modules.fishery);
+            case BucketMeta.FISH_FOOD:
+                return Modules.isActive(Modules.fishery);
+            default:
+                return true;
         }
     }
 }
