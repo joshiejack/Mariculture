@@ -116,9 +116,4 @@ public class FishSpider extends FishSpecies {
     public double getCatchChance(World world, int height) {
         return Height.isCave(height) || world.isDaytime() ? 25D : 0D;
     }
-
-    @Override
-    public double getCaughtAliveChance(World world, int height) {
-        return Height.isCave(height) ? 75D : 0D;
-    }
 }
