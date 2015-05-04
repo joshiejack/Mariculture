@@ -612,15 +612,15 @@ mariculture.fish.data.areaofeffectwest=区域: 南
 mariculture.fish.data.gender.male=雄性
 mariculture.fish.data.gender.female=雌性
 mariculture.fish.data.temperaturetolerance=温度耐受性
-mariculture.fish.data.temperaturetolerance.fussy=极差
-mariculture.fish.data.temperaturetolerance.normal=差
-mariculture.fish.data.temperaturetolerance.sltolerant=较差
+mariculture.fish.data.temperaturetolerance.fussy=极弱
+mariculture.fish.data.temperaturetolerance.normal=弱
+mariculture.fish.data.temperaturetolerance.sltolerant=较弱
 mariculture.fish.data.temperaturetolerance.tolerant=一般
 mariculture.fish.data.temperaturetolerance.vtolerant=非常强
 mariculture.fish.data.temperaturetolerance.itolerant=极强
 mariculture.fish.data.temperaturetolerance.etolerant=不可思议的强
 mariculture.fish.data.salinitytolerance=耐盐性
-mariculture.fish.data.salinitytolerance.intolerant=极差
+mariculture.fish.data.salinitytolerance.intolerant=极弱
 mariculture.fish.data.salinitytolerance.tolerant=较强
 mariculture.fish.data.salinitytolerance.hightolerant=极强
 
@@ -688,7 +688,7 @@ mariculture.coral.lightgrey=半漂白珊瑚
 mariculture.coral.grey=部分漂白珊瑚
 #items
 mariculture.crafting.kelpseeds=海带种子
-mariculture.crafting.rockhopperegg=Spawn Rockhopper Penguin
+mariculture.crafting.rockhopperegg=冠企鹅出生点
 
 ### Other Strings ###
 mariculture.aquabackpack=水产背包
@@ -881,9 +881,9 @@ item.titanium.tough.rod.name=钛坚韧手柄
 ### Blood Magic ###
 mariculture.rodblood=约束鱼竿
 mariculture.rodBlood.subtitle=让鲜血染红这条河流!!!
-mariculture.rodBlood.activated=Activated
-mariculture.rodBlood.deactivated=Deactivated
-mariculture.rodBlood.owner=Current Owner
+mariculture.rodBlood.activated=已激活
+mariculture.rodBlood.deactivated=已停止
+mariculture.rodBlood.owner=所有者
 mariculture.ritual=[海洋物语]血河仪式
 
 #Downloader
