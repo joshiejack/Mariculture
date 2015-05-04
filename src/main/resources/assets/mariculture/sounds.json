@@ -61,5 +61,32 @@
             "stream":false
          }
       ]
+   },
+   "rockhopper_ambient":{
+      "category":"master",
+      "sounds":[
+         {
+            "name":"rockhopper_ambient",
+            "stream":false
+         }
+      ]
+   },
+   "rockhopper_hurt":{
+      "category":"master",
+      "sounds":[
+         {
+            "name":"rockhopper_hurt",
+            "stream":false
+         }
+      ]
+   },
+   "rockhopper_death":{
+      "category":"master",
+      "sounds":[
+         {
+            "name":"rockhopper_death",
+            "stream":false
+         }
+      ]
    }
 }

@@ -4,7 +4,6 @@ import mariculture.Mariculture;
 import mariculture.aesthetics.Aesthetics;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
-import mariculture.core.handlers.LogHandler;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.BaitMeta;
 import mariculture.core.lib.BottleMeta;
@@ -47,9 +46,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-
-import org.apache.logging.log4j.Level;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import enchiridion.api.DisplayRegistry;
@@ -72,13 +68,16 @@ public class PluginEnchiridion extends Plugin {
         if (Modules.isActive(Modules.diving)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.DIVING), new ItemStack(Diving.snorkel));
         }
+        
         if (Modules.isActive(Modules.factory)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.MACHINES), new ItemStack(Core.crafting, 1, CraftingMeta.WHEEL));
         }
+        
         if (Modules.isActive(Modules.fishery)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISHING), new ItemStack(Fishery.rodReed));
-            RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISH_DATA), new ItemStack(Items.fish, 1, OreDictionary.WILDCARD_VALUE));
+            RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.FISH_DATA), new ItemStack(Fishery.fishEggs, 1, OreDictionary.WILDCARD_VALUE));
         }
+        
         if (Modules.isActive(Modules.magic)) {
             RecipeHelper.addBookRecipe(new ItemStack(guides, 1, GuideMeta.ENCHANTS), new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE));
         }

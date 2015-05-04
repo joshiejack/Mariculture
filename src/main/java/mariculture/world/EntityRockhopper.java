@@ -1,5 +1,6 @@
 package mariculture.world;
 
+import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
@@ -110,6 +111,21 @@ public class EntityRockhopper extends EntityTameable {
                 }
             }
         }
+    }
+    
+    @Override
+    protected String getLivingSound() {
+        return Mariculture.modid + ":rockhopper_ambient";
+    }
+    
+    @Override
+    protected String getDeathSound() {
+        return Mariculture.modid + ":rockhopper_death";
+    }
+
+    @Override
+    protected String getHurtSound() {
+        return Mariculture.modid + ":rockhopper_hurt";
     }
 
     @Override

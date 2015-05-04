@@ -17,7 +17,6 @@ import mariculture.fishery.items.ItemArmorFishingHat;
 import mariculture.world.EntityRockhopper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Items;
@@ -104,7 +103,7 @@ public class FisheryEventHandler {
                     }
                 }
             }
-        } else if (WorldGen.PENGUIN_SPAWN_ENABLED && event.entity instanceof EntitySpider && Modules.isActive(Modules.worldplus)) {
+        } else if (WorldGen.PENGUIN_SPAWN_ENABLED && event.entity instanceof EntitySquid && Modules.isActive(Modules.worldplus)) {
             if (!event.entity.worldObj.isRemote) {
                 if (event.world.rand.nextInt(100) == 0) {
                     EntityRockhopper penguin = new EntityRockhopper(event.entity.worldObj);

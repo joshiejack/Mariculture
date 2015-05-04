@@ -110,8 +110,10 @@ public class BlockWater extends BlockFunctional {
 
         if (tile instanceof TileOyster) {
             TileOyster oyster = (TileOyster) tile;
-            if (GeneralStuff.SPAWN_BOOKS && Modules.isActive(Modules.magic)) if (oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
-                BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
+            if (GeneralStuff.SPAWN_BOOKS && Modules.isActive(Modules.magic)) {
+                if (oyster.getStackInSlot(0) != null && oyster.getStackInSlot(0).getItem() == Core.pearls) {
+                    BookSpawnHelper.spawn(player, GuideMeta.ENCHANTS);
+                }
             }
 
             if (!player.isSneaking()) if (!world.isRemote) {
