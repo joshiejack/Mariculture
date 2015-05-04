@@ -1,5 +1,6 @@
 package mariculture.fishery;
 
+import static mariculture.core.helpers.RecipeHelper.add2x2Recipe;
 import static mariculture.core.helpers.RecipeHelper.addAlchemy2x2Alternating;
 import static mariculture.core.helpers.RecipeHelper.addAlchemy2x2TopBottom;
 import static mariculture.core.helpers.RecipeHelper.addAlchemyLoop;
@@ -377,8 +378,6 @@ public class Fishery extends RegistrationModule {
         addVatItemRecipe(asStack(stonebrick), getFluidName("chlorophyll"), 4000, asStack(stonebrick, 1), 10);
         addVatItemRecipe(asStack(stonebrick), getFluidName("lava"), 800, asStack(stonebrick, 2), 10);
         addFluidAlloy(getFluidStack("flux", 100), new FluidStack(FluidRegistry.WATER, 1000), getFluidStack("magnesium", 72), 10);
-        addBlockCasting(getFluidStack("lava", 100), asStack(netherrack));
-        addBlockCasting(getFluidStack("lava", 100), asStack(netherrack));
         
         if (FishMechanics.ADD_ALCHEMY_RECIPES) {
             addAlchemy2x2Alternating(asStack(stone), dropletNether, dropletEarth);
@@ -386,6 +385,7 @@ public class Fishery extends RegistrationModule {
             addAlchemy2x2Alternating(asStack(sand), dropletEarth, dropletWater);
             addAlchemy2x2TopBottom(asStack(grass), dropletPlant, dropletEarth);
             addAlchemyLoop(asStack(enderPearl), dropletEnder);
+            add2x2Recipe(asStack(netherrack), dropletNether);
         }
     }
 
