@@ -46,8 +46,14 @@ public class RenderCustomItem implements IItemRenderer {
                 renderBlocks.clearOverrideBlockTexture();
                 break;
             case EQUIPPED_FIRST_PERSON:
+                GL11.glPushMatrix();
+                GL11.glScalef(0.35F, 0.35F, 0.35F);
+                GL11.glTranslatef(1.7F, 1.1F, -1F);
+                //GL11.glRotatef(45, 0F, 0F, 1F);
+                //GL11.glRotatef(75, 1F, 1F, 0F);
                 renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item.getItem()), item.getItemDamage(), 1.0F, item);
                 renderBlocks.clearOverrideBlockTexture();
+                GL11.glPopMatrix();
                 break;
             case INVENTORY:
                 renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item.getItem()), item.getItemDamage(), 1.0F, item);

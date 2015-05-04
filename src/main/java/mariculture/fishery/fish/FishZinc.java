@@ -49,6 +49,16 @@ public class FishZinc extends FishSpecies {
     public int getFertility() {
         return 1200;
     }
+    
+    @Override
+    public int getBaseProductivity() {
+        return 0;
+    }
+    
+    @Override
+    public double getFishOilVolume() {
+        return 0.0D;
+    }
 
     @Override
     public void addFishProducts() {
@@ -59,6 +69,6 @@ public class FishZinc extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.GOOD;
+        return RodType.SUPER;
     }
 }

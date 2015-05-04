@@ -59,6 +59,16 @@ public class FishArdite extends FishSpecies {
     public int getFertility() {
         return 4000;
     }
+    
+    @Override
+    public int getBaseProductivity() {
+        return 0;
+    }
+    
+    @Override
+    public double getFishOilVolume() {
+        return 0.0D;
+    }
 
     @Override
     public void addFishProducts() {

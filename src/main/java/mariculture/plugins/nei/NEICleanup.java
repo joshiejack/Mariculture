@@ -107,6 +107,7 @@ public class NEICleanup {
             API.hideItem(new ItemStack(Factory.customStairs, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(Factory.customWall, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(Factory.customRFBlock, 1, OreDictionary.WILDCARD_VALUE));
+            API.hideItem(new ItemStack(Factory.customRFWall, 1, OreDictionary.WILDCARD_VALUE));
         }
 
         //Hide the fish or show one

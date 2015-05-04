@@ -109,7 +109,7 @@ public class FishJelly extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.GOOD;
+        return RodType.OLD;
     }
 
     @Override

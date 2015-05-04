@@ -42,6 +42,16 @@ public class FishGoldMetal extends FishSpecies {
     public int getFertility() {
         return 300;
     }
+    
+    @Override
+    public int getBaseProductivity() {
+        return 0;
+    }
+    
+    @Override
+    public double getFishOilVolume() {
+        return 0.0D;
+    }
 
     @Override
     public void addFishProducts() {
@@ -52,6 +62,6 @@ public class FishGoldMetal extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.SUPER;
+        return RodType.FLUX;
     }
 }

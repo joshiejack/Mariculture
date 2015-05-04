@@ -43,6 +43,16 @@ public class FishPlatinum extends FishSpecies {
     public int getFertility() {
         return 20;
     }
+    
+    @Override
+    public int getBaseProductivity() {
+        return 0;
+    }
+    
+    @Override
+    public double getFishOilVolume() {
+        return 0.0D;
+    }
 
     @Override
     public void addFishProducts() {

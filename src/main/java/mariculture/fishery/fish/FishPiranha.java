@@ -105,7 +105,7 @@ public class FishPiranha extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.FLUX;
+        return RodType.GOOD;
     }
 
     @Override

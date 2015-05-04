@@ -72,7 +72,7 @@ public class FishSquid extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.OLD;
+        return RodType.DIRE;
     }
 
     @Override

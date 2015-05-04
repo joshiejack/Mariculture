@@ -92,23 +92,26 @@ public class FishAngel extends FishSpecies {
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         if (!world.isRemote) {
-            TileEntity tile = world.getTileEntity(x, y - 1, z);
-            if (tile instanceof IInventory) {
-                List list = world.getEntitiesWithinAABB(EntityItem.class, Blocks.stone.getCollisionBoundingBoxFromPool(world, x, y - 1, z).expand(16D, 16D, 16D));
-                for (Object i : list) {
-                    EntityItem item = (EntityItem) i;
-                    ItemStack stack = item.getEntityItem();
-                    ItemStack newStack = InventoryHelper.insertItemStackIntoInventory((IInventory) tile, stack, ForgeDirection.DOWN.ordinal());
-                    if (newStack == null) {
-                        item.setDead();
-                    } else {
-                        item.setEntityItemStack(newStack);
+            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+                TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+                if (tile instanceof IInventory) {
+                    List list = world.getEntitiesWithinAABB(EntityItem.class, Blocks.stone.getCollisionBoundingBoxFromPool(world, x, y - 1, z).expand(16D, 16D, 16D));
+                    for (Object i : list) {
+                        EntityItem item = (EntityItem) i;
+                        ItemStack stack = item.getEntityItem();
+
+                        ItemStack newStack = InventoryHelper.insertItemStackIntoInventory((IInventory) tile, stack, dir.ordinal());
+                        if (newStack == null) {
+                            item.setDead();
+                        } else {
+                            item.setEntityItemStack(newStack);
+                        }
                     }
                 }
             }
         }
     }
-    
+
     @Override
     public boolean hasLivingEffect() {
         return true;

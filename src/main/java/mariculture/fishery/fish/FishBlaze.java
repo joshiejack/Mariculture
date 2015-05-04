@@ -127,7 +127,7 @@ public class FishBlaze extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.SUPER;
+        return RodType.FLUX;
     }
 
     @Override

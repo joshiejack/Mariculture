@@ -69,14 +69,15 @@ public class FLUDDEvents {
             if (world.isRemote) {
                 if (KeyHelper.isActivateKeyPressed() && !player.isSneaking()) {
                     V_HELD = true;
-                    if (FIRST) {
-                        STEP_HEIGHT = player.stepHeight;
-                        FIRST = false;
-                    }
-
-                    player.stepHeight = 1F;
                     Mode mode = getArmorMode(player);
                     if (mode == Mode.TURBO) {
+                        if (FIRST) {
+                            STEP_HEIGHT = player.stepHeight;
+                            FIRST = false;
+                        }
+
+                        player.stepHeight = 1F;
+
                         if (player.isInWater()) {
                             player.moveFlying(0.0F, 1.0F, 0.05F);
                         } else if (player.onGround) {

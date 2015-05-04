@@ -128,7 +128,7 @@ public class FishUndead extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.OLD;
+        return RodType.SUPER;
     }
 
     @Override

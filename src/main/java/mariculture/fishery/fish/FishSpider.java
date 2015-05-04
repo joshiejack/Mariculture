@@ -109,7 +109,7 @@ public class FishSpider extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.OLD;
+        return RodType.SUPER;
     }
 
     @Override

@@ -2,6 +2,7 @@ package mariculture.magic;
 
 import static mariculture.core.helpers.RecipeHelper.addShaped;
 import static mariculture.core.helpers.RecipeHelper.asStack;
+import static mariculture.core.lib.MCLib.bucket;
 import static mariculture.core.lib.MCLib.enchant;
 import static mariculture.core.lib.MCLib.enderPearl;
 import static mariculture.core.lib.MCLib.goldThread;
@@ -9,6 +10,7 @@ import static mariculture.core.lib.MCLib.magicDrop;
 import static mariculture.core.lib.MCLib.netherStar;
 import static mariculture.core.lib.MCLib.pearls;
 import static mariculture.core.lib.MCLib.storageBookshelf;
+import static mariculture.core.lib.MCLib.waterBottle;
 
 import java.util.Map.Entry;
 
@@ -221,6 +223,7 @@ public class Magic extends RegistrationModule {
 
     @Override
     public void registerRecipes() {
+        addShaped(asStack(water), new Object[] { "PWP", "WBW", "PWP", 'P', pearls, 'W', waterBottle, 'B', bucket });
         addShaped(asStack(magnet), new Object[] { "III", "I I", "M M", 'I', "ingotIron", 'M', enderPearl });
         addShaped(asStack(basicMirror), new Object[] { " AA", "APA", "SA ", 'A', "ingotAluminum", 'P', Blocks.glass_pane, 'S', "ingotIron" });
         addShaped(asStack(magicMirror), new Object[] { "PMP", "BEB", "PBP", 'B', storageBookshelf, 'M', basicMirror, 'E', enchant, 'P', pearls });

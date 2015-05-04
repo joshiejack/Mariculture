@@ -67,7 +67,7 @@ public class FishPupfish extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.DIRE;
+        return RodType.OLD;
     }
 
     @Override

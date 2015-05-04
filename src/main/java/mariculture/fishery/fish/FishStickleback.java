@@ -69,7 +69,7 @@ public class FishStickleback extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.DIRE;
+        return RodType.GOOD;
     }
 
     @Override

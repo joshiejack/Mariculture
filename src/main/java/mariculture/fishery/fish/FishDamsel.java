@@ -107,11 +107,6 @@ public class FishDamsel extends FishSpecies {
     }
 
     @Override
-    public double getCaughtAliveChance(World world, int height) {
-        return world.isDaytime() ? 75D : 0D;
-    }
-
-    @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         if (world.rand.nextInt(10) == 0) {
             ArrayList<EntityAnimal> entities = new ArrayList();

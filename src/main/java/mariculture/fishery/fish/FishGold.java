@@ -77,11 +77,16 @@ public class FishGold extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.OLD;
+        return RodType.DIRE;
     }
 
     @Override
     public double getCatchChance(World world, int height) {
         return 15D;
+    }
+    
+    @Override
+    public double getCaughtAliveChance(World world, int height) {
+        return world.isDaytime() ? 75D : 15D;
     }
 }

@@ -78,7 +78,7 @@ public class FishBowfin extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.DIRE;
+        return RodType.GOOD;
     }
 
     @Override

@@ -143,7 +143,7 @@ public class FishEnder extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.SUPER;
+        return RodType.DIRE;
     }
 
     @Override

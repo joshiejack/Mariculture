@@ -98,7 +98,7 @@ public class FishAngler extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.SUPER;
+        return RodType.GOOD;
     }
 
     @Override

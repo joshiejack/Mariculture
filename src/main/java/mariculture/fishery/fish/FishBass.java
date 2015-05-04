@@ -131,7 +131,7 @@ public class FishBass extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.GOOD;
+        return RodType.OLD;
     }
 
     @Override

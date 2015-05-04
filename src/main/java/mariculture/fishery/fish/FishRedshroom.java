@@ -76,6 +76,6 @@ public class FishRedshroom extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.GOOD;
+        return RodType.DIRE;
     }
 }

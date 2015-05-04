@@ -144,7 +144,7 @@ public class FishGlow extends FishSpecies {
 
     @Override
     public RodType getRodNeeded() {
-        return RodType.GOOD;
+        return RodType.SUPER;
     }
 
     @Override
