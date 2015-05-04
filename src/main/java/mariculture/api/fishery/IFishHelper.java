@@ -28,7 +28,11 @@ public interface IFishHelper {
     public ItemStack attemptToHatchEgg(ItemStack egg, Random rand, double mutation, IIncubator tile);
 
     /** Whether this fish can live at the current coordinates or not **/
+    @Deprecated
     public boolean canLive(World world, int x, int y, int z, ItemStack fish);
+    
+    /** Pass the daytime as the client seems to always return true **/
+    public boolean canLive(World world, int x, int y, int z, ItemStack fish, boolean isDaytime);
 
     /** Returns whether a fish is pure bred or not  **/
     public boolean isPure(ItemStack stack);

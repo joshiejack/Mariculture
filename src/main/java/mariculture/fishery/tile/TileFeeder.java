@@ -308,7 +308,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void update() {
         super.update();
-
+        
         if (canWork) {
             foodTick++;
 
@@ -420,7 +420,8 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             fixFish(female);
             fixFish(male);
         }
-
+        
+        isDay = worldObj.isDaytime();
         return RedstoneMode.canWork(this, mode) && hasMale() && hasFemale() && fishCanLive(inventory[male]) && fishCanLive(inventory[female]) && hasRoom(null);
     }
 
@@ -439,7 +440,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
         if (species != null) {
             if (MaricultureHandlers.upgrades.hasUpgrade("debugLive", this)) return true;
             else if (tank.getFluid() == null || tank.getFluid() != null && tank.getFluid().getFluid() != Fluids.getFluid("fish_food")) return false;
-            return tankSize >= Fish.tankSize.getDNA(fish) && species.isFluidValid(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish);
+            return tankSize >= Fish.tankSize.getDNA(fish) && species.isFluidValid(tankBlock) && Fishing.fishHelper.canLive(worldObj, xCoord, yCoord, zCoord, fish, isDay);
         } else return false;
     }
 
@@ -531,7 +532,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
                     }
                 }
 
-                if (!species.canWorkAtThisTime(worldObj.isDaytime())) {
+                if (!species.canWorkAtThisTime(isDay)) {
                     noBad = addToolTip(tooltip, MCTranslate.translate("badTime"));
                 }
 
@@ -599,14 +600,14 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
 
     @Override
     public boolean hasChanged() {
-        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork ? 1 : 0) || lastTime != (worldObj.isDaytime() ? 1 : 0) || lastHeat != heat || lastBlock != tankBlock;
+        return super.hasChanged() || lastTankSize != tankSize || lastWork != (canWork ? 1 : 0) || lastTime != (isDay ? 1 : 0) || lastHeat != heat || lastBlock != tankBlock;
     }
 
     @Override
     public ArrayList<Integer> getGUIData() {
         lastTankSize = tankSize;
         lastWork = canWork ? 1 : 0;
-        lastTime = worldObj.isDaytime() ? 1 : 0;
+        lastTime = isDay ? 1 : 0;
         lastHeat = heat;
         lastBlock = tankBlock;
         int id = Block.getIdFromBlock(lastBlock);

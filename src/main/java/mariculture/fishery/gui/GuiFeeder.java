@@ -37,6 +37,7 @@ public class GuiFeeder extends GuiMariculture {
             if (mouseY >= 24 && mouseY <= 41) {
                 tooltip = tile.getTooltip(TileFeeder.male, tooltip);
             }
+            
             if (mouseY >= 52 && mouseY <= 69) {
                 tooltip = tile.getTooltip(TileFeeder.female, tooltip);
             }

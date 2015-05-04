@@ -210,9 +210,9 @@ public class FishyHelper implements IFishHelper {
 
         return fish;
     }
-
+    
     @Override
-    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
+    public boolean canLive(World world, int x, int y, int z, ItemStack stack, boolean isDaytime) {
         if (FussyFish.IGNORE_ALL_REQUIREMENTS) {
             return true;
         }
@@ -246,16 +246,21 @@ public class FishyHelper implements IFishHelper {
             }
 
             int salinityTolerance = fish.ignoresSalinity() ? 2 : Fish.salinity.getDNA(stack);
-            if ((!FussyFish.IGNORE_DIMENSION_REQUIREMENTS && !worldCorrect) || (!FussyFish.IGNORE_DAY_REQUIREMENTS && !fish.canWorkAtThisTime(world.isDaytime()))) return false;
+            if ((!FussyFish.IGNORE_DIMENSION_REQUIREMENTS && !worldCorrect) || (!FussyFish.IGNORE_DAY_REQUIREMENTS && !fish.canWorkAtThisTime(isDaytime))) return false;
             else {
                 if (hasAquascum) {
                     salt = fish.getSalinityBase();
                     temperature = fish.getTemperatureBase();
                 }
-
+                
                 return MaricultureHandlers.environment.matches(salt, temperature, fish.getSalinityBase(), salinityTolerance, fish.getTemperatureBase(), Fish.temperature.getDNA(stack));
             }
         }
+    }
+
+    @Override
+    public boolean canLive(World world, int x, int y, int z, ItemStack stack) {
+        return canLive(world, x, y, z, stack, world.isDaytime());
     }
 
     @Override
