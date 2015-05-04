@@ -38,12 +38,9 @@ public class PluginBotania extends Plugin {
     public void preInit() {
         if (Modules.isActive(Modules.fishery)) {
             mana = Fishing.fishHelper.registerFish(modid, FishMana.class, 65);
-            if (FishMechanics.ENABLE_METAL_FISH) {
-                Fishing.mutation.addMutation(Fish.koi, Fish.gold, mana, 30D);
-            } else {
-                Fishing.mutation.addMutation(Fish.koi, Fish.glow, mana, 30D);
-            }
-            
+            Fishing.mutation.addMutation(Fish.electricRay, Fish.clown, mana, 30D);
+            Fishing.mutation.addMutation(Fish.electricRay, Fish.ender, mana, 30D);
+            Fishing.mutation.addMutation(Fish.electricRay, Fish.blaze, mana, 30D);
             rodLiving = new ItemLivingRod().setUnlocalizedName("rodLiving");
             Fishing.fishing.registerRod(rodLiving, MANA);
         }
@@ -90,10 +87,6 @@ public class PluginBotania extends Plugin {
         BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 6), new ItemStack(Blocks.red_flower, 1, 7), 10);
         BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 7), new ItemStack(Blocks.red_flower, 1, 8), 10);
         BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_flower, 1, 8), new ItemStack(Blocks.yellow_flower), 10);
-        
-        //Mushroom cycling with botania
-        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.red_mushroom), new ItemStack(Blocks.brown_mushroom), 10);
-        BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.brown_mushroom), new ItemStack(Blocks.red_mushroom), 10);
         
         //Tall Plant cycling with botania
         BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.double_plant, 1, 0), new ItemStack(Blocks.double_plant, 1, 4), 10);

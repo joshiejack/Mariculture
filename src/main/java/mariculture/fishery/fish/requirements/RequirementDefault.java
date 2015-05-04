@@ -10,4 +10,9 @@ public class RequirementDefault implements IMutationRequirement {
     public boolean canMutationOccur(ItemStack egg) {
         return true;
     }
+
+    @Override
+    public String getMutationInfo() {
+        return "";
+    }
 }

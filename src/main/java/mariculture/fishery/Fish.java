@@ -358,76 +358,66 @@ public class Fish {
     }
 
     public static void addOptionalFish() {
-        silver = registerFish("silver", iron, magnesium, 16D, FishSilver.class, 56);
-        lead = registerFish("lead", copper, angler, 16D, FishLead.class, 57);
-        tin = registerFish("tin", stargazer, squid, 20D, FishTin.class, 58);
-        platinum = registerFish("platinum", rutile, koi, 12D, FishPlatinum.class, 59);
-        nickel = registerFish("nickel", angler, magnesium, 15D, FishNickel.class, 60);
-        cobalt = registerFish("cobalt", rutile, catfish, 12D, FishCobalt.class, 61);
-        ardite = registerFish("ardite", rutile, glow, 12D, FishArdite.class, 62);
-        osmium = registerFish("osmium", rutile, electricRay, 12D, FishOsmium.class, 63);
-        zinc = registerFish("zinc", aluminum, puffer, 20D, FishZinc.class, 64);
+        silver = registerFish("silver", magnesium, stickleback, 15D, FishSilver.class, 56);
+        lead = registerFish("lead", magnesium, angler, 15D, FishLead.class, 57);
+        tin = registerFish("tin", brown, puffer, 15D, FishTin.class, 58);
+        platinum = registerFish("platinum", gold, iron, 10D, FishPlatinum.class, 59);
+        nickel = registerFish("nickel", copper, goldfish, 15D, FishNickel.class, 60);
+        cobalt = registerFish("cobalt", gold, tang, 10D, FishCobalt.class, 61);
+        ardite = registerFish("ardite", gold, glow, 10D, FishArdite.class, 62);
+        osmium = registerFish("osmium", herring, pickerel, 10D, FishOsmium.class, 63);
+        zinc = registerFish("zinc", chub, lung, 15D, FishZinc.class, 64);
     }
 
     private static void addMutations() {
-        Fishing.mutation.addMutation(night, spider, undead, 25D);
-        Fishing.mutation.addMutation(blaasop, tetra, pup, 30D);
-        Fishing.mutation.addMutation(tetra, damsel, angel, 30D);
-        Fishing.mutation.addMutation(cod, minnow, goldfish, 35D);
-        Fishing.mutation.addMutation(undead, blaasop, lamprey, 22.5D);
-        Fishing.mutation.addMutation(blaasop, pup, stargazer, 22.5D);
-        Fishing.mutation.addMutation(pup, minnow, perch, 24.75D);
-        Fishing.mutation.addMutation(stingRay, angel, mantaRay, 23D);
-        Fishing.mutation.addMutation(angel, cod, tuna, 24.5D);
-        Fishing.mutation.addMutation(angel, goldfish, butterfly, 22.75);
-        Fishing.mutation.addMutation(tetra, goldfish, trout, 22D);
-        Fishing.mutation.addMutation(damsel, goldfish, trout, 22D);
-        Fishing.mutation.addMutation(damsel, goldfish, salmon, 24D);
-        Fishing.mutation.addMutation(tetra, goldfish, salmon, 24D);
-        Fishing.mutation.addMutation(squid, stargazer, jelly, 22D);
-        Fishing.mutation.addMutation(lamprey, tuna, stickleback, 22D);
-        Fishing.mutation.addMutation(nether, mantaRay, red, 20D);
-        Fishing.mutation.addMutation(night, mantaRay, brown, 20D);
-        Fishing.mutation.addMutation(spider, mantaRay, brown, 22D);
-        Fishing.mutation.addMutation(stargazer, pup, chub, 22.25D);
-        Fishing.mutation.addMutation(mantaRay, butterfly, tang, 21D);
-        Fishing.mutation.addMutation(perch, undead, bass, 20D);
-        Fishing.mutation.addMutation(trout, undead, bass, 20D);
-        Fishing.mutation.addMutation(salmon, undead, bass, 20D);
-        Fishing.mutation.addMutation(tuna, red, herring, 17.5D);
-        Fishing.mutation.addMutation(jelly, stickleback, puffer, 20D);
-        Fishing.mutation.addMutation(lamprey, bass, angler, 18D);
-        Fishing.mutation.addMutation(stickleback, brown, bowfin, 19D);
-        Fishing.mutation.addMutation(perch, chub, walleye, 19D);
-        Fishing.mutation.addMutation(tang, bass, pickerel, 18.5D);
-        Fishing.mutation.addMutation(nether, puffer, glow, 15D);
-        Fishing.mutation.addMutation(herring, stingRay, electricRay, 15D);
-        Fishing.mutation.addMutation(angler, pickerel, piranha, 16D);
-        Fishing.mutation.addMutation(walleye, trout, catfish, 16.5D);
-        Fishing.mutation.addMutation(bowfin, salmon, lung, 17.25D);
-        Fishing.mutation.addMutation(pickerel, walleye, siamese, 15.5D);
-        Fishing.mutation.addMutation(pickerel, bowfin, siamese, 15.5D);
-        Fishing.mutation.addMutation(siamese, catfish, koi, 15D);
-        Fishing.mutation.addMutation(lung, siamese, pike, 13D);
-        Fishing.mutation.addMutation(piranha, jelly, manOWar, 14D);
-        Fishing.mutation.addMutation(electricRay, manOWar, boneless, 12D);
-        Fishing.mutation.addMutation(glow, pike, blaze, 12D);
-        Fishing.mutation.addMutation(night, koi, ender, 13D);
-        Fishing.mutation.addMutation(boneless, ender, dragon, 10D);
-        Fishing.mutation.addMutation(blaze, tang, clown, 11D);
-        Fishing.mutation.addMutation(dragon, clown, minecraft, 8D);
-
-        //KEEP THESE
-        Fishing.mutation.addMutation(stingRay, cod, damsel, 25D);
-        Fishing.mutation.addMutation(stingRay, minnow, tetra, 25D);
+        Fishing.mutation.addMutation(nether, tetra, angler, 25D);
+        Fishing.mutation.addMutation(night, walleye, stickleback, 25D);
+        Fishing.mutation.addMutation(stingRay, squid, manOWar, 30D);
+        Fishing.mutation.addMutation(cod, blaasop, tuna, 30D);
+        Fishing.mutation.addMutation(minnow, goldfish, salmon, 35D);
+        Fishing.mutation.addMutation(angler, manOWar, pike, 20D);
+        Fishing.mutation.addMutation(stickleback, manOWar, bowfin, 20D);
+        Fishing.mutation.addMutation(manOWar, tuna, puffer, 20D);
+        Fishing.mutation.addMutation(salmon, tuna, lung, 22D);
+        Fishing.mutation.addMutation(pike, stingRay, mantaRay, 18D);
+        Fishing.mutation.addMutation(pike, bowfin, piranha, 18D);
+        Fishing.mutation.addMutation(puffer, nether, red, 17.5D);
+        Fishing.mutation.addMutation(puffer, cod, brown, 17.5D);
+        Fishing.mutation.addMutation(puffer, lung, chub, 19D);
+        Fishing.mutation.addMutation(tetra, lung, angel, 18D);
+        Fishing.mutation.addMutation(night, piranha, spider, 17D);
+        Fishing.mutation.addMutation(mantaRay, brown, perch, 17.5D);
+        Fishing.mutation.addMutation(piranha, angel, stargazer, 15D);
+        Fishing.mutation.addMutation(red, blaasop, bass, 17.5D);
+        Fishing.mutation.addMutation(squid, chub, jelly, 17.5D);
+        Fishing.mutation.addMutation(chub, salmon, trout, 17D);
+        Fishing.mutation.addMutation(angel, mantaRay, butterfly, 16D);
+        Fishing.mutation.addMutation(bass, angler, glow, 14D);
+        Fishing.mutation.addMutation(stargazer, spider, undead, 15D);
+        Fishing.mutation.addMutation(bass, jelly, pup, 15D);
+        Fishing.mutation.addMutation(perch, butterfly, siamese, 13.5D);
+        Fishing.mutation.addMutation(jelly, trout, catfish, 15D);
+        Fishing.mutation.addMutation(glow, minnow, herring, 13D);
+        Fishing.mutation.addMutation(undead, stargazer, lamprey, 13.5D);
+        Fishing.mutation.addMutation(pup, catfish, pickerel, 12D);
+        Fishing.mutation.addMutation(glow, trout, tang, 13.5D);
+        Fishing.mutation.addMutation(siamese, butterfly, damsel, 12D);
+        Fishing.mutation.addMutation(herring, lamprey, electricRay, 10D);
+        Fishing.mutation.addMutation(tang, damsel, clown, 10D);
+        Fishing.mutation.addMutation(herring, perch, blaze, 12D);
+        Fishing.mutation.addMutation(lamprey, night, ender, 12D);
+        Fishing.mutation.addMutation(undead, pickerel, boneless, 11D);
+        Fishing.mutation.addMutation(electricRay, clown, minecraft, 10D);
+        Fishing.mutation.addMutation(clown, blaze, koi, 8D);
+        Fishing.mutation.addMutation(ender, boneless, dragon, 9D);
 
         if (FishMechanics.ENABLE_METAL_FISH) {
-            Fishing.mutation.addMutation(lamprey, chub, copper, 20D, new RequirementHasTag("blockCopper"));
-            Fishing.mutation.addMutation(copper, chub, iron, 17.5D, new RequirementHasTag("blockIron"));
-            Fishing.mutation.addMutation(copper, brown, magnesium, 17.5D, new RequirementHasTag("blockMagnesium"));
-            Fishing.mutation.addMutation(iron, herring, aluminum, 15D, new RequirementHasTag("blockAluminum"));
-            Fishing.mutation.addMutation(iron, walleye, gold, 15D, new RequirementHasTag("blockGold"));
-            Fishing.mutation.addMutation(magnesium, lung, rutile, 13D, new RequirementHasTag("blockRutile"));
+            Fishing.mutation.addMutation(brown, bowfin, copper, 15D, new RequirementHasTag("blockCopper"));
+            Fishing.mutation.addMutation(brown, pike, iron, 15D, new RequirementHasTag("blockIron"));
+            Fishing.mutation.addMutation(red, lung, magnesium, 15D, new RequirementHasTag("blockMagnesium"));
+            Fishing.mutation.addMutation(iron, copper, aluminum, 15D, new RequirementHasTag("blockAluminum"));
+            Fishing.mutation.addMutation(aluminum, walleye, gold, 12D, new RequirementHasTag("blockGold"));
+            Fishing.mutation.addMutation(gold, magnesium, rutile, 10D, new RequirementHasTag("blockRutile"));
             MinecraftForge.EVENT_BUS.register(new MetalFishEventHandler());
         }
     }

@@ -22,4 +22,9 @@ public class RequirementHasTag implements IMutationRequirement {
         
         return true;
     }
+
+    @Override
+    public String getMutationInfo() {
+        return "Requires a Block of " + keys[0] + " in the water.";
+    }
 }

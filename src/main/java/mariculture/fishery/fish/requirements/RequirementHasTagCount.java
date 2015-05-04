@@ -25,4 +25,9 @@ public class RequirementHasTagCount implements IMutationRequirement {
         
         return true;
     }
+
+    @Override
+    public String getMutationInfo() {
+        return "Requires " + values[0] + " Block of " + keys[0] + " in the water.";
+    }
 }

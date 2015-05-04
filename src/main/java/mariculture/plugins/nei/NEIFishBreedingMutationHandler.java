@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import mariculture.Mariculture;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.IMutation.Mutation;
@@ -20,16 +22,16 @@ import codechicken.nei.recipe.GuiRecipe;
 
 public class NEIFishBreedingMutationHandler extends NEIBase {
     public class CachedBreedingRecipe extends CachedRecipe {
-        double chance;
+        Mutation mutation;
         PositionedStack mother;
         PositionedStack father;
         PositionedStack baby;
 
-        public CachedBreedingRecipe(ItemStack mother, ItemStack father, ItemStack baby, double chance) {
-            this.mother = new PositionedStack(father, 11, 16);
-            this.father = new PositionedStack(mother, 67, 16);
-            this.baby = new PositionedStack(baby, 133, 16);
-            this.chance = chance;
+        public CachedBreedingRecipe(ItemStack mother, ItemStack father, ItemStack baby, Mutation mutation) {
+            this.mother = new PositionedStack(father, 11, 12);
+            this.father = new PositionedStack(mother, 67, 12);
+            this.baby = new PositionedStack(baby, 133, 12);
+            this.mutation = mutation;
         }
 
         @Override
@@ -54,7 +56,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
                 ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
                 ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishyHelper.MALE);
                 ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishyHelper.FEMALE);
-                arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute.chance));
+                arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute));
             }
         } else {
             super.loadCraftingRecipes(outputId, results);
@@ -70,7 +72,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
                 ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
                 ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishyHelper.MALE);
                 ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishyHelper.FEMALE);
-                arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute.chance));
+                arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute));
             }
         }
     }
@@ -96,7 +98,7 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
                 ItemStack baby = Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.baby));
                 ItemStack father = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.father)), FishyHelper.MALE);
                 ItemStack mother = Fish.gender.addDNA(Fishing.fishHelper.makePureFish(Fishing.fishHelper.getSpecies(mute.mother)), FishyHelper.FEMALE);
-                arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute.chance));
+                arecipes.add(new CachedBreedingRecipe(mother, father, baby, mute));
             }
         }
     }
@@ -104,12 +106,13 @@ public class NEIFishBreedingMutationHandler extends NEIBase {
     @Override
     public void drawExtras(int id) {
         CachedBreedingRecipe cache = (CachedBreedingRecipe) arecipes.get(id);
-        Minecraft.getMinecraft().fontRenderer.drawString(mariculture.lib.util.Text.GREY + cache.chance + "%", 94, 38, 0);
+        Minecraft.getMinecraft().fontRenderer.drawString(mariculture.lib.util.Text.GREY + cache.mutation.chance + "%", 94, 34, 0);
+        Minecraft.getMinecraft().fontRenderer.drawSplitString(mariculture.lib.util.Text.BLACK + cache.mutation.requirement.getMutationInfo(), 0, 48, 165, 0);
     }
 
     @Override
     public void loadTransferRects() {
-        transferRects.add(new RecipeTransferRect(new Rectangle(95, 16, 22, 16), "fishbreeding"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(95, 16, 22, 12), "fishbreeding"));
     }
 
     @Override

@@ -62,7 +62,6 @@ public class NEICleanup {
         //All the block metas
         for (int meta = 0; meta < 16; meta++) {
             hide(meta, FoodMeta.COUNT, Core.food);
-            hide(meta, BucketMeta.COUNT, Core.buckets);
             hide(meta, GlassMeta.COUNT, Core.glass);
             hide(meta, LimestoneMeta.COUNT, Core.limestone);
             hide(meta, MachineMeta.COUNT, Core.machines);
@@ -135,6 +134,7 @@ public class NEICleanup {
         add(BottleMeta.COUNT, Core.bottles);
         add(MaterialsMeta.COUNT, Core.materials);
         add(UpgradeMeta.COUNT, Core.upgrade);
+        add(BucketMeta.COUNT, Core.buckets);
 
         //Add the jewelry
         if (Modules.isActive(Modules.magic)) {
