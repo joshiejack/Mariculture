@@ -68,6 +68,11 @@ public class FishCobalt extends FishSpecies {
     public double getFishOilVolume() {
         return 0.0D;
     }
+    
+    @Override
+    public int getFoodStat() {
+        return -1;
+    }
 
     @Override
     public void addFishProducts() {

@@ -2,6 +2,18 @@
 <book>
     <page>
         <text x="92" y="-13" bold="true">Introduction</text>
-        <text>Mariculture introduces a ton of different fish species. This book, will give you information on each of them. What conditions they require. How they can be useful to you, and things they do when you eat them, or how they affect the world.</text>
+        <text>Mariculture introduces a ton of different fish species. This book, will give you information on each of them. What conditions they require. How they can be useful to you, and things they do when you eat them, or how they affect the world.
+        
+It also contains some information on the different fishing hats you can use that will help you catch fish. As well as a look at the machines that allow the genetic manipulation of fish, allowing you to make the perfect fish, with a bit more ease.</text>
+    <text x="42" y="110" bold="true" underline="true">Bucket Hats</text>
+    <vat x="30" y="152" size="0.85">
+            <input>minecraft:leather_helmet</input>
+            <fluid1 vol="16000">fishoil</fluid1>
+            <output>Mariculture:fishinghat</output>
+            <time>25</time>
+        </vat>
+    </page>
+    <page>
+    <text>Bucket Hats are items that can be worn on your head. They have special effects when you fish while wearing them, depending on which colour they are. They come in various colours, one for each pearl colour as well as the default. To craft the coloured ones simply surround a bucket hat with 8 of the pearls you wish to dye it. The next few pages will list what each colour does.</text>
     </page>
 </book>

@@ -53,7 +53,7 @@ public class PageVat extends PageParser {
             fluid3Type = XMLHelper.getAttribute(e, "type").equals("") ? "mB" : " " + XMLHelper.getAttribute(e, "type");
         }
 
-        time = XMLHelper.getAttribAsInteger(xml, "time", 10);
+        time = XMLHelper.getElementAsInteger(xml, "time", 10);
     }
 
     @Override
