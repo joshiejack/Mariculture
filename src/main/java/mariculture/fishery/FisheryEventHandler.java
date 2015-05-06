@@ -85,22 +85,20 @@ public class FisheryEventHandler {
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (event.entity instanceof EntityZombie) {
             EntityZombie zombie = (EntityZombie) event.entity;
-            if (!zombie.isChild()) {
-                if (event.world.rand.nextFloat() - 0.1F < GeneralStuff.FISHING_GEAR_CHANCE) {
-                    if (zombie.getEquipmentInSlot(0) == null && zombie.getEquipmentInSlot(ArmorSlot.HAT) == null) {
-                        if (event.world.rand.nextInt(100) == 0) {
-                            zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodTitanium));
-                        } else if (event.world.rand.nextInt(33) == 0) {
-                            zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodWood));
-                        } else zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodReed));
+            if (event.world.rand.nextFloat() - 0.1F < GeneralStuff.FISHING_GEAR_CHANCE) {
+                if (zombie.getEquipmentInSlot(0) == null && zombie.getEquipmentInSlot(ArmorSlot.HAT) == null) {
+                    if (event.world.rand.nextInt(100) == 0) {
+                        zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodTitanium));
+                    } else if (event.world.rand.nextInt(33) == 0) {
+                        zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodWood));
+                    } else zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodReed));
 
-                        zombie.setCurrentItemOrArmor(ArmorSlot.HAT, ItemArmorFishingHat.getDyed(event.world.rand.nextInt(PearlColor.COUNT)));
-                        zombie.setEquipmentDropChance(0, GeneralStuff.FISHING_ROD_DROP_CHANCE);
-                        zombie.setEquipmentDropChance(ArmorSlot.HAT, GeneralStuff.FISHING_HAT_DROP_CHANCE);
-                        zombie.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 6000, 1));
-                        zombie.addPotionEffect(new PotionEffect(Potion.resistance.id, 18000, 2));
-                        zombie.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 18000, 2));
-                    }
+                    zombie.setCurrentItemOrArmor(ArmorSlot.HAT, ItemArmorFishingHat.getDyed(event.world.rand.nextInt(PearlColor.COUNT)));
+                    zombie.setEquipmentDropChance(0, GeneralStuff.FISHING_ROD_DROP_CHANCE);
+                    zombie.setEquipmentDropChance(ArmorSlot.HAT, GeneralStuff.FISHING_HAT_DROP_CHANCE);
+                    zombie.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 6000, 1));
+                    zombie.addPotionEffect(new PotionEffect(Potion.resistance.id, 18000, 2));
+                    zombie.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 18000, 2));
                 }
             }
         } else if (WorldGen.PENGUIN_SPAWN_ENABLED && event.entity instanceof EntitySquid && Modules.isActive(Modules.worldplus)) {

@@ -15,5 +15,81 @@ It also contains some information on the different fishing hats you can use that
     </page>
     <page>
     <text>Bucket Hats are items that can be worn on your head. They have special effects when you fish while wearing them, depending on which colour they are. They come in various colours, one for each pearl colour as well as the default. To craft the coloured ones simply surround a bucket hat with 8 of the pearls you wish to dye it. The next few pages will list what each colour does.</text>
+        <stack item="Mariculture:fishinghat 0 {Color:0}" y="25" size="1.8"></stack>
+        <text x="32" y="103" bold="true" size="0.8">White Pearl Bucket Hat</text>
+        <text x="30" y="105">When fishing, the water is considered fresh water.</text>
+        <hr x="10" y="102" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:1}" y="43" size="1.8"></stack>
+        <text x="32" y="142" bold="true" size="0.8">Green Pearl Bucket Hat</text>
+        <text x="30" y="142" wrap="200">When fishing, the water is considered to be in a Jungle biome.</text>
+        <hr x="10" y="135" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:2}" y="62" size="1.8"></stack>
+        <text x="32" y="185" bold="true" size="0.8">Yellow Pearl Bucket Hat</text>
+        <text x="30" y="182" wrap="200">When fishing, the water is considered brackish water.</text>
+    </page>
+    <page>
+        <stack item="Mariculture:fishinghat 0 {Color:3}" y="-20" size="1.8"></stack>
+        <text x="32" y="0" bold="true" size="0.8">Orange Pearl Bucket Hat</text>
+        <text x="30" y="8" wrap="200">Wearing this hat means you only catch fish, never will you catch loot.</text>
+        <hr x="10" y="18" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:4}" y="-4" size="1.8"></stack>
+        <text x="32" y="35" bold="true" size="0.8">Red Pearl Bucket Hat</text>
+        <text x="30" y="40" wrap="200">Will trick fish in to thinking you are fishing in the Nether.</text>
+        <hr x="10" y="48" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:5}" y="12" size="1.8"></stack>
+        <text x="32" y="72" bold="true" size="0.8">Gold Pearl Bucket Hat</text>
+        <text x="30" y="74" wrap="200">Can only catch vanilla fish or loot items.</text>
+        <hr x="10" y="76" width="160"></hr>
+    
+        <stack item="Mariculture:fishinghat 0 {Color:6}" y="28" size="1.8"></stack>
+        <text x="32" y="108" bold="true" size="0.8">Brown Pearl Bucket Hat</text>
+        <text x="30" y="108" wrap="200">Fish assume you are fishing at y10.</text>
+        <hr x="10" y="104" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:7}" y="43" size="1.8"></stack>
+        <text x="32" y="144" bold="true" size="0.8">Purple Pearl Bucket Hat</text>
+        <text x="30" y="142" wrap="200">Everything you catch is enchanted.</text>
+        <hr x="10" y="131" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:8}" y="58" size="1.8"></stack>
+        <text x="32" y="178" bold="true" size="0.8">Blue Pearl Bucket Hat</text>
+        <text x="30" y="174" wrap="200">Only male fish will bite.</text>
+    </page>
+    <page>
+        <stack item="Mariculture:fishinghat 0 {Color:9}" y="-20" size="1.8"></stack>
+        <text x="32" y="0" bold="true" size="0.8">Black Pearl Bucket Hat</text>
+        <text x="30" y="8" wrap="200">All fish are caught dead.</text>
+        <hr x="10" y="18" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:10}" y="-4" size="1.8"></stack>
+        <text x="32" y="35" bold="true" size="0.8">Pink Pearl Bucket Hat</text>
+        <text x="30" y="40" wrap="200">Only female fish will bite.</text>
+        <hr x="10" y="48" width="160"></hr>
+        
+        <stack item="Mariculture:fishinghat 0 {Color:11}" y="12" size="1.8"></stack>
+        <text x="32" y="72" bold="true" size="0.8">Silver Pearl Bucket Hat</text>
+        <text x="30" y="74" wrap="200">When fishing, the water is considered salt water.</text>
+        <hr x="10" y="76" width="160"></hr>
+    
+        <stack item="Mariculture:fishinghat" y="28" size="1.8"></stack>
+        <text x="32" y="108" bold="true" size="0.8">Bucket Hat</text>
+        <text x="30" y="108" wrap="200">Higher chance of catching fish alive.</text>
+        <hr x="10" y="104" width="160"></hr>
+        <crafting x="10" y="100" size="1.1">
+            <craft1>pearlPink|pearlPink|pearlPink</craft1>
+            <craft2>pearlPink|Mariculture:fishinghat|pearlPink</craft2>
+            <craft3>pearlPink|pearlPink|pearlPink</craft3>
+            <craftResult>Mariculture:fishinghat 0 {Color:10}</craftResult>
+        </crafting>
+        <crafting x="100" y="100" size="1.1">
+            <craft1>pearlWhite|pearlWhite|pearlWhite</craft1>
+            <craft2>pearlWhite|Mariculture:fishinghat|pearlWhite</craft2>
+            <craft3>pearlWhite|pearlWhite|pearlWhite</craft3>
+            <craftResult>Mariculture:fishinghat 0 {Color:0}</craftResult>
+        </crafting>
     </page>
 </book>

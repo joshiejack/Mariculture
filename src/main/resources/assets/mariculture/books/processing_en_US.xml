@@ -21,11 +21,11 @@
         <text x="92" y="-13" bold="true">Magnesium</text>
         <text>Magnesium is required to make Titanium which is used in some of the more advanced recipes. To obtain Magnesium you need to mix quicklime(molten limestone) with water. This will create a random dust, which you should melt in a crucible furnace. (Not all the water is used). This will most likely give you Molten Magnesium but if you have mods that add cobalt or nickel, you may get these instead.</text>
         <vat x="20" y="90" size="1.1">
-            <fluid1 vol="3000">water</fluid1>
-            <fluid2 vol="4000">quicklime</fluid2>
-            <fluid3 vol="2000">water</fluid3>
-            <output>Mariculture:materials 13</output>
-            <time>10</time>
+            <fluid1 vol="3000">quicklime</fluid1>
+            <fluid2 vol="1000">water</fluid2>
+            <fluid3 vol="144">magnesium.molten</fluid3>
+            <output></output>
+            <time>5</time>
         </vat>
     </page>
     <page>
@@ -35,7 +35,7 @@
             <fluid1 type=" ingot" vol="1">magnesium.molten</fluid1>
             <fluid2 type=" ingot" vol="1">rutile.molten</fluid2>
             <fluid3 type=" ingot" vol="1">titanium.molten</fluid3>
-            <time>6</time>
+            <time>1</time>
         </vat>
     </page>
     <page>
@@ -53,15 +53,15 @@
         <text>Burnt Bricks are made in a Vat, there are two recipes to create them, one that uses normal bricks and the other using netherbricks.</text>
         <vat x="15" y="25" size="1.1">
             <input>brick</input>
-            <fluid1 vol="500">lava</fluid1>
+            <fluid1 vol="250">lava</fluid1>
             <output>burntBrick</output>
-            <time>16</time>
+            <time>5</time>
         </vat>
         <vat x="15" y="90" size="1.1">
             <input>netherbrick</input>
-            <fluid1 vol="250">lava</fluid1>
+            <fluid1 vol="100">lava</fluid1>
             <output>burntBrick</output>
-            <time>8</time>
+            <time>3</time>
         </vat>
     </page>
     <page>
@@ -76,7 +76,7 @@
             <craft1>|lava_bucket|</craft1>
             <craft2>burntBrick|normalTank|burntBrick</craft2>
             <craft3>heater|baseBrick|heater</craft3>
-            <craftResult>crucible</craftResult>
+            <craftResult num="2">crucible</craftResult>
         </crafting>
         <crafting x="100" y="55" size="1">
             <craft1>burntBrick|iron_bars|burntBrick</craft1>
@@ -107,7 +107,7 @@
             <craftResult>ingotCaster</craftResult>
         </crafting>
         <text y="88" bold="true">Ladle</text>
-        <text y="120">The ladle can be used to move liquid from your Crucible Furnace to the Ingot Caster (if you do not wish to place the caster next to the furnace), simply shift + right click on the furnace and this will fill up the ladle, and you can then right click the Ingot Caster to fill it. Ladles will work with any tank, allowing you to fill or drain them on the go. However they do only store 144mB worth of liquid.</text>
+        <text y="120">The ladle can be used to move liquid from your Crucible Furnace to the Ingot Caster (if you do not wish to place the caster next to the furnace), simply shift + right click on the furnace and this will fill up the ladle, and you can then right click the Ingot Caster to fill it. Ladles will work with any tank, allowing you to fill or drain them on the go. However they do only store 288mB worth of liquid.</text>
     </page>
     <page>
         <text x="10" y="-13" bold="true">Heat Resistant Bottles</text>

@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
@@ -76,6 +77,13 @@ public class ModelFishingHat extends ModelBiped {
                 float green = (color >> 8 & 255) / 255.0F;
                 float blue = (color & 255) / 255.0F;
                 GL11.glColor4f(red, green, blue, 1.0F);
+            }
+            
+            if (entity instanceof EntityZombie) {
+                if (((EntityZombie)entity).isChild()) {
+                    GL11.glScalef(0.6F, 0.6F, 0.6F);
+                    GL11.glTranslatef(0F, 1F, 0F);
+                }
             }
             
             TieLeft.render(f5);
