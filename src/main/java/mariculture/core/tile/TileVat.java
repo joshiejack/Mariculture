@@ -122,7 +122,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
                 if (recipe != null) {
                     timeNeeded = recipe.processTime;
                 }
-                
+
                 timeRemaining = 0;
             }
 
@@ -135,7 +135,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
                         createResult(recipe, tankNum);
                     } else break;
                 }
-                
+
                 timeRemaining = 0;
                 timeNeeded = 0;
                 canWork = canWork();
@@ -377,19 +377,21 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
         //If the draining from tank3 didn't fail, send packet update, otherwise try for tank2, then tank1
         FluidStack ret = vat.tank3.drain(maxDrain, doDrain);
         if (ret != null) {
-            if (doDrain) {
+            if (doDrain && !worldObj.isRemote) {
                 PacketHandler.syncFluidTank(this, getFluid((byte) 3), (byte) 3);
             }
         } else {
             ret = vat.tank2.drain(maxDrain, doDrain);
             if (ret != null) {
-                if (doDrain) {
+                if (doDrain && !worldObj.isRemote) {
                     PacketHandler.syncFluidTank(this, getFluid((byte) 2), (byte) 2);
                 }
             } else {
                 ret = vat.tank.drain(maxDrain, doDrain);
-                if (ret != null) if (doDrain) {
-                    PacketHandler.syncFluidTank(this, getFluid((byte) 1), (byte) 1);
+                if (ret != null) {
+                    if (doDrain && !worldObj.isRemote) {
+                        PacketHandler.syncFluidTank(this, getFluid((byte) 1), (byte) 1);
+                    }
                 }
             }
         }
@@ -401,7 +403,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         TileVat vat = master != null ? (TileVat) worldObj.getTileEntity(master.xCoord, master.yCoord, master.zCoord) : this;
         if (vat == null) return 0;
-        
+
         int ret = vat.tank.fill(resource, doFill, vat.tank2);
         if (ret > 0) {
             if (doFill) {
@@ -491,7 +493,7 @@ public class TileVat extends TileMultiStorage implements ISidedInventory, IFluid
 
         super.onBlockBreak();
     }
-    
+
     @Override
     public boolean isPartnered(int x, int y, int z) {
         TileEntity tile = worldObj.getTileEntity(x, y, z);

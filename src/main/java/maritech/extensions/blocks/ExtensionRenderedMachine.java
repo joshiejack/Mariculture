@@ -112,7 +112,10 @@ public class ExtensionRenderedMachine extends ExtensionBlocksBase {
 
             fludd.tank.setCapacity(ItemFLUDD.STORAGE);
             fludd.tank.setFluid(new FluidStack(Fluids.getFluid("hp_water"), water));
-            PacketHandler.updateRender(fludd);
+
+            if (!tile.getWorldObj().isRemote) {
+                PacketHandler.updateRender(fludd);
+            }
         }
 
         if (tile instanceof TileRotor) {

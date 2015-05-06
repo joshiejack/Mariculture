@@ -40,7 +40,10 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     @Override
     public void onInventoryChange(int slot) {
         updateCanWork();
-        PacketHandler.syncInventory(this, getInventory());
+
+        if (!worldObj.isRemote) {
+            PacketHandler.syncInventory(this, getInventory());
+        }
     }
 
     @Override
@@ -70,24 +73,24 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
     private void updateCanWork() {
         canWork = inventory[0] != null && Fishing.fishHelper.isEgg(inventory[0]) && (inventory[1] == null || inventory[2] == null);
     }
-    
+
     public int isWater(int x, int y, int z, int count) {
         if (BlockHelper.isWater(worldObj, x, y, z)) {
             return count + 1;
         } else return count;
     }
-    
+
     public int isHatchery(int x, int y, int z, int count) {
         if (worldObj.getTileEntity(x, y, z) == this) {
             return count + 1;
         } else return count;
     }
-    
+
     public void updateSurrounding() {
         int hatcheryCount = 0;
         int waterCount = 0;
-        
-        for (int x = - 1; x <= 1; x++) {
+
+        for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 for (int z = -1; z <= 1; z++) {
                     hatcheryCount = isHatchery(xCoord + x, yCoord + y, zCoord + z, hatcheryCount);
@@ -95,8 +98,8 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
                 }
             }
         }
-        
-        int difference = hatcheryCount >= waterCount ? hatcheryCount - waterCount: waterCount - hatcheryCount;
+
+        int difference = hatcheryCount >= waterCount ? hatcheryCount - waterCount : waterCount - hatcheryCount;
         int multiplier = 27 - difference;
         speed = Math.max(1, (multiplier * hatcheryCount));
     }
@@ -116,7 +119,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
                 }
 
                 processed += speed;
-                
+
                 if (processed >= MAX) {
                     inventory[0] = Fishing.fishHelper.attemptToHatchEgg(inventory[0], worldObj.rand, 1.0D, this);
                     updateCanWork();
@@ -143,7 +146,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
         else if (inventory[2] == null) setInventorySlotContents(2, fish);
         else ItemHelper.spawnItem(worldObj, xCoord, yCoord + 1, zCoord, fish);
     }
-    
+
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();

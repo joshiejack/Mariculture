@@ -136,7 +136,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
         ItemStack fish = null;
         ItemStack clone = inventory[FISH].copy();
         clone.stackSize = 1;
-        
+
         boolean used = false;
         for (int slot = 10; slot <= 12; slot++) {
             ItemStack dna = inventory[slot];
@@ -144,7 +144,7 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
                 if (dna.attemptDamageItem(1, worldObj.rand)) {
                     inventory[slot] = null;
                 }
-                
+
                 if (fish == null) {
                     fish = ItemFishDNA.add(dna, clone);
                 } else fish = ItemFishDNA.add(dna, fish);
@@ -197,13 +197,15 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         FluidStack ret = tank2.drain(maxDrain, doDrain);
         if (ret != null) {
-            if (doDrain) {
+            if (doDrain && !worldObj.isRemote) {
                 PacketHandler.syncFluidTank(this, getFluid((byte) 2), (byte) 2);
             }
         } else {
             ret = tank.drain(maxDrain, doDrain);
-            if (ret != null) if (doDrain) {
-                PacketHandler.syncFluidTank(this, getFluid((byte) 1), (byte) 1);
+            if (ret != null) {
+                if (doDrain && !worldObj.isRemote) {
+                    PacketHandler.syncFluidTank(this, getFluid((byte) 1), (byte) 1);
+                }
             }
         }
 
@@ -214,13 +216,15 @@ public class TileInjector extends TileMachinePowered implements IFluidHandler, I
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         int ret = tank.fill(resource, doFill, tank2);
         if (ret > 0) {
-            if (doFill) {
+            if (doFill && !worldObj.isRemote) {
                 PacketHandler.syncFluidTank(this, getFluid((byte) 1), (byte) 1);
             }
         } else {
             ret = tank2.fill(resource, doFill, tank);
-            if (ret > 0) if (doFill) {
-                PacketHandler.syncFluidTank(this, getFluid((byte) 2), (byte) 2);
+            if (ret > 0) {
+                if (doFill && !worldObj.isRemote) {
+                    PacketHandler.syncFluidTank(this, getFluid((byte) 2), (byte) 2);
+                }
             }
         }
 

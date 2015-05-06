@@ -73,7 +73,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
     protected abstract double getTier();
 
     protected abstract int getMaxDamage();
-    
+
     public abstract void setDamage(int damage);
 
     public void setMaster(CachedCoords master) {
@@ -81,7 +81,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
     }
 
     //Adds Power from a certain direction
-    public void addEnergy(ForgeDirection dir, int energy, int dmg) {        
+    public void addEnergy(ForgeDirection dir, int energy, int dmg) {
         TileGenerator generator = getMaster();
         if (generator != null) {
             generator.addEnergy((int) (energy * getTier()));
@@ -93,7 +93,9 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
             recheck();
         }
 
-        PacketHandler.sendAround(new PacketRotorSpin(xCoord, yCoord, zCoord, dir), this);
+        if (!worldObj.isRemote) {
+            PacketHandler.sendAround(new PacketRotorSpin(xCoord, yCoord, zCoord, dir), this);
+        }
     }
 
     private TileGenerator getMaster() {
@@ -130,7 +132,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
     }
 
     @Override
-    public void setFacing(ForgeDirection dir) {        
+    public void setFacing(ForgeDirection dir) {
         switch (dir) {
             case NORTH:
             case SOUTH:

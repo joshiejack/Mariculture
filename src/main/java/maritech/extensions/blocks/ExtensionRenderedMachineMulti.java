@@ -114,7 +114,7 @@ public class ExtensionRenderedMachineMulti extends ExtensionBlocksBase {
                         }
                     }
 
-                    if (changed) {
+                    if (changed && !world.isRemote) {
                         PacketHandler.sendAround(new PacketCompressor(te.xCoord, te.yCoord, te.zCoord, te.storedAir, te.getEnergyStored(ForgeDirection.UP)), te);
                     }
 

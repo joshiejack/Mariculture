@@ -122,7 +122,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         int amount = tank.fill(resource, doFill);
         if (doFill) {
-            if (amount > 0) {
+            if (amount > 0 && !worldObj.isRemote) {
                 PacketHandler.syncFluids(this, getFluid());
                 freezeTick = 0;
             }
@@ -137,7 +137,7 @@ public abstract class TileCooling extends TileStorageTank implements ISidedInven
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         FluidStack amount = tank.drain(maxDrain, doDrain);
         if (doDrain) {
-            if (amount != null) {
+            if (amount != null && !worldObj.isRemote) {
                 PacketHandler.syncFluids(this, getFluid());
             }
 

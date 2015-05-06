@@ -127,7 +127,9 @@ public class BlockTank extends BlockConnected {
             Fluid fluid = FluidRegistry.getFluid(next);
             if (fluid != null) {
                 dic.tank.setFluid(new FluidStack(fluid, 1));
-                PacketHandler.syncFluids(dic, dic.tank.getFluid());
+                if (!world.isRemote) {
+                    PacketHandler.syncFluids(dic, dic.tank.getFluid());
+                }
             }
         }
 
@@ -268,16 +270,18 @@ public class BlockTank extends BlockConnected {
         int facing = BlockPistonBase.determineOrientation(world, x, y, z, entity);
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile == null) return;
-        
+
         if (tile instanceof TileFishTank) {
             ((TileFishTank) tile).orientation = ForgeDirection.getOrientation(facing);
         }
-        
+
         if (stack.hasTagCompound()) {
             if (tile instanceof TileTankBlock) {
                 TileTankBlock tank = (TileTankBlock) tile;
                 tank.setFluid(FluidStack.loadFluidStackFromNBT(stack.stackTagCompound));
-                PacketHandler.syncFluids(tank, tank.getFluid());
+                if (!world.isRemote) {
+                    PacketHandler.syncFluids(tank, tank.getFluid());
+                }
             } else if (tile instanceof TileFishTank) {
                 TileFishTank tank = (TileFishTank) tile;
                 tank.orientation = ForgeDirection.getOrientation(facing);
@@ -289,8 +293,10 @@ public class BlockTank extends BlockConnected {
                         tank.getInventory()[slot] = NBTHelper.getItemStackFromNBT(tag);
                     }
                 }
-                
-                PacketHandler.sendAround(new PacketFishTankSync(tank.getStackInSlot(0), tank.getStackInSlot(1), tank.getStackInSlot(2), tank.xCoord, tank.yCoord, tank.zCoord, tank.orientation), tile);
+
+                if (!world.isRemote) {
+                    PacketHandler.sendAround(new PacketFishTankSync(tank.getStackInSlot(0), tank.getStackInSlot(1), tank.getStackInSlot(2), tank.xCoord, tank.yCoord, tank.zCoord, tank.orientation), tile);
+                }
             }
         }
     }
@@ -413,7 +419,7 @@ public class BlockTank extends BlockConnected {
                 return tab == MaricultureTab.tabFactory;
         }
     }
-    
+
     @Override
     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
         Block block = world.getBlock(x, y, z);

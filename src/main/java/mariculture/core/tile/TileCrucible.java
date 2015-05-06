@@ -380,7 +380,10 @@ public class TileCrucible extends TileMultiMachineTank implements IHasNotificati
     @Override
     public void onBlockPlaced() {
         onBlockPlaced(xCoord, yCoord, zCoord);
-        PacketHandler.updateRender(this);
+
+        if (!worldObj.isRemote) {
+            PacketHandler.updateRender(this);
+        }
     }
 
     private void onBlockPlaced(int x, int y, int z) {

@@ -158,7 +158,9 @@ public class TileAirPump extends TileStorageTank implements IEnergyReceiver, IFa
         //If we aren't animating, start animating and send a packet
         if (!isAnimating) {
             isAnimating = true;
-            PacketHandler.sendAround(new PacketAirPump(xCoord, yCoord, zCoord), this);
+            if (!worldObj.isRemote) {
+                PacketHandler.sendAround(new PacketAirPump(xCoord, yCoord, zCoord), this);
+            }
         }
     }
 

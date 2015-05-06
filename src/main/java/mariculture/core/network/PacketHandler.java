@@ -100,7 +100,7 @@ public class PacketHandler {
     public static void sendGUIUpdate(EntityPlayerMP player, int id, ArrayList<Integer> list) {
         INSTANCE.sendTo(new PacketGUIUpdate(id, list), player);
     }
-    
+
     public static Packet getPacket(IMessage packet) {
         return INSTANCE.getPacketFrom(packet);
     }

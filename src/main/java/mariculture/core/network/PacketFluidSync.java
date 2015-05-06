@@ -26,7 +26,7 @@ public class PacketFluidSync extends PacketCoords implements IMessageHandler<Pac
     public void toBytes(ByteBuf buffer) {
         super.toBytes(buffer);
         buffer.writeByte(tank);
-        if (fluid == null) {
+        if (fluid == null || fluid.getFluid() == null) {
             buffer.writeBoolean(false);
         } else {
             buffer.writeBoolean(true);

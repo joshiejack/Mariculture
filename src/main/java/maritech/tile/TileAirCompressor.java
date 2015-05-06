@@ -77,7 +77,9 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyReceiver
             energyStorage.extractEnergy(1000, false);
             if (storedAir < max) {
                 storedAir++;
-                PacketHandler.sendAround(new PacketCompressor(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)), this);
+                if (!worldObj.isRemote) {
+                    PacketHandler.sendAround(new PacketCompressor(xCoord, yCoord, zCoord, storedAir, getEnergyStored(ForgeDirection.UP)), this);
+                }
             }
         }
     }

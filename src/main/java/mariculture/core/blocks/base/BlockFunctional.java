@@ -34,7 +34,9 @@ public abstract class BlockFunctional extends BlockMCBaseMeta {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof IFaceable) {
             ((IFaceable) tile).setFacing(ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, entity)));
-            PacketHandler.updateRender(tile);
+            if (!world.isRemote) {
+                PacketHandler.updateRender(tile);
+            }
         }
     }
 

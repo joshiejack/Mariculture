@@ -165,7 +165,7 @@ public class ItemFluidStorage extends ItemMCBaseSingle implements IFluidContaine
                     if (stack.amount > 0) {
                         container.drain(item, stack.amount, true);
                         tank.fill(dir, stack, true);
-                        if (tank instanceof ITank) {
+                        if (tank instanceof ITank && !world.isRemote) {
                             PacketHandler.syncFluids(world.getTileEntity(x, y, z), ((ITank) tank).getFluid());
                         }
 

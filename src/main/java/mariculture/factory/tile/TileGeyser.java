@@ -81,9 +81,10 @@ public class TileGeyser extends TileTank implements IFaceable {
 
             if (onTick(100)) {
                 drain(ForgeDirection.UP, new FluidStack(tank.getFluid(), 1), true);
-                if (tank.getFluidAmount() <= 0) {
+                if (tank.getFluidAmount() <= 0 && !worldObj.isRemote) {
                     PacketHandler.syncFluids(this, this.getFluid());
                 }
+                
                 pullFromInventory();
             }
         }

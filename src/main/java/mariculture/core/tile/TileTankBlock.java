@@ -27,7 +27,7 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank, I
     public static final int ALUMINUM_CAPACITY = 64000;
     public static final int TITANIUM_CAPACITY = 128000;
     public static final int GAS_CAPACITY = 512000;
-    
+
     private int differenceFill = 0;
     private int differenceDrain = 0;
     public Tank tank;
@@ -63,7 +63,9 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank, I
         differenceFill += amount;
         if (amount > 0 && doFill && differenceFill >= MachineSettings.TANK_UPDATE_AMOUNT) {
             differenceFill = 0;
-            PacketHandler.syncFluids(this, getFluid());
+            if (!worldObj.isRemote) {
+                PacketHandler.syncFluids(this, getFluid());
+            }
         }
 
         return amount;
@@ -73,11 +75,13 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank, I
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         FluidStack amount = tank.drain(maxDrain, doDrain);
         if (amount == null) return amount;
-        
+
         differenceDrain += amount.amount;
         if (amount != null && doDrain && differenceDrain >= MachineSettings.TANK_UPDATE_AMOUNT) {
             differenceDrain = 0;
-            PacketHandler.syncFluids(this, getFluid());
+            if (!worldObj.isRemote) {
+                PacketHandler.syncFluids(this, getFluid());
+            }
         }
 
         return amount;
@@ -213,12 +217,12 @@ public class TileTankBlock extends TileEntity implements IFluidHandler, ITank, I
 
     @Override
     public void openInventory() {
-        
+
     }
 
     @Override
     public void closeInventory() {
-        
+
     }
 
     @Override

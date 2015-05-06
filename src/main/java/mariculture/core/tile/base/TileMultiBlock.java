@@ -139,7 +139,9 @@ public class TileMultiBlock extends TileEntity {
                             te.setMaster(null);
                             te.setInit(false);
                             te.setFacing(ForgeDirection.UNKNOWN);
-                            PacketHandler.breakMultiBlock(te);
+                            if (!worldObj.isRemote) {
+                                PacketHandler.breakMultiBlock(te);
+                            }
                         }
                 }
 
@@ -179,7 +181,11 @@ public class TileMultiBlock extends TileEntity {
     public void init() {
         //Init Master
         TileMultiBlock master = getMaster();
-        PacketHandler.syncMultiBlock(master, this, facing);
+
+        if (!worldObj.isRemote) {
+            PacketHandler.syncMultiBlock(master, this, facing);
+        }
+
         for (MultiPart slave : slaves) {
             TileEntity te = worldObj.getTileEntity(slave.xCoord, slave.yCoord, slave.zCoord);
             if (te != null && te.getClass().equals(getTEClass())) {
