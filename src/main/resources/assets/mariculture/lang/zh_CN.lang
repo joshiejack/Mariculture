@@ -1,4 +1,4 @@
-#zh_CN @Author crafteverywhere, sunny, sb023612, Mrkwtkr, ViKaleidoscope
+#zh_CN @Author crafteverywhere, sunny, sb023612, Mrkwtkr, ViKaleidoscope, UUUii
 ### Death Messages ###
 death.attack.piranha=%1$s被食人鱼咬死了!
 death.attack.onering=%1$s被至尊魔戒杀死了
@@ -93,6 +93,10 @@ fluid.quicklime=生石灰
 fluid.electrum.molten=熔融琥珀金
 fluid.invar.molten=熔融因瓦合金
 fluid.platinum.molten=熔融铂
+fluid.osmium.molten=熔融锇
+fluid.zinc.molten=熔融锌
+fluid.cobalt.molten=熔融钴
+fluid.ardite.molten=熔融阿迪特
 
 #items
 mariculture.hammer=铁匠锤
@@ -153,7 +157,7 @@ mariculture.crafting.titaniumsheet=钛板
 mariculture.crafting.snorkellens=玻璃透镜
 mariculture.crafting.burntbrick=焦黑砖
 mariculture.crafting.titaniumrodbasic=钛棍
-mariculture.crafting.goldsheet=Sheet of Gold
+mariculture.crafting.goldsheet=金板
 mariculture.temperature.control=温度控制元件
 item.temperature.control.name=温度控制元件
 mariculture.upgrade.storage=基础存储升级组件
@@ -371,6 +375,8 @@ tile.wind.name=蕴风之液
 mariculture.guide.fishing=养鱼手册#42
 mariculture.guide.fishing.author=P.谢尔曼
 mariculture.guide.breeding=养鱼入门
+mariculture.guide.fish.author=米丝蒂
+mariculture.guide.breeding=Fish Breeding 101
 mariculture.materials.fishmeal=鱼肉
 mariculture.droplet.earth=地之液滴
 mariculture.droplet.plant=木之液滴
@@ -453,42 +459,42 @@ mariculture.scanner=鱼类扫描仪
 mariculture.fishinghat=渔夫帽
 
 #buckethat
-mariculture.hat.white.title=Aquafresh
-mariculture.hat.white.description.abstract=Freshwaters are ahead.
-mariculture.hat.white.description.actual=Fish think this is freshwater.
-mariculture.hat.green.title=Upendi
-mariculture.hat.green.description.abstract=We're hanging out with George.
-mariculture.hat.green.description.actual=Fish think this is a jungle.
-mariculture.hat.yellow.title=Sunnyside
-mariculture.hat.yellow.description.abstract=Oh I do like to be beside the seaside.
-mariculture.hat.yellow.description.actual=Fish think this is brackish water.
-mariculture.hat.orange.title=Finding Nemo
-mariculture.hat.orange.description.abstract=That is literally all you'll find.
-mariculture.hat.orange.description.actual=You will only catch fish.
-mariculture.hat.red.title=Hellfire
-mariculture.hat.red.description.abstract=It's so hot, we're in hell.
-mariculture.hat.red.description.actual=Fish think this is the nether.
-mariculture.hat.gold.title=Treasure Island
-mariculture.hat.gold.description.abstract=Yohoho, A pirate's life for me.
-mariculture.hat.gold.description.actual=You will only catch loot (or vanilla fish).
-mariculture.hat.brown.title=Journey
-mariculture.hat.brown.description.abstract=Deep Underground.
-mariculture.hat.brown.description.actual=Fish think you are at y10.
-mariculture.hat.blue.title=Manhunter
-mariculture.hat.blue.description.abstract=Looking for a man, we can help.
-mariculture.hat.blue.description.actual=You will only catch male fish.
-mariculture.hat.black.title=Black Death
-mariculture.hat.black.description.abstract=You are killing everything.
-mariculture.hat.black.description.actual=You will only catch dead fish.
-mariculture.hat.pink.title=Babemagnet
-mariculture.hat.pink.description.abstract=The girls flock to you.
-mariculture.hat.pink.description.actual=You will only catch female fish.
-mariculture.hat.silver.title=It's Salty.
-mariculture.hat.silver.description.abstract=Here have a saltlick.
-mariculture.hat.silver.description.actual=Fish think this is saltwater.
-mariculture.hat.purple.title=Psybeam
-mariculture.hat.purple.description.abstract=You're a wizard, Harry.
-mariculture.hat.purple.description.actual=Everything loot or alive is enchanted.
+mariculture.hat.white.title=淡水
+mariculture.hat.white.description.abstract=淡水在前方.
+mariculture.hat.white.description.actual=鱼儿将觉得这里是淡水.
+mariculture.hat.green.title=心中乐园
+mariculture.hat.green.description.abstract=我们跟乔治正在闲逛.
+mariculture.hat.green.description.actual=鱼儿将觉得这里是丛林.
+mariculture.hat.yellow.title=阳光海岸
+mariculture.hat.yellow.description.abstract=哦!我喜欢呆在海边.
+mariculture.hat.yellow.description.actual=鱼儿将觉得这是半咸水.
+mariculture.hat.orange.title=海底总动员
+mariculture.hat.orange.description.abstract=你的发现将只如字面意思那般.
+mariculture.hat.orange.description.actual=你将只会钓到鱼.
+mariculture.hat.red.title=地狱火
+mariculture.hat.red.description.abstract=我们在地狱里,这里太热了.
+mariculture.hat.red.description.actual=鱼儿将觉得这里是下界.
+mariculture.hat.gold.title=金银岛
+mariculture.hat.gold.description.abstract=哟吼吼,这将是我的一次海盗生涯.
+mariculture.hat.gold.description.actual=你将只会钓到战利品(或原版鱼).
+mariculture.hat.brown.title=旅途
+mariculture.hat.brown.description.abstract=地下深处.
+mariculture.hat.brown.description.actual=鱼儿觉得你在Y=10.
+mariculture.hat.blue.title=雄性搜寻者
+mariculture.hat.blue.description.abstract=我们将帮你寻找雄性.
+mariculture.hat.blue.description.actual=你将只会钓到雄鱼.
+mariculture.hat.black.title=黑死病
+mariculture.hat.black.description.abstract=你将杀光一切.
+mariculture.hat.black.description.actual=你将只会钓到死鱼.
+mariculture.hat.pink.title=Babemagnet雌性磁石
+mariculture.hat.pink.description.abstract=雌性将潮涌而来.
+mariculture.hat.pink.description.actual=你将只会钓到雌鱼.
+mariculture.hat.silver.title=它是咸的.
+mariculture.hat.silver.description.abstract=这里是一片盐渍地.
+mariculture.hat.silver.description.actual=鱼儿将觉得这是咸水.
+mariculture.hat.purple.title=幻光
+mariculture.hat.purple.description.abstract=你是一名海巫,哈利.
+mariculture.hat.purple.description.actual=所有的战利品或生命都是迷人的.
 
 #fish breeding
 mariculture.fishy=鱼类
@@ -570,7 +576,7 @@ mariculture.fish.data.species.stickleback=棘鱼
 mariculture.fish.data.species.pickerel=梭鱼
 mariculture.fish.data.species.pike=白斑狗鱼
 mariculture.fish.data.species.iron=铁鱼
-mariculture.fish.data.species.goldmetal=白颊鸭
+mariculture.fish.data.species.goldmetal=似鲱月眼鱼
 mariculture.fish.data.species.aluminum=铝鱼
 mariculture.fish.data.species.copper=铜鱼
 mariculture.fish.data.species.magnesium=镁鱼
@@ -578,8 +584,8 @@ mariculture.fish.data.species.rutile=金红石鱼
 mariculture.fish.data.species.lead=铅鱼
 mariculture.fish.data.species.tin=锡鱼
 mariculture.fish.data.species.silver=银鱼
-mariculture.fish.data.species.nickel=Ferrousfish
-mariculture.fish.data.species.platinum=Shinyfish
+mariculture.fish.data.species.nickel=铁锈鱼
+mariculture.fish.data.species.platinum=白金鱼
 mariculture.fish.data.species.cobalt=钴鱼
 mariculture.fish.data.species.ardite=阿迪特鱼
 mariculture.fish.data.species.osmium=锇鱼
@@ -612,15 +618,15 @@ mariculture.fish.data.areaofeffectwest=区域: 南
 mariculture.fish.data.gender.male=雄性
 mariculture.fish.data.gender.female=雌性
 mariculture.fish.data.temperaturetolerance=温度耐受性
-mariculture.fish.data.temperaturetolerance.fussy=极弱
-mariculture.fish.data.temperaturetolerance.normal=弱
-mariculture.fish.data.temperaturetolerance.sltolerant=较弱
+mariculture.fish.data.temperaturetolerance.fussy=极差
+mariculture.fish.data.temperaturetolerance.normal=差
+mariculture.fish.data.temperaturetolerance.sltolerant=较差
 mariculture.fish.data.temperaturetolerance.tolerant=一般
 mariculture.fish.data.temperaturetolerance.vtolerant=非常强
 mariculture.fish.data.temperaturetolerance.itolerant=极强
 mariculture.fish.data.temperaturetolerance.etolerant=不可思议的强
 mariculture.fish.data.salinitytolerance=耐盐性
-mariculture.fish.data.salinitytolerance.intolerant=极弱
+mariculture.fish.data.salinitytolerance.intolerant=极差
 mariculture.fish.data.salinitytolerance.tolerant=较强
 mariculture.fish.data.salinitytolerance.hightolerant=极强
 
@@ -656,10 +662,10 @@ item.mirror.basic.name=手镜
 item.mirror.magic.name=魔镜
 item.mirror.celestial.name=仙镜
 mariculture.mobMagnet=生物磁铁
-mariculture.placer=Hydrophobic Initiator
-mariculture.infiwater=Infinity Water
-mariculture.placer.description1=Keeping me within your inventory
-mariculture.placer.description2=allows you to place blocks on water.
+mariculture.placer=疏水剂
+mariculture.infiwater=无限水
+mariculture.placer.description1=将吾放置于汝之身
+mariculture.placer.description2=吾将允许汝于水面放置方块
 #jewelry-parts
 mariculture.ring=戒指
 mariculture.bracelet=手镯
@@ -688,7 +694,7 @@ mariculture.coral.lightgrey=半漂白珊瑚
 mariculture.coral.grey=部分漂白珊瑚
 #items
 mariculture.crafting.kelpseeds=海带种子
-mariculture.crafting.rockhopperegg=冠企鹅出生点
+mariculture.crafting.rockhopperegg=生成 冠企鹅
 
 ### Other Strings ###
 mariculture.aquabackpack=水产背包
@@ -879,7 +885,7 @@ item.titanium.tough.binding.name=钛坚韧绑定结
 item.titanium.tough.rod.name=钛坚韧手柄
 
 ### Blood Magic ###
-mariculture.rodblood=约束鱼竿
+mariculture.rodblood=约束钓竿
 mariculture.rodBlood.subtitle=让鲜血染红这条河流!!!
 mariculture.rodBlood.activated=已激活
 mariculture.rodBlood.deactivated=已停止
@@ -901,3 +907,9 @@ enchiridion.downloader.outofdate=Enchiridion版本过旧,请在此更新 (%s)
 mariculture.fishbreeding=鱼类饲养
 mariculture.fishproducts=鱼类加工
 mariculture.shapedjewelry=珠宝工艺
+
+#Botania
+mariculture.rodLiving=活木钓竿
+mariculture.fish.data.species.mana=魔能鱼
+item.botania:petal32767.name=神秘花瓣
+item.botania:manaPetal32767.name=魔力花瓣
