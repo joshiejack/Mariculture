@@ -486,7 +486,7 @@ mariculture.hat.blue.description.actual=你将只会钓到雄鱼.
 mariculture.hat.black.title=黑死病
 mariculture.hat.black.description.abstract=你将杀光一切.
 mariculture.hat.black.description.actual=你将只会钓到死鱼.
-mariculture.hat.pink.title=Babemagnet雌性磁石
+mariculture.hat.pink.title=雌性磁石
 mariculture.hat.pink.description.abstract=雌性将潮涌而来.
 mariculture.hat.pink.description.actual=你将只会钓到雌鱼.
 mariculture.hat.silver.title=它是咸的.
@@ -494,7 +494,7 @@ mariculture.hat.silver.description.abstract=这里是一片盐渍地.
 mariculture.hat.silver.description.actual=鱼儿将觉得这是咸水.
 mariculture.hat.purple.title=幻光
 mariculture.hat.purple.description.abstract=你是一名海巫,哈利.
-mariculture.hat.purple.description.actual=所有的战利品或生命都是迷人的.
+mariculture.hat.purple.description.actual=一切的战利品或生命皆如此迷人.
 
 #fish breeding
 mariculture.fishy=鱼类
