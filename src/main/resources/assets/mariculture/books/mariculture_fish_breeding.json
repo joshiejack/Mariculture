@@ -1,0 +1,573 @@
+{
+  "book": [
+    {
+      "features": [
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FF000000",
+            "xPos": 72,
+            "yPos": 28,
+            "width": 138.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Introduction[/b]",
+            "wrap": 0,
+            "size": 1.6000001,
+            "color": "FF555555",
+            "xPos": 78,
+            "yPos": 15,
+            "width": 126.0,
+            "height": 13.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "translate:mariculture.book.fish.text1",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 21,
+            "yPos": 36,
+            "width": 186.0,
+            "height": 138.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Fishing Hats",
+            "wrap": 0,
+            "size": 1.3000001,
+            "color": "FF555555",
+            "xPos": 218,
+            "yPos": 19,
+            "width": 105.0,
+            "height": 11.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureVat:minecraft:leather_helmet:0",
+            "item": "Mariculture:fishinghat",
+            "xPos": 230,
+            "yPos": 130,
+            "width": 164.0,
+            "height": 65.6
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Fishing Hats are items that can affect what you catch when you go fishing. By default they all have a small boost to catching fish alive. But each colour has it\u0027s own special effect. You can see these effects listed, on the next few pages. Crafting the different colours, simply requires placing pearls all around the basic hat.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 219,
+            "yPos": 34,
+            "width": 182.0,
+            "height": 80.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FF555555",
+            "xPos": 217,
+            "yPos": 28,
+            "width": 145.0,
+            "height": 2.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 53,
+            "yPos": 18,
+            "width": 95.0,
+            "height": 5.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "The basic hat adds even more chance for catching fish alive.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 54,
+            "yPos": 28,
+            "width": 156.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 25,
+            "yPos": 48,
+            "width": 174.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:0}",
+            "xPos": 19,
+            "yPos": 51,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]White Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 52,
+            "width": 148.0,
+            "height": 6.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Fish caught while wearing this hat, think they\u0027re in fresh water.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 52,
+            "yPos": 61,
+            "width": 153.0,
+            "height": 16.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 26,
+            "yPos": 81,
+            "width": 171.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:1}",
+            "xPos": 20,
+            "yPos": 83,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Green Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 50,
+            "yPos": 84,
+            "width": 151.0,
+            "height": 9.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Fish think you are stood in a \njungle biome. How stupid are they?",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 52,
+            "yPos": 94,
+            "width": 172.0,
+            "height": 15.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 24,
+            "yPos": 115,
+            "width": 179.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:2}",
+            "xPos": 19,
+            "yPos": 117,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Yellow Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 49,
+            "yPos": 119,
+            "width": 152.0,
+            "height": 13.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Fish think that they are being in brackish waters aka a beach.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 52,
+            "yPos": 129,
+            "width": 163.0,
+            "height": 13.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 25,
+            "yPos": 149,
+            "width": 178.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:3}",
+            "xPos": 20,
+            "yPos": 149,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Orange Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 152,
+            "width": 160.0,
+            "height": 16.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "All loot is rejected. You can only catch fish while wearing this hat.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 52,
+            "yPos": 164,
+            "width": 163.0,
+            "height": 20.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:pearls:0:Mariculture:pearls:0:Mariculture:pearls:0:Mariculture:pearls:0:Mariculture:fishinghat:32767:Mariculture:pearls:0:Mariculture:pearls:0:Mariculture:pearls:0:Mariculture:pearls:0",
+            "item": "Mariculture:fishinghat {Color:0}",
+            "xPos": 143,
+            "yPos": 183,
+            "width": 56.0,
+            "height": 28.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapelessOreRecipe:Mariculture:fishinghat:32767",
+            "item": "Mariculture:fishinghat",
+            "xPos": 64,
+            "yPos": 182,
+            "width": 58.0,
+            "height": 29.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:4}",
+            "xPos": 218,
+            "yPos": 17,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:5}",
+            "xPos": 218,
+            "yPos": 50,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:6}",
+            "xPos": 218,
+            "yPos": 84,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Red Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 249,
+            "yPos": 19,
+            "width": 142.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Holy hell these fish are hot. Fish think it\u0027s the nether.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 250,
+            "yPos": 29,
+            "width": 147.0,
+            "height": 15.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 224,
+            "yPos": 47,
+            "width": 180.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Gold Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 250,
+            "yPos": 53,
+            "width": 146.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "No fish will bite your rod. You will only catch junk or treasures!",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 250,
+            "yPos": 63,
+            "width": 153.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 223,
+            "yPos": 82,
+            "width": 180.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Brown Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 250,
+            "yPos": 86,
+            "width": 155.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "This one makes fish believe that you are underground at y10.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 251,
+            "yPos": 96,
+            "width": 149.0,
+            "height": 15.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:7}",
+            "xPos": 218,
+            "yPos": 117,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Purple Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 249,
+            "yPos": 118,
+            "width": 153.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "This is one powerful magical hat. Everything you catch is enchanted.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 248,
+            "yPos": 127,
+            "width": 175.0,
+            "height": 14.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 227,
+            "yPos": 115,
+            "width": 175.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:8}",
+            "xPos": 218,
+            "yPos": 151,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat",
+            "xPos": 19,
+            "yPos": 14,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 227,
+            "yPos": 149,
+            "width": 174.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Blue Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 249,
+            "yPos": 154,
+            "width": 147.0,
+            "height": 17.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "This hat is all about the manosphere, you can only ever find male fish while wearing this very daring hat.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 248,
+            "yPos": 165,
+            "width": 156.0,
+            "height": 29.0
+          }
+        }
+      ],
+      "pageName": ""
+    }
+  ],
+  "displayNames": {
+    "en_US": "mariculture_fish_breeding"
+  },
+  "uniqueName": "mariculture_fish_breeding",
+  "color": 16744448,
+  "showBackground": true,
+  "showArrows": true,
+  "showNumber": true,
+  "iconPass1": "",
+  "iconPass2": "",
+  "iconColorisePass1": false,
+  "iconColorisePass2": false,
+  "iconColorPass1": 0,
+  "iconColorPass2": 0
+}

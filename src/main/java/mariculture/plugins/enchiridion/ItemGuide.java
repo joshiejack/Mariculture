@@ -44,6 +44,10 @@ public class ItemGuide extends ItemMCMeta {
         }
     }
 
+    public boolean isEnchiridion2Book(int meta) {
+        return meta == GuideMeta.FISH_DATA;
+    }
+
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         list.add(MCTranslate.translate("by") + " " + MCTranslate.translate("guide." + getName(stack) + ".author"));
@@ -51,8 +55,11 @@ public class ItemGuide extends ItemMCMeta {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        player.openGui(Enchiridion.instance, 0, player.worldObj, 0, 0, 0);
-        return stack;
+        if (isEnchiridion2Book(stack.getItemDamage())) return stack;
+        else {
+            player.openGui(Enchiridion.instance, 0, player.worldObj, 0, 0, 0);
+            return stack;
+        }
     }
 
     @Override

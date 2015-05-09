@@ -1,5 +1,6 @@
 package mariculture.plugins;
 
+import joshie.enchiridion.api.EnchiridionAPI;
 import mariculture.Mariculture;
 import mariculture.aesthetics.Aesthetics;
 import mariculture.api.fishery.fish.FishSpecies;
@@ -39,6 +40,7 @@ import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.enchiridion.EventHandler;
 import mariculture.plugins.enchiridion.ItemGuide;
 import mariculture.plugins.enchiridion.PageVat;
+import mariculture.plugins.enchiridion.RecipeHandlerVat;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -47,6 +49,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.relauncher.Side;
 import enchiridion.api.DisplayRegistry;
 import enchiridion.api.GuideHandler;
@@ -91,7 +94,7 @@ public class PluginEnchiridion extends Plugin {
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
-            GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISH_DATA), Mariculture.modid, "fish", 0xFF8000);
+            //GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISH_DATA), Mariculture.modid, "fish", 0xFF8000);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
         }
     }
@@ -136,7 +139,18 @@ public class PluginEnchiridion extends Plugin {
 
     @Override
     public void init() {
+        /** Register this mod as containing books **/
+        FMLInterModComms.sendMessage("Enchiridion2", "registerBookMod", "Mariculture");
+        
+        /** Build a NBT Tag **/
+        //EnchiridionAPI.instance.registerBookData(new ItemStack(guides, 1, GuideMeta.FISH_DATA), "mariculture_fish_breeding");
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString("book", "mariculture_fish_breeding");
+        new ItemStack(guides, 1, GuideMeta.FISH_DATA).writeToNBT(tag);
+        FMLInterModComms.sendMessage("Enchiridion2", "registerBookItem", tag);
+        
     	if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerVat());
     		if (Modules.isActive(Modules.factory)) {
     			register(Factory.filter);
     			register(Factory.chalk);
