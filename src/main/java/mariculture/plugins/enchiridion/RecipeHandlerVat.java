@@ -18,10 +18,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class RecipeHandlerVat extends RecipeHandlerBase {
     private RecipeVat recipe;
-    public boolean isBound = false;
 
     public RecipeHandlerVat() {}
-
     public RecipeHandlerVat(RecipeVat recipe) {
         this.recipe = recipe;
         stackList.add(new WrappedStack(recipe.outputItem, 112D, 20D, 1.2F));

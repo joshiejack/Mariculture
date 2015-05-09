@@ -97,7 +97,7 @@
             "wrap": 0,
             "size": 1.0,
             "color": "FF555555",
-            "xPos": 53,
+            "xPos": 51,
             "yPos": 18,
             "width": 95.0,
             "height": 5.0
@@ -110,7 +110,7 @@
             "wrap": 0,
             "size": 0.9,
             "color": "FF555555",
-            "xPos": 54,
+            "xPos": 53,
             "yPos": 28,
             "width": 156.0,
             "height": 10.0
@@ -553,6 +553,190 @@
           }
         }
       ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:9}",
+            "xPos": 20,
+            "yPos": 15,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:10}",
+            "xPos": 20,
+            "yPos": 51,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fishinghat {Color:11}",
+            "xPos": 19,
+            "yPos": 83,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 25,
+            "yPos": 48,
+            "width": 174.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 26,
+            "yPos": 81,
+            "width": 171.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Black Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 20,
+            "width": 146.0,
+            "height": 11.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Pink Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 52,
+            "width": 145.0,
+            "height": 8.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Silver Pearl Bucket Hat[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 49,
+            "yPos": 86,
+            "width": 151.0,
+            "height": 16.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Hat of the dead. All fish you catch will be raw. No living.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 29,
+            "width": 156.0,
+            "height": 15.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Hat of the amazons. Only female fish can ever be found.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 61,
+            "width": 158.0,
+            "height": 13.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Salty waters are what the fish will believe.",
+            "wrap": 0,
+            "size": 0.9,
+            "color": "FF555555",
+            "xPos": 51,
+            "yPos": 96,
+            "width": 142.0,
+            "height": 16.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:pearls:3:Mariculture:pearls:3:Mariculture:pearls:3:Mariculture:pearls:3:Mariculture:fishinghat:32767:Mariculture:pearls:3:Mariculture:pearls:3:Mariculture:pearls:3:Mariculture:pearls:3",
+            "item": "Mariculture:fishinghat {Color:11}",
+            "xPos": 43,
+            "yPos": 125,
+            "width": 147.0,
+            "height": 73.5
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 26,
+            "yPos": 117,
+            "width": 175.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Advanced Genetics[/b]",
+            "wrap": 0,
+            "size": 1.3000001,
+            "color": "FF555555",
+            "xPos": 225,
+            "yPos": 16,
+            "width": 166.0,
+            "height": 15.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Breeding the perfect fish can be very time consuming. What if there was a way you could speed up the process of breeding. Well there is. Mariculture introduces two more advanced that will allow you to genetically manipulate your fish, making that super fish much easier to obtain.\n\nThe two machines are the DNA Extractor and the DNA Injector. Their names explain exactly what they do. But you probably need some guidance on what they do. So turn over the page and find out everything you need to know about them!",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 221,
+            "yPos": 31,
+            "width": 185.0,
+            "height": 164.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [],
       "pageName": ""
     }
   ],
