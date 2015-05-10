@@ -95,11 +95,5 @@ public class PluginBotania extends Plugin {
     }
 
     @Override
-    public void postInit() {
-        for (int id : FishSpecies.species.keySet()) {
-            if (id >= 4) {
-                BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Items.fish, 1, 0), new ItemStack(Items.fish, 1, id), 10);
-            }
-        }
-    }
+    public void postInit() {}
 }

@@ -64,6 +64,11 @@ public class FishRutile extends FishSpecies {
     public int getFoodStat() {
         return -1;
     }
+    
+    @Override
+    public int getFishMealSize() {
+        return 0;
+    }
 
     @Override
     public void addFishProducts() {

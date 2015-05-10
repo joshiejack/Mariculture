@@ -350,7 +350,7 @@ public abstract class FishSpecies {
 
     /** This is called when disable biome catching is active or from the above method **/
     public double getCatchChance(World world, int height) {
-        return 5D;
+        return 0D;
     }
 
     /** Called by the Fishing Handler **/

@@ -84,4 +84,9 @@ public class FishCobalt extends FishSpecies {
     public RodType getRodNeeded() {
         return RodType.FLUX;
     }
+    
+    @Override
+    public int getFishMealSize() {
+        return 0;
+    }
 }

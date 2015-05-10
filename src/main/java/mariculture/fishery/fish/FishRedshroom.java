@@ -9,6 +9,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class FishRedshroom extends FishSpecies {
     @Override
@@ -77,5 +78,10 @@ public class FishRedshroom extends FishSpecies {
     @Override
     public RodType getRodNeeded() {
         return RodType.DIRE;
+    }
+    
+    @Override
+    public double getCatchChance(World world, int height) {
+        return 5D;
     }
 }

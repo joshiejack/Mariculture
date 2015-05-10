@@ -86,4 +86,9 @@ public class FishArdite extends FishSpecies {
     public RodType getRodNeeded() {
         return RodType.FLUX;
     }
+    
+    @Override
+    public int getFishMealSize() {
+        return 0;
+    }
 }

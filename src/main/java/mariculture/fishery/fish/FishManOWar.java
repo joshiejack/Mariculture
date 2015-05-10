@@ -112,4 +112,9 @@ public class FishManOWar extends FishSpecies {
     public RodType getRodNeeded() {
         return RodType.OLD;
     }
+    
+    @Override
+    public double getCatchChance(World world, int height) {
+        return 5D;
+    }
 }

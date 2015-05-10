@@ -68,4 +68,9 @@ public class FishAluminum extends FishSpecies {
     public RodType getRodNeeded() {
         return RodType.SUPER;
     }
+    
+    @Override
+    public int getFishMealSize() {
+        return 0;
+    }
 }
