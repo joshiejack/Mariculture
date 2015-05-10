@@ -67,6 +67,11 @@ public class FishDragon extends FishSpecies {
     }
     
     @Override
+    public Block getWater1() {
+        return Fluids.getFluidBlock("ender");
+    }
+    
+    @Override
     public Block getWater2() {
         return Fluids.getFluidBlock("ender");
     }

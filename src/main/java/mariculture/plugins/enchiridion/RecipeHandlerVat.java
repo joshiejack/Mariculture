@@ -108,6 +108,7 @@ public class RecipeHandlerVat extends RecipeHandlerBase {
         }
     }
 
+    @Override
     protected void drawBackground() {
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (recipe.inputFluid1 != null && recipe.inputFluid2 == null) {

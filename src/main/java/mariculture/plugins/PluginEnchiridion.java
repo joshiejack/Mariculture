@@ -40,6 +40,8 @@ import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.enchiridion.EventHandler;
 import mariculture.plugins.enchiridion.ItemGuide;
 import mariculture.plugins.enchiridion.PageVat;
+import mariculture.plugins.enchiridion.RecipeHandlerFishData;
+import mariculture.plugins.enchiridion.RecipeHandlerFishProduct;
 import mariculture.plugins.enchiridion.RecipeHandlerVat;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -151,6 +153,8 @@ public class PluginEnchiridion extends Plugin {
         
     	if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerVat());
+            EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerFishProduct());
+            EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerFishData());
     		if (Modules.isActive(Modules.factory)) {
     			register(Factory.filter);
     			register(Factory.chalk);

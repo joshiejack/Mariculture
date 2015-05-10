@@ -166,8 +166,8 @@ public class Fish {
     public static FishSpecies bowfin; //Generates Arrows, Bows
     public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten /TODO:
     public static FishSpecies walleye; //Eyesight, Zooms in like bow /TODO:
-    public static FishSpecies pike; //Weapons, Generates flint and pike 'heads' /TODO:
-    public static FishSpecies stickleback; //Spikes, Causes spikes to randomly appear /TODO:
+    public static FishSpecies pike; //Generates flint /TODO:
+    public static FishSpecies stickleback; //Grows Kelp
     public static FishSpecies pickerel; //Harvests Crops /TODO:
 
     //1.2.5 Metal Species
