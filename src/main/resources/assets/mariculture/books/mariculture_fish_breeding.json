@@ -6032,7 +6032,7 @@
           "type": "FeatureRecipe",
           "properties": {
             "uniqueRecipe": "MaricultureFishProductsRed Herring",
-            "item": "Aquaculture:item.Fish 26",
+            "item": "Mariculture:fishy 0 {SalinityTolerance:2,Fertility:5000,lowerFertility:5000,lowerLifespan:19200,AreaOfEffectNORTH:0,WorkEthic:1,lowerTemperatureTolerance:11,lowerAreaOfEffectEAST:0,lowerFoodUsage:2,lowerSpeciesID:38,AreaOfEffectUP:0,AreaOfEffectWEST:0,lowerSalinityTolerance:2,lowerWorkEthic:1,AreaOfEffectSOUTH:0,Lifespan:19200,SpeciesID:38,lowerWaterRequired:60,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:19200,lowerAreaOfEffectUP:0,lowerAreaOfEffectDOWN:0,WaterRequired:60,Gender:1,FoodUsage:2,lowerAreaOfEffectSOUTH:0,lowerGender:0,TemperatureTolerance:11,AreaOfEffectEAST:0}",
             "xPos": 27,
             "yPos": 158,
             "width": 159.0,
