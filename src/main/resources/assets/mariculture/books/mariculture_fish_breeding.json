@@ -3095,8 +3095,8 @@
           "type": "FeatureItem",
           "properties": {
             "item": "Mariculture:fishy 0 {SalinityTolerance:0,Fertility:2000,lowerFertility:2000,lowerLifespan:12000,AreaOfEffectNORTH:0,WorkEthic:1,lowerTemperatureTolerance:6,lowerAreaOfEffectEAST:0,lowerFoodUsage:1,lowerSpeciesID:44,AreaOfEffectUP:0,AreaOfEffectWEST:0,lowerSalinityTolerance:0,lowerWorkEthic:1,AreaOfEffectSOUTH:0,Lifespan:12000,SpeciesID:44,lowerWaterRequired:100,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:12000,lowerAreaOfEffectUP:0,lowerAreaOfEffectDOWN:0,WaterRequired:100,Gender:1,FoodUsage:1,lowerAreaOfEffectSOUTH:0,lowerGender:0,TemperatureTolerance:6,AreaOfEffectEAST:0}",
-            "xPos": 149,
-            "yPos": 28,
+            "xPos": 151,
+            "yPos": 37,
             "width": 48.0,
             "height": 48.0
           }

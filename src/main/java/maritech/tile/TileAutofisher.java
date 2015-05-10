@@ -34,6 +34,12 @@ public class TileAutofisher extends TileMachinePowered implements IHasNotificati
     public int getRFCapacity() {
         return 20000;
     }
+    
+    @Override
+    public void updateUpgrades() {
+        super.updateUpgrades();
+        speed *= 4;
+    }
 
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
