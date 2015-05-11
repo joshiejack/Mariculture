@@ -47,7 +47,7 @@ maritech.machines.multi.incubatortop=Haut de l'incubateur
 maritech.crafting.dragonegg=Géniteur d'Ender Dragon 
 maritech.dna.format=%N %D 
 maritech.dna=ADN 
-maritech.dna.corrupt=ADN conrompu 
+maritech.dna.corrupt=ADN quelconque 
 maritech.dna.name=Nom ADN 
 maritech.dna.value=Valeur ADN 
  
