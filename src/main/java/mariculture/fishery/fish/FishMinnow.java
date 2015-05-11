@@ -83,6 +83,6 @@ public class FishMinnow extends FishSpecies {
 
     @Override
     public double getCaughtAliveChance(World world, int height) {
-        return world.isDaytime() && height > 70 ? 85D : 25D;
+        return world.isDaytime() && height > 70 ? 85D : 35D;
     }
 }

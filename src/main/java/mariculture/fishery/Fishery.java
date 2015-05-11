@@ -414,6 +414,9 @@ public class Fishery extends RegistrationModule {
         addShaped(new ItemStack(Core.food, 16, FoodMeta.FISH_FINGER), new Object[] { " B ", "BFB", " B ", 'F', new ItemStack(Items.fish, 1, Fish.cod.getID()), 'B', Items.bread });
         addShapeless(new ItemStack(Core.food, 1, FoodMeta.FISH_N_CUSTARD), new Object[] { new ItemStack(Core.food, 1, FoodMeta.CUSTARD), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER), new ItemStack(Core.food, 1, FoodMeta.FISH_FINGER) });
 
+        //Mushroom Fish > Mushroom Stew
+        addShapeless(new ItemStack(Items.mushroom_stew), new Object[] { new ItemStack(Items.fish, 1, Fish.brown.getID()), new ItemStack(Items.fish, 1, Fish.red.getID()), Items.bowl });
+        
         for (int i = 0; i < 12; i++) {
             addShaped(new ItemStack(lampsOn, 8, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "blockGlassColorless", 'F', new ItemStack(Items.fish, 1, Fish.tetra.getID()) });
             addShaped(new ItemStack(lampsOn, 4, i), new Object[] { "PGP", "GFG", "PGP", 'P', new ItemStack(Core.pearls, 1, i), 'G', "blockGlassColorless", 'F', dropletFlux });

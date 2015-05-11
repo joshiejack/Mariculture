@@ -1,5 +1,10 @@
 package mariculture.magic;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import mariculture.api.core.MaricultureHandlers;
@@ -118,35 +123,48 @@ public class JewelryHandler {
             int chance = binding.getKeepEnchantmentChance(type);
             int[] enchants = stack.stackTagCompound.getIntArray("EnchantmentList");
             int[] levels = stack.stackTagCompound.getIntArray("EnchantmentLevels");
-            int total = 0;
-            for (int j = 0; j < enchants.length; j++)
-                if (rand.nextInt(100) < chance) if (total < type.getMaximumEnchantments() + material.getExtraEnchantments(type)) {
-                    total++;
-                    //Add the enchantment after increasing the enchants added
-                    Enchantment enchant = Enchantment.enchantmentsList[enchants[j]];
-                    int level = getLevel(type, material, binding, levels[j]);
-                    int current = EnchantmentHelper.getEnchantmentLevel(enchant.effectId, result);
-                    if (current < enchant.getMaxLevel()) {
-                        int newLevel = getLevel(type, material, binding, current + level);
-                        if (current != 0) {
-                            //Not guaranteed to increase the level, but there's a chance to
-                            if (rand.nextInt(1 + 100 - chance) == 0) {
-                                NBTTagList tagList = result.stackTagCompound.getTagList("ench", 10);
-                                for (int i = 0; i < tagList.tagCount(); i++) {
-                                    NBTTagCompound tag = tagList.getCompoundTagAt(i);
-                                    int id = tag.getShort("id");
-                                    if (id == enchant.effectId) {
-                                        tag.setShort("lvl", (short) newLevel);
-                                        tagList.removeTag(i);
-                                        tagList.appendTag(tag);
-                                    }
-                                }
-                            }
-                        } else {
-                            result.addEnchantment(enchant, level);
-                        }
+            int max = type.getMaximumEnchantments() + material.getExtraEnchantments(type);
+            LinkedHashMap<Integer, Integer> existingMap = (LinkedHashMap<Integer, Integer>) EnchantmentHelper.getEnchantments(result);
+            HashMap<Integer, Integer> newMap = new HashMap();
+            List<Integer> existing = new ArrayList();
+            int totalAdded = 0;
+            
+            //Reset all the enchantment data on the result
+            result.stackTagCompound.setTag("ench", new NBTTagList());
+            
+            //Add all the existing enchantments to the new map
+            for (Entry<Integer, Integer> i : existingMap.entrySet()) {
+                newMap.put(i.getKey(), i.getValue());
+                existing.add(i.getKey());
+                totalAdded++;
+            }
+            
+            for (int i = 0; i < enchants.length; i++) {
+                //If we are going to add this enchantment, then let's do it
+                if (rand.nextInt(100) < chance) {
+                    //If we do not have room this enchantment, let's remove one
+                    if (totalAdded >= max) {
+                        int id = existing.get(rand.nextInt(existing.size()));
+                        newMap.remove(id); //Remove the enchantment at this id
                     }
+                    
+                    Enchantment enchant = Enchantment.enchantmentsList[enchants[i]];
+                    //Adjust the level for this enchantment
+                    int levelToAdd = getLevel(type, material, binding, levels[i]);
+                    int levelExisting = newMap.get(enchant.effectId) == null? 0: newMap.get(enchant.effectId); //The current level
+                    if (levelExisting != 0 && levelExisting < enchant.getMaxLevel() && rand.nextInt(1 + 100 - chance) == 0) { //Attempt to increase the level
+                        levelExisting = getLevel(type, material, binding, levelExisting + levelToAdd);
+                    } else if (levelExisting == 0) levelExisting = levelToAdd;
+                    
+                    newMap.put(enchant.effectId, levelExisting);
+                    totalAdded++;
                 }
+            }
+            
+            //Now that we have built the map, let's add it to the jewelry
+            for (Entry<Integer, Integer> i : newMap.entrySet()) {
+                result.addEnchantment(Enchantment.enchantmentsList[i.getKey()], i.getValue());
+            }
         }
 
         return result;

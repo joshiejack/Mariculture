@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import mariculture.core.helpers.NBTHelper;
 import mariculture.magic.ShapedJewelryRecipe.LinkedInteger;
 import mariculture.magic.jewelry.ItemJewelry;
 import net.minecraft.block.Block;
@@ -90,7 +91,7 @@ public class ShapelessJewelryRecipe implements IRecipe {
         ArrayList<LinkedInteger> cache = new ArrayList();
         for (int j = 0; j < craft.getSizeInventory(); j++) {
             ItemStack stack = craft.getStackInSlot(j);
-            if (stack != null) {
+            if (stack != null && !(stack.getItem() instanceof ItemJewelry)) {
                 LinkedHashMap<Integer, Integer> maps = (LinkedHashMap<Integer, Integer>) EnchantmentHelper.getEnchantments(stack);
                 for (Entry<Integer, Integer> i : maps.entrySet()) {
                     Enchantment enchant = Enchantment.enchantmentsList[i.getKey()];
@@ -110,6 +111,13 @@ public class ShapelessJewelryRecipe implements IRecipe {
 
             ret.stackTagCompound.setIntArray("EnchantmentList", enchant);
             ret.stackTagCompound.setIntArray("EnchantmentLevels", level);
+        }
+
+        for (int i = 0; i < craft.getInventoryStackLimit(); i++) {
+            ItemStack stack = craft.getStackInSlot(i);
+            if (stack != null && stack.getItem() instanceof ItemJewelry) {
+                ret.stackTagCompound.setTag("WorkedItem", NBTHelper.writeItemStackToNBT(new NBTTagCompound(), stack));
+            }
         }
 
         return ret;
