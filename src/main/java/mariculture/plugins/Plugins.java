@@ -58,7 +58,6 @@ public class Plugins extends Module {
         add("Thaumcraft");
         add("BiomesOPlenty");
         add("AppleCore");
-        add("Enchiridion");
         add("Highlands");
         add("BloodMagic", "AWWayofTime");
         add("LiquidXP");
@@ -73,6 +72,7 @@ public class Plugins extends Module {
         add("ModdedTweaks", "Enchiridion");
         add("Botania");
         add("MineTweaker3");
+        add("Enchiridion");
     }
 
     public void add(String str) {

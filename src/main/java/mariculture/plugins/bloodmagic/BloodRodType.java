@@ -14,7 +14,7 @@ import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 
 public class BloodRodType extends RodType {
     public BloodRodType(int quality, double junk, double good, double rare, int enchantment) {
-        super(quality, junk, good, rare, enchantment);
+        super("BLOOD", quality, junk, good, rare, enchantment);
     }
 
     @Override

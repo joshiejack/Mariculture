@@ -891,6 +891,8 @@ mariculture.rodBlood.activated=Activated
 mariculture.rodBlood.deactivated=Deactivated
 mariculture.rodBlood.owner=Current Owner
 mariculture.ritual=[Mariculture]Ritual of the Blood River
+mariculture.guide.blood=Becoming a Blood Mage
+mariculture.guide.blood.author=Tiberius
 
 #Downloader
 enchiridion.downloader.missing=%s requires Enchiridion in order to function: You can download it here: %s
@@ -913,6 +915,8 @@ mariculture.rodLiving=Livingwood Fishing Rod
 mariculture.fish.data.species.mana=Manafish
 item.botania:petal32767.name=Mystical Petals
 item.botania:manaPetal32767.name=Mana Petals
+mariculture.guide.botania=Floral Fish
+mariculture.guide.botania.author=Liz
 
 #New Books
 mariculture.book.fish.text1=Mariculture introduces a ton of different fish species. This book, will give you information on each of them. What conditions they require. How they can be useful to you, and things they do when you eat them, or how they affect the world.\n\nIt also contains some information on the different fishing hats you can use that will help you catch fish. As well as a look at the machines that allow the genetic manipulation of fish, allowing you to make the perfect fish, with a bit more ease.

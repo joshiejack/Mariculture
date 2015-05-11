@@ -6,17 +6,18 @@ import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
-import mariculture.core.config.FishMechanics;
 import mariculture.core.handlers.PearlGenHandler;
+import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.BaitMeta;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
 import mariculture.fishery.Fish;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.botania.FishMana;
 import mariculture.plugins.botania.ItemLivingRod;
+import mariculture.plugins.enchiridion.ItemGuide;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -30,12 +31,13 @@ public class PluginBotania extends Plugin {
         super(name);
     }
 
-    public static final RodType MANA = new RodType(90, 10D, 10D, 10D, 50);
+    public static final RodType MANA = new RodType("MANA", 90, 10D, 10D, 10D, 50);
     public static FishSpecies mana;
     public static Item rodLiving;
 
     @Override
     public void preInit() {
+        ItemGuide.BOTANIA = true;
         if (Modules.isActive(Modules.fishery)) {
             mana = Fishing.fishHelper.registerFish(modid, FishMana.class, 65);
             Fishing.mutation.addMutation(Fish.electricRay, Fish.clown, mana, 30D);
@@ -52,6 +54,8 @@ public class PluginBotania extends Plugin {
 
     @Override
     public void init() {
+        PluginEnchiridion.registerBookItem("botania", GuideMeta.BOTANIA);
+        RecipeHelper.addBookRecipe(new ItemStack(PluginEnchiridion.guides, 1, GuideMeta.BOTANIA), new ItemStack(ModItems.petal, 1, OreDictionary.WILDCARD_VALUE));
         PearlGenHandler.addPearl(OreDictionary.getOres("manaPearl").get(0), GameRegistry.findBlock("Botania", "storage"), 0, 1);
 
         if (Modules.isActive(Modules.fishery)) {
@@ -95,5 +99,7 @@ public class PluginBotania extends Plugin {
     }
 
     @Override
-    public void postInit() {}
+    public void postInit() {
+        
+    }
 }

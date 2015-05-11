@@ -22,6 +22,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
 import rebelkeithy.mods.aquaculture.items.AquacultureItems;
 import rebelkeithy.mods.aquaculture.items.ItemFish.Fish;
+import cpw.mods.fml.common.Loader;
 
 public class PluginAquaculture extends Plugin {
     public PluginAquaculture(String name) {
@@ -43,6 +44,11 @@ public class PluginAquaculture extends Plugin {
 
     @Override
     public void postInit() {
+        if (Loader.isModLoaded("Forestry")) {
+            PluginForestry.backpack.addValidItem(new ItemStack(AquacultureItems.fish));
+            PluginForestry.backpack.addValidItem(new ItemStack(AquacultureItems.metaLootItem));
+        }
+        
         if (Modules.isActive(Modules.fishery)) {
             //Remove Fish Fillet Recipes, We readd them later with a new recipe            
             for (Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator(); iterator.hasNext();) {

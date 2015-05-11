@@ -96,9 +96,12 @@ public class PluginEnchiridion extends Plugin {
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
-            //GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISH_DATA), Mariculture.modid, "fish", 0xFF8000);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
         }
+        
+        /** Register this mod as containing books **/
+        FMLInterModComms.sendMessage("Enchiridion2", "registerBookMod", "Mariculture");
+        registerBookItem("fish_breeding", GuideMeta.FISH_DATA);
     }
     
     public static void register(Item item) {
@@ -138,19 +141,16 @@ public class PluginEnchiridion extends Plugin {
 	    	}
 	    }
     }
+    
+    public static void registerBookItem(String name, int meta) {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString("book", "mariculture_" + name);
+        new ItemStack(guides, 1, meta).writeToNBT(tag);
+        FMLInterModComms.sendMessage("Enchiridion2", "registerBookItem", tag);
+    }
 
     @Override
     public void init() {
-        /** Register this mod as containing books **/
-        FMLInterModComms.sendMessage("Enchiridion2", "registerBookMod", "Mariculture");
-        
-        /** Build a NBT Tag **/
-        //EnchiridionAPI.instance.registerBookData(new ItemStack(guides, 1, GuideMeta.FISH_DATA), "mariculture_fish_breeding");
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setString("book", "mariculture_fish_breeding");
-        new ItemStack(guides, 1, GuideMeta.FISH_DATA).writeToNBT(tag);
-        FMLInterModComms.sendMessage("Enchiridion2", "registerBookItem", tag);
-        
     	if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerVat());
             EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerFishProduct());

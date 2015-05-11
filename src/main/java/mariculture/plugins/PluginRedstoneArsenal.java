@@ -45,7 +45,7 @@ public class PluginRedstoneArsenal extends Plugin {
 
     private static class RodTypeInfused extends RodTypeFlux {
         public RodTypeInfused(int quality, double junk, double good, double rare, int enchantment) {
-            super(quality, junk, good, rare, enchantment);
+            super("INFUSED", quality, junk, good, rare, enchantment);
         }
 
         @Override

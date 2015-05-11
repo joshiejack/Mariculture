@@ -41,15 +41,15 @@ public class ItemFood extends ItemMCMeta implements IEdible {
             case FoodMeta.CALAMARI_HALF:
                 return 3;
             case FoodMeta.SMOKED_SALMON:
-                return 10;
+                return 8;
             case FoodMeta.CAVIAR:
                 return 3;
             case FoodMeta.CUSTARD:
-                return 1;
+                return 3;
             case FoodMeta.FISH_N_CUSTARD:
-                return 4;
+                return 5;
             case FoodMeta.KELP_WRAP:
-                return 1;
+                return 2;
             case FoodMeta.SUSHI:
                 return 6;
             case FoodMeta.MISO_SOUP_1:

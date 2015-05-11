@@ -12,7 +12,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -39,13 +38,17 @@ public class ItemGuide extends ItemMCMeta {
                 return "processing";
             case GuideMeta.FISH_DATA:
                 return "fish";
+            case GuideMeta.BLOOD_MAGIC:
+                return "blood";
+            case GuideMeta.BOTANIA:
+                return "botania";
             default:
                 return "guide";
         }
     }
 
     public boolean isEnchiridion2Book(int meta) {
-        return meta == GuideMeta.FISH_DATA;
+        return meta >= GuideMeta.FISH_DATA;
     }
 
     @Override
@@ -61,6 +64,9 @@ public class ItemGuide extends ItemMCMeta {
             return stack;
         }
     }
+    
+    public static boolean BLOOD = false;
+    public static boolean BOTANIA = false;
 
     @Override
     public boolean isActive(int meta) {
@@ -77,6 +83,10 @@ public class ItemGuide extends ItemMCMeta {
                 return Modules.isActive(Modules.magic);
             case GuideMeta.DIVING:
                 return Modules.isActive(Modules.diving);
+            case GuideMeta.BLOOD_MAGIC:
+                return BLOOD;
+            case GuideMeta.BOTANIA:
+                return BOTANIA;
             default:
                 return false;
         }

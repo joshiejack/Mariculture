@@ -6,12 +6,15 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
+import mariculture.core.helpers.RecipeHelper;
+import mariculture.core.lib.GuideMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.util.Fluids;
 import mariculture.fishery.Fishery;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.bloodmagic.BloodRodType;
 import mariculture.plugins.bloodmagic.ItemBoundRod;
+import mariculture.plugins.enchiridion.ItemGuide;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -26,7 +29,6 @@ public class PluginBloodMagic extends Plugin {
         super(name);
     }
 
-    public static boolean ACTIVE = false;
     public static final RodType BLOOD = new BloodRodType(95, 15D, 20D, 5D, 45);
     public static Item rodBlood;
 
@@ -35,7 +37,7 @@ public class PluginBloodMagic extends Plugin {
 
     @Override
     public void preInit() {
-        ACTIVE = true;
+        ItemGuide.BLOOD = true;
         Fluids.add("blood", FluidRegistry.getFluid("life essence"), 250, true);
         if (Modules.isActive(Modules.fishery)) {
             rodBlood = new ItemBoundRod().setUnlocalizedName("rodBlood");
@@ -49,6 +51,9 @@ public class PluginBloodMagic extends Plugin {
 
     @Override
     public void init() {
+        PluginEnchiridion.registerBookItem("blood_magic", GuideMeta.BLOOD_MAGIC);
+        RecipeHelper.addBookRecipe(new ItemStack(PluginEnchiridion.guides, 1, GuideMeta.BLOOD_MAGIC), getUndamaged("blankSlate"));
+        
         if (Modules.isActive(Modules.fishery)) {
             demonBloodShard = getUndamaged("demonBloodShard");
             weakBloodShard = getUndamaged("weakBloodShard");
@@ -123,6 +128,6 @@ public class PluginBloodMagic extends Plugin {
 
     @Override
     public void postInit() {
-        return;
+        
     }
 }

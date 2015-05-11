@@ -242,6 +242,10 @@ public class RecipeHelper {
     public static void addSoakRecipe(ItemStack input, ItemStack output, int time) {
         addVatItemRecipe(input, "water", 100, output, time);
     }
+    
+    public static void addBookRecipe(ItemStack output, String input) {
+        addShapeless(output, new Object[] { input, Items.book });
+    }
 
     public static void addBookRecipe(ItemStack output, ItemStack input) {
         addShapeless(output, new Object[] { input, Items.book });
