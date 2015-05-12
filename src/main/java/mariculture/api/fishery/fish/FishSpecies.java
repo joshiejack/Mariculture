@@ -70,13 +70,13 @@ public abstract class FishSpecies {
     /** This is base temperature of the fish species **/ 
     public abstract int getTemperatureBase();
     
-    /** This is the temperature tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
+    /** This is the temperature tolerance of this fish, how far up and down from the base it can go **/ 
     public abstract int getTemperatureTolerance();
     
     /** This is base salinity of the fish species **/
     public abstract Salinity getSalinityBase();
     
-    /** This is the salinity tolerance of this fish, how far up and down from the base it can go **/ //TODO: MARK AS ABSTRACT
+    /** This is the salinity tolerance of this fish, how far up and down from the base it can go **/
     public abstract int getSalinityTolerance();
 
     /** If this fish can swim in anything other than water, they do not care about salinity **/

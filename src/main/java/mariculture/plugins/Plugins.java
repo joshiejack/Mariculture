@@ -72,6 +72,7 @@ public class Plugins extends Module {
         add("ModdedTweaks", "Enchiridion");
         add("Botania");
         add("MineTweaker3");
+        add("EE3");
         add("Enchiridion");
     }
 

@@ -1,0 +1,695 @@
+{
+  "book": [
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]New Materials[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 120,
+            "yPos": 12,
+            "width": 90.0,
+            "height": 16.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Limestone and Rutile[/b]\nLimestone is found at the bottom of oceans, covering the top few layers after the initial sand layer. Rutile will sometimes generate in place of a limestone piece.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 85,
+            "width": 200.0,
+            "height": 57.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Copper[/b]\nA normal ore found mining. Cook it in a furnace as normal.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 15,
+            "width": 185.0,
+            "height": 27.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Aluminium[/b]\nFound in the world as \u0027Bauxite\u0027. Must be melted in a Crucible Furnace, then cooled down to make Aluminium.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 46,
+            "width": 192.0,
+            "height": 55.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "    [b]Natural Gas[/b]\nNatural Gas is located deep under the ocean floor. It is invisible but affects you with nausea, poison, mining fatigue, so you\u0027ll know when you found it. To harvest it, bring an air pump and a tank. Place the tank next to the air pump, and then right click or supply the air pump with RF. The gas will be sucked up from the cave in to the tank that you placed.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 217,
+            "yPos": 11,
+            "width": 191.0,
+            "height": 100.0
+          }
+        },
+        {
+          "type": "FeatureResource",
+          "properties": {
+            "path": "mariculture:textures/books/processing/oyster.png:4.66:1.17",
+            "xPos": 216,
+            "yPos": 111,
+            "width": 181.0,
+            "height": 46.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Finding the Gas[/b]\nThe easiest way to find gas, is to look for gas bubbles on the ocean floor. If you dig down from them, you will reach the cave with the gas.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 216,
+            "yPos": 161,
+            "width": 184.0,
+            "height": 38.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Oysters[/b]\nOysters are found on the Ocean floor. When supplied with sand, they will produce pearls. The easiest way to harvest an oyster is to break the block underneath it.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 22,
+            "yPos": 144,
+            "width": 181.0,
+            "height": 31.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Advanced Materials[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 95,
+            "yPos": 11,
+            "width": 130.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Magnesium is made by combining water and quicklime in a vat. It is used in a couple recipes itself. But it\u0027s main purpose is to combine it with impure titanium to Make Titanium.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 21,
+            "yPos": 32,
+            "width": 184.0,
+            "height": 47.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Magnesium and Titanium[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 20,
+            "yPos": 22,
+            "width": 160.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureVat",
+            "item": "Mariculture:fluids 13",
+            "xPos": 45,
+            "yPos": 90,
+            "width": 125.0,
+            "height": 50.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureVat",
+            "item": "Mariculture:fluids 12",
+            "xPos": 45,
+            "yPos": 157,
+            "width": 125.0,
+            "height": 50.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Making Magnesium[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 55,
+            "yPos": 80,
+            "width": 130.0,
+            "height": 10.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Making Titanium[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 58,
+            "yPos": 147,
+            "width": 144.0,
+            "height": 11.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Processing[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 237,
+            "yPos": 11,
+            "width": 100.0,
+            "height": 13.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]The Vat[/b]\nIn order to get started in Mariculture you are going to want to craft a Vat. It is a simple machine that combines liquids, or liquids with items to make something else. To interact with the vat, simply right click an item or a liquid container on to it. To remove an item, shift and right click.\n\nBy default Vats only hold 6000mB of liquid. You can upgrade them by placing them in a 2x2, and they will then store up to 30000mB.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 218,
+            "yPos": 20,
+            "width": 191.0,
+            "height": 126.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper",
+            "item": "Mariculture:machines_multi_rendered 3",
+            "xPos": 245,
+            "yPos": 149,
+            "width": 122.0,
+            "height": 61.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Burnt Bricks[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 118,
+            "yPos": 11,
+            "width": 100.0,
+            "height": 6.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Burnt Bricks are a basic crafting component used in a bunch of machines in Mariculture. In order to craft them, you are going to need to place a brick or a nether brick, in to a vat filled with lava. After a short while of processing, indicated by the puffs of smoke, they will finish and you can simply remove them with a right click.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 22,
+            "yPos": 19,
+            "width": 184.0,
+            "height": 88.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureVat:minecraft:netherbrick:0",
+            "item": "Mariculture:crafting 14",
+            "xPos": 21,
+            "yPos": 111,
+            "width": 99.0,
+            "height": 39.6
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureVat:minecraft:brick:0",
+            "item": "Mariculture:crafting 14",
+            "xPos": 21,
+            "yPos": 157,
+            "width": 98.0,
+            "height": 39.2
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Crucible Furnace[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 224,
+            "yPos": 11,
+            "width": 125.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "The Crucible Furnace is the next step. It used to process ores, providing up to 2x normal yield as well as a chance for an extra bonus dust. It takes a bit to heat them up, and they will melt your ores down in to molten form, once the furnace is hot enough for that specific material.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 220,
+            "yPos": 22,
+            "width": 187.0,
+            "height": 81.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:minecraft:lava_bucket:0:Mariculture:crafting:14:Mariculture:tanks:0:Mariculture:crafting:14:Mariculture:crafting:8:Mariculture:rocks:4:Mariculture:crafting:8",
+            "item": "Mariculture:machines_multi 0",
+            "xPos": 223,
+            "yPos": 107,
+            "width": 178.0,
+            "height": 89.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14",
+            "item": "Mariculture:rocks 4",
+            "xPos": 131,
+            "yPos": 156,
+            "width": 74.0,
+            "height": 37.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:plankWood:ingotCopper:plankWood:blockGlass:plankWood:ingotCopper:plankWood:ingotCopper",
+            "item": "Mariculture:tanks 0",
+            "xPos": 132,
+            "yPos": 112,
+            "width": 74.0,
+            "height": 37.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Crucible Furnace[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 101,
+            "yPos": 13,
+            "width": 136.0,
+            "height": 6.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "The Crucible Furnace is in fact a 1x2x1 Structure, made from placing one Crucible Furnace on top of another as demonstrated on the right.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 24,
+            "yPos": 23,
+            "width": 194.0,
+            "height": 42.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "It can be heated via the use of either a solid or a fluid fuel. Placing a tank underneath the Crucible Furnace will cause it to consume any fuel from said tank.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 70,
+            "width": 182.0,
+            "height": 44.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "You may find that the Crucible Furnace can be rather slow to heat up. Or you wish to have more room for your liquids. Well as with most machines in Mariculture, it can be\n      upgraded:",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 27,
+            "yPos": 155,
+            "width": 190.0,
+            "height": 50.0
+          }
+        },
+        {
+          "type": "FeatureResource",
+          "properties": {
+            "path": "mariculture:textures/books/processing/crucible.png:1.6:2.9",
+            "xPos": 220,
+            "yPos": 20,
+            "width": 80.0,
+            "height": 175.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Increase the \ninternal tank size.",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 324,
+            "yPos": 32,
+            "width": 87.0,
+            "height": 22.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Fuels[/b][i] Also coal coke, Biogas, Oil etc[/i]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 25,
+            "yPos": 118,
+            "width": 233.0,
+            "height": 11.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "minecraft:coal 0",
+            "xPos": 24,
+            "yPos": 127,
+            "width": 26.0,
+            "height": 26.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "minecraft:coal 1",
+            "xPos": 47,
+            "yPos": 128,
+            "width": 24.0,
+            "height": 24.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "minecraft:stick",
+            "xPos": 70,
+            "yPos": 129,
+            "width": 22.0,
+            "height": 22.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "minecraft:planks 2",
+            "xPos": 95,
+            "yPos": 128,
+            "width": 25.0,
+            "height": 25.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "minecraft:log 1",
+            "xPos": 124,
+            "yPos": 129,
+            "width": 27.0,
+            "height": 27.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fluids 27",
+            "xPos": 149,
+            "yPos": 128,
+            "width": 27.0,
+            "height": 27.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:fluids 23",
+            "xPos": 173,
+            "yPos": 127,
+            "width": 28.0,
+            "height": 28.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:upgrade 0",
+            "xPos": 303,
+            "yPos": 28,
+            "width": 21.0,
+            "height": 21.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:upgrade 1",
+            "xPos": 303,
+            "yPos": 60,
+            "width": 21.0,
+            "height": 21.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Heats up faster. \u0026 processes faster.",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 325,
+            "yPos": 64,
+            "width": 81.0,
+            "height": 9.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:upgrade 3",
+            "xPos": 303,
+            "yPos": 90,
+            "width": 22.0,
+            "height": 22.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Fuel lasts much longer.",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 325,
+            "yPos": 94,
+            "width": 74.0,
+            "height": 16.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:upgrade 25",
+            "xPos": 303,
+            "yPos": 122,
+            "width": 23.0,
+            "height": 23.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Autoejects fluids faster.",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 325,
+            "yPos": 126,
+            "width": 79.0,
+            "height": 15.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:upgrade 24",
+            "xPos": 304,
+            "yPos": 158,
+            "width": 22.0,
+            "height": 22.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Enchantments on items will be stripped and converted in to molten XP.",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 326,
+            "yPos": 160,
+            "width": 78.0,
+            "height": 72.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Ethereal[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 308,
+            "yPos": 150,
+            "width": 50.0,
+            "height": 50.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Hyperkinetic[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 307,
+            "yPos": 115,
+            "width": 82.0,
+            "height": 9.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Purity[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 307,
+            "yPos": 84,
+            "width": 50.0,
+            "height": 8.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Heating[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 307,
+            "yPos": 53,
+            "width": 45.0,
+            "height": 11.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Storage[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 306,
+            "yPos": 21,
+            "width": 50.0,
+            "height": 10.0
+          }
+        }
+      ],
+      "pageName": ""
+    }
+  ],
+  "displayNames": {
+    "en_US": "mariculture_processing"
+  },
+  "uniqueName": "mariculture_processing",
+  "color": 16777215,
+  "showBackground": true,
+  "showArrows": true,
+  "showNumber": true,
+  "iconPass1": "",
+  "iconPass2": "",
+  "iconColorisePass1": false,
+  "iconColorisePass2": false,
+  "iconColorPass1": 0,
+  "iconColorPass2": 0
+}

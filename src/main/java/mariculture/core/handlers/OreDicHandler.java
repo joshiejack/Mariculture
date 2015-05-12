@@ -25,7 +25,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 //This handles all the OreDictionaryRelated things to do with the Automatic Dictionary Converter
 public class OreDicHandler {
     public static boolean has_unifier = false;
-    public static HashMap<String, ArrayList<String>> all;
     public static HashMap<String, ArrayList<String>> entries;
     public static HashMap<String, Integer[]> specials = new HashMap();
     public static HashMap<String, ArrayList<ItemStack>> items;
@@ -48,7 +47,6 @@ public class OreDicHandler {
     public void onOreDictionaryRegistration(OreRegisterEvent event) {
         //Initialize all existing Entries
         if (entries == null) {
-            all = new HashMap();
             items = new HashMap();
             entries = new HashMap();
             String[] ores = OreDictionary.getOreNames();
@@ -106,11 +104,6 @@ public class OreDicHandler {
 
     public static void add(ItemStack stack, String name) {
         String id = ItemHelper.getName(stack);
-        //All
-        ArrayList<String> alls = all.containsKey(id) ? all.get(id) : new ArrayList();
-        alls.add(name);
-        all.put(id, alls);
-
         if (!isWhitelisted(name)) {
             if (has_unifier) {
                 PluginMFR.blacklist(name);
