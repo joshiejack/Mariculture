@@ -317,9 +317,6 @@
       "pageName": ""
     }
   ],
-  "displayNames": {
-    "en_US": "mariculture_botania"
-  },
   "uniqueName": "mariculture_botania",
   "color": 1002251,
   "showBackground": true,
@@ -330,5 +327,6 @@
   "iconColorisePass1": false,
   "iconColorisePass2": false,
   "iconColorPass1": 0,
-  "iconColorPass2": 0
+  "iconColorPass2": 0,
+  "language": "en_US"
 }

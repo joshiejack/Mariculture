@@ -92,7 +92,6 @@ public class PluginEnchiridion extends Plugin {
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             GuideHandler.registerPageHandler("vat", new PageVat());
-            GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.PROCESSING), Mariculture.modid, "processing", 0x1C1B1B);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
@@ -101,6 +100,7 @@ public class PluginEnchiridion extends Plugin {
         
         /** Register this mod as containing books **/
         FMLInterModComms.sendMessage("Enchiridion2", "registerBookMod", "Mariculture");
+        registerBookItem("processing", GuideMeta.PROCESSING);
         registerBookItem("fish_breeding", GuideMeta.FISH_DATA);
     }
     

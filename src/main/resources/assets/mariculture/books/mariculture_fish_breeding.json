@@ -6877,14 +6877,37 @@
             "width": 159.0,
             "height": 39.75
           }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Metal Fish[/b]",
+            "wrap": 0,
+            "size": 1.2,
+            "color": "FF555555",
+            "xPos": 226,
+            "yPos": 14,
+            "width": 115.0,
+            "height": 6.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Mariculture also optionally adds some fish that will produce molten metals. \n\nUnlike other fish, these can never be caught in the wild, nor can they be eaten or other such things. They simply produce droplets of molten metals.\n\nThe ones you have available to you, depend on which metals are available but you should at least have ones that produce iron, gold, copper, aluminium, magnesium and rutile.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 223,
+            "yPos": 29,
+            "width": 176.0,
+            "height": 161.0
+          }
         }
       ],
       "pageName": "minecraft"
     }
   ],
-  "displayNames": {
-    "en_US": "mariculture_fish_breeding"
-  },
   "uniqueName": "mariculture_fish_breeding",
   "color": 16744448,
   "showBackground": true,
@@ -6895,5 +6918,6 @@
   "iconColorisePass1": false,
   "iconColorisePass2": false,
   "iconColorPass1": 0,
-  "iconColorPass2": 0
+  "iconColorPass2": 0,
+  "language": "en_US"
 }

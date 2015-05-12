@@ -68,9 +68,9 @@ public class PluginEE3 extends Plugin {
             addPreAssignedEnergyValue(OreDictionary.getOres("oreAluminum"), 315F);
             addPreAssignedEnergyValue(OreDictionary.getOres("oreAluminium"), 315F);
             addPreAssignedEnergyValue(OreDictionary.getOres("oreRutile"), 6144F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("limestone"), 2F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("blockLimestone"), 2F);
-            addPreAssignedEnergyValue(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), 2F);
+            addPreAssignedEnergyValue(OreDictionary.getOres("limestone"), 1F);
+            addPreAssignedEnergyValue(OreDictionary.getOres("blockLimestone"), 1F);
+            addPreAssignedEnergyValue(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), 1F);
             addPreAssignedEnergyValue(new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 24F);
             addPreAssignedEnergyValue(OreDictionary.getOres("ingotCopper"), 135F);
             addPreAssignedEnergyValue(OreDictionary.getOres("ingotAluminum"), 315F);

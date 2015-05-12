@@ -241,9 +241,6 @@
       "pageName": ""
     }
   ],
-  "displayNames": {
-    "en_US": "mariculture_blood_magic"
-  },
   "uniqueName": "mariculture_blood_magic",
   "color": 7602947,
   "showBackground": true,
@@ -254,5 +251,6 @@
   "iconColorisePass1": false,
   "iconColorisePass2": false,
   "iconColorPass1": 0,
-  "iconColorPass2": 0
+  "iconColorPass2": 0,
+  "language": "en_US"
 }

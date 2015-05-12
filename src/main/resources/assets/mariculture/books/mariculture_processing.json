@@ -198,12 +198,12 @@
         {
           "type": "FeatureText",
           "properties": {
-            "text": "[b]Processing[/b]",
+            "text": "[u][b]Processing[/b][/u]",
             "wrap": 0,
             "size": 1.0,
             "color": "FF555555",
-            "xPos": 237,
-            "yPos": 11,
+            "xPos": 281,
+            "yPos": 12,
             "width": 100.0,
             "height": 13.0
           }
@@ -216,7 +216,7 @@
             "size": 1.0,
             "color": "FF555555",
             "xPos": 218,
-            "yPos": 20,
+            "yPos": 19,
             "width": 191.0,
             "height": 126.0
           }
@@ -226,10 +226,10 @@
           "properties": {
             "uniqueRecipe": "ShapedOreRecipe:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper",
             "item": "Mariculture:machines_multi_rendered 3",
-            "xPos": 245,
-            "yPos": 149,
-            "width": 122.0,
-            "height": 61.0
+            "xPos": 249,
+            "yPos": 148,
+            "width": 118.0,
+            "height": 59.0
           }
         }
       ],
@@ -316,10 +316,10 @@
           "properties": {
             "uniqueRecipe": "ShapedOreRecipe:minecraft:lava_bucket:0:Mariculture:crafting:14:Mariculture:tanks:0:Mariculture:crafting:14:Mariculture:crafting:8:Mariculture:rocks:4:Mariculture:crafting:8",
             "item": "Mariculture:machines_multi 0",
-            "xPos": 223,
-            "yPos": 107,
-            "width": 178.0,
-            "height": 89.0
+            "xPos": 263,
+            "yPos": 95,
+            "width": 112.0,
+            "height": 56.0
           }
         },
         {
@@ -327,21 +327,84 @@
           "properties": {
             "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14",
             "item": "Mariculture:rocks 4",
-            "xPos": 131,
-            "yPos": 156,
-            "width": 74.0,
-            "height": 37.0
+            "xPos": 126,
+            "yPos": 153,
+            "width": 79.0,
+            "height": 39.5
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Construction Blocks are used in various recipes as well.",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 128,
+            "yPos": 118,
+            "width": 75.0,
+            "height": 40.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Brick Construction\n                 Block[/b] ",
+            "wrap": 0,
+            "size": 0.6999999,
+            "color": "FF555555",
+            "xPos": 128,
+            "yPos": 111,
+            "width": 136.0,
+            "height": 9.0
           }
         },
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:plankWood:ingotCopper:plankWood:blockGlass:plankWood:ingotCopper:plankWood:ingotCopper",
-            "item": "Mariculture:tanks 0",
-            "xPos": 132,
-            "yPos": 112,
-            "width": 74.0,
-            "height": 37.0
+            "uniqueRecipe": "ShapedOreRecipe:minecraft:sand:32767:minecraft:coal:0:minecraft:clay:32767:minecraft:coal:0:minecraft:sand:32767",
+            "item": "Mariculture:crafting 10",
+            "xPos": 230,
+            "yPos": 166,
+            "width": 76.0,
+            "height": 38.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:10:Mariculture:crafting:10",
+            "item": "Mariculture:crafting 8",
+            "xPos": 319,
+            "yPos": 167,
+            "width": 73.0,
+            "height": 36.5
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Silicon Carbide",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 227,
+            "yPos": 158,
+            "width": 97.0,
+            "height": 6.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Heating Component",
+            "wrap": 0,
+            "size": 0.79999995,
+            "color": "FF555555",
+            "xPos": 322,
+            "yPos": 158,
+            "width": 115.0,
+            "height": 10.0
           }
         }
       ],
@@ -676,13 +739,452 @@
         }
       ],
       "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Casting Metals[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 105,
+            "yPos": 13,
+            "width": 123.0,
+            "height": 8.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "With your metals in molten form, you need a way to cool them down in to a useable form. Be this nuggets, ingots or blocks. Mariculture has three casters just for this purpose.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 22,
+            "yPos": 25,
+            "width": 188.0,
+            "height": 49.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "item": "Mariculture:machines_single_rendered 11",
+            "xPos": 27,
+            "yPos": 79,
+            "width": 85.0,
+            "height": 42.5
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "item": "Mariculture:machines_single_rendered 9",
+            "xPos": 42,
+            "yPos": 129,
+            "width": 146.0,
+            "height": 73.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "item": "Mariculture:machines_single_rendered 10",
+            "xPos": 122,
+            "yPos": 81,
+            "width": 80.0,
+            "height": 40.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "You are going to need to transfer the molten metal from the Crucible Furnace to the Caster. The easiest way to do this, would be to open the Crucible Furnace GUI and click the button that has an x on it. This will switch the mode. Click it until you have auto-eject fluids on. This will eject the internal fluids to any nearby tank or caster!",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 220,
+            "yPos": 14,
+            "width": 184.0,
+            "height": 96.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "An alternative way to move the liquids would be with a ladle. It holds 244mB. To use it, shift right click The Crucible Furnace while holding it. And then right click the caster.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 220,
+            "yPos": 115,
+            "width": 183.0,
+            "height": 49.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:ingotCopper:ingotCopper",
+            "item": "Mariculture:ladle",
+            "xPos": 272,
+            "yPos": 162,
+            "width": 91.0,
+            "height": 45.5
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Ladle[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 220,
+            "yPos": 107,
+            "width": 42.0,
+            "height": 10.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Liquid Storage and Transfer[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 37,
+            "yPos": 14,
+            "width": 195.0,
+            "height": 8.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Tanks[/b]\nMariculture adds three new tanks for storing any liquids. They can hold different volumes of liquid and will keep their inventory when picked up. The most basic tank is the copper, with there being an aluminium and the highest tier titanium.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 25,
+            "width": 182.0,
+            "height": 71.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:plankWood:ingotCopper:plankWood:blockGlass:plankWood:ingotCopper:plankWood:ingotCopper",
+            "item": "Mariculture:tanks 0",
+            "xPos": 56,
+            "yPos": 98,
+            "width": 114.0,
+            "height": 57.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "32000mB",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 138,
+            "yPos": 145,
+            "width": 41.0,
+            "height": 9.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotAluminum:stone:ingotAluminum:stone:Mariculture:glass:0:stone:ingotAluminum:stone:ingotAluminum",
+            "item": "Mariculture:tanks 5",
+            "xPos": 27,
+            "yPos": 159,
+            "width": 78.0,
+            "height": 39.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotTitanium:blockQuartz:ingotTitanium:blockQuartz:Mariculture:glass:0:blockQuartz:ingotTitanium:blockQuartz:ingotTitanium",
+            "item": "Mariculture:tanks 6",
+            "xPos": 119,
+            "yPos": 162,
+            "width": 78.0,
+            "height": 39.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "64000mB",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 74,
+            "yPos": 194,
+            "width": 45.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "128000mB",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 162,
+            "yPos": 195,
+            "width": 50.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Mariculture adds heat resistant bottles. These are stackable bottles that can store 2 ingots worth of liquid or 2000mB. They are crafted from Heat Resistant Glass, which can be obtained one of two ways. Either by cooking Ancient Sand found on ocean floors or by combining glass with aluminium and quicklime in a vat.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 217,
+            "yPos": 23,
+            "width": 193.0,
+            "height": 81.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "VanillaFurnace:Mariculture:sands:1",
+            "item": "Mariculture:glass 0",
+            "xPos": 233,
+            "yPos": 107,
+            "width": 41.0,
+            "height": 45.1
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureVat:minecraft:glass:0",
+            "item": "Mariculture:glass 0",
+            "xPos": 293,
+            "yPos": 107,
+            "width": 112.0,
+            "height": 44.8
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:glass:0:Mariculture:glass:0:Mariculture:glass:0",
+            "item": "Mariculture:fluids 20",
+            "xPos": 223,
+            "yPos": 148,
+            "width": 118.0,
+            "height": 59.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Heat Glass and Bottles[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 218,
+            "yPos": 13,
+            "width": 150.0,
+            "height": 7.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Void Bottle[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 134,
+            "yPos": 16,
+            "width": 100.0,
+            "height": 5.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Void Bottles are items that can be used in Mariculture Machines to drain their tanks. They can also be placed in the world, where they will act like a void tank.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 27,
+            "yPos": 25,
+            "width": 180.0,
+            "height": 47.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapelessOreRecipe:Mariculture:fluids:20:dustRedstone:minecraft:dye:0",
+            "item": "Mariculture:fluids 0",
+            "xPos": 117,
+            "yPos": 79,
+            "width": 90.0,
+            "height": 45.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:ingotTitanium:ingotTitanium:ingotTitanium",
+            "item": "Mariculture:bucket_titanium",
+            "xPos": 29,
+            "yPos": 83,
+            "width": 83.0,
+            "height": 41.5
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Titanium Bucket[/b]\nThe titanium bucket is simply a bucket. Except it can store up to 16000mB of liquid. It works the same way as a ladle, with the benefit of also being able to place blocks in the world.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 25,
+            "yPos": 132,
+            "width": 180.0,
+            "height": 70.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Blacksmith\u0027s Anvil[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 223,
+            "yPos": 10,
+            "width": 140.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "The Blacksmith\u0027s Anvil is a block used to crush, smash, work or even repair items. You can place items on to it with a right click. You must then left click the block with a Blacksmith\u0027s Hammer. Eventually you will have hit it enough that the new item, or repaired item will have been worked. You\u0027ll notice it is done when you see a big puff of smoke. You can then right click it again, to get the result. In order to use the anvil you will need 1 XP at least. If you are repairing you will need enough to repair it.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 220,
+            "yPos": 19,
+            "width": 177.0,
+            "height": 121.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:rocks:4:Mariculture:rocks:4:Mariculture:rocks:4:minecraft:nether_brick:32767:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "item": "Mariculture:machines_single_rendered 8",
+            "xPos": 226,
+            "yPos": 158,
+            "width": 86.0,
+            "height": 43.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:minecraft:nether_brick:32767:Mariculture:crafting:14:minecraft:nether_brick:32767",
+            "item": "Mariculture:hammer",
+            "xPos": 316,
+            "yPos": 158,
+            "width": 88.0,
+            "height": 44.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Blacksmith\u0027s Assistant[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 76,
+            "yPos": 13,
+            "width": 154.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "The Blacksmith\u0027s Assistant is a way of automating the Blacksmith\u0027s Anvil. You need to place a tank full of some form of liquid xp underneath it. In Mariculture you can obtain some molten experience by melting down enchanted items in a crucible furnace (as long as that crucible furnace has an ethereal upgrade). You then must supply the appropriate side with a hammer, and it will get to work.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 23,
+            "width": 184.0,
+            "height": 75.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:hammer:0:Mariculture:hammer:0:Mariculture:machines_single_rendered:8:Mariculture:hammer:0:Mariculture:hammer:0",
+            "item": "Mariculture:machines_single_rendered 1",
+            "xPos": 58,
+            "yPos": 135,
+            "width": 128.0,
+            "height": 64.0
+          }
+        },
+        {
+          "type": "FeatureResource",
+          "properties": {
+            "path": "mariculture:textures/books/processing/autohammer.png:3.22:2.76",
+            "xPos": 217,
+            "yPos": 16,
+            "width": 184.0,
+            "height": 177.0
+          }
+        }
+      ],
+      "pageName": ""
     }
   ],
-  "displayNames": {
-    "en_US": "mariculture_processing"
-  },
   "uniqueName": "mariculture_processing",
-  "color": 16777215,
+  "color": 1447189,
   "showBackground": true,
   "showArrows": true,
   "showNumber": true,
@@ -691,5 +1193,6 @@
   "iconColorisePass1": false,
   "iconColorisePass2": false,
   "iconColorPass1": 0,
-  "iconColorPass2": 0
+  "iconColorPass2": 0,
+  "language": "en_US"
 }

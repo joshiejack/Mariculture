@@ -48,7 +48,7 @@ public class ItemGuide extends ItemMCMeta {
     }
 
     public boolean isEnchiridion2Book(int meta) {
-        return meta >= GuideMeta.FISH_DATA;
+        return meta >= GuideMeta.FISH_DATA || meta == GuideMeta.PROCESSING;
     }
 
     @Override
