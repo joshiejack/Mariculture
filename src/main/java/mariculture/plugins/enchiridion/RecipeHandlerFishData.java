@@ -8,6 +8,7 @@ import joshie.enchiridion.designer.recipe.RecipeHandlerBase;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.MCTranslate;
 import mariculture.lib.util.Text;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,18 +24,18 @@ public class RecipeHandlerFishData extends RecipeHandlerBase {
     public RecipeHandlerFishData() {}
 
     public RecipeHandlerFishData(FishSpecies species) {
-        this.temp = "Temp Range: " + (species.getTemperatureBase() - species.getTemperatureTolerance()) + Text.DEGREES + " to " + (species.getTemperatureBase() + species.getTemperatureTolerance() + Text.DEGREES);
+        this.temp = MCTranslate.translate("label.temprange") + ": " + (species.getTemperatureBase() - species.getTemperatureTolerance()) + Text.DEGREES + " - " + (species.getTemperatureBase() + species.getTemperatureTolerance() + Text.DEGREES);
         Salinity min = Salinity.values()[Math.max(0, species.getSalinityBase().ordinal() - species.getSalinityTolerance())];
         Salinity max = Salinity.values()[Math.min(2, species.getSalinityBase().ordinal() + species.getSalinityTolerance())];
         if (min == max) {
-            this.salinity = "Salinity: " + min.name();
-        } else this.salinity = "Salinity: " + min.name() + " to " + max.name();
-        this.lifespan = "Lifespan: " + species.getLifeSpan() + " minutes";
-        this.fertility = "Fertility: " + species.getFertility() + " eggs";
-        this.productivity = "Productivity: " + species.getBaseProductivity() + "x";
+            this.salinity = MCTranslate.translate("label.salinity") + ": " + min.name();
+        } else this.salinity = MCTranslate.translate("label.salinity") + ": " + min.name() + " - " + max.name();
+        this.lifespan = MCTranslate.translate("fish.data.lifespan")+ ": " + species.getLifeSpan() + " " + MCTranslate.translate("label.minutes");
+        this.fertility = MCTranslate.translate("fish.data.fertility")+ ": " + species.getFertility() + " " + MCTranslate.translate("label.eggs");
+        this.productivity = MCTranslate.translate("fish.data.workethic")+ ": " + species.getBaseProductivity() + "x";
         if (species.getWater1() != species.getWater2()) {
-            this.water = "Water: " + species.getWaterRequired() + " " + new ItemStack(species.getWater1()).getDisplayName() + " or " + new ItemStack(species.getWater2()).getDisplayName();
-        } else this.water = "Water: " + species.getWaterRequired() + " " + new ItemStack(species.getWater1()).getDisplayName();
+            this.water = MCTranslate.translate("label.water") + ": " + species.getWaterRequired() + " " + new ItemStack(species.getWater1()).getDisplayName() + " " + MCTranslate.translate("label.or") + " " + new ItemStack(species.getWater2()).getDisplayName();
+        } else this.water = MCTranslate.translate("label.water") + ": " + species.getWaterRequired() + " " + new ItemStack(species.getWater1()).getDisplayName();
         unique = species.getName();
     }
 

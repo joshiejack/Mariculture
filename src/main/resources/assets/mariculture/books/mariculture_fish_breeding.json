@@ -5208,7 +5208,7 @@
         {
           "type": "FeatureText",
           "properties": {
-            "text": "[b]translate:mariculture.fish.data.species.pupfish[/b]",
+            "text": "[b]translate:mariculture.fish.data.species.pupfish;[/b]",
             "wrap": 0,
             "size": 1.2,
             "color": "FF555555",
