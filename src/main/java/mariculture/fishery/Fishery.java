@@ -245,7 +245,7 @@ public class Fishery extends RegistrationModule {
     @Override
     public void registerOther() {
         RecipeSorter.register("mariculture:caviar", ShapelessFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
-        RecipeSorter.register("mariculture:dnaRest", ShapelessResetFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
+        RecipeSorter.register("mariculture:dnaReset", ShapelessResetFishRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
         registerEntities();
         Fish.init();
         registerRods();

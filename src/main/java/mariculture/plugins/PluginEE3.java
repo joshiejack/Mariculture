@@ -1,6 +1,8 @@
 package mariculture.plugins;
 
-import java.lang.reflect.Method;
+import static com.pahimar.ee3.api.exchange.EnergyValueRegistryProxy.addPreAssignedEnergyValue;
+import static com.pahimar.ee3.api.exchange.RecipeRegistryProxy.addRecipe;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,16 +15,23 @@ import mariculture.api.core.RecipeSmelter;
 import mariculture.api.core.RecipeVat;
 import mariculture.core.Core;
 import mariculture.core.lib.DropletMeta;
+import mariculture.core.lib.GroundMeta;
 import mariculture.core.lib.LimestoneMeta;
+import mariculture.core.lib.MaterialsMeta;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RockMeta;
+import mariculture.core.lib.WaterMeta;
+import mariculture.core.util.Fluids;
 import mariculture.fishery.Fishery;
 import mariculture.fishery.items.ItemDroplet;
 import mariculture.plugins.Plugins.Plugin;
 import mariculture.world.WorldPlus;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import com.pahimar.ee3.exchange.OreStack;
 
 public class PluginEE3 extends Plugin {
     public PluginEE3(String name) {
@@ -40,49 +49,39 @@ public class PluginEE3 extends Plugin {
         Mariculture.EE3 = true;
     }
 
-    private static Method energyProxy;
-    private static Method recipeProxy;
-    static {
-        try {
-            energyProxy = Class.forName("com.pahimar.ee3.api.exchange.EnergyValueRegistryProxy").getMethod("addPreAssignedEnergyValue", Object.class, float.class);
-            recipeProxy = Class.forName("com.pahimar.ee3.api.exchange.RecipeRegistryProxy").getMethod("addRecipe", Object.class, List.class);
-        } catch (Exception e) {}
-    }
-
-    public static void addPreAssignedEnergyValue(Object o, float value) {
-        try {
-            energyProxy.invoke(null, o, value);
-        } catch (Exception e) {}
-    }
-
-    public static void addRecipe(Object o, List<?> list) {
-        try {
-            energyProxy.invoke(null, o, list);
-        } catch (Exception e) {}
-    }
-
     public static void load() {
         try {
+            addPreAssignedEnergyValue(new ItemStack(Blocks.sponge), 1F);
+            addPreAssignedEnergyValue(new ItemStack(Core.water, 1, WaterMeta.OYSTER), 24576F);
+            addPreAssignedEnergyValue(new ItemStack(Core.sands, 1, GroundMeta.ANCIENT), 1F);
             addPreAssignedEnergyValue(new ItemStack(Core.rocks, 1, RockMeta.CORAL_ROCK), 1F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("oreCopper"), 135F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("oreAluminum"), 315F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("oreAluminium"), 315F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("oreRutile"), 6144F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("limestone"), 1F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("blockLimestone"), 1F);
+            //addPreAssignedEnergyValue(new OreStack("oreCopper"), 135F);
+            addPreAssignedEnergyValue(new ItemStack(Core.rocks, 1, RockMeta.COPPER), 135F);
+           // addPreAssignedEnergyValue(new OreStack("oreAluminum"), 315F);
+           // addPreAssignedEnergyValue(new OreStack("oreAluminium"), 315F);
+            addPreAssignedEnergyValue(new ItemStack(Core.rocks, 1, RockMeta.BAUXITE), 315F);
+           // addPreAssignedEnergyValue(new OreStack("oreRutile"), 6144F);
+            addPreAssignedEnergyValue(new ItemStack(Core.rocks, 1, RockMeta.RUTILE), 6144F);
+            //addPreAssignedEnergyValue(new OreStack("limestone"), 1F);
+            //addPreAssignedEnergyValue(new OreStack("blockLimestone"), 1F);
+            addPreAssignedEnergyValue(new ItemStack(Core.limestone, 1, LimestoneMeta.RAW), 1F);
             addPreAssignedEnergyValue(new ItemStack(Core.limestone, 1, LimestoneMeta.SMOOTH), 1F);
             addPreAssignedEnergyValue(new ItemStack(Core.pearls, 1, OreDictionary.WILDCARD_VALUE), 24F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("ingotCopper"), 135F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("ingotAluminum"), 315F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("ingotAluminium"), 315F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("ingotRutile"), 6144F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("ingotMagnesium"), 32F);
-            addPreAssignedEnergyValue(OreDictionary.getOres("ingotTitanium"), 8192F);
+            //addPreAssignedEnergyValue(new OreStack("ingotCopper"), 135F);
+            addPreAssignedEnergyValue(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_COPPER), 135F);
+            //addPreAssignedEnergyValue(new OreStack("ingotAluminum"), 315F);
+           // addPreAssignedEnergyValue(new OreStack("ingotAluminium"), 315F);
+            addPreAssignedEnergyValue(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_ALUMINUM), 315F);
+            //addPreAssignedEnergyValue(new OreStack("ingotRutile"), 6144F);
+            addPreAssignedEnergyValue(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_RUTILE), 6144F);
+            //addPreAssignedEnergyValue(new OreStack("ingotMagnesium"), 32F);
+            addPreAssignedEnergyValue(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_MAGNESIUM), 32F);
+            //addPreAssignedEnergyValue(new OreStack("ingotTitanium"), 8192F);
+            addPreAssignedEnergyValue(new ItemStack(Core.materials, 1, MaterialsMeta.INGOT_TITANIUM), 8192F);
 
             if (Modules.isActive(Modules.fishery)) {
                 addPreAssignedEnergyValue(new ItemStack(Fishery.bait, 1, OreDictionary.WILDCARD_VALUE), 0.25F);
                 addPreAssignedEnergyValue(new ItemStack(Fishery.droplet, 1, DropletMeta.MAGIC), 8192F);
-                addPreAssignedEnergyValue(new ItemStack(Fishery.fishy, 1, OreDictionary.WILDCARD_VALUE), 24F);
                 addPreAssignedEnergyValue(new ItemStack(Fishery.fishEggs, 1, OreDictionary.WILDCARD_VALUE), 48F);
                 addPreAssignedEnergyValue(new ItemStack(Fishery.droplet, 1, DropletMeta.AIR), 0.25F);
                 addPreAssignedEnergyValue(new ItemStack(Fishery.droplet, 1, DropletMeta.EARTH), 0.25F);
@@ -120,6 +119,16 @@ public class PluginEE3 extends Plugin {
                     FluidStack fluid = item.getFluidStack(i);
                     if (droplet != null && fluid != null) addRecipe(fluid, Arrays.asList(droplet));
                 }
+            }
+
+            addPreAssignedEnergyValue(Fluids.getFluidStack("natural_gas", 1000), 1024F);
+            addPreAssignedEnergyValue(Fluids.getFluidStack("hp_water", 1000), 1F);
+            addPreAssignedEnergyValue(Fluids.getFluidStack("quicklime", 1000), 1F);
+            addPreAssignedEnergyValue(Fluids.getFluidStack("salt", 1000), 1F);
+            addPreAssignedEnergyValue(Fluids.getFluidStack("xp", 1000), 1024F);
+
+            if (Modules.isActive(Modules.fishery)) {
+                addPreAssignedEnergyValue(Fluids.getFluidStack("fish_oil", 1000), 8F);
             }
 
             if (Modules.isActive(Modules.worldplus)) {
