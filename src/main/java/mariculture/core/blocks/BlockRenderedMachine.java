@@ -12,6 +12,7 @@ import mariculture.core.helpers.PlayerHelper;
 import mariculture.core.helpers.cofh.CoFhItemHelper;
 import mariculture.core.items.ItemHammer;
 import mariculture.core.lib.MachineRenderedMeta;
+import mariculture.core.lib.MaricultureDamage;
 import mariculture.core.lib.Modules;
 import mariculture.core.lib.RenderIds;
 import mariculture.core.network.PacketHandler;
@@ -123,6 +124,31 @@ public class BlockRenderedMachine extends BlockFunctional {
     @Override
     public int getRenderType() {
         return RenderIds.RENDER_ALL;
+    }
+
+    @Override
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        if (entity instanceof EntityLivingBase) {
+            int meta = world.getBlockMetadata(x, y, z);
+            float damage = 0F;
+            switch (meta) {
+                case MachineRenderedMeta.ROTOR_COPPER:
+                    damage = 1.25F;
+                    break;
+                case MachineRenderedMeta.ROTOR_ALUMINUM:
+                    damage = 2F;
+                    break;
+                case MachineRenderedMeta.ROTOR_TITANIUM:
+                    damage = 5F;
+                    break;
+                default:
+                    damage = 0F;
+            }
+
+            if (damage > 0F) {
+                entity.attackEntityFrom(MaricultureDamage.turbine, damage);
+            }
+        }
     }
 
     @Override
