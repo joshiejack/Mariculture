@@ -25,7 +25,14 @@ public class TileAirCompressor extends TileMultiBlock implements IEnergyReceiver
 
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-        return getMaster() != null ? ((TileAirCompressor) getMaster()).energyStorage.receiveEnergy(maxReceive, simulate) : 0;
+        TileAirCompressor master = ((TileAirCompressor) getMaster());
+        if (master != null) {
+            if (storedAir < max) {
+                ((TileAirCompressor) getMaster()).energyStorage.receiveEnergy(maxReceive, simulate);
+            }
+        }
+        
+        return 0;
     }
 
     @Override

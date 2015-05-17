@@ -118,7 +118,7 @@ public class TileAirPump extends TileStorageTank implements IEnergyReceiver, IFa
                 //Every 300 ticks supply air to players, if we have 100RF or more in the buffer
                 if ((Modules.isActive(Modules.diving)) && onTick(Ticks.PUMP_TICK_TIMER)) {
                     if (storage.getEnergyStored() >= 100) {
-                        supplyWithAir(300, 40.0D, 64.0D, 40.0D);
+                        supplyWithAir(300, 64.0D, 128.0D, 64.0D);
 
                         //Extract 100 RF everytime we supply air
                         storage.extractEnergy(100, false);
