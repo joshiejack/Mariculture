@@ -50,6 +50,13 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
 
     @Override
     public void updateEntity() {
+        if (isAnimating > 0) {
+            isAnimating++;
+            if (isAnimating > 360) {
+                isAnimating = 0;
+            }
+        }
+
         if (worldObj.isRemote) {
             if (isAnimating > 0) {
                 if (dir == ForgeDirection.NORTH) {
@@ -60,11 +67,6 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
                     angle -= getTier();
                 } else if (dir == ForgeDirection.EAST) {
                     angle += getTier();
-                }
-
-                isAnimating++;
-                if (isAnimating > 360) {
-                    isAnimating = 0;
                 }
             }
         }
@@ -94,6 +96,7 @@ public abstract class TileRotor extends TileEntity implements IFaceable, INeighb
         }
 
         if (!worldObj.isRemote) {
+            isAnimating = 1;
             PacketHandler.sendAround(new PacketRotorSpin(xCoord, yCoord, zCoord, dir), this);
         }
     }

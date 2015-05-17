@@ -12,9 +12,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenRiver;
-import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.ChunkProviderServer;
-import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent.ReplaceBiomeBlocks;
@@ -23,9 +22,6 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class WorldEventHandler {
-    private static double[] noiseValue = new double[256];
-    private static NoiseGeneratorPerlin noiseGenerator = null;
-
     public static boolean isBlacklisted(int i) {
         for (int j : WorldGen.OCEAN_BLACKLIST) {
             if (i == j) return true;
@@ -37,33 +33,33 @@ public class WorldEventHandler {
     //Core, Replacing Gravel with Sand and Limestone in Oceans
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onReplaceBiomeBlocks(ReplaceBiomeBlocks event) {
-        if (event.metaArray == null || event.world == null || isBlacklisted(event.world.provider.dimensionId)) return;
-        else {
-            if (noiseGenerator == null) noiseGenerator = new NoiseGeneratorPerlin(event.world.rand, 4);
-            IChunkProvider chunkProvider = event.world.getChunkProvider();
-            if (chunkProvider instanceof ChunkProviderServer) {
-                ChunkProviderServer chunk = (ChunkProviderServer) chunkProvider;
-                noiseValue = noiseGenerator.func_151599_a(noiseValue, (double) (event.chunkX * 16), (double) (event.chunkZ * 16), 16, 16, 0.03125D * 2.0D, 0.03125D * 2.0D, 1.0D);
-
+        if (event.metaArray == null || event.world == null || isBlacklisted(event.world.provider.dimensionId)) {
+            return;
+        } else if (event.world.getChunkProvider() instanceof ChunkProviderServer) {
+            ChunkProviderServer server = (ChunkProviderServer) event.world.getChunkProvider();
+            if (server.currentChunkProvider instanceof ChunkProviderGenerate) {
+                ChunkProviderGenerate provider = (ChunkProviderGenerate) server.currentChunkProvider;
+                double d0 = 0.03125D;
+                provider.stoneNoise = provider.field_147430_m.func_151599_a(provider.stoneNoise, (double) (event.chunkX * 16), (double) (event.chunkZ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
                 for (int k = 0; k < 16; ++k) {
                     for (int l = 0; l < 16; ++l) {
                         BiomeGenBase biome = event.biomeArray[l + k * 16];
                         if (BiomeDictionary.isBiomeOfType(biome, Type.WATER) || BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
                             if (WorldGen.VARYING_LIMESTONE) {
                                 if (BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
-                                    genBiomeTerrain(event, k, l, biome, WorldGen.BEACH_LIMESTONE);
+                                    genBiomeTerrain(event, k, l, biome, WorldGen.BEACH_LIMESTONE, provider.stoneNoise);
                                 } else if (biome == BiomeGenBase.deepOcean) {
-                                    genBiomeTerrain(event, k, l, biome, WorldGen.OCEAN_DEEP_LIMESTONE);
+                                    genBiomeTerrain(event, k, l, biome, WorldGen.OCEAN_DEEP_LIMESTONE, provider.stoneNoise);
                                 } else if (biome instanceof BiomeGenRiver) {
-                                    genBiomeTerrain(event, k, l, biome, WorldGen.RIVER_LIMESTONE);
+                                    genBiomeTerrain(event, k, l, biome, WorldGen.RIVER_LIMESTONE, provider.stoneNoise);
                                 } else {
-                                    genBiomeTerrain(event, k, l, biome, WorldGen.OCEAN_LIMESTONE);
+                                    genBiomeTerrain(event, k, l, biome, WorldGen.OCEAN_LIMESTONE, provider.stoneNoise);
                                 }
                             } else {
-                                genBiomeTerrain(event, k, l, biome, WorldGen.OCEAN_LIMESTONE);
+                                genBiomeTerrain(event, k, l, biome, WorldGen.OCEAN_LIMESTONE, provider.stoneNoise);
                             }
                         } else {
-                            biome.genTerrainBlocks(event.world, event.world.rand, event.blockArray, event.metaArray, event.chunkX * 16 + k, event.chunkZ * 16 + l, noiseValue[l + k * 16]);
+                            biome.genTerrainBlocks(event.world, event.world.rand, event.blockArray, event.metaArray, event.chunkX * 16 + k, event.chunkZ * 16 + l, provider.stoneNoise[l + k * 16]);
                         }
                     }
                 }
@@ -73,8 +69,8 @@ public class WorldEventHandler {
         }
     }
 
-    private void genBiomeTerrain(ReplaceBiomeBlocks event, int k, int l, BiomeGenBase biome, double depth) {
-        genBiomeTerrain(event.world, event.world.rand, event.blockArray, event.metaArray, event.chunkX * 16 + k, event.chunkZ * 16 + l, noiseValue[l + k * 16], biome, WorldGen.OCEAN_LIMESTONE);
+    private void genBiomeTerrain(ReplaceBiomeBlocks event, int k, int l, BiomeGenBase biome, double depth, double[] noise) {
+        genBiomeTerrain(event.world, event.world.rand, event.blockArray, event.metaArray, event.chunkX * 16 + k, event.chunkZ * 16 + l, noise[l + k * 16], biome, WorldGen.OCEAN_LIMESTONE);
     }
 
     public static final void genBiomeTerrain(World world, Random rand, Block[] blocksArray, byte[] metaArray, int x, int z, double noise, BiomeGenBase biome, double depth) {

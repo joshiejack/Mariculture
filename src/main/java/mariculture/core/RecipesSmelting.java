@@ -40,6 +40,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.commons.lang3.text.WordUtils;
 
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
+
 public class RecipesSmelting {
     public static int iron = 1538;
     public static int gold = 1064;
@@ -55,6 +58,11 @@ public class RecipesSmelting {
     public static int titanium = 1662;
     public static int electrum = 1000;
     public static int alloy = 1725;
+    public static int ardite = 2000;
+    public static int cobalt = 1495;
+    public static int osmium = 2000;
+    public static int zinc = 420;
+    public static int platinum_temp = 1768;
 
     public static void addRecipe(String fluidName, Object[] item, int[] volume, int temperature) {
         addRecipe(fluidName, item, volume, temperature, null, 0);
@@ -95,13 +103,14 @@ public class RecipesSmelting {
         ItemStack salt = new ItemStack(Core.materials, 1, MaterialsMeta.DUST_SALT);
         ItemStack silicon = fetchItem(new String[] { "itemSilicon", "dustSiliconDioxide" });
         ItemStack platinum = fetchItem(new String[] { "dustPlatinum", "ingotPlatinum" });
+        ItemStack iridium = Loader.isModLoaded("IC2") ? new ItemStack(GameRegistry.findItem("IC2", "itemOreIridium")): null;
 
         //Alumumumium Dust
         LinkedMetal[] alums = new LinkedMetal[] { new LinkedMetal("tin", 7), new LinkedMetal("iron", 5), new LinkedMetal("rutile", 35) };
         addDust(MaterialsMeta.DUST_ALUMINUM, aluminum, null, 0, alums);
 
         //Copperous Dust
-        LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("iron", 4), new LinkedMetal("silver", 7), new LinkedMetal("gold", 10), new LinkedMetal("cobalt", 15), new LinkedMetal("nickel", 8), new LinkedMetal("lead", 7), new LinkedMetal("tin", 6) };
+        LinkedMetal[] coppers = new LinkedMetal[] { new LinkedMetal("iron", 4), new LinkedMetal("silver", 7),  new LinkedMetal("osmium", 30), new LinkedMetal("gold", 10), new LinkedMetal("cobalt", 15), new LinkedMetal("nickel", 8), new LinkedMetal("lead", 7), new LinkedMetal("tin", 6) };
         addDust(MaterialsMeta.DUST_COPPEROUS, copper, sulfur, 10, coppers);
 
         //Golden Dust
@@ -134,6 +143,11 @@ public class RecipesSmelting {
         addMetal(getFluidName("bronze"), "Bronze", bronze, null, 0);
         addMetal(getFluidName("steel"), "Steel", steel, null, 0);
         addMetal(getFluidName("electrum"), "Electrum", electrum, null, 0);
+        addMetal(getFluidName("ardite"), "Ardite", ardite, new ItemStack(Blocks.netherrack), 2);
+        addMetal(getFluidName("cobalt"), "Cobalt", cobalt, sulfur, 3);
+        addMetal(getFluidName("platinum"), "Platinum", platinum_temp, sulfur, 5);
+        addMetal(getFluidName("osmium"), "Osmium", osmium, iridium, 200);
+        addMetal(getFluidName("zinc"), "Zinc", zinc, sulfur, 5);
 
         //Gold + Silver = Electrum
         if (OreDictionary.getOres("ingotElectrum").size() > 0 && OreDictionary.getOres("ingotSilver").size() > 0) {

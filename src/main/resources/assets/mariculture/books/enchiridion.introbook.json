@@ -1,0 +1,62 @@
+{
+  "book": [
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Intro book.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 60,
+            "yPos": 19,
+            "width": 124.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "minecraft:stone",
+            "xPos": 246,
+            "yPos": 54,
+            "width": 32.0,
+            "height": 32.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Lorem ipsum",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 0,
+            "yPos": 0,
+            "width": 50.0,
+            "height": 50.0
+          }
+        }
+      ],
+      "pageName": ""
+    }
+  ],
+  "uniqueName": "enchiridion.introbook",
+  "color": 16777215,
+  "showBackground": true,
+  "showArrows": true,
+  "showNumber": true,
+  "iconPass1": "",
+  "iconPass2": "",
+  "iconColorisePass1": false,
+  "iconColorisePass2": false,
+  "iconColorPass1": 0,
+  "iconColorPass2": 0,
+  "language": "en_US"
+}

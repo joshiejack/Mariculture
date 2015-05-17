@@ -20,7 +20,6 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 public class ClientFMLEvents {
     @SubscribeEvent
     public void onKeyPress(KeyInputEvent event) {
-        EntityPlayer player = ClientHelper.getPlayer();
         if (KeyHelper.isActivateKeyPressed()) {
             ItemStack selected = ClientHelper.getHeldItem();
             if (selected != null && selected.getItem() instanceof ItemJewelry) {
@@ -28,6 +27,7 @@ public class ClientFMLEvents {
             }
 
             if (Modules.isActive(Modules.magic)) {
+                EntityPlayer player = ClientHelper.getPlayer();
                 if (KeyHelper.isToggleKeyPressed() && player.capabilities.isFlying && EnchantHelper.hasEnchantment(Magic.flight, player)) {
                     if (EnchantmentFlight.mode < EnchantmentFlight.maxMode) {
                         EnchantmentFlight.mode++;
@@ -43,10 +43,11 @@ public class ClientFMLEvents {
 
         if (KeyHelper.isToggleKeyPressed()) {
             if (Modules.isActive(Modules.magic)) {
-                if (KeyHelper.isToggleKeyPressed() && player.isSneaking() && EnchantHelper.hasEnchantment(Magic.spider, player)) {
+                EntityPlayer player = ClientHelper.getPlayer();
+                if (player.isSneaking() && EnchantHelper.hasEnchantment(Magic.spider, player)) {
                     EnchantmentSpider.toggledOn = !EnchantmentSpider.toggledOn;
                     ClientHelper.addToChat(EnchantmentSpider.getChat());
-                } else if (KeyHelper.isToggleKeyPressed() && EnchantHelper.hasEnchantment(Magic.glide, player)) {
+                } else if (EnchantHelper.hasEnchantment(Magic.glide, player)) {
                     EnchantmentGlide.toggle();
                 }
             }

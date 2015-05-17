@@ -28,11 +28,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import rebelkeithy.mods.aquaculture.items.ItemFish;
 
 public class EntityRockhopper extends EntityTameable {
     public short rotationBody = 0;
@@ -150,7 +150,7 @@ public class EntityRockhopper extends EntityTameable {
 
         if (this.isTamed()) {
             if (itemstack != null) {
-                if (itemstack.getItem() instanceof ItemFish) {
+                if (itemstack.getItem() instanceof ItemFishFood) {
                     this.heal(5F);
 
                     if (itemstack.stackSize <= 0) {
@@ -200,7 +200,7 @@ public class EntityRockhopper extends EntityTameable {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.getItem() instanceof ItemFish || stack.getItem() instanceof ItemFishy;
+        return stack.getItem() instanceof ItemFishFood || stack.getItem() instanceof ItemFishy;
     }
 
     @Override

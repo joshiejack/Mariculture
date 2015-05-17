@@ -20,6 +20,7 @@ Mariculture 1.3.0
     • Remove redstone signal requirement for pumping natural gas
     • Consume 100 RF each time you suck gas instead of 10RF
     • Consume 50RF each time the air pump, supplies air instead of 100RF
+    • Their range is now 64x128x64
 • Fishy Stuff
     • Add AquaScum 2003 - Autoadjusts Tank temperature and salinity for fish
     • Add Air Droplet and Contained Wind

@@ -3,6 +3,7 @@ package mariculture.plugins;
 import joshie.enchiridion.api.EnchiridionAPI;
 import mariculture.Mariculture;
 import mariculture.aesthetics.Aesthetics;
+import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
 import mariculture.core.helpers.RecipeHelper;
@@ -40,6 +41,7 @@ import mariculture.plugins.Plugins.Plugin;
 import mariculture.plugins.enchiridion.EventHandler;
 import mariculture.plugins.enchiridion.ItemGuide;
 import mariculture.plugins.enchiridion.PageVat;
+import mariculture.plugins.enchiridion.RecipeHandlerCompact;
 import mariculture.plugins.enchiridion.RecipeHandlerFishData;
 import mariculture.plugins.enchiridion.RecipeHandlerFishProduct;
 import mariculture.plugins.enchiridion.RecipeHandlerVat;
@@ -92,7 +94,6 @@ public class PluginEnchiridion extends Plugin {
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             GuideHandler.registerPageHandler("vat", new PageVat());
-            GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.DIVING), Mariculture.modid, "diving", 0x75BAFF);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.MACHINES), Mariculture.modid, "machines", 0x333333);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.FISHING), Mariculture.modid, "fishing", 0x008C8C);
             GuideHandler.registerBook(new ItemStack(guides, 1, GuideMeta.ENCHANTS), Mariculture.modid, "enchants", 0xA64DFF);
@@ -102,6 +103,12 @@ public class PluginEnchiridion extends Plugin {
         FMLInterModComms.sendMessage("Enchiridion2", "registerBookMod", "Mariculture");
         registerBookItem("processing", GuideMeta.PROCESSING);
         registerBookItem("fish_breeding", GuideMeta.FISH_DATA);
+        
+        if (MaricultureHandlers.HIGH_TECH_ENABLED) {
+            registerBookItem("diving2", GuideMeta.DIVING);
+        } else {
+            registerBookItem("diving", GuideMeta.DIVING);
+        }
     }
     
     public static void register(Item item) {
@@ -155,6 +162,7 @@ public class PluginEnchiridion extends Plugin {
             EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerVat());
             EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerFishProduct());
             EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerFishData());
+            EnchiridionAPI.instance.registerRecipeHandler(new RecipeHandlerCompact());
     		if (Modules.isActive(Modules.factory)) {
     			register(Factory.filter);
     			register(Factory.chalk);

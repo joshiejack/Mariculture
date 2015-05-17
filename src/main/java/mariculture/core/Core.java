@@ -8,14 +8,9 @@ import static mariculture.api.core.MaricultureHandlers.upgrades;
 import static mariculture.api.core.MaricultureHandlers.vat;
 import static mariculture.core.helpers.FluidHelper.addFluid;
 import static mariculture.core.helpers.FluidHelper.addGas;
-import static mariculture.core.helpers.FluidHelper.registerBucket;
 import static mariculture.core.helpers.FluidHelper.registerHeatBottle;
 import static mariculture.core.helpers.FluidHelper.registerVanillaBottle;
 import static mariculture.core.util.Fluids.getFluid;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import mariculture.Mariculture;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.core.MaricultureHandlers;
@@ -96,6 +91,7 @@ import mariculture.core.util.XPRegistry;
 import mariculture.factory.tile.TileGasTank;
 import mariculture.lib.helpers.RegistryHelper;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -321,7 +317,7 @@ public class Core extends RegistrationModule {
     }
 
     private void registerPearls() {
-        /* PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLACK), 14);
+        PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLACK), 14);
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BLUE), 18);
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.BROWN), 25);
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.GOLD), 5);
@@ -334,7 +330,7 @@ public class Core extends RegistrationModule {
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.WHITE), 8);
         PearlGenHandler.addPearl(new ItemStack(Core.pearls, 1, PearlColor.YELLOW), 7);
         PearlGenHandler.addPearl(new ItemStack(Blocks.sand, 1, 0), 30);
-        PearlGenHandler.addPearl(new ItemStack(Blocks.sand, 1, 1), 15); */
+        PearlGenHandler.addPearl(new ItemStack(Blocks.sand, 1, 1), 15);
         if (Gardening.GEN_ENDER_PEARLS) {
             PearlGenHandler.addPearl(new ItemStack(Items.ender_pearl), 2);
         }

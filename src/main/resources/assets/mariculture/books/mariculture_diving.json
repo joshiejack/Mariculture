@@ -1,0 +1,415 @@
+{
+  "book": [
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Introduction[/b]",
+            "wrap": 0,
+            "size": 1.2,
+            "color": "FF555555",
+            "xPos": 112,
+            "yPos": 16,
+            "width": 92.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Mariculture provides a couple ways to breathe/work underwater better. From the simplicity of the snorkel to advanced scuba gear tech.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 24,
+            "yPos": 28,
+            "width": 184.0,
+            "height": 38.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBFBAA3",
+            "xPos": 22,
+            "yPos": 70,
+            "width": 185.0,
+            "height": 1.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Snorkel[/b]\nThe snorkel is the simplest of the gear. It will extend the length of time that you can stay underwater. Providing you with additional air every now and then.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 24,
+            "yPos": 79,
+            "width": 186.0,
+            "height": 56.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureCompact:minecraft:reeds:0:Mariculture:crafting:18:Mariculture:crafting:18:minecraft:reeds:0",
+            "item": "Mariculture:snorkel",
+            "xPos": 122,
+            "yPos": 140,
+            "width": 125.0,
+            "height": 62.5
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureCompact:plankWood:plankWood:blockGlass:plankWood:plankWood",
+            "item": "Mariculture:crafting 18",
+            "xPos": 26,
+            "yPos": 139,
+            "width": 128.0,
+            "height": 64.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Buoyancy Aid[/b]\nThe buoyancy aid is another very simple device. While wearing it on your chest slot, you will float up to the surface of water really fast. Or you can use it to keep you afloat at the top of water, without having to hold space and bob about. Making swimming much easier!",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 220,
+            "yPos": 15,
+            "width": 181.0,
+            "height": 94.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:logWood:minecraft:string:0:logWood:logWood:logWood:logWood:logWood:logWood:logWood",
+            "item": "Mariculture:lifejacket",
+            "xPos": 225,
+            "yPos": 102,
+            "width": 174.0,
+            "height": 87.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Air Pump \u0026 Diving Gear[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 64,
+            "yPos": 17,
+            "width": 172.0,
+            "height": 11.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Air Pumps are what you are going to need if you wish to breathe underwater for even longer. You will also need to have a Diving Helmet and Air Supply. The last thing before you can get started is either a friend or a RF Power Supply, or nothing.\n\n\nNow that you have collected everything that you need. Go and place the air pump near where you want to breathe underwater. Take note that the air pump has a range of 64 blocks on the x or z, or 128 blocks on the y.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 24,
+            "yPos": 27,
+            "width": 182.0,
+            "height": 100.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Now you need to provide the air pump with some power. Either wind it up, by holding right click, or provide it with RF. Make sure you\u0027re wearing the Diving Gear and you\u0027ll get supplied with fresh air when you run out.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 218,
+            "yPos": 27,
+            "width": 124.0,
+            "height": 87.0
+          }
+        },
+        {
+          "type": "FeatureResource",
+          "properties": {
+            "path": "mariculture:textures/books/diving/airPump.png:0.575:1.78",
+            "xPos": 349,
+            "yPos": 21,
+            "width": 47.0,
+            "height": 169.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:11:blockGlass:Mariculture:crafting:11:plankWood:dustRedstone:plankWood:plankWood:minecraft:piston:32767:plankWood",
+            "item": "Mariculture:machines_single_rendered 0",
+            "xPos": 224,
+            "yPos": 138,
+            "width": 116.0,
+            "height": 58.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Recipe[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 227,
+            "yPos": 126,
+            "width": 50.0,
+            "height": 50.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 221,
+            "yPos": 117,
+            "width": 118.0,
+            "height": 1.0
+          }
+        }
+      ],
+      "pageName": ""
+    },
+    {
+      "features": [
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Diving Gear[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 110,
+            "yPos": 15,
+            "width": 92.0,
+            "height": 7.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "Diving Gear is the second tier of gear in Mariculture. You\u0027ll need an air pump to get the most out of it.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 23,
+            "yPos": 26,
+            "width": 181.0,
+            "height": 33.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureCompact:ingotCopper:ingotCopper:ingotCopper:ingotCopper:blockGlass:ingotCopper",
+            "item": "Mariculture:diving_helmet",
+            "xPos": 23,
+            "yPos": 58,
+            "width": 129.0,
+            "height": 64.5
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureCompact:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0",
+            "item": "Mariculture:diving_top",
+            "xPos": 122,
+            "yPos": 58,
+            "width": 128.0,
+            "height": 64.0
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureCompact:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0:minecraft:leather:0",
+            "item": "Mariculture:diving_pants",
+            "xPos": 23,
+            "yPos": 131,
+            "width": 129.0,
+            "height": 64.5
+          }
+        },
+        {
+          "type": "FeatureRecipe",
+          "properties": {
+            "uniqueRecipe": "MaricultureCompact:minecraft:leather:0:minecraft:leather:0:ingotIron:ingotIron",
+            "item": "Mariculture:diving_boots",
+            "xPos": 122,
+            "yPos": 133,
+            "width": 127.0,
+            "height": 63.5
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Information[/b]",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 228,
+            "yPos": 15,
+            "width": 109.0,
+            "height": 9.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:diving_helmet",
+            "xPos": 214,
+            "yPos": 24,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:diving_pants",
+            "xPos": 215,
+            "yPos": 115,
+            "width": 29.0,
+            "height": 29.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:diving_top",
+            "xPos": 211,
+            "yPos": 72,
+            "width": 32.0,
+            "height": 32.0
+          }
+        },
+        {
+          "type": "FeatureItem",
+          "properties": {
+            "item": "Mariculture:diving_boots",
+            "xPos": 216,
+            "yPos": 158,
+            "width": 28.0,
+            "height": 28.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Diving Helmet[/b]\nHead slot. Improves underwater vision. And air when used with air supply and pump.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 244,
+            "yPos": 25,
+            "width": 160.0,
+            "height": 31.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Air Supply[/b]\nChest Slot. Provides air in conjunction with air pump and diving helmet.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 244,
+            "yPos": 68,
+            "width": 154.0,
+            "height": 31.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Diving Suit[/b]\nIncreases mining speed underwater.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 245,
+            "yPos": 116,
+            "width": 150.0,
+            "height": 26.0
+          }
+        },
+        {
+          "type": "FeatureText",
+          "properties": {
+            "text": "[b]Diving Boots[/b]\nIncreases walking speed underwater. Holding shift will also increase your descent.",
+            "wrap": 0,
+            "size": 1.0,
+            "color": "FF555555",
+            "xPos": 244,
+            "yPos": 156,
+            "width": 157.0,
+            "height": 31.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 223,
+            "yPos": 62,
+            "width": 175.0,
+            "height": 2.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 220,
+            "yPos": 106,
+            "width": 175.0,
+            "height": 2.0
+          }
+        },
+        {
+          "type": "FeatureBox",
+          "properties": {
+            "color": "FFBEB9A2",
+            "xPos": 221,
+            "yPos": 150,
+            "width": 175.0,
+            "height": 2.0
+          }
+        }
+      ],
+      "pageName": ""
+    }
+  ],
+  "uniqueName": "mariculture_diving",
+  "color": 7715583,
+  "showBackground": true,
+  "showArrows": true,
+  "showNumber": true,
+  "iconPass1": "",
+  "iconPass2": "",
+  "iconColorisePass1": false,
+  "iconColorisePass2": false,
+  "iconColorPass1": 0,
+  "iconColorPass2": 0,
+  "language": "en_US",
+  "displayName": "mariculture_diving"
+}

@@ -30,6 +30,10 @@ public class Modules {
     public static boolean isActive(Module module) {
         return module != null;
     }
+    
+    public static boolean isAllActive() {
+        return aesthetics != null && diving != null && factory != null && fishery != null && magic != null && sealife != null && transport != null && worldplus != null;
+    }
 
     public void setup(Class<? extends Module> clazz, boolean isActive) {
         if (isActive) {

@@ -20,8 +20,8 @@ public final class TimeMeasurement {
         Long time = timers.remove(identifier);
         if (time == null) return 0;
 
-        long dur = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - time);
-        if (dur > 0) System.out.println("Finished process '" + identifier + "' in " + dur + " ms.");
+        long dur = (System.nanoTime() - time);
+        if (dur > 0) System.out.println("Finished process '" + identifier + "' in " + dur + " ns.");
         return dur;
     }
 }

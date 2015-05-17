@@ -83,9 +83,9 @@ public class FisheryEventHandler {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (event.entity instanceof EntityZombie) {
-            EntityZombie zombie = (EntityZombie) event.entity;
+        if (GeneralStuff.FISHING_GEAR_CHANCE > 0 && event.entity instanceof EntityZombie) {
             if (event.world.rand.nextFloat() - 0.1F < GeneralStuff.FISHING_GEAR_CHANCE) {
+                EntityZombie zombie = (EntityZombie) event.entity;
                 if (zombie.getEquipmentInSlot(0) == null && zombie.getEquipmentInSlot(ArmorSlot.HAT) == null) {
                     if (event.world.rand.nextInt(100) == 0) {
                         zombie.setCurrentItemOrArmor(0, new ItemStack(Fishery.rodTitanium));

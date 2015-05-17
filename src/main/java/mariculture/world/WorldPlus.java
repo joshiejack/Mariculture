@@ -74,7 +74,7 @@ public class WorldPlus extends RegistrationModule {
         registerOre("coralLightGray", new ItemStack(plantStatic, 1, CoralMeta.LIGHT_GREY));
         registerOre("plantKelp", new ItemStack(plantStatic, 1, CoralMeta.KELP));
 
-        EntityRegistry.registerModEntity(EntityRockhopper.class, "Rockhopper", EntityIds.ROCKHOPPER, Mariculture.instance, 150, 3, true);
+        EntityRegistry.registerModEntity(EntityRockhopper.class, "Rockhopper", EntityIds.ROCKHOPPER, Mariculture.instance, 80, 3, true);
         if (WorldGen.PENGUIN_SPAWN_ENABLED) {
             BiomeGenBase.beach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));
             BiomeGenBase.coldBeach.getSpawnableList(EnumCreatureType.creature).add(new BiomeGenBase.SpawnListEntry(EntityRockhopper.class, 10, 3, 11));

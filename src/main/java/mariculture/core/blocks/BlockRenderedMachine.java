@@ -27,6 +27,7 @@ import mariculture.factory.tile.TileGeyser;
 import mariculture.fishery.tile.TileFeeder;
 import mariculture.lib.helpers.DirectionHelper;
 import mariculture.lib.helpers.ItemHelper;
+import maritech.tile.TileRotor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -146,7 +147,10 @@ public class BlockRenderedMachine extends BlockFunctional {
             }
 
             if (damage > 0F) {
-                entity.attackEntityFrom(MaricultureDamage.turbine, damage);
+                TileRotor rotor = (TileRotor) world.getTileEntity(x, y, z);
+                if (rotor.isAnimating > 0) {
+                    entity.attackEntityFrom(MaricultureDamage.turbine, damage);
+                }
             }
         }
     }

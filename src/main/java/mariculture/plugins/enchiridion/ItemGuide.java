@@ -42,13 +42,15 @@ public class ItemGuide extends ItemMCMeta {
                 return "blood";
             case GuideMeta.BOTANIA:
                 return "botania";
+            case GuideMeta.TIPS:
+                return "tips";
             default:
                 return "guide";
         }
     }
 
     public boolean isEnchiridion2Book(int meta) {
-        return meta >= GuideMeta.FISH_DATA || meta == GuideMeta.PROCESSING;
+        return meta >= GuideMeta.FISH_DATA || meta == GuideMeta.PROCESSING || meta == GuideMeta.DIVING;
     }
 
     @Override
@@ -87,6 +89,8 @@ public class ItemGuide extends ItemMCMeta {
                 return BLOOD;
             case GuideMeta.BOTANIA:
                 return BOTANIA;
+            case GuideMeta.TIPS:
+                return Modules.isAllActive();
             default:
                 return false;
         }

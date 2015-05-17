@@ -25,8 +25,8 @@ public class FLUDDEvents {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onKeyPress(KeyInputEvent event) {
-        EntityPlayer player = ClientHelper.getPlayer();
         if (KeyHelper.isActivateKeyPressed()) {
+            EntityPlayer player = ClientHelper.getPlayer();
             if (PlayerHelper.hasArmor(player, ArmorSlot.TOP, ExtensionFactory.fludd)) {
                 if (player.isSneaking()) {
                     ItemStack stack = PlayerHelper.getArmorStack(player, ArmorSlot.TOP);
