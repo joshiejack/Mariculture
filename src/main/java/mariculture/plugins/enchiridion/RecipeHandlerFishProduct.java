@@ -30,7 +30,7 @@ public class RecipeHandlerFishProduct extends RecipeHandlerBase {
             }
         }
         
-        unique = species.getName();
+        addToUnique(species.getName());
     }
 
     @Override

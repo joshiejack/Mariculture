@@ -150,7 +150,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureVat",
+            "ingredients": "fluid.quicklime:fluid.tile.water",
+            "recipeType": "MaricultureVat",
             "item": "Mariculture:fluids 13",
             "xPos": 45,
             "yPos": 90,
@@ -161,7 +162,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureVat",
+            "ingredients": "fluid.rutile.molten:fluid.magnesium.molten",
+            "recipeType": "MaricultureVat",
             "item": "Mariculture:fluids 12",
             "xPos": 45,
             "yPos": 157,
@@ -224,7 +226,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper",
+            "ingredients": "ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper:ingotCopper",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_multi_rendered 3",
             "xPos": 249,
             "yPos": 148,
@@ -266,7 +269,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureVat:minecraft:netherbrick:0",
+            "ingredients": "minecraft:brick:0:fluid.tile.lava",
+            "recipeType": "MaricultureVat",
             "item": "Mariculture:crafting 14",
             "xPos": 21,
             "yPos": 111,
@@ -277,7 +281,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureVat:minecraft:brick:0",
+            "ingredients": "minecraft:netherbrick:0:fluid.tile.lava",
+            "recipeType": "MaricultureVat",
             "item": "Mariculture:crafting 14",
             "xPos": 21,
             "yPos": 157,
@@ -314,7 +319,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:minecraft:lava_bucket:0:Mariculture:crafting:14:Mariculture:tanks:0:Mariculture:crafting:14:Mariculture:crafting:8:Mariculture:rocks:4:Mariculture:crafting:8",
+            "ingredients": "minecraft:lava_bucket:0:Mariculture:crafting:14:Mariculture:tanks:0:Mariculture:crafting:14:Mariculture:crafting:8:Mariculture:rocks:4:Mariculture:crafting:8",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_multi 0",
             "xPos": 263,
             "yPos": 95,
@@ -325,7 +331,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14",
+            "ingredients": "Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:minecraft:iron_bars:32767:Mariculture:crafting:14:minecraft:iron_bars:32767:Mariculture:crafting:14",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:rocks 4",
             "xPos": 126,
             "yPos": 153,
@@ -362,7 +369,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:minecraft:sand:32767:minecraft:coal:0:minecraft:clay:32767:minecraft:coal:0:minecraft:sand:32767",
+            "ingredients": "minecraft:sand:32767:minecraft:coal:0:minecraft:clay:32767:minecraft:coal:0:minecraft:sand:32767",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:crafting 10",
             "xPos": 230,
             "yPos": 166,
@@ -373,7 +381,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:10:Mariculture:crafting:10",
+            "ingredients": "Mariculture:crafting:10:Mariculture:crafting:10",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:crafting 8",
             "xPos": 319,
             "yPos": 167,
@@ -771,7 +780,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "ingredients": "Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_single_rendered 11",
             "xPos": 27,
             "yPos": 79,
@@ -782,7 +792,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "ingredients": "Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_single_rendered 9",
             "xPos": 42,
             "yPos": 129,
@@ -793,7 +804,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "ingredients": "Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_single_rendered 10",
             "xPos": 122,
             "yPos": 81,
@@ -830,8 +842,9 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:ingotCopper:ingotCopper",
-            "item": "Mariculture:ladle",
+            "ingredients": "ingotCopper:ingotCopper:ingotCopper",
+            "recipeType": "ShapedOreRecipe",
+            "item": "Mariculture:ladle 0",
             "xPos": 272,
             "yPos": 162,
             "width": 91.0,
@@ -885,7 +898,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotCopper:plankWood:ingotCopper:plankWood:blockGlass:plankWood:ingotCopper:plankWood:ingotCopper",
+            "ingredients": "ingotCopper:plankWood:ingotCopper:plankWood:blockGlass:plankWood:ingotCopper:plankWood:ingotCopper",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:tanks 0",
             "xPos": 56,
             "yPos": 98,
@@ -909,7 +923,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotAluminum:stone:ingotAluminum:stone:Mariculture:glass:0:stone:ingotAluminum:stone:ingotAluminum",
+            "ingredients": "ingotAluminum:stone:ingotAluminum:stone:Mariculture:glass:0:stone:ingotAluminum:stone:ingotAluminum",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:tanks 5",
             "xPos": 27,
             "yPos": 159,
@@ -920,7 +935,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotTitanium:blockQuartz:ingotTitanium:blockQuartz:Mariculture:glass:0:blockQuartz:ingotTitanium:blockQuartz:ingotTitanium",
+            "ingredients": "ingotTitanium:blockQuartz:ingotTitanium:blockQuartz:Mariculture:glass:0:blockQuartz:ingotTitanium:blockQuartz:ingotTitanium",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:tanks 6",
             "xPos": 119,
             "yPos": 162,
@@ -970,7 +986,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "VanillaFurnace:Mariculture:sands:1",
+            "ingredients": "Mariculture:sands:1",
+            "recipeType": "VanillaFurnace",
             "item": "Mariculture:glass 0",
             "xPos": 233,
             "yPos": 107,
@@ -981,7 +998,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureVat:minecraft:glass:0",
+            "ingredients": "minecraft:glass:0:fluid.aluminum.molten:fluid.quicklime",
+            "recipeType": "MaricultureVat",
             "item": "Mariculture:glass 0",
             "xPos": 293,
             "yPos": 107,
@@ -992,7 +1010,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:glass:0:Mariculture:glass:0:Mariculture:glass:0",
+            "ingredients": "Mariculture:glass:0:Mariculture:glass:0:Mariculture:glass:0",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:fluids 20",
             "xPos": 223,
             "yPos": 148,
@@ -1047,7 +1066,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapelessOreRecipe:Mariculture:fluids:20:dustRedstone:minecraft:dye:0",
+            "ingredients": "ShapelessOreRecipe:Mariculture:fluids:20:dustRedstone:minecraft:dye:0",
+            "recipeType": "ShapelessOreRecipe",
             "item": "Mariculture:fluids 0",
             "xPos": 117,
             "yPos": 79,
@@ -1058,8 +1078,9 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:ingotTitanium:ingotTitanium:ingotTitanium",
-            "item": "Mariculture:bucket_titanium",
+            "ingredients": "ingotTitanium:ingotTitanium:ingotTitanium",
+            "recipeType": "ShapedOreRecipe",
+            "item": "Mariculture:bucket_titanium 0",
             "xPos": 29,
             "yPos": 83,
             "width": 83.0,
@@ -1108,7 +1129,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:rocks:4:Mariculture:rocks:4:Mariculture:rocks:4:minecraft:nether_brick:32767:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "ingredients": "Mariculture:rocks:4:Mariculture:rocks:4:Mariculture:rocks:4:minecraft:nether_brick:32767:Mariculture:crafting:14:Mariculture:crafting:14:Mariculture:crafting:14",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_single_rendered 8",
             "xPos": 226,
             "yPos": 158,
@@ -1119,8 +1141,9 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:crafting:14:Mariculture:crafting:14:minecraft:nether_brick:32767:Mariculture:crafting:14:minecraft:nether_brick:32767",
-            "item": "Mariculture:hammer",
+            "ingredients": "Mariculture:crafting:14:Mariculture:crafting:14:minecraft:nether_brick:32767:Mariculture:crafting:14:minecraft:nether_brick:32767",
+            "recipeType": "ShapedOreRecipe",
+            "item": "Mariculture:hammer 0",
             "xPos": 316,
             "yPos": 158,
             "width": 88.0,
@@ -1161,7 +1184,8 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedOreRecipe:Mariculture:hammer:0:Mariculture:hammer:0:Mariculture:machines_single_rendered:8:Mariculture:hammer:0:Mariculture:hammer:0",
+            "ingredients": "Mariculture:hammer:0:Mariculture:hammer:0:Mariculture:machines_single_rendered:8:Mariculture:hammer:0:Mariculture:hammer:0",
+            "recipeType": "ShapedOreRecipe",
             "item": "Mariculture:machines_single_rendered 1",
             "xPos": 58,
             "yPos": 135,
@@ -1194,5 +1218,6 @@
   "iconColorisePass2": false,
   "iconColorPass1": 0,
   "iconColorPass2": 0,
-  "language": "en_US"
+  "language": "en_US",
+  "displayInCreative": false
 }

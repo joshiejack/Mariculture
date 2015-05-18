@@ -9,6 +9,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.util.MCTranslate;
+import mariculture.lib.helpers.StackHelper;
 import mariculture.lib.util.Text;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -36,11 +37,14 @@ public class RecipeHandlerFishData extends RecipeHandlerBase {
         if (species.getWater1() != species.getWater2()) {
             this.water = MCTranslate.translate("label.water") + ": " + species.getWaterRequired() + " " + new ItemStack(species.getWater1()).getDisplayName() + " " + MCTranslate.translate("label.or") + " " + new ItemStack(species.getWater2()).getDisplayName();
         } else this.water = MCTranslate.translate("label.water") + ": " + species.getWaterRequired() + " " + new ItemStack(species.getWater1()).getDisplayName();
-        unique = species.getName();
+        
+        addToUnique(species.getName());
     }
 
     @Override
     public void addRecipes(ItemStack output, List<IRecipeHandler> list) {
+        System.out.println(output);
+        
         FishSpecies theSpecies = Fishing.fishHelper.getSpecies(output);
         if (theSpecies == null && output.getItem() != Items.fish) return;
         if (theSpecies == null) theSpecies = Fishing.fishHelper.getSpecies(output.getItemDamage());

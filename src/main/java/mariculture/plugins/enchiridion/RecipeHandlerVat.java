@@ -24,21 +24,26 @@ public class RecipeHandlerVat extends RecipeHandlerBase {
         this.recipe = recipe;
         stackList.add(new WrappedStack(recipe.outputItem, 112D, 20D, 1.2F));
         stackList.add(new WrappedStack(recipe.inputItem, 17D, 20D, 1.2F));
-
-        unique = "";
-
         if (recipe.inputItem != null) {
             if (recipe.inputItem instanceof String) {
-                unique += ":" + (String) recipe.inputItem;
+                addToUnique((String)recipe.inputItem);
             } else {
-                unique += ":" + Item.itemRegistry.getNameForObject(((ItemStack) recipe.inputItem).getItem());
-                unique += ":" + ((ItemStack) recipe.inputItem).getItemDamage();
+                addToUnique(Item.itemRegistry.getNameForObject(((ItemStack) recipe.inputItem).getItem()));
+                addToUnique(((ItemStack) recipe.inputItem).getItemDamage());
             }
+        }
+        
+        if (recipe.inputFluid1 != null) {
+            addToUnique(recipe.inputFluid1.getFluid().getUnlocalizedName());
+        }
+        
+        if (recipe.inputFluid2 != null) {
+            addToUnique(recipe.inputFluid2.getFluid().getUnlocalizedName());
         }
     }
 
     @Override
-    public void addRecipes(ItemStack output, List<IRecipeHandler> list) {
+    public void addRecipes(ItemStack output, List<IRecipeHandler> list) {       
         for (RecipeVat recipe : MaricultureHandlers.vat.getRecipes()) {
             if (recipe == null) continue;
             ItemStack stack = recipe.outputItem;

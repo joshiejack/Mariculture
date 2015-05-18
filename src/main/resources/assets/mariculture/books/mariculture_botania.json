@@ -44,8 +44,9 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "ShapedRecipes:Botania:manaResource:3:Botania:manaResource:3:Botania:manaResource:16:Botania:manaResource:3:Botania:manaResource:16",
-            "item": "Mariculture:rodLiving",
+            "ingredients": "ShapedRecipes:Botania:manaResource:3:Botania:manaResource:3:Botania:manaResource:16:Botania:manaResource:3:Botania:manaResource:16",
+            "recipeType": "ShapedRecipes",
+            "item": "Mariculture:rodLiving 0 *1",
             "xPos": 233,
             "yPos": 123,
             "width": 159.0,
@@ -185,8 +186,9 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureFishDataManafish",
-            "item": "minecraft:fish 65",
+            "ingredients": "MaricultureFishDataManafish",
+            "recipeType": "MaricultureFishData",
+            "item": "Mariculture:fishy 0 {SalinityTolerance:2,Fertility:3000,lowerFertility:3000,lowerLifespan:18000,AreaOfEffectNORTH:0,WorkEthic:2,lowerTemperatureTolerance:50,lowerAreaOfEffectEAST:0,lowerSpeciesID:65,lowerFoodUsage:1,AreaOfEffectWEST:0,AreaOfEffectUP:0,lowerSalinityTolerance:2,lowerWorkEthic:2,AreaOfEffectSOUTH:0,Lifespan:18000,SpeciesID:65,lowerWaterRequired:100,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:18000,lowerAreaOfEffectUP:0,WaterRequired:100,lowerAreaOfEffectDOWN:0,Gender:0,FoodUsage:1,lowerAreaOfEffectSOUTH:0,TemperatureTolerance:50,lowerGender:1,AreaOfEffectEAST:0} *1",
             "xPos": 24,
             "yPos": 35,
             "width": 128.0,
@@ -209,7 +211,7 @@
         {
           "type": "FeatureItem",
           "properties": {
-            "item": "Mariculture:fishy 0 {SalinityTolerance:2,Fertility:3000,lowerFertility:3000,lowerLifespan:18000,AreaOfEffectNORTH:0,WorkEthic:2,lowerTemperatureTolerance:50,lowerAreaOfEffectEAST:0,lowerSpeciesID:65,lowerFoodUsage:1,AreaOfEffectWEST:0,AreaOfEffectUP:0,lowerSalinityTolerance:2,lowerWorkEthic:2,AreaOfEffectSOUTH:0,Lifespan:18000,SpeciesID:65,lowerWaterRequired:100,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:18000,lowerAreaOfEffectUP:0,WaterRequired:100,lowerAreaOfEffectDOWN:0,Gender:0,FoodUsage:1,lowerAreaOfEffectSOUTH:0,TemperatureTolerance:50,lowerGender:0,AreaOfEffectEAST:0}",
+            "item": "Mariculture:fishy 0 {SalinityTolerance:2,Fertility:3000,lowerFertility:3000,lowerLifespan:18000,AreaOfEffectNORTH:0,WorkEthic:2,lowerTemperatureTolerance:50,lowerAreaOfEffectEAST:0,lowerSpeciesID:65,lowerFoodUsage:1,AreaOfEffectWEST:0,AreaOfEffectUP:0,lowerSalinityTolerance:2,lowerWorkEthic:2,AreaOfEffectSOUTH:0,Lifespan:18000,SpeciesID:65,lowerWaterRequired:100,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:18000,lowerAreaOfEffectUP:0,WaterRequired:100,lowerAreaOfEffectDOWN:0,Gender:0,FoodUsage:1,lowerAreaOfEffectSOUTH:0,TemperatureTolerance:50,lowerGender:1,AreaOfEffectEAST:0} *1",
             "xPos": 138,
             "yPos": 35,
             "width": 68.0,
@@ -229,8 +231,9 @@
         {
           "type": "FeatureRecipe",
           "properties": {
-            "uniqueRecipe": "MaricultureFishProductsManafish",
-            "item": "Mariculture:fishy 0 {SalinityTolerance:2,Fertility:3000,lowerFertility:3000,lowerLifespan:18000,AreaOfEffectNORTH:0,WorkEthic:2,lowerTemperatureTolerance:50,lowerAreaOfEffectEAST:0,lowerSpeciesID:65,lowerFoodUsage:1,AreaOfEffectWEST:0,AreaOfEffectUP:0,lowerSalinityTolerance:2,lowerWorkEthic:2,AreaOfEffectSOUTH:0,Lifespan:18000,SpeciesID:65,lowerWaterRequired:100,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:18000,lowerAreaOfEffectUP:0,WaterRequired:100,lowerAreaOfEffectDOWN:0,Gender:0,FoodUsage:1,lowerAreaOfEffectSOUTH:0,TemperatureTolerance:50,lowerGender:0,AreaOfEffectEAST:0}",
+            "ingredients": "MaricultureFishProductsManafish",
+            "recipeType": "MaricultureFishProducts",
+            "item": "Mariculture:fishy 0 {SalinityTolerance:2,Fertility:3000,lowerFertility:3000,lowerLifespan:18000,AreaOfEffectNORTH:0,WorkEthic:2,lowerTemperatureTolerance:50,lowerAreaOfEffectEAST:0,lowerSpeciesID:65,lowerFoodUsage:1,AreaOfEffectWEST:0,AreaOfEffectUP:0,lowerSalinityTolerance:2,lowerWorkEthic:2,AreaOfEffectSOUTH:0,Lifespan:18000,SpeciesID:65,lowerWaterRequired:100,lowerAreaOfEffectWEST:0,AreaOfEffectDOWN:0,lowerAreaOfEffectNORTH:0,CurrentLife:18000,lowerAreaOfEffectUP:0,WaterRequired:100,lowerAreaOfEffectDOWN:0,Gender:0,FoodUsage:1,lowerAreaOfEffectSOUTH:0,TemperatureTolerance:50,lowerGender:1,AreaOfEffectEAST:0} *1",
             "xPos": 28,
             "yPos": 132,
             "width": 174.0,
@@ -328,5 +331,6 @@
   "iconColorisePass2": false,
   "iconColorPass1": 0,
   "iconColorPass2": 0,
-  "language": "en_US"
+  "language": "en_US",
+  "displayInCreative": false
 }

@@ -16,15 +16,15 @@ public class RecipeHandlerCompact extends RecipeHandlerShapedOre {
     public RecipeHandlerCompact(IRecipe recipe) {
         super(recipe);
     }
-    
+
     @Override
     protected Class getHandlerClass() {
         return this.getClass();
     }
 
     @Override
-    public String getUniqueName() {
-        return "MaricultureCompact" + unique;
+    public String getRecipeName() {
+        return "MaricultureCompact";
     }
 
     @Override
@@ -87,13 +87,12 @@ public class RecipeHandlerCompact extends RecipeHandlerShapedOre {
             stackList.add(new WrappedStack(getObject(input, 8), 56D, 75D, 1F));
         }
 
-        unique = "";
         for (Object o : input) {
             if (o instanceof List) {
-                unique += ":" + getMostCommonName((ArrayList<ItemStack>) o);
+                addToUnique(getMostCommonName((ArrayList<ItemStack>) o));
             } else if (o instanceof ItemStack) {
-                unique += ":" + Item.itemRegistry.getNameForObject(((ItemStack) o).getItem());
-                unique += ":" + ((ItemStack) o).getItemDamage();
+                addToUnique(Item.itemRegistry.getNameForObject(((ItemStack) o).getItem()));
+                addToUnique(((ItemStack) o).getItemDamage());
             }
         }
     }
