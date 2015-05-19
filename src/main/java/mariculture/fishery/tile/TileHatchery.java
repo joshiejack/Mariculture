@@ -8,6 +8,7 @@ import mariculture.core.network.PacketHandler;
 import mariculture.core.network.PacketParticle;
 import mariculture.core.network.PacketParticle.Particle;
 import mariculture.core.tile.base.TileStorage;
+import mariculture.fishery.Fishery;
 import mariculture.lib.helpers.ItemHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -53,7 +54,7 @@ public class TileHatchery extends TileStorage implements ISidedInventory, IIncub
 
     @Override
     public boolean canInsertItem(int slot, ItemStack stack, int side) {
-        return inventory[0] == null && stack.stackSize == 1 && side != ForgeDirection.DOWN.ordinal();
+        return stack.getItem() == Fishery.fishEggs && inventory[0] == null && stack.stackSize == 1 && side != ForgeDirection.DOWN.ordinal();
     }
 
     @Override

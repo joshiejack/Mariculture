@@ -42,9 +42,7 @@ public class RecipeHandlerFishData extends RecipeHandlerBase {
     }
 
     @Override
-    public void addRecipes(ItemStack output, List<IRecipeHandler> list) {
-        System.out.println(output);
-        
+    public void addRecipes(ItemStack output, List<IRecipeHandler> list) {        
         FishSpecies theSpecies = Fishing.fishHelper.getSpecies(output);
         if (theSpecies == null && output.getItem() != Items.fish) return;
         if (theSpecies == null) theSpecies = Fishing.fishHelper.getSpecies(output.getItemDamage());
