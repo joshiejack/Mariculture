@@ -12,7 +12,6 @@ public abstract class MapRemoveAction implements IUndoableAction {
     public MapRemoveAction(Map map, Object key) {
         this.map = map;
         this.key = key;
-        this.value = value;
     }
 
     @Override

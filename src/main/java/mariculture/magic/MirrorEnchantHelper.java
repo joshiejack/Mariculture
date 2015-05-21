@@ -98,7 +98,7 @@ public class MirrorEnchantHelper {
                 continue;
             }
 
-            if (enchantment.canApplyAtEnchantingTable(stack) || item == Items.book && enchantment.isAllowedOnBooks()) {
+            if (enchantment.canApplyAtEnchantingTable(stack) || (item == Items.book && enchantment.isAllowedOnBooks())) {
                 for (int l = enchantment.getMinLevel(); l <= enchantment.getMaxLevel(); ++l)
                     if (enchantment instanceof EnchantmentJewelry && enchantability <= enchantment.getMaxEnchantability(l) || !(enchantment instanceof EnchantmentJewelry)) if (enchantability >= enchantment.getMinEnchantability(l)) {
                         if (hashmap == null) {

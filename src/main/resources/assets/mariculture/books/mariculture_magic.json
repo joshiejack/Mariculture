@@ -17,5 +17,6 @@
   "iconColorPass1": 0,
   "iconColorPass2": 0,
   "language": "en_US",
-  "displayName": "mariculture_magic"
+  "displayName": "mariculture_magic",
+  "displayInCreative": true
 }
