@@ -8,6 +8,7 @@ import static mariculture.core.lib.MCLib.skull;
 import static mariculture.core.lib.MCLib.witherSkull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
@@ -16,8 +17,9 @@ import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
 import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -73,7 +75,7 @@ public class FishBoneless extends FishSpecies {
     public int getWaterRequired() {
         return 150;
     }
-    
+
     @Override
     public Block getWater2() {
         return Fluids.getFluidBlock("ender");
@@ -115,16 +117,19 @@ public class FishBoneless extends FishSpecies {
 
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
-        if (world.rand.nextInt(500) == 0) {
-            EntitySkeleton skeleton = new EntitySkeleton(world);
-            skeleton.setPosition(x, y, z);
-            if (world.rand.nextInt(5000) == 0) {
-                skeleton.setSkeletonType(1);
-                skeleton.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
-                skeleton.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
+        if (world.rand.nextInt(10) == 0) {
+            if (coords.size() > 0) {
+                int count = getCount(EntitySkeleton.class, world, coords);
+                if (count < 10) {
+                    int coordinate = world.rand.nextInt(coords.size());
+                    CachedCoords pos = coords.get(coordinate);
+                    EntitySkeleton skeleton = new EntitySkeleton(world);
+                    skeleton.tasks.addTask(4, new EntityAIArrowAttack(skeleton, 1.0D, 20, 60, 15.0F));
+                    skeleton.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+                    skeleton.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                    world.spawnEntityInWorld(skeleton);
+                }
             }
-
-            world.spawnEntityInWorld(skeleton);
         }
     }
 

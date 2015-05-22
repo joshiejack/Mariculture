@@ -10,6 +10,12 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -77,7 +83,7 @@ public class FishLamprey extends FishSpecies {
     public double getFishOilVolume() {
         return 2.250D;
     }
-    
+
     @Override
     public boolean hasLivingEffect() {
         return true;
@@ -85,7 +91,15 @@ public class FishLamprey extends FishSpecies {
 
     @Override
     public void affectLiving(EntityLivingBase entity) {
-        if (entity.worldObj.rand.nextInt(100) == 0) {
+        if (entity instanceof EntitySkeleton) {
+            if (entity.worldObj.rand.nextInt(50) == 0) {
+                EntitySkeleton skeleton = (EntitySkeleton) entity;
+                skeleton.tasks.addTask(4, new EntityAIAttackOnCollide(skeleton, EntityPlayer.class, 1.2D, false));
+                skeleton.setSkeletonType(1);
+                skeleton.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
+                skeleton.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
+            }
+        } else if (entity.worldObj.rand.nextInt(20) == 0) {
             entity.attackEntityFrom(DamageSource.wither, 1);
         }
     }

@@ -9,7 +9,6 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import static mariculture.core.lib.MCLib.orangeDye;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
@@ -19,9 +18,9 @@ import mariculture.api.util.CachedCoords;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -114,18 +113,11 @@ public class FishClown extends FishSpecies {
     public double getCatchChance(World world, int height) {
         return Height.isShallows(height) ? 20D : 0D;
     }
-    
+
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         if (world.rand.nextInt(10) == 0) {
-            int count = 0;
-            for (CachedCoords coord : coords) {
-                List list = world.getEntitiesWithinAABB(EntityAnimal.class, Blocks.stone.getCollisionBoundingBoxFromPool(world, coord.x, coord.y, coord.z));
-                if (!list.isEmpty()) {
-                    count += list.size();
-                }
-            }
-
+            int count = getCount(EntityAnimal.class, world, coords);
             /** Breed animals if there are less than 10 entities **/
             if (count < 10) {
                 int coordinate = world.rand.nextInt(coords.size());
@@ -137,8 +129,10 @@ public class FishClown extends FishSpecies {
                     animal = new EntitySheep(world);
                 } else if (world.rand.nextInt(5) == 0) {
                     animal = new EntityPig(world);
+                } if (world.rand.nextInt(6) == 0) {
+                    animal = new EntityHorse(world);
                 } else animal = new EntityChicken(world);
-                
+
                 animal.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
                 world.spawnEntityInWorld(animal);
             }

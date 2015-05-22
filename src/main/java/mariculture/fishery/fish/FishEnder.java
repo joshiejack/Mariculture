@@ -15,6 +15,7 @@ import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -64,12 +65,12 @@ public class FishEnder extends FishSpecies {
     public int getWaterRequired() {
         return 140;
     }
-    
+
     @Override
     public Block getWater1() {
         return Fluids.getFluidBlock("ender");
     }
-    
+
     @Override
     public Block getWater2() {
         return Fluids.getFluidBlock("ender");
@@ -108,12 +109,12 @@ public class FishEnder extends FishSpecies {
             }
         }
     }
-    
+
     @Override
     public boolean hasLivingEffect() {
         return true;
     }
-    
+
     @Override
     public void affectLiving(EntityLivingBase entity) {
         if (entity instanceof EntityPlayer) {
@@ -122,16 +123,19 @@ public class FishEnder extends FishSpecies {
             }
         }
     }
-    
+
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         if (world.rand.nextInt(25) == 0) {
             if (coords.size() > 0) {
-                int coordinate = world.rand.nextInt(coords.size());
-                CachedCoords pos = coords.get(coordinate);
-                EntityEnderman entity = new EntityEnderman(world);
-                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
-                world.spawnEntityInWorld(entity);
+                int count = getCount(EntityEnderman.class, world, coords);
+                if (count < 5) {
+                    int coordinate = world.rand.nextInt(coords.size());
+                    CachedCoords pos = coords.get(coordinate);
+                    EntityEnderman entity = new EntityEnderman(world);
+                    entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                    world.spawnEntityInWorld(entity);
+                }
             }
         }
     }

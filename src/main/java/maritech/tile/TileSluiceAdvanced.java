@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileSluiceAdvanced extends TileSluice {
-    public LinkedList<CachedCoords> todo;
+    public LinkedList<CachedCoords> queue;
 
     @Override
     public void updateEntity() {
@@ -43,7 +43,7 @@ public class TileSluiceAdvanced extends TileSluice {
 
     private void addToList(int x, int y, int z) {
         CachedCoords coord = new CachedCoords(x, y, z);
-        if (!todo.contains(coord)) todo.add(coord);
+        if (!queue.contains(coord)) queue.add(coord);
     }
 
     private boolean isValid(World world, int x, int y, int z, boolean drain) {
@@ -58,7 +58,7 @@ public class TileSluiceAdvanced extends TileSluice {
     }
 
     private void updateArea(boolean drain) {
-        todo = new LinkedList();
+        queue = new LinkedList();
         int x = xCoord;
         int y = yCoord;
         int z = zCoord;
@@ -77,7 +77,7 @@ public class TileSluiceAdvanced extends TileSluice {
             addToList(x, y, z);
             int loop = !drain ? ExtendedSettings.ADVANCED_SLUICE_RADIUS / 2 : ExtendedSettings.ADVANCED_SLUICE_RADIUS;
             for (int j = 0; j < loop; j++) {
-                LinkedList<CachedCoords> temp = (LinkedList<CachedCoords>) todo.clone();
+                LinkedList<CachedCoords> temp = (LinkedList<CachedCoords>) queue.clone();
                 for (CachedCoords coord : temp) {
                     if (isValid(worldObj, coord.x + 1, coord.y, coord.z, drain)) {
                         addToList(coord.x + 1, coord.y, coord.z);
@@ -111,13 +111,13 @@ public class TileSluiceAdvanced extends TileSluice {
 
     private CachedCoords getNextCoordinates(boolean drain) {
         CachedCoords cord = null;
-        if (todo == null || todo.size() <= 0) {
+        if (queue == null || queue.size() <= 0) {
             updateArea(drain);
         }
 
-        if (todo != null && todo.size() > 0) {
-            cord = todo.getLast();
-            todo.removeLast();
+        if (queue != null && queue.size() > 0) {
+            cord = queue.getLast();
+            queue.removeLast();
         }
 
         return cord;

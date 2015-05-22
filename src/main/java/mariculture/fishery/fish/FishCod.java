@@ -6,6 +6,8 @@ import static mariculture.core.lib.MCLib.dropletFrozen;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class FishCod extends FishSpecies {
@@ -58,6 +60,16 @@ public class FishCod extends FishSpecies {
     @Override
     public double getFishOilVolume() {
         return 2.500D;
+    }
+    
+    @Override
+    public ItemStack getLiquifiedProduct() {
+        return new ItemStack(Items.leather);
+    }
+
+    @Override
+    public int getLiquifiedProductChance() {
+        return 6;
     }
 
     @Override

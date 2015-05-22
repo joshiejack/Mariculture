@@ -124,8 +124,9 @@ public class BlockHelper {
 
             if (drop) {
                 ItemStack item = inventory.getStackInSlot(i);
-
                 if (item != null && item.stackSize > 0) {
+                    item = item.copy();
+                    inventory.decrStackSize(i, 1);
                     float rx = rand.nextFloat() * 0.6F + 0.1F;
                     float ry = rand.nextFloat() * 0.6F + 0.1F;
                     float rz = rand.nextFloat() * 0.6F + 0.1F;

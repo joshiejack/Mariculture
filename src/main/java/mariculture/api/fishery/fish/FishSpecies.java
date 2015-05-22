@@ -286,6 +286,29 @@ public abstract class FishSpecies {
     public boolean hasLivingEffect() {
         return false;
     }
+    
+    /** Called when this fish is added to the fish feeder
+     *  @param	the fish stack
+     *  @param	the world
+     *  @param  the x of fish feeder
+     *  @param	the y of fish feeder
+     *  @param  the z of fish feeder
+     *  @param  the water of the fish**/
+    public void onFishAdded(ItemStack stack, World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+    	return;
+    }
+    
+    /** Called when this fish is added to the fish feeder
+     *  Or when it dies.
+     *  @param	the fish stack
+     *  @param	the world
+     *  @param  the x of fish feeder
+     *  @param	the y of fish feeder
+     *  @param  the z of fish feeder
+     *  @param  the water of the fish**/
+    public void onFishRemoved(ItemStack stack, World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+    	return;
+    }
 
     /** This is called whenever a living entity is in the water of the tank as long has hasLivingEffect returns true.
      * You can have your fish species do something special to them if you like It is
@@ -295,6 +318,16 @@ public abstract class FishSpecies {
      * @param The Entity */
     public void affectLiving(EntityLivingBase entity) {
         return;
+    }
+    
+    /** Helper method for getting entities within an area **/
+    public int getCount(Class clazz, World world, ArrayList<CachedCoords> coords) {
+        int count = 0;
+        for (CachedCoords cord: coords) {
+            count += world.getEntitiesWithinAABB(clazz, Blocks.stone.getCollisionBoundingBoxFromPool(world, cord.x, cord.y, cord.z)).size();
+        }
+        
+        return count;
     }
     
     /** Whether this fish allows RF connections to the fish feeder**/

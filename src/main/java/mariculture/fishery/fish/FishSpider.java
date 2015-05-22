@@ -5,11 +5,16 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import static mariculture.core.lib.MCLib.fermentedEye;
 import static mariculture.core.lib.MCLib.spiderEye;
 import static mariculture.core.lib.MCLib.string;
+
+import java.util.ArrayList;
+
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -89,7 +94,7 @@ public class FishSpider extends FishSpecies {
     public void onConsumed(World world, EntityPlayer player) {
         player.addPotionEffect(new PotionEffect(Potion.confusion.id, 300, 1, true));
     }
-    
+
     @Override
     public boolean hasLivingEffect() {
         return true;
@@ -99,6 +104,22 @@ public class FishSpider extends FishSpecies {
     public void affectLiving(EntityLivingBase entity) {
         if (entity instanceof EntityPlayer) {
             entity.addPotionEffect(new PotionEffect(Potion.confusion.id, 150, 1, true));
+        }
+    }
+
+    @Override
+    public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
+        if (world.rand.nextInt(10) == 0) {
+            if (coords.size() > 0) {
+                int count = getCount(EntitySpider.class, world, coords);
+                if (count < 10) {
+                    int coordinate = world.rand.nextInt(coords.size());
+                    CachedCoords pos = coords.get(coordinate);
+                    EntitySpider entity = new EntitySpider(world);
+                    entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                    world.spawnEntityInWorld(entity);
+                }
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.api.util.CachedCoords;
 import mariculture.core.config.FishMechanics;
 import mariculture.core.config.GeneralStuff;
 import mariculture.core.config.WorldGeneration.WorldGen;
@@ -17,6 +18,7 @@ import mariculture.fishery.items.ItemArmorFishingHat;
 import mariculture.world.EntityRockhopper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Items;
@@ -28,6 +30,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FisheryEventHandler {
@@ -79,6 +87,17 @@ public class FisheryEventHandler {
                 }
             }
         }
+    }
+    
+    public static Multimap<Integer, CachedCoords> invalid_spawns = HashMultimap.create();
+    
+    @SubscribeEvent
+    public void onLivingAttemptSpawn(CheckSpawn event) {
+    	if (event.entityLiving instanceof EntityMob) {
+    		if (invalid_spawns.get(event.world.provider.dimensionId).contains(new CachedCoords((int)event.x, (int)event.y, (int)event.z))) {
+    			event.setResult(Result.DENY);
+    		}
+    	}
     }
 
     @SubscribeEvent

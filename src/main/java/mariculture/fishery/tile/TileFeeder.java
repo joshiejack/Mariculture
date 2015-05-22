@@ -101,12 +101,26 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     }
 
     @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        if (!worldObj.isRemote) {
+            if (slot == male || slot == female) {
+                FishSpecies species = Fishing.fishHelper.getSpecies(inventory[slot]);
+                if (species != null) species.onFishRemoved(inventory[slot], worldObj, xCoord, yCoord, zCoord, coords);
+            }
+        }
+
+        return super.decrStackSize(slot, amount);
+    }
+
+    @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
+        ItemStack original = inventory[slot] != null ? inventory[slot].copy() : null;
         super.setInventorySlotContents(slot, stack);
 
         if (!worldObj.isRemote) {
             if (slot == male || slot == female) {
-                updateTankSize();
+                FishSpecies species = Fishing.fishHelper.getSpecies(inventory[slot]);
+                if (species != null) species.onFishAdded(stack, worldObj, xCoord, yCoord, zCoord, coords);
             } else if (slot == female || slot == male) {
                 PacketHandler.syncInventory(this, inventory);
             }
@@ -299,6 +313,10 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             if (isInit <= 0 && isInit > -1000) {
                 isInit = -1000;
                 updateTankSize();
+                FishSpecies m = Fishing.fishHelper.getSpecies(inventory[male]);
+                FishSpecies f = Fishing.fishHelper.getSpecies(inventory[female]);
+                if (m != null) m.onFishAdded(inventory[male], worldObj, xCoord, yCoord, zCoord, coords);
+                if (f != null) f.onFishAdded(inventory[female], worldObj, xCoord, yCoord, zCoord, coords);
             } else isInit--;
         }
 
@@ -308,7 +326,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
     @Override
     public void update() {
         super.update();
-        
+
         if (canWork) {
             foodTick++;
 
@@ -420,7 +438,7 @@ public class TileFeeder extends TileMachineTank implements IHasNotification, IEn
             fixFish(female);
             fixFish(male);
         }
-        
+
         isDay = worldObj.isDaytime();
         return RedstoneMode.canWork(this, mode) && hasMale() && hasFemale() && fishCanLive(inventory[male]) && fishCanLive(inventory[female]) && hasRoom(null);
     }

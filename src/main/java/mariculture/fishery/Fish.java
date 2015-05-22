@@ -148,13 +148,13 @@ public class Fish {
 
     //1.2.2 Species
     public static FishSpecies blaasop; //Nothing
-    public static FishSpecies stargazer; //Prevent Mob Spawns //TODO:
-    public static FishSpecies lamprey; //Withers players, Converts skeletons to wither skeletons //TODO:
-    public static FishSpecies spider; //Spawns spiders //TODO:
-    public static FishSpecies boneless; //Spawns skeletons/wither skeletons/Speeds up crops /TODO:
+    public static FishSpecies stargazer; //Prevent Mob Spawns
+    public static FishSpecies lamprey; //Withers players, Converts skeletons to wither skeletons
+    public static FishSpecies spider; //Spawns spiders
+    public static FishSpecies boneless; //Spawns skeletons
     public static FishSpecies undead; //Spawns zombies
-    public static FishSpecies minecraft; //Gives XP to player /TODO:
-    public static FishSpecies angler; //Fish feeder light, places as 'spotlight lights' /TODO:
+    public static FishSpecies minecraft; //Gives XP to player
+    public static FishSpecies angler; //Fish feeder light
     public static FishSpecies trout; //Weapon, Dyes
     public static FishSpecies herring; //Redstone
 
@@ -163,11 +163,11 @@ public class Fish {
     public static FishSpecies red; //RedShroom, Spawns Mycelium /TODO:
     public static FishSpecies pup; //Spawns Wolves
     public static FishSpecies chub; //Fills Hunger Bar /TODO:
-    public static FishSpecies bowfin; //Generates Arrows, Bows
+    public static FishSpecies bowfin; //Generates Arrows
     public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten /TODO:
     public static FishSpecies walleye; //Eyesight, Zooms in like bow /TODO:
-    public static FishSpecies pike; //Generates flint /TODO:
-    public static FishSpecies stickleback; //Grows Kelp
+    public static FishSpecies pike; //Generates flint
+    public static FishSpecies stickleback; //Grows Kelp /TODO:
     public static FishSpecies pickerel; //Harvests Crops /TODO:
 
     //1.2.5 Metal Species

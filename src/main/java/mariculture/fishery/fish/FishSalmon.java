@@ -70,7 +70,7 @@ public class FishSalmon extends FishSpecies {
 
     @Override
     public int getLiquifiedProductChance() {
-        return 5;
+        return 4;
     }
 
     @Override

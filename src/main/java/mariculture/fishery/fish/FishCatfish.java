@@ -13,6 +13,7 @@ import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.world.World;
 
 public class FishCatfish extends FishSpecies {
@@ -87,16 +88,19 @@ public class FishCatfish extends FishSpecies {
     public int getFoodDuration() {
         return 48;
     }
-    
+
     @Override
     public void affectWorld(World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         if (world.rand.nextInt(10) == 0) {
             if (coords.size() > 0) {
-                int coordinate = world.rand.nextInt(coords.size());
-                CachedCoords pos = coords.get(coordinate);
-                EntityOcelot entity = new EntityOcelot(world);
-                entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
-                world.spawnEntityInWorld(entity);
+                int count = getCount(EntityOcelot.class, world, coords);
+                if (count < 10) {
+                    int coordinate = world.rand.nextInt(coords.size());
+                    CachedCoords pos = coords.get(coordinate);
+                    EntityOcelot entity = new EntityOcelot(world);
+                    entity.setPosition(pos.x + 0.5D, pos.y + 0.5D, pos.z + 0.5D);
+                    world.spawnEntityInWorld(entity);
+                }
             }
         }
     }
