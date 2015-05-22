@@ -43,7 +43,7 @@ public class BlockItemCustom extends ItemBlockMariculture {
             int j1 = i1 & 7;
             boolean flag = (i1 & 8) != 0;
 
-            if (PlansMeta.isTheSame(world, x, y, z, stack) && (side == 1 && !flag || side == 0 && flag) && block == Factory.customSlabs && j1 == stack.getItemDamage()) {
+            if ((side == 1 && !flag || side == 0 && flag) && block == Factory.customSlabs && j1 == stack.getItemDamage() && PlansMeta.isTheSame(world, x, y, z, stack)) {
                 if (world.checkNoEntityCollision(Factory.customSlabsDouble.getCollisionBoundingBoxFromPool(world, x, y, z)) && world.setBlock(x, y, z, Factory.customSlabsDouble, j1, 3)) {
                     Factory.customSlabsDouble.onBlockPlacedBy(world, x, y, z, player, stack);
                     world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Factory.customSlabsDouble.stepSound.func_150496_b(), (Factory.customSlabsDouble.stepSound.getVolume() + 1.0F) / 2.0F, Factory.customSlabsDouble.stepSound.getPitch() * 0.8F);
@@ -128,7 +128,7 @@ public class BlockItemCustom extends ItemBlockMariculture {
         int i1 = world.getBlockMetadata(x, y, z);
         int j1 = i1 & 7;
 
-        if (PlansMeta.isTheSame(world, x, y, z, stack) && block == Factory.customSlabs && j1 == stack.getItemDamage()) {
+        if (block == Factory.customSlabs && j1 == stack.getItemDamage() && PlansMeta.isTheSame(world, x, y, z, stack)) {
             if (world.checkNoEntityCollision(Factory.customSlabsDouble.getCollisionBoundingBoxFromPool(world, x, y, z)) && world.setBlock(x, y, z, Factory.customSlabsDouble, j1, 3)) {
                 Factory.customSlabsDouble.onBlockPlacedBy(world, x, y, z, player, stack);
                 world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Factory.customSlabsDouble.stepSound.func_150496_b(), (Factory.customSlabsDouble.stepSound.getVolume() + 1.0F) / 2.0F, Factory.customSlabsDouble.stepSound.getPitch() * 0.8F);

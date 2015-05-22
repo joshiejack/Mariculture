@@ -15,3 +15,4 @@
 src/api/resources/*
 src/api/java/hacker/
 .checkstyle
+/bin/
