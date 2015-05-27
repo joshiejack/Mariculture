@@ -8,7 +8,6 @@ import static mariculture.core.lib.MCLib.skull;
 import static mariculture.core.lib.MCLib.witherSkull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import mariculture.api.core.Environment.Height;
 import mariculture.api.core.Environment.Salinity;
@@ -19,7 +18,6 @@ import mariculture.core.util.Fluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

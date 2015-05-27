@@ -8,6 +8,7 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -84,7 +85,12 @@ public class FishLungfish extends FishSpecies {
     public void affectLiving(EntityLivingBase entity) {
         entity.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 500));
     }
-
+    
+    @Override
+    public void onConsumed(World world, EntityPlayer player) {
+        player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 2000));
+    }
+    
     @Override
     public RodType getRodNeeded() {
         return RodType.OLD;

@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockCustomHelper {
+    private static IIcon null_icon = Blocks.stone.getIcon(0, 0);
+
     public static IIcon getBlockTexture(IBlockAccess block, int x, int y, int z, int side) {
         TileCustom custom = (TileCustom) block.getTileEntity(x, y, z);
         IIcon icon = null;
@@ -26,9 +28,8 @@ public class BlockCustomHelper {
             int theSide = custom.theBlockSides(side);
             icon = theBlock.getIcon(theSide, theMeta);
         }
-        
-        return icon == null? Blocks.stone.getIcon(0, 0): icon;
 
+        return icon == null ? null_icon : icon;
     }
 
     public static void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {

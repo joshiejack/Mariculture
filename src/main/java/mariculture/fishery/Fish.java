@@ -162,9 +162,9 @@ public class Fish {
     public static FishSpecies brown; //BrownShroom, Spawns Mycelium /TODO:
     public static FishSpecies red; //RedShroom, Spawns Mycelium /TODO:
     public static FishSpecies pup; //Spawns Wolves
-    public static FishSpecies chub; //Fills Hunger Bar /TODO:
+    public static FishSpecies chub; //Fills Hunger Bar
     public static FishSpecies bowfin; //Generates Arrows
-    public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten /TODO:
+    public static FishSpecies lung; //Applies Water Breathing, Gives it when eaten
     public static FishSpecies walleye; //Eyesight, Zooms in like bow /TODO:
     public static FishSpecies pike; //Generates flint
     public static FishSpecies stickleback; //Grows Kelp /TODO:

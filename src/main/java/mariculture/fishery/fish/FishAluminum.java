@@ -2,7 +2,6 @@ package mariculture.fishery.fish;
 
 import static mariculture.core.lib.MCLib.dropletAir;
 import static mariculture.core.lib.MCLib.dropletAluminum;
-import net.minecraft.world.World;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
