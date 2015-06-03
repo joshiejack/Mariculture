@@ -67,7 +67,6 @@ public class Plugins extends Module {
         add("ThermalFoundation");
         add("RedstoneArsenal");
         add("Aquaculture");
-        add("HarvestCraft", "harvestcraft");
         //Always add theByeByeSmelting Plugin
         add("ModdedTweaks", "Enchiridion");
         add("Botania");
