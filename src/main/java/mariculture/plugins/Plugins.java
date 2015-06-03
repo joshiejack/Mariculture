@@ -51,6 +51,7 @@ public class Plugins extends Module {
     }
 
     public Plugins() {
+        add("CarpentersBlocks");
         add("HEE", "HardcoreEnderExpansion");
         add("Railcraft");
         add("TConstruct");

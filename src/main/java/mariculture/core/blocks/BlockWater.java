@@ -19,6 +19,7 @@ import mariculture.core.tile.TileOyster;
 import mariculture.lib.helpers.DirectionHelper;
 import mariculture.plugins.enchiridion.BookSpawnHelper;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -160,6 +161,8 @@ public class BlockWater extends BlockFunctional {
                         oyster.setInventorySlotContents(0, new ItemStack(Items.ender_pearl));
                     } else if (block instanceof BlockSoulSand) {
                         oyster.setInventorySlotContents(0, new ItemStack(Blocks.soul_sand));
+                    } else if (block instanceof BlockSand && world.getBlockMetadata(x, y - 1, z) == 1) {
+                        oyster.setInventorySlotContents(0, new ItemStack(Blocks.sand, 1, 1));
                     } else if (block instanceof BlockPearlBlock) {
                         oyster.setInventorySlotContents(0, new ItemStack(Core.pearls, 1, world.getBlockMetadata(x, y - 1, z)));
                     } else {

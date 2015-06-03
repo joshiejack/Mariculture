@@ -81,7 +81,7 @@ public class PluginTConstruct extends Plugin {
             RecipesSmelting.addMetal(getFluidName("invar"), "Invar", 1427, stack, 2);
         }
 
-        Smeltery.instance.addSmelteryFuel(Fluids.getFluid("natural_gas"), 2000, 50);
+        Smeltery.instance.addSmelteryFuel(Fluids.getFluid("natural_gas"), 2000, 100);
         Block torch = GameRegistry.findBlock("TConstruct", "decoration.stonetorch");
         if (torch != null) BlockAir.flammables.add(torch);
     }
@@ -130,15 +130,15 @@ public class PluginTConstruct extends Plugin {
     public static void addMelting() {
         // Melt Down Titanium
         PluginTConstruct.addMelting(Core.limestone, LimestoneMeta.RAW, "blockLimestone", getFluidStack("quicklime", 900), 250);
-        PluginTConstruct.addMelting(Core.rocks, RockMeta.RUTILE, "oreRutile", getFluidStack("rutile", MetalRates.ORE), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "dustRutile", getFluidStack("rutile", MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "ingotRutile", getFluidStack("rutile", MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "blockRutile", getFluidStack("rutile", MetalRates.BLOCK), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "nuggetRutile", getFluidStack("rutile", MetalRates.NUGGET), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "dustTitanium", getFluidStack("titanium", MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "ingotTitanium", getFluidStack("titanium", MetalRates.INGOT), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "blockTitanium", getFluidStack("titanium", MetalRates.BLOCK), 800);
-        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "nuggetTitanium", getFluidStack("titanium", MetalRates.NUGGET), 800);
+        PluginTConstruct.addMelting(Core.rocks, RockMeta.RUTILE, "oreRutile", getFluidStack("rutile", MetalRates.ORE), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "dustRutile", getFluidStack("rutile", MetalRates.INGOT), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "ingotRutile", getFluidStack("rutile", MetalRates.INGOT), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "blockRutile", getFluidStack("rutile", MetalRates.BLOCK), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.RUTILE_BLOCK, "nuggetRutile", getFluidStack("rutile", MetalRates.NUGGET), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "dustTitanium", getFluidStack("titanium", MetalRates.INGOT), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "ingotTitanium", getFluidStack("titanium", MetalRates.INGOT), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "blockTitanium", getFluidStack("titanium", MetalRates.BLOCK), 2000);
+        PluginTConstruct.addMelting(Core.metals, MetalMeta.TITANIUM_BLOCK, "nuggetTitanium", getFluidStack("titanium", MetalRates.NUGGET), 2000);
         // >> Form Ingot and Block
         PluginTConstruct.addCasting("ingotRutile", getFluidStack("rutile", MetalRates.INGOT), 100);
         PluginTConstruct.addCasting("ingotTitanium", getFluidStack("titanium", MetalRates.INGOT), 100);
