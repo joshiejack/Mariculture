@@ -167,6 +167,7 @@ public abstract class RenderBase {
     }
 
     protected void renderFluid(FluidStack fluid, int max, double scale, int xPlus, int yPlus, int zPlus) {
+        if (fluid == null || fluid.getFluid() == null || fluid.getFluid().getIcon() == null) return;
         int x2 = x + xPlus;
         int y2 = y + yPlus;
         int z2 = z + zPlus;
