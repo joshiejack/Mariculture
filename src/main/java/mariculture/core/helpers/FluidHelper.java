@@ -145,10 +145,10 @@ public class FluidHelper {
 
     public static ItemStack doVoid(Tank tank, ItemStack top, ItemStack bottom) {
         if (matches(top, bottom, new ItemStack(Core.bottles, 1, BottleMeta.EMPTY))) {
-            FluidStack fluid = tank.drain(OreDictionary.WILDCARD_VALUE, false);
+            FluidStack fluid = tank.drain(Integer.MAX_VALUE, false);
             if (fluid == null || fluid != null && fluid.amount <= 0) return null;
 
-            tank.drain(OreDictionary.WILDCARD_VALUE, true);
+            tank.drain(Integer.MAX_VALUE, true);
             return new ItemStack(Core.bottles, 1, BottleMeta.EMPTY);
         }
 

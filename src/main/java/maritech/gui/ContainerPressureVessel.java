@@ -24,6 +24,11 @@ public class ContainerPressureVessel extends ContainerMachine {
 
         bindPlayerInventory(playerInventory, 10);
     }
+    
+    @Override
+    public boolean canInteractWith(EntityPlayer player) {
+        return true;
+    }
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {

@@ -122,8 +122,11 @@ public class TilePressureVessel extends TileMultiMachineTank {
         if (neighbour != null) {
             master = neighbour.master;
             TilePressureVessel mstr = (TilePressureVessel) getMaster();
-            mstr.addSlave(new MultiPart(xCoord, yCoord, zCoord));
-
+            if (mstr != null) {
+                mstr.addSlave(new MultiPart(xCoord, yCoord, zCoord));
+                mstr.updateUpgrades();
+            }
+            
             return true;
         }
 

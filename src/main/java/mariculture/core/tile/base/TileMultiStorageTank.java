@@ -73,12 +73,12 @@ public class TileMultiStorageTank extends TileMultiStorage implements IFluidHand
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return true;
+        return getMaster() != null;
     }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return true;
+        return getMaster() != null;
     }
 
     @Override

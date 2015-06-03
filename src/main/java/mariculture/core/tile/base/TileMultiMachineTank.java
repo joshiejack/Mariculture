@@ -290,9 +290,10 @@ public abstract class TileMultiMachineTank extends TileMultiStorageTank implemen
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
         storage = nbt.getInteger("Storage"); //grab the storage value first
         tank = new Tank(getTankCapacity(storage)); //Recreate the tank
-        super.readFromNBT(nbt);
+        tank.readFromNBT(nbt);
         setting = EjectSetting.readFromNBT(nbt);
         mode = RedstoneMode.readFromNBT(nbt);
         purity = nbt.getInteger("Purity");
