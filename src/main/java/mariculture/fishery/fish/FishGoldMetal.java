@@ -6,6 +6,8 @@ import static mariculture.core.lib.MCLib.dropletRegen;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 
 public class FishGoldMetal extends FishSpecies {
     @Override
@@ -46,6 +48,11 @@ public class FishGoldMetal extends FishSpecies {
     @Override
     public int getBaseProductivity() {
         return 0;
+    }
+    
+    @Override
+    public Block getWater2() {
+        return Fluids.getFluidBlock("custard");
     }
     
     @Override

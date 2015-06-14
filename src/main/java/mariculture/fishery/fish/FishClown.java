@@ -15,6 +15,8 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
+import mariculture.core.util.Fluids;
+import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
@@ -73,6 +75,11 @@ public class FishClown extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 200;
+    }
+    
+    @Override
+    public Block getWater2() {
+        return Fluids.getFluidBlock("custard");
     }
 
     @Override

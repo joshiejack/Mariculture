@@ -11,9 +11,12 @@ import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.api.util.CachedCoords;
+import mariculture.core.util.Fluids;
 import mariculture.lib.helpers.PowerHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyReceiver;
@@ -62,6 +65,16 @@ public class FishElectricRay extends FishSpecies {
     @Override
     public int getWaterRequired() {
         return 175;
+    }
+    
+    @Override
+    public Block getWater1() {
+        return Fluids.getFluidBlock("ender");
+    }
+
+    @Override
+    public Block getWater2() {
+        return Fluids.getFluidBlock("custard");
     }
 
     @Override
