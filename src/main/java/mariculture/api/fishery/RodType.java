@@ -88,6 +88,10 @@ public class RodType {
         } else if (stack.attemptDamageItem(1, rand)) {
             stack = null;
         }
+        
+        if (stack.getItemDamage() >= stack.getMaxDamage()) {
+            stack = null;
+        }
 
         return stack;
     }

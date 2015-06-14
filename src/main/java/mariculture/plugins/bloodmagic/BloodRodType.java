@@ -45,7 +45,7 @@ public class BloodRodType extends RodType {
     public ItemStack damage(World world, EntityPlayer player, ItemStack stack, int fish, Random rand) {
         if (player != null) {
             SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, fish * 250);
-        } else if (!world.isRemote && SoulNetworkHandler.syphonFromNetwork(stack, fish * 250) != 0) {
+        } else if (!world.isRemote && !SoulNetworkHandler.syphonFromNetworkWhileInContainer(stack, fish * 250)) {
             EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
             if (entityOwner != null) {
                 entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 500));

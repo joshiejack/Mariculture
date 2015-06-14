@@ -6,7 +6,9 @@ import static mariculture.core.lib.MCLib.dropletWater;
 import mariculture.api.core.Environment.Salinity;
 import mariculture.api.fishery.RodType;
 import mariculture.api.fishery.fish.FishSpecies;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -46,6 +48,11 @@ public class FishTetra extends FishSpecies {
     @Override
     public int getFertility() {
         return 130;
+    }
+    
+    @Override
+    public Block getWater2() {
+        return Blocks.lava;
     }
 
     @Override
