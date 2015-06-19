@@ -62,7 +62,7 @@ public class Enchantments {
         JUMPS_PER = getInt("Leapfrog > Jumps per Damage", 10);
         JUMP_FACTOR = getDouble("Leapfrog > Jump Factor", 0.15);
         SPEED_TICKS = getInt("Sonic the Hedgehog > Ticks per Damage", 1200);
-        SPEED_FACTOR = getDouble("Sonic the Hedgehog > Speed Factor", 0.025);
+        SPEED_FACTOR = getDouble("Sonic the Hedgehog > Speed Factor", 0.05);
         TICK_REPAIR = getInt("Restoration - Ticks between Repair", 100);
         ALLOW_MC_ANVIL = getBoolean("Enable Books being applied to Jewelry", false);
         DISABLE_BOOKS_ON_PEARLS = getBoolean("Disable Pearls in Vanilla Anvil", false);
