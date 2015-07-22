@@ -2,6 +2,8 @@ package mariculture.core.gui.feature;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import mariculture.core.gui.GuiMariculture;
 import mariculture.core.util.ITank;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -81,6 +83,11 @@ public class FeatureTank extends Feature {
         }
 
         tm.bindTexture(texture);
+        int colour = fluid.getColor(liquid);
+        float red = (colour >> 16 & 255) / 255.0F;
+        float green = (colour >> 8 & 255) / 255.0F;
+        float blue = (colour & 255) / 255.0F;
+        GL11.glColor3f(red, green, blue);
         int width = size.equals(TankSize.DOUBLE) ? 34 : 16;
         int xStart = size.equals(TankSize.DOUBLE) ? 16 : 0;
         gui.drawTexturedModalRect(x + xPoz, y + yPoz, xStart, 0, width, 60);

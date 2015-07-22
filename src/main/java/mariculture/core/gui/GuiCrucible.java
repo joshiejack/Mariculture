@@ -61,7 +61,7 @@ public class GuiCrucible extends GuiMariculture {
                     if (result.rands != null) {
                         currenttip.add(Text.INDIGO + MCTranslate.translate("randomMetal"));
                     } else {
-                        currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid.getFluid()) + ": " + result.fluid.amount + "mB");
+                        currenttip.add(Text.INDIGO + FluidHelper.getName(result.fluid) + ": " + result.fluid.amount + "mB");
                     }
                 }
 
