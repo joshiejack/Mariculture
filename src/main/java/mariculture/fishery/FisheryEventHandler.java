@@ -120,15 +120,6 @@ public class FisheryEventHandler {
                     zombie.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 18000, 2));
                 }
             }
-        } else if (WorldGen.PENGUIN_SPAWN_ENABLED && event.entity instanceof EntitySquid && Modules.isActive(Modules.worldplus)) {
-            if (!event.entity.worldObj.isRemote) {
-                if (event.world.rand.nextInt(100) == 0) {
-                    EntityRockhopper penguin = new EntityRockhopper(event.entity.worldObj);
-                    penguin.setPosition(event.entity.posX, event.entity.posY, event.entity.posZ);
-                    penguin.mountEntity(event.entity);
-                    event.entity.worldObj.spawnEntityInWorld(penguin);
-                }
-            }
         }
     }
 }
