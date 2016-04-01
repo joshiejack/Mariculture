@@ -65,7 +65,6 @@ public class PluginBotania extends Plugin {
             Fishing.fishing.addBait(new ItemStack(ModItems.manaPetal, 1, OreDictionary.WILDCARD_VALUE), 75);
             Fishing.fishing.addBaitForQuality(new ItemStack(Fishery.bait, 1, BaitMeta.HOPPER), MANA);
             Fishing.fishing.addBaitForQuality(new ItemStack(ModItems.petal, 1, OreDictionary.WILDCARD_VALUE), MANA);
-            Fishing.fishing.addBaitForQuality(new ItemStack(ModItems.manaPetal, 1, OreDictionary.WILDCARD_VALUE), MANA);
 
             addLoot(new ItemStack(ModItems.recordGaia1), Rarity.RARE, 10);
             addLoot(new ItemStack(ModItems.recordGaia2), Rarity.RARE, 10);
