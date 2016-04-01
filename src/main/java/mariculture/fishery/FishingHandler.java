@@ -235,13 +235,12 @@ public class FishingHandler implements IFishing {
             if (type != null) {
                 ItemStack loot = null;
                 int lootBonus = EnchantmentHelper.getEnchantmentLevel(Enchantment.field_151370_z.effectId, stack);
-                if (lootBonus > 0 && world.rand.nextInt(200) < lootBonus * 10 || world.rand.nextInt(1000) < Math.max(0.01D, type.getChances().get(0))) {
+                if (lootBonus > 0 && world.rand.nextInt(200) < lootBonus * 10 || world.rand.nextInt(1000) < Math.max(0.01D, type.getChances().get(2) * 10)) {
                     loot = getLoot(world, type, Rarity.RARE);
                 } else {
-                    double chance = Math.max(0.01D, type.getChances().get(1));
-                    if (lootBonus > 0 && world.rand.nextInt(250) < lootBonus * 10 || world.rand.nextInt(1000) < Math.max(0.01D, type.getChances().get(1))) {
+                    if (lootBonus > 0 && world.rand.nextInt(250) < lootBonus * 10 || world.rand.nextInt(1000) < Math.max(0.01D, type.getChances().get(1) * 10)) {
                         loot = getLoot(world, type, Rarity.GOOD);
-                    } else if (lootBonus > 0 && world.rand.nextInt(300) < lootBonus * 10 || world.rand.nextInt(1000) < Math.max(0.01D, type.getChances().get(2))) {
+                    } else if (lootBonus > 0 && world.rand.nextInt(300) < lootBonus * 10 || world.rand.nextInt(1000) < Math.max(0.01D, type.getChances().get(0) * 10)) {
                         loot = getLoot(world, type, Rarity.JUNK);
                     }
                 }
