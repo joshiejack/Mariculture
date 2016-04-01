@@ -61,8 +61,7 @@ public class PluginBotania extends Plugin {
         if (Modules.isActive(Modules.fishery)) {
             GameRegistry.addShapedRecipe(new ItemStack(rodLiving), new Object[] { "  T", " TS", "T S", 'T', new ItemStack(ModItems.manaResource, 1, 3), 'S', new ItemStack(ModItems.manaResource, 1, 16) });
 
-            Fishing.fishing.addBait(new ItemStack(ModItems.petal, 1, OreDictionary.WILDCARD_VALUE), 60);
-            Fishing.fishing.addBait(new ItemStack(ModItems.manaPetal, 1, OreDictionary.WILDCARD_VALUE), 75);
+            Fishing.fishing.addBait(new ItemStack(ModItems.petal, 1, OreDictionary.WILDCARD_VALUE), 70);
             Fishing.fishing.addBaitForQuality(new ItemStack(Fishery.bait, 1, BaitMeta.HOPPER), MANA);
             Fishing.fishing.addBaitForQuality(new ItemStack(ModItems.petal, 1, OreDictionary.WILDCARD_VALUE), MANA);
 
