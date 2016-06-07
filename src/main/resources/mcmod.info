@@ -1,0 +1,16 @@
+[
+{
+  "modid": "Mariculture2",
+  "name": "Mariculture 2",
+  "description": "New Beginnings",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["joshie"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

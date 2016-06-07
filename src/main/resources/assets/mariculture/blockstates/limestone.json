@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "type=raw": { "model": "mariculture:limestone_raw" },
+    "type=smooth": { "model": "mariculture:limestone_smooth" }
+  }
+}

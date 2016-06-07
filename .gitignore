@@ -1,18 +1,22 @@
-/LICENSE-fml.txt
-/MinecraftForge-Credits.txt
-/MinecraftForge-License.txt
-/README.txt
-/CREDITS-fml.txt
-/forge-1.7.2*
-/build
-/common
-/eclipse/*
-/.gradle
-/bin/*
+# eclipse
+bin
+*.launch
+.settings
+.metadata
 .classpath
 .project
-.settings/*
-src/api/resources/*
-src/api/java/hacker/
-.checkstyle
-/bin/
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
