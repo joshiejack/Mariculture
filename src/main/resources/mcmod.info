@@ -1,8 +1,8 @@
 [
 {
-  "modid": "Mariculture2",
-  "name": "Mariculture 2",
-  "description": "New Beginnings",
+  "modid": "mariculture",
+  "name": "Mariculture 2 - Fresh Water",
+  "description": "",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
