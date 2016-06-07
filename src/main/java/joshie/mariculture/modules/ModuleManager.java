@@ -66,7 +66,16 @@ public abstract class ModuleManager {
 			if (enabled.containsAll(Lists.newArrayList(data.getRight().split(",")))) {
 				try {
 					ModuleManager.enabled.put(module, data.getLeft());
-					Mariculture.logger.log(Level.INFO, "Enabling the " + WordUtils.capitalize(module) + " " + data.getMiddle().replace("s", "") + "!");
+                    Mariculture.logger.log(Level.INFO, "Enabling the " + WordUtils.capitalize(module) + " " + data.getMiddle().replace("s", "") + "!");
+					try {
+						Configuration config = new Configuration(new File(root, data.getMiddle().replace("s", "").toLowerCase() + ".cfg"));
+						try {
+							config.load();
+							data.getLeft().getMethod("loadConfig", Configuration.class).invoke(null, config);
+						}  finally {
+							config.save();
+						}
+					} catch (Exception e) {}
 				} catch (Exception e) {}
 			}
 		}
