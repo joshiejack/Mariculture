@@ -29,7 +29,7 @@ public class ItemBlockMC extends ItemBlock implements CreativeSorted {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return block.getEnumFromMeta(stack.getItemDamage()).name().toLowerCase();
+        return block.getEnumFromMeta(stack.getItemDamage()).name().toLowerCase().replace("_", "");
     }
 
     @Override

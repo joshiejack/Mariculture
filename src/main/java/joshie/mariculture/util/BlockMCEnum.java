@@ -25,7 +25,7 @@ import java.util.Random;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 
-public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable> extends Block implements CreativeSorted {
+public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B extends BlockMCEnum> extends Block implements CreativeSorted {
     protected static PropertyEnum<?> temporary;
     protected final PropertyEnum<E> property;
     protected final E[] values;
@@ -128,11 +128,11 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable> exten
     }
 
     @Override
-    public BlockMCEnum setUnlocalizedName(String name) {
+    public B setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
         unlocalizedName = MODID + "." + name;
         RegistryHelper.register(this, name);
-        return this;
+        return (B) this;
     }
 
     @Override
@@ -146,18 +146,29 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable> exten
         return StringHelper.localize(unlocalized + "." + name);
     }
 
+    protected boolean isInCreative(E e) {
+        return true;
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
         for (E e : values) {
-            list.add(new ItemStack(item, 1, e.ordinal()));
+            if (isInCreative(e)) {
+                list.add(new ItemStack(item, 1, e.ordinal()));
+            }
         }
     }
 
     @SideOnly(Side.CLIENT)
+    protected ResourceLocation getResourceForEnum(E e) {
+        return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".",  "") + "_" + e.getName());
+    }
+
+    @SideOnly(Side.CLIENT)
     public void registerModels(Item item, String name) {
-        for (int i = 0; i < values.length; i++) {
-            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".",  "") + "_" + getEnumFromMeta(i).getName()), "inventory"));
+        for (E e: values) {
+            ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getResourceForEnum(e), "inventory"));
         }
     }
 }

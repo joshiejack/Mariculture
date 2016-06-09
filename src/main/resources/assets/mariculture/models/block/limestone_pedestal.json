@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "mariculture:blocks/limestone_pillar_top",
+    "top": "mariculture:blocks/limestone_bordered",
+    "side": "mariculture:blocks/limestone_pedestal"
+  }
+}

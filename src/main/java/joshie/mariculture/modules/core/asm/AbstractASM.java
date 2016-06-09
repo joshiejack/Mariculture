@@ -1,10 +1,8 @@
-package joshie.mariculture.modules.vanilla.asm;
+package joshie.mariculture.modules.core.asm;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.InsnList;
-
-import static joshie.mariculture.modules.vanilla.asm.ASMType.VISITOR;
 
 public abstract class AbstractASM {
 
@@ -13,7 +11,7 @@ public abstract class AbstractASM {
 
     //Return whether this class is applying this type of asm
     public boolean isValidASMType(ASMType type) {
-        return type == VISITOR;
+        return type == ASMType.VISITOR;
     }
 
     //Only Called when the ASMType is VISITOR

@@ -1,6 +1,13 @@
 #Mariculture Core Module
-mariculture.tab.core=Mariculture - Core
+mariculture.tab.core=Mariculture
 
 #Core - Blocks
-mariculture.limestone.raw=Raw Limestone
+mariculture.limestone.raw=Limestone
 mariculture.limestone.smooth=Smooth Limestone
+mariculture.limestone.brick=Limestone Brick
+mariculture.limestone.smallbrick=Limestone Small Brick
+mariculture.limestone.thinbrick=Limestone Thin Brick
+mariculture.limestone.bordered=Bordered Limestone
+mariculture.limestone.chiseled=Chiseled Limestone
+mariculture.limestone.pillar=Limestone Pillar
+mariculture.limestone.pedestal=Limestone Pedestal

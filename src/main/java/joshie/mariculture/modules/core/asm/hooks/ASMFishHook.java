@@ -1,5 +1,6 @@
-package joshie.mariculture.modules.vanilla.asm;
+package joshie.mariculture.modules.core.asm.hooks;
 
+import joshie.mariculture.modules.core.asm.AbstractASM;
 import org.objectweb.asm.*;
 
 import static org.objectweb.asm.Opcodes.*;

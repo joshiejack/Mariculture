@@ -1,9 +1,7 @@
-package joshie.mariculture.modules.vanilla;
+package joshie.mariculture.modules.core;
 
-import joshie.mariculture.modules.vanilla.asm.ASMFishHook;
-import joshie.mariculture.modules.vanilla.asm.ASMHelper;
-import joshie.mariculture.modules.vanilla.asm.ASMType;
-import joshie.mariculture.modules.vanilla.asm.AbstractASM;
+import joshie.mariculture.modules.core.asm.*;
+import joshie.mariculture.modules.core.asm.hooks.ASMFishHook;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
@@ -19,7 +17,7 @@ public class VanillaHooks implements IFMLLoadingPlugin, IClassTransformer {
 
     static {
         for (Class clazz: classes) {
-            if (VanillaConfig.isEnabled(clazz)) {
+            if (ASMConfig.isEnabled(clazz)) {
                 try {
                     asm.add((AbstractASM) clazz.newInstance());
                 } catch (Exception e){}

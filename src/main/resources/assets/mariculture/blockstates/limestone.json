@@ -1,6 +1,20 @@
 {
   "variants": {
     "type=raw": { "model": "mariculture:limestone_raw" },
-    "type=smooth": { "model": "mariculture:limestone_smooth" }
+    "type=smooth": { "model": "mariculture:limestone_smooth" },
+    "type=brick": { "model": "mariculture:limestone_brick" },
+    "type=small_brick": { "model": "mariculture:limestone_small_brick" },
+    "type=thin_brick": { "model": "mariculture:limestone_thin_brick" },
+    "type=bordered": { "model": "mariculture:limestone_bordered" },
+    "type=chiseled": { "model": "mariculture:limestone_chiseled" },
+    "type=pillar_1": { "model": "mariculture:limestone_pillar" },
+    "type=pillar_2": { "model": "mariculture:limestone_pillar", "x": 90 },
+    "type=pillar_3": { "model": "mariculture:limestone_pillar", "x": 90, "y": 90 },
+    "type=pedestal_1": { "model": "mariculture:limestone_pedestal" },
+    "type=pedestal_2": { "model": "mariculture:limestone_pedestal", "x": 180 },
+    "type=pedestal_3": { "model": "mariculture:limestone_pedestal", "x": 90 },
+    "type=pedestal_4": { "model": "mariculture:limestone_pedestal", "x": 270 },
+    "type=pedestal_5": { "model": "mariculture:limestone_pedestal", "x": 90, "y": 270},
+    "type=pedestal_6": { "model": "mariculture:limestone_pedestal", "x": 90, "y": 90 }
   }
 }

@@ -1,9 +1,9 @@
-package joshie.mariculture.modules.vanilla;
+package joshie.mariculture.modules.core.asm;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import joshie.mariculture.modules.vanilla.asm.ASMFishHook;
+import joshie.mariculture.modules.core.asm.hooks.ASMFishHook;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -14,15 +14,15 @@ import java.util.HashMap;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 
-public class VanillaConfig {
+public class ASMConfig {
     @SerializedName("Enable ASM")
     private HashMap<String, Boolean> asmEnabled = new HashMap<>();
 
-    static boolean isEnabled(Class clazz) {
+    public static boolean isEnabled(Class clazz) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         File file = new File("config//" + MODID + "//asm.json");
-        VanillaConfig config = null;
-        if (!file.exists()) writeConfig(gson, file, new VanillaConfig().setDefaults());
+        ASMConfig config = null;
+        if (!file.exists()) writeConfig(gson, file, new ASMConfig().setDefaults());
         else config = getExistingConfig(gson, file);
 
         if (config.asmEnabled.get(clazz.getSimpleName()) == null) {
@@ -33,12 +33,12 @@ public class VanillaConfig {
         return config.asmEnabled.get(clazz.getSimpleName());
     }
 
-    private VanillaConfig setDefaults() {
+    private ASMConfig setDefaults() {
         asmEnabled.put(ASMFishHook.class.getSimpleName(), true);
         return this;
     }
 
-    private static void writeConfig(Gson gson, File file, VanillaConfig config) {
+    private static void writeConfig(Gson gson, File file, ASMConfig config) {
         try {
             Writer writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
             writer.write(gson.toJson(config));
@@ -46,9 +46,9 @@ public class VanillaConfig {
         } catch (Exception ignored) {}
     }
 
-    private static VanillaConfig getExistingConfig(Gson gson, File file) {
+    private static ASMConfig getExistingConfig(Gson gson, File file) {
         try {
-            return gson.fromJson(FileUtils.readFileToString(file), VanillaConfig.class);
-        } catch (Exception e) { return new VanillaConfig().setDefaults(); }
+            return gson.fromJson(FileUtils.readFileToString(file), ASMConfig.class);
+        } catch (Exception e) { return new ASMConfig().setDefaults(); }
     }
 }
