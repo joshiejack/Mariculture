@@ -2,6 +2,8 @@ package joshie.mariculture.modules;
 
 import com.google.common.collect.Lists;
 import joshie.mariculture.Mariculture;
+import joshie.mariculture.helpers.ConfigHelper;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
@@ -68,16 +70,41 @@ public abstract class ModuleManager {
 					ModuleManager.enabled.put(module, data.getLeft());
                     Mariculture.logger.log(Level.INFO, "Enabling the " + WordUtils.capitalize(module) + " " + data.getMiddle().replace("s", "") + "!");
 					try {
-						Configuration config = new Configuration(new File(root, data.getMiddle().replace("s", "").toLowerCase() + ".cfg"));
+						Configuration config = new Configuration(new File(root, module + ".cfg"));
 						try {
 							config.load();
-							data.getLeft().getMethod("loadConfig", Configuration.class).invoke(null, config);
+							ConfigHelper.setConfig(config);
+							data.getLeft().getMethod("configure").invoke(null);
 						}  finally {
 							config.save();
 						}
+
+						//Save on things
+						ConfigHelper.setConfig(null); //Remove the reference to the config
+						ConfigHelper.setCategory(null);
 					} catch (Exception e) {}
 				} catch (Exception e) {}
 			}
+		}
+
+		registerEventHandlers(dataTable);
+	}
+
+	private static void registerEventHandlers(@Nonnull ASMDataTable dataTable) {
+		String annotationClassName = EventContainer.class.getCanonicalName();
+		Set<ASMData> asmDatas = new HashSet<>(dataTable.getAll(annotationClassName));
+		asmLoop:
+		for (ASMDataTable.ASMData asmData : asmDatas) {
+			Map<String, Object> data = asmData.getAnnotationInfo();
+			String modules = (String) data.get("modules");
+			String[] moduleList = modules.replace(" ", "").split(",");
+			for (String module: moduleList) {
+				if (!enabled.containsKey(module)) continue asmLoop;
+			}
+
+			try {
+				MinecraftForge.EVENT_BUS.register(Class.forName(asmData.getClassName()).newInstance());
+			} catch (Exception e) { e.printStackTrace(); }
 		}
 	}
 

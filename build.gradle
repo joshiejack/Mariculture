@@ -59,3 +59,10 @@ processResources
         exclude 'mcmod.info'
     }
 }
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'joshie.mariculture.modules.vanilla.VanillaHooks'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "pools": [
+    {
+      "name": "main",
+      "conditions": [
+        {
+          "condition": "mariculture:biome_type",
+          "type": "hills"
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "mariculture:limestone",
+          "entryName": "limestone_lottery",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            }
+          ],
+          "weight": 48
+        }
+      ]
+    }
+  ]
+}
