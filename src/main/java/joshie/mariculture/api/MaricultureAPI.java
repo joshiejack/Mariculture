@@ -19,9 +19,7 @@ public class MaricultureAPI {
     public static boolean isModuleEnabled(String name) {
         try {
             return (Boolean) Class.forName("joshie.mariculture.modules.ModuleManager").getMethod("isModuleEnabled", String.class).invoke(null, name);
-        } catch (ClassNotFoundException e) {
-            logger.log(Level.ERROR, "Could not find the module " + name);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             logger.log(Level.ERROR, "Could not find the isModuleEnabled method");
         }
 
