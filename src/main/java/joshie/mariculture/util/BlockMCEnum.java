@@ -168,7 +168,7 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
     @SideOnly(Side.CLIENT)
     public void registerModels(Item item, String name) {
         for (E e: values) {
-            ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getResourceForEnum(e), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.getClass().getSimpleName() + "=" + e.getName()));
         }
     }
 }

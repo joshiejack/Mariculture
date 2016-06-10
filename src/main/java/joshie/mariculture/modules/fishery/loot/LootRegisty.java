@@ -15,7 +15,7 @@ import static joshie.mariculture.lib.MaricultureInfo.MODID;
 @EventContainer(modules = "fishery")
 public class LootRegisty {
     private static final String FISHING = "gameplay/fishing/";
-    private static final String[] LOOT_TABLES = new String[]{ FISHING + "fish", FISHING + "junk", FISHING + "treasure", FISHING + "unobtainable" };
+    private static final String[] LOOT_TABLES = new String[]{ FISHING + "fish", FISHING + "junk", FISHING + "treasure" };
 
     @SubscribeEvent
     public void onLootLoading(LootTableLoadEvent event) {

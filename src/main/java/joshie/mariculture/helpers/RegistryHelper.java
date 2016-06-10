@@ -1,8 +1,9 @@
 package joshie.mariculture.helpers;
 
+import joshie.mariculture.util.BlockMCEnum;
 import joshie.mariculture.util.ItemBlockMC;
 import joshie.mariculture.util.ItemMCEnum;
-import joshie.mariculture.util.BlockMCEnum;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -27,12 +28,12 @@ public class RegistryHelper {
         }
     }
 
-    public static void register(ItemMCEnum item, String name) {
+    public static void register(Item item, String name) {
         ResourceLocation resource = new ResourceLocation(MODID, name.replace(".", "_"));
         item.setRegistryName(resource);
         GameRegistry.register(item); //Register the item
-        if (isClient()) {
-            item.registerModels(item, name);
+        if (isClient() && item instanceof ItemMCEnum) {
+            ((ItemMCEnum)item).registerModels(item, name);
         }
     }
 }

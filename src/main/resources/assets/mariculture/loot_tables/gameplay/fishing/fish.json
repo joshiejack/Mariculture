@@ -4,8 +4,8 @@
       "name": "main",
       "conditions": [
         {
-          "condition": "mariculture:biome_type",
-          "type": "hills"
+          "condition": "mariculture:rod_strength",
+          "type": "1"
         }
       ],
       "rolls": 1,

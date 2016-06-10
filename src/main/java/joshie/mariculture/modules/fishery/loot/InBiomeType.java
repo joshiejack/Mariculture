@@ -3,19 +3,17 @@ package joshie.mariculture.modules.fishery.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.common.BiomeDictionary;
 
-import java.util.Random;
-
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 
-public class InBiomeType implements LootCondition {
+/** This loot condition checks the biome of the bobber **/
+public class InBiomeType extends AbstractWorldLocation {
     private final BiomeDictionary.Type biome;
 
     public InBiomeType(BiomeDictionary.Type biome) {
@@ -23,13 +21,8 @@ public class InBiomeType implements LootCondition {
     }
 
     @Override
-    public boolean testCondition(Random rand, LootContext context) {
-        Entity entity = context.getLootedEntity();
-        if (entity != null) {
-            return BiomeDictionary.isBiomeOfType(entity.getEntityWorld().getBiome(new BlockPos(entity)), biome);
-        }
-
-        return false;
+    public boolean testCondition(World world, BlockPos pos) {
+        return BiomeDictionary.isBiomeOfType(world.getBiome(pos), biome);
     }
 
     public static class Serializer extends LootCondition.Serializer<InBiomeType> {

@@ -24,6 +24,7 @@ import static joshie.mariculture.lib.MaricultureInfo.MODNAME;
 
 public abstract class ModuleManager {
 	public static HashMap<String, Class<?>> enabled = new HashMap<>();
+	private static HashSet<String> enabledList;
 
 	public static void init(@Nonnull ASMDataTable dataTable) {
 		//Load in the module data from the tale
@@ -109,6 +110,7 @@ public abstract class ModuleManager {
 	}
 
 	public static void clear() {
+		enabledList = new HashSet<>(enabled.keySet()); //Create the smaller keyset for enabled modules
 		enabled = null; //Remove the map from memory, as the information is no longer needed
 	}
 
@@ -124,5 +126,12 @@ public abstract class ModuleManager {
 		}
 
 		return false;
+	}
+
+	//Mostly used Externally
+	public static boolean isModuleEnabled(String name) {
+		if (enabledList != null) return enabledList.contains(name);
+		else if (enabled != null) return enabled.containsKey(name);
+		else return false;
 	}
 }

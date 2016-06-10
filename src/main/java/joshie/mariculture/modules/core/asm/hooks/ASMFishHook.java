@@ -40,16 +40,12 @@ public class ASMFishHook extends AbstractASM {
                             String withPlayer = name.equals("withLuck") ? "withPlayer" : "func_186470_a";
                             String withLootedEntity = name.equals("withLuck") ? "withLootedEntity" : "func_186472_a" ;
                             mv.visitInsn(POP);
-                            Label l2 = new Label();
-                            mv.visitLabel(l2);
-                            mv.visitVarInsn(ALOAD, 1);
+                            mv.visitVarInsn(ALOAD, 2);
                             mv.visitVarInsn(ALOAD, 0);
                             mv.visitFieldInsn(GETFIELD, "net/minecraft/entity/projectile/EntityFishHook", angler, "Lnet/minecraft/entity/player/EntityPlayer;");
                             mv.visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/world/storage/loot/LootContext$Builder", withPlayer, "(Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/world/storage/loot/LootContext$Builder;", false);
                             mv.visitInsn(POP);
-                            Label l3 = new Label();
-                            mv.visitLabel(l3);
-                            mv.visitVarInsn(ALOAD, 1);
+                            mv.visitVarInsn(ALOAD, 2);
                             mv.visitVarInsn(ALOAD, 0);
                             mv.visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/world/storage/loot/LootContext$Builder", withLootedEntity, "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/world/storage/loot/LootContext$Builder;", false);
                         }
