@@ -1,7 +1,7 @@
-package joshie.mariculture.modules.seabed;
+package joshie.mariculture.modules.abyssal;
 
 import joshie.mariculture.helpers.StringHelper;
-import joshie.mariculture.modules.seabed.BlockLimestone.Type;
+import joshie.mariculture.modules.abyssal.BlockLimestone.Type;
 import joshie.mariculture.util.BlockMCEnum;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static joshie.mariculture.lib.CreativeOrder.LIMESTONE;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
-import static joshie.mariculture.modules.seabed.BlockLimestone.Type.*;
+import static joshie.mariculture.modules.abyssal.BlockLimestone.Type.*;
 import static net.minecraft.util.EnumFacing.*;
 
 public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
