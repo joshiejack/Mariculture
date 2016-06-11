@@ -2,7 +2,6 @@ package joshie.mariculture.util;
 
 import joshie.mariculture.helpers.RegistryHelper;
 import joshie.mariculture.helpers.StringHelper;
-import joshie.mariculture.modules.core.Core;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -15,12 +14,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.util.MCTab.getTab;
 
 public class ItemMCEnum<E extends Enum<E>> extends Item implements CreativeSorted {
     protected final E[] values;
     private String unlocalizedName;
     public ItemMCEnum(Class<E> clazz) {
-        this(Core.TAB, clazz);
+        this(getTab("core"), clazz);
     }
 
     public ItemMCEnum(CreativeTabs tab, Class<E> clazz) {

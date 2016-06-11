@@ -3,8 +3,10 @@ package joshie.mariculture.helpers;
 import joshie.mariculture.util.BlockMCEnum;
 import joshie.mariculture.util.ItemBlockMC;
 import joshie.mariculture.util.ItemMCEnum;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -32,8 +34,10 @@ public class RegistryHelper {
         ResourceLocation resource = new ResourceLocation(MODID, name.replace(".", "_"));
         item.setRegistryName(resource);
         GameRegistry.register(item); //Register the item
-        if (isClient() && item instanceof ItemMCEnum) {
-            ((ItemMCEnum)item).registerModels(item, name);
+        if (isClient()) {
+            if (item instanceof ItemMCEnum) {
+                ((ItemMCEnum) item).registerModels(item, name);
+            } else ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(new ResourceLocation(MODID, name), "inventory"));
         }
     }
 }

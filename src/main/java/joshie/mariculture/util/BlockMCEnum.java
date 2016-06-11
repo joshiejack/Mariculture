@@ -2,7 +2,6 @@ package joshie.mariculture.util;
 
 import joshie.mariculture.helpers.RegistryHelper;
 import joshie.mariculture.helpers.StringHelper;
-import joshie.mariculture.modules.core.Core;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.util.MCTab.getTab;
 
 public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B extends BlockMCEnum> extends Block implements CreativeSorted {
     protected static PropertyEnum<?> temporary;
@@ -46,7 +46,7 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
 
     //Constructor default to core tab
     public BlockMCEnum(Material material, Class<E> clazz) {
-        this(material, clazz, Core.TAB);
+        this(material, clazz, getTab("core"));
     }
 
     private static Material preInit(Material material, Class clazz) {

@@ -1,6 +1,9 @@
 package joshie.mariculture.util;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -9,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 
@@ -19,6 +23,7 @@ public class MCTab extends CreativeTabs {
         super(label);
         setBackgroundImageName("mariculture.png");
         setNoTitle();
+        icon = new ItemStack(Blocks.SAND); //Default icon
     }
 
     @Override
@@ -80,5 +85,17 @@ public class MCTab extends CreativeTabs {
 
             return value1 == value2 ? stack1.getDisplayName().compareTo(stack2.getDisplayName()) : value1 > value2 ? 1 : -1;
         }
+    }
+
+    private static final Cache<String, MCTab> TABS = CacheBuilder.newBuilder().build();
+    public static MCTab getTab(final String name) {
+        try {
+            return TABS.get(name, new Callable<MCTab>() {
+                @Override
+                public MCTab call() throws Exception {
+                    return new MCTab(name);
+                }
+            });
+        } catch (Exception e) { return null; }
     }
 }
