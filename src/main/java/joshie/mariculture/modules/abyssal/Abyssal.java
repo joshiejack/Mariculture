@@ -1,13 +1,16 @@
 package joshie.mariculture.modules.abyssal;
 
 import joshie.mariculture.modules.Module;
-import joshie.mariculture.modules.core.Core;
+import joshie.mariculture.modules.abyssal.block.BlockLimestone;
+import net.minecraft.block.state.IBlockState;
 
-import static joshie.mariculture.helpers.RecipeHelper.add4x4Recipe;
-import static joshie.mariculture.helpers.RecipeHelper.addShaped;
-import static joshie.mariculture.helpers.RecipeHelper.addSmelting;
-import static joshie.mariculture.modules.abyssal.BlockLimestone.Type.*;
-import static joshie.mariculture.modules.abyssal.BlockLimestone.Type.BORDERED;
+import static joshie.mariculture.helpers.ConfigHelper.getBlockState;
+import static joshie.mariculture.helpers.ConfigHelper.getBoolean;
+import static joshie.mariculture.helpers.ConfigHelper.getInteger;
+import static joshie.mariculture.helpers.RecipeHelper.*;
+import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
+import static joshie.mariculture.util.MCTab.getTab;
+import static net.minecraft.init.Blocks.SAND;
 
 /** The Abyssal (Seabed/Seafloor) Module is all about changing the ocean floor itself, to make it more interesting
  *  Instead of just the vanilla gravel oceans, it adds a limestone top, covered by sand,
@@ -17,7 +20,7 @@ public class Abyssal {
     public static final BlockLimestone LIMESTONE = new BlockLimestone().setUnlocalizedName("limestone");
 
     public static void preInit() {
-        Core.TAB.setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
+        getTab("core").setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
     }
 
     //Add recipes for all the limestone variants
@@ -30,5 +33,18 @@ public class Abyssal {
         addShaped(LIMESTONE.getStackFromEnum(THIN_BRICK), "XY", "YX", 'X', LIMESTONE.getStackFromEnum(BRICK), 'Y', LIMESTONE.getStackFromEnum(SMALL_BRICK));
         addShaped(LIMESTONE.getStackFromEnum(PILLAR_1), "X", "X", 'X', LIMESTONE.getStackFromEnum(SMOOTH));
         addShaped(LIMESTONE.getStackFromEnum(PEDESTAL_1), "X", "Y", 'X', LIMESTONE.getStackFromEnum(PILLAR_1), 'Y', LIMESTONE.getStackFromEnum(BORDERED));
+    }
+
+    //Configuration options
+    public static boolean OCEAN_REPLACE;
+    public static int OCEAN_FILLER_DEPTH;
+    public static IBlockState OCEAN_FILLER;
+    public static IBlockState OCEAN_SURFACE;
+
+    public static void configure() {
+        OCEAN_REPLACE = getBoolean("Replace Ocean Blocks", true);
+        OCEAN_FILLER_DEPTH = getInteger("Ocean Filler Depth", 5) * 2; //To make it fit the actual input value
+        OCEAN_FILLER = getBlockState("Ocean Filler Block", LIMESTONE.getDefaultState());
+        OCEAN_SURFACE = getBlockState("Ocean Surface Block", SAND.getDefaultState());
     }
 }

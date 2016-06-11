@@ -1,12 +1,13 @@
-package joshie.mariculture.modules.abyssal;
+package joshie.mariculture.modules.abyssal.block;
 
 import joshie.mariculture.helpers.StringHelper;
-import joshie.mariculture.modules.abyssal.BlockLimestone.Type;
+import joshie.mariculture.modules.abyssal.block.BlockLimestone.Type;
 import joshie.mariculture.util.BlockMCEnum;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static joshie.mariculture.lib.CreativeOrder.LIMESTONE;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
-import static joshie.mariculture.modules.abyssal.BlockLimestone.Type.*;
+import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
 import static net.minecraft.util.EnumFacing.*;
 
 public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
@@ -95,7 +96,7 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
 
     @Override
     public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, com.google.common.base.Predicate<IBlockState> target) {
-        return false;
+        return target.apply(Blocks.CLAY.getDefaultState());
     }
 
     @Override
