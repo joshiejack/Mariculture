@@ -24,11 +24,10 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDi
         setCreativeTab(getTab("exploration"));
     }
 
-
     @Override
-    public A setUnlocalizedName(String name) {
+    public A register(String name) {
+        MCItem.super.register(name);
         texture = MODID + ":textures/armor/" + name + ".png";
-        super.setUnlocalizedName(name);
         return (A) this;
     }
 
@@ -40,10 +39,6 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDi
     @Override
     public int getItemEnchantability() {
         return 0;
-    }
-
-    public ItemStack getStack() {
-        return new ItemStack(this);
     }
 
     @Override

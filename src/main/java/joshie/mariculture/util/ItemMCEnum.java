@@ -40,12 +40,6 @@ public class ItemMCEnum<E extends Enum<E>> extends Item implements CreativeSorte
     }
 
     @Override
-    public ItemMCEnum<E> setUnlocalizedName(String name) {
-        super.setUnlocalizedName(name);
-        return this;
-    }
-
-    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String unlocalized = getUnlocalizedName();
         String name = stack.getItem().getUnlocalizedName(stack);

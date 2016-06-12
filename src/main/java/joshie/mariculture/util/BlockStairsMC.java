@@ -13,20 +13,6 @@ public class BlockStairsMC extends BlockStairs implements MCBlock<BlockStairsMC>
         this.setCreativeTab(MCTab.getTab("core"));
     }
 
-    public ItemStack getStack(int amount) {
-        return new ItemStack(this, 1, amount);
-    }
-
-    public ItemStack getStack() {
-        return new ItemStack(this);
-    }
-
-    @Override
-    public BlockStairsMC setUnlocalizedName(String name) {
-        super.setUnlocalizedName(name);
-        return this;
-    }
-
     @Override
     public int getSortValue(ItemStack stack) {
         return sort;

@@ -16,12 +16,6 @@ import net.minecraft.world.World;
 /** Mariculture custom fishing rod **/
 public class ItemFishingRodMC extends ItemFishingRod implements MCItem<ItemFishingRodMC> {
     @Override
-    public ItemFishingRodMC setUnlocalizedName(String name) {
-        super.setUnlocalizedName(name);
-        return this;
-    }
-
-    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (playerIn.fishEntity != null) {
             int i = playerIn.fishEntity.handleHookRetraction();

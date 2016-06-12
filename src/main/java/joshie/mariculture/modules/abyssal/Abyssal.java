@@ -16,7 +16,7 @@ import static net.minecraft.init.Blocks.SAND;
  *  It also will add more interesting features, like deep sea trents, caves, and hydrothermal vents  */
 @Module(name = "abyssal")
 public class Abyssal {
-    public static final BlockLimestone LIMESTONE = new BlockLimestone().setUnlocalizedName("limestone").register();
+    public static final BlockLimestone LIMESTONE = new BlockLimestone().register("limestone");
     public static BlockStairsMC LIMESTONE_STAIRS_RAW;
     public static BlockStairsMC LIMESTONE_STAIRS_SMOOTH;
     public static BlockStairsMC LIMESTONE_STAIRS_BRICK;
@@ -27,12 +27,12 @@ public class Abyssal {
     public static void preInit() {
         getTab("core").setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
         if (LIMESTONE_STAIRS) {
-            LIMESTONE_STAIRS_RAW = new BlockStairsMC(LIMESTONE.getStateFromEnum(RAW), 0).setUnlocalizedName("limestone.raw.stairs").register();
-            LIMESTONE_STAIRS_SMOOTH = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMOOTH), 1).setUnlocalizedName("limestone.smooth.stairs").register();
-            LIMESTONE_STAIRS_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(BRICK), 2).setUnlocalizedName("limestone.brick.stairs").register();
-            LIMESTONE_STAIRS_SMALL_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMALL_BRICK), 3).setUnlocalizedName("limestone.smallbrick.stairs").register();
-            LIMESTONE_STAIRS_THIN_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(THIN_BRICK), 4).setUnlocalizedName("limestone.thinbrick.stairs").register();
-            LIMESTONE_STAIRS_BORDERED = new BlockStairsMC(LIMESTONE.getStateFromEnum(BORDERED), 5).setUnlocalizedName("limestone.bordered.stairs").register();
+            LIMESTONE_STAIRS_RAW = new BlockStairsMC(LIMESTONE.getStateFromEnum(RAW), 0).register("limestone_raw_stairs");
+            LIMESTONE_STAIRS_SMOOTH = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMOOTH), 1).register("limestone_smooth_stairs");
+            LIMESTONE_STAIRS_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(BRICK), 2).register("limestone_brick_stairs");
+            LIMESTONE_STAIRS_SMALL_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMALL_BRICK), 3).register("limestone_smallbrick_stairs");
+            LIMESTONE_STAIRS_THIN_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(THIN_BRICK), 4).register("limestone_thinbrick_stairs");
+            LIMESTONE_STAIRS_BORDERED = new BlockStairsMC(LIMESTONE.getStateFromEnum(BORDERED), 5).register("limestone_bordered_stairs");
         }
     }
 

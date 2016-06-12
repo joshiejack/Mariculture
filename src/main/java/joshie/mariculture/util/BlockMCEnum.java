@@ -131,12 +131,6 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
     }
 
     @Override
-    public B setUnlocalizedName(String name) {
-        super.setUnlocalizedName(name);
-        return (B) this;
-    }
-
-    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String unlocalized = getUnlocalizedName();
         String name = stack.getItem().getUnlocalizedName(stack);
