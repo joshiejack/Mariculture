@@ -18,7 +18,7 @@ import static net.minecraft.init.Items.STRING;
  *  It will see the return of the diving gear and air pump at least */
 @Module(name = "diving")
 public class Diving {
-    public static final ArmorMaterial ARMOR_SNORKEL = EnumHelper.addArmorMaterial("SNORKEL", "SNORKEL", 10, new int[] { 0, 0, 0, 0 }, 0, SoundEvent.REGISTRY.getObject(new ResourceLocation("block.wood.hit")), 0F);
+    public static final ArmorMaterial ARMOR_SNORKEL = EnumHelper.addArmorMaterial("SNORKEL", "SNORKEL", 10, new int[] { 0, 0, 1, 0 }, 20, SoundEvent.REGISTRY.getObject(new ResourceLocation("block.wood.hit")), 0F);
     public static final ItemBuoyancyAid BUOYANCY_AID = new ItemBuoyancyAid().register("buoyancyaid");
 
     public static void preInit() {}
