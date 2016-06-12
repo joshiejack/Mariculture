@@ -1,16 +1,23 @@
 #Mariculture Core Module
 mariculture.tab.core=Mariculture
+mariculture.tab.exploration=Mariculture - Exploration
 
 #Core - Blocks
-mariculture.limestone.raw=Limestone
-mariculture.limestone.smooth=Smooth Limestone
-mariculture.limestone.brick=Limestone Brick
-mariculture.limestone.smallbrick=Limestone Small Brick
-mariculture.limestone.thinbrick=Limestone Thin Brick
-mariculture.limestone.bordered=Bordered Limestone
-mariculture.limestone.chiseled=Chiseled Limestone
-mariculture.limestone.pillar=Limestone Pillar
-mariculture.limestone.pedestal=Limestone Pedestal
+mariculture.tile.limestone.raw=Limestone
+mariculture.tile.limestone.raw.stairs=Limestone Stairs
+mariculture.tile.limestone.smooth=Smooth Limestone
+mariculture.tile.limestone.smooth.stairs=Smooth Limestone Stairs
+mariculture.tile.limestone.brick=Limestone Brick
+mariculture.tile.limestone.brick.stairs=Limestone Brick Stairs
+mariculture.tile.limestone.smallbrick=Limestone Small Brick
+mariculture.tile.limestone.smallbrick.stairs=Limestone Small Brick Stairs
+mariculture.tile.limestone.thinbrick=Limestone Thin Brick
+mariculture.tile.limestone.thinbrick.stairs=Limestone Thin Brick Stairs
+mariculture.tile.limestone.bordered=Bordered Limestone
+mariculture.tile.limestone.bordered.stairs=Bordered Limestone Stairs
+mariculture.tile.limestone.chiseled=Chiseled Limestone
+mariculture.tile.limestone.pillar=Limestone Pillar
+mariculture.tile.limestone.pedestal=Limestone Pedestal
 
 #Diving - Items
-mariculture.buoyancyaid=Buoyancy Aid
+mariculture.item.buoyancyaid=Buoyancy Aid

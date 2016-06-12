@@ -1,6 +1,5 @@
 package joshie.mariculture.util;
 
-import joshie.mariculture.helpers.RegistryHelper;
 import joshie.mariculture.helpers.StringHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,7 +24,7 @@ import java.util.Random;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.util.MCTab.getTab;
 
-public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B extends BlockMCEnum> extends Block implements CreativeSorted {
+public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B extends BlockMCEnum> extends Block implements MCBlock<B> {
     protected static PropertyEnum<?> temporary;
     protected final PropertyEnum<E> property;
     protected final E[] values;
@@ -89,6 +88,10 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
         return new ItemStack(this, 1, e.ordinal());
     }
 
+    public ItemStack getStackFromEnum(E e, int amount) {
+        return new ItemStack(this, amount, e.ordinal());
+    }
+
     public E getEnumFromStack(ItemStack stack) {
         return values[Math.max(0, Math.min(values.length, stack.getItemDamage()))];
     }
@@ -130,16 +133,10 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
     @Override
     public B setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
-        unlocalizedName = MODID + "." + name;
-        RegistryHelper.register(this, name);
         return (B) this;
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return unlocalizedName;
-    }
-
     public String getItemStackDisplayName(ItemStack stack) {
         String unlocalized = getUnlocalizedName();
         String name = stack.getItem().getUnlocalizedName(stack);
@@ -166,6 +163,7 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
     }
 
     @SideOnly(Side.CLIENT)
+    @Override
     public void registerModels(Item item, String name) {
         for (E e: values) {
             ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.getClass().getSimpleName() + "=" + e.getName()));

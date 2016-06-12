@@ -1,7 +1,7 @@
 package joshie.mariculture.modules.fishery.rod;
 
-import joshie.mariculture.helpers.RegistryHelper;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
+import joshie.mariculture.util.MCItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemFishingRod;
@@ -13,23 +13,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-import static joshie.mariculture.lib.MaricultureInfo.MODID;
-
 /** Mariculture custom fishing rod **/
-public class ItemFishingRodMC extends ItemFishingRod {
-    private String unlocalizedName;
-
+public class ItemFishingRodMC extends ItemFishingRod implements MCItem<ItemFishingRodMC> {
     @Override
     public ItemFishingRodMC setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
-        unlocalizedName = MODID + "." + name;
-        RegistryHelper.register(this, name);
         return this;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return unlocalizedName;
     }
 
     @Override
@@ -49,5 +38,10 @@ public class ItemFishingRodMC extends ItemFishingRod {
         }
 
         return new ActionResult(EnumActionResult.SUCCESS, stack);
+    }
+
+    @Override
+    public int getSortValue(ItemStack stack) {
+        return 0;
     }
 }

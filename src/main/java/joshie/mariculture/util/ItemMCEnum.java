@@ -1,6 +1,5 @@
 package joshie.mariculture.util;
 
-import joshie.mariculture.helpers.RegistryHelper;
 import joshie.mariculture.helpers.StringHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,7 +17,6 @@ import static joshie.mariculture.util.MCTab.getTab;
 
 public class ItemMCEnum<E extends Enum<E>> extends Item implements CreativeSorted {
     protected final E[] values;
-    private String unlocalizedName;
     public ItemMCEnum(Class<E> clazz) {
         this(getTab("core"), clazz);
     }
@@ -44,14 +42,7 @@ public class ItemMCEnum<E extends Enum<E>> extends Item implements CreativeSorte
     @Override
     public ItemMCEnum<E> setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
-        unlocalizedName = MODID + "." + name;
-        RegistryHelper.register(this, name);
         return this;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return unlocalizedName;
     }
 
     @Override

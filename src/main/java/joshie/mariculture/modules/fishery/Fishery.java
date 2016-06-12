@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  *  gutting them and processing them */
 @Module(name = "fishery")
 public class Fishery {
-    public static final ItemFishingRodMC FISHING_ROD = new ItemFishingRodMC().setUnlocalizedName("rod");
+    public static final ItemFishingRodMC FISHING_ROD = new ItemFishingRodMC().setUnlocalizedName("rod").register();
 
     //Create the fishing api
     public static void configure() {

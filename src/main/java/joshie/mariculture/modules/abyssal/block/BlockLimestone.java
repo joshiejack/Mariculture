@@ -21,6 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static joshie.mariculture.lib.CreativeOrder.LIMESTONE;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.lib.MaricultureInfo.MODPREFIX;
 import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
 import static net.minecraft.util.EnumFacing.*;
 
@@ -108,12 +109,12 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
         Type type = getEnumFromStack(stack);
         if (type.isPillar) return "pillar";
         else if (type.isPedestal) return "pedestal";
-        else return stack.getItem().getUnlocalizedName(stack);
+        else return type.getName().replace("_", "");
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String unlocalized = getUnlocalizedName();
+        String unlocalized = MODPREFIX + getUnlocalizedName();
         String name = getNameFromStack(stack);
         return StringHelper.localize(unlocalized + "." + name);
     }

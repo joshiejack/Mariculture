@@ -15,6 +15,10 @@ public class RecipeHelper {
     }
 
     public static void add4x4Recipe(ItemStack result, ItemStack input) {
-        addShaped(result, new Object[] { "##", "##", '#', input });
+        addShaped(result, "##", "##", '#', input);
+    }
+
+    public static void addStairRecipe(ItemStack result, ItemStack input) {
+        addShaped(result, "#  ", "## ", "###", '#', input);
     }
 }

@@ -1,3 +1,4 @@
 Mariculture changes the ocean floor to be made of sand and limestone as well as giving you the option to customise this a bit.
 In the Abyssal config you can find options for changing the top block (default sand) and the filler block (default limestone)
 You can also disable this altogther as well as changing how thick the filler layer is.
+There are also config options for setting the ocean depth.

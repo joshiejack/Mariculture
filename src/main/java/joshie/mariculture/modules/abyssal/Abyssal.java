@@ -2,11 +2,10 @@ package joshie.mariculture.modules.abyssal;
 
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.abyssal.block.BlockLimestone;
+import joshie.mariculture.util.BlockStairsMC;
 import net.minecraft.block.state.IBlockState;
 
-import static joshie.mariculture.helpers.ConfigHelper.getBlockState;
-import static joshie.mariculture.helpers.ConfigHelper.getBoolean;
-import static joshie.mariculture.helpers.ConfigHelper.getInteger;
+import static joshie.mariculture.helpers.ConfigHelper.*;
 import static joshie.mariculture.helpers.RecipeHelper.*;
 import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
 import static joshie.mariculture.util.MCTab.getTab;
@@ -17,10 +16,24 @@ import static net.minecraft.init.Blocks.SAND;
  *  It also will add more interesting features, like deep sea trents, caves, and hydrothermal vents  */
 @Module(name = "abyssal")
 public class Abyssal {
-    public static final BlockLimestone LIMESTONE = new BlockLimestone().setUnlocalizedName("limestone");
+    public static final BlockLimestone LIMESTONE = new BlockLimestone().setUnlocalizedName("limestone").register();
+    public static BlockStairsMC LIMESTONE_STAIRS_RAW;
+    public static BlockStairsMC LIMESTONE_STAIRS_SMOOTH;
+    public static BlockStairsMC LIMESTONE_STAIRS_BRICK;
+    public static BlockStairsMC LIMESTONE_STAIRS_SMALL_BRICK;
+    public static BlockStairsMC LIMESTONE_STAIRS_THIN_BRICK;
+    public static BlockStairsMC LIMESTONE_STAIRS_BORDERED;
 
     public static void preInit() {
         getTab("core").setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
+        if (LIMESTONE_STAIRS) {
+            LIMESTONE_STAIRS_RAW = new BlockStairsMC(LIMESTONE.getStateFromEnum(RAW), 0).setUnlocalizedName("limestone.raw.stairs").register();
+            LIMESTONE_STAIRS_SMOOTH = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMOOTH), 1).setUnlocalizedName("limestone.smooth.stairs").register();
+            LIMESTONE_STAIRS_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(BRICK), 2).setUnlocalizedName("limestone.brick.stairs").register();
+            LIMESTONE_STAIRS_SMALL_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMALL_BRICK), 3).setUnlocalizedName("limestone.smallbrick.stairs").register();
+            LIMESTONE_STAIRS_THIN_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(THIN_BRICK), 4).setUnlocalizedName("limestone.thinbrick.stairs").register();
+            LIMESTONE_STAIRS_BORDERED = new BlockStairsMC(LIMESTONE.getStateFromEnum(BORDERED), 5).setUnlocalizedName("limestone.bordered.stairs").register();
+        }
     }
 
     //Add recipes for all the limestone variants
@@ -33,6 +46,16 @@ public class Abyssal {
         addShaped(LIMESTONE.getStackFromEnum(THIN_BRICK), "XY", "YX", 'X', LIMESTONE.getStackFromEnum(BRICK), 'Y', LIMESTONE.getStackFromEnum(SMALL_BRICK));
         addShaped(LIMESTONE.getStackFromEnum(PILLAR_1), "X", "X", 'X', LIMESTONE.getStackFromEnum(SMOOTH));
         addShaped(LIMESTONE.getStackFromEnum(PEDESTAL_1), "X", "Y", 'X', LIMESTONE.getStackFromEnum(PILLAR_1), 'Y', LIMESTONE.getStackFromEnum(BORDERED));
+
+        //Add Stair Recipe if stairs were enabled
+        if (LIMESTONE_STAIRS) {
+            addStairRecipe(LIMESTONE_STAIRS_RAW.getStack(4), LIMESTONE.getStackFromEnum(RAW));
+            addStairRecipe(LIMESTONE_STAIRS_SMOOTH.getStack(4), LIMESTONE.getStackFromEnum(SMOOTH));
+            addStairRecipe(LIMESTONE_STAIRS_BRICK.getStack(4), LIMESTONE.getStackFromEnum(BRICK));
+            addStairRecipe(LIMESTONE_STAIRS_SMALL_BRICK.getStack(4), LIMESTONE.getStackFromEnum(SMALL_BRICK));
+            addStairRecipe(LIMESTONE_STAIRS_THIN_BRICK.getStack(4), LIMESTONE.getStackFromEnum(THIN_BRICK));
+            addStairRecipe(LIMESTONE_STAIRS_BORDERED.getStack(4), LIMESTONE.getStackFromEnum(BORDERED));
+        }
     }
 
     //Configuration options
@@ -40,11 +63,13 @@ public class Abyssal {
     public static int OCEAN_FILLER_DEPTH;
     public static IBlockState OCEAN_FILLER;
     public static IBlockState OCEAN_SURFACE;
+    public static boolean LIMESTONE_STAIRS;
 
     public static void configure() {
         OCEAN_REPLACE = getBoolean("Replace Ocean Blocks", true);
         OCEAN_FILLER_DEPTH = getInteger("Ocean Filler Depth", 5) * 2; //To make it fit the actual input value
         OCEAN_FILLER = getBlockState("Ocean Filler Block", LIMESTONE.getDefaultState());
         OCEAN_SURFACE = getBlockState("Ocean Surface Block", SAND.getDefaultState());
+        LIMESTONE_STAIRS = getBoolean("Enable Limestone Stairs", true);
     }
 }

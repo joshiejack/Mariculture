@@ -1,8 +1,6 @@
 package joshie.mariculture.util;
 
 import joshie.mariculture.api.diving.IDisableHardcoreDiving;
-import joshie.mariculture.helpers.RegistryHelper;
-import joshie.mariculture.helpers.StringHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,8 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.util.MCTab.getTab;
 
-public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDisableHardcoreDiving {
-    private String unlocalizedName;
+public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDisableHardcoreDiving, MCItem<A> {
     @SideOnly(Side.CLIENT)
     private ModelBiped model;
     private String texture;
@@ -27,24 +24,17 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDi
         setCreativeTab(getTab("exploration"));
     }
 
+
     @Override
     public A setUnlocalizedName(String name) {
         texture = MODID + ":textures/armor/" + name + ".png";
         super.setUnlocalizedName(name);
-        unlocalizedName = MODID + "." + name;
-        RegistryHelper.register(this, name);
         return (A) this;
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return unlocalizedName;
-    }
-
-    @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String unlocalized = getUnlocalizedName();
-        return StringHelper.localize(unlocalized);
+        return MCItem.super.getItemStackDisplayName(stack);
     }
 
     @Override
@@ -80,5 +70,10 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDi
     public A setArmorModel(ModelBiped model) {
         this.model = model;
         return (A) this;
+    }
+
+    @Override
+    public int getSortValue(ItemStack stack) {
+        return 0;
     }
 }

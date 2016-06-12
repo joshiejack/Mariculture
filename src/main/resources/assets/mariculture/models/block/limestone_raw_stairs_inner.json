@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "mariculture:blocks/limestone_raw",
+    "top": "mariculture:blocks/limestone_raw",
+    "side": "mariculture:blocks/limestone_raw"
+  }
+}
