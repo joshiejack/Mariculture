@@ -21,4 +21,8 @@ public class RecipeHelper {
     public static void addStairRecipe(ItemStack result, ItemStack input) {
         addShaped(result, "#  ", "## ", "###", '#', input);
     }
+
+    public static void addSlabRecipe(ItemStack result, ItemStack input) {
+        addShaped(result, "###", '#', input);
+    }
 }

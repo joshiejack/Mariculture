@@ -10,12 +10,6 @@ import static joshie.mariculture.Mariculture.instance;
  * 	It cannot be disabled **/
 @Module(name = "core")
 public class Core  {
-    //This is called before anything else, and therefore is the best place to create the API
-    public static void configure() {
-
-    }
-
-    //Make the default tab have the limestone as it's icon
     public static void preInit() {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     }

@@ -1,0 +1,24 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mariculture:limestone_half_slab",
+    "textures": {
+      "all": "mariculture:blocks/limestone_raw"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "half=top,type=raw": [{ "textures": { "all": "mariculture:blocks/limestone_raw" }, "x": 180, "uvlock": true }],
+    "half=bottom,type=raw": [{ "textures": { "all": "mariculture:blocks/limestone_raw" }}],
+    "half=top,type=smooth": [{ "textures": { "all": "mariculture:blocks/limestone_smooth" }, "x": 180, "uvlock": true }],
+    "half=bottom,type=smooth": [{ "textures": { "all": "mariculture:blocks/limestone_smooth" }}],
+    "half=top,type=brick": [{ "textures": { "all": "mariculture:blocks/limestone_brick" }, "x": 180, "uvlock": true }],
+    "half=bottom,type=brick": [{ "textures": { "all": "mariculture:blocks/limestone_brick" }}],
+    "half=top,type=small_brick": [{ "textures": { "all": "mariculture:blocks/limestone_small_brick" }, "x": 180, "uvlock": true }],
+    "half=bottom,type=small_brick": [{ "textures": { "all": "mariculture:blocks/limestone_small_brick" }}],
+    "half=top,type=thin_brick": [{ "textures": { "all": "mariculture:blocks/limestone_thin_brick" }, "x": 180, "uvlock": true }],
+    "half=bottom,type=thin_brick": [{ "textures": { "all": "mariculture:blocks/limestone_thin_brick" }}],
+    "half=top,type=bordered": [{ "textures": { "all": "mariculture:blocks/limestone_bordered" }, "x": 180, "uvlock": true }],
+    "half=bottom,type=bordered": [{ "textures": { "all": "mariculture:blocks/limestone_bordered" }}]
+  }
+}

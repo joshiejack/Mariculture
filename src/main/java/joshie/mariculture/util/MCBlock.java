@@ -14,17 +14,31 @@ public interface MCBlock<T extends Block> extends MCRegistry {
         block.setUnlocalizedName(name.replace("_", "."));
         block.setRegistryName(new ResourceLocation(MODID, name));
         GameRegistry.register(block);
-        new ItemBlockMC(this).register(name); //Register the item block
+        getItemBlock().register(name); //Register the item block
+        return (T) this;
+    }
+
+    /** Register this block WITHOUT assigning the item **/
+    default T registerWithoutItem(String name) {
+        Block block = (Block) this;
+        block.setUnlocalizedName(name.replace("_", "."));
+        block.setRegistryName(new ResourceLocation(MODID, name));
+        GameRegistry.register(block);
         return (T) this;
     }
 
     /** Return a stack version of this **/
     default ItemStack getStack(int amount) {
-        return new ItemStack((T) this, 1, amount);
+        return new ItemStack((T) this, amount);
     }
 
     /** Return this without any data **/
     default ItemStack getStack() {
         return new ItemStack((T) this);
+    }
+
+    /** Get the item block **/
+    default MCItem getItemBlock() {
+        return new ItemBlockMC(this);
     }
 }

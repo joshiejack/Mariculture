@@ -2,6 +2,8 @@ package joshie.mariculture.modules.abyssal;
 
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.abyssal.block.BlockLimestone;
+import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab;
+import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab.Type;
 import joshie.mariculture.util.BlockStairsMC;
 import net.minecraft.block.state.IBlockState;
 
@@ -23,16 +25,25 @@ public class Abyssal {
     public static BlockStairsMC LIMESTONE_STAIRS_SMALL_BRICK;
     public static BlockStairsMC LIMESTONE_STAIRS_THIN_BRICK;
     public static BlockStairsMC LIMESTONE_STAIRS_BORDERED;
+    public static BlockLimestoneSlab LIMESTONE_SLAB;
+    public static BlockLimestoneSlab LIMESTONE_SLAB_DOUBLE;
 
     public static void preInit() {
         getTab("core").setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
         if (LIMESTONE_STAIRS) {
-            LIMESTONE_STAIRS_RAW = new BlockStairsMC(LIMESTONE.getStateFromEnum(RAW), 0).register("limestone_raw_stairs");
-            LIMESTONE_STAIRS_SMOOTH = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMOOTH), 1).register("limestone_smooth_stairs");
-            LIMESTONE_STAIRS_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(BRICK), 2).register("limestone_brick_stairs");
-            LIMESTONE_STAIRS_SMALL_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMALL_BRICK), 3).register("limestone_smallbrick_stairs");
-            LIMESTONE_STAIRS_THIN_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(THIN_BRICK), 4).register("limestone_thinbrick_stairs");
-            LIMESTONE_STAIRS_BORDERED = new BlockStairsMC(LIMESTONE.getStateFromEnum(BORDERED), 5).register("limestone_bordered_stairs");
+            LIMESTONE_STAIRS_RAW = new BlockStairsMC(LIMESTONE.getStateFromEnum(RAW)).register("limestone_raw_stairs");
+            LIMESTONE_STAIRS_SMOOTH = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMOOTH)).register("limestone_smooth_stairs");
+            LIMESTONE_STAIRS_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(BRICK)).register("limestone_brick_stairs");
+            LIMESTONE_STAIRS_SMALL_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMALL_BRICK)).register("limestone_smallbrick_stairs");
+            LIMESTONE_STAIRS_THIN_BRICK = new BlockStairsMC(LIMESTONE.getStateFromEnum(THIN_BRICK)).register("limestone_thinbrick_stairs");
+            LIMESTONE_STAIRS_BORDERED = new BlockStairsMC(LIMESTONE.getStateFromEnum(BORDERED)).register("limestone_bordered_stairs");
+        }
+
+        if (LIMESTONE_SLABS) {
+            LIMESTONE_SLAB = new BlockLimestoneSlab.Half().registerWithoutItem("limestone_slab");
+            LIMESTONE_SLAB_DOUBLE = new BlockLimestoneSlab.Double().registerWithoutItem("limestone_slab_double");
+            LIMESTONE_SLAB.getItemBlock().register("limestone_slab");
+            LIMESTONE.getItemBlock().register("limestone_slab_double");
         }
     }
 
@@ -56,6 +67,16 @@ public class Abyssal {
             addStairRecipe(LIMESTONE_STAIRS_THIN_BRICK.getStack(4), LIMESTONE.getStackFromEnum(THIN_BRICK));
             addStairRecipe(LIMESTONE_STAIRS_BORDERED.getStack(4), LIMESTONE.getStackFromEnum(BORDERED));
         }
+
+        //Add Slab Recipe if slabs were enable
+        if (LIMESTONE_SLABS) {
+            addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.RAW, 6), LIMESTONE.getStackFromEnum(RAW));
+            addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.SMOOTH, 6), LIMESTONE.getStackFromEnum(SMOOTH));
+            addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.BRICK, 6), LIMESTONE.getStackFromEnum(BRICK));
+            addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.SMALL_BRICK, 6), LIMESTONE.getStackFromEnum(SMALL_BRICK));
+            addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.THIN_BRICK, 6), LIMESTONE.getStackFromEnum(THIN_BRICK));
+            addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.BORDERED, 6), LIMESTONE.getStackFromEnum(BORDERED));
+        }
     }
 
     //Configuration options
@@ -64,6 +85,7 @@ public class Abyssal {
     public static IBlockState OCEAN_FILLER;
     public static IBlockState OCEAN_SURFACE;
     public static boolean LIMESTONE_STAIRS;
+    public static boolean LIMESTONE_SLABS;
 
     public static void configure() {
         OCEAN_REPLACE = getBoolean("Replace Ocean Blocks", true);
@@ -71,5 +93,6 @@ public class Abyssal {
         OCEAN_FILLER = getBlockState("Ocean Filler Block", LIMESTONE.getDefaultState());
         OCEAN_SURFACE = getBlockState("Ocean Surface Block", SAND.getDefaultState());
         LIMESTONE_STAIRS = getBoolean("Enable Limestone Stairs", true);
+        LIMESTONE_SLABS = getBoolean("Enable Limestone Slabs", true);
     }
 }

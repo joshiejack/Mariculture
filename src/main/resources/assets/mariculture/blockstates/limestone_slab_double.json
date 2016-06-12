@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "type": {
+      "raw": { "textures": { "all": "mariculture:blocks/limestone_raw" } },
+      "smooth": { "textures": { "all": "mariculture:blocks/limestone_smooth" } },
+      "brick": { "textures": { "all": "mariculture:blocks/limestone_brick" } },
+      "small_brick": { "textures": { "all": "mariculture:blocks/limestone_small_brick" } },
+      "thin_brick": { "textures": { "all": "mariculture:blocks/limestone_thin_brick" } },
+      "bordered": { "textures": { "all": "mariculture:blocks/limestone_bordered" } }
+    }
+  }
+}

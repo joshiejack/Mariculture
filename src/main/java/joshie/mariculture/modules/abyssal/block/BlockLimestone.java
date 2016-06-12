@@ -105,11 +105,12 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
         return type.ordinal() <= PILLAR_1.ordinal() || type.ordinal() == PEDESTAL_1.ordinal();
     }
 
-    private String getNameFromStack(ItemStack stack) {
+    @Override
+    protected String getNameFromStack(ItemStack stack) {
         Type type = getEnumFromStack(stack);
         if (type.isPillar) return "pillar";
         else if (type.isPedestal) return "pedestal";
-        else return type.getName().replace("_", "");
+        else return super.getNameFromStack(stack);
     }
 
     @Override
@@ -121,7 +122,7 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
 
     @Override
     public int getSortValue(ItemStack stack) {
-        return LIMESTONE + getEnumFromStack(stack).ordinal();
+        return LIMESTONE + stack.getItemDamage();
     }
 
     @SideOnly(Side.CLIENT)

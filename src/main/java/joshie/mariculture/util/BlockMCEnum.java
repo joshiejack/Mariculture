@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Random;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.lib.MaricultureInfo.MODPREFIX;
 import static joshie.mariculture.util.MCTab.getTab;
 
 public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B extends BlockMCEnum> extends Block implements MCBlock<B> {
     protected static PropertyEnum<?> temporary;
     protected final PropertyEnum<E> property;
     protected final E[] values;
-    private String unlocalizedName;
 
     //Main Constructor
     public BlockMCEnum(Material material, Class<E> clazz, CreativeTabs tab) {
@@ -132,9 +132,13 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String unlocalized = getUnlocalizedName();
-        String name = stack.getItem().getUnlocalizedName(stack);
+        String unlocalized = MODPREFIX + getUnlocalizedName();
+        String name = getNameFromStack(stack);
         return StringHelper.localize(unlocalized + "." + name);
+    }
+
+    protected String getNameFromStack(ItemStack stack) {
+        return getEnumFromStack(stack).getName().replace("_", "");
     }
 
     protected boolean isInCreative(E e) {
