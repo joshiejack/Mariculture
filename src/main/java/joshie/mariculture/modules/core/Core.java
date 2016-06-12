@@ -1,9 +1,7 @@
 package joshie.mariculture.modules.core;
 
-import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.handlers.GuiHandler;
 import joshie.mariculture.modules.Module;
-import joshie.mariculture.modules.fishery.FishingAPI;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import static joshie.mariculture.Mariculture.instance;
@@ -14,7 +12,7 @@ import static joshie.mariculture.Mariculture.instance;
 public class Core  {
     //This is called before anything else, and therefore is the best place to create the API
     public static void configure() {
-        MaricultureAPI.fishing = new FishingAPI();
+
     }
 
     //Make the default tab have the limestone as it's icon
