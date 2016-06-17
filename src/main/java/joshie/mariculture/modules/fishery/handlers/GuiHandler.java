@@ -1,4 +1,4 @@
-package joshie.mariculture.handlers;
+package joshie.mariculture.modules.fishery.handlers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
