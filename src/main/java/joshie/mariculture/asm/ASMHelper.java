@@ -1,4 +1,4 @@
-package joshie.mariculture.modules.core.asm;
+package joshie.mariculture.asm;
 
 import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import org.apache.commons.lang3.tuple.Pair;

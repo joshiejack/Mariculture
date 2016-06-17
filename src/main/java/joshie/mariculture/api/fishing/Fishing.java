@@ -18,7 +18,9 @@ public interface Fishing {
      *  @return the salinity of the biome**/
     Salinity getSalinityForBiome(Biome biome);
 
-    /** Register a biome as a specific salinity **/
+    /** Register a biome as a specific salinity
+     * @param biome the biome you're registering
+     * @param salinity the salinity of this biome**/
     void registerBiomeAsSalinity(Biome biome, Salinity salinity);
 
     /** Salinity of water **/

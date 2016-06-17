@@ -5,7 +5,7 @@ import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.fishery.loot.*;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
-import joshie.mariculture.modules.fishery.rod.ItemFishingRodMC;
+import joshie.mariculture.modules.fishery.item.ItemFishingRodMC;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.client.renderer.entity.RenderManager;

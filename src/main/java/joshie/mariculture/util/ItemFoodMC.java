@@ -4,6 +4,7 @@ import joshie.mariculture.helpers.StringHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -15,16 +16,31 @@ import java.util.List;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.util.MCTab.getTab;
 
-public class ItemMCEnum<E extends Enum<E>> extends Item implements MCItem {
+public abstract class ItemFoodMC<E extends Enum<E>> extends ItemFood implements MCItem {
     protected final E[] values;
-    public ItemMCEnum(Class<E> clazz) {
+    public ItemFoodMC(Class<E> clazz) {
         this(getTab("core"), clazz);
     }
 
-    public ItemMCEnum(CreativeTabs tab, Class<E> clazz) {
+    public ItemFoodMC(CreativeTabs tab, Class<E> clazz) {
+        super(0, 0.0F, false);
         values = clazz.getEnumConstants();
         setHasSubtypes(true);
     }
+
+    @Override
+    public int getHealAmount(ItemStack stack) {
+        return getHealAmount(getEnumFromStack(stack));
+    }
+
+    public abstract int getHealAmount(E e);
+
+    @Override
+    public float getSaturationModifier(ItemStack stack) {
+        return getSaturationModifier(getEnumFromStack(stack));
+    }
+
+    public abstract float getSaturationModifier(E e);
 
     public ItemStack getStackFromEnum(E e) {
         return new ItemStack(this, 1, e.ordinal());

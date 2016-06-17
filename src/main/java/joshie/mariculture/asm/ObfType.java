@@ -1,4 +1,4 @@
-package joshie.mariculture.modules.core.asm;
+package joshie.mariculture.asm;
 
 public enum ObfType {
     NOTCH, FUNC, NAMED;

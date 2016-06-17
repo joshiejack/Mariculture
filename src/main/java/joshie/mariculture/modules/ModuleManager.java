@@ -14,10 +14,7 @@ import org.apache.logging.log4j.Level;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static joshie.mariculture.Mariculture.root;
 import static joshie.mariculture.lib.MaricultureInfo.MODNAME;
@@ -40,7 +37,7 @@ public abstract class ModuleManager {
 				Map<String, Object> data = asmData.getAnnotationInfo();
 				String name = (String) data.get("name");
 				boolean isEnabledByDefault = data.get("disableByDefault") != null ? !(Boolean) data.get("disableByDefault") : true;
-				String dependencies = data.get("modules") != null ? (String) data.get("modules") : "core";
+				String dependencies = data.get("modules") != null ? (String) data.get("modules") : "";
 				String type = "Modules";
 
 				//Mod Check
@@ -55,8 +52,8 @@ public abstract class ModuleManager {
 					type = "Plugins";
 				}
 
-				//If the
-				if (name.equals("core") || isModuleEnabled(new Configuration(new File(root, type.toLowerCase() + ".cfg")), type, name, isEnabledByDefault)) {
+				//If the module is enabled
+				if (isModuleEnabled(new Configuration(new File(root, type.toLowerCase() + ".cfg")), type, name, isEnabledByDefault)) {
 					enabled.add(name);
 					Class<?> asmClass = Class.forName(asmData.getClassName());
 					moduleData.put(name, Triple.of(asmClass, type, dependencies));
@@ -66,7 +63,9 @@ public abstract class ModuleManager {
 
 		for (String module: enabled) {
 			Triple<Class<?>, String, String> data = moduleData.get(module);
-			if (enabled.containsAll(Lists.newArrayList(data.getRight().split(",")))) {
+			String dependencyList = data.getRight();
+			List<String> dependencies = Lists.newArrayList(dependencyList.split(","));
+			if (dependencyList.equals("") || enabled.containsAll(dependencies)) {
 				try {
 					ModuleManager.enabled.put(module, data.getLeft());
                     Mariculture.logger.log(Level.INFO, "Enabling the " + WordUtils.capitalize(module) + " " + data.getMiddle().replace("s", "") + "!");

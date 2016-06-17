@@ -1,4 +1,4 @@
-package joshie.mariculture.modules.core.asm;
+package joshie.mariculture.asm;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;

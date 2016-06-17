@@ -1,9 +1,9 @@
-package joshie.mariculture.modules.core.asm;
+package joshie.mariculture.asm;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import joshie.mariculture.modules.core.asm.hooks.ASMFishHook;
+import joshie.mariculture.asm.hooks.ASMFishHook;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

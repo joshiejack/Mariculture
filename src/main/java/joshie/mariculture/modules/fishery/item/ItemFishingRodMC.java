@@ -1,4 +1,4 @@
-package joshie.mariculture.modules.fishery.rod;
+package joshie.mariculture.modules.fishery.item;
 
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
 import joshie.mariculture.util.MCItem;

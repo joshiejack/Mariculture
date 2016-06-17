@@ -62,7 +62,7 @@ processResources
 
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'joshie.mariculture.modules.core.VanillaHooks'
+        attributes 'FMLCorePlugin': 'joshie.mariculture.VanillaHooks'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }

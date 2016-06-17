@@ -1,7 +1,10 @@
-package joshie.mariculture.modules.core;
+package joshie.mariculture;
 
-import joshie.mariculture.modules.core.asm.*;
-import joshie.mariculture.modules.core.asm.hooks.ASMFishHook;
+import joshie.mariculture.asm.ASMConfig;
+import joshie.mariculture.asm.ASMHelper;
+import joshie.mariculture.asm.ASMType;
+import joshie.mariculture.asm.AbstractASM;
+import joshie.mariculture.asm.hooks.ASMFishHook;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;

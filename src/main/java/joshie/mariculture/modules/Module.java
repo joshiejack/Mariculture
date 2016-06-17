@@ -17,7 +17,7 @@ public @interface Module {
 
     /** Comma separated list of modules required,
      *  By default, all modules require core to be enabled **/
-    String modules() default "core";
+    String modules() default "";
 
     /** Comma separated list of mods required to enabled,
      *  By default, requires no mods **/
