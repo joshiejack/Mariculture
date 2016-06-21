@@ -47,7 +47,7 @@ public class WorldEventHandler {
 
                 for (int k = 0; k < 16; ++k) {
                     for (int l = 0; l < 16; ++l) {
-                        BiomeGenBase biome = event.biomeArray[l + k * 16];
+                        BiomeGenBase biome = event.biomeArray[l * 16 + k];
                         if (BiomeDictionary.isBiomeOfType(biome, Type.WATER) || BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
                             if (WorldGen.VARYING_LIMESTONE) {
                                 if (BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
