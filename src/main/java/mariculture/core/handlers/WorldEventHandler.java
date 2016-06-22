@@ -69,8 +69,8 @@ public class WorldEventHandler {
 
     public static final void genBiomeTerrain(World world, Random rand, Block[] blocksArray, byte[] metaArray, int x, int z, double noise, BiomeGenBase biome, double depth) {
         Block seabed = WorldGen.LIMESTONE_FLOOR ? Core.limestone : Blocks.sandstone;
-        Block topBlock = Blocks.grass;
-        Block fillerBlock = Blocks.dirt;
+        Block topBlock = biome.topBlock;
+        Block fillerBlock = biome.fillerBlock;
         boolean flag = true;
         Block block = topBlock;
         byte b0 = 0;
