@@ -21,9 +21,11 @@ public class ASMConfig {
     public static boolean isEnabled(Class clazz) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         File file = new File("config//" + MODID + "//asm.json");
-        ASMConfig config = null;
-        if (!file.exists()) writeConfig(gson, file, new ASMConfig().setDefaults());
-        else config = getExistingConfig(gson, file);
+        ASMConfig config;
+        if (!file.exists()) {
+            config = new ASMConfig().setDefaults();
+            writeConfig(gson, file, config);
+        } else config = getExistingConfig(gson, file);
 
         if (config.asmEnabled.get(clazz.getSimpleName()) == null) {
             config.asmEnabled.put(clazz.getSimpleName(), true);

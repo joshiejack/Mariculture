@@ -27,6 +27,8 @@ public interface MCBlock<T extends Block> extends MCRegistry {
         return (T) this;
     }
 
+    String getItemStackDisplayName(ItemStack stack);
+
     /** Return a stack version of this **/
     default ItemStack getStack(int amount) {
         return new ItemStack((T) this, amount);

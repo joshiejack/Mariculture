@@ -26,4 +26,6 @@ mariculture.tile.limestone.pillar=Limestone Pillar
 mariculture.tile.limestone.pedestal=Limestone Pedestal
 
 #Diving - Items
+mariculture.item.snorkel=Snorkel
 mariculture.item.buoyancyaid=Buoyancy Aid
+mariculture.item.diving.component.lens=Snorkel Lens

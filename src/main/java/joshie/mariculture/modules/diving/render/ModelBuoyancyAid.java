@@ -1,13 +1,9 @@
 package joshie.mariculture.modules.diving.render;
 
-import net.minecraft.client.model.ModelBiped;
+import joshie.mariculture.util.ModelArmor;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.Entity;
 
-public class ModelBuoyancyAid extends ModelBiped {
-    private static final float scale = (float) (1.0 / 20.0);
-    private ModelBiped default_;
+public class ModelBuoyancyAid extends ModelArmor {
     private ModelRenderer log;
     private ModelRenderer strap1;
     private ModelRenderer strap2;
@@ -60,58 +56,20 @@ public class ModelBuoyancyAid extends ModelBiped {
         strap6.setRotationPoint(0F, 0F, 0F);
         strap6.setTextureSize(64, 64);
         strap6.mirror = true;
-    }
+        setRotation(strap6, 0.5204921F, 0F, 0F);
 
-    public ModelBuoyancyAid setBiped(ModelBiped biped) {
-        this.default_ = biped;
-        return this;
-    }
-
-    private void setOffsetAndAngle(ModelRenderer renderer, float offset, float angle) {
-        renderer.offsetY = offset;
-        renderer.rotateAngleX = angle;
+        log.addChild(strap1);
+        log.addChild(strap2);
+        log.addChild(strap3);
+        log.addChild(strap4);
+        log.addChild(strap5);
+        log.addChild(strap6);
     }
 
     @Override
-    public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-        GlStateManager.pushMatrix();
-        GlStateManager.disableLighting();
-        GlStateManager.scale(1.0F, 1.0F, 1.0F);
-        GlStateManager.translate(0F, -0.0129F, 0.0F);
-
-        log.rotateAngleY = 0.0F;
-        if (entity.isSneaking()) {
-            setOffsetAndAngle(log, 0.25F, 0.5F);
-            setOffsetAndAngle(strap1, 0.25F, 1.204921F);
-            setOffsetAndAngle(strap2, 0.25F, 0.5F);
-            setOffsetAndAngle(strap3, 0.25F, -0.0205006F);
-            setOffsetAndAngle(strap4, 0.25F, -0.0205006F);
-            setOffsetAndAngle(strap5, 0.25F, 0.5F);
-            setOffsetAndAngle(strap6, 0.25F, 1.204921F);
-        } else {
-            setOffsetAndAngle(log, 0.0F, 0.0F);
-            setOffsetAndAngle(strap1, 0.0F, 0.5204921F);
-            setOffsetAndAngle(strap2, 0.0F, 0.0F);
-            setOffsetAndAngle(strap3, 0.0F, -0.5205006F);
-            setOffsetAndAngle(strap4, 0.0F, -0.5205006F);
-            setOffsetAndAngle(strap5, 0.0F, 0.0F);
-            setOffsetAndAngle(strap6, 0.0F, 0.5204921F);
-        }
-
-        log.render(scale);
-        strap1.render(scale);
-        strap2.render(scale);
-        strap3.render(scale);
-        strap4.render(scale);
-        strap5.render(scale);
-        strap6.render(scale);
-        GlStateManager.enableLighting();
-        GlStateManager.popMatrix();
-    }
-
-    private void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+    public void updateRender() {
+        bipedHead.showModel = false;
+        bipedHeadwear.showModel = false;
+        bipedBody = log;
     }
 }

@@ -1,13 +1,13 @@
 package joshie.mariculture.util;
 
 import joshie.mariculture.api.diving.IDisableHardcoreDiving;
+import joshie.mariculture.helpers.StringHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -33,22 +33,8 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDi
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return MCItem.super.getItemStackDisplayName(stack);
+        return StringHelper.localize(MODID + "." + getUnlocalizedName());
     }
-
-    @Override
-    public int getItemEnchantability() {
-        return 0;
-    }
-
-    @Override
-    public void onUpdate(ItemStack stack, World world, Entity player, int slot, boolean isSelected) {
-        if (slot == armorType.getIndex()) {
-            onArmorUpdate(world, player, stack);
-        }
-    }
-
-    public void onArmorUpdate(World world, Entity player, ItemStack stack) {}
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {

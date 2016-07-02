@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 
 /** Classes annotated with this automatically get registered
- *  to the minecraftforge event bus is the modules are active. */
+ *  to the minecraft forge event bus is the modules are active. */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface EventContainer {

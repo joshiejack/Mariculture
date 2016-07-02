@@ -1,28 +1,40 @@
 package joshie.mariculture.modules.fishery.entity;
 
 import io.netty.buffer.ByteBuf;
+import joshie.mariculture.api.MaricultureAPI;
+import joshie.mariculture.api.fishing.FishingTrait;
 import joshie.mariculture.modules.fishery.Fishery;
+import joshie.mariculture.modules.fishery.utils.FishingRodHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import java.util.List;
 
-/** This class exists simply because vanilla checks for fishing rod instead of instanceof ItemFishingRod **/
+/**
+ * This class exists simply because vanilla checks for fishing rod instead of instanceof ItemFishingRod
+ **/
 public class EntityFishHookMC extends EntityFishHook implements IEntityAdditionalSpawnData {
-    public EntityFishHookMC(World world, EntityPlayer player) {
+    private ItemStack bait;
+
+    public EntityFishHookMC(World world, EntityPlayer player, ItemStack bait) {
         super(world, player);
+        this.bait = bait;
     }
 
     public EntityFishHookMC(World world) {
@@ -38,10 +50,9 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                 caughtEntity = worldObj.getEntityByID(i - 1);
             }
         } else {
-            ItemStack itemstack = angler.getHeldItemMainhand();
-            if (angler.isDead || !angler.isEntityAlive() || itemstack == null || itemstack.getItem() != Fishery.FISHING_ROD || getDistanceSqToEntity(angler) > 1024.0D) {
+            if (angler == null || angler.isDead || !angler.isEntityAlive() || angler.getHeldItemMainhand() == null || angler.getHeldItemMainhand().getItem() != Fishery.FISHING_ROD || getDistanceSqToEntity(angler) > 1024.0D) {
                 setDead();
-                angler.fishEntity = null;
+                if (angler != null) angler.fishEntity = null;
                 return;
             }
         }
@@ -283,6 +294,77 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                 motionZ *= (double) f3;
                 setPosition(posX, posY, posZ);
             }
+        }
+    }
+
+    @Override
+    public int handleHookRetraction() {
+        if (worldObj.isRemote) {
+            return 0;
+        } else {
+            int i = 0;
+
+            if (caughtEntity != null) {
+                bringInHookedEntity();
+                worldObj.setEntityState(this, (byte) 31);
+                i = caughtEntity instanceof EntityItem ? 3 : 5;
+            } else if (ticksCatchable > 0) {
+                LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) worldObj);
+                float luck = (float) EnchantmentHelper.getLuckOfSeaModifier(angler) + angler.getLuck();
+                for (FishingTrait trait: FishingRodHelper.getTraits(angler.getHeldItemMainhand())) {
+                    luck = trait.modifyLuck(angler, rand, luck);
+                }
+
+                lootcontext$builder.withLuck(luck);
+                lootcontext$builder.withPlayer(angler);
+                lootcontext$builder.withLootedEntity(this);
+
+                for (ItemStack itemstack : worldObj.getLootTableManager().getLootTableFromLocation(MaricultureAPI.fishing.getLootTableFromBait(bait)).generateLootForPools(rand, lootcontext$builder.build())) {
+                    EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, itemstack);
+                    double d0 = angler.posX - posX;
+                    double d1 = angler.posY - posY;
+                    double d2 = angler.posZ - posZ;
+                    double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+                    double d4 = 0.1D;
+                    entityitem.motionX = d0 * d4;
+                    entityitem.motionY = d1 * d4 + (double) MathHelper.sqrt_double(d3) * 0.08D;
+                    entityitem.motionZ = d2 * d4;
+                    worldObj.spawnEntityInWorld(entityitem);
+
+                    int xp = rand.nextInt(6) + 1;
+                    for (FishingTrait trait: FishingRodHelper.getTraits(angler.getHeldItemMainhand())) {
+                        xp = trait.modifyXP(angler, itemstack, rand, xp);
+                    }
+
+                    angler.worldObj.spawnEntityInWorld(new EntityXPOrb(angler.worldObj, angler.posX, angler.posY + 0.5D, angler.posZ + 0.5D, xp));
+                }
+
+                i = 1;
+            }
+
+            if (inGround) {
+                i = 2;
+            }
+
+            setDead();
+            angler.fishEntity = null;
+            return i;
+        }
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        if (bait != null) {
+            compound.setTag("Bait", bait.writeToNBT(new NBTTagCompound()));
+        }
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
+        if (compound.hasKey("Bait")) {
+            bait = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("Bait"));
         }
     }
 

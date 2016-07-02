@@ -1,5 +1,6 @@
 package joshie.mariculture.util;
 
+import joshie.mariculture.helpers.StringHelper;
 import joshie.mariculture.lib.CreativeOrder;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
@@ -37,5 +38,10 @@ public class BlockStairsMC extends BlockStairs implements MCBlock<BlockStairsMC>
     @Override
     public int getHarvestLevel(IBlockState state) {
         return 0;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return StringHelper.translate(getUnlocalizedName());
     }
 }

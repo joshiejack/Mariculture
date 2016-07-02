@@ -1,7 +1,11 @@
 package joshie.mariculture.asm.hooks;
 
 import joshie.mariculture.asm.AbstractASM;
-import org.objectweb.asm.*;
+import net.minecraftforge.fml.common.Loader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 import static org.objectweb.asm.Opcodes.*;
 
@@ -14,7 +18,9 @@ import static org.objectweb.asm.Opcodes.*;
 public class ASMFishHook extends AbstractASM {
     @Override
     public boolean isClass(String name) {
-        return name.equals("net.minecraft.entity.projectile.EntityFishHook") || name.equals("xw");
+        return name.equals("net.minecraft.entity.projectile.EntityFishHook") ||
+                (Loader.MC_VERSION.equals("1.9.4") && name.equals("xw")) ||
+                (Loader.MC_VERSION.equals("1.10.2") && name.equals("yd") );
     }
 
     @Override
@@ -35,7 +41,9 @@ public class ASMFishHook extends AbstractASM {
                     @Override
                     public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
                         super.visitMethodInsn(opcode, owner, name, desc, itf);
-                        if (name.equals("withLuck") || name.equals("func_186469_a")|| (name.equals("a") && desc.equals("(F)Lazx$a;"))) {
+                        if (name.equals("withLuck") || name.equals("func_186469_a")|| (name.equals("a") &&
+                                ((desc.equals("(F)Lazx$a;") && Loader.MC_VERSION.equals("1.9.4")) ||
+                                (desc.equals("(F)Lbaq$a;") && Loader.MC_VERSION.equals("1.10.2"))))) {
                             String angler = name.equals("withLuck") ? "angler" : "field_146042_b";
                             String withPlayer = name.equals("withLuck") ? "withPlayer" : "func_186470_a";
                             String withLootedEntity = name.equals("withLuck") ? "withLootedEntity" : "func_186472_a" ;

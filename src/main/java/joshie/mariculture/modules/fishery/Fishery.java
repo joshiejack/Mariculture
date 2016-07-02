@@ -4,11 +4,11 @@ import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
-import joshie.mariculture.modules.fishery.handlers.GuiHandler;
 import joshie.mariculture.modules.fishery.item.ItemFishingRodMC;
 import joshie.mariculture.modules.fishery.loot.*;
+import joshie.mariculture.modules.fishery.render.RenderBobber;
+import joshie.mariculture.modules.fishery.utils.GuiHandler;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -47,7 +47,7 @@ public class Fishery {
         RenderingRegistry.registerEntityRenderingHandler(EntityFishHookMC.class, new IRenderFactory<EntityFishHookMC>() {
             @Override
             public Render<? super EntityFishHookMC> createRenderFor(RenderManager manager) {
-                return new RenderFish(manager);
+                return new RenderBobber(manager);
             }
         });
     }

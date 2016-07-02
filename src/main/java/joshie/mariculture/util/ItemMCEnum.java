@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -15,7 +15,7 @@ import java.util.List;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.util.MCTab.getTab;
 
-public class ItemMCEnum<E extends Enum<E>> extends Item implements MCItem {
+public class ItemMCEnum<A extends ItemMCEnum, E extends Enum<E> & IStringSerializable> extends Item implements MCItem<A> {
     protected final E[] values;
     public ItemMCEnum(Class<E> clazz) {
         this(getTab("core"), clazz);
@@ -23,7 +23,14 @@ public class ItemMCEnum<E extends Enum<E>> extends Item implements MCItem {
 
     public ItemMCEnum(CreativeTabs tab, Class<E> clazz) {
         values = clazz.getEnumConstants();
+        setCreativeTab(tab);
         setHasSubtypes(true);
+    }
+
+    @Override
+    public A register(String name) {
+        MCItem.super.register(name);
+        return (A) this;
     }
 
     public ItemStack getStackFromEnum(E e) {
@@ -41,9 +48,12 @@ public class ItemMCEnum<E extends Enum<E>> extends Item implements MCItem {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String unlocalized = getUnlocalizedName();
-        String name = stack.getItem().getUnlocalizedName(stack);
-        return StringHelper.localize(unlocalized + "." + name);
+        return StringHelper.localize(getUnlocalizedName(stack));
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return MODID + "." + getUnlocalizedName() + "." + getEnumFromStack(stack).name().toLowerCase();
     }
 
     @Override
@@ -61,8 +71,8 @@ public class ItemMCEnum<E extends Enum<E>> extends Item implements MCItem {
 
     @SideOnly(Side.CLIENT)
     public void registerModels(Item item, String name) {
-        for (int i = 0; i < values.length; i++) {
-            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_" + values[i].name().toLowerCase()), "inventory"));
+        for (E e: values) {
+            ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.getName()));
         }
     }
 }
