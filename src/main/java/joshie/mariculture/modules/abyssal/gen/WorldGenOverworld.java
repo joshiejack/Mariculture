@@ -1,6 +1,7 @@
-package joshie.mariculture.modules.abyssal;
+package joshie.mariculture.modules.abyssal.gen;
 
-import joshie.mariculture.modules.EventContainer;
+import joshie.mariculture.api.gen.IWorldGen;
+import joshie.mariculture.modules.abyssal.Abyssal;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,25 +12,46 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
-import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.world.gen.MapGenBase;
 
 import java.util.Random;
 
 import static joshie.mariculture.modules.abyssal.Abyssal.OCEAN_FILLER_DEPTH;
 
-@EventContainer(modules = "abyssal")
-public class SandyOcean {
-    private static final IBlockState AIR = Blocks.AIR.getDefaultState();
-    private static final IBlockState STONE = Blocks.STONE.getDefaultState();
-    private static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
-    private static final IBlockState ICE = Blocks.ICE.getDefaultState();
-    private static final IBlockState WATER = Blocks.WATER.getDefaultState();
-    private static final IBlockState SANDSTONE = Blocks.SANDSTONE.getDefaultState();
-    private static final IBlockState RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
+public class WorldGenOverworld implements IWorldGen<ChunkProviderOverworld> {
+    static final IBlockState AIR = Blocks.AIR.getDefaultState();
+    static final IBlockState STONE = Blocks.STONE.getDefaultState();
+    static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
+    static final IBlockState ICE = Blocks.ICE.getDefaultState();
+    static final IBlockState WATER = Blocks.WATER.getDefaultState();
+    static final IBlockState SANDSTONE = Blocks.SANDSTONE.getDefaultState();
+    static final IBlockState RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
 
-    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
+    private static final double d0 = 0.03125D;
+    private MapGenBase trenches = new MapGenTrench();
+
+    @Override
+    public void generate(ChunkProviderOverworld overworld, ChunkPrimer primer, int chunkX, int chunkZ) {
+        overworld.depthBuffer = overworld.surfaceNoise.getRegion(overworld.depthBuffer, (double) (chunkX * 16), (double) (chunkZ * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
+        for (int i = 0; i < 16; ++i) {
+            for (int j = 0; j < 16; ++j) {
+                Biome biome = overworld.biomesForGeneration[j + i * 16];
+                if (biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN || biome == Biomes.BEACH) {
+                    genSandyOceans(overworld.worldObj, overworld.rand, primer, chunkX * 16 + i, chunkZ * 16 + j, overworld.depthBuffer[j + i * 16]);
+                } else {
+                    biome.genTerrainBlocks(overworld.worldObj, overworld.rand, primer, chunkX * 16 + i, chunkZ * 16 + j, overworld.depthBuffer[j + i * 16]);
+                }
+            }
+        }
+
+        Biome biome = overworld.biomesForGeneration[0];
+        if (biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN) {
+            trenches.generate(overworld.worldObj, chunkX, chunkZ, primer);
+        }
+    }
+
+    //Borrowed from vanilla but places sand and limestone by default instead
+    private void genSandyOceans(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         int i = worldIn.getSeaLevel();
         IBlockState iblockstate = Abyssal.OCEAN_SURFACE;
         IBlockState iblockstate1 = Abyssal.OCEAN_FILLER;
@@ -85,30 +107,6 @@ public class SandyOcean {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onChunkReplaceBlocks(ChunkGeneratorEvent.ReplaceBiomeBlocks event) {
-        if (Abyssal.OCEAN_REPLACE) {
-            if (event.getGen() instanceof ChunkProviderOverworld) {
-                ChunkProviderOverworld overworld = ((ChunkProviderOverworld) event.getGen());
-                double d0 = 0.03125D;
-                overworld.depthBuffer = overworld.surfaceNoise.getRegion(overworld.depthBuffer, (double) (event.getX() * 16), (double) (event.getZ() * 16), 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
-
-                for (int i = 0; i < 16; ++i) {
-                    for (int j = 0; j < 16; ++j) {
-                        Biome biome = overworld.biomesForGeneration[j + i * 16];
-                        if (biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN || biome == Biomes.BEACH) {
-                            genTerrainBlocks(overworld.worldObj, overworld.rand, event.getPrimer(), event.getX() * 16 + i, event.getZ() * 16 + j, overworld.depthBuffer[j + i * 16]);
-                        } else
-                            biome.genTerrainBlocks(overworld.worldObj, overworld.rand, event.getPrimer(), event.getX() * 16 + i, event.getZ() * 16 + j, overworld.depthBuffer[j + i * 16]);
-                    }
-                }
-
-                //We processed it ourself, so cancel the event
-                event.setResult(Result.DENY);
             }
         }
     }

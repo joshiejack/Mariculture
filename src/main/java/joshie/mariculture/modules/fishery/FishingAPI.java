@@ -7,6 +7,7 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 import joshie.mariculture.api.fishing.Fishing;
 import joshie.mariculture.api.fishing.FishingTrait;
 import joshie.mariculture.helpers.GroupHelper;
+import joshie.mariculture.modules.EventAPIContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +25,7 @@ import static joshie.mariculture.api.fishing.Fishing.Salinity.BRACKISH;
 import static joshie.mariculture.api.fishing.Fishing.Salinity.SALINE;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
+@EventAPIContainer(modules = "fishery")
 public class FishingAPI implements Fishing {
     private final EnumMap<Type, Salinity> salinityBestGuess = new EnumMap(Type.class);
     private final Cache<Biome, Salinity> salinityCache = CacheBuilder.newBuilder().build();

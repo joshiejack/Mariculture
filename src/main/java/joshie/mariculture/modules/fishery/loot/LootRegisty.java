@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.fishery.loot;
 
-import joshie.mariculture.modules.EventContainer;
+import joshie.mariculture.modules.EventAPIContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 
-@EventContainer(modules = "fishery")
+@EventAPIContainer(modules = "fishery")
 public class LootRegisty {
     private static final String FISHING = "gameplay/fishing/";
     private static final String[] LOOT_TABLES = new String[]{ FISHING + "fish", FISHING + "junk", FISHING + "treasure" };

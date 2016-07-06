@@ -1,7 +1,6 @@
 package joshie.mariculture.modules.fishery;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
 import joshie.mariculture.modules.fishery.item.ItemFishingRodMC;
@@ -23,11 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @Module(name = "fishery")
 public class Fishery {
     public static final ItemFishingRodMC FISHING_ROD = new ItemFishingRodMC().register("rod");
-
-    //Create the fishing api
-    public static void configure() {
-        MaricultureAPI.fishing = new FishingAPI();
-    }
 
     public static void preInit() {
         NetworkRegistry.INSTANCE.registerGuiHandler(Mariculture.instance, new GuiHandler()); //Register the gui handler here, as the bait bag will be the only gui

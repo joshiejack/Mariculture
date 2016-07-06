@@ -7,9 +7,12 @@ import java.lang.annotation.Target;
 
 
 /** Classes annotated with this automatically get registered
- *  to the minecraft forge event bus is the modules are active. */
+ *  to the minecraft forge event bus if the modules are active.
+ *  And they return true for events. It will also attempt to associate
+ *  the instance with the api, if it implements one of the main classes */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface EventContainer {
+public @interface EventAPIContainer {
     String modules() default "core";
+    boolean events() default false;
 }

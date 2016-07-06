@@ -2,6 +2,7 @@ package joshie.mariculture.modules;
 
 import com.google.common.collect.Lists;
 import joshie.mariculture.Mariculture;
+import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.helpers.ConfigHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Level;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.*;
 
 import static joshie.mariculture.Mariculture.root;
@@ -91,19 +93,34 @@ public abstract class ModuleManager {
 	}
 
 	private static void registerEventHandlers(@Nonnull ASMDataTable dataTable) {
-		String annotationClassName = EventContainer.class.getCanonicalName();
+		String annotationClassName = EventAPIContainer.class.getCanonicalName();
 		Set<ASMData> asmDatas = new HashSet<>(dataTable.getAll(annotationClassName));
 		asmLoop:
 		for (ASMDataTable.ASMData asmData : asmDatas) {
 			Map<String, Object> data = asmData.getAnnotationInfo();
 			String modules = (String) data.get("modules");
+            boolean events = data.containsKey("events") && (Boolean) data.get("events");
 			String[] moduleList = modules.replace(" ", "").split(",");
 			for (String module: moduleList) {
 				if (!enabled.containsKey(module)) continue asmLoop;
 			}
 
 			try {
-				MinecraftForge.EVENT_BUS.register(Class.forName(asmData.getClassName()).newInstance());
+				Class clazz = Class.forName(asmData.getClassName());
+                Object instance = clazz.newInstance();
+				Class[] interfaces = clazz.getInterfaces();
+				if (interfaces != null && interfaces.length > 0) {
+					for (Class inter: interfaces) {
+						for (Field f: MaricultureAPI.class.getFields()) {
+                            if (f.getType().equals(inter)) {
+                                f.set(null, instance);
+                            }
+                        }
+					}
+				}
+
+
+                if (events) MinecraftForge.EVENT_BUS.register(instance);
 			} catch (Exception e) { e.printStackTrace(); }
 		}
 	}

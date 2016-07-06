@@ -1,6 +1,7 @@
 package joshie.mariculture.api;
 
 import joshie.mariculture.api.fishing.Fishing;
+import joshie.mariculture.api.gen.WorldGen;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,9 +11,11 @@ import java.lang.reflect.InvocationTargetException;
 public class MaricultureAPI {
     public static final Logger logger = LogManager.getLogger("Mariculture-API");
 
-    /** Before calling this, you'll want to make sure
-     *      the fishery module is enabled, or it WILL be null **/
+    /** Before calling this, you'll want to make sure the fishery module is enabled, or it WILL be null **/
     public static Fishing fishing = null;
+
+    /** Before calling this, you'll want to make sure the abyssal module is enabled, or it WILL be null **/
+    public static WorldGen worldGen = null;
 
     /** Use this helped method to determine if a module is enabled
      *  It's probably a good idea to cache this value for yourself **/

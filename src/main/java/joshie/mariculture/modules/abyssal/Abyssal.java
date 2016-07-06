@@ -1,11 +1,14 @@
 package joshie.mariculture.modules.abyssal;
 
+import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.abyssal.block.BlockLimestone;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab.Type;
+import joshie.mariculture.modules.abyssal.gen.WorldGenOverworld;
 import joshie.mariculture.util.BlockStairsMC;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.world.gen.ChunkProviderOverworld;
 
 import static joshie.mariculture.helpers.ConfigHelper.*;
 import static joshie.mariculture.helpers.RecipeHelper.*;
@@ -45,6 +48,9 @@ public class Abyssal {
             LIMESTONE_SLAB.getItemBlock().register("limestone_slab");
             LIMESTONE.getItemBlock().register("limestone_slab_double");
         }
+
+        if (OCEAN_REPLACE) MaricultureAPI.worldGen.registerWorldGenHandler(ChunkProviderOverworld.class, new WorldGenOverworld());
+
     }
 
     //Add recipes for all the limestone variants
@@ -86,6 +92,9 @@ public class Abyssal {
     public static IBlockState OCEAN_SURFACE;
     public static boolean LIMESTONE_STAIRS;
     public static boolean LIMESTONE_SLABS;
+    public static boolean DEEP_SEA_TRENCHES;
+    public static int DEEP_SEA_MAX_HEIGHT;
+    public static int DEEP_SEA_RARITY;
 
     public static void configure() {
         OCEAN_REPLACE = getBoolean("Replace Ocean Blocks", true);
@@ -94,5 +103,10 @@ public class Abyssal {
         OCEAN_SURFACE = getBlockState("Ocean Surface Block", SAND.getDefaultState());
         LIMESTONE_STAIRS = getBoolean("Enable Limestone Stairs", true);
         LIMESTONE_SLABS = getBoolean("Enable Limestone Slabs", true);
+
+        setCategory("Deep Sea Trenches");
+        DEEP_SEA_TRENCHES = getBoolean("Enable", true);
+        DEEP_SEA_MAX_HEIGHT = getInteger("Maximum Floor Height", 36, "When generating, trenches pick a random block, and will only generate if the block is this number or lower");
+        DEEP_SEA_RARITY = getRandomInteger("Rarity", 150, "The higher the number, the rarer the trenches will be");
     }
 }

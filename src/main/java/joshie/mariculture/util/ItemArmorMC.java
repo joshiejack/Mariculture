@@ -1,6 +1,6 @@
 package joshie.mariculture.util;
 
-import joshie.mariculture.api.diving.IDisableHardcoreDiving;
+import joshie.mariculture.api.diving.IDisablesHardcoreDiving;
 import joshie.mariculture.helpers.StringHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.util.MCTab.getTab;
 
-public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDisableHardcoreDiving, MCItem<A> {
+public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements IDisablesHardcoreDiving, MCItem<A> {
     @SideOnly(Side.CLIENT)
     private ModelBiped model;
     private String texture;
