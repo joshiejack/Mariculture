@@ -1,5 +1,7 @@
 package joshie.mariculture.modules.diving;
 
+import joshie.mariculture.api.diving.CapabilityWaterBreathing.WaterBreathingStorage;
+import joshie.mariculture.api.diving.CapabilityWaterBreathing.IDisableHardcoreDiving;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.diving.item.ItemBuoyancyAid;
 import joshie.mariculture.modules.diving.item.ItemDivingComponent;
@@ -9,6 +11,7 @@ import joshie.mariculture.modules.diving.render.ModelSnorkel;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,6 +37,7 @@ public class Diving {
     }
 
     public static void init() {
+        CapabilityManager.INSTANCE.register(IDisableHardcoreDiving.class, new WaterBreathingStorage(), new IDisableHardcoreDiving(){}.getClass());
         addShaped(SNORKEL.getStack(), "LR", 'R', REEDS, 'L', COMPONENT.getStackFromEnum(LENS));
         addShaped(BUOYANCY_AID.getStack(), "WSW", "WWW", "WWW", 'S', STRING, 'W', "logWood");
         addShaped(COMPONENT.getStackFromEnum(LENS), " W ", "WGW", " W ", 'W', "plankWood", 'G', "blockGlass");

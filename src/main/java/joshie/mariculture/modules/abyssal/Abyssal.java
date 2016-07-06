@@ -95,6 +95,11 @@ public class Abyssal {
     public static boolean DEEP_SEA_TRENCHES;
     public static int DEEP_SEA_MAX_HEIGHT;
     public static int DEEP_SEA_RARITY;
+    public static int DEEP_SEA_LENGTH;
+    public static float DEEP_SEA_WIDTH;
+    public static float DEEP_SEA_WIDTH_2;
+    public static float DEEP_SEA_WIDTH_3;
+    public static double DEEP_SEA_DEPTH;
 
     public static void configure() {
         OCEAN_REPLACE = getBoolean("Replace Ocean Blocks", true);
@@ -107,6 +112,11 @@ public class Abyssal {
         setCategory("Deep Sea Trenches");
         DEEP_SEA_TRENCHES = getBoolean("Enable", true);
         DEEP_SEA_MAX_HEIGHT = getInteger("Maximum Floor Height", 36, "When generating, trenches pick a random block, and will only generate if the block is this number or lower");
-        DEEP_SEA_RARITY = getRandomInteger("Rarity", 150, "The higher the number, the rarer the trenches will be");
+        DEEP_SEA_RARITY = getRandomInteger("Rarity", 300, "The higher the number, the rarer the trenches will be");
+        DEEP_SEA_LENGTH = getInteger("Length", 12);
+        DEEP_SEA_WIDTH = getFloat("Width", 5F);
+        DEEP_SEA_WIDTH_2 = DEEP_SEA_WIDTH * 2F;
+        DEEP_SEA_WIDTH_3 = DEEP_SEA_WIDTH / 4F;
+        DEEP_SEA_DEPTH = getDouble("Depth", 3.25D);
     }
 }

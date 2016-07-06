@@ -10,5 +10,11 @@ import joshie.mariculture.modules.Module;
  *  Disabled by Default for Obvious Reasons */
 @Module(name = "hardcore", disableByDefault = true)
 public class Hardcore {
+    public static void preInit() {
 
+    }
+
+    public static void configure() {
+
+    }
 }

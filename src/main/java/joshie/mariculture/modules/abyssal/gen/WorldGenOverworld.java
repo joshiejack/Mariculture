@@ -16,6 +16,7 @@ import net.minecraft.world.gen.MapGenBase;
 
 import java.util.Random;
 
+import static joshie.mariculture.modules.abyssal.Abyssal.DEEP_SEA_TRENCHES;
 import static joshie.mariculture.modules.abyssal.Abyssal.OCEAN_FILLER_DEPTH;
 
 public class WorldGenOverworld implements IWorldGen<ChunkProviderOverworld> {
@@ -44,10 +45,7 @@ public class WorldGenOverworld implements IWorldGen<ChunkProviderOverworld> {
             }
         }
 
-        Biome biome = overworld.biomesForGeneration[0];
-        if (biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN) {
-            trenches.generate(overworld.worldObj, chunkX, chunkZ, primer);
-        }
+        if (DEEP_SEA_TRENCHES) trenches.generate(overworld.worldObj, chunkX, chunkZ, primer);
     }
 
     //Borrowed from vanilla but places sand and limestone by default instead

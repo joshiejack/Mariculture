@@ -54,4 +54,12 @@ public class ConfigHelper {
     public static double getDouble(String name, double default_, String description) {
         return config.get(category, name, default_, description).getDouble();
     }
+
+    public static float getFloat(String name, float default_) {
+        return (float) config.get(category, name, default_).getDouble();
+    }
+
+    public static float getFloat(String name, float default_, String description) {
+        return  (float) config.get(category, name, default_, description).getDouble();
+    }
 }

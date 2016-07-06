@@ -14,6 +14,7 @@ import net.minecraftforge.common.ISpecialArmor;
 import static joshie.mariculture.modules.diving.Diving.ARMOR_SNORKEL;
 import static joshie.mariculture.modules.diving.Diving.BUOYANCY_AID_ASCEND_SPEED;
 import static net.minecraft.inventory.EntityEquipmentSlot.CHEST;
+import static net.minecraft.util.DamageSource.drown;
 
 public class ItemBuoyancyAid extends ItemArmorMC<ItemBuoyancyAid> implements ISpecialArmor {
     public ItemBuoyancyAid() {
@@ -33,7 +34,8 @@ public class ItemBuoyancyAid extends ItemArmorMC<ItemBuoyancyAid> implements ISp
 
     @Override
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
-        if(source.isUnblockable()) return new ArmorProperties(0, 0, 0);
+        if (source == drown) return new ArmorProperties(0, 0.01D, Integer.MAX_VALUE);
+        else if(source.isUnblockable()) return new ArmorProperties(0, 0, 0);
         else if (source.getEntity() instanceof EntityGuardian) {
             return new ArmorProperties(0, 0.04D, Integer.MAX_VALUE);
         } else return new ArmorProperties(0, 0.4D, Integer.MAX_VALUE);
