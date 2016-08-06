@@ -26,7 +26,7 @@ import static net.minecraft.util.EnumFacing.DOWN;
 @EventAPIContainer(modules = "hardcore-airspeed", events = true)
 public class AirDecreaseSpeed {
     public static void preInit() {
-        MaricultureAPI.diving.registerWaterbreathingListener((player -> {
+        MaricultureAPI.diving.registerWaterbreathingListener(player -> {
             if (player.isPotionActive(WATER_BREATHING)) return true;
             for (ItemStack armor : player.getArmorInventoryList()) {
                 if(armor != null && armor.hasCapability(BREATHING_CAPABILITY, DOWN)) {
@@ -38,7 +38,7 @@ public class AirDecreaseSpeed {
             }
 
             return false;
-        }));
+        });
     }
 
     private final Set<EntityPlayer> disabled = new HashSet<>();
