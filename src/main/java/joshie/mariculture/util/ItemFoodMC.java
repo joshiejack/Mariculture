@@ -14,12 +14,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
-import static joshie.mariculture.util.MCTab.getTab;
 
 public abstract class ItemFoodMC<E extends Enum<E>> extends ItemFood implements MCItem {
     protected final E[] values;
     public ItemFoodMC(Class<E> clazz) {
-        this(getTab("core"), clazz);
+        this(MCTab.getCore(), clazz);
     }
 
     public ItemFoodMC(CreativeTabs tab, Class<E> clazz) {

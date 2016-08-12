@@ -16,7 +16,7 @@ public class BlockStairsMC extends BlockStairs implements MCBlock<BlockStairsMC>
         super(modelState);
         this.sort = CreativeOrder.STAIRS + modelState.getBlock().getMetaFromState(modelState);
         this.original = modelState;
-        this.setCreativeTab(MCTab.getTab("core"));
+        this.setCreativeTab(MCTab.getCore());
         this.setHarvestLevel("pickaxe", 0, getDefaultState());
     }
 

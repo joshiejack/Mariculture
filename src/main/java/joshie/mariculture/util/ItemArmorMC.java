@@ -1,6 +1,7 @@
 package joshie.mariculture.util;
 
 import joshie.mariculture.helpers.StringHelper;
+import joshie.mariculture.lib.CreativeOrder;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,7 +12,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
-import static joshie.mariculture.util.MCTab.getTab;
 
 public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements MCItem<A> {
     @SideOnly(Side.CLIENT)
@@ -20,7 +20,7 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements MCI
 
     public ItemArmorMC(ArmorMaterial material, int index, EntityEquipmentSlot slot) {
         super(material, index, slot);
-        setCreativeTab(getTab("exploration"));
+        setCreativeTab(MCTab.getExploration());
     }
 
     @Override
@@ -54,6 +54,6 @@ public class ItemArmorMC<A extends ItemArmorMC> extends ItemArmor implements MCI
 
     @Override
     public int getSortValue(ItemStack stack) {
-        return 0;
+        return CreativeOrder.DIVING;
     }
 }

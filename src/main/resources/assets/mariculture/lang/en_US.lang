@@ -29,3 +29,7 @@ mariculture.tile.limestone.pedestal=Limestone Pedestal
 mariculture.item.snorkel=Snorkel
 mariculture.item.buoyancyaid=Buoyancy Aid
 mariculture.item.diving.component.lens=Snorkel Lens
+
+#Sealife - Items
+mariculture.item.pearl.white=White Pearl
+mariculture.item.pearl.black=Black Pearl

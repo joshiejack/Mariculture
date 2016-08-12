@@ -88,7 +88,11 @@ public class MCTab extends CreativeTabs {
     }
 
     private static final Cache<String, MCTab> TABS = CacheBuilder.newBuilder().build();
-    public static MCTab getTab(final String name) {
+
+    public static final MCTab getCore() { return getTab("core"); }
+    public static final MCTab getExploration() { return getTab("exploration"); }
+
+    private static MCTab getTab(final String name) {
         try {
             return TABS.get(name, new Callable<MCTab>() {
                 @Override

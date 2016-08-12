@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -13,12 +12,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
-import static joshie.mariculture.util.MCTab.getTab;
 
-public class ItemMCEnum<A extends ItemMCEnum, E extends Enum<E> & IStringSerializable> extends Item implements MCItem<A> {
+public class ItemMCEnum<A extends ItemMCEnum, E extends Enum<E>> extends Item implements MCItem<A> {
     protected final E[] values;
     public ItemMCEnum(Class<E> clazz) {
-        this(getTab("core"), clazz);
+        this(MCTab.getCore(), clazz);
     }
 
     public ItemMCEnum(CreativeTabs tab, Class<E> clazz) {
@@ -72,7 +70,7 @@ public class ItemMCEnum<A extends ItemMCEnum, E extends Enum<E> & IStringSeriali
     @SideOnly(Side.CLIENT)
     public void registerModels(Item item, String name) {
         for (E e: values) {
-            ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.getName()));
+            ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.name().toLowerCase()));
         }
     }
 }

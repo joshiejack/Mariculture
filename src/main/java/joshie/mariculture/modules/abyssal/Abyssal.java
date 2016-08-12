@@ -7,13 +7,13 @@ import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab.Type;
 import joshie.mariculture.modules.abyssal.gen.WorldGenOverworld;
 import joshie.mariculture.util.BlockStairsMC;
+import joshie.mariculture.util.MCTab;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 
 import static joshie.mariculture.helpers.ConfigHelper.*;
 import static joshie.mariculture.helpers.RecipeHelper.*;
 import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
-import static joshie.mariculture.util.MCTab.getTab;
 import static net.minecraft.init.Blocks.SAND;
 
 /** The Abyssal (Seabed/Seafloor) Module is all about changing the ocean floor itself, to make it more interesting
@@ -32,7 +32,7 @@ public class Abyssal {
     public static BlockLimestoneSlab LIMESTONE_SLAB_DOUBLE;
 
     public static void preInit() {
-        getTab("core").setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
+        MCTab.getCore().setStack(Abyssal.LIMESTONE.getStackFromEnum(RAW));
         if (LIMESTONE_STAIRS) {
             LIMESTONE_STAIRS_RAW = new BlockStairsMC(LIMESTONE.getStateFromEnum(RAW)).register("limestone_raw_stairs");
             LIMESTONE_STAIRS_SMOOTH = new BlockStairsMC(LIMESTONE.getStateFromEnum(SMOOTH)).register("limestone_smooth_stairs");

@@ -1,13 +1,15 @@
 package joshie.mariculture.modules.diving;
 
-import joshie.mariculture.api.diving.CapabilityWaterBreathing.WaterBreathingStorage;
 import joshie.mariculture.api.diving.CapabilityWaterBreathing.IDisableHardcoreDiving;
+import joshie.mariculture.api.diving.CapabilityWaterBreathing.WaterBreathingStorage;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.diving.item.ItemBuoyancyAid;
-import joshie.mariculture.modules.diving.item.ItemDivingComponent;
 import joshie.mariculture.modules.diving.item.ItemSnorkel;
+import joshie.mariculture.modules.diving.lib.DivingComponent;
 import joshie.mariculture.modules.diving.render.ModelBuoyancyAid;
 import joshie.mariculture.modules.diving.render.ModelSnorkel;
+import joshie.mariculture.util.ItemComponent;
+import joshie.mariculture.util.MCTab;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -18,8 +20,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static joshie.mariculture.helpers.ConfigHelper.getDouble;
 import static joshie.mariculture.helpers.RecipeHelper.addShaped;
-import static joshie.mariculture.modules.diving.item.ItemDivingComponent.DivingComponent.LENS;
-import static joshie.mariculture.util.MCTab.getTab;
+import static joshie.mariculture.lib.CreativeOrder.DIVING;
+import static joshie.mariculture.modules.diving.lib.DivingComponent.LENS;
 import static net.minecraft.init.Items.REEDS;
 import static net.minecraft.init.Items.STRING;
 
@@ -30,10 +32,10 @@ public class Diving {
     public static final ArmorMaterial ARMOR_SNORKEL = EnumHelper.addArmorMaterial("SNORKEL", "SNORKEL", 10, new int[] { 0, 0, 1, 0 }, 20, SoundEvent.REGISTRY.getObject(new ResourceLocation("block.wood.hit")), 0F);
     public static final ItemSnorkel SNORKEL = new ItemSnorkel().register("snorkel");
     public static final ItemBuoyancyAid BUOYANCY_AID = new ItemBuoyancyAid().register("buoyancyaid");
-    public static final ItemDivingComponent COMPONENT = new ItemDivingComponent().register("diving_component");
+    public static final ItemComponent COMPONENT = new ItemComponent<>(DIVING, DivingComponent.class).register("diving_component");
 
     public static void preInit() {
-        getTab("exploration").setStack(SNORKEL.getStack());
+        MCTab.getExploration().setStack(SNORKEL.getStack());
     }
 
     public static void init() {

@@ -23,7 +23,6 @@ import java.util.Random;
 
 import static joshie.mariculture.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.lib.MaricultureInfo.MODPREFIX;
-import static joshie.mariculture.util.MCTab.getTab;
 
 public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B extends BlockMCEnum> extends Block implements MCBlock<B> {
     protected static PropertyEnum<?> temporary;
@@ -45,7 +44,7 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
 
     //Constructor default to core tab
     public BlockMCEnum(Material material, Class<E> clazz) {
-        this(material, clazz, getTab("core"));
+        this(material, clazz, MCTab.getCore());
     }
 
     private static Material preInit(Material material, Class clazz) {

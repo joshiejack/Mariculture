@@ -45,7 +45,7 @@ public abstract class BlockLimestoneSlab extends BlockSlabMC<Type, BlockLimeston
         }
 
         setDefaultState(iblockstate.withProperty(property, RAW));
-        setCreativeTab(MCTab.getTab("core"));
+        setCreativeTab(MCTab.getCore());
     }
 
     @Override
@@ -67,6 +67,10 @@ public abstract class BlockLimestoneSlab extends BlockSlabMC<Type, BlockLimeston
     }
 
     public static class Double extends BlockLimestoneSlab {
+        public Double() {
+            setCreativeTab(null); //No Tabs
+        }
+
         @Override
         public boolean isDouble() {
             return true;
