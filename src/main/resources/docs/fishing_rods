@@ -9,8 +9,8 @@ If this is a machine, you always just create a fake player/entity and pass them 
 #Modpack Devs
 To edit the loot drops of mariculture fishing, you can do the same as you would with any resource pack
 Mariculture adds a bunch of new conditions these are:
-    mariculture:biome_type  - Allows you to specify a biome limestone this loot can be caught in
-    mariculture:salinity - Allows you to specify the limestone of salinity this loot can be caught in
+    mariculture:biome_type  - Allows you to specify a biome type this loot can be caught in
+    mariculture:salinity - Allows you to specify the type of salinity this loot can be caught in
     mariculture:height - Allow you to specify a world height this loot can be caught between
     mariculture:time - Allow you to specify the time the world to be between for this loot to be caught
     mariculture:dimension - Allow you to specify a dimension this loot must be in by id
