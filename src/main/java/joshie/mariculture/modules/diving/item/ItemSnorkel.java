@@ -3,7 +3,7 @@ package joshie.mariculture.modules.diving.item;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import joshie.mariculture.api.diving.CapabilityWaterBreathing.WaterbreathingWrapper;
-import joshie.mariculture.util.ItemArmorMC;
+import joshie.mariculture.core.util.ItemArmorMC;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;

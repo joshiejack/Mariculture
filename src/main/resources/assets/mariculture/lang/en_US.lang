@@ -2,7 +2,7 @@
 mariculture.tab.core=Mariculture
 mariculture.tab.exploration=Mariculture - Exploration
 
-#Core - Blocks
+#Abyssal - Blocks
 mariculture.tile.limestone.raw=Limestone
 mariculture.tile.limestone.raw.stairs=Limestone Stairs
 mariculture.tile.limestone.raw.slab=Limestone Slab
@@ -29,6 +29,10 @@ mariculture.tile.limestone.pedestal=Limestone Pedestal
 mariculture.item.snorkel=Snorkel
 mariculture.item.buoyancyaid=Buoyancy Aid
 mariculture.item.diving.component.lens=Snorkel Lens
+
+#Sealife- Blocks
+mariculture.tile.plant.kelp=Kelp
+mariculture.tile.plant.grass=Seagrass
 
 #Sealife - Items
 mariculture.item.pearl.white=White Pearl

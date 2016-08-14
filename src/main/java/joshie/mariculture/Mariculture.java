@@ -14,13 +14,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
-import static joshie.mariculture.lib.MaricultureInfo.*;
+import static joshie.mariculture.core.lib.MaricultureInfo.*;
 
 @Mod(modid = MODID, name = MODNAME, version = VERSION)
 public class Mariculture {
     public static final Logger logger = LogManager.getLogger(MODNAME);
 
-    @SidedProxy(clientSide = JAVAPATH + INITIALS + "ClientProxy", serverSide = JAVAPATH + INITIALS + "CommonProxy")
+    @SidedProxy(clientSide = JAVAPATH + "MClientProxy", serverSide = JAVAPATH + "MCommonProxy")
     public static MCommonProxy proxy;
 
     @Instance(MODID)

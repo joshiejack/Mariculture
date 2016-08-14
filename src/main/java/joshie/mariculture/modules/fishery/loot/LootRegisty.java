@@ -10,7 +10,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
 @EventAPIContainer(modules = "fishery")
 public class LootRegisty {

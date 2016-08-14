@@ -1,11 +1,12 @@
 package joshie.mariculture.modules.abyssal.block;
 
 import joshie.mariculture.modules.abyssal.Abyssal;
+import joshie.mariculture.modules.abyssal.block.BlockLimestone.Limestone;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab.Type;
-import joshie.mariculture.util.BlockSlabMC;
-import joshie.mariculture.util.ItemSlabMC;
-import joshie.mariculture.util.MCItem;
-import joshie.mariculture.util.MCTab;
+import joshie.mariculture.core.util.BlockSlabMC;
+import joshie.mariculture.core.util.ItemSlabMC;
+import joshie.mariculture.core.util.MCItem;
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -29,12 +30,12 @@ public abstract class BlockLimestoneSlab extends BlockSlabMC<Type, BlockLimeston
 
     private static EnumMap<Type, IBlockState> original = new EnumMap<>(Type.class);
     static {
-        original.put(RAW, Abyssal.LIMESTONE.getStateFromEnum(BlockLimestone.Type.RAW));
-        original.put(SMOOTH, Abyssal.LIMESTONE.getStateFromEnum(BlockLimestone.Type.SMOOTH));
-        original.put(BRICK, Abyssal.LIMESTONE.getStateFromEnum(BlockLimestone.Type.BRICK));
-        original.put(SMALL_BRICK, Abyssal.LIMESTONE.getStateFromEnum(BlockLimestone.Type.SMALL_BRICK));
-        original.put(THIN_BRICK, Abyssal.LIMESTONE.getStateFromEnum(BlockLimestone.Type.THIN_BRICK));
-        original.put(BORDERED, Abyssal.LIMESTONE.getStateFromEnum(BlockLimestone.Type.BORDERED));
+        original.put(RAW, Abyssal.LIMESTONE.getStateFromEnum(Limestone.RAW));
+        original.put(SMOOTH, Abyssal.LIMESTONE.getStateFromEnum(Limestone.SMOOTH));
+        original.put(BRICK, Abyssal.LIMESTONE.getStateFromEnum(Limestone.BRICK));
+        original.put(SMALL_BRICK, Abyssal.LIMESTONE.getStateFromEnum(Limestone.SMALL_BRICK));
+        original.put(THIN_BRICK, Abyssal.LIMESTONE.getStateFromEnum(Limestone.THIN_BRICK));
+        original.put(BORDERED, Abyssal.LIMESTONE.getStateFromEnum(Limestone.BORDERED));
     }
 
     public BlockLimestoneSlab() {

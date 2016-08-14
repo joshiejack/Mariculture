@@ -5,7 +5,7 @@
     "model": "cube_all"
   },
   "variants": {
-    "type": {
+    "limestone": {
       "raw": { "textures": { "all": "mariculture:blocks/limestone_raw" } },
       "smooth": { "textures": { "all": "mariculture:blocks/limestone_smooth" } },
       "brick": { "textures": { "all": "mariculture:blocks/limestone_brick" } },

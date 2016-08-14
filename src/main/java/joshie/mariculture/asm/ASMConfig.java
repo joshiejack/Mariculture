@@ -12,7 +12,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
 
-import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
 public class ASMConfig {
     @SerializedName("Enable ASM")

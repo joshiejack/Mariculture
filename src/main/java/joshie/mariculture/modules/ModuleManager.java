@@ -3,7 +3,7 @@ package joshie.mariculture.modules;
 import com.google.common.collect.Lists;
 import joshie.mariculture.Mariculture;
 import joshie.mariculture.api.MaricultureAPI;
-import joshie.mariculture.helpers.ConfigHelper;
+import joshie.mariculture.core.helpers.ConfigHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import static joshie.mariculture.Mariculture.root;
-import static joshie.mariculture.lib.MaricultureInfo.MODNAME;
+import static joshie.mariculture.core.lib.MaricultureInfo.MODNAME;
 
 public abstract class ModuleManager {
 	public static HashMap<String, Class<?>> enabled = new HashMap<>();

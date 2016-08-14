@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static joshie.mariculture.api.diving.CapabilityWaterBreathing.BREATHING_CAPABILITY;
-import static joshie.mariculture.helpers.ConfigHelper.getBoolean;
-import static joshie.mariculture.helpers.ConfigHelper.getInteger;
+import static joshie.mariculture.core.helpers.ConfigHelper.getBoolean;
+import static joshie.mariculture.core.helpers.ConfigHelper.getInteger;
 import static net.minecraft.block.material.Material.WATER;
 import static net.minecraft.init.MobEffects.WATER_BREATHING;
 import static net.minecraft.util.EnumFacing.DOWN;

@@ -12,7 +12,7 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 
 import java.util.Random;
 
-import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
 /** This loot condition checks the strength of the item the player is holding in their main hand **/
 public class RodStrength implements LootCondition {

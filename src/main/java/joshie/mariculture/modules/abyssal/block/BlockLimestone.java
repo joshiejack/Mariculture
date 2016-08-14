@@ -1,8 +1,8 @@
 package joshie.mariculture.modules.abyssal.block;
 
-import joshie.mariculture.helpers.StringHelper;
-import joshie.mariculture.modules.abyssal.block.BlockLimestone.Type;
-import joshie.mariculture.util.BlockMCEnum;
+import joshie.mariculture.core.util.BlockMCEnum;
+import joshie.mariculture.modules.abyssal.block.BlockLimestone.Limestone;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,38 +19,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static joshie.mariculture.lib.CreativeOrder.LIMESTONE;
-import static joshie.mariculture.lib.MaricultureInfo.MODID;
-import static joshie.mariculture.lib.MaricultureInfo.MODPREFIX;
-import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
+import static joshie.mariculture.core.lib.CreativeOrder.LIMESTONE;
+import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Limestone.*;
 import static net.minecraft.util.EnumFacing.*;
 
-public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
-    public enum Type implements IStringSerializable {
-        RAW, SMOOTH, BRICK, SMALL_BRICK, THIN_BRICK, BORDERED, CHISELED, PILLAR_1(true, false), PILLAR_2(true, false), PILLAR_3(true, false),
-        PEDESTAL_1(false, true), PEDESTAL_2(false, true), PEDESTAL_3(false, true), PEDESTAL_4(false, true), PEDESTAL_5(false, true), PEDESTAL_6(false, true);
-
-        private final boolean isPillar;
-        private final boolean isPedestal;
-
-        private Type() {
-            isPillar = false;
-            isPedestal = false;
-        }
-
-        private Type (boolean isPillar, boolean isPedestal) {
-            this.isPillar = isPillar;
-            this.isPedestal = isPedestal;
-        }
-
-        @Override
-        public String getName() {
-            return toString().toLowerCase();
-        }
-    }
-
+public class BlockLimestone extends BlockMCEnum<Limestone, BlockLimestone> {
     public BlockLimestone() {
-        super(Material.ROCK, Type.class);
+        super(Material.ROCK, Limestone.class);
+        setSoundType(SoundType.STONE);
     }
 
     @Deprecated
@@ -72,9 +49,9 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
 
     @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        Type type = getEnumFromMeta(meta);
-        if (type.isPillar) return facing == DOWN || facing == UP ? getStateFromEnum(PILLAR_1) : facing == NORTH || facing == SOUTH ? getStateFromEnum(PILLAR_2) : getStateFromEnum(PILLAR_3);
-        else if (type.isPedestal) {
+        Limestone limestone = getEnumFromMeta(meta);
+        if (limestone.isPillar) return facing == DOWN || facing == UP ? getStateFromEnum(PILLAR_1) : facing == NORTH || facing == SOUTH ? getStateFromEnum(PILLAR_2) : getStateFromEnum(PILLAR_3);
+        else if (limestone.isPedestal) {
             if (hitY >= 0.85F) return getStateFromEnum(PEDESTAL_1);
             else if (hitY <= 0.15F) return getStateFromEnum(PEDESTAL_2);
             else return getStateFromMeta(facing.ordinal() + PEDESTAL_1.ordinal());
@@ -83,15 +60,15 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
 
     @Override
     public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-        Type type = getEnumFromState(state);
-        return !type.isPillar && !type.isPedestal;
+        Limestone limestone = getEnumFromState(state);
+        return !limestone.isPillar && !limestone.isPedestal;
     }
 
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        Type type = getEnumFromState(state);
-        if (type.isPillar) return new ItemStack(this, 1, PILLAR_1.ordinal());
-        else if (type.isPedestal) return new ItemStack(this, 1, PEDESTAL_1.ordinal());
+        Limestone limestone = getEnumFromState(state);
+        if (limestone.isPillar) return new ItemStack(this, 1, PILLAR_1.ordinal());
+        else if (limestone.isPedestal) return new ItemStack(this, 1, PEDESTAL_1.ordinal());
         else return super.getPickBlock(state, target, world, pos, player);
     }
 
@@ -101,23 +78,16 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
     }
 
     @Override
-    public boolean isInCreative(Type type) {
-        return type.ordinal() <= PILLAR_1.ordinal() || type.ordinal() == PEDESTAL_1.ordinal();
+    public boolean isInCreative(Limestone limestone) {
+        return limestone.ordinal() <= PILLAR_1.ordinal() || limestone.ordinal() == PEDESTAL_1.ordinal();
     }
 
     @Override
     protected String getNameFromStack(ItemStack stack) {
-        Type type = getEnumFromStack(stack);
-        if (type.isPillar) return "pillar";
-        else if (type.isPedestal) return "pedestal";
+        Limestone limestone = getEnumFromStack(stack);
+        if (limestone.isPillar) return "pillar";
+        else if (limestone.isPedestal) return "pedestal";
         else return super.getNameFromStack(stack);
-    }
-
-    @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        String unlocalized = MODPREFIX + getUnlocalizedName();
-        String name = getNameFromStack(stack);
-        return StringHelper.localize(unlocalized + "." + name);
     }
 
     @Override
@@ -127,9 +97,32 @@ public class BlockLimestone extends BlockMCEnum<Type, BlockLimestone> {
 
     @SideOnly(Side.CLIENT)
     @Override
-    protected ResourceLocation getResourceForEnum(Type type) {
-        if (type.isPillar) return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_pillar");
-        else if (type.isPedestal) return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_pedestal");
-        else return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_" + type.getName());
+    protected ResourceLocation getResourceForEnum(Limestone limestone) {
+        if (limestone.isPillar) return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_pillar");
+        else if (limestone.isPedestal) return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_pedestal");
+        else return new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_" + limestone.getName());
+    }
+
+    public enum Limestone implements IStringSerializable {
+        RAW, SMOOTH, BRICK, SMALL_BRICK, THIN_BRICK, BORDERED, CHISELED, PILLAR_1(true, false), PILLAR_2(true, false), PILLAR_3(true, false),
+        PEDESTAL_1(false, true), PEDESTAL_2(false, true), PEDESTAL_3(false, true), PEDESTAL_4(false, true), PEDESTAL_5(false, true), PEDESTAL_6(false, true);
+
+        private final boolean isPillar;
+        private final boolean isPedestal;
+
+        Limestone() {
+            isPillar = false;
+            isPedestal = false;
+        }
+
+        Limestone(boolean isPillar, boolean isPedestal) {
+            this.isPillar = isPillar;
+            this.isPedestal = isPedestal;
+        }
+
+        @Override
+        public String getName() {
+            return toString().toLowerCase();
+        }
     }
 }

@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
-import static joshie.mariculture.lib.MaricultureInfo.MODID;
+import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
 /** This loot condition checks the world time **/
 public class WorldTime extends AbstractWorldLocation {

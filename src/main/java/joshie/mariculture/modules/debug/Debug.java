@@ -2,7 +2,7 @@ package joshie.mariculture.modules.debug;
 
 import joshie.mariculture.modules.Module;
 
-import static joshie.mariculture.helpers.ConfigHelper.getInteger;
+import static joshie.mariculture.core.helpers.ConfigHelper.getInteger;
 
 @Module(name = "debug", disableByDefault = true)
 public class Debug {

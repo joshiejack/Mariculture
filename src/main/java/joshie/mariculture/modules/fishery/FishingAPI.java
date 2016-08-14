@@ -6,7 +6,7 @@ import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import joshie.mariculture.api.fishing.Fishing;
 import joshie.mariculture.api.fishing.FishingTrait;
-import joshie.mariculture.helpers.GroupHelper;
+import joshie.mariculture.core.helpers.GroupHelper;
 import joshie.mariculture.modules.EventAPIContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

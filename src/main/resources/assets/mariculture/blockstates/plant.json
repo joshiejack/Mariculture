@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "cross"
+  },
+  "variants": {
+    "plant=grass_short": [
+      { "textures": { "cross": "mariculture:blocks/sea_grass1"}, "weight": 1 },
+      { "textures": { "cross": "mariculture:blocks/sea_grass2"}, "weight": 1 },
+      { "textures": { "cross": "mariculture:blocks/sea_grass3"}, "weight": 1 },
+      { "textures": { "cross": "mariculture:blocks/sea_grass4"}, "weight": 1 }
+    ],
+    "plant=grass_double": [{ "textures": { "cross": "mariculture:blocks/sea_grass_double_base"}}],
+    "plant=grass_top": [
+      { "textures": { "cross": "mariculture:blocks/sea_grass_double_top1"}, "weight": 1 },
+      { "textures": { "cross": "mariculture:blocks/sea_grass_double_top2"}, "weight": 1 },
+      { "textures": { "cross": "mariculture:blocks/sea_grass_double_top3"}, "weight": 1 },
+      { "textures": { "cross": "mariculture:blocks/sea_grass_double_top4"}, "weight": 1 }
+    ],
+    "plant=kelp_bottom": [{ "textures": { "cross": "mariculture:blocks/kelp_bottom"}}],
+    "plant=kelp_middle": [{ "textures": { "cross": "mariculture:blocks/kelp_middle"}}],
+    "plant=kelp_top": [{ "textures": { "cross": "mariculture:blocks/kelp_top"}}]
+  }
+}

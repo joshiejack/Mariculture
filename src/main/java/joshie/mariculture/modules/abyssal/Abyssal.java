@@ -2,18 +2,20 @@ package joshie.mariculture.modules.abyssal;
 
 import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.modules.Module;
+import joshie.mariculture.modules.ModuleManager;
 import joshie.mariculture.modules.abyssal.block.BlockLimestone;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab.Type;
 import joshie.mariculture.modules.abyssal.gen.WorldGenOverworld;
-import joshie.mariculture.util.BlockStairsMC;
-import joshie.mariculture.util.MCTab;
+import joshie.mariculture.core.util.BlockStairsMC;
+import joshie.mariculture.core.util.MCTab;
+import joshie.mariculture.modules.sealife.blocks.BlockPlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 
-import static joshie.mariculture.helpers.ConfigHelper.*;
-import static joshie.mariculture.helpers.RecipeHelper.*;
-import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Type.*;
+import static joshie.mariculture.core.helpers.ConfigHelper.*;
+import static joshie.mariculture.core.helpers.RecipeHelper.*;
+import static joshie.mariculture.modules.abyssal.block.BlockLimestone.Limestone.*;
 import static net.minecraft.init.Blocks.SAND;
 
 /** The Abyssal (Seabed/Seafloor) Module is all about changing the ocean floor itself, to make it more interesting
@@ -83,6 +85,9 @@ public class Abyssal {
             addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.THIN_BRICK, 6), LIMESTONE.getStackFromEnum(THIN_BRICK));
             addSlabRecipe(LIMESTONE_SLAB.getStackFromEnum(Type.BORDERED, 6), LIMESTONE.getStackFromEnum(BORDERED));
         }
+
+        //Cross Module Support
+        if (ModuleManager.isModuleEnabled("sealife")) BlockPlant.FLOOR_BLOCKS.add(LIMESTONE);
     }
 
     //Configuration options

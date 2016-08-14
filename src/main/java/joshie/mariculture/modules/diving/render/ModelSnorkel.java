@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.diving.render;
 
-import joshie.mariculture.util.ModelArmor;
+import joshie.mariculture.core.util.ModelArmor;
 import net.minecraft.client.model.ModelRenderer;
 
 public class ModelSnorkel extends ModelArmor {
