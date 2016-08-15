@@ -1,5 +1,6 @@
 package joshie.mariculture.api;
 
+import joshie.mariculture.api.aquaculture.Aquaculture;
 import joshie.mariculture.api.diving.Diving;
 import joshie.mariculture.api.fishing.Fishing;
 import joshie.mariculture.api.gen.WorldGen;
@@ -16,6 +17,7 @@ public class MaricultureAPI {
      *  the relevant modules are enabled first,
      *  or these will remain as null **/
 
+    public static Aquaculture aquaculture = null;
     public static Diving diving = null;
     public static Fishing fishing = null;
     public static WorldGen worldGen = null;

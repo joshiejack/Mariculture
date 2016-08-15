@@ -98,11 +98,13 @@ public abstract class ModuleManager {
 		asmLoop:
 		for (ASMDataTable.ASMData asmData : asmDatas) {
 			Map<String, Object> data = asmData.getAnnotationInfo();
-			String modules = (String) data.get("modules");
+			String modules = data.get("modules") != null ? (String) data.get("modules") : "";
             boolean events = data.containsKey("events") && (Boolean) data.get("events");
-			String[] moduleList = modules.replace(" ", "").split(",");
-			for (String module: moduleList) {
-				if (!enabled.containsKey(module)) continue asmLoop;
+			if (!modules.equals("")) {
+				String[] moduleList = modules.replace(" ", "").split(",");
+				for (String module : moduleList) {
+					if (!enabled.containsKey(module)) continue asmLoop;
+				}
 			}
 
 			try {

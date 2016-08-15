@@ -5,8 +5,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,6 +42,11 @@ public class BlockAquatic<E extends Enum<E> & IStringSerializable, B extends Blo
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
         return NULL_AABB;
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(EntityPlayer player, ItemStack stack, World worldIn, BlockPos pos, EnumFacing side) {
+        return worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER;
     }
 
     @Override

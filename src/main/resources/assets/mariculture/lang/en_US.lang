@@ -25,6 +25,9 @@ mariculture.tile.limestone.chiseled=Chiseled Limestone
 mariculture.tile.limestone.pillar=Limestone Pillar
 mariculture.tile.limestone.pedestal=Limestone Pedestal
 
+#Aquaculture - Blocks
+mariculture.tile.oyster=Oyster
+
 #Diving - Items
 mariculture.item.snorkel=Snorkel
 mariculture.item.buoyancyaid=Buoyancy Aid

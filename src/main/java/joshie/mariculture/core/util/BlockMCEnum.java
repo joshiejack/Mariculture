@@ -10,16 +10,20 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 import static joshie.mariculture.core.lib.MaricultureInfo.MODPREFIX;
@@ -92,7 +96,7 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
     }
 
     public E getEnumFromStack(ItemStack stack) {
-        return values[Math.max(0, Math.min(values.length, stack.getItemDamage()))];
+        return values[Math.max(0, Math.min(values.length - 1, stack.getItemDamage()))];
     }
 
     @Override
@@ -152,6 +156,25 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
                 list.add(new ItemStack(item, 1, e.ordinal()));
             }
         }
+    }
+
+    @Override
+    public B register(String name) {
+        Block block = this;
+        block.setUnlocalizedName(name.replace("_", "."));
+        block.setRegistryName(new ResourceLocation(MODID, name));
+        GameRegistry.register(block);
+        getItemBlock().register(name); //Register the item block
+        Set<Class<? extends TileEntity>> registered = new HashSet<>();
+        for (E e: values) {
+            IBlockState state = getStateFromEnum(e);
+            if (hasTileEntity(state)) {
+                Class<? extends TileEntity> tile = createTileEntity(null, state).getClass();
+                if (registered.add(tile)) GameRegistry.registerTileEntity(tile, MODID + ":" + tile.getSimpleName().toLowerCase().replace("tile", ""));
+            }
+        }
+
+        return (B) this;
     }
 
     @SideOnly(Side.CLIENT)
