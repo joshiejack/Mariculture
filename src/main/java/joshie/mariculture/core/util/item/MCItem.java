@@ -1,9 +1,12 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.item;
 
+import joshie.mariculture.core.util.MCRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
@@ -14,8 +17,8 @@ public interface MCItem<T extends Item> extends MCRegistry {
         item.setUnlocalizedName(name.replace("_", "."));
         item.setRegistryName(new ResourceLocation(MODID, name));
         GameRegistry.register(item);
-        if (isClient()) {
-            registerModels(item, name);
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            registerModels(item);
         }
 
         return (T) this;

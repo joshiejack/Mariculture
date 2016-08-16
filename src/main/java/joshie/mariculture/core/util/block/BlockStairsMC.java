@@ -1,7 +1,8 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.block;
 
 import joshie.mariculture.core.helpers.StringHelper;
 import joshie.mariculture.core.lib.CreativeOrder;
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;

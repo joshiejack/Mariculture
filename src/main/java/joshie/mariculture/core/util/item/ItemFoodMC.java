@@ -1,6 +1,7 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.item;
 
 import joshie.mariculture.core.helpers.StringHelper;
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -75,7 +76,7 @@ public abstract class ItemFoodMC<E extends Enum<E>> extends ItemFood implements 
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerModels(Item item, String name) {
+    public void registerModels(Item item) {
         for (int i = 0; i < values.length; i++) {
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(new ResourceLocation(MODID, getUnlocalizedName().replace(MODID + ".", "") + "_" + values[i].name().toLowerCase()), "inventory"));
         }

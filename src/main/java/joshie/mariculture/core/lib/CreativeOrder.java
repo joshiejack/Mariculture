@@ -9,4 +9,7 @@ public class CreativeOrder {
     //Exploration Tab
     public static final int PEARLS = 16;
     public static final int DIVING = 15;
+
+    //Default
+    public static final int DEFAULT = 500;
 }

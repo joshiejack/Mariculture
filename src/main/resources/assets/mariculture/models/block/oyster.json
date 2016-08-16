@@ -1,5 +1,12 @@
 {
   "parent": "block/block",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 225, 0 ],
+      "translation": [ 0, 5, 0],
+      "scale":[ 1.25, 1.25, 1.25 ]
+    }
+  },
   "textures": {
     "particle": "mariculture:models/oyster",
     "texture": "mariculture:models/oyster",

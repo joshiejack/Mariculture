@@ -75,12 +75,12 @@ public class MCTab extends CreativeTabs {
             int value1 = 500;
             int value2 = 500;
 
-            if (item1 instanceof CreativeSorted) {
-                value1 = ((CreativeSorted) item1).getSortValue(stack1);
+            if (item1 instanceof MCRegistry) {
+                value1 = ((MCRegistry) item1).getSortValue(stack1);
             }
 
-            if (item2 instanceof CreativeSorted) {
-                value2 = ((CreativeSorted) item2).getSortValue(stack2);
+            if (item2 instanceof MCRegistry) {
+                value2 = ((MCRegistry) item2).getSortValue(stack2);
             }
 
             return value1 == value2 ? stack1.getDisplayName().compareTo(stack2.getDisplayName()) : value1 > value2 ? 1 : -1;
@@ -89,8 +89,8 @@ public class MCTab extends CreativeTabs {
 
     private static final Cache<String, MCTab> TABS = CacheBuilder.newBuilder().build();
 
-    public static final MCTab getCore() { return getTab("core"); }
-    public static final MCTab getExploration() { return getTab("exploration"); }
+    public static MCTab getCore() { return getTab("core"); }
+    public static MCTab getExploration() { return getTab("exploration"); }
 
     private static MCTab getTab(final String name) {
         try {

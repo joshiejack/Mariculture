@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.sealife.blocks;
 
-import joshie.mariculture.core.util.BlockAquatic;
+import joshie.mariculture.core.util.block.BlockAquatic;
 import joshie.mariculture.modules.sealife.blocks.BlockPlant.Plant;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

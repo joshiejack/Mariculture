@@ -1,7 +1,7 @@
 package joshie.mariculture.modules.diving.item;
 
 import joshie.mariculture.core.helpers.EntityHelper;
-import joshie.mariculture.core.util.ItemArmorMC;
+import joshie.mariculture.core.util.item.ItemArmorMC;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityGuardian;

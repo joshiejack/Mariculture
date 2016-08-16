@@ -1,5 +1,6 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.inventory;
 
+import joshie.mariculture.core.util.tile.TileMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 

@@ -1,6 +1,7 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.block;
 
 import joshie.mariculture.core.helpers.StringHelper;
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -184,7 +185,7 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerModels(Item item, String name) {
+    public void registerModels(Item item) {
         for (E e: values) {
             ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.getClass().getSimpleName() + "=" + e.getName()));
         }

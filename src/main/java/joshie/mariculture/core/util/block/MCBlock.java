@@ -1,5 +1,8 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.block;
 
+import joshie.mariculture.core.util.item.MCItem;
+import joshie.mariculture.core.util.MCRegistry;
+import joshie.mariculture.core.util.item.ItemBlockMC;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

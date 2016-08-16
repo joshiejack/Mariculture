@@ -1,5 +1,6 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.block;
 
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -72,7 +73,7 @@ public class BlockAquatic<E extends Enum<E> & IStringSerializable, B extends Blo
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerModels(Item item, String name) {
+    public void registerModels(Item item) {
         ModelLoader.setCustomStateMapper(this, NO_WATER);
 
         for (E e: values) {

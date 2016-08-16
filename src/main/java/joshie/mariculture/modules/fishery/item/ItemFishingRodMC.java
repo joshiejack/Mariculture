@@ -2,7 +2,7 @@ package joshie.mariculture.modules.fishery.item;
 
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
 import joshie.mariculture.modules.fishery.utils.FishingRodHelper;
-import joshie.mariculture.core.util.MCItem;
+import joshie.mariculture.core.util.item.MCItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;

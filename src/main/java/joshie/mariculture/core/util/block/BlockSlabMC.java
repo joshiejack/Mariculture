@@ -1,4 +1,4 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.block;
 
 import joshie.mariculture.core.helpers.StringHelper;
 import joshie.mariculture.core.lib.CreativeOrder;
@@ -157,7 +157,7 @@ public abstract class BlockSlabMC<E extends Enum<E> & IStringSerializable, B ext
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerModels(Item item, String name) {
+    public void registerModels(Item item) {
         String prefix = isDouble() ? "" : "half=bottom,";
         for (E type: values) {
             ModelLoader.setCustomModelResourceLocation(item, type.ordinal(), new ModelResourceLocation(getRegistryName(), prefix + type.getClass().getSimpleName().toLowerCase() + "=" + type.getName()));

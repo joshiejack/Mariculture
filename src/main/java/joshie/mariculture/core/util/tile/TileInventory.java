@@ -1,4 +1,4 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;

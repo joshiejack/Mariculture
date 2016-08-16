@@ -3,7 +3,7 @@ package joshie.mariculture.modules.sealife;
 import joshie.mariculture.modules.Module;
 import joshie.mariculture.modules.sealife.blocks.BlockPlant;
 import joshie.mariculture.modules.sealife.lib.Pearl;
-import joshie.mariculture.core.util.ItemComponent;
+import joshie.mariculture.core.util.item.ItemComponent;
 
 import static joshie.mariculture.core.lib.CreativeOrder.PEARLS;
 

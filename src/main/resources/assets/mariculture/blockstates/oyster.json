@@ -1,13 +1,11 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "transform": "forge:default-block",
-    "model": "mariculture:oyster"
+    "transform": "forge:default-block"
   },
   "variants": {
     "inventory": {
       "model": "mariculture:oyster",
-      "scale":[ 1.5, 1.5, 1.5 ],
       "y": 270
     },
     "facing": {
@@ -17,9 +15,9 @@
       "west": { "y": 90 }
     },
     "oyster": {
-      "empty": {},
-      "pearl": { "submodel": { "pearl": { "model": "mariculture:oyster_pearl"} } },
-      "sand": { "submodel": { "sand": { "model": "mariculture:oyster_sand"} } }
+      "empty": { "model": "mariculture:oyster" },
+      "sand": { "model": "mariculture:oyster_sand" },
+      "pearl": { "model": "mariculture:oyster_pearl" }
     }
   }
 }

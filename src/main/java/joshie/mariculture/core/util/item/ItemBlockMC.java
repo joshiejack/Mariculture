@@ -1,5 +1,6 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.item;
 
+import joshie.mariculture.core.util.block.MCBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -69,7 +70,7 @@ public class ItemBlockMC extends ItemBlock implements MCItem {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerModels(Item item, String name) {
-        mcBlock.registerModels(item, name);
+    public void registerModels(Item item) {
+        mcBlock.registerModels(item);
     }
 }

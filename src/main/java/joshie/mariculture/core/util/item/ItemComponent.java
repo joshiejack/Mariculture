@@ -1,5 +1,6 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.item;
 
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 

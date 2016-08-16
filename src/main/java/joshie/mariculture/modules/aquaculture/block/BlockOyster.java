@@ -3,11 +3,13 @@ package joshie.mariculture.modules.aquaculture.block;
 import joshie.mariculture.core.helpers.EntityHelper;
 import joshie.mariculture.core.helpers.StringHelper;
 import joshie.mariculture.core.helpers.TileHelper;
-import joshie.mariculture.core.util.BlockAquatic;
+import joshie.mariculture.core.util.PropertyString;
+import joshie.mariculture.core.util.block.BlockAquatic;
 import joshie.mariculture.modules.aquaculture.AquacultureAPI;
 import joshie.mariculture.modules.aquaculture.block.BlockOyster.Oyster;
 import joshie.mariculture.modules.aquaculture.tile.TileOyster;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,6 +26,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -36,6 +41,7 @@ import static net.minecraft.block.BlockHorizontal.FACING;
 import static net.minecraft.block.BlockLiquid.LEVEL;
 
 public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
+    public static final PropertyString TEXTURE = new PropertyString("texture");
     private static final AxisAlignedBB BOUNDING_BOX = null;
 
     public BlockOyster() {
@@ -46,8 +52,8 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        if(property == null) return new BlockStateContainer(this, LEVEL, FACING, temporary);
-        return new BlockStateContainer(this, LEVEL, FACING, property);
+        if(property == null) return new ExtendedBlockState(this, new IProperty[] { LEVEL, FACING, temporary }, new IUnlistedProperty[] { TEXTURE });
+        return new ExtendedBlockState(this, new IProperty[] { LEVEL, FACING, property }, new IUnlistedProperty[] { TEXTURE });
     }
 
     @Deprecated
@@ -69,7 +75,7 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         ItemStack stack = TileHelper.getStackInSlot(world.getTileEntity(pos), 0);
-        spawnAsEntity(world, pos, stack);
+        if (stack != null) spawnAsEntity(world, pos, stack);
         super.breakBlock(world, pos, state);
     }
 
@@ -80,12 +86,12 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-        world.setBlockState(pos, state.withProperty(FACING, EntityHelper.getFacingFromEntity(entity)));
+        world.setBlockState(pos, state.withProperty(FACING, EntityHelper.getFacingFromEntity(entity)).withProperty(property, Oyster.EMPTY));
     }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        Oyster oyster = getEnumFromState(getActualState(state, world, pos));
+        Oyster oyster = getEnumFromState(getExtendedState(state, world, pos));
         if (oyster == Oyster.EMPTY && heldItem != null && AquacultureAPI.isSand(heldItem)) {
             ItemStack held = TileHelper.getItemHandler(world.getTileEntity(pos)).insertItem(0, heldItem, false);
             if (!player.capabilities.isCreativeMode) player.setHeldItem(hand, held);
@@ -99,6 +105,12 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
         }
 
         return false;
+    }
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        ItemStack stack = TileHelper.getStackInSlot(world.getTileEntity(pos), 0);
+        return stack  == null ? state : ((IExtendedBlockState) state).withProperty(TEXTURE, AquacultureAPI.getTexture(stack));
     }
 
     @Deprecated
@@ -133,7 +145,7 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerModels(Item item, String name) {
+    public void registerModels(Item item) {
         ModelLoader.setCustomStateMapper(this, NO_WATER);
 
         for (Oyster oyster: values) {

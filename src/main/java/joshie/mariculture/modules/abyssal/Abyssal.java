@@ -7,7 +7,7 @@ import joshie.mariculture.modules.abyssal.block.BlockLimestone;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab.Type;
 import joshie.mariculture.modules.abyssal.gen.WorldGenOverworld;
-import joshie.mariculture.core.util.BlockStairsMC;
+import joshie.mariculture.core.util.block.BlockStairsMC;
 import joshie.mariculture.core.util.MCTab;
 import joshie.mariculture.modules.sealife.blocks.BlockPlant;
 import net.minecraft.block.state.IBlockState;

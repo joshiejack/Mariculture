@@ -1,6 +1,7 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.item;
 
 import joshie.mariculture.core.helpers.StringHelper;
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -68,7 +69,7 @@ public class ItemMCEnum<A extends ItemMCEnum, E extends Enum<E>> extends Item im
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerModels(Item item, String name) {
+    public void registerModels(Item item) {
         for (E e: values) {
             ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(getRegistryName(), e.name().toLowerCase()));
         }

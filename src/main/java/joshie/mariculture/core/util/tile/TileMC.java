@@ -1,4 +1,4 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.tile;
 
 import joshie.mariculture.core.helpers.TileHelper;
 import net.minecraft.nbt.NBTTagCompound;

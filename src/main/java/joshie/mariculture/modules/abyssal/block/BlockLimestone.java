@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.abyssal.block;
 
-import joshie.mariculture.core.util.BlockMCEnum;
+import joshie.mariculture.core.util.block.BlockMCEnum;
 import joshie.mariculture.modules.abyssal.block.BlockLimestone.Limestone;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

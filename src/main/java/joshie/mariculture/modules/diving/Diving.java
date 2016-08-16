@@ -8,7 +8,7 @@ import joshie.mariculture.modules.diving.item.ItemSnorkel;
 import joshie.mariculture.modules.diving.lib.DivingComponent;
 import joshie.mariculture.modules.diving.render.ModelBuoyancyAid;
 import joshie.mariculture.modules.diving.render.ModelSnorkel;
-import joshie.mariculture.core.util.ItemComponent;
+import joshie.mariculture.core.util.item.ItemComponent;
 import joshie.mariculture.core.util.MCTab;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.ResourceLocation;

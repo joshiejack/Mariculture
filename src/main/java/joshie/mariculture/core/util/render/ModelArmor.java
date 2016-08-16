@@ -1,4 +1,4 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.render;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;

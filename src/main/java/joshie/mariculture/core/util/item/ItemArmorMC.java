@@ -1,7 +1,8 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.item;
 
 import joshie.mariculture.core.helpers.StringHelper;
 import joshie.mariculture.core.lib.CreativeOrder;
+import joshie.mariculture.core.util.MCTab;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
