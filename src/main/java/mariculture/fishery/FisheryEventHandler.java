@@ -91,14 +91,14 @@ public class FisheryEventHandler {
     
     public static Multimap<Integer, CachedCoords> invalid_spawns = HashMultimap.create();
     
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void onLivingAttemptSpawn(CheckSpawn event) {
     	if (event.entityLiving instanceof EntityMob) {
     		if (invalid_spawns.get(event.world.provider.dimensionId).contains(new CachedCoords((int)event.x, (int)event.y, (int)event.z))) {
     			event.setResult(Result.DENY);
     		}
     	}
-    }
+    }*/
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
