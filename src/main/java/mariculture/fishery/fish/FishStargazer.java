@@ -91,7 +91,7 @@ public class FishStargazer extends FishSpecies {
         }
     }
     
-    @Override
+    /*@Override
     public void onFishAdded(ItemStack stack, World world, int x, int y, int z, ArrayList<CachedCoords> coords) {
         for (CachedCoords coord: coords) {
             for (int x2 = - 16; x2 <= 16; x2++) {
@@ -115,7 +115,7 @@ public class FishStargazer extends FishSpecies {
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public boolean canWorkAtThisTime(boolean isDay) {
