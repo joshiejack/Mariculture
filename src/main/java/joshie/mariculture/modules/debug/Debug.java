@@ -1,10 +1,10 @@
 package joshie.mariculture.modules.debug;
 
-import joshie.mariculture.modules.Module;
+import joshie.mariculture.core.util.annotation.MCLoader;
 
 import static joshie.mariculture.core.helpers.ConfigHelper.getInteger;
 
-@Module(name = "debug", disableByDefault = true)
+@MCLoader
 public class Debug {
     public static int CHICKEN_FISHING;
 

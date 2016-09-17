@@ -1,16 +1,15 @@
 package joshie.mariculture.modules.fishery;
 
 import joshie.mariculture.Mariculture;
-import joshie.mariculture.modules.Module;
+import joshie.mariculture.core.util.MCTab;
+import joshie.mariculture.core.util.annotation.MCLoader;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
 import joshie.mariculture.modules.fishery.item.ItemFishingRodMC;
 import joshie.mariculture.modules.fishery.loot.*;
-import joshie.mariculture.modules.fishery.render.RenderBobber;
 import joshie.mariculture.modules.fishery.utils.GuiHandler;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderFish;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -19,13 +18,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /** The Fishery module is about the fish, and catching them,
  *  gutting them and processing them */
-@Module(name = "fishery")
+@MCLoader
 public class Fishery {
     public static final ItemFishingRodMC FISHING_ROD = new ItemFishingRodMC().register("rod");
 
     public static void preInit() {
+        MCTab.getFishery().setStack(new ItemStack(FISHING_ROD));
         NetworkRegistry.INSTANCE.registerGuiHandler(Mariculture.instance, new GuiHandler()); //Register the gui handler here, as the bait bag will be the only gui
-        EntityRegistry.registerModEntity(EntityFishHookMC.class, "Hook", 0, Mariculture.instance, 150, 3, true);
+        EntityRegistry.registerModEntity(EntityFishHookMC.class, "hook", 0, Mariculture.instance, 64, 5, true);
+        EntityRegistry.instance().lookupModSpawn(EntityFishHookMC.class, false).setCustomSpawning(null, true);
 
         //Register the custom loot conditions for mariculture
         LootConditionManager.registerCondition(new RodStrength.Serializer());
@@ -38,11 +39,6 @@ public class Fishery {
 
     @SideOnly(Side.CLIENT)
     public static void preInitClient() {
-        RenderingRegistry.registerEntityRenderingHandler(EntityFishHookMC.class, new IRenderFactory<EntityFishHookMC>() {
-            @Override
-            public Render<? super EntityFishHookMC> createRenderFor(RenderManager manager) {
-                return new RenderBobber(manager);
-            }
-        });
+        RenderingRegistry.registerEntityRenderingHandler(EntityFishHookMC.class, RenderFish:: new);
     }
 }

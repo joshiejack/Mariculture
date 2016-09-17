@@ -1,6 +1,5 @@
 package joshie.mariculture.modules.fishery.entity;
 
-import io.netty.buffer.ByteBuf;
 import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.api.fishing.FishingTrait;
 import joshie.mariculture.modules.fishery.Fishery;
@@ -22,14 +21,13 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import java.util.List;
 
 /**
  * This class exists simply because vanilla checks for fishing rod instead of instanceof ItemFishingRod
  **/
-public class EntityFishHookMC extends EntityFishHook implements IEntityAdditionalSpawnData {
+public class EntityFishHookMC extends EntityFishHook {
     private ItemStack bait;
 
     public EntityFishHookMC(World world, EntityPlayer player, ItemStack bait) {
@@ -37,14 +35,16 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
         this.bait = bait;
     }
 
+    @SuppressWarnings("unused")
     public EntityFishHookMC(World world) {
         super(world);
     }
 
     @Override
+    @SuppressWarnings("StatementWithEmptyBody")
     public void onUpdate() {
         if (worldObj.isRemote) {
-            int i = ((Integer) getDataManager().get(DATA_HOOKED_ENTITY)).intValue();
+            int i = getDataManager().get(DATA_HOOKED_ENTITY);
 
             if (i > 0 && caughtEntity == null) {
                 caughtEntity = worldObj.getEntityByID(i - 1);
@@ -81,7 +81,7 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
             setRotation(rotationYaw, rotationPitch);
         } else {
             if (inGround) {
-                if (worldObj.getBlockState(new BlockPos(xTile, yTile, zTile)).getBlock() == inTile) {
+                if (worldObj.getBlockState(field_189740_d).getBlock() == inTile) {
                     ++ticksInGround;
 
                     if (ticksInGround == 1200) {
@@ -116,8 +116,7 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                 List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
                 double d0 = 0.0D;
 
-                for (int j = 0; j < list.size(); ++j) {
-                    Entity entity1 = list.get(j);
+                for (Entity entity1: list) {
                     if (entity1.canBeCollidedWith() && (entity1 != angler || ticksInAir >= 5)) {
                         AxisAlignedBB axisalignedbb1 = entity1.getEntityBoundingBox().expandXyz(0.30000001192092896D);
                         RayTraceResult raytraceresult1 = axisalignedbb1.calculateIntercept(vec3d1, vec3d);
@@ -140,7 +139,7 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                 if (raytraceresult != null) {
                     if (raytraceresult.entityHit != null) {
                         caughtEntity = raytraceresult.entityHit;
-                        getDataManager().set(DATA_HOOKED_ENTITY, Integer.valueOf(caughtEntity.getEntityId() + 1));
+                        getDataManager().set(DATA_HOOKED_ENTITY, caughtEntity.getEntityId() + 1);
                     } else {
                         inGround = true;
                     }
@@ -152,9 +151,7 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                 float f2 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
                 rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
-                for (rotationPitch = (float) (MathHelper.atan2(motionY, (double) f2) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {
-                    ;
-                }
+                for (rotationPitch = (float) (MathHelper.atan2(motionY, (double) f2) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {}
 
                 while (rotationPitch - prevRotationPitch >= 180.0F) {
                     prevRotationPitch += 360.0F;
@@ -218,8 +215,8 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                             motionY -= 0.20000000298023224D;
                             playSound(SoundEvents.ENTITY_BOBBER_SPLASH, 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
                             float f6 = (float) MathHelper.floor_double(getEntityBoundingBox().minY);
-                            worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX, (double) (f6 + 1.0F), posZ, (int) (1.0F + width * 20.0F), (double) width, 0.0D, (double) width, 0.20000000298023224D, new int[0]);
-                            worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, posX, (double) (f6 + 1.0F), posZ, (int) (1.0F + width * 20.0F), (double) width, 0.0D, (double) width, 0.20000000298023224D, new int[0]);
+                            worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX, (double) (f6 + 1.0F), posZ, (int) (1.0F + width * 20.0F), (double) width, 0.0D, (double) width, 0.20000000298023224D);
+                            worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, posX, (double) (f6 + 1.0F), posZ, (int) (1.0F + width * 20.0F), (double) width, 0.0D, (double) width, 0.20000000298023224D);
                             ticksCatchable = MathHelper.getRandomIntegerInRange(rand, 10, 30);
                         } else {
                             fishApproachAngle = (float) ((double) fishApproachAngle + rand.nextGaussian() * 4.0D);
@@ -233,13 +230,13 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
 
                             if (block1 == Blocks.WATER || block1 == Blocks.FLOWING_WATER) {
                                 if (rand.nextFloat() < 0.15F) {
-                                    worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, d13, d15 - 0.10000000149011612D, d16, 1, (double) f8, 0.1D, (double) f10, 0.0D, new int[0]);
+                                    worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, d13, d15 - 0.10000000149011612D, d16, 1, (double) f8, 0.1D, (double) f10, 0.0D);
                                 }
 
                                 float f = f8 * 0.04F;
                                 float f1 = f10 * 0.04F;
-                                worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d13, d15, d16, 0, (double) f1, 0.01D, (double) (-f), 1.0D, new int[0]);
-                                worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d13, d15, d16, 0, (double) (-f1), 0.01D, (double) f, 1.0D, new int[0]);
+                                worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d13, d15, d16, 0, (double) f1, 0.01D, (double) (-f), 1.0D);
+                                worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d13, d15, d16, 0, (double) (-f1), 0.01D, (double) f, 1.0D);
                             }
                         }
                     } else if (ticksCaughtDelay > 0) {
@@ -263,7 +260,7 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
                             Block block = worldserver.getBlockState(new BlockPos((int) d12, (int) d14 - 1, (int) d2)).getBlock();
 
                             if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
-                                worldserver.spawnParticle(EnumParticleTypes.WATER_SPLASH, d12, d14, d2, 2 + rand.nextInt(2), 0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D, new int[0]);
+                                worldserver.spawnParticle(EnumParticleTypes.WATER_SPLASH, d12, d14, d2, 2 + rand.nextInt(2), 0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D);
                             }
                         }
 
@@ -366,15 +363,5 @@ public class EntityFishHookMC extends EntityFishHook implements IEntityAdditiona
         if (compound.hasKey("Bait")) {
             bait = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("Bait"));
         }
-    }
-
-    @Override
-    public void writeSpawnData(ByteBuf buffer) {
-        buffer.writeInt(angler != null ? angler.getEntityId() : 0);
-    }
-
-    @Override
-    public void readSpawnData(ByteBuf buffer) {
-        angler = (EntityPlayer) worldObj.getEntityByID(buffer.readInt());
     }
 }

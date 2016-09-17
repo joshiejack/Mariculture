@@ -1,5 +1,6 @@
 package joshie.mariculture.modules.fishery.item;
 
+import joshie.mariculture.core.util.MCTab;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
 import joshie.mariculture.modules.fishery.utils.FishingRodHelper;
 import joshie.mariculture.core.util.item.MCItem;
@@ -18,17 +19,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /** Mariculture custom fishing rod **/
 public class ItemFishingRodMC extends ItemFishingRod implements MCItem<ItemFishingRodMC> {
+    public ItemFishingRodMC() {
+        setCreativeTab(MCTab.getFishery());
+    }
+
     @Override
     public int getMaxDamage(ItemStack stack) {
         return FishingRodHelper.getDurability(stack);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    @Nonnull
+    @SuppressWarnings("ConstantConditions")
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, @Nonnull World worldIn, EntityPlayer playerIn, @Nonnull EnumHand hand) {
         if (playerIn.fishEntity != null) {
             int i = playerIn.fishEntity.handleHookRetraction();
             if (FishingRodHelper.isDamageable(stack)) {
@@ -46,7 +54,7 @@ public class ItemFishingRodMC extends ItemFishingRod implements MCItem<ItemFishi
             playerIn.addStat(StatList.getObjectUseStats(this));
         }
 
-        return new ActionResult(EnumActionResult.SUCCESS, stack);
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
     @Override
@@ -55,7 +63,7 @@ public class ItemFishingRodMC extends ItemFishingRod implements MCItem<ItemFishi
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+    public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(FishingRodHelper.build(1000, false));
     }
 }

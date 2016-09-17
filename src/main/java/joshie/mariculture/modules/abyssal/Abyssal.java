@@ -1,7 +1,7 @@
 package joshie.mariculture.modules.abyssal;
 
 import joshie.mariculture.api.MaricultureAPI;
-import joshie.mariculture.modules.Module;
+import joshie.mariculture.core.util.annotation.MCLoader;
 import joshie.mariculture.modules.ModuleManager;
 import joshie.mariculture.modules.abyssal.block.BlockLimestone;
 import joshie.mariculture.modules.abyssal.block.BlockLimestoneSlab;
@@ -21,15 +21,15 @@ import static net.minecraft.init.Blocks.SAND;
 /** The Abyssal (Seabed/Seafloor) Module is all about changing the ocean floor itself, to make it more interesting
  *  Instead of just the vanilla gravel oceans, it adds a limestone top, covered by sand,
  *  It also will add more interesting features, like deep sea trents, caves, and hydrothermal vents  */
-@Module(name = "abyssal")
+@MCLoader
 public class Abyssal {
     public static final BlockLimestone LIMESTONE = new BlockLimestone().register("limestone");
-    public static BlockStairsMC LIMESTONE_STAIRS_RAW;
-    public static BlockStairsMC LIMESTONE_STAIRS_SMOOTH;
-    public static BlockStairsMC LIMESTONE_STAIRS_BRICK;
-    public static BlockStairsMC LIMESTONE_STAIRS_SMALL_BRICK;
-    public static BlockStairsMC LIMESTONE_STAIRS_THIN_BRICK;
-    public static BlockStairsMC LIMESTONE_STAIRS_BORDERED;
+    private static BlockStairsMC LIMESTONE_STAIRS_RAW;
+    private static BlockStairsMC LIMESTONE_STAIRS_SMOOTH;
+    private static BlockStairsMC LIMESTONE_STAIRS_BRICK;
+    private static BlockStairsMC LIMESTONE_STAIRS_SMALL_BRICK;
+    private static BlockStairsMC LIMESTONE_STAIRS_THIN_BRICK;
+    private static BlockStairsMC LIMESTONE_STAIRS_BORDERED;
     public static BlockLimestoneSlab LIMESTONE_SLAB;
     public static BlockLimestoneSlab LIMESTONE_SLAB_DOUBLE;
 
@@ -114,14 +114,13 @@ public class Abyssal {
         LIMESTONE_STAIRS = getBoolean("Enable Limestone Stairs", true);
         LIMESTONE_SLABS = getBoolean("Enable Limestone Slabs", true);
 
-        setCategory("Deep Sea Trenches");
-        DEEP_SEA_TRENCHES = getBoolean("Enable", true);
-        DEEP_SEA_MAX_HEIGHT = getInteger("Maximum Floor Height", 36, "When generating, trenches pick a random block, and will only generate if the block is this number or lower");
-        DEEP_SEA_RARITY = getRandomInteger("Rarity", 300, "The higher the number, the rarer the trenches will be");
-        DEEP_SEA_LENGTH = getInteger("Length", 12);
-        DEEP_SEA_WIDTH = getFloat("Width", 5F);
+        DEEP_SEA_TRENCHES = getBoolean("Deep Sea Trenches > Enable", true);
+        DEEP_SEA_MAX_HEIGHT = getInteger("Deep Sea Trenches > Maximum Floor Height", 36, "When generating, trenches pick a random block, and will only generate if the block is this number or lower");
+        DEEP_SEA_RARITY = getRandomInteger("Deep Sea Trenches > Rarity", 300, "The higher the number, the rarer the trenches will be");
+        DEEP_SEA_LENGTH = getInteger("Deep Sea Trenches > Length", 12);
+        DEEP_SEA_WIDTH = getFloat("Deep Sea Trenches > Width", 5F);
         DEEP_SEA_WIDTH_2 = DEEP_SEA_WIDTH * 2F;
         DEEP_SEA_WIDTH_3 = DEEP_SEA_WIDTH / 4F;
-        DEEP_SEA_DEPTH = getDouble("Depth", 3.25D);
+        DEEP_SEA_DEPTH = getDouble("Deep Sea Trenches > Depth", 3.25D);
     }
 }

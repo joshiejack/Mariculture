@@ -2,7 +2,7 @@ package joshie.mariculture.modules.diving;
 
 import joshie.mariculture.api.diving.CapabilityWaterBreathing.IDisableHardcoreDiving;
 import joshie.mariculture.api.diving.CapabilityWaterBreathing.WaterBreathingStorage;
-import joshie.mariculture.modules.Module;
+import joshie.mariculture.core.util.annotation.MCLoader;
 import joshie.mariculture.modules.diving.item.ItemBuoyancyAid;
 import joshie.mariculture.modules.diving.item.ItemSnorkel;
 import joshie.mariculture.modules.diving.lib.DivingComponent;
@@ -27,7 +27,7 @@ import static net.minecraft.init.Items.STRING;
 
 /** The Diving Module contains things that will help you operate underwater
  *  It will see the return of the diving gear and air pump at least */
-@Module(name = "diving")
+@MCLoader
 public class Diving {
     public static final ArmorMaterial ARMOR_SNORKEL = EnumHelper.addArmorMaterial("SNORKEL", "SNORKEL", 10, new int[] { 0, 0, 1, 0 }, 20, SoundEvent.REGISTRY.getObject(new ResourceLocation("block.wood.hit")), 0F);
     public static final ItemSnorkel SNORKEL = new ItemSnorkel().register("snorkel");

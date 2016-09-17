@@ -2,7 +2,7 @@ package joshie.mariculture.modules.abyssal.gen;
 
 import joshie.mariculture.api.gen.IWorldGen;
 import joshie.mariculture.api.gen.WorldGen;
-import joshie.mariculture.modules.EventAPIContainer;
+import joshie.mariculture.core.util.annotation.MCEvents;
 import joshie.mariculture.modules.abyssal.Abyssal;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.HashMap;
 
-@EventAPIContainer(modules = "abyssal", events = true)
+@MCEvents(modules = "abyssal")
 public class AbyssalOcean implements WorldGen {
     private static final HashMap<Class<? extends IChunkGenerator>, IWorldGen> GENERATORS = new HashMap<>();
 

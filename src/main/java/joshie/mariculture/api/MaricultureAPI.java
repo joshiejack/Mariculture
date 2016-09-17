@@ -17,10 +17,10 @@ public class MaricultureAPI {
      *  the relevant modules are enabled first,
      *  or these will remain as null **/
 
-    public static Aquaculture aquaculture = null;
-    public static Diving diving = null;
-    public static Fishing fishing = null;
-    public static WorldGen worldGen = null;
+    public static final Aquaculture aquaculture = null;
+    public static final Diving diving = null;
+    public static final Fishing fishing = null;
+    public static final WorldGen worldGen = null;
 
     /** Use this helped method to determine if a module is enabled
      *  It's probably a good idea to cache this value for yourself **/

@@ -1,7 +1,7 @@
 package joshie.mariculture.modules.aquaculture.render;
 
 import joshie.mariculture.core.util.render.BakedMC;
-import joshie.mariculture.modules.EventAPIContainer;
+import joshie.mariculture.core.util.annotation.MCEvents;
 import joshie.mariculture.modules.aquaculture.block.BlockOyster;
 import joshie.mariculture.modules.aquaculture.block.BlockOyster.Oyster;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +17,7 @@ import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class BakedOyster extends BakedMC {
         }
     }
 
-    @EventAPIContainer(events = true)
+    @MCEvents(Side.CLIENT)
     public static class Register { /** Register the oyster model **/
         private static final ResourceLocation OYSTER = new ResourceLocation(MODID, "oyster");
 

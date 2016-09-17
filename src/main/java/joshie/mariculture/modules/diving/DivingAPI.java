@@ -1,16 +1,18 @@
 package joshie.mariculture.modules.diving;
 
 import joshie.mariculture.api.diving.WaterBreathingChecker;
-import joshie.mariculture.modules.EventAPIContainer;
+import joshie.mariculture.core.util.annotation.MCApiImpl;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@EventAPIContainer(modules = "diving")
+@MCApiImpl("diving")
 public class DivingAPI implements joshie.mariculture.api.diving.Diving {
-    private static final Set<WaterBreathingChecker> listeners = new HashSet<>();
+    public static final DivingAPI INSTANCE = new DivingAPI();
 
-    public static Set<WaterBreathingChecker> getListeners() {
+    private final Set<WaterBreathingChecker> listeners = new HashSet<>();
+
+    public Set<WaterBreathingChecker> getListeners() {
         return listeners;
     }
 

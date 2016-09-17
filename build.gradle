@@ -17,9 +17,8 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-  maven {
-    url "http://dvs1.progwml6.com/files/maven"
-  }
+  maven { url "http://dvs1.progwml6.com/files/maven" }
+  maven { url "http://tehnut.info/maven" }
 }
 
 ext.buildnumber=""
@@ -35,13 +34,14 @@ minecraft {
     version = "${minecraft_version}-${forge_version}"
     runDir = "run"
     mappings = "${mappings_version}"
-    
+    coreMod = "joshie.mariculture.asm.VanillaHooks"
     replace "@VERSION@", "${mod_version}"
     replaceIn "MaricultureInfo.java"
 }
 
 dependencies {
   deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+  deobfCompile "info.tehnut.buttons:Buttons:${minecraft_version}-${buttons_version}"
 }
 
 processResources
@@ -62,7 +62,9 @@ processResources
 
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'joshie.mariculture.VanillaHooks'
+        attributes 'FMLCorePlugin': 'joshie.mariculture.asm.VanillaHooks'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
+
+idea { module { inheritOutputDirs = true } }

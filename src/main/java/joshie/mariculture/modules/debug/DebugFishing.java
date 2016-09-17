@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.debug;
 
-import joshie.mariculture.modules.EventAPIContainer;
+import joshie.mariculture.core.util.annotation.MCEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -19,7 +19,7 @@ import java.util.Random;
 /** This is for assistance when fishing, killing a chicken
  *  will yield whatever fishing would as it's drops, allowing
  *  one to test the loot rates of fishing more easily than, you could otherwise*/
-@EventAPIContainer(modules = "debug, fishing")
+@MCEvents(modules = "debug, fishing")
 public class DebugFishing {
     private static final Random rand = new Random();
 

@@ -18,9 +18,7 @@ import static org.objectweb.asm.Opcodes.*;
 public class ASMFishHook extends AbstractASM {
     @Override
     public boolean isClass(String name) {
-        return name.equals("net.minecraft.entity.projectile.EntityFishHook") ||
-                (Loader.MC_VERSION.equals("1.9.4") && name.equals("xw")) ||
-                (Loader.MC_VERSION.equals("1.10.2") && name.equals("yd") );
+        return name.equals("net.minecraft.entity.projectile.EntityFishHook") || name.equals("yd");
     }
 
     @Override

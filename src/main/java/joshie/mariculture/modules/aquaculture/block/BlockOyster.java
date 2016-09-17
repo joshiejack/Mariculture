@@ -92,7 +92,7 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         Oyster oyster = getEnumFromState(getExtendedState(state, world, pos));
-        if (oyster == Oyster.EMPTY && heldItem != null && AquacultureAPI.isSand(heldItem)) {
+        if (oyster == Oyster.EMPTY && heldItem != null && AquacultureAPI.INSTANCE.isSand(heldItem)) {
             ItemStack held = TileHelper.getItemHandler(world.getTileEntity(pos)).insertItem(0, heldItem, false);
             if (!player.capabilities.isCreativeMode) player.setHeldItem(hand, held);
             return true;
@@ -110,7 +110,7 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
     @Override
     public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
         ItemStack stack = TileHelper.getStackInSlot(world.getTileEntity(pos), 0);
-        return stack  == null ? state : ((IExtendedBlockState) state).withProperty(TEXTURE, AquacultureAPI.getTexture(stack));
+        return stack  == null ? state : ((IExtendedBlockState) state).withProperty(TEXTURE, AquacultureAPI.INSTANCE.getTexture(stack));
     }
 
     @Deprecated
@@ -118,7 +118,7 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         ItemStack stack = TileHelper.getStackInSlot(world.getTileEntity(pos), 0);
         if (stack == null) return state.withProperty(property, Oyster.EMPTY);
-        else if (AquacultureAPI.isSand(stack)) return state.withProperty(property, Oyster.SAND);
+        else if (AquacultureAPI.INSTANCE.isSand(stack)) return state.withProperty(property, Oyster.SAND);
         else return state.withProperty(property, Oyster.PEARL);
     }
 

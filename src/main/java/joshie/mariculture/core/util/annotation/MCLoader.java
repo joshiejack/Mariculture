@@ -1,4 +1,4 @@
-package joshie.mariculture.modules;
+package joshie.mariculture.core.util.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,16 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Module {
-    /** Name of this module **/
-    String name();
-
-    /** If this is set to true,
-     * this module will be disabled by default **/
-    boolean disableByDefault() default false;
-
-    /** Comma separated list of modules required,
-     *  By default, all modules require core to be enabled **/
+public @interface MCLoader {
+    /** Comma separated list of modules required to be enabled,
+     *  By default, requires no modules **/
     String modules() default "";
 
     /** Comma separated list of mods required to enabled,

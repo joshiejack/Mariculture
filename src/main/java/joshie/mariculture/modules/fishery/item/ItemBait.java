@@ -1,7 +1,7 @@
 package joshie.mariculture.modules.fishery.item;
 
-import joshie.mariculture.modules.fishery.item.ItemBait.Bait;
 import joshie.mariculture.core.util.item.ItemFoodMC;
+import joshie.mariculture.modules.fishery.item.ItemBait.Bait;
 
 public class ItemBait extends ItemFoodMC<Bait> {
     public enum Bait {

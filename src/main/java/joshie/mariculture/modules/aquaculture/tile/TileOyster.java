@@ -13,12 +13,12 @@ public class TileOyster extends TileInventory {
     private final SingleStackHandler handler = new SingleStackHandler(this, 1) {
         @Override
         public boolean isValidForInsertion(int slot, ItemStack stack) {
-            return AquacultureAPI.isSand(stack);
+            return AquacultureAPI.INSTANCE.isSand(stack);
         }
 
         @Override
         public boolean isValidForExtraction(int slot, ItemStack stack) {
-            return !AquacultureAPI.isSand(stack);
+            return !AquacultureAPI.INSTANCE.isSand(stack);
         }
     };
 

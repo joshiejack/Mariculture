@@ -1,9 +1,5 @@
-package joshie.mariculture;
+package joshie.mariculture.asm;
 
-import joshie.mariculture.asm.ASMConfig;
-import joshie.mariculture.asm.ASMHelper;
-import joshie.mariculture.asm.ASMType;
-import joshie.mariculture.asm.AbstractASM;
 import joshie.mariculture.asm.hooks.ASMFishHook;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
@@ -13,21 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@MCVersion("1.9.4")
+@MCVersion("1.10.2")
 public class VanillaHooks implements IFMLLoadingPlugin, IClassTransformer {
-    private static List<AbstractASM> asm = new ArrayList();
-    private static Class[] classes = new Class[] { ASMFishHook.class};
+    private static List<AbstractASM> asm = new ArrayList<>();
 
     static {
-        for (Class clazz: classes) {
-            if (ASMConfig.isEnabled(clazz)) {
-                try {
-                    asm.add((AbstractASM) clazz.newInstance());
-                } catch (Exception e){}
-            }
-        }
-
-        classes = null; //Clear out the memory
+        asm.add(new ASMFishHook());
     }
 
     @Override

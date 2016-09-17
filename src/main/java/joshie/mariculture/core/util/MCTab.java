@@ -91,6 +91,7 @@ public class MCTab extends CreativeTabs {
 
     public static MCTab getCore() { return getTab("core"); }
     public static MCTab getExploration() { return getTab("exploration"); }
+    public static MCTab getFishery() { return getTab("fishery"); }
 
     private static MCTab getTab(final String name) {
         try {

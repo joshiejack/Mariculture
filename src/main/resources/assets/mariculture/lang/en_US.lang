@@ -1,6 +1,7 @@
 #Mariculture Core Module
 mariculture.tab.core=Mariculture
 mariculture.tab.exploration=Mariculture - Exploration
+mariculture.tab.fishery=Mariculture - Fishery
 
 #Abyssal - Blocks
 mariculture.tile.limestone.raw=Limestone

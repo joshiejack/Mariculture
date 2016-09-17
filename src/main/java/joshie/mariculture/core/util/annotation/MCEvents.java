@@ -1,4 +1,6 @@
-package joshie.mariculture.modules;
+package joshie.mariculture.core.util.annotation;
+
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,11 +10,10 @@ import java.lang.annotation.Target;
 
 /** Classes annotated with this automatically get registered
  *  to the minecraft forge event bus if the modules are active.
- *  And they return true for events. It will also attempt to associate
- *  the instance with the api, if it implements one of the main classes */
+ *  And they return true for events. */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface EventAPIContainer {
+public @interface MCEvents {
+    Side value() default Side.SERVER;
     String modules() default "core";
-    boolean events() default false;
 }

@@ -3,13 +3,19 @@ package joshie.mariculture.core.helpers;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.common.config.Configuration;
 
+import java.io.File;
+
 public class ConfigHelper {
     private static Configuration config;
     private static String category;
 
-    public static Configuration setConfig(Configuration config) {
-        ConfigHelper.config = config;
+    public static Configuration setConfig(File file) {
+        ConfigHelper.config = new Configuration(file);
         category = "Settings"; //Default
+        return config;
+    }
+
+    public static Configuration getConfig() {
         return config;
     }
 

@@ -3,17 +3,15 @@ package joshie.mariculture.modules.hardcore.feature;
 import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.api.diving.CapabilityWaterBreathing.IDisableHardcoreDiving;
 import joshie.mariculture.api.diving.WaterBreathingChecker;
-import joshie.mariculture.modules.EventAPIContainer;
-import joshie.mariculture.modules.Module;
+import joshie.mariculture.core.util.annotation.MCEvents;
+import joshie.mariculture.core.util.annotation.MCLoader;
 import joshie.mariculture.modules.diving.DivingAPI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-
-import java.util.HashSet;
-import java.util.Set;
+import scala.reflect.internal.util.WeakHashSet;
 
 import static joshie.mariculture.api.diving.CapabilityWaterBreathing.BREATHING_CAPABILITY;
 import static joshie.mariculture.core.helpers.ConfigHelper.getBoolean;
@@ -22,8 +20,8 @@ import static net.minecraft.block.material.Material.WATER;
 import static net.minecraft.init.MobEffects.WATER_BREATHING;
 import static net.minecraft.util.EnumFacing.DOWN;
 
-@Module(name = "hardcore-airspeed", modules="hardcore", disableByDefault = true)
-@EventAPIContainer(modules = "hardcore-airspeed", events = true)
+@MCLoader(modules = "diving")
+@MCEvents(modules = "hardcore-airDecreaseSpeed")
 public class AirDecreaseSpeed {
     public static void preInit() {
         MaricultureAPI.diving.registerWaterbreathingListener(player -> {
@@ -41,7 +39,7 @@ public class AirDecreaseSpeed {
         });
     }
 
-    private final Set<EntityPlayer> disabled = new HashSet<>();
+    private final WeakHashSet<EntityPlayer> disabled = new WeakHashSet<>();
 
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent event) {
@@ -70,7 +68,7 @@ public class AirDecreaseSpeed {
     }
 
     private boolean canBreatheUnderwater(EntityPlayer player) {
-        for (WaterBreathingChecker listener: DivingAPI.getListeners()) {
+        for (WaterBreathingChecker listener: DivingAPI.INSTANCE.getListeners()) {
             if (listener.canBreatheUnderwater(player)) {
                 return true;
             }

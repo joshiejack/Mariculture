@@ -7,7 +7,8 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 import joshie.mariculture.api.fishing.Fishing;
 import joshie.mariculture.api.fishing.FishingTrait;
 import joshie.mariculture.core.helpers.GroupHelper;
-import joshie.mariculture.modules.EventAPIContainer;
+import joshie.mariculture.core.util.StackHolder;
+import joshie.mariculture.core.util.annotation.MCApiImpl;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -15,24 +16,25 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.concurrent.Callable;
 
 import static joshie.mariculture.api.fishing.Fishing.Salinity.BRACKISH;
 import static joshie.mariculture.api.fishing.Fishing.Salinity.SALINE;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
-@EventAPIContainer(modules = "fishery")
+@MCApiImpl("fishery")
 public class FishingAPI implements Fishing {
-    private final EnumMap<Type, Salinity> salinityBestGuess = new EnumMap(Type.class);
+    @SuppressWarnings("unused")
+    public static final FishingAPI INSTANCE = new FishingAPI();
+
+    private final EnumMap<Type, Salinity> salinityBestGuess = new EnumMap<>(Type.class);
     private final Cache<Biome, Salinity> salinityCache = CacheBuilder.newBuilder().build();
     private final HashMap<Biome, Salinity> salinityRegistry = new HashMap<>();
     private final TObjectIntMap<Item> strengthRegistry = new TObjectIntHashMap<>();
     private final HashMap<ResourceLocation, FishingTrait> traitRegistry = new HashMap<>();
-    private final HashMap<Pair<Item, Integer>, ResourceLocation> baitRegistry = new HashMap<>();
+    private final HashMap<StackHolder, ResourceLocation> baitRegistry = new HashMap<>();
 
     public FishingAPI() {
         salinityBestGuess.put(OCEAN, SALINE);
@@ -66,33 +68,30 @@ public class FishingAPI implements Fishing {
             LootTableList.register(resource);
         }
 
-        baitRegistry.put(Pair.of(stack.getItem(), stack.getItemDamage()), resource);
+        baitRegistry.put(StackHolder.of(stack), resource);
     }
 
     @Override
     public ResourceLocation getLootTableFromBait(ItemStack stack) {
         if (stack == null) return LootTableList.GAMEPLAY_FISHING;
-        ResourceLocation result = baitRegistry.get(Pair.of(stack.getItem(), stack.getItemDamage()));
+        ResourceLocation result = baitRegistry.get(StackHolder.of(stack));
         return result == null ? LootTableList.GAMEPLAY_FISHING : result;
     }
 
     @Override
     public Salinity getSalinityForBiome(Biome biome) {
         try {
-            return salinityCache.get(biome, new Callable<Salinity>() {
-                @Override
-                public Salinity call() throws Exception {
-                    Salinity salinity = salinityRegistry.get(biome);
-                    if (salinity != null) return salinity;
+            return salinityCache.get(biome, () -> {
+                Salinity salinity = salinityRegistry.get(biome);
+                if (salinity != null) return salinity;
 
-                    Type[] types = BiomeDictionary.getTypesForBiome(biome);
-                    int[] values = new int[types.length];
-                    for (int i = 0; i < types.length; i++) {
-                        values[i] = salinityBestGuess.get(types[i]).ordinal();
-                    }
-
-                    return Salinity.values()[GroupHelper.getMostPopular(values)];
+                Type[] types = BiomeDictionary.getTypesForBiome(biome);
+                int[] values = new int[types.length];
+                for (int i = 0; i < types.length; i++) {
+                    values[i] = salinityBestGuess.get(types[i]).ordinal();
                 }
+
+                return Salinity.values()[GroupHelper.getMostPopular(values)];
             });
         } catch (Exception e) { return Salinity.FRESH; }
     }
