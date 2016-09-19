@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -64,6 +65,23 @@ jar {
     manifest {
         attributes 'FMLCorePlugin': 'joshie.mariculture.asm.VanillaHooks'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+publishing {
+    tasks.publish.dependsOn 'build'
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'Mariculture'
+            artifact jar
+        }
+    }
+    repositories {
+        if (project.hasProperty('maven_repo')) {
+            maven { url maven_repo }
+        } else {
+            mavenLocal()
+        }
     }
 }
 
