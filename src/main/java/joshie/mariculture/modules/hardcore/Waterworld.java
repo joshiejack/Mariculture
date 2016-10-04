@@ -1,4 +1,4 @@
-package joshie.mariculture.modules.hardcore.feature;
+package joshie.mariculture.modules.hardcore;
 
 import joshie.mariculture.core.util.annotation.MCEvents;
 import joshie.mariculture.core.util.annotation.MCLoader;

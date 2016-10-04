@@ -34,6 +34,12 @@ mariculture.item.snorkel=Snorkel
 mariculture.item.buoyancyaid=Buoyancy Aid
 mariculture.item.diving.component.lens=Snorkel Lens
 
+#Fishing - Item
+mariculture.item.fishingrod.broken=Broken Fishing Rod
+mariculture.item.fishingrod.wood=Wooden Fishing Rod
+mariculture.item.fishingrod.reed=Reed Fishing Rod
+mariculture.item.fishingrod.polishedwood=Polished Wood Fishing Rod
+
 #Sealife- Blocks
 mariculture.tile.plant.kelp=Kelp
 mariculture.tile.plant.grass=Seagrass

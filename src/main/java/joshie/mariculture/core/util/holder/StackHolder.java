@@ -1,4 +1,4 @@
-package joshie.mariculture.core.util;
+package joshie.mariculture.core.util.holder;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -7,7 +7,7 @@ public class StackHolder {
     private final Item item;
     private final int damage;
 
-    private StackHolder(Item item, int damage) {
+    protected StackHolder(Item item, int damage) {
         this.item = item;
         this.damage = damage;
     }

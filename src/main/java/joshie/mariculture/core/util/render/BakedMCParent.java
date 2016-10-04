@@ -11,10 +11,10 @@ import net.minecraft.util.EnumFacing;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class BakedMC implements IBakedModel {
+public abstract class BakedMCParent implements IBakedModel {
     private final IBakedModel parent;
 
-    public BakedMC(IBakedModel parent) {
+    public BakedMCParent(IBakedModel parent) {
         this.parent = parent;
     }
 

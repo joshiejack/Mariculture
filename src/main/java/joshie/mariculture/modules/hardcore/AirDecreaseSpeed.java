@@ -1,4 +1,4 @@
-package joshie.mariculture.modules.hardcore.feature;
+package joshie.mariculture.modules.hardcore;
 
 import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.api.diving.CapabilityWaterBreathing.IDisableHardcoreDiving;

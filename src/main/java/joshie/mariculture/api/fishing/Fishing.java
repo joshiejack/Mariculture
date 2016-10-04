@@ -1,9 +1,11 @@
 package joshie.mariculture.api.fishing;
 
+import joshie.mariculture.api.fishing.rod.FishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public interface Fishing {
@@ -26,15 +28,6 @@ public interface Fishing {
      * @param salinity the salinity of this biome**/
     void registerBiomeAsSalinity(Biome biome, Salinity salinity);
 
-    /** Register a trait
-     *  @param trait the trait itself>**/
-    void registerFishingTrait(FishingTrait trait);
-
-    /** Get a trait from the resource
-     *  @param resource the resource for the trait you wish to obtain
-     *  @return the fishing trait **/
-    FishingTrait getTraitFromResource(ResourceLocation resource);
-
     /** Register a bait
      * @param resource  the resource location for this baits loot table
      * @param stack     the bait item itself **/
@@ -44,6 +37,11 @@ public interface Fishing {
      * @param stack the bait item, can be null
      * @return the loot table location */
     ResourceLocation getLootTableFromBait(@Nullable ItemStack stack);
+
+    /** Gets the fishing rod states from the stack
+     *  @param stack    the fishing rod **/
+    @Nullable
+    FishingRod getFishingRodFromStack(@Nonnull ItemStack stack);
 
     /** Salinity of water **/
     enum Salinity {

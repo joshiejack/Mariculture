@@ -5,10 +5,12 @@ import com.google.common.cache.CacheBuilder;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import joshie.mariculture.api.fishing.Fishing;
-import joshie.mariculture.api.fishing.FishingTrait;
+import joshie.mariculture.api.fishing.rod.FishingRod;
 import joshie.mariculture.core.helpers.GroupHelper;
-import joshie.mariculture.core.util.StackHolder;
 import joshie.mariculture.core.util.annotation.MCApiImpl;
+import joshie.mariculture.core.util.holder.StackHolder;
+import joshie.mariculture.core.util.holder.StackNBTHolder;
+import joshie.mariculture.modules.fishery.utils.FishingRodHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -17,11 +19,15 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
+import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import static joshie.mariculture.api.fishing.Fishing.Salinity.BRACKISH;
 import static joshie.mariculture.api.fishing.Fishing.Salinity.SALINE;
+import static joshie.mariculture.api.fishing.rod.FishingRod.NULL_FISHING_ROD;
+import static joshie.mariculture.modules.fishery.Fishery.FISHING_ROD;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 @MCApiImpl("fishery")
@@ -33,8 +39,10 @@ public class FishingAPI implements Fishing {
     private final Cache<Biome, Salinity> salinityCache = CacheBuilder.newBuilder().build();
     private final HashMap<Biome, Salinity> salinityRegistry = new HashMap<>();
     private final TObjectIntMap<Item> strengthRegistry = new TObjectIntHashMap<>();
-    private final HashMap<ResourceLocation, FishingTrait> traitRegistry = new HashMap<>();
+
     private final HashMap<StackHolder, ResourceLocation> baitRegistry = new HashMap<>();
+    private final Cache<StackHolder, FishingRod> rodCache = CacheBuilder.newBuilder().maximumSize(64).build();
+    private final HashMap<StackHolder, FishingRod> rodRegistry = new HashMap<>();
 
     public FishingAPI() {
         salinityBestGuess.put(OCEAN, SALINE);
@@ -50,16 +58,6 @@ public class FishingAPI implements Fishing {
     @Override
     public void registerBiomeAsSalinity(Biome biome, Salinity salinity) {
         salinityRegistry.put(biome, salinity);
-    }
-
-    @Override
-    public void registerFishingTrait(FishingTrait trait) {
-        traitRegistry.put(trait.getResource(), trait);
-    }
-
-    @Override
-    public FishingTrait getTraitFromResource(ResourceLocation resource) {
-        return traitRegistry.get(resource);
     }
 
     @Override
@@ -94,5 +92,18 @@ public class FishingAPI implements Fishing {
                 return Salinity.values()[GroupHelper.getMostPopular(values)];
             });
         } catch (Exception e) { return Salinity.FRESH; }
+    }
+
+    @Nullable
+    @Override
+    public FishingRod getFishingRodFromStack(ItemStack stack) {
+        if (stack.getItem() == FISHING_ROD) {
+            try {
+                FishingRod rod = stack.hasTagCompound() ? rodCache.get(StackNBTHolder.of(stack), () -> FishingRodHelper.getFishingRod(stack)) : null;
+                return rod == null || rod == NULL_FISHING_ROD ? null : rod;
+            } catch (ExecutionException e) { return null; }
+        }
+
+        return rodRegistry.get(StackHolder.of(stack));
     }
 }

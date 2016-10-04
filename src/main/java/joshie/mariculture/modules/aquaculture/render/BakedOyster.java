@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.aquaculture.render;
 
-import joshie.mariculture.core.util.render.BakedMC;
+import joshie.mariculture.core.util.render.BakedMCParent;
 import joshie.mariculture.core.util.annotation.MCEvents;
 import joshie.mariculture.modules.aquaculture.block.BlockOyster;
 import joshie.mariculture.modules.aquaculture.block.BlockOyster.Oyster;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
-public class BakedOyster extends BakedMC {
+public class BakedOyster extends BakedMCParent {
     public BakedOyster(IBakedModel oyster) {
         super(oyster); //Master Oyster
     }

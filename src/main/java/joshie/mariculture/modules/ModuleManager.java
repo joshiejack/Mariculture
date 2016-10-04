@@ -77,6 +77,14 @@ public abstract class ModuleManager {
         }
     }
 
+    private static Object getInstance(Class clazz) throws InstantiationException, IllegalAccessException {
+        try {
+            return clazz.getField("INSTANCE").get(null);
+        } catch (NoSuchFieldException | IllegalAccessException ex) {
+            return clazz.newInstance();
+        }
+    }
+
     private static void initAPI(@Nonnull ASMDataTable table, Set<String> enabled) {
         Set<ASMData> datas = new HashSet<>(table.getAll(MCApiImpl.class.getCanonicalName()));
         for (ASMDataTable.ASMData data : datas) {
@@ -87,7 +95,7 @@ public abstract class ModuleManager {
                 if (modules.equals("") || enabled.containsAll(dependencies)) {
                     //Load in the api, after we've checked if the required module is loaded
                     Class clazz = Class.forName(data.getClassName());
-                    Object instance = clazz.getField("INSTANCE").get(null);
+                    Object instance = getInstance(clazz);
                     Class[] interfaces = clazz.getInterfaces();
                     if (interfaces != null && interfaces.length > 0) {
                         for (Class inter : interfaces) {
@@ -99,7 +107,7 @@ public abstract class ModuleManager {
                         }
                     }
                 }
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchFieldException e) { e.printStackTrace(); }
         }
     }
 

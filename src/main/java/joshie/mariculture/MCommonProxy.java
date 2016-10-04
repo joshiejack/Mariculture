@@ -17,7 +17,7 @@ public class MCommonProxy {
             if (isClient()) {
                 try { //Attempt to load client, and display errors if it fails
                     c.getMethod(stage + "Client").invoke(null);
-                } catch (NoSuchMethodException nsme) {}
+                } catch (NoSuchMethodException nsme) {/**/}
                 catch (Exception e) {
                     e.printStackTrace();
                 }

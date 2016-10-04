@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import joshie.mariculture.api.MaricultureAPI;
+import joshie.mariculture.api.fishing.rod.FishingRod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -23,10 +24,16 @@ public class RodStrength implements LootCondition {
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     public boolean testCondition(Random rand, LootContext context) {
         EntityPlayer player = context.getKillerPlayer() instanceof EntityPlayer ? ((EntityPlayer)context.getKillerPlayer()) : null;
-        if (player != null) {
-            return MaricultureAPI.fishing.getFishingRodStrength(player.getHeldItemMainhand()) >= strength;
+        if (player != null && player.getHeldItemMainhand() != null) {
+            FishingRod rod = MaricultureAPI.fishing.getFishingRodFromStack(player.getHeldItemMainhand());
+            if (rod != null) {
+                return rod.getStrength() >= strength;
+            }
+
+            return false;
         }
 
         return false;

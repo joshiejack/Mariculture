@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.aquaculture;
 
-import joshie.mariculture.core.util.StackHolder;
+import joshie.mariculture.core.util.holder.StackHolder;
 import joshie.mariculture.core.util.annotation.MCApiImpl;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
