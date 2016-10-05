@@ -3,6 +3,7 @@ package joshie.mariculture.api.fishing;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -12,8 +13,8 @@ public abstract class FishingTrait {
     public static final HashMap<ResourceLocation, FishingTrait> TRAIT_REGISTRY = new HashMap<>();
     private final ResourceLocation resource;
 
-    public FishingTrait(ResourceLocation resource) {
-        this.resource = resource;
+    public FishingTrait(String string) {
+        this.resource = new ResourceLocation(Loader.instance().activeModContainer().getModId(), string);
         TRAIT_REGISTRY.put(resource, this);
     }
 
@@ -44,5 +45,20 @@ public abstract class FishingTrait {
      */
     public int modifyXP(EntityPlayer player, ItemStack loot, Random rand, int original) {
         return original;
+    }
+
+    /** Called to modify the speed
+     * @param original  the original speed
+     * @return the modified speed**/
+    public int modifySpeed(int original) {
+        return original;
+    }
+
+    /** Called to modify the damage
+     *  @param rand     the Random object
+     *  @param damage   the original damage
+     *  @return the new damage value**/
+    public int modifyDamage(Random rand, int damage) {
+        return rand.nextFloat() < 0.3 ? damage / 2 : damage;
     }
 }

@@ -3,8 +3,8 @@ package joshie.mariculture.modules.fishery.utils;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import joshie.mariculture.api.fishing.FishingTrait;
-import joshie.mariculture.api.fishing.rod.*;
 import joshie.mariculture.modules.fishery.Fishery;
+import joshie.mariculture.modules.fishery.rod.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,11 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-import static joshie.mariculture.api.fishing.rod.FishingHook.HOOKS;
-import static joshie.mariculture.api.fishing.rod.FishingPole.POLES;
-import static joshie.mariculture.api.fishing.rod.FishingReel.REELS;
-import static joshie.mariculture.api.fishing.rod.FishingRod.NULL_FISHING_ROD;
-import static joshie.mariculture.api.fishing.rod.FishingString.STRINGS;
+import static joshie.mariculture.modules.fishery.rod.RodHook.HOOKS;
+import static joshie.mariculture.modules.fishery.rod.RodPole.POLES;
+import static joshie.mariculture.modules.fishery.rod.RodReel.REELS;
+import static joshie.mariculture.modules.fishery.rod.FishingRod.NULL_FISHING_ROD;
+import static joshie.mariculture.modules.fishery.rod.RodString.STRINGS;
 
 public final class FishingRodHelper {
     private static final Cache<NBTTagList, List<FishingTrait>> TRAITS_CACHE = CacheBuilder.newBuilder().build();
@@ -60,7 +60,7 @@ public final class FishingRodHelper {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public static ItemStack build(FishingPole pole, FishingReel reel, FishingString string, FishingHook hook) {
+    public static ItemStack build(RodPole pole, RodReel reel, RodString string, RodHook hook) {
         FishingRod rod = new FishingRod(pole, reel, string, hook);
         ItemStack stack = new ItemStack(Fishery.FISHING_ROD);
         stack.setTagCompound(new NBTTagCompound());
@@ -79,8 +79,8 @@ public final class FishingRodHelper {
         return stack;
     }
 
-    private static void addFishingTraits(NBTTagList list, FishingComponent... components) {
-        for (FishingComponent component: components) {
+    private static void addFishingTraits(NBTTagList list, RodComponent... components) {
+        for (RodComponent component: components) {
             for (FishingTrait trait : component.getTraits()) {
                 list.appendTag(new NBTTagString(trait.getResource().toString()));
             }
@@ -90,10 +90,10 @@ public final class FishingRodHelper {
     @SuppressWarnings("ConstantCondtions")
     public static FishingRod getFishingRod(ItemStack stack) {
         if (!stack.getTagCompound().hasKey("Pole")) return NULL_FISHING_ROD;
-        FishingPole pole = POLES.get(new ResourceLocation(stack.getTagCompound().getString("Pole")));
-        FishingReel reel = REELS.get(new ResourceLocation(stack.getTagCompound().getString("Reel")));
-        FishingString string = STRINGS.get(new ResourceLocation(stack.getTagCompound().getString("String")));
-        FishingHook hook = HOOKS.get(new ResourceLocation(stack.getTagCompound().getString("Hook")));
+        RodPole pole = POLES.get(new ResourceLocation(stack.getTagCompound().getString("Pole")));
+        RodReel reel = REELS.get(new ResourceLocation(stack.getTagCompound().getString("Reel")));
+        RodString string = STRINGS.get(new ResourceLocation(stack.getTagCompound().getString("String")));
+        RodHook hook = HOOKS.get(new ResourceLocation(stack.getTagCompound().getString("Hook")));
         return new FishingRod(pole, reel, string, hook);
     }
 }

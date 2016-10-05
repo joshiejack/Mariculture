@@ -1,9 +1,9 @@
 package joshie.mariculture.modules.fishery.render;
 
-import joshie.mariculture.api.MaricultureAPI;
-import joshie.mariculture.api.fishing.rod.*;
 import joshie.mariculture.core.util.annotation.MCEvents;
 import joshie.mariculture.modules.fishery.Fishery;
+import joshie.mariculture.modules.fishery.FishingAPI;
+import joshie.mariculture.modules.fishery.rod.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 public class FishingRodLoader implements ICustomModelLoader {
     public static final FishingRodLoader INSTANCE = new FishingRodLoader();
 
-    private void registerSprites(TextureMap map, FishingComponent component, String suffix) {
+    private void registerSprites(TextureMap map, RodComponent component, String suffix) {
         map.registerSprite(new ResourceLocation(component.getResource().getResourceDomain(), "items/fishing/" + component.getPrefix() + "_" + component.getResource().getResourcePath() + suffix));
     }
 
@@ -32,7 +32,7 @@ public class FishingRodLoader implements ICustomModelLoader {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             ItemStack held = player.getHeldItemMainhand();
             if (held != null && held.getItem() == Fishery.FISHING_ROD) {
-                FishingRod rod = MaricultureAPI.fishing.getFishingRodFromStack(held);
+                FishingRod rod = FishingAPI.INSTANCE.getFishingRodFromStack(held);
                 if (rod != null) rod.setCastStatus(player.fishEntity != null);
             }
         }
@@ -41,11 +41,11 @@ public class FishingRodLoader implements ICustomModelLoader {
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Pre event) {
         TextureMap map = event.getMap();
-        for (FishingPole pole: FishingPole.POLES.values()) registerSprites(map, pole, "");
-        for (FishingReel reel: FishingReel.REELS.values()) registerSprites(map, reel, "");
-        for (FishingString string: FishingString.STRINGS.values()) registerSprites(map, string, "_cast");
-        for (FishingString string: FishingString.STRINGS.values()) registerSprites(map, string, "_uncast");
-        for (FishingHook hook: FishingHook.HOOKS.values()) registerSprites(map, hook, "");
+        for (RodPole pole: RodPole.POLES.values()) registerSprites(map, pole, "");
+        for (RodReel reel: RodReel.REELS.values()) registerSprites(map, reel, "");
+        for (RodString string: RodString.STRINGS.values()) registerSprites(map, string, "_cast");
+        for (RodString string: RodString.STRINGS.values()) registerSprites(map, string, "_uncast");
+        for (RodHook hook: RodHook.HOOKS.values()) registerSprites(map, hook, "");
     }
 
     @Override

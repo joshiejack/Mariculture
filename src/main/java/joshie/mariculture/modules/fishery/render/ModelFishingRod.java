@@ -1,22 +1,3 @@
-/*
- * Minecraft Forge
- * Copyright (c) 2016.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation version 2.1
- * of the License.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- */
-
 package joshie.mariculture.modules.fishery.render;
 
 
@@ -54,14 +35,14 @@ public final class ModelFishingRod implements IModel, IModelCustomData {
     }
 
     private ModelFishingRod(ResourceLocation poleLocation, ResourceLocation reelLocation, ResourceLocation stringLocation, ResourceLocation hookLocation, boolean cast) {
-        this.poleLocation = new ResourceLocation("mariculture", "items/fishing/pole_" + poleLocation.getResourcePath());
-        this.reelLocation = new ResourceLocation("mariculture", "items/fishing/reel_" + reelLocation.getResourcePath());
+        this.poleLocation = new ResourceLocation(poleLocation.getResourceDomain(), "items/fishing/pole_" + poleLocation.getResourcePath());
+        this.reelLocation = new ResourceLocation(reelLocation.getResourceDomain(), "items/fishing/reel_" + reelLocation.getResourcePath());
         if (cast) {
-            this.stringLocation = new ResourceLocation("mariculture", "items/fishing/string_" + stringLocation.getResourcePath() + "_cast");
+            this.stringLocation = new ResourceLocation(stringLocation.getResourceDomain(), "items/fishing/string_" + stringLocation.getResourcePath() + "_cast");
             this.hookLocation = null;
         } else {
-            this.stringLocation = new ResourceLocation("mariculture", "items/fishing/string_" + stringLocation.getResourcePath() + "_uncast");
-            this.hookLocation = new ResourceLocation("mariculture", "items/fishing/hook_" + hookLocation.getResourcePath());
+            this.stringLocation = new ResourceLocation(stringLocation.getResourceDomain(), "items/fishing/string_" + stringLocation.getResourcePath() + "_uncast");
+            this.hookLocation = new ResourceLocation(hookLocation.getResourceDomain(), "items/fishing/hook_" + hookLocation.getResourcePath());
         }
     }
 

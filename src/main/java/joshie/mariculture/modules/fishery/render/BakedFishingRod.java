@@ -5,9 +5,9 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import joshie.mariculture.api.MaricultureAPI;
-import joshie.mariculture.api.fishing.rod.FishingRod;
 import joshie.mariculture.core.util.render.BakedMCEmpty;
+import joshie.mariculture.modules.fishery.FishingAPI;
+import joshie.mariculture.modules.fishery.rod.FishingRod;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -79,7 +79,7 @@ public final class BakedFishingRod extends BakedMCEmpty implements IPerspectiveA
         @SuppressWarnings("ConstantConditions")
         @Nonnull
         public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entityy) {
-            FishingRod rod = MaricultureAPI.fishing.getFishingRodFromStack(stack);
+            FishingRod rod = FishingAPI.INSTANCE.getFishingRodFromStack(stack);
             if (rod == null) {
                 return originalModel;
             }

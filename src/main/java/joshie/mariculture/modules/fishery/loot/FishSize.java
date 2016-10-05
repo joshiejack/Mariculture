@@ -3,6 +3,7 @@ package joshie.mariculture.modules.fishery.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import joshie.mariculture.api.fishing.Fishing.Size;
 import joshie.mariculture.modules.fishery.FishingAPI;
 import joshie.mariculture.modules.fishery.rod.FishingRod;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,16 +12,25 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
+import java.util.Locale;
 import java.util.Random;
 
 import static joshie.mariculture.core.lib.MaricultureInfo.MODID;
 
 /** This loot condition checks the strength of the item the player is holding in their main hand **/
-public class RodStrength implements LootCondition {
-    private final int strength;
+public class FishSize implements LootCondition {
+    private final Size size;
 
-    public RodStrength(int strength) {
-        this.strength = strength;
+    public FishSize(Size size) {
+        this.size = size;
+    }
+
+    private boolean contains(Size[] sizes) {
+        for (Size s: sizes) {
+            if (s == size) return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -30,7 +40,7 @@ public class RodStrength implements LootCondition {
         if (player != null && player.getHeldItemMainhand() != null) {
             FishingRod rod = FishingAPI.INSTANCE.getFishingRodFromStack(player.getHeldItemMainhand());
             if (rod != null) {
-                return rod.getStrength() >= strength;
+                return contains(rod.getBestSizes()) ? rand.nextDouble() < 0.75D : rand.nextDouble() < 0.4D;
             }
 
             return false;
@@ -39,17 +49,17 @@ public class RodStrength implements LootCondition {
         return false;
     }
 
-    public static class Serializer extends LootCondition.Serializer<RodStrength> {
+    public static class Serializer extends LootCondition.Serializer<FishSize> {
         public Serializer() {
-            super(new ResourceLocation(MODID, "rod_strength"), RodStrength.class);
+            super(new ResourceLocation(MODID, "fish_size"), FishSize.class);
         }
 
-        public void serialize(JsonObject json, RodStrength value, JsonSerializationContext context) {
-            json.addProperty("strength", value.strength);
+        public void serialize(JsonObject json, FishSize value, JsonSerializationContext context) {
+            json.addProperty("size", value.size.name().toLowerCase(Locale.ENGLISH));
         }
 
-        public RodStrength deserialize(JsonObject json, JsonDeserializationContext context) {
-            return new RodStrength(JsonUtils.getInt(json, "strength", 1));
+        public FishSize deserialize(JsonObject json, JsonDeserializationContext context) {
+            return new FishSize(Size.valueOf(JsonUtils.getString(json, "size").toUpperCase(Locale.ENGLISH)));
         }
     }
 }

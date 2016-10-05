@@ -2,6 +2,8 @@ package joshie.mariculture.modules.fishery.entity;
 
 import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.api.fishing.FishingTrait;
+import joshie.mariculture.modules.fishery.FishingAPI;
+import joshie.mariculture.modules.fishery.rod.FishingRod;
 import joshie.mariculture.modules.fishery.Fishery;
 import joshie.mariculture.modules.fishery.utils.FishingRodHelper;
 import net.minecraft.block.Block;
@@ -28,10 +30,30 @@ import java.util.List;
  * This class exists simply because vanilla checks for fishing rod instead of instanceof ItemFishingRod
  **/
 public class EntityFishHookMC extends EntityFishHook {
+    private FishingRod rod;
     private ItemStack bait;
+    private int speed;
 
+    @SuppressWarnings("ConstantConditions")
     public EntityFishHookMC(World world, EntityPlayer player, ItemStack bait) {
-        super(world, player);
+        super(world);
+        this.angler = player;
+        this.angler.fishEntity = this;
+        this.setLocationAndAngles(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
+        this.posX -= (double)(MathHelper.cos(this.rotationYaw * 0.017453292F) * 0.16F);
+        this.posY -= 0.10000000149011612D;
+        this.posZ -= (double)(MathHelper.sin(this.rotationYaw * 0.017453292F) * 0.16F);
+        this.setPosition(this.posX, this.posY, this.posZ);
+        rod = FishingAPI.INSTANCE.getFishingRodFromStack(player.getHeldItemMainhand());
+        this.motionX = (double)(-MathHelper.sin(this.rotationYaw * 0.017453292F) * MathHelper.cos(this.rotationPitch * 0.017453292F) * (0.4F * rod.getHeightModifier()));
+        this.motionZ = (double)(MathHelper.cos(this.rotationYaw * 0.017453292F) * MathHelper.cos(this.rotationPitch * 0.017453292F) * (0.4F * rod.getHeightModifier()));
+        this.motionY = (double)(-MathHelper.sin(this.rotationPitch * 0.017453292F) * 0.4F);
+        this.handleHookCasting(this.motionX, this.motionY, this.motionZ, 1.5F + rod.getDistanceBonus(), 1.0F);
+        this.speed = rod.getCatchSpeed();
+        for (FishingTrait trait: FishingRodHelper.getTraits(angler.getHeldItemMainhand())) {
+            this.speed = trait.modifySpeed(speed);
+        }
+
         this.bait = bait;
     }
 
@@ -190,7 +212,7 @@ public class EntityFishHookMC extends EntityFishHook {
 
                 if (!worldObj.isRemote && d5 > 0.0D) {
                     WorldServer worldserver = (WorldServer) worldObj;
-                    int i1 = 1;
+                    int i1 = speed;
                     BlockPos blockpos = (new BlockPos(this)).up();
 
                     if (rand.nextFloat() < 0.25F && worldObj.isRainingAt(blockpos)) {
@@ -295,12 +317,24 @@ public class EntityFishHookMC extends EntityFishHook {
     }
 
     @Override
+    protected void bringInHookedEntity()  {
+        double d0 = this.angler.posX - this.posX;
+        double d1 = this.angler.posY - this.posY;
+        double d2 = this.angler.posZ - this.posZ;
+        double d3 = (double)MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+        double d4 = rod.getRetractSpeed();
+        this.caughtEntity.motionX += d0 * d4;
+        this.caughtEntity.motionY += d1 * d4 + (double)MathHelper.sqrt_double(d3) * 0.08D;
+        this.caughtEntity.motionZ += d2 * d4;
+    }
+
+    @Override
+    @SuppressWarnings("ConstantConditions")
     public int handleHookRetraction() {
         if (worldObj.isRemote) {
             return 0;
         } else {
             int i = 0;
-
             if (caughtEntity != null) {
                 bringInHookedEntity();
                 worldObj.setEntityState(this, (byte) 31);
@@ -315,14 +349,13 @@ public class EntityFishHookMC extends EntityFishHook {
                 lootcontext$builder.withLuck(luck);
                 lootcontext$builder.withPlayer(angler);
                 lootcontext$builder.withLootedEntity(this);
-
                 for (ItemStack itemstack : worldObj.getLootTableManager().getLootTableFromLocation(MaricultureAPI.fishing.getLootTableFromBait(bait)).generateLootForPools(rand, lootcontext$builder.build())) {
                     EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, itemstack);
                     double d0 = angler.posX - posX;
                     double d1 = angler.posY - posY;
                     double d2 = angler.posZ - posZ;
                     double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
-                    double d4 = 0.1D;
+                    double d4 = 1.1D;
                     entityitem.motionX = d0 * d4;
                     entityitem.motionY = d1 * d4 + (double) MathHelper.sqrt_double(d3) * 0.08D;
                     entityitem.motionZ = d2 * d4;
@@ -352,6 +385,7 @@ public class EntityFishHookMC extends EntityFishHook {
     @Override
     public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
+        compound.setInteger("Speed", speed);
         if (bait != null) {
             compound.setTag("Bait", bait.writeToNBT(new NBTTagCompound()));
         }
@@ -360,6 +394,7 @@ public class EntityFishHookMC extends EntityFishHook {
     @Override
     public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
+        speed = compound.getInteger("Speed");
         if (compound.hasKey("Bait")) {
             bait = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("Bait"));
         }

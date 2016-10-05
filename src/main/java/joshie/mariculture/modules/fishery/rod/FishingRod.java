@@ -1,5 +1,6 @@
-package joshie.mariculture.api.fishing.rod;
+package joshie.mariculture.modules.fishery.rod;
 
+import joshie.mariculture.api.fishing.Fishing.Size;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
@@ -7,18 +8,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FishingRod {
     public static final FishingRod NULL_FISHING_ROD = new FishingRod();
-    private FishingPole pole;
-    private FishingReel reel;
-    private FishingString string;
-    private FishingHook hook;
+    private RodPole pole;
+    private RodReel reel;
+    private RodString string;
+    private RodHook hook;
     private String unlocalized;
     private boolean isCast;
     private boolean invulnerable;
-    private int durability;
     private int strength;
 
     private FishingRod(){}
-    public FishingRod(FishingPole pole, FishingReel reel, FishingString string, FishingHook hook) {
+    public FishingRod(RodPole pole, RodReel reel, RodString string, RodHook hook) {
         this.pole = pole;
         this.reel = reel;
         this.string = string;
@@ -26,7 +26,6 @@ public class FishingRod {
         this.unlocalized = pole.getResource().getResourceDomain() + ".item.fishingrod." + pole.getResource().getResourcePath().replace("_", "");
         this.isCast = false;
         this.invulnerable = false;
-        this.durability = pole.getDurability();
         this.strength = (int)(pole.getStrength() * string.getStrengthModifier());
     }
 
@@ -60,7 +59,32 @@ public class FishingRod {
 
     /** Returns the durability of this fishing rod **/
     public int getDurability() {
-        return durability;
+        return pole.getDurability();
+    }
+
+    /** Returns the height modifier **/
+    public float getHeightModifier() {
+        return reel.getHeightModifier();
+    }
+
+    /** Returns the distance bonus **/
+    public float getDistanceBonus() {
+        return reel.getDistanceBonus();
+    }
+
+    /** Returns the retract speed **/
+    public double getRetractSpeed() {
+        return reel.getRetractSpeed();
+    }
+
+    /** Returns the catch speed **/
+    public int getCatchSpeed() {
+        return hook.getCatchSpeed();
+    }
+
+    /** Returns the size this rod catches best **/
+    public Size[] getBestSizes() {
+        return hook.getBestSize();
     }
 
     /** Return true if this rod is in cast mode **/
@@ -69,22 +93,22 @@ public class FishingRod {
     }
 
     /** Returns the pole **/
-    public FishingPole getPole() {
+    public RodPole getPole() {
         return pole;
     }
 
     /** Returns the reel **/
-    public FishingReel getReel() {
+    public RodReel getReel() {
         return reel;
     }
 
     /** Returns the string **/
-    public FishingString getString() {
+    public RodString getString() {
         return string;
     }
 
     /** Returns the hook **/
-    public FishingHook getHook() {
+    public RodHook getHook() {
         return hook;
     }
 
