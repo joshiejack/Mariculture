@@ -1,5 +1,6 @@
 package joshie.mariculture.modules.sealife.blocks;
 
+import joshie.mariculture.core.lib.CreativeOrder;
 import joshie.mariculture.core.util.block.BlockAquatic;
 import joshie.mariculture.modules.sealife.blocks.BlockPlant.Plant;
 import net.minecraft.block.Block;
@@ -36,6 +37,11 @@ public class BlockPlant extends BlockAquatic<Plant, BlockPlant> {
     @Override
     public boolean isInCreative(Plant plant) {
         return plant.isTop; //Only add plants that are their top half in to the creative menu
+    }
+
+    @Override
+    public int getSortValue(ItemStack stack) {
+        return CreativeOrder.GRASSES;
     }
 
     private boolean canSustainPlant(IBlockState below, Plant plant) {

@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "cross"
+  },
+  "variants": {
+    "coral=blue": [{ "textures": { "cross": "mariculture:blocks/coral_blue"}}],
+    "coral=cyan": [{ "textures": { "cross": "mariculture:blocks/coral_cyan"}}],
+    "coral=green": [{ "textures": { "cross": "mariculture:blocks/coral_green"}}],
+    "coral=orange": [{ "textures": { "cross": "mariculture:blocks/coral_orange"}}],
+    "coral=pink": [{ "textures": { "cross": "mariculture:blocks/coral_pink"}}],
+    "coral=red": [{ "textures": { "cross": "mariculture:blocks/coral_red"}}]
+  }
+}

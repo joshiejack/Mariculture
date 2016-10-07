@@ -1,0 +1,29 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "animal=starfish": [
+      { "model": "mariculture:starfish1", "textures": { "particle": "mariculture:models/starfish_orange"}, "weight": 1 },
+      { "model": "mariculture:starfish2", "textures": { "particle": "mariculture:models/starfish_orange"}, "weight": 1 },
+      { "model": "mariculture:starfish3", "textures": { "particle": "mariculture:models/starfish_orange"}, "weight": 1 },
+      { "model": "mariculture:starfish4", "textures": { "particle": "mariculture:models/starfish_orange"}, "weight": 1 },
+      { "model": "mariculture:starfish5", "textures": { "particle": "mariculture:models/starfish_orange"}, "weight": 1 },
+      { "model": "mariculture:starfish6", "textures": { "particle": "mariculture:models/starfish_orange"}, "weight": 1 },
+      { "model": "mariculture:starfish1", "textures": { "particle": "mariculture:models/starfish_red"}, "weight": 1 },
+      { "model": "mariculture:starfish2", "textures": { "particle": "mariculture:models/starfish_red"}, "weight": 1 },
+      { "model": "mariculture:starfish3", "textures": { "particle": "mariculture:models/starfish_red"}, "weight": 1 },
+      { "model": "mariculture:starfish4", "textures": { "particle": "mariculture:models/starfish_red"}, "weight": 1 },
+      { "model": "mariculture:starfish5", "textures": { "particle": "mariculture:models/starfish_red"}, "weight": 1 },
+      { "model": "mariculture:starfish6", "textures": { "particle": "mariculture:models/starfish_red"}, "weight": 1 },
+      { "model": "mariculture:starfish1", "textures": { "particle": "mariculture:models/starfish_yellow"}, "weight": 1 },
+      { "model": "mariculture:starfish2", "textures": { "particle": "mariculture:models/starfish_yellow"}, "weight": 1 },
+      { "model": "mariculture:starfish3", "textures": { "particle": "mariculture:models/starfish_yellow"}, "weight": 1 },
+      { "model": "mariculture:starfish4", "textures": { "particle": "mariculture:models/starfish_yellow"}, "weight": 1 },
+      { "model": "mariculture:starfish5", "textures": { "particle": "mariculture:models/starfish_yellow"}, "weight": 1 },
+      { "model": "mariculture:starfish6", "textures": { "particle": "mariculture:models/starfish_yellow"}, "weight": 1 }
+    ]
+  }
+}

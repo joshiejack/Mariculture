@@ -3,6 +3,7 @@ package joshie.mariculture.modules.aquaculture.block;
 import joshie.mariculture.core.helpers.EntityHelper;
 import joshie.mariculture.core.helpers.StringHelper;
 import joshie.mariculture.core.helpers.TileHelper;
+import joshie.mariculture.core.lib.CreativeOrder;
 import joshie.mariculture.core.util.PropertyString;
 import joshie.mariculture.core.util.block.BlockAquatic;
 import joshie.mariculture.modules.aquaculture.AquacultureAPI;
@@ -135,6 +136,11 @@ public class BlockOyster extends BlockAquatic<Oyster, BlockOyster> {
     @Override
     public boolean isInCreative(Oyster oyster) {
         return oyster == Oyster.EMPTY;
+    }
+
+    @Override
+    public int getSortValue(ItemStack stack) {
+        return CreativeOrder.OYSTER;
     }
 
     @Override

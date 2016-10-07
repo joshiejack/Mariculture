@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "cube_all"
+  },
+  "variants": {
+    "rock": {
+      "reef": { "textures": { "all": "mariculture:blocks/reefrock" }}
+    }
+  }
+}

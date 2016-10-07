@@ -41,8 +41,16 @@ mariculture.item.fishingrod.reed=Reed Fishing Rod
 mariculture.item.fishingrod.polishedwood=Polished Wood Fishing Rod
 
 #Sealife- Blocks
+mariculture.tile.animal.starfish=Starfish
+mariculture.tile.coral.blue=Blossom Coral
+mariculture.tile.coral.cyan=Sphere Coral
+mariculture.tile.coral.green=Leaf Coral
+mariculture.tile.coral.orange=Branch Coral
+mariculture.tile.coral.red=Blade Coral
+mariculture.tile.coral.pink=Bloom Coral
 mariculture.tile.plant.kelp=Kelp
 mariculture.tile.plant.grass=Seagrass
+mariculture.tile.rock.reef=Coral Rock
 
 #Sealife - Items
 mariculture.item.pearl.white=White Pearl
