@@ -1,0 +1,10 @@
+#Downloader
+joshie.downloader.missing=%s exige %s pour fonctionner : Vous pouvez le télécherger ici : %s
+joshie.downloader.0=%s manque, Vous en avez besoin de %s pour marcher.
+joshie.downloader.1=Voudriez-vous automatiquement télécharger %s ? (Exigera un redémarrage du jeu)
+joshie.downloader.downloading=Téléchargement de %s... ne quittez pas ! ...
+joshie.downloader.success=%s a été téléchargé avec succès !
+joshie.downloader.restart=Veuillez redémarrer votre jeu pour achever.
+joshie.downloader.failed.0=Oh non ! %s a échoué à se télécharger
+joshie.downloader.failed.1=Veuillez télécherger %s manuellement (%s)
+joshie.downloader.outofdate=%s n'est pas la bonne version, veuillez mettre à jour (%s)
