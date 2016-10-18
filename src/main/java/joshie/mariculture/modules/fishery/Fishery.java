@@ -5,6 +5,8 @@ import joshie.mariculture.api.MaricultureAPI;
 import joshie.mariculture.api.fishing.FishingTrait;
 import joshie.mariculture.core.util.MCTab;
 import joshie.mariculture.core.util.annotation.MCLoader;
+import joshie.mariculture.modules.fishery.block.BlockFishOil;
+import joshie.mariculture.modules.fishery.block.BlockFishery;
 import joshie.mariculture.modules.fishery.entity.EntityFishHookMC;
 import joshie.mariculture.modules.fishery.item.ItemFishingRodMC;
 import joshie.mariculture.modules.fishery.loot.*;
@@ -23,6 +25,8 @@ import net.minecraft.client.renderer.entity.RenderFish;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -41,7 +45,10 @@ import static net.minecraftforge.client.model.ModelLoaderRegistry.registerLoader
  *  gutting them and processing them */
 @MCLoader
 public class Fishery {
+    public static final Fluid FISH_OIL = registerFluid("fish_oil");
     public static final ItemFishingRodMC FISHING_ROD = new ItemFishingRodMC().register("fishing_rod");
+    public static final BlockFishery FISHERY = new BlockFishery().register("fishing_block");
+    public static final BlockFishOil FISH_OIL_BLOCK = new BlockFishOil(FISH_OIL).register("fish_oil");
     public static final FishingTrait XP_BONUS = new TraitWood();
     public static final FishingTrait LUCK_BONUS = new TraitLuck();
     public static final FishingTrait SPEED_BONUS = new TraitSpeed();
@@ -89,5 +96,11 @@ public class Fishery {
         RodString stringString = STRINGS.get(new ResourceLocation(MODID, "string"));
         RodHook ironHook = HOOKS.get(new ResourceLocation(MODID, "iron"));
         MCTab.getFishery().setStack(FishingRodHelper.build(polishedWoodPole, ironReel, stringString, ironHook));
+    }
+
+    private static Fluid registerFluid(String name) {
+        Fluid fluid = new Fluid(name, new ResourceLocation(MODID, "blocks/" + name + "_still"), new ResourceLocation(MODID, "blocks/" + name + "_flow"));
+        FluidRegistry.registerFluid(fluid);
+        return fluid;
     }
 }

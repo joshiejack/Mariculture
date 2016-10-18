@@ -3,35 +3,35 @@ package joshie.mariculture.core.util.tile;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fluids.FluidTank;
 
-import static net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+import static net.minecraftforge.fluids.capability.CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
 
-public abstract class TileInventory extends TileMC {
-    protected abstract INBTSerializable<NBTTagCompound> getInventory();
+public abstract class TileInventoryTank extends TileInventory {
+    protected abstract FluidTank getTank();
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+        return capability == FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (facing != null && capability == ITEM_HANDLER_CAPABILITY)
-            return (T) getInventory();
+        if (facing != null && capability == FLUID_HANDLER_CAPABILITY)
+            return (T) getTank();
         return super.getCapability(capability, facing);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound)  {
         super.readFromNBT(compound);
-        getInventory().deserializeNBT(compound.getCompoundTag("Inventory"));
+        getTank().readFromNBT(compound.getCompoundTag("Tank"));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setTag("Inventory", getInventory().serializeNBT());
+        compound.setTag("Tank", getTank().writeToNBT(new NBTTagCompound()));
         return super.writeToNBT(compound);
     }
 }
