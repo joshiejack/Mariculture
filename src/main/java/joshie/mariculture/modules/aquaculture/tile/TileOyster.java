@@ -1,6 +1,6 @@
 package joshie.mariculture.modules.aquaculture.tile;
 
-import joshie.mariculture.core.util.inventory.SingleStackHandler;
+import joshie.mariculture.core.util.capabilities.SingleStackHandler;
 import joshie.mariculture.core.util.tile.TileInventory;
 import joshie.mariculture.modules.aquaculture.AquacultureAPI;
 import net.minecraft.item.ItemStack;

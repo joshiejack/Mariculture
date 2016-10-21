@@ -32,6 +32,10 @@ mariculture.tile.oyster=Oyster
 #Diving - Items
 mariculture.item.snorkel=Snorkel
 mariculture.item.buoyancyaid=Buoyancy Aid
+mariculture.item.helmet=Diving Helmet
+mariculture.item.airsupply=Diving Air Supply
+mariculture.item.suit=Diving Suit
+mariculture.item.boots=Diving Boots
 mariculture.item.diving.component.lens=Snorkel Lens
 
 #Fishing - Item

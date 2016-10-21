@@ -23,6 +23,7 @@ import static net.minecraft.util.EnumFacing.DOWN;
 @MCLoader(modules = "diving")
 @MCEvents(modules = "hardcore-airDecreaseSpeed")
 public class AirDecreaseSpeed {
+    @SuppressWarnings("ConstantConditions")
     public static void preInit() {
         MaricultureAPI.diving.registerWaterbreathingListener(player -> {
             if (player.isPotionActive(WATER_BREATHING)) return true;

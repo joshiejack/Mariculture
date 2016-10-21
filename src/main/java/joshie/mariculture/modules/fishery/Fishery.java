@@ -47,7 +47,7 @@ import static net.minecraftforge.client.model.ModelLoaderRegistry.registerLoader
 public class Fishery {
     public static final Fluid FISH_OIL = registerFluid("fish_oil");
     public static final ItemFishingRodMC FISHING_ROD = new ItemFishingRodMC().register("fishing_rod");
-    public static final BlockFishery FISHERY = new BlockFishery().register("fishing_block");
+    public static final BlockFishery FISHERY_BLOCK = new BlockFishery().register("fishing_block");
     public static final BlockFishOil FISH_OIL_BLOCK = new BlockFishOil(FISH_OIL).register("fish_oil");
     public static final FishingTrait XP_BONUS = new TraitWood();
     public static final FishingTrait LUCK_BONUS = new TraitLuck();

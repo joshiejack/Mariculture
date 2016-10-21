@@ -5,4 +5,8 @@ public interface Diving {
      *  check for waterbreathing items in specific slots
      * @param listener */
     void registerWaterbreathingListener(WaterBreathingChecker listener);
+
+    /** Call this to register a new listerner for the air pump
+     *  @param ticker   the ticker itself **/
+    void registerAirPumpTicker(AirPumpTicker ticker);
 }

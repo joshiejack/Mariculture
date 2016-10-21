@@ -6,10 +6,18 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidBlock;
+
+import java.util.List;
 
 public class EntityHelper {
     /** Returns if the entity is covered in enough water
@@ -53,5 +61,16 @@ public class EntityHelper {
         if (direction == 2) return EnumFacing.SOUTH;
         if (direction == 3) return EnumFacing.WEST;
         return dir;
+    }
+
+    /** Returns true if the player is wearing thie armour **/
+    public static boolean hasArmor(EntityPlayer player, EntityEquipmentSlot slot, Item item) {
+        ItemStack stack = player.getItemStackFromSlot(slot);
+        return stack != null && stack.getItem() == item;
+    }
+
+    /** Returns the entities around this area **/
+    public static <T extends Entity> List<T> getEntities(Class<? extends T> t, World world, BlockPos pos, double size, double ySize) {
+        return world.getEntitiesWithinAABB(t, new AxisAlignedBB(pos.getX() - 0.5F, pos.getY() - 0.5F, pos.getZ() - 0.5F, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F).expand(size, ySize, size));
     }
 }

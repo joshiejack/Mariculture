@@ -1,7 +1,9 @@
 package joshie.mariculture.core.util.block;
 
+import joshie.mariculture.core.helpers.EntityHelper;
 import joshie.mariculture.core.helpers.StringHelper;
 import joshie.mariculture.core.util.MCTab;
+import joshie.mariculture.core.util.interfaces.Faceable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -9,6 +11,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -16,6 +19,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -127,6 +131,14 @@ public abstract class BlockMCEnum<E extends Enum<E> & IStringSerializable, B ext
 
     protected boolean doesDrop(IBlockState state) {
         return true;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof Faceable) {
+            ((Faceable) tile).setFacing(EntityHelper.getFacingFromEntity(entity));
+        }
     }
 
     @Override
