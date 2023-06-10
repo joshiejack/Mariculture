@@ -5,6 +5,7 @@ import mariculture.lib.helpers.ClientHelper;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import net.minecraft.tileentity.TileEntity;
 
 public class PacketAirPump extends PacketCoords implements IMessageHandler<PacketCoords, IMessage> {
     public PacketAirPump() {}
@@ -15,7 +16,10 @@ public class PacketAirPump extends PacketCoords implements IMessageHandler<Packe
 
     @Override
     public IMessage onMessage(PacketCoords message, MessageContext ctx) {
-        ((TileAirPump) ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z)).isAnimating = true;
+        TileEntity tile = ClientHelper.getPlayer().worldObj.getTileEntity(message.x, message.y, message.z);
+        if (tile instanceof TileAirPump) {
+            ((TileAirPump) tile).isAnimating = true;
+        }
         return null;
     }
 }

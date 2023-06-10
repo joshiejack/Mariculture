@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import mariculture.core.util.IFaceable;
 import mariculture.lib.helpers.ClientHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -34,8 +35,9 @@ public class PacketOrientationSync extends PacketCoords implements IMessageHandl
     @Override
     public IMessage onMessage(PacketOrientationSync message, MessageContext ctx) {
         EntityPlayer player = ClientHelper.getPlayer();
-        if (player.worldObj.getTileEntity(message.x, message.y, message.z) instanceof IFaceable) {
-            ((IFaceable) player.worldObj.getTileEntity(message.x, message.y, message.z)).setFacing(message.dir);
+        TileEntity tile = player.worldObj.getTileEntity(message.x, message.y, message.z);
+        if (tile instanceof IFaceable) {
+            ((IFaceable) tile).setFacing(message.dir);
             ClientHelper.updateRender(message.x, message.y, message.z);
         }
 

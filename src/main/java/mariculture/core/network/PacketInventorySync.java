@@ -28,17 +28,17 @@ public class PacketInventorySync extends PacketNBT {
         int length = message.nbt.getInteger("length");
 
         TileEntity tile = world.getTileEntity(x, y, z);
+        if (!(tile instanceof IInventory)) return null;
         ItemStack[] inventory = new ItemStack[length];
-        IInventory block = (IInventory) world.getTileEntity(x, y, z);
-        if (block == null || tile == null) return null;
+        IInventory tileInventory = (IInventory) tile;
         NBTTagList tagList = message.nbt.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound tag = tagList.getCompoundTagAt(i);
             byte slot = tag.getByte("Slot");
-            if (tag.getBoolean("NULLItemStack") == true) {
-                block.setInventorySlotContents(slot, null);
+            if (tag.getBoolean("NULLItemStack")) {
+                tileInventory.setInventorySlotContents(slot, null);
             } else if (slot >= 0 && slot < inventory.length) {
-                block.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tag));
+                tileInventory.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tag));
             }
         }
 
