@@ -93,6 +93,10 @@ public class JewelryHandler {
     }
 
     public static boolean canApply(ItemStack stack) {
+        if (stack == null) {
+            return true;
+        }
+
         if (Enchantments.DISABLE_BOOKS_ON_PEARLS) {
             if (stack.getItem() == Core.pearls) {
                 return false;
