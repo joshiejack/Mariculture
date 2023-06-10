@@ -61,7 +61,7 @@ public class Tank implements IFluidTank, ITank {
     public int getFluidID() {
         if (fluid == null) return -1;
 
-        return fluid.fluidID;
+        return fluid.getFluidID();
     }
 
     public void setFluidID(int id) {
