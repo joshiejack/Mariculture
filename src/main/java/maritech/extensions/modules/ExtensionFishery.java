@@ -62,7 +62,7 @@ public class ExtensionFishery implements IModuleExtension {
         ItemStack turbine = Modules.isActive(Modules.factory)? asStack(ExtensionFactory.turbineTitanium): MCLib.ironWheel;
         ItemStack gold = Modules.isActive(Modules.factory)? MTLib.goldPlastic: goldSilk;
         addShaped(MTLib.extractor, new Object[] { " H ", "PSP", "TBT", 'H', life, 'P', titaniumRod, 'S', Fishery.scanner, 'T', turbine, 'B', "blockTitanium" });
-        addShaped(MTLib.injector, new Object[] { " S ", "GTG", "BEB", 'S', scuba, 'G', gold, 'T', thermometer, 'B', ExtensionCore.batteryTitanium, 'E', MTLib.extractor });
+        addShaped(MTLib.injector, new Object[] { " S ", "GTG", "BEB", 'S', scuba, 'G', gold, 'T', thermometer, 'B', MTLib.titaniumBattery, 'E', MTLib.extractor });
         
         Fishing.fishing.registerRod(rodFlux, RodType.FLUX);
     }
