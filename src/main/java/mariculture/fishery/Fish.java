@@ -9,6 +9,7 @@ import mariculture.api.fishery.fish.FishDNA;
 import mariculture.api.fishery.fish.FishDNABase;
 import mariculture.api.fishery.fish.FishSpecies;
 import mariculture.core.Core;
+import mariculture.core.config.FishMechanics;
 import mariculture.core.helpers.RecipeHelper;
 import mariculture.core.lib.FoodMeta;
 import mariculture.core.lib.MCLib;
@@ -331,6 +332,11 @@ public class Fish {
         Fishing.mutation.addMutation(cod, minnow, gold, 25D);
         Fishing.mutation.addMutation(stingRay, cod, damsel, 10D);
         Fishing.mutation.addMutation(stingRay, minnow, tetra, 10D);
+        if (FishMechanics.EXTRA_FISH_BREEDING_RECIPES) {
+            Fishing.mutation.addMutation(spider, blaasop, stargazer, 7.5);
+            Fishing.mutation.addMutation(night, blaasop, stargazer, 7.5);
+            Fishing.mutation.addMutation(damsel, gold, perch, 10.0);
+        }
     }
 
     private static void addRecipe(FishSpecies species) {

@@ -19,6 +19,8 @@ public class FishMechanics {
     public static boolean FIX_FISH;
     public static double SPEED_MULTIPLIER;
     public static boolean SQUID_DROP_CALAMARI;
+
+    public static boolean EXTRA_FISH_BREEDING_RECIPES;
     
     public static void init(Configuration config) {
         setConfig(config);
@@ -34,7 +36,7 @@ public class FishMechanics {
         FishMechanics.FIX_FISH = getBoolean("Fix Fish", true, "Will automatically fix any broken fish in a fish feeder. Disable once your fish are fixed. As this can make the fish feeder laggier.");
         FishMechanics.SPEED_MULTIPLIER = getInt("Give me fish NAOW", 50, "Increasing this gives you faster fishing overall, Set to 0 for normal speed");
         FishMechanics.SQUID_DROP_CALAMARI = getBoolean("Squid Drop Calamari", true);
-        
+        FishMechanics.EXTRA_FISH_BREEDING_RECIPES = getBoolean("Extra Fish Breeding Recipes (Whitemargin Stargazer and Perch)", false);
         
         setCategory("Less Fussy Fish");
         FussyFish.IGNORE_ALL_REQUIREMENTS = getBoolean("Ignore All Requirements", false, "Setting this to true, will mean fish will work under any conditions");
