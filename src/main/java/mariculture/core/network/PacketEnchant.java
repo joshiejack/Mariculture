@@ -33,7 +33,7 @@ public class PacketEnchant implements IMessage, IMessageHandler<PacketEnchant, I
     @Override
     public IMessage onMessage(PacketEnchant message, MessageContext ctx) {
         EntityPlayer player = ctx.getServerHandler().playerEntity;
-        if (player.openContainer.windowId == message.windowID && player.openContainer.isPlayerNotUsingContainer(player)) {
+        if (player.openContainer != null && player.openContainer.windowId == message.windowID && player.openContainer.isPlayerNotUsingContainer(player)) {
             ContainerMirror mirror = (ContainerMirror) player.openContainer;
             mirror.windowId = message.windowID;
             mirror.enchantItem(player, message.level);

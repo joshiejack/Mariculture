@@ -6,13 +6,24 @@ buildscript {
             url = "http://files.minecraftforge.net/maven"
         }
         maven {
+            name = "gt"
+            url = "https://gregtech.overminddl1.com/"
+        }
+        maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            url = "https://jitpack.io"
+        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'com.github.GTNewHorizons:ForgeGradle:1.2.11'
     }
+}
+
+plugins {
+    id 'idea'
 }
 
 apply plugin: 'forge'
@@ -33,17 +44,25 @@ minecraft {
 
 repositories {
     maven {
-        name = "chickenbones"
-        url = "http://chickenbones.net/maven/"
+        name 'Overmind forge repo mirror'
+        url 'https://gregtech.overminddl1.com/'
+    }
+    maven {
+        name = "OpenComputers mirror for ChickenBones mods"
+        url = "https://maven.cil.li/"
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
 
-    compile "codechicken:CodeChickenLib:${minecraft_version}-1.1.3.127:dev"
-    compile "codechicken:CodeChickenCore:${minecraft_version}-1.0.4.35:dev"
-    compile "codechicken:NotEnoughItems:${minecraft_version}-1.0.4.90:dev"
+    compileOnly "codechicken:CodeChickenLib:${minecraft_version}-1.1.3.136:dev"
+    compileOnly "codechicken:CodeChickenCore:${minecraft_version}-1.0.4.35:dev"
+    compileOnly "codechicken:NotEnoughItems:${minecraft_version}-1.0.4.107:dev"
 }
 
 processResources {
@@ -68,6 +87,13 @@ processResources {
         exclude '**/*.properties'
         exclude '**/*todolist.txt'
     }
+}
+
+runClient {
+    jvmArgs '-Dfml.coreMods.load=mariculture.fishery.VanillaOverride'
+}
+runServer {
+    jvmArgs '-Dfml.coreMods.load=mariculture.fishery.VanillaOverride'
 }
 
 jar {
@@ -118,4 +144,11 @@ artifacts {
     archives marinotechJar
     archives deobfJar
     archives sourceJar
+}
+
+// this is needed for IntelliJ so we don't have to copy over the assets manually every time
+idea {
+    module {
+        inheritOutputDirs = true
+    }
 }

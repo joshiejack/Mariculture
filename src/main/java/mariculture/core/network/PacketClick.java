@@ -32,7 +32,7 @@ public class PacketClick extends PacketCoords implements IMessageHandler<PacketC
     @Override
     public IMessage onMessage(PacketClick message, MessageContext ctx) {
         TileEntity tile = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
-        if (tile != null && tile instanceof IHasClickableButton) {
+        if (tile instanceof IHasClickableButton) {
             ((IHasClickableButton) tile).handleButtonClick(message.id);
         }
 

@@ -49,7 +49,7 @@ public class PacketGUIUpdate implements IMessage, IMessageHandler<PacketGUIUpdat
     @Override
     public IMessage onMessage(PacketGUIUpdate message, MessageContext ctx) {
         EntityPlayer player = ClientHelper.getPlayer();
-        if (player.openContainer.windowId == message.id && player.openContainer.isPlayerNotUsingContainer(player)) {
+        if (player.openContainer != null && player.openContainer.windowId == message.id && player.openContainer.isPlayerNotUsingContainer(player)) {
             if (player.openContainer instanceof ContainerMariculture) {
                 ContainerMariculture container = (ContainerMariculture) player.openContainer;
                 for (int i = 0; i < message.size; i++) {

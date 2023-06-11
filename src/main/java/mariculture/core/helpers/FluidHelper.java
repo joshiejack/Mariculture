@@ -197,11 +197,11 @@ public class FluidHelper {
         return bottom.isItemEqual(result) && bottom.stackSize < 64 && bottom.stackSize < bottom.getMaxStackSize();
     }
 
-    public static String getName(Fluid fluid) {
-        if (fluid == null) return null;
+    public static String getName(FluidStack fluidStack) {
+        if (fluidStack == null || fluidStack.getFluid() == null) return null;
 
-        if (fluid.getID() > 0) {
-            String name = fluid.getLocalizedName();
+        if (fluidStack.getFluid().getID() > 0) {
+            String name = fluidStack.getLocalizedName();
             if (name.startsWith("fluid.")) {
                 name = name.substring(6);
                 if (name.startsWith("tile.")) {
